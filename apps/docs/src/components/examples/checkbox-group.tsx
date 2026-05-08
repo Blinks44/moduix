@@ -244,7 +244,7 @@ export function ParentCheckboxGroupExample() {
   );
 }
 
-export function CheckboxGroupClassNameExample() {
+export function CustomStylesCheckboxGroupExample() {
   const labelId = React.useId();
 
   return (
