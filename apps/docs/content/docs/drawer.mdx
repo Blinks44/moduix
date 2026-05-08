@@ -7,7 +7,7 @@ icon: Component
 import 'moduix/style.css';
 import {
   BottomIslandDrawerExample,
-  CustomHandleAndIconDrawerExample,
+  CustomStylesDrawerExample,
   DrawerExample,
   IndentEffectDrawerExample,
   LeftDrawerExample,
@@ -70,7 +70,7 @@ import {
   </Preview.Code>
 </Preview>
 
-## Prop Placement
+## Composition
 
 Use `Drawer` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`,
 `modal`, `swipeDirection`, `snapPoints`, `snapPoint`, and `onSnapPointChange`. Use `DrawerContent`
@@ -79,9 +79,23 @@ the visible sliding panel.
 
 `DrawerContent` renders the portal, backdrop, viewport, popup, handle, and inner content region for
 you. Use `withBackdrop`, `withHandle`, `variant`, `snapLayout`, and `container` for common behavior.
-Use `classNames` to style internal service slots such as `backdrop`, `viewport`, `handle`, and
-`content`. Use `portalProps`, `backdropProps`, `viewportProps`, `contentProps`, and `handleProps`
-only when those internal slots need non-class props.
+
+`className` styles the visible popup. `classNames` styles the internal slots hidden from the default
+composition. Use `portalProps`, `backdropProps`, `viewportProps`, `contentProps`, and `handleProps`
+only when those internal slots need non-class props:
+
+```tsx
+<DrawerContent
+  className={styles.popup}
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    viewport: styles.viewport,
+    handle: styles.handle,
+    content: styles.content,
+  }}
+/>
+```
 
 ## Examples
 
@@ -843,14 +857,13 @@ page while a drawer is open.
   </Preview.CSS>
 </Preview>
 
-### Custom Handle And Icon
+### Custom Styles
 
-Use `classNames.handle` for the built-in handle. Prefer the handle CSS variables for color, opacity,
-size, and radius so overrides stay independent from CSS layer order. Pass children to
-`DrawerSnapToggle` to replace the default icon.
+Use `className` for the visible popup and `classNames` for the internal slots rendered by
+`DrawerContent`. Pass children to `DrawerSnapToggle` to replace the default icon.
 
 <Preview>
-  <CustomHandleAndIconDrawerExample />
+  <CustomStylesDrawerExample />
 
   <Preview.Code>
     {`
@@ -862,26 +875,34 @@ size, and radius so overrides stay independent from CSS layer order. Pass childr
         DrawerHeader,
         DrawerTitle,
         DrawerSnapToggle,
+        DrawerFooter,
+        DrawerClose,
         ChevronDownIcon,
         ChevronUpIcon,
         DrawerDescription,
       } from "moduix";
       import { useState } from "react";
 
-      export function CustomHandleDrawerDemo() {
+      export function CustomStylesDrawerDemo() {
         const snapPoints = [0.35, 0.75] as const;
         const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[0]);
         const expanded = snapPoint === snapPoints[1];
 
         return (
           <Drawer snapPoints={[...snapPoints]} snapPoint={snapPoint} onSnapPointChange={setSnapPoint}>
-            <DrawerTrigger render={<Button />}>Open customized drawer</DrawerTrigger>
+            <DrawerTrigger render={<Button />}>Open custom drawer</DrawerTrigger>
             <DrawerContent
               snapLayout
-              classNames={{ handle: styles.customHandle }}
+              className={styles.customPopup}
+              classNames={{
+                backdrop: styles.customBackdrop,
+                viewport: styles.customViewport,
+                handle: styles.customHandle,
+                content: styles.customContent,
+              }}
             >
               <DrawerHeader>
-                <DrawerTitle>Custom handle and icon</DrawerTitle>
+                <DrawerTitle>Custom styles</DrawerTitle>
                 <DrawerSnapToggle
                   expanded={expanded}
                   onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}
@@ -889,9 +910,12 @@ size, and radius so overrides stay independent from CSS layer order. Pass childr
                   {expanded ? <ChevronDownIcon /> : <ChevronUpIcon />}
                 </DrawerSnapToggle>
                 <DrawerDescription>
-                  The handle uses classNames.handle, and the snap toggle accepts custom icon children.
+                  Popup styles use className. Internal slots use classNames.
                 </DrawerDescription>
               </DrawerHeader>
+              <DrawerFooter>
+                <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
+              </DrawerFooter>
             </DrawerContent>
           </Drawer>
         );
@@ -902,9 +926,28 @@ size, and radius so overrides stay independent from CSS layer order. Pass childr
 
   <Preview.CSS>
     {`
+      .customPopup {
+        --drawer-bg: var(--color-card);
+        --drawer-border-color: var(--color-ring);
+        --drawer-shadow: var(--shadow-xl);
+        --drawer-max-height: 30rem;
+      }
+
+      .customBackdrop {
+        --drawer-backdrop-bg: color-mix(in oklab, var(--color-foreground) 60%, transparent);
+      }
+
+      .customViewport {
+        --drawer-viewport-padding: var(--spacing-4);
+      }
+
       .customHandle {
         --drawer-handle-bg: var(--color-destructive);
         --drawer-handle-opacity: 0.8;
+      }
+
+      .customContent {
+        gap: var(--spacing-4);
       }
     `}
 

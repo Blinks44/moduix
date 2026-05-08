@@ -19,9 +19,23 @@ import {
   ScrollArea,
 } from 'moduix';
 import * as React from 'react';
-import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CssPropertyInput } from '../preview';
 import styles from './drawer.module.css';
+
+const releaseSections = [
+  {
+    title: 'Migration',
+    body: 'Verify migration scripts, rollback steps, and staging smoke tests.',
+  },
+  {
+    title: 'Monitoring',
+    body: 'Check dashboards, alerts, and post-release health checks.',
+  },
+  {
+    title: 'Rollout',
+    body: 'Confirm feature flags, analytics events, and support notes.',
+  },
+];
 
 export const drawerCssProperties: CssPropertyInput[] = [
   ['--drawer-width', '100%', 'Controls the width of top and bottom drawers.'],
@@ -162,7 +176,7 @@ export function SnapPointsDrawerExample() {
         </DrawerHeader>
         <DrawerBody>
           <ScrollArea className={styles.scrollArea} classNames={{ content: styles.scrollContent }}>
-            {insideScrollSections.map((item) => (
+            {releaseSections.map((item) => (
               <section key={item.title}>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -349,7 +363,7 @@ export function PersistentSnapDrawerExample() {
               className={styles.scrollArea}
               classNames={{ content: styles.scrollContent }}
             >
-              {insideScrollSections.map((item) => (
+              {releaseSections.map((item) => (
                 <section key={item.title}>
                   <h3>{item.title}</h3>
                   <p>{item.body}</p>
@@ -410,17 +424,26 @@ export function IndentEffectDrawerExample() {
   );
 }
 
-export function CustomHandleAndIconDrawerExample() {
+export function CustomStylesDrawerExample() {
   const snapPoints = [0.35, 0.75] as const;
   const [snapPoint, setSnapPoint] = React.useState<number | string | null>(snapPoints[0]);
   const expanded = snapPoint === snapPoints[1];
 
   return (
     <Drawer snapPoints={[...snapPoints]} snapPoint={snapPoint} onSnapPointChange={setSnapPoint}>
-      <DrawerTrigger render={<Button />}>Open customized drawer</DrawerTrigger>
-      <DrawerContent snapLayout classNames={{ handle: styles.customHandle }}>
+      <DrawerTrigger render={<Button />}>Open custom drawer</DrawerTrigger>
+      <DrawerContent
+        snapLayout
+        className={styles.customPopup}
+        classNames={{
+          backdrop: styles.customBackdrop,
+          viewport: styles.customViewport,
+          handle: styles.customHandle,
+          content: styles.customContent,
+        }}
+      >
         <DrawerHeader>
-          <DrawerTitle>Custom handle and icon</DrawerTitle>
+          <DrawerTitle>Custom styles</DrawerTitle>
           <DrawerSnapToggle
             expanded={expanded}
             onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}
@@ -428,7 +451,7 @@ export function CustomHandleAndIconDrawerExample() {
             {expanded ? <ChevronDownIcon /> : <ChevronUpIcon />}
           </DrawerSnapToggle>
           <DrawerDescription>
-            The handle slot accepts className, and the snap toggle accepts custom icon children.
+            Popup styles use className. Internal slots use classNames.
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>

@@ -11,9 +11,28 @@
   --drawer-max-height: 28rem;
 }
 
+.customPopup {
+  --drawer-bg: var(--color-card);
+  --drawer-border-color: var(--color-ring);
+  --drawer-shadow: var(--shadow-xl);
+  --drawer-max-height: 30rem;
+}
+
+.customBackdrop {
+  --drawer-backdrop-bg: color-mix(in oklab, var(--color-foreground) 60%, transparent);
+}
+
+.customViewport {
+  --drawer-viewport-padding: var(--spacing-4);
+}
+
 .customHandle {
   --drawer-handle-bg: var(--color-destructive);
   --drawer-handle-opacity: 0.8;
+}
+
+.customContent {
+  gap: var(--spacing-4);
 }
 
 .scrollArea {

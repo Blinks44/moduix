@@ -297,6 +297,15 @@ function DrawerContent({
 }
 
 type DrawerHandleType<Payload = unknown> = DrawerPrimitive.Handle<Payload>;
+type DrawerTriggerProps = DrawerPrimitive.Trigger.Props;
+type DrawerSwipeAreaProps = DrawerPrimitive.SwipeArea.Props;
+type DrawerTitleProps = DrawerPrimitive.Title.Props;
+type DrawerDescriptionProps = DrawerPrimitive.Description.Props;
+type DrawerCloseProps = DrawerPrimitive.Close.Props;
+type DrawerHeaderProps = React.ComponentProps<'div'>;
+type DrawerBodyProps = React.ComponentProps<'div'>;
+type DrawerFooterProps = React.ComponentProps<'div'>;
+type DrawerSnapPoint = NonNullable<DrawerProps['snapPoints']>[number];
 
 export {
   Drawer,
@@ -319,7 +328,16 @@ export {
 export type {
   DrawerProps,
   DrawerHandleType,
+  DrawerTriggerProps,
+  DrawerSwipeAreaProps,
+  DrawerTitleProps,
+  DrawerDescriptionProps,
+  DrawerCloseProps,
+  DrawerHeaderProps,
+  DrawerBodyProps,
+  DrawerFooterProps,
   DrawerContentProps,
   DrawerContentClassNames,
   DrawerSnapToggleProps,
+  DrawerSnapPoint,
 };
