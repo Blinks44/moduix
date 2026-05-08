@@ -4,10 +4,9 @@ description: An icon-only button for dismissing overlays, notifications, and oth
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
-  CloseButtonClassNameExample,
   CloseButtonCustomIconExample,
+  CloseButtonCustomStylesExample,
   CloseButtonDisabledExample,
   CloseButtonExample,
   closeButtonCssProperties,
@@ -28,10 +27,10 @@ import {
 
       export function CloseButtonDemo() {
         return (
-          <div>
-            <div>
-              <p>Draft saved</p>
-              <p>The notification can be dismissed.</p>
+          <div className={styles.surface}>
+            <div className={styles.content}>
+              <p className={styles.title}>Draft saved</p>
+              <p className={styles.description}>The notification can be dismissed.</p>
             </div>
             <CloseButton aria-label="Dismiss notification" />
           </div>
@@ -40,7 +39,53 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .surface {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-4);
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-popover);
+        color: var(--color-popover-foreground);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .content {
+        display: grid;
+        gap: var(--spacing-1);
+        min-width: 0;
+      }
+
+      .title {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        font-weight: var(--weight-semibold);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .description {
+        margin: 0;
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
+
+## Composition
+
+`CloseButton` is a thin styled wrapper around Base UI `Button`. Use `children` to replace the
+default icon, `render` to compose it with another element, and `className` to style the root
+button. The component has no hidden service slots, so styling does not require `classNames`.
 
 ## Examples
 
@@ -80,7 +125,7 @@ Use `focusableWhenDisabled` when a disabled close button should remain reachable
 
       export function CloseButtonDisabledDemo() {
         return (
-          <div>
+          <div className={styles.row}>
             <CloseButton aria-label="Close panel" disabled />
             <CloseButton aria-label="Close panel" disabled focusableWhenDisabled />
           </div>
@@ -89,20 +134,32 @@ Use `focusableWhenDisabled` when a disabled close button should remain reachable
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Class Name
+### Custom Styles
 
 Pass `className` to style the button root with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <CloseButtonClassNameExample />
+  <CloseButtonCustomStylesExample />
 
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
 
-      export function CloseButtonClassNameDemo() {
+      export function CloseButtonCustomStylesDemo() {
         return <CloseButton className={styles.customButton} aria-label="Close message" />;
       }
     `}

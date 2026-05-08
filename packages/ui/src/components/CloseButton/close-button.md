@@ -13,7 +13,10 @@ export function Example() {
 ```
 
 Pass children to replace the default icon. The component is built on Base UI Button, so it
-supports button behavior such as `disabled` and `focusableWhenDisabled`.
+supports button behavior such as `disabled`, `focusableWhenDisabled`, and `render`.
+
+Use `className` to style the root button. `CloseButton` has no hidden service slots, so it does
+not expose a `classNames` object.
 
 ## CSS variables
 

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { CloseLineIcon } from '@/primitives/Icons';
 import { CloseButton } from './CloseButton';
+import styles from './CloseButton.stories.module.css';
 
 const meta = {
   title: 'Components/CloseButton',
@@ -23,6 +24,13 @@ export const Default: Story = {};
 export const CustomIcon: Story = {
   args: {
     children: <CloseLineIcon />,
+  },
+};
+
+export const CustomStyles: Story = {
+  args: {
+    className: styles.customButton,
+    'aria-label': 'Close message',
   },
 };
 
