@@ -1,0 +1,246 @@
+---
+title: List
+description: A typography primitive for ordered and unordered lists with design-system spacing, markers, and text styles.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  CustomBulletListExample,
+  ListClassNameExample,
+  ListExample,
+  ListGapsExample,
+  ListSizesExample,
+  ListTonesExample,
+  MarkerlessListExample,
+  OrderedListExample,
+  listCssProperties,
+} from '@/components/examples/list';
+
+## API Reference
+
+`List` is a moduix typography primitive and does not wrap a Base UI primitive.
+
+## Basic
+
+<Preview cssProperties={listCssProperties}>
+  <ListExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function ListDemo() {
+        return (
+          <List>
+            <ListItem>Use native list semantics.</ListItem>
+            <ListItem>Keep spacing and typography on the design system scale.</ListItem>
+            <ListItem>Customize markers with CSS variables.</ListItem>
+          </List>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Ordered
+
+Use `as="ol"` for ordered steps. The marker defaults to decimal for ordered lists.
+
+<Preview>
+  <OrderedListExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function OrderedListDemo() {
+        return (
+          <List as="ol">
+            <ListItem>Install the package.</ListItem>
+            <ListItem>Import the library stylesheet.</ListItem>
+            <ListItem>Use components in your app.</ListItem>
+          </List>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Markerless
+
+Use `marker="none"` when list semantics are useful but visual markers are not.
+
+<Preview>
+  <MarkerlessListExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function MarkerlessListDemo() {
+        return (
+          <List marker="none">
+            <ListItem>Markerless item</ListItem>
+            <ListItem>Another markerless item</ListItem>
+            <ListItem>Useful for compact metadata groups</ListItem>
+          </List>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Bullet
+
+Use `marker="bullet"` when marker size, color, gap, or vertical offset must be controlled independently from the text.
+
+<Preview>
+  <CustomBulletListExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+      import styles from "./list-demo.module.css";
+
+      export function CustomBulletListDemo() {
+        return (
+          <List marker="bullet" className={styles.customBullet}>
+            <ListItem>Bullet size is independent from text size.</ListItem>
+            <ListItem>Bullet color and gap are controlled by CSS variables.</ListItem>
+            <ListItem>Text color remains unchanged.</ListItem>
+          </List>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use `size` for visual sizing. Override size-specific CSS variables in your project for responsive typography.
+
+<Preview>
+  <ListSizesExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function ListSizesDemo() {
+        return (
+          <div>
+            <List size="xl">
+              <ListItem>Extra-large list item</ListItem>
+            </List>
+            <List size="md">
+              <ListItem>Medium list item</ListItem>
+            </List>
+            <List size="xs">
+              <ListItem>Extra-small list item</ListItem>
+            </List>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Gaps
+
+Use `gap` to control vertical spacing between list items.
+
+<Preview>
+  <ListGapsExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function ListGapsDemo() {
+        return (
+          <div>
+            <List gap="xs">
+              <ListItem>Extra-small gap</ListItem>
+              <ListItem>Second item</ListItem>
+            </List>
+            <List gap="lg">
+              <ListItem>Large gap</ListItem>
+              <ListItem>Second item</ListItem>
+            </List>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Tones
+
+Use `tone` when the list should inherit a semantic text color from the design system.
+
+<Preview>
+  <ListTonesExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function ListTonesDemo() {
+        return (
+          <div>
+            <List tone="default">
+              <ListItem>Default list tone</ListItem>
+            </List>
+            <List tone="muted">
+              <ListItem>Muted list tone</ListItem>
+            </List>
+            <List tone="subtle">
+              <ListItem>Subtle list tone</ListItem>
+            </List>
+            <List tone="primary">
+              <ListItem>Primary list tone</ListItem>
+            </List>
+            <List tone="destructive">
+              <ListItem>Destructive list tone</ListItem>
+            </List>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` when styling the root or overriding list variables in local CSS.
+
+<Preview>
+  <ListClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+      import styles from "./list-demo.module.css";
+
+      export function CustomListDemo() {
+        return (
+          <List className={styles.customList}>
+            <ListItem>Customized marker and spacing.</ListItem>
+            <ListItem>Local CSS variables keep the component API small.</ListItem>
+          </List>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

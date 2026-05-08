@@ -1,0 +1,286 @@
+---
+title: Slider
+description: A range input for selecting one value or a range of values.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ControlledSliderExample,
+  CustomClassesSliderExample,
+  DisabledSliderExample,
+  EdgeThumbAlignmentSliderExample,
+  RangeSliderExample,
+  SliderExample,
+  VerticalSliderExample,
+  sliderCssProperties,
+} from '@/components/examples/slider';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/slider" />
+
+## Basic
+
+<Preview cssProperties={sliderCssProperties}>
+  <SliderExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Slider,
+        SliderLabel,
+        SliderValue,
+        SliderThumb,
+      } from "moduix";
+
+      export function SliderDemo() {
+        return (
+          <Slider defaultValue={40}>
+            <SliderLabel>Volume</SliderLabel>
+            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
+            <SliderThumb aria-label="Volume" />
+          </Slider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Range
+
+Pass an array value and render one `SliderThumb` for each value to let users select a range.
+
+<Preview>
+  <RangeSliderExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Slider,
+        SliderLabel,
+        SliderValue,
+        SliderThumb,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function RangeSliderDemo() {
+        const [value, setValue] = useState([20, 70] as readonly number[]);
+
+        return (
+          <Slider value={value} min={0} max={100} onValueChange={setValue}>
+            <SliderLabel>Price range</SliderLabel>
+            <SliderValue>{([minValue, maxValue]) => \`\${minValue} - \${maxValue}\`}</SliderValue>
+            <SliderThumb index={0} aria-label="Minimum price" />
+            <SliderThumb index={1} aria-label="Maximum price" />
+          </Slider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control the value from React state when the slider needs to synchronize with another control.
+
+<Preview>
+  <ControlledSliderExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Slider,
+        SliderLabel,
+        SliderValue,
+        SliderThumb,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledSliderDemo() {
+        const [value, setValue] = useState(24);
+
+        return (
+          <div>
+            <Slider value={value} onValueChange={setValue}>
+              <SliderLabel>Brightness</SliderLabel>
+              <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
+              <SliderThumb aria-label="Brightness" />
+            </Slider>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={value}
+              onChange={(event) => {
+                setValue(Number(event.target.value));
+              }}
+            />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Vertical
+
+Set `orientation="vertical"` and size the vertical track with CSS custom properties.
+
+<Preview>
+  <VerticalSliderExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Slider,
+        SliderLabel,
+        SliderValue,
+        SliderThumb,
+      } from "moduix";
+
+      export function VerticalSliderDemo() {
+        return (
+          <Slider
+            orientation="vertical"
+            defaultValue={60}
+            style={{
+              "--slider-width-vertical": "auto",
+              "--slider-height": "12rem",
+            }}
+          >
+            <SliderLabel>Output</SliderLabel>
+            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
+            <SliderThumb aria-label="Output" />
+          </Slider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Edge Thumb Alignment
+
+Use `thumbAlignment="edge"` when the thumb should stay inside the control at the minimum and maximum values.
+
+<Preview>
+  <EdgeThumbAlignmentSliderExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Slider,
+        SliderLabel,
+        SliderValue,
+        SliderThumb,
+      } from "moduix";
+
+      export function EdgeThumbAlignmentSliderDemo() {
+        return (
+          <Slider defaultValue={0} thumbAlignment="edge">
+            <SliderLabel>Zoom</SliderLabel>
+            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
+            <SliderThumb aria-label="Zoom" />
+          </Slider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Use `disabled` to make the whole slider non-interactive while preserving its current value.
+
+<Preview>
+  <DisabledSliderExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Slider,
+        SliderLabel,
+        SliderValue,
+        SliderThumb,
+      } from "moduix";
+
+      export function DisabledSliderDemo() {
+        return (
+          <Slider defaultValue={32} disabled>
+            <SliderLabel>Notifications</SliderLabel>
+            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
+            <SliderThumb aria-label="Notifications" />
+          </Slider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Classes
+
+Use `className` for the root and `classNames` for internally rendered slots.
+
+<Preview>
+  <CustomClassesSliderExample />
+
+  <Preview.Code>
+    {`
+      /* slider-demo.module.css */
+      .customControl {
+        --slider-control-padding-y: var(--spacing-3);
+      }
+
+      .customTrack {
+        --slider-track-size: 0.625rem;
+        --slider-track-bg: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-muted));
+        --slider-track-border-color: transparent;
+      }
+
+      .customIndicator {
+        --slider-indicator-bg: var(--color-chart-4);
+      }
+
+      .customThumb {
+        --slider-thumb-size: 1.25rem;
+        --slider-thumb-bg: var(--color-chart-4);
+        --slider-thumb-border-color: var(--color-background);
+      }
+
+      /* SliderDemo.tsx */
+      import {
+        Slider,
+        SliderLabel,
+        SliderValue,
+        SliderThumb,
+      } from "moduix";
+      import styles from "./slider-demo.module.css";
+
+      export function CustomClassesSliderDemo() {
+        return (
+          <Slider
+            defaultValue={56}
+            classNames={{
+              control: styles.customControl,
+              track: styles.customTrack,
+              indicator: styles.customIndicator,
+            }}
+          >
+            <SliderLabel>Temperature</SliderLabel>
+            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
+            <SliderThumb aria-label="Temperature" className={styles.customThumb} />
+          </Slider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

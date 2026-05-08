@@ -1,0 +1,345 @@
+---
+title: Accordion
+description: A vertically stacked set of interactive headings that each reveal a section of content.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  AccordionExample,
+  ControlledAccordionExample,
+  CustomIconAccordionExample,
+  DisabledItemAccordionExample,
+  accordionCssProperties,
+} from '@/components/examples/accordion';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/accordion" />
+
+## Basic
+
+<Preview cssProperties={accordionCssProperties}>
+  <AccordionExample defaultValue={["what-is-base-ui"]} />
+
+  <Preview.Code>
+    {`
+      import {
+        Accordion,
+        AccordionItem,
+        AccordionHeader,
+        AccordionTrigger,
+        AccordionTriggerIcon,
+        AccordionPanel,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "what-is-base-ui",
+          title: "What is Base UI?",
+          description:
+            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
+        },
+        {
+          value: "getting-started",
+          title: "How do I get started?",
+          description:
+            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
+        },
+        {
+          value: "can-i-use-it",
+          title: "Can I use it for my project?",
+          description: "Of course. Base UI is free and open source.",
+        },
+      ];
+
+      export function AccordionDemo() {
+        return (
+          <Accordion defaultValue={["what-is-base-ui"]}>
+            {items.map((item) => (
+              <AccordionItem key={item.value} value={item.value}>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon />
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionPanel>
+                  <div>{item.description}</div>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Multiple
+
+Use the `multiple` prop to allow multiple items to be open at the same time.
+
+<Preview>
+  <AccordionExample multiple defaultValue={["what-is-base-ui", "can-i-use-it"]} />
+
+  <Preview.Code>
+    {`
+      import {
+        Accordion,
+        AccordionItem,
+        AccordionHeader,
+        AccordionTrigger,
+        AccordionTriggerIcon,
+        AccordionPanel,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "what-is-base-ui",
+          title: "What is Base UI?",
+          description:
+            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
+        },
+        {
+          value: "getting-started",
+          title: "How do I get started?",
+          description:
+            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
+        },
+        {
+          value: "can-i-use-it",
+          title: "Can I use it for my project?",
+          description: "Of course. Base UI is free and open source.",
+        },
+      ];
+
+      export function MultipleAccordionDemo() {
+        return (
+          <Accordion multiple defaultValue={["what-is-base-ui", "can-i-use-it"]}>
+            {items.map((item) => (
+              <AccordionItem key={item.value} value={item.value}>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon />
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionPanel>
+                  <div>{item.description}</div>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control the open panels from React state when the accordion needs to coordinate with other UI.
+
+<Preview>
+  <ControlledAccordionExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Accordion,
+        AccordionItem,
+        AccordionHeader,
+        AccordionTrigger,
+        AccordionTriggerIcon,
+        AccordionPanel,
+      } from "moduix";
+      import { useState } from "react";
+
+      const items = [
+        {
+          value: "what-is-base-ui",
+          title: "What is Base UI?",
+          description:
+            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
+        },
+        {
+          value: "getting-started",
+          title: "How do I get started?",
+          description:
+            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
+        },
+        {
+          value: "can-i-use-it",
+          title: "Can I use it for my project?",
+          description: "Of course. Base UI is free and open source.",
+        },
+      ];
+
+      export function ControlledAccordionDemo() {
+        const [value, setValue] = useState(["getting-started"] as string[]);
+
+        return (
+          <Accordion value={value} onValueChange={setValue}>
+            {items.map((item) => (
+              <AccordionItem key={item.value} value={item.value}>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon />
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionPanel>
+                  <div>{item.description}</div>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled Item
+
+Set `disabled` on an item to keep it visible while preventing interaction.
+
+<Preview>
+  <DisabledItemAccordionExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Accordion,
+        AccordionItem,
+        AccordionHeader,
+        AccordionTrigger,
+        AccordionTriggerIcon,
+        AccordionPanel,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "what-is-base-ui",
+          title: "What is Base UI?",
+          description:
+            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
+        },
+        {
+          value: "getting-started",
+          title: "How do I get started?",
+          description:
+            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
+        },
+        {
+          value: "can-i-use-it",
+          title: "Can I use it for my project?",
+          description: "Of course. Base UI is free and open source.",
+        },
+      ];
+
+      export function DisabledItemAccordionDemo() {
+        return (
+          <Accordion defaultValue={["what-is-base-ui"]}>
+            {items.map((item) => (
+              <AccordionItem
+                key={item.value}
+                value={item.value}
+                disabled={item.value === "getting-started"}
+              >
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon />
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionPanel>
+                  <div>{item.description}</div>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icon
+
+Pass children to `AccordionTriggerIcon` to use any icon from your application or icon library.
+
+<Preview>
+  <CustomIconAccordionExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Accordion,
+        AccordionItem,
+        AccordionHeader,
+        AccordionTrigger,
+        AccordionTriggerIcon,
+        ChevronDownIcon,
+        AccordionPanel,
+      } from "moduix";
+      import type { CSSProperties } from "react";
+
+      const items = [
+        {
+          value: "what-is-base-ui",
+          title: "What is Base UI?",
+          description:
+            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
+        },
+        {
+          value: "getting-started",
+          title: "How do I get started?",
+          description:
+            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
+        },
+        {
+          value: "can-i-use-it",
+          title: "Can I use it for my project?",
+          description: "Of course. Base UI is free and open source.",
+        },
+      ];
+
+      export function CustomIconAccordionDemo() {
+        return (
+          <Accordion defaultValue={["what-is-base-ui"]}>
+            {items.map((item) => (
+              <AccordionItem key={item.value} value={item.value}>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon
+                      style={
+                        {
+                          "--accordion-icon-open-transform": "rotate(180deg)",
+                        } as CSSProperties
+                      }
+                    >
+                      <ChevronDownIcon />
+                    </AccordionTriggerIcon>
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionPanel>
+                  <div>{item.description}</div>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

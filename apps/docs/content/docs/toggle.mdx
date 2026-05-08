@@ -1,0 +1,254 @@
+---
+title: Toggle
+description: A two-state button that can be pressed or unpressed.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ControlledToggleExample,
+  ToggleClassNameExample,
+  ToggleDisabledExample,
+  ToggleExample,
+  ToggleIconExample,
+  ToggleRenderCallbackExample,
+  ToggleSizesExample,
+  ToggleVariantsExample,
+  toggleCssProperties,
+} from '@/components/examples/toggle';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/toggle" />
+
+## Basic
+
+<Preview cssProperties={toggleCssProperties}>
+  <ToggleExample />
+
+  <Preview.Code>
+    {`
+      import { Toggle, StarIcon } from "moduix";
+
+      export function ToggleDemo() {
+        return (
+          <Toggle defaultPressed>
+            <StarIcon />
+            Favorite
+          </Toggle>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Variants
+
+Use `variant` to match the visual weight of the toggle to the surrounding toolbar or form.
+
+<Preview>
+  <ToggleVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Toggle } from "moduix";
+
+      export function ToggleVariantsDemo() {
+        return (
+          <>
+            <Toggle>Default</Toggle>
+            <Toggle variant="outline">Outline</Toggle>
+            <Toggle variant="ghost">Ghost</Toggle>
+            <Toggle defaultPressed>Pressed</Toggle>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use text sizes for labeled toggles and icon sizes for compact controls.
+
+<Preview>
+  <ToggleSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Toggle } from "moduix";
+
+      export function ToggleSizesDemo() {
+        return (
+          <>
+            <Toggle size="xs">Extra-small</Toggle>
+            <Toggle size="sm">Small</Toggle>
+            <Toggle size="md">Medium</Toggle>
+            <Toggle size="lg">Large</Toggle>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Icons
+
+Pass icons as children. Icon-only toggles must include an accessible label.
+
+<Preview>
+  <ToggleIconExample />
+
+  <Preview.Code>
+    {`
+      import { BellIcon, CheckSmallIcon, StarIcon, Toggle } from "moduix";
+
+      export function ToggleIconsDemo() {
+        return (
+          <>
+            <Toggle variant="outline">
+              <BellIcon />
+              Alerts
+            </Toggle>
+            <Toggle size="icon-md" variant="outline" aria-label="Favorites">
+              <StarIcon />
+            </Toggle>
+            <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
+              <CheckSmallIcon />
+            </Toggle>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Use `disabled` to prevent interaction while preserving the current pressed state.
+
+<Preview>
+  <ToggleDisabledExample />
+
+  <Preview.Code>
+    {`
+      import { Toggle } from "moduix";
+
+      export function DisabledToggleDemo() {
+        return (
+          <>
+            <Toggle disabled>Disabled</Toggle>
+            <Toggle defaultPressed disabled>
+              Pressed
+            </Toggle>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control `pressed` from React state when the toggle needs to coordinate with other UI.
+
+<Preview>
+  <ControlledToggleExample />
+
+  <Preview.Code>
+    {`
+      import { BellIcon, Toggle } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledToggleDemo() {
+        const [pressed, setPressed] = useState(false);
+
+        return (
+          <div>
+            <Toggle pressed={pressed} onPressedChange={setPressed}>
+              <BellIcon />
+              {pressed ? "Notifications on" : "Notifications off"}
+            </Toggle>
+            <p>Current value: {String(pressed)}</p>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Render Callback
+
+Use the `render` callback when the icon or rendered element should depend on the pressed state.
+
+<Preview>
+  <ToggleRenderCallbackExample />
+
+  <Preview.Code>
+    {`
+      import { CheckSmallIcon, StarIcon, Toggle } from "moduix";
+
+      export function ToggleRenderCallbackDemo() {
+        return (
+          <Toggle
+            aria-label="Favorite"
+            size="icon-md"
+            variant="outline"
+            render={(buttonProps, state) => (
+              <button type="button" {...buttonProps}>
+                {state.pressed ? <CheckSmallIcon /> : <StarIcon />}
+              </button>
+            )}
+          />
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` when styling the toggle with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <ToggleClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { CheckSmallIcon, Toggle } from "moduix";
+      import styles from "./toggle-demo.module.css";
+
+      export function CustomToggleDemo() {
+        return (
+          <Toggle className={styles.customToggle} variant="outline" defaultPressed>
+            <CheckSmallIcon />
+            Styled with className
+          </Toggle>
+        );
+      }
+
+      /* toggle-demo.module.css */
+      .customToggle {
+        --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
+        --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
+        --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
+        --toggle-outline-border-color:
+          color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
+        --toggle-outline-color: var(--color-primary);
+        --toggle-outline-bg-pressed: var(--color-primary);
+        --toggle-outline-border-color-pressed: var(--color-primary);
+        --toggle-outline-color-pressed: var(--color-primary-foreground);
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

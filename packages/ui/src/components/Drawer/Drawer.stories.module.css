@@ -1,0 +1,32 @@
+@layer ui.storybook {
+  .nestedActionsStart {
+    margin-right: auto;
+  }
+
+  .rightIsland {
+    --drawer-side-width: 500px;
+  }
+
+  .scrollArea {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .scrollContent {
+    display: grid;
+    gap: var(--spacing-4);
+    padding-right: var(--spacing-5);
+  }
+
+  .indentStage {
+    position: relative;
+    min-height: 360px;
+    overflow: hidden;
+  }
+
+  .indentSurface {
+    min-height: 360px;
+    padding: 24px;
+    background: var(--color-background);
+  }
+}

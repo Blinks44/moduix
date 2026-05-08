@@ -1,0 +1,112 @@
+---
+title: CloseButton
+description: An icon-only button for dismissing overlays, notifications, and other closeable surfaces.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  CloseButtonClassNameExample,
+  CloseButtonCustomIconExample,
+  CloseButtonDisabledExample,
+  CloseButtonExample,
+  closeButtonCssProperties,
+} from '@/components/examples/close-button';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/button" />
+
+## Basic
+
+<Preview cssProperties={closeButtonCssProperties}>
+  <CloseButtonExample />
+
+  <Preview.Code>
+    {`
+      import { CloseButton } from "moduix";
+
+      export function CloseButtonDemo() {
+        return (
+          <div>
+            <div>
+              <p>Draft saved</p>
+              <p>The notification can be dismissed.</p>
+            </div>
+            <CloseButton aria-label="Dismiss notification" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Custom Icon
+
+Pass children to replace the default icon with an icon from your application or icon library.
+
+<Preview>
+  <CloseButtonCustomIconExample />
+
+  <Preview.Code>
+    {`
+      import { CloseButton, CloseLineIcon } from "moduix";
+
+      export function CloseButtonCustomIconDemo() {
+        return (
+          <CloseButton aria-label="Close panel">
+            <CloseLineIcon />
+          </CloseButton>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Use `focusableWhenDisabled` when a disabled close button should remain reachable by keyboard focus.
+
+<Preview>
+  <CloseButtonDisabledExample />
+
+  <Preview.Code>
+    {`
+      import { CloseButton } from "moduix";
+
+      export function CloseButtonDisabledDemo() {
+        return (
+          <div>
+            <CloseButton aria-label="Close panel" disabled />
+            <CloseButton aria-label="Close panel" disabled focusableWhenDisabled />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Name
+
+Pass `className` to style the button root with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <CloseButtonClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { CloseButton } from "moduix";
+      import styles from "./close-button-demo.module.css";
+
+      export function CloseButtonClassNameDemo() {
+        return <CloseButton className={styles.closeButton} aria-label="Close message" />;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

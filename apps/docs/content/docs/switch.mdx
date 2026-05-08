@@ -1,0 +1,301 @@
+---
+title: Switch
+description: A composable switch control for turning a setting on or off.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ControlledSwitchExample,
+  CustomIconSwitchExample,
+  SwitchClassNameExample,
+  SwitchDisabledExample,
+  SwitchExample,
+  SwitchFormIntegrationExample,
+  SwitchNativeButtonRenderCallbackExample,
+  SwitchSiblingLabelNativeButtonExample,
+  SwitchSizesExample,
+  switchCssProperties,
+} from '@/components/examples/switch';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/switch" />
+
+## Basic
+
+<Preview cssProperties={switchCssProperties}>
+  <SwitchExample />
+
+  <Preview.Code>
+    {`
+      import { SwitchField, Switch, SwitchLabel } from "moduix";
+
+      export function SwitchDemo() {
+        return (
+          <SwitchField>
+            <Switch defaultChecked />
+            <SwitchLabel>Enable notifications</SwitchLabel>
+          </SwitchField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Sizes
+
+Use `size` to align the switch with different form densities.
+Override `--switch-width-{size}`, `--switch-height-{size}`, and `--switch-thumb-size-{size}` when a specific size needs custom dimensions.
+
+<Preview>
+  <SwitchSizesExample />
+
+  <Preview.Code>
+    {`
+      import { SwitchField, Switch, SwitchLabel } from "moduix";
+
+      export function SwitchSizesDemo() {
+        return (
+          <div>
+            <SwitchField>
+              <Switch size="xs" defaultChecked />
+              <SwitchLabel>Extra-small</SwitchLabel>
+            </SwitchField>
+            <SwitchField>
+              <Switch size="sm" defaultChecked />
+              <SwitchLabel>Small</SwitchLabel>
+            </SwitchField>
+            <SwitchField>
+              <Switch size="md" defaultChecked />
+              <SwitchLabel>Medium</SwitchLabel>
+            </SwitchField>
+            <SwitchField>
+              <Switch size="lg" defaultChecked />
+              <SwitchLabel>Large</SwitchLabel>
+            </SwitchField>
+            <SwitchField>
+              <Switch size="xl" defaultChecked />
+              <SwitchLabel>Extra-large</SwitchLabel>
+            </SwitchField>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Use `disabled` to prevent interaction while preserving the current setting state in the UI.
+
+<Preview>
+  <SwitchDisabledExample />
+
+  <Preview.Code>
+    {`
+      import { SwitchField, Switch, SwitchLabel } from "moduix";
+
+      export function DisabledSwitchDemo() {
+        return (
+          <div>
+            <SwitchField>
+              <Switch disabled />
+              <SwitchLabel>Enable dark mode</SwitchLabel>
+            </SwitchField>
+            <SwitchField>
+              <Switch defaultChecked disabled />
+              <SwitchLabel>Keep me signed in</SwitchLabel>
+            </SwitchField>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control `checked` from React state when the switch needs to coordinate with other UI.
+
+<Preview>
+  <ControlledSwitchExample />
+
+  <Preview.Code>
+    {`
+      import { SwitchField, Switch, SwitchLabel } from "moduix";
+      import { useState } from "react";
+
+      function ControlledSwitch() {
+        const [checked, setChecked] = useState(true);
+
+        return (
+          <SwitchField>
+            <Switch checked={checked} onCheckedChange={setChecked} />
+            <SwitchLabel>{checked ? "On" : "Off"}</SwitchLabel>
+          </SwitchField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icon
+
+Pass children to `SwitchThumb` to render any icon from your application or icon library inside the thumb.
+
+<Preview>
+  <CustomIconSwitchExample />
+
+  <Preview.Code>
+    {`
+      import { SwitchField, Switch, SwitchThumb, SwitchLabel } from "moduix";
+      import type { ComponentProps } from "react";
+
+      function PowerIcon(props: ComponentProps<"svg">) {
+        return (
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
+            <path
+              d="M8 2.5V7M5.1 4.3A5 5 0 1 0 10.9 4.3"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+      export function CustomIconSwitchDemo() {
+        return (
+          <SwitchField>
+            <Switch defaultChecked>
+              <SwitchThumb>
+                <PowerIcon />
+              </SwitchThumb>
+            </Switch>
+            <SwitchLabel>Use custom thumb icon</SwitchLabel>
+          </SwitchField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` to the field, root, and label slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <SwitchClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { SwitchField, Switch, SwitchLabel } from "moduix";
+
+      export function StyledSwitchDemo() {
+        return (
+          <SwitchField className="gap-3">
+            <Switch className="border-fd-primary data-[checked]:bg-fd-primary" defaultChecked />
+            <SwitchLabel className="text-fd-primary">Styled with className</SwitchLabel>
+          </SwitchField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sibling Label
+
+Use `nativeButton` with `render={<button />}` for the sibling `label` pattern with `htmlFor` and `id`.
+
+<Preview>
+  <SwitchSiblingLabelNativeButtonExample />
+
+  <Preview.Code>
+    {`
+      import { Switch } from "moduix";
+      import { useId } from "react";
+
+      function SiblingLabelSwitch() {
+        const id = useId();
+
+        return (
+          <div className="flex items-center gap-2">
+            <Switch nativeButton render={<button />} id={id} defaultChecked />
+            <label htmlFor={id}>Receive product updates</label>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Native Button Render Callback
+
+Use the render callback when a native button switch needs to be wrapped by a label without producing invalid nested button markup.
+
+<Preview>
+  <SwitchNativeButtonRenderCallbackExample />
+
+  <Preview.Code>
+    {`
+      import { Switch } from "moduix";
+
+      export function NativeButtonSwitchDemo() {
+        return (
+          <Switch
+            defaultChecked
+            nativeButton
+            render={(buttonProps) => (
+              <label className="flex items-center gap-2">
+                <button {...buttonProps} />
+                <span>Enable reminders</span>
+              </label>
+            )}
+          />
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Form Integration
+
+Use `Field` when the switch participates in form labeling, validation, or submission.
+
+<Preview>
+  <SwitchFormIntegrationExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldLabel,
+        Switch,
+        SwitchLabel,
+      } from "moduix";
+
+      export function SwitchFormDemo() {
+        return (
+          <Field name="notifications">
+            <FieldLabel>
+              <Switch defaultChecked />
+              <SwitchLabel>Notifications</SwitchLabel>
+            </FieldLabel>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

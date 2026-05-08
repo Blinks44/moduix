@@ -1,0 +1,38 @@
+---
+title: Tokens
+description: Shared design tokens and global CSS variables used across moduix components.
+icon: Palette
+---
+
+import { TokensOverview } from '@/components/tokens-overview';
+
+# Tokens
+
+moduix styles are built from CSS custom properties. Start with semantic color tokens for the
+surface, text, borders, rings, and overlays, then tune spacing, radius, size, typography, motion,
+shadow, and layering tokens when the product system needs a different rhythm.
+
+Common override variables sit above individual components. For example, `--backdrop-bg` controls
+the default backdrop color for dialogs, drawers, selects, comboboxes, and other layered components
+until a component-specific variable overrides it.
+
+<TokensOverview />
+
+## Override Scope
+
+Set tokens globally in `:root`, inside `.dark`, or on any parent container that wraps moduix
+components.
+
+```css
+:root {
+  --primary: oklch(0.52 0.18 145);
+  --radius: 0.75rem;
+  --backdrop-bg: oklch(0.12 0.03 250 / 0.34);
+}
+
+.dense-panel {
+  --spacing-md: 8px;
+  --size-lg: 36px;
+  --popup-item-min-height: 1.75rem;
+}
+```

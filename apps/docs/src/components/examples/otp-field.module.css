@@ -1,0 +1,49 @@
+.stack {
+  display: grid;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.field {
+  width: max-content;
+}
+
+.form {
+  display: grid;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  width: 20rem;
+}
+
+.hint {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.separator {
+  --otp-field-separator-size: 1.25rem;
+  --otp-field-separator-color: var(--color-foreground);
+}
+
+.placeholderInput {
+  &::placeholder {
+    color: var(--color-muted-foreground);
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+}
+
+.customInput {
+  --otp-field-input-width: 3rem;
+  --otp-field-input-height: 3rem;
+  --otp-field-font-size: var(--text-xl);
+  --otp-field-bg-filled: var(--color-muted);
+}
+
+.customSeparator {
+  --otp-field-separator-size: 1.5rem;
+  --otp-field-separator-color: var(--color-primary);
+}

@@ -1,0 +1,24 @@
+@layer ui.reset, ui.tokens, ui.base, ui.components;
+
+@import './reset.css' layer(ui.reset);
+@import './animations.css' layer(ui.tokens);
+@import './borders.css' layer(ui.tokens);
+@import './colors.css' layer(ui.tokens);
+@import './opacity.css' layer(ui.tokens);
+@import './radius.css' layer(ui.tokens);
+@import './shadows.css' layer(ui.tokens);
+@import './sizing.css' layer(ui.tokens);
+@import './spacing.css' layer(ui.tokens);
+@import './transforms.css' layer(ui.tokens);
+@import './transitions.css' layer(ui.tokens);
+@import './typography.css' layer(ui.tokens);
+@import './z-index.css' layer(ui.tokens);
+
+@layer ui.base {
+  body {
+    font-family: var(--font-sans), sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: 'wdth' 100;
+  }
+}

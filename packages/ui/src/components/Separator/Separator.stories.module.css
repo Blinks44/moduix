@@ -1,0 +1,39 @@
+@layer ui.stories {
+  .card {
+    width: 18rem;
+    padding: var(--spacing-4);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--spacing-4);
+  }
+
+  .nav {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    text-wrap: nowrap;
+  }
+
+  .section {
+    display: grid;
+    gap: var(--spacing-2);
+  }
+
+  .link {
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+    text-decoration: none;
+  }
+
+  .customSeparator {
+    --separator-color: var(--color-primary);
+    --separator-thickness: 2px;
+    --separator-length-horizontal: 8rem;
+  }
+}

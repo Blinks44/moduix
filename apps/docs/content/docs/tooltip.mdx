@@ -1,0 +1,353 @@
+---
+title: Tooltip
+description: A popup that appears when an element is hovered or focused.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  CustomStylingTooltipExample,
+  DetachedTriggerTooltipExample,
+  MultipleTriggersTooltipExample,
+  SideControlTooltipExample,
+  ToolbarTooltipExample,
+  TooltipExample,
+  TooltipWithoutArrowExample,
+  tooltipCssProperties,
+} from '@/components/examples/tooltip';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/tooltip" />
+
+## Basic
+
+Use a tooltip for short visual labels on controls. Always give the trigger its own accessible name:
+tooltips are not a replacement for `aria-label` or visible text.
+
+<Preview cssProperties={tooltipCssProperties}>
+  <TooltipExample />
+
+  <Preview.Code>
+    {`
+      import {
+        BellIcon,
+        Button,
+        Tooltip,
+        TooltipContent,
+        TooltipTrigger,
+      } from "moduix";
+
+      import styles from "./tooltip-demo.module.css";
+
+      export function TooltipDemo() {
+        return (
+          <Tooltip>
+            <TooltipTrigger render={<Button />} aria-label="Notifications">
+              <span className={styles.triggerContent}>
+                <BellIcon className={styles.icon} />
+                Notifications
+              </span>
+            </TooltipTrigger>
+            <TooltipContent>Notifications</TooltipContent>
+          </Tooltip>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Toolbar
+
+Wrap related tooltips in one `TooltipProvider` to share delay behavior across a toolbar.
+
+<Preview>
+  <ToolbarTooltipExample />
+
+  <Preview.Code>
+    {`
+      import {
+        InfoIcon,
+        PlusIcon,
+        ShareIcon,
+        Tooltip,
+        TooltipContent,
+        TooltipProvider,
+        TooltipTrigger,
+      } from "moduix";
+
+      import styles from "./tooltip-demo.module.css";
+
+      export function ToolbarTooltipDemo() {
+        return (
+          <TooltipProvider delay={300}>
+            <div className={styles.toolbar}>
+              <Tooltip>
+                <TooltipTrigger aria-label="Add item" data-variant="ghost">
+                  <PlusIcon className={styles.icon} />
+                </TooltipTrigger>
+                <TooltipContent sideOffset={16}>Add item</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger aria-label="Share" data-variant="ghost">
+                  <ShareIcon className={styles.icon} />
+                </TooltipTrigger>
+                <TooltipContent sideOffset={16}>Share</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger aria-label="Details" data-variant="ghost">
+                  <InfoIcon className={styles.icon} />
+                </TooltipTrigger>
+                <TooltipContent sideOffset={16}>Details</TooltipContent>
+              </Tooltip>
+            </div>
+          </TooltipProvider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Without Arrow
+
+Set `showArrow` to `false` when the popup should read as a compact floating label.
+
+<Preview>
+  <TooltipWithoutArrowExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Tooltip,
+        TooltipContent,
+        TooltipTrigger,
+      } from "moduix";
+
+      export function TooltipWithoutArrowDemo() {
+        return (
+          <Tooltip>
+            <TooltipTrigger render={<Button />} aria-label="Tooltip without arrow">
+              Hover or focus
+            </TooltipTrigger>
+            <TooltipContent showArrow={false}>Tooltip without arrow</TooltipContent>
+          </Tooltip>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Side Control
+
+Pass placement props directly to `TooltipContent` for the common positioning cases.
+
+<Preview>
+  <SideControlTooltipExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Tooltip,
+        TooltipContent,
+        TooltipTrigger,
+      } from "moduix";
+      import { useState } from "react";
+
+      import styles from "./tooltip-demo.module.css";
+
+      type TooltipSide = "top" | "right" | "bottom" | "left";
+      const tooltipSides = ["top", "right", "bottom", "left"] as TooltipSide[];
+
+      function SideControlTooltip() {
+        const [side, setSide] = useState("top" as TooltipSide);
+
+        return (
+          <div className={styles.stack}>
+            <div className={styles.sideButtons}>
+              {tooltipSides.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={styles.sideButton}
+                  data-active={item === side || undefined}
+                  onClick={() => setSide(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <Tooltip>
+              <TooltipTrigger render={<Button />} aria-label={\`Tooltip side: \${side}\`}>
+                Hover or focus
+              </TooltipTrigger>
+              <TooltipContent side={side}>Side: {side}</TooltipContent>
+            </Tooltip>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Detached Trigger
+
+Use `createTooltipHandle` when the trigger and tooltip content cannot live in the same tree.
+
+<Preview>
+  <DetachedTriggerTooltipExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Tooltip,
+        TooltipContent,
+        TooltipTrigger,
+        createTooltipHandle,
+      } from "moduix";
+      import { useMemo } from "react";
+
+      function DetachedTriggerTooltip() {
+        const tooltipHandle = useMemo(() => createTooltipHandle(), []);
+
+        return (
+          <>
+            <TooltipTrigger
+              handle={tooltipHandle}
+              render={<Button />}
+              aria-label="Detached tooltip"
+            >
+              Detached trigger
+            </TooltipTrigger>
+            <Tooltip handle={tooltipHandle}>
+              <TooltipContent>Linked with handle.</TooltipContent>
+            </Tooltip>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Multiple Triggers
+
+Share one tooltip between several triggers by linking them with the same handle and rendering the
+active trigger payload.
+
+<Preview>
+  <MultipleTriggersTooltipExample />
+
+  <Preview.Code>
+    {`
+      import {
+        InfoIcon,
+        PlusIcon,
+        ShareIcon,
+        Tooltip,
+        TooltipContent,
+        TooltipProvider,
+        TooltipTrigger,
+        createTooltipHandle,
+      } from "moduix";
+      import { useMemo } from "react";
+
+      import styles from "./tooltip-demo.module.css";
+
+      function MultipleTriggersTooltip() {
+        const tooltipHandle = useMemo(
+          () => createTooltipHandle<{ text: string }>(),
+          [],
+        );
+
+        return (
+          <TooltipProvider delay={250}>
+            <div className={styles.row}>
+              <TooltipTrigger
+                aria-label="Create"
+                handle={tooltipHandle}
+                payload={{ text: "Create" }}
+                data-variant="ghost"
+              >
+                <PlusIcon className={styles.icon} />
+              </TooltipTrigger>
+              <TooltipTrigger
+                aria-label="Share"
+                handle={tooltipHandle}
+                payload={{ text: "Share" }}
+                data-variant="ghost"
+              >
+                <ShareIcon className={styles.icon} />
+              </TooltipTrigger>
+              <TooltipTrigger
+                aria-label="Details"
+                handle={tooltipHandle}
+                payload={{ text: "Details" }}
+                data-variant="ghost"
+              >
+                <InfoIcon className={styles.icon} />
+              </TooltipTrigger>
+
+              <Tooltip handle={tooltipHandle}>
+                {({ payload }) => <TooltipContent>{payload?.text}</TooltipContent>}
+              </Tooltip>
+            </div>
+          </TooltipProvider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styling
+
+Use `className` for the popup itself, `classNames` for internal slots such as the arrow, and
+CSS variables for broad theme changes. Portal, positioner, and viewport are rendered automatically.
+
+<Preview>
+  <CustomStylingTooltipExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tooltip,
+        TooltipContent,
+        TooltipTrigger,
+      } from "moduix";
+
+      import styles from "./tooltip-demo.module.css";
+
+      export function CustomStylingTooltip() {
+        return (
+          <Tooltip>
+            <TooltipTrigger
+              aria-label="Custom styled tooltip"
+              className={styles.customTrigger}
+            >
+              Custom style
+            </TooltipTrigger>
+            <TooltipContent
+              className={styles.customPopup}
+              classNames={{ arrow: styles.customArrow }}
+            >
+              Styled through className
+            </TooltipContent>
+          </Tooltip>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

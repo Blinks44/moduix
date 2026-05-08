@@ -1,0 +1,328 @@
+---
+title: Collapsible
+description: A disclosure control that opens and closes a single panel of content.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  CollapsibleClassNameExample,
+  CollapsibleExample,
+  ControlledCollapsibleExample,
+  CustomIconCollapsibleExample,
+  DisabledCollapsibleExample,
+  HiddenUntilFoundCollapsibleExample,
+  collapsibleCssProperties,
+} from '@/components/examples/collapsible';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/collapsible" />
+
+## Basic
+
+<Preview cssProperties={collapsibleCssProperties}>
+  <CollapsibleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Collapsible,
+        CollapsibleTrigger,
+        CollapsibleTriggerIcon,
+        CollapsiblePanel,
+      } from "moduix";
+
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+
+      export function CollapsibleDemo() {
+        return (
+          <Collapsible>
+            <CollapsibleTrigger>
+              <CollapsibleTriggerIcon />
+              Recovery keys
+            </CollapsibleTrigger>
+            <CollapsiblePanel>
+              <ul>
+                {recoveryKeys.map((key) => (
+                  <li key={key}>{key}</li>
+                ))}
+              </ul>
+            </CollapsiblePanel>
+          </Collapsible>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Default Open
+
+Use `defaultOpen` when the panel should be expanded on first render.
+
+<Preview>
+  <CollapsibleExample defaultOpen />
+
+  <Preview.Code>
+    {`
+      import {
+        Collapsible,
+        CollapsibleTrigger,
+        CollapsibleTriggerIcon,
+        CollapsiblePanel,
+      } from "moduix";
+
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+
+      export function DefaultOpenCollapsibleDemo() {
+        return (
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger>
+              <CollapsibleTriggerIcon />
+              Recovery keys
+            </CollapsibleTrigger>
+            <CollapsiblePanel>
+              <ul>
+                {recoveryKeys.map((key) => (
+                  <li key={key}>{key}</li>
+                ))}
+              </ul>
+            </CollapsiblePanel>
+          </Collapsible>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control `open` from React state when the collapsible needs to coordinate with other UI.
+
+<Preview>
+  <ControlledCollapsibleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Collapsible,
+        CollapsibleTrigger,
+        CollapsibleTriggerIcon,
+        CollapsiblePanel,
+      } from "moduix";
+      import { useState } from "react";
+
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+
+      export function ControlledCollapsibleDemo() {
+        const [open, setOpen] = useState(false);
+
+        return (
+          <Collapsible open={open} onOpenChange={setOpen}>
+            <CollapsibleTrigger>
+              <CollapsibleTriggerIcon />
+              Recovery keys
+            </CollapsibleTrigger>
+            <CollapsiblePanel>
+              <ul>
+                {recoveryKeys.map((key) => (
+                  <li key={key}>{key}</li>
+                ))}
+              </ul>
+            </CollapsiblePanel>
+            <span>Current state: {open ? "open" : "closed"}</span>
+          </Collapsible>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Set `disabled` on the root when the trigger should be visible but unavailable for interaction.
+
+<Preview>
+  <DisabledCollapsibleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Collapsible,
+        CollapsibleTrigger,
+        CollapsibleTriggerIcon,
+        CollapsiblePanel,
+      } from "moduix";
+
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+
+      export function DisabledCollapsibleDemo() {
+        return (
+          <Collapsible disabled>
+            <CollapsibleTrigger>
+              <CollapsibleTriggerIcon />
+              Recovery keys
+            </CollapsibleTrigger>
+            <CollapsiblePanel>
+              <ul>
+                {recoveryKeys.map((key) => (
+                  <li key={key}>{key}</li>
+                ))}
+              </ul>
+            </CollapsiblePanel>
+          </Collapsible>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Hidden Until Found
+
+Use `hiddenUntilFound` when browser page search should be able to find and expand hidden panel content.
+
+<Preview>
+  <HiddenUntilFoundCollapsibleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Collapsible,
+        CollapsibleTrigger,
+        CollapsibleTriggerIcon,
+        CollapsiblePanel,
+      } from "moduix";
+
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+
+      export function HiddenUntilFoundCollapsibleDemo() {
+        return (
+          <Collapsible>
+            <CollapsibleTrigger>
+              <CollapsibleTriggerIcon />
+              Searchable recovery keys
+            </CollapsibleTrigger>
+            <CollapsiblePanel hiddenUntilFound>
+              <ul>
+                {recoveryKeys.map((key) => (
+                  <li key={key}>{key}</li>
+                ))}
+              </ul>
+            </CollapsiblePanel>
+          </Collapsible>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icon
+
+Pass children to `CollapsibleTriggerIcon` to use any icon from your application or icon library.
+
+<Preview>
+  <CustomIconCollapsibleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Collapsible,
+        CollapsibleTrigger,
+        CollapsibleTriggerIcon,
+        CollapsiblePanel,
+      } from "moduix";
+      import type { CSSProperties, ComponentProps } from "react";
+
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+
+      function ChevronDownIcon(props: ComponentProps<"svg">) {
+        return (
+          <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
+            <path
+              d="M1.5 3.5L5 7L8.5 3.5"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      export function CustomIconCollapsibleDemo() {
+        return (
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger>
+              <CollapsibleTriggerIcon
+                style={
+                  {
+                    "--collapsible-icon-open-transform": "rotate(180deg)",
+                  } as CSSProperties
+                }
+              >
+                <ChevronDownIcon />
+              </CollapsibleTriggerIcon>
+              Recovery keys
+            </CollapsibleTrigger>
+            <CollapsiblePanel>
+              <ul>
+                {recoveryKeys.map((key) => (
+                  <li key={key}>{key}</li>
+                ))}
+              </ul>
+            </CollapsiblePanel>
+          </Collapsible>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` to the root, trigger, trigger icon, and panel slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS. Put your own wrapper inside the panel when the content needs layout or surface styles.
+
+<Preview>
+  <CollapsibleClassNameExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Collapsible,
+        CollapsibleTrigger,
+        CollapsibleTriggerIcon,
+        CollapsiblePanel,
+      } from "moduix";
+
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+
+      export function StyledCollapsibleDemo() {
+        return (
+          <Collapsible className="w-64 text-fd-foreground">
+            <CollapsibleTrigger className="rounded-md bg-fd-muted px-3 py-2 text-fd-foreground hover:bg-fd-accent">
+              <CollapsibleTriggerIcon className="text-fd-primary" />
+              Styled recovery keys
+            </CollapsibleTrigger>
+            <CollapsiblePanel className="text-fd-muted-foreground">
+              <div className="mt-1 rounded-md bg-fd-muted px-3 py-2">
+                <ul className="m-0 flex flex-col gap-1 ps-5">
+                  {recoveryKeys.map((key) => (
+                    <li key={key}>{key}</li>
+                  ))}
+                </ul>
+              </div>
+            </CollapsiblePanel>
+          </Collapsible>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

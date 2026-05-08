@@ -1,0 +1,11 @@
+@layer storybook {
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+    width: 16rem;
+  }
+
+  .field {
+    width: 16rem;
+  }
+}

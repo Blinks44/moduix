@@ -1,0 +1,44 @@
+.customTriggerIcon {
+  color: var(--color-foreground);
+}
+
+.statusIcon {
+  color: var(--color-muted-foreground);
+}
+
+.animatedContent {
+  --select-transition: 180ms var(--ease-out);
+  --select-scale: 0.96;
+}
+
+.assigneeItemText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.assigneeName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--weight-semibold);
+}
+
+.assigneeRole {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.backdrop {
+  --select-backdrop-bg: var(--color-overlay);
+  --select-backdrop-blur: 2px;
+}
+
+.arrow {
+  --select-arrow-stroke-color: var(--color-border);
+}

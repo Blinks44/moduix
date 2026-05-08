@@ -1,0 +1,210 @@
+---
+title: Input
+description: A native input element that works with Field labels, validation, and Base UI state.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ControlledInputExample,
+  DisabledInputExample,
+  InputClassNameExample,
+  InputExample,
+  InputFieldValidationExample,
+  InputNativeAttributesExample,
+  InputSizesExample,
+  inputCssProperties,
+} from '@/components/examples/input';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/input" />
+
+## Basic
+
+<Preview cssProperties={inputCssProperties}>
+  <InputExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Input } from "moduix";
+
+      export function InputDemo() {
+        return (
+          <Field>
+            <FieldLabel>Name</FieldLabel>
+            <Input placeholder="Enter your name" />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Controlled
+
+Use `value` and `onValueChange` when the input value needs to stay in React state.
+
+<Preview>
+  <ControlledInputExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Input } from "moduix";
+      import { useState } from "react";
+
+      function ControlledInput() {
+        const [value, setValue] = useState("");
+
+        return (
+          <Field>
+            <FieldLabel>Username</FieldLabel>
+            <Input
+              value={value}
+              onValueChange={setValue}
+              placeholder="Type to control value"
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use the `size` prop for visual sizing. Use `htmlSize` when you need the native input `size` attribute.
+
+<Preview>
+  <InputSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Input } from "moduix";
+
+      export function InputSizesDemo() {
+        return (
+          <div>
+            <Input size="xs" placeholder="Extra-small input" />
+            <Input size="sm" placeholder="Small input" />
+            <Input size="md" placeholder="Medium input" />
+            <Input size="lg" placeholder="Large input" />
+            <Input size="xl" placeholder="Extra-large input" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Native Attributes
+
+Use standard input attributes for keyboard, autocomplete, validation, and form behavior. The `htmlSize` prop maps to the native `size` attribute because `size` controls the visual component size.
+
+<Preview>
+  <InputNativeAttributesExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Input } from "moduix";
+
+      export function NativeInputAttributesDemo() {
+        return (
+          <Field>
+            <FieldLabel>Security code</FieldLabel>
+            <Input
+              htmlSize={8}
+              inputMode="numeric"
+              maxLength={6}
+              name="security-code"
+              placeholder="000000"
+              type="text"
+              autoComplete="one-time-code"
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Set `disabled` to prevent interaction while keeping the input visible in forms.
+
+<Preview>
+  <DisabledInputExample />
+
+  <Preview.Code>
+    {`
+      import { Input } from "moduix";
+
+      export function DisabledInputDemo() {
+        return (
+          <div>
+            <Input disabled placeholder="Disabled input" />
+            <Input disabled value="Read only value" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Field Validation
+
+Place `Input` inside `Field` to connect labels, errors, native validity, and Base UI data attributes.
+
+<Preview>
+  <InputFieldValidationExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Input, FieldError } from "moduix";
+
+      export function InputFieldValidationDemo() {
+        return (
+          <Field validationMode="onBlur">
+            <FieldLabel>Email</FieldLabel>
+            <Input required type="email" placeholder="name@example.com" />
+            <FieldError match="valueMissing">Please enter your email.</FieldError>
+            <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` directly to `Input` when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <InputClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Input } from "moduix";
+      import styles from "./input-demo.module.css";
+
+      export function CustomInputDemo() {
+        return (
+          <Field>
+            <FieldLabel>Project key</FieldLabel>
+            <Input placeholder="MAPS" className={styles.customInput} />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

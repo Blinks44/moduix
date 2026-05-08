@@ -1,0 +1,104 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    width: var(--accordion-width, 24rem);
+    max-width: var(--accordion-max-width, calc(100vw - 8rem));
+    flex-direction: column;
+    justify-content: center;
+    color: var(--accordion-color, var(--color-foreground));
+  }
+
+  .item {
+    border-bottom: var(--border-width-sm) solid
+      var(--accordion-item-border-color, var(--color-border));
+  }
+
+  .header {
+    margin: 0;
+  }
+
+  .trigger {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--accordion-trigger-gap, var(--spacing-4));
+    margin: 0;
+    padding-block: var(--accordion-trigger-padding-y, var(--spacing-2));
+    padding-inline: var(--accordion-trigger-padding-x-start, var(--spacing-3))
+      var(--accordion-trigger-padding-x-end, var(--spacing-1));
+    border: 0;
+    background-color: var(--accordion-trigger-bg, var(--color-muted));
+    color: inherit;
+    font: inherit;
+    font-size: var(--accordion-trigger-font-size, var(--text-md));
+    line-height: var(--accordion-trigger-line-height, var(--line-height-text-md));
+    text-align: left;
+    outline: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--transition-default),
+      color var(--transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--accordion-trigger-bg-hover, var(--color-accent));
+      }
+    }
+
+    &:focus-visible {
+      z-index: 1;
+      outline: var(--border-width-md) solid var(--accordion-focus-ring-color, var(--color-ring));
+      outline-offset: calc(var(--border-width-sm) * -1);
+    }
+
+    &[disabled],
+    &[data-disabled] {
+      cursor: default;
+      opacity: var(--accordion-disabled-opacity, var(--opacity-disabled));
+    }
+  }
+
+  .triggerIcon {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--accordion-icon-size, 0.75rem);
+    height: var(--accordion-icon-size, 0.75rem);
+    margin-right: var(--accordion-icon-margin-right, var(--spacing-2));
+    flex-shrink: 0;
+    transition: transform var(--accordion-icon-transition, var(--transition-default));
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    [data-panel-open] > & {
+      transform: var(--accordion-icon-open-transform, rotate(45deg) scale(1.1));
+    }
+  }
+
+  .panel {
+    box-sizing: border-box;
+    height: var(--accordion-panel-height);
+    overflow: hidden;
+    color: var(--accordion-panel-color, var(--color-muted-foreground));
+    font-size: var(--accordion-panel-font-size, var(--text-md));
+    line-height: var(--accordion-panel-line-height, var(--line-height-text-md));
+    transition: height var(--accordion-panel-transition, var(--transition-default));
+
+    &[hidden]:not([hidden='until-found']) {
+      display: none;
+    }
+
+    &[data-starting-style],
+    &[data-ending-style] {
+      height: 0;
+    }
+  }
+}

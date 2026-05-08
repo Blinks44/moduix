@@ -1,0 +1,702 @@
+.root {
+  --tokens-green: #149548;
+  --tokens-blue: #087f8f;
+  --tokens-amber: #d5961f;
+  --tokens-rose: #c84b6a;
+
+  display: grid;
+  gap: 1.35rem;
+  margin: 2rem 0;
+}
+
+.heroGrid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.heroPanel,
+.stackPanel,
+.section,
+.scaleCard,
+.tokenList,
+.callout,
+.colorCard,
+.shadowCard {
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 80%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--color-fd-card) 86%, transparent);
+}
+
+.heroPanel {
+  min-height: 13.5rem;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    var(--color-fd-card),
+    color-mix(in oklab, var(--tokens-green) 10%, var(--color-fd-muted)) 45%,
+    color-mix(in oklab, var(--tokens-blue) 13%, var(--color-fd-card))
+  );
+}
+
+.heroHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-fd-border) 70%, transparent);
+  color: var(--color-fd-muted-foreground);
+  font-size: 0.8125rem;
+}
+
+.heroHeader code,
+.callout code,
+.tokenLine code,
+.tokenMeta code,
+.scaleRow code,
+.radiusToken code,
+.typeRow code,
+.chartToken code,
+.tokenPill code,
+.shadowCard code {
+  color: color-mix(in oklab, var(--color-fd-primary) 74%, var(--color-fd-foreground));
+  font-size: 0.75rem;
+}
+
+.callout code,
+.tokenLine code,
+.tokenMeta code,
+.scaleRow code,
+.radiusToken code,
+.typeRow code,
+.chartToken code,
+.tokenPill code,
+.shadowCard code {
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+
+.systemMap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.7rem;
+  padding: 1rem;
+}
+
+.systemMap span,
+.systemMap strong {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 3rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 84%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--color-fd-background) 78%, transparent);
+  color: var(--color-fd-foreground);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  backdrop-filter: blur(16px);
+}
+
+.systemMap strong {
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--tokens-green) 88%, #fff), var(--tokens-blue)),
+    var(--color-fd-primary);
+  color: #fff;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+}
+
+.stackPanel {
+  display: grid;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--color-fd-muted) 38%, transparent),
+      transparent
+    ),
+    color-mix(in oklab, var(--color-fd-card) 88%, transparent);
+}
+
+.callout {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  background: color-mix(in oklab, var(--color-fd-background) 74%, transparent);
+}
+
+.callout strong,
+.tokenMeta strong {
+  color: var(--color-fd-foreground);
+  font-size: 0.92rem;
+}
+
+.callout p,
+.sectionHeader p {
+  margin: 0;
+  color: var(--color-fd-muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.section {
+  display: grid;
+  gap: 0.9rem;
+  padding: 0.95rem;
+}
+
+.sectionHeader {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  color: var(--color-fd-foreground);
+  font-size: 1.35rem;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.colorGrid {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.colorCard {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 0.34fr) minmax(0, 1fr);
+  gap: 0.55rem 0.75rem;
+  align-items: center;
+  min-width: 0;
+  padding: 0.7rem;
+  background: color-mix(in oklab, var(--color-fd-background) 76%, transparent);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.swatches span,
+.chartLight,
+.chartDark {
+  display: block;
+  min-height: 2.7rem;
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 74%, transparent);
+  border-radius: 0.45rem;
+}
+
+.colorCard:nth-child(1) .swatches span:first-child {
+  background: oklch(1 0 0);
+}
+
+.colorCard:nth-child(1) .swatches span:last-child {
+  background: oklch(0.145 0 0);
+}
+
+.colorCard:nth-child(2) .swatches span:first-child {
+  background: oklch(0.145 0 0);
+}
+
+.colorCard:nth-child(2) .swatches span:last-child {
+  background: oklch(0.985 0 0);
+}
+
+.colorCard:nth-child(3) .swatches span:first-child {
+  background: oklch(1 0 0);
+}
+
+.colorCard:nth-child(3) .swatches span:last-child {
+  background: oklch(0.205 0 0);
+}
+
+.colorCard:nth-child(4) .swatches span:first-child {
+  background: oklch(1 0 0);
+}
+
+.colorCard:nth-child(4) .swatches span:last-child {
+  background: oklch(0.205 0 0);
+}
+
+.colorCard:nth-child(5) .swatches span:first-child {
+  background: oklch(0.205 0 0);
+}
+
+.colorCard:nth-child(5) .swatches span:last-child {
+  background: oklch(0.922 0 0);
+}
+
+.colorCard:nth-child(6) .swatches span:first-child,
+.colorCard:nth-child(7) .swatches span:first-child,
+.colorCard:nth-child(8) .swatches span:first-child {
+  background: oklch(0.97 0 0);
+}
+
+.colorCard:nth-child(6) .swatches span:last-child,
+.colorCard:nth-child(7) .swatches span:last-child,
+.colorCard:nth-child(8) .swatches span:last-child {
+  background: oklch(0.269 0 0);
+}
+
+.colorCard:nth-child(9) .swatches span:first-child {
+  background: oklch(0.577 0.245 27.325);
+}
+
+.colorCard:nth-child(9) .swatches span:last-child {
+  background: oklch(0.704 0.191 22.216);
+}
+
+.colorCard:nth-child(10) .swatches span:first-child,
+.colorCard:nth-child(11) .swatches span:first-child {
+  background: oklch(0.922 0 0);
+}
+
+.colorCard:nth-child(10) .swatches span:last-child {
+  background: oklch(1 0 0 / 10%);
+}
+
+.colorCard:nth-child(11) .swatches span:last-child {
+  background: oklch(1 0 0 / 15%);
+}
+
+.colorCard:nth-child(12) .swatches span:first-child {
+  background: oklch(0.708 0 0);
+}
+
+.colorCard:nth-child(12) .swatches span:last-child {
+  background: oklch(0.556 0 0);
+}
+
+.colorCard:nth-child(13) .swatches span:first-child,
+.colorCard:nth-child(13) .swatches span:last-child {
+  background: oklch(0.205 0 0 / 0.14);
+}
+
+.colorCard:nth-child(14) .swatches span:first-child,
+.colorCard:nth-child(14) .swatches span:last-child {
+  background: oklch(0.205 0 0 / 0.04);
+}
+
+.tokenMeta {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.colorCard small,
+.chartToken small,
+.scaleRow small,
+.radiusToken small,
+.typeRow small,
+.tokenLine small,
+.shadowCard small {
+  min-width: 0;
+  color: var(--color-fd-muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.chartStrip {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.chartToken {
+  display: grid;
+  grid-template-columns: 2.4rem 2.4rem minmax(0, 1fr);
+  gap: 0.45rem 0.6rem;
+  align-items: center;
+  min-width: 0;
+  padding: 0.65rem;
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 74%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--color-fd-background) 66%, transparent);
+}
+
+.chartToken code,
+.chartToken small {
+  grid-column: 3;
+}
+
+.chartToken:nth-child(1) .chartLight {
+  background: oklch(0.646 0.222 41.116);
+}
+
+.chartToken:nth-child(1) .chartDark {
+  background: oklch(0.488 0.243 264.376);
+}
+
+.chartToken:nth-child(2) .chartLight {
+  background: oklch(0.6 0.118 184.704);
+}
+
+.chartToken:nth-child(2) .chartDark {
+  background: oklch(0.696 0.17 162.48);
+}
+
+.chartToken:nth-child(3) .chartLight {
+  background: oklch(0.398 0.07 227.392);
+}
+
+.chartToken:nth-child(3) .chartDark {
+  background: oklch(0.769 0.188 70.08);
+}
+
+.chartToken:nth-child(4) .chartLight {
+  background: oklch(0.828 0.189 84.429);
+}
+
+.chartToken:nth-child(4) .chartDark {
+  background: oklch(0.627 0.265 303.9);
+}
+
+.chartToken:nth-child(5) .chartLight {
+  background: oklch(0.769 0.188 70.08);
+}
+
+.chartToken:nth-child(5) .chartDark {
+  background: oklch(0.645 0.246 16.439);
+}
+
+.measureGrid,
+.motionGrid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.scaleCard,
+.tokenList {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.9rem;
+  background: color-mix(in oklab, var(--color-fd-background) 72%, transparent);
+}
+
+.scaleCard h3,
+.tokenList h3 {
+  margin: 0;
+  color: var(--color-fd-foreground);
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.scaleList {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.scaleRow {
+  display: grid;
+  grid-template-columns: 3.6rem minmax(9rem, 0.92fr) minmax(0, 1.08fr);
+  gap: 0.45rem 0.65rem;
+  align-items: center;
+}
+
+.scaleShape {
+  display: block;
+  width: calc(0.5rem + var(--step, 0) * 0.28rem);
+  min-width: 0.35rem;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tokens-green), var(--tokens-blue));
+}
+
+.scaleRow[data-index='0'] {
+  --step: 0;
+}
+
+.scaleRow[data-index='1'] {
+  --step: 1;
+}
+
+.scaleRow[data-index='2'] {
+  --step: 2;
+}
+
+.scaleRow[data-index='3'] {
+  --step: 3;
+}
+
+.scaleRow[data-index='4'] {
+  --step: 4;
+}
+
+.scaleRow[data-index='5'] {
+  --step: 5;
+}
+
+.scaleRow[data-index='6'] {
+  --step: 6;
+}
+
+.scaleRow[data-index='7'] {
+  --step: 8;
+}
+
+.scaleRow[data-index='8'] {
+  --step: 10;
+}
+
+.scaleCard[data-variant='blocks'] .scaleShape {
+  width: calc(1.5rem + var(--step, 0) * 0.38rem);
+  height: calc(1.5rem + var(--step, 0) * 0.38rem);
+  border-radius: 0.35rem;
+}
+
+.scaleCard[data-variant='lines'] .scaleShape {
+  width: 3.2rem;
+  height: calc(1px + var(--step, 0) * 1.5px);
+  border-radius: 0;
+}
+
+.scaleCard[data-variant='opacity'] .scaleShape {
+  width: 3.2rem;
+  height: 1.35rem;
+  opacity: calc(0.45 + var(--step, 0) * 0.2);
+}
+
+.radiusGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.6rem;
+}
+
+.radiusToken {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.radiusToken span {
+  display: block;
+  height: 3.2rem;
+  border: 1px solid color-mix(in oklab, var(--tokens-blue) 34%, var(--color-fd-border));
+  border-radius: calc(var(--radius-step, 0) * 0.12rem);
+  background: color-mix(in oklab, var(--tokens-blue) 10%, var(--color-fd-background));
+}
+
+.radiusToken[data-index='0'] {
+  --radius-step: 5;
+}
+
+.radiusToken[data-index='1'] {
+  --radius-step: 0;
+}
+
+.radiusToken[data-index='2'] {
+  --radius-step: 2;
+}
+
+.radiusToken[data-index='3'] {
+  --radius-step: 3;
+}
+
+.radiusToken[data-index='4'] {
+  --radius-step: 4;
+}
+
+.radiusToken[data-index='5'] {
+  --radius-step: 5;
+}
+
+.radiusToken[data-index='6'] {
+  --radius-step: 7;
+}
+
+.radiusToken[data-index='7'] {
+  --radius-step: 18;
+}
+
+.typeGrid {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.typeRow {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr) minmax(9rem, auto);
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.7rem;
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 70%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--color-fd-background) 68%, transparent);
+}
+
+.typeSample {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 0.45rem;
+  background: color-mix(in oklab, var(--tokens-amber) 16%, var(--color-fd-background));
+  color: color-mix(in oklab, var(--tokens-amber) 64%, var(--color-fd-foreground));
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.typeRow div {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.pillGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.tokenPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.1rem;
+  padding: 0 0.7rem;
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 74%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-fd-background) 74%, transparent);
+}
+
+.tokenPill strong {
+  color: var(--color-fd-foreground);
+  font-size: 0.78rem;
+}
+
+.tokenLine {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.82fr) minmax(0, 1.18fr);
+  gap: 0.3rem 0.8rem;
+  align-items: baseline;
+  min-width: 0;
+  padding: 0.55rem 0;
+  border-top: 1px solid color-mix(in oklab, var(--color-fd-border) 60%, transparent);
+}
+
+.tokenLine span {
+  min-width: 0;
+  color: var(--color-fd-foreground);
+  font-size: 0.8rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+
+.tokenLine small {
+  grid-column: 2;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+
+.layerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.85rem;
+}
+
+.shadowCard {
+  display: grid;
+  gap: 0.55rem;
+  min-height: 8rem;
+  padding: 1rem;
+  background: var(--color-fd-background);
+}
+
+.shadowCard[data-depth='1'] {
+  box-shadow: var(--shadow-sm, 0 2px 4px 0 #0000001a);
+}
+
+.shadowCard[data-depth='2'] {
+  box-shadow: var(--shadow-md, 0 4px 6px -1px #0000001a);
+}
+
+.shadowCard[data-depth='3'] {
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px #0000001a);
+}
+
+.backdropPreview {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.backdropStage {
+  position: relative;
+  min-height: 12rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 74%, transparent);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--tokens-rose) 12%, var(--color-fd-background)) 0 25%,
+      transparent 25% 50%,
+      color-mix(in oklab, var(--tokens-green) 10%, var(--color-fd-background)) 50% 75%,
+      transparent 75%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--color-fd-muted-foreground) 10%, transparent) 0 1px,
+      transparent 1px 2.5rem
+    ),
+    var(--color-fd-background);
+}
+
+.backdropLayer {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklab, var(--color-fd-foreground) 18%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.backdropDialog {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  display: grid;
+  gap: 0.3rem;
+  width: min(76%, 12.5rem);
+  padding: 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 86%, transparent);
+  border-radius: 0.5rem;
+  background: var(--color-fd-card);
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px #0000001a);
+  transform: translate(-50%, -50%);
+}
+
+.backdropDialog strong {
+  color: var(--color-fd-foreground);
+}
+
+.backdropDialog span {
+  color: var(--color-fd-muted-foreground);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 520px) {
+  .colorCard,
+  .chartToken,
+  .scaleRow,
+  .typeRow,
+  .tokenLine {
+    grid-template-columns: 1fr;
+  }
+
+  .chartToken code,
+  .chartToken small,
+  .tokenLine small {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,79 @@
+---
+title: Quick start
+description: Install moduix and use it in your React application.
+icon: Rocket
+---
+
+# Quick start
+
+moduix ships ready-made React components, CSS, and design tokens. Install the package together with
+its Base UI peer dependency:
+
+```bash
+npm install moduix @base-ui/react
+```
+
+`@base-ui/react` stays in your application bundle, so moduix does not ship duplicate Base UI
+runtime.
+
+## Add Styles
+
+Import the library styles once in your application entry point:
+
+```tsx
+import 'moduix/style.css';
+```
+
+The CSS file includes component styles and design tokens. It does not include a global reset or
+application-level base styles, so those stay under your project's control.
+
+If you want the optional reset, import it explicitly before the main stylesheet:
+
+```tsx
+import 'moduix/reset.css';
+import 'moduix/style.css';
+```
+
+## Use Components
+
+Import only the components and parts you need:
+
+```tsx
+import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from 'moduix';
+
+export function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
+      <DialogContent>
+        <DialogTitle>Project settings</DialogTitle>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
+
+Most components are composed from named parts. This keeps behavior accessible while letting you
+control markup, layout, and styling in the consuming application.
+
+## Styling
+
+moduix works with the styling approach your project already uses:
+
+- Native CSS with global selectors, cascade layers, and CSS variables.
+- CSS Modules through `className` and component slot class props.
+- Tailwind CSS utility classes for layout and one-off styling.
+- CSS-in-JS libraries that attach classes or pass scoped styles through your own wrappers.
+
+Component pages list the available CSS variables in the `CSS playground` tab. Use it to test values
+live, then move the result into your project stylesheet, module, theme layer, or component wrapper.
+
+## Documentation Flow
+
+Start with the component page that matches the interface you are building. Each page includes a
+basic example, common usage scenarios, customization examples, and the CSS variables that are useful
+for that component.
+
+For styling-heavy work, keep the docs open next to your app and use the live previews as a small CSS
+playground. It is the quickest way to check spacing, sizes, colors, and state styles before copying
+the final values into your codebase.

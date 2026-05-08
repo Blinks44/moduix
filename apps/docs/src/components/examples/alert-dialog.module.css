@@ -1,0 +1,33 @@
+.customCloseIcon {
+  --alert-dialog-close-icon-color: var(--color-destructive);
+}
+
+.scrollBody {
+  height: min(26rem, calc(100dvh - var(--spacing-10)));
+  overflow: hidden;
+}
+
+.scrollArea {
+  height: 100%;
+  min-height: 0;
+}
+
+.scrollContent {
+  display: grid;
+  gap: var(--spacing-4);
+  padding-right: var(--spacing-5);
+}
+
+.customBackdrop {
+  background-color: rgb(15 23 42 / 0.56);
+}
+
+.customViewport {
+  align-items: start;
+  padding-top: var(--spacing-10);
+}
+
+.customPopup {
+  --alert-dialog-width: 28rem;
+  --alert-dialog-radius: var(--radius-md);
+}

@@ -1,0 +1,53 @@
+.sideContent {
+  --drawer-side-width: 26rem;
+}
+
+.islandContent {
+  --drawer-width: 32rem;
+  --drawer-side-width: 26rem;
+}
+
+.compactContent {
+  --drawer-max-height: 28rem;
+}
+
+.customHandle {
+  --drawer-handle-bg: var(--color-destructive);
+  --drawer-handle-opacity: 0.8;
+}
+
+.scrollArea {
+  height: 100%;
+  min-height: 0;
+}
+
+.scrollContent {
+  display: grid;
+  gap: var(--spacing-4);
+  padding-right: var(--spacing-5);
+}
+
+.nestedActionsStart {
+  margin-right: auto;
+}
+
+.indentStage {
+  position: relative;
+  width: min(42rem, 100%);
+  min-height: 360px;
+  overflow: hidden;
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-muted);
+}
+
+.indentSurface {
+  min-height: 360px;
+  padding: var(--spacing-6);
+  background-color: var(--color-background);
+}
+
+.swipeArea {
+  border-left: var(--border-width-lg) dashed var(--color-ring);
+  background-color: var(--color-accent);
+}

@@ -1,0 +1,91 @@
+---
+title: Introduction
+description: Why moduix exists and what it is built for.
+icon: BookOpen
+---
+
+# moduix
+
+moduix is a small React component library built for real product work. I started it for my own
+work projects because our styling layer is plain native CSS, and I wanted a convenient set of
+primitives that still felt ergonomic, composable, and predictable in day-to-day development.
+
+The library is built on top of [Base UI](https://base-ui.com/), so the difficult behavior,
+accessibility, focus management, and low-level primitive work stays close to a strong foundation.
+moduix adds ready-made structure, default styling, CSS variables, examples, and documentation around
+those primitives.
+
+<div className="not-prose my-8 overflow-hidden rounded-lg border bg-fd-card">
+  <div className="grid gap-0 md:grid-cols-[0.92fr_1.08fr]">
+    <div className="border-b bg-fd-muted/35 p-5 md:border-b-0 md:border-r">
+      <p className="text-xs font-medium uppercase tracking-wide text-fd-muted-foreground">
+        Dependency philosophy
+      </p>
+      <h2 className="mt-3 text-2xl font-semibold tracking-normal text-fd-foreground">
+        One primitive foundation
+      </h2>
+      <p className="mt-3 text-sm leading-6 text-fd-muted-foreground">
+        I built moduix with the idea that the component layer should stay quiet: one external
+        primitive foundation, plain CSS, and React composition instead of a stack of UI runtime
+        dependencies.
+      </p>
+    </div>
+    <div className="grid gap-3 p-5">
+      <div className="rounded-md border bg-fd-background p-4">
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-sm font-medium text-fd-foreground">moduix</span>
+          <span className="rounded-full bg-fd-primary px-2.5 py-1 text-xs font-medium text-fd-primary-foreground">
+            components
+          </span>
+        </div>
+        <div className="mt-4 h-2 rounded-full bg-fd-muted">
+          <div className="h-full w-[68%] rounded-full bg-fd-primary" />
+        </div>
+      </div>
+      <div className="grid gap-2 sm:grid-cols-3">
+        <div className="rounded-md border bg-fd-background p-3">
+          <p className="text-xs text-fd-muted-foreground">Behavior</p>
+          <p className="mt-1 text-sm font-medium text-fd-foreground">Base UI</p>
+        </div>
+        <div className="rounded-md border bg-fd-background p-3">
+          <p className="text-xs text-fd-muted-foreground">Styling</p>
+          <p className="mt-1 text-sm font-medium text-fd-foreground">native CSS</p>
+        </div>
+        <div className="rounded-md border bg-fd-background p-3">
+          <p className="text-xs text-fd-muted-foreground">API</p>
+          <p className="mt-1 text-sm font-medium text-fd-foreground">React parts</p>
+        </div>
+      </div>
+      <p className="text-xs leading-5 text-fd-muted-foreground">
+        Base UI owns the hard accessibility and interaction primitives; moduix keeps the product
+        surface, defaults, tokens, and examples close to your application code.
+      </p>
+    </div>
+  </div>
+</div>
+
+I am not trying to compete with [shadcn/ui](https://ui.shadcn.com/) or claim that this is the one
+right way to build interfaces. shadcn/ui is a huge inspiration for the composition-first API and
+the idea that components should be easy to read, copy mentally, and customize. moduix is simply the
+shape that works well for my projects. If it fits yours too, I will be glad.
+
+## What You Get
+
+- React components built on accessible Base UI primitives.
+- Default styles that work immediately, without owning your application reset.
+- CSS variables for fast theming and focused per-component customization.
+- A composition-first API with named parts instead of one large configuration surface.
+- A dependency-light design centered on Base UI as the primitive foundation.
+- Documentation examples that show practical usage and customization patterns.
+- A CSS playground in component previews, so you can test style changes live.
+
+## Thanks
+
+This project could not exist without the work of these teams and communities:
+
+- [Base UI](https://base-ui.com/) for the accessible React primitives that power the components.
+- [shadcn/ui](https://ui.shadcn.com/) for the API inspiration and the culture of practical,
+  readable component composition.
+- [Tailwind CSS](https://tailwindcss.com/) for the reset.css implementation.
+- [Fumadocs](https://fumadocs.dev/) for the documentation foundation.
+- [TanStack](https://tanstack.com/) for the application tooling used by the docs.

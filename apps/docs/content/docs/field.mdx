@@ -1,0 +1,369 @@
+---
+title: Field
+description: A composable wrapper that labels, describes, and validates form controls.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  FieldCheckboxExample,
+  FieldClassNameExample,
+  FieldCustomValidationExample,
+  FieldDisabledExample,
+  FieldExample,
+  FieldInputExample,
+  FieldNumberFieldExample,
+  FieldRadioExample,
+  FieldSwitchExample,
+  fieldCssProperties,
+} from '@/components/examples/field';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/field" />
+
+## Basic
+
+<Preview cssProperties={fieldCssProperties}>
+  <FieldExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldControl,
+        FieldDescription,
+        FieldError,
+        FieldLabel,
+      } from "moduix";
+
+      export function FieldDemo() {
+        return (
+          <Field validationMode="onBlur">
+            <FieldLabel>Name</FieldLabel>
+            <FieldControl required placeholder="Enter your name" />
+            <FieldError match="valueMissing">Please enter your name.</FieldError>
+            <FieldDescription>Visible on your public profile.</FieldDescription>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Custom Validation
+
+Use `validate` for rules that are not covered by native input validity.
+
+<Preview>
+  <FieldCustomValidationExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldControl,
+        FieldError,
+        FieldLabel,
+        FieldValidity,
+      } from "moduix";
+
+      export function CustomValidationFieldDemo() {
+        return (
+          <Field
+            validationMode="onChange"
+            validate={(value) => {
+              if (typeof value !== "string" || value.length < 3) {
+                return "Username must be at least 3 characters.";
+              }
+
+              return null;
+            }}
+          >
+            <FieldLabel>Username</FieldLabel>
+            <FieldControl placeholder="e.g. Vinny" />
+            <FieldError match="customError" />
+            <FieldValidity>
+              {(state) => (
+                <p>
+                  {state.validity.valid ? "Looks good." : "Waiting for valid value."}
+                </p>
+              )}
+            </FieldValidity>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Set `disabled` on the root to disable the whole field and propagate the disabled state to supported controls.
+
+<Preview>
+  <FieldDisabledExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldControl,
+        FieldDescription,
+        FieldLabel,
+      } from "moduix";
+
+      export function DisabledFieldDemo() {
+        return (
+          <Field disabled>
+            <FieldLabel>Organization</FieldLabel>
+            <FieldControl placeholder="Acme Inc." />
+            <FieldDescription>
+              This field is currently managed by your workspace.
+            </FieldDescription>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Checkbox
+
+Wrap checkbox controls in `Field` when the checkbox needs validation, description, or form naming.
+
+<Preview>
+  <FieldCheckboxExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        Checkbox,
+        CheckboxIndicator,
+        FieldDescription,
+        FieldError,
+        FieldLabel,
+      } from "moduix";
+
+      export function CheckboxFieldDemo() {
+        return (
+          <Field validationMode="onBlur">
+            <FieldLabel>
+              <Checkbox required name="terms">
+                <CheckboxIndicator />
+              </Checkbox>
+              I agree to the terms
+            </FieldLabel>
+            <FieldError match="valueMissing">Please accept the terms.</FieldError>
+            <FieldDescription>Required to continue.</FieldDescription>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Radio
+
+Use `FieldItem` to group individual radio rows while keeping each slot available for styling.
+
+<Preview>
+  <FieldRadioExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldError,
+        FieldItem,
+        FieldLabel,
+        Radio,
+        RadioField,
+        RadioGroup,
+        RadioIndicator,
+        RadioLabel,
+      } from "moduix";
+
+      export function RadioFieldDemo() {
+        return (
+          <Field name="account-type" validationMode="onBlur">
+            <FieldLabel>Account type</FieldLabel>
+            <RadioGroup>
+              <FieldItem>
+                <RadioField>
+                  <Radio value="personal" required>
+                    <RadioIndicator />
+                  </Radio>
+                  <RadioLabel>Personal account</RadioLabel>
+                </RadioField>
+              </FieldItem>
+              <FieldItem>
+                <RadioField>
+                  <Radio value="team">
+                    <RadioIndicator />
+                  </Radio>
+                  <RadioLabel>Team account</RadioLabel>
+                </RadioField>
+              </FieldItem>
+            </RadioGroup>
+            <FieldError match="valueMissing">
+              Please choose an account type.
+            </FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Switch
+
+Compose `FieldLabel` with switch controls when the label should activate the control.
+
+<Preview>
+  <FieldSwitchExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldDescription,
+        FieldLabel,
+        Switch,
+        SwitchLabel,
+      } from "moduix";
+
+      export function SwitchFieldDemo() {
+        return (
+          <Field name="newsletter">
+            <FieldLabel>
+              <Switch />
+              <SwitchLabel>Subscribe to newsletter</SwitchLabel>
+            </FieldLabel>
+            <FieldDescription>We send updates once per week.</FieldDescription>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Input
+
+Use any Base UI-compatible input component inside `Field`; `Input` works with labels and validation out of the box.
+
+<Preview>
+  <FieldInputExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Input, FieldError } from "moduix";
+
+      export function InputFieldDemo() {
+        return (
+          <Field validationMode="onBlur">
+            <FieldLabel>Email</FieldLabel>
+            <Input required type="email" placeholder="name@example.com" />
+            <FieldError match="valueMissing">Please enter your email.</FieldError>
+            <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Number Field
+
+Pair `Field` with compound controls by linking the label with the control id.
+
+<Preview>
+  <FieldNumberFieldExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldError,
+        NumberField,
+        NumberFieldDecrement,
+        NumberFieldGroup,
+        NumberFieldInput,
+        NumberFieldIncrement,
+        FieldLabel,
+      } from "moduix";
+      import { useId } from "react";
+
+      export function NumberFieldDemo() {
+        const id = useId();
+
+        return (
+          <Field name="quantity" validationMode="onBlur">
+            <FieldLabel htmlFor={id}>Items</FieldLabel>
+            <NumberField id={id} min={1} max={10} required>
+              <NumberFieldGroup>
+                <NumberFieldDecrement aria-label="Decrease value" />
+                <NumberFieldInput />
+                <NumberFieldIncrement aria-label="Increase value" />
+              </NumberFieldGroup>
+            </NumberField>
+            <FieldError match="valueMissing">Please provide a number.</FieldError>
+            <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
+            <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` to the root, label, control, description, and error slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <FieldClassNameExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldControl,
+        FieldDescription,
+        FieldError,
+        FieldLabel,
+      } from "moduix";
+
+      export function ClassNameFieldDemo() {
+        return (
+          <Field validationMode="onBlur" className="max-w-80 gap-2">
+            <FieldLabel className="text-fd-primary">Project key</FieldLabel>
+            <FieldControl
+              required
+              placeholder="MAPS"
+              className="border-fd-primary/40 focus:outline-fd-primary"
+            />
+            <FieldDescription className="text-fd-muted-foreground">
+              Use three to five uppercase letters.
+            </FieldDescription>
+            <FieldError className="text-fd-primary" match="valueMissing">
+              Please enter a project key.
+            </FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

@@ -1,0 +1,242 @@
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  OTPField,
+  OTPFieldInput,
+  OTPFieldSeparator,
+  SeparatorMarkIcon,
+  type OTPFieldProps,
+} from 'moduix';
+import * as React from 'react';
+import type { CssPropertyInput } from '../preview';
+import styles from './otp-field.module.css';
+
+const OTP_LENGTH = 6;
+
+export const otpFieldCssProperties: CssPropertyInput[] = [
+  ['--otp-field-width', 'auto', 'Controls the root OTP field width.'],
+  ['--otp-field-max-width', 'none', 'Controls the root OTP field max width.'],
+  ['--otp-field-gap', 'var(--spacing-2)', 'Controls spacing between slots and separators.'],
+  ['--otp-field-bg', 'var(--color-background)', 'Controls input background.'],
+  ['--otp-field-bg-filled', 'var(--otp-field-bg)', 'Controls filled input background.'],
+  ['--otp-field-color', 'var(--color-foreground)', 'Controls input text color.'],
+  ['--otp-field-border-color', 'var(--color-border)', 'Controls default input border color.'],
+  [
+    '--otp-field-border-color-complete',
+    'var(--otp-field-border-color)',
+    'Controls border color when the field is complete.',
+  ],
+  [
+    '--otp-field-border-color-invalid',
+    'var(--color-destructive)',
+    'Controls invalid border and focus ring color.',
+  ],
+  ['--otp-field-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--otp-field-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  ['--otp-field-input-size', '2.5rem', 'Controls square input slot size.'],
+  ['--otp-field-input-width', 'var(--otp-field-input-size)', 'Controls input slot width.'],
+  ['--otp-field-input-height', 'var(--otp-field-input-size)', 'Controls input slot height.'],
+  ['--otp-field-radius', 'var(--radius-md)', 'Controls input corner radius.'],
+  ['--otp-field-font-size', 'var(--text-lg)', 'Controls input font size.'],
+  ['--otp-field-font-weight', 'var(--weight-medium)', 'Controls input font weight.'],
+  ['--otp-field-line-height', 'var(--line-height-text-lg)', 'Controls input text line height.'],
+  ['--otp-field-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
+  ['--otp-field-separator-size', '1rem', 'Controls separator wrapper width and height.'],
+  ['--otp-field-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
+  ['--otp-field-transition', 'var(--transition-default)', 'Controls input state transitions.'],
+];
+
+function renderGroupedOTPInputs(length: number) {
+  return Array.from({ length }, (_, index) => (
+    <React.Fragment key={index}>
+      <OTPFieldInput aria-label={index === 0 ? undefined : `Character ${index + 1} of ${length}`} />
+      {index === 2 ? (
+        <OTPFieldSeparator className={styles.separator}>
+          <SeparatorMarkIcon />
+        </OTPFieldSeparator>
+      ) : null}
+    </React.Fragment>
+  ));
+}
+
+type OTPFieldExampleProps = Omit<OTPFieldProps, 'length'> & {
+  length?: OTPFieldProps['length'];
+};
+
+export function OTPFieldExample({ length = OTP_LENGTH, ...props }: OTPFieldExampleProps = {}) {
+  const id = React.useId();
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+      <OTPField id={id} length={length} {...props} />
+    </Field>
+  );
+}
+
+export function OTPFieldAlphanumericExample() {
+  const id = React.useId();
+  const [value, setValue] = React.useState('');
+
+  return (
+    <div className={styles.stack}>
+      <Field className={styles.field}>
+        <FieldLabel htmlFor={id}>Recovery code</FieldLabel>
+        <FieldDescription>
+          Letters and numbers are allowed, for example <code>A7C9XZ</code>.
+        </FieldDescription>
+        <OTPField
+          id={id}
+          length={OTP_LENGTH}
+          value={value}
+          validationType="alphanumeric"
+          onValueChange={setValue}
+        />
+      </Field>
+      <span className={styles.hint}>Current value: {value || 'empty'}</span>
+    </div>
+  );
+}
+
+export function OTPFieldGroupedLayoutExample() {
+  const id = React.useId();
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel htmlFor={id}>Auth code</FieldLabel>
+      <OTPField id={id} length={OTP_LENGTH}>
+        {renderGroupedOTPInputs(OTP_LENGTH)}
+      </OTPField>
+    </Field>
+  );
+}
+
+export function OTPFieldPlaceholderHintsExample() {
+  const id = React.useId();
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+      <FieldDescription>
+        Placeholder hints stay visible until the active slot is focused.
+      </FieldDescription>
+      <OTPField
+        id={id}
+        length={OTP_LENGTH}
+        inputProps={{
+          className: styles.placeholderInput,
+          placeholder: '•',
+        }}
+      />
+    </Field>
+  );
+}
+
+export function OTPFieldMaskedExample() {
+  const id = React.useId();
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel htmlFor={id}>PIN</FieldLabel>
+      <OTPField id={id} length={4} mask />
+    </Field>
+  );
+}
+
+export function OTPFieldValidationExample() {
+  const id = React.useId();
+
+  return (
+    <Field name="verificationCode" validationMode="onBlur" className={styles.field}>
+      <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+      <OTPField id={id} length={OTP_LENGTH} required />
+      <FieldError match="valueMissing">Please enter the verification code.</FieldError>
+    </Field>
+  );
+}
+
+export function OTPFieldAutoSubmitExample() {
+  const id = React.useId();
+  const [completedValue, setCompletedValue] = React.useState('');
+  const [submittedValue, setSubmittedValue] = React.useState('');
+
+  return (
+    <form
+      className={styles.form}
+      onSubmit={(event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        setSubmittedValue(String(formData.get('verificationCode') ?? ''));
+      }}
+    >
+      <Field>
+        <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+        <FieldDescription>Form submits automatically when all slots are filled.</FieldDescription>
+        <OTPField
+          id={id}
+          name="verificationCode"
+          length={OTP_LENGTH}
+          autoSubmit
+          onValueComplete={(value) => {
+            setCompletedValue(value);
+          }}
+        />
+      </Field>
+      <span className={styles.hint}>Last completed value: {completedValue || 'empty'}</span>
+      <span className={styles.hint}>Last submitted value: {submittedValue || 'empty'}</span>
+    </form>
+  );
+}
+
+export function OTPFieldCustomSanitizationExample() {
+  const id = React.useId();
+  const [value, setValue] = React.useState('');
+  const [invalidValue, setInvalidValue] = React.useState('');
+
+  return (
+    <div className={styles.stack}>
+      <Field className={styles.field}>
+        <FieldLabel htmlFor={id}>Invite code</FieldLabel>
+        <FieldDescription>
+          <code>validationType=&quot;none&quot;</code> with custom sanitization.
+        </FieldDescription>
+        <OTPField
+          id={id}
+          length={OTP_LENGTH}
+          value={value}
+          validationType="none"
+          sanitizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, '')}
+          onValueChange={setValue}
+          onValueInvalid={(nextValue) => {
+            setInvalidValue(nextValue);
+          }}
+        />
+      </Field>
+      <span className={styles.hint}>Current value: {value || 'empty'}</span>
+      <span className={styles.hint}>Last invalid attempt: {invalidValue || 'none'}</span>
+    </div>
+  );
+}
+
+export function OTPFieldCustomSeparatorExample() {
+  const id = React.useId();
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel htmlFor={id}>Styled code</FieldLabel>
+      <OTPField id={id} length={OTP_LENGTH}>
+        <OTPFieldInput className={styles.customInput} />
+        <OTPFieldInput className={styles.customInput} aria-label="Character 2 of 6" />
+        <OTPFieldInput className={styles.customInput} aria-label="Character 3 of 6" />
+        <OTPFieldSeparator className={styles.customSeparator}>
+          <SeparatorMarkIcon />
+        </OTPFieldSeparator>
+        <OTPFieldInput className={styles.customInput} aria-label="Character 4 of 6" />
+        <OTPFieldInput className={styles.customInput} aria-label="Character 5 of 6" />
+        <OTPFieldInput className={styles.customInput} aria-label="Character 6 of 6" />
+      </OTPField>
+    </Field>
+  );
+}

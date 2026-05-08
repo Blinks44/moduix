@@ -1,0 +1,35 @@
+{
+  "name": "moduix-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build:all": "turbo run build",
+    "build:docs": "npm run build -w moduix-docs",
+    "build:ui": "npm run build -w moduix",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:release": "npm run build:ui && changeset publish",
+    "deploy:docs": "npm run deploy -w moduix-docs",
+    "dev": "turbo run dev",
+    "fmt:check": "oxfmt --check",
+    "fmt:fix": "oxfmt",
+    "lint:check": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "publish:ui": "npm publish -w moduix",
+    "tsc:check": "turbo run tsc:check"
+  },
+  "dependencies": {
+    "rollup-plugin-copy": "^3.5.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "oxfmt": "^0.47.0",
+    "oxlint": "^1.62.0",
+    "turbo": "^2.9.9"
+  },
+  "packageManager": "npm@11.11.0"
+}

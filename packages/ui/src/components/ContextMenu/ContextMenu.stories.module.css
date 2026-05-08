@@ -1,0 +1,15 @@
+.backdrop {
+  background-color: rgb(0 0 0 / 0.08);
+  backdrop-filter: blur(0.125rem);
+}
+
+.positioner {
+  z-index: var(--z-popover);
+}
+
+.customPopup {
+  --context-menu-popup-min-width: 13rem;
+  --context-menu-popup-border-color: var(--color-primary);
+  --context-menu-highlight-bg: var(--color-primary);
+  --context-menu-highlight-color: var(--color-primary-foreground);
+}

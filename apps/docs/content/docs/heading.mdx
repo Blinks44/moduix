@@ -1,0 +1,194 @@
+---
+title: Heading
+description: A typography primitive for semantic headings with library sizing and weight tokens.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  HeadingAlignedExample,
+  HeadingClassNameExample,
+  HeadingElementsExample,
+  HeadingExample,
+  HeadingSemanticExample,
+  HeadingSizesExample,
+  HeadingWeightsExample,
+  headingCssProperties,
+} from '@/components/examples/heading';
+
+## API Reference
+
+`Heading` is a moduix typography primitive and does not wrap a Base UI primitive.
+
+## Basic
+
+<Preview cssProperties={headingCssProperties}>
+  <HeadingExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "moduix";
+
+      export function HeadingDemo() {
+        return <Heading>Build reliable interfaces</Heading>;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Elements
+
+Use `as` to choose the semantic heading level. Each level has a matching default visual size.
+
+<Preview>
+  <HeadingElementsExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "moduix";
+
+      export function HeadingElementsDemo() {
+        return (
+          <div>
+            <Heading as="h1">Heading level 1</Heading>
+            <Heading as="h2">Heading level 2</Heading>
+            <Heading as="h3">Heading level 3</Heading>
+            <Heading as="h4">Heading level 4</Heading>
+            <Heading as="h5">Heading level 5</Heading>
+            <Heading as="h6">Heading level 6</Heading>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use `size` for visual sizing when the semantic level should stay separate from presentation.
+
+<Preview>
+  <HeadingSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "moduix";
+
+      export function HeadingSizesDemo() {
+        return (
+          <div>
+            <Heading as="h2" size="2xl">Extra-large heading</Heading>
+            <Heading as="h2" size="xl">Large heading</Heading>
+            <Heading as="h2" size="lg">Medium-large heading</Heading>
+            <Heading as="h2" size="md">Medium heading</Heading>
+            <Heading as="h2" size="sm">Small heading</Heading>
+            <Heading as="h2" size="xs">Extra-small heading</Heading>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Weights
+
+Use `weight` for the intended emphasis without adding a custom class.
+
+<Preview>
+  <HeadingWeightsExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "moduix";
+
+      export function HeadingWeightsDemo() {
+        return (
+          <div>
+            <Heading as="h2" weight="regular">Regular weight</Heading>
+            <Heading as="h2" weight="medium">Medium weight</Heading>
+            <Heading as="h2" weight="semibold">Semibold weight</Heading>
+            <Heading as="h2" weight="bold">Bold weight</Heading>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Alignment
+
+Use `align` to set text alignment without adding custom CSS.
+
+<Preview>
+  <HeadingAlignedExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "moduix";
+
+      export function HeadingAlignedDemo() {
+        return (
+          <div>
+            <Heading as="h2" align="left">Left aligned</Heading>
+            <Heading as="h2" align="center">Center aligned</Heading>
+            <Heading as="h2" align="right">Right aligned</Heading>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Semantic Level
+
+Keep document outline and visual size independent by combining `as` and `size`.
+
+<Preview>
+  <HeadingSemanticExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "moduix";
+
+      export function SemanticHeadingDemo() {
+        return (
+          <Heading as="h2" size="2xl">
+            Page title rendered as h2
+          </Heading>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <HeadingClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "moduix";
+      import styles from "./heading-demo.module.css";
+
+      export function CustomHeadingDemo() {
+        return (
+          <Heading as="h2" className={styles.heading}>
+            Customized heading
+          </Heading>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

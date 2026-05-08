@@ -1,0 +1,42 @@
+.form {
+  width: min(20rem, 100%);
+}
+
+.helper {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.customForm {
+  width: 20rem;
+  max-width: 100%;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  border-radius: var(--radius-lg);
+}
+
+.customField {
+  gap: var(--spacing-2);
+}
+
+.customLabel,
+.customError,
+.customButton {
+  color: var(--color-primary);
+}
+
+.customInput,
+.customButton {
+  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.customInput:focus {
+  outline-color: var(--color-primary);
+}
+
+.customDescription {
+  color: var(--color-muted-foreground);
+}

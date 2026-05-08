@@ -1,0 +1,97 @@
+import { Text, type TextProps } from 'moduix';
+import type { CssPropertyInput } from '../preview';
+import styles from './text.module.css';
+
+export const textCssProperties: CssPropertyInput[] = [
+  ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
+  ['--text-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
+  ['--text-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
+  ['--text-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
+  ['--text-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
+  ['--text-font-family', 'var(--font-sans)', 'Controls text font family.'],
+  ['--text-letter-spacing', '0', 'Controls text letter spacing.'],
+  ['--text-font-size-xl', 'var(--text-xl)', 'Controls `xl` text font size.'],
+  ['--text-font-size-lg', 'var(--text-lg)', 'Controls `lg` text font size.'],
+  ['--text-font-size-md', 'var(--text-md)', 'Controls `md` text font size.'],
+  ['--text-font-size-sm', 'var(--text-sm)', 'Controls `sm` text font size.'],
+  ['--text-font-size-xs', 'var(--text-xs)', 'Controls `xs` text font size.'],
+  ['--text-line-height-xl', 'var(--line-height-text-xl)', 'Controls `xl` text line height.'],
+  ['--text-line-height-lg', 'var(--line-height-text-lg)', 'Controls `lg` text line height.'],
+  ['--text-line-height-md', 'var(--line-height-text-md)', 'Controls `md` text line height.'],
+  ['--text-line-height-sm', 'var(--line-height-text-sm)', 'Controls `sm` text line height.'],
+  ['--text-line-height-xs', 'var(--line-height-text-xs)', 'Controls `xs` text line height.'],
+  ['--text-font-weight-regular', 'var(--weight-regular)', 'Controls regular text weight.'],
+  ['--text-font-weight-medium', 'var(--weight-medium)', 'Controls medium text weight.'],
+  ['--text-font-weight-semibold', 'var(--weight-semibold)', 'Controls semibold text weight.'],
+  ['--text-font-weight-bold', 'var(--weight-bold)', 'Controls bold text weight.'],
+];
+
+export function TextExample(props: TextProps) {
+  return <Text {...props}>Use text to describe interface state and supporting details.</Text>;
+}
+
+export function TextElementsExample() {
+  return (
+    <div className={styles.stack}>
+      <Text as="p">Paragraph text rendered as p.</Text>
+      <Text as="span">Inline text rendered as span.</Text>
+      <Text as="small">Small supporting text rendered as small.</Text>
+      <Text as="strong">Important text rendered as strong.</Text>
+      <Text as="em">Emphasized text rendered as em.</Text>
+      <Text as="div">Block text rendered as div.</Text>
+    </div>
+  );
+}
+
+export function TextSizesExample() {
+  return (
+    <div className={styles.stack}>
+      <Text size="xl">Extra-large text</Text>
+      <Text size="lg">Large text</Text>
+      <Text size="md">Medium text</Text>
+      <Text size="sm">Small text</Text>
+      <Text size="xs">Extra-small text</Text>
+    </div>
+  );
+}
+
+export function TextTonesExample() {
+  return (
+    <div className={styles.stack}>
+      <Text tone="default">Default tone</Text>
+      <Text tone="muted">Muted tone</Text>
+      <Text tone="subtle">Subtle tone</Text>
+      <Text tone="primary">Primary tone</Text>
+      <Text tone="destructive">Destructive tone</Text>
+    </div>
+  );
+}
+
+export function TextWeightsExample() {
+  return (
+    <div className={styles.stack}>
+      <Text weight="regular">Regular weight</Text>
+      <Text weight="medium">Medium weight</Text>
+      <Text weight="semibold">Semibold weight</Text>
+      <Text weight="bold">Bold weight</Text>
+    </div>
+  );
+}
+
+export function TextAlignExample() {
+  return (
+    <div className={styles.aligned}>
+      <Text align="left">Left aligned text.</Text>
+      <Text align="center">Center aligned text.</Text>
+      <Text align="right">Right aligned text.</Text>
+    </div>
+  );
+}
+
+export function TextClassNameExample() {
+  return (
+    <Text as="p" className={styles.customText}>
+      Customized body copy with local CSS variables.
+    </Text>
+  );
+}

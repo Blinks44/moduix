@@ -1,0 +1,421 @@
+---
+title: Context Menu
+description: A menu that appears at the pointer on right click or long press.
+icon: Component
+---
+
+import {
+  ContextMenuExample,
+  GroupsAndControlsContextMenuExample,
+  IndicatorRightContextMenuExample,
+  NestedContextMenuExample,
+  PositionedContextMenuExample,
+  ShortcutsContextMenuExample,
+  StyledContextMenuExample,
+  contextMenuCssProperties,
+} from '@/components/examples/context-menu';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/context-menu" />
+
+## Basic
+
+<Preview cssProperties={contextMenuCssProperties}>
+  <ContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+
+      export function ContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuArrow />
+              <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
+              <ContextMenuItem closeOnClick>Add to Playlist</ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick>Play Next</ContextMenuItem>
+              <ContextMenuItem closeOnClick>Play Last</ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick disabled>
+                Share
+              </ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Nested
+
+Use `ContextMenuSubmenu` with `ContextMenuSubmenuTrigger` and `ContextMenuSubmenuContent` for nested actions.
+
+<Preview>
+  <NestedContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuSeparator,
+        ContextMenuSubmenu,
+        ContextMenuSubmenuContent,
+        ContextMenuSubmenuTrigger,
+        ContextMenuSubmenuTriggerIcon,
+        ContextMenuTrigger,
+      } from "moduix";
+
+      export function NestedContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuArrow />
+              <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
+              <ContextMenuSubmenu>
+                <ContextMenuSubmenuTrigger>
+                  Add to Playlist
+                  <ContextMenuSubmenuTriggerIcon />
+                </ContextMenuSubmenuTrigger>
+                <ContextMenuSubmenuContent>
+                  <ContextMenuItem closeOnClick>Get Up!</ContextMenuItem>
+                  <ContextMenuItem closeOnClick>Inside Out</ContextMenuItem>
+                  <ContextMenuItem closeOnClick>Night Beats</ContextMenuItem>
+                  <ContextMenuSeparator />
+                  <ContextMenuItem closeOnClick>New Playlist...</ContextMenuItem>
+                </ContextMenuSubmenuContent>
+              </ContextMenuSubmenu>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick>Favorite</ContextMenuItem>
+              <ContextMenuItem closeOnClick>Share</ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Shortcuts
+
+Use `ContextMenuItemShortcut` for keyboard shortcut text instead of reserving extra item padding.
+
+<Preview>
+  <ShortcutsContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuItemShortcut,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+
+      export function ShortcutsContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuArrow />
+              <ContextMenuItem closeOnClick>
+                Copy
+                <ContextMenuItemShortcut>Ctrl+C</ContextMenuItemShortcut>
+              </ContextMenuItem>
+              <ContextMenuItem closeOnClick>
+                Paste
+                <ContextMenuItemShortcut>Ctrl+V</ContextMenuItemShortcut>
+              </ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick>
+                Rename
+                <ContextMenuItemShortcut>F2</ContextMenuItemShortcut>
+              </ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Groups And Controls
+
+Use groups, radio items, and checkbox items when the menu changes application state.
+
+<Preview>
+  <GroupsAndControlsContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import { useState } from "react";
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuCheckboxItem,
+        ContextMenuCheckboxItemIndicator,
+        ContextMenuContent,
+        ContextMenuGroup,
+        ContextMenuGroupLabel,
+        ContextMenuItemText,
+        ContextMenuRadioGroup,
+        ContextMenuRadioItem,
+        ContextMenuRadioItemIndicator,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+
+      export function GroupsAndControlsContextMenuDemo() {
+        const [sortBy, setSortBy] = useState("date");
+        const [showMinimap, setShowMinimap] = useState(true);
+        const [showSearch, setShowSearch] = useState(true);
+        const [showSidebar, setShowSidebar] = useState(false);
+
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuArrow />
+              <ContextMenuGroup>
+                <ContextMenuGroupLabel>Sort</ContextMenuGroupLabel>
+                <ContextMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
+                  <ContextMenuRadioItem value="date">
+                    <ContextMenuRadioItemIndicator />
+                    <ContextMenuItemText>Date</ContextMenuItemText>
+                  </ContextMenuRadioItem>
+                  <ContextMenuRadioItem value="name">
+                    <ContextMenuRadioItemIndicator />
+                    <ContextMenuItemText>Name</ContextMenuItemText>
+                  </ContextMenuRadioItem>
+                  <ContextMenuRadioItem value="type">
+                    <ContextMenuRadioItemIndicator />
+                    <ContextMenuItemText>Type</ContextMenuItemText>
+                  </ContextMenuRadioItem>
+                </ContextMenuRadioGroup>
+              </ContextMenuGroup>
+              <ContextMenuSeparator />
+              <ContextMenuGroup>
+                <ContextMenuGroupLabel>Workspace</ContextMenuGroupLabel>
+                <ContextMenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap}>
+                  <ContextMenuCheckboxItemIndicator />
+                  <ContextMenuItemText>Minimap</ContextMenuItemText>
+                </ContextMenuCheckboxItem>
+                <ContextMenuCheckboxItem checked={showSearch} onCheckedChange={setShowSearch}>
+                  <ContextMenuCheckboxItemIndicator />
+                  <ContextMenuItemText>Search</ContextMenuItemText>
+                </ContextMenuCheckboxItem>
+                <ContextMenuCheckboxItem checked={showSidebar} onCheckedChange={setShowSidebar}>
+                  <ContextMenuCheckboxItemIndicator />
+                  <ContextMenuItemText>Sidebar</ContextMenuItemText>
+                </ContextMenuCheckboxItem>
+              </ContextMenuGroup>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Indicator Right With Icon
+
+Use `indicator="end"` to align checkbox and radio indicators to the end. Item text slots and icon slots accept custom content and `className`.
+
+<Preview>
+  <IndicatorRightContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import { useState } from "react";
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuCheckboxItem,
+        ContextMenuCheckboxItemIndicator,
+        ContextMenuContent,
+        ContextMenuItemText,
+        ContextMenuItemTextContent,
+        ContextMenuItemTextIcon,
+        ContextMenuItemTextLabel,
+        ContextMenuTrigger,
+        InfoIcon,
+        ShareIcon,
+      } from "moduix";
+
+      export function IndicatorRightContextMenuDemo() {
+        const [showMinimap, setShowMinimap] = useState(true);
+        const [showSearch, setShowSearch] = useState(true);
+
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuArrow />
+              <ContextMenuCheckboxItem
+                checked={showMinimap}
+                onCheckedChange={setShowMinimap}
+                indicator="end"
+              >
+                <ContextMenuItemText>
+                  <ContextMenuItemTextContent>
+                    <ContextMenuItemTextIcon>
+                      <InfoIcon />
+                    </ContextMenuItemTextIcon>
+                    <ContextMenuItemTextLabel>Minimap</ContextMenuItemTextLabel>
+                  </ContextMenuItemTextContent>
+                </ContextMenuItemText>
+                <ContextMenuCheckboxItemIndicator />
+              </ContextMenuCheckboxItem>
+              <ContextMenuCheckboxItem
+                checked={showSearch}
+                onCheckedChange={setShowSearch}
+                indicator="end"
+              >
+                <ContextMenuItemText>
+                  <ContextMenuItemTextContent>
+                    <ContextMenuItemTextIcon>
+                      <ShareIcon />
+                    </ContextMenuItemTextIcon>
+                    <ContextMenuItemTextLabel>Search</ContextMenuItemTextLabel>
+                  </ContextMenuItemTextContent>
+                </ContextMenuItemText>
+                <ContextMenuCheckboxItemIndicator />
+              </ContextMenuCheckboxItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Positioning
+
+Pass positioning props to `ContextMenuContent`. It renders the portal and positioner internally.
+
+<Preview>
+  <PositionedContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+
+      export function PositionedContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent align="start" sideOffset={12} collisionPadding={16}>
+              <ContextMenuArrow />
+              <ContextMenuItem closeOnClick>Open</ContextMenuItem>
+              <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styling
+
+Use `className` for the popup and `classNames` for internal service slots. Set `withBackdrop` when the menu should render a backdrop.
+
+<Preview>
+  <StyledContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+      import styles from "./context-menu-demo.module.css";
+
+      export function StyledContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger className={styles.trigger}>Right click card</ContextMenuTrigger>
+            <ContextMenuContent
+              className={styles.popup}
+              classNames={{
+                backdrop: styles.backdrop,
+                positioner: styles.positioner,
+              }}
+              withBackdrop
+            >
+              <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
+              <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick disabled>
+                Delete
+              </ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+
+      /* context-menu-demo.module.css */
+      .trigger {
+        min-width: 14rem;
+        min-height: 9rem;
+        border-color: var(--color-primary);
+      }
+
+      .backdrop {
+        background-color: rgb(0 0 0 / 0.08);
+        backdrop-filter: blur(0.125rem);
+      }
+
+      .positioner {
+        z-index: var(--z-popover);
+      }
+
+      .popup {
+        --context-menu-popup-min-width: 13rem;
+        --context-menu-popup-bg: var(--color-background);
+        --context-menu-popup-border-color: var(--color-primary);
+        --context-menu-highlight-bg: var(--color-primary);
+        --context-menu-highlight-color: var(--color-primary-foreground);
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

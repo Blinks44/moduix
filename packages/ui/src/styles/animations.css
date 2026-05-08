@@ -1,0 +1,53 @@
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:root {
+  --animation-pulse: pulse 2s ease-in-out infinite;
+  --animation-fade-in: fade-in var(--duration-normal, 200ms)
+    var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+  --animation-fade-out: fade-out var(--duration-normal, 200ms)
+    var(--ease-in, cubic-bezier(0.4, 0, 1, 1));
+  --animation-slide-up: slide-up var(--duration-normal, 200ms)
+    var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+  --animation-slide-down: slide-down var(--duration-normal, 200ms)
+    var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+  --animation-spin: spin 0.75s linear infinite;
+}

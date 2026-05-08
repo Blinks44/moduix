@@ -1,0 +1,53 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+}
+
+.siblingRow {
+  display: flex;
+  align-items: center;
+  gap: var(--checkbox-gap, var(--spacing-2));
+}
+
+.label {
+  color: var(--checkbox-label-color, var(--color-foreground));
+  font-size: var(--checkbox-label-font-size, var(--text-sm));
+  font-weight: var(--checkbox-label-font-weight, var(--weight-medium));
+  line-height: var(--checkbox-label-line-height, var(--line-height-text-sm));
+}
+
+.hint {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.customField {
+  gap: var(--spacing-3);
+}
+
+.customCheckbox {
+  border-color: var(--color-primary);
+}
+
+.customCheckbox[data-checked] {
+  background-color: var(--color-primary);
+}
+
+.customIndicator {
+  color: var(--color-primary-foreground);
+}
+
+.customLabel {
+  color: var(--color-primary);
+}

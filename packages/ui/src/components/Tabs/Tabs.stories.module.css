@@ -1,0 +1,75 @@
+.panelText {
+  margin: 0;
+}
+
+.inlineRoot {
+  display: flex;
+  width: min(36rem, calc(100vw - 2rem));
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  color: var(--color-foreground);
+}
+
+.inlineList {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  flex-shrink: 0;
+}
+
+.inlineTab {
+  height: var(--size-md);
+  margin: 0;
+  appearance: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding-inline: var(--spacing-3);
+  background: transparent;
+  color: var(--color-muted-foreground);
+  font: inherit;
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+  cursor: pointer;
+
+  &[data-active] {
+    color: var(--color-foreground);
+  }
+}
+
+.inlineIndicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: var(--active-tab-width);
+  height: var(--border-width-md);
+  border-radius: var(--radius-full);
+  background: var(--color-foreground);
+  translate: var(--active-tab-left) 0;
+  transition:
+    translate 200ms ease,
+    width 200ms ease;
+}
+
+.inlinePanel {
+  flex: 1;
+  min-width: 0;
+
+  &[hidden]:not([hidden='until-found']) {
+    display: none;
+  }
+}
+
+.inlineInput {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--size-md);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding-inline: var(--spacing-2);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font: inherit;
+  font-size: var(--text-sm);
+}

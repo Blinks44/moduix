@@ -1,0 +1,71 @@
+.triggerField {
+  display: inline-flex;
+  width: var(--combobox-width, 16rem);
+  min-height: var(--combobox-control-height, var(--size-lg));
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0 0.875rem;
+  border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
+  border-radius: var(--combobox-radius, var(--radius-md));
+  background-color: var(--combobox-bg, var(--color-background));
+  color: var(--combobox-color, var(--color-foreground));
+}
+
+.popupWithInlineInput {
+  --combobox-inline-input-height: calc(var(--combobox-control-height, var(--size-lg)) + 1rem);
+}
+
+.listWithInlineInput {
+  max-height: min(
+    calc(var(--combobox-popup-max-height, 24rem) - var(--combobox-inline-input-height)),
+    calc(var(--available-height) - var(--combobox-inline-input-height))
+  );
+}
+
+.inlineInput {
+  padding-inline: 0.75rem;
+  border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
+  border-radius: var(--radius-sm);
+}
+
+.multipleField {
+  width: min(100%, 28rem);
+}
+
+.multipleInputGroup {
+  min-height: var(--combobox-control-height, var(--size-lg));
+  height: auto;
+  padding: var(--spacing-1);
+}
+
+.multilineItemText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  white-space: normal;
+}
+
+.itemTitle {
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.itemMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+  color: var(--combobox-empty-color, var(--color-muted-foreground));
+}
+
+.backdrop {
+  --combobox-backdrop-bg: var(--color-overlay);
+  --combobox-backdrop-blur: 2px;
+}
+
+.arrow {
+  --combobox-arrow-stroke-color: var(--color-border);
+}

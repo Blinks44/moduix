@@ -1,0 +1,258 @@
+---
+title: Button
+description: A composable action control with variants, sizes, icons, and loading states.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ButtonClassNameExample,
+  ButtonCustomLoadingIndicatorExample,
+  ButtonDisabledExample,
+  ButtonExample,
+  ButtonIconExample,
+  ButtonLoadingExample,
+  ButtonSizesExample,
+  ButtonVariantsExample,
+  buttonCssProperties,
+} from '@/components/examples/button';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/button" />
+
+## Basic
+
+<Preview cssProperties={buttonCssProperties}>
+  <ButtonExample />
+
+  <Preview.Code>
+    {`
+      import { Button } from "moduix";
+
+      export function ButtonDemo() {
+        return <Button>Save Changes</Button>;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Variants
+
+Use `variant` to match the intent of the action. For navigation links, style an `<a>` directly instead of rendering a link through `Button`.
+
+<Preview>
+  <ButtonVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Button } from "moduix";
+
+      export function ButtonVariantsDemo() {
+        return (
+          <div>
+            <Button>Default</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="destructive">Destructive</Button>
+            <Button variant="destructive-outline">Destructive Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="link">Link</Button>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use text sizes for standard actions and icon sizes for buttons that only contain an icon.
+
+<Preview>
+  <ButtonSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Button, StarIcon } from "moduix";
+
+      export function ButtonSizesDemo() {
+        return (
+          <div>
+            <Button size="xs">Extra-small</Button>
+            <Button size="sm">Small</Button>
+            <Button size="md">Medium</Button>
+            <Button size="lg">Large</Button>
+            <Button size="xl">Extra-large</Button>
+            <Button size="icon-sm" variant="outline" aria-label="Small favorite">
+              <StarIcon />
+            </Button>
+            <Button size="icon-md" variant="outline" aria-label="Favorite">
+              <StarIcon />
+            </Button>
+            <Button size="icon-lg" variant="outline" aria-label="Large favorite">
+              <StarIcon />
+            </Button>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Icons
+
+Pass icons as children. The component does not lock you into a specific icon set.
+
+<Preview>
+  <ButtonIconExample />
+
+  <Preview.Code>
+    {`
+      import { Button, PlusIcon, StarIcon, ArrowUpRightIcon } from "moduix";
+
+      export function ButtonIconsDemo() {
+        return (
+          <div>
+            <Button>
+              <PlusIcon />
+              Create Item
+            </Button>
+            <Button size="icon-md" variant="outline" aria-label="Favorites">
+              <StarIcon />
+            </Button>
+            <Button variant="link">
+              Open Docs
+              <ArrowUpRightIcon />
+            </Button>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Use `focusableWhenDisabled` when the button becomes disabled after focus, for example during a pending action.
+
+<Preview>
+  <ButtonDisabledExample />
+
+  <Preview.Code>
+    {`
+      import { Button } from "moduix";
+
+      export function ButtonDisabledDemo() {
+        return (
+          <div>
+            <Button disabled>Disabled</Button>
+            <Button disabled focusableWhenDisabled variant="outline">
+              Focusable Disabled
+            </Button>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Loading
+
+Use the built-in loading props when an action should keep its size while it is pending.
+
+<Preview>
+  <ButtonLoadingExample />
+
+  <Preview.Code>
+    {`
+      import { Button } from "moduix";
+      import { useState } from "react";
+
+      export function LoadingButton() {
+        const [loading, setLoading] = useState(false);
+
+        return (
+          <Button
+            loading={loading}
+            loadingText="Saving"
+            onClick={() => {
+              setLoading(true);
+              setTimeout(() => setLoading(false), 1800);
+            }}
+          >
+            Save Changes
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Loading Indicator
+
+Pass `loadingIndicator` to use an icon or spinner from your application.
+
+<Preview>
+  <ButtonCustomLoadingIndicatorExample />
+
+  <Preview.Code>
+    {`
+      import { Button, StarIcon } from "moduix";
+
+      export function CustomLoadingIndicatorDemo() {
+        return (
+          <Button
+            loading
+            loadingText="Syncing"
+            variant="outline"
+            loadingIndicator={<StarIcon />}
+          >
+            Sync
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` for the button root and `classNames` for internal slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <ButtonClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Button } from "moduix";
+      import styles from "./button-demo.module.css";
+
+      export function ButtonClassNamesDemo() {
+        return (
+          <Button
+            className={styles.button}
+            classNames={{
+              content: styles.content,
+              loadingIndicator: styles.loadingIndicator,
+            }}
+            loading
+            loadingText="Publishing"
+          >
+            Publish
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

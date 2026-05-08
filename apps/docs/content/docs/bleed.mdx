@@ -1,0 +1,168 @@
+---
+title: Bleed
+description: A layout primitive that lets content intentionally escape a constrained container.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  BleedBlockExample,
+  BleedClassNameExample,
+  BleedExample,
+  BleedInlineAmountsExample,
+  BleedSemanticExample,
+  bleedCssProperties,
+} from '@/components/examples/bleed';
+
+## API Reference
+
+`Bleed` is a moduix layout primitive and does not wrap a Base UI primitive.
+Use `inline="none"` or `block="none"` to keep an axis constrained. Supported
+bleed amounts are `xs`, `sm`, `md`, `lg`, `xl`, plus `full` on the inline axis.
+
+## Basic
+
+<Preview cssProperties={bleedCssProperties}>
+  <BleedExample />
+
+  <Preview.Code>
+    {`
+      import { Bleed, Text } from "moduix";
+      import styles from "./bleed-demo.module.css";
+
+      export function BleedDemo() {
+        return (
+          <div className={styles.container}>
+            <Text tone="muted">Container content stays constrained.</Text>
+            <Bleed className={styles.bleed}>
+              <Text weight="semibold">
+                This block bleeds to the viewport edges.
+              </Text>
+            </Bleed>
+            <Text tone="muted">
+              Following content returns to the container width.
+            </Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Inline Amounts
+
+Use `inline` to choose how far content escapes the container on the inline axis.
+
+<Preview>
+  <BleedInlineAmountsExample />
+
+  <Preview.Code>
+    {`
+      import { Bleed, Text } from "moduix";
+      import styles from "./bleed-demo.module.css";
+
+      export function BleedInlineAmountsDemo() {
+        return (
+          <div className={styles.container}>
+            <Bleed inline="sm" className={styles.panel}>
+              <Text>Small inline bleed</Text>
+            </Bleed>
+            <Bleed inline="lg" className={styles.panel}>
+              <Text>Large inline bleed</Text>
+            </Bleed>
+            <Bleed inline="full" className={styles.panel}>
+              <Text>Full inline bleed</Text>
+            </Bleed>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Block Bleed
+
+Use `block` when a surface should also escape vertical container padding.
+
+<Preview>
+  <BleedBlockExample />
+
+  <Preview.Code>
+    {`
+      import { Bleed, Text } from "moduix";
+      import styles from "./bleed-demo.module.css";
+
+      export function BleedBlockDemo() {
+        return (
+          <div className={styles.paddedContainer}>
+            <Text tone="muted">Container padding above.</Text>
+            <Bleed inline="md" block="md" className={styles.panel}>
+              <Text>Inline and block bleed</Text>
+            </Bleed>
+            <Text tone="muted">Container padding below.</Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Semantic Element
+
+Use `as` when the escaping content has a more specific semantic role.
+
+<Preview>
+  <BleedSemanticExample />
+
+  <Preview.Code>
+    {`
+      import { Bleed, Text } from "moduix";
+      import styles from "./bleed-demo.module.css";
+
+      export function BleedSemanticDemo() {
+        return (
+          <div className={styles.container}>
+            <Bleed as="figure" className={styles.figure}>
+              <div className={styles.media} />
+              <Text tone="muted" size="sm">
+                Full-width media with a constrained parent.
+              </Text>
+            </Bleed>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` when styling the root or overriding bleed variables in local CSS.
+
+<Preview>
+  <BleedClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Bleed, Text } from "moduix";
+      import styles from "./bleed-demo.module.css";
+
+      export function CustomBleedDemo() {
+        return (
+          <div className={styles.container}>
+            <Bleed className={styles.customBleed}>
+              <Text weight="semibold">Customized bleed amount.</Text>
+            </Bleed>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

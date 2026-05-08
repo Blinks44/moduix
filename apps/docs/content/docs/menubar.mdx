@@ -1,0 +1,502 @@
+---
+title: Menubar
+description: A horizontal or vertical menu bar for application-level commands.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  CustomIconsMenubarExample,
+  GroupsAndControlsMenubarExample,
+  IndicatorRightMenubarExample,
+  MenubarExample,
+  NestedMenubarExample,
+  PositionedMenubarExample,
+  ShortcutsMenubarExample,
+  VerticalMenubarExample,
+  menubarCssProperties,
+} from '@/components/examples/menubar';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/menubar" />
+
+## Basic
+
+<Preview cssProperties={menubarCssProperties}>
+  <MenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarItem,
+        MenubarSubmenu,
+        MenubarSubmenuTrigger,
+        MenubarSubmenuTriggerIcon,
+        MenubarSubmenuContent,
+        MenubarSeparator,
+      } from "moduix";
+
+      export function MenubarDemo() {
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>File</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarItem closeOnClick>New File</MenubarItem>
+                <MenubarItem closeOnClick>Open...</MenubarItem>
+                <MenubarItem closeOnClick>Save</MenubarItem>
+                <MenubarSubmenu>
+                  <MenubarSubmenuTrigger>
+                    Export
+                    <MenubarSubmenuTriggerIcon />
+                  </MenubarSubmenuTrigger>
+                  <MenubarSubmenuContent>
+                    <MenubarItem closeOnClick>PDF</MenubarItem>
+                    <MenubarItem closeOnClick>PNG</MenubarItem>
+                    <MenubarItem closeOnClick>SVG</MenubarItem>
+                  </MenubarSubmenuContent>
+                </MenubarSubmenu>
+                <MenubarSeparator />
+                <MenubarItem closeOnClick>Print</MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+
+            <MenubarMenu>
+              <MenubarTrigger>Edit</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarItem closeOnClick>Cut</MenubarItem>
+                <MenubarItem closeOnClick>Copy</MenubarItem>
+                <MenubarItem closeOnClick>Paste</MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+
+            <MenubarMenu disabled>
+              <MenubarTrigger>Help</MenubarTrigger>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Groups And Controls
+
+Use groups, radio items, and checkbox items when menubar commands update application state.
+
+<Preview>
+  <GroupsAndControlsMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarGroup,
+        MenubarGroupLabel,
+        MenubarRadioGroup,
+        MenubarRadioItem,
+        MenubarRadioItemIndicator,
+        MenubarItemText,
+        MenubarSeparator,
+        MenubarCheckboxItem,
+        MenubarCheckboxItemIndicator,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function GroupsAndControlsMenubarDemo() {
+        const [sortBy, setSortBy] = useState("name");
+        const [showSidebar, setShowSidebar] = useState(true);
+        const [showPanel, setShowPanel] = useState(false);
+
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>View</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarGroup>
+                  <MenubarGroupLabel>Sort</MenubarGroupLabel>
+                  <MenubarRadioGroup value={sortBy} onValueChange={setSortBy}>
+                    <MenubarRadioItem value="name">
+                      <MenubarRadioItemIndicator />
+                      <MenubarItemText>Name</MenubarItemText>
+                    </MenubarRadioItem>
+                    <MenubarRadioItem value="date">
+                      <MenubarRadioItemIndicator />
+                      <MenubarItemText>Date Modified</MenubarItemText>
+                    </MenubarRadioItem>
+                    <MenubarRadioItem value="type">
+                      <MenubarRadioItemIndicator />
+                      <MenubarItemText>Type</MenubarItemText>
+                    </MenubarRadioItem>
+                  </MenubarRadioGroup>
+                </MenubarGroup>
+
+                <MenubarSeparator />
+
+                <MenubarGroup>
+                  <MenubarGroupLabel>Panels</MenubarGroupLabel>
+                  <MenubarCheckboxItem checked={showSidebar} onCheckedChange={setShowSidebar}>
+                    <MenubarCheckboxItemIndicator />
+                    <MenubarItemText>Sidebar</MenubarItemText>
+                  </MenubarCheckboxItem>
+                  <MenubarCheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
+                    <MenubarCheckboxItemIndicator />
+                    <MenubarItemText>Preview</MenubarItemText>
+                  </MenubarCheckboxItem>
+                </MenubarGroup>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Shortcuts
+
+Use `MenubarItemShortcut` for keyboard shortcut text that aligns to the end of each item.
+
+<Preview>
+  <ShortcutsMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarItem,
+        MenubarItemShortcut,
+        MenubarSeparator,
+      } from "moduix";
+
+      export function ShortcutsMenubarDemo() {
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>Edit</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarItem closeOnClick>
+                  Undo
+                  <MenubarItemShortcut>Ctrl+Z</MenubarItemShortcut>
+                </MenubarItem>
+                <MenubarItem closeOnClick>
+                  Redo
+                  <MenubarItemShortcut>Ctrl+Y</MenubarItemShortcut>
+                </MenubarItem>
+                <MenubarSeparator />
+                <MenubarItem closeOnClick>
+                  Copy
+                  <MenubarItemShortcut>Ctrl+C</MenubarItemShortcut>
+                </MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Indicator Right With Icon
+
+Use `indicator="end"` to align checkbox and radio indicators to the end. Text and icon slots accept custom content and `className`.
+
+<Preview>
+  <IndicatorRightMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        InfoIcon,
+        MapIcon,
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarCheckboxItem,
+        MenubarCheckboxItemIndicator,
+        MenubarItemText,
+        MenubarItemTextContent,
+        MenubarItemTextIcon,
+        MenubarItemTextLabel,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function IndicatorRightMenubarDemo() {
+        const [showSidebar, setShowSidebar] = useState(true);
+        const [showPanel, setShowPanel] = useState(false);
+
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>View</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarCheckboxItem
+                  checked={showSidebar}
+                  onCheckedChange={setShowSidebar}
+                  indicator="end"
+                >
+                  <MenubarItemText>
+                    <MenubarItemTextContent>
+                      <MenubarItemTextIcon>
+                        <InfoIcon />
+                      </MenubarItemTextIcon>
+                      <MenubarItemTextLabel>Sidebar</MenubarItemTextLabel>
+                    </MenubarItemTextContent>
+                  </MenubarItemText>
+                  <MenubarCheckboxItemIndicator />
+                </MenubarCheckboxItem>
+                <MenubarCheckboxItem
+                  checked={showPanel}
+                  onCheckedChange={setShowPanel}
+                  indicator="end"
+                >
+                  <MenubarItemText>
+                    <MenubarItemTextContent>
+                      <MenubarItemTextIcon>
+                        <MapIcon />
+                      </MenubarItemTextIcon>
+                      <MenubarItemTextLabel>Preview</MenubarItemTextLabel>
+                    </MenubarItemTextContent>
+                  </MenubarItemText>
+                  <MenubarCheckboxItemIndicator />
+                </MenubarCheckboxItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Nested
+
+Use `MenubarSubmenu` with `MenubarSubmenuTrigger` and `MenubarSubmenuContent` for nested command groups.
+
+<Preview>
+  <NestedMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarItem,
+        MenubarSubmenu,
+        MenubarSubmenuTrigger,
+        MenubarSubmenuTriggerIcon,
+        MenubarSubmenuContent,
+        MenubarSeparator,
+      } from "moduix";
+
+      export function NestedMenubarDemo() {
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>File</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarItem closeOnClick>New File</MenubarItem>
+                <MenubarSubmenu>
+                  <MenubarSubmenuTrigger>
+                    Export
+                    <MenubarSubmenuTriggerIcon />
+                  </MenubarSubmenuTrigger>
+                  <MenubarSubmenuContent>
+                    <MenubarItem closeOnClick>PDF</MenubarItem>
+                    <MenubarItem closeOnClick>PNG</MenubarItem>
+                    <MenubarItem closeOnClick>SVG</MenubarItem>
+                  </MenubarSubmenuContent>
+                </MenubarSubmenu>
+                <MenubarSeparator />
+                <MenubarItem closeOnClick>Print</MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Vertical
+
+Set `orientation="vertical"` when the menubar should behave like a compact command rail.
+
+<Preview>
+  <VerticalMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarItem,
+      } from "moduix";
+
+      export function VerticalMenubarDemo() {
+        return (
+          <Menubar orientation="vertical">
+            <MenubarMenu>
+              <MenubarTrigger>Project</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarItem closeOnClick>Create branch</MenubarItem>
+                <MenubarItem closeOnClick>Pull latest</MenubarItem>
+                <MenubarItem closeOnClick>Open in IDE</MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+
+            <MenubarMenu>
+              <MenubarTrigger>Deploy</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarItem closeOnClick>Staging</MenubarItem>
+                <MenubarItem closeOnClick>Production</MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Positioning And Backdrop
+
+`MenubarContent` renders portal, positioner, viewport, and optional backdrop internally. Use placement props on `MenubarContent`, `container` to choose the portal container, `withBackdrop` for a backdrop, and `classNames` to style internal service slots.
+
+<Preview>
+  <PositionedMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarItem,
+        MenubarSeparator,
+      } from "moduix";
+
+      export function PositionedMenubarDemo() {
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>Window</MenubarTrigger>
+              <MenubarContent sideOffset={10} align="start" alignOffset={-4} withBackdrop>
+                <MenubarArrow />
+                <MenubarItem closeOnClick>Minimize</MenubarItem>
+                <MenubarItem closeOnClick>Zoom</MenubarItem>
+                <MenubarSeparator />
+                <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icons
+
+Pass children to icon slots to use icons from your application or an external icon library.
+
+<Preview>
+  <CustomIconsMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ChevronDownIcon,
+        MapIcon,
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarItem,
+        MenubarItemTextContent,
+        MenubarItemTextIcon,
+        MenubarItemTextLabel,
+        MenubarSubmenu,
+        MenubarSubmenuTrigger,
+        MenubarSubmenuTriggerIcon,
+        MenubarSubmenuContent,
+      } from "moduix";
+
+      export function CustomIconsMenubarDemo() {
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>Places</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarItem closeOnClick>
+                  <MenubarItemTextContent>
+                    <MenubarItemTextIcon>
+                      <MapIcon />
+                    </MenubarItemTextIcon>
+                    <MenubarItemTextLabel>Open map</MenubarItemTextLabel>
+                  </MenubarItemTextContent>
+                </MenubarItem>
+                <MenubarSubmenu>
+                  <MenubarSubmenuTrigger>
+                    More
+                    <MenubarSubmenuTriggerIcon>
+                      <ChevronDownIcon />
+                    </MenubarSubmenuTriggerIcon>
+                  </MenubarSubmenuTrigger>
+                  <MenubarSubmenuContent>
+                    <MenubarItem closeOnClick>Nearby</MenubarItem>
+                    <MenubarItem closeOnClick>Routes</MenubarItem>
+                  </MenubarSubmenuContent>
+                </MenubarSubmenu>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

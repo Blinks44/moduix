@@ -1,0 +1,29 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.ring {
+  box-shadow:
+    0 0 0 2px var(--color-background),
+    0 0 0 4px var(--color-ring);
+}
+
+.imageSaturated {
+  filter: saturate(1.5);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.customFallbackAvatar {
+  --avatar-bg: var(--color-accent);
+  --avatar-fallback-color: var(--color-accent-foreground);
+}
+
+.customFallbackIcon {
+  width: 55%;
+  height: 55%;
+}

@@ -1,0 +1,28 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+
+.customLoadingIndicator {
+  width: 0.875rem;
+  height: 0.875rem;
+  animation: var(--animation-spin);
+}
+
+.customButton {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+
+.customButtonContent {
+  letter-spacing: 0.025em;
+}
+
+.customLoadingIndicatorColor {
+  color: var(--color-primary-foreground);
+}

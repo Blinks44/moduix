@@ -1,0 +1,8 @@
+@layer ui.storybook {
+  .helper {
+    margin: 0;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+}

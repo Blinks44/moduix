@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+/*:root {*/
+/*  --color-fd-background: #fff;*/
+/*  --color-fd-secondary: #f1f1f1;*/
+/*}*/
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0 !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+#nd-home-layout {
+  #nd-nav {
+    position: absolute;
+    width: 100%;
+    background: transparent;
+
+    > nav {
+      background: transparent;
+      backdrop-filter: none;
+
+      > ul {
+        div:not(:last-child) {
+          display: flex;
+
+          > button {
+            max-width: 200px;
+          }
+        }
+
+        div:last-child {
+          display: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,368 @@
+---
+title: Navigation Menu
+description: A collection of links and menus for website and application navigation.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  CustomIconNavigationMenuExample,
+  NavigationMenuExample,
+  NestedInlineNavigationMenuExample,
+  NestedNavigationMenuExample,
+  PopupOptionsNavigationMenuExample,
+  navigationMenuCssProperties,
+} from '@/components/examples/navigation-menu';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/navigation-menu" />
+
+## Basic
+
+<Preview cssProperties={navigationMenuCssProperties}>
+  <NavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        NavigationMenu,
+        NavigationMenuList,
+        NavigationMenuItem,
+        NavigationMenuTrigger,
+        NavigationMenuIcon,
+        NavigationMenuContent,
+        NavigationMenuLink,
+      } from "moduix";
+
+      export function NavigationMenuDemo() {
+        return (
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Product
+                  <NavigationMenuIcon />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul>
+                    <li>
+                      <a href="#">Quick Start</a>
+                    </li>
+                    <li>
+                      <a href="#">Composition</a>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Guides
+                  <NavigationMenuIcon />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul>
+                    <li>
+                      <a href="#">Accessibility handbook</a>
+                    </li>
+                    <li>
+                      <a href="#">Styling handbook</a>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#" closeOnClick>
+                  Releases
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Nested Submenu
+
+Nest another `NavigationMenu` inside content when a second-level menu should open in a separate popup.
+The nested popup can still use collision handling from Base UI.
+
+<Preview>
+  <NestedNavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ChevronRightIcon,
+        NavigationMenu,
+        NavigationMenuContent,
+        NavigationMenuIcon,
+        NavigationMenuItem,
+        NavigationMenuLink,
+        NavigationMenuList,
+        NavigationMenuTrigger,
+      } from "moduix";
+
+      export function NestedNavigationMenuDemo() {
+        return (
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Overview
+                  <NavigationMenuIcon />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul>
+                    <li>
+                      <a href="#">Quick Start</a>
+                    </li>
+                    <li>
+                      <NavigationMenu
+                        orientation="vertical"
+                        popupContent={{
+                          side: "right",
+                          align: "end",
+                          sideOffset: 24,
+                          alignOffset: -24,
+                          showArrow: false,
+                        }}
+                      >
+                        <NavigationMenuList>
+                          <NavigationMenuItem>
+                            <NavigationMenuTrigger>
+                              Handbook
+                              <NavigationMenuIcon>
+                                <ChevronRightIcon />
+                              </NavigationMenuIcon>
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent>
+                              <ul>
+                                <li>
+                                  <a href="#">Composition handbook</a>
+                                </li>
+                                <li>
+                                  <a href="#">Styling handbook</a>
+                                </li>
+                              </ul>
+                            </NavigationMenuContent>
+                          </NavigationMenuItem>
+                        </NavigationMenuList>
+                      </NavigationMenu>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#">GitHub</NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Nested Inline Submenu
+
+Use `popupContent={false}` when second-level content should stay inside the same panel.
+Set `viewport` on the nested menu and pass `classNames.viewport` to style the automatic viewport.
+
+<Preview>
+  <NestedInlineNavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        NavigationMenu,
+        NavigationMenuContent,
+        NavigationMenuIcon,
+        NavigationMenuItem,
+        NavigationMenuList,
+        NavigationMenuTrigger,
+      } from "moduix";
+      import { useMediaQuery } from "@base-ui/react/unstable-use-media-query";
+      import styles from "./navigation-menu-demo.module.css";
+
+      const sections = [
+        {
+          value: "developers",
+          title: "Developers",
+          description: "API, SDK and integrations",
+          links: ["API Overview", "Web SDK", "Composition"],
+        },
+        {
+          value: "systems",
+          title: "Design Systems",
+          description: "Patterns and governance",
+          links: ["Styling", "Accessibility", "Release notes"],
+        },
+      ] as const;
+
+      export function NestedInlineNavigationMenuDemo() {
+        const isDesktop = useMediaQuery("(min-width: 700px)", { defaultMatches: true });
+
+        return (
+          <NavigationMenu popupContent={{ collisionAvoidance: { side: "none" } }}>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Product
+                  <NavigationMenuIcon />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <NavigationMenu
+                    orientation={isDesktop ? "vertical" : "horizontal"}
+                    defaultValue="developers"
+                    popupContent={false}
+                    viewport
+                    classNames={{ viewport: styles.inlineViewport }}
+                  >
+                    <NavigationMenuList className={styles.inlineList}>
+                      {sections.map((section) => (
+                        <NavigationMenuItem key={section.value} value={section.value}>
+                          <NavigationMenuTrigger className={styles.inlineTrigger}>
+                            <span>{section.title}</span>
+                            <span>{section.description}</span>
+                          </NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <ul>
+                              {section.links.map((link) => (
+                                <li key={link}>
+                                  <a href="#">{link}</a>
+                                </li>
+                              ))}
+                            </ul>
+                          </NavigationMenuContent>
+                        </NavigationMenuItem>
+                      ))}
+                    </NavigationMenuList>
+                  </NavigationMenu>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Popup Options
+
+Use `popupContent` on the root menu to tune the automatic popup infrastructure.
+The popup accepts placement options, optional backdrop rendering, and `classNames` for internal service slots.
+
+<Preview>
+  <PopupOptionsNavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        NavigationMenu,
+        NavigationMenuContent,
+        NavigationMenuIcon,
+        NavigationMenuItem,
+        NavigationMenuList,
+        NavigationMenuTrigger,
+      } from "moduix";
+      import styles from "./navigation-menu-demo.module.css";
+
+      const links = ["Accessibility handbook", "Composition handbook", "Styling handbook"];
+
+      export function PopupOptionsNavigationMenuDemo() {
+        return (
+          <NavigationMenu
+            popupContent={{
+              sideOffset: 16,
+              withBackdrop: true,
+              classNames: {
+                backdrop: styles.backdrop,
+              },
+            }}
+          >
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Resources
+                  <NavigationMenuIcon />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul>
+                    {links.map((link) => (
+                      <li key={link}>
+                        <a href="#">{link}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icon
+
+Pass children to `NavigationMenuIcon` to use any icon from your app or icon library.
+
+<Preview>
+  <CustomIconNavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ChevronDownIcon,
+        NavigationMenu,
+        NavigationMenuContent,
+        NavigationMenuIcon,
+        NavigationMenuItem,
+        NavigationMenuList,
+        NavigationMenuTrigger,
+      } from "moduix";
+
+      export function CustomIconNavigationMenuDemo() {
+        return (
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  Resources
+                  <NavigationMenuIcon className="size-4">
+                    <ChevronDownIcon />
+                  </NavigationMenuIcon>
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul>
+                    <li>
+                      <a href="#">Accessibility handbook</a>
+                    </li>
+                    <li>
+                      <a href="#">Styling handbook</a>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

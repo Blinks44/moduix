@@ -1,0 +1,492 @@
+---
+title: Toast
+description: A notification region for temporary messages, actions, and contextual feedback.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ActionToastExample,
+  AnchoredToastExample,
+  CustomToastExample,
+  ExpandedToastExample,
+  GlobalManagerToastExample,
+  PlacementToastExample,
+  ToastAndAnchoredToastExample,
+  ToastExample,
+  toastCssProperties,
+} from '@/components/examples/toast';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/toast" />
+
+## Basic
+
+Mount one `ToastProvider` near the application root. Any component inside it can call
+`useToastManager()` for stacked toasts or `useAnchoredToastManager()` for anchored toasts.
+`ToastRegion` and `ToastAnchoredRegion` render their portals and viewports automatically; use
+`classNames.portal` and `classNames.viewport` only when those infrastructure slots need custom
+styling.
+
+<Preview cssProperties={toastCssProperties}>
+  <ToastExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        ToastProvider,
+        ToastRegion,
+        useToastManager,
+      } from "moduix";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <AppShell />
+            <ToastRegion />
+          </ToastProvider>
+        );
+      }
+
+      function AppShell() {
+        const toastManager = useToastManager();
+
+        function showToast() {
+          toastManager.add({
+            title: "Saved",
+            description: "Changes were saved successfully.",
+          });
+        }
+
+        return <Button onClick={showToast}>Save changes</Button>;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Action
+
+Use `actionProps` for a compact action button inside the default toast composition.
+
+<Preview>
+  <ActionToastExample />
+
+  <Preview.Code>
+    {`
+      import { ToastProvider, ToastRegion, useToastManager, Button } from "moduix";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <UploadButton />
+            <ToastRegion />
+          </ToastProvider>
+        );
+      }
+
+      function UploadButton() {
+        const toastManager = useToastManager();
+
+        return (
+          <Button
+            onClick={() =>
+              toastManager.add({
+                title: "File uploaded",
+                description: "The file is ready to share.",
+                actionProps: {
+                  children: "Undo",
+                  onClick: () => toastManager.add({ description: "Upload reverted." }),
+                },
+              })
+            }
+          >
+            Create action toast
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Placement
+
+Pass `placement` to `ToastRegion` to choose the viewport corner or center edge.
+
+<Preview>
+  <PlacementToastExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ToastPlacement,
+        ToastProvider,
+        ToastRegion,
+        useToastManager,
+        Button,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function App() {
+        const [placement, setPlacement] = useState("bottom-right" as ToastPlacement);
+
+        return (
+          <ToastProvider>
+            <AppShell placement={placement} onPlacementChange={setPlacement} />
+            <ToastRegion placement={placement} />
+          </ToastProvider>
+        );
+      }
+
+      function AppShell({
+        placement,
+        onPlacementChange,
+      }: {
+        placement: ToastPlacement;
+        onPlacementChange: (placement: ToastPlacement) => void;
+      }) {
+        const toastManager = useToastManager();
+        const placements: ToastPlacement[] = [
+          "top-left",
+          "top-center",
+          "top-right",
+          "bottom-left",
+          "bottom-center",
+          "bottom-right",
+        ];
+
+        return (
+          <div>
+            {placements.map((item) => (
+              <button
+                key={item}
+                type="button"
+                aria-pressed={item === placement}
+                onClick={() => onPlacementChange(item)}
+              >
+                {item}
+              </button>
+            ))}
+            <Button
+              onClick={() =>
+                toastManager.add({
+                  title: "Placement",
+                  description: \`Current placement: \${placement}\`,
+                })
+              }
+            >
+              Show toast
+            </Button>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Always Expanded
+
+Set `stackBehavior="expanded"` when the stack should stay readable without requiring hover or focus.
+
+<Preview>
+  <ExpandedToastExample />
+
+  <Preview.Code>
+    {`
+      import { ToastProvider, ToastRegion, useToastManager, Button } from "moduix";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <AppShell />
+            <ToastRegion placement="bottom-right" stackBehavior="expanded" />
+          </ToastProvider>
+        );
+      }
+
+      function AppShell() {
+        const toastManager = useToastManager();
+
+        return (
+          <Button
+            onClick={() =>
+              toastManager.add({
+                title: "Background task",
+                description: "Create several notifications to compare the expanded stack.",
+              })
+            }
+          >
+            Create toast
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Global Manager
+
+Create a manager outside React when app services need to enqueue notifications through the same renderer.
+
+<Preview>
+  <GlobalManagerToastExample />
+
+  <Preview.Code>
+    {`
+      import { createToastManager, ToastProvider, ToastRegion, Button } from "moduix";
+
+      const toastManager = createToastManager();
+
+      export function App() {
+        return (
+          <ToastProvider toastManager={toastManager}>
+            <AppShell />
+            <ToastRegion />
+          </ToastProvider>
+        );
+      }
+
+      function notifyFromService() {
+        toastManager.add({
+          title: "Global toast",
+          description: "Created with createToastManager().",
+        });
+      }
+
+      function AppShell() {
+        return <Button onClick={notifyFromService}>Create global toast</Button>;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Composition
+
+Use `renderToast` when the application keeps the shared provider and region pattern but needs custom
+layout, custom icons, or slot-level `className` styling for each toast.
+
+<Preview>
+  <CustomToastExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        CloseLineIcon,
+        InfoIcon,
+        ToastProvider,
+        ToastRegion,
+        ToastRoot,
+        ToastContent,
+        ToastTitle,
+        ToastDescription,
+        ToastClose,
+        useToastManager,
+      } from "moduix";
+      import styles from "./custom-toast.module.css";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <CreateToastButton />
+            <ToastRegion
+              renderToast={(toast) => (
+                <ToastRoot toast={toast} className={styles.toast}>
+                  <ToastContent className={styles.content}>
+                    <InfoIcon className={styles.icon} />
+                    <ToastTitle />
+                    <ToastDescription />
+                    <ToastClose aria-label="Close toast">
+                      <CloseLineIcon className={styles.closeIcon} />
+                    </ToastClose>
+                  </ToastContent>
+                </ToastRoot>
+              )}
+            />
+          </ToastProvider>
+        );
+      }
+
+      function CreateToastButton() {
+        const toastManager = useToastManager();
+
+        return (
+          <Button
+            onClick={() =>
+              toastManager.add({
+                title: "Custom composition",
+                description: "Every important part accepts className and custom children.",
+              })
+            }
+          >
+            Create custom toast
+          </Button>
+        );
+      }
+
+      /* custom-toast.module.css
+      .toast {
+        --toast-bg: var(--color-primary);
+        --toast-color: var(--color-primary-foreground);
+        --toast-border-color: var(--color-primary);
+        --toast-description-color: color-mix(
+          in srgb,
+          var(--color-primary-foreground) 72%,
+          transparent
+        );
+      }
+
+      .content {
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: var(--spacing-3);
+        padding-right: 1.75rem;
+      }
+
+      .icon,
+      .closeIcon {
+        width: 1rem;
+        height: 1rem;
+      }
+      */
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Anchored Toast
+
+Use `useAnchoredToastManager()` and `ToastAnchoredRegion` for transient feedback tied to a specific
+button or control. Anchored and stacked toasts can share the same `ToastProvider`; each region
+renders only the toast type it owns.
+
+<Preview>
+  <AnchoredToastExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        ToastAnchoredRegion,
+        ToastProvider,
+        useAnchoredToastManager,
+      } from "moduix";
+      import { useRef } from "react";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <CopyButton />
+            <ToastAnchoredRegion />
+          </ToastProvider>
+        );
+      }
+
+      function CopyButton() {
+        const buttonRef = useRef(null as HTMLButtonElement | null);
+        const anchoredToast = useAnchoredToastManager();
+
+        function showCopiedToast() {
+          if (!buttonRef.current) {
+            return;
+          }
+
+          anchoredToast.show({
+            anchor: buttonRef.current,
+            description: "Copied",
+            timeout: 1800,
+          });
+        }
+
+        return (
+          <Button ref={buttonRef} onClick={showCopiedToast}>
+            Copy
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Stacked and Anchored Toasts
+
+Render both regions under one provider when an app needs page-level notifications and contextual
+feedback at the same time.
+
+<Preview>
+  <ToastAndAnchoredToastExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        ToastAnchoredRegion,
+        ToastProvider,
+        ToastRegion,
+        useAnchoredToastManager,
+        useToastManager,
+      } from "moduix";
+      import { useRef } from "react";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <SaveButton />
+            <CopyButton />
+            <ToastRegion />
+            <ToastAnchoredRegion />
+          </ToastProvider>
+        );
+      }
+
+      function SaveButton() {
+        const toastManager = useToastManager();
+
+        return (
+          <Button
+            onClick={() =>
+              toastManager.add({
+                title: "Saved",
+                description: "Changes were saved successfully.",
+              })
+            }
+          >
+            Save changes
+          </Button>
+        );
+      }
+
+      function CopyButton() {
+        const buttonRef = useRef(null as HTMLButtonElement | null);
+        const anchoredToast = useAnchoredToastManager();
+
+        function showCopiedToast() {
+          if (!buttonRef.current) {
+            return;
+          }
+
+          anchoredToast.show({
+            anchor: buttonRef.current,
+            description: "Copied",
+            timeout: 1800,
+          });
+        }
+
+        return (
+          <Button ref={buttonRef} variant="outline" onClick={showCopiedToast}>
+            Copy
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

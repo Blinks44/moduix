@@ -1,0 +1,45 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.toolbarSelect {
+  min-width: 9rem;
+  justify-content: space-between;
+}
+
+.toolbarLink {
+  margin-inline-start: var(--spacing-2);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.customIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.customToolbar {
+  --toolbar-bg: color-mix(in oklab, var(--color-primary) 7%, transparent);
+  --toolbar-border-color: color-mix(in oklab, var(--color-primary) 36%, var(--color-border));
+  --toolbar-gap: var(--spacing-1);
+  --toolbar-padding: var(--spacing-1);
+  --toolbar-radius: var(--radius-md);
+  --toolbar-control-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
+  --toolbar-control-bg-pressed: var(--color-primary);
+  --toolbar-control-color-pressed: var(--color-primary-foreground);
+  --toolbar-separator-color: color-mix(in oklab, var(--color-primary) 42%, var(--color-border));
+}
+
+.customButton {
+  --toolbar-control-radius: var(--radius-sm);
+  --toolbar-control-padding-x: var(--spacing-3);
+}
+
+.customInput {
+  --toolbar-input-width: 8rem;
+}

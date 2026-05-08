@@ -1,0 +1,53 @@
+@layer ui.components {
+  .root {
+    display: block;
+    width: 100%;
+    height: 1rem;
+    flex: 0 0 auto;
+    overflow: hidden;
+    border-radius: var(--skeleton-radius, var(--radius-md));
+    animation: var(--skeleton-animation, var(--animation-pulse));
+    background-color: var(
+      --skeleton-bg,
+      color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))
+    );
+    pointer-events: none;
+    user-select: none;
+
+    &:not([data-animated]) {
+      animation: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  .row,
+  .column {
+    display: flex;
+    gap: var(--spacing-2);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .row {
+    flex-direction: row;
+    align-items: center;
+
+    &[data-mobile-stack] {
+      flex-direction: column;
+      align-items: stretch;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+  }
+
+  .column {
+    flex: 0 1 auto;
+    flex-direction: column;
+  }
+}

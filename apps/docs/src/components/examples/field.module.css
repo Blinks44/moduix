@@ -1,0 +1,33 @@
+.field {
+  width: min(20rem, 100%);
+}
+
+.helper {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.customField {
+  width: min(22rem, 100%);
+  max-width: 20rem;
+  gap: var(--spacing-2);
+}
+
+.customLabel,
+.customError {
+  color: var(--color-primary);
+}
+
+.customControl {
+  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.customControl:focus {
+  outline-color: var(--color-primary);
+}
+
+.customDescription {
+  color: var(--color-muted-foreground);
+}

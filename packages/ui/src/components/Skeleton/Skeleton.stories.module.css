@@ -1,0 +1,20 @@
+@layer ui.storybook {
+  .textBlock {
+    width: 20rem;
+  }
+
+  .card {
+    display: flex;
+    width: 20rem;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .mediaObject {
+    width: 24rem;
+  }
+
+  .layoutProps {
+    width: 24rem;
+  }
+}

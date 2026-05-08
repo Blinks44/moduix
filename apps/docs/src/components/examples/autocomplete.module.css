@@ -1,0 +1,10 @@
+@layer docs.examples {
+  .backdrop {
+    --autocomplete-backdrop-bg: var(--color-overlay);
+    --autocomplete-backdrop-blur: 2px;
+  }
+
+  .arrow {
+    --autocomplete-arrow-stroke-color: var(--color-border);
+  }
+}

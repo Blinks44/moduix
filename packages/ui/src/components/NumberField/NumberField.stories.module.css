@@ -1,0 +1,15 @@
+.stack {
+  display: grid;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.hint {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.scrubCursor {
+  color: var(--color-foreground);
+}

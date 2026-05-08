@@ -1,0 +1,284 @@
+---
+title: Progress
+description: Displays the status of a task that takes a long time.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  AriaValueTextProgressExample,
+  ControlledProgressExample,
+  CustomStylingProgressExample,
+  CustomValueTextProgressExample,
+  IndeterminateProgressExample,
+  LocaleAndFormatProgressExample,
+  MinMaxRangeProgressExample,
+  ProgressExample,
+  progressCssProperties,
+} from '@/components/examples/progress';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/progress" />
+
+## Basic
+
+<Preview cssProperties={progressCssProperties}>
+  <ProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+
+      export function ProgressDemo() {
+        return (
+          <Progress value={24}>
+            <ProgressLabel>Export data</ProgressLabel>
+            <ProgressValue />
+          </Progress>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Controlled
+
+Keep the value in React state when progress mirrors another control, upload, export, or background task.
+
+<Preview>
+  <ControlledProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledProgressDemo() {
+        const [value, setValue] = useState(45);
+
+        return (
+          <div>
+            <Progress value={value}>
+              <ProgressLabel>Upload status</ProgressLabel>
+              <ProgressValue />
+            </Progress>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={value}
+              onChange={(event) => {
+                setValue(Number(event.target.value));
+              }}
+            />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Min Max Range
+
+Use `min` and `max` when the current value belongs to a custom range instead of the default `0` to `100`.
+
+<Preview>
+  <MinMaxRangeProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+
+      export function MinMaxRangeProgressDemo() {
+        return (
+          <Progress value={420} min={200} max={800}>
+            <ProgressLabel>Requests per minute</ProgressLabel>
+            <ProgressValue />
+          </Progress>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Locale And Format
+
+Use `locale`, `format`, and a custom `ProgressValue` child function to format progress text for users.
+
+<Preview>
+  <LocaleAndFormatProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+
+      export function LocaleAndFormatProgressDemo() {
+        return (
+          <Progress value={0.64} min={0} max={1} locale="de-DE" format={{ style: "percent" }}>
+            <ProgressLabel>Storage usage</ProgressLabel>
+            <ProgressValue>{(formattedValue) => \`\${formattedValue} belegt\`}</ProgressValue>
+          </Progress>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Indeterminate
+
+Pass `value={null}` when the task is running but the current completion percentage is unknown.
+
+<Preview>
+  <IndeterminateProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+
+      export function IndeterminateProgressDemo() {
+        return (
+          <Progress value={null}>
+            <ProgressLabel>Preparing report</ProgressLabel>
+            <ProgressValue>{() => "In progress"}</ProgressValue>
+          </Progress>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Aria Value Text
+
+Use `aria-valuetext` when the numeric value needs a more descriptive accessible label.
+
+<Preview>
+  <AriaValueTextProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+
+      export function AriaValueTextProgressDemo() {
+        return (
+          <Progress value={3} min={0} max={5} aria-valuetext="Step 3 of 5 completed">
+            <ProgressLabel>Onboarding</ProgressLabel>
+            <ProgressValue>{() => "Step 3 of 5"}</ProgressValue>
+          </Progress>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Value Text
+
+Use `getAriaValueText` with custom rendered value text when visual and accessible wording should stay aligned.
+
+<Preview>
+  <CustomValueTextProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+
+      export function CustomValueTextProgressDemo() {
+        return (
+          <Progress
+            value={68}
+            getAriaValueText={(formattedValue) => \`\${formattedValue} of task completed\`}
+          >
+            <ProgressLabel>Migration</ProgressLabel>
+            <ProgressValue>{(formattedValue) => \`\${formattedValue} done\`}</ProgressValue>
+          </Progress>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styling
+
+`Progress` renders the track and indicator automatically. Use `className` for the root and `classNames` for the internal track or indicator slots.
+
+<Preview>
+  <CustomStylingProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+      import styles from "./progress-demo.module.css";
+
+      export function CustomStylingProgressDemo() {
+        return (
+          <Progress
+            value={72}
+            className={styles.progress}
+            classNames={{ track: styles.track, indicator: styles.indicator }}
+          >
+            <ProgressLabel>Monthly export</ProgressLabel>
+            <ProgressValue />
+          </Progress>
+        );
+      }
+
+      /* progress-demo.module.css */
+      .progress {
+        --progress-width: 16rem;
+        --progress-track-height: 0.75rem;
+        --progress-track-bg: var(--color-accent);
+      }
+
+      .track {
+        box-shadow: inset 0 0 0 var(--border-width-md)
+          color-mix(in oklab, var(--color-primary), transparent 75%);
+      }
+
+      .indicator {
+        background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

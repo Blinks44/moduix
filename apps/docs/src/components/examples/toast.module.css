@@ -1,0 +1,67 @@
+.stack {
+  display: grid;
+  justify-items: center;
+  gap: var(--spacing-3);
+}
+
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-1);
+}
+
+.segment {
+  min-height: var(--size-sm);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  padding: 0.25rem 0.5rem;
+  font: inherit;
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+  cursor: pointer;
+}
+
+.segment[data-active] {
+  border-color: var(--color-foreground);
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.customToast {
+  --toast-bg: var(--color-primary);
+  --toast-color: var(--color-primary-foreground);
+  --toast-border-color: var(--color-primary);
+  --toast-description-color: color-mix(in srgb, var(--color-primary-foreground) 72%, transparent);
+  --toast-close-color: var(--color-primary-foreground);
+  --toast-close-color-hover: var(--color-primary-foreground);
+  --toast-close-bg-hover: color-mix(in srgb, var(--color-primary-foreground) 14%, transparent);
+}
+
+.customContent {
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--spacing-3);
+  padding-right: 1.75rem;
+}
+
+.customIcon {
+  grid-row: span 2;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: currentColor;
+}
+
+.closeIcon {
+  inline-size: var(--toast-close-icon-size, 1rem);
+  block-size: var(--toast-close-icon-size, 1rem);
+  flex: none;
+}
+
+.anchoredActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-2);
+}

@@ -1,0 +1,134 @@
+@layer ui.components {
+  .root {
+    margin: 0;
+    padding: 0;
+    color: var(--list-color, var(--list-default-color, var(--color-foreground)));
+    font-family: var(--list-font-family, var(--font-sans));
+    font-size: var(--list-font-size, var(--list-font-size-md, var(--text-md)));
+    font-weight: var(--list-font-weight, var(--weight-regular));
+    line-height: var(--list-line-height, var(--list-line-height-md, var(--line-height-text-md)));
+    letter-spacing: var(--list-letter-spacing, 0);
+    list-style-position: outside;
+    overflow-wrap: break-word;
+
+    & > :where(li + li) {
+      margin-block-start: var(--list-gap, var(--list-gap-sm, var(--spacing-2)));
+    }
+
+    & > :where(li)::marker {
+      color: var(--list-marker-color, currentColor);
+      font-weight: var(--list-marker-font-weight, inherit);
+    }
+
+    &[data-marker='none'] {
+      padding-inline-start: 0;
+      list-style: none;
+    }
+
+    &[data-marker='disc'] {
+      padding-inline-start: var(--list-padding-x, var(--spacing-5));
+      list-style-type: disc;
+    }
+
+    &[data-marker='decimal'] {
+      padding-inline-start: var(--list-padding-x, var(--spacing-5));
+      list-style-type: decimal;
+    }
+
+    &[data-marker='bullet'] {
+      padding-inline-start: 0;
+      list-style: none;
+
+      & > .item {
+        position: relative;
+        padding-inline-start: calc(
+          var(--list-marker-size, 0.375rem) + var(--list-marker-gap, var(--spacing-3))
+        );
+
+        &::before {
+          content: '';
+          position: absolute;
+          inset-block-start: var(--list-marker-offset-y, 0.625em);
+          inset-inline-start: 0;
+          width: var(--list-marker-size, 0.375rem);
+          height: var(--list-marker-size, 0.375rem);
+          border-radius: var(--list-marker-radius, var(--radius-full));
+          background-color: var(--list-marker-color, currentColor);
+        }
+      }
+    }
+
+    &[data-gap='xs'] {
+      --list-gap: var(--list-gap-xs, var(--spacing-1));
+    }
+
+    &[data-gap='sm'] {
+      --list-gap: var(--list-gap-sm, var(--spacing-2));
+    }
+
+    &[data-gap='md'] {
+      --list-gap: var(--list-gap-md, var(--spacing-3));
+    }
+
+    &[data-gap='lg'] {
+      --list-gap: var(--list-gap-lg, var(--spacing-4));
+    }
+
+    &[data-gap='xl'] {
+      --list-gap: var(--list-gap-xl, var(--spacing-5));
+    }
+
+    &[data-gap='2xl'] {
+      --list-gap: var(--list-gap-2xl, var(--spacing-6));
+    }
+
+    &[data-size='xs'] {
+      font-size: var(--list-font-size, var(--list-font-size-xs, var(--text-xs)));
+      line-height: var(--list-line-height, var(--list-line-height-xs, var(--line-height-text-xs)));
+    }
+
+    &[data-size='sm'] {
+      font-size: var(--list-font-size, var(--list-font-size-sm, var(--text-sm)));
+      line-height: var(--list-line-height, var(--list-line-height-sm, var(--line-height-text-sm)));
+    }
+
+    &[data-size='md'] {
+      font-size: var(--list-font-size, var(--list-font-size-md, var(--text-md)));
+      line-height: var(--list-line-height, var(--list-line-height-md, var(--line-height-text-md)));
+    }
+
+    &[data-size='lg'] {
+      font-size: var(--list-font-size, var(--list-font-size-lg, var(--text-lg)));
+      line-height: var(--list-line-height, var(--list-line-height-lg, var(--line-height-text-lg)));
+    }
+
+    &[data-size='xl'] {
+      font-size: var(--list-font-size, var(--list-font-size-xl, var(--text-xl)));
+      line-height: var(--list-line-height, var(--list-line-height-xl, var(--line-height-text-xl)));
+    }
+
+    &[data-tone='default'] {
+      color: var(--list-color, var(--list-default-color, var(--color-foreground)));
+    }
+
+    &[data-tone='muted'] {
+      color: var(--list-color, var(--list-muted-color, var(--color-muted-foreground)));
+    }
+
+    &[data-tone='subtle'] {
+      color: var(--list-color, var(--list-subtle-color, var(--color-secondary-foreground)));
+    }
+
+    &[data-tone='primary'] {
+      color: var(--list-color, var(--list-primary-color, var(--color-primary)));
+    }
+
+    &[data-tone='destructive'] {
+      color: var(--list-color, var(--list-destructive-color, var(--color-destructive)));
+    }
+  }
+
+  .item {
+    padding-inline-start: var(--list-item-padding-x, 0);
+  }
+}

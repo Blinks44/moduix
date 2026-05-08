@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="162" height="118" viewBox="48 46 148 118" role="img"
+     aria-labelledby="title desc">
+  <title id="title">moduix logo</title>
+  <desc id="desc">A bold minimal black m mark with an unfinished center and a dot.</desc>
+  <path
+    d="M65 146V94c0-16.02 12.98-29 29-29 10.8 0 20.72 6.01 25.72 15.59L122 85l2.28-4.41C129.28 71.01 139.2 65 150 65c16.02 0 29 12.98 29 29v52"
+    fill="none" stroke="#09090B" stroke-width="36" stroke-linecap="round"
+    stroke-linejoin="round"></path>
+  <path d="M122 80v20" stroke="#09090B" stroke-width="36" stroke-linecap="round"></path>
+  <circle cx="122" cy="149" r="14" fill="#09090B"></circle>
+</svg>

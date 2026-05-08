@@ -1,0 +1,185 @@
+---
+title: Skeleton
+description: A loading placeholder primitive for text, cards, media objects, and custom layouts.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  SkeletonCardExample,
+  SkeletonClassNameExample,
+  SkeletonExample,
+  SkeletonLayoutPropsExample,
+  SkeletonMediaObjectExample,
+  SkeletonStaticExample,
+  skeletonCssProperties,
+} from '@/components/examples/skeleton';
+
+## API Reference
+
+`Skeleton` is a moduix loading primitive and does not wrap a Base UI primitive.
+Use `Skeleton`, `SkeletonRect`, and `SkeletonCircle` for placeholders, then compose rows and
+columns with `SkeletonRow` and `SkeletonColumn`.
+
+## Basic
+
+<Preview cssProperties={skeletonCssProperties}>
+  <SkeletonExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, SkeletonColumn } from "moduix";
+
+      export function SkeletonDemo() {
+        return (
+          <SkeletonColumn gap={10}>
+            <Skeleton height={18} />
+            <Skeleton height={18} width="86%" />
+            <Skeleton height={18} width="64%" />
+          </SkeletonColumn>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Card
+
+Use `SkeletonRect` with smaller line skeletons to reserve the shape of card content while data is loading.
+
+<Preview>
+  <SkeletonCardExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, SkeletonColumn, SkeletonRect } from "moduix";
+
+      export function SkeletonCardDemo() {
+        return (
+          <div>
+            <SkeletonRect height={148} radius="var(--radius-lg)" />
+            <SkeletonColumn gap={12}>
+              <Skeleton height={20} width="70%" />
+              <Skeleton height={14} />
+              <Skeleton height={14} width="82%" />
+            </SkeletonColumn>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Media Object
+
+Combine `SkeletonCircle`, `SkeletonColumn`, and `grow` when mirroring avatar rows, list items, and comments.
+
+<Preview>
+  <SkeletonMediaObjectExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, SkeletonCircle, SkeletonColumn, SkeletonRow } from "moduix";
+
+      export function SkeletonMediaObjectDemo() {
+        return (
+          <SkeletonRow gap={12}>
+            <SkeletonCircle size={48} />
+            <SkeletonColumn grow gap={8}>
+              <Skeleton height={16} width="46%" />
+              <Skeleton height={14} />
+              <Skeleton height={14} width="72%" />
+            </SkeletonColumn>
+          </SkeletonRow>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Layout Props
+
+Use `gap`, `pt`, `pb`, `grow`, and `mobileStack` on the layout primitives when the skeleton must
+reserve the same spacing as the loaded UI.
+
+<Preview>
+  <SkeletonLayoutPropsExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, SkeletonColumn, SkeletonRow } from "moduix";
+
+      export function SkeletonLayoutPropsDemo() {
+        return (
+          <SkeletonColumn gap={12} pt={4} pb={4}>
+            <SkeletonRow gap={12} mobileStack={false}>
+              <Skeleton width={72} height={48} />
+              <SkeletonColumn grow gap={8}>
+                <Skeleton height={14} width="62%" />
+                <Skeleton height={14} />
+              </SkeletonColumn>
+            </SkeletonRow>
+            <SkeletonRow gap={12} mobileStack={false}>
+              <Skeleton width={72} height={48} />
+              <SkeletonColumn grow gap={8}>
+                <Skeleton height={14} width="48%" />
+                <Skeleton height={14} />
+              </SkeletonColumn>
+            </SkeletonRow>
+          </SkeletonColumn>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Static
+
+Pass `animated={false}` when motion is unnecessary or when the placeholder appears in dense repeated layouts.
+
+<Preview>
+  <SkeletonStaticExample />
+
+  <Preview.Code>
+    {`
+      import { SkeletonRect } from "moduix";
+
+      export function StaticSkeletonDemo() {
+        return <SkeletonRect width={320} height={72} animated={false} />;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` to the root or layout primitives when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <SkeletonClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, SkeletonColumn } from "moduix";
+      import styles from "./skeleton.module.css";
+
+      export function CustomSkeletonDemo() {
+        return (
+          <SkeletonColumn className={styles.block} gap={10}>
+            <Skeleton className={styles.skeleton} height={18} />
+            <Skeleton className={styles.skeleton} height={18} width="78%" />
+            <Skeleton className={styles.skeleton} height={18} width="52%" />
+          </SkeletonColumn>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

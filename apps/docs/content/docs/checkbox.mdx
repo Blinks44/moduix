@@ -1,0 +1,266 @@
+---
+title: Checkbox
+description: A composable checkbox control for boolean and indeterminate selection states.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  CheckboxClassNameExample,
+  CheckboxDisabledExample,
+  CheckboxExample,
+  CheckboxIndeterminateExample,
+  CheckboxSiblingLabelNativeButtonExample,
+  CheckboxSizesExample,
+  ControlledCheckboxExample,
+  CustomIconCheckboxExample,
+  checkboxCssProperties,
+} from '@/components/examples/checkbox';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/checkbox" />
+
+## Basic
+
+<Preview cssProperties={checkboxCssProperties}>
+  <CheckboxExample />
+
+  <Preview.Code>
+    {`
+      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+
+      export function CheckboxDemo() {
+        return (
+          <CheckboxField>
+            <Checkbox defaultChecked />
+            <CheckboxLabel>Enable notifications</CheckboxLabel>
+          </CheckboxField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Indeterminate
+
+Use `indeterminate` when a parent option represents a mixed selection state.
+
+<Preview>
+  <CheckboxIndeterminateExample />
+
+  <Preview.Code>
+    {`
+      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+
+      export function IndeterminateCheckboxDemo() {
+        return (
+          <CheckboxField>
+            <Checkbox indeterminate />
+            <CheckboxLabel>Select all team members</CheckboxLabel>
+          </CheckboxField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use `size` to align the control with different form densities.
+
+<Preview>
+  <CheckboxSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+
+      export function CheckboxSizesDemo() {
+        return (
+          <>
+            <CheckboxField>
+              <Checkbox size="xs" defaultChecked />
+              <CheckboxLabel>Extra-small</CheckboxLabel>
+            </CheckboxField>
+            <CheckboxField>
+              <Checkbox size="sm" defaultChecked />
+              <CheckboxLabel>Small</CheckboxLabel>
+            </CheckboxField>
+            <CheckboxField>
+              <Checkbox size="md" defaultChecked />
+              <CheckboxLabel>Medium</CheckboxLabel>
+            </CheckboxField>
+            <CheckboxField>
+              <Checkbox size="lg" defaultChecked />
+              <CheckboxLabel>Large</CheckboxLabel>
+            </CheckboxField>
+            <CheckboxField>
+              <Checkbox size="xl" defaultChecked />
+              <CheckboxLabel>Extra-large</CheckboxLabel>
+            </CheckboxField>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+Use `disabled` to prevent interaction while preserving the selection state in the UI.
+
+<Preview>
+  <CheckboxDisabledExample />
+
+  <Preview.Code>
+    {`
+      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+
+      export function DisabledCheckboxDemo() {
+        return (
+          <>
+            <CheckboxField>
+              <Checkbox disabled />
+              <CheckboxLabel>Receive weekly summary</CheckboxLabel>
+            </CheckboxField>
+            <CheckboxField>
+              <Checkbox defaultChecked disabled />
+              <CheckboxLabel>Share anonymous usage data</CheckboxLabel>
+            </CheckboxField>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control `checked` from React state when the checkbox needs to coordinate with other UI.
+
+<Preview>
+  <ControlledCheckboxExample />
+
+  <Preview.Code>
+    {`
+      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledCheckboxDemo() {
+        const [checked, setChecked] = useState(false);
+
+        return (
+          <CheckboxField>
+            <Checkbox checked={checked} onCheckedChange={setChecked} />
+            <CheckboxLabel>{checked ? "Enabled" : "Disabled"}</CheckboxLabel>
+          </CheckboxField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icon
+
+Pass icon nodes to `checkedIcon` and `indeterminateIcon`, or compose `CheckboxIndicator` directly when you need full control over the indicator slot.
+
+<Preview>
+  <CustomIconCheckboxExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Checkbox,
+        CheckboxField,
+        CheckboxLabel,
+      } from "moduix";
+      import type { ComponentProps } from "react";
+
+      function CustomPlusIcon(props: ComponentProps<"svg">) {
+        return (
+          <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
+            <path
+              d="M5 1.5V8.5M1.5 5H8.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+      export function CustomIconCheckboxDemo() {
+        return (
+          <CheckboxField>
+            <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
+            <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
+          </CheckboxField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` to the field, root, and label slots. Use `classNames` for the automatically rendered indicator slots.
+
+<Preview>
+  <CheckboxClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+
+      export function StyledCheckboxDemo() {
+        return (
+          <CheckboxField className="gap-3">
+            <Checkbox
+              className="border-fd-primary data-[checked]:bg-fd-primary"
+              classNames={{ indicator: "text-fd-primary-foreground" }}
+              defaultChecked
+            />
+            <CheckboxLabel className="text-fd-primary">Styled with className</CheckboxLabel>
+          </CheckboxField>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sibling Label
+
+Use `nativeButton` with `render={<button />}` for the sibling `label` pattern with `htmlFor` and `id`.
+
+<Preview>
+  <CheckboxSiblingLabelNativeButtonExample />
+
+  <Preview.Code>
+    {`
+      import { Checkbox } from "moduix";
+      import { useId } from "react";
+
+      export function SiblingLabelCheckboxDemo() {
+        const id = useId();
+
+        return (
+          <div className="flex items-center gap-2">
+            <Checkbox nativeButton render={<button />} id={id} defaultChecked />
+            <label htmlFor={id}>Keep me signed in</label>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

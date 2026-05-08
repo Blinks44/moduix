@@ -1,0 +1,301 @@
+import type { PopoverContentProps } from 'moduix';
+import {
+  BellIcon,
+  Button,
+  Popover,
+  PopoverBody,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+  createPopoverHandle,
+} from 'moduix';
+import * as React from 'react';
+import type { CssPropertyInput } from '../preview';
+import styles from './popover.module.css';
+
+const popoverSides: PopoverSide[] = ['top', 'right', 'bottom', 'left'];
+
+export const popoverCssProperties: CssPropertyInput[] = [
+  ['--popover-width', 'auto', 'Controls the popup width.'],
+  ['--popover-height', 'auto', 'Controls the popup height.'],
+  ['--popover-min-width', '16rem', 'Controls the popup min width.'],
+  ['--popover-max-width', '28rem', 'Controls the popup max width.'],
+  ['--popover-max-height', '24rem', 'Controls the popup max height.'],
+  ['--popover-padding-x', '1rem', 'Controls the popup horizontal padding.'],
+  ['--popover-padding-y', '1rem', 'Controls the popup vertical padding.'],
+  ['--popover-bg', 'var(--color-popover)', 'Controls the popup background color.'],
+  ['--popover-color', 'var(--color-popover-foreground)', 'Controls the popup text color.'],
+  ['--popover-border-color', 'var(--color-border)', 'Controls the popup border color.'],
+  ['--popover-radius', 'var(--radius-md)', 'Controls the popup border radius.'],
+  ['--popover-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
+  ['--popover-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
+  ['--popover-transition', 'var(--transition-default)', 'Controls popup and control transitions.'],
+  ['--popover-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop background.'],
+  ['--popover-backdrop-blur', '0', 'Controls backdrop blur.'],
+  [
+    '--popover-backdrop-transition',
+    'var(--transition-default)',
+    'Controls backdrop enter and exit transitions.',
+  ],
+  ['--popover-control-bg', 'var(--color-background)', 'Controls trigger and close backgrounds.'],
+  [
+    '--popover-control-bg-hover',
+    'var(--color-accent)',
+    'Controls trigger and close hover backgrounds.',
+  ],
+  [
+    '--popover-control-bg-active',
+    'var(--popover-control-bg-hover)',
+    'Controls trigger background while the popup is open.',
+  ],
+  [
+    '--popover-control-border-color',
+    'var(--color-border)',
+    'Controls trigger and close border color.',
+  ],
+  ['--popover-control-color', 'var(--color-foreground)', 'Controls trigger and close text color.'],
+  ['--popover-control-height', 'var(--size-lg)', 'Controls trigger and close min height.'],
+  ['--popover-control-radius', 'var(--radius-md)', 'Controls trigger and close border radius.'],
+  ['--popover-control-padding-x', '0.875rem', 'Controls control horizontal padding.'],
+  ['--popover-control-padding-y', '0.5rem', 'Controls control vertical padding.'],
+  ['--popover-control-font-size', 'var(--text-md)', 'Controls control font size.'],
+  ['--popover-control-line-height', 'var(--line-height-text-md)', 'Controls control line height.'],
+  ['--popover-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled control opacity.'],
+  ['--popover-focus-ring-color', 'var(--color-ring)', 'Controls control focus ring color.'],
+  ['--popover-title-color', 'var(--popover-color)', 'Controls title color.'],
+  ['--popover-title-font-size', 'var(--text-md)', 'Controls title font size.'],
+  ['--popover-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
+  ['--popover-title-line-height', 'var(--line-height-text-md)', 'Controls title line height.'],
+  ['--popover-header-gap', 'var(--spacing-1)', 'Controls spacing in the header slot.'],
+  ['--popover-description-margin', '0', 'Controls description margin.'],
+  ['--popover-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
+  ['--popover-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
+  [
+    '--popover-description-line-height',
+    'var(--line-height-text-sm)',
+    'Controls description line height.',
+  ],
+  ['--popover-body-margin', '0', 'Controls body margin.'],
+  ['--popover-footer-gap', 'var(--spacing-2)', 'Controls spacing between footer actions.'],
+  ['--popover-footer-justify', 'flex-end', 'Controls footer content alignment.'],
+  ['--popover-footer-margin', 'var(--spacing-3) 0 0', 'Controls footer margin.'],
+  ['--popover-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
+  ['--popover-arrow-height', '0.625rem', 'Controls the default arrow SVG height.'],
+  ['--popover-arrow-size', '0.5rem', 'Controls the block-axis arrow offset.'],
+  ['--popover-arrow-inline-offset', '0.8125rem', 'Controls the inline-axis arrow offset.'],
+  ['--popover-arrow-stroke-color', 'var(--popover-border-color)', 'Controls arrow border color.'],
+];
+
+export function PopoverExample() {
+  return (
+    <Popover>
+      <PopoverTrigger render={<Button />}>
+        <span className={styles.triggerContent}>
+          <BellIcon className={styles.icon} />
+          Notifications
+        </span>
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverHeader>
+          <PopoverTitle>Notifications</PopoverTitle>
+          <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export function PopoverWithCloseActionExample() {
+  return (
+    <Popover>
+      <PopoverTrigger render={<Button />}>Project status</PopoverTrigger>
+      <PopoverContent>
+        <PopoverHeader>
+          <PopoverTitle>Sprint 19</PopoverTitle>
+          <PopoverDescription>
+            9 tasks completed, 2 in progress. Everything is on schedule.
+          </PopoverDescription>
+        </PopoverHeader>
+        <PopoverFooter>
+          <PopoverClose>Close</PopoverClose>
+        </PopoverFooter>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export function PopoverWithBackdropExample() {
+  return (
+    <Popover>
+      <PopoverTrigger render={<Button />}>Open with backdrop</PopoverTrigger>
+      <PopoverContent showArrow={false} withBackdrop classNames={{ backdrop: styles.backdrop }}>
+        <PopoverHeader>
+          <PopoverTitle>Backdrop</PopoverTitle>
+          <PopoverDescription>
+            The backdrop is rendered automatically and styled through classNames.
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export function OpenOnHoverPopoverExample() {
+  return (
+    <Popover>
+      <PopoverTrigger openOnHover delay={150} closeDelay={120} render={<Button />}>
+        Open on hover
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverHeader>
+          <PopoverTitle>Hover mode</PopoverTitle>
+          <PopoverDescription>
+            This popover uses delayed hover opening for quick preview interactions.
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export function ControlledPopoverExample() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div className={styles.stack}>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger render={<Button />}>Open controlled popover</PopoverTrigger>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Publish changes?</PopoverTitle>
+            <PopoverDescription>
+              This action will make your latest updates visible to all users.
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverFooter>
+            <PopoverClose>Back to editing</PopoverClose>
+          </PopoverFooter>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+
+export function DetachedTriggerPopoverExample() {
+  const popoverHandle = React.useMemo(() => createPopoverHandle(), []);
+
+  return (
+    <div className={styles.row}>
+      <PopoverTrigger handle={popoverHandle} render={<Button />}>
+        Open details
+      </PopoverTrigger>
+      <Popover handle={popoverHandle}>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Detached trigger</PopoverTitle>
+            <PopoverDescription>
+              Trigger and popup are linked with createPopoverHandle().
+            </PopoverDescription>
+          </PopoverHeader>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+
+export function SideControlPopoverExample() {
+  const [side, setSide] = React.useState<PopoverSide>('bottom');
+
+  return (
+    <div className={styles.stack}>
+      <div className={styles.sideButtons}>
+        {popoverSides.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className={styles.sideButton}
+            data-active={item === side || undefined}
+            onClick={() => setSide(item)}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+
+      <Popover>
+        <PopoverTrigger render={<Button />}>Open with side: {side}</PopoverTrigger>
+        <PopoverContent side={side} className={styles.narrowPopup}>
+          <PopoverHeader>
+            <PopoverTitle>Placement</PopoverTitle>
+            <PopoverDescription>
+              Current side is <strong>{side}</strong>. You can switch it with the buttons above.
+            </PopoverDescription>
+          </PopoverHeader>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+
+export function ImageOnlyPopoverExample() {
+  return (
+    <Popover>
+      <PopoverTrigger render={<Button />}>Open image popover</PopoverTrigger>
+      <PopoverContent className={styles.imagePopup}>
+        <PopoverBody>
+          <img
+            className={styles.image}
+            alt="Abstract geometric composition"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 420'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230b1220' offset='0'/%3E%3Cstop stop-color='%231d3557' offset='0.52'/%3E%3Cstop stop-color='%23004e64' offset='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop stop-color='%23ffd166'/%3E%3Cstop stop-color='%23fca311'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%2306d6a0'/%3E%3Cstop stop-color='%23118ab2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='420' fill='url(%23bg)'/%3E%3Ccircle cx='120' cy='90' r='70' fill='%23ffffff22'/%3E%3Ccircle cx='620' cy='330' r='120' fill='%23ffffff18'/%3E%3Crect x='70' y='240' width='320' height='110' rx='22' fill='url(%23accent1)' opacity='0.88' transform='rotate(-8 230 295)'/%3E%3Crect x='320' y='90' width='300' height='120' rx='24' fill='url(%23accent2)' opacity='0.92' transform='rotate(10 470 150)'/%3E%3Cpath d='M40 370 C160 260, 270 360, 390 280 C510 200, 610 280, 720 210 L720 420 L40 420 Z' fill='%23ffffff22'/%3E%3C/svg%3E"
+          />
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export function PopoverWithoutArrowExample() {
+  return (
+    <Popover>
+      <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
+      <PopoverContent showArrow={false}>
+        <PopoverHeader>
+          <PopoverTitle>No arrow</PopoverTitle>
+          <PopoverDescription>
+            Set showArrow to false when the popup should look like a floating panel.
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export function CustomArrowPopoverExample() {
+  return (
+    <Popover>
+      <PopoverTrigger render={<Button />}>Open custom arrow</PopoverTrigger>
+      <PopoverContent className={styles.customArrowPopup} arrow={<CustomArrow />}>
+        <PopoverHeader>
+          <PopoverTitle>Custom arrow</PopoverTitle>
+          <PopoverDescription>
+            Pass any React node to the arrow prop to use your own icon or SVG.
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+function CustomArrow() {
+  return (
+    <svg className={styles.customArrow} viewBox="0 0 16 8" fill="none" aria-hidden="true">
+      <path d="M8 0L16 8H0L8 0Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+type PopoverSide = Exclude<PopoverContentProps['side'], undefined>;

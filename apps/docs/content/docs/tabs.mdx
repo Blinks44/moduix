@@ -1,0 +1,644 @@
+---
+title: Tabs
+description: A set of tab buttons that switch between related panels on the same page.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ActivateOnFocusTabsExample,
+  ControlledTabsExample,
+  IconTabsExample,
+  InlineInputsTabsExample,
+  LineTabsExample,
+  LinkTabsExample,
+  TabsExample,
+  VerticalTabsExample,
+  WithoutIndicatorTabsExample,
+  tabsCssProperties,
+} from '@/components/examples/tabs';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/tabs" />
+
+## Basic
+
+<Preview cssProperties={tabsCssProperties}>
+  <TabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function TabsDemo() {
+        return (
+          <Tabs defaultValue="overview">
+            <TabsList>
+              {items.map((item) => (
+                <TabsTab key={item.value} value={item.value}>
+                  {item.title}
+                </TabsTab>
+              ))}
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value}>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Vertical
+
+Use `orientation="vertical"` when the tab list should sit next to the active panel.
+
+<Preview>
+  <VerticalTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function VerticalTabsDemo() {
+        return (
+          <Tabs defaultValue="overview" orientation="vertical">
+            <TabsList>
+              {items.map((item) => (
+                <TabsTab key={item.value} value={item.value}>
+                  {item.title}
+                </TabsTab>
+              ))}
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value}>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Activate On Focus
+
+Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately select a tab.
+
+<Preview>
+  <ActivateOnFocusTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function ActivateOnFocusTabsDemo() {
+        return (
+          <Tabs defaultValue="overview">
+            <TabsList activateOnFocus>
+              {items.map((item) => (
+                <TabsTab key={item.value} value={item.value}>
+                  {item.title}
+                </TabsTab>
+              ))}
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value}>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Line
+
+Use `variant="line"` for a compact indicator that sits along the active tab edge.
+
+<Preview>
+  <LineTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function LineTabsDemo() {
+        return (
+          <Tabs defaultValue="overview" variant="line">
+            <TabsList>
+              {items.map((item) => (
+                <TabsTab key={item.value} value={item.value}>
+                  {item.title}
+                </TabsTab>
+              ))}
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value}>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Without Indicator
+
+Set `withIndicator={false}` on `TabsList` when the active tab should be shown only through tab state styles.
+
+<Preview>
+  <WithoutIndicatorTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function WithoutIndicatorTabsDemo() {
+        return (
+          <Tabs defaultValue="overview">
+            <TabsList withIndicator={false}>
+              {items.map((item) => (
+                <TabsTab key={item.value} value={item.value}>
+                  {item.title}
+                </TabsTab>
+              ))}
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value}>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control the active tab from React state when the selected panel needs to coordinate with other UI.
+
+<Preview>
+  <ControlledTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+        type TabsValue,
+      } from "moduix";
+      import { useState } from "react";
+
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function ControlledTabsDemo() {
+        const [value, setValue] = useState("projects" as TabsValue);
+
+        return (
+          <Tabs value={value} onValueChange={setValue}>
+            <TabsList>
+              {items.map((item) => (
+                <TabsTab key={item.value} value={item.value}>
+                  {item.title}
+                </TabsTab>
+              ))}
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value}>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Links
+
+Use `render` with `nativeButton={false}` when tabs should render as links.
+
+<Preview>
+  <LinkTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function LinkTabsDemo() {
+        return (
+          <Tabs defaultValue="overview">
+            <TabsList>
+              {items.map((item) => (
+                <TabsTab
+                  key={item.value}
+                  value={item.value}
+                  nativeButton={false}
+                  render={<a href={"#" + item.value} />}
+                >
+                  {item.title}
+                </TabsTab>
+              ))}
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value}>
+                <span id={item.value}>{item.content}</span>
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icons
+
+Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to use icons from your application or icon library.
+
+<Preview>
+  <IconTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        HandshakeIcon,
+        MapIcon,
+        PresentIcon,
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+        TabsTabContent,
+        TabsTabIcon,
+        TabsTabLabel,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function IconTabsDemo() {
+        return (
+          <Tabs defaultValue="overview">
+            <TabsList>
+              <TabsTab value="overview">
+                <TabsTabContent>
+                  <TabsTabIcon>
+                    <HandshakeIcon />
+                  </TabsTabIcon>
+                  <TabsTabLabel>Overview</TabsTabLabel>
+                </TabsTabContent>
+              </TabsTab>
+              <TabsTab value="projects">
+                <TabsTabContent>
+                  <TabsTabIcon>
+                    <PresentIcon />
+                  </TabsTabIcon>
+                  <TabsTabLabel>Projects</TabsTabLabel>
+                </TabsTabContent>
+              </TabsTab>
+              <TabsTab value="account">
+                <TabsTabContent>
+                  <TabsTabIcon>
+                    <MapIcon />
+                  </TabsTabIcon>
+                  <TabsTabLabel>Account</TabsTabLabel>
+                </TabsTabContent>
+              </TabsTab>
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value}>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Layout
+
+Set `unstyled` when the default Tabs layout is too strong and every slot should be styled by your own classes. Use `classNames.indicator` to style the internally rendered indicator.
+
+<Preview>
+  <InlineInputsTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+      import styles from "./tabs-demo.module.css";
+
+      export function InlineInputsTabsDemo() {
+        return (
+          <Tabs defaultValue="name" unstyled className={styles.inlineRoot}>
+            <TabsList
+              className={styles.inlineList}
+              classNames={{ indicator: styles.inlineIndicator }}
+            >
+              <TabsTab value="name" className={styles.inlineTab}>
+                Name
+              </TabsTab>
+              <TabsTab value="email" className={styles.inlineTab}>
+                Email
+              </TabsTab>
+            </TabsList>
+            <TabsPanel value="name" className={styles.inlinePanel}>
+              <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />
+            </TabsPanel>
+            <TabsPanel value="email" className={styles.inlinePanel}>
+              <input className={styles.inlineInput} placeholder="Email" aria-label="Email" />
+            </TabsPanel>
+          </Tabs>
+        );
+      }
+
+      /* tabs-demo.module.css */
+      .inlineRoot {
+        display: flex;
+        width: min(36rem, calc(100vw - 2rem));
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-4);
+        color: var(--color-foreground);
+      }
+
+      .inlineList {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-1);
+        flex-shrink: 0;
+      }
+
+      .inlineTab {
+        height: var(--size-md);
+        margin: 0;
+        appearance: none;
+        border: 0;
+        border-radius: var(--radius-sm);
+        padding-inline: var(--spacing-3);
+        background: transparent;
+        color: var(--color-muted-foreground);
+        font: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+        cursor: pointer;
+
+        &[data-active] {
+          color: var(--color-foreground);
+        }
+      }
+
+      .inlineIndicator {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: var(--active-tab-width);
+        height: var(--border-width-md);
+        border-radius: var(--radius-full);
+        background: var(--color-foreground);
+        translate: var(--active-tab-left) 0;
+        transition:
+          translate 200ms ease,
+          width 200ms ease;
+      }
+
+      .inlinePanel {
+        flex: 1;
+        min-width: 0;
+
+        &[hidden]:not([hidden='until-found']) {
+          display: none;
+        }
+      }
+
+      .inlineInput {
+        box-sizing: border-box;
+        width: 100%;
+        height: var(--size-md);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-sm);
+        padding-inline: var(--spacing-2);
+        background: var(--color-background);
+        color: var(--color-foreground);
+        font: inherit;
+        font-size: var(--text-sm);
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

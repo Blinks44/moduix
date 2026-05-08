@@ -1,0 +1,29 @@
+.customFieldset {
+  max-width: 20rem;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  border-radius: var(--radius-lg);
+}
+
+.customLegend {
+  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+  color: var(--color-primary);
+}
+
+.customField {
+  gap: var(--spacing-2);
+}
+
+.customLabel,
+.customError {
+  color: var(--color-primary);
+}
+
+.customControl {
+  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.customControl:focus {
+  outline-color: var(--color-primary);
+}

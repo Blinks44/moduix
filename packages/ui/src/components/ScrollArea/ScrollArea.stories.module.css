@@ -1,0 +1,74 @@
+@layer ui.stories {
+  .root {
+    width: 24rem;
+    max-width: calc(100vw - 2rem);
+    height: 13rem;
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .textContent {
+    display: grid;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
+    padding-right: var(--spacing-6);
+  }
+
+  .compactTextContent {
+    display: grid;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3);
+    padding-right: var(--spacing-5);
+  }
+
+  .paragraph {
+    margin: 0;
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .gridContent {
+    display: grid;
+    grid-template-columns: repeat(12, 5rem);
+    grid-template-rows: repeat(8, 5rem);
+    gap: var(--spacing-2);
+    padding: var(--spacing-3);
+  }
+
+  .cell {
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-muted);
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .controls {
+    display: grid;
+    gap: var(--spacing-3);
+  }
+
+  .button {
+    width: fit-content;
+    min-height: var(--size-sm);
+    padding-inline: var(--spacing-3);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    cursor: pointer;
+  }
+
+  .statefulViewport {
+    border-radius: var(--radius-lg);
+    outline: var(--border-width-sm) solid var(--color-border);
+    outline-offset: calc(var(--border-width-sm) * -1);
+
+    &[data-scrolling] {
+      outline-color: var(--color-primary);
+    }
+  }
+}

@@ -1,0 +1,20 @@
+@layer ui.storybook {
+  .spinner {
+    box-sizing: border-box;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: var(--border-width-sm) solid currentColor;
+    border-right-color: transparent;
+    border-radius: var(--radius-full);
+    animation: spin var(--duration-slow) linear infinite;
+  }
+
+  .backdrop {
+    --autocomplete-backdrop-bg: var(--color-overlay);
+    --autocomplete-backdrop-blur: 2px;
+  }
+
+  .arrow {
+    --autocomplete-arrow-stroke-color: var(--color-border);
+  }
+}

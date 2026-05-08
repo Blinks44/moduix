@@ -1,0 +1,337 @@
+import {
+  Checkbox,
+  CheckboxField,
+  CheckboxGroup,
+  CheckboxGroupItem,
+  CheckboxGroupItemControl,
+  CheckboxGroupItemLabel,
+  CheckboxGroupLabel,
+  CheckboxGroupList,
+  CheckboxLabel,
+  Field,
+  FieldItem,
+  FieldLabel,
+  Fieldset,
+  FieldsetLegend,
+  type CheckboxGroupProps,
+} from 'moduix';
+import * as React from 'react';
+import type { CssPropertyInput } from '../preview';
+import styles from './checkbox-group.module.css';
+
+const notificationOptions = [
+  { value: 'email', label: 'Email updates' },
+  { value: 'push', label: 'Push notifications' },
+  { value: 'sms', label: 'SMS alerts' },
+];
+
+const fruitOptions = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'orange', label: 'Orange' },
+  { value: 'pear', label: 'Pear' },
+];
+
+const fruitValues = fruitOptions.map((option) => option.value);
+
+const sizeOptions = [
+  { value: 'xs', label: 'Extra-small' },
+  { value: 'sm', label: 'Small' },
+  { value: 'md', label: 'Medium' },
+  { value: 'lg', label: 'Large' },
+  { value: 'xl', label: 'Extra-large' },
+] as const;
+
+export const checkboxGroupCssProperties: CssPropertyInput[] = [
+  ['--checkbox-group-color', 'var(--color-foreground)', 'Controls group text color.'],
+  ['--checkbox-group-gap', 'var(--spacing-2)', 'Controls spacing between label and list.'],
+  ['--checkbox-group-list-gap', 'var(--spacing-2)', 'Controls spacing between items.'],
+  [
+    '--checkbox-group-item-gap',
+    'var(--checkbox-gap, var(--spacing-2))',
+    'Controls spacing between each checkbox and item label.',
+  ],
+  [
+    '--checkbox-group-label-color',
+    'var(--checkbox-group-color, var(--color-foreground))',
+    'Controls group label color.',
+  ],
+  ['--checkbox-group-label-font-size', 'var(--text-sm)', 'Controls group label font size.'],
+  [
+    '--checkbox-group-label-font-weight',
+    'var(--weight-semibold)',
+    'Controls group label font weight.',
+  ],
+  [
+    '--checkbox-group-label-line-height',
+    'var(--line-height-text-sm)',
+    'Controls group label line height.',
+  ],
+  [
+    '--checkbox-group-item-label-color',
+    'var(--checkbox-label-color, var(--color-foreground))',
+    'Controls item label color.',
+  ],
+  [
+    '--checkbox-group-item-label-font-size',
+    'var(--checkbox-label-font-size, var(--text-sm))',
+    'Controls item label font size.',
+  ],
+  [
+    '--checkbox-group-item-label-font-weight',
+    'var(--checkbox-label-font-weight, var(--weight-medium))',
+    'Controls item label font weight.',
+  ],
+  [
+    '--checkbox-group-item-label-line-height',
+    'var(--checkbox-label-line-height, var(--line-height-text-sm))',
+    'Controls item label line height.',
+  ],
+  ['--checkbox-size-md', '1.25rem', 'Controls default `md` checkbox size.'],
+  ['--checkbox-icon-size-md', '0.75rem', 'Controls default `md` checkbox icon size.'],
+  ['--checkbox-radius', 'var(--radius-xs)', 'Controls checkbox corner radius.'],
+  ['--checkbox-bg', 'var(--color-background)', 'Controls unchecked checkbox background.'],
+  ['--checkbox-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background.'],
+  ['--checkbox-bg-checked', 'var(--color-primary)', 'Controls checked checkbox background.'],
+  ['--checkbox-border-color', 'var(--color-border)', 'Controls unchecked checkbox border color.'],
+  [
+    '--checkbox-border-color-checked',
+    'var(--color-primary)',
+    'Controls checked and indeterminate border color.',
+  ],
+  ['--checkbox-color', 'var(--color-primary-foreground)', 'Controls checkbox indicator color.'],
+  ['--checkbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--checkbox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  ['--checkbox-transition', 'var(--transition-default)', 'Controls state transition timing.'],
+];
+
+function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
+      <path
+        d="M5 1.5V8.5M1.5 5H8.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function CheckboxGroupExample(props: CheckboxGroupProps) {
+  const labelId = React.useId();
+
+  return (
+    <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']} {...props}>
+      <CheckboxGroupLabel id={labelId}>Notification Channels</CheckboxGroupLabel>
+      <CheckboxGroupList>
+        {notificationOptions.map((option) => (
+          <CheckboxGroupItem key={option.value}>
+            <CheckboxGroupItemControl value={option.value} name="notifications" />
+            <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+          </CheckboxGroupItem>
+        ))}
+      </CheckboxGroupList>
+    </CheckboxGroup>
+  );
+}
+
+export function CustomIconCheckboxGroupExample() {
+  const labelId = React.useId();
+
+  return (
+    <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']}>
+      <CheckboxGroupLabel id={labelId}>Custom Indicators</CheckboxGroupLabel>
+      <CheckboxGroupList>
+        {notificationOptions.map((option) => (
+          <CheckboxGroupItem key={option.value}>
+            <CheckboxGroupItemControl
+              value={option.value}
+              name="custom-indicators"
+              checkedIcon={<CustomPlusIcon />}
+            />
+            <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+          </CheckboxGroupItem>
+        ))}
+      </CheckboxGroupList>
+    </CheckboxGroup>
+  );
+}
+
+export function CheckboxGroupSizesExample() {
+  const labelId = React.useId();
+
+  return (
+    <CheckboxGroup aria-labelledby={labelId} defaultValue={['md']}>
+      <CheckboxGroupLabel id={labelId}>Control Size</CheckboxGroupLabel>
+      <CheckboxGroupList>
+        {sizeOptions.map((option) => (
+          <CheckboxGroupItem key={option.value}>
+            <CheckboxGroupItemControl value={option.value} size={option.value} />
+            <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+          </CheckboxGroupItem>
+        ))}
+      </CheckboxGroupList>
+    </CheckboxGroup>
+  );
+}
+
+export function ControlledCheckboxGroupExample() {
+  const labelId = React.useId();
+  const [value, setValue] = React.useState(['push']);
+
+  return (
+    <div className={styles.wrapper}>
+      <CheckboxGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
+        <CheckboxGroupLabel id={labelId}>Active Alerts</CheckboxGroupLabel>
+        <CheckboxGroupList>
+          {notificationOptions.map((option) => (
+            <CheckboxGroupItem key={option.value}>
+              <CheckboxGroupItemControl value={option.value} name="alerts" />
+              <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+            </CheckboxGroupItem>
+          ))}
+        </CheckboxGroupList>
+      </CheckboxGroup>
+      <span className={styles.hint}>Current value: {value.join(', ') || 'none'}</span>
+    </div>
+  );
+}
+
+export function DisabledCheckboxGroupExample() {
+  const labelId = React.useId();
+
+  return (
+    <CheckboxGroup aria-labelledby={labelId} defaultValue={['push']} disabled>
+      <CheckboxGroupLabel id={labelId}>Disabled Settings</CheckboxGroupLabel>
+      <CheckboxGroupList>
+        {notificationOptions.map((option) => (
+          <CheckboxGroupItem key={option.value}>
+            <CheckboxGroupItemControl value={option.value} name="disabled-settings" />
+            <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+          </CheckboxGroupItem>
+        ))}
+      </CheckboxGroupList>
+    </CheckboxGroup>
+  );
+}
+
+export function ParentCheckboxGroupExample() {
+  const labelId = React.useId();
+  const [value, setValue] = React.useState<string[]>([]);
+
+  return (
+    <CheckboxGroup
+      aria-labelledby={labelId}
+      value={value}
+      onValueChange={setValue}
+      allValues={fruitValues}
+    >
+      <CheckboxGroupLabel id={labelId}>Fruits</CheckboxGroupLabel>
+      <CheckboxGroupList>
+        <CheckboxGroupItem>
+          <CheckboxGroupItemControl parent />
+          <CheckboxGroupItemLabel>Select all</CheckboxGroupItemLabel>
+        </CheckboxGroupItem>
+
+        {fruitOptions.map((option) => (
+          <CheckboxGroupItem key={option.value}>
+            <CheckboxGroupItemControl value={option.value} />
+            <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+          </CheckboxGroupItem>
+        ))}
+      </CheckboxGroupList>
+    </CheckboxGroup>
+  );
+}
+
+export function CheckboxGroupClassNameExample() {
+  const labelId = React.useId();
+
+  return (
+    <CheckboxGroup
+      aria-labelledby={labelId}
+      defaultValue={['email']}
+      className={styles.customGroup}
+    >
+      <CheckboxGroupLabel id={labelId} className={styles.customLabel}>
+        Styled Channels
+      </CheckboxGroupLabel>
+      <CheckboxGroupList className={styles.customList}>
+        {notificationOptions.map((option) => (
+          <CheckboxGroupItem key={option.value} className={styles.customItem}>
+            <CheckboxGroupItemControl
+              value={option.value}
+              name="styled-notifications"
+              className={styles.customControl}
+              classNames={{ indicator: styles.customIndicator }}
+            />
+            <CheckboxGroupItemLabel className={styles.customItemLabel}>
+              {option.label}
+            </CheckboxGroupItemLabel>
+          </CheckboxGroupItem>
+        ))}
+      </CheckboxGroupList>
+    </CheckboxGroup>
+  );
+}
+
+export function CheckboxGroupFieldCompositionExample() {
+  const labelId = React.useId();
+
+  return (
+    <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']}>
+      <CheckboxGroupLabel id={labelId}>Channels</CheckboxGroupLabel>
+      <CheckboxGroupList>
+        {notificationOptions.map((option) => (
+          <CheckboxField key={option.value}>
+            <Checkbox value={option.value} name="field-composition" />
+            <CheckboxLabel>{option.label}</CheckboxLabel>
+          </CheckboxField>
+        ))}
+      </CheckboxGroupList>
+    </CheckboxGroup>
+  );
+}
+
+export function CheckboxGroupSiblingLabelNativeButtonExample() {
+  const id = React.useId();
+  const labelId = React.useId();
+
+  return (
+    <div className={styles.siblingRow}>
+      <div id={labelId} className={styles.hint}>
+        Channels
+      </div>
+      <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId}>
+        <CheckboxGroupItemControl
+          nativeButton
+          render={<button />}
+          id={id}
+          value="email"
+          name="sibling-notifications"
+        />
+      </CheckboxGroup>
+      <label htmlFor={id} className={styles.label}>
+        Email updates
+      </label>
+    </div>
+  );
+}
+
+export function CheckboxGroupFormIntegrationExample() {
+  return (
+    <Field name="notificationChannels">
+      <Fieldset render={<CheckboxGroup defaultValue={['email']} />}>
+        <FieldsetLegend>Notification Channels</FieldsetLegend>
+        {notificationOptions.map((option) => (
+          <FieldItem key={option.value}>
+            <FieldLabel>
+              <Checkbox value={option.value} />
+              <CheckboxLabel>{option.label}</CheckboxLabel>
+            </FieldLabel>
+          </FieldItem>
+        ))}
+      </Fieldset>
+    </Field>
+  );
+}

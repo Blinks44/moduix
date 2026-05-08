@@ -1,0 +1,47 @@
+.customCloseIcon {
+  --dialog-close-icon-color: var(--color-destructive);
+}
+
+.outsidePopup {
+  position: relative;
+  overflow: visible;
+  --dialog-width: 26rem;
+  --dialog-padding: var(--spacing-5);
+}
+
+.centeredViewport {
+  place-items: center;
+}
+
+.outsideClose {
+  position: absolute;
+  top: -2rem;
+  right: -2rem;
+  border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
+  background-color: var(--dialog-bg, var(--color-popover));
+  color: var(--dialog-color, var(--color-popover-foreground));
+}
+
+.scrollPopup {
+  display: flex;
+  flex-direction: column;
+  height: min(42rem, calc(100dvh - var(--spacing-10)));
+  overflow: hidden;
+}
+
+.scrollBody {
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.scrollArea {
+  height: 100%;
+  min-height: 0;
+}
+
+.scrollContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}

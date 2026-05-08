@@ -1,0 +1,20 @@
+.stack {
+  display: flex;
+  width: min(34rem, calc(100vw - var(--spacing-8)));
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.customText {
+  --text-default-color: var(--color-primary);
+  --text-font-size-md: var(--text-lg);
+  --text-line-height-md: var(--line-height-text-lg);
+  --text-font-weight-regular: var(--weight-medium);
+}
+
+.aligned {
+  display: flex;
+  width: min(34rem, calc(100vw - var(--spacing-8)));
+  flex-direction: column;
+  gap: var(--spacing-4);
+}

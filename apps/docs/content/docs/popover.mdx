@@ -1,0 +1,481 @@
+---
+title: Popover
+description: An accessible popup anchored to a trigger for compact contextual content.
+icon: Component
+---
+
+import {
+  ControlledPopoverExample,
+  CustomArrowPopoverExample,
+  DetachedTriggerPopoverExample,
+  ImageOnlyPopoverExample,
+  OpenOnHoverPopoverExample,
+  PopoverExample,
+  PopoverWithBackdropExample,
+  PopoverWithCloseActionExample,
+  PopoverWithoutArrowExample,
+  SideControlPopoverExample,
+  popoverCssProperties,
+} from '@/components/examples/popover';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/popover" />
+
+## Basic
+
+<Preview cssProperties={popoverCssProperties}>
+  <PopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        BellIcon,
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+      import styles from "./popover-demo.module.css";
+
+      export function PopoverDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger render={<Button />}>
+              <span className={styles.triggerContent}>
+                <BellIcon className={styles.icon} />
+                Notifications
+              </span>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>Notifications</PopoverTitle>
+                <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### With Close Action
+
+Use `PopoverClose` inside the popup when the content includes an explicit dismiss action.
+
+<Preview>
+  <PopoverWithCloseActionExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverClose,
+        PopoverContent,
+        PopoverDescription,
+        PopoverFooter,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+
+      export function PopoverWithCloseActionDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger render={<Button />}>Project status</PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>Sprint 19</PopoverTitle>
+                <PopoverDescription>
+                  9 tasks completed, 2 in progress. Everything is on schedule.
+                </PopoverDescription>
+              </PopoverHeader>
+              <PopoverFooter>
+                <PopoverClose>Close</PopoverClose>
+              </PopoverFooter>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### With Backdrop
+
+Set `withBackdrop` on `PopoverContent` when the popup should visually separate itself from the page.
+Use `classNames` to style internal service slots without rendering them manually.
+
+<Preview>
+  <PopoverWithBackdropExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+      import styles from "./popover-demo.module.css";
+
+      export function PopoverWithBackdropDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger render={<Button />}>Open with backdrop</PopoverTrigger>
+            <PopoverContent
+              showArrow={false}
+              withBackdrop
+              classNames={{ backdrop: styles.backdrop }}
+            >
+              <PopoverHeader>
+                <PopoverTitle>Backdrop</PopoverTitle>
+                <PopoverDescription>
+                  The backdrop is rendered automatically and styled through classNames.
+                </PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Open On Hover
+
+Set `openOnHover` on the trigger for quick preview interactions. Use `delay` and `closeDelay` to
+tune hover timing.
+
+<Preview>
+  <OpenOnHoverPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+
+      export function OpenOnHoverPopoverDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger openOnHover delay={150} closeDelay={120} render={<Button />}>
+              Open on hover
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>Hover mode</PopoverTitle>
+                <PopoverDescription>
+                  This popover uses delayed hover opening for quick preview interactions.
+                </PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control the open state from React when the popover needs to coordinate with other UI.
+
+<Preview>
+  <ControlledPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverClose,
+        PopoverContent,
+        PopoverDescription,
+        PopoverFooter,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledPopoverDemo() {
+        const [open, setOpen] = useState(false);
+
+        return (
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger render={<Button />}>Open controlled popover</PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>Publish changes?</PopoverTitle>
+                <PopoverDescription>
+                  This action will make your latest updates visible to all users.
+                </PopoverDescription>
+              </PopoverHeader>
+              <PopoverFooter>
+                <PopoverClose>Back to editing</PopoverClose>
+              </PopoverFooter>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Detached Trigger
+
+Use `createPopoverHandle` when the trigger lives outside the popover tree.
+
+<Preview>
+  <DetachedTriggerPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+        createPopoverHandle,
+      } from "moduix";
+      import { useMemo } from "react";
+
+      export function DetachedTriggerPopoverDemo() {
+        const popoverHandle = useMemo(() => createPopoverHandle(), []);
+
+        return (
+          <div>
+            <PopoverTrigger handle={popoverHandle} render={<Button />}>
+              Open details
+            </PopoverTrigger>
+            <Popover handle={popoverHandle}>
+              <PopoverContent>
+                <PopoverHeader>
+                  <PopoverTitle>Detached trigger</PopoverTitle>
+                  <PopoverDescription>
+                    Trigger and popup are linked with createPopoverHandle().
+                  </PopoverDescription>
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Side Control
+
+Pass `side`, `align`, offsets, collision options, or `positionerProps` to `PopoverContent` when you
+need to control popup placement.
+
+<Preview>
+  <SideControlPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+      import { useState } from "react";
+      import styles from "./popover-demo.module.css";
+
+      const sides = ["top", "right", "bottom", "left"] as const;
+
+      export function SideControlPopoverDemo() {
+        const [side, setSide] = useState("bottom" as (typeof sides)[number]);
+
+        return (
+          <div className={styles.stack}>
+            <div className={styles.sideButtons}>
+              {sides.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={styles.sideButton}
+                  data-active={item === side || undefined}
+                  onClick={() => setSide(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <Popover>
+              <PopoverTrigger render={<Button />}>Open with side: {side}</PopoverTrigger>
+              <PopoverContent side={side} className={styles.narrowPopup}>
+                <PopoverHeader>
+                  <PopoverTitle>Placement</PopoverTitle>
+                  <PopoverDescription>
+                    Current side is <strong>{side}</strong>.
+                  </PopoverDescription>
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Image Only Content
+
+Use `PopoverBody` and popup-level CSS variables when the content does not need title and
+description slots.
+
+<Preview>
+  <ImageOnlyPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverBody,
+        PopoverContent,
+        PopoverTrigger,
+      } from "moduix";
+      import styles from "./popover-demo.module.css";
+
+      const imageUrl =
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 420'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230b1220' offset='0'/%3E%3Cstop stop-color='%231d3557' offset='0.52'/%3E%3Cstop stop-color='%23004e64' offset='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop stop-color='%23ffd166'/%3E%3Cstop stop-color='%23fca311'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%2306d6a0'/%3E%3Cstop stop-color='%23118ab2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='420' fill='url(%23bg)'/%3E%3Ccircle cx='120' cy='90' r='70' fill='%23ffffff22'/%3E%3Ccircle cx='620' cy='330' r='120' fill='%23ffffff18'/%3E%3Crect x='70' y='240' width='320' height='110' rx='22' fill='url(%23accent1)' opacity='0.88' transform='rotate(-8 230 295)'/%3E%3Crect x='320' y='90' width='300' height='120' rx='24' fill='url(%23accent2)' opacity='0.92' transform='rotate(10 470 150)'/%3E%3Cpath d='M40 370 C160 260, 270 360, 390 280 C510 200, 610 280, 720 210 L720 420 L40 420 Z' fill='%23ffffff22'/%3E%3C/svg%3E";
+
+      export function ImageOnlyPopoverDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger render={<Button />}>Open image popover</PopoverTrigger>
+            <PopoverContent className={styles.imagePopup}>
+              <PopoverBody>
+                <img className={styles.image} alt="Abstract geometric composition" src={imageUrl} />
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Without Arrow
+
+Set `showArrow={false}` when the popup should look like a floating panel without a pointer.
+
+<Preview>
+  <PopoverWithoutArrowExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+
+      export function PopoverWithoutArrowDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
+            <PopoverContent showArrow={false}>
+              <PopoverHeader>
+                <PopoverTitle>No arrow</PopoverTitle>
+                <PopoverDescription>
+                  Set showArrow to false when the popup should look like a floating panel.
+                </PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Arrow
+
+Pass `arrow` to `PopoverContent`, or use the lower-level `PopoverArrow` part, to render any custom
+icon or SVG.
+
+<Preview>
+  <CustomArrowPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+      import styles from "./popover-demo.module.css";
+
+      export function CustomArrowPopoverDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger render={<Button />}>Open custom arrow</PopoverTrigger>
+            <PopoverContent className={styles.customArrowPopup} arrow={<CustomArrow />}>
+              <PopoverHeader>
+                <PopoverTitle>Custom arrow</PopoverTitle>
+                <PopoverDescription>
+                  Pass any React node to the arrow prop to use your own icon or SVG.
+                </PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+
+      function CustomArrow() {
+        return (
+          <svg className={styles.customArrow} viewBox="0 0 16 8" fill="none" aria-hidden="true">
+            <path d="M8 0L16 8H0L8 0Z" fill="currentColor" />
+          </svg>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

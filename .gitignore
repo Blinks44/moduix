@@ -1,0 +1,58 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+build
+storybook-static
+
+# Monorepo and tool caches
+.turbo
+.cache
+.vite
+
+# Generated app artifacts
+.source
+.tanstack
+.output
+.nitro
+
+# Cloudflare / deployment
+.wrangler
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+
+# Test and coverage output
+coverage
+test-results
+playwright-report
+blob-report
+
+# Logs
+*.log
+*storybook.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+*.local
+!.env.example
+
+# macOS
+.DS_Store
+
+# Editors and IDEs
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

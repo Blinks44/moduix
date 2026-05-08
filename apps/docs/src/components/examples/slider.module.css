@@ -1,0 +1,38 @@
+.stack {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.range {
+  width: 12rem;
+}
+
+.verticalContainer {
+  display: flex;
+  height: 14rem;
+}
+
+.verticalSlider {
+  --slider-width-vertical: auto;
+  --slider-height: 12rem;
+}
+
+.customControl {
+  --slider-control-padding-y: var(--spacing-3);
+}
+
+.customTrack {
+  --slider-track-size: 0.625rem;
+  --slider-track-bg: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-muted));
+  --slider-track-border-color: transparent;
+}
+
+.customIndicator {
+  --slider-indicator-bg: var(--color-chart-4);
+}
+
+.customThumb {
+  --slider-thumb-size: 1.25rem;
+  --slider-thumb-bg: var(--color-chart-4);
+  --slider-thumb-border-color: var(--color-background);
+}

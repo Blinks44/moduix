@@ -1,0 +1,636 @@
+---
+title: Select
+description: A form control for choosing one or more predefined values from a popup list.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  AnimatedSelectExample,
+  ClearableSelectExample,
+  ControlledSelectExample,
+  GroupedSelectExample,
+  IndicatorRightSelectExample,
+  MultipleSelectExample,
+  ObjectValuesSelectExample,
+  PopupOptionsSelectExample,
+  SelectExample,
+  selectCssProperties,
+} from '@/components/examples/select';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/select" />
+
+## Basic
+
+<Preview cssProperties={selectCssProperties}>
+  <SelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        SelectContent,
+        SelectScrollUpArrow,
+        SelectList,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+        SelectScrollDownArrow,
+      } from "moduix";
+
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Blueberry", value: "blueberry" },
+        { label: "Grape", value: "grape" },
+        { label: "Kiwi", value: "kiwi" },
+        { label: "Mango", value: "mango" },
+        { label: "Orange", value: "orange" },
+        { label: "Pineapple", value: "pineapple" },
+        { label: "Strawberry", value: "strawberry" },
+        { label: "Watermelon", value: "watermelon" },
+      ];
+
+      export function SelectDemo() {
+        return (
+          <Select items={fruits}>
+            <SelectField>
+              <SelectLabel>Choose fruit</SelectLabel>
+              <SelectTrigger>
+                <SelectValue placeholder="Select an option" />
+                <SelectIcon />
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent>
+              <SelectScrollUpArrow />
+              <SelectList>
+                {fruits.map((item) => (
+                  <SelectItem key={item.value} value={item.value}>
+                    <SelectItemIndicator />
+                    <SelectItemText>{item.label}</SelectItemText>
+                  </SelectItem>
+                ))}
+              </SelectList>
+              <SelectScrollDownArrow />
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Indicator Right With Icon
+
+Use `indicator="end"` to place the selected indicator after the item text. Pass children to `SelectIcon` or `SelectItemTextIcon` to use icons from your application.
+
+<Preview>
+  <IndicatorRightSelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        ChevronDownIcon,
+        SelectContent,
+        SelectList,
+        SelectItem,
+        SelectItemText,
+        SelectItemTextContent,
+        SelectItemTextIcon,
+        InfoIcon,
+        SelectItemTextLabel,
+        SelectItemIndicator,
+      } from "moduix";
+      import styles from "./select.module.css";
+
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+      ];
+
+      export function IndicatorRightSelectDemo() {
+        return (
+          <Select items={fruits}>
+            <SelectField>
+              <SelectLabel>Choose fruit</SelectLabel>
+              <SelectTrigger>
+                <SelectValue placeholder="Select an option" />
+                <SelectIcon>
+                  <ChevronDownIcon className={styles.customTriggerIcon} />
+                </SelectIcon>
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent>
+              <SelectList>
+                {fruits.map((item) => (
+                  <SelectItem key={item.value} value={item.value} indicator="end">
+                    <SelectItemText>
+                      <SelectItemTextContent>
+                        <SelectItemTextIcon>
+                          <InfoIcon className={styles.statusIcon} />
+                        </SelectItemTextIcon>
+                        <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
+                      </SelectItemTextContent>
+                    </SelectItemText>
+                    <SelectItemIndicator />
+                  </SelectItem>
+                ))}
+              </SelectList>
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Grouped
+
+Use `SelectGroup` and `SelectGroupLabel` to organize related items inside the popup.
+
+<Preview>
+  <GroupedSelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        SelectContent,
+        SelectList,
+        SelectGroup,
+        SelectSeparator,
+        SelectGroupLabel,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+      } from "moduix";
+
+      const groupedOptions = [
+        {
+          label: "Fruits",
+          items: [
+            { label: "Apple", value: "apple" },
+            { label: "Mango", value: "mango" },
+          ],
+        },
+        {
+          label: "Vegetables",
+          items: [
+            { label: "Carrot", value: "carrot" },
+            { label: "Spinach", value: "spinach" },
+          ],
+        },
+      ];
+
+      const groupedLabelByValue = Object.fromEntries(
+        groupedOptions.flatMap((group) => group.items.map((item) => [item.value, item.label])),
+      );
+
+      export function GroupedSelectDemo() {
+        return (
+          <Select>
+            <SelectField>
+              <SelectLabel>Choose produce</SelectLabel>
+              <SelectTrigger>
+                <SelectValue placeholder="Select item">
+                  {(value) =>
+                    typeof value === "string" ? groupedLabelByValue[value] ?? value : "Select item"
+                  }
+                </SelectValue>
+                <SelectIcon />
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent>
+              <SelectList>
+                {groupedOptions.map((group, index) => (
+                  <SelectGroup key={group.label}>
+                    {index > 0 ? <SelectSeparator /> : null}
+                    <SelectGroupLabel>{group.label}</SelectGroupLabel>
+                    {group.items.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        <SelectItemIndicator />
+                        <SelectItemText>{item.label}</SelectItemText>
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                ))}
+              </SelectList>
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Animated
+
+Pass `animation="scale"` to `SelectContent` when the popup should animate in the default overlapping select positioning mode.
+
+<Preview>
+  <AnimatedSelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        SelectContent,
+        SelectList,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+      } from "moduix";
+      import styles from "./select.module.css";
+
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+      ];
+
+      export function AnimatedSelectDemo() {
+        return (
+          <Select items={fruits}>
+            <SelectField>
+              <SelectLabel>Choose fruit</SelectLabel>
+              <SelectTrigger>
+                <SelectValue placeholder="Select an option" />
+                <SelectIcon />
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent animation="scale" className={styles.animatedContent}>
+              <SelectList>
+                {fruits.map((item) => (
+                  <SelectItem key={item.value} value={item.value}>
+                    <SelectItemIndicator />
+                    <SelectItemText>{item.label}</SelectItemText>
+                  </SelectItem>
+                ))}
+              </SelectList>
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Multiple
+
+Use the `multiple` prop when a field can contain several selected values. Render `SelectValue` with a function to format the array.
+
+<Preview>
+  <MultipleSelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        SelectContent,
+        SelectList,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+      } from "moduix";
+
+      const languages = {
+        javascript: "JavaScript",
+        python: "Python",
+        rust: "Rust",
+        typescript: "TypeScript",
+      };
+
+      const languageValues = Object.keys(languages);
+
+      function renderMultipleValue(value) {
+        if (value.length === 0) {
+          return "Select languages";
+        }
+
+        const first = languages[value[0]];
+        const suffix = value.length > 1 ? \` (+\${value.length - 1})\` : "";
+
+        return \`\${first}\${suffix}\`;
+      }
+
+      export function MultipleSelectDemo() {
+        return (
+          <Select multiple defaultValue={["javascript", "typescript"]}>
+            <SelectField>
+              <SelectLabel>Languages</SelectLabel>
+              <SelectTrigger>
+                <SelectValue>{renderMultipleValue}</SelectValue>
+                <SelectIcon />
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent alignItemWithTrigger={false}>
+              <SelectList>
+                {languageValues.map((value) => (
+                  <SelectItem key={value} value={value}>
+                    <SelectItemIndicator />
+                    <SelectItemText>{languages[value]}</SelectItemText>
+                  </SelectItem>
+                ))}
+              </SelectList>
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Popup Options
+
+Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Backdrop`, and `Arrow` are rendered internally, so application code only configures behavior and service-slot classes.
+
+<Preview>
+  <PopupOptionsSelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        SelectContent,
+        SelectList,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+      } from "moduix";
+      import styles from "./select.module.css";
+
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+      ];
+
+      export function PopupOptionsSelectDemo() {
+        return (
+          <Select items={fruits}>
+            <SelectField>
+              <SelectLabel>Choose fruit</SelectLabel>
+              <SelectTrigger>
+                <SelectValue placeholder="Select an option" />
+                <SelectIcon />
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent
+              alignItemWithTrigger={false}
+              sideOffset={8}
+              showArrow
+              withBackdrop
+              classNames={{
+                backdrop: styles.backdrop,
+                arrow: styles.arrow,
+              }}
+            >
+              <SelectList>
+                {fruits.map((item) => (
+                  <SelectItem key={item.value} value={item.value}>
+                    <SelectItemIndicator />
+                    <SelectItemText>{item.label}</SelectItemText>
+                  </SelectItem>
+                ))}
+              </SelectList>
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Control `value` from React state when the selected option needs to coordinate with other application state.
+
+<Preview>
+  <ControlledSelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        SelectContent,
+        SelectList,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+      } from "moduix";
+      import { useState } from "react";
+
+      const themeOptions = [
+        { label: "System", value: "system" },
+        { label: "Light", value: "light" },
+        { label: "Dark", value: "dark" },
+      ];
+
+      export function ControlledSelectDemo() {
+        const [value, setValue] = useState("light");
+
+        return (
+          <Select value={value} onValueChange={setValue} items={themeOptions}>
+            <SelectField>
+              <SelectLabel>Theme</SelectLabel>
+              <SelectTrigger>
+                <SelectValue placeholder="Select theme" />
+                <SelectIcon />
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent>
+              <SelectList>
+                {themeOptions.map((item) => (
+                  <SelectItem key={item.value} value={item.value}>
+                    <SelectItemIndicator />
+                    <SelectItemText>{item.label}</SelectItemText>
+                  </SelectItem>
+                ))}
+              </SelectList>
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Clearable With Null Item
+
+Include an item with `value={null}` when users should be able to clear the field from the same popup.
+
+<Preview>
+  <ClearableSelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        SelectContent,
+        SelectList,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+      } from "moduix";
+
+      const clearableThemeOptions = [
+        { label: "Select theme", value: null },
+        { label: "System", value: "system" },
+        { label: "Light", value: "light" },
+        { label: "Dark", value: "dark" },
+      ];
+
+      export function ClearableSelectDemo() {
+        return (
+          <Select items={clearableThemeOptions}>
+            <SelectField>
+              <SelectLabel>Theme</SelectLabel>
+              <SelectTrigger>
+                <SelectValue />
+                <SelectIcon />
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent>
+              <SelectList>
+                {clearableThemeOptions.map((item) => (
+                  <SelectItem key={item.label} value={item.value}>
+                    <SelectItemIndicator />
+                    <SelectItemText>{item.label}</SelectItemText>
+                  </SelectItem>
+                ))}
+              </SelectList>
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Object Values
+
+Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
+
+<Preview>
+  <ObjectValuesSelectExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Select,
+        SelectField,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
+        SelectIcon,
+        SelectContent,
+        SelectList,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+      } from "moduix";
+
+      const assignees = [
+        { id: "u-1", name: "Leslie Alexander", role: "Product Manager" },
+        { id: "u-2", name: "Michael Foster", role: "Frontend Engineer" },
+      ];
+
+      export function ObjectValuesSelectDemo() {
+        return (
+          <Select
+            items={assignees.map((assignee) => ({
+              value: assignee,
+              label: assignee.name,
+            }))}
+            itemToStringLabel={(assignee) => assignee.name}
+            itemToStringValue={(assignee) => assignee.id}
+          >
+            <SelectField>
+              <SelectLabel>Assignee</SelectLabel>
+              <SelectTrigger>
+                <SelectValue placeholder="Select assignee" />
+                <SelectIcon />
+              </SelectTrigger>
+            </SelectField>
+
+            <SelectContent>
+              <SelectList>
+                {assignees.map((assignee) => (
+                  <SelectItem key={assignee.id} value={assignee}>
+                    <SelectItemIndicator />
+                    <SelectItemText>
+                      {assignee.name} ({assignee.role})
+                    </SelectItemText>
+                  </SelectItem>
+                ))}
+              </SelectList>
+            </SelectContent>
+          </Select>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

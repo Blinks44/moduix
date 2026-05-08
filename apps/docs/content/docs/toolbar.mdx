@@ -1,0 +1,432 @@
+---
+title: Toolbar
+description: A container for grouping buttons, toggles, links, inputs, and popup triggers.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ToolbarClassNameExample,
+  ToolbarCustomIconsExample,
+  ToolbarDisabledControlsExample,
+  ToolbarExample,
+  ToolbarSelectInputExample,
+  ToolbarSizesExample,
+  ToolbarToggleGroupExample,
+  ToolbarVariantsExample,
+  ToolbarVerticalExample,
+  toolbarCssProperties,
+} from '@/components/examples/toolbar';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/toolbar" />
+
+## Basic
+
+<Preview cssProperties={toolbarCssProperties}>
+  <ToolbarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        BellIcon,
+        Toolbar,
+        ToolbarButton,
+        ToolbarSeparator,
+      } from "moduix";
+
+      export function ToolbarDemo() {
+        return (
+          <Toolbar aria-label="Document actions">
+            <ToolbarButton>Undo</ToolbarButton>
+            <ToolbarButton>Redo</ToolbarButton>
+            <ToolbarSeparator />
+            <ToolbarButton aria-label="Notifications">
+              <BellIcon />
+            </ToolbarButton>
+          </Toolbar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Toggle Group
+
+Compose `ToolbarButton` with `Toggle` inside a `ToggleGroup` when toolbar items need pressed state.
+
+<Preview>
+  <ToolbarToggleGroupExample />
+
+  <Preview.Code>
+    {`
+      import {
+        BellIcon,
+        StarIcon,
+        Toggle,
+        ToggleGroup,
+        Toolbar,
+        ToolbarButton,
+        ToolbarGroup,
+        ToolbarSeparator,
+      } from "moduix";
+
+      export function ToolbarToggleGroupDemo() {
+        return (
+          <Toolbar aria-label="Editor formatting">
+            <ToggleGroup multiple defaultValue={["bold"]} aria-label="Text formatting" variant="ghost">
+              <ToolbarButton render={<Toggle />} value="bold" aria-label="Bold">
+                <strong>B</strong>
+              </ToolbarButton>
+              <ToolbarButton render={<Toggle />} value="italic" aria-label="Italic">
+                <em>I</em>
+              </ToolbarButton>
+              <ToolbarButton render={<Toggle />} value="underline" aria-label="Underline">
+                <u>U</u>
+              </ToolbarButton>
+            </ToggleGroup>
+
+            <ToolbarSeparator />
+
+            <ToolbarGroup aria-label="Insert">
+              <ToolbarButton aria-label="Add favorite">
+                <StarIcon />
+              </ToolbarButton>
+              <ToolbarButton aria-label="Notifications">
+                <BellIcon />
+              </ToolbarButton>
+            </ToolbarGroup>
+          </Toolbar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Select And Input
+
+Use the `render` prop to turn toolbar buttons into popup triggers, and keep inputs limited in horizontal toolbars.
+
+<Preview>
+  <ToolbarSelectInputExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ChevronUpDownIcon,
+        Select,
+        SelectContent,
+        SelectIcon,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+        SelectList,
+        SelectTrigger,
+        SelectValue,
+        Toolbar,
+        ToolbarButton,
+        ToolbarInput,
+        ToolbarLink,
+        ToolbarSeparator,
+      } from "moduix";
+
+      const fonts = ["Inter", "Arial", "Helvetica", "Georgia"];
+
+      export function ToolbarSelectInputDemo() {
+        return (
+          <Toolbar aria-label="Text properties">
+            <Select defaultValue="Inter">
+              <ToolbarButton render={<SelectTrigger />} aria-label="Font family">
+                <SelectValue />
+                <SelectIcon>
+                  <ChevronUpDownIcon />
+                </SelectIcon>
+              </ToolbarButton>
+              <SelectContent>
+                <SelectList>
+                  {fonts.map((font) => (
+                    <SelectItem key={font} value={font}>
+                      <SelectItemIndicator />
+                      <SelectItemText>{font}</SelectItemText>
+                    </SelectItem>
+                  ))}
+                </SelectList>
+              </SelectContent>
+            </Select>
+
+            <ToolbarSeparator />
+            <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
+            <ToolbarLink href="#">History</ToolbarLink>
+          </Toolbar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Variants
+
+Use `variant` to match the toolbar surface to the surrounding layout.
+
+<Preview>
+  <ToolbarVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { BellIcon, Toolbar, ToolbarButton, ToolbarSeparator } from "moduix";
+
+      export function ToolbarVariantsDemo() {
+        return (
+          <>
+            <Toolbar aria-label="Default toolbar">
+              <ToolbarButton>Undo</ToolbarButton>
+              <ToolbarButton>Redo</ToolbarButton>
+              <ToolbarSeparator />
+              <ToolbarButton aria-label="Notifications">
+                <BellIcon />
+              </ToolbarButton>
+            </Toolbar>
+            <Toolbar aria-label="Outline toolbar" variant="outline">
+              <ToolbarButton>Undo</ToolbarButton>
+              <ToolbarButton>Redo</ToolbarButton>
+              <ToolbarSeparator />
+              <ToolbarButton aria-label="Notifications">
+                <BellIcon />
+              </ToolbarButton>
+            </Toolbar>
+            <Toolbar aria-label="Ghost toolbar" variant="ghost">
+              <ToolbarButton>Undo</ToolbarButton>
+              <ToolbarButton>Redo</ToolbarButton>
+              <ToolbarSeparator />
+              <ToolbarButton aria-label="Notifications">
+                <BellIcon />
+              </ToolbarButton>
+            </Toolbar>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use `size` to align toolbar controls with compact or roomy interfaces.
+
+<Preview>
+  <ToolbarSizesExample />
+
+  <Preview.Code>
+    {`
+      import { BellIcon, Toolbar, ToolbarButton, ToolbarSeparator } from "moduix";
+
+      export function ToolbarSizesDemo() {
+        return (
+          <>
+            <Toolbar aria-label="Small toolbar" size="sm">
+              <ToolbarButton>Undo</ToolbarButton>
+              <ToolbarButton>Redo</ToolbarButton>
+              <ToolbarSeparator />
+              <ToolbarButton aria-label="Notifications">
+                <BellIcon />
+              </ToolbarButton>
+            </Toolbar>
+            <Toolbar aria-label="Medium toolbar" size="md">
+              <ToolbarButton>Undo</ToolbarButton>
+              <ToolbarButton>Redo</ToolbarButton>
+              <ToolbarSeparator />
+              <ToolbarButton aria-label="Notifications">
+                <BellIcon />
+              </ToolbarButton>
+            </Toolbar>
+            <Toolbar aria-label="Large toolbar" size="lg">
+              <ToolbarButton>Undo</ToolbarButton>
+              <ToolbarButton>Redo</ToolbarButton>
+              <ToolbarSeparator />
+              <ToolbarButton aria-label="Notifications">
+                <BellIcon />
+              </ToolbarButton>
+            </Toolbar>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Vertical
+
+Set `orientation="vertical"` for toolbars that stack controls in a column.
+
+<Preview>
+  <ToolbarVerticalExample />
+
+  <Preview.Code>
+    {`
+      import { StarIcon, Toolbar, ToolbarButton, ToolbarSeparator } from "moduix";
+
+      export function ToolbarVerticalDemo() {
+        return (
+          <Toolbar orientation="vertical" aria-label="Vertical tools">
+            <ToolbarButton>Move</ToolbarButton>
+            <ToolbarButton>Scale</ToolbarButton>
+            <ToolbarSeparator />
+            <ToolbarButton aria-label="Favorite">
+              <StarIcon />
+            </ToolbarButton>
+          </Toolbar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled Controls
+
+Disable individual toolbar controls when an action is visible but unavailable.
+
+<Preview>
+  <ToolbarDisabledControlsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        BellIcon,
+        Toolbar,
+        ToolbarButton,
+        ToolbarInput,
+        ToolbarSeparator,
+      } from "moduix";
+
+      export function ToolbarDisabledControlsDemo() {
+        return (
+          <Toolbar aria-label="Disabled document actions">
+            <ToolbarButton>Undo</ToolbarButton>
+            <ToolbarButton disabled>Redo</ToolbarButton>
+            <ToolbarSeparator />
+            <ToolbarInput aria-label="Search disabled actions" placeholder="Search actions" disabled />
+            <ToolbarButton aria-label="Notifications" disabled>
+              <BellIcon />
+            </ToolbarButton>
+          </Toolbar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icons
+
+Pass icons as children. Icon-only buttons must include an accessible label.
+
+<Preview>
+  <ToolbarCustomIconsExample />
+
+  <Preview.Code>
+    {`
+      import { Toolbar, ToolbarButton } from "moduix";
+
+      export function ToolbarCustomIconsDemo() {
+        return (
+          <Toolbar aria-label="Text alignment">
+            <ToolbarButton aria-label="Align left">
+              <AlignLeftIcon />
+            </ToolbarButton>
+            <ToolbarButton aria-label="Align center">
+              <AlignCenterIcon />
+            </ToolbarButton>
+            <ToolbarButton aria-label="Align right">
+              <AlignRightIcon />
+            </ToolbarButton>
+          </Toolbar>
+        );
+      }
+
+      function AlignLeftIcon() {
+        return (
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path
+              d="M2.5 3.5h11M2.5 8h8M2.5 12.5h11"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+      function AlignCenterIcon() {
+        return (
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path
+              d="M2.5 3.5h11M4 8h8M2.5 12.5h11"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+      function AlignRightIcon() {
+        return (
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path
+              d="M2.5 3.5h11M5.5 8h8M2.5 12.5h11"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` to the root and each part when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <ToolbarClassNameExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Toolbar,
+        ToolbarButton,
+        ToolbarInput,
+        ToolbarSeparator,
+      } from "moduix";
+      import styles from "./toolbar-demo.module.css";
+
+      export function ToolbarClassNamesDemo() {
+        return (
+          <Toolbar aria-label="Schedule controls" className={styles.customToolbar}>
+            <ToolbarButton className={styles.customButton}>Day</ToolbarButton>
+            <ToolbarButton className={styles.customButton}>Week</ToolbarButton>
+            <ToolbarSeparator />
+            <ToolbarInput
+              aria-label="Filter schedule"
+              placeholder="Filter"
+              className={styles.customInput}
+            />
+          </Toolbar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

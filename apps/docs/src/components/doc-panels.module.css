@@ -1,0 +1,121 @@
+.quickStart,
+.roadmap {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.stepCard,
+.roadmapItem {
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 80%, transparent);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--color-fd-muted) 36%, transparent),
+      transparent 64%
+    ),
+    color-mix(in oklab, var(--color-fd-card) 88%, transparent);
+}
+
+.stepCard {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 0.65rem 0.85rem;
+  align-items: start;
+  padding: 0.85rem;
+}
+
+.stepIndex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.45rem;
+  background: color-mix(in oklab, var(--color-fd-primary) 13%, var(--color-fd-background));
+  color: color-mix(in oklab, var(--color-fd-primary) 78%, var(--color-fd-foreground));
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.stepCard h2,
+.roadmapItem h2 {
+  margin: 0;
+  color: var(--color-fd-foreground);
+  font-size: 0.98rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.stepCard p,
+.roadmapItem p {
+  margin: 0.2rem 0 0;
+  color: var(--color-fd-muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.stepCard code {
+  grid-column: 2;
+  min-width: 0;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid color-mix(in oklab, var(--color-fd-border) 74%, transparent);
+  border-radius: 0.4rem;
+  background: color-mix(in oklab, var(--color-fd-background) 76%, transparent);
+  color: color-mix(in oklab, var(--color-fd-primary) 74%, var(--color-fd-foreground));
+  font-size: 0.76rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+
+.roadmap {
+  position: relative;
+}
+
+.roadmap::before {
+  position: absolute;
+  top: 1.8rem;
+  bottom: 1.8rem;
+  left: 1.08rem;
+  width: 1px;
+  background: color-mix(in oklab, var(--color-fd-border) 82%, transparent);
+  content: '';
+}
+
+.roadmapItem {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 0.85rem;
+  padding: 0.9rem;
+}
+
+.roadmapMarker {
+  position: relative;
+  z-index: 1;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: 0.28rem auto 0;
+  border: 2px solid var(--color-fd-background);
+  border-radius: 999px;
+  background: var(--color-fd-primary);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-fd-primary) 42%, transparent);
+}
+
+@media (max-width: 520px) {
+  .stepCard,
+  .roadmapItem {
+    grid-template-columns: 1fr;
+  }
+
+  .stepCard code {
+    grid-column: auto;
+  }
+
+  .roadmap::before,
+  .roadmapMarker {
+    display: none;
+  }
+}

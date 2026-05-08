@@ -1,0 +1,31 @@
+@layer ui.storybook {
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+  }
+
+  .hint {
+    margin: 0;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .form {
+    display: grid;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+    width: 20rem;
+  }
+
+  .placeholderInput {
+    &::placeholder {
+      color: var(--color-muted-foreground);
+    }
+
+    &:focus::placeholder {
+      color: transparent;
+    }
+  }
+}

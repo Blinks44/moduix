@@ -1,0 +1,162 @@
+---
+title: Avatar
+description: A compact visual identity element that shows an image, initials, or fallback content.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  AvatarClassNameExample,
+  AvatarCustomFallbackExample,
+  AvatarExample,
+  AvatarFallbackOnlyExample,
+  AvatarImageErrorExample,
+  avatarCssProperties,
+} from '@/components/examples/avatar';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/avatar" />
+
+## Basic
+
+<Preview cssProperties={avatarCssProperties}>
+  <AvatarExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar, AvatarImage, AvatarFallback } from "moduix";
+
+      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
+
+      export function AvatarDemo() {
+        return (
+          <Avatar>
+            <AvatarImage src={avatarImage} alt="Alex T." />
+            <AvatarFallback delay={600}>LT</AvatarFallback>
+          </Avatar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Fallback Only
+
+Render initials or short text directly inside `AvatarFallback` when no image is available. Use
+the `size` prop to switch between the built-in `xs`, `sm`, `md`, `lg`, and `xl` sizes.
+
+<Preview>
+  <AvatarFallbackOnlyExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar, AvatarFallback } from "moduix";
+
+      const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+
+      export function AvatarFallbackOnlyDemo() {
+        return (
+          <>
+            {sizes.map((size) => (
+              <Avatar key={size} size={size}>
+                <AvatarFallback>{size.toUpperCase()}</AvatarFallback>
+              </Avatar>
+            ))}
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Image Error
+
+Keep a fallback in the composition so the avatar stays meaningful when the image fails to load.
+
+<Preview>
+  <AvatarImageErrorExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar, AvatarImage, AvatarFallback } from "moduix";
+
+      export function AvatarImageErrorDemo() {
+        return (
+          <Avatar>
+            <AvatarImage src="https://example.com/does-not-exist.png" alt="Broken image example" />
+            <AvatarFallback>NA</AvatarFallback>
+          </Avatar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` to the root, image, and fallback slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <AvatarClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar, AvatarImage, AvatarFallback } from "moduix";
+      import styles from "./avatar.module.css";
+
+      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
+
+      export function AvatarClassNameDemo() {
+        return (
+          <Avatar size="lg" className={styles.ring}>
+            <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
+            <AvatarFallback className={styles.uppercase}>LT</AvatarFallback>
+          </Avatar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Fallback
+
+Pass any React node to `AvatarFallback` to use an icon from your application or icon library.
+
+<Preview>
+  <AvatarCustomFallbackExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar, AvatarFallback, ComputerIcon } from "moduix";
+      import type { CSSProperties } from "react";
+
+      export function AvatarCustomFallbackDemo() {
+        return (
+          <Avatar
+            size="lg"
+            style={
+              {
+                "--avatar-bg": "var(--color-accent)",
+                "--avatar-fallback-color": "var(--color-accent-foreground)",
+              } as CSSProperties
+            }
+          >
+            <AvatarFallback>
+              <ComputerIcon />
+            </AvatarFallback>
+          </Avatar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

@@ -1,0 +1,201 @@
+---
+title: Text
+description: A typography primitive for body copy, inline text, supporting descriptions, and semantic emphasis.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  TextAlignExample,
+  TextClassNameExample,
+  TextElementsExample,
+  TextExample,
+  TextSizesExample,
+  TextTonesExample,
+  TextWeightsExample,
+  textCssProperties,
+} from '@/components/examples/text';
+
+## API Reference
+
+`Text` is a moduix typography primitive and does not wrap a Base UI primitive.
+
+## Basic
+
+<Preview cssProperties={textCssProperties}>
+  <TextExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+
+      export function TextDemo() {
+        return (
+          <Text>
+            Use text to describe interface state and supporting details.
+          </Text>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Elements
+
+Use `as` to choose the semantic element without leaving the typography scale.
+
+<Preview>
+  <TextElementsExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+
+      export function TextElementsDemo() {
+        return (
+          <div>
+            <Text as="p">Paragraph text rendered as p.</Text>
+            <Text as="span">Inline text rendered as span.</Text>
+            <Text as="small">Small supporting text rendered as small.</Text>
+            <Text as="strong">Important text rendered as strong.</Text>
+            <Text as="em">Emphasized text rendered as em.</Text>
+            <Text as="div">Block text rendered as div.</Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use `size` for visual sizing. Override size-specific CSS variables in your project for responsive typography.
+
+<Preview>
+  <TextSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+
+      export function TextSizesDemo() {
+        return (
+          <div>
+            <Text size="xl">Extra-large text</Text>
+            <Text size="lg">Large text</Text>
+            <Text size="md">Medium text</Text>
+            <Text size="sm">Small text</Text>
+            <Text size="xs">Extra-small text</Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Tones
+
+Use `tone` to match the role of the copy without introducing local color classes.
+
+<Preview>
+  <TextTonesExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+
+      export function TextTonesDemo() {
+        return (
+          <div>
+            <Text tone="default">Default tone</Text>
+            <Text tone="muted">Muted tone</Text>
+            <Text tone="subtle">Subtle tone</Text>
+            <Text tone="primary">Primary tone</Text>
+            <Text tone="destructive">Destructive tone</Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Weights
+
+Use `weight` for emphasis. `strong` defaults to semibold while other elements default to regular.
+
+<Preview>
+  <TextWeightsExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+
+      export function TextWeightsDemo() {
+        return (
+          <div>
+            <Text weight="regular">Regular weight</Text>
+            <Text weight="medium">Medium weight</Text>
+            <Text weight="semibold">Semibold weight</Text>
+            <Text weight="bold">Bold weight</Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Alignment
+
+Use `align` when text alignment belongs to the typography primitive instead of the surrounding layout.
+
+<Preview>
+  <TextAlignExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+
+      export function TextAlignDemo() {
+        return (
+          <div>
+            <Text align="left">Left aligned text.</Text>
+            <Text align="center">Center aligned text.</Text>
+            <Text align="right">Right aligned text.</Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Names
+
+Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+<Preview>
+  <TextClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+      import styles from "./text-demo.module.css";
+
+      export function TextClassNameDemo() {
+        return (
+          <Text as="p" className={styles.text}>
+            Customized body copy with local CSS variables.
+          </Text>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

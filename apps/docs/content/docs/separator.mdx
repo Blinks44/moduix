@@ -1,0 +1,95 @@
+---
+title: Separator
+description: Separates related content or groups with an accessible horizontal or vertical line.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  CustomSeparatorExample,
+  SeparatorExample,
+  VerticalSeparatorExample,
+  separatorCssProperties,
+} from '@/components/examples/separator';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/separator" />
+
+## Basic
+
+<Preview cssProperties={separatorCssProperties}>
+  <SeparatorExample />
+
+  <Preview.Code>
+    {`
+      import { Separator } from "moduix";
+
+      export function SeparatorDemo() {
+        return (
+          <section aria-label="Account setup">
+            <span>Account settings</span>
+            <Separator />
+            <span>Billing details</span>
+          </section>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Vertical
+
+Use `orientation="vertical"` when the separator divides inline groups, such as navigation actions.
+
+<Preview>
+  <VerticalSeparatorExample />
+
+  <Preview.Code>
+    {`
+      import { Separator } from "moduix";
+
+      export function VerticalSeparatorDemo() {
+        return (
+          <nav aria-label="Main navigation">
+            <a href="#">Home</a>
+            <a href="#">Pricing</a>
+            <Separator orientation="vertical" />
+            <a href="#">Sign in</a>
+          </nav>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styling
+
+Pass `className` to style the root element directly or override the `--separator-*` custom properties.
+
+<Preview>
+  <CustomSeparatorExample />
+
+  <Preview.Code>
+    {`
+      import { Separator } from "moduix";
+
+      import styles from "./separator.module.css";
+
+      export function CustomSeparatorDemo() {
+        return (
+          <section className={styles.section} aria-label="Profile progress">
+            <span>Completed profile</span>
+            <Separator className={styles.customSeparator} />
+            <span>Next step: billing details</span>
+          </section>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

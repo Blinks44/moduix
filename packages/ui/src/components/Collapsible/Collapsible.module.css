@@ -1,0 +1,97 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    color: var(--collapsible-color, var(--color-foreground));
+  }
+
+  .trigger {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: var(--collapsible-trigger-gap, var(--spacing-2));
+    margin: 0;
+    border: 0;
+    border-radius: var(--collapsible-trigger-radius, 0);
+    padding-block: var(--collapsible-trigger-padding-y, 0);
+    padding-inline: var(--collapsible-trigger-padding-x, 0);
+    background-color: var(--collapsible-trigger-bg, transparent);
+    color: var(--collapsible-trigger-color, var(--collapsible-color, var(--color-foreground)));
+    font: inherit;
+    font-size: var(--collapsible-trigger-font-size, var(--text-sm));
+    line-height: var(--collapsible-trigger-line-height, var(--line-height-text-sm));
+    text-align: left;
+    outline: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--collapsible-trigger-transition, var(--transition-default)),
+      color var(--collapsible-trigger-transition, var(--transition-default));
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(
+          --collapsible-trigger-bg-hover,
+          var(--collapsible-trigger-bg, transparent)
+        );
+      }
+    }
+
+    &:active {
+      background-color: var(
+        --collapsible-trigger-bg-active,
+        var(--collapsible-trigger-bg-hover, var(--collapsible-trigger-bg, transparent))
+      );
+    }
+
+    &:focus-visible {
+      outline: var(--border-width-sm) solid var(--collapsible-focus-ring-color, var(--color-ring));
+      outline-offset: var(--border-width-sm);
+    }
+
+    &[disabled],
+    &[data-disabled] {
+      opacity: var(--collapsible-disabled-opacity, var(--opacity-disabled));
+      cursor: default;
+    }
+  }
+
+  .triggerIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--collapsible-icon-size, 0.75rem);
+    height: var(--collapsible-icon-size, 0.75rem);
+    flex-shrink: 0;
+    transition: transform var(--collapsible-icon-transition, var(--transition-default));
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    [data-panel-open] > & {
+      transform: var(--collapsible-icon-open-transform, rotate(90deg));
+    }
+  }
+
+  .panel {
+    box-sizing: border-box;
+    height: var(--collapsible-panel-height);
+    overflow: hidden;
+    color: var(--collapsible-panel-color, var(--color-muted-foreground));
+    font-size: var(--collapsible-panel-font-size, var(--text-sm));
+    line-height: var(--collapsible-panel-line-height, var(--line-height-text-sm));
+    transition: height var(--collapsible-panel-transition, var(--transition-default));
+
+    &[hidden]:not([hidden='until-found']) {
+      display: none;
+    }
+
+    &[data-starting-style],
+    &[data-ending-style] {
+      height: 0;
+    }
+  }
+}

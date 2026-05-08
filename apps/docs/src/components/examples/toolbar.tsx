@@ -1,0 +1,258 @@
+import {
+  BellIcon,
+  ChevronUpDownIcon,
+  Select,
+  SelectContent,
+  SelectIcon,
+  SelectItem,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectList,
+  SelectTrigger,
+  SelectValue,
+  StarIcon,
+  Toggle,
+  ToggleGroup,
+  Toolbar,
+  ToolbarButton,
+  ToolbarGroup,
+  ToolbarInput,
+  ToolbarLink,
+  ToolbarSeparator,
+  type ToolbarProps,
+} from 'moduix';
+import * as React from 'react';
+import type { CssPropertyInput } from '../preview';
+import styles from './toolbar.module.css';
+
+const fonts = ['Inter', 'Arial', 'Helvetica', 'Georgia'];
+
+export const toolbarCssProperties: CssPropertyInput[] = [
+  ['--toolbar-bg', 'var(--color-muted)', 'Controls toolbar background color.'],
+  ['--toolbar-border-color', 'var(--color-border)', 'Controls toolbar border color.'],
+  ['--toolbar-color', 'var(--color-foreground)', 'Controls toolbar text color.'],
+  ['--toolbar-gap', 'var(--border-width-sm)', 'Controls spacing between toolbar items.'],
+  ['--toolbar-padding', '0.125rem', 'Controls toolbar inner padding.'],
+  ['--toolbar-radius', 'var(--radius-lg)', 'Controls toolbar corner radius.'],
+  ['--toolbar-control-radius', 'var(--radius-md)', 'Controls control corner radius.'],
+  ['--toolbar-control-gap', 'var(--spacing-2)', 'Controls spacing inside toolbar buttons.'],
+  ['--toolbar-control-bg-hover', 'var(--color-accent)', 'Controls button hover background.'],
+  ['--toolbar-control-bg-active', 'var(--color-accent)', 'Controls button active background.'],
+  [
+    '--toolbar-control-bg-pressed',
+    'var(--color-background)',
+    'Controls pressed and open button background.',
+  ],
+  ['--toolbar-control-color', 'var(--color-foreground)', 'Controls button text color.'],
+  [
+    '--toolbar-control-color-pressed',
+    'var(--color-foreground)',
+    'Controls pressed and open button text color.',
+  ],
+  ['--toolbar-focus-ring-color', 'var(--color-ring)', 'Controls keyboard focus ring color.'],
+  ['--toolbar-group-gap', 'var(--spacing-1)', 'Controls spacing inside toolbar groups.'],
+  ['--toolbar-input-bg', 'var(--color-background)', 'Controls input background.'],
+  ['--toolbar-input-border-color', 'var(--color-border)', 'Controls input border color.'],
+  [
+    '--toolbar-input-placeholder-color',
+    'var(--color-muted-foreground)',
+    'Controls input placeholder color.',
+  ],
+  ['--toolbar-separator-color', 'var(--color-border)', 'Controls separator color.'],
+  ['--toolbar-separator-length-vertical', '1rem', 'Controls vertical separator length.'],
+  ['--toolbar-separator-thickness', '1px', 'Controls separator thickness.'],
+];
+
+function AlignLeftIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
+      <path
+        d="M2.5 3.5h11M2.5 8h8M2.5 12.5h11"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function AlignCenterIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
+      <path
+        d="M2.5 3.5h11M4 8h8M2.5 12.5h11"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function AlignRightIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
+      <path
+        d="M2.5 3.5h11M5.5 8h8M2.5 12.5h11"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function ToolbarExample(props: ToolbarProps) {
+  return (
+    <Toolbar aria-label="Document actions" {...props}>
+      <ToolbarButton>Undo</ToolbarButton>
+      <ToolbarButton>Redo</ToolbarButton>
+      <ToolbarSeparator />
+      <ToolbarButton aria-label="Notifications">
+        <BellIcon />
+      </ToolbarButton>
+    </Toolbar>
+  );
+}
+
+export function ToolbarToggleGroupExample() {
+  return (
+    <Toolbar aria-label="Editor formatting">
+      <ToggleGroup multiple defaultValue={['bold']} aria-label="Text formatting" variant="ghost">
+        <ToolbarButton render={<Toggle />} value="bold" aria-label="Bold">
+          <strong>B</strong>
+        </ToolbarButton>
+        <ToolbarButton render={<Toggle />} value="italic" aria-label="Italic">
+          <em>I</em>
+        </ToolbarButton>
+        <ToolbarButton render={<Toggle />} value="underline" aria-label="Underline">
+          <span className={styles.underline}>U</span>
+        </ToolbarButton>
+      </ToggleGroup>
+
+      <ToolbarSeparator />
+
+      <ToolbarGroup aria-label="Insert">
+        <ToolbarButton aria-label="Add favorite">
+          <StarIcon />
+        </ToolbarButton>
+        <ToolbarButton aria-label="Notifications">
+          <BellIcon />
+        </ToolbarButton>
+      </ToolbarGroup>
+    </Toolbar>
+  );
+}
+
+export function ToolbarSelectInputExample() {
+  return (
+    <Toolbar aria-label="Text properties">
+      <Select defaultValue="Inter">
+        <ToolbarButton
+          render={<SelectTrigger />}
+          aria-label="Font family"
+          className={styles.toolbarSelect}
+        >
+          <SelectValue />
+          <SelectIcon>
+            <ChevronUpDownIcon />
+          </SelectIcon>
+        </ToolbarButton>
+        <SelectContent>
+          <SelectList>
+            {fonts.map((font) => (
+              <SelectItem key={font} value={font}>
+                <SelectItemIndicator />
+                <SelectItemText>{font}</SelectItemText>
+              </SelectItem>
+            ))}
+          </SelectList>
+        </SelectContent>
+      </Select>
+
+      <ToolbarSeparator />
+      <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
+      <ToolbarLink href="#" className={styles.toolbarLink}>
+        History
+      </ToolbarLink>
+    </Toolbar>
+  );
+}
+
+export function ToolbarVariantsExample() {
+  return (
+    <div className={styles.stack}>
+      <ToolbarExample aria-label="Default toolbar" />
+      <ToolbarExample aria-label="Outline toolbar" variant="outline" />
+      <ToolbarExample aria-label="Ghost toolbar" variant="ghost" />
+    </div>
+  );
+}
+
+export function ToolbarSizesExample() {
+  return (
+    <div className={styles.stack}>
+      <ToolbarExample aria-label="Small toolbar" size="sm" />
+      <ToolbarExample aria-label="Medium toolbar" size="md" />
+      <ToolbarExample aria-label="Large toolbar" size="lg" />
+    </div>
+  );
+}
+
+export function ToolbarVerticalExample() {
+  return (
+    <Toolbar orientation="vertical" aria-label="Vertical tools">
+      <ToolbarButton>Move</ToolbarButton>
+      <ToolbarButton>Scale</ToolbarButton>
+      <ToolbarSeparator />
+      <ToolbarButton aria-label="Favorite">
+        <StarIcon />
+      </ToolbarButton>
+    </Toolbar>
+  );
+}
+
+export function ToolbarDisabledControlsExample() {
+  return (
+    <Toolbar aria-label="Disabled document actions">
+      <ToolbarButton>Undo</ToolbarButton>
+      <ToolbarButton disabled>Redo</ToolbarButton>
+      <ToolbarSeparator />
+      <ToolbarInput aria-label="Search disabled actions" placeholder="Search actions" disabled />
+      <ToolbarButton aria-label="Notifications" disabled>
+        <BellIcon />
+      </ToolbarButton>
+    </Toolbar>
+  );
+}
+
+export function ToolbarCustomIconsExample() {
+  return (
+    <Toolbar aria-label="Text alignment">
+      <ToolbarButton aria-label="Align left">
+        <AlignLeftIcon className={styles.customIcon} />
+      </ToolbarButton>
+      <ToolbarButton aria-label="Align center">
+        <AlignCenterIcon className={styles.customIcon} />
+      </ToolbarButton>
+      <ToolbarButton aria-label="Align right">
+        <AlignRightIcon className={styles.customIcon} />
+      </ToolbarButton>
+    </Toolbar>
+  );
+}
+
+export function ToolbarClassNameExample() {
+  return (
+    <Toolbar aria-label="Schedule controls" className={styles.customToolbar}>
+      <ToolbarButton className={styles.customButton}>Day</ToolbarButton>
+      <ToolbarButton className={styles.customButton}>Week</ToolbarButton>
+      <ToolbarSeparator />
+      <ToolbarInput
+        aria-label="Filter schedule"
+        placeholder="Filter"
+        className={styles.customInput}
+      />
+    </Toolbar>
+  );
+}

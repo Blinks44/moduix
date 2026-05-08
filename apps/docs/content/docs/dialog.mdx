@@ -1,0 +1,430 @@
+---
+title: Dialog
+description: A modal dialog that opens above the page for focused tasks and contextual workflows.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ControlledDialogExample,
+  CustomCloseIconDialogExample,
+  DialogExample,
+  DialogHandleExample,
+  NestedDialogExample,
+  OutsideCloseDialogExample,
+  ScrollableDialogExample,
+  dialogCssProperties,
+} from '@/components/examples/dialog';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/dialog" />
+
+## Basic
+
+<Preview cssProperties={dialogCssProperties}>
+  <DialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Dialog,
+        DialogTrigger,
+        Button,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogCloseIcon,
+        DialogDescription,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+
+      export function DialogDemo() {
+        return (
+          <Dialog>
+            <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Notifications</DialogTitle>
+                <DialogCloseIcon />
+                <DialogDescription>You are all caught up. Good job!</DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Prop Placement
+
+Use `Dialog` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`, and
+`modal`. Use `DialogContent` for the default composed surface. Its `className` and regular popup
+props are passed to the visible dialog panel.
+
+`DialogContent` renders the portal, backdrop, and viewport automatically. Use `classNames` to style
+those service slots, `container` to choose the portal container, and `withBackdrop={false}` when a
+modal surface should render without the default backdrop.
+
+## Examples
+
+### Controlled
+
+Control the open state from React when the dialog needs to coordinate with other UI.
+
+<Preview>
+  <ControlledDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Dialog,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogDescription,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+      import { useState, Fragment } from "react";
+
+      export function ControlledDialogDemo() {
+        const [open, setOpen] = useState(false);
+
+        return (
+          <Fragment>
+            <Button type="button" onClick={() => setOpen(true)}>
+              Open controlled dialog
+            </Button>
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Publish changes?</DialogTitle>
+                  <DialogDescription>
+                    This will make the latest version visible to all users.
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <DialogClose render={<Button variant="outline" />}>Back to editing</DialogClose>
+                  <DialogClose render={<Button />}>Publish</DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </Fragment>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Handle
+
+Use `createDialogHandle` when the trigger lives outside the dialog tree or the dialog opens
+programmatically.
+
+<Preview>
+  <DialogHandleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        createDialogHandle,
+        DialogTrigger,
+        Button,
+        Dialog,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogDescription,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+      import { useMemo, Fragment } from "react";
+
+      export function DialogHandleDemo() {
+        const dialogHandle = useMemo(() => createDialogHandle(), []);
+
+        return (
+          <Fragment>
+            <DialogTrigger handle={dialogHandle} render={<Button variant="outline" />}>
+              Open from detached trigger
+            </DialogTrigger>
+            <Button type="button" onClick={() => dialogHandle.open(null)}>
+              Open programmatically
+            </Button>
+
+            <Dialog handle={dialogHandle}>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Detached trigger</DialogTitle>
+                  <DialogDescription>
+                    This dialog is connected via createDialogHandle().
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </Fragment>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Scrollable Content
+
+Place `ScrollArea` inside `DialogBody` when the header and footer should remain visible while only
+the body content scrolls.
+
+<Preview>
+  <ScrollableDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Dialog,
+        DialogTrigger,
+        Button,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogCloseIcon,
+        DialogDescription,
+        DialogBody,
+        DialogFooter,
+        DialogClose,
+        ScrollArea,
+      } from "moduix";
+      import styles from "./dialog-demo.module.css";
+
+      const sections = [
+        {
+          title: "Database migrations",
+          body: "Confirm migration scripts are idempotent and have rollback steps.",
+        },
+        {
+          title: "Monitoring",
+          body: "Check that the dashboard includes new API endpoints.",
+        },
+        {
+          title: "Analytics",
+          body: "Verify onboarding funnel events are firing.",
+        },
+        {
+          title: "Staging",
+          body: "Run smoke tests with a production-like dataset.",
+        },
+      ];
+
+      export function ScrollableDialogDemo() {
+        return (
+          <Dialog>
+            <DialogTrigger render={<Button />}>Open long content</DialogTrigger>
+            <DialogContent className={styles.popup}>
+              <DialogHeader>
+                <DialogTitle>Release checklist</DialogTitle>
+                <DialogCloseIcon />
+                <DialogDescription>
+                  Review all items before publishing to production.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogBody className={styles.body}>
+                <ScrollArea
+                  className={styles.scrollArea}
+                  classNames={{ content: styles.scrollContent }}
+                >
+                  {sections.map((item) => (
+                    <section key={item.title}>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </section>
+                  ))}
+                </ScrollArea>
+              </DialogBody>
+              <DialogFooter>
+                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Nested
+
+Dialogs can be nested. The parent popup receives Base UI nested-dialog attributes and CSS variables,
+so it can visually recede while the child dialog is active.
+
+<Preview>
+  <NestedDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Dialog,
+        DialogTrigger,
+        Button,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogDescription,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+
+      export function NestedDialogDemo() {
+        return (
+          <Dialog>
+            <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Notifications</DialogTitle>
+                <DialogDescription>You are all caught up. Good job!</DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Dialog>
+                  <DialogTrigger render={<Button variant="outline" />}>Customize</DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Customize notifications</DialogTitle>
+                      <DialogDescription>Review your settings here.</DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                      <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Close Icon
+
+Pass children to `DialogCloseIcon` to use any icon from your application or icon library.
+
+<Preview>
+  <CustomCloseIconDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Dialog,
+        DialogTrigger,
+        Button,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogCloseIcon,
+        CloseLineIcon,
+        DialogDescription,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+      import styles from "./dialog-demo.module.css";
+
+      export function CustomCloseIconDialogDemo() {
+        return (
+          <Dialog>
+            <DialogTrigger render={<Button />}>Edit profile</DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Edit profile</DialogTitle>
+                <DialogCloseIcon
+                  aria-label="Close profile dialog"
+                  className={styles.customCloseIcon}
+                >
+                  <CloseLineIcon />
+                </DialogCloseIcon>
+                <DialogDescription>
+                  Update the public profile fields and save changes.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+                <DialogClose render={<Button />}>Save</DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Popup Layout
+
+Use `DialogContent` `className` for the popup and `classNames` when you need to style automatic
+service slots such as the viewport.
+
+<Preview>
+  <OutsideCloseDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Dialog,
+        DialogTrigger,
+        Button,
+        DialogContent,
+        DialogCloseIcon,
+        DialogHeader,
+        DialogTitle,
+        DialogDescription,
+        DialogBody,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+      import styles from "./dialog-demo.module.css";
+
+      export function CustomPopupLayoutDialogDemo() {
+        return (
+          <Dialog>
+            <DialogTrigger render={<Button />}>Open outside close icon</DialogTrigger>
+            <DialogContent
+              className={styles.outsidePopup}
+              classNames={{ viewport: styles.centeredViewport }}
+            >
+              <DialogCloseIcon className={styles.outsideClose} />
+              <DialogHeader>
+                <DialogTitle>Edit profile</DialogTitle>
+                <DialogDescription>
+                  This popup is styled through className, while the viewport is styled through
+                  classNames.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogBody>
+                <p>Update the public profile fields and save changes.</p>
+              </DialogBody>
+              <DialogFooter>
+                <DialogClose render={<Button />}>Save</DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

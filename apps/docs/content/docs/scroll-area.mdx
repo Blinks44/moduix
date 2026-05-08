@@ -1,0 +1,236 @@
+---
+title: ScrollArea
+description: A native scroll container with automatically rendered custom scrollbars.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  BothScrollbarsScrollAreaExample,
+  GradientFadeScrollAreaExample,
+  KeepMountedScrollAreaExample,
+  OverflowEdgeThresholdScrollAreaExample,
+  ScrollAreaExample,
+  StatefulStylesScrollAreaExample,
+  scrollAreaCssProperties,
+} from '@/components/examples/scroll-area';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/scroll-area" />
+
+## Basic
+
+<Preview cssProperties={scrollAreaCssProperties}>
+  <ScrollAreaExample />
+
+  <Preview.Code>
+    {`
+      import { ScrollArea } from "moduix";
+
+      import { insideScrollSections } from "@/data/insideScrollSections";
+      import styles from "./scroll-area.module.css";
+
+      export function ScrollAreaDemo() {
+        return (
+          <ScrollArea className={styles.root} classNames={{ content: styles.textContent }}>
+            {insideScrollSections.map((item) => (
+              <section key={item.title}>
+                <h3>{item.title}</h3>
+                <p className={styles.paragraph}>{item.body}</p>
+              </section>
+            ))}
+          </ScrollArea>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Both Scrollbars
+
+Set `scrollbars="both"` when content can overflow in both axes. `ScrollArea` renders both
+scrollbars and the corner automatically.
+
+<Preview>
+  <BothScrollbarsScrollAreaExample />
+
+  <Preview.Code>
+    {`
+      import { ScrollArea } from "moduix";
+      import styles from "./scroll-area.module.css";
+
+      export function BothScrollbarsScrollAreaDemo() {
+        return (
+          <ScrollArea
+            scrollbars="both"
+            className={styles.sizedRoot}
+            classNames={{ content: styles.gridContent }}
+          >
+            {Array.from({ length: 96 }, (_, index) => (
+              <div key={index} className={styles.cell}>
+                {index + 1}
+              </div>
+            ))}
+          </ScrollArea>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Gradient Fade
+
+Set `fade` to fade content near the vertical scroll edges. Tune the size with
+`--scroll-area-fade-size`, `--scroll-area-fade-start-size`, and `--scroll-area-fade-end-size`.
+Pass `fade="horizontal"` for horizontal overflow.
+
+<Preview>
+  <GradientFadeScrollAreaExample />
+
+  <Preview.Code>
+    {`
+      import { ScrollArea } from "moduix";
+      import styles from "./scroll-area.module.css";
+
+      export function GradientFadeScrollAreaDemo() {
+        return (
+          <ScrollArea
+            fade
+            className={styles.sizedRoot}
+            classNames={{ content: styles.paddedTextContent }}
+          >
+            {Array.from({ length: 12 }, (_, index) => (
+              <p key={index} className={styles.paragraph}>
+                Section {index + 1}. Scroll state updates CSS variables, so the fade stays precise on
+                both edges.
+              </p>
+            ))}
+          </ScrollArea>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Overflow Edge Threshold
+
+Use `overflowEdgeThreshold` when fade and edge attributes should appear only after the user scrolls
+past a specific offset.
+
+<Preview>
+  <OverflowEdgeThresholdScrollAreaExample />
+
+  <Preview.Code>
+    {`
+      import { ScrollArea } from "moduix";
+      import styles from "./scroll-area.module.css";
+
+      export function OverflowEdgeThresholdScrollAreaDemo() {
+        return (
+          <ScrollArea
+            fade
+            className={styles.sizedRoot}
+            classNames={{ content: styles.compactTextContent }}
+            overflowEdgeThreshold={28}
+          >
+            {Array.from({ length: 18 }, (_, index) => (
+              <p key={index} className={styles.paragraph}>
+                Threshold demo row {index + 1}. Edge attributes appear only after the configured
+                offset.
+              </p>
+            ))}
+          </ScrollArea>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Keep Mounted
+
+Use `scrollbarKeepMounted` when scrollbar DOM needs to stay mounted while the viewport changes between scrollable and non-scrollable states.
+
+<Preview>
+  <KeepMountedScrollAreaExample />
+
+  <Preview.Code>
+    {`
+      import { ScrollArea } from "moduix";
+      import { useState } from "react";
+      import styles from "./scroll-area.module.css";
+
+      export function KeepMountedScrollAreaDemo() {
+        const [denseContent, setDenseContent] = useState(false);
+
+        return (
+          <div className={styles.controls}>
+            <button
+              type="button"
+              className={styles.button}
+              onClick={() => setDenseContent((value) => !value)}
+            >
+              Toggle overflow: {denseContent ? "on" : "off"}
+            </button>
+
+            <ScrollArea
+              className={styles.sizedRoot}
+              classNames={{ content: styles.compactTextContent }}
+              scrollbarKeepMounted
+            >
+              {(denseContent ? Array.from({ length: 16 }) : Array.from({ length: 2 })).map(
+                (_, index) => (
+                  <p key={index} className={styles.paragraph}>
+                    KeepMounted demo row {index + 1}
+                  </p>
+                ),
+              )}
+            </ScrollArea>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Stateful Styles
+
+Style slots from Base UI data attributes such as `data-scrolling`, `data-hovering`, and `data-orientation`.
+
+<Preview>
+  <StatefulStylesScrollAreaExample />
+
+  <Preview.Code>
+    {`
+      import { ScrollArea } from "moduix";
+      import styles from "./scroll-area.module.css";
+
+      export function StatefulStylesScrollAreaDemo() {
+        return (
+          <ScrollArea
+            className={styles.sizedRoot}
+            classNames={{
+              viewport: styles.statefulViewport,
+              content: styles.compactTextContent,
+            }}
+          >
+            {Array.from({ length: 14 }, (_, index) => (
+              <p key={index} className={styles.paragraph}>
+                Stateful style row {index + 1}. Viewport outline follows the scrolling data
+                attribute.
+              </p>
+            ))}
+          </ScrollArea>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

@@ -1,0 +1,346 @@
+---
+title: Preview Card
+description: A hover and focus popup that shows a visual preview for a link destination.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ControlledPreviewCardExample,
+  CustomArrowPreviewCardExample,
+  DetachedTriggerPreviewCardExample,
+  MultipleTriggersPreviewCardExample,
+  PreviewCardExample,
+  SideControlPreviewCardExample,
+  SlotCustomizationPreviewCardExample,
+  previewCardCssProperties,
+} from '@/components/examples/preview-card';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/preview-card" />
+
+## Basic
+
+<Preview cssProperties={previewCardCssProperties}>
+  <PreviewCardExample />
+
+  <Preview.Code>
+    {`
+      import { PreviewCard, PreviewCardTrigger, PreviewCardContent } from "moduix";
+
+      import styles from "./preview-card-demo.module.css";
+
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+
+      export function PreviewCardDemo() {
+        return (
+          <PreviewCard>
+            <p className={styles.paragraph}>
+              The principles of good{" "}
+              <PreviewCardTrigger href={typographyUrl}>typography</PreviewCardTrigger>{" "}
+              remain in the digital age.
+            </p>
+            <PreviewCardContent>
+              <div className={styles.popupContent}>
+                <img
+                  className={styles.image}
+                  alt="Preview illustration for Typography"
+                  src={typographyImageUrl}
+                />
+                <p className={styles.summary}>
+                  <strong>Typography</strong>
+                  <br />
+                  Typography is the art and technique of arranging type to make written language
+                  readable and expressive.
+                </p>
+              </div>
+            </PreviewCardContent>
+          </PreviewCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Controlled
+
+Control the open state from React when the preview needs to coordinate with other UI.
+
+<Preview>
+  <ControlledPreviewCardExample />
+
+  <Preview.Code>
+    {`
+      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+      import { useState } from "react";
+      import styles from "./preview-card-demo.module.css";
+
+      export function ControlledPreviewCard() {
+        const [open, setOpen] = useState(false);
+        const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+
+        return (
+          <PreviewCard open={open} onOpenChange={setOpen}>
+            <PreviewCardTrigger href={typographyUrl}>Controlled preview card</PreviewCardTrigger>
+            <PreviewCardContent>
+              <div className={styles.popupContent}>
+                <p className={styles.summary}>
+                  This preview card is controlled with open and onOpenChange.
+                </p>
+              </div>
+            </PreviewCardContent>
+          </PreviewCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Detached Trigger
+
+Use `createPreviewCardHandle` when the trigger and popup content live in different parts of the tree.
+
+<Preview>
+  <DetachedTriggerPreviewCardExample />
+
+  <Preview.Code>
+    {`
+      import { createPreviewCardHandle, PreviewCardTrigger, PreviewCard, PreviewCardContent } from "moduix";
+      import { useMemo } from "react";
+      import styles from "./preview-card-demo.module.css";
+
+      export function DetachedTriggerPreviewCard() {
+        const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
+        const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+
+        return (
+          <div className={styles.row}>
+            <PreviewCardTrigger handle={previewCardHandle} href={typographyUrl}>
+              Open detached preview
+            </PreviewCardTrigger>
+            <PreviewCard handle={previewCardHandle}>
+              <PreviewCardContent>
+                <div className={styles.popupContent}>
+                  <p className={styles.summary}>
+                    Trigger and popup are linked with createPreviewCardHandle().
+                  </p>
+                </div>
+              </PreviewCardContent>
+            </PreviewCard>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Multiple Triggers With Payload
+
+Share one popup between several links and pass trigger-specific data through `payload`.
+
+<Preview>
+  <MultipleTriggersPreviewCardExample />
+
+  <Preview.Code>
+    {`
+      import {
+        createPreviewCardHandle,
+        PreviewCard,
+        PreviewCardContent,
+        PreviewCardTrigger,
+      } from "moduix";
+      import { useMemo } from "react";
+      import styles from "./preview-card-demo.module.css";
+
+      export function MultipleTriggersPreviewCard() {
+        const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
+        const items = [
+          {
+            title: "Typography",
+            url: "https://en.wikipedia.org/wiki/Typography",
+            summary: "Typography is the art and technique of arranging type.",
+          },
+          {
+            title: "Grid systems",
+            url: "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
+            summary: "Grid systems help organize content and spacing.",
+          },
+        ];
+
+        return (
+          <div className={styles.row}>
+            {items.map((item) => (
+              <PreviewCardTrigger
+                key={item.title}
+                handle={previewCardHandle}
+                href={item.url}
+                payload={item}
+              >
+                {item.title}
+              </PreviewCardTrigger>
+            ))}
+
+            <PreviewCard handle={previewCardHandle}>{renderPreview}</PreviewCard>
+          </div>
+        );
+
+        function renderPreview({ payload }) {
+          const item = payload ?? items[0];
+
+          return (
+            <PreviewCardContent>
+              <div className={styles.popupContent}>
+                <p className={styles.summary}>
+                  <strong>{item.title}</strong>
+                  <br />
+                  {item.summary}
+                </p>
+              </div>
+            </PreviewCardContent>
+          );
+        }
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Side Control
+
+Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to
+`PreviewCardContent` when you need to control popup placement.
+
+<Preview>
+  <SideControlPreviewCardExample />
+
+  <Preview.Code>
+    {`
+      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+      import { useState } from "react";
+      import styles from "./preview-card-demo.module.css";
+
+      const sides = ["top", "right", "bottom", "left"];
+
+      export function SideControlPreviewCard() {
+        const [side, setSide] = useState("bottom");
+        const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+
+        return (
+          <div className={styles.stack}>
+            <div className={styles.sideButtons}>
+              {sides.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={styles.sideButton}
+                  data-active={item === side || undefined}
+                  onClick={() => setSide(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <PreviewCard>
+              <PreviewCardTrigger href={typographyUrl}>Placement: {side}</PreviewCardTrigger>
+              <PreviewCardContent side={side} className={styles.sidePopup}>
+                <div className={styles.popupContent}>
+                  <p className={styles.summary}>Current side is {side}.</p>
+                </div>
+              </PreviewCardContent>
+            </PreviewCard>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Arrow
+
+Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
+
+<Preview>
+  <CustomArrowPreviewCardExample />
+
+  <Preview.Code>
+    {`
+      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+      import styles from "./preview-card-demo.module.css";
+
+      export function CustomArrowPreviewCard() {
+        return (
+          <PreviewCard>
+            <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
+              Preview with custom arrow
+            </PreviewCardTrigger>
+            <PreviewCardContent className={styles.customArrowPopup} arrow={<CustomArrow />}>
+              <div className={styles.popupContent}>
+                <p className={styles.summary}>
+                  Pass any React node to the arrow prop to use a custom SVG or icon.
+                </p>
+              </div>
+            </PreviewCardContent>
+          </PreviewCard>
+        );
+      }
+
+      function CustomArrow() {
+        return (
+          <svg className={styles.customArrow} viewBox="0 0 16 8" fill="none" aria-hidden="true">
+            <path d="M8 0L16 8H0L8 0Z" fill="currentColor" />
+          </svg>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Slot Customization
+
+`PreviewCardContent` renders the portal, backdrop, positioner, and viewport internally. Use
+`classNames` and `slotProps` when you need to style or configure those internal slots.
+
+<Preview>
+  <SlotCustomizationPreviewCardExample />
+
+  <Preview.Code>
+    {`
+      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+      import styles from "./preview-card-demo.module.css";
+
+      export function SlotCustomizationPreviewCard() {
+        return (
+          <PreviewCard>
+            <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
+              Preview with styled slots
+            </PreviewCardTrigger>
+            <PreviewCardContent
+              withBackdrop
+              classNames={{
+                backdrop: styles.backdrop,
+                viewport: styles.viewport,
+              }}
+            >
+              <div className={styles.popupContent}>
+                <p className={styles.summary}>
+                  Portal, backdrop, positioner, and viewport are rendered by PreviewCardContent.
+                </p>
+              </div>
+            </PreviewCardContent>
+          </PreviewCard>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

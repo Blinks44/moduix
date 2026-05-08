@@ -1,0 +1,370 @@
+---
+title: OTP Field
+description: A one-time password input composed of individual character slots.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  OTPFieldAlphanumericExample,
+  OTPFieldAutoSubmitExample,
+  OTPFieldCustomSanitizationExample,
+  OTPFieldCustomSeparatorExample,
+  OTPFieldExample,
+  OTPFieldGroupedLayoutExample,
+  OTPFieldMaskedExample,
+  OTPFieldPlaceholderHintsExample,
+  OTPFieldValidationExample,
+  otpFieldCssProperties,
+} from '@/components/examples/otp-field';
+
+<BaseUIReference href="https://base-ui.com/react/components/otp-field" />
+
+## Basic
+
+`OTPField` renders input slots automatically from `length`. Use `inputProps` to customize every
+automatic slot, or pass `OTPFieldInput` children manually when the layout needs separators or
+per-slot markup.
+
+<Preview cssProperties={otpFieldCssProperties}>
+  <OTPFieldExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, OTPField } from "moduix";
+      import { useId } from "react";
+
+      export function OTPFieldDemo() {
+        const id = useId();
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+            <OTPField id={id} length={6} />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Alphanumeric
+
+Use `validationType="alphanumeric"` for recovery, backup, or invite codes that accept letters and numbers.
+
+<Preview>
+  <OTPFieldAlphanumericExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldDescription,
+        FieldLabel,
+        OTPField,
+      } from "moduix";
+      import { useId, useState } from "react";
+
+      export function AlphanumericOTPField() {
+        const id = useId();
+        const [value, setValue] = useState("");
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>Recovery code</FieldLabel>
+            <FieldDescription>
+              Letters and numbers are allowed, for example <code>A7C9XZ</code>.
+            </FieldDescription>
+            <OTPField
+              id={id}
+              length={6}
+              value={value}
+              validationType="alphanumeric"
+              onValueChange={setValue}
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Grouped Layout
+
+Add `OTPFieldSeparator` between slots when a code should be presented in smaller visual groups.
+
+<Preview>
+  <OTPFieldGroupedLayoutExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldLabel,
+        OTPField,
+        OTPFieldInput,
+        OTPFieldSeparator,
+        SeparatorMarkIcon,
+      } from "moduix";
+      import { Fragment, useId } from "react";
+
+      export function GroupedOTPField() {
+        const id = useId();
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>Auth code</FieldLabel>
+            <OTPField id={id} length={6}>
+              {Array.from({ length: 6 }, (_, index) => (
+                <Fragment key={index}>
+                  <OTPFieldInput
+                    aria-label={index === 0 ? undefined : \`Character \${index + 1} of 6\`}
+                  />
+                  {index === 2 ? (
+                    <OTPFieldSeparator>
+                      <SeparatorMarkIcon />
+                    </OTPFieldSeparator>
+                  ) : null}
+                </Fragment>
+              ))}
+            </OTPField>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Placeholder Hints
+
+Pass native `placeholder` props to the input slots and style them with `className`.
+
+<Preview>
+  <OTPFieldPlaceholderHintsExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
+      import { useId } from "react";
+      import styles from "./otp-field.module.css";
+
+      export function PlaceholderOTPField() {
+        const id = useId();
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+            <FieldDescription>
+              Placeholder hints stay visible until the active slot is focused.
+            </FieldDescription>
+            <OTPField
+              id={id}
+              length={6}
+              inputProps={{
+                className: styles.placeholderInput,
+                placeholder: "•",
+              }}
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Masked
+
+Use `mask` when the code should be obscured while it is being typed.
+
+<Preview>
+  <OTPFieldMaskedExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, OTPField } from "moduix";
+      import { useId } from "react";
+
+      export function MaskedOTPField() {
+        const id = useId();
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>PIN</FieldLabel>
+            <OTPField id={id} length={4} mask />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Field Validation
+
+Wrap the control in `Field` to show validation errors from props such as `required`.
+
+<Preview>
+  <OTPFieldValidationExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldError,
+        FieldLabel,
+        OTPField,
+      } from "moduix";
+      import { useId } from "react";
+
+      export function ValidatedOTPField() {
+        const id = useId();
+
+        return (
+          <Field name="verificationCode" validationMode="onBlur">
+            <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+            <OTPField id={id} length={6} required />
+            <FieldError match="valueMissing">Please enter the verification code.</FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Auto Submit
+
+Use `autoSubmit` to submit the owning form as soon as all slots are filled.
+
+<Preview>
+  <OTPFieldAutoSubmitExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
+      import { useId, useState } from "react";
+
+      export function AutoSubmitOTPField() {
+        const id = useId();
+        const [completedValue, setCompletedValue] = useState("");
+        const [submittedValue, setSubmittedValue] = useState("");
+
+        return (
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              const formData = new FormData(event.currentTarget);
+              setSubmittedValue(String(formData.get("verificationCode") ?? ""));
+            }}
+          >
+            <Field>
+              <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+              <FieldDescription>
+                Last completed: {completedValue || "empty"}, submitted: {submittedValue || "empty"}
+              </FieldDescription>
+              <OTPField
+                id={id}
+                name="verificationCode"
+                length={6}
+                autoSubmit
+                onValueComplete={setCompletedValue}
+              />
+            </Field>
+          </form>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Sanitization
+
+Set `validationType="none"` with `sanitizeValue` when pasted or typed values need custom normalization.
+
+<Preview>
+  <OTPFieldCustomSanitizationExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
+      import { useId, useState } from "react";
+
+      export function CustomSanitizationOTPField() {
+        const id = useId();
+        const [value, setValue] = useState("");
+        const [invalidValue, setInvalidValue] = useState("");
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>Invite code</FieldLabel>
+            <FieldDescription>
+              Last invalid attempt: {invalidValue || "none"}
+            </FieldDescription>
+            <OTPField
+              id={id}
+              length={6}
+              value={value}
+              validationType="none"
+              sanitizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, "")}
+              onValueChange={setValue}
+              onValueInvalid={setInvalidValue}
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Separator
+
+Style individual slots and pass any icon to `OTPFieldSeparator` through children.
+
+<Preview>
+  <OTPFieldCustomSeparatorExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldLabel,
+        OTPField,
+        OTPFieldInput,
+        OTPFieldSeparator,
+        SeparatorMarkIcon,
+      } from "moduix";
+      import { useId } from "react";
+      import styles from "./otp-field.module.css";
+
+      export function CustomSeparatorOTPField() {
+        const id = useId();
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>Styled code</FieldLabel>
+            <OTPField id={id} length={6}>
+              <OTPFieldInput className={styles.customInput} />
+              <OTPFieldInput className={styles.customInput} aria-label="Character 2 of 6" />
+              <OTPFieldInput className={styles.customInput} aria-label="Character 3 of 6" />
+              <OTPFieldSeparator className={styles.customSeparator}>
+                <SeparatorMarkIcon />
+              </OTPFieldSeparator>
+              <OTPFieldInput className={styles.customInput} aria-label="Character 4 of 6" />
+              <OTPFieldInput className={styles.customInput} aria-label="Character 5 of 6" />
+              <OTPFieldInput className={styles.customInput} aria-label="Character 6 of 6" />
+            </OTPField>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

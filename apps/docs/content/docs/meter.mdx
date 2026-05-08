@@ -1,0 +1,194 @@
+---
+title: Meter
+description: A graphical display of a numeric value within a known range.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  ControlledMeterExample,
+  CustomStylingMeterExample,
+  MeterExample,
+  MinMaxRangeMeterExample,
+  PercentFormatMeterExample,
+  meterCssProperties,
+} from '@/components/examples/meter';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/meter" />
+
+## Basic
+
+<Preview cssProperties={meterCssProperties}>
+  <MeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterLabel,
+        MeterValue,
+      } from "moduix";
+
+      export function MeterDemo() {
+        return (
+          <Meter value={24}>
+            <MeterLabel>Storage Used</MeterLabel>
+            <MeterValue />
+          </Meter>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Examples
+
+### Min Max Range
+
+Use `min` and `max` when the value belongs to a custom range instead of the default `0` to `100`.
+
+<Preview>
+  <MinMaxRangeMeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterLabel,
+        MeterValue,
+      } from "moduix";
+
+      export function MinMaxRangeMeterDemo() {
+        return (
+          <Meter value={420} min={200} max={800}>
+            <MeterLabel>Requests per minute</MeterLabel>
+            <MeterValue />
+          </Meter>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled
+
+Keep the value in React state when the meter mirrors another control or live application state.
+
+<Preview>
+  <ControlledMeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterLabel,
+        MeterValue,
+      } from "moduix";
+      import { useState } from "react";
+
+      function ControlledMeter() {
+        const [value, setValue] = useState(45);
+
+        return (
+          <div>
+            <Meter value={value}>
+              <MeterLabel>Capacity</MeterLabel>
+              <MeterValue />
+            </Meter>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={value}
+              onChange={(event) => {
+                setValue(Number(event.target.value));
+              }}
+            />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Percent Format
+
+Use `format` and a custom `MeterValue` child function to present the value in user-facing text.
+
+<Preview>
+  <PercentFormatMeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterLabel,
+        MeterValue,
+      } from "moduix";
+
+      export function PercentFormatMeterDemo() {
+        return (
+          <Meter value={0.64} min={0} max={1} format={{ style: "percent", maximumFractionDigits: 0 }}>
+            <MeterLabel>Usage</MeterLabel>
+            <MeterValue>{(formattedValue) => \`\${formattedValue} used\`}</MeterValue>
+          </Meter>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styling
+
+`Meter` renders the track and indicator automatically. Use `className` for the root and `classNames` for the internal track or indicator slots.
+
+<Preview>
+  <CustomStylingMeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterLabel,
+        MeterValue,
+      } from "moduix";
+      import styles from "./meter-demo.module.css";
+
+      export function CustomStylingMeterDemo() {
+        return (
+          <Meter
+            value={72}
+            className={styles.meter}
+            classNames={{ track: styles.track, indicator: styles.indicator }}
+          >
+            <MeterLabel>Monthly quota</MeterLabel>
+            <MeterValue />
+          </Meter>
+        );
+      }
+
+      /* meter-demo.module.css */
+      .meter {
+        --meter-width: 16rem;
+        --meter-track-height: 0.75rem;
+        --meter-track-bg: var(--color-accent);
+      }
+
+      .track {
+        box-shadow: inset 0 0 0 var(--border-width-md)
+          color-mix(in oklab, var(--color-primary), transparent 75%);
+      }
+
+      .indicator {
+        background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

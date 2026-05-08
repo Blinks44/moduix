@@ -1,0 +1,35 @@
+.stack {
+  display: grid;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.field {
+  width: max-content;
+}
+
+.validationField {
+  align-items: center;
+  width: 18rem;
+}
+
+.hint {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.customButton {
+  --number-field-button-bg: var(--color-muted);
+  --number-field-button-bg-hover: var(--color-accent);
+  --number-field-icon-size: 1rem;
+}
+
+.customInput {
+  --number-field-input-width: 7rem;
+  --number-field-input-font-size: var(--text-lg);
+}
+
+.scrubCursor {
+  color: var(--color-foreground);
+}

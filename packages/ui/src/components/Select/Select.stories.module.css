@@ -1,0 +1,8 @@
+.backdrop {
+  --select-backdrop-bg: var(--color-overlay);
+  --select-backdrop-blur: 2px;
+}
+
+.arrow {
+  --select-arrow-stroke-color: var(--color-border);
+}

@@ -1,0 +1,6 @@
+@layer ui.storybook {
+  .anchoredActions {
+    display: flex;
+    gap: var(--spacing-2);
+  }
+}

@@ -1,0 +1,23 @@
+.stack {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.range {
+  width: 12rem;
+}
+
+.customMeter {
+  --meter-width: 16rem;
+  --meter-track-height: 0.75rem;
+  --meter-track-bg: var(--color-accent);
+}
+
+.customTrack {
+  box-shadow: inset 0 0 0 var(--border-width-md)
+    color-mix(in oklab, var(--color-primary), transparent 75%);
+}
+
+.customIndicator {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+}

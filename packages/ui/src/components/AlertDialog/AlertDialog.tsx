@@ -1,0 +1,198 @@
+import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog';
+import { clsx } from 'clsx';
+import * as React from 'react';
+import { CloseButton } from '@/components/CloseButton';
+import { mergeClassName } from '@/utils/mergeClassName';
+import styles from './AlertDialog.module.css';
+
+type AlertDialogContentClassNames = {
+  portal?: AlertDialogPrimitive.Portal.Props['className'];
+  backdrop?: AlertDialogPrimitive.Backdrop.Props['className'];
+  viewport?: AlertDialogPrimitive.Viewport.Props['className'];
+};
+
+type AlertDialogContentProps = Omit<AlertDialogPrimitive.Popup.Props, 'className'> & {
+  className?: AlertDialogPrimitive.Popup.Props['className'];
+  classNames?: AlertDialogContentClassNames;
+  container?: AlertDialogPrimitive.Portal.Props['container'];
+  withBackdrop?: boolean;
+  portalProps?: Omit<AlertDialogPrimitive.Portal.Props, 'className' | 'children'>;
+  backdropProps?: Omit<AlertDialogPrimitive.Backdrop.Props, 'className'>;
+  viewportProps?: Omit<AlertDialogPrimitive.Viewport.Props, 'className'>;
+};
+
+const AlertDialog = AlertDialogPrimitive.Root;
+const createAlertDialogHandle = AlertDialogPrimitive.createHandle;
+
+function AlertDialogTrigger({ className, render, ...props }: AlertDialogPrimitive.Trigger.Props) {
+  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
+
+  return (
+    <AlertDialogPrimitive.Trigger
+      data-slot="alert-dialog-trigger"
+      render={render}
+      className={triggerClassName}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogPortal({ className, ...props }: AlertDialogPrimitive.Portal.Props) {
+  return (
+    <AlertDialogPrimitive.Portal
+      data-slot="alert-dialog-portal"
+      className={mergeClassName(className)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogBackdrop({ className, ...props }: AlertDialogPrimitive.Backdrop.Props) {
+  return (
+    <AlertDialogPrimitive.Backdrop
+      data-slot="alert-dialog-backdrop"
+      className={mergeClassName(className, styles.backdrop)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogViewport({ className, ...props }: AlertDialogPrimitive.Viewport.Props) {
+  return (
+    <AlertDialogPrimitive.Viewport
+      data-slot="alert-dialog-viewport"
+      className={mergeClassName(className, styles.viewport)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogPopup({ className, ...props }: AlertDialogPrimitive.Popup.Props) {
+  return (
+    <AlertDialogPrimitive.Popup
+      data-slot="alert-dialog-popup"
+      className={mergeClassName(className, styles.popup)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogTitle({ className, ...props }: AlertDialogPrimitive.Title.Props) {
+  return (
+    <AlertDialogPrimitive.Title
+      data-slot="alert-dialog-title"
+      className={mergeClassName(className, styles.title)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogDescription({ className, ...props }: AlertDialogPrimitive.Description.Props) {
+  return (
+    <AlertDialogPrimitive.Description
+      data-slot="alert-dialog-description"
+      className={mergeClassName(className, styles.description)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogClose({ className, ...props }: AlertDialogPrimitive.Close.Props) {
+  return (
+    <AlertDialogPrimitive.Close
+      data-slot="alert-dialog-close"
+      className={mergeClassName(className, styles.close)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogCloseIcon({ className, children, ...props }: AlertDialogPrimitive.Close.Props) {
+  return (
+    <AlertDialogPrimitive.Close
+      data-slot="alert-dialog-close-icon"
+      render={<CloseButton aria-label="Close dialog">{children}</CloseButton>}
+      className={mergeClassName(className, styles.closeIcon)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogContent({
+  className,
+  classNames,
+  container,
+  withBackdrop = true,
+  portalProps,
+  backdropProps,
+  viewportProps,
+  ...props
+}: AlertDialogContentProps) {
+  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
+  const portalContainer = container ?? portalPropsContainer;
+
+  return (
+    <AlertDialogPortal
+      className={classNames?.portal}
+      container={portalContainer}
+      {...restPortalProps}
+    >
+      {withBackdrop ? (
+        <AlertDialogBackdrop className={classNames?.backdrop} {...backdropProps} />
+      ) : null}
+      <AlertDialogViewport className={classNames?.viewport} {...viewportProps}>
+        <AlertDialogPopup className={className} {...props} />
+      </AlertDialogViewport>
+    </AlertDialogPortal>
+  );
+}
+
+function AlertDialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div data-slot="alert-dialog-header" className={clsx(styles.header, className)} {...props} />
+  );
+}
+
+function AlertDialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div data-slot="alert-dialog-footer" className={clsx(styles.footer, className)} {...props} />
+  );
+}
+
+function AlertDialogBody({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div data-slot="alert-dialog-body" className={clsx(styles.body, className)} {...props} />;
+}
+
+function AlertDialogAction({ className, ...props }: AlertDialogPrimitive.Close.Props) {
+  return <AlertDialogClose className={mergeClassName(className, styles.action)} {...props} />;
+}
+
+function AlertDialogCancel({ className, ...props }: AlertDialogPrimitive.Close.Props) {
+  return <AlertDialogClose className={mergeClassName(className, styles.cancel)} {...props} />;
+}
+
+type AlertDialogProps<Payload = unknown> = AlertDialogPrimitive.Root.Props<Payload>;
+type AlertDialogHandle<Payload = unknown> = AlertDialogPrimitive.Handle<Payload>;
+
+export {
+  AlertDialog,
+  createAlertDialogHandle,
+  AlertDialogTrigger,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogClose,
+  AlertDialogCloseIcon,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogAction,
+  AlertDialogCancel,
+};
+
+export type {
+  AlertDialogProps,
+  AlertDialogHandle,
+  AlertDialogContentProps,
+  AlertDialogContentClassNames,
+};
