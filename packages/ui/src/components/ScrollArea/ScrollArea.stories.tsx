@@ -120,22 +120,27 @@ export const KeepMounted: Story = {
   },
 };
 
-export const StatefulStyles: Story = {
-  name: 'Stateful Styles',
+export const CustomStyles: Story = {
+  name: 'Custom Styles',
   render: () => {
     return (
       <ScrollArea
-        className={styles.root}
+        scrollbars="both"
+        className={styles.customRoot}
         classNames={{
-          viewport: styles.statefulViewport,
-          content: styles.compactTextContent,
+          viewport: styles.customViewport,
+          content: styles.customContent,
+          verticalScrollbar: styles.customVerticalScrollbar,
+          horizontalScrollbar: styles.customHorizontalScrollbar,
+          verticalThumb: styles.customVerticalThumb,
+          horizontalThumb: styles.customHorizontalThumb,
+          corner: styles.customCorner,
         }}
       >
-        {insideScrollSections.map((item) => (
-          <section key={item.title}>
-            <h3>{item.title}</h3>
-            <p className={styles.paragraph}>{item.body}</p>
-          </section>
+        {Array.from({ length: 80 }, (_, index) => (
+          <div key={index} className={styles.customCell}>
+            {index + 1}
+          </div>
         ))}
       </ScrollArea>
     );

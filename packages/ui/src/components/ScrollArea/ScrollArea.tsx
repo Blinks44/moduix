@@ -18,12 +18,34 @@ type ScrollAreaClassNames = {
   corner?: ScrollAreaPrimitive.Corner.Props['className'];
 };
 
+type ScrollAreaSlotProps = {
+  viewport?: Omit<ScrollAreaPrimitive.Viewport.Props, 'className' | 'children'>;
+  content?: Omit<ScrollAreaPrimitive.Content.Props, 'className' | 'children'>;
+  scrollbar?: Omit<
+    ScrollAreaPrimitive.Scrollbar.Props,
+    'className' | 'children' | 'orientation' | 'keepMounted'
+  >;
+  verticalScrollbar?: Omit<
+    ScrollAreaPrimitive.Scrollbar.Props,
+    'className' | 'children' | 'orientation' | 'keepMounted'
+  >;
+  horizontalScrollbar?: Omit<
+    ScrollAreaPrimitive.Scrollbar.Props,
+    'className' | 'children' | 'orientation' | 'keepMounted'
+  >;
+  thumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
+  verticalThumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
+  horizontalThumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
+  corner?: Omit<ScrollAreaPrimitive.Corner.Props, 'className'>;
+};
+
 type ScrollAreaProps = Omit<ScrollAreaPrimitive.Root.Props, 'children'> & {
   children?: React.ReactNode;
   fade?: ScrollAreaFade;
   scrollbars?: ScrollAreaScrollbars;
   scrollbarKeepMounted?: boolean;
   classNames?: ScrollAreaClassNames;
+  slotProps?: ScrollAreaSlotProps;
 };
 
 function ScrollArea({
@@ -33,11 +55,13 @@ function ScrollArea({
   fade = false,
   scrollbars = 'vertical',
   scrollbarKeepMounted = false,
+  slotProps,
   ...props
 }: ScrollAreaProps) {
   const fadeDirection = fade === true ? 'vertical' : fade || undefined;
   const hasVerticalScrollbar = scrollbars === 'vertical' || scrollbars === 'both';
   const hasHorizontalScrollbar = scrollbars === 'horizontal' || scrollbars === 'both';
+  const scrollbarProps = slotProps?.scrollbar;
 
   return (
     <ScrollAreaPrimitive.Root
@@ -47,10 +71,12 @@ function ScrollArea({
       {...props}
     >
       <ScrollAreaPrimitive.Viewport
+        {...slotProps?.viewport}
         data-slot="scroll-area-viewport"
         className={mergeClassName(classNames?.viewport, styles.viewport)}
       >
         <ScrollAreaPrimitive.Content
+          {...slotProps?.content}
           data-slot="scroll-area-content"
           className={mergeClassName(classNames?.content, styles.content)}
         >
@@ -59,6 +85,8 @@ function ScrollArea({
       </ScrollAreaPrimitive.Viewport>
       {hasVerticalScrollbar ? (
         <ScrollAreaPrimitive.Scrollbar
+          {...scrollbarProps}
+          {...slotProps?.verticalScrollbar}
           data-slot="scroll-area-scrollbar"
           orientation="vertical"
           keepMounted={scrollbarKeepMounted}
@@ -68,6 +96,8 @@ function ScrollArea({
           )}
         >
           <ScrollAreaPrimitive.Thumb
+            {...slotProps?.thumb}
+            {...slotProps?.verticalThumb}
             data-slot="scroll-area-thumb"
             className={mergeClassName(classNames?.verticalThumb ?? classNames?.thumb, styles.thumb)}
           />
@@ -75,6 +105,8 @@ function ScrollArea({
       ) : null}
       {hasHorizontalScrollbar ? (
         <ScrollAreaPrimitive.Scrollbar
+          {...scrollbarProps}
+          {...slotProps?.horizontalScrollbar}
           data-slot="scroll-area-scrollbar"
           orientation="horizontal"
           keepMounted={scrollbarKeepMounted}
@@ -84,6 +116,8 @@ function ScrollArea({
           )}
         >
           <ScrollAreaPrimitive.Thumb
+            {...slotProps?.thumb}
+            {...slotProps?.horizontalThumb}
             data-slot="scroll-area-thumb"
             className={mergeClassName(
               classNames?.horizontalThumb ?? classNames?.thumb,
@@ -94,6 +128,7 @@ function ScrollArea({
       ) : null}
       {scrollbars === 'both' ? (
         <ScrollAreaPrimitive.Corner
+          {...slotProps?.corner}
           data-slot="scroll-area-corner"
           className={mergeClassName(classNames?.corner, styles.corner)}
         />
@@ -104,4 +139,10 @@ function ScrollArea({
 
 export { ScrollArea };
 
-export type { ScrollAreaProps, ScrollAreaClassNames, ScrollAreaFade, ScrollAreaScrollbars };
+export type {
+  ScrollAreaProps,
+  ScrollAreaClassNames,
+  ScrollAreaSlotProps,
+  ScrollAreaFade,
+  ScrollAreaScrollbars,
+};

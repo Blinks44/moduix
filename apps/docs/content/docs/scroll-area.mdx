@@ -7,11 +7,11 @@ icon: Component
 import 'moduix/style.css';
 import {
   BothScrollbarsScrollAreaExample,
+  CustomStylesScrollAreaExample,
   GradientFadeScrollAreaExample,
   KeepMountedScrollAreaExample,
   OverflowEdgeThresholdScrollAreaExample,
   ScrollAreaExample,
-  StatefulStylesScrollAreaExample,
   scrollAreaCssProperties,
 } from '@/components/examples/scroll-area';
 
@@ -31,7 +31,7 @@ import {
       export function ScrollAreaDemo() {
         return (
           <ScrollArea className={styles.root} classNames={{ content: styles.textContent }}>
-            {insideScrollSections.map((item) => (
+            {sections.map((item) => (
               <section key={item.title}>
                 <h3>{item.title}</h3>
                 <p className={styles.paragraph}>{item.body}</p>
@@ -69,7 +69,7 @@ import {
 
   <Preview.Data>
     {`
-      export const insideScrollSections = [
+      const sections = [
         {
           title: 'What this surface is for',
           body: 'Use temporary surfaces for focused tasks that should keep users in the current page context.',
@@ -128,6 +128,37 @@ import {
   </Preview.Data>
 </Preview>
 
+## Composition
+
+`ScrollArea` renders the Base UI root, viewport, content, scrollbars, thumbs, and corner for you.
+Use `className` for the root element and `classNames` for the internal slots hidden from the
+default composition.
+
+Use `slotProps` when you need Base UI escape hatches such as `render`, state-based `style`, or
+other non-class props for an internal slot:
+
+```tsx
+<ScrollArea
+  scrollbars="both"
+  className={styles.root}
+  classNames={{
+    viewport: styles.viewport,
+    content: styles.content,
+    scrollbar: styles.scrollbar,
+    verticalScrollbar: styles.verticalScrollbar,
+    horizontalScrollbar: styles.horizontalScrollbar,
+    thumb: styles.thumb,
+    verticalThumb: styles.verticalThumb,
+    horizontalThumb: styles.horizontalThumb,
+    corner: styles.corner,
+  }}
+  slotProps={{
+    viewport: { render: <section /> },
+    verticalScrollbar: { render: <aside /> },
+  }}
+/>
+```
+
 ## Examples
 
 ### Both Scrollbars
@@ -149,9 +180,9 @@ scrollbars and the corner automatically.
             className={styles.sizedRoot}
             classNames={{ content: styles.gridContent }}
           >
-            {Array.from({ length: 96 }, (_, index) => (
-              <div key={index} className={styles.cell}>
-                {index + 1}
+            {cells.map((cell) => (
+              <div key={cell} className={styles.cell}>
+                {cell}
               </div>
             ))}
           </ScrollArea>
@@ -191,6 +222,13 @@ scrollbars and the corner automatically.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const cells = Array.from({ length: 96 }, (_, index) => index + 1);
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Gradient Fade
@@ -213,11 +251,11 @@ Pass `fade="horizontal"` for horizontal overflow.
             className={styles.sizedRoot}
             classNames={{ content: styles.paddedTextContent }}
           >
-            {Array.from({ length: 12 }, (_, index) => (
-              <p key={index} className={styles.paragraph}>
-                Section {index + 1}. Scroll state updates CSS variables, so the fade stays precise on
-                both edges.
-              </p>
+            {sections.map((item) => (
+              <section key={item.title}>
+                <h3>{item.title}</h3>
+                <p className={styles.paragraph}>{item.body}</p>
+              </section>
             ))}
           </ScrollArea>
         );
@@ -252,6 +290,38 @@ Pass `fade="horizontal"` for horizontal overflow.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const sections = [
+        {
+          title: 'What this surface is for',
+          body: 'Use temporary surfaces for focused tasks that should keep users in the current page context.',
+        },
+        {
+          title: 'Keyboard and focus',
+          body: 'Tab and Shift+Tab should stay predictable while Escape or explicit controls request close.',
+        },
+        {
+          title: 'Viewport overflow',
+          body: 'Keep the container visible and place long content in a dedicated scrollable inner region.',
+        },
+        {
+          title: 'Close affordances',
+          body: 'Always provide an explicit close action when the surface can be dismissed by the user.',
+        },
+        {
+          title: 'Mobile ergonomics',
+          body: 'Keep touch targets reachable and avoid cramped headers on narrow viewports.',
+        },
+        {
+          title: 'Persistent panels',
+          body: 'For persistent workflows, keep the important controls fixed and scroll only the supporting content.',
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Overflow Edge Threshold
@@ -274,10 +344,9 @@ past a specific offset.
             classNames={{ content: styles.compactTextContent }}
             overflowEdgeThreshold={28}
           >
-            {Array.from({ length: 18 }, (_, index) => (
-              <p key={index} className={styles.paragraph}>
-                Threshold demo row {index + 1}. Edge attributes appear only after the configured
-                offset.
+            {rows.map((row) => (
+              <p key={row} className={styles.paragraph}>
+                {row}
               </p>
             ))}
           </ScrollArea>
@@ -313,6 +382,17 @@ past a specific offset.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const rows = Array.from(
+        { length: 18 },
+        (_, index) =>
+          \`Threshold demo row \${index + 1}. Edge attributes appear only after the configured offset.\`,
+      );
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Keep Mounted
@@ -345,13 +425,11 @@ Use `scrollbarKeepMounted` when scrollbar DOM needs to stay mounted while the vi
               classNames={{ content: styles.compactTextContent }}
               scrollbarKeepMounted
             >
-              {(denseContent ? Array.from({ length: 16 }) : Array.from({ length: 2 })).map(
-                (_, index) => (
-                  <p key={index} className={styles.paragraph}>
-                    KeepMounted demo row {index + 1}
-                  </p>
-                ),
-              )}
+              {(denseContent ? denseRows : rows).map((row) => (
+                <p key={row} className={styles.paragraph}>
+                  {row}
+                </p>
+              ))}
             </ScrollArea>
           </div>
         );
@@ -402,33 +480,51 @@ Use `scrollbarKeepMounted` when scrollbar DOM needs to stay mounted while the vi
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const rows = ['KeepMounted demo row 1', 'KeepMounted demo row 2'];
+
+      const denseRows = Array.from(
+        { length: 16 },
+        (_, index) => \`KeepMounted demo row \${index + 1}\`,
+      );
+    `}
+
+  </Preview.Data>
 </Preview>
 
-### Stateful Styles
+### Custom Styles
 
-Style slots from Base UI data attributes such as `data-scrolling`, `data-hovering`, and `data-orientation`.
+Style every internal slot through `classNames`, including the viewport, content, both scrollbars,
+both thumbs, and the corner.
 
 <Preview>
-  <StatefulStylesScrollAreaExample />
+  <CustomStylesScrollAreaExample />
 
   <Preview.Code>
     {`
       import { ScrollArea } from "moduix";
 
-      export function StatefulStylesScrollAreaDemo() {
+      export function CustomStylesScrollAreaDemo() {
         return (
           <ScrollArea
-            className={styles.sizedRoot}
+            scrollbars="both"
+            className={styles.customRoot}
             classNames={{
-              viewport: styles.statefulViewport,
-              content: styles.compactTextContent,
+              viewport: styles.customViewport,
+              content: styles.customContent,
+              verticalScrollbar: styles.customVerticalScrollbar,
+              horizontalScrollbar: styles.customHorizontalScrollbar,
+              verticalThumb: styles.customVerticalThumb,
+              horizontalThumb: styles.customHorizontalThumb,
+              corner: styles.customCorner,
             }}
           >
-            {Array.from({ length: 14 }, (_, index) => (
-              <p key={index} className={styles.paragraph}>
-                Stateful style row {index + 1}. Viewport outline follows the scrolling data
-                attribute.
-              </p>
+            {cells.map((cell) => (
+              <div key={cell} className={styles.customCell}>
+                {cell}
+              </div>
             ))}
           </ScrollArea>
         );
@@ -439,29 +535,20 @@ Style slots from Base UI data attributes such as `data-scrolling`, `data-hoverin
 
   <Preview.CSS>
     {`
-      .sizedRoot {
+      .customRoot {
         --scroll-area-width: 24rem;
         --scroll-area-height: 13rem;
+        --scroll-area-scrollbar-size: 0.625rem;
+        --scroll-area-scrollbar-margin: var(--spacing-1);
+        --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
+        --scroll-area-thumb-bg: var(--color-primary);
+        --scroll-area-corner-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
         max-width: calc(100vw - 2rem);
         border: var(--border-width-sm) solid var(--color-border);
         border-radius: var(--radius-lg);
       }
 
-      .compactTextContent {
-        display: grid;
-        gap: var(--spacing-2);
-        padding: var(--spacing-3);
-        padding-right: var(--spacing-5);
-      }
-
-      .paragraph {
-        margin: 0;
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .statefulViewport {
+      .customViewport {
         border-radius: var(--radius-lg);
         outline: var(--border-width-sm) solid var(--color-border);
         outline-offset: calc(var(--border-width-sm) * -1);
@@ -470,7 +557,54 @@ Style slots from Base UI data attributes such as `data-scrolling`, `data-hoverin
           outline-color: var(--color-primary);
         }
       }
+
+      .customContent {
+        display: grid;
+        grid-template-columns: repeat(10, 5rem);
+        grid-template-rows: repeat(8, 4rem);
+        gap: var(--spacing-2);
+        padding: var(--spacing-3);
+      }
+
+      .customVerticalScrollbar {
+        background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
+      }
+
+      .customHorizontalScrollbar {
+        background-color: color-mix(in srgb, var(--color-chart-3) 18%, transparent);
+      }
+
+      .customVerticalThumb {
+        background-color: var(--color-primary);
+      }
+
+      .customHorizontalThumb {
+        background-color: var(--color-chart-3);
+      }
+
+      .customCorner {
+        border-radius: var(--radius-sm);
+        background-color: color-mix(in srgb, var(--color-foreground) 10%, transparent);
+      }
+
+      .customCell {
+        display: grid;
+        place-items: center;
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-sm);
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        font-weight: var(--weight-medium);
+      }
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const cells = Array.from({ length: 80 }, (_, index) => index + 1);
+    `}
+
+  </Preview.Data>
 </Preview>
