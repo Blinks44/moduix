@@ -26,3 +26,7 @@
 .customLoadingIndicatorColor {
   color: var(--color-primary-foreground);
 }
+
+.customSpinner {
+  border-width: var(--border-width-md);
+}

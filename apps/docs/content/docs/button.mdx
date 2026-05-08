@@ -6,7 +6,6 @@ icon: Component
 
 import 'moduix/style.css';
 import {
-  ButtonClassNameExample,
   ButtonCustomLoadingIndicatorExample,
   ButtonDisabledExample,
   ButtonExample,
@@ -14,6 +13,7 @@ import {
   ButtonLoadingExample,
   ButtonSizesExample,
   ButtonVariantsExample,
+  CustomStylesButtonExample,
   buttonCssProperties,
 } from '@/components/examples/button';
 
@@ -37,6 +37,23 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Composition
+
+`Button` is built on Base UI Button and keeps its behavior props available, including
+`render`, `nativeButton`, `disabled`, and `focusableWhenDisabled`. Use `className` for the
+root button. Use `classNames` for internal slots that are rendered by the component:
+
+```tsx
+<Button
+  className={styles.button}
+  classNames={{
+    content: styles.content,
+    loadingIndicator: styles.loadingIndicator,
+    spinner: styles.spinner,
+  }}
+/>
+```
 
 ## Examples
 
@@ -214,7 +231,7 @@ Pass `loadingIndicator` to use an icon or spinner from your application.
             loading
             loadingText="Syncing"
             variant="outline"
-            loadingIndicator={<StarIcon />}
+            loadingIndicator={<StarIcon className={styles.customLoadingIndicator} />}
           >
             Sync
           </Button>
@@ -223,26 +240,38 @@ Pass `loadingIndicator` to use an icon or spinner from your application.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customLoadingIndicator {
+        width: 0.875rem;
+        height: 0.875rem;
+        animation: var(--animation-spin);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` for the button root and `classNames` for internal slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <ButtonClassNameExample />
+  <CustomStylesButtonExample />
 
   <Preview.Code>
     {`
       import { Button } from "moduix";
 
-      export function ButtonClassNamesDemo() {
+      export function CustomStylesButtonDemo() {
         return (
           <Button
             className={styles.customButton}
             classNames={{
               content: styles.customButtonContent,
               loadingIndicator: styles.customLoadingIndicatorColor,
+              spinner: styles.customSpinner,
             }}
             loading
             loadingText="Publishing"
@@ -270,6 +299,10 @@ Pass `className` for the button root and `classNames` for internal slots when st
 
       .customLoadingIndicatorColor {
         color: var(--color-primary-foreground);
+      }
+
+      .customSpinner {
+        border-width: var(--border-width-md);
       }
     `}
 

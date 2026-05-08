@@ -200,13 +200,14 @@ export function ButtonCustomLoadingIndicatorExample() {
   );
 }
 
-export function ButtonClassNameExample() {
+export function CustomStylesButtonExample() {
   return (
     <Button
       className={styles.customButton}
       classNames={{
         content: styles.customButtonContent,
         loadingIndicator: styles.customLoadingIndicatorColor,
+        spinner: styles.customSpinner,
       }}
       loading
       loadingText="Publishing"

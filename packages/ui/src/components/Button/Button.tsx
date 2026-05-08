@@ -18,6 +18,7 @@ type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'ic
 type ButtonClassNames = {
   content?: string;
   loadingIndicator?: string;
+  spinner?: string;
 };
 
 type ButtonProps = ButtonPrimitive.Props & {
@@ -45,7 +46,7 @@ function Button({
   const isDisabled = Boolean(disabled || loading);
   const hasLoadingText = loadingText !== undefined;
   const hideContent = loading && !hasLoadingText;
-  const spinner = loadingIndicator ?? <ButtonSpinner />;
+  const spinner = loadingIndicator ?? <ButtonSpinner className={classNames?.spinner} />;
 
   return (
     <ButtonPrimitive
