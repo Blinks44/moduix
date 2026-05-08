@@ -4,17 +4,16 @@ description: An input that suggests matching options while preserving free-form 
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   AsyncSearchAutocompleteExample,
   AutoHighlightAutocompleteExample,
   AutocompleteExample,
+  CustomStylesAutocompleteExample,
   FuzzyAutocompleteExample,
   GroupedAutocompleteExample,
   InputInsidePopupAutocompleteExample,
   ItemIconsAutocompleteExample,
   LimitAutocompleteExample,
-  PopupOptionsAutocompleteExample,
   autocompleteCssProperties,
 } from '@/components/examples/autocomplete';
 
@@ -45,13 +44,6 @@ import {
         AutocompleteItemText,
       } from "moduix";
       import { useId } from "react";
-
-      const tags = [
-        { id: "t1", value: "feature" },
-        { id: "t2", value: "fix" },
-        { id: "t3", value: "bug" },
-        { id: "t4", value: "docs" },
-      ];
 
       export function AutocompleteDemo() {
         const id = useId();
@@ -85,7 +77,46 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const tags = [
+        { id: "t1", value: "feature" },
+        { id: "t2", value: "fix" },
+        { id: "t3", value: "bug" },
+        { id: "t4", value: "docs" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
+
+## Composition
+
+Use `Autocomplete` for root state and Base UI behavior props such as `items`, `value`,
+`onValueChange`, `filter`, `limit`, `mode`, `autoHighlight`, and `openOnInputClick`.
+`AutocompleteContent` renders the portal, positioner, popup, optional backdrop, and optional arrow
+automatically.
+
+`className` styles the visible popup. `classNames` styles service slots hidden from the default
+composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `portalProps`,
+`backdropProps`, `positionerProps`, `arrowProps`, `withBackdrop`, and `showArrow` when you need the
+matching Base UI escape hatches:
+
+```tsx
+<AutocompleteContent
+  className={styles.popup}
+  sideOffset={8}
+  showArrow
+  withBackdrop
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    positioner: styles.positioner,
+    arrow: styles.arrow,
+  }}
+/>
+```
 
 ## Examples
 
@@ -117,25 +148,6 @@ Pass grouped data and render `AutocompleteCollection` inside each `AutocompleteG
         AutocompleteItemText,
       } from "moduix";
       import { useId } from "react";
-
-      const groupedTags = [
-        {
-          value: "General",
-          items: [
-            { id: "gt-1", value: "feature" },
-            { id: "gt-2", value: "fix" },
-            { id: "gt-3", value: "docs" },
-          ],
-        },
-        {
-          value: "Scope",
-          items: [
-            { id: "gt-4", value: "internal" },
-            { id: "gt-5", value: "mobile" },
-            { id: "gt-6", value: "backend" },
-          ],
-        },
-      ];
 
       export function GroupedAutocompleteDemo() {
         const id = useId();
@@ -176,6 +188,30 @@ Pass grouped data and render `AutocompleteCollection` inside each `AutocompleteG
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const groupedTags = [
+        {
+          value: "General",
+          items: [
+            { id: "gt-1", value: "feature" },
+            { id: "gt-2", value: "fix" },
+            { id: "gt-3", value: "docs" },
+          ],
+        },
+        {
+          value: "Scope",
+          items: [
+            { id: "gt-4", value: "internal" },
+            { id: "gt-5", value: "mobile" },
+            { id: "gt-6", value: "backend" },
+          ],
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Item Icons
@@ -207,13 +243,6 @@ Use item text slots for richer option content. Control icons can be replaced by 
         AutocompleteItem,
       } from "moduix";
       import { useId } from "react";
-
-      const tags = [
-        { id: "t1", value: "feature" },
-        { id: "t2", value: "fix" },
-        { id: "t3", value: "bug" },
-        { id: "t4", value: "docs" },
-      ];
 
       export function ItemIconsAutocompleteDemo() {
         const id = useId();
@@ -254,6 +283,18 @@ Use item text slots for richer option content. Control icons can be replaced by 
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const tags = [
+        { id: "t1", value: "feature" },
+        { id: "t2", value: "fix" },
+        { id: "t3", value: "bug" },
+        { id: "t4", value: "docs" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Input Inside Popup
@@ -280,13 +321,6 @@ Use `AutocompleteFieldTrigger` when the visible field opens a popup that contain
         AutocompleteItem,
         AutocompleteItemText,
       } from "moduix";
-
-      const tags = [
-        { id: "t1", value: "feature" },
-        { id: "t2", value: "fix" },
-        { id: "t3", value: "bug" },
-        { id: "t4", value: "docs" },
-      ];
 
       export function InputInsidePopupAutocompleteDemo() {
         return (
@@ -318,6 +352,18 @@ Use `AutocompleteFieldTrigger` when the visible field opens a popup that contain
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const tags = [
+        { id: "t1", value: "feature" },
+        { id: "t2", value: "fix" },
+        { id: "t3", value: "bug" },
+        { id: "t4", value: "docs" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Limit
@@ -345,15 +391,6 @@ Set `limit` to cap the number of rendered matches.
         AutocompleteItemText,
       } from "moduix";
       import { useId } from "react";
-
-      const topMovies = [
-        { id: "1", title: "The Shawshank Redemption", year: 1994 },
-        { id: "2", title: "The Godfather", year: 1972 },
-        { id: "3", title: "The Dark Knight", year: 2008 },
-        { id: "4", title: "Pulp Fiction", year: 1994 },
-        { id: "5", title: "Forrest Gump", year: 1994 },
-        { id: "6", title: "Inception", year: 2010 },
-      ];
 
       export function LimitAutocompleteDemo() {
         const id = useId();
@@ -394,6 +431,20 @@ Set `limit` to cap the number of rendered matches.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const topMovies = [
+        { id: "1", title: "The Shawshank Redemption", year: 1994 },
+        { id: "2", title: "The Godfather", year: 1972 },
+        { id: "3", title: "The Dark Knight", year: 2008 },
+        { id: "4", title: "Pulp Fiction", year: 1994 },
+        { id: "5", title: "Forrest Gump", year: 1994 },
+        { id: "6", title: "Inception", year: 2010 },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Auto Highlight
@@ -421,13 +472,6 @@ Use `autoHighlight="always"` when the first match should be active immediately.
         AutocompleteItemText,
       } from "moduix";
       import { useId } from "react";
-
-      const tags = [
-        { id: "t1", value: "feature" },
-        { id: "t2", value: "fix" },
-        { id: "t3", value: "bug" },
-        { id: "t4", value: "docs" },
-      ];
 
       export function AutoHighlightAutocompleteDemo() {
         const id = useId();
@@ -466,6 +510,18 @@ Use `autoHighlight="always"` when the first match should be active immediately.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const tags = [
+        { id: "t1", value: "feature" },
+        { id: "t2", value: "fix" },
+        { id: "t3", value: "bug" },
+        { id: "t4", value: "docs" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Fuzzy
@@ -493,36 +549,6 @@ Provide a custom `filter` when matching should differ from the default string co
         AutocompleteItemText,
       } from "moduix";
       import { useId } from "react";
-
-      const topMovies = [
-        { id: "1", title: "The Shawshank Redemption", year: 1994 },
-        { id: "2", title: "The Godfather", year: 1972 },
-        { id: "3", title: "The Dark Knight", year: 2008 },
-        { id: "4", title: "Pulp Fiction", year: 1994 },
-      ];
-
-      function isFuzzyMatch(value, query) {
-        const normalizedValue = value.toLowerCase().trim();
-        const normalizedQuery = query.toLowerCase().trim();
-
-        if (normalizedQuery === "") {
-          return true;
-        }
-
-        let queryIndex = 0;
-
-        for (const character of normalizedValue) {
-          if (character === normalizedQuery[queryIndex]) {
-            queryIndex += 1;
-
-            if (queryIndex === normalizedQuery.length) {
-              return true;
-            }
-          }
-        }
-
-        return false;
-      }
 
       export function FuzzyAutocompleteDemo() {
         const id = useId();
@@ -566,6 +592,41 @@ Provide a custom `filter` when matching should differ from the default string co
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const topMovies = [
+        { id: "1", title: "The Shawshank Redemption", year: 1994 },
+        { id: "2", title: "The Godfather", year: 1972 },
+        { id: "3", title: "The Dark Knight", year: 2008 },
+        { id: "4", title: "Pulp Fiction", year: 1994 },
+      ];
+
+      function isFuzzyMatch(value, query) {
+        const normalizedValue = value.toLowerCase().trim();
+        const normalizedQuery = query.toLowerCase().trim();
+
+        if (normalizedQuery === "") {
+          return true;
+        }
+
+        let queryIndex = 0;
+
+        for (const character of normalizedValue) {
+          if (character === normalizedQuery[queryIndex]) {
+            queryIndex += 1;
+
+            if (queryIndex === normalizedQuery.length) {
+              return true;
+            }
+          }
+        }
+
+        return false;
+      }
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Async Search
@@ -595,13 +656,6 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
         useAutocompleteFilter,
       } from "moduix";
       import { useId, useRef, useState, useTransition } from "react";
-
-      const topMovies = [
-        { id: "1", title: "The Shawshank Redemption", year: 1994 },
-        { id: "2", title: "The Godfather", year: 1972 },
-        { id: "3", title: "The Dark Knight", year: 2008 },
-        { id: "4", title: "Pulp Fiction", year: 1994 },
-      ];
 
       export function AsyncSearchAutocompleteDemo() {
         const id = useId();
@@ -687,14 +741,26 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const topMovies = [
+        { id: "1", title: "The Shawshank Redemption", year: 1994 },
+        { id: "2", title: "The Godfather", year: 1972 },
+        { id: "3", title: "The Dark Knight", year: 2008 },
+        { id: "4", title: "Pulp Fiction", year: 1994 },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
-### Popup Options
+### Custom Styles
 
-Use `AutocompleteContent` props for popup infrastructure. `Portal`, `Positioner`, `Backdrop`, and `Arrow` are rendered internally, so application code only configures behavior and service-slot classes.
+Style the popup directly with `className` and service slots with `classNames`.
 
 <Preview>
-  <PopupOptionsAutocompleteExample />
+  <CustomStylesAutocompleteExample />
 
   <Preview.Code>
     {`
@@ -715,14 +781,7 @@ Use `AutocompleteContent` props for popup infrastructure. `Portal`, `Positioner`
       } from "moduix";
       import { useId } from "react";
 
-      const tags = [
-        { id: "t1", value: "feature" },
-        { id: "t2", value: "fix" },
-        { id: "t3", value: "bug" },
-        { id: "t4", value: "docs" },
-      ];
-
-      export function PopupOptionsAutocompleteDemo() {
+      export function CustomStylesAutocompleteDemo() {
         const id = useId();
 
         return (
@@ -739,12 +798,15 @@ Use `AutocompleteContent` props for popup infrastructure. `Portal`, `Positioner`
             </AutocompleteField>
 
             <AutocompleteContent
+              className={styles.customPopup}
               sideOffset={8}
               showArrow
               withBackdrop
               classNames={{
-                backdrop: styles.backdrop,
-                arrow: styles.arrow,
+                portal: styles.customPortal,
+                backdrop: styles.customBackdrop,
+                positioner: styles.customPositioner,
+                arrow: styles.customArrow,
               }}
             >
               <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
@@ -765,15 +827,41 @@ Use `AutocompleteContent` props for popup infrastructure. `Portal`, `Positioner`
 
   <Preview.CSS>
     {`
-      .backdrop {
-          --autocomplete-backdrop-bg: var(--color-overlay);
-          --autocomplete-backdrop-blur: 2px;
-        }
+      .customPortal {
+        position: relative;
+      }
 
-      .arrow {
-          --autocomplete-arrow-stroke-color: var(--color-border);
-        }
+      .customPositioner {
+        --autocomplete-popup-max-height: 18rem;
+      }
+
+      .customPopup {
+        --autocomplete-popup-bg: color-mix(in srgb, var(--color-popover) 92%, var(--color-primary));
+        --autocomplete-popup-border-color: color-mix(in srgb, var(--color-border) 72%, var(--color-primary));
+        --autocomplete-shadow: var(--shadow-md);
+      }
+
+      .customBackdrop {
+        --autocomplete-backdrop-bg: var(--color-overlay);
+        --autocomplete-backdrop-blur: 2px;
+      }
+
+      .customArrow {
+        --autocomplete-arrow-stroke-color: var(--color-border);
+      }
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const tags = [
+        { id: "t1", value: "feature" },
+        { id: "t2", value: "fix" },
+        { id: "t3", value: "bug" },
+        { id: "t4", value: "docs" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>

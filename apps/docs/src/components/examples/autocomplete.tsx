@@ -529,7 +529,7 @@ export function AsyncSearchAutocompleteExample() {
   );
 }
 
-export function PopupOptionsAutocompleteExample() {
+export function CustomStylesAutocompleteExample() {
   const id = React.useId();
 
   return (
@@ -546,12 +546,15 @@ export function PopupOptionsAutocompleteExample() {
       </AutocompleteField>
 
       <AutocompleteContent
+        className={styles.customPopup}
         sideOffset={8}
         showArrow
         withBackdrop
         classNames={{
-          backdrop: styles.backdrop,
-          arrow: styles.arrow,
+          portal: styles.customPortal,
+          backdrop: styles.customBackdrop,
+          positioner: styles.customPositioner,
+          arrow: styles.customArrow,
         }}
       >
         <AutocompleteEmpty>No tags found.</AutocompleteEmpty>

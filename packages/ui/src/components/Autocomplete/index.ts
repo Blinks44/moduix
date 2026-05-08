@@ -33,5 +33,6 @@ export {
 export type {
   AutocompleteProps,
   AutocompleteValueType,
+  AutocompleteContentClassNames,
   AutocompleteContentProps,
 } from './Autocomplete';

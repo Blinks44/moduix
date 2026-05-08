@@ -1,10 +1,28 @@
 @layer docs.examples {
-  .backdrop {
+  .customPortal {
+    position: relative;
+  }
+
+  .customPositioner {
+    --autocomplete-popup-max-height: 18rem;
+  }
+
+  .customPopup {
+    --autocomplete-popup-bg: color-mix(in srgb, var(--color-popover) 92%, var(--color-primary));
+    --autocomplete-popup-border-color: color-mix(
+      in srgb,
+      var(--color-border) 72%,
+      var(--color-primary)
+    );
+    --autocomplete-shadow: var(--shadow-md);
+  }
+
+  .customBackdrop {
     --autocomplete-backdrop-bg: var(--color-overlay);
     --autocomplete-backdrop-blur: 2px;
   }
 
-  .arrow {
+  .customArrow {
     --autocomplete-arrow-stroke-color: var(--color-border);
   }
 }

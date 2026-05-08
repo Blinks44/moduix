@@ -448,4 +448,9 @@ export {
   useAutocompleteFilteredItems,
 };
 
-export type { AutocompleteProps, AutocompleteValueType, AutocompleteContentProps };
+export type {
+  AutocompleteProps,
+  AutocompleteValueType,
+  AutocompleteContentClassNames,
+  AutocompleteContentProps,
+};
