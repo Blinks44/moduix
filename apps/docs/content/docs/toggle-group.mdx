@@ -7,7 +7,7 @@ icon: Component
 import 'moduix/style.css';
 import {
   ControlledToggleGroupExample,
-  ToggleGroupClassNameExample,
+  CustomStylesToggleGroupExample,
   ToggleGroupDisabledExample,
   ToggleGroupExample,
   ToggleGroupIconExample,
@@ -35,15 +35,28 @@ import {
       export function BasicToggleGroupDemo() {
         return (
           <ToggleGroup defaultValue={["left"]} aria-label="Text alignment">
-            <ToggleGroupItem value="left">Left</ToggleGroupItem>
-            <ToggleGroupItem value="center">Center</ToggleGroupItem>
-            <ToggleGroupItem value="right">Right</ToggleGroupItem>
+            {items.map((item) => (
+              <ToggleGroupItem key={item.value} value={item.value}>
+                {item.label}
+              </ToggleGroupItem>
+            ))}
           </ToggleGroup>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        { value: "left", label: "Left" },
+        { value: "center", label: "Center" },
+        { value: "right", label: "Right" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Examples
@@ -74,7 +87,7 @@ Use `multiple` when more than one item can be pressed at the same time.
               <em>I</em>
             </ToggleGroupItem>
             <ToggleGroupItem value="underline" aria-label="Underline">
-              <u>U</u>
+              <span className={styles.underline}>U</span>
             </ToggleGroupItem>
           </ToggleGroup>
         );
@@ -82,6 +95,15 @@ Use `multiple` when more than one item can be pressed at the same time.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .underline {
+        text-decoration: underline;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Variants
@@ -97,28 +119,56 @@ Use `variant` on the group to apply the same visual treatment to every item.
 
       export function ToggleGroupVariantsDemo() {
         return (
-          <>
-            <ToggleGroup defaultValue={["one"]} aria-label="Default variant">
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two">Two</ToggleGroupItem>
-              <ToggleGroupItem value="three">Three</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["one"]} aria-label="Outline variant" variant="outline">
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two">Two</ToggleGroupItem>
-              <ToggleGroupItem value="three">Three</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["one"]} aria-label="Ghost variant" variant="ghost">
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two">Two</ToggleGroupItem>
-              <ToggleGroupItem value="three">Three</ToggleGroupItem>
-            </ToggleGroup>
-          </>
+          <div className={styles.stack}>
+            {variants.map((variant) => (
+              <ToggleGroup
+                key={variant.value}
+                defaultValue={["one"]}
+                aria-label={variant.label}
+                variant={variant.value}
+              >
+                {items.map((item) => (
+                  <ToggleGroupItem key={item.value} value={item.value}>
+                    {item.label}
+                  </ToggleGroupItem>
+                ))}
+              </ToggleGroup>
+            ))}
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const variants = [
+        { value: "default", label: "Default variant" },
+        { value: "outline", label: "Outline variant" },
+        { value: "ghost", label: "Ghost variant" },
+      ] as const;
+
+      const items = [
+        { value: "one", label: "One" },
+        { value: "two", label: "Two" },
+        { value: "three", label: "Three" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Sizes
@@ -134,29 +184,79 @@ Use text sizes for labeled groups and icon sizes for compact toolbar controls.
 
       export function ToggleGroupSizesDemo() {
         return (
-          <>
-            <ToggleGroup defaultValue={["xs"]} aria-label="Extra-small size" size="xs">
-              <ToggleGroupItem value="xs">XS</ToggleGroupItem>
-              <ToggleGroupItem value="sm">SM</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["sm"]} aria-label="Small size" size="sm">
-              <ToggleGroupItem value="sm">Small</ToggleGroupItem>
-              <ToggleGroupItem value="md">Medium</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["md"]} aria-label="Medium size" size="md">
-              <ToggleGroupItem value="md">Medium</ToggleGroupItem>
-              <ToggleGroupItem value="lg">Large</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup defaultValue={["lg"]} aria-label="Large size" size="lg">
-              <ToggleGroupItem value="lg">Large</ToggleGroupItem>
-              <ToggleGroupItem value="xl">Extra</ToggleGroupItem>
-            </ToggleGroup>
-          </>
+          <div className={styles.stack}>
+            {sizes.map((group) => (
+              <ToggleGroup
+                key={group.size}
+                defaultValue={[group.items[0].value]}
+                aria-label={group.label}
+                size={group.size}
+              >
+                {group.items.map((item) => (
+                  <ToggleGroupItem key={item.value} value={item.value}>
+                    {item.label}
+                  </ToggleGroupItem>
+                ))}
+              </ToggleGroup>
+            ))}
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const sizes = [
+        {
+          size: "xs",
+          label: "Extra-small size",
+          items: [
+            { value: "xs", label: "XS" },
+            { value: "sm", label: "SM" },
+          ],
+        },
+        {
+          size: "sm",
+          label: "Small size",
+          items: [
+            { value: "sm", label: "Small" },
+            { value: "md", label: "Medium" },
+          ],
+        },
+        {
+          size: "md",
+          label: "Medium size",
+          items: [
+            { value: "md", label: "Medium" },
+            { value: "lg", label: "Large" },
+          ],
+        },
+        {
+          size: "lg",
+          label: "Large size",
+          items: [
+            { value: "lg", label: "Large" },
+            { value: "xl", label: "Extra" },
+          ],
+        },
+      ] as const;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Vertical
@@ -178,15 +278,28 @@ Set `orientation="vertical"` when the choices should stack in a column.
             aria-label="View mode"
             variant="outline"
           >
-            <ToggleGroupItem value="list">List</ToggleGroupItem>
-            <ToggleGroupItem value="grid">Grid</ToggleGroupItem>
-            <ToggleGroupItem value="map">Map</ToggleGroupItem>
+            {items.map((item) => (
+              <ToggleGroupItem key={item.value} value={item.value}>
+                {item.label}
+              </ToggleGroupItem>
+            ))}
           </ToggleGroup>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        { value: "list", label: "List" },
+        { value: "grid", label: "Grid" },
+        { value: "map", label: "Map" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Disabled
@@ -202,23 +315,50 @@ Use `disabled` on the group or on a specific item to prevent interaction.
 
       export function DisabledToggleGroupDemo() {
         return (
-          <>
+          <div className={styles.row}>
             <ToggleGroup defaultValue={["one"]} aria-label="Disabled group" disabled>
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two">Two</ToggleGroupItem>
+              {items.map((item) => (
+                <ToggleGroupItem key={item.value} value={item.value}>
+                  {item.label}
+                </ToggleGroupItem>
+              ))}
             </ToggleGroup>
             <ToggleGroup defaultValue={["one"]} aria-label="Disabled item">
-              <ToggleGroupItem value="one">One</ToggleGroupItem>
-              <ToggleGroupItem value="two" disabled>
-                Two
-              </ToggleGroupItem>
+              {items.map((item) => (
+                <ToggleGroupItem key={item.value} value={item.value} disabled={item.disabled}>
+                  {item.label}
+                </ToggleGroupItem>
+              ))}
             </ToggleGroup>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        { value: "one", label: "One" },
+        { value: "two", label: "Two", disabled: true },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Loop Focus
@@ -235,15 +375,28 @@ Set `loopFocus={false}` when arrow-key navigation should stop at the first or la
       export function LoopFocusToggleGroupDemo() {
         return (
           <ToggleGroup defaultValue={["day"]} aria-label="Schedule range" loopFocus={false}>
-            <ToggleGroupItem value="day">Day</ToggleGroupItem>
-            <ToggleGroupItem value="week">Week</ToggleGroupItem>
-            <ToggleGroupItem value="month">Month</ToggleGroupItem>
+            {items.map((item) => (
+              <ToggleGroupItem key={item.value} value={item.value}>
+                {item.label}
+              </ToggleGroupItem>
+            ))}
           </ToggleGroup>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        { value: "day", label: "Day" },
+        { value: "week", label: "Week" },
+        { value: "month", label: "Month" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -262,7 +415,7 @@ Control `value` from React state when the group needs to coordinate with other U
         const [value, setValue] = useState(["favorites"] as string[]);
 
         return (
-          <>
+          <div className={styles.stack}>
             <ToggleGroup
               value={value}
               onValueChange={setValue}
@@ -278,13 +431,31 @@ Control `value` from React state when the group needs to coordinate with other U
                 Alerts
               </ToggleGroupItem>
             </ToggleGroup>
-            <p>Current value: {value.join(", ") || "empty"}</p>
-          </>
+            <span className={styles.hint}>Current value: {value.join(", ") || "empty"}</span>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Icons
@@ -302,7 +473,7 @@ Pass icons as children. Icon-only items must include an accessible label.
         return (
           <ToggleGroup defaultValue={["left"]} aria-label="Text alignment" size="icon-md">
             <ToggleGroupItem value="left" aria-label="Align left">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <svg className={styles.customIcon} viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path
                   d="M2.5 3.5h11M2.5 8h8M2.5 12.5h11"
                   stroke="currentColor"
@@ -312,7 +483,7 @@ Pass icons as children. Icon-only items must include an accessible label.
               </svg>
             </ToggleGroupItem>
             <ToggleGroupItem value="center" aria-label="Align center">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <svg className={styles.customIcon} viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path
                   d="M2.5 3.5h11M4 8h8M2.5 12.5h11"
                   stroke="currentColor"
@@ -322,7 +493,7 @@ Pass icons as children. Icon-only items must include an accessible label.
               </svg>
             </ToggleGroupItem>
             <ToggleGroupItem value="right" aria-label="Align right">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <svg className={styles.customIcon} viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path
                   d="M2.5 3.5h11M5.5 8h8M2.5 12.5h11"
                   stroke="currentColor"
@@ -337,35 +508,41 @@ Pass icons as children. Icon-only items must include an accessible label.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customIcon {
+        width: 1rem;
+        height: 1rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` to the group and items when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <ToggleGroupClassNameExample />
+  <CustomStylesToggleGroupExample />
 
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
 
-      export function ClassNameToggleGroupDemo() {
+      export function CustomStylesToggleGroupDemo() {
         return (
           <ToggleGroup
             defaultValue={["day"]}
             aria-label="Schedule density"
             className={styles.customGroup}
           >
-            <ToggleGroupItem value="day" className={styles.customItem}>
-              Day
-            </ToggleGroupItem>
-            <ToggleGroupItem value="week" className={styles.customItem}>
-              Week
-            </ToggleGroupItem>
-            <ToggleGroupItem value="month" className={styles.customItem}>
-              Month
-            </ToggleGroupItem>
+            {items.map((item) => (
+              <ToggleGroupItem key={item.value} value={item.value} className={styles.customItem}>
+                {item.label}
+              </ToggleGroupItem>
+            ))}
           </ToggleGroup>
         );
       }
@@ -393,4 +570,15 @@ Pass `className` to the group and items when styling with CSS Modules, Tailwind 
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        { value: "day", label: "Day" },
+        { value: "week", label: "Week" },
+        { value: "month", label: "Month" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>

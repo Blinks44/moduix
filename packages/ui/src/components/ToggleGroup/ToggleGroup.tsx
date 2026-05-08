@@ -44,9 +44,14 @@ function ToggleGroup<Value extends string = string>({
   );
 }
 
-type ToggleGroupItemProps = ToggleProps;
+type ToggleGroupItemProps<Value extends string = string> = ToggleProps<Value>;
 
-function ToggleGroupItem({ className, variant, size, ...props }: ToggleGroupItemProps) {
+function ToggleGroupItem<Value extends string = string>({
+  className,
+  variant,
+  size,
+  ...props
+}: ToggleGroupItemProps<Value>) {
   const context = React.useContext(ToggleGroupContext);
 
   return (

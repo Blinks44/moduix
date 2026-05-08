@@ -213,7 +213,7 @@ export function ToggleGroupIconExample() {
   );
 }
 
-export function ToggleGroupClassNameExample() {
+export function CustomStylesToggleGroupExample() {
   return (
     <ToggleGroup
       defaultValue={['day']}
