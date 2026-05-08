@@ -126,7 +126,10 @@ export const CustomCloseIcon: Story = {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-            <AlertDialogCloseIcon aria-label="Close archive dialog">
+            <AlertDialogCloseIcon
+              aria-label="Close archive dialog"
+              className={storyStyles.customCloseIcon}
+            >
               <CloseLineIcon />
             </AlertDialogCloseIcon>
             <AlertDialogDescription>
@@ -143,7 +146,7 @@ export const CustomCloseIcon: Story = {
   },
 };
 
-export const CustomInternalSlots: Story = {
+export const CustomStyles: Story = {
   render: () => {
     return (
       <AlertDialog>
@@ -151,6 +154,7 @@ export const CustomInternalSlots: Story = {
         <AlertDialogContent
           className={storyStyles.customPopup}
           classNames={{
+            portal: storyStyles.customPortal,
             backdrop: storyStyles.customBackdrop,
             viewport: storyStyles.customViewport,
           }}

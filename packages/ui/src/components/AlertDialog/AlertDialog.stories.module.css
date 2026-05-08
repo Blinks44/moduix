@@ -1,4 +1,8 @@
 @layer ui.stories {
+  .customCloseIcon {
+    --alert-dialog-close-icon-color: var(--color-destructive);
+  }
+
   .scrollBody {
     height: min(26rem, calc(100dvh - var(--spacing-10)));
     overflow: hidden;
@@ -13,6 +17,10 @@
     display: grid;
     gap: var(--spacing-4);
     padding-right: var(--spacing-5);
+  }
+
+  .customPortal {
+    pointer-events: auto;
   }
 
   .customBackdrop {

@@ -8,7 +8,7 @@ import {
   AlertDialogExample,
   ControlledAlertDialogExample,
   CustomCloseIconAlertDialogExample,
-  CustomInternalSlotsAlertDialogExample,
+  CustomStylesAlertDialogExample,
   ScrollableAlertDialogExample,
   alertDialogCssProperties,
 } from '@/components/examples/alert-dialog';
@@ -61,6 +61,27 @@ import {
   </Preview.Code>
 </Preview>
 
+## Composition
+
+Use `AlertDialog` for root state and behavior props such as `open`, `defaultOpen`,
+`onOpenChange`, and `handle`. `AlertDialogContent` renders the portal, backdrop, viewport,
+and popup automatically.
+
+`className` styles the visible popup. `classNames` styles the internal service slots that are
+hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
+`viewportProps`, and `withBackdrop={false}` when you need the matching Base UI escape hatches:
+
+```tsx
+<AlertDialogContent
+  className={styles.popup}
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    viewport: styles.viewport,
+  }}
+/>
+```
+
 ## Examples
 
 ### Controlled
@@ -86,7 +107,7 @@ Control the open state from React when the dialog needs to coordinate with other
       } from "moduix";
       import { useState } from "react";
 
-      function ControlledAlertDialog() {
+      export function ControlledAlertDialogDemo() {
         const [open, setOpen] = useState(false);
 
         return (
@@ -139,32 +160,39 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
         ScrollArea,
       } from "moduix";
 
-      <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Delete project</AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete project?</AlertDialogTitle>
-            <AlertDialogCloseIcon />
-            <AlertDialogDescription>
-              This removes all deployment environments and API keys.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogBody className={styles.scrollBody}>
-            <ScrollArea className={styles.scrollArea} classNames={{ content: styles.scrollContent }}>
-              {insideScrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </section>
-              ))}
-            </ScrollArea>
-          </AlertDialogBody>
-          <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Delete permanently</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      export function ScrollableAlertDialogDemo() {
+        return (
+          <AlertDialog>
+            <AlertDialogTrigger render={<Button />}>Delete project</AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete project?</AlertDialogTitle>
+                <AlertDialogCloseIcon />
+                <AlertDialogDescription>
+                  This removes all deployment environments and API keys.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogBody className={styles.scrollBody}>
+                <ScrollArea
+                  className={styles.scrollArea}
+                  classNames={{ content: styles.scrollContent }}
+                >
+                  {sections.map((item) => (
+                    <section key={item.title}>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </section>
+                  ))}
+                </ScrollArea>
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+                <AlertDialogAction render={<Button />}>Delete permanently</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -192,7 +220,7 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
 
   <Preview.Data>
     {`
-      export const insideScrollSections = [
+      const sections = [
         {
           title: 'What this surface is for',
           body: 'Use temporary surfaces for focused tasks that should keep users in the current page context.',
@@ -275,27 +303,31 @@ Pass children to `AlertDialogCloseIcon` to use any icon from your application or
         AlertDialogAction,
       } from "moduix";
 
-      <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-            <AlertDialogCloseIcon
-              aria-label="Close archive dialog"
-              className={styles.customCloseIcon}
-            >
-              <CloseLineIcon />
-            </AlertDialogCloseIcon>
-            <AlertDialogDescription>
-              Team members will lose access until the workspace is restored.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Archive</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      export function CustomCloseIconAlertDialogDemo() {
+        return (
+          <AlertDialog>
+            <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
+                <AlertDialogCloseIcon
+                  aria-label="Close archive dialog"
+                  className={styles.customCloseIcon}
+                >
+                  <CloseLineIcon />
+                </AlertDialogCloseIcon>
+                <AlertDialogDescription>
+                  Team members will lose access until the workspace is restored.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+                <AlertDialogAction render={<Button />}>Archive</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -312,10 +344,11 @@ Pass children to `AlertDialogCloseIcon` to use any icon from your application or
 
 ### Custom Styles
 
-Use `classNames` on `AlertDialogContent` to style the automatically rendered backdrop and viewport.
+Use `className` for the popup and `classNames` for the automatically rendered portal, backdrop,
+and viewport.
 
 <Preview>
-  <CustomInternalSlotsAlertDialogExample />
+  <CustomStylesAlertDialogExample />
 
   <Preview.Code>
     {`
@@ -332,33 +365,42 @@ Use `classNames` on `AlertDialogContent` to style the automatically rendered bac
         AlertDialogAction,
       } from "moduix";
 
-      <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
-        <AlertDialogContent
-          className={styles.customPopup}
-          classNames={{
-            backdrop: styles.customBackdrop,
-            viewport: styles.customViewport,
-          }}
-        >
-          <AlertDialogHeader>
-            <AlertDialogTitle>Reset environment?</AlertDialogTitle>
-            <AlertDialogDescription>
-              All runtime variables will return to their default values.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      export function CustomStylesAlertDialogDemo() {
+        return (
+          <AlertDialog>
+            <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
+            <AlertDialogContent
+              className={styles.customPopup}
+              classNames={{
+                portal: styles.customPortal,
+                backdrop: styles.customBackdrop,
+                viewport: styles.customViewport,
+              }}
+            >
+              <AlertDialogHeader>
+                <AlertDialogTitle>Reset environment?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  All runtime variables will return to their default values.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+                <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        );
+      }
     `}
 
   </Preview.Code>
 
   <Preview.CSS>
     {`
+      .customPortal {
+        pointer-events: auto;
+      }
+
       .customBackdrop {
         background-color: rgb(15 23 42 / 0.56);
       }

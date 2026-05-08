@@ -211,13 +211,14 @@ export function CustomCloseIconAlertDialogExample() {
   );
 }
 
-export function CustomInternalSlotsAlertDialogExample() {
+export function CustomStylesAlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
       <AlertDialogContent
         className={styles.customPopup}
         classNames={{
+          portal: styles.customPortal,
           backdrop: styles.customBackdrop,
           viewport: styles.customViewport,
         }}
