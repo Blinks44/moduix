@@ -195,41 +195,25 @@ export function NestedDialogExample() {
   );
 }
 
-export function CustomCloseIconDialogExample() {
-  return (
-    <Dialog>
-      <DialogTrigger render={<Button />}>Edit profile</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon}>
-            <CloseLineIcon />
-          </DialogCloseIcon>
-          <DialogDescription>Update the public profile fields and save changes.</DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
-          <DialogClose render={<Button />}>Save</DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-export function OutsideCloseDialogExample() {
+export function CustomStylesDialogExample() {
   return (
     <Dialog>
       <DialogTrigger render={<Button />}>Open outside close icon</DialogTrigger>
       <DialogContent
-        className={styles.outsidePopup}
-        classNames={{ viewport: styles.centeredViewport }}
+        className={styles.customPopup}
+        classNames={{
+          portal: styles.customPortal,
+          backdrop: styles.customBackdrop,
+          viewport: styles.customViewport,
+        }}
       >
-        <DialogCloseIcon className={styles.outsideClose} />
+        <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon}>
+          <CloseLineIcon />
+        </DialogCloseIcon>
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
-            This popup is styled through className, so consumers can use CSS Modules, Tailwind, or
-            CSS-in-JS.
+            This popup, backdrop, viewport, and close icon are styled with className and classNames.
           </DialogDescription>
         </DialogHeader>
         <DialogBody>

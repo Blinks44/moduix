@@ -4,14 +4,12 @@ description: A modal dialog that opens above the page for focused tasks and cont
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ControlledDialogExample,
-  CustomCloseIconDialogExample,
+  CustomStylesDialogExample,
   DialogExample,
   DialogHandleExample,
   NestedDialogExample,
-  OutsideCloseDialogExample,
   ScrollableDialogExample,
   dialogCssProperties,
 } from '@/components/examples/dialog';
@@ -62,15 +60,25 @@ import {
   </Preview.Code>
 </Preview>
 
-## Prop Placement
+## Composition
 
 Use `Dialog` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`, and
-`modal`. Use `DialogContent` for the default composed surface. Its `className` and regular popup
-props are passed to the visible dialog panel.
+`modal`. `DialogContent` renders the portal, backdrop, viewport, and popup automatically.
 
-`DialogContent` renders the portal, backdrop, and viewport automatically. Use `classNames` to style
-those service slots, `container` to choose the portal container, and `withBackdrop={false}` when a
-modal surface should render without the default backdrop.
+`className` styles the visible popup. `classNames` styles the internal service slots that are
+hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
+`viewportProps`, and `withBackdrop={false}` when you need the matching Base UI escape hatches:
+
+```tsx
+<DialogContent
+  className={styles.popup}
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    viewport: styles.viewport,
+  }}
+/>
+```
 
 ## Examples
 
@@ -207,30 +215,11 @@ the body content scrolls.
         ScrollArea,
       } from "moduix";
 
-      const sections = [
-        {
-          title: "Database migrations",
-          body: "Confirm migration scripts are idempotent and have rollback steps.",
-        },
-        {
-          title: "Monitoring",
-          body: "Check that the dashboard includes new API endpoints.",
-        },
-        {
-          title: "Analytics",
-          body: "Verify onboarding funnel events are firing.",
-        },
-        {
-          title: "Staging",
-          body: "Run smoke tests with a production-like dataset.",
-        },
-      ];
-
       export function ScrollableDialogDemo() {
         return (
           <Dialog>
             <DialogTrigger render={<Button />}>Open long content</DialogTrigger>
-            <DialogContent className={styles.popup}>
+            <DialogContent className={styles.scrollPopup}>
               <DialogHeader>
                 <DialogTitle>Release checklist</DialogTitle>
                 <DialogCloseIcon />
@@ -238,7 +227,7 @@ the body content scrolls.
                   Review all items before publishing to production.
                 </DialogDescription>
               </DialogHeader>
-              <DialogBody className={styles.body}>
+              <DialogBody className={styles.scrollBody}>
                 <ScrollArea
                   className={styles.scrollArea}
                   classNames={{ content: styles.scrollContent }}
@@ -264,6 +253,19 @@ the body content scrolls.
 
   <Preview.CSS>
     {`
+      .scrollPopup {
+        display: flex;
+        flex-direction: column;
+        height: min(42rem, calc(100dvh - var(--spacing-10)));
+        overflow: hidden;
+      }
+
+      .scrollBody {
+        min-height: 0;
+        flex: 1;
+        overflow: hidden;
+      }
+
       .scrollArea {
         height: 100%;
         min-height: 0;
@@ -277,6 +279,30 @@ the body content scrolls.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const sections = [
+        {
+          title: "Database migrations",
+          body: "Confirm migration scripts are idempotent and have rollback steps.",
+        },
+        {
+          title: "Monitoring",
+          body: "Check that the dashboard includes new API endpoints.",
+        },
+        {
+          title: "Analytics",
+          body: "Verify onboarding funnel events are firing.",
+        },
+        {
+          title: "Staging",
+          body: "Run smoke tests with a production-like dataset.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Nested
@@ -334,75 +360,13 @@ so it can visually recede while the child dialog is active.
   </Preview.Code>
 </Preview>
 
-### Custom Close Icon
-
-Pass children to `DialogCloseIcon` to use any icon from your application or icon library.
-
-<Preview>
-  <CustomCloseIconDialogExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Dialog,
-        DialogTrigger,
-        Button,
-        DialogContent,
-        DialogHeader,
-        DialogTitle,
-        DialogCloseIcon,
-        CloseLineIcon,
-        DialogDescription,
-        DialogFooter,
-        DialogClose,
-      } from "moduix";
-
-      export function CustomCloseIconDialogDemo() {
-        return (
-          <Dialog>
-            <DialogTrigger render={<Button />}>Edit profile</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Edit profile</DialogTitle>
-                <DialogCloseIcon
-                  aria-label="Close profile dialog"
-                  className={styles.customCloseIcon}
-                >
-                  <CloseLineIcon />
-                </DialogCloseIcon>
-                <DialogDescription>
-                  Update the public profile fields and save changes.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
-                <DialogClose render={<Button />}>Save</DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customCloseIcon {
-        --dialog-close-icon-color: var(--color-destructive);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### Custom Styles
 
-Use `DialogContent` `className` for the popup and `classNames` when you need to style automatic
-service slots such as the viewport.
+Use `DialogContent` `className` for the popup and `classNames` for the automatically rendered
+portal, backdrop, and viewport. Pass children to `DialogCloseIcon` to replace the default icon.
 
 <Preview>
-  <OutsideCloseDialogExample />
+  <CustomStylesDialogExample />
 
   <Preview.Code>
     {`
@@ -418,21 +382,31 @@ service slots such as the viewport.
         DialogBody,
         DialogFooter,
         DialogClose,
+        CloseLineIcon,
       } from "moduix";
 
-      export function CustomPopupLayoutDialogDemo() {
+      export function CustomStylesDialogDemo() {
         return (
           <Dialog>
             <DialogTrigger render={<Button />}>Open outside close icon</DialogTrigger>
             <DialogContent
-              className={styles.outsidePopup}
-              classNames={{ viewport: styles.centeredViewport }}
+              className={styles.customPopup}
+              classNames={{
+                portal: styles.customPortal,
+                backdrop: styles.customBackdrop,
+                viewport: styles.customViewport,
+              }}
             >
-              <DialogCloseIcon className={styles.outsideClose} />
+              <DialogCloseIcon
+                aria-label="Close profile dialog"
+                className={styles.customCloseIcon}
+              >
+                <CloseLineIcon />
+              </DialogCloseIcon>
               <DialogHeader>
                 <DialogTitle>Edit profile</DialogTitle>
                 <DialogDescription>
-                  This popup is styled through className, while the viewport is styled through
+                  This popup, backdrop, viewport, and close icon are styled with className and
                   classNames.
                 </DialogDescription>
               </DialogHeader>
@@ -452,24 +426,33 @@ service slots such as the viewport.
 
   <Preview.CSS>
     {`
-      .outsidePopup {
+      .customPortal {
+        pointer-events: auto;
+      }
+
+      .customBackdrop {
+        background-color: rgb(15 23 42 / 0.56);
+      }
+
+      .customViewport {
+        align-items: start;
+        padding-top: var(--spacing-10);
+      }
+
+      .customPopup {
         position: relative;
         overflow: visible;
         --dialog-width: 26rem;
         --dialog-padding: var(--spacing-5);
       }
 
-      .centeredViewport {
-        place-items: center;
-      }
-
-      .outsideClose {
+      .customCloseIcon {
         position: absolute;
         top: -2rem;
         right: -2rem;
         border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
         background-color: var(--dialog-bg, var(--color-popover));
-        color: var(--dialog-color, var(--color-popover-foreground));
+        --dialog-close-icon-color: var(--color-destructive);
       }
     `}
 

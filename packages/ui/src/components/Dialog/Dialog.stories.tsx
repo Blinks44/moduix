@@ -215,17 +215,25 @@ export const InsideScrollDialog: Story = {
   },
 };
 
-export const PlacingElementsOutsidePopup: Story = {
+export const CustomStyles: Story = {
   render: () => {
     return (
       <Dialog>
         <DialogTrigger render={<Button />}>Open outside close icon</DialogTrigger>
-        <DialogContent className={storyStyles.outsideIconPopup}>
-          <DialogCloseIcon className={storyStyles.outsideIconClose} />
+        <DialogContent
+          className={storyStyles.customPopup}
+          classNames={{
+            portal: storyStyles.customPortal,
+            backdrop: storyStyles.customBackdrop,
+            viewport: storyStyles.customViewport,
+          }}
+        >
+          <DialogCloseIcon className={storyStyles.customCloseIcon} />
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
-              This is a standard dialog with the close icon positioned outside the popup.
+              This popup, backdrop, viewport, and close icon are styled with className and
+              classNames.
             </DialogDescription>
           </DialogHeader>
           <DialogBody>

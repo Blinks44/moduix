@@ -155,6 +155,14 @@ function DialogBody({ className, ...props }: React.ComponentProps<'div'>) {
 
 type DialogProps<Payload = unknown> = DialogPrimitive.Root.Props<Payload>;
 type DialogHandle<Payload = unknown> = DialogPrimitive.Handle<Payload>;
+type DialogTriggerProps = DialogPrimitive.Trigger.Props;
+type DialogTitleProps = DialogPrimitive.Title.Props;
+type DialogDescriptionProps = DialogPrimitive.Description.Props;
+type DialogCloseProps = DialogPrimitive.Close.Props;
+type DialogCloseIconProps = DialogPrimitive.Close.Props;
+type DialogHeaderProps = React.ComponentProps<'div'>;
+type DialogBodyProps = React.ComponentProps<'div'>;
+type DialogFooterProps = React.ComponentProps<'div'>;
 
 export {
   Dialog,
@@ -170,4 +178,17 @@ export {
   DialogFooter,
 };
 
-export type { DialogProps, DialogHandle, DialogContentProps, DialogContentClassNames };
+export type {
+  DialogProps,
+  DialogHandle,
+  DialogTriggerProps,
+  DialogTitleProps,
+  DialogDescriptionProps,
+  DialogCloseProps,
+  DialogCloseIconProps,
+  DialogContentProps,
+  DialogContentClassNames,
+  DialogHeaderProps,
+  DialogBodyProps,
+  DialogFooterProps,
+};

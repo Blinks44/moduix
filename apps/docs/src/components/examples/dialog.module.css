@@ -1,25 +1,30 @@
 .customCloseIcon {
-  --dialog-close-icon-color: var(--color-destructive);
-}
-
-.outsidePopup {
-  position: relative;
-  overflow: visible;
-  --dialog-width: 26rem;
-  --dialog-padding: var(--spacing-5);
-}
-
-.centeredViewport {
-  place-items: center;
-}
-
-.outsideClose {
   position: absolute;
   top: -2rem;
   right: -2rem;
   border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
   background-color: var(--dialog-bg, var(--color-popover));
-  color: var(--dialog-color, var(--color-popover-foreground));
+  --dialog-close-icon-color: var(--color-destructive);
+}
+
+.customPortal {
+  pointer-events: auto;
+}
+
+.customBackdrop {
+  background-color: rgb(15 23 42 / 0.56);
+}
+
+.customViewport {
+  align-items: start;
+  padding-top: var(--spacing-10);
+}
+
+.customPopup {
+  position: relative;
+  overflow: visible;
+  --dialog-width: 26rem;
+  --dialog-padding: var(--spacing-5);
 }
 
 .scrollPopup {
