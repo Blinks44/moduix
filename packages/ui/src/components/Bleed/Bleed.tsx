@@ -2,18 +2,27 @@ import clsx from 'clsx';
 import * as React from 'react';
 import styles from './Bleed.module.css';
 
-type BleedAs = 'div' | 'section' | 'figure' | 'aside';
 type BleedInline = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 type BleedBlock = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type BleedAs = React.ElementType;
 
-type BleedProps = React.HTMLAttributes<HTMLElement> & {
-  as?: BleedAs;
+type BleedOwnProps<As extends BleedAs = 'div'> = {
+  as?: As;
   inline?: BleedInline;
   block?: BleedBlock;
 };
 
-function Bleed({ as = 'div', inline = 'full', block = 'none', className, ...props }: BleedProps) {
-  const Component = as;
+type BleedProps<As extends BleedAs = 'div'> = BleedOwnProps<As> &
+  Omit<React.ComponentPropsWithoutRef<As>, keyof BleedOwnProps<As>>;
+
+function Bleed<As extends BleedAs = 'div'>({
+  as,
+  inline = 'full',
+  block = 'none',
+  className,
+  ...props
+}: BleedProps<As>) {
+  const Component = as ?? 'div';
 
   return (
     <Component

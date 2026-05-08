@@ -28,7 +28,6 @@ export const Basic: Story = {
   },
 };
 
-
 export const FallbackOnly: Story = {
   render: () => {
     return (

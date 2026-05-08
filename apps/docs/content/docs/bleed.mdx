@@ -7,10 +7,10 @@ icon: Component
 import 'moduix/style.css';
 import {
   BleedBlockExample,
-  BleedClassNameExample,
   BleedExample,
   BleedInlineAmountsExample,
   BleedSemanticExample,
+  CustomStylesBleedExample,
   bleedCssProperties,
 } from '@/components/examples/bleed';
 
@@ -19,6 +19,8 @@ import {
 `Bleed` is a moduix layout primitive and does not wrap a Base UI primitive.
 Use `inline="none"` or `block="none"` to keep an axis constrained. Supported
 bleed amounts are `xs`, `sm`, `md`, `lg`, `xl`, plus `full` on the inline axis.
+Use `as` to render a semantic element or custom component while keeping the same
+bleed behavior.
 
 ## Basic
 
@@ -59,9 +61,7 @@ bleed amounts are `xs`, `sm`, `md`, `lg`, `xl`, plus `full` on the inline axis.
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .bleed,
-      .panel,
-      .customBleed {
+      .bleed {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -117,9 +117,7 @@ Use `inline` to choose how far content escapes the container on the inline axis.
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .bleed,
-      .panel,
-      .customBleed {
+      .panel {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -169,9 +167,7 @@ Use `block` when a surface should also escape vertical container padding.
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .bleed,
-      .panel,
-      .customBleed {
+      .panel {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -243,18 +239,18 @@ Use `as` when the escaping content has a more specific semantic role.
   </Preview.CSS>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` when styling the root or overriding bleed variables in local CSS.
 
 <Preview>
-  <BleedClassNameExample />
+  <CustomStylesBleedExample />
 
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
 
-      export function CustomBleedDemo() {
+      export function CustomStylesBleedDemo() {
         return (
           <div className={styles.container}>
             <Bleed className={styles.customBleed}>
@@ -278,19 +274,14 @@ Pass `className` when styling the root or overriding bleed variables in local CS
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .bleed,
-      .panel,
       .customBleed {
+        --bleed-inline-full: calc(var(--spacing-8) * -1);
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: var(--spacing-4);
         background-color: var(--color-muted);
         text-align: center;
-      }
-
-      .customBleed {
-        --bleed-inline-full: calc(var(--spacing-8) * -1);
       }
     `}
 

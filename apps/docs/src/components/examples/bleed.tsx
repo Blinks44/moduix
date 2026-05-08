@@ -69,7 +69,7 @@ export function BleedSemanticExample() {
   );
 }
 
-export function BleedClassNameExample() {
+export function CustomStylesBleedExample() {
   return (
     <div className={styles.container}>
       <Bleed className={styles.customBleed}>
