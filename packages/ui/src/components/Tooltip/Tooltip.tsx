@@ -34,6 +34,7 @@ type TooltipContentProps = TooltipPrimitive.Popup.Props &
     arrow?: React.ReactNode;
     showArrow?: boolean;
     portalProps?: Omit<TooltipPrimitive.Portal.Props, 'className' | 'children'>;
+    viewportProps?: Omit<TooltipPrimitive.Viewport.Props, 'className' | 'children'>;
   };
 
 const Tooltip = TooltipPrimitive.Root;
@@ -117,6 +118,7 @@ function TooltipContent({
   arrow,
   showArrow = true,
   portalProps,
+  viewportProps,
   disableAnchorTracking,
   side,
   sideOffset,
@@ -172,7 +174,9 @@ function TooltipContent({
               {arrow ?? <ArrowSvg className={styles.arrowSvg} />}
             </TooltipArrow>
           ) : null}
-          <TooltipViewport className={classNames?.viewport}>{props.children}</TooltipViewport>
+          <TooltipViewport className={classNames?.viewport} {...viewportProps}>
+            {props.children}
+          </TooltipViewport>
         </TooltipPopup>
       </TooltipPositioner>
     </TooltipPortal>

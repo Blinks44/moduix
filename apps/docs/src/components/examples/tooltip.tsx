@@ -195,13 +195,21 @@ export function MultipleTriggersTooltipExample() {
   );
 }
 
-export function CustomStylingTooltipExample() {
+export function CustomStylesTooltipExample() {
   return (
     <Tooltip>
       <TooltipTrigger aria-label="Custom styled tooltip" className={styles.customTrigger}>
         Custom style
       </TooltipTrigger>
-      <TooltipContent className={styles.customPopup} classNames={{ arrow: styles.customArrow }}>
+      <TooltipContent
+        className={styles.customPopup}
+        classNames={{
+          portal: styles.customPortal,
+          positioner: styles.customPositioner,
+          arrow: styles.customArrow,
+          viewport: styles.customViewport,
+        }}
+      >
         Styled through className
       </TooltipContent>
     </Tooltip>

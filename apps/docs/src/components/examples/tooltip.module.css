@@ -78,6 +78,19 @@
   --tooltip-padding-y: var(--spacing-2);
 }
 
+.customPortal {
+  z-index: var(--z-popover);
+}
+
+.customPositioner {
+  filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.14));
+}
+
+.customViewport {
+  min-width: 10rem;
+  text-align: left;
+}
+
 .customTrigger {
   --tooltip-trigger-bg: var(--color-primary);
   --tooltip-trigger-bg-hover: color-mix(in oklab, var(--color-primary), white 10%);

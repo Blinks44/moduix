@@ -6,7 +6,7 @@ icon: Component
 
 import 'moduix/style.css';
 import {
-  CustomStylingTooltipExample,
+  CustomStylesTooltipExample,
   DetachedTriggerTooltipExample,
   MultipleTriggersTooltipExample,
   SideControlTooltipExample,
@@ -71,6 +71,29 @@ tooltips are not a replacement for `aria-label` or visible text.
 
   </Preview.CSS>
 </Preview>
+
+## Composition
+
+Use `Tooltip` for root state and behavior props such as `open`, `defaultOpen`,
+`onOpenChange`, and `handle`. `TooltipContent` renders the portal, positioner, arrow,
+viewport, and popup automatically.
+
+`className` styles the visible popup. `classNames` styles the internal service slots that are
+hidden from the default composition. Use `container`, `portalProps`, `positionerProps`,
+`arrowProps`, `showArrow={false}`, and placement props such as `side` or `sideOffset` when you
+need the matching Base UI escape hatches, including `viewportProps` for the viewport wrapper:
+
+```tsx
+<TooltipContent
+  className={styles.popup}
+  classNames={{
+    portal: styles.portal,
+    positioner: styles.positioner,
+    arrow: styles.arrow,
+    viewport: styles.viewport,
+  }}
+/>
+```
 
 ## Examples
 
@@ -410,7 +433,7 @@ Use `className` for the popup itself, `classNames` for internal slots such as th
 CSS variables for broad theme changes. Portal, positioner, and viewport are rendered automatically.
 
 <Preview>
-  <CustomStylingTooltipExample />
+  <CustomStylesTooltipExample />
 
   <Preview.Code>
     {`
@@ -420,7 +443,7 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
         TooltipTrigger,
       } from "moduix";
 
-      export function CustomStylingTooltip() {
+      export function CustomStylesTooltip() {
         return (
           <Tooltip>
             <TooltipTrigger
@@ -431,7 +454,12 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
             </TooltipTrigger>
             <TooltipContent
               className={styles.customPopup}
-              classNames={{ arrow: styles.customArrow }}
+              classNames={{
+                portal: styles.customPortal,
+                positioner: styles.customPositioner,
+                arrow: styles.customArrow,
+                viewport: styles.customViewport,
+              }}
             >
               Styled through className
             </TooltipContent>
@@ -451,6 +479,19 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
         --tooltip-arrow-stroke-color: var(--tooltip-border-color);
         --tooltip-padding-x: var(--spacing-3);
         --tooltip-padding-y: var(--spacing-2);
+      }
+
+      .customPortal {
+        z-index: var(--z-popover);
+      }
+
+      .customPositioner {
+        filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.14));
+      }
+
+      .customViewport {
+        min-width: 10rem;
+        text-align: left;
       }
 
       .customTrigger {
