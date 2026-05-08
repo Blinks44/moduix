@@ -115,7 +115,7 @@
     --popover-title-color: var(--popover-color);
     --popover-description-color: color-mix(in oklab, var(--popover-color), transparent 18%);
     --popover-radius: var(--radius-lg);
-    --popover-shadow: var(--shadow-xl);
+    --popover-shadow: var(--shadow-lg);
   }
 
   .customArrowSlot {
