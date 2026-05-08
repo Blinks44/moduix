@@ -9,6 +9,7 @@ type PopoverContentClassNames = {
   portal?: PopoverPrimitive.Portal.Props['className'];
   backdrop?: PopoverPrimitive.Backdrop.Props['className'];
   positioner?: PopoverPrimitive.Positioner.Props['className'];
+  viewport?: PopoverPrimitive.Viewport.Props['className'];
   arrow?: PopoverPrimitive.Arrow.Props['className'];
 };
 
@@ -36,7 +37,9 @@ type PopoverContentProps = PopoverPrimitive.Popup.Props &
     showArrow?: boolean;
     portalProps?: Omit<PopoverPrimitive.Portal.Props, 'className' | 'children'>;
     backdropProps?: Omit<PopoverPrimitive.Backdrop.Props, 'className'>;
+    viewportProps?: Omit<PopoverPrimitive.Viewport.Props, 'className' | 'children'>;
     withBackdrop?: boolean;
+    withViewport?: boolean;
   };
 
 const Popover = PopoverPrimitive.Root;
@@ -90,6 +93,16 @@ function PopoverPopup({ className, ...props }: PopoverPrimitive.Popup.Props) {
     <PopoverPrimitive.Popup
       data-slot="popover-popup"
       className={mergeClassName(className, styles.popup)}
+      {...props}
+    />
+  );
+}
+
+function PopoverViewport({ className, ...props }: PopoverPrimitive.Viewport.Props) {
+  return (
+    <PopoverPrimitive.Viewport
+      data-slot="popover-viewport"
+      className={mergeClassName(className, styles.viewport)}
       {...props}
     />
   );
@@ -158,7 +171,9 @@ function PopoverContent({
   showArrow = true,
   portalProps,
   backdropProps,
+  viewportProps,
   withBackdrop = false,
+  withViewport = false,
   disableAnchorTracking,
   side,
   sideOffset,
@@ -217,7 +232,13 @@ function PopoverContent({
               {arrow ?? <ArrowSvg className={styles.arrowSvg} />}
             </PopoverArrow>
           ) : null}
-          {props.children}
+          {withViewport ? (
+            <PopoverViewport className={classNames?.viewport} {...viewportProps}>
+              {props.children}
+            </PopoverViewport>
+          ) : (
+            props.children
+          )}
         </PopoverPopup>
       </PopoverPositioner>
     </PopoverPortal>
@@ -238,6 +259,7 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 type PopoverProps<Payload = unknown> = PopoverPrimitive.Root.Props<Payload>;
 type PopoverHandle<Payload = unknown> = PopoverPrimitive.Handle<Payload>;
 type PopoverTriggerProps = PopoverPrimitive.Trigger.Props;
+type PopoverViewportProps = PopoverPrimitive.Viewport.Props;
 type PopoverArrowProps = PopoverPrimitive.Arrow.Props;
 type PopoverTitleProps = PopoverPrimitive.Title.Props;
 type PopoverDescriptionProps = PopoverPrimitive.Description.Props;
@@ -250,6 +272,7 @@ export {
   Popover,
   createPopoverHandle,
   PopoverTrigger,
+  PopoverViewport,
   PopoverArrow,
   PopoverTitle,
   PopoverDescription,
@@ -264,6 +287,7 @@ export type {
   PopoverProps,
   PopoverHandle,
   PopoverTriggerProps,
+  PopoverViewportProps,
   PopoverArrowProps,
   PopoverTitleProps,
   PopoverDescriptionProps,

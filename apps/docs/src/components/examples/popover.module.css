@@ -82,17 +82,51 @@
   object-fit: cover;
 }
 
-.customArrowPopup {
+.customPortal {
+  pointer-events: auto;
+}
+
+.customBackdrop {
+  background-color: rgb(15 23 42 / 0.42);
+  backdrop-filter: blur(3px);
+}
+
+.customPositioner {
+  transition:
+    top 220ms,
+    left 220ms,
+    right 220ms,
+    bottom 220ms,
+    transform 220ms;
+}
+
+.customViewport {
+  --popover-viewport-offset: var(--spacing-3);
+  --popover-viewport-transition: 260ms;
+}
+
+.customPopup {
   --popover-bg: var(--color-primary);
   --popover-color: var(--color-primary-foreground);
   --popover-border-color: color-mix(in oklab, var(--color-primary), black 18%);
   --popover-title-color: var(--popover-color);
   --popover-description-color: color-mix(in oklab, var(--popover-color), transparent 18%);
+  --popover-radius: var(--radius-lg);
+  --popover-shadow: var(--shadow-xl);
 }
 
-.customArrow {
-  display: block;
+.customArrowSlot {
+  width: 1.625rem;
+  height: 1.625rem;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width-sm) solid var(--popover-border-color);
+  border-radius: 999px;
+  background: var(--popover-bg);
+  color: var(--popover-color);
+}
+
+.customArrowIcon {
   width: 1rem;
-  height: 0.5rem;
-  color: var(--popover-bg, var(--color-popover));
+  height: 1rem;
 }

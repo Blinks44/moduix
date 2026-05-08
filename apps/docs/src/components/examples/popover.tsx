@@ -2,6 +2,7 @@ import type { PopoverContentProps } from 'moduix';
 import {
   BellIcon,
   Button,
+  CheckSmallIcon,
   Popover,
   PopoverBody,
   PopoverClose,
@@ -18,6 +19,8 @@ import type { CssPropertyInput } from '../preview';
 import styles from './popover.module.css';
 
 const popoverSides: PopoverSide[] = ['top', 'right', 'bottom', 'left'];
+const imageUrl =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 420'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230b1220' offset='0'/%3E%3Cstop stop-color='%231d3557' offset='0.52'/%3E%3Cstop stop-color='%23004e64' offset='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop stop-color='%23ffd166'/%3E%3Cstop stop-color='%23fca311'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%2306d6a0'/%3E%3Cstop stop-color='%23118ab2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='420' fill='url(%23bg)'/%3E%3Ccircle cx='120' cy='90' r='70' fill='%23ffffff22'/%3E%3Ccircle cx='620' cy='330' r='120' fill='%23ffffff18'/%3E%3Crect x='70' y='240' width='320' height='110' rx='22' fill='url(%23accent1)' opacity='0.88' transform='rotate(-8 230 295)'/%3E%3Crect x='320' y='90' width='300' height='120' rx='24' fill='url(%23accent2)' opacity='0.92' transform='rotate(10 470 150)'/%3E%3Cpath d='M40 370 C160 260, 270 360, 390 280 C510 200, 610 280, 720 210 L720 420 L40 420 Z' fill='%23ffffff22'/%3E%3C/svg%3E";
 
 export const popoverCssProperties: CssPropertyInput[] = [
   ['--popover-width', 'auto', 'Controls the popup width.'],
@@ -34,6 +37,8 @@ export const popoverCssProperties: CssPropertyInput[] = [
   ['--popover-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
   ['--popover-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
   ['--popover-transition', 'var(--transition-default)', 'Controls popup and control transitions.'],
+  ['--popover-viewport-offset', '1rem', 'Controls viewport content transition offset.'],
+  ['--popover-viewport-transition', '220ms', 'Controls viewport content transitions.'],
   ['--popover-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop background.'],
   ['--popover-backdrop-blur', '0', 'Controls backdrop blur.'],
   [
@@ -247,11 +252,7 @@ export function ImageOnlyPopoverExample() {
       <PopoverTrigger render={<Button />}>Open image popover</PopoverTrigger>
       <PopoverContent className={styles.imagePopup}>
         <PopoverBody>
-          <img
-            className={styles.image}
-            alt="Abstract geometric composition"
-            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 420'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230b1220' offset='0'/%3E%3Cstop stop-color='%231d3557' offset='0.52'/%3E%3Cstop stop-color='%23004e64' offset='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop stop-color='%23ffd166'/%3E%3Cstop stop-color='%23fca311'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%2306d6a0'/%3E%3Cstop stop-color='%23118ab2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='420' fill='url(%23bg)'/%3E%3Ccircle cx='120' cy='90' r='70' fill='%23ffffff22'/%3E%3Ccircle cx='620' cy='330' r='120' fill='%23ffffff18'/%3E%3Crect x='70' y='240' width='320' height='110' rx='22' fill='url(%23accent1)' opacity='0.88' transform='rotate(-8 230 295)'/%3E%3Crect x='320' y='90' width='300' height='120' rx='24' fill='url(%23accent2)' opacity='0.92' transform='rotate(10 470 150)'/%3E%3Cpath d='M40 370 C160 260, 270 360, 390 280 C510 200, 610 280, 720 210 L720 420 L40 420 Z' fill='%23ffffff22'/%3E%3C/svg%3E"
-          />
+          <img className={styles.image} alt="Abstract geometric composition" src={imageUrl} />
         </PopoverBody>
       </PopoverContent>
     </Popover>
@@ -274,27 +275,32 @@ export function PopoverWithoutArrowExample() {
   );
 }
 
-export function CustomArrowPopoverExample() {
+export function CustomStylesPopoverExample() {
   return (
     <Popover>
-      <PopoverTrigger render={<Button />}>Open custom arrow</PopoverTrigger>
-      <PopoverContent className={styles.customArrowPopup} arrow={<CustomArrow />}>
+      <PopoverTrigger render={<Button />}>Open custom styles</PopoverTrigger>
+      <PopoverContent
+        withBackdrop
+        withViewport
+        className={styles.customPopup}
+        classNames={{
+          portal: styles.customPortal,
+          backdrop: styles.customBackdrop,
+          positioner: styles.customPositioner,
+          viewport: styles.customViewport,
+          arrow: styles.customArrowSlot,
+        }}
+        arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
+      >
         <PopoverHeader>
-          <PopoverTitle>Custom arrow</PopoverTitle>
+          <PopoverTitle>Custom styles</PopoverTitle>
           <PopoverDescription>
-            Pass any React node to the arrow prop to use your own icon or SVG.
+            Popup, portal, backdrop, positioner, viewport, and arrow slots are styled through
+            className and classNames.
           </PopoverDescription>
         </PopoverHeader>
       </PopoverContent>
     </Popover>
-  );
-}
-
-function CustomArrow() {
-  return (
-    <svg className={styles.customArrow} viewBox="0 0 16 8" fill="none" aria-hidden="true">
-      <path d="M8 0L16 8H0L8 0Z" fill="currentColor" />
-    </svg>
   );
 }
 

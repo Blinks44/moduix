@@ -1170,6 +1170,8 @@
   --popover-shadow: initial; /* var(--shadow-lg) */
   --popover-scale: initial; /* var(--scale-popup) */
   --popover-transition: initial; /* var(--transition-default) */
+  --popover-viewport-offset: initial; /* 1rem */
+  --popover-viewport-transition: initial; /* 220ms */
   --popover-backdrop-bg: initial; /* var(--backdrop-bg, transparent) */
   --popover-backdrop-blur: initial; /* 0 */
   --popover-backdrop-transition: initial; /* var(--transition-default) */

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { BellIcon } from '@/primitives/Icons';
+import { BellIcon, CheckSmallIcon } from '@/primitives/Icons';
 import type { PopoverContentProps } from './Popover';
 import { Button } from '../Button';
 import {
@@ -217,6 +217,57 @@ export const ImageOnlyContent: Story = {
               src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 420'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230b1220' offset='0'/%3E%3Cstop stop-color='%231d3557' offset='0.52'/%3E%3Cstop stop-color='%23004e64' offset='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop stop-color='%23ffd166'/%3E%3Cstop stop-color='%23fca311'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%2306d6a0'/%3E%3Cstop stop-color='%23118ab2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='420' fill='url(%23bg)'/%3E%3Ccircle cx='120' cy='90' r='70' fill='%23ffffff22'/%3E%3Ccircle cx='620' cy='330' r='120' fill='%23ffffff18'/%3E%3Crect x='70' y='240' width='320' height='110' rx='22' fill='url(%23accent1)' opacity='0.88' transform='rotate(-8 230 295)'/%3E%3Crect x='320' y='90' width='300' height='120' rx='24' fill='url(%23accent2)' opacity='0.92' transform='rotate(10 470 150)'/%3E%3Cpath d='M40 370 C160 260, 270 360, 390 280 C510 200, 610 280, 720 210 L720 420 L40 420 Z' fill='%23ffffff22'/%3E%3C/svg%3E"
             />
           </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    );
+  },
+};
+
+export const WithoutArrow: Story = {
+  name: 'Without Arrow',
+  render: () => {
+    return (
+      <Popover>
+        <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
+        <PopoverContent showArrow={false}>
+          <PopoverHeader className={storyStyles.contentGrid}>
+            <PopoverTitle>No arrow</PopoverTitle>
+            <PopoverDescription>
+              Set showArrow to false when the popup should look like a floating panel.
+            </PopoverDescription>
+          </PopoverHeader>
+        </PopoverContent>
+      </Popover>
+    );
+  },
+};
+
+export const CustomStyles: Story = {
+  name: 'Custom Styles',
+  render: () => {
+    return (
+      <Popover>
+        <PopoverTrigger render={<Button />}>Open custom styles</PopoverTrigger>
+        <PopoverContent
+          withBackdrop
+          withViewport
+          className={storyStyles.customPopup}
+          classNames={{
+            portal: storyStyles.customPortal,
+            backdrop: storyStyles.customBackdrop,
+            positioner: storyStyles.customPositioner,
+            viewport: storyStyles.customViewport,
+            arrow: storyStyles.customArrowSlot,
+          }}
+          arrow={<CheckSmallIcon className={storyStyles.customArrowIcon} />}
+        >
+          <PopoverHeader className={storyStyles.contentGrid}>
+            <PopoverTitle>Custom styles</PopoverTitle>
+            <PopoverDescription>
+              Popup, portal, backdrop, positioner, viewport, and arrow slots are styled through
+              className and classNames.
+            </PopoverDescription>
+          </PopoverHeader>
         </PopoverContent>
       </Popover>
     );
