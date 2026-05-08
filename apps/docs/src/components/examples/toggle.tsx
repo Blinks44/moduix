@@ -195,3 +195,5 @@ export function ToggleClassNameExample() {
     </Toggle>
   );
 }
+
+export { ToggleClassNameExample as CustomStylesToggleExample };

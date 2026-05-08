@@ -122,3 +122,18 @@ export const RenderCallback: Story = {
     );
   },
 };
+
+export const CustomStyles: Story = {
+  name: 'Custom Styles',
+  args: {
+    className: storyStyles.customToggle,
+    variant: 'outline',
+    defaultPressed: true,
+    children: (
+      <React.Fragment>
+        <CheckSmallIcon />
+        Styled with className
+      </React.Fragment>
+    ),
+  },
+};

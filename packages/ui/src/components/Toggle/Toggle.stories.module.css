@@ -16,3 +16,14 @@
   font-size: var(--text-xs);
   line-height: var(--line-height-text-xs);
 }
+
+.customToggle {
+  --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
+  --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
+  --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
+  --toggle-outline-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
+  --toggle-outline-color: var(--color-primary);
+  --toggle-outline-bg-pressed: var(--color-primary);
+  --toggle-outline-border-color-pressed: var(--color-primary);
+  --toggle-outline-color-pressed: var(--color-primary-foreground);
+}

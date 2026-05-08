@@ -4,10 +4,9 @@ description: A two-state button that can be pressed or unpressed.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ControlledToggleExample,
-  ToggleClassNameExample,
+  CustomStylesToggleExample,
   ToggleDisabledExample,
   ToggleExample,
   ToggleIconExample,
@@ -28,7 +27,7 @@ import {
 
   <Preview.Code>
     {`
-      import { Toggle, StarIcon } from "moduix";
+      import { StarIcon, Toggle } from "moduix";
 
       export function ToggleDemo() {
         return (
@@ -42,6 +41,16 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Composition
+
+`Toggle` is a single-part component that renders a Base UI toggle button. Use `pressed`,
+`defaultPressed`, `onPressedChange`, `disabled`, `render`, `className`, and `style` directly on
+`Toggle`.
+
+There are no hidden service slots such as `Positioner`, `Backdrop`, or `Viewport` in this
+component, so `className` is the customization entry point. It supports the same state callback
+form as Base UI and is merged with moduix styles.
 
 ## Examples
 
@@ -58,17 +67,30 @@ Use `variant` to match the visual weight of the toggle to the surrounding toolba
 
       export function ToggleVariantsDemo() {
         return (
-          <>
+          <div className={styles.row}>
             <Toggle>Default</Toggle>
             <Toggle variant="outline">Outline</Toggle>
             <Toggle variant="ghost">Ghost</Toggle>
             <Toggle defaultPressed>Pressed</Toggle>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Sizes
@@ -84,17 +106,30 @@ Use text sizes for labeled toggles and icon sizes for compact controls.
 
       export function ToggleSizesDemo() {
         return (
-          <>
+          <div className={styles.row}>
             <Toggle size="xs">Extra-small</Toggle>
             <Toggle size="sm">Small</Toggle>
             <Toggle size="md">Medium</Toggle>
             <Toggle size="lg">Large</Toggle>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Icons
@@ -110,7 +145,7 @@ Pass icons as children. Icon-only toggles must include an accessible label.
 
       export function ToggleIconsDemo() {
         return (
-          <>
+          <div className={styles.row}>
             <Toggle variant="outline">
               <BellIcon />
               Alerts
@@ -121,12 +156,25 @@ Pass icons as children. Icon-only toggles must include an accessible label.
             <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
               <CheckSmallIcon />
             </Toggle>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Disabled
@@ -142,17 +190,30 @@ Use `disabled` to prevent interaction while preserving the current pressed state
 
       export function DisabledToggleDemo() {
         return (
-          <>
+          <div className={styles.row}>
             <Toggle disabled>Disabled</Toggle>
             <Toggle defaultPressed disabled>
               Pressed
             </Toggle>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Controlled
@@ -171,18 +232,36 @@ Control `pressed` from React state when the toggle needs to coordinate with othe
         const [pressed, setPressed] = useState(false);
 
         return (
-          <div>
+          <div className={styles.stack}>
             <Toggle pressed={pressed} onPressedChange={setPressed}>
               <BellIcon />
               {pressed ? "Notifications on" : "Notifications off"}
             </Toggle>
-            <p>Current value: {String(pressed)}</p>
+            <span className={styles.hint}>Current value: {String(pressed)}</span>
           </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Render Callback
@@ -194,39 +273,74 @@ Use the `render` callback when the icon or rendered element should depend on the
 
   <Preview.Code>
     {`
-      import { CheckSmallIcon, StarIcon, Toggle } from "moduix";
+      import { Toggle } from "moduix";
 
       export function ToggleRenderCallbackDemo() {
         return (
           <Toggle
-            aria-label="Favorite"
+            aria-label="Save article"
             size="icon-md"
             variant="outline"
             render={(buttonProps, state) => (
               <button type="button" {...buttonProps}>
-                {state.pressed ? <CheckSmallIcon /> : <StarIcon />}
+                {state.pressed ? (
+                  <BookmarkFilledIcon className={styles.customIcon} />
+                ) : (
+                  <BookmarkIcon className={styles.customIcon} />
+                )}
               </button>
             )}
           />
         );
       }
+
+      function BookmarkIcon(props) {
+        return (
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
+            <path
+              d="M4.5 2.75h7v10.5L8 11l-3.5 2.25V2.75Z"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      }
+
+      function BookmarkFilledIcon(props) {
+        return (
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
+            <path d="M4 2.75A.75.75 0 0 1 4.75 2h6.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-1.16.63L8 12.03l-2.84 1.85A.75.75 0 0 1 4 13.25V2.75Z" />
+          </svg>
+        );
+      }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customIcon {
+        width: 1rem;
+        height: 1rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` when styling the toggle with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <ToggleClassNameExample />
+  <CustomStylesToggleExample />
 
   <Preview.Code>
     {`
       import { CheckSmallIcon, Toggle } from "moduix";
 
-      export function CustomToggleDemo() {
+      export function CustomStylesToggleDemo() {
         return (
           <Toggle className={styles.customToggle} variant="outline" defaultPressed>
             <CheckSmallIcon />
