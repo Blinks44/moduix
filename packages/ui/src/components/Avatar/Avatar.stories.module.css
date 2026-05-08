@@ -4,4 +4,26 @@
     align-items: center;
     gap: var(--spacing-4);
   }
+
+  .customAvatar {
+    --avatar-bg: var(--color-accent);
+    --avatar-fallback-color: var(--color-accent-foreground);
+
+    box-shadow:
+      0 0 0 2px var(--color-background),
+      0 0 0 4px var(--color-ring);
+  }
+
+  .customImage {
+    filter: saturate(1.5);
+  }
+
+  .customFallback {
+    text-transform: uppercase;
+  }
+
+  .customIcon {
+    width: 55%;
+    height: 55%;
+  }
 }

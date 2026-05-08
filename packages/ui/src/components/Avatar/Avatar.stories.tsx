@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ComputerIcon } from '@/primitives';
 import { Avatar, AvatarFallback, AvatarImage } from './Avatar';
 import styles from './Avatar.stories.module.css';
 
@@ -26,6 +27,7 @@ export const Basic: Story = {
     );
   },
 };
+
 
 export const FallbackOnly: Story = {
   render: () => {
@@ -57,6 +59,19 @@ export const ImageError: Story = {
       <Avatar>
         <AvatarImage src="https://example.com/does-not-exist.png" alt="Broken image example" />
         <AvatarFallback>NA</AvatarFallback>
+      </Avatar>
+    );
+  },
+};
+
+export const CustomStyles: Story = {
+  render: () => {
+    return (
+      <Avatar size="lg" className={styles.customAvatar}>
+        <AvatarImage className={styles.customImage} src={imageUrl} alt="Alex T." />
+        <AvatarFallback className={styles.customFallback}>
+          <ComputerIcon className={styles.customIcon} />
+        </AvatarFallback>
       </Avatar>
     );
   },

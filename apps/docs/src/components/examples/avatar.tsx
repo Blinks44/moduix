@@ -65,6 +65,17 @@ export function AvatarFallbackOnlyExample() {
   );
 }
 
+export function AvatarCompositionExample() {
+  return (
+    <Avatar render={<a href="mailto:alex@example.com" />} className={styles.compositionRoot}>
+      <AvatarImage className={styles.compositionImage} src={avatarImage} alt="Alex T." />
+      <AvatarFallback className={styles.compositionFallback} delay={600}>
+        LT
+      </AvatarFallback>
+    </Avatar>
+  );
+}
+
 export function AvatarImageErrorExample() {
   return (
     <Avatar>
@@ -74,7 +85,7 @@ export function AvatarImageErrorExample() {
   );
 }
 
-export function AvatarClassNameExample() {
+export function CustomStylesAvatarExample() {
   return (
     <Avatar size="lg" className={styles.ring}>
       <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />

@@ -6,11 +6,12 @@ icon: Component
 
 import 'moduix/style.css';
 import {
-  AvatarClassNameExample,
+  AvatarCompositionExample,
   AvatarCustomFallbackExample,
   AvatarExample,
   AvatarFallbackOnlyExample,
   AvatarImageErrorExample,
+  CustomStylesAvatarExample,
   avatarCssProperties,
 } from '@/components/examples/avatar';
 
@@ -27,9 +28,6 @@ import {
     {`
       import { Avatar, AvatarImage, AvatarFallback } from "moduix";
 
-      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-
       export function AvatarDemo() {
         return (
           <Avatar>
@@ -41,7 +39,16 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
+    `}
+
+  </Preview.Data>
 </Preview>
+
 
 ## Examples
 
@@ -57,22 +64,103 @@ the `size` prop to switch between the built-in `xs`, `sm`, `md`, `lg`, and `xl` 
     {`
       import { Avatar, AvatarFallback } from "moduix";
 
-      const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
-
       export function AvatarFallbackOnlyDemo() {
         return (
-          <>
+          <div className={styles.row}>
             {sizes.map((size) => (
               <Avatar key={size} size={size}>
                 <AvatarFallback>{size.toUpperCase()}</AvatarFallback>
               </Avatar>
             ))}
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Composition
+
+`Avatar`, `AvatarImage`, and `AvatarFallback` are all public slots. Use `className` on each
+slot, and use Base UI's `render` prop when the root should compose with another element.
+
+<Preview>
+  <AvatarCompositionExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar, AvatarImage, AvatarFallback } from "moduix";
+
+      export function AvatarCompositionDemo() {
+        return (
+          <Avatar render={<a href="mailto:alex@example.com" />} className={styles.compositionRoot}>
+            <AvatarImage className={styles.compositionImage} src={avatarImage} alt="Alex T." />
+            <AvatarFallback className={styles.compositionFallback} delay={600}>
+              LT
+            </AvatarFallback>
+          </Avatar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .compositionRoot {
+        --avatar-size: var(--size-xl);
+
+        text-decoration: none;
+        transition:
+          box-shadow var(--transition-default),
+          transform var(--transition-default);
+      }
+
+      .compositionRoot:hover {
+        box-shadow:
+          0 0 0 2px var(--color-background),
+          0 0 0 4px var(--color-primary);
+        transform: translateY(-1px);
+      }
+
+      .compositionImage {
+        object-position: 50% 35%;
+      }
+
+      .compositionFallback {
+        --avatar-fallback-bg: var(--color-primary);
+        --avatar-fallback-color: var(--color-primary-foreground);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Image Error
@@ -99,21 +187,18 @@ Keep a fallback in the composition so the avatar stays meaningful when the image
   </Preview.Code>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` to the root, image, and fallback slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <AvatarClassNameExample />
+  <CustomStylesAvatarExample />
 
   <Preview.Code>
     {`
       import { Avatar, AvatarImage, AvatarFallback } from "moduix";
 
-      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-
-      export function AvatarClassNameDemo() {
+      export function CustomStylesAvatarDemo() {
         return (
           <Avatar size="lg" className={styles.ring}>
             <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
@@ -143,9 +228,17 @@ Pass `className` to the root, image, and fallback slots when styling with CSS Mo
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
+    `}
+
+  </Preview.Data>
 </Preview>
 
-### Custom Fallback
+### Fallback Icon
 
 Pass any React node to `AvatarFallback` to use an icon from your application or icon library.
 
@@ -155,21 +248,12 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
   <Preview.Code>
     {`
       import { Avatar, AvatarFallback, ComputerIcon } from "moduix";
-      import type { CSSProperties } from "react";
 
       export function AvatarCustomFallbackDemo() {
         return (
-          <Avatar
-            size="lg"
-            style={
-              {
-                "--avatar-bg": "var(--color-accent)",
-                "--avatar-fallback-color": "var(--color-accent-foreground)",
-              } as CSSProperties
-            }
-          >
+          <Avatar size="lg" className={styles.customFallbackAvatar}>
             <AvatarFallback>
-              <ComputerIcon />
+              <ComputerIcon className={styles.customFallbackIcon} />
             </AvatarFallback>
           </Avatar>
         );
@@ -177,4 +261,19 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customFallbackAvatar {
+        --avatar-bg: var(--color-accent);
+        --avatar-fallback-color: var(--color-accent-foreground);
+      }
+
+      .customFallbackIcon {
+        width: 55%;
+        height: 55%;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
