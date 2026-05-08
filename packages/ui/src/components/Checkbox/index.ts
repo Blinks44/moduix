@@ -6,4 +6,12 @@ export {
   CheckboxLabel,
 } from './Checkbox';
 
-export type { CheckboxProps, CheckboxIndicatorProps, CheckboxIndicatorIconProps } from './Checkbox';
+export type {
+  CheckboxSize,
+  CheckboxClassNames,
+  CheckboxProps,
+  CheckboxIndicatorProps,
+  CheckboxIndicatorIconProps,
+  CheckboxFieldProps,
+  CheckboxLabelProps,
+} from './Checkbox';

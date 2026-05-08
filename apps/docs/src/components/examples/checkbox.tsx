@@ -137,7 +137,12 @@ export function CheckboxClassNameExample() {
       <CheckboxField className={styles.customField}>
         <Checkbox
           className={styles.customCheckbox}
-          classNames={{ indicator: styles.customIndicator }}
+          classNames={{
+            indicator: styles.customIndicator,
+            indicatorIcon: styles.customIndicatorIcon,
+            checkedIcon: styles.customCheckedIcon,
+            indeterminateIcon: styles.customIndeterminateIcon,
+          }}
           defaultChecked
         />
         <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
@@ -145,6 +150,8 @@ export function CheckboxClassNameExample() {
     </div>
   );
 }
+
+export const CustomStylesCheckboxExample = CheckboxClassNameExample;
 
 export function CheckboxSiblingLabelNativeButtonExample() {
   const id = React.useId();

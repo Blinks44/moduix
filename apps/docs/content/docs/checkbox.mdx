@@ -6,13 +6,13 @@ icon: Component
 
 import 'moduix/style.css';
 import {
-  CheckboxClassNameExample,
   CheckboxDisabledExample,
   CheckboxExample,
   CheckboxIndeterminateExample,
   CheckboxSiblingLabelNativeButtonExample,
   CheckboxSizesExample,
   ControlledCheckboxExample,
+  CustomStylesCheckboxExample,
   CustomIconCheckboxExample,
   checkboxCssProperties,
 } from '@/components/examples/checkbox';
@@ -42,6 +42,27 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Composition
+
+`Checkbox` renders the Base UI root and automatically includes the indicator by default.
+Use `CheckboxField` and `CheckboxLabel` for the common wrapping label pattern.
+
+Pass `className` to style the root control. Use `classNames` to style the automatically
+rendered indicator parts, or compose `CheckboxIndicator` and `CheckboxIndicatorIcon`
+yourself when you need full control over the indicator slot:
+
+```tsx
+<Checkbox
+  className={styles.checkbox}
+  classNames={{
+    indicator: styles.indicator,
+    indicatorIcon: styles.indicatorIcon,
+    checkedIcon: styles.checkedIcon,
+    indeterminateIcon: styles.indeterminateIcon,
+  }}
+/>
+```
 
 ## Examples
 
@@ -82,7 +103,7 @@ Use `size` to align the control with different form densities.
 
       export function CheckboxSizesDemo() {
         return (
-          <>
+          <div className={styles.stack}>
             <CheckboxField>
               <Checkbox size="xs" defaultChecked />
               <CheckboxLabel>Extra-small</CheckboxLabel>
@@ -103,12 +124,24 @@ Use `size` to align the control with different form densities.
               <Checkbox size="xl" defaultChecked />
               <CheckboxLabel>Extra-large</CheckboxLabel>
             </CheckboxField>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Disabled
@@ -124,7 +157,7 @@ Use `disabled` to prevent interaction while preserving the selection state in th
 
       export function DisabledCheckboxDemo() {
         return (
-          <>
+          <div className={styles.stack}>
             <CheckboxField>
               <Checkbox disabled />
               <CheckboxLabel>Receive weekly summary</CheckboxLabel>
@@ -133,12 +166,24 @@ Use `disabled` to prevent interaction while preserving the selection state in th
               <Checkbox defaultChecked disabled />
               <CheckboxLabel>Share anonymous usage data</CheckboxLabel>
             </CheckboxField>
-          </>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Controlled
@@ -157,18 +202,39 @@ Control `checked` from React state when the checkbox needs to coordinate with ot
         const [checked, setChecked] = useState(false);
 
         return (
-          <CheckboxField>
-            <Checkbox checked={checked} onCheckedChange={setChecked} />
-            <CheckboxLabel>{checked ? "Enabled" : "Disabled"}</CheckboxLabel>
-          </CheckboxField>
+          <div className={styles.stack}>
+            <CheckboxField>
+              <Checkbox checked={checked} onCheckedChange={setChecked} />
+              <CheckboxLabel>{checked ? "Enabled" : "Disabled"}</CheckboxLabel>
+            </CheckboxField>
+            <span className={styles.hint}>Current value: {String(checked)}</span>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Custom Icon
+### Indicator Icon
 
 Pass icon nodes to `checkedIcon` and `indeterminateIcon`, or compose `CheckboxIndicator` directly when you need full control over the indicator slot.
 
@@ -197,7 +263,7 @@ Pass icon nodes to `checkedIcon` and `indeterminateIcon`, or compose `CheckboxIn
         );
       }
 
-      export function CustomIconCheckboxDemo() {
+      export function IndicatorIconCheckboxDemo() {
         return (
           <CheckboxField>
             <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
@@ -210,32 +276,74 @@ Pass icon nodes to `checkedIcon` and `indeterminateIcon`, or compose `CheckboxIn
   </Preview.Code>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` to the field, root, and label slots. Use `classNames` for the automatically rendered indicator slots.
 
 <Preview>
-  <CheckboxClassNameExample />
+  <CustomStylesCheckboxExample />
 
   <Preview.Code>
     {`
       import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
 
-      export function StyledCheckboxDemo() {
+      export function CustomStylesCheckboxDemo() {
         return (
-          <CheckboxField className="gap-3">
+          <CheckboxField className={styles.customField}>
             <Checkbox
-              className="border-fd-primary data-[checked]:bg-fd-primary"
-              classNames={{ indicator: "text-fd-primary-foreground" }}
+              className={styles.customCheckbox}
+              classNames={{
+                indicator: styles.customIndicator,
+                indicatorIcon: styles.customIndicatorIcon,
+                checkedIcon: styles.customCheckedIcon,
+                indeterminateIcon: styles.customIndeterminateIcon,
+              }}
               defaultChecked
             />
-            <CheckboxLabel className="text-fd-primary">Styled with className</CheckboxLabel>
+            <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
           </CheckboxField>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customField {
+        gap: var(--spacing-3);
+      }
+
+      .customCheckbox {
+        border-color: var(--color-primary);
+
+        &[data-checked] {
+          background-color: var(--color-primary);
+        }
+      }
+
+      .customIndicator {
+        color: var(--color-primary-foreground);
+      }
+
+      .customIndicatorIcon {
+        transform: rotate(-8deg);
+      }
+
+      .customCheckedIcon {
+        filter: drop-shadow(0 0 0.25rem rgb(255 255 255 / 0.4));
+      }
+
+      .customIndeterminateIcon {
+        opacity: 0.86;
+      }
+
+      .customLabel {
+        color: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Sibling Label
@@ -254,13 +362,33 @@ Use `nativeButton` with `render={<button />}` for the sibling `label` pattern wi
         const id = useId();
 
         return (
-          <div className="flex items-center gap-2">
+          <div className={styles.siblingRow}>
             <Checkbox nativeButton render={<button />} id={id} defaultChecked />
-            <label htmlFor={id}>Keep me signed in</label>
+            <label htmlFor={id} className={styles.label}>
+              Keep me signed in
+            </label>
           </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .siblingRow {
+        display: flex;
+        align-items: center;
+        gap: var(--checkbox-gap, var(--spacing-2));
+      }
+
+      .label {
+        color: var(--checkbox-label-color, var(--color-foreground));
+        font-size: var(--checkbox-label-font-size, var(--text-sm));
+        font-weight: var(--checkbox-label-font-weight, var(--weight-medium));
+        line-height: var(--checkbox-label-line-height, var(--line-height-text-sm));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

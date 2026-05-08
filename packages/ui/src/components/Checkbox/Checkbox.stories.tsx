@@ -40,12 +40,32 @@ export const Basic: Story = {
   },
 };
 
-export const CustomIcon: Story = {
+export const IndicatorIcon: Story = {
   render: () => {
     return (
       <CheckboxField>
         <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
         <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
+      </CheckboxField>
+    );
+  },
+};
+
+export const CustomStyles: Story = {
+  render: () => {
+    return (
+      <CheckboxField className={styles.customField}>
+        <Checkbox
+          className={styles.customCheckbox}
+          classNames={{
+            indicator: styles.customIndicator,
+            indicatorIcon: styles.customIndicatorIcon,
+            checkedIcon: styles.customCheckedIcon,
+            indeterminateIcon: styles.customIndeterminateIcon,
+          }}
+          defaultChecked
+        />
+        <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
       </CheckboxField>
     );
   },

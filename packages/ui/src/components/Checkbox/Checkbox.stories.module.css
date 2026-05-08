@@ -24,4 +24,36 @@
     font-weight: var(--checkbox-label-font-weight, var(--weight-medium));
     line-height: var(--checkbox-label-line-height, var(--line-height-text-sm));
   }
+
+  .customField {
+    gap: var(--spacing-3);
+  }
+
+  .customCheckbox {
+    border-color: var(--color-primary);
+
+    &[data-checked] {
+      background-color: var(--color-primary);
+    }
+  }
+
+  .customIndicator {
+    color: var(--color-primary-foreground);
+  }
+
+  .customIndicatorIcon {
+    transform: rotate(-8deg);
+  }
+
+  .customCheckedIcon {
+    filter: drop-shadow(0 0 0.25rem rgb(255 255 255 / 0.4));
+  }
+
+  .customIndeterminateIcon {
+    opacity: 0.86;
+  }
+
+  .customLabel {
+    color: var(--color-primary);
+  }
 }

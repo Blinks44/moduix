@@ -9,17 +9,19 @@ const CheckIcon = CheckSmallIcon;
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
+type CheckboxClassNames = {
+  indicator?: string;
+  indicatorIcon?: string;
+  checkedIcon?: string;
+  indeterminateIcon?: string;
+};
+
 type CheckboxProps = CheckboxPrimitive.Root.Props & {
   size?: CheckboxSize;
   indicator?: React.ReactNode;
   checkedIcon?: React.ReactNode;
   indeterminateIcon?: React.ReactNode;
-  classNames?: {
-    indicator?: string;
-    indicatorIcon?: string;
-    checkedIcon?: string;
-    indeterminateIcon?: string;
-  };
+  classNames?: CheckboxClassNames;
 };
 
 function Checkbox({
@@ -129,14 +131,26 @@ function CheckboxIndicatorIcon({
   );
 }
 
-function CheckboxField({ className, ...props }: React.ComponentProps<'label'>) {
+type CheckboxFieldProps = React.ComponentProps<'label'>;
+
+function CheckboxField({ className, ...props }: CheckboxFieldProps) {
   return <label data-slot="checkbox-field" className={clsx(styles.field, className)} {...props} />;
 }
 
-function CheckboxLabel({ className, ...props }: React.ComponentProps<'span'>) {
+type CheckboxLabelProps = React.ComponentProps<'span'>;
+
+function CheckboxLabel({ className, ...props }: CheckboxLabelProps) {
   return <span data-slot="checkbox-label" className={clsx(styles.label, className)} {...props} />;
 }
 
 export { Checkbox, CheckboxIndicator, CheckboxIndicatorIcon, CheckboxField, CheckboxLabel };
 
-export type { CheckboxProps, CheckboxIndicatorProps, CheckboxIndicatorIconProps };
+export type {
+  CheckboxSize,
+  CheckboxClassNames,
+  CheckboxProps,
+  CheckboxIndicatorProps,
+  CheckboxIndicatorIconProps,
+  CheckboxFieldProps,
+  CheckboxLabelProps,
+};
