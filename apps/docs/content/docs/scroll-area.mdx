@@ -28,9 +28,6 @@ import {
     {`
       import { ScrollArea } from "moduix";
 
-      import { insideScrollSections } from "@/data/insideScrollSections";
-      import styles from "./scroll-area.module.css";
-
       export function ScrollAreaDemo() {
         return (
           <ScrollArea className={styles.root} classNames={{ content: styles.textContent }}>
@@ -46,6 +43,89 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .root {
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .textContent {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      export const insideScrollSections = [
+        {
+          title: 'What this surface is for',
+          body: 'Use temporary surfaces for focused tasks that should keep users in the current page context.',
+        },
+        {
+          title: 'Keyboard and focus',
+          body: 'Tab and Shift+Tab should stay predictable while Escape or explicit controls request close.',
+        },
+        {
+          title: 'Viewport overflow',
+          body: 'Keep the container visible and place long content in a dedicated scrollable inner region.',
+        },
+        {
+          title: 'Close affordances',
+          body: 'Always provide an explicit close action when the surface can be dismissed by the user.',
+        },
+        {
+          title: 'Mobile ergonomics',
+          body: 'Keep touch targets reachable and avoid cramped headers on narrow viewports.',
+        },
+        {
+          title: 'Persistent panels',
+          body: 'For persistent workflows, keep the important controls fixed and scroll only the supporting content.',
+        },
+        {
+          title: 'Status updates',
+          body: 'After completion, close the surface and show an inline confirmation or toast.',
+        },
+        {
+          title: 'Error handling',
+          body: 'When an action fails, keep the user in context and show the recovery step near the failed control.',
+        },
+        {
+          title: 'Long descriptions',
+          body: 'Dense explanatory copy should remain readable without pushing primary actions out of reach.',
+        },
+        {
+          title: 'Scrolling feedback',
+          body: 'Visible scrollbars, fades, or edge states help users understand that additional content is available.',
+        },
+        {
+          title: 'Footer behavior',
+          body: 'Footer actions should stay stable when the user reviews long terms, warnings, or settings.',
+        },
+        {
+          title: 'Review checklist',
+          body: 'Use repeated sections to test keyboard scrolling, wheel scrolling, touch scrolling, and drag gestures.',
+        },
+        {
+          title: 'Final confirmation',
+          body: 'The final section should be reachable without layout jumps or hidden content at the bottom edge.',
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Examples
@@ -61,7 +141,6 @@ scrollbars and the corner automatically.
   <Preview.Code>
     {`
       import { ScrollArea } from "moduix";
-      import styles from "./scroll-area.module.css";
 
       export function BothScrollbarsScrollAreaDemo() {
         return (
@@ -81,6 +160,37 @@ scrollbars and the corner automatically.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .sizedRoot {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .gridContent {
+        display: grid;
+        grid-template-columns: repeat(12, 5rem);
+        grid-template-rows: repeat(8, 5rem);
+        gap: var(--spacing-2);
+        padding: var(--spacing-3);
+      }
+
+      .cell {
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius-sm);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        font-weight: var(--weight-medium);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Gradient Fade
@@ -95,7 +205,6 @@ Pass `fade="horizontal"` for horizontal overflow.
   <Preview.Code>
     {`
       import { ScrollArea } from "moduix";
-      import styles from "./scroll-area.module.css";
 
       export function GradientFadeScrollAreaDemo() {
         return (
@@ -116,6 +225,33 @@ Pass `fade="horizontal"` for horizontal overflow.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .sizedRoot {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .paddedTextContent {
+        display: grid;
+        gap: var(--spacing-3);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-6);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Overflow Edge Threshold
@@ -129,7 +265,6 @@ past a specific offset.
   <Preview.Code>
     {`
       import { ScrollArea } from "moduix";
-      import styles from "./scroll-area.module.css";
 
       export function OverflowEdgeThresholdScrollAreaDemo() {
         return (
@@ -151,6 +286,33 @@ past a specific offset.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .sizedRoot {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .compactTextContent {
+        display: grid;
+        gap: var(--spacing-2);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-5);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Keep Mounted
@@ -164,7 +326,6 @@ Use `scrollbarKeepMounted` when scrollbar DOM needs to stay mounted while the vi
     {`
       import { ScrollArea } from "moduix";
       import { useState } from "react";
-      import styles from "./scroll-area.module.css";
 
       export function KeepMountedScrollAreaDemo() {
         const [denseContent, setDenseContent] = useState(false);
@@ -198,6 +359,49 @@ Use `scrollbarKeepMounted` when scrollbar DOM needs to stay mounted while the vi
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .sizedRoot {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .compactTextContent {
+        display: grid;
+        gap: var(--spacing-2);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-5);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .controls {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+
+      .button {
+        width: fit-content;
+        min-height: var(--size-sm);
+        padding-inline: var(--spacing-3);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-sm);
+        background: var(--color-background);
+        color: var(--color-foreground);
+        cursor: pointer;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Stateful Styles
@@ -210,7 +414,6 @@ Style slots from Base UI data attributes such as `data-scrolling`, `data-hoverin
   <Preview.Code>
     {`
       import { ScrollArea } from "moduix";
-      import styles from "./scroll-area.module.css";
 
       export function StatefulStylesScrollAreaDemo() {
         return (
@@ -233,4 +436,41 @@ Style slots from Base UI data attributes such as `data-scrolling`, `data-hoverin
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .sizedRoot {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .compactTextContent {
+        display: grid;
+        gap: var(--spacing-2);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-5);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .statefulViewport {
+        border-radius: var(--radius-lg);
+        outline: var(--border-width-sm) solid var(--color-border);
+        outline-offset: calc(var(--border-width-sm) * -1);
+
+        &[data-scrolling] {
+          outline-color: var(--color-primary);
+        }
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

@@ -67,7 +67,7 @@ Use `orientation="vertical"` when the separator divides inline groups, such as n
   </Preview.Code>
 </Preview>
 
-### Custom Styling
+### Custom Styles
 
 Pass `className` to style the root element directly or override the `--separator-*` custom properties.
 
@@ -77,8 +77,6 @@ Pass `className` to style the root element directly or override the `--separator
   <Preview.Code>
     {`
       import { Separator } from "moduix";
-
-      import styles from "./separator.module.css";
 
       export function CustomSeparatorDemo() {
         return (
@@ -92,4 +90,20 @@ Pass `className` to style the root element directly or override the `--separator
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .section {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .customSeparator {
+        --separator-color: var(--color-primary);
+        --separator-thickness: 2px;
+        --separator-length-horizontal: 8rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

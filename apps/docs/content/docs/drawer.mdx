@@ -148,7 +148,6 @@ Use `swipeDirection="left"` for left-side navigation, filters, or mobile panels.
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function LeftDrawerDemo() {
         return (
@@ -170,6 +169,15 @@ Use `swipeDirection="left"` for left-side navigation, filters, or mobile panels.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .sideContent {
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Right
@@ -195,7 +203,6 @@ Use `--drawer-side-max-height` to cap long content and keep the panel inside the
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function RightDrawerDemo() {
         return (
@@ -216,6 +223,15 @@ Use `--drawer-side-max-height` to cap long content and keep the panel inside the
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .sideContent {
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Snap Points
@@ -246,7 +262,6 @@ drag offset, and inner content height.
         DrawerTrigger,
       } from "moduix";
       import { useState } from "react";
-      import styles from "./drawer-demo.module.css";
 
       const releaseSections = [
         {
@@ -295,6 +310,22 @@ drag offset, and inner content height.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .scrollArea {
+        height: 100%;
+        min-height: 0;
+      }
+
+      .scrollContent {
+        display: grid;
+        gap: var(--spacing-4);
+        padding-right: var(--spacing-5);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Without Backdrop
@@ -360,7 +391,6 @@ stack.
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function NestedDrawerDemo() {
         return (
@@ -395,6 +425,15 @@ stack.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .nestedActionsStart {
+        margin-right: auto;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Bottom Island
@@ -415,7 +454,6 @@ Use `variant="island"` to render the popup inset from the viewport instead of bl
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function BottomIslandDrawerDemo() {
         return (
@@ -433,6 +471,16 @@ Use `variant="island"` to render the popup inset from the viewport instead of bl
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .islandContent {
+        --drawer-width: 32rem;
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Top Island
@@ -453,7 +501,6 @@ The island variant works with top drawers too.
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function TopIslandDrawerDemo() {
         return (
@@ -471,6 +518,16 @@ The island variant works with top drawers too.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .islandContent {
+        --drawer-width: 32rem;
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Left Island
@@ -491,7 +548,6 @@ Use side island drawers when the panel should not touch the viewport edge.
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function LeftIslandDrawerDemo() {
         return (
@@ -509,6 +565,16 @@ Use side island drawers when the panel should not touch the viewport edge.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .islandContent {
+        --drawer-width: 32rem;
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Right Island
@@ -529,7 +595,6 @@ Customize important slots with `className`, CSS Modules, Tailwind, or CSS-in-JS.
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function RightIslandDrawerDemo() {
         return (
@@ -547,6 +612,16 @@ Customize important slots with `className`, CSS Modules, Tailwind, or CSS-in-JS.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .islandContent {
+        --drawer-width: 32rem;
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Persistent Snap
@@ -573,7 +648,6 @@ content scrolls.
         ScrollArea,
       } from "moduix";
       import { useState, Fragment } from "react";
-      import styles from "./drawer-demo.module.css";
 
       const releaseSections = [
         {
@@ -641,6 +715,22 @@ content scrolls.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .scrollArea {
+        height: 100%;
+        min-height: 0;
+      }
+
+      .scrollContent {
+        display: grid;
+        gap: var(--spacing-4);
+        padding-right: var(--spacing-5);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Swipe Area
@@ -704,7 +794,6 @@ page while a drawer is open.
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function IndentEffectDrawerDemo() {
         return (
@@ -731,6 +820,27 @@ page while a drawer is open.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .indentStage {
+        position: relative;
+        width: min(42rem, 100%);
+        min-height: 360px;
+        overflow: hidden;
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-muted);
+      }
+
+      .indentSurface {
+        min-height: 360px;
+        padding: var(--spacing-6);
+        background-color: var(--color-background);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Handle And Icon
@@ -757,7 +867,6 @@ size, and radius so overrides stay independent from CSS layer order. Pass childr
         DrawerDescription,
       } from "moduix";
       import { useState } from "react";
-      import styles from "./drawer-demo.module.css";
 
       export function CustomHandleDrawerDemo() {
         const snapPoints = [0.35, 0.75] as const;
@@ -790,4 +899,14 @@ size, and radius so overrides stay independent from CSS layer order. Pass childr
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customHandle {
+        --drawer-handle-bg: var(--color-destructive);
+        --drawer-handle-opacity: 0.8;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

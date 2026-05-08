@@ -225,7 +225,6 @@ Pass `className` when styling the toggle with CSS Modules, Tailwind CSS, or CSS-
   <Preview.Code>
     {`
       import { CheckSmallIcon, Toggle } from "moduix";
-      import styles from "./toggle-demo.module.css";
 
       export function CustomToggleDemo() {
         return (
@@ -235,14 +234,17 @@ Pass `className` when styling the toggle with CSS Modules, Tailwind CSS, or CSS-
           </Toggle>
         );
       }
+    `}
 
-      /* toggle-demo.module.css */
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
       .customToggle {
         --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
         --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
         --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
-        --toggle-outline-border-color:
-          color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
+        --toggle-outline-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
         --toggle-outline-color: var(--color-primary);
         --toggle-outline-bg-pressed: var(--color-primary);
         --toggle-outline-border-color-pressed: var(--color-primary);
@@ -250,5 +252,5 @@ Pass `className` when styling the toggle with CSS Modules, Tailwind CSS, or CSS-
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
 </Preview>

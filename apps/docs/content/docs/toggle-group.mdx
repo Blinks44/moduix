@@ -349,7 +349,6 @@ Pass `className` to the group and items when styling with CSS Modules, Tailwind 
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
-      import styles from "./toggle-group-demo.module.css";
 
       export function ClassNameToggleGroupDemo() {
         return (
@@ -373,4 +372,25 @@ Pass `className` to the group and items when styling with CSS Modules, Tailwind 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customGroup {
+        --toggle-group-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
+        --toggle-group-border-color: color-mix(in oklab, var(--color-primary) 38%, var(--color-border));
+        --toggle-group-gap: var(--spacing-1);
+        --toggle-group-padding: var(--spacing-1);
+        --toggle-group-radius: var(--radius-md);
+        --toggle-default-bg-pressed: var(--color-primary);
+        --toggle-default-border-color-pressed: var(--color-primary);
+        --toggle-default-color-pressed: var(--color-primary-foreground);
+      }
+
+      .customItem {
+        --toggle-group-item-radius: var(--radius-sm);
+        --toggle-padding-x-md: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

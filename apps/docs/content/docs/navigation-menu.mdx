@@ -192,7 +192,6 @@ Set `viewport` on the nested menu and pass `classNames.viewport` to style the au
         NavigationMenuTrigger,
       } from "moduix";
       import { useMediaQuery } from "@base-ui/react/unstable-use-media-query";
-      import styles from "./navigation-menu-demo.module.css";
 
       const sections = [
         {
@@ -257,6 +256,49 @@ Set `viewport` on the nested menu and pass `classNames.viewport` to style the au
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .inlineList {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing-2);
+        overflow-x: auto;
+        margin: 0;
+        padding: var(--spacing-3);
+        border-bottom: var(--border-width-sm) solid var(--color-border);
+        background-color: var(--color-muted);
+        list-style: none;
+      }
+
+      .inlineTrigger {
+        box-sizing: border-box;
+        display: grid;
+        justify-content: flex-start;
+        gap: var(--spacing-1);
+        width: 100%;
+        min-width: 10rem;
+        padding: 0.625rem 0.75rem;
+        border-radius: var(--radius-lg);
+        background-color: transparent;
+        text-align: left;
+      }
+
+      .inlineTrigger[data-popup-open],
+      .inlineTrigger[data-active] {
+        background-color: var(--color-background);
+        box-shadow:
+          0 1px 2px rgb(0 0 0 / 0.08),
+          0 1px 1px rgb(0 0 0 / 0.04);
+      }
+
+      .inlineViewport {
+        min-height: 16.5rem;
+        border-top: var(--border-width-sm) solid var(--color-border);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Popup Options
@@ -277,7 +319,6 @@ The popup accepts placement options, optional backdrop rendering, and `className
         NavigationMenuList,
         NavigationMenuTrigger,
       } from "moduix";
-      import styles from "./navigation-menu-demo.module.css";
 
       const links = ["Accessibility handbook", "Composition handbook", "Styling handbook"];
 
@@ -315,6 +356,16 @@ The popup accepts placement options, optional backdrop rendering, and `className
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .backdrop {
+        background-color: rgb(15 23 42 / 0.08);
+        backdrop-filter: blur(2px);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Icon

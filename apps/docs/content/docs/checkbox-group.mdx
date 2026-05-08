@@ -356,7 +356,6 @@ Pass `className` to the root, label, list, item, control, and item label slots. 
         CheckboxGroupItemLabel,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./checkbox-group-demo.module.css";
 
       const options = [
         { value: "email", label: "Email updates" },
@@ -397,6 +396,18 @@ Pass `className` to the root, label, list, item, control, and item label slots. 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .label {
+        color: var(--checkbox-label-color, var(--color-foreground));
+        font-size: var(--checkbox-label-font-size, var(--text-sm));
+        font-weight: var(--checkbox-label-font-weight, var(--weight-medium));
+        line-height: var(--checkbox-label-line-height, var(--line-height-text-sm));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Field Composition
@@ -457,7 +468,6 @@ Use `nativeButton` with `render={<button />}` for the sibling `label` pattern wi
     {`
       import { CheckboxGroup, CheckboxGroupItemControl } from "moduix";
       import { useId } from "react";
-      import styles from "./checkbox-group-demo.module.css";
 
       export function SiblingLabelCheckboxGroupDemo() {
         const id = useId();
@@ -486,6 +496,30 @@ Use `nativeButton` with `render={<button />}` for the sibling `label` pattern wi
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+
+      .siblingRow {
+        display: flex;
+        align-items: center;
+        gap: var(--checkbox-gap, var(--spacing-2));
+      }
+
+      .label {
+        color: var(--checkbox-label-color, var(--color-foreground));
+        font-size: var(--checkbox-label-font-size, var(--text-sm));
+        font-weight: var(--checkbox-label-font-weight, var(--weight-medium));
+        line-height: var(--checkbox-label-line-height, var(--line-height-text-sm));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Form Integration

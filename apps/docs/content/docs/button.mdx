@@ -235,15 +235,14 @@ Pass `className` for the button root and `classNames` for internal slots when st
   <Preview.Code>
     {`
       import { Button } from "moduix";
-      import styles from "./button-demo.module.css";
 
       export function ButtonClassNamesDemo() {
         return (
           <Button
-            className={styles.button}
+            className={styles.customButton}
             classNames={{
-              content: styles.content,
-              loadingIndicator: styles.loadingIndicator,
+              content: styles.customButtonContent,
+              loadingIndicator: styles.customLoadingIndicatorColor,
             }}
             loading
             loadingText="Publishing"
@@ -255,4 +254,24 @@ Pass `className` for the button root and `classNames` for internal slots when st
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customButton {
+        border-color: var(--color-primary);
+        background-color: var(--color-primary);
+        color: var(--color-primary-foreground);
+        box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+      }
+
+      .customButtonContent {
+        letter-spacing: 0.025em;
+      }
+
+      .customLoadingIndicatorColor {
+        color: var(--color-primary-foreground);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

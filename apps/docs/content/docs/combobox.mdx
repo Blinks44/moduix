@@ -190,7 +190,6 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
         ComboboxItemIndicator,
         ComboboxItemText,
       } from "moduix";
-      import styles from "./combobox.module.css";
 
       const countries = [
         { id: "de", label: "Germany", value: "germany" },
@@ -229,6 +228,42 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .triggerField {
+        display: inline-flex;
+        width: var(--combobox-width, 16rem);
+        min-height: var(--combobox-control-height, var(--size-lg));
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0 0.875rem;
+        border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
+        border-radius: var(--combobox-radius, var(--radius-md));
+        background-color: var(--combobox-bg, var(--color-background));
+        color: var(--combobox-color, var(--color-foreground));
+      }
+
+      .popupWithInlineInput {
+        --combobox-inline-input-height: calc(var(--combobox-control-height, var(--size-lg)) + 1rem);
+      }
+
+      .listWithInlineInput {
+        max-height: min(
+          calc(var(--combobox-popup-max-height, 24rem) - var(--combobox-inline-input-height)),
+          calc(var(--available-height) - var(--combobox-inline-input-height))
+        );
+      }
+
+      .inlineInput {
+        padding-inline: 0.75rem;
+        border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
+        border-radius: var(--radius-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Grouped
@@ -581,7 +616,6 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
         ComboboxItemText,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./combobox.module.css";
 
       const fruits = [
         { id: "apple", label: "Apple", value: "apple" },
@@ -630,4 +664,18 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .backdrop {
+        --combobox-backdrop-bg: var(--color-overlay);
+        --combobox-backdrop-blur: 2px;
+      }
+
+      .arrow {
+        --combobox-arrow-stroke-color: var(--color-border);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

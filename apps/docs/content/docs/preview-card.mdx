@@ -29,8 +29,6 @@ import {
     {`
       import { PreviewCard, PreviewCardTrigger, PreviewCardContent } from "moduix";
 
-      import styles from "./preview-card-demo.module.css";
-
       const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
       const typographyImageUrl = "/images/typography-preview.jpg";
 
@@ -63,6 +61,40 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .paragraph {
+        max-width: 33rem;
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-md);
+        line-height: var(--line-height-text-md);
+      }
+
+      .popupContent {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .image {
+        display: block;
+        width: 14rem;
+        max-width: min(14rem, calc(100vw - 4rem));
+        border-radius: var(--radius-sm);
+        object-fit: cover;
+      }
+
+      .summary {
+        max-width: 14rem;
+        margin: 0;
+        color: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ## Examples
@@ -78,7 +110,6 @@ Control the open state from React when the preview needs to coordinate with othe
     {`
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
       import { useState } from "react";
-      import styles from "./preview-card-demo.module.css";
 
       export function ControlledPreviewCard() {
         const [open, setOpen] = useState(false);
@@ -100,6 +131,24 @@ Control the open state from React when the preview needs to coordinate with othe
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .popupContent {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .summary {
+        max-width: 14rem;
+        margin: 0;
+        color: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Detached Trigger
@@ -113,7 +162,6 @@ Use `createPreviewCardHandle` when the trigger and popup content live in differe
     {`
       import { createPreviewCardHandle, PreviewCardTrigger, PreviewCard, PreviewCardContent } from "moduix";
       import { useMemo } from "react";
-      import styles from "./preview-card-demo.module.css";
 
       export function DetachedTriggerPreviewCard() {
         const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
@@ -139,6 +187,32 @@ Use `createPreviewCardHandle` when the trigger and popup content live in differe
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .popupContent {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .summary {
+        max-width: 14rem;
+        margin: 0;
+        color: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Multiple Triggers With Payload
@@ -157,7 +231,6 @@ Share one popup between several links and pass trigger-specific data through `pa
         PreviewCardTrigger,
       } from "moduix";
       import { useMemo } from "react";
-      import styles from "./preview-card-demo.module.css";
 
       export function MultipleTriggersPreviewCard() {
         const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
@@ -210,6 +283,32 @@ Share one popup between several links and pass trigger-specific data through `pa
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .popupContent {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .summary {
+        max-width: 14rem;
+        margin: 0;
+        color: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Side Control
@@ -224,7 +323,6 @@ Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to
     {`
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
       import { useState } from "react";
-      import styles from "./preview-card-demo.module.css";
 
       const sides = ["top", "right", "bottom", "left"];
 
@@ -262,6 +360,69 @@ Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .popupContent {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .summary {
+        max-width: 14rem;
+        margin: 0;
+        color: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .stack {
+        display: grid;
+        justify-items: center;
+        gap: var(--spacing-3);
+      }
+
+      .sideButtons {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-1);
+        padding: var(--spacing-1);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-muted);
+      }
+
+      .sideButton {
+        min-width: 4.75rem;
+        min-height: 2rem;
+        padding: 0 var(--spacing-3);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-sm);
+        background: var(--color-background);
+        color: var(--color-foreground);
+        font: inherit;
+        font-size: var(--text-sm);
+        font-weight: var(--weight-medium);
+        line-height: var(--line-height-text-sm);
+        text-transform: capitalize;
+        cursor: pointer;
+        transition:
+          background-color var(--transition-default),
+          color var(--transition-default);
+
+        &[data-active] {
+          background: var(--color-primary);
+          color: var(--color-primary-foreground);
+        }
+      }
+
+      .sidePopup {
+        --preview-card-max-width: 17rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Arrow
@@ -274,7 +435,6 @@ Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
   <Preview.Code>
     {`
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
-      import styles from "./preview-card-demo.module.css";
 
       export function CustomArrowPreviewCard() {
         return (
@@ -303,9 +463,40 @@ Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .popupContent {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .summary {
+        max-width: 14rem;
+        margin: 0;
+        color: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .customArrowPopup {
+        --preview-card-bg: var(--color-foreground);
+        --preview-card-color: var(--color-background);
+        --preview-card-border-color: color-mix(in oklab, var(--color-foreground), transparent 25%);
+      }
+
+      .customArrow {
+        display: block;
+        width: 1rem;
+        height: 0.5rem;
+        color: var(--preview-card-bg, var(--color-popover));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Slot Customization
+### Custom Styles
 
 `PreviewCardContent` renders the portal, backdrop, positioner, and viewport internally. Use
 `classNames` and `slotProps` when you need to style or configure those internal slots.
@@ -316,7 +507,6 @@ Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
   <Preview.Code>
     {`
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
-      import styles from "./preview-card-demo.module.css";
 
       export function SlotCustomizationPreviewCard() {
         return (
@@ -343,4 +533,31 @@ Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .popupContent {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .summary {
+        max-width: 14rem;
+        margin: 0;
+        color: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .backdrop {
+        --preview-card-backdrop-bg: color-mix(in oklab, var(--color-background), transparent 70%);
+        --preview-card-backdrop-blur: 2px;
+      }
+
+      .viewport {
+        padding: var(--spacing-1);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

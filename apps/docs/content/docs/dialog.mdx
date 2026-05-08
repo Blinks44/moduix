@@ -206,7 +206,6 @@ the body content scrolls.
         DialogClose,
         ScrollArea,
       } from "moduix";
-      import styles from "./dialog-demo.module.css";
 
       const sections = [
         {
@@ -262,6 +261,22 @@ the body content scrolls.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .scrollArea {
+        height: 100%;
+        min-height: 0;
+      }
+
+      .scrollContent {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-5);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Nested
@@ -341,7 +356,6 @@ Pass children to `DialogCloseIcon` to use any icon from your application or icon
         DialogFooter,
         DialogClose,
       } from "moduix";
-      import styles from "./dialog-demo.module.css";
 
       export function CustomCloseIconDialogDemo() {
         return (
@@ -371,9 +385,18 @@ Pass children to `DialogCloseIcon` to use any icon from your application or icon
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customCloseIcon {
+        --dialog-close-icon-color: var(--color-destructive);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Custom Popup Layout
+### Custom Styles
 
 Use `DialogContent` `className` for the popup and `classNames` when you need to style automatic
 service slots such as the viewport.
@@ -396,7 +419,6 @@ service slots such as the viewport.
         DialogFooter,
         DialogClose,
       } from "moduix";
-      import styles from "./dialog-demo.module.css";
 
       export function CustomPopupLayoutDialogDemo() {
         return (
@@ -427,4 +449,29 @@ service slots such as the viewport.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .outsidePopup {
+        position: relative;
+        overflow: visible;
+        --dialog-width: 26rem;
+        --dialog-padding: var(--spacing-5);
+      }
+
+      .centeredViewport {
+        place-items: center;
+      }
+
+      .outsideClose {
+        position: absolute;
+        top: -2rem;
+        right: -2rem;
+        border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
+        background-color: var(--dialog-bg, var(--color-popover));
+        color: var(--dialog-color, var(--color-popover-foreground));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

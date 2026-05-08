@@ -151,7 +151,6 @@ Pass native `placeholder` props to the input slots and style them with `classNam
     {`
       import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
       import { useId } from "react";
-      import styles from "./otp-field.module.css";
 
       export function PlaceholderOTPField() {
         const id = useId();
@@ -176,6 +175,21 @@ Pass native `placeholder` props to the input slots and style them with `classNam
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .placeholderInput {
+        &::placeholder {
+          color: var(--color-muted-foreground);
+        }
+
+        &:focus::placeholder {
+          color: transparent;
+        }
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Masked
@@ -342,7 +356,6 @@ Style individual slots and pass any icon to `OTPFieldSeparator` through children
         SeparatorMarkIcon,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./otp-field.module.css";
 
       export function CustomSeparatorOTPField() {
         const id = useId();
@@ -367,4 +380,21 @@ Style individual slots and pass any icon to `OTPFieldSeparator` through children
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customInput {
+        --otp-field-input-width: 3rem;
+        --otp-field-input-height: 3rem;
+        --otp-field-font-size: var(--text-xl);
+        --otp-field-bg-filled: var(--color-muted);
+      }
+
+      .customSeparator {
+        --otp-field-separator-size: 1.5rem;
+        --otp-field-separator-color: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

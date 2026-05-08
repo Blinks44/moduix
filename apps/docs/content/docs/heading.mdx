@@ -179,11 +179,10 @@ Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in
   <Preview.Code>
     {`
       import { Heading } from "moduix";
-      import styles from "./heading-demo.module.css";
 
       export function CustomHeadingDemo() {
         return (
-          <Heading as="h2" className={styles.heading}>
+          <Heading as="h2" className={styles.customHeading}>
             Customized heading
           </Heading>
         );
@@ -191,4 +190,16 @@ Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customHeading {
+        --heading-color: var(--color-primary);
+        --heading-font-size: var(--text-2xl);
+        --heading-line-height: var(--line-height-text-2xl);
+        --heading-font-weight: var(--weight-bold);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

@@ -186,11 +186,10 @@ Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in
   <Preview.Code>
     {`
       import { Text } from "moduix";
-      import styles from "./text-demo.module.css";
 
       export function TextClassNameDemo() {
         return (
-          <Text as="p" className={styles.text}>
+          <Text as="p" className={styles.customText}>
             Customized body copy with local CSS variables.
           </Text>
         );
@@ -198,4 +197,16 @@ Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customText {
+        --text-default-color: var(--color-primary);
+        --text-font-size-md: var(--text-lg);
+        --text-line-height-md: var(--line-height-text-lg);
+        --text-font-weight-regular: var(--weight-medium);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

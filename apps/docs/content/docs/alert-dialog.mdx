@@ -138,8 +138,6 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
         AlertDialogAction,
         ScrollArea,
       } from "moduix";
-      import { insideScrollSections } from "@/data/insideScrollSections";
-      import styles from "./alert-dialog.module.css";
 
       <AlertDialog>
         <AlertDialogTrigger render={<Button />}>Delete project</AlertDialogTrigger>
@@ -170,6 +168,87 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .scrollBody {
+        height: min(26rem, calc(100dvh - var(--spacing-10)));
+        overflow: hidden;
+      }
+
+      .scrollArea {
+        height: 100%;
+        min-height: 0;
+      }
+
+      .scrollContent {
+        display: grid;
+        gap: var(--spacing-4);
+        padding-right: var(--spacing-5);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      export const insideScrollSections = [
+        {
+          title: 'What this surface is for',
+          body: 'Use temporary surfaces for focused tasks that should keep users in the current page context.',
+        },
+        {
+          title: 'Keyboard and focus',
+          body: 'Tab and Shift+Tab should stay predictable while Escape or explicit controls request close.',
+        },
+        {
+          title: 'Viewport overflow',
+          body: 'Keep the container visible and place long content in a dedicated scrollable inner region.',
+        },
+        {
+          title: 'Close affordances',
+          body: 'Always provide an explicit close action when the surface can be dismissed by the user.',
+        },
+        {
+          title: 'Mobile ergonomics',
+          body: 'Keep touch targets reachable and avoid cramped headers on narrow viewports.',
+        },
+        {
+          title: 'Persistent panels',
+          body: 'For persistent workflows, keep the important controls fixed and scroll only the supporting content.',
+        },
+        {
+          title: 'Status updates',
+          body: 'After completion, close the surface and show an inline confirmation or toast.',
+        },
+        {
+          title: 'Error handling',
+          body: 'When an action fails, keep the user in context and show the recovery step near the failed control.',
+        },
+        {
+          title: 'Long descriptions',
+          body: 'Dense explanatory copy should remain readable without pushing primary actions out of reach.',
+        },
+        {
+          title: 'Scrolling feedback',
+          body: 'Visible scrollbars, fades, or edge states help users understand that additional content is available.',
+        },
+        {
+          title: 'Footer behavior',
+          body: 'Footer actions should stay stable when the user reviews long terms, warnings, or settings.',
+        },
+        {
+          title: 'Review checklist',
+          body: 'Use repeated sections to test keyboard scrolling, wheel scrolling, touch scrolling, and drag gestures.',
+        },
+        {
+          title: 'Final confirmation',
+          body: 'The final section should be reachable without layout jumps or hidden content at the bottom edge.',
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Close Icon
@@ -195,7 +274,6 @@ Pass children to `AlertDialogCloseIcon` to use any icon from your application or
         AlertDialogCancel,
         AlertDialogAction,
       } from "moduix";
-      import styles from "./alert-dialog.module.css";
 
       <AlertDialog>
         <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
@@ -221,9 +299,18 @@ Pass children to `AlertDialogCloseIcon` to use any icon from your application or
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customCloseIcon {
+        --alert-dialog-close-icon-color: var(--color-destructive);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Custom Internal Slots
+### Custom Styles
 
 Use `classNames` on `AlertDialogContent` to style the automatically rendered backdrop and viewport.
 
@@ -244,7 +331,6 @@ Use `classNames` on `AlertDialogContent` to style the automatically rendered bac
         AlertDialogCancel,
         AlertDialogAction,
       } from "moduix";
-      import styles from "./alert-dialog.module.css";
 
       <AlertDialog>
         <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
@@ -270,4 +356,23 @@ Use `classNames` on `AlertDialogContent` to style the automatically rendered bac
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBackdrop {
+        background-color: rgb(15 23 42 / 0.56);
+      }
+
+      .customViewport {
+        align-items: start;
+        padding-top: var(--spacing-10);
+      }
+
+      .customPopup {
+        --alert-dialog-width: 28rem;
+        --alert-dialog-radius: var(--radius-md);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

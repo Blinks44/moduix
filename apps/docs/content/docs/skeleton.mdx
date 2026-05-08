@@ -168,18 +168,34 @@ Pass `className` to the root or layout primitives when styling with CSS Modules,
   <Preview.Code>
     {`
       import { Skeleton, SkeletonColumn } from "moduix";
-      import styles from "./skeleton.module.css";
 
       export function CustomSkeletonDemo() {
         return (
-          <SkeletonColumn className={styles.block} gap={10}>
-            <Skeleton className={styles.skeleton} height={18} />
-            <Skeleton className={styles.skeleton} height={18} width="78%" />
-            <Skeleton className={styles.skeleton} height={18} width="52%" />
+          <SkeletonColumn className={styles.customBlock} gap={10}>
+            <Skeleton className={styles.customSkeleton} height={18} />
+            <Skeleton className={styles.customSkeleton} height={18} width="78%" />
+            <Skeleton className={styles.customSkeleton} height={18} width="52%" />
           </SkeletonColumn>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBlock {
+        display: flex;
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        --skeleton-bg: var(--color-primary);
+        --skeleton-radius: var(--radius-full);
+        --skeleton-animation: none;
+      }
+
+      .customSkeleton {
+        opacity: 0.28;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

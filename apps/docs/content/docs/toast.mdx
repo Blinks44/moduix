@@ -268,7 +268,7 @@ Create a manager outside React when app services need to enqueue notifications t
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
 Use `renderToast` when the application keeps the shared provider and region pattern but needs custom
 layout, custom icons, or slot-level `className` styling for each toast.
@@ -291,7 +291,6 @@ layout, custom icons, or slot-level `className` styling for each toast.
         ToastClose,
         useToastManager,
       } from "moduix";
-      import styles from "./custom-toast.module.css";
 
       export function App() {
         return (
@@ -359,6 +358,17 @@ layout, custom icons, or slot-level `className` styling for each toast.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .closeIcon {
+        inline-size: var(--toast-close-icon-size, 1rem);
+        block-size: var(--toast-close-icon-size, 1rem);
+        flex: none;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Anchored Toast

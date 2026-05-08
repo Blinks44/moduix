@@ -525,7 +525,7 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
   </Preview.Code>
 </Preview>
 
-### Custom Layout
+### Custom Styles
 
 Set `unstyled` when the default Tabs layout is too strong and every slot should be styled by your own classes. Use `classNames.indicator` to style the internally rendered indicator.
 
@@ -540,7 +540,6 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
         TabsPanel,
         TabsTab,
       } from "moduix";
-      import styles from "./tabs-demo.module.css";
 
       export function InlineInputsTabsDemo() {
         return (
@@ -565,8 +564,12 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
           </Tabs>
         );
       }
+    `}
 
-      /* tabs-demo.module.css */
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
       .inlineRoot {
         display: flex;
         width: min(36rem, calc(100vw - 2rem));
@@ -640,5 +643,5 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
 </Preview>

@@ -28,7 +28,6 @@ bleed amounts are `xs`, `sm`, `md`, `lg`, `xl`, plus `full` on the inline axis.
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
-      import styles from "./bleed-demo.module.css";
 
       export function BleedDemo() {
         return (
@@ -48,6 +47,31 @@ bleed amounts are `xs`, `sm`, `md`, `lg`, `xl`, plus `full` on the inline axis.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .container {
+        display: flex;
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) dashed var(--color-border);
+      }
+
+      .bleed,
+      .panel,
+      .customBleed {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--spacing-4);
+        background-color: var(--color-muted);
+        text-align: center;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ## Examples
@@ -62,7 +86,6 @@ Use `inline` to choose how far content escapes the container on the inline axis.
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
-      import styles from "./bleed-demo.module.css";
 
       export function BleedInlineAmountsDemo() {
         return (
@@ -82,6 +105,31 @@ Use `inline` to choose how far content escapes the container on the inline axis.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .container {
+        display: flex;
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) dashed var(--color-border);
+      }
+
+      .bleed,
+      .panel,
+      .customBleed {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--spacing-4);
+        background-color: var(--color-muted);
+        text-align: center;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Block Bleed
@@ -94,7 +142,6 @@ Use `block` when a surface should also escape vertical container padding.
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
-      import styles from "./bleed-demo.module.css";
 
       export function BleedBlockDemo() {
         return (
@@ -110,6 +157,31 @@ Use `block` when a surface should also escape vertical container padding.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .paddedContainer {
+        display: flex;
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-6);
+        border: var(--border-width-sm) dashed var(--color-border);
+      }
+
+      .bleed,
+      .panel,
+      .customBleed {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--spacing-4);
+        background-color: var(--color-muted);
+        text-align: center;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Semantic Element
@@ -122,7 +194,6 @@ Use `as` when the escaping content has a more specific semantic role.
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
-      import styles from "./bleed-demo.module.css";
 
       export function BleedSemanticDemo() {
         return (
@@ -139,6 +210,37 @@ Use `as` when the escaping content has a more specific semantic role.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .container {
+        display: flex;
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) dashed var(--color-border);
+      }
+
+      .figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-3);
+        padding: var(--spacing-4);
+        background-color: var(--color-muted);
+        text-align: center;
+      }
+
+      .media {
+        width: min(28rem, 100%);
+        min-height: 8rem;
+        border-radius: var(--radius-md);
+        background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--color-accent);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Class Names
@@ -151,7 +253,6 @@ Pass `className` when styling the root or overriding bleed variables in local CS
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
-      import styles from "./bleed-demo.module.css";
 
       export function CustomBleedDemo() {
         return (
@@ -165,4 +266,33 @@ Pass `className` when styling the root or overriding bleed variables in local CS
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .container {
+        display: flex;
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) dashed var(--color-border);
+      }
+
+      .bleed,
+      .panel,
+      .customBleed {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--spacing-4);
+        background-color: var(--color-muted);
+        text-align: center;
+      }
+
+      .customBleed {
+        --bleed-inline-full: calc(var(--spacing-8) * -1);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

@@ -714,7 +714,6 @@ Use `AutocompleteContent` props for popup infrastructure. `Portal`, `Positioner`
         AutocompleteItemText,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./autocomplete.module.css";
 
       const tags = [
         { id: "t1", value: "feature" },
@@ -763,4 +762,18 @@ Use `AutocompleteContent` props for popup infrastructure. `Portal`, `Positioner`
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .backdrop {
+          --autocomplete-backdrop-bg: var(--color-overlay);
+          --autocomplete-backdrop-blur: 2px;
+        }
+
+      .arrow {
+          --autocomplete-arrow-stroke-color: var(--color-border);
+        }
+    `}
+
+  </Preview.CSS>
 </Preview>

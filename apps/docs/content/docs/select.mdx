@@ -118,7 +118,6 @@ Use `indicator="end"` to place the selected indicator after the item text. Pass 
         SelectItemTextLabel,
         SelectItemIndicator,
       } from "moduix";
-      import styles from "./select.module.css";
 
       const fruits = [
         { label: "Apple", value: "apple" },
@@ -162,6 +161,19 @@ Use `indicator="end"` to place the selected indicator after the item text. Pass 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customTriggerIcon {
+        color: var(--color-foreground);
+      }
+
+      .statusIcon {
+        color: var(--color-muted-foreground);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Grouped
@@ -272,7 +284,6 @@ Pass `animation="scale"` to `SelectContent` when the popup should animate in the
         SelectItemIndicator,
         SelectItemText,
       } from "moduix";
-      import styles from "./select.module.css";
 
       const fruits = [
         { label: "Apple", value: "apple" },
@@ -307,6 +318,16 @@ Pass `animation="scale"` to `SelectContent` when the popup should animate in the
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .animatedContent {
+        --select-transition: 180ms var(--ease-out);
+        --select-scale: 0.96;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Multiple
@@ -403,7 +424,6 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
         SelectItemIndicator,
         SelectItemText,
       } from "moduix";
-      import styles from "./select.module.css";
 
       const fruits = [
         { label: "Apple", value: "apple" },
@@ -447,6 +467,20 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .backdrop {
+        --select-backdrop-bg: var(--color-overlay);
+        --select-backdrop-blur: 2px;
+      }
+
+      .arrow {
+        --select-arrow-stroke-color: var(--color-border);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Controlled

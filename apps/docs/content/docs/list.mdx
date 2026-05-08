@@ -96,7 +96,7 @@ Use `marker="none"` when list semantics are useful but visual markers are not.
   </Preview.Code>
 </Preview>
 
-### Custom Bullet
+### Custom Styles
 
 Use `marker="bullet"` when marker size, color, gap, or vertical offset must be controlled independently from the text.
 
@@ -106,7 +106,6 @@ Use `marker="bullet"` when marker size, color, gap, or vertical offset must be c
   <Preview.Code>
     {`
       import { List, ListItem } from "moduix";
-      import styles from "./list-demo.module.css";
 
       export function CustomBulletListDemo() {
         return (
@@ -120,6 +119,25 @@ Use `marker="bullet"` when marker size, color, gap, or vertical offset must be c
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBullet {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        --list-marker-color: var(--color-chart-2);
+        --list-marker-size: 0.5rem;
+        --list-marker-gap: var(--spacing-4);
+        --list-marker-offset-y: 0.5em;
+      }
+
+      .customBullet > [data-slot='list-item']::before {
+        box-shadow:
+          0 0 0 0.25rem color-mix(in oklab, var(--list-marker-color), transparent 78%),
+          0 0.125rem 0.375rem color-mix(in oklab, var(--list-marker-color), transparent 68%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Sizes
@@ -230,7 +248,6 @@ Pass `className` when styling the root or overriding list variables in local CSS
   <Preview.Code>
     {`
       import { List, ListItem } from "moduix";
-      import styles from "./list-demo.module.css";
 
       export function CustomListDemo() {
         return (
@@ -243,4 +260,15 @@ Pass `className` when styling the root or overriding list variables in local CSS
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customList {
+        --list-marker-color: var(--color-primary);
+        --list-gap-sm: var(--spacing-3);
+        --list-padding-x: var(--spacing-6);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

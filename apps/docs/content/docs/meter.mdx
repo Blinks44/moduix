@@ -144,7 +144,7 @@ Use `format` and a custom `MeterValue` child function to present the value in us
   </Preview.Code>
 </Preview>
 
-### Custom Styling
+### Custom Styles
 
 `Meter` renders the track and indicator automatically. Use `className` for the root and `classNames` for the internal track or indicator slots.
 
@@ -158,37 +158,40 @@ Use `format` and a custom `MeterValue` child function to present the value in us
         MeterLabel,
         MeterValue,
       } from "moduix";
-      import styles from "./meter-demo.module.css";
 
       export function CustomStylingMeterDemo() {
         return (
           <Meter
             value={72}
-            className={styles.meter}
-            classNames={{ track: styles.track, indicator: styles.indicator }}
+            className={styles.customMeter}
+            classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
           >
             <MeterLabel>Monthly quota</MeterLabel>
             <MeterValue />
           </Meter>
         );
       }
+    `}
 
-      /* meter-demo.module.css */
-      .meter {
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customMeter {
         --meter-width: 16rem;
         --meter-track-height: 0.75rem;
         --meter-track-bg: var(--color-accent);
       }
 
-      .track {
+      .customTrack {
         box-shadow: inset 0 0 0 var(--border-width-md)
           color-mix(in oklab, var(--color-primary), transparent 75%);
       }
 
-      .indicator {
+      .customIndicator {
         background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
 </Preview>

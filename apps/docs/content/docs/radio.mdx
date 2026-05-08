@@ -285,7 +285,6 @@ Pass `className` to visible slots and use `classNames` for internal indicator st
         RadioGroupList,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./radio-demo.module.css";
 
       const options = [
         { value: "personal", label: "Personal account" },
@@ -321,6 +320,18 @@ Pass `className` to visible slots and use `classNames` for internal indicator st
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .label {
+        color: var(--radio-label-color, var(--color-foreground));
+        font-size: var(--radio-label-font-size, var(--text-sm));
+        font-weight: var(--radio-label-font-weight, var(--weight-medium));
+        line-height: var(--radio-label-line-height, var(--line-height-text-sm));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Field Composition

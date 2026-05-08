@@ -38,8 +38,6 @@ tooltips are not a replacement for `aria-label` or visible text.
         TooltipTrigger,
       } from "moduix";
 
-      import styles from "./tooltip-demo.module.css";
-
       export function TooltipDemo() {
         return (
           <Tooltip>
@@ -56,6 +54,22 @@ tooltips are not a replacement for `aria-label` or visible text.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .triggerContent {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .icon {
+        width: 1rem;
+        height: 1rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ## Examples
@@ -78,8 +92,6 @@ Wrap related tooltips in one `TooltipProvider` to share delay behavior across a 
         TooltipProvider,
         TooltipTrigger,
       } from "moduix";
-
-      import styles from "./tooltip-demo.module.css";
 
       export function ToolbarTooltipDemo() {
         return (
@@ -112,6 +124,26 @@ Wrap related tooltips in one `TooltipProvider` to share delay behavior across a 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .icon {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .toolbar {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--border-width-sm);
+        padding: var(--spacing-1);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background: var(--color-muted);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Without Arrow
@@ -162,8 +194,6 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
       } from "moduix";
       import { useState } from "react";
 
-      import styles from "./tooltip-demo.module.css";
-
       type TooltipSide = "top" | "right" | "bottom" | "left";
       const tooltipSides = ["top", "right", "bottom", "left"] as TooltipSide[];
 
@@ -198,6 +228,53 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+
+      .sideButtons {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-1);
+        padding: var(--spacing-1);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-muted);
+      }
+
+      .sideButton {
+        min-width: 4.75rem;
+        min-height: 2rem;
+        padding: 0 var(--spacing-3);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-sm);
+        background: var(--color-background);
+        color: var(--color-foreground);
+        font: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+        font-weight: var(--weight-medium);
+        text-transform: capitalize;
+        cursor: pointer;
+        transition:
+          background-color var(--transition-default),
+          color var(--transition-default);
+
+        &[data-active] {
+          background: var(--color-primary);
+          color: var(--color-primary-foreground);
+        }
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Detached Trigger
@@ -263,8 +340,6 @@ active trigger payload.
       } from "moduix";
       import { useMemo } from "react";
 
-      import styles from "./tooltip-demo.module.css";
-
       function MultipleTriggersTooltip() {
         const tooltipHandle = useMemo(
           () => createTooltipHandle<{ text: string }>(),
@@ -309,9 +384,27 @@ active trigger payload.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .icon {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Custom Styling
+### Custom Styles
 
 Use `className` for the popup itself, `classNames` for internal slots such as the arrow, and
 CSS variables for broad theme changes. Portal, positioner, and viewport are rendered automatically.
@@ -326,8 +419,6 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
         TooltipContent,
         TooltipTrigger,
       } from "moduix";
-
-      import styles from "./tooltip-demo.module.css";
 
       export function CustomStylingTooltip() {
         return (
@@ -350,4 +441,31 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customPopup {
+        --tooltip-bg: var(--color-primary);
+        --tooltip-color: var(--color-primary-foreground);
+        --tooltip-border-color: color-mix(in oklab, var(--color-primary), black 18%);
+        --tooltip-arrow-stroke-color: var(--tooltip-border-color);
+        --tooltip-padding-x: var(--spacing-3);
+        --tooltip-padding-y: var(--spacing-2);
+      }
+
+      .customTrigger {
+        --tooltip-trigger-bg: var(--color-primary);
+        --tooltip-trigger-bg-hover: color-mix(in oklab, var(--color-primary), white 10%);
+        --tooltip-trigger-bg-active: color-mix(in oklab, var(--color-primary), black 12%);
+        --tooltip-trigger-border-color: color-mix(in oklab, var(--color-primary), black 18%);
+        --tooltip-trigger-color: var(--color-primary-foreground);
+      }
+
+      .customArrow {
+        --tooltip-arrow-width: 1.5rem;
+        --tooltip-arrow-height: 0.75rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

@@ -225,7 +225,7 @@ Use `disabled` to make the whole slider non-interactive while preserving its cur
   </Preview.Code>
 </Preview>
 
-### Custom Classes
+### Custom Styles
 
 Use `className` for the root and `classNames` for internally rendered slots.
 
@@ -234,35 +234,12 @@ Use `className` for the root and `classNames` for internally rendered slots.
 
   <Preview.Code>
     {`
-      /* slider-demo.module.css */
-      .customControl {
-        --slider-control-padding-y: var(--spacing-3);
-      }
-
-      .customTrack {
-        --slider-track-size: 0.625rem;
-        --slider-track-bg: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-muted));
-        --slider-track-border-color: transparent;
-      }
-
-      .customIndicator {
-        --slider-indicator-bg: var(--color-chart-4);
-      }
-
-      .customThumb {
-        --slider-thumb-size: 1.25rem;
-        --slider-thumb-bg: var(--color-chart-4);
-        --slider-thumb-border-color: var(--color-background);
-      }
-
-      /* SliderDemo.tsx */
       import {
         Slider,
         SliderLabel,
         SliderValue,
         SliderThumb,
       } from "moduix";
-      import styles from "./slider-demo.module.css";
 
       export function CustomClassesSliderDemo() {
         return (
@@ -283,4 +260,29 @@ Use `className` for the root and `classNames` for internally rendered slots.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customControl {
+        --slider-control-padding-y: var(--spacing-3);
+      }
+
+      .customTrack {
+        --slider-track-size: 0.625rem;
+        --slider-track-bg: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-muted));
+        --slider-track-border-color: transparent;
+      }
+
+      .customIndicator {
+        --slider-indicator-bg: var(--color-chart-4);
+      }
+
+      .customThumb {
+        --slider-thumb-size: 1.25rem;
+        --slider-thumb-bg: var(--color-chart-4);
+        --slider-thumb-border-color: var(--color-background);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

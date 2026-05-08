@@ -109,7 +109,6 @@ Pass `className` to the root, image, and fallback slots when styling with CSS Mo
   <Preview.Code>
     {`
       import { Avatar, AvatarImage, AvatarFallback } from "moduix";
-      import styles from "./avatar.module.css";
 
       const avatarImage =
         "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
@@ -125,6 +124,25 @@ Pass `className` to the root, image, and fallback slots when styling with CSS Mo
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .ring {
+        box-shadow:
+          0 0 0 2px var(--color-background),
+          0 0 0 4px var(--color-ring);
+      }
+
+      .imageSaturated {
+        filter: saturate(1.5);
+      }
+
+      .uppercase {
+        text-transform: uppercase;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Fallback

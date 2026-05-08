@@ -36,6 +36,14 @@ function PreviewCSSProperties(_props: PreviewSlotProps) {
   return null;
 }
 
+function PreviewCSS(_props: PreviewSlotProps) {
+  return null;
+}
+
+function PreviewData(_props: PreviewSlotProps) {
+  return null;
+}
+
 function PreviewRoot({
   children,
   className,
@@ -44,7 +52,8 @@ function PreviewRoot({
   codeLanguage = 'tsx',
   ...props
 }: PreviewProps) {
-  const { previewChildren, codeContent, cssContent } = splitPreviewChildren(children);
+  const { previewChildren, codeContent, cssContent, exampleCssContent, dataContent } =
+    splitPreviewChildren(children);
   const propertiesSignature = getCssPropertiesSignature(cssProperties);
   const normalizedCssProperties = React.useMemo(
     () => normalizeCssProperties(cssProperties),
@@ -65,9 +74,12 @@ function PreviewRoot({
         onReset={() => setCssVariables(initialCssVariables)}
       />
     ) : null);
-  const tabs = [resolvedCode ? 'Code' : null, resolvedCssContent ? 'CSS playground' : null].filter(
-    (item): item is string => Boolean(item),
-  );
+  const tabs = [
+    resolvedCode ? 'Code' : null,
+    exampleCssContent ? 'CSS' : null,
+    dataContent ? 'Data' : null,
+    resolvedCssContent ? 'CSS properties' : null,
+  ].filter((item): item is string => Boolean(item));
 
   React.useEffect(() => {
     setCssVariables(initialCssVariables);
@@ -100,6 +112,30 @@ function PreviewRoot({
               />
             </Tab>
           )}
+          {exampleCssContent && (
+            <Tab className="overflow-auto">
+              <DynamicCodeBlock
+                lang="css"
+                code={dedentCode(extractText(exampleCssContent))}
+                codeblock={{
+                  allowCopy: true,
+                  className: 'my-0 rounded-none border-0 shadow-none',
+                }}
+              />
+            </Tab>
+          )}
+          {dataContent && (
+            <Tab className="overflow-auto">
+              <DynamicCodeBlock
+                lang="ts"
+                code={dedentCode(extractText(dataContent))}
+                codeblock={{
+                  allowCopy: true,
+                  className: 'my-0 rounded-none border-0 shadow-none',
+                }}
+              />
+            </Tab>
+          )}
           {resolvedCssContent && (
             <Tab className="max-h-150 overflow-auto">{resolvedCssContent}</Tab>
           )}
@@ -113,6 +149,8 @@ function splitPreviewChildren(children: React.ReactNode) {
   const previewChildren: React.ReactNode[] = [];
   let codeContent: string | undefined;
   let cssContent: React.ReactNode;
+  let exampleCssContent: React.ReactNode;
+  let dataContent: React.ReactNode;
 
   function visit(node: React.ReactNode) {
     React.Children.forEach(node, (child) => {
@@ -133,6 +171,16 @@ function splitPreviewChildren(children: React.ReactNode) {
           cssContent = slot.props.children;
           return;
         }
+
+        if (slot.type === PreviewCSS) {
+          exampleCssContent = slot.props.children;
+          return;
+        }
+
+        if (slot.type === PreviewData) {
+          dataContent = slot.props.children;
+          return;
+        }
       }
 
       previewChildren.push(child);
@@ -141,7 +189,7 @@ function splitPreviewChildren(children: React.ReactNode) {
 
   visit(children);
 
-  return { previewChildren, codeContent, cssContent };
+  return { previewChildren, codeContent, cssContent, exampleCssContent, dataContent };
 }
 
 function extractText(children: React.ReactNode): string {
@@ -347,8 +395,10 @@ function CSSPropertiesEditor({
 
 const Preview = Object.assign(PreviewRoot, {
   Code: PreviewCode,
+  CSS: PreviewCSS,
+  Data: PreviewData,
   CSSProperties: PreviewCSSProperties,
 });
 
-export { Preview, PreviewCode, PreviewCSSProperties };
+export { Preview, PreviewCode, PreviewCSS, PreviewData, PreviewCSSProperties };
 export type { CssProperty, CssPropertyInput, PreviewProps };

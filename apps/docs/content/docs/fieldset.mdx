@@ -168,7 +168,6 @@ Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field slots when st
         FieldControl,
         FieldError,
       } from "moduix";
-      import styles from "./fieldset-demo.module.css";
 
       export function StyledFieldsetDemo() {
         return (
@@ -191,14 +190,17 @@ Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field slots when st
           </Fieldset>
         );
       }
+    `}
 
-      /* fieldset-demo.module.css */
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
       .customFieldset {
         max-width: 20rem;
         gap: var(--spacing-3);
         padding: var(--spacing-4);
-        border: var(--border-width-sm) solid
-          color-mix(in srgb, var(--color-primary) 30%, transparent);
+        border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
         border-radius: var(--radius-lg);
       }
 
@@ -225,5 +227,5 @@ Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field slots when st
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
 </Preview>

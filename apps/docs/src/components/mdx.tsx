@@ -1,6 +1,6 @@
 import type { MDXComponents } from 'mdx/types';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
-import { Preview, PreviewCode, PreviewCSSProperties } from './preview';
+import { Preview, PreviewCode, PreviewCSS, PreviewCSSProperties, PreviewData } from './preview';
 
 function BaseUIReference({ href, label = 'Base UI API' }: { href: string; label?: string }) {
   return (
@@ -31,7 +31,9 @@ export function getMDXComponents(components?: MDXComponents) {
     BaseUIReference,
     Preview,
     PreviewCode,
+    PreviewCSS,
     PreviewCSSProperties,
+    PreviewData,
     ...components,
   } satisfies MDXComponents;
 }

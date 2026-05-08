@@ -330,7 +330,6 @@ Pass `className` to the form root and every composed field, input, error, and bu
         FieldError,
         Button,
       } from "moduix";
-      import styles from "./form.module.css";
 
       export function StyledFormDemo() {
         return (
@@ -362,6 +361,43 @@ Pass `className` to the form root and every composed field, input, error, and bu
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customForm {
+        width: 20rem;
+        max-width: 100%;
+        gap: var(--spacing-3);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+        border-radius: var(--radius-lg);
+      }
+
+      .customField {
+        gap: var(--spacing-2);
+      }
+
+      .customLabel,
+      .customError,
+      .customButton {
+        color: var(--color-primary);
+      }
+
+      .customInput,
+      .customButton {
+        border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+      }
+
+      .customInput:focus {
+        outline-color: var(--color-primary);
+      }
+
+      .customDescription {
+        color: var(--color-muted-foreground);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ```css
