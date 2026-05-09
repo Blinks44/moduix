@@ -105,7 +105,7 @@
 .customPopup {
   --combobox-popup-bg: var(--color-background);
   --combobox-popup-border-color: var(--color-ring);
-  --combobox-shadow: var(--shadow-xl);
+  --combobox-shadow: var(--shadow-lg);
 }
 
 .portal {
