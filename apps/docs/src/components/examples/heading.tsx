@@ -7,6 +7,12 @@ export const headingCssProperties: CssPropertyInput[] = [
   ['--heading-font-family', 'var(--font-sans)', 'Controls heading font family.'],
   ['--heading-letter-spacing', '0', 'Controls heading letter spacing.'],
   ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
+  ['--heading-font-size-2xl', 'var(--text-3xl)', 'Controls `2xl` heading font size.'],
+  [
+    '--heading-line-height-2xl',
+    'var(--line-height-text-3xl)',
+    'Controls `2xl` heading line height.',
+  ],
 ];
 
 export function HeadingExample(props: HeadingProps) {
@@ -72,7 +78,7 @@ export function HeadingWeightsExample() {
 
 export function HeadingAlignedExample() {
   return (
-    <div className={styles.stack}>
+    <div className={styles.aligned}>
       <Heading as="h2" align="left">
         Left aligned
       </Heading>
@@ -94,7 +100,7 @@ export function HeadingSemanticExample() {
   );
 }
 
-export function HeadingClassNameExample() {
+export function CustomStylesHeadingExample() {
   return (
     <Heading as="h2" className={styles.customHeading}>
       Customized heading

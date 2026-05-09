@@ -4,10 +4,9 @@ description: A typography primitive for semantic headings with library sizing an
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   HeadingAlignedExample,
-  HeadingClassNameExample,
+  CustomStylesHeadingExample,
   HeadingElementsExample,
   HeadingExample,
   HeadingSemanticExample,
@@ -18,7 +17,9 @@ import {
 
 ## API Reference
 
-`Heading` is a moduix typography primitive and does not wrap a Base UI primitive.
+`Heading` is a moduix typography primitive. Base UI does not provide a matching heading
+primitive, so the public API stays focused on semantic element choice, visual variants,
+and root `className` composition.
 
 ## Basic
 
@@ -52,7 +53,7 @@ Use `as` to choose the semantic heading level. Each level has a matching default
 
       export function HeadingElementsDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Heading as="h1">Heading level 1</Heading>
             <Heading as="h2">Heading level 2</Heading>
             <Heading as="h3">Heading level 3</Heading>
@@ -65,6 +66,18 @@ Use `as` to choose the semantic heading level. Each level has a matching default
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Sizes
@@ -80,7 +93,7 @@ Use `size` for visual sizing when the semantic level should stay separate from p
 
       export function HeadingSizesDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Heading as="h2" size="2xl">Extra-large heading</Heading>
             <Heading as="h2" size="xl">Large heading</Heading>
             <Heading as="h2" size="lg">Medium-large heading</Heading>
@@ -93,6 +106,18 @@ Use `size` for visual sizing when the semantic level should stay separate from p
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Weights
@@ -108,7 +133,7 @@ Use `weight` for the intended emphasis without adding a custom class.
 
       export function HeadingWeightsDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Heading as="h2" weight="regular">Regular weight</Heading>
             <Heading as="h2" weight="medium">Medium weight</Heading>
             <Heading as="h2" weight="semibold">Semibold weight</Heading>
@@ -119,6 +144,18 @@ Use `weight` for the intended emphasis without adding a custom class.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Alignment
@@ -134,7 +171,7 @@ Use `align` to set text alignment without adding custom CSS.
 
       export function HeadingAlignedDemo() {
         return (
-          <div>
+          <div className={styles.aligned}>
             <Heading as="h2" align="left">Left aligned</Heading>
             <Heading as="h2" align="center">Center aligned</Heading>
             <Heading as="h2" align="right">Right aligned</Heading>
@@ -144,6 +181,18 @@ Use `align` to set text alignment without adding custom CSS.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .aligned {
+        display: flex;
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Semantic Level
@@ -169,12 +218,12 @@ Keep document outline and visual size independent by combining `as` and `size`.
   </Preview.Code>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <HeadingClassNameExample />
+  <CustomStylesHeadingExample />
 
   <Preview.Code>
     {`
@@ -195,9 +244,9 @@ Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in
     {`
       .customHeading {
         --heading-color: var(--color-primary);
-        --heading-font-size: var(--text-2xl);
-        --heading-line-height: var(--line-height-text-2xl);
-        --heading-font-weight: var(--weight-bold);
+        --heading-font-size-xl: var(--text-3xl);
+        --heading-line-height-xl: var(--line-height-text-3xl);
+        --heading-font-weight-semibold: var(--weight-bold);
       }
     `}
 

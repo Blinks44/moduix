@@ -7,7 +7,7 @@ type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingAlign = 'left' | 'center' | 'right';
 
-type HeadingProps = React.ComponentProps<'h1'> & {
+type HeadingProps = React.ComponentPropsWithoutRef<HeadingAs> & {
   as?: HeadingAs;
   size?: HeadingSize;
   weight?: HeadingWeight;

@@ -101,3 +101,12 @@ export const Aligned: Story = {
     </div>
   ),
 };
+
+export const CustomStyles: Story = {
+  name: 'Custom Styles',
+  render: () => (
+    <Heading as="h2" className={storyStyles.customHeading}>
+      Customized heading
+    </Heading>
+  ),
+};

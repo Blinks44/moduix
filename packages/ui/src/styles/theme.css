@@ -791,9 +791,25 @@
   --heading-color: initial; /* var(--color-foreground) */
   --heading-font-family: initial; /* var(--font-sans) */
   --heading-font-size: initial; /* size-dependent, var(--text-3xl) for 2xl */
+  --heading-font-size-2xl: initial; /* var(--text-3xl) */
+  --heading-font-size-lg: initial; /* var(--text-xl) */
+  --heading-font-size-md: initial; /* var(--text-lg) */
+  --heading-font-size-sm: initial; /* var(--text-md) */
+  --heading-font-size-xl: initial; /* var(--text-2xl) */
+  --heading-font-size-xs: initial; /* var(--text-sm) */
   --heading-font-weight: initial; /* var(--weight-semibold) */
+  --heading-font-weight-bold: initial; /* var(--weight-bold) */
+  --heading-font-weight-medium: initial; /* var(--weight-medium) */
+  --heading-font-weight-regular: initial; /* var(--weight-regular) */
+  --heading-font-weight-semibold: initial; /* var(--weight-semibold) */
   --heading-letter-spacing: initial; /* 0 */
   --heading-line-height: initial; /* size-dependent, var(--line-height-text-3xl) for 2xl */
+  --heading-line-height-2xl: initial; /* var(--line-height-text-3xl) */
+  --heading-line-height-lg: initial; /* var(--line-height-text-xl) */
+  --heading-line-height-md: initial; /* var(--line-height-text-lg) */
+  --heading-line-height-sm: initial; /* var(--line-height-text-md) */
+  --heading-line-height-xl: initial; /* var(--line-height-text-2xl) */
+  --heading-line-height-xs: initial; /* var(--line-height-text-sm) */
   --heading-text-wrap: initial; /* balance */
 
   /* Input */
