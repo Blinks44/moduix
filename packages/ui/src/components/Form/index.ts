@@ -8,4 +8,5 @@ export type {
   FormSubmitEventReason,
   FormSubmitEventDetails,
   FormValues,
+  FormErrors,
 } from './Form';

@@ -24,6 +24,7 @@ type FormSubmitEventReason = FormPrimitive.SubmitEventReason;
 type FormSubmitEventDetails = FormPrimitive.SubmitEventDetails;
 type FormValues<FormValues extends Record<string, any> = Record<string, any>> =
   FormPrimitive.Values<FormValues>;
+type FormErrors = NonNullable<FormProps['errors']>;
 
 export { Form };
 
@@ -35,4 +36,5 @@ export type {
   FormSubmitEventReason,
   FormSubmitEventDetails,
   FormValues,
+  FormErrors,
 };

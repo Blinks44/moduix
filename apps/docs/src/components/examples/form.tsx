@@ -234,7 +234,7 @@ export function FormActionStateExample() {
   );
 }
 
-export function FormClassNameExample() {
+export function CustomStylesFormExample() {
   return (
     <Form validationMode="onBlur" className={styles.customForm}>
       <Field name="project" className={styles.customField}>

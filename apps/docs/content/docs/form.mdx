@@ -4,11 +4,10 @@ description: A native form element with consolidated error handling across field
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   FormActionStateExample,
   FormActionsRefExample,
-  FormClassNameExample,
+  CustomStylesFormExample,
   FormExample,
   FormOnFormSubmitExample,
   formCssProperties,
@@ -26,6 +25,7 @@ import {
   <Preview.Code>
     {`
       import {
+        type FormErrors,
         Form,
         Field,
         FieldLabel,
@@ -58,12 +58,13 @@ import {
       }
 
       export function FormDemo() {
-        const [errors, setErrors] = useState({});
+        const [errors, setErrors] = useState({} as FormErrors);
         const [submitting, setSubmitting] = useState(false);
 
         return (
           <Form
             errors={errors}
+            className={styles.form}
             onSubmit={async (event) => {
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
@@ -99,7 +100,24 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
+
+## Composition
+
+`Form` renders the native `<form>` and keeps Base UI form behavior available through
+`errors`, `actionsRef`, `onFormSubmit`, `validationMode`, `action`, and native form props.
+Compose fields with `Field`, `FieldLabel`, `Input`, `FieldDescription`, and `FieldError`.
+`Form` does not hide service slots such as `Positioner`, `Backdrop`, or `Viewport`, so
+customization is done directly through `className` on the form and composed child slots.
 
 ## Examples
 
@@ -113,6 +131,7 @@ Use `onFormSubmit` when you want form values as an object instead of reading `Fo
   <Preview.Code>
     {`
       import {
+        type FormErrors,
         Form,
         Field,
         FieldLabel,
@@ -123,17 +142,18 @@ Use `onFormSubmit` when you want form values as an object instead of reading `Fo
       import { useState } from "react";
 
       export function OnFormSubmitDemo() {
-        const [errors, setErrors] = useState({} as FormProps["errors"]);
+        const [errors, setErrors] = useState({} as FormErrors);
         const [submitting, setSubmitting] = useState(false);
 
         return (
           <Form
             errors={errors}
             validationMode="onBlur"
+            className={styles.form}
             onFormSubmit={(values) => {
               setSubmitting(true);
 
-              const nextErrors: FormProps["errors"] = {};
+              const nextErrors = {} as FormErrors;
               const age = Number(values.age);
 
               if (!values.name?.trim()) {
@@ -169,6 +189,15 @@ Use `onFormSubmit` when you want form values as an object instead of reading `Fo
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Actions Ref
@@ -182,7 +211,7 @@ Pass `actionsRef` when another control needs to trigger validation for one field
     {`
       import {
         type FormActions,
-        type FormProps,
+        type FormErrors,
         Form,
         Field,
         FieldLabel,
@@ -192,17 +221,18 @@ Pass `actionsRef` when another control needs to trigger validation for one field
       } from "moduix";
       import { useRef, useState } from "react";
 
-      function ActionsRefForm() {
+      export function ActionsRefForm() {
         const actionsRef = useRef(null as FormActions | null);
-        const [errors, setErrors] = useState({} as FormProps["errors"]);
+        const [errors, setErrors] = useState({} as FormErrors);
 
         return (
           <Form
             actionsRef={actionsRef}
             errors={errors}
             validationMode="onSubmit"
+            className={styles.form}
             onFormSubmit={(values) => {
-              const nextErrors: FormProps["errors"] = {};
+              const nextErrors = {} as FormErrors;
               const email = String(values.email ?? "");
 
               if (!email.trim()) {
@@ -235,6 +265,15 @@ Pass `actionsRef` when another control needs to trigger validation for one field
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Action State
@@ -247,6 +286,7 @@ Use a form `action` with React `useActionState` when server or action results sh
   <Preview.Code>
     {`
       import {
+        type FormErrors,
         Form,
         Field,
         FieldLabel,
@@ -256,7 +296,15 @@ Use a form `action` with React `useActionState` when server or action results sh
       } from "moduix";
       import { useActionState } from "react";
 
-      async function submitUsername(_previousState, formData) {
+      interface ActionState {
+        serverErrors?: FormErrors;
+        message?: string;
+      }
+
+      async function submitUsername(
+        _previousState: ActionState,
+        formData: FormData,
+      ) {
         await new Promise((resolve) => {
           setTimeout(resolve, 500);
         });
@@ -281,13 +329,14 @@ Use a form `action` with React `useActionState` when server or action results sh
 
         return {
           serverErrors: {},
+          message: \`Saved as \${username}.\`,
         };
       }
 
-      function ActionStateForm() {
+      export function ActionStateForm() {
         const [state, formAction, loading] = useActionState(
           submitUsername,
-          {},
+          {} as ActionState,
         );
 
         return (
@@ -295,6 +344,7 @@ Use a form `action` with React `useActionState` when server or action results sh
             action={formAction}
             errors={state.serverErrors}
             validationMode="onBlur"
+            className={styles.form}
           >
             <Field name="username">
               <FieldLabel>Username</FieldLabel>
@@ -304,20 +354,37 @@ Use a form `action` with React `useActionState` when server or action results sh
             <Button type="submit" loading={loading}>
               Submit
             </Button>
+            {state.message ? <p className={styles.helper}>{state.message}</p> : null}
           </Form>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(20rem, 100%);
+      }
+
+      .helper {
+        margin: 0;
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` to the form root and every composed field, input, error, and button slot when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <FormClassNameExample />
+  <CustomStylesFormExample />
 
   <Preview.Code>
     {`
@@ -331,7 +398,7 @@ Pass `className` to the form root and every composed field, input, error, and bu
         Button,
       } from "moduix";
 
-      export function StyledFormDemo() {
+      export function CustomStylesFormDemo() {
         return (
           <Form validationMode="onBlur" className={styles.customForm}>
             <Field name="project" className={styles.customField}>
@@ -399,37 +466,3 @@ Pass `className` to the form root and every composed field, input, error, and bu
 
   </Preview.CSS>
 </Preview>
-
-```css
-.customForm {
-  width: 20rem;
-  max-width: 100%;
-  gap: var(--spacing-3);
-  padding: var(--spacing-4);
-  border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
-  border-radius: var(--radius-lg);
-}
-
-.customField {
-  gap: var(--spacing-2);
-}
-
-.customLabel,
-.customError,
-.customButton {
-  color: var(--color-primary);
-}
-
-.customInput,
-.customButton {
-  border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
-
-.customInput:focus {
-  outline-color: var(--color-primary);
-}
-
-.customDescription {
-  color: var(--color-muted-foreground);
-}
-```
