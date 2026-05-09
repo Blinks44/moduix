@@ -2,6 +2,49 @@ import { List, ListItem, type ListProps } from 'moduix';
 import type { CssPropertyInput } from '../preview';
 import styles from './list.module.css';
 
+const basicItems = [
+  'Use native list semantics.',
+  'Keep spacing and typography on the design system scale.',
+  'Customize markers with CSS variables.',
+];
+
+const orderedItems = [
+  'Install the package.',
+  'Import the library stylesheet.',
+  'Use components in your app.',
+];
+
+const markerlessItems = [
+  'Markerless item',
+  'Another markerless item',
+  'Useful for compact metadata groups',
+];
+
+const customStyleItems = [
+  'Bullet size is independent from text size.',
+  'Bullet color and gap are controlled by CSS variables.',
+  'Text color remains unchanged.',
+];
+
+const sizeItems = [
+  { size: 'xl', label: 'Extra-large list item' },
+  { size: 'md', label: 'Medium list item' },
+  { size: 'xs', label: 'Extra-small list item' },
+] as const;
+
+const gapItems = [
+  { gap: 'xs', items: ['Extra-small gap', 'Second item'] },
+  { gap: 'lg', items: ['Large gap', 'Second item'] },
+] as const;
+
+const toneItems = [
+  { tone: 'default', label: 'Default list tone' },
+  { tone: 'muted', label: 'Muted list tone' },
+  { tone: 'subtle', label: 'Subtle list tone' },
+  { tone: 'primary', label: 'Primary list tone' },
+  { tone: 'destructive', label: 'Destructive list tone' },
+] as const;
+
 export const listCssProperties: CssPropertyInput[] = [
   ['--list-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
   ['--list-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
@@ -24,9 +67,9 @@ export const listCssProperties: CssPropertyInput[] = [
 export function ListExample(props: ListProps) {
   return (
     <List className={styles.list} {...props}>
-      <ListItem>Use native list semantics.</ListItem>
-      <ListItem>Keep spacing and typography on the design system scale.</ListItem>
-      <ListItem>Customize markers with CSS variables.</ListItem>
+      {basicItems.map((item) => (
+        <ListItem key={item}>{item}</ListItem>
+      ))}
     </List>
   );
 }
@@ -34,9 +77,9 @@ export function ListExample(props: ListProps) {
 export function OrderedListExample() {
   return (
     <List as="ol" className={styles.list}>
-      <ListItem>Install the package.</ListItem>
-      <ListItem>Import the library stylesheet.</ListItem>
-      <ListItem>Use components in your app.</ListItem>
+      {orderedItems.map((item) => (
+        <ListItem key={item}>{item}</ListItem>
+      ))}
     </List>
   );
 }
@@ -44,19 +87,19 @@ export function OrderedListExample() {
 export function MarkerlessListExample() {
   return (
     <List marker="none" className={styles.list}>
-      <ListItem>Markerless item</ListItem>
-      <ListItem>Another markerless item</ListItem>
-      <ListItem>Useful for compact metadata groups</ListItem>
+      {markerlessItems.map((item) => (
+        <ListItem key={item}>{item}</ListItem>
+      ))}
     </List>
   );
 }
 
-export function CustomBulletListExample() {
+export function CustomStylesListExample() {
   return (
     <List marker="bullet" className={styles.customBullet}>
-      <ListItem>Bullet size is independent from text size.</ListItem>
-      <ListItem>Bullet color and gap are controlled by CSS variables.</ListItem>
-      <ListItem>Text color remains unchanged.</ListItem>
+      {customStyleItems.map((item) => (
+        <ListItem key={item}>{item}</ListItem>
+      ))}
     </List>
   );
 }
@@ -64,15 +107,11 @@ export function CustomBulletListExample() {
 export function ListSizesExample() {
   return (
     <div className={styles.stack}>
-      <List size="xl">
-        <ListItem>Extra-large list item</ListItem>
-      </List>
-      <List size="md">
-        <ListItem>Medium list item</ListItem>
-      </List>
-      <List size="xs">
-        <ListItem>Extra-small list item</ListItem>
-      </List>
+      {sizeItems.map((item) => (
+        <List key={item.size} size={item.size}>
+          <ListItem>{item.label}</ListItem>
+        </List>
+      ))}
     </div>
   );
 }
@@ -80,14 +119,13 @@ export function ListSizesExample() {
 export function ListGapsExample() {
   return (
     <div className={styles.stack}>
-      <List gap="xs">
-        <ListItem>Extra-small gap</ListItem>
-        <ListItem>Second item</ListItem>
-      </List>
-      <List gap="lg">
-        <ListItem>Large gap</ListItem>
-        <ListItem>Second item</ListItem>
-      </List>
+      {gapItems.map((group) => (
+        <List key={group.gap} gap={group.gap}>
+          {group.items.map((item) => (
+            <ListItem key={item}>{item}</ListItem>
+          ))}
+        </List>
+      ))}
     </div>
   );
 }
@@ -95,30 +133,11 @@ export function ListGapsExample() {
 export function ListTonesExample() {
   return (
     <div className={styles.toneGrid}>
-      <List tone="default">
-        <ListItem>Default list tone</ListItem>
-      </List>
-      <List tone="muted">
-        <ListItem>Muted list tone</ListItem>
-      </List>
-      <List tone="subtle">
-        <ListItem>Subtle list tone</ListItem>
-      </List>
-      <List tone="primary">
-        <ListItem>Primary list tone</ListItem>
-      </List>
-      <List tone="destructive">
-        <ListItem>Destructive list tone</ListItem>
-      </List>
+      {toneItems.map((item) => (
+        <List key={item.tone} tone={item.tone}>
+          <ListItem>{item.label}</ListItem>
+        </List>
+      ))}
     </div>
-  );
-}
-
-export function ListClassNameExample() {
-  return (
-    <List className={styles.customList}>
-      <ListItem>Customized marker and spacing.</ListItem>
-      <ListItem>Local CSS variables keep the component API small.</ListItem>
-    </List>
   );
 }

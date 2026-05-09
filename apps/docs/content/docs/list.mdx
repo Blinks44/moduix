@@ -6,8 +6,7 @@ icon: Component
 
 import 'moduix/style.css';
 import {
-  CustomBulletListExample,
-  ListClassNameExample,
+  CustomStylesListExample,
   ListExample,
   ListGapsExample,
   ListSizesExample,
@@ -19,7 +18,7 @@ import {
 
 ## API Reference
 
-`List` is a moduix typography primitive and does not wrap a Base UI primitive.
+`List` is a native typography primitive. It renders semantic `ul` and `ol` elements directly instead of wrapping a Base UI primitive.
 
 ## Basic
 
@@ -32,16 +31,36 @@ import {
 
       export function ListDemo() {
         return (
-          <List>
-            <ListItem>Use native list semantics.</ListItem>
-            <ListItem>Keep spacing and typography on the design system scale.</ListItem>
-            <ListItem>Customize markers with CSS variables.</ListItem>
+          <List className={styles.list}>
+            {items.map((item) => (
+              <ListItem key={item}>{item}</ListItem>
+            ))}
           </List>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .list {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        "Use native list semantics.",
+        "Keep spacing and typography on the design system scale.",
+        "Customize markers with CSS variables.",
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Examples
@@ -59,16 +78,36 @@ Use `as="ol"` for ordered steps. The marker defaults to decimal for ordered list
 
       export function OrderedListDemo() {
         return (
-          <List as="ol">
-            <ListItem>Install the package.</ListItem>
-            <ListItem>Import the library stylesheet.</ListItem>
-            <ListItem>Use components in your app.</ListItem>
+          <List as="ol" className={styles.list}>
+            {items.map((item) => (
+              <ListItem key={item}>{item}</ListItem>
+            ))}
           </List>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .list {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        "Install the package.",
+        "Import the library stylesheet.",
+        "Use components in your app.",
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Markerless
@@ -84,16 +123,189 @@ Use `marker="none"` when list semantics are useful but visual markers are not.
 
       export function MarkerlessListDemo() {
         return (
-          <List marker="none">
-            <ListItem>Markerless item</ListItem>
-            <ListItem>Another markerless item</ListItem>
-            <ListItem>Useful for compact metadata groups</ListItem>
+          <List marker="none" className={styles.list}>
+            {items.map((item) => (
+              <ListItem key={item}>{item}</ListItem>
+            ))}
           </List>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .list {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        "Markerless item",
+        "Another markerless item",
+        "Useful for compact metadata groups",
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Sizes
+
+Use `size` for visual sizing. Override size-specific CSS variables in your project for responsive typography.
+
+<Preview>
+  <ListSizesExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function ListSizesDemo() {
+        return (
+          <div className={styles.stack}>
+            {items.map((item) => (
+              <List key={item.size} size={item.size}>
+                <ListItem>{item.label}</ListItem>
+              </List>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-6);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        { size: "xl", label: "Extra-large list item" },
+        { size: "md", label: "Medium list item" },
+        { size: "xs", label: "Extra-small list item" },
+      ] as const;
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Gaps
+
+Use `gap` to control vertical spacing between list items.
+
+<Preview>
+  <ListGapsExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function ListGapsDemo() {
+        return (
+          <div className={styles.stack}>
+            {groups.map((group) => (
+              <List key={group.gap} gap={group.gap}>
+                {group.items.map((item) => (
+                  <ListItem key={item}>{item}</ListItem>
+                ))}
+              </List>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-6);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const groups = [
+        { gap: "xs", items: ["Extra-small gap", "Second item"] },
+        { gap: "lg", items: ["Large gap", "Second item"] },
+      ] as const;
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Tones
+
+Use `tone` when the list should inherit a semantic text color from the design system.
+
+<Preview>
+  <ListTonesExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function ListTonesDemo() {
+        return (
+          <div className={styles.toneGrid}>
+            {items.map((item) => (
+              <List key={item.tone} tone={item.tone}>
+                <ListItem>{item.label}</ListItem>
+              </List>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .toneGrid {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-4) var(--spacing-6);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        { tone: "default", label: "Default list tone" },
+        { tone: "muted", label: "Muted list tone" },
+        { tone: "subtle", label: "Subtle list tone" },
+        { tone: "primary", label: "Primary list tone" },
+        { tone: "destructive", label: "Destructive list tone" },
+      ] as const;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styles
@@ -101,18 +313,18 @@ Use `marker="none"` when list semantics are useful but visual markers are not.
 Use `marker="bullet"` when marker size, color, gap, or vertical offset must be controlled independently from the text.
 
 <Preview>
-  <CustomBulletListExample />
+  <CustomStylesListExample />
 
   <Preview.Code>
     {`
       import { List, ListItem } from "moduix";
 
-      export function CustomBulletListDemo() {
+      export function CustomStylesListDemo() {
         return (
           <List marker="bullet" className={styles.customBullet}>
-            <ListItem>Bullet size is independent from text size.</ListItem>
-            <ListItem>Bullet color and gap are controlled by CSS variables.</ListItem>
-            <ListItem>Text color remains unchanged.</ListItem>
+            {items.map((item) => (
+              <ListItem key={item}>{item}</ListItem>
+            ))}
           </List>
         );
       }
@@ -138,137 +350,15 @@ Use `marker="bullet"` when marker size, color, gap, or vertical offset must be c
     `}
 
   </Preview.CSS>
-</Preview>
 
-### Sizes
-
-Use `size` for visual sizing. Override size-specific CSS variables in your project for responsive typography.
-
-<Preview>
-  <ListSizesExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import { List, ListItem } from "moduix";
-
-      export function ListSizesDemo() {
-        return (
-          <div>
-            <List size="xl">
-              <ListItem>Extra-large list item</ListItem>
-            </List>
-            <List size="md">
-              <ListItem>Medium list item</ListItem>
-            </List>
-            <List size="xs">
-              <ListItem>Extra-small list item</ListItem>
-            </List>
-          </div>
-        );
-      }
+      const items = [
+        "Bullet size is independent from text size.",
+        "Bullet color and gap are controlled by CSS variables.",
+        "Text color remains unchanged.",
+      ];
     `}
 
-  </Preview.Code>
-</Preview>
-
-### Gaps
-
-Use `gap` to control vertical spacing between list items.
-
-<Preview>
-  <ListGapsExample />
-
-  <Preview.Code>
-    {`
-      import { List, ListItem } from "moduix";
-
-      export function ListGapsDemo() {
-        return (
-          <div>
-            <List gap="xs">
-              <ListItem>Extra-small gap</ListItem>
-              <ListItem>Second item</ListItem>
-            </List>
-            <List gap="lg">
-              <ListItem>Large gap</ListItem>
-              <ListItem>Second item</ListItem>
-            </List>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Tones
-
-Use `tone` when the list should inherit a semantic text color from the design system.
-
-<Preview>
-  <ListTonesExample />
-
-  <Preview.Code>
-    {`
-      import { List, ListItem } from "moduix";
-
-      export function ListTonesDemo() {
-        return (
-          <div>
-            <List tone="default">
-              <ListItem>Default list tone</ListItem>
-            </List>
-            <List tone="muted">
-              <ListItem>Muted list tone</ListItem>
-            </List>
-            <List tone="subtle">
-              <ListItem>Subtle list tone</ListItem>
-            </List>
-            <List tone="primary">
-              <ListItem>Primary list tone</ListItem>
-            </List>
-            <List tone="destructive">
-              <ListItem>Destructive list tone</ListItem>
-            </List>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Class Names
-
-Pass `className` when styling the root or overriding list variables in local CSS.
-
-<Preview>
-  <ListClassNameExample />
-
-  <Preview.Code>
-    {`
-      import { List, ListItem } from "moduix";
-
-      export function CustomListDemo() {
-        return (
-          <List className={styles.customList}>
-            <ListItem>Customized marker and spacing.</ListItem>
-            <ListItem>Local CSS variables keep the component API small.</ListItem>
-          </List>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customList {
-        --list-marker-color: var(--color-primary);
-        --list-gap-sm: var(--spacing-3);
-        --list-padding-x: var(--spacing-6);
-      }
-    `}
-
-  </Preview.CSS>
+  </Preview.Data>
 </Preview>

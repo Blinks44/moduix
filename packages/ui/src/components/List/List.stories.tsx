@@ -45,8 +45,8 @@ export const Markerless: Story = {
   ),
 };
 
-export const CustomBullet: Story = {
-  name: 'Custom Bullet',
+export const CustomStyles: Story = {
+  name: 'Custom Styles',
   render: () => (
     <List marker="bullet" className={storyStyles.customBullet}>
       <ListItem>Bullet size is independent from text size.</ListItem>

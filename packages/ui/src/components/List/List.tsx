@@ -8,14 +8,13 @@ type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 
-type ListProps = React.ComponentProps<'ul'> &
-  React.ComponentProps<'ol'> & {
-    as?: ListAs;
-    marker?: ListMarker;
-    gap?: ListGap;
-    size?: ListSize;
-    tone?: ListTone;
-  };
+type ListProps = React.ComponentPropsWithoutRef<ListAs> & {
+  as?: ListAs;
+  marker?: ListMarker;
+  gap?: ListGap;
+  size?: ListSize;
+  tone?: ListTone;
+};
 
 type ListItemProps = React.ComponentProps<'li'>;
 
