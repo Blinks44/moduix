@@ -95,8 +95,8 @@ export const Basic: Story = {
   },
 };
 
-export const PopupOptions: Story = {
-  name: 'Popup Options',
+export const CustomStyles: Story = {
+  name: 'Custom Styles',
   render: () => {
     return (
       <NavigationMenu
@@ -104,7 +104,11 @@ export const PopupOptions: Story = {
           sideOffset: 16,
           withBackdrop: true,
           classNames: {
+            portal: styles.portal,
             backdrop: styles.backdrop,
+            positioner: styles.positioner,
+            arrow: styles.arrow,
+            viewport: styles.viewport,
           },
         }}
       >
@@ -168,9 +172,7 @@ export const NestedSubmenu: Story = {
                   >
                     <NavigationMenuList className={styles.nestedList}>
                       <NavigationMenuItem className={styles.nestedItem}>
-                        <NavigationMenuTrigger
-                          className={`${styles.linkCard} ${styles.nestedTrigger}`}
-                        >
+                        <NavigationMenuTrigger className={styles.nestedTrigger}>
                           <span className={styles.contentTitle}>Handbook</span>
                           <span className={styles.contentDescription}>
                             How to use Base UI effectively.

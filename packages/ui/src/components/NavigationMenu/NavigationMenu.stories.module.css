@@ -1,7 +1,7 @@
 .contentList {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--spacing-2);
+  gap: var(--spacing-1);
   width: 100%;
   margin: 0;
   padding: 0;
@@ -10,8 +10,8 @@
 
 .contentTitle {
   margin: 0;
-  font-size: var(--text-md);
-  line-height: var(--line-height-text-md);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
 }
 
 .contentDescription {
@@ -51,12 +51,14 @@
   box-sizing: border-box;
   display: grid;
   gap: var(--spacing-1);
+  min-width: 0;
   width: 100%;
-  padding: 0.625rem 0.75rem;
+  padding: var(--spacing-2) var(--spacing-3);
   border-radius: var(--radius-md);
   background-color: transparent;
   color: inherit;
   text-decoration: none;
+  overflow-wrap: anywhere;
   transition: background-color var(--transition-default);
 }
 
@@ -76,6 +78,22 @@
   backdrop-filter: blur(2px);
 }
 
+.portal {
+  z-index: var(--z-popover);
+}
+
+.positioner {
+  --navigation-menu-positioner-gap: var(--spacing-2);
+}
+
+.arrow {
+  color: var(--color-background);
+}
+
+.viewport {
+  overflow: hidden;
+}
+
 .nestedMenu {
   --navigation-menu-padding: 0;
   --navigation-menu-bg: transparent;
@@ -92,10 +110,28 @@
 
 .nestedTrigger {
   position: relative;
+  display: grid;
+  gap: var(--spacing-1);
   justify-content: flex-start;
   width: 100%;
-  padding-right: 2rem;
+  padding: var(--spacing-2) 2rem var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: inherit;
   text-align: left;
+  overflow-wrap: anywhere;
+  transition: background-color var(--transition-default);
+}
+
+@media (hover: hover) {
+  .nestedTrigger:hover {
+    background-color: var(--color-muted);
+  }
+}
+
+.nestedTrigger:focus-visible {
+  outline: var(--border-width-sm) solid var(--color-ring);
+  outline-offset: calc(var(--border-width-sm) * -1);
 }
 
 .nestedTriggerIcon {

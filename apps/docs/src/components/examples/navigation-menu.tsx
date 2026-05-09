@@ -21,8 +21,8 @@ export const navigationMenuCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-padding', 'var(--spacing-1)', 'Controls root padding.'],
   ['--navigation-menu-radius', 'var(--radius-lg)', 'Controls root border radius.'],
   ['--navigation-menu-list-gap', '0', 'Controls spacing between top-level items.'],
-  ['--navigation-menu-trigger-height', 'var(--size-lg)', 'Controls trigger minimum height.'],
-  ['--navigation-menu-trigger-padding-x', '0.875rem', 'Controls trigger horizontal padding.'],
+  ['--navigation-menu-trigger-height', 'var(--size-md)', 'Controls trigger minimum height.'],
+  ['--navigation-menu-trigger-padding-x', '0.75rem', 'Controls trigger horizontal padding.'],
   ['--navigation-menu-trigger-radius', 'var(--radius-md)', 'Controls trigger border radius.'],
   ['--navigation-menu-trigger-gap', '0.375rem', 'Controls trigger content gap.'],
   ['--navigation-menu-trigger-bg', 'transparent', 'Controls trigger background.'],
@@ -51,8 +51,8 @@ export const navigationMenuCssProperties: CssPropertyInput[] = [
   ],
   ['--navigation-menu-popup-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
   ['--navigation-menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--navigation-menu-content-padding', 'var(--spacing-6)', 'Controls content padding.'],
-  ['--navigation-menu-content-min-width', '25rem', 'Controls desktop content minimum width.'],
+  ['--navigation-menu-content-padding', 'var(--spacing-4)', 'Controls content padding.'],
+  ['--navigation-menu-content-min-width', '20rem', 'Controls desktop content minimum width.'],
   ['--navigation-menu-content-slide-distance', '50%', 'Controls content slide animation distance.'],
   ['--navigation-menu-arrow-width', '1.25rem', 'Controls popup arrow width.'],
   ['--navigation-menu-arrow-height', '0.625rem', 'Controls popup arrow height.'],
@@ -70,7 +70,7 @@ export function NavigationMenuExample() {
             <NavigationMenuIcon />
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className={styles.contentList}>
+            <ul className={styles.contentGrid}>
               {productLinks.map((link) => (
                 <li key={link.title}>
                   <a href={link.href} className={styles.linkCard}>
@@ -143,9 +143,7 @@ export function NestedNavigationMenuExample() {
                 >
                   <NavigationMenuList className={styles.fullWidth}>
                     <NavigationMenuItem className={styles.fullWidth}>
-                      <NavigationMenuTrigger
-                        className={`${styles.linkCard} ${styles.nestedTrigger}`}
-                      >
+                      <NavigationMenuTrigger className={styles.nestedTrigger}>
                         <span className={styles.title}>Handbook</span>
                         <span className={styles.description}>Styling and composition guides.</span>
                         <NavigationMenuIcon className={styles.nestedIcon}>
@@ -180,14 +178,18 @@ export function NestedNavigationMenuExample() {
   );
 }
 
-export function PopupOptionsNavigationMenuExample() {
+export function CustomStylesNavigationMenuExample() {
   return (
     <NavigationMenu
       popupContent={{
         sideOffset: 16,
         withBackdrop: true,
         classNames: {
+          portal: styles.portal,
           backdrop: styles.backdrop,
+          positioner: styles.positioner,
+          arrow: styles.arrow,
+          viewport: styles.viewport,
         },
       }}
     >
@@ -226,11 +228,9 @@ export function NestedInlineNavigationMenuExample() {
             Product
             <NavigationMenuIcon />
           </NavigationMenuTrigger>
-          <NavigationMenuContent
-            className={`${styles.inlineSharedContent} ${styles.inlineProductContent}`}
-          >
+          <NavigationMenuContent className={styles.inlineProductContent}>
             <NavigationMenu
-              className={`${styles.inlineNestedRoot} ${styles.inlineLayout}`}
+              className={styles.inlineNestedRoot}
               orientation={isDesktop ? 'vertical' : 'horizontal'}
               defaultValue="developers"
               popupContent={false}
@@ -275,9 +275,7 @@ export function NestedInlineNavigationMenuExample() {
             Learn
             <NavigationMenuIcon />
           </NavigationMenuTrigger>
-          <NavigationMenuContent
-            className={`${styles.inlineSharedContent} ${styles.inlineGuidesContent}`}
-          >
+          <NavigationMenuContent className={styles.inlineGuidesContent}>
             <div className={styles.panel}>
               <PanelContent
                 title="Where teams usually start"

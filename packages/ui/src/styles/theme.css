@@ -1081,17 +1081,17 @@
   --navigation-menu-trigger-bg-hover: initial; /* var(--color-accent) */
   --navigation-menu-trigger-bg-active: initial; /* var(--color-muted) */
   --navigation-menu-trigger-color: initial; /* var(--color-foreground) */
-  --navigation-menu-trigger-font-size: initial; /* var(--text-md) */
-  --navigation-menu-trigger-line-height: initial; /* var(--line-height-text-md) */
-  --navigation-menu-trigger-height: initial; /* var(--size-lg) */
-  --navigation-menu-trigger-padding-x: initial; /* 0.875rem */
+  --navigation-menu-trigger-font-size: initial; /* var(--text-sm) */
+  --navigation-menu-trigger-line-height: initial; /* var(--line-height-text-sm) */
+  --navigation-menu-trigger-height: initial; /* var(--size-md) */
+  --navigation-menu-trigger-padding-x: initial; /* 0.75rem */
   --navigation-menu-trigger-radius: initial; /* var(--radius-md) */
   --navigation-menu-trigger-gap: initial; /* 0.375rem */
   --navigation-menu-submenu-trigger-bg: initial; /* transparent */
   --navigation-menu-submenu-trigger-bg-active: initial; /* var(--navigation-menu-popup-bg, var(--color-background)) */
-  --navigation-menu-submenu-trigger-min-width: initial; /* 10rem */
+  --navigation-menu-submenu-trigger-min-width: initial; /* 9rem */
   --navigation-menu-submenu-trigger-padding-x: initial; /* 0.75rem */
-  --navigation-menu-submenu-trigger-padding-y: initial; /* 0.625rem */
+  --navigation-menu-submenu-trigger-padding-y: initial; /* 0.5rem */
   --navigation-menu-submenu-trigger-radius: initial; /* var(--radius-lg) */
   --navigation-menu-submenu-trigger-shadow-active: initial; /* 0 1px 2px rgb(0 0 0 / 0.08), 0 1px 1px rgb(0 0 0 / 0.04) */
   --navigation-menu-icon-size: initial; /* 0.875rem */
@@ -1109,8 +1109,8 @@
   --navigation-menu-popup-transition-easing: initial; /* cubic-bezier(0.22, 1, 0.36, 1) */
   --navigation-menu-popup-leave-duration: initial; /* 150ms */
   --navigation-menu-content-width-mobile: initial; /* calc(100vw - var(--spacing-8)) */
-  --navigation-menu-content-min-width: initial; /* 25rem */
-  --navigation-menu-content-padding: initial; /* var(--spacing-6) */
+  --navigation-menu-content-min-width: initial; /* 20rem */
+  --navigation-menu-content-padding: initial; /* var(--spacing-4) */
   --navigation-menu-content-slide-distance: initial; /* 50% */
   --navigation-menu-content-opacity-duration: initial; /* calc(var(--duration-slow) * 0.7) */
   --navigation-menu-arrow-offset: initial; /* 0.5rem */
