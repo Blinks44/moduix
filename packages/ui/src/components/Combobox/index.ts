@@ -38,6 +38,7 @@ export {
 export type {
   ComboboxProps,
   ComboboxValueType,
+  ComboboxContentClassNames,
   ComboboxContentProps,
   ComboboxFieldLabelProps,
 } from './Combobox';

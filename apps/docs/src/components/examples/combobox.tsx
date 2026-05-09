@@ -516,7 +516,7 @@ export function AsyncSearchComboboxExample() {
   );
 }
 
-export function PopupOptionsComboboxExample() {
+export function CustomStylesComboboxExample() {
   const id = React.useId();
 
   return (
@@ -533,11 +533,14 @@ export function PopupOptionsComboboxExample() {
       </ComboboxField>
 
       <ComboboxContent
+        className={styles.customPopup}
         sideOffset={8}
         showArrow
         withBackdrop
         classNames={{
+          portal: styles.portal,
           backdrop: styles.backdrop,
+          positioner: styles.positioner,
           arrow: styles.arrow,
         }}
       >

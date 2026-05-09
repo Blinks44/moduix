@@ -102,6 +102,20 @@
   animation: spin var(--duration-slow) linear infinite;
 }
 
+.customPopup {
+  --combobox-popup-bg: var(--color-background);
+  --combobox-popup-border-color: var(--color-ring);
+  --combobox-shadow: var(--shadow-xl);
+}
+
+.portal {
+  isolation: isolate;
+}
+
+.positioner {
+  z-index: var(--z-popover);
+}
+
 .backdrop {
   --combobox-backdrop-bg: var(--color-overlay);
   --combobox-backdrop-blur: 2px;

@@ -515,4 +515,10 @@ export {
   useComboboxFilteredItems,
 };
 
-export type { ComboboxProps, ComboboxValueType, ComboboxContentProps, ComboboxFieldLabelProps };
+export type {
+  ComboboxProps,
+  ComboboxValueType,
+  ComboboxContentClassNames,
+  ComboboxContentProps,
+  ComboboxFieldLabelProps,
+};

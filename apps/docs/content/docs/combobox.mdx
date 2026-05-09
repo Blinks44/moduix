@@ -4,15 +4,14 @@ description: An input combined with a filterable list of predefined values.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   AsyncSearchComboboxExample,
   ComboboxExample,
+  CustomStylesComboboxExample,
   GroupedComboboxExample,
   IndicatorRightComboboxExample,
   InputInsidePopupComboboxExample,
   MultipleComboboxExample,
-  PopupOptionsComboboxExample,
   comboboxCssProperties,
 } from '@/components/examples/combobox';
 
@@ -44,12 +43,6 @@ import {
         ComboboxItemText,
       } from "moduix";
       import { useId } from "react";
-
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
-      ];
 
       export function ComboboxDemo() {
         const id = useId();
@@ -84,7 +77,43 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const fruits = [
+        { id: "apple", label: "Apple", value: "apple" },
+        { id: "banana", label: "Banana", value: "banana" },
+        { id: "mango", label: "Mango", value: "mango" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
+
+## Composition
+
+Use `Combobox` for root state and behavior props such as `value`, `defaultValue`,
+`onValueChange`, `open`, `onOpenChange`, `multiple`, and `filter`. `ComboboxContent`
+renders the portal, positioner, optional backdrop, popup, and optional arrow automatically.
+
+`className` styles the visible popup. `classNames` styles the internal service slots that are
+hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
+`positionerProps`, `arrowProps`, `withBackdrop`, and `showArrow` when you need the matching
+Base UI escape hatches:
+
+```tsx
+<ComboboxContent
+  className={styles.popup}
+  showArrow
+  withBackdrop
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    positioner: styles.positioner,
+    arrow: styles.arrow,
+  }}
+/>
+```
 
 ## Examples
 
@@ -117,12 +146,6 @@ Use `indicator="end"` when the selected indicator should be aligned to the end. 
         ComboboxItemIndicator,
       } from "moduix";
       import { useId } from "react";
-
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
-      ];
 
       export function IndicatorRightComboboxDemo() {
         const id = useId();
@@ -163,6 +186,17 @@ Use `indicator="end"` when the selected indicator should be aligned to the end. 
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const fruits = [
+        { id: "apple", label: "Apple", value: "apple" },
+        { id: "banana", label: "Banana", value: "banana" },
+        { id: "mango", label: "Mango", value: "mango" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Input Inside Popup
@@ -190,12 +224,6 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
         ComboboxItemIndicator,
         ComboboxItemText,
       } from "moduix";
-
-      const countries = [
-        { id: "de", label: "Germany", value: "germany" },
-        { id: "es", label: "Spain", value: "spain" },
-        { id: "fr", label: "France", value: "france" },
-      ];
 
       export function InputInsidePopupComboboxDemo() {
         return (
@@ -243,17 +271,43 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
         border-radius: var(--combobox-radius, var(--radius-md));
         background-color: var(--combobox-bg, var(--color-background));
         color: var(--combobox-color, var(--color-foreground));
+        transition:
+          background-color var(--transition-default),
+          border-color var(--transition-default),
+          outline-color var(--transition-default);
+
+        &[data-popup-open] {
+          background-color: var(--color-muted);
+        }
+
+        &:focus-visible {
+          border-color: var(--combobox-focus-ring-color, var(--color-ring));
+          outline: var(--border-width-sm) solid var(--combobox-focus-ring-color, var(--color-ring));
+          outline-offset: calc(var(--border-width-sm) * -1);
+        }
       }
 
       .popupWithInlineInput {
-        --combobox-inline-input-height: calc(var(--combobox-control-height, var(--size-lg)) + 1rem);
+        --combobox-inline-input-container-height: calc(
+          var(--combobox-control-height, var(--size-lg)) +
+            var(--combobox-inline-input-container-padding-top, var(--spacing-2)) +
+            var(--combobox-inline-input-container-padding-bottom, var(--spacing-2)) +
+            var(--combobox-inline-input-divider-width, var(--border-width-sm))
+        );
       }
 
       .listWithInlineInput {
         max-height: min(
-          calc(var(--combobox-popup-max-height, 24rem) - var(--combobox-inline-input-height)),
-          calc(var(--available-height) - var(--combobox-inline-input-height))
+          calc(
+            var(--combobox-list-max-height, var(--combobox-popup-max-height, 24rem)) -
+              var(--combobox-inline-input-container-height, 0px)
+          ),
+          calc(var(--available-height) - var(--combobox-inline-input-container-height, 0px))
         );
+        padding-top: 0.375rem;
+        padding-bottom: 0.5rem;
+        scroll-padding-top: 0.375rem;
+        scroll-padding-bottom: 0.5rem;
       }
 
       .inlineInput {
@@ -264,6 +318,17 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const countries = [
+        { id: "de", label: "Germany", value: "germany" },
+        { id: "es", label: "Spain", value: "spain" },
+        { id: "fr", label: "France", value: "france" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Grouped
@@ -295,23 +360,6 @@ Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `Com
         ComboboxItemText,
       } from "moduix";
       import { useId } from "react";
-
-      const groupedProduce = [
-        {
-          value: "Fruits",
-          items: [
-            { id: "fruit-apple", label: "Apple", value: "apple" },
-            { id: "fruit-mango", label: "Mango", value: "mango" },
-          ],
-        },
-        {
-          value: "Vegetables",
-          items: [
-            { id: "veg-carrot", label: "Carrot", value: "carrot" },
-            { id: "veg-spinach", label: "Spinach", value: "spinach" },
-          ],
-        },
-      ];
 
       export function GroupedComboboxDemo() {
         const id = useId();
@@ -353,6 +401,28 @@ Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `Com
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const groupedProduce = [
+        {
+          value: "Fruits",
+          items: [
+            { id: "fruit-apple", label: "Apple", value: "apple" },
+            { id: "fruit-mango", label: "Mango", value: "mango" },
+          ],
+        },
+        {
+          value: "Vegetables",
+          items: [
+            { id: "veg-carrot", label: "Carrot", value: "carrot" },
+            { id: "veg-spinach", label: "Spinach", value: "spinach" },
+          ],
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Multiple
@@ -383,12 +453,6 @@ Use the `multiple` prop and render chips inside `ComboboxValue`. The input remai
         ComboboxItemText,
       } from "moduix";
       import { useId } from "react";
-
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
-      ];
 
       export function MultipleComboboxDemo() {
         const id = useId();
@@ -436,6 +500,17 @@ Use the `multiple` prop and render chips inside `ComboboxValue`. The input remai
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const fruits = [
+        { id: "apple", label: "Apple", value: "apple" },
+        { id: "banana", label: "Banana", value: "banana" },
+        { id: "mango", label: "Mango", value: "mango" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Async Search
@@ -466,23 +541,6 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
         useComboboxFilter,
       } from "moduix";
       import { useId, useMemo, useRef, useState, useTransition } from "react";
-
-      const directoryUsers = [
-        {
-          id: "leslie-alexander",
-          name: "Leslie Alexander",
-          username: "leslie",
-          email: "leslie.alexander@example.com",
-          title: "Product Manager",
-        },
-        {
-          id: "michael-foster",
-          name: "Michael Foster",
-          username: "michael",
-          email: "michael.foster@example.com",
-          title: "Frontend Engineer",
-        },
-      ];
 
       export function AsyncSearchComboboxDemo() {
         const id = useId();
@@ -588,14 +646,36 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const directoryUsers = [
+        {
+          id: "leslie-alexander",
+          name: "Leslie Alexander",
+          username: "leslie",
+          email: "leslie.alexander@example.com",
+          title: "Product Manager",
+        },
+        {
+          id: "michael-foster",
+          name: "Michael Foster",
+          username: "michael",
+          email: "michael.foster@example.com",
+          title: "Frontend Engineer",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
-### Popup Options
+### Custom Styles
 
 Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `Backdrop`, and `Arrow` are rendered internally, so application code only configures behavior and service-slot classes.
 
 <Preview>
-  <PopupOptionsComboboxExample />
+  <CustomStylesComboboxExample />
 
   <Preview.Code>
     {`
@@ -617,13 +697,7 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
       } from "moduix";
       import { useId } from "react";
 
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
-      ];
-
-      export function PopupOptionsComboboxDemo() {
+      export function CustomStylesComboboxDemo() {
         const id = useId();
 
         return (
@@ -640,11 +714,14 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
             </ComboboxField>
 
             <ComboboxContent
+              className={styles.customPopup}
               sideOffset={8}
               showArrow
               withBackdrop
               classNames={{
+                portal: styles.portal,
                 backdrop: styles.backdrop,
+                positioner: styles.positioner,
                 arrow: styles.arrow,
               }}
             >
@@ -667,6 +744,20 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
 
   <Preview.CSS>
     {`
+      .customPopup {
+        --combobox-popup-bg: var(--color-background);
+        --combobox-popup-border-color: var(--color-ring);
+        --combobox-shadow: var(--shadow-xl);
+      }
+
+      .portal {
+        isolation: isolate;
+      }
+
+      .positioner {
+        z-index: var(--z-popover);
+      }
+
       .backdrop {
         --combobox-backdrop-bg: var(--color-overlay);
         --combobox-backdrop-blur: 2px;
@@ -678,4 +769,15 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const fruits = [
+        { id: "apple", label: "Apple", value: "apple" },
+        { id: "banana", label: "Banana", value: "banana" },
+        { id: "mango", label: "Mango", value: "mango" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>

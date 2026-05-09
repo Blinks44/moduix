@@ -516,7 +516,7 @@ export const AsyncSearchSingle: Story = {
   },
 };
 
-export const PopupOptions: Story = {
+export const CustomStyles: Story = {
   render: () => {
     const id = React.useId();
 
@@ -534,11 +534,14 @@ export const PopupOptions: Story = {
         </ComboboxField>
 
         <ComboboxContent
+          className={styles.customPopup}
           sideOffset={8}
           showArrow
           withBackdrop
           classNames={{
+            portal: styles.portal,
             backdrop: styles.backdrop,
+            positioner: styles.positioner,
             arrow: styles.arrow,
           }}
         >
