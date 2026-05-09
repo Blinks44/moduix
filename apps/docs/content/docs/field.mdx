@@ -7,8 +7,8 @@ icon: Component
 import 'moduix/style.css';
 import {
   FieldCheckboxExample,
-  FieldClassNameExample,
   FieldCustomValidationExample,
+  FieldCustomStylesExample,
   FieldDisabledExample,
   FieldExample,
   FieldInputExample,
@@ -88,7 +88,7 @@ Use `validate` for rules that are not covered by native input validity.
             <FieldError match="customError" />
             <FieldValidity>
               {(state) => (
-                <p>
+                <p className={styles.helper}>
                   {state.validity.valid ? "Looks good." : "Waiting for valid value."}
                 </p>
               )}
@@ -99,6 +99,18 @@ Use `validate` for rules that are not covered by native input validity.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .helper {
+        margin: 0;
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Disabled
@@ -328,12 +340,12 @@ Pair `Field` with compound controls by linking the label with the control id.
   </Preview.Code>
 </Preview>
 
-### Class Names
+### Custom Styles
 
-Pass `className` to the root, label, control, description, and error slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to every visible slot when styling the field with CSS Modules.
 
 <Preview>
-  <FieldClassNameExample />
+  <FieldCustomStylesExample />
 
   <Preview.Code>
     {`
@@ -345,19 +357,19 @@ Pass `className` to the root, label, control, description, and error slots when 
         FieldLabel,
       } from "moduix";
 
-      export function ClassNameFieldDemo() {
+      export function CustomStylesFieldDemo() {
         return (
-          <Field validationMode="onBlur" className="max-w-80 gap-2">
-            <FieldLabel className="text-fd-primary">Project key</FieldLabel>
+          <Field validationMode="onBlur" className={styles.customField}>
+            <FieldLabel className={styles.customLabel}>Project key</FieldLabel>
             <FieldControl
               required
               placeholder="MAPS"
-              className="border-fd-primary/40 focus:outline-fd-primary"
+              className={styles.customControl}
             />
-            <FieldDescription className="text-fd-muted-foreground">
+            <FieldDescription className={styles.customDescription}>
               Use three to five uppercase letters.
             </FieldDescription>
-            <FieldError className="text-fd-primary" match="valueMissing">
+            <FieldError className={styles.customError} match="valueMissing">
               Please enter a project key.
             </FieldError>
           </Field>
@@ -366,4 +378,32 @@ Pass `className` to the root, label, control, description, and error slots when 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customField {
+        width: min(22rem, 100%);
+        max-width: 20rem;
+        gap: var(--spacing-2);
+      }
+
+      .customLabel,
+      .customError {
+        color: var(--color-primary);
+      }
+
+      .customControl {
+        border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+      }
+
+      .customControl:focus {
+        outline-color: var(--color-primary);
+      }
+
+      .customDescription {
+        color: var(--color-muted-foreground);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

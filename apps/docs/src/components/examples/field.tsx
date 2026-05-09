@@ -218,7 +218,7 @@ export function FieldNumberFieldExample() {
   );
 }
 
-export function FieldClassNameExample() {
+export function FieldCustomStylesExample() {
   return (
     <Field validationMode="onBlur" className={styles.customField}>
       <FieldLabel className={styles.customLabel}>Project key</FieldLabel>
