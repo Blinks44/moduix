@@ -400,7 +400,7 @@ export function ObjectValuesSelectExample() {
   );
 }
 
-export function PopupOptionsSelectExample() {
+export function CustomStylesSelectExample() {
   return (
     <Select items={fruits}>
       <SelectField>
@@ -416,9 +416,12 @@ export function PopupOptionsSelectExample() {
         sideOffset={8}
         showArrow
         withBackdrop
+        className={styles.customPopup}
         classNames={{
-          backdrop: styles.backdrop,
-          arrow: styles.arrow,
+          portal: styles.customPortal,
+          backdrop: styles.customBackdrop,
+          positioner: styles.customPositioner,
+          arrow: styles.customArrow,
         }}
       >
         <SelectList>

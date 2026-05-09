@@ -34,11 +34,25 @@
   line-height: var(--line-height-text-xs);
 }
 
-.backdrop {
-  --select-backdrop-bg: var(--color-overlay);
-  --select-backdrop-blur: 2px;
+.customPortal {
+  pointer-events: auto;
 }
 
-.arrow {
+.customBackdrop {
+  --select-backdrop-bg: rgb(15 23 42 / 0.48);
+  --select-backdrop-blur: 3px;
+}
+
+.customPositioner {
+  filter: drop-shadow(var(--shadow-md));
+}
+
+.customArrow {
   --select-arrow-stroke-color: var(--color-border);
+}
+
+.customPopup {
+  --select-radius: var(--radius-lg);
+  --select-popup-bg: var(--color-background);
+  --select-shadow: var(--shadow-xl);
 }

@@ -13,7 +13,7 @@ import {
   IndicatorRightSelectExample,
   MultipleSelectExample,
   ObjectValuesSelectExample,
-  PopupOptionsSelectExample,
+  CustomStylesSelectExample,
   SelectExample,
   selectCssProperties,
 } from '@/components/examples/select';
@@ -45,19 +45,6 @@ import {
         SelectScrollDownArrow,
       } from "moduix";
 
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Blueberry", value: "blueberry" },
-        { label: "Grape", value: "grape" },
-        { label: "Kiwi", value: "kiwi" },
-        { label: "Mango", value: "mango" },
-        { label: "Orange", value: "orange" },
-        { label: "Pineapple", value: "pineapple" },
-        { label: "Strawberry", value: "strawberry" },
-        { label: "Watermelon", value: "watermelon" },
-      ];
-
       export function SelectDemo() {
         return (
           <Select items={fruits}>
@@ -87,7 +74,51 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Blueberry", value: "blueberry" },
+        { label: "Grape", value: "grape" },
+        { label: "Kiwi", value: "kiwi" },
+        { label: "Mango", value: "mango" },
+        { label: "Orange", value: "orange" },
+        { label: "Pineapple", value: "pineapple" },
+        { label: "Strawberry", value: "strawberry" },
+        { label: "Watermelon", value: "watermelon" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
+
+## Composition
+
+Use `Select` for root state and behavior props such as `value`, `defaultValue`, `multiple`,
+`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`. `SelectContent` renders
+the portal, positioner, optional backdrop, popup, and optional arrow automatically.
+
+`className` styles the visible popup. `classNames` styles the internal service slots that are
+hidden from the default composition. Use positioning props such as `alignItemWithTrigger`, `side`,
+`sideOffset`, `align`, and `collisionPadding` directly on `SelectContent`; use `container`,
+`portalProps`, `backdropProps`, `positionerProps`, and `arrowProps` when you need the matching
+Base UI escape hatches:
+
+```tsx
+<SelectContent
+  className={styles.popup}
+  showArrow
+  withBackdrop
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    positioner: styles.positioner,
+    arrow: styles.arrow,
+  }}
+/>
+```
 
 ## Examples
 
@@ -118,12 +149,6 @@ Use `indicator="end"` to place the selected indicator after the item text. Pass 
         SelectItemTextLabel,
         SelectItemIndicator,
       } from "moduix";
-
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-      ];
 
       export function IndicatorRightSelectDemo() {
         return (
@@ -174,6 +199,17 @@ Use `indicator="end"` to place the selected indicator after the item text. Pass 
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Grouped
@@ -201,27 +237,6 @@ Use `SelectGroup` and `SelectGroupLabel` to organize related items inside the po
         SelectItemIndicator,
         SelectItemText,
       } from "moduix";
-
-      const groupedOptions = [
-        {
-          label: "Fruits",
-          items: [
-            { label: "Apple", value: "apple" },
-            { label: "Mango", value: "mango" },
-          ],
-        },
-        {
-          label: "Vegetables",
-          items: [
-            { label: "Carrot", value: "carrot" },
-            { label: "Spinach", value: "spinach" },
-          ],
-        },
-      ];
-
-      const groupedLabelByValue = Object.fromEntries(
-        groupedOptions.flatMap((group) => group.items.map((item) => [item.value, item.label])),
-      );
 
       export function GroupedSelectDemo() {
         return (
@@ -260,6 +275,32 @@ Use `SelectGroup` and `SelectGroupLabel` to organize related items inside the po
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const groupedOptions = [
+        {
+          label: "Fruits",
+          items: [
+            { label: "Apple", value: "apple" },
+            { label: "Mango", value: "mango" },
+          ],
+        },
+        {
+          label: "Vegetables",
+          items: [
+            { label: "Carrot", value: "carrot" },
+            { label: "Spinach", value: "spinach" },
+          ],
+        },
+      ];
+
+      const groupedLabelByValue = Object.fromEntries(
+        groupedOptions.flatMap((group) => group.items.map((item) => [item.value, item.label])),
+      );
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Animated
@@ -284,12 +325,6 @@ Pass `animation="scale"` to `SelectContent` when the popup should animate in the
         SelectItemIndicator,
         SelectItemText,
       } from "moduix";
-
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-      ];
 
       export function AnimatedSelectDemo() {
         return (
@@ -328,6 +363,17 @@ Pass `animation="scale"` to `SelectContent` when the popup should animate in the
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Multiple
@@ -352,15 +398,6 @@ Use the `multiple` prop when a field can contain several selected values. Render
         SelectItemIndicator,
         SelectItemText,
       } from "moduix";
-
-      const languages = {
-        javascript: "JavaScript",
-        python: "Python",
-        rust: "Rust",
-        typescript: "TypeScript",
-      };
-
-      const languageValues = Object.keys(languages);
 
       function renderMultipleValue(value) {
         if (value.length === 0) {
@@ -400,14 +437,28 @@ Use the `multiple` prop when a field can contain several selected values. Render
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const languages = {
+        javascript: "JavaScript",
+        python: "Python",
+        rust: "Rust",
+        typescript: "TypeScript",
+      };
+
+      const languageValues = Object.keys(languages);
+    `}
+
+  </Preview.Data>
 </Preview>
 
-### Popup Options
+### Custom Styles
 
 Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Backdrop`, and `Arrow` are rendered internally, so application code only configures behavior and service-slot classes.
 
 <Preview>
-  <PopupOptionsSelectExample />
+  <CustomStylesSelectExample />
 
   <Preview.Code>
     {`
@@ -425,13 +476,7 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
         SelectItemText,
       } from "moduix";
 
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-      ];
-
-      export function PopupOptionsSelectDemo() {
+      export function CustomStylesSelectDemo() {
         return (
           <Select items={fruits}>
             <SelectField>
@@ -447,9 +492,12 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
               sideOffset={8}
               showArrow
               withBackdrop
+              className={styles.customPopup}
               classNames={{
-                backdrop: styles.backdrop,
-                arrow: styles.arrow,
+                portal: styles.customPortal,
+                backdrop: styles.customBackdrop,
+                positioner: styles.customPositioner,
+                arrow: styles.customArrow,
               }}
             >
               <SelectList>
@@ -470,17 +518,42 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
 
   <Preview.CSS>
     {`
-      .backdrop {
-        --select-backdrop-bg: var(--color-overlay);
-        --select-backdrop-blur: 2px;
+      .customPortal {
+        pointer-events: auto;
       }
 
-      .arrow {
+      .customBackdrop {
+        --select-backdrop-bg: rgb(15 23 42 / 0.48);
+        --select-backdrop-blur: 3px;
+      }
+
+      .customPositioner {
+        filter: drop-shadow(var(--shadow-md));
+      }
+
+      .customArrow {
         --select-arrow-stroke-color: var(--color-border);
+      }
+
+      .customPopup {
+        --select-radius: var(--radius-lg);
+        --select-popup-bg: var(--color-background);
+        --select-shadow: var(--shadow-xl);
       }
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -506,12 +579,6 @@ Control `value` from React state when the selected option needs to coordinate wi
         SelectItemText,
       } from "moduix";
       import { useState } from "react";
-
-      const themeOptions = [
-        { label: "System", value: "system" },
-        { label: "Light", value: "light" },
-        { label: "Dark", value: "dark" },
-      ];
 
       export function ControlledSelectDemo() {
         const [value, setValue] = useState("light");
@@ -542,6 +609,17 @@ Control `value` from React state when the selected option needs to coordinate wi
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const themeOptions = [
+        { label: "System", value: "system" },
+        { label: "Light", value: "light" },
+        { label: "Dark", value: "dark" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Clearable With Null Item
@@ -566,13 +644,6 @@ Include an item with `value={null}` when users should be able to clear the field
         SelectItemIndicator,
         SelectItemText,
       } from "moduix";
-
-      const clearableThemeOptions = [
-        { label: "Select theme", value: null },
-        { label: "System", value: "system" },
-        { label: "Light", value: "light" },
-        { label: "Dark", value: "dark" },
-      ];
 
       export function ClearableSelectDemo() {
         return (
@@ -601,6 +672,18 @@ Include an item with `value={null}` when users should be able to clear the field
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const clearableThemeOptions = [
+        { label: "Select theme", value: null },
+        { label: "System", value: "system" },
+        { label: "Light", value: "light" },
+        { label: "Dark", value: "dark" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Object Values
@@ -626,11 +709,6 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
         SelectItemText,
       } from "moduix";
 
-      const assignees = [
-        { id: "u-1", name: "Leslie Alexander", role: "Product Manager" },
-        { id: "u-2", name: "Michael Foster", role: "Frontend Engineer" },
-      ];
-
       export function ObjectValuesSelectDemo() {
         return (
           <Select
@@ -655,7 +733,10 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
                   <SelectItem key={assignee.id} value={assignee}>
                     <SelectItemIndicator />
                     <SelectItemText>
-                      {assignee.name} ({assignee.role})
+                      <span className={styles.assigneeItemText}>
+                        <span className={styles.assigneeName}>{assignee.name}</span>
+                        <span className={styles.assigneeRole}>{assignee.role}</span>
+                      </span>
                     </SelectItemText>
                   </SelectItem>
                 ))}
@@ -667,4 +748,44 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .assigneeItemText {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: var(--spacing-1);
+      }
+
+      .assigneeName {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: var(--weight-semibold);
+      }
+
+      .assigneeRole {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const assignees = [
+        { id: "u-1", name: "Leslie Alexander", role: "Product Manager" },
+        { id: "u-2", name: "Kathryn Murphy", role: "Marketing Lead" },
+        { id: "u-3", name: "Courtney Henry", role: "Design Systems" },
+        { id: "u-4", name: "Michael Foster", role: "Frontend Engineer" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
