@@ -1,4 +1,4 @@
-import { Meter, MeterLabel, MeterValue, type MeterProps } from 'moduix';
+import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue, type MeterProps } from 'moduix';
 import * as React from 'react';
 import type { CssPropertyInput } from '../preview';
 import styles from './meter.module.css';
@@ -77,7 +77,7 @@ export function PercentFormatMeterExample() {
   );
 }
 
-export function CustomStylingMeterExample() {
+export function CustomStylesMeterExample() {
   return (
     <Meter
       value={72}
@@ -86,6 +86,18 @@ export function CustomStylingMeterExample() {
     >
       <MeterLabel>Monthly quota</MeterLabel>
       <MeterValue />
+    </Meter>
+  );
+}
+
+export function CompositionMeterExample() {
+  return (
+    <Meter value={58} withTrack={false} className={styles.composedMeter}>
+      <MeterLabel>Team capacity</MeterLabel>
+      <MeterValue>{(formattedValue) => `${formattedValue} available`}</MeterValue>
+      <MeterTrack className={styles.composedTrack}>
+        <MeterIndicator className={styles.composedIndicator} />
+      </MeterTrack>
     </Meter>
   );
 }

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { Meter, MeterLabel, MeterValue } from './Meter';
+import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue } from './Meter';
 import styles from './Meter.stories.module.css';
 
 const meta = {
@@ -77,7 +77,7 @@ export const PercentFormat: Story = {
   },
 };
 
-export const CustomStyling: Story = {
+export const CustomStyles: Story = {
   render: () => {
     return (
       <Meter
@@ -87,6 +87,20 @@ export const CustomStyling: Story = {
       >
         <MeterLabel>Monthly quota</MeterLabel>
         <MeterValue />
+      </Meter>
+    );
+  },
+};
+
+export const Composition: Story = {
+  render: () => {
+    return (
+      <Meter value={58} withTrack={false} className={styles.composedMeter}>
+        <MeterLabel>Team capacity</MeterLabel>
+        <MeterValue>{(formattedValue) => `${formattedValue} available`}</MeterValue>
+        <MeterTrack className={styles.composedTrack}>
+          <MeterIndicator className={styles.composedIndicator} />
+        </MeterTrack>
       </Meter>
     );
   },

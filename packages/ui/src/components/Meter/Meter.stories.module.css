@@ -21,3 +21,23 @@
 .customIndicator {
   background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
 }
+
+.composedMeter {
+  --meter-width: 18rem;
+  --meter-track-height: 0.625rem;
+}
+
+.composedTrack {
+  padding: var(--spacing-1);
+  height: 1rem;
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(var(--color-background), var(--color-background)) padding-box,
+    linear-gradient(90deg, var(--color-chart-3), var(--color-primary)) border-box;
+  box-shadow: none;
+}
+
+.composedIndicator {
+  border-radius: calc(var(--radius-md) - var(--spacing-1));
+  background: var(--color-chart-3);
+}

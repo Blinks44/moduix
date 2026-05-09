@@ -3,15 +3,16 @@ import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Meter.module.css';
 
 type MeterClassNames = {
-  track?: string;
-  indicator?: string;
+  track?: MeterPrimitive.Track.Props['className'];
+  indicator?: MeterPrimitive.Indicator.Props['className'];
 };
 
 type MeterProps = MeterPrimitive.Root.Props & {
   classNames?: MeterClassNames;
+  withTrack?: boolean;
 };
 
-function Meter({ className, classNames, children, ...props }: MeterProps) {
+function Meter({ className, classNames, children, withTrack = true, ...props }: MeterProps) {
   return (
     <MeterPrimitive.Root
       data-slot="meter-root"
@@ -19,9 +20,11 @@ function Meter({ className, classNames, children, ...props }: MeterProps) {
       {...props}
     >
       {children}
-      <MeterTrack className={classNames?.track}>
-        <MeterIndicator className={classNames?.indicator} />
-      </MeterTrack>
+      {withTrack ? (
+        <MeterTrack className={classNames?.track}>
+          <MeterIndicator className={classNames?.indicator} />
+        </MeterTrack>
+      ) : null}
     </MeterPrimitive.Root>
   );
 }
@@ -68,7 +71,16 @@ function MeterIndicator({ className, ...props }: MeterPrimitive.Indicator.Props)
 
 type MeterLabelProps = MeterPrimitive.Label.Props;
 type MeterValueProps = MeterPrimitive.Value.Props;
+type MeterTrackProps = MeterPrimitive.Track.Props;
+type MeterIndicatorProps = MeterPrimitive.Indicator.Props;
 
-export { Meter, MeterLabel, MeterValue };
+export { Meter, MeterLabel, MeterValue, MeterTrack, MeterIndicator };
 
-export type { MeterClassNames, MeterProps, MeterLabelProps, MeterValueProps };
+export type {
+  MeterClassNames,
+  MeterProps,
+  MeterLabelProps,
+  MeterValueProps,
+  MeterTrackProps,
+  MeterIndicatorProps,
+};
