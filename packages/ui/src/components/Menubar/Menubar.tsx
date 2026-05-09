@@ -60,11 +60,14 @@ function Menubar({ className, ...props }: MenubarPrimitive.Props) {
   );
 }
 
-function MenubarTrigger({ className, ...props }: MenuPrimitive.Trigger.Props) {
+function MenubarTrigger({ className, render, ...props }: MenuPrimitive.Trigger.Props) {
+  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
+
   return (
     <MenuPrimitive.Trigger
       data-slot="menubar-trigger"
-      className={mergeClassName(className, styles.trigger)}
+      render={render}
+      className={triggerClassName}
       {...props}
     />
   );
@@ -487,6 +490,7 @@ export type {
   MenubarTriggerProps,
   MenubarArrowProps,
   MenubarContentProps,
+  MenubarContentClassNames,
   MenubarItemProps,
   MenubarLinkItemProps,
   MenubarSeparatorProps,

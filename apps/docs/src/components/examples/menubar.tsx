@@ -285,12 +285,24 @@ export function VerticalMenubarExample() {
   );
 }
 
-export function PositionedMenubarExample() {
+export function CustomStylesMenubarExample() {
   return (
-    <Menubar>
+    <Menubar className={styles.customRoot}>
       <MenubarMenu>
         <MenubarTrigger>Window</MenubarTrigger>
-        <MenubarContent sideOffset={10} align="start" alignOffset={-4} withBackdrop>
+        <MenubarContent
+          className={styles.customPopup}
+          classNames={{
+            portal: styles.customPortal,
+            backdrop: styles.customBackdrop,
+            positioner: styles.customPositioner,
+            viewport: styles.customViewport,
+          }}
+          sideOffset={10}
+          align="start"
+          alignOffset={-4}
+          withBackdrop
+        >
           <MenubarArrow />
           <MenubarItem closeOnClick>Minimize</MenubarItem>
           <MenubarItem closeOnClick>Zoom</MenubarItem>
@@ -302,7 +314,7 @@ export function PositionedMenubarExample() {
   );
 }
 
-export function CustomIconsMenubarExample() {
+export function IconsMenubarExample() {
   return (
     <Menubar>
       <MenubarMenu>
@@ -320,7 +332,7 @@ export function CustomIconsMenubarExample() {
           <MenubarSubmenu>
             <MenubarSubmenuTrigger>
               More
-              <MenubarSubmenuTriggerIcon className={styles.customSubmenuIcon}>
+              <MenubarSubmenuTriggerIcon>
                 <ChevronDownIcon />
               </MenubarSubmenuTriggerIcon>
             </MenubarSubmenuTrigger>

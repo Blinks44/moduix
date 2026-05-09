@@ -1,3 +1,33 @@
-.customSubmenuIcon {
-  --menubar-submenu-icon-size: 0.875rem;
+.customRoot {
+  --menubar-bg: var(--color-background);
+  --menubar-border-color: rgb(37 99 235);
+  --menubar-radius: var(--radius-lg);
+  --menubar-trigger-bg-hover: rgb(219 234 254);
+  --menubar-trigger-color-active: rgb(255 255 255);
+  --menubar-trigger-bg-active: rgb(37 99 235);
+}
+
+.customPortal {
+  pointer-events: auto;
+}
+
+.customBackdrop {
+  background-color: rgb(15 23 42 / 0.48);
+  backdrop-filter: blur(4px);
+}
+
+.customPositioner {
+  --menubar-popup-min-width: 14rem;
+}
+
+.customPopup {
+  --menubar-popup-bg: var(--color-background);
+  --menubar-popup-border-color: rgb(37 99 235);
+  --menubar-popup-shadow: var(--shadow-lg);
+  --menubar-highlight-bg: rgb(37 99 235);
+  --menubar-highlight-color: rgb(255 255 255);
+}
+
+.customViewport {
+  padding-block: var(--spacing-2);
 }

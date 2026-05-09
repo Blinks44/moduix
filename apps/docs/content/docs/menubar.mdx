@@ -6,12 +6,12 @@ icon: Component
 
 import 'moduix/style.css';
 import {
-  CustomIconsMenubarExample,
+  CustomStylesMenubarExample,
   GroupsAndControlsMenubarExample,
+  IconsMenubarExample,
   IndicatorRightMenubarExample,
   MenubarExample,
   NestedMenubarExample,
-  PositionedMenubarExample,
   ShortcutsMenubarExample,
   VerticalMenubarExample,
   menubarCssProperties,
@@ -88,6 +88,30 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Composition
+
+`Menubar` owns the root menubar behavior. Each `MenubarMenu` owns a top-level menu and
+uses `MenubarTrigger` plus `MenubarContent` for the popup.
+
+`MenubarContent` renders the portal, positioner, viewport, and optional backdrop automatically.
+`className` styles the visible popup. `classNames` styles internal service slots hidden from
+the default composition. Use `container`, placement props, `portalProps`, `positionerProps`,
+`backdropProps`, `viewportProps`, and `withBackdrop` when you need the matching Base UI escape
+hatches:
+
+```tsx
+<MenubarContent
+  className={styles.popup}
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    positioner: styles.positioner,
+    viewport: styles.viewport,
+  }}
+  withBackdrop
+/>
+```
 
 ## Examples
 
@@ -397,12 +421,13 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
   </Preview.Code>
 </Preview>
 
-### Positioning And Backdrop
+### Custom Styles
 
-`MenubarContent` renders portal, positioner, viewport, and optional backdrop internally. Use placement props on `MenubarContent`, `container` to choose the portal container, `withBackdrop` for a backdrop, and `classNames` to style internal service slots.
+Style the root and popup with `className`. Use `classNames` for the internal portal,
+backdrop, positioner, and viewport slots rendered by `MenubarContent`.
 
 <Preview>
-  <PositionedMenubarExample />
+  <CustomStylesMenubarExample />
 
   <Preview.Code>
     {`
@@ -416,12 +441,24 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
         MenubarSeparator,
       } from "moduix";
 
-      export function PositionedMenubarDemo() {
+      export function CustomStylesMenubarDemo() {
         return (
-          <Menubar>
+          <Menubar className={styles.customRoot}>
             <MenubarMenu>
               <MenubarTrigger>Window</MenubarTrigger>
-              <MenubarContent sideOffset={10} align="start" alignOffset={-4} withBackdrop>
+              <MenubarContent
+                className={styles.customPopup}
+                classNames={{
+                  portal: styles.customPortal,
+                  backdrop: styles.customBackdrop,
+                  positioner: styles.customPositioner,
+                  viewport: styles.customViewport,
+                }}
+                sideOffset={10}
+                align="start"
+                alignOffset={-4}
+                withBackdrop
+              >
                 <MenubarArrow />
                 <MenubarItem closeOnClick>Minimize</MenubarItem>
                 <MenubarItem closeOnClick>Zoom</MenubarItem>
@@ -435,14 +472,53 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customRoot {
+        --menubar-bg: var(--color-background);
+        --menubar-border-color: rgb(37 99 235);
+        --menubar-radius: var(--radius-lg);
+        --menubar-trigger-bg-hover: rgb(219 234 254);
+        --menubar-trigger-color-active: rgb(255 255 255);
+        --menubar-trigger-bg-active: rgb(37 99 235);
+      }
+
+      .customPortal {
+        pointer-events: auto;
+      }
+
+      .customBackdrop {
+        background-color: rgb(15 23 42 / 0.48);
+        backdrop-filter: blur(4px);
+      }
+
+      .customPositioner {
+        --menubar-popup-min-width: 14rem;
+      }
+
+      .customPopup {
+        --menubar-popup-bg: var(--color-background);
+        --menubar-popup-border-color: rgb(37 99 235);
+        --menubar-popup-shadow: var(--shadow-lg);
+        --menubar-highlight-bg: rgb(37 99 235);
+        --menubar-highlight-color: rgb(255 255 255);
+      }
+
+      .customViewport {
+        padding-block: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Custom Icons
+### Icons
 
 Pass children to icon slots to use icons from your application or an external icon library.
 
 <Preview>
-  <CustomIconsMenubarExample />
+  <IconsMenubarExample />
 
   <Preview.Code>
     {`
@@ -464,7 +540,7 @@ Pass children to icon slots to use icons from your application or an external ic
         MenubarSubmenuContent,
       } from "moduix";
 
-      export function CustomIconsMenubarDemo() {
+      export function IconsMenubarDemo() {
         return (
           <Menubar>
             <MenubarMenu>
