@@ -4,10 +4,9 @@ description: A composable fieldset for grouping related form controls under one 
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   DisabledFieldsetExample,
-  FieldsetClassNameExample,
+  CustomStylesFieldsetExample,
   FieldsetExample,
   RadioGroupFieldsetExample,
   fieldsetCssProperties,
@@ -56,6 +55,22 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Composition
+
+`Fieldset` renders a native `fieldset` by default and forwards Base UI state, refs, `className`,
+`style`, and `render`. Use `render` when the same root needs to also be another Base UI component,
+such as `RadioGroup`.
+
+`Fieldset` and `FieldsetLegend` are the only public parts. There are no hidden positioner,
+backdrop, viewport, portal, or other service slots to style through `classNames`; pass `className`
+directly to the part you want to customize.
+
+```tsx
+<Fieldset className={styles.fieldset}>
+  <FieldsetLegend className={styles.legend}>Billing details</FieldsetLegend>
+</Fieldset>
+```
 
 ## Examples
 
@@ -125,23 +140,16 @@ Use `render` to compose the fieldset semantics with another root component, such
             <Fieldset render={<RadioGroup defaultValue="ssd" />}>
               <FieldsetLegend>Storage type</FieldsetLegend>
 
-              <FieldItem>
-                <FieldLabel>
-                  <Radio value="ssd">
-                    <RadioIndicator />
-                  </Radio>
-                  <RadioLabel>SSD</RadioLabel>
-                </FieldLabel>
-              </FieldItem>
-
-              <FieldItem>
-                <FieldLabel>
-                  <Radio value="hdd">
-                    <RadioIndicator />
-                  </Radio>
-                  <RadioLabel>HDD</RadioLabel>
-                </FieldLabel>
-              </FieldItem>
+              {storageTypes.map((item) => (
+                <FieldItem key={item.value}>
+                  <FieldLabel>
+                    <Radio value={item.value}>
+                      <RadioIndicator />
+                    </Radio>
+                    <RadioLabel>{item.label}</RadioLabel>
+                  </FieldLabel>
+                </FieldItem>
+              ))}
             </Fieldset>
           </Field>
         );
@@ -149,14 +157,24 @@ Use `render` to compose the fieldset semantics with another root component, such
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const storageTypes = [
+        { value: "ssd", label: "SSD" },
+        { value: "hdd", label: "HDD" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <FieldsetClassNameExample />
+  <CustomStylesFieldsetExample />
 
   <Preview.Code>
     {`

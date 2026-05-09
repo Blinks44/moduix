@@ -84,29 +84,22 @@ export function RadioGroupFieldsetExample() {
       <Fieldset render={<RadioGroup defaultValue="ssd" />}>
         <FieldsetLegend>Storage type</FieldsetLegend>
 
-        <FieldItem>
-          <FieldLabel>
-            <Radio value="ssd">
-              <RadioIndicator />
-            </Radio>
-            <RadioLabel>SSD</RadioLabel>
-          </FieldLabel>
-        </FieldItem>
-
-        <FieldItem>
-          <FieldLabel>
-            <Radio value="hdd">
-              <RadioIndicator />
-            </Radio>
-            <RadioLabel>HDD</RadioLabel>
-          </FieldLabel>
-        </FieldItem>
+        {storageTypes.map((item) => (
+          <FieldItem key={item.value}>
+            <FieldLabel>
+              <Radio value={item.value}>
+                <RadioIndicator />
+              </Radio>
+              <RadioLabel>{item.label}</RadioLabel>
+            </FieldLabel>
+          </FieldItem>
+        ))}
       </Fieldset>
     </Field>
   );
 }
 
-export function FieldsetClassNameExample() {
+export function CustomStylesFieldsetExample() {
   return (
     <Fieldset className={styles.customFieldset}>
       <FieldsetLegend className={styles.customLegend}>Styled fieldset</FieldsetLegend>
@@ -121,3 +114,8 @@ export function FieldsetClassNameExample() {
     </Fieldset>
   );
 }
+
+const storageTypes = [
+  { value: 'ssd', label: 'SSD' },
+  { value: 'hdd', label: 'HDD' },
+];

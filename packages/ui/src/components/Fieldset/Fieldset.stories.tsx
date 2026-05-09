@@ -89,7 +89,7 @@ export const RadioGroupComposition: Story = {
   },
 };
 
-export const ClassNames: Story = {
+export const CustomStyles: Story = {
   render: () => {
     return (
       <Fieldset className={styles.customFieldset}>
