@@ -1,31 +1,77 @@
-# `Turborepo` Vite starter
+# moduix
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+Composable React UI components for product teams.
 
-## Using this example
+[![npm](https://img.shields.io/npm/v/moduix?logo=npm&label=npm)](https://www.npmjs.com/package/moduix)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Turborepo](https://img.shields.io/badge/Monorepo-Turborepo-EF4444)](https://turbo.build/)
 
-Run the following command:
+## Library
 
-```sh
-npx create-turbo@latest -e with-vite
+`moduix` is a React component library built on accessible Base UI primitives and a composition-first API.
+
+- Accessible behavior out of the box.
+- Compound components with predictable DX.
+- Native CSS + CSS Modules for transparent styling and easy theming.
+
+See docs: https://moduix.blinks44.workers.dev/
+
+## Quick Usage
+
+Install in your app:
+
+```bash
+npm install moduix @base-ui/react
 ```
 
-## What's inside?
+Import styles once and use components:
 
-This Turborepo includes the following packages and apps:
+```tsx
+import 'moduix/style.css';
+import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from 'moduix';
 
-### Apps and Packages
+export function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
+      <DialogContent>
+        <DialogTitle>Project settings</DialogTitle>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
 
-- `docs`: a vanilla [vite](https://vitejs.dev) ts app
-- `web`: another vanilla [vite](https://vitejs.dev) ts app
-- `@repo/ui`: a stub component & utility library shared by both `web` and `docs` applications
+## Repository Quick Start
 
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
+From the monorepo root:
 
-### Utilities
+```bash
+npm install
+npm run build:ui
+npm run dev
+```
 
-This Turborepo has some additional tools already setup for you:
+## Documentation
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [Oxlint](https://oxc.rs/docs/guide/usage/linter) for code linting
-- [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) for code formatting
+- Public docs (temporary): https://moduix.blinks44.workers.dev/
+- Library README: `packages/ui/README.md`
+- Docs app README: `apps/docs/README.md`
+
+## Acknowledgements
+
+- [Base UI](https://base-ui.com/) for the accessible primitives behind the components.
+- [shadcn/ui](https://ui.shadcn.com/) for composition API inspiration and practical DX patterns.
+- [Fumadocs](https://fumadocs.dev/) for the documentation foundation.
+- [TanStack](https://tanstack.com/) for tooling used in the docs app.
+
+## Validation
+
+Run from the monorepo root after changes:
+
+```bash
+npm run fmt:fix
+npm run lint:check
+npm run tsc:check
+```
