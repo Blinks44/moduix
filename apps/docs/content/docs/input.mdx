@@ -4,11 +4,10 @@ description: A native input element that works with Field labels, validation, an
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ControlledInputExample,
+  CustomStylesInputExample,
   DisabledInputExample,
-  InputClassNameExample,
   InputExample,
   InputFieldValidationExample,
   InputNativeAttributesExample,
@@ -31,7 +30,7 @@ import {
 
       export function InputDemo() {
         return (
-          <Field>
+          <Field className={styles.field}>
             <FieldLabel>Name</FieldLabel>
             <Input placeholder="Enter your name" />
           </Field>
@@ -40,7 +39,31 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
+
+## Composition
+
+`Input` is a single-part component built on Base UI `Input`. It forwards Base UI props such as
+`value`, `defaultValue`, `onValueChange`, `render`, function `className`, function `style`, and the
+Field state data attributes.
+
+Use `size` for the visual component size. Use `htmlSize` for the native HTML `size` attribute:
+
+```tsx
+<Input size="lg" htmlSize={24} placeholder="Search projects" />
+```
+
+`Input` does not render hidden service slots such as `Positioner`, `Backdrop`, or `Viewport`, so it
+does not need a `classNames` API. Style the input element directly with `className`.
 
 ## Examples
 
@@ -60,7 +83,7 @@ Use `value` and `onValueChange` when the input value needs to stay in React stat
         const [value, setValue] = useState("");
 
         return (
-          <Field>
+          <Field className={styles.field}>
             <FieldLabel>Username</FieldLabel>
             <Input
               value={value}
@@ -73,6 +96,15 @@ Use `value` and `onValueChange` when the input value needs to stay in React stat
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Sizes
@@ -88,7 +120,7 @@ Use the `size` prop for visual sizing. Use `htmlSize` when you need the native i
 
       export function InputSizesDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Input size="xs" placeholder="Extra-small input" />
             <Input size="sm" placeholder="Small input" />
             <Input size="md" placeholder="Medium input" />
@@ -100,6 +132,17 @@ Use the `size` prop for visual sizing. Use `htmlSize` when you need the native i
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Native Attributes
@@ -115,7 +158,7 @@ Use standard input attributes for keyboard, autocomplete, validation, and form b
 
       export function NativeInputAttributesDemo() {
         return (
-          <Field>
+          <Field className={styles.field}>
             <FieldLabel>Security code</FieldLabel>
             <Input
               htmlSize={8}
@@ -132,6 +175,15 @@ Use standard input attributes for keyboard, autocomplete, validation, and form b
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Disabled
@@ -147,7 +199,7 @@ Set `disabled` to prevent interaction while keeping the input visible in forms.
 
       export function DisabledInputDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Input disabled placeholder="Disabled input" />
             <Input disabled value="Read only value" />
           </div>
@@ -156,6 +208,17 @@ Set `disabled` to prevent interaction while keeping the input visible in forms.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Field Validation
@@ -171,7 +234,7 @@ Place `Input` inside `Field` to connect labels, errors, native validity, and Bas
 
       export function InputFieldValidationDemo() {
         return (
-          <Field validationMode="onBlur">
+          <Field className={styles.field} validationMode="onBlur">
             <FieldLabel>Email</FieldLabel>
             <Input required type="email" placeholder="name@example.com" />
             <FieldError match="valueMissing">Please enter your email.</FieldError>
@@ -182,14 +245,23 @@ Place `Input` inside `Field` to connect labels, errors, native validity, and Bas
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` directly to `Input` when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <InputClassNameExample />
+  <CustomStylesInputExample />
 
   <Preview.Code>
     {`
@@ -197,7 +269,7 @@ Pass `className` directly to `Input` when styling with CSS Modules, Tailwind CSS
 
       export function CustomInputDemo() {
         return (
-          <Field>
+          <Field className={styles.field}>
             <FieldLabel>Project key</FieldLabel>
             <Input placeholder="MAPS" className={styles.customInput} />
           </Field>
@@ -209,6 +281,10 @@ Pass `className` directly to `Input` when styling with CSS Modules, Tailwind CSS
 
   <Preview.CSS>
     {`
+      .field {
+        width: min(20rem, 100%);
+      }
+
       .customInput {
         border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
         background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);

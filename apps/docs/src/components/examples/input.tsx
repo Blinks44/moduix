@@ -120,7 +120,7 @@ export function InputFieldValidationExample() {
   );
 }
 
-export function InputClassNameExample() {
+export function CustomStylesInputExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel>Project key</FieldLabel>

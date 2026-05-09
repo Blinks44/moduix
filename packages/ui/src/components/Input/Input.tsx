@@ -1,3 +1,4 @@
+import type * as React from 'react';
 import { Input as InputPrimitive } from '@base-ui/react/input';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Input.module.css';
@@ -23,4 +24,4 @@ function Input({ className, size = 'md', htmlSize, ...props }: InputProps) {
 
 export { Input };
 
-export type { InputProps };
+export type { InputProps, InputSize };

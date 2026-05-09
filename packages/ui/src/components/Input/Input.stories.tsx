@@ -97,3 +97,14 @@ export const WithFieldValidation: Story = {
     );
   },
 };
+
+export const CustomStyles: Story = {
+  render: () => {
+    return (
+      <Field className={storyStyles.field}>
+        <FieldLabel>Project key</FieldLabel>
+        <Input placeholder="MAPS" className={storyStyles.customInput} />
+      </Field>
+    );
+  },
+};
