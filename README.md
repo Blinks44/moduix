@@ -1,21 +1,23 @@
-# moduix
-
-Composable React UI components for product teams.
+![moduix banner](apps/docs/public/banner.png)
 
 [![npm](https://img.shields.io/npm/v/moduix?logo=npm&label=npm)](https://www.npmjs.com/package/moduix)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Turborepo](https://img.shields.io/badge/Monorepo-Turborepo-EF4444)](https://turbo.build/)
 
-## Library
+Moduix is a ready-made React components for product interfaces. The library is built on top of Base UI primitives and follows a composition-first API strongly inspired by shadcn/ui: you assemble small named parts, keep behavior accessible, and customize styles through props, `className`, and CSS variables. Styles are written in native CSS with CSS Modules, so the package ships framework-agnostic component CSS without requiring a utility CSS runtime.
 
-`moduix` is a React component library built on accessible Base UI primitives and a composition-first API.
+## Why This Exists
 
-- Accessible behavior out of the box.
-- Compound components with predictable DX.
-- Native CSS + CSS Modules for transparent styling and easy theming.
+`moduix` started as an internal need: we were moving several company products to one shared component library and needed a consistent, composable foundation. It is not meant to compete with shadcn/ui - it is a pragmatic library shaped by real product work.
 
-See docs: https://moduix.blinks44.workers.dev/
+Another core idea is minimal dependencies. The library is built on Base UI primitives and ships native CSS, so teams can choose their own styling approach: native CSS, CSS Modules, Tailwind, or CSS-in-JS.
+
+## Documentation
+
+- Temp public docs: https://moduix.blinks44.workers.dev/
+- Library README: `packages/ui/README.md`
+- Docs app README: `apps/docs/README.md`
 
 ## Quick Usage
 
@@ -53,25 +55,9 @@ npm run build:ui
 npm run dev
 ```
 
-## Documentation
-
-- Public docs (temporary): https://moduix.blinks44.workers.dev/
-- Library README: `packages/ui/README.md`
-- Docs app README: `apps/docs/README.md`
-
 ## Acknowledgements
 
-- [Base UI](https://base-ui.com/) for the accessible primitives behind the components.
-- [shadcn/ui](https://ui.shadcn.com/) for composition API inspiration and practical DX patterns.
-- [Fumadocs](https://fumadocs.dev/) for the documentation foundation.
+- [Base UI](https://base-ui.com/) for the accessible React primitives behind the components.
+- [shadcn/ui](https://ui.shadcn.com/) for API inspiration and practical composition patterns.
+- [Fumadocs](https://fumadocs.dev/) for the docs foundation.
 - [TanStack](https://tanstack.com/) for tooling used in the docs app.
-
-## Validation
-
-Run from the monorepo root after changes:
-
-```bash
-npm run fmt:fix
-npm run lint:check
-npm run tsc:check
-```
