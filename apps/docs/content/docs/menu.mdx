@@ -4,9 +4,8 @@ description: A dropdown list of actions with keyboard navigation and nested menu
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
-  CustomIconsMenuExample,
+  CustomStylesMenuExample,
   DetachedTriggerMenuExample,
   GroupsAndControlsMenuExample,
   IndicatorRightMenuExample,
@@ -71,6 +70,32 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Composition
+
+Use `Menu` for root state and behavior props such as `open`, `defaultOpen`,
+`onOpenChange`, and `handle`. `MenuContent` renders the portal, positioner,
+and popup automatically. Add `withViewport` only when you need Base UI content transitions for
+menus shared by multiple detached triggers.
+
+`className` styles the visible popup. `classNames` styles the internal service slots hidden from
+the default composition. Use placement props such as `side`, `align`, and `sideOffset` on
+`MenuContent`; use `container`, `portalProps`, `positionerProps`, `withViewport`, `viewportProps`,
+`withBackdrop`, and `backdropProps` when you need the matching Base UI escape hatches:
+
+```tsx
+<MenuContent
+  className={styles.popup}
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    positioner: styles.positioner,
+    viewport: styles.viewport,
+  }}
+  withBackdrop
+  withViewport
+/>
+```
 
 ## Examples
 
@@ -582,10 +607,12 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
 
         return (
           <Fragment>
-            <MenuTrigger render={<Button />} handle={menuHandle}>
-              Actions
-              <MenuTriggerIcon />
-            </MenuTrigger>
+            <div className={styles.detachedTrigger}>
+              <MenuTrigger render={<Button />} handle={menuHandle}>
+                Actions
+                <MenuTriggerIcon />
+              </MenuTrigger>
+            </div>
 
             <Menu handle={menuHandle}>
               <MenuContent>
@@ -602,14 +629,25 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .detachedTrigger {
+        display: flex;
+        justify-content: center;
+        margin-bottom: var(--spacing-4);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Custom Icons
+### Custom Styles
 
-Pass children to icon slots to use icons from your application or an external icon library.
+Use `className` for visible slots and `classNames` for internal service slots. Icon slots accept children from your application or an external icon library.
 
 <Preview>
-  <CustomIconsMenuExample />
+  <CustomStylesMenuExample />
 
   <Preview.Code>
     {`
@@ -633,18 +671,26 @@ Pass children to icon slots to use icons from your application or an external ic
         MenuSubmenuContent,
       } from "moduix";
 
-      export function CustomIconsMenu() {
+      export function CustomStylesMenu() {
         return (
           <Menu>
-            <MenuTrigger render={<Button />}>
+            <MenuTrigger render={<Button />} className={styles.customTrigger}>
               Places
-              <MenuTriggerIcon>
+              <MenuTriggerIcon className={styles.customTriggerIcon}>
                 <ChevronDownIcon />
               </MenuTriggerIcon>
             </MenuTrigger>
-            <MenuContent>
+            <MenuContent
+              className={styles.customPopup}
+              classNames={{
+                portal: styles.customPortal,
+                backdrop: styles.customBackdrop,
+                positioner: styles.customPositioner,
+              }}
+              withBackdrop
+            >
               <MenuArrow />
-              <MenuItem closeOnClick>
+              <MenuItem closeOnClick className={styles.customItem}>
                 <MenuItemTextContent>
                   <MenuItemTextIcon>
                     <MapIcon />
@@ -653,7 +699,7 @@ Pass children to icon slots to use icons from your application or an external ic
                 </MenuItemTextContent>
               </MenuItem>
               <MenuSubmenu>
-                <MenuSubmenuTrigger>
+                <MenuSubmenuTrigger className={styles.customItem}>
                   <MenuItemTextContent>
                     <MenuItemTextIcon>
                       <InfoIcon />
@@ -665,8 +711,12 @@ Pass children to icon slots to use icons from your application or an external ic
                   </MenuSubmenuTriggerIcon>
                 </MenuSubmenuTrigger>
                 <MenuSubmenuContent>
-                  <MenuItem closeOnClick>Nearby</MenuItem>
-                  <MenuItem closeOnClick>Routes</MenuItem>
+                  <MenuItem closeOnClick className={styles.customItem}>
+                    Nearby
+                  </MenuItem>
+                  <MenuItem closeOnClick className={styles.customItem}>
+                    Routes
+                  </MenuItem>
                 </MenuSubmenuContent>
               </MenuSubmenu>
             </MenuContent>
@@ -676,4 +726,50 @@ Pass children to icon slots to use icons from your application or an external ic
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customTrigger {
+        border-color: var(--color-primary);
+        background:
+          linear-gradient(var(--color-background), var(--color-background)) padding-box,
+          linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
+        color: var(--color-primary);
+      }
+
+      .customTriggerIcon {
+        --menu-trigger-icon-size: 0.875rem;
+      }
+
+      .customPortal {
+        position: relative;
+      }
+
+      .customBackdrop {
+        background-color: rgb(0 0 0 / 0.08);
+        backdrop-filter: blur(0.125rem);
+      }
+
+      .customPositioner {
+        z-index: var(--z-popover);
+      }
+
+      .customPopup {
+        --menu-popup-min-width: 13rem;
+        --menu-popup-bg: var(--color-background);
+        --menu-popup-border-color: var(--color-primary);
+        --menu-popup-shadow: var(--shadow-lg);
+        --menu-highlight-bg: var(--color-primary);
+        --menu-highlight-color: var(--color-primary-foreground);
+        --menu-separator-color: var(--color-primary);
+      }
+
+      .customItem {
+        --menu-item-padding-x-start: var(--spacing-3);
+        --menu-item-padding-x-end: var(--spacing-3);
+        --menu-item-text-icon-color: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

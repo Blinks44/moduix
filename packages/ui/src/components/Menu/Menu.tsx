@@ -14,6 +14,7 @@ type MenuContentClassNames = {
   portal?: MenuPrimitive.Portal.Props['className'];
   backdrop?: MenuPrimitive.Backdrop.Props['className'];
   positioner?: MenuPrimitive.Positioner.Props['className'];
+  viewport?: MenuPrimitive.Viewport.Props['className'];
 };
 
 type MenuContentProps = MenuPrimitive.Popup.Props &
@@ -35,9 +36,11 @@ type MenuContentProps = MenuPrimitive.Popup.Props &
     classNames?: MenuContentClassNames;
     container?: MenuPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
+    withViewport?: boolean;
     portalProps?: Omit<MenuPrimitive.Portal.Props, 'className' | 'children'>;
     backdropProps?: Omit<MenuPrimitive.Backdrop.Props, 'className'>;
     positionerProps?: Omit<MenuPrimitive.Positioner.Props, 'className' | 'children'>;
+    viewportProps?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
   };
 
 type IndicatorPosition = 'start' | 'end';
@@ -119,15 +122,27 @@ function MenuArrow({ className, children, ...props }: MenuPrimitive.Arrow.Props)
   );
 }
 
+function MenuViewport({ className, ...props }: MenuPrimitive.Viewport.Props) {
+  return (
+    <MenuPrimitive.Viewport
+      data-slot="menu-viewport"
+      className={mergeClassName(className, styles.viewport)}
+      {...props}
+    />
+  );
+}
+
 function MenuContent({
   className,
   classNames,
   children,
   container,
   withBackdrop = false,
+  withViewport = false,
   portalProps,
   backdropProps,
   positionerProps,
+  viewportProps,
   side,
   sideOffset,
   align,
@@ -159,6 +174,9 @@ function MenuContent({
     ...restPositionerProps
   } = positionerProps ?? {};
   const portalContainer = container ?? portalPropsContainer;
+  const { arrowChildren, viewportChildren } = withViewport
+    ? splitArrowChildren(children)
+    : { arrowChildren: null, viewportChildren: children };
 
   return (
     <MenuPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
@@ -180,7 +198,16 @@ function MenuContent({
         {...restPositionerProps}
       >
         <MenuPopup className={className} {...props}>
-          {children}
+          {withViewport ? (
+            <React.Fragment>
+              {arrowChildren}
+              <MenuViewport className={classNames?.viewport} {...viewportProps}>
+                {viewportChildren}
+              </MenuViewport>
+            </React.Fragment>
+          ) : (
+            children
+          )}
         </MenuPopup>
       </MenuPositioner>
     </MenuPortal>
@@ -381,6 +408,22 @@ function getSubmenuOffset({ side }: { side: MenuPrimitive.Positioner.Props['side
   return side === 'top' || side === 'bottom' ? 4 : -4;
 }
 
+function splitArrowChildren(children: React.ReactNode) {
+  const arrowChildren: React.ReactNode[] = [];
+  const viewportChildren: React.ReactNode[] = [];
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && child.type === MenuArrow) {
+      arrowChildren.push(child);
+      return;
+    }
+
+    viewportChildren.push(child);
+  });
+
+  return { arrowChildren, viewportChildren };
+}
+
 function ArrowSvg(props: React.ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
@@ -437,6 +480,7 @@ export type {
   MenuProps,
   MenuHandle,
   MenuContentProps,
+  MenuContentClassNames,
   MenuTriggerProps,
   MenuItemProps,
   MenuLinkItemProps,

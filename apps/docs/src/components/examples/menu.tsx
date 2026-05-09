@@ -399,18 +399,26 @@ export function DetachedTriggerMenuExample() {
   );
 }
 
-export function CustomIconsMenuExample() {
+export function CustomStylesMenuExample() {
   return (
     <Menu>
-      <MenuButtonTrigger>
+      <MenuButtonTrigger className={styles.customTrigger}>
         Places
         <MenuTriggerIcon className={styles.customTriggerIcon}>
           <ChevronDownIcon />
         </MenuTriggerIcon>
       </MenuButtonTrigger>
-      <MenuContent>
+      <MenuContent
+        className={styles.customPopup}
+        classNames={{
+          portal: styles.customPortal,
+          backdrop: styles.customBackdrop,
+          positioner: styles.customPositioner,
+        }}
+        withBackdrop
+      >
         <MenuArrow />
-        <MenuItem closeOnClick>
+        <MenuItem closeOnClick className={styles.customItem}>
           <MenuItemTextContent>
             <MenuItemTextIcon>
               <MapIcon />
@@ -419,7 +427,7 @@ export function CustomIconsMenuExample() {
           </MenuItemTextContent>
         </MenuItem>
         <MenuSubmenu>
-          <MenuSubmenuTrigger>
+          <MenuSubmenuTrigger className={styles.customItem}>
             <MenuItemTextContent>
               <MenuItemTextIcon>
                 <InfoIcon />
@@ -431,8 +439,12 @@ export function CustomIconsMenuExample() {
             </MenuSubmenuTriggerIcon>
           </MenuSubmenuTrigger>
           <MenuSubmenuContent>
-            <MenuItem closeOnClick>Nearby</MenuItem>
-            <MenuItem closeOnClick>Routes</MenuItem>
+            <MenuItem closeOnClick className={styles.customItem}>
+              Nearby
+            </MenuItem>
+            <MenuItem closeOnClick className={styles.customItem}>
+              Routes
+            </MenuItem>
           </MenuSubmenuContent>
         </MenuSubmenu>
       </MenuContent>

@@ -7,3 +7,40 @@
 .customTriggerIcon {
   --menu-trigger-icon-size: 0.875rem;
 }
+
+.customTrigger {
+  border-color: var(--color-primary);
+  background:
+    linear-gradient(var(--color-background), var(--color-background)) padding-box,
+    linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
+  color: var(--color-primary);
+}
+
+.customPortal {
+  position: relative;
+}
+
+.customBackdrop {
+  background-color: rgb(0 0 0 / 0.08);
+  backdrop-filter: blur(0.125rem);
+}
+
+.customPositioner {
+  z-index: var(--z-popover);
+}
+
+.customPopup {
+  --menu-popup-min-width: 13rem;
+  --menu-popup-bg: var(--color-background);
+  --menu-popup-border-color: var(--color-primary);
+  --menu-popup-shadow: var(--shadow-lg);
+  --menu-highlight-bg: var(--color-primary);
+  --menu-highlight-color: var(--color-primary-foreground);
+  --menu-separator-color: var(--color-primary);
+}
+
+.customItem {
+  --menu-item-padding-x-start: var(--spacing-3);
+  --menu-item-padding-x-end: var(--spacing-3);
+  --menu-item-text-icon-color: var(--color-primary);
+}
