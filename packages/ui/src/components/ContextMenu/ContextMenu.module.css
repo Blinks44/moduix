@@ -64,6 +64,23 @@
     min-height: 100dvh;
     background-color: var(--context-menu-backdrop-bg, var(--backdrop-bg, transparent));
     backdrop-filter: blur(var(--context-menu-backdrop-blur, 0));
+    transition:
+      opacity
+        var(
+          --context-menu-backdrop-transition,
+          var(--context-menu-transition, var(--transition-default))
+        ),
+      backdrop-filter
+        var(
+          --context-menu-backdrop-transition,
+          var(--context-menu-transition, var(--transition-default))
+        );
+
+    &[data-starting-style],
+    &[data-ending-style] {
+      opacity: 0;
+      backdrop-filter: blur(0);
+    }
   }
 
   .positioner {

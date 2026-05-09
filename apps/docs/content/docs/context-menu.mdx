@@ -11,7 +11,7 @@ import {
   NestedContextMenuExample,
   PositionedContextMenuExample,
   ShortcutsContextMenuExample,
-  StyledContextMenuExample,
+  CustomStylesContextMenuExample,
   contextMenuCssProperties,
 } from '@/components/examples/context-menu';
 
@@ -58,6 +58,28 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Composition
+
+`ContextMenuContent` renders `Portal`, optional `Backdrop`, `Positioner`, and `Popup`
+internally, so the public composition stays focused on menu content. Pass positioning props such as
+`sideOffset`, `align`, `collisionPadding`, and `positionMethod` directly to `ContextMenuContent`.
+
+`className` styles the visible popup. `classNames` styles the internal service slots hidden from
+the default composition. Use `container`, `portalProps`, `backdropProps`, `positionerProps`, and
+`withBackdrop` when you need the matching Base UI escape hatches:
+
+```tsx
+<ContextMenuContent
+  className={styles.popup}
+  classNames={{
+    portal: styles.portal,
+    backdrop: styles.backdrop,
+    positioner: styles.positioner,
+  }}
+  withBackdrop
+/>
+```
 
 ## Examples
 
@@ -356,7 +378,7 @@ Pass positioning props to `ContextMenuContent`. It renders the portal and positi
 Use `className` for the popup and `classNames` for internal service slots. Set `withBackdrop` when the menu should render a backdrop.
 
 <Preview>
-  <StyledContextMenuExample />
+  <CustomStylesContextMenuExample />
 
   <Preview.Code>
     {`
@@ -368,15 +390,16 @@ Use `className` for the popup and `classNames` for internal service slots. Set `
         ContextMenuTrigger,
       } from "moduix";
 
-      export function StyledContextMenuDemo() {
+      export function CustomStylesContextMenuDemo() {
         return (
           <ContextMenu>
-            <ContextMenuTrigger className={styles.styledTrigger}>Right click card</ContextMenuTrigger>
+            <ContextMenuTrigger className={styles.customTrigger}>Right click card</ContextMenuTrigger>
             <ContextMenuContent
-              className={styles.styledPopup}
+              className={styles.customPopup}
               classNames={{
-                backdrop: styles.styledBackdrop,
-                positioner: styles.styledPositioner,
+                portal: styles.customPortal,
+                backdrop: styles.customBackdrop,
+                positioner: styles.customPositioner,
               }}
               withBackdrop
             >
@@ -396,7 +419,7 @@ Use `className` for the popup and `classNames` for internal service slots. Set `
 
   <Preview.CSS>
     {`
-      .styledTrigger {
+      .customTrigger {
         min-width: 14rem;
         min-height: 9rem;
         border-color: var(--color-primary);
@@ -405,16 +428,20 @@ Use `className` for the popup and `classNames` for internal service slots. Set `
           linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
       }
 
-      .styledBackdrop {
+      .customPortal {
+        position: relative;
+      }
+
+      .customBackdrop {
         background-color: rgb(0 0 0 / 0.08);
         backdrop-filter: blur(0.125rem);
       }
 
-      .styledPositioner {
+      .customPositioner {
         z-index: var(--z-popover);
       }
 
-      .styledPopup {
+      .customPopup {
         --context-menu-popup-min-width: 13rem;
         --context-menu-popup-bg: var(--color-background);
         --context-menu-popup-border-color: var(--color-primary);

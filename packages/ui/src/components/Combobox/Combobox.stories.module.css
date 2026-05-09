@@ -109,7 +109,7 @@
 }
 
 .portal {
-  isolation: isolate;
+  position: relative
 }
 
 .positioner {

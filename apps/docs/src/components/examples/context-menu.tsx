@@ -52,6 +52,11 @@ export const contextMenuCssProperties: CssPropertyInput[] = [
   ],
   ['--context-menu-backdrop-bg', 'transparent', 'Controls optional backdrop background.'],
   ['--context-menu-backdrop-blur', '0', 'Controls optional backdrop blur.'],
+  [
+    '--context-menu-backdrop-transition',
+    'var(--context-menu-transition)',
+    'Controls optional backdrop transition.',
+  ],
   ['--context-menu-item-height', '2rem', 'Controls item minimum height.'],
   ['--context-menu-item-padding-y', '0.5rem', 'Controls item vertical padding.'],
   ['--context-menu-item-padding-x-start', '1rem', 'Controls item start padding.'],
@@ -275,15 +280,16 @@ export function PositionedContextMenuExample() {
   );
 }
 
-export function StyledContextMenuExample() {
+export function CustomStylesContextMenuExample() {
   return (
     <ContextMenu>
-      <ContextMenuTrigger className={styles.styledTrigger}>Right click card</ContextMenuTrigger>
+      <ContextMenuTrigger className={styles.customTrigger}>Right click card</ContextMenuTrigger>
       <ContextMenuContent
-        className={styles.styledPopup}
+        className={styles.customPopup}
         classNames={{
-          backdrop: styles.styledBackdrop,
-          positioner: styles.styledPositioner,
+          portal: styles.customPortal,
+          backdrop: styles.customBackdrop,
+          positioner: styles.customPositioner,
         }}
         withBackdrop
       >

@@ -542,6 +542,7 @@
   --context-menu-arrow-stroke-color: initial; /* var(--context-menu-popup-border-color) */
   --context-menu-backdrop-bg: initial; /* var(--backdrop-bg, transparent) */
   --context-menu-backdrop-blur: initial; /* 0 */
+  --context-menu-backdrop-transition: initial; /* var(--context-menu-transition) */
   --context-menu-check-gap: initial; /* 0.5rem */
   --context-menu-check-indicator-size: initial; /* 0.75rem */
   --context-menu-check-padding-x-start: initial; /* 0.625rem */

@@ -46,11 +46,14 @@ type ContextMenuCheckboxItemProps = ContextMenuPrimitive.CheckboxItem.Props & {
 const ContextMenu = ContextMenuPrimitive.Root;
 const ContextMenuSubmenu = ContextMenuPrimitive.SubmenuRoot;
 
-function ContextMenuTrigger({ className, ...props }: ContextMenuPrimitive.Trigger.Props) {
+function ContextMenuTrigger({ className, render, ...props }: ContextMenuPrimitive.Trigger.Props) {
+  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
+
   return (
     <ContextMenuPrimitive.Trigger
       data-slot="context-menu-trigger"
-      className={mergeClassName(className, styles.trigger)}
+      render={render}
+      className={triggerClassName}
       {...props}
     />
   );
