@@ -33,12 +33,12 @@ import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from 'modui
 
 export function Example() {
   return (
-	<Dialog>
-	  <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
-	  <DialogContent>
-		<DialogTitle>Project settings</DialogTitle>
-	  </DialogContent>
-	</Dialog>
+    <Dialog>
+      <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
+      <DialogContent>
+        <DialogTitle>Project settings</DialogTitle>
+      </DialogContent>
+    </Dialog>
   );
 }
 ```
