@@ -17,4 +17,39 @@
     font-size: var(--text-xs);
     line-height: var(--line-height-text-xs);
   }
+
+  .customRoot {
+    width: 16rem;
+    color: var(--color-foreground);
+  }
+
+  .customTrigger {
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-md);
+    background-color: var(--color-muted);
+    color: var(--color-foreground);
+  }
+
+  @media (hover: hover) {
+    .customTrigger:hover {
+      background-color: var(--color-accent);
+    }
+  }
+
+  .customTriggerIcon {
+    --collapsible-icon-open-transform: rotate(180deg);
+
+    color: var(--color-primary);
+  }
+
+  .customPanel {
+    color: var(--color-muted-foreground);
+  }
+
+  .customPanelContent {
+    margin-top: var(--spacing-1);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-md);
+    background-color: var(--color-muted);
+  }
 }

@@ -17,10 +17,6 @@
   line-height: var(--line-height-text-xs);
 }
 
-.customIcon {
-  --collapsible-icon-open-transform: rotate(180deg);
-}
-
 .customRoot {
   width: 16rem;
   color: var(--color-foreground);
@@ -40,6 +36,8 @@
 }
 
 .customTriggerIcon {
+  --collapsible-icon-open-transform: rotate(180deg);
+
   color: var(--color-primary);
 }
 

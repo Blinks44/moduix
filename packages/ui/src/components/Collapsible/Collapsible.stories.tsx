@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
+import { ChevronDownIcon } from '@/primitives';
 import {
   Collapsible,
   CollapsiblePanel,
@@ -120,6 +121,30 @@ export const HiddenUntilFound: Story = {
               <li key={key}>{key}</li>
             ))}
           </ul>
+        </CollapsiblePanel>
+      </Collapsible>
+    );
+  },
+};
+
+export const CustomStyles: Story = {
+  render: () => {
+    return (
+      <Collapsible className={styles.customRoot}>
+        <CollapsibleTrigger className={styles.customTrigger}>
+          <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+            <ChevronDownIcon />
+          </CollapsibleTriggerIcon>
+          Styled recovery keys
+        </CollapsibleTrigger>
+        <CollapsiblePanel className={styles.customPanel}>
+          <div className={styles.customPanelContent}>
+            <ul className={styles.keysList}>
+              {recoveryKeys.map((key) => (
+                <li key={key}>{key}</li>
+              ))}
+            </ul>
+          </div>
         </CollapsiblePanel>
       </Collapsible>
     );

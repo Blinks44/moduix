@@ -6,10 +6,9 @@ icon: Component
 
 import 'moduix/style.css';
 import {
-  CollapsibleClassNameExample,
   CollapsibleExample,
   ControlledCollapsibleExample,
-  CustomIconCollapsibleExample,
+  CustomStylesCollapsibleExample,
   DisabledCollapsibleExample,
   HiddenUntilFoundCollapsibleExample,
   collapsibleCssProperties,
@@ -33,17 +32,15 @@ import {
         CollapsiblePanel,
       } from "moduix";
 
-      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
-
       export function CollapsibleDemo() {
         return (
-          <Collapsible>
+          <Collapsible className={styles.root}>
             <CollapsibleTrigger>
               <CollapsibleTriggerIcon />
               Recovery keys
             </CollapsibleTrigger>
             <CollapsiblePanel>
-              <ul>
+              <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
                   <li key={key}>{key}</li>
                 ))}
@@ -55,6 +52,30 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .root {
+        width: 16rem;
+      }
+
+      .keysList {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding-inline-start: var(--spacing-5);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Examples
@@ -75,17 +96,15 @@ Use `defaultOpen` when the panel should be expanded on first render.
         CollapsiblePanel,
       } from "moduix";
 
-      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
-
       export function DefaultOpenCollapsibleDemo() {
         return (
-          <Collapsible defaultOpen>
+          <Collapsible defaultOpen className={styles.root}>
             <CollapsibleTrigger>
               <CollapsibleTriggerIcon />
               Recovery keys
             </CollapsibleTrigger>
             <CollapsiblePanel>
-              <ul>
+              <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
                   <li key={key}>{key}</li>
                 ))}
@@ -97,6 +116,30 @@ Use `defaultOpen` when the panel should be expanded on first render.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .root {
+        width: 16rem;
+      }
+
+      .keysList {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding-inline-start: var(--spacing-5);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -116,31 +159,60 @@ Control `open` from React state when the collapsible needs to coordinate with ot
       } from "moduix";
       import { useState } from "react";
 
-      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
-
       export function ControlledCollapsibleDemo() {
         const [open, setOpen] = useState(false);
 
         return (
-          <Collapsible open={open} onOpenChange={setOpen}>
+          <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
             <CollapsibleTrigger>
               <CollapsibleTriggerIcon />
               Recovery keys
             </CollapsibleTrigger>
             <CollapsiblePanel>
-              <ul>
+              <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
                   <li key={key}>{key}</li>
                 ))}
               </ul>
             </CollapsiblePanel>
-            <span>Current state: {open ? "open" : "closed"}</span>
+            <span className={styles.status}>Current state: {open ? "open" : "closed"}</span>
           </Collapsible>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .root {
+        width: 16rem;
+      }
+
+      .keysList {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding-inline-start: var(--spacing-5);
+      }
+
+      .status {
+        margin-top: var(--spacing-2);
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Disabled
@@ -159,17 +231,15 @@ Set `disabled` on the root when the trigger should be visible but unavailable fo
         CollapsiblePanel,
       } from "moduix";
 
-      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
-
       export function DisabledCollapsibleDemo() {
         return (
-          <Collapsible disabled>
+          <Collapsible disabled className={styles.root}>
             <CollapsibleTrigger>
               <CollapsibleTriggerIcon />
               Recovery keys
             </CollapsibleTrigger>
             <CollapsiblePanel>
-              <ul>
+              <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
                   <li key={key}>{key}</li>
                 ))}
@@ -181,6 +251,30 @@ Set `disabled` on the root when the trigger should be visible but unavailable fo
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .root {
+        width: 16rem;
+      }
+
+      .keysList {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding-inline-start: var(--spacing-5);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Hidden Until Found
@@ -199,17 +293,15 @@ Use `hiddenUntilFound` when browser page search should be able to find and expan
         CollapsiblePanel,
       } from "moduix";
 
-      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
-
       export function HiddenUntilFoundCollapsibleDemo() {
         return (
-          <Collapsible>
+          <Collapsible className={styles.root}>
             <CollapsibleTrigger>
               <CollapsibleTriggerIcon />
               Searchable recovery keys
             </CollapsibleTrigger>
             <CollapsiblePanel hiddenUntilFound>
-              <ul>
+              <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
                   <li key={key}>{key}</li>
                 ))}
@@ -221,76 +313,38 @@ Use `hiddenUntilFound` when browser page search should be able to find and expan
     `}
 
   </Preview.Code>
-</Preview>
 
-### Custom Icon
-
-Pass children to `CollapsibleTriggerIcon` to use any icon from your application or icon library.
-
-<Preview>
-  <CustomIconCollapsibleExample />
-
-  <Preview.Code>
+  <Preview.CSS>
     {`
-      import {
-        Collapsible,
-        CollapsibleTrigger,
-        CollapsibleTriggerIcon,
-        CollapsiblePanel,
-      } from "moduix";
-      import type { CSSProperties, ComponentProps } from "react";
-
-      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
-
-      function ChevronDownIcon(props: ComponentProps<"svg">) {
-        return (
-          <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
-            <path
-              d="M1.5 3.5L5 7L8.5 3.5"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
+      .root {
+        width: 16rem;
       }
 
-      export function CustomIconCollapsibleDemo() {
-        return (
-          <Collapsible defaultOpen>
-            <CollapsibleTrigger>
-              <CollapsibleTriggerIcon
-                style={
-                  {
-                    "--collapsible-icon-open-transform": "rotate(180deg)",
-                  } as CSSProperties
-                }
-              >
-                <ChevronDownIcon />
-              </CollapsibleTriggerIcon>
-              Recovery keys
-            </CollapsibleTrigger>
-            <CollapsiblePanel>
-              <ul>
-                {recoveryKeys.map((key) => (
-                  <li key={key}>{key}</li>
-                ))}
-              </ul>
-            </CollapsiblePanel>
-          </Collapsible>
-        );
+      .keysList {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding-inline-start: var(--spacing-5);
       }
     `}
 
-  </Preview.Code>
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+    `}
+
+  </Preview.Data>
 </Preview>
 
-### Class Names
+### Custom Styles
 
 Pass `className` to the root, trigger, trigger icon, and panel slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS. Put your own wrapper inside the panel when the content needs layout or surface styles.
 
 <Preview>
-  <CollapsibleClassNameExample />
+  <CustomStylesCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -299,20 +353,21 @@ Pass `className` to the root, trigger, trigger icon, and panel slots when stylin
         CollapsibleTrigger,
         CollapsibleTriggerIcon,
         CollapsiblePanel,
+        ChevronDownIcon,
       } from "moduix";
 
-      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
-
-      export function StyledCollapsibleDemo() {
+      export function CustomStylesCollapsibleDemo() {
         return (
-          <Collapsible className="w-64 text-fd-foreground">
-            <CollapsibleTrigger className="rounded-md bg-fd-muted px-3 py-2 text-fd-foreground hover:bg-fd-accent">
-              <CollapsibleTriggerIcon className="text-fd-primary" />
+          <Collapsible className={styles.customRoot}>
+            <CollapsibleTrigger className={styles.customTrigger}>
+              <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+                <ChevronDownIcon />
+              </CollapsibleTriggerIcon>
               Styled recovery keys
             </CollapsibleTrigger>
-            <CollapsiblePanel className="text-fd-muted-foreground">
-              <div className="mt-1 rounded-md bg-fd-muted px-3 py-2">
-                <ul className="m-0 flex flex-col gap-1 ps-5">
+            <CollapsiblePanel className={styles.customPanel}>
+              <div className={styles.customPanelContent}>
+                <ul className={styles.keysList}>
                   {recoveryKeys.map((key) => (
                     <li key={key}>{key}</li>
                   ))}
@@ -325,4 +380,59 @@ Pass `className` to the root, trigger, trigger icon, and panel slots when stylin
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customRoot {
+        width: 16rem;
+        color: var(--color-foreground);
+      }
+
+      .customTrigger {
+        padding: var(--spacing-2) var(--spacing-3);
+        border-radius: var(--radius-md);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+      }
+
+      @media (hover: hover) {
+        .customTrigger:hover {
+          background-color: var(--color-accent);
+        }
+      }
+
+      .customTriggerIcon {
+        --collapsible-icon-open-transform: rotate(180deg);
+
+        color: var(--color-primary);
+      }
+
+      .customPanel {
+        color: var(--color-muted-foreground);
+      }
+
+      .customPanelContent {
+        margin-top: var(--spacing-1);
+        padding: var(--spacing-2) var(--spacing-3);
+        border-radius: var(--radius-md);
+        background-color: var(--color-muted);
+      }
+
+      .keysList {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding-inline-start: var(--spacing-5);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+    `}
+
+  </Preview.Data>
 </Preview>
