@@ -20,13 +20,16 @@
     "lint:check": "oxlint",
     "lint:fix": "oxlint --fix",
     "publish:ui": "npm publish -w moduix",
-    "tsc:check": "turbo run tsc:check"
+    "tsc:check": "turbo run tsc:check",
+    "prepare": "husky"
   },
   "dependencies": {
     "rollup-plugin-copy": "^3.5.0"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.4",
     "oxfmt": "^0.47.0",
     "oxlint": "^1.62.0",
     "turbo": "^2.9.9"

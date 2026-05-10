@@ -1,0 +1,57 @@
+name: Changeset Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: changeset-check-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changeset-check:
+    name: Require changeset for UI changes
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]' && !startsWith(github.head_ref, 'changeset-release/')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate changeset
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          base_ref="${{ github.base_ref }}"
+          git fetch origin "${base_ref}" --depth=1
+
+          changed_files="$(git diff --name-only "origin/${base_ref}"...HEAD)"
+
+          if [[ -z "${changed_files}" ]]; then
+            echo "No changed files detected."
+            exit 0
+          fi
+
+          echo "Changed files:"
+          echo "${changed_files}"
+
+          if ! grep -Eq '^packages/ui/' <<< "${changed_files}"; then
+            echo "No changes in packages/ui. Skipping changeset requirement."
+            exit 0
+          fi
+
+          if grep -Eq '^\.changeset/[^/]+\.md$' <<< "${changed_files}"; then
+            echo "Changeset file found. Check passed."
+            exit 0
+          fi
+
+          echo "::error::This PR changes packages/ui but does not include a changeset file in .changeset/*.md"
+          echo "Run 'npm run changeset' and commit the generated file."
+          exit 1

@@ -1,12 +1,37 @@
 # An .aiignore file follows the same syntax as a .gitignore file.
-# .gitignore documentation: https://git-scm.com/docs/gitignore
+# Docs: https://git-scm.com/docs/gitignore
 
-# you can ignore files
+# OS / editor noise
 .DS_Store
+Thumbs.db
+
+# Logs and temp files
 *.log
 *.tmp
+*.temp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# or folders
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+
+# Build output / coverage
 dist/
 build/
 out/
+coverage/
+
+# Tooling caches
+.turbo/
+.cache/
+*.tsbuildinfo
+
+# Documentation/app artifacts
+apps/docs/.wrangler/
+
+# Generated files (rebuild instead of indexing)
+apps/docs/src/routeTree.gen.ts

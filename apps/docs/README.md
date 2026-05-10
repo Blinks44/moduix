@@ -1,14 +1,34 @@
-# docs
+# moduix docs
 
-This is a Tanstack Start application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+`apps/docs` is the documentation site for the `moduix` UI component library from `packages/ui`.
 
-Run development server:
+It contains user-facing guides, component pages, usage examples, and API references.
+
+## Tech stack
+
+- TanStack Start
+- Fumadocs + MDX content
+- React + TypeScript
+
+## Project structure
+
+```text
+apps/docs/
+  content/docs/     # MDX documentation pages
+  src/components/   # Site and live preview components
+  src/routes/       # Application routes
+```
+
+## Development
+
+Before working on docs, build the UI package from the monorepo root so docs use fresh library output:
 
 ```bash
-npm run dev
-# or
-pnpm dev
-# or
-yarn dev
+npm run build:ui
+```
+
+Then run docs:
+
+```bash
+npm --workspace moduix-docs run dev
 ```
