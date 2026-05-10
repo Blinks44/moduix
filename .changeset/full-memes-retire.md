@@ -1,5 +1,5 @@
 ---
-"moduix": patch
+'moduix': patch
 ---
 
 Expand API exports, docs updates
