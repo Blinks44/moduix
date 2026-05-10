@@ -1,5 +1,11 @@
 # moduix
 
+## 0.6.2
+
+### Patch Changes
+
+- 29760f0: Expand API exports, docs updates
+
 ## 0.6.1
 
 ### Minor Changes
