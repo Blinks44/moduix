@@ -64,14 +64,17 @@ This keeps library styles predictable while still letting application styles ove
 
 The package exports composed components for common UI needs: Accordion, AlertDialog, Autocomplete, Avatar, Button, Checkbox, Dialog, Drawer, Field, Form, Input, Menu, NavigationMenu, Popover, Select, Tabs, Toast, Tooltip, and more. It also exports small shared primitives such as icons and close buttons.
 
-## Thanks
+## Acknowledgements
 
 This project could not exist without the work of these teams and communities:
 
 - [Base UI](https://base-ui.com/) for the accessible React primitives that power the components.
-- [shadcn/ui](https://ui.shadcn.com/) for the API inspiration and the culture of practical, readable component composition.
+- [shadcn/ui](https://ui.shadcn.com/) for the API inspiration and the culture of practical,
+  readable component composition.
+- [Tailwind CSS](https://tailwindcss.com/) for the reset.css implementation.
 - [Fumadocs](https://fumadocs.dev/) for the documentation foundation.
 - [TanStack](https://tanstack.com/) for the application tooling used by the docs.
+- [Voidzero](https://voidzero.dev/) for awesome JS tools
 
 ## Publishing Checklist
 
