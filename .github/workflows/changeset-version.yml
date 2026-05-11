@@ -1,4 +1,4 @@
-name: Release PR
+name: Changeset Version
 
 on:
   push:
@@ -11,12 +11,12 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: release-pr-${{ github.workflow }}
+  group: changeset-version-${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
-  release-pr:
-    name: Create or update release PR
+  changeset-version:
+    name: Update changeset version with PR
     runs-on: ubuntu-latest
     if: github.actor != 'github-actions[bot]' && !startsWith(github.ref, 'refs/heads/changeset-release/')
 

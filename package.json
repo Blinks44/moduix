@@ -30,9 +30,9 @@
     "@changesets/cli": "^2.31.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.4",
-    "oxfmt": "^0.47.0",
-    "oxlint": "^1.62.0",
-    "turbo": "^2.9.9"
+    "oxfmt": "^0.48.0",
+    "oxlint": "^1.63.0",
+    "turbo": "^2.9.12"
   },
-  "packageManager": "npm@11.11.0"
+  "packageManager": "npm@11.14.1"
 }

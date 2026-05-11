@@ -2,8 +2,6 @@ name: Changeset Check
 
 on:
   pull_request:
-    branches:
-      - main
 
 permissions:
   contents: read
@@ -42,8 +40,8 @@ jobs:
           echo "Changed files:"
           echo "${changed_files}"
 
-          if ! grep -Eq '^packages/ui/' <<< "${changed_files}"; then
-            echo "No changes in packages/ui. Skipping changeset requirement."
+          if ! grep -Eq '^packages/ui/src/|^packages/ui/package\.json$' <<< "${changed_files}"; then
+            echo "No releasable changes in packages/ui/src or packages/ui/package.json. Skipping changeset requirement."
             exit 0
           fi
 
@@ -52,6 +50,6 @@ jobs:
             exit 0
           fi
 
-          echo "::error::This PR changes packages/ui but does not include a changeset file in .changeset/*.md"
+          echo "::error::This PR changes packages/ui/src or packages/ui/package.json but does not include a changeset file in .changeset/*.md"
           echo "Run 'npm run changeset' and commit the generated file."
           exit 1

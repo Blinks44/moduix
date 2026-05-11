@@ -17,6 +17,10 @@ export default defineConfig({
     tanstackStart({
       prerender: {
         enabled: true,
+        // Reduce flakiness of local prerender crawler in CI/local runs.
+        concurrency: 1,
+        retryCount: 5,
+        retryDelay: 250,
       },
     }),
     react(),

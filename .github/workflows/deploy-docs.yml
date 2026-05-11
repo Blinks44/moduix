@@ -1,23 +1,24 @@
-name: Lint
+name: Deploy Docs
 
 on:
-  pull_request:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: lint-${{ github.workflow }}-${{ github.ref }}
+  group: deploy-docs-${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
-  lint:
-    name: Format, lint and typecheck
+  deploy-docs:
+    name: Build and deploy docs
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    environment: production
 
     steps:
       - name: Checkout
@@ -32,14 +33,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check formatting
-        run: npm run fmt:check
-
-      - name: Check lint
-        run: npm run lint:check
-
       - name: Build UI
         run: npm run build:ui
 
-      - name: Check TypeScript
-        run: npm run tsc:check
+      - name: Deploy docs to Cloudflare
+        run: npm run deploy:docs
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
