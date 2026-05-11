@@ -138,8 +138,8 @@ const zIndexTokens = [
   ['--z-lg', '30'],
   ['--z-xl', '40'],
   ['--z-backdrop', '40'],
-  ['--z-popover', '50'],
-  ['--z-modal', '60'],
+  ['--z-modal', '50'],
+  ['--z-popup', '60'],
   ['--z-toast', '70'],
 ];
 
