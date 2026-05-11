@@ -38,5 +38,8 @@ jobs:
       - name: Check lint
         run: npm run lint:check
 
+      - name: Build UI
+        run: npm run build:ui
+
       - name: Check TypeScript
         run: npm run tsc:check
