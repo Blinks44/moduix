@@ -34,5 +34,5 @@
     "oxlint": "^1.63.0",
     "turbo": "^2.9.12"
   },
-  "packageManager": "npm@11.11.0"
+  "packageManager": "npm@11.14.1"
 }
