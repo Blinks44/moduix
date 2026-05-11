@@ -20,7 +20,7 @@
     "fumadocs-mdx": "^14.3.1",
     "fumadocs-ui": "npm:@fumadocs/base-ui@latest",
     "lucide-react": "^1.8.0",
-    "moduix": "workspace:*",
+    "moduix": "workspaces:*",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "tailwind-merge": "^3.5.0",
