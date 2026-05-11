@@ -32,7 +32,7 @@
     "lint-staged": "^17.0.4",
     "oxfmt": "^0.47.0",
     "oxlint": "^1.62.0",
-    "turbo": "^2.9.9"
+    "turbo": "^2.9.12"
   },
   "packageManager": "npm@11.11.0"
 }
