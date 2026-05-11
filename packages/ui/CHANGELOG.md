@@ -1,5 +1,11 @@
 # moduix
 
+## 0.6.5
+
+### Patch Changes
+
+- 4fd31bb: Refactor for z-indexes
+
 ## 0.6.4
 
 ### Patch Changes
