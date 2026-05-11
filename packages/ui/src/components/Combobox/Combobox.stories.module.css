@@ -113,7 +113,7 @@
 }
 
 .positioner {
-  z-index: var(--z-popover);
+  z-index: var(--z-popup);
 }
 
 .backdrop {

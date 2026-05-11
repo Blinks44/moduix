@@ -44,7 +44,7 @@
   }
 
   .portal {
-    z-index: var(--z-popover);
+    z-index: var(--z-popup);
   }
 
   .backdrop {
@@ -58,7 +58,7 @@
   }
 
   .positioner {
-    z-index: var(--z-popover);
+    z-index: var(--z-popup);
     width: var(--positioner-width);
     height: var(--positioner-height);
     max-width: var(--available-width);

@@ -119,7 +119,7 @@
   }
 
   .portal {
-    z-index: var(--z-popover);
+    z-index: var(--z-popup);
   }
 
   .backdrop {
@@ -142,7 +142,7 @@
       cubic-bezier(0.22, 1, 0.36, 1)
     );
     box-sizing: border-box;
-    z-index: var(--z-popover);
+    z-index: var(--z-popup);
     width: var(--positioner-width);
     height: var(--positioner-height);
     max-width: min(
