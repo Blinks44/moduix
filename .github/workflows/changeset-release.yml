@@ -57,8 +57,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          package_name="$(node -p \"require('./packages/ui/package.json').name\")"
-          package_version="$(node -p \"require('./packages/ui/package.json').version\")"
+          package_name="$(node -p "require('./packages/ui/package.json').name")"
+          package_version="$(node -p "require('./packages/ui/package.json').version")"
 
           echo "package_name=${package_name}" >> "$GITHUB_OUTPUT"
           echo "package_version=${package_version}" >> "$GITHUB_OUTPUT"
