@@ -1,5 +1,11 @@
 # moduix
 
+## 0.6.4
+
+### Patch Changes
+
+- b1d9ab4: Add repository to package.json
+
 ## 0.6.3
 
 ### Patch Changes
