@@ -1,5 +1,11 @@
 # moduix
 
+## 0.6.3
+
+### Patch Changes
+
+- fbcb9e6: Updates for ci releases
+
 ## 0.6.2
 
 ### Patch Changes
