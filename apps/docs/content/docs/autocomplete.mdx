@@ -21,6 +21,81 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/autocomplete" />
 
+## Anatomy
+
+`Autocomplete` combines an input field, control actions, and a popup with filtered options. Keep
+input-related parts together inside `AutocompleteField` so labeling and keyboard behavior stay
+connected.
+
+```text
+Autocomplete
+├─ AutocompleteField
+│  ├─ AutocompleteFieldLabel
+│  └─ AutocompleteInputGroup
+│     ├─ AutocompleteInput
+│     └─ AutocompleteControlActions (optional)
+│        ├─ AutocompleteClear (optional)
+│        └─ AutocompleteTrigger (optional)
+└─ AutocompleteContent
+   ├─ AutocompleteStatus (optional)
+   ├─ AutocompleteEmpty
+   └─ AutocompleteList
+      ├─ AutocompleteItem
+      │  └─ AutocompleteItemText
+      └─ AutocompleteGroup (optional)
+         ├─ AutocompleteGroupLabel
+         └─ AutocompleteCollection
+            └─ AutocompleteItem
+```
+
+```tsx
+<Autocomplete items={tags} itemToStringValue={(item) => item.value}>
+  <AutocompleteField>
+    <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+    <AutocompleteInputGroup>
+      <AutocompleteInput id={id} placeholder="e.g. feature" />
+      <AutocompleteControlActions>
+        <AutocompleteClear aria-label="Clear value" />
+        <AutocompleteTrigger aria-label="Open suggestions" />
+      </AutocompleteControlActions>
+    </AutocompleteInputGroup>
+  </AutocompleteField>
+
+  <AutocompleteContent>
+    <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+    <AutocompleteList>
+      {(item) => (
+        <AutocompleteItem key={item.id} value={item}>
+          <AutocompleteItemText>{item.value}</AutocompleteItemText>
+        </AutocompleteItem>
+      )}
+    </AutocompleteList>
+  </AutocompleteContent>
+</Autocomplete>
+```
+
+| Part                         | Role                                                                                               |
+| ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| `Autocomplete`               | Root state machine. Handles value, filtering, highlighting, and open/close behavior.               |
+| `AutocompleteField`          | Semantic wrapper for field-level structure. Keeps label and input wiring in one place.             |
+| `AutocompleteFieldLabel`     | Accessible label for the input or field trigger.                                                   |
+| `AutocompleteInputGroup`     | Layout wrapper for the input and optional control actions.                                         |
+| `AutocompleteInput`          | Text input where users type a query or free-form value.                                            |
+| `AutocompleteControlActions` | Optional container for clear/open controls.                                                        |
+| `AutocompleteClear`          | Optional action that clears the current input value.                                               |
+| `AutocompleteTrigger`        | Optional action that toggles or opens the suggestion popup.                                        |
+| `AutocompleteContent`        | Popup surface. Also renders service slots (`portal`, `backdrop`, `positioner`, `arrow`) via props. |
+| `AutocompleteStatus`         | Optional status region for loading or result-count feedback.                                       |
+| `AutocompleteEmpty`          | Empty-state content shown when no items match.                                                     |
+| `AutocompleteList`           | Collection container for options.                                                                  |
+| `AutocompleteItem`           | One selectable option in the list.                                                                 |
+| `AutocompleteGroup`          | Optional grouped section with its own item subset.                                                 |
+| `AutocompleteCollection`     | Renderer for group items inside `AutocompleteGroup`.                                               |
+
+Use default styling for service slots in most cases. Customize `portal`, `backdrop`,
+`positioner`, and `arrow` when you need custom layering, overlay behavior, popup placement, or
+arrow visuals.
+
 ## Basic
 
 <Preview cssProperties={autocompleteCssProperties}>
