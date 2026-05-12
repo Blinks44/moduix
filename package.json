@@ -19,9 +19,9 @@
     "fmt:fix": "oxfmt",
     "lint:check": "oxlint",
     "lint:fix": "oxlint --fix",
+    "prepare": "husky",
     "publish:ui": "npm publish -w moduix",
-    "tsc:check": "turbo run tsc:check",
-    "prepare": "husky"
+    "tsc:check": "turbo run tsc:check"
   },
   "dependencies": {
     "rollup-plugin-copy": "^3.5.0"
