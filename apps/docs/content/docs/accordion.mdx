@@ -59,6 +59,10 @@ Accordion
 | `AccordionTriggerIcon` | Optional visual state marker. It renders the default plus icon, or your custom icon as children.                 |
 | `AccordionPanel`       | The collapsible content region. Put padding/content wrappers inside it so panel height animations stay clean.    |
 
+`Accordion` does not use portal-like service layers such as `portal`, `backdrop`, or `viewport`.
+In most cases, keep structure and behavior defaults and style only the visible parts:
+`AccordionTrigger`, `AccordionTriggerIcon`, and the content wrapper inside `AccordionPanel`.
+
 ## Basic
 
 <Preview cssProperties={accordionCssProperties}>
