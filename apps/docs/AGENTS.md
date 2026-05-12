@@ -50,6 +50,7 @@ Every component page must use this order:
 3. `## Anatomy` section.
    - Briefly describe visible parts and internal service slots (for example `portal`, `backdrop`, `viewport`) when the component has them.
    - Explain when consumers should keep default styling and when slot-level customization is useful.
+   - Keep `Anatomy` blocks in a unified style across all component pages. Use `content/docs/accordion.mdx` as the reference format for section structure and tone.
 4. Basic preview with the heading `Basic`.
 5. Tabs with the basic example code and `CSS properties`. Use `Preview` and pass `cssProperties` only to the basic example.
 6. `## Composition` section (optional, only when there is meaningful composition to show).
