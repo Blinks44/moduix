@@ -22,6 +22,44 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/field" />
 
+## Anatomy
+
+`Field` acts as a semantic wrapper around one form control and its helper text. Keep label,
+control, error, and description inside the same `Field` so IDs, validation state, and ARIA links
+stay synchronized.
+
+```text
+Field
+├─ FieldLabel
+│  └─ label content / optional control composition
+├─ FieldControl (or another compatible control, for example Input)
+├─ FieldError[match]
+└─ FieldDescription
+```
+
+```tsx
+<Field validationMode="onBlur">
+  <FieldLabel>Email</FieldLabel>
+  <FieldControl required type="email" placeholder="name@example.com" />
+  <FieldError match="valueMissing">Please enter your email.</FieldError>
+  <FieldError match="typeMismatch">Enter a valid email address.</FieldError>
+  <FieldDescription>We will only use this for account notifications.</FieldDescription>
+</Field>
+```
+
+| Part               | Role                                                                                            |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| `Field`            | Root context. Coordinates validation mode, disabled state, naming, and slot relationships.      |
+| `FieldLabel`       | Accessible label for the field control. Can wrap composed controls like `Switch` or `Checkbox`. |
+| `FieldControl`     | Default text-like control slot that receives invalid/disabled styling hooks.                    |
+| `FieldError`       | Validation message slot filtered by `match` (for example `valueMissing`, `customError`).        |
+| `FieldDescription` | Supplemental helper text linked to the control for assistive technologies.                      |
+| `FieldItem`        | Optional layout wrapper for grouped rows inside the same field, such as radio options.          |
+
+`Field` does not have service slots such as `portal`, `backdrop`, or `viewport`.
+In most cases, keep default structure and style only visible slots (`FieldLabel`, `FieldControl`,
+`FieldError`, `FieldDescription`, and optional `FieldItem`) via `className` and CSS variables.
+
 ## Basic
 
 <Preview cssProperties={fieldCssProperties}>
