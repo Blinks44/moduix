@@ -18,6 +18,67 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/dialog" />
 
+## Anatomy
+
+`Dialog` combines a root state machine with one visible popup surface and internal service layers.
+Use `DialogContent` as the popup container; it automatically renders `portal`, `backdrop`, and
+`viewport` slots for overlay behavior.
+
+```text
+Dialog
+├─ DialogTrigger
+└─ DialogContent
+   ├─ portal (service slot)
+   │  ├─ backdrop (service slot)
+   │  └─ viewport (service slot)
+   │     └─ popup surface
+   │        ├─ DialogCloseIcon (optional)
+   │        ├─ DialogHeader
+   │        │  ├─ DialogTitle
+   │        │  └─ DialogDescription (optional)
+   │        ├─ DialogBody (optional)
+   │        └─ DialogFooter (optional)
+   │           └─ DialogClose
+```
+
+```tsx
+<Dialog>
+  <DialogTrigger render={<Button />}>Edit profile</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit profile</DialogTitle>
+      <DialogCloseIcon />
+      <DialogDescription>Update your public information.</DialogDescription>
+    </DialogHeader>
+    <DialogBody>
+      <p>Profile fields and form controls go here.</p>
+    </DialogBody>
+    <DialogFooter>
+      <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+      <DialogClose render={<Button />}>Save</DialogClose>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+| Part                | Role                                                                                               |
+| ------------------- | -------------------------------------------------------------------------------------------------- |
+| `Dialog`            | Root state and interaction model. Use `open`, `defaultOpen`, `onOpenChange`, and `modal` here.     |
+| `DialogTrigger`     | Opens the dialog from user interaction. Use `handle` when the trigger lives outside the tree.      |
+| `DialogContent`     | Popup container. It renders the internal `portal`, `backdrop`, and `viewport` slots automatically. |
+| `DialogHeader`      | Groups title-level content at the top of the popup.                                                |
+| `DialogTitle`       | Accessible dialog title announced by assistive technology.                                         |
+| `DialogDescription` | Optional supporting text announced with the title.                                                 |
+| `DialogBody`        | Optional content region for forms, text, or custom layout.                                         |
+| `DialogFooter`      | Optional actions row for submit/cancel buttons.                                                    |
+| `DialogCloseIcon`   | Optional icon-only close button. Pass children to replace the default icon.                        |
+| `DialogClose`       | Closes the dialog from action buttons while preserving built-in behavior.                          |
+
+In most cases, keep default overlay behavior and style only visible popup parts with `className`
+(`DialogContent`, `DialogHeader`, `DialogBody`, `DialogFooter`). Customize service slots with
+`classNames` (`portal`, `backdrop`, `viewport`) only when you need special layering, positioning,
+or overlay visuals.
+
 ## Basic
 
 <Preview cssProperties={dialogCssProperties}>
