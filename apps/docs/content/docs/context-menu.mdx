@@ -19,6 +19,61 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/context-menu" />
 
+## Anatomy
+
+Context menu is composed from a trigger surface and a popup content layer. Keep interactive parts
+inside `ContextMenuContent` so keyboard navigation, roving focus, and close behavior stay managed by
+the root state machine.
+
+```text
+ContextMenu
+├─ ContextMenuTrigger
+└─ ContextMenuContent
+   ├─ ContextMenuArrow
+   ├─ ContextMenuItem
+   ├─ ContextMenuSeparator
+   └─ ContextMenuSubmenu
+      ├─ ContextMenuSubmenuTrigger
+      │  └─ ContextMenuSubmenuTriggerIcon
+      └─ ContextMenuSubmenuContent
+         └─ ContextMenuItem
+```
+
+```tsx
+<ContextMenu>
+  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuArrow />
+    <ContextMenuItem closeOnClick>Open</ContextMenuItem>
+    <ContextMenuSubmenu>
+      <ContextMenuSubmenuTrigger>
+        Share
+        <ContextMenuSubmenuTriggerIcon />
+      </ContextMenuSubmenuTrigger>
+      <ContextMenuSubmenuContent>
+        <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
+      </ContextMenuSubmenuContent>
+    </ContextMenuSubmenu>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+| Part                           | Role                                                                                                   |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `ContextMenu`                  | Root state machine. Handles open state, focus management, and close interactions.                      |
+| `ContextMenuTrigger`           | Surface that opens the menu on context interaction (right click or long press).                        |
+| `ContextMenuContent`           | Popup container for menu items. Accepts positioning props and renders service layers internally.       |
+| `ContextMenuArrow`             | Optional visual pointer from popup to trigger location.                                                |
+| `ContextMenuItem`              | Action row. Supports disabled state and `closeOnClick` behavior.                                       |
+| `ContextMenuSeparator`         | Visual divider between related item groups.                                                            |
+| `ContextMenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, and `Content`).                         |
+| `ContextMenuGroup*` / controls | Optional structured controls: labels, radio groups/items, checkbox items, and related indicator slots. |
+
+`ContextMenuContent` uses internal service slots (`portal`, optional `backdrop`, `positioner`, `popup`).
+In most cases, keep the default structure and style visible parts such as trigger, items, separators, and
+arrow. Use `classNames`, `portalProps`, `positionerProps`, `backdropProps`, and `withBackdrop` when you
+need slot-level customization.
+
 ## Basic
 
 <Preview cssProperties={contextMenuCssProperties}>
