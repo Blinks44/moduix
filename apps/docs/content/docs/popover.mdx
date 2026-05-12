@@ -22,6 +22,65 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/popover" />
 
+## Anatomy
+
+`Popover` combines a trigger and a floating content layer. Keep `PopoverTrigger` and
+`PopoverContent` under the same `Popover` root unless you intentionally connect them with
+`createPopoverHandle`.
+
+```text
+Popover
+├─ PopoverTrigger
+│  └─ trigger content
+└─ PopoverContent
+   ├─ PopoverHeader (optional)
+   │  ├─ PopoverTitle (optional)
+   │  └─ PopoverDescription (optional)
+   ├─ PopoverBody (optional)
+   ├─ PopoverFooter (optional)
+   │  └─ PopoverClose (optional)
+   └─ arrow (optional)
+
+PopoverContent service slots (optional)
+├─ portal
+├─ backdrop
+├─ positioner
+└─ viewport
+```
+
+```tsx
+<Popover>
+  <PopoverTrigger render={<Button />}>Open popover</PopoverTrigger>
+  <PopoverContent withBackdrop withViewport>
+    <PopoverHeader>
+      <PopoverTitle>Popover title</PopoverTitle>
+      <PopoverDescription>Short contextual details.</PopoverDescription>
+    </PopoverHeader>
+    <PopoverBody>Popup content</PopoverBody>
+    <PopoverFooter>
+      <PopoverClose>Close</PopoverClose>
+    </PopoverFooter>
+  </PopoverContent>
+</Popover>
+```
+
+| Part                 | Role                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `Popover`            | Root state machine. Controls `open`, `defaultOpen`, `onOpenChange`, `modal`, and shared behavior.            |
+| `PopoverTrigger`     | Interactive anchor that opens and closes the popup. Supports click and optional hover opening.               |
+| `PopoverContent`     | Floating container that renders popup structure, positioning, and optional arrow/backdrop/viewport plumbing. |
+| `PopoverHeader`      | Semantic top area for title and description. Useful for consistent spacing in information popovers.          |
+| `PopoverTitle`       | Main heading inside the popup. Helps users quickly identify popup purpose.                                   |
+| `PopoverDescription` | Supporting text under the title. Use for concise context or status details.                                  |
+| `PopoverBody`        | Optional free-form content region when header/footer wrappers are not enough.                                |
+| `PopoverFooter`      | Optional action area, commonly for dismiss, confirm, or secondary controls.                                  |
+| `PopoverClose`       | Built-in close action that dismisses the current popover without custom state wiring.                        |
+
+In most cases, style the visible popup layers first: `PopoverTrigger`, `PopoverContent`, and
+header/body/footer content. Use `classNames` for internal service slots (`portal`, `backdrop`,
+`positioner`, `viewport`, `arrow`) only when you need advanced placement, overlays, or transition
+coordination.
+
 ## Basic
 
 <Preview cssProperties={popoverCssProperties}>
