@@ -18,6 +18,44 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/collapsible" />
 
+## Anatomy
+
+`Collapsible` groups one toggle control and one panel that share the same open state.
+Keep `CollapsibleTrigger` and `CollapsiblePanel` inside the same root so keyboard and
+accessibility wiring stay connected.
+
+```text
+Collapsible
+├─ CollapsibleTrigger
+│  ├─ label
+│  └─ CollapsibleTriggerIcon
+└─ CollapsiblePanel
+   └─ content
+```
+
+```tsx
+<Collapsible>
+  <CollapsibleTrigger>
+    Recovery keys
+    <CollapsibleTriggerIcon />
+  </CollapsibleTrigger>
+  <CollapsiblePanel>
+    <div className={styles.panelContent}>Store these keys somewhere safe.</div>
+  </CollapsiblePanel>
+</Collapsible>
+```
+
+| Part                     | Role                                                                                        |
+| ------------------------ | ------------------------------------------------------------------------------------------- |
+| `Collapsible`            | Root state machine. Controls `open`, `defaultOpen`, `disabled`, and `onOpenChange`.         |
+| `CollapsibleTrigger`     | Interactive toggle button. Opens or closes the panel and receives open/disabled attributes. |
+| `CollapsibleTriggerIcon` | Optional visual state marker. Renders the default icon or your custom icon as children.     |
+| `CollapsiblePanel`       | Collapsible content region. Put spacing/surface wrappers inside it for cleaner animations.  |
+
+`Collapsible` does not use service slots like `portal`, `backdrop`, or `viewport`.
+In most cases, keep the default structure and customize visible parts: the trigger,
+trigger icon, and content wrapper inside the panel.
+
 ## Basic
 
 <Preview cssProperties={collapsibleCssProperties}>
