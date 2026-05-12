@@ -91,6 +91,48 @@ import {
   </Preview.Data>
 </Preview>
 
+## Anatomy
+
+Accordion is composed as a stack of independent items. Each item owns one question-like control and
+one answer-like panel; keep the trigger and panel inside the same `AccordionItem` so their state and
+accessibility wiring stay paired.
+
+```text
+Accordion
+└─ AccordionItem[value]
+   ├─ AccordionHeader
+   │  └─ AccordionTrigger
+   │     ├─ label
+   │     └─ AccordionTriggerIcon
+   └─ AccordionPanel
+      └─ content
+```
+
+```tsx
+<Accordion defaultValue={['shipping']}>
+  <AccordionItem value="shipping">
+    <AccordionHeader>
+      <AccordionTrigger>
+        Shipping details
+        <AccordionTriggerIcon />
+      </AccordionTrigger>
+    </AccordionHeader>
+    <AccordionPanel>
+      <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+```
+
+| Part                   | Role                                                                                                             |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `Accordion`            | Root state machine. Controls open values, keyboard navigation, `multiple`, `disabled`, and `orientation`.        |
+| `AccordionItem`        | One collapsible row. Its `value` identifies the row for `defaultValue`, controlled `value`, and change handlers. |
+| `AccordionHeader`      | Semantic heading wrapper for the trigger. Use it to place the toggle in the document outline.                    |
+| `AccordionTrigger`     | The interactive button. It opens or closes the matching panel and receives open/disabled state attributes.       |
+| `AccordionTriggerIcon` | Optional visual state marker. It renders the default plus icon, or your custom icon as children.                 |
+| `AccordionPanel`       | The collapsible content region. Put padding/content wrappers inside it so panel height animations stay clean.    |
+
 ## Examples
 
 ### Multiple
@@ -189,7 +231,7 @@ Control the open panels from React state when the accordion needs to coordinate 
       import { useState } from "react";
 
       export function ControlledAccordionDemo() {
-        const [value, setValue] = useState(["getting-started"] as string[]);
+        const [value, setValue] = useState(["getting-started"] as string[])
 
         return (
           <Accordion value={value} onValueChange={setValue}>
