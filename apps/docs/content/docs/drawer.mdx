@@ -28,6 +28,63 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/drawer" />
 
+## Anatomy
+
+`Drawer` combines root state/gesture behavior with one visible panel and internal service slots.
+Use `DrawerContent` as the composed popup container. It renders `portal`, `backdrop`, `viewport`,
+`handle`, and the inner `content` slot for you.
+
+```text
+Drawer
+├─ DrawerTrigger (optional)
+└─ DrawerContent
+   ├─ portal (service slot)
+   │  ├─ backdrop (service slot, optional)
+   │  └─ viewport (service slot)
+   │     └─ popup surface
+   │        ├─ handle (service slot, optional)
+   │        └─ content (service slot)
+   │           ├─ DrawerHeader
+   │           │  ├─ DrawerTitle
+   │           │  └─ DrawerDescription (optional)
+   │           ├─ DrawerBody (optional)
+   │           └─ DrawerFooter (optional)
+   │              └─ DrawerClose
+```
+
+```tsx
+<Drawer>
+  <DrawerTrigger render={<Button />}>Open drawer</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Notifications</DrawerTitle>
+      <DrawerDescription>You are all caught up. Good job!</DrawerDescription>
+    </DrawerHeader>
+    <DrawerBody>Bottom drawers are the default.</DrawerBody>
+    <DrawerFooter>
+      <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+```
+
+| Part                | Role                                                                                                 |
+| ------------------- | ---------------------------------------------------------------------------------------------------- |
+| `Drawer`            | Root state and gesture model. Use `open`, `defaultOpen`, `onOpenChange`, `modal`, and snap props.    |
+| `DrawerTrigger`     | Opens the drawer from user interaction. Use `handle` when trigger logic is managed outside the tree. |
+| `DrawerContent`     | Popup container. Renders internal `portal`, `backdrop`, `viewport`, `handle`, and `content` slots.   |
+| `DrawerHeader`      | Groups title-level content at the top of the panel.                                                  |
+| `DrawerTitle`       | Accessible drawer title announced by assistive technology.                                           |
+| `DrawerDescription` | Optional supporting text announced with the title.                                                   |
+| `DrawerBody`        | Optional content region for forms, lists, and long scrollable content.                               |
+| `DrawerFooter`      | Optional actions row for close, submit, and secondary actions.                                       |
+| `DrawerClose`       | Closes the drawer from action buttons while preserving built-in behavior.                            |
+
+In most cases, keep default layering and gestures and style visible panel parts with `className`
+(`DrawerContent`, `DrawerHeader`, `DrawerBody`, `DrawerFooter`). Customize internal service slots with
+`classNames` (`portal`, `backdrop`, `viewport`, `handle`, `content`) only when you need special
+positioning, overlay, or handle behavior.
+
 ## Basic
 
 <Preview cssProperties={drawerCssProperties}>
