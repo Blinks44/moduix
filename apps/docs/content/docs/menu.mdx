@@ -24,6 +24,66 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/menu" />
 
+## Anatomy
+
+Menu is composed from a trigger and a popup content layer. Keep interactive items and nested branches
+inside `MenuContent` so roving focus, keyboard navigation, and close behavior stay managed by the root.
+
+```text
+Menu
+├─ MenuTrigger
+│  └─ MenuTriggerIcon
+└─ MenuContent
+   ├─ MenuArrow
+   ├─ MenuItem
+   ├─ MenuSeparator
+   └─ MenuSubmenu
+      ├─ MenuSubmenuTrigger
+      │  └─ MenuSubmenuTriggerIcon
+      └─ MenuSubmenuContent
+         └─ MenuItem
+```
+
+```tsx
+<Menu>
+  <MenuTrigger>
+    Song
+    <MenuTriggerIcon />
+  </MenuTrigger>
+  <MenuContent>
+    <MenuArrow />
+    <MenuItem closeOnClick>Add to Library</MenuItem>
+    <MenuSubmenu>
+      <MenuSubmenuTrigger>
+        Add to Playlist
+        <MenuSubmenuTriggerIcon />
+      </MenuSubmenuTrigger>
+      <MenuSubmenuContent>
+        <MenuItem closeOnClick>Get Up!</MenuItem>
+      </MenuSubmenuContent>
+    </MenuSubmenu>
+  </MenuContent>
+</Menu>
+```
+
+| Part                    | Role                                                                                                     |
+| ----------------------- | -------------------------------------------------------------------------------------------------------- |
+| `Menu`                  | Root state machine. Handles open state, focus management, and close interactions.                        |
+| `MenuTrigger`           | Control that opens and closes the menu. Accepts trigger props like `openOnHover`, `delay`, and `handle`. |
+| `MenuTriggerIcon`       | Optional trigger indicator. Renders the default icon or your custom icon as children.                    |
+| `MenuContent`           | Popup container for items. Accepts positioning props and renders service slots internally.               |
+| `MenuArrow`             | Optional visual pointer from popup to trigger.                                                           |
+| `MenuItem`              | Action row. Supports disabled state and `closeOnClick` behavior.                                         |
+| `MenuLinkItem`          | Item variant for navigation links while preserving menu behavior.                                        |
+| `MenuSeparator`         | Visual divider between related item groups.                                                              |
+| `MenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, and `Content`).                           |
+| `MenuGroup*` / controls | Optional structured controls: labels, radio groups/items, checkbox items, and indicator slots.           |
+
+`MenuContent` uses internal service slots (`portal`, optional `backdrop`, `positioner`, optional `viewport`, `popup`).
+In most cases, keep defaults and style visible parts such as trigger, items, separators, and arrow.
+Use `classNames`, `portalProps`, `positionerProps`, `backdropProps`, `viewportProps`, `withBackdrop`,
+and `withViewport` when you need slot-level customization.
+
 ## Basic
 
 `MenuContent` renders the portal and positioner internally, so the public composition only needs the trigger, content, optional arrow, and menu items.
