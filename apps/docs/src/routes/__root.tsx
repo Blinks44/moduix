@@ -37,7 +37,6 @@ function RootComponent() {
   return (
     <html suppressHydrationWarning>
       <head>
-        <title></title>
         <HeadContent />
       </head>
       <body className="flex flex-col min-h-screen">

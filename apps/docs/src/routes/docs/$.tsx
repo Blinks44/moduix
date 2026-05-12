@@ -15,7 +15,7 @@ import { Suspense } from 'react';
 import { useMDXComponents } from '@/components/mdx';
 import { baseOptions } from '@/lib/layout.shared';
 import { gitConfig } from '@/lib/shared';
-import { getPageMarkdownUrl, source } from '@/lib/source';
+import { slugsToMarkdownPath, source } from '@/lib/source';
 
 export const Route = createFileRoute('/docs/$')({
   component: Page,
@@ -37,7 +37,7 @@ const serverLoader = createServerFn({
 
     return {
       path: page.path,
-      markdownUrl: getPageMarkdownUrl(page).url,
+      markdownUrl: slugsToMarkdownPath(page.slugs).url,
       pageTree: await source.serializePageTree(source.getPageTree()),
     };
   });
