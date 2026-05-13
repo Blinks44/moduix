@@ -1,5 +1,6 @@
 {
   "name": "moduix-docs",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "sideEffects": false,
@@ -8,7 +9,7 @@
     "build": "vite build",
     "start": "vite preview",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "wrangler deploy",
     "tsc:check": "fumadocs-mdx && tsc --noEmit",
     "postinstall": "fumadocs-mdx"
   },

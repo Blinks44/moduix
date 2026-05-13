@@ -46,7 +46,8 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "tsc -b && vite build",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
     "clsx": "^2.1.1"

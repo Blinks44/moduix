@@ -7,13 +7,13 @@
     "packages/*"
   ],
   "scripts": {
-    "build:all": "turbo run build",
-    "build:docs": "npm run build -w moduix-docs",
-    "build:ui": "npm run build -w moduix",
+    "build": "turbo run build",
+    "build:docs": "turbo run build -F moduix-docs",
+    "build:ui": "turbo run build -F moduix",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:release": "npm run build:ui && changeset publish",
-    "deploy:docs": "npm run deploy -w moduix-docs",
+    "changeset:release": "turbo run build -F moduix && changeset publish",
+    "deploy:docs": "turbo run deploy -F moduix-docs",
     "dev": "turbo run dev",
     "fmt:check": "oxfmt --check",
     "fmt:fix": "oxfmt",
