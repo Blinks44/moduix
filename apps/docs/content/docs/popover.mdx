@@ -22,6 +22,63 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/popover" />
 
+## Basic
+
+<Preview cssProperties={popoverCssProperties}>
+  <PopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        BellIcon,
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+
+      export function PopoverDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger render={<Button />}>
+              <span className={styles.triggerContent}>
+                <BellIcon className={styles.icon} />
+                Notifications
+              </span>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>Notifications</PopoverTitle>
+                <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .triggerContent {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .icon {
+        width: 1rem;
+        height: 1rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ## Anatomy
 
 `Popover` combines a trigger and a floating content layer. Keep `PopoverTrigger` and
@@ -80,63 +137,6 @@ In most cases, style the visible popup layers first: `PopoverTrigger`, `PopoverC
 header/body/footer content. Use `classNames` for internal service slots (`portal`, `backdrop`,
 `positioner`, `viewport`, `arrow`) only when you need advanced placement, overlays, or transition
 coordination.
-
-## Basic
-
-<Preview cssProperties={popoverCssProperties}>
-  <PopoverExample />
-
-  <Preview.Code>
-    {`
-      import {
-        BellIcon,
-        Button,
-        Popover,
-        PopoverContent,
-        PopoverDescription,
-        PopoverHeader,
-        PopoverTitle,
-        PopoverTrigger,
-      } from "moduix";
-
-      export function PopoverDemo() {
-        return (
-          <Popover>
-            <PopoverTrigger render={<Button />}>
-              <span className={styles.triggerContent}>
-                <BellIcon className={styles.icon} />
-                Notifications
-              </span>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverHeader>
-                <PopoverTitle>Notifications</PopoverTitle>
-                <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
-              </PopoverHeader>
-            </PopoverContent>
-          </Popover>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .triggerContent {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-2);
-      }
-
-      .icon {
-        width: 1rem;
-        height: 1rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
 
 ## Composition
 

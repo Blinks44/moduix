@@ -21,66 +21,6 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/menubar" />
 
-## Anatomy
-
-`Menubar` is built from top-level menus. Each `MenubarMenu` pairs one `MenubarTrigger`
-with one `MenubarContent`; keep this pair together so keyboard navigation and open state
-stay predictable.
-
-```text
-Menubar
-└─ MenubarMenu
-   ├─ MenubarTrigger
-   └─ MenubarContent
-      ├─ portal (service slot)
-      │  └─ positioner (service slot)
-      │     ├─ backdrop (optional service slot)
-      │     └─ viewport (service slot)
-      │        ├─ MenubarArrow
-      │        ├─ MenubarItem / MenubarCheckboxItem / MenubarRadioItem
-      │        ├─ MenubarGroup
-      │        ├─ MenubarSeparator
-      │        └─ MenubarSubmenu
-      │           ├─ MenubarSubmenuTrigger
-      │           └─ MenubarSubmenuContent
-```
-
-```tsx
-<Menubar>
-  <MenubarMenu>
-    <MenubarTrigger>File</MenubarTrigger>
-    <MenubarContent>
-      <MenubarArrow />
-      <MenubarItem closeOnClick>New</MenubarItem>
-      <MenubarSubmenu>
-        <MenubarSubmenuTrigger>
-          Export
-          <MenubarSubmenuTriggerIcon />
-        </MenubarSubmenuTrigger>
-        <MenubarSubmenuContent>
-          <MenubarItem closeOnClick>PDF</MenubarItem>
-        </MenubarSubmenuContent>
-      </MenubarSubmenu>
-    </MenubarContent>
-  </MenubarMenu>
-</Menubar>
-```
-
-| Part                                                   | Role                                                                                             |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `Menubar`                                              | Root state machine for orientation, roving focus, and top-level menu behavior.                   |
-| `MenubarMenu`                                          | One top-level menu scope that links a trigger and its popup content.                             |
-| `MenubarTrigger`                                       | Interactive control in the menubar row that opens the matching menu.                             |
-| `MenubarContent`                                       | Popup container for menu items and submenus. Accepts placement props and service-slot overrides. |
-| `MenubarArrow`                                         | Optional visual arrow that points from popup to trigger.                                         |
-| `MenubarItem`/`MenubarCheckboxItem`/`MenubarRadioItem` | Action and stateful command rows.                                                                |
-| `MenubarSubmenu`                                       | Nested command group rendered from a submenu trigger and submenu content.                        |
-
-In most cases, keep default portal and positioning behavior and style visible parts first:
-`Menubar`, `MenubarTrigger`, `MenubarContent`, and item rows. Use `classNames` plus
-`portalProps`/`positionerProps`/`viewportProps`/`backdropProps` only when you need to
-customize service layers.
-
 ## Basic
 
 <Preview cssProperties={menubarCssProperties}>
@@ -148,6 +88,66 @@ customize service layers.
 
   </Preview.Code>
 </Preview>
+
+## Anatomy
+
+`Menubar` is built from top-level menus. Each `MenubarMenu` pairs one `MenubarTrigger`
+with one `MenubarContent`; keep this pair together so keyboard navigation and open state
+stay predictable.
+
+```text
+Menubar
+└─ MenubarMenu
+   ├─ MenubarTrigger
+   └─ MenubarContent
+      ├─ portal (service slot)
+      │  └─ positioner (service slot)
+      │     ├─ backdrop (optional service slot)
+      │     └─ viewport (service slot)
+      │        ├─ MenubarArrow
+      │        ├─ MenubarItem / MenubarCheckboxItem / MenubarRadioItem
+      │        ├─ MenubarGroup
+      │        ├─ MenubarSeparator
+      │        └─ MenubarSubmenu
+      │           ├─ MenubarSubmenuTrigger
+      │           └─ MenubarSubmenuContent
+```
+
+```tsx
+<Menubar>
+  <MenubarMenu>
+    <MenubarTrigger>File</MenubarTrigger>
+    <MenubarContent>
+      <MenubarArrow />
+      <MenubarItem closeOnClick>New</MenubarItem>
+      <MenubarSubmenu>
+        <MenubarSubmenuTrigger>
+          Export
+          <MenubarSubmenuTriggerIcon />
+        </MenubarSubmenuTrigger>
+        <MenubarSubmenuContent>
+          <MenubarItem closeOnClick>PDF</MenubarItem>
+        </MenubarSubmenuContent>
+      </MenubarSubmenu>
+    </MenubarContent>
+  </MenubarMenu>
+</Menubar>
+```
+
+| Part                                                   | Role                                                                                             |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `Menubar`                                              | Root state machine for orientation, roving focus, and top-level menu behavior.                   |
+| `MenubarMenu`                                          | One top-level menu scope that links a trigger and its popup content.                             |
+| `MenubarTrigger`                                       | Interactive control in the menubar row that opens the matching menu.                             |
+| `MenubarContent`                                       | Popup container for menu items and submenus. Accepts placement props and service-slot overrides. |
+| `MenubarArrow`                                         | Optional visual arrow that points from popup to trigger.                                         |
+| `MenubarItem`/`MenubarCheckboxItem`/`MenubarRadioItem` | Action and stateful command rows.                                                                |
+| `MenubarSubmenu`                                       | Nested command group rendered from a submenu trigger and submenu content.                        |
+
+In most cases, keep default portal and positioning behavior and style visible parts first:
+`Menubar`, `MenubarTrigger`, `MenubarContent`, and item rows. Use `classNames` plus
+`portalProps`/`positionerProps`/`viewportProps`/`backdropProps` only when you need to
+customize service layers.
 
 ## Composition
 

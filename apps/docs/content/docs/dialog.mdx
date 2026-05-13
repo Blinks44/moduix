@@ -18,6 +18,48 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/dialog" />
 
+## Basic
+
+<Preview cssProperties={dialogCssProperties}>
+  <DialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Dialog,
+        DialogTrigger,
+        Button,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogCloseIcon,
+        DialogDescription,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+
+      export function DialogDemo() {
+        return (
+          <Dialog>
+            <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Notifications</DialogTitle>
+                <DialogCloseIcon />
+                <DialogDescription>You are all caught up. Good job!</DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ## Anatomy
 
 `Dialog` combines a root state machine with one visible popup surface and internal service layers.
@@ -78,48 +120,6 @@ In most cases, keep default overlay behavior and style only visible popup parts 
 (`DialogContent`, `DialogHeader`, `DialogBody`, `DialogFooter`). Customize service slots with
 `classNames` (`portal`, `backdrop`, `viewport`) only when you need special layering, positioning,
 or overlay visuals.
-
-## Basic
-
-<Preview cssProperties={dialogCssProperties}>
-  <DialogExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Dialog,
-        DialogTrigger,
-        Button,
-        DialogContent,
-        DialogHeader,
-        DialogTitle,
-        DialogCloseIcon,
-        DialogDescription,
-        DialogFooter,
-        DialogClose,
-      } from "moduix";
-
-      export function DialogDemo() {
-        return (
-          <Dialog>
-            <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Notifications</DialogTitle>
-                <DialogCloseIcon />
-                <DialogDescription>You are all caught up. Good job!</DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
 
 ## Composition
 

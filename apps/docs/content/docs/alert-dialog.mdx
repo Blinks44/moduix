@@ -17,6 +17,50 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/alert-dialog" />
 
+## Basic
+
+<Preview cssProperties={alertDialogCssProperties}>
+  <AlertDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        AlertDialog,
+        AlertDialogTrigger,
+        Button,
+        AlertDialogContent,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        AlertDialogCloseIcon,
+        AlertDialogDescription,
+        AlertDialogFooter,
+        AlertDialogCancel,
+        AlertDialogAction,
+      } from "moduix";
+
+      export function AlertDialogDemo() {
+        return (
+          <AlertDialog>
+            <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Discard draft?</AlertDialogTitle>
+                <AlertDialogCloseIcon />
+                <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+                <AlertDialogAction render={<Button />}>Discard</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ## Anatomy
 
 `AlertDialog` is built around a root state container and a content surface that renders the
@@ -74,50 +118,6 @@ AlertDialog
 Use default slot styling in most cases. Customize `portal` when integrating with a specific
 mount container or layered app shell, `backdrop` for brand-specific overlay tone/interaction,
 and `viewport` when placement rules differ (for example top-aligned or edge-biased dialogs).
-
-## Basic
-
-<Preview cssProperties={alertDialogCssProperties}>
-  <AlertDialogExample />
-
-  <Preview.Code>
-    {`
-      import {
-        AlertDialog,
-        AlertDialogTrigger,
-        Button,
-        AlertDialogContent,
-        AlertDialogHeader,
-        AlertDialogTitle,
-        AlertDialogCloseIcon,
-        AlertDialogDescription,
-        AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
-      } from "moduix";
-
-      export function AlertDialogDemo() {
-        return (
-          <AlertDialog>
-            <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-                <AlertDialogCloseIcon />
-                <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-                <AlertDialogAction render={<Button />}>Discard</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
 
 ## Composition
 

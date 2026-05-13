@@ -17,69 +17,6 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/navigation-menu" />
 
-## Anatomy
-
-`NavigationMenu` is composed from visible navigation parts (`List`, `Item`, `Trigger`, `Content`,
-`Link`) and optional icon slot (`NavigationMenuIcon`). The popup infrastructure (`Portal`,
-`Positioner`, `Popup`, `Arrow`, `Viewport`) is rendered internally by default through
-`popupContent`, so consumers can keep a compact composition for common navigation scenarios.
-
-```text
-NavigationMenu
-└─ NavigationMenuList
-   ├─ NavigationMenuItem
-   │  ├─ NavigationMenuTrigger
-   │  │  ├─ label
-   │  │  └─ NavigationMenuIcon
-   │  └─ NavigationMenuContent
-   │     └─ content
-   └─ NavigationMenuItem
-      └─ NavigationMenuLink
-```
-
-```tsx
-<NavigationMenu>
-  <NavigationMenuList>
-    <NavigationMenuItem>
-      <NavigationMenuTrigger>
-        Product
-        <NavigationMenuIcon />
-      </NavigationMenuTrigger>
-      <NavigationMenuContent>
-        <ul>
-          <li>
-            <a href="#">Quick Start</a>
-          </li>
-          <li>
-            <a href="#">Composition</a>
-          </li>
-        </ul>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-
-    <NavigationMenuItem>
-      <NavigationMenuLink href="#" closeOnClick>
-        Releases
-      </NavigationMenuLink>
-    </NavigationMenuItem>
-  </NavigationMenuList>
-</NavigationMenu>
-```
-
-| Part                    | Role                                                                                       |
-| ----------------------- | ------------------------------------------------------------------------------------------ |
-| `NavigationMenu`        | Root state machine. Controls value, orientation, open state, and shared popup behavior.    |
-| `NavigationMenuList`    | Semantic list wrapper for top-level navigation items.                                      |
-| `NavigationMenuItem`    | One navigation node that can render either a trigger/content pair or a direct link.        |
-| `NavigationMenuTrigger` | Interactive control that toggles associated content and receives state attributes.         |
-| `NavigationMenuIcon`    | Optional visual indicator for trigger state; accepts custom children for icon replacement. |
-| `NavigationMenuContent` | Panel content for a trigger item; rendered with popup mechanics by default.                |
-| `NavigationMenuLink`    | Direct navigation link item that can participate in close behavior with `closeOnClick`.    |
-
-For most implementations, keep default popup service slots internal and style visible parts first.
-Reach for `popupContent.className` and `popupContent.classNames` when you need fine-grained control
-over popup container and infrastructure slots.
-
 ## Basic
 
 <Preview cssProperties={navigationMenuCssProperties}>
@@ -242,6 +179,69 @@ over popup container and infrastructure slots.
 
   </Preview.Data>
 </Preview>
+
+## Anatomy
+
+`NavigationMenu` is composed from visible navigation parts (`List`, `Item`, `Trigger`, `Content`,
+`Link`) and optional icon slot (`NavigationMenuIcon`). The popup infrastructure (`Portal`,
+`Positioner`, `Popup`, `Arrow`, `Viewport`) is rendered internally by default through
+`popupContent`, so consumers can keep a compact composition for common navigation scenarios.
+
+```text
+NavigationMenu
+└─ NavigationMenuList
+   ├─ NavigationMenuItem
+   │  ├─ NavigationMenuTrigger
+   │  │  ├─ label
+   │  │  └─ NavigationMenuIcon
+   │  └─ NavigationMenuContent
+   │     └─ content
+   └─ NavigationMenuItem
+      └─ NavigationMenuLink
+```
+
+```tsx
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>
+        Product
+        <NavigationMenuIcon />
+      </NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul>
+          <li>
+            <a href="#">Quick Start</a>
+          </li>
+          <li>
+            <a href="#">Composition</a>
+          </li>
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+
+    <NavigationMenuItem>
+      <NavigationMenuLink href="#" closeOnClick>
+        Releases
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+```
+
+| Part                    | Role                                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------------------ |
+| `NavigationMenu`        | Root state machine. Controls value, orientation, open state, and shared popup behavior.    |
+| `NavigationMenuList`    | Semantic list wrapper for top-level navigation items.                                      |
+| `NavigationMenuItem`    | One navigation node that can render either a trigger/content pair or a direct link.        |
+| `NavigationMenuTrigger` | Interactive control that toggles associated content and receives state attributes.         |
+| `NavigationMenuIcon`    | Optional visual indicator for trigger state; accepts custom children for icon replacement. |
+| `NavigationMenuContent` | Panel content for a trigger item; rendered with popup mechanics by default.                |
+| `NavigationMenuLink`    | Direct navigation link item that can participate in close behavior with `closeOnClick`.    |
+
+For most implementations, keep default popup service slots internal and style visible parts first.
+Reach for `popupContent.className` and `popupContent.classNames` when you need fine-grained control
+over popup container and infrastructure slots.
 
 ## Composition
 

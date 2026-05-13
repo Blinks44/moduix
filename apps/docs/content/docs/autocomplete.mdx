@@ -21,6 +21,76 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/autocomplete" />
 
+## Basic
+
+<Preview cssProperties={autocompleteCssProperties}>
+  <AutocompleteExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Autocomplete,
+        AutocompleteField,
+        AutocompleteFieldLabel,
+        AutocompleteInputGroup,
+        AutocompleteInput,
+        AutocompleteControlActions,
+        AutocompleteClear,
+        AutocompleteTrigger,
+        AutocompleteContent,
+        AutocompleteEmpty,
+        AutocompleteList,
+        AutocompleteItem,
+        AutocompleteItemText,
+      } from "moduix";
+      import { useId } from "react";
+
+      export function AutocompleteDemo() {
+        const id = useId();
+
+        return (
+          <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
+            <AutocompleteField>
+              <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+              <AutocompleteInputGroup>
+                <AutocompleteInput id={id} placeholder="e.g. feature" />
+                <AutocompleteControlActions>
+                  <AutocompleteClear aria-label="Clear value" />
+                  <AutocompleteTrigger aria-label="Open suggestions" />
+                </AutocompleteControlActions>
+              </AutocompleteInputGroup>
+            </AutocompleteField>
+
+            <AutocompleteContent>
+              <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+              <AutocompleteList>
+                {(item) => (
+                  <AutocompleteItem key={item.id} value={item}>
+                    <AutocompleteItemText>{item.value}</AutocompleteItemText>
+                  </AutocompleteItem>
+                )}
+              </AutocompleteList>
+            </AutocompleteContent>
+          </Autocomplete>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const tags = [
+        { id: "t1", value: "feature" },
+        { id: "t2", value: "fix" },
+        { id: "t3", value: "bug" },
+        { id: "t4", value: "docs" },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
 ## Anatomy
 
 `Autocomplete` combines an input field, control actions, and a popup with filtered options. Keep
@@ -95,76 +165,6 @@ Autocomplete
 Use default styling for service slots in most cases. Customize `portal`, `backdrop`,
 `positioner`, and `arrow` when you need custom layering, overlay behavior, popup placement, or
 arrow visuals.
-
-## Basic
-
-<Preview cssProperties={autocompleteCssProperties}>
-  <AutocompleteExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Autocomplete,
-        AutocompleteField,
-        AutocompleteFieldLabel,
-        AutocompleteInputGroup,
-        AutocompleteInput,
-        AutocompleteControlActions,
-        AutocompleteClear,
-        AutocompleteTrigger,
-        AutocompleteContent,
-        AutocompleteEmpty,
-        AutocompleteList,
-        AutocompleteItem,
-        AutocompleteItemText,
-      } from "moduix";
-      import { useId } from "react";
-
-      export function AutocompleteDemo() {
-        const id = useId();
-
-        return (
-          <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
-            <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
-              <AutocompleteInputGroup>
-                <AutocompleteInput id={id} placeholder="e.g. feature" />
-                <AutocompleteControlActions>
-                  <AutocompleteClear aria-label="Clear value" />
-                  <AutocompleteTrigger aria-label="Open suggestions" />
-                </AutocompleteControlActions>
-              </AutocompleteInputGroup>
-            </AutocompleteField>
-
-            <AutocompleteContent>
-              <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-              <AutocompleteList>
-                {(item) => (
-                  <AutocompleteItem key={item.id} value={item}>
-                    <AutocompleteItemText>{item.value}</AutocompleteItemText>
-                  </AutocompleteItem>
-                )}
-              </AutocompleteList>
-            </AutocompleteContent>
-          </Autocomplete>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const tags = [
-        { id: "t1", value: "feature" },
-        { id: "t2", value: "fix" },
-        { id: "t3", value: "bug" },
-        { id: "t4", value: "docs" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
 
 ## Composition
 

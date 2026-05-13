@@ -24,6 +24,53 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/menu" />
 
+## Basic
+
+`MenuContent` renders the portal and positioner internally, so the public composition only needs the trigger, content, optional arrow, and menu items.
+
+<Preview cssProperties={menuCssProperties}>
+  <MenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Menu,
+        MenuTrigger,
+        MenuTriggerIcon,
+        MenuContent,
+        MenuArrow,
+        MenuItem,
+        MenuSeparator,
+      } from "moduix";
+
+      export function MenuDemo() {
+        return (
+          <Menu>
+            <MenuTrigger render={<Button />}>
+              Song
+              <MenuTriggerIcon />
+            </MenuTrigger>
+            <MenuContent>
+              <MenuArrow />
+              <MenuItem closeOnClick>Add to Library</MenuItem>
+              <MenuItem closeOnClick>Add to Playlist</MenuItem>
+              <MenuSeparator />
+              <MenuItem closeOnClick>Play Next</MenuItem>
+              <MenuItem closeOnClick>Play Last</MenuItem>
+              <MenuSeparator />
+              <MenuItem closeOnClick disabled>
+                Share
+              </MenuItem>
+            </MenuContent>
+          </Menu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ## Anatomy
 
 Menu is composed from a trigger and a popup content layer. Keep interactive items and nested branches
@@ -83,53 +130,6 @@ Menu
 In most cases, keep defaults and style visible parts such as trigger, items, separators, and arrow.
 Use `classNames`, `portalProps`, `positionerProps`, `backdropProps`, `viewportProps`, `withBackdrop`,
 and `withViewport` when you need slot-level customization.
-
-## Basic
-
-`MenuContent` renders the portal and positioner internally, so the public composition only needs the trigger, content, optional arrow, and menu items.
-
-<Preview cssProperties={menuCssProperties}>
-  <MenuExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
-        MenuContent,
-        MenuArrow,
-        MenuItem,
-        MenuSeparator,
-      } from "moduix";
-
-      export function MenuDemo() {
-        return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              Song
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent>
-              <MenuArrow />
-              <MenuItem closeOnClick>Add to Library</MenuItem>
-              <MenuItem closeOnClick>Add to Playlist</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>Play Next</MenuItem>
-              <MenuItem closeOnClick>Play Last</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick disabled>
-                Share
-              </MenuItem>
-            </MenuContent>
-          </Menu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
 
 ## Composition
 

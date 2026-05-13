@@ -16,44 +16,6 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/fieldset" />
 
-## Anatomy
-
-`Fieldset` groups related controls under one semantic legend. Keep the visible group label in
-`FieldsetLegend`, then place related `Field` blocks (or composed rows like radio options) inside the
-same root so native fieldset semantics and disabled behavior stay consistent.
-
-```text
-Fieldset
-├─ FieldsetLegend
-└─ grouped content
-   ├─ Field
-   │  ├─ FieldLabel
-   │  ├─ FieldControl
-   │  └─ FieldError
-   └─ Field / FieldItem rows (optional)
-```
-
-```tsx
-<Fieldset>
-  <FieldsetLegend>Billing details</FieldsetLegend>
-
-  <Field validationMode="onBlur">
-    <FieldLabel>Company</FieldLabel>
-    <FieldControl required placeholder="Enter company name" />
-    <FieldError match="valueMissing">Please enter company name.</FieldError>
-  </Field>
-</Fieldset>
-```
-
-| Part             | Role                                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------------------------ |
-| `Fieldset`       | Root semantic group. Renders native `fieldset`, controls shared disabled state, and supports `render`. |
-| `FieldsetLegend` | Group label announced by assistive technologies for all nested controls in the fieldset.               |
-
-`Fieldset` does not have service slots such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep default semantic structure and customize visible parts (`Fieldset`,
-`FieldsetLegend`, and nested field slots) with `className` and CSS variables.
-
 ## Basic
 
 <Preview cssProperties={fieldsetCssProperties}>
@@ -93,6 +55,44 @@ In most cases, keep default semantic structure and customize visible parts (`Fie
 
   </Preview.Code>
 </Preview>
+
+## Anatomy
+
+`Fieldset` groups related controls under one semantic legend. Keep the visible group label in
+`FieldsetLegend`, then place related `Field` blocks (or composed rows like radio options) inside the
+same root so native fieldset semantics and disabled behavior stay consistent.
+
+```text
+Fieldset
+├─ FieldsetLegend
+└─ grouped content
+   ├─ Field
+   │  ├─ FieldLabel
+   │  ├─ FieldControl
+   │  └─ FieldError
+   └─ Field / FieldItem rows (optional)
+```
+
+```tsx
+<Fieldset>
+  <FieldsetLegend>Billing details</FieldsetLegend>
+
+  <Field validationMode="onBlur">
+    <FieldLabel>Company</FieldLabel>
+    <FieldControl required placeholder="Enter company name" />
+    <FieldError match="valueMissing">Please enter company name.</FieldError>
+  </Field>
+</Fieldset>
+```
+
+| Part             | Role                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `Fieldset`       | Root semantic group. Renders native `fieldset`, controls shared disabled state, and supports `render`. |
+| `FieldsetLegend` | Group label announced by assistive technologies for all nested controls in the fieldset.               |
+
+`Fieldset` does not have service slots such as `portal`, `backdrop`, or `viewport`.
+In most cases, keep default semantic structure and customize visible parts (`Fieldset`,
+`FieldsetLegend`, and nested field slots) with `className` and CSS variables.
 
 ## Composition
 

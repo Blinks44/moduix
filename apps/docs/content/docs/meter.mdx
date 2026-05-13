@@ -19,6 +19,32 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/meter" />
 
+## Basic
+
+<Preview cssProperties={meterCssProperties}>
+  <MeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterLabel,
+        MeterValue,
+      } from "moduix";
+
+      export function MeterDemo() {
+        return (
+          <Meter value={24}>
+            <MeterLabel>Storage Used</MeterLabel>
+            <MeterValue />
+          </Meter>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ## Anatomy
 
 `Meter` combines a semantic root with visible value text and a visual fill track. In the default setup,
@@ -51,32 +77,6 @@ Meter[value]
 `Meter` does not use service slots such as `portal`, `backdrop`, or `viewport`.
 Keep the default track structure when possible, and customize slot-level visuals through `classNames`
 or by composing `MeterTrack` and `MeterIndicator` manually when the design needs full control.
-
-## Basic
-
-<Preview cssProperties={meterCssProperties}>
-  <MeterExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Meter,
-        MeterLabel,
-        MeterValue,
-      } from "moduix";
-
-      export function MeterDemo() {
-        return (
-          <Meter value={24}>
-            <MeterLabel>Storage Used</MeterLabel>
-            <MeterValue />
-          </Meter>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
 
 ## Composition
 

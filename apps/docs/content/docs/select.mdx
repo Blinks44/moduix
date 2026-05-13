@@ -22,68 +22,6 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/select" />
 
-## Anatomy
-
-`Select` combines a trigger-like field with a popup list of options. Keep field parts grouped inside
-`SelectField` and list parts inside `SelectContent` so labeling, selection state, and keyboard behavior
-stay synchronized.
-
-```text
-Select
-├─ SelectField
-│  ├─ SelectLabel
-│  └─ SelectTrigger
-│     ├─ SelectValue
-│     └─ SelectIcon
-└─ SelectContent
-   ├─ service slots (internal): portal, backdrop, positioner, arrow
-   ├─ SelectScrollUpArrow / SelectScrollDownArrow (optional)
-   └─ SelectList
-      └─ SelectItem[value]
-         ├─ SelectItemIndicator
-         └─ SelectItemText
-```
-
-```tsx
-<Select items={fruits}>
-  <SelectField>
-    <SelectLabel>Choose fruit</SelectLabel>
-    <SelectTrigger>
-      <SelectValue placeholder="Select an option" />
-      <SelectIcon />
-    </SelectTrigger>
-  </SelectField>
-
-  <SelectContent>
-    <SelectScrollUpArrow />
-    <SelectList>
-      {fruits.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          <SelectItemIndicator />
-          <SelectItemText>{item.label}</SelectItemText>
-        </SelectItem>
-      ))}
-    </SelectList>
-    <SelectScrollDownArrow />
-  </SelectContent>
-</Select>
-```
-
-| Part            | Role                                                                                                            |
-| --------------- | --------------------------------------------------------------------------------------------------------------- |
-| `Select`        | Root state machine. Controls selected value(s), popup open state, keyboard navigation, and item string mapping. |
-| `SelectField`   | Field wrapper for label and trigger. Keeps form semantics and visible control layout together.                  |
-| `SelectTrigger` | Interactive button that opens/closes the popup and exposes open/disabled state attributes.                      |
-| `SelectValue`   | Value renderer inside the trigger. Shows placeholder, selected label, or a custom function output.              |
-| `SelectContent` | Popup surface that hosts list/scroll controls and configures internal service layers and positioning props.     |
-| `SelectItem`    | One selectable option. Works with `SelectItemIndicator` and `SelectItemText` to render selection state.         |
-
-In most cases, keep default popup infrastructure and style visible parts (`SelectTrigger`,
-`SelectValue`, `SelectContent`, `SelectItem`, `SelectItemIndicator`, `SelectItemText`).
-Use `SelectContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
-`backdropProps`, `arrowProps`, `withBackdrop`, `showArrow`) only when you need custom portal,
-layering, backdrop, or arrow behavior.
-
 ## Basic
 
 <Preview cssProperties={selectCssProperties}>
@@ -155,6 +93,68 @@ layering, backdrop, or arrow behavior.
 
   </Preview.Data>
 </Preview>
+
+## Anatomy
+
+`Select` combines a trigger-like field with a popup list of options. Keep field parts grouped inside
+`SelectField` and list parts inside `SelectContent` so labeling, selection state, and keyboard behavior
+stay synchronized.
+
+```text
+Select
+├─ SelectField
+│  ├─ SelectLabel
+│  └─ SelectTrigger
+│     ├─ SelectValue
+│     └─ SelectIcon
+└─ SelectContent
+   ├─ service slots (internal): portal, backdrop, positioner, arrow
+   ├─ SelectScrollUpArrow / SelectScrollDownArrow (optional)
+   └─ SelectList
+      └─ SelectItem[value]
+         ├─ SelectItemIndicator
+         └─ SelectItemText
+```
+
+```tsx
+<Select items={fruits}>
+  <SelectField>
+    <SelectLabel>Choose fruit</SelectLabel>
+    <SelectTrigger>
+      <SelectValue placeholder="Select an option" />
+      <SelectIcon />
+    </SelectTrigger>
+  </SelectField>
+
+  <SelectContent>
+    <SelectScrollUpArrow />
+    <SelectList>
+      {fruits.map((item) => (
+        <SelectItem key={item.value} value={item.value}>
+          <SelectItemIndicator />
+          <SelectItemText>{item.label}</SelectItemText>
+        </SelectItem>
+      ))}
+    </SelectList>
+    <SelectScrollDownArrow />
+  </SelectContent>
+</Select>
+```
+
+| Part            | Role                                                                                                            |
+| --------------- | --------------------------------------------------------------------------------------------------------------- |
+| `Select`        | Root state machine. Controls selected value(s), popup open state, keyboard navigation, and item string mapping. |
+| `SelectField`   | Field wrapper for label and trigger. Keeps form semantics and visible control layout together.                  |
+| `SelectTrigger` | Interactive button that opens/closes the popup and exposes open/disabled state attributes.                      |
+| `SelectValue`   | Value renderer inside the trigger. Shows placeholder, selected label, or a custom function output.              |
+| `SelectContent` | Popup surface that hosts list/scroll controls and configures internal service layers and positioning props.     |
+| `SelectItem`    | One selectable option. Works with `SelectItemIndicator` and `SelectItemText` to render selection state.         |
+
+In most cases, keep default popup infrastructure and style visible parts (`SelectTrigger`,
+`SelectValue`, `SelectContent`, `SelectItem`, `SelectItemIndicator`, `SelectItemText`).
+Use `SelectContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
+`backdropProps`, `arrowProps`, `withBackdrop`, `showArrow`) only when you need custom portal,
+layering, backdrop, or arrow behavior.
 
 ## Composition
 

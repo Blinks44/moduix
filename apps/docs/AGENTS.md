@@ -47,12 +47,12 @@ Every component page must use this order:
    - `title` - component name, for example `Accordion`;
    - `description` - short description of the component purpose.
 2. A `BaseUIReference` block linking to the source Base UI docs page for the primitive, for example `https://base-ui.com/react/components/accordion`.
-3. `## Anatomy` section.
+3. Basic preview with the heading `Basic`.
+4. Tabs with the basic example code and `CSS properties`. Use `Preview` and pass `cssProperties` only to the basic example.
+5. `## Anatomy` section.
    - Briefly describe visible parts and internal service slots (for example `portal`, `backdrop`, `viewport`) when the component has them.
    - Explain when consumers should keep default styling and when slot-level customization is useful.
    - Keep `Anatomy` blocks in a unified style across all component pages. Use `content/docs/accordion.mdx` as the reference format for section structure and tone.
-4. Basic preview with the heading `Basic`.
-5. Tabs with the basic example code and `CSS properties`. Use `Preview` and pass `cssProperties` only to the basic example.
 6. `## Composition` section (optional, only when there is meaningful composition to show).
 7. `## Examples` section.
 8. For each Storybook example:
@@ -63,7 +63,7 @@ Every component page must use this order:
 
 Order examples by user learning flow rather than alphabetically:
 
-1. Keep section order fixed: `Anatomy` -> `Basic` -> `Composition` (if present) -> `Examples`.
+1. Keep section order fixed: `Basic` -> `Anatomy` -> `Composition` (if present) -> `Examples`.
 2. Inside `Examples`, put the most common user scenarios first.
 3. Put controlled or stateful variants after common scenarios.
 4. Put customization examples after behavior examples: custom icons, custom styling, slots, `className`.

@@ -19,6 +19,46 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/context-menu" />
 
+## Basic
+
+<Preview cssProperties={contextMenuCssProperties}>
+  <ContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+
+      export function ContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuArrow />
+              <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
+              <ContextMenuItem closeOnClick>Add to Playlist</ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick>Play Next</ContextMenuItem>
+              <ContextMenuItem closeOnClick>Play Last</ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick disabled>
+                Share
+              </ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ## Anatomy
 
 Context menu is composed from a trigger surface and a popup content layer. Keep interactive parts
@@ -73,46 +113,6 @@ ContextMenu
 In most cases, keep the default structure and style visible parts such as trigger, items, separators, and
 arrow. Use `classNames`, `portalProps`, `positionerProps`, `backdropProps`, and `withBackdrop` when you
 need slot-level customization.
-
-## Basic
-
-<Preview cssProperties={contextMenuCssProperties}>
-  <ContextMenuExample />
-
-  <Preview.Code>
-    {`
-      import {
-        ContextMenu,
-        ContextMenuArrow,
-        ContextMenuContent,
-        ContextMenuItem,
-        ContextMenuSeparator,
-        ContextMenuTrigger,
-      } from "moduix";
-
-      export function ContextMenuDemo() {
-        return (
-          <ContextMenu>
-            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
-            <ContextMenuContent>
-              <ContextMenuArrow />
-              <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
-              <ContextMenuItem closeOnClick>Add to Playlist</ContextMenuItem>
-              <ContextMenuSeparator />
-              <ContextMenuItem closeOnClick>Play Next</ContextMenuItem>
-              <ContextMenuItem closeOnClick>Play Last</ContextMenuItem>
-              <ContextMenuSeparator />
-              <ContextMenuItem closeOnClick disabled>
-                Share
-              </ContextMenuItem>
-            </ContextMenuContent>
-          </ContextMenu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
 
 ## Composition
 

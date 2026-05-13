@@ -20,41 +20,6 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/tooltip" />
 
-## Anatomy
-
-Tooltip is composed of one trigger and one popup layer managed by `Tooltip`. Keep each
-`TooltipTrigger` connected to its matching `Tooltip` root so focus, hover, and delay behavior stay
-predictable.
-
-```text
-Tooltip
-├─ TooltipTrigger
-└─ TooltipContent
-   └─ portal
-      └─ positioner
-         └─ popup
-            ├─ arrow
-            └─ viewport
-               └─ content
-```
-
-```tsx
-<Tooltip>
-  <TooltipTrigger aria-label="Notifications">Hover or focus</TooltipTrigger>
-  <TooltipContent>Notifications</TooltipContent>
-</Tooltip>
-```
-
-| Part             | Role                                                                                                           |
-| ---------------- | -------------------------------------------------------------------------------------------------------------- |
-| `Tooltip`        | Root state and timing behavior. Handles open state, delay, controlled props, and optional `handle` linking.    |
-| `TooltipTrigger` | Interactive anchor element. Opens the tooltip on hover/focus and should keep its own accessible name.          |
-| `TooltipContent` | Composed popup layer. Renders `portal`, `positioner`, `popup`, optional `arrow`, and `viewport` automatically. |
-
-In most cases, keep the default composition and style only visible parts with `className`.
-Use `classNames`, `portalProps`, `positionerProps`, `arrowProps`, and `viewportProps` only when
-you need slot-level customization.
-
 ## Basic
 
 Use a tooltip for short visual labels on controls. Always give the trigger its own accessible name:
@@ -106,6 +71,41 @@ tooltips are not a replacement for `aria-label` or visible text.
 
   </Preview.CSS>
 </Preview>
+
+## Anatomy
+
+Tooltip is composed of one trigger and one popup layer managed by `Tooltip`. Keep each
+`TooltipTrigger` connected to its matching `Tooltip` root so focus, hover, and delay behavior stay
+predictable.
+
+```text
+Tooltip
+├─ TooltipTrigger
+└─ TooltipContent
+   └─ portal
+      └─ positioner
+         └─ popup
+            ├─ arrow
+            └─ viewport
+               └─ content
+```
+
+```tsx
+<Tooltip>
+  <TooltipTrigger aria-label="Notifications">Hover or focus</TooltipTrigger>
+  <TooltipContent>Notifications</TooltipContent>
+</Tooltip>
+```
+
+| Part             | Role                                                                                                           |
+| ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| `Tooltip`        | Root state and timing behavior. Handles open state, delay, controlled props, and optional `handle` linking.    |
+| `TooltipTrigger` | Interactive anchor element. Opens the tooltip on hover/focus and should keep its own accessible name.          |
+| `TooltipContent` | Composed popup layer. Renders `portal`, `positioner`, `popup`, optional `arrow`, and `viewport` automatically. |
+
+In most cases, keep the default composition and style only visible parts with `className`.
+Use `classNames`, `portalProps`, `positionerProps`, `arrowProps`, and `viewportProps` only when
+you need slot-level customization.
 
 ## Composition
 

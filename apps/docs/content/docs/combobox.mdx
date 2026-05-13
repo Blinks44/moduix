@@ -19,73 +19,6 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/combobox" />
 
-## Anatomy
-
-`Combobox` combines an input-like control with a popup list. Keep the field parts together
-inside `ComboboxField` and keep list-related parts inside `ComboboxContent` so keyboard focus,
-selection state, and filtering stay synchronized.
-
-```text
-Combobox
-├─ ComboboxField
-│  ├─ ComboboxFieldLabel
-│  └─ ComboboxInputGroup
-│     ├─ ComboboxInput
-│     └─ ComboboxControlActions
-│        ├─ ComboboxClear
-│        └─ ComboboxTrigger
-└─ ComboboxContent
-   ├─ service slots (internal): portal, backdrop, positioner, arrow
-   ├─ ComboboxStatus / ComboboxEmpty
-   └─ ComboboxList
-      └─ ComboboxItem[value]
-         ├─ ComboboxItemIndicator
-         └─ ComboboxItemText
-```
-
-```tsx
-<Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-  <ComboboxField>
-    <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
-    <ComboboxInputGroup>
-      <ComboboxInput id={id} placeholder="e.g. Mango" />
-      <ComboboxControlActions>
-        <ComboboxClear aria-label="Clear selection" />
-        <ComboboxTrigger aria-label="Open options" />
-      </ComboboxControlActions>
-    </ComboboxInputGroup>
-  </ComboboxField>
-
-  <ComboboxContent>
-    <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-    <ComboboxList>
-      {(item) => (
-        <ComboboxItem key={item.id} value={item}>
-          <ComboboxItemIndicator />
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-        </ComboboxItem>
-      )}
-    </ComboboxList>
-  </ComboboxContent>
-</Combobox>
-```
-
-| Part                     | Role                                                                                                                    |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `Combobox`               | Root state machine. Controls selected value, input text, popup open state, filtering, and keyboard navigation.          |
-| `ComboboxField`          | Field wrapper for label and input area. Keep visible form-control pieces here for layout and accessibility semantics.   |
-| `ComboboxInput`          | Search/input control. Drives filtering and exposes input events, placeholder, and focus behavior.                       |
-| `ComboboxControlActions` | Slot for inline controls such as clear and trigger buttons.                                                             |
-| `ComboboxContent`        | Popup surface with list/status/empty content. Also configures internal service layers and popup behavior props.         |
-| `ComboboxList`           | Collection renderer for options or grouped options. Contains `ComboboxItem`, `ComboboxGroup`, and `ComboboxCollection`. |
-| `ComboboxItem`           | One selectable option. Renders selected state and text/indicator subparts.                                              |
-
-In most cases, keep default popup infrastructure and style the visible parts (`ComboboxInput`,
-`ComboboxItem`, `ComboboxItemIndicator`, `ComboboxItemText`, `ComboboxContent`).
-Use `ComboboxContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
-`backdropProps`, `arrowProps`, `withBackdrop`, `showArrow`) only when you need custom portal,
-layering, backdrop, or arrow behavior.
-
 ## Basic
 
 <Preview cssProperties={comboboxCssProperties}>
@@ -156,6 +89,73 @@ layering, backdrop, or arrow behavior.
 
   </Preview.Data>
 </Preview>
+
+## Anatomy
+
+`Combobox` combines an input-like control with a popup list. Keep the field parts together
+inside `ComboboxField` and keep list-related parts inside `ComboboxContent` so keyboard focus,
+selection state, and filtering stay synchronized.
+
+```text
+Combobox
+├─ ComboboxField
+│  ├─ ComboboxFieldLabel
+│  └─ ComboboxInputGroup
+│     ├─ ComboboxInput
+│     └─ ComboboxControlActions
+│        ├─ ComboboxClear
+│        └─ ComboboxTrigger
+└─ ComboboxContent
+   ├─ service slots (internal): portal, backdrop, positioner, arrow
+   ├─ ComboboxStatus / ComboboxEmpty
+   └─ ComboboxList
+      └─ ComboboxItem[value]
+         ├─ ComboboxItemIndicator
+         └─ ComboboxItemText
+```
+
+```tsx
+<Combobox items={fruits} itemToStringLabel={(item) => item.label}>
+  <ComboboxField>
+    <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+    <ComboboxInputGroup>
+      <ComboboxInput id={id} placeholder="e.g. Mango" />
+      <ComboboxControlActions>
+        <ComboboxClear aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControlActions>
+    </ComboboxInputGroup>
+  </ComboboxField>
+
+  <ComboboxContent>
+    <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item.id} value={item}>
+          <ComboboxItemIndicator />
+          <ComboboxItemText>{item.label}</ComboboxItemText>
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>
+```
+
+| Part                     | Role                                                                                                                    |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `Combobox`               | Root state machine. Controls selected value, input text, popup open state, filtering, and keyboard navigation.          |
+| `ComboboxField`          | Field wrapper for label and input area. Keep visible form-control pieces here for layout and accessibility semantics.   |
+| `ComboboxInput`          | Search/input control. Drives filtering and exposes input events, placeholder, and focus behavior.                       |
+| `ComboboxControlActions` | Slot for inline controls such as clear and trigger buttons.                                                             |
+| `ComboboxContent`        | Popup surface with list/status/empty content. Also configures internal service layers and popup behavior props.         |
+| `ComboboxList`           | Collection renderer for options or grouped options. Contains `ComboboxItem`, `ComboboxGroup`, and `ComboboxCollection`. |
+| `ComboboxItem`           | One selectable option. Renders selected state and text/indicator subparts.                                              |
+
+In most cases, keep default popup infrastructure and style the visible parts (`ComboboxInput`,
+`ComboboxItem`, `ComboboxItemIndicator`, `ComboboxItemText`, `ComboboxContent`).
+Use `ComboboxContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
+`backdropProps`, `arrowProps`, `withBackdrop`, `showArrow`) only when you need custom portal,
+layering, backdrop, or arrow behavior.
 
 ## Composition
 

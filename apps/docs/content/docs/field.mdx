@@ -22,6 +22,36 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/field" />
 
+## Basic
+
+<Preview cssProperties={fieldCssProperties}>
+  <FieldExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldControl,
+        FieldDescription,
+        FieldError,
+        FieldLabel,
+      } from "moduix";
+
+      export function FieldDemo() {
+        return (
+          <Field validationMode="onBlur">
+            <FieldLabel>Name</FieldLabel>
+            <FieldControl required placeholder="Enter your name" />
+            <FieldError match="valueMissing">Please enter your name.</FieldError>
+            <FieldDescription>Visible on your public profile.</FieldDescription>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ## Anatomy
 
 `Field` acts as a semantic wrapper around one form control and its helper text. Keep label,
@@ -59,36 +89,6 @@ Field
 `Field` does not have service slots such as `portal`, `backdrop`, or `viewport`.
 In most cases, keep default structure and style only visible slots (`FieldLabel`, `FieldControl`,
 `FieldError`, `FieldDescription`, and optional `FieldItem`) via `className` and CSS variables.
-
-## Basic
-
-<Preview cssProperties={fieldCssProperties}>
-  <FieldExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldControl,
-        FieldDescription,
-        FieldError,
-        FieldLabel,
-      } from "moduix";
-
-      export function FieldDemo() {
-        return (
-          <Field validationMode="onBlur">
-            <FieldLabel>Name</FieldLabel>
-            <FieldControl required placeholder="Enter your name" />
-            <FieldError match="valueMissing">Please enter your name.</FieldError>
-            <FieldDescription>Visible on your public profile.</FieldDescription>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
 
 ## Examples
 

@@ -19,34 +19,6 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/avatar" />
 
-## Anatomy
-
-Avatar is composed as one root with two content slots. Keep `AvatarImage` and `AvatarFallback`
-inside the same `Avatar` so loading state, error state, and fallback timing stay synchronized.
-
-```text
-Avatar
-├─ AvatarImage
-└─ AvatarFallback
-   └─ initials | icon | custom content
-```
-
-```tsx
-<Avatar>
-  <AvatarImage src={avatarImage} alt="Alex T." />
-  <AvatarFallback delay={600}>LT</AvatarFallback>
-</Avatar>
-```
-
-| Part             | Role                                                                                      |
-| ---------------- | ----------------------------------------------------------------------------------------- |
-| `Avatar`         | Root slot. Controls size, shape, inherited styles, and composition with `render`.         |
-| `AvatarImage`    | Image slot. Renders the visual identity when the `src` is loaded successfully.            |
-| `AvatarFallback` | Fallback slot. Renders initials, icon, or custom content while loading or on image error. |
-
-`Avatar` does not use service slots such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep default behavior and style visible slots with `className` and CSS variables.
-
 ## Basic
 
 <Preview cssProperties={avatarCssProperties}>
@@ -76,6 +48,34 @@ In most cases, keep default behavior and style visible slots with `className` an
 
   </Preview.Data>
 </Preview>
+
+## Anatomy
+
+Avatar is composed as one root with two content slots. Keep `AvatarImage` and `AvatarFallback`
+inside the same `Avatar` so loading state, error state, and fallback timing stay synchronized.
+
+```text
+Avatar
+├─ AvatarImage
+└─ AvatarFallback
+   └─ initials | icon | custom content
+```
+
+```tsx
+<Avatar>
+  <AvatarImage src={avatarImage} alt="Alex T." />
+  <AvatarFallback delay={600}>LT</AvatarFallback>
+</Avatar>
+```
+
+| Part             | Role                                                                                      |
+| ---------------- | ----------------------------------------------------------------------------------------- |
+| `Avatar`         | Root slot. Controls size, shape, inherited styles, and composition with `render`.         |
+| `AvatarImage`    | Image slot. Renders the visual identity when the `src` is loaded successfully.            |
+| `AvatarFallback` | Fallback slot. Renders initials, icon, or custom content while loading or on image error. |
+
+`Avatar` does not use service slots such as `portal`, `backdrop`, or `viewport`.
+In most cases, keep default behavior and style visible slots with `className` and CSS variables.
 
 ## Examples
 

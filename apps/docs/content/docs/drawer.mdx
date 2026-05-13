@@ -28,6 +28,48 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/drawer" />
 
+## Basic
+
+<Preview cssProperties={drawerCssProperties}>
+  <DrawerExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Drawer,
+        DrawerBody,
+        DrawerClose,
+        DrawerContent,
+        DrawerDescription,
+        DrawerFooter,
+        DrawerHeader,
+        DrawerTitle,
+        DrawerTrigger,
+      } from "moduix";
+
+      export function DrawerDemo() {
+        return (
+          <Drawer>
+            <DrawerTrigger render={<Button />}>Open bottom drawer</DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Notifications</DrawerTitle>
+                <DrawerDescription>You are all caught up. Good job!</DrawerDescription>
+              </DrawerHeader>
+              <DrawerBody>Bottom drawers are the default.</DrawerBody>
+              <DrawerFooter>
+                <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ## Anatomy
 
 `Drawer` combines root state/gesture behavior with one visible panel and internal service slots.
@@ -84,48 +126,6 @@ In most cases, keep default layering and gestures and style visible panel parts 
 (`DrawerContent`, `DrawerHeader`, `DrawerBody`, `DrawerFooter`). Customize internal service slots with
 `classNames` (`portal`, `backdrop`, `viewport`, `handle`, `content`) only when you need special
 positioning, overlay, or handle behavior.
-
-## Basic
-
-<Preview cssProperties={drawerCssProperties}>
-  <DrawerExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        Drawer,
-        DrawerBody,
-        DrawerClose,
-        DrawerContent,
-        DrawerDescription,
-        DrawerFooter,
-        DrawerHeader,
-        DrawerTitle,
-        DrawerTrigger,
-      } from "moduix";
-
-      export function DrawerDemo() {
-        return (
-          <Drawer>
-            <DrawerTrigger render={<Button />}>Open bottom drawer</DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>Notifications</DrawerTitle>
-                <DrawerDescription>You are all caught up. Good job!</DrawerDescription>
-              </DrawerHeader>
-              <DrawerBody>Bottom drawers are the default.</DrawerBody>
-              <DrawerFooter>
-                <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
 
 ## Composition
 
