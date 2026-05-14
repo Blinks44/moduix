@@ -34,6 +34,12 @@ export const sliderCssProperties: CssPropertyInput[] = [
   ['--slider-transition', 'var(--transition-default)', 'Controls thumb transition timing.'],
 ];
 
+const priceFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+});
+
 export function SliderExample({ defaultValue = 40, ...props }: SliderProps<number>) {
   return (
     <Slider defaultValue={defaultValue} {...props}>
@@ -53,6 +59,37 @@ export function RangeSliderExample() {
       <SliderValue>{([minValue, maxValue]) => `${minValue} - ${maxValue}`}</SliderValue>
       <SliderThumb index={0} aria-label="Minimum price" />
       <SliderThumb index={1} aria-label="Maximum price" />
+    </Slider>
+  );
+}
+
+export function SteppedRangeSliderExample() {
+  const [value, setValue] = React.useState<readonly number[]>([250, 750]);
+
+  return (
+    <Slider
+      value={value}
+      min={0}
+      max={1000}
+      step={50}
+      largeStep={200}
+      minStepsBetweenValues={2}
+      thumbCollisionBehavior="none"
+      format={{
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+      }}
+      onValueChange={setValue}
+    >
+      <SliderLabel>Budget</SliderLabel>
+      <SliderValue>
+        {(_, [minValue, maxValue]) =>
+          `${priceFormatter.format(minValue)} - ${priceFormatter.format(maxValue)}`
+        }
+      </SliderValue>
+      <SliderThumb index={0} aria-label="Minimum budget" />
+      <SliderThumb index={1} aria-label="Maximum budget" />
     </Slider>
   );
 }

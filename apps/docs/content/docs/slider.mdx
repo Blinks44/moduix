@@ -12,6 +12,7 @@ import {
   EdgeThumbAlignmentSliderExample,
   RangeSliderExample,
   SliderExample,
+  SteppedRangeSliderExample,
   VerticalSliderExample,
   sliderCssProperties,
 } from '@/components/examples/slider';
@@ -47,6 +48,68 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Anatomy
+
+`Slider` renders the Base UI control, track, and indicator internally, so consumers only compose the
+meaningful content: label, value, and thumbs. Add one `SliderThumb` for each value in the slider.
+
+```text
+Slider
+├─ SliderLabel
+├─ SliderValue
+└─ internal control
+   └─ internal track
+      ├─ internal indicator
+      └─ SliderThumb[index]
+```
+
+```tsx
+<Slider defaultValue={40}>
+  <SliderLabel>Volume</SliderLabel>
+  <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
+  <SliderThumb aria-label="Volume" />
+</Slider>
+```
+
+| Part          | Role                                                                                                        |
+| ------------- | ----------------------------------------------------------------------------------------------------------- |
+| `Slider`      | Root state machine. Controls value, range values, steps, orientation, disabled state, and form integration. |
+| `SliderLabel` | Visible label connected to the slider inputs. Use it when the control has a readable label on screen.       |
+| `SliderValue` | Optional formatted value display. It receives formatted values and raw numeric values as render arguments.  |
+| `SliderThumb` | Interactive handle. Render one thumb for a single value and multiple indexed thumbs for a range.            |
+
+The control, track, and indicator are service-like slots for this component. They stay internal by
+default and can be styled through `classNames.control`, `classNames.track`, and
+`classNames.indicator` when token-level customization is not enough.
+
+## Composition
+
+Use `Slider` for behavior props such as `value`, `defaultValue`, `onValueChange`,
+`onValueCommitted`, `min`, `max`, `step`, `largeStep`, `minStepsBetweenValues`, `orientation`,
+`thumbAlignment`, `thumbCollisionBehavior`, `name`, and `form`.
+
+Use `SliderThumb` for the accessible name of each handle. A visible `SliderLabel` labels the group,
+but multi-thumb sliders still need distinct `aria-label` values on each thumb.
+
+Style the root with `className`, visible parts with their own `className`, and internally rendered
+track structure with `classNames`:
+
+```tsx
+<Slider
+  defaultValue={56}
+  className={styles.slider}
+  classNames={{
+    control: styles.control,
+    track: styles.track,
+    indicator: styles.indicator,
+  }}
+>
+  <SliderLabel>Temperature</SliderLabel>
+  <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
+  <SliderThumb aria-label="Temperature" className={styles.thumb} />
+</Slider>
+```
 
 ## Examples
 
@@ -84,6 +147,65 @@ Pass an array value and render one `SliderThumb` for each value to let users sel
   </Preview.Code>
 </Preview>
 
+### Steps and Constraints
+
+Use `step`, `largeStep`, and `minStepsBetweenValues` to make range selection snap to meaningful
+increments. `thumbCollisionBehavior` controls what happens when thumbs meet.
+
+<Preview>
+  <SteppedRangeSliderExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Slider,
+        SliderLabel,
+        SliderValue,
+        SliderThumb,
+      } from "moduix";
+      import { useState } from "react";
+
+      const priceFormatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0,
+      });
+
+      export function SteppedRangeSliderDemo() {
+        const [value, setValue] = useState([250, 750] as readonly number[]);
+
+        return (
+          <Slider
+            value={value}
+            min={0}
+            max={1000}
+            step={50}
+            largeStep={200}
+            minStepsBetweenValues={2}
+            thumbCollisionBehavior="none"
+            format={{
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }}
+            onValueChange={setValue}
+          >
+            <SliderLabel>Budget</SliderLabel>
+            <SliderValue>
+              {(_, [minValue, maxValue]) =>
+                \`\${priceFormatter.format(minValue)} - \${priceFormatter.format(maxValue)}\`
+              }
+            </SliderValue>
+            <SliderThumb index={0} aria-label="Minimum budget" />
+            <SliderThumb index={1} aria-label="Maximum budget" />
+          </Slider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ### Controlled
 
 Control the value from React state when the slider needs to synchronize with another control.
@@ -100,18 +222,20 @@ Control the value from React state when the slider needs to synchronize with ano
         SliderThumb,
       } from "moduix";
       import { useState } from "react";
+      import styles from "./slider.module.css";
 
       export function ControlledSliderDemo() {
         const [value, setValue] = useState(24);
 
         return (
-          <div>
+          <div className={styles.stack}>
             <Slider value={value} onValueChange={setValue}>
               <SliderLabel>Brightness</SliderLabel>
               <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
               <SliderThumb aria-label="Brightness" />
             </Slider>
             <input
+              className={styles.range}
               type="range"
               min={0}
               max={100}
@@ -126,6 +250,20 @@ Control the value from React state when the slider needs to synchronize with ano
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        gap: var(--spacing-4);
+      }
+
+      .range {
+        width: 12rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Vertical
@@ -143,26 +281,37 @@ Set `orientation="vertical"` and size the vertical track with CSS custom propert
         SliderValue,
         SliderThumb,
       } from "moduix";
+      import styles from "./slider.module.css";
 
       export function VerticalSliderDemo() {
         return (
-          <Slider
-            orientation="vertical"
-            defaultValue={60}
-            style={{
-              "--slider-width-vertical": "auto",
-              "--slider-height": "12rem",
-            }}
-          >
-            <SliderLabel>Output</SliderLabel>
-            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-            <SliderThumb aria-label="Output" />
-          </Slider>
+          <div className={styles.verticalContainer}>
+            <Slider orientation="vertical" defaultValue={60} className={styles.verticalSlider}>
+              <SliderLabel>Output</SliderLabel>
+              <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
+              <SliderThumb aria-label="Output" />
+            </Slider>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .verticalContainer {
+        display: flex;
+        height: 14rem;
+      }
+
+      .verticalSlider {
+        --slider-width-vertical: auto;
+        --slider-height: 12rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Edge Thumb Alignment
@@ -240,6 +389,7 @@ Use `className` for the root and `classNames` for internally rendered slots.
         SliderValue,
         SliderThumb,
       } from "moduix";
+      import styles from "./slider.module.css";
 
       export function CustomClassesSliderDemo() {
         return (
