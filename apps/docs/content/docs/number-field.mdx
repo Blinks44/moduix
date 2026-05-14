@@ -58,6 +58,61 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`NumberField` keeps numeric state on the root and composes a visible control group from decrement,
+input, and increment slots. Add `NumberFieldScrubArea` only when the label or another visible part
+should support drag-to-change behavior.
+
+```text
+Field
+├─ FieldLabel
+└─ NumberField
+   ├─ NumberFieldScrubArea
+   │  ├─ scrub label
+   │  └─ cursor (internal)
+   └─ NumberFieldGroup
+      ├─ NumberFieldDecrement
+      ├─ NumberFieldInput
+      └─ NumberFieldIncrement
+```
+
+```tsx
+<Field>
+  <FieldLabel htmlFor={id}>Amount</FieldLabel>
+  <NumberField id={id} defaultValue={100}>
+    <NumberFieldGroup>
+      <NumberFieldDecrement aria-label="Decrease value" />
+      <NumberFieldInput />
+      <NumberFieldIncrement aria-label="Increase value" />
+    </NumberFieldGroup>
+  </NumberField>
+</Field>
+```
+
+| Part                   | Role                                                                                                     |
+| ---------------------- | -------------------------------------------------------------------------------------------------------- |
+| `NumberField`          | Root state machine. Controls value, formatting, validation, min/max, step, and change handlers.          |
+| `NumberFieldScrubArea` | Optional drag area for changing the value. It renders the scrub cursor internally by default.            |
+| `NumberFieldGroup`     | Visual wrapper for the stepper buttons and input.                                                        |
+| `NumberFieldDecrement` | Button that decreases the value. It renders the default minus icon, or your custom icon as children.     |
+| `NumberFieldInput`     | Editable numeric input. It receives formatted text and invalid, disabled, and readonly state attributes. |
+| `NumberFieldIncrement` | Button that increases the value. It renders the default plus icon, or your custom icon as children.      |
+
+`NumberField` does not use portal-like service layers such as `portal`, `backdrop`, or `viewport`.
+The scrub cursor is an internal service slot of `NumberFieldScrubArea`, so it is customized through
+`cursor`, `withCursor`, and `classNames.cursor` instead of being added to the public composition.
+
+## Composition
+
+Use `NumberField` for root behavior props such as `value`, `defaultValue`, `onValueChange`, `min`,
+`max`, `step`, `required`, `disabled`, `readOnly`, and `format`.
+
+Visible parts accept `className`: `NumberField`, `NumberFieldScrubArea`, `NumberFieldGroup`,
+`NumberFieldDecrement`, `NumberFieldInput`, and `NumberFieldIncrement`. `NumberFieldScrubArea`
+also accepts `cursor` for replacing the default scrub cursor icon, `withCursor={false}` for hiding
+it, and `classNames.cursor` for styling the internal cursor wrapper.
+
 ## Examples
 
 ### Controlled
@@ -299,16 +354,8 @@ Pass children to the stepper buttons to use icons from your application or icon 
         NumberFieldIncrement,
         ChevronUpIcon,
       } from "moduix";
-      import type { CSSProperties } from "react";
       import { useId } from "react";
-
-      const customStyles = {
-        "--number-field-button-bg": "var(--color-muted)",
-        "--number-field-button-bg-hover": "var(--color-accent)",
-        "--number-field-icon-size": "1rem",
-        "--number-field-input-width": "7rem",
-        "--number-field-input-font-size": "var(--text-lg)",
-      } as CSSProperties;
+      import styles from "./number-field.module.css";
 
       export function CustomIconsNumberFieldDemo() {
         const id = useId();
@@ -316,13 +363,13 @@ Pass children to the stepper buttons to use icons from your application or icon 
         return (
           <Field>
             <FieldLabel htmlFor={id}>Floors</FieldLabel>
-            <NumberField id={id} defaultValue={8} style={customStyles}>
+            <NumberField id={id} defaultValue={8}>
               <NumberFieldGroup>
-                <NumberFieldDecrement aria-label="Decrease value">
+                <NumberFieldDecrement aria-label="Decrease value" className={styles.customButton}>
                   <ChevronDownIcon />
                 </NumberFieldDecrement>
-                <NumberFieldInput />
-                <NumberFieldIncrement aria-label="Increase value">
+                <NumberFieldInput className={styles.customInput} />
+                <NumberFieldIncrement aria-label="Increase value" className={styles.customButton}>
                   <ChevronUpIcon />
                 </NumberFieldIncrement>
               </NumberFieldGroup>
@@ -333,4 +380,20 @@ Pass children to the stepper buttons to use icons from your application or icon 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customButton {
+        --number-field-button-bg: var(--color-muted);
+        --number-field-button-bg-hover: var(--color-accent);
+        --number-field-icon-size: 1rem;
+      }
+
+      .customInput {
+        --number-field-input-width: 7rem;
+        --number-field-input-font-size: var(--text-lg);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

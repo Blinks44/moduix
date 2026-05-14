@@ -1,7 +1,6 @@
 export {
   NumberField,
   NumberFieldScrubArea,
-  NumberFieldScrubAreaCursor,
   NumberFieldGroup,
   NumberFieldDecrement,
   NumberFieldInput,
@@ -12,7 +11,6 @@ export type {
   NumberFieldProps,
   NumberFieldScrubAreaClassNames,
   NumberFieldScrubAreaProps,
-  NumberFieldScrubAreaCursorProps,
   NumberFieldGroupProps,
   NumberFieldDecrementProps,
   NumberFieldInputProps,

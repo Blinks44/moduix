@@ -32,10 +32,6 @@ function NumberFieldScrubArea({
   classNames,
   ...props
 }: NumberFieldScrubAreaProps) {
-  const hasExplicitCursor = React.Children.toArray(children).some(
-    (child) => React.isValidElement(child) && child.type === NumberFieldScrubAreaCursor,
-  );
-
   return (
     <NumberFieldPrimitive.ScrubArea
       data-slot="number-field-scrub-area"
@@ -43,7 +39,7 @@ function NumberFieldScrubArea({
       {...props}
     >
       {children}
-      {withCursor && !hasExplicitCursor && cursor !== null ? (
+      {withCursor && cursor !== null ? (
         <NumberFieldScrubAreaCursor className={classNames?.cursor}>
           {cursor ?? <ScrubCursorIcon />}
         </NumberFieldScrubAreaCursor>
@@ -118,7 +114,6 @@ function NumberFieldIncrement({
 }
 
 type NumberFieldProps = NumberFieldPrimitive.Root.Props;
-type NumberFieldScrubAreaCursorProps = NumberFieldPrimitive.ScrubAreaCursor.Props;
 type NumberFieldGroupProps = NumberFieldPrimitive.Group.Props;
 type NumberFieldDecrementProps = NumberFieldPrimitive.Decrement.Props;
 type NumberFieldInputProps = NumberFieldPrimitive.Input.Props;
@@ -127,7 +122,6 @@ type NumberFieldIncrementProps = NumberFieldPrimitive.Increment.Props;
 export {
   NumberField,
   NumberFieldScrubArea,
-  NumberFieldScrubAreaCursor,
   NumberFieldGroup,
   NumberFieldDecrement,
   NumberFieldInput,
@@ -138,7 +132,6 @@ export type {
   NumberFieldProps,
   NumberFieldScrubAreaClassNames,
   NumberFieldScrubAreaProps,
-  NumberFieldScrubAreaCursorProps,
   NumberFieldGroupProps,
   NumberFieldDecrementProps,
   NumberFieldInputProps,
