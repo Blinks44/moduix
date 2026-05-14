@@ -26,11 +26,9 @@ import {
     {`
       import {
         Accordion,
-        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
-        AccordionTriggerIcon,
       } from "moduix";
 
       export function AccordionDemo() {
@@ -38,12 +36,7 @@ import {
           <Accordion defaultValue={["what-is-base-ui"]}>
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon />
-                  </AccordionTrigger>
-                </AccordionHeader>
+                <AccordionTrigger>{item.title}</AccordionTrigger>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -99,10 +92,9 @@ import {
 ```text
 Accordion
 └─ AccordionItem[value]
-   ├─ AccordionHeader
-   │  └─ AccordionTrigger
-   │     ├─ label
-   │     └─ AccordionTriggerIcon
+   ├─ AccordionTrigger
+   │  ├─ label
+   │  └─ icon
    └─ AccordionPanel
       └─ content
 ```
@@ -110,12 +102,7 @@ Accordion
 ```tsx
 <Accordion defaultValue={['shipping']}>
   <AccordionItem value="shipping">
-    <AccordionHeader>
-      <AccordionTrigger>
-        Shipping details
-        <AccordionTriggerIcon />
-      </AccordionTrigger>
-    </AccordionHeader>
+    <AccordionTrigger>Shipping details</AccordionTrigger>
     <AccordionPanel>
       <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
     </AccordionPanel>
@@ -123,28 +110,28 @@ Accordion
 </Accordion>
 ```
 
-| Part                   | Role                                                                                                             |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `Accordion`            | Root state machine. Controls open values, keyboard navigation, `multiple`, `disabled`, and `orientation`.        |
-| `AccordionItem`        | One collapsible row. Its `value` identifies the row for `defaultValue`, controlled `value`, and change handlers. |
-| `AccordionHeader`      | Semantic heading wrapper for the trigger. Use it to place the toggle in the document outline.                    |
-| `AccordionTrigger`     | The interactive button. It opens or closes the matching panel and receives open/disabled state attributes.       |
-| `AccordionTriggerIcon` | Optional visual state marker. It renders the default plus icon, or your custom icon as children.                 |
-| `AccordionPanel`       | The collapsible content region. Put padding/content wrappers inside it so panel height animations stay clean.    |
+| Part               | Role                                                                                                             |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `Accordion`        | Root state machine. Controls open values, keyboard navigation, `multiple`, `disabled`, and `orientation`.        |
+| `AccordionItem`    | One collapsible row. Its `value` identifies the row for `defaultValue`, controlled `value`, and change handlers. |
+| `AccordionTrigger` | Semantic heading and interactive button. It opens or closes the matching panel and renders a default icon.       |
+| `AccordionPanel`   | The collapsible content region. Put padding/content wrappers inside it so panel height animations stay clean.    |
 
-`Accordion` does not use portal-like service layers such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep structure and behavior defaults and style only the visible parts:
-`AccordionTrigger`, `AccordionTriggerIcon`, and the content wrapper inside `AccordionPanel`.
+`AccordionTrigger` renders the Base UI header internally so the common composition stays compact.
+Use `classNames.header`, `classNames.icon`, `slotProps.header`, and `slotProps.icon` when you need
+to style or customize those internal slots. `AccordionHeader` and `AccordionTriggerIcon` are still
+exported for advanced manual composition, but most projects do not need them.
 
 ## Composition
 
 Use `Accordion` for root state and behavior props such as `value`, `defaultValue`,
-`onValueChange`, `multiple`, `disabled`, and `orientation`.
+`onValueChange`, `multiple`, `disabled`, `orientation`, and `loopFocus`. Use `keepMounted`
+or `hiddenUntilFound` on the root or panel when closed content must stay in the DOM.
 
-All parts are visible slots in the public composition. Style them with `className` on
-`Accordion`, `AccordionItem`, `AccordionHeader`, `AccordionTrigger`, `AccordionTriggerIcon`,
-and `AccordionPanel`. There are no hidden service slots, so this component does not use
-`classNames`.
+Style the public parts with `className` on `Accordion`, `AccordionItem`, `AccordionTrigger`,
+and `AccordionPanel`. `AccordionTrigger` also accepts `icon`, `hideIcon`, `classNames`, and
+`slotProps` for the internal header and icon slots. All Base UI behavior props such as `render`,
+`keepMounted`, and `hiddenUntilFound` pass through to the matching primitive part.
 
 ## Examples
 
@@ -159,11 +146,9 @@ Use the `multiple` prop to allow multiple items to be open at the same time.
     {`
       import {
         Accordion,
-        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
-        AccordionTriggerIcon,
       } from "moduix";
 
       export function MultipleAccordionDemo() {
@@ -171,12 +156,7 @@ Use the `multiple` prop to allow multiple items to be open at the same time.
           <Accordion multiple defaultValue={["what-is-base-ui", "can-i-use-it"]}>
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon />
-                  </AccordionTrigger>
-                </AccordionHeader>
+                <AccordionTrigger>{item.title}</AccordionTrigger>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -235,11 +215,9 @@ Control the open panels from React state when the accordion needs to coordinate 
     {`
       import {
         Accordion,
-        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
-        AccordionTriggerIcon,
       } from "moduix";
       import { useState } from "react";
 
@@ -250,12 +228,7 @@ Control the open panels from React state when the accordion needs to coordinate 
           <Accordion value={value} onValueChange={setValue}>
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon />
-                  </AccordionTrigger>
-                </AccordionHeader>
+                <AccordionTrigger>{item.title}</AccordionTrigger>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -314,11 +287,9 @@ Set `disabled` on an item to keep it visible while preventing interaction.
     {`
       import {
         Accordion,
-        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
-        AccordionTriggerIcon,
       } from "moduix";
 
       export function DisabledItemAccordionDemo() {
@@ -330,12 +301,7 @@ Set `disabled` on an item to keep it visible while preventing interaction.
                 value={item.value}
                 disabled={item.value === "getting-started"}
               >
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon />
-                  </AccordionTrigger>
-                </AccordionHeader>
+                <AccordionTrigger>{item.title}</AccordionTrigger>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -383,9 +349,9 @@ Set `disabled` on an item to keep it visible while preventing interaction.
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Icon
 
-Pass children to `AccordionTriggerIcon` and style the icon slot with a class from your project.
+Pass `icon` to replace the default visual marker and style the icon slot with `classNames.icon`.
 
 <Preview>
   <CustomStylesAccordionExample />
@@ -394,11 +360,9 @@ Pass children to `AccordionTriggerIcon` and style the icon slot with a class fro
     {`
       import {
         Accordion,
-        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
-        AccordionTriggerIcon,
         ChevronDownIcon,
       } from "moduix";
 
@@ -407,14 +371,12 @@ Pass children to `AccordionTriggerIcon` and style the icon slot with a class fro
           <Accordion defaultValue={["what-is-base-ui"]}>
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {item.title}
-                    <AccordionTriggerIcon className={styles.customIcon}>
-                      <ChevronDownIcon />
-                    </AccordionTriggerIcon>
-                  </AccordionTrigger>
-                </AccordionHeader>
+                <AccordionTrigger
+                  icon={<ChevronDownIcon />}
+                  classNames={{ icon: styles.customIcon }}
+                >
+                  {item.title}
+                </AccordionTrigger>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>

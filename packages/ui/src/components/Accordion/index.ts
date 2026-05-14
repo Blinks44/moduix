@@ -13,6 +13,8 @@ export type {
   AccordionItemProps,
   AccordionHeaderProps,
   AccordionTriggerProps,
+  AccordionTriggerClassNames,
+  AccordionTriggerSlotProps,
   AccordionTriggerIconProps,
   AccordionPanelProps,
 } from './Accordion';
