@@ -1545,23 +1545,19 @@
   --tabs-width: initial; /* 32rem */
 
   /* Text */
-  --text-color: initial; /* var(--text-default-color, var(--color-foreground)) */
   --text-default-color: initial; /* var(--color-foreground) */
   --text-destructive-color: initial; /* var(--color-destructive) */
   --text-font-family: initial; /* var(--font-sans) */
-  --text-font-size: initial; /* var(--text-font-size-md, var(--text-md)) */
   --text-font-size-xs: initial; /* var(--text-xs) */
   --text-font-size-sm: initial; /* var(--text-sm) */
   --text-font-size-md: initial; /* var(--text-md) */
   --text-font-size-lg: initial; /* var(--text-lg) */
   --text-font-size-xl: initial; /* var(--text-xl) */
-  --text-font-weight: initial; /* var(--weight-regular) */
   --text-font-weight-regular: initial; /* var(--weight-regular) */
   --text-font-weight-medium: initial; /* var(--weight-medium) */
   --text-font-weight-semibold: initial; /* var(--weight-semibold) */
   --text-font-weight-bold: initial; /* var(--weight-bold) */
   --text-letter-spacing: initial; /* 0 */
-  --text-line-height: initial; /* var(--text-line-height-md, var(--line-height-text-md)) */
   --text-line-height-xs: initial; /* var(--line-height-text-xs) */
   --text-line-height-sm: initial; /* var(--line-height-text-sm) */
   --text-line-height-md: initial; /* var(--line-height-text-md) */
