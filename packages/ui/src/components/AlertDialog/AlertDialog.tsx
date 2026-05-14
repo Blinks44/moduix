@@ -173,6 +173,16 @@ function AlertDialogCancel({ className, ...props }: AlertDialogPrimitive.Close.P
 
 type AlertDialogProps<Payload = unknown> = AlertDialogPrimitive.Root.Props<Payload>;
 type AlertDialogHandle<Payload = unknown> = AlertDialogPrimitive.Handle<Payload>;
+type AlertDialogTriggerProps = AlertDialogPrimitive.Trigger.Props;
+type AlertDialogTitleProps = AlertDialogPrimitive.Title.Props;
+type AlertDialogDescriptionProps = AlertDialogPrimitive.Description.Props;
+type AlertDialogCloseProps = AlertDialogPrimitive.Close.Props;
+type AlertDialogCloseIconProps = AlertDialogPrimitive.Close.Props;
+type AlertDialogHeaderProps = React.ComponentProps<'div'>;
+type AlertDialogBodyProps = React.ComponentProps<'div'>;
+type AlertDialogFooterProps = React.ComponentProps<'div'>;
+type AlertDialogActionProps = AlertDialogPrimitive.Close.Props;
+type AlertDialogCancelProps = AlertDialogPrimitive.Close.Props;
 
 export {
   AlertDialog,
@@ -193,6 +203,16 @@ export {
 export type {
   AlertDialogProps,
   AlertDialogHandle,
+  AlertDialogTriggerProps,
+  AlertDialogTitleProps,
+  AlertDialogDescriptionProps,
+  AlertDialogCloseProps,
+  AlertDialogCloseIconProps,
   AlertDialogContentProps,
   AlertDialogContentClassNames,
+  AlertDialogHeaderProps,
+  AlertDialogBodyProps,
+  AlertDialogFooterProps,
+  AlertDialogActionProps,
+  AlertDialogCancelProps,
 };

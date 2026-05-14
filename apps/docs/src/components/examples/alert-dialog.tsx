@@ -13,6 +13,7 @@ import {
   Button,
   CloseLineIcon,
   ScrollArea,
+  createAlertDialogHandle,
 } from 'moduix';
 import * as React from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
@@ -151,6 +152,36 @@ export function ControlledAlertDialogExample() {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+  );
+}
+
+export function AlertDialogHandleExample() {
+  const alertDialogHandle = React.useMemo(() => createAlertDialogHandle(), []);
+
+  return (
+    <React.Fragment>
+      <AlertDialogTrigger handle={alertDialogHandle} render={<Button variant="outline" />}>
+        Open from detached trigger
+      </AlertDialogTrigger>
+      <Button type="button" onClick={() => alertDialogHandle.open(null)}>
+        Open programmatically
+      </Button>
+
+      <AlertDialog handle={alertDialogHandle}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete workspace?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This alert dialog is connected via createAlertDialogHandle().
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+            <AlertDialogAction render={<Button />}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </React.Fragment>
   );
 }
 

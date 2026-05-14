@@ -6,6 +6,7 @@ icon: Component
 
 import {
   AlertDialogExample,
+  AlertDialogHandleExample,
   ControlledAlertDialogExample,
   CustomCloseIconAlertDialogExample,
   CustomStylesAlertDialogExample,
@@ -122,11 +123,15 @@ and `viewport` when placement rules differ (for example top-aligned or edge-bias
 ## Composition
 
 Use `AlertDialog` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, and `handle`.
+`onOpenChange`, `triggerId`, `defaultTriggerId`, `actionsRef`, and `handle`. Triggers support
+Base UI `handle`, `payload`, `id`, `nativeButton`, `render`, state-based `className`, and
+state-based `style` props.
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
-`viewportProps`, and `withBackdrop={false}` when you need the matching Base UI escape hatches:
+hidden from the default composition. `AlertDialogContent` accepts the popup props from Base UI,
+including `initialFocus`, `finalFocus`, `render`, state-based `className`, and state-based `style`.
+Use `container`, `portalProps`, `backdropProps`, `viewportProps`, and `withBackdrop={false}` when
+you need the matching service-slot escape hatches:
 
 ```tsx
 <AlertDialogContent
@@ -136,8 +141,16 @@ hidden from the default composition. Use `container`, `portalProps`, `backdropPr
     backdrop: styles.backdrop,
     viewport: styles.viewport,
   }}
+  portalProps={{ keepMounted: true }}
+  backdropProps={{ forceRender: true }}
+  viewportProps={{ render: <div /> }}
 />
 ```
+
+The service slots still expose the Base UI data attributes on their rendered elements: backdrop,
+viewport, and popup receive open/closed and transition attributes; viewport and popup also receive
+nested-dialog attributes. The popup also provides Base UI's `--nested-dialogs` variable for nested
+dialog styling.
 
 ## Examples
 
@@ -185,6 +198,66 @@ Control the open state from React when the dialog needs to coordinate with other
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Handle
+
+Use `createAlertDialogHandle` when a confirmation is opened from detached triggers or from
+imperative event handlers. Pass `payload` to detached triggers when the dialog copy depends on the
+source action.
+
+<Preview>
+  <AlertDialogHandleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        createAlertDialogHandle,
+        AlertDialogTrigger,
+        Button,
+        AlertDialog,
+        AlertDialogContent,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        AlertDialogDescription,
+        AlertDialogFooter,
+        AlertDialogCancel,
+        AlertDialogAction,
+      } from "moduix";
+      import { useMemo, Fragment } from "react";
+
+      export function AlertDialogHandleDemo() {
+        const alertDialogHandle = useMemo(() => createAlertDialogHandle(), []);
+
+        return (
+          <Fragment>
+            <AlertDialogTrigger handle={alertDialogHandle} render={<Button variant="outline" />}>
+              Open from detached trigger
+            </AlertDialogTrigger>
+            <Button type="button" onClick={() => alertDialogHandle.open(null)}>
+              Open programmatically
+            </Button>
+
+            <AlertDialog handle={alertDialogHandle}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete workspace?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This alert dialog is connected via createAlertDialogHandle().
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+                  <AlertDialogAction render={<Button />}>Delete</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </Fragment>
         );
       }
     `}
