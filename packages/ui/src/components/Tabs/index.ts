@@ -12,6 +12,7 @@ export type {
   TabsValue,
   TabsProps,
   TabsListClassNames,
+  TabsListSlotProps,
   TabsListProps,
   TabsTabProps,
   TabsPanelProps,

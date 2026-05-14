@@ -220,10 +220,33 @@ export function IconTabsExample() {
   );
 }
 
+export function DisabledTabTabsExample() {
+  return (
+    <Tabs defaultValue="overview">
+      <TabsList>
+        <TabsTab value="overview">Overview</TabsTab>
+        <TabsTab value="projects" disabled>
+          Projects
+        </TabsTab>
+        <TabsTab value="account">Account</TabsTab>
+      </TabsList>
+      {tabsItems.map((item) => (
+        <TabsPanel key={item.value} value={item.value} keepMounted>
+          {item.content}
+        </TabsPanel>
+      ))}
+    </Tabs>
+  );
+}
+
 export function InlineInputsTabsExample() {
   return (
     <Tabs defaultValue="name" unstyled className={styles.inlineRoot}>
-      <TabsList className={styles.inlineList} classNames={{ indicator: styles.inlineIndicator }}>
+      <TabsList
+        className={styles.inlineList}
+        classNames={{ indicator: styles.inlineIndicator }}
+        slotProps={{ indicator: { renderBeforeHydration: true } }}
+      >
         <TabsTab value="name" className={styles.inlineTab}>
           Name
         </TabsTab>

@@ -8,6 +8,7 @@ import 'moduix/style.css';
 import {
   ActivateOnFocusTabsExample,
   ControlledTabsExample,
+  DisabledTabTabsExample,
   IconTabsExample,
   InlineInputsTabsExample,
   LineTabsExample,
@@ -78,6 +79,86 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Anatomy
+
+`Tabs` is composed from a root state machine, one tab list, tab buttons, and matching panels.
+`TabsList` renders the moving indicator internally by default, so consumers do not need to place a
+service `Indicator` part in the public composition.
+
+```text
+Tabs
+├─ TabsList
+│  ├─ TabsTab[value]
+│  │  └─ label or TabsTabContent
+│  │     ├─ TabsTabIcon
+│  │     └─ TabsTabLabel
+│  └─ indicator
+└─ TabsPanel[value]
+   └─ content
+```
+
+```tsx
+<Tabs defaultValue="overview">
+  <TabsList>
+    <TabsTab value="overview">Overview</TabsTab>
+    <TabsTab value="projects">Projects</TabsTab>
+  </TabsList>
+  <TabsPanel value="overview">Overview content</TabsPanel>
+  <TabsPanel value="projects">Projects content</TabsPanel>
+</Tabs>
+```
+
+| Part             | Role                                                                                                     |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `Tabs`           | Root state machine. Controls selected value, orientation, variant, and controlled/uncontrolled state.    |
+| `TabsList`       | Groups tab buttons and owns keyboard list behavior. It renders the active indicator internally.          |
+| `TabsTab`        | Interactive tab button. Its `value` must match one `TabsPanel` value.                                    |
+| `TabsTabContent` | Optional wrapper for compound tab labels, usually icon plus text.                                        |
+| `TabsTabIcon`    | Optional icon wrapper. Use it with your application icons or the icons exported by `moduix`.             |
+| `TabsTabLabel`   | Optional text wrapper used with `TabsTabContent`.                                                        |
+| `TabsPanel`      | Content region displayed when its matching tab is active. Use `keepMounted` when hidden DOM must remain. |
+| `indicator`      | Internal service slot that follows the active tab. Style it through `TabsList classNames.indicator`.     |
+
+## Composition
+
+Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `orientation`,
+`variant`, and `unstyled`. Use `TabsList` for list behavior props such as `activateOnFocus`,
+`loopFocus`, `withIndicator`, and the internal indicator customization API.
+
+Visible parts accept `className`. The internal indicator is not part of the required composition:
+style it with `TabsList classNames.indicator`, disable it with `withIndicator={false}`, or pass
+non-class Base UI indicator props through `TabsList slotProps.indicator`.
+
+```tsx
+import { Tabs, TabsList, TabsPanel, TabsTab } from 'moduix';
+import styles from './custom-indicator-tabs-demo.module.css';
+
+export function CustomIndicatorTabsDemo() {
+  return (
+    <Tabs defaultValue="profile" unstyled className={styles.root}>
+      <TabsList
+        className={styles.list}
+        classNames={{ indicator: styles.indicator }}
+        slotProps={{ indicator: { renderBeforeHydration: true } }}
+      >
+        <TabsTab value="profile" className={styles.tab}>
+          Profile
+        </TabsTab>
+        <TabsTab value="security" className={styles.tab}>
+          Security
+        </TabsTab>
+      </TabsList>
+      <TabsPanel value="profile" className={styles.panel}>
+        Profile settings
+      </TabsPanel>
+      <TabsPanel value="security" className={styles.panel}>
+        Security settings
+      </TabsPanel>
+    </Tabs>
+  );
+}
+```
 
 ## Examples
 
@@ -525,6 +606,66 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
   </Preview.Code>
 </Preview>
 
+### Disabled Tab
+
+Disable tabs that are visible but not available yet. Add `keepMounted` to panels when hidden panel
+DOM must stay mounted for forms, measurements, or preserved local state.
+
+<Preview>
+  <DisabledTabTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+
+      export function DisabledTabTabsDemo() {
+        return (
+          <Tabs defaultValue="overview">
+            <TabsList>
+              <TabsTab value="overview">Overview</TabsTab>
+              <TabsTab value="projects" disabled>
+                Projects
+              </TabsTab>
+              <TabsTab value="account">Account</TabsTab>
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value} keepMounted>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ### Custom Styles
 
 Set `unstyled` when the default Tabs layout is too strong and every slot should be styled by your own classes. Use `classNames.indicator` to style the internally rendered indicator.
@@ -540,6 +681,7 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
         TabsPanel,
         TabsTab,
       } from "moduix";
+      import styles from "./inline-inputs-tabs-demo.module.css";
 
       export function InlineInputsTabsDemo() {
         return (
@@ -547,6 +689,7 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
             <TabsList
               className={styles.inlineList}
               classNames={{ indicator: styles.inlineIndicator }}
+              slotProps={{ indicator: { renderBeforeHydration: true } }}
             >
               <TabsTab value="name" className={styles.inlineTab}>
                 Name
