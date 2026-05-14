@@ -137,8 +137,7 @@ the visible sliding panel.
 Use `withBackdrop`, `withHandle`, `variant`, `snapLayout`, and `container` for common behavior.
 
 `className` styles the visible popup. `classNames` styles the internal slots hidden from the default
-composition. Use `portalProps`, `backdropProps`, `viewportProps`, `contentProps`, and `handleProps`
-only when those internal slots need non-class props:
+composition. Use `slotProps` only when those internal slots need non-class props from Base UI:
 
 ```tsx
 <DrawerContent
@@ -149,6 +148,12 @@ only when those internal slots need non-class props:
     viewport: styles.viewport,
     handle: styles.handle,
     content: styles.content,
+  }}
+  slotProps={{
+    portal: { keepMounted: true },
+    backdrop: { forceRender: true },
+    viewport: { render: <div /> },
+    handle: { 'aria-hidden': true },
   }}
 />
 ```

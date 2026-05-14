@@ -24,6 +24,7 @@ export type {
   AlertDialogCloseIconProps,
   AlertDialogContentProps,
   AlertDialogContentClassNames,
+  AlertDialogContentSlotProps,
   AlertDialogHeaderProps,
   AlertDialogBodyProps,
   AlertDialogFooterProps,

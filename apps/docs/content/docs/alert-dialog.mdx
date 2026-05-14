@@ -130,8 +130,7 @@ state-based `style` props.
 `className` styles the visible popup. `classNames` styles the internal service slots that are
 hidden from the default composition. `AlertDialogContent` accepts the popup props from Base UI,
 including `initialFocus`, `finalFocus`, `render`, state-based `className`, and state-based `style`.
-Use `container`, `portalProps`, `backdropProps`, `viewportProps`, and `withBackdrop={false}` when
-you need the matching service-slot escape hatches:
+Use `container`, `slotProps`, and `withBackdrop={false}` when you need service-slot escape hatches:
 
 ```tsx
 <AlertDialogContent
@@ -141,9 +140,11 @@ you need the matching service-slot escape hatches:
     backdrop: styles.backdrop,
     viewport: styles.viewport,
   }}
-  portalProps={{ keepMounted: true }}
-  backdropProps={{ forceRender: true }}
-  viewportProps={{ render: <div /> }}
+  slotProps={{
+    portal: { keepMounted: true },
+    backdrop: { forceRender: true },
+    viewport: { render: <div /> },
+  }}
 />
 ```
 

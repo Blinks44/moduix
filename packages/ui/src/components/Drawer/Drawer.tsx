@@ -13,20 +13,24 @@ type DrawerContentClassNames = {
   handle?: React.ComponentProps<'div'>['className'];
 };
 
+type DrawerContentSlotProps = {
+  portal?: Omit<DrawerPrimitive.Portal.Props, 'className' | 'children'>;
+  backdrop?: Omit<DrawerPrimitive.Backdrop.Props, 'className'>;
+  viewport?: Omit<DrawerPrimitive.Viewport.Props, 'className' | 'children'>;
+  content?: Omit<DrawerPrimitive.Content.Props, 'className' | 'children'>;
+  handle?: Omit<React.ComponentProps<'div'>, 'className'>;
+};
+
 type DrawerContentProps = Omit<DrawerPrimitive.Popup.Props, 'className'> & {
   className?: DrawerPrimitive.Popup.Props['className'];
   classNames?: DrawerContentClassNames;
+  slotProps?: DrawerContentSlotProps;
   container?: DrawerPrimitive.Portal.Props['container'];
   withBackdrop?: boolean;
   withHandle?: boolean;
   snapLayout?: boolean;
   variant?: 'bleed' | 'island';
   disableInitialAnimation?: boolean;
-  portalProps?: Omit<DrawerPrimitive.Portal.Props, 'className' | 'children'>;
-  backdropProps?: Omit<DrawerPrimitive.Backdrop.Props, 'className'>;
-  viewportProps?: Omit<DrawerPrimitive.Viewport.Props, 'className'>;
-  contentProps?: Omit<DrawerPrimitive.Content.Props, 'className' | 'children'>;
-  handleProps?: Omit<React.ComponentProps<'div'>, 'className'>;
 };
 
 type DrawerProps<Payload = unknown> = DrawerPrimitive.Root.Props<Payload> & {
@@ -243,12 +247,8 @@ function DrawerContent({
   disableInitialAnimation = false,
   className,
   classNames,
+  slotProps,
   container,
-  portalProps,
-  backdropProps,
-  viewportProps,
-  contentProps,
-  handleProps,
   children,
   ...props
 }: DrawerContentProps) {
@@ -271,13 +271,19 @@ function DrawerContent({
     };
   }, [disableInitialAnimation]);
 
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
+  const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
+  const portalContainer = container ?? slotPortalContainer;
 
   return (
-    <DrawerPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
-      {withBackdrop ? <DrawerBackdrop className={classNames?.backdrop} {...backdropProps} /> : null}
-      <DrawerViewport className={classNames?.viewport} {...viewportProps}>
+    <DrawerPortal
+      className={classNames?.portal}
+      container={portalContainer}
+      {...restPortalSlotProps}
+    >
+      {withBackdrop ? (
+        <DrawerBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
+      ) : null}
+      <DrawerViewport className={classNames?.viewport} {...slotProps?.viewport}>
         <DrawerPopup
           data-snap-layout={snapLayout ? '' : undefined}
           data-variant={variant}
@@ -286,8 +292,10 @@ function DrawerContent({
           className={className}
           {...props}
         >
-          {withHandle ? <DrawerHandle className={classNames?.handle} {...handleProps} /> : null}
-          <DrawerContentSlot className={classNames?.content} {...contentProps}>
+          {withHandle ? (
+            <DrawerHandle className={classNames?.handle} {...slotProps?.handle} />
+          ) : null}
+          <DrawerContentSlot className={classNames?.content} {...slotProps?.content}>
             {children}
           </DrawerContentSlot>
         </DrawerPopup>
@@ -296,7 +304,7 @@ function DrawerContent({
   );
 }
 
-type DrawerHandleType<Payload = unknown> = DrawerPrimitive.Handle<Payload>;
+type DrawerHandle<Payload = unknown> = DrawerPrimitive.Handle<Payload>;
 type DrawerTriggerProps = DrawerPrimitive.Trigger.Props;
 type DrawerSwipeAreaProps = DrawerPrimitive.SwipeArea.Props;
 type DrawerTitleProps = DrawerPrimitive.Title.Props;
@@ -327,7 +335,7 @@ export {
 
 export type {
   DrawerProps,
-  DrawerHandleType,
+  DrawerHandle,
   DrawerTriggerProps,
   DrawerSwipeAreaProps,
   DrawerTitleProps,
@@ -338,6 +346,7 @@ export type {
   DrawerFooterProps,
   DrawerContentProps,
   DrawerContentClassNames,
+  DrawerContentSlotProps,
   DrawerSnapToggleProps,
   DrawerSnapPoint,
 };
