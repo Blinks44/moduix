@@ -44,7 +44,7 @@ import {
 
 ## Anatomy
 
-`Toggle` is a single interactive root that represents a pressed/unpressed state.
+`Toggle` is composed as a single interactive root that represents a pressed/unpressed state.
 
 ```text
 Toggle
@@ -57,9 +57,8 @@ Toggle
 
 ## Composition
 
-`Toggle` is a single-part component that renders a Base UI toggle button. Use `pressed`,
-`defaultPressed`, `onPressedChange`, `disabled`, `render`, `className`, and `style` directly on
-`Toggle`.
+Use `Toggle` props such as `pressed`, `defaultPressed`, `onPressedChange`, `disabled`, `render`,
+`className`, and `style`.
 
 There are no hidden service slots such as `Positioner`, `Backdrop`, or `Viewport` in this
 component, so `className` is the customization entry point. It supports the same state callback

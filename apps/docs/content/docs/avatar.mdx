@@ -51,7 +51,7 @@ import {
 
 ## Anatomy
 
-Avatar is composed as one root with two content slots. Keep `AvatarImage` and `AvatarFallback`
+`Avatar` is composed as one root with two content slots. Keep `AvatarImage` and `AvatarFallback`
 inside the same `Avatar` so loading state, error state, and fallback timing stay synchronized.
 
 ```text
@@ -79,9 +79,8 @@ In most cases, keep default behavior and style visible slots with `className` an
 
 ## Composition
 
-`Avatar`, `AvatarImage`, and `AvatarFallback` are all public slots in one composition.
-Use `className` on each slot, and use Base UI's `render` prop when the root should compose
-with another element.
+Use `className` on `Avatar`, `AvatarImage`, and `AvatarFallback`, and use Base UI's `render`
+prop when the root should compose with another element.
 
 ## Examples
 

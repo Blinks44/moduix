@@ -83,7 +83,7 @@ import {
 
 ## Anatomy
 
-`CloseButton` is a single icon button slot. It renders a default close icon, or custom icon
+`CloseButton` is composed as a single icon button slot. It renders a default close icon, or custom icon
 children when provided.
 
 ```text
@@ -97,7 +97,7 @@ CloseButton
 
 ## Composition
 
-`CloseButton` is a thin styled wrapper around Base UI `Button`. Use `children` to replace the
+Use `CloseButton` props such as `children` to replace the
 default icon, `render` to compose it with another element, and `className` to style the root
 button. The component has no hidden service slots, so styling does not require `classNames`.
 
