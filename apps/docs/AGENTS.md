@@ -34,6 +34,7 @@ apps/docs/
    - Each snippet should start with the import of the `moduix` parts used in that snippet.
    - Each `Preview.Code` snippet must be self-contained for the current variant: include the needed imports, local example data, helper functions, state hooks, and a complete demo component or complete JSX composition. Do not show isolated fragments such as only a single item, only root props, or placeholders like `{/* input and list */}` unless the section explicitly documents a tiny sub-slot outside a live preview.
    - Keep all snippets on a component page in one style, showing the recommended project-level usage pattern for that component.
+8. Keep `Anatomy` and `Composition` non-duplicative. `Anatomy` should explain structure, part roles, and slot map. `Composition` should explain usage patterns and API customization (`render`, controlled props, `className`/`classNames`, slot escape hatches). Do not repeat the same structural explanation in both sections.
 
 ## Component Page Template
 

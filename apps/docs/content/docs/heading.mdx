@@ -38,6 +38,27 @@ and root `className` composition.
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Heading` is a single typography root that renders a semantic heading element.
+Visual style is controlled independently through size, weight, alignment, and CSS variables.
+
+```text
+Heading
+└─ text or inline content
+```
+
+| Part      | Role                                                                |
+| --------- | ------------------------------------------------------------------- |
+| `Heading` | Semantic heading root with design-system typography and tone props. |
+
+## Composition
+
+Use `as` for semantic heading level and `size` for visual scale when semantics and appearance
+should differ. Use `weight`, `align`, and `className` for presentation customization.
+
+`Heading` has no hidden service slots; styling is done directly on the root element.
+
 ## Examples
 
 ### Elements

@@ -111,6 +111,24 @@ import {
   </Preview.CSS>
 </Preview>
 
+## Anatomy
+
+`Form` is a root wrapper around native form semantics and validation orchestration.
+Compose it with `Field` parts and submit controls inside the same root.
+
+```text
+Form
+├─ Field
+│  ├─ FieldLabel
+│  ├─ control (Input, FieldControl, etc.)
+│  └─ FieldError / FieldDescription
+└─ submit actions (for example Button[type="submit"])
+```
+
+| Part   | Role                                                                      |
+| ------ | ------------------------------------------------------------------------- |
+| `Form` | Native form root that coordinates submit lifecycle and form-level errors. |
+
 ## Composition
 
 `Form` renders the native `<form>` and keeps Base UI form behavior available through

@@ -128,6 +128,33 @@ import {
   </Preview.Data>
 </Preview>
 
+## Anatomy
+
+`ScrollArea` is composed around one visible root and internal scrolling infrastructure.
+The component renders viewport, content, scrollbars, thumbs, and corner slots automatically.
+
+```text
+ScrollArea
+├─ viewport
+│  └─ content
+├─ verticalScrollbar
+│  └─ verticalThumb
+├─ horizontalScrollbar
+│  └─ horizontalThumb
+└─ corner
+```
+
+| Part                  | Role                                                              |
+| --------------------- | ----------------------------------------------------------------- |
+| `ScrollArea`          | Root wrapper that controls overflow behavior and overall sizing.  |
+| `viewport`            | Scroll container that receives pointer and keyboard scroll input. |
+| `content`             | Inner content wrapper for your scrollable children.               |
+| `verticalScrollbar`   | Vertical scrollbar track, shown based on overflow and settings.   |
+| `horizontalScrollbar` | Horizontal scrollbar track, shown based on overflow and settings. |
+| `verticalThumb`       | Thumb inside the vertical scrollbar.                              |
+| `horizontalThumb`     | Thumb inside the horizontal scrollbar.                            |
+| `corner`              | Corner filler when both scrollbars are visible.                   |
+
 ## Composition
 
 `ScrollArea` renders the Base UI root, viewport, content, scrollbars, thumbs, and corner for you.

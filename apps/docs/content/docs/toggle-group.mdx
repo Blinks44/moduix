@@ -88,6 +88,32 @@ ToggleGroup
 internal slots. In most cases, keep structure and behavior defaults and style the visible parts
 with `className` on the group and on each `ToggleGroupItem`.
 
+`ToggleGroupItem` renders `Toggle`, so item-level styling also supports the `Toggle` CSS variables
+(`--toggle-*`). Use `--toggle-group-*` for the group container and `--toggle-*` for item states.
+
+```css
+.filterGroup {
+  --toggle-group-bg: transparent;
+  --toggle-group-border-color: transparent;
+  --toggle-group-padding: 0;
+}
+
+.filterItem {
+  --toggle-ghost-bg-hover: var(--color-accent);
+  --toggle-ghost-bg-pressed: var(--color-primary);
+  --toggle-ghost-color-pressed: var(--color-primary-foreground);
+}
+```
+
+## Composition
+
+Use `ToggleGroup` for root state and behavior props such as `value`, `defaultValue`,
+`onValueChange`, `multiple`, `orientation`, `disabled`, and `loopFocus`.
+
+Use group-level props (`variant`, `size`, `className`) when all items should share one setup,
+and override a specific `ToggleGroupItem` with its own `variant`, `size`, or `className` when
+one option needs a different presentation.
+
 ## Examples
 
 ### Multiple
@@ -552,6 +578,8 @@ Pass icons as children. Icon-only items must include an accessible label.
 ### Custom Styles
 
 Pass `className` to the group and items when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Use `--toggle-group-*` to style the group container and `--toggle-*` to style `ToggleGroupItem`
+states such as hover and pressed.
 
 <Preview>
   <CustomStylesToggleGroupExample />

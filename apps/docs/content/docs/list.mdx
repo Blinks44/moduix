@@ -63,6 +63,28 @@ import {
   </Preview.Data>
 </Preview>
 
+## Anatomy
+
+`List` is a semantic list root with repeated `ListItem` children. The root controls marker style,
+spacing, and typography tokens, while each item provides list semantics and text content.
+
+```text
+List (ul | ol)
+└─ ListItem
+```
+
+| Part       | Role                                                                   |
+| ---------- | ---------------------------------------------------------------------- |
+| `List`     | Semantic list root that controls marker, spacing, size, and tone.      |
+| `ListItem` | Individual item wrapper rendered as native list item semantics (`li`). |
+
+## Composition
+
+Use `as="ul"` or `as="ol"` for list semantics, `marker` for marker visibility/style,
+and `size`, `gap`, `tone`, plus `className` for visual customization.
+
+`List` has no hidden service slots, so all styling is applied directly to the list root.
+
 ## Examples
 
 ### Ordered

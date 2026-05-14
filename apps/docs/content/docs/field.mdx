@@ -90,6 +90,14 @@ Field
 In most cases, keep default structure and style only visible slots (`FieldLabel`, `FieldControl`,
 `FieldError`, `FieldDescription`, and optional `FieldItem`) via `className` and CSS variables.
 
+## Composition
+
+Use `Field` for root behavior and validation props such as `name`, `validationMode`,
+`validate`, and `disabled`.
+
+Compose `FieldLabel`, one compatible control (`FieldControl`, `Input`, `NumberField`, and others),
+then optional `FieldError` and `FieldDescription`. Customize each visible slot through `className`.
+
 ## Examples
 
 ### Custom Validation

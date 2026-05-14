@@ -50,6 +50,20 @@ import {
   </Preview.CSS>
 </Preview>
 
+## Anatomy
+
+`Input` is a single native input root. It is commonly composed inside `Field` for labels,
+descriptions, and validation messaging.
+
+```text
+Field (optional wrapper)
+└─ Input
+```
+
+| Part    | Role                                                                     |
+| ------- | ------------------------------------------------------------------------ |
+| `Input` | Native input element with Base UI state integration and style variables. |
+
 ## Composition
 
 `Input` is a single-part component built on Base UI `Input`. It forwards Base UI props such as

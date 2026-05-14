@@ -77,6 +77,12 @@ Avatar
 `Avatar` does not use service slots such as `portal`, `backdrop`, or `viewport`.
 In most cases, keep default behavior and style visible slots with `className` and CSS variables.
 
+## Composition
+
+`Avatar`, `AvatarImage`, and `AvatarFallback` are all public slots in one composition.
+Use `className` on each slot, and use Base UI's `render` prop when the root should compose
+with another element.
+
 ## Examples
 
 ### Fallback Only
@@ -125,7 +131,7 @@ the `size` prop to switch between the built-in `xs`, `sm`, `md`, `lg`, and `xl` 
   </Preview.Data>
 </Preview>
 
-### Composition
+### Render Composition
 
 `Avatar`, `AvatarImage`, and `AvatarFallback` are all public slots. Use `className` on each
 slot, and use Base UI's `render` prop when the root should compose with another element.

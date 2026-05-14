@@ -137,6 +137,16 @@ Accordion
 In most cases, keep structure and behavior defaults and style only the visible parts:
 `AccordionTrigger`, `AccordionTriggerIcon`, and the content wrapper inside `AccordionPanel`.
 
+## Composition
+
+Use `Accordion` for root state and behavior props such as `value`, `defaultValue`,
+`onValueChange`, `multiple`, `disabled`, and `orientation`.
+
+All parts are visible slots in the public composition. Style them with `className` on
+`Accordion`, `AccordionItem`, `AccordionHeader`, `AccordionTrigger`, `AccordionTriggerIcon`,
+and `AccordionPanel`. There are no hidden service slots, so this component does not use
+`classNames`.
+
 ## Examples
 
 ### Multiple

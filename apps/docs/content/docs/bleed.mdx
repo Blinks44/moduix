@@ -74,6 +74,34 @@ bleed behavior.
   </Preview.CSS>
 </Preview>
 
+## Anatomy
+
+`Bleed` is a single root layout primitive. It applies negative inline and/or block margins so
+content can extend beyond a constrained parent while staying in normal document flow.
+
+```text
+Bleed
+└─ children
+```
+
+```tsx
+<Bleed inline="md" block="none">
+  <div className={styles.panel}>Escaped content</div>
+</Bleed>
+```
+
+| Part    | Role                                                                       |
+| ------- | -------------------------------------------------------------------------- |
+| `Bleed` | Root layout wrapper. Controls inline/block bleed amounts and element type. |
+
+## Composition
+
+Use `inline` and `block` to control bleed amount per axis, and `as` when the root should be a
+specific semantic element such as `section` or `figure`.
+
+`Bleed` has no internal service slots, so customization is done directly with `className` and
+bleed CSS variables on the root element.
+
 ## Examples
 
 ### Inline Amounts

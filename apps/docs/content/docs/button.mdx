@@ -38,6 +38,25 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Button` is one interactive root with optional internal loading slots. In common usage, you
+compose content as children and optionally enable loading states.
+
+```text
+Button
+├─ content
+└─ loadingIndicator (when loading)
+   └─ spinner (default)
+```
+
+| Part               | Role                                                                            |
+| ------------------ | ------------------------------------------------------------------------------- |
+| `Button`           | Interactive root. Handles click, disabled, loading, and focus states.           |
+| `content` slot     | Wrapper around button children so content layout stays stable.                  |
+| `loadingIndicator` | Slot rendered in loading state; accepts custom indicator via props.             |
+| `spinner`          | Default spinner inside `loadingIndicator` when no custom indicator is provided. |
+
 ## Composition
 
 `Button` is built on Base UI Button and keeps its behavior props available, including

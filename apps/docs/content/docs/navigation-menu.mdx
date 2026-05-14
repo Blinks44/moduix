@@ -245,10 +245,6 @@ over popup container and infrastructure slots.
 
 ## Composition
 
-`NavigationMenu` renders Base UI root state and keeps popup infrastructure out of the
-required composition. By default it creates `Portal`, `Positioner`, `Popup`, `Arrow`, and
-`Viewport` automatically through `popupContent`.
-
 Use `popupContent` for Base UI placement behavior and popup styling. `popupContent.className`
 styles the visible popup, while `popupContent.classNames` styles service slots hidden from
 the default composition:
