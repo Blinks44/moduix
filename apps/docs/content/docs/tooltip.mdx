@@ -256,8 +256,6 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
       import styles from "./tooltip-demo.module.css";
 
       type TooltipSide = "top" | "right" | "bottom" | "left";
-      const tooltipSides = ["top", "right", "bottom", "left"] as TooltipSide[];
-
       export function SideControlTooltip() {
         const [side, setSide] = useState("top" as TooltipSide);
 
@@ -336,6 +334,13 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const tooltipSides = ["top", "right", "bottom", "left"] as TooltipSide[];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Detached Trigger

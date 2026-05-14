@@ -76,6 +76,7 @@ Use `variant` to match the visual weight of the toggle to the surrounding toolba
   <Preview.Code>
     {`
       import { Toggle } from "moduix";
+      import styles from "./toggle.module.css";
 
       export function ToggleVariantsDemo() {
         return (
@@ -115,6 +116,7 @@ Use text sizes for labeled toggles and icon sizes for compact controls.
   <Preview.Code>
     {`
       import { Toggle } from "moduix";
+      import styles from "./toggle.module.css";
 
       export function ToggleSizesDemo() {
         return (
@@ -154,6 +156,7 @@ Pass icons as children. Icon-only toggles must include an accessible label.
   <Preview.Code>
     {`
       import { BellIcon, CheckSmallIcon, StarIcon, Toggle } from "moduix";
+      import styles from "./toggle.module.css";
 
       export function ToggleIconsDemo() {
         return (
@@ -199,6 +202,7 @@ Use `disabled` to prevent interaction while preserving the current pressed state
   <Preview.Code>
     {`
       import { Toggle } from "moduix";
+      import styles from "./toggle.module.css";
 
       export function DisabledToggleDemo() {
         return (
@@ -239,6 +243,7 @@ Control `pressed` from React state when the toggle needs to coordinate with othe
     {`
       import { BellIcon, Toggle } from "moduix";
       import { useState } from "react";
+      import styles from "./toggle.module.css";
 
       export function ControlledToggleDemo() {
         const [pressed, setPressed] = useState(false);
@@ -286,6 +291,7 @@ Use the `render` callback when the icon or rendered element should depend on the
   <Preview.Code>
     {`
       import { Toggle } from "moduix";
+      import styles from "./toggle.module.css";
 
       export function ToggleRenderCallbackDemo() {
         return (
@@ -351,6 +357,7 @@ Pass `className` when styling the toggle with CSS Modules, Tailwind CSS, or CSS-
   <Preview.Code>
     {`
       import { CheckSmallIcon, Toggle } from "moduix";
+      import styles from "./toggle.module.css";
 
       export function CustomStylesToggleDemo() {
         return (

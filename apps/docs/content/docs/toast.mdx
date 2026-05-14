@@ -209,15 +209,6 @@ Pass `placement` to `ToastRegion` to choose the viewport corner or center edge.
         onPlacementChange: (placement: ToastPlacement) => void;
       }) {
         const toastManager = useToastManager();
-        const placements: ToastPlacement[] = [
-          "top-left",
-          "top-center",
-          "top-right",
-          "bottom-left",
-          "bottom-center",
-          "bottom-right",
-        ];
-
         return (
           <div>
             {placements.map((item) => (
@@ -246,6 +237,20 @@ Pass `placement` to `ToastRegion` to choose the viewport corner or center edge.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const placements: ToastPlacement[] = [
+        "top-left",
+        "top-center",
+        "top-right",
+        "bottom-left",
+        "bottom-center",
+        "bottom-right",
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Always Expanded

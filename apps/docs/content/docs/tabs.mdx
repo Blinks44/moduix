@@ -37,25 +37,6 @@ import {
         TabsTab,
       } from "moduix";
 
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-
       export function TabsDemo() {
         return (
           <Tabs defaultValue="overview">
@@ -78,6 +59,30 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Anatomy
@@ -178,25 +183,6 @@ Use `orientation="vertical"` when the tab list should sit next to the active pan
         TabsTab,
       } from "moduix";
 
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-
       export function VerticalTabsDemo() {
         return (
           <Tabs defaultValue="overview" orientation="vertical">
@@ -219,24 +205,9 @@ Use `orientation="vertical"` when the tab list should sit next to the active pan
     `}
 
   </Preview.Code>
-</Preview>
 
-### Activate On Focus
-
-Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately select a tab.
-
-<Preview>
-  <ActivateOnFocusTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -255,6 +226,26 @@ Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately sel
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Activate On Focus
+
+Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately select a tab.
+
+<Preview>
+  <ActivateOnFocusTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function ActivateOnFocusTabsDemo() {
         return (
@@ -278,24 +269,9 @@ Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately sel
     `}
 
   </Preview.Code>
-</Preview>
 
-### Line
-
-Use `variant="line"` for a compact indicator that sits along the active tab edge.
-
-<Preview>
-  <LineTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -314,6 +290,26 @@ Use `variant="line"` for a compact indicator that sits along the active tab edge
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Line
+
+Use `variant="line"` for a compact indicator that sits along the active tab edge.
+
+<Preview>
+  <LineTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function LineTabsDemo() {
         return (
@@ -337,24 +333,9 @@ Use `variant="line"` for a compact indicator that sits along the active tab edge
     `}
 
   </Preview.Code>
-</Preview>
 
-### Without Indicator
-
-Set `withIndicator={false}` on `TabsList` when the active tab should be shown only through tab state styles.
-
-<Preview>
-  <WithoutIndicatorTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -373,6 +354,26 @@ Set `withIndicator={false}` on `TabsList` when the active tab should be shown on
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Without Indicator
+
+Set `withIndicator={false}` on `TabsList` when the active tab should be shown only through tab state styles.
+
+<Preview>
+  <WithoutIndicatorTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function WithoutIndicatorTabsDemo() {
         return (
@@ -396,6 +397,30 @@ Set `withIndicator={false}` on `TabsList` when the active tab should be shown on
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -415,25 +440,6 @@ Control the active tab from React state when the selected panel needs to coordin
         type TabsValue,
       } from "moduix";
       import { useState } from "react";
-
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
 
       export function ControlledTabsDemo() {
         const [value, setValue] = useState("projects" as TabsValue);
@@ -459,24 +465,9 @@ Control the active tab from React state when the selected panel needs to coordin
     `}
 
   </Preview.Code>
-</Preview>
 
-### Links
-
-Use `render` with `nativeButton={false}` when tabs should render as links.
-
-<Preview>
-  <LinkTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -495,6 +486,26 @@ Use `render` with `nativeButton={false}` when tabs should render as links.
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Links
+
+Use `render` with `nativeButton={false}` when tabs should render as links.
+
+<Preview>
+  <LinkTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function LinkTabsDemo() {
         return (
@@ -523,6 +534,30 @@ Use `render` with `nativeButton={false}` when tabs should render as links.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Icons
@@ -546,22 +581,6 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
         TabsTabIcon,
         TabsTabLabel,
       } from "moduix";
-
-      const items = [
-        {
-          value: "overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
 
       export function IconTabsDemo() {
         return (
@@ -604,6 +623,27 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Disabled Tab
@@ -622,25 +662,6 @@ DOM must stay mounted for forms, measurements, or preserved local state.
         TabsPanel,
         TabsTab,
       } from "moduix";
-
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
 
       export function DisabledTabTabsDemo() {
         return (
@@ -664,6 +685,30 @@ DOM must stay mounted for forms, measurements, or preserved local state.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styles

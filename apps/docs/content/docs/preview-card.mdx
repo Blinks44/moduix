@@ -298,19 +298,6 @@ Share one popup between several links and pass trigger-specific data through `pa
 
       export function MultipleTriggersPreviewCard() {
         const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
-        const items: LinkPreviewPayload[] = [
-          {
-            title: "Typography",
-            url: "https://en.wikipedia.org/wiki/Typography",
-            summary: "Typography is the art and technique of arranging type.",
-          },
-          {
-            title: "Grid systems",
-            url: "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
-            summary: "Grid systems help organize content and spacing.",
-          },
-        ];
-
         return (
           <div className={styles.row}>
             {items.map((item) => (
@@ -373,6 +360,24 @@ Share one popup between several links and pass trigger-specific data through `pa
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items: LinkPreviewPayload[] = [
+        {
+          title: "Typography",
+          url: "https://en.wikipedia.org/wiki/Typography",
+          summary: "Typography is the art and technique of arranging type.",
+        },
+        {
+          title: "Grid systems",
+          url: "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
+          summary: "Grid systems help organize content and spacing.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Side Control
@@ -387,8 +392,6 @@ Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to
     {`
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
       import { useState } from "react";
-
-      const sides = ["top", "right", "bottom", "left"] as const;
 
       export function SideControlPreviewCard() {
         const [side, setSide] = useState("bottom" as (typeof sides)[number]);
@@ -487,6 +490,13 @@ Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const sides = ["top", "right", "bottom", "left"] as const;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Arrow

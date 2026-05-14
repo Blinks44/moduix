@@ -4,7 +4,6 @@ description: A set of related toggle buttons that share selection state.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ControlledToggleGroupExample,
   CustomStylesToggleGroupExample,
@@ -126,6 +125,7 @@ Use `multiple` when more than one item can be pressed at the same time.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function MultipleToggleGroupDemo() {
         return (
@@ -171,6 +171,7 @@ Use `variant` on the group to apply the same visual treatment to every item.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function ToggleGroupVariantsDemo() {
         return (
@@ -236,6 +237,7 @@ Use text sizes for labeled groups and icon sizes for compact toolbar controls.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function ToggleGroupSizesDemo() {
         return (
@@ -367,6 +369,7 @@ Use `disabled` on the group or on a specific item to prevent interaction.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function DisabledToggleGroupDemo() {
         return (
@@ -465,6 +468,7 @@ Control `value` from React state when the group needs to coordinate with other U
     {`
       import { BellIcon, CheckSmallIcon, StarIcon, ToggleGroup, ToggleGroupItem } from "moduix";
       import { useState } from "react";
+      import styles from "./toggle-group.module.css";
 
       export function ControlledToggleGroupDemo() {
         const [value, setValue] = useState(["favorites"] as string[]);
@@ -523,6 +527,7 @@ Pass icons as children. Icon-only items must include an accessible label.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function IconToggleGroupDemo() {
         return (
@@ -587,6 +592,7 @@ states such as hover and pressed.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function CustomStylesToggleGroupDemo() {
         return (

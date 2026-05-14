@@ -41,12 +41,6 @@ import {
       } from "moduix";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       export function RadioDemo() {
         const labelId = useId();
 
@@ -67,6 +61,17 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Anatomy
@@ -157,14 +162,6 @@ Use `size` to align the radio control with different form densities.
       } from "moduix";
       import { useId } from "react";
 
-      const sizes = [
-        { value: "xs", label: "Extra-small" },
-        { value: "sm", label: "Small" },
-        { value: "md", label: "Medium" },
-        { value: "lg", label: "Large" },
-        { value: "xl", label: "Extra-large" },
-      ] as const;
-
       export function RadioSizesDemo() {
         const labelId = useId();
 
@@ -185,6 +182,19 @@ Use `size` to align the radio control with different form densities.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const sizes = [
+        { value: "xs", label: "Extra-small" },
+        { value: "sm", label: "Small" },
+        { value: "md", label: "Medium" },
+        { value: "lg", label: "Large" },
+        { value: "xl", label: "Extra-large" },
+      ] as const;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -250,12 +260,6 @@ Use `disabled` on the group to prevent interaction with every radio in the group
       } from "moduix";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       export function DisabledRadioDemo() {
         const labelId = useId();
 
@@ -276,6 +280,17 @@ Use `disabled` on the group to prevent interaction with every radio in the group
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Indicator
@@ -297,12 +312,6 @@ Pass a custom `indicator` node to `Radio` or `RadioGroupItemControl` to use any 
       } from "moduix";
       import type { ComponentProps } from "react";
       import { useId } from "react";
-
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
 
       function CustomRadioIcon(props: ComponentProps<"svg">) {
         return (
@@ -340,6 +349,17 @@ Pass a custom `indicator` node to `Radio` or `RadioGroupItemControl` to use any 
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Class Names
@@ -361,12 +381,6 @@ Pass `className` to visible slots and use `classNames` for internal indicator st
       } from "moduix";
       import { useId } from "react";
       import styles from "./styled-radio-demo.module.css";
-
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
 
       export function StyledRadioDemo() {
         const labelId = useId();
@@ -429,6 +443,17 @@ Pass `className` to visible slots and use `classNames` for internal indicator st
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Field Composition
@@ -448,12 +473,6 @@ Use `RadioField`, `Radio`, and `RadioLabel` directly when you want a compact enc
         RadioLabel,
       } from "moduix";
       import { useId } from "react";
-
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
 
       export function RadioFieldDemo() {
         const labelId = useId();
@@ -475,6 +494,17 @@ Use `RadioField`, `Radio`, and `RadioLabel` directly when you want a compact enc
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Sibling Label
