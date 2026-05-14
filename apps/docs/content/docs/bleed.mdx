@@ -4,7 +4,6 @@ description: A layout primitive that lets content intentionally escape a constra
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   BleedBlockExample,
   BleedExample,
@@ -96,8 +95,10 @@ Bleed
 
 ## Composition
 
-Use `Bleed` props `inline` and `block` to control bleed amount per axis, and `as` when the root should be a
-specific semantic element such as `section` or `figure`.
+Use `Bleed` props `inline` and `block` to control bleed amount per axis, and `as` when the root
+should be a specific semantic element such as `section` or `figure`. The component forwards refs to
+the rendered element, so it can be measured, focused, or passed to animation libraries like any
+native element.
 
 `Bleed` has no internal service slots, so customization is done directly with `className` and
 bleed CSS variables on the root element.

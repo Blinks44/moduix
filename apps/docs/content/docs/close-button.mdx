@@ -97,9 +97,13 @@ CloseButton
 
 ## Composition
 
-Use `CloseButton` props such as `children` to replace the
-default icon, `render` to compose it with another element, and `className` to style the root
-button. The component has no hidden service slots, so styling does not require `classNames`.
+Use `CloseButton` props such as `children` to replace the default icon, `render` to compose it
+with another element, `nativeButton` for non-button render targets, and `focusableWhenDisabled`
+when a disabled control should remain in the tab order. The default accessible name is `Close`;
+pass `aria-label` for the specific surface being dismissed.
+
+Use `className` to style the root button. The component has no hidden service slots, so styling
+does not require `classNames`.
 
 ## Examples
 

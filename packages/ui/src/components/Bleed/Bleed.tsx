@@ -13,19 +13,21 @@ type BleedOwnProps<As extends BleedAs = 'div'> = {
 };
 
 type BleedProps<As extends BleedAs = 'div'> = BleedOwnProps<As> &
-  Omit<React.ComponentPropsWithoutRef<As>, keyof BleedOwnProps<As>>;
+  Omit<React.ComponentPropsWithRef<As>, keyof BleedOwnProps<As>>;
 
-function Bleed<As extends BleedAs = 'div'>({
-  as,
-  inline = 'full',
-  block = 'none',
-  className,
-  ...props
-}: BleedProps<As>) {
+type BleedComponent = <As extends BleedAs = 'div'>(
+  props: BleedProps<As>,
+) => React.ReactElement | null;
+
+const Bleed = React.forwardRef(function Bleed(
+  { as, inline = 'full', block = 'none', className, ...props }: BleedProps<BleedAs>,
+  ref: React.ForwardedRef<Element>,
+) {
   const Component = as ?? 'div';
 
   return (
     <Component
+      ref={ref}
       data-slot="bleed-root"
       data-inline={inline}
       data-block={block}
@@ -33,7 +35,7 @@ function Bleed<As extends BleedAs = 'div'>({
       {...props}
     />
   );
-}
+}) as BleedComponent;
 
 export { Bleed };
 

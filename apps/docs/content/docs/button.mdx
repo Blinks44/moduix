@@ -4,7 +4,6 @@ description: A composable action control with variants, sizes, icons, and loadin
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ButtonCustomLoadingIndicatorExample,
   ButtonDisabledExample,
@@ -57,6 +56,9 @@ Button
 | `loadingIndicator` | Slot rendered in loading state; accepts custom indicator via props.             |
 | `spinner`          | Default spinner inside `loadingIndicator` when no custom indicator is provided. |
 
+The root exposes `data-disabled` from Base UI and `data-loading` from moduix. Use these attributes
+or CSS variables when styling state from CSS.
+
 ## Composition
 
 Use `Button` behavior props such as `render`, `nativeButton`, `disabled`, and
@@ -73,6 +75,9 @@ root button. Use `classNames` for internal slots that are rendered by the compon
   }}
 />
 ```
+
+For submit buttons, pass `type="submit"`. For links, style an `<a>` directly instead of rendering
+an anchor through `Button`; Base UI Button intentionally keeps button semantics.
 
 ## Examples
 

@@ -4,7 +4,6 @@ description: A compact visual identity element that shows an image, initials, or
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   AvatarCompositionExample,
   AvatarCustomFallbackExample,
@@ -79,8 +78,10 @@ In most cases, keep default behavior and style visible slots with `className` an
 
 ## Composition
 
-Use `className` on `Avatar`, `AvatarImage`, and `AvatarFallback`, and use Base UI's `render`
-prop when the root should compose with another element.
+Use `className` on `Avatar`, `AvatarImage`, and `AvatarFallback`. Like Base UI, each slot also
+accepts state-based `className` and `style` functions plus `render` for element composition.
+Use `AvatarImage onLoadingStatusChange` when application logic needs the image load state, and
+`AvatarFallback delay` when you want to avoid a fallback flash during normal image loading.
 
 ## Examples
 
