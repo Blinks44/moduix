@@ -270,7 +270,21 @@
   }
 
   .row {
-    display: contents;
+    display: flex;
+    align-items: center;
+    gap: var(--autocomplete-row-gap, var(--spacing-1));
+    padding-inline: var(--autocomplete-row-padding-x, var(--spacing-1));
+
+    & > .item {
+      width: var(--autocomplete-grid-item-width, 2.5rem);
+      min-height: var(--autocomplete-grid-item-min-height, 2.5rem);
+      justify-content: center;
+      padding-inline: var(--autocomplete-grid-item-padding-x, var(--spacing-2));
+
+      &[data-highlighted]::before {
+        inset-inline: 0;
+      }
+    }
   }
 
   .item {

@@ -23,10 +23,12 @@ import {
   AutocompleteItemTextIcon,
   AutocompleteItemTextLabel,
   AutocompleteList,
+  AutocompleteRow,
   AutocompleteStatus,
   AutocompleteTrigger,
   AutocompleteValue,
   useAutocompleteFilter,
+  useAutocompleteFilteredItems,
 } from './Autocomplete';
 import styles from './Autocomplete.stories.module.css';
 
@@ -56,6 +58,12 @@ interface Movie {
   id: string;
   title: string;
   year: number;
+}
+
+interface Shortcut {
+  id: string;
+  value: string;
+  label: string;
 }
 
 const tags: TagItem[] = [
@@ -101,6 +109,21 @@ const topMovies: Movie[] = [
   { id: '10', title: 'Spirited Away', year: 2001 },
 ];
 
+const shortcuts: Shortcut[] = [
+  { id: 's1', value: 'N', label: 'New file' },
+  { id: 's2', value: 'O', label: 'Open file' },
+  { id: 's3', value: 'S', label: 'Save file' },
+  { id: 's4', value: 'P', label: 'Print' },
+  { id: 's5', value: 'F', label: 'Find' },
+  { id: 's6', value: 'R', label: 'Replace' },
+  { id: 's7', value: 'Z', label: 'Undo' },
+  { id: 's8', value: 'Y', label: 'Redo' },
+  { id: 's9', value: 'B', label: 'Bold' },
+  { id: 's10', value: 'I', label: 'Italic' },
+  { id: 's11', value: 'U', label: 'Underline' },
+  { id: 's12', value: 'K', label: 'Link' },
+];
+
 function normalizeText(text: string) {
   return text.toLowerCase().trim();
 }
@@ -126,6 +149,38 @@ function isFuzzyMatch(value: string, query: string) {
   }
 
   return false;
+}
+
+function chunkArray<T>(items: T[], size: number) {
+  const chunks: T[][] = [];
+
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size));
+  }
+
+  return chunks;
+}
+
+function ShortcutGrid() {
+  const filteredItems = useAutocompleteFilteredItems<Shortcut>();
+
+  if (filteredItems.length === 0) {
+    return null;
+  }
+
+  return (
+    <AutocompleteList>
+      {chunkArray(filteredItems, 6).map((row) => (
+        <AutocompleteRow key={row.map((item) => item.id).join('-')}>
+          {row.map((item) => (
+            <AutocompleteItem key={item.id} value={item} aria-label={item.label}>
+              <AutocompleteItemText>{item.value}</AutocompleteItemText>
+            </AutocompleteItem>
+          ))}
+        </AutocompleteRow>
+      ))}
+    </AutocompleteList>
+  );
 }
 
 export const Basic: Story = {
@@ -338,6 +393,37 @@ export const AutoHighlight: Story = {
               </AutocompleteItem>
             )}
           </AutocompleteList>
+        </AutocompleteContent>
+      </Autocomplete>
+    );
+  },
+};
+
+export const Grid: Story = {
+  render: () => {
+    const id = React.useId();
+
+    return (
+      <Autocomplete
+        items={shortcuts}
+        itemToStringValue={(item: Shortcut) => item.label}
+        grid
+        openOnInputClick
+      >
+        <AutocompleteField>
+          <AutocompleteFieldLabel htmlFor={id}>Shortcut command</AutocompleteFieldLabel>
+          <AutocompleteInputGroup>
+            <AutocompleteInput id={id} placeholder="Type a command" />
+            <AutocompleteControlActions>
+              <AutocompleteClear aria-label="Clear value" />
+              <AutocompleteTrigger aria-label="Open suggestions" />
+            </AutocompleteControlActions>
+          </AutocompleteInputGroup>
+        </AutocompleteField>
+
+        <AutocompleteContent>
+          <AutocompleteEmpty>No shortcuts found.</AutocompleteEmpty>
+          <ShortcutGrid />
         </AutocompleteContent>
       </Autocomplete>
     );
