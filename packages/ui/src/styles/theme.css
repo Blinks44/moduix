@@ -1470,12 +1470,11 @@
   --switch-focus-ring-offset: initial; /* var(--border-width-sm) */
   --switch-focus-ring-width: initial; /* var(--border-width-sm) */
   --switch-gap: initial; /* var(--spacing-2) */
-  --switch-height: initial; /* 1.5rem */
-  --switch-height-xl: initial; /* 2rem */
   --switch-height-xs: initial; /* 1rem */
-  --switch-height-lg: initial; /* 1.75rem */
-  --switch-height-md: initial; /* 1.5rem */
   --switch-height-sm: initial; /* 1.25rem */
+  --switch-height-md: initial; /* 1.5rem */
+  --switch-height-lg: initial; /* 1.75rem */
+  --switch-height-xl: initial; /* 2rem */
   --switch-label-color: initial; /* var(--color-foreground) */
   --switch-label-font-size: initial; /* var(--text-sm) */
   --switch-label-font-weight: initial; /* var(--weight-medium) */
@@ -1489,20 +1488,18 @@
   --switch-thumb-color-unchecked: initial; /* var(--switch-thumb-color, var(--color-muted)) */
   --switch-thumb-icon-size: initial; /* 65% */
   --switch-thumb-shadow: initial; /* var(--shadow-sm) */
-  --switch-thumb-size: initial; /* 1.125rem */
-  --switch-thumb-size-xl: initial; /* 1.625rem */
   --switch-thumb-size-xs: initial; /* 0.625rem */
-  --switch-thumb-size-lg: initial; /* 1.375rem */
-  --switch-thumb-size-md: initial; /* 1.125rem */
   --switch-thumb-size-sm: initial; /* 0.875rem */
+  --switch-thumb-size-md: initial; /* 1.125rem */
+  --switch-thumb-size-lg: initial; /* 1.375rem */
+  --switch-thumb-size-xl: initial; /* 1.625rem */
   --switch-thumb-transition: initial; /* var(--switch-transition, var(--transition-default)) */
   --switch-transition: initial; /* var(--transition-default) */
-  --switch-width: initial; /* 2.5rem */
-  --switch-width-xl: initial; /* 3.5rem */
   --switch-width-xs: initial; /* 1.75rem */
-  --switch-width-lg: initial; /* 3rem */
-  --switch-width-md: initial; /* 2.5rem */
   --switch-width-sm: initial; /* 2rem */
+  --switch-width-md: initial; /* 2.5rem */
+  --switch-width-lg: initial; /* 3rem */
+  --switch-width-xl: initial; /* 3.5rem */
 
   /* Tabs */
   --tabs-bg: initial; /* var(--color-background) */

@@ -1,20 +1,9 @@
-import {
-  Field,
-  FieldLabel,
-  Switch,
-  SwitchField,
-  SwitchLabel,
-  SwitchThumb,
-  type SwitchProps,
-} from 'moduix';
+import { Field, FieldLabel, Switch, SwitchField, SwitchLabel, type SwitchProps } from 'moduix';
 import * as React from 'react';
 import type { CssPropertyInput } from '../preview';
 import styles from './switch.module.css';
 
 export const switchCssProperties: CssPropertyInput[] = [
-  ['--switch-width-md', '2.5rem', 'Controls `md` switch width.'],
-  ['--switch-height-md', '1.5rem', 'Controls `md` switch height.'],
-  ['--switch-thumb-size-md', '1.125rem', 'Controls `md` thumb size.'],
   ['--switch-padding', '0.125rem', 'Controls inner switch padding.'],
   ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
   ['--switch-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
@@ -153,11 +142,7 @@ export function ControlledSwitchExample() {
 export function CustomIconSwitchExample() {
   return (
     <SwitchField>
-      <Switch defaultChecked>
-        <SwitchThumb className={styles.customIconThumb}>
-          <PowerIcon />
-        </SwitchThumb>
-      </Switch>
+      <Switch defaultChecked thumb={<PowerIcon />} classNames={{ thumb: styles.customIconThumb }} />
       <SwitchLabel>Use custom thumb icon</SwitchLabel>
     </SwitchField>
   );

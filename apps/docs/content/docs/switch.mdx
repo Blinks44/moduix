@@ -29,7 +29,7 @@ import {
 
   <Preview.Code>
     {`
-      import { SwitchField, Switch, SwitchLabel } from "moduix";
+      import { Switch, SwitchField, SwitchLabel } from "moduix";
 
       export function SwitchDemo() {
         return (
@@ -44,6 +44,46 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Switch` renders the interactive control and its internal thumb automatically. Use
+`SwitchField` and `SwitchLabel` when the label wraps the control; use a native label with `id`
+when the label is a sibling.
+
+```text
+SwitchField
+|- Switch
+|  `- internal thumb
+`- SwitchLabel
+```
+
+```tsx
+<SwitchField>
+  <Switch defaultChecked />
+  <SwitchLabel>Enable notifications</SwitchLabel>
+</SwitchField>
+```
+
+| Part           | Role                                                                                                           |
+| -------------- | -------------------------------------------------------------------------------------------------------------- |
+| `Switch`       | Root state machine and visible track. Controls `checked`, `defaultChecked`, form props, and `size`.            |
+| internal thumb | Movable visual marker rendered by `Switch`. Customize content with `thumb` and styles with `classNames.thumb`. |
+| `SwitchField`  | Optional wrapping label for the common inline field pattern.                                                   |
+| `SwitchLabel`  | Optional text label slot styled to match the switch field.                                                     |
+
+`Switch` does not use portal-like service layers such as `portal`, `positioner`, `backdrop`,
+or `viewport`. In most cases, keep the internal thumb and style the root `Switch`,
+`SwitchField`, and `SwitchLabel`.
+
+## Composition
+
+Use `Switch` directly for the control. Pass `className` to style the track and `classNames.thumb`
+to style the internal thumb. Pass `thumb` when the thumb needs custom content, such as an icon.
+
+Use `nativeButton` with `render={<button />}` for sibling `label` patterns. Use the render
+callback when a native button switch needs to live inside a wrapping label without invalid nested
+button markup.
+
 ## Examples
 
 ### Sizes
@@ -56,11 +96,12 @@ Override `--switch-width-{size}`, `--switch-height-{size}`, and `--switch-thumb-
 
   <Preview.Code>
     {`
-      import { SwitchField, Switch, SwitchLabel } from "moduix";
+      import { Switch, SwitchField, SwitchLabel } from "moduix";
+      import styles from "./switch-demo.module.css";
 
       export function SwitchSizesDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <SwitchField>
               <Switch size="xs" defaultChecked />
               <SwitchLabel>Extra-small</SwitchLabel>
@@ -87,6 +128,18 @@ Override `--switch-width-{size}`, `--switch-height-{size}`, and `--switch-thumb-
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Disabled
@@ -98,11 +151,12 @@ Use `disabled` to prevent interaction while preserving the current setting state
 
   <Preview.Code>
     {`
-      import { SwitchField, Switch, SwitchLabel } from "moduix";
+      import { Switch, SwitchField, SwitchLabel } from "moduix";
+      import styles from "./switch-demo.module.css";
 
       export function DisabledSwitchDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <SwitchField>
               <Switch disabled />
               <SwitchLabel>Enable dark mode</SwitchLabel>
@@ -117,6 +171,18 @@ Use `disabled` to prevent interaction while preserving the current setting state
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Controlled
@@ -128,35 +194,58 @@ Control `checked` from React state when the switch needs to coordinate with othe
 
   <Preview.Code>
     {`
-      import { SwitchField, Switch, SwitchLabel } from "moduix";
+      import { Switch, SwitchField, SwitchLabel } from "moduix";
       import { useState } from "react";
+      import styles from "./switch-demo.module.css";
 
-      function ControlledSwitch() {
+      export function ControlledSwitchDemo() {
         const [checked, setChecked] = useState(true);
 
         return (
-          <SwitchField>
-            <Switch checked={checked} onCheckedChange={setChecked} />
-            <SwitchLabel>{checked ? "On" : "Off"}</SwitchLabel>
-          </SwitchField>
+          <div className={styles.stack}>
+            <SwitchField>
+              <Switch checked={checked} onCheckedChange={setChecked} />
+              <SwitchLabel>{checked ? "On" : "Off"}</SwitchLabel>
+            </SwitchField>
+            <span className={styles.hint}>Current value: {String(checked)}</span>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Icon
 
-Pass children to `SwitchThumb` to render any icon from your application or icon library inside the thumb.
+Pass `thumb` to render any icon from your application or icon library inside the internal thumb.
 
 <Preview>
   <CustomIconSwitchExample />
 
   <Preview.Code>
     {`
-      import { SwitchField, Switch, SwitchThumb, SwitchLabel } from "moduix";
+      import { Switch, SwitchField, SwitchLabel } from "moduix";
       import type { ComponentProps } from "react";
+      import styles from "./switch-demo.module.css";
 
       function PowerIcon(props: ComponentProps<"svg">) {
         return (
@@ -174,11 +263,11 @@ Pass children to `SwitchThumb` to render any icon from your application or icon 
       export function CustomIconSwitchDemo() {
         return (
           <SwitchField>
-            <Switch defaultChecked>
-              <SwitchThumb>
-                <PowerIcon />
-              </SwitchThumb>
-            </Switch>
+            <Switch
+              defaultChecked
+              thumb={<PowerIcon />}
+              classNames={{ thumb: styles.customIconThumb }}
+            />
             <SwitchLabel>Use custom thumb icon</SwitchLabel>
           </SwitchField>
         );
@@ -186,6 +275,17 @@ Pass children to `SwitchThumb` to render any icon from your application or icon 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customIconThumb {
+        --switch-thumb-color-checked: var(--color-primary);
+        --switch-thumb-color-unchecked: var(--color-muted-foreground);
+        --switch-thumb-icon-size: 0.75rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Class Names
@@ -197,19 +297,40 @@ Pass `className` to the field, root, and label slots when styling with CSS Modul
 
   <Preview.Code>
     {`
-      import { SwitchField, Switch, SwitchLabel } from "moduix";
+      import { Switch, SwitchField, SwitchLabel } from "moduix";
+      import styles from "./switch-demo.module.css";
 
       export function StyledSwitchDemo() {
         return (
-          <SwitchField className="gap-3">
-            <Switch className="border-fd-primary data-[checked]:bg-fd-primary" defaultChecked />
-            <SwitchLabel className="text-fd-primary">Styled with className</SwitchLabel>
+          <SwitchField className={styles.customField}>
+            <Switch className={styles.customSwitch} defaultChecked />
+            <SwitchLabel className={styles.customLabel}>Styled with className</SwitchLabel>
           </SwitchField>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customField {
+        gap: var(--spacing-3);
+      }
+
+      .customSwitch {
+        --switch-bg: color-mix(in oklab, var(--color-primary) 12%, transparent);
+        --switch-bg-hover: color-mix(in oklab, var(--color-primary) 18%, transparent);
+        --switch-bg-checked: var(--color-primary);
+        --switch-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
+      }
+
+      .customLabel {
+        color: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Sibling Label
@@ -223,20 +344,41 @@ Use `nativeButton` with `render={<button />}` for the sibling `label` pattern wi
     {`
       import { Switch } from "moduix";
       import { useId } from "react";
+      import styles from "./switch-demo.module.css";
 
-      function SiblingLabelSwitch() {
+      export function SiblingLabelSwitchDemo() {
         const id = useId();
 
         return (
-          <div className="flex items-center gap-2">
+          <div className={styles.siblingRow}>
             <Switch nativeButton render={<button />} id={id} defaultChecked />
-            <label htmlFor={id}>Receive product updates</label>
+            <label htmlFor={id} className={styles.label}>
+              Receive product updates
+            </label>
           </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .siblingRow {
+        display: flex;
+        align-items: center;
+        gap: var(--switch-gap, var(--spacing-2));
+      }
+
+      .label {
+        color: var(--switch-label-color, var(--color-foreground));
+        font-size: var(--switch-label-font-size, var(--text-sm));
+        font-weight: var(--switch-label-font-weight, var(--weight-medium));
+        line-height: var(--switch-label-line-height, var(--line-height-text-sm));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Native Button Render Callback
@@ -249,6 +391,7 @@ Use the render callback when a native button switch needs to be wrapped by a lab
   <Preview.Code>
     {`
       import { Switch } from "moduix";
+      import styles from "./switch-demo.module.css";
 
       export function NativeButtonSwitchDemo() {
         return (
@@ -256,9 +399,9 @@ Use the render callback when a native button switch needs to be wrapped by a lab
             defaultChecked
             nativeButton
             render={(buttonProps) => (
-              <label className="flex items-center gap-2">
+              <label className={styles.siblingRow}>
                 <button {...buttonProps} />
-                <span>Enable reminders</span>
+                <span className={styles.label}>Enable reminders</span>
               </label>
             )}
           />
@@ -267,6 +410,24 @@ Use the render callback when a native button switch needs to be wrapped by a lab
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .siblingRow {
+        display: flex;
+        align-items: center;
+        gap: var(--switch-gap, var(--spacing-2));
+      }
+
+      .label {
+        color: var(--switch-label-color, var(--color-foreground));
+        font-size: var(--switch-label-font-size, var(--text-sm));
+        font-weight: var(--switch-label-font-weight, var(--weight-medium));
+        line-height: var(--switch-label-line-height, var(--line-height-text-sm));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Form Integration

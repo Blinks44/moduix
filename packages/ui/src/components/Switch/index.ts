@@ -1,9 +1,9 @@
-export { Switch, SwitchThumb, SwitchField, SwitchLabel } from './Switch';
+export { Switch, SwitchField, SwitchLabel } from './Switch';
 
 export type {
   SwitchSize,
+  SwitchClassNames,
   SwitchProps,
-  SwitchThumbProps,
   SwitchFieldProps,
   SwitchLabelProps,
 } from './Switch';
