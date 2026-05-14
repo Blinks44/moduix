@@ -8,6 +8,7 @@ import {
   ContextMenuExample,
   GroupsAndControlsContextMenuExample,
   IndicatorRightContextMenuExample,
+  LinkItemsContextMenuExample,
   NestedContextMenuExample,
   PositionedContextMenuExample,
   ShortcutsContextMenuExample,
@@ -105,6 +106,7 @@ ContextMenu
 | `ContextMenuContent`           | Popup container for menu items. Accepts positioning props and renders service layers internally.       |
 | `ContextMenuArrow`             | Optional visual pointer from popup to trigger location.                                                |
 | `ContextMenuItem`              | Action row. Supports disabled state and `closeOnClick` behavior.                                       |
+| `ContextMenuLinkItem`          | Link row for navigation while preserving context menu focus and highlight behavior.                    |
 | `ContextMenuSeparator`         | Visual divider between related item groups.                                                            |
 | `ContextMenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, and `Content`).                         |
 | `ContextMenuGroup*` / controls | Optional structured controls: labels, radio groups/items, checkbox items, and related indicator slots. |
@@ -418,6 +420,45 @@ Pass positioning props to `ContextMenuContent`. It renders the portal and positi
               <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
               <ContextMenuSeparator />
               <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Link Items
+
+Use `ContextMenuLinkItem` for navigation actions that should render as links.
+
+<Preview>
+  <LinkItemsContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuLinkItem,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+
+      export function LinkItemsContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuArrow />
+              <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
+              <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
+              <ContextMenuLinkItem href="#billing">Billing</ContextMenuLinkItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick>Copy Link</ContextMenuItem>
             </ContextMenuContent>
           </ContextMenu>
         );

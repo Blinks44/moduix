@@ -7,6 +7,7 @@ import {
   ContextMenuGroup,
   ContextMenuGroupLabel,
   ContextMenuItem,
+  ContextMenuLinkItem,
   ContextMenuItemShortcut,
   ContextMenuItemText,
   ContextMenuItemTextContent,
@@ -275,6 +276,22 @@ export function PositionedContextMenuExample() {
         <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
         <ContextMenuSeparator />
         <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
+  );
+}
+
+export function LinkItemsContextMenuExample() {
+  return (
+    <ContextMenu>
+      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+      <ContextMenuContent>
+        <ContextMenuArrow />
+        <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
+        <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
+        <ContextMenuLinkItem href="#billing">Billing</ContextMenuLinkItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem closeOnClick>Copy Link</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   );
