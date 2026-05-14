@@ -72,6 +72,14 @@
     &[data-nested] {
       z-index: calc(var(--z-modal) + 1);
     }
+
+    &[data-with-backdrop='false'] {
+      pointer-events: none;
+
+      & > [data-slot='dialog-popup'] {
+        pointer-events: auto;
+      }
+    }
   }
 
   .popup {

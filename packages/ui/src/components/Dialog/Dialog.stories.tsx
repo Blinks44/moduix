@@ -172,6 +172,27 @@ export const Nested: Story = {
   },
 };
 
+export const NonModal: Story = {
+  render: () => {
+    return (
+      <Dialog modal={false}>
+        <DialogTrigger render={<Button />}>Open non-modal dialog</DialogTrigger>
+        <DialogContent withBackdrop={false}>
+          <DialogHeader>
+            <DialogTitle>Non-modal dialog</DialogTitle>
+            <DialogDescription>
+              The page remains interactive because modal behavior and backdrop are disabled.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  },
+};
+
 export const InsideScrollDialog: Story = {
   render: () => {
     return (
@@ -226,6 +247,10 @@ export const CustomStyles: Story = {
             portal: storyStyles.customPortal,
             backdrop: storyStyles.customBackdrop,
             viewport: storyStyles.customViewport,
+          }}
+          slotProps={{
+            portal: { keepMounted: true },
+            backdrop: { forceRender: true },
           }}
         >
           <DialogCloseIcon className={storyStyles.customCloseIcon} />
