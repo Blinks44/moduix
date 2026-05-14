@@ -1241,6 +1241,7 @@
   --preview-card-transition: initial; /* var(--transition-default) */
   --preview-card-backdrop-bg: initial; /* var(--backdrop-bg, transparent) */
   --preview-card-backdrop-blur: initial; /* 0 */
+  --preview-card-backdrop-transition: initial; /* var(--transition-default) */
   --preview-card-trigger-color: initial; /* var(--color-primary) */
   --preview-card-trigger-decoration-color: initial; /* color-mix(in oklab, var(--preview-card-trigger-color, var(--color-primary)), transparent 40%) */
   --preview-card-trigger-decoration-thickness: initial; /* 1px */

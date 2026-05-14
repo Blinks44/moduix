@@ -59,6 +59,11 @@ export const previewCardCssProperties: CssPropertyInput[] = [
   ['--preview-card-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls the backdrop color.'],
   ['--preview-card-backdrop-blur', '0', 'Controls the backdrop blur.'],
   [
+    '--preview-card-backdrop-transition',
+    'var(--transition-default)',
+    'Controls the backdrop transition.',
+  ],
+  [
     '--preview-card-trigger-color',
     'var(--color-primary)',
     'Controls the default trigger text color.',
