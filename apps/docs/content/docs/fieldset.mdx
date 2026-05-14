@@ -168,7 +168,6 @@ Use `render` to compose the fieldset semantics with another root component, such
         FieldItem,
         FieldLabel,
         Radio,
-        RadioIndicator,
         RadioLabel,
       } from "moduix";
 
@@ -181,9 +180,7 @@ Use `render` to compose the fieldset semantics with another root component, such
               {storageTypes.map((item) => (
                 <FieldItem key={item.value}>
                   <FieldLabel>
-                    <Radio value={item.value}>
-                      <RadioIndicator />
-                    </Radio>
+                    <Radio value={item.value} />
                     <RadioLabel>{item.label}</RadioLabel>
                   </FieldLabel>
                 </FieldItem>

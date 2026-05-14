@@ -109,8 +109,6 @@ function RadioGroupItemLabel({ className, ...props }: React.ComponentProps<'span
   );
 }
 
-type RadioIndicatorProps = RadioPrimitive.Indicator.Props;
-type RadioIndicatorIconProps = React.ComponentProps<'span'>;
 type RadioFieldProps = React.ComponentProps<'label'>;
 type RadioLabelProps = React.ComponentProps<'span'>;
 type RadioGroupProps = RadioGroupPrimitive.Props;
@@ -121,8 +119,6 @@ type RadioGroupItemLabelProps = React.ComponentProps<'span'>;
 
 export {
   Radio,
-  RadioIndicator,
-  RadioIndicatorIcon,
   RadioField,
   RadioLabel,
   RadioGroup,
@@ -135,8 +131,6 @@ export {
 
 export type {
   RadioProps,
-  RadioIndicatorProps,
-  RadioIndicatorIconProps,
   RadioFieldProps,
   RadioLabelProps,
   RadioGroupProps,

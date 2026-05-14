@@ -8,7 +8,6 @@ import {
   FieldsetLegend,
   Radio,
   RadioGroup,
-  RadioIndicator,
   RadioLabel,
   type FieldsetProps,
 } from 'moduix';
@@ -87,9 +86,7 @@ export function RadioGroupFieldsetExample() {
         {storageTypes.map((item) => (
           <FieldItem key={item.value}>
             <FieldLabel>
-              <Radio value={item.value}>
-                <RadioIndicator />
-              </Radio>
+              <Radio value={item.value} />
               <RadioLabel>{item.label}</RadioLabel>
             </FieldLabel>
           </FieldItem>

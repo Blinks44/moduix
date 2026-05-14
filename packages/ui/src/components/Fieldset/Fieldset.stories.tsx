@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Field, FieldControl, FieldError, FieldItem, FieldLabel } from '../Field';
-import { Radio, RadioGroup, RadioIndicator, RadioLabel } from '../Radio';
+import { Radio, RadioGroup, RadioLabel } from '../Radio';
 import { Fieldset, FieldsetLegend } from './Fieldset';
 import styles from './Fieldset.stories.module.css';
 
@@ -68,18 +68,14 @@ export const RadioGroupComposition: Story = {
 
           <FieldItem>
             <FieldLabel>
-              <Radio value="ssd">
-                <RadioIndicator />
-              </Radio>
+              <Radio value="ssd" />
               <RadioLabel>SSD</RadioLabel>
             </FieldLabel>
           </FieldItem>
 
           <FieldItem>
             <FieldLabel>
-              <Radio value="hdd">
-                <RadioIndicator />
-              </Radio>
+              <Radio value="hdd" />
               <RadioLabel>HDD</RadioLabel>
             </FieldLabel>
           </FieldItem>

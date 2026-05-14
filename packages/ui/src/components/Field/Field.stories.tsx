@@ -9,7 +9,7 @@ import {
   NumberFieldIncrement,
   NumberFieldInput,
 } from '../NumberField';
-import { Radio, RadioField, RadioGroup, RadioIndicator, RadioLabel } from '../Radio';
+import { Radio, RadioField, RadioGroup, RadioLabel } from '../Radio';
 import { Switch, SwitchLabel } from '../Switch';
 import {
   Field,
@@ -113,17 +113,13 @@ export const WithRadio: Story = {
         <RadioGroup>
           <FieldItem>
             <RadioField>
-              <Radio value="personal" required>
-                <RadioIndicator />
-              </Radio>
+              <Radio value="personal" required />
               <RadioLabel>Personal account</RadioLabel>
             </RadioField>
           </FieldItem>
           <FieldItem>
             <RadioField>
-              <Radio value="team">
-                <RadioIndicator />
-              </Radio>
+              <Radio value="team" />
               <RadioLabel>Team account</RadioLabel>
             </RadioField>
           </FieldItem>

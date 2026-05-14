@@ -17,7 +17,6 @@ import {
   Radio,
   RadioField,
   RadioGroup,
-  RadioIndicator,
   RadioLabel,
   Switch,
   SwitchLabel,
@@ -155,17 +154,13 @@ export function FieldRadioExample() {
       <RadioGroup>
         <FieldItem>
           <RadioField>
-            <Radio value="personal" required>
-              <RadioIndicator />
-            </Radio>
+            <Radio value="personal" required />
             <RadioLabel>Personal account</RadioLabel>
           </RadioField>
         </FieldItem>
         <FieldItem>
           <RadioField>
-            <Radio value="team">
-              <RadioIndicator />
-            </Radio>
+            <Radio value="team" />
             <RadioLabel>Team account</RadioLabel>
           </RadioField>
         </FieldItem>

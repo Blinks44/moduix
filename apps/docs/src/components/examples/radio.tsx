@@ -46,14 +46,55 @@ export const radioCssProperties: CssPropertyInput[] = [
     'Controls standalone label line height.',
   ],
   ['--radio-group-gap', 'var(--spacing-2)', 'Controls spacing inside the group root.'],
+  ['--radio-group-color', 'var(--color-foreground)', 'Controls inherited group text color.'],
   ['--radio-group-list-gap', 'var(--spacing-2)', 'Controls spacing between group items.'],
   ['--radio-group-item-gap', 'var(--radio-gap)', 'Controls spacing inside each group item.'],
+  [
+    '--radio-group-item-label-color',
+    'var(--radio-label-color)',
+    'Controls group item label text color.',
+  ],
+  [
+    '--radio-group-item-label-font-size',
+    'var(--radio-label-font-size)',
+    'Controls group item label font size.',
+  ],
+  [
+    '--radio-group-item-label-font-weight',
+    'var(--radio-label-font-weight)',
+    'Controls group item label font weight.',
+  ],
+  [
+    '--radio-group-item-label-line-height',
+    'var(--radio-label-line-height)',
+    'Controls group item label line height.',
+  ],
+  ['--radio-group-label-color', 'var(--radio-group-color)', 'Controls group label text color.'],
+  ['--radio-group-label-font-size', 'var(--text-sm)', 'Controls group label font size.'],
+  [
+    '--radio-group-label-font-weight',
+    'var(--weight-semibold)',
+    'Controls group label font weight.',
+  ],
+  [
+    '--radio-group-label-line-height',
+    'var(--line-height-text-sm)',
+    'Controls group label line height.',
+  ],
   ['--radio-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
 
 function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false" {...props}>
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+      {...props}
+    >
       <path d="M6 1.5L10.5 6L6 10.5L1.5 6L6 1.5Z" fill="currentColor" />
     </svg>
   );
