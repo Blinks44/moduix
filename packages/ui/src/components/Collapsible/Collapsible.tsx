@@ -15,13 +15,31 @@ function Collapsible({ className, ...props }: CollapsiblePrimitive.Root.Props) {
   );
 }
 
-function CollapsibleTrigger({ className, ...props }: CollapsiblePrimitive.Trigger.Props) {
+function CollapsibleTrigger({
+  className,
+  children,
+  icon,
+  hideIcon = false,
+  classNames,
+  slotProps,
+  ...props
+}: CollapsibleTriggerProps) {
+  const { icon: iconClassName } = classNames ?? {};
+  const { icon: iconProps } = slotProps ?? {};
+
   return (
     <CollapsiblePrimitive.Trigger
       data-slot="collapsible-trigger"
       className={mergeClassName(className, styles.trigger)}
       {...props}
-    />
+    >
+      {!hideIcon && (
+        <CollapsibleTriggerIcon {...iconProps} className={iconClassName}>
+          {icon}
+        </CollapsibleTriggerIcon>
+      )}
+      {children}
+    </CollapsiblePrimitive.Trigger>
   );
 }
 
@@ -48,9 +66,32 @@ function CollapsiblePanel({ className, ...props }: CollapsiblePrimitive.Panel.Pr
 }
 
 type CollapsibleProps = CollapsiblePrimitive.Root.Props;
-type CollapsibleTriggerProps = CollapsiblePrimitive.Trigger.Props;
 type CollapsibleTriggerIconProps = React.ComponentProps<'span'>;
 type CollapsiblePanelProps = CollapsiblePrimitive.Panel.Props;
+type CollapsibleTriggerClassNames = {
+  icon?: CollapsibleTriggerIconProps['className'];
+};
+type CollapsibleTriggerSlotProps = {
+  icon?: Omit<CollapsibleTriggerIconProps, 'children' | 'className'>;
+};
+type CollapsibleTriggerProps = CollapsiblePrimitive.Trigger.Props & {
+  /**
+   * Icon rendered at the start of the trigger. Pass `hideIcon` to remove it.
+   */
+  icon?: React.ReactNode;
+  /**
+   * Removes the default trigger icon.
+   */
+  hideIcon?: boolean;
+  /**
+   * Classes for internal slots rendered by the trigger.
+   */
+  classNames?: CollapsibleTriggerClassNames;
+  /**
+   * Props for internal slots rendered by the trigger.
+   */
+  slotProps?: CollapsibleTriggerSlotProps;
+};
 
 export { Collapsible, CollapsibleTrigger, CollapsibleTriggerIcon, CollapsiblePanel };
 
@@ -59,4 +100,6 @@ export type {
   CollapsibleTriggerProps,
   CollapsibleTriggerIconProps,
   CollapsiblePanelProps,
+  CollapsibleTriggerClassNames,
+  CollapsibleTriggerSlotProps,
 };

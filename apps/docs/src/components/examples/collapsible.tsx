@@ -2,7 +2,6 @@ import {
   Collapsible,
   CollapsiblePanel,
   CollapsibleTrigger,
-  CollapsibleTriggerIcon,
   ChevronDownIcon,
   type CollapsibleProps,
 } from 'moduix';
@@ -63,10 +62,7 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 export function CollapsibleExample(props: CollapsibleProps) {
   return (
     <Collapsible className={styles.root} {...props}>
-      <CollapsibleTrigger>
-        <CollapsibleTriggerIcon />
-        Recovery keys
-      </CollapsibleTrigger>
+      <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
       <CollapsiblePanel>
         <ul className={styles.keysList}>
           {recoveryKeys.map((key) => (
@@ -83,10 +79,7 @@ export function ControlledCollapsibleExample() {
 
   return (
     <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
-      <CollapsibleTrigger>
-        <CollapsibleTriggerIcon />
-        Recovery keys
-      </CollapsibleTrigger>
+      <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
       <CollapsiblePanel>
         <ul className={styles.keysList}>
           {recoveryKeys.map((key) => (
@@ -102,10 +95,7 @@ export function ControlledCollapsibleExample() {
 export function DisabledCollapsibleExample() {
   return (
     <Collapsible disabled className={styles.root}>
-      <CollapsibleTrigger>
-        <CollapsibleTriggerIcon />
-        Recovery keys
-      </CollapsibleTrigger>
+      <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
       <CollapsiblePanel>
         <ul className={styles.keysList}>
           {recoveryKeys.map((key) => (
@@ -120,10 +110,7 @@ export function DisabledCollapsibleExample() {
 export function HiddenUntilFoundCollapsibleExample() {
   return (
     <Collapsible className={styles.root}>
-      <CollapsibleTrigger>
-        <CollapsibleTriggerIcon />
-        Searchable recovery keys
-      </CollapsibleTrigger>
+      <CollapsibleTrigger>Searchable recovery keys</CollapsibleTrigger>
       <CollapsiblePanel hiddenUntilFound>
         <ul className={styles.keysList}>
           {recoveryKeys.map((key) => (
@@ -138,10 +125,11 @@ export function HiddenUntilFoundCollapsibleExample() {
 export function CustomStylesCollapsibleExample() {
   return (
     <Collapsible className={styles.customRoot}>
-      <CollapsibleTrigger className={styles.customTrigger}>
-        <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
-          <ChevronDownIcon />
-        </CollapsibleTriggerIcon>
+      <CollapsibleTrigger
+        className={styles.customTrigger}
+        icon={<ChevronDownIcon />}
+        classNames={{ icon: styles.customTriggerIcon }}
+      >
         Styled recovery keys
       </CollapsibleTrigger>
       <CollapsiblePanel className={styles.customPanel}>
