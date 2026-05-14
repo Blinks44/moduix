@@ -171,3 +171,27 @@ export const MultipleTriggers: Story = {
     );
   },
 };
+
+export const CustomStyles: Story = {
+  name: 'Custom Styles',
+  render: () => {
+    return (
+      <Tooltip>
+        <TooltipTrigger aria-label="Custom styled tooltip" className={storyStyles.customTrigger}>
+          Custom style
+        </TooltipTrigger>
+        <TooltipContent
+          className={storyStyles.customPopup}
+          classNames={{
+            portal: storyStyles.customPortal,
+            positioner: storyStyles.customPositioner,
+            arrow: storyStyles.customArrow,
+            viewport: storyStyles.customViewport,
+          }}
+        >
+          Styled through className
+        </TooltipContent>
+      </Tooltip>
+    );
+  },
+};

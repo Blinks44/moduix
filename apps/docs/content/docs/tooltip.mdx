@@ -4,7 +4,6 @@ description: A popup that appears when an element is hovered or focused.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   CustomStylesTooltipExample,
   DetachedTriggerTooltipExample,
@@ -37,6 +36,7 @@ tooltips are not a replacement for `aria-label` or visible text.
         TooltipContent,
         TooltipTrigger,
       } from "moduix";
+      import styles from "./tooltip-demo.module.css";
 
       export function TooltipDemo() {
         return (
@@ -104,8 +104,9 @@ Tooltip
 | `TooltipContent` | Composed popup layer. Renders `portal`, `positioner`, `popup`, optional `arrow`, and `viewport` automatically. |
 
 In most cases, keep the default composition and style only visible parts with `className`.
-Use `classNames`, `portalProps`, `positionerProps`, `arrowProps`, and `viewportProps` only when
-you need slot-level customization.
+Use `classNames`, `container`, and the focused placement props on `TooltipContent` for common
+customization. Reach for the slot prop escape hatches only when you need to pass non-class props to
+the internal service slots.
 
 ## Composition
 
@@ -114,8 +115,9 @@ Use `Tooltip` for root state and behavior props such as `open`, `defaultOpen`,
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
 hidden from the default composition. Use `container`, `portalProps`, `positionerProps`,
-`arrowProps`, `showArrow={false}`, and placement props such as `side` or `sideOffset` when you
-need the matching Base UI escape hatches, including `viewportProps` for the viewport wrapper:
+`showArrow={false}` to hide the arrow, `arrow` to replace its graphic, and placement props such as
+`side` or `sideOffset` for positioning. `portalProps`, `positionerProps`, `arrowProps`, and
+`viewportProps` remain available for the matching Base UI escape hatches:
 
 ```tsx
 <TooltipContent
@@ -149,6 +151,7 @@ Wrap related tooltips in one `TooltipProvider` to share delay behavior across a 
         TooltipProvider,
         TooltipTrigger,
       } from "moduix";
+      import styles from "./tooltip-demo.module.css";
 
       export function ToolbarTooltipDemo() {
         return (
@@ -250,11 +253,12 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
         TooltipTrigger,
       } from "moduix";
       import { useState } from "react";
+      import styles from "./tooltip-demo.module.css";
 
       type TooltipSide = "top" | "right" | "bottom" | "left";
       const tooltipSides = ["top", "right", "bottom", "left"] as TooltipSide[];
 
-      function SideControlTooltip() {
+      export function SideControlTooltip() {
         const [side, setSide] = useState("top" as TooltipSide);
 
         return (
@@ -352,7 +356,7 @@ Use `createTooltipHandle` when the trigger and tooltip content cannot live in th
       } from "moduix";
       import { useMemo } from "react";
 
-      function DetachedTriggerTooltip() {
+      export function DetachedTriggerTooltip() {
         const tooltipHandle = useMemo(() => createTooltipHandle(), []);
 
         return (
@@ -396,8 +400,9 @@ active trigger payload.
         createTooltipHandle,
       } from "moduix";
       import { useMemo } from "react";
+      import styles from "./tooltip-demo.module.css";
 
-      function MultipleTriggersTooltip() {
+      export function MultipleTriggersTooltip() {
         const tooltipHandle = useMemo(
           () => createTooltipHandle<{ text: string }>(),
           [],
@@ -476,6 +481,7 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
         TooltipContent,
         TooltipTrigger,
       } from "moduix";
+      import styles from "./tooltip-demo.module.css";
 
       export function CustomStylesTooltip() {
         return (
