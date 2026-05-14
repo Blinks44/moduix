@@ -1572,7 +1572,6 @@
   --toast-action-bg-hover: initial; /* var(--color-accent) */
   --toast-action-border-color: initial; /* var(--color-border) */
   --toast-action-color: initial; /* var(--color-foreground) */
-  --toast-action-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toast-action-font-size: initial; /* var(--text-xs) */
   --toast-action-font-weight: initial; /* var(--weight-medium) */
   --toast-action-line-height: initial; /* var(--line-height-text-xs) */
@@ -1584,7 +1583,6 @@
   --toast-anchored-line-height: initial; /* var(--line-height-text-sm) */
   --toast-anchored-padding-x: initial; /* 0.5rem */
   --toast-anchored-padding-y: initial; /* 0.25rem */
-  --toast-anchored-transition: initial; /* 150ms */
   --toast-bg: initial; /* var(--color-popover) */
   --toast-border-color: initial; /* var(--color-border) */
   --toast-close-bg: initial; /* transparent */
@@ -1598,13 +1596,10 @@
   --toast-close-size: initial; /* 1.25rem */
   --toast-color: initial; /* var(--color-popover-foreground) */
   --toast-content-gap: initial; /* 0.25rem */
-  --toast-content-transition: initial; /* 250ms ease */
   --toast-description-color: initial; /* var(--color-muted-foreground) */
   --toast-description-font-size: initial; /* var(--text-sm) */
   --toast-description-line-height: initial; /* var(--line-height-text-sm) */
   --toast-focus-ring-color: initial; /* var(--color-ring) */
-  --toast-height-transition: initial; /* 150ms ease */
-  --toast-opacity-transition: initial; /* 0.5s */
   --toast-padding: initial; /* 1rem */
   --toast-radius: initial; /* var(--radius-lg) */
   --toast-shadow: initial; /* var(--shadow-lg) */
@@ -1615,7 +1610,6 @@
   --toast-title-line-height: initial; /* var(--line-height-text-sm) */
   --toast-transition: initial; /* 0.5s cubic-bezier(0.22, 1, 0.36, 1) */
   --toast-viewport-inset: initial; /* 1rem */
-  --toast-viewport-min-height: initial; /* 1px */
   --toast-viewport-width: initial; /* 20rem */
   --toast-z-index: initial; /* var(--z-toast) */
 

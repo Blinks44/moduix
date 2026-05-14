@@ -67,6 +67,64 @@ styling.
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`ToastProvider` owns the toast managers. `ToastRegion` renders stacked notifications and
+`ToastAnchoredRegion` renders contextual notifications tied to an anchor element. Both regions
+create their `Portal`, `Viewport`, and anchored `Positioner` service slots automatically, so the
+public composition stays focused on visible toast content.
+
+```text
+ToastProvider
+├─ app content
+├─ ToastRegion
+│  └─ ToastRoot
+│     └─ ToastContent
+│        ├─ ToastTitle
+│        ├─ ToastDescription
+│        ├─ ToastAction
+│        └─ ToastClose
+└─ ToastAnchoredRegion
+   └─ anchored toast
+```
+
+```tsx
+<ToastProvider>
+  <AppShell />
+  <ToastRegion placement="bottom-right" />
+  <ToastAnchoredRegion />
+</ToastProvider>
+```
+
+| Part                  | Role                                                                                                 |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| `ToastProvider`       | Provides the stacked and anchored toast managers to the subtree.                                     |
+| `ToastRegion`         | Renders the shared portal and viewport for stacked toasts. Use `placement` and `stackBehavior` here. |
+| `ToastRoot`           | Visible notification surface. Use it inside `renderToast` when a custom toast layout is needed.      |
+| `ToastContent`        | Content wrapper for title, description, actions, icons, and custom layout.                           |
+| `ToastTitle`          | Renders the toast title from the toast object.                                                       |
+| `ToastDescription`    | Renders the toast description from the toast object.                                                 |
+| `ToastAction`         | Optional action button rendered from `actionProps` in the default composition.                       |
+| `ToastClose`          | Dismiss button with the default close icon, or custom children.                                      |
+| `ToastAnchoredRegion` | Renders anchored feedback near the element passed to `useAnchoredToastManager().show({ anchor })`.   |
+
+The service slots are still customizable when needed: pass `container` to choose the portal target
+and `classNames.portal`, `classNames.viewport`, or `classNames.positioner` to style infrastructure.
+For ordinary visual changes, prefer `className` on `ToastRegion` or a custom `renderToast`
+composition.
+
+## Composition
+
+Mount one `ToastProvider` near the application root, place `ToastRegion` once per stacked viewport,
+and call `useToastManager()` from descendants to enqueue notifications. `ToastRegion` owns
+placement, stack behavior, and the default toast markup, so applications do not need to compose
+`Portal` or `Viewport` manually.
+
+Use `renderToast` when the default markup is not enough. The callback receives the Base UI toast
+object and should return a complete visible composition with `ToastRoot` and the parts your layout
+needs. Anchored feedback uses the same provider, but goes through `useAnchoredToastManager()` and
+`ToastAnchoredRegion` so contextual toasts do not mix with the stacked notification queue.
+
 ## Examples
 
 ### Action
@@ -291,6 +349,7 @@ layout, custom icons, or slot-level `className` styling for each toast.
         ToastClose,
         useToastManager,
       } from "moduix";
+      import styles from "./custom-toast.module.css";
 
       export function App() {
         return (
@@ -330,8 +389,12 @@ layout, custom icons, or slot-level `className` styling for each toast.
           </Button>
         );
       }
+    `}
 
-      /* custom-toast.module.css
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
       .toast {
         --toast-bg: var(--color-primary);
         --toast-color: var(--color-primary-foreground);
@@ -339,6 +402,13 @@ layout, custom icons, or slot-level `className` styling for each toast.
         --toast-description-color: color-mix(
           in srgb,
           var(--color-primary-foreground) 72%,
+          transparent
+        );
+        --toast-close-color: var(--color-primary-foreground);
+        --toast-close-color-hover: var(--color-primary-foreground);
+        --toast-close-bg-hover: color-mix(
+          in srgb,
+          var(--color-primary-foreground) 14%,
           transparent
         );
       }
@@ -349,18 +419,13 @@ layout, custom icons, or slot-level `className` styling for each toast.
         padding-right: 1.75rem;
       }
 
-      .icon,
-      .closeIcon {
-        width: 1rem;
-        height: 1rem;
+      .icon {
+        grid-row: span 2;
+        inline-size: 1.125rem;
+        block-size: 1.125rem;
+        color: currentColor;
       }
-      */
-    `}
 
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
       .closeIcon {
         inline-size: var(--toast-close-icon-size, 1rem);
         block-size: var(--toast-close-icon-size, 1rem);

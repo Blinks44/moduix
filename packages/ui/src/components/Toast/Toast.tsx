@@ -43,9 +43,6 @@ type ToastRegionProps = Omit<ToastViewportProps, 'children'> & {
   className?: ToastPrimitive.Root.Props['className'];
   classNames?: ToastRegionClassNames;
   container?: ToastPrimitive.Portal.Props['container'];
-  toastRootProps?: Omit<ToastRootProps, 'toast' | 'className'> & {
-    className?: ToastPrimitive.Root.Props['className'];
-  };
   renderToast?: (toast: ToastPrimitive.Root.ToastObject, index: number) => React.ReactNode;
 };
 
@@ -254,14 +251,12 @@ function ToastRegion({
   className,
   classNames,
   container,
-  toastRootProps,
   renderToast,
   placement = 'bottom-right',
   ...props
 }: ToastRegionProps) {
   const { toasts: allToasts } = useToastManager();
   const toasts = allToasts.filter((toast) => !isAnchoredToast(toast));
-  const { className: toastRootClassName, ...restToastRootProps } = toastRootProps ?? {};
 
   return (
     <ToastPortal className={classNames?.portal} container={container}>
@@ -270,12 +265,7 @@ function ToastRegion({
           renderToast ? (
             <React.Fragment key={toast.id}>{renderToast(toast, index)}</React.Fragment>
           ) : (
-            <ToastRoot
-              key={toast.id}
-              toast={toast}
-              className={mergeClassName(className, toastRootClassName)}
-              {...restToastRootProps}
-            >
+            <ToastRoot key={toast.id} toast={toast} className={className}>
               <ToastContent className={classNames?.content}>
                 <ToastTitle className={classNames?.title} />
                 <ToastDescription className={classNames?.description} />

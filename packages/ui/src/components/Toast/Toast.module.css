@@ -8,7 +8,7 @@
     z-index: var(--toast-z-index, var(--z-toast));
     width: var(--toast-viewport-width, 20rem);
     max-width: calc(100vw - (var(--toast-viewport-inset, 1rem) * 2));
-    min-height: var(--toast-viewport-min-height, 1px);
+    min-height: 1px;
     margin: 0 auto;
 
     &[data-placement^='top'] {
@@ -64,8 +64,8 @@
     pointer-events: auto;
     transform-origin: var(--transform-origin);
     transition:
-      transform var(--toast-anchored-transition, 150ms),
-      opacity var(--toast-anchored-transition, 150ms);
+      transform 150ms,
+      opacity 150ms;
 
     &[data-starting-style],
     &[data-ending-style] {
@@ -159,8 +159,8 @@
     pointer-events: auto;
     transition:
       transform var(--toast-transition, 0.5s cubic-bezier(0.22, 1, 0.36, 1)),
-      opacity var(--toast-opacity-transition, 0.5s),
-      height var(--toast-height-transition, 150ms ease);
+      opacity 0.5s,
+      height 150ms ease;
     z-index: calc(var(--toast-z-index, var(--z-toast)) - var(--toast-index));
     height: var(--height);
     transform: translateX(var(--toast-swipe-movement-x))
@@ -267,7 +267,7 @@
     display: grid;
     gap: var(--toast-content-gap, 0.25rem);
     overflow: hidden;
-    transition: opacity var(--toast-content-transition, 250ms ease);
+    transition: opacity 250ms ease;
 
     &[data-behind] {
       opacity: 0;
@@ -320,7 +320,7 @@
     &:disabled,
     &[data-disabled] {
       cursor: default;
-      opacity: var(--toast-action-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--opacity-disabled);
     }
 
     @media (hover: hover) {
