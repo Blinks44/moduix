@@ -39,6 +39,38 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Separator` is a single visible slot. It renders an accessible divider and receives
+`data-orientation` so CSS can size horizontal and vertical separators differently.
+
+```text
+Separator
+└─ root[data-orientation]
+```
+
+```tsx
+<Separator orientation="horizontal" />
+```
+
+| Part        | Role                                                                                                   |
+| ----------- | ------------------------------------------------------------------------------------------------------ |
+| `Separator` | Root divider element. Controls `orientation`, accessibility attributes, styling, and element override. |
+
+`Separator` does not use portal-like service layers such as `portal`, `positioner`,
+`backdrop`, or `viewport`. Style the root directly with `className` or the
+`--separator-*` CSS properties.
+
+## Composition
+
+Use `Separator` wherever related content needs a non-interactive visual divider.
+Horizontal separators fill their container by default. Vertical separators are intended
+for inline groups and default to `1em` height so they align with surrounding text.
+
+Pass `orientation="vertical"` for inline layouts. Use `className` for direct styling,
+CSS variables for size and color adjustments, and `render` when you need to compose the
+root with another element.
+
 ## Examples
 
 ### Vertical
@@ -77,6 +109,7 @@ Pass `className` to style the root element directly or override the `--separator
   <Preview.Code>
     {`
       import { Separator } from "moduix";
+      import styles from "./separator-demo.module.css";
 
       export function CustomSeparatorDemo() {
         return (
@@ -106,4 +139,30 @@ Pass `className` to style the root element directly or override the `--separator
     `}
 
   </Preview.CSS>
+</Preview>
+
+### Custom Element
+
+Use `render` to compose the separator with another element while keeping the component
+state and accessibility attributes.
+
+<Preview>
+  <SeparatorExample render={<span />} />
+
+  <Preview.Code>
+    {`
+      import { Separator } from "moduix";
+
+      export function CustomElementSeparatorDemo() {
+        return (
+          <section aria-label="Account setup">
+            <span>Account settings</span>
+            <Separator render={<span />} />
+            <span>Billing details</span>
+          </section>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>
