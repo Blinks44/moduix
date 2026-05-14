@@ -3,8 +3,8 @@ import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Progress.module.css';
 
 type ProgressClassNames = {
-  track?: string;
-  indicator?: string;
+  track?: ProgressPrimitive.Track.Props['className'];
+  indicator?: ProgressPrimitive.Indicator.Props['className'];
 };
 
 type ProgressProps = ProgressPrimitive.Root.Props & {
