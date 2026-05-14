@@ -118,15 +118,19 @@ In most cases, keep behavior defaults and customize visible parts with `classNam
 ## Composition
 
 Use `CheckboxGroup` for shared Base UI state and behavior props such as `value`,
-`defaultValue`, `onValueChange`, `allValues`, `disabled`, and `render`.
+`defaultValue`, `onValueChange`, `allValues`, `disabled`, `render`, `className`, and
+state-aware `style`. Use `allValues` together with a child checkbox `parent` prop for
+select-all behavior.
 
 `CheckboxGroupLabel`, `CheckboxGroupList`, `CheckboxGroupItem`, and
 `CheckboxGroupItemLabel` are layout slots. Pass `className` to style each visible slot.
 `CheckboxGroupItemControl` composes `Checkbox`, so it supports checkbox props such as `size`,
-`nativeButton`, `render`, `checkedIcon`, `indeterminateIcon`, and `classNames`.
+`nativeButton`, `render`, `name`, `value`, `checkedIcon`, `indeterminateIcon`, `classNames`,
+and `slotProps`.
 
 Use `className` for the checkbox root. Use `classNames` for the automatically rendered
-indicator slots hidden behind the default checkbox composition:
+indicator slots hidden behind the default checkbox composition. Use `slotProps.indicator`
+for Base UI indicator props such as `keepMounted` without composing the indicator manually:
 
 ```tsx
 <CheckboxGroupItemControl
@@ -136,6 +140,9 @@ indicator slots hidden behind the default checkbox composition:
     indicatorIcon: styles.customIndicatorIcon,
     checkedIcon: styles.customCheckedIcon,
     indeterminateIcon: styles.customIndeterminateIcon,
+  }}
+  slotProps={{
+    indicator: { keepMounted: true },
   }}
 />
 ```

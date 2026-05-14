@@ -45,11 +45,16 @@ import {
 
 ## Composition
 
-`Checkbox` forwards Base UI control props and includes the indicator by default.
+`Checkbox` forwards Base UI root props and includes the indicator by default. Use it
+uncontrolled with `defaultChecked`, controlled with `checked` and `onCheckedChange`, or
+connect it to forms with `name`, `value`, `uncheckedValue`, `form`, `required`, `readOnly`,
+and `inputRef`. It also supports Base UI composition props such as `render` and
+`nativeButton`.
 
 Pass `className` to style the root control. Use `classNames` to style the automatically
-rendered indicator parts, or compose `CheckboxIndicator` and `CheckboxIndicatorIcon`
-yourself when you need full control over the indicator slot:
+rendered indicator parts. Use `slotProps.indicator` for Base UI indicator props such as
+`keepMounted`, `render`, and state-aware `style`. Compose `CheckboxIndicator` and
+`CheckboxIndicatorIcon` yourself only when you need full control over the indicator slot:
 
 ```tsx
 <Checkbox
@@ -59,6 +64,9 @@ yourself when you need full control over the indicator slot:
     indicatorIcon: styles.indicatorIcon,
     checkedIcon: styles.checkedIcon,
     indeterminateIcon: styles.indeterminateIcon,
+  }}
+  slotProps={{
+    indicator: { keepMounted: true },
   }}
 />
 ```

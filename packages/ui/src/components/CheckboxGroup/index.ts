@@ -9,6 +9,9 @@ export {
 
 export type {
   CheckboxGroupProps,
+  CheckboxGroupState,
+  CheckboxGroupChangeEventReason,
+  CheckboxGroupChangeEventDetails,
   CheckboxGroupLabelProps,
   CheckboxGroupListProps,
   CheckboxGroupItemProps,

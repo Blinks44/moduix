@@ -10,10 +10,15 @@ const CheckIcon = CheckSmallIcon;
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 type CheckboxClassNames = {
-  indicator?: string;
+  indicator?: CheckboxIndicatorProps['className'];
   indicatorIcon?: string;
   checkedIcon?: string;
   indeterminateIcon?: string;
+};
+
+type CheckboxSlotProps = {
+  indicator?: Omit<CheckboxIndicatorProps, 'children' | 'className'>;
+  indicatorIcon?: Omit<CheckboxIndicatorIconProps, 'checkedIcon' | 'children' | 'className'>;
 };
 
 type CheckboxProps = CheckboxPrimitive.Root.Props & {
@@ -22,6 +27,7 @@ type CheckboxProps = CheckboxPrimitive.Root.Props & {
   checkedIcon?: React.ReactNode;
   indeterminateIcon?: React.ReactNode;
   classNames?: CheckboxClassNames;
+  slotProps?: CheckboxSlotProps;
 };
 
 function Checkbox({
@@ -32,6 +38,7 @@ function Checkbox({
   checkedIcon,
   indeterminateIcon,
   classNames,
+  slotProps,
   ...props
 }: CheckboxProps) {
   return (
@@ -44,11 +51,12 @@ function Checkbox({
       {children !== undefined ? (
         children
       ) : (
-        <CheckboxIndicator className={classNames?.indicator}>
+        <CheckboxIndicator {...slotProps?.indicator} className={classNames?.indicator}>
           {indicator !== undefined ? (
             indicator
           ) : (
             <CheckboxIndicatorIcon
+              {...slotProps?.indicatorIcon}
               className={classNames?.indicatorIcon}
               checkedIcon={checkedIcon}
               checkedIconClassName={classNames?.checkedIcon}
@@ -138,6 +146,10 @@ function CheckboxField({ className, ...props }: CheckboxFieldProps) {
 }
 
 type CheckboxLabelProps = React.ComponentProps<'span'>;
+type CheckboxState = CheckboxPrimitive.Root.State;
+type CheckboxIndicatorState = CheckboxPrimitive.Indicator.State;
+type CheckboxChangeEventReason = CheckboxPrimitive.Root.ChangeEventReason;
+type CheckboxChangeEventDetails = CheckboxPrimitive.Root.ChangeEventDetails;
 
 function CheckboxLabel({ className, ...props }: CheckboxLabelProps) {
   return <span data-slot="checkbox-label" className={clsx(styles.label, className)} {...props} />;
@@ -148,9 +160,14 @@ export { Checkbox, CheckboxIndicator, CheckboxIndicatorIcon, CheckboxField, Chec
 export type {
   CheckboxSize,
   CheckboxClassNames,
+  CheckboxSlotProps,
   CheckboxProps,
   CheckboxIndicatorProps,
   CheckboxIndicatorIconProps,
   CheckboxFieldProps,
   CheckboxLabelProps,
+  CheckboxState,
+  CheckboxIndicatorState,
+  CheckboxChangeEventReason,
+  CheckboxChangeEventDetails,
 };
