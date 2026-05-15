@@ -1,5 +1,15 @@
 # moduix
 
+## 0.7.0
+
+### Minor Changes
+
+- 473136d: API synced and simplified across all components
+
+### Patch Changes
+
+- 473136d: infra changes
+
 ## 0.6.5
 
 ### Patch Changes
