@@ -1,7 +1,8 @@
-import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock.core';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import * as React from 'react';
 import { cn } from '@/lib/cn';
+import { docsShikiOptions, getDocsShikiHighlighter } from '@/lib/shiki';
 
 type PreviewProps = React.ComponentProps<'div'> & {
   code?: string;
@@ -85,6 +86,15 @@ function PreviewRoot({
     setCssVariables(initialCssVariables);
   }, [initialCssVariables]);
 
+  const sharedCodeBlockProps = {
+    highlighter: getDocsShikiHighlighter,
+    options: docsShikiOptions,
+    codeblock: {
+      allowCopy: true,
+      className: 'my-0 rounded-none border-0 shadow-none',
+    },
+  };
+
   useRootCssVariables(cssVariables);
 
   return (
@@ -102,14 +112,7 @@ function PreviewRoot({
         <Tabs items={tabs} className="mb-0 mt-3">
           {resolvedCode && (
             <Tab className="overflow-auto">
-              <DynamicCodeBlock
-                lang={codeLanguage}
-                code={resolvedCode}
-                codeblock={{
-                  allowCopy: true,
-                  className: 'my-0 rounded-none border-0 shadow-none',
-                }}
-              />
+              <DynamicCodeBlock lang={codeLanguage} code={resolvedCode} {...sharedCodeBlockProps} />
             </Tab>
           )}
           {exampleCssContent && (
@@ -117,10 +120,7 @@ function PreviewRoot({
               <DynamicCodeBlock
                 lang="css"
                 code={dedentCode(extractText(exampleCssContent))}
-                codeblock={{
-                  allowCopy: true,
-                  className: 'my-0 rounded-none border-0 shadow-none',
-                }}
+                {...sharedCodeBlockProps}
               />
             </Tab>
           )}
@@ -129,10 +129,7 @@ function PreviewRoot({
               <DynamicCodeBlock
                 lang="ts"
                 code={dedentCode(extractText(dataContent))}
-                codeblock={{
-                  allowCopy: true,
-                  className: 'my-0 rounded-none border-0 shadow-none',
-                }}
+                {...sharedCodeBlockProps}
               />
             </Tab>
           )}
