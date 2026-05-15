@@ -57,13 +57,7 @@ export function NumberFieldExample(props: NumberFieldProps) {
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Amount</FieldLabel>
-      <NumberField id={id} defaultValue={100} {...props}>
-        <NumberFieldGroup>
-          <NumberFieldDecrement aria-label="Decrease value" />
-          <NumberFieldInput />
-          <NumberFieldIncrement aria-label="Increase value" />
-        </NumberFieldGroup>
-      </NumberField>
+      <NumberField id={id} defaultValue={100} {...props} />
     </Field>
   );
 }
@@ -76,13 +70,7 @@ export function ControlledNumberFieldExample() {
     <div className={styles.stack}>
       <Field className={styles.field}>
         <FieldLabel htmlFor={id}>Controlled value</FieldLabel>
-        <NumberField id={id} value={value} onValueChange={setValue}>
-          <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" />
-            <NumberFieldInput />
-            <NumberFieldIncrement aria-label="Increase value" />
-          </NumberFieldGroup>
-        </NumberField>
+        <NumberField id={id} value={value} onValueChange={setValue} />
       </Field>
       <span className={styles.hint}>Current value: {value ?? 'empty'}</span>
     </div>
@@ -98,11 +86,6 @@ export function NumberFieldScrubAreaExample() {
         <NumberFieldScrubArea classNames={{ cursor: styles.scrubCursor }}>
           <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
         </NumberFieldScrubArea>
-        <NumberFieldGroup>
-          <NumberFieldDecrement aria-label="Decrease value" />
-          <NumberFieldInput />
-          <NumberFieldIncrement aria-label="Increase value" />
-        </NumberFieldGroup>
       </NumberField>
     </Field>
   );
@@ -120,13 +103,7 @@ export function FormattedNumberFieldExample() {
         min={0}
         step={50}
         format={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
-      >
-        <NumberFieldGroup>
-          <NumberFieldDecrement aria-label="Decrease value" />
-          <NumberFieldInput />
-          <NumberFieldIncrement aria-label="Increase value" />
-        </NumberFieldGroup>
-      </NumberField>
+      />
     </Field>
   );
 }
@@ -137,13 +114,7 @@ export function NumberFieldValidationExample() {
   return (
     <Field name="quantity" validationMode="onBlur" className={styles.validationField}>
       <FieldLabel htmlFor={id}>Items</FieldLabel>
-      <NumberField id={id} min={1} max={10} required>
-        <NumberFieldGroup>
-          <NumberFieldDecrement aria-label="Decrease value" />
-          <NumberFieldInput />
-          <NumberFieldIncrement aria-label="Increase value" />
-        </NumberFieldGroup>
-      </NumberField>
+      <NumberField id={id} min={1} max={10} required />
       <FieldError match="valueMissing">Please provide a number.</FieldError>
       <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
       <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
@@ -157,7 +128,7 @@ export function CustomIconsNumberFieldExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Floors</FieldLabel>
-      <NumberField id={id} defaultValue={8}>
+      <NumberField id={id} defaultValue={8} withGroup={false}>
         <NumberFieldGroup>
           <NumberFieldDecrement aria-label="Decrease value" className={styles.customButton}>
             <ChevronDownIcon />

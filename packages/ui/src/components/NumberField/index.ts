@@ -8,6 +8,7 @@ export {
 } from './NumberField';
 
 export type {
+  NumberFieldClassNames,
   NumberFieldProps,
   NumberFieldScrubAreaClassNames,
   NumberFieldScrubAreaProps,

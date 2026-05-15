@@ -8,19 +8,50 @@ type NumberFieldScrubAreaClassNames = {
   cursor?: NumberFieldPrimitive.ScrubAreaCursor.Props['className'];
 };
 
+type NumberFieldClassNames = {
+  group?: NumberFieldPrimitive.Group.Props['className'];
+  decrement?: NumberFieldPrimitive.Decrement.Props['className'];
+  input?: NumberFieldPrimitive.Input.Props['className'];
+  increment?: NumberFieldPrimitive.Increment.Props['className'];
+};
+
+type NumberFieldProps = NumberFieldPrimitive.Root.Props & {
+  classNames?: NumberFieldClassNames;
+  decrementLabel?: string;
+  incrementLabel?: string;
+  withGroup?: boolean;
+};
+
 type NumberFieldScrubAreaProps = NumberFieldPrimitive.ScrubArea.Props & {
   cursor?: React.ReactNode;
   withCursor?: boolean;
   classNames?: NumberFieldScrubAreaClassNames;
 };
 
-function NumberField({ className, ...props }: NumberFieldPrimitive.Root.Props) {
+function NumberField({
+  className,
+  classNames,
+  children,
+  decrementLabel = 'Decrease value',
+  incrementLabel = 'Increase value',
+  withGroup = true,
+  ...props
+}: NumberFieldProps) {
   return (
     <NumberFieldPrimitive.Root
       data-slot="number-field-root"
       className={mergeClassName(className, styles.root)}
       {...props}
-    />
+    >
+      {children}
+      {withGroup ? (
+        <NumberFieldGroup className={classNames?.group}>
+          <NumberFieldDecrement aria-label={decrementLabel} className={classNames?.decrement} />
+          <NumberFieldInput className={classNames?.input} />
+          <NumberFieldIncrement aria-label={incrementLabel} className={classNames?.increment} />
+        </NumberFieldGroup>
+      ) : null}
+    </NumberFieldPrimitive.Root>
   );
 }
 
@@ -113,7 +144,6 @@ function NumberFieldIncrement({
   );
 }
 
-type NumberFieldProps = NumberFieldPrimitive.Root.Props;
 type NumberFieldGroupProps = NumberFieldPrimitive.Group.Props;
 type NumberFieldDecrementProps = NumberFieldPrimitive.Decrement.Props;
 type NumberFieldInputProps = NumberFieldPrimitive.Input.Props;
@@ -129,6 +159,7 @@ export {
 };
 
 export type {
+  NumberFieldClassNames,
   NumberFieldProps,
   NumberFieldScrubAreaClassNames,
   NumberFieldScrubAreaProps,
