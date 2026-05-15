@@ -26,10 +26,11 @@ import {
   ShareIcon,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './context-menu.module.css';
 
-export const contextMenuCssProperties: CssPropertyInput[] = [
+export const contextMenuOverrideCssProperties: CssPropertyInput[] = [
   ['--context-menu-trigger-min-width', '15rem', 'Controls trigger minimum width.'],
   ['--context-menu-trigger-min-height', '12rem', 'Controls trigger minimum height.'],
   ['--context-menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
@@ -100,6 +101,63 @@ export const contextMenuCssProperties: CssPropertyInput[] = [
   ['--context-menu-separator-color', 'var(--color-border)', 'Controls separator color.'],
   ['--context-menu-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
 ];
+
+export const contextMenuPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--context-menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
+  ['--context-menu-trigger-bg', 'var(--color-background)', 'Controls trigger background.'],
+  ['--context-menu-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
+  ['--context-menu-trigger-border-color', 'var(--color-border)', 'Controls trigger border color.'],
+  ['--context-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  ['--context-menu-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--context-menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--context-menu-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
+  ['--context-menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--context-menu-highlight-bg', 'var(--color-foreground)', 'Controls item highlight bg.'],
+  ['--context-menu-highlight-color', 'var(--color-background)', 'Controls item highlight color.'],
+  ['--context-menu-separator-color', 'var(--color-border)', 'Controls separator color.'],
+  ['--context-menu-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+];
+
+export function ContextMenuCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of ContextMenu variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={contextMenuOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function ContextMenuCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without overriding structural popup metrics.
+      </p>
+      <CSSPropertiesEditor
+        properties={contextMenuPlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 export function ContextMenuExample() {
   return (

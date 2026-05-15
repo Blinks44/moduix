@@ -10,9 +10,11 @@ import {
   MultipleTriggersTooltipExample,
   SideControlTooltipExample,
   ToolbarTooltipExample,
+  TooltipCssPlaygroundPanel,
+  TooltipCssPropertiesPanel,
   TooltipExample,
   TooltipWithoutArrowExample,
-  tooltipCssProperties,
+  tooltipPlaygroundCssProperties,
 } from '@/components/examples/tooltip';
 
 ## API Reference
@@ -24,7 +26,7 @@ import {
 Use a tooltip for short visual labels on controls. Always give the trigger its own accessible name:
 tooltips are not a replacement for `aria-label` or visible text.
 
-<Preview cssProperties={tooltipCssProperties}>
+<Preview cssProperties={tooltipPlaygroundCssProperties}>
   <TooltipExample />
 
   <Preview.Code>
@@ -70,6 +72,8 @@ tooltips are not a replacement for `aria-label` or visible text.
     `}
 
   </Preview.CSS>
+  <Preview.CSSProperties>{(context) => <TooltipCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <TooltipCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

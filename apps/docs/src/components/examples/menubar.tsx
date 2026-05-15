@@ -28,10 +28,11 @@ import {
   MenubarTrigger,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './menubar.module.css';
 
-export const menubarCssProperties: CssPropertyInput[] = [
+export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ['--menubar-bg', 'var(--color-muted)', 'Controls menubar background.'],
   ['--menubar-border-color', 'var(--color-border)', 'Controls menubar border color.'],
   ['--menubar-radius', 'var(--radius-md)', 'Controls menubar radius.'],
@@ -74,6 +75,47 @@ export const menubarCssProperties: CssPropertyInput[] = [
     'Controls optional backdrop transition.',
   ],
 ];
+export const menubarPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--menubar-bg', 'var(--color-muted)', 'Controls menubar background.'],
+  ['--menubar-border-color', 'var(--color-border)', 'Controls menubar border color.'],
+  ['--menubar-radius', 'var(--radius-md)', 'Controls menubar radius.'],
+  ['--menubar-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
+  ['--menubar-trigger-bg-active', 'var(--color-accent)', 'Controls open trigger background.'],
+  ['--menubar-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  ['--menubar-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--menubar-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--menubar-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
+  ['--menubar-highlight-color', 'var(--color-background)', 'Controls highlighted item text color.'],
+];
+
+export function MenubarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={menubarOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function MenubarCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={menubarPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function MenubarExample() {
   return (

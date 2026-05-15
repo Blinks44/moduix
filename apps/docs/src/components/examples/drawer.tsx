@@ -19,7 +19,8 @@ import {
   ScrollArea,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './drawer.module.css';
 
 const releaseSections = [
@@ -37,7 +38,7 @@ const releaseSections = [
   },
 ];
 
-export const drawerCssProperties: CssPropertyInput[] = [
+export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-width', '100%', 'Controls the width of top and bottom drawers.'],
   ['--drawer-side-width', '22rem', 'Controls the width of left and right drawers.'],
   ['--drawer-side-height', '100%', 'Controls the height of left and right drawers.'],
@@ -82,6 +83,44 @@ export const drawerCssProperties: CssPropertyInput[] = [
   ['--drawer-snap-toggle-icon-size', '1rem', 'Controls snap toggle icon size.'],
   ['--drawer-transition', '450ms cubic-bezier(0.32, 0.72, 0, 1)', 'Controls popup motion.'],
 ];
+export const drawerPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--drawer-radius', 'var(--radius-xl)', 'Controls popup border radius.'],
+  ['--drawer-bg', 'var(--color-popover)', 'Controls popup background.'],
+  ['--drawer-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--drawer-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--drawer-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
+  ['--drawer-handle-bg', 'var(--color-muted-foreground)', 'Controls handle color.'],
+];
+
+export function DrawerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={drawerOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function DrawerCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={drawerPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function DrawerExample() {
   return (

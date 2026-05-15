@@ -7,13 +7,15 @@ icon: Component
 import {
   ControlledToggleExample,
   CustomStylesToggleExample,
+  ToggleCssPlaygroundPanel,
+  ToggleCssPropertiesPanel,
   ToggleDisabledExample,
   ToggleExample,
   ToggleIconExample,
   ToggleRenderCallbackExample,
   ToggleSizesExample,
   ToggleVariantsExample,
-  toggleCssProperties,
+  togglePlaygroundCssProperties,
 } from '@/components/examples/toggle';
 
 ## API Reference
@@ -22,7 +24,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={toggleCssProperties}>
+<Preview cssProperties={togglePlaygroundCssProperties}>
   <ToggleExample />
 
   <Preview.Code>
@@ -40,6 +42,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <ToggleCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <ToggleCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

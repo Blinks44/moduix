@@ -38,10 +38,11 @@ import {
   createMenuHandle,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './menu.module.css';
 
-export const menuCssProperties: CssPropertyInput[] = [
+export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-trigger-gap', '0.5rem', 'Controls spacing between trigger content and icon.'],
   ['--menu-trigger-height', 'var(--size-lg)', 'Controls trigger minimum height.'],
   ['--menu-trigger-padding-x', '0.875rem', 'Controls trigger horizontal padding.'],
@@ -80,6 +81,41 @@ export const menuCssProperties: CssPropertyInput[] = [
   ['--menu-item-shortcut-color', 'var(--color-muted-foreground)', 'Controls shortcut text color.'],
   ['--menu-separator-color', 'var(--color-border)', 'Controls separator color.'],
 ];
+export const menuPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
+  ['--menu-trigger-bg', 'var(--color-background)', 'Controls trigger background.'],
+  ['--menu-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
+  ['--menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  ['--menu-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--menu-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
+  ['--menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--menu-highlight-bg', 'var(--color-foreground)', 'Controls highlight background.'],
+  ['--menu-highlight-color', 'var(--color-background)', 'Controls highlight text color.'],
+];
+
+export function MenuCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable properties={menuOverrideCssProperties.map(normalizeCssProperty)} />
+  );
+}
+
+export function MenuCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={menuPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 function MenuButtonTrigger(props: React.ComponentProps<typeof MenuTrigger>) {
   return <MenuTrigger render={<Button />} {...props} />;

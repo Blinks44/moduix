@@ -17,10 +17,11 @@ import {
 } from 'moduix';
 import * as React from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './alert-dialog.module.css';
 
-export const alertDialogCssProperties: CssPropertyInput[] = [
+export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-dialog-width', '24rem', 'Controls the popup width.'],
   ['--alert-dialog-max-width', 'calc(100vw - var(--spacing-8))', 'Controls the popup max width.'],
   ['--alert-dialog-padding', 'var(--spacing-6)', 'Controls the popup padding.'],
@@ -111,6 +112,62 @@ export const alertDialogCssProperties: CssPropertyInput[] = [
     'Controls the default close icon glyph size.',
   ],
 ];
+
+export const alertDialogPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--alert-dialog-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
+  ['--alert-dialog-bg', 'var(--color-popover)', 'Controls the popup background color.'],
+  ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--alert-dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--alert-dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
+  ['--alert-dialog-title-color', 'var(--alert-dialog-color)', 'Controls title text color.'],
+  [
+    '--alert-dialog-description-color',
+    'var(--alert-dialog-muted-color)',
+    'Controls description and body text color.',
+  ],
+];
+
+export function AlertDialogCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of AlertDialog variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={alertDialogOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function AlertDialogCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without changing layout-critical tokens.
+      </p>
+      <CSSPropertiesEditor
+        properties={alertDialogPlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 export function AlertDialogExample() {
   return (

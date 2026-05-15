@@ -13,7 +13,8 @@ import {
   type TabsValue,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './tabs.module.css';
 
 const tabsItems = [
@@ -35,7 +36,7 @@ const tabsItems = [
   },
 ];
 
-export const tabsCssProperties: CssPropertyInput[] = [
+export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-width', '32rem', 'Controls the root tabs width.'],
   ['--tabs-max-width', 'calc(100vw - 2rem)', 'Controls the root tabs max width.'],
   ['--tabs-bg', 'var(--color-background)', 'Controls the root background color.'],
@@ -86,6 +87,41 @@ export const tabsCssProperties: CssPropertyInput[] = [
   ['--tabs-vertical-min-height', '14rem', 'Controls the root min-height in vertical orientation.'],
   ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
 ];
+export const tabsPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--tabs-bg', 'var(--color-background)', 'Controls root background color.'],
+  ['--tabs-border-color', 'var(--color-border)', 'Controls root border color.'],
+  ['--tabs-radius', 'var(--radius-lg)', 'Controls root border radius.'],
+  ['--tabs-list-bg', 'var(--color-muted)', 'Controls tab list background color.'],
+  ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
+  ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
+  ['--tabs-tab-color-hover', 'var(--color-foreground)', 'Controls hovered tab text color.'],
+  ['--tabs-indicator-bg', 'var(--color-background)', 'Controls indicator background.'],
+  ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
+  ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
+];
+
+export function TabsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable properties={tabsOverrideCssProperties.map(normalizeCssProperty)} />
+  );
+}
+
+export function TabsCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={tabsPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function TabsExample(props: TabsProps) {
   return (

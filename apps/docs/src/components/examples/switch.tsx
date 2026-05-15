@@ -1,9 +1,10 @@
 import { Field, FieldLabel, Switch, SwitchField, SwitchLabel, type SwitchProps } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './switch.module.css';
 
-export const switchCssProperties: CssPropertyInput[] = [
+export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--switch-padding', '0.125rem', 'Controls inner switch padding.'],
   ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
   ['--switch-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
@@ -60,6 +61,46 @@ export const switchCssProperties: CssPropertyInput[] = [
     'Controls thumb movement transition timing.',
   ],
 ];
+export const switchPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
+  ['--switch-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
+  ['--switch-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
+  ['--switch-border-color', 'var(--color-border)', 'Controls unchecked border color.'],
+  ['--switch-border-color-checked', 'var(--color-primary)', 'Controls checked border color.'],
+  ['--switch-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--switch-thumb-bg', 'var(--color-background)', 'Controls thumb background color.'],
+  ['--switch-thumb-color', 'var(--color-muted)', 'Controls thumb content color.'],
+  ['--switch-label-color', 'var(--color-foreground)', 'Controls label text color.'],
+];
+
+export function SwitchCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={switchOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function SwitchCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={switchPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 function PowerIcon(props: React.ComponentProps<'svg'>) {
   return (

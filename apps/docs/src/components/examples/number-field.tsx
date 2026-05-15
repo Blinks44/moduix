@@ -13,10 +13,11 @@ import {
   type NumberFieldProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './number-field.module.css';
 
-export const numberFieldCssProperties: CssPropertyInput[] = [
+export const numberFieldOverrideCssProperties: CssPropertyInput[] = [
   ['--number-field-width', 'auto', 'Controls the root number field width.'],
   ['--number-field-max-width', 'none', 'Controls the root number field max width.'],
   ['--number-field-gap', 'var(--spacing-1)', 'Controls spacing between number field parts.'],
@@ -50,6 +51,45 @@ export const numberFieldCssProperties: CssPropertyInput[] = [
   ['--number-field-scrub-area-gap', 'var(--spacing-2)', 'Controls scrub area spacing.'],
   ['--number-field-scrub-area-cursor-size', '1.5rem', 'Controls custom scrub cursor size.'],
 ];
+export const numberFieldPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--number-field-radius', 'var(--radius-md)', 'Controls control corner radius.'],
+  ['--number-field-border-color', 'var(--color-border)', 'Controls default border color.'],
+  ['--number-field-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--number-field-button-bg', 'var(--color-background)', 'Controls button background.'],
+  ['--number-field-button-bg-hover', 'var(--color-accent)', 'Controls button hover background.'],
+  ['--number-field-button-color', 'var(--color-foreground)', 'Controls button icon color.'],
+  ['--number-field-input-bg', 'var(--color-background)', 'Controls input background.'],
+  ['--number-field-input-color', 'var(--color-foreground)', 'Controls input text color.'],
+];
+
+export function NumberFieldCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={numberFieldOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function NumberFieldCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={numberFieldPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function NumberFieldExample(props: NumberFieldProps) {
   const id = React.useId();

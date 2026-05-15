@@ -9,10 +9,12 @@ import {
   ControlledNumberFieldExample,
   CustomIconsNumberFieldExample,
   FormattedNumberFieldExample,
+  NumberFieldCssPlaygroundPanel,
+  NumberFieldCssPropertiesPanel,
   NumberFieldExample,
   NumberFieldScrubAreaExample,
   NumberFieldValidationExample,
-  numberFieldCssProperties,
+  numberFieldPlaygroundCssProperties,
 } from '@/components/examples/number-field';
 
 ## API Reference
@@ -21,7 +23,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={numberFieldCssProperties}>
+<Preview cssProperties={numberFieldPlaygroundCssProperties}>
   <NumberFieldExample />
 
   <Preview.Code>
@@ -46,6 +48,12 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>
+    {(context) => <NumberFieldCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <NumberFieldCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

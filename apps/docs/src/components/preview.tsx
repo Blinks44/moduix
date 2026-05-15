@@ -26,6 +26,17 @@ type PreviewSlotProps = {
   children: React.ReactNode;
 };
 
+type CSSPropertiesEditorContext = {
+  properties: CssProperty[];
+  values: CssVariables;
+  onChange: React.Dispatch<React.SetStateAction<CssVariables>>;
+  onReset: () => void;
+};
+
+type PreviewCSSPropertiesSlotProps = {
+  children: React.ReactNode | ((context: CSSPropertiesEditorContext) => React.ReactNode);
+};
+
 const rootCssVariableRegistry = new Map<`--${string}`, Map<string, string>>();
 const rootInitialCssVariables = new Map<`--${string}`, string>();
 
@@ -33,7 +44,11 @@ function PreviewCode(_props: PreviewSlotProps) {
   return null;
 }
 
-function PreviewCSSProperties(_props: PreviewSlotProps) {
+function PreviewCSSProperties(_props: PreviewCSSPropertiesSlotProps) {
+  return null;
+}
+
+function PreviewCSSPlayground(_props: PreviewCSSPropertiesSlotProps) {
   return null;
 }
 
@@ -53,8 +68,14 @@ function PreviewRoot({
   codeLanguage = 'tsx',
   ...props
 }: PreviewProps) {
-  const { previewChildren, codeContent, cssContent, exampleCssContent, dataContent } =
-    splitPreviewChildren(children);
+  const {
+    previewChildren,
+    codeContent,
+    cssContent,
+    cssPlaygroundContent,
+    exampleCssContent,
+    dataContent,
+  } = splitPreviewChildren(children);
   const propertiesSignature = getCssPropertiesSignature(cssProperties);
   const normalizedCssProperties = React.useMemo(
     () => normalizeCssProperties(cssProperties),
@@ -65,21 +86,23 @@ function PreviewRoot({
   }, [normalizedCssProperties]);
   const [cssVariables, setCssVariables] = React.useState(initialCssVariables);
   const resolvedCode = code ? dedentCode(code) : codeContent;
-  const resolvedCssContent =
-    cssContent ??
-    (normalizedCssProperties.length > 0 ? (
-      <CSSPropertiesEditor
-        properties={normalizedCssProperties}
-        values={cssVariables}
-        onChange={setCssVariables}
-        onReset={() => setCssVariables(initialCssVariables)}
-      />
-    ) : null);
+  const cssPropertiesContext: CSSPropertiesEditorContext = {
+    properties: normalizedCssProperties,
+    values: cssVariables,
+    onChange: setCssVariables,
+    onReset: () => setCssVariables(initialCssVariables),
+  };
+  const resolvedCssContent = resolveCssPropertiesContent(cssContent, cssPropertiesContext);
+  const resolvedCssPlaygroundContent = resolveCssPropertiesContent(
+    cssPlaygroundContent,
+    cssPropertiesContext,
+  );
   const tabs = [
     resolvedCode ? 'Code' : null,
     exampleCssContent ? 'CSS' : null,
     dataContent ? 'Data' : null,
-    resolvedCssContent ? 'CSS properties' : null,
+    resolvedCssContent ? 'CSS Properties' : null,
+    resolvedCssPlaygroundContent ? 'CSS Playground' : null,
   ].filter((item): item is string => Boolean(item));
 
   React.useEffect(() => {
@@ -136,6 +159,9 @@ function PreviewRoot({
           {resolvedCssContent && (
             <Tab className="max-h-150 overflow-auto">{resolvedCssContent}</Tab>
           )}
+          {resolvedCssPlaygroundContent && (
+            <Tab className="max-h-150 overflow-auto">{resolvedCssPlaygroundContent}</Tab>
+          )}
         </Tabs>
       )}
     </div>
@@ -145,7 +171,8 @@ function PreviewRoot({
 function splitPreviewChildren(children: React.ReactNode) {
   const previewChildren: React.ReactNode[] = [];
   let codeContent: string | undefined;
-  let cssContent: React.ReactNode;
+  let cssContent: PreviewCSSPropertiesSlotProps['children'];
+  let cssPlaygroundContent: PreviewCSSPropertiesSlotProps['children'];
   let exampleCssContent: React.ReactNode;
   let dataContent: React.ReactNode;
 
@@ -157,25 +184,33 @@ function splitPreviewChildren(children: React.ReactNode) {
       }
 
       if (React.isValidElement(child)) {
-        const slot = child as React.ReactElement<PreviewSlotProps>;
+        const slot = child as React.ReactElement<PreviewSlotProps | PreviewCSSPropertiesSlotProps>;
 
         if (slot.type === PreviewCode) {
-          codeContent = dedentCode(extractText(slot.props.children));
+          codeContent = dedentCode(
+            extractText((slot as React.ReactElement<PreviewSlotProps>).props.children),
+          );
           return;
         }
 
         if (slot.type === PreviewCSSProperties) {
-          cssContent = slot.props.children;
+          cssContent = (slot as React.ReactElement<PreviewCSSPropertiesSlotProps>).props.children;
+          return;
+        }
+
+        if (slot.type === PreviewCSSPlayground) {
+          cssPlaygroundContent = (slot as React.ReactElement<PreviewCSSPropertiesSlotProps>).props
+            .children;
           return;
         }
 
         if (slot.type === PreviewCSS) {
-          exampleCssContent = slot.props.children;
+          exampleCssContent = (slot as React.ReactElement<PreviewSlotProps>).props.children;
           return;
         }
 
         if (slot.type === PreviewData) {
-          dataContent = slot.props.children;
+          dataContent = (slot as React.ReactElement<PreviewSlotProps>).props.children;
           return;
         }
       }
@@ -186,7 +221,14 @@ function splitPreviewChildren(children: React.ReactNode) {
 
   visit(children);
 
-  return { previewChildren, codeContent, cssContent, exampleCssContent, dataContent };
+  return {
+    previewChildren,
+    codeContent,
+    cssContent,
+    cssPlaygroundContent,
+    exampleCssContent,
+    dataContent,
+  };
 }
 
 function extractText(children: React.ReactNode): string {
@@ -323,6 +365,25 @@ function applyRootCssVariable(name: `--${string}`) {
   rootInitialCssVariables.delete(name);
 }
 
+function resolveCssPropertiesContent(
+  cssContent: PreviewCSSPropertiesSlotProps['children'],
+  context: CSSPropertiesEditorContext,
+) {
+  if (cssContent) {
+    if (typeof cssContent === 'function') {
+      return cssContent(context);
+    }
+
+    return cssContent;
+  }
+
+  if (context.properties.length === 0) {
+    return null;
+  }
+
+  return <CSSPropertiesEditor {...context} />;
+}
+
 function CSSPropertiesEditor({
   properties,
   values,
@@ -390,12 +451,49 @@ function CSSPropertiesEditor({
   );
 }
 
+function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[] }) {
+  return (
+    <div className="overflow-x-auto rounded-md border">
+      <table className="w-full border-collapse text-sm">
+        <thead>
+          <tr className="border-b">
+            <th className="px-3 py-2 text-left font-medium">Property</th>
+            <th className="px-3 py-2 text-left font-medium">Default</th>
+            <th className="px-3 py-2 text-left font-medium">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {properties.map((property) => (
+            <tr key={property.name} className="border-b last:border-b-0">
+              <td className="px-3 py-2 font-mono text-xs">{property.name}</td>
+              <td className="px-3 py-2 font-mono text-xs text-fd-muted-foreground">
+                {property.defaultValue}
+              </td>
+              <td className="px-3 py-2">{property.description ?? '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 const Preview = Object.assign(PreviewRoot, {
   Code: PreviewCode,
   CSS: PreviewCSS,
   Data: PreviewData,
   CSSProperties: PreviewCSSProperties,
+  CSSPlayground: PreviewCSSPlayground,
 });
 
-export { Preview, PreviewCode, PreviewCSS, PreviewData, PreviewCSSProperties };
-export type { CssProperty, CssPropertyInput, PreviewProps };
+export {
+  CSSPropertiesEditor,
+  CSSPropertiesReferenceTable,
+  Preview,
+  PreviewCode,
+  PreviewCSS,
+  PreviewCSSPlayground,
+  PreviewData,
+  PreviewCSSProperties,
+};
+export type { CSSPropertiesEditorContext, CssProperty, CssPropertyInput, PreviewProps };

@@ -10,10 +10,11 @@ import {
   NavigationMenuTrigger,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './navigation-menu.module.css';
 
-export const navigationMenuCssProperties: CssPropertyInput[] = [
+export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-bg', 'transparent', 'Controls root background.'],
   ['--navigation-menu-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--navigation-menu-min-width', 'max-content', 'Controls root minimum width.'],
@@ -156,6 +157,59 @@ export const navigationMenuCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
   ['--navigation-menu-backdrop-blur', '0', 'Controls backdrop blur when backdrop is enabled.'],
 ];
+export const navigationMenuPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--navigation-menu-bg', 'transparent', 'Controls root background.'],
+  ['--navigation-menu-color', 'var(--color-foreground)', 'Controls root text color.'],
+  ['--navigation-menu-radius', 'var(--radius-lg)', 'Controls root border radius.'],
+  ['--navigation-menu-trigger-bg', 'transparent', 'Controls trigger background.'],
+  [
+    '--navigation-menu-trigger-bg-hover',
+    'var(--color-accent)',
+    'Controls trigger hover background.',
+  ],
+  [
+    '--navigation-menu-trigger-bg-active',
+    'var(--color-muted)',
+    'Controls trigger active background.',
+  ],
+  ['--navigation-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  [
+    '--navigation-menu-popup-color',
+    'var(--color-popover-foreground)',
+    'Controls popup text color.',
+  ],
+  ['--navigation-menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--navigation-menu-popup-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
+];
+
+export function NavigationMenuCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={navigationMenuOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function NavigationMenuCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={navigationMenuPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function NavigationMenuExample() {
   return (

@@ -21,7 +21,7 @@ import {
   TopDrawerExample,
   TopIslandDrawerExample,
   WithoutBackdropDrawerExample,
-  drawerCssProperties,
+  drawerPlaygroundCssProperties,
 } from '@/components/examples/drawer';
 
 ## API Reference
@@ -30,7 +30,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={drawerCssProperties}>
+<Preview cssProperties={drawerPlaygroundCssProperties}>
   <DrawerExample />
 
   <Preview.Code>
@@ -68,6 +68,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <DrawerCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <DrawerCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy
@@ -1014,3 +1016,5 @@ Use `className` for the visible popup and `classNames` for the internal slots re
 
   </Preview.CSS>
 </Preview>
+  DrawerCssPlaygroundPanel,
+  DrawerCssPropertiesPanel,

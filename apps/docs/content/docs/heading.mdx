@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  HeadingCssPlaygroundPanel,
+  HeadingCssPropertiesPanel,
   HeadingAlignedExample,
   CustomStylesHeadingExample,
   HeadingElementsExample,
@@ -12,7 +14,7 @@ import {
   HeadingSemanticExample,
   HeadingSizesExample,
   HeadingWeightsExample,
-  headingCssProperties,
+  headingPlaygroundCssProperties,
 } from '@/components/examples/heading';
 
 ## API Reference
@@ -23,7 +25,7 @@ and root `className` composition.
 
 ## Basic
 
-<Preview cssProperties={headingCssProperties}>
+<Preview cssProperties={headingPlaygroundCssProperties}>
   <HeadingExample />
 
   <Preview.Code>
@@ -36,6 +38,8 @@ and root `className` composition.
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <HeadingCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <HeadingCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

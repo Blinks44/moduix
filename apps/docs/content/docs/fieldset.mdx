@@ -7,9 +7,11 @@ icon: Component
 import {
   DisabledFieldsetExample,
   CustomStylesFieldsetExample,
+  FieldsetCssPlaygroundPanel,
+  FieldsetCssPropertiesPanel,
   FieldsetExample,
   RadioGroupFieldsetExample,
-  fieldsetCssProperties,
+  fieldsetPlaygroundCssProperties,
 } from '@/components/examples/fieldset';
 
 ## API Reference
@@ -18,7 +20,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={fieldsetCssProperties}>
+<Preview cssProperties={fieldsetPlaygroundCssProperties}>
   <FieldsetExample />
 
   <Preview.Code>
@@ -54,6 +56,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <FieldsetCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <FieldsetCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

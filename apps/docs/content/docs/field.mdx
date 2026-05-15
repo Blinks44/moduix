@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  FieldCssPlaygroundPanel,
+  FieldCssPropertiesPanel,
   FieldCheckboxExample,
   FieldCustomValidationExample,
   FieldCustomStylesExample,
@@ -14,7 +16,7 @@ import {
   FieldNumberFieldExample,
   FieldRadioExample,
   FieldSwitchExample,
-  fieldCssProperties,
+  fieldPlaygroundCssProperties,
 } from '@/components/examples/field';
 
 ## API Reference
@@ -23,7 +25,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={fieldCssProperties}>
+<Preview cssProperties={fieldPlaygroundCssProperties}>
   <FieldExample />
 
   <Preview.Code>
@@ -49,6 +51,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <FieldCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <FieldCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

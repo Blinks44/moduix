@@ -10,14 +10,43 @@ import {
   type FormProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './form.module.css';
 
-export const formCssProperties: CssPropertyInput[] = [
+export const formOverrideCssProperties: CssPropertyInput[] = [
   ['--form-width', '100%', 'Controls the root form width.'],
   ['--form-max-width', 'none', 'Controls the root form max width.'],
   ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
 ];
+export const formPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--form-width', '100%', 'Controls the root form width.'],
+  ['--form-max-width', 'none', 'Controls the root form max width.'],
+  ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
+];
+
+export function FormCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable properties={formOverrideCssProperties.map(normalizeCssProperty)} />
+  );
+}
+
+export function FormCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={formPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 interface ActionState {
   serverErrors?: FormProps['errors'];

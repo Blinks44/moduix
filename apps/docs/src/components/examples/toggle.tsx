@@ -1,9 +1,10 @@
 import { BellIcon, CheckSmallIcon, StarIcon, Toggle, type ToggleProps } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toggle.module.css';
 
-export const toggleCssProperties: CssPropertyInput[] = [
+export const toggleOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-radius', 'var(--radius-md)', 'Controls toggle corner radius.'],
   ['--toggle-content-gap', 'var(--spacing-2)', 'Controls spacing between text and icons.'],
   ['--toggle-font-weight', 'var(--weight-medium)', 'Controls toggle font weight.'],
@@ -73,6 +74,49 @@ export const toggleCssProperties: CssPropertyInput[] = [
   ['--toggle-icon-size', '1rem', 'Controls nested SVG icon size.'],
   ['--toggle-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
+export const togglePlaygroundCssProperties: CssPropertyInput[] = [
+  ['--toggle-radius', 'var(--radius-md)', 'Controls toggle corner radius.'],
+  ['--toggle-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--toggle-default-bg', 'transparent', 'Controls default variant background.'],
+  ['--toggle-default-color', 'var(--color-foreground)', 'Controls default variant text color.'],
+  ['--toggle-default-bg-hover', 'var(--color-accent)', 'Controls default hover background.'],
+  ['--toggle-default-bg-pressed', 'var(--color-primary)', 'Controls pressed background.'],
+  [
+    '--toggle-default-color-pressed',
+    'var(--color-primary-foreground)',
+    'Controls pressed text color.',
+  ],
+  ['--toggle-icon-size', '1rem', 'Controls nested SVG icon size.'],
+];
+
+export function ToggleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={toggleOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function ToggleCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={togglePlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 function BookmarkIcon(props: React.ComponentProps<'svg'>) {
   return (

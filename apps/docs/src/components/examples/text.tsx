@@ -1,9 +1,10 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import { Text, type TextProps } from 'moduix';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './text.module.css';
 
-export const textCssProperties: CssPropertyInput[] = [
+export const textOverrideCssProperties: CssPropertyInput[] = [
   ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
   ['--text-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
   ['--text-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
@@ -26,6 +27,38 @@ export const textCssProperties: CssPropertyInput[] = [
   ['--text-font-weight-semibold', 'var(--weight-semibold)', 'Controls semibold text weight.'],
   ['--text-font-weight-bold', 'var(--weight-bold)', 'Controls bold text weight.'],
 ];
+export const textPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
+  ['--text-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
+  ['--text-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
+  ['--text-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
+  ['--text-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
+  ['--text-font-family', 'var(--font-sans)', 'Controls text font family.'],
+  ['--text-letter-spacing', '0', 'Controls text letter spacing.'],
+];
+
+export function TextCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable properties={textOverrideCssProperties.map(normalizeCssProperty)} />
+  );
+}
+
+export function TextCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={textPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function TextExample(props: TextProps) {
   return <Text {...props}>Use text to describe interface state and supporting details.</Text>;

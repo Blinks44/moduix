@@ -22,7 +22,8 @@ import {
   SelectValue,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './select.module.css';
 
 interface OptionItem {
@@ -108,7 +109,7 @@ const assignees: Assignee[] = [
   { id: 'u-4', name: 'Michael Foster', role: 'Frontend Engineer' },
 ];
 
-export const selectCssProperties: CssPropertyInput[] = [
+export const selectOverrideCssProperties: CssPropertyInput[] = [
   ['--select-width', '14rem', 'Controls trigger and popup anchor width.'],
   ['--select-control-height', 'var(--size-lg)', 'Controls trigger minimum height.'],
   ['--select-radius', 'var(--radius-md)', 'Controls trigger and popup radius.'],
@@ -152,6 +153,48 @@ export const selectCssProperties: CssPropertyInput[] = [
   ['--select-transition', 'var(--transition-default)', 'Controls optional popup animation timing.'],
   ['--select-scale', 'var(--scale-popup)', 'Controls optional scale animation amount.'],
 ];
+export const selectPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--select-radius', 'var(--radius-md)', 'Controls trigger and popup radius.'],
+  ['--select-bg', 'var(--color-background)', 'Controls trigger background.'],
+  ['--select-bg-hover', 'var(--color-accent)', 'Controls trigger background on hover.'],
+  ['--select-bg-active', 'var(--color-muted)', 'Controls trigger background when open.'],
+  ['--select-color', 'var(--color-foreground)', 'Controls primary text color.'],
+  ['--select-border-color', 'var(--color-border)', 'Controls trigger border color.'],
+  ['--select-focus-ring-color', 'var(--color-ring)', 'Controls keyboard focus ring color.'],
+  ['--select-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  ['--select-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--select-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
+  ['--select-highlight-color', 'var(--color-background)', 'Controls highlighted item text color.'],
+];
+
+export function SelectCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={selectOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function SelectCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={selectPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 function renderMultipleValue(value: Language[]) {
   if (value.length === 0) {

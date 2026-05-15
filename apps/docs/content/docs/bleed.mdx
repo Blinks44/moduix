@@ -6,11 +6,13 @@ icon: Component
 
 import {
   BleedBlockExample,
+  BleedCssPlaygroundPanel,
+  BleedCssPropertiesPanel,
   BleedExample,
   BleedInlineAmountsExample,
   BleedSemanticExample,
   CustomStylesBleedExample,
-  bleedCssProperties,
+  bleedPlaygroundCssProperties,
 } from '@/components/examples/bleed';
 
 ## API Reference
@@ -23,7 +25,7 @@ bleed behavior.
 
 ## Basic
 
-<Preview cssProperties={bleedCssProperties}>
+<Preview cssProperties={bleedPlaygroundCssProperties}>
   <BleedExample />
 
   <Preview.Code>
@@ -71,6 +73,14 @@ bleed behavior.
     `}
 
   </Preview.CSS>
+
+<Preview.CSSProperties>
+  {(context) => <BleedCssPropertiesPanel {...context} />}
+</Preview.CSSProperties>
+
+  <Preview.CSSPlayground>
+    {(context) => <BleedCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

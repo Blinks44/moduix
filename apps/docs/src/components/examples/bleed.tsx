@@ -1,8 +1,9 @@
 import { Bleed, Text, type BleedProps } from 'moduix';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './bleed.module.css';
 
-export const bleedCssProperties: CssPropertyInput[] = [
+export const bleedOverrideCssProperties: CssPropertyInput[] = [
   ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
   ['--bleed-inline-xs', 'var(--spacing-1)', 'Controls extra-small inline bleed.'],
   ['--bleed-inline-sm', 'var(--spacing-2)', 'Controls small inline bleed.'],
@@ -15,6 +16,47 @@ export const bleedCssProperties: CssPropertyInput[] = [
   ['--bleed-block-lg', 'var(--spacing-4)', 'Controls large block bleed.'],
   ['--bleed-block-xl', 'var(--spacing-6)', 'Controls extra-large block bleed.'],
 ];
+
+export const bleedPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
+];
+
+export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of Bleed variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={bleedOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function BleedCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview with minimal impact on amount presets.
+      </p>
+      <CSSPropertiesEditor
+        properties={bleedPlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 export function BleedExample(props: BleedProps) {
   return (

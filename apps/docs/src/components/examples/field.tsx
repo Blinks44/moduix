@@ -23,10 +23,11 @@ import {
   type FieldProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './field.module.css';
 
-export const fieldCssProperties: CssPropertyInput[] = [
+export const fieldOverrideCssProperties: CssPropertyInput[] = [
   ['--field-width', '100%', 'Controls the root field width.'],
   ['--field-max-width', 'none', 'Controls the root field max width.'],
   ['--field-gap', 'var(--spacing-1)', 'Controls spacing between field parts.'],
@@ -83,6 +84,42 @@ export const fieldCssProperties: CssPropertyInput[] = [
   ],
   ['--field-focus-ring-color', 'var(--color-ring)', 'Controls `FieldControl` focus ring color.'],
 ];
+export const fieldPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--field-gap', 'var(--spacing-1)', 'Controls spacing between field parts.'],
+  ['--field-label-color', 'var(--color-foreground)', 'Controls label text color.'],
+  ['--field-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
+  ['--field-error-color', 'var(--color-destructive)', 'Controls error text color.'],
+  ['--field-control-bg', 'var(--color-background)', 'Controls control background.'],
+  ['--field-control-color', 'var(--color-foreground)', 'Controls control text color.'],
+  ['--field-control-border-color', 'var(--color-border)', 'Controls control border color.'],
+  ['--field-control-radius', 'var(--radius-md)', 'Controls control radius.'],
+  ['--field-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+];
+
+export function FieldCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={fieldOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function FieldCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={fieldPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function FieldExample(props: FieldProps) {
   return (

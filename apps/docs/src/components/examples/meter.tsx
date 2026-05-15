@@ -1,9 +1,10 @@
 import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue, type MeterProps } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './meter.module.css';
 
-export const meterCssProperties: CssPropertyInput[] = [
+export const meterOverrideCssProperties: CssPropertyInput[] = [
   ['--meter-width', '12rem', 'Controls the root meter width.'],
   ['--meter-color', 'var(--color-foreground)', 'Controls the default meter text color.'],
   ['--meter-gap', '0.5rem', 'Controls spacing between meter slots.'],
@@ -26,6 +27,39 @@ export const meterCssProperties: CssPropertyInput[] = [
     'Controls indicator width transition.',
   ],
 ];
+export const meterPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--meter-color', 'var(--color-foreground)', 'Controls default text color.'],
+  ['--meter-track-bg', 'var(--color-muted)', 'Controls track background.'],
+  ['--meter-track-border-color', 'var(--color-border)', 'Controls track border color.'],
+  ['--meter-track-height', '0.5rem', 'Controls track height.'],
+  ['--meter-track-radius', 'var(--radius-full)', 'Controls track radius.'],
+  ['--meter-indicator-bg', 'var(--color-primary)', 'Controls indicator color.'],
+];
+
+export function MeterCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={meterOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function MeterCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={meterPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function MeterExample({ value = 24, ...props }: MeterProps) {
   return (

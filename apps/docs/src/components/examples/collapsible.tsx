@@ -6,10 +6,11 @@ import {
   type CollapsibleProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './collapsible.module.css';
 
-export const collapsibleCssProperties: CssPropertyInput[] = [
+export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--collapsible-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--collapsible-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
@@ -56,6 +57,59 @@ export const collapsibleCssProperties: CssPropertyInput[] = [
     'Controls panel open and close transition.',
   ],
 ];
+
+export const collapsiblePlaygroundCssProperties: CssPropertyInput[] = [
+  ['--collapsible-color', 'var(--color-foreground)', 'Controls root text color.'],
+  ['--collapsible-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+  ['--collapsible-trigger-gap', 'var(--spacing-2)', 'Controls trigger content gap.'],
+  ['--collapsible-trigger-radius', '0', 'Controls trigger corner radius.'],
+  ['--collapsible-trigger-bg', 'transparent', 'Controls trigger background color.'],
+  ['--collapsible-trigger-bg-hover', 'var(--collapsible-trigger-bg)', 'Controls hover bg.'],
+  ['--collapsible-trigger-color', 'var(--collapsible-color)', 'Controls trigger text color.'],
+  ['--collapsible-icon-size', '0.75rem', 'Controls trigger icon size.'],
+  ['--collapsible-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
+];
+
+export function CollapsibleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of Collapsible variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={collapsibleOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function CollapsibleCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without overriding typography presets.
+      </p>
+      <CSSPropertiesEditor
+        properties={collapsiblePlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 

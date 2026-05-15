@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  DialogCssPlaygroundPanel,
+  DialogCssPropertiesPanel,
   ControlledDialogExample,
   CustomStylesDialogExample,
   DialogExample,
@@ -12,7 +14,7 @@ import {
   NonModalDialogExample,
   NestedDialogExample,
   ScrollableDialogExample,
-  dialogCssProperties,
+  dialogPlaygroundCssProperties,
 } from '@/components/examples/dialog';
 
 ## API Reference
@@ -21,7 +23,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={dialogCssProperties}>
+<Preview cssProperties={dialogPlaygroundCssProperties}>
   <DialogExample />
 
   <Preview.Code>
@@ -59,6 +61,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <DialogCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <DialogCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

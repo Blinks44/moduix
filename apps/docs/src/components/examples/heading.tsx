@@ -1,8 +1,9 @@
 import { Heading, type HeadingProps } from 'moduix';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './heading.module.css';
 
-export const headingCssProperties: CssPropertyInput[] = [
+export const headingOverrideCssProperties: CssPropertyInput[] = [
   ['--heading-color', 'var(--color-foreground)', 'Controls heading text color.'],
   ['--heading-font-family', 'var(--font-sans)', 'Controls heading font family.'],
   ['--heading-font-size', 'size-dependent', 'Controls heading font size for all sizes.'],
@@ -43,6 +44,42 @@ export const headingCssProperties: CssPropertyInput[] = [
   ],
   ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
 ];
+export const headingPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--heading-color', 'var(--color-foreground)', 'Controls heading text color.'],
+  ['--heading-font-family', 'var(--font-sans)', 'Controls heading font family.'],
+  ['--heading-font-weight', 'var(--weight-semibold)', 'Controls heading font weight.'],
+  ['--heading-letter-spacing', '0', 'Controls heading letter spacing.'],
+  ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
+];
+
+export function HeadingCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={headingOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function HeadingCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={headingPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function HeadingExample(props: HeadingProps) {
   return <Heading {...props}>Build reliable interfaces</Heading>;

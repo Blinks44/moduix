@@ -7,6 +7,8 @@ icon: Component
 import {
   ControlledToggleGroupExample,
   CustomStylesToggleGroupExample,
+  ToggleGroupCssPlaygroundPanel,
+  ToggleGroupCssPropertiesPanel,
   ToggleGroupDisabledExample,
   ToggleGroupExample,
   ToggleGroupIconExample,
@@ -15,7 +17,7 @@ import {
   ToggleGroupSizesExample,
   ToggleGroupVariantsExample,
   ToggleGroupVerticalExample,
-  toggleGroupCssProperties,
+  toggleGroupPlaygroundCssProperties,
 } from '@/components/examples/toggle-group';
 
 ## API Reference
@@ -24,7 +26,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={toggleGroupCssProperties}>
+<Preview cssProperties={toggleGroupPlaygroundCssProperties}>
   <ToggleGroupExample />
 
   <Preview.Code>
@@ -56,6 +58,12 @@ import {
     `}
 
   </Preview.Data>
+  <Preview.CSSProperties>
+    {(context) => <ToggleGroupCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <ToggleGroupCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

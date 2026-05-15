@@ -6,6 +6,8 @@ icon: Component
 
 import 'moduix/style.css';
 import {
+  OTPFieldCssPlaygroundPanel,
+  OTPFieldCssPropertiesPanel,
   OTPFieldAlphanumericExample,
   OTPFieldAutoSubmitExample,
   OTPFieldCustomSanitizationExample,
@@ -15,7 +17,7 @@ import {
   OTPFieldMaskedExample,
   OTPFieldPlaceholderHintsExample,
   OTPFieldValidationExample,
-  otpFieldCssProperties,
+  otpFieldPlaygroundCssProperties,
 } from '@/components/examples/otp-field';
 
 ## API Reference
@@ -28,7 +30,7 @@ import {
 automatic slot, `groupSize` for common grouped layouts, or manual children only when the layout
 needs arbitrary per-slot markup.
 
-<Preview cssProperties={otpFieldCssProperties}>
+<Preview cssProperties={otpFieldPlaygroundCssProperties}>
   <OTPFieldExample />
 
   <Preview.Code>
@@ -49,6 +51,8 @@ needs arbitrary per-slot markup.
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <OTPFieldCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <OTPFieldCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

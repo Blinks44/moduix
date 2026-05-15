@@ -11,9 +11,11 @@ import {
   ExpandedToastExample,
   GlobalManagerToastExample,
   PlacementToastExample,
+  ToastCssPlaygroundPanel,
+  ToastCssPropertiesPanel,
   ToastAndAnchoredToastExample,
   ToastExample,
-  toastCssProperties,
+  toastPlaygroundCssProperties,
 } from '@/components/examples/toast';
 
 ## API Reference
@@ -28,7 +30,7 @@ Mount one `ToastProvider` near the application root. Any component inside it can
 `classNames.portal` and `classNames.viewport` only when those infrastructure slots need custom
 styling.
 
-<Preview cssProperties={toastCssProperties}>
+<Preview cssProperties={toastPlaygroundCssProperties}>
   <ToastExample />
 
   <Preview.Code>
@@ -64,6 +66,8 @@ styling.
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <ToastCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <ToastCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

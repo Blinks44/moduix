@@ -5,11 +5,13 @@ icon: Component
 ---
 
 import {
+  CloseButtonCssPlaygroundPanel,
+  CloseButtonCssPropertiesPanel,
   CloseButtonCustomIconExample,
   CloseButtonCustomStylesExample,
   CloseButtonDisabledExample,
   CloseButtonExample,
-  closeButtonCssProperties,
+  closeButtonPlaygroundCssProperties,
 } from '@/components/examples/close-button';
 
 ## API Reference
@@ -18,7 +20,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={closeButtonCssProperties}>
+<Preview cssProperties={closeButtonPlaygroundCssProperties}>
   <CloseButtonExample />
 
   <Preview.Code>
@@ -79,6 +81,12 @@ import {
     `}
 
   </Preview.CSS>
+  <Preview.CSSProperties>
+    {(context) => <CloseButtonCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <CloseButtonCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

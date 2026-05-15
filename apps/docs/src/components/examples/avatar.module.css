@@ -52,3 +52,61 @@
   width: 55%;
   height: 55%;
 }
+
+.cssPropertiesPanel {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.cssPropertiesSection {
+  display: grid;
+  gap: var(--spacing-2);
+}
+
+.cssPropertiesTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.cssPropertiesDescription {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+}
+
+.cssPropertiesTableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.cssPropertiesTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+
+  th,
+  td {
+    padding: var(--spacing-2) var(--spacing-3);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+  }
+
+  td:nth-child(1),
+  td:nth-child(2) {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}

@@ -32,7 +32,8 @@ import {
   useComboboxFilter,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './combobox.module.css';
 
 interface OptionItem {
@@ -135,7 +136,7 @@ const directoryUsers: DirectoryUser[] = [
   },
 ];
 
-export const comboboxCssProperties: CssPropertyInput[] = [
+export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ['--combobox-width', '16rem', 'Controls the control and popup anchor width.'],
   ['--combobox-control-height', 'var(--size-lg)', 'Controls input and trigger height.'],
   ['--combobox-radius', 'var(--radius-md)', 'Controls control and popup radius.'],
@@ -189,6 +190,66 @@ export const comboboxCssProperties: CssPropertyInput[] = [
   ['--combobox-chip-bg', 'var(--color-muted)', 'Controls multiple-value chip background.'],
   ['--combobox-chip-remove-size', '1rem', 'Controls chip remove button size.'],
 ];
+
+export const comboboxPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--combobox-radius', 'var(--radius-md)', 'Controls control and popup radius.'],
+  ['--combobox-bg', 'var(--color-background)', 'Controls control background.'],
+  ['--combobox-color', 'var(--color-foreground)', 'Controls primary text color.'],
+  ['--combobox-border-color', 'var(--color-border)', 'Controls control border color.'],
+  ['--combobox-focus-ring-color', 'var(--color-ring)', 'Controls keyboard focus ring color.'],
+  ['--combobox-icon-color', 'var(--color-muted-foreground)', 'Controls default icon color.'],
+  ['--combobox-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  ['--combobox-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--combobox-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--combobox-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
+  [
+    '--combobox-highlight-color',
+    'var(--color-background)',
+    'Controls highlighted item text color.',
+  ],
+  ['--combobox-empty-color', 'var(--color-muted-foreground)', 'Controls empty text color.'],
+];
+
+export function ComboboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of Combobox variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={comboboxOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function ComboboxCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without overriding control and list sizing.
+      </p>
+      <CSSPropertiesEditor
+        properties={comboboxPlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 export function ComboboxExample() {
   const id = React.useId();

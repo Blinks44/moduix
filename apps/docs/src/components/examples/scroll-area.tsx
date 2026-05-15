@@ -1,10 +1,11 @@
 import { ScrollArea, type ScrollAreaProps } from 'moduix';
 import * as React from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './scroll-area.module.css';
 
-export const scrollAreaCssProperties: CssPropertyInput[] = [
+export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--scroll-area-width', '24rem', 'Controls the root width.'],
   ['--scroll-area-height', '13rem', 'Controls the root height.'],
   ['--scroll-area-radius', 'var(--radius-md)', 'Controls the viewport border radius.'],
@@ -53,6 +54,44 @@ export const scrollAreaCssProperties: CssPropertyInput[] = [
   ['--scroll-area-thumb-min-size', '1.5rem', 'Controls the minimum draggable thumb size.'],
   ['--scroll-area-transition', 'var(--transition-default)', 'Controls scrollbar fade timing.'],
 ];
+export const scrollAreaPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--scroll-area-radius', 'var(--radius-md)', 'Controls viewport border radius.'],
+  ['--scroll-area-bg', 'transparent', 'Controls viewport background color.'],
+  ['--scroll-area-color', 'var(--color-foreground)', 'Controls root text color.'],
+  ['--scroll-area-content-padding', 'var(--spacing-3)', 'Controls content slot padding.'],
+  ['--scroll-area-focus-ring-color', 'var(--color-ring)', 'Controls viewport focus ring color.'],
+  ['--scroll-area-scrollbar-bg', 'transparent', 'Controls scrollbar track background color.'],
+  ['--scroll-area-thumb-bg', 'var(--color-border)', 'Controls draggable thumb color.'],
+];
+
+export function ScrollAreaCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={scrollAreaOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function ScrollAreaCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={scrollAreaPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function ScrollAreaExample(props: ScrollAreaProps) {
   return (

@@ -31,7 +31,8 @@ import {
   useAutocompleteFilteredItems,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './autocomplete.module.css';
 
 interface TagItem {
@@ -114,7 +115,7 @@ const shortcuts: Shortcut[] = [
   { id: 's12', value: 'K', label: 'Link' },
 ];
 
-export const autocompleteCssProperties: CssPropertyInput[] = [
+export const autocompleteOverrideCssProperties: CssPropertyInput[] = [
   ['--autocomplete-width', '18rem', 'Controls the control and popup anchor width.'],
   ['--autocomplete-control-height', 'var(--size-lg)', 'Controls input and trigger height.'],
   ['--autocomplete-radius', 'var(--radius-md)', 'Controls control and popup radius.'],
@@ -165,6 +166,62 @@ export const autocompleteCssProperties: CssPropertyInput[] = [
     'Controls optional popup arrow border color.',
   ],
 ];
+
+export const autocompletePlaygroundCssProperties: CssPropertyInput[] = [
+  ['--autocomplete-radius', 'var(--radius-md)', 'Controls control and popup radius.'],
+  ['--autocomplete-bg', 'var(--color-background)', 'Controls control background.'],
+  ['--autocomplete-color', 'var(--color-foreground)', 'Controls primary text color.'],
+  ['--autocomplete-border-color', 'var(--color-border)', 'Controls control border color.'],
+  ['--autocomplete-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--autocomplete-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  ['--autocomplete-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--autocomplete-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--autocomplete-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item bg.'],
+  ['--autocomplete-highlight-color', 'var(--color-background)', 'Controls highlighted item text.'],
+  ['--autocomplete-empty-color', 'var(--color-muted-foreground)', 'Controls empty text color.'],
+  ['--autocomplete-icon-color', 'var(--color-muted-foreground)', 'Controls default icon color.'],
+];
+
+export function AutocompleteCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of Autocomplete variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={autocompleteOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function AutocompleteCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without overriding sizing and grid tokens.
+      </p>
+      <CSSPropertiesEditor
+        properties={autocompletePlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 function normalizeText(text: string) {
   return text.toLowerCase().trim();

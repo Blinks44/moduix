@@ -9,10 +9,12 @@ import {
   CustomStylesInputExample,
   DisabledInputExample,
   InputExample,
+  InputCssPlaygroundPanel,
+  InputCssPropertiesPanel,
   InputFieldValidationExample,
   InputNativeAttributesExample,
   InputSizesExample,
-  inputCssProperties,
+  inputPlaygroundCssProperties,
 } from '@/components/examples/input';
 
 ## API Reference
@@ -21,7 +23,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={inputCssProperties}>
+<Preview cssProperties={inputPlaygroundCssProperties}>
   <InputExample />
 
   <Preview.Code>
@@ -48,6 +50,8 @@ import {
     `}
 
   </Preview.CSS>
+  <Preview.CSSProperties>{(context) => <InputCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <InputCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

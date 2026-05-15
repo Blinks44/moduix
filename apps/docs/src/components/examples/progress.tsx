@@ -1,9 +1,10 @@
 import { Progress, ProgressLabel, ProgressValue, type ProgressProps } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './progress.module.css';
 
-export const progressCssProperties: CssPropertyInput[] = [
+export const progressOverrideCssProperties: CssPropertyInput[] = [
   ['--progress-width', '12rem', 'Controls the root progress width.'],
   ['--progress-color', 'var(--color-foreground)', 'Controls the default progress text color.'],
   ['--progress-gap', '0.5rem', 'Controls spacing between progress slots.'],
@@ -36,6 +37,43 @@ export const progressCssProperties: CssPropertyInput[] = [
     'Controls indicator animation in indeterminate state.',
   ],
 ];
+export const progressPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--progress-color', 'var(--color-foreground)', 'Controls default text color.'],
+  ['--progress-track-bg', 'var(--color-muted)', 'Controls track background.'],
+  ['--progress-track-border-color', 'var(--color-border)', 'Controls track border color.'],
+  ['--progress-track-height', '0.5rem', 'Controls track height.'],
+  ['--progress-track-radius', 'var(--radius-full)', 'Controls track radius.'],
+  ['--progress-indicator-bg', 'var(--color-primary)', 'Controls indicator color.'],
+];
+
+export function ProgressCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={progressOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function ProgressCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={progressPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function ProgressExample({ value = 24, ...props }: ProgressProps) {
   return (

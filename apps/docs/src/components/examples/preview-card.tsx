@@ -6,7 +6,8 @@ import {
   createPreviewCardHandle,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './preview-card.module.css';
 
 type LinkPreviewPayload = {
@@ -37,7 +38,7 @@ const linkPayloads: LinkPreviewPayload[] = [
   },
 ];
 
-export const previewCardCssProperties: CssPropertyInput[] = [
+export const previewCardOverrideCssProperties: CssPropertyInput[] = [
   ['--preview-card-width', 'auto', 'Controls the popup width.'],
   ['--preview-card-height', 'auto', 'Controls the popup height.'],
   ['--preview-card-min-width', '14rem', 'Controls the popup min width.'],
@@ -107,6 +108,45 @@ export const previewCardCssProperties: CssPropertyInput[] = [
     'Controls arrow border color.',
   ],
 ];
+export const previewCardPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--preview-card-bg', 'var(--color-popover)', 'Controls popup background color.'],
+  ['--preview-card-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--preview-card-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--preview-card-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
+  ['--preview-card-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
+  ['--preview-card-trigger-color', 'var(--color-primary)', 'Controls trigger text color.'],
+  ['--preview-card-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+];
+
+export function PreviewCardCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={previewCardOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function PreviewCardCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={previewCardPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function PreviewCardExample() {
   return (

@@ -6,11 +6,13 @@ icon: Component
 
 import {
   CustomIconNavigationMenuExample,
+  NavigationMenuCssPlaygroundPanel,
+  NavigationMenuCssPropertiesPanel,
   CustomStylesNavigationMenuExample,
   NavigationMenuExample,
   NestedInlineNavigationMenuExample,
   NestedNavigationMenuExample,
-  navigationMenuCssProperties,
+  navigationMenuPlaygroundCssProperties,
 } from '@/components/examples/navigation-menu';
 
 ## API Reference
@@ -19,7 +21,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={navigationMenuCssProperties}>
+<Preview cssProperties={navigationMenuPlaygroundCssProperties}>
   <NavigationMenuExample />
 
   <Preview.Code>
@@ -175,6 +177,12 @@ import {
     `}
 
   </Preview.Data>
+  <Preview.CSSProperties>
+    {(context) => <NavigationMenuCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <NavigationMenuCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

@@ -10,10 +10,12 @@ import {
   CustomArrowPreviewCardExample,
   DetachedTriggerPreviewCardExample,
   MultipleTriggersPreviewCardExample,
+  PreviewCardCssPlaygroundPanel,
+  PreviewCardCssPropertiesPanel,
   PreviewCardExample,
   SideControlPreviewCardExample,
   SlotCustomizationPreviewCardExample,
-  previewCardCssProperties,
+  previewCardPlaygroundCssProperties,
 } from '@/components/examples/preview-card';
 
 ## API Reference
@@ -22,7 +24,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={previewCardCssProperties}>
+<Preview cssProperties={previewCardPlaygroundCssProperties}>
   <PreviewCardExample />
 
   <Preview.Code>
@@ -95,6 +97,8 @@ import {
     `}
 
   </Preview.CSS>
+  <Preview.CSSProperties>{(context) => <PreviewCardCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <PreviewCardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

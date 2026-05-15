@@ -11,10 +11,12 @@ import {
   DisabledSliderExample,
   EdgeThumbAlignmentSliderExample,
   RangeSliderExample,
+  SliderCssPlaygroundPanel,
+  SliderCssPropertiesPanel,
   SliderExample,
   SteppedRangeSliderExample,
   VerticalSliderExample,
-  sliderCssProperties,
+  sliderPlaygroundCssProperties,
 } from '@/components/examples/slider';
 
 ## API Reference
@@ -23,7 +25,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={sliderCssProperties}>
+<Preview cssProperties={sliderPlaygroundCssProperties}>
   <SliderExample />
 
   <Preview.Code>
@@ -47,6 +49,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <SliderCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <SliderCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

@@ -16,7 +16,8 @@ import {
   type RadioGroupProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './radio.module.css';
 
 const radioOptions = [
@@ -25,7 +26,7 @@ const radioOptions = [
   { value: 'enterprise', label: 'Enterprise account' },
 ];
 
-export const radioCssProperties: CssPropertyInput[] = [
+export const radioOverrideCssProperties: CssPropertyInput[] = [
   ['--radio-size-md', '1.25rem', 'Controls `md` radio size.'],
   ['--radio-indicator-size-md', '0.5rem', 'Controls `md` indicator size.'],
   ['--radio-bg', 'var(--color-background)', 'Controls unchecked background color.'],
@@ -83,6 +84,40 @@ export const radioCssProperties: CssPropertyInput[] = [
   ],
   ['--radio-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
+export const radioPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--radio-bg', 'var(--color-background)', 'Controls unchecked background color.'],
+  ['--radio-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
+  ['--radio-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
+  ['--radio-border-color', 'var(--color-border)', 'Controls unchecked border color.'],
+  ['--radio-border-color-checked', 'var(--color-primary)', 'Controls checked border color.'],
+  ['--radio-indicator-color', 'var(--color-primary-foreground)', 'Controls indicator color.'],
+  ['--radio-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+];
+
+export function RadioCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={radioOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function RadioCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={radioPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
   return (

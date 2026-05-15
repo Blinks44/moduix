@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  ButtonCssPlaygroundPanel,
+  ButtonCssPropertiesPanel,
   ButtonCustomLoadingIndicatorExample,
   ButtonDisabledExample,
   ButtonExample,
@@ -13,7 +15,7 @@ import {
   ButtonSizesExample,
   ButtonVariantsExample,
   CustomStylesButtonExample,
-  buttonCssProperties,
+  buttonPlaygroundCssProperties,
 } from '@/components/examples/button';
 
 ## API Reference
@@ -22,7 +24,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={buttonCssProperties}>
+<Preview cssProperties={buttonPlaygroundCssProperties}>
   <ButtonExample />
 
   <Preview.Code>
@@ -35,6 +37,14 @@ import {
     `}
 
   </Preview.Code>
+
+<Preview.CSSProperties>
+  {(context) => <ButtonCssPropertiesPanel {...context} />}
+</Preview.CSSProperties>
+
+  <Preview.CSSPlayground>
+    {(context) => <ButtonCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

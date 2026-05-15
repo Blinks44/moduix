@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  ContextMenuCssPlaygroundPanel,
+  ContextMenuCssPropertiesPanel,
   ContextMenuExample,
   GroupsAndControlsContextMenuExample,
   IndicatorRightContextMenuExample,
@@ -13,7 +15,7 @@ import {
   PositionedContextMenuExample,
   ShortcutsContextMenuExample,
   CustomStylesContextMenuExample,
-  contextMenuCssProperties,
+  contextMenuPlaygroundCssProperties,
 } from '@/components/examples/context-menu';
 
 ## API Reference
@@ -22,7 +24,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={contextMenuCssProperties}>
+<Preview cssProperties={contextMenuPlaygroundCssProperties}>
   <ContextMenuExample />
 
   <Preview.Code>
@@ -58,6 +60,12 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>
+    {(context) => <ContextMenuCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <ContextMenuCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

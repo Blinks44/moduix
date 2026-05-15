@@ -9,10 +9,12 @@ import {
   CompositionMeterExample,
   ControlledMeterExample,
   CustomStylesMeterExample,
+  MeterCssPlaygroundPanel,
+  MeterCssPropertiesPanel,
   MeterExample,
   MinMaxRangeMeterExample,
   PercentFormatMeterExample,
-  meterCssProperties,
+  meterPlaygroundCssProperties,
 } from '@/components/examples/meter';
 
 ## API Reference
@@ -21,7 +23,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={meterCssProperties}>
+<Preview cssProperties={meterPlaygroundCssProperties}>
   <MeterExample />
 
   <Preview.Code>
@@ -43,6 +45,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <MeterCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <MeterCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

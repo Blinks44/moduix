@@ -1,9 +1,10 @@
 import { ArrowUpRightIcon, Button, PlusIcon, StarIcon, type ButtonProps } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './button.module.css';
 
-export const buttonCssProperties: CssPropertyInput[] = [
+export const buttonOverrideCssProperties: CssPropertyInput[] = [
   ['--button-radius', 'var(--radius-md)', 'Controls button corner radius.'],
   ['--button-content-gap', 'var(--spacing-2)', 'Controls spacing between text and icons.'],
   ['--button-font-size', 'var(--text-sm)', 'Controls default button font size.'],
@@ -101,6 +102,61 @@ export const buttonCssProperties: CssPropertyInput[] = [
   ['--button-padding-y-md', '0.5rem', 'Controls `md` button vertical padding.'],
   ['--button-size-icon-md', 'var(--size-lg)', 'Controls `icon-md` button size.'],
 ];
+
+export const buttonPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--button-radius', 'var(--radius-md)', 'Controls button corner radius.'],
+  ['--button-content-gap', 'var(--spacing-2)', 'Controls text and icon spacing.'],
+  ['--button-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--button-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  ['--button-transition', 'var(--transition-default)', 'Controls transition timing.'],
+  ['--button-icon-size', '1rem', 'Controls nested SVG icon size.'],
+  ['--button-spinner-size', '0.875rem', 'Controls built-in spinner size.'],
+  ['--button-default-bg', 'var(--color-primary)', 'Controls default variant background.'],
+  ['--button-default-color', 'var(--color-primary-foreground)', 'Controls default text color.'],
+  ['--button-outline-bg', 'var(--color-background)', 'Controls outline variant background.'],
+  ['--button-outline-color', 'var(--color-foreground)', 'Controls outline variant color.'],
+];
+
+export function ButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of Button variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={buttonOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function ButtonCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without overriding size preset tokens.
+      </p>
+      <CSSPropertiesEditor
+        properties={buttonPlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 export function ButtonExample(props: ButtonProps) {
   return <Button {...props}>Save Changes</Button>;

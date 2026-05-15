@@ -22,12 +22,13 @@ import {
   type ToolbarProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toolbar.module.css';
 
 const fonts = ['Inter', 'Arial', 'Helvetica', 'Georgia'];
 
-export const toolbarCssProperties: CssPropertyInput[] = [
+export const toolbarOverrideCssProperties: CssPropertyInput[] = [
   ['--toolbar-bg', 'var(--color-muted)', 'Controls toolbar background color.'],
   ['--toolbar-border-color', 'var(--color-border)', 'Controls toolbar border color.'],
   ['--toolbar-color', 'var(--color-foreground)', 'Controls toolbar text color.'],
@@ -80,6 +81,47 @@ export const toolbarCssProperties: CssPropertyInput[] = [
   ['--toolbar-separator-thickness', '1px', 'Controls separator thickness.'],
   ['--toolbar-transition', 'var(--transition-default)', 'Controls interactive transition timing.'],
 ];
+export const toolbarPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--toolbar-bg', 'var(--color-muted)', 'Controls toolbar background color.'],
+  ['--toolbar-border-color', 'var(--color-border)', 'Controls toolbar border color.'],
+  ['--toolbar-color', 'var(--color-foreground)', 'Controls toolbar text color.'],
+  ['--toolbar-radius', 'var(--radius-lg)', 'Controls toolbar corner radius.'],
+  ['--toolbar-control-bg-hover', 'var(--color-accent)', 'Controls button hover background.'],
+  ['--toolbar-control-bg-active', 'var(--color-accent)', 'Controls button active background.'],
+  ['--toolbar-control-color', 'var(--color-foreground)', 'Controls button text color.'],
+  ['--toolbar-input-bg', 'var(--color-background)', 'Controls input background.'],
+  ['--toolbar-input-border-color', 'var(--color-border)', 'Controls input border color.'],
+  ['--toolbar-separator-color', 'var(--color-border)', 'Controls separator color.'],
+];
+
+export function ToolbarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={toolbarOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function ToolbarCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={toolbarPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 function AlignLeftIcon(props: React.ComponentProps<'svg'>) {
   return (

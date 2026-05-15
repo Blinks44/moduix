@@ -7,6 +7,8 @@ icon: Component
 import {
   AsyncSearchAutocompleteExample,
   AutoHighlightAutocompleteExample,
+  AutocompleteCssPlaygroundPanel,
+  AutocompleteCssPropertiesPanel,
   AutocompleteExample,
   CustomStylesAutocompleteExample,
   FuzzyAutocompleteExample,
@@ -15,7 +17,7 @@ import {
   InputInsidePopupAutocompleteExample,
   ItemIconsAutocompleteExample,
   LimitAutocompleteExample,
-  autocompleteCssProperties,
+  autocompletePlaygroundCssProperties,
 } from '@/components/examples/autocomplete';
 
 ## API Reference
@@ -24,7 +26,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={autocompleteCssProperties}>
+<Preview cssProperties={autocompletePlaygroundCssProperties}>
   <AutocompleteExample />
 
   <Preview.Code>
@@ -90,6 +92,14 @@ import {
     `}
 
   </Preview.Data>
+
+<Preview.CSSProperties>
+  {(context) => <AutocompleteCssPropertiesPanel {...context} />}
+</Preview.CSSProperties>
+
+  <Preview.CSSPlayground>
+    {(context) => <AutocompleteCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

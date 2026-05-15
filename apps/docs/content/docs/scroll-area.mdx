@@ -11,8 +11,10 @@ import {
   GradientFadeScrollAreaExample,
   KeepMountedScrollAreaExample,
   OverflowEdgeThresholdScrollAreaExample,
+  ScrollAreaCssPlaygroundPanel,
+  ScrollAreaCssPropertiesPanel,
   ScrollAreaExample,
-  scrollAreaCssProperties,
+  scrollAreaPlaygroundCssProperties,
 } from '@/components/examples/scroll-area';
 
 ## API Reference
@@ -21,7 +23,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={scrollAreaCssProperties}>
+<Preview cssProperties={scrollAreaPlaygroundCssProperties}>
   <ScrollAreaExample />
 
   <Preview.Code>
@@ -126,6 +128,8 @@ import {
     `}
 
   </Preview.Data>
+  <Preview.CSSProperties>{(context) => <ScrollAreaCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <ScrollAreaCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy
