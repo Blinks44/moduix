@@ -2,7 +2,7 @@ import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock.core'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import * as React from 'react';
 import { cn } from '@/lib/cn';
-import { docsShikiOptions, getDocsShikiHighlighter } from '../lib/shiki';
+import { docsShikiOptions, getDocsShikiHighlighter } from '@/lib/shiki';
 
 type PreviewProps = React.ComponentProps<'div'> & {
   code?: string;

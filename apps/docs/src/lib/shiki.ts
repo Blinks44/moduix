@@ -1,6 +1,8 @@
 import css from '@shikijs/langs/css';
 import html from '@shikijs/langs/html';
 import javascript from '@shikijs/langs/javascript';
+import jsx from '@shikijs/langs/jsx';
+import tsx from '@shikijs/langs/tsx';
 import typescript from '@shikijs/langs/typescript';
 import githubDark from '@shikijs/themes/github-dark';
 import githubLight from '@shikijs/themes/github-light';
@@ -14,9 +16,7 @@ const docsShikiThemes = {
 
 const docsShikiLangAlias = {
   js: 'javascript',
-  jsx: 'javascript',
   ts: 'typescript',
-  tsx: 'typescript',
 } as const;
 
 type DocsHighlighter = Awaited<ReturnType<typeof createHighlighterCore>>;
@@ -26,7 +26,7 @@ export function getDocsShikiHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighterCore({
       engine: createJavaScriptRegexEngine(),
-      langs: [html, css, javascript, typescript].flat(),
+      langs: [html, css, javascript, jsx, typescript, tsx].flat(),
       themes: [githubLight, githubDark],
       langAlias: docsShikiLangAlias,
     }).then((highlighter) => {
