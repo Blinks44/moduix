@@ -7,10 +7,11 @@ import {
   type ToggleGroupProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toggle-group.module.css';
 
-export const toggleGroupCssProperties: CssPropertyInput[] = [
+export const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-group-bg', 'var(--color-muted)', 'Controls group background color.'],
   ['--toggle-group-border-color', 'var(--color-border)', 'Controls group border color.'],
   ['--toggle-group-color', 'var(--color-foreground)', 'Controls group text color.'],
@@ -19,6 +20,42 @@ export const toggleGroupCssProperties: CssPropertyInput[] = [
   ['--toggle-group-radius', 'var(--radius-lg)', 'Controls group corner radius.'],
   ['--toggle-group-item-radius', 'var(--radius-md)', 'Controls item corner radius.'],
 ];
+export const toggleGroupPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--toggle-group-bg', 'var(--color-muted)', 'Controls group background color.'],
+  ['--toggle-group-border-color', 'var(--color-border)', 'Controls group border color.'],
+  ['--toggle-group-color', 'var(--color-foreground)', 'Controls group text color.'],
+  ['--toggle-group-radius', 'var(--radius-lg)', 'Controls group corner radius.'],
+  ['--toggle-group-item-radius', 'var(--radius-md)', 'Controls item corner radius.'],
+];
+
+export function ToggleGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={toggleGroupOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function ToggleGroupCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={toggleGroupPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 function AlignLeftIcon(props: React.ComponentProps<'svg'>) {
   return (

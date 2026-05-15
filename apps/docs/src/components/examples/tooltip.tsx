@@ -12,12 +12,13 @@ import {
   createTooltipHandle,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './tooltip.module.css';
 
 const tooltipSides: TooltipSide[] = ['top', 'right', 'bottom', 'left'];
 
-export const tooltipCssProperties: CssPropertyInput[] = [
+export const tooltipOverrideCssProperties: CssPropertyInput[] = [
   ['--tooltip-width', 'max-content', 'Controls the popup width.'],
   ['--tooltip-max-width', '20rem', 'Controls the popup max width.'],
   ['--tooltip-max-height', '24rem', 'Controls the popup max height.'],
@@ -57,6 +58,47 @@ export const tooltipCssProperties: CssPropertyInput[] = [
   ['--tooltip-arrow-inline-offset', '13px', 'Controls the inline-axis arrow offset.'],
   ['--tooltip-arrow-stroke-color', 'var(--tooltip-border-color)', 'Controls arrow border color.'],
 ];
+export const tooltipPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--tooltip-bg', 'var(--color-popover)', 'Controls popup background color.'],
+  ['--tooltip-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--tooltip-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--tooltip-radius', 'var(--radius-md)', 'Controls popup border radius.'],
+  ['--tooltip-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--tooltip-font-size', 'var(--text-sm)', 'Controls popup font size.'],
+  ['--tooltip-trigger-bg', 'var(--color-background)', 'Controls trigger background color.'],
+  ['--tooltip-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
+  ['--tooltip-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
+  ['--tooltip-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+];
+
+export function TooltipCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={tooltipOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function TooltipCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={tooltipPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function TooltipExample() {
   return (

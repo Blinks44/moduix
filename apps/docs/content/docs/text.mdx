@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  TextCssPlaygroundPanel,
+  TextCssPropertiesPanel,
   TextAlignExample,
   TextClassNameExample,
   TextCustomElementExample,
@@ -13,7 +15,7 @@ import {
   TextSizesExample,
   TextTonesExample,
   TextWeightsExample,
-  textCssProperties,
+  textPlaygroundCssProperties,
 } from '@/components/examples/text';
 import 'moduix/style.css';
 
@@ -25,7 +27,7 @@ so the public API stays focused on semantic element choice, visual variants, and
 
 ## Basic
 
-<Preview cssProperties={textCssProperties}>
+<Preview cssProperties={textPlaygroundCssProperties}>
   <TextExample />
 
   <Preview.Code>
@@ -42,6 +44,8 @@ so the public API stays focused on semantic element choice, visual variants, and
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <TextCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <TextCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

@@ -1,8 +1,9 @@
 import { Separator, type SeparatorProps } from 'moduix';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './separator.module.css';
 
-export const separatorCssProperties: CssPropertyInput[] = [
+export const separatorOverrideCssProperties: CssPropertyInput[] = [
   ['--separator-color', 'var(--color-border)', 'Controls the separator color.'],
   ['--separator-length-horizontal', '100%', 'Controls horizontal separator width.'],
   ['--separator-length-vertical', '1em', 'Controls vertical separator height.'],
@@ -18,6 +19,39 @@ export const separatorCssProperties: CssPropertyInput[] = [
     'Controls vertical separator thickness.',
   ],
 ];
+export const separatorPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--separator-color', 'var(--color-border)', 'Controls separator color.'],
+  ['--separator-thickness', '1px', 'Controls separator thickness for both orientations.'],
+];
+
+export function SeparatorCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={separatorOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function SeparatorCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={separatorPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function SeparatorExample(props: SeparatorProps) {
   return (

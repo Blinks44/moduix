@@ -16,7 +16,8 @@ import {
   useToastManager,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toast.module.css';
 
 const globalToastManager = createToastManager();
@@ -29,7 +30,7 @@ const placements: ToastPlacement[] = [
   'bottom-right',
 ];
 
-export const toastCssProperties: CssPropertyInput[] = [
+export const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--toast-viewport-width', '20rem', 'Controls the fixed toast viewport width.'],
   ['--toast-viewport-inset', '1rem', 'Controls viewport distance from the window edge.'],
   ['--toast-z-index', 'var(--z-toast)', 'Controls toast portal and stack z-index.'],
@@ -87,6 +88,41 @@ export const toastCssProperties: CssPropertyInput[] = [
     'Controls anchored toast line height.',
   ],
 ];
+export const toastPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--toast-bg', 'var(--color-popover)', 'Controls toast background color.'],
+  ['--toast-color', 'var(--color-popover-foreground)', 'Controls toast text color.'],
+  ['--toast-border-color', 'var(--color-border)', 'Controls toast border color.'],
+  ['--toast-radius', 'var(--radius-lg)', 'Controls toast border radius.'],
+  ['--toast-shadow', 'var(--shadow-lg)', 'Controls toast shadow.'],
+  ['--toast-title-font-size', 'var(--text-sm)', 'Controls title font size.'],
+  ['--toast-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
+  ['--toast-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus rings.'],
+];
+
+export function ToastCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={toastOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function ToastCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={toastPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function ToastExample() {
   return (

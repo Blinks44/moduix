@@ -13,10 +13,12 @@ import {
   InlineInputsTabsExample,
   LineTabsExample,
   LinkTabsExample,
+  TabsCssPlaygroundPanel,
+  TabsCssPropertiesPanel,
   TabsExample,
   VerticalTabsExample,
   WithoutIndicatorTabsExample,
-  tabsCssProperties,
+  tabsPlaygroundCssProperties,
 } from '@/components/examples/tabs';
 
 ## API Reference
@@ -25,7 +27,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={tabsCssProperties}>
+<Preview cssProperties={tabsPlaygroundCssProperties}>
   <TabsExample />
 
   <Preview.Code>
@@ -83,6 +85,8 @@ import {
     `}
 
   </Preview.Data>
+  <Preview.CSSProperties>{(context) => <TabsCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <TabsCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

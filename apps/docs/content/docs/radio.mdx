@@ -9,13 +9,15 @@ import {
   ControlledRadioExample,
   CustomIndicatorRadioExample,
   DisabledRadioExample,
+  RadioCssPlaygroundPanel,
+  RadioCssPropertiesPanel,
   RadioClassNameExample,
   RadioExample,
   RadioFieldCompositionExample,
   RadioFormIntegrationExample,
   RadioSiblingLabelNativeButtonExample,
   RadioSizesExample,
-  radioCssProperties,
+  radioPlaygroundCssProperties,
 } from '@/components/examples/radio';
 
 ## API Reference
@@ -26,7 +28,7 @@ import {
 
 `RadioGroupItemControl` renders the radio indicator automatically. Use `indicator` or `classNames.indicator` when the control needs custom visuals.
 
-<Preview cssProperties={radioCssProperties}>
+<Preview cssProperties={radioPlaygroundCssProperties}>
   <RadioExample />
 
   <Preview.Code>
@@ -72,6 +74,8 @@ import {
     `}
 
   </Preview.Data>
+  <Preview.CSSProperties>{(context) => <RadioCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <RadioCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

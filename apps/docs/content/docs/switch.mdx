@@ -8,6 +8,8 @@ import 'moduix/style.css';
 import {
   ControlledSwitchExample,
   CustomIconSwitchExample,
+  SwitchCssPlaygroundPanel,
+  SwitchCssPropertiesPanel,
   SwitchClassNameExample,
   SwitchDisabledExample,
   SwitchExample,
@@ -15,7 +17,7 @@ import {
   SwitchNativeButtonRenderCallbackExample,
   SwitchSiblingLabelNativeButtonExample,
   SwitchSizesExample,
-  switchCssProperties,
+  switchPlaygroundCssProperties,
 } from '@/components/examples/switch';
 
 ## API Reference
@@ -24,7 +26,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={switchCssProperties}>
+<Preview cssProperties={switchPlaygroundCssProperties}>
   <SwitchExample />
 
   <Preview.Code>
@@ -42,6 +44,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <SwitchCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <SwitchCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

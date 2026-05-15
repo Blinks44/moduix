@@ -6,6 +6,8 @@ icon: Component
 
 import {
   ToolbarClassNameExample,
+  ToolbarCssPlaygroundPanel,
+  ToolbarCssPropertiesPanel,
   ToolbarCustomIconsExample,
   ToolbarDisabledControlsExample,
   ToolbarExample,
@@ -14,7 +16,7 @@ import {
   ToolbarToggleGroupExample,
   ToolbarVariantsExample,
   ToolbarVerticalExample,
-  toolbarCssProperties,
+  toolbarPlaygroundCssProperties,
 } from '@/components/examples/toolbar';
 
 ## API Reference
@@ -23,7 +25,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={toolbarCssProperties}>
+<Preview cssProperties={toolbarPlaygroundCssProperties}>
   <ToolbarExample />
 
   <Preview.Code>
@@ -57,6 +59,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <ToolbarCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <ToolbarCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

@@ -14,8 +14,10 @@ import {
   MultipleSelectExample,
   ObjectValuesSelectExample,
   CustomStylesSelectExample,
+  SelectCssPlaygroundPanel,
+  SelectCssPropertiesPanel,
   SelectExample,
-  selectCssProperties,
+  selectPlaygroundCssProperties,
 } from '@/components/examples/select';
 
 ## API Reference
@@ -24,7 +26,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={selectCssProperties}>
+<Preview cssProperties={selectPlaygroundCssProperties}>
   <SelectExample />
 
   <Preview.Code>
@@ -92,6 +94,8 @@ import {
     `}
 
   </Preview.Data>
+  <Preview.CSSProperties>{(context) => <SelectCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <SelectCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

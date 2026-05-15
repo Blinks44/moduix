@@ -7,9 +7,11 @@ icon: Component
 import 'moduix/style.css';
 import {
   CustomSeparatorExample,
+  SeparatorCssPlaygroundPanel,
+  SeparatorCssPropertiesPanel,
   SeparatorExample,
   VerticalSeparatorExample,
-  separatorCssProperties,
+  separatorPlaygroundCssProperties,
 } from '@/components/examples/separator';
 
 ## API Reference
@@ -18,7 +20,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={separatorCssProperties}>
+<Preview cssProperties={separatorPlaygroundCssProperties}>
   <SeparatorExample />
 
   <Preview.Code>
@@ -37,6 +39,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <SeparatorCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <SeparatorCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

@@ -1,9 +1,10 @@
 import { Slider, SliderLabel, SliderThumb, SliderValue, type SliderProps } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './slider.module.css';
 
-export const sliderCssProperties: CssPropertyInput[] = [
+export const sliderOverrideCssProperties: CssPropertyInput[] = [
   ['--slider-width', '12rem', 'Controls the horizontal slider root width.'],
   ['--slider-width-vertical', 'fit-content', 'Controls the vertical slider root width.'],
   ['--slider-height', '12rem', 'Controls the vertical slider control height.'],
@@ -33,6 +34,47 @@ export const sliderCssProperties: CssPropertyInput[] = [
   ['--slider-focus-ring-color', 'var(--color-ring)', 'Controls thumb focus ring color.'],
   ['--slider-transition', 'var(--transition-default)', 'Controls thumb transition timing.'],
 ];
+export const sliderPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--slider-color', 'var(--color-foreground)', 'Controls default slider text color.'],
+  ['--slider-track-bg', 'var(--color-muted)', 'Controls track background color.'],
+  ['--slider-track-border-color', 'var(--color-border)', 'Controls track border color.'],
+  ['--slider-track-radius', 'var(--radius-full)', 'Controls track corner radius.'],
+  ['--slider-track-size', '0.375rem', 'Controls track thickness.'],
+  ['--slider-indicator-bg', 'var(--color-primary)', 'Controls filled indicator color.'],
+  ['--slider-thumb-size', '1rem', 'Controls thumb width and height.'],
+  ['--slider-thumb-bg', 'var(--color-background)', 'Controls thumb background color.'],
+  ['--slider-thumb-border-color', 'var(--color-border)', 'Controls thumb border color.'],
+  ['--slider-focus-ring-color', 'var(--color-ring)', 'Controls thumb focus ring color.'],
+];
+
+export function SliderCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={sliderOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function SliderCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={sliderPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',

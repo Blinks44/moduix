@@ -7,12 +7,14 @@ icon: Component
 import 'moduix/style.css';
 import {
   SkeletonCardExample,
+  SkeletonCssPlaygroundPanel,
+  SkeletonCssPropertiesPanel,
   SkeletonClassNameExample,
   SkeletonExample,
   SkeletonLayoutPropsExample,
   SkeletonMediaObjectExample,
   SkeletonStaticExample,
-  skeletonCssProperties,
+  skeletonPlaygroundCssProperties,
 } from '@/components/examples/skeleton';
 
 ## API Reference
@@ -24,7 +26,7 @@ they describe loading shape, not user-readable content.
 
 ## Basic
 
-<Preview cssProperties={skeletonCssProperties}>
+<Preview cssProperties={skeletonPlaygroundCssProperties}>
   <SkeletonExample />
 
   <Preview.Code>
@@ -43,6 +45,8 @@ they describe loading shape, not user-readable content.
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <SkeletonCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <SkeletonCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

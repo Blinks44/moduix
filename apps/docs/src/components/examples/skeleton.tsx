@@ -6,10 +6,11 @@ import {
   SkeletonRow,
   type SkeletonProps,
 } from 'moduix';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './skeleton.module.css';
 
-export const skeletonCssProperties: CssPropertyInput[] = [
+export const skeletonOverrideCssProperties: CssPropertyInput[] = [
   [
     '--skeleton-bg',
     'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',
@@ -18,6 +19,44 @@ export const skeletonCssProperties: CssPropertyInput[] = [
   ['--skeleton-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
   ['--skeleton-animation', 'var(--animation-pulse)', 'Controls skeleton loading animation.'],
 ];
+export const skeletonPlaygroundCssProperties: CssPropertyInput[] = [
+  [
+    '--skeleton-bg',
+    'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',
+    'Controls skeleton background color.',
+  ],
+  ['--skeleton-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
+  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls skeleton loading animation.'],
+];
+
+export function SkeletonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={skeletonOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function SkeletonCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={skeletonPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function SkeletonExample(props: SkeletonProps) {
   return (
