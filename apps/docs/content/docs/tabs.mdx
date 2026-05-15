@@ -128,8 +128,9 @@ Tabs
 ## Composition
 
 Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `orientation`,
-`variant`, and `unstyled`. Use `TabsList` for list behavior props such as `activateOnFocus`,
-`loopFocus`, `withIndicator`, and the internal indicator customization API.
+`variant`, and `unstyled`. Base UI props pass through to the matching visible parts: `TabsList`
+supports `activateOnFocus` and `loopFocus`, `TabsTab` supports `disabled`, `render`, and
+`nativeButton`, and `TabsPanel` supports `keepMounted`.
 
 Visible parts accept `className`. The internal indicator is not part of the required composition:
 style it with `TabsList classNames.indicator`, disable it with `withIndicator={false}`, or pass

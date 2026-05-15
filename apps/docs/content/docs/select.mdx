@@ -152,26 +152,32 @@ Select
 
 In most cases, keep default popup infrastructure and style visible parts (`SelectTrigger`,
 `SelectValue`, `SelectContent`, `SelectItem`, `SelectItemIndicator`, `SelectItemText`).
-Use `SelectContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
-`backdropProps`, `arrowProps`, `withBackdrop`, `showArrow`) only when you need custom portal,
-layering, backdrop, or arrow behavior.
+Use `SelectContent` service-slot props (`classNames`, `slotProps`, `withBackdrop`, `showArrow`)
+only when you need custom portal, layering, backdrop, or arrow behavior.
 
 ## Composition
 
 Use `Select` for root state and behavior props such as `value`, `defaultValue`, `multiple`,
-`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`.
+`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`. Base UI root props pass
+through as well: form props (`name`, `form`, `required`, `inputRef`, `autoComplete`), interaction
+state (`disabled`, `readOnly`, `open`, `defaultOpen`, `modal`, `onOpenChange`,
+`onOpenChangeComplete`, `actionsRef`), and item behavior (`highlightItemOnHover`,
+`isItemEqualToValue`).
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
 hidden from the default composition. Use positioning props such as `alignItemWithTrigger`, `side`,
-`sideOffset`, `align`, and `collisionPadding` directly on `SelectContent`; use `container`,
-`portalProps`, `backdropProps`, `positionerProps`, and `arrowProps` when you need the matching
-Base UI escape hatches:
+`sideOffset`, `align`, `collisionPadding`, and `disableAnchorTracking` directly on
+`SelectContent`; use `container` for the portal target and `slotProps` for the matching Base UI
+escape hatches:
 
 ```tsx
 <SelectContent
   className={styles.popup}
   showArrow
   withBackdrop
+  slotProps={{
+    positioner: { sticky: true },
+  }}
   classNames={{
     portal: styles.portal,
     backdrop: styles.backdrop,
@@ -553,6 +559,9 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
               sideOffset={8}
               showArrow
               withBackdrop
+              slotProps={{
+                positioner: { sticky: true },
+              }}
               className={styles.customPopup}
               classNames={{
                 portal: styles.customPortal,

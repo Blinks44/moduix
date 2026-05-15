@@ -416,6 +416,9 @@ export function CustomStylesSelectExample() {
         sideOffset={8}
         showArrow
         withBackdrop
+        slotProps={{
+          positioner: { sticky: true },
+        }}
         className={styles.customPopup}
         classNames={{
           portal: styles.customPortal,
