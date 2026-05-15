@@ -7,12 +7,14 @@ icon: Component
 import {
   AsyncSearchComboboxExample,
   ComboboxExample,
+  ComboboxCssPlaygroundPanel,
+  ComboboxCssPropertiesPanel,
   CustomStylesComboboxExample,
   GroupedComboboxExample,
   IndicatorRightComboboxExample,
   InputInsidePopupComboboxExample,
   MultipleComboboxExample,
-  comboboxCssProperties,
+  comboboxPlaygroundCssProperties,
 } from '@/components/examples/combobox';
 
 ## API Reference
@@ -21,7 +23,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={comboboxCssProperties}>
+<Preview cssProperties={comboboxPlaygroundCssProperties}>
   <ComboboxExample />
 
   <Preview.Code>
@@ -88,6 +90,12 @@ import {
     `}
 
   </Preview.Data>
+  <Preview.CSSProperties>
+    {(context) => <ComboboxCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <ComboboxCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

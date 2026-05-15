@@ -1,9 +1,10 @@
 import { Checkbox, CheckboxField, CheckboxLabel, type CheckboxProps } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './checkbox.module.css';
 
-export const checkboxCssProperties: CssPropertyInput[] = [
+export const checkboxOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-size-xs', '0.875rem', 'Controls `xs` checkbox size.'],
   ['--checkbox-size-sm', '1rem', 'Controls `sm` checkbox size.'],
   ['--checkbox-size-md', '1.25rem', 'Controls `md` checkbox size.'],
@@ -34,6 +35,60 @@ export const checkboxCssProperties: CssPropertyInput[] = [
   ['--checkbox-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
   ['--checkbox-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
+
+export const checkboxPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--checkbox-radius', 'var(--radius-xs)', 'Controls checkbox corner radius.'],
+  ['--checkbox-bg', 'var(--color-background)', 'Controls unchecked background color.'],
+  ['--checkbox-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
+  ['--checkbox-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
+  ['--checkbox-border-color', 'var(--color-border)', 'Controls unchecked border color.'],
+  ['--checkbox-border-color-checked', 'var(--color-primary)', 'Controls checked border color.'],
+  ['--checkbox-color', 'var(--color-primary-foreground)', 'Controls indicator icon color.'],
+  ['--checkbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--checkbox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  ['--checkbox-label-color', 'var(--color-foreground)', 'Controls label text color.'],
+];
+
+export function CheckboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of Checkbox variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={checkboxOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function CheckboxCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without overriding size presets.
+      </p>
+      <CSSPropertiesEditor
+        properties={checkboxPlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
   return (

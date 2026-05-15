@@ -16,7 +16,8 @@ import {
   type CheckboxGroupProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './checkbox-group.module.css';
 
 const notificationOptions = [
@@ -41,7 +42,7 @@ const sizeOptions = [
   { value: 'xl', label: 'Extra-large' },
 ] as const;
 
-export const checkboxGroupCssProperties: CssPropertyInput[] = [
+export const checkboxGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-group-color', 'var(--color-foreground)', 'Controls group text color.'],
   ['--checkbox-group-gap', 'var(--spacing-2)', 'Controls spacing between label and list.'],
   ['--checkbox-group-list-gap', 'var(--spacing-2)', 'Controls spacing between items.'],
@@ -103,6 +104,60 @@ export const checkboxGroupCssProperties: CssPropertyInput[] = [
   ['--checkbox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--checkbox-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
+
+export const checkboxGroupPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--checkbox-group-color', 'var(--color-foreground)', 'Controls group text color.'],
+  ['--checkbox-group-gap', 'var(--spacing-2)', 'Controls spacing between label and list.'],
+  ['--checkbox-group-list-gap', 'var(--spacing-2)', 'Controls spacing between items.'],
+  ['--checkbox-radius', 'var(--radius-xs)', 'Controls checkbox corner radius.'],
+  ['--checkbox-bg', 'var(--color-background)', 'Controls unchecked checkbox background.'],
+  ['--checkbox-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background.'],
+  ['--checkbox-bg-checked', 'var(--color-primary)', 'Controls checked checkbox background.'],
+  ['--checkbox-border-color', 'var(--color-border)', 'Controls unchecked checkbox border color.'],
+  ['--checkbox-color', 'var(--color-primary-foreground)', 'Controls checkbox indicator color.'],
+  ['--checkbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+];
+
+export function CheckboxGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of CheckboxGroup variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={checkboxGroupOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function CheckboxGroupCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without overriding size presets.
+      </p>
+      <CSSPropertiesEditor
+        properties={checkboxGroupPlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
   return (

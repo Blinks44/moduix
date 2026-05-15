@@ -7,6 +7,8 @@ icon: Component
 import 'moduix/style.css';
 import {
   CheckboxDisabledExample,
+  CheckboxCssPlaygroundPanel,
+  CheckboxCssPropertiesPanel,
   CheckboxExample,
   CheckboxIndeterminateExample,
   CheckboxSiblingLabelNativeButtonExample,
@@ -14,7 +16,7 @@ import {
   ControlledCheckboxExample,
   CustomStylesCheckboxExample,
   CustomIconCheckboxExample,
-  checkboxCssProperties,
+  checkboxPlaygroundCssProperties,
 } from '@/components/examples/checkbox';
 
 ## API Reference
@@ -23,7 +25,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={checkboxCssProperties}>
+<Preview cssProperties={checkboxPlaygroundCssProperties}>
   <CheckboxExample />
 
   <Preview.Code>
@@ -41,6 +43,12 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>
+    {(context) => <CheckboxCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <CheckboxCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Composition
