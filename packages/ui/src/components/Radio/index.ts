@@ -11,6 +11,8 @@ export {
 } from './Radio';
 
 export type {
+  RadioSize,
+  RadioClassNames,
   RadioProps,
   RadioFieldProps,
   RadioLabelProps,
