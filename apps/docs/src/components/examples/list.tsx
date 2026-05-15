@@ -147,7 +147,9 @@ export function CustomStylesListExample() {
   return (
     <List marker="bullet" className={styles.customBullet}>
       {customStyleItems.map((item) => (
-        <ListItem key={item}>{item}</ListItem>
+        <ListItem key={item} classNames={{ marker: styles.glowMarker }}>
+          {item}
+        </ListItem>
       ))}
     </List>
   );

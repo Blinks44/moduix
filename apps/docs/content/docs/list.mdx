@@ -96,8 +96,9 @@ and `size`, `gap`, `tone`, plus `className` for visual customization.
 The default marker follows the root element: unordered lists use `disc`, ordered lists
 use `decimal`. Pass `marker="none"` for markerless semantic lists or `marker="bullet"`
 when marker size, gap, radius, or vertical offset must be styled independently from text.
-All direct `li` elements receive root spacing and marker styles; `ListItem` additionally
-adds the stable `data-slot="list-item"` selector.
+All direct `li` elements receive root spacing and marker styles. For `marker="bullet"`,
+`ListItem` exposes marker/content composition and supports marker styling via
+`classNames.marker` and marker content overrides via `marker`.
 
 | Prop     | Values                                                           | Default     |
 | -------- | ---------------------------------------------------------------- | ----------- |
@@ -416,7 +417,9 @@ Use `marker="bullet"` when marker size, color, gap, or vertical offset must be c
         return (
           <List marker="bullet" className={styles.customBullet}>
             {items.map((item) => (
-              <ListItem key={item}>{item}</ListItem>
+              <ListItem key={item} classNames={{ marker: styles.glowMarker }}>
+                {item}
+              </ListItem>
             ))}
           </List>
         );
@@ -435,7 +438,7 @@ Use `marker="bullet"` when marker size, color, gap, or vertical offset must be c
         --list-marker-offset-y: 0.5em;
       }
 
-      .customBullet > [data-slot='list-item']::before {
+      .glowMarker {
         box-shadow:
           0 0 0 0.25rem color-mix(in oklab, var(--list-marker-color), transparent 78%),
           0 0.125rem 0.375rem color-mix(in oklab, var(--list-marker-color), transparent 68%);
