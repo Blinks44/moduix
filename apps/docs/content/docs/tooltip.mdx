@@ -114,10 +114,9 @@ Use `Tooltip` for root state and behavior props such as `open`, `defaultOpen`,
 `onOpenChange`, and `handle`.
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use `container`, `portalProps`, `positionerProps`,
-`showArrow={false}` to hide the arrow, `arrow` to replace its graphic, and placement props such as
-`side` or `sideOffset` for positioning. `portalProps`, `positionerProps`, `arrowProps`, and
-`viewportProps` remain available for the matching Base UI escape hatches:
+hidden from the default composition. Use `container`, `showArrow={false}` to hide the arrow,
+`arrow` to replace its graphic, and placement props such as `side` or `sideOffset` for positioning.
+Use `slotProps` only when you need to pass non-class props to the internal Base UI service slots:
 
 ```tsx
 <TooltipContent
@@ -127,6 +126,11 @@ hidden from the default composition. Use `container`, `portalProps`, `positioner
     positioner: styles.positioner,
     arrow: styles.arrow,
     viewport: styles.viewport,
+  }}
+  slotProps={{
+    portal: { keepMounted: true },
+    positioner: { collisionPadding: 8 },
+    arrow: { style: { transformOrigin: 'center' } },
   }}
 />
 ```
