@@ -9,6 +9,9 @@ type InputProps = Omit<InputPrimitive.Props, 'size'> & {
   size?: InputSize;
   htmlSize?: React.ComponentProps<'input'>['size'];
 };
+type InputState = InputPrimitive.State;
+type InputChangeEventReason = InputPrimitive.ChangeEventReason;
+type InputChangeEventDetails = InputPrimitive.ChangeEventDetails;
 
 function Input({ className, size = 'md', htmlSize, ...props }: InputProps) {
   return (
@@ -24,4 +27,4 @@ function Input({ className, size = 'md', htmlSize, ...props }: InputProps) {
 
 export { Input };
 
-export type { InputProps, InputSize };
+export type { InputProps, InputState, InputChangeEventReason, InputChangeEventDetails, InputSize };

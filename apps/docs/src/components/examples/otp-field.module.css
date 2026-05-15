@@ -21,7 +21,7 @@
   line-height: var(--line-height-text-xs);
 }
 
-.separator {
+.groupedRoot {
   --otp-field-separator-size: 1.25rem;
   --otp-field-separator-color: var(--color-foreground);
 }
@@ -43,7 +43,7 @@
   --otp-field-bg-filled: var(--color-muted);
 }
 
-.customSeparator {
+.customRoot {
   --otp-field-separator-size: 1.5rem;
   --otp-field-separator-color: var(--color-primary);
 }

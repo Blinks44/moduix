@@ -20,14 +20,15 @@
     border-radius: var(--combobox-radius, var(--radius-md));
     background-color: var(--combobox-bg, var(--color-background));
     color: var(--combobox-color, var(--color-foreground));
+    outline: var(--border-width-sm) solid transparent;
+    outline-offset: calc(var(--border-width-sm) * -1);
     transition:
       border-color var(--transition-default),
       outline-color var(--transition-default);
 
     &:focus-within {
       border-color: var(--combobox-focus-ring-color, var(--color-ring));
-      outline: var(--border-width-sm) solid var(--combobox-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline-color: var(--combobox-focus-ring-color, var(--color-ring));
     }
   }
 

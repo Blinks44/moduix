@@ -20,6 +20,7 @@ import {
   AutocompleteItemTextIcon,
   AutocompleteItemTextLabel,
   AutocompleteList,
+  AutocompleteRow,
   AutocompleteStatus,
   AutocompleteTrigger,
   AutocompleteValue,
@@ -27,6 +28,7 @@ import {
   CloseLineIcon,
   InfoIcon,
   useAutocompleteFilter,
+  useAutocompleteFilteredItems,
 } from 'moduix';
 import * as React from 'react';
 import type { CssPropertyInput } from '../preview';
@@ -46,6 +48,12 @@ interface Movie {
   id: string;
   title: string;
   year: number;
+}
+
+interface Shortcut {
+  id: string;
+  value: string;
+  label: string;
 }
 
 const tags: TagItem[] = [
@@ -91,6 +99,21 @@ const topMovies: Movie[] = [
   { id: '10', title: 'Spirited Away', year: 2001 },
 ];
 
+const shortcuts: Shortcut[] = [
+  { id: 's1', value: 'N', label: 'New file' },
+  { id: 's2', value: 'O', label: 'Open file' },
+  { id: 's3', value: 'S', label: 'Save file' },
+  { id: 's4', value: 'P', label: 'Print' },
+  { id: 's5', value: 'F', label: 'Find' },
+  { id: 's6', value: 'R', label: 'Replace' },
+  { id: 's7', value: 'Z', label: 'Undo' },
+  { id: 's8', value: 'Y', label: 'Redo' },
+  { id: 's9', value: 'B', label: 'Bold' },
+  { id: 's10', value: 'I', label: 'Italic' },
+  { id: 's11', value: 'U', label: 'Underline' },
+  { id: 's12', value: 'K', label: 'Link' },
+];
+
 export const autocompleteCssProperties: CssPropertyInput[] = [
   ['--autocomplete-width', '18rem', 'Controls the control and popup anchor width.'],
   ['--autocomplete-control-height', 'var(--size-lg)', 'Controls input and trigger height.'],
@@ -104,9 +127,12 @@ export const autocompleteCssProperties: CssPropertyInput[] = [
   ['--autocomplete-popup-max-height', '24rem', 'Controls the popup max height.'],
   ['--autocomplete-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--autocomplete-list-padding-y', '0.25rem', 'Controls vertical list padding.'],
+  ['--autocomplete-row-gap', 'var(--spacing-1)', 'Controls grid row item gap.'],
   ['--autocomplete-item-min-height', '2rem', 'Controls item minimum height.'],
   ['--autocomplete-item-padding-y', 'var(--spacing-2)', 'Controls item vertical padding.'],
   ['--autocomplete-item-padding-x', 'var(--spacing-4)', 'Controls item start padding.'],
+  ['--autocomplete-grid-item-width', '2.5rem', 'Controls grid item width.'],
+  ['--autocomplete-grid-item-min-height', '2.5rem', 'Controls grid item minimum height.'],
   [
     '--autocomplete-highlight-bg',
     'var(--color-foreground)',
@@ -165,6 +191,38 @@ function isFuzzyMatch(value: string, query: string) {
   }
 
   return false;
+}
+
+function chunkArray<T>(items: T[], size: number) {
+  const chunks: T[][] = [];
+
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size));
+  }
+
+  return chunks;
+}
+
+function ShortcutGrid() {
+  const filteredItems = useAutocompleteFilteredItems<Shortcut>();
+
+  if (filteredItems.length === 0) {
+    return null;
+  }
+
+  return (
+    <AutocompleteList>
+      {chunkArray(filteredItems, 6).map((row) => (
+        <AutocompleteRow key={row.map((item) => item.id).join('-')}>
+          {row.map((item) => (
+            <AutocompleteItem key={item.id} value={item} aria-label={item.label}>
+              <AutocompleteItemText>{item.value}</AutocompleteItemText>
+            </AutocompleteItem>
+          ))}
+        </AutocompleteRow>
+      ))}
+    </AutocompleteList>
+  );
 }
 
 export function AutocompleteExample() {
@@ -370,6 +428,35 @@ export function AutoHighlightAutocompleteExample() {
             </AutocompleteItem>
           )}
         </AutocompleteList>
+      </AutocompleteContent>
+    </Autocomplete>
+  );
+}
+
+export function GridAutocompleteExample() {
+  const id = React.useId();
+
+  return (
+    <Autocomplete
+      items={shortcuts}
+      itemToStringValue={(item: Shortcut) => item.label}
+      grid
+      openOnInputClick
+    >
+      <AutocompleteField>
+        <AutocompleteFieldLabel htmlFor={id}>Shortcut command</AutocompleteFieldLabel>
+        <AutocompleteInputGroup>
+          <AutocompleteInput id={id} placeholder="Type a command" />
+          <AutocompleteControlActions>
+            <AutocompleteClear aria-label="Clear value" />
+            <AutocompleteTrigger aria-label="Open suggestions" />
+          </AutocompleteControlActions>
+        </AutocompleteInputGroup>
+      </AutocompleteField>
+
+      <AutocompleteContent>
+        <AutocompleteEmpty>No shortcuts found.</AutocompleteEmpty>
+        <ShortcutGrid />
       </AutocompleteContent>
     </Autocomplete>
   );

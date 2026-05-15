@@ -17,6 +17,13 @@ type MenuContentClassNames = {
   viewport?: MenuPrimitive.Viewport.Props['className'];
 };
 
+type MenuContentSlotProps = {
+  portal?: Omit<MenuPrimitive.Portal.Props, 'className' | 'children'>;
+  backdrop?: Omit<MenuPrimitive.Backdrop.Props, 'className'>;
+  positioner?: Omit<MenuPrimitive.Positioner.Props, 'className' | 'children'>;
+  viewport?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
+};
+
 type MenuContentProps = MenuPrimitive.Popup.Props &
   Pick<
     MenuPrimitive.Positioner.Props,
@@ -34,13 +41,10 @@ type MenuContentProps = MenuPrimitive.Popup.Props &
     | 'disableAnchorTracking'
   > & {
     classNames?: MenuContentClassNames;
+    slotProps?: MenuContentSlotProps;
     container?: MenuPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
     withViewport?: boolean;
-    portalProps?: Omit<MenuPrimitive.Portal.Props, 'className' | 'children'>;
-    backdropProps?: Omit<MenuPrimitive.Backdrop.Props, 'className'>;
-    positionerProps?: Omit<MenuPrimitive.Positioner.Props, 'className' | 'children'>;
-    viewportProps?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
   };
 
 type IndicatorPosition = 'start' | 'end';
@@ -135,14 +139,11 @@ function MenuViewport({ className, ...props }: MenuPrimitive.Viewport.Props) {
 function MenuContent({
   className,
   classNames,
+  slotProps,
   children,
   container,
   withBackdrop = false,
   withViewport = false,
-  portalProps,
-  backdropProps,
-  positionerProps,
-  viewportProps,
   side,
   sideOffset,
   align,
@@ -157,51 +158,52 @@ function MenuContent({
   disableAnchorTracking,
   ...props
 }: MenuContentProps) {
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const {
-    side: positionerPropsSide,
-    sideOffset: positionerPropsSideOffset,
-    align: positionerPropsAlign,
-    alignOffset: positionerPropsAlignOffset,
-    arrowPadding: positionerPropsArrowPadding,
-    anchor: positionerPropsAnchor,
-    collisionAvoidance: positionerPropsCollisionAvoidance,
-    collisionBoundary: positionerPropsCollisionBoundary,
-    collisionPadding: positionerPropsCollisionPadding,
-    sticky: positionerPropsSticky,
-    positionMethod: positionerPropsPositionMethod,
-    disableAnchorTracking: positionerPropsDisableAnchorTracking,
-    ...restPositionerProps
-  } = positionerProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
+  const positionerSlotProps = slotProps?.positioner;
+  const resolvedSide = side ?? positionerSlotProps?.side;
+  const resolvedSideOffset = sideOffset ?? positionerSlotProps?.sideOffset ?? 8;
+  const resolvedAlign = align ?? positionerSlotProps?.align;
+  const resolvedAlignOffset = alignOffset ?? positionerSlotProps?.alignOffset;
+  const resolvedArrowPadding = arrowPadding ?? positionerSlotProps?.arrowPadding;
+  const resolvedAnchor = anchor ?? positionerSlotProps?.anchor;
+  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerSlotProps?.collisionAvoidance;
+  const resolvedCollisionBoundary = collisionBoundary ?? positionerSlotProps?.collisionBoundary;
+  const resolvedCollisionPadding = collisionPadding ?? positionerSlotProps?.collisionPadding;
+  const resolvedSticky = sticky ?? positionerSlotProps?.sticky;
+  const resolvedPositionMethod = positionMethod ?? positionerSlotProps?.positionMethod;
+  const resolvedDisableAnchorTracking =
+    disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking;
+  const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
+  const portalContainer = container ?? slotPropsContainer;
   const { arrowChildren, viewportChildren } = withViewport
     ? splitArrowChildren(children)
     : { arrowChildren: null, viewportChildren: children };
 
   return (
-    <MenuPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
-      {withBackdrop ? <MenuBackdrop className={classNames?.backdrop} {...backdropProps} /> : null}
+    <MenuPortal className={classNames?.portal} container={portalContainer} {...portalSlotProps}>
+      {withBackdrop ? (
+        <MenuBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
+      ) : null}
       <MenuPositioner
-        side={side ?? positionerPropsSide}
-        sideOffset={sideOffset ?? positionerPropsSideOffset ?? 8}
-        align={align ?? positionerPropsAlign}
-        alignOffset={alignOffset ?? positionerPropsAlignOffset}
-        arrowPadding={arrowPadding ?? positionerPropsArrowPadding}
-        anchor={anchor ?? positionerPropsAnchor}
-        collisionAvoidance={collisionAvoidance ?? positionerPropsCollisionAvoidance}
-        collisionBoundary={collisionBoundary ?? positionerPropsCollisionBoundary}
-        collisionPadding={collisionPadding ?? positionerPropsCollisionPadding}
-        sticky={sticky ?? positionerPropsSticky}
-        positionMethod={positionMethod ?? positionerPropsPositionMethod}
-        disableAnchorTracking={disableAnchorTracking ?? positionerPropsDisableAnchorTracking}
+        {...positionerSlotProps}
+        side={resolvedSide}
+        sideOffset={resolvedSideOffset}
+        align={resolvedAlign}
+        alignOffset={resolvedAlignOffset}
+        arrowPadding={resolvedArrowPadding}
+        anchor={resolvedAnchor}
+        collisionAvoidance={resolvedCollisionAvoidance}
+        collisionBoundary={resolvedCollisionBoundary}
+        collisionPadding={resolvedCollisionPadding}
+        sticky={resolvedSticky}
+        positionMethod={resolvedPositionMethod}
+        disableAnchorTracking={resolvedDisableAnchorTracking}
         className={classNames?.positioner}
-        {...restPositionerProps}
       >
         <MenuPopup className={className} {...props}>
           {withViewport ? (
             <React.Fragment>
               {arrowChildren}
-              <MenuViewport className={classNames?.viewport} {...viewportProps}>
+              <MenuViewport className={classNames?.viewport} {...slotProps?.viewport}>
                 {viewportChildren}
               </MenuViewport>
             </React.Fragment>
@@ -481,6 +483,7 @@ export type {
   MenuHandle,
   MenuContentProps,
   MenuContentClassNames,
+  MenuContentSlotProps,
   MenuTriggerProps,
   MenuItemProps,
   MenuLinkItemProps,

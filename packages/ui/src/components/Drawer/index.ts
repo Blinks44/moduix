@@ -18,7 +18,7 @@ export {
 
 export type {
   DrawerProps,
-  DrawerHandleType,
+  DrawerHandle,
   DrawerTriggerProps,
   DrawerSwipeAreaProps,
   DrawerTitleProps,
@@ -29,6 +29,7 @@ export type {
   DrawerFooterProps,
   DrawerContentProps,
   DrawerContentClassNames,
+  DrawerContentSlotProps,
   DrawerSnapToggleProps,
   DrawerSnapPoint,
 } from './Drawer';

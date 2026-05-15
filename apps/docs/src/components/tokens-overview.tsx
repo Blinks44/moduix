@@ -181,13 +181,39 @@ export function TokensOverview() {
       <section className={styles.heroGrid}>
         <div className={styles.heroPanel}>
           <div className={styles.heroHeader}>
-            <span>System Map</span>
+            <span>Token architecture</span>
             <code>:root</code>
           </div>
           <div className={styles.systemMap} aria-hidden="true">
-            <span>raw values</span>
-            <strong>semantic tokens</strong>
-            <span>component variables</span>
+            <div className={styles.mapNode}>
+              <span>01</span>
+              <strong>Raw values</strong>
+              <code>--primary</code>
+            </div>
+            <div className={styles.mapNode} data-active="true">
+              <span>02</span>
+              <strong>Semantic aliases</strong>
+              <code>--color-primary</code>
+            </div>
+            <div className={styles.mapNode}>
+              <span>03</span>
+              <strong>Component variables</strong>
+              <code>--button-default-bg</code>
+            </div>
+          </div>
+          <div className={styles.heroStats} aria-label="Token groups summary">
+            <span>
+              <strong>{colorTokens.length}</strong>
+              color pairs
+            </span>
+            <span>
+              <strong>{spacingTokens.length + semanticSpacingTokens.length}</strong>
+              spacing steps
+            </span>
+            <span>
+              <strong>{sharedBackdropTokens.length + sharedPopupTokens.length}</strong>
+              shared overrides
+            </span>
           </div>
         </div>
         <div className={styles.stackPanel}>
@@ -210,26 +236,53 @@ export function TokensOverview() {
       </section>
 
       <Section title="Colors" note="Light and dark theme values plus semantic aliases.">
+        <div className={styles.themePreviewGrid}>
+          <ThemePreview theme="light" />
+          <ThemePreview theme="dark" />
+        </div>
+        <div className={styles.colorLegend} aria-hidden="true">
+          <span>
+            <i className={styles.legendLight} /> Light
+          </span>
+          <span>
+            <i className={styles.legendDark} /> Dark
+          </span>
+        </div>
         <div className={styles.colorGrid}>
           {colorTokens.map(([name, label, light, dark]) => (
             <ColorCard key={name} name={name} label={label} light={light} dark={dark} />
           ))}
         </div>
         <div className={styles.chartStrip}>
-          {chartTokens.map(([name, light, dark]) => (
-            <div className={styles.chartToken} key={name}>
-              <span className={styles.chartLight} />
-              <span className={styles.chartDark} />
-              <code>{name}</code>
-              <small>{light}</small>
-              <small>{dark}</small>
-            </div>
-          ))}
+          {chartTokens.map(([name, light, dark]) => {
+            const label = name.replace('--chart-', 'Chart ');
+
+            return (
+              <article className={styles.chartToken} key={name}>
+                <div className={styles.tokenMeta}>
+                  <strong>{label}</strong>
+                  <code>{name}</code>
+                </div>
+                <div className={styles.swatches}>
+                  <div className={styles.swatchBlock}>
+                    <span className={styles.chartLight} />
+                    <small>Light</small>
+                    <code>{light}</code>
+                  </div>
+                  <div className={styles.swatchBlock}>
+                    <span className={styles.chartDark} />
+                    <small>Dark</small>
+                    <code>{dark}</code>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </Section>
 
       <Section
-        title="Spacing And Size"
+        title="Spacing & Size"
         note="Primitive steps, semantic spacing, and control heights."
       >
         <div className={styles.measureGrid}>
@@ -240,7 +293,7 @@ export function TokensOverview() {
       </Section>
 
       <Section
-        title="Shape And Borders"
+        title="Shape & Borders"
         note="Radius derives from one root value; borders stay simple."
       >
         <div className={styles.measureGrid}>
@@ -294,7 +347,7 @@ export function TokensOverview() {
       </Section>
 
       <Section
-        title="Elevation And Layers"
+        title="Elevation & Layers"
         note="Shadows, transforms, and z-index tokens for overlays."
       >
         <div className={styles.layerGrid}>
@@ -328,6 +381,30 @@ export function TokensOverview() {
         <TokenList title="Popup menu variables" tokens={sharedPopupTokens} />
       </Section>
     </div>
+  );
+}
+
+function ThemePreview({ theme }: { theme: 'light' | 'dark' }) {
+  const title = theme === 'light' ? 'Light theme' : 'Dark theme';
+
+  return (
+    <article className={styles.themeCard} data-theme={theme}>
+      <div className={styles.themeTopbar}>
+        <span>{title}</span>
+        <code>{theme === 'light' ? ':root' : '.dark'}</code>
+      </div>
+      <div className={styles.themeCanvas}>
+        <div className={styles.themeSurface}>
+          <span className={styles.themeEyebrow}>Preview</span>
+          <strong>Dialog surface</strong>
+          <p>Text, muted copy, border, action, and backdrop tokens in one compact layout.</p>
+          <div className={styles.themeControls}>
+            <span>Cancel</span>
+            <strong>Apply</strong>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -366,16 +443,22 @@ function ColorCard({
 }) {
   return (
     <article className={styles.colorCard}>
-      <div className={styles.swatches}>
-        <span />
-        <span />
-      </div>
       <div className={styles.tokenMeta}>
         <strong>{label}</strong>
         <code>{name}</code>
       </div>
-      <small>{light}</small>
-      <small>{dark}</small>
+      <div className={styles.swatches}>
+        <div className={styles.swatchBlock}>
+          <span />
+          <small>Light</small>
+          <code>{light}</code>
+        </div>
+        <div className={styles.swatchBlock}>
+          <span />
+          <small>Dark</small>
+          <code>{dark}</code>
+        </div>
+      </div>
     </article>
   );
 }

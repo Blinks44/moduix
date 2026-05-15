@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { SeparatorMarkIcon } from '@/primitives/Icons';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../Field';
-import { OTPField, OTPFieldInput, OTPFieldSeparator } from './OTPField';
+import { OTPField } from './OTPField';
 import storyStyles from './OTPField.stories.module.css';
 
 const OTP_LENGTH = 6;
@@ -22,19 +22,6 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
-function renderGroupedOTPInputs(length: number) {
-  return Array.from({ length }, (_, index) => (
-    <React.Fragment key={index}>
-      <OTPFieldInput aria-label={index === 0 ? undefined : `Character ${index + 1} of ${length}`} />
-      {index === 2 ? (
-        <OTPFieldSeparator>
-          <SeparatorMarkIcon />
-        </OTPFieldSeparator>
-      ) : null}
-    </React.Fragment>
-  ));
-}
 
 export const Basic: Story = {
   render: () => {
@@ -82,9 +69,27 @@ export const GroupedLayout: Story = {
     return (
       <Field>
         <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-        <OTPField id={id} length={OTP_LENGTH}>
-          {renderGroupedOTPInputs(OTP_LENGTH)}
-        </OTPField>
+        <OTPField id={id} length={OTP_LENGTH} groupSize={3} />
+      </Field>
+    );
+  },
+};
+
+export const CustomSeparator: Story = {
+  render: () => {
+    const id = React.useId();
+
+    return (
+      <Field>
+        <FieldLabel htmlFor={id}>Styled code</FieldLabel>
+        <OTPField
+          id={id}
+          length={OTP_LENGTH}
+          groupSize={3}
+          inputProps={{ className: storyStyles.customInput }}
+          separator={<SeparatorMarkIcon />}
+          className={storyStyles.customRoot}
+        />
       </Field>
     );
   },

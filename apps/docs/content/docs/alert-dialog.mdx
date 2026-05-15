@@ -6,6 +6,7 @@ icon: Component
 
 import {
   AlertDialogExample,
+  AlertDialogHandleExample,
   ControlledAlertDialogExample,
   CustomCloseIconAlertDialogExample,
   CustomStylesAlertDialogExample,
@@ -61,15 +62,75 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`AlertDialog` is built around a root state container and a content surface that renders the
+portal, backdrop, and viewport for you. Keep title, description, and actions inside
+`AlertDialogContent` so focus management and accessibility labeling stay connected.
+
+```text
+AlertDialog
+├─ AlertDialogTrigger
+└─ AlertDialogContent
+   ├─ AlertDialogHeader
+   │  ├─ AlertDialogTitle
+   │  ├─ AlertDialogCloseIcon (optional)
+   │  └─ AlertDialogDescription
+   ├─ AlertDialogBody (optional)
+   └─ AlertDialogFooter
+      ├─ AlertDialogCancel
+      └─ AlertDialogAction
+```
+
+```tsx
+<AlertDialog>
+  <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Discard draft?</AlertDialogTitle>
+      <AlertDialogCloseIcon />
+      <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+      <AlertDialogAction render={<Button />}>Discard</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+| Part                     | Role                                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------------------- |
+| `AlertDialog`            | Root state machine. Manages open state, controlled/uncontrolled behavior, and close interactions. |
+| `AlertDialogTrigger`     | Opens the confirmation dialog. Usually rendered as a button via `render`.                         |
+| `AlertDialogContent`     | Main dialog surface. Also renders portal/backdrop/viewport and exposes escape hatches via props.  |
+| `AlertDialogHeader`      | Groups heading content for the top area of the popup.                                             |
+| `AlertDialogTitle`       | Required accessible title for the dialog.                                                         |
+| `AlertDialogDescription` | Optional supporting text that explains the consequence of the action.                             |
+| `AlertDialogCloseIcon`   | Optional dismiss button in the header; accepts custom icon children.                              |
+| `AlertDialogBody`        | Optional scrollable/content area between header and footer for longer details.                    |
+| `AlertDialogFooter`      | Layout container for decision actions.                                                            |
+| `AlertDialogCancel`      | Secondary action that closes without confirming.                                                  |
+| `AlertDialogAction`      | Primary confirmation action; closes after activation unless custom logic keeps it open.           |
+| `portal` slot            | Mount layer outside normal layout flow. Useful for stacking and isolating dialog rendering roots. |
+| `backdrop` slot          | Overlay behind the popup. Dim background content and communicate modal focus.                     |
+| `viewport` slot          | Alignment container around the popup. Controls placement and outer spacing behavior.              |
+
+Use default slot styling in most cases. Customize `portal` when integrating with a specific
+mount container or layered app shell, `backdrop` for brand-specific overlay tone/interaction,
+and `viewport` when placement rules differ (for example top-aligned or edge-biased dialogs).
+
 ## Composition
 
 Use `AlertDialog` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, and `handle`. `AlertDialogContent` renders the portal, backdrop, viewport,
-and popup automatically.
+`onOpenChange`, `triggerId`, `defaultTriggerId`, `actionsRef`, and `handle`. Triggers support
+Base UI `handle`, `payload`, `id`, `nativeButton`, `render`, state-based `className`, and
+state-based `style` props.
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
-`viewportProps`, and `withBackdrop={false}` when you need the matching Base UI escape hatches:
+hidden from the default composition. `AlertDialogContent` accepts the popup props from Base UI,
+including `initialFocus`, `finalFocus`, `render`, state-based `className`, and state-based `style`.
+Use `container`, `slotProps`, and `withBackdrop={false}` when you need service-slot escape hatches:
 
 ```tsx
 <AlertDialogContent
@@ -79,8 +140,18 @@ hidden from the default composition. Use `container`, `portalProps`, `backdropPr
     backdrop: styles.backdrop,
     viewport: styles.viewport,
   }}
+  slotProps={{
+    portal: { keepMounted: true },
+    backdrop: { forceRender: true },
+    viewport: { render: <div /> },
+  }}
 />
 ```
+
+The service slots still expose the Base UI data attributes on their rendered elements: backdrop,
+viewport, and popup receive open/closed and transition attributes; viewport and popup also receive
+nested-dialog attributes. The popup also provides Base UI's `--nested-dialogs` variable for nested
+dialog styling.
 
 ## Examples
 
@@ -128,6 +199,66 @@ Control the open state from React when the dialog needs to coordinate with other
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Handle
+
+Use `createAlertDialogHandle` when a confirmation is opened from detached triggers or from
+imperative event handlers. Pass `payload` to detached triggers when the dialog copy depends on the
+source action.
+
+<Preview>
+  <AlertDialogHandleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        createAlertDialogHandle,
+        AlertDialogTrigger,
+        Button,
+        AlertDialog,
+        AlertDialogContent,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        AlertDialogDescription,
+        AlertDialogFooter,
+        AlertDialogCancel,
+        AlertDialogAction,
+      } from "moduix";
+      import { useMemo, Fragment } from "react";
+
+      export function AlertDialogHandleDemo() {
+        const alertDialogHandle = useMemo(() => createAlertDialogHandle(), []);
+
+        return (
+          <Fragment>
+            <AlertDialogTrigger handle={alertDialogHandle} render={<Button variant="outline" />}>
+              Open from detached trigger
+            </AlertDialogTrigger>
+            <Button type="button" onClick={() => alertDialogHandle.open(null)}>
+              Open programmatically
+            </Button>
+
+            <AlertDialog handle={alertDialogHandle}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete workspace?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This alert dialog is connected via createAlertDialogHandle().
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+                  <AlertDialogAction render={<Button />}>Delete</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </Fragment>
         );
       }
     `}

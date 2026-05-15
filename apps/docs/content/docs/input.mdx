@@ -50,11 +50,24 @@ import {
   </Preview.CSS>
 </Preview>
 
+## Anatomy
+
+`Input` is composed as a single native input root. It is commonly composed inside `Field` for labels,
+descriptions, and validation messaging.
+
+```text
+Field (optional wrapper)
+└─ Input
+```
+
+| Part    | Role                                                                     |
+| ------- | ------------------------------------------------------------------------ |
+| `Input` | Native input element with Base UI state integration and style variables. |
+
 ## Composition
 
-`Input` is a single-part component built on Base UI `Input`. It forwards Base UI props such as
-`value`, `defaultValue`, `onValueChange`, `render`, function `className`, function `style`, and the
-Field state data attributes.
+Use `Input` props such as `value`, `defaultValue`, `onValueChange`, `render`, function `className`,
+function `style`, and Field state data attributes from Base UI.
 
 Use `size` for the visual component size. Use `htmlSize` for the native HTML `size` attribute:
 
@@ -64,6 +77,12 @@ Use `size` for the visual component size. Use `htmlSize` for the native HTML `si
 
 `Input` does not render hidden service slots such as `Positioner`, `Backdrop`, or `Viewport`, so it
 does not need a `classNames` API. Style the input element directly with `className`.
+
+The package exports Base UI event and state types for controlled inputs and styling callbacks:
+
+```tsx
+import { type InputChangeEventDetails, type InputChangeEventReason, type InputState } from 'moduix';
+```
 
 ## Examples
 

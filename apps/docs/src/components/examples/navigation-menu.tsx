@@ -4,7 +4,6 @@ import {
   ChevronRightIcon,
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIcon,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
@@ -21,11 +20,20 @@ export const navigationMenuCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-padding', 'var(--spacing-1)', 'Controls root padding.'],
   ['--navigation-menu-radius', 'var(--radius-lg)', 'Controls root border radius.'],
   ['--navigation-menu-list-gap', '0', 'Controls spacing between top-level items.'],
+  ['--navigation-menu-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  ['--navigation-menu-transition', 'var(--transition-default)', 'Controls trigger transitions.'],
   ['--navigation-menu-trigger-height', 'var(--size-md)', 'Controls trigger minimum height.'],
   ['--navigation-menu-trigger-padding-x', '0.75rem', 'Controls trigger horizontal padding.'],
   ['--navigation-menu-trigger-radius', 'var(--radius-md)', 'Controls trigger border radius.'],
   ['--navigation-menu-trigger-gap', '0.375rem', 'Controls trigger content gap.'],
   ['--navigation-menu-trigger-bg', 'transparent', 'Controls trigger background.'],
+  ['--navigation-menu-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
+  ['--navigation-menu-trigger-font-size', 'var(--text-sm)', 'Controls trigger font size.'],
+  [
+    '--navigation-menu-trigger-line-height',
+    'var(--line-height-text-sm)',
+    'Controls trigger line height.',
+  ],
   [
     '--navigation-menu-trigger-bg-hover',
     'var(--color-accent)',
@@ -36,8 +44,59 @@ export const navigationMenuCssProperties: CssPropertyInput[] = [
     'var(--color-muted)',
     'Controls trigger background when active or open.',
   ],
+  [
+    '--navigation-menu-submenu-trigger-bg',
+    'transparent',
+    'Controls nested submenu trigger background.',
+  ],
+  [
+    '--navigation-menu-submenu-trigger-bg-active',
+    'var(--navigation-menu-popup-bg, var(--color-background))',
+    'Controls nested submenu trigger active background.',
+  ],
+  [
+    '--navigation-menu-submenu-trigger-min-width',
+    '9rem',
+    'Controls nested submenu trigger minimum width.',
+  ],
+  [
+    '--navigation-menu-submenu-trigger-padding-x',
+    '0.75rem',
+    'Controls nested submenu trigger horizontal padding.',
+  ],
+  [
+    '--navigation-menu-submenu-trigger-padding-y',
+    '0.5rem',
+    'Controls nested submenu trigger vertical padding.',
+  ],
+  [
+    '--navigation-menu-submenu-trigger-radius',
+    'var(--radius-lg)',
+    'Controls nested submenu trigger border radius.',
+  ],
+  [
+    '--navigation-menu-submenu-trigger-shadow-active',
+    '0 1px 2px rgb(0 0 0 / 0.08), 0 1px 1px rgb(0 0 0 / 0.04)',
+    'Controls nested submenu trigger active shadow.',
+  ],
   ['--navigation-menu-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
   ['--navigation-menu-icon-size', '0.875rem', 'Controls trigger icon size.'],
+  ['--navigation-menu-icon-color', 'currentColor', 'Controls trigger icon color.'],
+  [
+    '--navigation-menu-icon-transition',
+    'var(--navigation-menu-transition, 200ms ease)',
+    'Controls trigger icon rotation transition.',
+  ],
+  [
+    '--navigation-menu-positioner-max-width',
+    'calc(100vw - var(--spacing-8))',
+    'Controls popup positioner maximum width.',
+  ],
+  [
+    '--navigation-menu-positioner-gap',
+    '0.625rem',
+    'Controls hover bridge spacing between trigger and popup.',
+  ],
   ['--navigation-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
   [
     '--navigation-menu-popup-color',
@@ -51,11 +110,49 @@ export const navigationMenuCssProperties: CssPropertyInput[] = [
   ],
   ['--navigation-menu-popup-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
   ['--navigation-menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--navigation-menu-popup-scale', 'var(--scale-popup)', 'Controls popup enter/exit scale.'],
+  [
+    '--navigation-menu-popup-transition-duration',
+    'var(--duration-slow)',
+    'Controls popup transition duration.',
+  ],
+  [
+    '--navigation-menu-popup-transition-easing',
+    'cubic-bezier(0.22, 1, 0.36, 1)',
+    'Controls popup transition easing.',
+  ],
+  [
+    '--navigation-menu-popup-leave-duration',
+    '150ms',
+    'Controls popup closing transition duration.',
+  ],
+  [
+    '--navigation-menu-content-width-mobile',
+    'calc(100vw - var(--spacing-8))',
+    'Controls mobile content width.',
+  ],
   ['--navigation-menu-content-padding', 'var(--spacing-4)', 'Controls content padding.'],
   ['--navigation-menu-content-min-width', '20rem', 'Controls desktop content minimum width.'],
   ['--navigation-menu-content-slide-distance', '50%', 'Controls content slide animation distance.'],
+  [
+    '--navigation-menu-content-opacity-duration',
+    'calc(var(--duration-slow) * 0.7)',
+    'Controls content fade duration.',
+  ],
+  ['--navigation-menu-arrow-offset', '0.5rem', 'Controls arrow block-axis offset.'],
+  ['--navigation-menu-arrow-inline-offset', '0.8125rem', 'Controls arrow inline-axis offset.'],
   ['--navigation-menu-arrow-width', '1.25rem', 'Controls popup arrow width.'],
   ['--navigation-menu-arrow-height', '0.625rem', 'Controls popup arrow height.'],
+  [
+    '--navigation-menu-arrow-stroke-color',
+    'var(--navigation-menu-popup-border-color)',
+    'Controls popup arrow stroke color.',
+  ],
+  [
+    '--navigation-menu-arrow-transition-duration',
+    'var(--duration-slow)',
+    'Controls popup arrow movement duration.',
+  ],
   ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
   ['--navigation-menu-backdrop-blur', '0', 'Controls backdrop blur when backdrop is enabled.'],
 ];
@@ -65,10 +162,7 @@ export function NavigationMenuExample() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            Product
-            <NavigationMenuIcon />
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger>Product</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className={styles.contentGrid}>
               {productLinks.map((link) => (
@@ -84,10 +178,7 @@ export function NavigationMenuExample() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            Guides
-            <NavigationMenuIcon />
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger>Guides</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className={styles.contentList}>
               {guideLinks.slice(0, 2).map((link) => (
@@ -117,10 +208,7 @@ export function NestedNavigationMenuExample() {
     <NavigationMenu popupContent={{ collisionAvoidance: { side: 'none' } }}>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            Overview
-            <NavigationMenuIcon />
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className={styles.contentList}>
               <li>
@@ -143,12 +231,13 @@ export function NestedNavigationMenuExample() {
                 >
                   <NavigationMenuList className={styles.fullWidth}>
                     <NavigationMenuItem className={styles.fullWidth}>
-                      <NavigationMenuTrigger className={styles.nestedTrigger}>
+                      <NavigationMenuTrigger
+                        className={styles.nestedTrigger}
+                        icon={<ChevronRightIcon />}
+                        classNames={{ icon: styles.nestedIcon }}
+                      >
                         <span className={styles.title}>Handbook</span>
                         <span className={styles.description}>Styling and composition guides.</span>
-                        <NavigationMenuIcon className={styles.nestedIcon}>
-                          <ChevronRightIcon />
-                        </NavigationMenuIcon>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className={styles.contentList}>
@@ -195,10 +284,7 @@ export function CustomStylesNavigationMenuExample() {
     >
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            Resources
-            <NavigationMenuIcon />
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className={styles.contentList}>
               {guideLinks.map((link) => (
@@ -224,22 +310,19 @@ export function NestedInlineNavigationMenuExample() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            Product
-            <NavigationMenuIcon />
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger>Product</NavigationMenuTrigger>
           <NavigationMenuContent className={styles.inlineProductContent}>
             <NavigationMenu
               className={styles.inlineNestedRoot}
               orientation={isDesktop ? 'vertical' : 'horizontal'}
               defaultValue="developers"
               popupContent={false}
-              viewport
+              withViewport
               classNames={{ viewport: styles.inlineViewport }}
             >
               <NavigationMenuList className={styles.inlineList}>
                 <NavigationMenuItem value="developers">
-                  <NavigationMenuTrigger className={styles.inlineTrigger}>
+                  <NavigationMenuTrigger className={styles.inlineTrigger} hideIcon>
                     <span className={styles.title}>Developers</span>
                     <span className={styles.description}>API, SDK and integrations</span>
                   </NavigationMenuTrigger>
@@ -253,7 +336,7 @@ export function NestedInlineNavigationMenuExample() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem value="systems">
-                  <NavigationMenuTrigger className={styles.inlineTrigger}>
+                  <NavigationMenuTrigger className={styles.inlineTrigger} hideIcon>
                     <span className={styles.title}>Design Systems</span>
                     <span className={styles.description}>Patterns and governance</span>
                   </NavigationMenuTrigger>
@@ -271,10 +354,7 @@ export function NestedInlineNavigationMenuExample() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            Learn
-            <NavigationMenuIcon />
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger>Learn</NavigationMenuTrigger>
           <NavigationMenuContent className={styles.inlineGuidesContent}>
             <div className={styles.panel}>
               <PanelContent
@@ -295,11 +375,11 @@ export function CustomIconNavigationMenuExample() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
+          <NavigationMenuTrigger
+            icon={<ChevronDownIcon />}
+            classNames={{ icon: styles.customIcon }}
+          >
             Resources
-            <NavigationMenuIcon className={styles.customIcon}>
-              <ChevronDownIcon />
-            </NavigationMenuIcon>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className={styles.contentList}>

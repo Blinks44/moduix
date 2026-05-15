@@ -34,6 +34,8 @@ export type {
   MenubarTriggerProps,
   MenubarArrowProps,
   MenubarContentProps,
+  MenubarContentClassNames,
+  MenubarContentSlotProps,
   MenubarItemProps,
   MenubarLinkItemProps,
   MenubarSeparatorProps,

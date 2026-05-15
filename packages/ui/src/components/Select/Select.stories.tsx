@@ -389,6 +389,9 @@ export const PopupOptions: Story = {
           sideOffset={8}
           showArrow
           withBackdrop
+          slotProps={{
+            positioner: { sticky: true },
+          }}
           classNames={{
             backdrop: styles.backdrop,
             arrow: styles.arrow,

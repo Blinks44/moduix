@@ -16,6 +16,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
+  createAlertDialogHandle,
 } from './AlertDialog';
 import storyStyles from './AlertDialog.stories.module.css';
 
@@ -74,6 +75,42 @@ export const Controlled: Story = {
                 Back to editing
               </AlertDialogCancel>
               <AlertDialogAction render={<Button />}>Publish</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </React.Fragment>
+    );
+  },
+};
+
+export const WithHandle: Story = {
+  render: () => {
+    const alertDialogHandle = React.useMemo(() => createAlertDialogHandle(), []);
+
+    return (
+      <React.Fragment>
+        <AlertDialogTrigger handle={alertDialogHandle} render={<Button />}>
+          Open from detached trigger
+        </AlertDialogTrigger>
+        <Button
+          className={storyStyles.detachedTrigger}
+          type="button"
+          onClick={() => alertDialogHandle.open(null)}
+        >
+          Open programmatically
+        </Button>
+
+        <AlertDialog handle={alertDialogHandle}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete workspace?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This alert dialog is connected via createAlertDialogHandle().
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+              <AlertDialogAction render={<Button />}>Delete</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

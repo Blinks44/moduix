@@ -47,6 +47,55 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Progress` groups the text label, formatted value, and visual bar for one long-running task.
+The bar structure is rendered automatically so consumers only compose the visible text slots.
+
+```text
+Progress[value]
+├─ ProgressLabel
+├─ ProgressValue
+└─ track
+   └─ indicator
+```
+
+```tsx
+import { Progress, ProgressLabel, ProgressValue } from 'moduix';
+
+export function ProgressDemo() {
+  return (
+    <Progress value={24}>
+      <ProgressLabel>Export data</ProgressLabel>
+      <ProgressValue />
+    </Progress>
+  );
+}
+```
+
+| Part            | Role                                                                                                      |
+| --------------- | --------------------------------------------------------------------------------------------------------- |
+| `Progress`      | Root state machine. Controls `value`, `min`, `max`, formatting, and accessible progress attributes.       |
+| `ProgressLabel` | Optional text label associated with the progress root.                                                    |
+| `ProgressValue` | Optional formatted value text. It can render the default formatted value or use a child render function.  |
+| `track`         | Internal visual rail rendered by `Progress`. Customize it with CSS variables or `classNames.track`.       |
+| `indicator`     | Internal filled bar rendered inside the track. Customize it with CSS variables or `classNames.indicator`. |
+
+`Progress` does not expose `ProgressTrack` or `ProgressIndicator` in the public composition.
+Use the default internal bar for normal cases and reach for `classNames` only when slot-level
+track or indicator styling is needed.
+
+## Composition
+
+Use `value={null}` for indeterminate work, or pass a number with optional `min` and `max` for
+known progress. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` come from the root
+and keep the visual value and accessibility text aligned.
+
+Style the root with `className`. Style the automatically rendered visual bar with CSS variables,
+or pass `classNames={{ track, indicator }}` when the track or indicator needs its own selector.
+`ProgressLabel` and `ProgressValue` remain regular visible slots and accept their own `className`
+and `render` props from Base UI.
+
 ## Examples
 
 ### Controlled
@@ -248,6 +297,7 @@ Use `getAriaValueText` with custom rendered value text when visual and accessibl
         ProgressLabel,
         ProgressValue,
       } from "moduix";
+      import styles from "./progress-demo.module.css";
 
       export function CustomStylingProgressDemo() {
         return (

@@ -28,4 +28,16 @@
       color: transparent;
     }
   }
+
+  .customRoot {
+    --otp-field-separator-size: 1.5rem;
+    --otp-field-separator-color: var(--color-primary);
+  }
+
+  .customInput {
+    --otp-field-input-width: 3rem;
+    --otp-field-input-height: 3rem;
+    --otp-field-font-size: var(--text-xl);
+    --otp-field-bg-filled: var(--color-muted);
+  }
 }

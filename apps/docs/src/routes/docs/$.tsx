@@ -8,14 +8,15 @@ import {
   DocsDescription,
   DocsPage,
   DocsTitle,
+  EditOnGitHub,
   MarkdownCopyButton,
-  ViewOptionsPopover,
 } from 'fumadocs-ui/layouts/docs/page';
+import { ExternalLinkIcon } from 'lucide-react';
 import { Suspense } from 'react';
 import { useMDXComponents } from '@/components/mdx';
 import { baseOptions } from '@/lib/layout.shared';
 import { gitConfig } from '@/lib/shared';
-import { getPageMarkdownUrl, source } from '@/lib/source';
+import { slugsToMarkdownPath, source } from '@/lib/source';
 
 export const Route = createFileRoute('/docs/$')({
   component: Page,
@@ -37,7 +38,7 @@ const serverLoader = createServerFn({
 
     return {
       path: page.path,
-      markdownUrl: getPageMarkdownUrl(page).url,
+      markdownUrl: slugsToMarkdownPath(page.slugs).url,
       pageTree: await source.serializePageTree(source.getPageTree()),
     };
   });
@@ -54,17 +55,33 @@ const clientLoader = browserCollections.docs.createClientLoader({
       path: string;
     },
   ) {
+    const componentDir = path
+      .replace(/\.[^/.]+$/, '')
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join('');
+
+    console.log(componentDir);
+    const githubUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/tree/main/packages/ui/src/components/${componentDir}`;
+
     return (
       <DocsPage toc={toc}>
         <DocsTitle>{frontmatter.title}</DocsTitle>
+
         <DocsDescription>{frontmatter.description}</DocsDescription>
+
         <div className="flex flex-row gap-2 items-center border-b -mt-4 pb-6">
           <MarkdownCopyButton markdownUrl={markdownUrl} />
-          <ViewOptionsPopover
-            markdownUrl={markdownUrl}
-            githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${path}`}
-          />
+          <EditOnGitHub href={markdownUrl}>
+            <ExternalLinkIcon className="size-3.5" />
+            Open Markdown
+          </EditOnGitHub>
+          <EditOnGitHub href={githubUrl}>
+            <ExternalLinkIcon className="size-3.5" />
+            Open in Github
+          </EditOnGitHub>
         </div>
+
         <DocsBody>
           <MDX components={useMDXComponents()} />
         </DocsBody>

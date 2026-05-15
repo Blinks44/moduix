@@ -12,5 +12,6 @@ export type {
   TooltipHandle,
   TooltipTriggerProps,
   TooltipContentClassNames,
+  TooltipContentSlotProps,
   TooltipContentProps,
 } from './Tooltip';

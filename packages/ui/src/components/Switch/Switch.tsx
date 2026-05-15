@@ -6,11 +6,17 @@ import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-type SwitchProps = SwitchPrimitive.Root.Props & {
-  size?: SwitchSize;
+type SwitchClassNames = {
+  thumb?: SwitchPrimitive.Thumb.Props['className'];
 };
 
-function Switch({ className, size = 'md', children, ...props }: SwitchProps) {
+type SwitchProps = Omit<SwitchPrimitive.Root.Props, 'children'> & {
+  size?: SwitchSize;
+  thumb?: React.ReactNode;
+  classNames?: SwitchClassNames;
+};
+
+function Switch({ className, size = 'md', thumb, classNames, ...props }: SwitchProps) {
   return (
     <SwitchPrimitive.Root
       data-slot="switch-root"
@@ -18,7 +24,7 @@ function Switch({ className, size = 'md', children, ...props }: SwitchProps) {
       className={mergeClassName(className, styles.root)}
       {...props}
     >
-      {children ?? <SwitchThumb />}
+      <SwitchThumb className={classNames?.thumb}>{thumb}</SwitchThumb>
     </SwitchPrimitive.Root>
   );
 }
@@ -41,10 +47,9 @@ function SwitchLabel({ className, ...props }: React.ComponentProps<'span'>) {
   return <span data-slot="switch-label" className={clsx(styles.label, className)} {...props} />;
 }
 
-type SwitchThumbProps = SwitchPrimitive.Thumb.Props;
 type SwitchFieldProps = React.ComponentProps<'label'>;
 type SwitchLabelProps = React.ComponentProps<'span'>;
 
-export { Switch, SwitchThumb, SwitchField, SwitchLabel };
+export { Switch, SwitchField, SwitchLabel };
 
-export type { SwitchSize, SwitchProps, SwitchThumbProps, SwitchFieldProps, SwitchLabelProps };
+export type { SwitchSize, SwitchClassNames, SwitchProps, SwitchFieldProps, SwitchLabelProps };

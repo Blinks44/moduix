@@ -11,14 +11,18 @@ type AlertDialogContentClassNames = {
   viewport?: AlertDialogPrimitive.Viewport.Props['className'];
 };
 
+type AlertDialogContentSlotProps = {
+  portal?: Omit<AlertDialogPrimitive.Portal.Props, 'className' | 'children'>;
+  backdrop?: Omit<AlertDialogPrimitive.Backdrop.Props, 'className'>;
+  viewport?: Omit<AlertDialogPrimitive.Viewport.Props, 'className'>;
+};
+
 type AlertDialogContentProps = Omit<AlertDialogPrimitive.Popup.Props, 'className'> & {
   className?: AlertDialogPrimitive.Popup.Props['className'];
   classNames?: AlertDialogContentClassNames;
+  slotProps?: AlertDialogContentSlotProps;
   container?: AlertDialogPrimitive.Portal.Props['container'];
   withBackdrop?: boolean;
-  portalProps?: Omit<AlertDialogPrimitive.Portal.Props, 'className' | 'children'>;
-  backdropProps?: Omit<AlertDialogPrimitive.Backdrop.Props, 'className'>;
-  viewportProps?: Omit<AlertDialogPrimitive.Viewport.Props, 'className'>;
 };
 
 const AlertDialog = AlertDialogPrimitive.Root;
@@ -121,26 +125,24 @@ function AlertDialogCloseIcon({ className, children, ...props }: AlertDialogPrim
 function AlertDialogContent({
   className,
   classNames,
+  slotProps,
   container,
   withBackdrop = true,
-  portalProps,
-  backdropProps,
-  viewportProps,
   ...props
 }: AlertDialogContentProps) {
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
+  const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
+  const portalContainer = container ?? slotPortalContainer;
 
   return (
     <AlertDialogPortal
       className={classNames?.portal}
       container={portalContainer}
-      {...restPortalProps}
+      {...restPortalSlotProps}
     >
       {withBackdrop ? (
-        <AlertDialogBackdrop className={classNames?.backdrop} {...backdropProps} />
+        <AlertDialogBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
       ) : null}
-      <AlertDialogViewport className={classNames?.viewport} {...viewportProps}>
+      <AlertDialogViewport className={classNames?.viewport} {...slotProps?.viewport}>
         <AlertDialogPopup className={className} {...props} />
       </AlertDialogViewport>
     </AlertDialogPortal>
@@ -173,6 +175,16 @@ function AlertDialogCancel({ className, ...props }: AlertDialogPrimitive.Close.P
 
 type AlertDialogProps<Payload = unknown> = AlertDialogPrimitive.Root.Props<Payload>;
 type AlertDialogHandle<Payload = unknown> = AlertDialogPrimitive.Handle<Payload>;
+type AlertDialogTriggerProps = AlertDialogPrimitive.Trigger.Props;
+type AlertDialogTitleProps = AlertDialogPrimitive.Title.Props;
+type AlertDialogDescriptionProps = AlertDialogPrimitive.Description.Props;
+type AlertDialogCloseProps = AlertDialogPrimitive.Close.Props;
+type AlertDialogCloseIconProps = AlertDialogPrimitive.Close.Props;
+type AlertDialogHeaderProps = React.ComponentProps<'div'>;
+type AlertDialogBodyProps = React.ComponentProps<'div'>;
+type AlertDialogFooterProps = React.ComponentProps<'div'>;
+type AlertDialogActionProps = AlertDialogPrimitive.Close.Props;
+type AlertDialogCancelProps = AlertDialogPrimitive.Close.Props;
 
 export {
   AlertDialog,
@@ -193,6 +205,17 @@ export {
 export type {
   AlertDialogProps,
   AlertDialogHandle,
+  AlertDialogTriggerProps,
+  AlertDialogTitleProps,
+  AlertDialogDescriptionProps,
+  AlertDialogCloseProps,
+  AlertDialogCloseIconProps,
   AlertDialogContentProps,
   AlertDialogContentClassNames,
+  AlertDialogContentSlotProps,
+  AlertDialogHeaderProps,
+  AlertDialogBodyProps,
+  AlertDialogFooterProps,
+  AlertDialogActionProps,
+  AlertDialogCancelProps,
 };

@@ -46,22 +46,21 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "tsc -b && vite build",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
     "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@base-ui/react": "^1.4.1",
-    "@storybook/react-vite": "^10.3.6",
-    "@types/node": "^25.6.2",
+    "@types/node": "^25.7.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "globals": "^17.6.0",
     "react": "^19",
     "react-dom": "^19",
-    "storybook": "^10.3.6",
     "typescript": "~6.0.3",
     "vite": "^8.0.12",
     "vite-plugin-dts": "^5.0.0",

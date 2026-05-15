@@ -11,6 +11,13 @@ type TooltipContentClassNames = {
   viewport?: TooltipPrimitive.Viewport.Props['className'];
 };
 
+type TooltipContentSlotProps = {
+  portal?: Omit<TooltipPrimitive.Portal.Props, 'className' | 'children'>;
+  positioner?: Omit<TooltipPrimitive.Positioner.Props, 'className' | 'children'>;
+  arrow?: Omit<TooltipPrimitive.Arrow.Props, 'className' | 'children'>;
+  viewport?: Omit<TooltipPrimitive.Viewport.Props, 'className' | 'children'>;
+};
+
 type TooltipContentProps = TooltipPrimitive.Popup.Props &
   Pick<
     TooltipPrimitive.Positioner.Props,
@@ -28,13 +35,10 @@ type TooltipContentProps = TooltipPrimitive.Popup.Props &
     | 'positionMethod'
   > & {
     classNames?: TooltipContentClassNames;
+    slotProps?: TooltipContentSlotProps;
     container?: TooltipPrimitive.Portal.Props['container'];
-    positionerProps?: Omit<TooltipPrimitive.Positioner.Props, 'className' | 'children'>;
-    arrowProps?: Omit<TooltipPrimitive.Arrow.Props, 'className' | 'children'>;
     arrow?: React.ReactNode;
     showArrow?: boolean;
-    portalProps?: Omit<TooltipPrimitive.Portal.Props, 'className' | 'children'>;
-    viewportProps?: Omit<TooltipPrimitive.Viewport.Props, 'className' | 'children'>;
   };
 
 const Tooltip = TooltipPrimitive.Root;
@@ -113,12 +117,10 @@ function TooltipViewport({ className, ...props }: TooltipPrimitive.Viewport.Prop
 function TooltipContent({
   className,
   classNames,
+  slotProps,
   container,
-  arrowProps,
   arrow,
   showArrow = true,
-  portalProps,
-  viewportProps,
   disableAnchorTracking,
   side,
   sideOffset,
@@ -131,29 +133,33 @@ function TooltipContent({
   collisionPadding,
   sticky,
   positionMethod,
-  positionerProps,
   ...props
 }: TooltipContentProps) {
+  const positionerSlotProps = slotProps?.positioner;
   const resolvedDisableAnchorTracking =
-    disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 8;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
+    disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking;
+  const resolvedSide = side ?? positionerSlotProps?.side;
+  const resolvedSideOffset = sideOffset ?? positionerSlotProps?.sideOffset ?? 8;
+  const resolvedAlign = align ?? positionerSlotProps?.align;
+  const resolvedAlignOffset = alignOffset ?? positionerSlotProps?.alignOffset;
+  const resolvedArrowPadding = arrowPadding ?? positionerSlotProps?.arrowPadding;
+  const resolvedAnchor = anchor ?? positionerSlotProps?.anchor;
+  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerSlotProps?.collisionAvoidance;
+  const resolvedCollisionBoundary = collisionBoundary ?? positionerSlotProps?.collisionBoundary;
+  const resolvedCollisionPadding = collisionPadding ?? positionerSlotProps?.collisionPadding;
+  const resolvedSticky = sticky ?? positionerSlotProps?.sticky;
+  const resolvedPositionMethod = positionMethod ?? positionerSlotProps?.positionMethod;
+  const { container: portalSlotContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
+  const portalContainer = container ?? portalSlotContainer;
 
   return (
-    <TooltipPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
+    <TooltipPortal
+      className={classNames?.portal}
+      container={portalContainer}
+      {...restPortalSlotProps}
+    >
       <TooltipPositioner
-        {...positionerProps}
+        {...positionerSlotProps}
         disableAnchorTracking={resolvedDisableAnchorTracking}
         side={resolvedSide}
         sideOffset={resolvedSideOffset}
@@ -170,11 +176,11 @@ function TooltipContent({
       >
         <TooltipPopup className={className} {...props}>
           {showArrow ? (
-            <TooltipArrow className={classNames?.arrow} {...arrowProps}>
+            <TooltipArrow className={classNames?.arrow} {...slotProps?.arrow}>
               {arrow ?? <ArrowSvg className={styles.arrowSvg} />}
             </TooltipArrow>
           ) : null}
-          <TooltipViewport className={classNames?.viewport} {...viewportProps}>
+          <TooltipViewport className={classNames?.viewport} {...slotProps?.viewport}>
             {props.children}
           </TooltipViewport>
         </TooltipPopup>
@@ -207,5 +213,6 @@ export type {
   TooltipHandle,
   TooltipTriggerProps,
   TooltipContentClassNames,
+  TooltipContentSlotProps,
   TooltipContentProps,
 };

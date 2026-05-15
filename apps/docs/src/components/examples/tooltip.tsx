@@ -38,7 +38,7 @@ export const tooltipCssProperties: CssPropertyInput[] = [
   ['--tooltip-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
   [
     '--tooltip-trigger-bg-active',
-    'var(--tooltip-trigger-bg-hover)',
+    'var(--tooltip-trigger-bg-hover, var(--color-accent))',
     'Controls trigger background while the tooltip is open.',
   ],
   ['--tooltip-trigger-border-color', 'var(--color-border)', 'Controls trigger border color.'],
@@ -53,8 +53,8 @@ export const tooltipCssProperties: CssPropertyInput[] = [
   ['--tooltip-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
   ['--tooltip-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
   ['--tooltip-arrow-height', '0.625rem', 'Controls the default arrow SVG height.'],
-  ['--tooltip-arrow-size', '0.5rem', 'Controls the block-axis arrow offset.'],
-  ['--tooltip-arrow-inline-offset', '0.8125rem', 'Controls the inline-axis arrow offset.'],
+  ['--tooltip-arrow-size', '8px', 'Controls the block-axis arrow offset.'],
+  ['--tooltip-arrow-inline-offset', '13px', 'Controls the inline-axis arrow offset.'],
   ['--tooltip-arrow-stroke-color', 'var(--tooltip-border-color)', 'Controls arrow border color.'],
 ];
 

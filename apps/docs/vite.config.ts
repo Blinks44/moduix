@@ -12,7 +12,7 @@ export default defineConfig({
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: 'ssr' } }),
-    mdx(await import('./source.config')),
+    mdx(),
     tailwindcss(),
     tanstackStart({
       prerender: {

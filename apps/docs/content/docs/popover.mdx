@@ -79,17 +79,78 @@ import {
   </Preview.CSS>
 </Preview>
 
+## Anatomy
+
+`Popover` combines a trigger and a floating content layer. Keep `PopoverTrigger` and
+`PopoverContent` under the same `Popover` root unless you intentionally connect them with
+`createPopoverHandle`.
+
+```text
+Popover
+├─ PopoverTrigger
+│  └─ trigger content
+└─ PopoverContent
+   ├─ PopoverHeader (optional)
+   │  ├─ PopoverTitle (optional)
+   │  └─ PopoverDescription (optional)
+   ├─ PopoverBody (optional)
+   ├─ PopoverFooter (optional)
+   │  └─ PopoverClose (optional)
+   └─ arrow (optional)
+
+PopoverContent service slots (optional)
+├─ portal
+├─ backdrop
+├─ positioner
+└─ viewport
+```
+
+```tsx
+<Popover>
+  <PopoverTrigger render={<Button />}>Open popover</PopoverTrigger>
+  <PopoverContent withBackdrop withViewport>
+    <PopoverHeader>
+      <PopoverTitle>Popover title</PopoverTitle>
+      <PopoverDescription>Short contextual details.</PopoverDescription>
+    </PopoverHeader>
+    <PopoverBody>Popup content</PopoverBody>
+    <PopoverFooter>
+      <PopoverClose>Close</PopoverClose>
+    </PopoverFooter>
+  </PopoverContent>
+</Popover>
+```
+
+| Part                 | Role                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `Popover`            | Root state machine. Controls `open`, `defaultOpen`, `onOpenChange`, `modal`, and shared behavior.            |
+| `PopoverTrigger`     | Interactive anchor that opens and closes the popup. Supports click and optional hover opening.               |
+| `PopoverContent`     | Floating container that renders popup structure, positioning, and optional arrow/backdrop/viewport plumbing. |
+| `PopoverHeader`      | Semantic top area for title and description. Useful for consistent spacing in information popovers.          |
+| `PopoverTitle`       | Main heading inside the popup. Helps users quickly identify popup purpose.                                   |
+| `PopoverDescription` | Supporting text under the title. Use for concise context or status details.                                  |
+| `PopoverBody`        | Optional free-form content region when header/footer wrappers are not enough.                                |
+| `PopoverFooter`      | Optional action area, commonly for dismiss, confirm, or secondary controls.                                  |
+| `PopoverClose`       | Built-in close action that dismisses the current popover without custom state wiring.                        |
+
+In most cases, style the visible popup layers first: `PopoverTrigger`, `PopoverContent`, and
+header/body/footer content. Use `classNames` for internal service slots (`portal`, `backdrop`,
+`positioner`, `viewport`, `arrow`) only when you need advanced placement, overlays, or transition
+coordination.
+
 ## Composition
 
 Use `Popover` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, `modal`, and `handle`. `PopoverContent` renders the portal, positioner,
-popup, and arrow automatically. Set `withBackdrop` when the popup needs an overlay and
+`onOpenChange`, `modal`, and `handle`. Set `withBackdrop` when the popup needs an overlay and
 `withViewport` when one popover switches between trigger payloads with animated content.
 
 `className` styles the visible popup. `classNames` styles internal service slots that are
-hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
-`positionerProps`, `viewportProps`, and `arrowProps` when you need the matching Base UI
-escape hatches:
+hidden from the default composition. Pass placement props such as `side`, `align`, `sideOffset`,
+`alignOffset`, `collisionBoundary`, and `collisionPadding` directly to `PopoverContent`. Use
+`container` to choose the portal container, `withBackdrop` to enable the optional backdrop,
+`withViewport` to wrap content in Base UI's viewport, `showArrow={false}` to remove the default
+arrow, and `arrow` to replace it. Use `slotProps` only when you need Base UI escape-hatch props for
+an internal slot, such as `keepMounted` on the portal or a custom `render` for the viewport:
 
 ```tsx
 <PopoverContent
@@ -102,6 +163,10 @@ escape hatches:
     positioner: styles.positioner,
     viewport: styles.viewport,
     arrow: styles.arrow,
+  }}
+  slotProps={{
+    portal: { keepMounted: true },
+    positioner: { collisionPadding: 12 },
   }}
 />
 ```
@@ -344,8 +409,8 @@ Use `createPopoverHandle` when the trigger lives outside the popover tree.
 
 ### Side Control
 
-Pass `side`, `align`, offsets, collision options, or `positionerProps` to `PopoverContent` when you
-need to control popup placement.
+Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to `PopoverContent`
+when you need to control popup placement.
 
 <Preview>
   <SideControlPopoverExample />

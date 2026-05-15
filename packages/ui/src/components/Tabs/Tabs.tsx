@@ -15,8 +15,13 @@ type TabsListClassNames = {
   indicator?: TabsPrimitive.Indicator.Props['className'];
 };
 
+type TabsListSlotProps = {
+  indicator?: Omit<TabsPrimitive.Indicator.Props, 'className' | 'children'>;
+};
+
 type TabsListProps = TabsPrimitive.List.Props & {
   classNames?: TabsListClassNames;
+  slotProps?: TabsListSlotProps;
   withIndicator?: boolean;
 };
 
@@ -39,6 +44,7 @@ function TabsList({
   className,
   classNames,
   children,
+  slotProps,
   withIndicator = true,
   ...props
 }: TabsListProps) {
@@ -53,6 +59,7 @@ function TabsList({
       {children}
       {withIndicator ? (
         <TabsPrimitive.Indicator
+          {...slotProps?.indicator}
           data-slot="tabs-indicator"
           className={
             unstyled
@@ -139,6 +146,7 @@ export type {
   TabsProps,
   TabsVariant,
   TabsListClassNames,
+  TabsListSlotProps,
   TabsListProps,
   TabsTabProps,
   TabsPanelProps,

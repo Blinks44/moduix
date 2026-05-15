@@ -24,6 +24,13 @@ type SelectContentClassNames = {
   arrow?: SelectPrimitive.Arrow.Props['className'];
 };
 
+type SelectContentSlotProps = {
+  portal?: Omit<SelectPrimitive.Portal.Props, 'className' | 'children'>;
+  backdrop?: Omit<SelectPrimitive.Backdrop.Props, 'className'>;
+  positioner?: Omit<SelectPrimitive.Positioner.Props, 'className' | 'children'>;
+  arrow?: Omit<SelectPrimitive.Arrow.Props, 'className' | 'children'>;
+};
+
 type SelectContentProps = SelectPopupProps &
   Pick<
     SelectPrimitive.Positioner.Props,
@@ -39,16 +46,14 @@ type SelectContentProps = SelectPopupProps &
     | 'collisionPadding'
     | 'sticky'
     | 'positionMethod'
+    | 'disableAnchorTracking'
   > & {
     classNames?: SelectContentClassNames;
+    slotProps?: SelectContentSlotProps;
     container?: SelectPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
     showArrow?: boolean;
     arrow?: React.ReactNode;
-    portalProps?: Omit<SelectPrimitive.Portal.Props, 'className' | 'children'>;
-    backdropProps?: Omit<SelectPrimitive.Backdrop.Props, 'className'>;
-    positionerProps?: Omit<SelectPrimitive.Positioner.Props, 'className' | 'children'>;
-    arrowProps?: Omit<SelectPrimitive.Arrow.Props, 'className' | 'children'>;
   };
 
 type IndicatorPosition = 'start' | 'end';
@@ -154,14 +159,11 @@ function SelectArrow({ className, children, ...props }: SelectPrimitive.Arrow.Pr
 function SelectContent({
   className,
   classNames,
+  slotProps,
   container,
   withBackdrop = false,
   showArrow = false,
   arrow,
-  portalProps,
-  backdropProps,
-  positionerProps,
-  arrowProps,
   alignItemWithTrigger,
   side,
   sideOffset,
@@ -174,8 +176,13 @@ function SelectContent({
   collisionPadding,
   sticky,
   positionMethod,
+  disableAnchorTracking,
   ...props
 }: SelectContentProps) {
+  const portalProps = slotProps?.portal;
+  const backdropProps = slotProps?.backdrop;
+  const positionerProps = slotProps?.positioner;
+  const arrowProps = slotProps?.arrow;
   const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
   const portalContainer = container ?? portalPropsContainer;
   const resolvedAlignItemWithTrigger =
@@ -191,6 +198,8 @@ function SelectContent({
   const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
   const resolvedSticky = sticky ?? positionerProps?.sticky;
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
+  const resolvedDisableAnchorTracking =
+    disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
 
   return (
     <SelectPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
@@ -209,6 +218,7 @@ function SelectContent({
         collisionPadding={resolvedCollisionPadding}
         sticky={resolvedSticky}
         positionMethod={resolvedPositionMethod}
+        disableAnchorTracking={resolvedDisableAnchorTracking}
         className={classNames?.positioner}
       >
         <SelectPopup className={className} {...props}>
@@ -427,6 +437,8 @@ export type {
   SelectProps,
   SelectAnimation,
   SelectValueType,
+  SelectContentClassNames,
+  SelectContentSlotProps,
   SelectFieldProps,
   SelectLabelProps,
   SelectTriggerProps,

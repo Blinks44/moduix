@@ -20,6 +20,12 @@ const markerlessItems = [
   'Useful for compact metadata groups',
 ];
 
+const nativeItems = [
+  'Use native li elements when a wrapper component is unnecessary.',
+  'The root still controls spacing, marker style, size, and tone.',
+  'Reach for ListItem when you want the stable item slot.',
+];
+
 const customStyleItems = [
   'Bullet size is independent from text size.',
   'Bullet color and gap are controlled by CSS variables.',
@@ -89,6 +95,16 @@ export function MarkerlessListExample() {
     <List marker="none" className={styles.list}>
       {markerlessItems.map((item) => (
         <ListItem key={item}>{item}</ListItem>
+      ))}
+    </List>
+  );
+}
+
+export function NativeItemsListExample() {
+  return (
+    <List marker="bullet" className={styles.customBullet}>
+      {nativeItems.map((item) => (
+        <li key={item}>{item}</li>
       ))}
     </List>
   );

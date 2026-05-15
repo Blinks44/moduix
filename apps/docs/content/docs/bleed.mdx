@@ -4,7 +4,6 @@ description: A layout primitive that lets content intentionally escape a constra
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   BleedBlockExample,
   BleedExample,
@@ -73,6 +72,36 @@ bleed behavior.
 
   </Preview.CSS>
 </Preview>
+
+## Anatomy
+
+`Bleed` is a single root layout primitive. It applies negative inline and/or block margins so
+content can extend beyond a constrained parent while staying in normal document flow.
+
+```text
+Bleed
+└─ children
+```
+
+```tsx
+<Bleed inline="md" block="none">
+  <div className={styles.panel}>Escaped content</div>
+</Bleed>
+```
+
+| Part    | Role                                                                       |
+| ------- | -------------------------------------------------------------------------- |
+| `Bleed` | Root layout wrapper. Controls inline/block bleed amounts and element type. |
+
+## Composition
+
+Use `Bleed` props `inline` and `block` to control bleed amount per axis, and `as` when the root
+should be a specific semantic element such as `section` or `figure`. The component forwards refs to
+the rendered element, so it can be measured, focused, or passed to animation libraries like any
+native element.
+
+`Bleed` has no internal service slots, so customization is done directly with `className` and
+bleed CSS variables on the root element.
 
 ## Examples
 

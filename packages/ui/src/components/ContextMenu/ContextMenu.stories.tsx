@@ -10,6 +10,7 @@ import {
   ContextMenuGroup,
   ContextMenuGroupLabel,
   ContextMenuItem,
+  ContextMenuLinkItem,
   ContextMenuItemTextContent,
   ContextMenuItemTextIcon,
   ContextMenuItemTextLabel,
@@ -208,6 +209,25 @@ export const IndicatorRightWithIcon: Story = {
             </ContextMenuItemText>
             <ContextMenuCheckboxItemIndicator />
           </ContextMenuCheckboxItem>
+        </ContextMenuContent>
+      </ContextMenu>
+    );
+  },
+};
+
+export const LinkItems: Story = {
+  name: 'Link Items',
+  render: () => {
+    return (
+      <ContextMenu>
+        <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuArrow />
+          <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
+          <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
+          <ContextMenuLinkItem href="#billing">Billing</ContextMenuLinkItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem closeOnClick>Copy Link</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
     );

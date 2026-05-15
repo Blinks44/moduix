@@ -111,10 +111,28 @@ import {
   </Preview.CSS>
 </Preview>
 
+## Anatomy
+
+`Form` is composed as a root wrapper around native form semantics and validation orchestration.
+Compose it with `Field` parts and submit controls inside the same root.
+
+```text
+Form
+├─ Field
+│  ├─ FieldLabel
+│  ├─ control (Input, FieldControl, etc.)
+│  └─ FieldError / FieldDescription
+└─ submit actions (for example Button[type="submit"])
+```
+
+| Part   | Role                                                                      |
+| ------ | ------------------------------------------------------------------------- |
+| `Form` | Native form root that coordinates submit lifecycle and form-level errors. |
+
 ## Composition
 
-`Form` renders the native `<form>` and keeps Base UI form behavior available through
-`errors`, `actionsRef`, `onFormSubmit`, `validationMode`, `action`, and native form props.
+Use `Form` props such as `errors`, `actionsRef`, `onFormSubmit`, `validationMode`, `action`,
+and native form attributes.
 Compose fields with `Field`, `FieldLabel`, `Input`, `FieldDescription`, and `FieldError`.
 `Form` does not hide service slots such as `Positioner`, `Backdrop`, or `Viewport`, so
 customization is done directly through `className` on the form and composed child slots.

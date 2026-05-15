@@ -34,8 +34,7 @@ export const toolbarCssProperties: CssPropertyInput[] = [
   ['--toolbar-gap', 'var(--border-width-sm)', 'Controls spacing between toolbar items.'],
   ['--toolbar-padding', '0.125rem', 'Controls toolbar inner padding.'],
   ['--toolbar-radius', 'var(--radius-lg)', 'Controls toolbar corner radius.'],
-  ['--toolbar-control-radius', 'var(--radius-md)', 'Controls control corner radius.'],
-  ['--toolbar-control-gap', 'var(--spacing-2)', 'Controls spacing inside toolbar buttons.'],
+  ['--toolbar-control-border-color-active', 'transparent', 'Controls active control border color.'],
   ['--toolbar-control-bg-hover', 'var(--color-accent)', 'Controls button hover background.'],
   ['--toolbar-control-bg-active', 'var(--color-accent)', 'Controls button active background.'],
   [
@@ -49,18 +48,37 @@ export const toolbarCssProperties: CssPropertyInput[] = [
     'var(--color-foreground)',
     'Controls pressed and open button text color.',
   ],
+  ['--toolbar-control-gap', 'var(--spacing-2)', 'Controls spacing inside toolbar buttons.'],
+  ['--toolbar-control-padding-x', '0.75rem', 'Controls control horizontal padding.'],
+  ['--toolbar-control-radius', 'var(--radius-md)', 'Controls control corner radius.'],
+  ['--toolbar-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled control opacity.'],
   ['--toolbar-focus-ring-color', 'var(--color-ring)', 'Controls keyboard focus ring color.'],
   ['--toolbar-group-gap', 'var(--spacing-1)', 'Controls spacing inside toolbar groups.'],
   ['--toolbar-input-bg', 'var(--color-background)', 'Controls input background.'],
   ['--toolbar-input-border-color', 'var(--color-border)', 'Controls input border color.'],
+  ['--toolbar-input-color', 'var(--color-foreground)', 'Controls input text color.'],
+  ['--toolbar-input-padding-x', '0.75rem', 'Controls input horizontal padding.'],
   [
     '--toolbar-input-placeholder-color',
     'var(--color-muted-foreground)',
     'Controls input placeholder color.',
   ],
+  ['--toolbar-input-width', '10rem', 'Controls input width.'],
   ['--toolbar-separator-color', 'var(--color-border)', 'Controls separator color.'],
+  ['--toolbar-separator-length-horizontal', '100%', 'Controls horizontal separator length.'],
   ['--toolbar-separator-length-vertical', '1rem', 'Controls vertical separator length.'],
+  [
+    '--toolbar-separator-margin-x-vertical',
+    'var(--spacing-1)',
+    'Controls vertical separator horizontal margin.',
+  ],
+  [
+    '--toolbar-separator-margin-y-horizontal',
+    'var(--spacing-1)',
+    'Controls horizontal separator vertical margin.',
+  ],
   ['--toolbar-separator-thickness', '1px', 'Controls separator thickness.'],
+  ['--toolbar-transition', 'var(--transition-default)', 'Controls interactive transition timing.'],
 ];
 
 function AlignLeftIcon(props: React.ComponentProps<'svg'>) {
@@ -105,12 +123,18 @@ function AlignRightIcon(props: React.ComponentProps<'svg'>) {
 export function ToolbarExample(props: ToolbarProps) {
   return (
     <Toolbar aria-label="Document actions" {...props}>
-      <ToolbarButton>Undo</ToolbarButton>
-      <ToolbarButton>Redo</ToolbarButton>
+      <ToolbarGroup aria-label="History">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton>Redo</ToolbarButton>
+      </ToolbarGroup>
       <ToolbarSeparator />
+      <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
       <ToolbarButton aria-label="Notifications">
         <BellIcon />
       </ToolbarButton>
+      <ToolbarLink href="#" className={styles.toolbarLink}>
+        History
+      </ToolbarLink>
     </Toolbar>
   );
 }
@@ -182,9 +206,30 @@ export function ToolbarSelectInputExample() {
 export function ToolbarVariantsExample() {
   return (
     <div className={styles.stack}>
-      <ToolbarExample aria-label="Default toolbar" />
-      <ToolbarExample aria-label="Outline toolbar" variant="outline" />
-      <ToolbarExample aria-label="Ghost toolbar" variant="ghost" />
+      <Toolbar aria-label="Default toolbar">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton>Redo</ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Notifications">
+          <BellIcon />
+        </ToolbarButton>
+      </Toolbar>
+      <Toolbar aria-label="Outline toolbar" variant="outline">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton>Redo</ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Notifications">
+          <BellIcon />
+        </ToolbarButton>
+      </Toolbar>
+      <Toolbar aria-label="Ghost toolbar" variant="ghost">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton>Redo</ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Notifications">
+          <BellIcon />
+        </ToolbarButton>
+      </Toolbar>
     </div>
   );
 }
@@ -192,9 +237,30 @@ export function ToolbarVariantsExample() {
 export function ToolbarSizesExample() {
   return (
     <div className={styles.stack}>
-      <ToolbarExample aria-label="Small toolbar" size="sm" />
-      <ToolbarExample aria-label="Medium toolbar" size="md" />
-      <ToolbarExample aria-label="Large toolbar" size="lg" />
+      <Toolbar aria-label="Small toolbar" size="sm">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton>Redo</ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Notifications">
+          <BellIcon />
+        </ToolbarButton>
+      </Toolbar>
+      <Toolbar aria-label="Medium toolbar" size="md">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton>Redo</ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Notifications">
+          <BellIcon />
+        </ToolbarButton>
+      </Toolbar>
+      <Toolbar aria-label="Large toolbar" size="lg">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton>Redo</ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Notifications">
+          <BellIcon />
+        </ToolbarButton>
+      </Toolbar>
     </div>
   );
 }

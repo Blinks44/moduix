@@ -20,4 +20,11 @@ export {
   SelectGroupLabel,
 } from './Select';
 
-export type { SelectProps, SelectValueType, SelectContentProps } from './Select';
+export type {
+  SelectProps,
+  SelectAnimation,
+  SelectValueType,
+  SelectContentClassNames,
+  SelectContentSlotProps,
+  SelectContentProps,
+} from './Select';

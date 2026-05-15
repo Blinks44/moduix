@@ -477,6 +477,33 @@ type ComboboxValueType<
   Value = unknown,
   Multiple extends boolean | undefined = false,
 > = ComboboxProps<Value, Multiple>['value'];
+type ComboboxFieldProps = React.ComponentProps<'div'>;
+type ComboboxValueProps = ComboboxPrimitive.Value.Props;
+type ComboboxInputGroupProps = ComboboxPrimitive.InputGroup.Props;
+type ComboboxInputProps = ComboboxPrimitive.Input.Props;
+type ComboboxControlActionsProps = React.ComponentProps<'div'>;
+type ComboboxTriggerProps = ComboboxPrimitive.Trigger.Props;
+type ComboboxIconProps = ComboboxPrimitive.Icon.Props;
+type ComboboxClearProps = ComboboxPrimitive.Clear.Props;
+type ComboboxStatusProps = ComboboxPrimitive.Status.Props;
+type ComboboxEmptyProps = ComboboxPrimitive.Empty.Props;
+type ComboboxListProps = ComboboxPrimitive.List.Props;
+type ComboboxRowProps = ComboboxPrimitive.Row.Props;
+type ComboboxItemIndicatorProps = ComboboxPrimitive.ItemIndicator.Props;
+type ComboboxItemTextProps = React.ComponentProps<'span'>;
+type ComboboxItemTextContentProps = React.ComponentProps<'span'>;
+type ComboboxItemTextIconProps = React.ComponentProps<'span'>;
+type ComboboxItemTextLabelProps = React.ComponentProps<'span'>;
+type ComboboxSeparatorProps = ComboboxPrimitive.Separator.Props;
+type ComboboxGroupProps = ComboboxPrimitive.Group.Props;
+type ComboboxGroupLabelProps = ComboboxPrimitive.GroupLabel.Props;
+type ComboboxCollectionProps = ComboboxPrimitive.Collection.Props;
+type ComboboxInlineInputContainerProps = React.ComponentProps<'div'>;
+type ComboboxChipsProps = ComboboxPrimitive.Chips.Props;
+type ComboboxChipProps = ComboboxPrimitive.Chip.Props;
+type ComboboxChipRemoveProps = ComboboxPrimitive.ChipRemove.Props;
+type ComboboxChipTextProps = React.ComponentProps<'span'>;
+type ComboboxChipsInputProps = ComboboxPrimitive.Input.Props;
 
 export {
   Combobox,
@@ -520,5 +547,33 @@ export type {
   ComboboxValueType,
   ComboboxContentClassNames,
   ComboboxContentProps,
+  ComboboxFieldProps,
   ComboboxFieldLabelProps,
+  ComboboxValueProps,
+  ComboboxInputGroupProps,
+  ComboboxInputProps,
+  ComboboxControlActionsProps,
+  ComboboxTriggerProps,
+  ComboboxIconProps,
+  ComboboxClearProps,
+  ComboboxStatusProps,
+  ComboboxEmptyProps,
+  ComboboxListProps,
+  ComboboxRowProps,
+  ComboboxItemProps,
+  ComboboxItemIndicatorProps,
+  ComboboxItemTextProps,
+  ComboboxItemTextContentProps,
+  ComboboxItemTextIconProps,
+  ComboboxItemTextLabelProps,
+  ComboboxSeparatorProps,
+  ComboboxGroupProps,
+  ComboboxGroupLabelProps,
+  ComboboxCollectionProps,
+  ComboboxInlineInputContainerProps,
+  ComboboxChipsProps,
+  ComboboxChipProps,
+  ComboboxChipRemoveProps,
+  ComboboxChipTextProps,
+  ComboboxChipsInputProps,
 };

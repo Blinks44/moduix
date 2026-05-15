@@ -10,4 +10,6 @@ export type {
   CollapsibleTriggerProps,
   CollapsibleTriggerIconProps,
   CollapsiblePanelProps,
+  CollapsibleTriggerClassNames,
+  CollapsibleTriggerSlotProps,
 } from './Collapsible';

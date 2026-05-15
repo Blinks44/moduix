@@ -4,7 +4,6 @@ description: A set of related toggle buttons that share selection state.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ControlledToggleGroupExample,
   CustomStylesToggleGroupExample,
@@ -59,6 +58,61 @@ import {
   </Preview.Data>
 </Preview>
 
+## Anatomy
+
+`ToggleGroup` is a single root that coordinates a set of `ToggleGroupItem` buttons. Keep every
+choice inside the same group so keyboard navigation, pressed state, and selection rules (`multiple`
+or single-select) stay consistent.
+
+```text
+ToggleGroup
+└─ ToggleGroupItem[value]
+   └─ label or icon content
+```
+
+```tsx
+<ToggleGroup defaultValue={['left']} aria-label="Text alignment">
+  <ToggleGroupItem value="left">Left</ToggleGroupItem>
+  <ToggleGroupItem value="center">Center</ToggleGroupItem>
+  <ToggleGroupItem value="right">Right</ToggleGroupItem>
+</ToggleGroup>
+```
+
+| Part              | Role                                                                                                  |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| `ToggleGroup`     | Root state machine. Controls selected values, arrow-key navigation, and orientation.                  |
+| `ToggleGroupItem` | Interactive toggle button with a unique `value` used by `defaultValue`, `value`, and `onValueChange`. |
+
+`ToggleGroup` does not include service layers such as `portal`, `backdrop`, `viewport`, or hidden
+internal slots. In most cases, keep structure and behavior defaults and style the visible parts
+with `className` on the group and on each `ToggleGroupItem`.
+
+`ToggleGroupItem` renders `Toggle`, so item-level styling also supports the `Toggle` CSS variables
+(`--toggle-*`). Use `--toggle-group-*` for the group container and `--toggle-*` for item states.
+
+```css
+.filterGroup {
+  --toggle-group-bg: transparent;
+  --toggle-group-border-color: transparent;
+  --toggle-group-padding: 0;
+}
+
+.filterItem {
+  --toggle-ghost-bg-hover: var(--color-accent);
+  --toggle-ghost-bg-pressed: var(--color-primary);
+  --toggle-ghost-color-pressed: var(--color-primary-foreground);
+}
+```
+
+## Composition
+
+Use `ToggleGroup` for root state and behavior props such as `value`, `defaultValue`,
+`onValueChange`, `multiple`, `orientation`, `disabled`, and `loopFocus`.
+
+Use group-level props (`variant`, `size`, `className`) when all items should share one setup.
+Override a specific `ToggleGroupItem` with its own `variant`, `size`, or `className` when one
+option needs a different presentation.
+
 ## Examples
 
 ### Multiple
@@ -71,6 +125,7 @@ Use `multiple` when more than one item can be pressed at the same time.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function MultipleToggleGroupDemo() {
         return (
@@ -116,6 +171,7 @@ Use `variant` on the group to apply the same visual treatment to every item.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function ToggleGroupVariantsDemo() {
         return (
@@ -181,6 +237,7 @@ Use text sizes for labeled groups and icon sizes for compact toolbar controls.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function ToggleGroupSizesDemo() {
         return (
@@ -312,6 +369,7 @@ Use `disabled` on the group or on a specific item to prevent interaction.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function DisabledToggleGroupDemo() {
         return (
@@ -410,6 +468,7 @@ Control `value` from React state when the group needs to coordinate with other U
     {`
       import { BellIcon, CheckSmallIcon, StarIcon, ToggleGroup, ToggleGroupItem } from "moduix";
       import { useState } from "react";
+      import styles from "./toggle-group.module.css";
 
       export function ControlledToggleGroupDemo() {
         const [value, setValue] = useState(["favorites"] as string[]);
@@ -468,6 +527,7 @@ Pass icons as children. Icon-only items must include an accessible label.
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function IconToggleGroupDemo() {
         return (
@@ -523,6 +583,8 @@ Pass icons as children. Icon-only items must include an accessible label.
 ### Custom Styles
 
 Pass `className` to the group and items when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Use `--toggle-group-*` to style the group container and `--toggle-*` to style `ToggleGroupItem`
+states such as hover and pressed.
 
 <Preview>
   <CustomStylesToggleGroupExample />
@@ -530,6 +592,7 @@ Pass `className` to the group and items when styling with CSS Modules, Tailwind 
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
+      import styles from "./toggle-group.module.css";
 
       export function CustomStylesToggleGroupDemo() {
         return (

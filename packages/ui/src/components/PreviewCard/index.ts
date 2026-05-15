@@ -9,7 +9,7 @@ export type {
   PreviewCardProps,
   PreviewCardHandle,
   PreviewCardTriggerProps,
-  PreviewCardContentProps,
   PreviewCardContentClassNames,
+  PreviewCardContentProps,
   PreviewCardContentSlotProps,
 } from './PreviewCard';

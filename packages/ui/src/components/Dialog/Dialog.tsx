@@ -11,14 +11,18 @@ type DialogContentClassNames = {
   viewport?: DialogPrimitive.Viewport.Props['className'];
 };
 
+type DialogContentSlotProps = {
+  portal?: Omit<DialogPrimitive.Portal.Props, 'className' | 'children'>;
+  backdrop?: Omit<DialogPrimitive.Backdrop.Props, 'className'>;
+  viewport?: Omit<DialogPrimitive.Viewport.Props, 'className'>;
+};
+
 type DialogContentProps = Omit<DialogPrimitive.Popup.Props, 'className'> & {
   className?: DialogPrimitive.Popup.Props['className'];
   classNames?: DialogContentClassNames;
+  slotProps?: DialogContentSlotProps;
   container?: DialogPrimitive.Portal.Props['container'];
   withBackdrop?: boolean;
-  portalProps?: Omit<DialogPrimitive.Portal.Props, 'className' | 'children'>;
-  backdropProps?: Omit<DialogPrimitive.Backdrop.Props, 'className'>;
-  viewportProps?: Omit<DialogPrimitive.Viewport.Props, 'className'>;
 };
 
 const Dialog = DialogPrimitive.Root;
@@ -121,20 +125,28 @@ function DialogCloseIcon({ className, children, ...props }: DialogPrimitive.Clos
 function DialogContent({
   className,
   classNames,
+  slotProps,
   container,
   withBackdrop = true,
-  portalProps,
-  backdropProps,
-  viewportProps,
   ...props
 }: DialogContentProps) {
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
+  const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
+  const portalContainer = container ?? slotPortalContainer;
 
   return (
-    <DialogPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
-      {withBackdrop ? <DialogBackdrop className={classNames?.backdrop} {...backdropProps} /> : null}
-      <DialogViewport className={classNames?.viewport} {...viewportProps}>
+    <DialogPortal
+      className={classNames?.portal}
+      container={portalContainer}
+      {...restPortalSlotProps}
+    >
+      {withBackdrop ? (
+        <DialogBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
+      ) : null}
+      <DialogViewport
+        className={classNames?.viewport}
+        {...slotProps?.viewport}
+        data-with-backdrop={withBackdrop ? 'true' : 'false'}
+      >
         <DialogPopup className={className} {...props} />
       </DialogViewport>
     </DialogPortal>
@@ -188,6 +200,7 @@ export type {
   DialogCloseIconProps,
   DialogContentProps,
   DialogContentClassNames,
+  DialogContentSlotProps,
   DialogHeaderProps,
   DialogBodyProps,
   DialogFooterProps,

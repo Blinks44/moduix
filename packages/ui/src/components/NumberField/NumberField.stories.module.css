@@ -13,3 +13,14 @@
 .scrubCursor {
   color: var(--color-foreground);
 }
+
+.customButton {
+  --number-field-button-bg: var(--color-muted);
+  --number-field-button-bg-hover: var(--color-accent);
+  --number-field-icon-size: 1rem;
+}
+
+.customInput {
+  --number-field-input-width: 7rem;
+  --number-field-input-font-size: var(--text-lg);
+}

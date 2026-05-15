@@ -1,10 +1,12 @@
 import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
+import { clsx, type ClassValue } from 'clsx';
 import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './ScrollArea.module.css';
 
-type ScrollAreaFade = boolean | 'vertical' | 'horizontal';
+type ScrollAreaFade = boolean | 'vertical' | 'horizontal' | 'both';
 type ScrollAreaScrollbars = 'vertical' | 'horizontal' | 'both' | false;
+type ScrollAreaClassName<TState> = ClassValue | ((state: TState) => ClassValue);
 
 type ScrollAreaClassNames = {
   viewport?: ScrollAreaPrimitive.Viewport.Props['className'];
@@ -48,6 +50,23 @@ type ScrollAreaProps = Omit<ScrollAreaPrimitive.Root.Props, 'children'> & {
   slotProps?: ScrollAreaSlotProps;
 };
 
+function mergeSlotClassName<TState>(
+  baseClassName: ClassValue,
+  ...classNames: Array<ScrollAreaClassName<TState> | undefined>
+) {
+  if (classNames.some((className) => typeof className === 'function')) {
+    return (state: TState) =>
+      clsx(
+        baseClassName,
+        classNames.map((className) =>
+          typeof className === 'function' ? className(state) : className,
+        ),
+      );
+  }
+
+  return clsx(baseClassName, classNames);
+}
+
 function ScrollArea({
   className,
   classNames,
@@ -90,16 +109,21 @@ function ScrollArea({
           data-slot="scroll-area-scrollbar"
           orientation="vertical"
           keepMounted={scrollbarKeepMounted}
-          className={mergeClassName(
-            classNames?.verticalScrollbar ?? classNames?.scrollbar,
+          className={mergeSlotClassName(
             styles.scrollbar,
+            classNames?.scrollbar,
+            classNames?.verticalScrollbar,
           )}
         >
           <ScrollAreaPrimitive.Thumb
             {...slotProps?.thumb}
             {...slotProps?.verticalThumb}
             data-slot="scroll-area-thumb"
-            className={mergeClassName(classNames?.verticalThumb ?? classNames?.thumb, styles.thumb)}
+            className={mergeSlotClassName(
+              styles.thumb,
+              classNames?.thumb,
+              classNames?.verticalThumb,
+            )}
           />
         </ScrollAreaPrimitive.Scrollbar>
       ) : null}
@@ -110,18 +134,20 @@ function ScrollArea({
           data-slot="scroll-area-scrollbar"
           orientation="horizontal"
           keepMounted={scrollbarKeepMounted}
-          className={mergeClassName(
-            classNames?.horizontalScrollbar ?? classNames?.scrollbar,
+          className={mergeSlotClassName(
             styles.scrollbar,
+            classNames?.scrollbar,
+            classNames?.horizontalScrollbar,
           )}
         >
           <ScrollAreaPrimitive.Thumb
             {...slotProps?.thumb}
             {...slotProps?.horizontalThumb}
             data-slot="scroll-area-thumb"
-            className={mergeClassName(
-              classNames?.horizontalThumb ?? classNames?.thumb,
+            className={mergeSlotClassName(
               styles.thumb,
+              classNames?.thumb,
+              classNames?.horizontalThumb,
             )}
           />
         </ScrollAreaPrimitive.Scrollbar>

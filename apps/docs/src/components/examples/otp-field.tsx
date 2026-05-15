@@ -4,8 +4,6 @@ import {
   FieldError,
   FieldLabel,
   OTPField,
-  OTPFieldInput,
-  OTPFieldSeparator,
   SeparatorMarkIcon,
   type OTPFieldProps,
 } from 'moduix';
@@ -47,19 +45,6 @@ export const otpFieldCssProperties: CssPropertyInput[] = [
   ['--otp-field-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
   ['--otp-field-transition', 'var(--transition-default)', 'Controls input state transitions.'],
 ];
-
-function renderGroupedOTPInputs(length: number) {
-  return Array.from({ length }, (_, index) => (
-    <React.Fragment key={index}>
-      <OTPFieldInput aria-label={index === 0 ? undefined : `Character ${index + 1} of ${length}`} />
-      {index === 2 ? (
-        <OTPFieldSeparator className={styles.separator}>
-          <SeparatorMarkIcon />
-        </OTPFieldSeparator>
-      ) : null}
-    </React.Fragment>
-  ));
-}
 
 type OTPFieldExampleProps = Omit<OTPFieldProps, 'length'> & {
   length?: OTPFieldProps['length'];
@@ -106,9 +91,7 @@ export function OTPFieldGroupedLayoutExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-      <OTPField id={id} length={OTP_LENGTH}>
-        {renderGroupedOTPInputs(OTP_LENGTH)}
-      </OTPField>
+      <OTPField id={id} length={OTP_LENGTH} groupSize={3} className={styles.groupedRoot} />
     </Field>
   );
 }
@@ -226,17 +209,14 @@ export function OTPFieldCustomSeparatorExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Styled code</FieldLabel>
-      <OTPField id={id} length={OTP_LENGTH}>
-        <OTPFieldInput className={styles.customInput} />
-        <OTPFieldInput className={styles.customInput} aria-label="Character 2 of 6" />
-        <OTPFieldInput className={styles.customInput} aria-label="Character 3 of 6" />
-        <OTPFieldSeparator className={styles.customSeparator}>
-          <SeparatorMarkIcon />
-        </OTPFieldSeparator>
-        <OTPFieldInput className={styles.customInput} aria-label="Character 4 of 6" />
-        <OTPFieldInput className={styles.customInput} aria-label="Character 5 of 6" />
-        <OTPFieldInput className={styles.customInput} aria-label="Character 6 of 6" />
-      </OTPField>
+      <OTPField
+        id={id}
+        length={OTP_LENGTH}
+        groupSize={3}
+        inputProps={{ className: styles.customInput }}
+        separator={<SeparatorMarkIcon />}
+        className={styles.customRoot}
+      />
     </Field>
   );
 }

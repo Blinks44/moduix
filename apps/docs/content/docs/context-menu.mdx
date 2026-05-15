@@ -8,6 +8,7 @@ import {
   ContextMenuExample,
   GroupsAndControlsContextMenuExample,
   IndicatorRightContextMenuExample,
+  LinkItemsContextMenuExample,
   NestedContextMenuExample,
   PositionedContextMenuExample,
   ShortcutsContextMenuExample,
@@ -59,11 +60,66 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+Context menu is composed from a trigger surface and a popup content layer. Keep interactive parts
+inside `ContextMenuContent` so keyboard navigation, roving focus, and close behavior stay managed by
+the root state machine.
+
+```text
+ContextMenu
+├─ ContextMenuTrigger
+└─ ContextMenuContent
+   ├─ ContextMenuArrow
+   ├─ ContextMenuItem
+   ├─ ContextMenuSeparator
+   └─ ContextMenuSubmenu
+      ├─ ContextMenuSubmenuTrigger
+      │  └─ ContextMenuSubmenuTriggerIcon
+      └─ ContextMenuSubmenuContent
+         └─ ContextMenuItem
+```
+
+```tsx
+<ContextMenu>
+  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuArrow />
+    <ContextMenuItem closeOnClick>Open</ContextMenuItem>
+    <ContextMenuSubmenu>
+      <ContextMenuSubmenuTrigger>
+        Share
+        <ContextMenuSubmenuTriggerIcon />
+      </ContextMenuSubmenuTrigger>
+      <ContextMenuSubmenuContent>
+        <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
+      </ContextMenuSubmenuContent>
+    </ContextMenuSubmenu>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+| Part                           | Role                                                                                                   |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `ContextMenu`                  | Root state machine. Handles open state, focus management, and close interactions.                      |
+| `ContextMenuTrigger`           | Surface that opens the menu on context interaction (right click or long press).                        |
+| `ContextMenuContent`           | Popup container for menu items. Accepts positioning props and renders service layers internally.       |
+| `ContextMenuArrow`             | Optional visual pointer from popup to trigger location.                                                |
+| `ContextMenuItem`              | Action row. Supports disabled state and `closeOnClick` behavior.                                       |
+| `ContextMenuLinkItem`          | Link row for navigation while preserving context menu focus and highlight behavior.                    |
+| `ContextMenuSeparator`         | Visual divider between related item groups.                                                            |
+| `ContextMenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, and `Content`).                         |
+| `ContextMenuGroup*` / controls | Optional structured controls: labels, radio groups/items, checkbox items, and related indicator slots. |
+
+`ContextMenuContent` uses internal service slots (`portal`, optional `backdrop`, `positioner`, `popup`).
+In most cases, keep the default structure and style visible parts such as trigger, items, separators, and
+arrow. Use `classNames`, `portalProps`, `positionerProps`, `backdropProps`, and `withBackdrop` when you
+need slot-level customization.
+
 ## Composition
 
-`ContextMenuContent` renders `Portal`, optional `Backdrop`, `Positioner`, and `Popup`
-internally, so the public composition stays focused on menu content. Pass positioning props such as
-`sideOffset`, `align`, `collisionPadding`, and `positionMethod` directly to `ContextMenuContent`.
+Pass positioning props such as `sideOffset`, `align`, `collisionPadding`, and `positionMethod`
+directly to `ContextMenuContent`.
 
 `className` styles the visible popup. `classNames` styles the internal service slots hidden from
 the default composition. Use `container`, `portalProps`, `backdropProps`, `positionerProps`, and
@@ -364,6 +420,45 @@ Pass positioning props to `ContextMenuContent`. It renders the portal and positi
               <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
               <ContextMenuSeparator />
               <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Link Items
+
+Use `ContextMenuLinkItem` for navigation actions that should render as links.
+
+<Preview>
+  <LinkItemsContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuArrow,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuLinkItem,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+
+      export function LinkItemsContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuContent>
+              <ContextMenuArrow />
+              <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
+              <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
+              <ContextMenuLinkItem href="#billing">Billing</ContextMenuLinkItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick>Copy Link</ContextMenuItem>
             </ContextMenuContent>
           </ContextMenu>
         );

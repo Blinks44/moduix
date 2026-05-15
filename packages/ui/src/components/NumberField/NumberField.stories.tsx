@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
+import { ChevronDownIcon, ChevronUpIcon } from '@/primitives';
 import { Field, FieldError, FieldLabel } from '../Field';
 import {
   NumberField,
@@ -31,13 +32,7 @@ export const Basic: Story = {
     return (
       <Field>
         <FieldLabel htmlFor={id}>Amount</FieldLabel>
-        <NumberField id={id} defaultValue={100}>
-          <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" />
-            <NumberFieldInput />
-            <NumberFieldIncrement aria-label="Increase value" />
-          </NumberFieldGroup>
-        </NumberField>
+        <NumberField id={id} defaultValue={100} />
       </Field>
     );
   },
@@ -52,13 +47,7 @@ export const Controlled: Story = {
       <div className={storyStyles.stack}>
         <Field>
           <FieldLabel htmlFor={id}>Controlled Value</FieldLabel>
-          <NumberField id={id} value={value} onValueChange={setValue}>
-            <NumberFieldGroup>
-              <NumberFieldDecrement aria-label="Decrease value" />
-              <NumberFieldInput />
-              <NumberFieldIncrement aria-label="Increase value" />
-            </NumberFieldGroup>
-          </NumberField>
+          <NumberField id={id} value={value} onValueChange={setValue} />
         </Field>
         <span className={storyStyles.hint}>Current value: {value ?? 'empty'}</span>
       </div>
@@ -73,13 +62,7 @@ export const MinMaxAndStep: Story = {
     return (
       <Field>
         <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
-        <NumberField id={id} defaultValue={10} min={0} max={20} step={2}>
-          <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" />
-            <NumberFieldInput />
-            <NumberFieldIncrement aria-label="Increase value" />
-          </NumberFieldGroup>
-        </NumberField>
+        <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
       </Field>
     );
   },
@@ -98,13 +81,7 @@ export const Formatted: Story = {
           min={0}
           step={50}
           format={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
-        >
-          <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" />
-            <NumberFieldInput />
-            <NumberFieldIncrement aria-label="Increase value" />
-          </NumberFieldGroup>
-        </NumberField>
+        />
       </Field>
     );
   },
@@ -120,11 +97,6 @@ export const WithScrubArea: Story = {
           <NumberFieldScrubArea classNames={{ cursor: storyStyles.scrubCursor }}>
             <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
           </NumberFieldScrubArea>
-          <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" />
-            <NumberFieldInput />
-            <NumberFieldIncrement aria-label="Increase value" />
-          </NumberFieldGroup>
         </NumberField>
       </Field>
     );
@@ -138,16 +110,33 @@ export const WithFieldValidation: Story = {
     return (
       <Field name="quantity" validationMode="onBlur">
         <FieldLabel htmlFor={id}>Items</FieldLabel>
-        <NumberField id={id} min={1} max={10} required>
-          <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" />
-            <NumberFieldInput />
-            <NumberFieldIncrement aria-label="Increase value" />
-          </NumberFieldGroup>
-        </NumberField>
+        <NumberField id={id} min={1} max={10} required />
         <FieldError match="valueMissing">Please provide a number.</FieldError>
         <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
         <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
+      </Field>
+    );
+  },
+};
+
+export const CustomIcons: Story = {
+  render: () => {
+    const id = React.useId();
+
+    return (
+      <Field>
+        <FieldLabel htmlFor={id}>Floors</FieldLabel>
+        <NumberField id={id} defaultValue={8} withGroup={false}>
+          <NumberFieldGroup>
+            <NumberFieldDecrement aria-label="Decrease value" className={storyStyles.customButton}>
+              <ChevronDownIcon />
+            </NumberFieldDecrement>
+            <NumberFieldInput className={storyStyles.customInput} />
+            <NumberFieldIncrement aria-label="Increase value" className={storyStyles.customButton}>
+              <ChevronUpIcon />
+            </NumberFieldIncrement>
+          </NumberFieldGroup>
+        </NumberField>
       </Field>
     );
   },

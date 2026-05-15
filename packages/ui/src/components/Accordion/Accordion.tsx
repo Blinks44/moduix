@@ -35,13 +35,33 @@ function AccordionHeader({ className, ...props }: AccordionPrimitive.Header.Prop
   );
 }
 
-function AccordionTrigger({ className, ...props }: AccordionPrimitive.Trigger.Props) {
+function AccordionTrigger({
+  className,
+  children,
+  icon,
+  hideIcon = false,
+  classNames,
+  slotProps,
+  ...props
+}: AccordionTriggerProps) {
+  const { header: headerClassName, icon: iconClassName } = classNames ?? {};
+  const { header: headerProps, icon: iconProps } = slotProps ?? {};
+
   return (
-    <AccordionPrimitive.Trigger
-      data-slot="accordion-trigger"
-      className={mergeClassName(className, styles.trigger)}
-      {...props}
-    />
+    <AccordionHeader {...headerProps} className={headerClassName}>
+      <AccordionPrimitive.Trigger
+        data-slot="accordion-trigger"
+        className={mergeClassName(className, styles.trigger)}
+        {...props}
+      >
+        {children}
+        {!hideIcon && (
+          <AccordionTriggerIcon {...iconProps} className={iconClassName}>
+            {icon}
+          </AccordionTriggerIcon>
+        )}
+      </AccordionPrimitive.Trigger>
+    </AccordionHeader>
   );
 }
 
@@ -71,9 +91,34 @@ type AccordionProps<Value = unknown> = AccordionPrimitive.Root.Props<Value>;
 type AccordionValue<Value = unknown> = AccordionPrimitive.Root.Value<Value>;
 type AccordionItemProps = AccordionPrimitive.Item.Props;
 type AccordionHeaderProps = AccordionPrimitive.Header.Props;
-type AccordionTriggerProps = AccordionPrimitive.Trigger.Props;
 type AccordionTriggerIconProps = React.ComponentProps<'span'>;
 type AccordionPanelProps = AccordionPrimitive.Panel.Props;
+type AccordionTriggerClassNames = {
+  header?: AccordionHeaderProps['className'];
+  icon?: AccordionTriggerIconProps['className'];
+};
+type AccordionTriggerSlotProps = {
+  header?: Omit<AccordionHeaderProps, 'children' | 'className'>;
+  icon?: Omit<AccordionTriggerIconProps, 'children' | 'className'>;
+};
+type AccordionTriggerProps = AccordionPrimitive.Trigger.Props & {
+  /**
+   * Icon rendered at the end of the trigger. Pass `hideIcon` to remove it.
+   */
+  icon?: React.ReactNode;
+  /**
+   * Removes the default trigger icon.
+   */
+  hideIcon?: boolean;
+  /**
+   * Classes for internal slots rendered by the trigger.
+   */
+  classNames?: AccordionTriggerClassNames;
+  /**
+   * Props for internal slots rendered by the trigger.
+   */
+  slotProps?: AccordionTriggerSlotProps;
+};
 
 export {
   Accordion,
@@ -92,4 +137,6 @@ export type {
   AccordionTriggerProps,
   AccordionTriggerIconProps,
   AccordionPanelProps,
+  AccordionTriggerClassNames,
+  AccordionTriggerSlotProps,
 };

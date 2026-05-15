@@ -1,5 +1,6 @@
 @layer ui.components {
   .root {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
     color: var(--list-color, var(--list-default-color, var(--color-foreground)));
@@ -39,7 +40,7 @@
       padding-inline-start: 0;
       list-style: none;
 
-      & > .item {
+      & > :where(li) {
         position: relative;
         padding-inline-start: calc(
           var(--list-marker-size, 0.375rem) + var(--list-marker-gap, var(--spacing-3))
@@ -129,6 +130,7 @@
   }
 
   .item {
+    box-sizing: border-box;
     padding-inline-start: var(--list-item-padding-x, 0);
   }
 }

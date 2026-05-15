@@ -239,11 +239,36 @@ export const WithIcons: Story = {
   },
 };
 
+export const DisabledTab: Story = {
+  render: () => {
+    return (
+      <Tabs defaultValue="overview">
+        <TabsList>
+          <TabsTab value="overview">Overview</TabsTab>
+          <TabsTab value="projects" disabled>
+            Projects
+          </TabsTab>
+          <TabsTab value="account">Account</TabsTab>
+        </TabsList>
+        {tabItems.map((item) => (
+          <TabsPanel key={item.value} value={item.value} keepMounted>
+            <p className={styles.panelText}>{item.content}</p>
+          </TabsPanel>
+        ))}
+      </Tabs>
+    );
+  },
+};
+
 export const InlineInputs: Story = {
   render: () => {
     return (
       <Tabs defaultValue="name" unstyled className={styles.inlineRoot}>
-        <TabsList className={styles.inlineList} classNames={{ indicator: styles.inlineIndicator }}>
+        <TabsList
+          className={styles.inlineList}
+          classNames={{ indicator: styles.inlineIndicator }}
+          slotProps={{ indicator: { renderBeforeHydration: true } }}
+        >
           <TabsTab value="name" className={styles.inlineTab}>
             Name
           </TabsTab>

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { Field, FieldLabel } from '../Field';
-import { Switch, SwitchField, SwitchLabel, SwitchThumb } from './Switch';
+import { Switch, SwitchField, SwitchLabel } from './Switch';
 import styles from './Switch.stories.module.css';
 
 const meta = {
@@ -107,11 +107,11 @@ export const CustomIcon: Story = {
   render: () => {
     return (
       <SwitchField>
-        <Switch defaultChecked>
-          <SwitchThumb className={styles.customIconThumb}>
-            <PowerIcon />
-          </SwitchThumb>
-        </Switch>
+        <Switch
+          defaultChecked
+          thumb={<PowerIcon />}
+          classNames={{ thumb: styles.customIconThumb }}
+        />
         <SwitchLabel>Use custom thumb icon</SwitchLabel>
       </SwitchField>
     );

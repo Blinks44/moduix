@@ -30,10 +30,6 @@ import {
         Field,
         FieldLabel,
         NumberField,
-        NumberFieldGroup,
-        NumberFieldDecrement,
-        NumberFieldInput,
-        NumberFieldIncrement,
       } from "moduix";
       import { useId } from "react";
 
@@ -43,13 +39,7 @@ import {
         return (
           <Field>
             <FieldLabel htmlFor={id}>Amount</FieldLabel>
-            <NumberField id={id} defaultValue={100}>
-              <NumberFieldGroup>
-                <NumberFieldDecrement aria-label="Decrease value" />
-                <NumberFieldInput />
-                <NumberFieldIncrement aria-label="Increase value" />
-              </NumberFieldGroup>
-            </NumberField>
+            <NumberField id={id} defaultValue={100} />
           </Field>
         );
       }
@@ -57,6 +47,62 @@ import {
 
   </Preview.Code>
 </Preview>
+
+## Anatomy
+
+`NumberField` keeps numeric state on the root and renders the standard decrement, input, and
+increment group automatically. Add `NumberFieldScrubArea` only when the label or another visible
+part should support drag-to-change behavior.
+
+```text
+Field
+├─ FieldLabel
+└─ NumberField
+   ├─ NumberFieldScrubArea
+   │  ├─ scrub label
+   │  └─ cursor (internal)
+   └─ NumberFieldGroup
+      ├─ NumberFieldDecrement
+      ├─ NumberFieldInput
+      └─ NumberFieldIncrement
+```
+
+```tsx
+<Field>
+  <FieldLabel htmlFor={id}>Amount</FieldLabel>
+  <NumberField id={id} defaultValue={100} />
+</Field>
+```
+
+| Part                   | Role                                                                                                        |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `NumberField`          | Root state machine. Controls value, formatting, validation, min/max, step, and change handlers.             |
+| `NumberFieldScrubArea` | Optional drag area for changing the value. It renders the scrub cursor internally by default.               |
+| `NumberFieldGroup`     | Visual wrapper for the stepper buttons and input. Rendered automatically unless `withGroup={false}` is set. |
+| `NumberFieldDecrement` | Button that decreases the value. It renders the default minus icon, or your custom icon as children.        |
+| `NumberFieldInput`     | Editable numeric input. It receives formatted text and invalid, disabled, and readonly state attributes.    |
+| `NumberFieldIncrement` | Button that increases the value. It renders the default plus icon, or your custom icon as children.         |
+
+`NumberField` does not use portal-like service layers such as `portal`, `backdrop`, or `viewport`.
+The standard group is rendered internally by default and can be styled with `classNames.group`,
+`classNames.decrement`, `classNames.input`, and `classNames.increment`. The scrub cursor is an
+internal service slot of `NumberFieldScrubArea`, so it is customized through `cursor`,
+`withCursor`, and `classNames.cursor` instead of being added to the public composition.
+
+## Composition
+
+Use `NumberField` for root behavior props such as `value`, `defaultValue`, `onValueChange`, `min`,
+`max`, `step`, `required`, `disabled`, `readOnly`, and `format`.
+
+Use the default group for standard number inputs. Set `decrementLabel` and `incrementLabel` to
+localize the internal button labels, or set `withGroup={false}` and compose `NumberFieldGroup`,
+`NumberFieldDecrement`, `NumberFieldInput`, and `NumberFieldIncrement` manually when the layout or
+icons need full control.
+
+Visible parts accept `className`: `NumberField`, `NumberFieldScrubArea`, `NumberFieldGroup`,
+`NumberFieldDecrement`, `NumberFieldInput`, and `NumberFieldIncrement`. `NumberFieldScrubArea`
+also accepts `cursor` for replacing the default scrub cursor icon, `withCursor={false}` for hiding
+it, and `classNames.cursor` for styling the internal cursor wrapper.
 
 ## Examples
 
@@ -73,10 +119,6 @@ Control the numeric value from React state when other UI needs to react to the c
         Field,
         FieldLabel,
         NumberField,
-        NumberFieldGroup,
-        NumberFieldDecrement,
-        NumberFieldInput,
-        NumberFieldIncrement,
       } from "moduix";
       import { useState, useId } from "react";
 
@@ -88,13 +130,7 @@ Control the numeric value from React state when other UI needs to react to the c
           <div>
             <Field>
               <FieldLabel htmlFor={id}>Controlled value</FieldLabel>
-              <NumberField id={id} value={value} onValueChange={setValue}>
-                <NumberFieldGroup>
-                  <NumberFieldDecrement aria-label="Decrease value" />
-                  <NumberFieldInput />
-                  <NumberFieldIncrement aria-label="Increase value" />
-                </NumberFieldGroup>
-              </NumberField>
+              <NumberField id={id} value={value} onValueChange={setValue} />
             </Field>
             <span>Current value: {value ?? "empty"}</span>
           </div>
@@ -118,10 +154,6 @@ Use `min`, `max`, and `step` to constrain button, keyboard, scrub, and enabled w
         Field,
         FieldLabel,
         NumberField,
-        NumberFieldGroup,
-        NumberFieldDecrement,
-        NumberFieldInput,
-        NumberFieldIncrement,
       } from "moduix";
       import { useId } from "react";
 
@@ -131,13 +163,7 @@ Use `min`, `max`, and `step` to constrain button, keyboard, scrub, and enabled w
         return (
           <Field>
             <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
-            <NumberField id={id} defaultValue={10} min={0} max={20} step={2}>
-              <NumberFieldGroup>
-                <NumberFieldDecrement aria-label="Decrease value" />
-                <NumberFieldInput />
-                <NumberFieldIncrement aria-label="Increase value" />
-              </NumberFieldGroup>
-            </NumberField>
+            <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
           </Field>
         );
       }
@@ -159,10 +185,6 @@ Use `format` for localized presentation while keeping the value numeric.
         Field,
         FieldLabel,
         NumberField,
-        NumberFieldGroup,
-        NumberFieldDecrement,
-        NumberFieldInput,
-        NumberFieldIncrement,
       } from "moduix";
       import { useId } from "react";
 
@@ -178,13 +200,7 @@ Use `format` for localized presentation while keeping the value numeric.
               min={0}
               step={50}
               format={{ style: "currency", currency: "USD", maximumFractionDigits: 0 }}
-            >
-              <NumberFieldGroup>
-                <NumberFieldDecrement aria-label="Decrease value" />
-                <NumberFieldInput />
-                <NumberFieldIncrement aria-label="Increase value" />
-              </NumberFieldGroup>
-            </NumberField>
+            />
           </Field>
         );
       }
@@ -206,10 +222,6 @@ Add `NumberFieldScrubArea` when users should be able to drag the label area to c
         NumberField,
         NumberFieldScrubArea,
         FieldLabel,
-        NumberFieldGroup,
-        NumberFieldDecrement,
-        NumberFieldInput,
-        NumberFieldIncrement,
       } from "moduix";
       import { useId } from "react";
 
@@ -221,11 +233,6 @@ Add `NumberFieldScrubArea` when users should be able to drag the label area to c
             <NumberFieldScrubArea>
               <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
             </NumberFieldScrubArea>
-            <NumberFieldGroup>
-              <NumberFieldDecrement aria-label="Decrease value" />
-              <NumberFieldInput />
-              <NumberFieldIncrement aria-label="Increase value" />
-            </NumberFieldGroup>
           </NumberField>
         );
       }
@@ -247,10 +254,6 @@ Wrap the control in `Field` to show native validation errors from `required`, `m
         Field,
         FieldLabel,
         NumberField,
-        NumberFieldGroup,
-        NumberFieldDecrement,
-        NumberFieldInput,
-        NumberFieldIncrement,
         FieldError,
       } from "moduix";
       import { useId } from "react";
@@ -261,13 +264,7 @@ Wrap the control in `Field` to show native validation errors from `required`, `m
         return (
           <Field name="quantity" validationMode="onBlur">
             <FieldLabel htmlFor={id}>Items</FieldLabel>
-            <NumberField id={id} min={1} max={10} required>
-              <NumberFieldGroup>
-                <NumberFieldDecrement aria-label="Decrease value" />
-                <NumberFieldInput />
-                <NumberFieldIncrement aria-label="Increase value" />
-              </NumberFieldGroup>
-            </NumberField>
+            <NumberField id={id} min={1} max={10} required />
             <FieldError match="valueMissing">Please provide a number.</FieldError>
             <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
             <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
@@ -299,16 +296,8 @@ Pass children to the stepper buttons to use icons from your application or icon 
         NumberFieldIncrement,
         ChevronUpIcon,
       } from "moduix";
-      import type { CSSProperties } from "react";
       import { useId } from "react";
-
-      const customStyles = {
-        "--number-field-button-bg": "var(--color-muted)",
-        "--number-field-button-bg-hover": "var(--color-accent)",
-        "--number-field-icon-size": "1rem",
-        "--number-field-input-width": "7rem",
-        "--number-field-input-font-size": "var(--text-lg)",
-      } as CSSProperties;
+      import styles from "./number-field.module.css";
 
       export function CustomIconsNumberFieldDemo() {
         const id = useId();
@@ -316,13 +305,13 @@ Pass children to the stepper buttons to use icons from your application or icon 
         return (
           <Field>
             <FieldLabel htmlFor={id}>Floors</FieldLabel>
-            <NumberField id={id} defaultValue={8} style={customStyles}>
+            <NumberField id={id} defaultValue={8} withGroup={false}>
               <NumberFieldGroup>
-                <NumberFieldDecrement aria-label="Decrease value">
+                <NumberFieldDecrement aria-label="Decrease value" className={styles.customButton}>
                   <ChevronDownIcon />
                 </NumberFieldDecrement>
-                <NumberFieldInput />
-                <NumberFieldIncrement aria-label="Increase value">
+                <NumberFieldInput className={styles.customInput} />
+                <NumberFieldIncrement aria-label="Increase value" className={styles.customButton}>
                   <ChevronUpIcon />
                 </NumberFieldIncrement>
               </NumberFieldGroup>
@@ -333,4 +322,20 @@ Pass children to the stepper buttons to use icons from your application or icon 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customButton {
+        --number-field-button-bg: var(--color-muted);
+        --number-field-button-bg-hover: var(--color-accent);
+        --number-field-icon-size: 1rem;
+      }
+
+      .customInput {
+        --number-field-input-width: 7rem;
+        --number-field-input-font-size: var(--text-lg);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

@@ -194,6 +194,9 @@
   --autocomplete-group-label-padding-top: initial; /* 0.35rem */
   --autocomplete-group-label-padding-x: initial; /* 0.625rem */
   --autocomplete-group-padding-bottom: initial; /* var(--spacing-1) */
+  --autocomplete-grid-item-min-height: initial; /* 2.5rem */
+  --autocomplete-grid-item-padding-x: initial; /* var(--spacing-2) */
+  --autocomplete-grid-item-width: initial; /* 2.5rem */
   --autocomplete-highlight-bg: initial; /* var(--color-foreground) */
   --autocomplete-highlight-color: initial; /* var(--color-background) */
   --autocomplete-highlight-inset-x: initial; /* var(--spacing-1) */
@@ -236,6 +239,8 @@
   --autocomplete-popup-border-color: initial; /* var(--color-border) */
   --autocomplete-popup-max-height: initial; /* 24rem */
   --autocomplete-radius: initial; /* var(--radius-md) */
+  --autocomplete-row-gap: initial; /* var(--spacing-1) */
+  --autocomplete-row-padding-x: initial; /* var(--spacing-1) */
   --autocomplete-separator-margin-x: initial; /* 1rem */
   --autocomplete-separator-margin-y: initial; /* 0.375rem */
   --autocomplete-shadow: initial; /* var(--shadow-lg) */
@@ -1241,6 +1246,7 @@
   --preview-card-transition: initial; /* var(--transition-default) */
   --preview-card-backdrop-bg: initial; /* var(--backdrop-bg, transparent) */
   --preview-card-backdrop-blur: initial; /* 0 */
+  --preview-card-backdrop-transition: initial; /* var(--transition-default) */
   --preview-card-trigger-color: initial; /* var(--color-primary) */
   --preview-card-trigger-decoration-color: initial; /* color-mix(in oklab, var(--preview-card-trigger-color, var(--color-primary)), transparent 40%) */
   --preview-card-trigger-decoration-thickness: initial; /* 1px */
@@ -1469,12 +1475,11 @@
   --switch-focus-ring-offset: initial; /* var(--border-width-sm) */
   --switch-focus-ring-width: initial; /* var(--border-width-sm) */
   --switch-gap: initial; /* var(--spacing-2) */
-  --switch-height: initial; /* 1.5rem */
-  --switch-height-xl: initial; /* 2rem */
   --switch-height-xs: initial; /* 1rem */
-  --switch-height-lg: initial; /* 1.75rem */
-  --switch-height-md: initial; /* 1.5rem */
   --switch-height-sm: initial; /* 1.25rem */
+  --switch-height-md: initial; /* 1.5rem */
+  --switch-height-lg: initial; /* 1.75rem */
+  --switch-height-xl: initial; /* 2rem */
   --switch-label-color: initial; /* var(--color-foreground) */
   --switch-label-font-size: initial; /* var(--text-sm) */
   --switch-label-font-weight: initial; /* var(--weight-medium) */
@@ -1488,20 +1493,18 @@
   --switch-thumb-color-unchecked: initial; /* var(--switch-thumb-color, var(--color-muted)) */
   --switch-thumb-icon-size: initial; /* 65% */
   --switch-thumb-shadow: initial; /* var(--shadow-sm) */
-  --switch-thumb-size: initial; /* 1.125rem */
-  --switch-thumb-size-xl: initial; /* 1.625rem */
   --switch-thumb-size-xs: initial; /* 0.625rem */
-  --switch-thumb-size-lg: initial; /* 1.375rem */
-  --switch-thumb-size-md: initial; /* 1.125rem */
   --switch-thumb-size-sm: initial; /* 0.875rem */
+  --switch-thumb-size-md: initial; /* 1.125rem */
+  --switch-thumb-size-lg: initial; /* 1.375rem */
+  --switch-thumb-size-xl: initial; /* 1.625rem */
   --switch-thumb-transition: initial; /* var(--switch-transition, var(--transition-default)) */
   --switch-transition: initial; /* var(--transition-default) */
-  --switch-width: initial; /* 2.5rem */
-  --switch-width-xl: initial; /* 3.5rem */
   --switch-width-xs: initial; /* 1.75rem */
-  --switch-width-lg: initial; /* 3rem */
-  --switch-width-md: initial; /* 2.5rem */
   --switch-width-sm: initial; /* 2rem */
+  --switch-width-md: initial; /* 2.5rem */
+  --switch-width-lg: initial; /* 3rem */
+  --switch-width-xl: initial; /* 3.5rem */
 
   /* Tabs */
   --tabs-bg: initial; /* var(--color-background) */
@@ -1547,23 +1550,19 @@
   --tabs-width: initial; /* 32rem */
 
   /* Text */
-  --text-color: initial; /* var(--text-default-color, var(--color-foreground)) */
   --text-default-color: initial; /* var(--color-foreground) */
   --text-destructive-color: initial; /* var(--color-destructive) */
   --text-font-family: initial; /* var(--font-sans) */
-  --text-font-size: initial; /* var(--text-font-size-md, var(--text-md)) */
   --text-font-size-xs: initial; /* var(--text-xs) */
   --text-font-size-sm: initial; /* var(--text-sm) */
   --text-font-size-md: initial; /* var(--text-md) */
   --text-font-size-lg: initial; /* var(--text-lg) */
   --text-font-size-xl: initial; /* var(--text-xl) */
-  --text-font-weight: initial; /* var(--weight-regular) */
   --text-font-weight-regular: initial; /* var(--weight-regular) */
   --text-font-weight-medium: initial; /* var(--weight-medium) */
   --text-font-weight-semibold: initial; /* var(--weight-semibold) */
   --text-font-weight-bold: initial; /* var(--weight-bold) */
   --text-letter-spacing: initial; /* 0 */
-  --text-line-height: initial; /* var(--text-line-height-md, var(--line-height-text-md)) */
   --text-line-height-xs: initial; /* var(--line-height-text-xs) */
   --text-line-height-sm: initial; /* var(--line-height-text-sm) */
   --text-line-height-md: initial; /* var(--line-height-text-md) */
@@ -1578,7 +1577,6 @@
   --toast-action-bg-hover: initial; /* var(--color-accent) */
   --toast-action-border-color: initial; /* var(--color-border) */
   --toast-action-color: initial; /* var(--color-foreground) */
-  --toast-action-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toast-action-font-size: initial; /* var(--text-xs) */
   --toast-action-font-weight: initial; /* var(--weight-medium) */
   --toast-action-line-height: initial; /* var(--line-height-text-xs) */
@@ -1590,7 +1588,6 @@
   --toast-anchored-line-height: initial; /* var(--line-height-text-sm) */
   --toast-anchored-padding-x: initial; /* 0.5rem */
   --toast-anchored-padding-y: initial; /* 0.25rem */
-  --toast-anchored-transition: initial; /* 150ms */
   --toast-bg: initial; /* var(--color-popover) */
   --toast-border-color: initial; /* var(--color-border) */
   --toast-close-bg: initial; /* transparent */
@@ -1604,13 +1601,10 @@
   --toast-close-size: initial; /* 1.25rem */
   --toast-color: initial; /* var(--color-popover-foreground) */
   --toast-content-gap: initial; /* 0.25rem */
-  --toast-content-transition: initial; /* 250ms ease */
   --toast-description-color: initial; /* var(--color-muted-foreground) */
   --toast-description-font-size: initial; /* var(--text-sm) */
   --toast-description-line-height: initial; /* var(--line-height-text-sm) */
   --toast-focus-ring-color: initial; /* var(--color-ring) */
-  --toast-height-transition: initial; /* 150ms ease */
-  --toast-opacity-transition: initial; /* 0.5s */
   --toast-padding: initial; /* 1rem */
   --toast-radius: initial; /* var(--radius-lg) */
   --toast-shadow: initial; /* var(--shadow-lg) */
@@ -1621,7 +1615,6 @@
   --toast-title-line-height: initial; /* var(--line-height-text-sm) */
   --toast-transition: initial; /* 0.5s cubic-bezier(0.22, 1, 0.36, 1) */
   --toast-viewport-inset: initial; /* 1rem */
-  --toast-viewport-min-height: initial; /* 1px */
   --toast-viewport-width: initial; /* 20rem */
   --toast-z-index: initial; /* var(--z-toast) */
 

@@ -50,6 +50,9 @@ function CheckboxGroupItemLabel({ className, ...props }: CheckboxGroupItemLabelP
 }
 
 type CheckboxGroupProps = CheckboxGroupPrimitive.Props;
+type CheckboxGroupState = CheckboxGroupPrimitive.State;
+type CheckboxGroupChangeEventReason = CheckboxGroupPrimitive.ChangeEventReason;
+type CheckboxGroupChangeEventDetails = CheckboxGroupPrimitive.ChangeEventDetails;
 type CheckboxGroupLabelProps = React.ComponentProps<'div'>;
 type CheckboxGroupListProps = React.ComponentProps<'div'>;
 type CheckboxGroupItemProps = React.ComponentProps<'label'>;
@@ -66,6 +69,9 @@ export {
 
 export type {
   CheckboxGroupProps,
+  CheckboxGroupState,
+  CheckboxGroupChangeEventReason,
+  CheckboxGroupChangeEventDetails,
   CheckboxGroupLabelProps,
   CheckboxGroupListProps,
   CheckboxGroupItemProps,

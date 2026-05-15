@@ -7,13 +7,15 @@ import styles from './Radio.module.css';
 
 type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
+type RadioClassNames = {
+  indicator?: RadioIndicatorProps['className'];
+  indicatorIcon?: RadioIndicatorIconProps['className'];
+};
+
 type RadioProps = RadioPrimitive.Root.Props & {
   size?: RadioSize;
   indicator?: React.ReactNode;
-  classNames?: {
-    indicator?: string;
-    indicatorIcon?: string;
-  };
+  classNames?: RadioClassNames;
 };
 
 function Radio({ className, size = 'md', children, indicator, classNames, ...props }: RadioProps) {
@@ -109,10 +111,10 @@ function RadioGroupItemLabel({ className, ...props }: React.ComponentProps<'span
   );
 }
 
-type RadioIndicatorProps = RadioPrimitive.Indicator.Props;
-type RadioIndicatorIconProps = React.ComponentProps<'span'>;
 type RadioFieldProps = React.ComponentProps<'label'>;
 type RadioLabelProps = React.ComponentProps<'span'>;
+type RadioIndicatorProps = RadioPrimitive.Indicator.Props;
+type RadioIndicatorIconProps = React.ComponentProps<'span'>;
 type RadioGroupProps = RadioGroupPrimitive.Props;
 type RadioGroupLabelProps = React.ComponentProps<'div'>;
 type RadioGroupListProps = React.ComponentProps<'div'>;
@@ -121,8 +123,6 @@ type RadioGroupItemLabelProps = React.ComponentProps<'span'>;
 
 export {
   Radio,
-  RadioIndicator,
-  RadioIndicatorIcon,
   RadioField,
   RadioLabel,
   RadioGroup,
@@ -134,9 +134,9 @@ export {
 };
 
 export type {
+  RadioSize,
+  RadioClassNames,
   RadioProps,
-  RadioIndicatorProps,
-  RadioIndicatorIconProps,
   RadioFieldProps,
   RadioLabelProps,
   RadioGroupProps,

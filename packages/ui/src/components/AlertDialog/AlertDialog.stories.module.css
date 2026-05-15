@@ -1,4 +1,8 @@
 @layer ui.stories {
+  .detachedTrigger {
+    margin-left: var(--spacing-2);
+  }
+
   .customCloseIcon {
     --alert-dialog-close-icon-color: var(--color-destructive);
   }

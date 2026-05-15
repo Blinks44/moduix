@@ -4,10 +4,10 @@ description: A typography primitive for body copy, inline text, supporting descr
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   TextAlignExample,
   TextClassNameExample,
+  TextCustomElementExample,
   TextElementsExample,
   TextExample,
   TextSizesExample,
@@ -15,10 +15,13 @@ import {
   TextWeightsExample,
   textCssProperties,
 } from '@/components/examples/text';
+import 'moduix/style.css';
 
 ## API Reference
 
-`Text` is a moduix typography primitive and does not wrap a Base UI primitive.
+`Text` is a moduix typography primitive. Base UI does not provide a matching text primitive,
+so the public API stays focused on semantic element choice, visual variants, and root
+`className` composition.
 
 ## Basic
 
@@ -41,6 +44,40 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Text` is composed as a single typography root that renders the chosen semantic element.
+Visual style is controlled through size, weight, tone, alignment, and CSS variables.
+
+```text
+Text
+└─ text or inline content
+```
+
+```tsx
+<Text as="small" size="sm" tone="muted">
+  Last updated just now
+</Text>
+```
+
+| Part   | Role                                                                |
+| ------ | ------------------------------------------------------------------- |
+| `Text` | Semantic text root with design-system typography, tone, and sizing. |
+
+`Text` does not use portal-like service layers such as `portal`, `backdrop`, or `viewport`.
+In most cases, keep the default root styling and use props for semantic element, size,
+weight, tone, and alignment. Use `className` when a specific block needs local CSS variables
+or project styles.
+
+## Composition
+
+Use `as` for the semantic element and `size` for the visual scale when semantics and
+appearance should differ. Built-in defaults keep `strong` semibold and `small` at `sm`, while
+other elements and custom components default to regular `md` text.
+
+Style the root with `className` and component CSS variables. `Text` has no hidden service
+slots, so it does not use `classNames` or slot props.
+
 ## Examples
 
 ### Elements
@@ -56,7 +93,7 @@ Use `as` to choose the semantic element without leaving the typography scale.
 
       export function TextElementsDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Text as="p">Paragraph text rendered as p.</Text>
             <Text as="span">Inline text rendered as span.</Text>
             <Text as="small">Small supporting text rendered as small.</Text>
@@ -64,6 +101,49 @@ Use `as` to choose the semantic element without leaving the typography scale.
             <Text as="em">Emphasized text rendered as em.</Text>
             <Text as="div">Block text rendered as div.</Text>
           </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Element
+
+Pass any React element or component to `as` when routing, analytics, or app-level primitives own
+the rendered element.
+
+<Preview>
+  <TextCustomElementExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+      import type { ComponentPropsWithoutRef } from "react";
+
+      type InlineLinkProps = ComponentPropsWithoutRef<"a">;
+
+      function InlineLink(props: InlineLinkProps) {
+        return <a {...props} />;
+      }
+
+      export function TextCustomElementDemo() {
+        return (
+          <Text as={InlineLink} href="/docs" tone="primary" weight="medium">
+            Read the documentation
+          </Text>
         );
       }
     `}
@@ -84,7 +164,7 @@ Use `size` for visual sizing. Override size-specific CSS variables in your proje
 
       export function TextSizesDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Text size="xl">Extra-large text</Text>
             <Text size="lg">Large text</Text>
             <Text size="md">Medium text</Text>
@@ -96,6 +176,18 @@ Use `size` for visual sizing. Override size-specific CSS variables in your proje
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Tones
@@ -111,7 +203,7 @@ Use `tone` to match the role of the copy without introducing local color classes
 
       export function TextTonesDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Text tone="default">Default tone</Text>
             <Text tone="muted">Muted tone</Text>
             <Text tone="subtle">Subtle tone</Text>
@@ -123,6 +215,18 @@ Use `tone` to match the role of the copy without introducing local color classes
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Weights
@@ -138,7 +242,7 @@ Use `weight` for emphasis. `strong` defaults to semibold while other elements de
 
       export function TextWeightsDemo() {
         return (
-          <div>
+          <div className={styles.stack}>
             <Text weight="regular">Regular weight</Text>
             <Text weight="medium">Medium weight</Text>
             <Text weight="semibold">Semibold weight</Text>
@@ -149,6 +253,18 @@ Use `weight` for emphasis. `strong` defaults to semibold while other elements de
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Alignment
@@ -164,7 +280,7 @@ Use `align` when text alignment belongs to the typography primitive instead of t
 
       export function TextAlignDemo() {
         return (
-          <div>
+          <div className={styles.aligned}>
             <Text align="left">Left aligned text.</Text>
             <Text align="center">Center aligned text.</Text>
             <Text align="right">Right aligned text.</Text>
@@ -174,6 +290,18 @@ Use `align` when text alignment belongs to the typography primitive instead of t
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .aligned {
+        display: flex;
+        width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Class Names

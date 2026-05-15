@@ -45,6 +45,39 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Meter` combines a semantic root with visible value text and a visual fill track. In the default setup,
+the track and indicator are rendered automatically, so most use cases only need `Meter`, `MeterLabel`,
+and `MeterValue`.
+
+```text
+Meter[value]
+├─ MeterLabel
+├─ MeterValue
+└─ MeterTrack
+   └─ MeterIndicator
+```
+
+```tsx
+<Meter value={64}>
+  <MeterLabel>Storage used</MeterLabel>
+  <MeterValue>{(formattedValue) => `${formattedValue} used`}</MeterValue>
+</Meter>
+```
+
+| Part             | Role                                                                                               |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| `Meter`          | Root state and accessibility layer. Provides `value`, `min`, `max`, formatting, and ARIA metadata. |
+| `MeterLabel`     | Visible text label associated with the meter for users and assistive technology.                   |
+| `MeterValue`     | Formatted value output. Can render default text or a custom function for value wording.            |
+| `MeterTrack`     | Visual track slot behind the fill. Rendered automatically unless `withTrack={false}` is set.       |
+| `MeterIndicator` | Fill slot that reflects current progress within the track.                                         |
+
+`Meter` does not use service slots such as `portal`, `backdrop`, or `viewport`.
+Keep the default track structure when possible, and customize slot-level visuals through `classNames`
+or by composing `MeterTrack` and `MeterIndicator` manually when the design needs full control.
+
 ## Composition
 
 Use `withTrack={false}` and compose `MeterTrack` with `MeterIndicator` when the visual structure needs direct access to Base UI slots.

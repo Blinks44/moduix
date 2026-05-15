@@ -34,6 +34,7 @@ apps/docs/
    - Each snippet should start with the import of the `moduix` parts used in that snippet.
    - Each `Preview.Code` snippet must be self-contained for the current variant: include the needed imports, local example data, helper functions, state hooks, and a complete demo component or complete JSX composition. Do not show isolated fragments such as only a single item, only root props, or placeholders like `{/* input and list */}` unless the section explicitly documents a tiny sub-slot outside a live preview.
    - Keep all snippets on a component page in one style, showing the recommended project-level usage pattern for that component.
+8. Keep `Anatomy` and `Composition` non-duplicative. `Anatomy` should explain structure, part roles, and slot map. `Composition` should explain usage patterns and API customization (`render`, controlled props, `className`/`classNames`, slot escape hatches). Do not repeat the same structural explanation in both sections.
 
 ## Component Page Template
 
@@ -49,8 +50,13 @@ Every component page must use this order:
 2. A `BaseUIReference` block linking to the source Base UI docs page for the primitive, for example `https://base-ui.com/react/components/accordion`.
 3. Basic preview with the heading `Basic`.
 4. Tabs with the basic example code and `CSS properties`. Use `Preview` and pass `cssProperties` only to the basic example.
-5. `## Examples` section.
-6. For each Storybook example:
+5. `## Anatomy` section.
+   - Briefly describe visible parts and internal service slots (for example `portal`, `backdrop`, `viewport`) when the component has them.
+   - Explain when consumers should keep default styling and when slot-level customization is useful.
+   - Keep `Anatomy` blocks in a unified style across all component pages. Use `content/docs/accordion.mdx` as the reference format for section structure and tone.
+6. `## Composition` section (optional, only when there is meaningful composition to show).
+7. `## Examples` section.
+8. For each Storybook example:
    - heading with the example name;
    - short scenario description;
    - preview;
@@ -58,8 +64,8 @@ Every component page must use this order:
 
 Order examples by user learning flow rather than alphabetically:
 
-1. `Basic` always comes first.
-2. Put the most common user scenarios first.
+1. Keep section order fixed: `Basic` -> `Anatomy` -> `Composition` (if present) -> `Examples`.
+2. Inside `Examples`, put the most common user scenarios first.
 3. Put controlled or stateful variants after common scenarios.
 4. Put customization examples after behavior examples: custom icons, custom styling, slots, `className`.
 5. Put edge cases and accessibility-specific examples last.

@@ -17,6 +17,17 @@ export {
 export type {
   AlertDialogProps,
   AlertDialogHandle,
+  AlertDialogTriggerProps,
+  AlertDialogTitleProps,
+  AlertDialogDescriptionProps,
+  AlertDialogCloseProps,
+  AlertDialogCloseIconProps,
   AlertDialogContentProps,
   AlertDialogContentClassNames,
+  AlertDialogContentSlotProps,
+  AlertDialogHeaderProps,
+  AlertDialogBodyProps,
+  AlertDialogFooterProps,
+  AlertDialogActionProps,
+  AlertDialogCancelProps,
 } from './AlertDialog';

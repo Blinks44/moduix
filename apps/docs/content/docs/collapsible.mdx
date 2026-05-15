@@ -28,17 +28,13 @@ import {
       import {
         Collapsible,
         CollapsibleTrigger,
-        CollapsibleTriggerIcon,
         CollapsiblePanel,
       } from "moduix";
 
       export function CollapsibleDemo() {
         return (
           <Collapsible className={styles.root}>
-            <CollapsibleTrigger>
-              <CollapsibleTriggerIcon />
-              Recovery keys
-            </CollapsibleTrigger>
+            <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
             <CollapsiblePanel>
               <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
@@ -78,6 +74,56 @@ import {
   </Preview.Data>
 </Preview>
 
+## Anatomy
+
+`Collapsible` groups one toggle control and one panel that share the same open state.
+Keep `CollapsibleTrigger` and `CollapsiblePanel` inside the same root so keyboard and
+accessibility wiring stay connected.
+
+```text
+Collapsible
+├─ CollapsibleTrigger
+│  └─ label
+└─ CollapsiblePanel
+   └─ content
+```
+
+```tsx
+<Collapsible>
+  <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
+  <CollapsiblePanel>
+    <div className={styles.panelContent}>Store these keys somewhere safe.</div>
+  </CollapsiblePanel>
+</Collapsible>
+```
+
+| Part                     | Role                                                                                                          |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `Collapsible`            | Root state machine. Controls `open`, `defaultOpen`, `disabled`, and `onOpenChange`.                           |
+| `CollapsibleTrigger`     | Interactive toggle button. Opens or closes the panel, receives open/disabled attributes, and renders an icon. |
+| `CollapsibleTriggerIcon` | Advanced visual state marker. Use directly only when manually composing trigger contents.                     |
+| `CollapsiblePanel`       | Collapsible content region. Put spacing/surface wrappers inside it for cleaner animations.                    |
+
+`CollapsibleTrigger` renders its icon internally so the common composition stays compact.
+Use `icon`, `hideIcon`, `classNames.icon`, and `slotProps.icon` when you need to replace,
+remove, style, or pass props to that internal slot. `CollapsibleTriggerIcon` is still exported
+for advanced manual composition, but most projects do not need it.
+
+`Collapsible` does not use service slots like `portal`, `backdrop`, or `viewport`. In most cases,
+keep the default structure and customize visible parts: the root, trigger, icon slot, panel,
+and content wrapper inside the panel.
+
+## Composition
+
+Use `Collapsible` for root state and behavior props such as `open`, `defaultOpen`,
+`onOpenChange`, and `disabled`.
+
+All parts in this component are visible slots. Style `Collapsible`, `CollapsibleTrigger`,
+and `CollapsiblePanel` directly with `className`. Use `classNames.icon` for the icon rendered
+inside `CollapsibleTrigger`, or compose `CollapsibleTriggerIcon` manually when you need full
+control over trigger children. All Base UI behavior props such as `render`, `nativeButton`,
+`keepMounted`, and `hiddenUntilFound` pass through to the matching primitive part.
+
 ## Examples
 
 ### Default Open
@@ -92,17 +138,13 @@ Use `defaultOpen` when the panel should be expanded on first render.
       import {
         Collapsible,
         CollapsibleTrigger,
-        CollapsibleTriggerIcon,
         CollapsiblePanel,
       } from "moduix";
 
       export function DefaultOpenCollapsibleDemo() {
         return (
           <Collapsible defaultOpen className={styles.root}>
-            <CollapsibleTrigger>
-              <CollapsibleTriggerIcon />
-              Recovery keys
-            </CollapsibleTrigger>
+            <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
             <CollapsiblePanel>
               <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
@@ -154,7 +196,6 @@ Control `open` from React state when the collapsible needs to coordinate with ot
       import {
         Collapsible,
         CollapsibleTrigger,
-        CollapsibleTriggerIcon,
         CollapsiblePanel,
       } from "moduix";
       import { useState } from "react";
@@ -164,10 +205,7 @@ Control `open` from React state when the collapsible needs to coordinate with ot
 
         return (
           <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
-            <CollapsibleTrigger>
-              <CollapsibleTriggerIcon />
-              Recovery keys
-            </CollapsibleTrigger>
+            <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
             <CollapsiblePanel>
               <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
@@ -227,17 +265,13 @@ Set `disabled` on the root when the trigger should be visible but unavailable fo
       import {
         Collapsible,
         CollapsibleTrigger,
-        CollapsibleTriggerIcon,
         CollapsiblePanel,
       } from "moduix";
 
       export function DisabledCollapsibleDemo() {
         return (
           <Collapsible disabled className={styles.root}>
-            <CollapsibleTrigger>
-              <CollapsibleTriggerIcon />
-              Recovery keys
-            </CollapsibleTrigger>
+            <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
             <CollapsiblePanel>
               <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
@@ -289,17 +323,13 @@ Use `hiddenUntilFound` when browser page search should be able to find and expan
       import {
         Collapsible,
         CollapsibleTrigger,
-        CollapsibleTriggerIcon,
         CollapsiblePanel,
       } from "moduix";
 
       export function HiddenUntilFoundCollapsibleDemo() {
         return (
           <Collapsible className={styles.root}>
-            <CollapsibleTrigger>
-              <CollapsibleTriggerIcon />
-              Searchable recovery keys
-            </CollapsibleTrigger>
+            <CollapsibleTrigger>Searchable recovery keys</CollapsibleTrigger>
             <CollapsiblePanel hiddenUntilFound>
               <ul className={styles.keysList}>
                 {recoveryKeys.map((key) => (
@@ -339,9 +369,12 @@ Use `hiddenUntilFound` when browser page search should be able to find and expan
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Icon And Styles
 
-Pass `className` to the root, trigger, trigger icon, and panel slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS. Put your own wrapper inside the panel when the content needs layout or surface styles.
+Pass `icon` to replace the default visual marker and style it with `classNames.icon`.
+Use `className` on the root, trigger, and panel slots when styling with CSS Modules,
+Tailwind CSS, or CSS-in-JS. Put your own wrapper inside the panel when the content needs
+layout or surface styles.
 
 <Preview>
   <CustomStylesCollapsibleExample />
@@ -351,7 +384,6 @@ Pass `className` to the root, trigger, trigger icon, and panel slots when stylin
       import {
         Collapsible,
         CollapsibleTrigger,
-        CollapsibleTriggerIcon,
         CollapsiblePanel,
         ChevronDownIcon,
       } from "moduix";
@@ -359,10 +391,11 @@ Pass `className` to the root, trigger, trigger icon, and panel slots when stylin
       export function CustomStylesCollapsibleDemo() {
         return (
           <Collapsible className={styles.customRoot}>
-            <CollapsibleTrigger className={styles.customTrigger}>
-              <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
-                <ChevronDownIcon />
-              </CollapsibleTriggerIcon>
+            <CollapsibleTrigger
+              className={styles.customTrigger}
+              icon={<ChevronDownIcon />}
+              classNames={{ icon: styles.customTriggerIcon }}
+            >
               Styled recovery keys
             </CollapsibleTrigger>
             <CollapsiblePanel className={styles.customPanel}>

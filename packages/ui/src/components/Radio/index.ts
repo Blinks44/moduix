@@ -1,7 +1,5 @@
 export {
   Radio,
-  RadioIndicator,
-  RadioIndicatorIcon,
   RadioField,
   RadioLabel,
   RadioGroup,
@@ -13,9 +11,9 @@ export {
 } from './Radio';
 
 export type {
+  RadioSize,
+  RadioClassNames,
   RadioProps,
-  RadioIndicatorProps,
-  RadioIndicatorIconProps,
   RadioFieldProps,
   RadioLabelProps,
   RadioGroupProps,

@@ -45,6 +45,17 @@ export const Markerless: Story = {
   ),
 };
 
+export const NativeItems: Story = {
+  name: 'Native Items',
+  render: () => (
+    <List marker="bullet" className={storyStyles.customBullet}>
+      <li>Use native li elements when a wrapper component is unnecessary.</li>
+      <li>The root still controls spacing, marker style, size, and tone.</li>
+      <li>Reach for ListItem when you want the stable item slot.</li>
+    </List>
+  ),
+};
+
 export const CustomStyles: Story = {
   name: 'Custom Styles',
   render: () => (

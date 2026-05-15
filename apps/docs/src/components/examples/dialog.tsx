@@ -195,6 +195,25 @@ export function NestedDialogExample() {
   );
 }
 
+export function NonModalDialogExample() {
+  return (
+    <Dialog modal={false}>
+      <DialogTrigger render={<Button />}>Open non-modal dialog</DialogTrigger>
+      <DialogContent withBackdrop={false}>
+        <DialogHeader>
+          <DialogTitle>Non-modal dialog</DialogTitle>
+          <DialogDescription>
+            The page remains interactive because modal behavior and backdrop are disabled.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export function CustomStylesDialogExample() {
   return (
     <Dialog>
@@ -205,6 +224,10 @@ export function CustomStylesDialogExample() {
           portal: styles.customPortal,
           backdrop: styles.customBackdrop,
           viewport: styles.customViewport,
+        }}
+        slotProps={{
+          portal: { keepMounted: true },
+          backdrop: { forceRender: true },
         }}
       >
         <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon}>

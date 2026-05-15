@@ -25,11 +25,17 @@ type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props & {
   sideOffset?: NavigationMenuPrimitive.Positioner.Props['sideOffset'];
   align?: NavigationMenuPrimitive.Positioner.Props['align'];
   alignOffset?: NavigationMenuPrimitive.Positioner.Props['alignOffset'];
+  arrowPadding?: NavigationMenuPrimitive.Positioner.Props['arrowPadding'];
+  anchor?: NavigationMenuPrimitive.Positioner.Props['anchor'];
   collisionAvoidance?: NavigationMenuPrimitive.Positioner.Props['collisionAvoidance'];
+  collisionBoundary?: NavigationMenuPrimitive.Positioner.Props['collisionBoundary'];
   collisionPadding?: NavigationMenuPrimitive.Positioner.Props['collisionPadding'];
   sticky?: NavigationMenuPrimitive.Positioner.Props['sticky'];
+  positionMethod?: NavigationMenuPrimitive.Positioner.Props['positionMethod'];
+  disableAnchorTracking?: NavigationMenuPrimitive.Positioner.Props['disableAnchorTracking'];
   classNames?: NavigationMenuPopupClassNames;
   slotProps?: NavigationMenuPopupSlotProps;
+  container?: NavigationMenuPrimitive.Portal.Props['container'];
   arrow?: React.ReactNode;
   showArrow?: boolean;
   withBackdrop?: boolean;
@@ -43,13 +49,21 @@ type NavigationMenuSlotProps = {
   viewport?: Omit<NavigationMenuPrimitive.Viewport.Props, 'className'>;
 };
 
+type NavigationMenuTriggerClassNames = {
+  icon?: NavigationMenuIconProps['className'];
+};
+
+type NavigationMenuTriggerSlotProps = {
+  icon?: Omit<NavigationMenuIconProps, 'children' | 'className'>;
+};
+
 function NavigationMenu<Value = unknown>({
   className,
   children,
   classNames,
   slotProps,
   popupContent = {},
-  viewport = false,
+  withViewport = false,
   ...props
 }: NavigationMenuProps<Value>) {
   return (
@@ -59,7 +73,7 @@ function NavigationMenu<Value = unknown>({
       {...props}
     >
       {children}
-      {viewport ? (
+      {withViewport ? (
         <NavigationMenuViewport className={classNames?.viewport} {...slotProps?.viewport} />
       ) : null}
       {popupContent ? <NavigationMenuPopupContent {...popupContent} /> : null}
@@ -81,13 +95,28 @@ function NavigationMenuItem(props: NavigationMenuPrimitive.Item.Props) {
   return <NavigationMenuPrimitive.Item data-slot="navigation-menu-item" {...props} />;
 }
 
-function NavigationMenuTrigger({ className, ...props }: NavigationMenuPrimitive.Trigger.Props) {
+function NavigationMenuTrigger({
+  className,
+  children,
+  icon,
+  hideIcon = false,
+  classNames,
+  slotProps,
+  ...props
+}: NavigationMenuTriggerProps) {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
       className={mergeClassName(className, styles.trigger)}
       {...props}
-    />
+    >
+      {children}
+      {!hideIcon && (
+        <NavigationMenuIcon {...slotProps?.icon} className={classNames?.icon}>
+          {icon}
+        </NavigationMenuIcon>
+      )}
+    </NavigationMenuPrimitive.Trigger>
   );
 }
 
@@ -203,9 +232,15 @@ function NavigationMenuPopupContent({
   sideOffset,
   align,
   alignOffset,
+  arrowPadding,
+  anchor,
   collisionAvoidance,
+  collisionBoundary,
   collisionPadding,
   sticky,
+  positionMethod,
+  disableAnchorTracking,
+  container,
   children,
   ...props
 }: NavigationMenuPopupOptions) {
@@ -214,13 +249,25 @@ function NavigationMenuPopupContent({
   const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 10;
   const resolvedAlign = align ?? positionerProps?.align;
   const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
+  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
+  const resolvedAnchor = anchor ?? positionerProps?.anchor;
   const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
+  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
   const resolvedCollisionPadding = collisionPadding ??
     positionerProps?.collisionPadding ?? { top: 5, bottom: 5, left: 20, right: 20 };
   const resolvedSticky = sticky ?? positionerProps?.sticky;
+  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
+  const resolvedDisableAnchorTracking =
+    disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
+  const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
+  const portalContainer = container ?? slotPropsContainer;
 
   return (
-    <NavigationMenuPortal className={classNames?.portal} {...slotProps?.portal}>
+    <NavigationMenuPortal
+      className={classNames?.portal}
+      container={portalContainer}
+      {...portalSlotProps}
+    >
       {withBackdrop ? (
         <NavigationMenuBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
       ) : null}
@@ -230,9 +277,14 @@ function NavigationMenuPopupContent({
         sideOffset={resolvedSideOffset}
         align={resolvedAlign}
         alignOffset={resolvedAlignOffset}
+        arrowPadding={resolvedArrowPadding}
+        anchor={resolvedAnchor}
         collisionAvoidance={resolvedCollisionAvoidance}
+        collisionBoundary={resolvedCollisionBoundary}
         collisionPadding={resolvedCollisionPadding}
         sticky={resolvedSticky}
+        positionMethod={resolvedPositionMethod}
+        disableAnchorTracking={resolvedDisableAnchorTracking}
         className={classNames?.positioner}
       >
         <NavigationMenuPopup className={className} {...props}>
@@ -264,13 +316,30 @@ type NavigationMenuProps<Value = unknown> = NavigationMenuPrimitive.Root.Props<V
   classNames?: NavigationMenuClassNames;
   slotProps?: NavigationMenuSlotProps;
   popupContent?: false | NavigationMenuPopupOptions;
-  viewport?: boolean;
+  withViewport?: boolean;
 };
 type NavigationMenuValue<Value = unknown> = NavigationMenuPrimitive.Root.Value<Value>;
 type NavigationMenuListProps = NavigationMenuPrimitive.List.Props;
 type NavigationMenuItemProps = NavigationMenuPrimitive.Item.Props;
 type NavigationMenuContentProps = NavigationMenuPrimitive.Content.Props;
-type NavigationMenuTriggerProps = NavigationMenuPrimitive.Trigger.Props;
+type NavigationMenuTriggerProps = NavigationMenuPrimitive.Trigger.Props & {
+  /**
+   * Icon rendered at the end of the trigger. Pass `hideIcon` to remove it.
+   */
+  icon?: React.ReactNode;
+  /**
+   * Removes the default trigger icon.
+   */
+  hideIcon?: boolean;
+  /**
+   * Classes for internal slots rendered by the trigger.
+   */
+  classNames?: NavigationMenuTriggerClassNames;
+  /**
+   * Props for internal slots rendered by the trigger.
+   */
+  slotProps?: NavigationMenuTriggerSlotProps;
+};
 type NavigationMenuIconProps = NavigationMenuPrimitive.Icon.Props;
 type NavigationMenuLinkProps = NavigationMenuPrimitive.Link.Props;
 
@@ -293,5 +362,11 @@ export type {
   NavigationMenuIconProps,
   NavigationMenuContentProps,
   NavigationMenuLinkProps,
+  NavigationMenuClassNames,
+  NavigationMenuSlotProps,
+  NavigationMenuTriggerClassNames,
+  NavigationMenuTriggerSlotProps,
+  NavigationMenuPopupClassNames,
+  NavigationMenuPopupSlotProps,
   NavigationMenuPopupOptions,
 };

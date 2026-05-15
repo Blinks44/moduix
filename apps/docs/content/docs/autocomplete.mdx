@@ -11,6 +11,7 @@ import {
   CustomStylesAutocompleteExample,
   FuzzyAutocompleteExample,
   GroupedAutocompleteExample,
+  GridAutocompleteExample,
   InputInsidePopupAutocompleteExample,
   ItemIconsAutocompleteExample,
   LimitAutocompleteExample,
@@ -91,12 +92,99 @@ import {
   </Preview.Data>
 </Preview>
 
+## Anatomy
+
+`Autocomplete` combines an input field, control actions, and a popup with filtered options. Keep
+input-related parts together inside `AutocompleteField` so labeling and keyboard behavior stay
+connected.
+
+```text
+Autocomplete
+├─ AutocompleteField
+│  ├─ AutocompleteFieldLabel
+│  └─ AutocompleteInputGroup
+│     ├─ AutocompleteInput
+│     └─ AutocompleteControlActions (optional)
+│        ├─ AutocompleteClear (optional)
+│        └─ AutocompleteTrigger (optional)
+└─ AutocompleteContent
+   ├─ AutocompleteStatus (optional)
+   ├─ AutocompleteEmpty
+   ├─ AutocompleteSeparator (optional)
+   └─ AutocompleteList
+      ├─ AutocompleteItem
+      │  └─ AutocompleteItemText
+      ├─ AutocompleteRow (optional, for grid lists)
+      │  └─ AutocompleteItem
+      └─ AutocompleteGroup (optional)
+         ├─ AutocompleteGroupLabel
+         └─ AutocompleteCollection
+            └─ AutocompleteItem
+```
+
+```tsx
+<Autocomplete items={tags} itemToStringValue={(item) => item.value}>
+  <AutocompleteField>
+    <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+    <AutocompleteInputGroup>
+      <AutocompleteInput id={id} placeholder="e.g. feature" />
+      <AutocompleteControlActions>
+        <AutocompleteClear aria-label="Clear value" />
+        <AutocompleteTrigger aria-label="Open suggestions" />
+      </AutocompleteControlActions>
+    </AutocompleteInputGroup>
+  </AutocompleteField>
+
+  <AutocompleteContent>
+    <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+    <AutocompleteList>
+      {(item) => (
+        <AutocompleteItem key={item.id} value={item}>
+          <AutocompleteItemText>{item.value}</AutocompleteItemText>
+        </AutocompleteItem>
+      )}
+    </AutocompleteList>
+  </AutocompleteContent>
+</Autocomplete>
+```
+
+| Part                         | Role                                                                                               |
+| ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| `Autocomplete`               | Root state machine. Handles value, filtering, highlighting, and open/close behavior.               |
+| `AutocompleteField`          | Semantic wrapper for field-level structure. Keeps label and input wiring in one place.             |
+| `AutocompleteFieldLabel`     | Accessible label for the input or field trigger.                                                   |
+| `AutocompleteInputGroup`     | Layout wrapper for the input and optional control actions.                                         |
+| `AutocompleteInput`          | Text input where users type a query or free-form value.                                            |
+| `AutocompleteControlActions` | Optional container for clear/open controls.                                                        |
+| `AutocompleteClear`          | Optional action that clears the current input value.                                               |
+| `AutocompleteTrigger`        | Optional action that toggles or opens the suggestion popup.                                        |
+| `AutocompleteContent`        | Popup surface. Also renders service slots (`portal`, `backdrop`, `positioner`, `arrow`) via props. |
+| `AutocompleteStatus`         | Optional status region for loading or result-count feedback.                                       |
+| `AutocompleteEmpty`          | Empty-state content shown when no items match.                                                     |
+| `AutocompleteList`           | Collection container for options.                                                                  |
+| `AutocompleteRow`            | Optional row wrapper when `grid` is enabled on the root.                                           |
+| `AutocompleteItem`           | One selectable option in the list.                                                                 |
+| `AutocompleteSeparator`      | Optional visual separator between groups or custom sections.                                       |
+| `AutocompleteGroup`          | Optional grouped section with its own item subset.                                                 |
+| `AutocompleteCollection`     | Renderer for group items inside `AutocompleteGroup`.                                               |
+
+Use default styling for service slots in most cases. Customize `portal`, `backdrop`,
+`positioner`, and `arrow` when you need custom layering, overlay behavior, popup placement, or
+arrow visuals.
+
 ## Composition
 
 Use `Autocomplete` for root state and Base UI behavior props such as `items`, `value`,
 `onValueChange`, `filter`, `limit`, `mode`, `autoHighlight`, and `openOnInputClick`.
-`AutocompleteContent` renders the portal, positioner, popup, optional backdrop, and optional arrow
-automatically.
+
+The root keeps the Base UI behavior surface intact. Use `itemToStringValue` for object items,
+`filter={null}` or `filteredItems` for external filtering, `grid` with `AutocompleteRow` for grid
+navigation, `modal` for modal popup behavior, `submitOnItemClick` for single-field search forms,
+`onOpenChange` for controlled popup side effects, `virtualized` for externally virtualized lists,
+and `keepHighlight` or `highlightItemOnHover` when pointer and keyboard highlighting need custom
+rules. `actionsRef` is available for manual unmount flows with animation libraries.
+`useAutocompleteFilter` exposes Base UI string matching helpers, and
+`useAutocompleteFilteredItems` returns the currently filtered items for custom list layouts.
 
 `className` styles the visible popup. `classNames` styles service slots hidden from the default
 composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `portalProps`,
@@ -238,6 +326,8 @@ Use item text slots for richer option content. Control icons can be replaced by 
         AutocompleteItemText,
         AutocompleteItemTextContent,
         AutocompleteItemTextIcon,
+        ChevronUpIcon,
+        CloseLineIcon,
         InfoIcon,
         AutocompleteItemTextLabel,
         AutocompleteItem,
@@ -254,8 +344,12 @@ Use item text slots for richer option content. Control icons can be replaced by 
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="e.g. feature" />
                 <AutocompleteControlActions>
-                  <AutocompleteClear aria-label="Clear value" />
-                  <AutocompleteTrigger aria-label="Open suggestions" />
+                  <AutocompleteClear aria-label="Clear value">
+                    <CloseLineIcon />
+                  </AutocompleteClear>
+                  <AutocompleteTrigger aria-label="Open suggestions">
+                    <ChevronUpIcon />
+                  </AutocompleteTrigger>
                 </AutocompleteControlActions>
               </AutocompleteInputGroup>
             </AutocompleteField>
@@ -519,6 +613,113 @@ Use `autoHighlight="always"` when the first match should be active immediately.
         { id: "t3", value: "bug" },
         { id: "t4", value: "docs" },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Grid
+
+Enable `grid` and render rows manually when options should navigate as a grid.
+
+<Preview>
+  <GridAutocompleteExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Autocomplete,
+        AutocompleteField,
+        AutocompleteFieldLabel,
+        AutocompleteInputGroup,
+        AutocompleteInput,
+        AutocompleteControlActions,
+        AutocompleteClear,
+        AutocompleteTrigger,
+        AutocompleteContent,
+        AutocompleteEmpty,
+        AutocompleteList,
+        AutocompleteRow,
+        AutocompleteItem,
+        AutocompleteItemText,
+        useAutocompleteFilteredItems,
+      } from "moduix";
+      import { useId } from "react";
+
+      function ShortcutGrid() {
+        const filteredItems = useAutocompleteFilteredItems();
+
+        if (filteredItems.length === 0) {
+          return null;
+        }
+
+        return (
+          <AutocompleteList>
+            {chunkArray(filteredItems, 6).map((row) => (
+              <AutocompleteRow key={row.map((item) => item.id).join("-")}>
+                {row.map((item) => (
+                  <AutocompleteItem key={item.id} value={item} aria-label={item.label}>
+                    <AutocompleteItemText>{item.value}</AutocompleteItemText>
+                  </AutocompleteItem>
+                ))}
+              </AutocompleteRow>
+            ))}
+          </AutocompleteList>
+        );
+      }
+
+      export function GridAutocompleteDemo() {
+        const id = useId();
+
+        return (
+          <Autocomplete
+            items={shortcuts}
+            itemToStringValue={(item) => item.label}
+            grid
+            openOnInputClick
+          >
+            <AutocompleteField>
+              <AutocompleteFieldLabel htmlFor={id}>Shortcut command</AutocompleteFieldLabel>
+              <AutocompleteInputGroup>
+                <AutocompleteInput id={id} placeholder="Type a command" />
+                <AutocompleteControlActions>
+                  <AutocompleteClear aria-label="Clear value" />
+                  <AutocompleteTrigger aria-label="Open suggestions" />
+                </AutocompleteControlActions>
+              </AutocompleteInputGroup>
+            </AutocompleteField>
+
+            <AutocompleteContent>
+              <AutocompleteEmpty>No shortcuts found.</AutocompleteEmpty>
+              <ShortcutGrid />
+            </AutocompleteContent>
+          </Autocomplete>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const shortcuts = [
+        { id: "s1", value: "N", label: "New file" },
+        { id: "s2", value: "O", label: "Open file" },
+        { id: "s3", value: "S", label: "Save file" },
+        { id: "s4", value: "P", label: "Print" },
+        { id: "s5", value: "F", label: "Find" },
+        { id: "s6", value: "R", label: "Replace" },
+      ];
+
+      function chunkArray(items, size) {
+        const chunks = [];
+
+        for (let index = 0; index < items.length; index += size) {
+          chunks.push(items.slice(index, index + size));
+        }
+
+        return chunks;
+      }
     `}
 
   </Preview.Data>

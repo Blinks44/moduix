@@ -8,6 +8,7 @@ import 'moduix/style.css';
 import {
   ActivateOnFocusTabsExample,
   ControlledTabsExample,
+  DisabledTabTabsExample,
   IconTabsExample,
   InlineInputsTabsExample,
   LineTabsExample,
@@ -36,25 +37,6 @@ import {
         TabsTab,
       } from "moduix";
 
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-
       export function TabsDemo() {
         return (
           <Tabs defaultValue="overview">
@@ -77,26 +59,9 @@ import {
     `}
 
   </Preview.Code>
-</Preview>
 
-## Examples
-
-### Vertical
-
-Use `orientation="vertical"` when the tab list should sit next to the active panel.
-
-<Preview>
-  <VerticalTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -115,6 +80,109 @@ Use `orientation="vertical"` when the tab list should sit next to the active pan
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+## Anatomy
+
+`Tabs` is composed from a root state machine, one tab list, tab buttons, and matching panels.
+`TabsList` renders the moving indicator internally by default, so consumers do not need to place a
+service `Indicator` part in the public composition.
+
+```text
+Tabs
+├─ TabsList
+│  ├─ TabsTab[value]
+│  │  └─ label or TabsTabContent
+│  │     ├─ TabsTabIcon
+│  │     └─ TabsTabLabel
+│  └─ indicator
+└─ TabsPanel[value]
+   └─ content
+```
+
+```tsx
+<Tabs defaultValue="overview">
+  <TabsList>
+    <TabsTab value="overview">Overview</TabsTab>
+    <TabsTab value="projects">Projects</TabsTab>
+  </TabsList>
+  <TabsPanel value="overview">Overview content</TabsPanel>
+  <TabsPanel value="projects">Projects content</TabsPanel>
+</Tabs>
+```
+
+| Part             | Role                                                                                                     |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `Tabs`           | Root state machine. Controls selected value, orientation, variant, and controlled/uncontrolled state.    |
+| `TabsList`       | Groups tab buttons and owns keyboard list behavior. It renders the active indicator internally.          |
+| `TabsTab`        | Interactive tab button. Its `value` must match one `TabsPanel` value.                                    |
+| `TabsTabContent` | Optional wrapper for compound tab labels, usually icon plus text.                                        |
+| `TabsTabIcon`    | Optional icon wrapper. Use it with your application icons or the icons exported by `moduix`.             |
+| `TabsTabLabel`   | Optional text wrapper used with `TabsTabContent`.                                                        |
+| `TabsPanel`      | Content region displayed when its matching tab is active. Use `keepMounted` when hidden DOM must remain. |
+| `indicator`      | Internal service slot that follows the active tab. Style it through `TabsList classNames.indicator`.     |
+
+## Composition
+
+Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `orientation`,
+`variant`, and `unstyled`. Base UI props pass through to the matching visible parts: `TabsList`
+supports `activateOnFocus` and `loopFocus`, `TabsTab` supports `disabled`, `render`, and
+`nativeButton`, and `TabsPanel` supports `keepMounted`.
+
+Visible parts accept `className`. The internal indicator is not part of the required composition:
+style it with `TabsList classNames.indicator`, disable it with `withIndicator={false}`, or pass
+non-class Base UI indicator props through `TabsList slotProps.indicator`.
+
+```tsx
+import { Tabs, TabsList, TabsPanel, TabsTab } from 'moduix';
+import styles from './custom-indicator-tabs-demo.module.css';
+
+export function CustomIndicatorTabsDemo() {
+  return (
+    <Tabs defaultValue="profile" unstyled className={styles.root}>
+      <TabsList
+        className={styles.list}
+        classNames={{ indicator: styles.indicator }}
+        slotProps={{ indicator: { renderBeforeHydration: true } }}
+      >
+        <TabsTab value="profile" className={styles.tab}>
+          Profile
+        </TabsTab>
+        <TabsTab value="security" className={styles.tab}>
+          Security
+        </TabsTab>
+      </TabsList>
+      <TabsPanel value="profile" className={styles.panel}>
+        Profile settings
+      </TabsPanel>
+      <TabsPanel value="security" className={styles.panel}>
+        Security settings
+      </TabsPanel>
+    </Tabs>
+  );
+}
+```
+
+## Examples
+
+### Vertical
+
+Use `orientation="vertical"` when the tab list should sit next to the active panel.
+
+<Preview>
+  <VerticalTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function VerticalTabsDemo() {
         return (
@@ -138,24 +206,9 @@ Use `orientation="vertical"` when the tab list should sit next to the active pan
     `}
 
   </Preview.Code>
-</Preview>
 
-### Activate On Focus
-
-Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately select a tab.
-
-<Preview>
-  <ActivateOnFocusTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -174,6 +227,26 @@ Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately sel
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Activate On Focus
+
+Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately select a tab.
+
+<Preview>
+  <ActivateOnFocusTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function ActivateOnFocusTabsDemo() {
         return (
@@ -197,24 +270,9 @@ Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately sel
     `}
 
   </Preview.Code>
-</Preview>
 
-### Line
-
-Use `variant="line"` for a compact indicator that sits along the active tab edge.
-
-<Preview>
-  <LineTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -233,6 +291,26 @@ Use `variant="line"` for a compact indicator that sits along the active tab edge
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Line
+
+Use `variant="line"` for a compact indicator that sits along the active tab edge.
+
+<Preview>
+  <LineTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function LineTabsDemo() {
         return (
@@ -256,24 +334,9 @@ Use `variant="line"` for a compact indicator that sits along the active tab edge
     `}
 
   </Preview.Code>
-</Preview>
 
-### Without Indicator
-
-Set `withIndicator={false}` on `TabsList` when the active tab should be shown only through tab state styles.
-
-<Preview>
-  <WithoutIndicatorTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -292,6 +355,26 @@ Set `withIndicator={false}` on `TabsList` when the active tab should be shown on
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Without Indicator
+
+Set `withIndicator={false}` on `TabsList` when the active tab should be shown only through tab state styles.
+
+<Preview>
+  <WithoutIndicatorTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function WithoutIndicatorTabsDemo() {
         return (
@@ -315,6 +398,30 @@ Set `withIndicator={false}` on `TabsList` when the active tab should be shown on
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -334,25 +441,6 @@ Control the active tab from React state when the selected panel needs to coordin
         type TabsValue,
       } from "moduix";
       import { useState } from "react";
-
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
 
       export function ControlledTabsDemo() {
         const [value, setValue] = useState("projects" as TabsValue);
@@ -378,24 +466,9 @@ Control the active tab from React state when the selected panel needs to coordin
     `}
 
   </Preview.Code>
-</Preview>
 
-### Links
-
-Use `render` with `nativeButton={false}` when tabs should render as links.
-
-<Preview>
-  <LinkTabsExample />
-
-  <Preview.Code>
+  <Preview.Data>
     {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
       const items = [
         {
           value: "overview",
@@ -414,6 +487,26 @@ Use `render` with `nativeButton={false}` when tabs should render as links.
           content: "Manage personal settings, team settings, notifications and access preferences.",
         },
       ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Links
+
+Use `render` with `nativeButton={false}` when tabs should render as links.
+
+<Preview>
+  <LinkTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
 
       export function LinkTabsDemo() {
         return (
@@ -442,6 +535,30 @@ Use `render` with `nativeButton={false}` when tabs should render as links.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Icons
@@ -465,22 +582,6 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
         TabsTabIcon,
         TabsTabLabel,
       } from "moduix";
-
-      const items = [
-        {
-          value: "overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
 
       export function IconTabsDemo() {
         return (
@@ -523,6 +624,92 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Disabled Tab
+
+Disable tabs that are visible but not available yet. Add `keepMounted` to panels when hidden panel
+DOM must stay mounted for forms, measurements, or preserved local state.
+
+<Preview>
+  <DisabledTabTabsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Tabs,
+        TabsList,
+        TabsPanel,
+        TabsTab,
+      } from "moduix";
+
+      export function DisabledTabTabsDemo() {
+        return (
+          <Tabs defaultValue="overview">
+            <TabsList>
+              <TabsTab value="overview">Overview</TabsTab>
+              <TabsTab value="projects" disabled>
+                Projects
+              </TabsTab>
+              <TabsTab value="account">Account</TabsTab>
+            </TabsList>
+
+            {items.map((item) => (
+              <TabsPanel key={item.value} value={item.value} keepMounted>
+                {item.content}
+              </TabsPanel>
+            ))}
+          </Tabs>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const items = [
+        {
+          value: "overview",
+          title: "Overview",
+          content:
+            "Review project status, team velocity, workloads and activity highlights in one place.",
+        },
+        {
+          value: "projects",
+          title: "Projects",
+          content: "Track active workstreams, owners and milestones across all departments.",
+        },
+        {
+          value: "account",
+          title: "Account",
+          content: "Manage personal settings, team settings, notifications and access preferences.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styles
@@ -540,6 +727,7 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
         TabsPanel,
         TabsTab,
       } from "moduix";
+      import styles from "./inline-inputs-tabs-demo.module.css";
 
       export function InlineInputsTabsDemo() {
         return (
@@ -547,6 +735,7 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
             <TabsList
               className={styles.inlineList}
               classNames={{ indicator: styles.inlineIndicator }}
+              slotProps={{ indicator: { renderBeforeHydration: true } }}
             >
               <TabsTab value="name" className={styles.inlineTab}>
                 Name

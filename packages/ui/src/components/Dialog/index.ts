@@ -22,6 +22,7 @@ export type {
   DialogCloseIconProps,
   DialogContentProps,
   DialogContentClassNames,
+  DialogContentSlotProps,
   DialogHeaderProps,
   DialogBodyProps,
   DialogFooterProps,

@@ -9,6 +9,7 @@ import {
   CustomStylesDialogExample,
   DialogExample,
   DialogHandleExample,
+  NonModalDialogExample,
   NestedDialogExample,
   ScrollableDialogExample,
   dialogCssProperties,
@@ -60,14 +61,79 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Dialog` combines a root state machine with one visible popup surface and internal service layers.
+Use `DialogContent` as the popup container; it automatically renders `portal`, `backdrop`, and
+`viewport` slots for overlay behavior.
+
+```text
+Dialog
+├─ DialogTrigger
+└─ DialogContent
+   ├─ portal (service slot)
+   │  ├─ backdrop (service slot)
+   │  └─ viewport (service slot)
+   │     └─ popup surface
+   │        ├─ DialogCloseIcon (optional)
+   │        ├─ DialogHeader
+   │        │  ├─ DialogTitle
+   │        │  └─ DialogDescription (optional)
+   │        ├─ DialogBody (optional)
+   │        └─ DialogFooter (optional)
+   │           └─ DialogClose
+```
+
+```tsx
+<Dialog>
+  <DialogTrigger render={<Button />}>Edit profile</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit profile</DialogTitle>
+      <DialogCloseIcon />
+      <DialogDescription>Update your public information.</DialogDescription>
+    </DialogHeader>
+    <DialogBody>
+      <p>Profile fields and form controls go here.</p>
+    </DialogBody>
+    <DialogFooter>
+      <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+      <DialogClose render={<Button />}>Save</DialogClose>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+| Part                | Role                                                                                               |
+| ------------------- | -------------------------------------------------------------------------------------------------- |
+| `Dialog`            | Root state and interaction model. Use `open`, `defaultOpen`, `onOpenChange`, and `modal` here.     |
+| `DialogTrigger`     | Opens the dialog from user interaction. Use `handle` when the trigger lives outside the tree.      |
+| `DialogContent`     | Popup container. It renders the internal `portal`, `backdrop`, and `viewport` slots automatically. |
+| `DialogHeader`      | Groups title-level content at the top of the popup.                                                |
+| `DialogTitle`       | Accessible dialog title announced by assistive technology.                                         |
+| `DialogDescription` | Optional supporting text announced with the title.                                                 |
+| `DialogBody`        | Optional content region for forms, text, or custom layout.                                         |
+| `DialogFooter`      | Optional actions row for submit/cancel buttons.                                                    |
+| `DialogCloseIcon`   | Optional icon-only close button. Pass children to replace the default icon.                        |
+| `DialogClose`       | Closes the dialog from action buttons while preserving built-in behavior.                          |
+
+In most cases, keep default overlay behavior and style only visible popup parts with `className`
+(`DialogContent`, `DialogHeader`, `DialogBody`, `DialogFooter`). Customize service slots with
+`classNames` (`portal`, `backdrop`, `viewport`) only when you need special layering, positioning,
+or overlay visuals.
+
 ## Composition
 
 Use `Dialog` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`, and
-`modal`. `DialogContent` renders the portal, backdrop, viewport, and popup automatically.
+`modal`. Base UI root behavior is passed through: `onOpenChangeComplete`,
+`disablePointerDismissal`, `actionsRef`, `handle`, `triggerId`, and `defaultTriggerId` are available
+on `Dialog`.
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
-`viewportProps`, and `withBackdrop={false}` when you need the matching Base UI escape hatches:
+hidden from the default composition. Use `container`, `slotProps`, and `withBackdrop={false}` when
+you need the matching Base UI escape hatches. Common cases are `slotProps.portal.keepMounted`,
+`slotProps.backdrop.forceRender`, and viewport attributes or refs through `slotProps.viewport`.
+`DialogContent` itself accepts popup props such as `initialFocus` and `finalFocus`.
 
 ```tsx
 <DialogContent
@@ -77,8 +143,16 @@ hidden from the default composition. Use `container`, `portalProps`, `backdropPr
     backdrop: styles.backdrop,
     viewport: styles.viewport,
   }}
+  slotProps={{
+    portal: { keepMounted: true },
+    backdrop: { forceRender: true },
+  }}
 />
 ```
+
+`DialogTrigger`, `DialogClose`, `DialogTitle`, `DialogDescription`, and `DialogContent` also accept
+their matching Base UI primitive props, including `render` where Base UI supports element
+replacement.
 
 ## Examples
 
@@ -360,10 +434,57 @@ so it can visually recede while the child dialog is active.
   </Preview.Code>
 </Preview>
 
+### Non-Modal
+
+Set `modal={false}` when the dialog should not trap focus, lock page scroll, or block pointer
+interaction with the rest of the page. Pair it with `withBackdrop={false}` when no overlay should be
+rendered.
+
+<Preview>
+  <NonModalDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Dialog,
+        DialogTrigger,
+        Button,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogDescription,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+
+      export function NonModalDialogDemo() {
+        return (
+          <Dialog modal={false}>
+            <DialogTrigger render={<Button />}>Open non-modal dialog</DialogTrigger>
+            <DialogContent withBackdrop={false}>
+              <DialogHeader>
+                <DialogTitle>Non-modal dialog</DialogTitle>
+                <DialogDescription>
+                  The page remains interactive because modal behavior and backdrop are disabled.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ### Custom Styles
 
 Use `DialogContent` `className` for the popup and `classNames` for the automatically rendered
-portal, backdrop, and viewport. Pass children to `DialogCloseIcon` to replace the default icon.
+portal, backdrop, and viewport. Use `slotProps` for non-style options on those service slots. Pass
+children to `DialogCloseIcon` to replace the default icon.
 
 <Preview>
   <CustomStylesDialogExample />
@@ -395,6 +516,10 @@ portal, backdrop, and viewport. Pass children to `DialogCloseIcon` to replace th
                 portal: styles.customPortal,
                 backdrop: styles.customBackdrop,
                 viewport: styles.customViewport,
+              }}
+              slotProps={{
+                portal: { keepMounted: true },
+                backdrop: { forceRender: true },
               }}
             >
               <DialogCloseIcon

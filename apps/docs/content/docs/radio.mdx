@@ -41,12 +41,6 @@ import {
       } from "moduix";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       export function RadioDemo() {
         const labelId = useId();
 
@@ -67,7 +61,85 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
+
+## Anatomy
+
+`Radio` is always used inside `RadioGroup`. The recommended group composition keeps the clickable
+row, control, and label explicit while the indicator stays internal.
+
+```text
+RadioGroup
+├─ RadioGroupLabel
+└─ RadioGroupList
+   └─ RadioGroupItem
+      ├─ RadioGroupItemControl
+      │  └─ indicator (internal)
+      └─ RadioGroupItemLabel
+```
+
+```tsx
+<RadioGroup defaultValue="team" aria-labelledby={labelId}>
+  <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
+  <RadioGroupList>
+    <RadioGroupItem>
+      <RadioGroupItemControl value="team" />
+      <RadioGroupItemLabel>Team account</RadioGroupItemLabel>
+    </RadioGroupItem>
+  </RadioGroupList>
+</RadioGroup>
+```
+
+| Part                    | Role                                                                                                            |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `RadioGroup`            | Root state machine. Controls selected value, disabled/read-only state, form ownership, and validation metadata. |
+| `RadioGroupLabel`       | Visible group label. Pair it with `aria-labelledby` on `RadioGroup`.                                            |
+| `RadioGroupList`        | Layout wrapper for the available options.                                                                       |
+| `RadioGroupItem`        | Enclosing label row for one option.                                                                             |
+| `RadioGroupItemControl` | The radio control. It renders the indicator automatically and accepts `size`, `indicator`, and `classNames`.    |
+| `RadioGroupItemLabel`   | Text label for the option.                                                                                      |
+| `RadioField`            | Compact enclosing-label helper for direct `Radio` + `RadioLabel` composition.                                   |
+| `Radio`                 | Standalone radio control for custom layouts, field composition, and sibling-label/native-button patterns.       |
+| `RadioLabel`            | Text label used with `RadioField` or form field labels.                                                         |
+
+`Radio` does not expose portal-like service layers. Its indicator is also rendered internally by
+default, so the public composition stays focused on the group, option rows, control, and labels.
+Use `indicator` for custom graphics and `classNames.indicator` or `classNames.indicatorIcon` when
+the internal indicator needs targeted styling.
+
+## Composition
+
+Use `RadioGroup` for behavior props such as `value`, `defaultValue`, `onValueChange`, `disabled`,
+`readOnly`, `required`, `name`, and `form`. Use `RadioGroupItemControl` for the common grouped
+option pattern; it is a `Radio` with a clearer name for group rows.
+
+For compact form rows, use `RadioField`, `Radio`, and `RadioLabel`. For sibling labels with
+`htmlFor`, render `Radio` as a native button with `nativeButton` and `render={<button />}`.
+
+Visible parts accept `className`. The radio indicator is internal, so customize it through the
+`indicator` prop or the `classNames` object:
+
+```tsx
+<RadioGroupItemControl
+  value="team"
+  indicator={<CustomRadioIcon />}
+  classNames={{
+    indicator: styles.indicator,
+    indicatorIcon: styles.indicatorIcon,
+  }}
+/>
+```
 
 ## Examples
 
@@ -90,14 +162,6 @@ Use `size` to align the radio control with different form densities.
       } from "moduix";
       import { useId } from "react";
 
-      const sizes = [
-        { value: "xs", label: "Extra-small" },
-        { value: "sm", label: "Small" },
-        { value: "md", label: "Medium" },
-        { value: "lg", label: "Large" },
-        { value: "xl", label: "Extra-large" },
-      ] as const;
-
       export function RadioSizesDemo() {
         const labelId = useId();
 
@@ -118,6 +182,19 @@ Use `size` to align the radio control with different form densities.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const sizes = [
+        { value: "xs", label: "Extra-small" },
+        { value: "sm", label: "Small" },
+        { value: "md", label: "Medium" },
+        { value: "lg", label: "Large" },
+        { value: "xl", label: "Extra-large" },
+      ] as const;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -183,12 +260,6 @@ Use `disabled` on the group to prevent interaction with every radio in the group
       } from "moduix";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       export function DisabledRadioDemo() {
         const labelId = useId();
 
@@ -209,6 +280,17 @@ Use `disabled` on the group to prevent interaction with every radio in the group
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Indicator
@@ -231,15 +313,17 @@ Pass a custom `indicator` node to `Radio` or `RadioGroupItemControl` to use any 
       import type { ComponentProps } from "react";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       function CustomRadioIcon(props: ComponentProps<"svg">) {
         return (
-          <svg viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false" {...props}>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+            {...props}
+          >
             <path d="M6 1.5L10.5 6L6 10.5L1.5 6L6 1.5Z" fill="currentColor" />
           </svg>
         );
@@ -265,6 +349,17 @@ Pass a custom `indicator` node to `Radio` or `RadioGroupItemControl` to use any 
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Class Names
@@ -285,12 +380,7 @@ Pass `className` to visible slots and use `classNames` for internal indicator st
         RadioGroupList,
       } from "moduix";
       import { useId } from "react";
-
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
+      import styles from "./styled-radio-demo.module.css";
 
       export function StyledRadioDemo() {
         const labelId = useId();
@@ -323,15 +413,47 @@ Pass `className` to visible slots and use `classNames` for internal indicator st
 
   <Preview.CSS>
     {`
+      .group {
+        gap: var(--spacing-3);
+      }
+
       .label {
-        color: var(--radio-label-color, var(--color-foreground));
-        font-size: var(--radio-label-font-size, var(--text-sm));
-        font-weight: var(--radio-label-font-weight, var(--weight-medium));
-        line-height: var(--radio-label-line-height, var(--line-height-text-sm));
+        color: var(--color-primary);
+      }
+
+      .list {
+        gap: var(--spacing-3);
+      }
+
+      .item {
+        gap: var(--spacing-3);
+      }
+
+      .control {
+        border-color: var(--color-primary);
+      }
+
+      .control[data-checked] {
+        background-color: var(--color-primary);
+      }
+
+      .indicator {
+        color: var(--color-primary-foreground);
       }
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Field Composition
@@ -351,12 +473,6 @@ Use `RadioField`, `Radio`, and `RadioLabel` directly when you want a compact enc
         RadioLabel,
       } from "moduix";
       import { useId } from "react";
-
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
 
       export function RadioFieldDemo() {
         const labelId = useId();
@@ -378,6 +494,17 @@ Use `RadioField`, `Radio`, and `RadioLabel` directly when you want a compact enc
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Sibling Label

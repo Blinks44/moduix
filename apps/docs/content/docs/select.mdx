@@ -94,23 +94,90 @@ import {
   </Preview.Data>
 </Preview>
 
+## Anatomy
+
+`Select` combines a trigger-like field with a popup list of options. Keep field parts grouped inside
+`SelectField` and list parts inside `SelectContent` so labeling, selection state, and keyboard behavior
+stay synchronized.
+
+```text
+Select
+├─ SelectField
+│  ├─ SelectLabel
+│  └─ SelectTrigger
+│     ├─ SelectValue
+│     └─ SelectIcon
+└─ SelectContent
+   ├─ service slots (internal): portal, backdrop, positioner, arrow
+   ├─ SelectScrollUpArrow / SelectScrollDownArrow (optional)
+   └─ SelectList
+      └─ SelectItem[value]
+         ├─ SelectItemIndicator
+         └─ SelectItemText
+```
+
+```tsx
+<Select items={fruits}>
+  <SelectField>
+    <SelectLabel>Choose fruit</SelectLabel>
+    <SelectTrigger>
+      <SelectValue placeholder="Select an option" />
+      <SelectIcon />
+    </SelectTrigger>
+  </SelectField>
+
+  <SelectContent>
+    <SelectScrollUpArrow />
+    <SelectList>
+      {fruits.map((item) => (
+        <SelectItem key={item.value} value={item.value}>
+          <SelectItemIndicator />
+          <SelectItemText>{item.label}</SelectItemText>
+        </SelectItem>
+      ))}
+    </SelectList>
+    <SelectScrollDownArrow />
+  </SelectContent>
+</Select>
+```
+
+| Part            | Role                                                                                                            |
+| --------------- | --------------------------------------------------------------------------------------------------------------- |
+| `Select`        | Root state machine. Controls selected value(s), popup open state, keyboard navigation, and item string mapping. |
+| `SelectField`   | Field wrapper for label and trigger. Keeps form semantics and visible control layout together.                  |
+| `SelectTrigger` | Interactive button that opens/closes the popup and exposes open/disabled state attributes.                      |
+| `SelectValue`   | Value renderer inside the trigger. Shows placeholder, selected label, or a custom function output.              |
+| `SelectContent` | Popup surface that hosts list/scroll controls and configures internal service layers and positioning props.     |
+| `SelectItem`    | One selectable option. Works with `SelectItemIndicator` and `SelectItemText` to render selection state.         |
+
+In most cases, keep default popup infrastructure and style visible parts (`SelectTrigger`,
+`SelectValue`, `SelectContent`, `SelectItem`, `SelectItemIndicator`, `SelectItemText`).
+Use `SelectContent` service-slot props (`classNames`, `slotProps`, `withBackdrop`, `showArrow`)
+only when you need custom portal, layering, backdrop, or arrow behavior.
+
 ## Composition
 
 Use `Select` for root state and behavior props such as `value`, `defaultValue`, `multiple`,
-`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`. `SelectContent` renders
-the portal, positioner, optional backdrop, popup, and optional arrow automatically.
+`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`. Base UI root props pass
+through as well: form props (`name`, `form`, `required`, `inputRef`, `autoComplete`), interaction
+state (`disabled`, `readOnly`, `open`, `defaultOpen`, `modal`, `onOpenChange`,
+`onOpenChangeComplete`, `actionsRef`), and item behavior (`highlightItemOnHover`,
+`isItemEqualToValue`).
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
 hidden from the default composition. Use positioning props such as `alignItemWithTrigger`, `side`,
-`sideOffset`, `align`, and `collisionPadding` directly on `SelectContent`; use `container`,
-`portalProps`, `backdropProps`, `positionerProps`, and `arrowProps` when you need the matching
-Base UI escape hatches:
+`sideOffset`, `align`, `collisionPadding`, and `disableAnchorTracking` directly on
+`SelectContent`; use `container` for the portal target and `slotProps` for the matching Base UI
+escape hatches:
 
 ```tsx
 <SelectContent
   className={styles.popup}
   showArrow
   withBackdrop
+  slotProps={{
+    positioner: { sticky: true },
+  }}
   classNames={{
     portal: styles.portal,
     backdrop: styles.backdrop,
@@ -492,6 +559,9 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
               sideOffset={8}
               showArrow
               withBackdrop
+              slotProps={{
+                positioner: { sticky: true },
+              }}
               className={styles.customPopup}
               classNames={{
                 portal: styles.customPortal,

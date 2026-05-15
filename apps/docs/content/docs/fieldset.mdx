@@ -56,11 +56,49 @@ import {
   </Preview.Code>
 </Preview>
 
+## Anatomy
+
+`Fieldset` groups related controls under one semantic legend. Keep the visible group label in
+`FieldsetLegend`, then place related `Field` blocks (or composed rows like radio options) inside the
+same root so native fieldset semantics and disabled behavior stay consistent.
+
+```text
+Fieldset
+├─ FieldsetLegend
+└─ grouped content
+   ├─ Field
+   │  ├─ FieldLabel
+   │  ├─ FieldControl
+   │  └─ FieldError
+   └─ Field / FieldItem rows (optional)
+```
+
+```tsx
+<Fieldset>
+  <FieldsetLegend>Billing details</FieldsetLegend>
+
+  <Field validationMode="onBlur">
+    <FieldLabel>Company</FieldLabel>
+    <FieldControl required placeholder="Enter company name" />
+    <FieldError match="valueMissing">Please enter company name.</FieldError>
+  </Field>
+</Fieldset>
+```
+
+| Part             | Role                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `Fieldset`       | Root semantic group. Renders native `fieldset`, controls shared disabled state, and supports `render`. |
+| `FieldsetLegend` | Group label announced by assistive technologies for all nested controls in the fieldset.               |
+
+`Fieldset` does not have service slots such as `portal`, `backdrop`, or `viewport`.
+In most cases, keep default semantic structure and customize visible parts (`Fieldset`,
+`FieldsetLegend`, and nested field slots) with `className` and CSS variables.
+
 ## Composition
 
 `Fieldset` renders a native `fieldset` by default and forwards Base UI state, refs, `className`,
-`style`, and `render`. Use `render` when the same root needs to also be another Base UI component,
-such as `RadioGroup`.
+function `className`, `style`, function `style`, and `render`. Use `render` when the same root
+needs to also be another Base UI component, such as `RadioGroup`.
 
 `Fieldset` and `FieldsetLegend` are the only public parts. There are no hidden positioner,
 backdrop, viewport, portal, or other service slots to style through `classNames`; pass `className`
@@ -70,6 +108,12 @@ directly to the part you want to customize.
 <Fieldset className={styles.fieldset}>
   <FieldsetLegend className={styles.legend}>Billing details</FieldsetLegend>
 </Fieldset>
+```
+
+The package exports Base UI state types for advanced styling callbacks:
+
+```tsx
+import { type FieldsetState, type FieldsetLegendState } from 'moduix';
 ```
 
 ## Examples
@@ -130,7 +174,6 @@ Use `render` to compose the fieldset semantics with another root component, such
         FieldItem,
         FieldLabel,
         Radio,
-        RadioIndicator,
         RadioLabel,
       } from "moduix";
 
@@ -143,9 +186,7 @@ Use `render` to compose the fieldset semantics with another root component, such
               {storageTypes.map((item) => (
                 <FieldItem key={item.value}>
                   <FieldLabel>
-                    <Radio value={item.value}>
-                      <RadioIndicator />
-                    </Radio>
+                    <Radio value={item.value} />
                     <RadioLabel>{item.label}</RadioLabel>
                   </FieldLabel>
                 </FieldItem>

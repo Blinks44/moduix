@@ -1,3 +1,4 @@
+import type { ComponentPropsWithoutRef } from 'react';
 import { Text, type TextProps } from 'moduix';
 import type { CssPropertyInput } from '../preview';
 import styles from './text.module.css';
@@ -40,6 +41,20 @@ export function TextElementsExample() {
       <Text as="em">Emphasized text rendered as em.</Text>
       <Text as="div">Block text rendered as div.</Text>
     </div>
+  );
+}
+
+type InlineLinkProps = ComponentPropsWithoutRef<'a'>;
+
+function InlineLink(props: InlineLinkProps) {
+  return <a {...props} />;
+}
+
+export function TextCustomElementExample() {
+  return (
+    <Text as={InlineLink} href="/docs" tone="primary" weight="medium">
+      Read the documentation
+    </Text>
   );
 }
 

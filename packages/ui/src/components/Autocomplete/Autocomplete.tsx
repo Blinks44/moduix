@@ -415,6 +415,30 @@ const useAutocompleteFilteredItems = AutocompletePrimitive.useFilteredItems;
 
 type AutocompleteProps<Value = unknown> = AutocompletePrimitive.Root.Props<Value>;
 type AutocompleteValueType<Value = unknown> = AutocompleteProps<Value>['value'];
+type AutocompleteFieldProps = React.ComponentProps<'div'>;
+type AutocompleteInlineInputContainerProps = React.ComponentProps<'div'>;
+type AutocompleteFieldLabelProps = React.ComponentProps<'label'>;
+type AutocompleteValueProps = AutocompletePrimitive.Value.Props;
+type AutocompleteInputGroupProps = AutocompletePrimitive.InputGroup.Props;
+type AutocompleteInputProps = AutocompletePrimitive.Input.Props;
+type AutocompleteControlActionsProps = React.ComponentProps<'div'>;
+type AutocompleteTriggerProps = AutocompletePrimitive.Trigger.Props;
+type AutocompleteFieldTriggerProps = AutocompletePrimitive.Trigger.Props;
+type AutocompleteIconProps = AutocompletePrimitive.Icon.Props;
+type AutocompleteClearProps = AutocompletePrimitive.Clear.Props;
+type AutocompleteStatusProps = AutocompletePrimitive.Status.Props;
+type AutocompleteEmptyProps = AutocompletePrimitive.Empty.Props;
+type AutocompleteListProps = AutocompletePrimitive.List.Props;
+type AutocompleteRowProps = AutocompletePrimitive.Row.Props;
+type AutocompleteItemProps = AutocompletePrimitive.Item.Props;
+type AutocompleteItemTextProps = React.ComponentProps<'span'>;
+type AutocompleteItemTextContentProps = React.ComponentProps<'span'>;
+type AutocompleteItemTextIconProps = React.ComponentProps<'span'>;
+type AutocompleteItemTextLabelProps = React.ComponentProps<'span'>;
+type AutocompleteSeparatorProps = AutocompletePrimitive.Separator.Props;
+type AutocompleteGroupProps = AutocompletePrimitive.Group.Props;
+type AutocompleteGroupLabelProps = AutocompletePrimitive.GroupLabel.Props;
+type AutocompleteCollectionProps = AutocompletePrimitive.Collection.Props;
 
 export {
   Autocomplete,
@@ -453,4 +477,28 @@ export type {
   AutocompleteValueType,
   AutocompleteContentClassNames,
   AutocompleteContentProps,
+  AutocompleteFieldProps,
+  AutocompleteInlineInputContainerProps,
+  AutocompleteFieldLabelProps,
+  AutocompleteValueProps,
+  AutocompleteInputGroupProps,
+  AutocompleteInputProps,
+  AutocompleteControlActionsProps,
+  AutocompleteTriggerProps,
+  AutocompleteFieldTriggerProps,
+  AutocompleteIconProps,
+  AutocompleteClearProps,
+  AutocompleteStatusProps,
+  AutocompleteEmptyProps,
+  AutocompleteListProps,
+  AutocompleteRowProps,
+  AutocompleteItemProps,
+  AutocompleteItemTextProps,
+  AutocompleteItemTextContentProps,
+  AutocompleteItemTextIconProps,
+  AutocompleteItemTextLabelProps,
+  AutocompleteSeparatorProps,
+  AutocompleteGroupProps,
+  AutocompleteGroupLabelProps,
+  AutocompleteCollectionProps,
 };

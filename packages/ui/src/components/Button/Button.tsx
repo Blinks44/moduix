@@ -53,6 +53,7 @@ function Button({
       data-slot="button-root"
       data-variant={variant}
       data-size={size}
+      data-loading={loading ? '' : undefined}
       aria-busy={loading || undefined}
       className={mergeClassName(className, styles.root)}
       disabled={isDisabled}

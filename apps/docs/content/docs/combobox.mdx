@@ -90,11 +90,99 @@ import {
   </Preview.Data>
 </Preview>
 
+## Anatomy
+
+`Combobox` combines an input-like control with a popup list. Keep the field parts together
+inside `ComboboxField` and keep list-related parts inside `ComboboxContent` so keyboard focus,
+selection state, and filtering stay synchronized.
+
+```text
+Combobox
+├─ ComboboxField
+│  ├─ ComboboxFieldLabel
+│  └─ ComboboxInputGroup
+│     ├─ ComboboxInput
+│     └─ ComboboxControlActions
+│        ├─ ComboboxClear
+│        └─ ComboboxTrigger
+└─ ComboboxContent
+   ├─ service slots (internal): portal, backdrop, positioner, arrow
+   ├─ ComboboxStatus / ComboboxEmpty
+   └─ ComboboxList
+      ├─ ComboboxGroup / ComboboxCollection
+      ├─ ComboboxRow (for grid lists)
+      ├─ ComboboxSeparator
+      └─ ComboboxItem[value]
+         ├─ ComboboxItemIndicator
+         └─ ComboboxItemText
+```
+
+```tsx
+<Combobox items={fruits} itemToStringLabel={(item) => item.label}>
+  <ComboboxField>
+    <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+    <ComboboxInputGroup>
+      <ComboboxInput id={id} placeholder="e.g. Mango" />
+      <ComboboxControlActions>
+        <ComboboxClear aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControlActions>
+    </ComboboxInputGroup>
+  </ComboboxField>
+
+  <ComboboxContent>
+    <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item.id} value={item}>
+          <ComboboxItemIndicator />
+          <ComboboxItemText>{item.label}</ComboboxItemText>
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>
+```
+
+| Part                     | Role                                                                                                                    |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `Combobox`               | Root state machine. Controls selected value, input text, popup open state, filtering, and keyboard navigation.          |
+| `ComboboxField`          | Field wrapper for label and input area. Keep visible form-control pieces here for layout and accessibility semantics.   |
+| `ComboboxInput`          | Search/input control. Drives filtering and exposes input events, placeholder, and focus behavior.                       |
+| `ComboboxControlActions` | Slot for inline controls such as clear and trigger buttons.                                                             |
+| `ComboboxContent`        | Popup surface with list/status/empty content. Also configures internal service layers and popup behavior props.         |
+| `ComboboxList`           | Collection renderer for options or grouped options. Contains `ComboboxItem`, `ComboboxGroup`, and `ComboboxCollection`. |
+| `ComboboxItem`           | One selectable option. Renders selected state and text/indicator subparts.                                              |
+| `ComboboxChips`          | Multiple-selection chip container used with `multiple` and `ComboboxValue`.                                             |
+
+In most cases, keep default popup infrastructure and style the visible parts (`ComboboxInput`,
+`ComboboxItem`, `ComboboxItemIndicator`, `ComboboxItemText`, `ComboboxContent`).
+Use `ComboboxContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
+`backdropProps`, `arrowProps`, `withBackdrop`, `showArrow`) only when you need custom portal,
+layering, backdrop, or arrow behavior.
+
 ## Composition
 
 Use `Combobox` for root state and behavior props such as `value`, `defaultValue`,
-`onValueChange`, `open`, `onOpenChange`, `multiple`, and `filter`. `ComboboxContent`
-renders the portal, positioner, optional backdrop, popup, and optional arrow automatically.
+`onValueChange`, `inputValue`, `onInputValueChange`, `open`, `onOpenChange`, `multiple`,
+`filter`, `filteredItems`, `limit`, `grid`, `virtualized`, `modal`, `openOnInputClick`,
+`autoHighlight`, `loopFocus`, `itemToStringLabel`, `itemToStringValue`, and
+`isItemEqualToValue`.
+
+The moduix wrapper keeps Base UI behavior available while hiding service elements from the
+recommended composition:
+
+| Base UI capability                      | moduix API                                                                                         |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Root state, filtering, forms, grid mode | Pass Base UI root props directly to `Combobox`.                                                    |
+| Flat items                              | Pass `items` to `Combobox` and render items with a function child on `ComboboxList`.               |
+| Grouped items                           | Pass grouped `items`, then render `ComboboxGroup`, `ComboboxGroupLabel`, and `ComboboxCollection`. |
+| Async or remote search                  | Pass `filter={null}`, manage `items`, and announce progress with `ComboboxStatus`.                 |
+| Externally filtered items               | Pass `filteredItems` or combine `useComboboxFilter` with application state.                        |
+| Virtualized lists                       | Pass `virtualized`, render custom rows in `ComboboxList`, and read `useComboboxFilteredItems`.     |
+| Multiple values                         | Pass `multiple` and render chips through `ComboboxValue`, `ComboboxChips`, and `ComboboxChip`.     |
+| Popup placement                         | Pass `side`, `align`, offsets, collision props, and `container` to `ComboboxContent`.              |
+| Portal, backdrop, positioner, arrow     | Use `ComboboxContent` props instead of composing those service slots manually.                     |
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
 hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
@@ -114,6 +202,12 @@ Base UI escape hatches:
   }}
 />
 ```
+
+Every visible part accepts `className` and the Base UI `render` prop where the underlying primitive
+supports it, so the component can be styled with CSS Modules, plain CSS, CSS-in-JS, cascade layers,
+or design-system wrappers. Default icons are only fallbacks: pass children to `ComboboxTrigger`,
+`ComboboxIcon`, `ComboboxClear`, `ComboboxItemIndicator`, and `ComboboxChipRemove` to use your own
+icon set.
 
 ## Examples
 
@@ -224,6 +318,7 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
         ComboboxItemIndicator,
         ComboboxItemText,
       } from "moduix";
+      import styles from "./combobox.module.css";
 
       export function InputInsidePopupComboboxDemo() {
         return (
@@ -696,6 +791,7 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
         ComboboxItemText,
       } from "moduix";
       import { useId } from "react";
+      import styles from "./combobox.module.css";
 
       export function CustomStylesComboboxDemo() {
         const id = useId();

@@ -4,7 +4,6 @@ import { ChevronRightIcon } from '@/primitives/Icons';
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIcon,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
@@ -33,10 +32,7 @@ export const Basic: Story = {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              Guides
-              <NavigationMenuIcon />
-            </NavigationMenuTrigger>
+            <NavigationMenuTrigger>Guides</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className={styles.contentList}>
                 <li>
@@ -60,10 +56,7 @@ export const Basic: Story = {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              Components
-              <NavigationMenuIcon />
-            </NavigationMenuTrigger>
+            <NavigationMenuTrigger>Components</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className={styles.contentList}>
                 <li>
@@ -114,10 +107,7 @@ export const CustomStyles: Story = {
       >
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              Resources
-              <NavigationMenuIcon />
-            </NavigationMenuTrigger>
+            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className={styles.contentList}>
                 {guideLinks.map((link) => (
@@ -144,10 +134,7 @@ export const NestedSubmenu: Story = {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              Overview
-              <NavigationMenuIcon />
-            </NavigationMenuTrigger>
+            <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className={styles.contentList}>
                 <li>
@@ -172,14 +159,15 @@ export const NestedSubmenu: Story = {
                   >
                     <NavigationMenuList className={styles.nestedList}>
                       <NavigationMenuItem className={styles.nestedItem}>
-                        <NavigationMenuTrigger className={styles.nestedTrigger}>
+                        <NavigationMenuTrigger
+                          className={styles.nestedTrigger}
+                          icon={<ChevronRightIcon />}
+                          classNames={{ icon: styles.nestedTriggerIcon }}
+                        >
                           <span className={styles.contentTitle}>Handbook</span>
                           <span className={styles.contentDescription}>
                             How to use Base UI effectively.
                           </span>
-                          <NavigationMenuIcon className={styles.nestedTriggerIcon}>
-                            <ChevronRightIcon />
-                          </NavigationMenuIcon>
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <ul className={styles.contentList}>
@@ -230,22 +218,19 @@ export const NestedInlineSubmenu: Story = {
       >
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              Product
-              <NavigationMenuIcon />
-            </NavigationMenuTrigger>
+            <NavigationMenuTrigger>Product</NavigationMenuTrigger>
             <NavigationMenuContent className={productContentClassName}>
               <NavigationMenu
                 orientation={isDesktop ? 'vertical' : 'horizontal'}
                 defaultValue="developers"
                 className={`${styles.inlineNestedRoot} ${styles.inlineLayout}`}
                 popupContent={false}
-                viewport
+                withViewport
                 classNames={{ viewport: styles.inlineViewport }}
               >
                 <NavigationMenuList className={styles.inlineList}>
                   <NavigationMenuItem value="developers">
-                    <NavigationMenuTrigger className={styles.inlineMenuTrigger}>
+                    <NavigationMenuTrigger className={styles.inlineMenuTrigger} hideIcon>
                       <span className={styles.contentTitle}>Developers</span>
                       <span className={styles.contentDescription}>API, SDK and integrations</span>
                     </NavigationMenuTrigger>
@@ -268,7 +253,7 @@ export const NestedInlineSubmenu: Story = {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem value="systems">
-                    <NavigationMenuTrigger className={styles.inlineMenuTrigger}>
+                    <NavigationMenuTrigger className={styles.inlineMenuTrigger} hideIcon>
                       <span className={styles.contentTitle}>Design Systems</span>
                       <span className={styles.contentDescription}>Patterns and governance</span>
                     </NavigationMenuTrigger>
@@ -295,10 +280,7 @@ export const NestedInlineSubmenu: Story = {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              Learn
-              <NavigationMenuIcon />
-            </NavigationMenuTrigger>
+            <NavigationMenuTrigger>Learn</NavigationMenuTrigger>
             <NavigationMenuContent className={guidesContentClassName}>
               <div className={styles.panel}>
                 <h4 className={styles.panelTitle}>Where teams usually start</h4>

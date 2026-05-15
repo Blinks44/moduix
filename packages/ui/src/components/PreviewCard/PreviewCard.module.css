@@ -55,6 +55,15 @@
     pointer-events: none;
     background-color: var(--preview-card-backdrop-bg, var(--backdrop-bg, transparent));
     backdrop-filter: blur(var(--preview-card-backdrop-blur, 0));
+    transition:
+      opacity var(--preview-card-backdrop-transition, var(--transition-default)),
+      backdrop-filter var(--preview-card-backdrop-transition, var(--transition-default));
+
+    &[data-starting-style],
+    &[data-ending-style] {
+      opacity: 0;
+      backdrop-filter: blur(0);
+    }
   }
 
   .positioner {
