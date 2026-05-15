@@ -1,9 +1,10 @@
 import { Field, FieldError, FieldLabel, Input, type InputProps } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './input.module.css';
 
-export const inputCssProperties: CssPropertyInput[] = [
+export const inputOverrideCssProperties: CssPropertyInput[] = [
   ['--input-bg', 'var(--color-background)', 'Controls the input background color.'],
   ['--input-border-color', 'var(--color-border)', 'Controls the input border color.'],
   [
@@ -50,6 +51,40 @@ export const inputCssProperties: CssPropertyInput[] = [
   ['--input-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--input-width', '100%', 'Controls the input width.'],
 ];
+export const inputPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--input-bg', 'var(--color-background)', 'Controls input background color.'],
+  ['--input-border-color', 'var(--color-border)', 'Controls input border color.'],
+  ['--input-color', 'var(--color-foreground)', 'Controls input text color.'],
+  ['--input-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--input-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
+  ['--input-radius', 'var(--radius-md)', 'Controls input corner radius.'],
+  ['--input-transition', 'var(--transition-default)', 'Controls state transition timing.'],
+];
+
+export function InputCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={inputOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function InputCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={inputPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function InputExample(props: InputProps) {
   return (

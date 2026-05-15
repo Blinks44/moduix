@@ -1,5 +1,6 @@
 import { List, ListItem, type ListProps } from 'moduix';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './list.module.css';
 
 const basicItems = [
@@ -51,7 +52,7 @@ const toneItems = [
   { tone: 'destructive', label: 'Destructive list tone' },
 ] as const;
 
-export const listCssProperties: CssPropertyInput[] = [
+export const listOverrideCssProperties: CssPropertyInput[] = [
   ['--list-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
   ['--list-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
   ['--list-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
@@ -69,6 +70,38 @@ export const listCssProperties: CssPropertyInput[] = [
   ['--list-font-size-md', 'var(--text-md)', 'Controls `md` list font size.'],
   ['--list-line-height-md', 'var(--line-height-text-md)', 'Controls `md` list line height.'],
 ];
+export const listPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--list-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
+  ['--list-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
+  ['--list-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
+  ['--list-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
+  ['--list-marker-color', 'currentColor', 'Controls marker color.'],
+  ['--list-marker-size', '0.375rem', 'Controls custom bullet marker size.'],
+  ['--list-marker-gap', 'var(--spacing-3)', 'Controls custom bullet marker gap.'],
+];
+
+export function ListCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable properties={listOverrideCssProperties.map(normalizeCssProperty)} />
+  );
+}
+
+export function ListCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={listPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function ListExample(props: ListProps) {
   return (

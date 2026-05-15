@@ -7,13 +7,15 @@ icon: Component
 import {
   CustomStylesListExample,
   ListExample,
+  ListCssPlaygroundPanel,
+  ListCssPropertiesPanel,
   ListGapsExample,
   ListSizesExample,
   ListTonesExample,
   MarkerlessListExample,
   NativeItemsListExample,
   OrderedListExample,
-  listCssProperties,
+  listPlaygroundCssProperties,
 } from '@/components/examples/list';
 
 ## API Reference
@@ -24,7 +26,7 @@ variants, and root `className` composition.
 
 ## Basic
 
-<Preview cssProperties={listCssProperties}>
+<Preview cssProperties={listPlaygroundCssProperties}>
   <ListExample />
 
   <Preview.Code>
@@ -63,6 +65,8 @@ variants, and root `className` composition.
     `}
 
   </Preview.Data>
+  <Preview.CSSProperties>{(context) => <ListCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <ListCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

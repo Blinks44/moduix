@@ -11,10 +11,11 @@ import {
   RadioLabel,
   type FieldsetProps,
 } from 'moduix';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './fieldset.module.css';
 
-export const fieldsetCssProperties: CssPropertyInput[] = [
+export const fieldsetOverrideCssProperties: CssPropertyInput[] = [
   ['--fieldset-width', '100%', 'Controls the root fieldset width.'],
   ['--fieldset-max-width', 'none', 'Controls the root fieldset max width.'],
   ['--fieldset-gap', 'var(--spacing-4)', 'Controls spacing between fieldset parts.'],
@@ -38,6 +39,42 @@ export const fieldsetCssProperties: CssPropertyInput[] = [
   ['--fieldset-legend-font-weight', 'var(--weight-semibold)', 'Controls legend font weight.'],
   ['--fieldset-legend-line-height', 'var(--line-height-text-lg)', 'Controls legend line height.'],
 ];
+export const fieldsetPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--fieldset-gap', 'var(--spacing-4)', 'Controls spacing between fieldset parts.'],
+  ['--fieldset-border-color', 'transparent', 'Controls root fieldset border color.'],
+  ['--fieldset-radius', 'var(--radius-none)', 'Controls fieldset corner radius.'],
+  ['--fieldset-legend-border-color', 'var(--color-border)', 'Controls legend border color.'],
+  ['--fieldset-legend-color', 'var(--color-foreground)', 'Controls legend text color.'],
+];
+
+export function FieldsetCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={fieldsetOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function FieldsetCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={fieldsetPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function FieldsetExample(props: FieldsetProps) {
   return (

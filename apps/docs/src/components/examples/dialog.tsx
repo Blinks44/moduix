@@ -16,10 +16,11 @@ import {
 } from 'moduix';
 import * as React from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './dialog.module.css';
 
-export const dialogCssProperties: CssPropertyInput[] = [
+export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-width', '28rem', 'Controls the popup width.'],
   ['--dialog-max-width', 'calc(100vw - var(--spacing-8))', 'Controls the popup max width.'],
   ['--dialog-padding', 'var(--spacing-6)', 'Controls the popup padding.'],
@@ -64,6 +65,43 @@ export const dialogCssProperties: CssPropertyInput[] = [
   ['--dialog-close-icon-size', '1.75rem', 'Controls close icon button size.'],
   ['--dialog-close-icon-glyph-size', '0.75rem', 'Controls the default close icon glyph size.'],
 ];
+export const dialogPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--dialog-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
+  ['--dialog-bg', 'var(--color-popover)', 'Controls popup background color.'],
+  ['--dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
+];
+
+export function DialogCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={dialogOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function DialogCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={dialogPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 export function DialogExample() {
   return (
