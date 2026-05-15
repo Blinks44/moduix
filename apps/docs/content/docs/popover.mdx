@@ -145,9 +145,12 @@ Use `Popover` for root state and behavior props such as `open`, `defaultOpen`,
 `withViewport` when one popover switches between trigger payloads with animated content.
 
 `className` styles the visible popup. `classNames` styles internal service slots that are
-hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
-`positionerProps`, `viewportProps`, and `arrowProps` when you need the matching Base UI
-escape hatches:
+hidden from the default composition. Pass placement props such as `side`, `align`, `sideOffset`,
+`alignOffset`, `collisionBoundary`, and `collisionPadding` directly to `PopoverContent`. Use
+`container` to choose the portal container, `withBackdrop` to enable the optional backdrop,
+`withViewport` to wrap content in Base UI's viewport, `showArrow={false}` to remove the default
+arrow, and `arrow` to replace it. Use `slotProps` only when you need Base UI escape-hatch props for
+an internal slot, such as `keepMounted` on the portal or a custom `render` for the viewport:
 
 ```tsx
 <PopoverContent
@@ -160,6 +163,10 @@ escape hatches:
     positioner: styles.positioner,
     viewport: styles.viewport,
     arrow: styles.arrow,
+  }}
+  slotProps={{
+    portal: { keepMounted: true },
+    positioner: { collisionPadding: 12 },
   }}
 />
 ```
@@ -402,8 +409,8 @@ Use `createPopoverHandle` when the trigger lives outside the popover tree.
 
 ### Side Control
 
-Pass `side`, `align`, offsets, collision options, or `positionerProps` to `PopoverContent` when you
-need to control popup placement.
+Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to `PopoverContent`
+when you need to control popup placement.
 
 <Preview>
   <SideControlPopoverExample />
