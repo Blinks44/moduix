@@ -120,9 +120,6 @@ export const buttonPlaygroundCssProperties: CssPropertyInput[] = [
 export function ButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of Button variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={buttonOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -137,9 +134,6 @@ export function ButtonCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without overriding size preset tokens.
-      </p>
       <CSSPropertiesEditor
         properties={buttonPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

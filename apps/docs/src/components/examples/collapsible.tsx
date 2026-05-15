@@ -73,9 +73,6 @@ export const collapsiblePlaygroundCssProperties: CssPropertyInput[] = [
 export function CollapsibleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of Collapsible variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={collapsibleOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -90,9 +87,6 @@ export function CollapsibleCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without overriding typography presets.
-      </p>
       <CSSPropertiesEditor
         properties={collapsiblePlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

@@ -52,9 +52,6 @@ export const checkboxPlaygroundCssProperties: CssPropertyInput[] = [
 export function CheckboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of Checkbox variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={checkboxOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -69,9 +66,6 @@ export function CheckboxCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without overriding size presets.
-      </p>
       <CSSPropertiesEditor
         properties={checkboxPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

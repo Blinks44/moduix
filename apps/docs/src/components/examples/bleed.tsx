@@ -24,9 +24,6 @@ export const bleedPlaygroundCssProperties: CssPropertyInput[] = [
 export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of Bleed variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={bleedOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -37,9 +34,6 @@ export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
 export function BleedCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview with minimal impact on amount presets.
-      </p>
       <CSSPropertiesEditor
         properties={bleedPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

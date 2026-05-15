@@ -30,9 +30,6 @@ export const closeButtonPlaygroundCssProperties: CssPropertyInput[] = [
 export function CloseButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of CloseButton variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={closeButtonOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -47,9 +44,6 @@ export function CloseButtonCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview.
-      </p>
       <CSSPropertiesEditor
         properties={closeButtonPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

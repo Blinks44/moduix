@@ -59,10 +59,6 @@ export function AvatarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
 
   return (
     <div className={styles.cssPropertiesSection}>
-      <p className={styles.cssPropertiesDescription}>
-        Full list of Avatar variables available for project-level overrides.
-      </p>
-
       <div className={styles.cssPropertiesTableWrap}>
         <table className={styles.cssPropertiesTable}>
           <thead>
@@ -98,9 +94,6 @@ export function AvatarCssPlaygroundPanel({
 
   return (
     <div className={styles.cssPropertiesSection}>
-      <p className={styles.cssPropertiesDescription}>
-        Interactive variables scoped for docs preview without changing size scale tokens.
-      </p>
       <CSSPropertiesEditor
         properties={playgroundProperties}
         values={values}
