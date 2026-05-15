@@ -17,5 +17,11 @@ export type {
   NavigationMenuIconProps,
   NavigationMenuContentProps,
   NavigationMenuLinkProps,
+  NavigationMenuClassNames,
+  NavigationMenuSlotProps,
+  NavigationMenuTriggerClassNames,
+  NavigationMenuTriggerSlotProps,
+  NavigationMenuPopupClassNames,
+  NavigationMenuPopupSlotProps,
   NavigationMenuPopupOptions,
 } from './NavigationMenu';

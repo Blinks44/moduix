@@ -139,6 +139,10 @@
   top: 50%;
   right: 0.625rem;
   transform: translateY(-50%);
+
+  &[data-popup-open] {
+    transform: translateY(-50%);
+  }
 }
 
 .inlineRoot {

@@ -151,6 +151,10 @@
   transform: translateY(-50%);
 }
 
+.nestedIcon[data-popup-open] {
+  transform: translateY(-50%);
+}
+
 .inlineProductContent,
 .inlineGuidesContent {
   width: calc(100vw - 40px);

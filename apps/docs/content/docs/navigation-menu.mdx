@@ -29,7 +29,6 @@ import {
         NavigationMenuList,
         NavigationMenuItem,
         NavigationMenuTrigger,
-        NavigationMenuIcon,
         NavigationMenuContent,
         NavigationMenuLink,
       } from "moduix";
@@ -41,7 +40,6 @@ import {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   Product
-                  <NavigationMenuIcon />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className={styles.contentGrid}>
@@ -60,7 +58,6 @@ import {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   Guides
-                  <NavigationMenuIcon />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className={styles.contentList}>
@@ -183,7 +180,7 @@ import {
 ## Anatomy
 
 `NavigationMenu` is composed from visible navigation parts (`List`, `Item`, `Trigger`, `Content`,
-`Link`) and optional icon slot (`NavigationMenuIcon`). The popup infrastructure (`Portal`,
+`Link`) and the trigger's optional icon slot. The popup infrastructure (`Portal`,
 `Positioner`, `Popup`, `Arrow`, `Viewport`) is rendered internally by default through
 `popupContent`, so consumers can keep a compact composition for common navigation scenarios.
 
@@ -192,8 +189,7 @@ NavigationMenu
 └─ NavigationMenuList
    ├─ NavigationMenuItem
    │  ├─ NavigationMenuTrigger
-   │  │  ├─ label
-   │  │  └─ NavigationMenuIcon
+   │  │  └─ label
    │  └─ NavigationMenuContent
    │     └─ content
    └─ NavigationMenuItem
@@ -204,10 +200,7 @@ NavigationMenu
 <NavigationMenu>
   <NavigationMenuList>
     <NavigationMenuItem>
-      <NavigationMenuTrigger>
-        Product
-        <NavigationMenuIcon />
-      </NavigationMenuTrigger>
+      <NavigationMenuTrigger>Product</NavigationMenuTrigger>
       <NavigationMenuContent>
         <ul>
           <li>
@@ -229,21 +222,31 @@ NavigationMenu
 </NavigationMenu>
 ```
 
-| Part                    | Role                                                                                       |
-| ----------------------- | ------------------------------------------------------------------------------------------ |
-| `NavigationMenu`        | Root state machine. Controls value, orientation, open state, and shared popup behavior.    |
-| `NavigationMenuList`    | Semantic list wrapper for top-level navigation items.                                      |
-| `NavigationMenuItem`    | One navigation node that can render either a trigger/content pair or a direct link.        |
-| `NavigationMenuTrigger` | Interactive control that toggles associated content and receives state attributes.         |
-| `NavigationMenuIcon`    | Optional visual indicator for trigger state; accepts custom children for icon replacement. |
-| `NavigationMenuContent` | Panel content for a trigger item; rendered with popup mechanics by default.                |
-| `NavigationMenuLink`    | Direct navigation link item that can participate in close behavior with `closeOnClick`.    |
+| Part                    | Role                                                                                                          |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `NavigationMenu`        | Root state machine. Controls value, orientation, open state, and shared popup behavior.                       |
+| `NavigationMenuList`    | Semantic list wrapper for top-level navigation items.                                                         |
+| `NavigationMenuItem`    | One navigation node that can render either a trigger/content pair or a direct link.                           |
+| `NavigationMenuTrigger` | Interactive control that toggles associated content and receives state attributes.                            |
+| `NavigationMenuIcon`    | Icon slot rendered by `NavigationMenuTrigger`; use `icon`, `hideIcon`, or `classNames.icon` for common cases. |
+| `NavigationMenuContent` | Panel content for a trigger item; rendered with popup mechanics by default.                                   |
+| `NavigationMenuLink`    | Direct navigation link item that can participate in close behavior with `closeOnClick`.                       |
 
 For most implementations, keep default popup service slots internal and style visible parts first.
 Reach for `popupContent.className` and `popupContent.classNames` when you need fine-grained control
 over popup container and infrastructure slots.
 
 ## Composition
+
+`NavigationMenu` forwards Base UI root props such as `value`, `defaultValue`, `onValueChange`,
+`delay`, `closeDelay`, `orientation`, `actionsRef`, `render`, `className`, and `style`.
+`NavigationMenuTrigger`, `NavigationMenuContent`, and `NavigationMenuLink` also forward their
+Base UI props, including `render`, `keepMounted`, `active`, and `closeOnClick` where those props
+belong.
+
+`NavigationMenuTrigger` renders a chevron icon by default. Pass `icon` to replace it, `hideIcon`
+to remove it, or `classNames.icon` / `slotProps.icon` when only the icon slot needs styling or
+extra props.
 
 Use `popupContent` for Base UI placement behavior and popup styling. `popupContent.className`
 styles the visible popup, while `popupContent.classNames` styles service slots hidden from
@@ -266,7 +269,14 @@ the default composition:
 />
 ```
 
-Use `popupContent={false}` and `viewport` when a nested menu should render its content inside
+`popupContent` accepts Base UI popup props and the full positioner surface: `side`, `sideOffset`,
+`align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`,
+`collisionPadding`, `sticky`, `positionMethod`, and `disableAnchorTracking`. Use
+`popupContent.container` to choose the portal container, `popupContent.withBackdrop` to render the
+backdrop, `popupContent.showArrow={false}` to hide the arrow, and `popupContent.slotProps` when a
+service slot needs non-class props.
+
+Use `popupContent={false}` and `withViewport` when a nested menu should render its content inside
 the current panel instead of opening another popup.
 
 ## Examples
@@ -285,7 +295,6 @@ The nested popup can still use collision handling from Base UI.
         ChevronRightIcon,
         NavigationMenu,
         NavigationMenuContent,
-        NavigationMenuIcon,
         NavigationMenuItem,
         NavigationMenuLink,
         NavigationMenuList,
@@ -299,7 +308,6 @@ The nested popup can still use collision handling from Base UI.
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   Overview
-                  <NavigationMenuIcon />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className={styles.contentList}>
@@ -320,11 +328,12 @@ The nested popup can still use collision handling from Base UI.
                       >
                         <NavigationMenuList className={styles.fullWidth}>
                           <NavigationMenuItem className={styles.fullWidth}>
-                            <NavigationMenuTrigger className={styles.nestedTrigger}>
+                            <NavigationMenuTrigger
+                              className={styles.nestedTrigger}
+                              icon={<ChevronRightIcon />}
+                              classNames={{ icon: styles.nestedIcon }}
+                            >
                               <span>Handbook</span>
-                              <NavigationMenuIcon className={styles.nestedIcon}>
-                                <ChevronRightIcon />
-                              </NavigationMenuIcon>
                             </NavigationMenuTrigger>
                             <NavigationMenuContent>
                               <ul className={styles.contentList}>
@@ -421,7 +430,7 @@ The nested popup can still use collision handling from Base UI.
 ### Nested Inline Submenu
 
 Use `popupContent={false}` when second-level content should stay inside the same panel.
-Set `viewport` on the nested menu and pass `classNames.viewport` to style the automatic viewport.
+Set `withViewport` on the nested menu and pass `classNames.viewport` to style the automatic viewport.
 
 <Preview>
   <NestedInlineNavigationMenuExample />
@@ -431,7 +440,6 @@ Set `viewport` on the nested menu and pass `classNames.viewport` to style the au
       import {
         NavigationMenu,
         NavigationMenuContent,
-        NavigationMenuIcon,
         NavigationMenuItem,
         NavigationMenuList,
         NavigationMenuTrigger,
@@ -447,7 +455,6 @@ Set `viewport` on the nested menu and pass `classNames.viewport` to style the au
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   Product
-                  <NavigationMenuIcon />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className={styles.inlineProductContent}>
                   <NavigationMenu
@@ -455,13 +462,13 @@ Set `viewport` on the nested menu and pass `classNames.viewport` to style the au
                     orientation={isDesktop ? "vertical" : "horizontal"}
                     defaultValue="developers"
                     popupContent={false}
-                    viewport
+                    withViewport
                     classNames={{ viewport: styles.inlineViewport }}
                   >
                     <NavigationMenuList className={styles.inlineList}>
                       {sections.map((section) => (
                         <NavigationMenuItem key={section.value} value={section.value}>
-                          <NavigationMenuTrigger className={styles.inlineTrigger}>
+                          <NavigationMenuTrigger className={styles.inlineTrigger} hideIcon>
                             <span>{section.title}</span>
                             <span>{section.description}</span>
                           </NavigationMenuTrigger>
@@ -600,7 +607,6 @@ Base UI service slots.
       import {
         NavigationMenu,
         NavigationMenuContent,
-        NavigationMenuIcon,
         NavigationMenuItem,
         NavigationMenuList,
         NavigationMenuTrigger,
@@ -625,7 +631,6 @@ Base UI service slots.
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   Resources
-                  <NavigationMenuIcon />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className={styles.contentList}>
@@ -703,7 +708,7 @@ Base UI service slots.
 
 ### Custom Icon
 
-Pass children to `NavigationMenuIcon` to use any icon from your app or icon library.
+Pass `icon` to `NavigationMenuTrigger` to use any icon from your app or icon library.
 
 <Preview>
   <CustomIconNavigationMenuExample />
@@ -714,7 +719,6 @@ Pass children to `NavigationMenuIcon` to use any icon from your app or icon libr
         ChevronDownIcon,
         NavigationMenu,
         NavigationMenuContent,
-        NavigationMenuIcon,
         NavigationMenuItem,
         NavigationMenuList,
         NavigationMenuTrigger,
@@ -725,11 +729,11 @@ Pass children to `NavigationMenuIcon` to use any icon from your app or icon libr
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
+                <NavigationMenuTrigger
+                  icon={<ChevronDownIcon />}
+                  classNames={{ icon: styles.customIcon }}
+                >
                   Resources
-                  <NavigationMenuIcon className={styles.customIcon}>
-                    <ChevronDownIcon />
-                  </NavigationMenuIcon>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className={styles.contentList}>
