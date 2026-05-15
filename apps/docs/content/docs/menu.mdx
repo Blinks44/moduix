@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  MenuCssPlaygroundPanel,
+  MenuCssPropertiesPanel,
   CustomStylesMenuExample,
   DetachedTriggerMenuExample,
   GroupsAndControlsMenuExample,
@@ -17,7 +19,7 @@ import {
   PositionedWithBackdropMenuExample,
   ShortcutsMenuExample,
   WithoutArrowMenuExample,
-  menuCssProperties,
+  menuPlaygroundCssProperties,
 } from '@/components/examples/menu';
 
 ## API Reference
@@ -28,7 +30,7 @@ import {
 
 `MenuContent` renders the portal and positioner internally, so the public composition only needs the trigger, content, optional arrow, and menu items.
 
-<Preview cssProperties={menuCssProperties}>
+<Preview cssProperties={menuPlaygroundCssProperties}>
   <MenuExample />
 
   <Preview.Code>
@@ -69,6 +71,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <MenuCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <MenuCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

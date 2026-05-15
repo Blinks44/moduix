@@ -8,12 +8,13 @@ import {
   type OTPFieldProps,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './otp-field.module.css';
 
 const OTP_LENGTH = 6;
 
-export const otpFieldCssProperties: CssPropertyInput[] = [
+export const otpFieldOverrideCssProperties: CssPropertyInput[] = [
   ['--otp-field-width', 'auto', 'Controls the root OTP field width.'],
   ['--otp-field-max-width', 'none', 'Controls the root OTP field max width.'],
   ['--otp-field-gap', 'var(--spacing-2)', 'Controls spacing between slots and separators.'],
@@ -45,6 +46,45 @@ export const otpFieldCssProperties: CssPropertyInput[] = [
   ['--otp-field-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
   ['--otp-field-transition', 'var(--transition-default)', 'Controls input state transitions.'],
 ];
+export const otpFieldPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--otp-field-gap', 'var(--spacing-2)', 'Controls spacing between slots and separators.'],
+  ['--otp-field-bg', 'var(--color-background)', 'Controls input background.'],
+  ['--otp-field-bg-filled', 'var(--otp-field-bg)', 'Controls filled input background.'],
+  ['--otp-field-color', 'var(--color-foreground)', 'Controls input text color.'],
+  ['--otp-field-border-color', 'var(--color-border)', 'Controls default border color.'],
+  ['--otp-field-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--otp-field-radius', 'var(--radius-md)', 'Controls input corner radius.'],
+  ['--otp-field-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
+];
+
+export function OTPFieldCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={otpFieldOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function OTPFieldCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={otpFieldPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
 
 type OTPFieldExampleProps = Omit<OTPFieldProps, 'length'> & {
   length?: OTPFieldProps['length'];

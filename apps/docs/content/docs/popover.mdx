@@ -10,12 +10,14 @@ import {
   DetachedTriggerPopoverExample,
   ImageOnlyPopoverExample,
   OpenOnHoverPopoverExample,
+  PopoverCssPlaygroundPanel,
+  PopoverCssPropertiesPanel,
   PopoverExample,
   PopoverWithBackdropExample,
   PopoverWithCloseActionExample,
   PopoverWithoutArrowExample,
   SideControlPopoverExample,
-  popoverCssProperties,
+  popoverPlaygroundCssProperties,
 } from '@/components/examples/popover';
 
 ## API Reference
@@ -24,7 +26,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={popoverCssProperties}>
+<Preview cssProperties={popoverPlaygroundCssProperties}>
   <PopoverExample />
 
   <Preview.Code>
@@ -77,6 +79,8 @@ import {
     `}
 
   </Preview.CSS>
+  <Preview.CSSProperties>{(context) => <PopoverCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <PopoverCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

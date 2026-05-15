@@ -5,6 +5,8 @@ icon: Component
 ---
 
 import {
+  MenubarCssPlaygroundPanel,
+  MenubarCssPropertiesPanel,
   CustomStylesMenubarExample,
   GroupsAndControlsMenubarExample,
   IconsMenubarExample,
@@ -14,7 +16,7 @@ import {
   NestedMenubarExample,
   ShortcutsMenubarExample,
   VerticalMenubarExample,
-  menubarCssProperties,
+  menubarPlaygroundCssProperties,
 } from '@/components/examples/menubar';
 
 ## API Reference
@@ -23,7 +25,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={menubarCssProperties}>
+<Preview cssProperties={menubarPlaygroundCssProperties}>
   <MenubarExample />
 
   <Preview.Code>
@@ -87,6 +89,8 @@ import {
     `}
 
   </Preview.Code>
+  <Preview.CSSProperties>{(context) => <MenubarCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <MenubarCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy
