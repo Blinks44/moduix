@@ -126,10 +126,11 @@ Menu
 | `MenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, and `Content`).                           |
 | `MenuGroup*` / controls | Optional structured controls: labels, radio groups/items, checkbox items, and indicator slots.           |
 
-`MenuContent` uses internal service slots (`portal`, optional `backdrop`, `positioner`, optional `viewport`, `popup`).
-In most cases, keep defaults and style visible parts such as trigger, items, separators, and arrow.
-Use `classNames`, `portalProps`, `positionerProps`, `backdropProps`, `viewportProps`, `withBackdrop`,
-and `withViewport` when you need slot-level customization.
+`MenuContent` renders the Base UI portal, positioner, optional backdrop, optional viewport,
+and popup internally. In most cases, keep those service slots hidden and style visible parts
+such as trigger, items, separators, and arrow. Use `classNames` for service-slot classes and
+`slotProps` only when you need to pass non-class props to `portal`, `backdrop`, `positioner`,
+or `viewport`.
 
 ## Composition
 
@@ -138,9 +139,12 @@ Use `Menu` for root state and behavior props such as `open`, `defaultOpen`,
 menus shared by multiple detached triggers.
 
 `className` styles the visible popup. `classNames` styles the internal service slots hidden from
-the default composition. Use placement props such as `side`, `align`, and `sideOffset` on
-`MenuContent`; use `container`, `portalProps`, `positionerProps`, `withViewport`, `viewportProps`,
-`withBackdrop`, and `backdropProps` when you need the matching Base UI escape hatches:
+the default composition. `MenuContent` forwards Base UI popup props and accepts positioner props
+such as `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`,
+`collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`,
+and `disableAnchorTracking` directly. Use `container`, `withBackdrop`, and `withViewport` for
+common service-slot behavior, and use `slotProps` for the rare cases that need lower-level
+Base UI portal, backdrop, positioner, or viewport props:
 
 ```tsx
 <MenuContent
@@ -150,6 +154,11 @@ the default composition. Use placement props such as `side`, `align`, and `sideO
     backdrop: styles.backdrop,
     positioner: styles.positioner,
     viewport: styles.viewport,
+  }}
+  slotProps={{
+    positioner: {
+      collisionPadding: 8,
+    },
   }}
   withBackdrop
   withViewport

@@ -10,6 +10,7 @@ import {
   MenubarGroup,
   MenubarGroupLabel,
   MenubarItem,
+  MenubarLinkItem,
   MenubarItemShortcut,
   MenubarItemText,
   MenubarItemTextContent,
@@ -279,6 +280,24 @@ export function VerticalMenubarExample() {
           <MenubarArrow />
           <MenubarItem closeOnClick>Staging</MenubarItem>
           <MenubarItem closeOnClick>Production</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  );
+}
+
+export function LinkItemsMenubarExample() {
+  return (
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger>Navigate</MenubarTrigger>
+        <MenubarContent>
+          <MenubarArrow />
+          <MenubarLinkItem href="#projects">Projects</MenubarLinkItem>
+          <MenubarLinkItem href="#teams">Teams</MenubarLinkItem>
+          <MenubarLinkItem href="#billing">Billing</MenubarLinkItem>
+          <MenubarSeparator />
+          <MenubarItem closeOnClick>Copy Link</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

@@ -31,6 +31,7 @@ export type {
   MenuHandle,
   MenuContentProps,
   MenuContentClassNames,
+  MenuContentSlotProps,
   MenuTriggerProps,
   MenuItemProps,
   MenuLinkItemProps,

@@ -10,6 +10,7 @@ import {
   MenubarGroup,
   MenubarGroupLabel,
   MenubarItem,
+  MenubarLinkItem,
   MenubarItemTextContent,
   MenubarItemTextIcon,
   MenubarItemTextLabel,
@@ -227,6 +228,26 @@ export const Vertical: Story = {
             <MenubarArrow />
             <MenubarItem closeOnClick>Staging</MenubarItem>
             <MenubarItem closeOnClick>Production</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
+    );
+  },
+};
+
+export const LinkItems: Story = {
+  render: () => {
+    return (
+      <Menubar>
+        <MenubarMenu>
+          <MenubarTrigger>Navigate</MenubarTrigger>
+          <MenubarContent>
+            <MenubarArrow />
+            <MenubarLinkItem href="#projects">Projects</MenubarLinkItem>
+            <MenubarLinkItem href="#teams">Teams</MenubarLinkItem>
+            <MenubarLinkItem href="#billing">Billing</MenubarLinkItem>
+            <MenubarSeparator />
+            <MenubarItem closeOnClick>Copy Link</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
       </Menubar>

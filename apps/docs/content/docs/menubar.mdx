@@ -4,12 +4,12 @@ description: A horizontal or vertical menu bar for application-level commands.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   CustomStylesMenubarExample,
   GroupsAndControlsMenubarExample,
   IconsMenubarExample,
   IndicatorRightMenubarExample,
+  LinkItemsMenubarExample,
   MenubarExample,
   NestedMenubarExample,
   ShortcutsMenubarExample,
@@ -93,24 +93,21 @@ import {
 
 `Menubar` is built from top-level menus. Each `MenubarMenu` pairs one `MenubarTrigger`
 with one `MenubarContent`; keep this pair together so keyboard navigation and open state
-stay predictable.
+stay predictable. `MenubarContent` renders service slots internally, so day-to-day usage
+only needs the visible command parts.
 
 ```text
 Menubar
 └─ MenubarMenu
    ├─ MenubarTrigger
    └─ MenubarContent
-      ├─ portal (service slot)
-      │  └─ positioner (service slot)
-      │     ├─ backdrop (optional service slot)
-      │     └─ viewport (service slot)
-      │        ├─ MenubarArrow
-      │        ├─ MenubarItem / MenubarCheckboxItem / MenubarRadioItem
-      │        ├─ MenubarGroup
-      │        ├─ MenubarSeparator
-      │        └─ MenubarSubmenu
-      │           ├─ MenubarSubmenuTrigger
-      │           └─ MenubarSubmenuContent
+      ├─ MenubarArrow
+      ├─ MenubarItem / MenubarCheckboxItem / MenubarRadioItem
+      ├─ MenubarGroup
+      ├─ MenubarSeparator
+      └─ MenubarSubmenu
+         ├─ MenubarSubmenuTrigger
+         └─ MenubarSubmenuContent
 ```
 
 ```tsx
@@ -134,20 +131,23 @@ Menubar
 </Menubar>
 ```
 
-| Part                                                   | Role                                                                                             |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `Menubar`                                              | Root state machine for orientation, roving focus, and top-level menu behavior.                   |
-| `MenubarMenu`                                          | One top-level menu scope that links a trigger and its popup content.                             |
-| `MenubarTrigger`                                       | Interactive control in the menubar row that opens the matching menu.                             |
-| `MenubarContent`                                       | Popup container for menu items and submenus. Accepts placement props and service-slot overrides. |
-| `MenubarArrow`                                         | Optional visual arrow that points from popup to trigger.                                         |
-| `MenubarItem`/`MenubarCheckboxItem`/`MenubarRadioItem` | Action and stateful command rows.                                                                |
-| `MenubarSubmenu`                                       | Nested command group rendered from a submenu trigger and submenu content.                        |
+| Part                                       | Role                                                                                                         |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `Menubar`                                  | Root state machine for orientation, roving focus, and top-level menu behavior.                               |
+| `MenubarMenu`                              | One top-level menu scope that links a trigger and its popup content.                                         |
+| `MenubarTrigger`                           | Interactive control in the menubar row that opens the matching menu.                                         |
+| `MenubarContent`                           | Popup container for menu items and submenus. Accepts popup props, placement props, and service-slot options. |
+| `MenubarArrow`                             | Optional visual arrow that points from popup to trigger.                                                     |
+| `MenubarItem` / `MenubarLinkItem`          | Action and navigation rows.                                                                                  |
+| `MenubarCheckboxItem` / `MenubarRadioItem` | Stateful command rows with indicator slots.                                                                  |
+| `MenubarItemText*` / `MenubarItemShortcut` | Optional layout helpers for icons, labels, and shortcut text inside rows.                                    |
+| `MenubarSeparator` / `MenubarGroup*`       | Visual grouping parts for related commands.                                                                  |
+| `MenubarSubmenu`                           | Nested command group rendered from a submenu trigger and submenu content.                                    |
 
 In most cases, keep default portal and positioning behavior and style visible parts first:
 `Menubar`, `MenubarTrigger`, `MenubarContent`, and item rows. Use `classNames` plus
-`portalProps`/`positionerProps`/`viewportProps`/`backdropProps` only when you need to
-customize service layers.
+`slotProps` only when you need to customize service layers (`portal`, `backdrop`, `positioner`,
+or `viewport`) beyond classes.
 
 ## Composition
 
@@ -155,9 +155,12 @@ customize service layers.
 uses `MenubarTrigger` plus `MenubarContent` for the popup.
 
 `className` styles the visible popup. `classNames` styles internal service slots hidden from
-the default composition. Use `container`, placement props, `portalProps`, `positionerProps`,
-`backdropProps`, `viewportProps`, and `withBackdrop` when you need the matching Base UI escape
-hatches:
+the default composition. `MenubarContent` forwards Base UI popup props and accepts positioner
+props such as `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`,
+`collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`,
+and `disableAnchorTracking` directly. Use `container` and `withBackdrop` for common service-slot
+behavior, and use `slotProps` for lower-level Base UI portal, backdrop, positioner, or viewport
+props:
 
 ```tsx
 <MenubarContent
@@ -167,6 +170,11 @@ hatches:
     backdrop: styles.backdrop,
     positioner: styles.positioner,
     viewport: styles.viewport,
+  }}
+  slotProps={{
+    positioner: {
+      collisionPadding: 8,
+    },
   }}
   withBackdrop
 />
@@ -470,6 +478,48 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
                 <MenubarArrow />
                 <MenubarItem closeOnClick>Staging</MenubarItem>
                 <MenubarItem closeOnClick>Production</MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Link Items
+
+Use `MenubarLinkItem` for navigation commands that should render as links while keeping menu focus behavior.
+
+<Preview>
+  <LinkItemsMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarArrow,
+        MenubarLinkItem,
+        MenubarSeparator,
+        MenubarItem,
+      } from "moduix";
+
+      export function LinkItemsMenubarDemo() {
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>Navigate</MenubarTrigger>
+              <MenubarContent>
+                <MenubarArrow />
+                <MenubarLinkItem href="#projects">Projects</MenubarLinkItem>
+                <MenubarLinkItem href="#teams">Teams</MenubarLinkItem>
+                <MenubarLinkItem href="#billing">Billing</MenubarLinkItem>
+                <MenubarSeparator />
+                <MenubarItem closeOnClick>Copy Link</MenubarItem>
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
