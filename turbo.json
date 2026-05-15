@@ -12,7 +12,8 @@
     },
     "deploy": {
       "dependsOn": ["build"],
-      "cache": false
+      "cache": false,
+      "env": ["CLOUDFLARE_API_TOKEN"]
     },
     "tsc:check": {
       "dependsOn": ["^tsc:check"],
