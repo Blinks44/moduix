@@ -25,8 +25,10 @@ function FieldsetLegend({ className, ...props }: FieldsetPrimitive.Legend.Props)
 }
 
 type FieldsetProps = FieldsetPrimitive.Root.Props;
+type FieldsetState = FieldsetPrimitive.Root.State;
 type FieldsetLegendProps = FieldsetPrimitive.Legend.Props;
+type FieldsetLegendState = FieldsetPrimitive.Legend.State;
 
 export { Fieldset, FieldsetLegend };
 
-export type { FieldsetProps, FieldsetLegendProps };
+export type { FieldsetProps, FieldsetState, FieldsetLegendProps, FieldsetLegendState };

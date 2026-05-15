@@ -4,7 +4,6 @@ description: A composable wrapper that labels, describes, and validates form con
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   FieldCheckboxExample,
   FieldCustomValidationExample,
@@ -93,10 +92,30 @@ In most cases, keep default structure and style only visible slots (`FieldLabel`
 ## Composition
 
 Use `Field` for root behavior and validation props such as `name`, `validationMode`,
-`validate`, and `disabled`.
+`validationDebounceTime`, `validate`, `actionsRef`, `invalid`, `dirty`, `touched`, and `disabled`.
 
 Compose `FieldLabel`, one compatible control (`FieldControl`, `Input`, `NumberField`, and others),
 then optional `FieldError` and `FieldDescription`. Customize each visible slot through `className`.
+All Base UI parts also support `render`, function `className`, function `style`, and state data
+attributes such as `data-invalid`, `data-valid`, `data-dirty`, `data-touched`, `data-filled`,
+`data-focused`, and `data-disabled`.
+
+Use `FieldControl` for a default native input, or omit it and place another Base UI-compatible
+control in the field. `FieldLabel` supports `nativeLabel={false}` when the label is rendered as a
+non-label element for controls such as select or combobox triggers. `FieldError match` accepts
+`true` or a `ValidityState` key such as `valueMissing`, `typeMismatch`, or `customError`;
+`FieldValidity` exposes the full validity object through a render function.
+
+The package exports Base UI helper types for advanced composition:
+
+```tsx
+import {
+  type FieldActions,
+  type FieldState,
+  type FieldControlChangeEventDetails,
+  type FieldValidityState,
+} from 'moduix';
+```
 
 ## Examples
 

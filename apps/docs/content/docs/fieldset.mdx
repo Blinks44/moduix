@@ -97,8 +97,8 @@ In most cases, keep default semantic structure and customize visible parts (`Fie
 ## Composition
 
 `Fieldset` renders a native `fieldset` by default and forwards Base UI state, refs, `className`,
-`style`, and `render`. Use `render` when the same root needs to also be another Base UI component,
-such as `RadioGroup`.
+function `className`, `style`, function `style`, and `render`. Use `render` when the same root
+needs to also be another Base UI component, such as `RadioGroup`.
 
 `Fieldset` and `FieldsetLegend` are the only public parts. There are no hidden positioner,
 backdrop, viewport, portal, or other service slots to style through `classNames`; pass `className`
@@ -108,6 +108,12 @@ directly to the part you want to customize.
 <Fieldset className={styles.fieldset}>
   <FieldsetLegend className={styles.legend}>Billing details</FieldsetLegend>
 </Fieldset>
+```
+
+The package exports Base UI state types for advanced styling callbacks:
+
+```tsx
+import { type FieldsetState, type FieldsetLegendState } from 'moduix';
 ```
 
 ## Examples

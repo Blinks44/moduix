@@ -78,6 +78,12 @@ Use `size` for the visual component size. Use `htmlSize` for the native HTML `si
 `Input` does not render hidden service slots such as `Positioner`, `Backdrop`, or `Viewport`, so it
 does not need a `classNames` API. Style the input element directly with `className`.
 
+The package exports Base UI event and state types for controlled inputs and styling callbacks:
+
+```tsx
+import { type InputChangeEventDetails, type InputChangeEventReason, type InputState } from 'moduix';
+```
+
 ## Examples
 
 ### Controlled
