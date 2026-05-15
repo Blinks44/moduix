@@ -7,6 +7,7 @@ icon: Component
 import {
   TextAlignExample,
   TextClassNameExample,
+  TextCustomElementExample,
   TextElementsExample,
   TextExample,
   TextSizesExample,
@@ -14,6 +15,7 @@ import {
   TextWeightsExample,
   textCssProperties,
 } from '@/components/examples/text';
+import 'moduix/style.css';
 
 ## API Reference
 
@@ -70,8 +72,8 @@ or project styles.
 ## Composition
 
 Use `as` for the semantic element and `size` for the visual scale when semantics and
-appearance should differ. `strong` defaults to semibold and `small` defaults to `sm`, while
-other elements default to regular `md` text.
+appearance should differ. Built-in defaults keep `strong` semibold and `small` at `sm`, while
+other elements and custom components default to regular `md` text.
 
 Style the root with `className` and component CSS variables. `Text` has no hidden service
 slots, so it does not use `classNames` or slot props.
@@ -116,6 +118,37 @@ Use `as` to choose the semantic element without leaving the typography scale.
     `}
 
   </Preview.CSS>
+</Preview>
+
+### Custom Element
+
+Pass any React element or component to `as` when routing, analytics, or app-level primitives own
+the rendered element.
+
+<Preview>
+  <TextCustomElementExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+      import type { ComponentPropsWithoutRef } from "react";
+
+      type InlineLinkProps = ComponentPropsWithoutRef<"a">;
+
+      function InlineLink(props: InlineLinkProps) {
+        return <a {...props} />;
+      }
+
+      export function TextCustomElementDemo() {
+        return (
+          <Text as={InlineLink} href="/docs" tone="primary" weight="medium">
+            Read the documentation
+          </Text>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>
 
 ### Sizes
