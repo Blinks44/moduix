@@ -4,7 +4,6 @@ description: A typography primitive for ordered and unordered lists with design-
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   CustomStylesListExample,
   ListExample,
@@ -12,13 +11,16 @@ import {
   ListSizesExample,
   ListTonesExample,
   MarkerlessListExample,
+  NativeItemsListExample,
   OrderedListExample,
   listCssProperties,
 } from '@/components/examples/list';
 
 ## API Reference
 
-`List` is a native typography primitive. It renders semantic `ul` and `ol` elements directly instead of wrapping a Base UI primitive.
+`List` is a moduix typography primitive. Base UI does not provide a matching list
+primitive, so the public API stays focused on native `ul`/`ol` semantics, visual
+variants, and root `className` composition.
 
 ## Basic
 
@@ -65,8 +67,9 @@ import {
 
 ## Anatomy
 
-`List` is composed as a semantic list root with repeated `ListItem` children. The root controls marker style,
-spacing, and typography tokens, while each item provides list semantics and text content.
+`List` is composed as a semantic list root with repeated `li` items. Use `ListItem`
+when you want the exported item slot, or native `li` elements when a wrapper component
+is unnecessary. The root controls marker style, spacing, and typography tokens.
 
 ```text
 List (ul | ol)
@@ -78,12 +81,27 @@ List (ul | ol)
 | `List`     | Semantic list root that controls marker, spacing, size, and tone.      |
 | `ListItem` | Individual item wrapper rendered as native list item semantics (`li`). |
 
+`List` does not use portal-like service layers such as `portal`, `backdrop`, or
+`viewport`. The root and direct `li` items are the complete DOM structure.
+
 ## Composition
 
 Use `as="ul"` or `as="ol"` for list semantics, `marker` for marker visibility/style,
 and `size`, `gap`, `tone`, plus `className` for visual customization.
 
-`List` has no hidden service slots, so all styling is applied directly to the list root.
+The default marker follows the root element: unordered lists use `disc`, ordered lists
+use `decimal`. Pass `marker="none"` for markerless semantic lists or `marker="bullet"`
+when marker size, gap, radius, or vertical offset must be styled independently from text.
+All direct `li` elements receive root spacing and marker styles; `ListItem` additionally
+adds the stable `data-slot="list-item"` selector.
+
+| Prop     | Values                                                           | Default     |
+| -------- | ---------------------------------------------------------------- | ----------- |
+| `as`     | `"ul"`, `"ol"`                                                   | `"ul"`      |
+| `marker` | `"disc"`, `"decimal"`, `"bullet"`, `"none"`                      | by `as`     |
+| `gap`    | `"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`, `"2xl"`                  | `"sm"`      |
+| `size`   | `"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`                           | `"md"`      |
+| `tone`   | `"default"`, `"muted"`, `"subtle"`, `"primary"`, `"destructive"` | `"default"` |
 
 ## Examples
 
@@ -171,6 +189,55 @@ Use `marker="none"` when list semantics are useful but visual markers are not.
         "Markerless item",
         "Another markerless item",
         "Useful for compact metadata groups",
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Native Items
+
+Use native `li` elements when you do not need the exported `ListItem` slot.
+
+<Preview>
+  <NativeItemsListExample />
+
+  <Preview.Code>
+    {`
+      import { List } from "moduix";
+
+      export function NativeItemsListDemo() {
+        return (
+          <List marker="bullet" className={styles.customBullet}>
+            {items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </List>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBullet {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        --list-marker-color: var(--color-chart-2);
+        --list-marker-size: 0.5rem;
+        --list-marker-gap: var(--spacing-4);
+        --list-marker-offset-y: 0.5em;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        "Use native li elements when a wrapper component is unnecessary.",
+        "The root still controls spacing, marker style, size, and tone.",
+        "Reach for ListItem when you want the stable item slot.",
       ];
     `}
 
