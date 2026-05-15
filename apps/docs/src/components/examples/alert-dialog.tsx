@@ -131,9 +131,6 @@ export const alertDialogPlaygroundCssProperties: CssPropertyInput[] = [
 export function AlertDialogCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of AlertDialog variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={alertDialogOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -148,9 +145,6 @@ export function AlertDialogCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without changing layout-critical tokens.
-      </p>
       <CSSPropertiesEditor
         properties={alertDialogPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

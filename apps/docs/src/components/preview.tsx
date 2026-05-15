@@ -157,10 +157,24 @@ function PreviewRoot({
             </Tab>
           )}
           {resolvedCssContent && (
-            <Tab className="max-h-150 overflow-auto">{resolvedCssContent}</Tab>
+            <Tab className="max-h-150 overflow-auto">
+              <div className="space-y-3">
+                <p className="text-xs text-fd-muted-foreground">
+                  Full list of component variables available for project-level overrides.
+                </p>
+                {resolvedCssContent}
+              </div>
+            </Tab>
           )}
           {resolvedCssPlaygroundContent && (
-            <Tab className="max-h-150 overflow-auto">{resolvedCssPlaygroundContent}</Tab>
+            <Tab className="max-h-150 overflow-auto">
+              <div className="space-y-3">
+                <p className="text-xs text-fd-muted-foreground">
+                  Interactive variables scoped for docs preview without changing size scale tokens.
+                </p>
+                {resolvedCssPlaygroundContent}
+              </div>
+            </Tab>
           )}
         </Tabs>
       )}

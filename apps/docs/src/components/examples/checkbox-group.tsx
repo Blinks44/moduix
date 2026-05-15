@@ -121,9 +121,6 @@ export const checkboxGroupPlaygroundCssProperties: CssPropertyInput[] = [
 export function CheckboxGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of CheckboxGroup variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={checkboxGroupOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -138,9 +135,6 @@ export function CheckboxGroupCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without overriding size presets.
-      </p>
       <CSSPropertiesEditor
         properties={checkboxGroupPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

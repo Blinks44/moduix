@@ -185,9 +185,6 @@ export const autocompletePlaygroundCssProperties: CssPropertyInput[] = [
 export function AutocompleteCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of Autocomplete variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={autocompleteOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -202,9 +199,6 @@ export function AutocompleteCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without overriding sizing and grid tokens.
-      </p>
       <CSSPropertiesEditor
         properties={autocompletePlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

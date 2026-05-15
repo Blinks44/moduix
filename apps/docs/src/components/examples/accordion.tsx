@@ -107,9 +107,6 @@ export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
 export function AccordionCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of Accordion variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={accordionOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -124,9 +121,6 @@ export function AccordionCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without overriding structural size tokens.
-      </p>
       <CSSPropertiesEditor
         properties={accordionPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

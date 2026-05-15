@@ -121,9 +121,6 @@ export const contextMenuPlaygroundCssProperties: CssPropertyInput[] = [
 export function ContextMenuCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of ContextMenu variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={contextMenuOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -138,9 +135,6 @@ export function ContextMenuCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without overriding structural popup metrics.
-      </p>
       <CSSPropertiesEditor
         properties={contextMenuPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}

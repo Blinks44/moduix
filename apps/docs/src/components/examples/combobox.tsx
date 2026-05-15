@@ -213,9 +213,6 @@ export const comboboxPlaygroundCssProperties: CssPropertyInput[] = [
 export function ComboboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Full list of Combobox variables available for project-level overrides.
-      </p>
       <CSSPropertiesReferenceTable
         properties={comboboxOverrideCssProperties.map(normalizeCssProperty)}
       />
@@ -230,9 +227,6 @@ export function ComboboxCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <p className="text-xs text-fd-muted-foreground">
-        Interactive variables scoped for docs preview without overriding control and list sizing.
-      </p>
       <CSSPropertiesEditor
         properties={comboboxPlaygroundCssProperties.map(normalizeCssProperty)}
         values={values}
