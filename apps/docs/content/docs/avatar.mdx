@@ -5,13 +5,15 @@ icon: Component
 ---
 
 import {
+  AvatarCssPlaygroundPanel,
+  AvatarCssPropertiesPanel,
   AvatarCompositionExample,
   AvatarCustomFallbackExample,
   AvatarExample,
   AvatarFallbackOnlyExample,
   AvatarImageErrorExample,
   CustomStylesAvatarExample,
-  avatarCssProperties,
+  avatarPlaygroundCssProperties,
 } from '@/components/examples/avatar';
 
 ## API Reference
@@ -20,7 +22,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={avatarCssProperties}>
+<Preview cssProperties={avatarPlaygroundCssProperties}>
   <AvatarExample />
 
   <Preview.Code>
@@ -46,6 +48,14 @@ import {
     `}
 
   </Preview.Data>
+
+<Preview.CSSProperties>
+  {(context) => <AvatarCssPropertiesPanel {...context} />}
+</Preview.CSSProperties>
+
+  <Preview.CSSPlayground>
+    {(context) => <AvatarCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

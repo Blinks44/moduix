@@ -6,11 +6,13 @@ icon: Component
 
 import 'moduix/style.css';
 import {
+  AccordionCssPlaygroundPanel,
+  AccordionCssPropertiesPanel,
   AccordionExample,
   ControlledAccordionExample,
   CustomStylesAccordionExample,
   DisabledItemAccordionExample,
-  accordionCssProperties,
+  accordionPlaygroundCssProperties,
 } from '@/components/examples/accordion';
 
 ## API Reference
@@ -19,7 +21,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={accordionCssProperties}>
+<Preview cssProperties={accordionPlaygroundCssProperties}>
   <AccordionExample defaultValue={["what-is-base-ui"]} />
 
   <Preview.Code>
@@ -82,6 +84,14 @@ import {
     `}
 
   </Preview.Data>
+
+<Preview.CSSProperties>
+  {(context) => <AccordionCssPropertiesPanel {...context} />}
+</Preview.CSSProperties>
+
+  <Preview.CSSPlayground>
+    {(context) => <AccordionCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy

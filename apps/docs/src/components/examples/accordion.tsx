@@ -7,7 +7,8 @@ import {
   ChevronDownIcon,
 } from 'moduix';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './accordion.module.css';
 
 const accordionItems = [
@@ -30,7 +31,7 @@ const accordionItems = [
   },
 ];
 
-export const accordionCssProperties: CssPropertyInput[] = [
+export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ['--accordion-width', '24rem', 'Controls the root accordion width.'],
   ['--accordion-max-width', 'calc(100vw - 8rem)', 'Controls the root accordion max width.'],
   ['--accordion-color', 'var(--color-foreground)', 'Controls accordion text color.'],
@@ -90,6 +91,59 @@ export const accordionCssProperties: CssPropertyInput[] = [
     'Controls panel open and close transition.',
   ],
 ];
+
+export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--accordion-color', 'var(--color-foreground)', 'Controls accordion text color.'],
+  ['--accordion-item-border-color', 'var(--color-border)', 'Controls separator color.'],
+  ['--accordion-trigger-gap', 'var(--spacing-4)', 'Controls trigger content and icon spacing.'],
+  ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
+  ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
+  ['--accordion-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
+  ['--accordion-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+  ['--accordion-icon-size', '0.75rem', 'Controls trigger icon size.'],
+  ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
+];
+
+export function AccordionCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Full list of Accordion variables available for project-level overrides.
+      </p>
+      <CSSPropertiesReferenceTable
+        properties={accordionOverrideCssProperties.map(normalizeCssProperty)}
+      />
+    </div>
+  );
+}
+
+export function AccordionCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <div className="space-y-2">
+      <p className="text-xs text-fd-muted-foreground">
+        Interactive variables scoped for docs preview without overriding structural size tokens.
+      </p>
+      <CSSPropertiesEditor
+        properties={accordionPlaygroundCssProperties.map(normalizeCssProperty)}
+        values={values}
+        onChange={onChange}
+        onReset={onReset}
+      />
+    </div>
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property)) {
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
+  return property;
+}
 
 export function AccordionExample(props: AccordionProps<string>) {
   return (

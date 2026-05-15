@@ -29,12 +29,13 @@ apps/docs/
 4. Put live preview examples in `src/components/examples/`. MDX pages should contain documentation structure, text, and code snippets. Interactive React components, example data, and `cssProperties` lists must live in the example `.tsx` files next to the other examples.
 5. Style live examples with CSS Modules next to the example: `src/components/examples/<component>.module.css`. Do not leave demo styles in inline `style`, `React.CSSProperties` constants, or utility-string `className="..."` values inside `.tsx`. TSX should contain component composition, example data, and `className={styles.*}` for the parts that demonstrate customization.
 6. CSS playground properties must not hide component variability shown on the page. Do not add inherited or broad override variables to `cssProperties` when they make documented variants render the same, such as variables that override all sizes, weights, tones, states, placements, or density options inside a preview. Keep those variables in `theme.css` when they are useful for targeted customization, but document them through focused examples or `className` usage instead of the playground.
-7. Code snippets in MDX pages should focus on how consumers use the component in their projects:
+7. When a component has many CSS variables, split docs into two tabs: `CSS Properties` and `CSS Playground`. `CSS Properties` should be a static reference list of all overridable variables; `CSS Playground` should expose only a safe interactive subset that does not override documented variants globally.
+8. Code snippets in MDX pages should focus on how consumers use the component in their projects:
    - Do not include repeated setup imports like `import "moduix/style.css";` or `import * as React from "react";`. Global library CSS and React setup are documented on the initialization page.
    - Each snippet should start with the import of the `moduix` parts used in that snippet.
    - Each `Preview.Code` snippet must be self-contained for the current variant: include the needed imports, local example data, helper functions, state hooks, and a complete demo component or complete JSX composition. Do not show isolated fragments such as only a single item, only root props, or placeholders like `{/* input and list */}` unless the section explicitly documents a tiny sub-slot outside a live preview.
    - Keep all snippets on a component page in one style, showing the recommended project-level usage pattern for that component.
-8. Keep `Anatomy` and `Composition` non-duplicative. `Anatomy` should explain structure, part roles, and slot map. `Composition` should explain usage patterns and API customization (`render`, controlled props, `className`/`classNames`, slot escape hatches). Do not repeat the same structural explanation in both sections.
+9. Keep `Anatomy` and `Composition` non-duplicative. `Anatomy` should explain structure, part roles, and slot map. `Composition` should explain usage patterns and API customization (`render`, controlled props, `className`/`classNames`, slot escape hatches). Do not repeat the same structural explanation in both sections.
 
 ## Component Page Template
 
@@ -49,7 +50,7 @@ Every component page must use this order:
    - `description` - short description of the component purpose.
 2. A `BaseUIReference` block linking to the source Base UI docs page for the primitive, for example `https://base-ui.com/react/components/accordion`.
 3. Basic preview with the heading `Basic`.
-4. Tabs with the basic example code and `CSS properties`. Use `Preview` and pass `cssProperties` only to the basic example.
+4. Tabs with the basic example code and CSS variables documentation. Use `Preview` and pass `cssProperties` only to the basic example. Prefer `CSS Properties` + `CSS Playground` split when the component has broad/global override tokens.
 5. `## Anatomy` section.
    - Briefly describe visible parts and internal service slots (for example `portal`, `backdrop`, `viewport`) when the component has them.
    - Explain when consumers should keep default styling and when slot-level customization is useful.

@@ -5,13 +5,15 @@ icon: Component
 ---
 
 import {
+  AlertDialogCssPlaygroundPanel,
+  AlertDialogCssPropertiesPanel,
   AlertDialogExample,
   AlertDialogHandleExample,
   ControlledAlertDialogExample,
   CustomCloseIconAlertDialogExample,
   CustomStylesAlertDialogExample,
   ScrollableAlertDialogExample,
-  alertDialogCssProperties,
+  alertDialogPlaygroundCssProperties,
 } from '@/components/examples/alert-dialog';
 
 ## API Reference
@@ -20,7 +22,7 @@ import {
 
 ## Basic
 
-<Preview cssProperties={alertDialogCssProperties}>
+<Preview cssProperties={alertDialogPlaygroundCssProperties}>
   <AlertDialogExample />
 
   <Preview.Code>
@@ -60,6 +62,14 @@ import {
     `}
 
   </Preview.Code>
+
+<Preview.CSSProperties>
+  {(context) => <AlertDialogCssPropertiesPanel {...context} />}
+</Preview.CSSProperties>
+
+  <Preview.CSSPlayground>
+    {(context) => <AlertDialogCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy
