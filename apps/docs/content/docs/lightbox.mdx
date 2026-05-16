@@ -1,0 +1,165 @@
+---
+title: Lightbox
+description: An image-focused modal overlay for zoomed preview and dynamic gallery capture.
+icon: Component
+---
+
+import {
+  CustomizedLightboxExample,
+  DynamicLightboxGalleryExample,
+  LightboxCssPlaygroundPanel,
+  LightboxCssPropertiesPanel,
+  LightboxExample,
+  lightboxPlaygroundCssProperties,
+} from '@/components/examples/lightbox';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/dialog" />
+
+## Basic
+
+<Preview cssProperties={lightboxPlaygroundCssProperties}>
+  <LightboxExample />
+
+  <Preview.Code>
+    {`
+      import { Lightbox, LightboxImage, LightboxContent } from "moduix";
+
+      const thumbnail =
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80";
+      const fullSize =
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90";
+
+      export function LightboxDemo() {
+        return (
+          <Lightbox>
+            <LightboxImage src={thumbnail} alt="Mountain ridge at sunset" className={styles.previewImage} />
+            <LightboxContent>
+              <img src={fullSize} alt="Mountain ridge at sunset" className={styles.contentImage} />
+            </LightboxContent>
+          </Lightbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <LightboxCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <LightboxCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Lightbox` is composed from dialog primitives and keeps image-specific structure in one content slot.
+`LightboxContent` renders internal service layers (`portal`, `backdrop`, `viewport`) and the visual
+image frame with an optional close button.
+
+```text
+Lightbox
+├─ LightboxTrigger (optional)
+│  └─ LightboxImage (optional helper)
+└─ LightboxContent
+   ├─ portal (service slot)
+   │  ├─ backdrop (service slot, optional)
+   │  └─ viewport (service slot)
+   │     └─ popup
+   │        └─ frame
+   │           ├─ LightboxClose (optional)
+   │           └─ image content
+```
+
+```tsx
+<Lightbox>
+  <LightboxImage src={thumbnail} alt="Preview image" />
+  <LightboxContent>
+    <img src={fullSize} alt="Preview image" />
+  </LightboxContent>
+</Lightbox>
+```
+
+| Part              | Role                                                                                |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`). |
+| `LightboxTrigger` | Opens the preview from any custom trigger composition.                              |
+| `LightboxImage`   | Helper that wraps an image as a trigger and supports `previewSrc` mapping.          |
+| `LightboxContent` | Modal content slot that owns `portal`, `backdrop`, `viewport`, popup, and frame.    |
+| `LightboxClose`   | Optional close control rendered in the frame area.                                  |
+| `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists.                 |
+
+Use `className` for the popup surface and `classNames` for service slots like `backdrop` and
+`viewport`. Keep `withBackdrop` enabled in modal scenarios; disable it only for non-modal overlays.
+
+## Composition
+
+`Lightbox` passes through dialog root behavior from Base UI. Use controlled state when external UI
+needs to open or close previews. `LightboxContent` supports `container`, `slotProps`, and
+`classNames` for service-slot customization, plus `withBackdrop` and `withCloseButton` for
+high-level behavior.
+
+`LightboxGallery` adds delegation-based capture for dynamic content. It listens for image clicks
+inside `rootRef` or `rootSelector` and opens the preview with the clicked image source.
+
+## Examples
+
+### Dynamic Gallery Capture
+
+Use `LightboxGallery` when page content comes from CMS or admin HTML and individual images cannot
+be wrapped manually.
+
+<Preview>
+  <DynamicLightboxGalleryExample />
+
+  <Preview.Code>
+    {`
+      import { LightboxGallery } from "moduix";
+      import { Fragment, useRef } from "react";
+
+      export function DynamicGalleryDemo() {
+        const rootRef = useRef<HTMLDivElement | null>(null);
+
+        return (
+          <Fragment>
+            <div ref={rootRef} className={styles.dynamicRoot}>
+              <img src={images.mountain} alt="Mountain landscape" className={styles.dynamicImage} />
+              <img src={images.sea} alt="Sea at sunset" className={styles.dynamicImage} />
+              <img src={images.forest} alt="Forest and mountain road" className={styles.dynamicImage} />
+            </div>
+            <LightboxGallery rootRef={rootRef} />
+          </Fragment>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Customized Surface
+
+Customize size limits, backdrop tone, and close button appearance with `className`, `classNames`,
+and CSS variables.
+
+<Preview>
+  <CustomizedLightboxExample />
+
+  <Preview.Code>
+    {`
+      import { CloseButton, Lightbox, LightboxImage, LightboxContent } from "moduix";
+
+      export function CustomizedLightboxDemo() {
+        return (
+          <Lightbox>
+            <LightboxImage src={thumbnail} alt="Road through forest" className={styles.previewImage} />
+            <LightboxContent
+              className={styles.customPopup}
+              classNames={{ backdrop: styles.customBackdrop }}
+              closeButton={<CloseButton aria-label="Close preview" className={styles.customClose} />}
+            >
+              <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
+            </LightboxContent>
+          </Lightbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

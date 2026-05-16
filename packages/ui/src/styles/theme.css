@@ -860,6 +860,33 @@
   --input-transition: initial; /* var(--transition-default) */
   --input-width: initial; /* 100% */
 
+  /* Lightbox */
+  --lightbox-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
+  --lightbox-backdrop-transition: initial; /* var(--transition-default) */
+  --lightbox-close-bg: initial; /* var(--color-background) */
+  --lightbox-close-bg-hover: initial; /* var(--color-muted) */
+  --lightbox-close-color: initial; /* var(--color-foreground) */
+  --lightbox-close-color-hover: initial; /* var(--color-foreground) */
+  --lightbox-close-icon-size: initial; /* 0.875rem */
+  --lightbox-close-offset-right: initial; /* calc(var(--spacing-8) * -1) */
+  --lightbox-close-offset-top: initial; /* calc(var(--spacing-8) * -1) */
+  --lightbox-close-radius: initial; /* var(--radius-sm) */
+  --lightbox-close-size: initial; /* 2rem */
+  --lightbox-focus-ring-color: initial; /* var(--color-ring) */
+  --lightbox-height: initial; /* 80dvh */
+  --lightbox-image-enter-duration: initial; /* 240ms */
+  --lightbox-image-enter-scale: initial; /* 0.9 */
+  --lightbox-image-max-height: initial; /* calc(100dvh - var(--spacing-8)) */
+  --lightbox-image-max-width: initial; /* 80vw */
+  --lightbox-image-radius: initial; /* var(--radius-lg) */
+  --lightbox-image-shadow: initial; /* var(--shadow-lg) */
+  --lightbox-max-height: initial; /* 80dvh */
+  --lightbox-max-width: initial; /* 80vw */
+  --lightbox-scale: initial; /* 0.82 */
+  --lightbox-transition: initial; /* 220ms ease */
+  --lightbox-viewport-padding: initial; /* var(--spacing-4) */
+  --lightbox-width: initial; /* 80vw */
+
   /* List */
   --list-color: initial; /* var(--list-default-color, var(--color-foreground)) */
   --list-default-color: initial; /* var(--color-foreground) */

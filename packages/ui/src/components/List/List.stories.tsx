@@ -60,9 +60,15 @@ export const CustomStyles: Story = {
   name: 'Custom Styles',
   render: () => (
     <List marker="bullet" className={storyStyles.customBullet}>
-      <ListItem>Bullet size is independent from text size.</ListItem>
-      <ListItem>Bullet color and gap are controlled by CSS variables.</ListItem>
-      <ListItem>Text color remains unchanged.</ListItem>
+      <ListItem classNames={{ marker: storyStyles.glowMarker }}>
+        Bullet size is independent from text size.
+      </ListItem>
+      <ListItem classNames={{ marker: storyStyles.glowMarker }}>
+        Bullet color and gap are controlled by CSS variables.
+      </ListItem>
+      <ListItem classNames={{ marker: storyStyles.glowMarker }}>
+        Text color remains unchanged.
+      </ListItem>
     </List>
   ),
 };

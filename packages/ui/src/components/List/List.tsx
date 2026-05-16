@@ -16,12 +16,26 @@ type ListProps = React.ComponentPropsWithoutRef<ListAs> & {
   tone?: ListTone;
 };
 
-type ListItemProps = React.ComponentProps<'li'>;
+type ListItemClassNames = {
+  marker?: string;
+  content?: string;
+};
+
+type ListItemProps = React.ComponentProps<'li'> & {
+  marker?: React.ReactNode;
+  classNames?: ListItemClassNames;
+};
+
+type ListContextValue = {
+  marker: ListMarker;
+};
 
 const defaultMarkerByElement: Record<ListAs, ListMarker> = {
   ul: 'disc',
   ol: 'decimal',
 };
+
+const ListContext = React.createContext<ListContextValue | null>(null);
 
 function List({
   as = 'ul',
@@ -36,22 +50,51 @@ function List({
   const resolvedMarker = marker ?? defaultMarkerByElement[as];
 
   return (
-    <Component
-      data-slot="list-root"
-      data-gap={gap}
-      data-marker={resolvedMarker}
-      data-size={size}
-      data-tone={tone}
-      className={clsx(styles.root, className)}
-      {...props}
-    />
+    <ListContext.Provider value={{ marker: resolvedMarker }}>
+      <Component
+        data-slot="list-root"
+        data-gap={gap}
+        data-marker={resolvedMarker}
+        data-size={size}
+        data-tone={tone}
+        className={clsx(styles.root, className)}
+        {...props}
+      />
+    </ListContext.Provider>
   );
 }
 
-function ListItem({ className, ...props }: ListItemProps) {
-  return <li data-slot="list-item" className={clsx(styles.item, className)} {...props} />;
+function ListItem({ className, classNames, marker, children, ...props }: ListItemProps) {
+  const context = React.useContext(ListContext);
+  const shouldRenderMarker = context?.marker === 'bullet';
+
+  return (
+    <li data-slot="list-item" className={clsx(styles.item, className)} {...props}>
+      {shouldRenderMarker ? (
+        <span
+          data-slot="list-item-marker"
+          aria-hidden
+          className={clsx(styles.marker, classNames?.marker)}
+        >
+          {marker}
+        </span>
+      ) : null}
+      <span data-slot="list-item-content" className={clsx(styles.content, classNames?.content)}>
+        {children}
+      </span>
+    </li>
+  );
 }
 
 export { List, ListItem };
 
-export type { ListProps, ListItemProps, ListAs, ListMarker, ListGap, ListSize, ListTone };
+export type {
+  ListProps,
+  ListItemProps,
+  ListItemClassNames,
+  ListAs,
+  ListMarker,
+  ListGap,
+  ListSize,
+  ListTone,
+};
