@@ -21,6 +21,7 @@ export * from './components/Fieldset';
 export * from './components/Form';
 export * from './components/Heading';
 export * from './components/Input';
+export * from './components/Lightbox';
 export * from './components/List';
 export * from './components/Menu';
 export * from './components/Menubar';

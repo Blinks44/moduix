@@ -78,6 +78,8 @@ curl -o src/components/Accordion/accordion.md https://base-ui.com/react/componen
 6. **Docs synchronization**
    When updating an existing library component, check the matching component documentation in `apps/docs` and synchronize it with the library changes. Update examples, props/API descriptions, imports, usage notes, and related styles so the docs reflect the current component behavior.
 
+   After any component update in `packages/ui`, rebuild the UI package from the monorepo root with `npm run build:ui` before validating docs or handing off changes. The docs consume `moduix` from built output.
+
 7. **Reusability**
    Components must be self-contained and independent from business logic. Components must accept `className` for customization.
 

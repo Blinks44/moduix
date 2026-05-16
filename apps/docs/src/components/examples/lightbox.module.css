@@ -1,0 +1,47 @@
+.previewImage {
+  display: block;
+  width: 18rem;
+  max-width: min(18rem, calc(100vw - var(--spacing-10)));
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  cursor: zoom-in;
+}
+
+.contentImage {
+  display: block;
+  width: auto;
+  max-width: min(80vw, 100%);
+  height: auto;
+}
+
+.dynamicRoot {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-3);
+  width: min(36rem, calc(100vw - var(--spacing-10)));
+}
+
+.dynamicImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  cursor: zoom-in;
+}
+
+.customPopup {
+  --lightbox-width: 72vw;
+  --lightbox-height: 72dvh;
+}
+
+.customBackdrop {
+  background-color: rgb(15 23 42 / 0.62);
+}
+
+.customClose {
+  --lightbox-close-bg: var(--color-muted);
+  --lightbox-close-bg-hover: var(--color-accent);
+  --lightbox-close-radius: var(--radius-md);
+}

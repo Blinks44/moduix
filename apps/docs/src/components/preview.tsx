@@ -99,10 +99,10 @@ function PreviewRoot({
   );
   const tabs = [
     resolvedCode ? 'Code' : null,
-    exampleCssContent ? 'CSS' : null,
+    exampleCssContent ? 'Styles' : null,
     dataContent ? 'Data' : null,
-    resolvedCssContent ? 'CSS Properties' : null,
-    resolvedCssPlaygroundContent ? 'CSS Playground' : null,
+    resolvedCssContent ? 'CSS Variables' : null,
+    resolvedCssPlaygroundContent ? 'Playground' : null,
   ].filter((item): item is string => Boolean(item));
 
   React.useEffect(() => {
