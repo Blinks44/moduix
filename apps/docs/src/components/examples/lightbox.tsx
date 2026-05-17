@@ -16,19 +16,39 @@ const images = {
 };
 
 export const lightboxOverrideCssProperties: CssPropertyInput[] = [
+  ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop fill.'],
+  ['--lightbox-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
+  ['--lightbox-close-bg', 'var(--color-background)', 'Controls close button background.'],
+  ['--lightbox-close-bg-hover', 'var(--color-muted)', 'Controls close button hover background.'],
+  ['--lightbox-close-color', 'var(--color-foreground)', 'Controls close icon color.'],
+  ['--lightbox-close-color-hover', 'var(--color-foreground)', 'Controls close icon hover color.'],
+  ['--lightbox-close-icon-size', '0.875rem', 'Controls close icon size.'],
+  [
+    '--lightbox-close-offset-right',
+    'calc(var(--spacing-8) * -1)',
+    'Controls close button right offset.',
+  ],
+  [
+    '--lightbox-close-offset-top',
+    'calc(var(--spacing-8) * -1)',
+    'Controls close button top offset.',
+  ],
+  ['--lightbox-close-radius', 'var(--radius-sm)', 'Controls close button radius.'],
+  ['--lightbox-close-size', '2rem', 'Controls close button size.'],
+  ['--lightbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--lightbox-width', '80vw', 'Controls the popup width limit.'],
   ['--lightbox-height', '80dvh', 'Controls the popup height limit.'],
   ['--lightbox-max-width', '80vw', 'Controls max popup width.'],
   ['--lightbox-max-height', '80dvh', 'Controls max popup height.'],
+  ['--lightbox-scale', '0.82', 'Controls popup initial scale.'],
+  ['--lightbox-transition', '220ms ease', 'Controls popup transition.'],
+  ['--lightbox-viewport-padding', 'var(--spacing-4)', 'Controls viewport padding.'],
+  ['--lightbox-image-enter-duration', '240ms', 'Controls image enter animation duration.'],
+  ['--lightbox-image-enter-scale', '0.9', 'Controls image enter animation scale.'],
   ['--lightbox-image-max-width', '80vw', 'Controls max image width.'],
-  ['--lightbox-image-max-height', '80dvh', 'Controls max image height.'],
+  ['--lightbox-image-max-height', 'calc(100dvh - var(--spacing-8))', 'Controls max image height.'],
   ['--lightbox-image-radius', 'var(--radius-lg)', 'Controls image corner radius in modal.'],
   ['--lightbox-image-shadow', 'var(--shadow-lg)', 'Controls image shadow in modal.'],
-  ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop fill.'],
-  ['--lightbox-close-size', '2rem', 'Controls close button size.'],
-  ['--lightbox-close-radius', 'var(--radius-sm)', 'Controls close button radius.'],
-  ['--lightbox-close-bg', 'var(--color-background)', 'Controls close button background.'],
-  ['--lightbox-close-color', 'var(--color-foreground)', 'Controls close icon color.'],
 ];
 
 export const lightboxPlaygroundCssProperties: CssPropertyInput[] = [

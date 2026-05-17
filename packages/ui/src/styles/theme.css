@@ -298,6 +298,50 @@
   --bleed-inline-lg: initial; /* var(--spacing-4) */
   --bleed-inline-xl: initial; /* var(--spacing-6) */
 
+  /* Breadcrumbs */
+  --breadcrumbs-color: initial; /* var(--color-muted-foreground) */
+  --breadcrumbs-ellipsis-bg: initial; /* transparent */
+  --breadcrumbs-ellipsis-bg-hover: initial; /* var(--color-accent) */
+  --breadcrumbs-ellipsis-color: initial; /* var(--breadcrumbs-color, var(--color-muted-foreground)) */
+  --breadcrumbs-ellipsis-color-hover: initial; /* var(--color-foreground) */
+  --breadcrumbs-ellipsis-padding-x: initial; /* 0.2rem */
+  --breadcrumbs-ellipsis-radius: initial; /* var(--radius-sm) */
+  --breadcrumbs-ellipsis-size: initial; /* 1.5rem */
+  --breadcrumbs-ellipsis-transition: initial; /* var(--transition-default) */
+  --breadcrumbs-focus-ring-color: initial; /* var(--color-ring) */
+  --breadcrumbs-font-size: initial; /* var(--text-sm) */
+  --breadcrumbs-gap: initial; /* var(--spacing-1) */
+  --breadcrumbs-item-max-width: initial; /* 16rem */
+  --breadcrumbs-line-height: initial; /* var(--line-height-text-sm) */
+  --breadcrumbs-link-color: initial; /* var(--color-muted-foreground) */
+  --breadcrumbs-link-color-hover: initial; /* var(--color-foreground) */
+  --breadcrumbs-link-radius: initial; /* var(--radius-sm) */
+  --breadcrumbs-link-text-decoration: initial; /* none */
+  --breadcrumbs-link-text-decoration-hover: initial; /* none */
+  --breadcrumbs-link-transition: initial; /* var(--transition-default) */
+  --breadcrumbs-link-underline-offset: initial; /* 0.2em */
+  --breadcrumbs-max-width: initial; /* 100% */
+  --breadcrumbs-page-color: initial; /* var(--color-foreground) */
+  --breadcrumbs-page-font-weight: initial; /* var(--weight-medium) */
+  --breadcrumbs-popup-bg: initial; /* var(--color-popover) */
+  --breadcrumbs-popup-border-color: initial; /* var(--color-border) */
+  --breadcrumbs-popup-color: initial; /* var(--color-popover-foreground) */
+  --breadcrumbs-popup-item-bg-highlighted: initial; /* var(--color-accent) */
+  --breadcrumbs-popup-item-font-size: initial; /* var(--text-xs) */
+  --breadcrumbs-popup-item-line-height: initial; /* var(--line-height-text-xs) */
+  --breadcrumbs-popup-item-min-height: initial; /* 1.75rem */
+  --breadcrumbs-popup-item-padding-x: initial; /* 0.5rem */
+  --breadcrumbs-popup-item-padding-y: initial; /* 0.25rem */
+  --breadcrumbs-popup-item-radius: initial; /* var(--radius-sm) */
+  --breadcrumbs-popup-max-width: initial; /* 16rem */
+  --breadcrumbs-popup-min-width: initial; /* 9rem */
+  --breadcrumbs-popup-padding: initial; /* var(--spacing-1) */
+  --breadcrumbs-popup-radius: initial; /* var(--radius-md) */
+  --breadcrumbs-popup-scale: initial; /* var(--scale-popup) */
+  --breadcrumbs-popup-shadow: initial; /* var(--shadow-md) */
+  --breadcrumbs-popup-transition: initial; /* var(--transition-default) */
+  --breadcrumbs-separator-color: initial; /* var(--color-muted-foreground) */
+
   /* Button */
   --button-color: initial; /* var(--color-foreground) */
   --button-content-gap: initial; /* var(--spacing-2) */

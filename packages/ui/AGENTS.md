@@ -106,6 +106,8 @@ curl -o src/components/Accordion/accordion.md https://base-ui.com/react/componen
 
    Add a single `slotProps` object only when there is a concrete need to pass non-class props to internal slots. Do not introduce it preemptively for styling-only customization, and do not add separate slot-specific escape hatches such as `portalProps`, `backdropProps`, `positionerProps`, or `viewportProps`.
 
+   If a component hides internal composition parts (service or non-service) that consumers may need to style, expose those hidden parts through a compact `classNames` object and, when needed, a matching `slotProps` object.
+
 9. **`mergeClassName` vs `clsx`**
    Use `mergeClassName` when a Base UI `className` can be a state function and an external and internal `className` must be merged. Use `clsx` when `className` is always a string or class array without a state function.
 
