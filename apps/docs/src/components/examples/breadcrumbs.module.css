@@ -1,0 +1,28 @@
+.container {
+  width: min(34rem, 100%);
+}
+
+.customBreadcrumbs {
+  --breadcrumbs-item-max-width: 12rem;
+  --breadcrumbs-link-color-hover: var(--color-foreground);
+  --breadcrumbs-separator-color: var(--color-primary);
+}
+
+.separatorIcon {
+  width: 0.75rem;
+  height: 0.25rem;
+}
+
+.ellipsisTrigger {
+  border-radius: var(--radius-full);
+  background-color: var(--color-muted);
+}
+
+.popup {
+  --breadcrumbs-popup-bg: var(--color-background);
+  --breadcrumbs-popup-border-color: var(--color-primary);
+}
+
+.popupItem {
+  --breadcrumbs-popup-item-bg-highlighted: var(--color-accent);
+}

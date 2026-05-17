@@ -6,8 +6,8 @@ icon: Rocket
 
 # Quick start
 
-moduix ships ready-made React components, CSS, and design tokens. Install the package together with
-its Base UI peer dependency:
+The fastest way to start is to install moduix as a regular npm package. The components, CSS, and
+design tokens are shipped together, while Base UI stays as a peer dependency in your application:
 
 ```bash
 npm install moduix @base-ui/react
@@ -15,6 +15,10 @@ npm install moduix @base-ui/react
 
 `@base-ui/react` stays in your application bundle, so moduix does not ship duplicate Base UI
 runtime.
+
+This package-first setup is the most convenient path for apps that want normal dependency updates.
+If a project needs full ownership over a component, the component source is intentionally small and
+readable enough to copy into your codebase and adapt locally.
 
 ## Add Styles
 
@@ -55,6 +59,10 @@ export function Example() {
 
 Most components are composed from named parts. This keeps behavior accessible while letting you
 control markup, layout, and styling in the consuming application.
+
+This composition style is inspired by [shadcn/ui](https://ui.shadcn.com/): the public API should be
+easy to read, and the component structure should stay understandable even when you decide to own the
+source directly.
 
 ## Styling
 

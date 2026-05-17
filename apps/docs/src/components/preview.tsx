@@ -123,11 +123,13 @@ function PreviewRoot({
   return (
     <div className={cn('not-prose my-6', className)} {...props}>
       <div
-        className="flex min-h-56 items-center justify-center overflow-auto rounded-xl border bg-fd-primary-foreground p-6"
+        className="flex min-h-56 items-center overflow-x-auto overflow-y-hidden rounded-xl border bg-fd-primary-foreground p-6"
         style={cssVariables}
       >
-        <div className="flex max-w-full flex-wrap items-center justify-center gap-3">
-          {previewChildren}
+        <div className="flex w-full justify-center-safe">
+          <div className="flex w-max flex-wrap items-center justify-center gap-3">
+            {previewChildren}
+          </div>
         </div>
       </div>
 

@@ -22,22 +22,24 @@ html > body[data-scroll-locked] {
     width: 100%;
     background: transparent;
 
-    > nav {
+    > div {
+      background: color-mix(in oklab, var(--color-fd-background) 20%, transparent);
+    }
+
+    nav {
       background: transparent;
       backdrop-filter: none;
 
-      > ul {
-        div:not(:last-child) {
-          display: flex;
+      div:not(:last-child) {
+        display: flex;
 
-          > button {
-            max-width: 200px;
-          }
+        > button {
+          max-width: 200px;
         }
+      }
 
-        div:last-child {
-          display: none;
-        }
+      div:last-child {
+        display: none;
       }
     }
   }

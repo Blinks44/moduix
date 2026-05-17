@@ -5,6 +5,15 @@
   gap: var(--spacing-3);
 }
 
+.sizesStack {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+  overflow-x: auto;
+}
+
 .code {
   font-family: var(--font-mono);
   font-size: var(--text-xs);

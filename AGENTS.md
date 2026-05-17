@@ -1,37 +1,34 @@
 # moduix-monorepo
 
-Monorepo for the UI component library and its documentation.
+Monorepo for the UI component library and documentation.
 
-## Packages
+## Skill Routing
 
-| Package | Path          | Purpose              |
-| ------- | ------------- | -------------------- |
-| `ui`    | `packages/ui` | UI component library |
-| `docs`  | `apps/docs`   | Documentation site   |
+Use project skills from [`skills/`](skills/README.md).
 
-## Routing
+- Component work in `packages/ui` (new component, API/style updates, Storybook) -> `skills/ui-component-workflow/SKILL.md`
+- Documentation work in `apps/docs` (pages, MDX, examples, docs routing/content) -> `skills/docs-workflow/SKILL.md`
+- Tasks that touch both packages or require docs/UI parity -> `skills/cross-package-sync/SKILL.md`
 
-Before starting work, identify which package the task belongs to and read that package's `AGENTS.md`:
+If a task spans UI and docs:
 
-- Component work (creation, updates, styles, Storybook) -> `packages/ui/AGENTS.md`
-- Documentation work (site, pages, routing) -> `apps/docs/AGENTS.md`
+1. Apply `ui-component-workflow`.
+2. Apply `cross-package-sync`.
+3. Apply `docs-workflow`.
 
-Always read the target package instructions before changing files. If a task touches both packages, read both files.
+## Global Rules
 
-## General Rules
-
-- The monorepo is managed with Turborepo (`turbo.json`).
+- Monorepo is managed with Turborepo (`turbo.json`).
 - Linting uses `oxlint` (config in `packages/oxlint-config`).
 - Formatting uses `oxfmt` (config in `packages/oxfmt-config`).
-- Any new UI component or UI functionality change in `packages/ui` must be reflected in `apps/docs` (usage, API, examples, and behavior).
-- Before working on documentation, build the UI package from the monorepo root with `npm run build:ui`; docs import `moduix` from the built output, so fresh UI changes will not be available otherwise.
-- In MDX code snippets, avoid TypeScript generic syntax like `useState<T>()` when an equivalent `as T` assertion works. IDE MDX parsers may treat `<T>` as JSX and report cascading formatting errors.
-- Do not start a dev server yourself. The user always starts it when opening the project, so Storybook, docs, and dev servers should be treated as already running. Use the existing server for checks.
+- Do not start dev servers manually; use the already running project server.
+- Before docs validation or docs changes that depend on UI output, run `npm run build:ui` from repo root.
+- In MDX snippets, avoid `useState<T>()` style generics when `as T` works; MDX parsers can treat `<T>` as JSX.
 
-## Validation
+## Required Validation
 
-After code changes, run these commands from the monorepo root:
+After code changes, run from repo root:
 
-- Format: `npm run fmt:fix`
-- Lint: `npm run lint:check`
-- TypeScript check: `npm run tsc:check`
+- `npm run fmt:fix`
+- `npm run lint:check`
+- `npm run tsc:check`

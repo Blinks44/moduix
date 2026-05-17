@@ -153,8 +153,10 @@
 }
 
 .mapNode span {
-  width: fit-content;
-  padding: 0.18rem 0.45rem;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-content: center;
   border-radius: 999px;
   background: color-mix(in oklab, var(--color-fd-muted) 72%, transparent);
   color: var(--color-fd-muted-foreground);
