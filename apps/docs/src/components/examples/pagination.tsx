@@ -161,7 +161,7 @@ export function PaginationVariantsExample() {
 
 export function PaginationSizesExample() {
   return (
-    <div className={styles.stack}>
+    <div className={styles.sizesStack}>
       <Pagination count={10} defaultPage={5} size="xs" />
       <Pagination count={10} defaultPage={5} size="sm" />
       <Pagination count={10} defaultPage={5} size="md" />

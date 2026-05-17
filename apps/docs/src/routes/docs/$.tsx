@@ -73,11 +73,11 @@ const clientLoader = browserCollections.docs.createClientLoader({
         <div className="flex flex-row gap-2 items-center border-b -mt-4 pb-6">
           <MarkdownCopyButton markdownUrl={markdownUrl} />
           <EditOnGitHub href={markdownUrl}>
-            <ExternalLinkIcon className="size-3.5" />
+            <ExternalLinkIcon className="size-3.5 max-sm:hidden" />
             Open Markdown
           </EditOnGitHub>
           <EditOnGitHub href={githubUrl}>
-            <ExternalLinkIcon className="size-3.5" />
+            <ExternalLinkIcon className="size-3.5 max-sm:hidden" />
             Open in Github
           </EditOnGitHub>
         </div>
