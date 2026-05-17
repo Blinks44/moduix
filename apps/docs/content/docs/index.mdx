@@ -15,6 +15,10 @@ accessibility, focus management, and low-level primitive work stays close to a s
 moduix adds ready-made structure, default styling, CSS variables, examples, and documentation around
 those primitives.
 
+The project is also an experiment in combining two workflows that are usually separate. You can use
+moduix as a regular npm package and receive updates through package management, or copy component
+source when a project needs direct ownership and local customization.
+
 <div className="not-prose my-8 overflow-hidden rounded-lg border bg-fd-card">
   <div className="grid gap-0 md:grid-cols-[0.92fr_1.08fr]">
     <div className="border-b bg-fd-muted/35 p-5 md:border-b-0 md:border-r">
@@ -66,8 +70,8 @@ those primitives.
 
 I am not trying to compete with [shadcn/ui](https://ui.shadcn.com/) or claim that this is the one
 right way to build interfaces. shadcn/ui is a huge inspiration for the composition-first API and
-the idea that components should be easy to read, copy mentally, and customize. moduix is simply the
-shape that works well for my projects. If it fits yours too, I will be glad.
+the idea that components should be easy to read, own, and customize. moduix is simply the shape that
+works well for my projects. If it fits yours too, I will be glad.
 
 ## What You Get
 
@@ -76,6 +80,7 @@ shape that works well for my projects. If it fits yours too, I will be glad.
 - CSS variables for fast theming and focused per-component customization.
 - A composition-first API with named parts instead of one large configuration surface.
 - A dependency-light design centered on Base UI as the primitive foundation.
+- A path for both package-managed usage and copy-owned component code.
 - Documentation examples that show practical usage and customization patterns.
 - A CSS playground in component previews, so you can test style changes live.
 

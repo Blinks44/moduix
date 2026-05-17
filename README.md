@@ -5,32 +5,62 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Turborepo](https://img.shields.io/badge/Monorepo-Turborepo-EF4444)](https://turbo.build/)
 
-Moduix is a ready-made React components for product interfaces. The library is built on top of Base UI primitives and follows a composition-first API strongly inspired by shadcn/ui: you assemble small named parts, keep behavior accessible, and customize styles through props, `className`, and CSS variables. Styles are written in native CSS with CSS Modules, so the package ships framework-agnostic component CSS without requiring a utility CSS runtime.
+# moduix
 
-## Why This Exists
+Composable React components for product interfaces, built on top of
+[Base UI](https://base-ui.com/) primitives.
 
-`moduix` started as an internal need: we were moving several company products to one shared component library and needed a consistent, composable foundation. It is not meant to compete with shadcn/ui - it is a pragmatic library shaped by real product work.
+moduix gives you ready-made components with accessible behavior, native CSS styles, and a
+composition-first API. It is inspired by the clarity of
+[shadcn/ui](https://ui.shadcn.com/), and it is trying to combine two useful workflows: install
+components as a regular npm package when that fits your project, or copy component source when
+you need direct ownership.
 
-Another core idea is minimal dependencies. The library is built on Base UI primitives and ships native CSS, so teams can choose their own styling approach: native CSS, CSS Modules, Tailwind, or CSS-in-JS.
+## Why It Exists
 
-## Documentation
+moduix started as an internal tool for shared product UI. We needed a component library that
+was practical enough for real application screens, predictable enough to use across teams, and
+small enough to stay easy to understand.
 
-- Temp public docs: https://moduix.blinks44.workers.dev/
-- Library README: `packages/ui/README.md`
-- Docs app README: `apps/docs/README.md`
+The library is now public because it may be useful outside of the original company context. If
+it helps another team build consistent interfaces faster, that is already a good outcome.
 
-## Quick Usage
+## Principles
 
-Install in your app:
+- **Base UI underneath.** Components are built on accessible Base UI primitives instead of
+  reimplementing low-level interaction behavior.
+- **Small dependency surface.** Base UI is the only external UI primitive layer. The package
+  keeps the runtime stack intentionally small and does not bring a styling framework with it.
+- **Two installation paths.** Use moduix as an npm package, or copy component source into your
+  project when direct ownership is more important than package-managed updates.
+- **Composable API.** Components are exposed as named parts, so complex UI can be assembled
+  without hiding important structure.
+- **Native CSS.** Styles are distributed as CSS, use CSS custom properties, and are designed to
+  work with your existing styling approach.
+- **Not a shadcn/ui competitor.** shadcn/ui is a major inspiration for the developer experience.
+  moduix explores whether package-managed components and copy-owned components can coexist in
+  one library.
+
+## Installation
 
 ```bash
 npm install moduix @base-ui/react
 ```
 
-Import styles once and use components:
+`react`, `react-dom`, and `@base-ui/react` are peer dependencies. They stay in your application
+bundle, so moduix does not ship duplicate React or Base UI runtimes.
+
+## Usage
+
+Import the library styles once in your application entry point:
 
 ```tsx
 import 'moduix/style.css';
+```
+
+Then import and compose the components you need:
+
+```tsx
 import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from 'moduix';
 
 export function Example() {
@@ -44,6 +74,43 @@ export function Example() {
   );
 }
 ```
+
+The distributed stylesheet includes component styles and design tokens. It does not force a
+global application theme or utility CSS runtime.
+
+## Styling
+
+Components accept `className` where customization is expected and expose stable `data-slot`
+attributes for targeted styling. Theme values are regular CSS custom properties:
+
+```css
+:root {
+  --color-primary: oklch(0.205 0 0);
+  --button-radius: 0.5rem;
+}
+```
+
+Library CSS is organized with cascade layers:
+
+```css
+@layer ui.reset, ui.tokens, ui.components;
+```
+
+This keeps defaults predictable while still letting application styles override tokens,
+classes, or component-level variables.
+
+## What Is Included
+
+The package exports composed components for common product UI needs, including Accordion,
+AlertDialog, Autocomplete, Avatar, Button, Checkbox, Dialog, Drawer, Field, Form, Input,
+Menu, NavigationMenu, Popover, Select, Tabs, Toast, Tooltip, and supporting primitives.
+
+## Documentation
+
+- Documentation: https://moduix.blinks44.workers.dev/
+- npm package: https://www.npmjs.com/package/moduix
+- UI package README: `packages/ui/README.md`
+- Docs app README: `apps/docs/README.md`
 
 ## Repository Quick Start
 
@@ -66,3 +133,37 @@ This project could not exist without the work of these teams and communities:
 - [Fumadocs](https://fumadocs.dev/) for the documentation foundation.
 - [TanStack](https://tanstack.com/) for the application tooling used by the docs.
 - [Voidzero](https://voidzero.dev/) for awesome JS tools
+
+## Contributing
+
+Contributions are welcome, especially bug reports, accessibility fixes, documentation
+improvements, and focused component improvements.
+
+Before opening a pull request:
+
+1. Install dependencies from the repository root:
+
+   ```bash
+   npm install
+   ```
+
+2. Build the UI package when your change affects `packages/ui` or documentation examples:
+
+   ```bash
+   npm run build:ui
+   ```
+
+3. Run the required checks:
+
+   ```bash
+   npm run fmt:fix
+   npm run lint:check
+   npm run tsc:check
+   ```
+
+Keep pull requests small and specific. For component changes, update the related stories,
+exports, and documentation so the package and docs stay in sync.
+
+Feel free to use agents or code generation tools, but
+please review the result before submitting. The components are intentionally small and direct,
+so the goal is to keep the code readable, maintainable, and free from unnecessary abstractions.
