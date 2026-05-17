@@ -1204,6 +1204,42 @@
   --otp-field-transition: initial; /* var(--transition-default) */
   --otp-field-width: initial; /* auto */
 
+  /* Pagination */
+  --pagination-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --pagination-ellipsis-color: initial; /* var(--color-muted-foreground) */
+  --pagination-font-size: initial; /* var(--text-sm) */
+  --pagination-font-weight: initial; /* var(--weight-medium) */
+  --pagination-item-bg: initial; /* var(--color-background) */
+  --pagination-item-bg-active: initial; /* var(--color-foreground) */
+  --pagination-item-bg-hover: initial; /* var(--color-accent) */
+  --pagination-item-border-color: initial; /* var(--color-border) */
+  --pagination-item-border-color-active: initial; /* var(--color-foreground) */
+  --pagination-item-color: initial; /* var(--color-foreground) */
+  --pagination-item-color-active: initial; /* var(--color-background) */
+  --pagination-item-radius: initial; /* var(--radius-md) */
+  --pagination-item-size: initial; /* var(--size-lg) */
+  --pagination-item-size-xs: initial; /* var(--size-xs) */
+  --pagination-item-size-sm: initial; /* var(--size-sm) */
+  --pagination-item-size-md: initial; /* var(--size-lg) */
+  --pagination-item-size-lg: initial; /* var(--size-xl) */
+  --pagination-item-size-xl: initial; /* 3.5rem */
+  --pagination-line-height: initial; /* var(--line-height-text-sm) */
+  --pagination-line-height-xs: initial; /* var(--line-height-text-xs) */
+  --pagination-line-height-sm: initial; /* var(--line-height-text-xs) */
+  --pagination-line-height-md: initial; /* var(--line-height-text-sm) */
+  --pagination-line-height-lg: initial; /* var(--line-height-text-md) */
+  --pagination-line-height-xl: initial; /* var(--line-height-text-lg) */
+  --pagination-font-size-xs: initial; /* var(--text-xs) */
+  --pagination-font-size-sm: initial; /* var(--text-xs) */
+  --pagination-font-size-md: initial; /* var(--text-sm) */
+  --pagination-font-size-lg: initial; /* var(--text-md) */
+  --pagination-font-size-xl: initial; /* var(--text-lg) */
+  --pagination-toolbar-bg: initial; /* transparent */
+  --pagination-toolbar-border-color: initial; /* transparent */
+  --pagination-toolbar-gap: initial; /* var(--spacing-1) */
+  --pagination-toolbar-padding: initial; /* 0 */
+  --pagination-toolbar-padding-filled: initial; /* 0.125rem */
+
   /* Popover */
   --popover-width: initial; /* auto */
   --popover-height: initial; /* auto */

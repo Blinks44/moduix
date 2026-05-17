@@ -1,0 +1,241 @@
+---
+title: Pagination
+description: Page navigation with arrows, numbers, and collapsed ranges.
+icon: Component
+---
+
+import {
+  PaginationArrowsOnlyExample,
+  PaginationClassNameExample,
+  PaginationControlledLinksExample,
+  PaginationCssPlaygroundPanel,
+  PaginationCssPropertiesPanel,
+  PaginationExample,
+  PaginationNumbersOnlyExample,
+  PaginationSizesExample,
+  PaginationVariantsExample,
+  paginationPlaygroundCssProperties,
+} from '@/components/examples/pagination';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/toolbar" />
+
+## Basic
+
+<Preview cssProperties={paginationPlaygroundCssProperties}>
+  <PaginationExample />
+
+  <Preview.Code>
+    {`
+      import { Pagination } from "moduix";
+
+      export function PaginationDemo() {
+        return <Pagination count={10} defaultPage={1} />;
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>
+    {(context) => <PaginationCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <PaginationCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Pagination` is built on top of `Toolbar` and renders page controls as focusable toolbar items.
+It can include arrow controls, page number controls, and non-interactive ellipsis markers.
+
+```text
+Pagination
+└─ Toolbar
+   ├─ previous control (optional)
+   ├─ page controls (optional)
+   ├─ ellipsis markers (when range is collapsed)
+   └─ next control (optional)
+```
+
+```tsx
+<Pagination count={10} defaultPage={5} />
+```
+
+| Part               | Role                                                                              |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `Pagination`       | Root navigation region. Controls current page, range logic, variants, and sizing. |
+| `previous` control | Moves to the previous page when arrows are enabled.                               |
+| `page` controls    | Select a specific page and expose the current page with `aria-current="page"`.    |
+| `ellipsis` marker  | Indicates hidden pages when the full range is collapsed into the middle window.   |
+| `next` control     | Moves to the next page when arrows are enabled.                                   |
+
+The component has no portal/backdrop service slots. Style it directly with `className` and CSS variables.
+
+## Composition
+
+Use uncontrolled mode with `defaultPage` for local state. Use controlled mode with `page` and
+`onPageChange` when pagination must stay in sync with URL state or external filters.
+
+Use `getPageHref` to map pages to links for any URL scheme, such as `/page/7` or `?page=7`.
+Use `showArrows` and `showPages` to keep only the controls you need for the layout.
+
+## Examples
+
+### Numbers Only
+
+Hide arrow controls when only direct page selection is needed.
+
+<Preview>
+  <PaginationNumbersOnlyExample />
+
+  <Preview.Code>
+    {`
+      import { Pagination } from "moduix";
+
+      export function PaginationNumbersOnlyDemo() {
+        return <Pagination count={10} defaultPage={5} showArrows={false} />;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Arrows Only
+
+Hide page numbers when the UI needs compact previous/next controls.
+
+<Preview>
+  <PaginationArrowsOnlyExample />
+
+  <Preview.Code>
+    {`
+      import { Pagination } from "moduix";
+
+      export function PaginationArrowsOnlyDemo() {
+        return <Pagination count={10} defaultPage={5} showPages={false} />;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled With Links
+
+Control the page from React state and provide link URLs for navigation and SEO-friendly anchors.
+
+<Preview>
+  <PaginationControlledLinksExample />
+
+  <Preview.Code>
+    {`
+      import { Pagination } from "moduix";
+      import { useState } from "react";
+
+      export function PaginationControlledLinksDemo() {
+        const [page, setPage] = useState(5);
+
+        return (
+          <Pagination
+            count={10}
+            page={page}
+            onPageChange={setPage}
+            getPageHref={(next) => \`?page=\${next}\`}
+          />
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Variants
+
+Use toolbar variants to match the surrounding surface.
+
+<Preview>
+  <PaginationVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Pagination } from "moduix";
+
+      export function PaginationVariantsDemo() {
+        return (
+          <>
+            <Pagination count={10} defaultPage={5} toolbarVariant="default" />
+            <Pagination count={10} defaultPage={5} toolbarVariant="outline" />
+            <Pagination count={10} defaultPage={5} toolbarVariant="ghost" />
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use `size` to fit compact and spacious interfaces.
+
+<Preview>
+  <PaginationSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Pagination } from "moduix";
+
+      export function PaginationSizesDemo() {
+        return (
+          <>
+            <Pagination count={10} defaultPage={5} size="xs" />
+            <Pagination count={10} defaultPage={5} size="sm" />
+            <Pagination count={10} defaultPage={5} size="md" />
+            <Pagination count={10} defaultPage={5} size="lg" />
+            <Pagination count={10} defaultPage={5} size="xl" />
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Class Name
+
+Use `className` to theme active items and container spacing with scoped CSS variables.
+
+<Preview>
+  <PaginationClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Pagination } from "moduix";
+
+      export function PaginationClassNameDemo() {
+        return (
+          <Pagination
+            count={10}
+            defaultPage={5}
+            toolbarVariant="outline"
+            className={styles.customPagination}
+          />
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customPagination {
+        --pagination-toolbar-padding-filled: var(--spacing-1);
+        --pagination-item-radius: var(--radius-sm);
+        --pagination-item-bg-active: var(--color-primary);
+        --pagination-item-color-active: var(--color-primary-foreground);
+        --pagination-item-border-color-active: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

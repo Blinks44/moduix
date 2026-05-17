@@ -23,6 +23,7 @@ Always read the target package instructions before changing files. If a task tou
 - The monorepo is managed with Turborepo (`turbo.json`).
 - Linting uses `oxlint` (config in `packages/oxlint-config`).
 - Formatting uses `oxfmt` (config in `packages/oxfmt-config`).
+- Any new UI component or UI functionality change in `packages/ui` must be reflected in `apps/docs` (usage, API, examples, and behavior).
 - Before working on documentation, build the UI package from the monorepo root with `npm run build:ui`; docs import `moduix` from the built output, so fresh UI changes will not be available otherwise.
 - In MDX code snippets, avoid TypeScript generic syntax like `useState<T>()` when an equivalent `as T` assertion works. IDE MDX parsers may treat `<T>` as JSX and report cascading formatting errors.
 - Do not start a dev server yourself. The user always starts it when opening the project, so Storybook, docs, and dev servers should be treated as already running. Use the existing server for checks.
