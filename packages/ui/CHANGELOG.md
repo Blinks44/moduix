@@ -1,5 +1,11 @@
 # moduix
 
+## 0.8.0
+
+### Minor Changes
+
+- e80cba3: [breadcrumbs] New component
+
 ## 0.7.1
 
 ### Patch Changes

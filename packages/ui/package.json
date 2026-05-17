@@ -1,6 +1,6 @@
 {
   "name": "moduix",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Composable React UI components built on Base UI primitives.",
   "keywords": [
     "accessible",
