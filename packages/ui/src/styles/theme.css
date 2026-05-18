@@ -428,25 +428,34 @@
   --checkbox-bg-hover: initial; /* var(--color-accent) */
   --checkbox-border-color: initial; /* var(--color-border) */
   --checkbox-border-color-checked: initial; /* var(--color-primary) */
+  --checkbox-border-width: initial; /* var(--border-width-sm) */
   --checkbox-color: initial; /* var(--color-primary-foreground) */
   --checkbox-disabled-opacity: initial; /* var(--opacity-disabled) */
   --checkbox-focus-ring-color: initial; /* var(--color-ring) */
+  --checkbox-focus-ring-offset: initial; /* var(--border-width-sm) */
+  --checkbox-focus-ring-width: initial; /* var(--border-width-sm) */
   --checkbox-gap: initial; /* var(--spacing-2) */
-  --checkbox-icon-size-xs: initial; /* 0.5rem */
-  --checkbox-icon-size-sm: initial; /* 0.625rem */
-  --checkbox-icon-size-md: initial; /* 0.75rem */
   --checkbox-icon-size-lg: initial; /* 0.875rem */
+  --checkbox-icon-size-md: initial; /* 0.75rem */
+  --checkbox-icon-size-sm: initial; /* 0.625rem */
   --checkbox-icon-size-xl: initial; /* 1rem */
+  --checkbox-icon-size-xs: initial; /* 0.5rem */
+  --checkbox-indicator-bg: initial; /* transparent */
+  --checkbox-indicator-bg-checked: initial; /* var(--checkbox-indicator-bg, transparent) */
+  --checkbox-indicator-border-color: initial; /* transparent */
+  --checkbox-indicator-border-color-checked: initial; /* var(--checkbox-indicator-border-color, transparent) */
+  --checkbox-indicator-border-width: initial; /* 0 */
+  --checkbox-indicator-radius: initial; /* inherit */
   --checkbox-label-color: initial; /* var(--color-foreground) */
   --checkbox-label-font-size: initial; /* var(--text-sm) */
   --checkbox-label-font-weight: initial; /* var(--weight-medium) */
   --checkbox-label-line-height: initial; /* var(--line-height-text-sm) */
   --checkbox-radius: initial; /* var(--radius-xs) */
-  --checkbox-size-xs: initial; /* 0.875rem */
-  --checkbox-size-sm: initial; /* 1rem */
-  --checkbox-size-md: initial; /* 1.25rem */
   --checkbox-size-lg: initial; /* 1.5rem */
+  --checkbox-size-md: initial; /* 1.25rem */
+  --checkbox-size-sm: initial; /* 1rem */
   --checkbox-size-xl: initial; /* 1.75rem */
+  --checkbox-size-xs: initial; /* 0.875rem */
   --checkbox-transition: initial; /* var(--transition-default) */
 
   /* CheckboxGroup */
