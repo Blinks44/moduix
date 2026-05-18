@@ -6,12 +6,23 @@
     width: var(--autocomplete-width, 16rem);
     min-height: var(--autocomplete-control-height, var(--size-lg));
     padding-inline: var(--autocomplete-input-group-padding-x, 0);
-    border: var(--border-width-sm) solid var(--autocomplete-border-color, var(--color-border));
+    border: var(--autocomplete-border-width, var(--border-width-sm)) solid
+      var(--autocomplete-border-color, var(--color-border));
     border-radius: var(--autocomplete-radius, var(--radius-md));
     background-color: var(--autocomplete-bg, var(--color-background));
     color: var(--autocomplete-color, var(--color-foreground));
-    outline: var(--border-width-sm) solid transparent;
-    outline-offset: calc(var(--border-width-sm) * -1);
+    outline: var(
+        --autocomplete-focus-ring-width,
+        var(--autocomplete-border-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(
+          --autocomplete-focus-ring-offset,
+          var(--autocomplete-border-width, var(--border-width-sm))
+        ) *
+        -1
+    );
     transition:
       border-color var(--transition-default),
       outline-color var(--transition-default);
@@ -68,8 +79,15 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--autocomplete-focus-ring-color, var(--color-ring));
-      outline-offset: var(--border-width-sm);
+      outline: var(
+          --autocomplete-focus-ring-width,
+          var(--autocomplete-border-width, var(--border-width-sm))
+        )
+        solid var(--autocomplete-focus-ring-color, var(--color-ring));
+      outline-offset: var(
+        --autocomplete-focus-ring-offset,
+        var(--autocomplete-border-width, var(--border-width-sm))
+      );
     }
   }
 
@@ -122,7 +140,7 @@
     border-radius: var(--autocomplete-radius, var(--radius-md));
     background-color: var(--autocomplete-popup-bg, var(--color-popover));
     color: var(--autocomplete-color, var(--color-popover-foreground));
-    outline: var(--border-width-sm) solid
+    outline: var(--autocomplete-popup-border-width, var(--border-width-sm)) solid
       var(--autocomplete-popup-border-color, var(--color-border));
     box-shadow: var(--autocomplete-shadow, var(--shadow-lg));
     transform-origin: var(--transform-origin);
@@ -208,7 +226,7 @@
       gap: var(--autocomplete-status-gap, var(--spacing-1));
       padding: var(--autocomplete-status-padding-y, 0.5rem)
         var(--autocomplete-status-padding-x, 0.75rem);
-      border-bottom: var(--border-width-sm) solid
+      border-bottom: var(--autocomplete-status-divider-width, var(--border-width-sm)) solid
         var(
           --autocomplete-status-divider-color,
           var(--autocomplete-popup-border-color, var(--color-border))
@@ -337,7 +355,7 @@
   }
 
   .separator {
-    height: var(--border-width-sm);
+    height: var(--autocomplete-separator-size, var(--border-width-sm));
     margin: var(--autocomplete-separator-margin-y, var(--popup-separator-margin-y, 0.375rem))
       var(--autocomplete-separator-margin-x, var(--popup-separator-margin-x-start, 1rem));
     background-color: var(--autocomplete-border-color, var(--color-border));
@@ -477,8 +495,9 @@
 
     & > .input {
       padding-inline: var(--autocomplete-inline-input-padding-x, 0.75rem);
-      border: var(--border-width-sm) solid var(--autocomplete-border-color, var(--color-border));
-      border-radius: var(--radius-sm);
+      border: var(--autocomplete-inline-input-border-width, var(--border-width-sm)) solid
+        var(--autocomplete-border-color, var(--color-border));
+      border-radius: var(--autocomplete-inline-input-radius, var(--radius-sm));
     }
   }
 }

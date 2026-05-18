@@ -7,24 +7,8 @@ const avatarImage =
   'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
 
 export const avatarOverrideCssProperties: CssPropertyInput[] = [
-  ['--avatar-size', 'var(--avatar-size-md)', 'Controls avatar width and height.'],
-  ['--avatar-size-xs', 'var(--size-xs)', 'Controls the `xs` avatar size.'],
-  ['--avatar-size-sm', 'var(--size-sm)', 'Controls the `sm` avatar size.'],
-  ['--avatar-size-md', 'var(--size-md)', 'Controls the `md` avatar size.'],
-  ['--avatar-size-lg', 'var(--size-lg)', 'Controls the `lg` avatar size.'],
-  ['--avatar-size-xl', 'var(--size-xl)', 'Controls the `xl` avatar size.'],
-  ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
   ['--avatar-bg', 'var(--color-muted)', 'Controls avatar background color.'],
   ['--avatar-color', 'var(--color-foreground)', 'Controls avatar text color.'],
-  ['--avatar-font-size', 'var(--avatar-font-size-md)', 'Controls avatar text font size.'],
-  ['--avatar-font-weight', 'var(--weight-medium)', 'Controls avatar text font weight.'],
-  ['--avatar-line-height', 'var(--avatar-line-height-md)', 'Controls avatar text line height.'],
-  ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
-  [
-    '--avatar-image-object-position',
-    'center',
-    'Controls which part of the image remains visible when cropped.',
-  ],
   [
     '--avatar-fallback-bg',
     'var(--avatar-bg)',
@@ -32,19 +16,58 @@ export const avatarOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--avatar-fallback-color', 'inherit', 'Controls fallback text and icon color.'],
   ['--avatar-fallback-padding', '0', 'Controls fallback inner padding.'],
+  ['--avatar-font-size', 'var(--avatar-font-size-md)', 'Controls avatar text font size.'],
+  ['--avatar-font-size-lg', 'var(--text-lg)', 'Controls avatar text font size for `lg` size.'],
+  ['--avatar-font-size-md', 'var(--text-md)', 'Controls avatar text font size for `md` size.'],
+  ['--avatar-font-size-sm', 'var(--text-sm)', 'Controls avatar text font size for `sm` size.'],
+  ['--avatar-font-size-xl', 'var(--text-lg)', 'Controls avatar text font size for `xl` size.'],
+  ['--avatar-font-size-xs', 'var(--text-xs)', 'Controls avatar text font size for `xs` size.'],
+  ['--avatar-font-weight', 'var(--weight-medium)', 'Controls avatar text font weight.'],
+  ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
+  [
+    '--avatar-image-object-position',
+    'center',
+    'Controls which part of the image remains visible when cropped.',
+  ],
+  ['--avatar-line-height', 'var(--avatar-line-height-md)', 'Controls avatar text line height.'],
+  [
+    '--avatar-line-height-lg',
+    'var(--line-height-text-lg)',
+    'Controls avatar text line height for `lg` size.',
+  ],
+  [
+    '--avatar-line-height-md',
+    'var(--line-height-text-md)',
+    'Controls avatar text line height for `md` size.',
+  ],
+  [
+    '--avatar-line-height-sm',
+    'var(--line-height-text-sm)',
+    'Controls avatar text line height for `sm` size.',
+  ],
+  [
+    '--avatar-line-height-xl',
+    'var(--line-height-text-lg)',
+    'Controls avatar text line height for `xl` size.',
+  ],
+  [
+    '--avatar-line-height-xs',
+    'var(--line-height-text-xs)',
+    'Controls avatar text line height for `xs` size.',
+  ],
+  ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
+  ['--avatar-size', 'var(--avatar-size-md)', 'Controls avatar width and height.'],
+  ['--avatar-size-lg', 'var(--size-lg)', 'Controls the `lg` avatar size.'],
+  ['--avatar-size-md', 'var(--size-md)', 'Controls the `md` avatar size.'],
+  ['--avatar-size-sm', 'var(--size-sm)', 'Controls the `sm` avatar size.'],
+  ['--avatar-size-xl', 'var(--size-xl)', 'Controls the `xl` avatar size.'],
+  ['--avatar-size-xs', 'var(--size-xs)', 'Controls the `xs` avatar size.'],
   ['--avatar-transition', 'var(--transition-default)', 'Controls image fade transition.'],
 ];
 
 export const avatarPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
   ['--avatar-bg', 'var(--color-muted)', 'Controls avatar background color.'],
   ['--avatar-color', 'var(--color-foreground)', 'Controls avatar text color.'],
-  ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
-  [
-    '--avatar-image-object-position',
-    'center',
-    'Controls which part of the image remains visible when cropped.',
-  ],
   [
     '--avatar-fallback-bg',
     'var(--avatar-bg)',
@@ -52,6 +75,13 @@ export const avatarPlaygroundCssProperties: CssPropertyInput[] = [
   ],
   ['--avatar-fallback-color', 'inherit', 'Controls fallback text and icon color.'],
   ['--avatar-fallback-padding', '0', 'Controls fallback inner padding.'],
+  ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
+  [
+    '--avatar-image-object-position',
+    'center',
+    'Controls which part of the image remains visible when cropped.',
+  ],
+  ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
 ];
 
 export function AvatarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

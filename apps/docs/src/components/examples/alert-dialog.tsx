@@ -161,18 +161,18 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
 ];
 
 export const alertDialogPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--alert-dialog-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
-  ['--alert-dialog-bg', 'var(--color-popover)', 'Controls the popup background color.'],
-  ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--alert-dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--alert-dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
-  ['--alert-dialog-title-color', 'var(--alert-dialog-color)', 'Controls title text color.'],
+  ['--alert-dialog-bg', 'var(--color-popover)', 'Controls the popup background color.'],
+  ['--alert-dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   [
     '--alert-dialog-description-color',
     'var(--alert-dialog-muted-color)',
     'Controls description and body text color.',
   ],
+  ['--alert-dialog-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
+  ['--alert-dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  ['--alert-dialog-title-color', 'var(--alert-dialog-color)', 'Controls title text color.'],
 ];
 
 export function AlertDialogCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

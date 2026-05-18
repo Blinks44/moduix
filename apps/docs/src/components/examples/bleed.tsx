@@ -4,17 +4,17 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './bleed.module.css';
 
 export const bleedOverrideCssProperties: CssPropertyInput[] = [
-  ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
-  ['--bleed-inline-xs', 'var(--spacing-1)', 'Controls extra-small inline bleed.'],
-  ['--bleed-inline-sm', 'var(--spacing-2)', 'Controls small inline bleed.'],
-  ['--bleed-inline-md', 'var(--spacing-3)', 'Controls medium inline bleed.'],
-  ['--bleed-inline-lg', 'var(--spacing-4)', 'Controls large inline bleed.'],
-  ['--bleed-inline-xl', 'var(--spacing-6)', 'Controls extra-large inline bleed.'],
-  ['--bleed-block-xs', 'var(--spacing-1)', 'Controls extra-small block bleed.'],
-  ['--bleed-block-sm', 'var(--spacing-2)', 'Controls small block bleed.'],
-  ['--bleed-block-md', 'var(--spacing-3)', 'Controls medium block bleed.'],
   ['--bleed-block-lg', 'var(--spacing-4)', 'Controls large block bleed.'],
+  ['--bleed-block-md', 'var(--spacing-3)', 'Controls medium block bleed.'],
+  ['--bleed-block-sm', 'var(--spacing-2)', 'Controls small block bleed.'],
   ['--bleed-block-xl', 'var(--spacing-6)', 'Controls extra-large block bleed.'],
+  ['--bleed-block-xs', 'var(--spacing-1)', 'Controls extra-small block bleed.'],
+  ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
+  ['--bleed-inline-lg', 'var(--spacing-4)', 'Controls large inline bleed.'],
+  ['--bleed-inline-md', 'var(--spacing-3)', 'Controls medium inline bleed.'],
+  ['--bleed-inline-sm', 'var(--spacing-2)', 'Controls small inline bleed.'],
+  ['--bleed-inline-xl', 'var(--spacing-6)', 'Controls extra-large inline bleed.'],
+  ['--bleed-inline-xs', 'var(--spacing-1)', 'Controls extra-small inline bleed.'],
 ];
 
 export const bleedPlaygroundCssProperties: CssPropertyInput[] = [

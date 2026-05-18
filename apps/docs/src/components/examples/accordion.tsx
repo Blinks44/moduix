@@ -32,10 +32,27 @@ const accordionItems = [
 ];
 
 export const accordionOverrideCssProperties: CssPropertyInput[] = [
-  ['--accordion-width', '24rem', 'Controls the root accordion width.'],
-  ['--accordion-max-width', 'calc(100vw - 8rem)', 'Controls the root accordion max width.'],
   ['--accordion-color', 'var(--color-foreground)', 'Controls accordion text color.'],
   ['--accordion-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled item opacity.'],
+  ['--accordion-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+  [
+    '--accordion-focus-ring-offset',
+    'var(--border-width-sm)',
+    'Controls trigger focus ring offset from trigger edge.',
+  ],
+  [
+    '--accordion-focus-ring-width',
+    'var(--border-width-md)',
+    'Controls trigger focus ring outline width.',
+  ],
+  ['--accordion-icon-margin-right', 'var(--spacing-2)', 'Controls trigger icon right margin.'],
+  [
+    '--accordion-icon-open-transform',
+    'rotate(45deg) scale(1.1)',
+    'Controls trigger icon transform when the panel is open.',
+  ],
+  ['--accordion-icon-size', '0.75rem', 'Controls trigger icon size.'],
+  ['--accordion-icon-transition', 'var(--transition-default)', 'Controls trigger icon transition.'],
   [
     '--accordion-item-border-color',
     'var(--color-border)',
@@ -46,53 +63,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls the separator width between accordion items.',
   ],
-  [
-    '--accordion-trigger-gap',
-    'var(--spacing-4)',
-    'Controls spacing between trigger content and icon.',
-  ],
-  ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
-  [
-    '--accordion-trigger-padding-x-start',
-    'var(--spacing-3)',
-    'Controls trigger start-side horizontal padding.',
-  ],
-  [
-    '--accordion-trigger-padding-x-end',
-    'var(--spacing-1)',
-    'Controls trigger end-side horizontal padding.',
-  ],
-  ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
-  [
-    '--accordion-trigger-bg-hover',
-    'var(--color-accent)',
-    'Controls trigger background color on hover.',
-  ],
-  ['--accordion-trigger-font-size', 'var(--text-md)', 'Controls trigger text font size.'],
-  [
-    '--accordion-trigger-line-height',
-    'var(--line-height-text-md)',
-    'Controls trigger text line height.',
-  ],
-  ['--accordion-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  [
-    '--accordion-focus-ring-width',
-    'var(--border-width-md)',
-    'Controls trigger focus ring outline width.',
-  ],
-  [
-    '--accordion-focus-ring-offset',
-    'var(--border-width-sm)',
-    'Controls trigger focus ring offset from trigger edge.',
-  ],
-  ['--accordion-icon-size', '0.75rem', 'Controls trigger icon size.'],
-  ['--accordion-icon-margin-right', 'var(--spacing-2)', 'Controls trigger icon right margin.'],
-  ['--accordion-icon-transition', 'var(--transition-default)', 'Controls trigger icon transition.'],
-  [
-    '--accordion-icon-open-transform',
-    'rotate(45deg) scale(1.1)',
-    'Controls trigger icon transform when the panel is open.',
-  ],
+  ['--accordion-max-width', 'calc(100vw - 8rem)', 'Controls the root accordion max width.'],
   ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
   ['--accordion-panel-font-size', 'var(--text-md)', 'Controls panel text font size.'],
   [
@@ -105,19 +76,48 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--transition-default)',
     'Controls panel open and close transition.',
   ],
+  ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
+  [
+    '--accordion-trigger-bg-hover',
+    'var(--color-accent)',
+    'Controls trigger background color on hover.',
+  ],
+  ['--accordion-trigger-font-size', 'var(--text-md)', 'Controls trigger text font size.'],
+  [
+    '--accordion-trigger-gap',
+    'var(--spacing-4)',
+    'Controls spacing between trigger content and icon.',
+  ],
+  [
+    '--accordion-trigger-line-height',
+    'var(--line-height-text-md)',
+    'Controls trigger text line height.',
+  ],
+  [
+    '--accordion-trigger-padding-x-end',
+    'var(--spacing-1)',
+    'Controls trigger end-side horizontal padding.',
+  ],
+  [
+    '--accordion-trigger-padding-x-start',
+    'var(--spacing-3)',
+    'Controls trigger start-side horizontal padding.',
+  ],
+  ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
+  ['--accordion-width', '24rem', 'Controls the root accordion width.'],
 ];
 
 export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
   ['--accordion-color', 'var(--color-foreground)', 'Controls accordion text color.'],
-  ['--accordion-item-border-color', 'var(--color-border)', 'Controls separator color.'],
-  ['--accordion-item-border-width', 'var(--border-width-sm)', 'Controls separator width.'],
-  ['--accordion-trigger-gap', 'var(--spacing-4)', 'Controls trigger content and icon spacing.'],
-  ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
-  ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
-  ['--accordion-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
   ['--accordion-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
   ['--accordion-icon-size', '0.75rem', 'Controls trigger icon size.'],
+  ['--accordion-item-border-color', 'var(--color-border)', 'Controls separator color.'],
+  ['--accordion-item-border-width', 'var(--border-width-sm)', 'Controls separator width.'],
   ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
+  ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
+  ['--accordion-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
+  ['--accordion-trigger-gap', 'var(--spacing-4)', 'Controls trigger content and icon spacing.'],
+  ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
 ];
 
 export function AccordionCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
