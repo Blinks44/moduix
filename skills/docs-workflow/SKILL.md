@@ -24,8 +24,10 @@ npm run build:ui
 - UI components must be imported from `moduix`.
 - Do not duplicate library components inside docs app.
 - Reference page template:
-  - `apps/docs/content/docs/accordion.mdx`
-  - `apps/docs/src/components/examples/accordion.tsx`
+  - `apps/docs/content/docs/alert-dialog.mdx`
+  - `apps/docs/content/docs/lightbox.mdx`
+  - `apps/docs/src/components/examples/alert-dialog.tsx`
+  - `apps/docs/src/components/examples/lightbox.tsx`
 
 ## Structure Rules
 

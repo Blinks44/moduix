@@ -35,7 +35,7 @@ If missing, fetch the file from the Base UI page for that component.
 ## Implementation Contract
 
 - Stack: React + TypeScript + CSS Modules + `@base-ui-components/react`.
-- Use `src/components/Accordion/` as architecture and API reference.
+- Use `src/components/AlertDialog/` and `src/components/Lightbox/` as architecture and API references.
 - File layout for each component:
   - `ComponentName.tsx`
   - `ComponentName.module.css`
