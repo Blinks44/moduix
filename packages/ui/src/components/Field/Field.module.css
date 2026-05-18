@@ -58,10 +58,7 @@
     font-size: var(--field-control-font-size, var(--text-md));
     line-height: var(--field-control-line-height, var(--line-height-text-md));
     outline: var(--field-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: var(
-      --field-focus-ring-offset,
-      calc(var(--field-focus-ring-width, var(--border-width-sm)) * -1)
-    );
+    outline-offset: var(--field-focus-ring-offset, -1px);
     transition:
       border-color var(--field-control-transition, var(--transition-default)),
       opacity var(--field-control-transition, var(--transition-default));

@@ -843,7 +843,7 @@
   --field-error-font-size: initial; /* var(--text-sm) */
   --field-error-line-height: initial; /* var(--line-height-text-sm) */
   --field-focus-ring-color: initial; /* var(--color-ring) */
-  --field-focus-ring-offset: initial; /* calc(var(--field-focus-ring-width, var(--border-width-sm)) * -1) */
+  --field-focus-ring-offset: initial; /* -1px */
   --field-focus-ring-width: initial; /* var(--border-width-sm) */
   --field-gap: initial; /* var(--spacing-1) */
   --field-item-gap: initial; /* var(--spacing-1) */

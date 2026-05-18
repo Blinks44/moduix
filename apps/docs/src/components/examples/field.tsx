@@ -80,11 +80,7 @@ export const fieldOverrideCssProperties: CssPropertyInput[] = [
   ['--field-error-font-size', 'var(--text-sm)', 'Controls error font size.'],
   ['--field-error-line-height', 'var(--line-height-text-sm)', 'Controls error line height.'],
   ['--field-focus-ring-color', 'var(--color-ring)', 'Controls `FieldControl` focus ring color.'],
-  [
-    '--field-focus-ring-offset',
-    'calc(var(--field-focus-ring-width, var(--border-width-sm)) * -1)',
-    'Controls `FieldControl` focus ring offset.',
-  ],
+  ['--field-focus-ring-offset', '-1px', 'Controls `FieldControl` focus ring offset.'],
   [
     '--field-focus-ring-width',
     'var(--border-width-sm)',
