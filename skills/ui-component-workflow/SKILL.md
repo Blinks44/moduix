@@ -53,6 +53,7 @@ If missing, fetch the file from the Base UI page for that component.
 - Use tokens from `src/styles/*` (`--color-*`, `--spacing-*`, `--radius-*`, etc.).
 - Add missing tokens in the appropriate token files and `src/styles/theme.css`.
 - Add Base UI runtime variables to `src/styles/theme.css` with `initial`; include default values in nearby comments.
+- Keep CSS variable declarations in `src/styles/theme.css` sorted alphabetically. Exception: size scale groups with `-xs/-sm/-md/-lg/-xl` must be ordered from `xs` to `xl`.
 - Keep variants on slot selectors via `data-*`, not modifier class names.
 - Use nested selectors for derived states/elements.
 - Library CSS (`ComponentName.module.css`) must not contain Storybook/demo layout styles.

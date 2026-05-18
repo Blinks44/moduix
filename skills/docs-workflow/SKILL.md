@@ -67,6 +67,7 @@ Inside `Examples`, order by learning flow (common -> controlled/stateful -> cust
 
 - `CSS Properties` must list full public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
 - `CSS Playground` should expose only a safe subset that does not flatten documented variants globally.
+- Keep CSS variable entries sorted alphabetically in both `CSS Properties` and `CSS Playground`. Exception: size scale groups with `-xs/-sm/-md/-lg/-xl` must be ordered from `xs` to `xl`.
 
 ## Done Criteria
 
