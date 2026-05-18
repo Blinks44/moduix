@@ -47,7 +47,9 @@
     width: var(--field-control-width, 100%);
     min-height: var(--field-control-height, var(--size-lg));
     margin: 0;
-    border: var(--border-width-sm) solid var(--field-control-border-color, var(--color-border));
+    border: var(--field-control-border-width, var(--border-width-sm))
+      var(--field-control-border-style, solid)
+      var(--field-control-border-color, var(--color-border));
     border-radius: var(--field-control-radius, var(--radius-md));
     padding: var(--field-control-padding-y, 0.5rem) var(--field-control-padding-x, 0.875rem);
     background-color: var(--field-control-bg, var(--color-background));
@@ -55,8 +57,11 @@
     font: inherit;
     font-size: var(--field-control-font-size, var(--text-md));
     line-height: var(--field-control-line-height, var(--line-height-text-md));
-    outline: var(--border-width-sm) solid transparent;
-    outline-offset: calc(var(--border-width-sm) * -1);
+    outline: var(--field-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: var(
+      --field-focus-ring-offset,
+      calc(var(--field-focus-ring-width, var(--border-width-sm)) * -1)
+    );
     transition:
       border-color var(--field-control-transition, var(--transition-default)),
       opacity var(--field-control-transition, var(--transition-default));
