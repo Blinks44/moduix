@@ -697,6 +697,7 @@
   --dialog-backdrop-transition: initial; /* var(--transition-default) */
   --dialog-bg: initial; /* var(--color-popover) */
   --dialog-border-color: initial; /* var(--color-border) */
+  --dialog-border-width: initial; /* var(--border-width-sm) */
   --dialog-color: initial; /* var(--color-popover-foreground) */
   --dialog-close-icon-bg: initial; /* transparent */
   --dialog-close-icon-bg-hover: initial; /* var(--color-accent) */
@@ -710,6 +711,7 @@
   --dialog-control-bg: initial; /* var(--color-background) */
   --dialog-control-bg-hover: initial; /* var(--color-accent) */
   --dialog-control-border-color: initial; /* var(--color-border) */
+  --dialog-control-border-width: initial; /* var(--border-width-sm) */
   --dialog-control-color: initial; /* var(--color-foreground) */
   --dialog-control-font-size: initial; /* var(--text-md) */
   --dialog-control-height: initial; /* var(--size-lg) */
@@ -721,6 +723,7 @@
   --dialog-description-font-size: initial; /* var(--text-md) */
   --dialog-description-line-height: initial; /* var(--line-height-text-md) */
   --dialog-focus-ring-color: initial; /* var(--color-ring) */
+  --dialog-focus-ring-width: initial; /* var(--dialog-control-border-width) */
   --dialog-footer-gap: initial; /* var(--spacing-2) */
   --dialog-footer-margin-top: initial; /* var(--spacing-6) */
   --dialog-header-gap: initial; /* var(--spacing-1) */
