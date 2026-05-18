@@ -20,13 +20,13 @@ not expose a `classNames` object.
 
 ## CSS variables
 
-- `--close-button-size`
-- `--close-button-icon-size`
-- `--close-button-radius`
 - `--close-button-bg`
 - `--close-button-bg-hover`
 - `--close-button-color`
 - `--close-button-color-hover`
-- `--close-button-focus-ring-color`
 - `--close-button-disabled-opacity`
+- `--close-button-focus-ring-color`
+- `--close-button-icon-size`
+- `--close-button-radius`
+- `--close-button-size`
 - `--close-button-transition`
