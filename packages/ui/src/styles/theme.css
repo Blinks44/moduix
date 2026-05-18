@@ -622,6 +622,13 @@
   --context-menu-backdrop-blur: initial; /* 0 */
   --context-menu-backdrop-transition: initial; /* var(--context-menu-transition) */
   --context-menu-check-gap: initial; /* 0.5rem */
+  --context-menu-check-icon-size: initial; /* 100% */
+  --context-menu-check-indicator-bg: initial; /* transparent */
+  --context-menu-check-indicator-border-color: initial; /* transparent */
+  --context-menu-check-indicator-border-width: initial; /* var(--border-width-sm) */
+  --context-menu-check-indicator-color: initial; /* currentColor */
+  --context-menu-check-indicator-padding: initial; /* 0 */
+  --context-menu-check-indicator-radius: initial; /* var(--radius-xs) */
   --context-menu-check-indicator-size: initial; /* 0.75rem */
   --context-menu-check-padding-x-start: initial; /* 0.625rem */
   --context-menu-disabled-opacity: initial; /* var(--opacity-disabled) */
@@ -640,6 +647,7 @@
   --context-menu-item-disabled-color: initial; /* var(--color-muted-foreground) */
   --context-menu-item-font-size: initial; /* var(--text-sm) */
   --context-menu-item-gap: initial; /* var(--spacing-2) */
+  --context-menu-item-bg: initial; /* transparent */
   --context-menu-item-height: initial; /* 2rem */
   --context-menu-item-line-height: initial; /* var(--line-height-text-sm) */
   --context-menu-item-padding-x-end: initial; /* 1rem */
