@@ -182,7 +182,7 @@
     margin: 0;
     border: 0;
     outline: 0;
-    background: transparent;
+    background-color: var(--menu-item-bg, transparent);
     color: inherit;
     font: inherit;
     font-size: var(--menu-item-font-size, var(--popup-item-font-size, var(--text-sm)));
@@ -226,6 +226,7 @@
     }
 
     &[data-disabled] {
+      background-color: var(--menu-item-bg-disabled, var(--menu-item-bg, transparent));
       color: var(--menu-item-disabled-color, var(--color-muted-foreground));
     }
 
@@ -328,6 +329,19 @@
   }
 
   .checkboxItem {
+    &[data-checked] {
+      & > .checkboxItemIndicator {
+        background-color: var(
+          --menu-checkbox-indicator-bg-checked,
+          var(--menu-checkbox-indicator-bg, transparent)
+        );
+        border-color: var(
+          --menu-checkbox-indicator-border-color-checked,
+          var(--menu-checkbox-indicator-border-color, currentColor)
+        );
+      }
+    }
+
     &[data-indicator-position='end'] {
       & > .checkboxItemIndicator {
         grid-column-start: 2;
@@ -344,6 +358,13 @@
     justify-content: center;
     width: var(--menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem));
     height: var(--menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem));
+  }
+
+  .checkboxItemIndicator {
+    border: var(--menu-checkbox-indicator-border-width, var(--border-width-sm)) solid
+      var(--menu-checkbox-indicator-border-color, currentColor);
+    border-radius: var(--menu-checkbox-indicator-radius, var(--radius-xs));
+    background-color: var(--menu-checkbox-indicator-bg, transparent);
   }
 
   .itemIndicatorIcon {
