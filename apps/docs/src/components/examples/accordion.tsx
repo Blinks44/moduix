@@ -42,6 +42,11 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'Controls the separator color between accordion items.',
   ],
   [
+    '--accordion-item-border-width',
+    'var(--border-width-sm)',
+    'Controls the separator width between accordion items.',
+  ],
+  [
     '--accordion-trigger-gap',
     'var(--spacing-4)',
     'Controls spacing between trigger content and icon.',
@@ -70,6 +75,16 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'Controls trigger text line height.',
   ],
   ['--accordion-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+  [
+    '--accordion-focus-ring-width',
+    'var(--border-width-md)',
+    'Controls trigger focus ring outline width.',
+  ],
+  [
+    '--accordion-focus-ring-offset',
+    'var(--border-width-sm)',
+    'Controls trigger focus ring offset from trigger edge.',
+  ],
   ['--accordion-icon-size', '0.75rem', 'Controls trigger icon size.'],
   ['--accordion-icon-margin-right', 'var(--spacing-2)', 'Controls trigger icon right margin.'],
   ['--accordion-icon-transition', 'var(--transition-default)', 'Controls trigger icon transition.'],
@@ -95,6 +110,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
 export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
   ['--accordion-color', 'var(--color-foreground)', 'Controls accordion text color.'],
   ['--accordion-item-border-color', 'var(--color-border)', 'Controls separator color.'],
+  ['--accordion-item-border-width', 'var(--border-width-sm)', 'Controls separator width.'],
   ['--accordion-trigger-gap', 'var(--spacing-4)', 'Controls trigger content and icon spacing.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
   ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],

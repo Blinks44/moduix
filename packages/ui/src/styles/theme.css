@@ -84,11 +84,14 @@
   --accordion-color: initial; /* var(--color-foreground) */
   --accordion-disabled-opacity: initial; /* var(--opacity-disabled) */
   --accordion-focus-ring-color: initial; /* var(--color-ring) */
+  --accordion-focus-ring-offset: initial; /* var(--border-width-sm) */
+  --accordion-focus-ring-width: initial; /* var(--border-width-md) */
   --accordion-icon-margin-right: initial; /* var(--spacing-2) */
   --accordion-icon-open-transform: initial; /* rotate(45deg) scale(1.1) */
   --accordion-icon-size: initial; /* 0.75rem */
   --accordion-icon-transition: initial; /* 150ms ease-out */
   --accordion-item-border-color: initial; /* var(--color-border) */
+  --accordion-item-border-width: initial; /* var(--border-width-sm) */
   --accordion-max-width: initial; /* calc(100vw - 8rem) */
   --accordion-panel-color: initial; /* var(--color-muted-foreground) */
   --accordion-panel-font-size: initial; /* var(--text-md) */
@@ -113,6 +116,7 @@
   --alert-dialog-backdrop-transition: initial; /* var(--transition-default) */
   --alert-dialog-bg: initial; /* var(--color-popover) */
   --alert-dialog-border-color: initial; /* var(--color-border) */
+  --alert-dialog-border-width: initial; /* var(--border-width-sm) */
   --alert-dialog-cancel-bg: initial; /* var(--alert-dialog-control-bg, var(--color-background)) */
   --alert-dialog-cancel-bg-hover: initial; /* var(--alert-dialog-control-bg-hover) */
   --alert-dialog-cancel-border-color: initial; /* var(--color-border) */
@@ -122,6 +126,7 @@
   --alert-dialog-control-bg: initial; /* var(--color-background) */
   --alert-dialog-control-bg-hover: initial; /* var(--color-accent) */
   --alert-dialog-control-border-color: initial; /* var(--color-border) */
+  --alert-dialog-control-border-width: initial; /* var(--border-width-sm) */
   --alert-dialog-control-color: initial; /* var(--color-foreground) */
   --alert-dialog-control-font-size: initial; /* var(--text-md) */
   --alert-dialog-control-height: initial; /* var(--size-lg) */
@@ -141,6 +146,7 @@
   --alert-dialog-description-font-size: initial; /* var(--text-md) */
   --alert-dialog-description-line-height: initial; /* var(--line-height-text-md) */
   --alert-dialog-focus-ring-color: initial; /* var(--color-ring) */
+  --alert-dialog-focus-ring-width: initial; /* var(--alert-dialog-control-border-width) */
   --alert-dialog-footer-gap: initial; /* var(--spacing-2) */
   --alert-dialog-footer-margin-top: initial; /* var(--spacing-6) */
   --alert-dialog-header-gap: initial; /* var(--spacing-1) */
