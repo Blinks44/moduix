@@ -1,5 +1,11 @@
 # moduix
 
+## 0.8.2
+
+### Patch Changes
+
+- 828cc89: Refactor ScrollArea horizontal api
+
 ## 0.8.1
 
 ### Patch Changes
