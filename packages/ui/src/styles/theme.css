@@ -1350,13 +1350,18 @@
   --otp-field-border-color: initial; /* var(--color-border) */
   --otp-field-border-color-complete: initial; /* var(--otp-field-border-color, var(--color-border)) */
   --otp-field-border-color-invalid: initial; /* var(--color-destructive) */
+  --otp-field-border-width: initial; /* var(--border-width-sm) */
   --otp-field-color: initial; /* var(--color-foreground) */
   --otp-field-disabled-opacity: initial; /* var(--opacity-disabled) */
   --otp-field-focus-ring-color: initial; /* var(--color-ring) */
+  --otp-field-focus-ring-offset: initial; /* calc(var(--otp-field-border-width, var(--border-width-sm)) * -1) */
+  --otp-field-focus-ring-width: initial; /* var(--otp-field-border-width, var(--border-width-sm)) */
   --otp-field-font-size: initial; /* var(--text-lg) */
   --otp-field-font-weight: initial; /* var(--weight-medium) */
   --otp-field-gap: initial; /* var(--spacing-2) */
   --otp-field-input-height: initial; /* var(--otp-field-input-size, 2.5rem) */
+  --otp-field-input-padding-x: initial; /* 0 */
+  --otp-field-input-padding-y: initial; /* 0 */
   --otp-field-input-size: initial; /* 2.5rem */
   --otp-field-input-width: initial; /* var(--otp-field-input-size, 2.5rem) */
   --otp-field-line-height: initial; /* var(--line-height-text-lg) */
@@ -1364,14 +1369,22 @@
   --otp-field-placeholder-color: initial; /* var(--color-muted-foreground) */
   --otp-field-radius: initial; /* var(--radius-md) */
   --otp-field-separator-color: initial; /* var(--color-muted-foreground) */
+  --otp-field-separator-height: initial; /* var(--otp-field-separator-size, 1rem) */
   --otp-field-separator-size: initial; /* 1rem */
+  --otp-field-separator-width: initial; /* var(--otp-field-separator-size, 1rem) */
   --otp-field-transition: initial; /* var(--transition-default) */
   --otp-field-width: initial; /* auto */
 
   /* Pagination */
+  --pagination-arrow-padding-inline: initial; /* 0 */
   --pagination-disabled-opacity: initial; /* var(--opacity-disabled) */
   --pagination-ellipsis-color: initial; /* var(--color-muted-foreground) */
   --pagination-font-size: initial; /* var(--text-sm) */
+  --pagination-font-size-xs: initial; /* var(--text-xs) */
+  --pagination-font-size-sm: initial; /* var(--text-xs) */
+  --pagination-font-size-md: initial; /* var(--text-sm) */
+  --pagination-font-size-lg: initial; /* var(--text-md) */
+  --pagination-font-size-xl: initial; /* var(--text-lg) */
   --pagination-font-weight: initial; /* var(--weight-medium) */
   --pagination-item-bg: initial; /* var(--color-background) */
   --pagination-item-bg-active: initial; /* var(--color-foreground) */
@@ -1393,11 +1406,6 @@
   --pagination-line-height-md: initial; /* var(--line-height-text-sm) */
   --pagination-line-height-lg: initial; /* var(--line-height-text-md) */
   --pagination-line-height-xl: initial; /* var(--line-height-text-lg) */
-  --pagination-font-size-xs: initial; /* var(--text-xs) */
-  --pagination-font-size-sm: initial; /* var(--text-xs) */
-  --pagination-font-size-md: initial; /* var(--text-sm) */
-  --pagination-font-size-lg: initial; /* var(--text-md) */
-  --pagination-font-size-xl: initial; /* var(--text-lg) */
   --pagination-toolbar-bg: initial; /* transparent */
   --pagination-toolbar-border-color: initial; /* transparent */
   --pagination-toolbar-gap: initial; /* var(--spacing-1) */
