@@ -6,6 +6,7 @@ import styles from './ScrollArea.module.css';
 
 type ScrollAreaFade = boolean | 'vertical' | 'horizontal' | 'both';
 type ScrollAreaScrollbars = 'vertical' | 'horizontal' | 'both' | false;
+type ScrollAreaContentMinWidth = 'full' | 'fit-content';
 type ScrollAreaClassName<TState> = ClassValue | ((state: TState) => ClassValue);
 
 type ScrollAreaClassNames = {
@@ -45,6 +46,7 @@ type ScrollAreaProps = Omit<ScrollAreaPrimitive.Root.Props, 'children'> & {
   children?: React.ReactNode;
   fade?: ScrollAreaFade;
   scrollbars?: ScrollAreaScrollbars;
+  contentMinWidth?: ScrollAreaContentMinWidth;
   scrollbarKeepMounted?: boolean;
   classNames?: ScrollAreaClassNames;
   slotProps?: ScrollAreaSlotProps;
@@ -73,6 +75,7 @@ function ScrollArea({
   children,
   fade = false,
   scrollbars = 'vertical',
+  contentMinWidth = 'full',
   scrollbarKeepMounted = false,
   slotProps,
   ...props
@@ -81,6 +84,10 @@ function ScrollArea({
   const hasVerticalScrollbar = scrollbars === 'vertical' || scrollbars === 'both';
   const hasHorizontalScrollbar = scrollbars === 'horizontal' || scrollbars === 'both';
   const scrollbarProps = slotProps?.scrollbar;
+  const contentStyle = {
+    ...slotProps?.content?.style,
+    minWidth: contentMinWidth === 'fit-content' ? 'fit-content' : '100%',
+  };
 
   return (
     <ScrollAreaPrimitive.Root
@@ -96,6 +103,7 @@ function ScrollArea({
       >
         <ScrollAreaPrimitive.Content
           {...slotProps?.content}
+          style={contentStyle}
           data-slot="scroll-area-content"
           className={mergeClassName(classNames?.content, styles.content)}
         >
@@ -171,4 +179,5 @@ export type {
   ScrollAreaSlotProps,
   ScrollAreaFade,
   ScrollAreaScrollbars,
+  ScrollAreaContentMinWidth,
 };

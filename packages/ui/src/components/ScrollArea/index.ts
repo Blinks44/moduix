@@ -6,4 +6,5 @@ export type {
   ScrollAreaSlotProps,
   ScrollAreaFade,
   ScrollAreaScrollbars,
+  ScrollAreaContentMinWidth,
 } from './ScrollArea';

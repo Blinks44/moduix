@@ -38,6 +38,7 @@ export const BothScrollbars: Story = {
     return (
       <ScrollArea
         scrollbars="both"
+        contentMinWidth="fit-content"
         className={styles.root}
         classNames={{ content: styles.gridContent }}
       >
