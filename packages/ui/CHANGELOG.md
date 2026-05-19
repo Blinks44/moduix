@@ -1,5 +1,11 @@
 # moduix
 
+## 0.8.3
+
+### Patch Changes
+
+- 3558c3e: Fix Bleed full styles
+
 ## 0.8.2
 
 ### Patch Changes
