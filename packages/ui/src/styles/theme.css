@@ -1197,6 +1197,7 @@
   --meter-label-line-height: initial; /* var(--line-height-text-sm) */
   --meter-track-bg: initial; /* var(--color-muted) */
   --meter-track-border-color: initial; /* var(--color-border) */
+  --meter-track-border-width: initial; /* var(--border-width-sm) */
   --meter-track-height: initial; /* 0.5rem */
   --meter-track-radius: initial; /* var(--radius-full) */
   --meter-value-color: initial; /* var(--meter-color) */
