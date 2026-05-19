@@ -78,7 +78,7 @@ export const radioOverrideCssProperties: CssPropertyInput[] = [
   ['--radio-indicator-border-width', '0', 'Controls indicator border width.'],
   ['--radio-indicator-color', 'var(--color-primary-foreground)', 'Controls indicator color.'],
   ['--radio-indicator-radius', 'var(--radius-full)', 'Controls indicator border radius.'],
-  ['--radio-indicator-size-xs', '0.3125rem', 'Controls `xs` indicator size.'],
+  ['--radio-indicator-size-xs', '0.25rem', 'Controls `xs` indicator size.'],
   ['--radio-indicator-size-sm', '0.375rem', 'Controls `sm` indicator size.'],
   ['--radio-indicator-size-md', '0.5rem', 'Controls `md` indicator size.'],
   ['--radio-indicator-size-lg', '0.625rem', 'Controls `lg` indicator size.'],

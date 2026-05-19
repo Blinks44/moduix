@@ -1541,7 +1541,7 @@
   --radio-indicator-border-width: initial; /* 0 */
   --radio-indicator-color: initial; /* var(--color-primary-foreground) */
   --radio-indicator-radius: initial; /* var(--radius-full) */
-  --radio-indicator-size-xs: initial; /* 0.3125rem */
+  --radio-indicator-size-xs: initial; /* 0.25rem */
   --radio-indicator-size-sm: initial; /* 0.375rem */
   --radio-indicator-size-md: initial; /* 0.5rem */
   --radio-indicator-size-lg: initial; /* 0.625rem */

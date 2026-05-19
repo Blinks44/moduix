@@ -58,7 +58,7 @@
     }
     &[data-size='xs'] {
       --_radio-size: var(--radio-size-xs, 0.875rem);
-      --_radio-indicator-size: var(--radio-indicator-size-xs, 0.3125rem);
+      --_radio-indicator-size: var(--radio-indicator-size-xs, 0.25rem);
     }
 
     &[data-size='sm'] {
