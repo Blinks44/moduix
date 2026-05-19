@@ -15,6 +15,16 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--collapsible-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
   [
+    '--collapsible-focus-ring-offset',
+    'var(--border-width-sm)',
+    'Controls trigger focus ring offset.',
+  ],
+  [
+    '--collapsible-focus-ring-width',
+    'var(--border-width-sm)',
+    'Controls trigger focus ring width.',
+  ],
+  [
     '--collapsible-icon-open-transform',
     'rotate(90deg)',
     'Controls icon transform when the panel is open.',
@@ -59,15 +69,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
 ];
 
 export const collapsiblePlaygroundCssProperties: CssPropertyInput[] = [
-  ['--collapsible-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--collapsible-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  ['--collapsible-icon-size', '0.75rem', 'Controls trigger icon size.'],
-  ['--collapsible-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
-  ['--collapsible-trigger-bg', 'transparent', 'Controls trigger background color.'],
-  ['--collapsible-trigger-bg-hover', 'var(--collapsible-trigger-bg)', 'Controls hover bg.'],
-  ['--collapsible-trigger-color', 'var(--collapsible-color)', 'Controls trigger text color.'],
-  ['--collapsible-trigger-gap', 'var(--spacing-2)', 'Controls trigger content gap.'],
-  ['--collapsible-trigger-radius', '0', 'Controls trigger corner radius.'],
+  ...collapsibleOverrideCssProperties,
 ];
 
 export function CollapsibleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

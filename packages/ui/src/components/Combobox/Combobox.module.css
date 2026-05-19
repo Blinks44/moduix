@@ -267,7 +267,10 @@
         var(--popup-check-padding-x-start, 0.625rem)
       )
       var(--combobox-item-padding-x-end, var(--popup-item-padding-x-end, 1rem));
-    border-radius: 0;
+    border: var(--combobox-item-border-width, 0) solid
+      var(--combobox-item-border-color, transparent);
+    border-radius: var(--combobox-item-border-radius, 0);
+    background-color: var(--combobox-item-bg, transparent);
     outline: 0;
     cursor: default;
     user-select: none;
@@ -325,8 +328,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: var(--combobox-item-indicator-padding, 0);
     width: var(--combobox-item-indicator-size, var(--popup-check-indicator-size, 0.75rem));
     height: var(--combobox-item-indicator-size, var(--popup-check-indicator-size, 0.75rem));
+    border: var(--combobox-item-indicator-border-width, 0) solid
+      var(--combobox-item-indicator-border-color, transparent);
+    border-radius: var(--combobox-item-indicator-radius, 0);
+    background-color: var(--combobox-item-indicator-bg, transparent);
   }
 
   .itemIndicatorIcon {

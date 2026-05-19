@@ -54,19 +54,7 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
 ];
 
 export const checkboxPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--checkbox-bg', 'var(--color-background)', 'Controls unchecked background color.'],
-  ['--checkbox-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
-  ['--checkbox-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
-  ['--checkbox-border-color', 'var(--color-border)', 'Controls unchecked border color.'],
-  ['--checkbox-border-color-checked', 'var(--color-primary)', 'Controls checked border color.'],
-  ['--checkbox-border-width', 'var(--border-width-sm)', 'Controls checkbox border width.'],
-  ['--checkbox-color', 'var(--color-primary-foreground)', 'Controls indicator icon color.'],
-  ['--checkbox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--checkbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--checkbox-indicator-border-color', 'transparent', 'Controls indicator border color.'],
-  ['--checkbox-indicator-border-width', '0', 'Controls indicator border width.'],
-  ['--checkbox-label-color', 'var(--color-foreground)', 'Controls label text color.'],
-  ['--checkbox-radius', 'var(--radius-xs)', 'Controls checkbox corner radius.'],
+  ...checkboxOverrideCssProperties,
 ];
 
 export function CheckboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

@@ -9,7 +9,7 @@
     margin: 0;
     padding: var(--context-menu-trigger-padding-y, 0.5rem)
       var(--context-menu-trigger-padding-x, 0.875rem);
-    border: var(--border-width-sm) solid
+    border: var(--context-menu-trigger-border-width, var(--border-width-sm)) solid
       var(--context-menu-trigger-border-color, var(--color-border));
     border-radius: var(--context-menu-trigger-radius, var(--radius-md));
     background-color: var(--context-menu-trigger-bg, var(--color-background));

@@ -211,6 +211,11 @@ export const contextMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--context-menu-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
   ['--context-menu-trigger-border-color', 'var(--color-border)', 'Controls trigger border color.'],
+  [
+    '--context-menu-trigger-border-width',
+    'var(--border-width-sm)',
+    'Controls trigger border width.',
+  ],
   ['--context-menu-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
   ['--context-menu-trigger-font-size', 'var(--text-md)', 'Controls trigger font size.'],
   [

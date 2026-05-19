@@ -36,8 +36,9 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-md) solid var(--close-button-focus-ring-color, var(--color-ring));
-      outline-offset: 2px;
+      outline: var(--close-button-focus-ring-width, var(--border-width-md)) solid
+        var(--close-button-focus-ring-color, var(--color-ring));
+      outline-offset: var(--close-button-focus-ring-offset, 2px);
     }
 
     &:disabled,

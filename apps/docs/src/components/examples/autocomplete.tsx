@@ -135,11 +135,15 @@ export const autocompleteOverrideCssProperties: CssPropertyInput[] = [
   ['--autocomplete-arrow-size', '8px', 'Controls arrow side offset size.'],
   [
     '--autocomplete-arrow-stroke-color',
-    'var(--color-border)',
+    'var(--autocomplete-popup-border-color)',
     'Controls optional popup arrow border color.',
   ],
   ['--autocomplete-arrow-width', '1.25rem', 'Controls optional popup arrow width.'],
-  ['--autocomplete-backdrop-bg', 'var(--backdrop-bg)', 'Controls optional backdrop color.'],
+  [
+    '--autocomplete-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls optional backdrop color.',
+  ],
   ['--autocomplete-backdrop-blur', '2px', 'Controls optional backdrop blur.'],
   [
     '--autocomplete-backdrop-transition',
@@ -195,6 +199,11 @@ export const autocompleteOverrideCssProperties: CssPropertyInput[] = [
     'Controls group label color.',
   ],
   ['--autocomplete-group-label-font-size', 'var(--text-xs)', 'Controls group label font size.'],
+  [
+    '--autocomplete-group-label-font-weight',
+    'var(--weight-semibold)',
+    'Controls group label font weight.',
+  ],
   [
     '--autocomplete-group-label-line-height',
     'var(--line-height-text-xs)',
@@ -341,7 +350,7 @@ export const autocompleteOverrideCssProperties: CssPropertyInput[] = [
   ['--autocomplete-status-padding-y', '0.5rem', 'Controls status vertical padding.'],
   ['--autocomplete-trigger-gap', '0.75rem', 'Controls field-trigger content gap.'],
   ['--autocomplete-trigger-padding-x', '0.875rem', 'Controls field-trigger horizontal padding.'],
-  ['--autocomplete-width', '18rem', 'Controls the control and popup anchor width.'],
+  ['--autocomplete-width', '16rem', 'Controls the control and popup anchor width.'],
 ];
 
 export const autocompletePlaygroundCssProperties: CssPropertyInput[] = [
@@ -350,6 +359,7 @@ export const autocompletePlaygroundCssProperties: CssPropertyInput[] = [
   ['--autocomplete-color', 'var(--color-foreground)', 'Controls primary text color.'],
   ['--autocomplete-empty-color', 'var(--color-muted-foreground)', 'Controls empty text color.'],
   ['--autocomplete-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--autocomplete-group-label-font-weight', 'var(--weight-semibold)', 'Controls label weight.'],
   ['--autocomplete-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item bg.'],
   ['--autocomplete-highlight-color', 'var(--color-background)', 'Controls highlighted item text.'],
   ['--autocomplete-icon-color', 'var(--color-muted-foreground)', 'Controls default icon color.'],

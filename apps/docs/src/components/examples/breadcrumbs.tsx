@@ -88,6 +88,12 @@ export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-accent)',
     'Controls highlighted collapsed item background.',
   ],
+  [
+    '--breadcrumbs-popup-item-bg-hover',
+    'var(--breadcrumbs-popup-item-bg-highlighted)',
+    'Controls collapsed menu item hover background.',
+  ],
+  ['--breadcrumbs-popup-item-border', 'none', 'Controls collapsed menu item border.'],
   ['--breadcrumbs-popup-item-color', 'inherit', 'Controls collapsed menu item text color.'],
   [
     '--breadcrumbs-popup-item-font-size',
@@ -111,6 +117,11 @@ export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
     'Controls collapsed menu item vertical padding.',
   ],
   ['--breadcrumbs-popup-item-radius', 'var(--radius-sm)', 'Controls collapsed menu item radius.'],
+  [
+    '--breadcrumbs-popup-item-transition',
+    'var(--transition-default)',
+    'Controls collapsed menu item transition.',
+  ],
   ['--breadcrumbs-popup-max-width', '16rem', 'Controls collapsed menu max width.'],
   ['--breadcrumbs-popup-min-width', '9rem', 'Controls collapsed menu min width.'],
   ['--breadcrumbs-popup-padding', 'var(--spacing-1)', 'Controls collapsed menu inner padding.'],
@@ -137,6 +148,11 @@ export const breadcrumbsPlaygroundCssProperties: CssPropertyInput[] = [
     '--breadcrumbs-link-color-hover',
     'var(--color-foreground)',
     'Controls breadcrumb link hover color.',
+  ],
+  [
+    '--breadcrumbs-popup-item-bg-hover',
+    'var(--breadcrumbs-popup-item-bg-highlighted)',
+    'Controls collapsed menu item hover background.',
   ],
   [
     '--breadcrumbs-popup-item-font-size',
