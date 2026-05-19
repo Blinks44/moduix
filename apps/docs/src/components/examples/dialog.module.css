@@ -1,10 +1,10 @@
 .customCloseIcon {
-  position: absolute;
-  top: -2rem;
-  right: -2rem;
+  position: fixed;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
   border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
   background-color: var(--dialog-bg, var(--color-popover));
-  --dialog-close-icon-color: var(--color-destructive);
+  --dialog-close-icon-color: var(--color-muted-foreground);
 }
 
 .customPortal {

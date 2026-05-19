@@ -118,6 +118,7 @@ export function BothScrollbarsScrollAreaExample() {
   return (
     <ScrollArea
       scrollbars="both"
+      contentMinWidth="fit-content"
       className={styles.sizedRoot}
       classNames={{ content: styles.gridContent }}
     >

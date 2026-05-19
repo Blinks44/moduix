@@ -486,9 +486,9 @@ rendered.
 
 ### Custom Styles
 
-Use `DialogContent` `className` for the popup and `classNames` for the automatically rendered
-portal, backdrop, and viewport. Use `slotProps` for non-style options on those service slots. Pass
-children to `DialogCloseIcon` to replace the default icon.
+For an outside close pattern, place `DialogCloseIcon` directly in `DialogContent` and position it
+against the viewport corner. This keeps the close control independent from popup size and loading
+content behavior.
 
 <Preview>
   <CustomStylesDialogExample />
@@ -576,12 +576,12 @@ children to `DialogCloseIcon` to replace the default icon.
       }
 
       .customCloseIcon {
-        position: absolute;
-        top: -2rem;
-        right: -2rem;
+        position: fixed;
+        top: var(--spacing-4);
+        right: var(--spacing-4);
         border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
         background-color: var(--dialog-bg, var(--color-popover));
-        --dialog-close-icon-color: var(--color-destructive);
+        --dialog-close-icon-color: var(--color-muted-foreground);
       }
     `}
 

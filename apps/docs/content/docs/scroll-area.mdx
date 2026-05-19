@@ -166,6 +166,7 @@ ScrollArea
 Use `ScrollArea` for root behavior props such as `scrollbars`, `fade`, `overflowEdgeThreshold`,
 and `scrollbarKeepMounted`. Use `className` for the root element and `classNames` for internal
 slots hidden from the default composition.
+Use `contentMinWidth="fit-content"` when horizontal overflow should follow intrinsic content width.
 
 Shared `classNames.scrollbar` and `classNames.thumb` are applied before axis-specific classes, so
 you can keep common styling in one class and override only vertical or horizontal details.
@@ -200,7 +201,9 @@ other non-class props for an internal slot:
 ### Both Scrollbars
 
 Set `scrollbars="both"` when content can overflow in both axes. `ScrollArea` renders both
-scrollbars and the corner automatically.
+scrollbars and the corner automatically. Set `contentMinWidth="fit-content"` so the content keeps
+its intrinsic width and can overflow horizontally; without it, the content usually collapses to the
+viewport width and behaves like a vertical-only scroll area.
 
 <Preview>
   <BothScrollbarsScrollAreaExample />
@@ -213,6 +216,7 @@ scrollbars and the corner automatically.
         return (
           <ScrollArea
             scrollbars="both"
+            contentMinWidth="fit-content"
             className={styles.sizedRoot}
             classNames={{ content: styles.gridContent }}
           >

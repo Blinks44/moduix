@@ -30,6 +30,17 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/drawer" />
 
+## When to use Drawer
+
+Use `Drawer` as the default choice for edge-attached panels in moduix.
+It covers both patterns that are often split in other libraries:
+
+- **Drawer behavior:** edge placement, swipe-to-dismiss, optional edge swipe area, and snap points.
+- **Sheet behavior:** structured panel content (header/body/footer), side and bottom layouts, and
+  non-modal/persistent configurations.
+
+If a panel does not need gestures or snap points, prefer `Dialog` with edge positioning.
+
 ## Basic
 
 <Preview cssProperties={drawerPlaygroundCssProperties}>

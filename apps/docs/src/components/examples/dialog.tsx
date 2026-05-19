@@ -42,6 +42,16 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-close-icon-glyph-size', '0.75rem', 'Controls icon close glyph size.'],
   ['--dialog-close-icon-radius', 'var(--radius-md)', 'Controls icon close border radius.'],
   ['--dialog-close-icon-size', '1.75rem', 'Controls icon close button size.'],
+  [
+    '--dialog-close-outside-offset-right',
+    'var(--spacing-4)',
+    'Controls outside close icon right offset.',
+  ],
+  [
+    '--dialog-close-outside-offset-top',
+    'var(--spacing-4)',
+    'Controls outside close icon top offset.',
+  ],
   ['--dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--dialog-content-margin', 'var(--spacing-4) 0 0', 'Controls `DialogBody` margin.'],
   ['--dialog-control-bg', 'var(--color-background)', 'Controls trigger and close background.'],

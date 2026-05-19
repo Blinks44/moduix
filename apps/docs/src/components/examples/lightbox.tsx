@@ -23,16 +23,8 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-close-color', 'var(--color-foreground)', 'Controls close icon color.'],
   ['--lightbox-close-color-hover', 'var(--color-foreground)', 'Controls close icon hover color.'],
   ['--lightbox-close-icon-size', '0.875rem', 'Controls close icon size.'],
-  [
-    '--lightbox-close-offset-right',
-    'calc(var(--spacing-8) * -1)',
-    'Controls close button right offset.',
-  ],
-  [
-    '--lightbox-close-offset-top',
-    'calc(var(--spacing-8) * -1)',
-    'Controls close button top offset.',
-  ],
+  ['--lightbox-close-offset-right', 'var(--spacing-4)', 'Controls close button right offset.'],
+  ['--lightbox-close-offset-top', 'var(--spacing-4)', 'Controls close button top offset.'],
   ['--lightbox-close-radius', 'var(--radius-sm)', 'Controls close button radius.'],
   ['--lightbox-close-size', '2rem', 'Controls close button size.'],
   ['--lightbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],

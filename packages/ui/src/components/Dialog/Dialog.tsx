@@ -128,10 +128,22 @@ function DialogContent({
   slotProps,
   container,
   withBackdrop = true,
+  children,
   ...props
 }: DialogContentProps) {
   const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPortalContainer;
+  const popupChildren: React.ReactNode[] = [];
+  const viewportChildren: React.ReactNode[] = [];
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && child.type === DialogCloseIcon) {
+      viewportChildren.push(child);
+      return;
+    }
+
+    popupChildren.push(child);
+  });
 
   return (
     <DialogPortal
@@ -147,7 +159,10 @@ function DialogContent({
         {...slotProps?.viewport}
         data-with-backdrop={withBackdrop ? 'true' : 'false'}
       >
-        <DialogPopup className={className} {...props} />
+        {viewportChildren}
+        <DialogPopup className={className} {...props}>
+          {popupChildren}
+        </DialogPopup>
       </DialogViewport>
     </DialogPortal>
   );

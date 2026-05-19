@@ -116,9 +116,9 @@
   }
 
   .customCloseIcon {
-    position: absolute;
-    top: calc(var(--spacing-8) * -1);
-    right: calc(var(--spacing-8) * -1);
+    position: fixed;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
     color: var(--dialog-color, var(--color-popover-foreground));
     border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
     background: var(--dialog-bg, var(--color-popover));
