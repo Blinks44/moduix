@@ -114,8 +114,9 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--scroll-area-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(--scroll-area-focus-ring-width, var(--border-width-sm)) solid
+        var(--scroll-area-focus-ring-color, var(--color-ring));
+      outline-offset: var(--scroll-area-focus-ring-offset, -1px);
     }
   }
 
@@ -140,7 +141,7 @@
     padding: var(--scroll-area-scrollbar-padding, 0);
     border-radius: var(--scroll-area-scrollbar-radius, var(--radius-md));
     background-color: var(--scroll-area-scrollbar-bg, transparent);
-    opacity: 0;
+    opacity: var(--scroll-area-scrollbar-hidden-opacity, 0);
     pointer-events: none;
     user-select: none;
     touch-action: none;
@@ -188,7 +189,7 @@
 
     &[data-hovering],
     &[data-scrolling] {
-      opacity: 1;
+      opacity: var(--scroll-area-scrollbar-visible-opacity, 1);
       pointer-events: auto;
     }
 

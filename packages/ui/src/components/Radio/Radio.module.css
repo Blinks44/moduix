@@ -20,7 +20,8 @@
     min-width: var(--_radio-size, 1.25rem);
     height: var(--_radio-size, 1.25rem);
     margin: 0;
-    border: var(--border-width-sm) solid var(--radio-border-color, var(--color-border));
+    border: var(--radio-border-width, var(--border-width-sm)) solid
+      var(--radio-border-color, var(--color-border));
     border-radius: var(--radius-full);
     padding: 0;
     background-color: var(--radio-bg, var(--color-background));
@@ -40,8 +41,9 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--radio-focus-ring-color, var(--color-ring));
-      outline-offset: var(--border-width-sm);
+      outline: var(--radio-focus-ring-width, var(--border-width-sm)) solid
+        var(--radio-focus-ring-color, var(--color-ring));
+      outline-offset: var(--radio-focus-ring-offset, var(--border-width-sm));
     }
 
     @media (hover: hover) {
@@ -96,7 +98,9 @@
     display: block;
     width: var(--_radio-indicator-size, 0.5rem);
     height: var(--_radio-indicator-size, 0.5rem);
-    border-radius: var(--radius-full);
+    border: var(--radio-indicator-border-width, 0) solid
+      var(--radio-indicator-border-color, currentColor);
+    border-radius: var(--radio-indicator-radius, var(--radius-full));
     background-color: currentColor;
   }
 
