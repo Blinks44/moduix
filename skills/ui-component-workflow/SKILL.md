@@ -72,6 +72,7 @@ If missing, fetch the file from the Base UI page for that component.
 
 - Keep service-oriented infrastructure slots (`Portal`, `Positioner`, `Viewport`, `Backdrop`, etc.) internal when they are not meaningful user content.
 - Expose behavior via parent props (`withBackdrop`, `container`, `placement`, `offset`) on the component that renders those slots.
+- For optional UI parts that are toggled on/off, use `with*` boolean naming (`withArrow`, `withBackdrop`, `withViewport`, etc.) instead of mixed forms like `show*`/`hide*`.
 - For styling internal slots, prefer a compact `classNames` object.
 - Keep `className` for the main/root visual slot; do not duplicate it inside `classNames`.
 - Introduce `slotProps` only when there is a concrete need for non-class slot props.
