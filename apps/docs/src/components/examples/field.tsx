@@ -31,7 +31,6 @@ export const fieldOverrideCssProperties: CssPropertyInput[] = [
   ['--field-color', 'var(--color-foreground)', 'Controls inherited field text color.'],
   ['--field-control-bg', 'var(--color-background)', 'Controls `FieldControl` background.'],
   ['--field-control-border-color', 'var(--color-border)', 'Controls `FieldControl` border color.'],
-  ['--field-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled slot opacity.'],
   [
     '--field-control-border-color-invalid',
     'var(--color-destructive)',
@@ -76,6 +75,7 @@ export const fieldOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-sm)',
     'Controls description line height.',
   ],
+  ['--field-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled slot opacity.'],
   ['--field-error-color', 'var(--color-destructive)', 'Controls error text color.'],
   ['--field-error-font-size', 'var(--text-sm)', 'Controls error font size.'],
   ['--field-error-line-height', 'var(--line-height-text-sm)', 'Controls error line height.'],
