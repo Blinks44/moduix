@@ -18,7 +18,7 @@
       transparent;
     outline-offset: var(
       --input-focus-ring-offset,
-      calc(var(--input-focus-ring-width, var(--input-border-width, var(--border-width-sm))) * -1)
+      calc(0px - var(--input-border-width, var(--border-width-sm)))
     );
     transition:
       border-color var(--input-transition, var(--transition-default)),

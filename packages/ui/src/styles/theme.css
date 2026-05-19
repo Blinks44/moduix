@@ -944,7 +944,7 @@
   --input-color: initial; /* var(--color-foreground) */
   --input-disabled-opacity: initial; /* var(--opacity-disabled) */
   --input-focus-ring-color: initial; /* var(--color-ring) */
-  --input-focus-ring-offset: initial; /* calc(var(--input-focus-ring-width, var(--input-border-width, var(--border-width-sm))) * -1) */
+  --input-focus-ring-offset: initial; /* calc(0px - var(--input-border-width, var(--border-width-sm))) */
   --input-focus-ring-width: initial; /* var(--input-border-width, var(--border-width-sm)) */
   --input-font-size: initial; /* var(--text-md) */
   --input-font-size-xs: initial; /* var(--text-xs) */
