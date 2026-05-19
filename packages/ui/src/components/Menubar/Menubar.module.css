@@ -103,18 +103,24 @@
 
   .positioner {
     z-index: var(--z-popup);
+    width: var(--positioner-width);
+    height: var(--positioner-height);
+    max-width: var(--available-width);
     outline: 0;
   }
 
   .popup {
+    position: relative;
     box-sizing: border-box;
     min-width: min(var(--menubar-popup-min-width, 12rem), var(--available-width, 100vw));
     max-width: min(var(--menubar-popup-max-width, 20rem), var(--available-width, 100vw));
-    border: var(--menubar-popup-border-width, var(--border-width-sm)) solid
-      var(--menubar-popup-border-color, var(--color-border));
+    overflow: visible;
+    border: 0;
     border-radius: var(--menubar-popup-radius, var(--radius-md));
     background-color: var(--menubar-popup-bg, var(--color-popover));
     color: var(--menubar-popup-color, var(--color-popover-foreground));
+    outline: var(--menubar-popup-border-width, var(--border-width-sm)) solid
+      var(--menubar-popup-border-color, var(--color-border));
     box-shadow: var(--menubar-popup-shadow, var(--shadow-lg));
     transform-origin: var(--transform-origin);
     transition:
@@ -360,7 +366,7 @@
   }
 
   .checkboxItemIndicator {
-    border: var(--menubar-checkbox-indicator-border-width, var(--border-width-sm)) solid
+    border: var(--menubar-checkbox-indicator-border-width, 0) solid
       var(--menubar-checkbox-indicator-border-color, currentColor);
     border-radius: var(--menubar-checkbox-indicator-radius, var(--radius-xs));
     background-color: var(--menubar-checkbox-indicator-bg, transparent);

@@ -1,4 +1,6 @@
 .customTrigger {
+  position: relative;
+  z-index: calc(var(--z-popup) - 1);
   min-width: 14rem;
   min-height: 9rem;
   border-color: var(--color-primary);

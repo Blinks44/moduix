@@ -7,6 +7,11 @@
   --menubar-trigger-bg-active: rgb(37 99 235);
 }
 
+.customTrigger {
+  position: relative;
+  z-index: var(--z-popup);
+}
+
 .customPortal {
   pointer-events: auto;
 }
@@ -26,6 +31,10 @@
   --menubar-popup-shadow: var(--shadow-lg);
   --menubar-highlight-bg: rgb(37 99 235);
   --menubar-highlight-color: rgb(255 255 255);
+}
+
+.customArrow {
+  --menubar-arrow-stroke-color: var(--menubar-popup-border-color);
 }
 
 .customViewport {

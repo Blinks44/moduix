@@ -285,11 +285,14 @@ export function CustomArrowPreviewCardExample() {
 export function SlotCustomizationPreviewCardExample() {
   return (
     <PreviewCard>
-      <PreviewCardTrigger href={linkPayloads[0].url}>Preview with styled slots</PreviewCardTrigger>
+      <PreviewCardTrigger className={styles.slotTrigger} href={linkPayloads[0].url}>
+        Preview with styled slots
+      </PreviewCardTrigger>
       <PreviewCardContent
         withBackdrop
         classNames={{
           backdrop: styles.backdrop,
+          arrow: styles.slotArrow,
           viewport: styles.viewport,
         }}
       >

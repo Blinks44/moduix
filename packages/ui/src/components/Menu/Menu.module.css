@@ -369,7 +369,7 @@
   }
 
   .checkboxItemIndicator {
-    border: var(--menu-checkbox-indicator-border-width, var(--border-width-sm)) solid
+    border: var(--menu-checkbox-indicator-border-width, 0) solid
       var(--menu-checkbox-indicator-border-color, currentColor);
     border-radius: var(--menu-checkbox-indicator-radius, var(--radius-xs));
     background-color: var(--menu-checkbox-indicator-bg, transparent);

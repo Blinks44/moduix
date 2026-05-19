@@ -122,5 +122,10 @@
 }
 
 .arrow {
-  --combobox-arrow-stroke-color: var(--color-border);
+  --combobox-arrow-stroke-color: var(--combobox-popup-border-color);
+}
+
+.customInputGroup {
+  position: relative;
+  z-index: var(--z-popup);
 }

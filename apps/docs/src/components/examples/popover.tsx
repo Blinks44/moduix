@@ -189,8 +189,10 @@ export function PopoverWithCloseActionExample() {
 export function PopoverWithBackdropExample() {
   return (
     <Popover>
-      <PopoverTrigger render={<Button />}>Open with backdrop</PopoverTrigger>
-      <PopoverContent showArrow={false} withBackdrop classNames={{ backdrop: styles.backdrop }}>
+      <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
+        Open with backdrop
+      </PopoverTrigger>
+      <PopoverContent arrow={false} withBackdrop classNames={{ backdrop: styles.backdrop }}>
         <PopoverHeader>
           <PopoverTitle>Backdrop</PopoverTitle>
           <PopoverDescription>
@@ -316,11 +318,11 @@ export function PopoverWithoutArrowExample() {
   return (
     <Popover>
       <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-      <PopoverContent showArrow={false}>
+      <PopoverContent arrow={false}>
         <PopoverHeader>
           <PopoverTitle>No arrow</PopoverTitle>
           <PopoverDescription>
-            Set showArrow to false when the popup should look like a floating panel.
+            Set arrow to false when the popup should look like a floating panel.
           </PopoverDescription>
         </PopoverHeader>
       </PopoverContent>
@@ -331,7 +333,9 @@ export function PopoverWithoutArrowExample() {
 export function CustomStylesPopoverExample() {
   return (
     <Popover>
-      <PopoverTrigger render={<Button />}>Open custom styles</PopoverTrigger>
+      <PopoverTrigger className={styles.customTrigger} render={<Button />}>
+        Open custom styles
+      </PopoverTrigger>
       <PopoverContent
         withBackdrop
         withViewport

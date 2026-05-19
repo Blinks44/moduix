@@ -166,7 +166,7 @@ Combobox
 In most cases, keep default popup infrastructure and style the visible parts (`ComboboxInput`,
 `ComboboxItem`, `ComboboxItemIndicator`, `ComboboxItemText`, `ComboboxContent`).
 Use `ComboboxContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
-`backdropProps`, `arrowProps`, `withBackdrop`, `showArrow`) only when you need custom portal,
+`backdropProps`, `arrowProps`, `withBackdrop`, `arrow`) only when you need custom portal,
 layering, backdrop, or arrow behavior.
 
 ## Composition
@@ -194,13 +194,13 @@ recommended composition:
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
 hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
-`positionerProps`, `arrowProps`, `withBackdrop`, and `showArrow` when you need the matching
+`positionerProps`, `arrowProps`, `withBackdrop`, and `arrow` when you need the matching
 Base UI escape hatches:
 
 ```tsx
 <ComboboxContent
   className={styles.popup}
-  showArrow
+  arrow
   withBackdrop
   classNames={{
     portal: styles.portal,
@@ -820,7 +820,7 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
             <ComboboxContent
               className={styles.customPopup}
               sideOffset={8}
-              showArrow
+              arrow
               withBackdrop
               classNames={{
                 portal: styles.portal,

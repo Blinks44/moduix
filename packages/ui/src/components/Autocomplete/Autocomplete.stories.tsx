@@ -602,7 +602,7 @@ export const CustomStyles: Story = {
       <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
         <AutocompleteField>
           <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
-          <AutocompleteInputGroup>
+          <AutocompleteInputGroup className={styles.customInputGroup}>
             <AutocompleteInput id={id} placeholder="e.g. feature" />
             <AutocompleteControlActions>
               <AutocompleteClear aria-label="Clear value" />
@@ -614,7 +614,7 @@ export const CustomStyles: Story = {
         <AutocompleteContent
           className={styles.customPopup}
           sideOffset={8}
-          showArrow
+          arrow
           withBackdrop
           classNames={{
             portal: styles.customPortal,

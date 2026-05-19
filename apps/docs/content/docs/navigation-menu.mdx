@@ -282,7 +282,7 @@ the default composition:
 `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`,
 `collisionPadding`, `sticky`, `positionMethod`, and `disableAnchorTracking`. Use
 `popupContent.container` to choose the portal container, `popupContent.withBackdrop` to render the
-backdrop, `popupContent.showArrow={false}` to hide the arrow, `popupContent.fullWidth` to stretch
+backdrop, `popupContent.arrow={false}` to hide the arrow, `popupContent.fullWidth` to stretch
 the popup to viewport width, and `popupContent.slotProps` when a service slot needs non-class props.
 
 Use `popupContent={false}` and `withViewport` when a nested menu should render its content inside
@@ -317,7 +317,7 @@ alignment control through CSS.
             <div className={styles.container}>
               <NavigationMenu
                 className={styles.menu}
-                popupContent={{ fullWidth: true, sideOffset: 12, showArrow: false }}
+                popupContent={{ fullWidth: true, sideOffset: 12, arrow: false }}
               >
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -456,7 +456,7 @@ The nested popup can still use collision handling from Base UI.
                           align: "end",
                           sideOffset: 24,
                           alignOffset: -24,
-                          showArrow: false,
+                          arrow: false,
                         }}
                       >
                         <NavigationMenuList className={styles.fullWidth}>
@@ -748,6 +748,7 @@ Base UI service slots.
       export function CustomStylesNavigationMenuDemo() {
         return (
           <NavigationMenu
+            className={styles.customRoot}
             popupContent={{
               sideOffset: 16,
               withBackdrop: true,
@@ -807,6 +808,11 @@ Base UI service slots.
         z-index: var(--z-popup);
       }
 
+      .customRoot {
+        position: relative;
+        z-index: calc(var(--z-popup) + 1);
+      }
+
       .backdrop {
         background-color: rgb(15 23 42 / 0.08);
         backdrop-filter: blur(2px);
@@ -818,6 +824,7 @@ Base UI service slots.
 
       .arrow {
         color: var(--color-background);
+        --navigation-menu-arrow-stroke-color: var(--navigation-menu-popup-border-color);
       }
 
       .viewport {

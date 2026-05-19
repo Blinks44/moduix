@@ -499,7 +499,7 @@ export function CustomStylesSelectExample() {
     <Select items={fruits}>
       <SelectField>
         <SelectLabel>Choose fruit</SelectLabel>
-        <SelectTrigger>
+        <SelectTrigger className={styles.customTrigger}>
           <SelectValue placeholder="Select an option" />
           <SelectIcon />
         </SelectTrigger>
@@ -508,7 +508,7 @@ export function CustomStylesSelectExample() {
       <SelectContent
         alignItemWithTrigger={false}
         sideOffset={8}
-        showArrow
+        arrow
         withBackdrop
         slotProps={{
           positioner: { sticky: true },

@@ -52,8 +52,7 @@ type SelectContentProps = SelectPopupProps &
     slotProps?: SelectContentSlotProps;
     container?: SelectPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
-    showArrow?: boolean;
-    arrow?: React.ReactNode;
+    arrow?: boolean | React.ReactNode;
   };
 
 type IndicatorPosition = 'start' | 'end';
@@ -162,7 +161,6 @@ function SelectContent({
   slotProps,
   container,
   withBackdrop = false,
-  showArrow = false,
   arrow,
   alignItemWithTrigger,
   side,
@@ -200,6 +198,8 @@ function SelectContent({
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
   const resolvedDisableAnchorTracking =
     disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
+  const showArrow = typeof arrow === 'boolean' ? arrow : false;
+  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (
     <SelectPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
@@ -224,7 +224,7 @@ function SelectContent({
         <SelectPopup className={className} {...props}>
           {showArrow ? (
             <SelectArrow className={classNames?.arrow} {...arrowProps}>
-              {arrow}
+              {arrowContent}
             </SelectArrow>
           ) : null}
           {props.children}

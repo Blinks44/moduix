@@ -145,6 +145,11 @@
   backdrop-filter: blur(2px);
 }
 
+.customRoot {
+  position: relative;
+  z-index: calc(var(--z-popup) + 1);
+}
+
 .portal {
   z-index: var(--z-popup);
 }
@@ -155,6 +160,7 @@
 
 .arrow {
   color: var(--color-background);
+  --navigation-menu-arrow-stroke-color: var(--navigation-menu-popup-border-color);
 }
 
 .viewport {

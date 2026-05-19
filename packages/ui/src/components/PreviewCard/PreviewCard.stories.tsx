@@ -236,13 +236,14 @@ export const SlotCustomization: Story = {
   render: () => {
     return (
       <PreviewCard>
-        <PreviewCardTrigger href={linkPayloads[0].url}>
+        <PreviewCardTrigger className={styles.slotTrigger} href={linkPayloads[0].url}>
           Preview with styled slots
         </PreviewCardTrigger>
         <PreviewCardContent
           withBackdrop
           classNames={{
             backdrop: styles.backdrop,
+            arrow: styles.slotArrow,
             viewport: styles.viewport,
           }}
         >

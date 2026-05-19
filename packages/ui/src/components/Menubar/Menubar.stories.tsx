@@ -3,7 +3,6 @@ import * as React from 'react';
 import { InfoIcon, MapIcon } from '@/primitives/Icons';
 import {
   Menubar,
-  MenubarArrow,
   MenubarCheckboxItem,
   MenubarCheckboxItemIndicator,
   MenubarContent,
@@ -47,7 +46,6 @@ export const Basic: Story = {
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent>
-            <MenubarArrow />
             <MenubarItem closeOnClick>New File</MenubarItem>
             <MenubarItem closeOnClick>Open…</MenubarItem>
             <MenubarItem closeOnClick>Save</MenubarItem>
@@ -70,7 +68,6 @@ export const Basic: Story = {
         <MenubarMenu>
           <MenubarTrigger>Edit</MenubarTrigger>
           <MenubarContent>
-            <MenubarArrow />
             <MenubarItem closeOnClick>
               Undo
               <MenubarItemShortcut>Ctrl+Z</MenubarItemShortcut>
@@ -98,7 +95,6 @@ export const Basic: Story = {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarArrow />
             <MenubarItem closeOnClick>Zoom In</MenubarItem>
             <MenubarItem closeOnClick>Zoom Out</MenubarItem>
             <MenubarSeparator />
@@ -125,7 +121,6 @@ export const WithGroupsAndControls: Story = {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarArrow />
             <MenubarGroup>
               <MenubarGroupLabel>Sort</MenubarGroupLabel>
               <MenubarRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -174,7 +169,6 @@ export const IndicatorRightWithIcon: Story = {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarArrow />
             <MenubarCheckboxItem
               checked={showSidebar}
               onCheckedChange={setShowSidebar}
@@ -215,7 +209,6 @@ export const Vertical: Story = {
         <MenubarMenu>
           <MenubarTrigger>Project</MenubarTrigger>
           <MenubarContent>
-            <MenubarArrow />
             <MenubarItem closeOnClick>Create branch</MenubarItem>
             <MenubarItem closeOnClick>Pull latest</MenubarItem>
             <MenubarItem closeOnClick>Open in IDE</MenubarItem>
@@ -225,7 +218,6 @@ export const Vertical: Story = {
         <MenubarMenu>
           <MenubarTrigger>Deploy</MenubarTrigger>
           <MenubarContent>
-            <MenubarArrow />
             <MenubarItem closeOnClick>Staging</MenubarItem>
             <MenubarItem closeOnClick>Production</MenubarItem>
           </MenubarContent>
@@ -242,7 +234,6 @@ export const LinkItems: Story = {
         <MenubarMenu>
           <MenubarTrigger>Navigate</MenubarTrigger>
           <MenubarContent>
-            <MenubarArrow />
             <MenubarLinkItem href="#projects">Projects</MenubarLinkItem>
             <MenubarLinkItem href="#teams">Teams</MenubarLinkItem>
             <MenubarLinkItem href="#billing">Billing</MenubarLinkItem>

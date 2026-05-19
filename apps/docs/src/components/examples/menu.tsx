@@ -12,7 +12,6 @@ import {
   InfoIcon,
   MapIcon,
   Menu,
-  MenuArrow,
   MenuCheckboxItem,
   MenuCheckboxItemIndicator,
   MenuContent,
@@ -70,11 +69,7 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
     'var(--menu-checkbox-indicator-border-color)',
     'Controls checked checkbox indicator border color.',
   ],
-  [
-    '--menu-checkbox-indicator-border-width',
-    'var(--border-width-sm)',
-    'Controls checkbox indicator border width.',
-  ],
+  ['--menu-checkbox-indicator-border-width', '0', 'Controls checkbox indicator border width.'],
   ['--menu-checkbox-indicator-radius', 'var(--radius-xs)', 'Controls checkbox indicator radius.'],
   ['--menu-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
   ['--menu-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
@@ -215,7 +210,6 @@ export function MenuExample() {
         <MenuTriggerIcon />
       </MenuButtonTrigger>
       <MenuContent>
-        <MenuArrow />
         <MenuItem closeOnClick>Add to Library</MenuItem>
         <MenuItem closeOnClick>Add to Playlist</MenuItem>
         <MenuSeparator />
@@ -237,7 +231,7 @@ export function WithoutArrowMenuExample() {
         Song
         <MenuTriggerIcon />
       </MenuButtonTrigger>
-      <MenuContent>
+      <MenuContent arrow={false}>
         <MenuItem closeOnClick>Add to Library</MenuItem>
         <MenuItem closeOnClick>Add to Playlist</MenuItem>
         <MenuSeparator />
@@ -260,7 +254,6 @@ export function GroupsAndControlsMenuExample() {
         <MenuTriggerIcon />
       </MenuButtonTrigger>
       <MenuContent>
-        <MenuArrow />
         <MenuGroup>
           <MenuGroupLabel>Sort</MenuGroupLabel>
           <MenuRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -307,7 +300,6 @@ export function ShortcutsMenuExample() {
         <MenuTriggerIcon />
       </MenuButtonTrigger>
       <MenuContent>
-        <MenuArrow />
         <MenuItem closeOnClick>
           Copy
           <MenuItemShortcut>Ctrl+C</MenuItemShortcut>
@@ -337,7 +329,6 @@ export function IndicatorRightMenuExample() {
         <MenuTriggerIcon />
       </MenuButtonTrigger>
       <MenuContent>
-        <MenuArrow />
         <MenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap} indicator="end">
           <MenuItemText>
             <MenuItemTextContent>
@@ -373,7 +364,6 @@ export function NestedMenuExample() {
         <MenuTriggerIcon />
       </MenuButtonTrigger>
       <MenuContent>
-        <MenuArrow />
         <MenuItem closeOnClick>Add to Library</MenuItem>
         <MenuSubmenu>
           <MenuSubmenuTrigger>
@@ -404,7 +394,6 @@ export function OpenOnHoverMenuExample() {
         <MenuTriggerIcon />
       </MenuButtonTrigger>
       <MenuContent>
-        <MenuArrow />
         <MenuItem closeOnClick>Get Up!</MenuItem>
         <MenuItem closeOnClick>Inside Out</MenuItem>
         <MenuItem closeOnClick>Night Beats</MenuItem>
@@ -423,7 +412,6 @@ export function PositionedWithBackdropMenuExample() {
         <MenuTriggerIcon />
       </MenuButtonTrigger>
       <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
-        <MenuArrow />
         <MenuItem closeOnClick>Export PNG</MenuItem>
         <MenuItem closeOnClick>Export PDF</MenuItem>
         <MenuSeparator />
@@ -444,7 +432,6 @@ export function OpenAlertDialogMenuExample() {
           <MenuTriggerIcon />
         </MenuButtonTrigger>
         <MenuContent>
-          <MenuArrow />
           <MenuItem closeOnClick>Rename</MenuItem>
           <MenuItem closeOnClick>Duplicate</MenuItem>
           <MenuSeparator />
@@ -485,7 +472,6 @@ export function LinkItemsMenuExample() {
         <MenuTriggerIcon />
       </MenuButtonTrigger>
       <MenuContent>
-        <MenuArrow />
         <MenuLinkItem href="#projects">Projects</MenuLinkItem>
         <MenuLinkItem href="#teams">Teams</MenuLinkItem>
         <MenuLinkItem href="#billing">Billing</MenuLinkItem>
@@ -510,7 +496,6 @@ export function DetachedTriggerMenuExample() {
 
       <Menu handle={menuHandle}>
         <MenuContent>
-          <MenuArrow />
           <MenuItem closeOnClick>Edit</MenuItem>
           <MenuItem closeOnClick>Share</MenuItem>
           <MenuSeparator />
@@ -536,10 +521,10 @@ export function CustomStylesMenuExample() {
           portal: styles.customPortal,
           backdrop: styles.customBackdrop,
           positioner: styles.customPositioner,
+          arrow: styles.customArrow,
         }}
         withBackdrop
       >
-        <MenuArrow />
         <MenuItem closeOnClick className={styles.customItem}>
           <MenuItemTextContent>
             <MenuItemTextIcon>

@@ -719,7 +719,7 @@ export function CustomStylesComboboxExample() {
     <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
       <ComboboxField>
         <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
-        <ComboboxInputGroup>
+        <ComboboxInputGroup className={styles.customInputGroup}>
           <ComboboxInput id={id} placeholder="e.g. Mango" />
           <ComboboxControlActions>
             <ComboboxClear aria-label="Clear selection" />
@@ -731,7 +731,7 @@ export function CustomStylesComboboxExample() {
       <ComboboxContent
         className={styles.customPopup}
         sideOffset={8}
-        showArrow
+        arrow
         withBackdrop
         classNames={{
           portal: styles.portal,

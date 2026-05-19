@@ -40,8 +40,7 @@ type PopoverContentProps = PopoverPrimitive.Popup.Props &
     classNames?: PopoverContentClassNames;
     slotProps?: PopoverContentSlotProps;
     container?: PopoverPrimitive.Portal.Props['container'];
-    arrow?: React.ReactNode;
-    showArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
     withBackdrop?: boolean;
     withViewport?: boolean;
   };
@@ -172,7 +171,6 @@ function PopoverContent({
   slotProps,
   container,
   arrow,
-  showArrow = true,
   withBackdrop = false,
   withViewport = false,
   disableAnchorTracking,
@@ -206,6 +204,8 @@ function PopoverContent({
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
   const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? portalPropsContainer;
+  const showArrow = typeof arrow === 'boolean' ? arrow : true;
+  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (
     <PopoverPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
@@ -231,7 +231,7 @@ function PopoverContent({
         <PopoverPopup className={className} {...props}>
           {showArrow ? (
             <PopoverArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrow ?? <ArrowSvg className={styles.arrowSvg} />}
+              {arrowContent ?? <ArrowSvg className={styles.arrowSvg} />}
             </PopoverArrow>
           ) : null}
           {withViewport ? (

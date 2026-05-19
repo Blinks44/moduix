@@ -153,7 +153,7 @@ export function TooltipWithoutArrowExample() {
       <TooltipTrigger render={<Button />} aria-label="Tooltip without arrow">
         Hover or focus
       </TooltipTrigger>
-      <TooltipContent showArrow={false}>Tooltip without arrow</TooltipContent>
+      <TooltipContent arrow={false}>Tooltip without arrow</TooltipContent>
     </Tooltip>
   );
 }

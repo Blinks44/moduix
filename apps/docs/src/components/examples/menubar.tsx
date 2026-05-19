@@ -3,7 +3,6 @@ import {
   InfoIcon,
   MapIcon,
   Menubar,
-  MenubarArrow,
   MenubarCheckboxItem,
   MenubarCheckboxItemIndicator,
   MenubarContent,
@@ -264,7 +263,6 @@ export function MenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarItem closeOnClick>New File</MenubarItem>
           <MenubarItem closeOnClick>Open...</MenubarItem>
           <MenubarItem closeOnClick>Save</MenubarItem>
@@ -287,7 +285,6 @@ export function MenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>Edit</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarItem closeOnClick>Cut</MenubarItem>
           <MenubarItem closeOnClick>Copy</MenubarItem>
           <MenubarItem closeOnClick>Paste</MenubarItem>
@@ -311,7 +308,6 @@ export function GroupsAndControlsMenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>View</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarGroup>
             <MenubarGroupLabel>Sort</MenubarGroupLabel>
             <MenubarRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -355,7 +351,6 @@ export function ShortcutsMenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>Edit</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarItem closeOnClick>
             Undo
             <MenubarItemShortcut>Ctrl+Z</MenubarItemShortcut>
@@ -384,7 +379,6 @@ export function IndicatorRightMenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>View</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarCheckboxItem
             checked={showSidebar}
             onCheckedChange={setShowSidebar}
@@ -423,7 +417,6 @@ export function NestedMenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarItem closeOnClick>New File</MenubarItem>
           <MenubarSubmenu>
             <MenubarSubmenuTrigger>
@@ -450,7 +443,6 @@ export function VerticalMenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>Project</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarItem closeOnClick>Create branch</MenubarItem>
           <MenubarItem closeOnClick>Pull latest</MenubarItem>
           <MenubarItem closeOnClick>Open in IDE</MenubarItem>
@@ -460,7 +452,6 @@ export function VerticalMenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>Deploy</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarItem closeOnClick>Staging</MenubarItem>
           <MenubarItem closeOnClick>Production</MenubarItem>
         </MenubarContent>
@@ -475,7 +466,6 @@ export function LinkItemsMenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>Navigate</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarLinkItem href="#projects">Projects</MenubarLinkItem>
           <MenubarLinkItem href="#teams">Teams</MenubarLinkItem>
           <MenubarLinkItem href="#billing">Billing</MenubarLinkItem>
@@ -491,21 +481,22 @@ export function CustomStylesMenubarExample() {
   return (
     <Menubar className={styles.customRoot}>
       <MenubarMenu>
-        <MenubarTrigger>Window</MenubarTrigger>
+        <MenubarTrigger className={styles.customTrigger}>Window</MenubarTrigger>
         <MenubarContent
           className={styles.customPopup}
           classNames={{
             portal: styles.customPortal,
             backdrop: styles.customBackdrop,
             positioner: styles.customPositioner,
+            arrow: styles.customArrow,
             viewport: styles.customViewport,
           }}
           sideOffset={10}
           align="start"
           alignOffset={-4}
+          arrow
           withBackdrop
         >
-          <MenubarArrow />
           <MenubarItem closeOnClick>Minimize</MenubarItem>
           <MenubarItem closeOnClick>Zoom</MenubarItem>
           <MenubarSeparator />
@@ -522,7 +513,6 @@ export function IconsMenubarExample() {
       <MenubarMenu>
         <MenubarTrigger>Places</MenubarTrigger>
         <MenubarContent>
-          <MenubarArrow />
           <MenubarItem closeOnClick>
             <MenubarItemTextContent>
               <MenubarItemTextIcon>

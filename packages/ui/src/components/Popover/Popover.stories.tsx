@@ -41,7 +41,7 @@ export const Basic: Story = {
             Notifications
           </span>
         </PopoverTrigger>
-        <PopoverContent showArrow>
+        <PopoverContent arrow>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Notifications</PopoverTitle>
             <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
@@ -57,7 +57,7 @@ export const WithCloseAction: Story = {
     return (
       <Popover>
         <PopoverTrigger render={<Button />}>Project status</PopoverTrigger>
-        <PopoverContent showArrow>
+        <PopoverContent arrow>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Sprint 19</PopoverTitle>
             <PopoverDescription>
@@ -78,12 +78,10 @@ export const WithBackdrop: Story = {
   render: () => {
     return (
       <Popover>
-        <PopoverTrigger render={<Button />}>Open with backdrop</PopoverTrigger>
-        <PopoverContent
-          showArrow={false}
-          withBackdrop
-          classNames={{ backdrop: storyStyles.backdrop }}
-        >
+        <PopoverTrigger className={storyStyles.backdropTrigger} render={<Button />}>
+          Open with backdrop
+        </PopoverTrigger>
+        <PopoverContent arrow={false} withBackdrop classNames={{ backdrop: storyStyles.backdrop }}>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Backdrop</PopoverTitle>
             <PopoverDescription>
@@ -103,7 +101,7 @@ export const OpenOnHover: Story = {
         <PopoverTrigger openOnHover delay={150} closeDelay={120} render={<Button />}>
           Open on hover
         </PopoverTrigger>
-        <PopoverContent showArrow>
+        <PopoverContent arrow>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Hover mode</PopoverTitle>
             <PopoverDescription>
@@ -124,7 +122,7 @@ export const Controlled: Story = {
       <div className={storyStyles.stack}>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger render={<Button />}>Open controlled popover</PopoverTrigger>
-          <PopoverContent showArrow>
+          <PopoverContent arrow>
             <PopoverHeader className={storyStyles.contentGrid}>
               <PopoverTitle>Publish changes?</PopoverTitle>
               <PopoverDescription>
@@ -152,7 +150,7 @@ export const DetachedTrigger: Story = {
           Open details
         </PopoverTrigger>
         <Popover handle={popoverHandle}>
-          <PopoverContent showArrow>
+          <PopoverContent arrow>
             <PopoverHeader className={storyStyles.contentGrid}>
               <PopoverTitle>Detached trigger</PopoverTitle>
               <PopoverDescription>
@@ -189,7 +187,7 @@ export const SideControl: Story = {
 
         <Popover>
           <PopoverTrigger render={<Button />}>Open with side: {side}</PopoverTrigger>
-          <PopoverContent side={side} showArrow className={storyStyles.popupNarrow}>
+          <PopoverContent side={side} arrow className={storyStyles.popupNarrow}>
             <PopoverHeader className={storyStyles.contentGrid}>
               <PopoverTitle>Placement</PopoverTitle>
               <PopoverDescription>
@@ -209,7 +207,7 @@ export const ImageOnlyContent: Story = {
     return (
       <Popover>
         <PopoverTrigger render={<Button />}>Open image popover</PopoverTrigger>
-        <PopoverContent showArrow className={storyStyles.imagePopup}>
+        <PopoverContent arrow className={storyStyles.imagePopup}>
           <PopoverBody>
             <img
               className={storyStyles.image}
@@ -229,11 +227,11 @@ export const WithoutArrow: Story = {
     return (
       <Popover>
         <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-        <PopoverContent showArrow={false}>
+        <PopoverContent arrow={false}>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>No arrow</PopoverTitle>
             <PopoverDescription>
-              Set showArrow to false when the popup should look like a floating panel.
+              Set arrow to false when the popup should look like a floating panel.
             </PopoverDescription>
           </PopoverHeader>
         </PopoverContent>
@@ -247,7 +245,9 @@ export const CustomStyles: Story = {
   render: () => {
     return (
       <Popover>
-        <PopoverTrigger render={<Button />}>Open custom styles</PopoverTrigger>
+        <PopoverTrigger className={storyStyles.customTrigger} render={<Button />}>
+          Open custom styles
+        </PopoverTrigger>
         <PopoverContent
           withBackdrop
           withViewport

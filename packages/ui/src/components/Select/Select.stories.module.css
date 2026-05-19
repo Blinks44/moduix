@@ -3,6 +3,11 @@
   --select-backdrop-blur: 2px;
 }
 
+.popupOptionsTrigger {
+  position: relative;
+  z-index: calc(var(--z-popup) + 1);
+}
+
 .arrow {
-  --select-arrow-stroke-color: var(--color-border);
+  --select-arrow-stroke-color: var(--select-popup-border-color);
 }

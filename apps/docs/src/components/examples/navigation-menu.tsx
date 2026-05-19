@@ -292,7 +292,7 @@ export function FullWidthNavigationMenuExample() {
       <div className={styles.fullWidthContainer}>
         <NavigationMenu
           className={styles.fullWidthMenu}
-          popupContent={{ fullWidth: true, sideOffset: 12, showArrow: false }}
+          popupContent={{ fullWidth: true, sideOffset: 12, arrow: false }}
         >
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -379,7 +379,7 @@ export function NestedNavigationMenuExample() {
                     align: 'end',
                     sideOffset: 24,
                     alignOffset: -24,
-                    showArrow: false,
+                    arrow: false,
                   }}
                 >
                   <NavigationMenuList className={styles.fullWidth}>
@@ -423,6 +423,7 @@ export function NestedNavigationMenuExample() {
 export function CustomStylesNavigationMenuExample() {
   return (
     <NavigationMenu
+      className={styles.customRoot}
       popupContent={{
         sideOffset: 16,
         withBackdrop: true,

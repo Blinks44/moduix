@@ -35,7 +35,6 @@ import {
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarItem,
         MenubarSubmenu,
         MenubarSubmenuTrigger,
@@ -50,7 +49,6 @@ import {
             <MenubarMenu>
               <MenubarTrigger>File</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarItem closeOnClick>New File</MenubarItem>
                 <MenubarItem closeOnClick>Open...</MenubarItem>
                 <MenubarItem closeOnClick>Save</MenubarItem>
@@ -73,7 +71,6 @@ import {
             <MenubarMenu>
               <MenubarTrigger>Edit</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarItem closeOnClick>Cut</MenubarItem>
                 <MenubarItem closeOnClick>Copy</MenubarItem>
                 <MenubarItem closeOnClick>Paste</MenubarItem>
@@ -119,7 +116,6 @@ Menubar
   <MenubarMenu>
     <MenubarTrigger>File</MenubarTrigger>
     <MenubarContent>
-      <MenubarArrow />
       <MenubarItem closeOnClick>New</MenubarItem>
       <MenubarSubmenu>
         <MenubarSubmenuTrigger>
@@ -162,9 +158,10 @@ uses `MenubarTrigger` plus `MenubarContent` for the popup.
 the default composition. `MenubarContent` forwards Base UI popup props and accepts positioner
 props such as `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`,
 `collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`,
-and `disableAnchorTracking` directly. Use `container` and `withBackdrop` for common service-slot
-behavior, and use `slotProps` for lower-level Base UI portal, backdrop, positioner, or viewport
-props:
+and `disableAnchorTracking` directly. Arrow is disabled by default; set `arrow` to render
+the default arrow, or pass a custom node to `arrow` for full control. Use `container`
+and `withBackdrop` for common service-slot behavior, and use `slotProps` for lower-level Base UI
+portal, backdrop, positioner, arrow, or viewport props:
 
 ```tsx
 <MenubarContent
@@ -173,9 +170,13 @@ props:
     portal: styles.portal,
     backdrop: styles.backdrop,
     positioner: styles.positioner,
+    arrow: styles.arrow,
     viewport: styles.viewport,
   }}
   slotProps={{
+    arrow: {
+      offset: 4,
+    },
     positioner: {
       collisionPadding: 8,
     },
@@ -200,7 +201,6 @@ Use groups, radio items, and checkbox items when menubar commands update applica
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarGroup,
         MenubarGroupLabel,
         MenubarRadioGroup,
@@ -223,7 +223,6 @@ Use groups, radio items, and checkbox items when menubar commands update applica
             <MenubarMenu>
               <MenubarTrigger>View</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarGroup>
                   <MenubarGroupLabel>Sort</MenubarGroupLabel>
                   <MenubarRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -279,7 +278,6 @@ Use `MenubarItemShortcut` for keyboard shortcut text that aligns to the end of e
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarItem,
         MenubarItemShortcut,
         MenubarSeparator,
@@ -291,7 +289,6 @@ Use `MenubarItemShortcut` for keyboard shortcut text that aligns to the end of e
             <MenubarMenu>
               <MenubarTrigger>Edit</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarItem closeOnClick>
                   Undo
                   <MenubarItemShortcut>Ctrl+Z</MenubarItemShortcut>
@@ -331,7 +328,6 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Text an
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarCheckboxItem,
         MenubarCheckboxItemIndicator,
         MenubarItemText,
@@ -350,7 +346,6 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Text an
             <MenubarMenu>
               <MenubarTrigger>View</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarCheckboxItem
                   checked={showSidebar}
                   onCheckedChange={setShowSidebar}
@@ -405,7 +400,6 @@ Use `MenubarSubmenu` with `MenubarSubmenuTrigger` and `MenubarSubmenuContent` fo
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarItem,
         MenubarSubmenu,
         MenubarSubmenuTrigger,
@@ -420,7 +414,6 @@ Use `MenubarSubmenu` with `MenubarSubmenuTrigger` and `MenubarSubmenuContent` fo
             <MenubarMenu>
               <MenubarTrigger>File</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarItem closeOnClick>New File</MenubarItem>
                 <MenubarSubmenu>
                   <MenubarSubmenuTrigger>
@@ -459,7 +452,6 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarItem,
       } from "moduix";
 
@@ -469,7 +461,6 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
             <MenubarMenu>
               <MenubarTrigger>Project</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarItem closeOnClick>Create branch</MenubarItem>
                 <MenubarItem closeOnClick>Pull latest</MenubarItem>
                 <MenubarItem closeOnClick>Open in IDE</MenubarItem>
@@ -479,7 +470,6 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
             <MenubarMenu>
               <MenubarTrigger>Deploy</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarItem closeOnClick>Staging</MenubarItem>
                 <MenubarItem closeOnClick>Production</MenubarItem>
               </MenubarContent>
@@ -506,7 +496,6 @@ Use `MenubarLinkItem` for navigation commands that should render as links while 
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarLinkItem,
         MenubarSeparator,
         MenubarItem,
@@ -518,7 +507,6 @@ Use `MenubarLinkItem` for navigation commands that should render as links while 
             <MenubarMenu>
               <MenubarTrigger>Navigate</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarLinkItem href="#projects">Projects</MenubarLinkItem>
                 <MenubarLinkItem href="#teams">Teams</MenubarLinkItem>
                 <MenubarLinkItem href="#billing">Billing</MenubarLinkItem>
@@ -549,7 +537,6 @@ backdrop, positioner, and viewport slots rendered by `MenubarContent`.
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarItem,
         MenubarSeparator,
       } from "moduix";
@@ -570,9 +557,9 @@ backdrop, positioner, and viewport slots rendered by `MenubarContent`.
                 sideOffset={10}
                 align="start"
                 alignOffset={-4}
+                arrow
                 withBackdrop
               >
-                <MenubarArrow />
                 <MenubarItem closeOnClick>Minimize</MenubarItem>
                 <MenubarItem closeOnClick>Zoom</MenubarItem>
                 <MenubarSeparator />
@@ -642,7 +629,6 @@ Pass children to icon slots to use icons from your application or an external ic
         MenubarMenu,
         MenubarTrigger,
         MenubarContent,
-        MenubarArrow,
         MenubarItem,
         MenubarItemTextContent,
         MenubarItemTextIcon,
@@ -659,7 +645,6 @@ Pass children to icon slots to use icons from your application or an external ic
             <MenubarMenu>
               <MenubarTrigger>Places</MenubarTrigger>
               <MenubarContent>
-                <MenubarArrow />
                 <MenubarItem closeOnClick>
                   <MenubarItemTextContent>
                     <MenubarItemTextIcon>

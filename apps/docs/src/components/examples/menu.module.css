@@ -9,6 +9,8 @@
 }
 
 .customTrigger {
+  position: relative;
+  z-index: var(--z-popup);
   border-color: var(--color-primary);
   background:
     linear-gradient(var(--color-background), var(--color-background)) padding-box,
@@ -37,6 +39,10 @@
   --menu-highlight-bg: var(--color-primary);
   --menu-highlight-color: var(--color-primary-foreground);
   --menu-separator-color: var(--color-primary);
+}
+
+.customArrow {
+  --menu-arrow-stroke-color: var(--menu-popup-border-color);
 }
 
 .customItem {

@@ -238,7 +238,7 @@ export const WithBackdropAndSlotClasses: Story = {
   render: () => {
     return (
       <ContextMenu>
-        <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
         <ContextMenuContent
           className={storyStyles.customPopup}
           classNames={{
