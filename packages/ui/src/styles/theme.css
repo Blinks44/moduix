@@ -1778,8 +1778,11 @@
   /* Tabs */
   --tabs-bg: initial; /* var(--color-background) */
   --tabs-border-color: initial; /* var(--color-border) */
+  --tabs-border-width: initial; /* var(--border-width-sm) */
   --tabs-color: initial; /* var(--color-foreground) */
   --tabs-focus-ring-color: initial; /* var(--color-ring) */
+  --tabs-focus-ring-offset: initial; /* 0 */
+  --tabs-focus-ring-width: initial; /* var(--border-width-sm) */
   --tabs-gap: initial; /* 0 */
   --tabs-indicator-bg: initial; /* var(--color-background) */
   --tabs-indicator-radius: initial; /* var(--radius-sm) */
@@ -1791,6 +1794,7 @@
   --tabs-line-indicator-transition: initial; /* translate 200ms ease, width 200ms ease */
   --tabs-list-bg: initial; /* var(--color-muted) */
   --tabs-list-border-color: initial; /* var(--color-border) */
+  --tabs-list-border-width: initial; /* var(--tabs-border-width, var(--border-width-sm)) */
   --tabs-list-gap: initial; /* 0.25rem */
   --tabs-list-padding: initial; /* 0.25rem */
   --tabs-list-padding-x: initial; /* var(--tabs-list-padding, 0.25rem) */
@@ -1799,6 +1803,7 @@
   --tabs-panel-color: initial; /* var(--tabs-color, var(--color-foreground)) */
   --tabs-panel-font-size: initial; /* var(--text-sm) */
   --tabs-panel-line-height: initial; /* var(--line-height-text-sm) */
+  --tabs-panel-focus-ring-offset: initial; /* calc(var(--tabs-focus-ring-width, var(--border-width-sm)) * -1) */
   --tabs-panel-padding: initial; /* 1rem */
   --tabs-radius: initial; /* var(--radius-lg) */
   --tabs-tab-color: initial; /* var(--color-muted-foreground) */
@@ -1814,6 +1819,7 @@
   --tabs-tab-line-height: initial; /* var(--line-height-text-sm) */
   --tabs-tab-padding-x: initial; /* 0.625rem */
   --tabs-tab-radius: initial; /* var(--radius-sm) */
+  --tabs-tab-transition: initial; /* var(--transition-default) */
   --tabs-vertical-list-width: initial; /* 12rem */
   --tabs-vertical-min-height: initial; /* 14rem */
   --tabs-width: initial; /* 32rem */
@@ -1827,10 +1833,10 @@
   --text-font-size-md: initial; /* var(--text-md) */
   --text-font-size-lg: initial; /* var(--text-lg) */
   --text-font-size-xl: initial; /* var(--text-xl) */
-  --text-font-weight-regular: initial; /* var(--weight-regular) */
-  --text-font-weight-medium: initial; /* var(--weight-medium) */
-  --text-font-weight-semibold: initial; /* var(--weight-semibold) */
   --text-font-weight-bold: initial; /* var(--weight-bold) */
+  --text-font-weight-medium: initial; /* var(--weight-medium) */
+  --text-font-weight-regular: initial; /* var(--weight-regular) */
+  --text-font-weight-semibold: initial; /* var(--weight-semibold) */
   --text-letter-spacing: initial; /* 0 */
   --text-line-height-xs: initial; /* var(--line-height-text-xs) */
   --text-line-height-sm: initial; /* var(--line-height-text-sm) */
@@ -1845,6 +1851,7 @@
   --toast-action-bg: initial; /* var(--color-background) */
   --toast-action-bg-hover: initial; /* var(--color-accent) */
   --toast-action-border-color: initial; /* var(--color-border) */
+  --toast-action-border-width: initial; /* var(--toast-border-width, var(--border-width-sm)) */
   --toast-action-color: initial; /* var(--color-foreground) */
   --toast-action-font-size: initial; /* var(--text-xs) */
   --toast-action-font-weight: initial; /* var(--weight-medium) */
@@ -1853,19 +1860,27 @@
   --toast-action-padding-x: initial; /* 0.5rem */
   --toast-action-padding-y: initial; /* 0.25rem */
   --toast-action-radius: initial; /* var(--radius-sm) */
+  --toast-anchored-arrow-height: initial; /* 0.625rem */
+  --toast-anchored-arrow-width: initial; /* 1.25rem */
   --toast-anchored-font-size: initial; /* var(--text-sm) */
   --toast-anchored-line-height: initial; /* var(--line-height-text-sm) */
+  --toast-anchored-max-width: initial; /* 20rem */
   --toast-anchored-padding-x: initial; /* 0.5rem */
   --toast-anchored-padding-y: initial; /* 0.25rem */
+  --toast-anchored-scale: initial; /* 0.9 */
+  --toast-anchored-transition: initial; /* transform 150ms, opacity 150ms */
   --toast-bg: initial; /* var(--color-popover) */
   --toast-border-color: initial; /* var(--color-border) */
+  --toast-border-width: initial; /* var(--border-width-sm) */
   --toast-close-bg: initial; /* transparent */
   --toast-close-bg-hover: initial; /* var(--color-accent) */
   --toast-close-color: initial; /* var(--color-muted-foreground) */
   --toast-close-color-hover: initial; /* var(--color-foreground) */
+  --toast-close-focus-ring-offset: initial; /* 0 */
   --toast-close-icon-size: initial; /* 1rem */
   --toast-close-offset-right: initial; /* 0.5rem */
   --toast-close-offset-top: initial; /* 0.5rem */
+  --toast-close-padding: initial; /* 0 */
   --toast-close-radius: initial; /* var(--radius-sm) */
   --toast-close-size: initial; /* 1.25rem */
   --toast-color: initial; /* var(--color-popover-foreground) */
@@ -1874,6 +1889,7 @@
   --toast-description-font-size: initial; /* var(--text-sm) */
   --toast-description-line-height: initial; /* var(--line-height-text-sm) */
   --toast-focus-ring-color: initial; /* var(--color-ring) */
+  --toast-focus-ring-width: initial; /* var(--toast-border-width, var(--border-width-sm)) */
   --toast-padding: initial; /* 1rem */
   --toast-radius: initial; /* var(--radius-lg) */
   --toast-shadow: initial; /* var(--shadow-lg) */
