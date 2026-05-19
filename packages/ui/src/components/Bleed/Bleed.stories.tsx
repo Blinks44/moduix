@@ -44,6 +44,18 @@ export const InlineAmounts: Story = {
   ),
 };
 
+export const FullInlineInFlexStart: Story = {
+  render: () => (
+    <div className={storyStyles.flexStartContainer}>
+      <Text tone="muted">Parent uses flex column with align-items: flex-start.</Text>
+      <Bleed inline="full" className={storyStyles.panel}>
+        <Text>Full inline bleed in flex-start context</Text>
+      </Bleed>
+      <Text tone="muted">Following content stays constrained to parent width.</Text>
+    </div>
+  ),
+};
+
 export const BlockBleed: Story = {
   render: () => (
     <div className={storyStyles.paddedContainer}>
