@@ -62,11 +62,7 @@ export const toolbarOverrideCssProperties: CssPropertyInput[] = [
   ['--toolbar-control-radius', 'var(--radius-md)', 'Controls control corner radius.'],
   ['--toolbar-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled control opacity.'],
   ['--toolbar-focus-ring-color', 'var(--color-ring)', 'Controls keyboard focus ring color.'],
-  [
-    '--toolbar-focus-ring-offset',
-    'calc(var(--toolbar-control-border-width) * -1)',
-    'Controls keyboard focus ring offset.',
-  ],
+  ['--toolbar-focus-ring-offset', '-1px', 'Controls keyboard focus ring offset.'],
   ['--toolbar-focus-ring-width', 'var(--border-width-md)', 'Controls keyboard focus ring width.'],
   ['--toolbar-font-size-sm', 'var(--text-xs)', 'Controls small control font size.'],
   ['--toolbar-font-size-lg', 'var(--text-md)', 'Controls large control font size.'],
@@ -80,11 +76,7 @@ export const toolbarOverrideCssProperties: CssPropertyInput[] = [
   ['--toolbar-input-border-color', 'var(--color-border)', 'Controls input border color.'],
   ['--toolbar-input-border-width', 'var(--border-width-sm)', 'Controls input border width.'],
   ['--toolbar-input-color', 'var(--color-foreground)', 'Controls input text color.'],
-  [
-    '--toolbar-input-focus-ring-offset',
-    'calc(var(--toolbar-input-border-width) * -1)',
-    'Controls input focus ring offset.',
-  ],
+  ['--toolbar-input-focus-ring-offset', '-1px', 'Controls input focus ring offset.'],
   [
     '--toolbar-input-focus-ring-width',
     'var(--border-width-sm)',

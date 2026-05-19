@@ -31,11 +31,7 @@ export const tooltipOverrideCssProperties: CssPropertyInput[] = [
   ['--tooltip-content-transition', '150ms', 'Controls content transitions between triggers.'],
   ['--tooltip-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
   ['--tooltip-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  [
-    '--tooltip-focus-ring-offset',
-    'calc(var(--tooltip-trigger-border-width) * -1)',
-    'Controls trigger focus ring offset.',
-  ],
+  ['--tooltip-focus-ring-offset', '-1px', 'Controls trigger focus ring offset.'],
   ['--tooltip-focus-ring-width', 'var(--border-width-sm)', 'Controls trigger focus ring width.'],
   ['--tooltip-font-size', 'var(--text-sm)', 'Controls the popup font size.'],
   ['--tooltip-line-height', 'var(--line-height-text-sm)', 'Controls the popup line height.'],

@@ -40,10 +40,7 @@
     &:focus-visible {
       outline: var(--tooltip-focus-ring-width, var(--border-width-sm)) solid
         var(--tooltip-focus-ring-color, var(--color-ring));
-      outline-offset: var(
-        --tooltip-focus-ring-offset,
-        calc(var(--tooltip-trigger-border-width, var(--border-width-sm)) * -1)
-      );
+      outline-offset: var(--tooltip-focus-ring-offset, -1px);
     }
 
     &[data-trigger-disabled],

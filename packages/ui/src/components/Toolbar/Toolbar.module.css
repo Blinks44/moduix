@@ -105,10 +105,7 @@
     &:focus-visible {
       outline: var(--toolbar-focus-ring-width, var(--border-width-md)) solid
         var(--toolbar-focus-ring-color, var(--color-ring));
-      outline-offset: var(
-        --toolbar-focus-ring-offset,
-        calc(var(--toolbar-control-border-width, var(--border-width-sm)) * -1)
-      );
+      outline-offset: var(--toolbar-focus-ring-offset, -1px);
     }
 
     &[data-disabled],
@@ -167,10 +164,7 @@
     font-size: var(--toolbar-font-size, var(--text-sm));
     line-height: var(--toolbar-line-height, var(--line-height-text-sm));
     outline: var(--toolbar-input-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: var(
-      --toolbar-input-focus-ring-offset,
-      calc(var(--toolbar-input-border-width, var(--border-width-sm)) * -1)
-    );
+    outline-offset: var(--toolbar-input-focus-ring-offset, -1px);
     transition:
       border-color var(--toolbar-transition, var(--transition-default)),
       outline-color var(--toolbar-transition, var(--transition-default)),

@@ -1927,7 +1927,7 @@
   --toolbar-control-radius: initial; /* var(--radius-md) */
   --toolbar-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toolbar-focus-ring-color: initial; /* var(--color-ring) */
-  --toolbar-focus-ring-offset: initial; /* calc(var(--toolbar-control-border-width, var(--border-width-sm)) * -1) */
+  --toolbar-focus-ring-offset: initial; /* -1px */
   --toolbar-focus-ring-width: initial; /* var(--border-width-md) */
   --toolbar-font-size-sm: initial; /* var(--text-xs) */
   --toolbar-font-size-lg: initial; /* var(--text-md) */
@@ -1941,7 +1941,7 @@
   --toolbar-input-border-color: initial; /* var(--color-border) */
   --toolbar-input-border-width: initial; /* var(--border-width-sm) */
   --toolbar-input-color: initial; /* var(--color-foreground) */
-  --toolbar-input-focus-ring-offset: initial; /* calc(var(--toolbar-input-border-width, var(--border-width-sm)) * -1) */
+  --toolbar-input-focus-ring-offset: initial; /* -1px */
   --toolbar-input-focus-ring-width: initial; /* var(--border-width-sm) */
   --toolbar-input-padding-x: initial; /* 0.75rem */
   --toolbar-input-placeholder-color: initial; /* var(--color-muted-foreground) */
@@ -1976,7 +1976,7 @@
   --tooltip-content-transition: initial; /* 150ms */
   --tooltip-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tooltip-focus-ring-color: initial; /* var(--color-ring) */
-  --tooltip-focus-ring-offset: initial; /* calc(var(--tooltip-trigger-border-width, var(--border-width-sm)) * -1) */
+  --tooltip-focus-ring-offset: initial; /* -1px */
   --tooltip-focus-ring-width: initial; /* var(--border-width-sm) */
   --tooltip-font-size: initial; /* var(--text-sm) */
   --tooltip-line-height: initial; /* var(--line-height-text-sm) */
@@ -2017,7 +2017,7 @@
   --toggle-default-color-pressed: initial; /* var(--color-primary-foreground) */
   --toggle-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toggle-focus-ring-color: initial; /* var(--color-ring) */
-  --toggle-focus-ring-offset: initial; /* calc(var(--toggle-border-width, var(--border-width-sm)) * -1) */
+  --toggle-focus-ring-offset: initial; /* -1px */
   --toggle-focus-ring-width: initial; /* var(--border-width-md) */
   --toggle-font-size-xs: initial; /* var(--text-xs) */
   --toggle-font-size-lg: initial; /* var(--text-md) */

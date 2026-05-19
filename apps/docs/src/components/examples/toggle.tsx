@@ -26,11 +26,7 @@ export const toggleOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--toggle-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--toggle-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  [
-    '--toggle-focus-ring-offset',
-    'calc(var(--toggle-border-width) * -1)',
-    'Controls focus ring offset.',
-  ],
+  ['--toggle-focus-ring-offset', '-1px', 'Controls focus ring offset.'],
   ['--toggle-focus-ring-width', 'var(--border-width-md)', 'Controls focus ring width.'],
   ['--toggle-font-size', 'var(--text-sm)', 'Controls base font size.'],
   ['--toggle-font-size-xs', 'var(--text-xs)', 'Controls extra-small font size.'],
