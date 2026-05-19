@@ -1,5 +1,11 @@
 # moduix
 
+## 0.8.1
+
+### Patch Changes
+
+- 667c7e7: Expand more css variables for styling
+
 ## 0.8.0
 
 ### Minor Changes
