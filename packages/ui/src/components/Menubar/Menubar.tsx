@@ -118,7 +118,7 @@ function MenubarArrow({ className, children, ...props }: MenuPrimitive.Arrow.Pro
       className={mergeClassName(className, styles.arrow)}
       {...props}
     >
-      {children ?? <ArrowSvg />}
+      {children ?? <ArrowSvg className={styles.arrowSvg} />}
     </MenuPrimitive.Arrow>
   );
 }

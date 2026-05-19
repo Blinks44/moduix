@@ -33,6 +33,7 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './menubar.module.css';
 
 export const menubarOverrideCssProperties: CssPropertyInput[] = [
+  ['--menubar-arrow-height', '0.625rem', 'Controls popup arrow height.'],
   ['--menubar-arrow-inline-offset', '0.8125rem', 'Controls popup arrow inline offset.'],
   ['--menubar-arrow-size', '0.5rem', 'Controls popup arrow size.'],
   [
@@ -40,6 +41,7 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
     'var(--menubar-popup-border-color)',
     'Controls arrow stroke color.',
   ],
+  ['--menubar-arrow-width', '1.25rem', 'Controls popup arrow width.'],
   ['--menubar-backdrop-bg', 'var(--color-overlay)', 'Controls optional backdrop background.'],
   ['--menubar-backdrop-blur', '2px', 'Controls optional backdrop blur.'],
   [
@@ -49,6 +51,7 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--menubar-bg', 'var(--color-muted)', 'Controls menubar background.'],
   ['--menubar-border-color', 'var(--color-border)', 'Controls menubar border color.'],
+  ['--menubar-border-width', 'var(--border-width-sm)', 'Controls menubar border width.'],
   ['--menubar-check-gap', '0.5rem', 'Controls checkbox/radio indicator gap.'],
   ['--menubar-check-indicator-size', '0.75rem', 'Controls checkbox/radio indicator size.'],
   ['--menubar-check-padding-x-start', '0.625rem', 'Controls checkbox/radio start padding.'],
@@ -85,6 +88,7 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
     'var(--menu-focus-ring-color, var(--color-ring))',
     'Controls focus ring color.',
   ],
+  ['--menubar-focus-ring-width', 'var(--menubar-border-width)', 'Controls focus ring width.'],
   ['--menubar-gap', 'var(--spacing-1)', 'Controls spacing between triggers.'],
   ['--menubar-group-label-color', 'var(--color-muted-foreground)', 'Controls group label color.'],
   ['--menubar-group-label-font-size', 'var(--text-xs)', 'Controls group label font size.'],
@@ -134,6 +138,7 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ['--menubar-padding-y', '0.125rem', 'Controls menubar vertical padding.'],
   ['--menubar-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
   ['--menubar-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--menubar-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
   ['--menubar-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--menubar-popup-max-height', '24rem', 'Controls popup maximum height.'],
   ['--menubar-popup-max-width', '20rem', 'Controls popup maximum width.'],
@@ -144,6 +149,7 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ['--menubar-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--menubar-radius', 'var(--radius-md)', 'Controls menubar radius.'],
   ['--menubar-separator-color', 'var(--color-border)', 'Controls separator color.'],
+  ['--menubar-separator-height', 'var(--border-width-sm)', 'Controls separator thickness.'],
   ['--menubar-separator-margin-x-end', '1rem', 'Controls separator end margin.'],
   ['--menubar-separator-margin-x-start', '1rem', 'Controls separator start margin.'],
   ['--menubar-separator-margin-y', '0.375rem', 'Controls separator vertical margin.'],
@@ -181,11 +187,17 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
     'var(--menubar-border-color, var(--color-border))',
     'Controls active trigger inset ring color.',
   ],
+  [
+    '--menubar-trigger-ring-width',
+    'var(--menubar-border-width)',
+    'Controls active trigger ring width.',
+  ],
   ['--menubar-vertical-width', '12rem', 'Controls vertical menubar width.'],
 ];
 export const menubarPlaygroundCssProperties: CssPropertyInput[] = [
   ['--menubar-bg', 'var(--color-muted)', 'Controls menubar background.'],
   ['--menubar-border-color', 'var(--color-border)', 'Controls menubar border color.'],
+  ['--menubar-border-width', 'var(--border-width-sm)', 'Controls menubar border width.'],
   [
     '--menubar-checkbox-indicator-border-color',
     'currentColor',
@@ -196,6 +208,7 @@ export const menubarPlaygroundCssProperties: CssPropertyInput[] = [
   ['--menubar-item-bg', 'transparent', 'Controls item background.'],
   ['--menubar-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
   ['--menubar-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--menubar-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
   ['--menubar-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--menubar-radius', 'var(--radius-md)', 'Controls menubar radius.'],
   [
@@ -204,6 +217,11 @@ export const menubarPlaygroundCssProperties: CssPropertyInput[] = [
     'Controls open trigger background.',
   ],
   ['--menubar-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
+  [
+    '--menubar-trigger-ring-width',
+    'var(--menubar-border-width)',
+    'Controls active trigger ring width.',
+  ],
 ];
 
 export function MenubarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

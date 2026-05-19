@@ -39,7 +39,7 @@
   .indicator {
     display: block;
     height: 100%;
-    border-radius: inherit;
+    border-radius: var(--meter-indicator-radius, inherit);
     background-color: var(--meter-indicator-bg, var(--color-primary));
     transition: width var(--meter-indicator-transition, var(--transition-default));
   }

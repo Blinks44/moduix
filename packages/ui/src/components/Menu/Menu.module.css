@@ -8,7 +8,8 @@
     min-height: var(--menu-trigger-height, var(--size-lg));
     margin: 0;
     padding: var(--menu-trigger-padding-y, 0.5rem) var(--menu-trigger-padding-x, 0.875rem);
-    border: var(--border-width-sm) solid var(--menu-trigger-border-color, var(--color-border));
+    border: var(--menu-trigger-border-width, var(--border-width-sm)) solid
+      var(--menu-trigger-border-color, var(--color-border));
     border-radius: var(--menu-trigger-radius, var(--radius-md));
     background-color: var(--menu-trigger-bg, var(--color-background));
     color: var(--menu-trigger-color, var(--color-foreground));
@@ -38,8 +39,14 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--menu-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(
+          --menu-focus-ring-width,
+          var(--menu-trigger-border-width, var(--border-width-sm))
+        )
+        solid var(--menu-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(--menu-focus-ring-width, var(--menu-trigger-border-width, var(--border-width-sm))) * -1
+      );
     }
 
     &[data-disabled],
@@ -103,7 +110,8 @@
     border-radius: var(--menu-popup-radius, var(--radius-md));
     background-color: var(--menu-popup-bg, var(--color-popover));
     color: var(--menu-popup-color, var(--color-popover-foreground));
-    outline: var(--border-width-sm) solid var(--menu-popup-border-color, var(--color-border));
+    outline: var(--menu-popup-border-width, var(--border-width-sm)) solid
+      var(--menu-popup-border-color, var(--color-border));
     box-shadow: var(--menu-popup-shadow, var(--shadow-lg));
     transform-origin: var(--transform-origin);
     transition:
@@ -415,7 +423,7 @@
 
   .separator {
     box-sizing: border-box;
-    height: var(--border-width-sm);
+    height: var(--menu-separator-height, var(--border-width-sm));
     margin-block: var(--menu-separator-margin-y, var(--popup-separator-margin-y, 0.375rem));
     margin-inline: var(--menu-separator-margin-x-start, var(--popup-separator-margin-x-start, 1rem))
       var(--menu-separator-margin-x-end, var(--popup-separator-margin-x-end, 1rem));

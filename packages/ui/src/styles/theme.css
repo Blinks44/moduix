@@ -1022,12 +1022,12 @@
   --list-font-size-xl: initial; /* var(--text-xl) */
   --list-font-weight: initial; /* var(--weight-regular) */
   --list-gap: initial; /* var(--list-gap-sm, var(--spacing-2)) */
-  --list-gap-2xl: initial; /* var(--spacing-6) */
   --list-gap-xs: initial; /* var(--spacing-1) */
   --list-gap-sm: initial; /* var(--spacing-2) */
   --list-gap-md: initial; /* var(--spacing-3) */
   --list-gap-lg: initial; /* var(--spacing-4) */
   --list-gap-xl: initial; /* var(--spacing-5) */
+  --list-gap-2xl: initial; /* var(--spacing-6) */
   --list-item-padding-x: initial; /* 0 */
   --list-letter-spacing: initial; /* 0 */
   --list-line-height: initial; /* var(--list-line-height-md, var(--line-height-text-md)) */
@@ -1067,6 +1067,7 @@
   --menu-checkbox-indicator-radius: initial; /* var(--radius-xs) */
   --menu-disabled-opacity: initial; /* var(--opacity-disabled) */
   --menu-focus-ring-color: initial; /* var(--color-ring) */
+  --menu-focus-ring-width: initial; /* var(--menu-trigger-border-width) */
   --menu-group-label-color: initial; /* var(--color-muted-foreground) */
   --menu-group-label-font-size: initial; /* var(--text-xs) */
   --menu-group-label-line-height: initial; /* var(--line-height-text-xs) */
@@ -1097,6 +1098,7 @@
   --menu-item-text-icon-size: initial; /* 1rem */
   --menu-popup-bg: initial; /* var(--color-popover) */
   --menu-popup-border-color: initial; /* var(--color-border) */
+  --menu-popup-border-width: initial; /* var(--border-width-sm) */
   --menu-popup-color: initial; /* var(--color-popover-foreground) */
   --menu-popup-height: initial; /* auto */
   --menu-popup-max-height: initial; /* 24rem */
@@ -1108,6 +1110,7 @@
   --menu-popup-shadow: initial; /* var(--shadow-lg) */
   --menu-popup-width: initial; /* auto */
   --menu-separator-color: initial; /* var(--color-border) */
+  --menu-separator-height: initial; /* var(--border-width-sm) */
   --menu-separator-margin-x-end: initial; /* 1rem */
   --menu-separator-margin-x-start: initial; /* 1rem */
   --menu-separator-margin-y: initial; /* 0.375rem */
@@ -1120,6 +1123,7 @@
   --menu-trigger-bg-active: initial; /* var(--menu-trigger-bg-hover) */
   --menu-trigger-bg-hover: initial; /* var(--color-accent) */
   --menu-trigger-border-color: initial; /* var(--color-border) */
+  --menu-trigger-border-width: initial; /* var(--border-width-sm) */
   --menu-trigger-color: initial; /* var(--color-foreground) */
   --menu-trigger-font-size: initial; /* var(--text-md) */
   --menu-trigger-gap: initial; /* 0.5rem */
@@ -1132,14 +1136,17 @@
   --menu-trigger-radius: initial; /* var(--radius-md) */
 
   /* Menubar */
+  --menubar-arrow-height: initial; /* 0.625rem */
   --menubar-arrow-inline-offset: initial; /* 0.8125rem */
   --menubar-arrow-size: initial; /* 0.5rem */
   --menubar-arrow-stroke-color: initial; /* var(--menubar-popup-border-color) */
+  --menubar-arrow-width: initial; /* 1.25rem */
   --menubar-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --menubar-backdrop-blur: initial; /* 2px */
   --menubar-backdrop-transition: initial; /* var(--transition-default) */
   --menubar-bg: initial; /* var(--color-muted) */
   --menubar-border-color: initial; /* var(--color-border) */
+  --menubar-border-width: initial; /* var(--border-width-sm) */
   --menubar-check-gap: initial; /* 0.5rem */
   --menubar-check-indicator-size: initial; /* 0.75rem */
   --menubar-check-padding-x-start: initial; /* 0.625rem */
@@ -1152,6 +1159,7 @@
   --menubar-color: initial; /* var(--color-foreground) */
   --menubar-disabled-opacity: initial; /* var(--opacity-disabled) */
   --menubar-focus-ring-color: initial; /* var(--menu-focus-ring-color, var(--color-ring)) */
+  --menubar-focus-ring-width: initial; /* var(--menubar-border-width) */
   --menubar-gap: initial; /* var(--spacing-1) */
   --menubar-group-label-color: initial; /* var(--color-muted-foreground) */
   --menubar-group-label-font-size: initial; /* var(--text-xs) */
@@ -1160,33 +1168,14 @@
   --menubar-group-label-padding-x-start: initial; /* 0.625rem */
   --menubar-group-label-padding-y: initial; /* 0.35rem */
   --menubar-group-padding-y: initial; /* 0 */
-  --menubar-trigger-bg: initial; /* transparent */
-  --menubar-trigger-bg-hover: initial; /* var(--color-accent) */
-  --menubar-trigger-bg-active: initial; /* var(--menubar-trigger-bg-hover) */
-  --menubar-trigger-color: initial; /* var(--color-foreground) */
-  --menubar-trigger-color-active: initial; /* var(--menubar-trigger-color, var(--color-foreground)) */
-  --menubar-trigger-ring-active: initial; /* var(--menubar-border-color, var(--color-border)) */
-  --menubar-trigger-gap: initial; /* 0.5rem */
-  --menubar-trigger-height: initial; /* var(--size-lg) */
-  --menubar-trigger-padding-x: initial; /* 0.75rem */
-  --menubar-trigger-padding-y: initial; /* 0.5rem */
-  --menubar-trigger-radius: initial; /* var(--radius-sm) */
-  --menubar-trigger-font-size: initial; /* var(--text-sm) */
-  --menubar-trigger-line-height: initial; /* var(--line-height-text-sm) */
-  --menubar-popup-bg: initial; /* var(--color-popover) */
-  --menubar-popup-border-color: initial; /* var(--color-border) */
-  --menubar-popup-color: initial; /* var(--color-popover-foreground) */
-  --menubar-popup-min-width: initial; /* 12rem */
-  --menubar-popup-max-width: initial; /* 20rem */
-  --menubar-popup-max-height: initial; /* 24rem */
-  --menubar-popup-padding-y: initial; /* 0.25rem */
-  --menubar-popup-radius: initial; /* var(--radius-md) */
-  --menubar-popup-scale: initial; /* var(--scale-popup) */
-  --menubar-popup-shadow: initial; /* var(--shadow-lg) */
-  --menubar-item-font-size: initial; /* var(--text-sm) */
+  --menubar-highlight-bg: initial; /* var(--color-foreground) */
+  --menubar-highlight-color: initial; /* var(--color-background) */
+  --menubar-highlight-inset-x: initial; /* var(--spacing-1) */
+  --menubar-highlight-radius: initial; /* var(--radius-sm) */
   --menubar-item-bg: initial; /* transparent */
   --menubar-item-bg-disabled: initial; /* var(--menubar-item-bg) */
   --menubar-item-disabled-color: initial; /* var(--color-muted-foreground) */
+  --menubar-item-font-size: initial; /* var(--text-sm) */
   --menubar-item-gap: initial; /* var(--spacing-2) */
   --menubar-item-height: initial; /* 2rem */
   --menubar-item-line-height: initial; /* var(--line-height-text-sm) */
@@ -1200,28 +1189,51 @@
   --menubar-item-text-content-gap: initial; /* var(--spacing-2) */
   --menubar-item-text-icon-color: initial; /* currentColor */
   --menubar-item-text-icon-size: initial; /* 1rem */
-  --menubar-highlight-bg: initial; /* var(--color-foreground) */
-  --menubar-highlight-color: initial; /* var(--color-background) */
-  --menubar-highlight-inset-x: initial; /* var(--spacing-1) */
-  --menubar-highlight-radius: initial; /* var(--radius-sm) */
   --menubar-padding-x: initial; /* 0.125rem */
   --menubar-padding-y: initial; /* 0.125rem */
+  --menubar-popup-bg: initial; /* var(--color-popover) */
+  --menubar-popup-border-color: initial; /* var(--color-border) */
+  --menubar-popup-border-width: initial; /* var(--border-width-sm) */
+  --menubar-popup-color: initial; /* var(--color-popover-foreground) */
+  --menubar-popup-max-height: initial; /* 24rem */
+  --menubar-popup-max-width: initial; /* 20rem */
+  --menubar-popup-min-width: initial; /* 12rem */
+  --menubar-popup-padding-y: initial; /* 0.25rem */
+  --menubar-popup-radius: initial; /* var(--radius-md) */
+  --menubar-popup-scale: initial; /* var(--scale-popup) */
+  --menubar-popup-shadow: initial; /* var(--shadow-lg) */
   --menubar-radius: initial; /* var(--radius-md) */
   --menubar-separator-color: initial; /* var(--color-border) */
+  --menubar-separator-height: initial; /* var(--border-width-sm) */
   --menubar-separator-margin-x-end: initial; /* 1rem */
   --menubar-separator-margin-x-start: initial; /* 1rem */
   --menubar-separator-margin-y: initial; /* 0.375rem */
-  --menubar-submenu-open-bg: initial; /* var(--color-accent) */
   --menubar-submenu-icon-size: initial; /* 0.875rem */
+  --menubar-submenu-open-bg: initial; /* var(--color-accent) */
   --menubar-submenu-trigger-gap: initial; /* var(--spacing-3) */
   --menubar-submenu-trigger-padding-x-end: initial; /* 1rem */
   --menubar-transition: initial; /* var(--transition-default) */
+  --menubar-trigger-bg: initial; /* transparent */
+  --menubar-trigger-bg-active: initial; /* var(--menubar-trigger-bg-hover) */
+  --menubar-trigger-bg-hover: initial; /* var(--color-accent) */
+  --menubar-trigger-color: initial; /* var(--color-foreground) */
+  --menubar-trigger-color-active: initial; /* var(--menubar-trigger-color, var(--color-foreground)) */
+  --menubar-trigger-font-size: initial; /* var(--text-sm) */
+  --menubar-trigger-gap: initial; /* 0.5rem */
+  --menubar-trigger-height: initial; /* var(--size-lg) */
+  --menubar-trigger-line-height: initial; /* var(--line-height-text-sm) */
+  --menubar-trigger-padding-x: initial; /* 0.75rem */
+  --menubar-trigger-padding-y: initial; /* 0.5rem */
+  --menubar-trigger-radius: initial; /* var(--radius-sm) */
+  --menubar-trigger-ring-active: initial; /* var(--menubar-border-color, var(--color-border)) */
+  --menubar-trigger-ring-width: initial; /* var(--menubar-border-width) */
   --menubar-vertical-width: initial; /* 12rem */
 
   /* Meter */
   --meter-color: initial; /* var(--color-foreground) */
   --meter-gap: initial; /* 0.5rem */
   --meter-indicator-bg: initial; /* var(--color-primary) */
+  --meter-indicator-radius: initial; /* inherit */
   --meter-indicator-transition: initial; /* var(--transition-default) */
   --meter-label-color: initial; /* var(--meter-color) */
   --meter-label-font-size: initial; /* var(--text-sm) */

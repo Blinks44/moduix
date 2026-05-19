@@ -73,12 +73,12 @@ export const listOverrideCssProperties: CssPropertyInput[] = [
   ['--list-font-size-xl', 'var(--text-xl)', 'Controls extra-large list font size.'],
   ['--list-font-weight', 'var(--weight-regular)', 'Controls list font weight.'],
   ['--list-gap', 'var(--list-gap-sm, var(--spacing-2))', 'Controls default gap between items.'],
-  ['--list-gap-2xl', 'var(--spacing-6)', 'Controls 2xl list item gap.'],
   ['--list-gap-xs', 'var(--spacing-1)', 'Controls extra-small list item gap.'],
   ['--list-gap-sm', 'var(--spacing-2)', 'Controls small list item gap.'],
   ['--list-gap-md', 'var(--spacing-3)', 'Controls medium list item gap.'],
   ['--list-gap-lg', 'var(--spacing-4)', 'Controls large list item gap.'],
   ['--list-gap-xl', 'var(--spacing-5)', 'Controls extra-large list item gap.'],
+  ['--list-gap-2xl', 'var(--spacing-6)', 'Controls 2xl list item gap.'],
   ['--list-item-padding-x', '0', 'Controls list item inline start padding.'],
   ['--list-letter-spacing', '0', 'Controls list letter spacing.'],
   [

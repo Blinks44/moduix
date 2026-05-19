@@ -47,7 +47,6 @@ export const headingOverrideCssProperties: CssPropertyInput[] = [
 export const headingPlaygroundCssProperties: CssPropertyInput[] = [
   ['--heading-color', 'var(--color-foreground)', 'Controls heading text color.'],
   ['--heading-font-family', 'var(--font-sans)', 'Controls heading font family.'],
-  ['--heading-font-weight', 'var(--weight-semibold)', 'Controls heading font weight.'],
   ['--heading-letter-spacing', '0', 'Controls heading letter spacing.'],
   ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
 ];
