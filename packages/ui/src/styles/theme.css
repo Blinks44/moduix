@@ -721,7 +721,6 @@
   --dialog-bg: initial; /* var(--color-popover) */
   --dialog-border-color: initial; /* var(--color-border) */
   --dialog-border-width: initial; /* var(--border-width-sm) */
-  --dialog-color: initial; /* var(--color-popover-foreground) */
   --dialog-close-icon-bg: initial; /* transparent */
   --dialog-close-icon-bg-hover: initial; /* var(--color-accent) */
   --dialog-close-icon-color: initial; /* var(--dialog-muted-color) */
@@ -730,6 +729,7 @@
   --dialog-close-icon-glyph-size: initial; /* 0.75rem */
   --dialog-close-icon-radius: initial; /* var(--radius-md) */
   --dialog-close-icon-size: initial; /* 1.75rem */
+  --dialog-color: initial; /* var(--color-popover-foreground) */
   --dialog-content-margin: initial; /* var(--spacing-4) 0 0 */
   --dialog-control-bg: initial; /* var(--color-background) */
   --dialog-control-bg-hover: initial; /* var(--color-accent) */
@@ -781,6 +781,7 @@
   --drawer-control-bg: initial; /* var(--color-background) */
   --drawer-control-bg-hover: initial; /* var(--color-accent) */
   --drawer-control-border-color: initial; /* var(--color-border) */
+  --drawer-control-border-width: initial; /* var(--border-width-sm) */
   --drawer-control-color: initial; /* var(--color-foreground) */
   --drawer-control-font-size: initial; /* var(--text-md) */
   --drawer-control-height: initial; /* var(--size-lg) */
@@ -792,6 +793,7 @@
   --drawer-description-font-size: initial; /* var(--text-md) */
   --drawer-description-line-height: initial; /* var(--line-height-text-md) */
   --drawer-focus-ring-color: initial; /* var(--color-ring) */
+  --drawer-focus-ring-width: initial; /* var(--drawer-control-border-width) */
   --drawer-footer-gap: initial; /* var(--spacing-2) */
   --drawer-footer-margin-top: initial; /* var(--spacing-6) */
   --drawer-handle-bg: initial; /* var(--color-muted-foreground) */
@@ -823,6 +825,9 @@
   --drawer-side-width: initial; /* 22rem */
   --drawer-snap-toggle-bg: initial; /* transparent */
   --drawer-snap-toggle-bg-hover: initial; /* var(--color-accent) */
+  --drawer-snap-toggle-border-color: initial; /* currentColor */
+  --drawer-snap-toggle-border-style: initial; /* solid */
+  --drawer-snap-toggle-border-width: initial; /* 0 */
   --drawer-snap-toggle-color: initial; /* var(--drawer-description-color, var(--color-muted-foreground)) */
   --drawer-snap-toggle-icon-size: initial; /* 1rem */
   --drawer-snap-toggle-radius: initial; /* var(--radius-md) */

@@ -105,8 +105,8 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-width', '28rem', 'Controls popup width.'],
 ];
 export const dialogPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--dialog-bg', 'var(--color-popover)', 'Controls popup background color.'],
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
+  ['--dialog-bg', 'var(--color-popover)', 'Controls popup background color.'],
   ['--dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--dialog-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
