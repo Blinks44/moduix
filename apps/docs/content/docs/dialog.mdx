@@ -484,7 +484,7 @@ rendered.
   </Preview.Code>
 </Preview>
 
-### Close Outside
+### Custom Styles
 
 For an outside close pattern, place `DialogCloseIcon` directly in `DialogContent` and position it
 against the viewport corner. This keeps the close control independent from popup size and loading
@@ -581,7 +581,7 @@ content behavior.
         right: var(--spacing-4);
         border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
         background-color: var(--dialog-bg, var(--color-popover));
-        --dialog-close-icon-color: var(--color-destructive);
+        --dialog-close-icon-color: var(--color-muted-foreground);
       }
     `}
 

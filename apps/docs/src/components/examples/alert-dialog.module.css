@@ -1,5 +1,5 @@
 .customCloseIcon {
-  --alert-dialog-close-icon-color: var(--color-destructive);
+  --alert-dialog-close-icon-color: var(--color-muted-foreground);
 }
 
 .scrollBody {
