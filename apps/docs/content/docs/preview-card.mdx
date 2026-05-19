@@ -159,7 +159,7 @@ shared triggers can be connected with `createPreviewCardHandle`.
 `PreviewCardContent` owns the rendered popup and its service slots. Pass placement props such as
 `side`, `align`, `sideOffset`, `alignOffset`, `collisionBoundary`, and `collisionPadding` directly
 to `PreviewCardContent`. Use `container` to choose the portal container, `withBackdrop` to enable
-the optional backdrop, `showArrow={false}` to remove the default arrow, and `arrow` to replace it.
+the optional backdrop, `withArrow={false}` to remove the default arrow, and `arrow` to replace it.
 Use `slotProps` only when you need to pass Base UI escape-hatch props to an internal slot, such as
 `keepMounted` on the portal or a custom `render` for the viewport.
 
@@ -593,13 +593,14 @@ Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
       export function SlotCustomizationPreviewCard() {
         return (
           <PreviewCard>
-            <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
+            <PreviewCardTrigger className={styles.slotTrigger} href="https://en.wikipedia.org/wiki/Typography">
               Preview with styled slots
             </PreviewCardTrigger>
             <PreviewCardContent
               withBackdrop
               classNames={{
                 backdrop: styles.backdrop,
+                arrow: styles.slotArrow,
                 viewport: styles.viewport,
               }}
             >
@@ -635,6 +636,15 @@ Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
         --preview-card-backdrop-bg: color-mix(in oklab, var(--color-background), transparent 70%);
         --preview-card-backdrop-blur: 2px;
         --preview-card-backdrop-transition: 200ms ease;
+      }
+
+      .slotTrigger {
+        position: relative;
+        z-index: calc(var(--z-popup) + 1);
+      }
+
+      .slotArrow {
+        --preview-card-arrow-stroke-color: var(--preview-card-border-color);
       }
 
       .viewport {

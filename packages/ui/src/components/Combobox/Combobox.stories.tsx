@@ -524,7 +524,7 @@ export const CustomStyles: Story = {
       <Combobox items={fruits}>
         <ComboboxField>
           <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
-          <ComboboxInputGroup>
+          <ComboboxInputGroup className={styles.customInputGroup}>
             <ComboboxInput id={id} placeholder="e.g. Mango" />
             <ComboboxControlActions>
               <ComboboxClear aria-label="Clear selection" />
@@ -536,7 +536,7 @@ export const CustomStyles: Story = {
         <ComboboxContent
           className={styles.customPopup}
           sideOffset={8}
-          showArrow
+          withArrow
           withBackdrop
           classNames={{
             portal: styles.portal,

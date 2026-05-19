@@ -6,6 +6,7 @@ icon: Component
 
 import {
   CustomIconNavigationMenuExample,
+  FullWidthNavigationMenuExample,
   NavigationMenuCssPlaygroundPanel,
   NavigationMenuCssPropertiesPanel,
   CustomStylesNavigationMenuExample,
@@ -281,13 +282,137 @@ the default composition:
 `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`,
 `collisionPadding`, `sticky`, `positionMethod`, and `disableAnchorTracking`. Use
 `popupContent.container` to choose the portal container, `popupContent.withBackdrop` to render the
-backdrop, `popupContent.showArrow={false}` to hide the arrow, and `popupContent.slotProps` when a
-service slot needs non-class props.
+backdrop, `popupContent.withArrow={false}` to hide the arrow, `popupContent.fullWidth` to stretch
+the popup to viewport width, and `popupContent.slotProps` when a service slot needs non-class props.
 
 Use `popupContent={false}` and `withViewport` when a nested menu should render its content inside
 the current panel instead of opening another popup.
 
 ## Examples
+
+### Full Width Popup
+
+Use `popupContent.fullWidth` when the popup should span the full viewport width, while the menu
+itself stays inside the page container. The example also shows 2/3/4-column layouts and content
+alignment control through CSS.
+
+<Preview>
+  <FullWidthNavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        NavigationMenu,
+        NavigationMenuContent,
+        NavigationMenuItem,
+        NavigationMenuLink,
+        NavigationMenuList,
+        NavigationMenuTrigger,
+      } from "moduix";
+      import styles from "./navigation-menu.module.css";
+
+      export function FullWidthNavigationMenuDemo() {
+        return (
+          <header className={styles.header}>
+            <div className={styles.container}>
+              <NavigationMenu
+                className={styles.menu}
+                popupContent={{ fullWidth: true, sideOffset: 12, withArrow: false }}
+              >
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
+                    <NavigationMenuContent className={styles.content}>
+                      <div className={styles.contentInner}>
+                        <ul className={styles.gridCols2}>{/* 2-column links */}</ul>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Developers</NavigationMenuTrigger>
+                    <NavigationMenuContent className={styles.content}>
+                      <div className={styles.contentInner}>
+                        <ul className={styles.gridCols3}>{/* 3-column links */}</ul>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Design System</NavigationMenuTrigger>
+                    <NavigationMenuContent className={styles.content}>
+                      <div className={styles.contentInner}>
+                        <ul className={styles.gridCols4}>{/* 4-column links */}</ul>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuLink href="#">Pricing</NavigationMenuLink>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+            </div>
+          </header>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .header {
+        width: 100%;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: 0 var(--spacing-4);
+      }
+
+      .menu {
+        --navigation-menu-full-width-content-justify: center;
+      }
+
+      .content {
+        padding: var(--spacing-5) 0;
+      }
+
+      .contentInner {
+        display: grid;
+        justify-content: var(--navigation-menu-full-width-content-justify, center);
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: 0 var(--spacing-4);
+      }
+
+      .gridCols2,
+      .gridCols3,
+      .gridCols4 {
+        display: grid;
+        width: max-content;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .gridCols2 {
+        grid-template-columns: repeat(2, minmax(12rem, 16rem));
+      }
+
+      .gridCols3 {
+        grid-template-columns: repeat(3, minmax(12rem, 16rem));
+      }
+
+      .gridCols4 {
+        grid-template-columns: repeat(4, minmax(12rem, 16rem));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
 
 ### Nested Submenu
 
@@ -331,7 +456,7 @@ The nested popup can still use collision handling from Base UI.
                           align: "end",
                           sideOffset: 24,
                           alignOffset: -24,
-                          showArrow: false,
+                          withArrow: false,
                         }}
                       >
                         <NavigationMenuList className={styles.fullWidth}>
@@ -623,6 +748,7 @@ Base UI service slots.
       export function CustomStylesNavigationMenuDemo() {
         return (
           <NavigationMenu
+            className={styles.customRoot}
             popupContent={{
               sideOffset: 16,
               withBackdrop: true,
@@ -682,6 +808,11 @@ Base UI service slots.
         z-index: var(--z-popup);
       }
 
+      .customRoot {
+        position: relative;
+        z-index: calc(var(--z-popup) + 1);
+      }
+
       .backdrop {
         background-color: rgb(15 23 42 / 0.08);
         backdrop-filter: blur(2px);
@@ -693,6 +824,7 @@ Base UI service slots.
 
       .arrow {
         color: var(--color-background);
+        --navigation-menu-arrow-stroke-color: var(--navigation-menu-popup-border-color);
       }
 
       .viewport {

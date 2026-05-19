@@ -31,72 +31,98 @@ const placements: ToastPlacement[] = [
 ];
 
 export const toastOverrideCssProperties: CssPropertyInput[] = [
-  ['--toast-viewport-width', '20rem', 'Controls the fixed toast viewport width.'],
-  ['--toast-viewport-inset', '1rem', 'Controls viewport distance from the window edge.'],
-  ['--toast-z-index', 'var(--z-toast)', 'Controls toast portal and stack z-index.'],
-  ['--toast-bg', 'var(--color-popover)', 'Controls toast background color.'],
-  ['--toast-color', 'var(--color-popover-foreground)', 'Controls toast text color.'],
-  ['--toast-border-color', 'var(--color-border)', 'Controls toast border color.'],
-  ['--toast-radius', 'var(--radius-lg)', 'Controls toast border radius.'],
-  ['--toast-shadow', 'var(--shadow-lg)', 'Controls toast shadow.'],
-  ['--toast-padding', '1rem', 'Controls root toast padding.'],
-  ['--toast-stack-gap', '0.75rem', 'Controls expanded stack spacing.'],
-  ['--toast-stack-peek', '0.75rem', 'Controls collapsed stack offset.'],
-  [
-    '--toast-transition',
-    '0.5s cubic-bezier(0.22, 1, 0.36, 1)',
-    'Controls toast movement transition.',
-  ],
-  ['--toast-content-gap', '0.25rem', 'Controls spacing inside toast content.'],
-  ['--toast-title-font-size', 'var(--text-sm)', 'Controls title font size.'],
-  ['--toast-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
   ['--toast-action-bg', 'var(--color-background)', 'Controls action button background.'],
   ['--toast-action-bg-hover', 'var(--color-accent)', 'Controls action hover background.'],
   ['--toast-action-border-color', 'var(--color-border)', 'Controls action border color.'],
+  [
+    '--toast-action-border-width',
+    'var(--toast-border-width, var(--border-width-sm))',
+    'Controls action button border width.',
+  ],
   ['--toast-action-color', 'var(--color-foreground)', 'Controls action text color.'],
   ['--toast-action-font-size', 'var(--text-xs)', 'Controls action font size.'],
   ['--toast-action-font-weight', 'var(--weight-medium)', 'Controls action font weight.'],
   ['--toast-action-line-height', 'var(--line-height-text-xs)', 'Controls action line height.'],
   ['--toast-action-margin-top', '0.5rem', 'Controls action spacing from the description.'],
-  ['--toast-action-radius', 'var(--radius-sm)', 'Controls action button border radius.'],
   ['--toast-action-padding-x', '0.5rem', 'Controls action horizontal padding.'],
   ['--toast-action-padding-y', '0.25rem', 'Controls action vertical padding.'],
-  ['--toast-close-size', '1.25rem', 'Controls close button size.'],
-  ['--toast-close-icon-size', '1rem', 'Controls default close icon size.'],
-  ['--toast-close-bg', 'transparent', 'Controls close button background.'],
-  ['--toast-close-color', 'var(--color-muted-foreground)', 'Controls close button color.'],
-  ['--toast-close-bg-hover', 'var(--color-accent)', 'Controls close hover background.'],
-  ['--toast-close-color-hover', 'var(--color-foreground)', 'Controls close hover color.'],
-  ['--toast-close-offset-right', '0.5rem', 'Controls close button right offset.'],
-  ['--toast-close-offset-top', '0.5rem', 'Controls close button top offset.'],
-  ['--toast-close-radius', 'var(--radius-sm)', 'Controls close button border radius.'],
-  ['--toast-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus rings.'],
-  ['--toast-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
-  ['--toast-title-line-height', 'var(--line-height-text-sm)', 'Controls title line height.'],
-  ['--toast-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
-  [
-    '--toast-description-line-height',
-    'var(--line-height-text-sm)',
-    'Controls description line height.',
-  ],
-  ['--toast-anchored-padding-x', '0.5rem', 'Controls anchored toast horizontal padding.'],
-  ['--toast-anchored-padding-y', '0.25rem', 'Controls anchored toast vertical padding.'],
+  ['--toast-action-radius', 'var(--radius-sm)', 'Controls action button border radius.'],
+  ['--toast-anchored-arrow-height', '0.625rem', 'Controls anchored toast arrow height.'],
+  ['--toast-anchored-arrow-offset-x', '-13px', 'Controls horizontal anchored arrow offset.'],
+  ['--toast-anchored-arrow-offset-y', '-8px', 'Controls vertical anchored arrow offset.'],
+  ['--toast-anchored-arrow-width', '1.25rem', 'Controls anchored toast arrow width.'],
   ['--toast-anchored-font-size', 'var(--text-sm)', 'Controls anchored toast font size.'],
   [
     '--toast-anchored-line-height',
     'var(--line-height-text-sm)',
     'Controls anchored toast line height.',
   ],
+  ['--toast-anchored-max-width', '20rem', 'Controls anchored toast max width.'],
+  ['--toast-anchored-padding-x', '0.5rem', 'Controls anchored toast horizontal padding.'],
+  ['--toast-anchored-padding-y', '0.25rem', 'Controls anchored toast vertical padding.'],
+  ['--toast-anchored-scale', '0.9', 'Controls anchored toast entering/leaving scale.'],
+  [
+    '--toast-anchored-transition',
+    'transform 150ms, opacity 150ms',
+    'Controls anchored toast transition.',
+  ],
+  ['--toast-bg', 'var(--color-popover)', 'Controls toast background color.'],
+  ['--toast-border-color', 'var(--color-border)', 'Controls toast border color.'],
+  ['--toast-border-width', 'var(--border-width-sm)', 'Controls toast border width.'],
+  ['--toast-close-bg', 'transparent', 'Controls close button background.'],
+  ['--toast-close-bg-hover', 'var(--color-accent)', 'Controls close hover background.'],
+  ['--toast-close-color', 'var(--color-muted-foreground)', 'Controls close button color.'],
+  ['--toast-close-color-hover', 'var(--color-foreground)', 'Controls close hover color.'],
+  ['--toast-close-focus-ring-offset', '0', 'Controls close button focus ring offset.'],
+  ['--toast-close-icon-size', '1rem', 'Controls default close icon size.'],
+  ['--toast-close-offset-right', '0.5rem', 'Controls close button right offset.'],
+  ['--toast-close-offset-top', '0.5rem', 'Controls close button top offset.'],
+  ['--toast-close-padding', '0', 'Controls close button inner padding.'],
+  ['--toast-close-radius', 'var(--radius-sm)', 'Controls close button border radius.'],
+  ['--toast-close-size', '1.25rem', 'Controls close button size.'],
+  ['--toast-color', 'var(--color-popover-foreground)', 'Controls toast text color.'],
+  ['--toast-content-gap', '0.25rem', 'Controls spacing inside toast content.'],
+  ['--toast-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
+  ['--toast-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
+  [
+    '--toast-description-line-height',
+    'var(--line-height-text-sm)',
+    'Controls description line height.',
+  ],
+  ['--toast-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus rings.'],
+  [
+    '--toast-focus-ring-width',
+    'var(--toast-border-width, var(--border-width-sm))',
+    'Controls action and close focus ring width.',
+  ],
+  ['--toast-padding', '1rem', 'Controls root toast padding.'],
+  ['--toast-radius', 'var(--radius-lg)', 'Controls toast border radius.'],
+  ['--toast-shadow', 'var(--shadow-lg)', 'Controls toast shadow.'],
+  ['--toast-stack-gap', '0.75rem', 'Controls expanded stack spacing.'],
+  ['--toast-stack-peek', '0.75rem', 'Controls collapsed stack offset.'],
+  ['--toast-title-font-size', 'var(--text-sm)', 'Controls title font size.'],
+  ['--toast-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
+  ['--toast-title-line-height', 'var(--line-height-text-sm)', 'Controls title line height.'],
+  [
+    '--toast-transition',
+    '0.5s cubic-bezier(0.22, 1, 0.36, 1)',
+    'Controls toast movement transition.',
+  ],
+  ['--toast-viewport-inset', '1rem', 'Controls viewport distance from the window edge.'],
+  ['--toast-viewport-width', '20rem', 'Controls the fixed toast viewport width.'],
+  ['--toast-z-index', 'var(--z-toast)', 'Controls toast portal and stack z-index.'],
 ];
 export const toastPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--toast-action-bg', 'var(--color-background)', 'Controls action button background.'],
+  ['--toast-action-border-color', 'var(--color-border)', 'Controls action border color.'],
   ['--toast-bg', 'var(--color-popover)', 'Controls toast background color.'],
-  ['--toast-color', 'var(--color-popover-foreground)', 'Controls toast text color.'],
   ['--toast-border-color', 'var(--color-border)', 'Controls toast border color.'],
+  ['--toast-color', 'var(--color-popover-foreground)', 'Controls toast text color.'],
+  ['--toast-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
+  ['--toast-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus rings.'],
   ['--toast-radius', 'var(--radius-lg)', 'Controls toast border radius.'],
   ['--toast-shadow', 'var(--shadow-lg)', 'Controls toast shadow.'],
   ['--toast-title-font-size', 'var(--text-sm)', 'Controls title font size.'],
-  ['--toast-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
-  ['--toast-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus rings.'],
 ];
 
 export function ToastCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -253,9 +279,14 @@ export function ToastAndAnchoredToastExample() {
 function AnchoredToastActions() {
   const copyRef = React.useRef<HTMLButtonElement | null>(null);
   const saveRef = React.useRef<HTMLButtonElement | null>(null);
+  const shareRef = React.useRef<HTMLButtonElement | null>(null);
   const anchoredToast = useAnchoredToastManager();
 
-  function showAnchored(anchor: HTMLButtonElement | null, description: string) {
+  function showAnchored(
+    anchor: HTMLButtonElement | null,
+    description: string,
+    positionerProps?: { side?: 'top' | 'right' | 'bottom' | 'left' },
+  ) {
     if (!anchor) {
       return;
     }
@@ -264,6 +295,7 @@ function AnchoredToastActions() {
       anchor,
       description,
       timeout: 1800,
+      positionerProps,
     });
   }
 
@@ -278,6 +310,17 @@ function AnchoredToastActions() {
         onClick={() => showAnchored(saveRef.current, 'Saved')}
       >
         Save
+      </Button>
+      <Button
+        ref={shareRef}
+        variant="secondary"
+        onClick={() =>
+          showAnchored(shareRef.current, 'Shared', {
+            side: 'bottom',
+          })
+        }
+      >
+        Share (bottom)
       </Button>
     </div>
   );

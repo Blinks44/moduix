@@ -23,6 +23,11 @@
   }
 
   .customArrow {
-    --autocomplete-arrow-stroke-color: var(--color-border);
+    --autocomplete-arrow-stroke-color: var(--autocomplete-popup-border-color);
+  }
+
+  .customInputGroup {
+    position: relative;
+    z-index: var(--z-popup);
   }
 }

@@ -24,22 +24,11 @@ const imageUrl =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 420'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230b1220' offset='0'/%3E%3Cstop stop-color='%231d3557' offset='0.52'/%3E%3Cstop stop-color='%23004e64' offset='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop stop-color='%23ffd166'/%3E%3Cstop stop-color='%23fca311'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%2306d6a0'/%3E%3Cstop stop-color='%23118ab2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='420' fill='url(%23bg)'/%3E%3Ccircle cx='120' cy='90' r='70' fill='%23ffffff22'/%3E%3Ccircle cx='620' cy='330' r='120' fill='%23ffffff18'/%3E%3Crect x='70' y='240' width='320' height='110' rx='22' fill='url(%23accent1)' opacity='0.88' transform='rotate(-8 230 295)'/%3E%3Crect x='320' y='90' width='300' height='120' rx='24' fill='url(%23accent2)' opacity='0.92' transform='rotate(10 470 150)'/%3E%3Cpath d='M40 370 C160 260, 270 360, 390 280 C510 200, 610 280, 720 210 L720 420 L40 420 Z' fill='%23ffffff22'/%3E%3C/svg%3E";
 
 export const popoverOverrideCssProperties: CssPropertyInput[] = [
-  ['--popover-width', 'auto', 'Controls the popup width.'],
-  ['--popover-height', 'auto', 'Controls the popup height.'],
-  ['--popover-min-width', '16rem', 'Controls the popup min width.'],
-  ['--popover-max-width', '28rem', 'Controls the popup max width.'],
-  ['--popover-max-height', '24rem', 'Controls the popup max height.'],
-  ['--popover-padding-x', '1rem', 'Controls the popup horizontal padding.'],
-  ['--popover-padding-y', '1rem', 'Controls the popup vertical padding.'],
-  ['--popover-bg', 'var(--color-popover)', 'Controls the popup background color.'],
-  ['--popover-color', 'var(--color-popover-foreground)', 'Controls the popup text color.'],
-  ['--popover-border-color', 'var(--color-border)', 'Controls the popup border color.'],
-  ['--popover-radius', 'var(--radius-md)', 'Controls the popup border radius.'],
-  ['--popover-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
-  ['--popover-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
-  ['--popover-transition', 'var(--transition-default)', 'Controls popup and control transitions.'],
-  ['--popover-viewport-offset', '1rem', 'Controls viewport content transition offset.'],
-  ['--popover-viewport-transition', '220ms', 'Controls viewport content transitions.'],
+  ['--popover-arrow-height', '0.625rem', 'Controls the default arrow SVG height.'],
+  ['--popover-arrow-inline-offset', '0.8125rem', 'Controls the inline-axis arrow offset.'],
+  ['--popover-arrow-size', '0.5rem', 'Controls the block-axis arrow offset.'],
+  ['--popover-arrow-stroke-color', 'var(--popover-border-color)', 'Controls arrow border color.'],
+  ['--popover-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
   ['--popover-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop background.'],
   ['--popover-backdrop-blur', '0', 'Controls backdrop blur.'],
   [
@@ -47,37 +36,39 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
     'var(--transition-default)',
     'Controls backdrop enter and exit transitions.',
   ],
+  ['--popover-bg', 'var(--color-popover)', 'Controls the popup background color.'],
+  ['--popover-body-margin', '0', 'Controls body margin.'],
+  ['--popover-border-color', 'var(--color-border)', 'Controls the popup border color.'],
+  ['--popover-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
+  ['--popover-color', 'var(--color-popover-foreground)', 'Controls the popup text color.'],
   ['--popover-control-bg', 'var(--color-background)', 'Controls trigger and close backgrounds.'],
-  [
-    '--popover-control-bg-hover',
-    'var(--color-accent)',
-    'Controls trigger and close hover backgrounds.',
-  ],
   [
     '--popover-control-bg-active',
     'var(--popover-control-bg-hover)',
     'Controls trigger background while the popup is open.',
   ],
   [
+    '--popover-control-bg-hover',
+    'var(--color-accent)',
+    'Controls trigger and close hover backgrounds.',
+  ],
+  [
     '--popover-control-border-color',
     'var(--color-border)',
     'Controls trigger and close border color.',
   ],
+  [
+    '--popover-control-border-width',
+    'var(--border-width-sm)',
+    'Controls trigger and close border width.',
+  ],
   ['--popover-control-color', 'var(--color-foreground)', 'Controls trigger and close text color.'],
+  ['--popover-control-font-size', 'var(--text-md)', 'Controls control font size.'],
   ['--popover-control-height', 'var(--size-lg)', 'Controls trigger and close min height.'],
-  ['--popover-control-radius', 'var(--radius-md)', 'Controls trigger and close border radius.'],
+  ['--popover-control-line-height', 'var(--line-height-text-md)', 'Controls control line height.'],
   ['--popover-control-padding-x', '0.875rem', 'Controls control horizontal padding.'],
   ['--popover-control-padding-y', '0.5rem', 'Controls control vertical padding.'],
-  ['--popover-control-font-size', 'var(--text-md)', 'Controls control font size.'],
-  ['--popover-control-line-height', 'var(--line-height-text-md)', 'Controls control line height.'],
-  ['--popover-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled control opacity.'],
-  ['--popover-focus-ring-color', 'var(--color-ring)', 'Controls control focus ring color.'],
-  ['--popover-title-color', 'var(--popover-color)', 'Controls title color.'],
-  ['--popover-title-font-size', 'var(--text-md)', 'Controls title font size.'],
-  ['--popover-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
-  ['--popover-title-line-height', 'var(--line-height-text-md)', 'Controls title line height.'],
-  ['--popover-header-gap', 'var(--spacing-1)', 'Controls spacing in the header slot.'],
-  ['--popover-description-margin', '0', 'Controls description margin.'],
+  ['--popover-control-radius', 'var(--radius-md)', 'Controls trigger and close border radius.'],
   ['--popover-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
   ['--popover-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
   [
@@ -85,27 +76,47 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-sm)',
     'Controls description line height.',
   ],
-  ['--popover-body-margin', '0', 'Controls body margin.'],
+  ['--popover-description-margin', '0', 'Controls description margin.'],
+  ['--popover-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled control opacity.'],
+  ['--popover-focus-ring-color', 'var(--color-ring)', 'Controls control focus ring color.'],
+  [
+    '--popover-focus-ring-width',
+    'var(--popover-control-border-width)',
+    'Controls control focus ring width.',
+  ],
   ['--popover-footer-gap', 'var(--spacing-2)', 'Controls spacing between footer actions.'],
   ['--popover-footer-justify', 'flex-end', 'Controls footer content alignment.'],
   ['--popover-footer-margin', 'var(--spacing-3) 0 0', 'Controls footer margin.'],
-  ['--popover-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
-  ['--popover-arrow-height', '0.625rem', 'Controls the default arrow SVG height.'],
-  ['--popover-arrow-size', '0.5rem', 'Controls the block-axis arrow offset.'],
-  ['--popover-arrow-inline-offset', '0.8125rem', 'Controls the inline-axis arrow offset.'],
-  ['--popover-arrow-stroke-color', 'var(--popover-border-color)', 'Controls arrow border color.'],
+  ['--popover-header-gap', 'var(--spacing-1)', 'Controls spacing in the header slot.'],
+  ['--popover-height', 'auto', 'Controls the popup height.'],
+  ['--popover-max-height', '24rem', 'Controls the popup max height.'],
+  ['--popover-max-width', '28rem', 'Controls the popup max width.'],
+  ['--popover-min-width', '16rem', 'Controls the popup min width.'],
+  ['--popover-padding-x', '1rem', 'Controls the popup horizontal padding.'],
+  ['--popover-padding-y', '1rem', 'Controls the popup vertical padding.'],
+  ['--popover-radius', 'var(--radius-md)', 'Controls the popup border radius.'],
+  ['--popover-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
+  ['--popover-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
+  ['--popover-title-color', 'var(--popover-color)', 'Controls title color.'],
+  ['--popover-title-font-size', 'var(--text-md)', 'Controls title font size.'],
+  ['--popover-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
+  ['--popover-title-line-height', 'var(--line-height-text-md)', 'Controls title line height.'],
+  ['--popover-transition', 'var(--transition-default)', 'Controls popup and control transitions.'],
+  ['--popover-viewport-offset', '1rem', 'Controls viewport content transition offset.'],
+  ['--popover-viewport-transition', '220ms', 'Controls viewport content transitions.'],
+  ['--popover-width', 'auto', 'Controls the popup width.'],
 ];
 export const popoverPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--popover-bg', 'var(--color-popover)', 'Controls popup background color.'],
-  ['--popover-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--popover-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--popover-radius', 'var(--radius-md)', 'Controls popup border radius.'],
-  ['--popover-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--popover-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop background.'],
+  ['--popover-bg', 'var(--color-popover)', 'Controls popup background color.'],
+  ['--popover-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--popover-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--popover-control-bg', 'var(--color-background)', 'Controls trigger and close backgrounds.'],
   ['--popover-control-bg-hover', 'var(--color-accent)', 'Controls control hover backgrounds.'],
   ['--popover-control-color', 'var(--color-foreground)', 'Controls control text color.'],
   ['--popover-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--popover-radius', 'var(--radius-md)', 'Controls popup border radius.'],
+  ['--popover-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
 ];
 
 export function PopoverCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -178,8 +189,10 @@ export function PopoverWithCloseActionExample() {
 export function PopoverWithBackdropExample() {
   return (
     <Popover>
-      <PopoverTrigger render={<Button />}>Open with backdrop</PopoverTrigger>
-      <PopoverContent showArrow={false} withBackdrop classNames={{ backdrop: styles.backdrop }}>
+      <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
+        Open with backdrop
+      </PopoverTrigger>
+      <PopoverContent withArrow={false} withBackdrop classNames={{ backdrop: styles.backdrop }}>
         <PopoverHeader>
           <PopoverTitle>Backdrop</PopoverTitle>
           <PopoverDescription>
@@ -305,11 +318,11 @@ export function PopoverWithoutArrowExample() {
   return (
     <Popover>
       <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-      <PopoverContent showArrow={false}>
+      <PopoverContent withArrow={false}>
         <PopoverHeader>
           <PopoverTitle>No arrow</PopoverTitle>
           <PopoverDescription>
-            Set showArrow to false when the popup should look like a floating panel.
+            Set arrow to false when the popup should look like a floating panel.
           </PopoverDescription>
         </PopoverHeader>
       </PopoverContent>
@@ -320,7 +333,9 @@ export function PopoverWithoutArrowExample() {
 export function CustomStylesPopoverExample() {
   return (
     <Popover>
-      <PopoverTrigger render={<Button />}>Open custom styles</PopoverTrigger>
+      <PopoverTrigger className={styles.customTrigger} render={<Button />}>
+        Open custom styles
+      </PopoverTrigger>
       <PopoverContent
         withBackdrop
         withViewport

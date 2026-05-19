@@ -8,7 +8,8 @@
     min-height: var(--dialog-control-height, var(--size-lg));
     margin: 0;
     padding: var(--dialog-control-padding-y, 0.5rem) var(--dialog-control-padding-x, 0.875rem);
-    border: var(--border-width-sm) solid var(--dialog-control-border-color, var(--color-border));
+    border: var(--dialog-control-border-width, var(--border-width-sm)) solid
+      var(--dialog-control-border-color, var(--color-border));
     border-radius: var(--dialog-control-radius, var(--radius-md));
     background-color: var(--dialog-control-bg, var(--color-background));
     color: var(--dialog-control-color, var(--color-foreground));
@@ -29,8 +30,15 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--dialog-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(
+          --dialog-focus-ring-width,
+          var(--dialog-control-border-width, var(--border-width-sm))
+        )
+        solid var(--dialog-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(--dialog-focus-ring-width, var(--dialog-control-border-width, var(--border-width-sm))) *
+          -1
+      );
     }
 
     &[data-disabled],
@@ -92,7 +100,8 @@
     );
     max-width: 100%;
     padding: var(--dialog-padding, var(--spacing-6));
-    border: var(--border-width-sm) solid var(--dialog-border-color, var(--color-border));
+    border: var(--dialog-border-width, var(--border-width-sm)) solid
+      var(--dialog-border-color, var(--color-border));
     border-radius: var(--dialog-radius, var(--radius-lg));
     background-color: var(--dialog-bg, var(--color-popover));
     color: var(--dialog-color, var(--color-popover-foreground));

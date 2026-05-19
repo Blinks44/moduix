@@ -36,9 +36,13 @@ type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props & {
   classNames?: NavigationMenuPopupClassNames;
   slotProps?: NavigationMenuPopupSlotProps;
   container?: NavigationMenuPrimitive.Portal.Props['container'];
-  arrow?: React.ReactNode;
-  showArrow?: boolean;
+  withArrow?: boolean;
+  arrow?: boolean | React.ReactNode;
   withBackdrop?: boolean;
+  /**
+   * Stretches the popup to viewport width while preserving trigger-driven vertical positioning.
+   */
+  fullWidth?: boolean;
 };
 
 type NavigationMenuClassNames = {
@@ -225,9 +229,10 @@ function NavigationMenuPopupContent({
   className,
   classNames,
   slotProps,
+  withArrow,
   arrow,
-  showArrow = true,
   withBackdrop = false,
+  fullWidth = false,
   side,
   sideOffset,
   align,
@@ -251,14 +256,21 @@ function NavigationMenuPopupContent({
   const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
   const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
   const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
+  const resolvedCollisionAvoidance =
+    collisionAvoidance ??
+    positionerProps?.collisionAvoidance ??
+    (fullWidth ? { side: 'none' } : undefined);
   const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ??
-    positionerProps?.collisionPadding ?? { top: 5, bottom: 5, left: 20, right: 20 };
+  const resolvedCollisionPadding =
+    collisionPadding ??
+    positionerProps?.collisionPadding ??
+    (fullWidth ? 0 : { top: 5, bottom: 5, left: 20, right: 20 });
   const resolvedSticky = sticky ?? positionerProps?.sticky;
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
   const resolvedDisableAnchorTracking =
     disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
+  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPropsContainer;
 
@@ -285,12 +297,15 @@ function NavigationMenuPopupContent({
         sticky={resolvedSticky}
         positionMethod={resolvedPositionMethod}
         disableAnchorTracking={resolvedDisableAnchorTracking}
-        className={classNames?.positioner}
+        className={mergeClassName(classNames?.positioner, fullWidth && styles.positionerFullWidth)}
       >
-        <NavigationMenuPopup className={className} {...props}>
+        <NavigationMenuPopup
+          className={mergeClassName(className, fullWidth && styles.popupFullWidth)}
+          {...props}
+        >
           {showArrow ? (
             <NavigationMenuArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrow}
+              {arrowContent}
             </NavigationMenuArrow>
           ) : null}
           {children}

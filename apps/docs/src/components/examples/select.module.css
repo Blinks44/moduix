@@ -47,8 +47,13 @@
   filter: drop-shadow(var(--shadow-md));
 }
 
+.customTrigger {
+  position: relative;
+  z-index: calc(var(--z-popup) + 1);
+}
+
 .customArrow {
-  --select-arrow-stroke-color: var(--color-border);
+  --select-arrow-stroke-color: var(--select-popup-border-color);
 }
 
 .customPopup {

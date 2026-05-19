@@ -10,6 +10,7 @@ type MenubarContentClassNames = {
   portal?: MenuPrimitive.Portal.Props['className'];
   backdrop?: MenuPrimitive.Backdrop.Props['className'];
   positioner?: MenuPrimitive.Positioner.Props['className'];
+  arrow?: MenuPrimitive.Arrow.Props['className'];
   viewport?: MenuPrimitive.Viewport.Props['className'];
 };
 
@@ -17,6 +18,7 @@ type MenubarContentSlotProps = {
   portal?: Omit<MenuPrimitive.Portal.Props, 'className' | 'children'>;
   backdrop?: Omit<MenuPrimitive.Backdrop.Props, 'className'>;
   positioner?: Omit<MenuPrimitive.Positioner.Props, 'className' | 'children'>;
+  arrow?: Omit<MenuPrimitive.Arrow.Props, 'className' | 'children'>;
   viewport?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
 };
 
@@ -39,6 +41,8 @@ type MenubarContentProps = MenuPrimitive.Popup.Props &
     classNames?: MenubarContentClassNames;
     slotProps?: MenubarContentSlotProps;
     container?: MenuPrimitive.Portal.Props['container'];
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
     withBackdrop?: boolean;
   };
 
@@ -118,7 +122,7 @@ function MenubarArrow({ className, children, ...props }: MenuPrimitive.Arrow.Pro
       className={mergeClassName(className, styles.arrow)}
       {...props}
     >
-      {children ?? <ArrowSvg />}
+      {children ?? <ArrowSvg className={styles.arrowSvg} />}
     </MenuPrimitive.Arrow>
   );
 }
@@ -139,6 +143,8 @@ function MenubarContent({
   slotProps,
   children,
   container,
+  withArrow,
+  arrow,
   withBackdrop = false,
   side,
   sideOffset,
@@ -158,7 +164,7 @@ function MenubarContent({
   const resolvedSide = side ?? positionerSlotProps?.side;
   const resolvedSideOffset = sideOffset ?? positionerSlotProps?.sideOffset ?? 6;
   const resolvedAlign = align ?? positionerSlotProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerSlotProps?.alignOffset ?? -2;
+  const resolvedAlignOffset = alignOffset ?? positionerSlotProps?.alignOffset;
   const resolvedArrowPadding = arrowPadding ?? positionerSlotProps?.arrowPadding;
   const resolvedAnchor = anchor ?? positionerSlotProps?.anchor;
   const resolvedCollisionAvoidance = collisionAvoidance ?? positionerSlotProps?.collisionAvoidance;
@@ -171,6 +177,15 @@ function MenubarContent({
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPropsContainer;
   const { arrowChildren, viewportChildren } = splitArrowChildren(children);
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
+  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
+  const resolvedArrow =
+    arrowChildren[0] ??
+    (showArrow ? (
+      <MenubarArrow className={classNames?.arrow} {...slotProps?.arrow}>
+        {arrowContent}
+      </MenubarArrow>
+    ) : null);
 
   return (
     <MenubarPortal className={classNames?.portal} container={portalContainer} {...portalSlotProps}>
@@ -194,7 +209,7 @@ function MenubarContent({
         className={classNames?.positioner}
       >
         <MenubarPopup className={className} {...props}>
-          {arrowChildren}
+          {resolvedArrow}
           <MenubarViewport className={classNames?.viewport} {...slotProps?.viewport}>
             {viewportChildren}
           </MenubarViewport>
@@ -205,11 +220,21 @@ function MenubarContent({
 }
 
 function MenubarSubmenuContent({
+  withArrow = false,
+  arrow,
   sideOffset = getSubmenuOffset,
   alignOffset = getSubmenuOffset,
   ...props
 }: MenubarContentProps) {
-  return <MenubarContent sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
+  return (
+    <MenubarContent
+      withArrow={withArrow}
+      arrow={arrow}
+      sideOffset={sideOffset}
+      alignOffset={alignOffset}
+      {...props}
+    />
+  );
 }
 
 function MenubarItem({ className, ...props }: MenuPrimitive.Item.Props) {
@@ -403,12 +428,12 @@ function getSubmenuOffset({ side }: { side: MenuPrimitive.Positioner.Props['side
 }
 
 function splitArrowChildren(children: React.ReactNode) {
-  const arrowChildren: React.ReactNode[] = [];
+  const arrowChildren: React.ReactElement<MenuPrimitive.Arrow.Props>[] = [];
   const viewportChildren: React.ReactNode[] = [];
 
   React.Children.forEach(children, (child) => {
     if (React.isValidElement(child) && child.type === MenubarArrow) {
-      arrowChildren.push(child);
+      arrowChildren.push(child as React.ReactElement<MenuPrimitive.Arrow.Props>);
       return;
     }
 

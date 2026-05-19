@@ -5,6 +5,7 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './pagination.module.css';
 
 export const paginationOverrideCssProperties: CssPropertyInput[] = [
+  ['--pagination-arrow-padding-inline', '0', 'Controls arrow item inline padding.'],
   [
     '--pagination-disabled-opacity',
     'var(--opacity-disabled)',
@@ -78,17 +79,25 @@ export const paginationOverrideCssProperties: CssPropertyInput[] = [
 ];
 
 export const paginationPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--pagination-ellipsis-color', 'var(--color-muted-foreground)', 'Controls ellipsis color.'],
   ['--pagination-item-bg', 'var(--color-background)', 'Controls item background color.'],
   [
     '--pagination-item-bg-active',
     'var(--color-foreground)',
     'Controls active item background color.',
   ],
-  ['--pagination-item-color-active', 'var(--color-background)', 'Controls active item text color.'],
+  ['--pagination-item-bg-hover', 'var(--color-accent)', 'Controls hover item background color.'],
   ['--pagination-item-border-color', 'var(--color-border)', 'Controls item border color.'],
+  [
+    '--pagination-item-border-color-active',
+    'var(--color-foreground)',
+    'Controls active item border color.',
+  ],
+  ['--pagination-item-color-active', 'var(--color-background)', 'Controls active item text color.'],
   ['--pagination-item-radius', 'var(--radius-md)', 'Controls item corner radius.'],
   ['--pagination-item-size', 'var(--size-lg)', 'Controls item width and height.'],
-  ['--pagination-ellipsis-color', 'var(--color-muted-foreground)', 'Controls ellipsis color.'],
+  ['--pagination-toolbar-bg', 'transparent', 'Controls toolbar background color.'],
+  ['--pagination-toolbar-border-color', 'transparent', 'Controls toolbar border color.'],
   ['--pagination-toolbar-padding-filled', '0.125rem', 'Controls filled toolbar padding.'],
 ];
 

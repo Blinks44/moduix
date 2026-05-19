@@ -36,8 +36,8 @@ type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
     classNames?: ComboboxContentClassNames;
     container?: ComboboxPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
-    showArrow?: boolean;
-    arrow?: React.ReactNode;
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
     portalProps?: Omit<ComboboxPrimitive.Portal.Props, 'className' | 'children'>;
     backdropProps?: Omit<ComboboxPrimitive.Backdrop.Props, 'className'>;
     positionerProps?: Omit<ComboboxPrimitive.Positioner.Props, 'className' | 'children'>;
@@ -198,7 +198,7 @@ function ComboboxContent({
   classNames,
   container,
   withBackdrop = false,
-  showArrow = false,
+  withArrow,
   arrow,
   portalProps,
   backdropProps,
@@ -230,6 +230,8 @@ function ComboboxContent({
   const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
   const resolvedSticky = sticky ?? positionerProps?.sticky;
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
+  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (
     <ComboboxPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
@@ -254,7 +256,7 @@ function ComboboxContent({
         <ComboboxPopup className={className} {...props}>
           {showArrow ? (
             <ComboboxArrow className={classNames?.arrow} {...arrowProps}>
-              {arrow}
+              {arrowContent}
             </ComboboxArrow>
           ) : null}
           {props.children}

@@ -16,12 +16,13 @@
     width: var(--combobox-width, 16rem);
     min-height: var(--combobox-control-height, var(--size-lg));
     padding-inline: var(--combobox-input-group-padding-x, 0);
-    border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
+    border: var(--combobox-border-width, var(--border-width-sm)) solid
+      var(--combobox-border-color, var(--color-border));
     border-radius: var(--combobox-radius, var(--radius-md));
     background-color: var(--combobox-bg, var(--color-background));
     color: var(--combobox-color, var(--color-foreground));
-    outline: var(--border-width-sm) solid transparent;
-    outline-offset: calc(var(--border-width-sm) * -1);
+    outline: var(--combobox-border-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--combobox-border-width, var(--border-width-sm)) * -1);
     transition:
       border-color var(--transition-default),
       outline-color var(--transition-default);
@@ -65,7 +66,7 @@
     padding: 0;
     border: 0;
     border-radius: var(--combobox-action-radius, var(--radius-sm));
-    background: transparent;
+    background: var(--combobox-action-bg, transparent);
     color: var(--combobox-icon-color, var(--color-muted-foreground));
     cursor: pointer;
     transition:
@@ -73,8 +74,8 @@
       color var(--transition-default);
 
     &:hover {
-      background-color: var(--color-muted);
-      color: var(--color-foreground);
+      background-color: var(--combobox-action-bg-hover, var(--color-muted));
+      color: var(--combobox-action-color-hover, var(--color-foreground));
     }
 
     &:focus-visible {
@@ -266,7 +267,10 @@
         var(--popup-check-padding-x-start, 0.625rem)
       )
       var(--combobox-item-padding-x-end, var(--popup-item-padding-x-end, 1rem));
-    border-radius: 0;
+    border: var(--combobox-item-border-width, 0) solid
+      var(--combobox-item-border-color, transparent);
+    border-radius: var(--combobox-item-border-radius, 0);
+    background-color: var(--combobox-item-bg, transparent);
     outline: 0;
     cursor: default;
     user-select: none;
@@ -324,8 +328,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: var(--combobox-item-indicator-padding, 0);
     width: var(--combobox-item-indicator-size, var(--popup-check-indicator-size, 0.75rem));
     height: var(--combobox-item-indicator-size, var(--popup-check-indicator-size, 0.75rem));
+    border: var(--combobox-item-indicator-border-width, 0) solid
+      var(--combobox-item-indicator-border-color, transparent);
+    border-radius: var(--combobox-item-indicator-radius, 0);
+    background-color: var(--combobox-item-indicator-bg, transparent);
   }
 
   .itemIndicatorIcon {
@@ -362,7 +371,7 @@
       --combobox-group-label-font-size,
       var(--popup-group-label-font-size, var(--text-xs))
     );
-    font-weight: var(--weight-semibold);
+    font-weight: var(--combobox-group-label-font-weight, var(--weight-semibold));
     line-height: var(
       --combobox-group-label-line-height,
       var(--popup-group-label-line-height, var(--line-height-text-xs))
@@ -387,7 +396,7 @@
     max-width: 100%;
     padding: var(--combobox-chip-padding-y, 0.1875rem) var(--combobox-chip-padding-right, 0.375rem)
       var(--combobox-chip-padding-y, 0.1875rem) var(--combobox-chip-padding-left, 0.5rem);
-    border-radius: var(--radius-sm);
+    border-radius: var(--combobox-chip-radius, var(--radius-sm));
     background: var(--combobox-chip-bg, var(--color-muted));
     color: var(--combobox-chip-color, var(--color-foreground));
     font-size: var(--combobox-chip-font-size, var(--text-sm));
@@ -413,7 +422,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    border-radius: var(--radius-sm);
+    border-radius: var(--combobox-chip-remove-radius, var(--radius-sm));
     background: transparent;
     color: inherit;
     cursor: pointer;

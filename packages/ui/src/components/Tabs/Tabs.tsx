@@ -1,6 +1,6 @@
+import type * as React from 'react';
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import { clsx } from 'clsx';
-import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Tabs.module.css';
 
@@ -8,7 +8,6 @@ type TabsVariant = 'default' | 'line';
 
 type TabsProps = TabsPrimitive.Root.Props & {
   variant?: TabsVariant;
-  unstyled?: boolean;
 };
 
 type TabsListClassNames = {
@@ -25,18 +24,14 @@ type TabsListProps = TabsPrimitive.List.Props & {
   withIndicator?: boolean;
 };
 
-const TabsStyleContext = React.createContext(false);
-
-function Tabs({ className, variant = 'default', unstyled = false, ...props }: TabsProps) {
+function Tabs({ className, variant = 'default', ...props }: TabsProps) {
   return (
-    <TabsStyleContext.Provider value={unstyled}>
-      <TabsPrimitive.Root
-        data-slot="tabs-root"
-        data-variant={variant}
-        className={unstyled ? className : mergeClassName(className, styles.root)}
-        {...props}
-      />
-    </TabsStyleContext.Provider>
+    <TabsPrimitive.Root
+      data-slot="tabs-root"
+      data-variant={variant}
+      className={mergeClassName(className, styles.root)}
+      {...props}
+    />
   );
 }
 
@@ -48,12 +43,10 @@ function TabsList({
   withIndicator = true,
   ...props
 }: TabsListProps) {
-  const unstyled = React.useContext(TabsStyleContext);
-
   return (
     <TabsPrimitive.List
       data-slot="tabs-list"
-      className={unstyled ? className : mergeClassName(className, styles.list)}
+      className={mergeClassName(className, styles.list)}
       {...props}
     >
       {children}
@@ -61,11 +54,7 @@ function TabsList({
         <TabsPrimitive.Indicator
           {...slotProps?.indicator}
           data-slot="tabs-indicator"
-          className={
-            unstyled
-              ? classNames?.indicator
-              : mergeClassName(classNames?.indicator, styles.indicator)
-          }
+          className={mergeClassName(classNames?.indicator, styles.indicator)}
         />
       ) : null}
     </TabsPrimitive.List>
@@ -73,62 +62,38 @@ function TabsList({
 }
 
 function TabsTab({ className, ...props }: TabsPrimitive.Tab.Props) {
-  const unstyled = React.useContext(TabsStyleContext);
-
   return (
     <TabsPrimitive.Tab
       data-slot="tabs-tab"
-      className={unstyled ? className : mergeClassName(className, styles.tab)}
+      className={mergeClassName(className, styles.tab)}
       {...props}
     />
   );
 }
 
 function TabsPanel({ className, ...props }: TabsPrimitive.Panel.Props) {
-  const unstyled = React.useContext(TabsStyleContext);
-
   return (
     <TabsPrimitive.Panel
       data-slot="tabs-panel"
-      className={unstyled ? className : mergeClassName(className, styles.panel)}
+      className={mergeClassName(className, styles.panel)}
       {...props}
     />
   );
 }
 
 function TabsTabContent({ className, ...props }: React.ComponentProps<'span'>) {
-  const unstyled = React.useContext(TabsStyleContext);
-
   return (
-    <span
-      data-slot="tabs-tab-content"
-      className={unstyled ? className : clsx(styles.tabContent, className)}
-      {...props}
-    />
+    <span data-slot="tabs-tab-content" className={clsx(styles.tabContent, className)} {...props} />
   );
 }
 
 function TabsTabIcon({ className, ...props }: React.ComponentProps<'span'>) {
-  const unstyled = React.useContext(TabsStyleContext);
-
-  return (
-    <span
-      data-slot="tabs-tab-icon"
-      className={unstyled ? className : clsx(styles.tabIcon, className)}
-      {...props}
-    />
-  );
+  return <span data-slot="tabs-tab-icon" className={clsx(styles.tabIcon, className)} {...props} />;
 }
 
 function TabsTabLabel({ className, ...props }: React.ComponentProps<'span'>) {
-  const unstyled = React.useContext(TabsStyleContext);
-
   return (
-    <span
-      data-slot="tabs-tab-label"
-      className={unstyled ? className : clsx(styles.tabLabel, className)}
-      {...props}
-    />
+    <span data-slot="tabs-tab-label" className={clsx(styles.tabLabel, className)} {...props} />
   );
 }
 

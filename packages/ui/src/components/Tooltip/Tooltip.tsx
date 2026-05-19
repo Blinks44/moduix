@@ -37,8 +37,8 @@ type TooltipContentProps = TooltipPrimitive.Popup.Props &
     classNames?: TooltipContentClassNames;
     slotProps?: TooltipContentSlotProps;
     container?: TooltipPrimitive.Portal.Props['container'];
-    arrow?: React.ReactNode;
-    showArrow?: boolean;
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
   };
 
 const Tooltip = TooltipPrimitive.Root;
@@ -119,8 +119,8 @@ function TooltipContent({
   classNames,
   slotProps,
   container,
+  withArrow,
   arrow,
-  showArrow = true,
   disableAnchorTracking,
   side,
   sideOffset,
@@ -151,6 +151,8 @@ function TooltipContent({
   const resolvedPositionMethod = positionMethod ?? positionerSlotProps?.positionMethod;
   const { container: portalSlotContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? portalSlotContainer;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
+  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (
     <TooltipPortal
@@ -177,7 +179,7 @@ function TooltipContent({
         <TooltipPopup className={className} {...props}>
           {showArrow ? (
             <TooltipArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrow ?? <ArrowSvg className={styles.arrowSvg} />}
+              {arrowContent ?? <ArrowSvg className={styles.arrowSvg} />}
             </TooltipArrow>
           ) : null}
           <TooltipViewport className={classNames?.viewport} {...slotProps?.viewport}>

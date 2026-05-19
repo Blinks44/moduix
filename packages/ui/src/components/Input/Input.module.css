@@ -5,7 +5,8 @@
     max-width: var(--input-max-width, none);
     min-height: var(--input-height, var(--size-lg));
     margin: 0;
-    border: var(--border-width-sm) solid var(--input-border-color, var(--color-border));
+    border: var(--input-border-width, var(--border-width-sm)) var(--input-border-style, solid)
+      var(--input-border-color, var(--color-border));
     border-radius: var(--input-radius, var(--radius-md));
     padding: var(--input-padding-y, 0.5rem) var(--input-padding-x, 0.875rem);
     background-color: var(--input-bg, var(--color-background));
@@ -13,8 +14,12 @@
     font: inherit;
     font-size: var(--input-font-size, var(--text-md));
     line-height: var(--input-line-height, var(--line-height-text-md));
-    outline: var(--border-width-sm) solid transparent;
-    outline-offset: calc(var(--border-width-sm) * -1);
+    outline: var(--input-focus-ring-width, var(--input-border-width, var(--border-width-sm))) solid
+      transparent;
+    outline-offset: var(
+      --input-focus-ring-offset,
+      calc(0px - var(--input-border-width, var(--border-width-sm)))
+    );
     transition:
       border-color var(--input-transition, var(--transition-default)),
       outline-color var(--input-transition, var(--transition-default)),

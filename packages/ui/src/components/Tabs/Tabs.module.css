@@ -6,7 +6,8 @@
     max-width: var(--tabs-max-width, calc(100vw - 2rem));
     flex-direction: column;
     gap: var(--tabs-gap, 0);
-    border: var(--border-width-sm) solid var(--tabs-border-color, var(--color-border));
+    border: var(--tabs-border-width, var(--border-width-sm)) solid
+      var(--tabs-border-color, var(--color-border));
     border-radius: var(--tabs-radius, var(--radius-lg));
     background-color: var(--tabs-bg, var(--color-background));
     color: var(--tabs-color, var(--color-foreground));
@@ -27,14 +28,16 @@
     gap: var(--tabs-list-gap, 0.25rem);
     padding: var(--tabs-list-padding-y, var(--tabs-list-padding, 0.25rem))
       var(--tabs-list-padding-x, var(--tabs-list-padding, 0.25rem));
-    border-bottom: var(--border-width-sm) solid var(--tabs-list-border-color, var(--color-border));
+    border-bottom: var(--tabs-list-border-width, var(--tabs-border-width, var(--border-width-sm)))
+      solid var(--tabs-list-border-color, var(--color-border));
     background-color: var(--tabs-list-bg, var(--color-muted));
 
     &[data-orientation='vertical'] {
       width: var(--tabs-vertical-list-width, 12rem);
       min-width: var(--tabs-vertical-list-width, 12rem);
       flex-direction: column;
-      border-right: var(--border-width-sm) solid var(--tabs-list-border-color, var(--color-border));
+      border-right: var(--tabs-list-border-width, var(--tabs-border-width, var(--border-width-sm)))
+        solid var(--tabs-list-border-color, var(--color-border));
       border-bottom: 0;
     }
   }
@@ -64,7 +67,7 @@
     white-space: nowrap;
     outline: 0;
     cursor: pointer;
-    transition: color var(--transition-default);
+    transition: color var(--tabs-tab-transition, var(--transition-default));
 
     &[data-active] {
       color: var(--tabs-tab-color-active, var(--color-foreground));
@@ -82,8 +85,9 @@
         position: absolute;
         inset: 0;
         border-radius: inherit;
-        outline: var(--border-width-sm) solid var(--tabs-focus-ring-color, var(--color-ring));
-        outline-offset: 0;
+        outline: var(--tabs-focus-ring-width, var(--border-width-sm)) solid
+          var(--tabs-focus-ring-color, var(--color-ring));
+        outline-offset: var(--tabs-focus-ring-offset, 0);
       }
     }
 
@@ -176,8 +180,9 @@
     outline: 0;
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--tabs-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(--tabs-focus-ring-width, var(--border-width-sm)) solid
+        var(--tabs-focus-ring-color, var(--color-ring));
+      outline-offset: var(--tabs-panel-focus-ring-offset, -1px);
       border-radius: inherit;
     }
 

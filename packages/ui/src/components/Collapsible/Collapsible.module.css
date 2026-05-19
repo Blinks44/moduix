@@ -46,8 +46,9 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--collapsible-focus-ring-color, var(--color-ring));
-      outline-offset: var(--border-width-sm);
+      outline: var(--collapsible-focus-ring-width, var(--border-width-sm)) solid
+        var(--collapsible-focus-ring-color, var(--color-ring));
+      outline-offset: var(--collapsible-focus-ring-offset, var(--border-width-sm));
     }
 
     &[disabled],

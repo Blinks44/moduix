@@ -35,7 +35,7 @@ If missing, fetch the file from the Base UI page for that component.
 ## Implementation Contract
 
 - Stack: React + TypeScript + CSS Modules + `@base-ui-components/react`.
-- Use `src/components/Accordion/` as architecture and API reference.
+- Use `src/components/AlertDialog/` and `src/components/Lightbox/` as architecture and API references.
 - File layout for each component:
   - `ComponentName.tsx`
   - `ComponentName.module.css`
@@ -53,6 +53,8 @@ If missing, fetch the file from the Base UI page for that component.
 - Use tokens from `src/styles/*` (`--color-*`, `--spacing-*`, `--radius-*`, etc.).
 - Add missing tokens in the appropriate token files and `src/styles/theme.css`.
 - Add Base UI runtime variables to `src/styles/theme.css` with `initial`; include default values in nearby comments.
+- Keep CSS variable declarations in `src/styles/theme.css` sorted alphabetically. Exception: size scale groups with `-xs/-sm/-md/-lg/-xl` must be ordered from `xs` to `xl`.
+- For CSS variable fallbacks used in component styles, avoid complex expressions (for example nested `calc(var(...))`) because they can break IDE CSS parsing; prefer simple literal fallbacks or a dedicated precomputed variable.
 - Keep variants on slot selectors via `data-*`, not modifier class names.
 - Use nested selectors for derived states/elements.
 - Library CSS (`ComponentName.module.css`) must not contain Storybook/demo layout styles.
@@ -70,6 +72,7 @@ If missing, fetch the file from the Base UI page for that component.
 
 - Keep service-oriented infrastructure slots (`Portal`, `Positioner`, `Viewport`, `Backdrop`, etc.) internal when they are not meaningful user content.
 - Expose behavior via parent props (`withBackdrop`, `container`, `placement`, `offset`) on the component that renders those slots.
+- For optional UI parts that are toggled on/off, use `with*` boolean naming (`withArrow`, `withBackdrop`, `withViewport`, etc.) instead of mixed forms like `show*`/`hide*`.
 - For styling internal slots, prefer a compact `classNames` object.
 - Keep `className` for the main/root visual slot; do not duplicate it inside `classNames`.
 - Introduce `slotProps` only when there is a concrete need for non-class slot props.

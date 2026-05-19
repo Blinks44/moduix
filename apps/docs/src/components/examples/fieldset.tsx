@@ -16,35 +16,41 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './fieldset.module.css';
 
 export const fieldsetOverrideCssProperties: CssPropertyInput[] = [
-  ['--fieldset-width', '100%', 'Controls the root fieldset width.'],
-  ['--fieldset-max-width', 'none', 'Controls the root fieldset max width.'],
-  ['--fieldset-gap', 'var(--spacing-4)', 'Controls spacing between fieldset parts.'],
-  ['--fieldset-margin', '0', 'Controls the root fieldset margin.'],
-  ['--fieldset-padding', '0', 'Controls the root fieldset padding.'],
-  ['--fieldset-border-width', '0', 'Controls the root fieldset border width.'],
-  ['--fieldset-border-style', 'solid', 'Controls the root fieldset border style.'],
   ['--fieldset-border-color', 'transparent', 'Controls the root fieldset border color.'],
-  ['--fieldset-radius', 'var(--radius-none)', 'Controls the root fieldset corner radius.'],
+  ['--fieldset-border-style', 'solid', 'Controls the root fieldset border style.'],
+  ['--fieldset-border-width', '0', 'Controls the root fieldset border width.'],
   ['--fieldset-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled fieldset opacity.'],
-  ['--fieldset-legend-padding-bottom', 'var(--spacing-3)', 'Controls legend bottom padding.'],
+  ['--fieldset-gap', 'var(--spacing-4)', 'Controls spacing between fieldset parts.'],
+  ['--fieldset-legend-border-color', 'var(--color-border)', 'Controls legend bottom border color.'],
+  ['--fieldset-legend-border-style', 'solid', 'Controls legend bottom border style.'],
   [
     '--fieldset-legend-border-width',
     'var(--border-width-sm)',
     'Controls legend bottom border width.',
   ],
-  ['--fieldset-legend-border-style', 'solid', 'Controls legend bottom border style.'],
-  ['--fieldset-legend-border-color', 'var(--color-border)', 'Controls legend bottom border color.'],
   ['--fieldset-legend-color', 'var(--color-foreground)', 'Controls legend text color.'],
   ['--fieldset-legend-font-size', 'var(--text-lg)', 'Controls legend font size.'],
   ['--fieldset-legend-font-weight', 'var(--weight-semibold)', 'Controls legend font weight.'],
   ['--fieldset-legend-line-height', 'var(--line-height-text-lg)', 'Controls legend line height.'],
+  ['--fieldset-legend-margin', '0', 'Controls legend margin.'],
+  [
+    '--fieldset-legend-padding',
+    '0 0 var(--fieldset-legend-padding-bottom, var(--spacing-3))',
+    'Controls legend padding.',
+  ],
+  ['--fieldset-legend-padding-bottom', 'var(--spacing-3)', 'Controls legend bottom padding.'],
+  ['--fieldset-margin', '0', 'Controls the root fieldset margin.'],
+  ['--fieldset-max-width', 'none', 'Controls the root fieldset max width.'],
+  ['--fieldset-padding', '0', 'Controls the root fieldset padding.'],
+  ['--fieldset-radius', 'var(--radius-none)', 'Controls the root fieldset corner radius.'],
+  ['--fieldset-width', '100%', 'Controls the root fieldset width.'],
 ];
 export const fieldsetPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--fieldset-gap', 'var(--spacing-4)', 'Controls spacing between fieldset parts.'],
   ['--fieldset-border-color', 'transparent', 'Controls root fieldset border color.'],
-  ['--fieldset-radius', 'var(--radius-none)', 'Controls fieldset corner radius.'],
+  ['--fieldset-gap', 'var(--spacing-4)', 'Controls spacing between fieldset parts.'],
   ['--fieldset-legend-border-color', 'var(--color-border)', 'Controls legend border color.'],
   ['--fieldset-legend-color', 'var(--color-foreground)', 'Controls legend text color.'],
+  ['--fieldset-radius', 'var(--radius-none)', 'Controls fieldset corner radius.'],
 ];
 
 export function FieldsetCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

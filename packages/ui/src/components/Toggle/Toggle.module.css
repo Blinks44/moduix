@@ -8,12 +8,12 @@
     gap: var(--toggle-content-gap, var(--spacing-2));
     min-height: var(--toggle-size-md, var(--size-lg));
     margin: 0;
-    border: var(--border-width-sm) solid transparent;
+    border: var(--toggle-border-width, var(--border-width-sm)) solid transparent;
     border-radius: var(--toggle-radius, var(--radius-md));
     padding-block: var(--toggle-padding-y-md, 0.5rem);
     padding-inline: var(--toggle-padding-x-md, 1rem);
     background-color: transparent;
-    color: var(--color-foreground);
+    color: var(--toggle-color, var(--color-foreground));
     font: inherit;
     font-size: var(--toggle-font-size, var(--text-sm));
     font-weight: var(--toggle-font-weight, var(--weight-medium));
@@ -29,8 +29,9 @@
       box-shadow var(--toggle-transition, var(--transition-default));
 
     &:focus-visible {
-      outline: var(--border-width-md) solid var(--toggle-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(--toggle-focus-ring-width, var(--border-width-md)) solid
+        var(--toggle-focus-ring-color, var(--color-ring));
+      outline-offset: var(--toggle-focus-ring-offset, -1px);
     }
 
     &[data-disabled],
@@ -49,7 +50,7 @@
     &[data-variant='default'] {
       border-color: var(--toggle-default-border-color, transparent);
       background-color: var(--toggle-default-bg, transparent);
-      color: var(--toggle-default-color, var(--color-foreground));
+      color: var(--toggle-default-color, var(--toggle-color, var(--color-foreground)));
 
       @media (hover: hover) {
         &:hover {
@@ -71,7 +72,7 @@
     &[data-variant='outline'] {
       border-color: var(--toggle-outline-border-color, var(--color-border));
       background-color: var(--toggle-outline-bg, var(--color-background));
-      color: var(--toggle-outline-color, var(--color-foreground));
+      color: var(--toggle-outline-color, var(--toggle-color, var(--color-foreground)));
 
       @media (hover: hover) {
         &:hover {
@@ -93,7 +94,7 @@
     &[data-variant='ghost'] {
       border-color: var(--toggle-ghost-border-color, transparent);
       background-color: var(--toggle-ghost-bg, transparent);
-      color: var(--toggle-ghost-color, var(--color-foreground));
+      color: var(--toggle-ghost-color, var(--toggle-color, var(--color-foreground)));
 
       @media (hover: hover) {
         &:hover {

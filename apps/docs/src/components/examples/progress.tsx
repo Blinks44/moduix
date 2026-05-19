@@ -5,26 +5,13 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './progress.module.css';
 
 export const progressOverrideCssProperties: CssPropertyInput[] = [
-  ['--progress-width', '12rem', 'Controls the root progress width.'],
   ['--progress-color', 'var(--color-foreground)', 'Controls the default progress text color.'],
   ['--progress-gap', '0.5rem', 'Controls spacing between progress slots.'],
-  ['--progress-label-color', 'var(--progress-color)', 'Controls label text color.'],
-  ['--progress-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--progress-label-font-weight', 'var(--weight-regular)', 'Controls label font weight.'],
-  ['--progress-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
-  ['--progress-value-color', 'var(--progress-color)', 'Controls value text color.'],
-  ['--progress-value-font-size', 'var(--text-sm)', 'Controls value font size.'],
-  ['--progress-value-font-weight', 'var(--weight-regular)', 'Controls value font weight.'],
-  ['--progress-value-line-height', 'var(--line-height-text-sm)', 'Controls value line height.'],
-  ['--progress-track-bg', 'var(--color-muted)', 'Controls track background color.'],
-  ['--progress-track-border-color', 'var(--color-border)', 'Controls track border color.'],
-  ['--progress-track-height', '0.5rem', 'Controls track height.'],
-  ['--progress-track-radius', 'var(--radius-full)', 'Controls track corner radius.'],
   ['--progress-indicator-bg', 'var(--color-primary)', 'Controls indicator background color.'],
   [
-    '--progress-indicator-transition',
-    'var(--transition-default)',
-    'Controls indicator width transition.',
+    '--progress-indicator-indeterminate-animation',
+    'progress-indeterminate 1.5s ease-in-out infinite',
+    'Controls indicator animation in indeterminate state.',
   ],
   [
     '--progress-indicator-indeterminate-width',
@@ -32,18 +19,32 @@ export const progressOverrideCssProperties: CssPropertyInput[] = [
     'Controls indicator width in indeterminate state.',
   ],
   [
-    '--progress-indicator-indeterminate-animation',
-    'progress-indeterminate 1.5s ease-in-out infinite',
-    'Controls indicator animation in indeterminate state.',
+    '--progress-indicator-transition',
+    'var(--transition-default)',
+    'Controls indicator width transition.',
   ],
+  ['--progress-label-color', 'var(--progress-color)', 'Controls label text color.'],
+  ['--progress-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
+  ['--progress-label-font-weight', 'var(--weight-regular)', 'Controls label font weight.'],
+  ['--progress-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
+  ['--progress-track-bg', 'var(--color-muted)', 'Controls track background color.'],
+  ['--progress-track-border-color', 'var(--color-border)', 'Controls track border color.'],
+  ['--progress-track-border-width', 'var(--border-width-sm)', 'Controls track border width.'],
+  ['--progress-track-height', '0.5rem', 'Controls track height.'],
+  ['--progress-track-radius', 'var(--radius-full)', 'Controls track corner radius.'],
+  ['--progress-value-color', 'var(--progress-color)', 'Controls value text color.'],
+  ['--progress-value-font-size', 'var(--text-sm)', 'Controls value font size.'],
+  ['--progress-value-font-weight', 'var(--weight-regular)', 'Controls value font weight.'],
+  ['--progress-value-line-height', 'var(--line-height-text-sm)', 'Controls value line height.'],
+  ['--progress-width', '12rem', 'Controls the root progress width.'],
 ];
 export const progressPlaygroundCssProperties: CssPropertyInput[] = [
   ['--progress-color', 'var(--color-foreground)', 'Controls default text color.'],
+  ['--progress-indicator-bg', 'var(--color-primary)', 'Controls indicator color.'],
   ['--progress-track-bg', 'var(--color-muted)', 'Controls track background.'],
   ['--progress-track-border-color', 'var(--color-border)', 'Controls track border color.'],
   ['--progress-track-height', '0.5rem', 'Controls track height.'],
   ['--progress-track-radius', 'var(--radius-full)', 'Controls track radius.'],
-  ['--progress-indicator-bg', 'var(--color-primary)', 'Controls indicator color.'],
 ];
 
 export function ProgressCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

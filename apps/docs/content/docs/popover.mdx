@@ -152,7 +152,7 @@ Use `Popover` for root state and behavior props such as `open`, `defaultOpen`,
 hidden from the default composition. Pass placement props such as `side`, `align`, `sideOffset`,
 `alignOffset`, `collisionBoundary`, and `collisionPadding` directly to `PopoverContent`. Use
 `container` to choose the portal container, `withBackdrop` to enable the optional backdrop,
-`withViewport` to wrap content in Base UI's viewport, `showArrow={false}` to remove the default
+`withViewport` to wrap content in Base UI's viewport, `withArrow={false}` to remove the default
 arrow, and `arrow` to replace it. Use `slotProps` only when you need Base UI escape-hatch props for
 an internal slot, such as `keepMounted` on the portal or a custom `render` for the viewport:
 
@@ -244,9 +244,11 @@ Use `classNames` to style internal service slots without rendering them manually
       export function PopoverWithBackdropDemo() {
         return (
           <Popover>
-            <PopoverTrigger render={<Button />}>Open with backdrop</PopoverTrigger>
+            <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
+              Open with backdrop
+            </PopoverTrigger>
             <PopoverContent
-              showArrow={false}
+              withArrow={false}
               withBackdrop
               classNames={{ backdrop: styles.backdrop }}
             >
@@ -269,6 +271,11 @@ Use `classNames` to style internal service slots without rendering them manually
       .backdrop {
         background-color: color-mix(in oklab, var(--color-background), transparent 35%);
         backdrop-filter: blur(2px);
+      }
+
+      .backdropTrigger {
+        position: relative;
+        z-index: calc(var(--z-popup) + 1);
       }
     `}
 
@@ -592,7 +599,7 @@ description slots.
 
 ### Without Arrow
 
-Set `showArrow={false}` when the popup should look like a floating panel without a pointer.
+Set `withArrow={false}` when the popup should look like a floating panel without a pointer.
 
 <Preview>
   <PopoverWithoutArrowExample />
@@ -613,11 +620,11 @@ Set `showArrow={false}` when the popup should look like a floating panel without
         return (
           <Popover>
             <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-            <PopoverContent showArrow={false}>
+            <PopoverContent withArrow={false}>
               <PopoverHeader>
                 <PopoverTitle>No arrow</PopoverTitle>
                 <PopoverDescription>
-                  Set showArrow to false when the popup should look like a floating panel.
+                  Set arrow to false when the popup should look like a floating panel.
                 </PopoverDescription>
               </PopoverHeader>
             </PopoverContent>
@@ -653,7 +660,9 @@ positioner, viewport, and arrow slots.
       export function CustomStylesPopoverDemo() {
         return (
           <Popover>
-            <PopoverTrigger render={<Button />}>Open custom styles</PopoverTrigger>
+            <PopoverTrigger className={styles.customTrigger} render={<Button />}>
+              Open custom styles
+            </PopoverTrigger>
             <PopoverContent
               withBackdrop
               withViewport
@@ -707,10 +716,16 @@ positioner, viewport, and arrow slots.
         --popover-viewport-transition: 260ms;
       }
 
+      .customTrigger {
+        position: relative;
+        z-index: calc(var(--z-popup) + 1);
+      }
+
       .customPopup {
         --popover-bg: var(--color-primary);
         --popover-color: var(--color-primary-foreground);
         --popover-border-color: color-mix(in oklab, var(--color-primary), black 18%);
+        --popover-arrow-stroke-color: var(--popover-border-color);
         --popover-title-color: var(--popover-color);
         --popover-description-color: color-mix(in oklab, var(--popover-color), transparent 18%);
         --popover-radius: var(--radius-lg);

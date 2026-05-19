@@ -269,9 +269,7 @@ function ToastRegion({
               <ToastContent className={classNames?.content}>
                 <ToastTitle className={classNames?.title} />
                 <ToastDescription className={classNames?.description} />
-                {toast.actionProps ? (
-                  <ToastAction className={classNames?.action} {...toast.actionProps} />
-                ) : null}
+                {toast.actionProps ? <ToastAction className={classNames?.action} /> : null}
                 <ToastClose className={classNames?.close} aria-label="Close toast" />
               </ToastContent>
             </ToastRoot>

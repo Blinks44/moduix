@@ -27,7 +27,8 @@ const tabsItems = [
   {
     value: 'projects',
     title: 'Projects',
-    content: 'Track active workstreams, owners and milestones across all departments.',
+    content:
+      'Track active workstreams, owners and milestones across all departments and align delivery timelines.',
   },
   {
     value: 'account',
@@ -37,67 +38,82 @@ const tabsItems = [
 ];
 
 export const tabsOverrideCssProperties: CssPropertyInput[] = [
-  ['--tabs-width', '32rem', 'Controls the root tabs width.'],
-  ['--tabs-max-width', 'calc(100vw - 2rem)', 'Controls the root tabs max width.'],
   ['--tabs-bg', 'var(--color-background)', 'Controls the root background color.'],
   ['--tabs-border-color', 'var(--color-border)', 'Controls the root border color.'],
-  ['--tabs-radius', 'var(--radius-lg)', 'Controls the root border radius.'],
+  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls the root border width.'],
   ['--tabs-color', 'var(--color-foreground)', 'Controls the root text color.'],
+  ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
+  ['--tabs-focus-ring-offset', '0', 'Controls tab focus ring offset.'],
+  ['--tabs-focus-ring-width', 'var(--border-width-sm)', 'Controls tab and panel focus ring width.'],
   ['--tabs-gap', '0', 'Controls spacing between the tab list and panels.'],
-  ['--tabs-list-bg', 'var(--color-muted)', 'Controls the tab list background color.'],
-  ['--tabs-list-border-color', 'var(--color-border)', 'Controls the tab list separator color.'],
-  ['--tabs-list-gap', '0.25rem', 'Controls spacing between tabs.'],
-  ['--tabs-list-padding', '0.25rem', 'Controls the tab list padding.'],
-  ['--tabs-list-padding-x', '0.25rem', 'Controls the tab list horizontal padding.'],
-  ['--tabs-list-padding-y', '0.25rem', 'Controls the tab list vertical padding.'],
-  ['--tabs-tab-height', '2rem', 'Controls each tab height.'],
-  ['--tabs-tab-padding-x', '0.625rem', 'Controls each tab horizontal padding.'],
-  ['--tabs-tab-radius', 'var(--radius-sm)', 'Controls each tab border radius.'],
-  ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
-  ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
-  ['--tabs-tab-color-hover', 'var(--color-foreground)', 'Controls hovered tab text color.'],
-  ['--tabs-tab-font-size', 'var(--text-sm)', 'Controls tab text font size.'],
-  ['--tabs-tab-font-weight', 'var(--weight-medium)', 'Controls tab text font weight.'],
-  ['--tabs-tab-line-height', 'var(--line-height-text-sm)', 'Controls tab text line height.'],
-  ['--tabs-tab-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled tab opacity.'],
-  ['--tabs-tab-content-gap', '0.5rem', 'Controls spacing between tab icon and label.'],
-  ['--tabs-tab-icon-size', '1rem', 'Controls tab icon size.'],
-  ['--tabs-tab-icon-color', 'currentColor', 'Controls tab icon color.'],
   ['--tabs-indicator-bg', 'var(--color-background)', 'Controls the default indicator background.'],
-  ['--tabs-indicator-size', '1.75rem', 'Controls the default indicator thickness.'],
   ['--tabs-indicator-radius', 'var(--radius-sm)', 'Controls the default indicator radius.'],
+  ['--tabs-indicator-size', '1.75rem', 'Controls the default indicator thickness.'],
   [
     '--tabs-indicator-transition',
     'translate 200ms ease, width 200ms ease',
     'Controls the default indicator movement transition.',
   ],
   ['--tabs-line-indicator-bg', 'var(--color-foreground)', 'Controls the line indicator color.'],
-  ['--tabs-line-indicator-size', '2px', 'Controls the line indicator thickness.'],
   ['--tabs-line-indicator-radius', 'var(--radius-full)', 'Controls the line indicator radius.'],
+  ['--tabs-line-indicator-size', '2px', 'Controls the line indicator thickness.'],
   [
     '--tabs-line-indicator-transition',
     'translate 200ms ease, width 200ms ease',
     'Controls the line indicator movement transition.',
   ],
-  ['--tabs-panel-padding', '1rem', 'Controls panel padding.'],
+  ['--tabs-list-bg', 'var(--color-muted)', 'Controls the tab list background color.'],
+  ['--tabs-list-border-color', 'var(--color-border)', 'Controls the tab list separator color.'],
+  [
+    '--tabs-list-border-width',
+    'var(--tabs-border-width, var(--border-width-sm))',
+    'Controls the tab list separator width.',
+  ],
+  ['--tabs-list-gap', '0.25rem', 'Controls spacing between tabs.'],
+  ['--tabs-list-padding', '0.25rem', 'Controls the tab list padding.'],
+  ['--tabs-list-padding-x', '0.25rem', 'Controls the tab list horizontal padding.'],
+  ['--tabs-list-padding-y', '0.25rem', 'Controls the tab list vertical padding.'],
+  ['--tabs-max-width', 'calc(100vw - 2rem)', 'Controls the root tabs max width.'],
   ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
   ['--tabs-panel-font-size', 'var(--text-sm)', 'Controls panel text font size.'],
   ['--tabs-panel-line-height', 'var(--line-height-text-sm)', 'Controls panel text line height.'],
+  [
+    '--tabs-panel-focus-ring-offset',
+    'calc(var(--tabs-focus-ring-width, var(--border-width-sm)) * -1)',
+    'Controls panel focus ring offset.',
+  ],
+  ['--tabs-panel-padding', '1rem', 'Controls panel padding.'],
+  ['--tabs-radius', 'var(--radius-lg)', 'Controls the root border radius.'],
+  ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
+  ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
+  ['--tabs-tab-color-hover', 'var(--color-foreground)', 'Controls hovered tab text color.'],
+  ['--tabs-tab-content-gap', '0.5rem', 'Controls spacing between tab icon and label.'],
+  ['--tabs-tab-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled tab opacity.'],
+  ['--tabs-tab-font-size', 'var(--text-sm)', 'Controls tab text font size.'],
+  ['--tabs-tab-font-weight', 'var(--weight-medium)', 'Controls tab text font weight.'],
+  ['--tabs-tab-height', '2rem', 'Controls each tab height.'],
+  ['--tabs-tab-icon-size', '1rem', 'Controls tab icon size.'],
+  ['--tabs-tab-icon-color', 'currentColor', 'Controls tab icon color.'],
+  ['--tabs-tab-line-height', 'var(--line-height-text-sm)', 'Controls tab text line height.'],
+  ['--tabs-tab-padding-x', '0.625rem', 'Controls each tab horizontal padding.'],
+  ['--tabs-tab-radius', 'var(--radius-sm)', 'Controls each tab border radius.'],
+  ['--tabs-tab-transition', 'var(--transition-default)', 'Controls tab text color transition.'],
   ['--tabs-vertical-list-width', '12rem', 'Controls the list width in vertical orientation.'],
   ['--tabs-vertical-min-height', '14rem', 'Controls the root min-height in vertical orientation.'],
-  ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
+  ['--tabs-width', '32rem', 'Controls the root tabs width.'],
 ];
 export const tabsPlaygroundCssProperties: CssPropertyInput[] = [
   ['--tabs-bg', 'var(--color-background)', 'Controls root background color.'],
   ['--tabs-border-color', 'var(--color-border)', 'Controls root border color.'],
-  ['--tabs-radius', 'var(--radius-lg)', 'Controls root border radius.'],
+  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls root border width.'],
+  ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
   ['--tabs-list-bg', 'var(--color-muted)', 'Controls tab list background color.'],
+  ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
+  ['--tabs-radius', 'var(--radius-lg)', 'Controls root border radius.'],
   ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
   ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
   ['--tabs-tab-color-hover', 'var(--color-foreground)', 'Controls hovered tab text color.'],
   ['--tabs-indicator-bg', 'var(--color-background)', 'Controls indicator background.'],
-  ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
-  ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
 ];
 
 export function TabsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -277,7 +293,7 @@ export function DisabledTabTabsExample() {
 
 export function InlineInputsTabsExample() {
   return (
-    <Tabs defaultValue="name" unstyled className={styles.inlineRoot}>
+    <Tabs defaultValue="name" className={styles.inlineRoot}>
       <TabsList
         className={styles.inlineList}
         classNames={{ indicator: styles.inlineIndicator }}

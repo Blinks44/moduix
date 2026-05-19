@@ -39,30 +39,46 @@ const linkPayloads: LinkPreviewPayload[] = [
 ];
 
 export const previewCardOverrideCssProperties: CssPropertyInput[] = [
-  ['--preview-card-width', 'auto', 'Controls the popup width.'],
-  ['--preview-card-height', 'auto', 'Controls the popup height.'],
-  ['--preview-card-min-width', '14rem', 'Controls the popup min width.'],
-  ['--preview-card-max-width', '24rem', 'Controls the popup max width.'],
-  ['--preview-card-max-height', '24rem', 'Controls the popup max height.'],
-  ['--preview-card-padding-x', 'var(--spacing-2)', 'Controls the popup horizontal padding.'],
-  ['--preview-card-padding-y', 'var(--spacing-2)', 'Controls the popup vertical padding.'],
-  ['--preview-card-bg', 'var(--color-popover)', 'Controls the popup background color.'],
-  ['--preview-card-border-color', 'var(--color-border)', 'Controls the popup border color.'],
-  ['--preview-card-color', 'var(--color-popover-foreground)', 'Controls the popup text color.'],
-  ['--preview-card-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
-  ['--preview-card-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
-  ['--preview-card-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
+  ['--preview-card-arrow-height', '0.625rem', 'Controls the default arrow SVG height.'],
+  ['--preview-card-arrow-inline-offset', '0.8125rem', 'Controls the inline-axis arrow offset.'],
+  ['--preview-card-arrow-size', '0.5rem', 'Controls the block-axis arrow offset.'],
   [
-    '--preview-card-transition',
-    'var(--transition-default)',
-    'Controls popup and trigger transitions.',
+    '--preview-card-arrow-stroke-color',
+    'var(--preview-card-border-color)',
+    'Controls arrow border color.',
   ],
+  ['--preview-card-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
   ['--preview-card-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls the backdrop color.'],
   ['--preview-card-backdrop-blur', '0', 'Controls the backdrop blur.'],
   [
     '--preview-card-backdrop-transition',
     'var(--transition-default)',
     'Controls the backdrop transition.',
+  ],
+  ['--preview-card-bg', 'var(--color-popover)', 'Controls the popup background color.'],
+  ['--preview-card-border-color', 'var(--color-border)', 'Controls the popup border color.'],
+  ['--preview-card-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
+  ['--preview-card-color', 'var(--color-popover-foreground)', 'Controls the popup text color.'],
+  ['--preview-card-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  [
+    '--preview-card-focus-ring-color',
+    'var(--color-ring)',
+    'Controls the trigger focus ring color.',
+  ],
+  ['--preview-card-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
+  ['--preview-card-height', 'auto', 'Controls the popup height.'],
+  ['--preview-card-max-height', '24rem', 'Controls the popup max height.'],
+  ['--preview-card-max-width', '24rem', 'Controls the popup max width.'],
+  ['--preview-card-min-width', '14rem', 'Controls the popup min width.'],
+  ['--preview-card-padding-x', 'var(--spacing-2)', 'Controls the popup horizontal padding.'],
+  ['--preview-card-padding-y', 'var(--spacing-2)', 'Controls the popup vertical padding.'],
+  ['--preview-card-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
+  ['--preview-card-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
+  ['--preview-card-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
+  [
+    '--preview-card-transition',
+    'var(--transition-default)',
+    'Controls popup and trigger transitions.',
   ],
   [
     '--preview-card-trigger-color',
@@ -89,34 +105,20 @@ export const previewCardOverrideCssProperties: CssPropertyInput[] = [
     '1px',
     'Controls the trigger underline thickness.',
   ],
-  ['--preview-card-trigger-underline-offset', '2px', 'Controls the trigger underline offset.'],
-  ['--preview-card-trigger-focus-radius', 'var(--radius-xs)', 'Controls the trigger focus radius.'],
   ['--preview-card-trigger-focus-offset', '1px', 'Controls the trigger focus outline offset.'],
-  [
-    '--preview-card-focus-ring-color',
-    'var(--color-ring)',
-    'Controls the trigger focus ring color.',
-  ],
-  ['--preview-card-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--preview-card-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
-  ['--preview-card-arrow-height', '0.625rem', 'Controls the default arrow SVG height.'],
-  ['--preview-card-arrow-size', '0.5rem', 'Controls the block-axis arrow offset.'],
-  ['--preview-card-arrow-inline-offset', '0.8125rem', 'Controls the inline-axis arrow offset.'],
-  [
-    '--preview-card-arrow-stroke-color',
-    'var(--preview-card-border-color)',
-    'Controls arrow border color.',
-  ],
+  ['--preview-card-trigger-focus-radius', 'var(--radius-xs)', 'Controls the trigger focus radius.'],
+  ['--preview-card-trigger-underline-offset', '2px', 'Controls the trigger underline offset.'],
+  ['--preview-card-width', 'auto', 'Controls the popup width.'],
 ];
 export const previewCardPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
   ['--preview-card-bg', 'var(--color-popover)', 'Controls popup background color.'],
   ['--preview-card-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--preview-card-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--preview-card-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
   ['--preview-card-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
   ['--preview-card-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
   ['--preview-card-trigger-color', 'var(--color-primary)', 'Controls trigger text color.'],
-  ['--preview-card-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
 ];
 
 export function PreviewCardCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -283,11 +285,14 @@ export function CustomArrowPreviewCardExample() {
 export function SlotCustomizationPreviewCardExample() {
   return (
     <PreviewCard>
-      <PreviewCardTrigger href={linkPayloads[0].url}>Preview with styled slots</PreviewCardTrigger>
+      <PreviewCardTrigger className={styles.slotTrigger} href={linkPayloads[0].url}>
+        Preview with styled slots
+      </PreviewCardTrigger>
       <PreviewCardContent
         withBackdrop
         classNames={{
           backdrop: styles.backdrop,
+          arrow: styles.slotArrow,
           viewport: styles.viewport,
         }}
       >

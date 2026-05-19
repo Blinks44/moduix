@@ -99,6 +99,15 @@
   --preview-card-backdrop-transition: 200ms ease;
 }
 
+.slotTrigger {
+  position: relative;
+  z-index: calc(var(--z-popup) + 1);
+}
+
+.slotArrow {
+  --preview-card-arrow-stroke-color: var(--preview-card-border-color);
+}
+
 .viewport {
   padding: var(--spacing-1);
 }

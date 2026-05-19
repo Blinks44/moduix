@@ -10,7 +10,7 @@
   }
 
   .item {
-    border-bottom: var(--border-width-sm) solid
+    border-bottom: var(--accordion-item-border-width, var(--border-width-sm)) solid
       var(--accordion-item-border-color, var(--color-border));
   }
 
@@ -51,8 +51,9 @@
 
     &:focus-visible {
       z-index: 1;
-      outline: var(--border-width-md) solid var(--accordion-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(--accordion-focus-ring-width, var(--border-width-md)) solid
+        var(--accordion-focus-ring-color, var(--color-ring));
+      outline-offset: calc(var(--accordion-focus-ring-offset, var(--border-width-sm)) * -1);
     }
 
     &[disabled],

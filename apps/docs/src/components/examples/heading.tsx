@@ -14,22 +14,22 @@ export const headingOverrideCssProperties: CssPropertyInput[] = [
   ['--heading-font-size-xl', 'var(--text-2xl)', 'Controls `xl` heading font size.'],
   ['--heading-font-size-2xl', 'var(--text-3xl)', 'Controls `2xl` heading font size.'],
   ['--heading-font-weight', 'var(--weight-semibold)', 'Controls heading font weight.'],
-  [
-    '--heading-font-weight-regular',
-    'var(--weight-regular)',
-    'Controls `regular` heading font weight.',
-  ],
+  ['--heading-font-weight-bold', 'var(--weight-bold)', 'Controls `bold` heading font weight.'],
   [
     '--heading-font-weight-medium',
     'var(--weight-medium)',
     'Controls `medium` heading font weight.',
   ],
   [
+    '--heading-font-weight-regular',
+    'var(--weight-regular)',
+    'Controls `regular` heading font weight.',
+  ],
+  [
     '--heading-font-weight-semibold',
     'var(--weight-semibold)',
     'Controls `semibold` heading font weight.',
   ],
-  ['--heading-font-weight-bold', 'var(--weight-bold)', 'Controls `bold` heading font weight.'],
   ['--heading-letter-spacing', '0', 'Controls heading letter spacing.'],
   ['--heading-line-height', 'size-dependent', 'Controls heading line height for all sizes.'],
   ['--heading-line-height-xs', 'var(--line-height-text-sm)', 'Controls `xs` heading line height.'],
@@ -47,7 +47,6 @@ export const headingOverrideCssProperties: CssPropertyInput[] = [
 export const headingPlaygroundCssProperties: CssPropertyInput[] = [
   ['--heading-color', 'var(--color-foreground)', 'Controls heading text color.'],
   ['--heading-font-family', 'var(--font-sans)', 'Controls heading font family.'],
-  ['--heading-font-weight', 'var(--weight-semibold)', 'Controls heading font weight.'],
   ['--heading-letter-spacing', '0', 'Controls heading letter spacing.'],
   ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
 ];

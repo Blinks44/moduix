@@ -53,32 +53,56 @@ const toneItems = [
 ] as const;
 
 export const listOverrideCssProperties: CssPropertyInput[] = [
+  [
+    '--list-color',
+    'var(--list-default-color, var(--color-foreground))',
+    'Controls list text color.',
+  ],
   ['--list-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
-  ['--list-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
-  ['--list-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
-  ['--list-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
   ['--list-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
+  ['--list-font-family', 'var(--font-sans)', 'Controls list font family.'],
+  [
+    '--list-font-size',
+    'var(--list-font-size-md, var(--text-md))',
+    'Controls default list font size.',
+  ],
+  ['--list-font-size-xs', 'var(--text-xs)', 'Controls extra-small list font size.'],
+  ['--list-font-size-sm', 'var(--text-sm)', 'Controls small list font size.'],
+  ['--list-font-size-md', 'var(--text-md)', 'Controls medium list font size.'],
+  ['--list-font-size-lg', 'var(--text-lg)', 'Controls large list font size.'],
+  ['--list-font-size-xl', 'var(--text-xl)', 'Controls extra-large list font size.'],
+  ['--list-font-weight', 'var(--weight-regular)', 'Controls list font weight.'],
+  ['--list-gap', 'var(--list-gap-sm, var(--spacing-2))', 'Controls default gap between items.'],
+  ['--list-gap-xs', 'var(--spacing-1)', 'Controls extra-small list item gap.'],
+  ['--list-gap-sm', 'var(--spacing-2)', 'Controls small list item gap.'],
+  ['--list-gap-md', 'var(--spacing-3)', 'Controls medium list item gap.'],
+  ['--list-gap-lg', 'var(--spacing-4)', 'Controls large list item gap.'],
+  ['--list-gap-xl', 'var(--spacing-5)', 'Controls extra-large list item gap.'],
+  ['--list-gap-2xl', 'var(--spacing-6)', 'Controls 2xl list item gap.'],
+  ['--list-item-padding-x', '0', 'Controls list item inline start padding.'],
+  ['--list-letter-spacing', '0', 'Controls list letter spacing.'],
+  [
+    '--list-line-height',
+    'var(--list-line-height-md, var(--line-height-text-md))',
+    'Controls default list line height.',
+  ],
+  ['--list-line-height-xs', 'var(--line-height-text-xs)', 'Controls extra-small list line height.'],
+  ['--list-line-height-sm', 'var(--line-height-text-sm)', 'Controls small list line height.'],
+  ['--list-line-height-md', 'var(--line-height-text-md)', 'Controls medium list line height.'],
+  ['--list-line-height-lg', 'var(--line-height-text-lg)', 'Controls large list line height.'],
+  ['--list-line-height-xl', 'var(--line-height-text-xl)', 'Controls extra-large list line height.'],
   ['--list-marker-color', 'currentColor', 'Controls marker color.'],
   ['--list-marker-font-weight', 'inherit', 'Controls native marker font weight.'],
-  ['--list-marker-size', '0.375rem', 'Controls custom bullet marker size.'],
   ['--list-marker-gap', 'var(--spacing-3)', 'Controls custom bullet marker gap.'],
   ['--list-marker-offset-y', '0.625em', 'Controls custom bullet vertical offset.'],
   ['--list-marker-radius', 'var(--radius-full)', 'Controls custom bullet marker radius.'],
-  ['--list-padding-x', 'var(--spacing-5)', 'Controls marker indentation.'],
-  ['--list-gap-sm', 'var(--spacing-2)', 'Controls small list item gap.'],
-  ['--list-gap-lg', 'var(--spacing-4)', 'Controls large list item gap.'],
-  ['--list-font-size-md', 'var(--text-md)', 'Controls `md` list font size.'],
-  ['--list-line-height-md', 'var(--line-height-text-md)', 'Controls `md` list line height.'],
-];
-export const listPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--list-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
-  ['--list-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
-  ['--list-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
-  ['--list-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
-  ['--list-marker-color', 'currentColor', 'Controls marker color.'],
   ['--list-marker-size', '0.375rem', 'Controls custom bullet marker size.'],
-  ['--list-marker-gap', 'var(--spacing-3)', 'Controls custom bullet marker gap.'],
+  ['--list-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
+  ['--list-padding-x', 'var(--spacing-5)', 'Controls marker indentation.'],
+  ['--list-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
+  ['--list-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
 ];
+export const listPlaygroundCssProperties: CssPropertyInput[] = listOverrideCssProperties;
 
 export function ListCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (

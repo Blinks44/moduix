@@ -15,14 +15,14 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './form.module.css';
 
 export const formOverrideCssProperties: CssPropertyInput[] = [
-  ['--form-width', '100%', 'Controls the root form width.'],
-  ['--form-max-width', 'none', 'Controls the root form max width.'],
   ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
+  ['--form-max-width', 'none', 'Controls the root form max width.'],
+  ['--form-width', '100%', 'Controls the root form width.'],
 ];
 export const formPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--form-width', '100%', 'Controls the root form width.'],
-  ['--form-max-width', 'none', 'Controls the root form max width.'],
   ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
+  ['--form-max-width', 'none', 'Controls the root form max width.'],
+  ['--form-width', '100%', 'Controls the root form width.'],
 ];
 
 export function FormCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

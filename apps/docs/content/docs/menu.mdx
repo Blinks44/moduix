@@ -41,7 +41,6 @@ import {
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuItem,
         MenuSeparator,
       } from "moduix";
@@ -54,7 +53,6 @@ import {
               <MenuTriggerIcon />
             </MenuTrigger>
             <MenuContent>
-              <MenuArrow />
               <MenuItem closeOnClick>Add to Library</MenuItem>
               <MenuItem closeOnClick>Add to Playlist</MenuItem>
               <MenuSeparator />
@@ -102,7 +100,6 @@ Menu
     <MenuTriggerIcon />
   </MenuTrigger>
   <MenuContent>
-    <MenuArrow />
     <MenuItem closeOnClick>Add to Library</MenuItem>
     <MenuSubmenu>
       <MenuSubmenuTrigger>
@@ -134,7 +131,7 @@ Menu
 and popup internally. In most cases, keep those service slots hidden and style visible parts
 such as trigger, items, separators, and arrow. Use `classNames` for service-slot classes and
 `slotProps` only when you need to pass non-class props to `portal`, `backdrop`, `positioner`,
-or `viewport`.
+`arrow`, or `viewport`.
 
 ## Composition
 
@@ -148,7 +145,8 @@ such as `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`,
 `collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`,
 and `disableAnchorTracking` directly. Use `container`, `withBackdrop`, and `withViewport` for
 common service-slot behavior, and use `slotProps` for the rare cases that need lower-level
-Base UI portal, backdrop, positioner, or viewport props:
+Base UI portal, backdrop, positioner, arrow, or viewport props. Arrow is enabled by default;
+set `withArrow={false}` to disable it:
 
 ```tsx
 <MenuContent
@@ -157,6 +155,7 @@ Base UI portal, backdrop, positioner, or viewport props:
     portal: styles.portal,
     backdrop: styles.backdrop,
     positioner: styles.positioner,
+    arrow: styles.arrow,
     viewport: styles.viewport,
   }}
   slotProps={{
@@ -173,7 +172,7 @@ Base UI portal, backdrop, positioner, or viewport props:
 
 ### Without Arrow
 
-Omit `MenuArrow` when the popup should appear without a pointer.
+Set `withArrow={false}` when the popup should appear without a pointer.
 
 <Preview>
   <WithoutArrowMenuExample />
@@ -197,7 +196,7 @@ Omit `MenuArrow` when the popup should appear without a pointer.
               Song
               <MenuTriggerIcon />
             </MenuTrigger>
-            <MenuContent>
+            <MenuContent withArrow={false}>
               <MenuItem closeOnClick>Add to Library</MenuItem>
               <MenuItem closeOnClick>Add to Playlist</MenuItem>
               <MenuSeparator />
@@ -226,7 +225,6 @@ Use groups, radio items, and checkbox items when the menu changes application st
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuGroup,
         MenuGroupLabel,
         MenuRadioGroup,
@@ -250,7 +248,6 @@ Use groups, radio items, and checkbox items when the menu changes application st
               <MenuTriggerIcon />
             </MenuTrigger>
             <MenuContent>
-              <MenuArrow />
               <MenuGroup>
                 <MenuGroupLabel>Sort</MenuGroupLabel>
                 <MenuRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -296,7 +293,6 @@ Use `MenuItemShortcut` for shortcut text that aligns to the end of each item.
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuItem,
         MenuItemShortcut,
         MenuSeparator,
@@ -310,7 +306,6 @@ Use `MenuItemShortcut` for shortcut text that aligns to the end of each item.
               <MenuTriggerIcon />
             </MenuTrigger>
             <MenuContent>
-              <MenuArrow />
               <MenuItem closeOnClick>
                 Copy
                 <MenuItemShortcut>Ctrl+C</MenuItemShortcut>
@@ -348,7 +343,6 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Text an
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuCheckboxItem,
         MenuItemText,
         MenuItemTextContent,
@@ -369,7 +363,6 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Text an
               <MenuTriggerIcon />
             </MenuTrigger>
             <MenuContent>
-              <MenuArrow />
               <MenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap} indicator="end">
                 <MenuItemText>
                   <MenuItemTextContent>
@@ -405,7 +398,6 @@ Use `MenuSubmenu` with `MenuSubmenuTrigger` and `MenuSubmenuContent` for nested 
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuItem,
         MenuSubmenu,
         MenuSubmenuTrigger,
@@ -422,7 +414,6 @@ Use `MenuSubmenu` with `MenuSubmenuTrigger` and `MenuSubmenuContent` for nested 
               <MenuTriggerIcon />
             </MenuTrigger>
             <MenuContent>
-              <MenuArrow />
               <MenuItem closeOnClick>Add to Library</MenuItem>
               <MenuSubmenu>
                 <MenuSubmenuTrigger>
@@ -461,7 +452,6 @@ Use `openOnHover` when the trigger should behave like a hover menu while keeping
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuItem,
         MenuSeparator,
       } from "moduix";
@@ -474,7 +464,6 @@ Use `openOnHover` when the trigger should behave like a hover menu while keeping
               <MenuTriggerIcon />
             </MenuTrigger>
             <MenuContent>
-              <MenuArrow />
               <MenuItem closeOnClick>Get Up!</MenuItem>
               <MenuItem closeOnClick>Inside Out</MenuItem>
               <MenuItem closeOnClick>Night Beats</MenuItem>
@@ -504,7 +493,6 @@ Use `side`, `align`, and offset props on `MenuContent` to position the popup. Ad
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuItem,
         MenuSeparator,
       } from "moduix";
@@ -517,7 +505,6 @@ Use `side`, `align`, and offset props on `MenuContent` to position the popup. Ad
               <MenuTriggerIcon />
             </MenuTrigger>
             <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
-              <MenuArrow />
               <MenuItem closeOnClick>Export PNG</MenuItem>
               <MenuItem closeOnClick>Export PDF</MenuItem>
               <MenuSeparator />
@@ -546,7 +533,6 @@ Open a dialog from a menu item by closing the menu on click and updating dialog 
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuItem,
         MenuSeparator,
         AlertDialog,
@@ -571,7 +557,6 @@ Open a dialog from a menu item by closing the menu on click and updating dialog 
                 <MenuTriggerIcon />
               </MenuTrigger>
               <MenuContent>
-                <MenuArrow />
                 <MenuItem closeOnClick>Rename</MenuItem>
                 <MenuItem closeOnClick>Duplicate</MenuItem>
                 <MenuSeparator />
@@ -623,7 +608,6 @@ Use `MenuLinkItem` for navigation items that should render as links.
         MenuTrigger,
         MenuTriggerIcon,
         MenuContent,
-        MenuArrow,
         MenuLinkItem,
         MenuSeparator,
         MenuItem,
@@ -637,7 +621,6 @@ Use `MenuLinkItem` for navigation items that should render as links.
               <MenuTriggerIcon />
             </MenuTrigger>
             <MenuContent>
-              <MenuArrow />
               <MenuLinkItem href="#projects">Projects</MenuLinkItem>
               <MenuLinkItem href="#teams">Teams</MenuLinkItem>
               <MenuLinkItem href="#billing">Billing</MenuLinkItem>
@@ -668,7 +651,6 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
         MenuTriggerIcon,
         Menu,
         MenuContent,
-        MenuArrow,
         MenuItem,
         MenuSeparator,
       } from "moduix";
@@ -688,7 +670,6 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
 
             <Menu handle={menuHandle}>
               <MenuContent>
-                <MenuArrow />
                 <MenuItem closeOnClick>Edit</MenuItem>
                 <MenuItem closeOnClick>Share</MenuItem>
                 <MenuSeparator />
@@ -730,7 +711,6 @@ Use `className` for visible slots and `classNames` for internal service slots. I
         MenuTriggerIcon,
         ChevronDownIcon,
         MenuContent,
-        MenuArrow,
         MenuItem,
         MenuItemTextContent,
         MenuItemTextIcon,
@@ -761,7 +741,6 @@ Use `className` for visible slots and `classNames` for internal service slots. I
               }}
               withBackdrop
             >
-              <MenuArrow />
               <MenuItem closeOnClick className={styles.customItem}>
                 <MenuItemTextContent>
                   <MenuItemTextIcon>

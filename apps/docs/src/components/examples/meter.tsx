@@ -5,35 +5,39 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './meter.module.css';
 
 export const meterOverrideCssProperties: CssPropertyInput[] = [
-  ['--meter-width', '12rem', 'Controls the root meter width.'],
   ['--meter-color', 'var(--color-foreground)', 'Controls the default meter text color.'],
   ['--meter-gap', '0.5rem', 'Controls spacing between meter slots.'],
-  ['--meter-label-color', 'var(--meter-color)', 'Controls label text color.'],
-  ['--meter-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--meter-label-font-weight', 'var(--weight-regular)', 'Controls label font weight.'],
-  ['--meter-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
-  ['--meter-value-color', 'var(--meter-color)', 'Controls value text color.'],
-  ['--meter-value-font-size', 'var(--text-sm)', 'Controls value font size.'],
-  ['--meter-value-font-weight', 'var(--weight-regular)', 'Controls value font weight.'],
-  ['--meter-value-line-height', 'var(--line-height-text-sm)', 'Controls value line height.'],
-  ['--meter-track-bg', 'var(--color-muted)', 'Controls track background color.'],
-  ['--meter-track-border-color', 'var(--color-border)', 'Controls track border color.'],
-  ['--meter-track-height', '0.5rem', 'Controls track height.'],
-  ['--meter-track-radius', 'var(--radius-full)', 'Controls track corner radius.'],
   ['--meter-indicator-bg', 'var(--color-primary)', 'Controls indicator background color.'],
+  ['--meter-indicator-radius', 'inherit', 'Controls indicator corner radius.'],
   [
     '--meter-indicator-transition',
     'var(--transition-default)',
     'Controls indicator width transition.',
   ],
+  ['--meter-label-color', 'var(--meter-color)', 'Controls label text color.'],
+  ['--meter-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
+  ['--meter-label-font-weight', 'var(--weight-regular)', 'Controls label font weight.'],
+  ['--meter-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
+  ['--meter-track-bg', 'var(--color-muted)', 'Controls track background color.'],
+  ['--meter-track-border-color', 'var(--color-border)', 'Controls track border color.'],
+  ['--meter-track-border-width', 'var(--border-width-sm)', 'Controls track border width.'],
+  ['--meter-track-height', '0.5rem', 'Controls track height.'],
+  ['--meter-track-radius', 'var(--radius-full)', 'Controls track corner radius.'],
+  ['--meter-value-color', 'var(--meter-color)', 'Controls value text color.'],
+  ['--meter-value-font-size', 'var(--text-sm)', 'Controls value font size.'],
+  ['--meter-value-font-weight', 'var(--weight-regular)', 'Controls value font weight.'],
+  ['--meter-value-line-height', 'var(--line-height-text-sm)', 'Controls value line height.'],
+  ['--meter-width', '12rem', 'Controls the root meter width.'],
 ];
 export const meterPlaygroundCssProperties: CssPropertyInput[] = [
   ['--meter-color', 'var(--color-foreground)', 'Controls default text color.'],
+  ['--meter-indicator-bg', 'var(--color-primary)', 'Controls indicator color.'],
+  ['--meter-indicator-radius', 'inherit', 'Controls indicator radius.'],
   ['--meter-track-bg', 'var(--color-muted)', 'Controls track background.'],
   ['--meter-track-border-color', 'var(--color-border)', 'Controls track border color.'],
+  ['--meter-track-border-width', 'var(--border-width-sm)', 'Controls track border width.'],
   ['--meter-track-height', '0.5rem', 'Controls track height.'],
   ['--meter-track-radius', 'var(--radius-full)', 'Controls track radius.'],
-  ['--meter-indicator-bg', 'var(--color-primary)', 'Controls indicator color.'],
 ];
 
 export function MeterCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

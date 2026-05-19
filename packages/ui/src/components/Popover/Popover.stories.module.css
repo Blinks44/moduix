@@ -64,6 +64,11 @@
     backdrop-filter: blur(2px);
   }
 
+  .backdropTrigger {
+    position: relative;
+    z-index: calc(var(--z-popup) + 1);
+  }
+
   .contentGrid {
     display: grid;
   }
@@ -108,10 +113,16 @@
     --popover-viewport-transition: 260ms;
   }
 
+  .customTrigger {
+    position: relative;
+    z-index: calc(var(--z-popup) + 1);
+  }
+
   .customPopup {
     --popover-bg: var(--color-primary);
     --popover-color: var(--color-primary-foreground);
     --popover-border-color: color-mix(in oklab, var(--color-primary), black 18%);
+    --popover-arrow-stroke-color: var(--popover-border-color);
     --popover-title-color: var(--popover-color);
     --popover-description-color: color-mix(in oklab, var(--popover-color), transparent 18%);
     --popover-radius: var(--radius-lg);

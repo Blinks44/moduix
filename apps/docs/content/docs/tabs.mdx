@@ -132,7 +132,7 @@ Tabs
 ## Composition
 
 Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `orientation`,
-`variant`, and `unstyled`. Base UI props pass through to the matching visible parts: `TabsList`
+and `variant`. Base UI props pass through to the matching visible parts: `TabsList`
 supports `activateOnFocus` and `loopFocus`, `TabsTab` supports `disabled`, `render`, and
 `nativeButton`, and `TabsPanel` supports `keepMounted`.
 
@@ -146,7 +146,7 @@ import styles from './custom-indicator-tabs-demo.module.css';
 
 export function CustomIndicatorTabsDemo() {
   return (
-    <Tabs defaultValue="profile" unstyled className={styles.root}>
+    <Tabs defaultValue="profile" className={styles.root}>
       <TabsList
         className={styles.list}
         classNames={{ indicator: styles.indicator }}
@@ -718,7 +718,7 @@ DOM must stay mounted for forms, measurements, or preserved local state.
 
 ### Custom Styles
 
-Set `unstyled` when the default Tabs layout is too strong and every slot should be styled by your own classes. Use `classNames.indicator` to style the internally rendered indicator.
+Use `className`, `classNames.indicator`, and CSS variables to reshape layout and visuals when the default Tabs style is too strong for the target composition.
 
 <Preview>
   <InlineInputsTabsExample />
@@ -735,7 +735,7 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
 
       export function InlineInputsTabsDemo() {
         return (
-          <Tabs defaultValue="name" unstyled className={styles.inlineRoot}>
+          <Tabs defaultValue="name" className={styles.inlineRoot}>
             <TabsList
               className={styles.inlineList}
               classNames={{ indicator: styles.inlineIndicator }}
@@ -764,11 +764,21 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
   <Preview.CSS>
     {`
       .inlineRoot {
+        --tabs-bg: transparent;
+        --tabs-border-color: transparent;
+        --tabs-border-width: 0;
+        --tabs-gap: var(--spacing-4);
+        --tabs-list-bg: transparent;
+        --tabs-list-border-width: 0;
+        --tabs-list-padding: 0;
+        --tabs-list-padding-x: 0;
+        --tabs-list-padding-y: 0;
         display: flex;
+        flex-direction: row;
         width: min(36rem, calc(100vw - 2rem));
         align-items: center;
         justify-content: space-between;
-        gap: var(--spacing-4);
+        gap: var(--tabs-gap);
         color: var(--color-foreground);
       }
 
@@ -801,6 +811,7 @@ Set `unstyled` when the default Tabs layout is too strong and every slot should 
 
       .inlineIndicator {
         position: absolute;
+        top: auto;
         left: 0;
         bottom: 0;
         width: var(--active-tab-width);

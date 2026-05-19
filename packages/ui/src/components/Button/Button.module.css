@@ -7,7 +7,7 @@
     justify-content: center;
     gap: var(--button-content-gap, var(--spacing-2));
     margin: 0;
-    border: var(--border-width-sm) solid transparent;
+    border: var(--button-border-width, var(--border-width-sm)) solid transparent;
     border-radius: var(--button-radius, var(--radius-md));
     background-color: transparent;
     color: var(--button-color, var(--color-foreground));
@@ -26,8 +26,11 @@
       box-shadow var(--button-transition, var(--transition-default));
 
     &:focus-visible {
-      outline: var(--border-width-md) solid var(--button-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(--button-focus-ring-width, var(--border-width-md)) solid
+        var(--button-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(--button-focus-ring-offset, var(--button-border-width, var(--border-width-sm))) * -1
+      );
     }
 
     &[data-disabled],
@@ -224,8 +227,9 @@
     width: var(--button-spinner-size, 0.875rem);
     height: var(--button-spinner-size, 0.875rem);
     border: var(--border-width-sm) solid currentColor;
+    border-width: var(--button-spinner-border-width, var(--border-width-sm));
     border-inline-end-color: transparent;
-    border-radius: var(--radius-full);
+    border-radius: var(--button-spinner-radius, var(--radius-full));
     animation: var(--button-spinner-animation, var(--animation-spin));
   }
 }

@@ -37,7 +37,8 @@
     min-height: var(--drawer-control-height, var(--size-lg));
     margin: 0;
     padding: var(--drawer-control-padding-y, 0.5rem) var(--drawer-control-padding-x, 0.875rem);
-    border: var(--border-width-sm) solid var(--drawer-control-border-color, var(--color-border));
+    border: var(--drawer-control-border-width, var(--border-width-sm)) solid
+      var(--drawer-control-border-color, var(--color-border));
     border-radius: var(--drawer-control-radius, var(--radius-md));
     background-color: var(--drawer-control-bg, var(--color-background));
     color: var(--drawer-control-color, var(--color-foreground));
@@ -58,8 +59,15 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--drawer-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(
+          --drawer-focus-ring-width,
+          var(--drawer-control-border-width, var(--border-width-sm))
+        )
+        solid var(--drawer-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(--drawer-focus-ring-width, var(--drawer-control-border-width, var(--border-width-sm))) *
+          -1
+      );
     }
   }
 
@@ -600,7 +608,8 @@
     height: var(--drawer-snap-toggle-size, 1.75rem);
     margin: 0;
     padding: 0;
-    border: 0;
+    border: var(--drawer-snap-toggle-border-width, 0) var(--drawer-snap-toggle-border-style, solid)
+      var(--drawer-snap-toggle-border-color, currentColor);
     border-radius: var(--drawer-snap-toggle-radius, var(--radius-md));
     color: var(
       --drawer-snap-toggle-color,
@@ -624,8 +633,15 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--drawer-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(
+          --drawer-focus-ring-width,
+          var(--drawer-control-border-width, var(--border-width-sm))
+        )
+        solid var(--drawer-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(--drawer-focus-ring-width, var(--drawer-control-border-width, var(--border-width-sm))) *
+          -1
+      );
     }
   }
 }

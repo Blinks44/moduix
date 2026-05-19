@@ -37,6 +37,11 @@
   .toolbar {
     --toolbar-padding: var(--pagination-toolbar-padding, 0);
     --toolbar-gap: var(--pagination-toolbar-gap, var(--spacing-1));
+    --toolbar-bg: var(--pagination-toolbar-bg, transparent);
+    --toolbar-border-color: var(--pagination-toolbar-border-color, transparent);
+    --toolbar-font-size: var(--pagination-font-size, var(--text-sm));
+    --toolbar-font-weight: var(--pagination-font-weight, var(--weight-medium));
+    --toolbar-line-height: var(--pagination-line-height, var(--line-height-text-sm));
 
     &[data-variant='default'],
     &[data-variant='outline'] {
@@ -77,7 +82,7 @@
   }
 
   .arrow {
-    padding-inline: 0;
+    padding-inline: var(--pagination-arrow-padding-inline, 0);
   }
 
   .arrowLeftIcon {

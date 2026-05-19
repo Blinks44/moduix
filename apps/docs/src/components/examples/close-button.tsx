@@ -4,27 +4,22 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './close-button.module.css';
 
 export const closeButtonOverrideCssProperties: CssPropertyInput[] = [
-  ['--close-button-size', '28px', 'Controls close button width and height.'],
-  ['--close-button-icon-size', '12px', 'Controls nested SVG icon size.'],
-  ['--close-button-radius', 'var(--radius-sm)', 'Controls close button corner radius.'],
   ['--close-button-bg', 'transparent', 'Controls close button background.'],
   ['--close-button-bg-hover', 'var(--color-muted)', 'Controls hover background color.'],
   ['--close-button-color', 'var(--color-muted-foreground)', 'Controls icon color.'],
   ['--close-button-color-hover', 'var(--color-foreground)', 'Controls hover icon color.'],
-  ['--close-button-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--close-button-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  ['--close-button-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--close-button-focus-ring-offset', '2px', 'Controls focus ring offset.'],
+  ['--close-button-focus-ring-width', 'var(--border-width-md)', 'Controls focus ring width.'],
+  ['--close-button-icon-size', '12px', 'Controls nested SVG icon size.'],
+  ['--close-button-radius', 'var(--radius-sm)', 'Controls close button corner radius.'],
+  ['--close-button-size', '28px', 'Controls close button width and height.'],
   ['--close-button-transition', 'var(--transition-default)', 'Controls transition timing.'],
 ];
 
 export const closeButtonPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--close-button-size', '28px', 'Controls close button width and height.'],
-  ['--close-button-icon-size', '12px', 'Controls nested SVG icon size.'],
-  ['--close-button-radius', 'var(--radius-sm)', 'Controls close button corner radius.'],
-  ['--close-button-bg', 'transparent', 'Controls close button background.'],
-  ['--close-button-bg-hover', 'var(--color-muted)', 'Controls hover background color.'],
-  ['--close-button-color', 'var(--color-muted-foreground)', 'Controls icon color.'],
-  ['--close-button-color-hover', 'var(--color-foreground)', 'Controls hover icon color.'],
-  ['--close-button-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ...closeButtonOverrideCssProperties,
 ];
 
 export function CloseButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

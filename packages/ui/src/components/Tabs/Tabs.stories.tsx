@@ -263,7 +263,7 @@ export const DisabledTab: Story = {
 export const InlineInputs: Story = {
   render: () => {
     return (
-      <Tabs defaultValue="name" unstyled className={styles.inlineRoot}>
+      <Tabs defaultValue="name" className={styles.inlineRoot}>
         <TabsList
           className={styles.inlineList}
           classNames={{ indicator: styles.inlineIndicator }}

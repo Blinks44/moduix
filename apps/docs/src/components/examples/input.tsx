@@ -12,9 +12,13 @@ export const inputOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-destructive)',
     'Controls invalid border and focus ring color.',
   ],
+  ['--input-border-style', 'solid', 'Controls the input border style.'],
+  ['--input-border-width', 'var(--border-width-sm)', 'Controls the input border width.'],
   ['--input-color', 'var(--color-foreground)', 'Controls the input text color.'],
   ['--input-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled input opacity.'],
   ['--input-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--input-focus-ring-offset', 'depends on focus ring width', 'Controls focus ring offset.'],
+  ['--input-focus-ring-width', 'depends on border width', 'Controls focus ring width.'],
   ['--input-font-size', 'var(--text-md)', 'Controls default font size.'],
   ['--input-font-size-xs', 'var(--text-xs)', 'Controls extra-small input font size.'],
   ['--input-font-size-sm', 'var(--text-sm)', 'Controls small input font size.'],
@@ -51,15 +55,7 @@ export const inputOverrideCssProperties: CssPropertyInput[] = [
   ['--input-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--input-width', '100%', 'Controls the input width.'],
 ];
-export const inputPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--input-bg', 'var(--color-background)', 'Controls input background color.'],
-  ['--input-border-color', 'var(--color-border)', 'Controls input border color.'],
-  ['--input-color', 'var(--color-foreground)', 'Controls input text color.'],
-  ['--input-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--input-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
-  ['--input-radius', 'var(--radius-md)', 'Controls input corner radius.'],
-  ['--input-transition', 'var(--transition-default)', 'Controls state transition timing.'],
-];
+export const inputPlaygroundCssProperties: CssPropertyInput[] = inputOverrideCssProperties;
 
 export function InputCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (

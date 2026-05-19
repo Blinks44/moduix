@@ -52,7 +52,7 @@ import {
           <Select items={fruits}>
             <SelectField>
               <SelectLabel>Choose fruit</SelectLabel>
-              <SelectTrigger>
+              <SelectTrigger className={styles.customTrigger}>
                 <SelectValue placeholder="Select an option" />
                 <SelectIcon />
               </SelectTrigger>
@@ -156,7 +156,7 @@ Select
 
 In most cases, keep default popup infrastructure and style visible parts (`SelectTrigger`,
 `SelectValue`, `SelectContent`, `SelectItem`, `SelectItemIndicator`, `SelectItemText`).
-Use `SelectContent` service-slot props (`classNames`, `slotProps`, `withBackdrop`, `showArrow`)
+Use `SelectContent` service-slot props (`classNames`, `slotProps`, `withBackdrop`, `arrow`)
 only when you need custom portal, layering, backdrop, or arrow behavior.
 
 ## Composition
@@ -177,7 +177,7 @@ escape hatches:
 ```tsx
 <SelectContent
   className={styles.popup}
-  showArrow
+  withArrow
   withBackdrop
   slotProps={{
     positioner: { sticky: true },
@@ -561,7 +561,7 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
             <SelectContent
               alignItemWithTrigger={false}
               sideOffset={8}
-              showArrow
+              withArrow
               withBackdrop
               slotProps={{
                 positioner: { sticky: true },
@@ -605,8 +605,13 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
         filter: drop-shadow(var(--shadow-md));
       }
 
+      .customTrigger {
+        position: relative;
+        z-index: calc(var(--z-popup) + 1);
+      }
+
       .customArrow {
-        --select-arrow-stroke-color: var(--color-border);
+        --select-arrow-stroke-color: var(--select-popup-border-color);
       }
 
       .customPopup {

@@ -198,14 +198,14 @@ rules. `actionsRef` is available for manual unmount flows with animation librari
 
 `className` styles the visible popup. `classNames` styles service slots hidden from the default
 composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `portalProps`,
-`backdropProps`, `positionerProps`, `arrowProps`, `withBackdrop`, and `showArrow` when you need the
+`backdropProps`, `positionerProps`, `arrowProps`, `withBackdrop`, and `arrow` when you need the
 matching Base UI escape hatches:
 
 ```tsx
 <AutocompleteContent
   className={styles.popup}
   sideOffset={8}
-  showArrow
+  withArrow
   withBackdrop
   classNames={{
     portal: styles.portal,
@@ -1011,7 +1011,7 @@ Style the popup directly with `className` and service slots with `classNames`.
             <AutocompleteContent
               className={styles.customPopup}
               sideOffset={8}
-              showArrow
+              withArrow
               withBackdrop
               classNames={{
                 portal: styles.customPortal,
