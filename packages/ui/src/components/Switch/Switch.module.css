@@ -33,7 +33,7 @@
     margin: 0;
     border: var(--switch-border-width, var(--border-width-sm)) solid
       var(--switch-border-color, var(--color-border));
-    border-radius: var(--radius-full);
+    border-radius: var(--switch-radius, var(--radius-full));
     padding: var(--switch-padding, 0.125rem);
     background-color: var(--switch-bg, var(--color-muted));
     outline: 0;
@@ -116,7 +116,8 @@
     justify-content: center;
     width: var(--switch-thumb-size, 1.125rem);
     height: var(--switch-thumb-size, 1.125rem);
-    border-radius: var(--radius-full);
+    border: var(--switch-thumb-border-width, 0) solid var(--switch-thumb-border-color, transparent);
+    border-radius: var(--switch-thumb-radius, var(--radius-full));
     background-color: var(
       --switch-thumb-bg-unchecked,
       var(--switch-thumb-bg, var(--color-background))

@@ -1696,17 +1696,21 @@
   --slider-gap: initial; /* 0.5rem */
   --slider-height: initial; /* 12rem */
   --slider-indicator-bg: initial; /* var(--color-primary) */
+  --slider-indicator-radius: initial; /* inherit */
   --slider-label-color: initial; /* var(--slider-color) */
   --slider-label-font-size: initial; /* var(--text-sm) */
   --slider-label-font-weight: initial; /* var(--weight-regular) */
   --slider-label-line-height: initial; /* var(--line-height-text-sm) */
   --slider-thumb-bg: initial; /* var(--color-background) */
   --slider-thumb-border-color: initial; /* var(--color-border) */
+  --slider-thumb-border-width: initial; /* var(--border-width-sm) */
+  --slider-thumb-radius: initial; /* var(--radius-full) */
   --slider-thumb-shadow: initial; /* var(--shadow-sm) */
   --slider-thumb-shadow-dragging: initial; /* var(--shadow-md) */
   --slider-thumb-size: initial; /* 1rem */
   --slider-track-bg: initial; /* var(--color-muted) */
   --slider-track-border-color: initial; /* var(--color-border) */
+  --slider-track-border-width: initial; /* var(--border-width-sm) */
   --slider-track-radius: initial; /* var(--radius-full) */
   --slider-track-size: initial; /* 0.375rem */
   --slider-transition: initial; /* var(--transition-default) */
@@ -1745,13 +1749,17 @@
   --switch-label-font-weight: initial; /* var(--weight-medium) */
   --switch-label-line-height: initial; /* var(--line-height-text-sm) */
   --switch-padding: initial; /* 0.125rem */
+  --switch-radius: initial; /* var(--radius-full) */
   --switch-thumb-bg: initial; /* fallback for both states */
   --switch-thumb-bg-checked: initial; /* var(--switch-thumb-bg, var(--color-primary-foreground)) */
   --switch-thumb-bg-unchecked: initial; /* var(--switch-thumb-bg, var(--color-background)) */
+  --switch-thumb-border-color: initial; /* transparent */
+  --switch-thumb-border-width: initial; /* 0 */
   --switch-thumb-color: initial; /* fallback for both states */
   --switch-thumb-color-checked: initial; /* var(--switch-thumb-color, var(--color-primary)) */
   --switch-thumb-color-unchecked: initial; /* var(--switch-thumb-color, var(--color-muted)) */
   --switch-thumb-icon-size: initial; /* 65% */
+  --switch-thumb-radius: initial; /* var(--radius-full) */
   --switch-thumb-shadow: initial; /* var(--shadow-sm) */
   --switch-thumb-size-xs: initial; /* 0.625rem */
   --switch-thumb-size-sm: initial; /* 0.875rem */

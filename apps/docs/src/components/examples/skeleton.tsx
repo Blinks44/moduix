@@ -11,22 +11,22 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './skeleton.module.css';
 
 export const skeletonOverrideCssProperties: CssPropertyInput[] = [
+  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls skeleton loading animation.'],
   [
     '--skeleton-bg',
     'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',
     'Controls skeleton background color.',
   ],
   ['--skeleton-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
-  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls skeleton loading animation.'],
 ];
 export const skeletonPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls skeleton loading animation.'],
   [
     '--skeleton-bg',
     'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',
     'Controls skeleton background color.',
   ],
   ['--skeleton-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
-  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls skeleton loading animation.'],
 ];
 
 export function SkeletonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
