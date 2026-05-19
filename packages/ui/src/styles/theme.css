@@ -729,6 +729,8 @@
   --dialog-close-icon-glyph-size: initial; /* 0.75rem */
   --dialog-close-icon-radius: initial; /* var(--radius-md) */
   --dialog-close-icon-size: initial; /* 1.75rem */
+  --dialog-close-outside-offset-right: initial; /* var(--spacing-4) */
+  --dialog-close-outside-offset-top: initial; /* var(--spacing-4) */
   --dialog-color: initial; /* var(--color-popover-foreground) */
   --dialog-content-margin: initial; /* var(--spacing-4) 0 0 */
   --dialog-control-bg: initial; /* var(--color-background) */
@@ -990,8 +992,8 @@
   --lightbox-close-color: initial; /* var(--color-foreground) */
   --lightbox-close-color-hover: initial; /* var(--color-foreground) */
   --lightbox-close-icon-size: initial; /* 0.875rem */
-  --lightbox-close-offset-right: initial; /* calc(var(--spacing-8) * -1) */
-  --lightbox-close-offset-top: initial; /* calc(var(--spacing-8) * -1) */
+  --lightbox-close-offset-right: initial; /* var(--spacing-4) */
+  --lightbox-close-offset-top: initial; /* var(--spacing-4) */
   --lightbox-close-radius: initial; /* var(--radius-sm) */
   --lightbox-close-size: initial; /* 2rem */
   --lightbox-focus-ring-color: initial; /* var(--color-ring) */

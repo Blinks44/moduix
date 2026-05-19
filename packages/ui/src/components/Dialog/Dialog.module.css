@@ -84,9 +84,23 @@
     &[data-with-backdrop='false'] {
       pointer-events: none;
 
-      & > [data-slot='dialog-popup'] {
+      & > :is([data-slot='dialog-popup'], [data-slot='dialog-close-icon']) {
         pointer-events: auto;
       }
+    }
+
+    & > [data-slot='dialog-close-icon'] {
+      position: fixed;
+      top: var(--dialog-close-outside-offset-top, var(--spacing-4));
+      right: var(--dialog-close-outside-offset-right, var(--spacing-4));
+      z-index: 1;
+      opacity: 1;
+      transition: opacity var(--dialog-backdrop-transition, var(--transition-default));
+    }
+
+    &[data-starting-style] > [data-slot='dialog-close-icon'],
+    &[data-ending-style] > [data-slot='dialog-close-icon'] {
+      opacity: 0;
     }
   }
 

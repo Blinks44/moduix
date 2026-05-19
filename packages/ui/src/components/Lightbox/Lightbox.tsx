@@ -167,15 +167,15 @@ function LightboxContent({
         data-with-backdrop={withBackdrop ? 'true' : 'false'}
         {...slotProps?.viewport}
       >
+        {withCloseButton ? (
+          <LightboxClose
+            className={styles.closeButton}
+            aria-label={closeLabel}
+            render={closeButton ?? <CloseButton aria-label={closeLabel} />}
+          />
+        ) : null}
         <LightboxPopup className={className} {...props}>
           <div data-slot="lightbox-frame" className={classNames?.frame ?? styles.frame}>
-            {withCloseButton ? (
-              <LightboxClose
-                className={styles.closeButton}
-                aria-label={closeLabel}
-                render={closeButton ?? <CloseButton aria-label={closeLabel} />}
-              />
-            ) : null}
             {closeOnContentClick ? (
               <LightboxClose
                 className={styles.contentClose}
