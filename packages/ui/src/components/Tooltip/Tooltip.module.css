@@ -7,7 +7,8 @@
     min-height: var(--tooltip-trigger-height, var(--size-lg));
     margin: 0;
     padding: var(--tooltip-trigger-padding-y, 0.5rem) var(--tooltip-trigger-padding-x, 0.875rem);
-    border: var(--border-width-sm) solid var(--tooltip-trigger-border-color, var(--color-border));
+    border: var(--tooltip-trigger-border-width, var(--border-width-sm)) solid
+      var(--tooltip-trigger-border-color, var(--color-border));
     border-radius: var(--tooltip-trigger-radius, var(--radius-md));
     background-color: var(--tooltip-trigger-bg, var(--color-background));
     color: var(--tooltip-trigger-color, var(--color-foreground));
@@ -37,8 +38,12 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--tooltip-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(--tooltip-focus-ring-width, var(--border-width-sm)) solid
+        var(--tooltip-focus-ring-color, var(--color-ring));
+      outline-offset: var(
+        --tooltip-focus-ring-offset,
+        calc(var(--tooltip-trigger-border-width, var(--border-width-sm)) * -1)
+      );
     }
 
     &[data-trigger-disabled],
@@ -82,7 +87,8 @@
     border-radius: var(--tooltip-radius, var(--radius-md));
     background-color: var(--tooltip-bg, var(--color-popover));
     color: var(--tooltip-color, var(--color-popover-foreground));
-    outline: var(--border-width-sm) solid var(--tooltip-border-color, var(--color-border));
+    outline: var(--tooltip-border-width, var(--border-width-sm)) solid
+      var(--tooltip-border-color, var(--color-border));
     box-shadow: var(--tooltip-shadow, var(--shadow-lg));
     font-size: var(--tooltip-font-size, var(--text-sm));
     line-height: var(--tooltip-line-height, var(--line-height-text-sm));

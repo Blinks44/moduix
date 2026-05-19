@@ -5,7 +5,8 @@
     align-items: center;
     gap: var(--toggle-group-gap, var(--border-width-sm));
     padding: var(--toggle-group-padding, 0.125rem);
-    border: var(--border-width-sm) solid var(--toggle-group-border-color, var(--color-border));
+    border: var(--toggle-group-border-width, var(--border-width-sm)) solid
+      var(--toggle-group-border-color, var(--color-border));
     border-radius: var(--toggle-group-radius, var(--radius-lg));
     background-color: var(--toggle-group-bg, var(--color-muted));
     color: var(--toggle-group-color, var(--color-foreground));
@@ -20,13 +21,13 @@
     }
 
     &[data-variant='ghost'] {
-      --toggle-group-bg: transparent;
-      --toggle-group-border-color: transparent;
-      --toggle-group-padding: 0;
+      --toggle-group-bg: var(--toggle-group-ghost-bg, transparent);
+      --toggle-group-border-color: var(--toggle-group-ghost-border-color, transparent);
+      --toggle-group-padding: var(--toggle-group-ghost-padding, 0);
     }
 
     &[data-variant='outline'] {
-      --toggle-group-bg: var(--color-background);
+      --toggle-group-bg: var(--toggle-group-outline-bg, var(--color-background));
     }
   }
 

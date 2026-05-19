@@ -5,7 +5,8 @@
     align-items: center;
     gap: var(--toolbar-gap, var(--border-width-sm));
     padding: var(--toolbar-padding, 0.125rem);
-    border: var(--border-width-sm) solid var(--toolbar-border-color, var(--color-border));
+    border: var(--toolbar-border-width, var(--border-width-sm)) solid
+      var(--toolbar-border-color, var(--color-border));
     border-radius: var(--toolbar-radius, var(--radius-lg));
     background-color: var(--toolbar-bg, var(--color-muted));
     color: var(--toolbar-color, var(--color-foreground));
@@ -30,20 +31,20 @@
     }
 
     &[data-size='sm'] {
-      --toolbar-control-height: var(--size-sm);
-      --toolbar-control-padding-x: 0.625rem;
-      --toolbar-input-width: 8rem;
-      --toolbar-icon-size: 0.875rem;
-      --toolbar-font-size: var(--text-xs);
-      --toolbar-line-height: var(--line-height-text-xs);
+      --toolbar-control-height: var(--toolbar-control-height-sm, var(--size-sm));
+      --toolbar-control-padding-x: var(--toolbar-control-padding-x-sm, 0.625rem);
+      --toolbar-font-size: var(--toolbar-font-size-sm, var(--text-xs));
+      --toolbar-icon-size: var(--toolbar-icon-size-sm, 0.875rem);
+      --toolbar-input-width: var(--toolbar-input-width-sm, 8rem);
+      --toolbar-line-height: var(--toolbar-line-height-sm, var(--line-height-text-xs));
     }
 
     &[data-size='lg'] {
-      --toolbar-control-height: var(--size-xl);
-      --toolbar-control-padding-x: 1rem;
-      --toolbar-input-width: 12rem;
-      --toolbar-font-size: var(--text-md);
-      --toolbar-line-height: var(--line-height-text-md);
+      --toolbar-control-height: var(--toolbar-control-height-lg, var(--size-xl));
+      --toolbar-control-padding-x: var(--toolbar-control-padding-x-lg, 1rem);
+      --toolbar-font-size: var(--toolbar-font-size-lg, var(--text-md));
+      --toolbar-input-width: var(--toolbar-input-width-lg, 12rem);
+      --toolbar-line-height: var(--toolbar-line-height-lg, var(--line-height-text-md));
     }
   }
 
@@ -71,7 +72,7 @@
     min-width: var(--toolbar-control-height, var(--size-lg));
     min-height: var(--toolbar-control-height, var(--size-lg));
     margin: 0;
-    border: var(--border-width-sm) solid transparent;
+    border: var(--toolbar-control-border-width, var(--border-width-sm)) solid transparent;
     border-radius: var(--toolbar-control-radius, var(--radius-md));
     padding-block: 0;
     padding-inline: var(--toolbar-control-padding-x, 0.75rem);
@@ -102,8 +103,12 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-md) solid var(--toolbar-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(--toolbar-focus-ring-width, var(--border-width-md)) solid
+        var(--toolbar-focus-ring-color, var(--color-ring));
+      outline-offset: var(
+        --toolbar-focus-ring-offset,
+        calc(var(--toolbar-control-border-width, var(--border-width-sm)) * -1)
+      );
     }
 
     &[data-disabled],
@@ -151,7 +156,8 @@
     min-width: 0;
     height: var(--toolbar-control-height, var(--size-lg));
     margin: 0;
-    border: var(--border-width-sm) solid var(--toolbar-input-border-color, var(--color-border));
+    border: var(--toolbar-input-border-width, var(--border-width-sm)) solid
+      var(--toolbar-input-border-color, var(--color-border));
     border-radius: var(--toolbar-control-radius, var(--radius-md));
     padding-block: 0;
     padding-inline: var(--toolbar-input-padding-x, 0.75rem);
@@ -160,8 +166,11 @@
     font: inherit;
     font-size: var(--toolbar-font-size, var(--text-sm));
     line-height: var(--toolbar-line-height, var(--line-height-text-sm));
-    outline: var(--border-width-sm) solid transparent;
-    outline-offset: calc(var(--border-width-sm) * -1);
+    outline: var(--toolbar-input-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline-offset: var(
+      --toolbar-input-focus-ring-offset,
+      calc(var(--toolbar-input-border-width, var(--border-width-sm)) * -1)
+    );
     transition:
       border-color var(--toolbar-transition, var(--transition-default)),
       outline-color var(--toolbar-transition, var(--transition-default)),

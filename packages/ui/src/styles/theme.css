@@ -1908,30 +1908,48 @@
   /* Toolbar */
   --toolbar-bg: initial; /* var(--color-muted) */
   --toolbar-border-color: initial; /* var(--color-border) */
+  --toolbar-border-width: initial; /* var(--border-width-sm) */
   --toolbar-color: initial; /* var(--color-foreground) */
   --toolbar-control-bg-active: initial; /* var(--color-accent) */
   --toolbar-control-bg-hover: initial; /* var(--color-accent) */
   --toolbar-control-bg-pressed: initial; /* var(--color-background) */
   --toolbar-control-border-color-active: initial; /* transparent */
+  --toolbar-control-border-width: initial; /* var(--border-width-sm) */
   --toolbar-control-color: initial; /* var(--color-foreground) */
   --toolbar-control-color-pressed: initial; /* var(--color-foreground) */
   --toolbar-control-gap: initial; /* var(--spacing-2) */
   --toolbar-control-height: initial; /* var(--size-lg) */
+  --toolbar-control-height-sm: initial; /* var(--size-sm) */
+  --toolbar-control-height-lg: initial; /* var(--size-xl) */
+  --toolbar-control-padding-x-lg: initial; /* 1rem */
+  --toolbar-control-padding-x-sm: initial; /* 0.625rem */
   --toolbar-control-padding-x: initial; /* 0.75rem */
   --toolbar-control-radius: initial; /* var(--radius-md) */
   --toolbar-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toolbar-focus-ring-color: initial; /* var(--color-ring) */
+  --toolbar-focus-ring-offset: initial; /* calc(var(--toolbar-control-border-width, var(--border-width-sm)) * -1) */
+  --toolbar-focus-ring-width: initial; /* var(--border-width-md) */
+  --toolbar-font-size-sm: initial; /* var(--text-xs) */
+  --toolbar-font-size-lg: initial; /* var(--text-md) */
   --toolbar-font-size: initial; /* var(--text-sm) */
   --toolbar-font-weight: initial; /* var(--weight-medium) */
   --toolbar-gap: initial; /* var(--border-width-sm) */
   --toolbar-group-gap: initial; /* var(--spacing-1) */
+  --toolbar-icon-size-sm: initial; /* 0.875rem */
   --toolbar-icon-size: initial; /* 1rem */
   --toolbar-input-bg: initial; /* var(--color-background) */
   --toolbar-input-border-color: initial; /* var(--color-border) */
+  --toolbar-input-border-width: initial; /* var(--border-width-sm) */
   --toolbar-input-color: initial; /* var(--color-foreground) */
+  --toolbar-input-focus-ring-offset: initial; /* calc(var(--toolbar-input-border-width, var(--border-width-sm)) * -1) */
+  --toolbar-input-focus-ring-width: initial; /* var(--border-width-sm) */
   --toolbar-input-padding-x: initial; /* 0.75rem */
   --toolbar-input-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --toolbar-input-width-sm: initial; /* 8rem */
+  --toolbar-input-width-lg: initial; /* 12rem */
   --toolbar-input-width: initial; /* 10rem */
+  --toolbar-line-height-sm: initial; /* var(--line-height-text-xs) */
+  --toolbar-line-height-lg: initial; /* var(--line-height-text-md) */
   --toolbar-line-height: initial; /* var(--line-height-text-sm) */
   --toolbar-padding: initial; /* 0.125rem */
   --toolbar-radius: initial; /* var(--radius-lg) */
@@ -1946,17 +1964,20 @@
   --toolbar-transition: initial; /* var(--transition-default) */
 
   /* Tooltip */
-  --tooltip-arrow-inline-offset: initial; /* 13px */
   --tooltip-arrow-height: initial; /* 0.625rem */
+  --tooltip-arrow-inline-offset: initial; /* 13px */
   --tooltip-arrow-size: initial; /* 8px */
   --tooltip-arrow-stroke-color: initial; /* var(--tooltip-border-color, var(--color-border)) */
   --tooltip-arrow-width: initial; /* 1.25rem */
   --tooltip-bg: initial; /* var(--color-popover) */
   --tooltip-border-color: initial; /* var(--color-border) */
+  --tooltip-border-width: initial; /* var(--border-width-sm) */
   --tooltip-color: initial; /* var(--color-popover-foreground) */
   --tooltip-content-transition: initial; /* 150ms */
   --tooltip-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tooltip-focus-ring-color: initial; /* var(--color-ring) */
+  --tooltip-focus-ring-offset: initial; /* calc(var(--tooltip-trigger-border-width, var(--border-width-sm)) * -1) */
+  --tooltip-focus-ring-width: initial; /* var(--border-width-sm) */
   --tooltip-font-size: initial; /* var(--text-sm) */
   --tooltip-line-height: initial; /* var(--line-height-text-sm) */
   --tooltip-max-height: initial; /* 24rem */
@@ -1971,6 +1992,7 @@
   --tooltip-trigger-bg-active: initial; /* var(--tooltip-trigger-bg-hover, var(--color-accent)) */
   --tooltip-trigger-bg-hover: initial; /* var(--color-accent) */
   --tooltip-trigger-border-color: initial; /* var(--color-border) */
+  --tooltip-trigger-border-width: initial; /* var(--border-width-sm) */
   --tooltip-trigger-color: initial; /* var(--color-foreground) */
   --tooltip-trigger-font-size: initial; /* var(--text-sm) */
   --tooltip-trigger-ghost-size: initial; /* var(--size-lg) */
@@ -1982,6 +2004,8 @@
   --tooltip-width: initial; /* max-content */
 
   /* Toggle */
+  --toggle-border-width: initial; /* var(--border-width-sm) */
+  --toggle-color: initial; /* var(--color-foreground) */
   --toggle-content-gap: initial; /* var(--spacing-2) */
   --toggle-default-bg: initial; /* transparent */
   --toggle-default-bg-active: initial; /* var(--color-accent) */
@@ -1993,9 +2017,11 @@
   --toggle-default-color-pressed: initial; /* var(--color-primary-foreground) */
   --toggle-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toggle-focus-ring-color: initial; /* var(--color-ring) */
-  --toggle-font-size: initial; /* var(--text-sm) */
-  --toggle-font-size-lg: initial; /* var(--text-md) */
+  --toggle-focus-ring-offset: initial; /* calc(var(--toggle-border-width, var(--border-width-sm)) * -1) */
+  --toggle-focus-ring-width: initial; /* var(--border-width-md) */
   --toggle-font-size-xs: initial; /* var(--text-xs) */
+  --toggle-font-size-lg: initial; /* var(--text-md) */
+  --toggle-font-size: initial; /* var(--text-sm) */
   --toggle-font-weight: initial; /* var(--weight-medium) */
   --toggle-ghost-bg: initial; /* transparent */
   --toggle-ghost-bg-active: initial; /* var(--color-accent) */
@@ -2005,9 +2031,9 @@
   --toggle-ghost-color: initial; /* var(--color-foreground) */
   --toggle-ghost-color-pressed: initial; /* var(--color-foreground) */
   --toggle-icon-size: initial; /* 1rem */
-  --toggle-line-height: initial; /* var(--line-height-text-sm) */
-  --toggle-line-height-lg: initial; /* var(--line-height-text-md) */
   --toggle-line-height-xs: initial; /* var(--line-height-text-xs) */
+  --toggle-line-height-lg: initial; /* var(--line-height-text-md) */
+  --toggle-line-height: initial; /* var(--line-height-text-sm) */
   --toggle-outline-bg: initial; /* var(--color-background) */
   --toggle-outline-bg-active: initial; /* var(--color-accent) */
   --toggle-outline-bg-hover: initial; /* var(--color-accent) */
@@ -2016,30 +2042,35 @@
   --toggle-outline-border-color-pressed: initial; /* var(--color-primary) */
   --toggle-outline-color: initial; /* var(--color-foreground) */
   --toggle-outline-color-pressed: initial; /* var(--color-primary-foreground) */
+  --toggle-padding-x-xs: initial; /* 0.625rem */
+  --toggle-padding-x-sm: initial; /* 0.75rem */
   --toggle-padding-x-md: initial; /* 1rem */
   --toggle-padding-x-lg: initial; /* 1.25rem */
-  --toggle-padding-x-sm: initial; /* 0.75rem */
-  --toggle-padding-x-xs: initial; /* 0.625rem */
+  --toggle-padding-y-xs: initial; /* 0.25rem */
+  --toggle-padding-y-sm: initial; /* 0.375rem */
   --toggle-padding-y-md: initial; /* 0.5rem */
   --toggle-padding-y-lg: initial; /* 0.625rem */
-  --toggle-padding-y-sm: initial; /* 0.375rem */
-  --toggle-padding-y-xs: initial; /* 0.25rem */
   --toggle-radius: initial; /* var(--radius-md) */
+  --toggle-size-icon-sm: initial; /* var(--size-sm) */
   --toggle-size-icon-md: initial; /* var(--size-lg) */
   --toggle-size-icon-lg: initial; /* var(--size-xl) */
-  --toggle-size-icon-sm: initial; /* var(--size-sm) */
+  --toggle-size-xs: initial; /* var(--size-xs) */
+  --toggle-size-sm: initial; /* var(--size-sm) */
   --toggle-size-md: initial; /* var(--size-lg) */
   --toggle-size-lg: initial; /* var(--size-xl) */
-  --toggle-size-sm: initial; /* var(--size-sm) */
-  --toggle-size-xs: initial; /* var(--size-xs) */
   --toggle-transition: initial; /* var(--transition-default) */
 
   /* ToggleGroup */
   --toggle-group-bg: initial; /* var(--color-muted) */
   --toggle-group-border-color: initial; /* var(--color-border) */
+  --toggle-group-border-width: initial; /* var(--border-width-sm) */
   --toggle-group-color: initial; /* var(--color-foreground) */
   --toggle-group-gap: initial; /* var(--border-width-sm) */
+  --toggle-group-ghost-bg: initial; /* transparent */
+  --toggle-group-ghost-border-color: initial; /* transparent */
+  --toggle-group-ghost-padding: initial; /* 0 */
   --toggle-group-item-radius: initial; /* var(--radius-md) */
+  --toggle-group-outline-bg: initial; /* var(--color-background) */
   --toggle-group-padding: initial; /* 0.125rem */
   --toggle-group-radius: initial; /* var(--radius-lg) */
 }
