@@ -182,10 +182,7 @@
     &:focus-visible {
       outline: var(--tabs-focus-ring-width, var(--border-width-sm)) solid
         var(--tabs-focus-ring-color, var(--color-ring));
-      outline-offset: var(
-        --tabs-panel-focus-ring-offset,
-        calc(var(--tabs-focus-ring-width, var(--border-width-sm)) * -1)
-      );
+      outline-offset: var(--tabs-panel-focus-ring-offset, -1px);
       border-radius: inherit;
     }
 

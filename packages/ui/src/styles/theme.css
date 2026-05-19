@@ -1803,7 +1803,7 @@
   --tabs-panel-color: initial; /* var(--tabs-color, var(--color-foreground)) */
   --tabs-panel-font-size: initial; /* var(--text-sm) */
   --tabs-panel-line-height: initial; /* var(--line-height-text-sm) */
-  --tabs-panel-focus-ring-offset: initial; /* calc(var(--tabs-focus-ring-width, var(--border-width-sm)) * -1) */
+  --tabs-panel-focus-ring-offset: initial; /* -1px */
   --tabs-panel-padding: initial; /* 1rem */
   --tabs-radius: initial; /* var(--radius-lg) */
   --tabs-tab-color: initial; /* var(--color-muted-foreground) */
