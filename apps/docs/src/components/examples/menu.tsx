@@ -159,6 +159,7 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
 ];
 export const menuPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--menu-arrow-stroke-color', 'var(--menu-popup-border-color)', 'Controls arrow stroke color.'],
   [
     '--menu-checkbox-indicator-border-color',
     'currentColor',

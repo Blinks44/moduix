@@ -195,6 +195,11 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ['--menubar-vertical-width', '12rem', 'Controls vertical menubar width.'],
 ];
 export const menubarPlaygroundCssProperties: CssPropertyInput[] = [
+  [
+    '--menubar-arrow-stroke-color',
+    'var(--menubar-popup-border-color)',
+    'Controls arrow stroke color.',
+  ],
   ['--menubar-bg', 'var(--color-muted)', 'Controls menubar background.'],
   ['--menubar-border-color', 'var(--color-border)', 'Controls menubar border color.'],
   ['--menubar-border-width', 'var(--border-width-sm)', 'Controls menubar border width.'],
