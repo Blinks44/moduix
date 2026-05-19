@@ -1413,90 +1413,95 @@
   --pagination-toolbar-padding-filled: initial; /* 0.125rem */
 
   /* Popover */
-  --popover-width: initial; /* auto */
-  --popover-height: initial; /* auto */
-  --popover-min-width: initial; /* 16rem */
-  --popover-max-width: initial; /* 28rem */
-  --popover-max-height: initial; /* 24rem */
-  --popover-padding-x: initial; /* 1rem */
-  --popover-padding-y: initial; /* 1rem */
-  --popover-bg: initial; /* var(--color-popover) */
-  --popover-border-color: initial; /* var(--color-border) */
-  --popover-color: initial; /* var(--color-popover-foreground) */
-  --popover-radius: initial; /* var(--radius-md) */
-  --popover-shadow: initial; /* var(--shadow-lg) */
-  --popover-scale: initial; /* var(--scale-popup) */
-  --popover-transition: initial; /* var(--transition-default) */
-  --popover-viewport-offset: initial; /* 1rem */
-  --popover-viewport-transition: initial; /* 220ms */
+  --popover-arrow-height: initial; /* 0.625rem */
+  --popover-arrow-inline-offset: initial; /* 0.8125rem */
+  --popover-arrow-size: initial; /* 0.5rem */
+  --popover-arrow-stroke-color: initial; /* var(--popover-border-color) */
+  --popover-arrow-width: initial; /* 1.25rem */
   --popover-backdrop-bg: initial; /* var(--backdrop-bg, transparent) */
   --popover-backdrop-blur: initial; /* 0 */
   --popover-backdrop-transition: initial; /* var(--transition-default) */
+  --popover-bg: initial; /* var(--color-popover) */
+  --popover-body-margin: initial; /* 0 */
+  --popover-border-color: initial; /* var(--color-border) */
+  --popover-border-width: initial; /* var(--border-width-sm) */
+  --popover-color: initial; /* var(--color-popover-foreground) */
   --popover-control-bg: initial; /* var(--color-background) */
-  --popover-control-bg-hover: initial; /* var(--color-accent) */
   --popover-control-bg-active: initial; /* var(--popover-control-bg-hover) */
+  --popover-control-bg-hover: initial; /* var(--color-accent) */
   --popover-control-border-color: initial; /* var(--color-border) */
+  --popover-control-border-width: initial; /* var(--border-width-sm) */
   --popover-control-color: initial; /* var(--color-foreground) */
+  --popover-control-font-size: initial; /* var(--text-md) */
   --popover-control-height: initial; /* var(--size-lg) */
-  --popover-control-radius: initial; /* var(--radius-md) */
+  --popover-control-line-height: initial; /* var(--line-height-text-md) */
   --popover-control-padding-x: initial; /* 0.875rem */
   --popover-control-padding-y: initial; /* 0.5rem */
-  --popover-control-font-size: initial; /* var(--text-md) */
-  --popover-control-line-height: initial; /* var(--line-height-text-md) */
+  --popover-control-radius: initial; /* var(--radius-md) */
+  --popover-description-color: initial; /* var(--color-muted-foreground) */
+  --popover-description-font-size: initial; /* var(--text-sm) */
+  --popover-description-line-height: initial; /* var(--line-height-text-sm) */
+  --popover-description-margin: initial; /* 0 */
   --popover-disabled-opacity: initial; /* var(--opacity-disabled) */
   --popover-focus-ring-color: initial; /* var(--color-ring) */
+  --popover-focus-ring-width: initial; /* var(--popover-control-border-width) */
+  --popover-footer-gap: initial; /* var(--spacing-2) */
+  --popover-footer-justify: initial; /* flex-end */
+  --popover-footer-margin: initial; /* var(--spacing-3) 0 0 */
+  --popover-header-gap: initial; /* var(--spacing-1) */
+  --popover-height: initial; /* auto */
+  --popover-max-height: initial; /* 24rem */
+  --popover-max-width: initial; /* 28rem */
+  --popover-min-width: initial; /* 16rem */
+  --popover-padding-x: initial; /* 1rem */
+  --popover-padding-y: initial; /* 1rem */
+  --popover-radius: initial; /* var(--radius-md) */
+  --popover-scale: initial; /* var(--scale-popup) */
+  --popover-shadow: initial; /* var(--shadow-lg) */
   --popover-title-color: initial; /* var(--popover-color) */
   --popover-title-font-size: initial; /* var(--text-md) */
   --popover-title-font-weight: initial; /* var(--weight-semibold) */
   --popover-title-line-height: initial; /* var(--line-height-text-md) */
-  --popover-header-gap: initial; /* var(--spacing-1) */
-  --popover-description-margin: initial; /* 0 */
-  --popover-description-color: initial; /* var(--color-muted-foreground) */
-  --popover-description-font-size: initial; /* var(--text-sm) */
-  --popover-description-line-height: initial; /* var(--line-height-text-sm) */
-  --popover-body-margin: initial; /* 0 */
-  --popover-footer-gap: initial; /* var(--spacing-2) */
-  --popover-footer-justify: initial; /* flex-end */
-  --popover-footer-margin: initial; /* var(--spacing-3) 0 0 */
-  --popover-arrow-width: initial; /* 1.25rem */
-  --popover-arrow-height: initial; /* 0.625rem */
-  --popover-arrow-size: initial; /* 0.5rem */
-  --popover-arrow-inline-offset: initial; /* 0.8125rem */
-  --popover-arrow-stroke-color: initial; /* var(--popover-border-color) */
+  --popover-transition: initial; /* var(--transition-default) */
+  --popover-viewport-offset: initial; /* 1rem */
+  --popover-viewport-transition: initial; /* 220ms */
+  --popover-width: initial; /* auto */
 
   /* PreviewCard */
-  --preview-card-width: initial; /* auto */
-  --preview-card-height: initial; /* auto */
-  --preview-card-min-width: initial; /* 14rem */
-  --preview-card-max-width: initial; /* 24rem */
-  --preview-card-max-height: initial; /* 24rem */
-  --preview-card-padding-x: initial; /* var(--spacing-2) */
-  --preview-card-padding-y: initial; /* var(--spacing-2) */
-  --preview-card-bg: initial; /* var(--color-popover) */
-  --preview-card-border-color: initial; /* var(--color-border) */
-  --preview-card-color: initial; /* var(--color-popover-foreground) */
-  --preview-card-radius: initial; /* var(--radius-lg) */
-  --preview-card-shadow: initial; /* var(--shadow-lg) */
-  --preview-card-scale: initial; /* var(--scale-popup) */
-  --preview-card-transition: initial; /* var(--transition-default) */
+  --preview-card-arrow-height: initial; /* 0.625rem */
+  --preview-card-arrow-inline-offset: initial; /* 0.8125rem */
+  --preview-card-arrow-size: initial; /* 0.5rem */
+  --preview-card-arrow-stroke-color: initial; /* var(--preview-card-border-color, var(--color-border)) */
+  --preview-card-arrow-width: initial; /* 1.25rem */
   --preview-card-backdrop-bg: initial; /* var(--backdrop-bg, transparent) */
   --preview-card-backdrop-blur: initial; /* 0 */
   --preview-card-backdrop-transition: initial; /* var(--transition-default) */
+  --preview-card-bg: initial; /* var(--color-popover) */
+  --preview-card-border-color: initial; /* var(--color-border) */
+  --preview-card-border-width: initial; /* var(--border-width-sm) */
+  --preview-card-color: initial; /* var(--color-popover-foreground) */
+  --preview-card-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --preview-card-focus-ring-color: initial; /* var(--color-ring) */
+  --preview-card-focus-ring-width: initial; /* var(--border-width-sm) */
+  --preview-card-height: initial; /* auto */
+  --preview-card-max-height: initial; /* 24rem */
+  --preview-card-max-width: initial; /* 24rem */
+  --preview-card-min-width: initial; /* 14rem */
+  --preview-card-padding-x: initial; /* var(--spacing-2) */
+  --preview-card-padding-y: initial; /* var(--spacing-2) */
+  --preview-card-radius: initial; /* var(--radius-lg) */
+  --preview-card-scale: initial; /* var(--scale-popup) */
+  --preview-card-shadow: initial; /* var(--shadow-lg) */
+  --preview-card-transition: initial; /* var(--transition-default) */
   --preview-card-trigger-color: initial; /* var(--color-primary) */
   --preview-card-trigger-decoration-color: initial; /* color-mix(in oklab, var(--preview-card-trigger-color, var(--color-primary)), transparent 40%) */
-  --preview-card-trigger-decoration-thickness: initial; /* 1px */
-  --preview-card-trigger-underline-offset: initial; /* 2px */
   --preview-card-trigger-decoration-color-hover: initial; /* var(--preview-card-trigger-color, var(--color-primary)) */
   --preview-card-trigger-decoration-color-open: initial; /* var(--preview-card-trigger-color, var(--color-primary)) */
-  --preview-card-trigger-focus-radius: initial; /* var(--radius-xs) */
+  --preview-card-trigger-decoration-thickness: initial; /* 1px */
   --preview-card-trigger-focus-offset: initial; /* 1px */
-  --preview-card-focus-ring-color: initial; /* var(--color-ring) */
-  --preview-card-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --preview-card-arrow-width: initial; /* 1.25rem */
-  --preview-card-arrow-height: initial; /* 0.625rem */
-  --preview-card-arrow-size: initial; /* 0.5rem */
-  --preview-card-arrow-inline-offset: initial; /* 0.8125rem */
-  --preview-card-arrow-stroke-color: initial; /* var(--preview-card-border-color, var(--color-border)) */
+  --preview-card-trigger-focus-radius: initial; /* var(--radius-xs) */
+  --preview-card-trigger-underline-offset: initial; /* 2px */
+  --preview-card-width: initial; /* auto */
 
   /* Progress */
   --progress-color: initial; /* var(--color-foreground) */
@@ -1511,6 +1516,7 @@
   --progress-label-line-height: initial; /* var(--line-height-text-sm) */
   --progress-track-bg: initial; /* var(--color-muted) */
   --progress-track-border-color: initial; /* var(--color-border) */
+  --progress-track-border-width: initial; /* var(--border-width-sm) */
   --progress-track-height: initial; /* 0.5rem */
   --progress-track-radius: initial; /* var(--radius-full) */
   --progress-value-color: initial; /* var(--progress-color) */

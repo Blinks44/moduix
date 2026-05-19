@@ -31,7 +31,8 @@
 
     &:focus-visible {
       border-radius: var(--preview-card-trigger-focus-radius, var(--radius-xs));
-      outline: var(--border-width-sm) solid var(--preview-card-focus-ring-color, var(--color-ring));
+      outline: var(--preview-card-focus-ring-width, var(--border-width-sm)) solid
+        var(--preview-card-focus-ring-color, var(--color-ring));
       outline-offset: var(--preview-card-trigger-focus-offset, 1px);
       text-decoration-line: none;
     }
@@ -87,7 +88,8 @@
     border-radius: var(--preview-card-radius, var(--radius-lg));
     background-color: var(--preview-card-bg, var(--color-popover));
     color: var(--preview-card-color, var(--color-popover-foreground));
-    outline: var(--border-width-sm) solid var(--preview-card-border-color, var(--color-border));
+    outline: var(--preview-card-border-width, var(--border-width-sm)) solid
+      var(--preview-card-border-color, var(--color-border));
     box-shadow: var(--preview-card-shadow, var(--shadow-lg));
     transform-origin: var(--transform-origin);
     transition:

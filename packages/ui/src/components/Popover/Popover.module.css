@@ -8,7 +8,8 @@
     min-height: var(--popover-control-height, var(--size-lg));
     margin: 0;
     padding: var(--popover-control-padding-y, 0.5rem) var(--popover-control-padding-x, 0.875rem);
-    border: var(--border-width-sm) solid var(--popover-control-border-color, var(--color-border));
+    border: var(--popover-control-border-width, var(--border-width-sm)) solid
+      var(--popover-control-border-color, var(--color-border));
     border-radius: var(--popover-control-radius, var(--radius-md));
     background-color: var(--popover-control-bg, var(--color-background));
     color: var(--popover-control-color, var(--color-foreground));
@@ -38,8 +39,18 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--popover-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(
+          --popover-focus-ring-width,
+          var(--popover-control-border-width, var(--border-width-sm))
+        )
+        solid var(--popover-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(
+            --popover-focus-ring-width,
+            var(--popover-control-border-width, var(--border-width-sm))
+          ) *
+          -1
+      );
     }
 
     &[data-disabled],
@@ -92,7 +103,8 @@
     border-radius: var(--popover-radius, var(--radius-md));
     background-color: var(--popover-bg, var(--color-popover));
     color: var(--popover-color, var(--color-popover-foreground));
-    outline: var(--border-width-sm) solid var(--popover-border-color, var(--color-border));
+    outline: var(--popover-border-width, var(--border-width-sm)) solid
+      var(--popover-border-color, var(--color-border));
     box-shadow: var(--popover-shadow, var(--shadow-lg));
     transform-origin: var(--transform-origin);
     transition:
