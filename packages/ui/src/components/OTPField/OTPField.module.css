@@ -36,10 +36,7 @@
         var(--otp-field-border-width, var(--border-width-sm))
       )
       solid transparent;
-    outline-offset: var(
-      --otp-field-focus-ring-offset,
-      calc(var(--otp-field-border-width, var(--border-width-sm)) * -1)
-    );
+    outline-offset: var(--otp-field-focus-ring-offset, -1px);
     transition:
       border-color var(--otp-field-transition, var(--transition-default)),
       outline-color var(--otp-field-transition, var(--transition-default)),

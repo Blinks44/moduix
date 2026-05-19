@@ -32,11 +32,7 @@ export const otpFieldOverrideCssProperties: CssPropertyInput[] = [
   ['--otp-field-color', 'var(--color-foreground)', 'Controls input text color.'],
   ['--otp-field-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--otp-field-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  [
-    '--otp-field-focus-ring-offset',
-    'calc(var(--otp-field-border-width) * -1)',
-    'Controls focus ring offset.',
-  ],
+  ['--otp-field-focus-ring-offset', '-1px', 'Controls focus ring offset.'],
   ['--otp-field-focus-ring-width', 'var(--otp-field-border-width)', 'Controls focus ring width.'],
   ['--otp-field-input-height', 'var(--otp-field-input-size)', 'Controls input slot height.'],
   ['--otp-field-input-padding-x', '0', 'Controls horizontal input padding.'],

@@ -54,6 +54,7 @@ If missing, fetch the file from the Base UI page for that component.
 - Add missing tokens in the appropriate token files and `src/styles/theme.css`.
 - Add Base UI runtime variables to `src/styles/theme.css` with `initial`; include default values in nearby comments.
 - Keep CSS variable declarations in `src/styles/theme.css` sorted alphabetically. Exception: size scale groups with `-xs/-sm/-md/-lg/-xl` must be ordered from `xs` to `xl`.
+- For CSS variable fallbacks used in component styles, avoid complex expressions (for example nested `calc(var(...))`) because they can break IDE CSS parsing; prefer simple literal fallbacks or a dedicated precomputed variable.
 - Keep variants on slot selectors via `data-*`, not modifier class names.
 - Use nested selectors for derived states/elements.
 - Library CSS (`ComponentName.module.css`) must not contain Storybook/demo layout styles.

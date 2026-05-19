@@ -1354,7 +1354,7 @@
   --otp-field-color: initial; /* var(--color-foreground) */
   --otp-field-disabled-opacity: initial; /* var(--opacity-disabled) */
   --otp-field-focus-ring-color: initial; /* var(--color-ring) */
-  --otp-field-focus-ring-offset: initial; /* calc(var(--otp-field-border-width, var(--border-width-sm)) * -1) */
+  --otp-field-focus-ring-offset: initial; /* -1px */
   --otp-field-focus-ring-width: initial; /* var(--otp-field-border-width, var(--border-width-sm)) */
   --otp-field-font-size: initial; /* var(--text-lg) */
   --otp-field-font-weight: initial; /* var(--weight-medium) */
