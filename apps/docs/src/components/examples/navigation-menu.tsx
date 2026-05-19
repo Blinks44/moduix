@@ -15,36 +15,115 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './navigation-menu.module.css';
 
 export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
+  ['--navigation-menu-arrow-height', '0.625rem', 'Controls popup arrow height.'],
+  ['--navigation-menu-arrow-inline-offset', '0.8125rem', 'Controls arrow inline-axis offset.'],
+  ['--navigation-menu-arrow-offset', '0.5rem', 'Controls arrow block-axis offset.'],
+  [
+    '--navigation-menu-arrow-stroke-color',
+    'var(--navigation-menu-popup-border-color)',
+    'Controls popup arrow stroke color.',
+  ],
+  [
+    '--navigation-menu-arrow-transition-duration',
+    'var(--duration-slow)',
+    'Controls popup arrow movement duration.',
+  ],
+  ['--navigation-menu-arrow-width', '1.25rem', 'Controls popup arrow width.'],
+  ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
+  ['--navigation-menu-backdrop-blur', '0', 'Controls backdrop blur when backdrop is enabled.'],
+  [
+    '--navigation-menu-backdrop-transition',
+    'var(--navigation-menu-transition, var(--transition-default))',
+    'Controls backdrop opacity transition.',
+  ],
   ['--navigation-menu-bg', 'transparent', 'Controls root background.'],
   ['--navigation-menu-color', 'var(--color-foreground)', 'Controls root text color.'],
+  ['--navigation-menu-content-min-width', '20rem', 'Controls desktop content minimum width.'],
+  [
+    '--navigation-menu-content-opacity-duration',
+    'calc(var(--duration-slow) * 0.7)',
+    'Controls content fade duration.',
+  ],
+  ['--navigation-menu-content-padding', 'var(--spacing-4)', 'Controls content padding.'],
+  ['--navigation-menu-content-slide-distance', '50%', 'Controls content slide animation distance.'],
+  [
+    '--navigation-menu-content-width-mobile',
+    'calc(100vw - var(--spacing-8))',
+    'Controls mobile content width.',
+  ],
+  ['--navigation-menu-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  ['--navigation-menu-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+  [
+    '--navigation-menu-focus-ring-width',
+    'var(--border-width-sm)',
+    'Controls trigger focus ring width.',
+  ],
+  [
+    '--navigation-menu-full-width-inset',
+    '0px',
+    'Controls screen gutter for full-width popup mode.',
+  ],
+  ['--navigation-menu-icon-color', 'currentColor', 'Controls trigger icon color.'],
+  ['--navigation-menu-icon-size', '0.875rem', 'Controls trigger icon size.'],
+  [
+    '--navigation-menu-icon-transition',
+    'var(--navigation-menu-transition, 200ms ease)',
+    'Controls trigger icon rotation transition.',
+  ],
+  ['--navigation-menu-list-gap', '0', 'Controls spacing between top-level items.'],
+  [
+    '--navigation-menu-list-justify',
+    'flex-start',
+    'Controls horizontal alignment of top-level items.',
+  ],
   ['--navigation-menu-min-width', 'max-content', 'Controls root minimum width.'],
   ['--navigation-menu-padding', 'var(--spacing-1)', 'Controls root padding.'],
+  ['--navigation-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  [
+    '--navigation-menu-popup-border-color',
+    'var(--color-border)',
+    'Controls popup border and arrow stroke color.',
+  ],
+  ['--navigation-menu-popup-border-style', 'solid', 'Controls popup border style.'],
+  [
+    '--navigation-menu-popup-border-width',
+    'var(--border-width-sm)',
+    'Controls popup border width.',
+  ],
+  [
+    '--navigation-menu-popup-color',
+    'var(--color-popover-foreground)',
+    'Controls popup text color.',
+  ],
+  [
+    '--navigation-menu-popup-leave-duration',
+    '150ms',
+    'Controls popup closing transition duration.',
+  ],
+  ['--navigation-menu-popup-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
+  ['--navigation-menu-popup-scale', 'var(--scale-popup)', 'Controls popup enter/exit scale.'],
+  ['--navigation-menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  [
+    '--navigation-menu-popup-transition-duration',
+    'var(--duration-slow)',
+    'Controls popup transition duration.',
+  ],
+  [
+    '--navigation-menu-popup-transition-easing',
+    'cubic-bezier(0.22, 1, 0.36, 1)',
+    'Controls popup transition easing.',
+  ],
+  [
+    '--navigation-menu-positioner-gap',
+    '0.625rem',
+    'Controls hover bridge spacing between trigger and popup.',
+  ],
+  [
+    '--navigation-menu-positioner-max-width',
+    'calc(100vw - var(--spacing-8))',
+    'Controls popup positioner maximum width.',
+  ],
   ['--navigation-menu-radius', 'var(--radius-lg)', 'Controls root border radius.'],
-  ['--navigation-menu-list-gap', '0', 'Controls spacing between top-level items.'],
-  ['--navigation-menu-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--navigation-menu-transition', 'var(--transition-default)', 'Controls trigger transitions.'],
-  ['--navigation-menu-trigger-height', 'var(--size-md)', 'Controls trigger minimum height.'],
-  ['--navigation-menu-trigger-padding-x', '0.75rem', 'Controls trigger horizontal padding.'],
-  ['--navigation-menu-trigger-radius', 'var(--radius-md)', 'Controls trigger border radius.'],
-  ['--navigation-menu-trigger-gap', '0.375rem', 'Controls trigger content gap.'],
-  ['--navigation-menu-trigger-bg', 'transparent', 'Controls trigger background.'],
-  ['--navigation-menu-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
-  ['--navigation-menu-trigger-font-size', 'var(--text-sm)', 'Controls trigger font size.'],
-  [
-    '--navigation-menu-trigger-line-height',
-    'var(--line-height-text-sm)',
-    'Controls trigger line height.',
-  ],
-  [
-    '--navigation-menu-trigger-bg-hover',
-    'var(--color-accent)',
-    'Controls trigger background on hover.',
-  ],
-  [
-    '--navigation-menu-trigger-bg-active',
-    'var(--color-muted)',
-    'Controls trigger background when active or open.',
-  ],
   [
     '--navigation-menu-submenu-trigger-bg',
     'transparent',
@@ -80,106 +159,56 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
     '0 1px 2px rgb(0 0 0 / 0.08), 0 1px 1px rgb(0 0 0 / 0.04)',
     'Controls nested submenu trigger active shadow.',
   ],
-  ['--navigation-menu-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  ['--navigation-menu-icon-size', '0.875rem', 'Controls trigger icon size.'],
-  ['--navigation-menu-icon-color', 'currentColor', 'Controls trigger icon color.'],
+  ['--navigation-menu-transition', 'var(--transition-default)', 'Controls trigger transitions.'],
+  ['--navigation-menu-trigger-bg', 'transparent', 'Controls trigger background.'],
   [
-    '--navigation-menu-icon-transition',
-    'var(--navigation-menu-transition, 200ms ease)',
-    'Controls trigger icon rotation transition.',
+    '--navigation-menu-trigger-bg-active',
+    'var(--color-muted)',
+    'Controls trigger background when active or open.',
   ],
   [
-    '--navigation-menu-positioner-max-width',
-    'calc(100vw - var(--spacing-8))',
-    'Controls popup positioner maximum width.',
+    '--navigation-menu-trigger-bg-hover',
+    'var(--color-accent)',
+    'Controls trigger background on hover.',
   ],
+  ['--navigation-menu-trigger-border-color', 'transparent', 'Controls trigger border color.'],
+  ['--navigation-menu-trigger-border-style', 'solid', 'Controls trigger border style.'],
+  ['--navigation-menu-trigger-border-width', '0', 'Controls trigger border width.'],
+  ['--navigation-menu-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
+  ['--navigation-menu-trigger-font-size', 'var(--text-sm)', 'Controls trigger font size.'],
+  ['--navigation-menu-trigger-gap', '0.375rem', 'Controls trigger content gap.'],
+  ['--navigation-menu-trigger-height', 'var(--size-md)', 'Controls trigger minimum height.'],
   [
-    '--navigation-menu-positioner-gap',
-    '0.625rem',
-    'Controls hover bridge spacing between trigger and popup.',
+    '--navigation-menu-trigger-line-height',
+    'var(--line-height-text-sm)',
+    'Controls trigger line height.',
   ],
-  ['--navigation-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
-  [
-    '--navigation-menu-popup-color',
-    'var(--color-popover-foreground)',
-    'Controls popup text color.',
-  ],
-  [
-    '--navigation-menu-popup-border-color',
-    'var(--color-border)',
-    'Controls popup border and arrow stroke color.',
-  ],
-  ['--navigation-menu-popup-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
-  ['--navigation-menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--navigation-menu-popup-scale', 'var(--scale-popup)', 'Controls popup enter/exit scale.'],
-  [
-    '--navigation-menu-popup-transition-duration',
-    'var(--duration-slow)',
-    'Controls popup transition duration.',
-  ],
-  [
-    '--navigation-menu-popup-transition-easing',
-    'cubic-bezier(0.22, 1, 0.36, 1)',
-    'Controls popup transition easing.',
-  ],
-  [
-    '--navigation-menu-popup-leave-duration',
-    '150ms',
-    'Controls popup closing transition duration.',
-  ],
-  [
-    '--navigation-menu-content-width-mobile',
-    'calc(100vw - var(--spacing-8))',
-    'Controls mobile content width.',
-  ],
-  ['--navigation-menu-content-padding', 'var(--spacing-4)', 'Controls content padding.'],
-  ['--navigation-menu-content-min-width', '20rem', 'Controls desktop content minimum width.'],
-  ['--navigation-menu-content-slide-distance', '50%', 'Controls content slide animation distance.'],
-  [
-    '--navigation-menu-content-opacity-duration',
-    'calc(var(--duration-slow) * 0.7)',
-    'Controls content fade duration.',
-  ],
-  ['--navigation-menu-arrow-offset', '0.5rem', 'Controls arrow block-axis offset.'],
-  ['--navigation-menu-arrow-inline-offset', '0.8125rem', 'Controls arrow inline-axis offset.'],
-  ['--navigation-menu-arrow-width', '1.25rem', 'Controls popup arrow width.'],
-  ['--navigation-menu-arrow-height', '0.625rem', 'Controls popup arrow height.'],
-  [
-    '--navigation-menu-arrow-stroke-color',
-    'var(--navigation-menu-popup-border-color)',
-    'Controls popup arrow stroke color.',
-  ],
-  [
-    '--navigation-menu-arrow-transition-duration',
-    'var(--duration-slow)',
-    'Controls popup arrow movement duration.',
-  ],
-  ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
-  ['--navigation-menu-backdrop-blur', '0', 'Controls backdrop blur when backdrop is enabled.'],
+  ['--navigation-menu-trigger-padding-x', '0.75rem', 'Controls trigger horizontal padding.'],
+  ['--navigation-menu-trigger-padding-y', '0', 'Controls trigger vertical padding.'],
+  ['--navigation-menu-trigger-radius', 'var(--radius-md)', 'Controls trigger border radius.'],
 ];
 export const navigationMenuPlaygroundCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-bg', 'transparent', 'Controls root background.'],
   ['--navigation-menu-color', 'var(--color-foreground)', 'Controls root text color.'],
+  ['--navigation-menu-full-width-inset', '0px', 'Controls full-width popup viewport inset.'],
+  ['--navigation-menu-list-justify', 'flex-start', 'Controls top-level item alignment.'],
+  ['--navigation-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
+  ['--navigation-menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
+  ['--navigation-menu-popup-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
   ['--navigation-menu-radius', 'var(--radius-lg)', 'Controls root border radius.'],
   ['--navigation-menu-trigger-bg', 'transparent', 'Controls trigger background.'],
-  [
-    '--navigation-menu-trigger-bg-hover',
-    'var(--color-accent)',
-    'Controls trigger hover background.',
-  ],
   [
     '--navigation-menu-trigger-bg-active',
     'var(--color-muted)',
     'Controls trigger active background.',
   ],
-  ['--navigation-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
   [
-    '--navigation-menu-popup-color',
-    'var(--color-popover-foreground)',
-    'Controls popup text color.',
+    '--navigation-menu-trigger-bg-hover',
+    'var(--color-accent)',
+    'Controls trigger hover background.',
   ],
-  ['--navigation-menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--navigation-menu-popup-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
+  ['--navigation-menu-trigger-border-color', 'transparent', 'Controls trigger border color.'],
+  ['--navigation-menu-trigger-border-width', '0', 'Controls trigger border width.'],
 ];
 
 export function NavigationMenuCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -254,6 +283,76 @@ export function NavigationMenuExample() {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
+  );
+}
+
+export function FullWidthNavigationMenuExample() {
+  return (
+    <header className={styles.fullWidthHeader}>
+      <div className={styles.fullWidthContainer}>
+        <NavigationMenu
+          className={styles.fullWidthMenu}
+          popupContent={{ fullWidth: true, sideOffset: 12, showArrow: false }}
+        >
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
+              <NavigationMenuContent className={styles.fullWidthContent}>
+                <div className={styles.fullWidthInner}>
+                  <ul className={`${styles.fullWidthGrid} ${styles.fullWidthCols2}`}>
+                    {fullWidthPlatformLinks.map((link) => (
+                      <li key={link.title}>
+                        <a href={link.href} className={styles.linkCard}>
+                          <p className={styles.title}>{link.title}</p>
+                          <p className={styles.description}>{link.description}</p>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Developers</NavigationMenuTrigger>
+              <NavigationMenuContent className={styles.fullWidthContent}>
+                <div className={styles.fullWidthInner}>
+                  <ul className={`${styles.fullWidthGrid} ${styles.fullWidthCols3}`}>
+                    {fullWidthDeveloperLinks.map((link) => (
+                      <li key={link.title}>
+                        <a href={link.href} className={styles.linkCard}>
+                          <p className={styles.title}>{link.title}</p>
+                          <p className={styles.description}>{link.description}</p>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Design System</NavigationMenuTrigger>
+              <NavigationMenuContent className={styles.fullWidthContent}>
+                <div className={styles.fullWidthInner}>
+                  <ul className={`${styles.fullWidthGrid} ${styles.fullWidthCols4}`}>
+                    {fullWidthSystemLinks.map((link) => (
+                      <li key={link.title}>
+                        <a href={link.href} className={styles.linkCard}>
+                          <p className={styles.title}>{link.title}</p>
+                          <p className={styles.description}>{link.description}</p>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink href="#">Pricing</NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+    </header>
   );
 }
 
@@ -550,5 +649,59 @@ const guideLinks = [
     href: '#',
     title: 'Styling handbook',
     description: 'Apply tokens and state styles without fighting markup.',
+  },
+] as const satisfies readonly NavigationLink[];
+
+const fullWidthPlatformLinks = [
+  {
+    href: '#',
+    title: 'Maps SDK',
+    description: 'Embed maps and controls in product UI.',
+  },
+  {
+    href: '#',
+    title: 'Routing API',
+    description: 'Build routes, ETA and navigation flows.',
+  },
+] as const satisfies readonly NavigationLink[];
+
+const fullWidthDeveloperLinks = [
+  {
+    href: '#',
+    title: 'Authentication',
+    description: 'Secure service-to-service access.',
+  },
+  {
+    href: '#',
+    title: 'Webhooks',
+    description: 'Subscribe to async events in your app.',
+  },
+  {
+    href: '#',
+    title: 'Rate Limits',
+    description: 'Plan request quotas and retries.',
+  },
+] as const satisfies readonly NavigationLink[];
+
+const fullWidthSystemLinks = [
+  {
+    href: '#',
+    title: 'Tokens',
+    description: 'Unify color, spacing and typography.',
+  },
+  {
+    href: '#',
+    title: 'Accessibility',
+    description: 'Ship keyboard-safe default behavior.',
+  },
+  {
+    href: '#',
+    title: 'Theming',
+    description: 'Map app brand to component variables.',
+  },
+  {
+    href: '#',
+    title: 'Governance',
+    description: 'Keep patterns consistent across teams.',
   },
 ] as const satisfies readonly NavigationLink[];

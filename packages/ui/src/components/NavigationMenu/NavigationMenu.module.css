@@ -11,6 +11,7 @@
   .list {
     position: relative;
     display: flex;
+    justify-content: var(--navigation-menu-list-justify, flex-start);
     gap: var(--navigation-menu-list-gap, 0);
     margin: 0;
     padding: 0;
@@ -31,8 +32,11 @@
     gap: var(--navigation-menu-trigger-gap, 0.375rem);
     min-height: var(--navigation-menu-trigger-height, var(--size-md));
     margin: 0;
-    padding: 0 var(--navigation-menu-trigger-padding-x, 0.75rem);
-    border: 0;
+    padding: var(--navigation-menu-trigger-padding-y, 0)
+      var(--navigation-menu-trigger-padding-x, 0.75rem);
+    border: var(--navigation-menu-trigger-border-width, 0)
+      var(--navigation-menu-trigger-border-style, solid)
+      var(--navigation-menu-trigger-border-color, transparent);
     border-radius: var(--navigation-menu-trigger-radius, var(--radius-md));
     background-color: var(--navigation-menu-trigger-bg, transparent);
     color: var(--navigation-menu-trigger-color, var(--color-foreground));
@@ -60,9 +64,9 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid
+      outline: var(--navigation-menu-focus-ring-width, var(--border-width-sm)) solid
         var(--navigation-menu-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline-offset: calc(var(--navigation-menu-focus-ring-width, var(--border-width-sm)) * -1);
     }
 
     &[data-disabled],
@@ -130,14 +134,24 @@
     pointer-events: none;
     background-color: var(--navigation-menu-backdrop-bg, var(--backdrop-bg, transparent));
     backdrop-filter: blur(var(--navigation-menu-backdrop-blur, 0));
+    transition: opacity
+      var(
+        --navigation-menu-backdrop-transition,
+        var(--navigation-menu-transition, var(--transition-default))
+      );
+
+    &[data-starting-style],
+    &[data-ending-style] {
+      opacity: 0;
+    }
   }
 
   .positioner {
-    --navigation-menu-positioner-duration: var(
+    --_navigation-menu-positioner-duration: var(
       --navigation-menu-popup-transition-duration,
       var(--duration-slow)
     );
-    --navigation-menu-positioner-easing: var(
+    --_navigation-menu-positioner-easing: var(
       --navigation-menu-popup-transition-easing,
       cubic-bezier(0.22, 1, 0.36, 1)
     );
@@ -151,10 +165,10 @@
     );
     outline: 0;
     transition:
-      top var(--navigation-menu-positioner-duration) var(--navigation-menu-positioner-easing),
-      left var(--navigation-menu-positioner-duration) var(--navigation-menu-positioner-easing),
-      right var(--navigation-menu-positioner-duration) var(--navigation-menu-positioner-easing),
-      bottom var(--navigation-menu-positioner-duration) var(--navigation-menu-positioner-easing);
+      top var(--_navigation-menu-positioner-duration) var(--_navigation-menu-positioner-easing),
+      left var(--_navigation-menu-positioner-duration) var(--_navigation-menu-positioner-easing),
+      right var(--_navigation-menu-positioner-duration) var(--_navigation-menu-positioner-easing),
+      bottom var(--_navigation-menu-positioner-duration) var(--_navigation-menu-positioner-easing);
 
     &::before {
       position: absolute;
@@ -196,12 +210,22 @@
     }
   }
 
+  .positionerFullWidth[data-side='top'],
+  .positionerFullWidth[data-side='bottom'] {
+    width: calc(100vw - (var(--navigation-menu-full-width-inset, 0px) * 2));
+    max-width: calc(100vw - (var(--navigation-menu-full-width-inset, 0px) * 2));
+    left: 50vw !important;
+    right: auto !important;
+    transform: translateX(-50%);
+  }
+
   .popup {
     box-sizing: border-box;
     position: relative;
     width: var(--popup-width);
     height: var(--popup-height);
-    border: var(--border-width-sm) solid
+    border: var(--navigation-menu-popup-border-width, var(--border-width-sm))
+      var(--navigation-menu-popup-border-style, solid)
       var(--navigation-menu-popup-border-color, var(--color-border));
     border-radius: var(--navigation-menu-popup-radius, var(--radius-lg));
     background-color: var(--navigation-menu-popup-bg, var(--color-popover));
@@ -228,6 +252,16 @@
       transition-duration: var(--navigation-menu-popup-leave-duration, 150ms);
       transition-timing-function: ease;
     }
+  }
+
+  .popupFullWidth {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .popupFullWidth .content {
+    width: 100%;
+    min-width: 0;
   }
 
   .content {

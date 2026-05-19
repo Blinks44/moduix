@@ -127,6 +127,79 @@ export const CustomStyles: Story = {
   },
 };
 
+export const FullWidthPopup: Story = {
+  name: 'Full Width Popup',
+  render: () => {
+    return (
+      <header className={styles.fullWidthHeader}>
+        <div className={styles.fullWidthContainer}>
+          <NavigationMenu
+            className={styles.fullWidthMenu}
+            popupContent={{ fullWidth: true, sideOffset: 12, showArrow: false }}
+          >
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
+                <NavigationMenuContent className={styles.fullWidthContent}>
+                  <div className={styles.fullWidthInner}>
+                    <ul className={`${styles.fullWidthGrid} ${styles.fullWidthCols2}`}>
+                      {platformLinks.map((link) => (
+                        <li key={link.title}>
+                          <a href={link.href} className={styles.linkCard}>
+                            <p className={styles.contentTitle}>{link.title}</p>
+                            <p className={styles.contentDescription}>{link.description}</p>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Developers</NavigationMenuTrigger>
+                <NavigationMenuContent className={styles.fullWidthContent}>
+                  <div className={styles.fullWidthInner}>
+                    <ul className={`${styles.fullWidthGrid} ${styles.fullWidthCols3}`}>
+                      {developerLinks.map((link) => (
+                        <li key={link.title}>
+                          <a href={link.href} className={styles.linkCard}>
+                            <p className={styles.contentTitle}>{link.title}</p>
+                            <p className={styles.contentDescription}>{link.description}</p>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Design System</NavigationMenuTrigger>
+                <NavigationMenuContent className={styles.fullWidthContent}>
+                  <div className={styles.fullWidthInner}>
+                    <ul className={`${styles.fullWidthGrid} ${styles.fullWidthCols4}`}>
+                      {[...systemLinks, guideLinks[0]].map((link) => (
+                        <li key={link.title}>
+                          <a href={link.href} className={styles.linkCard}>
+                            <p className={styles.contentTitle}>{link.title}</p>
+                            <p className={styles.contentDescription}>{link.description}</p>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#">Pricing</NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+      </header>
+    );
+  },
+};
+
 export const NestedSubmenu: Story = {
   name: 'Nested Submenu',
   render: () => {
@@ -321,6 +394,19 @@ const developerLinks = [
     href: '#',
     title: 'Composition',
     description: 'Wrap and combine parts to match your product structure.',
+  },
+] as const;
+
+const platformLinks = [
+  {
+    href: '#',
+    title: 'Maps SDK',
+    description: 'Embed maps and controls in product UI.',
+  },
+  {
+    href: '#',
+    title: 'Routing API',
+    description: 'Build routes, ETA and navigation flows.',
   },
 ] as const;
 

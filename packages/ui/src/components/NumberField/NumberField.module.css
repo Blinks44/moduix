@@ -52,7 +52,8 @@
     min-width: var(--number-field-control-height, var(--size-lg));
     height: var(--number-field-control-height, var(--size-lg));
     margin: 0;
-    border: var(--border-width-sm) solid var(--number-field-border-color, var(--color-border));
+    border: var(--number-field-border-width, var(--border-width-sm))
+      var(--number-field-border-style, solid) var(--number-field-border-color, var(--color-border));
     padding: 0;
     background-color: var(--number-field-button-bg, var(--color-background));
     color: var(--number-field-button-color, var(--color-foreground));
@@ -79,8 +80,18 @@
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--number-field-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(
+          --number-field-focus-ring-width,
+          var(--number-field-border-width, var(--border-width-sm))
+        )
+        solid var(--number-field-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(
+            --number-field-focus-ring-width,
+            var(--number-field-border-width, var(--border-width-sm))
+          ) *
+          -1
+      );
       z-index: 1;
     }
 
@@ -123,9 +134,10 @@
     width: var(--number-field-input-width, 6rem);
     height: var(--number-field-control-height, var(--size-lg));
     margin: 0;
-    border-top: var(--border-width-sm) solid var(--number-field-border-color, var(--color-border));
-    border-bottom: var(--border-width-sm) solid
-      var(--number-field-border-color, var(--color-border));
+    border-top: var(--number-field-border-width, var(--border-width-sm))
+      var(--number-field-border-style, solid) var(--number-field-border-color, var(--color-border));
+    border-bottom: var(--number-field-border-width, var(--border-width-sm))
+      var(--number-field-border-style, solid) var(--number-field-border-color, var(--color-border));
     border-left: 0;
     border-right: 0;
     border-radius: 0;
@@ -138,8 +150,18 @@
     line-height: var(--number-field-input-line-height, var(--line-height-text-md));
     text-align: center;
     font-variant-numeric: tabular-nums;
-    outline: var(--border-width-sm) solid transparent;
-    outline-offset: calc(var(--border-width-sm) * -1);
+    outline: var(
+        --number-field-focus-ring-width,
+        var(--number-field-border-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(
+          --number-field-focus-ring-width,
+          var(--number-field-border-width, var(--border-width-sm))
+        ) *
+        -1
+    );
     transition:
       border-color var(--transition-default),
       outline-color var(--transition-default),
