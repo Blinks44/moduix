@@ -73,6 +73,11 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
     'var(--switch-transition, var(--transition-default))',
     'Controls thumb movement transition timing.',
   ],
+  [
+    '--switch-thumb-translate',
+    'var(--switch-thumb-translate-default)',
+    'Controls checked thumb translation distance.',
+  ],
   ['--switch-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--switch-width-xs', '1.75rem', 'Controls switch width for the xs size.'],
   ['--switch-width-sm', '2rem', 'Controls switch width for the sm size.'],

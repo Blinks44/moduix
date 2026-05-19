@@ -1767,6 +1767,7 @@
   --switch-thumb-size-lg: initial; /* 1.375rem */
   --switch-thumb-size-xl: initial; /* 1.625rem */
   --switch-thumb-transition: initial; /* var(--switch-transition, var(--transition-default)) */
+  --switch-thumb-translate: initial; /* var(--switch-thumb-translate-default) */
   --switch-transition: initial; /* var(--transition-default) */
   --switch-width-xs: initial; /* 1.75rem */
   --switch-width-sm: initial; /* 2rem */
