@@ -166,3 +166,5 @@ exports, and documentation so the package and docs stay in sync.
 Feel free to use agents or code generation tools, but
 please review the result before submitting. The components are intentionally small and direct,
 so the goal is to keep the code readable, maintainable, and free from unnecessary abstractions.
+I added the `skills` folder so code written with agents stays consistent with the rest of the
+library components.

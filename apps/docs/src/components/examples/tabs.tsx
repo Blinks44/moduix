@@ -293,7 +293,7 @@ export function DisabledTabTabsExample() {
 
 export function InlineInputsTabsExample() {
   return (
-    <Tabs defaultValue="name" unstyled className={styles.inlineRoot}>
+    <Tabs defaultValue="name" className={styles.inlineRoot}>
       <TabsList
         className={styles.inlineList}
         classNames={{ indicator: styles.inlineIndicator }}

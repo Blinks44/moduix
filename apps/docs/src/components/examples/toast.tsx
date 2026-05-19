@@ -48,6 +48,8 @@ export const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--toast-action-padding-y', '0.25rem', 'Controls action vertical padding.'],
   ['--toast-action-radius', 'var(--radius-sm)', 'Controls action button border radius.'],
   ['--toast-anchored-arrow-height', '0.625rem', 'Controls anchored toast arrow height.'],
+  ['--toast-anchored-arrow-offset-x', '-13px', 'Controls horizontal anchored arrow offset.'],
+  ['--toast-anchored-arrow-offset-y', '-8px', 'Controls vertical anchored arrow offset.'],
   ['--toast-anchored-arrow-width', '1.25rem', 'Controls anchored toast arrow width.'],
   ['--toast-anchored-font-size', 'var(--text-sm)', 'Controls anchored toast font size.'],
   [
@@ -277,9 +279,14 @@ export function ToastAndAnchoredToastExample() {
 function AnchoredToastActions() {
   const copyRef = React.useRef<HTMLButtonElement | null>(null);
   const saveRef = React.useRef<HTMLButtonElement | null>(null);
+  const shareRef = React.useRef<HTMLButtonElement | null>(null);
   const anchoredToast = useAnchoredToastManager();
 
-  function showAnchored(anchor: HTMLButtonElement | null, description: string) {
+  function showAnchored(
+    anchor: HTMLButtonElement | null,
+    description: string,
+    positionerProps?: { side?: 'top' | 'right' | 'bottom' | 'left' },
+  ) {
     if (!anchor) {
       return;
     }
@@ -288,6 +295,7 @@ function AnchoredToastActions() {
       anchor,
       description,
       timeout: 1800,
+      positionerProps,
     });
   }
 
@@ -302,6 +310,17 @@ function AnchoredToastActions() {
         onClick={() => showAnchored(saveRef.current, 'Saved')}
       >
         Save
+      </Button>
+      <Button
+        ref={shareRef}
+        variant="secondary"
+        onClick={() =>
+          showAnchored(shareRef.current, 'Shared', {
+            side: 'bottom',
+          })
+        }
+      >
+        Share (bottom)
       </Button>
     </div>
   );

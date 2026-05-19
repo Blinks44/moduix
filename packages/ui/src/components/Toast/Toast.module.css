@@ -88,22 +88,22 @@
     display: flex;
 
     &[data-side='top'] {
-      bottom: calc(var(--toast-anchored-arrow-height, 0.625rem) * -1);
+      bottom: var(--toast-anchored-arrow-offset-y, -8px);
       rotate: 180deg;
     }
 
     &[data-side='bottom'] {
-      top: calc(var(--toast-anchored-arrow-height, 0.625rem) * -1);
+      top: var(--toast-anchored-arrow-offset-y, -8px);
       rotate: 0deg;
     }
 
     &[data-side='left'] {
-      right: calc(var(--toast-anchored-arrow-width, 1.25rem) * -1);
+      right: var(--toast-anchored-arrow-offset-x, -13px);
       rotate: 90deg;
     }
 
     &[data-side='right'] {
-      left: calc(var(--toast-anchored-arrow-width, 1.25rem) * -1);
+      left: var(--toast-anchored-arrow-offset-x, -13px);
       rotate: -90deg;
     }
   }

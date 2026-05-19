@@ -1861,6 +1861,8 @@
   --toast-action-padding-y: initial; /* 0.25rem */
   --toast-action-radius: initial; /* var(--radius-sm) */
   --toast-anchored-arrow-height: initial; /* 0.625rem */
+  --toast-anchored-arrow-offset-x: initial; /* -13px */
+  --toast-anchored-arrow-offset-y: initial; /* -8px */
   --toast-anchored-arrow-width: initial; /* 1.25rem */
   --toast-anchored-font-size: initial; /* var(--text-sm) */
   --toast-anchored-line-height: initial; /* var(--line-height-text-sm) */
