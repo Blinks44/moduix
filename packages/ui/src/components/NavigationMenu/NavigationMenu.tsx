@@ -36,6 +36,7 @@ type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props & {
   classNames?: NavigationMenuPopupClassNames;
   slotProps?: NavigationMenuPopupSlotProps;
   container?: NavigationMenuPrimitive.Portal.Props['container'];
+  withArrow?: boolean;
   arrow?: boolean | React.ReactNode;
   withBackdrop?: boolean;
   /**
@@ -228,6 +229,7 @@ function NavigationMenuPopupContent({
   className,
   classNames,
   slotProps,
+  withArrow,
   arrow,
   withBackdrop = false,
   fullWidth = false,
@@ -267,7 +269,7 @@ function NavigationMenuPopupContent({
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
   const resolvedDisableAnchorTracking =
     disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
-  const showArrow = typeof arrow === 'boolean' ? arrow : true;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPropsContainer;

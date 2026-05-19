@@ -873,7 +873,7 @@ export function CustomStylesAutocompleteExample() {
       <AutocompleteContent
         className={styles.customPopup}
         sideOffset={8}
-        arrow
+        withArrow
         withBackdrop
         classNames={{
           portal: styles.customPortal,

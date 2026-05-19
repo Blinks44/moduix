@@ -146,7 +146,7 @@ such as `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`,
 and `disableAnchorTracking` directly. Use `container`, `withBackdrop`, and `withViewport` for
 common service-slot behavior, and use `slotProps` for the rare cases that need lower-level
 Base UI portal, backdrop, positioner, arrow, or viewport props. Arrow is enabled by default;
-set `arrow={false}` to disable it:
+set `withArrow={false}` to disable it:
 
 ```tsx
 <MenuContent
@@ -172,7 +172,7 @@ set `arrow={false}` to disable it:
 
 ### Without Arrow
 
-Set `arrow={false}` when the popup should appear without a pointer.
+Set `withArrow={false}` when the popup should appear without a pointer.
 
 <Preview>
   <WithoutArrowMenuExample />
@@ -196,7 +196,7 @@ Set `arrow={false}` when the popup should appear without a pointer.
               Song
               <MenuTriggerIcon />
             </MenuTrigger>
-            <MenuContent arrow={false}>
+            <MenuContent withArrow={false}>
               <MenuItem closeOnClick>Add to Library</MenuItem>
               <MenuItem closeOnClick>Add to Playlist</MenuItem>
               <MenuSeparator />

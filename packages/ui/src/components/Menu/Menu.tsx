@@ -45,6 +45,7 @@ type MenuContentProps = MenuPrimitive.Popup.Props &
     classNames?: MenuContentClassNames;
     slotProps?: MenuContentSlotProps;
     container?: MenuPrimitive.Portal.Props['container'];
+    withArrow?: boolean;
     arrow?: boolean | React.ReactNode;
     withBackdrop?: boolean;
     withViewport?: boolean;
@@ -145,6 +146,7 @@ function MenuContent({
   slotProps,
   children,
   container,
+  withArrow,
   arrow,
   withBackdrop = false,
   withViewport = false,
@@ -179,7 +181,7 @@ function MenuContent({
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPropsContainer;
   const { arrowChildren, viewportChildren } = splitArrowChildren(children);
-  const showArrow = typeof arrow === 'boolean' ? arrow : true;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
   const resolvedArrow =
     arrowChildren[0] ??
@@ -226,12 +228,21 @@ function MenuContent({
 }
 
 function MenuSubmenuContent({
-  arrow = false,
+  withArrow = false,
+  arrow,
   sideOffset = getSubmenuOffset,
   alignOffset = getSubmenuOffset,
   ...props
 }: MenuContentProps) {
-  return <MenuContent arrow={arrow} sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
+  return (
+    <MenuContent
+      withArrow={withArrow}
+      arrow={arrow}
+      sideOffset={sideOffset}
+      alignOffset={alignOffset}
+      {...props}
+    />
+  );
 }
 
 function MenuItem({ className, ...props }: MenuPrimitive.Item.Props) {

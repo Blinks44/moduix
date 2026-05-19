@@ -39,6 +39,7 @@ type PreviewCardContentProps = PreviewCardPrimitive.Popup.Props &
     classNames?: PreviewCardContentClassNames;
     slotProps?: PreviewCardContentSlotProps;
     container?: PreviewCardPrimitive.Portal.Props['container'];
+    withArrow?: boolean;
     arrow?: boolean | React.ReactNode;
     withBackdrop?: boolean;
   };
@@ -126,6 +127,7 @@ function PreviewCardContent({
   classNames,
   slotProps,
   container,
+  withArrow,
   arrow,
   withBackdrop = false,
   disableAnchorTracking,
@@ -159,7 +161,7 @@ function PreviewCardContent({
   const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
   const resolvedSticky = sticky ?? positionerProps?.sticky;
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
-  const showArrow = typeof arrow === 'boolean' ? arrow : true;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (

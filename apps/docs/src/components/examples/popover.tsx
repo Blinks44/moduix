@@ -192,7 +192,7 @@ export function PopoverWithBackdropExample() {
       <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
         Open with backdrop
       </PopoverTrigger>
-      <PopoverContent arrow={false} withBackdrop classNames={{ backdrop: styles.backdrop }}>
+      <PopoverContent withArrow={false} withBackdrop classNames={{ backdrop: styles.backdrop }}>
         <PopoverHeader>
           <PopoverTitle>Backdrop</PopoverTitle>
           <PopoverDescription>
@@ -318,7 +318,7 @@ export function PopoverWithoutArrowExample() {
   return (
     <Popover>
       <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-      <PopoverContent arrow={false}>
+      <PopoverContent withArrow={false}>
         <PopoverHeader>
           <PopoverTitle>No arrow</PopoverTitle>
           <PopoverDescription>

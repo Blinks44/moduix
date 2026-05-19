@@ -136,7 +136,7 @@ export const FullWidthPopup: Story = {
         <div className={styles.fullWidthContainer}>
           <NavigationMenu
             className={styles.fullWidthMenu}
-            popupContent={{ fullWidth: true, sideOffset: 12, arrow: false }}
+            popupContent={{ fullWidth: true, sideOffset: 12, withArrow: false }}
           >
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -228,7 +228,7 @@ export const NestedSubmenu: Story = {
                       align: 'end',
                       sideOffset: 24,
                       alignOffset: -24,
-                      arrow: false,
+                      withArrow: false,
                     }}
                   >
                     <NavigationMenuList className={styles.nestedList}>

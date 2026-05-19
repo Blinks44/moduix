@@ -118,7 +118,7 @@ Use `Tooltip` for root state and behavior props such as `open`, `defaultOpen`,
 `onOpenChange`, and `handle`.
 
 `className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use `container`, `arrow={false}` to hide the arrow,
+hidden from the default composition. Use `container`, `withArrow={false}` to hide the arrow,
 `arrow` to replace its graphic, and placement props such as `side` or `sideOffset` for positioning.
 Use `slotProps` only when you need to pass non-class props to the internal Base UI service slots:
 
@@ -236,7 +236,7 @@ Set `arrow` to `false` when the popup should read as a compact floating label.
             <TooltipTrigger render={<Button />} aria-label="Tooltip without arrow">
               Hover or focus
             </TooltipTrigger>
-            <TooltipContent arrow={false}>Tooltip without arrow</TooltipContent>
+            <TooltipContent withArrow={false}>Tooltip without arrow</TooltipContent>
           </Tooltip>
         );
       }

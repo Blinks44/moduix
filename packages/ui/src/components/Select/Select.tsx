@@ -52,6 +52,7 @@ type SelectContentProps = SelectPopupProps &
     slotProps?: SelectContentSlotProps;
     container?: SelectPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
+    withArrow?: boolean;
     arrow?: boolean | React.ReactNode;
   };
 
@@ -161,6 +162,7 @@ function SelectContent({
   slotProps,
   container,
   withBackdrop = false,
+  withArrow,
   arrow,
   alignItemWithTrigger,
   side,
@@ -198,7 +200,7 @@ function SelectContent({
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
   const resolvedDisableAnchorTracking =
     disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
-  const showArrow = typeof arrow === 'boolean' ? arrow : false;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (

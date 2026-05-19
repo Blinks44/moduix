@@ -81,7 +81,11 @@ export const WithBackdrop: Story = {
         <PopoverTrigger className={storyStyles.backdropTrigger} render={<Button />}>
           Open with backdrop
         </PopoverTrigger>
-        <PopoverContent arrow={false} withBackdrop classNames={{ backdrop: storyStyles.backdrop }}>
+        <PopoverContent
+          withArrow={false}
+          withBackdrop
+          classNames={{ backdrop: storyStyles.backdrop }}
+        >
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Backdrop</PopoverTitle>
             <PopoverDescription>
@@ -227,7 +231,7 @@ export const WithoutArrow: Story = {
     return (
       <Popover>
         <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-        <PopoverContent arrow={false}>
+        <PopoverContent withArrow={false}>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>No arrow</PopoverTitle>
             <PopoverDescription>

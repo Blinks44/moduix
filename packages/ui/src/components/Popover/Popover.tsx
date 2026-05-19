@@ -40,6 +40,7 @@ type PopoverContentProps = PopoverPrimitive.Popup.Props &
     classNames?: PopoverContentClassNames;
     slotProps?: PopoverContentSlotProps;
     container?: PopoverPrimitive.Portal.Props['container'];
+    withArrow?: boolean;
     arrow?: boolean | React.ReactNode;
     withBackdrop?: boolean;
     withViewport?: boolean;
@@ -170,6 +171,7 @@ function PopoverContent({
   classNames,
   slotProps,
   container,
+  withArrow,
   arrow,
   withBackdrop = false,
   withViewport = false,
@@ -204,7 +206,7 @@ function PopoverContent({
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
   const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? portalPropsContainer;
-  const showArrow = typeof arrow === 'boolean' ? arrow : true;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (

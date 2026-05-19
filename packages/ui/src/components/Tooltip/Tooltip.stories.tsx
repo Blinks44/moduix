@@ -45,7 +45,7 @@ export const WithoutArrow: Story = {
     return (
       <Tooltip>
         <TooltipTrigger aria-label="Tooltip without arrow">Hover or focus</TooltipTrigger>
-        <TooltipContent arrow={false}>Tooltip without arrow</TooltipContent>
+        <TooltipContent withArrow={false}>Tooltip without arrow</TooltipContent>
       </Tooltip>
     );
   },

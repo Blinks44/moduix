@@ -508,7 +508,7 @@ export function CustomStylesSelectExample() {
       <SelectContent
         alignItemWithTrigger={false}
         sideOffset={8}
-        arrow
+        withArrow
         withBackdrop
         slotProps={{
           positioner: { sticky: true },

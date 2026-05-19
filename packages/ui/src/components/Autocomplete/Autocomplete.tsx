@@ -30,6 +30,7 @@ type AutocompleteContentProps = AutocompletePrimitive.Popup.Props &
     classNames?: AutocompleteContentClassNames;
     container?: AutocompletePrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
+    withArrow?: boolean;
     arrow?: boolean | React.ReactNode;
     portalProps?: Omit<AutocompletePrimitive.Portal.Props, 'className' | 'children'>;
     backdropProps?: Omit<AutocompletePrimitive.Backdrop.Props, 'className'>;
@@ -200,6 +201,7 @@ function AutocompleteContent({
   classNames,
   container,
   withBackdrop = false,
+  withArrow,
   arrow,
   portalProps,
   backdropProps,
@@ -231,7 +233,7 @@ function AutocompleteContent({
   const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
   const resolvedSticky = sticky ?? positionerProps?.sticky;
   const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
-  const showArrow = typeof arrow === 'boolean' ? arrow : false;
+  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (

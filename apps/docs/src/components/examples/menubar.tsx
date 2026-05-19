@@ -494,7 +494,7 @@ export function CustomStylesMenubarExample() {
           sideOffset={10}
           align="start"
           alignOffset={-4}
-          arrow
+          withArrow
           withBackdrop
         >
           <MenubarItem closeOnClick>Minimize</MenubarItem>

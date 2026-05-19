@@ -231,7 +231,7 @@ export function WithoutArrowMenuExample() {
         Song
         <MenuTriggerIcon />
       </MenuButtonTrigger>
-      <MenuContent arrow={false}>
+      <MenuContent withArrow={false}>
         <MenuItem closeOnClick>Add to Library</MenuItem>
         <MenuItem closeOnClick>Add to Playlist</MenuItem>
         <MenuSeparator />

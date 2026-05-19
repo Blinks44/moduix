@@ -536,7 +536,7 @@ export const CustomStyles: Story = {
         <ComboboxContent
           className={styles.customPopup}
           sideOffset={8}
-          arrow
+          withArrow
           withBackdrop
           classNames={{
             portal: styles.portal,
