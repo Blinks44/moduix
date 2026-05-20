@@ -1,5 +1,11 @@
 # moduix
 
+## 0.8.5
+
+### Patch Changes
+
+- fb939b0: Fix animation styles in Autocomplete
+
 ## 0.8.4
 
 ### Patch Changes
