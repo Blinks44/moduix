@@ -21,6 +21,7 @@
     "lint:fix": "oxlint --fix",
     "prepare": "husky",
     "publish:ui": "npm publish -w moduix",
+    "sync:base-ui": "node scripts/update-base-ui-docs.mjs",
     "tsc:check": "turbo run tsc:check"
   },
   "dependencies": {
