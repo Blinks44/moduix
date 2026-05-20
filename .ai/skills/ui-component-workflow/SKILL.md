@@ -78,6 +78,28 @@ If missing, fetch the file from the Base UI page for that component.
 - Introduce `slotProps` only when there is a concrete need for non-class slot props.
 - Do not add many slot-specific escape hatches (`portalProps`, `viewportProps`, etc.) without clear need.
 
+## Composition Consistency Rules (Compound Components)
+
+Use these rules for popup/dialog-like and other multi-part components (for example `Select`, `ScrollArea`, `Lightbox`, `Popover`, `Combobox`, `Dialog`, `Drawer`).
+
+- Keep a predictable public part model: `Component` (root), `ComponentTrigger`, `ComponentContent` plus semantic content parts (`Header`, `Body`, `Footer`, `Title`, `Description`, etc.) only when they add real structure.
+- Concentrate popup infrastructure (`Portal`, `Backdrop`, `Positioner`, `Viewport`, `Arrow`) inside `*Content`; app code should configure it through `*Content` props instead of composing those infrastructure parts manually.
+- Keep boolean capability toggles in `with*` form (`withArrow`, `withBackdrop`, `withViewport`, `withHandle`, ...). Avoid `is*`, `show*`, `hide*`, `enable*` for the same concern.
+- Keep service-slot customization symmetric:
+  - visual customization in `classNames`
+  - non-class customization in `slotProps`
+  - keys should match between both objects (`portal`, `backdrop`, `positioner`, ...).
+- Keep `container` as a first-class top-level prop on `*Content`; if `slotProps.portal.container` also exists, top-level `container` must win.
+- For position-related props, keep a single override order: explicit top-level prop > corresponding `slotProps` value > local default.
+- If supporting legacy API aliases (for example `arrow`, `portalProps`), treat them as compatibility shims only:
+  - new API (`withArrow`, `slotProps`) takes precedence;
+  - do not introduce new slot-specific escape-hatch props in new components.
+- Use `data-slot` on every exported part and meaningful internal slot wrapper for stable styling/testing hooks.
+- Default behavior should match component semantics:
+  - modal surfaces (`Dialog`, `Drawer`, `Lightbox`) usually default to `withBackdrop = true`;
+  - non-modal popups (`Select`, `Combobox`, `Popover`) usually default to `withBackdrop = false`.
+- Keep controlled/uncontrolled behavior on root primitives predictable (`open/defaultOpen/onOpenChange` patterns) and avoid moving state control into visual subparts.
+
 ## Class Name Composition
 
 - Use `mergeClassName` when Base UI supports function `className` and internal/external classes must be merged.
