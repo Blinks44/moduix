@@ -1,0 +1,21 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-3);
+}
+
+.customBadge {
+  --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
+  --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+  --badge-color: var(--color-primary);
+  --badge-dot-size: 0.5rem;
+  --badge-height: 1.625rem;
+  --badge-padding-x: var(--spacing-3);
+  --badge-radius: var(--radius-sm);
+}

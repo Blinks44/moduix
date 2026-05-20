@@ -6,7 +6,8 @@ description: A reusable textarea component for long-form input with size and res
 
 # Textarea
 
-`Textarea` wraps the native `<textarea>` element and applies moduix design tokens for consistent styling.
+`Textarea` renders a native `<textarea>` through Base UI `Field.Control` and applies moduix
+design tokens for consistent styling and Field validation integration.
 
 ## Anatomy
 

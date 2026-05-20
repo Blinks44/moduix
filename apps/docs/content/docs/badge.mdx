@@ -1,0 +1,219 @@
+---
+title: Badge
+description: A compact status label for short metadata such as state, category, and count.
+icon: Component
+---
+
+import {
+  BadgeCssPlaygroundPanel,
+  BadgeCssPropertiesPanel,
+  BadgeExample,
+  BadgeSizesExample,
+  BadgeVariantsExample,
+  BadgeWithDotExample,
+  BadgeWithRightIconExample,
+  CustomStylesBadgeExample,
+  badgePlaygroundCssProperties,
+} from '@/components/examples/badge';
+
+## API Reference
+
+`Badge` is a standalone moduix component and does not wrap a Base UI primitive.
+Use `variant` and `size` to control appearance. Use `BadgeDot` as an optional
+status marker inside `Badge`.
+
+## Basic
+
+<Preview cssProperties={badgePlaygroundCssProperties} cssVariableScope="local">
+  <BadgeExample />
+
+  <Preview.Code>
+    {`
+      import { Badge } from "moduix";
+
+      export function BadgeDemo() {
+        return <Badge>New</Badge>;
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <BadgeCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <BadgeCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Badge` can render as text-only content, with a leading `BadgeDot`, or with an inline icon.
+
+```text
+Badge
+└─ content
+   └─ BadgeDot (optional)
+   └─ svg icon (optional)
+```
+
+```tsx
+<Badge variant="default">
+  <BadgeDot />
+  Online
+</Badge>
+```
+
+| Part       | Role                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------ |
+| `Badge`    | Root slot. Applies size, variant, border, and spacing.                               |
+| `BadgeDot` | Optional indicator slot. Renders a circular marker that inherits current text color. |
+
+`Badge` does not use service slots such as `portal`, `positioner`, `backdrop`, or `viewport`.
+Most use cases are solved with `className` plus targeted `--badge-*` CSS variable overrides.
+
+## Composition
+
+Pass `className` to `Badge` and `BadgeDot` when integrating with CSS Modules, Tailwind CSS, or
+CSS-in-JS. Place icons directly before or after the label; direct child `svg` icons inherit
+`currentColor` and use `--badge-icon-size`. The root accepts standard `span` props so you can add
+`title`, `aria-*`, and testing attributes without extra wrappers.
+
+## Examples
+
+### Variants
+
+Use shadcn-like variants: `default`, `secondary`, `destructive`, `outline`, `ghost`.
+
+<Preview>
+  <BadgeVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Badge } from "moduix";
+
+      const variants = ["default", "secondary", "destructive", "outline", "ghost"] as const;
+
+      export function BadgeVariantsDemo() {
+        return (
+          <div>
+            {variants.map((variant) => (
+              <Badge key={variant} variant={variant}>
+                {variant}
+              </Badge>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Switch `size` between `sm`, `md`, and `lg` when compactness differs across table rows, cards, and headers.
+
+<Preview>
+  <BadgeSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Badge } from "moduix";
+
+      export function BadgeSizesDemo() {
+        return (
+          <>
+            <Badge size="sm">Small</Badge>
+            <Badge size="md">Default</Badge>
+            <Badge size="lg">Large</Badge>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### With Dot
+
+Add `BadgeDot` when label and status indicator should stay visually grouped.
+
+<Preview>
+  <BadgeWithDotExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, BadgeDot } from "moduix";
+
+      export function BadgeWithDotDemo() {
+        return (
+          <Badge variant="default">
+            <BadgeDot />
+            Online
+          </Badge>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### With Right Icon
+
+Place an icon after the label when the badge acts like a drill-in marker or metadata affordance.
+
+<Preview>
+  <BadgeWithRightIconExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, ChevronRightIcon } from "moduix";
+
+      export function BadgeWithRightIconDemo() {
+        return (
+          <Badge variant="default">
+            Release
+            <ChevronRightIcon />
+          </Badge>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Use `className` and CSS variables for design-system specific overrides.
+
+<Preview>
+  <CustomStylesBadgeExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, BadgeDot } from "moduix";
+      import styles from "./custom-badge-demo.module.css";
+
+      export function CustomBadgeDemo() {
+        return (
+          <Badge className={styles.customBadge}>
+            <BadgeDot />
+            Priority
+          </Badge>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBadge {
+        --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
+        --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+        --badge-color: var(--color-primary);
+        --badge-dot-size: 0.5rem;
+        --badge-height: 1.625rem;
+        --badge-padding-x: var(--spacing-3);
+        --badge-radius: var(--radius-sm);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

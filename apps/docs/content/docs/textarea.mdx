@@ -75,8 +75,10 @@ Field (optional wrapper)
 
 ## Composition
 
-`Textarea` is a native component (not a Base UI primitive). It accepts standard textarea props
-such as `value`, `defaultValue`, `onChange`, `rows`, `maxLength`, and `name`.
+`Textarea` renders a native `<textarea>` through Base UI `Field.Control`, so it works with
+`FieldLabel`, `FieldDescription`, `FieldError`, native validation state, and accessible field
+metadata. It accepts standard textarea props such as `value`, `defaultValue`, `onChange`, `rows`,
+`maxLength`, and `name`.
 
 Use `size` for visual sizing and `resize` for native resize behavior. Use `autoResize` to
 automatically grow height with content (and disable manual resize handle):

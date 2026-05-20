@@ -1,5 +1,6 @@
-import clsx from 'clsx';
+import { Field as FieldPrimitive } from '@base-ui/react/field';
 import * as React from 'react';
+import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Textarea.module.css';
 
 type TextareaSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -10,6 +11,36 @@ type TextareaProps = React.ComponentPropsWithoutRef<'textarea'> & {
   resize?: TextareaResize;
   autoResize?: boolean;
 };
+
+type TextareaFieldControlProps = Omit<
+  React.ComponentPropsWithoutRef<'textarea'>,
+  'className' | 'size'
+> & {
+  className?: ReturnType<typeof mergeClassName<FieldPrimitive.Control.State>>;
+  render?: React.ReactElement;
+  'data-auto-resize'?: string;
+  'data-resize'?: TextareaResize;
+  'data-size'?: TextareaSize;
+  'data-slot'?: string;
+};
+
+const TextareaFieldControl = FieldPrimitive.Control as unknown as React.ForwardRefExoticComponent<
+  TextareaFieldControlProps & React.RefAttributes<HTMLTextAreaElement>
+>;
+
+function getAutoHeight(node: HTMLTextAreaElement) {
+  const computedStyle = window.getComputedStyle(node);
+
+  if (computedStyle.boxSizing !== 'border-box') {
+    return node.scrollHeight;
+  }
+
+  return (
+    node.scrollHeight +
+    Number.parseFloat(computedStyle.borderBlockStartWidth || computedStyle.borderTopWidth) +
+    Number.parseFloat(computedStyle.borderBlockEndWidth || computedStyle.borderBottomWidth)
+  );
+}
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
   { className, size = 'md', resize = 'vertical', autoResize = false, onChange, ...props },
@@ -39,7 +70,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function T
     }
 
     textareaRef.current.style.height = 'auto';
-    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    textareaRef.current.style.height = `${getAutoHeight(textareaRef.current)}px`;
   }, [autoResize]);
 
   React.useLayoutEffect(() => {
@@ -50,7 +81,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function T
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       if (autoResize) {
         event.currentTarget.style.height = 'auto';
-        event.currentTarget.style.height = `${event.currentTarget.scrollHeight}px`;
+        event.currentTarget.style.height = `${getAutoHeight(event.currentTarget)}px`;
       }
 
       onChange?.(event);
@@ -59,14 +90,14 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function T
   );
 
   return (
-    <textarea
+    <TextareaFieldControl
       ref={assignRef}
       data-slot="textarea-root"
       data-size={size}
       data-resize={resize}
       data-auto-resize={autoResize ? '' : undefined}
-      className={clsx(styles.root, className)}
-      onChange={handleChange}
+      render={<textarea onChange={handleChange} />}
+      className={mergeClassName(className, styles.root)}
       {...props}
     />
   );

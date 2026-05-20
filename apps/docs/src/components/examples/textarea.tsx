@@ -73,7 +73,20 @@ export const textareaOverrideCssProperties: CssPropertyInput[] = [
   ['--textarea-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--textarea-width', '100%', 'Controls textarea width.'],
 ];
-export const textareaPlaygroundCssProperties: CssPropertyInput[] = textareaOverrideCssProperties;
+export const textareaPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--textarea-bg', 'var(--color-background)', 'Controls the textarea background color.'],
+  ['--textarea-border-color', 'var(--color-border)', 'Controls the textarea border color.'],
+  ['--textarea-border-width', 'var(--border-width-sm)', 'Controls the textarea border width.'],
+  ['--textarea-color', 'var(--color-foreground)', 'Controls the textarea text color.'],
+  ['--textarea-font-size', 'var(--text-md)', 'Controls default font size.'],
+  ['--textarea-line-height', 'var(--line-height-text-md)', 'Controls default line height.'],
+  ['--textarea-min-height', '6rem', 'Controls default minimum textarea height.'],
+  ['--textarea-padding-x', '0.875rem', 'Controls default horizontal padding.'],
+  ['--textarea-padding-y', '0.5rem', 'Controls default vertical padding.'],
+  ['--textarea-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
+  ['--textarea-radius', 'var(--radius-md)', 'Controls textarea corner radius.'],
+  ['--textarea-width', '100%', 'Controls textarea width.'],
+];
 
 export function TextareaCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (

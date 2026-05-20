@@ -6,6 +6,7 @@ export * from './components/Accordion';
 export * from './components/AlertDialog';
 export * from './components/Autocomplete';
 export * from './components/Avatar';
+export * from './components/Badge';
 export * from './components/Bleed';
 export * from './components/Breadcrumbs';
 export * from './components/Button';
