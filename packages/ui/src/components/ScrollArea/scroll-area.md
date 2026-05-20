@@ -24,9 +24,9 @@ import { ScrollArea } from '@base-ui/react/scroll-area';
 
 export default function ExampleScrollArea() {
   return (
-    <ScrollArea.Root className="h-[8.5rem] w-96 max-w-[calc(100vw-8rem)]">
-      <ScrollArea.Viewport className="h-full rounded-md outline-1 -outline-offset-1 outline-gray-200 focus-visible:outline-2 focus-visible:outline-blue-800">
-        <div className="flex flex-col gap-4 py-3 pr-6 pl-4 text-sm leading-[1.375rem] text-gray-900">
+    <ScrollArea.Root className="h-[8.5rem] w-96 max-w-[calc(100vw-8rem)] bg-white dark:bg-neutral-950">
+      <ScrollArea.Viewport className="h-full border border-neutral-950 dark:border-white focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+        <ScrollArea.Content className="flex flex-col gap-4 py-2 pr-5 pl-3 text-sm leading-[1.375rem] text-neutral-950 dark:text-white">
           <p>
             Vernacular architecture is building done outside any academic tradition, and without
             professional guidance. It is not a particular architectural movement or style, but
@@ -46,10 +46,10 @@ export default function ExampleScrollArea() {
             conscious with contemporary design and construction—part of a broader interest in
             sustainable design.
           </p>
-        </div>
+        </ScrollArea.Content>
       </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar className="m-2 flex w-1 justify-center rounded-sm bg-gray-200 opacity-0 transition-opacity pointer-events-none data-[hovering]:opacity-100 data-[hovering]:delay-0 data-[hovering]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-0 data-[scrolling]:pointer-events-auto">
-        <ScrollArea.Thumb className="w-full rounded-sm bg-gray-500" />
+      <ScrollArea.Scrollbar className="m-px flex w-4 justify-center bg-black/12 dark:bg-white/12 opacity-0 transition-opacity pointer-events-none data-hovering:opacity-100 data-hovering:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0 data-scrolling:pointer-events-auto">
+        <ScrollArea.Thumb className="w-full bg-neutral-950 dark:bg-white" />
       </ScrollArea.Scrollbar>
     </ScrollArea.Root>
   );
@@ -67,16 +67,29 @@ This example shows how to implement the component using CSS Modules.
   width: 24rem;
   height: 8.5rem;
   max-width: calc(100vw - 8rem);
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+  }
 }
 
 .Viewport {
+  box-sizing: border-box;
   height: 100%;
-  border-radius: 0.375rem;
-  outline: 1px solid var(--color-gray-200);
-  outline-offset: -1px;
+  border: 1px solid oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+  }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -84,28 +97,35 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-block: 0.75rem;
-  padding-left: 1rem;
-  padding-right: 1.5rem;
+  padding-block: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 1.25rem;
 }
 
 .Paragraph {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.375rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Scrollbar {
   display: flex;
   justify-content: center;
-  background-color: var(--color-gray-200);
-  width: 0.25rem;
-  border-radius: 0.375rem;
-  margin: 0.5rem;
+  background-color: rgb(0 0 0 / 12%);
+  width: 1rem;
+  margin: 1px;
   opacity: 0;
   transition: opacity 150ms;
   pointer-events: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(255 255 255 / 12%);
+  }
 
   &[data-scrolling] {
     transition-duration: 0ms;
@@ -116,19 +136,15 @@ This example shows how to implement the component using CSS Modules.
     opacity: 1;
     pointer-events: auto;
   }
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 1.25rem;
-    height: 100%;
-  }
 }
 
 .Thumb {
   width: 100%;
-  border-radius: inherit;
-  background-color: var(--color-gray-500);
+  background-color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
+  }
 }
 ```
 
@@ -208,13 +224,13 @@ import { ScrollArea } from '@base-ui/react/scroll-area';
 export default function ExampleScrollAreaBoth() {
   return (
     <ScrollArea.Root className="h-80 w-80 max-w-[calc(100vw-8rem)]">
-      <ScrollArea.Viewport className="h-full rounded-lg border border-gray-200 focus-visible:outline focus-visible:outline-blue-800 focus-visible:outline-offset-2">
-        <ScrollArea.Content className="p-5">
+      <ScrollArea.Viewport className="h-full border border-neutral-950 dark:border-white focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+        <ScrollArea.Content className="pt-3 pr-6 pb-6 pl-3">
           <ul className="m-0 grid list-none grid-cols-[repeat(10,6.25rem)] grid-rows-[repeat(10,6.25rem)] gap-3 p-0">
             {Array.from({ length: 100 }, (_, i) => (
               <li
                 key={i}
-                className="flex items-center justify-center rounded-lg bg-gray-100 text-sm font-bold text-gray-600"
+                className="flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 text-sm font-bold text-neutral-600 dark:text-neutral-400"
               >
                 {i + 1}
               </li>
@@ -222,14 +238,14 @@ export default function ExampleScrollAreaBoth() {
           </ul>
         </ScrollArea.Content>
       </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar className="relative flex rounded-sm bg-gray-200 opacity-0 transition-opacity pointer-events-none before:absolute before:content-[''] data-[orientation=vertical]:m-2 data-[orientation=vertical]:w-1 data-[orientation=vertical]:before:h-full data-[orientation=vertical]:before:w-5 data-[orientation=vertical]:before:left-1/2 data-[orientation=vertical]:before:-translate-x-1/2 data-[orientation=horizontal]:m-2 data-[orientation=horizontal]:h-1 data-[orientation=horizontal]:before:h-5 data-[orientation=horizontal]:before:w-full data-[orientation=horizontal]:before:left-0 data-[orientation=horizontal]:before:right-0 data-[orientation=horizontal]:before:-bottom-2 data-[hovering]:pointer-events-auto data-[hovering]:opacity-100 data-[hovering]:delay-0 data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-0">
-        <ScrollArea.Thumb className="w-full rounded-sm bg-gray-500" />
+      <ScrollArea.Scrollbar className="relative m-px flex bg-black/12 dark:bg-white/12 opacity-0 transition-opacity pointer-events-none data-[orientation=vertical]:w-4 data-[orientation=horizontal]:h-4 data-hovering:pointer-events-auto data-hovering:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0">
+        <ScrollArea.Thumb className="w-full bg-neutral-950 dark:bg-white" />
       </ScrollArea.Scrollbar>
       <ScrollArea.Scrollbar
-        className="relative flex rounded-sm bg-gray-200 opacity-0 transition-opacity pointer-events-none before:absolute before:content-[''] data-[orientation=vertical]:m-2 data-[orientation=vertical]:w-1 data-[orientation=vertical]:before:h-full data-[orientation=vertical]:before:w-5 data-[orientation=vertical]:before:left-1/2 data-[orientation=vertical]:before:-translate-x-1/2 data-[orientation=horizontal]:m-2 data-[orientation=horizontal]:h-1 data-[orientation=horizontal]:before:h-5 data-[orientation=horizontal]:before:w-full data-[orientation=horizontal]:before:left-0 data-[orientation=horizontal]:before:right-0 data-[orientation=horizontal]:before:-bottom-2 data-[hovering]:pointer-events-auto data-[hovering]:opacity-100 data-[hovering]:delay-0 data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-0"
+        className="relative m-px flex bg-black/12 dark:bg-white/12 opacity-0 transition-opacity pointer-events-none data-[orientation=vertical]:w-4 data-[orientation=horizontal]:h-4 data-hovering:pointer-events-auto data-hovering:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0"
         orientation="horizontal"
       >
-        <ScrollArea.Thumb className="w-full rounded-sm bg-gray-500" />
+        <ScrollArea.Thumb className="w-full bg-neutral-950 dark:bg-white" />
       </ScrollArea.Scrollbar>
       <ScrollArea.Corner />
     </ScrollArea.Root>
@@ -251,18 +267,26 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Viewport {
+  box-sizing: border-box;
   height: 100%;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  outline-offset: -1px;
+  border: 1px solid oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+  }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Content {
-  padding: 1.25rem;
+  padding: 0.75rem 1.5rem 1.5rem 0.75rem;
 }
 
 .Grid {
@@ -276,29 +300,31 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Item {
-  border-radius: 0.5rem;
-  background-color: var(--color-gray-100);
+  background-color: oklch(92.2% 0 0deg);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--color-gray-600);
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Scrollbar {
   display: flex;
   position: relative;
-  background-color: var(--color-gray-200);
-  border-radius: 0.375rem;
-  margin: 0.5rem;
+  background-color: rgb(0 0 0 / 12%);
+  margin: 1px;
   opacity: 0;
   transition: opacity 150ms;
   pointer-events: none;
 
-  &::before {
-    content: '';
-    position: absolute;
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(255 255 255 / 12%);
   }
 
   &[data-scrolling] {
@@ -312,35 +338,21 @@ This example shows how to implement the component using CSS Modules.
   }
 
   &[data-orientation='vertical'] {
-    width: 0.25rem;
-    margin: 0.5rem;
-
-    &::before {
-      width: 1.25rem;
-      height: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+    width: 1rem;
   }
 
   &[data-orientation='horizontal'] {
-    height: 0.25rem;
-    margin: 0.5rem;
-
-    &::before {
-      width: 100%;
-      height: 1.25rem;
-      left: 0;
-      right: 0;
-      bottom: -0.5rem;
-    }
+    height: 1rem;
   }
 }
 
 .Thumb {
   width: 100%;
-  border-radius: inherit;
-  background-color: var(--color-gray-500);
+  background-color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
+  }
 }
 ```
 
@@ -389,9 +401,9 @@ import { ScrollArea } from '@base-ui/react/scroll-area';
 
 export default function ExampleScrollAreaScrollFade() {
   return (
-    <ScrollArea.Root className="box-border h-48 w-96 max-w-[calc(100vw-8rem)] rounded-lg bg-gray-50">
-      <ScrollArea.Viewport className="h-full rounded-md bg-gray-50 mask-linear-[to_bottom,transparent_0,black_min(40px,var(--scroll-area-overflow-y-start)),black_calc(100%_-_min(40px,var(--scroll-area-overflow-y-end,40px))),transparent_100%] mask-no-repeat focus-visible:outline-2 focus-visible:outline-blue-800">
-        <ScrollArea.Content className="flex flex-col gap-4 py-3 pr-6 pl-4 text-sm leading-[1.375rem] text-gray-900">
+    <ScrollArea.Root className="h-48 w-96 max-w-[calc(100vw-8rem)] bg-neutral-100 dark:bg-neutral-800 has-[>_:first-child:focus-visible]:outline-2 has-[>_:first-child:focus-visible]:outline-offset-0 has-[>_:first-child:focus-visible]:outline-neutral-950 dark:has-[>_:first-child:focus-visible]:outline-white">
+      <ScrollArea.Viewport className="h-full bg-neutral-100 dark:bg-neutral-800 outline-none mask-linear-[to_bottom,transparent_0,black_min(40px,var(--scroll-area-overflow-y-start)),black_calc(100%_-_min(40px,var(--scroll-area-overflow-y-end,40px))),transparent_100%] mask-no-repeat">
+        <ScrollArea.Content className="flex flex-col gap-4 py-2 pr-5 pl-3 text-sm leading-[1.375rem] text-neutral-950 dark:text-white">
           <p>
             Vernacular architecture is building done outside any academic tradition, and without
             professional guidance. It is not a particular architectural movement or style, but
@@ -413,8 +425,8 @@ export default function ExampleScrollAreaScrollFade() {
           </p>
         </ScrollArea.Content>
       </ScrollArea.Viewport>
-      <ScrollArea.Scrollbar className="pointer-events-none m-2 flex w-1 justify-center rounded-sm bg-gray-200 opacity-0 transition-opacity duration-150 data-[hovering]:pointer-events-auto data-[hovering=true]:pointer-events-auto data-[hovering]:opacity-100 data-[hovering=true]:opacity-100 data-[scrolling]:pointer-events-auto data-[scrolling=true]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling=true]:opacity-100 data-[scrolling]:duration-0 data-[scrolling=true]:duration-0 before:absolute before:h-full before:w-5 before:content-['']">
-        <ScrollArea.Thumb className="w-full rounded-sm bg-gray-500" />
+      <ScrollArea.Scrollbar className="m-px flex w-4 justify-center bg-black/8 dark:bg-white/12 opacity-0 transition-opacity duration-150 pointer-events-none data-hovering:opacity-100 data-hovering:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0 data-scrolling:pointer-events-auto">
+        <ScrollArea.Thumb className="w-full bg-neutral-950 dark:bg-white" />
       </ScrollArea.Scrollbar>
     </ScrollArea.Root>
   );
@@ -432,15 +444,25 @@ This example shows how to implement the component using CSS Modules.
   width: 24rem;
   height: 12rem;
   max-width: calc(100vw - 8rem);
-  background-color: var(--color-gray-50);
-  border-radius: 0.5rem;
+  background-color: oklch(97% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
+
+  &:has(.Viewport:focus-visible) {
+    outline: 2px solid oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Viewport {
   --fade-size: 40px;
   height: 100%;
-  border-radius: 0.375rem;
-  background: var(--color-gray-50);
+  background: oklch(97% 0 0deg);
   mask-image: linear-gradient(
     to bottom,
     transparent 0,
@@ -449,9 +471,10 @@ This example shows how to implement the component using CSS Modules.
     transparent 100%
   );
   mask-repeat: no-repeat;
+  outline: none;
 
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
+  @media (prefers-color-scheme: dark) {
+    background: oklch(26.9% 0 0deg);
   }
 }
 
@@ -459,28 +482,35 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-block: 0.75rem;
-  padding-left: 1rem;
-  padding-right: 1.5rem;
+  padding-block: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 1.25rem;
 }
 
 .Paragraph {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.375rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Scrollbar {
   display: flex;
   justify-content: center;
-  background-color: var(--color-gray-200);
-  width: 0.25rem;
-  border-radius: 0.375rem;
-  margin: 0.5rem;
+  background-color: rgb(0 0 0 / 8%);
+  width: 1rem;
+  margin: 1px;
   opacity: 0;
   transition: opacity 150ms;
   pointer-events: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(255 255 255 / 12%);
+  }
 
   &[data-scrolling] {
     transition-duration: 0ms;
@@ -491,32 +521,14 @@ This example shows how to implement the component using CSS Modules.
     opacity: 1;
     pointer-events: auto;
   }
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 1.25rem;
-    height: 100%;
-  }
 }
 
 .Thumb {
   width: 100%;
-  border-radius: inherit;
-  background-color: var(--color-gray-500);
-}
+  background-color: oklch(14.5% 0 0deg);
 
-.ScrollUp {
-  position: absolute;
-  top: 0;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.15s;
-  pointer-events: none;
-
-  [data-overflow-y-start] & {
-    opacity: 1;
-    pointer-events: auto;
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
   }
 }
 ```

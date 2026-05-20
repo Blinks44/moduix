@@ -24,11 +24,13 @@ import { Meter } from '@base-ui/react/meter';
 
 export default function ExampleMeter() {
   return (
-    <Meter.Root className="box-border grid w-48 grid-cols-2 gap-y-2" value={24}>
-      <Meter.Label className="text-sm font-normal text-gray-900">Storage Used</Meter.Label>
-      <Meter.Value className="col-start-2 m-0 text-right text-sm leading-5 text-gray-900" />
-      <Meter.Track className="col-span-2 block h-2 w-48 overflow-hidden bg-gray-100 shadow-[inset_0_0_0_1px] shadow-gray-200">
-        <Meter.Indicator className="block bg-gray-500 transition-all duration-500" />
+    <Meter.Root className="grid max-w-full w-60 grid-cols-2 gap-y-2" value={24}>
+      <Meter.Label className="text-sm font-normal text-neutral-950 dark:text-white">
+        Storage Used
+      </Meter.Label>
+      <Meter.Value className="text-right text-sm text-neutral-950 dark:text-white" />
+      <Meter.Track className="col-span-2 h-3 overflow-hidden bg-neutral-200 dark:bg-neutral-800">
+        <Meter.Indicator className="bg-neutral-950 transition-[width] duration-500 dark:bg-white" />
       </Meter.Track>
     </Meter.Root>
   );
@@ -42,40 +44,53 @@ This example shows how to implement the component using CSS Modules.
 ```css
 /* index.module.css */
 .Meter {
-  box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-row-gap: 0.5rem;
-  width: 12rem;
+  row-gap: 0.5rem;
+  width: 15rem;
+  max-width: 100%;
 }
 
 .Label {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Value {
-  grid-column-start: 2;
-  margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   text-align: right;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Track {
   grid-column: 1 / 3;
   overflow: hidden;
-  background-color: var(--color-gray-100);
-  box-shadow: inset 0 0 0 1px var(--color-gray-200);
-  height: 0.5rem;
+  height: 0.75rem;
+  background-color: oklch(92.2% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Indicator {
-  background-color: var(--color-gray-500);
+  background-color: oklch(14.5% 0 0deg);
   transition: width 500ms;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
+  }
 }
 ```
 

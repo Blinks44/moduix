@@ -29,7 +29,7 @@ export default function ExampleToast() {
     <Toast.Provider>
       <ToastButton />
       <Toast.Portal>
-        <Toast.Viewport className="fixed z-10 top-auto right-[1rem] bottom-[1rem] mx-auto flex w-[250px] sm:right-[2rem] sm:bottom-[2rem] sm:w-[300px]">
+        <Toast.Viewport className="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]">
           <ToastList />
         </Toast.Viewport>
       </Toast.Portal>
@@ -52,7 +52,7 @@ function ToastButton() {
   return (
     <button
       type="button"
-      className="box-border flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 py-0 font-normal text-gray-900 outline-0 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue active:bg-gray-100"
+      className="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
       onClick={createToast}
     >
       Create toast
@@ -66,40 +66,19 @@ function ToastList() {
     <Toast.Root
       key={toast.id}
       toast={toast}
-      className="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] rounded-lg border border-gray-200 bg-gray-50 bg-clip-padding p-4 shadow-lg select-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-[ending-style]:opacity-0 data-[expanded]:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-[limited]:opacity-0 data-[starting-style]:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-[ending-style]:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-[expanded]:data-[ending-style]:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-[ending-style]:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-[expanded]:data-[ending-style]:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-[expanded]:data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-[expanded]:data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-[expanded]:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+      className="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
     >
-      <Toast.Content className="overflow-hidden transition-opacity [transition-duration:250ms] data-[behind]:pointer-events-none data-[behind]:opacity-0 data-[expanded]:pointer-events-auto data-[expanded]:opacity-100">
-        <Toast.Title className="text-[0.975rem] leading-5 font-bold" />
-        <Toast.Description className="text-[0.925rem] leading-5 text-gray-700" />
-        <Toast.Close
-          className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-sm border-none bg-transparent text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-          aria-label="Close"
-        >
-          <XIcon className="h-4 w-4" />
+      <Toast.Content className="flex h-full items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100">
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <Toast.Title className="text-sm font-bold" />
+          <Toast.Description className="text-sm" />
+        </div>
+        <Toast.Close className="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+          Dismiss
         </Toast.Close>
       </Toast.Content>
     </Toast.Root>
   ));
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 ```
 
@@ -109,45 +88,10 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.Button {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
 .Viewport {
   position: fixed;
   z-index: 1;
-  width: 250px;
+  width: calc(100vw - 2rem);
   margin: 0 auto;
   bottom: 1rem;
   right: 1rem;
@@ -157,7 +101,7 @@ This example shows how to implement the component using CSS Modules.
   @media (min-width: 500px) {
     bottom: 2rem;
     right: 2rem;
-    width: 300px;
+    width: 22.5rem;
   }
 }
 
@@ -175,14 +119,11 @@ This example shows how to implement the component using CSS Modules.
   right: 0;
   margin: 0 auto;
   box-sizing: border-box;
-  background: var(--color-gray-50);
-  color: var(--color-gray-900);
-  border: 1px solid var(--color-gray-200);
-  padding: 1rem;
   width: 100%;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
-  background-clip: padding-box;
-  border-radius: 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: bottom center;
   bottom: 0;
   left: auto;
@@ -204,6 +145,13 @@ This example shows how to implement the component using CSS Modules.
       )
     )
     scale(var(--scale));
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-expanded] {
     transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
@@ -244,11 +192,26 @@ This example shows how to implement the component using CSS Modules.
     left: 0;
     height: calc(var(--gap) + 1px);
   }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.75rem;
   overflow: hidden;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &[data-behind] {
     opacity: 0;
@@ -259,41 +222,142 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
+.Text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .Title {
   font-weight: 700;
-  font-size: 0.975rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Description {
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  width: 1.25rem;
-  height: 1.25rem;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
-.Icon {
-  width: 1rem;
-  height: 1rem;
+.Button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 ```
 
@@ -341,34 +405,14 @@ function ToastList() {
   return toasts.map((toast) => (
     <Toast.Root key={toast.id} toast={toast} className={styles.Toast}>
       <Toast.Content className={styles.Content}>
-        <Toast.Title className={styles.Title} />
-        <Toast.Description className={styles.Description} />
-        <Toast.Close className={styles.Close} aria-label="Close">
-          <XIcon className={styles.Icon} />
-        </Toast.Close>
+        <div className={styles.Text}>
+          <Toast.Title className={styles.Title} />
+          <Toast.Description className={styles.Description} />
+        </div>
+        <Toast.Close className={styles.Close}>Dismiss</Toast.Close>
       </Toast.Content>
     </Toast.Root>
   ));
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 ```
 
@@ -618,7 +662,7 @@ function StackedToastButton() {
   return (
     <button
       type="button"
-      className="box-border flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 py-0 font-normal text-gray-900 outline-0 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+      className="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
       onClick={createToast}
     >
       Stacked toast
@@ -637,7 +681,7 @@ function CopyButton() {
       description: 'Copied',
       positionerProps: {
         anchor: buttonRef.current,
-        sideOffset: 8,
+        sideOffset: 10,
       },
       timeout: 1500,
       onClose() {
@@ -651,19 +695,17 @@ function CopyButton() {
       <Tooltip.Trigger
         ref={buttonRef}
         closeOnClick={false}
-        className="box-border flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 outline-0 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+        className="flex h-8 w-8 items-center justify-center rounded-none border border-neutral-950 bg-white text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
         onClick={handleCopy}
         aria-label="Copy to clipboard"
         render={<Button disabled={copied} focusableWhenDisabled />}
       >
-        {copied ? <CheckIcon className="h-5 w-5" /> : <ClipboardIcon className="h-5 w-5" />}
+        {copied ? <CheckIcon /> : <ClipboardIcon />}
       </Tooltip.Trigger>
       <Tooltip.Portal>
-        <Tooltip.Positioner sideOffset={8}>
-          <Tooltip.Popup className="flex origin-(--transform-origin) flex-col rounded-md bg-[canvas] px-2 py-1 text-sm shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-ending-style:scale-90 data-ending-style:opacity-0 data-instant:duration-0 data-starting-style:scale-90 data-starting-style:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
-            <Tooltip.Arrow className="data-[side=bottom]:-top-2 data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:-bottom-2 data-[side=top]:rotate-180">
-              <ArrowSvg />
-            </Tooltip.Arrow>
+        <Tooltip.Positioner sideOffset={10}>
+          <Tooltip.Popup className="relative flex flex-col border border-neutral-950 bg-white px-2 py-1 text-sm text-neutral-950 origin-[var(--transform-origin)] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:opacity-0 data-ending-style:scale-[0.98] data-instant:transition-none data-starting-style:opacity-0 data-starting-style:scale-[0.98] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+            <Tooltip.Arrow className="relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]" />
             Copy
           </Tooltip.Popup>
         </Tooltip.Positioner>
@@ -685,11 +727,9 @@ function AnchoredToasts() {
           >
             <Toast.Root
               toast={toast}
-              className="group flex w-max origin-(--transform-origin) flex-col rounded-md bg-[canvas] px-2 py-1 text-sm shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300 dark:focus-visible:outline-blue-400"
+              className="relative flex flex-col w-max border border-neutral-950 bg-white px-2 py-1 text-sm text-neutral-950 origin-[var(--transform-origin)] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:opacity-0 data-ending-style:scale-[0.98] data-instant:transition-none data-starting-style:opacity-0 data-starting-style:scale-[0.98] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
             >
-              <Toast.Arrow className="data-[side=bottom]:-top-2 data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:-bottom-2 data-[side=top]:rotate-180">
-                <ArrowSvg />
-              </Toast.Arrow>
+              <Toast.Arrow className="relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]" />
               <Toast.Content>
                 <Toast.Description />
               </Toast.Content>
@@ -705,21 +745,20 @@ function StackedToasts() {
   const { toasts } = Toast.useToastManager();
   return (
     <Toast.Portal>
-      <Toast.Viewport className="fixed z-10 top-auto right-[1rem] bottom-[1rem] mx-auto flex w-[250px] sm:right-[2rem] sm:bottom-[2rem] sm:w-[300px]">
+      <Toast.Viewport className="fixed top-auto right-[1rem] bottom-[1rem] z-1 mx-auto w-[calc(100vw-2rem)] sm:right-[2rem] sm:bottom-[2rem] sm:w-[22.5rem]">
         {toasts.map((toast) => (
           <Toast.Root
             key={toast.id}
             toast={toast}
-            className="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] rounded-lg border border-gray-200 bg-gray-50 bg-clip-padding p-4 shadow-lg select-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-[ending-style]:opacity-0 data-[expanded]:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-[limited]:opacity-0 data-[starting-style]:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-[ending-style]:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-[expanded]:data-[ending-style]:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-[ending-style]:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-[expanded]:data-[ending-style]:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-[expanded]:data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-[expanded]:data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-[expanded]:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+            className="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] mr-0 w-full origin-bottom [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
           >
-            <Toast.Content className="overflow-hidden transition-opacity [transition-duration:250ms] data-[behind]:pointer-events-none data-[behind]:opacity-0 data-[expanded]:pointer-events-auto data-[expanded]:opacity-100">
-              <Toast.Title className="text-[0.975rem] leading-5 font-bold" />
-              <Toast.Description className="text-[0.925rem] leading-5 text-gray-700" />
-              <Toast.Close
-                className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-sm border-none bg-transparent text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                aria-label="Close"
-              >
-                <XIcon className="h-4 w-4" />
+            <Toast.Content className="flex h-full items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100">
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <Toast.Title className="text-sm font-bold" />
+                <Toast.Description className="text-sm" />
+              </div>
+              <Toast.Close className="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+                Dismiss
               </Toast.Close>
             </Toast.Content>
           </Toast.Root>
@@ -729,38 +768,17 @@ function StackedToasts() {
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
-
 function ClipboardIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="16"
+      height="16"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth="1.5"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
       <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
       <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
@@ -771,38 +789,15 @@ function ClipboardIcon(props: React.ComponentProps<'svg'>) {
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -814,80 +809,6 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.ButtonGroup {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.Button {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
-.CopyButton {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
 .AnchoredViewport {
   outline: 0;
 }
@@ -898,44 +819,45 @@ This example shows how to implement the component using CSS Modules.
 
 .AnchoredToast {
   box-sizing: border-box;
+  position: relative;
   font-size: 0.875rem;
   line-height: 1.25rem;
   display: flex;
   flex-direction: column;
   width: max-content;
   padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    scale 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    scale: 0.98;
   }
 
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-
-    &:focus-visible {
-      outline: 1px solid var(--color-blue-800);
-      outline-offset: -1px;
-    }
+  &[data-instant] {
+    transition: none;
   }
 
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
 
-    &:focus-visible {
-      outline: 1px solid var(--color-blue-400);
-      outline-offset: -1px;
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
     }
   }
 }
@@ -943,7 +865,7 @@ This example shows how to implement the component using CSS Modules.
 .StackedViewport {
   position: fixed;
   z-index: 1;
-  width: 250px;
+  width: calc(100vw - 2rem);
   margin: 0 auto;
   bottom: 1rem;
   right: 1rem;
@@ -953,7 +875,7 @@ This example shows how to implement the component using CSS Modules.
   @media (min-width: 500px) {
     bottom: 2rem;
     right: 2rem;
-    width: 300px;
+    width: 22.5rem;
   }
 }
 
@@ -971,14 +893,11 @@ This example shows how to implement the component using CSS Modules.
   right: 0;
   margin: 0 auto;
   box-sizing: border-box;
-  background: var(--color-gray-50);
-  color: var(--color-gray-900);
-  border: 1px solid var(--color-gray-200);
-  padding: 1rem;
   width: 100%;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
-  background-clip: padding-box;
-  border-radius: 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: bottom center;
   bottom: 0;
   left: auto;
@@ -1000,6 +919,13 @@ This example shows how to implement the component using CSS Modules.
       )
     )
     scale(var(--scale));
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-expanded] {
     transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
@@ -1043,8 +969,14 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.75rem;
   overflow: hidden;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &[data-behind] {
     opacity: 0;
@@ -1055,122 +987,284 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
+.Text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .Title {
   font-weight: 700;
-  font-size: 0.975rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Description {
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  width: 1.25rem;
-  height: 1.25rem;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
   }
-}
 
-.Icon {
-  width: 1rem;
-  height: 1rem;
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Tooltip {
   box-sizing: border-box;
+  position: relative;
   font-size: 0.875rem;
   line-height: 1.25rem;
   display: flex;
   flex-direction: column;
   padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    scale 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    scale: 0.98;
   }
 
   &[data-instant] {
-    transition-duration: 0ms;
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transition: none;
   }
 }
 
+.AnchoredDescription {
+  margin: 0;
+}
+
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    border: 1px solid oklch(14.5% 0 0deg);
+    background-color: white;
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+      background-color: oklch(14.5% 0 0deg);
+    }
   }
 }
 
-.ArrowInnerStroke {
+.ButtonGroup {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.Button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
   @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
-.Viewport {
-  outline: 0;
+.CopyButton {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 ```
 
@@ -1229,7 +1323,7 @@ function CopyButton() {
       description: 'Copied',
       positionerProps: {
         anchor: buttonRef.current,
-        sideOffset: 8,
+        sideOffset: 10,
       },
       timeout: 1500,
       onClose() {
@@ -1248,14 +1342,12 @@ function CopyButton() {
         aria-label="Copy to clipboard"
         render={<Button disabled={copied} focusableWhenDisabled />}
       >
-        {copied ? <CheckIcon className={styles.Icon} /> : <ClipboardIcon className={styles.Icon} />}
+        {copied ? <CheckIcon /> : <ClipboardIcon />}
       </Tooltip.Trigger>
       <Tooltip.Portal>
-        <Tooltip.Positioner sideOffset={8}>
+        <Tooltip.Positioner sideOffset={10}>
           <Tooltip.Popup className={styles.Tooltip}>
-            <Tooltip.Arrow className={styles.Arrow}>
-              <ArrowSvg />
-            </Tooltip.Arrow>
+            <Tooltip.Arrow className={styles.Arrow} />
             Copy
           </Tooltip.Popup>
         </Tooltip.Positioner>
@@ -1272,11 +1364,9 @@ function AnchoredToasts() {
         {toasts.map((toast) => (
           <Toast.Positioner key={toast.id} toast={toast} className={styles.AnchoredPositioner}>
             <Toast.Root toast={toast} className={styles.AnchoredToast}>
-              <Toast.Arrow className={styles.Arrow}>
-                <ArrowSvg />
-              </Toast.Arrow>
+              <Toast.Arrow className={styles.Arrow} />
               <Toast.Content>
-                <Toast.Description />
+                <Toast.Description className={styles.AnchoredDescription} />
               </Toast.Content>
             </Toast.Root>
           </Toast.Positioner>
@@ -1294,11 +1384,11 @@ function StackedToasts() {
         {toasts.map((toast) => (
           <Toast.Root key={toast.id} toast={toast} className={styles.StackedToast}>
             <Toast.Content className={styles.Content}>
-              <Toast.Title className={styles.Title} />
-              <Toast.Description className={styles.Description} />
-              <Toast.Close className={styles.Close} aria-label="Close">
-                <XIcon className={styles.Icon} />
-              </Toast.Close>
+              <div className={styles.Text}>
+                <Toast.Title className={styles.Title} />
+                <Toast.Description className={styles.Description} />
+              </div>
+              <Toast.Close className={styles.Close}>Dismiss</Toast.Close>
             </Toast.Content>
           </Toast.Root>
         ))}
@@ -1307,38 +1397,17 @@ function StackedToasts() {
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
-
 function ClipboardIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="16"
+      height="16"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth="1.5"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
       <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
       <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
@@ -1349,38 +1418,15 @@ function ClipboardIcon(props: React.ComponentProps<'svg'>) {
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -1410,7 +1456,7 @@ export default function ExampleToast() {
     <Toast.Provider>
       <ToastButton />
       <Toast.Portal>
-        <Toast.Viewport className="fixed z-10 top-[1rem] right-0 bottom-auto left-0 mx-auto flex w-full max-w-[300px]">
+        <Toast.Viewport className="fixed top-[1rem] right-0 bottom-auto left-0 z-1 mx-auto w-[calc(100vw-2rem)] max-w-[22.5rem]">
           <ToastList />
         </Toast.Viewport>
       </Toast.Portal>
@@ -1433,7 +1479,7 @@ function ToastButton() {
   return (
     <button
       type="button"
-      className="box-border flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 py-0 font-normal text-gray-900 outline-0 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue active:bg-gray-100"
+      className="flex h-8 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
       onClick={createToast}
     >
       Create toast
@@ -1448,40 +1494,19 @@ function ToastList() {
       key={toast.id}
       toast={toast}
       swipeDirection="up"
-      className="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)+(var(--toast-index)*var(--gap))+var(--toast-swipe-movement-y))] absolute right-0 top-0 left-0 z-[calc(1000-var(--toast-index))] mx-auto w-[300px] origin-top [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)+(var(--toast-index)*var(--peek))+(var(--shrink)*var(--height))))_scale(var(--scale))] rounded-lg border border-gray-200 bg-gray-50 bg-clip-padding p-4 shadow-lg select-none after:absolute after:bottom-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-[ending-style]:opacity-0 data-[expanded]:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-[limited]:opacity-0 data-[starting-style]:[transform:translateY(-150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(-150%)] data-[ending-style]:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-[expanded]:data-[ending-style]:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-[ending-style]:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-[expanded]:data-[ending-style]:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-[expanded]:data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-[expanded]:data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-[expanded]:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
+      className="[--gap:0.75rem] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)+(var(--toast-index)*var(--gap))+var(--toast-swipe-movement-y))] absolute top-0 right-0 left-0 z-[calc(1000-var(--toast-index))] mx-auto w-full origin-top [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)+(var(--toast-index)*var(--peek))+(var(--shrink)*var(--height))))_scale(var(--scale))] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 select-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none after:absolute after:bottom-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-[''] data-ending-style:opacity-0 data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))] data-limited:opacity-0 data-starting-style:[transform:translateY(-150%)] [&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(-150%)] data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))] data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))] data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))] h-[var(--height)] data-expanded:h-[var(--toast-height)] [transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,height_0.15s]"
     >
-      <Toast.Content className="overflow-hidden transition-opacity [transition-duration:250ms] data-[behind]:pointer-events-none data-[behind]:opacity-0 data-[expanded]:pointer-events-auto data-[expanded]:opacity-100">
-        <Toast.Title className="text-[0.975rem] leading-5 font-bold" />
-        <Toast.Description className="text-[0.925rem] leading-5 text-gray-700" />
-        <Toast.Close
-          className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-sm border-none bg-transparent text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-          aria-label="Close"
-        >
-          <XIcon className="h-4 w-4" />
+      <Toast.Content className="flex h-full items-center gap-4 p-3 overflow-hidden transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100">
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <Toast.Title className="text-sm font-bold" />
+          <Toast.Description className="text-sm" />
+        </div>
+        <Toast.Close className="flex h-8 shrink-0 items-center justify-center gap-2 rounded-none border border-neutral-950 bg-white px-3 py-0 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+          Dismiss
         </Toast.Close>
       </Toast.Content>
     </Toast.Root>
   ));
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 ```
 
@@ -1491,46 +1516,11 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.Button {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
 .Viewport {
   position: fixed;
   z-index: 1;
-  width: 100%;
-  max-width: 300px;
+  width: calc(100vw - 2rem);
+  max-width: 22.5rem;
   margin: 0 auto;
   top: 1rem;
   right: 0;
@@ -1550,14 +1540,11 @@ This example shows how to implement the component using CSS Modules.
   position: absolute;
   margin: 0 auto;
   box-sizing: border-box;
-  background: var(--color-gray-50);
-  color: var(--color-gray-900);
-  border: 1px solid var(--color-gray-200);
-  padding: 1rem;
   width: 100%;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
-  background-clip: padding-box;
-  border-radius: 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: top center;
   top: 0;
   left: 0;
@@ -1581,6 +1568,13 @@ This example shows how to implement the component using CSS Modules.
       )
     )
     scale(var(--scale));
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-expanded] {
     transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
@@ -1621,11 +1615,26 @@ This example shows how to implement the component using CSS Modules.
     left: 0;
     height: calc(var(--gap) + 1px);
   }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.75rem;
   overflow: hidden;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &[data-behind] {
     opacity: 0;
@@ -1636,41 +1645,142 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
+.Text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .Title {
   font-weight: 700;
-  font-size: 0.975rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Description {
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  width: 1.25rem;
-  height: 1.25rem;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
-.Icon {
-  width: 1rem;
-  height: 1rem;
+.Button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 ```
 
@@ -1718,34 +1828,14 @@ function ToastList() {
   return toasts.map((toast) => (
     <Toast.Root key={toast.id} toast={toast} swipeDirection="up" className={styles.Toast}>
       <Toast.Content className={styles.Content}>
-        <Toast.Title className={styles.Title} />
-        <Toast.Description className={styles.Description} />
-        <Toast.Close className={styles.Close} aria-label="Close">
-          <XIcon className={styles.Icon} />
-        </Toast.Close>
+        <div className={styles.Text}>
+          <Toast.Title className={styles.Title} />
+          <Toast.Description className={styles.Description} />
+        </div>
+        <Toast.Close className={styles.Close}>Dismiss</Toast.Close>
       </Toast.Content>
     </Toast.Root>
   ));
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 ```
 
@@ -1761,45 +1851,10 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.Button {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
 .Viewport {
   position: fixed;
   z-index: 1;
-  width: 275px;
+  width: calc(100vw - 2rem);
   margin: 0 auto;
   bottom: 1rem;
   right: 1rem;
@@ -1809,7 +1864,7 @@ This example shows how to implement the component using CSS Modules.
   @media (min-width: 500px) {
     bottom: 2rem;
     right: 2rem;
-    width: 300px;
+    width: 22.5rem;
   }
 }
 
@@ -1827,14 +1882,11 @@ This example shows how to implement the component using CSS Modules.
   right: 0;
   margin: 0 auto;
   box-sizing: border-box;
-  background: var(--color-gray-50);
-  color: var(--color-gray-900);
-  border: 1px solid var(--color-gray-200);
-  padding: 1rem;
   width: 100%;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
-  background-clip: padding-box;
-  border-radius: 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: bottom center;
   bottom: 0;
   left: auto;
@@ -1856,6 +1908,13 @@ This example shows how to implement the component using CSS Modules.
       )
     )
     scale(var(--scale));
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-expanded] {
     transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
@@ -1896,11 +1955,26 @@ This example shows how to implement the component using CSS Modules.
     left: 0;
     height: calc(var(--gap) + 1px);
   }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.75rem;
   overflow: hidden;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &[data-behind] {
     opacity: 0;
@@ -1911,15 +1985,30 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
+.Text {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.Message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
   font-weight: 700;
-  font-size: 0.975rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Description {
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
@@ -1928,45 +2017,116 @@ This example shows how to implement the component using CSS Modules.
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   height: 2rem;
   padding: 0 0.75rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  font-family: inherit;
   font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.25rem;
-  border-radius: 0.25rem;
-  margin-top: 0.5rem;
-  background-color: var(--color-gray-900);
-  color: var(--color-gray-50);
-  border: none;
+  line-height: 1;
+  white-space: nowrap;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
-.Close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  width: 1.25rem;
-  height: 1.25rem;
+.Button {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
   }
-}
 
-.Icon {
-  width: 1rem;
-  height: 1rem;
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 ```
 
@@ -2022,35 +2182,16 @@ function ToastList() {
   return toasts.map((toast) => (
     <Toast.Root key={toast.id} toast={toast} className={styles.Toast}>
       <Toast.Content className={styles.Content}>
-        <Toast.Title className={styles.Title} />
-        <Toast.Description className={styles.Description} />
-        <Toast.Action className={styles.UndoButton} />
-        <Toast.Close className={styles.Close} aria-label="Close">
-          <XIcon className={styles.Icon} />
-        </Toast.Close>
+        <div className={styles.Text}>
+          <div className={styles.Message}>
+            <Toast.Title className={styles.Title} />
+            <Toast.Description className={styles.Description} />
+          </div>
+          <Toast.Action className={styles.UndoButton} />
+        </div>
       </Toast.Content>
     </Toast.Root>
   ));
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 ```
 
@@ -2068,45 +2209,10 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.Button {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
 .Viewport {
   position: fixed;
   z-index: 1;
-  width: 250px;
+  width: calc(100vw - 2rem);
   margin: 0 auto;
   bottom: 1rem;
   right: 1rem;
@@ -2116,7 +2222,7 @@ This example shows how to implement the component using CSS Modules.
   @media (min-width: 500px) {
     bottom: 2rem;
     right: 2rem;
-    width: 300px;
+    width: 22.5rem;
   }
 }
 
@@ -2134,14 +2240,11 @@ This example shows how to implement the component using CSS Modules.
   right: 0;
   margin: 0 auto;
   box-sizing: border-box;
-  background: var(--color-gray-50);
-  color: var(--color-gray-900);
-  border: 1px solid var(--color-gray-200);
-  padding: 1rem;
   width: 100%;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
-  background-clip: padding-box;
-  border-radius: 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: bottom center;
   bottom: 0;
   left: auto;
@@ -2163,6 +2266,13 @@ This example shows how to implement the component using CSS Modules.
       )
     )
     scale(var(--scale));
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-expanded] {
     transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
@@ -2204,20 +2314,41 @@ This example shows how to implement the component using CSS Modules.
     height: calc(var(--gap) + 1px);
   }
 
-  &[data-type='success'] {
-    background-color: lightgreen;
-    color: black;
+  &[data-type='success'] .Text {
+    color: oklch(52.7% 0.154 150.069deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(79.2% 0.209 151.711deg);
+    }
   }
 
-  &[data-type='error'] {
-    background-color: lightpink;
-    color: black;
+  &[data-type='error'] .Text {
+    color: oklch(50.5% 0.213 27.518deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.4% 0.191 22.216deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.75rem;
   overflow: hidden;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &[data-behind] {
     opacity: 0;
@@ -2228,41 +2359,142 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
+.Text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .Title {
   font-weight: 700;
-  font-size: 0.975rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Description {
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  width: 1.25rem;
-  height: 1.25rem;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
-.Icon {
-  width: 1rem;
-  height: 1rem;
+.Button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 ```
 
@@ -2322,34 +2554,14 @@ function ToastList() {
   return toasts.map((toast) => (
     <Toast.Root key={toast.id} toast={toast} className={styles.Toast}>
       <Toast.Content className={styles.Content}>
-        <Toast.Title className={styles.Title} />
-        <Toast.Description className={styles.Description} />
-        <Toast.Close className={styles.Close} aria-label="Close">
-          <XIcon className={styles.Icon} />
-        </Toast.Close>
+        <div className={styles.Text}>
+          <Toast.Title className={styles.Title} />
+          <Toast.Description className={styles.Description} />
+        </div>
+        <Toast.Close className={styles.Close}>Dismiss</Toast.Close>
       </Toast.Content>
     </Toast.Root>
   ));
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 ```
 
@@ -2366,45 +2578,10 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.Button {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
 .Viewport {
   position: fixed;
   z-index: 1;
-  width: 250px;
+  width: calc(100vw - 2rem);
   margin: 0 auto;
   bottom: 1rem;
   right: 1rem;
@@ -2414,7 +2591,7 @@ This example shows how to implement the component using CSS Modules.
   @media (min-width: 500px) {
     bottom: 2rem;
     right: 2rem;
-    width: 300px;
+    width: 22.5rem;
   }
 }
 
@@ -2432,14 +2609,11 @@ This example shows how to implement the component using CSS Modules.
   right: 0;
   margin: 0 auto;
   box-sizing: border-box;
-  background: var(--color-gray-50);
-  color: var(--color-gray-900);
-  border: 1px solid var(--color-gray-200);
-  padding: 1rem;
   width: 100%;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
-  background-clip: padding-box;
-  border-radius: 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: bottom center;
   bottom: 0;
   left: auto;
@@ -2461,6 +2635,13 @@ This example shows how to implement the component using CSS Modules.
       )
     )
     scale(var(--scale));
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-expanded] {
     transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
@@ -2501,9 +2682,24 @@ This example shows how to implement the component using CSS Modules.
     left: 0;
     height: calc(var(--gap) + 1px);
   }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.75rem;
   overflow: hidden;
   transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -2516,41 +2712,142 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
+.Text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .Title {
   font-weight: 700;
-  font-size: 0.975rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Description {
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  width: 1.25rem;
-  height: 1.25rem;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
-.Icon {
-  width: 1rem;
-  height: 1rem;
+.Button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 ```
 
@@ -2610,40 +2907,20 @@ function ToastList() {
   return toasts.map((toast) => (
     <Toast.Root key={toast.id} toast={toast} className={styles.Toast}>
       <Toast.Content className={styles.Content}>
-        <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
-        {isCustomToast(toast) && toast.data ? (
-          <Toast.Description className={styles.Description}>
-            `data.userId` is {toast.data.userId}
-          </Toast.Description>
-        ) : (
-          <Toast.Description className={styles.Description} />
-        )}
-        <Toast.Close className={styles.Close} aria-label="Close">
-          <XIcon className={styles.Icon} />
-        </Toast.Close>
+        <div className={styles.Text}>
+          <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
+          {isCustomToast(toast) && toast.data ? (
+            <Toast.Description className={styles.Description}>
+              data.userId is {toast.data.userId}
+            </Toast.Description>
+          ) : (
+            <Toast.Description className={styles.Description} />
+          )}
+        </div>
+        <Toast.Close className={styles.Close}>Dismiss</Toast.Close>
       </Toast.Content>
     </Toast.Root>
   ));
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 ```
 
@@ -2659,45 +2936,10 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.Button {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
 .Viewport {
   position: fixed;
   z-index: 1;
-  width: 250px;
+  width: calc(100vw - 2rem);
   margin: 0 auto;
   right: 1rem;
   bottom: 1rem;
@@ -2707,7 +2949,7 @@ This example shows how to implement the component using CSS Modules.
   @media (min-width: 500px) {
     right: 2rem;
     bottom: 2rem;
-    width: 300px;
+    width: 22.5rem;
   }
 }
 
@@ -2723,29 +2965,26 @@ This example shows how to implement the component using CSS Modules.
   );
   position: absolute;
   right: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transform-origin: bottom center;
   bottom: 0;
   left: auto;
-  width: 100%;
-  margin: 0 auto;
   margin-right: 0;
-  box-sizing: border-box;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.5rem;
-  background: var(--color-gray-50);
-  background-clip: padding-box;
-  color: var(--color-gray-900);
-  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
-  padding: 1rem;
-  cursor: default;
-  transform-origin: bottom center;
-  z-index: calc(1000 - var(--toast-index));
-  height: var(--height);
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
   transition:
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.5s,
     height 0.15s;
+  cursor: default;
+  z-index: calc(1000 - var(--toast-index));
+  height: var(--height);
   transform: translateX(var(--toast-swipe-movement-x))
     translateY(
       calc(
@@ -2754,6 +2993,13 @@ This example shows how to implement the component using CSS Modules.
       )
     )
     scale(var(--scale));
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-expanded] {
     transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
@@ -2797,6 +3043,15 @@ This example shows how to implement the component using CSS Modules.
     width: 100%;
     height: calc(var(--gap) + 1px);
   }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 /* Alternate animation names so repeated updates restart the same pulse. */
@@ -2809,6 +3064,12 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.75rem;
   overflow: hidden;
   transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -2821,41 +3082,142 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
+.Text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .Title {
-  margin: 0;
-  font-size: 0.975rem;
-  line-height: 1.25rem;
   font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin: 0;
 }
 
 .Description {
-  margin: 0;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
+  margin: 0;
 }
 
 .Close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  padding: 0;
-  border: none;
-  border-radius: 0.25rem;
-  background: transparent;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
-.Icon {
-  width: 1rem;
-  height: 1rem;
+.Button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 @keyframes pulse-even {
@@ -2936,33 +3298,13 @@ function PulseToastItem({ toast }: { toast: Toast.Root.ToastObject }) {
   return (
     <Toast.Root toast={toast} className={className}>
       <Toast.Content className={styles.Content}>
-        <Toast.Title className={styles.Title} />
-        <Toast.Description className={styles.Description} />
-        <Toast.Close className={styles.Close} aria-label="Close">
-          <XIcon className={styles.Icon} />
-        </Toast.Close>
+        <div className={styles.Text}>
+          <Toast.Title className={styles.Title} />
+          <Toast.Description className={styles.Description} />
+        </div>
+        <Toast.Close className={styles.Close}>Dismiss</Toast.Close>
       </Toast.Content>
     </Toast.Root>
-  );
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
   );
 }
 ```
@@ -2980,45 +3322,10 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.Button {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
 .Viewport {
   position: fixed;
   z-index: 1;
-  width: 250px;
+  width: calc(100vw - 2rem);
   margin: 0 auto;
   bottom: 1rem;
   right: 1rem;
@@ -3028,7 +3335,7 @@ This example shows how to implement the component using CSS Modules.
   @media (min-width: 500px) {
     bottom: 2rem;
     right: 2rem;
-    width: 300px;
+    width: 22.5rem;
   }
 }
 
@@ -3046,14 +3353,12 @@ This example shows how to implement the component using CSS Modules.
   right: 0;
   margin: 0 auto;
   box-sizing: border-box;
-  background: var(--color-gray-50);
-  color: var(--color-gray-900);
-  border: 1px solid var(--color-gray-200);
-  padding: 1rem;
   width: 100%;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
-  background-clip: padding-box;
-  border-radius: 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transform-origin: bottom center;
   bottom: 0;
   left: auto;
   margin-right: 0;
@@ -3066,7 +3371,6 @@ This example shows how to implement the component using CSS Modules.
   cursor: default;
   z-index: calc(1000 - var(--toast-index));
   height: var(--height);
-  transform-origin: bottom center;
   transform: translateX(var(--toast-swipe-movement-x))
     translateY(
       calc(
@@ -3075,6 +3379,13 @@ This example shows how to implement the component using CSS Modules.
       )
     )
     scale(var(--scale));
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-expanded] {
     transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
@@ -3115,11 +3426,26 @@ This example shows how to implement the component using CSS Modules.
     left: 0;
     height: calc(var(--gap) + 1px);
   }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.75rem;
   overflow: hidden;
-  transition: opacity 0.25s;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &[data-behind] {
     opacity: 0;
@@ -3130,41 +3456,142 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
+.Text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .Title {
   font-weight: 700;
-  font-size: 0.975rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Description {
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   margin: 0;
 }
 
 .Close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  width: 1.25rem;
-  height: 1.25rem;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
-.Icon {
-  width: 1rem;
-  height: 1rem;
+.Button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 ```
 
@@ -3213,34 +3640,14 @@ function ToastList() {
   return toasts.map((toast) => (
     <Toast.Root key={toast.id} toast={toast} className={styles.Toast}>
       <Toast.Content className={styles.Content}>
-        <Toast.Title className={styles.Title} />
-        <Toast.Description className={styles.Description} />
-        <Toast.Close className={styles.Close} aria-label="Close">
-          <XIcon className={styles.Icon} />
-        </Toast.Close>
+        <div className={styles.Text}>
+          <Toast.Title className={styles.Title} />
+          <Toast.Description className={styles.Description} />
+        </div>
+        <Toast.Close className={styles.Close}>Dismiss</Toast.Close>
       </Toast.Content>
     </Toast.Root>
   ));
-}
-
-function XIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 
 const TEXTS = [
@@ -3270,15 +3677,15 @@ Renders a `<div>` element.
 
 **Root Data Attributes:**
 
-| Attribute            | Type                                  | Description                                                    |
-| :------------------- | :------------------------------------ | :------------------------------------------------------------- |
-| data-expanded        | `boolean`                             | Present when the toast is expanded in the viewport.            |
-| data-limited         | `boolean`                             | Present when the toast was removed due to exceeding the limit. |
-| data-swipe-direction | `'up' \| 'down' \| 'left' \| 'right'` | The direction the toast was swiped.                            |
-| data-swiping         | `boolean`                             | Present when the toast is being swiped.                        |
-| data-type            | `string`                              | The type of the toast.                                         |
-| data-starting-style  | -                                     | Present when the toast is animating in.                        |
-| data-ending-style    | -                                     | Present when the toast is animating out.                       |
+| Attribute            | Type                                  | Description                                                              |
+| :------------------- | :------------------------------------ | :----------------------------------------------------------------------- |
+| data-expanded        | `boolean`                             | Present when the toast is expanded in the viewport.                      |
+| data-limited         | `boolean`                             | Present when the toast was limited because the toast limit was exceeded. |
+| data-swipe-direction | `'up' \| 'down' \| 'left' \| 'right'` | The direction the toast was swiped.                                      |
+| data-swiping         | `boolean`                             | Present when the toast is being swiped.                                  |
+| data-type            | `string`                              | The type of the toast.                                                   |
+| data-starting-style  | -                                     | Present when the toast is animating in.                                  |
+| data-ending-style    | -                                     | Present when the toast is animating out.                                 |
 
 **Root CSS Variables:**
 
@@ -3302,7 +3709,7 @@ type ToastRootState = {
   transitionStatus: TransitionStatus;
   /** Whether the toasts in the viewport are expanded. */
   expanded: boolean;
-  /** Whether the toast was removed due to exceeding the limit. */
+  /** Whether the toast was limited because the toast limit was exceeded. */
   limited: boolean;
   /** The type of the toast. */
   type: string | undefined;
@@ -3347,7 +3754,7 @@ type ToastRootToastObject<Data extends {} = any> = {
   transitionStatus?: 'starting' | 'ending';
   /** A counter that increments whenever the toast is updated or upserted. */
   updateKey?: number;
-  /** Determines if the toast was closed due to the limit being reached. */
+  /** Determines if the toast was limited because the toast limit was exceeded. */
   limited?: boolean;
   /** The height of the toast. */
   height?: number;
@@ -3806,7 +4213,7 @@ type ToastObject<Data extends {}> = {
   transitionStatus?: 'starting' | 'ending';
   /** A counter that increments whenever the toast is updated or upserted. */
   updateKey?: number;
-  /** Determines if the toast was closed due to the limit being reached. */
+  /** Determines if the toast was limited because the toast limit was exceeded. */
   limited?: boolean;
   /** The height of the toast. */
   height?: number;

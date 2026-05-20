@@ -26,11 +26,11 @@ export default function ExampleSlider() {
   return (
     <Slider.Root defaultValue={25}>
       <Slider.Control className="flex w-56 touch-none items-center py-3 select-none">
-        <Slider.Track className="h-1 w-full rounded-sm bg-gray-200 shadow-[inset_0_0_0_1px] shadow-gray-200 select-none">
-          <Slider.Indicator className="rounded-sm bg-gray-700 select-none" />
+        <Slider.Track className="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
+          <Slider.Indicator className="bg-neutral-950 select-none dark:bg-white" />
           <Slider.Thumb
             aria-label="Volume"
-            className="size-4 rounded-full bg-white outline-1 outline-gray-300 select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-blue-800"
+            className="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
           />
         </Slider.Track>
       </Slider.Control>
@@ -52,34 +52,53 @@ This example shows how to implement the component using CSS Modules.
   width: 14rem;
   padding-block: 0.75rem;
   touch-action: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 
 .Track {
   width: 100%;
   height: 0.25rem;
-  background-color: var(--color-gray-200);
-  box-shadow: inset 0 0 0 1px var(--color-gray-200);
-  border-radius: 0.25rem;
+  background-color: oklch(92.2% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Indicator {
-  border-radius: 0.25rem;
-  background-color: var(--color-gray-700);
+  background-color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
+  }
 }
 
 .Thumb {
+  box-sizing: border-box;
   width: 1rem;
   height: 1rem;
-  border-radius: 100%;
+  border: 1px solid oklch(14.5% 0 0deg);
   background-color: white;
-  outline: 1px solid var(--color-gray-300);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
   &:has(:focus-visible) {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: 2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -151,17 +170,17 @@ export default function RangeSlider() {
   return (
     <Slider.Root defaultValue={[25, 45]}>
       <Slider.Control className="flex w-56 touch-none items-center py-3 select-none">
-        <Slider.Track className="h-1 w-full rounded-sm bg-gray-200 shadow-[inset_0_0_0_1px] shadow-gray-200 select-none">
-          <Slider.Indicator className="rounded-sm bg-gray-700 select-none" />
+        <Slider.Track className="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
+          <Slider.Indicator className="bg-neutral-950 select-none dark:bg-white" />
           <Slider.Thumb
             index={0}
             aria-label="Minimum value"
-            className="size-4 rounded-full bg-white outline-1 outline-gray-300 select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-blue-800"
+            className="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
           />
           <Slider.Thumb
             index={1}
             aria-label="Maximum value"
-            className="size-4 rounded-full bg-white outline-1 outline-gray-300 select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-blue-800"
+            className="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
           />
         </Slider.Track>
       </Slider.Control>
@@ -183,34 +202,53 @@ This example shows how to implement the component using CSS Modules.
   width: 14rem;
   padding-block: 0.75rem;
   touch-action: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 
 .Track {
   width: 100%;
   height: 0.25rem;
-  background-color: var(--color-gray-200);
-  box-shadow: inset 0 0 0 1px var(--color-gray-200);
-  border-radius: 0.25rem;
+  background-color: oklch(92.2% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Indicator {
-  border-radius: 0.25rem;
-  background-color: var(--color-gray-700);
+  background-color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
+  }
 }
 
 .Thumb {
+  box-sizing: border-box;
   width: 1rem;
   height: 1rem;
-  border-radius: 100%;
+  border: 1px solid oklch(14.5% 0 0deg);
   background-color: white;
-  outline: 1px solid var(--color-gray-300);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
   &:has(:focus-visible) {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: 2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -255,9 +293,9 @@ export default function EdgeAlignedThumb() {
   return (
     <Slider.Root thumbAlignment="edge" defaultValue={25}>
       <Slider.Control className="flex w-56 touch-none items-center py-3 select-none">
-        <Slider.Track className="h-1 w-full rounded-sm bg-gray-200 shadow-[inset_0_0_0_1px] shadow-gray-200 select-none">
-          <Slider.Indicator className="rounded-sm bg-gray-700 select-none" />
-          <Slider.Thumb className="size-4 rounded-full bg-white outline-1 outline-gray-300 select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-blue-800" />
+        <Slider.Track className="h-1 w-full bg-neutral-200 select-none dark:bg-neutral-800">
+          <Slider.Indicator className="bg-neutral-950 select-none dark:bg-white" />
+          <Slider.Thumb className="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950" />
         </Slider.Track>
       </Slider.Control>
     </Slider.Root>
@@ -278,34 +316,53 @@ This example shows how to implement the component using CSS Modules.
   width: 14rem;
   padding-block: 0.75rem;
   touch-action: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 
 .Track {
   width: 100%;
   height: 0.25rem;
-  background-color: var(--color-gray-200);
-  box-shadow: inset 0 0 0 1px var(--color-gray-200);
-  border-radius: 0.25rem;
+  background-color: oklch(92.2% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Indicator {
-  border-radius: 0.25rem;
-  background-color: var(--color-gray-700);
+  background-color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
+  }
 }
 
 .Thumb {
+  box-sizing: border-box;
   width: 1rem;
   height: 1rem;
-  border-radius: 100%;
+  border: 1px solid oklch(14.5% 0 0deg);
   background-color: white;
-  outline: 1px solid var(--color-gray-300);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
   &:has(:focus-visible) {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: 2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -395,11 +452,11 @@ export default function VerticalSlider() {
   return (
     <Slider.Root orientation="vertical" defaultValue={35}>
       <Slider.Control className="flex touch-none select-none data-[orientation=vertical]:h-32 data-[orientation=vertical]:px-3">
-        <Slider.Track className="rounded-sm bg-gray-200 shadow-[inset_0_0_0_1px] shadow-gray-200 select-none data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1">
-          <Slider.Indicator className="rounded-sm bg-gray-700 select-none" />
+        <Slider.Track className="bg-neutral-200 select-none dark:bg-neutral-800 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1">
+          <Slider.Indicator className="bg-neutral-950 select-none dark:bg-white" />
           <Slider.Thumb
             aria-label="Volume"
-            className="size-4 rounded-full bg-white outline-1 outline-gray-300 select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-blue-800"
+            className="size-4 border border-neutral-950 bg-white select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-neutral-950 dark:has-[:focus-visible]:outline-white dark:border-white dark:bg-neutral-950"
           />
         </Slider.Track>
       </Slider.Control>
@@ -418,6 +475,7 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   display: flex;
   touch-action: none;
+  -webkit-user-select: none;
   user-select: none;
 
   &[data-orientation='vertical'] {
@@ -427,10 +485,13 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Track {
-  background-color: var(--color-gray-200);
-  box-shadow: inset 0 0 0 1px var(--color-gray-200);
-  border-radius: 0.25rem;
+  background-color: oklch(92.2% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 
   &[data-orientation='vertical'] {
     height: 100%;
@@ -439,21 +500,36 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Indicator {
-  border-radius: 0.25rem;
-  background-color: var(--color-gray-700);
+  background-color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
+  }
 }
 
 .Thumb {
+  box-sizing: border-box;
   width: 1rem;
   height: 1rem;
-  border-radius: 100%;
+  border: 1px solid oklch(14.5% 0 0deg);
   background-color: white;
-  outline: 1px solid var(--color-gray-300);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
   &:has(:focus-visible) {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: 2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
