@@ -24,22 +24,19 @@ import { Avatar } from '@base-ui/react/avatar';
 
 export default function ExampleAvatar() {
   return (
-    <div style={{ display: 'flex', gap: 20 }}>
-      <Avatar.Root className="inline-flex size-12 items-center justify-center overflow-hidden rounded-full bg-gray-100 align-middle text-base text-gray-900 select-none">
+    <div className="flex gap-4">
+      <Avatar.Root className="inline-flex size-8 items-center justify-center overflow-hidden rounded-full bg-neutral-200 align-middle text-sm leading-none font-normal text-neutral-950 select-none dark:bg-neutral-800 dark:text-white">
         <Avatar.Image
           src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
           width="48"
           height="48"
           className="size-full object-cover"
         />
-        <Avatar.Fallback
-          delay={600}
-          className="flex size-full items-center justify-center text-base"
-        >
+        <Avatar.Fallback delay={600} className="flex size-full items-center justify-center text-sm">
           LT
         </Avatar.Fallback>
       </Avatar.Root>
-      <Avatar.Root className="inline-flex size-12 items-center justify-center overflow-hidden rounded-full bg-gray-100 align-middle text-base text-gray-900 select-none">
+      <Avatar.Root className="inline-flex size-8 items-center justify-center overflow-hidden rounded-full bg-neutral-200 align-middle text-sm leading-none font-normal text-neutral-950 select-none dark:bg-neutral-800 dark:text-white">
         LT
       </Avatar.Root>
     </div>
@@ -59,15 +56,21 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   vertical-align: middle;
   border-radius: 100%;
+  -webkit-user-select: none;
   user-select: none;
   font-weight: 400;
-  color: var(--color-gray-900);
-  background-color: var(--color-gray-100);
-  font-size: 1rem;
+  color: oklch(14.5% 0 0deg);
+  background-color: oklch(92.2% 0 0deg);
+  font-size: 0.875rem;
   line-height: 1;
   overflow: hidden;
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Image {
@@ -82,7 +85,7 @@ This example shows how to implement the component using CSS Modules.
   justify-content: center;
   height: 100%;
   width: 100%;
-  font-size: 1rem;
+  font-size: 0.875rem;
 }
 ```
 
@@ -93,7 +96,7 @@ import styles from './index.module.css';
 
 export default function ExampleAvatar() {
   return (
-    <div style={{ display: 'flex', gap: 20 }}>
+    <div style={{ display: 'flex', gap: '1rem' }}>
       <Avatar.Root className={styles.Root}>
         <Avatar.Image
           src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"

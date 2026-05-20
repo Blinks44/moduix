@@ -28,26 +28,26 @@ export default function ExampleCombobox() {
   const id = React.useId();
   return (
     <Combobox.Root items={fruits}>
-      <div className="relative flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <div className="relative flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-950 dark:text-white">
         <label htmlFor={id}>Choose a fruit</label>
-        <Combobox.InputGroup className="relative box-content h-10 w-64 rounded-md border border-gray-200 bg-[canvas] focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 [&>input]:pr-[calc(0.5rem+1.5rem)] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+1.5rem*2)]">
+        <Combobox.InputGroup className="relative h-8 w-56 border border-neutral-950 bg-white dark:bg-neutral-950 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-neutral-950 dark:focus-within:outline-white dark:border-white [&>input]:pr-[calc(0.5rem+2rem)] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+2rem*2)]">
           <Combobox.Input
             placeholder="e.g. Apple"
             id={id}
-            className="h-full w-full border-0 bg-transparent pl-3.5 text-base font-normal text-gray-900 outline-none"
+            className="h-full w-full border-0 bg-white pl-2 dark:bg-neutral-950 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 outline-none placeholder:text-neutral-500 dark:placeholder:text-neutral-400 dark:text-white"
           />
-          <div className="absolute right-2 bottom-0 flex h-10 items-center justify-center text-gray-600">
+          <div className="absolute right-0 bottom-0 flex h-full items-center justify-center text-neutral-500 dark:text-neutral-400">
             <Combobox.Clear
-              className="combobox-clear flex h-10 w-6 items-center justify-center rounded bg-transparent p-0"
+              className="combobox-clear flex h-full w-6 items-center justify-center border-0 bg-transparent p-0 text-neutral-950 dark:text-white"
               aria-label="Clear selection"
             >
-              <ClearIcon className="size-4" />
+              <XIcon />
             </Combobox.Clear>
             <Combobox.Trigger
-              className="flex h-10 w-6 items-center justify-center rounded bg-transparent p-0"
+              className="flex h-full w-6 items-center justify-center border-0 bg-transparent p-0 text-neutral-950 dark:text-white"
               aria-label="Open popup"
             >
-              <ChevronDownIcon className="size-4" />
+              <CaretDownIcon />
             </Combobox.Trigger>
           </div>
         </Combobox.InputGroup>
@@ -55,19 +55,21 @@ export default function ExampleCombobox() {
 
       <Combobox.Portal>
         <Combobox.Positioner className="outline-none" sideOffset={4}>
-          <Combobox.Popup className="w-[var(--anchor-width)] max-h-[23rem] max-w-[var(--available-width)] origin-[var(--transform-origin)] rounded-md bg-[canvas] text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300 duration-100">
+          <Combobox.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-[scale,opacity] duration-100 data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Combobox.Empty>
-              <div className="p-4 text-[0.925rem] leading-4 text-gray-600">No fruits found.</div>
+              <div className="py-4 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
+                No fruits found.
+              </div>
             </Combobox.Empty>
-            <Combobox.List className="outline-0 overflow-y-auto scroll-py-[0.5rem] py-2 overscroll-contain max-h-[min(23rem,var(--available-height))] data-[empty]:p-0">
+            <Combobox.List className="max-h-[min(22.5rem,var(--available-height))] overflow-y-auto overscroll-contain py-1 scroll-py-1 outline-0 data-empty:p-0">
               {(item: Fruit) => (
                 <Combobox.Item
                   key={item.value}
                   value={item}
-                  className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-none select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+                  className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 p-2 text-sm leading-4 outline-none select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
                 >
                   <Combobox.ItemIndicator className="col-start-1">
-                    <CheckIcon className="size-3" />
+                    <CheckIcon />
                   </Combobox.ItemIndicator>
                   <span className="col-start-2">{item.label}</span>
                 </Combobox.Item>
@@ -82,43 +84,49 @@ export default function ExampleCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
 
-function ClearIcon(props: React.ComponentProps<'svg'>) {
+function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6L6 18" />
-      <path d="M6 6l12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
 
-function ChevronDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M6 9l6 6 6-6" />
+      <path d="M12 6H4l4 4.5z" />
     </svg>
   );
 }
@@ -164,37 +172,64 @@ This example shows how to implement the component using CSS Modules.
 ```css
 /* index.module.css */
 .InputGroup {
+  box-sizing: border-box;
   position: relative;
-  width: 16rem;
-  height: 2.5rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  width: 14rem;
+  height: 2rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
 
   &:focus-within {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 
   &:has(.Clear) .Input {
-    padding-right: calc(0.5rem + 1.5rem * 2);
+    padding: 0 calc(0.5rem + 2rem * 2) 0 0.5rem;
   }
 }
 
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
-  padding-right: calc(0.5rem + 1.5rem);
+  padding: 0 calc(0.5rem + 2rem) 0 0.5rem;
   margin: 0;
   border: none;
+  border-radius: 0;
   width: 100%;
   height: 100%;
-  border-radius: inherit;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
     outline: none;
@@ -208,8 +243,12 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   position: relative;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .ActionButtons {
@@ -219,12 +258,15 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: center;
   bottom: 0;
-  height: 2.5rem;
-  right: 0.5rem;
-  border-radius: 0.25rem;
+  height: 100%;
+  right: 0;
   border: none;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
   padding: 0;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Trigger,
@@ -234,18 +276,15 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: center;
   width: 1.5rem;
-  height: 2.5rem;
-  color: var(--color-gray-600);
+  height: 100%;
+  color: oklch(14.5% 0 0deg);
   border: none;
   padding: 0;
-  border-radius: 0.25rem;
   background: none;
-}
 
-.ClearIcon,
-.TriggerIcon {
-  width: 1rem;
-  height: 1rem;
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -254,33 +293,29 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: 23rem;
   max-width: var(--available-width);
   transition:
     opacity 0.1s,
     transform 0.1s;
   transform-origin: var(--transform-origin);
 
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     transform: scale(0.95);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
   }
 }
 
@@ -288,10 +323,10 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding-block: 0.5rem;
-  scroll-padding-block: 0.5rem;
+  padding-block: 0.25rem;
+  scroll-padding-block: 0.25rem;
   outline: 0;
-  max-height: min(23rem, var(--available-height));
+  max-height: min(22.5rem, var(--available-height));
 
   &[data-empty] {
     padding: 0;
@@ -302,21 +337,26 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: grid;
   gap: 0.5rem;
   align-items: center;
-  grid-template-columns: 0.75rem 1fr;
-  font-size: 1rem;
+  grid-template-columns: 1rem 1fr;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -324,9 +364,12 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
@@ -338,17 +381,16 @@ This example shows how to implement the component using CSS Modules.
   grid-column-start: 1;
 }
 
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .Empty {
-  font-size: 0.925rem;
+  box-sizing: border-box;
+  padding: 1rem 1rem 1rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 1rem;
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -369,10 +411,10 @@ export default function ExampleCombobox() {
           <Combobox.Input placeholder="e.g. Apple" id={id} className={styles.Input} />
           <div className={styles.ActionButtons}>
             <Combobox.Clear className={styles.Clear} aria-label="Clear selection">
-              <ClearIcon className={styles.ClearIcon} />
+              <XIcon />
             </Combobox.Clear>
             <Combobox.Trigger className={styles.Trigger} aria-label="Open popup">
-              <ChevronDownIcon className={styles.TriggerIcon} />
+              <CaretDownIcon />
             </Combobox.Trigger>
           </div>
         </Combobox.InputGroup>
@@ -388,7 +430,7 @@ export default function ExampleCombobox() {
               {(item: Fruit) => (
                 <Combobox.Item key={item.value} value={item} className={styles.Item}>
                   <Combobox.ItemIndicator className={styles.ItemIndicator}>
-                    <CheckIcon className={styles.ItemIndicatorIcon} />
+                    <CheckIcon />
                   </Combobox.ItemIndicator>
                   <span className={styles.ItemText}>{item.label}</span>
                 </Combobox.Item>
@@ -403,43 +445,49 @@ export default function ExampleCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
 
-function ClearIcon(props: React.ComponentProps<'svg'>) {
+function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6L6 18" />
-      <path d="M6 6l12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
 
-function ChevronDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M6 9l6 6 6-6" />
+      <path d="M12 6H4l4 4.5z" />
     </svg>
   );
 }
@@ -583,24 +631,27 @@ export default function ExampleMultipleCombobox() {
 
   return (
     <Combobox.Root items={langs} multiple>
-      <div className="max-w-[28rem] flex flex-col gap-1">
-        <label className="text-sm leading-5 font-bold text-gray-900" htmlFor={id}>
+      <div className="max-w-md flex flex-col gap-1">
+        <label
+          className="flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-950 dark:text-white"
+          htmlFor={id}
+        >
           Programming languages
         </label>
-        <Combobox.InputGroup className="w-64 cursor-text rounded-md border border-gray-200 bg-[canvas] px-1.5 py-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 min-[500px]:w-[22rem]">
-          <Combobox.Chips className="flex w-full flex-wrap items-center gap-0.5">
+        <Combobox.InputGroup className="flex min-h-8 w-64 cursor-text flex-wrap items-center gap-0.5 border border-neutral-950 bg-white dark:bg-neutral-950 px-2 py-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-neutral-950 dark:focus-within:outline-white has-[button]:px-1 dark:border-white min-[32rem]:w-[22rem]">
+          <Combobox.Chips className="flex w-full flex-wrap items-center gap-1">
             <Combobox.Value>
               {(value: ProgrammingLanguage[]) => (
                 <React.Fragment>
                   {value.map((language) => (
                     <Combobox.Chip
                       key={language.id}
-                      className="flex items-center gap-1 rounded-md bg-gray-100 px-1.5 py-[0.2rem] text-sm text-gray-900 outline-none cursor-default [@media(hover:hover)]:[&[data-highlighted]]:bg-blue-800 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50 focus-within:bg-blue-800 focus-within:text-gray-50"
+                      className="group flex min-h-[calc(1.5rem-2px)] cursor-default items-center gap-1 overflow-hidden bg-neutral-100 py-0 pr-[0.2rem] pl-[0.4rem] text-sm leading-none text-neutral-950 outline-none focus-within:bg-neutral-950 focus-within:text-white [@media(hover:hover)]:data-highlighted:bg-neutral-950 [@media(hover:hover)]:data-highlighted:text-white dark:bg-neutral-800 dark:text-white dark:focus-within:bg-white dark:focus-within:text-neutral-950 dark:[@media(hover:hover)]:data-highlighted:bg-white dark:[@media(hover:hover)]:data-highlighted:text-neutral-950"
                       aria-label={language.value}
                     >
                       {language.value}
                       <Combobox.ChipRemove
-                        className="rounded-md p-1 text-inherit hover:bg-gray-200"
+                        className="flex size-4 items-center justify-center border-0 bg-transparent p-0 text-inherit hover:bg-neutral-200 group-focus-within:hover:bg-neutral-700 dark:hover:bg-neutral-700 dark:group-focus-within:hover:bg-neutral-200"
                         aria-label={`Remove ${language.value}`}
                       >
                         <XIcon />
@@ -610,7 +661,7 @@ export default function ExampleMultipleCombobox() {
                   <Combobox.Input
                     id={id}
                     placeholder={value.length > 0 ? '' : 'e.g. TypeScript'}
-                    className="min-w-12 flex-1 h-8 rounded-md border-0 bg-transparent pl-2 text-base font-normal text-gray-900 outline-none"
+                    className="h-[calc(1.5rem-2px)] min-w-12 flex-1 border-0 bg-white p-0 text-sm any-pointer-coarse:text-base dark:bg-neutral-950 font-normal text-neutral-950 outline-none placeholder:text-neutral-500 dark:placeholder:text-neutral-400 dark:text-white"
                   />
                 </React.Fragment>
               )}
@@ -621,9 +672,9 @@ export default function ExampleMultipleCombobox() {
 
       <Combobox.Portal>
         <Combobox.Positioner className="z-50 outline-none" sideOffset={4}>
-          <Combobox.Popup className="w-[var(--anchor-width)] max-h-[min(var(--available-height),23rem)] max-w-[var(--available-width)] origin-[var(--transform-origin)] overflow-y-auto scroll-pt-2 scroll-pb-2 overscroll-contain rounded-md bg-[canvas] py-2 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
+          <Combobox.Popup className="w-[var(--anchor-width)] max-h-[min(var(--available-height),24.5rem)] max-w-[var(--available-width)] origin-[var(--transform-origin)] overflow-y-auto overscroll-contain border border-neutral-950 bg-white py-1 text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-[scale,opacity] data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Combobox.Empty>
-              <div className="px-4 py-2 text-[0.925rem] leading-4 text-gray-600">
+              <div className="py-2 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
                 No languages found.
               </div>
             </Combobox.Empty>
@@ -631,11 +682,11 @@ export default function ExampleMultipleCombobox() {
               {(language: ProgrammingLanguage) => (
                 <Combobox.Item
                   key={language.id}
-                  className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-none select-none [@media(hover:hover)]:[&[data-highlighted]]:relative [@media(hover:hover)]:[&[data-highlighted]]:z-0 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50 [@media(hover:hover)]:[&[data-highlighted]]:before:absolute [@media(hover:hover)]:[&[data-highlighted]]:before:inset-x-2 [@media(hover:hover)]:[&[data-highlighted]]:before:inset-y-0 [@media(hover:hover)]:[&[data-highlighted]]:before:z-[-1] [@media(hover:hover)]:[&[data-highlighted]]:before:rounded-sm [@media(hover:hover)]:[&[data-highlighted]]:before:bg-gray-900"
+                  className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 p-2 text-sm leading-4 outline-none select-none data-selected:relative data-selected:z-0 data-selected:text-neutral-950 data-selected:before:absolute data-selected:before:inset-0 data-selected:before:z-[-1] [@media(hover:hover)]:data-highlighted:relative [@media(hover:hover)]:data-highlighted:z-0 [@media(hover:hover)]:data-highlighted:text-white [@media(hover:hover)]:data-highlighted:before:absolute [@media(hover:hover)]:data-highlighted:before:inset-0 [@media(hover:hover)]:data-highlighted:before:z-[-1] [@media(hover:hover)]:data-highlighted:before:bg-neutral-950 dark:data-selected:text-white dark:[@media(hover:hover)]:data-highlighted:text-neutral-950 dark:[@media(hover:hover)]:data-highlighted:before:bg-white"
                   value={language}
                 >
                   <Combobox.ItemIndicator className="col-start-1">
-                    <CheckIcon className="size-3" />
+                    <CheckIcon />
                   </Combobox.ItemIndicator>
                   <span className="col-start-2">{language.value}</span>
                 </Combobox.Item>
@@ -650,8 +701,16 @@ export default function ExampleMultipleCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -659,20 +718,17 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
-      aria-hidden
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
@@ -717,7 +773,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .InputGroup {
@@ -726,20 +786,33 @@ This example shows how to implement the component using CSS Modules.
   flex-wrap: wrap;
   align-items: center;
   gap: 0.125rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
-  padding: 0.25rem 0.375rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem;
   width: 16rem;
   cursor: text;
 
-  &:focus-within {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
+  @media (min-width: 32rem) {
+    width: 22rem;
   }
 
-  @media (min-width: 500px) {
-    width: 22rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
+  &:has(.Chip) {
+    padding-inline: 0.25rem;
+  }
+
+  &:focus-within {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -747,32 +820,49 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.125rem;
+  gap: 0.25rem;
   width: 100%;
 }
 
 .Chip {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-900);
-  border-radius: 0.375rem;
+  min-height: calc(1.5rem - 2px);
+  background-color: oklch(97% 0 0deg);
+  color: oklch(14.5% 0 0deg);
   font-size: 0.875rem;
-  padding: 0.2rem 0.2rem 0.2rem 0.4rem;
+  line-height: 1;
+  padding: 0 0.2rem 0 0.4rem;
   overflow: hidden;
   gap: 0.25rem;
   outline: 0;
   cursor: default;
 
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+    color: white;
+  }
+
   &:focus-within {
-    background-color: var(--color-blue);
-    color: var(--color-gray-50);
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   @media (hover: hover) {
     &[data-highlighted] {
-      background-color: var(--color-blue);
-      color: var(--color-gray-50);
+      background-color: oklch(14.5% 0 0deg);
+      color: white;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: white;
+        color: oklch(14.5% 0 0deg);
+      }
     }
   }
 }
@@ -791,18 +881,36 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .ChipRemove {
+  box-sizing: border-box;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
   border: none;
   background: none;
-  padding: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: inherit;
-  border-radius: 0.375rem;
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-200);
+      background-color: oklch(92.2% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(37.1% 0 0deg);
+      }
+    }
+  }
+}
+
+.Chip:focus-within .ChipRemove {
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(37.1% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(92.2% 0 0deg);
+      }
     }
   }
 }
@@ -810,51 +918,40 @@ This example shows how to implement the component using CSS Modules.
 .Input {
   flex: 1;
   box-sizing: border-box;
-  padding-left: 0.5rem;
+  padding: 0;
   margin: 0;
   border: none;
-  height: 2rem;
-  border-radius: 0.375rem;
+  border-radius: 0;
+  height: calc(1.5rem - 2px);
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   min-width: 3rem;
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
     outline: none;
   }
-}
-
-.Trigger {
-  box-sizing: border-box;
-  position: absolute;
-  right: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border: none;
-  background: none;
-  color: var(--color-gray-500);
-  border-radius: 0.25rem;
-
-  &:hover {
-    color: var(--color-gray-700);
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus {
-    outline: 2px solid var(--color-blue-500);
-    outline-offset: 2px;
-  }
-}
-
-.TriggerIcon {
-  width: 1rem;
-  height: 1rem;
 }
 
 .Positioner {
@@ -864,37 +961,33 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.5rem;
-  padding-block: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  padding-block: 0.25rem;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
   max-width: var(--available-width);
-  max-height: min(var(--available-height), 24rem);
+  max-height: min(var(--available-height), 24.5rem);
   overflow-y: auto;
-  scroll-padding-block: 0.5rem;
+  scroll-padding-block: 0.25rem;
   overscroll-behavior: contain;
   transition:
     opacity 0.1s,
     transform 0.1s;
   transform-origin: var(--transform-origin);
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     transform: scale(0.95);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
   }
 }
 
@@ -902,21 +995,26 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: grid;
   gap: 0.5rem;
   align-items: center;
-  grid-template-columns: 0.75rem 1fr;
-  font-size: 1rem;
+  grid-template-columns: 1rem 1fr;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-selected] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-900);
+    color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: white;
+    }
   }
 
   &[data-selected]::before,
@@ -925,19 +1023,26 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
+    inset-inline: 0;
   }
 
   @media (hover: hover) {
     &[data-highlighted] {
       z-index: 0;
       position: relative;
-      color: var(--color-gray-50);
+      color: white;
+
+      @media (prefers-color-scheme: dark) {
+        color: oklch(14.5% 0 0deg);
+      }
     }
 
     &[data-highlighted]::before {
-      background-color: var(--color-gray-900);
+      background-color: oklch(14.5% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: white;
+      }
     }
   }
 }
@@ -950,12 +1055,6 @@ This example shows how to implement the component using CSS Modules.
   grid-column-start: 1;
 }
 
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .ItemName {
   font-weight: 700;
   color: inherit;
@@ -963,10 +1062,14 @@ This example shows how to implement the component using CSS Modules.
 
 .Empty {
   box-sizing: border-box;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 0.5rem 1rem;
+  color: oklch(55.6% 0 0deg);
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -1028,7 +1131,7 @@ export default function ExampleMultipleCombobox() {
               {(language: ProgrammingLanguage) => (
                 <Combobox.Item key={language.id} className={styles.Item} value={language}>
                   <Combobox.ItemIndicator className={styles.ItemIndicator}>
-                    <CheckIcon className={styles.ItemIndicatorIcon} />
+                    <CheckIcon />
                   </Combobox.ItemIndicator>
                   <span className={styles.ItemText}>{language.value}</span>
                 </Combobox.Item>
@@ -1043,8 +1146,16 @@ export default function ExampleMultipleCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -1052,20 +1163,17 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
-      aria-hidden
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
@@ -1137,48 +1245,48 @@ import { Combobox } from '@base-ui/react/combobox';
 
 export default function ExamplePopoverCombobox() {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col items-start gap-1">
       <Combobox.Root items={countries}>
-        <Combobox.Label className="cursor-default text-sm leading-5 font-bold text-gray-900">
+        <Combobox.Label className="cursor-default text-sm leading-5 font-bold text-neutral-950 dark:text-white">
           Country
         </Combobox.Label>
-        <Combobox.Trigger className="flex bg-[canvas] h-10 min-w-[12rem] items-center justify-between gap-3 rounded-md border border-gray-200 pr-3 pl-3.5 text-base text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[popup-open]:bg-gray-100 cursor-default font-normal">
-          <Combobox.Value placeholder={<span className="opacity-60">Select country</span>} />
-          <Combobox.Icon className="flex">
-            <ChevronUpDownIcon />
+        <Combobox.Trigger className="flex h-8 min-w-40 cursor-default items-center justify-between gap-3 border border-neutral-950 bg-white pl-2 pr-1 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 data-popup-open:bg-neutral-100 data-placeholder:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:data-placeholder:text-neutral-400 dark:focus-visible:outline-white dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 dark:data-popup-open:bg-neutral-800">
+          <Combobox.Value placeholder="Select country" />
+          <Combobox.Icon className="text-neutral-950 dark:text-white">
+            <CaretUpDownIcon />
           </Combobox.Icon>
         </Combobox.Trigger>
         <Combobox.Portal>
           <Combobox.Positioner align="start" sideOffset={4}>
             <Combobox.Popup
-              className="[--input-container-height:3rem] origin-[var(--transform-origin)] max-w-[var(--available-width)] max-h-[24rem] rounded-lg bg-[canvas] shadow-lg shadow-gray-200 text-gray-900 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300"
+              className="[--input-container-height:2rem] max-h-[24.5rem] max-w-[var(--available-width)] origin-[var(--transform-origin)] bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-[scale,opacity] duration-150 data-starting-style:scale-90 data-starting-style:opacity-0 data-ending-style:scale-90 data-ending-style:opacity-0  dark:bg-neutral-950 dark:text-white dark:shadow-none"
               aria-label="Select country"
             >
-              <div className="w-80 h-[var(--input-container-height)] text-center p-2">
-                <Combobox.Input
-                  placeholder="e.g. United Kingdom"
-                  className="h-10 w-full font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
-                />
+              <Combobox.Input
+                placeholder="e.g. United Kingdom"
+                className="h-8 w-full min-w-80 border border-neutral-950 bg-white px-2 text-sm font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-2 focus:-outline-offset-2 focus:outline-neutral-950 any-pointer-coarse:text-base dark:bg-neutral-950 dark:text-white dark:placeholder:text-neutral-400 dark:border-white dark:focus:outline-white"
+              />
+              <div className="border-x border-b border-neutral-950 dark:border-white">
+                <Combobox.Empty>
+                  <div className="py-4 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
+                    No countries found.
+                  </div>
+                </Combobox.Empty>
+                <Combobox.List className="max-h-[min(calc(24.5rem-var(--input-container-height)-2px),calc(var(--available-height)-var(--input-container-height)-2px))] overflow-auto overscroll-contain py-1 scroll-py-1 empty:p-0">
+                  {(country: Country) => (
+                    <Combobox.Item
+                      key={country.code}
+                      value={country}
+                      className="grid min-w-[var(--anchor-width)] cursor-default grid-cols-[1rem_1fr] items-center gap-2 p-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
+                    >
+                      <Combobox.ItemIndicator className="col-start-1">
+                        <CheckIcon />
+                      </Combobox.ItemIndicator>
+                      <span className="col-start-2">{country.label}</span>
+                    </Combobox.Item>
+                  )}
+                </Combobox.List>
               </div>
-              <Combobox.Empty>
-                <div className="p-4 text-[0.925rem] leading-4 text-gray-600">
-                  No countries found.
-                </div>
-              </Combobox.Empty>
-              <Combobox.List className="overflow-y-auto scroll-py-2 py-2 overscroll-contain max-h-[min(calc(24rem-var(--input-container-height)),calc(var(--available-height)-var(--input-container-height)))] empty:p-0">
-                {(country: Country) => (
-                  <Combobox.Item
-                    key={country.code}
-                    value={country}
-                    className="grid min-w-[var(--anchor-width)] cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
-                  >
-                    <Combobox.ItemIndicator className="col-start-1">
-                      <CheckIcon className="size-3" />
-                    </Combobox.ItemIndicator>
-                    <span className="col-start-2">{country.label}</span>
-                  </Combobox.Item>
-                )}
-              </Combobox.List>
             </Combobox.Popup>
           </Combobox.Positioner>
         </Combobox.Portal>
@@ -1187,27 +1295,33 @@ export default function ExamplePopoverCombobox() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -1449,75 +1563,125 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  height: 2.5rem;
-  padding-left: 0.875rem;
-  padding-right: 0.75rem;
+  height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.25rem;
   margin: 0;
   outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
+  border: 1px solid oklch(14.5% 0 0deg);
   font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
   font-weight: 400;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   cursor: default;
-  background-color: canvas;
+  background-color: white;
   -webkit-user-select: none;
   user-select: none;
-  min-width: 12rem;
+  min-width: 10rem;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    color: white;
+    background-color: oklch(14.5% 0 0deg);
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
     }
   }
 
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
+
+  &[data-placeholder] {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
   }
 }
 
 .TriggerIcon {
-  display: flex;
-}
+  color: oklch(14.5% 0 0deg);
 
-.Placeholder {
-  opacity: 0.6;
-}
-
-.InputContainer {
-  box-sizing: border-box;
-  width: 20rem;
-  height: var(--input-container-height);
-  text-align: center;
-  padding: 0.5rem;
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-300);
-  min-width: 18rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  min-width: 20rem;
   width: 100%;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border-color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
   &:focus {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1525,8 +1689,12 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   cursor: default;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -1534,46 +1702,50 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Popup {
-  --input-container-height: 3rem;
+  --input-container-height: 2rem;
   box-sizing: border-box;
-  border-radius: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   transform-origin: var(--transform-origin);
   transition:
     transform 150ms,
     opacity 150ms;
   max-width: var(--available-width);
-  max-height: 24rem;
+  max-height: 24.5rem;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     transform: scale(0.9);
   }
+}
 
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+.Viewport {
+  border-right: 1px solid oklch(14.5% 0 0deg);
+  border-bottom: 1px solid oklch(14.5% 0 0deg);
+  border-left: 1px solid oklch(14.5% 0 0deg);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    border-color: white;
   }
 }
 
 .List {
   box-sizing: border-box;
   overflow: auto;
-  scroll-padding-block: 0.5rem;
-  padding-block: 0.5rem;
+  scroll-padding-block: 0.25rem;
+  padding-block: 0.25rem;
   overscroll-behavior: contain;
   max-height: min(
-    calc(24rem - var(--input-container-height)),
-    calc(var(--available-height) - var(--input-container-height))
+    calc(24.5rem - var(--input-container-height) - 2px),
+    calc(var(--available-height) - var(--input-container-height) - 2px)
   );
 
   &:empty {
@@ -1585,22 +1757,27 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   min-width: var(--anchor-width);
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: grid;
   gap: 0.5rem;
   align-items: center;
-  grid-template-columns: 0.75rem 1fr;
-  font-size: 1rem;
+  grid-template-columns: 1rem 1fr;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -1608,9 +1785,12 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
@@ -1622,24 +1802,26 @@ This example shows how to implement the component using CSS Modules.
   grid-column-start: 1;
 }
 
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .Separator {
   margin: 0.375rem 1rem;
   height: 1px;
-  background-color: var(--color-gray-200);
+  background-color: oklch(97% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Empty {
   box-sizing: border-box;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 1rem;
+  color: oklch(55.6% 0 0deg);
+  padding: 1rem 1rem 1rem 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -1656,32 +1838,30 @@ export default function ExamplePopoverCombobox() {
       <Combobox.Root items={countries}>
         <Combobox.Label className={styles.Label}>Country</Combobox.Label>
         <Combobox.Trigger className={styles.Trigger}>
-          <Combobox.Value
-            placeholder={<span className={styles.Placeholder}>Select country</span>}
-          />
+          <Combobox.Value placeholder="Select country" />
           <Combobox.Icon className={styles.TriggerIcon}>
-            <ChevronUpDownIcon />
+            <CaretUpDownIcon />
           </Combobox.Icon>
         </Combobox.Trigger>
         <Combobox.Portal>
           <Combobox.Positioner align="start" sideOffset={4}>
             <Combobox.Popup className={styles.Popup} aria-label="Select country">
-              <div className={styles.InputContainer}>
-                <Combobox.Input placeholder="e.g. United Kingdom" className={styles.Input} />
+              <Combobox.Input placeholder="e.g. United Kingdom" className={styles.Input} />
+              <div className={styles.Viewport}>
+                <Combobox.Empty>
+                  <div className={styles.Empty}>No countries found.</div>
+                </Combobox.Empty>
+                <Combobox.List className={styles.List}>
+                  {(country: Country) => (
+                    <Combobox.Item key={country.code} value={country} className={styles.Item}>
+                      <Combobox.ItemIndicator className={styles.ItemIndicator}>
+                        <CheckIcon />
+                      </Combobox.ItemIndicator>
+                      <span className={styles.ItemText}>{country.label}</span>
+                    </Combobox.Item>
+                  )}
+                </Combobox.List>
               </div>
-              <Combobox.Empty>
-                <div className={styles.Empty}>No countries found.</div>
-              </Combobox.Empty>
-              <Combobox.List className={styles.List}>
-                {(country: Country) => (
-                  <Combobox.Item key={country.code} value={country} className={styles.Item}>
-                    <Combobox.ItemIndicator className={styles.ItemIndicator}>
-                      <CheckIcon className={styles.ItemIndicatorIcon} />
-                    </Combobox.ItemIndicator>
-                    <span className={styles.ItemText}>{country.label}</span>
-                  </Combobox.Item>
-                )}
-              </Combobox.List>
             </Combobox.Popup>
           </Combobox.Positioner>
         </Combobox.Portal>
@@ -1690,27 +1870,33 @@ export default function ExamplePopoverCombobox() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -1988,26 +2174,26 @@ export default function ExampleGroupedCombobox() {
   const id = React.useId();
   return (
     <Combobox.Root items={groupedProduce}>
-      <div className="relative flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <div className="relative flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-950 dark:text-white">
         <label htmlFor={id}>Select produce</label>
-        <Combobox.InputGroup className="relative box-content h-10 w-[16rem] rounded-md border border-gray-200 bg-[canvas] focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 [&>input]:pr-[calc(0.5rem+1.5rem)] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+1.5rem*2)]">
+        <Combobox.InputGroup className="relative h-8 w-64 border border-neutral-950 bg-white dark:bg-neutral-950 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-neutral-950 dark:focus-within:outline-white dark:border-white [&>input]:pr-[calc(0.5rem+2rem)] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+2rem*2)]">
           <Combobox.Input
             placeholder="e.g. Mango"
             id={id}
-            className="h-full w-full border-0 bg-transparent pl-3.5 text-base font-normal text-gray-900 outline-none"
+            className="h-full w-full border-0 bg-white pl-2 dark:bg-neutral-950 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 outline-none placeholder:text-neutral-500 dark:placeholder:text-neutral-400 dark:text-white"
           />
-          <div className="absolute right-2 bottom-0 flex h-10 items-center justify-center text-gray-600">
+          <div className="absolute right-0 bottom-0 flex h-full items-center justify-center text-neutral-500 dark:text-neutral-400">
             <Combobox.Clear
-              className="combobox-clear flex h-10 w-6 items-center justify-center rounded bg-transparent p-0"
+              className="combobox-clear flex h-full w-6 items-center justify-center border-0 bg-transparent p-0 text-neutral-950 dark:text-white"
               aria-label="Clear selection"
             >
-              <ClearIcon className="size-4" />
+              <XIcon />
             </Combobox.Clear>
             <Combobox.Trigger
-              className="flex h-10 w-6 items-center justify-center rounded bg-transparent p-0"
+              className="flex h-full w-6 items-center justify-center border-0 bg-transparent p-0 text-neutral-950 dark:text-white"
               aria-label="Open popup"
             >
-              <ChevronDownIcon className="size-4" />
+              <CaretDownIcon />
             </Combobox.Trigger>
           </div>
         </Combobox.InputGroup>
@@ -2015,25 +2201,31 @@ export default function ExampleGroupedCombobox() {
 
       <Combobox.Portal>
         <Combobox.Positioner className="outline-none" sideOffset={4}>
-          <Combobox.Popup className="w-[var(--anchor-width)] max-h-[23rem] max-w-[var(--available-width)] origin-[var(--transform-origin)] overflow-hidden rounded-md bg-[canvas] pt-0 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 dark:shadow-none dark:outline-gray-300 duration-100">
+          <Combobox.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-[scale,opacity] duration-100 data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Combobox.Empty>
-              <div className="p-4 text-[0.925rem] leading-4 text-gray-600">No produce found.</div>
+              <div className="py-4 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
+                No produce found.
+              </div>
             </Combobox.Empty>
-            <Combobox.List className="outline-0 overflow-y-auto scroll-pt-[2.25rem] scroll-pb-[0.5rem] overscroll-contain max-h-[min(23rem,var(--available-height))]">
+            <Combobox.List className="max-h-[min(22.5rem,var(--available-height))] overflow-auto overscroll-contain py-1 scroll-py-1 outline-0">
               {(group: ProduceGroup) => (
-                <Combobox.Group key={group.value} items={group.items} className="block pb-2">
-                  <Combobox.GroupLabel className="sticky top-0 z-[1] mb-0 mr-2 mt-0 ml-0 w-[calc(100%-0.5rem)] bg-[canvas] pr-4 pl-[2.25rem] pt-3 pb-1 text-[0.7rem] font-bold uppercase tracking-wider">
+                <Combobox.Group
+                  key={group.value}
+                  items={group.items}
+                  className="block pb-2 last:pb-0"
+                >
+                  <Combobox.GroupLabel className="py-2 pr-2 pl-8 text-sm leading-4 text-neutral-500 select-none dark:text-neutral-400">
                     {group.value}
                   </Combobox.GroupLabel>
                   <Combobox.Collection>
                     {(item: Produce) => (
                       <Combobox.Item
                         key={item.id}
-                        className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-none select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+                        className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 p-2 text-sm leading-4 outline-none select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
                         value={item}
                       >
                         <Combobox.ItemIndicator className="col-start-1 flex items-center justify-center">
-                          <CheckIcon className="size-3" />
+                          <CheckIcon />
                         </Combobox.ItemIndicator>
                         <span className="col-start-2">{item.label}</span>
                       </Combobox.Item>
@@ -2051,43 +2243,49 @@ export default function ExampleGroupedCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
 
-function ClearIcon(props: React.ComponentProps<'svg'>) {
+function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6L6 18" />
-      <path d="M6 6l12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
 
-function ChevronDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M6 9l6 6 6-6" />
+      <path d="M12 6H4l4 4.5z" />
     </svg>
   );
 }
@@ -2141,38 +2339,65 @@ This example shows how to implement the component using CSS Modules.
 ```css
 /* index.module.css */
 .InputGroup {
+  box-sizing: border-box;
   position: relative;
   width: 16rem;
-  height: 2.5rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  height: 2rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
 
   &:focus-within {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .InputGroup:has(.Clear) .Input {
-  padding-right: calc(0.5rem + 1.5rem * 2);
+  padding: 0 calc(0.5rem + 2rem * 2) 0 0.5rem;
 }
 
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
-  padding-right: calc(0.5rem + 1.5rem);
+  padding: 0 calc(0.5rem + 2rem) 0 0.5rem;
   margin: 0;
   border: none;
+  border-radius: 0;
   width: 100%;
   height: 100%;
-  border-radius: inherit;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
     outline: none;
@@ -2186,24 +2411,30 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   position: relative;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .ActionButtons {
-  --size: 1.5rem;
   box-sizing: border-box;
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   bottom: 0;
-  height: 2.5rem;
-  right: 0.5rem;
-  border-radius: 0.25rem;
+  height: 100%;
+  right: 0;
   border: none;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
   padding: 0;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Trigger,
@@ -2212,19 +2443,16 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--size);
-  height: 2.5rem;
-  color: var(--color-gray-600);
+  width: 1.5rem;
+  height: 100%;
+  color: oklch(14.5% 0 0deg);
   border: none;
   padding: 0;
-  border-radius: 0.25rem;
   background: none;
-}
 
-.ClearIcon,
-.TriggerIcon {
-  width: 1rem;
-  height: 1rem;
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -2233,33 +2461,29 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  overflow: hidden;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: 23rem;
   max-width: var(--available-width);
   transition:
     opacity 0.1s,
     transform 0.1s;
   transform-origin: var(--transform-origin);
 
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     transform: scale(0.95);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
   }
 }
 
@@ -2267,49 +2491,58 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   overflow: auto;
   overscroll-behavior: contain;
-  scroll-padding-top: 2.25rem;
-  scroll-padding-bottom: 0.5rem;
-  max-height: min(23rem, var(--available-height));
+  padding-block: 0.25rem;
+  scroll-padding-top: 0.25rem;
+  scroll-padding-bottom: 0.25rem;
+  max-height: min(22.5rem, var(--available-height));
   outline: 0;
 }
 
 .Group {
   display: block;
   padding-bottom: 0.5rem;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
 }
 
 .GroupLabel {
   box-sizing: border-box;
-  padding: 0.75rem 1rem 0.25rem calc(1rem + 0.75rem + 0.5rem);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background-color: canvas;
-  position: sticky;
-  z-index: 1;
-  top: 0;
-  margin: 0 0.5rem 0 0;
-  width: calc(100% - 0.5rem);
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Item {
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
-  padding: 0.5rem 2rem 0.5rem 1rem;
+  padding: 0.5rem;
   display: grid;
-  grid-template-columns: 0.75rem 1fr;
+  grid-template-columns: 1rem 1fr;
   gap: 0.5rem;
   align-items: center;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -2317,20 +2550,17 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
 .ItemIndicator {
   grid-column-start: 1;
-}
-
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
 }
 
 .ItemText {
@@ -2339,10 +2569,14 @@ This example shows how to implement the component using CSS Modules.
 
 .Empty {
   box-sizing: border-box;
-  padding: 1rem;
-  font-size: 0.925rem;
+  padding: 1rem 1rem 1rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -2363,10 +2597,10 @@ export default function ExampleGroupedCombobox() {
           <Combobox.Input placeholder="e.g. Mango" className={styles.Input} id={id} />
           <div className={styles.ActionButtons}>
             <Combobox.Clear className={styles.Clear} aria-label="Clear selection">
-              <ClearIcon className={styles.ClearIcon} />
+              <XIcon />
             </Combobox.Clear>
             <Combobox.Trigger className={styles.Trigger} aria-label="Open popup">
-              <ChevronDownIcon className={styles.TriggerIcon} />
+              <CaretDownIcon />
             </Combobox.Trigger>
           </div>
         </Combobox.InputGroup>
@@ -2388,7 +2622,7 @@ export default function ExampleGroupedCombobox() {
                     {(item: Produce) => (
                       <Combobox.Item key={item.id} className={styles.Item} value={item}>
                         <Combobox.ItemIndicator className={styles.ItemIndicator}>
-                          <CheckIcon className={styles.ItemIndicatorIcon} />
+                          <CheckIcon />
                         </Combobox.ItemIndicator>
                         <span className={styles.ItemText}>{item.label}</span>
                       </Combobox.Item>
@@ -2406,43 +2640,49 @@ export default function ExampleGroupedCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
 
-function ClearIcon(props: React.ComponentProps<'svg'>) {
+function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6L6 18" />
-      <path d="M6 6l12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
 
-function ChevronDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M6 9l6 6 6-6" />
+      <path d="M12 6H4l4 4.5z" />
     </svg>
   );
 }
@@ -2534,7 +2774,7 @@ export default function ExampleAsyncSingleCombobox() {
         <React.Fragment>
           <span
             aria-hidden
-            className="inline-block size-3 animate-spin rounded-full border border-current border-r-transparent rtl:border-r-current rtl:border-l-transparent"
+            className="inline-block size-3 animate-spin rounded-full border border-current border-r-transparent"
           />
           Searching…
         </React.Fragment>
@@ -2614,26 +2854,26 @@ export default function ExampleAsyncSingleCombobox() {
         });
       }}
     >
-      <div className="relative flex flex-col gap-1 text-sm font-bold leading-5 text-gray-900">
+      <div className="relative flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-950 dark:text-white">
         <label htmlFor={id}>Assign reviewer</label>
-        <Combobox.InputGroup className="relative box-content h-10 w-[16rem] rounded-md border border-gray-200 bg-[canvas] focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 md:w-[20rem] [&>input]:pr-[calc(0.5rem+1.5rem)] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+1.5rem*2)]">
+        <Combobox.InputGroup className="relative h-8 w-64 border border-neutral-950 bg-white dark:bg-neutral-950 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-neutral-950 dark:focus-within:outline-white dark:border-white md:w-80 [&>input]:pr-[calc(0.5rem+2rem)] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+2rem*2)]">
           <Combobox.Input
             id={id}
             placeholder="e.g. Michael"
-            className="box-border h-full w-full border-0 bg-transparent pl-3.5 text-base font-normal text-gray-900 outline-none"
+            className="h-full w-full border-0 bg-white pl-2 dark:bg-neutral-950 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 outline-none placeholder:text-neutral-500 dark:placeholder:text-neutral-400 dark:text-white"
           />
-          <div className="absolute bottom-0 right-2 flex h-10 items-center justify-center text-gray-600">
+          <div className="absolute right-0 bottom-0 flex h-full items-center justify-center text-neutral-500 dark:text-neutral-400">
             <Combobox.Clear
-              className="combobox-clear flex h-10 w-6 items-center justify-center rounded border-0 bg-transparent p-0"
+              className="combobox-clear flex h-full w-6 items-center justify-center border-0 bg-transparent p-0 text-neutral-950 dark:text-white"
               aria-label="Clear selection"
             >
-              <ClearIcon className="size-4" />
+              <XIcon />
             </Combobox.Clear>
             <Combobox.Trigger
-              className="flex h-10 w-6 items-center justify-center rounded border-0 bg-transparent p-0"
+              className="flex h-full w-6 items-center justify-center border-0 bg-transparent p-0 text-neutral-950 dark:text-white"
               aria-label="Open popup"
             >
-              <ChevronDownIcon className="size-4" />
+              <CaretDownIcon />
             </Combobox.Trigger>
           </div>
         </Combobox.InputGroup>
@@ -2642,44 +2882,46 @@ export default function ExampleAsyncSingleCombobox() {
       <Combobox.Portal>
         <Combobox.Positioner className="outline-none" sideOffset={4}>
           <Combobox.Popup
-            className="box-border w-[var(--anchor-width)] max-h-[min(var(--available-height),23rem)] max-w-[var(--available-width)] origin-[var(--transform-origin)] overflow-y-auto scroll-pb-2 scroll-pt-2 overscroll-contain rounded-md bg-[canvas] py-2 text-gray-900 shadow-[0_10px_15px_-3px_var(--color-gray-200),0_4px_6px_-4px_var(--color-gray-200)] outline outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:transition-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 dark:-outline-offset-1 dark:shadow-none dark:outline-gray-300"
+            className="w-[var(--anchor-width)] max-w-[var(--available-width)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-[scale,opacity] data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:transition-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
             aria-busy={isPending || undefined}
           >
-            <Combobox.Status>
-              {status ? (
-                <div className="flex items-center gap-2 py-1 pl-4 pr-5 text-sm text-gray-600">
-                  {status}
-                </div>
-              ) : null}
-            </Combobox.Status>
-            <Combobox.Empty>
-              {emptyMessage ? (
-                <div className="px-4 py-2 text-[0.875rem] leading-4 text-gray-600">
-                  {emptyMessage}
-                </div>
-              ) : null}
-            </Combobox.Empty>
-            <Combobox.List>
-              {(user: DirectoryUser) => (
-                <Combobox.Item
-                  key={user.id}
-                  value={user}
-                  className="grid cursor-default select-none grid-cols-[0.75rem_1fr] items-start gap-2 py-2 pl-4 pr-5 text-base leading-[1.2rem] outline-none [@media(hover:hover)]:[&[data-highlighted]]:relative [@media(hover:hover)]:[&[data-highlighted]]:z-0 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-900 [@media(hover:hover)]:[&[data-highlighted]]:before:absolute [@media(hover:hover)]:[&[data-highlighted]]:before:inset-y-0 [@media(hover:hover)]:[&[data-highlighted]]:before:inset-x-2 [@media(hover:hover)]:[&[data-highlighted]]:before:z-[-1] [@media(hover:hover)]:[&[data-highlighted]]:before:rounded [@media(hover:hover)]:[&[data-highlighted]]:before:bg-gray-100 [@media(hover:hover)]:[&[data-highlighted]]:before:content-['']"
-                >
-                  <Combobox.ItemIndicator className="col-start-1 mt-1">
-                    <CheckIcon className="size-3" />
-                  </Combobox.ItemIndicator>
-                  <span className="col-start-2 flex flex-col gap-1">
-                    <span className="text-[0.95rem] font-bold">{user.name}</span>
-                    <span className="flex flex-wrap gap-3 text-[0.8125rem] text-gray-600">
-                      <span className="opacity-80">@{user.username}</span>
-                      <span>{user.title}</span>
+            <div className="max-h-[min(var(--available-height),22.5rem)] overflow-y-auto overscroll-contain py-1 scroll-pt-1 scroll-pb-1">
+              <Combobox.Status>
+                {status ? (
+                  <div className="flex items-center gap-2 py-1 pr-5 pl-2 text-sm leading-5 text-neutral-500 dark:text-neutral-400">
+                    {status}
+                  </div>
+                ) : null}
+              </Combobox.Status>
+              <Combobox.Empty>
+                {emptyMessage ? (
+                  <div className="py-2 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
+                    {emptyMessage}
+                  </div>
+                ) : null}
+              </Combobox.Empty>
+              <Combobox.List>
+                {(user: DirectoryUser) => (
+                  <Combobox.Item
+                    key={user.id}
+                    value={user}
+                    className="grid cursor-default grid-cols-[1rem_1fr] items-start gap-2 px-2 py-2 text-sm leading-[1.2rem] outline-none select-none [@media(hover:hover)]:data-highlighted:relative [@media(hover:hover)]:data-highlighted:z-0 [@media(hover:hover)]:data-highlighted:text-neutral-950 [@media(hover:hover)]:data-highlighted:before:absolute [@media(hover:hover)]:data-highlighted:before:inset-0 [@media(hover:hover)]:data-highlighted:before:z-[-1] [@media(hover:hover)]:data-highlighted:before:bg-neutral-100 dark:[@media(hover:hover)]:data-highlighted:text-white dark:[@media(hover:hover)]:data-highlighted:before:bg-neutral-800"
+                  >
+                    <Combobox.ItemIndicator className="col-start-1 mt-1">
+                      <CheckIcon />
+                    </Combobox.ItemIndicator>
+                    <span className="col-start-2 flex flex-col gap-1">
+                      <span className="text-sm leading-5 font-bold">{user.name}</span>
+                      <span className="text-xs">{user.email}</span>
+                      <span className="flex flex-wrap gap-2 text-xs text-neutral-500 dark:text-neutral-400">
+                        <span>@{user.username}</span>
+                        <span>{user.title}</span>
+                      </span>
                     </span>
-                    <span className="text-xs opacity-80">{user.email}</span>
-                  </span>
-                </Combobox.Item>
-              )}
-            </Combobox.List>
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </div>
           </Combobox.Popup>
         </Combobox.Positioner>
       </Combobox.Portal>
@@ -2689,43 +2931,49 @@ export default function ExampleAsyncSingleCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
 
-function ClearIcon(props: React.ComponentProps<'svg'>) {
+function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6L6 18" />
-      <path d="M6 6l12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
 
-function ChevronDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M6 9l6 6 6-6" />
+      <path d="M12 6H4l4 4.5z" />
     </svg>
   );
 }
@@ -2871,29 +3119,42 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   position: relative;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .InputGroup {
+  box-sizing: border-box;
   position: relative;
   width: 16rem;
-  height: 2.5rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  height: 2rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
 
-  &:focus-within {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
   }
 
-  @media (min-width: 500px) {
+  &:focus-within {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
+
+  @media (min-width: 32rem) {
     width: 20rem;
   }
 
   &:has(.Clear) .Input {
-    padding-right: calc(0.5rem + 1.5rem * 2);
+    padding: 0 calc(0.5rem + 2rem * 2) 0 0.5rem;
   }
 }
 
@@ -2902,15 +3163,33 @@ This example shows how to implement the component using CSS Modules.
   margin: 0;
   width: 100%;
   height: 100%;
-  padding-left: 0.875rem;
-  padding-right: calc(0.5rem + 1.5rem);
+  padding: 0 calc(0.5rem + 2rem) 0 0.5rem;
   border: none;
-  border-radius: inherit;
+  border-radius: 0;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
     outline: none;
@@ -2924,12 +3203,15 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: center;
   bottom: 0;
-  height: 2.5rem;
-  right: 0.5rem;
-  border-radius: 0.25rem;
+  height: 100%;
+  right: 0;
   border: none;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
   padding: 0;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Trigger,
@@ -2939,18 +3221,15 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: center;
   width: 1.5rem;
-  height: 2.5rem;
-  color: var(--color-gray-600);
+  height: 100%;
+  color: oklch(14.5% 0 0deg);
   border: none;
   padding: 0;
-  border-radius: 0.25rem;
   background: none;
-}
 
-.ClearIcon,
-.TriggerIcon {
-  width: 1rem;
-  height: 1rem;
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -2959,20 +3238,24 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  padding-block: 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: min(var(--available-height), 23rem);
   max-width: var(--available-width);
-  overflow-y: auto;
-  scroll-padding-block: 0.5rem;
-  overscroll-behavior: contain;
   transition:
     opacity 0.1s,
     transform 0.1s;
   transform-origin: var(--transform-origin);
+
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
+  }
 
   &[data-starting-style] {
     opacity: 0;
@@ -2982,18 +3265,15 @@ This example shows how to implement the component using CSS Modules.
   &[data-ending-style] {
     transition: none;
   }
+}
 
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
-  }
+.Viewport {
+  box-sizing: border-box;
+  max-height: min(var(--available-height), 22.5rem);
+  padding-block: 0.25rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 0.25rem;
 }
 
 .Status {
@@ -3001,11 +3281,15 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   gap: 0.5rem;
   padding-block: 0.25rem;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   padding-right: 1.25rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Spinner {
@@ -3018,11 +3302,6 @@ This example shows how to implement the component using CSS Modules.
   animation: comboboxSpinner 0.75s linear infinite;
 }
 
-.Spinner:dir(rtl) {
-  border-right-color: currentColor;
-  border-left-color: transparent;
-}
-
 @keyframes comboboxSpinner {
   100% {
     transform: rotate(360deg);
@@ -3033,22 +3312,26 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-inline: 1rem;
-  padding-right: 1.25rem;
+  padding-inline: 0.5rem;
   display: grid;
   gap: 0.5rem;
   align-items: flex-start;
-  grid-template-columns: 0.75rem 1fr;
-  font-size: 1rem;
+  grid-template-columns: 1rem 1fr;
+  font-size: 0.875rem;
   line-height: 1.2rem;
 
   @media (hover: hover) {
     &[data-highlighted] {
       z-index: 0;
       position: relative;
-      color: var(--color-gray-900);
+      color: oklch(14.5% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        color: white;
+      }
     }
 
     &[data-highlighted]::before {
@@ -3056,9 +3339,12 @@ This example shows how to implement the component using CSS Modules.
       z-index: -1;
       position: absolute;
       inset-block: 0;
-      inset-inline: 0.5rem;
-      border-radius: 0.25rem;
-      background-color: var(--color-gray-100);
+      inset-inline: 0;
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 }
@@ -3066,12 +3352,6 @@ This example shows how to implement the component using CSS Modules.
 .ItemIndicator {
   grid-column-start: 1;
   margin-top: 0.25rem;
-}
-
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
 }
 
 .ItemText {
@@ -3082,33 +3362,37 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .ItemTitle {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .ItemSubtitle {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  font-size: 0.8125rem;
-  color: var(--color-gray-600);
-}
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: oklch(55.6% 0 0deg);
 
-.ItemUsername {
-  opacity: 0.8;
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .ItemEmail {
   font-size: 0.75rem;
-  opacity: 0.8;
 }
 
 .Empty {
   box-sizing: border-box;
   font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 0.5rem 1rem;
+  color: oklch(55.6% 0 0deg);
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -3232,10 +3516,10 @@ export default function ExampleAsyncSingleCombobox() {
           <Combobox.Input id={id} placeholder="e.g. Michael" className={styles.Input} />
           <div className={styles.ActionButtons}>
             <Combobox.Clear className={styles.Clear} aria-label="Clear selection">
-              <ClearIcon className={styles.ClearIcon} />
+              <XIcon />
             </Combobox.Clear>
             <Combobox.Trigger className={styles.Trigger} aria-label="Open popup">
-              <ChevronDownIcon className={styles.TriggerIcon} />
+              <CaretDownIcon />
             </Combobox.Trigger>
           </div>
         </Combobox.InputGroup>
@@ -3244,29 +3528,31 @@ export default function ExampleAsyncSingleCombobox() {
       <Combobox.Portal>
         <Combobox.Positioner className={styles.Positioner} sideOffset={4}>
           <Combobox.Popup className={styles.Popup} aria-busy={isPending || undefined}>
-            <Combobox.Status>
-              {status ? <div className={styles.Status}>{status}</div> : null}
-            </Combobox.Status>
-            <Combobox.Empty>
-              {emptyMessage ? <div className={styles.Empty}>{emptyMessage}</div> : null}
-            </Combobox.Empty>
-            <Combobox.List>
-              {(user: DirectoryUser) => (
-                <Combobox.Item key={user.id} className={styles.Item} value={user}>
-                  <Combobox.ItemIndicator className={styles.ItemIndicator}>
-                    <CheckIcon className={styles.ItemIndicatorIcon} />
-                  </Combobox.ItemIndicator>
-                  <span className={styles.ItemText}>
-                    <span className={styles.ItemTitle}>{user.name}</span>
-                    <span className={styles.ItemSubtitle}>
-                      <span className={styles.ItemUsername}>@{user.username}</span>
-                      <span>{user.title}</span>
+            <div className={styles.Viewport}>
+              <Combobox.Status>
+                {status ? <div className={styles.Status}>{status}</div> : null}
+              </Combobox.Status>
+              <Combobox.Empty>
+                {emptyMessage ? <div className={styles.Empty}>{emptyMessage}</div> : null}
+              </Combobox.Empty>
+              <Combobox.List>
+                {(user: DirectoryUser) => (
+                  <Combobox.Item key={user.id} className={styles.Item} value={user}>
+                    <Combobox.ItemIndicator className={styles.ItemIndicator}>
+                      <CheckIcon />
+                    </Combobox.ItemIndicator>
+                    <span className={styles.ItemText}>
+                      <span className={styles.ItemTitle}>{user.name}</span>
+                      <span className={styles.ItemEmail}>{user.email}</span>
+                      <span className={styles.ItemSubtitle}>
+                        <span>@{user.username}</span>
+                        <span>{user.title}</span>
+                      </span>
                     </span>
-                    <span className={styles.ItemEmail}>{user.email}</span>
-                  </span>
-                </Combobox.Item>
-              )}
-            </Combobox.List>
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </div>
           </Combobox.Popup>
         </Combobox.Positioner>
       </Combobox.Portal>
@@ -3276,43 +3562,49 @@ export default function ExampleAsyncSingleCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
 
-function ClearIcon(props: React.ComponentProps<'svg'>) {
+function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6L6 18" />
-      <path d="M6 6l12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
 
-function ChevronDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M6 9l6 6 6-6" />
+      <path d="M12 6H4l4 4.5z" />
     </svg>
   );
 }
@@ -3501,7 +3793,7 @@ export default function ExampleAsyncMultipleCombobox() {
         <React.Fragment>
           <span
             aria-hidden
-            className="inline-block size-3 animate-[spin_0.75s_linear_infinite] rounded-full border border-current border-r-transparent rtl:border-r-current rtl:border-l-transparent"
+            className="inline-block size-3 animate-[spin_0.75s_linear_infinite] rounded-full border border-current border-r-transparent"
           />
           Searching…
         </React.Fragment>
@@ -3593,11 +3885,14 @@ export default function ExampleAsyncMultipleCombobox() {
         });
       }}
     >
-      <div className="flex flex-col gap-1 text-sm text-gray-900">
-        <label className="inline-flex text-inherit font-bold" htmlFor={id}>
+      <div className="max-w-md flex flex-col gap-1">
+        <label
+          className="flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-950 dark:text-white"
+          htmlFor={id}
+        >
           Assign reviewers
         </label>
-        <Combobox.InputGroup className="relative flex min-h-10 w-[16rem] cursor-text rounded-md border border-gray-200 bg-[canvas] px-1.5 py-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 md:w-[20rem]">
+        <Combobox.InputGroup className="flex min-h-8 w-64 cursor-text flex-wrap items-center gap-0.5 border border-neutral-950 bg-white dark:bg-neutral-950 px-2 py-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-neutral-950 dark:focus-within:outline-white has-[button]:px-1 dark:border-white min-[32rem]:w-[22rem]">
           <Combobox.Chips className="flex w-full flex-wrap items-center gap-1">
             <Combobox.Value>
               {(value: DirectoryUser[]) => (
@@ -3605,12 +3900,12 @@ export default function ExampleAsyncMultipleCombobox() {
                   {value.map((user) => (
                     <Combobox.Chip
                       key={user.id}
-                      className="flex cursor-default items-center gap-1 rounded-md bg-gray-100 py-1 pl-2 pr-1 text-sm text-gray-900 outline-none focus-within:bg-blue-800 focus-within:text-gray-50 [@media(hover:hover)]:[&[data-highlighted]]:bg-blue-800 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50"
+                      className="group flex min-h-[calc(1.5rem-2px)] cursor-default items-center gap-1 overflow-hidden bg-neutral-100 py-0 pr-[0.2rem] pl-[0.4rem] text-sm leading-none text-neutral-950 outline-none focus-within:bg-neutral-950 focus-within:text-white [@media(hover:hover)]:data-highlighted:bg-neutral-950 [@media(hover:hover)]:data-highlighted:text-white dark:bg-neutral-800 dark:text-white dark:focus-within:bg-white dark:focus-within:text-neutral-950 dark:[@media(hover:hover)]:data-highlighted:bg-white dark:[@media(hover:hover)]:data-highlighted:text-neutral-950"
                       aria-label={user.name}
                     >
                       {user.name}
                       <Combobox.ChipRemove
-                        className="inline-flex items-center justify-center rounded-md border-none bg-transparent p-[0.2rem] text-inherit hover:bg-gray-200"
+                        className="flex size-4 items-center justify-center border-0 bg-transparent p-0 text-inherit hover:bg-neutral-200 group-focus-within:hover:bg-neutral-700 dark:hover:bg-neutral-700 dark:group-focus-within:hover:bg-neutral-200"
                         aria-label={`Remove ${user.name}`}
                       >
                         <XIcon />
@@ -3620,7 +3915,7 @@ export default function ExampleAsyncMultipleCombobox() {
                   <Combobox.Input
                     id={id}
                     placeholder={value.length > 0 ? '' : 'e.g. Michael'}
-                    className="h-8 min-w-24 flex-1 rounded-md border-0 bg-transparent pl-2 text-base font-normal text-gray-900 outline-none placeholder:font-normal"
+                    className="h-[calc(1.5rem-2px)] min-w-12 flex-1 border-0 bg-white p-0 text-sm any-pointer-coarse:text-base dark:bg-neutral-950 font-normal text-neutral-950 outline-none placeholder:text-neutral-500 dark:placeholder:text-neutral-400 dark:text-white"
                   />
                 </React.Fragment>
               )}
@@ -3632,44 +3927,46 @@ export default function ExampleAsyncMultipleCombobox() {
       <Combobox.Portal>
         <Combobox.Positioner className="outline-none" sideOffset={4}>
           <Combobox.Popup
-            className="box-border w-[var(--anchor-width)] max-h-[min(var(--available-height),23rem)] max-w-[var(--available-width)] origin-[var(--transform-origin)] overflow-y-auto scroll-pb-2 scroll-pt-2 overscroll-contain rounded-md bg-[canvas] py-2 text-gray-900 shadow-[0_10px_15px_-3px_var(--color-gray-200),0_4px_6px_-4px_var(--color-gray-200)] outline outline-1 outline-gray-200 transition-[opacity,transform,scale] duration-100 data-[ending-style]:transition-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 dark:-outline-offset-1 dark:shadow-none dark:outline-gray-300"
+            className="w-[var(--anchor-width)] max-w-[var(--available-width)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-[scale,opacity] duration-100 data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
             aria-busy={isPending || undefined}
           >
-            <Combobox.Status>
-              {status ? (
-                <div className="flex items-center gap-2 py-1 pl-4 pr-5 text-sm text-gray-600">
-                  {status}
-                </div>
-              ) : null}
-            </Combobox.Status>
-            <Combobox.Empty>
-              {emptyMessage ? (
-                <div className="box-border px-4 py-2 text-sm leading-4 text-gray-600">
-                  {emptyMessage}
-                </div>
-              ) : null}
-            </Combobox.Empty>
-            <Combobox.List>
-              {(user: DirectoryUser) => (
-                <Combobox.Item
-                  key={user.id}
-                  value={user}
-                  className="grid cursor-default select-none grid-cols-[0.75rem_1fr] items-start gap-2 py-2 pl-4 pr-5 text-base leading-[1.2rem] outline-none [@media(hover:hover)]:[&[data-highlighted]]:relative [@media(hover:hover)]:[&[data-highlighted]]:z-0 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-900 [@media(hover:hover)]:[&[data-highlighted]]:before:absolute [@media(hover:hover)]:[&[data-highlighted]]:before:inset-y-0 [@media(hover:hover)]:[&[data-highlighted]]:before:inset-x-2 [@media(hover:hover)]:[&[data-highlighted]]:before:z-[-1] [@media(hover:hover)]:[&[data-highlighted]]:before:rounded [@media(hover:hover)]:[&[data-highlighted]]:before:bg-gray-100 [@media(hover:hover)]:[&[data-highlighted]]:before:content-['']"
-                >
-                  <Combobox.ItemIndicator className="col-start-1 mt-1">
-                    <CheckIcon className="size-3" />
-                  </Combobox.ItemIndicator>
-                  <span className="col-start-2 flex flex-col gap-1">
-                    <span className="text-[0.95rem] font-bold">{user.name}</span>
-                    <span className="flex flex-wrap gap-2 text-[0.8125rem] text-gray-600">
-                      <span className="opacity-80">@{user.username}</span>
-                      <span>{user.title}</span>
+            <div className="max-h-[min(var(--available-height),24.5rem)] overflow-y-auto overscroll-contain py-1 scroll-pt-1 scroll-pb-1">
+              <Combobox.Status>
+                {status ? (
+                  <div className="flex items-center gap-2 py-1 pr-5 pl-2 text-sm leading-5 text-neutral-500 dark:text-neutral-400">
+                    {status}
+                  </div>
+                ) : null}
+              </Combobox.Status>
+              <Combobox.Empty>
+                {emptyMessage ? (
+                  <div className="py-2 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
+                    {emptyMessage}
+                  </div>
+                ) : null}
+              </Combobox.Empty>
+              <Combobox.List>
+                {(user: DirectoryUser) => (
+                  <Combobox.Item
+                    key={user.id}
+                    value={user}
+                    className="grid cursor-default grid-cols-[1rem_1fr] items-start gap-2 px-2 py-2 text-sm leading-[1.2rem] outline-none select-none [@media(hover:hover)]:data-highlighted:relative [@media(hover:hover)]:data-highlighted:z-0 [@media(hover:hover)]:data-highlighted:text-neutral-950 [@media(hover:hover)]:data-highlighted:before:absolute [@media(hover:hover)]:data-highlighted:before:inset-0 [@media(hover:hover)]:data-highlighted:before:z-[-1] [@media(hover:hover)]:data-highlighted:before:bg-neutral-100 dark:[@media(hover:hover)]:data-highlighted:text-white dark:[@media(hover:hover)]:data-highlighted:before:bg-neutral-800"
+                  >
+                    <Combobox.ItemIndicator className="col-start-1 mt-1">
+                      <CheckIcon />
+                    </Combobox.ItemIndicator>
+                    <span className="col-start-2 flex flex-col gap-1">
+                      <span className="text-sm leading-5 font-bold">{user.name}</span>
+                      <span className="text-xs">{user.email}</span>
+                      <span className="flex flex-wrap gap-2 text-xs text-neutral-500 dark:text-neutral-400">
+                        <span>@{user.username}</span>
+                        <span>{user.title}</span>
+                      </span>
                     </span>
-                    <span className="text-xs text-gray-500">{user.email}</span>
-                  </span>
-                </Combobox.Item>
-              )}
-            </Combobox.List>
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </div>
           </Combobox.Popup>
         </Combobox.Positioner>
       </Combobox.Portal>
@@ -3679,8 +3976,16 @@ export default function ExampleAsyncMultipleCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -3688,24 +3993,20 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
-      aria-hidden
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
-
 interface DirectoryUser {
   id: string;
   name: string;
@@ -3841,43 +4142,59 @@ This example shows how to implement the component using CSS Modules.
 ```css
 /* index.module.css */
 .Container {
+  max-width: 28rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.Label {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-900);
-}
-
-.Label {
-  display: inline-flex;
-  color: inherit;
   font-weight: 700;
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .InputGroup {
   box-sizing: border-box;
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.375rem;
-  min-height: 2.5rem;
+  gap: 0.125rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem;
   width: 16rem;
   cursor: text;
 
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
-
-  &:focus-within {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
+  @media (min-width: 32rem) {
+    width: 22rem;
   }
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
+  &:has(.Chip) {
+    padding-inline: 0.25rem;
+  }
+
+  &:focus-within {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -3890,62 +4207,116 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Chip {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-900);
-  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+  min-height: calc(1.5rem - 2px);
+  background-color: oklch(97% 0 0deg);
+  color: oklch(14.5% 0 0deg);
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1;
+  padding: 0 0.2rem 0 0.4rem;
+  overflow: hidden;
+  gap: 0.25rem;
   outline: 0;
   cursor: default;
 
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+    color: white;
+  }
+
   &:focus-within {
-    background-color: var(--color-blue);
-    color: var(--color-gray-50);
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   @media (hover: hover) {
     &[data-highlighted] {
-      background-color: var(--color-blue);
-      color: var(--color-gray-50);
+      background-color: oklch(14.5% 0 0deg);
+      color: white;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: white;
+        color: oklch(14.5% 0 0deg);
+      }
     }
   }
 }
 
 .ChipRemove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.2rem;
+  box-sizing: border-box;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
   border: none;
   background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: inherit;
-  border-radius: 0.375rem;
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-200);
+      background-color: oklch(92.2% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(37.1% 0 0deg);
+      }
+    }
+  }
+}
+
+.Chip:focus-within .ChipRemove {
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(37.1% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(92.2% 0 0deg);
+      }
     }
   }
 }
 
 .Input {
-  box-sizing: border-box;
   flex: 1;
-  min-width: 6rem;
-  height: 2rem;
+  box-sizing: border-box;
   padding: 0;
+  margin: 0;
   border: none;
-  border-radius: 0.375rem;
-  padding-left: 0.5rem;
-  background: none;
+  border-radius: 0;
+  height: calc(1.5rem - 2px);
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  min-width: 3rem;
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
     outline: none;
@@ -3954,45 +4325,43 @@ This example shows how to implement the component using CSS Modules.
 
 .Positioner {
   outline: 0;
+  z-index: 50;
 }
 
 .Popup {
   box-sizing: border-box;
-  padding-block: 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: min(var(--available-height), 23rem);
   max-width: var(--available-width);
-  overflow-y: auto;
-  scroll-padding-block: 0.5rem;
-  overscroll-behavior: contain;
   transition:
     opacity 0.1s,
     transform 0.1s;
   transform-origin: var(--transform-origin);
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
-  &[data-starting-style] {
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
     opacity: 0;
     transform: scale(0.95);
   }
+}
 
-  &[data-ending-style] {
-    transition: none;
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
-  }
+.Viewport {
+  box-sizing: border-box;
+  max-height: min(var(--available-height), 24.5rem);
+  padding-block: 0.25rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 0.25rem;
 }
 
 .Status {
@@ -4000,11 +4369,15 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   gap: 0.5rem;
   padding-block: 0.25rem;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   padding-right: 1.25rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Spinner {
@@ -4017,11 +4390,6 @@ This example shows how to implement the component using CSS Modules.
   animation: comboboxSpinner 0.75s linear infinite;
 }
 
-.Spinner:dir(rtl) {
-  border-right-color: currentColor;
-  border-left-color: transparent;
-}
-
 @keyframes comboboxSpinner {
   100% {
     transform: rotate(360deg);
@@ -4032,30 +4400,38 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 0.5rem 1rem;
+  color: oklch(55.6% 0 0deg);
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Item {
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-inline: 1rem;
-  padding-right: 1.25rem;
+  padding-inline: 0.5rem;
   display: grid;
   gap: 0.5rem;
   align-items: flex-start;
-  grid-template-columns: 0.75rem 1fr;
-  font-size: 1rem;
+  grid-template-columns: 1rem 1fr;
+  font-size: 0.875rem;
   line-height: 1.2rem;
 
   @media (hover: hover) {
     &[data-highlighted] {
       z-index: 0;
       position: relative;
-      color: var(--color-gray-900);
+      color: oklch(14.5% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        color: white;
+      }
     }
 
     &[data-highlighted]::before {
@@ -4063,9 +4439,12 @@ This example shows how to implement the component using CSS Modules.
       z-index: -1;
       position: absolute;
       inset-block: 0;
-      inset-inline: 0.5rem;
-      border-radius: 0.25rem;
-      background-color: var(--color-gray-100);
+      inset-inline: 0;
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 }
@@ -4073,12 +4452,6 @@ This example shows how to implement the component using CSS Modules.
 .ItemIndicator {
   grid-column-start: 1;
   margin-top: 0.25rem;
-}
-
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
 }
 
 .ItemText {
@@ -4089,7 +4462,8 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .ItemTitle {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
@@ -4097,17 +4471,16 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  font-size: 0.8125rem;
-  color: var(--color-gray-600);
-}
+  font-size: 0.75rem;
+  color: oklch(55.6% 0 0deg);
 
-.ItemUsername {
-  opacity: 0.8;
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .ItemEmail {
   font-size: 0.75rem;
-  color: var(--color-gray-500);
 }
 ```
 
@@ -4282,29 +4655,31 @@ export default function ExampleAsyncMultipleCombobox() {
       <Combobox.Portal>
         <Combobox.Positioner className={styles.Positioner} sideOffset={4}>
           <Combobox.Popup className={styles.Popup} aria-busy={isPending || undefined}>
-            <Combobox.Status>
-              {status ? <div className={styles.Status}>{status}</div> : null}
-            </Combobox.Status>
-            <Combobox.Empty>
-              {emptyMessage ? <div className={styles.Empty}>{emptyMessage}</div> : null}
-            </Combobox.Empty>
-            <Combobox.List>
-              {(user: DirectoryUser) => (
-                <Combobox.Item key={user.id} className={styles.Item} value={user}>
-                  <Combobox.ItemIndicator className={styles.ItemIndicator}>
-                    <CheckIcon className={styles.ItemIndicatorIcon} />
-                  </Combobox.ItemIndicator>
-                  <span className={styles.ItemText}>
-                    <span className={styles.ItemTitle}>{user.name}</span>
-                    <span className={styles.ItemSubtitle}>
-                      <span className={styles.ItemUsername}>@{user.username}</span>
-                      <span>{user.title}</span>
+            <div className={styles.Viewport}>
+              <Combobox.Status>
+                {status ? <div className={styles.Status}>{status}</div> : null}
+              </Combobox.Status>
+              <Combobox.Empty>
+                {emptyMessage ? <div className={styles.Empty}>{emptyMessage}</div> : null}
+              </Combobox.Empty>
+              <Combobox.List>
+                {(user: DirectoryUser) => (
+                  <Combobox.Item key={user.id} className={styles.Item} value={user}>
+                    <Combobox.ItemIndicator className={styles.ItemIndicator}>
+                      <CheckIcon />
+                    </Combobox.ItemIndicator>
+                    <span className={styles.ItemText}>
+                      <span className={styles.ItemTitle}>{user.name}</span>
+                      <span className={styles.ItemEmail}>{user.email}</span>
+                      <span className={styles.ItemSubtitle}>
+                        <span>@{user.username}</span>
+                        <span>{user.title}</span>
+                      </span>
                     </span>
-                    <span className={styles.ItemEmail}>{user.email}</span>
-                  </span>
-                </Combobox.Item>
-              )}
-            </Combobox.List>
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </div>
           </Combobox.Popup>
         </Combobox.Positioner>
       </Combobox.Portal>
@@ -4314,8 +4689,16 @@ export default function ExampleAsyncMultipleCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -4323,20 +4706,17 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
-      aria-hidden
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
@@ -4604,24 +4984,27 @@ export default function ExampleCreatableCombobox() {
           highlightedItemRef.current = item;
         }}
       >
-        <div className="max-w-112 flex flex-col gap-1">
-          <label className="text-sm leading-5 font-bold text-gray-900" htmlFor={id}>
+        <div className="max-w-md flex flex-col gap-1">
+          <label
+            className="flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-950 dark:text-white"
+            htmlFor={id}
+          >
             Labels
           </label>
-          <Combobox.InputGroup className="w-64 cursor-text rounded-md border border-gray-200 bg-[canvas] px-1.5 py-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 min-[500px]:w-[22rem]">
-            <Combobox.Chips className="flex w-full flex-wrap items-center gap-0.5">
+          <Combobox.InputGroup className="flex min-h-8 w-64 cursor-text flex-wrap items-center gap-0.5 border border-neutral-950 bg-white dark:bg-neutral-950 px-2 py-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-neutral-950 dark:focus-within:outline-white has-[button]:px-1 dark:border-white min-[32rem]:w-[22rem]">
+            <Combobox.Chips className="flex w-full flex-wrap items-center gap-1">
               <Combobox.Value>
                 {(value: LabelItem[]) => (
                   <React.Fragment>
                     {value.map((label) => (
                       <Combobox.Chip
                         key={label.id}
-                        className="flex items-center gap-1 rounded-md bg-gray-100 px-1.5 py-[0.2rem] text-sm text-gray-900 outline-none cursor-default [@media(hover:hover)]:[&[data-highlighted]]:bg-blue-800 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50 focus-within:bg-blue-800 focus-within:text-gray-50"
+                        className="group flex min-h-[calc(1.5rem-2px)] cursor-default items-center gap-1 overflow-hidden bg-neutral-100 py-0 pr-[0.2rem] pl-[0.4rem] text-sm leading-none text-neutral-950 outline-none focus-within:bg-neutral-950 focus-within:text-white [@media(hover:hover)]:data-highlighted:bg-neutral-950 [@media(hover:hover)]:data-highlighted:text-white dark:bg-neutral-800 dark:text-white dark:focus-within:bg-white dark:focus-within:text-neutral-950 dark:[@media(hover:hover)]:data-highlighted:bg-white dark:[@media(hover:hover)]:data-highlighted:text-neutral-950"
                         aria-label={label.value}
                       >
                         {label.value}
                         <Combobox.ChipRemove
-                          className="rounded-md p-1 text-inherit hover:bg-gray-200"
+                          className="flex size-4 items-center justify-center border-0 bg-transparent p-0 text-inherit hover:bg-neutral-200 group-focus-within:hover:bg-neutral-700 dark:hover:bg-neutral-700 dark:group-focus-within:hover:bg-neutral-200"
                           aria-label={`Remove ${label.value}`}
                         >
                           <XIcon />
@@ -4632,7 +5015,7 @@ export default function ExampleCreatableCombobox() {
                       ref={comboboxInputRef}
                       id={id}
                       placeholder={value.length > 0 ? '' : 'e.g. bug'}
-                      className="min-w-12 flex-1 h-8 rounded-md border-0 bg-transparent pl-2 text-base font-normal text-gray-900 outline-none"
+                      className="h-[calc(1.5rem-2px)] min-w-12 flex-1 border-0 bg-white p-0 text-sm any-pointer-coarse:text-base dark:bg-neutral-950 font-normal text-neutral-950 outline-none placeholder:text-neutral-500 dark:placeholder:text-neutral-400 dark:text-white"
                       onKeyDown={handleInputKeyDown}
                     />
                   </React.Fragment>
@@ -4644,9 +5027,9 @@ export default function ExampleCreatableCombobox() {
 
         <Combobox.Portal>
           <Combobox.Positioner className="z-50 outline-none" sideOffset={4}>
-            <Combobox.Popup className="w-[var(--anchor-width)] max-h-[min(var(--available-height),24rem)] max-w-[var(--available-width)] overflow-y-auto scroll-pt-2 scroll-pb-2 overscroll-contain rounded-lg bg-[canvas] py-2 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
+            <Combobox.Popup className="w-[var(--anchor-width)] max-h-[min(var(--available-height),24.5rem)] max-w-[var(--available-width)] origin-[var(--transform-origin)] overflow-y-auto overscroll-contain border border-neutral-950 bg-white py-1 text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-[scale,opacity] data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
               <Combobox.Empty>
-                <div className="px-4 py-2 text-[0.925rem] leading-4 text-gray-600">
+                <div className="py-2 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
                   No labels found.
                 </div>
               </Combobox.Empty>
@@ -4655,22 +5038,22 @@ export default function ExampleCreatableCombobox() {
                   item.creatable ? (
                     <Combobox.Item
                       key={item.id}
-                      className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-none select-none [@media(hover:hover)]:[&[data-highlighted]]:relative [@media(hover:hover)]:[&[data-highlighted]]:z-0 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50 [@media(hover:hover)]:[&[data-highlighted]]:before:absolute [@media(hover:hover)]:[&[data-highlighted]]:before:inset-x-2 [@media(hover:hover)]:[&[data-highlighted]]:before:inset-y-0 [@media(hover:hover)]:[&[data-highlighted]]:before:z-[-1] [@media(hover:hover)]:[&[data-highlighted]]:before:rounded-sm [@media(hover:hover)]:[&[data-highlighted]]:before:bg-gray-900"
+                      className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 p-2 text-sm leading-4 outline-none select-none data-selected:relative data-selected:z-0 data-selected:text-neutral-950 data-selected:before:absolute data-selected:before:inset-0 data-selected:before:z-[-1] [@media(hover:hover)]:data-highlighted:relative [@media(hover:hover)]:data-highlighted:z-0 [@media(hover:hover)]:data-highlighted:text-white [@media(hover:hover)]:data-highlighted:before:absolute [@media(hover:hover)]:data-highlighted:before:inset-0 [@media(hover:hover)]:data-highlighted:before:z-[-1] [@media(hover:hover)]:data-highlighted:before:bg-neutral-950 dark:data-selected:text-white dark:[@media(hover:hover)]:data-highlighted:text-neutral-950 dark:[@media(hover:hover)]:data-highlighted:before:bg-white"
                       value={item}
                     >
                       <span className="col-start-1">
-                        <PlusIcon className="size-3" />
+                        <PlusIcon />
                       </span>
                       <span className="col-start-2">Create "{item.creatable}"</span>
                     </Combobox.Item>
                   ) : (
                     <Combobox.Item
                       key={item.id}
-                      className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-none select-none [@media(hover:hover)]:[&[data-highlighted]]:relative [@media(hover:hover)]:[&[data-highlighted]]:z-0 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50 [@media(hover:hover)]:[&[data-highlighted]]:before:absolute [@media(hover:hover)]:[&[data-highlighted]]:before:inset-x-2 [@media(hover:hover)]:[&[data-highlighted]]:before:inset-y-0 [@media(hover:hover)]:[&[data-highlighted]]:before:z-[-1] [@media(hover:hover)]:[&[data-highlighted]]:before:rounded-sm [@media(hover:hover)]:[&[data-highlighted]]:before:bg-gray-900"
+                      className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 p-2 text-sm leading-4 outline-none select-none data-selected:relative data-selected:z-0 data-selected:text-neutral-950 data-selected:before:absolute data-selected:before:inset-0 data-selected:before:z-[-1] [@media(hover:hover)]:data-highlighted:relative [@media(hover:hover)]:data-highlighted:z-0 [@media(hover:hover)]:data-highlighted:text-white [@media(hover:hover)]:data-highlighted:before:absolute [@media(hover:hover)]:data-highlighted:before:inset-0 [@media(hover:hover)]:data-highlighted:before:z-[-1] [@media(hover:hover)]:data-highlighted:before:bg-neutral-950 dark:data-selected:text-white dark:[@media(hover:hover)]:data-highlighted:text-neutral-950 dark:[@media(hover:hover)]:data-highlighted:before:bg-white"
                       value={item}
                     >
                       <Combobox.ItemIndicator className="col-start-1">
-                        <CheckIcon className="size-3" />
+                        <CheckIcon />
                       </Combobox.ItemIndicator>
                       <span className="col-start-2">{item.value}</span>
                     </Combobox.Item>
@@ -4684,31 +5067,29 @@ export default function ExampleCreatableCombobox() {
 
       <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
         <Dialog.Portal>
-          <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity dark:opacity-70 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 supports-[-webkit-touch-callout:none]:absolute" />
+          <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity dark:opacity-70 data-starting-style:opacity-0 data-ending-style:opacity-0 supports-[-webkit-touch-callout:none]:absolute" />
           <Dialog.Popup
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-[-2rem] w-[24rem] max-w-[calc(100vw-3rem)] rounded-lg bg-[canvas] p-6 text-gray-900 outline-1 outline-gray-200 transition-all data-[starting-style]:opacity-0 data-[starting-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:scale-90 dark:-outline-offset-1 dark:outline-gray-300"
+            className="fixed top-1/2 left-1/2 mt-[-2rem] w-[24rem] max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 border border-neutral-950 bg-white p-6 text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-all data-starting-style:scale-90 data-starting-style:opacity-0 data-ending-style:scale-90 data-ending-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
             initialFocus={createInputRef}
           >
-            <Dialog.Title className="-mt-1.5 mb-1 text-lg leading-7 tracking-[-0.0025em] font-bold">
-              Create new label
-            </Dialog.Title>
-            <Dialog.Description className="mb-4 text-base leading-6 text-gray-600">
+            <Dialog.Title className="text-sm leading-5 font-bold">Create new label</Dialog.Title>
+            <Dialog.Description className="mb-4 text-sm leading-5 text-neutral-600 dark:text-neutral-400">
               Add a new label to select.
             </Dialog.Description>
             <form onSubmit={handleCreateSubmit}>
               <input
                 ref={createInputRef}
-                className="w-full h-10 rounded-md border border-gray-200 bg-[canvas] text-gray-900 px-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 font-normal"
+                className="h-8 w-full border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:border-white dark:text-white"
                 placeholder="Label name"
                 defaultValue={pendingQueryRef.current}
               />
-              <div className="mt-4 flex justify-end gap-4">
-                <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base text-gray-900 select-none hover:bg-gray-100 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 font-normal">
+              <div className="mt-4 flex justify-end gap-3">
+                <Dialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700">
                   Cancel
                 </Dialog.Close>
                 <button
                   type="submit"
-                  className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+                  className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700"
                 >
                   Create
                 </button>
@@ -4723,8 +5104,16 @@ export default function ExampleCreatableCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -4732,18 +5121,17 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 function PlusIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="butt"
-      strokeLinejoin="miter"
-      aria-hidden
+      strokeLinecap="square"
+      strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M6 1v10M1 6h10" />
+      <path d="M1.5 8h13M8 14.5v-13" />
     </svg>
   );
 }
@@ -4751,20 +5139,17 @@ function PlusIcon(props: React.ComponentProps<'svg'>) {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
-      aria-hidden
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
@@ -4804,7 +5189,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .InputGroup {
@@ -4813,20 +5202,33 @@ This example shows how to implement the component using CSS Modules.
   flex-wrap: wrap;
   align-items: center;
   gap: 0.125rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
-  padding: 0.25rem 0.375rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem;
   width: 16rem;
   cursor: text;
 
-  &:focus-within {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
+  @media (min-width: 32rem) {
+    width: 22rem;
   }
 
-  @media (min-width: 500px) {
-    width: 22rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
+  &:has(.Chip) {
+    padding-inline: 0.25rem;
+  }
+
+  &:focus-within {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -4834,65 +5236,121 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.125rem;
+  gap: 0.25rem;
   width: 100%;
 }
 
 .Chip {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-900);
-  border-radius: 0.375rem;
+  min-height: calc(1.5rem - 2px);
+  background-color: oklch(97% 0 0deg);
+  color: oklch(14.5% 0 0deg);
   font-size: 0.875rem;
-  padding: 0.2rem 0.2rem 0.2rem 0.4rem;
+  line-height: 1;
+  padding: 0 0.2rem 0 0.4rem;
   overflow: hidden;
   gap: 0.25rem;
   outline: 0;
   cursor: default;
 
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+    color: white;
+  }
+
   &:focus-within {
-    background-color: var(--color-blue);
-    color: var(--color-gray-50);
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   @media (hover: hover) {
     &[data-highlighted] {
-      background-color: var(--color-blue);
-      color: var(--color-gray-50);
+      background-color: oklch(14.5% 0 0deg);
+      color: white;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: white;
+        color: oklch(14.5% 0 0deg);
+      }
     }
   }
 }
 
 .ChipRemove {
+  box-sizing: border-box;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
   border: none;
   background: none;
-  padding: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: inherit;
-  border-radius: 0.375rem;
 
-  &:hover {
-    background-color: rgb(0 0 0 / 0.1);
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(92.2% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(37.1% 0 0deg);
+      }
+    }
+  }
+}
+
+.Chip:focus-within .ChipRemove {
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(37.1% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(92.2% 0 0deg);
+      }
+    }
   }
 }
 
 .Input {
   flex: 1;
   box-sizing: border-box;
-  padding-left: 0.5rem;
+  padding: 0;
   margin: 0;
   border: none;
-  height: 2rem;
-  border-radius: 0.375rem;
+  border-radius: 0;
+  height: calc(1.5rem - 2px);
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   min-width: 3rem;
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
     outline: none;
@@ -4906,27 +5364,33 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.5rem;
-  padding-block: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  padding-block: 0.25rem;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
   max-width: var(--available-width);
-  max-height: min(var(--available-height), 24rem);
+  max-height: min(var(--available-height), 24.5rem);
   overflow-y: auto;
-  scroll-padding-block: 0.5rem;
+  scroll-padding-block: 0.25rem;
   overscroll-behavior: contain;
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  transition:
+    opacity 0.1s,
+    transform 0.1s;
+  transform-origin: var(--transform-origin);
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.95);
   }
 }
 
@@ -4934,21 +5398,26 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: grid;
   gap: 0.5rem;
   align-items: center;
-  grid-template-columns: 0.75rem 1fr;
-  font-size: 1rem;
+  grid-template-columns: 1rem 1fr;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-selected] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-900);
+    color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: white;
+    }
   }
 
   &[data-selected]::before,
@@ -4957,19 +5426,26 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
+    inset-inline: 0;
   }
 
   @media (hover: hover) {
     &[data-highlighted] {
       z-index: 0;
       position: relative;
-      color: var(--color-gray-50);
+      color: white;
+
+      @media (prefers-color-scheme: dark) {
+        color: oklch(14.5% 0 0deg);
+      }
     }
 
     &[data-highlighted]::before {
-      background-color: var(--color-gray-900);
+      background-color: oklch(14.5% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: white;
+      }
     }
   }
 }
@@ -4982,18 +5458,16 @@ This example shows how to implement the component using CSS Modules.
   grid-column-start: 1;
 }
 
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .Empty {
   box-sizing: border-box;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 0.5rem 1rem;
+  color: oklch(55.6% 0 0deg);
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 /* Creatable option styling */
@@ -5001,21 +5475,19 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   width: 100%;
   display: grid;
-  grid-template-columns: 0.75rem 1fr;
+  grid-template-columns: 1rem 1fr;
   align-items: center;
   gap: 0.5rem;
   border: none;
   background: none;
   text-align: left;
-  color: var(--color-gray-900);
-  padding: 0.5rem 2rem 0.5rem 1rem;
+  color: oklch(14.5% 0 0deg);
+  padding: 0.5rem;
   cursor: default;
-  border-radius: 0.25rem;
-}
 
-.CreateIcon {
-  width: 0.75rem;
-  height: 0.75rem;
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .CreateText {
@@ -5056,14 +5528,17 @@ This example shows how to implement the component using CSS Modules.
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
   padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: canvas;
-  color: var(--color-gray-900);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition: all 150ms;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style],
@@ -5074,42 +5549,71 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0 0 1rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .TextField {
   box-sizing: border-box;
   width: 100%;
-  height: 2.5rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
-  padding: 0 0.625rem;
-  font: inherit;
+  height: 2rem;
+  border-radius: 0;
+  padding: 0 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  padding-inline: 0.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-top: 1rem;
 }
 
@@ -5118,33 +5622,53 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
   outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &:active {
-    background-color: var(--color-gray-100);
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -5324,14 +5848,14 @@ export default function ExampleCreatableCombobox() {
                   item.creatable ? (
                     <Combobox.Item key={item.id} className={styles.Item} value={item}>
                       <span className={styles.ItemIndicator}>
-                        <PlusIcon className={styles.CreateIcon} />
+                        <PlusIcon />
                       </span>
                       <span className={styles.ItemText}>Create "{item.creatable}"</span>
                     </Combobox.Item>
                   ) : (
                     <Combobox.Item key={item.id} className={styles.Item} value={item}>
                       <Combobox.ItemIndicator className={styles.ItemIndicator}>
-                        <CheckIcon className={styles.ItemIndicatorIcon} />
+                        <CheckIcon />
                       </Combobox.ItemIndicator>
                       <span className={styles.ItemText}>{item.value}</span>
                     </Combobox.Item>
@@ -5374,8 +5898,16 @@ export default function ExampleCreatableCombobox() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -5383,18 +5915,17 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 function PlusIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="butt"
-      strokeLinejoin="miter"
-      aria-hidden
+      strokeLinecap="square"
+      strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M6 1v10M1 6h10" />
+      <path d="M1.5 8h13M8 14.5v-13" />
     </svg>
   );
 }
@@ -5402,20 +5933,17 @@ function PlusIcon(props: React.ComponentProps<'svg'>) {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
-      aria-hidden
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
     </svg>
   );
 }
@@ -5481,16 +6009,16 @@ export default function ExampleVirtualizedCombobox() {
         }
       }}
     >
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-950 dark:text-white">
         Search 10,000 items
-        <Combobox.Input className="h-10 w-64 rounded-md font-normal border border-gray-200 pl-3.5 text-base text-gray-900 bg-[canvas] focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800" />
+        <Combobox.Input className="h-8 w-64 border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white" />
       </label>
 
       <Combobox.Portal>
         <Combobox.Positioner className="outline-none" sideOffset={4}>
-          <Combobox.Popup className="w-[var(--anchor-width)] max-h-[min(22rem,var(--available-height))] max-w-[var(--available-width)] rounded-md bg-[canvas] text-gray-900 outline-1 outline-gray-200 shadow-lg shadow-gray-200 dark:-outline-offset-1 dark:outline-gray-300">
+          <Combobox.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Combobox.Empty>
-              <div className="px-4 py-4 text-[0.925rem] leading-4 text-gray-600">
+              <div className="py-3 px-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
                 No items found.
               </div>
             </Combobox.Empty>
@@ -5521,10 +6049,10 @@ function VirtualizedList({
     getScrollElement: () => scrollElementRef.current,
     estimateSize: () => 32,
     overscan: 20,
-    paddingStart: 8,
-    paddingEnd: 8,
-    scrollPaddingEnd: 8,
-    scrollPaddingStart: 8,
+    paddingStart: 4,
+    paddingEnd: 4,
+    scrollPaddingEnd: 4,
+    scrollPaddingStart: 4,
   });
 
   React.useImperativeHandle(virtualizerRef, () => virtualizer);
@@ -5549,7 +6077,7 @@ function VirtualizedList({
     <div
       role="presentation"
       ref={handleScrollElementRef}
-      className="h-[min(22rem,var(--total-size))] max-h-[var(--available-height)] overflow-auto overscroll-contain scroll-p-2"
+      className="h-[min(22.5rem,var(--total-size))] max-h-[var(--available-height)] overflow-auto overscroll-contain scroll-py-1"
       style={{ '--total-size': `${totalSize}px` } as React.CSSProperties}
     >
       <div role="presentation" className="relative w-full" style={{ height: totalSize }}>
@@ -5566,7 +6094,7 @@ function VirtualizedList({
               data-index={virtualItem.index}
               ref={virtualizer.measureElement}
               value={item}
-              className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-none select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+              className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 p-2 text-sm leading-4 outline-none select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
               aria-setsize={filteredItems.length}
               aria-posinset={virtualItem.index + 1}
               style={{
@@ -5579,7 +6107,7 @@ function VirtualizedList({
               }}
             >
               <Combobox.ItemIndicator className="col-start-1">
-                <CheckIcon className="size-3" />
+                <CheckIcon />
               </Combobox.ItemIndicator>
               <span className="col-start-2">{item.name}</span>
             </Combobox.Item>
@@ -5592,8 +6120,16 @@ function VirtualizedList({
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -5624,22 +6160,38 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   &:focus {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -5650,7 +6202,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -5659,33 +6215,28 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: min(22rem, var(--available-height));
   max-width: var(--available-width);
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
 }
 
 .Scroller {
   box-sizing: border-box;
-  height: min(22rem, var(--total-size));
+  height: min(22.5rem, var(--total-size));
   max-height: var(--available-height);
   overflow: auto;
   overscroll-behavior: contain;
-  scroll-padding-block: 0.5rem;
+  scroll-padding-block: 0.25rem;
 }
 
 .VirtualizedPlaceholder {
@@ -5702,21 +6253,26 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: grid;
   gap: 0.5rem;
   align-items: center;
-  grid-template-columns: 0.75rem 1fr;
-  font-size: 1rem;
+  grid-template-columns: 1rem 1fr;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -5724,9 +6280,12 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
@@ -5738,18 +6297,16 @@ This example shows how to implement the component using CSS Modules.
   grid-column-start: 1;
 }
 
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .Empty {
   box-sizing: border-box;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 1rem;
+  color: oklch(55.6% 0 0deg);
+  padding: 0.75rem 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -5822,10 +6379,10 @@ function VirtualizedList({
     getScrollElement: () => scrollElementRef.current,
     estimateSize: () => 32,
     overscan: 20,
-    paddingStart: 8,
-    paddingEnd: 8,
-    scrollPaddingEnd: 8,
-    scrollPaddingStart: 8,
+    paddingStart: 4,
+    paddingEnd: 4,
+    scrollPaddingEnd: 4,
+    scrollPaddingStart: 4,
   });
 
   React.useImperativeHandle(virtualizerRef, () => virtualizer);
@@ -5884,7 +6441,7 @@ function VirtualizedList({
               }}
             >
               <Combobox.ItemIndicator className={styles.ItemIndicator}>
-                <CheckIcon className={styles.ItemIndicatorIcon} />
+                <CheckIcon />
               </Combobox.ItemIndicator>
               <span className={styles.ItemText}>{item.name}</span>
             </Combobox.Item>
@@ -5897,8 +6454,16 @@ function VirtualizedList({
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -6249,6 +6814,7 @@ Renders a `<button>` element.
 | :------------------ | :--- | :-------------------------------------------- |
 | data-popup-open     | -    | Present when the corresponding popup is open. |
 | data-disabled       | -    | Present when the button is disabled.          |
+| data-visible        | -    | Present when the clear button is visible.     |
 | data-starting-style | -    | Present when the button is animating in.      |
 | data-ending-style   | -    | Present when the button is animating out.     |
 
@@ -6264,6 +6830,8 @@ type ComboboxClearState = {
   open: boolean;
   /** Whether the component should ignore user interaction. */
   disabled: boolean;
+  /** Whether the clear button should be visible. */
+  visible: boolean;
   /** The transition status of the component. */
   transitionStatus: TransitionStatus;
 };

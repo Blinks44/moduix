@@ -25,20 +25,20 @@ import { Drawer } from '@base-ui/react/drawer';
 export default function ExampleDrawer() {
   return (
     <Drawer.Root swipeDirection="right">
-      <Drawer.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open drawer
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:duration-0 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
-        <Drawer.Viewport className="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] fixed inset-0 flex items-stretch justify-end p-[var(--viewport-padding)]">
-          <Drawer.Popup className="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] bg-gray-50 p-6 pr-[calc(1.5rem+3rem)] text-gray-900 outline outline-1 outline-gray-200 overflow-y-auto overscroll-contain touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:select-none data-[ending-style]:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-[starting-style]:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-20px)] supports-[-webkit-touch-callout:none]:rounded-[10px] supports-[-webkit-touch-callout:none]:pr-6 dark:outline-gray-300">
+        <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
+        <Drawer.Viewport className="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] fixed inset-0 flex items-stretch justify-end p-(--viewport-padding)">
+          <Drawer.Popup className="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] border-l border-neutral-950 bg-white p-6 pr-[calc(1.5rem+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-starting-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-3rem)] supports-[-webkit-touch-callout:none]:border supports-[-webkit-touch-callout:none]:pr-6 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Drawer.Content className="mx-auto w-full max-w-[32rem]">
-              <Drawer.Title className="-mt-1.5 mb-1 text-lg font-bold">Drawer</Drawer.Title>
-              <Drawer.Description className="mb-6 text-base text-gray-600">
+              <Drawer.Title className="mb-1 text-base font-bold">Drawer</Drawer.Title>
+              <Drawer.Description className="mb-6 text-sm text-neutral-600 dark:text-neutral-400">
                 This is a drawer that slides in from the side. You can swipe to dismiss it.
               </Drawer.Description>
-              <div className="flex justify-end gap-4">
-                <Drawer.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+              <div className="flex justify-end gap-3">
+                <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                   Close
                 </Drawer.Close>
               </div>
@@ -62,33 +62,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -149,9 +178,11 @@ This example shows how to implement the component using CSS Modules.
   padding: 1.5rem;
   padding-right: calc(1.5rem + var(--bleed));
   margin-right: calc(-1 * var(--bleed));
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border-left: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  outline: 0;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   overflow-y: auto;
   overscroll-behavior: contain;
   touch-action: auto;
@@ -159,12 +190,16 @@ This example shows how to implement the component using CSS Modules.
   will-change: transform;
   transform: translateX(var(--drawer-swipe-movement-x));
 
-  &[data-swiping] {
-    user-select: none;
+  @media (prefers-color-scheme: dark) {
+    border-left: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+  &[data-swiping] {
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   &[data-starting-style],
@@ -179,7 +214,11 @@ This example shows how to implement the component using CSS Modules.
   @supports (-webkit-touch-callout: none) {
     --bleed: 0px;
     margin-right: 0;
-    border-radius: 10px;
+    border: 1px solid oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+    }
   }
 }
 
@@ -190,25 +229,28 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Title {
-  margin-top: -0.375rem;
+  margin-top: 0;
   margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 ```
 
@@ -342,23 +384,23 @@ import { Drawer } from '@base-ui/react/drawer';
 export default function ExampleDrawer() {
   return (
     <Drawer.Root>
-      <Drawer.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open bottom drawer
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:duration-0 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
+        <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
         <Drawer.Viewport className="fixed inset-0 flex items-end justify-center">
-          <Drawer.Popup className="-mb-[3rem] w-full max-h-[calc(80vh+3rem)] rounded-t-2xl bg-gray-50 px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+3rem)] pt-4 text-gray-900 outline outline-1 outline-gray-200 overflow-y-auto overscroll-contain touch-auto [transform:translateY(var(--drawer-swipe-movement-y))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:select-none data-[ending-style]:[transform:translateY(calc(100%-3rem+2px))] data-[starting-style]:[transform:translateY(calc(100%-3rem+2px))] data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:outline-gray-300">
-            <div className="w-12 h-1 mx-auto mb-4 rounded-full bg-gray-300" />
+          <Drawer.Popup className="-mb-[3rem] w-full max-h-[calc(80vh+3rem)] border-t border-neutral-950 bg-white px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+3rem)] pt-4 text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform:translateY(var(--drawer-swipe-movement-y))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:[transform:translateY(calc(100%-3rem+2px))] data-starting-style:[transform:translateY(calc(100%-3rem+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+            <div className="mx-auto mb-4 h-1 w-12 bg-neutral-300 dark:bg-neutral-700" />
             <Drawer.Content className="mx-auto w-full max-w-[32rem]">
-              <Drawer.Title className="mb-1 text-lg font-bold text-center">
+              <Drawer.Title className="mb-1 text-base font-bold text-center">
                 Notifications
               </Drawer.Title>
-              <Drawer.Description className="mb-6 text-base text-gray-600 text-center">
+              <Drawer.Description className="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400">
                 You are all caught up. Good job!
               </Drawer.Description>
-              <div className="flex justify-center gap-4">
-                <Drawer.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+              <div className="flex justify-center gap-3">
+                <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                   Close
                 </Drawer.Close>
               </div>
@@ -382,33 +424,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -458,22 +529,27 @@ This example shows how to implement the component using CSS Modules.
   margin-bottom: calc(-1 * var(--bleed));
   padding: 1rem 1.5rem 1.5rem;
   padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px) + var(--bleed));
-  border-radius: 1rem 1rem 0 0;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border-top: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  outline: 0;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   overflow-y: auto;
   overscroll-behavior: contain;
   transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
   will-change: transform;
   transform: translateY(var(--drawer-swipe-movement-y));
 
-  &[data-swiping] {
-    user-select: none;
+  @media (prefers-color-scheme: dark) {
+    border-top: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+  &[data-swiping] {
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   &[data-starting-style],
@@ -496,32 +572,38 @@ This example shows how to implement the component using CSS Modules.
   width: 3rem;
   height: 0.25rem;
   margin: 0 auto 1rem;
-  border-radius: 9999px;
-  background-color: var(--color-gray-300);
+  background-color: oklch(87% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(37.1% 0 0deg);
+  }
 }
 
 .Title {
   margin-top: 0;
   margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
   text-align: center;
 }
 
 .Description {
   margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
   text-align: center;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 ```
 
@@ -576,17 +658,17 @@ import { Drawer } from '@base-ui/react/drawer';
 export default function ExampleDrawerNested() {
   return (
     <Drawer.Root>
-      <Drawer.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open drawer stack
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:duration-0 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
+        <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
         <Drawer.Viewport className="fixed inset-0 flex items-end justify-center">
           <Drawer.Popup className={popupClassName}>
             <div className={handleClassName} />
             <Drawer.Content className={contentClassName}>
-              <Drawer.Title className="mb-1 text-lg font-bold text-center">Account</Drawer.Title>
-              <Drawer.Description className="mb-6 text-base text-gray-600 text-center">
+              <Drawer.Title className="mb-1 text-base font-bold text-center">Account</Drawer.Title>
+              <Drawer.Description className="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400">
                 Nested drawers can be styled to stack, while each drawer remains independently focus
                 managed.
               </Drawer.Description>
@@ -594,7 +676,7 @@ export default function ExampleDrawerNested() {
               <div className="flex items-center justify-end gap-4">
                 <div className="mr-auto">
                   <Drawer.Root>
-                    <Drawer.Trigger className="text-base text-blue-800 rounded px-1.5 py-0.5 -m-0.5 hover:bg-blue-800/5 active:bg-blue-800/10 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800">
+                    <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                       Security settings
                     </Drawer.Trigger>
                     <Drawer.Portal>
@@ -602,14 +684,14 @@ export default function ExampleDrawerNested() {
                         <Drawer.Popup className={popupClassName}>
                           <div className={handleClassName} />
                           <Drawer.Content className={contentClassName}>
-                            <Drawer.Title className="mb-1 text-lg font-bold text-center">
+                            <Drawer.Title className="mb-1 text-base font-bold text-center">
                               Security
                             </Drawer.Title>
-                            <Drawer.Description className="mb-6 text-base text-gray-600 text-center">
+                            <Drawer.Description className="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400">
                               Review sign-in activity and update your security preferences.
                             </Drawer.Description>
 
-                            <ul className="mb-6 list-disc pl-5 text-gray-700">
+                            <ul className="mb-6 list-disc pl-5 text-neutral-700 dark:text-neutral-300">
                               <li>Passkeys enabled</li>
                               <li>2FA via authenticator app</li>
                               <li>3 signed-in devices</li>
@@ -618,7 +700,7 @@ export default function ExampleDrawerNested() {
                             <div className="flex items-center justify-end gap-4">
                               <div className="mr-auto">
                                 <Drawer.Root>
-                                  <Drawer.Trigger className="text-base text-blue-800 rounded px-1.5 py-0.5 -m-0.5 hover:bg-blue-800/5 active:bg-blue-800/10 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800">
+                                  <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                                     Advanced options
                                   </Drawer.Trigger>
                                   <Drawer.Portal>
@@ -626,45 +708,45 @@ export default function ExampleDrawerNested() {
                                       <Drawer.Popup className={popupClassName}>
                                         <div className={handleClassName} />
                                         <Drawer.Content className={contentClassName}>
-                                          <Drawer.Title className="mb-1 text-lg font-bold text-center">
+                                          <Drawer.Title className="mb-1 text-base font-bold text-center">
                                             Advanced
                                           </Drawer.Title>
-                                          <Drawer.Description className="mb-6 text-base text-gray-600 text-center">
+                                          <Drawer.Description className="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400">
                                             This drawer is taller to demonstrate variable-height
                                             stacking.
                                           </Drawer.Description>
 
-                                          <div className="grid gap-1.5 mb-4">
+                                          <div className="grid gap-2 mb-4">
                                             <label
-                                              className="text-sm font-bold text-gray-700"
+                                              className="text-sm font-bold text-neutral-700 dark:text-neutral-300"
                                               htmlFor="device-name-tw"
                                             >
                                               Device name
                                             </label>
                                             <input
                                               id="device-name-tw"
-                                              className="w-full rounded-md border border-gray-200 bg-gray-50 px-2.5 py-2 text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 font-normal"
+                                              className="h-8 w-full border border-neutral-950 bg-white px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 dark:border-white dark:bg-neutral-950 dark:text-white focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                                               defaultValue="Personal laptop"
                                             />
                                           </div>
 
-                                          <div className="grid gap-1.5 mb-4">
+                                          <div className="grid gap-2 mb-4">
                                             <label
-                                              className="text-sm font-bold text-gray-700"
+                                              className="text-sm font-bold text-neutral-700 dark:text-neutral-300"
                                               htmlFor="notes-tw"
                                             >
                                               Notes
                                             </label>
                                             <textarea
                                               id="notes-tw"
-                                              className="w-full rounded-md border border-gray-200 bg-gray-50 px-2.5 py-2 text-gray-900 resize-y focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 font-normal"
+                                              className="min-h-32 w-full resize-y border border-neutral-950 bg-white p-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 dark:border-white dark:bg-neutral-950 dark:text-white focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                                               defaultValue="Rotate recovery codes and revoke older sessions."
                                               rows={3}
                                             />
                                           </div>
 
                                           <div className="flex justify-end">
-                                            <Drawer.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+                                            <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                                               Done
                                             </Drawer.Close>
                                           </div>
@@ -675,7 +757,7 @@ export default function ExampleDrawerNested() {
                                 </Drawer.Root>
                               </div>
 
-                              <Drawer.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+                              <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                                 Close
                               </Drawer.Close>
                             </div>
@@ -686,7 +768,7 @@ export default function ExampleDrawerNested() {
                   </Drawer.Root>
                 </div>
 
-                <Drawer.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+                <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                   Close
                 </Drawer.Close>
               </div>
@@ -699,13 +781,13 @@ export default function ExampleDrawerNested() {
 }
 
 const popupClassName =
-  "[--bleed:3rem] [--peek:1rem] [--stack-progress:clamp(0,var(--drawer-swipe-progress),1)] [--stack-step:0.05] [--stack-peek-offset:max(0px,calc((var(--nested-drawers)-var(--stack-progress))*var(--peek)))] [--scale-base:calc(max(0,1-(var(--nested-drawers)*var(--stack-step))))] [--scale:clamp(0,calc(var(--scale-base)+(var(--stack-step)*var(--stack-progress))),1)] [--shrink:calc(1-var(--scale))] [--height:max(0px,calc(var(--drawer-frontmost-height,var(--drawer-height))-var(--bleed)))] group/popup relative -mb-[3rem] w-full max-h-[calc(80vh+3rem)] [height:var(--drawer-height,auto)] rounded-t-2xl bg-gray-50 px-6 pt-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+3rem)] text-gray-900 outline outline-1 outline-gray-200 overflow-y-auto overscroll-contain touch-auto [transform-origin:50%_calc(100%-var(--bleed))] [transform:translateY(calc(var(--drawer-swipe-movement-y)-var(--stack-peek-offset)-(var(--shrink)*var(--height))))_scale(var(--scale))] after:absolute after:inset-0 after:rounded-[inherit] after:bg-transparent after:pointer-events-none after:content-[''] after:transition-[background-color] after:duration-[450ms] after:ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:select-none data-[swiping]:duration-0 data-[nested-drawer-swiping]:duration-0 data-[starting-style]:[transform:translateY(calc(100%-var(--bleed)+2px))] data-[ending-style]:[transform:translateY(calc(100%-var(--bleed)+2px))] data-[ending-style]:opacity-[0.9999] data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-[ending-style]:data-[swiping]:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-[ending-style]:data-[nested-drawer-swiping]:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-[nested-drawer-open]:h-[calc(var(--height)+var(--bleed))] data-[nested-drawer-open]:overflow-hidden data-[nested-drawer-open]:after:bg-black/5 dark:outline-gray-300 [transition:transform_450ms_cubic-bezier(0.32,0.72,0,1),height_450ms_cubic-bezier(0.32,0.72,0,1),opacity_450ms_cubic-bezier(0.32,0.72,0,1)]";
+  "[--bleed:3rem] [--peek:1rem] [--stack-progress:clamp(0,var(--drawer-swipe-progress),1)] [--stack-step:0.05] [--stack-peek-offset:max(0px,calc((var(--nested-drawers)-var(--stack-progress))*var(--peek)))] [--scale-base:calc(max(0,1-(var(--nested-drawers)*var(--stack-step))))] [--scale:clamp(0,calc(var(--scale-base)+(var(--stack-step)*var(--stack-progress))),1)] [--shrink:calc(1-var(--scale))] [--height:max(0px,calc(var(--drawer-frontmost-height,var(--drawer-height))-var(--bleed)))] group/popup relative -mx-px -mb-[3rem] w-[calc(100%+2px)] max-h-[calc(80vh+3rem)] [height:var(--drawer-height,auto)] border border-neutral-950 border-b-0 bg-white px-6 pt-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform-origin:50%_calc(100%-var(--bleed))] [transform:translateY(calc(var(--drawer-swipe-movement-y)-var(--stack-peek-offset)-(var(--shrink)*var(--height))))_scale(var(--scale))] after:pointer-events-none after:absolute after:inset-0 after:bg-transparent after:content-[''] after:transition-[background-color] after:duration-[450ms] after:ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-swiping:duration-0 data-nested-drawer-swiping:duration-0 data-starting-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-ending-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-ending-style:opacity-[0.9999] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-ending-style:data-swiping:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-ending-style:data-nested-drawer-swiping:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-nested-drawer-open:h-[calc(var(--height)+var(--bleed))] data-nested-drawer-open:overflow-hidden data-nested-drawer-open:after:bg-black/5 dark:border-white dark:border-b-0 dark:bg-neutral-950 dark:text-white dark:shadow-none [transition:transform_450ms_cubic-bezier(0.32,0.72,0,1),height_450ms_cubic-bezier(0.32,0.72,0,1),opacity_450ms_cubic-bezier(0.32,0.72,0,1)]";
 
 const contentClassName =
-  'mx-auto w-full max-w-[32rem] transition-opacity duration-[300ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] group-data-[nested-drawer-open]/popup:opacity-0 group-data-[nested-drawer-swiping]/popup:opacity-100';
+  'mx-auto w-full max-w-[32rem] transition-opacity duration-[300ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] group-data-nested-drawer-open/popup:opacity-0 group-data-nested-drawer-swiping/popup:opacity-100';
 
 const handleClassName =
-  'mx-auto mb-4 h-1 w-12 rounded-full bg-gray-300 transition-opacity duration-[200ms] group-data-[nested-drawer-open]/popup:opacity-0 group-data-[nested-drawer-swiping]/popup:opacity-100';
+  'mx-auto mb-4 h-1 w-12 bg-neutral-300 transition-opacity duration-[200ms] group-data-nested-drawer-open/popup:opacity-0 group-data-nested-drawer-swiping/popup:opacity-100 dark:bg-neutral-700';
 ```
 
 ### CSS Modules
@@ -719,77 +801,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
-.GhostButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  background-color: transparent;
-  color: var(--color-blue);
-  border-radius: 0.25rem;
-  padding: 0.125rem 0.375rem;
-  margin: -0.125rem -0.375rem;
-  border: 0;
-  outline: 0;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: color-mix(in oklch, var(--color-blue), transparent 95%);
-    }
-  }
-
-  &:active {
-    background-color: color-mix(in oklch, var(--color-blue), transparent 90%);
-  }
-
   @media (prefers-color-scheme: dark) {
-    @media (hover: hover) {
-      &:hover {
-        background-color: color-mix(in oklch, var(--color-blue), transparent 85%);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
       }
     }
+  }
 
-    &:active {
-      background-color: color-mix(in oklch, var(--color-blue), transparent 75%);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
     }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -855,16 +922,21 @@ This example shows how to implement the component using CSS Modules.
 
   box-sizing: border-box;
   position: relative;
-  width: 100%;
+  width: calc(100% + 2px);
+  margin-left: -1px;
+  margin-right: -1px;
   max-height: calc(80vh + var(--bleed));
   height: var(--drawer-height, auto);
   margin-bottom: calc(-1 * var(--bleed));
   padding: 1rem 1.5rem 1.5rem;
   padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px) + var(--bleed));
-  border-radius: 1rem 1rem 0 0;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border-width: 1px 1px 0;
+  border-style: solid;
+  border-color: oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  outline: 0;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   overflow-y: auto;
   overscroll-behavior: contain;
   transform-origin: 50% calc(100% - var(--bleed));
@@ -875,24 +947,27 @@ This example shows how to implement the component using CSS Modules.
   will-change: transform;
   transform: translateY(var(--translate-y)) scale(var(--stack-scale));
 
+  @media (prefers-color-scheme: dark) {
+    border-color: white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
+
   &[data-swiping],
   &[data-nested-drawer-swiping] {
     transition-duration: 0ms;
   }
 
   &[data-swiping] {
+    -webkit-user-select: none;
     user-select: none;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
   }
 
   &::after {
     content: '';
     inset: 0;
     position: absolute;
-    border-radius: inherit;
     background-color: transparent;
     pointer-events: none;
     transition: background-color 450ms cubic-bezier(0.32, 0.72, 0, 1);
@@ -937,9 +1012,12 @@ This example shows how to implement the component using CSS Modules.
   width: 3rem;
   height: 0.25rem;
   margin: 0 auto 1rem;
-  border-radius: 9999px;
-  background-color: var(--color-gray-300);
+  background-color: oklch(87% 0 0deg);
   transition: opacity 0.2s;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(37.1% 0 0deg);
+  }
 
   [data-nested-drawer-open] & {
     opacity: 0;
@@ -953,19 +1031,22 @@ This example shows how to implement the component using CSS Modules.
 .Title {
   margin-top: 0;
   margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
   text-align: center;
 }
 
 .Description {
   margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
   text-align: center;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
@@ -982,12 +1063,16 @@ This example shows how to implement the component using CSS Modules.
 .List {
   margin: 0 0 1.5rem;
   padding-left: 1.25rem;
-  color: var(--color-gray-700);
+  color: oklch(37.1% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(87% 0 0deg);
+  }
 }
 
 .Field {
   display: grid;
-  gap: 0.375rem;
+  gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
@@ -995,29 +1080,109 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.925rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-700);
+  color: oklch(37.1% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(87% 0 0deg);
+  }
+}
+.Input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 2rem;
+  padding: 0 0.5rem;
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
-.Input,
 .Textarea {
   box-sizing: border-box;
   width: 100%;
-  border-radius: 0.375rem;
-  border: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  min-height: 8rem;
   padding: 0.5rem 0.625rem;
-  font: inherit;
-}
-
-.Textarea {
+  margin: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   resize: vertical;
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Input:focus-visible,
 .Textarea:focus-visible {
-  outline: 2px solid var(--color-blue);
+  outline: 2px solid oklch(14.5% 0 0deg);
   outline-offset: -1px;
+
+  @media (prefers-color-scheme: dark) {
+    outline-color: white;
+  }
 }
 ```
 
@@ -1046,9 +1211,7 @@ export default function ExampleDrawerNested() {
               <div className={styles.Actions}>
                 <div className={styles.ActionsLeft}>
                   <Drawer.Root>
-                    <Drawer.Trigger className={styles.GhostButton}>
-                      Security settings
-                    </Drawer.Trigger>
+                    <Drawer.Trigger className={styles.Button}>Security settings</Drawer.Trigger>
                     <Drawer.Portal>
                       <Drawer.Viewport className={styles.Viewport}>
                         <Drawer.Popup className={styles.Popup}>
@@ -1068,7 +1231,7 @@ export default function ExampleDrawerNested() {
                             <div className={styles.Actions}>
                               <div className={styles.ActionsLeft}>
                                 <Drawer.Root>
-                                  <Drawer.Trigger className={styles.GhostButton}>
+                                  <Drawer.Trigger className={styles.Button}>
                                     Advanced options
                                   </Drawer.Trigger>
                                   <Drawer.Portal>
@@ -1184,37 +1347,34 @@ const snapPoints = [...VISIBLE_SNAP_POINTS_REM.map(toViewportSnapPoint), 1];
 export default function ExampleDrawerSnapPoints() {
   return (
     <Drawer.Root snapPoints={snapPoints}>
-      <Drawer.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open snap drawer
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:duration-0 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
+        <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
         <Drawer.Viewport className="fixed inset-0 flex items-end justify-center touch-none">
           <Drawer.Popup
-            className="relative flex w-full max-h-[calc(100dvh-var(--top-margin))] min-h-0 flex-col overflow-visible rounded-t-2xl bg-gray-50 text-gray-900 outline outline-1 outline-gray-200 touch-none shadow-[0_-16px_48px_rgb(0_0_0/0.12),0_6px_18px_rgb(0_0_0/0.06)] [--bleed:3rem] [padding-bottom:max(0px,calc(var(--drawer-snap-point-offset)+var(--drawer-swipe-movement-y)))] [transform:translateY(calc(var(--drawer-snap-point-offset)+var(--drawer-swipe-movement-y)))] transition-[transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-[var(--bleed)] after:bg-gray-50 after:content-[''] data-[swiping]:select-none data-[ending-style]:[transform:translateY(calc(100%+2px))] data-[starting-style]:[transform:translateY(calc(100%+2px))] data-[starting-style]:[padding-bottom:0] data-[ending-style]:[padding-bottom:0] data-[starting-style]:shadow-[0_-16px_48px_rgb(0_0_0/0),0_6px_18px_rgb(0_0_0/0)] data-[ending-style]:shadow-[0_-16px_48px_rgb(0_0_0/0),0_6px_18px_rgb(0_0_0/0)] data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:outline-gray-300"
+            className="relative flex w-full max-h-[calc(100dvh-var(--top-margin))] min-h-0 flex-col overflow-visible border-t border-neutral-950 bg-white text-neutral-950 outline-none touch-none shadow-[0.25rem_0.25rem_0] shadow-black/12 [--bleed:3rem] [padding-bottom:max(0px,calc(var(--drawer-snap-point-offset)+var(--drawer-swipe-movement-y)))] [transform:translateY(calc(var(--drawer-snap-point-offset)+var(--drawer-swipe-movement-y)))] transition-[transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-[var(--bleed)] after:bg-[inherit] after:content-[''] data-swiping:select-none data-ending-style:[transform:translateY(calc(100%+2px))] data-starting-style:[transform:translateY(calc(100%+2px))] data-starting-style:[padding-bottom:0] data-ending-style:[padding-bottom:0] data-starting-style:shadow-[0.25rem_0.25rem_0] data-starting-style:shadow-black/0 data-ending-style:shadow-[0.25rem_0.25rem_0] data-ending-style:shadow-black/0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
             style={{ '--top-margin': `${TOP_MARGIN_REM}rem` } as React.CSSProperties}
           >
-            <div className="shrink-0 border-b border-gray-200 px-6 pt-3.5 pb-3 touch-none dark:border-gray-300">
-              <div className="mx-auto h-1 w-12 rounded-full bg-gray-300" />
-              <Drawer.Title className="mt-2.5 cursor-default text-center text-lg font-bold">
+            <div className="shrink-0 border-b border-neutral-300 px-6 pt-3.5 pb-4 touch-none dark:border-neutral-700">
+              <div className="mx-auto mb-2.5 h-1 w-12 shrink-0 bg-neutral-300 dark:bg-neutral-700" />
+              <Drawer.Title className="cursor-default text-center text-base font-bold">
                 Snap points
               </Drawer.Title>
             </div>
             <Drawer.Content className="min-h-0 flex-1 overflow-y-auto overscroll-contain touch-auto px-6 pt-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]">
-              <div className="mx-auto w-full max-w-[350px]">
-                <Drawer.Description className="mb-4 text-base text-gray-600 text-center">
+              <div className="mx-auto w-full max-w-90">
+                <Drawer.Description className="mb-4 text-sm text-neutral-600 text-center dark:text-neutral-400">
                   Drag the sheet to snap between a compact peek and a near full-height view.
                 </Drawer.Description>
                 <div className="grid gap-3 mb-6" aria-hidden>
                   {Array.from({ length: 20 }, (_, index) => (
-                    <div
-                      key={index}
-                      className="h-12 rounded-xl border border-gray-200 bg-gray-100"
-                    />
+                    <div key={index} className="h-12 bg-neutral-200 dark:bg-neutral-700" />
                   ))}
                 </div>
-                <div className="flex items-center justify-end gap-4">
-                  <Drawer.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+                <div className="flex items-center justify-end gap-3">
+                  <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                     Close
                   </Drawer.Close>
                 </div>
@@ -1239,33 +1399,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1310,7 +1499,7 @@ This example shows how to implement the component using CSS Modules.
 
 .Content {
   width: 100%;
-  max-width: 350px;
+  max-width: 22.5rem;
   margin: 0 auto;
 }
 
@@ -1323,20 +1512,25 @@ This example shows how to implement the component using CSS Modules.
   width: 100%;
   max-height: calc(100dvh - var(--top-margin));
   padding-bottom: max(0px, calc(var(--drawer-snap-point-offset) + var(--drawer-swipe-movement-y)));
-  border-radius: 1rem 1rem 0 0;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border-top: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  outline: 0;
   overflow: visible;
   touch-action: none;
-  box-shadow:
-    0 -16px 48px rgb(0 0 0 / 0.12),
-    0 6px 18px rgb(0 0 0 / 0.06);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition:
     transform 450ms cubic-bezier(0.32, 0.72, 0, 1),
     box-shadow 450ms cubic-bezier(0.32, 0.72, 0, 1);
   transform: translateY(calc(var(--drawer-snap-point-offset) + var(--drawer-swipe-movement-y)));
   will-change: transform;
+
+  @media (prefers-color-scheme: dark) {
+    border-top: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &::after {
     content: '';
@@ -1349,20 +1543,15 @@ This example shows how to implement the component using CSS Modules.
   }
 
   &[data-swiping] {
+    -webkit-user-select: none;
     user-select: none;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     transform: translateY(calc(100% + 2px));
     padding-bottom: 0;
-    box-shadow:
-      0 -16px 48px rgb(0 0 0 / 0),
-      0 6px 18px rgb(0 0 0 / 0);
+    box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 0%);
   }
 
   &[data-ending-style] {
@@ -1372,12 +1561,12 @@ This example shows how to implement the component using CSS Modules.
 
 .DragArea {
   flex-shrink: 0;
-  padding: 0.875rem 1.5rem 0.75rem;
-  border-bottom: 1px solid var(--color-gray-200);
+  padding: 0.875rem 1.5rem 1rem;
+  border-bottom: 1px solid oklch(87% 0 0deg);
   touch-action: none;
 
   @media (prefers-color-scheme: dark) {
-    border-bottom-color: var(--color-gray-300);
+    border-bottom: 1px solid oklch(37.1% 0 0deg);
   }
 }
 
@@ -1395,15 +1584,17 @@ This example shows how to implement the component using CSS Modules.
   height: 0.25rem;
   margin: 0 auto 0.625rem;
   flex-shrink: 0;
-  border-radius: 9999px;
-  background-color: var(--color-gray-300);
+  background-color: oklch(87% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(37.1% 0 0deg);
+  }
 }
 
 .Title {
   margin: 0;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
   text-align: center;
   cursor: default;
@@ -1411,17 +1602,21 @@ This example shows how to implement the component using CSS Modules.
 
 .Description {
   margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
   text-align: center;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Meta {
   margin: 0 0 1.5rem;
   font-size: 0.9375rem;
   line-height: 1.5rem;
-  color: var(--color-red);
+  color: oklch(50% 55% 31deg);
   text-align: center;
 }
 
@@ -1433,9 +1628,11 @@ This example shows how to implement the component using CSS Modules.
 
 .Card {
   height: 3rem;
-  border-radius: 0.75rem;
-  border: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-100);
+  background-color: oklch(92.2% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(37.1% 0 0deg);
+  }
 }
 
 .Actions {
@@ -1524,27 +1721,27 @@ export default function ExampleDrawer() {
   return (
     <Drawer.Provider>
       <div ref={setPortalContainer} className="[--bleed:3rem] relative w-full overflow-hidden">
-        <Drawer.IndentBackground className="absolute inset-0 bg-black dark:bg-gray-300" />
-        <Drawer.Indent className="[--indent-progress:var(--drawer-swipe-progress)] [--indent-radius:calc(1rem*(1-var(--indent-progress)))] [--indent-transition:calc(1-clamp(0,calc(var(--drawer-swipe-progress)*100000),1))] relative min-h-[320px] bg-gray-50 border border-gray-200 p-4 text-gray-900 [transition:transform_0.4s_cubic-bezier(0.32,0.72,0,1),border-radius_0.25s_cubic-bezier(0.32,0.72,0,1)] origin-[center_top] will-change-transform [transform:scale(1)_translateY(0)] [transition-duration:calc(400ms*var(--indent-transition)),calc(250ms*var(--indent-transition))] data-[active]:[transform:scale(calc(0.98+(0.02*var(--indent-progress))))_translateY(calc(0.5rem*(1-var(--indent-progress))))] data-[active]:[border-top-left-radius:var(--indent-radius)] data-[active]:[border-top-right-radius:var(--indent-radius)]">
-          <div className="flex min-h-[320px] items-center justify-center">
+        <Drawer.IndentBackground className="absolute inset-0 bg-black dark:bg-neutral-300" />
+        <Drawer.Indent className="[--indent-radius:calc(1rem*(1-var(--drawer-swipe-progress)))] [--indent-transition:calc(1-clamp(0,calc(var(--drawer-swipe-progress)*100000),1))] relative min-h-80 border border-neutral-950 bg-white p-4 text-neutral-950 [transition:transform_0.4s_cubic-bezier(0.32,0.72,0,1),border-radius_0.25s_cubic-bezier(0.32,0.72,0,1)] origin-[center_top] will-change-transform [transform:scale(1)_translateY(0)] [transition-duration:calc(400ms*var(--indent-transition)),calc(250ms*var(--indent-transition))] data-active:transform-[scale(calc(0.98+(0.02*var(--drawer-swipe-progress))))_translateY(calc(0.5rem*(1-var(--drawer-swipe-progress))))] data-active:rounded-tl-(--indent-radius) data-active:rounded-tr-(--indent-radius) dark:border-white dark:bg-neutral-950 dark:text-white">
+          <div className="flex min-h-80 items-center justify-center">
             <Drawer.Root modal={false}>
-              <Drawer.Trigger className="box-border flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal leading-6 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+              <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                 Open drawer
               </Drawer.Trigger>
               <Drawer.Portal container={portalContainer}>
-                <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] absolute inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:duration-0 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
+                <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] absolute inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
                 <Drawer.Viewport className="absolute inset-0 flex items-end justify-center">
-                  <Drawer.Popup className="box-border w-full max-h-[calc(80vh+var(--bleed))] -mb-[var(--bleed)] rounded-t-2xl outline outline-1 outline-gray-200 bg-gray-50 px-6 py-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+var(--bleed))] text-gray-900 overflow-y-auto overscroll-contain transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] [transform:translateY(var(--drawer-swipe-movement-y))] data-[swiping]:select-none data-[ending-style]:[transform:translateY(calc(100%-var(--bleed)+2px))] data-[starting-style]:[transform:translateY(calc(100%-var(--bleed)+2px))] data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:outline-gray-300">
-                    <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-gray-300" />
+                  <Drawer.Popup className="w-full max-h-[calc(80vh+var(--bleed))] -mb-[var(--bleed)] border-t border-neutral-950 bg-white px-6 py-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px)+var(--bleed))] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] [transform:translateY(var(--drawer-swipe-movement-y))] data-swiping:select-none data-ending-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-starting-style:[transform:translateY(calc(100%-var(--bleed)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+                    <div className="mx-auto mb-4 h-1 w-12 bg-neutral-300 dark:bg-neutral-700" />
                     <Drawer.Content className="mx-auto w-full max-w-[32rem]">
-                      <Drawer.Title className="mt-0 mb-1 text-lg leading-7 font-bold tracking-[-0.0025em] text-center">
+                      <Drawer.Title className="mt-0 mb-1 text-base font-bold text-center">
                         Notifications
                       </Drawer.Title>
-                      <Drawer.Description className="mb-6 text-base leading-6 text-gray-600 text-center">
+                      <Drawer.Description className="mb-6 text-sm text-neutral-600 text-center dark:text-neutral-400">
                         You are all caught up. Good job!
                       </Drawer.Description>
-                      <div className="flex justify-center gap-4">
-                        <Drawer.Close className="box-border flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal leading-6 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+                      <div className="flex justify-center gap-3">
+                        <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                           Close
                         </Drawer.Close>
                       </div>
@@ -1575,34 +1772,39 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Indent {
-  --indent-progress: var(--drawer-swipe-progress);
-  --indent-radius: calc(1rem * (1 - var(--indent-progress)));
+  --indent-radius: calc(1rem * (1 - var(--drawer-swipe-progress)));
   --indent-transition: calc(1 - clamp(0, calc(var(--drawer-swipe-progress) * 100000), 1));
   position: relative;
-  min-height: 320px;
+  min-height: 20rem;
   transition:
     transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
     border-radius 0.25s cubic-bezier(0.32, 0.72, 0, 1);
   transform-origin: center top;
   will-change: transform;
-  border: 1px solid var(--color-gray-200);
+  border: 1px solid oklch(14.5% 0 0deg);
   contain: layout;
   padding: 1rem;
-  color: var(--color-gray-900);
-  background-color: var(--color-gray-50);
+  color: oklch(14.5% 0 0deg);
+  background-color: white;
   transition-duration:
     calc(400ms * var(--indent-transition)), calc(250ms * var(--indent-transition));
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    color: white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
   &[data-active] {
-    transform: scale(calc(0.98 + (0.02 * var(--indent-progress))))
-      translateY(calc(0.5rem * (1 - var(--indent-progress))));
+    transform: scale(calc(0.98 + (0.02 * var(--drawer-swipe-progress))))
+      translateY(calc(0.5rem * (1 - var(--drawer-swipe-progress))));
     border-top-left-radius: var(--indent-radius);
     border-top-right-radius: var(--indent-radius);
   }
 }
 
 .Center {
-  min-height: 320px;
+  min-height: 20rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1614,7 +1816,7 @@ This example shows how to implement the component using CSS Modules.
   background-color: black;
 
   @media (prefers-color-scheme: dark) {
-    background-color: var(--color-gray-300);
+    background-color: oklch(87% 0 0deg);
   }
 }
 
@@ -1623,33 +1825,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1698,22 +1929,27 @@ This example shows how to implement the component using CSS Modules.
   margin-bottom: calc(-1 * var(--bleed));
   padding: 1rem 1.5rem 1.5rem;
   padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px) + var(--bleed));
-  border-radius: 1rem 1rem 0 0;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border-top: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  outline: 0;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   overflow-y: auto;
   overscroll-behavior: contain;
   transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
   will-change: transform;
   transform: translateY(var(--drawer-swipe-movement-y));
 
-  &[data-swiping] {
-    user-select: none;
+  @media (prefers-color-scheme: dark) {
+    border-top: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+  &[data-swiping] {
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   &[data-starting-style],
@@ -1736,32 +1972,38 @@ This example shows how to implement the component using CSS Modules.
   width: 3rem;
   height: 0.25rem;
   margin: 0 auto 1rem;
-  border-radius: 9999px;
-  background-color: var(--color-gray-300);
+  background-color: oklch(87% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(37.1% 0 0deg);
+  }
 }
 
 .Title {
   margin-top: 0;
   margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
   text-align: center;
 }
 
 .Description {
   margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
   text-align: center;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 ```
 
@@ -1826,22 +2068,20 @@ import { Drawer } from '@base-ui/react/drawer';
 export default function ExampleDrawer() {
   return (
     <Drawer.Root swipeDirection="right" modal={false} disablePointerDismissal>
-      <Drawer.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open non-modal drawer
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Viewport className="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] fixed inset-0 flex items-stretch justify-end p-[var(--viewport-padding)] pointer-events-none">
-          <Drawer.Popup className="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] pointer-events-auto h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] bg-gray-50 p-6 pr-[calc(1.5rem+3rem)] text-gray-900 outline outline-1 outline-gray-200 overflow-y-auto overscroll-contain touch-auto shadow-[0_-16px_48px_rgb(0_0_0/0.12),0_6px_18px_rgb(0_0_0/0.06)] data-[starting-style]:shadow-[0_-16px_48px_rgb(0_0_0/0),0_6px_18px_rgb(0_0_0/0)] data-[ending-style]:shadow-[0_-16px_48px_rgb(0_0_0/0),0_6px_18px_rgb(0_0_0/0)] [transform:translateX(var(--drawer-swipe-movement-x))] transition-[transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:select-none data-[ending-style]:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-[starting-style]:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-20px)] supports-[-webkit-touch-callout:none]:rounded-[10px] supports-[-webkit-touch-callout:none]:pr-6 dark:outline-gray-300">
+        <Drawer.Viewport className="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] fixed inset-0 flex items-stretch justify-end p-(--viewport-padding) pointer-events-none">
+          <Drawer.Popup className="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] pointer-events-auto h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] border-l border-neutral-950 bg-white p-6 pr-[calc(1.5rem+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto overscroll-contain touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-[transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:shadow-[0.25rem_0.25rem_0] data-ending-style:shadow-black/0 data-ending-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-starting-style:shadow-[0.25rem_0.25rem_0] data-starting-style:shadow-black/0 data-starting-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-3rem)] supports-[-webkit-touch-callout:none]:border supports-[-webkit-touch-callout:none]:pr-6 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Drawer.Content className="mx-auto w-full max-w-[32rem]">
-              <Drawer.Title className="-mt-1.5 mb-1 text-lg font-bold">
-                Non-modal drawer
-              </Drawer.Title>
-              <Drawer.Description className="mb-6 text-base text-gray-600">
+              <Drawer.Title className="mb-1 text-base font-bold">Non-modal drawer</Drawer.Title>
+              <Drawer.Description className="mb-6 text-sm text-neutral-600 dark:text-neutral-400">
                 This drawer does not trap focus and ignores outside clicks. Use the close button or
                 swipe to dismiss it.
               </Drawer.Description>
-              <div className="flex justify-end gap-4">
-                <Drawer.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+              <div className="flex justify-end gap-3">
+                <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                   Close
                 </Drawer.Close>
               </div>
@@ -1865,33 +2105,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1953,36 +2222,37 @@ This example shows how to implement the component using CSS Modules.
   padding: 1.5rem;
   padding-right: calc(1.5rem + var(--bleed));
   margin-right: calc(-1 * var(--bleed));
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border-left: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  outline: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
   touch-action: auto;
   pointer-events: auto;
-  box-shadow:
-    0 -16px 48px rgb(0 0 0 / 0.12),
-    0 6px 18px rgb(0 0 0 / 0.06);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition:
     transform 450ms cubic-bezier(0.32, 0.72, 0, 1),
     box-shadow 450ms cubic-bezier(0.32, 0.72, 0, 1);
   will-change: transform;
   transform: translateX(var(--drawer-swipe-movement-x));
 
-  &[data-swiping] {
-    user-select: none;
+  @media (prefers-color-scheme: dark) {
+    border-left: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+  &[data-swiping] {
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     transform: translateX(calc(100% - var(--bleed) + var(--viewport-padding) + 2px));
-    box-shadow:
-      0 -16px 48px rgb(0 0 0 / 0),
-      0 6px 18px rgb(0 0 0 / 0);
+    box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 0%);
   }
 
   &[data-ending-style] {
@@ -1992,7 +2262,11 @@ This example shows how to implement the component using CSS Modules.
   @supports (-webkit-touch-callout: none) {
     --bleed: 0px;
     margin-right: 0;
-    border-radius: 10px;
+    border: 1px solid oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+    }
   }
 }
 
@@ -2003,25 +2277,28 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Title {
-  margin-top: -0.375rem;
+  margin-top: 0;
   margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 ```
 
@@ -2122,47 +2399,37 @@ const LONG_LIST = [
 export default function ExampleDrawerMobileNav() {
   return (
     <Drawer.Root>
-      <Drawer.Trigger className="box-border flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 m-0 outline-none text-base font-normal leading-6 text-gray-900 select-none hover:bg-gray-100 active:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-800 focus-visible:-outline-offset-1">
+      <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open mobile menu
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Backdrop className="[--backdrop-opacity:1] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-[100dvh] bg-[linear-gradient(to_bottom,rgb(0_0_0/5%)_0,rgb(0_0_0/10%)_50%)] opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-[backdrop-filter,opacity] duration-[600ms] ease-[var(--ease-out-fast)] backdrop-blur-[1.5px] supports-[-webkit-touch-callout:none]:absolute data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 data-[starting-style]:backdrop-blur-0 data-[ending-style]:backdrop-blur-0 data-[ending-style]:duration-[350ms] data-[ending-style]:ease-[cubic-bezier(0.375,0.015,0.545,0.455)]" />
+        <Drawer.Backdrop className="[--backdrop-opacity:1] dark:[--backdrop-opacity:0.7] fixed inset-0 min-h-dvh bg-[linear-gradient(to_bottom,rgb(0_0_0/5%)_0,rgb(0_0_0/10%)_50%)] opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-600 ease-[var(--ease-out-fast)] supports-[-webkit-touch-callout:none]:absolute data-starting-style:opacity-0 data-ending-style:opacity-0 data-ending-style:duration-350 data-ending-style:ease-[cubic-bezier(0.375,0.015,0.545,0.455)]" />
         <Drawer.Viewport className="group fixed inset-0">
           <ScrollArea.Root
             style={{ position: undefined }}
-            className="box-border h-full overscroll-contain transition-[transform,translate] duration-[600ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] group-data-[starting-style]:translate-y-[100dvh] group-data-[ending-style]:pointer-events-none"
+            className="h-full overscroll-contain transition-transform duration-600 ease-[cubic-bezier(0.45,1.005,0,1.005)] group-data-starting-style:translate-y-[100dvh] group-data-ending-style:pointer-events-none"
           >
-            <ScrollArea.Viewport className="box-border h-full overscroll-contain touch-auto">
-              <ScrollArea.Content className="flex min-h-full items-end justify-center pt-8 md:py-16 md:px-16">
-                <Drawer.Popup className="group box-border w-full max-w-[42rem] outline-none transition-transform duration-[800ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] [transform:translateY(var(--drawer-swipe-movement-y))] data-[swiping]:select-none data-[ending-style]:[transform:translateY(calc(max(100dvh,100%)+2px))] data-[ending-style]:duration-[350ms] data-[ending-style]:ease-[cubic-bezier(0.375,0.015,0.545,0.455)]">
+            <ScrollArea.Viewport className="h-full overscroll-contain touch-auto">
+              <ScrollArea.Content className="flex min-h-full items-end justify-center pt-8 min-[42rem]:px-16 min-[42rem]:py-16">
+                <Drawer.Popup className="group w-full max-w-[42rem] outline-none transition-transform duration-600 ease-[cubic-bezier(0.45,1.005,0,1.005)] [transform:translateY(var(--drawer-swipe-movement-y))] data-swiping:select-none data-ending-style:[transform:translateY(calc(max(100dvh,100%)+2px))] data-ending-style:duration-350 data-ending-style:ease-[cubic-bezier(0.375,0.015,0.545,0.455)] motion-reduce:transition-none">
                   <nav
                     aria-label="Navigation"
-                    className="relative flex flex-col rounded-t-2xl bg-gray-50 px-6 pt-4 pb-6 text-gray-900 shadow-[0_10px_64px_-10px_rgb(36_40_52/20%),0_0.25px_0_1px_oklch(12%_9%_264deg/7%)] outline outline-1 outline-gray-200 transition-shadow duration-[350ms] ease-[cubic-bezier(0.375,0.015,0.545,0.455)] group-data-[ending-style]:shadow-[0_10px_64px_-10px_rgb(36_40_52/0%),0_0.25px_0_1px_rgb(0_0_0/0%)] dark:outline-gray-300 dark:shadow-[0_0_0_1px_oklch(29%_0.75%_264deg/80%)] dark:group-data-[ending-style]:shadow-[0_0_0_1px_rgb(0_0_0/0%)] md:rounded-xl"
+                    className="relative flex flex-col border-t border-neutral-950 bg-white px-6 pt-4 pb-6 text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-shadow duration-350 ease-[cubic-bezier(0.375,0.015,0.545,0.455)] group-data-ending-style:shadow-[0.25rem_0.25rem_0] group-data-ending-style:shadow-black/0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none min-[42rem]:border"
                   >
-                    <div className="mb-3 grid grid-cols-[1fr_auto_1fr] items-center">
+                    <div className="grid grid-cols-[1fr_auto_1fr] items-start">
                       <div aria-hidden className="h-9 w-9" />
-                      <div className="h-1 w-12 justify-self-center rounded-full bg-gray-300" />
+                      <div className="h-1 w-12 justify-self-center bg-neutral-300 dark:bg-neutral-700" />
                       <Drawer.Close
                         aria-label="Close menu"
-                        className="flex h-9 w-9 items-center justify-center justify-self-end rounded-full border border-gray-200 bg-gray-50 text-gray-900 hover:bg-gray-100 active:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-800 focus-visible:-outline-offset-1"
+                        className="flex h-8 w-8 items-center justify-center justify-self-end border-0 bg-transparent text-neutral-950 hover:bg-neutral-100 active:bg-neutral-200 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                       >
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path
-                            d="M0.75 0.75L6 6M11.25 11.25L6 6M6 6L0.75 11.25M6 6L11.25 0.75"
-                            stroke="currentcolor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <XIcon />
                       </Drawer.Close>
                     </div>
 
                     <Drawer.Content className="w-full">
-                      <Drawer.Title className="m-0 mb-1 text-lg font-bold leading-7 tracking-[-0.0025em]">
-                        Menu
-                      </Drawer.Title>
-                      <Drawer.Description className="m-0 mb-5 text-base leading-6 text-gray-600">
+                      <Drawer.Title className="m-0 mb-1 text-base font-bold">Menu</Drawer.Title>
+                      <Drawer.Description className="m-0 mb-5 text-sm text-neutral-600 dark:text-neutral-400">
                         Scroll the long list. Flick down from the top to dismiss.
                       </Drawer.Description>
 
@@ -2171,7 +2438,7 @@ export default function ExampleDrawerMobileNav() {
                           {ITEMS.map((item) => (
                             <li key={item.label} className="flex">
                               <a
-                                className="w-full rounded-xl bg-gray-100 px-4 py-3 text-gray-900 no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-800 focus-visible:-outline-offset-1"
+                                className="flex h-12 w-full items-center border border-neutral-950 bg-white px-4 text-sm text-neutral-950 no-underline hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                                 href={item.href}
                               >
                                 {item.label}
@@ -2187,7 +2454,7 @@ export default function ExampleDrawerMobileNav() {
                           {LONG_LIST.map((item) => (
                             <li key={item.label} className="flex">
                               <a
-                                className="w-full rounded-xl bg-gray-100 px-4 py-3 text-gray-900 no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-800 focus-visible:-outline-offset-1"
+                                className="flex h-12 w-full items-center border border-neutral-950 bg-white px-4 text-sm text-neutral-950 no-underline hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                                 href={item.href}
                               >
                                 {item.label}
@@ -2201,13 +2468,31 @@ export default function ExampleDrawerMobileNav() {
                 </Drawer.Popup>
               </ScrollArea.Content>
             </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar className="pointer-events-none absolute m-[0.4rem] flex w-[0.25rem] justify-center rounded-[1rem] opacity-0 transition-opacity duration-[250ms] data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-[75ms] data-[scrolling]:delay-[0ms] hover:pointer-events-auto hover:opacity-100 hover:duration-[75ms] hover:delay-[0ms] md:w-[0.4375rem] data-[ending-style]:opacity-0 data-[ending-style]:duration-[250ms]">
-              <ScrollArea.Thumb className="w-full rounded-[inherit] bg-gray-500 before:absolute before:content-[''] before:top-1/2 before:left-1/2 before:h-[calc(100%+1rem)] before:w-[calc(100%+1rem)] before:-translate-x-1/2 before:-translate-y-1/2" />
+            <ScrollArea.Scrollbar className="pointer-events-none absolute m-px flex w-4 justify-center bg-black/12 dark:bg-white/12 opacity-0 transition-opacity duration-250 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-75 data-scrolling:delay-[0ms] hover:pointer-events-auto hover:opacity-100 hover:duration-75 hover:delay-[0ms] data-ending-style:opacity-0 data-ending-style:duration-250">
+              <ScrollArea.Thumb className="w-full bg-neutral-950 dark:bg-white" />
             </ScrollArea.Scrollbar>
           </ScrollArea.Root>
         </Drawer.Viewport>
       </Drawer.Portal>
     </Drawer.Root>
+  );
+}
+
+function XIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 2.5 11 11m-11 0 11-11" />
+    </svg>
   );
 }
 ```
@@ -2223,33 +2508,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -2259,9 +2573,8 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   min-height: 100dvh;
   transition-duration: 600ms;
-  transition-property: -webkit-backdrop-filter, backdrop-filter, opacity;
+  transition-property: opacity;
   transition-timing-function: var(--ease-out-fast);
-  backdrop-filter: blur(1.5px);
   background-image: linear-gradient(to bottom, rgb(0 0 0 / 5%) 0, rgb(0 0 0 / 10%) 50%);
   opacity: calc(var(--backdrop-opacity) * (1 - var(--drawer-swipe-progress)));
 
@@ -2275,7 +2588,6 @@ This example shows how to implement the component using CSS Modules.
 
   &[data-starting-style],
   &[data-ending-style] {
-    backdrop-filter: blur(0);
     opacity: 0;
   }
 
@@ -2319,7 +2631,7 @@ This example shows how to implement the component using CSS Modules.
   min-height: 100%;
   padding-top: 2rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: 42rem) {
     padding-top: 4rem;
     padding-bottom: 4rem;
     padding-inline: 4rem;
@@ -2341,6 +2653,7 @@ This example shows how to implement the component using CSS Modules.
   transform: translateY(var(--drawer-swipe-movement-y));
 
   &[data-swiping] {
+    -webkit-user-select: none;
     user-select: none;
   }
 
@@ -2360,47 +2673,33 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   flex-direction: column;
   padding: 1rem 1.5rem 1.5rem;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  box-shadow:
-    0 10px 64px -10px rgb(36 40 52 / 20%),
-    0 0.25px 0 1px var(--color-gray-200);
-  color: var(--color-gray-900);
+  border-top: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  color: oklch(14.5% 0 0deg);
   transition: box-shadow 350ms cubic-bezier(0.375, 0.015, 0.545, 0.455);
+
+  @media (prefers-color-scheme: dark) {
+    border-top: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   .Panel {
-    outline: 1px solid var(--color-gray-300);
-    box-shadow: 0 0 0 1px var(--color-gray-200);
+    box-shadow: none;
   }
 }
 
 .Popup[data-ending-style] .Panel {
-  box-shadow:
-    0 10px 64px -10px rgb(36 40 52 / 0%),
-    0 0.25px 0 1px rgb(0 0 0 / 0%);
-}
-
-@media (prefers-color-scheme: dark) {
-  .Popup[data-ending-style] .Panel {
-    box-shadow: 0 0 0 1px rgb(0 0 0 / 0%);
-  }
-}
-
-@media (min-width: 768px) {
-  .Panel {
-    border-radius: 0.75rem;
-  }
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 0%);
 }
 
 .Header {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  margin-bottom: 0.75rem;
+  align-items: start;
 }
 
 .HeaderSpacer {
@@ -2408,59 +2707,86 @@ This example shows how to implement the component using CSS Modules.
   height: 2.25rem;
 }
 
+@media (min-width: 42rem) {
+  .Panel {
+    border: 1px solid oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+    }
+  }
+}
+
 .Handle {
   width: 3rem;
   height: 0.25rem;
-  border-radius: 9999px;
-  background-color: var(--color-gray-300);
+  background-color: oklch(87% 0 0deg);
   justify-self: center;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(37.1% 0 0deg);
+  }
 }
 
 .CloseButton {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 9999px;
-  border: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border: 0;
+  background-color: transparent;
+  color: oklch(14.5% 0 0deg);
   justify-self: end;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &:active {
-    background-color: var(--color-gray-100);
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Title {
   margin: 0 0 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0 0 1.25rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
-}
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
 
-.ScrollArea {
-  padding-bottom: 2rem;
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .List {
@@ -2484,29 +2810,66 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Link {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
+  height: 3rem;
+  padding: 0 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   color: inherit;
   text-decoration: none;
-  background-color: var(--color-gray-100);
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Scrollbar {
   position: absolute;
   display: flex;
-  width: 0.25rem;
-  margin: 0.4rem;
+  width: 1rem;
+  margin: 1px;
   justify-content: center;
-  border-radius: 1rem;
+  background-color: rgb(0 0 0 / 12%);
   opacity: 0;
   transition: opacity 250ms;
   pointer-events: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(255 255 255 / 12%);
+  }
 
   &:hover,
   &[data-scrolling] {
@@ -2520,25 +2883,14 @@ This example shows how to implement the component using CSS Modules.
     transition-duration: 250ms;
     opacity: 0;
   }
-
-  @media (min-width: 768px) {
-    width: 0.4375rem;
-  }
 }
 
 .ScrollbarThumb {
   width: 100%;
-  border-radius: inherit;
-  background-color: var(--color-gray-500);
+  background-color: oklch(14.5% 0 0deg);
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% + 1rem);
-    height: calc(100% + 1rem);
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
   }
 }
 ```
@@ -2614,15 +2966,7 @@ export default function ExampleDrawerMobileNav() {
                       <div aria-hidden className={styles.HeaderSpacer} />
                       <div className={styles.Handle} />
                       <Drawer.Close aria-label="Close menu" className={styles.CloseButton}>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path
-                            d="M0.75 0.75L6 6M11.25 11.25L6 6M6 6L0.75 11.25M6 6L11.25 0.75"
-                            stroke="currentcolor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <XIcon />
                       </Drawer.Close>
                     </div>
 
@@ -2667,6 +3011,24 @@ export default function ExampleDrawerMobileNav() {
     </Drawer.Root>
   );
 }
+
+function XIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 2.5 11 11m-11 0 11-11" />
+    </svg>
+  );
+}
 ```
 
 ### Swipe to open
@@ -2691,30 +3053,30 @@ export default function ExampleDrawerSwipeArea() {
   return (
     <div
       ref={setPortalContainer}
-      className="relative min-h-[320px] w-full overflow-hidden border border-gray-200 bg-gray-50 text-gray-900"
+      className="relative min-h-80 w-full overflow-hidden border border-neutral-950 bg-white text-neutral-950 dark:border-white dark:bg-neutral-950 dark:text-white"
     >
       <Drawer.Root swipeDirection="right" modal={false}>
-        <Drawer.SwipeArea className="absolute inset-y-0 right-0 z-10 box-border w-10 border-l-2 border-dashed border-blue-800 bg-blue-800/10">
-          <span className="pointer-events-none absolute right-0 top-1/2 mr-2 -translate-y-1/2 -rotate-90 origin-center whitespace-nowrap text-xs font-bold tracking-[0.12em] text-blue-800 uppercase">
+        <Drawer.SwipeArea className="absolute inset-y-0 right-0 z-[1] w-10 border-l-2 border-dashed border-blue-800 bg-blue-800/10 dark:border-blue-500 dark:bg-blue-500/10">
+          <span className="pointer-events-none absolute right-0 top-1/2 z-0 mr-2 -translate-y-1/2 -rotate-90 origin-center whitespace-nowrap text-xs font-bold tracking-[0.12em] text-blue-800 uppercase dark:text-blue-500">
             Swipe here
           </span>
         </Drawer.SwipeArea>
-        <div className="flex min-h-[320px] flex-col items-center justify-center gap-3 px-4 text-center">
-          <p className="text-base text-gray-600 text-center pr-12">
+        <div className="flex min-h-80 flex-col items-center justify-center gap-3 p-4 text-center">
+          <p className="text-sm text-neutral-600 text-center dark:text-neutral-400 pr-12">
             Swipe from the right edge to open the drawer.
           </p>
         </div>
         <Drawer.Portal container={portalContainer}>
-          <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] absolute inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:duration-0 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
-          <Drawer.Viewport className="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] absolute inset-0 z-20 flex items-stretch justify-end p-[var(--viewport-padding)]">
-            <Drawer.Popup className="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] bg-gray-50 p-6 pr-[calc(1.5rem+3rem)] text-gray-900 outline outline-1 outline-gray-200 overflow-y-auto touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:select-none data-[ending-style]:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-[starting-style]:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-20px)] supports-[-webkit-touch-callout:none]:rounded-[10px] supports-[-webkit-touch-callout:none]:pr-6 dark:outline-gray-300">
+          <Drawer.Backdrop className="[--backdrop-opacity:0.2] [--bleed:3rem] dark:[--backdrop-opacity:0.7] absolute inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute" />
+          <Drawer.Viewport className="[--viewport-padding:0px] supports-[-webkit-touch-callout:none]:[--viewport-padding:0.625rem] absolute inset-0 z-20 flex items-stretch justify-end p-(--viewport-padding)">
+            <Drawer.Popup className="[--bleed:3rem] supports-[-webkit-touch-callout:none]:[--bleed:0px] h-full w-[calc(20rem+3rem)] max-w-[calc(100vw-3rem+3rem)] -mr-[3rem] border-l border-neutral-950 bg-white p-6 pr-[calc(1.5rem+3rem)] text-neutral-950 outline-none shadow-[0.25rem_0.25rem_0] shadow-black/12 overflow-y-auto touch-auto [transform:translateX(var(--drawer-swipe-movement-x))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-ending-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-starting-style:[transform:translateX(calc(100%-var(--bleed)+var(--viewport-padding)+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:mr-0 supports-[-webkit-touch-callout:none]:w-[20rem] supports-[-webkit-touch-callout:none]:max-w-[calc(100vw-3rem)] supports-[-webkit-touch-callout:none]:border supports-[-webkit-touch-callout:none]:pr-6 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
               <Drawer.Content className="mx-auto w-full max-w-[32rem]">
-                <Drawer.Title className="-mt-1.5 mb-1 text-lg font-bold">Library</Drawer.Title>
-                <Drawer.Description className="mb-6 text-base text-gray-600">
+                <Drawer.Title className="mb-1 text-base font-bold">Library</Drawer.Title>
+                <Drawer.Description className="mb-6 text-sm text-neutral-600 dark:text-neutral-400">
                   Swipe from the edge whenever you want to jump back into your playlists.
                 </Drawer.Description>
-                <div className="flex justify-end gap-4">
-                  <Drawer.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+                <div className="flex justify-end gap-3">
+                  <Drawer.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                     Close
                   </Drawer.Close>
                 </div>
@@ -2735,17 +3097,25 @@ This example shows how to implement the component using CSS Modules.
 ```css
 /* index.module.css */
 .Root {
+  box-sizing: border-box;
   position: relative;
   width: 100%;
-  min-height: 320px;
+  min-height: 20rem;
   overflow: hidden;
-  border: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 }
 
 .Center {
-  min-height: 320px;
+  box-sizing: border-box;
+  min-height: 20rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2761,24 +3131,29 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Hint {
+  box-sizing: border-box;
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
   text-align: center;
   padding-right: 3rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .SwipeArea {
+  box-sizing: border-box;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   width: 2.5rem;
   z-index: 1;
-  box-sizing: border-box;
-  border-left: 2px dashed var(--color-blue);
-  background-color: color-mix(in oklch, var(--color-blue), transparent 90%);
+  border-left: 2px dashed oklch(45% 50% 264deg);
+  background-color: color-mix(in oklch, oklch(45% 50% 264deg), transparent 90%);
 }
 
 .SwipeLabel {
@@ -2793,7 +3168,7 @@ This example shows how to implement the component using CSS Modules.
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-blue);
+  color: oklch(45% 50% 264deg);
   white-space: nowrap;
   pointer-events: none;
 }
@@ -2803,33 +3178,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -2886,21 +3290,27 @@ This example shows how to implement the component using CSS Modules.
   padding: 1.5rem;
   padding-right: calc(1.5rem + var(--bleed));
   margin-right: calc(-1 * var(--bleed));
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border-left: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  outline: 0;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   overflow-y: auto;
   touch-action: auto;
   transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
   will-change: transform;
   transform: translateX(var(--drawer-swipe-movement-x));
 
-  &[data-swiping] {
-    user-select: none;
+  @media (prefers-color-scheme: dark) {
+    border-left: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+  &[data-swiping] {
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   &[data-starting-style],
@@ -2915,7 +3325,11 @@ This example shows how to implement the component using CSS Modules.
   @supports (-webkit-touch-callout: none) {
     --bleed: 0px;
     margin-right: 0;
-    border-radius: 10px;
+    border: 1px solid oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+    }
   }
 }
 
@@ -2926,25 +3340,28 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Title {
-  margin-top: -0.375rem;
+  margin-top: 0;
   margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 ```
 
@@ -3014,21 +3431,21 @@ export default function ExampleDrawerUncontained() {
 
   return (
     <Drawer.Root open={open} onOpenChange={setOpen}>
-      <Drawer.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800">
+      <Drawer.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open action sheet
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Backdrop className="[--backdrop-opacity:0.4] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:duration-0 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute dark:[--backdrop-opacity:0.7]" />
+        <Drawer.Backdrop className="[--backdrop-opacity:0.4] fixed inset-0 min-h-dvh bg-black opacity-[calc(var(--backdrop-opacity)*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:duration-0 data-starting-style:opacity-0 data-ending-style:opacity-0 data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] supports-[-webkit-touch-callout:none]:absolute dark:[--backdrop-opacity:0.7]" />
         <Drawer.Viewport className="fixed inset-0 flex items-end justify-center">
-          <Drawer.Popup className="box-border pointer-events-none flex w-full max-w-[28rem] flex-col gap-3 px-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] outline-none focus-visible:outline-none [transform:translateY(var(--drawer-swipe-movement-y))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-[swiping]:select-none data-[starting-style]:[transform:translateY(calc(100%+1rem+2px))] data-[ending-style]:[transform:translateY(calc(100%+1rem+2px))] data-[ending-style]:duration-[calc(var(--drawer-swipe-strength)*400ms)]">
-            <Drawer.Content className="pointer-events-auto overflow-hidden rounded-2xl bg-gray-50 text-gray-900 outline outline-1 outline-gray-200 dark:outline-gray-300">
+          <Drawer.Popup className="pointer-events-none flex w-full max-w-[20rem] flex-col gap-3 px-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] outline-none focus-visible:outline-none [transform:translateY(var(--drawer-swipe-movement-y))] transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] data-swiping:select-none data-starting-style:[transform:translateY(calc(100%+1rem+2px))] data-ending-style:[transform:translateY(calc(100%+1rem+2px))] data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)]">
+            <Drawer.Content className="pointer-events-auto overflow-hidden border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
               <Drawer.Title className="sr-only">Profile actions</Drawer.Title>
               <Drawer.Description className="sr-only">
                 Choose an action for this user.
               </Drawer.Description>
 
               <ul
-                className="m-0 list-none divide-y divide-gray-200 p-0"
+                className="m-0 list-none divide-y divide-neutral-950 p-0 dark:divide-white"
                 aria-label="Profile actions"
               >
                 {ACTIONS.map((action, index) => (
@@ -3038,7 +3455,7 @@ export default function ExampleDrawerUncontained() {
                     )}
                     <button
                       type="button"
-                      className="block w-full border-0 bg-transparent px-5 py-4 text-center text-base text-gray-900 select-none hover:bg-gray-100 focus-visible:bg-gray-100 focus-visible:outline-none"
+                      className="h-10 w-full border-0 bg-transparent px-5 text-center text-sm text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 focus-visible:bg-neutral-100 focus-visible:outline-none dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 dark:focus-visible:bg-neutral-800"
                       onClick={() => setOpen(false)}
                     >
                       {action}
@@ -3047,10 +3464,10 @@ export default function ExampleDrawerUncontained() {
                 ))}
               </ul>
             </Drawer.Content>
-            <div className="pointer-events-auto overflow-hidden rounded-2xl bg-gray-50 outline outline-1 outline-gray-200 dark:outline-gray-300">
+            <div className="pointer-events-auto overflow-hidden border border-neutral-950 bg-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:shadow-none">
               <button
                 type="button"
-                className="block w-full border-0 bg-transparent px-5 py-4 text-center text-base text-red-700 select-none hover:bg-gray-100 focus-visible:bg-gray-100 focus-visible:outline-none"
+                className="h-10 w-full border-0 bg-transparent px-5 text-center text-sm text-red-700 select-none dark:text-red-400 hover:bg-neutral-100 active:bg-neutral-200 focus-visible:bg-neutral-100 focus-visible:outline-none dark:hover:bg-neutral-800 dark:active:bg-neutral-700 dark:focus-visible:bg-neutral-800"
                 onClick={() => setOpen(false)}
               >
                 Block User
@@ -3075,29 +3492,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
     }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -3146,7 +3596,7 @@ This example shows how to implement the component using CSS Modules.
 .Popup {
   box-sizing: border-box;
   width: 100%;
-  max-width: 28rem;
+  max-width: 20rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -3158,6 +3608,7 @@ This example shows how to implement the component using CSS Modules.
   will-change: transform;
 
   &[data-swiping] {
+    -webkit-user-select: none;
     user-select: none;
   }
 
@@ -3173,14 +3624,17 @@ This example shows how to implement the component using CSS Modules.
 
 .Surface {
   pointer-events: auto;
-  border-radius: 1rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   overflow: hidden;
 
   @media (prefers-color-scheme: dark) {
-    outline-color: var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 }
 
@@ -3191,70 +3645,112 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Action:not(:first-child) {
-  border-top: 1px solid var(--color-gray-200);
+  border-top: 1px solid oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    border-top: 1px solid white;
+  }
 }
 
 .ActionButton {
   box-sizing: border-box;
   width: 100%;
+  height: 2.5rem;
   margin: 0;
-  padding: 1rem 1.25rem;
+  padding: 0 1.25rem;
   border: 0;
   background-color: transparent;
   font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   text-align: center;
   color: inherit;
+  -webkit-user-select: none;
   user-select: none;
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
     }
   }
 
   &:focus-visible {
     outline: 0;
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
   }
 }
 
 .DangerSurface {
   pointer-events: auto;
-  border-radius: 1rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   overflow: hidden;
 
   @media (prefers-color-scheme: dark) {
-    outline-color: var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    box-shadow: none;
   }
 }
 
 .DangerButton {
   box-sizing: border-box;
   width: 100%;
+  height: 2.5rem;
   margin: 0;
-  padding: 1rem 1.25rem;
+  padding: 0 1.25rem;
   border: 0;
   background-color: transparent;
   font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   text-align: center;
-  color: var(--color-red);
+  color: oklch(50% 55% 31deg);
+  -webkit-user-select: none;
   user-select: none;
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
     }
   }
 
   &:focus-visible {
     outline: 0;
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
   }
 }
 
@@ -3977,7 +4473,7 @@ function open(triggerId: string | null): void;
 ```
 
 Opens the dialog and associates it with the trigger with the given id.
-The trigger, if provided, must be a Dialog.Trigger component with this handle passed as a prop.
+The trigger, if provided, must be a matching Trigger component with this handle passed as a prop.
 
 This method should only be called in an event handler or an effect (not during rendering).
 

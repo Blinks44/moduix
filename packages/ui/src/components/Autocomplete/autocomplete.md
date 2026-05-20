@@ -26,25 +26,27 @@ import { Autocomplete } from '@base-ui/react/autocomplete';
 export default function ExampleAutocomplete() {
   return (
     <Autocomplete.Root items={tags}>
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm font-bold text-neutral-950 dark:text-white">
         Search tags
         <Autocomplete.Input
           placeholder="e.g. feature"
-          className="bg-[canvas] h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+          className="h-8 w-[16rem] border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:opacity-100 placeholder:text-neutral-500 placeholder:[-webkit-text-fill-color:var(--color-neutral-500)] dark:placeholder:text-neutral-400 dark:placeholder:[-webkit-text-fill-color:var(--color-neutral-400)] focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
         />
       </label>
 
       <Autocomplete.Portal>
         <Autocomplete.Positioner className="outline-hidden" sideOffset={4}>
-          <Autocomplete.Popup className="w-[var(--anchor-width)] max-h-[23rem] max-w-[var(--available-width)] rounded-md bg-[canvas] text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
+          <Autocomplete.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Autocomplete.Empty>
-              <div className="p-4 text-[0.925rem] leading-4 text-gray-600">No tags found.</div>
+              <div className="py-4 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
+                No tags found.
+              </div>
             </Autocomplete.Empty>
-            <Autocomplete.List className="outline-0 overflow-y-auto scroll-py-[0.5rem] py-2 overscroll-contain max-h-[min(23rem,var(--available-height))] data-[empty]:p-0">
+            <Autocomplete.List className="outline-0 overflow-y-auto scroll-py-[0.25rem] py-1 overscroll-contain max-h-[min(22.5rem,var(--available-height))] data-empty:p-0">
               {(tag: Tag) => (
                 <Autocomplete.Item
                   key={tag.id}
-                  className="flex cursor-default items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+                  className="flex cursor-default items-center gap-2 py-2 pr-2 pl-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
                   value={tag}
                 >
                   {tag.value}
@@ -116,26 +118,46 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -146,7 +168,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -155,23 +181,18 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: 23rem;
   max-width: var(--available-width);
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
 }
 
@@ -179,10 +200,10 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding-block: 0.5rem;
-  scroll-padding-block: 0.5rem;
+  padding-block: 0.25rem;
+  scroll-padding-block: 0.25rem;
   outline: 0;
-  max-height: min(23rem, var(--available-height));
+  max-height: min(22.5rem, var(--available-height));
 
   &[data-empty] {
     padding: 0;
@@ -193,18 +214,23 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -212,24 +238,35 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
 .Separator {
   margin: 0.375rem 1rem;
   height: 1px;
-  background-color: var(--color-gray-200);
+  background-color: oklch(97% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Empty {
   box-sizing: border-box;
-  padding: 1rem;
-  font-size: 0.925rem;
+  padding: 1rem 1rem 1rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -405,8 +442,8 @@ export default function ExampleAsyncAutocomplete() {
     if (isPending) {
       return (
         <React.Fragment>
-          <div
-            className="size-4 rounded-full border-2 border-gray-200 border-t-gray-600 animate-spin"
+          <span
+            className="inline-block size-3 animate-spin rounded-full border border-current border-r-transparent rtl:border-r-current rtl:border-l-transparent"
             aria-hidden
           />
           Searching…
@@ -465,41 +502,45 @@ export default function ExampleAsyncAutocomplete() {
       itemToStringValue={(item) => item.title}
       filter={null}
     >
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm font-bold text-neutral-950 dark:text-white">
         Search movies by name or year
         <Autocomplete.Input
           placeholder="e.g. Pulp Fiction or 1994"
-          className="bg-[canvas] h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+          className="h-8 w-[16rem] border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
         />
       </label>
 
       <Autocomplete.Portal hidden={!status}>
         <Autocomplete.Positioner className="outline-hidden" sideOffset={4} align="start">
           <Autocomplete.Popup
-            className="w-[var(--anchor-width)] max-h-[min(var(--available-height),23rem)] max-w-[var(--available-width)] overflow-y-auto scroll-pt-2 scroll-pb-2 overscroll-contain rounded-md bg-[canvas] py-2 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300"
+            className="w-[var(--anchor-width)] max-w-[var(--available-width)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
             aria-busy={isPending || undefined}
           >
-            <Autocomplete.Status>
-              {status && (
-                <div className="flex items-center gap-2 py-1 pl-4 pr-8 text-sm text-gray-600">
-                  {status}
-                </div>
-              )}
-            </Autocomplete.Status>
-            <Autocomplete.List>
-              {(movie: Movie) => (
-                <Autocomplete.Item
-                  key={movie.id}
-                  className="flex cursor-default py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
-                  value={movie}
-                >
-                  <span className="flex w-full flex-col gap-1">
-                    <span className="font-bold leading-5">{movie.title}</span>
-                    <span className="text-sm leading-4 opacity-80">{movie.year}</span>
-                  </span>
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
+            <div className="max-h-[min(var(--available-height),22.5rem)] overflow-y-auto overscroll-contain py-1 scroll-pt-1 scroll-pb-1">
+              <Autocomplete.Status>
+                {status && (
+                  <div className="flex items-center gap-2 py-1 pr-8 pl-2 text-sm text-neutral-500 dark:text-neutral-400">
+                    {status}
+                  </div>
+                )}
+              </Autocomplete.Status>
+              <Autocomplete.List>
+                {(movie: Movie) => (
+                  <Autocomplete.Item
+                    key={movie.id}
+                    className="group flex cursor-default py-2 pr-2 pl-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
+                    value={movie}
+                  >
+                    <span className="flex w-full flex-col gap-1">
+                      <span className="font-bold leading-5">{movie.title}</span>
+                      <span className="text-sm leading-4 text-neutral-500 dark:text-neutral-400 group-data-highlighted:text-neutral-300 dark:group-data-highlighted:text-neutral-500">
+                        {movie.year}
+                      </span>
+                    </span>
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </div>
           </Autocomplete.Popup>
         </Autocomplete.Positioner>
       </Autocomplete.Portal>
@@ -652,26 +693,46 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -682,7 +743,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -691,46 +756,51 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  padding-block: 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: min(var(--available-height), 23rem);
   max-width: var(--available-width);
-  overflow-y: auto;
-  scroll-padding-block: 0.5rem;
-  overscroll-behavior: contain;
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
+}
+
+.Viewport {
+  box-sizing: border-box;
+  max-height: min(var(--available-height), 22.5rem);
+  padding-block: 0.25rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 0.25rem;
 }
 
 .Item {
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -738,9 +808,12 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
@@ -759,7 +832,19 @@ This example shows how to implement the component using CSS Modules.
 .MovieYear {
   font-size: 0.875rem;
   line-height: 1rem;
-  opacity: 0.8;
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
+
+  .Item[data-highlighted] & {
+    color: oklch(87% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(55.6% 0 0deg);
+    }
+  }
 }
 
 .Status {
@@ -767,27 +852,27 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   gap: 0.5rem;
   padding-block: 0.25rem;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   padding-right: 2rem;
   font-size: 0.875rem;
-  text-align: center;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Spinner {
   box-sizing: border-box;
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid var(--color-gray-200);
-  border-top: 2px solid var(--color-gray-600);
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  border: 1px solid currentColor;
+  border-right-color: transparent;
+  animation: autocompleteSpinner 0.75s linear infinite;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
+@keyframes autocompleteSpinner {
   100% {
     transform: rotate(360deg);
   }
@@ -816,7 +901,7 @@ export default function ExampleAsyncAutocomplete() {
     if (isPending) {
       return (
         <React.Fragment>
-          <div className={styles.Spinner} aria-hidden />
+          <span className={styles.Spinner} aria-hidden />
           Searching…
         </React.Fragment>
       );
@@ -881,19 +966,21 @@ export default function ExampleAsyncAutocomplete() {
       <Autocomplete.Portal hidden={!status}>
         <Autocomplete.Positioner className={styles.Positioner} sideOffset={4} align="start">
           <Autocomplete.Popup className={styles.Popup} aria-busy={isPending || undefined}>
-            <Autocomplete.Status>
-              {status && <div className={styles.Status}>{status}</div>}
-            </Autocomplete.Status>
-            <Autocomplete.List>
-              {(movie: Movie) => (
-                <Autocomplete.Item key={movie.id} className={styles.Item} value={movie}>
-                  <span className={styles.MovieItem}>
-                    <span className={styles.MovieName}>{movie.title}</span>
-                    <span className={styles.MovieYear}>{movie.year}</span>
-                  </span>
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
+            <div className={styles.Viewport}>
+              <Autocomplete.Status>
+                {status && <div className={styles.Status}>{status}</div>}
+              </Autocomplete.Status>
+              <Autocomplete.List>
+                {(movie: Movie) => (
+                  <Autocomplete.Item key={movie.id} className={styles.Item} value={movie}>
+                    <span className={styles.MovieItem}>
+                      <span className={styles.MovieName}>{movie.title}</span>
+                      <span className={styles.MovieYear}>{movie.year}</span>
+                    </span>
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </div>
           </Autocomplete.Popup>
         </Autocomplete.Positioner>
       </Autocomplete.Portal>
@@ -1056,22 +1143,22 @@ import { Autocomplete } from '@base-ui/react/autocomplete';
 export default function ExampleAutocompleteInline() {
   return (
     <Autocomplete.Root items={tags} mode="both">
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm font-bold text-neutral-950 dark:text-white">
         Search tags
         <Autocomplete.Input
           placeholder="e.g. feature"
-          className="bg-[canvas] h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+          className="h-8 w-[16rem] border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
         />
       </label>
 
       <Autocomplete.Portal>
-        <Autocomplete.Positioner className="outline-hidden data-[empty]:hidden" sideOffset={4}>
-          <Autocomplete.Popup className="w-[var(--anchor-width)] max-h-[23rem] max-w-[var(--available-width)] rounded-md bg-[canvas] text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
-            <Autocomplete.List className="outline-0 overflow-y-auto scroll-py-[0.5rem] py-2 overscroll-contain max-h-[min(23rem,var(--available-height))] data-[empty]:p-0">
+        <Autocomplete.Positioner className="outline-hidden data-empty:hidden" sideOffset={4}>
+          <Autocomplete.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+            <Autocomplete.List className="outline-0 overflow-y-auto scroll-py-[0.25rem] py-1 overscroll-contain max-h-[min(22.5rem,var(--available-height))] data-empty:p-0">
               {(tag: Tag) => (
                 <Autocomplete.Item
                   key={tag.id}
-                  className="flex cursor-default items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+                  className="flex cursor-default items-center gap-2 py-2 pr-2 pl-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
                   value={tag}
                 >
                   {tag.value}
@@ -1149,26 +1236,46 @@ This example shows how to implement the component using CSS Modules.
 
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1179,7 +1286,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -1192,23 +1303,18 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: 23rem;
   max-width: var(--available-width);
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
 }
 
@@ -1216,10 +1322,10 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding-block: 0.5rem;
-  scroll-padding-block: 0.5rem;
+  padding-block: 0.25rem;
+  scroll-padding-block: 0.25rem;
   outline: 0;
-  max-height: min(23rem, var(--available-height));
+  max-height: min(22.5rem, var(--available-height));
 
   &[data-empty] {
     padding: 0;
@@ -1230,19 +1336,24 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -1250,9 +1361,12 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 ```
@@ -1379,33 +1493,37 @@ import { Autocomplete } from '@base-ui/react/autocomplete';
 export default function ExampleGroupAutocomplete() {
   return (
     <Autocomplete.Root items={groupedTags}>
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm font-bold text-neutral-950 dark:text-white">
         Select a tag
         <Autocomplete.Input
           placeholder="e.g. feature"
-          className="bg-[canvas] h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+          className="h-8 w-[16rem] border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
         />
       </label>
 
       <Autocomplete.Portal>
         <Autocomplete.Positioner className="outline-hidden" sideOffset={4}>
-          <Autocomplete.Popup className="w-[var(--anchor-width)] max-h-[22.5rem] max-w-[var(--available-width)] rounded-lg bg-[canvas] text-gray-900 outline-1 outline-gray-200 shadow-lg shadow-gray-200 dark:outline-gray-300 dark:shadow-none">
+          <Autocomplete.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Autocomplete.Empty>
-              <div className="px-4 py-2 text-[0.925rem] leading-4 text-gray-600">
+              <div className="py-4 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
                 No tags found.
               </div>
             </Autocomplete.Empty>
-            <Autocomplete.List className="outline-0 overflow-y-auto scroll-pt-[2.25rem] scroll-pb-[0.5rem] overscroll-contain max-h-[min(22.5rem,var(--available-height))] data-[empty]:p-0">
+            <Autocomplete.List className="outline-0 overflow-y-auto py-1 scroll-py-1 overscroll-contain max-h-[min(22.5rem,var(--available-height))] data-empty:p-0">
               {(group: TagGroup) => (
-                <Autocomplete.Group key={group.value} items={group.items} className="block pb-2">
-                  <Autocomplete.GroupLabel className="sticky top-0 z-[1] mb-0 mr-2 mt-0 ml-0 w-[calc(100%-0.5rem)] bg-[canvas] px-4 pb-1 pt-2 text-xs font-bold uppercase tracking-wider">
+                <Autocomplete.Group
+                  key={group.value}
+                  items={group.items}
+                  className="block pb-2 last:pb-0"
+                >
+                  <Autocomplete.GroupLabel className="p-2 text-sm leading-4 text-neutral-500 select-none dark:text-neutral-400">
                     {group.value}
                   </Autocomplete.GroupLabel>
                   <Autocomplete.Collection>
                     {(tag: Tag) => (
                       <Autocomplete.Item
                         key={tag.id}
-                        className="flex cursor-default items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+                        className="flex cursor-default items-center gap-2 py-2 pr-2 pl-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
                         value={tag}
                       >
                         {tag.label}
@@ -1497,26 +1615,46 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1527,7 +1665,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -1536,30 +1678,27 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: 22.5rem;
   max-width: var(--available-width);
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
 }
 
 .List {
   box-sizing: border-box;
   overflow-y: auto;
-  scroll-padding-top: 2.25rem;
-  scroll-padding-bottom: 0.5rem;
+  padding-block: 0.25rem;
+  scroll-padding-top: 0.25rem;
+  scroll-padding-bottom: 0.25rem;
   overscroll-behavior: contain;
   max-height: min(22.5rem, var(--available-height));
   outline: 0;
@@ -1572,37 +1711,45 @@ This example shows how to implement the component using CSS Modules.
 .Group {
   display: block;
   padding-bottom: 0.5rem;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
 }
 
 .GroupLabel {
   box-sizing: border-box;
-  padding: 0.5rem 1rem 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-  background-color: canvas;
-  position: sticky;
-  z-index: 1;
-  top: 0;
-  margin: 0 0.5rem 0 0;
-  width: calc(100% - 0.5rem);
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Item {
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
-  padding: 0.5rem 2rem 0.5rem 1rem;
+  padding: 0.5rem;
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -1610,24 +1757,35 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
 .Separator {
   margin: 0.375rem 1rem;
   height: 1px;
-  background-color: var(--color-gray-200);
+  background-color: oklch(97% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Empty {
   box-sizing: border-box;
-  padding: 1rem;
-  font-size: 0.925rem;
+  padding: 1rem 1rem 1rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -1765,29 +1923,29 @@ export default function ExampleFuzzyMatchingAutocomplete() {
       filter={fuzzyFilter}
       itemToStringValue={(item) => item.title}
     >
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm font-bold text-neutral-950 dark:text-white">
         Fuzzy search documentation
         <Autocomplete.Input
           placeholder="e.g. React"
-          className="bg-[canvas] h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+          className="h-8 w-[16rem] border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
         />
       </label>
 
       <Autocomplete.Portal>
         <Autocomplete.Positioner className="outline-hidden" sideOffset={4}>
-          <Autocomplete.Popup className="w-[var(--anchor-width)] max-h-[min(var(--available-height),28rem)] max-w-[var(--available-width)] overflow-y-auto scroll-pt-2 scroll-pb-2 overscroll-contain rounded-md bg-[canvas] py-2 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
+          <Autocomplete.Popup className="w-(--anchor-width) max-w-(--available-width) border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Autocomplete.Empty>
-              <div className="px-4 py-2 text-[0.925rem] leading-4 text-gray-600">
+              <div className="py-3 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
                 No results found for "{<Autocomplete.Value />}"
               </div>
             </Autocomplete.Empty>
 
-            <Autocomplete.List className="flex flex-col">
+            <Autocomplete.List className="flex max-h-[min(var(--available-height),28rem)] flex-col overflow-y-auto overscroll-contain py-1 scroll-pt-1 scroll-pb-1 empty:p-0">
               {(item: FuzzyItem) => (
                 <Autocomplete.Item
                   key={item.title}
                   value={item}
-                  className="flex cursor-default py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-200"
+                  className="flex cursor-default py-3 pr-2 pl-2 text-sm leading-6 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-100 dark:data-highlighted:before:bg-neutral-800"
                 >
                   <Autocomplete.Value>
                     {(value) => (
@@ -1797,7 +1955,7 @@ export default function ExampleFuzzyMatchingAutocomplete() {
                             {highlightText(item.title, value)}
                           </span>
                         </span>
-                        <span className="text-sm leading-5 text-gray-600">
+                        <span className="text-sm text-neutral-500 dark:text-neutral-400">
                           {highlightText(item.description, value)}
                         </span>
                       </span>
@@ -1825,7 +1983,7 @@ function highlightText(text: string, query: string): React.ReactNode {
 
   return text.split(regex).map((part, idx) =>
     regex.test(part) ? (
-      <mark key={idx} className="text-blue-800 bg-transparent font-bold">
+      <mark key={idx} className="bg-transparent font-bold text-blue-800 dark:text-blue-500">
         {part}
       </mark>
     ) : (
@@ -1926,7 +2084,7 @@ const fuzzyItems: FuzzyItem[] = [
   },
   {
     title: 'Webpack Configuration',
-    description: 'Optimizing Webpack configuration for production builds',
+    description: 'Optimizing webpack configuration for production builds',
     category: 'Build Tools',
   },
   {
@@ -1950,31 +2108,55 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1984,27 +2166,18 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  padding-block: 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: min(var(--available-height), 28rem);
   max-width: var(--available-width);
-  overflow-y: auto;
-  scroll-padding-block: 0.5rem;
-  overscroll-behavior: contain;
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
 }
 
@@ -2012,16 +2185,26 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  padding-block: 0.25rem;
+  max-height: min(var(--available-height), 28rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 0.25rem;
+
+  &:empty {
+    padding: 0;
+  }
 }
 
 .Item {
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0.5rem;
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.5rem;
 
   &[data-highlighted] {
@@ -2034,9 +2217,12 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-200);
+    inset-inline: 0;
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
   }
 }
 
@@ -2062,26 +2248,34 @@ This example shows how to implement the component using CSS Modules.
 
 .ItemDescription {
   font-size: 0.875rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
   line-height: 1.25rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Empty {
   box-sizing: border-box;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 0.5rem 1rem;
+  color: oklch(55.6% 0 0deg);
+  padding: 0.75rem 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Item mark {
   background-color: transparent;
-  color: var(--color-blue);
+  color: oklch(42.4% 0.199 265.638deg);
   font-weight: 700;
-}
 
-.ItemCategory mark {
-  color: var(--color-blue);
+  @media (prefers-color-scheme: dark) {
+    color: oklch(62.3% 0.214 259.815deg);
+  }
 }
 ```
 
@@ -2246,7 +2440,7 @@ const fuzzyItems: FuzzyItem[] = [
   },
   {
     title: 'Webpack Configuration',
-    description: 'Optimizing Webpack configuration for production builds',
+    description: 'Optimizing webpack configuration for production builds',
     category: 'Build Tools',
   },
   {
@@ -2292,19 +2486,19 @@ export default function ExampleAutocompleteLimit() {
 
   return (
     <Autocomplete.Root items={tags} value={value} onValueChange={setValue} limit={limit}>
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm font-bold text-neutral-950 dark:text-white">
         Limit results to 8
         <Autocomplete.Input
           placeholder="e.g. component"
-          className="bg-[canvas] h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+          className="h-8 w-[16rem] border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
         />
       </label>
 
       <Autocomplete.Portal>
         <Autocomplete.Positioner className="outline-hidden" sideOffset={4}>
-          <Autocomplete.Popup className="w-[var(--anchor-width)] max-h-[min(var(--available-height),23rem)] max-w-[var(--available-width)] overflow-y-auto scroll-pt-2 scroll-pb-2 overscroll-contain rounded-md bg-[canvas] py-2 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
+          <Autocomplete.Popup className="w-[var(--anchor-width)] max-h-[min(var(--available-height),22.5rem)] max-w-[var(--available-width)] overflow-y-auto scroll-pt-1 scroll-pb-1 overscroll-contain border border-neutral-950 bg-white py-1 text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Autocomplete.Empty>
-              <div className="px-4 py-2 text-[0.925rem] leading-4 text-gray-600">
+              <div className="py-2 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
                 No results found for "{value}"
               </div>
             </Autocomplete.Empty>
@@ -2313,7 +2507,7 @@ export default function ExampleAutocompleteLimit() {
               {(tag: Tag) => (
                 <Autocomplete.Item
                   key={tag.id}
-                  className="flex cursor-default py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+                  className="flex cursor-default py-2 pr-2 pl-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
                   value={tag}
                 >
                   {tag.value}
@@ -2323,7 +2517,7 @@ export default function ExampleAutocompleteLimit() {
 
             <Autocomplete.Status>
               {moreCount > 0 ? (
-                <div className="mt-1 px-4 py-2 text-sm leading-5 text-gray-600">
+                <div className="py-2 pr-4 pl-2 text-sm text-neutral-500 dark:text-neutral-400">
                   {`Hiding ${moreCount} results (type a more specific query to narrow results)`}
                 </div>
               ) : null}
@@ -2403,26 +2597,46 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -2433,7 +2647,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -2442,27 +2660,24 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  padding-block: 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  padding-block: 0.25rem;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: min(var(--available-height), 23rem);
+  max-height: min(var(--available-height), 22.5rem);
   max-width: var(--available-width);
   overflow-y: auto;
-  scroll-padding-block: 0.5rem;
+  scroll-padding-block: 0.25rem;
   overscroll-behavior: contain;
 
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
 }
 
@@ -2470,18 +2685,23 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -2489,27 +2709,37 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
 .Empty {
   box-sizing: border-box;
-  padding: 0.5rem 1rem;
-  font-size: 0.925rem;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Status {
   box-sizing: border-box;
-  margin-top: 0.25rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -2653,25 +2883,27 @@ import { Autocomplete } from '@base-ui/react/autocomplete';
 export default function ExampleAutocompleteAutoHighlight() {
   return (
     <Autocomplete.Root items={tags} autoHighlight>
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm font-bold text-neutral-950 dark:text-white">
         Auto highlight on type
         <Autocomplete.Input
           placeholder="e.g. feature"
-          className="bg-[canvas] h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+          className="h-8 w-[16rem] border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
         />
       </label>
 
       <Autocomplete.Portal>
         <Autocomplete.Positioner className="outline-hidden" sideOffset={4}>
-          <Autocomplete.Popup className="w-[var(--anchor-width)] max-h-[23rem] max-w-[var(--available-width)] rounded-md bg-[canvas] text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
+          <Autocomplete.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Autocomplete.Empty>
-              <div className="p-4 text-[0.925rem] leading-4 text-gray-600">No tags found.</div>
+              <div className="py-4 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
+                No tags found.
+              </div>
             </Autocomplete.Empty>
-            <Autocomplete.List className="outline-0 overflow-y-auto scroll-py-[0.5rem] py-2 overscroll-contain max-h-[min(23rem,var(--available-height))] data-[empty]:p-0">
+            <Autocomplete.List className="outline-0 overflow-y-auto scroll-py-[0.25rem] py-1 overscroll-contain max-h-[min(22.5rem,var(--available-height))] data-empty:p-0">
               {(tag: Tag) => (
                 <Autocomplete.Item
                   key={tag.id}
-                  className="flex cursor-default items-center gap-2 py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+                  className="flex cursor-default items-center gap-2 py-2 pr-2 pl-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
                   value={tag}
                 >
                   {tag.value}
@@ -2743,26 +2975,46 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -2773,7 +3025,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -2782,23 +3038,18 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: 23rem;
   max-width: var(--available-width);
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
 }
 
@@ -2806,10 +3057,10 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding-block: 0.5rem;
-  scroll-padding-block: 0.5rem;
+  padding-block: 0.25rem;
+  scroll-padding-block: 0.25rem;
   outline: 0;
-  max-height: min(23rem, var(--available-height));
+  max-height: min(22.5rem, var(--available-height));
 
   &[data-empty] {
     padding: 0;
@@ -2820,18 +3071,23 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -2839,18 +3095,25 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
 .Empty {
   box-sizing: border-box;
-  padding: 1rem;
-  font-size: 0.925rem;
+  padding: 1rem 1rem 1rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -2965,14 +3228,14 @@ export default function ExampleAutocompleteCommandPalette() {
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger className="flex h-10 cursor-default items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Dialog.Trigger className="flex h-8 cursor-default items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700">
         Open command palette
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-opacity duration-150 ease-[cubic-bezier(0.45,1.005,0,1.005)] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
+        <Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-opacity duration-150 ease-[cubic-bezier(0.45,1.005,0,1.005)] data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
         <Dialog.Viewport className="fixed inset-0 flex items-start justify-center overflow-hidden px-2 pt-18 pb-2">
           <Dialog.Popup
-            className="relative flex max-h-[min(36rem,calc(100dvh-5rem))] w-[calc(100vw-1rem)] max-w-[28rem] flex-col overflow-hidden rounded-2xl bg-white text-gray-900 outline-1 outline-black/4 shadow-[0_.5px_1px_hsl(0_0%_0%/12%),0_1px_3px_-1px_hsl(0_0%_0%/4%),0_2px_4px_-1px_hsl(0_0%_0%/4%),0_4px_8px_-2px_hsl(0_0%_0%/4%),0_12px_14px_-4px_hsl(0_0%_0%/4%),0_24px_64px_-8px_hsl(0_0%_0%/4%),0_40px_48px_-32px_hsl(0_0%_0%/4%)] transition-[opacity,transform,scale,translate] duration-150 data-ending-style:-translate-y-4 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:-translate-y-4 data-starting-style:scale-95 data-starting-style:opacity-0 dark:bg-[oklch(20%_0.5%_264deg)] dark:outline-white/25"
+            className="relative flex max-h-[min(36rem,calc(100dvh-5rem))] w-[calc(100vw-1rem)] max-w-md flex-col border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[translate,scale,opacity] duration-150 data-ending-style:-translate-y-4 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:-translate-y-4 data-starting-style:scale-95 data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none"
             aria-label="Command palette"
           >
             <Autocomplete.Root
@@ -2983,28 +3246,28 @@ export default function ExampleAutocompleteCommandPalette() {
               keepHighlight
             >
               <Autocomplete.Input
-                className="w-full border-0 border-b border-gray-100 bg-transparent p-4 text-base font-normal tracking-[0.016em] text-gray-900 placeholder:text-gray-500 outline-none"
+                className="relative z-1 h-10 w-full border-0 bg-white px-3 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-2 focus:outline-solid focus:outline-neutral-950 dark:focus:outline-white dark:bg-neutral-950 dark:text-white dark:placeholder:text-neutral-400"
                 placeholder="Search for apps and commands…"
               />
               <Dialog.Close className="sr-only">Close command palette</Dialog.Close>
 
-              <ScrollArea.Root className="relative flex max-h-[min(60dvh,24rem)] min-h-0 flex-[0_1_auto] overflow-hidden">
-                <ScrollArea.Viewport className="min-h-0 flex-1 overscroll-contain [scroll-padding-block:0.25rem] focus-visible:outline focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-blue-800">
+              <ScrollArea.Root className="relative flex max-h-[min(60dvh,24rem)] min-h-0 flex-[0_1_auto] overflow-hidden border-t border-neutral-950 dark:border-t-white">
+                <ScrollArea.Viewport className="min-h-0 flex-1 overscroll-contain [scroll-padding-block:0.25rem] focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                   <ScrollArea.Content style={{ minWidth: '100%' }}>
                     <Autocomplete.Empty>
-                      <div className="flex min-h-32 items-center justify-center p-4 text-[0.925rem] leading-4 text-gray-600">
+                      <div className="flex min-h-32 items-center justify-start py-4 pr-4 pl-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
                         No results found.
                       </div>
                     </Autocomplete.Empty>
 
-                    <Autocomplete.List className="p-2">
+                    <Autocomplete.List className="py-1">
                       {(group: Group) => (
                         <Autocomplete.Group
                           key={group.value}
                           items={group.items}
                           className="not-last:mb-1"
                         >
-                          <Autocomplete.GroupLabel className="m-0 flex h-8 items-center px-3.5 text-[0.9375rem] tracking-[0.00625em] font-normal leading-none text-gray-600 select-none outline-none">
+                          <Autocomplete.GroupLabel className="flex min-h-8 items-center pr-6 pl-3 text-sm leading-none font-normal text-neutral-500 select-none outline-none dark:text-neutral-400">
                             {group.value}
                           </Autocomplete.GroupLabel>
                           <Autocomplete.Collection>
@@ -3013,10 +3276,10 @@ export default function ExampleAutocompleteCommandPalette() {
                                 key={item.value}
                                 value={item}
                                 onClick={handleItemClick}
-                                className="grid min-h-8 cursor-default grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-md pl-9 pr-3 text-[0.9375rem] tracking-[0.016em] font-normal leading-[1.25] select-none outline-none [scroll-margin-block:0.25rem] data-[highlighted]:bg-gray-100"
+                                className="group grid min-h-8 cursor-default grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-6 text-sm font-normal leading-[1.25] outline-none select-none [scroll-margin-block:0.25rem] data-highlighted:bg-neutral-200 dark:data-highlighted:bg-neutral-700"
                               >
-                                <span className="truncate font-normal">{item.label}</span>
-                                <span className="shrink-0 whitespace-nowrap text-[0.875rem] tracking-[0.00625em] text-gray-500 data-[highlighted]:text-gray-700">
+                                <span className="min-w-0 truncate font-normal">{item.label}</span>
+                                <span className="shrink-0 whitespace-nowrap text-sm text-neutral-500 group-data-highlighted:text-neutral-700 dark:text-neutral-400 dark:group-data-highlighted:text-neutral-300">
                                   {group.value === 'Suggestions' ? 'Application' : 'Command'}
                                 </span>
                               </Autocomplete.Item>
@@ -3027,24 +3290,24 @@ export default function ExampleAutocompleteCommandPalette() {
                     </Autocomplete.List>
                   </ScrollArea.Content>
                 </ScrollArea.Viewport>
-                <ScrollArea.Scrollbar className="-mr-1 flex w-6 justify-center py-2">
-                  <ScrollArea.Thumb className="flex w-full justify-center before:block before:h-full before:w-1 before:rounded-sm before:bg-gray-400 before:content-['']" />
+                <ScrollArea.Scrollbar className="flex w-4 justify-center bg-black/12 dark:bg-white/12">
+                  <ScrollArea.Thumb className="w-full bg-neutral-950 dark:bg-white" />
                 </ScrollArea.Scrollbar>
               </ScrollArea.Root>
 
-              <div className="flex items-center justify-between border-t border-gray-200 bg-gray-50 px-3 py-2.5 text-xs text-gray-600">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between border-t border-neutral-950 bg-white px-3 py-2.5 text-xs text-neutral-600 dark:border-white dark:bg-neutral-950 dark:text-neutral-400">
+                <div className="flex items-center gap-1">
                   <span>Activate</span>
-                  <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded border border-gray-300 bg-gray-100 px-1 text-[0.625rem] font-normal text-gray-700">
+                  <kbd className="inline-flex h-5 min-w-5 items-center justify-center border border-neutral-400 bg-neutral-100 px-1 font-mono text-[0.625rem] leading-none font-normal text-neutral-600 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-400">
                     Enter
                   </kbd>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <span>Actions</span>
-                  <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded border border-gray-300 bg-gray-100 px-1 text-[0.625rem] font-normal text-gray-700">
+                  <kbd className="inline-flex h-5 min-w-5 items-center justify-center border border-neutral-400 bg-neutral-100 px-1 font-mono text-[0.625rem] leading-none font-normal text-neutral-600 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-400">
                     Cmd
                   </kbd>
-                  <kbd className="inline-flex h-5 min-w-5 items-center justify-center rounded border border-gray-300 bg-gray-100 px-1 text-[0.625rem] font-normal text-gray-700">
+                  <kbd className="inline-flex h-5 min-w-5 items-center justify-center border border-neutral-400 bg-neutral-100 px-1 font-mono text-[0.625rem] leading-none font-normal text-neutral-600 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-400">
                     K
                   </kbd>
                 </div>
@@ -3115,34 +3378,54 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
   outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
   cursor: default;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &:active {
-    background-color: var(--color-gray-100);
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -3161,6 +3444,10 @@ This example shows how to implement the component using CSS Modules.
   &[data-ending-style] {
     opacity: 0;
   }
+
+  @supports (-webkit-touch-callout: none) {
+    position: absolute;
+  }
 }
 
 .Viewport {
@@ -3178,63 +3465,73 @@ This example shows how to implement the component using CSS Modules.
   position: relative;
   width: calc(100vw - 1rem);
   max-width: 28rem;
-  border-radius: 1rem;
   background-color: white;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   transition:
     transform 150ms,
     opacity 150ms;
   max-height: min(36rem, calc(100dvh - 5rem));
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     transform: translateY(-1rem) scale(0.95);
   }
-
-  outline: 1px solid rgb(0 0 0 / 0.04);
-  box-shadow:
-    0 0.5px 1px rgb(0 0 0 / 0.12),
-    0 1px 3px -1px rgb(0 0 0 / 0.04),
-    0 2px 4px -1px rgb(0 0 0 / 0.04),
-    0 4px 8px -2px rgb(0 0 0 / 0.04),
-    0 12px 14px -4px rgb(0 0 0 / 0.04),
-    0 24px 64px -8px rgb(0 0 0 / 0.04),
-    0 40px 48px -32px rgb(0 0 0 / 0.04);
-
-  @media (prefers-color-scheme: dark) {
-    background-color: oklch(20% 0.5% 264deg);
-    outline: 1px solid rgb(255 255 255 / 0.25);
-  }
 }
 
 .Input {
   box-sizing: border-box;
-  padding: 1rem;
+  position: relative;
+  z-index: 1;
+  padding: 0 0.75rem;
   margin: 0;
   border: none;
-  border-bottom: 1px solid var(--color-gray-100);
   width: 100%;
-  height: auto;
+  height: 2.5rem;
   border-radius: 0;
   font-family: inherit;
-  font-size: 1rem;
-  background-color: transparent;
-  color: var(--color-gray-900);
-  letter-spacing: 0.016em;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   &::placeholder {
-    font-weight: 400;
-    color: var(--color-gray-500);
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus {
-    border-bottom-color: var(--color-gray-100);
-    outline: none;
+    outline: 2px solid oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -3245,6 +3542,11 @@ This example shows how to implement the component using CSS Modules.
   min-height: 0;
   max-height: min(60dvh, 24rem);
   overflow: hidden;
+  border-top: 1px solid oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    border-color: white;
+  }
 }
 
 .ListViewport {
@@ -3255,14 +3557,18 @@ This example shows how to implement the component using CSS Modules.
   scroll-padding-block: 0.25rem;
 
   &:focus-visible {
-    outline: 1px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .List {
   box-sizing: border-box;
-  padding: 0.5rem;
+  padding: 0.25rem 0;
 
   &:empty {
     padding: 0;
@@ -3279,39 +3585,46 @@ This example shows how to implement the component using CSS Modules.
 
 .GroupLabel {
   outline: 0;
-  cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   display: flex;
   align-items: center;
   min-height: 2rem;
-  padding: 0 0.875rem;
-  font-size: 0.9375rem;
-  letter-spacing: 0.00625em;
+  margin: 0;
+  padding: 0 1.5rem 0 0.75rem;
+  font-size: 0.875rem;
   line-height: 1;
   font-weight: 400;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Item {
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   scroll-margin-block: 0.25rem;
   min-height: 2rem;
-  padding: 0 0.75rem 0 2.25rem;
-  border-radius: 0.375rem;
+  padding: 0 1.5rem;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.5rem;
   align-items: center;
-  font-size: 0.9375rem;
-  letter-spacing: 0.016em;
+  font-size: 0.875rem;
   line-height: 1.25;
   font-weight: 400;
 
   &[data-highlighted] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 }
 
@@ -3325,12 +3638,19 @@ This example shows how to implement the component using CSS Modules.
 
 .ItemType {
   font-size: 0.875rem;
-  color: var(--color-gray-500);
-  letter-spacing: 0.00625em;
+  color: oklch(55.6% 0 0deg);
   white-space: nowrap;
 
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
+
   [data-highlighted] & {
-    color: var(--color-gray-700);
+    color: oklch(37.1% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(87% 0 0deg);
+    }
   }
 }
 
@@ -3338,35 +3658,36 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  font-size: 0.925rem;
+  justify-content: flex-start;
+  padding: 1rem 1rem 1rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
   min-height: 8rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Scrollbar {
   display: flex;
   justify-content: center;
-  width: 1.5rem;
-  margin-right: -0.25rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  background-color: rgb(0 0 0 / 12%);
+  width: 1rem;
+  transition: opacity 150ms;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(255 255 255 / 12%);
+  }
 }
 
 .ScrollbarThumb {
-  display: flex;
-  justify-content: center;
   width: 100%;
+  background-color: oklch(14.5% 0 0deg);
 
-  &::before {
-    content: '';
-    display: block;
-    height: 100%;
-    width: 0.25rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-400);
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
   }
 }
 
@@ -3375,18 +3696,23 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: space-between;
   padding: 0.625rem 0.75rem;
-  border-top: 1px solid var(--color-gray-200);
+  border-top: 1px solid oklch(14.5% 0 0deg);
   font-size: 0.75rem;
-  color: var(--color-gray-600);
-  background-color: var(--color-gray-50);
-  border-radius: 0 0 1rem 1rem;
+  color: oklch(43.9% 0 0deg);
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    border-top: 1px solid white;
+    color: oklch(70.8% 0 0deg);
+    background-color: oklch(14.5% 0 0deg);
+  }
 }
 
 .FooterLeft,
 .FooterRight {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .Kbd {
@@ -3401,10 +3727,15 @@ This example shows how to implement the component using CSS Modules.
     ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
   font-weight: 400;
   line-height: 1;
-  color: var(--color-gray-700);
-  background-color: var(--color-gray-100);
-  border: 1px solid var(--color-gray-300);
-  border-radius: 0.25rem;
+  color: oklch(43.9% 0 0deg);
+  background-color: oklch(97% 0 0deg);
+  border: 1px solid oklch(70.8% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+    background-color: oklch(20.5% 0 0deg);
+    border: 1px solid oklch(43.9% 0 0deg);
+  }
 }
 
 .VisuallyHiddenClose {
@@ -3611,11 +3942,11 @@ export default function ExampleEmojiPicker() {
 
   return (
     <div className="mx-auto w-[16rem]">
-      <div className="flex items-center gap-2">
+      <div className="relative flex w-full">
         <input
           ref={textInputRef}
           type="text"
-          className="h-10 flex-1 font-normal rounded-md border border-gray-200 pl-3.5 text-base text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+          className="-mr-px h-8 flex-1 border border-r-0 border-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 bg-white dark:bg-neutral-950 focus:relative focus:outline-2 focus:-outline-offset-1 focus:outline-solid focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white"
           placeholder="iMessage"
           value={textValue}
           onChange={(event) => setTextValue(event.target.value)}
@@ -3635,55 +3966,56 @@ export default function ExampleEmojiPicker() {
           }}
         >
           <Autocomplete.Trigger
-            className="size-10 rounded-md border border-gray-200 bg-[canvas] text-[1.25rem] text-gray-900 outline-hidden hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[popup-open]:bg-gray-100"
+            className="flex size-8 items-center justify-center border border-neutral-950 bg-transparent text-xl leading-none text-neutral-950 outline-none hover:bg-neutral-100 active:bg-neutral-200 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-solid focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-popup-open:bg-neutral-100 dark:border-white dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 dark:data-popup-open:bg-neutral-800"
             aria-label="Choose emoji"
           >
             😀
           </Autocomplete.Trigger>
           <Autocomplete.Portal>
-            <Autocomplete.Positioner className="outline-hidden" sideOffset={4} align="end">
-              <Autocomplete.Popup className="[--input-container-height:3rem] max-w-[var(--available-width)] max-h-[20.5rem] origin-[var(--transform-origin)] rounded-lg bg-[canvas] shadow-lg shadow-gray-200 text-gray-900 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
-                <div className="mx-1 flex h-[var(--input-container-height)] w-64 items-center justify-center bg-[canvas] text-center">
-                  <Autocomplete.Input
-                    placeholder="Search emojis…"
-                    className="h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
-                  />
+            <Autocomplete.Positioner className="outline-0" sideOffset={4} align="end">
+              <Autocomplete.Popup
+                className="[--input-container-height:2rem] max-h-[20.5rem] max-w-[var(--available-width)] origin-[var(--transform-origin)] bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,scale,opacity] data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 dark:bg-neutral-950 dark:text-white dark:shadow-none"
+                aria-label="Select emoji"
+              >
+                <Autocomplete.Input
+                  placeholder="Search emojis…"
+                  className="h-8 w-64 max-w-full border border-neutral-950 bg-white px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-2 focus:outline-solid focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:bg-neutral-950 dark:text-white"
+                />
+                <div className="border border-t-0 border-neutral-950 dark:border-white">
+                  <Autocomplete.Empty>
+                    <div className="px-2 py-3 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
+                      No emojis found
+                    </div>
+                  </Autocomplete.Empty>
+                  <Autocomplete.List className="max-h-[min(calc(20.5rem-var(--input-container-height)-2px),calc(var(--available-height)-var(--input-container-height)-2px))] overflow-auto scroll-pt-1 scroll-pb-[0.35rem] overscroll-contain py-2 empty:p-0">
+                    {(group: EmojiGroup) => (
+                      <Autocomplete.Group key={group.value} items={group.items} className="block">
+                        <Autocomplete.GroupLabel className="p-2 text-sm leading-4 text-neutral-500 select-none dark:text-neutral-400">
+                          {group.label}
+                        </Autocomplete.GroupLabel>
+                        <div className="px-2 pb-1 pt-0" role="presentation">
+                          {chunkArray(group.items, COLUMNS).map((row, rowIdx) => (
+                            <Autocomplete.Row key={rowIdx} className="grid grid-cols-5">
+                              {row.map((rowItem) => (
+                                <Autocomplete.Item
+                                  key={rowItem.emoji}
+                                  value={rowItem}
+                                  className="group flex h-10 min-w-[var(--anchor-width)] cursor-default flex-col items-center justify-center bg-transparent px-0.5 py-2 text-neutral-950 outline-0 select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-100 dark:text-white dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-neutral-800"
+                                  onClick={() => {
+                                    handleInsertEmoji(rowItem.emoji);
+                                    setPickerOpen(false);
+                                  }}
+                                >
+                                  <span className="text-2xl leading-none">{rowItem.emoji}</span>
+                                </Autocomplete.Item>
+                              ))}
+                            </Autocomplete.Row>
+                          ))}
+                        </div>
+                      </Autocomplete.Group>
+                    )}
+                  </Autocomplete.List>
                 </div>
-                <Autocomplete.Empty>
-                  <div className="px-4 pb-4 pt-2 text-[0.925rem] leading-4 text-gray-600">
-                    No emojis found
-                  </div>
-                </Autocomplete.Empty>
-                <Autocomplete.List className="max-h-[min(calc(20.5rem-var(--input-container-height)),calc(var(--available-height)-var(--input-container-height)))] overflow-auto scroll-pt-10 scroll-pb-[0.35rem] overscroll-contain">
-                  {(group: EmojiGroup) => (
-                    <Autocomplete.Group key={group.value} items={group.items} className="block">
-                      <Autocomplete.GroupLabel className="sticky top-0 z-[1] m-0 w-full border-b border-gray-100 bg-[canvas] px-4 pb-1 pt-2 text-[0.75rem] font-bold uppercase tracking-wide text-gray-600">
-                        {group.label}
-                      </Autocomplete.GroupLabel>
-                      <div className="p-1" role="presentation">
-                        {chunkArray(group.items, COLUMNS).map((row, rowIdx) => (
-                          <Autocomplete.Row key={rowIdx} className="grid grid-cols-5">
-                            {row.map((rowItem) => (
-                              <Autocomplete.Item
-                                key={rowItem.emoji}
-                                value={rowItem}
-                                className="group min-w-[var(--anchor-width)] select-none flex h-10 flex-col items-center justify-center rounded-md bg-transparent px-0.5 py-2 text-gray-900 outline-hidden data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-md data-[highlighted]:before:bg-gray-200"
-                                onClick={() => {
-                                  handleInsertEmoji(rowItem.emoji);
-                                  setPickerOpen(false);
-                                }}
-                              >
-                                <span className="mb-1 text-[1.5rem] leading-none">
-                                  {rowItem.emoji}
-                                </span>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.Row>
-                        ))}
-                      </div>
-                    </Autocomplete.Group>
-                  )}
-                </Autocomplete.List>
               </Autocomplete.Popup>
             </Autocomplete.Positioner>
           </Autocomplete.Portal>
@@ -3845,58 +4177,110 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .InputGroup {
+  position: relative;
   display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  width: 100%;
 }
 
 .TextInput {
   box-sizing: border-box;
-  padding-left: 0.875rem;
-  margin: 0;
-  border: 1px solid var(--color-gray-200);
   flex: 1;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  padding: 0 0.5rem;
+  margin: 0;
+  margin-right: -1px;
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-right: 0;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   outline: none;
+  background-color: white;
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    border-right: 0;
+    color: white;
+    background-color: oklch(14.5% 0 0deg);
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+    position: relative;
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .EmojiButton {
   box-sizing: border-box;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  &:hover {
-    background-color: var(--color-gray-100);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    color: white;
   }
 
-  &:focus-visible {
-    border-color: var(--color-blue);
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
+  &:hover {
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -3911,67 +4295,102 @@ This example shows how to implement the component using CSS Modules.
   padding-right: 0.75rem;
   margin: 0;
   outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
+  border: 1px solid oklch(14.5% 0 0deg);
   font-family: inherit;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   cursor: default;
   -webkit-user-select: none;
   user-select: none;
   min-width: 9rem;
-  background-color: canvas;
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    color: white;
+    background-color: oklch(14.5% 0 0deg);
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
-}
-
-.TriggerIcon {
-  display: flex;
-}
-
-.InputContainer {
-  box-sizing: border-box;
-  width: 16rem;
-  height: calc(var(--input-container-height));
-  text-align: center;
-  background: canvas;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0.25rem;
 }
 
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
   margin: 0;
-  border: 1px solid var(--color-gray-300);
-  width: 100%;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  width: 16rem;
+  max-width: 100%;
+  height: var(--input-container-height);
   font-family: inherit;
-  font-size: 1rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border-color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
+
   &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
+}
+
+.Viewport {
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-top: none;
+
+  @media (prefers-color-scheme: dark) {
+    border-color: white;
   }
 }
 
@@ -3980,70 +4399,59 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Popup {
-  --input-container-height: 3rem;
+  --input-container-height: 2rem;
   box-sizing: border-box;
-  border-radius: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   transform-origin: var(--transform-origin);
   transition:
     transform 150ms,
     opacity 150ms;
   max-width: var(--available-width);
   max-height: 20.5rem;
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     transform: scale(0.9);
   }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-  }
 }
 
 .List {
   overflow: auto;
-  scroll-padding-top: 2.5rem;
+  scroll-padding-top: 0.25rem;
   scroll-padding-bottom: 0.35rem;
   overscroll-behavior: contain;
   max-height: min(
-    calc(20.5rem - var(--input-container-height)),
-    calc(var(--available-height) - var(--input-container-height))
+    calc(20.5rem - var(--input-container-height) - 2px),
+    calc(var(--available-height) - var(--input-container-height) - 2px)
   );
+  padding-block: 0.5rem;
 
   &:empty {
     padding: 0;
   }
 }
 
-.ListContainer {
-  padding: 0.5rem;
-}
-
 .GroupLabel {
   box-sizing: border-box;
-  padding: 0.5rem 1rem 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--color-gray-600);
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-  background-color: canvas;
-  border-bottom: 1px solid var(--color-gray-100);
-  position: sticky;
-  z-index: 1;
-  top: 0;
-  margin: 0;
-  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: oklch(55.6% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Group {
@@ -4051,7 +4459,7 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Grid {
-  padding: 0.25rem;
+  padding: 0 0.5rem 0.25rem;
 }
 
 .Row {
@@ -4063,6 +4471,7 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   display: flex;
   flex-direction: column;
@@ -4071,21 +4480,27 @@ This example shows how to implement the component using CSS Modules.
   min-width: var(--anchor-width);
   height: 2.5rem;
   padding: 0.5rem 0.125rem;
-  border-radius: 0.375rem;
   background: transparent;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
 
     &::before {
       content: '';
       z-index: -1;
       position: absolute;
       inset: 0;
-      border-radius: 0.375rem;
-      background-color: var(--color-gray-200);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 }
@@ -4093,7 +4508,6 @@ This example shows how to implement the component using CSS Modules.
 .Emoji {
   font-size: 1.5rem;
   line-height: 1;
-  margin-bottom: 0.25rem;
 }
 
 .Name {
@@ -4114,10 +4528,14 @@ This example shows how to implement the component using CSS Modules.
 
 .Empty {
   box-sizing: border-box;
-  padding: 0.5rem 1rem 1rem;
-  font-size: 0.925rem;
+  padding: 0.75rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -4186,47 +4604,47 @@ export default function ExampleEmojiPicker() {
           <Autocomplete.Portal>
             <Autocomplete.Positioner className={styles.Positioner} sideOffset={4} align="end">
               <Autocomplete.Popup className={styles.Popup} aria-label="Select emoji">
-                <div className={styles.InputContainer}>
-                  <Autocomplete.Input placeholder="Search emojis…" className={styles.Input} />
+                <Autocomplete.Input placeholder="Search emojis…" className={styles.Input} />
+                <div className={styles.Viewport}>
+                  <Autocomplete.Empty>
+                    <div className={styles.Empty}>No emojis found</div>
+                  </Autocomplete.Empty>
+                  <Autocomplete.List
+                    className={styles.List}
+                    style={{ '--cols': COLUMNS } as React.CSSProperties}
+                  >
+                    {(group: EmojiGroup) => (
+                      <Autocomplete.Group
+                        key={group.value}
+                        items={group.items}
+                        className={styles.Group}
+                      >
+                        <Autocomplete.GroupLabel className={styles.GroupLabel}>
+                          {group.label}
+                        </Autocomplete.GroupLabel>
+                        <div className={styles.Grid} role="presentation">
+                          {chunkArray(group.items, COLUMNS).map((row, rowIdx) => (
+                            <Autocomplete.Row key={rowIdx} className={styles.Row}>
+                              {row.map((rowItem) => (
+                                <Autocomplete.Item
+                                  key={rowItem.emoji}
+                                  value={rowItem}
+                                  className={styles.Item}
+                                  onClick={() => {
+                                    handleInsertEmoji(rowItem.emoji);
+                                    setPickerOpen(false);
+                                  }}
+                                >
+                                  <span className={styles.Emoji}>{rowItem.emoji}</span>
+                                </Autocomplete.Item>
+                              ))}
+                            </Autocomplete.Row>
+                          ))}
+                        </div>
+                      </Autocomplete.Group>
+                    )}
+                  </Autocomplete.List>
                 </div>
-                <Autocomplete.Empty>
-                  <div className={styles.Empty}>No emojis found</div>
-                </Autocomplete.Empty>
-                <Autocomplete.List
-                  className={styles.List}
-                  style={{ '--cols': COLUMNS } as React.CSSProperties}
-                >
-                  {(group: EmojiGroup) => (
-                    <Autocomplete.Group
-                      key={group.value}
-                      items={group.items}
-                      className={styles.Group}
-                    >
-                      <Autocomplete.GroupLabel className={styles.GroupLabel}>
-                        {group.label}
-                      </Autocomplete.GroupLabel>
-                      <div className={styles.Grid} role="presentation">
-                        {chunkArray(group.items, COLUMNS).map((row, rowIdx) => (
-                          <Autocomplete.Row key={rowIdx} className={styles.Row}>
-                            {row.map((rowItem) => (
-                              <Autocomplete.Item
-                                key={rowItem.emoji}
-                                value={rowItem}
-                                className={styles.Item}
-                                onClick={() => {
-                                  handleInsertEmoji(rowItem.emoji);
-                                  setPickerOpen(false);
-                                }}
-                              >
-                                <span className={styles.Emoji}>{rowItem.emoji}</span>
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.Row>
-                        ))}
-                      </div>
-                    </Autocomplete.Group>
-                  )}
-                </Autocomplete.List>
               </Autocomplete.Popup>
             </Autocomplete.Positioner>
           </Autocomplete.Portal>
@@ -4420,16 +4838,16 @@ export default function ExampleVirtualizedAutocomplete() {
         }
       }}
     >
-      <label className="flex flex-col gap-1 text-sm leading-5 font-bold text-gray-900">
+      <label className="flex flex-col gap-1 text-sm font-bold text-neutral-950 dark:text-white">
         Search 10,000 items
-        <Autocomplete.Input className="bg-[canvas] h-10 w-[16rem] md:w-[20rem] font-normal rounded-md border border-gray-200 pl-3.5 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800" />
+        <Autocomplete.Input className="h-8 w-[16rem] border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white" />
       </label>
 
       <Autocomplete.Portal>
         <Autocomplete.Positioner className="outline-hidden" sideOffset={4}>
-          <Autocomplete.Popup className="w-[var(--anchor-width)] max-h-[min(22rem,var(--available-height))] max-w-[var(--available-width)] rounded-md bg-[canvas] text-gray-900 outline-1 outline-gray-200 shadow-lg shadow-gray-200 dark:-outline-offset-1 dark:outline-gray-300">
+          <Autocomplete.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
             <Autocomplete.Empty>
-              <div className="px-4 py-4 text-[0.925rem] leading-4 text-gray-600">
+              <div className="py-3 px-2 text-sm leading-4 text-neutral-500 dark:text-neutral-400">
                 No items found.
               </div>
             </Autocomplete.Empty>
@@ -4457,10 +4875,10 @@ function VirtualizedList({
     getScrollElement: () => scrollElementRef.current,
     estimateSize: () => 32,
     overscan: 20,
-    paddingStart: 8,
-    paddingEnd: 8,
-    scrollPaddingEnd: 8,
-    scrollPaddingStart: 8,
+    paddingStart: 4,
+    paddingEnd: 4,
+    scrollPaddingEnd: 4,
+    scrollPaddingStart: 4,
   });
 
   React.useImperativeHandle(virtualizerRef, () => virtualizer);
@@ -4485,7 +4903,7 @@ function VirtualizedList({
     <div
       role="presentation"
       ref={handleScrollElementRef}
-      className="h-[min(22rem,var(--total-size))] max-h-[var(--available-height)] overflow-auto overscroll-contain scroll-p-2"
+      className="h-[min(22.5rem,var(--total-size))] max-h-[var(--available-height)] overflow-auto overscroll-contain scroll-py-1"
       style={{ '--total-size': `${totalSize}px` } as React.CSSProperties}
     >
       <div role="presentation" className="relative w-full" style={{ height: totalSize }}>
@@ -4502,7 +4920,7 @@ function VirtualizedList({
               data-index={virtualItem.index}
               ref={virtualizer.measureElement}
               value={item}
-              className="flex cursor-default py-2 pr-8 pl-4 text-base leading-4 outline-hidden select-none data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-2 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900"
+              className="flex cursor-default py-2 pr-2 pl-2 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:text-white data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:bg-neutral-950 dark:data-highlighted:text-neutral-950 dark:data-highlighted:before:bg-white"
               aria-setsize={filteredItems.length}
               aria-posinset={virtualItem.index + 1}
               style={{
@@ -4549,26 +4967,38 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 16rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   outline: none;
 
-  &:focus {
-    border-color: var(--color-blue);
-    outline: 1px solid var(--color-blue);
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
-  @media (min-width: 500px) {
-    width: 20rem;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &:focus {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -4579,7 +5009,11 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Positioner {
@@ -4588,33 +5022,28 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   width: var(--anchor-width);
-  max-height: min(22rem, var(--available-height));
   max-width: var(--available-width);
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
   }
 }
 
 .Scroller {
   box-sizing: border-box;
-  height: min(22rem, var(--total-size));
+  height: min(22.5rem, var(--total-size));
   max-height: var(--available-height);
   overflow: auto;
   overscroll-behavior: contain;
-  scroll-padding-block: 0.5rem;
+  scroll-padding-block: 0.25rem;
 }
 
 .VirtualizedPlaceholder {
@@ -4630,18 +5059,23 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   padding-block: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 
   &[data-highlighted] {
     z-index: 0;
     position: relative;
-    color: var(--color-gray-50);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &[data-highlighted]::before {
@@ -4649,18 +5083,25 @@ This example shows how to implement the component using CSS Modules.
     z-index: -1;
     position: absolute;
     inset-block: 0;
-    inset-inline: 0.5rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    inset-inline: 0;
+    background-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+    }
   }
 }
 
 .Empty {
   box-sizing: border-box;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-  padding: 1rem;
+  color: oklch(55.6% 0 0deg);
+  padding: 0.75rem 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 
@@ -4734,10 +5175,10 @@ function VirtualizedList({
     getScrollElement: () => scrollElementRef.current,
     estimateSize: () => 32,
     overscan: 20,
-    paddingStart: 8,
-    paddingEnd: 8,
-    scrollPaddingEnd: 8,
-    scrollPaddingStart: 8,
+    paddingStart: 4,
+    paddingEnd: 4,
+    scrollPaddingEnd: 4,
+    scrollPaddingStart: 4,
   });
 
   React.useImperativeHandle(virtualizerRef, () => virtualizer);
@@ -5138,6 +5579,7 @@ Renders a `<button>` element.
 | :------------------ | :--- | :-------------------------------------------- |
 | data-popup-open     | -    | Present when the corresponding popup is open. |
 | data-disabled       | -    | Present when the button is disabled.          |
+| data-visible        | -    | Present when the clear button is visible.     |
 | data-starting-style | -    | Present when the button is animating in.      |
 | data-ending-style   | -    | Present when the button is animating out.     |
 
@@ -5153,6 +5595,8 @@ type AutocompleteClearState = {
   open: boolean;
   /** Whether the component should ignore user interaction. */
   disabled: boolean;
+  /** Whether the clear button should be visible. */
+  visible: boolean;
   /** The transition status of the component. */
   transitionStatus: TransitionStatus;
 };

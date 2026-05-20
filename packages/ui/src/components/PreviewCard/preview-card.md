@@ -20,16 +20,15 @@ This example shows how to implement the component using Tailwind CSS.
 
 ```tsx
 /* index.tsx */
-import * as React from 'react';
 import { PreviewCard } from '@base-ui/react/preview-card';
 
 export default function ExamplePreviewCard() {
   return (
     <PreviewCard.Root>
-      <p className="m-0 text-base leading-6 text-gray-900 text-balance">
+      <p className="m-0 text-base text-neutral-950 text-balance dark:text-white">
         The principles of good{' '}
         <PreviewCard.Trigger
-          className="text-blue-800 underline decoration-blue-800/60 decoration-1 underline-offset-2 outline-0 hover:decoration-blue-800 data-[popup-open]:decoration-blue-800 focus-visible:rounded-[2px] focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+          className="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
           href="https://en.wikipedia.org/wiki/Typography"
         >
           typography
@@ -39,19 +38,17 @@ export default function ExamplePreviewCard() {
 
       <PreviewCard.Portal>
         <PreviewCard.Positioner sideOffset={8}>
-          <PreviewCard.Popup className="box-border w-[var(--popup-width,auto)] h-[var(--popup-height,auto)] rounded-lg bg-[canvas] origin-[var(--transform-origin)] transition-[scale,opacity] duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1">
-            <PreviewCard.Arrow className="flex data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
-              <ArrowSvg />
-            </PreviewCard.Arrow>
-            <div className="w-min flex flex-col gap-2 p-2 box-border">
+          <PreviewCard.Popup className="relative h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:[transform:scale(0.98)] data-ending-style:opacity-0 data-starting-style:[transform:scale(0.98)] data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+            <PreviewCard.Arrow className="relative block h-1.5 w-3 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:border before:border-neutral-950 before:bg-white before:content-[''] before:[transform:translate(-50%,50%)_rotate(45deg)] dark:before:border-white dark:before:bg-neutral-950" />
+            <div className="flex w-min flex-col gap-2 p-2">
               <img
                 width="224"
                 height="150"
-                className="block rounded-xs max-w-none"
+                className="block max-w-none"
                 src="https://images.unsplash.com/photo-1619615391095-dfa29e1672ef?q=80&w=448&h=300"
                 alt="Station Hofplein signage in Rotterdam, Netherlands"
               />
-              <p className="m-0 text-sm leading-5 text-gray-900 text-pretty">
+              <p className="m-0 text-sm text-pretty">
                 <strong>Typography</strong> is the art and science of arranging type to make written
                 language clear, visually appealing, and effective in communication.
               </p>
@@ -62,25 +59,6 @@ export default function ExamplePreviewCard() {
     </PreviewCard.Root>
   );
 }
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
 ```
 
 ### CSS Modules
@@ -89,7 +67,6 @@ This example shows how to implement the component using CSS Modules.
 
 ```tsx
 /* index.tsx */
-import * as React from 'react';
 import { PreviewCard } from '@base-ui/react/preview-card';
 import styles from './demos.module.css';
 
@@ -110,9 +87,7 @@ export default function ExamplePreviewCard() {
       <PreviewCard.Portal>
         <PreviewCard.Positioner sideOffset={8}>
           <PreviewCard.Popup className={styles.Popup}>
-            <PreviewCard.Arrow className={styles.Arrow}>
-              <ArrowSvg />
-            </PreviewCard.Arrow>
+            <PreviewCard.Arrow className={styles.Arrow} />
             <div className={styles.PopupContent}>
               <img
                 width="224"
@@ -132,25 +107,6 @@ export default function ExamplePreviewCard() {
     </PreviewCard.Root>
   );
 }
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
 ```
 
 ```css
@@ -163,71 +119,75 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 
 .Popup {
   box-sizing: border-box;
+  position: relative;
   width: var(--popup-width, auto);
   height: var(--popup-height, auto);
-  border-radius: 0.5rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transform: scale(0.98);
   }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    border: 1px solid oklch(14.5% 0 0deg);
+    background-color: white;
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+      background-color: oklch(14.5% 0 0deg);
+    }
   }
 }
 
@@ -242,7 +202,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 
 .Image {
   display: block;
-  border-radius: 0.25rem;
   max-width: none;
 }
 
@@ -250,7 +209,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-900);
   text-wrap: pretty;
 }
 
@@ -266,32 +224,52 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   margin: 0;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   text-wrap: balance;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Link {
   outline: 0;
-  color: var(--color-blue);
+  color: oklch(14.5% 0 0deg);
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in oklab, var(--color-blue), transparent 40%);
+  text-decoration-color: color-mix(in oklab, oklch(14.5% 0 0deg), transparent 40%);
   text-underline-offset: 2px;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+    text-decoration-color: color-mix(in oklab, white, transparent 40%);
+  }
 
   @media (hover: hover) {
     &:hover {
-      text-decoration-color: var(--color-blue);
+      text-decoration-color: oklch(14.5% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        text-decoration-color: white;
+      }
     }
   }
 
   &[data-popup-open] {
-    text-decoration-color: var(--color-blue);
+    text-decoration-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      text-decoration-color: white;
+    }
   }
 
   &:focus-visible {
-    border-radius: 0.125rem;
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     text-decoration-line: none;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -307,33 +285,52 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &:active {
-    background-color: var(--color-gray-100);
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -398,7 +395,6 @@ This example shows how to implement the component using Tailwind CSS.
 ```tsx
 /* index.tsx */
 'use client';
-import * as React from 'react';
 import { PreviewCard } from '@base-ui/react/preview-card';
 
 const demoPreviewCard = PreviewCard.createHandle();
@@ -406,10 +402,10 @@ const demoPreviewCard = PreviewCard.createHandle();
 export default function PreviewCardDetachedTriggersSimpleDemo() {
   return (
     <div>
-      <p className="m-0 text-base leading-6 text-gray-900 text-balance">
+      <p className="m-0 text-base text-neutral-950 text-balance dark:text-white">
         The principles of good{' '}
         <PreviewCard.Trigger
-          className="text-blue-800 underline decoration-blue-800/60 decoration-1 underline-offset-2 outline-0 hover:decoration-blue-800 data-[popup-open]:decoration-blue-800 focus-visible:rounded-[2px] focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+          className="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
           handle={demoPreviewCard}
           href="https://en.wikipedia.org/wiki/Typography"
         >
@@ -421,19 +417,17 @@ export default function PreviewCardDetachedTriggersSimpleDemo() {
       <PreviewCard.Root handle={demoPreviewCard}>
         <PreviewCard.Portal>
           <PreviewCard.Positioner sideOffset={8}>
-            <PreviewCard.Popup className="box-border w-[var(--popup-width,auto)] h-[var(--popup-height,auto)] rounded-lg bg-[canvas] origin-[var(--transform-origin)] transition-[scale,opacity] duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1">
-              <PreviewCard.Arrow className="flex data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
-                <ArrowSvg />
-              </PreviewCard.Arrow>
-              <div className="w-min flex flex-col gap-2 p-2 box-border">
+            <PreviewCard.Popup className="relative h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:[transform:scale(0.98)] data-ending-style:opacity-0 data-starting-style:[transform:scale(0.98)] data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+              <PreviewCard.Arrow className="relative block h-1.5 w-3 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:border before:border-neutral-950 before:bg-white before:content-[''] before:[transform:translate(-50%,50%)_rotate(45deg)] dark:before:border-white dark:before:bg-neutral-950" />
+              <div className="flex w-min flex-col gap-2 p-2">
                 <img
                   width="224"
                   height="150"
-                  className="block rounded-xs max-w-none"
+                  className="block max-w-none"
                   src="https://images.unsplash.com/photo-1619615391095-dfa29e1672ef?q=80&w=448&h=300"
                   alt="Station Hofplein signage in Rotterdam, Netherlands"
                 />
-                <p className="m-0 text-sm leading-5 text-gray-900 text-pretty">
+                <p className="m-0 text-sm text-pretty">
                   <strong>Typography</strong> is the art and science of arranging type to make
                   written language clear, visually appealing, and effective in communication.
                 </p>
@@ -445,25 +439,6 @@ export default function PreviewCardDetachedTriggersSimpleDemo() {
     </div>
   );
 }
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
 ```
 
 ### CSS Modules
@@ -473,7 +448,6 @@ This example shows how to implement the component using CSS Modules.
 ```tsx
 /* index.tsx */
 'use client';
-import * as React from 'react';
 import { PreviewCard } from '@base-ui/react/preview-card';
 import styles from './demos.module.css';
 
@@ -498,9 +472,7 @@ export default function PreviewCardDetachedTriggersSimpleDemo() {
         <PreviewCard.Portal>
           <PreviewCard.Positioner sideOffset={8}>
             <PreviewCard.Popup className={styles.Popup}>
-              <PreviewCard.Arrow className={styles.Arrow}>
-                <ArrowSvg />
-              </PreviewCard.Arrow>
+              <PreviewCard.Arrow className={styles.Arrow} />
               <div className={styles.PopupContent}>
                 <img
                   width="224"
@@ -521,25 +493,6 @@ export default function PreviewCardDetachedTriggersSimpleDemo() {
     </div>
   );
 }
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
 ```
 
 ```css
@@ -552,71 +505,75 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 
 .Popup {
   box-sizing: border-box;
+  position: relative;
   width: var(--popup-width, auto);
   height: var(--popup-height, auto);
-  border-radius: 0.5rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transform: scale(0.98);
   }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    border: 1px solid oklch(14.5% 0 0deg);
+    background-color: white;
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+      background-color: oklch(14.5% 0 0deg);
+    }
   }
 }
 
@@ -631,7 +588,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 
 .Image {
   display: block;
-  border-radius: 0.25rem;
   max-width: none;
 }
 
@@ -639,7 +595,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-900);
   text-wrap: pretty;
 }
 
@@ -655,32 +610,52 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   margin: 0;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   text-wrap: balance;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Link {
   outline: 0;
-  color: var(--color-blue);
+  color: oklch(14.5% 0 0deg);
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in oklab, var(--color-blue), transparent 40%);
+  text-decoration-color: color-mix(in oklab, oklch(14.5% 0 0deg), transparent 40%);
   text-underline-offset: 2px;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+    text-decoration-color: color-mix(in oklab, white, transparent 40%);
+  }
 
   @media (hover: hover) {
     &:hover {
-      text-decoration-color: var(--color-blue);
+      text-decoration-color: oklch(14.5% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        text-decoration-color: white;
+      }
     }
   }
 
   &[data-popup-open] {
-    text-decoration-color: var(--color-blue);
+    text-decoration-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      text-decoration-color: white;
+    }
   }
 
   &:focus-visible {
-    border-radius: 0.125rem;
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     text-decoration-line: none;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -696,33 +671,52 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &:active {
-    background-color: var(--color-gray-100);
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -819,43 +813,43 @@ const demoPreviewCard = PreviewCard.createHandle<React.ReactElement>();
 
 const cardContents = {
   typography: (
-    <div className="w-min flex flex-col gap-2 p-2 box-border">
+    <div className="flex w-min flex-col gap-2 p-2">
       <img
         width="224"
         height="150"
-        className="block rounded-xs max-w-none"
+        className="block max-w-none"
         src="https://images.unsplash.com/photo-1619615391095-dfa29e1672ef?q=80&w=448&h=300"
         alt="Station Hofplein signage in Rotterdam, Netherlands"
       />
-      <p className="m-0 text-sm leading-5 text-gray-900 text-pretty">
+      <p className="m-0 text-sm text-pretty">
         <strong>Typography</strong> is the art and science of arranging type.
       </p>
     </div>
   ),
   design: (
-    <div className="w-min flex flex-col gap-2 p-2 box-border">
+    <div className="flex w-min flex-col gap-2 p-2">
       <img
         width="241"
         height="240"
-        className="block rounded-xs max-w-none"
+        className="block max-w-none"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Braun_ABW30_%28schwarz%29.jpg/250px-Braun_ABW30_%28schwarz%29.jpg"
         alt="Braun ABW30"
       />
-      <p className="m-0 text-sm leading-5 text-gray-900 text-pretty">
+      <p className="m-0 text-sm text-pretty">
         A <strong>design</strong> is the concept or proposal for an object, process, or system.
       </p>
     </div>
   ),
   art: (
-    <div className="w-min flex flex-col gap-2 p-2 box-border">
+    <div className="flex w-min flex-col gap-2 p-2">
       <img
         width="206"
         height="240"
-        className="block rounded-xs max-w-none"
+        className="block max-w-none"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/MonaLisa_sfumato.jpeg/250px-MonaLisa_sfumato.jpeg"
         alt="Mona Lisa"
       />
-      <p className="m-0 text-sm leading-5 text-gray-900 text-pretty">
+      <p className="m-0 text-sm text-pretty">
         <strong>Art</strong> is a diverse range of cultural activity centered around works utilizing
         creative or imaginative talents, which are expected to evoke a worthwhile experience,
         generally through an expression of emotional power, conceptual ideas, technical proficiency,
@@ -876,11 +870,11 @@ export default function PreviewCardDetachedTriggersControlledDemo() {
 
   return (
     <div>
-      <div className="flex gap-2 flex-wrap justify-center items-baseline">
-        <p className="m-0 text-base leading-6 text-gray-900 text-balance">
+      <div className="flex flex-wrap items-baseline justify-center gap-2">
+        <p className="m-0 text-base text-neutral-950 text-balance dark:text-white">
           Discover{' '}
           <PreviewCard.Trigger
-            className="text-blue-800 underline decoration-blue-800/60 decoration-1 underline-offset-2 outline-0 hover:decoration-blue-800 data-[popup-open]:decoration-blue-800 focus-visible:rounded-[2px] focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+            className="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
             handle={demoPreviewCard}
             href="https://en.wikipedia.org/wiki/Typography"
             id="trigger-1"
@@ -890,7 +884,7 @@ export default function PreviewCardDetachedTriggersControlledDemo() {
           </PreviewCard.Trigger>
           ,{' '}
           <PreviewCard.Trigger
-            className="text-blue-800 underline decoration-blue-800/60 decoration-1 underline-offset-2 outline-0 hover:decoration-blue-800 data-[popup-open]:decoration-blue-800 focus-visible:rounded-[2px] focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+            className="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
             handle={demoPreviewCard}
             href="https://en.wikipedia.org/wiki/Industrial_design"
             id="trigger-2"
@@ -900,7 +894,7 @@ export default function PreviewCardDetachedTriggersControlledDemo() {
           </PreviewCard.Trigger>
           , or{' '}
           <PreviewCard.Trigger
-            className="text-blue-800 underline decoration-blue-800/60 decoration-1 underline-offset-2 outline-0 hover:decoration-blue-800 data-[popup-open]:decoration-blue-800 focus-visible:rounded-[2px] focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+            className="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
             handle={demoPreviewCard}
             href="https://en.wikipedia.org/wiki/Art"
             id="trigger-3"
@@ -912,7 +906,7 @@ export default function PreviewCardDetachedTriggersControlledDemo() {
         </p>
         <button
           type="button"
-          className="box-border flex items-center justify-center h-10 px-3.5 m-0 outline-0 border border-gray-200 rounded-md bg-gray-50 font-inherit text-base font-normal leading-6 text-gray-900 select-none hover:bg-gray-100 active:bg-gray-100 focus-visible:outline-2 focus-visible:outline-blue-800 focus-visible:-outline-offset-1"
+          className="flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 font-[inherit] text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
           onClick={() => {
             setTriggerId('trigger-2');
             setOpen(true);
@@ -934,10 +928,8 @@ export default function PreviewCardDetachedTriggersControlledDemo() {
               sideOffset={8}
               className="h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)]"
             >
-              <PreviewCard.Popup className="box-border w-[var(--popup-width,auto)] h-[var(--popup-height,auto)] rounded-lg bg-[canvas] origin-[var(--transform-origin)] transition-[scale,opacity] duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1">
-                <PreviewCard.Arrow className="flex data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
-                  <ArrowSvg />
-                </PreviewCard.Arrow>
+              <PreviewCard.Popup className="relative h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:[transform:scale(0.98)] data-ending-style:opacity-0 data-starting-style:[transform:scale(0.98)] data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+                <PreviewCard.Arrow className="relative block h-1.5 w-3 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:border before:border-neutral-950 before:bg-white before:content-[''] before:[transform:translate(-50%,50%)_rotate(45deg)] dark:before:border-white dark:before:bg-neutral-950" />
                 {payload}
               </PreviewCard.Popup>
             </PreviewCard.Positioner>
@@ -945,25 +937,6 @@ export default function PreviewCardDetachedTriggersControlledDemo() {
         )}
       </PreviewCard.Root>
     </div>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
   );
 }
 ```
@@ -1096,9 +1069,7 @@ export default function PreviewCardDetachedTriggersControlledDemo() {
           <PreviewCard.Portal>
             <PreviewCard.Positioner sideOffset={8} className={styles.Positioner}>
               <PreviewCard.Popup className={styles.Popup}>
-                <PreviewCard.Arrow className={styles.Arrow}>
-                  <ArrowSvg />
-                </PreviewCard.Arrow>
+                <PreviewCard.Arrow className={styles.Arrow} />
                 {payload}
               </PreviewCard.Popup>
             </PreviewCard.Positioner>
@@ -1106,25 +1077,6 @@ export default function PreviewCardDetachedTriggersControlledDemo() {
         )}
       </PreviewCard.Root>
     </div>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
   );
 }
 ```
@@ -1139,71 +1091,75 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 
 .Popup {
   box-sizing: border-box;
+  position: relative;
   width: var(--popup-width, auto);
   height: var(--popup-height, auto);
-  border-radius: 0.5rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transform: scale(0.98);
   }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    border: 1px solid oklch(14.5% 0 0deg);
+    background-color: white;
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+      background-color: oklch(14.5% 0 0deg);
+    }
   }
 }
 
@@ -1218,7 +1174,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 
 .Image {
   display: block;
-  border-radius: 0.25rem;
   max-width: none;
 }
 
@@ -1226,7 +1181,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-900);
   text-wrap: pretty;
 }
 
@@ -1242,32 +1196,52 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   margin: 0;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   text-wrap: balance;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Link {
   outline: 0;
-  color: var(--color-blue);
+  color: oklch(14.5% 0 0deg);
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in oklab, var(--color-blue), transparent 40%);
+  text-decoration-color: color-mix(in oklab, oklch(14.5% 0 0deg), transparent 40%);
   text-underline-offset: 2px;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+    text-decoration-color: color-mix(in oklab, white, transparent 40%);
+  }
 
   @media (hover: hover) {
     &:hover {
-      text-decoration-color: var(--color-blue);
+      text-decoration-color: oklch(14.5% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        text-decoration-color: white;
+      }
     }
   }
 
   &[data-popup-open] {
-    text-decoration-color: var(--color-blue);
+    text-decoration-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      text-decoration-color: white;
+    }
   }
 
   &:focus-visible {
-    border-radius: 0.125rem;
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     text-decoration-line: none;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1283,33 +1257,52 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &:active {
-    background-color: var(--color-gray-100);
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -1356,43 +1349,43 @@ const demoPreviewCard = PreviewCard.createHandle<React.ReactElement>();
 
 const cardContents = {
   typography: (
-    <div className="w-min box-border flex flex-col gap-2 p-2">
+    <div className="flex w-min flex-col gap-2 p-2">
       <img
         width="224"
         height="150"
-        className="block rounded-xs max-w-none"
+        className="block max-w-none"
         src="https://images.unsplash.com/photo-1619615391095-dfa29e1672ef?q=80&w=448&h=300"
         alt="Station Hofplein signage in Rotterdam, Netherlands"
       />
-      <p className="m-0 text-sm leading-5 text-gray-900 text-pretty">
+      <p className="m-0 text-sm text-pretty">
         <strong>Typography</strong> is the art and science of arranging type.
       </p>
     </div>
   ),
   design: (
-    <div className="w-min box-border flex flex-col gap-2 p-2">
+    <div className="flex w-min flex-col gap-2 p-2">
       <img
         width="250"
         height="249"
-        className="block rounded-xs max-w-none"
+        className="block max-w-none"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Braun_ABW30_%28schwarz%29.jpg/250px-Braun_ABW30_%28schwarz%29.jpg"
         alt="Braun ABW30"
       />
-      <p className="m-0 text-sm leading-5 text-gray-900 text-pretty">
+      <p className="m-0 text-sm text-pretty">
         A <strong>design</strong> is the concept or proposal for an object, process, or system.
       </p>
     </div>
   ),
   art: (
-    <div className="w-min box-border flex flex-col gap-2 p-2">
+    <div className="flex w-min flex-col gap-2 p-2">
       <img
         width="250"
         height="290"
-        className="block rounded-xs max-w-none"
+        className="block max-w-none"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/MonaLisa_sfumato.jpeg/250px-MonaLisa_sfumato.jpeg"
         alt="Mona Lisa"
       />
-      <p className="m-0 text-sm leading-5 text-gray-900 text-pretty">
+      <p className="m-0 text-sm text-pretty">
         <strong>Art</strong> is a diverse range of cultural activity centered around works utilizing
         creative or imaginative talents, which are expected to evoke a worthwhile experience,
         generally through an expression of emotional power, conceptual ideas, technical proficiency,
@@ -1405,10 +1398,10 @@ const cardContents = {
 export default function PreviewCardDetachedTriggersFullDemo() {
   return (
     <div>
-      <p className="m-0 text-base leading-6 text-gray-900 text-balance">
+      <p className="m-0 text-base text-neutral-950 text-balance dark:text-white">
         Discover{' '}
         <PreviewCard.Trigger
-          className="text-blue-800 underline decoration-blue-800/60 decoration-1 underline-offset-2 outline-0 hover:decoration-blue-800 data-[popup-open]:decoration-blue-800 focus-visible:rounded-[2px] focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+          className="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
           handle={demoPreviewCard}
           href="https://en.wikipedia.org/wiki/Typography"
           payload={cardContents.typography}
@@ -1417,7 +1410,7 @@ export default function PreviewCardDetachedTriggersFullDemo() {
         </PreviewCard.Trigger>
         ,{' '}
         <PreviewCard.Trigger
-          className="text-blue-800 underline decoration-blue-800/60 decoration-1 underline-offset-2 outline-0 hover:decoration-blue-800 data-[popup-open]:decoration-blue-800 focus-visible:rounded-[2px] focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+          className="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
           handle={demoPreviewCard}
           href="https://en.wikipedia.org/wiki/Design"
           payload={cardContents.design}
@@ -1426,7 +1419,7 @@ export default function PreviewCardDetachedTriggersFullDemo() {
         </PreviewCard.Trigger>
         , or{' '}
         <PreviewCard.Trigger
-          className="text-blue-800 underline decoration-blue-800/60 decoration-1 underline-offset-2 outline-0 hover:decoration-blue-800 data-[popup-open]:decoration-blue-800 focus-visible:rounded-[2px] focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+          className="text-neutral-950 underline decoration-neutral-950/60 decoration-1 underline-offset-2 outline-0 hover:decoration-neutral-950 data-popup-open:decoration-neutral-950 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:text-white dark:decoration-white/60 dark:hover:decoration-white dark:data-popup-open:decoration-white dark:focus-visible:outline-white"
           handle={demoPreviewCard}
           href="https://en.wikipedia.org/wiki/Art"
           payload={cardContents.art}
@@ -1443,10 +1436,8 @@ export default function PreviewCardDetachedTriggersFullDemo() {
               sideOffset={8}
               className="h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)] transition-[top,left,right,bottom,transform] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]"
             >
-              <PreviewCard.Popup className="box-border relative w-[var(--popup-width,auto)] h-[var(--popup-height,auto)] rounded-lg bg-[canvas] origin-[var(--transform-origin)] transition-[width,height,opacity,scale] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 shadow-lg shadow-gray-200 outline-1 outline-gray-200 dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1">
-                <PreviewCard.Arrow className="flex data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
-                  <ArrowSvg />
-                </PreviewCard.Arrow>
+              <PreviewCard.Popup className="relative h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[width,height,opacity,transform] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-ending-style:[transform:scale(0.98)] data-ending-style:opacity-0 data-starting-style:[transform:scale(0.98)] data-starting-style:opacity-0 dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+                <PreviewCard.Arrow className="relative block h-1.5 w-3 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:border before:border-neutral-950 before:bg-white before:content-[''] before:[transform:translate(-50%,50%)_rotate(45deg)] dark:before:border-white dark:before:bg-neutral-950" />
 
                 <PreviewCard.Viewport className="relative overflow-clip w-full h-full [&_[data-previous]]:w-[var(--popup-width)] [&_[data-previous]]:translate-x-0 [&_[data-previous]]:opacity-100 [&_[data-previous]]:transition-[translate,opacity] [&_[data-previous]]:duration-[350ms,175ms] [&_[data-previous]]:ease-[cubic-bezier(0.22,1,0.36,1)] [&_[data-current]]:w-[var(--popup-width)] [&_[data-current]]:translate-x-0 [&_[data-current]]:opacity-100 [&_[data-current]]:transition-[translate,opacity] [&_[data-current]]:duration-[350ms,175ms] [&_[data-current]]:ease-[cubic-bezier(0.22,1,0.36,1)] data-[activation-direction~='left']:[&_[data-current][data-starting-style]]:-translate-x-[30%] data-[activation-direction~='left']:[&_[data-current][data-starting-style]]:opacity-0 data-[activation-direction~='right']:[&_[data-current][data-starting-style]]:translate-x-[30%] data-[activation-direction~='right']:[&_[data-current][data-starting-style]]:opacity-0 data-[activation-direction~='left']:[&_[data-previous][data-ending-style]]:translate-x-[30%] data-[activation-direction~='left']:[&_[data-previous][data-ending-style]]:opacity-0 data-[activation-direction~='right']:[&_[data-previous][data-ending-style]]:-translate-x-[30%] data-[activation-direction~='right']:[&_[data-previous][data-ending-style]]:opacity-0">
                   {payload}
@@ -1457,25 +1448,6 @@ export default function PreviewCardDetachedTriggersFullDemo() {
         )}
       </PreviewCard.Root>
     </div>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
   );
 }
 ```
@@ -1501,9 +1473,10 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   position: relative;
-  background-color: canvas;
-  color: var(--color-gray-900);
-  border-radius: 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
 
   /* These are required to make the size animations work */
@@ -1515,62 +1488,63 @@ This example shows how to implement the component using CSS Modules.
   transition-timing-function: var(--easing);
   transition-duration: var(--animation-duration);
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transform: scale(0.98);
   }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    border: 1px solid oklch(14.5% 0 0deg);
+    background-color: white;
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid white;
+      background-color: oklch(14.5% 0 0deg);
+    }
   }
 }
 
@@ -1627,7 +1601,6 @@ This example shows how to implement the component using CSS Modules.
 
 .Image {
   display: block;
-  border-radius: 0.25rem;
   max-width: none;
 }
 
@@ -1635,7 +1608,6 @@ This example shows how to implement the component using CSS Modules.
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-900);
   text-wrap: pretty;
 }
 
@@ -1643,32 +1615,52 @@ This example shows how to implement the component using CSS Modules.
   margin: 0;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   text-wrap: balance;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Link {
   outline: 0;
-  color: var(--color-blue);
+  color: oklch(14.5% 0 0deg);
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in oklab, var(--color-blue), transparent 40%);
+  text-decoration-color: color-mix(in oklab, oklch(14.5% 0 0deg), transparent 40%);
   text-underline-offset: 2px;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+    text-decoration-color: color-mix(in oklab, white, transparent 40%);
+  }
 
   @media (hover: hover) {
     &:hover {
-      text-decoration-color: var(--color-blue);
+      text-decoration-color: oklch(14.5% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        text-decoration-color: white;
+      }
     }
   }
 
   &[data-popup-open] {
-    text-decoration-color: var(--color-blue);
+    text-decoration-color: oklch(14.5% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      text-decoration-color: white;
+    }
   }
 
   &:focus-visible {
-    border-radius: 0.125rem;
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     text-decoration-line: none;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -1769,9 +1761,7 @@ export default function PreviewCardDetachedTriggersFullDemo() {
           <PreviewCard.Portal>
             <PreviewCard.Positioner sideOffset={8} className={styles.Positioner}>
               <PreviewCard.Popup className={styles.Popup}>
-                <PreviewCard.Arrow className={styles.Arrow}>
-                  <ArrowSvg />
-                </PreviewCard.Arrow>
+                <PreviewCard.Arrow className={styles.Arrow} />
                 <PreviewCard.Viewport className={styles.Viewport}>{payload}</PreviewCard.Viewport>
               </PreviewCard.Popup>
             </PreviewCard.Positioner>
@@ -1779,25 +1769,6 @@ export default function PreviewCardDetachedTriggersFullDemo() {
         )}
       </PreviewCard.Root>
     </div>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
   );
 }
 ```
@@ -2165,8 +2136,8 @@ type PreviewCardArrowState = {
 ### Viewport
 
 A viewport for displaying content transitions.
-This component is only required if one popup can be opened by multiple triggers, its content change based on the trigger
-and switching between them is animated.
+This component is only required if one popup can be opened by multiple triggers, its content
+changes based on the trigger, and switching between them is animated.
 Renders a `<div>` element.
 
 **Viewport Props:**
@@ -2180,13 +2151,13 @@ Renders a `<div>` element.
 
 **Viewport Data Attributes:**
 
-| Attribute                 | Type                                             | Description                                                                                                                                                                                                                        |
-| :------------------------ | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data-activation-direction | `` `${'left' \| 'right'} {'top' \| 'bottom'}` `` | Indicates the direction from which the popup was activated.&#xA;This can be used to create directional animations based on how the popup was triggered.&#xA;Contains space-separated values for both horizontal and vertical axes. |
-| data-current              | -                                                | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                                 |
-| data-instant              | `'delay' \| 'dismiss' \| 'focus'`                | Present if animations should be instant.                                                                                                                                                                                           |
-| data-previous             | -                                                | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                        |
-| data-transitioning        | -                                                | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                                |
+| Attribute                 | Type                                              | Description                                                                                                                                                                                                                        |
+| :------------------------ | :------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data-activation-direction | `` `${'left' \| 'right'} ${'top' \| 'bottom'}` `` | Indicates the direction from which the popup was activated.&#xA;This can be used to create directional animations based on how the popup was triggered.&#xA;Contains space-separated values for both horizontal and vertical axes. |
+| data-current              | -                                                 | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                                 |
+| data-instant              | `'dismiss' \| 'focus'`                            | Present if animations should be instant.                                                                                                                                                                                           |
+| data-previous             | -                                                 | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                        |
+| data-transitioning        | -                                                 | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                                |
 
 **Viewport CSS Variables:**
 

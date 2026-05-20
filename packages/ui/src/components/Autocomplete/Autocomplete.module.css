@@ -156,7 +156,6 @@
     &[data-ending-style] {
       opacity: 0;
       transform: scale(var(--scale-popup));
-      visibility: hidden;
     }
 
     &:has(> [data-slot='autocomplete-inline-input-container']) {

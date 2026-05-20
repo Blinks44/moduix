@@ -36,11 +36,13 @@ export default function ExampleProgress() {
   }, []);
 
   return (
-    <Progress.Root className="grid w-48 grid-cols-2 gap-y-2" value={value}>
-      <Progress.Label className="text-sm font-normal text-gray-900">Export data</Progress.Label>
-      <Progress.Value className="col-start-2 text-right text-sm text-gray-900" />
-      <Progress.Track className="col-span-full h-1 overflow-hidden rounded-sm bg-gray-200 shadow-[inset_0_0_0_1px] shadow-gray-200">
-        <Progress.Indicator className="block bg-gray-500 transition-all duration-500" />
+    <Progress.Root className="grid max-w-full w-60 grid-cols-2 gap-y-2" value={value}>
+      <Progress.Label className="text-sm font-normal text-neutral-950 dark:text-white">
+        Export data
+      </Progress.Label>
+      <Progress.Value className="text-right text-sm text-neutral-950 dark:text-white" />
+      <Progress.Track className="col-span-2 h-1 overflow-hidden bg-neutral-200 dark:bg-neutral-800">
+        <Progress.Indicator className="bg-neutral-950 transition-[width] duration-500 dark:bg-white" />
       </Progress.Track>
     </Progress.Root>
   );
@@ -56,40 +58,51 @@ This example shows how to implement the component using CSS Modules.
 .Progress {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 0.25rem;
-  grid-row-gap: 0.5rem;
-  width: 12rem;
+  row-gap: 0.5rem;
+  width: 15rem;
+  max-width: 100%;
 }
 
 .Label {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Value {
-  grid-column-start: 2;
-  margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   text-align: right;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Track {
   grid-column: 1 / 3;
   overflow: hidden;
-  background-color: var(--color-gray-200);
-  box-shadow: inset 0 0 0 1px var(--color-gray-200);
   height: 0.25rem;
-  border-radius: 0.25rem;
+  background-color: oklch(92.2% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(26.9% 0 0deg);
+  }
 }
 
 .Indicator {
-  display: block;
-  background-color: var(--color-gray-500);
+  background-color: oklch(14.5% 0 0deg);
   transition: width 500ms;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
+  }
 }
 ```
 
@@ -151,7 +164,7 @@ Renders a `<div>` element.
 | Prop             | Type                                                                                        | Default | Description                                                                                                                                                                                   |
 | :--------------- | :------------------------------------------------------------------------------------------ | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | value\*          | `number \| null`                                                                            | `null`  | The current value. The component is indeterminate when value is `null`.                                                                                                                       |
-| aria-valuetext   | `string`                                                                                    | -       | A string value that provides a user-friendly name for `aria-valuenow`, the current value of the meter.                                                                                        |
+| aria-valuetext   | `string`                                                                                    | -       | A string value that provides a user-friendly name for `aria-valuenow`, the current value of the progress bar.                                                                                 |
 | getAriaValueText | `((formattedValue: string \| null, value: number \| null) => string)`                       | -       | Accepts a function which returns a string value that provides a human-readable text alternative for the current value of the progress bar.                                                    |
 | locale           | `Intl.LocalesArgument`                                                                      | -       | The locale used by `Intl.NumberFormat` when formatting the value.&#xA;Defaults to the user's runtime locale.                                                                                  |
 | min              | `number`                                                                                    | `0`     | The minimum value.                                                                                                                                                                            |

@@ -238,7 +238,7 @@ export function OTPFieldCustomSanitizationExample() {
           length={OTP_LENGTH}
           value={value}
           validationType="none"
-          sanitizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, '')}
+          normalizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, '')}
           onValueChange={setValue}
           onValueInvalid={(nextValue) => {
             setInvalidValue(nextValue);

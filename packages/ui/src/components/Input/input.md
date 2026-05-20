@@ -24,11 +24,11 @@ import { Input } from '@base-ui/react/input';
 
 export default function ExampleInput() {
   return (
-    <label className="flex flex-col items-start gap-1 text-sm text-gray-900 font-bold">
+    <label className="flex flex-col items-start gap-1 text-sm font-bold text-neutral-950 dark:text-white">
       Name
       <Input
-        placeholder="Enter your name"
-        className="h-10 w-56 rounded-md border border-gray-200 pl-3.5 text-base text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 font-normal"
+        placeholder="e.g. Colm Tuite"
+        className="h-8 w-40 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white"
       />
     </label>
   );
@@ -49,26 +49,54 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
-  width: 14rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  width: 10rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -82,7 +110,7 @@ export default function ExampleInput() {
   return (
     <label className={styles.Label}>
       Name
-      <Input placeholder="Enter your name" className={styles.Input} />
+      <Input placeholder="e.g. Colm Tuite" className={styles.Input} />
     </label>
   );
 }

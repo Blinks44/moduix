@@ -26,23 +26,27 @@ import { Fieldset } from '@base-ui/react/fieldset';
 export default function ExampleField() {
   return (
     <Fieldset.Root className="flex w-full max-w-64 flex-col gap-4">
-      <Fieldset.Legend className="border-b border-gray-200 pb-3 text-lg font-bold text-gray-900">
+      <Fieldset.Legend className="border-b border-neutral-950 text-base font-bold text-neutral-950 dark:border-white dark:text-white">
         Billing details
       </Fieldset.Legend>
 
       <Field.Root className="flex flex-col items-start gap-1">
-        <Field.Label className="text-sm font-bold text-gray-900">Company</Field.Label>
+        <Field.Label className="text-sm font-bold text-neutral-950 dark:text-white">
+          Company
+        </Field.Label>
         <Field.Control
           placeholder="Enter company name"
-          className="h-10 w-full rounded-md border border-gray-200 pl-3.5 text-base text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 font-normal"
+          className="h-8 w-full border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white dark:placeholder:text-neutral-400"
         />
       </Field.Root>
 
       <Field.Root className="flex flex-col items-start gap-1">
-        <Field.Label className="text-sm font-bold text-gray-900">Tax ID</Field.Label>
+        <Field.Label className="text-sm font-bold text-neutral-950 dark:text-white">
+          Tax ID
+        </Field.Label>
         <Field.Control
           placeholder="Enter fiscal number"
-          className="h-10 w-full rounded-md border border-gray-200 pl-3.5 text-base text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 font-normal"
+          className="h-8 w-full border border-neutral-950 bg-white dark:bg-neutral-950 px-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:text-white dark:placeholder:text-neutral-400"
         />
       </Field.Root>
     </Fieldset.Root>
@@ -68,13 +72,16 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Legend {
-  border-bottom: 1px solid var(--color-gray-200);
-  padding-bottom: 0.75rem;
+  border-bottom: 1px solid oklch(14.5% 0 0deg);
   font-weight: 700;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
-  color: var(--color-gray-900);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    border-bottom: 1px solid white;
+    color: white;
+  }
 }
 
 .Field {
@@ -88,40 +95,76 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Input {
   box-sizing: border-box;
-  padding-left: 0.875rem;
+  padding: 0 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 100%;
-  height: 2.5rem;
-  border-radius: 0.375rem;
+  height: 2rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Error {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-red-800);
+  color: oklch(50.5% 0.213 27.518deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.4% 0.191 22.216deg);
+  }
 }
 
 .Description {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-600);
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 ```
 

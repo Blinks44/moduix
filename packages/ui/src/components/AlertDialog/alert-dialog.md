@@ -22,28 +22,27 @@ This example shows how to implement the component using Tailwind CSS.
 /* index.tsx */
 import { AlertDialog } from '@base-ui/react/alert-dialog';
 
+const buttonClasses =
+  'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
+
+const dangerButtonClasses = `${buttonClasses} text-red-700 dark:text-red-400`;
+
 export default function ExampleAlertDialog() {
   return (
     <AlertDialog.Root>
-      <AlertDialog.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-red-800 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-        Discard draft
-      </AlertDialog.Trigger>
+      <AlertDialog.Trigger className={dangerButtonClasses}>Discard draft</AlertDialog.Trigger>
       <AlertDialog.Portal>
-        <AlertDialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-        <AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-          <AlertDialog.Title className="-mt-1.5 mb-1 text-lg font-bold">
-            Discard draft?
-          </AlertDialog.Title>
-          <AlertDialog.Description className="mb-6 text-base text-gray-600">
-            You can’t undo this action.
-          </AlertDialog.Description>
-          <div className="flex justify-end gap-4">
-            <AlertDialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-              Cancel
-            </AlertDialog.Close>
-            <AlertDialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-red-800 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-              Discard
-            </AlertDialog.Close>
+        <AlertDialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+        <AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+          <div className="flex flex-col gap-1">
+            <AlertDialog.Title className="text-base font-bold">Discard draft?</AlertDialog.Title>
+            <AlertDialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+              You can’t undo this action.
+            </AlertDialog.Description>
+          </div>
+          <div className="flex justify-end gap-3">
+            <AlertDialog.Close className={buttonClasses}>Cancel</AlertDialog.Close>
+            <AlertDialog.Close className={dangerButtonClasses}>Discard</AlertDialog.Close>
           </div>
         </AlertDialog.Popup>
       </AlertDialog.Portal>
@@ -63,37 +62,70 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
-  &[data-color='red'] {
-    color: var(--color-red);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
   }
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+  &[data-color='red'] {
+    color: oklch(50.5% 0.213 27.518deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.4% 0.191 22.216deg);
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 }
 
@@ -111,7 +143,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -122,6 +154,9 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -129,44 +164,57 @@ This example shows how to implement the component using CSS Modules.
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-300);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transition:
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(0.98);
   }
 }
 
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 ```
 
@@ -184,10 +232,12 @@ export default function ExampleAlertDialog() {
       <AlertDialog.Portal>
         <AlertDialog.Backdrop className={styles.Backdrop} />
         <AlertDialog.Popup className={styles.Popup}>
-          <AlertDialog.Title className={styles.Title}>Discard draft?</AlertDialog.Title>
-          <AlertDialog.Description className={styles.Description}>
-            You can't undo this action.
-          </AlertDialog.Description>
+          <div className={styles.Intro}>
+            <AlertDialog.Title className={styles.Title}>Discard draft?</AlertDialog.Title>
+            <AlertDialog.Description className={styles.Description}>
+              You can't undo this action.
+            </AlertDialog.Description>
+          </div>
           <div className={styles.Actions}>
             <AlertDialog.Close className={styles.Button}>Cancel</AlertDialog.Close>
             <AlertDialog.Close data-color="red" className={styles.Button}>
@@ -312,17 +362,17 @@ export default function ExampleDialog() {
         }
       }}
     >
-      <Dialog.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Dialog.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Tweet
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-        <Dialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 scale-[calc(1-0.1*var(--nested-dialogs))] rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[nested-dialog-open]:after:absolute data-[nested-dialog-open]:after:inset-0 data-[nested-dialog-open]:after:rounded-[inherit] data-[nested-dialog-open]:after:bg-black/5 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-          <Dialog.Title id={titleId} className="-mt-1.5 mb-1 text-lg font-bold">
+        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+        <Dialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-1 scale-[calc(1-0.1*var(--nested-dialogs))] bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[top,scale,opacity] duration-100 ease-out after:absolute after:inset-0 after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-100 after:ease-out after:pointer-events-none data-ending-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-nested-dialog-open:after:opacity-100 data-starting-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-starting-style:scale-[0.96] data-starting-style:opacity-0">
+          <Dialog.Title id={titleId} className="text-base font-bold">
             New tweet
           </Dialog.Title>
           <form
-            className="mt-4 flex flex-col gap-6"
+            className="flex flex-col gap-4"
             onSubmit={(event) => {
               event.preventDefault();
               // Close the dialog when submitting
@@ -332,18 +382,18 @@ export default function ExampleDialog() {
             <textarea
               aria-labelledby={titleId}
               required
-              className="min-h-48 w-full rounded-md border border-gray-200 px-3.5 py-2 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+              className="min-h-32 w-full border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 p-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white"
               placeholder="What’s on your mind?"
               value={textareaValue}
               onChange={(event) => setTextareaValue(event.target.value)}
             />
-            <div className="flex justify-end gap-4">
-              <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+            <div className="flex justify-end gap-3">
+              <Dialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                 Cancel
               </Dialog.Close>
               <button
                 type="submit"
-                className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+                className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
               >
                 Tweet
               </button>
@@ -355,20 +405,20 @@ export default function ExampleDialog() {
       {/* Confirmation dialog */}
       <AlertDialog.Root open={confirmationOpen} onOpenChange={setConfirmationOpen}>
         <AlertDialog.Portal>
-          <AlertDialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 scale-[calc(1-0.1*var(--nested-dialogs))] rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[nested-dialog-open]:after:absolute data-[nested-dialog-open]:after:inset-0 data-[nested-dialog-open]:after:rounded-[inherit] data-[nested-dialog-open]:after:bg-black/5 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-            <AlertDialog.Title className="-mt-1.5 mb-1 text-lg font-bold">
-              Discard tweet?
-            </AlertDialog.Title>
-            <AlertDialog.Description className="mb-6 text-base text-gray-600">
-              Your tweet will be lost.
-            </AlertDialog.Description>
-            <div className="flex items-center justify-end gap-4">
-              <AlertDialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+          <AlertDialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 scale-[calc(1-0.1*var(--nested-dialogs))] bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[top,scale,opacity] duration-100 ease-out after:absolute after:inset-0 after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-100 after:ease-out after:pointer-events-none data-ending-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-nested-dialog-open:after:opacity-100 data-starting-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-starting-style:scale-[0.96] data-starting-style:opacity-0">
+            <div className="flex flex-col gap-1">
+              <AlertDialog.Title className="text-base font-bold">Discard tweet?</AlertDialog.Title>
+              <AlertDialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+                Your tweet will be lost.
+              </AlertDialog.Description>
+            </div>
+            <div className="flex justify-end gap-3">
+              <AlertDialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                 Go back
               </AlertDialog.Close>
               <button
                 type="button"
-                className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+                className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                 onClick={() => {
                   setConfirmationOpen(false);
                   setDialogOpen(false);
@@ -396,33 +446,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -432,7 +511,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 150ms cubic-bezier(0.45, 1.005, 0, 1.005);
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -440,7 +519,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -454,87 +533,131 @@ This example shows how to implement the component using CSS Modules.
   position: fixed;
   top: 50%;
   left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
-
-  transform: translate(-50%, -50%) scale(calc(1 - 0.1 * var(--nested-dialogs)));
-  translate: 0 calc(0px + 1.25rem * var(--nested-dialogs));
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  translate: -50% calc(-50% + 1.25rem * var(--nested-dialogs));
+  scale: calc(1 - 0.1 * var(--nested-dialogs));
+  transition:
+    translate 100ms ease-out,
+    scale 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
-  &[data-nested-dialog-open] {
-    &::after {
-      content: '';
-      inset: 0;
-      position: absolute;
-      border-radius: inherit;
-      background-color: rgb(0 0 0 / 0.05);
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgb(0 0 0 / 0.05);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 100ms ease-out;
+  }
+
+  &[data-nested-dialog-open]::after {
+    opacity: 1;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    translate: -50% calc(-50% + 0.25rem + 1.25rem * var(--nested-dialogs));
+    scale: 0.96;
   }
 }
 
+.PopupBody,
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .TextareaContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
+  gap: 1rem;
 }
 
 .Textarea {
   box-sizing: border-box;
-  padding-block: 0.5rem;
-  padding-inline: 0.875rem;
+  padding: 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 100%;
-  min-height: 12rem;
-  border-radius: 0.375rem;
+  min-height: 8rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  line-height: 1.25rem;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -572,32 +695,34 @@ export default function ExampleDialog() {
       <Dialog.Portal>
         <Dialog.Backdrop className={styles.Backdrop} />
         <Dialog.Popup className={styles.Popup}>
-          <Dialog.Title id={titleId} className={styles.Title}>
-            New tweet
-          </Dialog.Title>
-          <form
-            className={styles.TextareaContainer}
-            onSubmit={(event) => {
-              event.preventDefault();
-              // Close the dialog when submitting
-              setDialogOpen(false);
-            }}
-          >
-            <textarea
-              aria-labelledby={titleId}
-              required
-              className={styles.Textarea}
-              placeholder="What’s on your mind?"
-              value={textareaValue}
-              onChange={(event) => setTextareaValue(event.target.value)}
-            />
-            <div className={styles.Actions}>
-              <Dialog.Close className={styles.Button}>Cancel</Dialog.Close>
-              <button type="submit" className={styles.Button}>
-                Tweet
-              </button>
-            </div>
-          </form>
+          <div className={styles.PopupBody}>
+            <Dialog.Title id={titleId} className={styles.Title}>
+              New tweet
+            </Dialog.Title>
+            <form
+              className={styles.TextareaContainer}
+              onSubmit={(event) => {
+                event.preventDefault();
+                // Close the dialog when submitting
+                setDialogOpen(false);
+              }}
+            >
+              <textarea
+                aria-labelledby={titleId}
+                required
+                className={styles.Textarea}
+                placeholder="What’s on your mind?"
+                value={textareaValue}
+                onChange={(event) => setTextareaValue(event.target.value)}
+              />
+              <div className={styles.Actions}>
+                <Dialog.Close className={styles.Button}>Cancel</Dialog.Close>
+                <button type="submit" className={styles.Button}>
+                  Tweet
+                </button>
+              </div>
+            </form>
+          </div>
         </Dialog.Popup>
       </Dialog.Portal>
 
@@ -605,10 +730,12 @@ export default function ExampleDialog() {
       <AlertDialog.Root open={confirmationOpen} onOpenChange={setConfirmationOpen}>
         <AlertDialog.Portal>
           <AlertDialog.Popup className={styles.Popup}>
-            <AlertDialog.Title className={styles.Title}>Discard tweet?</AlertDialog.Title>
-            <AlertDialog.Description className={styles.Description}>
-              Your tweet will be lost.
-            </AlertDialog.Description>
+            <div className={styles.Intro}>
+              <AlertDialog.Title className={styles.Title}>Discard tweet?</AlertDialog.Title>
+              <AlertDialog.Description className={styles.Description}>
+                Your tweet will be lost.
+              </AlertDialog.Description>
+            </div>
             <div className={styles.Actions}>
               <AlertDialog.Close className={styles.Button}>Go back</AlertDialog.Close>
               <button
@@ -666,33 +793,31 @@ import { AlertDialog } from '@base-ui/react/alert-dialog';
 
 const demoAlertDialog = AlertDialog.createHandle();
 
+const buttonClasses =
+  'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
+
+const dangerButtonClasses = `${buttonClasses} text-red-700 dark:text-red-400`;
+
 export default function AlertDialogDetachedTriggersSimpleDemo() {
   return (
     <React.Fragment>
-      <AlertDialog.Trigger
-        className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-red-800 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
-        handle={demoAlertDialog}
-      >
+      <AlertDialog.Trigger className={dangerButtonClasses} handle={demoAlertDialog}>
         Discard draft
       </AlertDialog.Trigger>
 
       <AlertDialog.Root handle={demoAlertDialog}>
         <AlertDialog.Portal>
-          <AlertDialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-          <AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-            <AlertDialog.Title className="-mt-1.5 mb-1 text-lg font-bold">
-              Discard draft?
-            </AlertDialog.Title>
-            <AlertDialog.Description className="mb-6 text-base text-gray-600">
-              This action cannot be undone.
-            </AlertDialog.Description>
-            <div className="flex justify-end gap-4">
-              <AlertDialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-                Cancel
-              </AlertDialog.Close>
-              <AlertDialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-red-800 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-                Discard
-              </AlertDialog.Close>
+          <AlertDialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+          <AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+            <div className="flex flex-col gap-1">
+              <AlertDialog.Title className="text-base font-bold">Discard draft?</AlertDialog.Title>
+              <AlertDialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+                This action cannot be undone.
+              </AlertDialog.Description>
+            </div>
+            <div className="flex justify-end gap-3">
+              <AlertDialog.Close className={buttonClasses}>Cancel</AlertDialog.Close>
+              <AlertDialog.Close className={dangerButtonClasses}>Discard</AlertDialog.Close>
             </div>
           </AlertDialog.Popup>
         </AlertDialog.Portal>
@@ -713,38 +838,71 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 }
 
 .DangerButton {
-  color: var(--color-red);
+  color: oklch(50.5% 0.213 27.518deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.4% 0.191 22.216deg);
+  }
 }
 
 .Backdrop {
@@ -753,7 +911,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 150ms cubic-bezier(0.45, 1.005, 0, 1.005);
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -761,7 +919,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -772,6 +930,9 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -779,44 +940,57 @@ This example shows how to implement the component using CSS Modules.
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transition:
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(0.98);
   }
 }
 
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .Container {
@@ -850,10 +1024,12 @@ export default function AlertDialogDetachedTriggersSimpleDemo() {
         <AlertDialog.Portal>
           <AlertDialog.Backdrop className={styles.Backdrop} />
           <AlertDialog.Popup className={styles.Popup}>
-            <AlertDialog.Title className={styles.Title}>Discard draft?</AlertDialog.Title>
-            <AlertDialog.Description className={styles.Description}>
-              This action cannot be undone.
-            </AlertDialog.Description>
+            <div className={styles.Intro}>
+              <AlertDialog.Title className={styles.Title}>Discard draft?</AlertDialog.Title>
+              <AlertDialog.Description className={styles.Description}>
+                This action cannot be undone.
+              </AlertDialog.Description>
+            </div>
             <div className={styles.Actions}>
               <AlertDialog.Close className={styles.Button}>Cancel</AlertDialog.Close>
               <AlertDialog.Close className={`${styles.Button} ${styles.DangerButton}`}>
@@ -953,6 +1129,11 @@ type AlertPayload = { message: string };
 
 const demoAlertDialog = AlertDialog.createHandle<AlertPayload>();
 
+const buttonClasses =
+  'flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
+
+const dangerButtonClasses = `${buttonClasses} text-red-700 dark:text-red-400`;
+
 export default function AlertDialogDetachedTriggersControlledDemo() {
   const [open, setOpen] = React.useState(false);
   const [triggerId, setTriggerId] = React.useState<string | null>(null);
@@ -966,7 +1147,7 @@ export default function AlertDialogDetachedTriggersControlledDemo() {
     <React.Fragment>
       <div className="flex flex-wrap gap-2 justify-center">
         <AlertDialog.Trigger
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-red-800 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className={dangerButtonClasses}
           handle={demoAlertDialog}
           id="alert-trigger-1"
           payload={{ message: 'Discard draft?' }}
@@ -975,7 +1156,7 @@ export default function AlertDialogDetachedTriggersControlledDemo() {
         </AlertDialog.Trigger>
 
         <AlertDialog.Trigger
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-red-800 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className={dangerButtonClasses}
           handle={demoAlertDialog}
           id="alert-trigger-2"
           payload={{ message: 'Delete project?' }}
@@ -984,7 +1165,7 @@ export default function AlertDialogDetachedTriggersControlledDemo() {
         </AlertDialog.Trigger>
 
         <AlertDialog.Trigger
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className={buttonClasses}
           handle={demoAlertDialog}
           id="alert-trigger-3"
           payload={{ message: 'Sign out?' }}
@@ -994,7 +1175,7 @@ export default function AlertDialogDetachedTriggersControlledDemo() {
 
         <button
           type="button"
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className={buttonClasses}
           onClick={() => {
             setTriggerId('alert-trigger-2');
             setOpen(true);
@@ -1012,21 +1193,19 @@ export default function AlertDialogDetachedTriggersControlledDemo() {
       >
         {({ payload }) => (
           <AlertDialog.Portal>
-            <AlertDialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-            <AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-              <AlertDialog.Title className="-mt-1.5 mb-1 text-lg font-bold">
-                {payload?.message ?? 'Are you sure?'}
-              </AlertDialog.Title>
-              <AlertDialog.Description className="mb-6 text-base text-gray-600">
-                This action cannot be undone.
-              </AlertDialog.Description>
-              <div className="flex justify-end gap-4">
-                <AlertDialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-                  Cancel
-                </AlertDialog.Close>
-                <AlertDialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-red-800 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-                  Confirm
-                </AlertDialog.Close>
+            <AlertDialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+            <AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+              <div className="flex flex-col gap-1">
+                <AlertDialog.Title className="text-base font-bold">
+                  {payload?.message ?? 'Are you sure?'}
+                </AlertDialog.Title>
+                <AlertDialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+                  This action cannot be undone.
+                </AlertDialog.Description>
+              </div>
+              <div className="flex justify-end gap-3">
+                <AlertDialog.Close className={buttonClasses}>Cancel</AlertDialog.Close>
+                <AlertDialog.Close className={dangerButtonClasses}>Confirm</AlertDialog.Close>
               </div>
             </AlertDialog.Popup>
           </AlertDialog.Portal>
@@ -1048,38 +1227,71 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 }
 
 .DangerButton {
-  color: var(--color-red);
+  color: oklch(50.5% 0.213 27.518deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.4% 0.191 22.216deg);
+  }
 }
 
 .Backdrop {
@@ -1088,7 +1300,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 150ms cubic-bezier(0.45, 1.005, 0, 1.005);
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -1096,7 +1308,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -1107,6 +1319,9 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -1114,44 +1329,57 @@ This example shows how to implement the component using CSS Modules.
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transition:
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(0.98);
   }
 }
 
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .Container {
@@ -1234,12 +1462,14 @@ export default function AlertDialogDetachedTriggersControlledDemo() {
           <AlertDialog.Portal>
             <AlertDialog.Backdrop className={styles.Backdrop} />
             <AlertDialog.Popup className={styles.Popup}>
-              <AlertDialog.Title className={styles.Title}>
-                {payload?.message ?? 'Are you sure?'}
-              </AlertDialog.Title>
-              <AlertDialog.Description className={styles.Description}>
-                This action cannot be undone.
-              </AlertDialog.Description>
+              <div className={styles.Intro}>
+                <AlertDialog.Title className={styles.Title}>
+                  {payload?.message ?? 'Are you sure?'}
+                </AlertDialog.Title>
+                <AlertDialog.Description className={styles.Description}>
+                  This action cannot be undone.
+                </AlertDialog.Description>
+              </div>
               <div className={styles.Actions}>
                 <AlertDialog.Close className={styles.Button}>Cancel</AlertDialog.Close>
                 <AlertDialog.Close className={`${styles.Button} ${styles.DangerButton}`}>
@@ -1264,17 +1494,17 @@ Doesn't render its own HTML element.
 
 **Root Props:**
 
-| Prop                 | Type                                                                           | Default | Description                                                                                                                                                                                                                                                                                                               |
-| :------------------- | :----------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| defaultOpen          | `boolean`                                                                      | `false` | Whether the dialog is initially open. To render a controlled dialog, use the `open` prop instead.                                                                                                                                                                                                                         |
-| open                 | `boolean`                                                                      | -       | Whether the dialog is currently open.                                                                                                                                                                                                                                                                                     |
-| onOpenChange         | `((open: boolean, eventDetails: AlertDialog.Root.ChangeEventDetails) => void)` | -       | Event handler called when the dialog is opened or closed.                                                                                                                                                                                                                                                                 |
-| actionsRef           | `React.RefObject<AlertDialog.Root.Actions \| null>`                            | -       | A ref to imperative actions. `unmount`: When specified, the dialog will not be unmounted when closed.&#xA;Instead, the `unmount` function must be called to unmount the dialog manually.&#xA;Useful when the dialog's animation is controlled by an external library.`close`: Closes the dialog imperatively when called. |
-| defaultTriggerId     | `string \| null`                                                               | -       | ID of the trigger that the dialog is associated with.&#xA;This is useful in conjunction with the `defaultOpen` prop to create an initially open dialog.                                                                                                                                                                   |
-| handle               | `AlertDialog.Handle<Payload>`                                                  | -       | A handle to associate the alert dialog with a trigger.&#xA;If specified, allows external triggers to control the alert dialog's open state.&#xA;Can be created with the AlertDialog.createHandle() method.                                                                                                                |
-| onOpenChangeComplete | `((open: boolean) => void)`                                                    | -       | Event handler called after any animations complete when the dialog is opened or closed.                                                                                                                                                                                                                                   |
-| triggerId            | `string \| null`                                                               | -       | ID of the trigger that the dialog is associated with.&#xA;This is useful in conjunction with the `open` prop to create a controlled dialog.&#xA;There's no need to specify this prop when the popover is uncontrolled (that is, when the `open` prop is not set).                                                         |
-| children             | `React.ReactNode \| PayloadChildRenderFunction<Payload>`                       | -       | The content of the dialog.&#xA;This can be a regular React node or a render function that receives the `payload` of the active trigger.                                                                                                                                                                                   |
+| Prop                 | Type                                                                           | Default | Description                                                                                                                                                                                                                                                                                                                                       |
+| :------------------- | :----------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| defaultOpen          | `boolean`                                                                      | `false` | Whether the dialog is initially open. To render a controlled dialog, use the `open` prop instead.                                                                                                                                                                                                                                                 |
+| open                 | `boolean`                                                                      | -       | Whether the dialog is currently open.                                                                                                                                                                                                                                                                                                             |
+| onOpenChange         | `((open: boolean, eventDetails: AlertDialog.Root.ChangeEventDetails) => void)` | -       | Event handler called when the alert dialog is opened or closed.                                                                                                                                                                                                                                                                                   |
+| actionsRef           | `React.RefObject<AlertDialog.Root.Actions \| null>`                            | -       | A ref to imperative actions. `unmount`: When specified, the alert dialog will not be unmounted when closed.&#xA;Instead, the `unmount` function must be called to unmount the alert dialog manually.&#xA;Useful when the alert dialog's animation is controlled by an external library.`close`: Closes the alert dialog imperatively when called. |
+| defaultTriggerId     | `string \| null`                                                               | -       | ID of the trigger that the dialog is associated with.&#xA;This is useful in conjunction with the `defaultOpen` prop to create an initially open dialog.                                                                                                                                                                                           |
+| handle               | `AlertDialog.Handle<Payload>`                                                  | -       | A handle to associate the alert dialog with a trigger.&#xA;If specified, allows external triggers to control the alert dialog's open state.&#xA;Can be created with the AlertDialog.createHandle() method.                                                                                                                                        |
+| onOpenChangeComplete | `((open: boolean) => void)`                                                    | -       | Event handler called after any animations complete when the dialog is opened or closed.                                                                                                                                                                                                                                                           |
+| triggerId            | `string \| null`                                                               | -       | ID of the trigger that the dialog is associated with.&#xA;This is useful in conjunction with the `open` prop to create a controlled dialog.&#xA;There's no need to specify this prop when the dialog is uncontrolled (that is, when the `open` prop is not set).                                                                                  |
+| children             | `React.ReactNode \| PayloadChildRenderFunction<Payload>`                       | -       | The content of the dialog.&#xA;This can be a regular React node or a render function that receives the `payload` of the active trigger.                                                                                                                                                                                                           |
 
 ### Root.Props
 
@@ -1333,27 +1563,27 @@ type AlertDialogRootChangeEventDetails = (
 
 ### Trigger
 
-A button that opens the dialog.
+A button that opens the alert dialog.
 Renders a `<button>` element.
 
 **Trigger Props:**
 
-| Prop         | Type                                                                                              | Default | Description                                                                                                                                                                                             |
-| :----------- | :------------------------------------------------------------------------------------------------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| handle       | `AlertDialog.Handle<Payload>`                                                                     | -       | A handle to associate the trigger with a dialog.&#xA;Can be created with the Dialog.createHandle() method.                                                                                              |
-| nativeButton | `boolean`                                                                                         | `true`  | Whether the component renders a native `<button>` element when replacing it&#xA;via the `render` prop.&#xA;Set to `false` if the rendered element is not a button (for example, `<div>`).               |
-| payload      | `Payload`                                                                                         | -       | A payload to pass to the dialog when it is opened.                                                                                                                                                      |
-| id           | `string`                                                                                          | -       | ID of the trigger. In addition to being forwarded to the rendered element,&#xA;it is also used to specify the active trigger for the dialogs in controlled mode (with the DialogRoot `triggerId` prop). |
-| className    | `string \| ((state: AlertDialog.Trigger.State) => string \| undefined)`                           | -       | CSS class applied to the element, or a function that&#xA;returns a class based on the component's state.                                                                                                |
-| style        | `React.CSSProperties \| ((state: AlertDialog.Trigger.State) => React.CSSProperties \| undefined)` | -       | Style applied to the element, or a function that&#xA;returns a style object based on the component's state.                                                                                             |
-| render       | `ReactElement \| ((props: HTMLProps, state: AlertDialog.Trigger.State) => ReactElement)`          | -       | Allows you to replace the component's HTML element&#xA;with a different tag, or compose it with another component. Accepts a `ReactElement` or a function that returns the element to render.           |
+| Prop         | Type                                                                                              | Default | Description                                                                                                                                                                                            |
+| :----------- | :------------------------------------------------------------------------------------------------ | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| handle       | `AlertDialog.Handle<Payload>`                                                                     | -       | A handle to associate the trigger with an alert dialog.&#xA;Can be created with the AlertDialog.createHandle() method.                                                                                 |
+| nativeButton | `boolean`                                                                                         | `true`  | Whether the component renders a native `<button>` element when replacing it&#xA;via the `render` prop.&#xA;Set to `false` if the rendered element is not a button (for example, `<div>`).              |
+| payload      | `Payload`                                                                                         | -       | A payload to pass to the dialog when it is opened.                                                                                                                                                     |
+| id           | `string`                                                                                          | -       | ID of the trigger. In addition to being forwarded to the rendered element,&#xA;it is also used to specify the active trigger for the dialog in controlled mode (with the DialogRoot `triggerId` prop). |
+| className    | `string \| ((state: AlertDialog.Trigger.State) => string \| undefined)`                           | -       | CSS class applied to the element, or a function that&#xA;returns a class based on the component's state.                                                                                               |
+| style        | `React.CSSProperties \| ((state: AlertDialog.Trigger.State) => React.CSSProperties \| undefined)` | -       | Style applied to the element, or a function that&#xA;returns a style object based on the component's state.                                                                                            |
+| render       | `ReactElement \| ((props: HTMLProps, state: AlertDialog.Trigger.State) => ReactElement)`          | -       | Allows you to replace the component's HTML element&#xA;with a different tag, or compose it with another component. Accepts a `ReactElement` or a function that returns the element to render.          |
 
 **Trigger Data Attributes:**
 
-| Attribute       | Type | Description                                    |
-| :-------------- | :--- | :--------------------------------------------- |
-| data-popup-open | -    | Present when the corresponding dialog is open. |
-| data-disabled   | -    | Present when the trigger is disabled.          |
+| Attribute       | Type | Description                                          |
+| :-------------- | :--- | :--------------------------------------------------- |
+| data-popup-open | -    | Present when the corresponding alert dialog is open. |
+| data-disabled   | -    | Present when the trigger is disabled.                |
 
 ### Trigger.Props
 
@@ -1617,13 +1847,13 @@ type ReturnValue = AlertDialog.Handle<Payload>;
 
 ### Handle
 
-A handle to control a Dialog imperatively and to associate detached triggers with it.
+A handle to control an Alert Dialog imperatively and to associate detached triggers with it.
 
 **Constructor Parameters:**
 
-| Parameter | Type                   | Default | Description |
-| :-------- | :--------------------- | :------ | :---------- |
-| store?    | `DialogStore<Payload>` | -       | -           |
+| Parameter | Type                   | Default | Description                              |
+| :-------- | :--------------------- | :------ | :--------------------------------------- |
+| store?    | `DialogStore<Payload>` | -       | Internal store holding the dialog state. |
 
 **Properties:**
 
@@ -1638,7 +1868,7 @@ function open(triggerId: string | null): void;
 ```
 
 Opens the dialog and associates it with the trigger with the given id.
-The trigger, if provided, must be a Dialog.Trigger component with this handle passed as a prop.
+The trigger, if provided, must be a matching Trigger component with this handle passed as a prop.
 
 This method should only be called in an event handler or an effect (not during rendering).
 
@@ -1686,9 +1916,9 @@ type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | '';
 - `AlertDialog.Title`: `AlertDialog.Title`, `AlertDialog.Title.Props`, `AlertDialog.Title.State`
 - `AlertDialog.Trigger`: `AlertDialog.Trigger`, `AlertDialog.Trigger.Props`, `AlertDialog.Trigger.State`
 - `AlertDialog.Viewport`: `AlertDialog.Viewport`, `AlertDialog.Viewport.State`, `AlertDialog.Viewport.Props`
-- `AlertDialog.createHandle`
 - `AlertDialog.Handle`
-- `Default`: `AlertDialogBackdropProps`, `AlertDialogBackdropState`, `AlertDialogCloseProps`, `AlertDialogCloseState`, `AlertDialogDescriptionProps`, `AlertDialogDescriptionState`, `AlertDialogPopupProps`, `AlertDialogPopupState`, `AlertDialogPortalProps`, `AlertDialogPortalState`, `AlertDialogTitleProps`, `AlertDialogTitleState`, `AlertDialogTriggerProps`, `AlertDialogTriggerState`, `AlertDialogViewportProps`, `AlertDialogViewportState`, `AlertDialogRootState`, `AlertDialogRootProps`, `AlertDialogRootActions`, `AlertDialogRootChangeEventReason`, `AlertDialogRootChangeEventDetails`
+- `AlertDialog.createHandle`
+- `Default`: `AlertDialogBackdropProps`, `AlertDialogBackdropState`, `AlertDialogCloseProps`, `AlertDialogCloseState`, `AlertDialogDescriptionProps`, `AlertDialogDescriptionState`, `AlertDialogPopupProps`, `AlertDialogPopupState`, `AlertDialogPortalProps`, `AlertDialogPortalState`, `AlertDialogTitleProps`, `AlertDialogTitleState`, `AlertDialogViewportProps`, `AlertDialogViewportState`, `AlertDialogRootState`, `AlertDialogRootProps`, `AlertDialogRootActions`, `AlertDialogRootChangeEventReason`, `AlertDialogRootChangeEventDetails`, `AlertDialogTriggerProps`, `AlertDialogTriggerState`
 
 ## Canonical Types
 

@@ -25,13 +25,13 @@ import { Collapsible } from '@base-ui/react/collapsible';
 
 export default function ExampleCollapsible() {
   return (
-    <Collapsible.Root className="flex min-h-36 w-56 flex-col justify-center text-gray-900">
-      <Collapsible.Trigger className="group flex items-center gap-2 rounded-xs bg-gray-100 px-2 py-1 text-sm font-normal hover:bg-gray-200 focus-visible:outline-2 focus-visible:outline-blue-800 active:bg-gray-200">
-        <ChevronIcon className="size-3 transition-all ease-out group-data-[panel-open]:rotate-90" />
+    <Collapsible.Root className="flex min-h-36 w-48 flex-col justify-center text-neutral-950 dark:text-white">
+      <Collapsible.Trigger className="group flex h-8 items-center justify-between gap-2 rounded-none border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 pl-3 pr-2 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400">
         Recovery keys
+        <CaretRightIcon className="transition-transform duration-100 ease-[ease-out] group-data-panel-open:rotate-90" />
       </Collapsible.Trigger>
-      <Collapsible.Panel className="flex [&[hidden]:not([hidden='until-found'])]:hidden h-[var(--collapsible-panel-height)] flex-col justify-end overflow-hidden text-sm transition-all ease-out data-[ending-style]:h-0 data-[starting-style]:h-0 duration-150">
-        <div className="mt-1 flex cursor-text flex-col gap-2 rounded-xs bg-gray-100 py-2 pl-7">
+      <Collapsible.Panel className="flex h-[var(--collapsible-panel-height)] flex-col justify-end overflow-hidden text-sm transition-[height] duration-150 ease-[ease-out] [&[hidden]:not([hidden='until-found'])]:hidden data-ending-style:h-0 data-starting-style:h-0">
+        <div className="flex flex-col gap-2 px-3.5 py-2">
           <div>alien-bean-pasta</div>
           <div>wild-irish-burrito</div>
           <div>horse-battery-staple</div>
@@ -41,10 +41,17 @@ export default function ExampleCollapsible() {
   );
 }
 
-export function ChevronIcon(props: React.ComponentProps<'svg'>) {
+export function CaretRightIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" {...props}>
-      <path d="M3.5 9L7.5 5L3.5 1" stroke="currentcolor" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M6 12V4l4.5 4z" />
     </svg>
   );
 }
@@ -58,51 +65,87 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Collapsible {
   display: flex;
-  width: 14rem;
+  width: 12rem;
   min-height: 9rem;
   flex-direction: column;
   justify-content: center;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Icon {
-  width: 0.75rem;
-  height: 0.75rem;
-  transition: transform 150ms ease-out;
+  transition: transform 100ms ease-out;
 }
 
 .Trigger {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.5rem 0 0.75rem;
   margin: 0;
-  border: 0;
-  outline: 0;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-900);
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
   font-family: inherit;
   font-size: 0.875rem;
-  line-height: 1.25rem;
   font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-200);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-200);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 
   &[data-panel-open] .Icon {
     transform: rotate(90deg);
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 }
 
@@ -114,7 +157,7 @@ This example shows how to implement the component using CSS Modules.
   overflow: hidden;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  transition: all 150ms ease-out;
+  transition: height 150ms ease-out;
 
   &[hidden]:not([hidden='until-found']) {
     display: none;
@@ -130,11 +173,7 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 0.25rem;
-  padding: 0.5rem 0 0.5rem 1.75rem;
-  border-radius: 0.25rem;
-  background-color: var(--color-gray-100);
-  cursor: text;
+  padding: 0.5rem 0.875rem;
 }
 ```
 
@@ -148,8 +187,8 @@ export default function ExampleCollapsible() {
   return (
     <Collapsible.Root className={styles.Collapsible}>
       <Collapsible.Trigger className={styles.Trigger}>
-        <ChevronIcon className={styles.Icon} />
         Recovery keys
+        <CaretRightIcon className={styles.Icon} />
       </Collapsible.Trigger>
       <Collapsible.Panel className={styles.Panel}>
         <div className={styles.Content}>
@@ -162,10 +201,17 @@ export default function ExampleCollapsible() {
   );
 }
 
-export function ChevronIcon(props: React.ComponentProps<'svg'>) {
+export function CaretRightIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" {...props}>
-      <path d="M3.5 9L7.5 5L3.5 1" stroke="currentcolor" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M6 12V4l4.5 4z" />
     </svg>
   );
 }
@@ -215,6 +261,7 @@ type CollapsibleRootState = {
   open: boolean;
   /** Whether the component should ignore user interaction. */
   disabled: boolean;
+  transitionStatus: TransitionStatus;
 };
 ```
 
@@ -276,6 +323,7 @@ type CollapsibleTriggerState = {
   open: boolean;
   /** Whether the component should ignore user interaction. */
   disabled: boolean;
+  transitionStatus: TransitionStatus;
 };
 ```
 

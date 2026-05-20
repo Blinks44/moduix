@@ -21,22 +21,20 @@ This example shows how to implement the component using Tailwind CSS.
 ```tsx
 /* index.tsx */
 import { Popover } from '@base-ui/react/popover';
-import { BellIcon, ArrowSvg } from './icons-tw';
+
+const triggerClassName =
+  'flex h-8 items-center justify-center border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm font-normal whitespace-nowrap text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 
 export default function ExamplePopover() {
   return (
     <Popover.Root>
-      <Popover.Trigger className="flex size-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100 font-normal">
-        <BellIcon aria-label="Notifications" />
-      </Popover.Trigger>
+      <Popover.Trigger className={triggerClassName}>Notifications</Popover.Trigger>
       <Popover.Portal>
         <Popover.Positioner sideOffset={8}>
-          <Popover.Popup className="origin-[var(--transform-origin)] rounded-lg bg-[canvas] px-6 py-4 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
-            <Popover.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
-              <ArrowSvg />
-            </Popover.Arrow>
-            <Popover.Title className="text-base font-bold">Notifications</Popover.Title>
-            <Popover.Description className="text-base text-gray-600">
+          <Popover.Popup className="relative flex h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] max-w-[500px] flex-col gap-1 origin-[var(--transform-origin)] bg-white dark:bg-neutral-950 p-3 text-neutral-950 dark:text-white outline-none border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+            <Popover.Arrow className="relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]" />
+            <Popover.Title className="text-sm font-bold">Notifications</Popover.Title>
+            <Popover.Description className="text-sm text-neutral-600 dark:text-neutral-400">
               You are all caught up. Good job!
             </Popover.Description>
           </Popover.Popup>
@@ -47,130 +45,12 @@ export default function ExamplePopover() {
 }
 ```
 
-```tsx
-/* icons-tw.tsx */
-import * as React from 'react';
-
-export function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
-
-export function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
-  );
-}
-
-export function UserIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 20a6 6 0 0 0-12 0" />
-      <circle cx="12" cy="10" r="4" />
-      <circle cx="12" cy="12" r="10" />
-    </svg>
-  );
-}
-
-export function ListIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M3 5h.01" />
-      <path d="M3 12h.01" />
-      <path d="M3 19h.01" />
-      <path d="M8 5h13" />
-      <path d="M8 12h13" />
-      <path d="M8 19h13" />
-    </svg>
-  );
-}
-```
-
 ### CSS Modules
 
 This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.IconButton {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &[data-popup-open] {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
-.Icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
 .Positioner {
   width: var(--positioner-width);
   height: var(--positioner-height);
@@ -179,90 +59,101 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  padding: 1rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  outline: none;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
-
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
   width: var(--popup-width, auto);
   height: var(--popup-height, auto);
   max-width: 500px;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transform: scale(0.98);
   }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 
 .Title {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Container {
@@ -277,34 +168,71 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled], :disabled) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled], :disabled) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-popup-open]:not([data-disabled], :disabled) {
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &[data-disabled],
+  &:disabled {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -318,15 +246,11 @@ import styles from './index.module.css';
 export default function ExamplePopover() {
   return (
     <Popover.Root>
-      <Popover.Trigger className={styles.IconButton}>
-        <BellIcon aria-label="Notifications" className={styles.Icon} />
-      </Popover.Trigger>
+      <Popover.Trigger className={styles.Button}>Notifications</Popover.Trigger>
       <Popover.Portal>
         <Popover.Positioner sideOffset={8}>
           <Popover.Popup className={styles.Popup}>
-            <Popover.Arrow className={styles.Arrow}>
-              <ArrowSvg />
-            </Popover.Arrow>
+            <Popover.Arrow className={styles.Arrow} />
             <Popover.Title className={styles.Title}>Notifications</Popover.Title>
             <Popover.Description className={styles.Description}>
               You are all caught up. Good job!
@@ -335,33 +259,6 @@ export default function ExamplePopover() {
         </Popover.Positioner>
       </Popover.Portal>
     </Popover.Root>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
-
-function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
   );
 }
 ```
@@ -408,25 +305,22 @@ This example shows how to implement the component using Tailwind CSS.
 ```tsx
 /* index.tsx */
 import { Popover } from '@base-ui/react/popover';
-import { BellIcon, ArrowSvg } from './icons-tw';
+
+const triggerClassName =
+  'flex h-8 items-center justify-center border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm font-normal whitespace-nowrap text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 
 export default function ExamplePopover() {
   return (
     <Popover.Root>
-      <Popover.Trigger
-        openOnHover
-        className="flex size-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100"
-      >
-        <BellIcon aria-label="Notifications" />
+      <Popover.Trigger openOnHover className={triggerClassName}>
+        Notifications
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Positioner sideOffset={8}>
-          <Popover.Popup className="origin-[var(--transform-origin)] rounded-lg bg-[canvas] px-6 py-4 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
-            <Popover.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
-              <ArrowSvg />
-            </Popover.Arrow>
-            <Popover.Title className="text-base font-bold">Notifications</Popover.Title>
-            <Popover.Description className="text-base text-gray-600">
+          <Popover.Popup className="relative flex h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] max-w-[500px] flex-col gap-1 origin-[var(--transform-origin)] bg-white dark:bg-neutral-950 p-3 text-neutral-950 dark:text-white outline-none border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+            <Popover.Arrow className="relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]" />
+            <Popover.Title className="text-sm font-bold">Notifications</Popover.Title>
+            <Popover.Description className="text-sm text-neutral-600 dark:text-neutral-400">
               You are all caught up. Good job!
             </Popover.Description>
           </Popover.Popup>
@@ -437,130 +331,12 @@ export default function ExamplePopover() {
 }
 ```
 
-```tsx
-/* icons-tw.tsx */
-import * as React from 'react';
-
-export function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
-
-export function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
-  );
-}
-
-export function UserIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 20a6 6 0 0 0-12 0" />
-      <circle cx="12" cy="10" r="4" />
-      <circle cx="12" cy="12" r="10" />
-    </svg>
-  );
-}
-
-export function ListIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M3 5h.01" />
-      <path d="M3 12h.01" />
-      <path d="M3 19h.01" />
-      <path d="M8 5h13" />
-      <path d="M8 12h13" />
-      <path d="M8 19h13" />
-    </svg>
-  );
-}
-```
-
 ### CSS Modules
 
 This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.IconButton {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &[data-popup-open] {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
-.Icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
 .Positioner {
   width: var(--positioner-width);
   height: var(--positioner-height);
@@ -569,90 +345,101 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  padding: 1rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  outline: none;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
-
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
   width: var(--popup-width, auto);
   height: var(--popup-height, auto);
   max-width: 500px;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transform: scale(0.98);
   }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 
 .Title {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Container {
@@ -667,34 +454,71 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled], :disabled) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled], :disabled) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-popup-open]:not([data-disabled], :disabled) {
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &[data-disabled],
+  &:disabled {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -708,15 +532,13 @@ import styles from './index.module.css';
 export default function ExamplePopover() {
   return (
     <Popover.Root>
-      <Popover.Trigger openOnHover className={styles.IconButton}>
-        <BellIcon aria-label="Notifications" className={styles.Icon} />
+      <Popover.Trigger openOnHover className={styles.Button}>
+        Notifications
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Positioner sideOffset={8}>
           <Popover.Popup className={styles.Popup}>
-            <Popover.Arrow className={styles.Arrow}>
-              <ArrowSvg />
-            </Popover.Arrow>
+            <Popover.Arrow className={styles.Arrow} />
             <Popover.Title className={styles.Title}>Notifications</Popover.Title>
             <Popover.Description className={styles.Description}>
               You are all caught up. Good job!
@@ -725,33 +547,6 @@ export default function ExamplePopover() {
         </Popover.Positioner>
       </Popover.Portal>
     </Popover.Root>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
-
-function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
   );
 }
 ```
@@ -791,29 +586,26 @@ This example shows how to implement the component using Tailwind CSS.
 'use client';
 import * as React from 'react';
 import { Popover } from '@base-ui/react/popover';
-import { ArrowSvg, BellIcon } from './icons-tw';
 
 const demoPopover = Popover.createHandle();
+
+const triggerClassName =
+  'flex h-8 items-center justify-center border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm font-normal whitespace-nowrap text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 
 export default function PopoverDetachedTriggersSimpleDemo() {
   return (
     <React.Fragment>
-      <Popover.Trigger
-        className="flex size-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100"
-        handle={demoPopover}
-      >
-        <BellIcon aria-label="Notifications" />
+      <Popover.Trigger className={triggerClassName} handle={demoPopover}>
+        Notifications
       </Popover.Trigger>
 
       <Popover.Root handle={demoPopover}>
         <Popover.Portal>
           <Popover.Positioner sideOffset={8}>
-            <Popover.Popup className="origin-[var(--transform-origin)] rounded-lg bg-[canvas] px-6 py-4 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
-              <Popover.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
-                <ArrowSvg />
-              </Popover.Arrow>
-              <Popover.Title className="text-base font-bold">Notifications</Popover.Title>
-              <Popover.Description className="text-base text-gray-600">
+            <Popover.Popup className="relative flex h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] max-w-[500px] flex-col gap-1 origin-[var(--transform-origin)] bg-white dark:bg-neutral-950 p-3 text-neutral-950 dark:text-white outline-none border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+              <Popover.Arrow className="relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]" />
+              <Popover.Title className="text-sm font-bold">Notifications</Popover.Title>
+              <Popover.Description className="text-sm text-neutral-600 dark:text-neutral-400">
                 You are all caught up. Good job!
               </Popover.Description>
             </Popover.Popup>
@@ -825,130 +617,12 @@ export default function PopoverDetachedTriggersSimpleDemo() {
 }
 ```
 
-```tsx
-/* icons-tw.tsx */
-import * as React from 'react';
-
-export function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
-
-export function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
-  );
-}
-
-export function UserIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 20a6 6 0 0 0-12 0" />
-      <circle cx="12" cy="10" r="4" />
-      <circle cx="12" cy="12" r="10" />
-    </svg>
-  );
-}
-
-export function ListIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M3 5h.01" />
-      <path d="M3 12h.01" />
-      <path d="M3 19h.01" />
-      <path d="M8 5h13" />
-      <path d="M8 12h13" />
-      <path d="M8 19h13" />
-    </svg>
-  );
-}
-```
-
 ### CSS Modules
 
 This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.IconButton {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &[data-popup-open] {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
-.Icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
 .Positioner {
   width: var(--positioner-width);
   height: var(--positioner-height);
@@ -957,90 +631,101 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  padding: 1rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  outline: none;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
-
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
   width: var(--popup-width, auto);
   height: var(--popup-height, auto);
   max-width: 500px;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transform: scale(0.98);
   }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 
 .Title {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Container {
@@ -1055,34 +740,71 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled], :disabled) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled], :disabled) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-popup-open]:not([data-disabled], :disabled) {
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &[data-disabled],
+  &:disabled {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -1099,17 +821,15 @@ const demoPopover = Popover.createHandle();
 export default function PopoverDetachedTriggersSimpleDemo() {
   return (
     <React.Fragment>
-      <Popover.Trigger className={styles.IconButton} handle={demoPopover}>
-        <BellIcon aria-label="Notifications" className={styles.Icon} />
+      <Popover.Trigger className={styles.Button} handle={demoPopover}>
+        Notifications
       </Popover.Trigger>
 
       <Popover.Root handle={demoPopover}>
         <Popover.Portal>
           <Popover.Positioner sideOffset={8}>
             <Popover.Popup className={styles.Popup}>
-              <Popover.Arrow className={styles.Arrow}>
-                <ArrowSvg />
-              </Popover.Arrow>
+              <Popover.Arrow className={styles.Arrow} />
               <Popover.Title className={styles.Title}>Notifications</Popover.Title>
               <Popover.Description className={styles.Description}>
                 You are all caught up. Good job!
@@ -1119,33 +839,6 @@ export default function PopoverDetachedTriggersSimpleDemo() {
         </Popover.Portal>
       </Popover.Root>
     </React.Fragment>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
-
-function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
   );
 }
 ```
@@ -1241,11 +934,13 @@ This example shows how to implement the component using Tailwind CSS.
 'use client';
 import * as React from 'react';
 import { Popover } from '@base-ui/react/popover';
-import { ArrowSvg, BellIcon } from './icons-tw';
 
 const demoPopover = Popover.createHandle();
 
-export default function PopoverDetachedTriggersSimpleDemo() {
+const triggerClassName =
+  'flex h-8 items-center justify-center border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm font-normal whitespace-nowrap text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
+
+export default function PopoverDetachedTriggersControlledDemo() {
   const [open, setOpen] = React.useState(false);
   const [triggerId, setTriggerId] = React.useState<string | null>(null);
 
@@ -1257,33 +952,21 @@ export default function PopoverDetachedTriggersSimpleDemo() {
   return (
     <React.Fragment>
       <div className="flex gap-2 flex-wrap justify-center">
-        <Popover.Trigger
-          className="flex size-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100"
-          handle={demoPopover}
-          id="trigger-1"
-        >
-          <BellIcon aria-label="Notifications" />
+        <Popover.Trigger className={triggerClassName} handle={demoPopover} id="trigger-1">
+          Trigger 1
         </Popover.Trigger>
 
-        <Popover.Trigger
-          className="flex size-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100"
-          handle={demoPopover}
-          id="trigger-2"
-        >
-          <BellIcon aria-label="Notifications" />
+        <Popover.Trigger className={triggerClassName} handle={demoPopover} id="trigger-2">
+          Trigger 2
         </Popover.Trigger>
 
-        <Popover.Trigger
-          className="flex size-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100"
-          handle={demoPopover}
-          id="trigger-3"
-        >
-          <BellIcon aria-label="Notifications" />
+        <Popover.Trigger className={triggerClassName} handle={demoPopover} id="trigger-3">
+          Trigger 3
         </Popover.Trigger>
 
         <button
           type="button"
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className="flex h-8 items-center justify-center border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm font-normal whitespace-nowrap text-neutral-950 dark:text-white select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
           onClick={() => {
             setTriggerId('trigger-2');
             setOpen(true);
@@ -1301,33 +984,13 @@ export default function PopoverDetachedTriggersSimpleDemo() {
       >
         <Popover.Portal>
           <Popover.Positioner
-            className="h-(--positioner-height) w-(--positioner-width) max-w-(--available-width)"
+            className="h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)]"
             sideOffset={8}
           >
-            <Popover.Popup
-              className={`
-              h-(--popup-height,auto)
-              w-(--popup-width,auto) max-w-[500px]
-              origin-[var(--transform-origin)] rounded-lg bg-[canvas]
-              px-6 py-4
-              text-gray-900 shadow-lg
-              shadow-gray-200
-              outline-1
-              outline-gray-200
-              transition-[transform,scale,opacity]
-              data-[ending-style]:scale-90
-              data-[ending-style]:opacity-0
-              data-[starting-style]:scale-90
-              data-[starting-style]:opacity-0
-              dark:shadow-none
-              dark:-outline-offset-1
-              dark:outline-gray-300`}
-            >
-              <Popover.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
-                <ArrowSvg />
-              </Popover.Arrow>
-              <Popover.Title className="text-base font-bold">Notifications</Popover.Title>
-              <Popover.Description className="text-base text-gray-600">
+            <Popover.Popup className="relative flex h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] max-w-[500px] flex-col gap-1 origin-[var(--transform-origin)] bg-white dark:bg-neutral-950 p-3 text-neutral-950 dark:text-white outline-none border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+              <Popover.Arrow className="relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]" />
+              <Popover.Title className="text-sm font-bold">Notifications</Popover.Title>
+              <Popover.Description className="text-sm text-neutral-600 dark:text-neutral-400">
                 You are all caught up. Good job!
               </Popover.Description>
             </Popover.Popup>
@@ -1339,130 +1002,12 @@ export default function PopoverDetachedTriggersSimpleDemo() {
 }
 ```
 
-```tsx
-/* icons-tw.tsx */
-import * as React from 'react';
-
-export function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
-
-export function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
-  );
-}
-
-export function UserIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 20a6 6 0 0 0-12 0" />
-      <circle cx="12" cy="10" r="4" />
-      <circle cx="12" cy="12" r="10" />
-    </svg>
-  );
-}
-
-export function ListIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M3 5h.01" />
-      <path d="M3 12h.01" />
-      <path d="M3 19h.01" />
-      <path d="M8 5h13" />
-      <path d="M8 12h13" />
-      <path d="M8 19h13" />
-    </svg>
-  );
-}
-```
-
 ### CSS Modules
 
 This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.IconButton {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
-  margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  user-select: none;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
-    }
-  }
-
-  &:active {
-    background-color: var(--color-gray-100);
-  }
-
-  &[data-popup-open] {
-    background-color: var(--color-gray-100);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-}
-
-.Icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
 .Positioner {
   width: var(--positioner-width);
   height: var(--positioner-height);
@@ -1471,90 +1016,101 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
-  padding: 1rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: canvas;
-  color: var(--color-gray-900);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  outline: none;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
-
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
   width: var(--popup-width, auto);
   height: var(--popup-height, auto);
   max-width: 500px;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
+    transform: scale(0.98);
   }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 
 .Title {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Container {
@@ -1569,34 +1125,71 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.375rem;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled], :disabled) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled], :disabled) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-popup-open]:not([data-disabled], :disabled) {
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &[data-disabled],
+  &:disabled {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -1622,16 +1215,16 @@ export default function PopoverDetachedTriggersControlledDemo() {
   return (
     <React.Fragment>
       <div className={styles.Container}>
-        <Popover.Trigger className={styles.IconButton} handle={demoPopover} id="trigger-1">
-          <BellIcon aria-label="Notifications" className={styles.Icon} />
+        <Popover.Trigger className={styles.Button} handle={demoPopover} id="trigger-1">
+          Trigger 1
         </Popover.Trigger>
 
-        <Popover.Trigger className={styles.IconButton} handle={demoPopover} id="trigger-2">
-          <BellIcon aria-label="Notifications" className={styles.Icon} />
+        <Popover.Trigger className={styles.Button} handle={demoPopover} id="trigger-2">
+          Trigger 2
         </Popover.Trigger>
 
-        <Popover.Trigger className={styles.IconButton} handle={demoPopover} id="trigger-3">
-          <BellIcon aria-label="Notifications" className={styles.Icon} />
+        <Popover.Trigger className={styles.Button} handle={demoPopover} id="trigger-3">
+          Trigger 3
         </Popover.Trigger>
 
         <button
@@ -1655,9 +1248,7 @@ export default function PopoverDetachedTriggersControlledDemo() {
         <Popover.Portal>
           <Popover.Positioner className={styles.Positioner} sideOffset={8}>
             <Popover.Popup className={styles.Popup}>
-              <Popover.Arrow className={styles.Arrow}>
-                <ArrowSvg />
-              </Popover.Arrow>
+              <Popover.Arrow className={styles.Arrow} />
               <Popover.Title className={styles.Title}>Notifications</Popover.Title>
               <Popover.Description className={styles.Description}>
                 You are all caught up. Good job!
@@ -1667,33 +1258,6 @@ export default function PopoverDetachedTriggersControlledDemo() {
         </Popover.Portal>
       </Popover.Root>
     </React.Fragment>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
-
-function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
   );
 }
 ```
@@ -1736,62 +1300,29 @@ This example shows how to implement the component using Tailwind CSS.
 import * as React from 'react';
 import { Popover } from '@base-ui/react/popover';
 import { Avatar } from '@base-ui/react/avatar';
-import { ArrowSvg, BellIcon, ListIcon, UserIcon } from './icons-tw';
 
 const demoPopover = Popover.createHandle<React.ComponentType>();
+
+const triggerClassName =
+  'flex h-8 items-center justify-center border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm font-normal whitespace-nowrap text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white';
 
 export default function PopoverDetachedTriggersFullDemo() {
   return (
     <div className="flex gap-2">
       <Popover.Trigger
-        className={`
-          box-border flex
-          size-10 items-center justify-center
-          rounded-md border border-gray-200
-          bg-gray-50
-          text-base font-normal text-gray-900
-          select-none
-          hover:bg-gray-100 focus-visible:outline-2
-          focus-visible:-outline-offset-1
-          focus-visible:outline-blue-600 active:bg-gray-100 data-popup-open:bg-gray-100`}
+        className={triggerClassName}
         handle={demoPopover}
         payload={NotificationsPanel}
       >
-        <BellIcon aria-label="Notifications" className="size-5" />
+        Notifications
       </Popover.Trigger>
 
-      <Popover.Trigger
-        className={`
-          box-border flex
-          size-10 items-center justify-center
-          rounded-md border border-gray-200
-          bg-gray-50
-          text-base font-normal text-gray-900
-          select-none
-          hover:bg-gray-100 focus-visible:outline-2
-          focus-visible:-outline-offset-1
-          focus-visible:outline-blue-600 active:bg-gray-100 data-popup-open:bg-gray-100`}
-        handle={demoPopover}
-        payload={ActivityPanel}
-      >
-        <ListIcon aria-label="Activity" className="size-5" />
+      <Popover.Trigger className={triggerClassName} handle={demoPopover} payload={ActivityPanel}>
+        Activity
       </Popover.Trigger>
 
-      <Popover.Trigger
-        className={`
-          box-border flex
-          size-10 items-center justify-center
-          rounded-md border border-gray-200
-          bg-gray-50
-          text-base font-normal text-gray-900
-          select-none
-          hover:bg-gray-100 focus-visible:outline-2
-          focus-visible:-outline-offset-1
-          focus-visible:outline-blue-600 active:bg-gray-100 data-popup-open:bg-gray-100`}
-        handle={demoPopover}
-        payload={ProfilePanel}
-      >
-        <UserIcon aria-label="Profile" className="size-5" />
+      <Popover.Trigger className={triggerClassName} handle={demoPopover} payload={ProfilePanel}>
+        Profile
       </Popover.Trigger>
 
       <Popover.Root handle={demoPopover}>
@@ -1799,53 +1330,15 @@ export default function PopoverDetachedTriggersFullDemo() {
           <Popover.Portal>
             <Popover.Positioner
               sideOffset={8}
-              className={`
-                h-(--positioner-height) w-(--positioner-width)
-                max-w-(--available-width)
-                transition-[top,left,right,bottom,transform]
-                duration-[0.35s]
-                ease-[cubic-bezier(0.22,1,0.36,1)]
-                data-instant:transition-none`}
+              className="h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)] transition-[top,left,right,bottom,transform] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-instant:transition-none"
             >
-              <Popover.Popup
-                className={`
-                  relative h-(--popup-height,auto) w-(--popup-width,auto)
-                  max-w-[500px] origin-(--transform-origin)
-                  rounded-lg bg-[canvas] text-gray-900
-                  shadow-lg
-                  shadow-gray-200
-                  outline-1
-                  outline-gray-200
-                  transition-[width,height,opacity,scale]
-                  duration-[0.35s]
-                  ease-[cubic-bezier(0.22,1,0.36,1)]
-                  data-ending-style:scale-90
-                  data-ending-style:opacity-0 data-instant:transition-none
-                  data-starting-style:scale-90
-                  data-starting-style:opacity-0
-                  dark:shadow-none
-                  dark:-outline-offset-1
-                  dark:outline-gray-300`}
-              >
-                <Popover.Arrow
-                  className={`
-                    flex
-                    transition-[left] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]
-                    data-[side=bottom]:top-[-8px]
-                    data-[side=left]:right-[-13px]
-                    data-[side=left]:rotate-90
-                    data-[side=right]:left-[-13px]
-                    data-[side=right]:-rotate-90
-                    data-[side=top]:bottom-[-8px]
-                    data-[side=top]:rotate-180`}
-                >
-                  <ArrowSvg />
-                </Popover.Arrow>
+              <Popover.Popup className="relative flex h-[var(--popup-height,auto)] w-[var(--popup-width,auto)] max-w-[31.25rem] flex-col gap-1 origin-[var(--transform-origin)] bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white outline-none border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[width,height,opacity,scale] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-ending-style:scale-90 data-ending-style:opacity-0 data-instant:transition-none data-starting-style:scale-90 data-starting-style:opacity-0">
+                <Popover.Arrow className="relative block w-3 h-1.5 overflow-clip transition-[left] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]" />
 
                 <Popover.Viewport
                   className={`
-                    relative h-full w-full overflow-clip p-[1rem_1.5rem]
-                    [&_[data-current]]:w-[calc(var(--popup-width)-3rem)]
+                    relative h-full w-full overflow-clip p-2
+                    [&_[data-current]]:w-[calc(var(--popup-width)-1rem)]
                     [&_[data-current]]:translate-x-0
                     [&_[data-current]]:opacity-100
                     [&_[data-current]]:transition-[translate,opacity]
@@ -1855,7 +1348,7 @@ export default function PopoverDetachedTriggersFullDemo() {
                     data-[activation-direction~='left']:[&_[data-current][data-starting-style]]:opacity-0
                     data-[activation-direction~='right']:[&_[data-current][data-starting-style]]:translate-x-1/2
                     data-[activation-direction~='right']:[&_[data-current][data-starting-style]]:opacity-0
-                    [&_[data-previous]]:w-[calc(var(--popup-width)-3rem)]
+                    [&_[data-previous]]:w-[calc(var(--popup-width)-1rem)]
                     [&_[data-previous]]:translate-x-0
                     [&_[data-previous]]:opacity-100
                     [&_[data-previous]]:transition-[translate,opacity]
@@ -1879,22 +1372,22 @@ export default function PopoverDetachedTriggersFullDemo() {
 
 function NotificationsPanel() {
   return (
-    <React.Fragment>
-      <Popover.Title className="m-0 text-base font-bold">Notifications</Popover.Title>
-      <Popover.Description className="m-0 text-base text-gray-600">
+    <div className="flex flex-col gap-1">
+      <Popover.Title className="text-sm font-bold">Notifications</Popover.Title>
+      <Popover.Description className="text-sm text-neutral-600 dark:text-neutral-400">
         You are all caught up. Good job!
       </Popover.Description>
-    </React.Fragment>
+    </div>
   );
 }
 
 function ProfilePanel() {
   return (
-    <div className="-mx-2 grid grid-cols-[auto_auto] gap-x-4">
-      <Popover.Title className="col-start-2 col-end-3 row-start-1 row-end-2 m-0 text-base font-bold">
+    <div className="grid w-max grid-cols-[auto_auto] gap-x-2">
+      <Popover.Title className="col-start-2 col-end-3 row-start-1 row-end-2 text-sm font-bold">
         Jason Eventon
       </Popover.Title>
-      <Avatar.Root className="col-start-1 col-end-2 row-start-1 row-end-3 inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gray-100 align-middle text-base leading-none font-bold text-gray-900 select-none">
+      <Avatar.Root className="col-start-1 col-end-2 row-start-1 row-end-3 inline-flex h-12 w-12 items-center justify-center overflow-hidden bg-neutral-200 dark:bg-neutral-800 align-middle text-sm leading-none font-bold text-neutral-950 dark:text-white select-none">
         <Avatar.Image
           src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
           width="48"
@@ -1902,14 +1395,20 @@ function ProfilePanel() {
           className="h-full w-full object-cover"
         />
       </Avatar.Root>
-      <span className="col-start-2 col-end-3 row-start-2 row-end-3 text-sm text-gray-600">
+      <span className="col-start-2 col-end-3 row-start-2 row-end-3 text-sm text-neutral-600 dark:text-neutral-400">
         Pro plan
       </span>
-      <div className="col-start-1 col-end-3 row-start-3 row-end-4 mt-2 flex flex-col gap-2 border-t border-gray-200 pt-2 text-sm">
-        <a href="#" className="text-gray-900 no-underline hover:underline">
+      <div className="col-start-1 col-end-3 row-start-3 row-end-4 flex flex-col gap-2 pt-2 text-sm">
+        <a
+          href="#"
+          className="text-neutral-950 dark:text-white underline underline-offset-[0.16em] decoration-[1px] hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+        >
           Profile settings
         </a>
-        <a href="#" className="text-gray-900 no-underline hover:underline">
+        <a
+          href="#"
+          className="text-neutral-950 dark:text-white underline underline-offset-[0.16em] decoration-[1px] hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+        >
           Log out
         </a>
       </div>
@@ -1919,89 +1418,12 @@ function ProfilePanel() {
 
 function ActivityPanel() {
   return (
-    <React.Fragment>
-      <Popover.Title className="m-0 text-base font-bold">Activity</Popover.Title>
-      <Popover.Description className="m-0 text-base text-gray-600">
+    <div className="flex flex-col gap-1">
+      <Popover.Title className="text-sm font-bold">Activity</Popover.Title>
+      <Popover.Description className="text-sm text-neutral-600 dark:text-neutral-400">
         Nothing interesting happened recently.
       </Popover.Description>
-    </React.Fragment>
-  );
-}
-```
-
-```tsx
-/* icons-tw.tsx */
-import * as React from 'react';
-
-export function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
-
-export function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
-  );
-}
-
-export function UserIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 20a6 6 0 0 0-12 0" />
-      <circle cx="12" cy="10" r="4" />
-      <circle cx="12" cy="12" r="10" />
-    </svg>
-  );
-}
-
-export function ListIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M3 5h.01" />
-      <path d="M3 12h.01" />
-      <path d="M3 19h.01" />
-      <path d="M8 5h13" />
-      <path d="M8 12h13" />
-      <path d="M8 19h13" />
-    </svg>
+    </div>
   );
 }
 ```
@@ -2012,49 +1434,287 @@ This example shows how to implement the component using CSS Modules.
 
 ```css
 /* index.module.css */
-.IconButton {
+.Positioner {
+  width: var(--positioner-width);
+  height: var(--positioner-height);
+  max-width: var(--available-width);
+}
+
+.Popup {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  outline: none;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transform-origin: var(--transform-origin);
+  transition:
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
+  width: var(--popup-width, auto);
+  height: var(--popup-height, auto);
+  max-width: 500px;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+.Arrow {
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
+
+  &[data-side='top'] {
+    bottom: -6px;
+    rotate: 180deg;
+  }
+
+  &[data-side='bottom'] {
+    top: -6px;
+    rotate: 0deg;
+  }
+
+  &[data-side='left'] {
+    right: -9px;
+    rotate: 90deg;
+  }
+
+  &[data-side='right'] {
+    left: -9px;
+    rotate: -90deg;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
+  }
+}
+
+.Title {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+}
+
+.Description {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
+}
+
+.Container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Button {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  user-select: none;
-  font-size: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.875rem;
   font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled], :disabled) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled], :disabled) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
-  &[data-popup-open] {
-    background-color: var(--color-gray-100);
+  &[data-popup-open]:not([data-disabled], :disabled) {
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &[data-disabled],
+  &:disabled {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
+```
 
-.Icon {
-  width: 1.25rem;
-  height: 1.25rem;
+```tsx
+/* index.tsx */
+'use client';
+import * as React from 'react';
+import { Popover } from '@base-ui/react/popover';
+import { Avatar } from '@base-ui/react/avatar';
+import baseStyles from './index.module.css';
+import styles from './opt/index.module.css';
+
+const demoPopover = Popover.createHandle<React.ComponentType>();
+
+export default function PopoverDetachedTriggersFullDemo() {
+  return (
+    <div className={styles.Container}>
+      <Popover.Trigger
+        className={baseStyles.Button}
+        handle={demoPopover}
+        payload={NotificationsPanel}
+      >
+        Notifications
+      </Popover.Trigger>
+
+      <Popover.Trigger className={baseStyles.Button} handle={demoPopover} payload={ActivityPanel}>
+        Activity
+      </Popover.Trigger>
+
+      <Popover.Trigger className={baseStyles.Button} handle={demoPopover} payload={ProfilePanel}>
+        Profile
+      </Popover.Trigger>
+
+      <Popover.Root handle={demoPopover}>
+        {({ payload: Payload }) => (
+          <Popover.Portal>
+            <Popover.Positioner sideOffset={8} className={styles.Positioner}>
+              <Popover.Popup className={styles.Popup}>
+                <Popover.Arrow className={styles.Arrow} />
+
+                <Popover.Viewport className={styles.Viewport}>
+                  {Payload !== undefined && <Payload />}
+                </Popover.Viewport>
+              </Popover.Popup>
+            </Popover.Positioner>
+          </Popover.Portal>
+        )}
+      </Popover.Root>
+    </div>
+  );
 }
 
+function NotificationsPanel() {
+  return (
+    <div className={styles.Stack}>
+      <Popover.Title className={styles.Title}>Notifications</Popover.Title>
+      <Popover.Description className={styles.Description}>
+        You are all caught up. Good job!
+      </Popover.Description>
+    </div>
+  );
+}
+
+function ProfilePanel() {
+  return (
+    <div className={styles.ProfilePanel}>
+      <Popover.Title className={styles.Title}>Jason Eventon</Popover.Title>
+      <Avatar.Root className={styles.Avatar}>
+        <Avatar.Image
+          src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
+          width="48"
+          height="48"
+          className={styles.AvatarImage}
+        />
+      </Avatar.Root>
+      <span className={styles.Plan}>Pro plan</span>
+      <div className={styles.ProfileActions}>
+        <a href="#">Profile settings</a>
+        <a href="#">Log out</a>
+      </div>
+    </div>
+  );
+}
+
+function ActivityPanel() {
+  return (
+    <div className={styles.Stack}>
+      <Popover.Title className={styles.Title}>Activity</Popover.Title>
+      <Popover.Description className={styles.Description}>
+        Nothing interesting happened recently.
+      </Popover.Description>
+    </div>
+  );
+}
+```
+
+```css
+/* opt/index.module.css */
 .Positioner {
   --easing: cubic-bezier(0.22, 1, 0.36, 1);
   --animation-duration: 0.35s;
@@ -2075,21 +1735,30 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   position: relative;
-  background-color: canvas;
-  color: var(--color-gray-900);
-  border-radius: 0.5rem;
+  outline: none;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  border: 1px solid oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
 
   /* These are required to make the size animations work */
   width: var(--popup-width, auto);
   height: var(--popup-height, auto);
 
-  max-width: 500px;
+  max-width: 31.25rem;
 
   /* width and height are essential for the resize animation; opacity and transform handle the enter/exit animation */
   transition-property: width, height, opacity, transform;
   transition-timing-function: var(--easing);
   transition-duration: var(--animation-duration);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    border: 1px solid white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
@@ -2100,29 +1769,17 @@ This example shows how to implement the component using CSS Modules.
   &[data-instant] {
     transition: none;
   }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
-  }
 }
 
 .Viewport {
-  --viewport-inline-padding: 1.5rem;
+  --viewport-inline-padding: 0.5rem;
   box-sizing: border-box;
   /* Required to clip the overflowing content during the slide in/out animations */
   position: relative;
   overflow: clip;
   width: 100%;
   height: 100%;
-  padding: 1rem var(--viewport-inline-padding);
+  padding: 0.5rem var(--viewport-inline-padding);
 
   [data-previous],
   [data-current] {
@@ -2161,70 +1818,87 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
   transition: left calc(var(--animation-duration)) var(--easing);
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
-  }
+.Stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .Title {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .Description {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Container {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .ProfilePanel {
   display: grid;
   grid-template-columns: auto auto;
-  column-gap: 16px;
-  margin: 0 -8px;
+  width: max-content;
+  column-gap: 0.5rem;
 
   .Title {
     grid-column: 2;
@@ -2234,9 +1908,13 @@ This example shows how to implement the component using CSS Modules.
   .Plan {
     grid-column: 2;
     grid-row: 2;
-
     font-size: 0.875rem;
-    color: var(--color-gray-600);
+    line-height: 1.25rem;
+    color: oklch(43.9% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
   }
 
   .Avatar {
@@ -2247,16 +1925,22 @@ This example shows how to implement the component using CSS Modules.
     justify-content: center;
     align-items: center;
     vertical-align: middle;
-    border-radius: 100%;
+    -webkit-user-select: none;
     user-select: none;
     font-weight: 700;
-    color: var(--color-gray-900);
-    background-color: var(--color-gray-100);
-    font-size: 1rem;
+    color: oklch(14.5% 0 0deg);
+    background-color: oklch(92.2% 0 0deg);
+    font-size: 0.875rem;
     line-height: 1;
+    white-space: nowrap;
     overflow: hidden;
     height: 3rem;
     width: 3rem;
+
+    @media (prefers-color-scheme: dark) {
+      color: white;
+      background-color: oklch(26.9% 0 0deg);
+    }
   }
 
   .AvatarImage {
@@ -2270,189 +1954,37 @@ This example shows how to implement the component using CSS Modules.
     grid-row: 3;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 0.5rem;
+    gap: 0.5rem;
     padding-top: 0.5rem;
-    border-top: 1px solid var(--color-gray-200);
     font-size: 0.875rem;
+    line-height: 1.25rem;
 
     a {
-      color: var(--color-gray-900);
-      text-decoration: none;
+      color: oklch(14.5% 0 0deg);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.16em;
+
+      @media (prefers-color-scheme: dark) {
+        color: white;
+      }
 
       @media (hover: hover) {
         &:hover {
-          text-decoration: underline;
+          text-decoration: none;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid oklch(14.5% 0 0deg);
+        outline-offset: 2px;
+
+        @media (prefers-color-scheme: dark) {
+          outline-color: white;
         }
       }
     }
   }
-}
-```
-
-```tsx
-/* index.tsx */
-'use client';
-import * as React from 'react';
-import { Popover } from '@base-ui/react/popover';
-import { Avatar } from '@base-ui/react/avatar';
-import styles from './index.module.css';
-
-const demoPopover = Popover.createHandle<React.ComponentType>();
-
-export default function PopoverDetachedTriggersFullDemo() {
-  return (
-    <div className={styles.Container}>
-      <Popover.Trigger
-        className={styles.IconButton}
-        handle={demoPopover}
-        payload={NotificationsPanel}
-      >
-        <BellIcon aria-label="Notifications" className={styles.Icon} />
-      </Popover.Trigger>
-
-      <Popover.Trigger className={styles.IconButton} handle={demoPopover} payload={ActivityPanel}>
-        <ListIcon aria-label="Activity" className={styles.Icon} />
-      </Popover.Trigger>
-
-      <Popover.Trigger className={styles.IconButton} handle={demoPopover} payload={ProfilePanel}>
-        <UserIcon aria-label="Profile" className={styles.Icon} />
-      </Popover.Trigger>
-
-      <Popover.Root handle={demoPopover}>
-        {({ payload: Payload }) => (
-          <Popover.Portal>
-            <Popover.Positioner sideOffset={8} className={styles.Positioner}>
-              <Popover.Popup className={styles.Popup}>
-                <Popover.Arrow className={styles.Arrow}>
-                  <ArrowSvg />
-                </Popover.Arrow>
-
-                <Popover.Viewport className={styles.Viewport}>
-                  {Payload !== undefined && <Payload />}
-                </Popover.Viewport>
-              </Popover.Popup>
-            </Popover.Positioner>
-          </Popover.Portal>
-        )}
-      </Popover.Root>
-    </div>
-  );
-}
-
-function NotificationsPanel() {
-  return (
-    <React.Fragment>
-      <Popover.Title className={styles.Title}>Notifications</Popover.Title>
-      <Popover.Description className={styles.Description}>
-        You are all caught up. Good job!
-      </Popover.Description>
-    </React.Fragment>
-  );
-}
-
-function ProfilePanel() {
-  return (
-    <div className={styles.ProfilePanel}>
-      <Popover.Title className={styles.Title}>Jason Eventon</Popover.Title>
-      <Avatar.Root className={styles.Avatar}>
-        <Avatar.Image
-          src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80"
-          width="48"
-          height="48"
-          className={styles.AvatarImage}
-        />
-      </Avatar.Root>
-      <span className={styles.Plan}>Pro plan</span>
-      <div className={styles.ProfileActions}>
-        <a href="#">Profile settings</a>
-        <a href="#">Log out</a>
-      </div>
-    </div>
-  );
-}
-
-function ActivityPanel() {
-  return (
-    <React.Fragment>
-      <Popover.Title className={styles.Title}>Activity</Popover.Title>
-      <Popover.Description className={styles.Description}>
-        Nothing interesting happened recently.
-      </Popover.Description>
-    </React.Fragment>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
-
-function BellIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="currentcolor" width="20" height="20" viewBox="0 0 16 16" {...props}>
-      <path d="M 8 1 C 7.453125 1 7 1.453125 7 2 L 7 3.140625 C 5.28125 3.589844 4 5.144531 4 7 L 4 10.984375 C 4 10.984375 3.984375 11.261719 3.851563 11.519531 C 3.71875 11.78125 3.558594 12 3 12 L 3 13 L 13 13 L 13 12 C 12.40625 12 12.253906 11.78125 12.128906 11.53125 C 12.003906 11.277344 12 11.003906 12 11.003906 L 12 7 C 12 5.144531 10.71875 3.589844 9 3.140625 L 9 2 C 9 1.453125 8.546875 1 8 1 Z M 8 13 C 7.449219 13 7 13.449219 7 14 C 7 14.550781 7.449219 15 8 15 C 8.550781 15 9 14.550781 9 14 C 9 13.449219 8.550781 13 8 13 Z M 8 4 C 9.664063 4 11 5.335938 11 7 L 11 10.996094 C 11 10.996094 10.988281 11.472656 11.234375 11.96875 C 11.238281 11.980469 11.246094 11.988281 11.25 12 L 4.726563 12 C 4.730469 11.992188 4.738281 11.984375 4.742188 11.980469 C 4.992188 11.488281 5 11.015625 5 11.015625 L 5 7 C 5 5.335938 6.335938 4 8 4 Z" />
-    </svg>
-  );
-}
-
-function UserIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 20a6 6 0 0 0-12 0" />
-      <circle cx="12" cy="10" r="4" />
-      <circle cx="12" cy="12" r="10" />
-    </svg>
-  );
-}
-
-function ListIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M3 5h.01" />
-      <path d="M3 12h.01" />
-      <path d="M3 19h.01" />
-      <path d="M8 5h13" />
-      <path d="M8 12h13" />
-      <path d="M8 19h13" />
-    </svg>
-  );
 }
 ```
 
@@ -2470,7 +2002,7 @@ Doesn't render its own HTML element.
 | defaultOpen          | `boolean`                                                                  | `false` | Whether the popover is initially open. To render a controlled popover, use the `open` prop instead.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | open                 | `boolean`                                                                  | -       | Whether the popover is currently open.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | onOpenChange         | `((open: boolean, eventDetails: Popover.Root.ChangeEventDetails) => void)` | -       | Event handler called when the popover is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| actionsRef           | `React.RefObject<Popover.Root.Actions \| null>`                            | -       | A ref to imperative actions. `unmount`: When specified, the popover will not be unmounted when closed.&#xA;Instead, the `unmount` function must be called to unmount the popover manually.&#xA;Useful when the popover's animation is controlled by an external library.`close`: Closes the dialog imperatively when called.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| actionsRef           | `React.RefObject<Popover.Root.Actions \| null>`                            | -       | A ref to imperative actions. `unmount`: When specified, the popover will not be unmounted when closed.&#xA;Instead, the `unmount` function must be called to unmount the popover manually.&#xA;Useful when the popover's animation is controlled by an external library.`close`: Closes the popover imperatively when called.                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | defaultTriggerId     | `string \| null`                                                           | -       | ID of the trigger that the popover is associated with.&#xA;This is useful in conjunction with the `defaultOpen` prop to create an initially open popover.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | handle               | `Popover.Handle<Payload>`                                                  | -       | A handle to associate the popover with a trigger.&#xA;If specified, allows external triggers to control the popover's open state.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | modal                | `boolean \| 'trap-focus'`                                                  | `false` | Determines if the popover enters a modal state when open. `true`: user interaction is limited to the popover: document page scroll is locked, and pointer interactions on outside elements are disabled.`false`: user interaction with the rest of the document is allowed.`'trap-focus'`: focus is trapped inside the popover, but document page scroll is not locked and pointer interactions outside of it remain enabled. When `modal` is `true`, focus trapping is enabled only if `<Popover.Close>` is rendered&#xA;inside `<Popover.Popup>`. It can be visually hidden with your own CSS if needed, such as&#xA;Tailwind's `sr-only` utility. When `modal` is `'trap-focus'`, render `<Popover.Close>` inside `<Popover.Popup>` so touch&#xA;screen readers can escape the popup. |
@@ -2764,7 +2296,7 @@ Renders a `<div>` element.
 | data-open           | -                                                                          | Present when the popup is open.                                       |
 | data-closed         | -                                                                          | Present when the popup is closed.                                     |
 | data-align          | `'start' \| 'center' \| 'end'`                                             | Indicates how the popup is aligned relative to specified side.        |
-| data-instant        | `'click' \| 'dismiss'`                                                     | Present if animations should be instant.                              |
+| data-instant        | `'click' \| 'dismiss' \| 'focus' \| 'trigger-change'`                      | Present if animations should be instant.                              |
 | data-side           | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start'` | Indicates which side the popup is positioned relative to the trigger. |
 | data-starting-style | -                                                                          | Present when the popup is animating in.                               |
 | data-ending-style   | -                                                                          | Present when the popup is animating out.                              |
@@ -2793,7 +2325,7 @@ type PopoverPopupState = {
   /** The transition status of the component. */
   transitionStatus: TransitionStatus;
   /** Whether transitions should be skipped. */
-  instant: 'dismiss' | 'click' | undefined;
+  instant: 'dismiss' | 'click' | 'focus' | 'trigger-change' | undefined;
 };
 ```
 
@@ -2912,8 +2444,8 @@ type PopoverCloseState = {};
 ### Viewport
 
 A viewport for displaying content transitions.
-This component is only required if one popup can be opened by multiple triggers, its content change based on the trigger
-and switching between them is animated.
+This component is only required if one popup can be opened by multiple triggers, its content
+changes based on the trigger, and switching between them is animated.
 Renders a `<div>` element.
 
 **Viewport Props:**
@@ -2927,13 +2459,13 @@ Renders a `<div>` element.
 
 **Viewport Data Attributes:**
 
-| Attribute                 | Type                                             | Description                                                                                                                                                                                                                        |
-| :------------------------ | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data-activation-direction | `` `${'left' \| 'right'} {'top' \| 'bottom'}` `` | Indicates the direction from which the popup was activated.&#xA;This can be used to create directional animations based on how the popup was triggered.&#xA;Contains space-separated values for both horizontal and vertical axes. |
-| data-current              | -                                                | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                                 |
-| data-instant              | `'dismiss' \| 'click'`                           | Present if animations should be instant.                                                                                                                                                                                           |
-| data-previous             | -                                                | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                        |
-| data-transitioning        | -                                                | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                                |
+| Attribute                 | Type                                                  | Description                                                                                                                                                                                                                        |
+| :------------------------ | :---------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data-activation-direction | `` `${'left' \| 'right'} {'top' \| 'bottom'}` ``      | Indicates the direction from which the popup was activated.&#xA;This can be used to create directional animations based on how the popup was triggered.&#xA;Contains space-separated values for both horizontal and vertical axes. |
+| data-current              | -                                                     | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                                 |
+| data-instant              | `'click' \| 'dismiss' \| 'focus' \| 'trigger-change'` | Present if animations should be instant.                                                                                                                                                                                           |
+| data-previous             | -                                                     | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                        |
+| data-transitioning        | -                                                     | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                                |
 
 **Viewport CSS Variables:**
 
@@ -2955,7 +2487,7 @@ type PopoverViewportState = {
   /** Whether the viewport is currently transitioning between contents. */
   transitioning: boolean;
   /** Present if animations should be instant. */
-  instant: 'dismiss' | 'click' | undefined;
+  instant: 'dismiss' | 'click' | 'focus' | 'trigger-change' | undefined;
 };
 ```
 

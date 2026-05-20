@@ -25,18 +25,20 @@ import { Dialog } from '@base-ui/react/dialog';
 export default function ExampleDialog() {
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Dialog.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         View notifications
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-        <Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-          <Dialog.Title className="-mt-1.5 mb-1 text-lg font-bold">Notifications</Dialog.Title>
-          <Dialog.Description className="mb-6 text-base text-gray-600">
-            You are all caught up. Good job!
-          </Dialog.Description>
-          <div className="flex justify-end gap-4">
-            <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+        <Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+          <div className="flex flex-col gap-1">
+            <Dialog.Title className="text-base font-bold">Notifications</Dialog.Title>
+            <Dialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+              You are all caught up. Good job!
+            </Dialog.Description>
+          </div>
+          <div className="flex justify-end gap-3">
+            <Dialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
               Close
             </Dialog.Close>
           </div>
@@ -58,33 +60,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -94,8 +125,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 150ms cubic-bezier(0.45, 1.005, 0, 1.005);
-  touch-action: none;
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -103,7 +133,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -114,6 +144,9 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -121,45 +154,57 @@ This example shows how to implement the component using CSS Modules.
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
-  touch-action: none;
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transition:
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(0.98);
   }
 }
 
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 ```
 
@@ -175,10 +220,12 @@ export default function ExampleDialog() {
       <Dialog.Portal>
         <Dialog.Backdrop className={styles.Backdrop} />
         <Dialog.Popup className={styles.Popup}>
-          <Dialog.Title className={styles.Title}>Notifications</Dialog.Title>
-          <Dialog.Description className={styles.Description}>
-            You are all caught up. Good job!
-          </Dialog.Description>
+          <div className={styles.Intro}>
+            <Dialog.Title className={styles.Title}>Notifications</Dialog.Title>
+            <Dialog.Description className={styles.Description}>
+              You are all caught up. Good job!
+            </Dialog.Description>
+          </div>
           <div className={styles.Actions}>
             <Dialog.Close className={styles.Button}>Close</Dialog.Close>
           </div>
@@ -321,7 +368,7 @@ function ExampleMenu() {
 
 ### Nested dialogs
 
-You can nest dialogs within one another normally.
+You can nest dialogs within one another normally.
 
 Use the `[data-nested-dialog-open]` selector and the `var(--nested-dialogs)` CSS variable to customize the styling of the parent dialog. Backdrops of the child dialogs won't be rendered so that you can present the parent dialog in a clean way behind the one on top of it.
 
@@ -338,43 +385,41 @@ import { Dialog } from '@base-ui/react/dialog';
 export default function ExampleDialog() {
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Dialog.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         View notifications
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-        <Dialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 scale-[calc(1-0.1*var(--nested-dialogs))] rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[nested-dialog-open]:after:absolute data-[nested-dialog-open]:after:inset-0 data-[nested-dialog-open]:after:rounded-[inherit] data-[nested-dialog-open]:after:bg-black/5 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-          <Dialog.Title className="-mt-1.5 mb-1 text-lg font-bold">Notifications</Dialog.Title>
-          <Dialog.Description className="mb-6 text-base text-gray-600">
-            You are all caught up. Good job!
-          </Dialog.Description>
-          <div className="flex items-center justify-end gap-4">
-            <div className="mr-auto flex">
-              <Dialog.Root>
-                <Dialog.Trigger className="-mx-1.5 -my-0.5 flex items-center justify-center rounded-xs px-1.5 py-0.5 text-base font-normal text-blue-800 hover:bg-blue-800/5 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-blue-800/10 dark:hover:bg-blue-800/15 dark:active:bg-blue-800/25">
-                  Customize
-                </Dialog.Trigger>
-                <Dialog.Portal>
-                  <Dialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 scale-[calc(1-0.1*var(--nested-dialogs))] rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[nested-dialog-open]:after:absolute data-[nested-dialog-open]:after:inset-0 data-[nested-dialog-open]:after:rounded-[inherit] data-[nested-dialog-open]:after:bg-black/5 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-                    <Dialog.Title className="-mt-1.5 mb-1 text-lg font-bold">
-                      Customize notification
+        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+        <Dialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 scale-[calc(1-0.1*var(--nested-dialogs))] bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[top,scale,opacity] duration-100 ease-out after:absolute after:inset-0 after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-100 after:ease-out after:pointer-events-none data-ending-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-nested-dialog-open:after:opacity-100 data-starting-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-starting-style:scale-[0.96] data-starting-style:opacity-0">
+          <div className="flex flex-col gap-1">
+            <Dialog.Title className="text-base font-bold">Notifications</Dialog.Title>
+            <Dialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+              You are all caught up. Good job!
+            </Dialog.Description>
+          </div>
+          <div className="flex items-center gap-3">
+            <Dialog.Root>
+              <Dialog.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+                Customize
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 scale-[calc(1-0.1*var(--nested-dialogs))] bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[top,scale,opacity] duration-100 ease-out after:absolute after:inset-0 after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-100 after:ease-out after:pointer-events-none data-ending-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-nested-dialog-open:after:opacity-100 data-starting-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-starting-style:scale-[0.96] data-starting-style:opacity-0">
+                  <div className="flex flex-col gap-1">
+                    <Dialog.Title className="text-base font-bold">
+                      Customize notifications
                     </Dialog.Title>
-                    <Dialog.Description className="mb-6 text-base text-gray-600">
+                    <Dialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
                       Review your settings here.
                     </Dialog.Description>
-                    <div className="flex items-center justify-end gap-4">
-                      <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-                        Close
-                      </Dialog.Close>
-                    </div>
-                  </Dialog.Popup>
-                </Dialog.Portal>
-              </Dialog.Root>
-            </div>
-
-            <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
-              Close
-            </Dialog.Close>
+                  </div>
+                  <div className="flex items-center justify-end gap-3">
+                    <Dialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+                      Close
+                    </Dialog.Close>
+                  </div>
+                </Dialog.Popup>
+              </Dialog.Portal>
+            </Dialog.Root>
           </div>
         </Dialog.Popup>
       </Dialog.Portal>
@@ -394,77 +439,105 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .GhostButton {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  margin: 0;
+  border: none;
   background-color: transparent;
-  color: var(--color-blue);
-  border-radius: 0.25rem;
-  padding: 0.125rem 0.375rem;
-  margin: -0.125rem -0.375rem;
-  border: 0;
-  outline: 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: color-mix(in oklch, var(--color-blue), transparent 95%);
-    }
-  }
+      background-color: oklch(92.2% 0 0deg);
 
-  &:active {
-    background-color: color-mix(in oklch, var(--color-blue), transparent 90%);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    @media (hover: hover) {
-      &:hover {
-        background-color: color-mix(in oklch, var(--color-blue), transparent 85%);
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
       }
-    }
-
-    &:active {
-      background-color: color-mix(in oklch, var(--color-blue), transparent 75%);
     }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -474,7 +547,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 150ms cubic-bezier(0.45, 1.005, 0, 1.005);
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -482,7 +555,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -496,65 +569,88 @@ This example shows how to implement the component using CSS Modules.
   position: fixed;
   top: 50%;
   left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
-
-  transform: translate(-50%, -50%) scale(calc(1 - 0.1 * var(--nested-dialogs)));
-  translate: 0 calc(0px + 1.25rem * var(--nested-dialogs));
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  translate: -50% calc(-50% + 1.25rem * var(--nested-dialogs));
+  scale: calc(1 - 0.1 * var(--nested-dialogs));
+  transition:
+    translate 100ms ease-out,
+    scale 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
-  &[data-nested-dialog-open] {
-    &::after {
-      content: '';
-      inset: 0;
-      position: absolute;
-      border-radius: inherit;
-      background-color: rgb(0 0 0 / 0.05);
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgb(0 0 0 / 0.05);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 100ms ease-out;
+  }
+
+  &[data-nested-dialog-open]::after {
+    opacity: 1;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    translate: -50% calc(-50% + 0.25rem + 1.25rem * var(--nested-dialogs));
+    scale: 0.96;
   }
 }
 
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   align-items: center;
-  justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
-.ActionsLeft {
-  margin-right: auto;
+.EndActions {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 0.75rem;
 }
 ```
 
@@ -570,29 +666,29 @@ export default function ExampleDialog() {
       <Dialog.Portal>
         <Dialog.Backdrop className={styles.Backdrop} />
         <Dialog.Popup className={styles.Popup}>
-          <Dialog.Title className={styles.Title}>Notifications</Dialog.Title>
-          <Dialog.Description className={styles.Description}>
-            You are all caught up. Good job!
-          </Dialog.Description>
+          <div className={styles.Intro}>
+            <Dialog.Title className={styles.Title}>Notifications</Dialog.Title>
+            <Dialog.Description className={styles.Description}>
+              You are all caught up. Good job!
+            </Dialog.Description>
+          </div>
           <div className={styles.Actions}>
-            <div className={styles.ActionsLeft}>
-              <Dialog.Root>
-                <Dialog.Trigger className={styles.GhostButton}>Customize</Dialog.Trigger>
-                <Dialog.Portal>
-                  <Dialog.Popup className={styles.Popup}>
+            <Dialog.Root>
+              <Dialog.Trigger className={styles.Button}>Customize</Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Popup className={styles.Popup}>
+                  <div className={styles.Intro}>
                     <Dialog.Title className={styles.Title}>Customize notifications</Dialog.Title>
                     <Dialog.Description className={styles.Description}>
                       Review your settings here.
                     </Dialog.Description>
-                    <div className={styles.Actions}>
-                      <Dialog.Close className={styles.Button}>Close</Dialog.Close>
-                    </div>
-                  </Dialog.Popup>
-                </Dialog.Portal>
-              </Dialog.Root>
-            </div>
-
-            <Dialog.Close className={styles.Button}>Close</Dialog.Close>
+                  </div>
+                  <div className={styles.EndActions}>
+                    <Dialog.Close className={styles.Button}>Close</Dialog.Close>
+                  </div>
+                </Dialog.Popup>
+              </Dialog.Portal>
+            </Dialog.Root>
           </div>
         </Dialog.Popup>
       </Dialog.Portal>
@@ -641,17 +737,17 @@ export default function ExampleDialog() {
         }
       }}
     >
-      <Dialog.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Dialog.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Tweet
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-        <Dialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 scale-[calc(1-0.1*var(--nested-dialogs))] rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[nested-dialog-open]:after:absolute data-[nested-dialog-open]:after:inset-0 data-[nested-dialog-open]:after:rounded-[inherit] data-[nested-dialog-open]:after:bg-black/5 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-          <Dialog.Title id={titleId} className="-mt-1.5 mb-1 text-lg font-bold">
+        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+        <Dialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-1 scale-[calc(1-0.1*var(--nested-dialogs))] bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[top,scale,opacity] duration-100 ease-out after:absolute after:inset-0 after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-100 after:ease-out after:pointer-events-none data-ending-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-nested-dialog-open:after:opacity-100 data-starting-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-starting-style:scale-[0.96] data-starting-style:opacity-0">
+          <Dialog.Title id={titleId} className="text-base font-bold">
             New tweet
           </Dialog.Title>
           <form
-            className="mt-4 flex flex-col gap-6"
+            className="flex flex-col gap-4"
             onSubmit={(event) => {
               event.preventDefault();
               // Close the dialog when submitting
@@ -661,18 +757,18 @@ export default function ExampleDialog() {
             <textarea
               aria-labelledby={titleId}
               required
-              className="min-h-48 w-full rounded-md border border-gray-200 px-3.5 py-2 text-base font-normal text-gray-900 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800"
+              className="min-h-32 w-full border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 p-2 text-sm any-pointer-coarse:text-base font-normal text-neutral-950 dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white"
               placeholder="What’s on your mind?"
               value={textareaValue}
               onChange={(event) => setTextareaValue(event.target.value)}
             />
-            <div className="flex justify-end gap-4">
-              <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+            <div className="flex justify-end gap-3">
+              <Dialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                 Cancel
               </Dialog.Close>
               <button
                 type="submit"
-                className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+                className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
               >
                 Tweet
               </button>
@@ -684,20 +780,20 @@ export default function ExampleDialog() {
       {/* Confirmation dialog */}
       <AlertDialog.Root open={confirmationOpen} onOpenChange={setConfirmationOpen}>
         <AlertDialog.Portal>
-          <AlertDialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 scale-[calc(1-0.1*var(--nested-dialogs))] rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[nested-dialog-open]:after:absolute data-[nested-dialog-open]:after:inset-0 data-[nested-dialog-open]:after:rounded-[inherit] data-[nested-dialog-open]:after:bg-black/5 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-            <AlertDialog.Title className="-mt-1.5 mb-1 text-lg font-bold">
-              Discard tweet?
-            </AlertDialog.Title>
-            <AlertDialog.Description className="mb-6 text-base text-gray-600">
-              Your tweet will be lost.
-            </AlertDialog.Description>
-            <div className="flex items-center justify-end gap-4">
-              <AlertDialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+          <AlertDialog.Popup className="fixed top-[calc(50%+1.25rem*var(--nested-dialogs))] left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 scale-[calc(1-0.1*var(--nested-dialogs))] bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[top,scale,opacity] duration-100 ease-out after:absolute after:inset-0 after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-100 after:ease-out after:pointer-events-none data-ending-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-ending-style:scale-[0.96] data-ending-style:opacity-0 data-nested-dialog-open:after:opacity-100 data-starting-style:top-[calc(50%+0.25rem+1.25rem*var(--nested-dialogs))] data-starting-style:scale-[0.96] data-starting-style:opacity-0">
+            <div className="flex flex-col gap-1">
+              <AlertDialog.Title className="text-base font-bold">Discard tweet?</AlertDialog.Title>
+              <AlertDialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+                Your tweet will be lost.
+              </AlertDialog.Description>
+            </div>
+            <div className="flex justify-end gap-3">
+              <AlertDialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                 Go back
               </AlertDialog.Close>
               <button
                 type="button"
-                className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+                className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                 onClick={() => {
                   setConfirmationOpen(false);
                   setDialogOpen(false);
@@ -725,33 +821,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -761,7 +886,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 150ms cubic-bezier(0.45, 1.005, 0, 1.005);
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -769,7 +894,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -783,87 +908,131 @@ This example shows how to implement the component using CSS Modules.
   position: fixed;
   top: 50%;
   left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
-
-  transform: translate(-50%, -50%) scale(calc(1 - 0.1 * var(--nested-dialogs)));
-  translate: 0 calc(0px + 1.25rem * var(--nested-dialogs));
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  translate: -50% calc(-50% + 1.25rem * var(--nested-dialogs));
+  scale: calc(1 - 0.1 * var(--nested-dialogs));
+  transition:
+    translate 100ms ease-out,
+    scale 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
-  &[data-nested-dialog-open] {
-    &::after {
-      content: '';
-      inset: 0;
-      position: absolute;
-      border-radius: inherit;
-      background-color: rgb(0 0 0 / 0.05);
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgb(0 0 0 / 0.05);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 100ms ease-out;
+  }
+
+  &[data-nested-dialog-open]::after {
+    opacity: 1;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    translate: -50% calc(-50% + 0.25rem + 1.25rem * var(--nested-dialogs));
+    scale: 0.96;
   }
 }
 
+.PopupBody,
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .TextareaContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
+  gap: 1rem;
 }
 
 .Textarea {
   box-sizing: border-box;
-  padding-block: 0.5rem;
-  padding-inline: 0.875rem;
+  padding: 0.5rem;
   margin: 0;
-  border: 1px solid var(--color-gray-200);
+  border-radius: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
   width: 100%;
-  min-height: 12rem;
-  border-radius: 0.375rem;
+  min-height: 8rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  line-height: 1.25rem;
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
+  &::placeholder {
+    color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+    }
+  }
 
   &:focus {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -901,32 +1070,34 @@ export default function ExampleDialog() {
       <Dialog.Portal>
         <Dialog.Backdrop className={styles.Backdrop} />
         <Dialog.Popup className={styles.Popup}>
-          <Dialog.Title id={titleId} className={styles.Title}>
-            New tweet
-          </Dialog.Title>
-          <form
-            className={styles.TextareaContainer}
-            onSubmit={(event) => {
-              event.preventDefault();
-              // Close the dialog when submitting
-              setDialogOpen(false);
-            }}
-          >
-            <textarea
-              aria-labelledby={titleId}
-              required
-              className={styles.Textarea}
-              placeholder="What’s on your mind?"
-              value={textareaValue}
-              onChange={(event) => setTextareaValue(event.target.value)}
-            />
-            <div className={styles.Actions}>
-              <Dialog.Close className={styles.Button}>Cancel</Dialog.Close>
-              <button type="submit" className={styles.Button}>
-                Tweet
-              </button>
-            </div>
-          </form>
+          <div className={styles.PopupBody}>
+            <Dialog.Title id={titleId} className={styles.Title}>
+              New tweet
+            </Dialog.Title>
+            <form
+              className={styles.TextareaContainer}
+              onSubmit={(event) => {
+                event.preventDefault();
+                // Close the dialog when submitting
+                setDialogOpen(false);
+              }}
+            >
+              <textarea
+                aria-labelledby={titleId}
+                required
+                className={styles.Textarea}
+                placeholder="What’s on your mind?"
+                value={textareaValue}
+                onChange={(event) => setTextareaValue(event.target.value)}
+              />
+              <div className={styles.Actions}>
+                <Dialog.Close className={styles.Button}>Cancel</Dialog.Close>
+                <button type="submit" className={styles.Button}>
+                  Tweet
+                </button>
+              </div>
+            </form>
+          </div>
         </Dialog.Popup>
       </Dialog.Portal>
 
@@ -934,10 +1105,12 @@ export default function ExampleDialog() {
       <AlertDialog.Root open={confirmationOpen} onOpenChange={setConfirmationOpen}>
         <AlertDialog.Portal>
           <AlertDialog.Popup className={styles.Popup}>
-            <AlertDialog.Title className={styles.Title}>Discard tweet?</AlertDialog.Title>
-            <AlertDialog.Description className={styles.Description}>
-              Your tweet will be lost.
-            </AlertDialog.Description>
+            <div className={styles.Intro}>
+              <AlertDialog.Title className={styles.Title}>Discard tweet?</AlertDialog.Title>
+              <AlertDialog.Description className={styles.Description}>
+                Your tweet will be lost.
+              </AlertDialog.Description>
+            </div>
             <div className={styles.Actions}>
               <AlertDialog.Close className={styles.Button}>Go back</AlertDialog.Close>
               <button
@@ -961,7 +1134,7 @@ export default function ExampleDialog() {
 
 ### Outside scroll dialog
 
-The dialog can be made scrollable by using `<Dialog.Viewport>` as an outer scrollable container for `<Dialog.Popup>` while the popup can extend past the bottom edge. The scrollable area uses the [Scroll Area component](/react/components/scroll-area.md) to provide custom scrollbars.
+The dialog can be made scrollable by using `<Dialog.Viewport>` as an outer scrollable container for `<Dialog.Popup>` while the popup can extend past the bottom edge. The scrollable area uses the [Scroll Area component](/react/components/scroll-area.md) to provide custom scrollbars.
 
 ## Demo
 
@@ -980,60 +1153,55 @@ export default function OutsideScrollDialog() {
   const popupRef = React.useRef<HTMLDivElement>(null);
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Dialog.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open dialog
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 bg-[linear-gradient(to_bottom,rgb(0_0_0/5%)_0,rgb(0_0_0/10%)_50%)] opacity-100 transition-[backdrop-filter,opacity] duration-[600ms] ease-[var(--ease-out-fast)] backdrop-blur-[1.5px] data-[starting-style]:backdrop-blur-0 data-[starting-style]:opacity-0 data-[ending-style]:backdrop-blur-0 data-[ending-style]:opacity-0 data-[ending-style]:duration-[350ms] data-[ending-style]:ease-[cubic-bezier(0.375,0.015,0.545,0.455)] dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
+        <Dialog.Backdrop className="fixed inset-0 bg-black/20 dark:bg-black/50 transition-opacity duration-[600ms] ease-[var(--ease-out-fast)] data-starting-style:opacity-0 data-ending-style:opacity-0 data-ending-style:duration-[350ms] data-ending-style:ease-[cubic-bezier(0.375,0.015,0.545,0.455)] supports-[-webkit-touch-callout:none]:absolute" />
         <Dialog.Viewport className="group/dialog fixed inset-0">
           <ScrollArea.Root
             style={{ position: undefined }}
-            className="h-full overscroll-contain group-data-[ending-style]/dialog:pointer-events-none"
+            className="h-full overscroll-contain group-data-ending-style/dialog:pointer-events-none"
           >
-            <ScrollArea.Viewport className="h-full overscroll-contain group-data-[ending-style]/dialog:pointer-events-none">
+            <ScrollArea.Viewport className="h-full overscroll-contain group-data-ending-style/dialog:pointer-events-none">
               <ScrollArea.Content className="flex min-h-full items-center justify-center">
                 <Dialog.Popup
                   ref={popupRef}
                   initialFocus={popupRef}
-                  className="outline-0 relative mx-auto my-18 w-[min(40rem,calc(100vw-2rem))] rounded-lg bg-gray-50 p-8 text-gray-900 shadow-[0_10px_64px_-10px_rgb(36_40_52/20%),0_0.25px_0_1px_oklch(12%_9%_264deg/7%)] transition-transform duration-[700ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] data-[starting-style]:translate-y-[100dvh] data-[ending-style]:translate-y-[max(100dvh,100%)] data-[ending-style]:duration-[350ms] data-[ending-style]:ease-[cubic-bezier(0.375,0.015,0.545,0.455)] dark:shadow-[0_0_0_1px_oklch(29%_0.75%_264deg/80%)] dark:outline-1 dark:outline-gray-300 motion-reduce:transition-none"
+                  className="outline-0 relative mx-auto my-16 flex w-[min(40rem,calc(100vw-2rem))] flex-col gap-4 bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[translate] duration-[700ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] data-starting-style:translate-y-[100dvh] data-ending-style:translate-y-[max(100dvh,100%)] data-ending-style:duration-[350ms] data-ending-style:ease-[cubic-bezier(0.375,0.015,0.545,0.455)] motion-reduce:transition-none"
                 >
-                  <div className="mb-4 flex items-start justify-between gap-3">
-                    <Dialog.Title className="m-0 text-xl font-bold leading-[1.875rem]">
-                      Dialog
-                    </Dialog.Title>
+                  <div className="relative flex flex-col gap-1 pr-8">
+                    <Dialog.Title className="text-base font-bold">Dialog</Dialog.Title>
+                    <Dialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+                      This layout keeps an outer container scrollable while the dialog can extend
+                      past the bottom edge.
+                    </Dialog.Description>
                     <Dialog.Close
                       aria-label="Close"
-                      className="relative top-[-0.5rem] right-[-0.5rem] flex items-center justify-center rounded-md border border-gray-200 bg-gray-50 w-[2.25rem] h-[2.25rem] text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+                      className="absolute -top-1 -right-1 inline-flex items-center justify-center w-8 h-8 border-none bg-transparent p-0 text-neutral-950 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                     >
-                      <XIcon className="h-[1.1rem] w-[1.1rem]" />
+                      <XIcon />
                     </Dialog.Close>
                   </div>
 
-                  <Dialog.Description className="m-0 mb-6 text-base leading-[1.6rem] text-gray-600">
-                    This layout keeps an outer container scrollable while the dialog can extend past
-                    the bottom edge.
-                  </Dialog.Description>
-
-                  <div className="mb-[1.75rem] flex flex-col gap-6">
+                  <div className="flex flex-col gap-4">
                     {CONTENT_SECTIONS.map((item) => (
-                      <section key={item.title}>
-                        <h3 className="m-0 mb-[0.4rem] text-base font-bold leading-6">
-                          {item.title}
-                        </h3>
-                        <p className="m-0 text-[0.95rem] leading-[1.55rem] text-gray-700">
+                      <section className="flex flex-col gap-1" key={item.title}>
+                        <h3 className="text-sm font-bold">{item.title}</h3>
+                        <p className="text-sm text-neutral-700 dark:text-neutral-300">
                           {item.body}
                         </p>
                       </section>
                     ))}
                   </div>
 
-                  <p className="m-0 mb-6 text-[0.95rem] leading-6 text-gray-600">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
                     Related docs:{' '}
                     {RELATED_LINKS.map((item, index) => (
                       <React.Fragment key={item.href}>
                         {index > 0 ? ', ' : null}
                         <a
-                          className="text-gray-900 underline underline-offset-[0.16em] decoration-[1px] hover:no-underline focus-visible:rounded-[0.125rem] focus-visible:outline-2 focus-visible:outline-blue-800 focus-visible:outline-offset-2"
+                          className="text-neutral-950 dark:text-white underline underline-offset-[0.16em] decoration-[1px] hover:no-underline focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white focus-visible:outline-offset-2"
                           href={item.href}
                         >
                           {item.label}
@@ -1045,8 +1213,8 @@ export default function OutsideScrollDialog() {
                 </Dialog.Popup>
               </ScrollArea.Content>
             </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar className="pointer-events-none absolute m-[0.4rem] flex w-[0.25rem] justify-center rounded-[1rem] opacity-0 transition-opacity duration-[250ms] data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-[75ms] data-[scrolling]:delay-[0ms] hover:pointer-events-auto hover:opacity-100 hover:duration-[75ms] hover:delay-[0ms] md:w-[0.4375rem] group-data-[ending-style]/dialog:opacity-0 group-data-[ending-style]/dialog:duration-300">
-              <ScrollArea.Thumb className="w-full rounded-[inherit] bg-gray-500 before:absolute before:content-[''] before:top-1/2 before:left-1/2 before:h-[calc(100%+1rem)] before:w-[calc(100%+1rem)] before:-translate-x-1/2 before:-translate-y-1/2" />
+            <ScrollArea.Scrollbar className="pointer-events-none flex w-4 justify-center bg-black/12 dark:bg-white/12 opacity-0 transition-opacity duration-[250ms] data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-[75ms] data-scrolling:delay-[0ms] hover:pointer-events-auto hover:opacity-100 hover:duration-[75ms] hover:delay-[0ms] group-data-ending-style/dialog:opacity-0 group-data-ending-style/dialog:duration-[250ms]">
+              <ScrollArea.Thumb className="w-full bg-neutral-950 dark:bg-white" />
             </ScrollArea.Scrollbar>
           </ScrollArea.Root>
         </Dialog.Viewport>
@@ -1058,19 +1226,17 @@ export default function OutsideScrollDialog() {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m2.5 2.5 11 11m-11 0 11-11" />
     </svg>
   );
 }
@@ -1180,56 +1346,84 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Backdrop {
   position: fixed;
   inset: 0;
+  background-color: rgb(0 0 0 / 20%);
   transition-duration: 600ms;
-  transition-property: -webkit-backdrop-filter, backdrop-filter, opacity;
+  transition-property: opacity;
   transition-timing-function: var(--ease-out-fast);
-  backdrop-filter: blur(1.5px);
-  background-image: linear-gradient(to bottom, rgb(0 0 0 / 5%) 0, rgb(0 0 0 / 10%) 50%);
 
-  @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
-  }
-
+  /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
     position: absolute;
   }
 
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(0 0 0 / 50%);
+  }
+
   &[data-starting-style],
   &[data-ending-style] {
-    backdrop-filter: blur(0);
     opacity: 0;
   }
 
@@ -1262,15 +1456,17 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Scrollbar {
-  position: absolute;
   display: flex;
-  width: 0.25rem;
-  margin: 0.4rem;
   justify-content: center;
-  border-radius: 1rem;
+  background-color: rgb(0 0 0 / 12%);
+  width: 1rem;
   opacity: 0;
   transition: opacity 250ms;
   pointer-events: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(255 255 255 / 12%);
+  }
 
   &:hover,
   &[data-scrolling] {
@@ -1284,49 +1480,42 @@ This example shows how to implement the component using CSS Modules.
     transition-duration: 250ms;
     opacity: 0;
   }
-
-  @media (min-width: 768px) {
-    width: 0.4375rem;
-  }
 }
 
 .ScrollbarThumb {
   width: 100%;
-  border-radius: inherit;
-  background-color: var(--color-gray-500);
+  background-color: oklch(14.5% 0 0deg);
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% + 1rem);
-    height: calc(100% + 1rem);
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
   }
 }
 
 .Popup {
   box-sizing: border-box;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: min(40rem, calc(100vw - 2rem));
-  padding: 2rem;
+  padding: 1rem;
   margin: 4rem auto;
-  border-radius: 0.5rem;
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  box-shadow:
-    0 10px 64px -10px rgb(36 40 52 / 20%),
-    0 0.25px 0 1px var(--color-gray-200);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition: transform 700ms cubic-bezier(0.45, 1.005, 0, 1.005);
   outline: 0;
 
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style] {
@@ -1341,100 +1530,129 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .PopupHeader {
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-right: 2rem;
 }
 
 .Title {
   margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.875rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.6rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Close {
   box-sizing: border-box;
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
   display: inline-flex;
   align-items: center;
-  position: relative;
-  right: -0.5rem;
-  top: -0.5rem;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-600);
-  transition:
-    background-color 120ms ease,
-    color 120ms ease;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 
   @media (hover: hover) {
     &:hover {
-      background-color: var(--color-gray-100);
-      color: var(--color-gray-900);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &:active {
-    background-color: var(--color-gray-100);
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
-  }
-}
 
-.CloseIcon {
-  width: 1.1rem;
-  height: 1.1rem;
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Body {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 1.75rem;
+  gap: 1rem;
+}
+
+.Section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .SectionTitle {
-  margin: 0 0 0.4rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .SectionBody {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55rem;
-  color: var(--color-gray-700);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(37.1% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(87% 0 0deg);
+  }
 }
 
 .FooterNote {
-  margin: 0 0 1.5rem;
-  font-size: 0.95rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .FooterLink {
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.16em;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -1443,9 +1661,12 @@ This example shows how to implement the component using CSS Modules.
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: 2px;
-    border-radius: 0.125rem;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -1472,19 +1693,18 @@ export default function OutsideScrollDialog() {
                 <Dialog.Popup ref={popupRef} className={styles.Popup} initialFocus={popupRef}>
                   <div className={styles.PopupHeader}>
                     <Dialog.Title className={styles.Title}>Dialog</Dialog.Title>
+                    <Dialog.Description className={styles.Description}>
+                      This layout keeps an outer container scrollable while the dialog can extend
+                      past the bottom edge.
+                    </Dialog.Description>
                     <Dialog.Close className={styles.Close} aria-label="Close">
-                      <XIcon className={styles.CloseIcon} />
+                      <XIcon />
                     </Dialog.Close>
                   </div>
 
-                  <Dialog.Description className={styles.Description}>
-                    This layout keeps an outer container scrollable while the dialog can extend past
-                    the bottom edge.
-                  </Dialog.Description>
-
                   <div className={styles.Body}>
                     {CONTENT_SECTIONS.map((item) => (
-                      <section key={item.title}>
+                      <section className={styles.Section} key={item.title}>
                         <h3 className={styles.SectionTitle}>{item.title}</h3>
                         <p className={styles.SectionBody}>{item.body}</p>
                       </section>
@@ -1519,19 +1739,17 @@ export default function OutsideScrollDialog() {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m2.5 2.5 11 11m-11 0 11-11" />
     </svg>
   );
 }
@@ -1632,7 +1850,7 @@ const RELATED_LINKS = [
 
 ### Inside scroll dialog
 
-The dialog can be made scrollable by making an inner container scrollable while the popup stays fully on screen. `<Dialog.Viewport>` is used as a positioning container for `<Dialog.Popup>`, while an inner scrollable area is created using the [Scroll Area component](/react/components/scroll-area.md).
+The dialog can be made scrollable by making an inner container scrollable while the popup stays fully on screen. `<Dialog.Viewport>` is used as a positioning container for `<Dialog.Popup>`, while an inner scrollable area is created using the [Scroll Area component](/react/components/scroll-area.md).
 
 ## Demo
 
@@ -1649,40 +1867,36 @@ import { ScrollArea } from '@base-ui/react/scroll-area';
 export default function InsideScrollDialog() {
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Dialog.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open dialog
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-opacity duration-[250ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
+        <Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-opacity duration-150 data-starting-style:opacity-0 data-ending-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
         <Dialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-hidden py-6 [@media(min-height:600px)]:pb-12 [@media(min-height:600px)]:pt-8">
-          <Dialog.Popup className="relative flex w-[min(40rem,calc(100vw-2rem))] max-h-full max-w-full min-h-0 flex-col overflow-hidden rounded-lg bg-gray-50 p-8 text-gray-900 shadow-[0_24px_45px_rgba(15,23,42,0.18)] outline-1 outline-gray-200 transition-all duration-[300ms] ease-[cubic-bezier(0.45,1.005,0,1.005)] data-[starting-style]:scale-[0.98] data-[starting-style]:opacity-0 data-[ending-style]:scale-[0.98] data-[ending-style]:opacity-0 dark:outline-gray-300">
-            <div className="mb-2 flex items-start justify-between gap-3">
-              <Dialog.Title className="m-0 text-xl font-bold leading-[1.875rem]">
-                Dialog
-              </Dialog.Title>
+          <Dialog.Popup className="relative flex w-[min(40rem,calc(100vw-2rem))] max-h-full max-w-full min-h-0 flex-col bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-starting-style:scale-[0.98] data-starting-style:opacity-0 data-ending-style:scale-[0.98] data-ending-style:opacity-0">
+            <div className="flex flex-col gap-1 p-4 border-b border-neutral-950 dark:border-white">
+              <Dialog.Title className="text-base font-bold">Dialog</Dialog.Title>
+              <Dialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+                This layout keeps the popup fully on screen while allowing its content to scroll.
+              </Dialog.Description>
             </div>
-            <Dialog.Description className="m-0 mb-4 text-base leading-[1.6rem] text-gray-600">
-              This layout keeps the popup fully on screen while allowing its content to scroll.
-            </Dialog.Description>
-            <ScrollArea.Root className="relative flex min-h-0 flex-1 overflow-hidden before:absolute before:top-0 before:h-px before:w-full before:bg-gray-200 before:content-[''] after:absolute after:bottom-0 after:h-px after:w-full after:bg-gray-200 after:content-['']">
-              <ScrollArea.Viewport className="flex-1 min-h-0 overflow-y-auto overscroll-contain py-6 pr-6 pl-1 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-blue-800">
-                <ScrollArea.Content className="flex flex-col gap-6">
+            <ScrollArea.Root className="relative flex min-h-0 flex-auto overflow-hidden has-[>_:first-child:focus-visible]:outline-2 has-[>_:first-child:focus-visible]:outline-offset-0 has-[>_:first-child:focus-visible]:outline-neutral-950 dark:has-[>_:first-child:focus-visible]:outline-white">
+              <ScrollArea.Viewport className="flex-auto min-h-0 overflow-y-auto overscroll-contain outline-none">
+                <ScrollArea.Content className="flex flex-col">
                   {CONTENT_SECTIONS.map((item) => (
-                    <section key={item.title}>
-                      <h3 className="mb-[0.4rem] text-base font-bold leading-6">{item.title}</h3>
-                      <p className="m-0 text-[0.95rem] leading-[1.55rem] text-gray-700">
-                        {item.body}
-                      </p>
+                    <section className="flex flex-col gap-1 p-4" key={item.title}>
+                      <h3 className="text-sm font-bold">{item.title}</h3>
+                      <p className="text-sm text-neutral-700 dark:text-neutral-300">{item.body}</p>
                     </section>
                   ))}
                 </ScrollArea.Content>
               </ScrollArea.Viewport>
-              <ScrollArea.Scrollbar className="pointer-events-none absolute m-1 flex w-[0.25rem] justify-center rounded-[1rem] opacity-0 transition-opacity duration-[250ms] data-[hovering]:pointer-events-auto data-[hovering]:opacity-100 data-[hovering]:duration-[75ms] data-[scrolling]:pointer-events-auto data-[scrolling]:opacity-100 data-[scrolling]:duration-[75ms] md:w-[0.325rem]">
-                <ScrollArea.Thumb className="w-full rounded-[inherit] bg-gray-500 before:absolute before:left-1/2 before:top-1/2 before:h-[calc(100%+1rem)] before:w-[calc(100%+1rem)] before:-translate-x-1/2 before:-translate-y-1/2 before:content-['']" />
+              <ScrollArea.Scrollbar className="pointer-events-none flex w-4 justify-center bg-black/12 dark:bg-white/12 opacity-0 transition-opacity duration-150 data-hovering:pointer-events-auto data-hovering:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0">
+                <ScrollArea.Thumb className="w-full bg-neutral-950 dark:bg-white" />
               </ScrollArea.Scrollbar>
             </ScrollArea.Root>
-            <div className="mt-4 flex justify-end gap-3">
-              <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+            <div className="flex justify-end gap-3 p-4 border-t border-neutral-950 dark:border-white">
+              <Dialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                 Close
               </Dialog.Close>
             </div>
@@ -1792,33 +2006,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1827,14 +2070,14 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 250ms cubic-bezier(0.45, 1.005, 0, 1.005);
+  transition: opacity 150ms;
 
   @supports (-webkit-touch-callout: none) {
     position: absolute;
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -1871,42 +2114,35 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Scrollbar {
-  position: absolute;
   display: flex;
-  width: 0.25rem;
-  margin: 0.25rem;
   justify-content: center;
-  border-radius: 1rem;
+  background-color: rgb(0 0 0 / 12%);
+  width: 1rem;
   opacity: 0;
-  transition: opacity 250ms;
+  transition: opacity 150ms;
   pointer-events: none;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(255 255 255 / 12%);
+  }
+
+  &[data-scrolling] {
+    transition-duration: 0ms;
+  }
 
   &[data-hovering],
   &[data-scrolling] {
     opacity: 1;
-    transition-duration: 75ms;
-    transition-delay: 0ms;
     pointer-events: auto;
-  }
-
-  @media (min-width: 768px) {
-    width: 0.325rem;
   }
 }
 
 .ScrollbarThumb {
   width: 100%;
-  border-radius: inherit;
-  background-color: var(--color-gray-500);
+  background-color: oklch(14.5% 0 0deg);
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% + 1rem);
-    height: calc(100% + 1rem);
+  @media (prefers-color-scheme: dark) {
+    background-color: white;
   }
 }
 
@@ -1918,20 +2154,20 @@ This example shows how to implement the component using CSS Modules.
   width: min(40rem, calc(100vw - 2rem));
   max-height: 100%;
   max-width: 100%;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  outline: 1px solid var(--color-gray-200);
-  box-shadow: 0 24px 45px rgb(15 23 42 / 0.18);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition:
-    opacity 300ms cubic-bezier(0.45, 1.005, 0, 1.005),
-    transform 300ms cubic-bezier(0.45, 1.005, 0, 1.005);
-  overflow: hidden;
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
   min-height: 0;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style],
@@ -1941,26 +2177,34 @@ This example shows how to implement the component using CSS Modules.
   }
 }
 
-.PopupHeader {
+.Header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  border-bottom: 1px solid oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    border-color: white;
+  }
 }
 
 .Title {
   margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.875rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1rem;
-  font-size: 1rem;
-  line-height: 1.6rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Body {
@@ -1970,20 +2214,13 @@ This example shows how to implement the component using CSS Modules.
   min-height: 0;
   overflow: hidden;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    height: 1px;
-    width: 100%;
-    background: var(--color-gray-200);
-  }
+  &:has(.BodyViewport:focus-visible) {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: 0;
 
-  &::before {
-    top: 0;
-  }
-  &::after {
-    bottom: 0;
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1992,46 +2229,50 @@ This example shows how to implement the component using CSS Modules.
   flex: 1 1 auto;
   min-height: 0;
   overscroll-behavior: contain;
-  padding: 1.5rem 1.5rem 1.5rem 0.25rem;
-
-  &:focus-visible {
-    outline: 1px solid var(--color-blue);
-    outline-offset: -1px;
-  }
+  outline: none;
 }
 
 .BodyContent {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+}
+
+.Section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
 }
 
 .SectionTitle {
-  margin: 0 0 0.4rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
 .SectionBody {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55rem;
-  color: var(--color-gray-700);
-}
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(37.1% 0 0deg);
 
-.FooterNote {
-  margin: 0 0 1.5rem;
-  font-size: 0.95rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  @media (prefers-color-scheme: dark) {
+    color: oklch(87% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
-  margin-top: 1rem;
+  padding: 1rem;
+  border-top: 1px solid oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    border-color: white;
+  }
 }
 ```
 
@@ -2050,17 +2291,17 @@ export default function InsideScrollDialog() {
         <Dialog.Backdrop className={styles.Backdrop} />
         <Dialog.Viewport className={styles.Viewport}>
           <Dialog.Popup className={styles.Popup}>
-            <div className={styles.PopupHeader}>
+            <div className={styles.Header}>
               <Dialog.Title className={styles.Title}>Dialog</Dialog.Title>
+              <Dialog.Description className={styles.Description}>
+                This layout keeps the popup fully on screen while allowing its content to scroll.
+              </Dialog.Description>
             </div>
-            <Dialog.Description className={styles.Description}>
-              This layout keeps the popup fully on screen while allowing its content to scroll.
-            </Dialog.Description>
             <ScrollArea.Root className={styles.Body}>
               <ScrollArea.Viewport className={styles.BodyViewport}>
                 <ScrollArea.Content className={styles.BodyContent}>
                   {CONTENT_SECTIONS.map((item) => (
-                    <section key={item.title}>
+                    <section className={styles.Section} key={item.title}>
                       <h3 className={styles.SectionTitle}>{item.title}</h3>
                       <p className={styles.SectionBody}>{item.body}</p>
                     </section>
@@ -2188,20 +2429,20 @@ import { Dialog } from '@base-ui/react/dialog';
 export default function ExampleUncontainedDialog() {
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+      <Dialog.Trigger className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
         Open dialog
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-70 backdrop-blur-[2px] transition-[opacity,backdrop-filter] duration-150 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 supports-[-webkit-touch-callout:none]:absolute dark:opacity-70" />
-        <Dialog.Viewport className="fixed inset-0 grid place-items-center px-4 py-10 xl:py-6">
-          <Dialog.Popup className="group/popup flex h-full w-full justify-center pointer-events-none transition-opacity duration-150 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0">
+        <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black/20 dark:bg-black/50 transition-opacity duration-150 data-starting-style:opacity-0 data-ending-style:opacity-0 supports-[-webkit-touch-callout:none]:absolute" />
+        <Dialog.Viewport className="fixed inset-0 grid place-items-center px-4 py-12 xl:py-6">
+          <Dialog.Popup className="group/popup relative flex h-full w-full max-w-[70rem] xl:max-w-none justify-center pointer-events-none transition-opacity duration-150 data-starting-style:opacity-0 data-ending-style:opacity-0">
             <Dialog.Close
-              className="absolute right-3 top-2 flex h-7 w-7 items-center justify-center rounded-md border-0 bg-transparent text-gray-50 hover:bg-white/10 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-gray-50 xl:right-3 xl:top-3 xl:h-10 xl:w-10 dark:text-gray-900 dark:focus-visible:outline-gray-900 pointer-events-auto"
+              className="absolute right-0 -top-10 flex h-8 w-8 items-center justify-center border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 xl:top-0 pointer-events-auto focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
               aria-label="Close"
             >
-              <XIcon className="h-8 w-8" />
+              <XIcon />
             </Dialog.Close>
-            <div className="pointer-events-auto box-border h-full w-full max-w-[70rem] rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[starting-style]/popup:scale-110 dark:outline-gray-300" />
+            <div className="pointer-events-auto h-full w-full max-w-[70rem] bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-starting-style/popup:scale-105" />
           </Dialog.Popup>
         </Dialog.Viewport>
       </Dialog.Portal>
@@ -2212,19 +2453,17 @@ export default function ExampleUncontainedDialog() {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m2.5 2.5 11 11m-11 0 11-11" />
     </svg>
   );
 }
@@ -2241,33 +2480,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -2275,12 +2543,8 @@ This example shows how to implement the component using CSS Modules.
   position: fixed;
   min-height: 100dvh;
   inset: 0;
-  background-color: black;
-  opacity: 0.7;
-  backdrop-filter: blur(2px);
-  transition:
-    opacity 150ms,
-    backdrop-filter 150ms;
+  background-color: rgb(0 0 0 / 20%);
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -2288,7 +2552,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    background-color: rgb(0 0 0 / 50%);
   }
 
   &[data-starting-style],
@@ -2302,7 +2566,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 2.5rem 1rem;
+  padding: 3rem 1rem;
 
   @media (min-width: 80rem) {
     padding-block: 1.5rem;
@@ -2310,9 +2574,11 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .PopupRoot {
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
+  max-width: 70rem;
   height: 100%;
   transition: opacity 150ms;
   pointer-events: none;
@@ -2321,6 +2587,10 @@ This example shows how to implement the component using CSS Modules.
   &[data-ending-style] {
     opacity: 0;
   }
+
+  @media (min-width: 80rem) {
+    max-width: none;
+  }
 }
 
 .Popup {
@@ -2328,68 +2598,80 @@ This example shows how to implement the component using CSS Modules.
   width: 100%;
   height: 100%;
   max-width: 70rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
+  padding: 1rem;
   pointer-events: auto;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   [data-starting-style] & {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 }
 
 .Close {
   box-sizing: border-box;
   position: absolute;
-  top: 0.5rem;
-  right: 0.75rem;
+  top: -2.5rem;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: auto;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2rem;
+  height: 2rem;
   margin: 0;
-  border: none;
-  color: var(--color-gray-50);
-  border-radius: 0.375rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
-  @media (prefers-color-scheme: dark) {
-    color: var(--color-gray-900);
+  @media (min-width: 80rem) {
+    top: 0;
   }
 
-  &:focus-visible {
-    outline: 2px solid var(--color-gray-50);
-    outline-offset: -1px;
-
-    @media (prefers-color-scheme: dark) {
-      outline-color: var(--color-gray-900);
-    }
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   @media (hover: hover) {
     &:hover {
-      background-color: rgb(255 255 255 / 0.1);
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  @media (min-width: 80rem) {
-    top: 0.75rem;
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-}
+  &:active {
+    background-color: oklch(92.2% 0 0deg);
 
-.CloseIcon {
-  width: 2rem;
-  height: 2rem;
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 ```
 
@@ -2407,7 +2689,7 @@ export default function ExampleUncontainedDialog() {
         <Dialog.Viewport className={styles.Viewport}>
           <Dialog.Popup className={styles.PopupRoot}>
             <Dialog.Close className={styles.Close} aria-label="Close">
-              <XIcon className={styles.CloseIcon} />
+              <XIcon />
             </Dialog.Close>
             <div className={styles.Popup} />
           </Dialog.Popup>
@@ -2420,19 +2702,17 @@ export default function ExampleUncontainedDialog() {
 function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinecap="square"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
+      <path d="m2.5 2.5 11 11m-11 0 11-11" />
     </svg>
   );
 }
@@ -2478,7 +2758,7 @@ export default function DialogDetachedTriggersSimpleDemo() {
   return (
     <React.Fragment>
       <Dialog.Trigger
-        className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+        className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
         handle={demoDialog}
       >
         View notifications
@@ -2486,14 +2766,16 @@ export default function DialogDetachedTriggersSimpleDemo() {
 
       <Dialog.Root handle={demoDialog}>
         <Dialog.Portal>
-          <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-          <Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-            <Dialog.Title className="-mt-1.5 mb-1 text-lg font-bold">Notifications</Dialog.Title>
-            <Dialog.Description className="mb-6 text-base text-gray-600">
-              You are all caught up. Good job!
-            </Dialog.Description>
-            <div className="flex justify-end gap-4">
-              <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+          <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+          <Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+            <div className="flex flex-col gap-1">
+              <Dialog.Title className="text-base font-bold">Notifications</Dialog.Title>
+              <Dialog.Description className="text-sm text-neutral-600 dark:text-neutral-400">
+                You are all caught up. Good job!
+              </Dialog.Description>
+            </div>
+            <div className="flex justify-end gap-3">
+              <Dialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                 Close
               </Dialog.Close>
             </div>
@@ -2516,33 +2798,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -2552,7 +2863,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 150ms cubic-bezier(0.45, 1.005, 0, 1.005);
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -2560,7 +2871,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -2571,6 +2882,9 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -2578,44 +2892,57 @@ This example shows how to implement the component using CSS Modules.
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transition:
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(0.98);
   }
 }
 
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .Container {
@@ -2646,10 +2973,12 @@ export default function DialogDetachedTriggersSimpleDemo() {
         <Dialog.Portal>
           <Dialog.Backdrop className={styles.Backdrop} />
           <Dialog.Popup className={styles.Popup}>
-            <Dialog.Title className={styles.Title}>Notifications</Dialog.Title>
-            <Dialog.Description className={styles.Description}>
-              You are all caught up. Good job!
-            </Dialog.Description>
+            <div className={styles.Intro}>
+              <Dialog.Title className={styles.Title}>Notifications</Dialog.Title>
+              <Dialog.Description className={styles.Description}>
+                You are all caught up. Good job!
+              </Dialog.Description>
+            </div>
             <div className={styles.Actions}>
               <Dialog.Close className={styles.Button}>Close</Dialog.Close>
             </div>
@@ -2755,9 +3084,9 @@ export default function DialogDetachedTriggersControlledDemo() {
 
   return (
     <React.Fragment>
-      <div className="flex gap-2 flex-wrap justify-center">
+      <div className="flex flex-wrap gap-2 justify-center">
         <Dialog.Trigger
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
           handle={demoDialog}
           id="trigger-1"
           payload={1}
@@ -2766,7 +3095,7 @@ export default function DialogDetachedTriggersControlledDemo() {
         </Dialog.Trigger>
 
         <Dialog.Trigger
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
           handle={demoDialog}
           id="trigger-2"
           payload={2}
@@ -2775,7 +3104,7 @@ export default function DialogDetachedTriggersControlledDemo() {
         </Dialog.Trigger>
 
         <Dialog.Trigger
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
           handle={demoDialog}
           id="trigger-3"
           payload={3}
@@ -2785,7 +3114,7 @@ export default function DialogDetachedTriggersControlledDemo() {
 
         <button
           type="button"
-          className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100"
+          className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 disabled:border-neutral-500 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
           onClick={() => {
             setTriggerId('trigger-2');
             setOpen(true);
@@ -2803,14 +3132,14 @@ export default function DialogDetachedTriggersControlledDemo() {
       >
         {({ payload }) => (
           <Dialog.Portal>
-            <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute" />
-            <Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gray-50 p-6 text-gray-900 outline-1 outline-gray-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-gray-300">
-              <Dialog.Title className="-mt-1.5 mb-1 text-lg font-bold">
-                Dialog {payload}
-              </Dialog.Title>
+            <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:opacity-50 supports-[-webkit-touch-callout:none]:absolute" />
+            <Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 flex w-96 max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 bg-white dark:bg-neutral-950 p-4 text-neutral-950 dark:text-white border border-neutral-950 dark:border-white shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
+              {payload !== undefined && (
+                <Dialog.Title className="text-base font-bold">Dialog {payload}</Dialog.Title>
+              )}
 
-              <div className="flex justify-end gap-4">
-                <Dialog.Close className="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-normal text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
+              <div className="flex justify-end gap-3">
+                <Dialog.Close className="flex h-8 items-center justify-center gap-2 border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
                   Close
                 </Dialog.Close>
               </div>
@@ -2834,33 +3163,62 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -2870,7 +3228,7 @@ This example shows how to implement the component using CSS Modules.
   inset: 0;
   background-color: black;
   opacity: 0.2;
-  transition: opacity 150ms cubic-bezier(0.45, 1.005, 0, 1.005);
+  transition: opacity 150ms;
 
   /* iOS 26+: Ensure the backdrop covers the entire visible viewport. */
   @supports (-webkit-touch-callout: none) {
@@ -2878,7 +3236,7 @@ This example shows how to implement the component using CSS Modules.
   }
 
   @media (prefers-color-scheme: dark) {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   &[data-starting-style],
@@ -2889,6 +3247,9 @@ This example shows how to implement the component using CSS Modules.
 
 .Popup {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -2896,44 +3257,57 @@ This example shows how to implement the component using CSS Modules.
   width: 24rem;
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  outline: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
-  transition: all 150ms;
+  padding: 1rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  transition:
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
 
   @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
   }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(0.98);
   }
 }
 
+.Intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .Title {
-  margin-top: -0.375rem;
-  margin-bottom: 0.25rem;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.0025em;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 700;
 }
 
 .Description {
-  margin: 0 0 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-600);
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Actions {
   display: flex;
   justify-content: end;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .Container {
@@ -3034,7 +3408,7 @@ Doesn't render its own HTML element.
 | handle                  | `Dialog.Handle<Payload>`                                                  | -       | A handle to associate the dialog with a trigger.&#xA;If specified, allows external triggers to control the dialog's open state.&#xA;Can be created with the Dialog.createHandle() method.                                                                                                                                                                                                                                                                                                                                                                                                     |
 | modal                   | `boolean \| 'trap-focus'`                                                 | `true`  | Determines if the dialog enters a modal state when open. `true`: user interaction is limited to just the dialog: focus is trapped, document page scroll is locked, and pointer interactions on outside elements are disabled.`false`: user interaction with the rest of the document is allowed.`'trap-focus'`: focus is trapped inside the dialog, but document page scroll is not locked and pointer interactions outside of it remain enabled. When `modal` is `true` or `'trap-focus'`, render `<Dialog.Close>` inside `<Dialog.Popup>` so&#xA;touch screen readers can escape the popup. |
 | onOpenChangeComplete    | `((open: boolean) => void)`                                               | -       | Event handler called after any animations complete when the dialog is opened or closed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| triggerId               | `string \| null`                                                          | -       | ID of the trigger that the dialog is associated with.&#xA;This is useful in conjunction with the `open` prop to create a controlled dialog.&#xA;There's no need to specify this prop when the popover is uncontrolled (that is, when the `open` prop is not set).                                                                                                                                                                                                                                                                                                                             |
+| triggerId               | `string \| null`                                                          | -       | ID of the trigger that the dialog is associated with.&#xA;This is useful in conjunction with the `open` prop to create a controlled dialog.&#xA;There's no need to specify this prop when the dialog is uncontrolled (that is, when the `open` prop is not set).                                                                                                                                                                                                                                                                                                                              |
 | children                | `React.ReactNode \| PayloadChildRenderFunction<Payload>`                  | -       | The content of the dialog.&#xA;This can be a regular React node or a render function that receives the `payload` of the active trigger.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 ### Root.Props
@@ -3099,15 +3473,15 @@ Renders a `<button>` element.
 
 **Trigger Props:**
 
-| Prop         | Type                                                                                         | Default | Description                                                                                                                                                                                              |
-| :----------- | :------------------------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| handle       | `Dialog.Handle<Payload>`                                                                     | -       | A handle to associate the trigger with a dialog.&#xA;Can be created with the Dialog.createHandle() method.                                                                                               |
-| nativeButton | `boolean`                                                                                    | `true`  | Whether the component renders a native `<button>` element when replacing it&#xA;via the `render` prop.&#xA;Set to `false` if the rendered element is not a button (for example, `<div>`).                |
-| payload      | `Payload`                                                                                    | -       | A payload to pass to the dialog when it is opened.                                                                                                                                                       |
-| id           | `string`                                                                                     | -       | ID of the trigger. In addition to being forwarded to the rendered element,&#xA;it is also used to specify the active trigger for the dialogs in controlled mode (with the Dialog.Root `triggerId` prop). |
-| className    | `string \| ((state: Dialog.Trigger.State) => string \| undefined)`                           | -       | CSS class applied to the element, or a function that&#xA;returns a class based on the component's state.                                                                                                 |
-| style        | `React.CSSProperties \| ((state: Dialog.Trigger.State) => React.CSSProperties \| undefined)` | -       | Style applied to the element, or a function that&#xA;returns a style object based on the component's state.                                                                                              |
-| render       | `ReactElement \| ((props: HTMLProps, state: Dialog.Trigger.State) => ReactElement)`          | -       | Allows you to replace the component's HTML element&#xA;with a different tag, or compose it with another component. Accepts a `ReactElement` or a function that returns the element to render.            |
+| Prop         | Type                                                                                         | Default | Description                                                                                                                                                                                             |
+| :----------- | :------------------------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| handle       | `Dialog.Handle<Payload>`                                                                     | -       | A handle to associate the trigger with a dialog.&#xA;Can be created with the Dialog.createHandle() method.                                                                                              |
+| nativeButton | `boolean`                                                                                    | `true`  | Whether the component renders a native `<button>` element when replacing it&#xA;via the `render` prop.&#xA;Set to `false` if the rendered element is not a button (for example, `<div>`).               |
+| payload      | `Payload`                                                                                    | -       | A payload to pass to the dialog when it is opened.                                                                                                                                                      |
+| id           | `string`                                                                                     | -       | ID of the trigger. In addition to being forwarded to the rendered element,&#xA;it is also used to specify the active trigger for the dialog in controlled mode (with the Dialog.Root `triggerId` prop). |
+| className    | `string \| ((state: Dialog.Trigger.State) => string \| undefined)`                           | -       | CSS class applied to the element, or a function that&#xA;returns a class based on the component's state.                                                                                                |
+| style        | `React.CSSProperties \| ((state: Dialog.Trigger.State) => React.CSSProperties \| undefined)` | -       | Style applied to the element, or a function that&#xA;returns a style object based on the component's state.                                                                                             |
+| render       | `ReactElement \| ((props: HTMLProps, state: Dialog.Trigger.State) => ReactElement)`          | -       | Allows you to replace the component's HTML element&#xA;with a different tag, or compose it with another component. Accepts a `ReactElement` or a function that returns the element to render.           |
 
 **Trigger Data Attributes:**
 
@@ -3401,7 +3775,7 @@ function open(triggerId: string | null): void;
 ```
 
 Opens the dialog and associates it with the trigger with the given id.
-The trigger, if provided, must be a Dialog.Trigger component with this handle passed as a prop.
+The trigger, if provided, must be a matching Trigger component with this handle passed as a prop.
 
 This method should only be called in an event handler or an effect (not during rendering).
 

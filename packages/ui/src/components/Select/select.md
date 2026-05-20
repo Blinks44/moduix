@@ -33,36 +33,43 @@ const apples = [
 
 export default function ExampleSelect() {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col items-start gap-1">
       <Select.Root items={apples}>
-        <Select.Label className="cursor-default text-sm leading-5 font-bold text-gray-900">
+        <Select.Label className="cursor-default text-sm font-bold text-neutral-950 dark:text-white">
           Apple
         </Select.Label>
-        <Select.Trigger className="flex h-10 min-w-40 items-center justify-between gap-3 rounded-md border border-gray-200 pr-3 pl-3.5 text-base bg-[canvas] text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[popup-open]:bg-gray-100 font-normal">
-          <Select.Value className="data-[placeholder]:opacity-60" placeholder="Select apple" />
-          <Select.Icon className="flex">
-            <ChevronUpDownIcon />
+        <Select.Trigger className="flex h-8 min-w-40 items-center justify-between gap-3 pl-2 pr-1 text-sm leading-none whitespace-nowrap border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 font-normal focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+          <Select.Value
+            className="data-placeholder:text-neutral-500 dark:data-placeholder:text-neutral-400"
+            placeholder="Select apple"
+          />
+          <Select.Icon>
+            <CaretUpDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner className="outline-hidden select-none z-10" sideOffset={8}>
-            <Select.Popup className="group min-w-[var(--anchor-width)] origin-[var(--transform-origin)] bg-clip-padding rounded-md bg-[canvas] text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[side=none]:min-w-[calc(var(--anchor-width)+1rem)] data-[side=none]:data-[ending-style]:transition-none data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[side=none]:data-[starting-style]:scale-100 data-[side=none]:data-[starting-style]:opacity-100 data-[side=none]:data-[starting-style]:transition-none dark:shadow-none dark:outline-gray-300">
-              <Select.ScrollUpArrow className="top-0 z-[1] flex h-4 w-full cursor-default items-center justify-center rounded-md bg-[canvas] text-center text-xs before:absolute data-[side=none]:before:top-[-100%] before:left-0 before:h-full before:w-full before:content-['']" />
+          <Select.Positioner className="outline-hidden select-none z-10" sideOffset={4}>
+            <Select.Popup className="group min-w-[var(--anchor-width)] origin-[var(--transform-origin)] bg-clip-padding border border-neutral-950 bg-white text-neutral-950 outline-hidden shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-[side=none]:translate-y-px data-[side=none]:min-w-[calc(var(--anchor-width)+1.75rem)] data-[side=none]:data-ending-style:transition-none data-starting-style:scale-[0.98] data-starting-style:opacity-0 data-[side=none]:data-starting-style:scale-100 data-[side=none]:data-starting-style:opacity-100 data-[side=none]:data-starting-style:transition-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+              <Select.ScrollUpArrow className="top-0 z-[1] flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute data-[side=none]:before:top-[-100%] before:left-0 before:h-full before:w-full before:content-[''] dark:bg-neutral-950">
+                <CaretUpIcon />
+              </Select.ScrollUpArrow>
               <Select.List className="relative py-1 scroll-py-6 overflow-y-auto max-h-[var(--available-height)]">
                 {apples.map(({ label, value }) => (
                   <Select.Item
                     key={label}
                     value={value}
-                    className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-hidden select-none group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-1 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900 pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]"
+                    className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2.5 text-sm outline-hidden select-none data-highlighted:bg-neutral-950 data-highlighted:text-white dark:data-highlighted:bg-white dark:data-highlighted:text-neutral-950"
                   >
                     <Select.ItemIndicator className="col-start-1">
-                      <CheckIcon className="size-3" />
+                      <CheckIcon />
                     </Select.ItemIndicator>
                     <Select.ItemText className="col-start-2">{label}</Select.ItemText>
                   </Select.Item>
                 ))}
               </Select.List>
-              <Select.ScrollDownArrow className="bottom-0 z-[1] flex h-4 w-full cursor-default items-center justify-center rounded-md bg-[canvas] text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] bottom-0 data-[side=none]:before:bottom-[-100%]" />
+              <Select.ScrollDownArrow className="bottom-0 z-[1] flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] data-[side=none]:before:bottom-[-100%] dark:bg-neutral-950">
+                <CaretDownIcon />
+              </Select.ScrollDownArrow>
             </Select.Popup>
           </Select.Positioner>
         </Select.Portal>
@@ -71,27 +78,63 @@ export default function ExampleSelect() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
+    </svg>
+  );
+}
+
+function CaretUpIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 10H4l4-4.5z" />
+    </svg>
+  );
+}
+
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 6H4l4 4.5z" />
     </svg>
   );
 }
@@ -114,12 +157,20 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   cursor: default;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Value[data-placeholder] {
-  opacity: 0.6;
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Select {
@@ -128,84 +179,114 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  height: 2.5rem;
-  padding-left: 0.875rem;
-  padding-right: 0.75rem;
+  height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.25rem;
   margin: 0;
   outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
   font-weight: 400;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   -webkit-user-select: none;
   user-select: none;
   min-width: 10rem;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
-  }
-}
 
-.SelectIcon {
-  display: flex;
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Positioner {
   outline: none;
-  z-index: 1;
+  z-index: 10;
   -webkit-user-select: none;
   user-select: none;
 }
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  outline: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   background-clip: padding-box;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   min-width: var(--anchor-width);
   transform-origin: var(--transform-origin);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.98);
   }
 
   &[data-side='none'] {
     transition: none;
-    transform: none;
+    transform: translateY(1px);
     opacity: 1;
-    min-width: calc(var(--anchor-width) + 1rem);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    min-width: calc(var(--anchor-width) + 1.75rem);
   }
 }
 
@@ -218,97 +299,35 @@ This example shows how to implement the component using CSS Modules.
   scroll-padding-block: 1.5rem;
 }
 
-.Arrow {
-  display: flex;
-
-  &[data-side='top'] {
-    bottom: -8px;
-    rotate: 180deg;
-  }
-
-  &[data-side='bottom'] {
-    top: -8px;
-    rotate: 0deg;
-  }
-
-  &[data-side='left'] {
-    right: -13px;
-    rotate: 90deg;
-  }
-
-  &[data-side='right'] {
-    left: -13px;
-    rotate: -90deg;
-  }
-}
-
-.ArrowFill {
-  fill: canvas;
-}
-
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
-  }
-}
-
 .Item {
   box-sizing: border-box;
   outline: 0;
   font-size: 0.875rem;
-  line-height: 1rem;
-  padding-block: 0.5rem;
+  line-height: 1.25rem;
+  padding-block: 0.375rem;
   padding-left: 0.625rem;
   padding-right: 1rem;
   display: grid;
   gap: 0.5rem;
   align-items: center;
-  grid-template-columns: 0.75rem 1fr;
+  grid-template-columns: 1rem 1fr;
   cursor: default;
   -webkit-user-select: none;
   user-select: none;
 
-  @media (pointer: coarse) {
-    padding-block: 0.625rem;
-    font-size: 0.925rem;
-  }
-
-  [data-side='none'] & {
-    font-size: 1rem;
-    padding-right: 3rem;
-  }
-
   &[data-highlighted] {
-    z-index: 0;
-    position: relative;
-    color: var(--color-gray-50);
-  }
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
 
-  &[data-highlighted]::before {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    inset-block: 0;
-    inset-inline: 0.25rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
   }
 }
 
 .ItemIndicator {
   grid-column-start: 1;
-}
-
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
 }
 
 .ItemText {
@@ -317,16 +336,19 @@ This example shows how to implement the component using CSS Modules.
 
 .ScrollArrow {
   width: 100%;
-  background: canvas;
+  background-color: white;
   z-index: 1;
   text-align: center;
   cursor: default;
-  border-radius: 0.375rem;
   height: 1rem;
   font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+  }
 
   &::before {
     content: '';
@@ -337,6 +359,8 @@ This example shows how to implement the component using CSS Modules.
   }
 
   &[data-direction='up'] {
+    top: 0;
+
     &[data-side='none'] {
       &::before {
         top: -100%;
@@ -377,25 +401,29 @@ export default function ExampleSelect() {
         <Select.Label className={styles.Label}>Apple</Select.Label>
         <Select.Trigger className={styles.Select}>
           <Select.Value className={styles.Value} placeholder="Select apple" />
-          <Select.Icon className={styles.SelectIcon}>
-            <ChevronUpDownIcon />
+          <Select.Icon>
+            <CaretUpDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner className={styles.Positioner} sideOffset={8}>
+          <Select.Positioner className={styles.Positioner} sideOffset={4}>
             <Select.Popup className={styles.Popup}>
-              <Select.ScrollUpArrow className={styles.ScrollArrow} />
+              <Select.ScrollUpArrow className={styles.ScrollArrow}>
+                <CaretUpIcon />
+              </Select.ScrollUpArrow>
               <Select.List className={styles.List}>
                 {apples.map(({ label, value }) => (
                   <Select.Item key={label} value={value} className={styles.Item}>
                     <Select.ItemIndicator className={styles.ItemIndicator}>
-                      <CheckIcon className={styles.ItemIndicatorIcon} />
+                      <CheckIcon />
                     </Select.ItemIndicator>
                     <Select.ItemText className={styles.ItemText}>{label}</Select.ItemText>
                   </Select.Item>
                 ))}
               </Select.List>
-              <Select.ScrollDownArrow className={styles.ScrollArrow} />
+              <Select.ScrollDownArrow className={styles.ScrollArrow}>
+                <CaretDownIcon />
+              </Select.ScrollDownArrow>
             </Select.Popup>
           </Select.Positioner>
         </Select.Portal>
@@ -404,27 +432,63 @@ export default function ExampleSelect() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
+    </svg>
+  );
+}
+
+function CaretUpIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 10H4l4-4.5z" />
+    </svg>
+  );
+}
+
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 6H4l4 4.5z" />
     </svg>
   );
 }
@@ -641,32 +705,34 @@ function renderValue(value: Language[]) {
 
 export default function MultiSelectExample() {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col items-start gap-1">
       <Select.Root multiple defaultValue={['javascript', 'typescript']}>
-        <Select.Label className="cursor-default text-sm leading-5 font-bold text-gray-900">
+        <Select.Label className="cursor-default text-sm font-bold text-neutral-950 dark:text-white">
           Languages
         </Select.Label>
-        <Select.Trigger className="flex h-10 min-w-[14rem] items-center justify-between gap-3 rounded-md border border-gray-200 pr-3 pl-3.5 text-base bg-[canvas] text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[popup-open]:bg-gray-100 font-normal">
-          <Select.Value className="data-[placeholder]:opacity-60">{renderValue}</Select.Value>
-          <Select.Icon className="flex">
-            <ChevronUpDownIcon />
+        <Select.Trigger className="flex h-8 min-w-[14rem] items-center justify-between gap-3 pl-2 pr-1 text-sm leading-none whitespace-nowrap border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 font-normal focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+          <Select.Value className="data-placeholder:text-neutral-500 dark:data-placeholder:text-neutral-400">
+            {renderValue}
+          </Select.Value>
+          <Select.Icon>
+            <CaretUpDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
           <Select.Positioner
             className="outline-hidden z-10"
-            sideOffset={8}
+            sideOffset={4}
             alignItemWithTrigger={false}
           >
-            <Select.Popup className="group max-h-[var(--available-height)] min-w-[var(--anchor-width)] origin-[var(--transform-origin)] bg-clip-padding overflow-y-auto rounded-md bg-[canvas] py-1 text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[side=none]:min-w-[calc(var(--anchor-width)+1rem)] data-[side=none]:data-[ending-style]:transition-none data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[side=none]:data-[starting-style]:scale-100 data-[side=none]:data-[starting-style]:opacity-100 data-[side=none]:data-[starting-style]:transition-none dark:shadow-none dark:outline-gray-300">
+            <Select.Popup className="group max-h-[var(--available-height)] min-w-[var(--anchor-width)] origin-[var(--transform-origin)] bg-clip-padding overflow-y-auto border border-neutral-950 bg-white py-1 text-neutral-950 outline-hidden shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-[side=none]:min-w-[calc(var(--anchor-width)+1.75rem)] data-[side=none]:data-ending-style:transition-none data-starting-style:scale-[0.98] data-starting-style:opacity-0 data-[side=none]:data-starting-style:scale-100 data-[side=none]:data-starting-style:opacity-100 data-[side=none]:data-starting-style:transition-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
               {values.map((value) => (
                 <Select.Item
                   key={value}
                   value={value}
-                  className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-hidden select-none scroll-my-1 group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem] [@media(hover:hover)]:[&[data-highlighted]]:relative [@media(hover:hover)]:[&[data-highlighted]]:z-0 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50 [@media(hover:hover)]:[&[data-highlighted]]:before:content-[''] [@media(hover:hover)]:[&[data-highlighted]]:before:absolute [@media(hover:hover)]:[&[data-highlighted]]:before:inset-y-0 [@media(hover:hover)]:[&[data-highlighted]]:before:inset-x-1 [@media(hover:hover)]:[&[data-highlighted]]:before:rounded-xs [@media(hover:hover)]:[&[data-highlighted]]:before:bg-gray-900 [@media(hover:hover)]:[&[data-highlighted]]:before:z-[-1]"
+                  className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-2.5 pl-2.5 text-sm outline-hidden select-none scroll-my-1 [@media(hover:hover)]:data-highlighted:bg-neutral-950 [@media(hover:hover)]:data-highlighted:text-white dark:[@media(hover:hover)]:data-highlighted:bg-white dark:[@media(hover:hover)]:data-highlighted:text-neutral-950"
                 >
                   <Select.ItemIndicator className="col-start-1">
-                    <CheckIcon className="size-3" />
+                    <CheckIcon />
                   </Select.ItemIndicator>
                   <Select.ItemText className="col-start-2">{languages[value]}</Select.ItemText>
                 </Select.Item>
@@ -679,27 +745,33 @@ export default function MultiSelectExample() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -722,12 +794,20 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   cursor: default;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Value[data-placeholder] {
-  opacity: 0.6;
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Select {
@@ -736,84 +816,115 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  height: 2.5rem;
-  padding-left: 0.875rem;
-  padding-right: 0.75rem;
+  height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.25rem;
   margin: 0;
   outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
   font-weight: 400;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
   min-width: 14rem;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
-  }
-}
 
-.SelectIcon {
-  display: flex;
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Positioner {
   outline: none;
-  z-index: 1;
+  z-index: 10;
 }
 
 .Popup {
   box-sizing: border-box;
+  outline: 0;
   padding-block: 0.25rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   background-clip: padding-box;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   min-width: var(--anchor-width);
   transform-origin: var(--transform-origin);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
   overflow-y: auto;
   max-height: var(--available-height);
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.98);
   }
 
   &[data-side='none'] {
     transition: none;
     transform: none;
     opacity: 1;
-    min-width: calc(var(--anchor-width) + 1rem);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    min-width: calc(var(--anchor-width) + 1.75rem);
   }
 }
 
@@ -821,43 +932,28 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   font-size: 0.875rem;
-  line-height: 1rem;
-  padding-block: 0.5rem;
+  line-height: 1.25rem;
+  padding-block: 0.375rem;
   padding-left: 0.625rem;
-  padding-right: 1rem;
+  padding-right: 0.625rem;
   display: grid;
   gap: 0.5rem;
   align-items: center;
-  grid-template-columns: 0.75rem 1fr;
+  grid-template-columns: 1rem 1fr;
   cursor: default;
+  -webkit-user-select: none;
   user-select: none;
   scroll-margin-block: 0.25rem;
 
-  @media (pointer: coarse) {
-    padding-block: 0.625rem;
-    font-size: 0.925rem;
-  }
-
-  [data-side='none'] & {
-    font-size: 1rem;
-    padding-right: 3rem;
-  }
-
   @media (hover: hover) {
     &[data-highlighted] {
-      z-index: 0;
-      position: relative;
-      color: var(--color-gray-50);
-    }
+      background-color: oklch(14.5% 0 0deg);
+      color: white;
 
-    &[data-highlighted]::before {
-      content: '';
-      z-index: -1;
-      position: absolute;
-      inset-block: 0;
-      inset-inline: 0.25rem;
-      border-radius: 0.25rem;
-      background-color: var(--color-gray-900);
+      @media (prefers-color-scheme: dark) {
+        background-color: white;
+        color: oklch(14.5% 0 0deg);
+      }
     }
   }
 }
@@ -866,52 +962,8 @@ This example shows how to implement the component using CSS Modules.
   grid-column-start: 1;
 }
 
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .ItemText {
   grid-column-start: 2;
-}
-
-.ScrollArrow {
-  width: 100%;
-  background: canvas;
-  z-index: 1;
-  text-align: center;
-  cursor: default;
-  border-radius: 0.375rem;
-  height: 1rem;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-  }
-
-  &[data-direction='up'] {
-    top: 0;
-
-    &::before {
-      top: -100%;
-    }
-  }
-
-  &[data-direction='down'] {
-    bottom: 0;
-
-    &::before {
-      bottom: -100%;
-    }
-  }
 }
 ```
 
@@ -956,21 +1008,21 @@ export default function MultiSelectExample() {
         <Select.Label className={styles.Label}>Languages</Select.Label>
         <Select.Trigger className={styles.Select}>
           <Select.Value className={styles.Value}>{renderValue}</Select.Value>
-          <Select.Icon className={styles.SelectIcon}>
-            <ChevronUpDownIcon />
+          <Select.Icon>
+            <CaretUpDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
           <Select.Positioner
             className={styles.Positioner}
-            sideOffset={8}
+            sideOffset={4}
             alignItemWithTrigger={false}
           >
             <Select.Popup className={styles.Popup}>
               {values.map((value) => (
                 <Select.Item key={value} value={value} className={styles.Item}>
                   <Select.ItemIndicator className={styles.ItemIndicator}>
-                    <CheckIcon className={styles.ItemIndicatorIcon} />
+                    <CheckIcon />
                   </Select.ItemIndicator>
                   <Select.ItemText className={styles.ItemText}>{languages[value]}</Select.ItemText>
                 </Select.Item>
@@ -983,27 +1035,33 @@ export default function MultiSelectExample() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -1028,50 +1086,54 @@ import { Select } from '@base-ui/react/select';
 
 export default function ObjectValueSelect() {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col items-start gap-1">
       <Select.Root defaultValue={shippingMethods[0]} itemToStringValue={(item) => item.id}>
-        <Select.Label className="cursor-default text-sm leading-5 font-bold text-gray-900">
+        <Select.Label className="cursor-default text-sm font-bold text-neutral-950 dark:text-white">
           Shipping method
         </Select.Label>
-        <Select.Trigger className="flex min-h-10 min-w-[16rem] items-start justify-between gap-3 rounded-md border border-gray-200 pr-3 pl-3.5 py-2 text-base bg-[canvas] text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[popup-open]:bg-gray-100">
+        <Select.Trigger className="flex min-h-8 min-w-[16rem] items-center justify-between gap-3 pl-2 pr-1 py-1.5 text-sm leading-none whitespace-nowrap border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 font-normal focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
           <Select.Value>
             {(method: ShippingMethod) => (
               <span className="flex flex-col items-start gap-0.5">
-                <span className="text-base leading-6">{method.name}</span>
-                <span className="text-xs leading-4 text-gray-600">
+                <span className="text-sm">{method.name}</span>
+                <span className="text-xs text-neutral-600 dark:text-neutral-400">
                   {method.duration} ({method.price})
                 </span>
               </span>
             )}
           </Select.Value>
-          <Select.Icon className="flex items-center self-center">
-            <ChevronUpDownIcon />
+          <Select.Icon>
+            <CaretUpDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner className="outline-hidden select-none z-10" sideOffset={8}>
-            <Select.Popup className="group min-w-[var(--anchor-width)] origin-[var(--transform-origin)] bg-clip-padding rounded-md bg-[canvas] text-gray-900 shadow-lg shadow-gray-200 outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[side=none]:min-w-[calc(var(--anchor-width)+1rem)] data-[side=none]:data-[ending-style]:transition-none data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[side=none]:data-[starting-style]:scale-100 data-[side=none]:data-[starting-style]:opacity-100 data-[side=none]:data-[starting-style] :transition-none dark:shadow-none dark:outline-gray-300">
-              <Select.ScrollUpArrow className="top-0 z-[1] flex h-4 w-full cursor-default items-center justify-center rounded-md bg-[canvas] text-center text-xs before:absolute data-[side=none]:before:top-[-100%] before:left-0 before:h-full before:w-full before:content-['']" />
+          <Select.Positioner className="outline-hidden select-none z-10" sideOffset={4}>
+            <Select.Popup className="group min-w-[var(--anchor-width)] origin-[var(--transform-origin)] bg-clip-padding border border-neutral-950 bg-white text-neutral-950 outline-hidden shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-[side=none]:translate-y-px data-[side=none]:min-w-[calc(var(--anchor-width)+1.75rem)] data-[side=none]:data-ending-style:transition-none data-starting-style:scale-[0.98] data-starting-style:opacity-0 data-[side=none]:data-starting-style:scale-100 data-[side=none]:data-starting-style:opacity-100 data-[side=none]:data-starting-style:transition-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+              <Select.ScrollUpArrow className="top-0 z-[1] flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute data-[side=none]:before:top-[-100%] before:left-0 before:h-full before:w-full before:content-[''] dark:bg-neutral-950">
+                <CaretUpIcon />
+              </Select.ScrollUpArrow>
               <Select.List className="relative py-1 scroll-py-6 overflow-y-auto max-h-[var(--available-height)]">
                 {shippingMethods.map((method) => (
                   <Select.Item
                     key={method.id}
                     value={method}
-                    className="grid cursor-default grid-cols-[0.75rem_1fr] items-start gap-2 py-2.5 pr-4 pl-2.5 text-sm leading-4 outline-hidden select-none group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-5 pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem] [@media(hover:hover)]:[&[data-highlighted]]:relative [@media(hover:hover)]:[&[data-highlighted]]:z-0 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50 [@media(hover:hover)]:[&[data-highlighted]]:before:content-[''] [@media(hover:hover)]:[&[data-highlighted]]:before:absolute [@media(hover:hover)]:[&[data-highlighted]]:before:inset-y-0 [@media(hover:hover)]:[&[data-highlighted]]:before:inset-x-1 [@media(hover:hover)]:[&[data-highlighted]]:before:rounded-xs [@media(hover:hover)]:[&[data-highlighted]]:before:bg-gray-900 [@media(hover:hover)]:[&[data-highlighted]]:before:z-[-1]"
+                    className="group/item grid cursor-default grid-cols-[1rem_1fr] items-start gap-2 py-1.5 pr-4 pl-2.5 text-sm outline-hidden select-none data-highlighted:bg-neutral-950 data-highlighted:text-white dark:data-highlighted:bg-white dark:data-highlighted:text-neutral-950"
                   >
-                    <Select.ItemIndicator className="col-start-1 flex items-center self-start relative top-[0.4em]">
-                      <CheckIcon className="size-3" />
+                    <Select.ItemIndicator className="col-start-1 flex items-center justify-center self-start relative top-[0.4em]">
+                      <CheckIcon />
                     </Select.ItemIndicator>
-                    <Select.ItemText className="col-start-2 flex flex-col items-start gap-0.5">
-                      <span className="text-base leading-6">{method.name}</span>
-                      <span className="text-xs leading-4 opacity-80">
+                    <Select.ItemText className="col-start-2 flex flex-col gap-0.5">
+                      <span className="text-sm">{method.name}</span>
+                      <span className="text-xs text-neutral-600 group-data-highlighted/item:text-neutral-400 dark:text-neutral-400 dark:group-data-highlighted/item:text-neutral-600">
                         {method.duration} ({method.price})
                       </span>
                     </Select.ItemText>
                   </Select.Item>
                 ))}
               </Select.List>
-              <Select.ScrollDownArrow className="bottom-0 z-[1] flex h-4 w-full cursor-default items-center justify-center rounded-md bg-[canvas] text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] bottom-0 data-[side=none]:before:bottom-[-100%]" />
+              <Select.ScrollDownArrow className="bottom-0 z-[1] flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] data-[side=none]:before:bottom-[-100%] dark:bg-neutral-950">
+                <CaretDownIcon />
+              </Select.ScrollDownArrow>
             </Select.Popup>
           </Select.Positioner>
         </Select.Portal>
@@ -1080,27 +1142,33 @@ export default function ObjectValueSelect() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -1132,6 +1200,36 @@ const shippingMethods: ShippingMethod[] = [
     price: '$19.99',
   },
 ];
+
+function CaretUpIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 10H4l4-4.5z" />
+    </svg>
+  );
+}
+
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 6H4l4 4.5z" />
+    </svg>
+  );
+}
 ```
 
 ### CSS Modules
@@ -1151,46 +1249,87 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   cursor: default;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Select {
   box-sizing: border-box;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  min-height: 2.5rem;
-  padding-block: 0.5rem;
-  padding-left: 0.875rem;
-  padding-right: 0.75rem;
+  min-height: 2rem;
+  padding-block: 0.375rem;
+  padding-left: 0.5rem;
+  padding-right: 0.25rem;
   margin: 0;
   outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
+  font-weight: 400;
+  color: oklch(14.5% 0 0deg);
   -webkit-user-select: none;
   user-select: none;
   min-width: 16rem;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -1202,63 +1341,59 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .ValuePrimary {
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .ValueSecondary {
-  font-size: 0.825rem;
+  font-size: 0.75rem;
   line-height: 1rem;
-  color: var(--color-gray-600);
-}
+  color: oklch(43.9% 0 0deg);
 
-.SelectIcon {
-  display: flex;
-  align-items: center;
-  align-self: center;
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Positioner {
   outline: none;
-  z-index: 1;
+  z-index: 10;
   -webkit-user-select: none;
   user-select: none;
 }
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  outline: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   background-clip: padding-box;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   min-width: var(--anchor-width);
   transform-origin: var(--transform-origin);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.98);
   }
 
   &[data-side='none'] {
     transition: none;
-    transform: none;
+    transform: translateY(1px);
     opacity: 1;
-    min-width: calc(var(--anchor-width) + 1rem);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    min-width: calc(var(--anchor-width) + 1.75rem);
   }
 }
 
@@ -1275,46 +1410,34 @@ This example shows how to implement the component using CSS Modules.
   box-sizing: border-box;
   outline: 0;
   font-size: 0.875rem;
-  line-height: 1rem;
-  padding-block: 0.5rem;
+  line-height: 1.25rem;
+  padding-block: 0.375rem;
   padding-left: 0.625rem;
   padding-right: 1rem;
   display: grid;
   gap: 0.5rem;
   align-items: flex-start;
-  grid-template-columns: 0.75rem 1fr;
+  grid-template-columns: 1rem 1fr;
   cursor: default;
   -webkit-user-select: none;
   user-select: none;
 
-  @media (pointer: coarse) {
-    padding-block: 0.625rem;
-    font-size: 0.925rem;
-  }
-
-  [data-side='none'] & {
-    font-size: 1rem;
-    padding-right: 3rem;
-  }
-
   &[data-highlighted] {
-    z-index: 0;
-    position: relative;
-    color: var(--color-gray-50);
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
 
     .ItemDescription {
-      color: currentColor;
-    }
-  }
+      color: oklch(70.8% 0 0deg);
 
-  &[data-highlighted]::before {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    inset-block: 0;
-    inset-inline: 0.25rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+      @media (prefers-color-scheme: dark) {
+        color: oklch(43.9% 0 0deg);
+      }
+    }
   }
 }
 
@@ -1328,12 +1451,6 @@ This example shows how to implement the component using CSS Modules.
   top: 0.4em;
 }
 
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .ItemText {
   grid-column-start: 2;
   display: flex;
@@ -1342,28 +1459,35 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .ItemLabel {
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .ItemDescription {
-  font-size: 0.825rem;
+  font-size: 0.75rem;
   line-height: 1rem;
-  opacity: 0.8;
+  color: oklch(43.9% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .ScrollArrow {
   width: 100%;
-  background: canvas;
+  background-color: white;
   z-index: 1;
   text-align: center;
   cursor: default;
-  border-radius: 0.375rem;
   height: 1rem;
   font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+  }
 
   &::before {
     content: '';
@@ -1374,6 +1498,8 @@ This example shows how to implement the component using CSS Modules.
   }
 
   &[data-direction='up'] {
+    top: 0;
+
     &[data-side='none'] {
       &::before {
         top: -100%;
@@ -1416,19 +1542,21 @@ export default function ObjectValueSelect() {
               </span>
             )}
           </Select.Value>
-          <Select.Icon className={styles.SelectIcon}>
-            <ChevronUpDownIcon />
+          <Select.Icon>
+            <CaretUpDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner className={styles.Positioner} sideOffset={8}>
+          <Select.Positioner className={styles.Positioner} sideOffset={4}>
             <Select.Popup className={styles.Popup}>
-              <Select.ScrollUpArrow className={styles.ScrollArrow} />
+              <Select.ScrollUpArrow className={styles.ScrollArrow}>
+                <CaretUpIcon />
+              </Select.ScrollUpArrow>
               <Select.List className={styles.List}>
                 {shippingMethods.map((method) => (
                   <Select.Item key={method.id} value={method} className={styles.Item}>
                     <Select.ItemIndicator className={styles.ItemIndicator}>
-                      <CheckIcon className={styles.ItemIndicatorIcon} />
+                      <CheckIcon />
                     </Select.ItemIndicator>
                     <Select.ItemText className={styles.ItemText}>
                       <span className={styles.ItemLabel}>{method.name}</span>
@@ -1439,7 +1567,9 @@ export default function ObjectValueSelect() {
                   </Select.Item>
                 ))}
               </Select.List>
-              <Select.ScrollDownArrow className={styles.ScrollArrow} />
+              <Select.ScrollDownArrow className={styles.ScrollArrow}>
+                <CaretDownIcon />
+              </Select.ScrollDownArrow>
             </Select.Popup>
           </Select.Positioner>
         </Select.Portal>
@@ -1448,27 +1578,33 @@ export default function ObjectValueSelect() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -1500,6 +1636,36 @@ const shippingMethods: ShippingMethod[] = [
     price: '$19.99',
   },
 ];
+
+function CaretUpIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 10H4l4-4.5z" />
+    </svg>
+  );
+}
+
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 6H4l4 4.5z" />
+    </svg>
+  );
+}
 ```
 
 ### Grouped
@@ -1543,52 +1709,59 @@ import { Field } from '@base-ui/react/field';
 
 export default function ExampleSelectGrouped() {
   return (
-    <Field.Root className="flex flex-col gap-1">
+    <Field.Root className="flex flex-col items-start gap-1">
       <Field.Label
-        className="cursor-default text-sm leading-5 font-bold text-gray-900"
+        className="cursor-default text-sm font-bold text-neutral-950 dark:text-white"
         nativeLabel={false}
         render={<div />}
       >
         Produce
       </Field.Label>
       <Select.Root items={groupedProduce}>
-        <Select.Trigger className="flex h-10 min-w-44 items-center justify-between gap-3 rounded-md border border-gray-200 pr-3 pl-3.5 text-base bg-[canvas] text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 data-[popup-open]:bg-gray-100 font-normal">
-          <Select.Value className="data-[placeholder]:opacity-60" placeholder="Select produce" />
-          <Select.Icon className="flex">
-            <ChevronUpDownIcon />
+        <Select.Trigger className="flex h-8 min-w-44 items-center justify-between gap-3 pl-2 pr-1 text-sm leading-none whitespace-nowrap border border-neutral-950 dark:border-white bg-white dark:bg-neutral-950 text-neutral-950 dark:text-white select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 data-popup-open:bg-neutral-100 dark:data-popup-open:bg-neutral-800 font-normal focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white">
+          <Select.Value
+            className="data-placeholder:text-neutral-500 dark:data-placeholder:text-neutral-400"
+            placeholder="Select produce"
+          />
+          <Select.Icon>
+            <CaretUpDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner className="outline-none select-none z-10" sideOffset={8}>
-            <Select.Popup className="group min-w-[var(--anchor-width)] origin-[var(--transform-origin)] bg-clip-padding rounded-md bg-[canvas] text-gray-900 shadow-lg shadow-gray-200 outline outline-1 outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[side=none]:min-w-[calc(var(--anchor-width)+1rem)] data-[side=none]:data-[ending-style]:transition-none data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[side=none]:data-[starting-style]:scale-100 data-[side=none]:data-[starting-style]:opacity-100 data-[side=none]:data-[starting-style]:transition-none dark:shadow-none dark:outline-gray-300">
-              <Select.ScrollUpArrow className="top-0 z-[2] flex h-4 w-full cursor-default items-center justify-center rounded-md bg-[canvas] text-center text-xs before:absolute data-[side=none]:before:top-[-100%] before:left-0 before:h-full before:w-full before:content-['']" />
-              <Select.List className="relative py-1 scroll-pt-[2.25rem] scroll-pb-6 overflow-y-auto max-h-[var(--available-height)]">
+          <Select.Positioner className="outline-hidden select-none z-10" sideOffset={4}>
+            <Select.Popup className="group min-w-[var(--anchor-width)] origin-[var(--transform-origin)] bg-clip-padding border border-neutral-950 bg-white text-neutral-950 outline-hidden shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-[side=none]:translate-y-px data-[side=none]:min-w-[calc(var(--anchor-width)+1.75rem)] data-[side=none]:data-ending-style:transition-none data-starting-style:scale-[0.98] data-starting-style:opacity-0 data-[side=none]:data-starting-style:scale-100 data-[side=none]:data-starting-style:opacity-100 data-[side=none]:data-starting-style:transition-none dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none">
+              <Select.ScrollUpArrow className="top-0 z-[2] flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute data-[side=none]:before:top-[-100%] before:left-0 before:h-full before:w-full before:content-[''] dark:bg-neutral-950">
+                <CaretUpIcon />
+              </Select.ScrollUpArrow>
+              <Select.List className="relative py-1 scroll-pt-6 scroll-pb-6 overflow-y-auto max-h-[var(--available-height)]">
                 {groupedProduce.map((group, index) => (
                   <React.Fragment key={group.value}>
-                    <Select.Group className="block pb-0.5">
-                      <Select.GroupLabel className="sticky top-0 z-[1] bg-[canvas] pr-4 pb-1 pl-[1.875rem] pt-2 text-[0.6875rem] font-bold text-[var(--color-gray-700)] uppercase tracking-wider">
+                    <Select.Group className="block pb-0.5 last:pb-0">
+                      <Select.GroupLabel className="py-1.5 pr-4 pl-[2.125rem] text-sm leading-5 text-neutral-500 select-none dark:text-neutral-400">
                         {group.value}
                       </Select.GroupLabel>
                       {group.items.map((item) => (
                         <Select.Item
                           key={item.value}
                           value={item.value}
-                          className="grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-1 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-gray-900 pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]"
+                          className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 py-1.5 pr-4 pl-2.5 text-sm outline-hidden select-none group-data-[side=none]:pr-12 data-highlighted:bg-neutral-950 data-highlighted:text-white dark:data-highlighted:bg-white dark:data-highlighted:text-neutral-950"
                         >
                           <Select.ItemIndicator className="col-start-1">
-                            <CheckIcon className="size-3" />
+                            <CheckIcon />
                           </Select.ItemIndicator>
                           <Select.ItemText className="col-start-2">{item.label}</Select.ItemText>
                         </Select.Item>
                       ))}
                     </Select.Group>
                     {index < groupedProduce.length - 1 ? (
-                      <Select.Separator className="my-2 mx-4 h-px bg-gray-200 dark:bg-gray-300" />
+                      <Select.Separator className="mx-4 my-1 h-px bg-neutral-950 dark:bg-white" />
                     ) : null}
                   </React.Fragment>
                 ))}
               </Select.List>
-              <Select.ScrollDownArrow className="bottom-0 z-[2] flex h-4 w-full cursor-default items-center justify-center rounded-md bg-[canvas] text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] bottom-0 data-[side=none]:before:bottom-[-100%]" />
+              <Select.ScrollDownArrow className="bottom-0 z-[2] flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] data-[side=none]:before:bottom-[-100%] dark:bg-neutral-950">
+                <CaretDownIcon />
+              </Select.ScrollDownArrow>
             </Select.Popup>
           </Select.Positioner>
         </Select.Portal>
@@ -1597,27 +1770,33 @@ export default function ExampleSelectGrouped() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -1650,6 +1829,36 @@ const groupedProduce = [
     ],
   },
 ];
+
+function CaretUpIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 10H4l4-4.5z" />
+    </svg>
+  );
+}
+
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 6H4l4 4.5z" />
+    </svg>
+  );
+}
 ```
 
 ### CSS Modules
@@ -1669,12 +1878,20 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   cursor: default;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Value[data-placeholder] {
-  opacity: 0.6;
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Select {
@@ -1683,84 +1900,114 @@ This example shows how to implement the component using CSS Modules.
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  height: 2.5rem;
-  padding-left: 0.875rem;
-  padding-right: 0.75rem;
+  height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.25rem;
   margin: 0;
   outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
   font-weight: 400;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   -webkit-user-select: none;
   user-select: none;
   min-width: 11rem;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
-  }
-}
 
-.SelectIcon {
-  display: flex;
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Positioner {
   outline: none;
-  z-index: 1;
+  z-index: 10;
   -webkit-user-select: none;
   user-select: none;
 }
 
 .Popup {
   box-sizing: border-box;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  outline: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   background-clip: padding-box;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
   min-width: var(--anchor-width);
   transform-origin: var(--transform-origin);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    transform 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.98);
   }
 
   &[data-side='none'] {
     transition: none;
-    transform: none;
+    transform: translateY(1px);
     opacity: 1;
-    min-width: calc(var(--anchor-width) + 1rem);
-  }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
+    min-width: calc(var(--anchor-width) + 1.75rem);
   }
 }
 
@@ -1770,69 +2017,59 @@ This example shows how to implement the component using CSS Modules.
   padding-block: 0.25rem;
   overflow-y: auto;
   max-height: var(--available-height);
-  scroll-padding-block-start: 2.25rem;
+  scroll-padding-block-start: 1.5rem;
   scroll-padding-block-end: 1.5rem;
 }
 
 .Group {
   display: block;
   padding-bottom: 0.125rem;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
 }
 
 .GroupLabel {
   box-sizing: border-box;
-  padding: 0.5rem 1rem 0.25rem calc(0.625rem + 0.75rem + 0.5rem);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-gray-700);
-  background-color: canvas;
-  position: sticky;
-  z-index: 1;
-  top: 0;
+  padding-block: 0.375rem;
+  padding-left: calc(0.625rem + 1rem + 0.5rem);
+  padding-right: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  -webkit-user-select: none;
+  user-select: none;
+  color: oklch(55.6% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: oklch(70.8% 0 0deg);
+  }
 }
 
 .Item {
   box-sizing: border-box;
   outline: 0;
   font-size: 0.875rem;
-  line-height: 1rem;
-  padding-block: 0.5rem;
+  line-height: 1.25rem;
+  padding-block: 0.375rem;
   padding-left: 0.625rem;
   padding-right: 1rem;
   display: grid;
   gap: 0.5rem;
   align-items: center;
-  grid-template-columns: 0.75rem 1fr;
+  grid-template-columns: 1rem 1fr;
   cursor: default;
   -webkit-user-select: none;
   user-select: none;
 
-  @media (pointer: coarse) {
-    padding-block: 0.625rem;
-    font-size: 0.925rem;
-  }
-
-  [data-side='none'] & {
-    font-size: 1rem;
-    padding-right: 3rem;
-  }
-
   &[data-highlighted] {
-    z-index: 0;
-    position: relative;
-    color: var(--color-gray-50);
-  }
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
 
-  &[data-highlighted]::before {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    inset-block: 0;
-    inset-inline: 0.25rem;
-    border-radius: 0.25rem;
-    background-color: var(--color-gray-900);
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
   }
 }
 
@@ -1840,39 +2077,36 @@ This example shows how to implement the component using CSS Modules.
   grid-column-start: 1;
 }
 
-.ItemIndicatorIcon {
-  display: block;
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
 .ItemText {
   grid-column-start: 2;
 }
 
 .Separator {
-  margin-block: 0.5rem;
-  margin-inline: 1rem;
   height: 1px;
-  background-color: var(--color-gray-200);
+  margin-block: 0.25rem;
+  margin-inline: 1rem;
+  background-color: oklch(14.5% 0 0deg);
 
   @media (prefers-color-scheme: dark) {
-    background-color: var(--color-gray-300);
+    background-color: white;
   }
 }
 
 .ScrollArrow {
   width: 100%;
-  background: canvas;
+  background-color: white;
   z-index: 2;
   text-align: center;
   cursor: default;
-  border-radius: 0.375rem;
   height: 1rem;
   font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(14.5% 0 0deg);
+  }
 
   &::before {
     content: '';
@@ -1883,6 +2117,8 @@ This example shows how to implement the component using CSS Modules.
   }
 
   &[data-direction='up'] {
+    top: 0;
+
     &[data-side='none'] {
       &::before {
         top: -100%;
@@ -1918,14 +2154,16 @@ export default function ExampleSelectGrouped() {
       <Select.Root items={groupedProduce}>
         <Select.Trigger className={styles.Select}>
           <Select.Value className={styles.Value} placeholder="Select produce" />
-          <Select.Icon className={styles.SelectIcon}>
-            <ChevronUpDownIcon />
+          <Select.Icon>
+            <CaretUpDownIcon />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Positioner className={styles.Positioner} sideOffset={8}>
+          <Select.Positioner className={styles.Positioner} sideOffset={4}>
             <Select.Popup className={styles.Popup}>
-              <Select.ScrollUpArrow className={styles.ScrollArrow} />
+              <Select.ScrollUpArrow className={styles.ScrollArrow}>
+                <CaretUpIcon />
+              </Select.ScrollUpArrow>
               <Select.List className={styles.List}>
                 {groupedProduce.map((group, index) => (
                   <React.Fragment key={group.value}>
@@ -1936,7 +2174,7 @@ export default function ExampleSelectGrouped() {
                       {group.items.map((item) => (
                         <Select.Item key={item.value} value={item.value} className={styles.Item}>
                           <Select.ItemIndicator className={styles.ItemIndicator}>
-                            <CheckIcon className={styles.ItemIndicatorIcon} />
+                            <CheckIcon />
                           </Select.ItemIndicator>
                           <Select.ItemText className={styles.ItemText}>
                             {item.label}
@@ -1950,7 +2188,9 @@ export default function ExampleSelectGrouped() {
                   </React.Fragment>
                 ))}
               </Select.List>
-              <Select.ScrollDownArrow className={styles.ScrollArrow} />
+              <Select.ScrollDownArrow className={styles.ScrollArrow}>
+                <CaretDownIcon />
+              </Select.ScrollDownArrow>
             </Select.Popup>
           </Select.Positioner>
         </Select.Portal>
@@ -1959,27 +2199,33 @@ export default function ExampleSelectGrouped() {
   );
 }
 
-function ChevronUpDownIcon(props: React.ComponentProps<'svg'>) {
+function CaretUpDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="8"
-      height="12"
-      viewBox="0 0 8 12"
-      fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.5"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0.5 4.5L4 1.5L7.5 4.5" />
-      <path d="M0.5 7.5L4 10.5L7.5 7.5" />
+      <path d="M11 10H5l3 3.5zm0-4H5l3-3.5z" />
     </svg>
   );
 }
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -2012,6 +2258,36 @@ const groupedProduce = [
     ],
   },
 ];
+
+function CaretUpIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 10H4l4-4.5z" />
+    </svg>
+  );
+}
+
+function CaretDownIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="M12 6H4l4 4.5z" />
+    </svg>
+  );
+}
 ```
 
 ## API reference
@@ -2142,20 +2418,21 @@ Renders a `<button>` element.
 
 **Trigger Data Attributes:**
 
-| Attribute        | Type | Description                                                                  |
-| :--------------- | :--- | :--------------------------------------------------------------------------- |
-| data-popup-open  | -    | Present when the corresponding select is open.                               |
-| data-pressed     | -    | Present when the trigger is pressed.                                         |
-| data-disabled    | -    | Present when the select is disabled.                                         |
-| data-readonly    | -    | Present when the select is readonly.                                         |
-| data-required    | -    | Present when the select is required.                                         |
-| data-valid       | -    | Present when the select is in a valid state (when wrapped in Field.Root).    |
-| data-invalid     | -    | Present when the select is in an invalid state (when wrapped in Field.Root). |
-| data-dirty       | -    | Present when the select's value has changed (when wrapped in Field.Root).    |
-| data-touched     | -    | Present when the select has been touched (when wrapped in Field.Root).       |
-| data-filled      | -    | Present when the select has a value (when wrapped in Field.Root).            |
-| data-focused     | -    | Present when the select trigger is focused (when wrapped in Field.Root).     |
-| data-placeholder | -    | Present when the select doesn't have a value.                                |
+| Attribute        | Type                                                                               | Description                                                                        |
+| :--------------- | :--------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |
+| data-popup-open  | -                                                                                  | Present when the corresponding select is open.                                     |
+| data-popup-side  | `'top' \| 'bottom' \| 'left' \| 'right' \| 'inline-end' \| 'inline-start' \| null` | Indicates which side the corresponding popup is positioned relative to its anchor. |
+| data-pressed     | -                                                                                  | Present when the trigger is pressed.                                               |
+| data-disabled    | -                                                                                  | Present when the select is disabled.                                               |
+| data-readonly    | -                                                                                  | Present when the select is readonly.                                               |
+| data-required    | -                                                                                  | Present when the select is required.                                               |
+| data-valid       | -                                                                                  | Present when the select is in a valid state (when wrapped in Field.Root).          |
+| data-invalid     | -                                                                                  | Present when the select is in an invalid state (when wrapped in Field.Root).       |
+| data-dirty       | -                                                                                  | Present when the select's value has changed (when wrapped in Field.Root).          |
+| data-touched     | -                                                                                  | Present when the select has been touched (when wrapped in Field.Root).             |
+| data-filled      | -                                                                                  | Present when the select has a value (when wrapped in Field.Root).                  |
+| data-focused     | -                                                                                  | Present when the select trigger is focused (when wrapped in Field.Root).           |
+| data-placeholder | -                                                                                  | Present when the select doesn't have a value.                                      |
 
 ### Trigger.Props
 
@@ -2169,6 +2446,8 @@ type SelectTriggerState = {
   open: boolean;
   /** Whether the select popup is readonly. */
   readOnly: boolean;
+  /** Indicates which side the corresponding popup is positioned relative to its anchor. */
+  popupSide: Side | null;
   /** The value of the currently selected item. */
   value: any;
   /** Whether the select doesn't have a value. */

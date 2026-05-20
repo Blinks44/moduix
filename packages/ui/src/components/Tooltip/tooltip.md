@@ -26,51 +26,15 @@ import { Tooltip } from '@base-ui/react/tooltip';
 export default function ExampleTooltip() {
   return (
     <Tooltip.Provider>
-      <div className="flex border border-gray-200 rounded-md bg-gray-50 p-0.5">
+      <div className="flex border border-neutral-950 bg-white dark:border-white dark:bg-neutral-950">
         <Tooltip.Root>
-          <Tooltip.Trigger
-            className="
-              flex size-8 items-center justify-center
-              border-0 rounded-sm
-              bg-transparent
-              text-gray-900
-              select-none
-              data-popup-open:bg-gray-100
-              focus-visible:bg-none
-              focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800
-              hover:bg-gray-100
-              active:bg-gray-200
-              focus-visible:not-[&:hover]:bg-transparent"
-          >
-            <BoldIcon aria-label="Bold" className="size-4" />
+          <Tooltip.Trigger className={triggerClass} aria-label="Bold">
+            <BoldIcon aria-hidden="true" />
           </Tooltip.Trigger>
           <Tooltip.Portal>
-            <Tooltip.Positioner sideOffset={10}>
-              <Tooltip.Popup
-                className="
-                  flex flex-col
-                  px-2 py-1
-                  rounded-md
-                  bg-[canvas]
-                  text-sm
-                  origin-(--transform-origin)
-                  shadow-lg shadow-gray-200 outline-1 outline-gray-200
-                  transition-[transform,scale,opacity]
-                  data-ending-style:opacity-0 data-ending-style:scale-90
-                  data-instant:transition-none
-                  data-starting-style:opacity-0 data-starting-style:scale-90
-                  dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1"
-              >
-                <Tooltip.Arrow
-                  className="
-                    flex
-                    data-[side=bottom]:-top-2 data-[side=bottom]:rotate-0
-                    data-[side=left]:right-[-13px] data-[side=left]:rotate-90
-                    data-[side=right]:left-[-13px] data-[side=right]:-rotate-90
-                    data-[side=top]:-bottom-2 data-[side=top]:rotate-180"
-                >
-                  <ArrowSvg />
-                </Tooltip.Arrow>
+            <Tooltip.Positioner sideOffset={11}>
+              <Tooltip.Popup className={popupClass}>
+                <Tooltip.Arrow className={arrowClass} />
                 Bold
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -78,49 +42,13 @@ export default function ExampleTooltip() {
         </Tooltip.Root>
 
         <Tooltip.Root>
-          <Tooltip.Trigger
-            className="
-              flex size-8 items-center justify-center
-              border-0 rounded-sm
-              bg-transparent
-              text-gray-900
-              select-none
-              data-popup-open:bg-gray-100
-              focus-visible:bg-none
-              focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800
-              hover:bg-gray-100
-              active:bg-gray-200
-              focus-visible:not-[&:hover]:bg-transparent"
-          >
-            <ItalicIcon aria-label="Italic" className="size-4" />
+          <Tooltip.Trigger className={triggerClass} aria-label="Italic">
+            <ItalicIcon aria-hidden="true" />
           </Tooltip.Trigger>
           <Tooltip.Portal>
-            <Tooltip.Positioner sideOffset={10}>
-              <Tooltip.Popup
-                className="
-                  flex flex-col
-                  px-2 py-1
-                  rounded-md
-                  bg-[canvas]
-                  text-sm
-                  origin-(--transform-origin)
-                  shadow-lg shadow-gray-200 outline-1 outline-gray-200
-                  transition-[transform,scale,opacity]
-                  data-ending-style:opacity-0 data-ending-style:scale-90
-                  data-instant:transition-none
-                  data-starting-style:opacity-0 data-starting-style:scale-90
-                  dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1"
-              >
-                <Tooltip.Arrow
-                  className="
-                    flex
-                    data-[side=bottom]:-top-2 data-[side=bottom]:rotate-0
-                    data-[side=left]:right-[-13px] data-[side=left]:rotate-90
-                    data-[side=right]:left-[-13px] data-[side=right]:-rotate-90
-                    data-[side=top]:-bottom-2 data-[side=top]:rotate-180"
-                >
-                  <ArrowSvg />
-                </Tooltip.Arrow>
+            <Tooltip.Positioner sideOffset={11}>
+              <Tooltip.Popup className={popupClass}>
+                <Tooltip.Arrow className={arrowClass} />
                 Italic
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -128,49 +56,13 @@ export default function ExampleTooltip() {
         </Tooltip.Root>
 
         <Tooltip.Root>
-          <Tooltip.Trigger
-            className="
-              flex size-8 items-center justify-center
-              border-0 rounded-sm
-              bg-transparent
-              text-gray-900
-              select-none
-              data-popup-open:bg-gray-100
-              focus-visible:bg-none
-              focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800
-              hover:bg-gray-100
-              active:bg-gray-200
-              focus-visible:not-[&:hover]:bg-transparent"
-          >
-            <UnderlineIcon aria-label="Underline" className="size-4" />
+          <Tooltip.Trigger className={triggerClass} aria-label="Underline">
+            <UnderlineIcon aria-hidden="true" />
           </Tooltip.Trigger>
           <Tooltip.Portal>
-            <Tooltip.Positioner sideOffset={10}>
-              <Tooltip.Popup
-                className="
-                  flex flex-col
-                  px-2 py-1
-                  rounded-md
-                  bg-[canvas]
-                  text-sm
-                  origin-(--transform-origin)
-                  shadow-lg shadow-gray-200 outline-1 outline-gray-200
-                  transition-[transform,scale,opacity]
-                  data-ending-style:opacity-0 data-ending-style:scale-90
-                  data-instant:transition-none
-                  data-starting-style:opacity-0 data-starting-style:scale-90
-                  dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1"
-              >
-                <Tooltip.Arrow
-                  className="
-                    flex
-                    data-[side=bottom]:-top-2 data-[side=bottom]:rotate-0
-                    data-[side=left]:right-[-13px] data-[side=left]:rotate-90
-                    data-[side=right]:left-[-13px] data-[side=right]:-rotate-90
-                    data-[side=top]:-bottom-2 data-[side=top]:rotate-180"
-                >
-                  <ArrowSvg />
-                </Tooltip.Arrow>
+            <Tooltip.Positioner sideOffset={11}>
+              <Tooltip.Popup className={popupClass}>
+                <Tooltip.Arrow className={arrowClass} />
                 Underline
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -181,28 +73,23 @@ export default function ExampleTooltip() {
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
-      />
-    </svg>
-  );
-}
+const triggerClass =
+  'flex size-8 items-center justify-center border-0 bg-transparent text-neutral-950 select-none data-popup-open:bg-neutral-100 focus-visible:bg-transparent focus-visible:outline-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white hover:bg-neutral-100 active:bg-neutral-200 dark:text-white dark:data-popup-open:bg-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700';
+const popupClass =
+  'relative flex flex-col border border-neutral-950 bg-white px-2 py-1 text-sm text-neutral-950 origin-[var(--transform-origin)] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:opacity-0 data-ending-style:[transform:scale(0.98)] data-instant:transition-none data-starting-style:opacity-0 data-starting-style:[transform:scale(0.98)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none';
+const arrowClass =
+  "relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]";
 
 function BoldIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentcolor" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
       <path d="M3.73353 2.13333C3.4386 2.13333 3.2002 2.37226 3.2002 2.66666C3.2002 2.96106 3.4386 3.2 3.73353 3.2H4.26686V12.8H3.73353C3.4386 12.8 3.2002 13.0389 3.2002 13.3333C3.2002 13.6277 3.4386 13.8667 3.73353 13.8667H9.86686C11.7783 13.8667 13.3335 12.3115 13.3335 10.4C13.3335 8.9968 12.4945 7.78881 11.2929 7.24375C11.8897 6.70615 12.2669 5.93066 12.2669 5.06666C12.2669 3.44906 10.9506 2.13333 9.33353 2.13333H3.73353ZM6.93353 3.2H8.26686C9.29619 3.2 10.1335 4.03733 10.1335 5.06666C10.1335 6.096 9.29619 6.93333 8.26686 6.93333H6.93353V3.2ZM6.93353 8H7.73353H8.26686C9.59006 8 10.6669 9.0768 10.6669 10.4C10.6669 11.7232 9.59006 12.8 8.26686 12.8H6.93353V8Z" />
     </svg>
   );
@@ -210,7 +97,14 @@ function BoldIcon(props: React.ComponentProps<'svg'>) {
 
 function ItalicIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentcolor" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
       <path d="M8.52599 2.12186C8.48583 2.12267 8.44578 2.1265 8.4062 2.13332H6.93328C6.86261 2.13232 6.79244 2.14538 6.72686 2.17173C6.66127 2.19808 6.60158 2.23721 6.55125 2.28683C6.50092 2.33646 6.46096 2.39559 6.43368 2.46079C6.4064 2.526 6.39235 2.59597 6.39235 2.66665C6.39235 2.73733 6.4064 2.80731 6.43368 2.87251C6.46096 2.93772 6.50092 2.99685 6.55125 3.04647C6.60158 3.0961 6.66127 3.13522 6.72686 3.16157C6.79244 3.18793 6.86261 3.20099 6.93328 3.19999H7.70099L6.69057 12.8H5.86661C5.79594 12.799 5.72577 12.812 5.66019 12.8384C5.59461 12.8648 5.53492 12.9039 5.48459 12.9535C5.43425 13.0031 5.39429 13.0623 5.36701 13.1275C5.33973 13.1927 5.32568 13.2626 5.32568 13.3333C5.32568 13.404 5.33973 13.474 5.36701 13.5392C5.39429 13.6044 5.43425 13.6635 5.48459 13.7131C5.53492 13.7628 5.59461 13.8019 5.66019 13.8282C5.72577 13.8546 5.79594 13.8677 5.86661 13.8667H9.06661C9.13729 13.8677 9.20745 13.8546 9.27304 13.8282C9.33862 13.8019 9.39831 13.7628 9.44864 13.7131C9.49897 13.6635 9.53894 13.6044 9.56622 13.5392C9.5935 13.474 9.60754 13.404 9.60754 13.3333C9.60754 13.2626 9.5935 13.1927 9.56622 13.1275C9.53894 13.0623 9.49897 13.0031 9.44864 12.9535C9.39831 12.9039 9.33862 12.8648 9.27304 12.8384C9.20745 12.812 9.13729 12.799 9.06661 12.8H8.2989L9.30932 3.19999H10.1333C10.204 3.20099 10.2741 3.18793 10.3397 3.16157C10.4053 3.13522 10.465 3.0961 10.5153 3.04647C10.5656 2.99685 10.6056 2.93772 10.6329 2.87251C10.6602 2.80731 10.6742 2.73733 10.6742 2.66665C10.6742 2.59597 10.6602 2.526 10.6329 2.46079C10.6056 2.39559 10.5656 2.33646 10.5153 2.28683C10.465 2.23721 10.4053 2.19808 10.3397 2.17173C10.2741 2.14538 10.204 2.13232 10.1333 2.13332H8.66349C8.61807 2.12555 8.57207 2.12171 8.52599 2.12186Z" />
     </svg>
   );
@@ -218,7 +112,14 @@ function ItalicIcon(props: React.ComponentProps<'svg'>) {
 
 function UnderlineIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentcolor" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
       <path d="M3.73331 2.13332C3.66264 2.13232 3.59247 2.14538 3.52689 2.17173C3.46131 2.19809 3.40161 2.23721 3.35128 2.28684C3.30095 2.33646 3.26099 2.39559 3.23371 2.4608C3.20643 2.526 3.19238 2.59598 3.19238 2.66666C3.19238 2.73734 3.20643 2.80731 3.23371 2.87252C3.26099 2.93772 3.30095 2.99685 3.35128 3.04648C3.40161 3.0961 3.46131 3.13523 3.52689 3.16158C3.59247 3.18793 3.66264 3.20099 3.73331 3.19999V7.99999C3.73331 10.224 5.55144 12.2667 7.99998 12.2667C10.4485 12.2667 12.2666 10.224 12.2666 7.99999V3.19999C12.3373 3.20099 12.4075 3.18793 12.4731 3.16158C12.5386 3.13523 12.5983 3.0961 12.6487 3.04648C12.699 2.99685 12.739 2.93772 12.7662 2.87252C12.7935 2.80731 12.8076 2.73734 12.8076 2.66666C12.8076 2.59598 12.7935 2.526 12.7662 2.4608C12.739 2.39559 12.699 2.33646 12.6487 2.28684C12.5983 2.23721 12.5386 2.19809 12.4731 2.17173C12.4075 2.14538 12.3373 2.13232 12.2666 2.13332H10.1333C10.0626 2.13232 9.99247 2.14538 9.92689 2.17173C9.8613 2.19809 9.80161 2.23721 9.75128 2.28684C9.70095 2.33646 9.66099 2.39559 9.63371 2.4608C9.60643 2.526 9.59238 2.59598 9.59238 2.66666C9.59238 2.73734 9.60643 2.80731 9.63371 2.87252C9.66099 2.93772 9.70095 2.99685 9.75128 3.04648C9.80161 3.0961 9.8613 3.13523 9.92689 3.16158C9.99247 3.18793 10.0626 3.20099 10.1333 3.19999V8.97187C10.1333 10.0855 9.32179 11.0818 8.21352 11.1896C6.94152 11.3138 5.86665 10.3136 5.86665 9.06666V3.19999C5.93732 3.20099 6.00748 3.18793 6.07307 3.16158C6.13865 3.13523 6.19834 3.0961 6.24867 3.04648C6.299 2.99685 6.33897 2.93772 6.36625 2.87252C6.39353 2.80731 6.40757 2.73734 6.40757 2.66666C6.40757 2.59598 6.39353 2.526 6.36625 2.4608C6.33897 2.39559 6.299 2.33646 6.24867 2.28684C6.19834 2.23721 6.13865 2.19809 6.07307 2.17173C6.00748 2.14538 5.93732 2.13232 5.86665 2.13332H3.73331ZM3.73331 13.3333C3.66264 13.3323 3.59247 13.3454 3.52689 13.3717C3.46131 13.3981 3.40161 13.4372 3.35128 13.4868C3.30095 13.5365 3.26099 13.5956 3.23371 13.6608C3.20643 13.726 3.19238 13.796 3.19238 13.8667C3.19238 13.9373 3.20643 14.0073 3.23371 14.0725C3.26099 14.1377 3.30095 14.1969 3.35128 14.2465C3.40161 14.2961 3.46131 14.3352 3.52689 14.3616C3.59247 14.3879 3.66264 14.401 3.73331 14.4H12.2666C12.3373 14.401 12.4075 14.3879 12.4731 14.3616C12.5386 14.3352 12.5983 14.2961 12.6487 14.2465C12.699 14.1969 12.739 14.1377 12.7662 14.0725C12.7935 14.0073 12.8076 13.9373 12.8076 13.8667C12.8076 13.796 12.7935 13.726 12.7662 13.6608C12.739 13.5956 12.699 13.5365 12.6487 13.4868C12.5983 13.4372 12.5386 13.3981 12.4731 13.3717C12.4075 13.3454 12.3373 13.3323 12.2666 13.3333H3.73331Z" />
     </svg>
   );
@@ -233,10 +134,13 @@ This example shows how to implement the component using CSS Modules.
 /* index.module.css */
 .Panel {
   display: flex;
-  border: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  border-radius: 0.375rem;
-  padding: 0.125rem;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+  }
 }
 
 .Button {
@@ -248,37 +152,50 @@ This example shows how to implement the component using CSS Modules.
   height: 2rem;
   padding: 0;
   margin: 0;
-  outline: 0;
   border: 0;
-  border-radius: 0.25rem;
   background-color: transparent;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
+
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
+    background-color: oklch(97% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
+  }
+
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:focus-visible {
     background-color: transparent;
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
+    outline: 2px solid oklch(14.5% 0 0deg);
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
     }
   }
-
-  &:active {
-    background-color: var(--color-gray-200);
-  }
-}
-
-.Icon {
-  width: 1rem;
-  height: 1rem;
 }
 
 .Popup {
@@ -288,73 +205,78 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   flex-direction: column;
   padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  position: relative;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    scale 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    scale: 0.98;
   }
 
   &[data-instant] {
     transition: none;
   }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
-  }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 ```
@@ -370,15 +292,13 @@ export default function ExampleTooltip() {
     <Tooltip.Provider>
       <div className={styles.Panel}>
         <Tooltip.Root>
-          <Tooltip.Trigger className={styles.Button}>
-            <BoldIcon className={styles.Icon} aria-label="Bold" />
+          <Tooltip.Trigger className={styles.Button} aria-label="Bold">
+            <BoldIcon aria-hidden="true" />
           </Tooltip.Trigger>
           <Tooltip.Portal>
-            <Tooltip.Positioner sideOffset={10}>
+            <Tooltip.Positioner sideOffset={11}>
               <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow}>
-                  <ArrowSvg />
-                </Tooltip.Arrow>
+                <Tooltip.Arrow className={styles.Arrow} />
                 Bold
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -386,15 +306,13 @@ export default function ExampleTooltip() {
         </Tooltip.Root>
 
         <Tooltip.Root>
-          <Tooltip.Trigger className={styles.Button}>
-            <ItalicIcon className={styles.Icon} aria-label="Italic" />
+          <Tooltip.Trigger className={styles.Button} aria-label="Italic">
+            <ItalicIcon aria-hidden="true" />
           </Tooltip.Trigger>
           <Tooltip.Portal>
-            <Tooltip.Positioner sideOffset={10}>
+            <Tooltip.Positioner sideOffset={11}>
               <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow}>
-                  <ArrowSvg />
-                </Tooltip.Arrow>
+                <Tooltip.Arrow className={styles.Arrow} />
                 Italic
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -402,15 +320,13 @@ export default function ExampleTooltip() {
         </Tooltip.Root>
 
         <Tooltip.Root>
-          <Tooltip.Trigger className={styles.Button}>
-            <UnderlineIcon className={styles.Icon} aria-label="Underline" />
+          <Tooltip.Trigger className={styles.Button} aria-label="Underline">
+            <UnderlineIcon aria-hidden="true" />
           </Tooltip.Trigger>
           <Tooltip.Portal>
-            <Tooltip.Positioner sideOffset={10}>
+            <Tooltip.Positioner sideOffset={11}>
               <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow}>
-                  <ArrowSvg />
-                </Tooltip.Arrow>
+                <Tooltip.Arrow className={styles.Arrow} />
                 Underline
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -421,28 +337,16 @@ export default function ExampleTooltip() {
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
-
 function BoldIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentcolor" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
       <path d="M3.73353 2.13333C3.4386 2.13333 3.2002 2.37226 3.2002 2.66666C3.2002 2.96106 3.4386 3.2 3.73353 3.2H4.26686V12.8H3.73353C3.4386 12.8 3.2002 13.0389 3.2002 13.3333C3.2002 13.6277 3.4386 13.8667 3.73353 13.8667H9.86686C11.7783 13.8667 13.3335 12.3115 13.3335 10.4C13.3335 8.9968 12.4945 7.78881 11.2929 7.24375C11.8897 6.70615 12.2669 5.93066 12.2669 5.06666C12.2669 3.44906 10.9506 2.13333 9.33353 2.13333H3.73353ZM6.93353 3.2H8.26686C9.29619 3.2 10.1335 4.03733 10.1335 5.06666C10.1335 6.096 9.29619 6.93333 8.26686 6.93333H6.93353V3.2ZM6.93353 8H7.73353H8.26686C9.59006 8 10.6669 9.0768 10.6669 10.4C10.6669 11.7232 9.59006 12.8 8.26686 12.8H6.93353V8Z" />
     </svg>
   );
@@ -450,7 +354,14 @@ function BoldIcon(props: React.ComponentProps<'svg'>) {
 
 function ItalicIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentcolor" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
       <path d="M8.52599 2.12186C8.48583 2.12267 8.44578 2.1265 8.4062 2.13332H6.93328C6.86261 2.13232 6.79244 2.14538 6.72686 2.17173C6.66127 2.19808 6.60158 2.23721 6.55125 2.28683C6.50092 2.33646 6.46096 2.39559 6.43368 2.46079C6.4064 2.526 6.39235 2.59597 6.39235 2.66665C6.39235 2.73733 6.4064 2.80731 6.43368 2.87251C6.46096 2.93772 6.50092 2.99685 6.55125 3.04647C6.60158 3.0961 6.66127 3.13522 6.72686 3.16157C6.79244 3.18793 6.86261 3.20099 6.93328 3.19999H7.70099L6.69057 12.8H5.86661C5.79594 12.799 5.72577 12.812 5.66019 12.8384C5.59461 12.8648 5.53492 12.9039 5.48459 12.9535C5.43425 13.0031 5.39429 13.0623 5.36701 13.1275C5.33973 13.1927 5.32568 13.2626 5.32568 13.3333C5.32568 13.404 5.33973 13.474 5.36701 13.5392C5.39429 13.6044 5.43425 13.6635 5.48459 13.7131C5.53492 13.7628 5.59461 13.8019 5.66019 13.8282C5.72577 13.8546 5.79594 13.8677 5.86661 13.8667H9.06661C9.13729 13.8677 9.20745 13.8546 9.27304 13.8282C9.33862 13.8019 9.39831 13.7628 9.44864 13.7131C9.49897 13.6635 9.53894 13.6044 9.56622 13.5392C9.5935 13.474 9.60754 13.404 9.60754 13.3333C9.60754 13.2626 9.5935 13.1927 9.56622 13.1275C9.53894 13.0623 9.49897 13.0031 9.44864 12.9535C9.39831 12.9039 9.33862 12.8648 9.27304 12.8384C9.20745 12.812 9.13729 12.799 9.06661 12.8H8.2989L9.30932 3.19999H10.1333C10.204 3.20099 10.2741 3.18793 10.3397 3.16157C10.4053 3.13522 10.465 3.0961 10.5153 3.04647C10.5656 2.99685 10.6056 2.93772 10.6329 2.87251C10.6602 2.80731 10.6742 2.73733 10.6742 2.66665C10.6742 2.59597 10.6602 2.526 10.6329 2.46079C10.6056 2.39559 10.5656 2.33646 10.5153 2.28683C10.465 2.23721 10.4053 2.19808 10.3397 2.17173C10.2741 2.14538 10.204 2.13232 10.1333 2.13332H8.66349C8.61807 2.12555 8.57207 2.12171 8.52599 2.12186Z" />
     </svg>
   );
@@ -458,7 +369,14 @@ function ItalicIcon(props: React.ComponentProps<'svg'>) {
 
 function UnderlineIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentcolor" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
       <path d="M3.73331 2.13332C3.66264 2.13232 3.59247 2.14538 3.52689 2.17173C3.46131 2.19809 3.40161 2.23721 3.35128 2.28684C3.30095 2.33646 3.26099 2.39559 3.23371 2.4608C3.20643 2.526 3.19238 2.59598 3.19238 2.66666C3.19238 2.73734 3.20643 2.80731 3.23371 2.87252C3.26099 2.93772 3.30095 2.99685 3.35128 3.04648C3.40161 3.0961 3.46131 3.13523 3.52689 3.16158C3.59247 3.18793 3.66264 3.20099 3.73331 3.19999V7.99999C3.73331 10.224 5.55144 12.2667 7.99998 12.2667C10.4485 12.2667 12.2666 10.224 12.2666 7.99999V3.19999C12.3373 3.20099 12.4075 3.18793 12.4731 3.16158C12.5386 3.13523 12.5983 3.0961 12.6487 3.04648C12.699 2.99685 12.739 2.93772 12.7662 2.87252C12.7935 2.80731 12.8076 2.73734 12.8076 2.66666C12.8076 2.59598 12.7935 2.526 12.7662 2.4608C12.739 2.39559 12.699 2.33646 12.6487 2.28684C12.5983 2.23721 12.5386 2.19809 12.4731 2.17173C12.4075 2.14538 12.3373 2.13232 12.2666 2.13332H10.1333C10.0626 2.13232 9.99247 2.14538 9.92689 2.17173C9.8613 2.19809 9.80161 2.23721 9.75128 2.28684C9.70095 2.33646 9.66099 2.39559 9.63371 2.4608C9.60643 2.526 9.59238 2.59598 9.59238 2.66666C9.59238 2.73734 9.60643 2.80731 9.63371 2.87252C9.66099 2.93772 9.70095 2.99685 9.75128 3.04648C9.80161 3.0961 9.8613 3.13523 9.92689 3.16158C9.99247 3.18793 10.0626 3.20099 10.1333 3.19999V8.97187C10.1333 10.0855 9.32179 11.0818 8.21352 11.1896C6.94152 11.3138 5.86665 10.3136 5.86665 9.06666V3.19999C5.93732 3.20099 6.00748 3.18793 6.07307 3.16158C6.13865 3.13523 6.19834 3.0961 6.24867 3.04648C6.299 2.99685 6.33897 2.93772 6.36625 2.87252C6.39353 2.80731 6.40757 2.73734 6.40757 2.66666C6.40757 2.59598 6.39353 2.526 6.36625 2.4608C6.33897 2.39559 6.299 2.33646 6.24867 2.28684C6.19834 2.23721 6.13865 2.19809 6.07307 2.17173C6.00748 2.14538 5.93732 2.13232 5.86665 2.13332H3.73331ZM3.73331 13.3333C3.66264 13.3323 3.59247 13.3454 3.52689 13.3717C3.46131 13.3981 3.40161 13.4372 3.35128 13.4868C3.30095 13.5365 3.26099 13.5956 3.23371 13.6608C3.20643 13.726 3.19238 13.796 3.19238 13.8667C3.19238 13.9373 3.20643 14.0073 3.23371 14.0725C3.26099 14.1377 3.30095 14.1969 3.35128 14.2465C3.40161 14.2961 3.46131 14.3352 3.52689 14.3616C3.59247 14.3879 3.66264 14.401 3.73331 14.4H12.2666C12.3373 14.401 12.4075 14.3879 12.4731 14.3616C12.5386 14.3352 12.5983 14.2961 12.6487 14.2465C12.699 14.1969 12.739 14.1377 12.7662 14.0725C12.7935 14.0073 12.8076 13.9373 12.8076 13.8667C12.8076 13.796 12.7935 13.726 12.7662 13.6608C12.739 13.5956 12.699 13.5365 12.6487 13.4868C12.5983 13.4372 12.5386 13.3981 12.4731 13.3717C12.4075 13.3454 12.3373 13.3323 12.2666 13.3333H3.73331Z" />
     </svg>
   );
@@ -554,57 +472,23 @@ This example shows how to implement the component using Tailwind CSS.
 'use client';
 import * as React from 'react';
 import { Tooltip } from '@base-ui/react/tooltip';
-import { ArrowSvg, InfoIcon } from './icons-tw';
+import { TrashIcon } from './icons-tw';
 
 const demoTooltip = Tooltip.createHandle();
 
 export default function TooltipDetachedTriggersSimpleDemo() {
   return (
     <Tooltip.Provider>
-      <Tooltip.Trigger
-        className="
-          flex size-10 items-center justify-center
-          border border-gray-200 rounded-md
-          bg-gray-50
-          text-gray-900
-          select-none
-          data-popup-open:bg-gray-100
-          focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800
-          hover:bg-gray-100
-          active:bg-gray-100"
-        handle={demoTooltip}
-      >
-        <InfoIcon aria-label="This is a detached tooltip" />
+      <Tooltip.Trigger className={triggerClass} handle={demoTooltip} aria-label="Delete">
+        <TrashIcon aria-hidden="true" />
       </Tooltip.Trigger>
 
       <Tooltip.Root handle={demoTooltip}>
         <Tooltip.Portal>
-          <Tooltip.Positioner sideOffset={10}>
-            <Tooltip.Popup
-              className="
-                px-2 py-1
-                rounded-md
-                bg-[canvas]
-                text-sm
-                origin-(--transform-origin)
-                shadow-lg shadow-gray-200 outline-1 outline-gray-200
-                transition-[transform,scale,opacity]
-                data-ending-style:opacity-0 data-ending-style:scale-90
-                data-instant:transition-none
-                data-starting-style:opacity-0 data-starting-style:scale-90
-                dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1"
-            >
-              <Tooltip.Arrow
-                className="
-                  flex
-                  data-[side=bottom]:-top-2 data-[side=bottom]:rotate-0
-                  data-[side=left]:right-[-13px] data-[side=left]:rotate-90
-                  data-[side=right]:left-[-13px] data-[side=right]:-rotate-90
-                  data-[side=top]:-bottom-2 data-[side=top]:rotate-180"
-              >
-                <ArrowSvg />
-              </Tooltip.Arrow>
-              This is a detached tooltip
+          <Tooltip.Positioner sideOffset={11}>
+            <Tooltip.Popup className={popupClass}>
+              <Tooltip.Arrow className={arrowClass} />
+              Delete
             </Tooltip.Popup>
           </Tooltip.Positioner>
         </Tooltip.Portal>
@@ -612,90 +496,75 @@ export default function TooltipDetachedTriggersSimpleDemo() {
     </Tooltip.Provider>
   );
 }
+
+const triggerClass =
+  'flex size-8 items-center justify-center border border-neutral-950 bg-white text-neutral-950 select-none data-popup-open:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:data-popup-open:bg-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700';
+const popupClass =
+  'relative flex flex-col border border-neutral-950 bg-white px-2 py-1 text-sm text-neutral-950 origin-[var(--transform-origin)] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:opacity-0 data-ending-style:[transform:scale(0.98)] data-instant:transition-none data-starting-style:opacity-0 data-starting-style:[transform:scale(0.98)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none';
+const arrowClass =
+  "relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]";
 ```
 
 ```tsx
 /* icons-tw.tsx */
 import * as React from 'react';
 
-export function ArrowSvg(props: React.ComponentProps<'svg'>) {
+export function HeadphonesIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path strokeLinecap="round" d="M1.5 11V7.5c0-2.5 2.5-6 6.5-6s6.5 3.5 6.5 6V11" />
+      <path d="M12 7.5c1.3807 0 2.5 1.11929 2.5 2.5v2c0 1.3807-1.1193 2.5-2.5 2.5h-1.5v-7zm-8 0h1.5v7H4c-1.38071 0-2.5-1.1193-2.5-2.5v-2c0-1.38071 1.11929-2.5 2.5-2.5Z" />
+    </svg>
+  );
+}
+
+export function StopwatchIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <circle cx="8" cy="8.5" r="6" />
       <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+        d="M8 9.5v-5m0-2v-2m-2 0h4M12 4l1.5-1.5"
       />
     </svg>
   );
 }
 
-export function InfoIcon(props: React.ComponentProps<'svg'>) {
+export function TrashIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <path d="M12 8h.01" />
-    </svg>
-  );
-}
-
-export function HelpIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-      <path d="M12 17h.01" />
-    </svg>
-  );
-}
-
-export function AlertIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-      <path d="M12 9v4" />
-      <path d="M12 17h.01" />
+      <path strokeLinecap="square" d="M2.5 4h11" />
+      <path strokeLinecap="round" d="M6.5 4V3c0-.82843.67157-1.5 1.5-1.5s1.5.67157 1.5 1.5v1" />
+      <path
+        strokeLinecap="square"
+        d="m3.5 4 .87069 9.1422c.07332.7699.7199 1.3578 1.49324 1.3578h4.27217c.7733 0 1.4199-.5879 1.4932-1.3578L12.5 4"
+      />
     </svg>
   );
 }
@@ -717,18 +586,16 @@ const demoTooltip = Tooltip.createHandle();
 export default function TooltipDetachedTriggersSimpleDemo() {
   return (
     <Tooltip.Provider>
-      <Tooltip.Trigger className={styles.IconButton} handle={demoTooltip}>
-        <InfoIcon aria-label="This is a detached tooltip" className={styles.Icon} />
+      <Tooltip.Trigger className={styles.IconButton} handle={demoTooltip} aria-label="Delete">
+        <TrashIcon aria-hidden="true" />
       </Tooltip.Trigger>
 
       <Tooltip.Root handle={demoTooltip}>
         <Tooltip.Portal>
-          <Tooltip.Positioner sideOffset={10}>
+          <Tooltip.Positioner sideOffset={11}>
             <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow}>
-                <ArrowSvg />
-              </Tooltip.Arrow>
-              This is a detached tooltip
+              <Tooltip.Arrow className={styles.Arrow} />
+              Delete
             </Tooltip.Popup>
           </Tooltip.Positioner>
         </Tooltip.Portal>
@@ -737,42 +604,24 @@ export default function TooltipDetachedTriggersSimpleDemo() {
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
-      />
-    </svg>
-  );
-}
-
-function InfoIcon(props: React.ComponentProps<'svg'>) {
+function TrashIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <path d="M12 8h.01" />
+      <path strokeLinecap="square" d="M2.5 4h11" />
+      <path strokeLinecap="round" d="M6.5 4V3c0-.82843.67157-1.5 1.5-1.5s1.5.67157 1.5 1.5v1" />
+      <path
+        strokeLinecap="square"
+        d="m3.5 4 .87069 9.1422c.07332.7699.7199 1.3578 1.49324 1.3578h4.27217c.7733 0 1.4199-.5879 1.4932-1.3578L12.5 4"
+      />
     </svg>
   );
 }
@@ -796,55 +645,71 @@ function InfoIcon(props: React.ComponentProps<'svg'>) {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
-  }
+    background-color: oklch(97% 0 0deg);
 
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
   }
 
-  &:only-child {
-    border-radius: 0.375rem;
-  }
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
 
-  &:first-child:not(:only-child) {
-    border-radius: 0.375rem 0 0 0.375rem;
-  }
-
-  &:last-child:not(:only-child) {
-    border-radius: 0 0.375rem 0.375rem 0;
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:not(:first-child) {
     border-left: none;
   }
-}
 
-.Icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+    position: relative;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Positioner {
@@ -855,76 +720,81 @@ function InfoIcon(props: React.ComponentProps<'svg'>) {
 
 .Popup {
   box-sizing: border-box;
+  position: relative;
   font-size: 0.875rem;
   line-height: 1.25rem;
   padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    scale 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    scale: 0.98;
   }
 
   &[data-instant] {
     transition: none;
   }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
-  }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 
@@ -933,33 +803,63 @@ function InfoIcon(props: React.ComponentProps<'svg'>) {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+    position: relative;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -1054,7 +954,7 @@ This example shows how to implement the component using Tailwind CSS.
 'use client';
 import * as React from 'react';
 import { Tooltip } from '@base-ui/react/tooltip';
-import { ArrowSvg, InfoIcon } from './icons-tw';
+import { HeadphonesIcon, StopwatchIcon, TrashIcon } from './icons-tw';
 
 const demoTooltip = Tooltip.createHandle();
 
@@ -1072,69 +972,36 @@ export default function TooltipDetachedTriggersControlledDemo() {
       <div className="flex gap-2 flex-wrap justify-center">
         <div className="flex">
           <Tooltip.Trigger
-            className="
-              flex size-10 items-center justify-center
-              border border-gray-200 rounded-l-md
-              bg-gray-50
-              text-gray-900
-              select-none
-              data-popup-open:bg-gray-100
-              focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800
-              hover:bg-gray-100
-              active:bg-gray-100"
+            className={iconButtonClass}
             handle={demoTooltip}
             id="trigger-1"
+            aria-label="Controlled tooltip"
           >
-            <InfoIcon aria-label="Controlled tooltip" />
+            <HeadphonesIcon aria-hidden="true" />
           </Tooltip.Trigger>
 
           <Tooltip.Trigger
-            className="
-              flex size-10 items-center justify-center
-              border-y border-r border-gray-200
-              bg-gray-50
-              text-gray-900
-              select-none
-              data-popup-open:bg-gray-100
-              focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800
-              hover:bg-gray-100
-              active:bg-gray-100"
+            className={`${iconButtonClass} border-l-0`}
             handle={demoTooltip}
             id="trigger-2"
+            aria-label="Controlled tooltip"
           >
-            <InfoIcon aria-label="Controlled tooltip" />
+            <StopwatchIcon aria-hidden="true" />
           </Tooltip.Trigger>
 
           <Tooltip.Trigger
-            className="
-              flex size-10 items-center justify-center
-              border-y border-r border-gray-200 rounded-r-md
-              bg-gray-50
-              text-gray-900
-              select-none
-              data-popup-open:bg-gray-100
-              focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800
-              hover:bg-gray-100
-              active:bg-gray-100"
+            className={`${iconButtonClass} border-l-0`}
             handle={demoTooltip}
             id="trigger-3"
+            aria-label="Controlled tooltip"
           >
-            <InfoIcon aria-label="Controlled tooltip" />
+            <TrashIcon aria-hidden="true" />
           </Tooltip.Trigger>
         </div>
 
         <button
           type="button"
-          className="
-            flex h-10 items-center justify-center
-            border border-gray-200 rounded-md
-            bg-gray-50
-            px-3.5
-            text-base font-normal text-gray-900
-            select-none
-            focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800
-            hover:bg-gray-100
-            active:bg-gray-100"
+          className={buttonClass}
           onClick={() => {
             setTriggerId('trigger-2');
             setOpen(true);
@@ -1153,36 +1020,14 @@ export default function TooltipDetachedTriggersControlledDemo() {
         <Tooltip.Portal>
           <Tooltip.Positioner
             className="
-              h-(--positioner-height)
-              w-(--positioner-width)
-              max-w-(--available-width)
+              h-[var(--positioner-height)]
+              w-[var(--positioner-width)]
+              max-w-[var(--available-width)]
             "
-            sideOffset={10}
+            sideOffset={11}
           >
-            <Tooltip.Popup
-              className="
-                px-2 py-1
-                rounded-md
-                bg-[canvas]
-                text-sm
-                origin-(--transform-origin)
-                shadow-lg shadow-gray-200 outline-1 outline-gray-200
-                transition-[transform,scale,opacity]
-                data-ending-style:opacity-0 data-ending-style:scale-90
-                data-instant:transition-none
-                data-starting-style:opacity-0 data-starting-style:scale-90
-                dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1"
-            >
-              <Tooltip.Arrow
-                className="
-                  flex
-                  data-[side=bottom]:-top-2 data-[side=bottom]:rotate-0
-                  data-[side=left]:right-[-13px] data-[side=left]:rotate-90
-                  data-[side=right]:left-[-13px] data-[side=right]:-rotate-90
-                  data-[side=top]:-bottom-2 data-[side=top]:rotate-180"
-              >
-                <ArrowSvg />
-              </Tooltip.Arrow>
+            <Tooltip.Popup className={popupClass}>
+              <Tooltip.Arrow className={arrowClass} />
               Controlled tooltip
             </Tooltip.Popup>
           </Tooltip.Positioner>
@@ -1191,90 +1036,77 @@ export default function TooltipDetachedTriggersControlledDemo() {
     </Tooltip.Provider>
   );
 }
+
+const iconButtonClass =
+  'flex size-8 items-center justify-center border border-neutral-950 bg-white text-neutral-950 select-none data-popup-open:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white focus-visible:relative hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:data-popup-open:bg-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700';
+const buttonClass =
+  'flex h-8 items-center justify-center gap-2 border border-neutral-950 bg-white px-3 text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:bg-neutral-800 dark:active:bg-neutral-700';
+const popupClass =
+  'relative flex flex-col border border-neutral-950 bg-white px-2 py-1 text-sm text-neutral-950 origin-[var(--transform-origin)] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[transform,opacity] duration-100 ease-out data-ending-style:opacity-0 data-ending-style:[transform:scale(0.98)] data-instant:transition-none data-starting-style:opacity-0 data-starting-style:[transform:scale(0.98)] dark:border-white dark:bg-neutral-950 dark:text-white dark:shadow-none';
+const arrowClass =
+  "relative block w-3 h-1.5 overflow-clip data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]";
 ```
 
 ```tsx
 /* icons-tw.tsx */
 import * as React from 'react';
 
-export function ArrowSvg(props: React.ComponentProps<'svg'>) {
+export function HeadphonesIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path strokeLinecap="round" d="M1.5 11V7.5c0-2.5 2.5-6 6.5-6s6.5 3.5 6.5 6V11" />
+      <path d="M12 7.5c1.3807 0 2.5 1.11929 2.5 2.5v2c0 1.3807-1.1193 2.5-2.5 2.5h-1.5v-7zm-8 0h1.5v7H4c-1.38071 0-2.5-1.1193-2.5-2.5v-2c0-1.38071 1.11929-2.5 2.5-2.5Z" />
+    </svg>
+  );
+}
+
+export function StopwatchIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <circle cx="8" cy="8.5" r="6" />
       <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+        d="M8 9.5v-5m0-2v-2m-2 0h4M12 4l1.5-1.5"
       />
     </svg>
   );
 }
 
-export function InfoIcon(props: React.ComponentProps<'svg'>) {
+export function TrashIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <path d="M12 8h.01" />
-    </svg>
-  );
-}
-
-export function HelpIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-      <path d="M12 17h.01" />
-    </svg>
-  );
-}
-
-export function AlertIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-      <path d="M12 9v4" />
-      <path d="M12 17h.01" />
+      <path strokeLinecap="square" d="M2.5 4h11" />
+      <path strokeLinecap="round" d="M6.5 4V3c0-.82843.67157-1.5 1.5-1.5s1.5.67157 1.5 1.5v1" />
+      <path
+        strokeLinecap="square"
+        d="m3.5 4 .87069 9.1422c.07332.7699.7199 1.3578 1.49324 1.3578h4.27217c.7733 0 1.4199-.5879 1.4932-1.3578L12.5 4"
+      />
     </svg>
   );
 }
@@ -1306,16 +1138,31 @@ export default function TooltipDetachedTriggersControlledDemo() {
     <Tooltip.Provider>
       <div className={styles.Container}>
         <div className={styles.ButtonGroup}>
-          <Tooltip.Trigger className={styles.IconButton} handle={demoTooltip} id="trigger-1">
-            <InfoIcon aria-label="Controlled tooltip" className={styles.Icon} />
+          <Tooltip.Trigger
+            className={styles.IconButton}
+            handle={demoTooltip}
+            id="trigger-1"
+            aria-label="Trigger 1"
+          >
+            <HeadphonesIcon aria-hidden="true" />
           </Tooltip.Trigger>
 
-          <Tooltip.Trigger className={styles.IconButton} handle={demoTooltip} id="trigger-2">
-            <InfoIcon aria-label="Controlled tooltip" className={styles.Icon} />
+          <Tooltip.Trigger
+            className={styles.IconButton}
+            handle={demoTooltip}
+            id="trigger-2"
+            aria-label="Trigger 2"
+          >
+            <StopwatchIcon aria-hidden="true" />
           </Tooltip.Trigger>
 
-          <Tooltip.Trigger className={styles.IconButton} handle={demoTooltip} id="trigger-3">
-            <InfoIcon aria-label="Controlled tooltip" className={styles.Icon} />
+          <Tooltip.Trigger
+            className={styles.IconButton}
+            handle={demoTooltip}
+            id="trigger-3"
+            aria-label="Trigger 3"
+          >
+            <TrashIcon aria-hidden="true" />
           </Tooltip.Trigger>
         </div>
 
@@ -1338,11 +1185,9 @@ export default function TooltipDetachedTriggersControlledDemo() {
         triggerId={triggerId}
       >
         <Tooltip.Portal>
-          <Tooltip.Positioner sideOffset={10} className={styles.Positioner}>
+          <Tooltip.Positioner sideOffset={11} className={styles.Positioner}>
             <Tooltip.Popup className={styles.Popup}>
-              <Tooltip.Arrow className={styles.Arrow}>
-                <ArrowSvg />
-              </Tooltip.Arrow>
+              <Tooltip.Arrow className={styles.Arrow} />
               Controlled tooltip
             </Tooltip.Popup>
           </Tooltip.Positioner>
@@ -1352,42 +1197,62 @@ export default function TooltipDetachedTriggersControlledDemo() {
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function HeadphonesIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path strokeLinecap="round" d="M1.5 11V7.5c0-2.5 2.5-6 6.5-6s6.5 3.5 6.5 6V11" />
+      <path d="M12 7.5c1.3807 0 2.5 1.11929 2.5 2.5v2c0 1.3807-1.1193 2.5-2.5 2.5h-1.5v-7zm-8 0h1.5v7H4c-1.38071 0-2.5-1.1193-2.5-2.5v-2c0-1.38071 1.11929-2.5 2.5-2.5Z" />
+    </svg>
+  );
+}
+
+function StopwatchIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <circle cx="8" cy="8.5" r="6" />
       <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
+        strokeLinecap="square"
+        strokeLinejoin="round"
+        d="M8 9.5v-5m0-2v-2m-2 0h4M12 4l1.5-1.5"
       />
     </svg>
   );
 }
 
-function InfoIcon(props: React.ComponentProps<'svg'>) {
+function TrashIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <path d="M12 8h.01" />
+      <path strokeLinecap="square" d="M2.5 4h11" />
+      <path strokeLinecap="round" d="M6.5 4V3c0-.82843.67157-1.5 1.5-1.5s1.5.67157 1.5 1.5v1" />
+      <path
+        strokeLinecap="square"
+        d="m3.5 4 .87069 9.1422c.07332.7699.7199 1.3578 1.49324 1.3578h4.27217c.7733 0 1.4199-.5879 1.4932-1.3578L12.5 4"
+      />
     </svg>
   );
 }
@@ -1411,55 +1276,71 @@ function InfoIcon(props: React.ComponentProps<'svg'>) {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
-  }
+    background-color: oklch(97% 0 0deg);
 
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
   }
 
-  &:only-child {
-    border-radius: 0.375rem;
-  }
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
 
-  &:first-child:not(:only-child) {
-    border-radius: 0.375rem 0 0 0.375rem;
-  }
-
-  &:last-child:not(:only-child) {
-    border-radius: 0 0.375rem 0.375rem 0;
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:not(:first-child) {
     border-left: none;
   }
-}
 
-.Icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+    position: relative;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Positioner {
@@ -1470,76 +1351,81 @@ function InfoIcon(props: React.ComponentProps<'svg'>) {
 
 .Popup {
   box-sizing: border-box;
+  position: relative;
   font-size: 0.875rem;
   line-height: 1.25rem;
   padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
   transform-origin: var(--transform-origin);
   transition:
-    transform 150ms,
-    opacity 150ms;
+    scale 100ms ease-out,
+    opacity 100ms ease-out;
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    scale: 0.98;
   }
 
   &[data-instant] {
     transition: none;
   }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
-  }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 
@@ -1548,33 +1434,63 @@ function InfoIcon(props: React.ComponentProps<'svg'>) {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 0.875rem;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-gray-900);
+  line-height: 1;
+  white-space: nowrap;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+    position: relative;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
@@ -1616,74 +1532,50 @@ This example shows how to implement the component using Tailwind CSS.
 'use client';
 import * as React from 'react';
 import { Tooltip } from '@base-ui/react/tooltip';
-import { ArrowSvg, InfoIcon, HelpIcon, AlertIcon } from './icons-tw';
+import { HeadphonesIcon, StopwatchIcon, TrashIcon } from './icons-tw';
 
-const demoTooltip = Tooltip.createHandle<React.ComponentType>();
+const demoTooltip = Tooltip.createHandle<React.ReactNode>();
 
 export default function TooltipDetachedTriggersFullDemo() {
   return (
     <Tooltip.Provider>
       <div className="flex">
         <Tooltip.Trigger
-          className="
-            box-border flex size-10 items-center justify-center
-            border border-gray-200 rounded-l-md
-            bg-gray-50
-            text-base text-gray-900
-            select-none
-            data-popup-open:bg-gray-100
-            focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-600
-            hover:bg-gray-100
-            active:bg-gray-100"
+          className={triggerClass}
           handle={demoTooltip}
-          payload={InfoContent}
+          payload="Listen to audio preview"
+          aria-label="Listen to audio preview"
         >
-          <InfoIcon aria-label="This is information about the feature" className="size-5" />
+          <HeadphonesIcon aria-hidden="true" />
         </Tooltip.Trigger>
 
         <Tooltip.Trigger
-          className="
-            box-border flex size-10 items-center justify-center
-            border-y border-r border-gray-200
-            bg-gray-50
-            text-base text-gray-900
-            select-none
-            data-popup-open:bg-gray-100
-            focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-600
-            hover:bg-gray-100
-            active:bg-gray-100"
+          className={`${triggerClass} border-l-0`}
           handle={demoTooltip}
-          payload={HelpContent}
+          payload="Set a timer"
+          aria-label="Set a timer"
         >
-          <HelpIcon aria-label="Need help?" className="size-5" />
+          <StopwatchIcon aria-hidden="true" />
         </Tooltip.Trigger>
 
         <Tooltip.Trigger
-          className="
-            box-border flex size-10 items-center justify-center
-            border-y border-r border-gray-200 rounded-r-md
-            bg-gray-50
-            text-base text-gray-900
-            select-none
-            data-popup-open:bg-gray-100
-            focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-600
-            hover:bg-gray-100
-            active:bg-gray-100"
+          className={`${triggerClass} border-l-0`}
           handle={demoTooltip}
-          payload={AlertContent}
+          payload="Delete: This action cannot be undone"
+          aria-label="Delete: This action cannot be undone"
         >
-          <AlertIcon aria-label="Warning: This action cannot be undone" className="size-5" />
+          <TrashIcon aria-hidden="true" />
         </Tooltip.Trigger>
       </div>
 
       <Tooltip.Root handle={demoTooltip}>
-        {({ payload: Payload }) => (
+        {({ payload }) => (
           <Tooltip.Portal>
             <Tooltip.Positioner
-              sideOffset={10}
+              sideOffset={11}
               className="
-                h-(--positioner-height) w-(--positioner-width)
-                max-w-(--available-width)
+                h-[var(--positioner-height)] w-[var(--positioner-width)]
+                max-w-[var(--available-width)]
                 transition-[top,left,right,bottom,transform]
                 duration-[0.35s]
                 ease-[cubic-bezier(0.22,1,0.36,1)]
@@ -1692,35 +1584,21 @@ export default function TooltipDetachedTriggersFullDemo() {
               <Tooltip.Popup
                 className="
                   relative
-                  h-(--popup-height,auto) w-(--popup-width,auto)
+                  h-[var(--popup-height,auto)] w-[var(--popup-width,auto)]
                   max-w-[500px]
-                  rounded-md
-                  bg-[canvas]
-                  text-sm
-                  origin-(--transform-origin)
-                  shadow-lg shadow-gray-200 outline-1 outline-gray-200
-                  transition-[width,height,opacity,scale]
+                  border border-neutral-950 dark:border-white
+                  bg-white dark:bg-neutral-950
+                  text-sm text-neutral-950 dark:text-white
+                  origin-[var(--transform-origin)]
+                  shadow-[0.25rem_0.25rem_0] shadow-black/12 dark:shadow-none
+                  transition-[width,height,opacity,transform]
                   duration-[0.35s]
                   ease-[cubic-bezier(0.22,1,0.36,1)]
-                  data-ending-style:opacity-0 data-ending-style:scale-90
+                  data-ending-style:opacity-0 data-ending-style:[transform:scale(0.9)]
                   data-instant:transition-none
-                  data-starting-style:opacity-0 data-starting-style:scale-90
-                  dark:shadow-none dark:outline-gray-300 dark:-outline-offset-1"
+                  data-starting-style:opacity-0 data-starting-style:[transform:scale(0.9)]"
               >
-                <Tooltip.Arrow
-                  className="
-                    flex
-                    transition-[left]
-                    duration-[0.35s]
-                    ease-[cubic-bezier(0.22,1,0.36,1)]
-                    data-instant:transition-none
-                    data-[side=bottom]:-top-2 data-[side=bottom]:rotate-0
-                    data-[side=left]:right-[-13px] data-[side=left]:rotate-90
-                    data-[side=right]:left-[-13px] data-[side=right]:-rotate-90
-                    data-[side=top]:-bottom-2 data-[side=top]:rotate-180"
-                >
-                  <ArrowSvg />
-                </Tooltip.Arrow>
+                <Tooltip.Arrow className={arrowClass} />
 
                 <Tooltip.Viewport
                   className="
@@ -1752,7 +1630,7 @@ export default function TooltipDetachedTriggersFullDemo() {
                     data-[activation-direction~='right']:[&_[data-previous][data-ending-style]]:-translate-x-1/2
                     data-[activation-direction~='right']:[&_[data-previous][data-ending-style]]:opacity-0"
                 >
-                  {Payload !== undefined && <Payload />}
+                  {payload}
                 </Tooltip.Viewport>
               </Tooltip.Popup>
             </Tooltip.Positioner>
@@ -1763,101 +1641,72 @@ export default function TooltipDetachedTriggersFullDemo() {
   );
 }
 
-function InfoContent() {
-  return <span>This is information about the feature</span>;
-}
-
-function HelpContent() {
-  return <span>Need help?</span>;
-}
-
-function AlertContent() {
-  return <span>Warning: This action cannot be undone</span>;
-}
+const triggerClass =
+  'flex size-8 items-center justify-center border border-neutral-950 bg-white text-sm leading-none whitespace-nowrap font-normal text-neutral-950 select-none data-popup-open:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white focus-visible:relative hover:bg-neutral-100 active:bg-neutral-200 dark:border-white dark:bg-neutral-950 dark:text-white dark:data-popup-open:bg-neutral-800 dark:hover:bg-neutral-800 dark:active:bg-neutral-700';
+const arrowClass =
+  "relative block w-3 h-1.5 overflow-clip transition-[left] duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)] data-instant:transition-none data-[side=bottom]:top-[-6px] data-[side=left]:right-[-9px] data-[side=left]:rotate-90 data-[side=right]:left-[-9px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-6px] data-[side=top]:rotate-180 before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-[calc(6px*sqrt(2))] before:h-[calc(6px*sqrt(2))] before:bg-white dark:before:bg-neutral-950 before:border before:border-neutral-950 dark:before:border-white before:[transform:translate(-50%,50%)_rotate(45deg)]";
 ```
 
 ```tsx
 /* icons-tw.tsx */
 import * as React from 'react';
 
-export function ArrowSvg(props: React.ComponentProps<'svg'>) {
+export function HeadphonesIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path strokeLinecap="round" d="M1.5 11V7.5c0-2.5 2.5-6 6.5-6s6.5 3.5 6.5 6V11" />
+      <path d="M12 7.5c1.3807 0 2.5 1.11929 2.5 2.5v2c0 1.3807-1.1193 2.5-2.5 2.5h-1.5v-7zm-8 0h1.5v7H4c-1.38071 0-2.5-1.1193-2.5-2.5v-2c0-1.38071 1.11929-2.5 2.5-2.5Z" />
+    </svg>
+  );
+}
+
+export function StopwatchIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <circle cx="8" cy="8.5" r="6" />
       <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-[canvas]"
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className="fill-gray-200 dark:fill-none"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="dark:fill-gray-300"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+        d="M8 9.5v-5m0-2v-2m-2 0h4M12 4l1.5-1.5"
       />
     </svg>
   );
 }
 
-export function InfoIcon(props: React.ComponentProps<'svg'>) {
+export function TrashIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <path d="M12 8h.01" />
-    </svg>
-  );
-}
-
-export function HelpIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-      <path d="M12 17h.01" />
-    </svg>
-  );
-}
-
-export function AlertIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-      <path d="M12 9v4" />
-      <path d="M12 17h.01" />
+      <path strokeLinecap="square" d="M2.5 4h11" />
+      <path strokeLinecap="round" d="M6.5 4V3c0-.82843.67157-1.5 1.5-1.5s1.5.67157 1.5 1.5v1" />
+      <path
+        strokeLinecap="square"
+        d="m3.5 4 .87069 9.1422c.07332.7699.7199 1.3578 1.49324 1.3578h4.27217c.7733 0 1.4199-.5879 1.4932-1.3578L12.5 4"
+      />
     </svg>
   );
 }
@@ -1882,55 +1731,71 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
   margin: 0;
-  outline: 0;
-  border: 1px solid var(--color-gray-200);
-  background-color: var(--color-gray-50);
-  color: var(--color-gray-900);
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   &[data-popup-open] {
-    background-color: var(--color-gray-100);
-  }
+    background-color: oklch(97% 0 0deg);
 
-  &:focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -1px;
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(26.9% 0 0deg);
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
+    }
   }
 
-  &:only-child {
-    border-radius: 0.375rem;
-  }
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
 
-  &:first-child:not(:only-child) {
-    border-radius: 0.375rem 0 0 0.375rem;
-  }
-
-  &:last-child:not(:only-child) {
-    border-radius: 0 0.375rem 0.375rem 0;
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
   }
 
   &:not(:first-child) {
     border-left: none;
   }
-}
 
-.Icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: -1px;
+    position: relative;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
+  }
 }
 
 .Positioner {
@@ -1950,13 +1815,16 @@ This example shows how to implement the component using CSS Modules.
 }
 
 .Popup {
+  box-sizing: border-box;
   position: relative;
   height: var(--popup-height, auto);
   width: var(--popup-width, auto);
   max-width: 500px;
   transform-origin: var(--transform-origin);
-  border-radius: 0.375rem;
-  background-color: canvas;
+  border: 1px solid oklch(14.5% 0 0deg);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
+  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
 
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1964,33 +1832,32 @@ This example shows how to implement the component using CSS Modules.
     width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    scale 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+    box-shadow: none;
+  }
 
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    transform: scale(0.9);
+    scale: 0.9;
   }
 
   &[data-instant] {
     transition: none;
   }
-
-  @media (prefers-color-scheme: light) {
-    outline: 1px solid var(--color-gray-200);
-    box-shadow:
-      0 10px 15px -3px var(--color-gray-200),
-      0 4px 6px -4px var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    outline: 1px solid var(--color-gray-300);
-    outline-offset: -1px;
-  }
 }
 
 .Arrow {
-  display: flex;
+  display: block;
+  position: relative;
+  width: 12px;
+  height: 6px;
+  overflow: clip;
   transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 
   &[data-instant] {
@@ -1998,39 +1865,42 @@ This example shows how to implement the component using CSS Modules.
   }
 
   &[data-side='top'] {
-    bottom: -8px;
+    bottom: -6px;
     rotate: 180deg;
   }
 
   &[data-side='bottom'] {
-    top: -8px;
+    top: -6px;
     rotate: 0deg;
   }
 
   &[data-side='left'] {
-    right: -13px;
+    right: -9px;
     rotate: 90deg;
   }
 
   &[data-side='right'] {
-    left: -13px;
+    left: -9px;
     rotate: -90deg;
   }
-}
 
-.ArrowFill {
-  fill: canvas;
-}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    box-sizing: border-box;
+    width: calc(6px * sqrt(2));
+    height: calc(6px * sqrt(2));
+    background-color: white;
+    border: 1px solid oklch(14.5% 0 0deg);
+    transform: translate(-50%, 50%) rotate(45deg);
 
-.ArrowOuterStroke {
-  @media (prefers-color-scheme: light) {
-    fill: var(--color-gray-200);
-  }
-}
-
-.ArrowInnerStroke {
-  @media (prefers-color-scheme: dark) {
-    fill: var(--color-gray-300);
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(14.5% 0 0deg);
+      border: 1px solid white;
+    }
   }
 }
 
@@ -2086,37 +1956,48 @@ import * as React from 'react';
 import { Tooltip } from '@base-ui/react/tooltip';
 import styles from './index.module.css';
 
-const demoTooltip = Tooltip.createHandle<React.ComponentType>();
+const demoTooltip = Tooltip.createHandle<React.ReactNode>();
 
 export default function TooltipDetachedTriggersFullDemo() {
   return (
     <Tooltip.Provider>
       <div className={styles.ButtonGroup}>
-        <Tooltip.Trigger className={styles.Button} handle={demoTooltip} payload={InfoContent}>
-          <InfoIcon aria-label="This is information about the feature" className={styles.Icon} />
+        <Tooltip.Trigger
+          className={styles.Button}
+          handle={demoTooltip}
+          payload="Listen to audio preview"
+          aria-label="Listen to audio preview"
+        >
+          <HeadphonesIcon aria-hidden="true" />
         </Tooltip.Trigger>
 
-        <Tooltip.Trigger className={styles.Button} handle={demoTooltip} payload={HelpContent}>
-          <HelpIcon aria-label="Need help?" className={styles.Icon} />
+        <Tooltip.Trigger
+          className={styles.Button}
+          handle={demoTooltip}
+          payload="Set a timer"
+          aria-label="Set a timer"
+        >
+          <StopwatchIcon aria-hidden="true" />
         </Tooltip.Trigger>
 
-        <Tooltip.Trigger className={styles.Button} handle={demoTooltip} payload={AlertContent}>
-          <AlertIcon aria-label="Warning: This action cannot be undone" className={styles.Icon} />
+        <Tooltip.Trigger
+          className={styles.Button}
+          handle={demoTooltip}
+          payload="Delete: This action cannot be undone"
+          aria-label="Delete: This action cannot be undone"
+        >
+          <TrashIcon aria-hidden="true" />
         </Tooltip.Trigger>
       </div>
 
       <Tooltip.Root handle={demoTooltip}>
-        {({ payload: Payload }) => (
+        {({ payload }) => (
           <Tooltip.Portal>
-            <Tooltip.Positioner sideOffset={10} className={styles.Positioner}>
+            <Tooltip.Positioner sideOffset={11} className={styles.Positioner}>
               <Tooltip.Popup className={styles.Popup}>
-                <Tooltip.Arrow className={styles.Arrow}>
-                  <ArrowSvg />
-                </Tooltip.Arrow>
+                <Tooltip.Arrow className={styles.Arrow} />
 
-                <Tooltip.Viewport className={styles.Viewport}>
-                  {Payload !== undefined && <Payload />}
-                </Tooltip.Viewport>
+                <Tooltip.Viewport className={styles.Viewport}>{payload}</Tooltip.Viewport>
               </Tooltip.Popup>
             </Tooltip.Positioner>
           </Tooltip.Portal>
@@ -2126,96 +2007,62 @@ export default function TooltipDetachedTriggersFullDemo() {
   );
 }
 
-function InfoContent() {
-  return <span>This is information about the feature</span>;
-}
-
-function HelpContent() {
-  return <span>Need help?</span>;
-}
-
-function AlertContent() {
-  return <span>Warning: This action cannot be undone</span>;
-}
-
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function HeadphonesIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path strokeLinecap="round" d="M1.5 11V7.5c0-2.5 2.5-6 6.5-6s6.5 3.5 6.5 6V11" />
+      <path d="M12 7.5c1.3807 0 2.5 1.11929 2.5 2.5v2c0 1.3807-1.1193 2.5-2.5 2.5h-1.5v-7zm-8 0h1.5v7H4c-1.38071 0-2.5-1.1193-2.5-2.5v-2c0-1.38071 1.11929-2.5 2.5-2.5Z" />
+    </svg>
+  );
+}
+
+function StopwatchIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <circle cx="8" cy="8.5" r="6" />
       <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.ArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.ArrowOuterStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.ArrowInnerStroke}
+        strokeLinecap="square"
+        strokeLinejoin="round"
+        d="M8 9.5v-5m0-2v-2m-2 0h4M12 4l1.5-1.5"
       />
     </svg>
   );
 }
 
-function InfoIcon(props: React.ComponentProps<'svg'>) {
+function TrashIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <path d="M12 8h.01" />
-    </svg>
-  );
-}
-
-function HelpIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-      <path d="M12 17h.01" />
-    </svg>
-  );
-}
-
-function AlertIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-      <path d="M12 9v4" />
-      <path d="M12 17h.01" />
+      <path strokeLinecap="square" d="M2.5 4h11" />
+      <path strokeLinecap="round" d="M6.5 4V3c0-.82843.67157-1.5 1.5-1.5s1.5.67157 1.5 1.5v1" />
+      <path
+        strokeLinecap="square"
+        d="m3.5 4 .87069 9.1422c.07332.7699.7199 1.3578 1.49324 1.3578h4.27217c.7733 0 1.4199-.5879 1.4932-1.3578L12.5 4"
+      />
     </svg>
   );
 }
@@ -2583,8 +2430,8 @@ type TooltipArrowState = {
 ### Viewport
 
 A viewport for displaying content transitions.
-This component is only required if one popup can be opened by multiple triggers, its content change based on the trigger
-and switching between them is animated.
+This component is only required if one popup can be opened by multiple triggers, its content
+changes based on the trigger, and switching between them is animated.
 Renders a `<div>` element.
 
 **Viewport Props:**
@@ -2598,13 +2445,13 @@ Renders a `<div>` element.
 
 **Viewport Data Attributes:**
 
-| Attribute                 | Type                                             | Description                                                                                                                                                                                                                        |
-| :------------------------ | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data-activation-direction | `` `${'left' \| 'right'} {'top' \| 'bottom'}` `` | Indicates the direction from which the popup was activated.&#xA;This can be used to create directional animations based on how the popup was triggered.&#xA;Contains space-separated values for both horizontal and vertical axes. |
-| data-current              | -                                                | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                                 |
-| data-instant              | `'delay' \| 'dismiss' \| 'focus'`                | Present if animations should be instant.                                                                                                                                                                                           |
-| data-previous             | -                                                | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                        |
-| data-transitioning        | -                                                | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                                |
+| Attribute                 | Type                                              | Description                                                                                                                                                                                                                        |
+| :------------------------ | :------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data-activation-direction | `` `${'left' \| 'right'} ${'top' \| 'bottom'}` `` | Indicates the direction from which the popup was activated.&#xA;This can be used to create directional animations based on how the popup was triggered.&#xA;Contains space-separated values for both horizontal and vertical axes. |
+| data-current              | -                                                 | Applied to the direct child of the viewport when no transitions are present or the new content when it's entering.                                                                                                                 |
+| data-instant              | `'delay' \| 'dismiss' \| 'focus'`                 | Present if animations should be instant.                                                                                                                                                                                           |
+| data-previous             | -                                                 | Applied to the direct child of the viewport that contains the exiting content when transitions are present.                                                                                                                        |
+| data-transitioning        | -                                                 | Indicates that the viewport is currently transitioning between old and new content.                                                                                                                                                |
 
 **Viewport CSS Variables:**
 

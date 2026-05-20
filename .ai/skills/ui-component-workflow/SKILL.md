@@ -12,7 +12,7 @@ Use this skill for work in `packages/ui`.
 ## Read First
 
 1. `AGENTS.md` (repo root)
-2. `skills/cross-package-sync/SKILL.md` when docs parity may be affected
+2. `.ai/skills/cross-package-sync/SKILL.md` when docs parity may be affected
 
 ## Mandatory References
 

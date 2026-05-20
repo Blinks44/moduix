@@ -23,12 +23,18 @@ This example shows how to implement the component using Tailwind CSS.
 import * as React from 'react';
 import { NumberField } from '@base-ui/react/number-field';
 
+const stepperClasses =
+  'flex h-full w-8 items-center justify-center border border-neutral-950 rounded-none bg-white bg-clip-padding text-neutral-950 outline-0 select-none hover:not-data-disabled:bg-neutral-100 dark:hover:not-data-disabled:bg-neutral-800 active:not-data-disabled:bg-neutral-200 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400';
+
 export default function ExampleNumberField() {
   const id = React.useId();
   return (
     <NumberField.Root id={id} defaultValue={100} className="flex flex-col items-start gap-1">
-      <NumberField.ScrubArea className="cursor-ew-resize">
-        <label htmlFor={id} className="cursor-ew-resize text-sm font-bold text-gray-900">
+      <NumberField.ScrubArea className="cursor-ew-resize font-bold select-none">
+        <label
+          htmlFor={id}
+          className="cursor-ew-resize text-sm font-bold text-neutral-950 dark:text-white"
+        >
           Amount
         </label>
         <NumberField.ScrubAreaCursor className="drop-shadow-[0_1px_1px_#0008] filter">
@@ -36,12 +42,12 @@ export default function ExampleNumberField() {
         </NumberField.ScrubAreaCursor>
       </NumberField.ScrubArea>
 
-      <NumberField.Group className="flex">
-        <NumberField.Decrement className="flex size-10 items-center justify-center rounded-tl-md rounded-bl-md border border-gray-200 bg-gray-50 bg-clip-padding text-gray-900 select-none hover:bg-gray-100 active:bg-gray-100">
+      <NumberField.Group className="flex h-8">
+        <NumberField.Decrement className={`${stepperClasses} border-r-0`}>
           <MinusIcon />
         </NumberField.Decrement>
-        <NumberField.Input className="h-10 w-24 border-t border-b border-gray-200 text-center text-base text-gray-900 tabular-nums focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-blue-800 font-normal" />
-        <NumberField.Increment className="flex size-10 items-center justify-center rounded-tr-md rounded-br-md border border-gray-200 bg-gray-50 bg-clip-padding text-gray-900 select-none hover:bg-gray-100 active:bg-gray-100">
+        <NumberField.Input className="h-full w-[7ch] border border-neutral-950 rounded-none bg-white px-2 text-left text-sm any-pointer-coarse:text-base font-normal text-neutral-950 tabular-nums focus:z-1 focus:outline-2 focus:-outline-offset-1 focus:outline-neutral-950 dark:focus:outline-white dark:border-white dark:bg-neutral-950 dark:text-white" />
+        <NumberField.Increment className={`${stepperClasses} border-l-0`}>
           <PlusIcon />
         </NumberField.Increment>
       </NumberField.Group>
@@ -57,8 +63,8 @@ function CursorGrowIcon(props: React.ComponentProps<'svg'>) {
       viewBox="0 0 24 14"
       fill="black"
       stroke="white"
-      xmlns="http://www.w3.org/2000/svg"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
       <path d="M19.5 5.5L6.49737 5.51844V2L1 6.9999L6.5 12L6.49737 8.5L19.5 8.5V12L25 6.9999L19.5 2V5.5Z" />
     </svg>
@@ -68,16 +74,17 @@ function CursorGrowIcon(props: React.ComponentProps<'svg'>) {
 function PlusIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.6"
-      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0 5H5M10 5H5M5 5V0M5 5V10" />
+      <path d="M1.5 8h13M8 14.5v-13" />
     </svg>
   );
 }
@@ -85,16 +92,17 @@ function PlusIcon(props: React.ComponentProps<'svg'>) {
 function MinusIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.6"
-      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0 5H10" />
+      <path d="M1.5 8h13" />
     </svg>
   );
 }
@@ -116,6 +124,7 @@ This example shows how to implement the component using CSS Modules.
 .ScrubArea {
   cursor: ew-resize;
   font-weight: 700;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -128,37 +137,55 @@ This example shows how to implement the component using CSS Modules.
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Group {
   display: flex;
+  height: 2rem;
 }
 
 .Input {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 0 0.5rem;
+  border: 1px solid oklch(14.5% 0 0deg);
   border-radius: 0;
-  border-top: 1px solid var(--color-gray-200);
-  border-bottom: 1px solid var(--color-gray-200);
-  border-left: none;
-  border-right: none;
-  width: 6rem;
-  height: 2.5rem;
+  width: 7ch;
+  height: 100%;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  background-color: transparent;
-  color: var(--color-gray-900);
+  background-color: white;
+  color: oklch(14.5% 0 0deg);
 
-  text-align: center;
+  text-align: left;
   font-variant-numeric: tabular-nums;
+
+  @media (any-pointer: coarse) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
 
   &:focus {
     z-index: 1;
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: -1px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
@@ -168,37 +195,60 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 100%;
   margin: 0;
   outline: 0;
   padding: 0;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.375rem;
-  background-color: var(--color-gray-50);
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
   background-clip: padding-box;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+  -webkit-user-select: none;
   user-select: none;
 
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+  }
+
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--color-gray-100);
+    &:hover:not([data-disabled]) {
+      background-color: oklch(97% 0 0deg);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: oklch(26.9% 0 0deg);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--color-gray-100);
+  &:active:not([data-disabled]) {
+    background-color: oklch(92.2% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: oklch(37.1% 0 0deg);
+    }
+  }
+
+  &[data-disabled] {
+    color: oklch(55.6% 0 0deg);
+    border-color: oklch(55.6% 0 0deg);
+
+    @media (prefers-color-scheme: dark) {
+      color: oklch(70.8% 0 0deg);
+      border-color: oklch(70.8% 0 0deg);
+    }
   }
 }
 
 .Decrement {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-right: 0;
 }
 
 .Increment {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border-left: 0;
 }
 ```
 
@@ -242,8 +292,8 @@ function CursorGrowIcon(props: React.ComponentProps<'svg'>) {
       viewBox="0 0 24 14"
       fill="black"
       stroke="white"
-      xmlns="http://www.w3.org/2000/svg"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
       <path d="M19.5 5.5L6.49737 5.51844V2L1 6.9999L6.5 12L6.49737 8.5L19.5 8.5V12L25 6.9999L19.5 2V5.5Z" />
     </svg>
@@ -253,16 +303,17 @@ function CursorGrowIcon(props: React.ComponentProps<'svg'>) {
 function PlusIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.6"
-      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0 5H5M10 5H5M5 5V0M5 5V10" />
+      <path d="M1.5 8h13M8 14.5v-13" />
     </svg>
   );
 }
@@ -270,16 +321,17 @@ function PlusIcon(props: React.ComponentProps<'svg'>) {
 function MinusIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
-      stroke="currentcolor"
-      strokeWidth="1.6"
-      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
-      <path d="M0 5H10" />
+      <path d="M1.5 8h13" />
     </svg>
   );
 }

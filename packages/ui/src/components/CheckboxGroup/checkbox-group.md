@@ -31,46 +31,46 @@ export default function ExampleCheckboxGroup() {
     <CheckboxGroup
       aria-labelledby={id}
       defaultValue={['fuji-apple']}
-      className="flex flex-col items-start gap-1 text-gray-900"
+      className="flex flex-col items-start gap-1 text-neutral-950 dark:text-white"
     >
-      <div className="font-bold" id={id}>
+      <div className="text-sm font-bold" id={id}>
         Apples
       </div>
 
-      <label className="flex items-center gap-2 font-normal">
+      <label className="flex items-center gap-2 text-sm font-normal text-neutral-950 dark:text-white">
         <Checkbox.Root
           name="apple"
           value="fuji-apple"
-          className="flex size-5 items-center justify-center rounded-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300"
+          className="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
         >
-          <Checkbox.Indicator className="flex text-gray-50 data-[unchecked]:hidden">
-            <CheckIcon className="size-3" />
+          <Checkbox.Indicator className="flex data-unchecked:hidden">
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Fuji
       </label>
 
-      <label className="flex items-center gap-2 font-normal">
+      <label className="flex items-center gap-2 text-sm font-normal text-neutral-950 dark:text-white">
         <Checkbox.Root
           name="apple"
           value="gala-apple"
-          className="flex size-5 items-center justify-center rounded-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300"
+          className="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
         >
-          <Checkbox.Indicator className="flex text-gray-50 data-[unchecked]:hidden">
-            <CheckIcon className="size-3" />
+          <Checkbox.Indicator className="flex data-unchecked:hidden">
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Gala
       </label>
 
-      <label className="flex items-center gap-2 font-normal">
+      <label className="flex items-center gap-2 text-sm font-normal text-neutral-950 dark:text-white">
         <Checkbox.Root
           name="apple"
           value="granny-smith-apple"
-          className="flex size-5 items-center justify-center rounded-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 data-[checked]:bg-gray-900 data-[unchecked]:border data-[unchecked]:border-gray-300"
+          className="flex size-4 shrink-0 items-center justify-center border rounded-none p-0 border-neutral-950 bg-white text-white dark:border-white dark:bg-neutral-950 dark:text-neutral-950 data-checked:bg-neutral-950 data-checked:text-white dark:data-checked:bg-white dark:data-checked:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
         >
-          <Checkbox.Indicator className="flex text-gray-50 data-[unchecked]:hidden">
-            <CheckIcon className="size-3" />
+          <Checkbox.Indicator className="flex data-unchecked:hidden">
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Granny Smith
@@ -81,8 +81,16 @@ export default function ExampleCheckboxGroup() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -99,10 +107,16 @@ This example shows how to implement the component using CSS Modules.
   flex-direction: column;
   align-items: start;
   gap: 0.25rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Caption {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
@@ -110,49 +124,59 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
 }
 
 .Checkbox {
   box-sizing: border-box;
   display: flex;
-  width: 1.25rem;
-  height: 1.25rem;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
-  outline: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: white;
   padding: 0;
   margin: 0;
-  border: none;
 
-  &[data-unchecked] {
-    border: 1px solid var(--color-gray-300);
-    background-color: transparent;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: oklch(14.5% 0 0deg);
   }
 
-  &[data-checked] {
-    background-color: var(--color-gray-900);
+  &[data-checked],
+  &[data-indeterminate] {
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: 2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Indicator {
   display: flex;
-  color: var(--color-gray-50);
 
   &[data-unchecked] {
     display: none;
   }
-}
-
-.Icon {
-  width: 0.75rem;
-  height: 0.75rem;
 }
 ```
 
@@ -179,7 +203,7 @@ export default function ExampleCheckboxGroup() {
       <label className={styles.Item}>
         <Checkbox.Root name="apple" value="fuji-apple" className={styles.Checkbox}>
           <Checkbox.Indicator className={styles.Indicator}>
-            <CheckIcon className={styles.Icon} />
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Fuji
@@ -188,7 +212,7 @@ export default function ExampleCheckboxGroup() {
       <label className={styles.Item}>
         <Checkbox.Root name="apple" value="gala-apple" className={styles.Checkbox}>
           <Checkbox.Indicator className={styles.Indicator}>
-            <CheckIcon className={styles.Icon} />
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Gala
@@ -197,7 +221,7 @@ export default function ExampleCheckboxGroup() {
       <label className={styles.Item}>
         <Checkbox.Root name="apple" value="granny-smith-apple" className={styles.Checkbox}>
           <Checkbox.Indicator className={styles.Indicator}>
-            <CheckIcon className={styles.Icon} />
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Granny Smith
@@ -208,8 +232,16 @@ export default function ExampleCheckboxGroup() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -347,10 +379,16 @@ This example shows how to implement the component using CSS Modules.
   flex-direction: column;
   align-items: start;
   gap: 0.25rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Caption {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
@@ -358,58 +396,59 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
 }
 
 .Checkbox {
   box-sizing: border-box;
   display: flex;
-  width: 1.25rem;
-  height: 1.25rem;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
-  outline: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: white;
   padding: 0;
   margin: 0;
-  border: none;
 
-  &[data-unchecked] {
-    border: 1px solid var(--color-gray-300);
-    background-color: transparent;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: oklch(14.5% 0 0deg);
   }
 
-  &[data-checked] {
-    background-color: var(--color-gray-900);
-  }
-
+  &[data-checked],
   &[data-indeterminate] {
-    border: 1px solid var(--color-gray-300);
-    background-color: canvas;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: 2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Indicator {
   display: flex;
-  color: var(--color-gray-50);
 
   &[data-unchecked] {
     display: none;
   }
-
-  &[data-indeterminate] {
-    color: var(--color-gray-900);
-  }
-}
-
-.Icon {
-  width: 0.75rem;
-  height: 0.75rem;
 }
 ```
 
@@ -441,13 +480,7 @@ export default function ExampleCheckboxGroup() {
           <Checkbox.Indicator
             className={styles.Indicator}
             render={(props, state) => (
-              <span {...props}>
-                {state.indeterminate ? (
-                  <HorizontalRuleIcon className={styles.Icon} />
-                ) : (
-                  <CheckIcon className={styles.Icon} />
-                )}
-              </span>
+              <span {...props}>{state.indeterminate ? <HorizontalRuleIcon /> : <CheckIcon />}</span>
             )}
           />
         </Checkbox.Root>
@@ -457,7 +490,7 @@ export default function ExampleCheckboxGroup() {
       <label className={styles.Item}>
         <Checkbox.Root value="fuji-apple" className={styles.Checkbox}>
           <Checkbox.Indicator className={styles.Indicator}>
-            <CheckIcon className={styles.Icon} />
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Fuji
@@ -466,7 +499,7 @@ export default function ExampleCheckboxGroup() {
       <label className={styles.Item}>
         <Checkbox.Root value="gala-apple" className={styles.Checkbox}>
           <Checkbox.Indicator className={styles.Indicator}>
-            <CheckIcon className={styles.Icon} />
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Gala
@@ -475,7 +508,7 @@ export default function ExampleCheckboxGroup() {
       <label className={styles.Item}>
         <Checkbox.Root value="granny-smith-apple" className={styles.Checkbox}>
           <Checkbox.Indicator className={styles.Indicator}>
-            <CheckIcon className={styles.Icon} />
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Granny Smith
@@ -486,8 +519,16 @@ export default function ExampleCheckboxGroup() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -495,12 +536,13 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 function HorizontalRuleIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="10"
-      height="10"
+      width="12"
+      height="12"
       viewBox="0 0 24 24"
-      fill="currentcolor"
-      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      strokeWidth={1}
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
       <line
         x1="3"
@@ -508,8 +550,7 @@ function HorizontalRuleIcon(props: React.ComponentProps<'svg'>) {
         x2="21"
         y2="12"
         stroke="currentColor"
-        strokeWidth={3}
-        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
       />
     </svg>
   );
@@ -531,10 +572,16 @@ This example shows how to implement the component using CSS Modules.
   flex-direction: column;
   align-items: start;
   gap: 0.25rem;
-  color: var(--color-gray-900);
+  color: oklch(14.5% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
 
 .Caption {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 700;
 }
 
@@ -542,58 +589,59 @@ This example shows how to implement the component using CSS Modules.
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
 }
 
 .Checkbox {
   box-sizing: border-box;
   display: flex;
-  width: 1.25rem;
-  height: 1.25rem;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
-  outline: 0;
+  border: 1px solid oklch(14.5% 0 0deg);
+  border-radius: 0;
+  background-color: white;
+  color: white;
   padding: 0;
   margin: 0;
-  border: none;
 
-  &[data-unchecked] {
-    border: 1px solid var(--color-gray-300);
-    background-color: transparent;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid white;
+    background-color: oklch(14.5% 0 0deg);
+    color: oklch(14.5% 0 0deg);
   }
 
-  &[data-checked] {
-    background-color: var(--color-gray-900);
-  }
-
+  &[data-checked],
   &[data-indeterminate] {
-    border: 1px solid var(--color-gray-300);
-    background-color: canvas;
+    background-color: oklch(14.5% 0 0deg);
+    color: white;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+      color: oklch(14.5% 0 0deg);
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
     outline-offset: 2px;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 
 .Indicator {
   display: flex;
-  color: var(--color-gray-50);
 
   &[data-unchecked] {
     display: none;
   }
-
-  &[data-indeterminate] {
-    color: var(--color-gray-900);
-  }
-}
-
-.Icon {
-  width: 0.75rem;
-  height: 0.75rem;
 }
 ```
 
@@ -641,13 +689,7 @@ export default function PermissionsForm() {
           <Checkbox.Indicator
             className={styles.Indicator}
             render={(props, state) => (
-              <span {...props}>
-                {state.indeterminate ? (
-                  <HorizontalRuleIcon className={styles.Icon} />
-                ) : (
-                  <CheckIcon className={styles.Icon} />
-                )}
-              </span>
+              <span {...props}>{state.indeterminate ? <HorizontalRuleIcon /> : <CheckIcon />}</span>
             )}
           />
         </Checkbox.Root>
@@ -657,7 +699,7 @@ export default function PermissionsForm() {
       <label className={styles.Item}>
         <Checkbox.Root value="view-dashboard" className={styles.Checkbox}>
           <Checkbox.Indicator className={styles.Indicator}>
-            <CheckIcon className={styles.Icon} />
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         View Dashboard
@@ -666,7 +708,7 @@ export default function PermissionsForm() {
       <label className={styles.Item}>
         <Checkbox.Root value="access-reports" className={styles.Checkbox}>
           <Checkbox.Indicator className={styles.Indicator}>
-            <CheckIcon className={styles.Icon} />
+            <CheckIcon />
           </Checkbox.Indicator>
         </Checkbox.Root>
         Access Reports
@@ -693,11 +735,7 @@ export default function PermissionsForm() {
               className={styles.Indicator}
               render={(props, state) => (
                 <span {...props}>
-                  {state.indeterminate ? (
-                    <HorizontalRuleIcon className={styles.Icon} />
-                  ) : (
-                    <CheckIcon className={styles.Icon} />
-                  )}
+                  {state.indeterminate ? <HorizontalRuleIcon /> : <CheckIcon />}
                 </span>
               )}
             />
@@ -708,7 +746,7 @@ export default function PermissionsForm() {
         <label className={styles.Item}>
           <Checkbox.Root value="create-user" className={styles.Checkbox}>
             <Checkbox.Indicator className={styles.Indicator}>
-              <CheckIcon className={styles.Icon} />
+              <CheckIcon />
             </Checkbox.Indicator>
           </Checkbox.Root>
           Create User
@@ -717,7 +755,7 @@ export default function PermissionsForm() {
         <label className={styles.Item}>
           <Checkbox.Root value="edit-user" className={styles.Checkbox}>
             <Checkbox.Indicator className={styles.Indicator}>
-              <CheckIcon className={styles.Icon} />
+              <CheckIcon />
             </Checkbox.Indicator>
           </Checkbox.Root>
           Edit User
@@ -726,7 +764,7 @@ export default function PermissionsForm() {
         <label className={styles.Item}>
           <Checkbox.Root value="delete-user" className={styles.Checkbox}>
             <Checkbox.Indicator className={styles.Indicator}>
-              <CheckIcon className={styles.Icon} />
+              <CheckIcon />
             </Checkbox.Indicator>
           </Checkbox.Root>
           Delete User
@@ -735,7 +773,7 @@ export default function PermissionsForm() {
         <label className={styles.Item}>
           <Checkbox.Root value="assign-roles" className={styles.Checkbox}>
             <Checkbox.Indicator className={styles.Indicator}>
-              <CheckIcon className={styles.Icon} />
+              <CheckIcon />
             </Checkbox.Indicator>
           </Checkbox.Root>
           Assign Roles
@@ -747,8 +785,16 @@ export default function PermissionsForm() {
 
 function CheckIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg fill="currentcolor" width="10" height="10" viewBox="0 0 10 10" {...props}>
-      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      {...props}
+      style={{ display: 'block', ...props.style }}
+    >
+      <path d="m2.5 8.5 4 4 7-9" />
     </svg>
   );
 }
@@ -756,12 +802,13 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 function HorizontalRuleIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
-      width="10"
-      height="10"
+      width="12"
+      height="12"
       viewBox="0 0 24 24"
-      fill="currentcolor"
-      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      strokeWidth={1}
       {...props}
+      style={{ display: 'block', ...props.style }}
     >
       <line
         x1="3"
@@ -769,8 +816,7 @@ function HorizontalRuleIcon(props: React.ComponentProps<'svg'>) {
         x2="21"
         y2="12"
         stroke="currentColor"
-        strokeWidth={3}
-        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
       />
     </svg>
   );

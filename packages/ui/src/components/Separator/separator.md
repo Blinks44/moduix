@@ -27,40 +27,40 @@ export default function ExampleSeparator() {
     <div className="flex gap-4 text-nowrap">
       <a
         href="#"
-        className="text-sm text-gray-900 decoration-gray-400 decoration-1 underline-offset-2 outline-hidden hover:underline focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+        className="text-sm text-neutral-950 decoration-neutral-300 decoration-1 underline-offset-2 hover:underline focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:decoration-neutral-700"
       >
         Home
       </a>
       <a
         href="#"
-        className="text-sm text-gray-900 decoration-gray-400 decoration-1 underline-offset-2 outline-hidden hover:underline focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+        className="text-sm text-neutral-950 decoration-neutral-300 decoration-1 underline-offset-2 hover:underline focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:decoration-neutral-700"
       >
         Pricing
       </a>
       <a
         href="#"
-        className="text-sm text-gray-900 decoration-gray-400 decoration-1 underline-offset-2 outline-hidden hover:underline focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+        className="text-sm text-neutral-950 decoration-neutral-300 decoration-1 underline-offset-2 hover:underline focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:decoration-neutral-700"
       >
         Blog
       </a>
       <a
         href="#"
-        className="text-sm text-gray-900 decoration-gray-400 decoration-1 underline-offset-2 outline-hidden hover:underline focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+        className="text-sm text-neutral-950 decoration-neutral-300 decoration-1 underline-offset-2 hover:underline focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:decoration-neutral-700"
       >
         Support
       </a>
 
-      <Separator orientation="vertical" className="w-px bg-gray-300" />
+      <Separator orientation="vertical" className="w-px bg-neutral-300 dark:bg-neutral-700" />
 
       <a
         href="#"
-        className="text-sm text-gray-900 decoration-gray-400 decoration-1 underline-offset-2 outline-hidden hover:underline focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+        className="text-sm text-neutral-950 decoration-neutral-300 decoration-1 underline-offset-2 hover:underline focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:decoration-neutral-700"
       >
         Log in
       </a>
       <a
         href="#"
-        className="text-sm text-gray-900 decoration-gray-400 decoration-1 underline-offset-2 outline-hidden hover:underline focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-blue-800"
+        className="text-sm text-neutral-950 decoration-neutral-300 decoration-1 underline-offset-2 hover:underline focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-950 dark:focus-visible:outline-white dark:text-white dark:decoration-neutral-700"
       >
         Sign up
       </a>
@@ -83,17 +83,26 @@ This example shows how to implement the component using CSS Modules.
 
 .Separator {
   width: 1px;
-  background-color: var(--color-gray-300);
+  background-color: oklch(87% 0 0deg);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: oklch(37.1% 0 0deg);
+  }
 }
 
 .Link {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-gray-900);
-  text-decoration-color: var(--color-gray-400);
+  color: oklch(14.5% 0 0deg);
+  text-decoration-color: oklch(87% 0 0deg);
   text-decoration-thickness: 1px;
   text-decoration-line: none;
   text-underline-offset: 2px;
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+    text-decoration-color: oklch(37.1% 0 0deg);
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -102,9 +111,13 @@ This example shows how to implement the component using CSS Modules.
   }
 
   &:focus-visible {
-    border-radius: 0.125rem;
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid oklch(14.5% 0 0deg);
+    outline-offset: 2px;
     text-decoration-line: none;
+
+    @media (prefers-color-scheme: dark) {
+      outline-color: white;
+    }
   }
 }
 ```
