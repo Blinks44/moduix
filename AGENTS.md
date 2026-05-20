@@ -4,11 +4,11 @@ Monorepo for the UI component library and documentation.
 
 ## Skill Routing
 
-Use project skills from [`skills/`](skills/README.md).
+Use project skills from [`.ai/skills/`](.ai/skills/README.md).
 
-- Component work in `packages/ui` (new component, API/style updates, Storybook) -> `skills/ui-component-workflow/SKILL.md`
-- Documentation work in `apps/docs` (pages, MDX, examples, docs routing/content) -> `skills/docs-workflow/SKILL.md`
-- Tasks that touch both packages or require docs/UI parity -> `skills/cross-package-sync/SKILL.md`
+- Component work in `packages/ui` (new component, API/style updates, Storybook) -> `.ai/skills/ui-component-workflow/SKILL.md`
+- Documentation work in `apps/docs` (pages, MDX, examples, docs routing/content) -> `.ai/skills/docs-workflow/SKILL.md`
+- Tasks that touch both packages or require docs/UI parity -> `.ai/skills/cross-package-sync/SKILL.md`
 
 If a task spans UI and docs:
 
