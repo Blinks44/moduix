@@ -1,5 +1,11 @@
 # moduix
 
+## 0.8.4
+
+### Patch Changes
+
+- 3ef298a: [Lightbox] simplify css for different bundlers
+
 ## 0.8.3
 
 ### Patch Changes
