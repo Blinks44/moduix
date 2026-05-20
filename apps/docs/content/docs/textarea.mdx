@@ -1,0 +1,354 @@
+---
+title: Textarea
+description: A native multi-line input with size, resize, auto-resize, and Field integration.
+icon: Component
+---
+
+import {
+  AutoResizeTextareaExample,
+  ControlledTextareaExample,
+  CustomStylesTextareaExample,
+  DisabledAndReadOnlyTextareaExample,
+  TextareaCssPlaygroundPanel,
+  TextareaCssPropertiesPanel,
+  TextareaExample,
+  TextareaFieldValidationExample,
+  TextareaResizeModesExample,
+  TextareaSizesExample,
+  textareaPlaygroundCssProperties,
+} from '@/components/examples/textarea';
+
+## API Reference
+
+<BaseUIReference href="https://ui.shadcn.com/docs/components/textarea" />
+
+## Basic
+
+<Preview cssProperties={textareaPlaygroundCssProperties}>
+  <TextareaExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Textarea } from "moduix";
+
+      export function TextareaDemo() {
+        return (
+          <Field className={styles.field}>
+            <FieldLabel>Comment</FieldLabel>
+            <Textarea placeholder="Write a short comment" />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.CSSProperties>
+    {(context) => <TextareaCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <TextareaCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Textarea` is a single native `<textarea>` root. It composes with `Field` for labels, descriptions,
+and validation.
+
+```text
+Field (optional wrapper)
+└─ Textarea
+```
+
+| Part       | Role                                                       |
+| ---------- | ---------------------------------------------------------- |
+| `Textarea` | Native textarea element with moduix styles and data attrs. |
+
+## Composition
+
+`Textarea` is a native component (not a Base UI primitive). It accepts standard textarea props
+such as `value`, `defaultValue`, `onChange`, `rows`, `maxLength`, and `name`.
+
+Use `size` for visual sizing and `resize` for native resize behavior. Use `autoResize` to
+automatically grow height with content (and disable manual resize handle):
+
+```tsx
+<Textarea size="md" resize="vertical" autoResize />
+```
+
+For styling, pass `className` directly to `Textarea`.
+
+## Examples
+
+### Controlled
+
+Use `value` and `onChange` when the content should stay in React state.
+
+<Preview>
+  <ControlledTextareaExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Textarea } from "moduix";
+      import { useState } from "react";
+
+      function ControlledTextarea() {
+        const [value, setValue] = useState("");
+
+        return (
+          <Field className={styles.field}>
+            <FieldLabel>Feedback</FieldLabel>
+            <Textarea
+              value={value}
+              onChange={(event) => setValue(event.currentTarget.value)}
+              placeholder="Type to control value"
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Sizes
+
+Use `size` for visual sizing.
+
+<Preview>
+  <TextareaSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Textarea } from "moduix";
+
+      export function TextareaSizesDemo() {
+        return (
+          <div className={styles.stack}>
+            <Textarea size="xs" placeholder="Extra-small textarea" />
+            <Textarea size="sm" placeholder="Small textarea" />
+            <Textarea size="md" placeholder="Medium textarea" />
+            <Textarea size="lg" placeholder="Large textarea" />
+            <Textarea size="xl" placeholder="Extra-large textarea" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Auto Resize
+
+Set `autoResize` when users need to type longer content without internal scrolling.
+
+<Preview>
+  <AutoResizeTextareaExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Textarea } from "moduix";
+
+      export function AutoResizeTextareaDemo() {
+        return (
+          <Field className={styles.field}>
+            <FieldLabel>Issue description</FieldLabel>
+            <Textarea
+              autoResize
+              placeholder="Start typing a longer description. Height grows with content."
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Resize Modes
+
+Use `resize` to control native browser resize behavior.
+
+<Preview>
+  <TextareaResizeModesExample />
+
+  <Preview.Code>
+    {`
+      import { Textarea } from "moduix";
+
+      export function TextareaResizeModesDemo() {
+        return (
+          <div className={styles.stack}>
+            <Textarea resize="none" placeholder="Resize disabled" />
+            <Textarea resize="vertical" placeholder="Vertical resize" />
+            <Textarea resize="horizontal" placeholder="Horizontal resize" />
+            <Textarea resize="both" placeholder="Both directions resize" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Disabled and Readonly
+
+Set `disabled` or `readOnly` based on interaction requirements.
+
+<Preview>
+  <DisabledAndReadOnlyTextareaExample />
+
+  <Preview.Code>
+    {`
+      import { Textarea } from "moduix";
+
+      export function DisabledAndReadonlyTextareaDemo() {
+        return (
+          <div className={styles.stack}>
+            <Textarea disabled placeholder="Disabled textarea" />
+            <Textarea readOnly value="Read-only text value" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Field Validation
+
+Use `Field` with `FieldError` for native validity and accessible error messaging.
+
+<Preview>
+  <TextareaFieldValidationExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldDescription, FieldError, FieldLabel, Textarea } from "moduix";
+
+      export function TextareaFieldValidationDemo() {
+        return (
+          <Field className={styles.field} validationMode="onBlur">
+            <FieldLabel>Details</FieldLabel>
+            <Textarea required minLength={10} placeholder="Add at least 10 characters" />
+            <FieldDescription>
+              Include enough detail for the team to reproduce the issue.
+            </FieldDescription>
+            <FieldError match="valueMissing">Please provide details.</FieldError>
+            <FieldError match="tooShort">Enter at least 10 characters.</FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Styles
+
+Pass `className` to style the textarea with your own module.
+
+<Preview>
+  <CustomStylesTextareaExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, Textarea } from "moduix";
+
+      export function CustomTextareaDemo() {
+        return (
+          <Field className={styles.field}>
+            <FieldLabel>Notes</FieldLabel>
+            <Textarea className={styles.customTextarea} placeholder="Styled textarea" />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .customTextarea {
+        border-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
+        background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
+        color: var(--color-primary);
+        resize: none;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

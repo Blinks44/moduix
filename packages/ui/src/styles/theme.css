@@ -1849,6 +1849,56 @@
   --text-primary-color: initial; /* var(--color-primary) */
   --text-subtle-color: initial; /* var(--color-secondary-foreground) */
 
+  /* Textarea */
+  --textarea-bg: initial; /* var(--color-background) */
+  --textarea-border-color: initial; /* var(--color-border) */
+  --textarea-border-color-invalid: initial; /* var(--color-destructive) */
+  --textarea-border-style: initial; /* solid */
+  --textarea-border-width: initial; /* var(--border-width-sm) */
+  --textarea-color: initial; /* var(--color-foreground) */
+  --textarea-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --textarea-focus-ring-color: initial; /* var(--color-ring) */
+  --textarea-focus-ring-offset: initial; /* calc(0px - var(--textarea-border-width, var(--border-width-sm))) */
+  --textarea-focus-ring-width: initial; /* var(--textarea-border-width, var(--border-width-sm)) */
+  --textarea-font-size: initial; /* var(--text-md) */
+  --textarea-font-size-xs: initial; /* var(--text-xs) */
+  --textarea-font-size-sm: initial; /* var(--text-sm) */
+  --textarea-font-size-md: initial; /* var(--text-md) */
+  --textarea-font-size-lg: initial; /* var(--text-lg) */
+  --textarea-font-size-xl: initial; /* var(--text-lg) */
+  --textarea-line-height: initial; /* var(--line-height-text-md) */
+  --textarea-line-height-xs: initial; /* var(--line-height-text-xs) */
+  --textarea-line-height-sm: initial; /* var(--line-height-text-sm) */
+  --textarea-line-height-md: initial; /* var(--line-height-text-md) */
+  --textarea-line-height-lg: initial; /* var(--line-height-text-lg) */
+  --textarea-line-height-xl: initial; /* var(--line-height-text-lg) */
+  --textarea-max-width: initial; /* none */
+  --textarea-min-height: initial; /* 6rem */
+  --textarea-min-height-xs: initial; /* 4rem */
+  --textarea-min-height-sm: initial; /* 5rem */
+  --textarea-min-height-md: initial; /* 6rem */
+  --textarea-min-height-lg: initial; /* 7rem */
+  --textarea-min-height-xl: initial; /* 8rem */
+  --textarea-padding-x: initial; /* 0.875rem */
+  --textarea-padding-x-xs: initial; /* 0.625rem */
+  --textarea-padding-x-sm: initial; /* 0.75rem */
+  --textarea-padding-x-md: initial; /* 0.875rem */
+  --textarea-padding-x-lg: initial; /* 1rem */
+  --textarea-padding-x-xl: initial; /* 1.125rem */
+  --textarea-padding-y: initial; /* 0.5rem */
+  --textarea-padding-y-xs: initial; /* 0.25rem */
+  --textarea-padding-y-sm: initial; /* 0.3125rem */
+  --textarea-padding-y-md: initial; /* 0.5rem */
+  --textarea-padding-y-lg: initial; /* 0.625rem */
+  --textarea-padding-y-xl: initial; /* 0.75rem */
+  --textarea-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --textarea-radius: initial; /* var(--radius-md) */
+  --textarea-readonly-bg: initial; /* var(--textarea-bg, var(--color-background)) */
+  --textarea-readonly-color: initial; /* var(--textarea-color, var(--color-foreground)) */
+  --textarea-resize: initial; /* vertical */
+  --textarea-transition: initial; /* var(--transition-default) */
+  --textarea-width: initial; /* 100% */
+
   /* Toast */
   --toast-action-bg: initial; /* var(--color-background) */
   --toast-action-bg-hover: initial; /* var(--color-accent) */
