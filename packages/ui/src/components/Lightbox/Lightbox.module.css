@@ -30,7 +30,8 @@
     &[data-with-backdrop='false'] {
       pointer-events: none;
 
-      & > :is([data-slot='lightbox-popup'], [data-slot='lightbox-close']) {
+      & > [data-slot='lightbox-popup'],
+      & > [data-slot='lightbox-close'] {
         pointer-events: auto;
       }
     }
@@ -97,7 +98,8 @@
   }
 
   .image,
-  .frame :is(img, picture > img) {
+  .frame img,
+  .frame picture > img {
     display: block;
     width: auto;
     height: auto;
