@@ -106,6 +106,59 @@
   --accordion-trigger-padding-x-start: initial; /* var(--spacing-3) */
   --accordion-trigger-padding-y: initial; /* var(--spacing-2) */
   --accordion-width: initial; /* 24rem */
+  /* Alert */
+  --alert-bg: initial; /* var(--alert-bg-default, var(--color-card)) */
+  --alert-border-color: initial; /* var(--alert-border-color-default, var(--color-border)) */
+  --alert-border-width: initial; /* var(--border-width-sm) */
+  --alert-close-bg-hover: initial; /* var(--color-accent) */
+  --alert-close-color: initial; /* var(--color-muted-foreground) */
+  --alert-close-color-hover: initial; /* var(--color-foreground) */
+  --alert-close-icon-size: initial; /* 0.75rem */
+  --alert-close-margin-right: initial; /* -0.25rem */
+  --alert-close-margin-top: initial; /* -0.25rem */
+  --alert-close-radius: initial; /* var(--radius-md) */
+  --alert-close-size: initial; /* 1.75rem */
+  --alert-color: initial; /* var(--alert-color-default, var(--color-card-foreground)) */
+  --alert-content-gap: initial; /* var(--spacing-1) */
+  --alert-description-color: initial; /* var(--color-muted-foreground) */
+  --alert-description-font-size: initial; /* var(--alert-description-font-size-md) */
+  --alert-description-font-size-sm: initial; /* var(--text-xs) */
+  --alert-description-font-size-md: initial; /* var(--text-sm) */
+  --alert-description-font-size-lg: initial; /* var(--text-sm) */
+  --alert-description-line-height: initial; /* var(--alert-description-line-height-md) */
+  --alert-description-line-height-sm: initial; /* var(--line-height-text-xs) */
+  --alert-description-line-height-md: initial; /* var(--line-height-text-sm) */
+  --alert-description-line-height-lg: initial; /* var(--line-height-text-sm) */
+  --alert-dismiss-duration: initial; /* 160ms */
+  --alert-dismiss-easing: initial; /* ease-out */
+  --alert-enter-translate-y: initial; /* -0.25rem */
+  --alert-exit-translate-y: initial; /* -0.25rem */
+  --alert-gap: initial; /* var(--spacing-3) */
+  --alert-icon-color: initial; /* var(--alert-icon-color-default, currentColor) */
+  --alert-icon-margin-top: initial; /* 0.125rem */
+  --alert-icon-size: initial; /* 1rem */
+  --alert-padding-x: initial; /* var(--alert-padding-x-md) */
+  --alert-padding-x-sm: initial; /* var(--spacing-3) */
+  --alert-padding-x-md: initial; /* var(--spacing-4) */
+  --alert-padding-x-lg: initial; /* var(--spacing-5) */
+  --alert-padding-y: initial; /* var(--alert-padding-y-md) */
+  --alert-padding-y-sm: initial; /* var(--spacing-2) */
+  --alert-padding-y-md: initial; /* var(--spacing-3) */
+  --alert-padding-y-lg: initial; /* var(--spacing-4) */
+  --alert-radius: initial; /* var(--radius-lg) */
+  --alert-shadow: initial; /* none */
+  --alert-success-color: initial; /* #16a34a */
+  --alert-title-color: initial; /* var(--alert-color, var(--alert-color-default)) */
+  --alert-title-font-size: initial; /* var(--alert-title-font-size-md) */
+  --alert-title-font-size-sm: initial; /* var(--text-sm) */
+  --alert-title-font-size-md: initial; /* var(--text-sm) */
+  --alert-title-font-size-lg: initial; /* var(--text-md) */
+  --alert-title-font-weight: initial; /* var(--weight-semibold) */
+  --alert-title-line-height: initial; /* var(--alert-title-line-height-md) */
+  --alert-title-line-height-sm: initial; /* var(--line-height-text-sm) */
+  --alert-title-line-height-md: initial; /* var(--line-height-text-sm) */
+  --alert-title-line-height-lg: initial; /* var(--line-height-text-md) */
+  --alert-warning-color: initial; /* #ca8a04 */
   /* AlertDialog */
   --alert-dialog-action-bg: initial; /* var(--color-primary) */
   --alert-dialog-action-bg-hover: initial; /* var(--color-foreground) */

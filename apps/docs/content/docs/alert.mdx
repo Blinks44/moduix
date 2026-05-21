@@ -1,0 +1,272 @@
+---
+title: Alert
+description: Inline feedback for status, validation, and system messages.
+icon: Component
+---
+
+import {
+  AlertCssPlaygroundPanel,
+  AlertCssPropertiesPanel,
+  AlertDismissibleExample,
+  AlertExample,
+  AlertVariantsExample,
+  AlertWithIconExample,
+  AlertWithoutDismissAnimationExample,
+  CustomStylesAlertExample,
+  alertPlaygroundCssProperties,
+} from '@/components/examples/alert';
+
+## API Reference
+
+`Alert` is a standalone moduix component and does not wrap a Base UI primitive.
+Use it for inline messages that should stay in document flow. It supports icons,
+controlled or uncontrolled dismissal, and optional close animation.
+
+## Basic
+
+<Preview cssProperties={alertPlaygroundCssProperties} cssVariableScope="local">
+  <AlertExample />
+
+  <Preview.Code>
+    {`
+      import { Alert, AlertContent, AlertDescription, AlertTitle } from "moduix";
+
+      export function AlertDemo() {
+        return (
+          <Alert>
+            <AlertContent>
+              <AlertTitle>Update available</AlertTitle>
+              <AlertDescription>
+                Install the latest version when your workflow allows it.
+              </AlertDescription>
+            </AlertContent>
+          </Alert>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <AlertCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <AlertCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Alert` is composed from semantic content slots. `AlertIcon` is optional, and `AlertClose` is
+rendered automatically when `withCloseButton` is set on the root.
+
+```text
+Alert
+├─ AlertIcon (optional)
+├─ AlertContent
+│  ├─ AlertTitle
+│  └─ AlertDescription
+└─ AlertClose (optional)
+```
+
+```tsx
+<Alert variant="info" withCloseButton>
+  <AlertIcon>
+    <InfoIcon />
+  </AlertIcon>
+  <AlertContent>
+    <AlertTitle>Workspace sync is active</AlertTitle>
+    <AlertDescription>Changes are being synced across all connected devices.</AlertDescription>
+  </AlertContent>
+</Alert>
+```
+
+| Part               | Role                                                                 |
+| ------------------ | -------------------------------------------------------------------- |
+| `Alert`            | Root slot. Controls variant, size, visibility, and dismiss behavior. |
+| `AlertIcon`        | Optional icon slot. Sizes child SVG icons consistently.              |
+| `AlertContent`     | Text content wrapper for title and description.                      |
+| `AlertTitle`       | Alert heading slot.                                                  |
+| `AlertDescription` | Supporting message slot.                                             |
+| `AlertClose`       | Close control wired to the nearest `Alert`.                          |
+
+## Composition
+
+Use `variant` for intent: `default`, `info`, `success`, `warning`, or `destructive`.
+Use `open`, `defaultOpen`, and `onOpenChange` when dismissal must be coordinated with app state.
+Set `withCloseButton` to render the built-in `CloseButton`; set `withDismissAnimation={false}` when
+closing should remove the alert immediately. Pass `className` to the root or compound parts for
+local styling. CSS variables should be overridden on the root alert slot.
+
+## Examples
+
+### With Icon
+
+Place any moduix icon or custom SVG inside `AlertIcon`.
+
+<Preview>
+  <AlertWithIconExample />
+
+  <Preview.Code>
+    {`
+      import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, InfoIcon } from "moduix";
+
+      export function AlertWithIconDemo() {
+        return (
+          <Alert variant="info">
+            <AlertIcon>
+              <InfoIcon />
+            </AlertIcon>
+            <AlertContent>
+              <AlertTitle>Workspace sync is active</AlertTitle>
+              <AlertDescription>
+                Changes are being synced across all connected devices.
+              </AlertDescription>
+            </AlertContent>
+          </Alert>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Variants
+
+Use variants to separate neutral messages from informational, successful, warning, and destructive states.
+
+<Preview>
+  <AlertVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, InfoIcon } from "moduix";
+
+      const variants = ["default", "info", "success", "warning", "destructive"] as const;
+
+      export function AlertVariantsDemo() {
+        return (
+          <div>
+            {variants.map((variant) => (
+              <Alert key={variant} variant={variant}>
+                <AlertIcon>
+                  <InfoIcon />
+                </AlertIcon>
+                <AlertContent>
+                  <AlertTitle>{variant}</AlertTitle>
+                  <AlertDescription>Use this alert for {variant} feedback.</AlertDescription>
+                </AlertContent>
+              </Alert>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Dismissible
+
+Set `withCloseButton` to render the standard close control. Use `open` and `onOpenChange` for
+controlled dismissal.
+
+<Preview>
+  <AlertDismissibleExample />
+
+  <Preview.Code>
+    {`
+      import { useState } from "react";
+      import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, CheckFilledIcon } from "moduix";
+
+      export function AlertDismissibleDemo() {
+        const [open, setOpen] = useState(true);
+
+        return (
+          <Alert variant="success" open={open} onOpenChange={setOpen} withCloseButton>
+            <AlertIcon>
+              <CheckFilledIcon />
+            </AlertIcon>
+            <AlertContent>
+              <AlertTitle>Saved</AlertTitle>
+              <AlertDescription>The alert closes with the default exit animation.</AlertDescription>
+            </AlertContent>
+          </Alert>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Without Dismiss Animation
+
+Set `withDismissAnimation={false}` when close should be immediate.
+
+<Preview>
+  <AlertWithoutDismissAnimationExample />
+
+  <Preview.Code>
+    {`
+      import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, InfoIcon } from "moduix";
+
+      export function AlertInstantCloseDemo() {
+        return (
+          <Alert variant="warning" withCloseButton withDismissAnimation={false}>
+            <AlertIcon>
+              <InfoIcon />
+            </AlertIcon>
+            <AlertContent>
+              <AlertTitle>Closing is instant</AlertTitle>
+              <AlertDescription>
+                Use this mode when animation would conflict with layout changes.
+              </AlertDescription>
+            </AlertContent>
+          </Alert>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Use `className` for layout styles such as width and spacing. Use CSS variables for the alert's
+visual treatment.
+
+<Preview>
+  <CustomStylesAlertExample />
+
+  <Preview.Code>
+    {`
+      import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, InfoIcon } from "moduix";
+      import styles from "./custom-alert-demo.module.css";
+
+      export function CustomAlertDemo() {
+        return (
+          <Alert className={styles.customAlert} withCloseButton>
+            <AlertIcon>
+              <InfoIcon />
+            </AlertIcon>
+            <AlertContent>
+              <AlertTitle>Custom alert</AlertTitle>
+              <AlertDescription>Override CSS variables from the root alert slot.</AlertDescription>
+            </AlertContent>
+          </Alert>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customAlert {
+        --alert-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+        --alert-border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);
+        --alert-icon-color: var(--color-primary);
+        --alert-radius: var(--radius-md);
+        --alert-shadow: var(--shadow-sm);
+
+        max-width: 32rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

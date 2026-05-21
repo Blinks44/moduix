@@ -1,0 +1,229 @@
+@layer ui.components {
+  .root {
+    --alert-title-font-size-default: var(--alert-title-font-size-md, var(--text-sm));
+    --alert-title-line-height-default: var(
+      --alert-title-line-height-md,
+      var(--line-height-text-sm)
+    );
+    --alert-description-font-size-default: var(--alert-description-font-size-md, var(--text-sm));
+    --alert-description-line-height-default: var(
+      --alert-description-line-height-md,
+      var(--line-height-text-sm)
+    );
+    --alert-padding-x-default: var(--alert-padding-x-md, var(--spacing-4));
+    --alert-padding-y-default: var(--alert-padding-y-md, var(--spacing-3));
+
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    width: 100%;
+    min-width: 0;
+    gap: var(--alert-gap, var(--spacing-3));
+    overflow: hidden;
+    border: var(--alert-border-width, var(--border-width-sm)) solid
+      var(--alert-border-color, var(--alert-border-color-default, var(--color-border)));
+    border-radius: var(--alert-radius, var(--radius-lg));
+    padding-block: var(--alert-padding-y, var(--alert-padding-y-default));
+    padding-inline: var(--alert-padding-x, var(--alert-padding-x-default));
+    background-color: var(--alert-bg, var(--alert-bg-default, var(--color-card)));
+    color: var(--alert-color, var(--alert-color-default, var(--color-card-foreground)));
+    box-shadow: var(--alert-shadow, none);
+
+    &[data-animated] {
+      animation-duration: var(--alert-dismiss-duration, 160ms);
+      animation-fill-mode: both;
+      animation-timing-function: var(--alert-dismiss-easing, ease-out);
+    }
+
+    &[data-animated][data-state='open'] {
+      animation-name: alert-in;
+    }
+
+    &[data-animated][data-state='closed'] {
+      animation-name: alert-out;
+    }
+
+    &[data-size='sm'] {
+      --alert-title-font-size-default: var(--alert-title-font-size-sm, var(--text-sm));
+      --alert-title-line-height-default: var(
+        --alert-title-line-height-sm,
+        var(--line-height-text-sm)
+      );
+      --alert-description-font-size-default: var(--alert-description-font-size-sm, var(--text-xs));
+      --alert-description-line-height-default: var(
+        --alert-description-line-height-sm,
+        var(--line-height-text-xs)
+      );
+      --alert-padding-x-default: var(--alert-padding-x-sm, var(--spacing-3));
+      --alert-padding-y-default: var(--alert-padding-y-sm, var(--spacing-2));
+    }
+
+    &[data-size='md'] {
+      --alert-title-font-size-default: var(--alert-title-font-size-md, var(--text-sm));
+      --alert-title-line-height-default: var(
+        --alert-title-line-height-md,
+        var(--line-height-text-sm)
+      );
+      --alert-description-font-size-default: var(--alert-description-font-size-md, var(--text-sm));
+      --alert-description-line-height-default: var(
+        --alert-description-line-height-md,
+        var(--line-height-text-sm)
+      );
+      --alert-padding-x-default: var(--alert-padding-x-md, var(--spacing-4));
+      --alert-padding-y-default: var(--alert-padding-y-md, var(--spacing-3));
+    }
+
+    &[data-size='lg'] {
+      --alert-title-font-size-default: var(--alert-title-font-size-lg, var(--text-md));
+      --alert-title-line-height-default: var(
+        --alert-title-line-height-lg,
+        var(--line-height-text-md)
+      );
+      --alert-description-font-size-default: var(--alert-description-font-size-lg, var(--text-sm));
+      --alert-description-line-height-default: var(
+        --alert-description-line-height-lg,
+        var(--line-height-text-sm)
+      );
+      --alert-padding-x-default: var(--alert-padding-x-lg, var(--spacing-5));
+      --alert-padding-y-default: var(--alert-padding-y-lg, var(--spacing-4));
+    }
+
+    &[data-variant='default'] {
+      --alert-bg-default: var(--color-card);
+      --alert-border-color-default: var(--color-border);
+      --alert-color-default: var(--color-card-foreground);
+      --alert-icon-color-default: var(--color-muted-foreground);
+    }
+
+    &[data-variant='info'] {
+      --alert-bg-default: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
+      --alert-border-color-default: color-mix(in oklab, var(--color-primary) 32%, transparent);
+      --alert-color-default: var(--color-foreground);
+      --alert-icon-color-default: var(--color-primary);
+    }
+
+    &[data-variant='success'] {
+      --alert-bg-default: color-mix(
+        in oklab,
+        var(--alert-success-color, #16a34a) 10%,
+        var(--color-background)
+      );
+      --alert-border-color-default: color-mix(
+        in oklab,
+        var(--alert-success-color, #16a34a) 34%,
+        transparent
+      );
+      --alert-color-default: var(--color-foreground);
+      --alert-icon-color-default: var(--alert-success-color, #16a34a);
+    }
+
+    &[data-variant='warning'] {
+      --alert-bg-default: color-mix(
+        in oklab,
+        var(--alert-warning-color, #ca8a04) 13%,
+        var(--color-background)
+      );
+      --alert-border-color-default: color-mix(
+        in oklab,
+        var(--alert-warning-color, #ca8a04) 38%,
+        transparent
+      );
+      --alert-color-default: var(--color-foreground);
+      --alert-icon-color-default: var(--alert-warning-color, #ca8a04);
+    }
+
+    &[data-variant='destructive'] {
+      --alert-bg-default: color-mix(in oklab, var(--color-destructive) 9%, var(--color-background));
+      --alert-border-color-default: color-mix(in oklab, var(--color-destructive) 35%, transparent);
+      --alert-color-default: var(--color-foreground);
+      --alert-icon-color-default: var(--color-destructive);
+    }
+  }
+
+  .icon {
+    grid-column: 1;
+    display: inline-flex;
+    width: var(--alert-icon-size, 1rem);
+    height: var(--alert-icon-size, 1rem);
+    align-items: center;
+    justify-content: center;
+    color: var(--alert-icon-color, var(--alert-icon-color-default, currentColor));
+    margin-block-start: var(--alert-icon-margin-top, 0.125rem);
+
+    & :where(svg),
+    &:where(svg) {
+      width: var(--alert-icon-size, 1rem);
+      height: var(--alert-icon-size, 1rem);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+
+  .content {
+    grid-column: 2;
+    display: grid;
+    min-width: 0;
+    gap: var(--alert-content-gap, var(--spacing-1));
+  }
+
+  .title {
+    margin: 0;
+    color: var(--alert-title-color, var(--alert-color, var(--alert-color-default)));
+    font-size: var(--alert-title-font-size, var(--alert-title-font-size-default));
+    font-weight: var(--alert-title-font-weight, var(--weight-semibold));
+    line-height: var(--alert-title-line-height, var(--alert-title-line-height-default));
+  }
+
+  .description {
+    min-width: 0;
+    color: var(--alert-description-color, var(--color-muted-foreground));
+    font-size: var(--alert-description-font-size, var(--alert-description-font-size-default));
+    line-height: var(--alert-description-line-height, var(--alert-description-line-height-default));
+
+    & > :first-child {
+      margin-top: 0;
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .close {
+    --close-button-size: var(--alert-close-size, 1.75rem);
+    --close-button-icon-size: var(--alert-close-icon-size, 0.75rem);
+    --close-button-radius: var(--alert-close-radius, var(--radius-md));
+    --close-button-color: var(--alert-close-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--alert-close-color-hover, var(--color-foreground));
+    --close-button-bg-hover: var(--alert-close-bg-hover, var(--color-accent));
+
+    grid-column: 3;
+    margin-block-start: var(--alert-close-margin-top, -0.25rem);
+    margin-inline-end: var(--alert-close-margin-right, -0.25rem);
+  }
+
+  .root:not(:has(.icon)) .content {
+    grid-column: 1 / 3;
+  }
+
+  @keyframes alert-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--alert-enter-translate-y, -0.25rem));
+    }
+  }
+
+  @keyframes alert-out {
+    to {
+      opacity: 0;
+      transform: translateY(var(--alert-exit-translate-y, -0.25rem));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root[data-animated] {
+      animation-duration: 1ms;
+    }
+  }
+}
