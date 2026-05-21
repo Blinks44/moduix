@@ -23,7 +23,7 @@ import {
 ## Basic
 
 <Preview cssProperties={breadcrumbsPlaygroundCssProperties}>
-  <BreadcrumbsExample />
+  <BreadcrumbsExample maxItems={1} />
 
   <Preview.Code>
     {`
@@ -32,6 +32,7 @@ import {
       export function BreadcrumbsDemo() {
         return (
           <Breadcrumbs
+            maxItems={1}
             items={[
               { label: "Home", href: "/" },
               { label: "Engineering", href: "/engineering" },
@@ -83,8 +84,9 @@ Use the `items` array to describe the path. Each item can be a plain segment or 
 (`href`). For framework routing, pass `render` on item and return your own link element
 (for example Next.js `Link`) while preserving the provided `className` and `children`.
 
-Use `maxItems` with `itemsBeforeCollapse` and `itemsAfterCollapse` to control how many
-segments stay visible before and after the collapsed menu.
+`maxItems` controls how many middle segments stay visible between the first segment and
+the current page. The first segment and the current page are always visible. Hidden
+middle segments move into the collapsed menu.
 
 When collapsed items are enabled, you can style hidden internal parts through `classNames`
 (`ellipsisTrigger`, `popup`, `popupItem`, `portal`, `positioner`) and pass behavior props
@@ -94,7 +96,8 @@ to those same slots through `slotProps`.
 
 ### Collapsed Path
 
-Collapse intermediate path segments into an ellipsis menu.
+Collapse intermediate path segments into an ellipsis menu. In this example `maxItems={2}`
+keeps two middle segments visible next to the current page.
 
 <Preview>
   <BreadcrumbsCollapsedExample />
@@ -106,7 +109,7 @@ Collapse intermediate path segments into an ellipsis menu.
       export function BreadcrumbsCollapsedDemo() {
         return (
           <Breadcrumbs
-            maxItems={4}
+            maxItems={2}
             items={[
               { label: "Home", href: "/" },
               { label: "Engineering", href: "/engineering" },
@@ -196,7 +199,7 @@ Use `render` to integrate external routing links while keeping breadcrumb styles
       export function BreadcrumbsWithNextLinkDemo() {
         return (
           <Breadcrumbs
-            maxItems={3}
+            maxItems={1}
             items={[
               {
                 label: "Home",
@@ -250,7 +253,7 @@ Use `classNames` and `slotProps` to customize the collapsed trigger and popup in
       export function BreadcrumbsSlotsDemo() {
         return (
           <Breadcrumbs
-            maxItems={3}
+            maxItems={1}
             items={[
               { label: "Home", href: "/" },
               { label: "Engineering", href: "/engineering" },

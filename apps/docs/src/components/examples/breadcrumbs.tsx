@@ -213,7 +213,7 @@ export function BreadcrumbsCollapsedExample() {
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        maxItems={4}
+        maxItems={2}
         items={[
           { label: 'Home', href: '#' },
           { label: 'Engineering', href: '#' },
@@ -263,7 +263,7 @@ export function BreadcrumbsRenderExample() {
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        maxItems={3}
+        maxItems={1}
         items={[
           {
             label: 'Home',
@@ -304,7 +304,7 @@ export function BreadcrumbsSlotsExample() {
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        maxItems={3}
+        maxItems={1}
         items={[
           { label: 'Home', href: '/home' },
           { label: 'Engineering', href: '/engineering' },

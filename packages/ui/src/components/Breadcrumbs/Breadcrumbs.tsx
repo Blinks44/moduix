@@ -38,8 +38,6 @@ type BreadcrumbsProps = Omit<React.ComponentProps<'nav'>, 'children'> & {
   items: BreadcrumbsItem[];
   separator?: React.ReactNode;
   maxItems?: number;
-  itemsBeforeCollapse?: number;
-  itemsAfterCollapse?: number;
   ellipsisLabel?: React.ReactNode;
   hiddenItemsMenuLabel?: string;
   classNames?: BreadcrumbsClassNames;
@@ -51,8 +49,6 @@ function Breadcrumbs({
   items,
   separator = '/',
   maxItems = 3,
-  itemsBeforeCollapse = 1,
-  itemsAfterCollapse = 2,
   ellipsisLabel = '...',
   hiddenItemsMenuLabel = 'Show hidden path items',
   classNames,
@@ -63,8 +59,6 @@ function Breadcrumbs({
   const { startItems, collapsedItems, endItems } = getVisibleItems({
     items: normalizedItems,
     maxItems,
-    itemsBeforeCollapse,
-    itemsAfterCollapse,
   });
   const lastGlobalItemIndex = normalizedItems.length - 1;
   const visibleParts: Array<
@@ -204,6 +198,7 @@ function BreadcrumbsCollapsedMenu({
 
       <MenuPrimitive.Portal className={classNames?.portal} {...slotProps?.portal}>
         <MenuPrimitive.Positioner
+          align="start"
           sideOffset={4}
           className={classNames?.positioner}
           {...slotProps?.positioner}
@@ -254,18 +249,8 @@ function BreadcrumbsCollapsedMenu({
   );
 }
 
-function getVisibleItems({
-  items,
-  maxItems,
-  itemsBeforeCollapse,
-  itemsAfterCollapse,
-}: {
-  items: BreadcrumbsItem[];
-  maxItems?: number;
-  itemsBeforeCollapse: number;
-  itemsAfterCollapse: number;
-}) {
-  if (!maxItems || maxItems < 2 || items.length <= maxItems) {
+function getVisibleItems({ items, maxItems }: { items: BreadcrumbsItem[]; maxItems?: number }) {
+  if (items.length <= 2) {
     return {
       startItems: items,
       collapsedItems: [] as BreadcrumbsItem[],
@@ -273,11 +258,22 @@ function getVisibleItems({
     };
   }
 
-  const safeBefore = Math.max(0, itemsBeforeCollapse);
-  const safeAfter = Math.max(1, itemsAfterCollapse);
-  const startItems = items.slice(0, safeBefore);
-  const endItems = items.slice(items.length - safeAfter);
-  const collapsedItems = items.slice(safeBefore, items.length - safeAfter);
+  const maxMiddleItems = Math.max(0, Math.floor(maxItems ?? Number.POSITIVE_INFINITY));
+  const middleItems = items.slice(1, -1);
+
+  if (middleItems.length <= maxMiddleItems) {
+    return {
+      startItems: items,
+      collapsedItems: [] as BreadcrumbsItem[],
+      endItems: [] as BreadcrumbsItem[],
+    };
+  }
+
+  const visibleMiddleItems =
+    maxMiddleItems > 0 ? middleItems.slice(middleItems.length - maxMiddleItems) : [];
+  const collapsedItems = middleItems.slice(0, middleItems.length - visibleMiddleItems.length);
+  const startItems = [items[0]];
+  const endItems = [...visibleMiddleItems, items[items.length - 1]];
 
   if (collapsedItems.length === 0) {
     return {

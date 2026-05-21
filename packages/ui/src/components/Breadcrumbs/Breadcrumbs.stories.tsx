@@ -38,7 +38,7 @@ export const Default: Story = {};
 export const Collapsed: Story = {
   args: {
     items: nestedItems,
-    maxItems: 4,
+    maxItems: 1,
   },
 };
 
