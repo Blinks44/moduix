@@ -1116,6 +1116,66 @@
   --input-transition: initial; /* var(--transition-default) */
   --input-width: initial; /* 100% */
 
+  /* InputGroup */
+  --input-group-addon-bg: initial; /* var(--color-muted) */
+  --input-group-addon-color: initial; /* var(--color-muted-foreground) */
+  --input-group-addon-gap: initial; /* var(--spacing-2) */
+  --input-group-addon-padding-x: initial; /* 0.875rem */
+  --input-group-addon-padding-x-xs: initial; /* 0.625rem */
+  --input-group-addon-padding-x-sm: initial; /* 0.75rem */
+  --input-group-addon-padding-x-md: initial; /* 0.875rem */
+  --input-group-addon-padding-x-lg: initial; /* 1rem */
+  --input-group-addon-padding-x-xl: initial; /* 1.125rem */
+  --input-group-bg: initial; /* var(--color-background) */
+  --input-group-border-color: initial; /* var(--color-border) */
+  --input-group-border-color-invalid: initial; /* var(--color-destructive) */
+  --input-group-border-style: initial; /* solid */
+  --input-group-border-width: initial; /* var(--border-width-sm) */
+  --input-group-button-color: initial; /* var(--color-foreground) */
+  --input-group-button-focus-ring-offset: initial; /* -1px */
+  --input-group-color: initial; /* var(--color-foreground) */
+  --input-group-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --input-group-focus-ring-color: initial; /* var(--color-ring) */
+  --input-group-focus-ring-offset: initial; /* -1px */
+  --input-group-focus-ring-width: initial; /* var(--input-group-border-width, var(--border-width-sm)) */
+  --input-group-font-size: initial; /* var(--text-md) */
+  --input-group-font-size-xs: initial; /* var(--text-xs) */
+  --input-group-font-size-sm: initial; /* var(--text-sm) */
+  --input-group-font-size-md: initial; /* var(--text-md) */
+  --input-group-font-size-lg: initial; /* var(--text-lg) */
+  --input-group-font-size-xl: initial; /* var(--text-lg) */
+  --input-group-height: initial; /* var(--input-group-height-md, var(--size-lg)) */
+  --input-group-height-xs: initial; /* var(--size-sm) */
+  --input-group-height-sm: initial; /* 2rem */
+  --input-group-height-md: initial; /* var(--size-lg) */
+  --input-group-height-lg: initial; /* var(--size-xl) */
+  --input-group-height-xl: initial; /* 3rem */
+  --input-group-icon-size: initial; /* 1rem */
+  --input-group-input-padding-x: initial; /* 0.875rem */
+  --input-group-input-padding-x-xs: initial; /* 0.625rem */
+  --input-group-input-padding-x-sm: initial; /* 0.75rem */
+  --input-group-input-padding-x-md: initial; /* 0.875rem */
+  --input-group-input-padding-x-lg: initial; /* 1rem */
+  --input-group-input-padding-x-xl: initial; /* 1.125rem */
+  --input-group-input-padding-y: initial; /* 0.5rem */
+  --input-group-input-padding-y-xs: initial; /* 0.25rem */
+  --input-group-input-padding-y-sm: initial; /* 0.3125rem */
+  --input-group-input-padding-y-md: initial; /* 0.5rem */
+  --input-group-input-padding-y-lg: initial; /* 0.625rem */
+  --input-group-input-padding-y-xl: initial; /* 0.75rem */
+  --input-group-line-height: initial; /* var(--line-height-text-md) */
+  --input-group-line-height-xs: initial; /* var(--line-height-text-xs) */
+  --input-group-line-height-sm: initial; /* var(--line-height-text-sm) */
+  --input-group-line-height-md: initial; /* var(--line-height-text-md) */
+  --input-group-line-height-lg: initial; /* var(--line-height-text-lg) */
+  --input-group-line-height-xl: initial; /* var(--line-height-text-lg) */
+  --input-group-max-width: initial; /* none */
+  --input-group-radius: initial; /* var(--radius-md) */
+  --input-group-separator-color: initial; /* var(--color-border) */
+  --input-group-separator-width: initial; /* var(--border-width-sm) */
+  --input-group-transition: initial; /* var(--transition-default) */
+  --input-group-width: initial; /* 100% */
+
   /* Kbd */
   --kbd-bg: initial; /* var(--color-muted) */
   --kbd-border-color: initial; /* var(--color-border) */
