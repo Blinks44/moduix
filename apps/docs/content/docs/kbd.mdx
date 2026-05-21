@@ -1,0 +1,190 @@
+---
+title: Kbd
+description: A compact keycap for keyboard shortcuts and command hints.
+icon: Component
+---
+
+import {
+  CustomStylesKbdExample,
+  KbdCssPlaygroundPanel,
+  KbdCssPropertiesPanel,
+  KbdExample,
+  KbdGroupExample,
+  KbdSizesExample,
+  KbdVariantsExample,
+  kbdPlaygroundCssProperties,
+} from '@/components/examples/kbd';
+
+## API Reference
+
+`Kbd` is a standalone moduix component and does not wrap a Base UI primitive.
+Use it to display keyboard shortcuts, single keys, and small command hints.
+
+## Basic
+
+<Preview cssProperties={kbdPlaygroundCssProperties} cssVariableScope="local">
+  <KbdExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd } from "moduix";
+
+      export function KbdDemo() {
+        return <Kbd>Cmd K</Kbd>;
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <KbdCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <KbdCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+Use `Kbd` for a single key or command label. Use `KbdGroup` when multiple keys must stay aligned
+as one shortcut.
+
+```text
+KbdGroup
+└─ Kbd
+└─ Kbd
+```
+
+```tsx
+<KbdGroup>
+  <Kbd>Cmd</Kbd>
+  <Kbd>K</Kbd>
+</KbdGroup>
+```
+
+| Part       | Role                                                       |
+| ---------- | ---------------------------------------------------------- |
+| `Kbd`      | Root keycap slot. Applies size, variant, border, and tone. |
+| `KbdGroup` | Inline wrapper for keyboard shortcut combinations.         |
+
+`Kbd` does not use service slots such as `portal`, `positioner`, `backdrop`, or `viewport`.
+
+## Composition
+
+Pass `className` to `Kbd` or `KbdGroup` for targeted overrides. `Kbd` accepts standard native
+`kbd` props, so you can add `title`, `aria-*`, and testing attributes without wrappers. `KbdGroup`
+accepts standard `span` props.
+
+## Examples
+
+### Variants
+
+Use `default` for primary keycap hints, `outline` for quieter surfaces, and `ghost` for dense menus.
+
+<Preview>
+  <KbdVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd } from "moduix";
+
+      export function KbdVariantsDemo() {
+        return (
+          <>
+            <Kbd variant="default">default</Kbd>
+            <Kbd variant="outline">outline</Kbd>
+            <Kbd variant="ghost">ghost</Kbd>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Switch `size` between `sm`, `md`, and `lg` to match dense lists, toolbars, and command panels.
+
+<Preview>
+  <KbdSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd } from "moduix";
+
+      export function KbdSizesDemo() {
+        return (
+          <>
+            <Kbd size="sm">Esc</Kbd>
+            <Kbd size="md">Cmd K</Kbd>
+            <Kbd size="lg">Enter</Kbd>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Shortcut Group
+
+Use `KbdGroup` to keep multi-key shortcuts together.
+
+<Preview>
+  <KbdGroupExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd, KbdGroup } from "moduix";
+
+      export function KbdGroupDemo() {
+        return (
+          <KbdGroup>
+            <Kbd>Cmd</Kbd>
+            <Kbd>K</Kbd>
+          </KbdGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Use `className` and CSS variables for product-specific shortcut styling.
+
+<Preview>
+  <CustomStylesKbdExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd, KbdGroup } from "moduix";
+      import styles from "./custom-kbd-demo.module.css";
+
+      export function CustomKbdDemo() {
+        return (
+          <KbdGroup className={styles.customGroup}>
+            <Kbd className={styles.customKbd}>Cmd</Kbd>
+            <Kbd className={styles.customKbd}>K</Kbd>
+          </KbdGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customGroup {
+        --kbd-group-gap: 0.375rem;
+      }
+
+      .customKbd {
+        --kbd-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+        --kbd-border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
+        --kbd-color: var(--color-primary);
+        --kbd-height: 1.625rem;
+        --kbd-min-width: 1.625rem;
+        --kbd-radius: var(--radius-md);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
