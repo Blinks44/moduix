@@ -1,0 +1,192 @@
+---
+title: Spinner
+description: A compact loading indicator with built-in visual variants and custom icon support.
+icon: Component
+---
+
+import 'moduix/style.css';
+import {
+  SpinnerClassNameExample,
+  SpinnerCssPlaygroundPanel,
+  SpinnerCssPropertiesPanel,
+  SpinnerCustomIconExample,
+  SpinnerExample,
+  SpinnerSizesExample,
+  SpinnerVariantsExample,
+  spinnerPlaygroundCssProperties,
+} from '@/components/examples/spinner';
+
+## API Reference
+
+`Spinner` is a moduix loading primitive and does not wrap a Base UI primitive.
+Use it for pending controls, small empty states, and inline loading feedback. It renders status
+semantics by default and can be marked decorative when nearby text already announces loading.
+
+## Basic
+
+<Preview cssProperties={spinnerPlaygroundCssProperties}>
+  <SpinnerExample />
+
+  <Preview.Code>
+    {`
+      import { Spinner } from "moduix";
+
+      export function SpinnerDemo() {
+        return <Spinner />;
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <SpinnerCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <SpinnerCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Spinner` has one public root and an internal indicator slot. The indicator contains either the
+selected built-in glyph or the custom `icon` node.
+
+```text
+Spinner
+└─ indicator
+```
+
+```tsx
+<Spinner variant="ring" size="md" />
+```
+
+| Part                | Role                                                                 |
+| ------------------- | -------------------------------------------------------------------- |
+| `Spinner`           | Root status element. Use `variant`, `size`, `label`, and `icon`.     |
+| `spinner-indicator` | Internal visual slot that hosts the built-in shape or custom `icon`. |
+
+## Composition
+
+Use `variant` for built-in visuals: `ring`, `dots`, `bars`, or `pulse`. Use `icon` when a product
+surface needs a custom SVG or brand-specific loading mark. Custom icons inherit the root size and
+color and spin by default.
+
+All parts accept standard `span` props through `Spinner`. Set `decorative` when the spinner is
+paired with visible loading text, or pass a custom `label` when the default loading announcement
+is not specific enough.
+
+## Examples
+
+### Variants
+
+Choose a variant that matches the density and tone of the surrounding UI.
+
+<Preview>
+  <SpinnerVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Spinner } from "moduix";
+
+      export function SpinnerVariantsDemo() {
+        return (
+          <>
+            <Spinner variant="ring" />
+            <Spinner variant="dots" />
+            <Spinner variant="bars" />
+            <Spinner variant="pulse" />
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use smaller sizes inside compact controls and larger sizes for standalone loading states.
+
+<Preview>
+  <SpinnerSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Spinner } from "moduix";
+
+      export function SpinnerSizesDemo() {
+        return (
+          <>
+            <Spinner size="xs" />
+            <Spinner size="sm" />
+            <Spinner size="md" />
+            <Spinner size="lg" />
+            <Spinner size="xl" />
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Icon
+
+Pass `icon` to replace the built-in shape while keeping Spinner sizing and accessibility behavior.
+
+<Preview>
+  <SpinnerCustomIconExample />
+
+  <Preview.Code>
+    {`
+      import { Spinner } from "moduix";
+
+      export function SpinnerCustomIconDemo() {
+        return (
+          <Spinner
+            size="lg"
+            icon={
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M12 3v4M12 17v4M3 12h4M17 12h4M5.64 5.64l2.83 2.83M15.53 15.53l2.83 2.83M18.36 5.64l-2.83 2.83M8.47 15.53l-2.83 2.83"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            }
+          />
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Styling
+
+Use `className` or CSS variables for targeted color and shape changes.
+
+<Preview>
+  <SpinnerClassNameExample />
+
+  <Preview.Code>
+    {`
+      import { Spinner } from "moduix";
+      import styles from "./spinner-demo.module.css";
+
+      export function SpinnerStylingDemo() {
+        return (
+          <div className={styles.brand}>
+            <Spinner variant="dots" size="lg" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .brand {
+        color: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

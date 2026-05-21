@@ -1,0 +1,9 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.accent {
+  color: var(--color-primary);
+}
