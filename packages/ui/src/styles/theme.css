@@ -463,6 +463,53 @@
   --button-spinner-size: initial; /* 0.875rem */
   --button-transition: initial; /* var(--transition-default) */
 
+  /* Card */
+  --card-action-gap: initial; /* var(--spacing-2) */
+  --card-bg: initial; /* var(--color-card) */
+  --card-body-color: initial; /* var(--card-muted-color) */
+  --card-body-divided-padding-top: initial; /* var(--card-padding-default) */
+  --card-body-font-size: initial; /* var(--text-sm) */
+  --card-body-line-height: initial; /* var(--line-height-text-sm) */
+  --card-body-padding-y: initial; /* 0 var(--card-padding-default) */
+  --card-border-color: initial; /* var(--color-border) */
+  --card-border-color-hover: initial; /* var(--color-ring) */
+  --card-border-width: initial; /* var(--border-width-sm) */
+  --card-color: initial; /* var(--color-card-foreground) */
+  --card-description-color: initial; /* var(--card-muted-color) */
+  --card-description-font-size: initial; /* var(--text-sm) */
+  --card-description-line-height: initial; /* var(--line-height-text-sm) */
+  --card-divider-color: initial; /* var(--color-border) */
+  --card-divider-width: initial; /* var(--border-width-sm) */
+  --card-footer-divided-padding-top: initial; /* var(--card-padding-default) */
+  --card-footer-gap: initial; /* var(--spacing-2) */
+  --card-footer-padding-y: initial; /* 0 var(--card-padding-default) */
+  --card-header-column-gap: initial; /* var(--spacing-3) */
+  --card-header-padding-y: initial; /* var(--card-padding-default) */
+  --card-header-row-gap: initial; /* var(--spacing-1) */
+  --card-muted-color: initial; /* var(--color-muted-foreground) */
+  --card-padding-xs: initial; /* var(--spacing-3) */
+  --card-padding-sm: initial; /* var(--spacing-4) */
+  --card-padding-md: initial; /* var(--spacing-5) */
+  --card-padding-lg: initial; /* var(--spacing-6) */
+  --card-padding-x: initial; /* var(--card-padding-default) */
+  --card-radius: initial; /* var(--radius-lg) */
+  --card-shadow: initial; /* none */
+  --card-shadow-hover: initial; /* var(--shadow-md) */
+  --card-title-color: initial; /* var(--card-color) */
+  --card-title-font-size: initial; /* var(--card-title-font-size-md) */
+  --card-title-font-size-xs: initial; /* var(--text-sm) */
+  --card-title-font-size-sm: initial; /* var(--text-md) */
+  --card-title-font-size-md: initial; /* var(--text-lg) */
+  --card-title-font-size-lg: initial; /* var(--text-xl) */
+  --card-title-font-weight: initial; /* var(--weight-semibold) */
+  --card-title-line-height: initial; /* var(--card-title-line-height-md) */
+  --card-title-line-height-xs: initial; /* var(--line-height-text-sm) */
+  --card-title-line-height-sm: initial; /* var(--line-height-text-md) */
+  --card-title-line-height-md: initial; /* var(--line-height-text-lg) */
+  --card-title-line-height-lg: initial; /* var(--line-height-text-xl) */
+  --card-transition: initial; /* var(--transition-default) */
+  --card-translate-y-hover: initial; /* -1px */
+
   /* Checkbox */
   --checkbox-bg: initial; /* var(--color-background) */
   --checkbox-bg-checked: initial; /* var(--color-primary) */

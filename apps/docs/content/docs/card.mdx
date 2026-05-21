@@ -1,0 +1,311 @@
+---
+title: Card
+description: A flexible content container with semantic header, body, footer, title, description, and action slots.
+icon: Component
+---
+
+import {
+  CardCssPlaygroundPanel,
+  CardCssPropertiesPanel,
+  CardExample,
+  CardSizesExample,
+  CardVariantsExample,
+  CardWithActionExample,
+  CardWithFooterExample,
+  CustomStylesCardExample,
+  InteractiveCardExample,
+  cardPlaygroundCssProperties,
+} from '@/components/examples/card';
+
+## API Reference
+
+`Card` is a standalone moduix component and does not wrap a Base UI primitive.
+Use the compound slots to keep layouts consistent across summaries, dashboards, settings panels,
+and object previews.
+
+## Basic
+
+<Preview cssProperties={cardPlaygroundCssProperties} cssVariableScope="local">
+  <CardExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, Button, Card, CardAction, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "moduix";
+
+      export function CardDemo() {
+        return (
+          <Card variant="elevated">
+            <CardHeader>
+              <CardTitle>Release health</CardTitle>
+              <CardDescription>Summary for the current production rollout.</CardDescription>
+              <CardAction>
+                <Badge variant="secondary">Canary</Badge>
+              </CardAction>
+            </CardHeader>
+            <CardBody>
+              <div>
+                <strong>98.4%</strong> successful sessions
+              </div>
+            </CardBody>
+            <CardFooter withDivider>
+              <Button variant="outline">View log</Button>
+              <Button>Promote release</Button>
+            </CardFooter>
+          </Card>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <CardCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <CardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Card` exposes semantic slots for common card structure. Use only the parts that fit the content.
+
+```text
+Card
+├─ CardHeader
+│  ├─ CardTitle
+│  ├─ CardDescription
+│  └─ CardAction (optional)
+├─ CardBody
+└─ CardFooter
+```
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>Billing plan</CardTitle>
+    <CardDescription>Team workspace, monthly billing.</CardDescription>
+  </CardHeader>
+  <CardBody>...</CardBody>
+  <CardFooter withDivider>...</CardFooter>
+</Card>
+```
+
+| Part              | Role                                                                        |
+| ----------------- | --------------------------------------------------------------------------- |
+| `Card`            | Root slot. Applies size, variant, border, radius, shadow, and text color.   |
+| `CardHeader`      | Header layout for title, description, and optional action content.          |
+| `CardBody`        | Main content area. Trims first and last child margins for predictable flow. |
+| `CardFooter`      | Footer layout for actions or metadata. Supports alignment and dividers.     |
+| `CardTitle`       | Heading slot for the primary card label.                                    |
+| `CardDescription` | Muted supporting text for the card title.                                   |
+| `CardAction`      | Right-aligned header action slot.                                           |
+
+## Composition
+
+Use `variant="default"`, `variant="elevated"`, `variant="outline"`, or `variant="ghost"` to match
+the surrounding surface. Use `size="xs"`, `size="sm"`, `size="md"`, or `size="lg"` to control density.
+
+`Card` accepts `as="div"`, `as="article"`, `as="section"`, or `as="aside"` for common semantics.
+Use `interactive` when the whole card should visually respond to hover, and add the appropriate
+keyboard and click behavior in application code. Pass `className` to any slot and customize the
+visual contract with `--card-*` variables.
+
+## Examples
+
+### With Footer
+
+Use `CardFooter` for actions. Add `withDivider` when the footer should read as a separate control area.
+
+<Preview>
+  <CardWithFooterExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "moduix";
+
+      export function CardWithFooterDemo() {
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle>Billing plan</CardTitle>
+              <CardDescription>Team workspace, monthly billing.</CardDescription>
+            </CardHeader>
+            <CardBody>$48 per month</CardBody>
+            <CardFooter withDivider>
+              <Button variant="outline">Cancel</Button>
+              <Button>Upgrade</Button>
+            </CardFooter>
+          </Card>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### With Action
+
+Use `CardAction` for compact status, menus, or controls aligned opposite the title.
+
+<Preview>
+  <CardWithActionExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, Card, CardAction, CardDescription, CardHeader, CardTitle } from "moduix";
+
+      export function CardWithActionDemo() {
+        return (
+          <Card variant="elevated">
+            <CardHeader>
+              <CardTitle>Incident response</CardTitle>
+              <CardDescription>Owner rotation and escalation readiness.</CardDescription>
+              <CardAction>
+                <Badge variant="secondary">Stable</Badge>
+              </CardAction>
+            </CardHeader>
+          </Card>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Variants
+
+Choose the visual weight that matches the surrounding layout.
+
+<Preview>
+  <CardVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Card, CardDescription, CardHeader, CardTitle } from "moduix";
+
+      const variants = ["default", "elevated", "outline", "ghost"] as const;
+
+      export function CardVariantsDemo() {
+        return (
+          <div>
+            {variants.map((variant) => (
+              <Card key={variant} variant={variant}>
+                <CardHeader>
+                  <CardTitle>{variant}</CardTitle>
+                  <CardDescription>Card variant</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+Use size to tune density for compact lists, dashboards, and page sections.
+
+<Preview>
+  <CardSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Card, CardBody, CardDescription, CardHeader, CardTitle } from "moduix";
+
+      export function CardSizesDemo() {
+        return (
+          <>
+            <Card size="xs">
+              <CardHeader>
+                <CardTitle>Extra small card</CardTitle>
+                <CardDescription>Very compact surface.</CardDescription>
+              </CardHeader>
+              <CardBody>Short supporting content.</CardBody>
+            </Card>
+            <Card size="lg">
+              <CardHeader>
+                <CardTitle>Large card</CardTitle>
+                <CardDescription>Roomier section surface.</CardDescription>
+              </CardHeader>
+              <CardBody>Longer supporting content.</CardBody>
+            </Card>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Interactive
+
+Use `interactive` for hover affordance when application code makes the card navigable or selectable.
+
+<Preview>
+  <InteractiveCardExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, Card, CardAction, CardDescription, CardHeader, CardTitle } from "moduix";
+
+      export function InteractiveCardDemo() {
+        return (
+          <Card as="article" interactive tabIndex={0}>
+            <CardHeader>
+              <CardTitle>Data import completed</CardTitle>
+              <CardDescription>42,816 rows processed without validation errors.</CardDescription>
+              <CardAction>
+                <Badge>New</Badge>
+              </CardAction>
+            </CardHeader>
+          </Card>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Use `className` and CSS variables for product-specific card treatments.
+
+<Preview>
+  <CustomStylesCardExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, Button, Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "moduix";
+      import styles from "./custom-card-demo.module.css";
+
+      export function CustomCardDemo() {
+        return (
+          <Card className={styles.customCard}>
+            <CardHeader withDivider>
+              <CardTitle>Warehouse capacity</CardTitle>
+              <CardDescription>North region allocation.</CardDescription>
+            </CardHeader>
+            <CardBody>72%</CardBody>
+            <CardFooter align="between" withDivider>
+              <Badge variant="outline">Forecast</Badge>
+              <Button variant="outline">Open report</Button>
+            </CardFooter>
+          </Card>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customCard {
+        --card-bg: color-mix(in oklab, var(--color-card) 92%, var(--color-primary));
+        --card-border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
+        --card-divider-color: color-mix(in oklab, var(--color-primary) 25%, var(--color-border));
+        --card-radius: var(--radius-md);
+        --card-shadow: var(--shadow-md);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
