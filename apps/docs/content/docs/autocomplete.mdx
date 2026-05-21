@@ -206,9 +206,17 @@ rules. `actionsRef` is available for manual unmount flows with animation librari
 `useAutocompleteFilteredItems` returns the currently filtered items for custom list layouts.
 
 `className` styles the visible popup. `classNames` styles service slots hidden from the default
-composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `portalProps`,
-`backdropProps`, `positionerProps`, `arrowProps`, `withBackdrop`, and `arrow` when you need the
-matching Base UI escape hatches:
+composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `withBackdrop`,
+`withArrow`, and `slotProps` when you need Base UI escape hatches for service slots.
+
+| Prop           | Default | Values                                        |
+| -------------- | ------- | --------------------------------------------- |
+| `withBackdrop` | `false` | `true \| false`                               |
+| `withArrow`    | `false` | `true \| false`                               |
+| `sideOffset`   | `5`     | `number \| OffsetFunction`                    |
+| `slotProps`    | —       | `{ portal?, backdrop?, positioner?, arrow? }` |
+
+Use `slotProps.arrow.children` to replace the default arrow content when needed.
 
 ```tsx
 <AutocompleteContent
@@ -216,6 +224,11 @@ matching Base UI escape hatches:
   sideOffset={8}
   withArrow
   withBackdrop
+  slotProps={{
+    arrow: {
+      children: <span>▲</span>,
+    },
+  }}
   classNames={{
     portal: styles.portal,
     backdrop: styles.backdrop,

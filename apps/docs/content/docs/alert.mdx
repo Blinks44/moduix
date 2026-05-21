@@ -93,6 +93,16 @@ Set `withCloseButton` to render the built-in `CloseButton`; set `withDismissAnim
 closing should remove the alert immediately. Pass `className` to the root or compound parts for
 local styling. CSS variables should be overridden on the root alert slot.
 
+| Prop                   | Default       | Values                                                               |
+| ---------------------- | ------------- | -------------------------------------------------------------------- |
+| `variant`              | `default`     | `default`, `info`, `success`, `warning`, `destructive`               |
+| `size`                 | `md`          | `sm`, `md`, `lg`                                                     |
+| `defaultOpen`          | `true`        | `true`, `false`                                                      |
+| `withCloseButton`      | `false`       | `true`, `false`                                                      |
+| `withDismissAnimation` | `true`        | `true`, `false`                                                      |
+| `closeButtonLabel`     | `Close alert` | Any accessible text label for the built-in close button              |
+| `role`                 | Auto          | `status` by default, `alert` when `variant="destructive"`, or custom |
+
 ## Examples
 
 ### With Icon

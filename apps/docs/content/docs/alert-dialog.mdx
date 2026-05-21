@@ -142,6 +142,13 @@ hidden from the default composition. `AlertDialogContent` accepts the popup prop
 including `initialFocus`, `finalFocus`, `render`, state-based `className`, and state-based `style`.
 Use `container`, `slotProps`, and `withBackdrop={false}` when you need service-slot escape hatches:
 
+| Prop           | Default     | Values                                                               |
+| -------------- | ----------- | -------------------------------------------------------------------- |
+| `withBackdrop` | `true`      | `true`, `false`                                                      |
+| `container`    | `undefined` | `HTMLElement`, ref callback, or `null`                               |
+| `classNames`   | `undefined` | `{ portal?: className; backdrop?: className; viewport?: className }` |
+| `slotProps`    | `undefined` | `{ portal?; backdrop?; viewport? }`                                  |
+
 ```tsx
 <AlertDialogContent
   className={styles.popup}

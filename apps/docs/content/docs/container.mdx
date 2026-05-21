@@ -1,0 +1,240 @@
+---
+title: Container
+description: A responsive layout primitive for consistent content width and fluid inline gutters.
+icon: Component
+---
+
+import {
+  ContainerAlignmentExample,
+  ContainerCssPlaygroundPanel,
+  ContainerCssPropertiesPanel,
+  ContainerExample,
+  ContainerGuttersExample,
+  ContainerSemanticExample,
+  ContainerSizesExample,
+  CustomStylesContainerExample,
+  containerPlaygroundCssProperties,
+} from '@/components/examples/container';
+
+## API Reference
+
+`Container` is a moduix layout primitive and does not wrap a Base UI primitive.
+Use it to constrain page content with consistent responsive gutters. The `size`
+prop controls the useful content width; `gutter` adds inline padding outside that
+content width so large-screen columns do not become narrower because of padding.
+
+## Basic
+
+<Preview cssProperties={containerPlaygroundCssProperties} cssVariableScope="local">
+  <ContainerExample />
+
+  <Preview.Code>
+    {`
+      import { Container, Heading, Text } from "moduix";
+
+      export function ContainerDemo() {
+        return (
+          <Container>
+            <Heading as="h3" size="lg">
+              Responsive page content
+            </Heading>
+            <Text tone="muted">
+              The content column stays readable while inline gutters fluidly adapt.
+            </Text>
+          </Container>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .container {
+        padding-block: var(--spacing-4);
+        border-block: var(--border-width-sm) dashed var(--color-border);
+        background-color: var(--color-muted);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.CSSProperties>{(context) => <ContainerCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <ContainerCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Container` is a single root layout primitive. It sets width, max content width,
+inline gutters, and horizontal alignment while leaving block spacing to parent
+sections or local CSS.
+
+```text
+Container
+└─ children
+```
+
+```tsx
+<Container size="lg" gutter="md">
+  <main className={styles.content}>Page content</main>
+</Container>
+```
+
+| Part        | Role                                                                 |
+| ----------- | -------------------------------------------------------------------- |
+| `Container` | Root layout wrapper. Controls content width, gutters, and alignment. |
+
+## Composition
+
+Use `size` for the target content width and `gutter` for viewport edge protection.
+The default `size="lg"` and `gutter="md"` are intended for common page layouts.
+Use `align` when a narrower container should be pinned to one side, and `as` for
+semantic elements such as `main`, `section`, or `article`.
+
+| Prop     | Default  | Values                               |
+| -------- | -------- | ------------------------------------ |
+| `size`   | `lg`     | `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `gutter` | `md`     | `none`, `sm`, `md`, `lg`             |
+| `align`  | `center` | `start`, `center`, `end`             |
+| `as`     | `div`    | Any valid React element or component |
+
+`Container` does not own vertical rhythm. Put section spacing on the section
+around it, and use `Bleed` inside a `Container` when media or panels need to
+escape the constrained content column.
+
+## Examples
+
+### Sizes
+
+Use `size` to choose the content column width.
+
+<Preview>
+  <ContainerSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Container, Text } from "moduix";
+
+      export function ContainerSizesDemo() {
+        return (
+          <>
+            <Container size="xs"><Text>xs</Text></Container>
+            <Container size="sm"><Text>sm</Text></Container>
+            <Container size="md"><Text>md</Text></Container>
+            <Container size="lg"><Text>lg</Text></Container>
+            <Container size="xl"><Text>xl</Text></Container>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Gutters
+
+Use `gutter` to control responsive inline padding.
+
+<Preview>
+  <ContainerGuttersExample />
+
+  <Preview.Code>
+    {`
+      import { Container, Text } from "moduix";
+
+      export function ContainerGuttersDemo() {
+        return (
+          <>
+            <Container gutter="none"><Text>No gutter</Text></Container>
+            <Container gutter="sm"><Text>Small gutter</Text></Container>
+            <Container gutter="md"><Text>Medium gutter</Text></Container>
+            <Container gutter="lg"><Text>Large gutter</Text></Container>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Alignment
+
+Use `align` for narrow containers that should not be centered.
+
+<Preview>
+  <ContainerAlignmentExample />
+
+  <Preview.Code>
+    {`
+      import { Container, Text } from "moduix";
+
+      export function ContainerAlignmentDemo() {
+        return (
+          <>
+            <Container size="sm" align="start"><Text>Start</Text></Container>
+            <Container size="sm" align="center"><Text>Center</Text></Container>
+            <Container size="sm" align="end"><Text>End</Text></Container>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Semantic Element
+
+Use `as` when the layout wrapper should also describe document structure.
+
+<Preview>
+  <ContainerSemanticExample />
+
+  <Preview.Code>
+    {`
+      import { Container, Heading, Text } from "moduix";
+
+      export function ContainerSemanticDemo() {
+        return (
+          <Container as="main" size="md">
+            <Heading as="h3" size="lg">Main content area</Heading>
+            <Text tone="muted">Use as when the wrapper should carry semantic meaning.</Text>
+          </Container>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Pass `className` when styling the root or overriding container variables locally.
+
+<Preview>
+  <CustomStylesContainerExample />
+
+  <Preview.Code>
+    {`
+      import { Container, Text } from "moduix";
+
+      export function CustomStylesContainerDemo() {
+        return (
+          <Container className={styles.customContainer}>
+            <Text weight="semibold">Customized max width and gutters</Text>
+          </Container>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customContainer {
+        --container-gutter-md: clamp(1.25rem, 6vw, 4rem);
+        --container-max-width-lg: 54rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

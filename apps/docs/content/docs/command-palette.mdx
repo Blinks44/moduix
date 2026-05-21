@@ -154,6 +154,20 @@ no separate Base UI primitive page for it.
           description: "Read the latest product changes",
           icon: <ArrowUpRightIcon />,
         },
+        {
+          id: "api-tokens",
+          section: "System",
+          label: "API tokens",
+          description: "Manage personal access tokens",
+          icon: <StarIcon />,
+        },
+        {
+          id: "workspace-audit-log",
+          section: "System",
+          label: "Workspace audit log",
+          description: "Inspect recent security events",
+          icon: <BellIcon />,
+        },
       ];
     `}
 
@@ -229,6 +243,15 @@ autocomplete root stays open inside the dialog, so consumers render filtered res
 Use `className` to style the popup and `classNames` for dialog service slots (`portal`,
 `backdrop`, `viewport`). Use `container`, `slotProps`, and `withBackdrop` for the same layering
 controls as other dialog-like components.
+
+| Prop                                   | Default  | Values                                              |
+| -------------------------------------- | -------- | --------------------------------------------------- |
+| `shortcut`                             | `mod+k`  | `false` or keyboard combo string like `shift+mod+p` |
+| `withBackdrop`                         | `true`   | `true`, `false`                                     |
+| `autoHighlight`                        | `always` | Base UI autocomplete `autoHighlight` values         |
+| `keepHighlight`                        | `true`   | `true`, `false`                                     |
+| `mode`                                 | `list`   | Base UI autocomplete `mode` values                  |
+| `closeOnSelect` (`CommandPaletteItem`) | `true`   | `true`, `false`                                     |
 
 ## Examples
 
@@ -380,6 +403,22 @@ bind `onClick={() => item.action()}` while rendering `CommandPaletteItem`.
               description: "Read the latest product changes",
               icon: <ArrowUpRightIcon />,
               action: actions.openDocs,
+            },
+            {
+              id: "api-tokens",
+              section: "System",
+              label: "API tokens",
+              description: "Manage personal access tokens",
+              icon: <StarIcon />,
+              action: () => actions.defaultAction("API tokens"),
+            },
+            {
+              id: "workspace-audit-log",
+              section: "System",
+              label: "Workspace audit log",
+              description: "Inspect recent security events",
+              icon: <BellIcon />,
+              action: () => actions.defaultAction("Workspace audit log"),
             },
           ],
           [actions],

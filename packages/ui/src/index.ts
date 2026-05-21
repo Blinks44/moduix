@@ -18,6 +18,7 @@ export * from './components/CloseButton';
 export * from './components/Collapsible';
 export * from './components/Combobox';
 export * from './components/CommandPalette';
+export * from './components/Container';
 export * from './components/ContextMenu';
 export * from './components/Dialog';
 export * from './components/Drawer';

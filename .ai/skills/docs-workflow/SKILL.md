@@ -48,6 +48,9 @@ Keep demo styles out of inline style objects and utility string class names; use
 - Keep `Anatomy` and `Composition` non-duplicative:
   - `Anatomy` explains parts/slots and structure.
   - `Composition` explains API usage patterns (`render`, controlled props, `className`, `classNames`, slot escape hatches).
+- For components with meaningful defaults, include a compact defaults table in `Composition`
+  (`Prop` / `Default` / `Values`) so runtime behavior is visible in docs.
+  Do not place prop defaults in `Anatomy`.
 
 ## Section Order Contract
 

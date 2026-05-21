@@ -34,6 +34,7 @@ export type {
   AutocompleteProps,
   AutocompleteValueType,
   AutocompleteContentClassNames,
+  AutocompleteContentSlotProps,
   AutocompleteContentProps,
   AutocompleteFieldProps,
   AutocompleteInlineInputContainerProps,

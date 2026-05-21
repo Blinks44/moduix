@@ -875,6 +875,16 @@
   --command-palette-viewport-padding: initial; /* 10dvh var(--spacing-4) var(--spacing-4) */
   --command-palette-width: initial; /* 37.5rem */
 
+  /* Container */
+  --container-gutter-lg: initial; /* clamp(1.5rem, 5vw, 3rem) */
+  --container-gutter-md: initial; /* clamp(1rem, 4vw, 2rem) */
+  --container-gutter-sm: initial; /* clamp(0.75rem, 3vw, 1.5rem) */
+  --container-max-width-xs: initial; /* 40rem */
+  --container-max-width-sm: initial; /* 48rem */
+  --container-max-width-md: initial; /* 64rem */
+  --container-max-width-lg: initial; /* 72rem */
+  --container-max-width-xl: initial; /* 90rem */
+
   /* ContextMenu */
   --context-menu-arrow-inline-offset: initial; /* 0.8125rem */
   --context-menu-arrow-size: initial; /* 0.5rem */
