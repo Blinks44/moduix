@@ -5,14 +5,18 @@ import styles from './Kbd.module.css';
 type KbdVariant = 'default' | 'outline' | 'ghost';
 type KbdSize = 'sm' | 'md' | 'lg';
 
-type KbdProps = React.ComponentProps<'kbd'> & {
+type KbdProps = React.ComponentPropsWithoutRef<'kbd'> & {
   variant?: KbdVariant;
   size?: KbdSize;
 };
 
-function Kbd({ className, variant = 'default', size = 'md', ...props }: KbdProps) {
+const Kbd = React.forwardRef<React.ElementRef<'kbd'>, KbdProps>(function Kbd(
+  { className, variant = 'default', size = 'md', ...props },
+  ref,
+) {
   return (
     <kbd
+      ref={ref}
       data-slot="kbd-root"
       data-variant={variant}
       data-size={size}
@@ -20,22 +24,26 @@ function Kbd({ className, variant = 'default', size = 'md', ...props }: KbdProps
       {...props}
     />
   );
-}
+});
 
-type KbdGroupProps = React.ComponentProps<'span'> & {
+type KbdGroupProps = React.ComponentPropsWithoutRef<'span'> & {
   size?: KbdSize;
 };
 
-function KbdGroup({ className, size = 'md', ...props }: KbdGroupProps) {
+const KbdGroup = React.forwardRef<React.ElementRef<'span'>, KbdGroupProps>(function KbdGroup(
+  { className, size = 'md', ...props },
+  ref,
+) {
   return (
     <span
+      ref={ref}
       data-slot="kbd-group"
       data-size={size}
       className={clsx(styles.group, className)}
       {...props}
     />
   );
-}
+});
 
 export { Kbd, KbdGroup };
 export type { KbdProps, KbdGroupProps, KbdVariant, KbdSize };
