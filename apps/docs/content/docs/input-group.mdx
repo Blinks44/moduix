@@ -92,6 +92,15 @@ theme-level changes such as border color, addon background, padding, radius, and
 without submitting them accidentally. Override `type`, `variant`, or `size` when a form submit or
 stronger action is intended.
 
+### Defaults
+
+| Part / Prop                | Default     | Values                                                  |
+| -------------------------- | ----------- | ------------------------------------------------------- |
+| `InputGroup.size`          | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                            |
+| `InputGroupButton.variant` | `ghost`     | Any `Button` variant (`default`, `outline`, `ghost`, …) |
+| `InputGroupButton.type`    | `button`    | `button`, `submit`, `reset`                             |
+| `InputGroupButton.size`    | from Button | Any `Button` size (`xs`, `sm`, `md`, `lg`, `xl`, …)     |
+
 ## Examples
 
 ### With Action
@@ -242,7 +251,7 @@ Disabled input state dims the shared shell.
             <FieldLabel>Domain</FieldLabel>
             <InputGroup>
               <InputGroupInput required placeholder="company" />
-              <InputGroupText>.2gis.com</InputGroupText>
+              <InputGroupText>.test.com</InputGroupText>
             </InputGroup>
             <FieldError match="valueMissing">Please enter a domain.</FieldError>
           </Field>

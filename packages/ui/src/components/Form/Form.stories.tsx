@@ -187,8 +187,8 @@ export const WithActionsRef: Story = {
 
           if (!email.trim()) {
             nextErrors.email = 'Email is required.';
-          } else if (!email.endsWith('@2gis.com')) {
-            nextErrors.email = 'Use a @2gis.com email.';
+          } else if (!email.endsWith('@test.com')) {
+            nextErrors.email = 'Use a @test.com email.';
           }
 
           setErrors(nextErrors);
@@ -196,7 +196,7 @@ export const WithActionsRef: Story = {
       >
         <Field name="email">
           <FieldLabel>Work Email</FieldLabel>
-          <Input type="email" required placeholder="name@2gis.com" />
+          <Input type="email" required placeholder="name@test.com" />
           <FieldError />
         </Field>
         <Button

@@ -79,6 +79,14 @@ Use `size` for the visual component size. Use `htmlSize` for the native HTML `si
 <Input size="lg" htmlSize={24} placeholder="Search projects" />
 ```
 
+### Defaults
+
+| Prop        | Default | Values                                                   |
+| ----------- | ------- | -------------------------------------------------------- |
+| `size`      | `md`    | `xs`, `sm`, `md`, `lg`, `xl`                             |
+| `htmlSize`  | -       | Any valid native `input` `size` number                   |
+| `className` | -       | `string` or `(state: InputState) => string \| undefined` |
+
 `Input` does not render hidden service slots such as `Positioner`, `Backdrop`, or `Viewport`, so it
 does not need a `classNames` API. Style the input element directly with `className`.
 

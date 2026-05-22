@@ -12,7 +12,7 @@ design tokens for consistent styling and Field validation integration.
 ## Anatomy
 
 ```tsx
-import { Textarea } from '@2gis/moduix';
+import { Textarea } from '@test/moduix';
 
 <Textarea />;
 ```

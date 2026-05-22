@@ -211,7 +211,7 @@ export function InputGroupFieldValidationExample() {
       <FieldLabel>Domain</FieldLabel>
       <InputGroup>
         <InputGroupInput required placeholder="company" />
-        <InputGroupText>.2gis.com</InputGroupText>
+        <InputGroupText>.test.com</InputGroupText>
       </InputGroup>
       <FieldError match="valueMissing">Please enter a domain.</FieldError>
     </Field>

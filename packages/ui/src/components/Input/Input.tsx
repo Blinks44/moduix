@@ -1,5 +1,5 @@
-import type * as React from 'react';
 import { Input as InputPrimitive } from '@base-ui/react/input';
+import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Input.module.css';
 
@@ -13,9 +13,13 @@ type InputState = InputPrimitive.State;
 type InputChangeEventReason = InputPrimitive.ChangeEventReason;
 type InputChangeEventDetails = InputPrimitive.ChangeEventDetails;
 
-function Input({ className, size = 'md', htmlSize, ...props }: InputProps) {
+const Input = React.forwardRef(function Input(
+  { className, size = 'md', htmlSize, ...props }: InputProps,
+  ref: React.ForwardedRef<HTMLInputElement>,
+) {
   return (
     <InputPrimitive
+      ref={ref}
       data-slot="input-root"
       data-size={size}
       className={mergeClassName(className, styles.root)}
@@ -23,7 +27,7 @@ function Input({ className, size = 'md', htmlSize, ...props }: InputProps) {
       {...props}
     />
   );
-}
+});
 
 export { Input };
 
