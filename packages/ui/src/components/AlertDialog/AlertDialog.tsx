@@ -135,8 +135,6 @@ function AlertDialogContent({
 }: AlertDialogContentProps) {
   const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
   const resolvedContainer = container ?? slotPortalContainer;
-  const showBackdrop = withBackdrop;
-  const showCloseButton = withCloseButton;
 
   return (
     <AlertDialogPrimitive.Portal
@@ -145,16 +143,16 @@ function AlertDialogContent({
       container={resolvedContainer}
       {...restPortalSlotProps}
     >
-      {showBackdrop ? (
+      {withBackdrop ? (
         <AlertDialogBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
       ) : null}
       <AlertDialogViewport
         className={classNames?.viewport}
         {...slotProps?.viewport}
-        data-with-backdrop={showBackdrop ? 'true' : 'false'}
+        data-with-backdrop={withBackdrop ? 'true' : 'false'}
       >
         <AlertDialogPopup className={className} {...props}>
-          {showCloseButton ? (
+          {withCloseButton ? (
             <AlertDialogCloseIcon
               aria-label={closeButtonLabel}
               className={mergeClassName(styles.autoCloseIcon, classNames?.closeIcon)}
