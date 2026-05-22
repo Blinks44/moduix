@@ -180,11 +180,11 @@ function MenuContent({
     disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking;
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPropsContainer;
-  const { arrowChildren, viewportChildren } = splitArrowChildren(children);
+  const { arrowChild, viewportChildren } = splitArrowChild(children);
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
   const resolvedArrow =
-    arrowChildren[0] ??
+    arrowChild ??
     (showArrow ? (
       <MenuArrow className={classNames?.arrow} {...slotProps?.arrow}>
         {arrowContent}
@@ -431,20 +431,20 @@ function getSubmenuOffset({ side }: { side: MenuPrimitive.Positioner.Props['side
   return side === 'top' || side === 'bottom' ? 4 : -4;
 }
 
-function splitArrowChildren(children: React.ReactNode) {
-  const arrowChildren: React.ReactNode[] = [];
+function splitArrowChild(children: React.ReactNode) {
+  let arrowChild: React.ReactNode = null;
   const viewportChildren: React.ReactNode[] = [];
 
   React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child) && child.type === MenuArrow) {
-      arrowChildren.push(child);
+    if (!arrowChild && React.isValidElement(child) && child.type === MenuArrow) {
+      arrowChild = child;
       return;
     }
 
     viewportChildren.push(child);
   });
 
-  return { arrowChildren, viewportChildren };
+  return { arrowChild, viewportChildren };
 }
 
 function ArrowSvg(props: React.ComponentProps<'svg'>) {

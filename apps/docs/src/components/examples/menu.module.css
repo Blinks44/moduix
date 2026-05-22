@@ -4,6 +4,16 @@
   margin-bottom: var(--spacing-4);
 }
 
+.backdropDemoSurface {
+  position: relative;
+  z-index: var(--z-popup);
+}
+
+.backdropDemoTrigger {
+  position: relative;
+  z-index: var(--z-popup);
+}
+
 .customTriggerIcon {
   --menu-trigger-icon-size: 0.875rem;
 }

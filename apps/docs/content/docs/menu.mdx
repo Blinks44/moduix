@@ -148,6 +148,24 @@ common service-slot behavior, and use `slotProps` for the rare cases that need l
 Base UI portal, backdrop, positioner, arrow, or viewport props. Arrow is enabled by default;
 set `withArrow={false}` to disable it:
 
+### Defaults
+
+| Prop           | Default     | Values                                                                |
+| -------------- | ----------- | --------------------------------------------------------------------- |
+| `withArrow`    | `true`      | `true`, `false`                                                       |
+| `withBackdrop` | `false`     | `true`, `false`                                                       |
+| `withViewport` | `false`     | `true`, `false`                                                       |
+| `sideOffset`   | `8`         | `number`                                                              |
+| `container`    | `undefined` | `HTMLElement \| ShadowRoot \| RefObject<HTMLElement \| null> \| null` |
+
+For `MenuSubmenuContent`, defaults are tuned for nested alignment:
+
+| Prop          | Default                 | Values                           |
+| ------------- | ----------------------- | -------------------------------- |
+| `withArrow`   | `false`                 | `true`, `false`                  |
+| `sideOffset`  | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
+| `alignOffset` | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
+
 ```tsx
 <MenuContent
   className={styles.popup}
@@ -480,7 +498,7 @@ Use `openOnHover` when the trigger should behave like a hover menu while keeping
 
 ### Positioned With Backdrop
 
-Use `side`, `align`, and offset props on `MenuContent` to position the popup. Add `withBackdrop` when the menu should render an internal backdrop; style internal service slots through `classNames`.
+Use `side`, `align`, and offset props on `MenuContent` to position the popup. Add `withBackdrop` when the menu should render an internal backdrop; keep the trigger (and its local demo surface) on a higher layer so it remains visible while the backdrop is open.
 
 <Preview>
   <PositionedWithBackdropMenuExample />
@@ -496,26 +514,38 @@ Use `side`, `align`, and offset props on `MenuContent` to position the popup. Ad
         MenuItem,
         MenuSeparator,
       } from "moduix";
+      import styles from "./menu.module.css";
 
       export function PositionedWithBackdropMenu() {
         return (
-          <Menu>
-            <MenuTrigger render={<Button />}>
-              Export
-              <MenuTriggerIcon />
-            </MenuTrigger>
-            <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
-              <MenuItem closeOnClick>Export PNG</MenuItem>
-              <MenuItem closeOnClick>Export PDF</MenuItem>
-              <MenuSeparator />
-              <MenuItem closeOnClick>Copy share link</MenuItem>
-            </MenuContent>
-          </Menu>
+          <div className={styles.backdropDemoSurface}>
+            <Menu>
+              <MenuTrigger render={<Button />} className={styles.backdropDemoTrigger}>
+                Export
+                <MenuTriggerIcon />
+              </MenuTrigger>
+              <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
+                <MenuItem closeOnClick>Export PNG</MenuItem>
+                <MenuItem closeOnClick>Export PDF</MenuItem>
+                <MenuSeparator />
+                <MenuItem closeOnClick>Copy share link</MenuItem>
+              </MenuContent>
+            </Menu>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      .backdropDemoSurface,
+      .backdropDemoTrigger {
+        position: relative;
+        z-index: var(--z-popup);
+      }
+    `}
+  </Preview.CSS>
 </Preview>
 
 ### Open Alert Dialog

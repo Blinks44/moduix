@@ -161,19 +161,34 @@ function MenubarContent({
   ...props
 }: MenubarContentProps) {
   const positionerSlotProps = slotProps?.positioner;
-  const resolvedSide = side ?? positionerSlotProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerSlotProps?.sideOffset ?? 6;
-  const resolvedAlign = align ?? positionerSlotProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerSlotProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerSlotProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerSlotProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerSlotProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerSlotProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerSlotProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerSlotProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerSlotProps?.positionMethod;
-  const resolvedDisableAnchorTracking =
-    disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking;
+  const resolvedPositionerProps = {
+    side: side ?? positionerSlotProps?.side,
+    sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? 6,
+    align: align ?? positionerSlotProps?.align,
+    alignOffset: alignOffset ?? positionerSlotProps?.alignOffset,
+    arrowPadding: arrowPadding ?? positionerSlotProps?.arrowPadding,
+    anchor: anchor ?? positionerSlotProps?.anchor,
+    collisionAvoidance: collisionAvoidance ?? positionerSlotProps?.collisionAvoidance,
+    collisionBoundary: collisionBoundary ?? positionerSlotProps?.collisionBoundary,
+    collisionPadding: collisionPadding ?? positionerSlotProps?.collisionPadding,
+    sticky: sticky ?? positionerSlotProps?.sticky,
+    positionMethod: positionMethod ?? positionerSlotProps?.positionMethod,
+    disableAnchorTracking: disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking,
+  } satisfies Pick<
+    MenuPrimitive.Positioner.Props,
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'arrowPadding'
+    | 'anchor'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'sticky'
+    | 'positionMethod'
+    | 'disableAnchorTracking'
+  >;
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPropsContainer;
   const { arrowChildren, viewportChildren } = splitArrowChildren(children);
@@ -194,18 +209,7 @@ function MenubarContent({
       ) : null}
       <MenubarPositioner
         {...positionerSlotProps}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
-        disableAnchorTracking={resolvedDisableAnchorTracking}
+        {...resolvedPositionerProps}
         className={classNames?.positioner}
       >
         <MenubarPopup className={className} {...props}>

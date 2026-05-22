@@ -406,18 +406,20 @@ export function OpenOnHoverMenuExample() {
 
 export function PositionedWithBackdropMenuExample() {
   return (
-    <Menu>
-      <MenuButtonTrigger>
-        Export
-        <MenuTriggerIcon />
-      </MenuButtonTrigger>
-      <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
-        <MenuItem closeOnClick>Export PNG</MenuItem>
-        <MenuItem closeOnClick>Export PDF</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick>Copy share link</MenuItem>
-      </MenuContent>
-    </Menu>
+    <div className={styles.backdropDemoSurface}>
+      <Menu>
+        <MenuButtonTrigger className={styles.backdropDemoTrigger}>
+          Export
+          <MenuTriggerIcon />
+        </MenuButtonTrigger>
+        <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
+          <MenuItem closeOnClick>Export PNG</MenuItem>
+          <MenuItem closeOnClick>Export PDF</MenuItem>
+          <MenuSeparator />
+          <MenuItem closeOnClick>Copy share link</MenuItem>
+        </MenuContent>
+      </Menu>
+    </div>
   );
 }
 

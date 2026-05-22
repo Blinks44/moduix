@@ -163,6 +163,21 @@ the default arrow, or pass a custom node to `arrow` for full control. Use `conta
 and `withBackdrop` for common service-slot behavior, and use `slotProps` for lower-level Base UI
 portal, backdrop, positioner, arrow, or viewport props:
 
+### Defaults
+
+| Prop                                | Default                                                     | Values                   |
+| ----------------------------------- | ----------------------------------------------------------- | ------------------------ |
+| `Menubar.orientation`               | `horizontal`                                                | `horizontal`, `vertical` |
+| `Menubar.modal`                     | `true`                                                      | `true`, `false`          |
+| `Menubar.loopFocus`                 | `true`                                                      | `true`, `false`          |
+| `Menubar.disabled`                  | `false`                                                     | `true`, `false`          |
+| `MenubarContent.sideOffset`         | `6`                                                         | Any `number`             |
+| `MenubarContent.withArrow`          | `false`                                                     | `true`, `false`          |
+| `MenubarContent.withBackdrop`       | `false`                                                     | `true`, `false`          |
+| `MenubarSubmenuContent.withArrow`   | `false`                                                     | `true`, `false`          |
+| `MenubarSubmenuContent.sideOffset`  | by `side` (`4` for `top`/`bottom`, `-4` for `left`/`right`) | Any `number`             |
+| `MenubarSubmenuContent.alignOffset` | by `side` (`4` for `top`/`bottom`, `-4` for `left`/`right`) | Any `number`             |
+
 ```tsx
 <MenubarContent
   className={styles.popup}

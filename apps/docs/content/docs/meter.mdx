@@ -4,7 +4,6 @@ description: A graphical display of a numeric value within a known range.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   CompositionMeterExample,
   ControlledMeterExample,
@@ -85,6 +84,19 @@ or by composing `MeterTrack` and `MeterIndicator` manually when the design needs
 ## Composition
 
 Use `withTrack={false}` and compose `MeterTrack` with `MeterIndicator` when the visual structure needs direct access to Base UI slots.
+
+### Defaults
+
+| Prop        | Default | Values                     |
+| ----------- | ------- | -------------------------- |
+| `min`       | `0`     | Any `number`               |
+| `max`       | `100`   | Any `number`               |
+| `withTrack` | `true`  | `true` \| `false`          |
+| `value`     | -       | Required `number`          |
+| `format`    | -       | `Intl.NumberFormatOptions` |
+| `locale`    | runtime | `Intl.LocalesArgument`     |
+
+Use `className` for root-level styling and `classNames` for internal `track`/`indicator` slots.
 
 <Preview>
   <CompositionMeterExample />
