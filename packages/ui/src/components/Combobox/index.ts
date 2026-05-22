@@ -39,6 +39,7 @@ export type {
   ComboboxProps,
   ComboboxValueType,
   ComboboxContentClassNames,
+  ComboboxContentSlotProps,
   ComboboxContentProps,
   ComboboxFieldProps,
   ComboboxFieldLabelProps,

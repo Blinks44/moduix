@@ -244,14 +244,22 @@ Use `className` to style the popup and `classNames` for dialog service slots (`p
 `backdrop`, `viewport`). Use `container`, `slotProps`, and `withBackdrop` for the same layering
 controls as other dialog-like components.
 
-| Prop                                   | Default  | Values                                              |
-| -------------------------------------- | -------- | --------------------------------------------------- |
-| `shortcut`                             | `mod+k`  | `false` or keyboard combo string like `shift+mod+p` |
-| `withBackdrop`                         | `true`   | `true`, `false`                                     |
-| `autoHighlight`                        | `always` | Base UI autocomplete `autoHighlight` values         |
-| `keepHighlight`                        | `true`   | `true`, `false`                                     |
-| `mode`                                 | `list`   | Base UI autocomplete `mode` values                  |
-| `closeOnSelect` (`CommandPaletteItem`) | `true`   | `true`, `false`                                     |
+| Prop                                   | Default         | Values                                                |
+| -------------------------------------- | --------------- | ----------------------------------------------------- |
+| `shortcut`                             | `mod+k`         | `false` or keyboard combo string like `shift+mod+p`   |
+| `shortcutTarget`                       | `document`      | `document`, `HTMLElement`, or `null`                  |
+| `withBackdrop`                         | `true`          | `true`, `false`                                       |
+| `container`                            | `document.body` | Any valid dialog portal container                     |
+| `classNames.portal`                    | —               | `className` for portal slot                           |
+| `classNames.backdrop`                  | —               | `className` for backdrop slot                         |
+| `classNames.viewport`                  | —               | `className` for viewport slot                         |
+| `slotProps.portal`                     | —               | Base UI `Dialog.Portal` props (without `className`)   |
+| `slotProps.backdrop`                   | —               | Base UI `Dialog.Backdrop` props (without `className`) |
+| `slotProps.viewport`                   | —               | Base UI `Dialog.Viewport` props (without `className`) |
+| `autoHighlight`                        | `always`        | Base UI autocomplete `autoHighlight` values           |
+| `keepHighlight`                        | `true`          | `true`, `false`                                       |
+| `mode`                                 | `list`          | Base UI autocomplete `mode` values                    |
+| `closeOnSelect` (`CommandPaletteItem`) | `true`          | `true`, `false`                                       |
 
 ## Examples
 

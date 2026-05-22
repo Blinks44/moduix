@@ -19,7 +19,7 @@ function CollapsibleTrigger({
   className,
   children,
   icon,
-  hideIcon = false,
+  withIcon = true,
   classNames,
   slotProps,
   ...props
@@ -33,7 +33,7 @@ function CollapsibleTrigger({
       className={mergeClassName(className, styles.trigger)}
       {...props}
     >
-      {!hideIcon && (
+      {withIcon && (
         <CollapsibleTriggerIcon {...iconProps} className={iconClassName}>
           {icon}
         </CollapsibleTriggerIcon>
@@ -76,13 +76,13 @@ type CollapsibleTriggerSlotProps = {
 };
 type CollapsibleTriggerProps = CollapsiblePrimitive.Trigger.Props & {
   /**
-   * Icon rendered at the start of the trigger. Pass `hideIcon` to remove it.
+   * Icon rendered at the start of the trigger.
    */
   icon?: React.ReactNode;
   /**
-   * Removes the default trigger icon.
+   * Toggles trigger icon rendering.
    */
-  hideIcon?: boolean;
+  withIcon?: boolean;
   /**
    * Classes for internal slots rendered by the trigger.
    */

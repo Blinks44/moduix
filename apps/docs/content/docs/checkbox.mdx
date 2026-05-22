@@ -59,6 +59,20 @@ connect it to forms with `name`, `value`, `uncheckedValue`, `form`, `required`, 
 and `inputRef`. It also supports Base UI composition props such as `render` and
 `nativeButton`.
 
+| Prop             | Default     | Values                                                             |
+| ---------------- | ----------- | ------------------------------------------------------------------ |
+| `size`           | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                                       |
+| `defaultChecked` | `false`     | `boolean`                                                          |
+| `indeterminate`  | `false`     | `boolean`                                                          |
+| `disabled`       | `false`     | `boolean`                                                          |
+| `required`       | `false`     | `boolean`                                                          |
+| `readOnly`       | `false`     | `boolean`                                                          |
+| `nativeButton`   | `false`     | `boolean`                                                          |
+| `checked`        | `undefined` | `boolean` (controlled mode, with `onCheckedChange`)                |
+| `className`      | `undefined` | `string \| ((state) => string \| undefined)`                       |
+| `classNames`     | `undefined` | `{ indicator?, indicatorIcon?, checkedIcon?, indeterminateIcon? }` |
+| `slotProps`      | `undefined` | `{ indicator?, indicatorIcon? }`                                   |
+
 Pass `className` to style the root control. Use `classNames` to style the automatically
 rendered indicator parts. Use `slotProps.indicator` for Base UI indicator props such as
 `keepMounted`, `render`, and state-aware `style`. Compose `CheckboxIndicator` and

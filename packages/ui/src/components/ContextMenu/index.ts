@@ -30,6 +30,7 @@ export type {
   ContextMenuTriggerProps,
   ContextMenuArrowProps,
   ContextMenuContentClassNames,
+  ContextMenuContentSlotProps,
   ContextMenuContentProps,
   ContextMenuItemProps,
   ContextMenuLinkItemProps,

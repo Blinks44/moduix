@@ -121,7 +121,7 @@ ContextMenu
 
 `ContextMenuContent` uses internal service slots (`portal`, optional `backdrop`, `positioner`, `popup`).
 In most cases, keep the default structure and style visible parts such as trigger, items, separators, and
-arrow. Use `classNames`, `portalProps`, `positionerProps`, `backdropProps`, and `withBackdrop` when you
+arrow. Use `classNames`, `slotProps`, and `withBackdrop` when you
 need slot-level customization.
 
 ## Composition
@@ -130,7 +130,7 @@ Pass positioning props such as `sideOffset`, `align`, `collisionPadding`, and `p
 directly to `ContextMenuContent`.
 
 `className` styles the visible popup. `classNames` styles the internal service slots hidden from
-the default composition. Use `container`, `portalProps`, `backdropProps`, `positionerProps`, and
+the default composition. Use `container`, `slotProps`, and
 `withBackdrop` when you need the matching Base UI escape hatches:
 
 ```tsx
@@ -141,9 +141,24 @@ the default composition. Use `container`, `portalProps`, `backdropProps`, `posit
     backdrop: styles.backdrop,
     positioner: styles.positioner,
   }}
+  slotProps={{
+    portal: { keepMounted: true },
+    positioner: { sideOffset: 10 },
+  }}
   withBackdrop
 />
 ```
+
+Legacy aliases `portalProps`, `backdropProps`, and `positionerProps` are still supported for backward compatibility.
+
+### Defaults
+
+| Prop           | Default         | Values                                                         |
+| -------------- | --------------- | -------------------------------------------------------------- |
+| `withBackdrop` | `false`         | `true`, `false`                                                |
+| `sideOffset`   | `8`             | `number`                                                       |
+| `side`         | Base UI default | `top`, `right`, `bottom`, `left`, `inline-start`, `inline-end` |
+| `align`        | Base UI default | `start`, `center`, `end`                                       |
 
 ## Examples
 

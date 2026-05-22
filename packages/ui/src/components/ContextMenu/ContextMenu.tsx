@@ -11,6 +11,12 @@ type ContextMenuContentClassNames = {
   positioner?: ContextMenuPrimitive.Positioner.Props['className'];
 };
 
+type ContextMenuContentSlotProps = {
+  portal?: Omit<ContextMenuPrimitive.Portal.Props, 'className' | 'children'>;
+  backdrop?: Omit<ContextMenuPrimitive.Backdrop.Props, 'className'>;
+  positioner?: Omit<ContextMenuPrimitive.Positioner.Props, 'className' | 'children'>;
+};
+
 type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
   Pick<
     ContextMenuPrimitive.Positioner.Props,
@@ -28,11 +34,9 @@ type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
     | 'disableAnchorTracking'
   > & {
     classNames?: ContextMenuContentClassNames;
+    slotProps?: ContextMenuContentSlotProps;
     container?: ContextMenuPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
-    portalProps?: Omit<ContextMenuPrimitive.Portal.Props, 'className' | 'children'>;
-    backdropProps?: Omit<ContextMenuPrimitive.Backdrop.Props, 'className'>;
-    positionerProps?: Omit<ContextMenuPrimitive.Positioner.Props, 'className' | 'children'>;
   };
 
 type IndicatorPosition = 'start' | 'end';
@@ -110,11 +114,9 @@ function ContextMenuArrow({ className, children, ...props }: ContextMenuPrimitiv
 function ContextMenuContent({
   className,
   classNames,
+  slotProps,
   container,
   withBackdrop = false,
-  portalProps,
-  backdropProps,
-  positionerProps,
   side,
   sideOffset,
   align,
@@ -129,23 +131,23 @@ function ContextMenuContent({
   disableAnchorTracking,
   ...props
 }: ContextMenuContentProps) {
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const {
-    side: positionerPropsSide,
-    sideOffset: positionerPropsSideOffset,
-    align: positionerPropsAlign,
-    alignOffset: positionerPropsAlignOffset,
-    arrowPadding: positionerPropsArrowPadding,
-    anchor: positionerPropsAnchor,
-    collisionAvoidance: positionerPropsCollisionAvoidance,
-    collisionBoundary: positionerPropsCollisionBoundary,
-    collisionPadding: positionerPropsCollisionPadding,
-    sticky: positionerPropsSticky,
-    positionMethod: positionerPropsPositionMethod,
-    disableAnchorTracking: positionerPropsDisableAnchorTracking,
-    ...restPositionerProps
-  } = positionerProps ?? {};
+  const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? portalPropsContainer;
+  const resolvedPositionerProps = slotProps?.positioner;
+  const resolvedSide = side ?? resolvedPositionerProps?.side;
+  const resolvedSideOffset = sideOffset ?? resolvedPositionerProps?.sideOffset ?? 8;
+  const resolvedAlign = align ?? resolvedPositionerProps?.align;
+  const resolvedAlignOffset = alignOffset ?? resolvedPositionerProps?.alignOffset;
+  const resolvedArrowPadding = arrowPadding ?? resolvedPositionerProps?.arrowPadding;
+  const resolvedAnchor = anchor ?? resolvedPositionerProps?.anchor;
+  const resolvedCollisionAvoidance =
+    collisionAvoidance ?? resolvedPositionerProps?.collisionAvoidance;
+  const resolvedCollisionBoundary = collisionBoundary ?? resolvedPositionerProps?.collisionBoundary;
+  const resolvedCollisionPadding = collisionPadding ?? resolvedPositionerProps?.collisionPadding;
+  const resolvedSticky = sticky ?? resolvedPositionerProps?.sticky;
+  const resolvedPositionMethod = positionMethod ?? resolvedPositionerProps?.positionMethod;
+  const resolvedDisableAnchorTracking =
+    disableAnchorTracking ?? resolvedPositionerProps?.disableAnchorTracking;
 
   return (
     <ContextMenuPortal
@@ -154,23 +156,23 @@ function ContextMenuContent({
       {...restPortalProps}
     >
       {withBackdrop ? (
-        <ContextMenuBackdrop className={classNames?.backdrop} {...backdropProps} />
+        <ContextMenuBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
       ) : null}
       <ContextMenuPositioner
-        side={side ?? positionerPropsSide}
-        sideOffset={sideOffset ?? positionerPropsSideOffset ?? 8}
-        align={align ?? positionerPropsAlign}
-        alignOffset={alignOffset ?? positionerPropsAlignOffset}
-        arrowPadding={arrowPadding ?? positionerPropsArrowPadding}
-        anchor={anchor ?? positionerPropsAnchor}
-        collisionAvoidance={collisionAvoidance ?? positionerPropsCollisionAvoidance}
-        collisionBoundary={collisionBoundary ?? positionerPropsCollisionBoundary}
-        collisionPadding={collisionPadding ?? positionerPropsCollisionPadding}
-        sticky={sticky ?? positionerPropsSticky}
-        positionMethod={positionMethod ?? positionerPropsPositionMethod}
-        disableAnchorTracking={disableAnchorTracking ?? positionerPropsDisableAnchorTracking}
+        {...resolvedPositionerProps}
+        side={resolvedSide}
+        sideOffset={resolvedSideOffset}
+        align={resolvedAlign}
+        alignOffset={resolvedAlignOffset}
+        arrowPadding={resolvedArrowPadding}
+        anchor={resolvedAnchor}
+        collisionAvoidance={resolvedCollisionAvoidance}
+        collisionBoundary={resolvedCollisionBoundary}
+        collisionPadding={resolvedCollisionPadding}
+        sticky={resolvedSticky}
+        positionMethod={resolvedPositionMethod}
+        disableAnchorTracking={resolvedDisableAnchorTracking}
         className={classNames?.positioner}
-        {...restPositionerProps}
       >
         <ContextMenuPopup className={className} {...props} />
       </ContextMenuPositioner>
@@ -449,6 +451,7 @@ export type {
   ContextMenuTriggerProps,
   ContextMenuArrowProps,
   ContextMenuContentClassNames,
+  ContextMenuContentSlotProps,
   ContextMenuContentProps,
   ContextMenuItemProps,
   ContextMenuLinkItemProps,

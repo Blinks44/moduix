@@ -106,6 +106,15 @@ Use `interactive` when the whole card should visually respond to hover, and add 
 keyboard and click behavior in application code. Pass `className` to any slot and customize the
 visual contract with `--card-*` variables.
 
+| Prop          | Default   | Values                                             |
+| ------------- | --------- | -------------------------------------------------- |
+| `variant`     | `default` | `default`, `elevated`, `outline`, `ghost`          |
+| `size`        | `md`      | `xs`, `sm`, `md`, `lg`                             |
+| `interactive` | `false`   | `true`, `false`                                    |
+| `as`          | `div`     | `div`, `article`, `section`, `aside`               |
+| `align`       | `end`     | `start`, `center`, `end`, `between` (`CardFooter`) |
+| `withDivider` | `false`   | `true`, `false` (`CardHeader` and `CardFooter`)    |
+
 ## Examples
 
 ### With Footer

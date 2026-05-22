@@ -18,6 +18,14 @@ supports button behavior such as `disabled`, `focusableWhenDisabled`, and `rende
 Use `className` to style the root button. `CloseButton` has no hidden service slots, so it does
 not expose a `classNames` object.
 
+## Defaults
+
+| Prop         | Default     |
+| ------------ | ----------- |
+| `type`       | `button`    |
+| `aria-label` | `Close`     |
+| `children`   | `CloseIcon` |
+
 ## CSS variables
 
 - `--close-button-bg`

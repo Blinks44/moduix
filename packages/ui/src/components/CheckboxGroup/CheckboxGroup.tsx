@@ -2,8 +2,18 @@ import { CheckboxGroup as CheckboxGroupPrimitive } from '@base-ui/react/checkbox
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
-import { Checkbox, type CheckboxProps } from '../Checkbox';
+import { Checkbox } from '../Checkbox';
 import styles from './CheckboxGroup.module.css';
+
+type CheckboxGroupProps = CheckboxGroupPrimitive.Props;
+type CheckboxGroupState = CheckboxGroupPrimitive.State;
+type CheckboxGroupChangeEventReason = CheckboxGroupPrimitive.ChangeEventReason;
+type CheckboxGroupChangeEventDetails = CheckboxGroupPrimitive.ChangeEventDetails;
+type CheckboxGroupLabelProps = React.ComponentProps<'div'>;
+type CheckboxGroupListProps = React.ComponentProps<'div'>;
+type CheckboxGroupItemProps = React.ComponentProps<'label'>;
+type CheckboxGroupItemControlProps = React.ComponentProps<typeof Checkbox>;
+type CheckboxGroupItemLabelProps = React.ComponentProps<'span'>;
 
 function CheckboxGroup({ className, ...props }: CheckboxGroupPrimitive.Props) {
   return (
@@ -33,8 +43,6 @@ function CheckboxGroupItem({ className, ...props }: CheckboxGroupItemProps) {
   );
 }
 
-type CheckboxGroupItemControlProps = CheckboxProps;
-
 function CheckboxGroupItemControl(props: CheckboxGroupItemControlProps) {
   return <Checkbox data-slot="checkbox-group-item-control" {...props} />;
 }
@@ -48,15 +56,6 @@ function CheckboxGroupItemLabel({ className, ...props }: CheckboxGroupItemLabelP
     />
   );
 }
-
-type CheckboxGroupProps = CheckboxGroupPrimitive.Props;
-type CheckboxGroupState = CheckboxGroupPrimitive.State;
-type CheckboxGroupChangeEventReason = CheckboxGroupPrimitive.ChangeEventReason;
-type CheckboxGroupChangeEventDetails = CheckboxGroupPrimitive.ChangeEventDetails;
-type CheckboxGroupLabelProps = React.ComponentProps<'div'>;
-type CheckboxGroupListProps = React.ComponentProps<'div'>;
-type CheckboxGroupItemProps = React.ComponentProps<'label'>;
-type CheckboxGroupItemLabelProps = React.ComponentProps<'span'>;
 
 export {
   CheckboxGroup,

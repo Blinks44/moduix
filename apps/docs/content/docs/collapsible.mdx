@@ -113,7 +113,7 @@ Collapsible
 | `CollapsiblePanel`       | Collapsible content region. Put spacing/surface wrappers inside it for cleaner animations.                    |
 
 `CollapsibleTrigger` renders its icon internally so the common composition stays compact.
-Use `icon`, `hideIcon`, `classNames.icon`, and `slotProps.icon` when you need to replace,
+Use `icon`, `withIcon`, `classNames.icon`, and `slotProps.icon` when you need to replace,
 remove, style, or pass props to that internal slot. `CollapsibleTriggerIcon` is still exported
 for advanced manual composition, but most projects do not need it.
 
@@ -131,6 +131,17 @@ and `CollapsiblePanel` directly with `className`. Use `classNames.icon` for the 
 inside `CollapsibleTrigger`, or compose `CollapsibleTriggerIcon` manually when you need full
 control over trigger children. All Base UI behavior props such as `render`, `nativeButton`,
 `keepMounted`, and `hiddenUntilFound` pass through to the matching primitive part.
+
+| Prop              | Default      | Values                                                                     |
+| ----------------- | ------------ | -------------------------------------------------------------------------- |
+| `open`            | -            | `boolean` (controlled)                                                     |
+| `defaultOpen`     | `false`      | `boolean` (uncontrolled initial state)                                     |
+| `disabled`        | `false`      | `boolean`                                                                  |
+| `withIcon`        | `true`       | `boolean`                                                                  |
+| `icon`            | Chevron icon | `ReactNode`                                                                |
+| `className`       | -            | Root/part class string or Base UI state resolver function                  |
+| `classNames.icon` | -            | Icon slot class string                                                     |
+| `slotProps.icon`  | -            | Icon slot props (`aria-*`, `data-*`, etc., excluding `children/className`) |
 
 ## Examples
 

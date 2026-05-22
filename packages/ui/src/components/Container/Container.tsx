@@ -7,29 +7,15 @@ type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
 type ContainerAlign = 'start' | 'center' | 'end';
 type ContainerAs = React.ElementType;
 
-type ContainerOwnProps<As extends ContainerAs = 'div'> = {
-  as?: As;
+type ContainerProps = React.ComponentPropsWithoutRef<'div'> & {
+  as?: ContainerAs;
   size?: ContainerSize;
   gutter?: ContainerGutter;
   align?: ContainerAlign;
 };
 
-type ContainerProps<As extends ContainerAs = 'div'> = ContainerOwnProps<As> &
-  Omit<React.ComponentPropsWithRef<As>, keyof ContainerOwnProps<As>>;
-
-type ContainerComponent = <As extends ContainerAs = 'div'>(
-  props: ContainerProps<As>,
-) => React.ReactElement | null;
-
 const Container = React.forwardRef(function Container(
-  {
-    as,
-    size = 'lg',
-    gutter = 'md',
-    align = 'center',
-    className,
-    ...props
-  }: ContainerProps<ContainerAs>,
+  { as, size = 'lg', gutter = 'md', align = 'center', className, ...props }: ContainerProps,
   ref: React.ForwardedRef<Element>,
 ) {
   const Component = as ?? 'div';
@@ -45,7 +31,7 @@ const Container = React.forwardRef(function Container(
       {...props}
     />
   );
-}) as ContainerComponent;
+});
 
 export { Container };
 

@@ -5,13 +5,11 @@ import { CheckSmallIcon, IndeterminateIcon } from '@/primitives';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Checkbox.module.css';
 
-const CheckIcon = CheckSmallIcon;
-
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 type CheckboxClassNames = {
   indicator?: CheckboxIndicatorProps['className'];
-  indicatorIcon?: string;
+  indicatorIcon?: CheckboxIndicatorIconProps['className'];
   checkedIcon?: string;
   indeterminateIcon?: string;
 };
@@ -41,6 +39,17 @@ function Checkbox({
   slotProps,
   ...props
 }: CheckboxProps) {
+  const indicatorContent = indicator ?? (
+    <CheckboxIndicatorIcon
+      {...slotProps?.indicatorIcon}
+      className={classNames?.indicatorIcon}
+      checkedIcon={checkedIcon}
+      checkedIconClassName={classNames?.checkedIcon}
+      indeterminateIcon={indeterminateIcon}
+      indeterminateIconClassName={classNames?.indeterminateIcon}
+    />
+  );
+
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox-root"
@@ -48,22 +57,9 @@ function Checkbox({
       className={mergeClassName(className, styles.root)}
       {...props}
     >
-      {children !== undefined ? (
-        children
-      ) : (
+      {children ?? (
         <CheckboxIndicator {...slotProps?.indicator} className={classNames?.indicator}>
-          {indicator !== undefined ? (
-            indicator
-          ) : (
-            <CheckboxIndicatorIcon
-              {...slotProps?.indicatorIcon}
-              className={classNames?.indicatorIcon}
-              checkedIcon={checkedIcon}
-              checkedIconClassName={classNames?.checkedIcon}
-              indeterminateIcon={indeterminateIcon}
-              indeterminateIconClassName={classNames?.indeterminateIcon}
-            />
-          )}
+          {indicatorContent}
         </CheckboxIndicator>
       )}
     </CheckboxPrimitive.Root>
@@ -86,22 +82,22 @@ function CheckboxIndicator({
   indeterminateIconClassName,
   ...props
 }: CheckboxIndicatorProps) {
+  const indicatorIcon = children ?? (
+    <CheckboxIndicatorIcon
+      checkedIcon={checkedIcon}
+      checkedIconClassName={checkedIconClassName}
+      indeterminateIcon={indeterminateIcon}
+      indeterminateIconClassName={indeterminateIconClassName}
+    />
+  );
+
   return (
     <CheckboxPrimitive.Indicator
       data-slot="checkbox-indicator"
       className={mergeClassName(className, styles.indicator)}
       {...props}
     >
-      {children !== undefined ? (
-        children
-      ) : (
-        <CheckboxIndicatorIcon
-          checkedIcon={checkedIcon}
-          checkedIconClassName={checkedIconClassName}
-          indeterminateIcon={indeterminateIcon}
-          indeterminateIconClassName={indeterminateIconClassName}
-        />
-      )}
+      {indicatorIcon}
     </CheckboxPrimitive.Indicator>
   );
 }
@@ -127,13 +123,13 @@ function CheckboxIndicatorIcon({
         data-slot="checkbox-indicator-checked-icon"
         className={clsx(styles.iconChecked, checkedIconClassName)}
       >
-        {checkedIcon !== undefined ? checkedIcon : <CheckIcon />}
+        {checkedIcon ?? <CheckSmallIcon />}
       </span>
       <span
         data-slot="checkbox-indicator-indeterminate-icon"
         className={clsx(styles.iconIndeterminate, indeterminateIconClassName)}
       >
-        {indeterminateIcon !== undefined ? indeterminateIcon : <IndeterminateIcon />}
+        {indeterminateIcon ?? <IndeterminateIcon />}
       </span>
     </span>
   );

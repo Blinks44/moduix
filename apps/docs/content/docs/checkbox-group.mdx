@@ -130,6 +130,17 @@ Use `CheckboxGroup` for shared Base UI state and behavior props such as `value`,
 state-aware `style`. Use `allValues` together with a child checkbox `parent` prop for
 select-all behavior.
 
+| Prop                                    | Default     | Values                                                                  |
+| --------------------------------------- | ----------- | ----------------------------------------------------------------------- |
+| `defaultValue`                          | `[]`        | `string[]`                                                              |
+| `disabled`                              | `false`     | `boolean`                                                               |
+| `value`                                 | `undefined` | `string[]` (controlled mode, with `onValueChange`)                      |
+| `className`                             | `undefined` | `string \| ((state) => string \| undefined)`                            |
+| `allValues`                             | `undefined` | `string[]` (required for parent/select-all checkbox patterns)           |
+| `CheckboxGroupItemControl.size`         | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                                            |
+| `CheckboxGroupItemControl.parent`       | `false`     | `boolean` (enables parent checkbox behavior when group has `allValues`) |
+| `CheckboxGroupItemControl.nativeButton` | `false`     | `boolean`                                                               |
+
 `CheckboxGroupLabel`, `CheckboxGroupList`, `CheckboxGroupItem`, and
 `CheckboxGroupItemLabel` are layout slots. Pass `className` to style each visible slot.
 `CheckboxGroupItemControl` composes `Checkbox`, so it supports checkbox props such as `size`,

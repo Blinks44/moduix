@@ -201,10 +201,16 @@ recommended composition:
 | Popup placement                         | Pass `side`, `align`, offsets, collision props, and `container` to `ComboboxContent`.              |
 | Portal, backdrop, positioner, arrow     | Use `ComboboxContent` props instead of composing those service slots manually.                     |
 
+| Prop           | Default | Values                                                                            |
+| -------------- | ------- | --------------------------------------------------------------------------------- |
+| `withBackdrop` | `false` | `true`, `false`                                                                   |
+| `withArrow`    | `false` | `true`, `false`                                                                   |
+| `sideOffset`   | `5`     | `number`                                                                          |
+| `container`    | `body`  | `HTMLElement`, `ShadowRoot`, or a callback returning one of them (`null` allowed) |
+
 `className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
-`positionerProps`, `arrowProps`, `withBackdrop`, and `arrow` when you need the matching
-Base UI escape hatches:
+hidden from the default composition. Use `container`, `slotProps`, `withBackdrop`, and `withArrow`
+for service-slot customization:
 
 ```tsx
 <ComboboxContent
@@ -217,8 +223,14 @@ Base UI escape hatches:
     positioner: styles.positioner,
     arrow: styles.arrow,
   }}
+  slotProps={{
+    portal: { keepMounted: true },
+    positioner: { side: 'bottom', sideOffset: 8 },
+  }}
 />
 ```
+
+Use `slotProps` + `withArrow` for service-slot composition.
 
 Every visible part accepts `className` and the Base UI `render` prop where the underlying primitive
 supports it, so the component can be styled with CSS Modules, plain CSS, CSS-in-JS, cascade layers,

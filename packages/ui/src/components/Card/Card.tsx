@@ -51,24 +51,37 @@ function Card({
   );
 }
 
-function CardHeader({ className, withDivider = false, ...props }: CardHeaderProps) {
+const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(function CardHeader(
+  { className, withDivider = false, ...props },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       data-slot="card-header"
       data-divided={withDivider ? '' : undefined}
       className={clsx(styles.header, className)}
       {...props}
     />
   );
-}
+});
 
-function CardBody({ className, ...props }: CardBodyProps) {
-  return <div data-slot="card-body" className={clsx(styles.body, className)} {...props} />;
-}
+const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(function CardBody(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <div ref={ref} data-slot="card-body" className={clsx(styles.body, className)} {...props} />
+  );
+});
 
-function CardFooter({ className, align = 'end', withDivider = false, ...props }: CardFooterProps) {
+const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(function CardFooter(
+  { className, align = 'end', withDivider = false, ...props },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       data-slot="card-footer"
       data-align={align}
       data-divided={withDivider ? '' : undefined}
@@ -76,21 +89,45 @@ function CardFooter({ className, align = 'end', withDivider = false, ...props }:
       {...props}
     />
   );
-}
+});
 
-function CardTitle({ className, ...props }: CardTitleProps) {
-  return <h3 data-slot="card-title" className={clsx(styles.title, className)} {...props} />;
-}
-
-function CardDescription({ className, ...props }: CardDescriptionProps) {
+const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(function CardTitle(
+  { className, ...props },
+  ref,
+) {
   return (
-    <p data-slot="card-description" className={clsx(styles.description, className)} {...props} />
+    <h3 ref={ref} data-slot="card-title" className={clsx(styles.title, className)} {...props} />
   );
-}
+});
 
-function CardAction({ className, ...props }: CardActionProps) {
-  return <div data-slot="card-action" className={clsx(styles.action, className)} {...props} />;
-}
+const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
+  function CardDescription({ className, ...props }, ref) {
+    return (
+      <p
+        ref={ref}
+        data-slot="card-description"
+        className={clsx(styles.description, className)}
+        {...props}
+      />
+    );
+  },
+);
+
+const CardAction = React.forwardRef<HTMLDivElement, CardActionProps>(function CardAction(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <div ref={ref} data-slot="card-action" className={clsx(styles.action, className)} {...props} />
+  );
+});
+
+CardHeader.displayName = 'CardHeader';
+CardBody.displayName = 'CardBody';
+CardFooter.displayName = 'CardFooter';
+CardTitle.displayName = 'CardTitle';
+CardDescription.displayName = 'CardDescription';
+CardAction.displayName = 'CardAction';
 
 export { Card, CardHeader, CardBody, CardFooter, CardTitle, CardDescription, CardAction };
 

@@ -9,7 +9,7 @@ import styles from './CommandPalette.module.css';
 type CommandPaletteShortcut = false | string;
 
 type CommandPaletteContextValue = {
-  handle: DialogPrimitive.Handle<unknown>;
+  handle: CommandPaletteHandle;
 };
 
 type CommandPaletteProps<Payload = unknown> = DialogPrimitive.Root.Props<Payload> & {
@@ -59,6 +59,7 @@ const CommandPaletteContext = React.createContext<CommandPaletteContextValue | n
 const createCommandPaletteHandle = DialogPrimitive.createHandle;
 const useCommandPaletteFilter = AutocompletePrimitive.useFilter;
 const useCommandPaletteFilteredItems = AutocompletePrimitive.useFilteredItems;
+type CommandPaletteHandle = DialogPrimitive.Handle<unknown>;
 
 function useCommandPaletteContext(componentName: string) {
   const context = React.useContext(CommandPaletteContext);
@@ -108,12 +109,7 @@ function CommandPalette<Payload = unknown>({
     }
 
     const target = shortcutTarget ?? document;
-
-    const handleKeyDown = (event: Event) => {
-      if (!(event instanceof KeyboardEvent)) {
-        return;
-      }
-
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.defaultPrevented || !isShortcutMatch(event, shortcut)) {
         return;
       }
@@ -122,12 +118,13 @@ function CommandPalette<Payload = unknown>({
       resolvedHandle.open(null);
     };
 
-    target.addEventListener('keydown', handleKeyDown);
-    return () => target.removeEventListener('keydown', handleKeyDown);
+    const eventListener = handleKeyDown as EventListener;
+    target.addEventListener('keydown', eventListener);
+    return () => target.removeEventListener('keydown', eventListener);
   }, [resolvedHandle, shortcut, shortcutTarget]);
 
   const contextValue = React.useMemo<CommandPaletteContextValue>(
-    () => ({ handle: resolvedHandle as DialogPrimitive.Handle<unknown> }),
+    () => ({ handle: resolvedHandle as CommandPaletteHandle }),
     [resolvedHandle],
   );
 
@@ -222,12 +219,8 @@ function CommandPaletteContent<ItemValue = unknown>({
   >(
     (nextOpen, eventDetails) => {
       onAutocompleteOpenChange?.(nextOpen, eventDetails);
-
-      if (!nextOpen) {
-        handle.close();
-      }
     },
-    [handle, onAutocompleteOpenChange],
+    [onAutocompleteOpenChange],
   );
   const handlePopupKeyDownCapture = React.useCallback<
     NonNullable<DialogPrimitive.Popup.Props['onKeyDownCapture']>
@@ -268,7 +261,7 @@ function CommandPaletteContent<ItemValue = unknown>({
         >
           <AutocompletePrimitive.Root
             open
-            items={items as readonly ItemValue[] | undefined}
+            items={items}
             itemToStringValue={itemToStringValue}
             value={value}
             defaultValue={defaultValue}
@@ -470,7 +463,7 @@ function CommandPaletteKbd({ className, ...props }: React.ComponentProps<'kbd'>)
   return <kbd data-slot="command-palette-kbd" className={clsx(styles.kbd, className)} {...props} />;
 }
 
-type CommandPaletteHandle<Payload = unknown> = DialogPrimitive.Handle<Payload>;
+type CommandPalettePublicHandle<Payload = unknown> = DialogPrimitive.Handle<Payload>;
 type CommandPaletteTriggerProps = DialogPrimitive.Trigger.Props;
 type CommandPaletteInputWrapProps = React.ComponentProps<'div'>;
 type CommandPaletteInputProps = AutocompletePrimitive.Input.Props;
@@ -519,7 +512,7 @@ export {
 
 export type {
   CommandPaletteProps,
-  CommandPaletteHandle,
+  CommandPalettePublicHandle as CommandPaletteHandle,
   CommandPaletteTriggerProps,
   CommandPaletteContentProps,
   CommandPaletteContentClassNames,

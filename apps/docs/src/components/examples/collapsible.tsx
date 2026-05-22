@@ -33,12 +33,14 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-icon-transition', 'var(--transition-default)', 'Controls icon transition.'],
   ['--collapsible-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
   ['--collapsible-panel-font-size', 'var(--text-sm)', 'Controls panel font size.'],
+  ['--collapsible-panel-height', 'auto (runtime)', 'Current panel height used for animation.'],
   ['--collapsible-panel-line-height', 'var(--line-height-text-sm)', 'Controls panel line height.'],
   [
     '--collapsible-panel-transition',
     'var(--transition-default)',
     'Controls panel open and close transition.',
   ],
+  ['--collapsible-panel-width', 'auto (runtime)', 'Current panel width set by Base UI runtime.'],
   ['--collapsible-trigger-bg', 'transparent', 'Controls trigger background color.'],
   [
     '--collapsible-trigger-bg-active',

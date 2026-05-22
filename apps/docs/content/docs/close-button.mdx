@@ -110,6 +110,12 @@ with another element, `nativeButton` for non-button render targets, and `focusab
 when a disabled control should remain in the tab order. The default accessible name is `Close`;
 pass `aria-label` for the specific surface being dismissed.
 
+| Prop         | Default     | Values                                           |
+| ------------ | ----------- | ------------------------------------------------ |
+| `type`       | `button`    | Any valid button `type` value                    |
+| `aria-label` | `Close`     | Any descriptive label for the dismissed surface  |
+| `children`   | `CloseIcon` | Any React node (typically custom icon component) |
+
 Use `className` to style the root button. The component has no hidden service slots, so styling
 does not require `classNames`.
 

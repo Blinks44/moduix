@@ -18,6 +18,13 @@ type ComboboxContentClassNames = {
   arrow?: ComboboxPrimitive.Arrow.Props['className'];
 };
 
+type ComboboxContentSlotProps = {
+  portal?: Omit<ComboboxPrimitive.Portal.Props, 'className' | 'children'>;
+  backdrop?: Omit<ComboboxPrimitive.Backdrop.Props, 'className'>;
+  positioner?: Omit<ComboboxPrimitive.Positioner.Props, 'className' | 'children'>;
+  arrow?: Omit<ComboboxPrimitive.Arrow.Props, 'className' | 'children'>;
+};
+
 type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
   Pick<
     ComboboxPrimitive.Positioner.Props,
@@ -34,14 +41,11 @@ type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
     | 'positionMethod'
   > & {
     classNames?: ComboboxContentClassNames;
+    slotProps?: ComboboxContentSlotProps;
     container?: ComboboxPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
     withArrow?: boolean;
     arrow?: boolean | React.ReactNode;
-    portalProps?: Omit<ComboboxPrimitive.Portal.Props, 'className' | 'children'>;
-    backdropProps?: Omit<ComboboxPrimitive.Backdrop.Props, 'className'>;
-    positionerProps?: Omit<ComboboxPrimitive.Positioner.Props, 'className' | 'children'>;
-    arrowProps?: Omit<ComboboxPrimitive.Arrow.Props, 'className' | 'children'>;
   };
 
 type IndicatorPosition = 'start' | 'end';
@@ -196,14 +200,11 @@ function ComboboxArrow({ className, children, ...props }: ComboboxPrimitive.Arro
 function ComboboxContent({
   className,
   classNames,
+  slotProps,
   container,
   withBackdrop = false,
   withArrow,
   arrow,
-  portalProps,
-  backdropProps,
-  positionerProps,
-  arrowProps,
   side,
   sideOffset,
   align,
@@ -217,6 +218,11 @@ function ComboboxContent({
   positionMethod,
   ...props
 }: ComboboxContentProps) {
+  const portalProps = slotProps?.portal;
+  const backdropProps = slotProps?.backdrop;
+  const positionerProps = slotProps?.positioner;
+  const arrowProps = slotProps?.arrow;
+
   const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
   const portalContainer = container ?? portalPropsContainer;
   const resolvedSide = side ?? positionerProps?.side;
@@ -548,6 +554,7 @@ export type {
   ComboboxProps,
   ComboboxValueType,
   ComboboxContentClassNames,
+  ComboboxContentSlotProps,
   ComboboxContentProps,
   ComboboxFieldProps,
   ComboboxFieldLabelProps,
