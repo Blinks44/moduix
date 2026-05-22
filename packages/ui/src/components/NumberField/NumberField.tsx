@@ -4,15 +4,23 @@ import { MinusIcon, PlusSmallIcon, ScrubCursorIcon } from '@/primitives';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './NumberField.module.css';
 
+const DEFAULT_DECREMENT_LABEL = 'Decrease value';
+const DEFAULT_INCREMENT_LABEL = 'Increase value';
+
+type NumberFieldGroupProps = NumberFieldPrimitive.Group.Props;
+type NumberFieldDecrementProps = NumberFieldPrimitive.Decrement.Props;
+type NumberFieldInputProps = NumberFieldPrimitive.Input.Props;
+type NumberFieldIncrementProps = NumberFieldPrimitive.Increment.Props;
+
 type NumberFieldScrubAreaClassNames = {
   cursor?: NumberFieldPrimitive.ScrubAreaCursor.Props['className'];
 };
 
 type NumberFieldClassNames = {
-  group?: NumberFieldPrimitive.Group.Props['className'];
-  decrement?: NumberFieldPrimitive.Decrement.Props['className'];
-  input?: NumberFieldPrimitive.Input.Props['className'];
-  increment?: NumberFieldPrimitive.Increment.Props['className'];
+  group?: NumberFieldGroupProps['className'];
+  decrement?: NumberFieldDecrementProps['className'];
+  input?: NumberFieldInputProps['className'];
+  increment?: NumberFieldIncrementProps['className'];
 };
 
 type NumberFieldProps = NumberFieldPrimitive.Root.Props & {
@@ -32,8 +40,8 @@ function NumberField({
   className,
   classNames,
   children,
-  decrementLabel = 'Decrease value',
-  incrementLabel = 'Increase value',
+  decrementLabel = DEFAULT_DECREMENT_LABEL,
+  incrementLabel = DEFAULT_INCREMENT_LABEL,
   withGroup = true,
   ...props
 }: NumberFieldProps) {
@@ -102,11 +110,7 @@ function NumberFieldGroup({ className, ...props }: NumberFieldPrimitive.Group.Pr
   );
 }
 
-function NumberFieldDecrement({
-  className,
-  children,
-  ...props
-}: NumberFieldPrimitive.Decrement.Props) {
+function NumberFieldDecrement({ className, children, ...props }: NumberFieldDecrementProps) {
   return (
     <NumberFieldPrimitive.Decrement
       data-slot="number-field-decrement"
@@ -118,7 +122,7 @@ function NumberFieldDecrement({
   );
 }
 
-function NumberFieldInput({ className, ...props }: NumberFieldPrimitive.Input.Props) {
+function NumberFieldInput({ className, ...props }: NumberFieldInputProps) {
   return (
     <NumberFieldPrimitive.Input
       data-slot="number-field-input"
@@ -128,11 +132,7 @@ function NumberFieldInput({ className, ...props }: NumberFieldPrimitive.Input.Pr
   );
 }
 
-function NumberFieldIncrement({
-  className,
-  children,
-  ...props
-}: NumberFieldPrimitive.Increment.Props) {
+function NumberFieldIncrement({ className, children, ...props }: NumberFieldIncrementProps) {
   return (
     <NumberFieldPrimitive.Increment
       data-slot="number-field-increment"
@@ -143,11 +143,6 @@ function NumberFieldIncrement({
     </NumberFieldPrimitive.Increment>
   );
 }
-
-type NumberFieldGroupProps = NumberFieldPrimitive.Group.Props;
-type NumberFieldDecrementProps = NumberFieldPrimitive.Decrement.Props;
-type NumberFieldInputProps = NumberFieldPrimitive.Input.Props;
-type NumberFieldIncrementProps = NumberFieldPrimitive.Increment.Props;
 
 export {
   NumberField,

@@ -32,10 +32,13 @@
 }
 
 .fullWidthMenu {
-  --navigation-menu-full-width-inset: 0px;
   --navigation-menu-full-width-content-justify: center;
   --navigation-menu-list-justify: center;
   width: 100%;
+}
+
+.fullWidthPositioner {
+  --navigation-menu-full-width-inset: 32px;
 }
 
 .fullWidthContent {
@@ -58,7 +61,7 @@
   gap: var(--spacing-1);
   width: min(100%, var(--navigation-menu-full-width-grid-max));
   max-width: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   list-style: none;
 }

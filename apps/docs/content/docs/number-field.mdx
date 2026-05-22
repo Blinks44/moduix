@@ -112,6 +112,16 @@ Visible parts accept `className`: `NumberField`, `NumberFieldScrubArea`, `Number
 also accepts `cursor` for replacing the default scrub cursor icon, `withCursor={false}` for hiding
 it, and `classNames.cursor` for styling the internal cursor wrapper.
 
+### Defaults
+
+| Prop             | Default            | Values                                                                 |
+| ---------------- | ------------------ | ---------------------------------------------------------------------- |
+| `withGroup`      | `true`             | `true`, `false`                                                        |
+| `decrementLabel` | `"Decrease value"` | Any string                                                             |
+| `incrementLabel` | `"Increase value"` | Any string                                                             |
+| `withCursor`     | `true`             | `true`, `false` (`NumberFieldScrubArea` only)                          |
+| `cursor`         | `ScrubCursorIcon`  | Any React node, or `null` to hide cursor (`NumberFieldScrubArea` only) |
+
 ## Examples
 
 ### Controlled

@@ -136,7 +136,12 @@ export const FullWidthPopup: Story = {
         <div className={styles.fullWidthContainer}>
           <NavigationMenu
             className={styles.fullWidthMenu}
-            popupContent={{ fullWidth: true, sideOffset: 12, withArrow: false }}
+            popupContent={{
+              fullWidth: true,
+              sideOffset: 12,
+              withArrow: false,
+              classNames: { positioner: styles.fullWidthPositioner },
+            }}
           >
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -396,6 +401,11 @@ const developerLinks = [
     title: 'Composition',
     description: 'Wrap and combine parts to match your product structure.',
   },
+  {
+    href: '#',
+    title: 'SDK Changelog',
+    description: 'Track integration updates before release windows.',
+  },
 ] as const;
 
 const platformLinks = [
@@ -408,6 +418,11 @@ const platformLinks = [
     href: '#',
     title: 'Routing API',
     description: 'Build routes, ETA and navigation flows.',
+  },
+  {
+    href: '#',
+    title: 'Geocoder API',
+    description: 'Convert addresses and coordinates in both directions.',
   },
 ] as const;
 
@@ -426,6 +441,11 @@ const systemLinks = [
     href: '#',
     title: 'Release notes',
     description: 'Track version changes before upgrades surprise teams.',
+  },
+  {
+    href: '#',
+    title: 'Contributing',
+    description: 'Document review flow and ownership of UI changes.',
   },
 ] as const;
 

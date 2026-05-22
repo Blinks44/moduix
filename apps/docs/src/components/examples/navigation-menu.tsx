@@ -190,7 +190,6 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
 export const navigationMenuPlaygroundCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-bg', 'transparent', 'Controls root background.'],
   ['--navigation-menu-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--navigation-menu-full-width-inset', '0px', 'Controls full-width popup viewport inset.'],
   ['--navigation-menu-list-justify', 'flex-start', 'Controls top-level item alignment.'],
   ['--navigation-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
   ['--navigation-menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
@@ -292,7 +291,12 @@ export function FullWidthNavigationMenuExample() {
       <div className={styles.fullWidthContainer}>
         <NavigationMenu
           className={styles.fullWidthMenu}
-          popupContent={{ fullWidth: true, sideOffset: 12, withArrow: false }}
+          popupContent={{
+            fullWidth: true,
+            sideOffset: 12,
+            withArrow: false,
+            classNames: { positioner: styles.fullWidthPositioner },
+          }}
         >
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -664,6 +668,11 @@ const fullWidthPlatformLinks = [
     title: 'Routing API',
     description: 'Build routes, ETA and navigation flows.',
   },
+  {
+    href: '#',
+    title: 'Geocoder API',
+    description: 'Convert addresses and coordinates in both directions.',
+  },
 ] as const satisfies readonly NavigationLink[];
 
 const fullWidthDeveloperLinks = [
@@ -681,6 +690,11 @@ const fullWidthDeveloperLinks = [
     href: '#',
     title: 'Rate Limits',
     description: 'Plan request quotas and retries.',
+  },
+  {
+    href: '#',
+    title: 'SDK Changelog',
+    description: 'Track integration updates before release windows.',
   },
 ] as const satisfies readonly NavigationLink[];
 
@@ -704,5 +718,10 @@ const fullWidthSystemLinks = [
     href: '#',
     title: 'Governance',
     description: 'Keep patterns consistent across teams.',
+  },
+  {
+    href: '#',
+    title: 'Contributing',
+    description: 'Document review flow and ownership of UI changes.',
   },
 ] as const satisfies readonly NavigationLink[];

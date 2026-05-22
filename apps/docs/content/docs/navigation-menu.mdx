@@ -288,6 +288,19 @@ the popup to viewport width, and `popupContent.slotProps` when a service slot ne
 Use `popupContent={false}` and `withViewport` when a nested menu should render its content inside
 the current panel instead of opening another popup.
 
+### Defaults
+
+| Prop                             | Default                | Values                          |
+| -------------------------------- | ---------------------- | ------------------------------- |
+| `withViewport`                   | `false`                | `true`, `false`                 |
+| `popupContent`                   | `{}`                   | `false` or popup options object |
+| `popupContent.sideOffset`        | `10`                   | Number                          |
+| `popupContent.withArrow`         | `true`                 | `true`, `false`                 |
+| `popupContent.withBackdrop`      | `false`                | `true`, `false`                 |
+| `popupContent.fullWidth`         | `false`                | `true`, `false`                 |
+| `NavigationMenuTrigger.hideIcon` | `false`                | `true`, `false`                 |
+| `NavigationMenuTrigger.icon`     | `ChevronDownSmallIcon` | Any React node                  |
+
 ## Examples
 
 ### Full Width Popup
@@ -317,7 +330,12 @@ alignment control through CSS.
             <div className={styles.container}>
               <NavigationMenu
                 className={styles.menu}
-                popupContent={{ fullWidth: true, sideOffset: 12, withArrow: false }}
+                popupContent={{
+                  fullWidth: true,
+                  sideOffset: 12,
+                  withArrow: false,
+                  classNames: { positioner: styles.positioner },
+                }}
               >
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -375,6 +393,10 @@ alignment control through CSS.
         --navigation-menu-full-width-content-justify: center;
       }
 
+      .positioner {
+        --navigation-menu-full-width-inset: 32px;
+      }
+
       .content {
         padding: var(--spacing-5) 0;
       }
@@ -393,7 +415,7 @@ alignment control through CSS.
         display: grid;
         width: max-content;
         gap: var(--spacing-1);
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
         list-style: none;
       }
