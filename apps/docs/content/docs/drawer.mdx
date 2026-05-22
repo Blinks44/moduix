@@ -173,6 +173,21 @@ composition. Use `slotProps` only when those internal slots need non-class props
 />
 ```
 
+### Defaults
+
+| Prop                      | Default | Values                              |
+| ------------------------- | ------- | ----------------------------------- |
+| `persistent`              | `false` | `true`, `false`                     |
+| `withBackdrop`            | `true`  | `true`, `false`                     |
+| `withHandle`              | `true`  | `true`, `false`                     |
+| `variant`                 | `bleed` | `bleed`, `island`                   |
+| `snapLayout`              | `false` | `true`, `false`                     |
+| `disableInitialAnimation` | `false` | `true`, `false`                     |
+| `container`               | `null`  | `HTMLElement`, `ShadowRoot`, `null` |
+
+For root props inherited from Base UI (`modal`, `openOnSwipe`, `dismissible`, `snapPoints`, and
+others), `Drawer` keeps Base UI defaults unless you override them.
+
 ## Examples
 
 ### Top

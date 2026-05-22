@@ -24,6 +24,7 @@ If a task spans UI and docs:
 - Do not start dev servers manually; use the already running project server.
 - Before docs validation or docs changes that depend on UI output, run `npm run build:ui` from repo root.
 - In MDX snippets, avoid `useState<T>()` style generics when `as T` works; MDX parsers can treat `<T>` as JSX.
+- Keep component APIs, naming, code structure, and composition patterns uniform across the library. Similar components must use the same prop names and conventions (for example, avoid mismatches like `withArrow` vs `showArrow` for the same behavior).
 
 ## Required Validation
 

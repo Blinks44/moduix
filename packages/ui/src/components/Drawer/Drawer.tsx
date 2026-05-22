@@ -37,6 +37,8 @@ type DrawerProps<Payload = unknown> = DrawerPrimitive.Root.Props<Payload> & {
   persistent?: boolean;
 };
 
+const DEFAULT_DRAWER_VARIANT: NonNullable<DrawerContentProps['variant']> = 'bleed';
+
 function Drawer<Payload = unknown>({
   persistent = false,
   onOpenChange,
@@ -47,19 +49,29 @@ function Drawer<Payload = unknown>({
     open,
     eventDetails,
   ) => {
-    if (persistent && !open) {
+    if (!persistent) {
+      onOpenChange?.(open, eventDetails);
+      return;
+    }
+
+    if (!open) {
       eventDetails.cancel();
       return;
     }
 
-    onOpenChange?.(open, eventDetails);
+    onOpenChange?.(true, eventDetails);
   };
 
   const handleSnapPointChange: DrawerPrimitive.Root.Props<Payload>['onSnapPointChange'] = (
     snapPoint,
     eventDetails,
   ) => {
-    if (persistent && snapPoint === null) {
+    if (!persistent) {
+      onSnapPointChange?.(snapPoint, eventDetails);
+      return;
+    }
+
+    if (snapPoint === null) {
       eventDetails.cancel();
       return;
     }
@@ -239,19 +251,7 @@ function DrawerFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return <div data-slot="drawer-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-function DrawerContent({
-  withBackdrop = true,
-  withHandle = true,
-  snapLayout = false,
-  variant = 'bleed',
-  disableInitialAnimation = false,
-  className,
-  classNames,
-  slotProps,
-  container,
-  children,
-  ...props
-}: DrawerContentProps) {
+function useMountReady(disableInitialAnimation: boolean) {
   const [mountReady, setMountReady] = React.useState(!disableInitialAnimation);
 
   React.useEffect(() => {
@@ -271,13 +271,31 @@ function DrawerContent({
     };
   }, [disableInitialAnimation]);
 
+  return mountReady;
+}
+
+function DrawerContent({
+  withBackdrop = true,
+  withHandle = true,
+  snapLayout = false,
+  variant = DEFAULT_DRAWER_VARIANT,
+  disableInitialAnimation = false,
+  className,
+  classNames,
+  slotProps,
+  container,
+  children,
+  ...props
+}: DrawerContentProps) {
+  const mountReady = useMountReady(disableInitialAnimation);
+
   const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? slotPortalContainer;
+  const resolvedContainer = container ?? slotPortalContainer;
 
   return (
     <DrawerPortal
       className={classNames?.portal}
-      container={portalContainer}
+      container={resolvedContainer}
       {...restPortalSlotProps}
     >
       {withBackdrop ? (

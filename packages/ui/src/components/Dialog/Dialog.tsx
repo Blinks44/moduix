@@ -23,10 +23,13 @@ type DialogContentProps = Omit<DialogPrimitive.Popup.Props, 'className'> & {
   classNames?: DialogContentClassNames;
   slotProps?: DialogContentSlotProps;
   container?: DialogPrimitive.Portal.Props['container'];
+  outsideCloseIcon?: React.ReactNode;
   withBackdrop?: boolean;
   withCloseButton?: boolean;
   closeButtonLabel?: string;
 };
+
+const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
 
 const Dialog = DialogPrimitive.Root;
 const createDialogHandle = DialogPrimitive.createHandle;
@@ -39,16 +42,6 @@ function DialogTrigger({ className, render, ...props }: DialogPrimitive.Trigger.
       data-slot="dialog-trigger"
       render={render}
       className={triggerClassName}
-      {...props}
-    />
-  );
-}
-
-function DialogPortal({ className, ...props }: DialogPrimitive.Portal.Props) {
-  return (
-    <DialogPrimitive.Portal
-      data-slot="dialog-portal"
-      className={mergeClassName(className)}
       {...props}
     />
   );
@@ -135,30 +128,21 @@ function DialogContent({
   classNames,
   slotProps,
   container,
+  outsideCloseIcon,
   withBackdrop = true,
   withCloseButton = false,
-  closeButtonLabel = 'Close dialog',
+  closeButtonLabel = DEFAULT_CLOSE_BUTTON_LABEL,
   children,
   ...props
 }: DialogContentProps) {
   const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? slotPortalContainer;
-  const popupChildren: React.ReactNode[] = [];
-  const viewportChildren: React.ReactNode[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child) && child.type === DialogCloseIcon) {
-      viewportChildren.push(child);
-      return;
-    }
-
-    popupChildren.push(child);
-  });
+  const resolvedContainer = container ?? slotPortalContainer;
 
   return (
-    <DialogPortal
+    <DialogPrimitive.Portal
+      data-slot="dialog-portal"
       className={classNames?.portal}
-      container={portalContainer}
+      container={resolvedContainer}
       {...restPortalSlotProps}
     >
       {withBackdrop ? (
@@ -169,7 +153,7 @@ function DialogContent({
         {...slotProps?.viewport}
         data-with-backdrop={withBackdrop ? 'true' : 'false'}
       >
-        {viewportChildren}
+        {outsideCloseIcon}
         <DialogPopup className={className} {...props}>
           {withCloseButton ? (
             <DialogCloseIcon
@@ -177,10 +161,10 @@ function DialogContent({
               className={mergeClassName(styles.autoCloseIcon, classNames?.closeIcon)}
             />
           ) : null}
-          {popupChildren}
+          {children}
         </DialogPopup>
       </DialogViewport>
-    </DialogPortal>
+    </DialogPrimitive.Portal>
   );
 }
 

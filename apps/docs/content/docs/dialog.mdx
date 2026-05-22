@@ -137,13 +137,17 @@ you need the matching Base UI escape hatches. Common cases are `slotProps.portal
 `slotProps.backdrop.forceRender`, and viewport attributes or refs through `slotProps.viewport`.
 `DialogContent` itself accepts popup props such as `initialFocus` and `finalFocus`.
 Set `withCloseButton` to render a standard top-right close icon automatically; keep manual
-`DialogCloseIcon` composition when you need custom placement or icon replacement.
+`DialogCloseIcon` composition when you need custom placement or icon replacement. For a viewport-
+level close control (outside popup bounds), pass it through `outsideCloseIcon`.
+
+### Defaults
 
 | Prop               | Default        | Values                                          |
 | ------------------ | -------------- | ----------------------------------------------- |
 | `withBackdrop`     | `true`         | `true`, `false`                                 |
 | `withCloseButton`  | `false`        | `true`, `false`                                 |
 | `closeButtonLabel` | `Close dialog` | Any accessible text label for built-in close    |
+| `outsideCloseIcon` | `undefined`    | React node rendered in `DialogViewport`         |
 | `container`        | `undefined`    | `HTMLElement`, ref callback, or `null`          |
 | `classNames`       | `undefined`    | `{ portal?; backdrop?; viewport?; closeIcon? }` |
 | `slotProps`        | `undefined`    | `{ portal?; backdrop?; viewport? }`             |
@@ -495,9 +499,9 @@ rendered.
 
 ### Custom Styles
 
-For an outside close pattern, place `DialogCloseIcon` directly in `DialogContent` and position it
-against the viewport corner. This keeps the close control independent from popup size and loading
-content behavior.
+For an outside close pattern, pass `DialogCloseIcon` via `outsideCloseIcon` and position it against
+the viewport corner. This keeps the close control independent from popup size and loading content
+behavior.
 
 <Preview>
   <CustomStylesDialogExample />
@@ -530,17 +534,19 @@ content behavior.
                 backdrop: styles.customBackdrop,
                 viewport: styles.customViewport,
               }}
+              outsideCloseIcon={
+                <DialogCloseIcon
+                  aria-label="Close profile dialog"
+                  className={styles.customCloseIcon}
+                >
+                  <CloseLineIcon />
+                </DialogCloseIcon>
+              }
               slotProps={{
                 portal: { keepMounted: true },
                 backdrop: { forceRender: true },
               }}
             >
-              <DialogCloseIcon
-                aria-label="Close profile dialog"
-                className={styles.customCloseIcon}
-              >
-                <CloseLineIcon />
-              </DialogCloseIcon>
               <DialogHeader>
                 <DialogTitle>Edit profile</DialogTitle>
                 <DialogDescription>

@@ -247,12 +247,12 @@ export const CustomStyles: Story = {
             backdrop: storyStyles.customBackdrop,
             viewport: storyStyles.customViewport,
           }}
+          outsideCloseIcon={<DialogCloseIcon className={storyStyles.customCloseIcon} />}
           slotProps={{
             portal: { keepMounted: true },
             backdrop: { forceRender: true },
           }}
         >
-          <DialogCloseIcon className={storyStyles.customCloseIcon} />
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>

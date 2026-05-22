@@ -311,14 +311,16 @@ export function CustomStylesDialogExample() {
           backdrop: styles.customBackdrop,
           viewport: styles.customViewport,
         }}
+        outsideCloseIcon={
+          <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon}>
+            <CloseLineIcon />
+          </DialogCloseIcon>
+        }
         slotProps={{
           portal: { keepMounted: true },
           backdrop: { forceRender: true },
         }}
       >
-        <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon}>
-          <CloseLineIcon />
-        </DialogCloseIcon>
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
