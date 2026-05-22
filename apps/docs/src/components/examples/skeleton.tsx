@@ -11,7 +11,11 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './skeleton.module.css';
 
 export const skeletonOverrideCssProperties: CssPropertyInput[] = [
-  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls skeleton loading animation.'],
+  [
+    '--skeleton-animation',
+    'var(--animation-pulse)',
+    'Controls skeleton loading animation (`moduix-pulse 2s ease-in-out infinite` by default).',
+  ],
   [
     '--skeleton-bg',
     'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',
@@ -20,7 +24,11 @@ export const skeletonOverrideCssProperties: CssPropertyInput[] = [
   ['--skeleton-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
 ];
 export const skeletonPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls skeleton loading animation.'],
+  [
+    '--skeleton-animation',
+    'var(--animation-pulse)',
+    'Controls skeleton loading animation (`moduix-pulse 2s ease-in-out infinite` by default).',
+  ],
   [
     '--skeleton-bg',
     'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',

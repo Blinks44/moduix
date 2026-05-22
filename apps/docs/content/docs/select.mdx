@@ -200,6 +200,20 @@ escape hatches:
 />
 ```
 
+### Defaults
+
+| Prop               | Default | Values / Notes                                                                    |
+| ------------------ | ------- | --------------------------------------------------------------------------------- |
+| `withBackdrop`     | `false` | `true`, `false`                                                                   |
+| `withArrow`        | `false` | `true`, `false`                                                                   |
+| `arrow`            | `false` | `boolean` or custom `ReactNode` arrow content                                     |
+| `sideOffset`       | `8`     | Any number accepted by Base UI positioner                                         |
+| `classNames`       | `—`     | Optional slot classes: `portal`, `backdrop`, `positioner`, `arrow`                |
+| `slotProps`        | `—`     | Optional non-class slot props for `portal`, `backdrop`, `positioner`, `arrow`     |
+| `container`        | `—`     | Portal mount target. Top-level `container` overrides `slotProps.portal.container` |
+| `animation`        | `—`     | `scale`                                                                           |
+| `indicator` (item) | `start` | `start`, `end`                                                                    |
+
 ## Examples
 
 ### Indicator Right With Icon

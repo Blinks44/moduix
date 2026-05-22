@@ -5,31 +5,22 @@ import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type SwitchRootProps = Omit<SwitchPrimitive.Root.Props, 'children'>;
+type SwitchThumbProps = SwitchPrimitive.Thumb.Props;
+type SwitchFieldProps = React.ComponentPropsWithoutRef<'label'>;
+type SwitchLabelProps = React.ComponentPropsWithoutRef<'span'>;
 
 type SwitchClassNames = {
-  thumb?: SwitchPrimitive.Thumb.Props['className'];
+  thumb?: SwitchThumbProps['className'];
 };
 
-type SwitchProps = Omit<SwitchPrimitive.Root.Props, 'children'> & {
+type SwitchProps = SwitchRootProps & {
   size?: SwitchSize;
   thumb?: React.ReactNode;
   classNames?: SwitchClassNames;
 };
 
-function Switch({ className, size = 'md', thumb, classNames, ...props }: SwitchProps) {
-  return (
-    <SwitchPrimitive.Root
-      data-slot="switch-root"
-      data-size={size}
-      className={mergeClassName(className, styles.root)}
-      {...props}
-    >
-      <SwitchThumb className={classNames?.thumb}>{thumb}</SwitchThumb>
-    </SwitchPrimitive.Root>
-  );
-}
-
-function SwitchThumb({ className, ...props }: SwitchPrimitive.Thumb.Props) {
+function SwitchThumb({ className, ...props }: SwitchThumbProps) {
   return (
     <SwitchPrimitive.Thumb
       data-slot="switch-thumb"
@@ -39,16 +30,30 @@ function SwitchThumb({ className, ...props }: SwitchPrimitive.Thumb.Props) {
   );
 }
 
-function SwitchField({ className, ...props }: React.ComponentProps<'label'>) {
+const Switch = React.forwardRef(function Switch(
+  { className, size = 'md', thumb, classNames, ...props }: SwitchProps,
+  ref: React.ForwardedRef<HTMLElement>,
+) {
+  return (
+    <SwitchPrimitive.Root
+      ref={ref}
+      data-slot="switch-root"
+      data-size={size}
+      className={mergeClassName(className, styles.root)}
+      {...props}
+    >
+      <SwitchThumb className={classNames?.thumb}>{thumb}</SwitchThumb>
+    </SwitchPrimitive.Root>
+  );
+});
+
+function SwitchField({ className, ...props }: SwitchFieldProps) {
   return <label data-slot="switch-field" className={clsx(styles.field, className)} {...props} />;
 }
 
-function SwitchLabel({ className, ...props }: React.ComponentProps<'span'>) {
+function SwitchLabel({ className, ...props }: SwitchLabelProps) {
   return <span data-slot="switch-label" className={clsx(styles.label, className)} {...props} />;
 }
-
-type SwitchFieldProps = React.ComponentProps<'label'>;
-type SwitchLabelProps = React.ComponentProps<'span'>;
 
 export { Switch, SwitchField, SwitchLabel };
 

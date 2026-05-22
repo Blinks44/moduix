@@ -20,6 +20,22 @@ function toCssValue(value: SkeletonDimension | undefined) {
   return value;
 }
 
+function toSpacingStyle({
+  gap,
+  pt,
+  pb,
+}: {
+  gap?: SkeletonDimension;
+  pt?: SkeletonDimension;
+  pb?: SkeletonDimension;
+}) {
+  return {
+    gap: toCssValue(gap),
+    paddingTop: toCssValue(pt),
+    paddingBottom: toCssValue(pb),
+  } satisfies React.CSSProperties;
+}
+
 function toFlexValue(grow: number | boolean | undefined) {
   if (grow === true) {
     return '1 1 0';
@@ -42,21 +58,21 @@ function Skeleton({
   animated = true,
   ...props
 }: SkeletonProps) {
+  const skeletonStyle = {
+    width: toCssValue(width),
+    height: toCssValue(height),
+    borderRadius: toCssValue(radius),
+    flex: toFlexValue(grow),
+    ...style,
+  } satisfies React.CSSProperties;
+
   return (
     <div
       data-slot="skeleton-root"
       data-animated={animated ? '' : undefined}
       aria-hidden="true"
       className={clsx(styles.root, className)}
-      style={
-        {
-          width: toCssValue(width),
-          height: toCssValue(height),
-          borderRadius: toCssValue(radius),
-          flex: toFlexValue(grow),
-          ...style,
-        } as React.CSSProperties
-      }
+      style={skeletonStyle}
       {...props}
     />
   );
@@ -78,19 +94,17 @@ function SkeletonRow({
   mobileStack = true,
   ...props
 }: SkeletonRowProps) {
+  const rowStyle = {
+    ...toSpacingStyle({ gap, pt, pb }),
+    ...style,
+  } satisfies React.CSSProperties;
+
   return (
     <div
       data-slot="skeleton-row"
       data-mobile-stack={mobileStack ? '' : undefined}
       className={clsx(styles.row, className)}
-      style={
-        {
-          gap: toCssValue(gap),
-          paddingTop: toCssValue(pt),
-          paddingBottom: toCssValue(pb),
-          ...style,
-        } as React.CSSProperties
-      }
+      style={rowStyle}
       {...props}
     />
   );
@@ -104,19 +118,17 @@ type SkeletonColumnProps = React.ComponentProps<'div'> & {
 };
 
 function SkeletonColumn({ className, style, gap, pt, pb, grow, ...props }: SkeletonColumnProps) {
+  const columnStyle = {
+    ...toSpacingStyle({ gap, pt, pb }),
+    flex: toFlexValue(grow),
+    ...style,
+  } satisfies React.CSSProperties;
+
   return (
     <div
       data-slot="skeleton-column"
       className={clsx(styles.column, className)}
-      style={
-        {
-          gap: toCssValue(gap),
-          paddingTop: toCssValue(pt),
-          paddingBottom: toCssValue(pb),
-          flex: toFlexValue(grow),
-          ...style,
-        } as React.CSSProperties
-      }
+      style={columnStyle}
       {...props}
     />
   );

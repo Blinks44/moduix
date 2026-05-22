@@ -4,17 +4,11 @@ import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Slider.module.css';
 
 type SliderValueType = number | readonly number[];
-const SLIDER_THUMB_SLOT = 'moduix.slider.thumb';
 
 type SliderClassNames = {
   control?: SliderPrimitive.Control.Props['className'];
   track?: SliderPrimitive.Track.Props['className'];
   indicator?: SliderPrimitive.Indicator.Props['className'];
-};
-
-type SliderThumbComponent = typeof SliderThumb & {
-  __moduixSlot?: typeof SLIDER_THUMB_SLOT;
-  displayName?: string;
 };
 
 function Slider<Value extends SliderValueType>({
@@ -69,7 +63,7 @@ function splitSliderChildren(children: React.ReactNode) {
       return;
     }
 
-    if (isSliderThumbElement(child)) {
+    if (child.type === SliderThumb) {
       thumbs.push(child);
       return;
     }
@@ -78,17 +72,6 @@ function splitSliderChildren(children: React.ReactNode) {
   });
 
   return { content, thumbs };
-}
-
-function isSliderThumbElement(child: React.ReactElement) {
-  const type = child.type as SliderThumbComponent;
-
-  return (
-    type === SliderThumb ||
-    type.__moduixSlot === SLIDER_THUMB_SLOT ||
-    type.displayName === 'SliderThumb' ||
-    type.name === 'SliderThumb'
-  );
 }
 
 function SliderLabel({ className, ...props }: SliderPrimitive.Label.Props) {
@@ -120,9 +103,6 @@ function SliderThumb({ className, ...props }: SliderPrimitive.Thumb.Props) {
     />
   );
 }
-
-(SliderThumb as SliderThumbComponent).__moduixSlot = SLIDER_THUMB_SLOT;
-SliderThumb.displayName = 'SliderThumb';
 
 type SliderProps<Value extends SliderValueType = SliderValueType> =
   SliderPrimitive.Root.Props<Value> & {

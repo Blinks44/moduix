@@ -4,7 +4,6 @@ description: A loading placeholder primitive for text, cards, media objects, and
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   SkeletonCardExample,
   SkeletonCssPlaygroundPanel,
@@ -91,6 +90,16 @@ Use `Skeleton` directly for text lines and small custom blocks. Use `SkeletonRec
 All parts accept `className` and standard `div` props. The component exposes `--skeleton-bg`,
 `--skeleton-radius`, and `--skeleton-animation` for targeted styling; avoid broad overrides in a
 shared parent when a page demonstrates multiple skeleton styles.
+
+### Defaults
+
+| Prop          | Default | Values                                                |
+| ------------- | ------- | ----------------------------------------------------- |
+| `height`      | `1rem`  | Any CSS length (`number` = `px`)                      |
+| `animated`    | `true`  | `true`, `false`                                       |
+| `size`        | `40`    | Any CSS length (`number` = `px`) for `SkeletonCircle` |
+| `height`      | `60`    | Any CSS length (`number` = `px`) for `SkeletonRect`   |
+| `mobileStack` | `true`  | `true`, `false` (`SkeletonRow`)                       |
 
 ## Examples
 

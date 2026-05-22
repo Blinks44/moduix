@@ -4,7 +4,6 @@ description: Separates related content or groups with an accessible horizontal o
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   CustomSeparatorExample,
   SeparatorCssPlaygroundPanel,
@@ -74,6 +73,15 @@ for inline groups and default to `1em` height so they align with surrounding tex
 Pass `orientation="vertical"` for inline layouts. Use `className` for direct styling,
 CSS variables for size and color adjustments, and `render` when you need to compose the
 root with another element.
+
+### Defaults
+
+| Prop          | Default      | Values                                 |
+| ------------- | ------------ | -------------------------------------- |
+| `orientation` | `horizontal` | `horizontal`, `vertical`               |
+| `render`      | `div`        | Any valid React element or component   |
+| `className`   | `undefined`  | `string` or state-based class function |
+| `style`       | `undefined`  | style object or state-based style fn   |
 
 ## Examples
 

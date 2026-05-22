@@ -25,6 +25,8 @@ function Spinner({
   ...props
 }: SpinnerProps) {
   const hasCustomIcon = icon !== undefined;
+  const hasStringLabel = typeof label === 'string';
+  const shouldRenderHiddenLabel = !decorative && !hasStringLabel;
 
   return (
     <span
@@ -35,14 +37,14 @@ function Spinner({
       data-animated={animated ? '' : undefined}
       role={decorative ? 'presentation' : 'status'}
       aria-hidden={decorative ? true : undefined}
-      aria-label={!decorative && typeof label === 'string' ? label : undefined}
+      aria-label={!decorative && hasStringLabel ? label : undefined}
       className={clsx(styles.root, className)}
       {...props}
     >
       <span data-slot="spinner-indicator" className={styles.indicator} aria-hidden="true">
         {hasCustomIcon ? icon : <SpinnerGlyph variant={variant} />}
       </span>
-      {!decorative && typeof label !== 'string' ? (
+      {shouldRenderHiddenLabel ? (
         <span data-slot="spinner-label" className={styles.label}>
           {label}
         </span>

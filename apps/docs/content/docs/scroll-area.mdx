@@ -168,6 +168,15 @@ and `scrollbarKeepMounted`. Use `className` for the root element and `classNames
 slots hidden from the default composition.
 Use `contentMinWidth="fit-content"` when horizontal overflow should follow intrinsic content width.
 
+### Defaults
+
+| Prop                   | Default    | Values                                            |
+| ---------------------- | ---------- | ------------------------------------------------- |
+| `scrollbars`           | `vertical` | `vertical`, `horizontal`, `both`, `false`         |
+| `fade`                 | `false`    | `false`, `true`, `vertical`, `horizontal`, `both` |
+| `contentMinWidth`      | `full`     | `full`, `fit-content`                             |
+| `scrollbarKeepMounted` | `false`    | `true`, `false`                                   |
+
 Shared `classNames.scrollbar` and `classNames.thumb` are applied before axis-specific classes, so
 you can keep common styling in one class and override only vertical or horizontal details.
 
