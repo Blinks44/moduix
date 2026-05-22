@@ -7,7 +7,7 @@ type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingAlign = 'left' | 'center' | 'right';
 
-type HeadingProps = React.ComponentPropsWithoutRef<HeadingAs> & {
+type HeadingProps = React.ComponentPropsWithoutRef<'h1'> & {
   as?: HeadingAs;
   size?: HeadingSize;
   weight?: HeadingWeight;
@@ -23,33 +23,27 @@ const defaultSizeByElement: Record<HeadingAs, HeadingSize> = {
   h6: 'xs',
 };
 
-export function Heading({
-  as = 'h1',
-  size,
-  weight = 'semibold',
-  align,
-  className,
-  children,
-  ...props
-}: HeadingProps) {
+const Heading = React.forwardRef(function Heading(
+  { as = 'h1', size, weight = 'semibold', align, className, ...props }: HeadingProps,
+  ref: React.ForwardedRef<HTMLHeadingElement>,
+) {
   const Component = as;
-  const resolvedSize = size ?? defaultSizeByElement[as];
 
   return (
     <Component
+      ref={ref}
       data-slot="heading-root"
-      data-size={resolvedSize}
+      data-size={size ?? defaultSizeByElement[as]}
       data-weight={weight}
       data-align={align}
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </Component>
+    />
   );
-}
+});
 
 export {
+  Heading,
   type HeadingProps,
   type HeadingAs,
   type HeadingSize,

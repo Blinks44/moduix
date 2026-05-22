@@ -63,6 +63,18 @@ should differ. Use `weight`, `align`, and `className` for presentation customiza
 
 `Heading` has no hidden service slots; styling is done directly on the root element.
 
+### Defaults
+
+| Prop     | Default     | Values                                  |
+| -------- | ----------- | --------------------------------------- |
+| `as`     | `h1`        | `h1`, `h2`, `h3`, `h4`, `h5`, `h6`      |
+| `size`   | by `as`     | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
+| `weight` | `semibold`  | `regular`, `medium`, `semibold`, `bold` |
+| `align`  | `start` CSS | `left`, `center`, `right`               |
+
+Default `size` mapping by `as`: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`, `h4 -> md`,
+`h5 -> sm`, `h6 -> xs`.
+
 ## Examples
 
 ### Elements
