@@ -6,6 +6,15 @@ import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Radio.module.css';
 
 type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type RadioIndicatorProps = RadioPrimitive.Indicator.Props;
+type RadioIndicatorIconProps = React.ComponentProps<'span'>;
+type RadioFieldProps = React.ComponentProps<'label'>;
+type RadioLabelProps = React.ComponentProps<'span'>;
+type RadioGroupProps = RadioGroupPrimitive.Props;
+type RadioGroupLabelProps = React.ComponentProps<'div'>;
+type RadioGroupListProps = React.ComponentProps<'div'>;
+type RadioGroupItemProps = React.ComponentProps<'label'>;
+type RadioGroupItemLabelProps = React.ComponentProps<'span'>;
 
 type RadioClassNames = {
   indicator?: RadioIndicatorProps['className'];
@@ -19,6 +28,10 @@ type RadioProps = RadioPrimitive.Root.Props & {
 };
 
 function Radio({ className, size = 'md', children, indicator, classNames, ...props }: RadioProps) {
+  const indicatorContent = indicator ?? (
+    <RadioIndicatorIcon className={classNames?.indicatorIcon} />
+  );
+
   return (
     <RadioPrimitive.Root
       data-slot="radio-root"
@@ -26,22 +39,14 @@ function Radio({ className, size = 'md', children, indicator, classNames, ...pro
       className={mergeClassName(className, styles.radio)}
       {...props}
     >
-      {children !== undefined ? (
-        children
-      ) : (
-        <RadioIndicator className={classNames?.indicator}>
-          {indicator !== undefined ? (
-            indicator
-          ) : (
-            <RadioIndicatorIcon className={classNames?.indicatorIcon} />
-          )}
-        </RadioIndicator>
+      {children ?? (
+        <RadioIndicator className={classNames?.indicator}>{indicatorContent}</RadioIndicator>
       )}
     </RadioPrimitive.Root>
   );
 }
 
-function RadioIndicator({ className, children, ...props }: RadioPrimitive.Indicator.Props) {
+function RadioIndicator({ className, children, ...props }: RadioIndicatorProps) {
   return (
     <RadioPrimitive.Indicator
       data-slot="radio-indicator"
@@ -110,16 +115,6 @@ function RadioGroupItemLabel({ className, ...props }: React.ComponentProps<'span
     />
   );
 }
-
-type RadioFieldProps = React.ComponentProps<'label'>;
-type RadioLabelProps = React.ComponentProps<'span'>;
-type RadioIndicatorProps = RadioPrimitive.Indicator.Props;
-type RadioIndicatorIconProps = React.ComponentProps<'span'>;
-type RadioGroupProps = RadioGroupPrimitive.Props;
-type RadioGroupLabelProps = React.ComponentProps<'div'>;
-type RadioGroupListProps = React.ComponentProps<'div'>;
-type RadioGroupItemProps = React.ComponentProps<'label'>;
-type RadioGroupItemLabelProps = React.ComponentProps<'span'>;
 
 export {
   Radio,

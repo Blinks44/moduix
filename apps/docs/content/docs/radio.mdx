@@ -131,6 +131,16 @@ option pattern; it is a `Radio` with a clearer name for group rows.
 For compact form rows, use `RadioField`, `Radio`, and `RadioLabel`. For sibling labels with
 `htmlFor`, render `Radio` as a native button with `nativeButton` and `render={<button />}`.
 
+### Defaults
+
+| Prop (Part)                                                    | Default            | Values                       |
+| -------------------------------------------------------------- | ------------------ | ---------------------------- |
+| `size` (`Radio` / `RadioGroupItemControl`)                     | `md`               | `xs`, `sm`, `md`, `lg`, `xl` |
+| `children` (`Radio`)                                           | Internal indicator | Any React node               |
+| `indicator` (`Radio` / `RadioGroupItemControl`)                | Internal dot icon  | Any React node               |
+| `classNames.indicator` (`Radio` / `RadioGroupItemControl`)     | `undefined`        | `string`                     |
+| `classNames.indicatorIcon` (`Radio` / `RadioGroupItemControl`) | `undefined`        | `string`                     |
+
 Visible parts accept `className`. The radio indicator is internal, so customize it through the
 `indicator` prop or the `classNames` object:
 
