@@ -93,6 +93,14 @@ example `groupSize={3}` for `123-456` or `groupSize={[3, 2]}` for `ABC-DE-F`.
 `groupSize` is set. For layouts that need arbitrary markup around slots, pass `OTPFieldInput` and
 `OTPFieldSeparator` as children manually.
 
+### Defaults
+
+| Prop         | Default                | Values                                           |
+| ------------ | ---------------------- | ------------------------------------------------ |
+| `groupSize`  | `undefined`            | `number` or `number[]` (positive integers)       |
+| `inputProps` | `undefined`            | `OTPFieldInput` props object or props factory    |
+| `separator`  | `<SeparatorMarkIcon/>` | React node or `({ index, length }) => ReactNode` |
+
 ## Examples
 
 ### Alphanumeric
