@@ -43,9 +43,8 @@ function Button({
   focusableWhenDisabled,
   ...props
 }: ButtonProps) {
-  const isDisabled = Boolean(disabled || loading);
   const hasLoadingText = loadingText !== undefined;
-  const hideContent = loading && !hasLoadingText;
+  const isLoadingWithoutText = loading && !hasLoadingText;
   const spinner = loadingIndicator ?? <ButtonSpinner className={classNames?.spinner} />;
 
   return (
@@ -56,16 +55,20 @@ function Button({
       data-loading={loading ? '' : undefined}
       aria-busy={loading || undefined}
       className={mergeClassName(className, styles.root)}
-      disabled={isDisabled}
+      disabled={disabled || loading}
       focusableWhenDisabled={focusableWhenDisabled ?? loading}
       {...props}
     >
       <span
         data-slot="button-content"
-        className={clsx(styles.content, hideContent && styles.contentHidden, classNames?.content)}
+        className={clsx(
+          styles.content,
+          isLoadingWithoutText && styles.contentHidden,
+          classNames?.content,
+        )}
       >
         {loading && hasLoadingText ? (
-          <React.Fragment>
+          <>
             <span
               data-slot="button-loading-indicator"
               className={clsx(styles.loadingIndicator, classNames?.loadingIndicator)}
@@ -73,12 +76,12 @@ function Button({
               {spinner}
             </span>
             {loadingText}
-          </React.Fragment>
+          </>
         ) : (
           children
         )}
       </span>
-      {loading && !hasLoadingText ? (
+      {isLoadingWithoutText ? (
         <span
           data-slot="button-loading-indicator"
           className={clsx(

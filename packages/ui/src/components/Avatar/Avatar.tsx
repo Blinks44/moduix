@@ -7,6 +7,7 @@ type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type AvatarProps = AvatarPrimitive.Root.Props & {
   size?: AvatarSize;
 };
+type AvatarState = AvatarPrimitive.Root.State;
 
 function Avatar({ className, size = 'md', ...props }: AvatarProps) {
   return (
@@ -19,6 +20,9 @@ function Avatar({ className, size = 'md', ...props }: AvatarProps) {
   );
 }
 
+type AvatarImageProps = AvatarPrimitive.Image.Props;
+type AvatarImageState = AvatarPrimitive.Image.State;
+
 function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
   return (
     <AvatarPrimitive.Image
@@ -28,6 +32,10 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
     />
   );
 }
+
+type AvatarFallbackProps = AvatarPrimitive.Fallback.Props;
+type AvatarFallbackState = AvatarPrimitive.Fallback.State;
+type AvatarImageLoadingStatus = AvatarImageState['imageLoadingStatus'];
 
 function AvatarFallback({ className, ...props }: AvatarPrimitive.Fallback.Props) {
   return (
@@ -39,9 +47,15 @@ function AvatarFallback({ className, ...props }: AvatarPrimitive.Fallback.Props)
   );
 }
 
-type AvatarImageProps = AvatarPrimitive.Image.Props;
-type AvatarFallbackProps = AvatarPrimitive.Fallback.Props;
-
 export { Avatar, AvatarImage, AvatarFallback };
 
-export type { AvatarProps, AvatarImageProps, AvatarFallbackProps, AvatarSize };
+export type {
+  AvatarProps,
+  AvatarState,
+  AvatarImageProps,
+  AvatarImageState,
+  AvatarFallbackProps,
+  AvatarFallbackState,
+  AvatarImageLoadingStatus,
+  AvatarSize,
+};

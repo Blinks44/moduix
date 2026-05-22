@@ -19,27 +19,73 @@ type AutocompleteContentSlotProps = {
   arrow?: Omit<AutocompletePrimitive.Arrow.Props, 'className' | 'children'>;
 };
 
+type AutocompleteContentPositionerProps = Pick<
+  AutocompletePrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'anchor'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'positionMethod'
+>;
+
 type AutocompleteContentProps = AutocompletePrimitive.Popup.Props &
-  Pick<
-    AutocompletePrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-  > & {
+  AutocompleteContentPositionerProps & {
     classNames?: AutocompleteContentClassNames;
     slotProps?: AutocompleteContentSlotProps;
     container?: AutocompletePrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
     withArrow?: boolean;
   };
+
+type ResolvedAutocompleteContentProps = {
+  portalContainer: AutocompletePrimitive.Portal.Props['container'];
+  positionerProps: AutocompletePrimitive.Positioner.Props;
+};
+
+function resolveAutocompleteContentProps({
+  container,
+  positionerProps,
+  side,
+  sideOffset,
+  align,
+  alignOffset,
+  arrowPadding,
+  anchor,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
+  sticky,
+  positionMethod,
+}: {
+  container?: AutocompletePrimitive.Portal.Props['container'];
+  positionerProps?: AutocompleteContentSlotProps['positioner'];
+} & AutocompleteContentPositionerProps): ResolvedAutocompleteContentProps {
+  const resolvedPositionerProps = positionerProps ?? {};
+
+  return {
+    portalContainer: container,
+    positionerProps: {
+      ...resolvedPositionerProps,
+      side: side ?? resolvedPositionerProps.side,
+      sideOffset: sideOffset ?? resolvedPositionerProps.sideOffset ?? 5,
+      align: align ?? resolvedPositionerProps.align,
+      alignOffset: alignOffset ?? resolvedPositionerProps.alignOffset,
+      arrowPadding: arrowPadding ?? resolvedPositionerProps.arrowPadding,
+      anchor: anchor ?? resolvedPositionerProps.anchor,
+      collisionAvoidance: collisionAvoidance ?? resolvedPositionerProps.collisionAvoidance,
+      collisionBoundary: collisionBoundary ?? resolvedPositionerProps.collisionBoundary,
+      collisionPadding: collisionPadding ?? resolvedPositionerProps.collisionPadding,
+      sticky: sticky ?? resolvedPositionerProps.sticky,
+      positionMethod: positionMethod ?? resolvedPositionerProps.positionMethod,
+    },
+  };
+}
 
 const Autocomplete = AutocompletePrimitive.Root;
 
@@ -221,21 +267,24 @@ function AutocompleteContent({
 }: AutocompleteContentProps) {
   const portalProps = slotProps?.portal;
   const backdropProps = slotProps?.backdrop;
-  const positionerProps = slotProps?.positioner;
+  const slotPositionerProps = slotProps?.positioner;
   const arrowProps = slotProps?.arrow;
   const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 5;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
+  const { portalContainer, positionerProps } = resolveAutocompleteContentProps({
+    container: container ?? portalPropsContainer,
+    positionerProps: slotPositionerProps,
+    side,
+    sideOffset,
+    align,
+    alignOffset,
+    arrowPadding,
+    anchor,
+    collisionAvoidance,
+    collisionBoundary,
+    collisionPadding,
+    sticky,
+    positionMethod,
+  });
 
   return (
     <AutocompletePortal
@@ -246,21 +295,7 @@ function AutocompleteContent({
       {withBackdrop ? (
         <AutocompleteBackdrop className={classNames?.backdrop} {...backdropProps} />
       ) : null}
-      <AutocompletePositioner
-        {...positionerProps}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
-        className={classNames?.positioner}
-      >
+      <AutocompletePositioner {...positionerProps} className={classNames?.positioner}>
         <AutocompletePopup className={className} {...props}>
           {withArrow ? <AutocompleteArrow className={classNames?.arrow} {...arrowProps} /> : null}
           {props.children}

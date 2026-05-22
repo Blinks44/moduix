@@ -21,6 +21,7 @@ type BreadcrumbsClassNames = {
   ellipsisTrigger?: MenuPrimitive.Trigger.Props['className'];
   popup?: MenuPrimitive.Popup.Props['className'];
   popupItem?: MenuPrimitive.Item.Props['className'];
+  popupLinkItem?: MenuPrimitive.LinkItem.Props['className'];
   portal?: MenuPrimitive.Portal.Props['className'];
   positioner?: MenuPrimitive.Positioner.Props['className'];
 };
@@ -55,26 +56,22 @@ function Breadcrumbs({
   slotProps,
   ...props
 }: BreadcrumbsProps) {
-  const normalizedItems = React.useMemo(() => items.filter(Boolean), [items]);
-  const { startItems, collapsedItems, endItems } = getVisibleItems({
-    items: normalizedItems,
-    maxItems,
-  });
-  const lastGlobalItemIndex = normalizedItems.length - 1;
-  const visibleParts: Array<
+  const { startItems, collapsedItems, endItems } = getVisibleItems({ items, maxItems });
+  const lastGlobalItemIndex = items.length - 1;
+  const parts: Array<
     { type: 'item'; item: BreadcrumbsItem; globalIndex: number } | { type: 'collapsed' }
   > = [];
 
   startItems.forEach((item, index) => {
-    visibleParts.push({ type: 'item', item, globalIndex: index });
+    parts.push({ type: 'item', item, globalIndex: index });
   });
 
   if (collapsedItems.length > 0) {
-    visibleParts.push({ type: 'collapsed' });
+    parts.push({ type: 'collapsed' });
   }
 
   endItems.forEach((item, index) => {
-    visibleParts.push({
+    parts.push({
       type: 'item',
       item,
       globalIndex: startItems.length + collapsedItems.length + index,
@@ -89,8 +86,8 @@ function Breadcrumbs({
       {...props}
     >
       <ol data-slot="breadcrumbs-list" className={styles.list}>
-        {visibleParts.map((part, index) => {
-          const isLast = index === visibleParts.length - 1;
+        {parts.map((part, index) => {
+          const isLast = index === parts.length - 1;
 
           if (part.type === 'collapsed') {
             return (
@@ -209,21 +206,27 @@ function BreadcrumbsCollapsedMenu({
             {...slotProps?.popup}
           >
             {items.map((item, index) => {
-              const hiddenItemRender = item.render;
+              const popupItemClassName = clsx(styles.popupItem, classNames?.popupItem);
+              const popupLinkItemClassName = clsx(
+                styles.popupItem,
+                classNames?.popupItem,
+                classNames?.popupLinkItem,
+              );
+              const renderItem = item.render;
 
-              return item.href || hiddenItemRender ? (
+              return item.href || renderItem ? (
                 <MenuPrimitive.LinkItem
                   key={item.key ?? `hidden-link-${index}`}
                   data-slot="breadcrumbs-ellipsis-link-item"
                   href={item.href}
-                  className={clsx(styles.popupItem, classNames?.popupItem)}
+                  className={popupLinkItemClassName}
                   {...slotProps?.popupLinkItem}
                   render={
-                    hiddenItemRender
+                    renderItem
                       ? ({ className, ...renderProps }) =>
-                          hiddenItemRender({
+                          renderItem({
                             ...renderProps,
-                            className: clsx(styles.popupItem, className),
+                            className: clsx(popupLinkItemClassName, className),
                             children: item.label,
                           })
                       : undefined
@@ -235,7 +238,7 @@ function BreadcrumbsCollapsedMenu({
                 <MenuPrimitive.Item
                   key={item.key ?? `hidden-item-${index}`}
                   data-slot="breadcrumbs-ellipsis-item"
-                  className={clsx(styles.popupItem, classNames?.popupItem)}
+                  className={popupItemClassName}
                   {...slotProps?.popupItem}
                 >
                   {item.label}

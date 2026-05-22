@@ -89,6 +89,17 @@ root button. Use `classNames` for internal slots that are rendered by the compon
 For submit buttons, pass `type="submit"`. For links, style an `<a>` directly instead of rendering
 an anchor through `Button`; Base UI Button intentionally keeps button semantics.
 
+| Prop                    | Default           | Values                                                                                   |
+| ----------------------- | ----------------- | ---------------------------------------------------------------------------------------- |
+| `variant`               | `default`         | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
+| `size`                  | `md`              | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
+| `loading`               | `false`           | `true`, `false`                                                                          |
+| `focusableWhenDisabled` | `loading`\*       | `true`, `false`                                                                          |
+| `loadingText`           | `undefined`       | `ReactNode`                                                                              |
+| `loadingIndicator`      | `default spinner` | `ReactNode`                                                                              |
+
+\* If `focusableWhenDisabled` is not provided, the component uses the current `loading` value.
+
 ## Examples
 
 ### Variants

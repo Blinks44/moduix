@@ -142,14 +142,24 @@ Set `withCloseButton` to render a standard top-right close icon automatically; k
 `AlertDialogCloseIcon` composition when you need custom icon replacement.
 Use `container`, `slotProps`, and `withBackdrop={false}` when you need service-slot escape hatches:
 
+`AlertDialog` root defaults:
+
+| Prop          | Default | Values                                  |
+| ------------- | ------- | --------------------------------------- |
+| `defaultOpen` | `false` | `true`, `false`                         |
+| `handle`      | —       | Handle from `createAlertDialogHandle()` |
+
+`AlertDialogContent` defaults:
+
 | Prop               | Default        | Values                                                                                      |
 | ------------------ | -------------- | ------------------------------------------------------------------------------------------- |
 | `withBackdrop`     | `true`         | `true`, `false`                                                                             |
 | `withCloseButton`  | `false`        | `true`, `false`                                                                             |
 | `closeButtonLabel` | `Close dialog` | Any accessible text label for built-in close                                                |
-| `container`        | `undefined`    | `HTMLElement`, ref callback, or `null`                                                      |
-| `classNames`       | `undefined`    | `{ portal?: className; backdrop?: className; viewport?: className; closeIcon?: className }` |
-| `slotProps`        | `undefined`    | `{ portal?; backdrop?; viewport? }`                                                         |
+| `classNames`       | —              | `{ portal?: className; backdrop?: className; viewport?: className; closeIcon?: className }` |
+| `slotProps`        | —              | `{ portal?; backdrop?; viewport? }`                                                         |
+
+When both are provided, `container` has priority over `slotProps.portal.container`.
 
 ```tsx
 <AlertDialogContent

@@ -89,8 +89,15 @@ the current page. The first segment and the current page are always visible. Hid
 middle segments move into the collapsed menu.
 
 When collapsed items are enabled, you can style hidden internal parts through `classNames`
-(`ellipsisTrigger`, `popup`, `popupItem`, `portal`, `positioner`) and pass behavior props
+(`ellipsisTrigger`, `popup`, `popupItem`, `popupLinkItem`, `portal`, `positioner`) and pass behavior props
 to those same slots through `slotProps`.
+
+| Prop                   | Default                  | Values         |
+| ---------------------- | ------------------------ | -------------- |
+| `separator`            | `/`                      | Any React node |
+| `maxItems`             | `3`                      | Number >= `0`  |
+| `ellipsisLabel`        | `...`                    | Any React node |
+| `hiddenItemsMenuLabel` | `Show hidden path items` | String         |
 
 ## Examples
 

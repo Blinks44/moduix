@@ -10,9 +10,13 @@ type BadgeProps = React.ComponentProps<'span'> & {
   size?: BadgeSize;
 };
 
-function Badge({ className, variant = 'default', size = 'md', children, ...props }: BadgeProps) {
+const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
+  { className, variant = 'default', size = 'md', children, ...props },
+  ref,
+) {
   return (
     <span
+      ref={ref}
       data-slot="badge-root"
       data-variant={variant}
       data-size={size}
@@ -22,20 +26,24 @@ function Badge({ className, variant = 'default', size = 'md', children, ...props
       {children}
     </span>
   );
-}
+});
 
 type BadgeDotProps = React.ComponentProps<'span'>;
 
-function BadgeDot({ className, ...props }: BadgeDotProps) {
+const BadgeDot = React.forwardRef<HTMLSpanElement, BadgeDotProps>(function BadgeDot(
+  { className, ...props },
+  ref,
+) {
   return (
     <span
+      ref={ref}
       data-slot="badge-dot"
       aria-hidden="true"
       className={clsx(styles.dot, className)}
       {...props}
     />
   );
-}
+});
 
 export { Badge, BadgeDot };
 export type { BadgeProps, BadgeDotProps, BadgeVariant, BadgeSize };

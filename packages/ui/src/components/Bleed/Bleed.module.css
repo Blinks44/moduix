@@ -1,27 +1,32 @@
 @layer ui.components {
   .root {
+    --bleed-inline-offset: 0px;
+    --bleed-block-offset: 0px;
+
     box-sizing: border-box;
     position: relative;
     max-width: none;
+    margin-inline: calc(var(--bleed-inline-offset) * -1);
+    margin-block: calc(var(--bleed-block-offset) * -1);
 
     &[data-inline='xs'] {
-      margin-inline: calc(var(--bleed-inline-xs, var(--spacing-1)) * -1);
+      --bleed-inline-offset: var(--bleed-inline-xs, var(--spacing-1));
     }
 
     &[data-inline='sm'] {
-      margin-inline: calc(var(--bleed-inline-sm, var(--spacing-2)) * -1);
+      --bleed-inline-offset: var(--bleed-inline-sm, var(--spacing-2));
     }
 
     &[data-inline='md'] {
-      margin-inline: calc(var(--bleed-inline-md, var(--spacing-3)) * -1);
+      --bleed-inline-offset: var(--bleed-inline-md, var(--spacing-3));
     }
 
     &[data-inline='lg'] {
-      margin-inline: calc(var(--bleed-inline-lg, var(--spacing-4)) * -1);
+      --bleed-inline-offset: var(--bleed-inline-lg, var(--spacing-4));
     }
 
     &[data-inline='xl'] {
-      margin-inline: calc(var(--bleed-inline-xl, var(--spacing-6)) * -1);
+      --bleed-inline-offset: var(--bleed-inline-xl, var(--spacing-6));
     }
 
     &[data-inline='full'] {
@@ -31,23 +36,23 @@
     }
 
     &[data-block='xs'] {
-      margin-block: calc(var(--bleed-block-xs, var(--spacing-1)) * -1);
+      --bleed-block-offset: var(--bleed-block-xs, var(--spacing-1));
     }
 
     &[data-block='sm'] {
-      margin-block: calc(var(--bleed-block-sm, var(--spacing-2)) * -1);
+      --bleed-block-offset: var(--bleed-block-sm, var(--spacing-2));
     }
 
     &[data-block='md'] {
-      margin-block: calc(var(--bleed-block-md, var(--spacing-3)) * -1);
+      --bleed-block-offset: var(--bleed-block-md, var(--spacing-3));
     }
 
     &[data-block='lg'] {
-      margin-block: calc(var(--bleed-block-lg, var(--spacing-4)) * -1);
+      --bleed-block-offset: var(--bleed-block-lg, var(--spacing-4));
     }
 
     &[data-block='xl'] {
-      margin-block: calc(var(--bleed-block-xl, var(--spacing-6)) * -1);
+      --bleed-block-offset: var(--bleed-block-xl, var(--spacing-6));
     }
   }
 }

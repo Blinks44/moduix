@@ -216,6 +216,10 @@ composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `
 | `sideOffset`   | `5`     | `number \| OffsetFunction`                    |
 | `slotProps`    | —       | `{ portal?, backdrop?, positioner?, arrow? }` |
 
+For overlapping positioning props, the precedence is:
+top-level prop on `AutocompleteContent` -> `slotProps.positioner` -> internal default.
+For portal container, `container` takes precedence over `slotProps.portal.container`.
+
 Use `slotProps.arrow.children` to replace the default arrow content when needed.
 
 ```tsx

@@ -33,12 +33,6 @@
       --avatar-line-height-default: var(--avatar-line-height-sm, var(--line-height-text-sm));
     }
 
-    &[data-size='md'] {
-      --avatar-size-default: var(--avatar-size-md, var(--size-md));
-      --avatar-font-size-default: var(--avatar-font-size-md, var(--text-md));
-      --avatar-line-height-default: var(--avatar-line-height-md, var(--line-height-text-md));
-    }
-
     &[data-size='lg'] {
       --avatar-size-default: var(--avatar-size-lg, var(--size-lg));
       --avatar-font-size-default: var(--avatar-font-size-lg, var(--text-lg));
