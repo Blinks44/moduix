@@ -140,6 +140,14 @@ Visible parts accept `className`. The internal indicator is not part of the requ
 style it with `TabsList classNames.indicator`, disable it with `withIndicator={false}`, or pass
 non-class Base UI indicator props through `TabsList slotProps.indicator`.
 
+### Defaults
+
+| Prop                     | Default      | Values                   |
+| ------------------------ | ------------ | ------------------------ |
+| `Tabs.variant`           | `default`    | `default`, `line`        |
+| `TabsList.withIndicator` | `true`       | `true`, `false`          |
+| `Tabs.orientation`       | `horizontal` | `horizontal`, `vertical` |
+
 ```tsx
 import { Tabs, TabsList, TabsPanel, TabsTab } from 'moduix';
 import styles from './custom-indicator-tabs-demo.module.css';

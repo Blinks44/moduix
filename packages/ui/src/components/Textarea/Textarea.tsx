@@ -12,21 +12,16 @@ type TextareaProps = React.ComponentPropsWithoutRef<'textarea'> & {
   autoResize?: boolean;
 };
 
-type TextareaFieldControlProps = Omit<
-  React.ComponentPropsWithoutRef<'textarea'>,
-  'className' | 'size'
-> & {
-  className?: ReturnType<typeof mergeClassName<FieldPrimitive.Control.State>>;
-  render?: React.ReactElement;
-  'data-auto-resize'?: string;
-  'data-resize'?: TextareaResize;
-  'data-size'?: TextareaSize;
-  'data-slot'?: string;
-};
+function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
+  if (typeof ref === 'function') {
+    ref(value);
+    return;
+  }
 
-const TextareaFieldControl = FieldPrimitive.Control as unknown as React.ForwardRefExoticComponent<
-  TextareaFieldControlProps & React.RefAttributes<HTMLTextAreaElement>
->;
+  if (ref) {
+    ref.current = value;
+  }
+}
 
 function getAutoHeight(node: HTMLTextAreaElement) {
   const computedStyle = window.getComputedStyle(node);
@@ -42,24 +37,31 @@ function getAutoHeight(node: HTMLTextAreaElement) {
   );
 }
 
+function resizeToContent(node: HTMLTextAreaElement) {
+  node.style.height = 'auto';
+  node.style.height = `${getAutoHeight(node)}px`;
+}
+
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
-  { className, size = 'md', resize = 'vertical', autoResize = false, onChange, ...props },
+  {
+    className,
+    size = 'md',
+    resize = 'vertical',
+    autoResize = false,
+    onChange,
+    value,
+    defaultValue,
+    ...props
+  },
   forwardedRef,
 ) {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
-  const assignRef = React.useCallback(
-    (node: HTMLTextAreaElement | null) => {
-      textareaRef.current = node;
-
-      if (typeof forwardedRef === 'function') {
-        forwardedRef(node);
-        return;
-      }
-
-      if (forwardedRef) {
-        forwardedRef.current = node;
-      }
+  const setTextareaRef = React.useCallback(
+    (node: HTMLElement | null) => {
+      const textareaNode = node instanceof HTMLTextAreaElement ? node : null;
+      textareaRef.current = textareaNode;
+      setForwardedRef(forwardedRef, textareaNode);
     },
     [forwardedRef],
   );
@@ -69,19 +71,17 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function T
       return;
     }
 
-    textareaRef.current.style.height = 'auto';
-    textareaRef.current.style.height = `${getAutoHeight(textareaRef.current)}px`;
+    resizeToContent(textareaRef.current);
   }, [autoResize]);
 
   React.useLayoutEffect(() => {
     updateHeight();
-  }, [updateHeight, props.value, props.defaultValue]);
+  }, [defaultValue, updateHeight, value]);
 
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       if (autoResize) {
-        event.currentTarget.style.height = 'auto';
-        event.currentTarget.style.height = `${getAutoHeight(event.currentTarget)}px`;
+        resizeToContent(event.currentTarget);
       }
 
       onChange?.(event);
@@ -90,15 +90,22 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function T
   );
 
   return (
-    <TextareaFieldControl
-      ref={assignRef}
+    <FieldPrimitive.Control
+      ref={setTextareaRef}
       data-slot="textarea-root"
       data-size={size}
       data-resize={resize}
       data-auto-resize={autoResize ? '' : undefined}
-      render={<textarea onChange={handleChange} />}
       className={mergeClassName(className, styles.root)}
-      {...props}
+      render={(controlProps) => (
+        <textarea
+          {...controlProps}
+          {...props}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={handleChange}
+        />
+      )}
     />
   );
 });

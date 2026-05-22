@@ -128,6 +128,17 @@ object and should return a complete visible composition with `ToastRoot` and the
 needs. Anchored feedback uses the same provider, but goes through `useAnchoredToastManager()` and
 `ToastAnchoredRegion` so contextual toasts do not mix with the stacked notification queue.
 
+### Defaults
+
+| Surface               | Prop                   | Default                                      | Values                                                                                |
+| --------------------- | ---------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `ToastRegion`         | `placement`            | `bottom-right`                               | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right` |
+| `ToastRegion`         | `stackBehavior`        | `stacked`                                    | `stacked`, `expanded`                                                                 |
+| `ToastRegion`         | `renderToast`          | default markup                               | `(toast, index) => ReactNode`                                                         |
+| `ToastAnchoredRegion` | `renderToast`          | default markup                               | `(toast, index) => ReactNode`                                                         |
+| `ToastProvider`       | `toastManager`         | internal manager from `createToastManager()` | `ToastManager`                                                                        |
+| `ToastProvider`       | `anchoredToastManager` | internal manager from `createToastManager()` | `ToastManager`                                                                        |
+
 ## Examples
 
 ### Action

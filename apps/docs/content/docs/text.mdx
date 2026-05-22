@@ -17,7 +17,6 @@ import {
   TextWeightsExample,
   textPlaygroundCssProperties,
 } from '@/components/examples/text';
-import 'moduix/style.css';
 
 ## API Reference
 
@@ -81,6 +80,22 @@ other elements and custom components default to regular `md` text.
 
 Style the root with `className` and component CSS variables. `Text` has no hidden service
 slots, so it does not use `classNames` or slot props.
+
+### Defaults
+
+| Prop     | Default         | Values                                                 |
+| -------- | --------------- | ------------------------------------------------------ |
+| `as`     | `p`             | Any valid React element or component                   |
+| `size`   | Element-based   | `xs`, `sm`, `md`, `lg`, `xl`                           |
+| `weight` | Element-based   | `regular`, `medium`, `semibold`, `bold`                |
+| `tone`   | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive` |
+| `align`  | Unset (`start`) | `left`, `center`, `right`                              |
+
+Element-based defaults for `size` and `weight`:
+
+- `small`: `size="sm"`, `weight="regular"`
+- `strong`: `size="md"`, `weight="semibold"`
+- `p`, `span`, `em`, `div`, and custom components: `size="md"`, `weight="regular"`
 
 ## Examples
 

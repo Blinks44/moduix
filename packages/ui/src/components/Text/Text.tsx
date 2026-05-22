@@ -20,37 +20,25 @@ type TextOwnProps<TElement extends TextAs = 'p'> = {
 type TextProps<TElement extends TextAs = 'p'> = TextOwnProps<TElement> &
   Omit<React.ComponentPropsWithoutRef<TElement>, keyof TextOwnProps<TElement>>;
 
-const defaultSizeByElement: Record<TextDefaultElement, TextSize> = {
-  p: 'md',
-  span: 'md',
-  small: 'sm',
-  strong: 'md',
-  em: 'md',
-  div: 'md',
-};
+const TEXT_DEFAULTS_BY_ELEMENT: Record<TextDefaultElement, { size: TextSize; weight: TextWeight }> =
+  {
+    p: { size: 'md', weight: 'regular' },
+    span: { size: 'md', weight: 'regular' },
+    small: { size: 'sm', weight: 'regular' },
+    strong: { size: 'md', weight: 'semibold' },
+    em: { size: 'md', weight: 'regular' },
+    div: { size: 'md', weight: 'regular' },
+  };
 
-const defaultWeightByElement: Record<TextDefaultElement, TextWeight> = {
-  p: 'regular',
-  span: 'regular',
-  small: 'regular',
-  strong: 'semibold',
-  em: 'regular',
-  div: 'regular',
-};
+const TEXT_FALLBACK_DEFAULTS = { size: 'md', weight: 'regular' } as const;
 
-function getDefaultSize(element: TextAs): TextSize {
-  return typeof element === 'string' && element in defaultSizeByElement
-    ? defaultSizeByElement[element as TextDefaultElement]
-    : 'md';
+function resolveTextDefaults(as: TextAs): { size: TextSize; weight: TextWeight } {
+  if (typeof as !== 'string') return TEXT_FALLBACK_DEFAULTS;
+  if (!(as in TEXT_DEFAULTS_BY_ELEMENT)) return TEXT_FALLBACK_DEFAULTS;
+  return TEXT_DEFAULTS_BY_ELEMENT[as as TextDefaultElement];
 }
 
-function getDefaultWeight(element: TextAs): TextWeight {
-  return typeof element === 'string' && element in defaultWeightByElement
-    ? defaultWeightByElement[element as TextDefaultElement]
-    : 'regular';
-}
-
-export function Text<TElement extends TextAs = 'p'>({
+function Text<TElement extends TextAs = 'p'>({
   as,
   size,
   weight,
@@ -60,17 +48,16 @@ export function Text<TElement extends TextAs = 'p'>({
   children,
   ...props
 }: TextProps<TElement>) {
-  const Component = (as ?? 'p') as React.ElementType;
-  const resolvedSize = size ?? getDefaultSize(Component);
-  const resolvedWeight = weight ?? getDefaultWeight(Component);
+  const Component = as ?? 'p';
+  const defaults = resolveTextDefaults(Component);
 
   return React.createElement(
     Component,
     {
       ...props,
       'data-slot': 'text-root',
-      'data-size': resolvedSize,
-      'data-weight': resolvedWeight,
+      'data-size': size ?? defaults.size,
+      'data-weight': weight ?? defaults.weight,
       'data-tone': tone,
       'data-align': align,
       className: clsx(styles.root, className),
@@ -80,6 +67,7 @@ export function Text<TElement extends TextAs = 'p'>({
 }
 
 export {
+  Text,
   type TextProps,
   type TextAs,
   type TextDefaultElement,

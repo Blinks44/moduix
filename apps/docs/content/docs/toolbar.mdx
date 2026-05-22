@@ -142,6 +142,16 @@ interactive elements.
 Popup primitives rendered from toolbar buttons, such as `SelectContent`, own their internal
 portal and positioner behavior. Configure those slots on that popup component, not on `Toolbar`.
 
+### Defaults
+
+| Prop                           | Default                   | Values                                                             |
+| ------------------------------ | ------------------------- | ------------------------------------------------------------------ |
+| `variant`                      | `default`                 | `default`, `outline`, `ghost`                                      |
+| `size`                         | `md`                      | `sm`, `md`, `lg`                                                   |
+| `orientation`                  | `horizontal`              | `horizontal`, `vertical`                                           |
+| `disabled`                     | `false`                   | `true`, `false`                                                    |
+| `ToolbarSeparator.orientation` | auto-opposite orientation | `vertical` in horizontal toolbar, `horizontal` in vertical toolbar |
+
 ## Examples
 
 ### Toggle Group

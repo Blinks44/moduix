@@ -9,10 +9,12 @@ type ToggleGroupContextValue = {
   size: ToggleSize;
 };
 
-const ToggleGroupContext = React.createContext<ToggleGroupContextValue>({
+const DEFAULT_TOGGLE_GROUP_CONTEXT: ToggleGroupContextValue = {
   variant: 'default',
   size: 'md',
-});
+};
+
+const ToggleGroupContext = React.createContext<ToggleGroupContextValue | null>(null);
 
 type ToggleGroupProps<Value extends string = string> = ToggleGroupPrimitive.Props<Value> & {
   variant?: ToggleVariant;
@@ -29,10 +31,8 @@ function ToggleGroup<Value extends string = string>({
   size = 'md',
   ...props
 }: ToggleGroupProps<Value>) {
-  const contextValue = React.useMemo(() => ({ variant, size }), [variant, size]);
-
   return (
-    <ToggleGroupContext.Provider value={contextValue}>
+    <ToggleGroupContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive
         data-slot="toggle-group-root"
         data-variant={variant}
@@ -44,15 +44,10 @@ function ToggleGroup<Value extends string = string>({
   );
 }
 
-type ToggleGroupItemProps<Value extends string = string> = ToggleProps<Value>;
+type ToggleGroupItemProps = ToggleProps;
 
-function ToggleGroupItem<Value extends string = string>({
-  className,
-  variant,
-  size,
-  ...props
-}: ToggleGroupItemProps<Value>) {
-  const context = React.useContext(ToggleGroupContext);
+function ToggleGroupItem({ className, variant, size, ...props }: ToggleGroupItemProps) {
+  const context = React.useContext(ToggleGroupContext) ?? DEFAULT_TOGGLE_GROUP_CONTEXT;
 
   return (
     <Toggle

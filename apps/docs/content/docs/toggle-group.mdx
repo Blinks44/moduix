@@ -121,6 +121,19 @@ Use group-level props (`variant`, `size`, `className`) when all items should sha
 Override a specific `ToggleGroupItem` with its own `variant`, `size`, or `className` when one
 option needs a different presentation.
 
+### Defaults
+
+| Prop          | Default      | Values                                                  |
+| ------------- | ------------ | ------------------------------------------------------- |
+| `variant`     | `default`    | `default`, `outline`, `ghost`                           |
+| `size`        | `md`         | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
+| `multiple`    | `false`      | `true`, `false`                                         |
+| `loopFocus`   | `true`       | `true`, `false`                                         |
+| `orientation` | `horizontal` | `horizontal`, `vertical`                                |
+
+`ToggleGroupItem` inherits `variant` and `size` from `ToggleGroup` by default and can override
+them per item.
+
 ## Examples
 
 ### Multiple
