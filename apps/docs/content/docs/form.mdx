@@ -138,8 +138,15 @@ Form
 Use `Form` props such as `errors`, `actionsRef`, `onFormSubmit`, `validationMode`, `action`,
 and native form attributes.
 Compose fields with `Field`, `FieldLabel`, `Input`, `FieldDescription`, and `FieldError`.
-`Form` does not hide service slots such as `Positioner`, `Backdrop`, or `Viewport`, so
-customization is done directly through `className` on the form and composed child slots.
+`Form` is a single root wrapper and does not expose internal slots.
+Customize layout with `className` on the form root and style child parts directly on composed components.
+
+### Defaults
+
+| Prop             | Default       | Values                                            |
+| ---------------- | ------------- | ------------------------------------------------- |
+| `validationMode` | `onSubmit`    | `onSubmit`, `onBlur`, `onChange`                  |
+| `as` (`render`)  | native `form` | Any valid React element or component via `render` |
 
 ## Examples
 

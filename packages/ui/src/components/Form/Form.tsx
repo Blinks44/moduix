@@ -2,10 +2,12 @@ import { Form as FormPrimitive } from '@base-ui/react/form';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Form.module.css';
 
-function Form<FormValues extends Record<string, any> = Record<string, any>>({
+type FormRecord = Record<string, any>;
+
+function Form<TValues extends FormRecord = FormRecord>({
   className,
   ...props
-}: FormProps<FormValues>) {
+}: FormProps<TValues>) {
   return (
     <FormPrimitive
       data-slot="form-root"
@@ -15,16 +17,14 @@ function Form<FormValues extends Record<string, any> = Record<string, any>>({
   );
 }
 
-type FormProps<FormValues extends Record<string, any> = Record<string, any>> =
-  FormPrimitive.Props<FormValues>;
+type FormProps<TValues extends FormRecord = FormRecord> = FormPrimitive.Props<TValues>;
 type FormState = FormPrimitive.State;
 type FormActions = FormPrimitive.Actions;
 type FormValidationMode = FormPrimitive.ValidationMode;
 type FormSubmitEventReason = FormPrimitive.SubmitEventReason;
 type FormSubmitEventDetails = FormPrimitive.SubmitEventDetails;
-type FormValues<FormValues extends Record<string, any> = Record<string, any>> =
-  FormPrimitive.Values<FormValues>;
-type FormErrors = NonNullable<FormProps['errors']>;
+type FormValues<TValues extends FormRecord = FormRecord> = FormPrimitive.Values<TValues>;
+type FormErrors = NonNullable<FormPrimitive.Props<FormRecord>['errors']>;
 
 export { Form };
 

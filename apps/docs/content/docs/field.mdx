@@ -110,6 +110,17 @@ non-label element for controls such as select or combobox triggers. `FieldError 
 `true` or a `ValidityState` key such as `valueMissing`, `typeMismatch`, or `customError`;
 `FieldValidity` exposes the full validity object through a render function.
 
+### Defaults
+
+| Prop                           | Default     | Values                            |
+| ------------------------------ | ----------- | --------------------------------- |
+| `Field.validationMode`         | `onSubmit`  | `onSubmit`, `onBlur`, `onChange`  |
+| `Field.validationDebounceTime` | `0`         | Any `number` (ms)                 |
+| `Field.disabled`               | `false`     | `true`, `false`                   |
+| `FieldLabel.nativeLabel`       | `true`      | `true`, `false`                   |
+| `FieldItem.disabled`           | `false`     | `true`, `false`                   |
+| `FieldError.match`             | `undefined` | `true` or any `ValidityState` key |
+
 The package exports Base UI helper types for advanced composition:
 
 ```tsx

@@ -15,10 +15,8 @@
     min-inline-size: 0;
   }
 
-  .root {
-    &[data-disabled] {
-      opacity: var(--fieldset-disabled-opacity, var(--opacity-disabled));
-    }
+  .root[data-disabled] {
+    opacity: var(--fieldset-disabled-opacity, var(--opacity-disabled));
   }
 
   .legend {

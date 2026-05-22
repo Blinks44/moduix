@@ -108,6 +108,14 @@ needs to also be another Base UI component, such as `RadioGroup`.
 backdrop, viewport, portal, or other service slots to style through `classNames`; pass `className`
 directly to the part you want to customize.
 
+### Defaults
+
+| Prop        | Default    | Values                                       |
+| ----------- | ---------- | -------------------------------------------- |
+| `disabled`  | `false`    | `true`, `false`                              |
+| `render`    | `fieldset` | Any valid React element or render callback   |
+| `className` | _not set_  | `string` or `(state) => string \| undefined` |
+
 ```tsx
 <Fieldset className={styles.fieldset}>
   <FieldsetLegend className={styles.legend}>Billing details</FieldsetLegend>
