@@ -99,6 +99,17 @@ high-level behavior.
 `LightboxGallery` adds delegation-based capture for dynamic content. It listens for image clicks
 inside `rootRef` or `rootSelector` and opens the preview with the clicked image source.
 
+### Defaults
+
+| Part              | Prop                  | Default       | Values / Notes                                   |
+| ----------------- | --------------------- | ------------- | ------------------------------------------------ |
+| `LightboxContent` | `withBackdrop`        | `true`        | `true`, `false`                                  |
+| `LightboxContent` | `withCloseButton`     | `true`        | `true`, `false`                                  |
+| `LightboxContent` | `closeOnContentClick` | `true`        | `true`, `false`                                  |
+| `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for close controls              |
+| `LightboxGallery` | `selector`            | `img`         | Any selector supported by `Element.closest(...)` |
+| `LightboxGallery` | `withBackdrop`        | `true`        | Passed through to internal `LightboxContent`     |
+
 ## Examples
 
 ### Dynamic Gallery Capture

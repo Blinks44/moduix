@@ -26,7 +26,7 @@ variants, and root `className` composition.
 
 ## Basic
 
-<Preview cssProperties={listPlaygroundCssProperties}>
+<Preview cssProperties={listPlaygroundCssProperties} cssVariableScope="local">
   <ListExample />
 
   <Preview.Code>
@@ -100,13 +100,15 @@ All direct `li` elements receive root spacing and marker styles. For `marker="bu
 `ListItem` exposes marker/content composition and supports marker styling via
 `classNames.marker` and marker content overrides via `marker`.
 
-| Prop     | Values                                                           | Default     |
-| -------- | ---------------------------------------------------------------- | ----------- |
-| `as`     | `"ul"`, `"ol"`                                                   | `"ul"`      |
-| `marker` | `"disc"`, `"decimal"`, `"bullet"`, `"none"`                      | by `as`     |
-| `gap`    | `"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`, `"2xl"`                  | `"sm"`      |
-| `size`   | `"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`                           | `"md"`      |
-| `tone`   | `"default"`, `"muted"`, `"subtle"`, `"primary"`, `"destructive"` | `"default"` |
+### Defaults
+
+| Prop     | Default   | Values                                                 |
+| -------- | --------- | ------------------------------------------------------ |
+| `as`     | `ul`      | `ul`, `ol`                                             |
+| `marker` | by `as`   | `disc`, `decimal`, `bullet`, `none`                    |
+| `gap`    | `sm`      | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`                    |
+| `size`   | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                           |
+| `tone`   | `default` | `default`, `muted`, `subtle`, `primary`, `destructive` |
 
 ## Examples
 

@@ -127,6 +127,7 @@
   }
 
   .marker {
+    display: none;
     flex-shrink: 0;
     width: var(--list-marker-size, 0.375rem);
     height: var(--list-marker-size, 0.375rem);
@@ -141,5 +142,9 @@
     border-radius: 0;
     margin-block-start: 0;
     background-color: transparent;
+  }
+
+  .root[data-marker='bullet'] .marker {
+    display: block;
   }
 }

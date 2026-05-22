@@ -4,6 +4,8 @@ import { CloseButton } from '@/components/CloseButton';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Lightbox.module.css';
 
+const DEFAULT_CLOSE_LABEL = 'Close image';
+
 type LightboxImageData = {
   src: string;
   alt?: string;
@@ -71,13 +73,7 @@ function LightboxTrigger({ className, render, ...props }: DialogPrimitive.Trigge
 }
 
 function LightboxPortal({ className, ...props }: DialogPrimitive.Portal.Props) {
-  return (
-    <DialogPrimitive.Portal
-      data-slot="lightbox-portal"
-      className={mergeClassName(className)}
-      {...props}
-    />
-  );
+  return <DialogPrimitive.Portal data-slot="lightbox-portal" className={className} {...props} />;
 }
 
 function LightboxBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props) {
@@ -145,18 +141,25 @@ function LightboxContent({
   withBackdrop = true,
   withCloseButton = true,
   closeOnContentClick = true,
-  closeLabel = 'Close image',
+  closeLabel = DEFAULT_CLOSE_LABEL,
   closeButton,
   children,
   ...props
 }: LightboxContentProps) {
   const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? slotPortalContainer;
+  const resolvedContainer = container ?? slotPortalContainer;
+  const content = closeOnContentClick ? (
+    <LightboxClose className={styles.contentClose} aria-label={closeLabel} render={<div />}>
+      {children}
+    </LightboxClose>
+  ) : (
+    children
+  );
 
   return (
     <LightboxPortal
       className={classNames?.portal}
-      container={portalContainer}
+      container={resolvedContainer}
       {...restPortalSlotProps}
     >
       {withBackdrop ? (
@@ -176,17 +179,7 @@ function LightboxContent({
         ) : null}
         <LightboxPopup className={className} {...props}>
           <div data-slot="lightbox-frame" className={classNames?.frame ?? styles.frame}>
-            {closeOnContentClick ? (
-              <LightboxClose
-                className={styles.contentClose}
-                aria-label={closeLabel}
-                render={<div />}
-              >
-                {children}
-              </LightboxClose>
-            ) : (
-              children
-            )}
+            {content}
           </div>
         </LightboxPopup>
       </LightboxViewport>
@@ -226,7 +219,7 @@ function LightboxGallery({
         return;
       }
 
-      const source = imageNode.dataset.lightboxSrc || imageNode.currentSrc || imageNode.src;
+      const source = imageNode.dataset.lightboxSrc ?? imageNode.currentSrc ?? imageNode.src;
       if (!source) {
         return;
       }
@@ -242,21 +235,15 @@ function LightboxGallery({
     return () => rootNode.removeEventListener('click', handleClick);
   }, [rootRef, rootSelector, selector]);
 
-  const handleOpenChange = React.useCallback((nextOpen: boolean) => {
-    setOpen(nextOpen);
-  }, []);
-
-  const handleOpenChangeComplete = React.useCallback((nextOpen: boolean) => {
-    if (!nextOpen) {
-      setImage(null);
-    }
-  }, []);
-
   return (
     <Lightbox
       open={open}
-      onOpenChange={handleOpenChange}
-      onOpenChangeComplete={handleOpenChangeComplete}
+      onOpenChange={setOpen}
+      onOpenChangeComplete={(nextOpen) => {
+        if (!nextOpen) {
+          setImage(null);
+        }
+      }}
     >
       <LightboxContent
         className={className}

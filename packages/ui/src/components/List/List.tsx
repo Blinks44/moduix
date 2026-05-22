@@ -26,59 +26,51 @@ type ListItemProps = React.ComponentProps<'li'> & {
   classNames?: ListItemClassNames;
 };
 
-type ListContextValue = {
-  marker: ListMarker;
-};
+const DEFAULT_AS: ListAs = 'ul';
+const DEFAULT_GAP: ListGap = 'sm';
+const DEFAULT_SIZE: ListSize = 'md';
+const DEFAULT_TONE: ListTone = 'default';
 
-const defaultMarkerByElement: Record<ListAs, ListMarker> = {
+const DEFAULT_MARKER_BY_ELEMENT: Record<ListAs, ListMarker> = {
   ul: 'disc',
   ol: 'decimal',
 };
 
-const ListContext = React.createContext<ListContextValue | null>(null);
-
 function List({
-  as = 'ul',
+  as = DEFAULT_AS,
   marker,
-  gap = 'sm',
-  size = 'md',
-  tone = 'default',
+  gap = DEFAULT_GAP,
+  size = DEFAULT_SIZE,
+  tone = DEFAULT_TONE,
   className,
   ...props
 }: ListProps) {
   const Component = as;
-  const resolvedMarker = marker ?? defaultMarkerByElement[as];
+  const resolvedMarker = marker ?? DEFAULT_MARKER_BY_ELEMENT[as];
 
   return (
-    <ListContext.Provider value={{ marker: resolvedMarker }}>
-      <Component
-        data-slot="list-root"
-        data-gap={gap}
-        data-marker={resolvedMarker}
-        data-size={size}
-        data-tone={tone}
-        className={clsx(styles.root, className)}
-        {...props}
-      />
-    </ListContext.Provider>
+    <Component
+      data-slot="list-root"
+      data-gap={gap}
+      data-marker={resolvedMarker}
+      data-size={size}
+      data-tone={tone}
+      className={clsx(styles.root, className)}
+      {...props}
+    />
   );
 }
 
 function ListItem({ className, classNames, marker, children, ...props }: ListItemProps) {
-  const context = React.useContext(ListContext);
-  const shouldRenderMarker = context?.marker === 'bullet';
-
   return (
     <li data-slot="list-item" className={clsx(styles.item, className)} {...props}>
-      {shouldRenderMarker ? (
-        <span
-          data-slot="list-item-marker"
-          aria-hidden
-          className={clsx(styles.marker, classNames?.marker)}
-        >
-          {marker}
-        </span>
-      ) : null}
+      <span
+        data-slot="list-item-marker"
+        aria-hidden
+        className={clsx(styles.marker, classNames?.marker)}
+      >
+        {marker}
+      </span>
       <span data-slot="list-item-content" className={clsx(styles.content, classNames?.content)}>
         {children}
       </span>
