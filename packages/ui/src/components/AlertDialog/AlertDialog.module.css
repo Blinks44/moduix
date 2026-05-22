@@ -80,6 +80,14 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: var(--alert-dialog-viewport-padding, var(--spacing-4));
+
+    &[data-with-backdrop='false'] {
+      pointer-events: none;
+
+      & > :is([data-slot='alert-dialog-popup']) {
+        pointer-events: auto;
+      }
+    }
   }
 
   .popup {
@@ -183,6 +191,13 @@
     min-height: auto;
     padding: 0;
     border: 0;
+  }
+
+  .autoCloseIcon {
+    position: absolute;
+    top: var(--alert-dialog-close-outside-offset-top, var(--spacing-4));
+    right: var(--alert-dialog-close-outside-offset-right, var(--spacing-4));
+    z-index: 1;
   }
 
   .cancel {

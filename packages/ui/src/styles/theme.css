@@ -181,6 +181,8 @@
   --alert-dialog-close-icon-glyph-size: initial; /* 0.75rem */
   --alert-dialog-close-icon-radius: initial; /* var(--radius-md) */
   --alert-dialog-close-icon-size: initial; /* 1.75rem */
+  --alert-dialog-close-outside-offset-right: initial; /* var(--spacing-4) */
+  --alert-dialog-close-outside-offset-top: initial; /* var(--spacing-4) */
   --alert-dialog-color: initial; /* var(--color-popover-foreground) */
   --alert-dialog-content-margin: initial; /* var(--spacing-4) 0 0 */
   --alert-dialog-control-bg: initial; /* var(--color-background) */

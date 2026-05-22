@@ -39,7 +39,7 @@ function AccordionTrigger({
   className,
   children,
   icon,
-  hideIcon = false,
+  withIcon = true,
   classNames,
   slotProps,
   ...props
@@ -55,7 +55,7 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        {!hideIcon && (
+        {withIcon && (
           <AccordionTriggerIcon {...iconProps} className={iconClassName}>
             {icon}
           </AccordionTriggerIcon>
@@ -103,13 +103,13 @@ type AccordionTriggerSlotProps = {
 };
 type AccordionTriggerProps = AccordionPrimitive.Trigger.Props & {
   /**
-   * Icon rendered at the end of the trigger. Pass `hideIcon` to remove it.
+   * Icon rendered at the end of the trigger.
    */
   icon?: React.ReactNode;
   /**
-   * Removes the default trigger icon.
+   * Toggles trigger icon rendering.
    */
-  hideIcon?: boolean;
+  withIcon?: boolean;
   /**
    * Classes for internal slots rendered by the trigger.
    */

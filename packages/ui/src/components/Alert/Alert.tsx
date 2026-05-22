@@ -24,11 +24,7 @@ type AlertDescriptionProps = React.ComponentProps<'div'>;
 type AlertContentProps = React.ComponentProps<'div'>;
 type AlertCloseProps = CloseButtonProps;
 
-type AlertContextValue = {
-  dismiss: () => void;
-};
-
-const AlertContext = React.createContext<AlertContextValue | null>(null);
+const AlertContext = React.createContext<(() => void) | null>(null);
 
 function Alert({
   className,
@@ -69,17 +65,12 @@ function Alert({
     [isControlled, onOpenChange, withDismissAnimation],
   );
 
-  const context = React.useMemo<AlertContextValue>(
-    () => ({
-      dismiss: () => setOpen(false),
-    }),
-    [setOpen],
-  );
+  const dismiss = React.useCallback(() => setOpen(false), [setOpen]);
 
   if (!mounted) return null;
 
   return (
-    <AlertContext.Provider value={context}>
+    <AlertContext.Provider value={dismiss}>
       <div
         role={role ?? (variant === 'destructive' ? 'alert' : 'status')}
         data-slot="alert-root"
@@ -127,7 +118,7 @@ function AlertDescription({ className, ...props }: AlertDescriptionProps) {
 }
 
 function AlertClose({ className, onClick, ...props }: AlertCloseProps) {
-  const context = React.useContext(AlertContext);
+  const dismiss = React.useContext(AlertContext);
 
   return (
     <CloseButton
@@ -135,7 +126,7 @@ function AlertClose({ className, onClick, ...props }: AlertCloseProps) {
       className={mergeClassName(className, styles.close)}
       onClick={(event) => {
         onClick?.(event);
-        if (!event.defaultPrevented) context?.dismiss();
+        if (!event.defaultPrevented) dismiss?.();
       }}
       {...props}
     />

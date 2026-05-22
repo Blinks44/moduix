@@ -99,6 +99,16 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
     'Controls close icon button border radius.',
   ],
   ['--alert-dialog-close-icon-size', '1.75rem', 'Controls close icon button size.'],
+  [
+    '--alert-dialog-close-outside-offset-right',
+    'var(--spacing-4)',
+    'Controls outside close icon right offset.',
+  ],
+  [
+    '--alert-dialog-close-outside-offset-top',
+    'var(--spacing-4)',
+    'Controls outside close icon top offset.',
+  ],
   ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--alert-dialog-content-margin', 'var(--spacing-4) 0 0', 'Controls body top margin.'],
   ['--alert-dialog-control-bg', 'var(--color-background)', 'Controls control background.'],
@@ -214,10 +224,9 @@ export function AlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent withCloseButton>
         <AlertDialogHeader>
           <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-          <AlertDialogCloseIcon />
           <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

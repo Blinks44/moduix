@@ -110,6 +110,12 @@ should be a specific semantic element such as `section` or `figure`. The compone
 the rendered element, so it can be measured, focused, or passed to animation libraries like any
 native element.
 
+| Prop     | Default | Values                                       |
+| -------- | ------- | -------------------------------------------- |
+| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
+| `as`     | `div`   | Any valid React element or component         |
+
 `Bleed` has no internal service slots, so customization is done directly with `className` and
 bleed CSS variables on the root element.
 

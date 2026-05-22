@@ -35,10 +35,9 @@ export const Basic: Story = {
     return (
       <Dialog>
         <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
-        <DialogContent>
+        <DialogContent withCloseButton>
           <DialogHeader>
             <DialogTitle>Notifications</DialogTitle>
-            <DialogCloseIcon className={storyStyles.insideCloseIcon} />
             <DialogDescription>You are all caught up. Good job!</DialogDescription>
           </DialogHeader>
           <DialogFooter>

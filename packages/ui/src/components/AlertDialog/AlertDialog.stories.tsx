@@ -37,10 +37,9 @@ export const Basic: Story = {
     return (
       <AlertDialog>
         <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent withCloseButton>
           <AlertDialogHeader>
             <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-            <AlertDialogCloseIcon />
             <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

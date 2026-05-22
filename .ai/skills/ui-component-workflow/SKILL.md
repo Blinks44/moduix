@@ -47,6 +47,7 @@ If missing, fetch the file from the Base UI page for that component.
 - Components must accept `className`.
 - Use shared icons from `src/primitives/Icons/Icons.tsx` for reusable icons.
 - Keep composition and DX shadcn-like: clear compound parts, predictable naming, no unnecessary API overload.
+- Prefer the simplest readable implementation that preserves behavior: avoid extra generic/type indirection when it does not improve type safety or DX, so mid-level developers can follow component code quickly.
 
 ## Styling Rules
 

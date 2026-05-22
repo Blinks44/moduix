@@ -34,7 +34,6 @@ import {
         AlertDialogContent,
         AlertDialogHeader,
         AlertDialogTitle,
-        AlertDialogCloseIcon,
         AlertDialogDescription,
         AlertDialogFooter,
         AlertDialogCancel,
@@ -45,10 +44,9 @@ import {
         return (
           <AlertDialog>
             <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent withCloseButton>
               <AlertDialogHeader>
                 <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-                <AlertDialogCloseIcon />
                 <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -140,14 +138,18 @@ state-based `style` props.
 `className` styles the visible popup. `classNames` styles the internal service slots that are
 hidden from the default composition. `AlertDialogContent` accepts the popup props from Base UI,
 including `initialFocus`, `finalFocus`, `render`, state-based `className`, and state-based `style`.
+Set `withCloseButton` to render a standard top-right close icon automatically; keep manual
+`AlertDialogCloseIcon` composition when you need custom icon replacement.
 Use `container`, `slotProps`, and `withBackdrop={false}` when you need service-slot escape hatches:
 
-| Prop           | Default     | Values                                                               |
-| -------------- | ----------- | -------------------------------------------------------------------- |
-| `withBackdrop` | `true`      | `true`, `false`                                                      |
-| `container`    | `undefined` | `HTMLElement`, ref callback, or `null`                               |
-| `classNames`   | `undefined` | `{ portal?: className; backdrop?: className; viewport?: className }` |
-| `slotProps`    | `undefined` | `{ portal?; backdrop?; viewport? }`                                  |
+| Prop               | Default        | Values                                                                                      |
+| ------------------ | -------------- | ------------------------------------------------------------------------------------------- |
+| `withBackdrop`     | `true`         | `true`, `false`                                                                             |
+| `withCloseButton`  | `false`        | `true`, `false`                                                                             |
+| `closeButtonLabel` | `Close dialog` | Any accessible text label for built-in close                                                |
+| `container`        | `undefined`    | `HTMLElement`, ref callback, or `null`                                                      |
+| `classNames`       | `undefined`    | `{ portal?: className; backdrop?: className; viewport?: className; closeIcon?: className }` |
+| `slotProps`        | `undefined`    | `{ portal?; backdrop?; viewport? }`                                                         |
 
 ```tsx
 <AlertDialogContent

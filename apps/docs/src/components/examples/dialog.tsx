@@ -156,10 +156,9 @@ export function DialogExample() {
   return (
     <Dialog>
       <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
-      <DialogContent>
+      <DialogContent withCloseButton>
         <DialogHeader>
           <DialogTitle>Notifications</DialogTitle>
-          <DialogCloseIcon />
           <DialogDescription>You are all caught up. Good job!</DialogDescription>
         </DialogHeader>
         <DialogFooter>

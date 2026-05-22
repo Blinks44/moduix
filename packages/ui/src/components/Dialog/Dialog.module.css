@@ -219,6 +219,13 @@
     border: 0;
   }
 
+  .autoCloseIcon {
+    position: absolute;
+    top: var(--dialog-close-outside-offset-top, var(--spacing-4));
+    right: var(--dialog-close-outside-offset-right, var(--spacing-4));
+    z-index: 1;
+  }
+
   .body {
     margin: var(--dialog-content-margin, var(--spacing-4) 0 0);
     color: var(

@@ -26,6 +26,18 @@ uncontrolled dismissal through `open`, `defaultOpen`, and `onOpenChange`.
 - `closeButtonLabel`: accessible label for the built-in close button
 - `className` and standard `div` props
 
+## Defaults
+
+| Prop                   | Default       | Values                                                               |
+| ---------------------- | ------------- | -------------------------------------------------------------------- |
+| `variant`              | `default`     | `default`, `info`, `success`, `warning`, `destructive`               |
+| `size`                 | `md`          | `sm`, `md`, `lg`                                                     |
+| `defaultOpen`          | `true`        | `true`, `false`                                                      |
+| `withCloseButton`      | `false`       | `true`, `false`                                                      |
+| `withDismissAnimation` | `true`        | `true`, `false`                                                      |
+| `closeButtonLabel`     | `Close alert` | Any accessible text label for the built-in close button              |
+| `role`                 | Auto          | `status` by default, `alert` when `variant="destructive"`, or custom |
+
 ## Styling
 
 The component exposes `--alert-*` CSS variables in `src/styles/theme.css`.

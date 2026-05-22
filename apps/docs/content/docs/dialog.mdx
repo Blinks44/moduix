@@ -35,7 +35,6 @@ import {
         DialogContent,
         DialogHeader,
         DialogTitle,
-        DialogCloseIcon,
         DialogDescription,
         DialogFooter,
         DialogClose,
@@ -45,10 +44,9 @@ import {
         return (
           <Dialog>
             <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
-            <DialogContent>
+            <DialogContent withCloseButton>
               <DialogHeader>
                 <DialogTitle>Notifications</DialogTitle>
-                <DialogCloseIcon />
                 <DialogDescription>You are all caught up. Good job!</DialogDescription>
               </DialogHeader>
               <DialogFooter>
@@ -138,6 +136,17 @@ hidden from the default composition. Use `container`, `slotProps`, and `withBack
 you need the matching Base UI escape hatches. Common cases are `slotProps.portal.keepMounted`,
 `slotProps.backdrop.forceRender`, and viewport attributes or refs through `slotProps.viewport`.
 `DialogContent` itself accepts popup props such as `initialFocus` and `finalFocus`.
+Set `withCloseButton` to render a standard top-right close icon automatically; keep manual
+`DialogCloseIcon` composition when you need custom placement or icon replacement.
+
+| Prop               | Default        | Values                                          |
+| ------------------ | -------------- | ----------------------------------------------- |
+| `withBackdrop`     | `true`         | `true`, `false`                                 |
+| `withCloseButton`  | `false`        | `true`, `false`                                 |
+| `closeButtonLabel` | `Close dialog` | Any accessible text label for built-in close    |
+| `container`        | `undefined`    | `HTMLElement`, ref callback, or `null`          |
+| `classNames`       | `undefined`    | `{ portal?; backdrop?; viewport?; closeIcon? }` |
+| `slotProps`        | `undefined`    | `{ portal?; backdrop?; viewport? }`             |
 
 ```tsx
 <DialogContent
