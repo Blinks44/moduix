@@ -41,7 +41,7 @@ export const Basic: Story = {
             Notifications
           </span>
         </PopoverTrigger>
-        <PopoverContent arrow>
+        <PopoverContent>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Notifications</PopoverTitle>
             <PopoverDescription>You are all caught up. Good job!</PopoverDescription>
@@ -57,7 +57,7 @@ export const WithCloseAction: Story = {
     return (
       <Popover>
         <PopoverTrigger render={<Button />}>Project status</PopoverTrigger>
-        <PopoverContent arrow>
+        <PopoverContent>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Sprint 19</PopoverTitle>
             <PopoverDescription>
@@ -105,7 +105,7 @@ export const OpenOnHover: Story = {
         <PopoverTrigger openOnHover delay={150} closeDelay={120} render={<Button />}>
           Open on hover
         </PopoverTrigger>
-        <PopoverContent arrow>
+        <PopoverContent>
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Hover mode</PopoverTitle>
             <PopoverDescription>
@@ -126,7 +126,7 @@ export const Controlled: Story = {
       <div className={storyStyles.stack}>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger render={<Button />}>Open controlled popover</PopoverTrigger>
-          <PopoverContent arrow>
+          <PopoverContent>
             <PopoverHeader className={storyStyles.contentGrid}>
               <PopoverTitle>Publish changes?</PopoverTitle>
               <PopoverDescription>
@@ -191,7 +191,7 @@ export const SideControl: Story = {
 
         <Popover>
           <PopoverTrigger render={<Button />}>Open with side: {side}</PopoverTrigger>
-          <PopoverContent side={side} arrow className={storyStyles.popupNarrow}>
+          <PopoverContent side={side} className={storyStyles.popupNarrow}>
             <PopoverHeader className={storyStyles.contentGrid}>
               <PopoverTitle>Placement</PopoverTitle>
               <PopoverDescription>
@@ -211,7 +211,7 @@ export const ImageOnlyContent: Story = {
     return (
       <Popover>
         <PopoverTrigger render={<Button />}>Open image popover</PopoverTrigger>
-        <PopoverContent arrow className={storyStyles.imagePopup}>
+        <PopoverContent className={storyStyles.imagePopup}>
           <PopoverBody>
             <img
               className={storyStyles.image}
@@ -235,7 +235,7 @@ export const WithoutArrow: Story = {
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>No arrow</PopoverTitle>
             <PopoverDescription>
-              Set arrow to false when the popup should look like a floating panel.
+              Set withArrow to false when the popup should look like a floating panel.
             </PopoverDescription>
           </PopoverHeader>
         </PopoverContent>

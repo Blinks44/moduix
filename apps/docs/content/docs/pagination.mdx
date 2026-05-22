@@ -78,7 +78,25 @@ Use uncontrolled mode with `defaultPage` for local state. Use controlled mode wi
 `onPageChange` when pagination must stay in sync with URL state or external filters.
 
 Use `getPageHref` to map pages to links for any URL scheme, such as `/page/7` or `?page=7`.
-Use `showArrows` and `showPages` to keep only the controls you need for the layout.
+Use `withArrows` and `withPages` to keep only the controls you need for the layout.
+
+### Defaults
+
+| Prop             | Default          | Values                                       |
+| ---------------- | ---------------- | -------------------------------------------- |
+| `defaultPage`    | `1`              | Any positive integer                         |
+| `visiblePages`   | `5`              | Any integer (minimum effective value is `3`) |
+| `withPages`      | `true`           | `true`, `false`                              |
+| `withArrows`     | `true`           | `true`, `false`                              |
+| `disabled`       | `false`          | `true`, `false`                              |
+| `size`           | `md`             | `xs`, `sm`, `md`, `lg`, `xl`                 |
+| `toolbarVariant` | `ghost`          | `default`, `outline`, `ghost`                |
+| `toolbarSize`    | Auto from `size` | `sm`, `md`, `lg`                             |
+| `previousLabel`  | `Previous page`  | Any string                                   |
+| `nextLabel`      | `Next page`      | Any string                                   |
+
+`count` is required and clamped to at least `1`. `page` and `onPageChange` are optional and
+activate controlled mode when `page` is provided.
 
 ## Examples
 
@@ -94,7 +112,7 @@ Hide arrow controls when only direct page selection is needed.
       import { Pagination } from "moduix";
 
       export function PaginationNumbersOnlyDemo() {
-        return <Pagination count={10} defaultPage={5} showArrows={false} />;
+        return <Pagination count={10} defaultPage={5} withArrows={false} />;
       }
     `}
 
@@ -113,7 +131,7 @@ Hide page numbers when the UI needs compact previous/next controls.
       import { Pagination } from "moduix";
 
       export function PaginationArrowsOnlyDemo() {
-        return <Pagination count={10} defaultPage={5} showPages={false} />;
+        return <Pagination count={10} defaultPage={5} withPages={false} />;
       }
     `}
 

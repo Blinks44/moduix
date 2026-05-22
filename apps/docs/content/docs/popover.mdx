@@ -156,6 +156,16 @@ hidden from the default composition. Pass placement props such as `side`, `align
 arrow, and `arrow` to replace it. Use `slotProps` only when you need Base UI escape-hatch props for
 an internal slot, such as `keepMounted` on the portal or a custom `render` for the viewport:
 
+### Defaults
+
+| Prop           | Default | Values                                                                      |
+| -------------- | ------- | --------------------------------------------------------------------------- |
+| `withArrow`    | `true`  | `boolean`                                                                   |
+| `withBackdrop` | `false` | `boolean`                                                                   |
+| `withViewport` | `false` | `boolean`                                                                   |
+| `sideOffset`   | `8`     | `number`                                                                    |
+| `container`    | `null`  | `HTMLElement \| ShadowRoot \| React.RefObject<HTMLElement \| null> \| null` |
+
 ```tsx
 <PopoverContent
   withBackdrop

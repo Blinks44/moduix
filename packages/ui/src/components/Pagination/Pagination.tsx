@@ -15,8 +15,8 @@ type PaginationProps = Omit<React.ComponentProps<'nav'>, 'onChange'> & {
   defaultPage?: number;
   onPageChange?: (page: number) => void;
   visiblePages?: number;
-  showPages?: boolean;
-  showArrows?: boolean;
+  withPages?: boolean;
+  withArrows?: boolean;
   disabled?: boolean;
   getPageHref?: (page: number) => string;
   size?: PaginationSize;
@@ -76,6 +76,16 @@ function resolveToolbarSize(
   return 'md';
 }
 
+type PaginationControlProps = {
+  itemKey?: React.Key;
+  targetPage: number;
+  ariaLabel?: string;
+  active?: boolean;
+  disabled?: boolean;
+  className?: string;
+  children: React.ReactNode;
+};
+
 function Pagination({
   className,
   count,
@@ -83,8 +93,8 @@ function Pagination({
   defaultPage = 1,
   onPageChange,
   visiblePages = 5,
-  showPages = true,
-  showArrows = true,
+  withPages = true,
+  withArrows = true,
   disabled = false,
   getPageHref,
   size = 'md',
@@ -125,13 +135,65 @@ function Pagination({
     [currentPage, disabled, isControlled, onPageChange, safeCount],
   );
 
-  const pageItems = showPages ? getPageItems(currentPage, safeCount, safeVisiblePages) : [];
+  const pageItems = withPages ? getPageItems(currentPage, safeCount, safeVisiblePages) : [];
   const prevPage = currentPage - 1;
   const nextPage = currentPage + 1;
   const isPrevDisabled = disabled || currentPage <= 1;
   const isNextDisabled = disabled || currentPage >= safeCount;
   const hasLinks = Boolean(getPageHref);
   const resolvedToolbarSize = resolveToolbarSize(size, toolbarSize);
+
+  function renderControl({
+    itemKey,
+    targetPage,
+    ariaLabel,
+    active = false,
+    disabled: isDisabled = false,
+    className,
+    children,
+  }: PaginationControlProps) {
+    const itemClassName = clsx(styles.item, className, active && styles.itemActive);
+
+    if (hasLinks) {
+      return (
+        <ToolbarLink
+          key={itemKey}
+          data-slot="pagination-item"
+          href={getPageHref?.(targetPage)}
+          aria-label={ariaLabel}
+          aria-current={active ? 'page' : undefined}
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          className={clsx(itemClassName, isDisabled && styles.itemDisabled)}
+          onClick={(event) => {
+            if (isDisabled || active) {
+              event.preventDefault();
+              return;
+            }
+
+            setPage(targetPage);
+          }}
+        >
+          {children}
+        </ToolbarLink>
+      );
+    }
+
+    return (
+      <ToolbarButton
+        key={itemKey}
+        data-slot="pagination-item"
+        aria-label={ariaLabel}
+        aria-current={active ? 'page' : undefined}
+        data-active={active || undefined}
+        disabled={isDisabled}
+        onClick={() => setPage(targetPage)}
+        className={itemClassName}
+      >
+        {children}
+      </ToolbarButton>
+    );
+  }
 
   return (
     <nav
@@ -142,36 +204,14 @@ function Pagination({
       {...props}
     >
       <Toolbar variant={toolbarVariant} size={resolvedToolbarSize} className={styles.toolbar}>
-        {showArrows &&
-          (hasLinks ? (
-            <ToolbarLink
-              data-slot="pagination-item"
-              aria-label={previousLabel}
-              aria-disabled={isPrevDisabled || undefined}
-              tabIndex={isPrevDisabled ? -1 : undefined}
-              href={getPageHref!(Math.max(prevPage, 1))}
-              onClick={(event) => {
-                if (isPrevDisabled) {
-                  event.preventDefault();
-                  return;
-                }
-                setPage(prevPage);
-              }}
-              className={clsx(styles.item, styles.arrow, isPrevDisabled && styles.itemDisabled)}
-            >
-              <ChevronRightLargeIcon className={styles.arrowLeftIcon} />
-            </ToolbarLink>
-          ) : (
-            <ToolbarButton
-              data-slot="pagination-item"
-              aria-label={previousLabel}
-              disabled={isPrevDisabled}
-              onClick={() => setPage(prevPage)}
-              className={clsx(styles.item, styles.arrow)}
-            >
-              <ChevronRightLargeIcon className={styles.arrowLeftIcon} />
-            </ToolbarButton>
-          ))}
+        {withArrows &&
+          renderControl({
+            targetPage: Math.max(prevPage, 1),
+            disabled: isPrevDisabled,
+            ariaLabel: previousLabel,
+            className: styles.arrow,
+            children: <ChevronRightLargeIcon className={styles.arrowLeftIcon} />,
+          })}
 
         {pageItems.map((item, index) => {
           if (typeof item !== 'number') {
@@ -186,68 +226,23 @@ function Pagination({
             );
           }
 
-          const isActive = item === currentPage;
-
-          if (hasLinks) {
-            return (
-              <ToolbarLink
-                key={item}
-                data-slot="pagination-item"
-                href={getPageHref!(item)}
-                aria-current={isActive ? 'page' : undefined}
-                className={clsx(styles.item, isActive && styles.itemActive)}
-                onClick={() => setPage(item)}
-              >
-                {item}
-              </ToolbarLink>
-            );
-          }
-
-          return (
-            <ToolbarButton
-              key={item}
-              data-slot="pagination-item"
-              aria-current={isActive ? 'page' : undefined}
-              data-active={isActive || undefined}
-              disabled={disabled}
-              onClick={() => setPage(item)}
-              className={clsx(styles.item, isActive && styles.itemActive)}
-            >
-              {item}
-            </ToolbarButton>
-          );
+          return renderControl({
+            itemKey: item,
+            targetPage: item,
+            active: item === currentPage,
+            disabled,
+            children: item,
+          });
         })}
 
-        {showArrows &&
-          (hasLinks ? (
-            <ToolbarLink
-              data-slot="pagination-item"
-              aria-label={nextLabel}
-              aria-disabled={isNextDisabled || undefined}
-              tabIndex={isNextDisabled ? -1 : undefined}
-              href={getPageHref!(Math.min(nextPage, safeCount))}
-              onClick={(event) => {
-                if (isNextDisabled) {
-                  event.preventDefault();
-                  return;
-                }
-                setPage(nextPage);
-              }}
-              className={clsx(styles.item, styles.arrow, isNextDisabled && styles.itemDisabled)}
-            >
-              <ChevronRightLargeIcon />
-            </ToolbarLink>
-          ) : (
-            <ToolbarButton
-              data-slot="pagination-item"
-              aria-label={nextLabel}
-              disabled={isNextDisabled}
-              onClick={() => setPage(nextPage)}
-              className={clsx(styles.item, styles.arrow)}
-            >
-              <ChevronRightLargeIcon />
-            </ToolbarButton>
-          ))}
+        {withArrows &&
+          renderControl({
+            targetPage: Math.min(nextPage, safeCount),
+            disabled: isNextDisabled,
+            ariaLabel: nextLabel,
+            className: styles.arrow,
+            children: <ChevronRightLargeIcon />,
+          })}
       </Toolbar>
     </nav>
   );

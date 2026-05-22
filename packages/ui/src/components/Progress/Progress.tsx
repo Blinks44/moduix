@@ -12,6 +12,8 @@ type ProgressProps = ProgressPrimitive.Root.Props & {
 };
 
 function Progress({ className, classNames, children, ...props }: ProgressProps) {
+  const { track, indicator } = classNames ?? {};
+
   return (
     <ProgressPrimitive.Root
       data-slot="progress-root"
@@ -19,8 +21,8 @@ function Progress({ className, classNames, children, ...props }: ProgressProps) 
       {...props}
     >
       {children}
-      <ProgressTrack className={classNames?.track}>
-        <ProgressIndicator className={classNames?.indicator} />
+      <ProgressTrack className={track}>
+        <ProgressIndicator className={indicator} />
       </ProgressTrack>
     </ProgressPrimitive.Root>
   );

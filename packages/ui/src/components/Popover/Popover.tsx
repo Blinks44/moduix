@@ -191,49 +191,36 @@ function PopoverContent({
   ...props
 }: PopoverContentProps) {
   const positionerProps = slotProps?.positioner;
-  const resolvedDisableAnchorTracking =
-    disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 8;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
+  const resolvedPositionerProps: PopoverPrimitive.Positioner.Props = {
+    ...positionerProps,
+    disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
+    side: side ?? positionerProps?.side,
+    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 8,
+    align: align ?? positionerProps?.align,
+    alignOffset: alignOffset ?? positionerProps?.alignOffset,
+    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
+    anchor: anchor ?? positionerProps?.anchor,
+    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
+    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
+    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
+    sticky: sticky ?? positionerProps?.sticky,
+    positionMethod: positionMethod ?? positionerProps?.positionMethod,
+  };
   const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? portalPropsContainer;
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
+  const arrowContent = typeof arrow === 'boolean' ? null : arrow;
 
   return (
     <PopoverPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
       {withBackdrop ? (
         <PopoverBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
       ) : null}
-      <PopoverPositioner
-        {...positionerProps}
-        disableAnchorTracking={resolvedDisableAnchorTracking}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
-        className={classNames?.positioner}
-      >
+      <PopoverPositioner {...resolvedPositionerProps} className={classNames?.positioner}>
         <PopoverPopup className={className} {...props}>
           {showArrow ? (
             <PopoverArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrowContent ?? <ArrowSvg className={styles.arrowSvg} />}
+              {arrowContent}
             </PopoverArrow>
           ) : null}
           {withViewport ? (

@@ -43,6 +43,21 @@ type AutocompleteContentProps = AutocompletePrimitive.Popup.Props &
     withArrow?: boolean;
   };
 
+type AutocompletePositionerControlProps = Pick<
+  AutocompletePrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'anchor'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'positionMethod'
+>;
+
 const Autocomplete = AutocompletePrimitive.Root;
 
 function AutocompleteField({ className, ...props }: React.ComponentProps<'div'>) {
@@ -227,17 +242,19 @@ function AutocompleteContent({
   const arrowProps = slotProps?.arrow;
   const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
   const portalContainer = container ?? portalPropsContainer;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 5;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
+  const resolvedPositionerProps: AutocompletePositionerControlProps = {
+    side: side ?? positionerProps?.side,
+    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 5,
+    align: align ?? positionerProps?.align,
+    alignOffset: alignOffset ?? positionerProps?.alignOffset,
+    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
+    anchor: anchor ?? positionerProps?.anchor,
+    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
+    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
+    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
+    sticky: sticky ?? positionerProps?.sticky,
+    positionMethod: positionMethod ?? positionerProps?.positionMethod,
+  };
 
   return (
     <AutocompletePortal
@@ -250,17 +267,7 @@ function AutocompleteContent({
       ) : null}
       <AutocompletePositioner
         {...positionerProps}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
+        {...resolvedPositionerProps}
         className={classNames?.positioner}
       >
         <AutocompletePopup className={className} {...props}>

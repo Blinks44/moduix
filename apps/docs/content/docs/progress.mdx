@@ -4,7 +4,6 @@ description: Displays the status of a task that takes a long time.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   AriaValueTextProgressExample,
   ControlledProgressExample,
@@ -99,6 +98,15 @@ Style the root with `className`. Style the automatically rendered visual bar wit
 or pass `classNames={{ track, indicator }}` when the track or indicator needs its own selector.
 `ProgressLabel` and `ProgressValue` remain regular visible slots and accept their own `className`
 and `render` props from Base UI.
+
+### Defaults
+
+| Prop         | Default     | Values                   |
+| ------------ | ----------- | ------------------------ |
+| `value`      | `null`      | `number` \| `null`       |
+| `min`        | `0`         | `number`                 |
+| `max`        | `100`       | `number`                 |
+| `classNames` | `undefined` | `{ track?, indicator? }` |
 
 ## Examples
 

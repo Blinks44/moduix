@@ -44,6 +44,22 @@ type PreviewCardContentProps = PreviewCardPrimitive.Popup.Props &
     withBackdrop?: boolean;
   };
 
+type PreviewCardPositionerControlProps = Pick<
+  PreviewCardPrimitive.Positioner.Props,
+  | 'disableAnchorTracking'
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'anchor'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'positionMethod'
+>;
+
 const PreviewCard = PreviewCardPrimitive.Root;
 const createPreviewCardHandle = PreviewCardPrimitive.createHandle;
 
@@ -148,19 +164,20 @@ function PreviewCardContent({
   const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
   const positionerProps = slotProps?.positioner;
   const portalContainer = container ?? portalPropsContainer;
-  const resolvedDisableAnchorTracking =
-    disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 8;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
+  const resolvedPositionerProps: PreviewCardPositionerControlProps = {
+    disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
+    side: side ?? positionerProps?.side,
+    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 8,
+    align: align ?? positionerProps?.align,
+    alignOffset: alignOffset ?? positionerProps?.alignOffset,
+    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
+    anchor: anchor ?? positionerProps?.anchor,
+    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
+    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
+    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
+    sticky: sticky ?? positionerProps?.sticky,
+    positionMethod: positionMethod ?? positionerProps?.positionMethod,
+  };
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
@@ -175,24 +192,13 @@ function PreviewCardContent({
       ) : null}
       <PreviewCardPositioner
         {...positionerProps}
-        disableAnchorTracking={resolvedDisableAnchorTracking}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
+        {...resolvedPositionerProps}
         className={classNames?.positioner}
       >
         <PreviewCardPopup className={className} {...props}>
           {showArrow ? (
             <PreviewCardArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrowContent ?? <ArrowSvg className={styles.arrowSvg} />}
+              {arrowContent}
             </PreviewCardArrow>
           ) : null}
           <PreviewCardViewport className={classNames?.viewport} {...slotProps?.viewport}>

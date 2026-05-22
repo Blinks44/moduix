@@ -135,11 +135,11 @@ export function PaginationExample(props: Omit<PaginationProps, 'count'>) {
 }
 
 export function PaginationNumbersOnlyExample() {
-  return <Pagination count={10} defaultPage={5} showArrows={false} />;
+  return <Pagination count={10} defaultPage={5} withArrows={false} />;
 }
 
 export function PaginationArrowsOnlyExample() {
-  return <Pagination count={10} defaultPage={5} showPages={false} />;
+  return <Pagination count={10} defaultPage={5} withPages={false} />;
 }
 
 export function PaginationControlledLinksExample() {

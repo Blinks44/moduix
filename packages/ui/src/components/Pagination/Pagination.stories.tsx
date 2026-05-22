@@ -35,13 +35,13 @@ export const End: Story = {
 
 export const NumbersOnly: Story = {
   args: {
-    showArrows: false,
+    withArrows: false,
   },
 };
 
 export const ArrowsOnly: Story = {
   args: {
-    showPages: false,
+    withPages: false,
   },
 };
 

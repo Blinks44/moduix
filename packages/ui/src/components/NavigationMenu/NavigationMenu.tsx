@@ -45,6 +45,22 @@ type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props & {
   fullWidth?: boolean;
 };
 
+type NavigationMenuPositionerControlProps = Pick<
+  NavigationMenuPrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'anchor'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'positionMethod'
+  | 'disableAnchorTracking'
+>;
+
 type NavigationMenuClassNames = {
   viewport?: NavigationMenuPrimitive.Viewport.Props['className'];
 };
@@ -250,25 +266,26 @@ function NavigationMenuPopupContent({
   ...props
 }: NavigationMenuPopupOptions) {
   const positionerProps = slotProps?.positioner;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 10;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance =
-    collisionAvoidance ??
-    positionerProps?.collisionAvoidance ??
-    (fullWidth ? { side: 'none' } : undefined);
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding =
-    collisionPadding ??
-    positionerProps?.collisionPadding ??
-    (fullWidth ? 0 : { top: 5, bottom: 5, left: 20, right: 20 });
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
-  const resolvedDisableAnchorTracking =
-    disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
+  const resolvedPositionerProps: NavigationMenuPositionerControlProps = {
+    side: side ?? positionerProps?.side,
+    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 10,
+    align: align ?? positionerProps?.align,
+    alignOffset: alignOffset ?? positionerProps?.alignOffset,
+    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
+    anchor: anchor ?? positionerProps?.anchor,
+    collisionAvoidance:
+      collisionAvoidance ??
+      positionerProps?.collisionAvoidance ??
+      (fullWidth ? { side: 'none' } : undefined),
+    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
+    collisionPadding:
+      collisionPadding ??
+      positionerProps?.collisionPadding ??
+      (fullWidth ? 0 : { top: 5, bottom: 5, left: 20, right: 20 }),
+    sticky: sticky ?? positionerProps?.sticky,
+    positionMethod: positionMethod ?? positionerProps?.positionMethod,
+    disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
+  };
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
@@ -285,18 +302,7 @@ function NavigationMenuPopupContent({
       ) : null}
       <NavigationMenuPositioner
         {...positionerProps}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
-        disableAnchorTracking={resolvedDisableAnchorTracking}
+        {...resolvedPositionerProps}
         className={mergeClassName(classNames?.positioner, fullWidth && styles.positionerFullWidth)}
       >
         <NavigationMenuPopup

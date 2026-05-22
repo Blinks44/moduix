@@ -48,6 +48,21 @@ type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
     arrow?: boolean | React.ReactNode;
   };
 
+type ComboboxPositionerControlProps = Pick<
+  ComboboxPrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'anchor'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'positionMethod'
+>;
+
 type IndicatorPosition = 'start' | 'end';
 type ComboboxItemProps = ComboboxPrimitive.Item.Props & {
   indicator?: IndicatorPosition;
@@ -225,17 +240,19 @@ function ComboboxContent({
 
   const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
   const portalContainer = container ?? portalPropsContainer;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 5;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
+  const resolvedPositionerProps: ComboboxPositionerControlProps = {
+    side: side ?? positionerProps?.side,
+    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 5,
+    align: align ?? positionerProps?.align,
+    alignOffset: alignOffset ?? positionerProps?.alignOffset,
+    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
+    anchor: anchor ?? positionerProps?.anchor,
+    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
+    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
+    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
+    sticky: sticky ?? positionerProps?.sticky,
+    positionMethod: positionMethod ?? positionerProps?.positionMethod,
+  };
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
@@ -246,17 +263,7 @@ function ComboboxContent({
       ) : null}
       <ComboboxPositioner
         {...positionerProps}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
+        {...resolvedPositionerProps}
         className={classNames?.positioner}
       >
         <ComboboxPopup className={className} {...props}>
