@@ -32,12 +32,11 @@ import {
 
 ## When to use Drawer
 
-Use `Drawer` as the default choice for edge-attached panels in moduix.
-It covers both patterns that are often split in other libraries:
+Use `Drawer` for edge-attached panels in moduix. It covers two common patterns:
 
 - **Drawer behavior:** edge placement, swipe-to-dismiss, optional edge swipe area, and snap points.
-- **Sheet behavior:** structured panel content (header/body/footer), side and bottom layouts, and
-  non-modal/persistent configurations.
+- **Sheet behavior:** structured content (header/body/footer), side and bottom layouts, and
+  non-modal or persistent setups.
 
 If a panel does not need gestures or snap points, prefer `Dialog` with edge positioning.
 
@@ -88,8 +87,8 @@ If a panel does not need gestures or snap points, prefer `Dialog` with edge posi
 ## Anatomy
 
 `Drawer` combines root state/gesture behavior with one visible panel and internal service slots.
-Use `DrawerContent` as the composed popup container. It renders `portal`, `backdrop`, `viewport`,
-`handle`, and the inner `content` slot for you.
+`DrawerContent` is the composed popup container and renders `portal`, `backdrop`, `viewport`,
+`handle`, and the inner `content` slot.
 
 ```text
 Drawer
@@ -137,22 +136,19 @@ Drawer
 | `DrawerFooter`      | Optional actions row for close, submit, and secondary actions.                                       |
 | `DrawerClose`       | Closes the drawer from action buttons while preserving built-in behavior.                            |
 
-In most cases, keep default layering and gestures and style visible panel parts with `className`
-(`DrawerContent`, `DrawerHeader`, `DrawerBody`, `DrawerFooter`). Customize internal service slots with
-`classNames` (`portal`, `backdrop`, `viewport`, `handle`, `content`) only when you need special
-positioning, overlay, or handle behavior.
+In most cases, keep default layering/gestures and style visible parts with `className`
+(`DrawerContent`, `DrawerHeader`, `DrawerBody`, `DrawerFooter`). Use `classNames`
+(`portal`, `backdrop`, `viewport`, `handle`, `content`) only for internal slot customization.
 
 ## Composition
 
-Use `Drawer` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`,
-`modal`, `swipeDirection`, `snapPoints`, `snapPoint`, and `onSnapPointChange`. Use `DrawerContent`
-for the default composed surface. Its `className` and regular popup props are passed to
-the visible sliding panel.
+Use `Drawer` for root state/behavior props (`open`, `defaultOpen`, `onOpenChange`, `modal`,
+`swipeDirection`, `snapPoints`, `snapPoint`, `onSnapPointChange`). Use `DrawerContent`
+for the composed surface; its `className` and popup props are passed to the visible panel.
 
 Use `withBackdrop`, `withHandle`, `variant`, `snapLayout`, and `container` for common behavior.
-
-`className` styles the visible popup. `classNames` styles the internal slots hidden from the default
-composition. Use `slotProps` only when those internal slots need non-class props from Base UI:
+`className` styles the visible popup, `classNames` styles internal slots, and `slotProps`
+is needed only for non-class slot props:
 
 ```tsx
 <DrawerContent

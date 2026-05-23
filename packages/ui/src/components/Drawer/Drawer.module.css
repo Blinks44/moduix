@@ -300,8 +300,6 @@
           max(0px, calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)))
       );
 
-      display: flex;
-      flex-direction: column;
       height: var(--drawer-max-height, 100dvh);
       max-height: var(--drawer-max-height, 100dvh);
       margin-bottom: 0;
@@ -334,8 +332,6 @@
           )
       );
 
-      display: flex;
-      flex-direction: column;
       height: var(--drawer-max-height, 100dvh);
       max-height: var(--drawer-max-height, 100dvh);
       margin-top: 0;

@@ -35,13 +35,11 @@ const Dialog = DialogPrimitive.Root;
 const createDialogHandle = DialogPrimitive.createHandle;
 
 function DialogTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <DialogPrimitive.Trigger
       data-slot="dialog-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
@@ -110,7 +108,7 @@ function DialogClose({ className, ...props }: DialogPrimitive.Close.Props) {
 function DialogCloseIcon({
   className,
   children,
-  'aria-label': ariaLabel = 'Close dialog',
+  'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL,
   ...props
 }: DialogPrimitive.Close.Props) {
   return (

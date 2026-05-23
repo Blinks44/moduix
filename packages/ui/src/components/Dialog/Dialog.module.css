@@ -153,8 +153,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
-    column-gap: var(--dialog-header-gap, var(--spacing-1));
-    row-gap: var(--dialog-header-gap, var(--spacing-1));
+    gap: var(--dialog-header-gap, var(--spacing-1));
 
     & > [data-slot='dialog-title'] {
       grid-column: 1;

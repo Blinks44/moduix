@@ -49,29 +49,19 @@ function Drawer<Payload = unknown>({
     open,
     eventDetails,
   ) => {
-    if (!persistent) {
-      onOpenChange?.(open, eventDetails);
-      return;
-    }
-
-    if (!open) {
+    if (persistent && !open) {
       eventDetails.cancel();
       return;
     }
 
-    onOpenChange?.(true, eventDetails);
+    onOpenChange?.(persistent ? true : open, eventDetails);
   };
 
   const handleSnapPointChange: DrawerPrimitive.Root.Props<Payload>['onSnapPointChange'] = (
     snapPoint,
     eventDetails,
   ) => {
-    if (!persistent) {
-      onSnapPointChange?.(snapPoint, eventDetails);
-      return;
-    }
-
-    if (snapPoint === null) {
+    if (persistent && snapPoint === null) {
       eventDetails.cancel();
       return;
     }
@@ -112,13 +102,11 @@ function DrawerIndentBackground({ className, ...props }: DrawerPrimitive.IndentB
 }
 
 function DrawerTrigger({ className, render, ...props }: DrawerPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <DrawerPrimitive.Trigger
       data-slot="drawer-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
