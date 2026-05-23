@@ -26,8 +26,7 @@ import {
 
 ## Choosing the right component
 
-Use `Autocomplete` when users need to type freely and you want to suggest matching options while
-they type.
+Use `Autocomplete` for free-form input with suggestions while typing.
 
 - Choose **`Autocomplete`** for free-form values with suggestions.
 - Choose **`Combobox`** when users should select from predefined options, with typing used to filter.
@@ -141,32 +140,6 @@ Autocomplete
             └─ AutocompleteItem
 ```
 
-```tsx
-<Autocomplete items={tags} itemToStringValue={(item) => item.value}>
-  <AutocompleteField>
-    <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
-    <AutocompleteInputGroup>
-      <AutocompleteInput id={id} placeholder="e.g. feature" />
-      <AutocompleteControlActions>
-        <AutocompleteClear aria-label="Clear value" />
-        <AutocompleteTrigger aria-label="Open suggestions" />
-      </AutocompleteControlActions>
-    </AutocompleteInputGroup>
-  </AutocompleteField>
-
-  <AutocompleteContent>
-    <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-    <AutocompleteList>
-      {(item) => (
-        <AutocompleteItem key={item.id} value={item}>
-          <AutocompleteItemText>{item.value}</AutocompleteItemText>
-        </AutocompleteItem>
-      )}
-    </AutocompleteList>
-  </AutocompleteContent>
-</Autocomplete>
-```
-
 | Part                         | Role                                                                                               |
 | ---------------------------- | -------------------------------------------------------------------------------------------------- |
 | `Autocomplete`               | Root state machine. Handles value, filtering, highlighting, and open/close behavior.               |
@@ -196,14 +169,11 @@ arrow visuals.
 Use `Autocomplete` for root state and Base UI behavior props such as `items`, `value`,
 `onValueChange`, `filter`, `limit`, `mode`, `autoHighlight`, and `openOnInputClick`.
 
-The root keeps the Base UI behavior surface intact. Use `itemToStringValue` for object items,
-`filter={null}` or `filteredItems` for external filtering, `grid` with `AutocompleteRow` for grid
-navigation, `modal` for modal popup behavior, `submitOnItemClick` for single-field search forms,
-`onOpenChange` for controlled popup side effects, `virtualized` for externally virtualized lists,
-and `keepHighlight` or `highlightItemOnHover` when pointer and keyboard highlighting need custom
-rules. `actionsRef` is available for manual unmount flows with animation libraries.
-`useAutocompleteFilter` exposes Base UI string matching helpers, and
-`useAutocompleteFilteredItems` returns the currently filtered items for custom list layouts.
+Use `itemToStringValue` for object items. Use `filter={null}` or `filteredItems` for external
+filtering. Use `grid` with `AutocompleteRow` for grid navigation, and `virtualized` when the list
+is rendered by an external virtualization layer. `useAutocompleteFilter` provides Base UI string
+matching helpers, and `useAutocompleteFilteredItems` returns the filtered result list for custom
+rendering.
 
 `className` styles the visible popup. `classNames` styles service slots hidden from the default
 composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `withBackdrop`,

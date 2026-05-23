@@ -49,40 +49,23 @@ import {
     `}
 
   </Preview.Code>
-
   <Preview.CSS>
     {`
       .panelContent {
         padding: var(--spacing-3);
       }
     `}
-
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
+<Preview.Data>
+  {`
       const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
+        { value: "what-is-base-ui", title: "What is Base UI?", description: "Base UI is a library of high-quality unstyled React components for design systems and web apps." },
+        { value: "getting-started", title: "How do I get started?", description: "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home." },
+        { value: "can-i-use-it", title: "Can I use it for my project?", description: "Of course. Base UI is free and open source." },
       ];
     `}
-
-  </Preview.Data>
+</Preview.Data>
 
 <Preview.CSSProperties>
   {(context) => <AccordionCssPropertiesPanel {...context} />}
@@ -95,8 +78,8 @@ import {
 
 ## Anatomy
 
-`Accordion` is composed as a stack of independent items. Keep the trigger and panel inside the same
-`AccordionItem` so their state and accessibility wiring stay paired.
+`Accordion` is a stack of independent items. Keep each `AccordionTrigger` and `AccordionPanel`
+inside the same `AccordionItem` so state and accessibility bindings stay paired.
 
 ```text
 Accordion
@@ -128,19 +111,18 @@ Accordion
 
 `AccordionTrigger` renders the Base UI header internally so the common composition stays compact.
 Use `classNames.header`, `classNames.icon`, `slotProps.header`, and `slotProps.icon` when you need
-to style or customize those internal slots. `AccordionHeader` and `AccordionTriggerIcon` are still
-exported for advanced manual composition, but most projects do not need them.
+to style or customize those internal slots.
 
 ## Composition
 
-Use `Accordion` for root state and behavior props such as `value`, `defaultValue`,
-`onValueChange`, `multiple`, `disabled`, `orientation`, and `loopFocus`. Use `keepMounted`
-or `hiddenUntilFound` on the root or panel when closed content must stay in the DOM.
+Use `Accordion` for state and behavior (`value`, `defaultValue`, `onValueChange`, `multiple`,
+`disabled`, `orientation`, `loopFocus`). Use `keepMounted` or `hiddenUntilFound` on the root or
+panel when closed content must remain in the DOM.
 
-Style the public parts with `className` on `Accordion`, `AccordionItem`, `AccordionTrigger`,
-and `AccordionPanel`. `AccordionTrigger` also accepts `icon`, `hideIcon`, `classNames`, and
-`slotProps` for the internal header and icon slots. All Base UI behavior props such as `render`,
-`keepMounted`, and `hiddenUntilFound` pass through to the matching primitive part.
+Style public parts with `className` on `Accordion`, `AccordionItem`, `AccordionTrigger`, and
+`AccordionPanel`. `AccordionTrigger` also supports `icon`, `withIcon`, `classNames`, and
+`slotProps` for internal header/icon customization. Base UI behavior props (for example `render`,
+`keepMounted`, `hiddenUntilFound`) pass through to the matching primitive part.
 
 | Prop          | Default          | Values                           |
 | ------------- | ---------------- | -------------------------------- |
@@ -148,14 +130,14 @@ and `AccordionPanel`. `AccordionTrigger` also accepts `icon`, `hideIcon`, `class
 | `disabled`    | `false`          | `true`, `false`                  |
 | `orientation` | `vertical`       | `vertical`, `horizontal`         |
 | `loopFocus`   | `true`           | `true`, `false`                  |
-| `hideIcon`    | `false`          | `true`, `false`                  |
+| `withIcon`    | `true`           | `true`, `false`                  |
 | `icon`        | `PlusFilledIcon` | Any React node (usually an icon) |
 
 ## Examples
 
 ### Multiple
 
-Use the `multiple` prop to allow multiple items to be open at the same time.
+Use `multiple` to allow multiple open items.
 
 <Preview>
   <AccordionExample multiple defaultValue={["what-is-base-ui", "can-i-use-it"]} />
@@ -186,40 +168,6 @@ Use the `multiple` prop to allow multiple items to be open at the same time.
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Controlled
@@ -259,44 +207,11 @@ Control the open panels from React state when the accordion needs to coordinate 
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Disabled Item
 
-Set `disabled` on an item to keep it visible while preventing interaction.
+Set `disabled` on an item to keep it visible and non-interactive.
 
 <Preview>
   <DisabledItemAccordionExample />
@@ -332,39 +247,6 @@ Set `disabled` on an item to keep it visible while preventing interaction.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Icon
@@ -419,29 +301,4 @@ Pass `icon` to replace the default visual marker and style the icon slot with `c
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>

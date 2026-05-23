@@ -34,14 +34,14 @@
       animation-duration: var(--alert-dismiss-duration, 160ms);
       animation-fill-mode: both;
       animation-timing-function: var(--alert-dismiss-easing, ease-out);
-    }
 
-    &[data-animated][data-state='open'] {
-      animation-name: alert-in;
-    }
+      &[data-state='open'] {
+        animation-name: alert-in;
+      }
 
-    &[data-animated][data-state='closed'] {
-      animation-name: alert-out;
+      &[data-state='closed'] {
+        animation-name: alert-out;
+      }
     }
 
     &[data-size='sm'] {
@@ -57,21 +57,6 @@
       );
       --alert-padding-x-default: var(--alert-padding-x-sm, var(--spacing-3));
       --alert-padding-y-default: var(--alert-padding-y-sm, var(--spacing-2));
-    }
-
-    &[data-size='md'] {
-      --alert-title-font-size-default: var(--alert-title-font-size-md, var(--text-sm));
-      --alert-title-line-height-default: var(
-        --alert-title-line-height-md,
-        var(--line-height-text-sm)
-      );
-      --alert-description-font-size-default: var(--alert-description-font-size-md, var(--text-sm));
-      --alert-description-line-height-default: var(
-        --alert-description-line-height-md,
-        var(--line-height-text-sm)
-      );
-      --alert-padding-x-default: var(--alert-padding-x-md, var(--spacing-4));
-      --alert-padding-y-default: var(--alert-padding-y-md, var(--spacing-3));
     }
 
     &[data-size='lg'] {

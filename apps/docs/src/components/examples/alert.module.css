@@ -4,13 +4,6 @@
   gap: var(--spacing-3);
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-2);
-}
-
 .customAlert {
   --alert-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
   --alert-border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);

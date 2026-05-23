@@ -120,12 +120,13 @@ export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
 ];
 
+const accordionCssPropertiesReference = accordionOverrideCssProperties.map(normalizeCssProperty);
+const accordionCssPlaygroundReference = accordionPlaygroundCssProperties.map(normalizeCssProperty);
+
 export function AccordionCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={accordionOverrideCssProperties.map(normalizeCssProperty)}
-      />
+      <CSSPropertiesReferenceTable properties={accordionCssPropertiesReference} />
     </div>
   );
 }
@@ -138,7 +139,7 @@ export function AccordionCssPlaygroundPanel({
   return (
     <div className="space-y-2">
       <CSSPropertiesEditor
-        properties={accordionPlaygroundCssProperties.map(normalizeCssProperty)}
+        properties={accordionCssPlaygroundReference}
         values={values}
         onChange={onChange}
         onReset={onReset}

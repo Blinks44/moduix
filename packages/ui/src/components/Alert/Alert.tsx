@@ -45,6 +45,7 @@ function Alert({
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
   const isOpen = open ?? uncontrolledOpen;
   const [mounted, setMounted] = React.useState(isOpen);
+  const resolvedRole = role ?? (variant === 'destructive' ? 'alert' : 'status');
 
   React.useEffect(() => {
     if (isOpen) {
@@ -66,23 +67,28 @@ function Alert({
   );
 
   const dismiss = React.useCallback(() => setOpen(false), [setOpen]);
+  const handleAnimationEnd = React.useCallback(
+    (event: React.AnimationEvent<HTMLDivElement>) => {
+      onAnimationEnd?.(event);
+      if (event.currentTarget !== event.target) return;
+      if (!isOpen) setMounted(false);
+    },
+    [isOpen, onAnimationEnd],
+  );
 
   if (!mounted) return null;
 
   return (
     <AlertContext.Provider value={dismiss}>
       <div
-        role={role ?? (variant === 'destructive' ? 'alert' : 'status')}
+        role={resolvedRole}
         data-slot="alert-root"
         data-state={isOpen ? 'open' : 'closed'}
         data-variant={variant}
         data-size={size}
         data-animated={withDismissAnimation ? '' : undefined}
         className={clsx(styles.root, className)}
-        onAnimationEnd={(event) => {
-          onAnimationEnd?.(event);
-          if (event.currentTarget === event.target && !isOpen) setMounted(false);
-        }}
+        onAnimationEnd={handleAnimationEnd}
         {...props}
       >
         {children}
@@ -119,15 +125,16 @@ function AlertDescription({ className, ...props }: AlertDescriptionProps) {
 
 function AlertClose({ className, onClick, ...props }: AlertCloseProps) {
   const dismiss = React.useContext(AlertContext);
+  const handleClick = (event: Parameters<NonNullable<CloseButtonProps['onClick']>>[0]) => {
+    onClick?.(event);
+    if (!event.defaultPrevented) dismiss?.();
+  };
 
   return (
     <CloseButton
       data-slot="alert-close"
       className={mergeClassName(className, styles.close)}
-      onClick={(event) => {
-        onClick?.(event);
-        if (!event.defaultPrevented) dismiss?.();
-      }}
+      onClick={handleClick}
       {...props}
     />
   );

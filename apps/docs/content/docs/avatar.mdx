@@ -60,7 +60,7 @@ import {
 
 ## Anatomy
 
-`Avatar` is composed as one root with two content slots. Keep `AvatarImage` and `AvatarFallback`
+`Avatar` is composed of one root and two content slots. Keep `AvatarImage` and `AvatarFallback`
 inside the same `Avatar` so loading state, error state, and fallback timing stay synchronized.
 
 ```text
@@ -83,15 +83,14 @@ Avatar
 | `AvatarImage`    | Image slot. Renders the visual identity when the `src` is loaded successfully.            |
 | `AvatarFallback` | Fallback slot. Renders initials, icon, or custom content while loading or on image error. |
 
-`Avatar` does not use service slots such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep default behavior and style visible slots with `className` and CSS variables.
+`Avatar` does not use service slots (`portal`, `backdrop`, `viewport`).
 
 ## Composition
 
-Use `className` on `Avatar`, `AvatarImage`, and `AvatarFallback`. Like Base UI, each slot also
-accepts state-based `className` and `style` functions plus `render` for element composition.
-Use `AvatarImage onLoadingStatusChange` when application logic needs the image load state, and
-`AvatarFallback delay` when you want to avoid a fallback flash during normal image loading.
+Use `className` on `Avatar`, `AvatarImage`, and `AvatarFallback`. Each slot also supports
+state-based `className` and `style` functions, and `render` for composition. Use
+`AvatarImage onLoadingStatusChange` when you need image load state, and `AvatarFallback delay`
+to avoid fallback flash during normal loading.
 
 | Prop                   | Default | Values                               |
 | ---------------------- | ------- | ------------------------------------ |
@@ -103,8 +102,8 @@ Use `AvatarImage onLoadingStatusChange` when application logic needs the image l
 
 ### Fallback Only
 
-Render initials or short text directly inside `AvatarFallback` when no image is available. Use
-the `size` prop to switch between the built-in `xs`, `sm`, `md`, `lg`, and `xl` sizes.
+Render initials or short text in `AvatarFallback` when no image is available. Use `size` for
+`xs`, `sm`, `md`, `lg`, and `xl`.
 
 <Preview>
   <AvatarFallbackOnlyExample />
@@ -149,8 +148,8 @@ the `size` prop to switch between the built-in `xs`, `sm`, `md`, `lg`, and `xl` 
 
 ### Render Composition
 
-`Avatar`, `AvatarImage`, and `AvatarFallback` are all public slots. Use `className` on each
-slot, and use Base UI's `render` prop when the root should compose with another element.
+`Avatar`, `AvatarImage`, and `AvatarFallback` are public slots. Use `className` on each slot,
+and use `render` when the root should compose with another element.
 
 <Preview>
   <AvatarCompositionExample />
@@ -214,7 +213,7 @@ slot, and use Base UI's `render` prop when the root should compose with another 
 
 ### Image Error
 
-Keep a fallback in the composition so the avatar stays meaningful when the image fails to load.
+Keep a fallback so the avatar remains meaningful when the image fails to load.
 
 <Preview>
   <AvatarImageErrorExample />
@@ -238,7 +237,7 @@ Keep a fallback in the composition so the avatar stays meaningful when the image
 
 ### Custom Styles
 
-Pass `className` to the root, image, and fallback slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to root, image, and fallback when styling with CSS Modules, Tailwind, or CSS-in-JS.
 
 <Preview>
   <CustomStylesAvatarExample />

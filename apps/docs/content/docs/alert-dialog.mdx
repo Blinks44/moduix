@@ -72,9 +72,8 @@ import {
 
 ## Anatomy
 
-`AlertDialog` is built around a root state container and a content surface that renders the
-portal, backdrop, and viewport for you. Keep title, description, and actions inside
-`AlertDialogContent` so focus management and accessibility labeling stay connected.
+`AlertDialogContent` already renders portal, backdrop, and viewport. Keep title, description, and
+actions inside it so focus handling and accessibility labeling stay connected.
 
 ```text
 AlertDialog
@@ -107,40 +106,32 @@ AlertDialog
 </AlertDialog>
 ```
 
-| Part                     | Role                                                                                              |
-| ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `AlertDialog`            | Root state machine. Manages open state, controlled/uncontrolled behavior, and close interactions. |
-| `AlertDialogTrigger`     | Opens the confirmation dialog. Usually rendered as a button via `render`.                         |
-| `AlertDialogContent`     | Main dialog surface. Also renders portal/backdrop/viewport and exposes escape hatches via props.  |
-| `AlertDialogHeader`      | Groups heading content for the top area of the popup.                                             |
-| `AlertDialogTitle`       | Required accessible title for the dialog.                                                         |
-| `AlertDialogDescription` | Optional supporting text that explains the consequence of the action.                             |
-| `AlertDialogCloseIcon`   | Optional dismiss button in the header; accepts custom icon children.                              |
-| `AlertDialogBody`        | Optional scrollable/content area between header and footer for longer details.                    |
-| `AlertDialogFooter`      | Layout container for decision actions.                                                            |
-| `AlertDialogCancel`      | Secondary action that closes without confirming.                                                  |
-| `AlertDialogAction`      | Primary confirmation action; closes after activation unless custom logic keeps it open.           |
-| `portal` slot            | Mount layer outside normal layout flow. Useful for stacking and isolating dialog rendering roots. |
-| `backdrop` slot          | Overlay behind the popup. Dim background content and communicate modal focus.                     |
-| `viewport` slot          | Alignment container around the popup. Controls placement and outer spacing behavior.              |
-
-Use default slot styling in most cases. Customize `portal` when integrating with a specific
-mount container or layered app shell, `backdrop` for brand-specific overlay tone/interaction,
-and `viewport` when placement rules differ (for example top-aligned or edge-biased dialogs).
+| Part                                     | Role                                                                                              |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `AlertDialog`                            | Root state machine. Manages open state, controlled/uncontrolled behavior, and close interactions. |
+| `AlertDialogTrigger`                     | Opens the dialog. Usually rendered as a button via `render`.                                      |
+| `AlertDialogContent`                     | Main dialog surface. Renders popup plus portal/backdrop/viewport infrastructure.                  |
+| `AlertDialogHeader`                      | Layout group for title, description, and optional close icon.                                     |
+| `AlertDialogTitle`                       | Required accessible title.                                                                        |
+| `AlertDialogDescription`                 | Optional supporting copy.                                                                         |
+| `AlertDialogCloseIcon`                   | Optional dismiss button in header.                                                                |
+| `AlertDialogBody`                        | Optional long-form/scrollable content area.                                                       |
+| `AlertDialogFooter`                      | Layout container for decision actions.                                                            |
+| `AlertDialogCancel`                      | Secondary close action.                                                                           |
+| `AlertDialogAction`                      | Primary confirm action.                                                                           |
+| `portal` / `backdrop` / `viewport` slots | Service slots for mount point, overlay, and alignment container.                                  |
 
 ## Composition
 
-Use `AlertDialog` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, `triggerId`, `defaultTriggerId`, `actionsRef`, and `handle`. Triggers support
-Base UI `handle`, `payload`, `id`, `nativeButton`, `render`, state-based `className`, and
-state-based `style` props.
+Use `AlertDialog` for state (`open`, `defaultOpen`, `onOpenChange`, `handle`).
+Use `AlertDialogContent` for surface behavior and styling:
 
-`className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. `AlertDialogContent` accepts the popup props from Base UI,
-including `initialFocus`, `finalFocus`, `render`, state-based `className`, and state-based `style`.
-Set `withCloseButton` to render a standard top-right close icon automatically; keep manual
-`AlertDialogCloseIcon` composition when you need custom icon replacement.
-Use `container`, `slotProps`, and `withBackdrop={false}` when you need service-slot escape hatches:
+- `className` styles the popup
+- `classNames` styles portal/backdrop/viewport/closeIcon slots
+- `slotProps` passes props to service slots
+- `container` overrides portal mount
+- `withCloseButton` adds built-in top-right close icon
+- `withBackdrop={false}` disables overlay
 
 `AlertDialog` root defaults:
 
@@ -159,7 +150,7 @@ Use `container`, `slotProps`, and `withBackdrop={false}` when you need service-s
 | `classNames`       | —              | `{ portal?: className; backdrop?: className; viewport?: className; closeIcon?: className }` |
 | `slotProps`        | —              | `{ portal?; backdrop?; viewport? }`                                                         |
 
-When both are provided, `container` has priority over `slotProps.portal.container`.
+`container` has priority over `slotProps.portal.container`.
 
 ```tsx
 <AlertDialogContent
@@ -177,16 +168,13 @@ When both are provided, `container` has priority over `slotProps.portal.containe
 />
 ```
 
-The service slots still expose the Base UI data attributes on their rendered elements: backdrop,
-viewport, and popup receive open/closed and transition attributes; viewport and popup also receive
-nested-dialog attributes. The popup also provides Base UI's `--nested-dialogs` variable for nested
-dialog styling.
+Service slots keep Base UI state attributes. Popup also exposes `--nested-dialogs`.
 
 ## Examples
 
 ### Controlled
 
-Control the open state from React when the dialog needs to coordinate with other UI.
+Use controlled mode when open state must coordinate with other UI.
 
 <Preview>
   <ControlledAlertDialogExample />
@@ -237,9 +225,8 @@ Control the open state from React when the dialog needs to coordinate with other
 
 ### Handle
 
-Use `createAlertDialogHandle` when a confirmation is opened from detached triggers or from
-imperative event handlers. Pass `payload` to detached triggers when the dialog copy depends on the
-source action.
+Use `createAlertDialogHandle` for detached triggers or imperative opens. Pass `payload` when dialog
+copy depends on the source action.
 
 <Preview>
   <AlertDialogHandleExample />

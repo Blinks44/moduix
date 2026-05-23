@@ -23,7 +23,7 @@ function Avatar({ className, size = 'md', ...props }: AvatarProps) {
 type AvatarImageProps = AvatarPrimitive.Image.Props;
 type AvatarImageState = AvatarPrimitive.Image.State;
 
-function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
+function AvatarImage({ className, ...props }: AvatarImageProps) {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
@@ -37,7 +37,7 @@ type AvatarFallbackProps = AvatarPrimitive.Fallback.Props;
 type AvatarFallbackState = AvatarPrimitive.Fallback.State;
 type AvatarImageLoadingStatus = AvatarImageState['imageLoadingStatus'];
 
-function AvatarFallback({ className, ...props }: AvatarPrimitive.Fallback.Props) {
+function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"

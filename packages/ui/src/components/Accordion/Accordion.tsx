@@ -44,8 +44,10 @@ function AccordionTrigger({
   slotProps,
   ...props
 }: AccordionTriggerProps) {
-  const { header: headerClassName, icon: iconClassName } = classNames ?? {};
-  const { header: headerProps, icon: iconProps } = slotProps ?? {};
+  const triggerClassNames = classNames ?? {};
+  const triggerSlotProps = slotProps ?? {};
+  const { header: headerClassName, icon: iconClassName } = triggerClassNames;
+  const { header: headerProps, icon: iconProps } = triggerSlotProps;
 
   return (
     <AccordionHeader {...headerProps} className={headerClassName}>

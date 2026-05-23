@@ -43,21 +43,6 @@ type AutocompleteContentProps = AutocompletePrimitive.Popup.Props &
     withArrow?: boolean;
   };
 
-type AutocompletePositionerControlProps = Pick<
-  AutocompletePrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'anchor'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
-  | 'sticky'
-  | 'positionMethod'
->;
-
 const Autocomplete = AutocompletePrimitive.Root;
 
 function AutocompleteField({ className, ...props }: React.ComponentProps<'div'>) {
@@ -223,6 +208,7 @@ function AutocompleteContent({
   container,
   withBackdrop = false,
   withArrow = false,
+  children,
   side,
   sideOffset,
   align,
@@ -242,7 +228,7 @@ function AutocompleteContent({
   const arrowProps = slotProps?.arrow;
   const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
   const portalContainer = container ?? portalPropsContainer;
-  const resolvedPositionerProps: AutocompletePositionerControlProps = {
+  const resolvedPositionerProps: AutocompleteContentPositionerProps = {
     side: side ?? positionerProps?.side,
     sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 5,
     align: align ?? positionerProps?.align,
@@ -272,7 +258,7 @@ function AutocompleteContent({
       >
         <AutocompletePopup className={className} {...props}>
           {withArrow ? <AutocompleteArrow className={classNames?.arrow} {...arrowProps} /> : null}
-          {props.children}
+          {children}
         </AutocompletePopup>
       </AutocompletePositioner>
     </AutocompletePortal>

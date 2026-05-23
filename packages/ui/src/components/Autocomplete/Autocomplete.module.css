@@ -148,11 +148,7 @@
       opacity var(--transition-default),
       transform var(--transition-default);
 
-    &[data-starting-style] {
-      opacity: 0;
-      transform: scale(var(--scale-popup));
-    }
-
+    &[data-starting-style],
     &[data-ending-style] {
       opacity: 0;
       transform: scale(var(--scale-popup));

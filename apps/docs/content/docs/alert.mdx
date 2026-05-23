@@ -19,8 +19,7 @@ import {
 ## API Reference
 
 `Alert` is a standalone moduix component and does not wrap a Base UI primitive.
-Use it for inline messages that should stay in document flow. It supports icons,
-controlled or uncontrolled dismissal, and optional close animation.
+Use it for inline messages with optional icon, dismiss control, and close animation.
 
 ## Basic
 
@@ -87,11 +86,10 @@ Alert
 
 ## Composition
 
-Use `variant` for intent: `default`, `info`, `success`, `warning`, or `destructive`.
-Use `open`, `defaultOpen`, and `onOpenChange` when dismissal must be coordinated with app state.
-Set `withCloseButton` to render the built-in `CloseButton`; set `withDismissAnimation={false}` when
-closing should remove the alert immediately. Pass `className` to the root or compound parts for
-local styling. CSS variables should be overridden on the root alert slot.
+Use `variant` for intent (`default`, `info`, `success`, `warning`, `destructive`).
+Use `open` / `defaultOpen` / `onOpenChange` to control visibility.
+Set `withCloseButton` to render the built-in `CloseButton`, and `withDismissAnimation={false}` for instant close.
+Use `className` on root or parts for local styles, and override CSS variables on the root slot.
 
 ### Defaults
 
@@ -109,7 +107,7 @@ local styling. CSS variables should be overridden on the root alert slot.
 
 ### With Icon
 
-Place any moduix icon or custom SVG inside `AlertIcon`.
+Place a moduix icon or custom SVG inside `AlertIcon`.
 
 <Preview>
   <AlertWithIconExample />
@@ -140,7 +138,7 @@ Place any moduix icon or custom SVG inside `AlertIcon`.
 
 ### Variants
 
-Use variants to separate neutral messages from informational, successful, warning, and destructive states.
+Use variants for neutral, informational, success, warning, and destructive states.
 
 <Preview>
   <AlertVariantsExample />
@@ -175,8 +173,7 @@ Use variants to separate neutral messages from informational, successful, warnin
 
 ### Dismissible
 
-Set `withCloseButton` to render the standard close control. Use `open` and `onOpenChange` for
-controlled dismissal.
+Set `withCloseButton` for the standard close control. Use `open` and `onOpenChange` for controlled mode.
 
 <Preview>
   <AlertDismissibleExample />
@@ -208,7 +205,7 @@ controlled dismissal.
 
 ### Without Dismiss Animation
 
-Set `withDismissAnimation={false}` when close should be immediate.
+Set `withDismissAnimation={false}` for immediate close.
 
 <Preview>
   <AlertWithoutDismissAnimationExample />
@@ -239,8 +236,7 @@ Set `withDismissAnimation={false}` when close should be immediate.
 
 ### Custom Styles
 
-Use `className` for layout styles such as width and spacing. Use CSS variables for the alert's
-visual treatment.
+Use `className` for layout (for example width/spacing) and CSS variables for visual customization.
 
 <Preview>
   <CustomStylesAlertExample />

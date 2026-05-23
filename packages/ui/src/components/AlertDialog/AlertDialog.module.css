@@ -121,8 +121,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
-    column-gap: var(--alert-dialog-header-gap, var(--spacing-1));
-    row-gap: var(--alert-dialog-header-gap, var(--spacing-1));
+    gap: var(--alert-dialog-header-gap, var(--spacing-1));
 
     & > [data-slot='alert-dialog-title'] {
       grid-column: 1;
@@ -140,7 +139,6 @@
   }
 
   .title {
-    margin: 0;
     color: var(
       --alert-dialog-title-color,
       var(--alert-dialog-color, var(--color-popover-foreground))
@@ -151,13 +149,17 @@
   }
 
   .description {
-    margin: 0;
     color: var(
       --alert-dialog-description-color,
       var(--alert-dialog-muted-color, var(--color-muted-foreground))
     );
     font-size: var(--alert-dialog-description-font-size, var(--text-md));
     line-height: var(--alert-dialog-description-line-height, var(--line-height-text-md));
+  }
+
+  .title,
+  .description {
+    margin: 0;
   }
 
   .footer {

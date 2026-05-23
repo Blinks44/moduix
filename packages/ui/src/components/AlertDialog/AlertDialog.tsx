@@ -1,6 +1,6 @@
+import type { ComponentProps } from 'react';
 import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog';
 import { clsx } from 'clsx';
-import * as React from 'react';
 import { CloseButton } from '@/components/CloseButton';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './AlertDialog.module.css';
@@ -34,13 +34,11 @@ const AlertDialog = AlertDialogPrimitive.Root;
 const createAlertDialogHandle = AlertDialogPrimitive.createHandle;
 
 function AlertDialogTrigger({ className, render, ...props }: AlertDialogPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <AlertDialogPrimitive.Trigger
       data-slot="alert-dialog-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
@@ -165,19 +163,19 @@ function AlertDialogContent({
   );
 }
 
-function AlertDialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertDialogHeader({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div data-slot="alert-dialog-header" className={clsx(styles.header, className)} {...props} />
   );
 }
 
-function AlertDialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertDialogFooter({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div data-slot="alert-dialog-footer" className={clsx(styles.footer, className)} {...props} />
   );
 }
 
-function AlertDialogBody({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertDialogBody({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="alert-dialog-body" className={clsx(styles.body, className)} {...props} />;
 }
 
@@ -195,12 +193,12 @@ type AlertDialogTriggerProps = AlertDialogPrimitive.Trigger.Props;
 type AlertDialogTitleProps = AlertDialogPrimitive.Title.Props;
 type AlertDialogDescriptionProps = AlertDialogPrimitive.Description.Props;
 type AlertDialogCloseProps = AlertDialogPrimitive.Close.Props;
-type AlertDialogCloseIconProps = AlertDialogPrimitive.Close.Props;
-type AlertDialogHeaderProps = React.ComponentProps<'div'>;
-type AlertDialogBodyProps = React.ComponentProps<'div'>;
-type AlertDialogFooterProps = React.ComponentProps<'div'>;
-type AlertDialogActionProps = AlertDialogPrimitive.Close.Props;
-type AlertDialogCancelProps = AlertDialogPrimitive.Close.Props;
+type AlertDialogCloseIconProps = AlertDialogCloseProps;
+type AlertDialogHeaderProps = ComponentProps<'div'>;
+type AlertDialogBodyProps = ComponentProps<'div'>;
+type AlertDialogFooterProps = ComponentProps<'div'>;
+type AlertDialogActionProps = AlertDialogCloseProps;
+type AlertDialogCancelProps = AlertDialogCloseProps;
 
 export {
   AlertDialog,
