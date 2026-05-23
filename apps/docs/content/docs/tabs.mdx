@@ -91,9 +91,8 @@ import {
 
 ## Anatomy
 
-`Tabs` is composed from a root state machine, one tab list, tab buttons, and matching panels.
-`TabsList` renders the moving indicator internally by default, so consumers do not need to place a
-service `Indicator` part in the public composition.
+`Tabs` combines a root state machine, one tab list, tab buttons, and matching panels.
+`TabsList` renders the moving indicator internally by default.
 
 ```text
 Tabs
@@ -118,27 +117,27 @@ Tabs
 </Tabs>
 ```
 
-| Part             | Role                                                                                                     |
-| ---------------- | -------------------------------------------------------------------------------------------------------- |
-| `Tabs`           | Root state machine. Controls selected value, orientation, variant, and controlled/uncontrolled state.    |
-| `TabsList`       | Groups tab buttons and owns keyboard list behavior. It renders the active indicator internally.          |
-| `TabsTab`        | Interactive tab button. Its `value` must match one `TabsPanel` value.                                    |
-| `TabsTabContent` | Optional wrapper for compound tab labels, usually icon plus text.                                        |
-| `TabsTabIcon`    | Optional icon wrapper. Use it with your application icons or the icons exported by `moduix`.             |
-| `TabsTabLabel`   | Optional text wrapper used with `TabsTabContent`.                                                        |
-| `TabsPanel`      | Content region displayed when its matching tab is active. Use `keepMounted` when hidden DOM must remain. |
-| `indicator`      | Internal service slot that follows the active tab. Style it through `TabsList classNames.indicator`.     |
+| Part             | Role                                                                                                 |
+| ---------------- | ---------------------------------------------------------------------------------------------------- |
+| `Tabs`           | Root state machine for selected value, orientation, variant, and controlled/uncontrolled state.      |
+| `TabsList`       | Groups tabs, owns keyboard list behavior, and renders the active indicator internally.               |
+| `TabsTab`        | Interactive tab button. Its `value` must match a `TabsPanel` value.                                  |
+| `TabsTabContent` | Optional wrapper for compound tab labels, usually icon plus text.                                    |
+| `TabsTabIcon`    | Optional icon wrapper for application icons or icons exported by `moduix`.                           |
+| `TabsTabLabel`   | Optional text wrapper used inside `TabsTabContent`.                                                  |
+| `TabsPanel`      | Content region for the active tab. Use `keepMounted` when hidden DOM must stay mounted.              |
+| `indicator`      | Internal service slot that follows the active tab. Style it through `TabsList classNames.indicator`. |
 
 ## Composition
 
-Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `orientation`,
-and `variant`. Base UI props pass through to the matching visible parts: `TabsList`
-supports `activateOnFocus` and `loopFocus`, `TabsTab` supports `disabled`, `render`, and
-`nativeButton`, and `TabsPanel` supports `keepMounted`.
+Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `orientation`, and
+`variant`. Base UI props pass through to the matching visible parts: `TabsList` supports
+`activateOnFocus` and `loopFocus`, `TabsTab` supports `disabled`, `render`, and `nativeButton`,
+and `TabsPanel` supports `keepMounted`.
 
-Visible parts accept `className`. The internal indicator is not part of the required composition:
-style it with `TabsList classNames.indicator`, disable it with `withIndicator={false}`, or pass
-non-class Base UI indicator props through `TabsList slotProps.indicator`.
+Visible parts accept `className`. The internal indicator can be styled through
+`TabsList classNames.indicator`, disabled with `withIndicator={false}`, or configured with
+non-class Base UI props through `TabsList slotProps.indicator`.
 
 ### Defaults
 
@@ -661,8 +660,8 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
 
 ### Disabled Tab
 
-Disable tabs that are visible but not available yet. Add `keepMounted` to panels when hidden panel
-DOM must stay mounted for forms, measurements, or preserved local state.
+Disable tabs that are visible but not available yet. Add `keepMounted` when hidden panel DOM must
+stay mounted for forms, measurements, or preserved local state.
 
 <Preview>
   <DisabledTabTabsExample />
@@ -726,7 +725,8 @@ DOM must stay mounted for forms, measurements, or preserved local state.
 
 ### Custom Styles
 
-Use `className`, `classNames.indicator`, and CSS variables to reshape layout and visuals when the default Tabs style is too strong for the target composition.
+Use `className`, `classNames.indicator`, and CSS variables when the default Tabs styling needs a
+lighter fit for the surrounding layout.
 
 <Preview>
   <InlineInputsTabsExample />
@@ -819,7 +819,6 @@ Use `className`, `classNames.indicator`, and CSS variables to reshape layout and
 
       .inlineIndicator {
         position: absolute;
-        top: auto;
         left: 0;
         bottom: 0;
         width: var(--active-tab-width);
@@ -835,10 +834,6 @@ Use `className`, `classNames.indicator`, and CSS variables to reshape layout and
       .inlinePanel {
         flex: 1;
         min-width: 0;
-
-        &[hidden]:not([hidden='until-found']) {
-          display: none;
-        }
       }
 
       .inlineInput {

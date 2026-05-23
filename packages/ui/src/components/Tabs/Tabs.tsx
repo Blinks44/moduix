@@ -43,6 +43,14 @@ const TabsList = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.List>,
     { className, classNames, children, slotProps, withIndicator = true, ...props },
     ref,
   ) {
+    const indicator = withIndicator ? (
+      <TabsPrimitive.Indicator
+        {...slotProps?.indicator}
+        data-slot="tabs-indicator"
+        className={mergeClassName(classNames?.indicator, styles.indicator)}
+      />
+    ) : null;
+
     return (
       <TabsPrimitive.List
         ref={ref}
@@ -51,13 +59,7 @@ const TabsList = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.List>,
         {...props}
       >
         {children}
-        {withIndicator ? (
-          <TabsPrimitive.Indicator
-            {...slotProps?.indicator}
-            data-slot="tabs-indicator"
-            className={mergeClassName(classNames?.indicator, styles.indicator)}
-          />
-        ) : null}
+        {indicator}
       </TabsPrimitive.List>
     );
   },

@@ -1,8 +1,10 @@
 @layer ui.components {
   .root {
+    --_spinner-size: var(--spinner-size, var(--spinner-size-md, 1.25rem));
+
     display: inline-flex;
-    width: var(--spinner-size, var(--spinner-size-md, 1.25rem));
-    height: var(--spinner-size, var(--spinner-size-md, 1.25rem));
+    width: var(--_spinner-size);
+    height: var(--_spinner-size);
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
@@ -89,7 +91,6 @@
 
   .root[data-variant='bars'] .indicator {
     gap: var(--spinner-bar-gap, 12%);
-    align-items: center;
   }
 
   .root[data-custom-icon] .indicator {
@@ -106,28 +107,23 @@
   }
 
   .root[data-size='xs'] {
-    width: var(--spinner-size, var(--spinner-size-xs, 0.75rem));
-    height: var(--spinner-size, var(--spinner-size-xs, 0.75rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-xs, 0.75rem));
   }
 
   .root[data-size='sm'] {
-    width: var(--spinner-size, var(--spinner-size-sm, 1rem));
-    height: var(--spinner-size, var(--spinner-size-sm, 1rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-sm, 1rem));
   }
 
   .root[data-size='md'] {
-    width: var(--spinner-size, var(--spinner-size-md, 1.25rem));
-    height: var(--spinner-size, var(--spinner-size-md, 1.25rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-md, 1.25rem));
   }
 
   .root[data-size='lg'] {
-    width: var(--spinner-size, var(--spinner-size-lg, 1.75rem));
-    height: var(--spinner-size, var(--spinner-size-lg, 1.75rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-lg, 1.75rem));
   }
 
   .root[data-size='xl'] {
-    width: var(--spinner-size, var(--spinner-size-xl, 2.25rem));
-    height: var(--spinner-size, var(--spinner-size-xl, 2.25rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-xl, 2.25rem));
   }
 
   @media (prefers-reduced-motion: reduce) {

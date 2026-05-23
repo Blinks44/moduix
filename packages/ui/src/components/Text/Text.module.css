@@ -1,12 +1,12 @@
 @layer ui.components {
   .root {
     margin: 0;
-    color: var(--text-default-color, var(--color-foreground));
     font-family: var(--text-font-family, var(--font-sans));
     font-size: var(--text-font-size-md, var(--text-md));
     font-weight: var(--text-font-weight-regular, var(--weight-regular));
     line-height: var(--text-line-height-md, var(--line-height-text-md));
     letter-spacing: var(--text-letter-spacing, 0);
+    color: var(--text-default-color, var(--color-foreground));
     text-align: start;
     overflow-wrap: break-word;
 
@@ -20,11 +20,6 @@
       line-height: var(--text-line-height-sm, var(--line-height-text-sm));
     }
 
-    &[data-size='md'] {
-      font-size: var(--text-font-size-md, var(--text-md));
-      line-height: var(--text-line-height-md, var(--line-height-text-md));
-    }
-
     &[data-size='lg'] {
       font-size: var(--text-font-size-lg, var(--text-lg));
       line-height: var(--text-line-height-lg, var(--line-height-text-lg));
@@ -33,10 +28,6 @@
     &[data-size='xl'] {
       font-size: var(--text-font-size-xl, var(--text-xl));
       line-height: var(--text-line-height-xl, var(--line-height-text-xl));
-    }
-
-    &[data-weight='regular'] {
-      font-weight: var(--text-font-weight-regular, var(--weight-regular));
     }
 
     &[data-weight='medium'] {
@@ -49,10 +40,6 @@
 
     &[data-weight='bold'] {
       font-weight: var(--text-font-weight-bold, var(--weight-bold));
-    }
-
-    &[data-tone='default'] {
-      color: var(--text-default-color, var(--color-foreground));
     }
 
     &[data-tone='muted'] {

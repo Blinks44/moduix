@@ -4,7 +4,6 @@ description: A range input for selecting one value or a range of values.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ControlledSliderExample,
   CustomClassesSliderExample,
@@ -55,8 +54,8 @@ import {
 
 ## Anatomy
 
-`Slider` renders the Base UI control, track, and indicator internally, so consumers only compose the
-meaningful content: label, value, and thumbs. Add one `SliderThumb` for each value in the slider.
+`Slider` renders the control, track, and indicator internally. In app code you compose only the
+label, optional value, and one thumb per value.
 
 ```text
 Slider
@@ -83,21 +82,19 @@ Slider
 | `SliderValue` | Optional formatted value display. It receives formatted values and raw numeric values as render arguments.  |
 | `SliderThumb` | Interactive handle. Render one thumb for a single value and multiple indexed thumbs for a range.            |
 
-The control, track, and indicator are service-like slots for this component. They stay internal by
-default and can be styled through `classNames.control`, `classNames.track`, and
-`classNames.indicator` when token-level customization is not enough.
+The control, track, and indicator stay internal by default. Use `classNames.control`,
+`classNames.track`, and `classNames.indicator` when CSS variables are not enough.
 
 ## Composition
 
-Use `Slider` for behavior props such as `value`, `defaultValue`, `onValueChange`,
-`onValueCommitted`, `min`, `max`, `step`, `largeStep`, `minStepsBetweenValues`, `orientation`,
-`thumbAlignment`, `thumbCollisionBehavior`, `name`, and `form`.
+Use `Slider` for behavior props such as `value`, `defaultValue`, `onValueChange`, `min`, `max`,
+`step`, `orientation`, and `thumbAlignment`.
 
-Use `SliderThumb` for the accessible name of each handle. A visible `SliderLabel` labels the group,
-but multi-thumb sliders still need distinct `aria-label` values on each thumb.
+Use `SliderThumb` for the accessible name of each handle. `SliderLabel` labels the group, but
+multi-thumb sliders still need distinct `aria-label` values on each thumb.
 
-Style the root with `className`, visible parts with their own `className`, and internally rendered
-track structure with `classNames`:
+Style the root with `className`, visible parts with their own `className`, and internal slots with
+`classNames`:
 
 ```tsx
 <Slider
@@ -129,6 +126,9 @@ track structure with `classNames`:
 | `thumbCollisionBehavior` | `push`       | `push`, `swap`, `none`               |
 | `classNames`             | `undefined`  | `{ control?, track?, indicator? }`   |
 | `className`              | `undefined`  | string                               |
+
+For range sliders, pass an array value and render the same number of `SliderThumb` elements. Keep
+their `index` values aligned with the value array for SSR and stable composition.
 
 ## Examples
 
@@ -168,8 +168,8 @@ Pass an array value and render one `SliderThumb` for each value to let users sel
 
 ### Steps and Constraints
 
-Use `step`, `largeStep`, and `minStepsBetweenValues` to make range selection snap to meaningful
-increments. `thumbCollisionBehavior` controls what happens when thumbs meet.
+Use `step`, `largeStep`, and `minStepsBetweenValues` to snap to meaningful increments.
+`thumbCollisionBehavior` controls what happens when thumbs meet.
 
 <Preview>
   <SteppedRangeSliderExample />
@@ -227,7 +227,7 @@ increments. `thumbCollisionBehavior` controls what happens when thumbs meet.
 
 ### Controlled
 
-Control the value from React state when the slider needs to synchronize with another control.
+Control the value from React state when it needs to stay in sync with another control.
 
 <Preview>
   <ControlledSliderExample />
@@ -287,7 +287,7 @@ Control the value from React state when the slider needs to synchronize with ano
 
 ### Vertical
 
-Set `orientation="vertical"` and size the vertical track with CSS custom properties.
+Set `orientation="vertical"` and size it with CSS custom properties.
 
 <Preview>
   <VerticalSliderExample />
@@ -335,7 +335,7 @@ Set `orientation="vertical"` and size the vertical track with CSS custom propert
 
 ### Edge Thumb Alignment
 
-Use `thumbAlignment="edge"` when the thumb should stay inside the control at the minimum and maximum values.
+Use `thumbAlignment="edge"` to keep the thumb inside the control at the minimum and maximum values.
 
 <Preview>
   <EdgeThumbAlignmentSliderExample />
@@ -365,7 +365,7 @@ Use `thumbAlignment="edge"` when the thumb should stay inside the control at the
 
 ### Disabled
 
-Use `disabled` to make the whole slider non-interactive while preserving its current value.
+Use `disabled` to make the slider non-interactive while preserving its current value.
 
 <Preview>
   <DisabledSliderExample />
@@ -395,7 +395,7 @@ Use `disabled` to make the whole slider non-interactive while preserving its cur
 
 ### Custom Styles
 
-Use `className` for the root and `classNames` for internally rendered slots.
+Use `className` for the root and `classNames` for internal slots.
 
 <Preview>
   <CustomClassesSliderExample />

@@ -4,7 +4,6 @@ description: A compact loading indicator with built-in visual variants and custo
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   SpinnerClassNameExample,
   SpinnerCssPlaygroundPanel,
@@ -19,8 +18,8 @@ import {
 ## API Reference
 
 `Spinner` is a moduix loading primitive and does not wrap a Base UI primitive.
-Use it for pending controls, small empty states, and inline loading feedback. It renders status
-semantics by default and can be marked decorative when nearby text already announces loading.
+Use it for pending controls, inline loading feedback, and compact empty states. By default it
+announces loading with `role="status"`. Set `decorative` when nearby text already covers that.
 
 ## Basic
 
@@ -43,8 +42,8 @@ semantics by default and can be marked decorative when nearby text already annou
 
 ## Anatomy
 
-`Spinner` has one public root and an internal indicator slot. The indicator contains either the
-selected built-in glyph or the custom `icon` node.
+`Spinner` exposes one public root and one internal visual slot. The indicator renders either the
+built-in glyph or the custom `icon` node.
 
 ```text
 Spinner
@@ -62,13 +61,11 @@ Spinner
 
 ## Composition
 
-Use `variant` for built-in visuals: `ring`, `dots`, `bars`, or `pulse`. Use `icon` when a product
-surface needs a custom SVG or brand-specific loading mark. Custom icons inherit the root size and
-color and spin by default.
+Use `variant` for built-in visuals: `ring`, `dots`, `bars`, or `pulse`. Use `icon` to swap in a
+custom SVG while keeping Spinner sizing, color, and default spin behavior.
 
-All parts accept standard `span` props through `Spinner`. Set `decorative` when the spinner is
-paired with visible loading text, or pass a custom `label` when the default loading announcement
-is not specific enough.
+`Spinner` forwards standard `span` props. Pass `label` for a more specific loading announcement.
+Set `decorative` when the spinner is paired with visible loading text.
 
 ### Defaults
 
@@ -84,7 +81,7 @@ is not specific enough.
 
 ### Variants
 
-Choose a variant that matches the density and tone of the surrounding UI.
+Choose the variant that fits the surrounding UI density.
 
 <Preview>
   <SpinnerVariantsExample />
@@ -137,7 +134,7 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
 
 ### Custom Icon
 
-Pass `icon` to replace the built-in shape while keeping Spinner sizing and accessibility behavior.
+Pass `icon` to replace the built-in shape without changing Spinner sizing or accessibility behavior.
 
 <Preview>
   <SpinnerCustomIconExample />
@@ -170,7 +167,7 @@ Pass `icon` to replace the built-in shape while keeping Spinner sizing and acces
 
 ### Styling
 
-Use `className` or CSS variables for targeted color and shape changes.
+Use `className` or CSS variables for targeted color changes.
 
 <Preview>
   <SpinnerClassNameExample />

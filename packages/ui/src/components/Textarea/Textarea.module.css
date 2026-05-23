@@ -36,10 +36,10 @@
 
     &[data-invalid] {
       border-color: var(--textarea-border-color-invalid, var(--color-destructive));
-    }
 
-    &[data-invalid]:focus-visible {
-      outline-color: var(--textarea-border-color-invalid, var(--color-destructive));
+      &:focus-visible {
+        outline-color: var(--textarea-border-color-invalid, var(--color-destructive));
+      }
     }
 
     &[disabled],

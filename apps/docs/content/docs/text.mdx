@@ -20,9 +20,8 @@ import {
 
 ## API Reference
 
-`Text` is a moduix typography primitive. Base UI does not provide a matching text primitive,
-so the public API stays focused on semantic element choice, visual variants, and root
-`className` composition.
+`Text` is a typography primitive for body copy, inline text, and supporting descriptions.
+Its API stays focused on semantic element choice, visual variants, and root `className`.
 
 ## Basic
 
@@ -50,7 +49,6 @@ so the public API stays focused on semantic element choice, visual variants, and
 ## Anatomy
 
 `Text` is composed as a single typography root that renders the chosen semantic element.
-Visual style is controlled through size, weight, tone, alignment, and CSS variables.
 
 ```text
 Text
@@ -67,19 +65,11 @@ Text
 | ------ | ------------------------------------------------------------------- |
 | `Text` | Semantic text root with design-system typography, tone, and sizing. |
 
-`Text` does not use portal-like service layers such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep the default root styling and use props for semantic element, size,
-weight, tone, and alignment. Use `className` when a specific block needs local CSS variables
-or project styles.
-
 ## Composition
 
-Use `as` for the semantic element and `size` for the visual scale when semantics and
-appearance should differ. Built-in defaults keep `strong` semibold and `small` at `sm`, while
-other elements and custom components default to regular `md` text.
-
-Style the root with `className` and component CSS variables. `Text` has no hidden service
-slots, so it does not use `classNames` or slot props.
+Use `as` for semantics and `size` for visual scale when they should differ. Built-in defaults
+keep `strong` semibold and `small` at `sm`; other elements and custom components default to
+regular `md` text. Use `className` and CSS variables for local styling.
 
 ### Defaults
 
@@ -141,8 +131,8 @@ Use `as` to choose the semantic element without leaving the typography scale.
 
 ### Custom Element
 
-Pass any React element or component to `as` when routing, analytics, or app-level primitives own
-the rendered element.
+Pass a React element or component to `as` when the rendered element belongs to a routing or
+app-level primitive.
 
 <Preview>
   <TextCustomElementExample />
@@ -172,7 +162,7 @@ the rendered element.
 
 ### Sizes
 
-Use `size` for visual sizing. Override size-specific CSS variables in your project for responsive typography.
+Use `size` for visual sizing.
 
 <Preview>
   <TextSizesExample />
@@ -211,7 +201,7 @@ Use `size` for visual sizing. Override size-specific CSS variables in your proje
 
 ### Tones
 
-Use `tone` to match the role of the copy without introducing local color classes.
+Use `tone` to match the role of the copy without local color classes.
 
 <Preview>
   <TextTonesExample />
@@ -288,7 +278,7 @@ Use `weight` for emphasis. `strong` defaults to semibold while other elements de
 
 ### Alignment
 
-Use `align` when text alignment belongs to the typography primitive instead of the surrounding layout.
+Use `align` when alignment belongs to the typography primitive instead of the surrounding layout.
 
 <Preview>
   <TextAlignExample />
@@ -325,7 +315,7 @@ Use `align` when text alignment belongs to the typography primitive instead of t
 
 ### Class Names
 
-Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` when styling the root with local CSS.
 
 <Preview>
   <TextClassNameExample />

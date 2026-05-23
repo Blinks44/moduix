@@ -6,12 +6,11 @@ import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type SwitchRootProps = Omit<SwitchPrimitive.Root.Props, 'children'>;
-type SwitchThumbProps = SwitchPrimitive.Thumb.Props;
 type SwitchFieldProps = React.ComponentPropsWithoutRef<'label'>;
 type SwitchLabelProps = React.ComponentPropsWithoutRef<'span'>;
 
 type SwitchClassNames = {
-  thumb?: SwitchThumbProps['className'];
+  thumb?: SwitchPrimitive.Thumb.Props['className'];
 };
 
 type SwitchProps = SwitchRootProps & {
@@ -19,16 +18,6 @@ type SwitchProps = SwitchRootProps & {
   thumb?: React.ReactNode;
   classNames?: SwitchClassNames;
 };
-
-function SwitchThumb({ className, ...props }: SwitchThumbProps) {
-  return (
-    <SwitchPrimitive.Thumb
-      data-slot="switch-thumb"
-      className={mergeClassName(className, styles.thumb)}
-      {...props}
-    />
-  );
-}
 
 const Switch = React.forwardRef(function Switch(
   { className, size = 'md', thumb, classNames, ...props }: SwitchProps,
@@ -42,7 +31,12 @@ const Switch = React.forwardRef(function Switch(
       className={mergeClassName(className, styles.root)}
       {...props}
     >
-      <SwitchThumb className={classNames?.thumb}>{thumb}</SwitchThumb>
+      <SwitchPrimitive.Thumb
+        data-slot="switch-thumb"
+        className={mergeClassName(classNames?.thumb, styles.thumb)}
+      >
+        {thumb}
+      </SwitchPrimitive.Thumb>
     </SwitchPrimitive.Root>
   );
 });

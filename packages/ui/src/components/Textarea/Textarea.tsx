@@ -1,4 +1,5 @@
 import { Field as FieldPrimitive } from '@base-ui/react/field';
+import { mergeProps } from '@base-ui/react/merge-props';
 import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Textarea.module.css';
@@ -66,19 +67,15 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function T
     [forwardedRef],
   );
 
-  const updateHeight = React.useCallback(() => {
+  React.useLayoutEffect(() => {
     if (!autoResize || !textareaRef.current) {
       return;
     }
 
     resizeToContent(textareaRef.current);
-  }, [autoResize]);
+  }, [autoResize, defaultValue, value]);
 
-  React.useLayoutEffect(() => {
-    updateHeight();
-  }, [defaultValue, updateHeight, value]);
-
-  const handleChange = React.useCallback(
+  const handleAutoResizeChange = React.useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       if (autoResize) {
         resizeToContent(event.currentTarget);
@@ -97,15 +94,15 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function T
       data-resize={resize}
       data-auto-resize={autoResize ? '' : undefined}
       className={mergeClassName(className, styles.root)}
-      render={(controlProps) => (
-        <textarea
-          {...controlProps}
-          {...props}
-          value={value}
-          defaultValue={defaultValue}
-          onChange={handleChange}
-        />
-      )}
+      render={(controlProps) => {
+        const textareaProps = mergeProps(controlProps, props, {
+          value,
+          defaultValue,
+          onChange: handleAutoResizeChange,
+        });
+
+        return <textarea {...textareaProps} />;
+      }}
     />
   );
 });

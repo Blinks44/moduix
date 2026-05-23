@@ -13,7 +13,7 @@ Typography primitive for body copy, inline text, and supporting descriptions.
 
 ## Defaults
 
-Element-based defaults when `size` and `weight` are not provided:
+When `size` and `weight` are omitted:
 
 - `small` -> `size="sm"`, `weight="regular"`
 - `strong` -> `size="md"`, `weight="semibold"`
@@ -21,5 +21,5 @@ Element-based defaults when `size` and `weight` are not provided:
 
 ## Styling
 
-The component renders a single root slot: `data-slot="text-root"`.
-Style variants are applied via `data-size`, `data-weight`, `data-tone`, and `data-align`.
+`Text` renders a single root slot: `data-slot="text-root"`.
+Variants are applied via `data-size`, `data-weight`, `data-tone`, and `data-align`.

@@ -50,9 +50,9 @@ import {
 
 ## Anatomy
 
-`Switch` renders the interactive control and its internal thumb automatically. Use
-`SwitchField` and `SwitchLabel` when the label wraps the control; use a native label with `id`
-when the label is a sibling.
+`Switch` renders the track and internal thumb automatically. Use `SwitchField` and
+`SwitchLabel` for the wrapping-label pattern. For sibling labels, use a native `label`
+with `id`.
 
 ```text
 SwitchField
@@ -75,18 +75,17 @@ SwitchField
 | `SwitchField`  | Optional wrapping label for the common inline field pattern.                                                   |
 | `SwitchLabel`  | Optional text label slot styled to match the switch field.                                                     |
 
-`Switch` does not use portal-like service layers such as `portal`, `positioner`, `backdrop`,
-or `viewport`. In most cases, keep the internal thumb and style the root `Switch`,
-`SwitchField`, and `SwitchLabel`.
+`Switch` has no portal or overlay slots. Most customization belongs on `Switch`,
+`SwitchField`, `SwitchLabel`, and `classNames.thumb`.
 
 ## Composition
 
-Use `Switch` directly for the control. Pass `className` to style the track and `classNames.thumb`
-to style the internal thumb. Pass `thumb` when the thumb needs custom content, such as an icon.
+Use `className` to style the track, `classNames.thumb` to style the internal thumb, and
+`thumb` to render custom thumb content such as an icon.
 
-Use `nativeButton` with `render={<button />}` for sibling `label` patterns. Use the render
-callback when a native button switch needs to live inside a wrapping label without invalid nested
-button markup.
+Use `nativeButton` with `render={<button />}` for sibling-label patterns. Use the render
+callback when the switch must stay inside a wrapping label without nesting a button inside
+that label.
 
 ### Defaults
 
@@ -100,8 +99,9 @@ button markup.
 
 ### Sizes
 
-Use `size` to align the switch with different form densities.
-Override `--switch-width-{size}`, `--switch-height-{size}`, and `--switch-thumb-size-{size}` when a specific size needs custom dimensions.
+Use `size` to align the switch with different form densities. Override
+`--switch-width-{size}`, `--switch-height-{size}`, and `--switch-thumb-size-{size}` when a
+size needs custom dimensions.
 
 <Preview>
   <SwitchSizesExample />
@@ -156,7 +156,7 @@ Override `--switch-width-{size}`, `--switch-height-{size}`, and `--switch-thumb-
 
 ### Disabled
 
-Use `disabled` to prevent interaction while preserving the current setting state in the UI.
+Use `disabled` to prevent interaction while preserving the current visual state.
 
 <Preview>
   <SwitchDisabledExample />
@@ -199,7 +199,7 @@ Use `disabled` to prevent interaction while preserving the current setting state
 
 ### Controlled
 
-Control `checked` from React state when the switch needs to coordinate with other UI.
+Control `checked` from React state when the switch must coordinate with other UI.
 
 <Preview>
   <ControlledSwitchExample />
@@ -248,7 +248,7 @@ Control `checked` from React state when the switch needs to coordinate with othe
 
 ### Custom Icon
 
-Pass `thumb` to render any icon from your application or icon library inside the internal thumb.
+Pass `thumb` to render custom content inside the internal thumb.
 
 <Preview>
   <CustomIconSwitchExample />
@@ -302,7 +302,7 @@ Pass `thumb` to render any icon from your application or icon library inside the
 
 ### Class Names
 
-Pass `className` to the field, root, and label slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to the field, root, and label slots for custom styling.
 
 <Preview>
   <SwitchClassNameExample />
@@ -347,7 +347,7 @@ Pass `className` to the field, root, and label slots when styling with CSS Modul
 
 ### Sibling Label
 
-Use `nativeButton` with `render={<button />}` for the sibling `label` pattern with `htmlFor` and `id`.
+Use `nativeButton` with `render={<button />}` for sibling `label` + `htmlFor` / `id`.
 
 <Preview>
   <SwitchSiblingLabelNativeButtonExample />
@@ -395,7 +395,7 @@ Use `nativeButton` with `render={<button />}` for the sibling `label` pattern wi
 
 ### Native Button Render Callback
 
-Use the render callback when a native button switch needs to be wrapped by a label without producing invalid nested button markup.
+Use the render callback when a native button switch must stay inside a wrapping label.
 
 <Preview>
   <SwitchNativeButtonRenderCallbackExample />

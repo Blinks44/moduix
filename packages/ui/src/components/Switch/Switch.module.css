@@ -69,14 +69,14 @@
       }
     }
 
-    &[data-disabled] {
-      opacity: var(--switch-disabled-opacity, var(--opacity-disabled));
-      pointer-events: none;
+    &[data-disabled],
+    &[data-readonly] {
       cursor: default;
     }
 
-    &[data-readonly] {
-      cursor: default;
+    &[data-disabled] {
+      opacity: var(--switch-disabled-opacity, var(--opacity-disabled));
+      pointer-events: none;
     }
 
     &[data-size='xs'] {

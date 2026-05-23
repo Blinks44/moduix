@@ -4,6 +4,10 @@ import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Slider.module.css';
 
 type SliderValueType = number | readonly number[];
+type SliderChildrenParts = {
+  content: React.ReactNode[];
+  thumbs: React.ReactNode[];
+};
 
 type SliderClassNames = {
   control?: SliderPrimitive.Control.Props['className'];
@@ -45,34 +49,42 @@ function Slider<Value extends SliderValueType>({
   );
 }
 
-function splitSliderChildren(children: React.ReactNode) {
-  const content: React.ReactNode[] = [];
-  const thumbs: React.ReactNode[] = [];
+function splitSliderChildren(children: React.ReactNode): SliderChildrenParts {
+  const parts: SliderChildrenParts = { content: [], thumbs: [] };
 
-  React.Children.forEach(children, (child) => {
-    if (!React.isValidElement(child)) {
-      content.push(child);
-      return;
-    }
+  const collectChildren = (nodes: React.ReactNode) => {
+    React.Children.forEach(nodes, (child) => {
+      if (!React.isValidElement(child)) {
+        parts.content.push(child);
+        return;
+      }
 
-    if (child.type === React.Fragment) {
-      const fragment = child as React.ReactElement<{ children?: React.ReactNode }>;
-      const nested = splitSliderChildren(fragment.props.children);
-      content.push(...nested.content);
-      thumbs.push(...nested.thumbs);
-      return;
-    }
+      if (isReactFragment(child)) {
+        collectChildren(child.props.children);
+        return;
+      }
 
-    if (child.type === SliderThumb) {
-      thumbs.push(child);
-      return;
-    }
+      if (isSliderThumb(child)) {
+        parts.thumbs.push(child);
+        return;
+      }
 
-    content.push(child);
-  });
+      parts.content.push(child);
+    });
+  };
 
-  return { content, thumbs };
+  collectChildren(children);
+
+  return parts;
 }
+
+const isReactFragment = (
+  child: React.ReactNode,
+): child is React.ReactElement<{ children?: React.ReactNode }> =>
+  React.isValidElement(child) && child.type === React.Fragment;
+
+const isSliderThumb = (child: React.ReactNode): child is React.ReactElement<SliderThumbProps> =>
+  React.isValidElement(child) && child.type === SliderThumb;
 
 function SliderLabel({ className, ...props }: SliderPrimitive.Label.Props) {
   return (

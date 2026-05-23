@@ -61,8 +61,7 @@ import {
 
 ## Anatomy
 
-`Textarea` is a single native `<textarea>` root. It composes with `Field` for labels, descriptions,
-and validation.
+`Textarea` is a single native `<textarea>` root that composes with `Field`.
 
 ```text
 Field (optional wrapper)
@@ -75,13 +74,12 @@ Field (optional wrapper)
 
 ## Composition
 
-`Textarea` renders a native `<textarea>` through Base UI `Field.Control`, so it works with
-`FieldLabel`, `FieldDescription`, `FieldError`, native validation state, and accessible field
-metadata. It accepts standard textarea props such as `value`, `defaultValue`, `onChange`, `rows`,
-`maxLength`, and `name`.
+`Textarea` renders through Base UI `Field.Control`, so it works with `FieldLabel`,
+`FieldDescription`, `FieldError`, native validation, and standard textarea props such as `value`,
+`defaultValue`, `onChange`, `rows`, `maxLength`, and `name`.
 
-Use `size` for visual sizing and `resize` for native resize behavior. Use `autoResize` to
-automatically grow height with content (and disable manual resize handle):
+Use `size` for visual sizing, `resize` for native resize behavior, and `autoResize` to grow with
+content while disabling the manual resize handle:
 
 ```tsx
 <Textarea size="md" resize="vertical" autoResize />
@@ -101,7 +99,7 @@ For styling, pass `className` directly to `Textarea`.
 
 ### Controlled
 
-Use `value` and `onChange` when the content should stay in React state.
+Use `value` and `onChange` when content should stay in React state.
 
 <Preview>
   <ControlledTextareaExample />
@@ -141,7 +139,7 @@ Use `value` and `onChange` when the content should stay in React state.
 
 ### Sizes
 
-Use `size` for visual sizing.
+Use `size` to change the visual scale.
 
 <Preview>
   <TextareaSizesExample />
@@ -179,7 +177,7 @@ Use `size` for visual sizing.
 
 ### Auto Resize
 
-Set `autoResize` when users need to type longer content without internal scrolling.
+Set `autoResize` for longer content without internal scrolling.
 
 <Preview>
   <AutoResizeTextareaExample />

@@ -20,22 +20,22 @@ type TextOwnProps<TElement extends TextAs = 'p'> = {
 type TextProps<TElement extends TextAs = 'p'> = TextOwnProps<TElement> &
   Omit<React.ComponentPropsWithoutRef<TElement>, keyof TextOwnProps<TElement>>;
 
-const TEXT_DEFAULTS_BY_ELEMENT: Record<TextDefaultElement, { size: TextSize; weight: TextWeight }> =
-  {
-    p: { size: 'md', weight: 'regular' },
-    span: { size: 'md', weight: 'regular' },
-    small: { size: 'sm', weight: 'regular' },
-    strong: { size: 'md', weight: 'semibold' },
-    em: { size: 'md', weight: 'regular' },
-    div: { size: 'md', weight: 'regular' },
-  };
-
 const TEXT_FALLBACK_DEFAULTS = { size: 'md', weight: 'regular' } as const;
+const TEXT_DEFAULTS_BY_ELEMENT = {
+  p: TEXT_FALLBACK_DEFAULTS,
+  span: TEXT_FALLBACK_DEFAULTS,
+  small: { size: 'sm', weight: 'regular' },
+  strong: { size: 'md', weight: 'semibold' },
+  em: TEXT_FALLBACK_DEFAULTS,
+  div: TEXT_FALLBACK_DEFAULTS,
+} satisfies Record<TextDefaultElement, { size: TextSize; weight: TextWeight }>;
 
 function resolveTextDefaults(as: TextAs): { size: TextSize; weight: TextWeight } {
   if (typeof as !== 'string') return TEXT_FALLBACK_DEFAULTS;
-  if (!(as in TEXT_DEFAULTS_BY_ELEMENT)) return TEXT_FALLBACK_DEFAULTS;
-  return TEXT_DEFAULTS_BY_ELEMENT[as as TextDefaultElement];
+
+  return Object.hasOwn(TEXT_DEFAULTS_BY_ELEMENT, as)
+    ? TEXT_DEFAULTS_BY_ELEMENT[as as TextDefaultElement]
+    : TEXT_FALLBACK_DEFAULTS;
 }
 
 function Text<TElement extends TextAs = 'p'>({

@@ -46,7 +46,6 @@
 
 .inlineIndicator {
   position: absolute;
-  top: auto;
   left: 0;
   bottom: 0;
   width: var(--active-tab-width);
@@ -62,10 +61,6 @@
 .inlinePanel {
   flex: 1;
   min-width: 0;
-
-  &[hidden]:not([hidden='until-found']) {
-    display: none;
-  }
 }
 
 .inlineInput {

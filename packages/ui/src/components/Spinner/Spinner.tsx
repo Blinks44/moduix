@@ -25,8 +25,9 @@ function Spinner({
   ...props
 }: SpinnerProps) {
   const hasCustomIcon = icon !== undefined;
-  const hasStringLabel = typeof label === 'string';
-  const shouldRenderHiddenLabel = !decorative && !hasStringLabel;
+  const isStringLabel = typeof label === 'string';
+  const ariaLabel = !decorative && isStringLabel ? label : undefined;
+  const hiddenLabel = !decorative && !isStringLabel ? label : null;
 
   return (
     <span
@@ -37,16 +38,16 @@ function Spinner({
       data-animated={animated ? '' : undefined}
       role={decorative ? 'presentation' : 'status'}
       aria-hidden={decorative ? true : undefined}
-      aria-label={!decorative && hasStringLabel ? label : undefined}
+      aria-label={ariaLabel}
       className={clsx(styles.root, className)}
       {...props}
     >
       <span data-slot="spinner-indicator" className={styles.indicator} aria-hidden="true">
         {hasCustomIcon ? icon : <SpinnerGlyph variant={variant} />}
       </span>
-      {shouldRenderHiddenLabel ? (
+      {hiddenLabel !== null ? (
         <span data-slot="spinner-label" className={styles.label}>
-          {label}
+          {hiddenLabel}
         </span>
       ) : null}
     </span>
@@ -54,31 +55,28 @@ function Spinner({
 }
 
 function SpinnerGlyph({ variant }: { variant: SpinnerVariant }) {
-  if (variant === 'dots') {
-    return (
-      <React.Fragment>
-        <span className={styles.dot} />
-        <span className={styles.dot} />
-        <span className={styles.dot} />
-      </React.Fragment>
-    );
+  switch (variant) {
+    case 'dots':
+      return (
+        <>
+          <span className={styles.dot} />
+          <span className={styles.dot} />
+          <span className={styles.dot} />
+        </>
+      );
+    case 'bars':
+      return (
+        <>
+          <span className={styles.bar} />
+          <span className={styles.bar} />
+          <span className={styles.bar} />
+        </>
+      );
+    case 'pulse':
+      return <span className={styles.pulse} />;
+    default:
+      return <span className={styles.ring} />;
   }
-
-  if (variant === 'bars') {
-    return (
-      <React.Fragment>
-        <span className={styles.bar} />
-        <span className={styles.bar} />
-        <span className={styles.bar} />
-      </React.Fragment>
-    );
-  }
-
-  if (variant === 'pulse') {
-    return <span className={styles.pulse} />;
-  }
-
-  return <span className={styles.ring} />;
 }
 
 export { Spinner };
