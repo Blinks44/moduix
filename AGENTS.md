@@ -6,15 +6,17 @@ Monorepo for the UI component library and documentation.
 
 Use project skills from [`.ai/skills/`](.ai/skills/README.md).
 
+- For every coding task, first apply `.ai/skills/engineering-principles/SKILL.md` (mandatory baseline).
 - Component work in `packages/ui` (new component, API/style updates, Storybook) -> `.ai/skills/ui-component-workflow/SKILL.md`
 - Documentation work in `apps/docs` (pages, MDX, examples, docs routing/content) -> `.ai/skills/docs-workflow/SKILL.md`
 - Tasks that touch both packages or require docs/UI parity -> `.ai/skills/cross-package-sync/SKILL.md`
 
 If a task spans UI and docs:
 
-1. Apply `ui-component-workflow`.
-2. Apply `cross-package-sync`.
-3. Apply `docs-workflow`.
+1. Apply `engineering-principles`.
+2. Apply `ui-component-workflow`.
+3. Apply `cross-package-sync`.
+4. Apply `docs-workflow`.
 
 ## Global Rules
 
