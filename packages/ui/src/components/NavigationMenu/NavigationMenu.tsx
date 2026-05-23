@@ -20,30 +20,19 @@ type NavigationMenuPopupSlotProps = {
   viewport?: Omit<NavigationMenuPrimitive.Viewport.Props, 'className'>;
 };
 
-type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props & {
-  side?: NavigationMenuPrimitive.Positioner.Props['side'];
-  sideOffset?: NavigationMenuPrimitive.Positioner.Props['sideOffset'];
-  align?: NavigationMenuPrimitive.Positioner.Props['align'];
-  alignOffset?: NavigationMenuPrimitive.Positioner.Props['alignOffset'];
-  arrowPadding?: NavigationMenuPrimitive.Positioner.Props['arrowPadding'];
-  anchor?: NavigationMenuPrimitive.Positioner.Props['anchor'];
-  collisionAvoidance?: NavigationMenuPrimitive.Positioner.Props['collisionAvoidance'];
-  collisionBoundary?: NavigationMenuPrimitive.Positioner.Props['collisionBoundary'];
-  collisionPadding?: NavigationMenuPrimitive.Positioner.Props['collisionPadding'];
-  sticky?: NavigationMenuPrimitive.Positioner.Props['sticky'];
-  positionMethod?: NavigationMenuPrimitive.Positioner.Props['positionMethod'];
-  disableAnchorTracking?: NavigationMenuPrimitive.Positioner.Props['disableAnchorTracking'];
-  classNames?: NavigationMenuPopupClassNames;
-  slotProps?: NavigationMenuPopupSlotProps;
-  container?: NavigationMenuPrimitive.Portal.Props['container'];
-  withArrow?: boolean;
-  arrow?: boolean | React.ReactNode;
-  withBackdrop?: boolean;
-  /**
-   * Stretches the popup to viewport width while preserving trigger-driven vertical positioning.
-   */
-  fullWidth?: boolean;
-};
+type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props &
+  NavigationMenuPositionerControlProps & {
+    classNames?: NavigationMenuPopupClassNames;
+    slotProps?: NavigationMenuPopupSlotProps;
+    container?: NavigationMenuPrimitive.Portal.Props['container'];
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
+    withBackdrop?: boolean;
+    /**
+     * Stretches the popup to viewport width while preserving trigger-driven vertical positioning.
+     */
+    fullWidth?: boolean;
+  };
 
 type NavigationMenuPositionerControlProps = Pick<
   NavigationMenuPrimitive.Positioner.Props,
@@ -86,6 +75,8 @@ function NavigationMenu<Value = unknown>({
   withViewport = false,
   ...props
 }: NavigationMenuProps<Value>) {
+  const shouldRenderPopupContent = popupContent !== false;
+
   return (
     <NavigationMenuPrimitive.Root
       data-slot="navigation-menu-root"
@@ -96,7 +87,7 @@ function NavigationMenu<Value = unknown>({
       {withViewport ? (
         <NavigationMenuViewport className={classNames?.viewport} {...slotProps?.viewport} />
       ) : null}
-      {popupContent ? <NavigationMenuPopupContent {...popupContent} /> : null}
+      {shouldRenderPopupContent ? <NavigationMenuPopupContent {...popupContent} /> : null}
     </NavigationMenuPrimitive.Root>
   );
 }
@@ -265,6 +256,7 @@ function NavigationMenuPopupContent({
   children,
   ...props
 }: NavigationMenuPopupOptions) {
+  const portalProps = slotProps?.portal;
   const positionerProps = slotProps?.positioner;
   const resolvedPositionerProps: NavigationMenuPositionerControlProps = {
     side: side ?? positionerProps?.side,
@@ -286,9 +278,9 @@ function NavigationMenuPopupContent({
     positionMethod: positionMethod ?? positionerProps?.positionMethod,
     disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
   };
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
+  const shouldRenderArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
-  const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
+  const { container: slotPropsContainer, ...portalSlotProps } = portalProps ?? {};
   const portalContainer = container ?? slotPropsContainer;
 
   return (
@@ -309,7 +301,7 @@ function NavigationMenuPopupContent({
           className={mergeClassName(className, fullWidth && styles.popupFullWidth)}
           {...props}
         >
-          {showArrow ? (
+          {shouldRenderArrow ? (
             <NavigationMenuArrow className={classNames?.arrow} {...slotProps?.arrow}>
               {arrowContent}
             </NavigationMenuArrow>

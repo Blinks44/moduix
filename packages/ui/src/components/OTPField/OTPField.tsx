@@ -4,46 +4,53 @@ import { SeparatorMarkIcon } from '@/primitives/Icons';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './OTPField.module.css';
 
+type OTPFieldInputProps = OTPFieldPrimitive.Input.Props;
+type OTPFieldInputPropsFactory = (index: number, length: number) => OTPFieldInputProps | undefined;
+type OTPFieldSeparatorRenderDetails = {
+  index: number;
+  length: number;
+};
+
 function getSeparatorIndexes(length: number, groupSize: OTPFieldProps['groupSize']) {
   if (!groupSize) {
     return new Set<number>();
   }
 
-  const groups = (Array.isArray(groupSize) ? groupSize : [groupSize]).filter(
+  const groupSizes = (Array.isArray(groupSize) ? groupSize : [groupSize]).filter(
     (group) => Number.isInteger(group) && group > 0,
   );
 
-  if (groups.length === 0) {
+  if (groupSizes.length === 0) {
     return new Set<number>();
   }
 
-  const indexes = new Set<number>();
-  let nextSeparatorIndex = 0;
+  const separatorIndexes = new Set<number>();
+  let groupedLength = 0;
 
-  for (const group of groups) {
-    nextSeparatorIndex += group;
+  for (const groupSize of groupSizes) {
+    groupedLength += groupSize;
 
-    if (nextSeparatorIndex > 0 && nextSeparatorIndex < length) {
-      indexes.add(nextSeparatorIndex - 1);
+    if (groupedLength > 0 && groupedLength < length) {
+      separatorIndexes.add(groupedLength - 1);
     }
   }
 
   if (typeof groupSize === 'number') {
-    const repeatingGroupSize = groups[0];
+    const repeatingGroupSize = groupSizes[0];
 
     for (
-      let index = nextSeparatorIndex + repeatingGroupSize;
+      let index = groupedLength + repeatingGroupSize;
       index < length;
       index += repeatingGroupSize
     ) {
-      indexes.add(index - 1);
+      separatorIndexes.add(index - 1);
     }
   }
 
-  return indexes;
+  return separatorIndexes;
 }
 
-function resolveInputProps(
+function getInputProps(
   inputProps: OTPFieldInputProps | OTPFieldInputPropsFactory | undefined,
   index: number,
   length: number,
@@ -51,7 +58,7 @@ function resolveInputProps(
   return typeof inputProps === 'function' ? inputProps(index, length) : inputProps;
 }
 
-function resolveSeparator(separator: OTPFieldProps['separator'], index: number, length: number) {
+function getSeparatorContent(separator: OTPFieldProps['separator'], index: number, length: number) {
   return typeof separator === 'function'
     ? separator({ index, length })
     : (separator ?? <SeparatorMarkIcon />);
@@ -69,10 +76,10 @@ function renderAutoInputs({
     <React.Fragment key={index}>
       <OTPFieldInput
         aria-label={index === 0 ? undefined : `Character ${index + 1} of ${length}`}
-        {...resolveInputProps(inputProps, index, length)}
+        {...getInputProps(inputProps, index, length)}
       />
       {separatorIndexes.has(index) ? (
-        <OTPFieldSeparator>{resolveSeparator(separator, index, length)}</OTPFieldSeparator>
+        <OTPFieldSeparator>{getSeparatorContent(separator, index, length)}</OTPFieldSeparator>
       ) : null}
     </React.Fragment>
   ));
@@ -119,15 +126,6 @@ function OTPFieldSeparator({ className, ...props }: OTPFieldPrimitive.Separator.
   );
 }
 
-type OTPFieldAutoInputProps = OTPFieldPrimitive.Input.Props;
-type OTPFieldInputPropsFactory = (
-  index: number,
-  length: number,
-) => OTPFieldAutoInputProps | undefined;
-type OTPFieldSeparatorRenderDetails = {
-  index: number;
-  length: number;
-};
 type OTPFieldProps = OTPFieldPrimitive.Root.Props & {
   /**
    * Inserts separators after input groups. A positive integer repeats the same group size; an array
@@ -137,13 +135,12 @@ type OTPFieldProps = OTPFieldPrimitive.Root.Props & {
   /**
    * Props applied to automatically rendered input slots when `children` are not provided.
    */
-  inputProps?: OTPFieldAutoInputProps | OTPFieldInputPropsFactory;
+  inputProps?: OTPFieldInputProps | OTPFieldInputPropsFactory;
   /**
    * Separator content used with `groupSize`. Pass a node or a function for per-separator content.
    */
   separator?: React.ReactNode | ((details: OTPFieldSeparatorRenderDetails) => React.ReactNode);
 };
-type OTPFieldInputProps = OTPFieldPrimitive.Input.Props;
 type OTPFieldSeparatorProps = OTPFieldPrimitive.Separator.Props;
 
 export { OTPField, OTPFieldInput, OTPFieldSeparator };

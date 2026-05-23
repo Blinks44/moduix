@@ -135,7 +135,7 @@ export function NumberFieldScrubAreaExample() {
   return (
     <Field className={styles.field}>
       <NumberField id={id} defaultValue={250}>
-        <NumberFieldScrubArea classNames={{ cursor: styles.scrubCursor }}>
+        <NumberFieldScrubArea>
           <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
         </NumberFieldScrubArea>
       </NumberField>

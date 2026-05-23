@@ -40,8 +40,7 @@
     transition:
       border-color var(--otp-field-transition, var(--transition-default)),
       outline-color var(--otp-field-transition, var(--transition-default)),
-      background-color var(--otp-field-transition, var(--transition-default)),
-      opacity var(--otp-field-transition, var(--transition-default));
+      background-color var(--otp-field-transition, var(--transition-default));
 
     &::placeholder {
       color: var(--otp-field-placeholder-color, var(--color-muted-foreground));

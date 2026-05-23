@@ -188,10 +188,10 @@ import {
 
 ## Anatomy
 
-`NavigationMenu` is composed from visible navigation parts (`List`, `Item`, `Trigger`, `Content`,
-`Link`) and the trigger's optional icon slot. The popup infrastructure (`Portal`,
-`Positioner`, `Popup`, `Arrow`, `Viewport`) is rendered internally by default through
-`popupContent`, so consumers can keep a compact composition for common navigation scenarios.
+`NavigationMenu` is built from the visible navigation parts (`List`, `Item`, `Trigger`,
+`Content`, `Link`) plus the trigger icon slot. Popup infrastructure (`Portal`, `Positioner`,
+`Popup`, `Arrow`, `Viewport`) stays internal by default through `popupContent`, so common menus
+can use a short composition.
 
 ```text
 NavigationMenu
@@ -241,25 +241,22 @@ NavigationMenu
 | `NavigationMenuContent` | Panel content for a trigger item; rendered with popup mechanics by default.                                   |
 | `NavigationMenuLink`    | Direct navigation link item that can participate in close behavior with `closeOnClick`.                       |
 
-For most implementations, keep default popup service slots internal and style visible parts first.
-Reach for `popupContent.className` and `popupContent.classNames` when you need fine-grained control
-over popup container and infrastructure slots.
+In most cases, style the visible parts first. Use `popupContent.className` and
+`popupContent.classNames` only when popup infrastructure needs separate styling.
 
 ## Composition
 
 `NavigationMenu` forwards Base UI root props such as `value`, `defaultValue`, `onValueChange`,
 `delay`, `closeDelay`, `orientation`, `actionsRef`, `render`, `className`, and `style`.
-`NavigationMenuTrigger`, `NavigationMenuContent`, and `NavigationMenuLink` also forward their
-Base UI props, including `render`, `keepMounted`, `active`, and `closeOnClick` where those props
-belong.
+`NavigationMenuTrigger`, `NavigationMenuContent`, and `NavigationMenuLink` forward their matching
+Base UI props, including `render`, `keepMounted`, `active`, and `closeOnClick`.
 
 `NavigationMenuTrigger` renders a chevron icon by default. Pass `icon` to replace it, `hideIcon`
 to remove it, or `classNames.icon` / `slotProps.icon` when only the icon slot needs styling or
 extra props.
 
-Use `popupContent` for Base UI placement behavior and popup styling. `popupContent.className`
-styles the visible popup, while `popupContent.classNames` styles service slots hidden from
-the default composition:
+Use `popupContent` for placement and popup styling. `popupContent.className` styles the visible
+popup, while `popupContent.classNames` styles the internal service slots:
 
 ```tsx
 <NavigationMenu
@@ -281,9 +278,9 @@ the default composition:
 `popupContent` accepts Base UI popup props and the full positioner surface: `side`, `sideOffset`,
 `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`,
 `collisionPadding`, `sticky`, `positionMethod`, and `disableAnchorTracking`. Use
-`popupContent.container` to choose the portal container, `popupContent.withBackdrop` to render the
-backdrop, `popupContent.withArrow={false}` to hide the arrow, `popupContent.fullWidth` to stretch
-the popup to viewport width, and `popupContent.slotProps` when a service slot needs non-class props.
+`popupContent.container` for the portal container, `popupContent.withBackdrop` for a backdrop,
+`popupContent.withArrow={false}` to hide the arrow, `popupContent.fullWidth` for viewport-width
+popup layout, and `popupContent.slotProps` when a service slot needs non-class props.
 
 Use `popupContent={false}` and `withViewport` when a nested menu should render its content inside
 the current panel instead of opening another popup.

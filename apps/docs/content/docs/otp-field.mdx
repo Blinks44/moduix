@@ -26,9 +26,9 @@ import {
 
 ## Basic
 
-`OTPField` renders input slots automatically from `length`. Use `inputProps` to customize every
-automatic slot, `groupSize` for common grouped layouts, or manual children only when the layout
-needs arbitrary per-slot markup.
+`OTPField` renders one input slot per character in `length`. Use `inputProps` to customize the
+generated slots, `groupSize` for grouped layouts, and manual children only when the slot layout
+must be fully custom.
 
 <Preview cssProperties={otpFieldPlaygroundCssProperties}>
   <OTPFieldExample />
@@ -57,9 +57,7 @@ needs arbitrary per-slot markup.
 
 ## Anatomy
 
-`OTPField` owns the field state and renders one input slot for each character in `length`. The
-automatic slots are the recommended default because labels, slot count, and basic accessibility
-labels stay in one place.
+`OTPField` owns the field state and renders slots automatically by default.
 
 ```text
 OTPField[length]
@@ -79,18 +77,14 @@ OTPField[length]
 | `OTPFieldInput`     | Visible character slot. Rendered automatically unless custom `children` are provided.                  |
 | `OTPFieldSeparator` | Optional visible separator between groups. Rendered automatically from `groupSize` or manually placed. |
 
-`OTPField` does not use portal-like service layers such as `portal`, `backdrop`, `positioner`, or
-`viewport`. In most cases, keep automatic input rendering and style the root or generated inputs
-with `className`, `inputProps`, and CSS variables.
-
 ## Composition
 
-Use `length` for the number of slots. Add `groupSize` when the code should be visually split, for
-example `groupSize={3}` for `123-456` or `groupSize={[3, 2]}` for `ABC-DE-F`.
+Use `length` for the number of slots. Add `groupSize` to split the code visually, for example
+`groupSize={3}` for `123-456` or `groupSize={[3, 2]}` for `ABC-DE-F`.
 
 `inputProps` accepts either an object for every generated slot or a function that receives
 `index` and `length` for per-slot props. Use `separator` to replace the default separator icon when
-`groupSize` is set. For layouts that need arbitrary markup around slots, pass `OTPFieldInput` and
+`groupSize` is set. For layouts that need custom markup around slots, pass `OTPFieldInput` and
 `OTPFieldSeparator` as children manually.
 
 ### Defaults
@@ -105,7 +99,7 @@ example `groupSize={3}` for `123-456` or `groupSize={[3, 2]}` for `ABC-DE-F`.
 
 ### Alphanumeric
 
-Use `validationType="alphanumeric"` for recovery, backup, or invite codes that accept letters and numbers.
+Use `validationType="alphanumeric"` for recovery, backup, or invite codes.
 
 <Preview>
   <OTPFieldAlphanumericExample />
@@ -147,7 +141,7 @@ Use `validationType="alphanumeric"` for recovery, backup, or invite codes that a
 
 ### Grouped Layout
 
-Use `groupSize` when a code should be presented in smaller visual groups.
+Use `groupSize` when a code should be shown in smaller visual groups.
 
 <Preview>
   <OTPFieldGroupedLayoutExample />
@@ -178,7 +172,7 @@ Use `groupSize` when a code should be presented in smaller visual groups.
 
 ### Placeholder Hints
 
-Pass native `placeholder` props to the input slots and style them with `className`.
+Pass native `placeholder` props to the generated slots and style them with `className`.
 
 <Preview>
   <OTPFieldPlaceholderHintsExample />
@@ -337,7 +331,8 @@ Use `autoSubmit` to submit the owning form as soon as all slots are filled.
 
 ### Custom Sanitization
 
-Set `validationType="none"` with `sanitizeValue` when pasted or typed values need custom normalization.
+Set `validationType="none"` with `normalizeValue` when pasted or typed values need custom
+normalization.
 
 <Preview>
   <OTPFieldCustomSanitizationExample />
@@ -363,7 +358,7 @@ Set `validationType="none"` with `sanitizeValue` when pasted or typed values nee
               length={6}
               value={value}
               validationType="none"
-              sanitizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, "")}
+              normalizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, "")}
               onValueChange={setValue}
               onValueInvalid={setInvalidValue}
             />

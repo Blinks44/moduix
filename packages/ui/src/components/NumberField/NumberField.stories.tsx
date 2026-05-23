@@ -94,7 +94,7 @@ export const WithScrubArea: Story = {
     return (
       <Field name="quantity">
         <NumberField defaultValue={250} id={id}>
-          <NumberFieldScrubArea classNames={{ cursor: storyStyles.scrubCursor }}>
+          <NumberFieldScrubArea>
             <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
           </NumberFieldScrubArea>
         </NumberField>

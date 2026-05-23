@@ -11,6 +11,7 @@ type NumberFieldGroupProps = NumberFieldPrimitive.Group.Props;
 type NumberFieldDecrementProps = NumberFieldPrimitive.Decrement.Props;
 type NumberFieldInputProps = NumberFieldPrimitive.Input.Props;
 type NumberFieldIncrementProps = NumberFieldPrimitive.Increment.Props;
+type NumberFieldScrubAreaCursorProps = NumberFieldPrimitive.ScrubAreaCursor.Props;
 
 type NumberFieldScrubAreaClassNames = {
   cursor?: NumberFieldPrimitive.ScrubAreaCursor.Props['className'];
@@ -45,6 +46,11 @@ function NumberField({
   withGroup = true,
   ...props
 }: NumberFieldProps) {
+  const groupClassName = classNames?.group;
+  const decrementClassName = classNames?.decrement;
+  const inputClassName = classNames?.input;
+  const incrementClassName = classNames?.increment;
+
   return (
     <NumberFieldPrimitive.Root
       data-slot="number-field-root"
@@ -53,10 +59,10 @@ function NumberField({
     >
       {children}
       {withGroup ? (
-        <NumberFieldGroup className={classNames?.group}>
-          <NumberFieldDecrement aria-label={decrementLabel} className={classNames?.decrement} />
-          <NumberFieldInput className={classNames?.input} />
-          <NumberFieldIncrement aria-label={incrementLabel} className={classNames?.increment} />
+        <NumberFieldGroup className={groupClassName}>
+          <NumberFieldDecrement aria-label={decrementLabel} className={decrementClassName} />
+          <NumberFieldInput className={inputClassName} />
+          <NumberFieldIncrement aria-label={incrementLabel} className={incrementClassName} />
         </NumberFieldGroup>
       ) : null}
     </NumberFieldPrimitive.Root>
@@ -71,6 +77,9 @@ function NumberFieldScrubArea({
   classNames,
   ...props
 }: NumberFieldScrubAreaProps) {
+  const cursorClassName = classNames?.cursor;
+  const shouldRenderCursor = withCursor && cursor !== null;
+
   return (
     <NumberFieldPrimitive.ScrubArea
       data-slot="number-field-scrub-area"
@@ -78,8 +87,8 @@ function NumberFieldScrubArea({
       {...props}
     >
       {children}
-      {withCursor && cursor !== null ? (
-        <NumberFieldScrubAreaCursor className={classNames?.cursor}>
+      {shouldRenderCursor ? (
+        <NumberFieldScrubAreaCursor className={cursorClassName}>
           {cursor ?? <ScrubCursorIcon />}
         </NumberFieldScrubAreaCursor>
       ) : null}
@@ -87,10 +96,7 @@ function NumberFieldScrubArea({
   );
 }
 
-function NumberFieldScrubAreaCursor({
-  className,
-  ...props
-}: NumberFieldPrimitive.ScrubAreaCursor.Props) {
+function NumberFieldScrubAreaCursor({ className, ...props }: NumberFieldScrubAreaCursorProps) {
   return (
     <NumberFieldPrimitive.ScrubAreaCursor
       data-slot="number-field-scrub-area-cursor"

@@ -59,8 +59,8 @@ import {
 ## Anatomy
 
 `NumberField` keeps numeric state on the root and renders the standard decrement, input, and
-increment group automatically. Add `NumberFieldScrubArea` only when the label or another visible
-part should support drag-to-change behavior.
+increment controls automatically. Add `NumberFieldScrubArea` only when a visible part should
+support drag-to-change behavior.
 
 ```text
 Field
@@ -91,11 +91,10 @@ Field
 | `NumberFieldInput`     | Editable numeric input. It receives formatted text and invalid, disabled, and readonly state attributes.    |
 | `NumberFieldIncrement` | Button that increases the value. It renders the default plus icon, or your custom icon as children.         |
 
-`NumberField` does not use portal-like service layers such as `portal`, `backdrop`, or `viewport`.
-The standard group is rendered internally by default and can be styled with `classNames.group`,
-`classNames.decrement`, `classNames.input`, and `classNames.increment`. The scrub cursor is an
-internal service slot of `NumberFieldScrubArea`, so it is customized through `cursor`,
-`withCursor`, and `classNames.cursor` instead of being added to the public composition.
+By default, the component renders its own group and stepper buttons. Style those internal parts
+through `classNames.group`, `classNames.decrement`, `classNames.input`, and
+`classNames.increment`. The scrub cursor stays internal to `NumberFieldScrubArea` and is
+customized through `cursor`, `withCursor`, and `classNames.cursor`.
 
 ## Composition
 
@@ -126,7 +125,7 @@ it, and `classNames.cursor` for styling the internal cursor wrapper.
 
 ### Controlled
 
-Control the numeric value from React state when other UI needs to react to the current number.
+Use a controlled value when other UI needs to react to the current number.
 
 <Preview>
   <ControlledNumberFieldExample />
@@ -161,7 +160,7 @@ Control the numeric value from React state when other UI needs to react to the c
 
 ### Min, Max, and Step
 
-Use `min`, `max`, and `step` to constrain button, keyboard, scrub, and enabled wheel-scrub interactions.
+Use `min`, `max`, and `step` to constrain button, keyboard, scrub, and wheel interactions.
 
 <Preview>
   <NumberFieldExample defaultValue={10} min={0} max={20} step={2} />
@@ -192,7 +191,7 @@ Use `min`, `max`, and `step` to constrain button, keyboard, scrub, and enabled w
 
 ### Formatting
 
-Use `format` for localized presentation while keeping the value numeric.
+Use `format` for localized display while keeping the value numeric.
 
 <Preview>
   <FormattedNumberFieldExample />
@@ -229,7 +228,9 @@ Use `format` for localized presentation while keeping the value numeric.
 
 ### Scrub Area
 
-Add `NumberFieldScrubArea` when users should be able to drag the label area to change the value. The scrub cursor renders automatically and can be customized with the `cursor`, `withCursor`, and `classNames.cursor` props.
+Add `NumberFieldScrubArea` when users should be able to drag a label or another visible part to
+change the value. The scrub cursor renders automatically and can be customized with `cursor`,
+`withCursor`, and `classNames.cursor`.
 
 <Preview>
   <NumberFieldScrubAreaExample />
