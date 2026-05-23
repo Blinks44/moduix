@@ -18,7 +18,7 @@ type TooltipContentSlotProps = {
   viewport?: Omit<TooltipPrimitive.Viewport.Props, 'className' | 'children'>;
 };
 
-type TooltipPositioningProps = Pick<
+type TooltipContentPositionerProps = Pick<
   TooltipPrimitive.Positioner.Props,
   | 'disableAnchorTracking'
   | 'side'
@@ -35,7 +35,7 @@ type TooltipPositioningProps = Pick<
 >;
 
 type TooltipContentProps = TooltipPrimitive.Popup.Props &
-  TooltipPositioningProps & {
+  TooltipContentPositionerProps & {
     classNames?: TooltipContentClassNames;
     slotProps?: TooltipContentSlotProps;
     container?: TooltipPrimitive.Portal.Props['container'];
@@ -139,7 +139,7 @@ function TooltipContent({
   ...popupProps
 }: TooltipContentProps) {
   const positionerSlotProps = slotProps?.positioner;
-  const resolvedPositionerProps: TooltipPrimitive.Positioner.Props = {
+  const resolvedPositionerProps: TooltipContentPositionerProps = {
     ...positionerSlotProps,
     disableAnchorTracking: disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking,
     side: side ?? positionerSlotProps?.side,

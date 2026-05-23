@@ -26,7 +26,7 @@ import {
 
 ## Basic
 
-`RadioGroupItemControl` renders the radio indicator automatically. Use `indicator` or `classNames.indicator` when the control needs custom visuals.
+`RadioGroupItemControl` renders the indicator automatically. Use `indicator` or `classNames` only when the default dot needs to change.
 
 <Preview cssProperties={radioPlaygroundCssProperties}>
   <RadioExample />
@@ -80,8 +80,7 @@ import {
 
 ## Anatomy
 
-`Radio` is always used inside `RadioGroup`. The recommended group composition keeps the clickable
-row, control, and label explicit while the indicator stays internal.
+`Radio` is used inside `RadioGroup`. The recommended composition keeps the row, control, and label explicit while the indicator stays internal.
 
 ```text
 RadioGroup
@@ -117,19 +116,11 @@ RadioGroup
 | `Radio`                 | Standalone radio control for custom layouts, field composition, and sibling-label/native-button patterns.       |
 | `RadioLabel`            | Text label used with `RadioField` or form field labels.                                                         |
 
-`Radio` does not expose portal-like service layers. Its indicator is also rendered internally by
-default, so the public composition stays focused on the group, option rows, control, and labels.
-Use `indicator` for custom graphics and `classNames.indicator` or `classNames.indicatorIcon` when
-the internal indicator needs targeted styling.
+Use `indicator` for custom graphics and `classNames.indicator` or `classNames.indicatorIcon` when the internal indicator needs targeted styling.
 
 ## Composition
 
-Use `RadioGroup` for behavior props such as `value`, `defaultValue`, `onValueChange`, `disabled`,
-`readOnly`, `required`, `name`, and `form`. Use `RadioGroupItemControl` for the common grouped
-option pattern; it is a `Radio` with a clearer name for group rows.
-
-For compact form rows, use `RadioField`, `Radio`, and `RadioLabel`. For sibling labels with
-`htmlFor`, render `Radio` as a native button with `nativeButton` and `render={<button />}`.
+Put behavior props such as `value`, `defaultValue`, `onValueChange`, `disabled`, `readOnly`, `required`, `name`, and `form` on `RadioGroup`. Use `RadioGroupItemControl` for the common grouped option pattern, `RadioField` for compact enclosing-label rows, and `Radio` with `nativeButton` plus `render={<button />}` for sibling-label composition.
 
 ### Defaults
 
@@ -141,8 +132,7 @@ For compact form rows, use `RadioField`, `Radio`, and `RadioLabel`. For sibling 
 | `classNames.indicator` (`Radio` / `RadioGroupItemControl`)     | `undefined`        | `string`                     |
 | `classNames.indicatorIcon` (`Radio` / `RadioGroupItemControl`) | `undefined`        | `string`                     |
 
-Visible parts accept `className`. The radio indicator is internal, so customize it through the
-`indicator` prop or the `classNames` object:
+Visible parts accept `className`. The internal indicator is customized through `indicator` or `classNames`:
 
 ```tsx
 <RadioGroupItemControl
@@ -159,7 +149,7 @@ Visible parts accept `className`. The radio indicator is internal, so customize 
 
 ### Sizes
 
-Use `size` to align the radio control with different form densities.
+Use `size` to align the control with different form densities.
 
 <Preview>
   <RadioSizesExample />
@@ -213,7 +203,7 @@ Use `size` to align the radio control with different form densities.
 
 ### Controlled
 
-Control `value` from React state when the selected option needs to coordinate with other UI.
+Control `value` from React state when the selection needs to coordinate with other UI.
 
 <Preview>
   <ControlledRadioExample />
@@ -257,7 +247,7 @@ Control `value` from React state when the selected option needs to coordinate wi
 
 ### Disabled
 
-Use `disabled` on the group to prevent interaction with every radio in the group.
+Set `disabled` on the group to prevent interaction with every option.
 
 <Preview>
   <DisabledRadioExample />
@@ -309,7 +299,7 @@ Use `disabled` on the group to prevent interaction with every radio in the group
 
 ### Custom Indicator
 
-Pass a custom `indicator` node to `Radio` or `RadioGroupItemControl` to use any icon from your application or icon library.
+Pass a custom `indicator` node to `Radio` or `RadioGroupItemControl` to replace the default dot.
 
 <Preview>
   <CustomIndicatorRadioExample />
@@ -378,7 +368,7 @@ Pass a custom `indicator` node to `Radio` or `RadioGroupItemControl` to use any 
 
 ### Class Names
 
-Pass `className` to visible slots and use `classNames` for internal indicator styling.
+Pass `className` to visible slots and `classNames` to the internal indicator.
 
 <Preview>
   <RadioClassNameExample />
@@ -472,7 +462,7 @@ Pass `className` to visible slots and use `classNames` for internal indicator st
 
 ### Field Composition
 
-Use `RadioField`, `Radio`, and `RadioLabel` directly when you want a compact enclosing-label composition.
+Use `RadioField`, `Radio`, and `RadioLabel` directly for a compact enclosing-label composition.
 
 <Preview>
   <RadioFieldCompositionExample />
@@ -554,7 +544,7 @@ Use `nativeButton` with `render={<button />}` for the sibling `label` pattern wi
 
 ### Form Integration
 
-Use `Field` and `Fieldset` when the group needs form naming, validation state, or shared labeling.
+Use `Field` and `Fieldset` when the group needs form naming, validation, or shared labeling.
 
 <Preview>
   <RadioFormIntegrationExample />

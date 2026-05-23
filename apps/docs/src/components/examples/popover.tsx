@@ -322,7 +322,7 @@ export function PopoverWithoutArrowExample() {
         <PopoverHeader>
           <PopoverTitle>No arrow</PopoverTitle>
           <PopoverDescription>
-            Set arrow to false when the popup should look like a floating panel.
+            Set withArrow to false when the popup should look like a floating panel.
           </PopoverDescription>
         </PopoverHeader>
       </PopoverContent>

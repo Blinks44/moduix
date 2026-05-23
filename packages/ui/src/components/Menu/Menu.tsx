@@ -26,32 +26,7 @@ type MenuContentSlotProps = {
   viewport?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
 };
 
-type MenuContentProps = MenuPrimitive.Popup.Props &
-  Pick<
-    MenuPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-    | 'disableAnchorTracking'
-  > & {
-    classNames?: MenuContentClassNames;
-    slotProps?: MenuContentSlotProps;
-    container?: MenuPrimitive.Portal.Props['container'];
-    withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
-    withBackdrop?: boolean;
-    withViewport?: boolean;
-  };
-
-type MenuPositionerControlProps = Pick<
+type MenuContentPositionerProps = Pick<
   MenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -66,6 +41,17 @@ type MenuPositionerControlProps = Pick<
   | 'positionMethod'
   | 'disableAnchorTracking'
 >;
+
+type MenuContentProps = MenuPrimitive.Popup.Props &
+  MenuContentPositionerProps & {
+    classNames?: MenuContentClassNames;
+    slotProps?: MenuContentSlotProps;
+    container?: MenuPrimitive.Portal.Props['container'];
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
+    withBackdrop?: boolean;
+    withViewport?: boolean;
+  };
 
 type IndicatorPosition = 'start' | 'end';
 type MenuRadioItemProps = MenuPrimitive.RadioItem.Props & {
@@ -188,7 +174,7 @@ function MenuContent({
     arrow: arrowSlotProps,
     viewport: viewportSlotProps,
   } = slotProps ?? {};
-  const resolvedPositionerProps: MenuPositionerControlProps = {
+  const resolvedPositionerProps: MenuContentPositionerProps = {
     side: side ?? positionerSlotProps?.side,
     sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? MENU_CONTENT_SIDE_OFFSET,
     align: align ?? positionerSlotProps?.align,

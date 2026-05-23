@@ -137,24 +137,22 @@ PopoverContent service slots (optional)
 | `PopoverFooter`      | Optional action area, commonly for dismiss, confirm, or secondary controls.                                  |
 | `PopoverClose`       | Built-in close action that dismisses the current popover without custom state wiring.                        |
 
-In most cases, style the visible popup layers first: `PopoverTrigger`, `PopoverContent`, and
-header/body/footer content. Use `classNames` for internal service slots (`portal`, `backdrop`,
-`positioner`, `viewport`, `arrow`) only when you need advanced placement, overlays, or transition
-coordination.
+Style the visible layers first: `PopoverTrigger`, `PopoverContent`, and header/body/footer
+content. Reach for `classNames` only when you need to style internal service slots such as
+`portal`, `backdrop`, `positioner`, `viewport`, or `arrow`.
 
 ## Composition
 
-Use `Popover` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, `modal`, and `handle`. Set `withBackdrop` when the popup needs an overlay and
-`withViewport` when one popover switches between trigger payloads with animated content.
+Use `Popover` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`,
+`modal`, and `handle`.
 
-`className` styles the visible popup. `classNames` styles internal service slots that are
-hidden from the default composition. Pass placement props such as `side`, `align`, `sideOffset`,
-`alignOffset`, `collisionBoundary`, and `collisionPadding` directly to `PopoverContent`. Use
-`container` to choose the portal container, `withBackdrop` to enable the optional backdrop,
-`withViewport` to wrap content in Base UI's viewport, `withArrow={false}` to remove the default
-arrow, and `arrow` to replace it. Use `slotProps` only when you need Base UI escape-hatch props for
-an internal slot, such as `keepMounted` on the portal or a custom `render` for the viewport:
+Pass placement props such as `side`, `align`, `sideOffset`, `alignOffset`, `collisionBoundary`,
+and `collisionPadding` directly to `PopoverContent`. `className` styles the visible popup;
+`classNames` styles internal service slots. Use `container` to choose the portal container,
+`withBackdrop` to enable the optional backdrop, `withViewport` to wrap content in Base UI's
+viewport, `withArrow={false}` to remove the default arrow, and `arrow` to replace it. Reach for
+`slotProps` only when you need Base UI escape-hatch props such as `keepMounted` on the portal or
+custom viewport rendering:
 
 ### Defaults
 
@@ -233,8 +231,8 @@ Use `PopoverClose` inside the popup when the content includes an explicit dismis
 
 ### With Backdrop
 
-Set `withBackdrop` on `PopoverContent` when the popup should visually separate itself from the page.
-Use `classNames` to style internal service slots without rendering them manually.
+Set `withBackdrop` on `PopoverContent` when the popup should visually separate itself from the
+page. Style the generated backdrop through `classNames` instead of rendering it manually.
 
 <Preview>
   <PopoverWithBackdropExample />
@@ -631,13 +629,13 @@ Set `withArrow={false}` when the popup should look like a floating panel without
           <Popover>
             <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
             <PopoverContent withArrow={false}>
-              <PopoverHeader>
-                <PopoverTitle>No arrow</PopoverTitle>
-                <PopoverDescription>
-                  Set arrow to false when the popup should look like a floating panel.
-                </PopoverDescription>
-              </PopoverHeader>
-            </PopoverContent>
+                <PopoverHeader>
+                  <PopoverTitle>No arrow</PopoverTitle>
+                  <PopoverDescription>
+                    Set withArrow to false when the popup should look like a floating panel.
+                  </PopoverDescription>
+                </PopoverHeader>
+              </PopoverContent>
           </Popover>
         );
       }

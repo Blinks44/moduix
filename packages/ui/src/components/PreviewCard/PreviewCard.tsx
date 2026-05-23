@@ -4,6 +4,8 @@ import { PopupArrowIcon } from '@/primitives';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './PreviewCard.module.css';
 
+const DEFAULT_SIDE_OFFSET = 8;
+
 type PreviewCardContentClassNames = {
   portal?: PreviewCardPrimitive.Portal.Props['className'];
   backdrop?: PreviewCardPrimitive.Backdrop.Props['className'];
@@ -20,31 +22,7 @@ type PreviewCardContentSlotProps = {
   viewport?: Omit<PreviewCardPrimitive.Viewport.Props, 'className' | 'children'>;
 };
 
-type PreviewCardContentProps = PreviewCardPrimitive.Popup.Props &
-  Pick<
-    PreviewCardPrimitive.Positioner.Props,
-    | 'disableAnchorTracking'
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-  > & {
-    classNames?: PreviewCardContentClassNames;
-    slotProps?: PreviewCardContentSlotProps;
-    container?: PreviewCardPrimitive.Portal.Props['container'];
-    withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
-    withBackdrop?: boolean;
-  };
-
-type PreviewCardPositionerControlProps = Pick<
+type PreviewCardContentPositionerProps = Pick<
   PreviewCardPrimitive.Positioner.Props,
   | 'disableAnchorTracking'
   | 'side'
@@ -60,17 +38,25 @@ type PreviewCardPositionerControlProps = Pick<
   | 'positionMethod'
 >;
 
+type PreviewCardContentProps = PreviewCardPrimitive.Popup.Props &
+  PreviewCardContentPositionerProps & {
+    classNames?: PreviewCardContentClassNames;
+    slotProps?: PreviewCardContentSlotProps;
+    container?: PreviewCardPrimitive.Portal.Props['container'];
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
+    withBackdrop?: boolean;
+  };
+
 const PreviewCard = PreviewCardPrimitive.Root;
 const createPreviewCardHandle = PreviewCardPrimitive.createHandle;
 
 function PreviewCardTrigger({ className, render, ...props }: PreviewCardPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <PreviewCardPrimitive.Trigger
       data-slot="preview-card-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
@@ -161,22 +147,28 @@ function PreviewCardContent({
   children,
   ...props
 }: PreviewCardContentProps) {
-  const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
-  const positionerProps = slotProps?.positioner;
-  const portalContainer = container ?? portalPropsContainer;
-  const resolvedPositionerProps: PreviewCardPositionerControlProps = {
-    disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
-    side: side ?? positionerProps?.side,
-    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 8,
-    align: align ?? positionerProps?.align,
-    alignOffset: alignOffset ?? positionerProps?.alignOffset,
-    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
-    anchor: anchor ?? positionerProps?.anchor,
-    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
-    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
-    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
-    sticky: sticky ?? positionerProps?.sticky,
-    positionMethod: positionMethod ?? positionerProps?.positionMethod,
+  const {
+    portal: portalSlotProps,
+    backdrop: backdropSlotProps,
+    positioner: positionerSlotProps,
+    arrow: arrowSlotProps,
+    viewport: viewportSlotProps,
+  } = slotProps ?? {};
+  const { container: slotPortalContainer, ...restPortalSlotProps } = portalSlotProps ?? {};
+  const resolvedContainer = container ?? slotPortalContainer;
+  const resolvedPositionerProps: PreviewCardContentPositionerProps = {
+    disableAnchorTracking: disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking,
+    side: side ?? positionerSlotProps?.side,
+    sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? DEFAULT_SIDE_OFFSET,
+    align: align ?? positionerSlotProps?.align,
+    alignOffset: alignOffset ?? positionerSlotProps?.alignOffset,
+    arrowPadding: arrowPadding ?? positionerSlotProps?.arrowPadding,
+    anchor: anchor ?? positionerSlotProps?.anchor,
+    collisionAvoidance: collisionAvoidance ?? positionerSlotProps?.collisionAvoidance,
+    collisionBoundary: collisionBoundary ?? positionerSlotProps?.collisionBoundary,
+    collisionPadding: collisionPadding ?? positionerSlotProps?.collisionPadding,
+    sticky: sticky ?? positionerSlotProps?.sticky,
+    positionMethod: positionMethod ?? positionerSlotProps?.positionMethod,
   };
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
@@ -184,24 +176,24 @@ function PreviewCardContent({
   return (
     <PreviewCardPortal
       className={classNames?.portal}
-      container={portalContainer}
-      {...restPortalProps}
+      container={resolvedContainer}
+      {...restPortalSlotProps}
     >
       {withBackdrop ? (
-        <PreviewCardBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
+        <PreviewCardBackdrop className={classNames?.backdrop} {...backdropSlotProps} />
       ) : null}
       <PreviewCardPositioner
-        {...positionerProps}
+        {...positionerSlotProps}
         {...resolvedPositionerProps}
         className={classNames?.positioner}
       >
         <PreviewCardPopup className={className} {...props}>
           {showArrow ? (
-            <PreviewCardArrow className={classNames?.arrow} {...slotProps?.arrow}>
+            <PreviewCardArrow className={classNames?.arrow} {...arrowSlotProps}>
               {arrowContent}
             </PreviewCardArrow>
           ) : null}
-          <PreviewCardViewport className={classNames?.viewport} {...slotProps?.viewport}>
+          <PreviewCardViewport className={classNames?.viewport} {...viewportSlotProps}>
             {children}
           </PreviewCardViewport>
         </PreviewCardPopup>

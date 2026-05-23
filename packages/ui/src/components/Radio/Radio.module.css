@@ -116,10 +116,6 @@
     flex-direction: column;
     gap: var(--radio-group-gap, var(--spacing-2));
     color: var(--radio-group-color, var(--color-foreground));
-
-    &[data-disabled] .groupItem {
-      cursor: default;
-    }
   }
 
   .groupLabel {

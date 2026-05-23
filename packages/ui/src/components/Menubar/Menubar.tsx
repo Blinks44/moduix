@@ -22,7 +22,7 @@ type MenubarContentSlotProps = {
   viewport?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
 };
 
-type MenubarPositionerProps = Pick<
+type MenubarContentPositionerProps = Pick<
   MenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -39,7 +39,7 @@ type MenubarPositionerProps = Pick<
 >;
 
 type MenubarContentProps = MenuPrimitive.Popup.Props &
-  MenubarPositionerProps & {
+  MenubarContentPositionerProps & {
     classNames?: MenubarContentClassNames;
     slotProps?: MenubarContentSlotProps;
     container?: MenuPrimitive.Portal.Props['container'];
@@ -163,7 +163,7 @@ function MenubarContent({
   ...props
 }: MenubarContentProps) {
   const positionerSlotProps = slotProps?.positioner;
-  const resolvedPositionerProps: MenubarPositionerProps = {
+  const resolvedPositionerProps: MenubarContentPositionerProps = {
     side: side ?? positionerSlotProps?.side,
     sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? 6,
     align: align ?? positionerSlotProps?.align,

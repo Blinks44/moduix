@@ -114,7 +114,6 @@
 
     &[data-side='bottom'] {
       top: calc(var(--preview-card-arrow-size, 8px) * -1);
-      rotate: 0deg;
     }
 
     &[data-side='left'] {

@@ -47,7 +47,7 @@ import {
 ## Anatomy
 
 `Pagination` is built on top of `Toolbar` and renders page controls as focusable toolbar items.
-It can include arrow controls, page number controls, and non-interactive ellipsis markers.
+It can include arrow controls, page buttons, and non-interactive ellipsis markers.
 
 ```text
 Pagination
@@ -70,15 +70,15 @@ Pagination
 | `ellipsis` marker  | Indicates hidden pages when the full range is collapsed into the middle window.   |
 | `next` control     | Moves to the next page when arrows are enabled.                                   |
 
-The component has no portal/backdrop service slots. Style it directly with `className` and CSS variables.
+Style the component with `className` and CSS variables.
 
 ## Composition
 
-Use uncontrolled mode with `defaultPage` for local state. Use controlled mode with `page` and
-`onPageChange` when pagination must stay in sync with URL state or external filters.
+Use `defaultPage` for local state, or `page` with `onPageChange` when pagination must stay in sync
+with URL state or external filters.
 
 Use `getPageHref` to map pages to links for any URL scheme, such as `/page/7` or `?page=7`.
-Use `withArrows` and `withPages` to keep only the controls you need for the layout.
+Use `withArrows` and `withPages` to keep only the controls needed for the layout.
 
 ### Defaults
 
@@ -95,8 +95,8 @@ Use `withArrows` and `withPages` to keep only the controls you need for the layo
 | `previousLabel`  | `Previous page`  | Any string                                   |
 | `nextLabel`      | `Next page`      | Any string                                   |
 
-`count` is required and clamped to at least `1`. `page` and `onPageChange` are optional and
-activate controlled mode when `page` is provided.
+`count` is required and clamped to at least `1`. `visiblePages` is clamped to a minimum effective
+value of `3`. Controlled mode is enabled when `page` is provided.
 
 ## Examples
 
@@ -140,7 +140,7 @@ Hide page numbers when the UI needs compact previous/next controls.
 
 ### Controlled With Links
 
-Control the page from React state and provide link URLs for navigation and SEO-friendly anchors.
+Control the page from React state and provide link URLs for navigation.
 
 <Preview>
   <PaginationControlledLinksExample />
@@ -221,7 +221,7 @@ Use `size` to fit compact and spacious interfaces.
 
 ### Class Name
 
-Use `className` to theme active items and container spacing with scoped CSS variables.
+Use `className` to theme active items and spacing with scoped CSS variables.
 
 <Preview>
   <PaginationClassNameExample />

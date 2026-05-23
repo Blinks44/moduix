@@ -1,19 +1,11 @@
 # Pagination
 
-Pagination is built with the `Toolbar` primitive and provides page buttons, navigation arrows, and ellipses for collapsed ranges.
+Pagination is built with the `Toolbar` primitive and provides page buttons, optional arrows, and ellipses for collapsed ranges.
 
-## Features
+Use uncontrolled mode with `defaultPage`, or controlled mode with `page` and `onPageChange`.
+Use `getPageHref(page)` to render links for URL-driven pagination such as `/page/7` or `?page=7`.
 
-- Controlled and uncontrolled page state.
-- Optional page numbers and optional navigation arrows.
-- Collapsed ranges with `...` when total pages exceed the visible window.
-- Link mode via `getPageHref(page)` for patterns like `/page/7` or `?page=7`.
-- Size variants via `size="xs" | "sm" | "md" | "lg" | "xl"`.
-
-## Notes
-
-- Default toolbar style is transparent (`toolbarVariant="ghost"`).
-- To show a toolbar background, use `toolbarVariant="default"` or `toolbarVariant="outline"`.
+The default toolbar style is transparent (`toolbarVariant="ghost"`). Use `toolbarVariant="default"` or `toolbarVariant="outline"` when the control should render on a visible surface.
 
 ## Defaults
 

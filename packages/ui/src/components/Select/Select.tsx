@@ -31,32 +31,7 @@ type SelectContentSlotProps = {
   arrow?: Omit<SelectPrimitive.Arrow.Props, 'className' | 'children'>;
 };
 
-type SelectContentProps = SelectPopupProps &
-  Pick<
-    SelectPrimitive.Positioner.Props,
-    | 'alignItemWithTrigger'
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-    | 'disableAnchorTracking'
-  > & {
-    classNames?: SelectContentClassNames;
-    slotProps?: SelectContentSlotProps;
-    container?: SelectPrimitive.Portal.Props['container'];
-    withBackdrop?: boolean;
-    withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
-  };
-
-type SelectPositionerControlProps = Pick<
+type SelectContentPositionerProps = Pick<
   SelectPrimitive.Positioner.Props,
   | 'alignItemWithTrigger'
   | 'side'
@@ -72,6 +47,16 @@ type SelectPositionerControlProps = Pick<
   | 'positionMethod'
   | 'disableAnchorTracking'
 >;
+
+type SelectContentProps = SelectPopupProps &
+  SelectContentPositionerProps & {
+    classNames?: SelectContentClassNames;
+    slotProps?: SelectContentSlotProps;
+    container?: SelectPrimitive.Portal.Props['container'];
+    withBackdrop?: boolean;
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
+  };
 
 type IndicatorPosition = 'start' | 'end';
 type SelectItemProps = SelectPrimitive.Item.Props & {
@@ -202,7 +187,7 @@ function SelectContent({
   const arrowProps = slotProps?.arrow;
   const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
   const portalContainer = container ?? portalPropsContainer;
-  const resolvedPositionerProps: SelectPositionerControlProps = {
+  const resolvedPositionerProps: SelectContentPositionerProps = {
     alignItemWithTrigger: alignItemWithTrigger ?? positionerProps?.alignItemWithTrigger,
     side: side ?? positionerProps?.side,
     sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 8,

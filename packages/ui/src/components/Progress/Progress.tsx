@@ -21,9 +21,15 @@ function Progress({ className, classNames, children, ...props }: ProgressProps) 
       {...props}
     >
       {children}
-      <ProgressTrack className={track}>
-        <ProgressIndicator className={indicator} />
-      </ProgressTrack>
+      <ProgressPrimitive.Track
+        data-slot="progress-track"
+        className={mergeClassName(track, styles.track)}
+      >
+        <ProgressPrimitive.Indicator
+          data-slot="progress-indicator"
+          className={mergeClassName(indicator, styles.indicator)}
+        />
+      </ProgressPrimitive.Track>
     </ProgressPrimitive.Root>
   );
 }
@@ -43,26 +49,6 @@ function ProgressValue({ className, ...props }: ProgressPrimitive.Value.Props) {
     <ProgressPrimitive.Value
       data-slot="progress-value"
       className={mergeClassName(className, styles.value)}
-      {...props}
-    />
-  );
-}
-
-function ProgressTrack({ className, ...props }: ProgressPrimitive.Track.Props) {
-  return (
-    <ProgressPrimitive.Track
-      data-slot="progress-track"
-      className={mergeClassName(className, styles.track)}
-      {...props}
-    />
-  );
-}
-
-function ProgressIndicator({ className, ...props }: ProgressPrimitive.Indicator.Props) {
-  return (
-    <ProgressPrimitive.Indicator
-      data-slot="progress-indicator"
-      className={mergeClassName(className, styles.indicator)}
       {...props}
     />
   );

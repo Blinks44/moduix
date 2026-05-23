@@ -8,6 +8,7 @@ type PaginationToolbarVariant = 'default' | 'outline' | 'ghost';
 type PaginationToolbarSize = 'sm' | 'md' | 'lg';
 type PaginationItem = number | 'ellipsis-start' | 'ellipsis-end';
 type PaginationSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type PaginationDirection = 'previous' | 'next';
 
 type PaginationProps = Omit<React.ComponentProps<'nav'>, 'onChange'> & {
   count: number;
@@ -86,6 +87,13 @@ type PaginationControlProps = {
   children: React.ReactNode;
 };
 
+type PaginationArrowProps = {
+  direction: PaginationDirection;
+  targetPage: number;
+  disabled: boolean;
+  ariaLabel: string;
+};
+
 function Pagination({
   className,
   count,
@@ -143,7 +151,7 @@ function Pagination({
   const hasLinks = Boolean(getPageHref);
   const resolvedToolbarSize = resolveToolbarSize(size, toolbarSize);
 
-  function renderControl({
+  const renderControl = ({
     itemKey,
     targetPage,
     ariaLabel,
@@ -151,7 +159,7 @@ function Pagination({
     disabled: isDisabled = false,
     className,
     children,
-  }: PaginationControlProps) {
+  }: PaginationControlProps) => {
     const itemClassName = clsx(styles.item, className, active && styles.itemActive);
 
     if (hasLinks) {
@@ -193,7 +201,25 @@ function Pagination({
         {children}
       </ToolbarButton>
     );
-  }
+  };
+
+  const renderArrowControl = ({
+    direction,
+    targetPage,
+    disabled: isDisabled,
+    ariaLabel,
+  }: PaginationArrowProps) =>
+    renderControl({
+      targetPage,
+      disabled: isDisabled,
+      ariaLabel,
+      className: styles.arrow,
+      children: (
+        <ChevronRightLargeIcon
+          className={direction === 'previous' ? styles.arrowLeftIcon : undefined}
+        />
+      ),
+    });
 
   return (
     <nav
@@ -205,12 +231,11 @@ function Pagination({
     >
       <Toolbar variant={toolbarVariant} size={resolvedToolbarSize} className={styles.toolbar}>
         {withArrows &&
-          renderControl({
+          renderArrowControl({
+            direction: 'previous',
             targetPage: Math.max(prevPage, 1),
             disabled: isPrevDisabled,
             ariaLabel: previousLabel,
-            className: styles.arrow,
-            children: <ChevronRightLargeIcon className={styles.arrowLeftIcon} />,
           })}
 
         {pageItems.map((item, index) => {
@@ -236,12 +261,11 @@ function Pagination({
         })}
 
         {withArrows &&
-          renderControl({
+          renderArrowControl({
+            direction: 'next',
             targetPage: Math.min(nextPage, safeCount),
             disabled: isNextDisabled,
             ariaLabel: nextLabel,
-            className: styles.arrow,
-            children: <ChevronRightLargeIcon />,
           })}
       </Toolbar>
     </nav>

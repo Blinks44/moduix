@@ -161,7 +161,6 @@
 
     &[data-side='bottom'] {
       top: calc(var(--popover-arrow-size, 8px) * -1);
-      rotate: 0deg;
     }
 
     &[data-side='left'] {

@@ -52,8 +52,7 @@ import {
 
 ## Anatomy
 
-`Progress` groups the text label, formatted value, and visual bar for one long-running task.
-The bar structure is rendered automatically so consumers only compose the visible text slots.
+`Progress` renders the visual bar automatically, so consumers only compose the visible text slots.
 
 ```text
 Progress[value]
@@ -85,19 +84,17 @@ export function ProgressDemo() {
 | `indicator`     | Internal filled bar rendered inside the track. Customize it with CSS variables or `classNames.indicator`. |
 
 `Progress` does not expose `ProgressTrack` or `ProgressIndicator` in the public composition.
-Use the default internal bar for normal cases and reach for `classNames` only when slot-level
-track or indicator styling is needed.
+Use `classNames` only when the internal track or indicator needs separate styling.
 
 ## Composition
 
 Use `value={null}` for indeterminate work, or pass a number with optional `min` and `max` for
-known progress. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` come from the root
-and keep the visual value and accessibility text aligned.
+known progress. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` live on the root and
+keep the visible value and accessible text aligned.
 
-Style the root with `className`. Style the automatically rendered visual bar with CSS variables,
-or pass `classNames={{ track, indicator }}` when the track or indicator needs its own selector.
-`ProgressLabel` and `ProgressValue` remain regular visible slots and accept their own `className`
-and `render` props from Base UI.
+Style the root with `className`. Style the internal bar with CSS variables, or pass
+`classNames={{ track, indicator }}` when those slots need separate selectors. `ProgressLabel` and
+`ProgressValue` keep their own `className` and `render` props from Base UI.
 
 ### Defaults
 
@@ -112,7 +109,7 @@ and `render` props from Base UI.
 
 ### Controlled
 
-Keep the value in React state when progress mirrors another control, upload, export, or background task.
+Keep the value in React state when progress mirrors another control or task.
 
 <Preview>
   <ControlledProgressExample />
@@ -154,7 +151,7 @@ Keep the value in React state when progress mirrors another control, upload, exp
 
 ### Min Max Range
 
-Use `min` and `max` when the current value belongs to a custom range instead of the default `0` to `100`.
+Use `min` and `max` when the value does not use the default `0` to `100` range.
 
 <Preview>
   <MinMaxRangeProgressExample />
@@ -182,7 +179,7 @@ Use `min` and `max` when the current value belongs to a custom range instead of 
 
 ### Locale And Format
 
-Use `locale`, `format`, and a custom `ProgressValue` child function to format progress text for users.
+Use `locale`, `format`, and a custom `ProgressValue` child function for localized value text.
 
 <Preview>
   <LocaleAndFormatProgressExample />
@@ -238,7 +235,7 @@ Pass `value={null}` when the task is running but the current completion percenta
 
 ### Aria Value Text
 
-Use `aria-valuetext` when the numeric value needs a more descriptive accessible label.
+Use `aria-valuetext` when the numeric value needs a clearer accessible label.
 
 <Preview>
   <AriaValueTextProgressExample />

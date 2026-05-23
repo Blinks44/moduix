@@ -20,21 +20,7 @@ type NavigationMenuPopupSlotProps = {
   viewport?: Omit<NavigationMenuPrimitive.Viewport.Props, 'className'>;
 };
 
-type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props &
-  NavigationMenuPositionerControlProps & {
-    classNames?: NavigationMenuPopupClassNames;
-    slotProps?: NavigationMenuPopupSlotProps;
-    container?: NavigationMenuPrimitive.Portal.Props['container'];
-    withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
-    withBackdrop?: boolean;
-    /**
-     * Stretches the popup to viewport width while preserving trigger-driven vertical positioning.
-     */
-    fullWidth?: boolean;
-  };
-
-type NavigationMenuPositionerControlProps = Pick<
+type NavigationMenuPopupPositionerProps = Pick<
   NavigationMenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -49,6 +35,20 @@ type NavigationMenuPositionerControlProps = Pick<
   | 'positionMethod'
   | 'disableAnchorTracking'
 >;
+
+type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props &
+  NavigationMenuPopupPositionerProps & {
+    classNames?: NavigationMenuPopupClassNames;
+    slotProps?: NavigationMenuPopupSlotProps;
+    container?: NavigationMenuPrimitive.Portal.Props['container'];
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
+    withBackdrop?: boolean;
+    /**
+     * Stretches the popup to viewport width while preserving trigger-driven vertical positioning.
+     */
+    fullWidth?: boolean;
+  };
 
 type NavigationMenuClassNames = {
   viewport?: NavigationMenuPrimitive.Viewport.Props['className'];
@@ -258,7 +258,7 @@ function NavigationMenuPopupContent({
 }: NavigationMenuPopupOptions) {
   const portalProps = slotProps?.portal;
   const positionerProps = slotProps?.positioner;
-  const resolvedPositionerProps: NavigationMenuPositionerControlProps = {
+  const resolvedPositionerProps: NavigationMenuPopupPositionerProps = {
     side: side ?? positionerProps?.side,
     sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 10,
     align: align ?? positionerProps?.align,

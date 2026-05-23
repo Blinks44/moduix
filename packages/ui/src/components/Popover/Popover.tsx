@@ -21,22 +21,24 @@ type PopoverContentSlotProps = {
   viewport?: Omit<PopoverPrimitive.Viewport.Props, 'className' | 'children'>;
 };
 
+type PopoverContentPositionerProps = Pick<
+  PopoverPrimitive.Positioner.Props,
+  | 'disableAnchorTracking'
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'anchor'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'positionMethod'
+>;
+
 type PopoverContentProps = PopoverPrimitive.Popup.Props &
-  Pick<
-    PopoverPrimitive.Positioner.Props,
-    | 'disableAnchorTracking'
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-  > & {
+  PopoverContentPositionerProps & {
     classNames?: PopoverContentClassNames;
     slotProps?: PopoverContentSlotProps;
     container?: PopoverPrimitive.Portal.Props['container'];
@@ -190,9 +192,14 @@ function PopoverContent({
   children,
   ...props
 }: PopoverContentProps) {
+  const portalProps = slotProps?.portal;
+  const backdropProps = slotProps?.backdrop;
   const positionerProps = slotProps?.positioner;
-  const resolvedPositionerProps: PopoverPrimitive.Positioner.Props = {
-    ...positionerProps,
+  const arrowProps = slotProps?.arrow;
+  const viewportProps = slotProps?.viewport;
+  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
+  const portalContainer = container ?? portalPropsContainer;
+  const resolvedPositionerProps: PopoverContentPositionerProps = {
     disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
     side: side ?? positionerProps?.side,
     sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 8,
@@ -206,25 +213,27 @@ function PopoverContent({
     sticky: sticky ?? positionerProps?.sticky,
     positionMethod: positionMethod ?? positionerProps?.positionMethod,
   };
-  const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? portalPropsContainer;
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
-  const arrowContent = typeof arrow === 'boolean' ? null : arrow;
+  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
 
   return (
     <PopoverPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
       {withBackdrop ? (
-        <PopoverBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
+        <PopoverBackdrop className={classNames?.backdrop} {...backdropProps} />
       ) : null}
-      <PopoverPositioner {...resolvedPositionerProps} className={classNames?.positioner}>
+      <PopoverPositioner
+        {...positionerProps}
+        {...resolvedPositionerProps}
+        className={classNames?.positioner}
+      >
         <PopoverPopup className={className} {...props}>
           {showArrow ? (
-            <PopoverArrow className={classNames?.arrow} {...slotProps?.arrow}>
+            <PopoverArrow className={classNames?.arrow} {...arrowProps}>
               {arrowContent}
             </PopoverArrow>
           ) : null}
           {withViewport ? (
-            <PopoverViewport className={classNames?.viewport} {...slotProps?.viewport}>
+            <PopoverViewport className={classNames?.viewport} {...viewportProps}>
               {children}
             </PopoverViewport>
           ) : (

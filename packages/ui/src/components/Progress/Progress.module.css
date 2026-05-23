@@ -9,18 +9,24 @@
   }
 
   .label {
-    color: var(--progress-label-color, var(--progress-color, var(--color-foreground)));
     font-size: var(--progress-label-font-size, var(--text-sm));
     font-weight: var(--progress-label-font-weight, var(--weight-regular));
     line-height: var(--progress-label-line-height, var(--line-height-text-sm));
   }
 
   .value {
-    justify-self: end;
-    color: var(--progress-value-color, var(--progress-color, var(--color-foreground)));
     font-size: var(--progress-value-font-size, var(--text-sm));
     font-weight: var(--progress-value-font-weight, var(--weight-regular));
     line-height: var(--progress-value-line-height, var(--line-height-text-sm));
+  }
+
+  .label {
+    color: var(--progress-label-color, currentColor);
+  }
+
+  .value {
+    justify-self: end;
+    color: var(--progress-value-color, currentColor);
     text-align: right;
   }
 

@@ -25,30 +25,7 @@ type ComboboxContentSlotProps = {
   arrow?: Omit<ComboboxPrimitive.Arrow.Props, 'className' | 'children'>;
 };
 
-type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
-  Pick<
-    ComboboxPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-  > & {
-    classNames?: ComboboxContentClassNames;
-    slotProps?: ComboboxContentSlotProps;
-    container?: ComboboxPrimitive.Portal.Props['container'];
-    withBackdrop?: boolean;
-    withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
-  };
-
-type ComboboxPositionerControlProps = Pick<
+type ComboboxContentPositionerProps = Pick<
   ComboboxPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -62,6 +39,16 @@ type ComboboxPositionerControlProps = Pick<
   | 'sticky'
   | 'positionMethod'
 >;
+
+type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
+  ComboboxContentPositionerProps & {
+    classNames?: ComboboxContentClassNames;
+    slotProps?: ComboboxContentSlotProps;
+    container?: ComboboxPrimitive.Portal.Props['container'];
+    withBackdrop?: boolean;
+    withArrow?: boolean;
+    arrow?: boolean | React.ReactNode;
+  };
 
 type IndicatorPosition = 'start' | 'end';
 type ComboboxItemProps = ComboboxPrimitive.Item.Props & {
@@ -236,7 +223,7 @@ function ComboboxContent({
 }: ComboboxContentProps) {
   const { portal, backdrop, positioner, arrow: arrowSlotProps } = slotProps ?? {};
   const { container: portalSlotContainer, ...portalProps } = portal ?? {};
-  const resolvedPositionerProps: ComboboxPositionerControlProps = {
+  const resolvedPositionerProps: ComboboxContentPositionerProps = {
     side: side ?? positioner?.side,
     sideOffset: sideOffset ?? positioner?.sideOffset ?? 5,
     align: align ?? positioner?.align,
