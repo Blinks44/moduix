@@ -49,8 +49,7 @@ import {
 
 ## Anatomy
 
-`Button` is composed as one interactive root with optional internal loading slots. In common
-usage, compose content as children and optionally enable loading states.
+`Button` has one interactive root and optional loading slots.
 
 ```text
 Button
@@ -66,14 +65,12 @@ Button
 | `loadingIndicator` | Slot rendered in loading state; accepts custom indicator via props.             |
 | `spinner`          | Default spinner inside `loadingIndicator` when no custom indicator is provided. |
 
-The root exposes `data-disabled` from Base UI and `data-loading` from moduix. Use these attributes
-or CSS variables when styling state from CSS.
+The root exposes `data-disabled` (Base UI) and `data-loading` (moduix) for state styling.
 
 ## Composition
 
-Use `Button` behavior props such as `render`, `nativeButton`, `disabled`, and
-`focusableWhenDisabled`. Use `className` for the
-root button. Use `classNames` for internal slots that are rendered by the component:
+Use behavior props (`render`, `nativeButton`, `disabled`, `focusableWhenDisabled`) as needed.
+Use `className` for the root and `classNames` for internal slots:
 
 ```tsx
 <Button
@@ -86,8 +83,7 @@ root button. Use `classNames` for internal slots that are rendered by the compon
 />
 ```
 
-For submit buttons, pass `type="submit"`. For links, style an `<a>` directly instead of rendering
-an anchor through `Button`; Base UI Button intentionally keeps button semantics.
+For submit buttons, pass `type="submit"`. For links, style an `<a>` directly.
 
 | Prop                    | Default           | Values                                                                                   |
 | ----------------------- | ----------------- | ---------------------------------------------------------------------------------------- |
@@ -104,7 +100,7 @@ an anchor through `Button`; Base UI Button intentionally keeps button semantics.
 
 ### Variants
 
-Use `variant` to match the intent of the action. For navigation links, style an `<a>` directly instead of rendering a link through `Button`.
+Use `variant` to match the action intent.
 
 <Preview>
   <ButtonVariantsExample />
@@ -228,7 +224,7 @@ Use `focusableWhenDisabled` when the button becomes disabled after focus, for ex
 
 ### Loading
 
-Use the built-in loading props when an action should keep its size while it is pending.
+Use built-in loading props when an action is pending and layout should stay stable.
 
 <Preview>
   <ButtonLoadingExample />

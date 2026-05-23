@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import * as React from 'react';
 import styles from './Bleed.module.css';
 
-type BleedInline = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-type BleedBlock = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type BleedSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type BleedInline = BleedSize | 'full';
+type BleedBlock = BleedSize;
 
 type BleedProps = React.ComponentPropsWithoutRef<'div'> & {
   as?: React.ElementType;

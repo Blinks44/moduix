@@ -172,8 +172,8 @@
       line-height: var(--button-line-height-xl, var(--line-height-text-lg));
     }
 
-    &[data-size='icon-md'],
     &[data-size='icon-sm'],
+    &[data-size='icon-md'],
     &[data-size='icon-lg'] {
       padding: 0;
       gap: 0;

@@ -59,14 +59,6 @@
       --badge-padding-x-default: var(--badge-padding-x-sm, 0.5rem);
     }
 
-    &[data-size='md'] {
-      --badge-height-default: var(--badge-height-md, 1.25rem);
-      --badge-font-size-default: var(--badge-font-size-md, var(--text-xs));
-      --badge-icon-size-default: var(--badge-icon-size-md, 0.75rem);
-      --badge-line-height-default: var(--badge-line-height-md, var(--line-height-text-xs));
-      --badge-padding-x-default: var(--badge-padding-x-md, 0.625rem);
-    }
-
     &[data-size='lg'] {
       --badge-height-default: var(--badge-height-lg, 1.5rem);
       --badge-font-size-default: var(--badge-font-size-lg, var(--text-sm));

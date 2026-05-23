@@ -121,6 +121,7 @@ function Breadcrumbs({
 }
 
 function BreadcrumbsListItem({ item, isCurrent }: { item: BreadcrumbsItem; isCurrent: boolean }) {
+  const shouldRenderAsPage = isCurrent || (!item.href && !item.render);
   const content = (
     <span data-slot="breadcrumbs-item-label" className={styles.itemLabel}>
       {item.label}
@@ -129,7 +130,7 @@ function BreadcrumbsListItem({ item, isCurrent }: { item: BreadcrumbsItem; isCur
 
   return (
     <li data-slot="breadcrumbs-item" className={styles.item}>
-      {isCurrent || (!item.href && !item.render) ? (
+      {shouldRenderAsPage ? (
         <span
           data-slot="breadcrumbs-page"
           className={styles.page}
@@ -182,6 +183,13 @@ function BreadcrumbsCollapsedMenu({
   classNames?: BreadcrumbsClassNames;
   slotProps?: BreadcrumbsSlotProps;
 }) {
+  const popupItemClassName = clsx(styles.popupItem, classNames?.popupItem);
+  const popupLinkItemClassName = clsx(
+    styles.popupItem,
+    classNames?.popupItem,
+    classNames?.popupLinkItem,
+  );
+
   return (
     <MenuPrimitive.Root>
       <MenuPrimitive.Trigger
@@ -206,12 +214,6 @@ function BreadcrumbsCollapsedMenu({
             {...slotProps?.popup}
           >
             {items.map((item, index) => {
-              const popupItemClassName = clsx(styles.popupItem, classNames?.popupItem);
-              const popupLinkItemClassName = clsx(
-                styles.popupItem,
-                classNames?.popupItem,
-                classNames?.popupLinkItem,
-              );
               const renderItem = item.render;
 
               return item.href || renderItem ? (
@@ -277,14 +279,6 @@ function getVisibleItems({ items, maxItems }: { items: BreadcrumbsItem[]; maxIte
   const collapsedItems = middleItems.slice(0, middleItems.length - visibleMiddleItems.length);
   const startItems = [items[0]];
   const endItems = [...visibleMiddleItems, items[items.length - 1]];
-
-  if (collapsedItems.length === 0) {
-    return {
-      startItems: items,
-      collapsedItems,
-      endItems: [] as BreadcrumbsItem[],
-    };
-  }
 
   return { startItems, collapsedItems, endItems };
 }

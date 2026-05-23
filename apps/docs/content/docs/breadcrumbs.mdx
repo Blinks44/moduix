@@ -53,9 +53,8 @@ import {
 
 ## Anatomy
 
-`Breadcrumbs` renders semantic `nav` and `ol` structure for path navigation.
-When the path is long, intermediate items can collapse into an ellipsis trigger and
-open a compact Base UI menu popup.
+`Breadcrumbs` uses semantic `nav` + `ol` for path navigation.
+Long paths collapse middle items into an ellipsis trigger with a compact Base UI menu.
 
 ```text
 Breadcrumbs
@@ -75,22 +74,20 @@ Breadcrumbs
 | `collapsed menu trigger` | Ellipsis control shown when `maxItems` collapses middle segments. |
 | `collapsed menu popup`   | Compact list of hidden segments built with Base UI `Menu`.        |
 
-The component keeps all visible segments on one line and clamps long labels, so the
-breadcrumb row stays compact.
+Visible items stay on one line, and long labels are clamped.
 
 ## Composition
 
-Use the `items` array to describe the path. Each item can be a plain segment or a link
-(`href`). For framework routing, pass `render` on item and return your own link element
-(for example Next.js `Link`) while preserving the provided `className` and `children`.
+Use `items` to describe the path. Each item can be plain text or a link (`href`).
+For framework routers, use `render` and return your own link while preserving provided
+`className` and `children`.
 
-`maxItems` controls how many middle segments stay visible between the first segment and
-the current page. The first segment and the current page are always visible. Hidden
-middle segments move into the collapsed menu.
+`maxItems` controls how many middle segments stay visible. The first segment and current
+page always stay visible; hidden middle segments move to the collapsed menu.
 
-When collapsed items are enabled, you can style hidden internal parts through `classNames`
-(`ellipsisTrigger`, `popup`, `popupItem`, `popupLinkItem`, `portal`, `positioner`) and pass behavior props
-to those same slots through `slotProps`.
+For collapsed items, style internal parts via `classNames`
+(`ellipsisTrigger`, `popup`, `popupItem`, `popupLinkItem`, `portal`, `positioner`)
+and pass behavior props to the same slots via `slotProps`.
 
 | Prop                   | Default                  | Values         |
 | ---------------------- | ------------------------ | -------------- |
@@ -103,8 +100,8 @@ to those same slots through `slotProps`.
 
 ### Collapsed Path
 
-Collapse intermediate path segments into an ellipsis menu. In this example `maxItems={2}`
-keeps two middle segments visible next to the current page.
+Collapse middle segments into an ellipsis menu. Here `maxItems={2}` keeps two middle
+segments visible next to the current page.
 
 <Preview>
   <BreadcrumbsCollapsedExample />
@@ -163,7 +160,7 @@ Replace the default `/` separator with your own symbol or icon.
 
 ### Long Current Label
 
-Current item text is clamped to one line, so long labels do not wrap and break layout.
+Current item text is clamped to one line.
 
 <Preview>
   <BreadcrumbsLongLabelExample />
@@ -193,7 +190,7 @@ Current item text is clamped to one line, so long labels do not wrap and break l
 
 ### Framework Links
 
-Use `render` to integrate external routing links while keeping breadcrumb styles.
+Use `render` to integrate external routing links while keeping component styles.
 
 <Preview>
   <BreadcrumbsRenderExample />
@@ -248,7 +245,7 @@ Use `render` to integrate external routing links while keeping breadcrumb styles
 
 ### Collapsed Menu Slots
 
-Use `classNames` and `slotProps` to customize the collapsed trigger and popup internals.
+Use `classNames` and `slotProps` to customize collapsed trigger and popup internals.
 
 <Preview>
   <BreadcrumbsSlotsExample />

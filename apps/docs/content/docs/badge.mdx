@@ -18,9 +18,8 @@ import {
 
 ## API Reference
 
-`Badge` is a standalone moduix component and does not wrap a Base UI primitive.
-Use `variant` and `size` to control appearance. Use `BadgeDot` as an optional
-status marker inside `Badge`.
+`Badge` is a standalone moduix component. Use `variant` and `size` to control
+appearance, and `BadgeDot` as an optional status marker.
 
 ## Basic
 
@@ -43,7 +42,7 @@ status marker inside `Badge`.
 
 ## Anatomy
 
-`Badge` can render as text-only content, with a leading `BadgeDot`, or with an inline icon.
+`Badge` can render as text only, with `BadgeDot`, or with an inline icon.
 
 ```text
 Badge
@@ -65,7 +64,6 @@ Badge
 | `BadgeDot` | Optional indicator slot. Renders a circular marker that inherits current text color. |
 
 `Badge` does not use service slots such as `portal`, `positioner`, `backdrop`, or `viewport`.
-Most use cases are solved with `className` plus targeted `--badge-*` CSS variable overrides.
 
 ## Composition
 

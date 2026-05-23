@@ -5,7 +5,6 @@
 
     box-sizing: border-box;
     position: relative;
-    max-width: none;
     margin-inline: calc(var(--bleed-inline-offset) * -1);
     margin-block: calc(var(--bleed-block-offset) * -1);
 

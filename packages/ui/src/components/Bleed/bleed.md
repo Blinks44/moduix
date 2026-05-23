@@ -1,7 +1,7 @@
 # Bleed
 
-`Bleed` is a layout utility that lets content extend beyond the inline and/or block bounds of its parent container.
-It is a standalone moduix component and does not wrap a Base UI primitive.
+`Bleed` lets content extend beyond the inline and/or block bounds of its parent container.
+It is a standalone moduix component (not a Base UI wrapper).
 
 ## Parts
 

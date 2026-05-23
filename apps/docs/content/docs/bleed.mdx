@@ -17,11 +17,10 @@ import {
 
 ## API Reference
 
-`Bleed` is a moduix layout primitive and does not wrap a Base UI primitive.
-Use `inline="none"` or `block="none"` to keep an axis constrained. Supported
-bleed amounts are `xs`, `sm`, `md`, `lg`, `xl`, plus `full` on the inline axis.
-Use `as` to render a semantic element or custom component while keeping the same
-bleed behavior.
+`Bleed` is a moduix layout primitive (not a Base UI wrapper).
+Control each axis with `inline` and `block`; use `none` to keep an axis constrained.
+Supported amounts: `xs`, `sm`, `md`, `lg`, `xl`, and `full` (inline only).
+Use `as` for semantic/custom roots without changing bleed behavior.
 
 ## Basic
 
@@ -85,8 +84,8 @@ bleed behavior.
 
 ## Anatomy
 
-`Bleed` is a single root layout primitive. It applies negative inline and/or block margins so
-content can extend beyond a constrained parent while staying in normal document flow.
+`Bleed` has a single root element. It applies negative inline and/or block margins so content can
+escape a constrained parent while staying in normal document flow.
 
 ```text
 Bleed
@@ -105,10 +104,8 @@ Bleed
 
 ## Composition
 
-Use `Bleed` props `inline` and `block` to control bleed amount per axis, and `as` when the root
-should be a specific semantic element such as `section` or `figure`. The component forwards refs to
-the rendered element, so it can be measured, focused, or passed to animation libraries like any
-native element.
+Use `inline` and `block` to control bleed per axis, and `as` when the root should be semantic
+(`section`, `figure`, etc.). `Bleed` forwards refs to the rendered element.
 
 | Prop     | Default | Values                                       |
 | -------- | ------- | -------------------------------------------- |
@@ -116,8 +113,7 @@ native element.
 | `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
 | `as`     | `div`   | Any valid React element or component         |
 
-`Bleed` has no internal service slots, so customization is done directly with `className` and
-bleed CSS variables on the root element.
+`Bleed` has no internal slots. Customize via `className` and root `--bleed-*` variables.
 
 ## Examples
 
