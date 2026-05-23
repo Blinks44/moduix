@@ -57,9 +57,8 @@ import {
 
 ## Anatomy
 
-`Field` acts as a semantic wrapper around one form control and its helper text. Keep label,
-control, error, and description inside the same `Field` so IDs, validation state, and ARIA links
-stay synchronized.
+`Field` keeps one control, its label, and helper text in the same context so IDs, validation
+state, and ARIA links stay synchronized.
 
 ```text
 Field
@@ -89,9 +88,8 @@ Field
 | `FieldDescription` | Supplemental helper text linked to the control for assistive technologies.                      |
 | `FieldItem`        | Optional layout wrapper for grouped rows inside the same field, such as radio options.          |
 
-`Field` does not have service slots such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep default structure and style only visible slots (`FieldLabel`, `FieldControl`,
-`FieldError`, `FieldDescription`, and optional `FieldItem`) via `className` and CSS variables.
+Style only the visible slots (`FieldLabel`, `FieldControl`, `FieldError`,
+`FieldDescription`, and optional `FieldItem`) with `className` and CSS variables.
 
 ## Composition
 
@@ -99,16 +97,16 @@ Use `Field` for root behavior and validation props such as `name`, `validationMo
 `validationDebounceTime`, `validate`, `actionsRef`, `invalid`, `dirty`, `touched`, and `disabled`.
 
 Compose `FieldLabel`, one compatible control (`FieldControl`, `Input`, `NumberField`, and others),
-then optional `FieldError` and `FieldDescription`. Customize each visible slot through `className`.
-All Base UI parts also support `render`, function `className`, function `style`, and state data
+then optional `FieldError` and `FieldDescription`. `FieldControl` is the default native input slot,
+but you can replace it with another Base UI-compatible control. All visible parts accept `className`;
+Base UI parts also support `render`, function `className`, function `style`, and state data
 attributes such as `data-invalid`, `data-valid`, `data-dirty`, `data-touched`, `data-filled`,
 `data-focused`, and `data-disabled`.
 
-Use `FieldControl` for a default native input, or omit it and place another Base UI-compatible
-control in the field. `FieldLabel` supports `nativeLabel={false}` when the label is rendered as a
-non-label element for controls such as select or combobox triggers. `FieldError match` accepts
-`true` or a `ValidityState` key such as `valueMissing`, `typeMismatch`, or `customError`;
-`FieldValidity` exposes the full validity object through a render function.
+Use `FieldLabel nativeLabel={false}` when the label should render as a non-`label` element for
+controls such as select or combobox triggers. `FieldError match` accepts `true` or a
+`ValidityState` key such as `valueMissing`, `typeMismatch`, or `customError`. `FieldValidity`
+exposes the full validity object through a render function.
 
 ### Defaults
 
@@ -417,7 +415,7 @@ Pair `Field` with compound controls by linking the label with the control id.
 
 ### Custom Styles
 
-Pass `className` to every visible slot when styling the field with CSS Modules.
+Pass `className` to the slots that need overrides when styling the field with CSS Modules.
 
 <Preview>
   <FieldCustomStylesExample />
@@ -441,9 +439,7 @@ Pass `className` to every visible slot when styling the field with CSS Modules.
               placeholder="MAPS"
               className={styles.customControl}
             />
-            <FieldDescription className={styles.customDescription}>
-              Use three to five uppercase letters.
-            </FieldDescription>
+            <FieldDescription>Use three to five uppercase letters.</FieldDescription>
             <FieldError className={styles.customError} match="valueMissing">
               Please enter a project key.
             </FieldError>
@@ -475,9 +471,6 @@ Pass `className` to every visible slot when styling the field with CSS Modules.
         outline-color: var(--color-primary);
       }
 
-      .customDescription {
-        color: var(--color-muted-foreground);
-      }
     `}
 
   </Preview.CSS>

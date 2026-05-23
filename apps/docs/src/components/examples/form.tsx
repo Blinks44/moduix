@@ -14,16 +14,13 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './form.module.css';
 
-export const formOverrideCssProperties: CssPropertyInput[] = [
+const formCssProperties: CssPropertyInput[] = [
   ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
   ['--form-max-width', 'none', 'Controls the root form max width.'],
   ['--form-width', '100%', 'Controls the root form width.'],
 ];
-export const formPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
-  ['--form-max-width', 'none', 'Controls the root form max width.'],
-  ['--form-width', '100%', 'Controls the root form width.'],
-];
+export const formOverrideCssProperties = formCssProperties;
+export const formPlaygroundCssProperties = formCssProperties;
 
 export function FormCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
@@ -43,8 +40,10 @@ export function FormCssPlaygroundPanel({ values, onChange, onReset }: CSSPropert
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 

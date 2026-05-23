@@ -24,6 +24,4 @@ const CloseButton = React.forwardRef(function CloseButton(
   );
 });
 
-CloseButton.displayName = 'CloseButton';
-
 export { CloseButton };

@@ -38,8 +38,6 @@ const Container = React.forwardRef(function Container(
   );
 });
 
-Container.displayName = 'Container';
-
 export { Container };
 
 export type { ContainerProps, ContainerAs, ContainerSize, ContainerGutter, ContainerAlign };

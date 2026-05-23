@@ -122,13 +122,6 @@ const CardAction = React.forwardRef<HTMLDivElement, CardActionProps>(function Ca
   );
 });
 
-CardHeader.displayName = 'CardHeader';
-CardBody.displayName = 'CardBody';
-CardFooter.displayName = 'CardFooter';
-CardTitle.displayName = 'CardTitle';
-CardDescription.displayName = 'CardDescription';
-CardAction.displayName = 'CardAction';
-
 export { Card, CardHeader, CardBody, CardFooter, CardTitle, CardDescription, CardAction };
 
 export type {

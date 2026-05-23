@@ -267,9 +267,7 @@ export function FieldCustomStylesExample() {
     <Field validationMode="onBlur" className={styles.customField}>
       <FieldLabel className={styles.customLabel}>Project key</FieldLabel>
       <FieldControl required placeholder="MAPS" className={styles.customControl} />
-      <FieldDescription className={styles.customDescription}>
-        Use three to five uppercase letters.
-      </FieldDescription>
+      <FieldDescription>Use three to five uppercase letters.</FieldDescription>
       <FieldError className={styles.customError} match="valueMissing">
         Please enter a project key.
       </FieldError>

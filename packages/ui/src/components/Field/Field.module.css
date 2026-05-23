@@ -10,14 +10,8 @@
     color: var(--field-color, var(--color-foreground));
   }
 
-  .item,
-  .label,
-  .description,
-  .control,
-  .error {
-    &[data-disabled] {
-      opacity: var(--field-disabled-opacity, var(--opacity-disabled));
-    }
+  :is(.item, .label, .description, .control, .error)[data-disabled] {
+    opacity: var(--field-disabled-opacity, var(--opacity-disabled));
   }
 
   .item {

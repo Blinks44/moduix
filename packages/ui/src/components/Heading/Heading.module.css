@@ -57,14 +57,6 @@
       );
     }
 
-    &[data-size='2xl'] {
-      font-size: var(--heading-font-size-2xl, var(--heading-font-size, var(--text-3xl)));
-      line-height: var(
-        --heading-line-height-2xl,
-        var(--heading-line-height, var(--line-height-text-3xl))
-      );
-    }
-
     &[data-weight='regular'] {
       font-weight: var(
         --heading-font-weight-regular,
@@ -76,13 +68,6 @@
       font-weight: var(
         --heading-font-weight-medium,
         var(--heading-font-weight, var(--weight-medium))
-      );
-    }
-
-    &[data-weight='semibold'] {
-      font-weight: var(
-        --heading-font-weight-semibold,
-        var(--heading-font-weight, var(--weight-semibold))
       );
     }
 

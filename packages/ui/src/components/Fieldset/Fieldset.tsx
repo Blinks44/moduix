@@ -2,7 +2,12 @@ import { Fieldset as FieldsetPrimitive } from '@base-ui/react/fieldset';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Fieldset.module.css';
 
-function Fieldset({ className, ...props }: FieldsetPrimitive.Root.Props) {
+type FieldsetProps = FieldsetPrimitive.Root.Props;
+type FieldsetState = FieldsetPrimitive.Root.State;
+type FieldsetLegendProps = FieldsetPrimitive.Legend.Props;
+type FieldsetLegendState = FieldsetPrimitive.Legend.State;
+
+function Fieldset({ className, ...props }: FieldsetProps) {
   return (
     <FieldsetPrimitive.Root
       data-slot="fieldset-root"
@@ -12,7 +17,7 @@ function Fieldset({ className, ...props }: FieldsetPrimitive.Root.Props) {
   );
 }
 
-function FieldsetLegend({ className, ...props }: FieldsetPrimitive.Legend.Props) {
+function FieldsetLegend({ className, ...props }: FieldsetLegendProps) {
   return (
     <FieldsetPrimitive.Legend
       data-slot="fieldset-legend"
@@ -21,11 +26,6 @@ function FieldsetLegend({ className, ...props }: FieldsetPrimitive.Legend.Props)
     />
   );
 }
-
-type FieldsetProps = FieldsetPrimitive.Root.Props;
-type FieldsetState = FieldsetPrimitive.Root.State;
-type FieldsetLegendProps = FieldsetPrimitive.Legend.Props;
-type FieldsetLegendState = FieldsetPrimitive.Legend.State;
 
 export { Fieldset, FieldsetLegend };
 

@@ -2,9 +2,17 @@ import { Form as FormPrimitive } from '@base-ui/react/form';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Form.module.css';
 
-type FormRecord = Record<string, any>;
+type FormValuesMap = Record<string, any>;
+type FormProps<TValues extends FormValuesMap = FormValuesMap> = FormPrimitive.Props<TValues>;
+type FormState = FormPrimitive.State;
+type FormActions = FormPrimitive.Actions;
+type FormValidationMode = FormPrimitive.ValidationMode;
+type FormSubmitEventReason = FormPrimitive.SubmitEventReason;
+type FormSubmitEventDetails = FormPrimitive.SubmitEventDetails;
+type FormValues<TValues extends FormValuesMap = FormValuesMap> = FormPrimitive.Values<TValues>;
+type FormErrors = NonNullable<FormProps<FormValuesMap>['errors']>;
 
-function Form<TValues extends FormRecord = FormRecord>({
+function Form<TValues extends FormValuesMap = FormValuesMap>({
   className,
   ...props
 }: FormProps<TValues>) {
@@ -16,15 +24,6 @@ function Form<TValues extends FormRecord = FormRecord>({
     />
   );
 }
-
-type FormProps<TValues extends FormRecord = FormRecord> = FormPrimitive.Props<TValues>;
-type FormState = FormPrimitive.State;
-type FormActions = FormPrimitive.Actions;
-type FormValidationMode = FormPrimitive.ValidationMode;
-type FormSubmitEventReason = FormPrimitive.SubmitEventReason;
-type FormSubmitEventDetails = FormPrimitive.SubmitEventDetails;
-type FormValues<TValues extends FormRecord = FormRecord> = FormPrimitive.Values<TValues>;
-type FormErrors = NonNullable<FormPrimitive.Props<FormRecord>['errors']>;
 
 export { Form };
 

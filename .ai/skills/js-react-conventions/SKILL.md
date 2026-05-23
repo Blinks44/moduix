@@ -30,9 +30,10 @@ const Component = memo(function Component(props) {
 const Component = forwardRef(function Component(props, ref) {
   // ...
 });
-
-Component.displayName = 'Component';
 ```
+
+- Do not add `displayName` when the wrapped function is already named and React can infer it.
+- Add `displayName` only when the wrapper uses an anonymous function or the name would otherwise be unclear in DevTools.
 
 - Functions inside components and local helpers: use arrow function assignments.
 

@@ -117,8 +117,8 @@ import {
 
 ## Anatomy
 
-`Form` is composed as a root wrapper around native form semantics and validation orchestration.
-Compose it with `Field` parts and submit controls inside the same root.
+`Form` is a single root wrapper around native form semantics and validation orchestration.
+Place `Field` parts and submit controls inside it.
 
 ```text
 Form
@@ -135,11 +135,11 @@ Form
 
 ## Composition
 
-Use `Form` props such as `errors`, `actionsRef`, `onFormSubmit`, `validationMode`, `action`,
-and native form attributes.
+Use `errors`, `actionsRef`, `onFormSubmit`, `validationMode`, `action`, and native form attributes
+on `Form`.
 Compose fields with `Field`, `FieldLabel`, `Input`, `FieldDescription`, and `FieldError`.
-`Form` is a single root wrapper and does not expose internal slots.
-Customize layout with `className` on the form root and style child parts directly on composed components.
+`Form` does not expose internal slots. Use `className` on the root and style composed child parts
+directly.
 
 ### Defaults
 
@@ -152,7 +152,8 @@ Customize layout with `className` on the form root and style child parts directl
 
 ### On Form Submit
 
-Use `onFormSubmit` when you want form values as an object instead of reading `FormData` manually. Base UI prevents the native submit event for this handler.
+Use `onFormSubmit` when you want form values as an object instead of reading `FormData` manually.
+Base UI prevents the native submit event for this handler.
 
 <Preview>
   <FormOnFormSubmitExample />
@@ -307,7 +308,8 @@ Pass `actionsRef` when another control needs to trigger validation for one field
 
 ### Action State
 
-Use a form `action` with React `useActionState` when server or action results should feed back into field errors.
+Use a form `action` with React `useActionState` when action results should feed back into field
+errors.
 
 <Preview>
   <FormActionStateExample />
@@ -410,7 +412,8 @@ Use a form `action` with React `useActionState` when server or action results sh
 
 ### Custom Styles
 
-Pass `className` to the form root and every composed field, input, error, and button slot when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to the form root and composed field, input, error, and button parts when styling
+with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
   <CustomStylesFormExample />

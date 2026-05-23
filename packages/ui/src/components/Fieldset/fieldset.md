@@ -10,13 +10,11 @@ description: A high-quality, unstyled React fieldset component with an easily st
 
 # Fieldset
 
-A high-quality, unstyled React fieldset component with an easily stylable legend.
+A native fieldset wrapper with a stylable legend.
 
 ## Demo
 
-### Tailwind
-
-This example shows how to implement the component using Tailwind CSS.
+Tailwind CSS:
 
 ```tsx
 /* index.tsx */
@@ -54,9 +52,7 @@ export default function ExampleField() {
 }
 ```
 
-### CSS Modules
-
-This example shows how to implement the component using CSS Modules.
+CSS Modules:
 
 ```css
 /* index.module.css */
@@ -195,8 +191,6 @@ export default function ExampleField() {
 
 ## Anatomy
 
-Import the component and assemble its parts:
-
 ```jsx title="Anatomy"
 import { Fieldset } from '@base-ui/react/fieldset';
 
@@ -209,7 +203,7 @@ import { Fieldset } from '@base-ui/react/fieldset';
 
 ### Root
 
-Groups a shared legend with related controls.
+Groups related controls under a shared legend.
 Renders a `<fieldset>` element.
 
 **Root Props:**
@@ -258,18 +252,3 @@ type FieldsetLegendState = {
   disabled: boolean;
 };
 ```
-
-## Export Groups
-
-- `Fieldset.Root`: `Fieldset.Root`, `Fieldset.Root.State`, `Fieldset.Root.Props`
-- `Fieldset.Legend`: `Fieldset.Legend`, `Fieldset.Legend.State`, `Fieldset.Legend.Props`
-- `Default`: `FieldsetRootState`, `FieldsetRootProps`, `FieldsetLegendState`, `FieldsetLegendProps`
-
-## Canonical Types
-
-Maps `Canonical`: `Alias` — Use Canonical when its namespace is already imported; otherwise use Alias.
-
-- `Fieldset.Root.State`: `FieldsetRootState`
-- `Fieldset.Root.Props`: `FieldsetRootProps`
-- `Fieldset.Legend.State`: `FieldsetLegendState`
-- `Fieldset.Legend.Props`: `FieldsetLegendProps`

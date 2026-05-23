@@ -1,6 +1,10 @@
 @layer ui.components {
-  .root {
+  .root,
+  .legend {
     box-sizing: border-box;
+  }
+
+  .root {
     display: flex;
     flex-direction: column;
     gap: var(--fieldset-gap, var(--spacing-4));
@@ -20,7 +24,6 @@
   }
 
   .legend {
-    box-sizing: border-box;
     margin: var(--fieldset-legend-margin, 0);
     padding: var(
       --fieldset-legend-padding,

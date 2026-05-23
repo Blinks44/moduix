@@ -27,7 +27,3 @@
 .customControl:focus {
   outline-color: var(--color-primary);
 }
-
-.customDescription {
-  color: var(--color-muted-foreground);
-}

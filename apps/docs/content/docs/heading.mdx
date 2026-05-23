@@ -19,9 +19,8 @@ import {
 
 ## API Reference
 
-`Heading` is a moduix typography primitive. Base UI does not provide a matching heading
-primitive, so the public API stays focused on semantic element choice, visual variants,
-and root `className` composition.
+`Heading` renders semantic `h1`-`h6` elements with visual size, weight, and alignment
+controlled separately from document structure.
 
 ## Basic
 
@@ -44,8 +43,7 @@ and root `className` composition.
 
 ## Anatomy
 
-`Heading` is composed as a single typography root that renders a semantic heading element.
-Visual style is controlled independently through size, weight, alignment, and CSS variables.
+`Heading` is a single typography root.
 
 ```text
 Heading
@@ -58,10 +56,9 @@ Heading
 
 ## Composition
 
-Use `as` for semantic heading level and `size` for visual scale when semantics and appearance
-should differ. Use `weight`, `align`, and `className` for presentation customization.
-
-`Heading` has no hidden service slots; styling is done directly on the root element.
+Use `as` for semantics and `size` for visual scale when they should differ. Use `weight`,
+`align`, and `className` for presentation. `Heading` has no extra slots; styling is applied
+on the root element.
 
 ### Defaults
 
@@ -79,7 +76,7 @@ Default `size` mapping by `as`: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`, `h4 -> md`,
 
 ### Elements
 
-Use `as` to choose the semantic heading level. Each level has a matching default visual size.
+Use `as` to choose the semantic heading level. Each level maps to its default visual size.
 
 <Preview>
   <HeadingElementsExample />
@@ -119,7 +116,7 @@ Use `as` to choose the semantic heading level. Each level has a matching default
 
 ### Sizes
 
-Use `size` for visual sizing when the semantic level should stay separate from presentation.
+Use `size` when visual scale should differ from the semantic level.
 
 <Preview>
   <HeadingSizesExample />
@@ -159,7 +156,7 @@ Use `size` for visual sizing when the semantic level should stay separate from p
 
 ### Weights
 
-Use `weight` for the intended emphasis without adding a custom class.
+Use `weight` for emphasis without custom CSS.
 
 <Preview>
   <HeadingWeightsExample />
@@ -197,7 +194,7 @@ Use `weight` for the intended emphasis without adding a custom class.
 
 ### Alignment
 
-Use `align` to set text alignment without adding custom CSS.
+Use `align` to control text alignment.
 
 <Preview>
   <HeadingAlignedExample />
@@ -257,7 +254,7 @@ Keep document outline and visual size independent by combining `as` and `size`.
 
 ### Custom Styles
 
-Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to style the root element.
 
 <Preview>
   <CustomStylesHeadingExample />

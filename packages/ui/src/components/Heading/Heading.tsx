@@ -28,12 +28,13 @@ const Heading = React.forwardRef(function Heading(
   ref: React.ForwardedRef<HTMLHeadingElement>,
 ) {
   const Component = as;
+  const resolvedSize = size ?? defaultSizeByElement[as];
 
   return (
     <Component
       ref={ref}
       data-slot="heading-root"
-      data-size={size ?? defaultSizeByElement[as]}
+      data-size={resolvedSize}
       data-weight={weight}
       data-align={align}
       className={clsx(styles.root, className)}
