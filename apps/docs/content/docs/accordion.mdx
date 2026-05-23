@@ -113,6 +113,9 @@ Accordion
 Use `classNames.header`, `classNames.icon`, `slotProps.header`, and `slotProps.icon` when you need
 to style or customize those internal slots.
 
+When the surrounding page outline matters, set the heading element through
+`slotProps.header.render`.
+
 ## Composition
 
 Use `Accordion` for state and behavior (`value`, `defaultValue`, `onValueChange`, `multiple`,
@@ -123,6 +126,18 @@ Style public parts with `className` on `Accordion`, `AccordionItem`, `AccordionT
 `AccordionPanel`. `AccordionTrigger` also supports `icon`, `withIcon`, `classNames`, and
 `slotProps` for internal header/icon customization. Base UI behavior props (for example `render`,
 `keepMounted`, `hiddenUntilFound`) pass through to the matching primitive part.
+
+Use `slotProps.header.render` to choose the semantic heading tag without reintroducing a separate
+`AccordionHeader` in app code.
+
+```tsx
+<AccordionItem value="shipping">
+  <AccordionTrigger slotProps={{ header: { render: <h3 /> } }}>Shipping details</AccordionTrigger>
+  <AccordionPanel>
+    <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
+  </AccordionPanel>
+</AccordionItem>
+```
 
 | Prop          | Default          | Values                           |
 | ------------- | ---------------- | -------------------------------- |

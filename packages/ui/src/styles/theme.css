@@ -92,7 +92,7 @@
   --accordion-icon-transition: initial; /* 150ms ease-out */
   --accordion-item-border-color: initial; /* var(--color-border) */
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
-  --accordion-max-width: initial; /* calc(100vw - 8rem) */
+  --accordion-max-width: initial; /* 100% */
   --accordion-panel-color: initial; /* var(--color-muted-foreground) */
   --accordion-panel-font-size: initial; /* var(--text-md) */
   --accordion-panel-line-height: initial; /* var(--line-height-text-md) */

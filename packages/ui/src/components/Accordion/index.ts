@@ -1,7 +1,6 @@
 export {
   Accordion,
   AccordionItem,
-  AccordionHeader,
   AccordionTrigger,
   AccordionTriggerIcon,
   AccordionPanel,
@@ -11,7 +10,6 @@ export type {
   AccordionValue,
   AccordionProps,
   AccordionItemProps,
-  AccordionHeaderProps,
   AccordionTriggerProps,
   AccordionTriggerClassNames,
   AccordionTriggerSlotProps,

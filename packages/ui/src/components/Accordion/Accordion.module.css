@@ -3,7 +3,7 @@
     box-sizing: border-box;
     display: flex;
     width: var(--accordion-width, 24rem);
-    max-width: var(--accordion-max-width, calc(100vw - 8rem));
+    max-width: var(--accordion-max-width, 100%);
     flex-direction: column;
     justify-content: center;
     color: var(--accordion-color, var(--color-foreground));
@@ -70,7 +70,7 @@
     justify-content: center;
     width: var(--accordion-icon-size, 0.75rem);
     height: var(--accordion-icon-size, 0.75rem);
-    margin-right: var(--accordion-icon-margin-right, var(--spacing-2));
+    margin-inline-end: var(--accordion-icon-margin-right, var(--spacing-2));
     flex-shrink: 0;
     transition: transform var(--accordion-icon-transition, var(--transition-default));
 

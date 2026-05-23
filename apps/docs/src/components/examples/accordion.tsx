@@ -63,7 +63,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls the separator width between accordion items.',
   ],
-  ['--accordion-max-width', 'calc(100vw - 8rem)', 'Controls the root accordion max width.'],
+  ['--accordion-max-width', '100%', 'Controls the root accordion max width.'],
   ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
   ['--accordion-panel-font-size', 'var(--text-md)', 'Controls panel text font size.'],
   [
