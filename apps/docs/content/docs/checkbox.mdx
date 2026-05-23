@@ -51,53 +51,10 @@ import {
   </Preview.CSSPlayground>
 </Preview>
 
-## Composition
-
-`Checkbox` forwards Base UI root props and includes the indicator by default. Use it
-uncontrolled with `defaultChecked`, controlled with `checked` and `onCheckedChange`, or
-connect it to forms with `name`, `value`, `uncheckedValue`, `form`, `required`, `readOnly`,
-and `inputRef`. It also supports Base UI composition props such as `render` and
-`nativeButton`.
-
-| Prop             | Default     | Values                                                             |
-| ---------------- | ----------- | ------------------------------------------------------------------ |
-| `size`           | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                                       |
-| `defaultChecked` | `false`     | `boolean`                                                          |
-| `indeterminate`  | `false`     | `boolean`                                                          |
-| `disabled`       | `false`     | `boolean`                                                          |
-| `required`       | `false`     | `boolean`                                                          |
-| `readOnly`       | `false`     | `boolean`                                                          |
-| `nativeButton`   | `false`     | `boolean`                                                          |
-| `checked`        | `undefined` | `boolean` (controlled mode, with `onCheckedChange`)                |
-| `className`      | `undefined` | `string \| ((state) => string \| undefined)`                       |
-| `classNames`     | `undefined` | `{ indicator?, indicatorIcon?, checkedIcon?, indeterminateIcon? }` |
-| `slotProps`      | `undefined` | `{ indicator?, indicatorIcon? }`                                   |
-
-Pass `className` to style the root control. Use `classNames` to style the automatically
-rendered indicator parts. Use `slotProps.indicator` for Base UI indicator props such as
-`keepMounted`, `render`, and state-aware `style`. Compose `CheckboxIndicator` and
-`CheckboxIndicatorIcon` yourself only when you need full control over the indicator slot:
-
-```tsx
-<Checkbox
-  className={styles.checkbox}
-  classNames={{
-    indicator: styles.indicator,
-    indicatorIcon: styles.indicatorIcon,
-    checkedIcon: styles.checkedIcon,
-    indeterminateIcon: styles.indeterminateIcon,
-  }}
-  slotProps={{
-    indicator: { keepMounted: true },
-  }}
-/>
-```
-
 ## Anatomy
 
-Checkbox is composed around one interactive root and optional label wrappers. Use
-`CheckboxField` and `CheckboxLabel` for the common clickable-label pattern, and keep
-them grouped so focus, disabled state, and text association stay aligned.
+Checkbox consists of an interactive root and optional label wrappers.
+For the common clickable-label pattern, use `CheckboxField` with `CheckboxLabel`.
 
 ```text
 CheckboxField
@@ -126,9 +83,48 @@ CheckboxField
 | `CheckboxField`         | Optional wrapper that groups the checkbox and label into one accessible field pattern.                 |
 | `CheckboxLabel`         | Optional text label associated with the checkbox for pointer and keyboard interaction.                 |
 
-`Checkbox` does not use service slots such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep behavior defaults and customize visible slots via `className`,
-`classNames`, and CSS variables.
+`Checkbox` has no service slots (`portal`, `backdrop`, `viewport`).
+Most customization is done through `className`, `classNames`, and CSS variables.
+
+## Composition
+
+`Checkbox` forwards Base UI root props and renders the indicator by default.
+Use `defaultChecked` for uncontrolled mode, `checked` + `onCheckedChange` for controlled mode,
+and form props (`name`, `value`, `uncheckedValue`, `form`, `required`, `readOnly`, `inputRef`)
+when binding to form submission. `render` and `nativeButton` are supported.
+
+| Prop             | Default     | Values                                                             |
+| ---------------- | ----------- | ------------------------------------------------------------------ |
+| `size`           | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                                       |
+| `defaultChecked` | `false`     | `boolean`                                                          |
+| `indeterminate`  | `false`     | `boolean`                                                          |
+| `disabled`       | `false`     | `boolean`                                                          |
+| `required`       | `false`     | `boolean`                                                          |
+| `readOnly`       | `false`     | `boolean`                                                          |
+| `nativeButton`   | `false`     | `boolean`                                                          |
+| `checked`        | `undefined` | `boolean` (controlled mode, with `onCheckedChange`)                |
+| `className`      | `undefined` | `string \| ((state) => string \| undefined)`                       |
+| `classNames`     | `undefined` | `{ indicator?, indicatorIcon?, checkedIcon?, indeterminateIcon? }` |
+| `slotProps`      | `undefined` | `{ indicator?, indicatorIcon? }`                                   |
+
+Use `className` for the root, `classNames` for default indicator parts, and
+`slotProps.indicator` for indicator behavior props (for example `keepMounted`, `render`, `style`).
+Compose `CheckboxIndicator` and `CheckboxIndicatorIcon` directly only when you need full slot control:
+
+```tsx
+<Checkbox
+  className={styles.checkbox}
+  classNames={{
+    indicator: styles.indicator,
+    indicatorIcon: styles.indicatorIcon,
+    checkedIcon: styles.checkedIcon,
+    indeterminateIcon: styles.indeterminateIcon,
+  }}
+  slotProps={{
+    indicator: { keepMounted: true },
+  }}
+/>
+```
 
 ## Examples
 

@@ -108,6 +108,18 @@
         var(--checkbox-indicator-bg, transparent)
       );
     }
+    &[data-indeterminate] .iconChecked {
+      display: none;
+    }
+
+    &[data-checked] .iconIndeterminate {
+      display: none;
+    }
+
+    &[data-unchecked] .iconChecked,
+    &[data-unchecked] .iconIndeterminate {
+      display: none;
+    }
   }
 
   .icon {
@@ -131,21 +143,6 @@
     & > svg {
       width: 100%;
       height: 100%;
-    }
-  }
-
-  .indicator {
-    &[data-indeterminate] .iconChecked {
-      display: none;
-    }
-
-    &[data-checked] .iconIndeterminate {
-      display: none;
-    }
-
-    &[data-unchecked] .iconChecked,
-    &[data-unchecked] .iconIndeterminate {
-      display: none;
     }
   }
 

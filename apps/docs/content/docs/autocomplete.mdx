@@ -875,6 +875,8 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
 
         const status = isPending
           ? "Searching..."
+          : trimmedValue === ""
+            ? "Start typing to search movies..."
           : trimmedValue !== "" && searchResults.length === 0
             ? \`No matches for "\${trimmedValue}".\`
             : null;

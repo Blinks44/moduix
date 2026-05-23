@@ -763,11 +763,13 @@
   --combobox-separator-margin-y: initial; /* 0.375rem */
   --combobox-shadow: initial; /* var(--shadow-lg) */
   --combobox-status-color: initial; /* var(--combobox-empty-color) */
-  --combobox-status-font-size: initial; /* var(--combobox-empty-font-size) */
-  --combobox-status-gap: initial; /* var(--spacing-2) */
-  --combobox-status-line-height: initial; /* var(--combobox-empty-line-height) */
-  --combobox-status-padding-x: initial; /* var(--combobox-empty-padding-x) */
-  --combobox-status-padding-y: initial; /* var(--combobox-empty-padding-y) */
+  --combobox-status-divider-color: initial; /* var(--combobox-popup-border-color) */
+  --combobox-status-divider-width: initial; /* var(--border-width-sm) */
+  --combobox-status-font-size: initial; /* var(--text-xs) */
+  --combobox-status-gap: initial; /* var(--spacing-1) */
+  --combobox-status-line-height: initial; /* var(--line-height-text-xs) */
+  --combobox-status-padding-x: initial; /* 0.75rem */
+  --combobox-status-padding-y: initial; /* 0.5rem */
   --combobox-width: initial; /* 16rem */
 
   /* CommandPalette */

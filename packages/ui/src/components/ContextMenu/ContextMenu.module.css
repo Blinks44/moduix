@@ -318,22 +318,10 @@
     }
   }
 
-  .radioItem {
-    &[data-indicator-position='end'] {
-      & > .radioItemIndicator {
-        grid-column-start: 2;
-        justify-self: end;
-      }
-    }
-  }
-
-  .checkboxItem {
-    &[data-indicator-position='end'] {
-      & > .checkboxItemIndicator {
-        grid-column-start: 2;
-        justify-self: end;
-      }
-    }
+  .radioItem[data-indicator-position='end'] > .radioItemIndicator,
+  .checkboxItem[data-indicator-position='end'] > .checkboxItemIndicator {
+    grid-column-start: 2;
+    justify-self: end;
   }
 
   .radioItemIndicator,

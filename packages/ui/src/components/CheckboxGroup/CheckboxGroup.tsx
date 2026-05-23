@@ -15,7 +15,7 @@ type CheckboxGroupItemProps = React.ComponentProps<'label'>;
 type CheckboxGroupItemControlProps = React.ComponentProps<typeof Checkbox>;
 type CheckboxGroupItemLabelProps = React.ComponentProps<'span'>;
 
-function CheckboxGroup({ className, ...props }: CheckboxGroupPrimitive.Props) {
+function CheckboxGroup({ className, ...props }: CheckboxGroupProps) {
   return (
     <CheckboxGroupPrimitive
       data-slot="checkbox-group-root"

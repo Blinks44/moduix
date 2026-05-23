@@ -23,12 +23,8 @@ import {
 
 ## Choosing the right component
 
-Use `Combobox` when selection should come from predefined options, but users still need an input to
-search or narrow that list.
-
-- Choose **`Combobox`** for searchable selection from a known dataset.
-- Choose **`Autocomplete`** when free-form input is valid and suggestions are optional guidance.
-- Choose **`Select`** when input typing is unnecessary and a button-triggered list is enough.
+Use `Combobox` for searchable selection from a known dataset.
+Use `Autocomplete` when free-form input is allowed, and `Select` when typing is not needed.
 
 ## Basic
 
@@ -172,11 +168,10 @@ Combobox
 | `ComboboxItem`           | One selectable option. Renders selected state and text/indicator subparts.                                              |
 | `ComboboxChips`          | Multiple-selection chip container used with `multiple` and `ComboboxValue`.                                             |
 
-In most cases, keep default popup infrastructure and style the visible parts (`ComboboxInput`,
+In most cases, keep default popup infrastructure and style visible parts (`ComboboxInput`,
 `ComboboxItem`, `ComboboxItemIndicator`, `ComboboxItemText`, `ComboboxContent`).
-Use `ComboboxContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
-`backdropProps`, `arrowProps`, `withBackdrop`, `arrow`) only when you need custom portal,
-layering, backdrop, or arrow behavior.
+Use `ComboboxContent` service-slot props (`classNames`, `slotProps`, `withBackdrop`, `withArrow`)
+only when you need custom portal, layering, backdrop, or arrow behavior.
 
 ## Composition
 
@@ -229,8 +224,6 @@ for service-slot customization:
   }}
 />
 ```
-
-Use `slotProps` + `withArrow` for service-slot composition.
 
 Every visible part accepts `className` and the Base UI `render` prop where the underlying primitive
 supports it, so the component can be styled with CSS Modules, plain CSS, CSS-in-JS, cascade layers,

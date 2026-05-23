@@ -40,15 +40,6 @@
       );
     }
 
-    &[data-size='md'] {
-      --card-padding-default: var(--card-padding-md, var(--spacing-5));
-      --card-title-font-size-default: var(--card-title-font-size-md, var(--text-lg));
-      --card-title-line-height-default: var(
-        --card-title-line-height-md,
-        var(--line-height-text-lg)
-      );
-    }
-
     &[data-size='lg'] {
       --card-padding-default: var(--card-padding-lg, var(--spacing-6));
       --card-title-font-size-default: var(--card-title-font-size-lg, var(--text-xl));

@@ -14,8 +14,7 @@ import {
 
 ## API Reference
 
-`CommandPalette` is a best-practice composition built from `Dialog` and `Autocomplete`, so there is
-no separate Base UI primitive page for it.
+`CommandPalette` is built from `Dialog` and `Autocomplete`, so it does not have a dedicated Base UI primitive page.
 
 ## Basic
 
@@ -184,8 +183,7 @@ no separate Base UI primitive page for it.
 
 ## Anatomy
 
-`CommandPaletteContent` owns the dialog service slots and renders an always-open autocomplete root
-inside the popup. The list filters in place instead of opening a separate autocomplete popup.
+`CommandPaletteContent` owns dialog service slots and renders an always-open autocomplete root inside the popup.
 
 ```text
 CommandPalette
@@ -231,14 +229,12 @@ CommandPalette
 
 ## Composition
 
-`CommandPalette` opens on `mod+k` by default. `mod` maps to Command on macOS and Control on
-Windows/Linux. Use `shortcut="shift+mod+p"` for a custom shortcut or `shortcut={false}` when the
-application owns global command routing.
+`CommandPalette` opens on `mod+k` by default (`mod` is Command on macOS and Control on Windows/Linux).
+Set `shortcut="shift+mod+p"` for another combo or `shortcut={false}` to disable the global listener.
 
-`CommandPaletteContent` accepts common autocomplete props such as `items`, `itemToStringValue`,
-`value`, `onValueChange`, `filter`, `limit`, `autoHighlight`, `keepHighlight`, and `mode`. The
-autocomplete root stays open inside the dialog, so consumers render filtered results directly with
-`CommandPaletteList` or `useCommandPaletteFilteredItems`.
+`CommandPaletteContent` accepts common autocomplete props (`items`, `itemToStringValue`, `value`,
+`onValueChange`, `filter`, `limit`, `autoHighlight`, `keepHighlight`, `mode`). Results are rendered
+in place with `CommandPaletteList` or `useCommandPaletteFilteredItems`.
 
 Use `className` to style the popup and `classNames` for dialog service slots (`portal`,
 `backdrop`, `viewport`). Use `container`, `slotProps`, and `withBackdrop` for the same layering
@@ -265,8 +261,7 @@ controls as other dialog-like components.
 
 ### Item Actions
 
-Attach command behavior with an `actions` object and keep an `action` function on each item. Then
-bind `onClick={() => item.action()}` while rendering `CommandPaletteItem`.
+Keep an `action` function on each item and call it from `CommandPaletteItem` click handlers.
 
 <Preview>
   <CommandPaletteActionsExample />

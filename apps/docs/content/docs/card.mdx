@@ -20,8 +20,7 @@ import {
 ## API Reference
 
 `Card` is a standalone moduix component and does not wrap a Base UI primitive.
-Use the compound slots to keep layouts consistent across summaries, dashboards, settings panels,
-and object previews.
+Use its compound slots for consistent content structure.
 
 ## Basic
 
@@ -63,7 +62,7 @@ and object previews.
 
 ## Anatomy
 
-`Card` exposes semantic slots for common card structure. Use only the parts that fit the content.
+`Card` exposes semantic slots for common card structure.
 
 ```text
 Card
@@ -98,13 +97,10 @@ Card
 
 ## Composition
 
-Use `variant="default"`, `variant="elevated"`, `variant="outline"`, or `variant="ghost"` to match
-the surrounding surface. Use `size="xs"`, `size="sm"`, `size="md"`, or `size="lg"` to control density.
-
-`Card` accepts `as="div"`, `as="article"`, `as="section"`, or `as="aside"` for common semantics.
-Use `interactive` when the whole card should visually respond to hover, and add the appropriate
-keyboard and click behavior in application code. Pass `className` to any slot and customize the
-visual contract with `--card-*` variables.
+Use `variant` to set visual weight and `size` to control density.
+`Card` supports `as` for semantics and `interactive` for hover affordance.
+When `interactive` is enabled, add keyboard and click behavior in application code.
+Pass `className` to slots and customize visuals with `--card-*` variables.
 
 | Prop          | Default   | Values                                             |
 | ------------- | --------- | -------------------------------------------------- |
@@ -119,7 +115,7 @@ visual contract with `--card-*` variables.
 
 ### With Footer
 
-Use `CardFooter` for actions. Add `withDivider` when the footer should read as a separate control area.
+Use `CardFooter` for actions. Add `withDivider` to separate it visually.
 
 <Preview>
   <CardWithFooterExample />
@@ -150,7 +146,7 @@ Use `CardFooter` for actions. Add `withDivider` when the footer should read as a
 
 ### With Action
 
-Use `CardAction` for compact status, menus, or controls aligned opposite the title.
+Use `CardAction` for compact controls aligned opposite the title.
 
 <Preview>
   <CardWithActionExample />
@@ -179,7 +175,7 @@ Use `CardAction` for compact status, menus, or controls aligned opposite the tit
 
 ### Variants
 
-Choose the visual weight that matches the surrounding layout.
+Pick the visual weight that matches surrounding content.
 
 <Preview>
   <CardVariantsExample />
@@ -211,7 +207,7 @@ Choose the visual weight that matches the surrounding layout.
 
 ### Sizes
 
-Use size to tune density for compact lists, dashboards, and page sections.
+Use size to tune density.
 
 <Preview>
   <CardSizesExample />
@@ -247,7 +243,7 @@ Use size to tune density for compact lists, dashboards, and page sections.
 
 ### Interactive
 
-Use `interactive` for hover affordance when application code makes the card navigable or selectable.
+Use `interactive` when app logic makes the card selectable or navigable.
 
 <Preview>
   <InteractiveCardExample />
@@ -276,7 +272,7 @@ Use `interactive` for hover affordance when application code makes the card navi
 
 ### Custom Styles
 
-Use `className` and CSS variables for product-specific card treatments.
+Use `className` and CSS variables for custom styling.
 
 <Preview>
   <CustomStylesCardExample />

@@ -91,8 +91,7 @@ import {
 
 ## Anatomy
 
-`CloseButton` is composed as a single icon button slot. It renders a default close icon, or custom icon
-children when provided.
+`CloseButton` is a single icon-button slot. By default it renders `CloseIcon`; pass `children` to replace it.
 
 ```text
 CloseButton
@@ -105,10 +104,13 @@ CloseButton
 
 ## Composition
 
-Use `CloseButton` props such as `children` to replace the default icon, `render` to compose it
-with another element, `nativeButton` for non-button render targets, and `focusableWhenDisabled`
-when a disabled control should remain in the tab order. The default accessible name is `Close`;
-pass `aria-label` for the specific surface being dismissed.
+`CloseButton` is built on Base UI Button. Use:
+
+- `children` to replace the default icon.
+- `render` and `nativeButton` for custom element composition.
+- `focusableWhenDisabled` when a disabled control must stay in tab order.
+
+Default accessible name is `Close`; set `aria-label` to describe the dismissed surface.
 
 | Prop         | Default     | Values                                           |
 | ------------ | ----------- | ------------------------------------------------ |
@@ -116,14 +118,13 @@ pass `aria-label` for the specific surface being dismissed.
 | `aria-label` | `Close`     | Any descriptive label for the dismissed surface  |
 | `children`   | `CloseIcon` | Any React node (typically custom icon component) |
 
-Use `className` to style the root button. The component has no hidden service slots, so styling
-does not require `classNames`.
+Use `className` to style the root. `classNames` is not needed because there are no extra service slots.
 
 ## Examples
 
 ### Custom Icon
 
-Pass children to replace the default icon with an icon from your application or icon library.
+Replace the default icon via `children`.
 
 <Preview>
   <CloseButtonCustomIconExample />
@@ -146,7 +147,7 @@ Pass children to replace the default icon with an icon from your application or 
 
 ### Disabled
 
-Use `focusableWhenDisabled` when a disabled close button should remain reachable by keyboard focus.
+Use `focusableWhenDisabled` if disabled state should remain keyboard-focusable.
 
 <Preview>
   <CloseButtonDisabledExample />
@@ -182,7 +183,7 @@ Use `focusableWhenDisabled` when a disabled close button should remain reachable
 
 ### Custom Styles
 
-Pass `className` to style the button root with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Style the root button through `className`.
 
 <Preview>
   <CloseButtonCustomStylesExample />

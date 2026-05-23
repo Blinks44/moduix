@@ -213,6 +213,7 @@ function ComboboxArrow({ className, children, ...props }: ComboboxPrimitive.Arro
 }
 
 function ComboboxContent({
+  children,
   className,
   classNames,
   slotProps,
@@ -233,46 +234,40 @@ function ComboboxContent({
   positionMethod,
   ...props
 }: ComboboxContentProps) {
-  const portalProps = slotProps?.portal;
-  const backdropProps = slotProps?.backdrop;
-  const positionerProps = slotProps?.positioner;
-  const arrowProps = slotProps?.arrow;
-
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
+  const { portal, backdrop, positioner, arrow: arrowSlotProps } = slotProps ?? {};
+  const { container: portalSlotContainer, ...portalProps } = portal ?? {};
   const resolvedPositionerProps: ComboboxPositionerControlProps = {
-    side: side ?? positionerProps?.side,
-    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 5,
-    align: align ?? positionerProps?.align,
-    alignOffset: alignOffset ?? positionerProps?.alignOffset,
-    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
-    anchor: anchor ?? positionerProps?.anchor,
-    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
-    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
-    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
-    sticky: sticky ?? positionerProps?.sticky,
-    positionMethod: positionMethod ?? positionerProps?.positionMethod,
+    side: side ?? positioner?.side,
+    sideOffset: sideOffset ?? positioner?.sideOffset ?? 5,
+    align: align ?? positioner?.align,
+    alignOffset: alignOffset ?? positioner?.alignOffset,
+    arrowPadding: arrowPadding ?? positioner?.arrowPadding,
+    anchor: anchor ?? positioner?.anchor,
+    collisionAvoidance: collisionAvoidance ?? positioner?.collisionAvoidance,
+    collisionBoundary: collisionBoundary ?? positioner?.collisionBoundary,
+    collisionPadding: collisionPadding ?? positioner?.collisionPadding,
+    sticky: sticky ?? positioner?.sticky,
+    positionMethod: positionMethod ?? positioner?.positionMethod,
   };
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
   const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
+  const portalContainer = container ?? portalSlotContainer;
 
   return (
-    <ComboboxPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
-      {withBackdrop ? (
-        <ComboboxBackdrop className={classNames?.backdrop} {...backdropProps} />
-      ) : null}
+    <ComboboxPortal className={classNames?.portal} container={portalContainer} {...portalProps}>
+      {withBackdrop ? <ComboboxBackdrop className={classNames?.backdrop} {...backdrop} /> : null}
       <ComboboxPositioner
-        {...positionerProps}
+        {...positioner}
         {...resolvedPositionerProps}
         className={classNames?.positioner}
       >
         <ComboboxPopup className={className} {...props}>
           {showArrow ? (
-            <ComboboxArrow className={classNames?.arrow} {...arrowProps}>
+            <ComboboxArrow className={classNames?.arrow} {...arrowSlotProps}>
               {arrowContent}
             </ComboboxArrow>
           ) : null}
-          {props.children}
+          {children}
         </ComboboxPopup>
       </ComboboxPositioner>
     </ComboboxPortal>

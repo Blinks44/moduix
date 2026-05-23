@@ -326,26 +326,20 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
     'Default: var(--combobox-empty-color).',
   ],
   [
-    '--combobox-status-font-size',
-    'var(--combobox-empty-font-size)',
-    'Default: var(--combobox-empty-font-size).',
+    '--combobox-status-divider-color',
+    'var(--combobox-popup-border-color)',
+    'Default: var(--combobox-popup-border-color).',
   ],
-  ['--combobox-status-gap', 'var(--spacing-2)', 'Default: var(--spacing-2).'],
+  ['--combobox-status-divider-width', 'var(--border-width-sm)', 'Default: var(--border-width-sm).'],
+  ['--combobox-status-font-size', 'var(--text-xs)', 'Default: var(--text-xs).'],
+  ['--combobox-status-gap', 'var(--spacing-1)', 'Default: var(--spacing-1).'],
   [
     '--combobox-status-line-height',
-    'var(--combobox-empty-line-height)',
-    'Default: var(--combobox-empty-line-height).',
+    'var(--line-height-text-xs)',
+    'Default: var(--line-height-text-xs).',
   ],
-  [
-    '--combobox-status-padding-x',
-    'var(--combobox-empty-padding-x)',
-    'Default: var(--combobox-empty-padding-x).',
-  ],
-  [
-    '--combobox-status-padding-y',
-    'var(--combobox-empty-padding-y)',
-    'Default: var(--combobox-empty-padding-y).',
-  ],
+  ['--combobox-status-padding-x', '0.75rem', 'Default: 0.75rem.'],
+  ['--combobox-status-padding-y', '0.5rem', 'Default: 0.5rem.'],
   ['--combobox-width', '16rem', 'Default: 16rem.'],
 ];
 

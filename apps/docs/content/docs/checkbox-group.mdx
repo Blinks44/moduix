@@ -82,10 +82,9 @@ import {
 
 ## Anatomy
 
-Checkbox Group is composed as one shared state root with optional label and list wrappers.
-Each row combines an interactive control and a text label; keep `CheckboxGroupItemControl`
-and `CheckboxGroupItemLabel` in the same `CheckboxGroupItem` so selection state, focus,
-and labeling stay aligned.
+Checkbox Group uses one shared root state with optional label and list wrappers.
+Keep `CheckboxGroupItemControl` and `CheckboxGroupItemLabel` inside the same
+`CheckboxGroupItem` so focus and labeling stay aligned.
 
 ```text
 CheckboxGroup
@@ -110,25 +109,23 @@ CheckboxGroup
 </CheckboxGroup>
 ```
 
-| Part                       | Role                                                                                        |
-| -------------------------- | ------------------------------------------------------------------------------------------- |
-| `CheckboxGroup`            | Root state machine. Manages selected values, `disabled`, `allValues`, and change callbacks. |
-| `CheckboxGroupLabel`       | Optional group heading slot. Provides visible context for the entire set of options.        |
-| `CheckboxGroupList`        | Optional layout slot that contains checkbox rows and supports group-level spacing/styling.  |
-| `CheckboxGroupItem`        | Optional row wrapper that keeps one control and one text label grouped as a single option.  |
-| `CheckboxGroupItemControl` | Interactive checkbox control for an item. Supports checkbox props and state-based styling.  |
-| `CheckboxGroupItemLabel`   | Optional text label slot associated with the item control.                                  |
+| Part                       | Role                                                                                |
+| -------------------------- | ----------------------------------------------------------------------------------- |
+| `CheckboxGroup`            | Root state. Manages selected values, `disabled`, `allValues`, and change callbacks. |
+| `CheckboxGroupLabel`       | Optional group heading.                                                             |
+| `CheckboxGroupList`        | Optional list wrapper for checkbox rows.                                            |
+| `CheckboxGroupItem`        | Optional row wrapper for one control + one text label.                              |
+| `CheckboxGroupItemControl` | Interactive checkbox control for an item.                                           |
+| `CheckboxGroupItemLabel`   | Optional text label for the item.                                                   |
 
-`CheckboxGroup` does not use service slots such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep behavior defaults and customize visible parts with `className`,
-`classNames`, and CSS variables.
+`CheckboxGroup` does not use service slots (`portal`, `backdrop`, `viewport`).
+Customize visible parts with `className`, `classNames`, and CSS variables.
 
 ## Composition
 
-Use `CheckboxGroup` for shared Base UI state and behavior props such as `value`,
-`defaultValue`, `onValueChange`, `allValues`, `disabled`, `render`, `className`, and
-state-aware `style`. Use `allValues` together with a child checkbox `parent` prop for
-select-all behavior.
+Use `CheckboxGroup` for shared state (`value`, `defaultValue`, `onValueChange`) and
+group behavior (`allValues`, `disabled`, `render`, `className`, state-aware `style`).
+Use `allValues` with `CheckboxGroupItemControl parent` for select-all behavior.
 
 | Prop                                    | Default     | Values                                                                  |
 | --------------------------------------- | ----------- | ----------------------------------------------------------------------- |
@@ -142,14 +139,13 @@ select-all behavior.
 | `CheckboxGroupItemControl.nativeButton` | `false`     | `boolean`                                                               |
 
 `CheckboxGroupLabel`, `CheckboxGroupList`, `CheckboxGroupItem`, and
-`CheckboxGroupItemLabel` are layout slots. Pass `className` to style each visible slot.
-`CheckboxGroupItemControl` composes `Checkbox`, so it supports checkbox props such as `size`,
-`nativeButton`, `render`, `name`, `value`, `checkedIcon`, `indeterminateIcon`, `classNames`,
-and `slotProps`.
+`CheckboxGroupItemLabel` are layout slots and accept `className`.
+`CheckboxGroupItemControl` composes `Checkbox`, so it also supports checkbox props
+(`size`, `nativeButton`, `render`, `name`, `value`, `checkedIcon`,
+`indeterminateIcon`, `classNames`, `slotProps`).
 
-Use `className` for the checkbox root. Use `classNames` for the automatically rendered
-indicator slots hidden behind the default checkbox composition. Use `slotProps.indicator`
-for Base UI indicator props such as `keepMounted` without composing the indicator manually:
+Use `className` for the checkbox root, `classNames` for internal indicator slots, and
+`slotProps.indicator` for Base UI indicator props like `keepMounted`:
 
 ```tsx
 <CheckboxGroupItemControl

@@ -6,7 +6,6 @@
     justify-content: center;
     flex-shrink: 0;
     width: var(--close-button-size, 28px);
-    min-width: var(--close-button-size, 28px);
     height: var(--close-button-size, 28px);
     margin: 0;
     padding: 0;

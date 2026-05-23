@@ -37,10 +37,10 @@ function Card({
   interactive = false,
   ...props
 }: CardProps) {
-  const Component = as;
+  const Root = as;
 
   return (
-    <Component
+    <Root
       data-slot="card-root"
       data-variant={variant}
       data-size={size}

@@ -17,28 +17,6 @@ type ContextMenuContentSlotProps = {
   positioner?: Omit<ContextMenuPrimitive.Positioner.Props, 'className' | 'children'>;
 };
 
-type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
-  Pick<
-    ContextMenuPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-    | 'disableAnchorTracking'
-  > & {
-    classNames?: ContextMenuContentClassNames;
-    slotProps?: ContextMenuContentSlotProps;
-    container?: ContextMenuPrimitive.Portal.Props['container'];
-    withBackdrop?: boolean;
-  };
-
 type ContextMenuPositionerControlProps = Pick<
   ContextMenuPrimitive.Positioner.Props,
   | 'side'
@@ -54,6 +32,14 @@ type ContextMenuPositionerControlProps = Pick<
   | 'positionMethod'
   | 'disableAnchorTracking'
 >;
+
+type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
+  ContextMenuPositionerControlProps & {
+    classNames?: ContextMenuContentClassNames;
+    slotProps?: ContextMenuContentSlotProps;
+    container?: ContextMenuPrimitive.Portal.Props['container'];
+    withBackdrop?: boolean;
+  };
 
 type IndicatorPosition = 'start' | 'end';
 type ContextMenuRadioItemProps = ContextMenuPrimitive.RadioItem.Props & {

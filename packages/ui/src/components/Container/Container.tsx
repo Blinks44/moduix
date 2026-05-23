@@ -15,11 +15,16 @@ type ContainerProps = React.ComponentPropsWithoutRef<'div'> & {
 };
 
 const Container = React.forwardRef(function Container(
-  { as, size = 'lg', gutter = 'md', align = 'center', className, ...props }: ContainerProps,
+  {
+    as: Component = 'div',
+    size = 'lg',
+    gutter = 'md',
+    align = 'center',
+    className,
+    ...props
+  }: ContainerProps,
   ref: React.ForwardedRef<Element>,
 ) {
-  const Component = as ?? 'div';
-
   return (
     <Component
       ref={ref}
@@ -32,6 +37,8 @@ const Container = React.forwardRef(function Container(
     />
   );
 });
+
+Container.displayName = 'Container';
 
 export { Container };
 

@@ -214,14 +214,6 @@ function CommandPaletteContent<ItemValue = unknown>({
   const { handle } = useCommandPaletteContext('CommandPaletteContent');
   const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPortalContainer;
-  const handleAutocompleteOpenChange = React.useCallback<
-    NonNullable<AutocompletePrimitive.Root.Props<ItemValue>['onOpenChange']>
-  >(
-    (nextOpen, eventDetails) => {
-      onAutocompleteOpenChange?.(nextOpen, eventDetails);
-    },
-    [onAutocompleteOpenChange],
-  );
   const handlePopupKeyDownCapture = React.useCallback<
     NonNullable<DialogPrimitive.Popup.Props['onKeyDownCapture']>
   >(
@@ -266,7 +258,7 @@ function CommandPaletteContent<ItemValue = unknown>({
             value={value}
             defaultValue={defaultValue}
             onValueChange={onValueChange}
-            onOpenChange={handleAutocompleteOpenChange}
+            onOpenChange={onAutocompleteOpenChange}
             filter={filter}
             limit={limit}
             autoHighlight={autoHighlight}

@@ -39,7 +39,7 @@ function Checkbox({
   slotProps,
   ...props
 }: CheckboxProps) {
-  const indicatorContent = indicator ?? (
+  const indicatorNode = indicator ?? (
     <CheckboxIndicatorIcon
       {...slotProps?.indicatorIcon}
       className={classNames?.indicatorIcon}
@@ -59,7 +59,7 @@ function Checkbox({
     >
       {children ?? (
         <CheckboxIndicator {...slotProps?.indicator} className={classNames?.indicator}>
-          {indicatorContent}
+          {indicatorNode}
         </CheckboxIndicator>
       )}
     </CheckboxPrimitive.Root>
@@ -82,7 +82,7 @@ function CheckboxIndicator({
   indeterminateIconClassName,
   ...props
 }: CheckboxIndicatorProps) {
-  const indicatorIcon = children ?? (
+  const indicatorIconNode = children ?? (
     <CheckboxIndicatorIcon
       checkedIcon={checkedIcon}
       checkedIconClassName={checkedIconClassName}
@@ -97,7 +97,7 @@ function CheckboxIndicator({
       className={mergeClassName(className, styles.indicator)}
       {...props}
     >
-      {indicatorIcon}
+      {indicatorIconNode}
     </CheckboxPrimitive.Indicator>
   );
 }

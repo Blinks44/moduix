@@ -70,9 +70,8 @@ import {
 
 ## Anatomy
 
-Context menu is composed from a trigger surface and a popup content layer. Keep interactive parts
-inside `ContextMenuContent` so keyboard navigation, roving focus, and close behavior stay managed by
-the root state machine.
+`ContextMenu` combines a trigger surface with popup content. Keep interactive rows inside
+`ContextMenuContent` so focus and close behavior stay centralized.
 
 ```text
 ContextMenu
@@ -107,31 +106,26 @@ ContextMenu
 </ContextMenu>
 ```
 
-| Part                           | Role                                                                                                   |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `ContextMenu`                  | Root state machine. Handles open state, focus management, and close interactions.                      |
-| `ContextMenuTrigger`           | Surface that opens the menu on context interaction (right click or long press).                        |
-| `ContextMenuContent`           | Popup container for menu items. Accepts positioning props and renders service layers internally.       |
-| `ContextMenuArrow`             | Optional visual pointer from popup to trigger location.                                                |
-| `ContextMenuItem`              | Action row. Supports disabled state and `closeOnClick` behavior.                                       |
-| `ContextMenuLinkItem`          | Link row for navigation while preserving context menu focus and highlight behavior.                    |
-| `ContextMenuSeparator`         | Visual divider between related item groups.                                                            |
-| `ContextMenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, and `Content`).                         |
-| `ContextMenuGroup*` / controls | Optional structured controls: labels, radio groups/items, checkbox items, and related indicator slots. |
+| Part                           | Role                                                                         |
+| ------------------------------ | ---------------------------------------------------------------------------- |
+| `ContextMenu`                  | Root state machine for open state, focus management, and close interactions. |
+| `ContextMenuTrigger`           | Opens the menu on right click or long press.                                 |
+| `ContextMenuContent`           | Popup container with positioning props and internal service layers.          |
+| `ContextMenuArrow`             | Optional visual pointer from popup to trigger location.                      |
+| `ContextMenuItem`              | Action row with disabled state and optional `closeOnClick`.                  |
+| `ContextMenuLinkItem`          | Link row with the same menu highlight/focus behavior.                        |
+| `ContextMenuSeparator`         | Divider between related item groups.                                         |
+| `ContextMenuSubmenu*`          | Nested actions (`Trigger`, `TriggerIcon`, `Content`).                        |
+| `ContextMenuGroup*` / controls | Group labels plus radio/checkbox controls with indicator slots.              |
 
-`ContextMenuContent` uses internal service slots (`portal`, optional `backdrop`, `positioner`, `popup`).
-In most cases, keep the default structure and style visible parts such as trigger, items, separators, and
-arrow. Use `classNames`, `slotProps`, and `withBackdrop` when you
-need slot-level customization.
+`ContextMenuContent` includes internal service slots (`portal`, optional `backdrop`, `positioner`, `popup`).
+Most use cases should style visible parts only; use `classNames`, `slotProps`, and `withBackdrop` for slot-level overrides.
 
 ## Composition
 
-Pass positioning props such as `sideOffset`, `align`, `collisionPadding`, and `positionMethod`
-directly to `ContextMenuContent`.
-
-`className` styles the visible popup. `classNames` styles the internal service slots hidden from
-the default composition. Use `container`, `slotProps`, and
-`withBackdrop` when you need the matching Base UI escape hatches:
+Pass positioning props (`sideOffset`, `align`, `collisionPadding`, `positionMethod`) directly to `ContextMenuContent`.
+Use `className` for the visible popup and `classNames` for internal service slots. `container`, `slotProps`,
+and `withBackdrop` expose matching Base UI escape hatches:
 
 ```tsx
 <ContextMenuContent
@@ -149,7 +143,7 @@ the default composition. Use `container`, `slotProps`, and
 />
 ```
 
-Legacy aliases `portalProps`, `backdropProps`, and `positionerProps` are still supported for backward compatibility.
+Legacy aliases `portalProps`, `backdropProps`, and `positionerProps` remain available for backward compatibility.
 
 ### Defaults
 

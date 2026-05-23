@@ -130,9 +130,7 @@ export const checkboxGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-group-list-gap', 'var(--spacing-2)', 'Controls spacing between items.'],
 ];
 
-export const checkboxGroupPlaygroundCssProperties: CssPropertyInput[] = [
-  ...checkboxGroupOverrideCssProperties,
-];
+export const checkboxGroupPlaygroundCssProperties = checkboxGroupOverrideCssProperties;
 
 export function CheckboxGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (

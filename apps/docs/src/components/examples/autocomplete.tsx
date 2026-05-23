@@ -762,7 +762,7 @@ export function AsyncSearchAutocompleteExample() {
     }
 
     if (trimmedValue === '') {
-      return null;
+      return 'Start typing to search movies...';
     }
 
     if (searchResults.length === 0) {

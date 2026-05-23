@@ -5,6 +5,8 @@ import { ChevronRightIcon } from '@/primitives';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Collapsible.module.css';
 
+type CollapsibleTriggerIconProps = React.ComponentProps<'span'>;
+
 function Collapsible({ className, ...props }: CollapsiblePrimitive.Root.Props) {
   return (
     <CollapsiblePrimitive.Root
@@ -24,8 +26,8 @@ function CollapsibleTrigger({
   slotProps,
   ...props
 }: CollapsibleTriggerProps) {
-  const { icon: iconClassName } = classNames ?? {};
-  const { icon: iconProps } = slotProps ?? {};
+  const iconClassName = classNames?.icon;
+  const iconProps = slotProps?.icon;
 
   return (
     <CollapsiblePrimitive.Trigger
@@ -43,7 +45,7 @@ function CollapsibleTrigger({
   );
 }
 
-function CollapsibleTriggerIcon({ className, children, ...props }: React.ComponentProps<'span'>) {
+function CollapsibleTriggerIcon({ className, children, ...props }: CollapsibleTriggerIconProps) {
   return (
     <span
       data-slot="collapsible-trigger-icon"
@@ -66,7 +68,6 @@ function CollapsiblePanel({ className, ...props }: CollapsiblePrimitive.Panel.Pr
 }
 
 type CollapsibleProps = CollapsiblePrimitive.Root.Props;
-type CollapsibleTriggerIconProps = React.ComponentProps<'span'>;
 type CollapsiblePanelProps = CollapsiblePrimitive.Panel.Props;
 type CollapsibleTriggerClassNames = {
   icon?: CollapsibleTriggerIconProps['className'];
