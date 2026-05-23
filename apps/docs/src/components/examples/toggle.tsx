@@ -100,12 +100,11 @@ export const togglePlaygroundCssProperties: CssPropertyInput[] = [
   ['--toggle-radius', 'var(--radius-md)', 'Controls toggle corner radius.'],
 ];
 
+const toggleCssPropertiesReference = toggleOverrideCssProperties.map(normalizeCssProperty);
+const toggleCssPlaygroundReference = togglePlaygroundCssProperties.map(normalizeCssProperty);
+
 export function ToggleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={toggleOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+  return <CSSPropertiesReferenceTable properties={toggleCssPropertiesReference} />;
 }
 
 export function ToggleCssPlaygroundPanel({
@@ -115,7 +114,7 @@ export function ToggleCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesEditor
-      properties={togglePlaygroundCssProperties.map(normalizeCssProperty)}
+      properties={toggleCssPlaygroundReference}
       values={values}
       onChange={onChange}
       onReset={onReset}
@@ -242,7 +241,7 @@ export function ToggleRenderCallbackExample() {
   );
 }
 
-export function ToggleClassNameExample() {
+export function CustomStylesToggleExample() {
   return (
     <Toggle className={styles.customToggle} variant="outline" defaultPressed>
       <CheckSmallIcon />
@@ -250,5 +249,3 @@ export function ToggleClassNameExample() {
     </Toggle>
   );
 }
-
-export { ToggleClassNameExample as CustomStylesToggleExample };

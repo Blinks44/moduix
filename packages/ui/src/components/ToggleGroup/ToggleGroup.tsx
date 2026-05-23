@@ -14,7 +14,9 @@ const DEFAULT_TOGGLE_GROUP_CONTEXT: ToggleGroupContextValue = {
   size: 'md',
 };
 
-const ToggleGroupContext = React.createContext<ToggleGroupContextValue | null>(null);
+const ToggleGroupContext = React.createContext<ToggleGroupContextValue>(
+  DEFAULT_TOGGLE_GROUP_CONTEXT,
+);
 
 type ToggleGroupProps<Value extends string = string> = ToggleGroupPrimitive.Props<Value> & {
   variant?: ToggleVariant;
@@ -47,7 +49,7 @@ function ToggleGroup<Value extends string = string>({
 type ToggleGroupItemProps = ToggleProps;
 
 function ToggleGroupItem({ className, variant, size, ...props }: ToggleGroupItemProps) {
-  const context = React.useContext(ToggleGroupContext) ?? DEFAULT_TOGGLE_GROUP_CONTEXT;
+  const context = React.useContext(ToggleGroupContext);
 
   return (
     <Toggle

@@ -188,6 +188,7 @@
   .separator {
     flex-shrink: 0;
     align-self: center;
+    margin: 0;
     background-color: var(--toolbar-separator-color, var(--color-border));
 
     &[data-orientation='horizontal'] {
@@ -197,13 +198,11 @@
         var(--toolbar-separator-thickness, 1px)
       );
       margin-block: var(--toolbar-separator-margin-y-horizontal, var(--spacing-1));
-      margin-inline: 0;
     }
 
     &[data-orientation='vertical'] {
       width: var(--toolbar-separator-thickness-vertical, var(--toolbar-separator-thickness, 1px));
       height: var(--toolbar-separator-length-vertical, 1rem);
-      margin-block: 0;
       margin-inline: var(--toolbar-separator-margin-x-vertical, var(--spacing-1));
     }
   }

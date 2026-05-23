@@ -24,13 +24,13 @@ export const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
     'Controls ghost variant group border color.',
   ],
   ['--toggle-group-ghost-padding', '0', 'Controls ghost variant group padding.'],
-  ['--toggle-group-padding', '0.125rem', 'Controls group inner padding.'],
   ['--toggle-group-item-radius', 'var(--radius-md)', 'Controls item corner radius.'],
   [
     '--toggle-group-outline-bg',
     'var(--color-background)',
     'Controls outline variant group background.',
   ],
+  ['--toggle-group-padding', '0.125rem', 'Controls group inner padding.'],
   ['--toggle-group-radius', 'var(--radius-lg)', 'Controls group corner radius.'],
 ];
 export const toggleGroupPlaygroundCssProperties: CssPropertyInput[] = [

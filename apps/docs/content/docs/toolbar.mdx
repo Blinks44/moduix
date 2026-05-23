@@ -65,7 +65,7 @@ import {
 
 ## Anatomy
 
-`Toolbar` groups related controls into one keyboard navigation region. Use visible parts for
+`Toolbar` groups related controls into one keyboard navigation region. The exported parts cover
 actions, grouped actions, separators, inputs, and links.
 
 ```text
@@ -78,21 +78,6 @@ Toolbar[aria-label]
 └─ ToolbarLink
 ```
 
-```tsx
-<Toolbar aria-label="Document actions">
-  <ToolbarGroup aria-label="History">
-    <ToolbarButton>Undo</ToolbarButton>
-    <ToolbarButton>Redo</ToolbarButton>
-  </ToolbarGroup>
-  <ToolbarSeparator />
-  <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
-  <ToolbarButton aria-label="Notifications">
-    <BellIcon />
-  </ToolbarButton>
-  <ToolbarLink href="#">History</ToolbarLink>
-</Toolbar>
-```
-
 | Part               | Role                                                                                              |
 | ------------------ | ------------------------------------------------------------------------------------------------- |
 | `Toolbar`          | Root toolbar region. Controls orientation, disabled state, visual `variant`, and control `size`.  |
@@ -102,15 +87,14 @@ Toolbar[aria-label]
 | `ToolbarLink`      | Toolbar-aware anchor for related navigation or metadata links.                                    |
 | `ToolbarSeparator` | Visual separator. By default it uses the opposite orientation of the root toolbar.                |
 
-`Toolbar` does not use portal-like service layers such as `portal`, `positioner`, `backdrop`,
-or `viewport`. All exported parts are visible composition slots, so style the root and parts
-directly with `className` or scoped CSS variables.
+`Toolbar` does not expose service slots like `portal` or `positioner`. Style the root and visible
+parts directly with `className` or scoped CSS variables.
 
 ## Composition
 
 Use `Toolbar` for shared behavior and layout props: `aria-label`, `orientation`, `disabled`,
-`variant`, and `size`. Use `ToolbarGroup` when a subset of controls needs its own accessible
-name, and use `ToolbarSeparator` to divide unrelated groups.
+`variant`, and `size`. Add `ToolbarGroup` when a subset of controls needs its own accessible
+name, and `ToolbarSeparator` when controls should be split into separate clusters.
 
 `ToolbarButton` supports the Base UI `render` prop. This lets one element act as both a toolbar
 item and another interactive primitive, such as a `Toggle` or `SelectTrigger`, without nesting
@@ -139,8 +123,8 @@ interactive elements.
 </Toolbar>
 ```
 
-Popup primitives rendered from toolbar buttons, such as `SelectContent`, own their internal
-portal and positioner behavior. Configure those slots on that popup component, not on `Toolbar`.
+Popup primitives rendered from toolbar buttons, such as `SelectContent`, keep owning their own
+portal and positioning behavior. Configure those slots on the popup component, not on `Toolbar`.
 
 ### Defaults
 
@@ -156,7 +140,7 @@ portal and positioner behavior. Configure those slots on that popup component, n
 
 ### Toggle Group
 
-Compose `ToolbarButton` with `Toggle` inside a `ToggleGroup` when toolbar items need pressed state.
+Compose `ToolbarButton` with `Toggle` inside a `ToggleGroup` when items need pressed state.
 
 <Preview>
   <ToolbarToggleGroupExample />
@@ -209,7 +193,8 @@ Compose `ToolbarButton` with `Toggle` inside a `ToggleGroup` when toolbar items 
 
 ### Select And Input
 
-Use the `render` prop to turn toolbar buttons into popup triggers, and keep inputs limited in horizontal toolbars.
+Use the `render` prop to turn a toolbar button into a popup trigger, and keep inputs compact in
+horizontal toolbars.
 
 <Preview>
   <ToolbarSelectInputExample />
@@ -276,7 +261,7 @@ Use the `render` prop to turn toolbar buttons into popup triggers, and keep inpu
 
 ### Variants
 
-Use `variant` to match the toolbar surface to the surrounding layout.
+Use `variant` to match the surrounding surface.
 
 <Preview>
   <ToolbarVariantsExample />
@@ -322,7 +307,7 @@ Use `variant` to match the toolbar surface to the surrounding layout.
 
 ### Sizes
 
-Use `size` to align toolbar controls with compact or roomy interfaces.
+Use `size` to fit compact or roomy interfaces.
 
 <Preview>
   <ToolbarSizesExample />
@@ -368,7 +353,7 @@ Use `size` to align toolbar controls with compact or roomy interfaces.
 
 ### Vertical
 
-Set `orientation="vertical"` for toolbars that stack controls in a column.
+Set `orientation="vertical"` to stack controls in a column.
 
 <Preview>
   <ToolbarVerticalExample />
@@ -396,7 +381,7 @@ Set `orientation="vertical"` for toolbars that stack controls in a column.
 
 ### Disabled Controls
 
-Disable individual toolbar controls when an action is visible but unavailable.
+Disable individual controls when an action should stay visible but unavailable.
 
 <Preview>
   <ToolbarDisabledControlsExample />
@@ -501,7 +486,8 @@ Pass icons as children. Icon-only buttons must include an accessible label.
 
 ### Class Names
 
-Pass `className` to the root and each part when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to the root and individual parts when styling with CSS Modules, Tailwind CSS, or
+CSS-in-JS.
 
 <Preview>
   <ToolbarClassNameExample />

@@ -126,12 +126,6 @@
       padding-inline: var(--toggle-padding-x-sm, 0.75rem);
     }
 
-    &[data-size='md'] {
-      min-height: var(--toggle-size-md, var(--size-lg));
-      padding-block: var(--toggle-padding-y-md, 0.5rem);
-      padding-inline: var(--toggle-padding-x-md, 1rem);
-    }
-
     &[data-size='lg'] {
       min-height: var(--toggle-size-lg, var(--size-xl));
       padding-block: var(--toggle-padding-y-lg, 0.625rem);

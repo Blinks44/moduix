@@ -119,10 +119,7 @@
     fill: var(--toast-bg, var(--color-popover));
   }
 
-  .anchoredArrowStroke {
-    fill: var(--toast-border-color, var(--color-border));
-  }
-
+  .anchoredArrowStroke,
   .anchoredArrowOutline {
     fill: var(--toast-border-color, var(--color-border));
   }
@@ -280,11 +277,7 @@
       pointer-events: none;
     }
 
-    &[data-expanded] {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
+    &[data-expanded],
     &[data-stack-behavior='expanded'] {
       opacity: 1;
       pointer-events: auto;

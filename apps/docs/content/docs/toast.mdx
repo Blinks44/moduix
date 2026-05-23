@@ -24,11 +24,10 @@ import {
 
 ## Basic
 
-Mount one `ToastProvider` near the application root. Any component inside it can call
-`useToastManager()` for stacked toasts or `useAnchoredToastManager()` for anchored toasts.
-`ToastRegion` and `ToastAnchoredRegion` render their portals and viewports automatically; use
-`classNames.portal` and `classNames.viewport` only when those infrastructure slots need custom
-styling.
+Mount one `ToastProvider` near the application root. Descendants call `useToastManager()` for
+stacked toasts or `useAnchoredToastManager()` for anchored toasts. `ToastRegion` and
+`ToastAnchoredRegion` already render their portal and viewport infrastructure, so
+`classNames.portal` and `classNames.viewport` are only needed for infrastructure styling.
 
 <Preview cssProperties={toastPlaygroundCssProperties}>
   <ToastExample />
@@ -73,9 +72,7 @@ styling.
 ## Anatomy
 
 `ToastProvider` owns the toast managers. `ToastRegion` renders stacked notifications and
-`ToastAnchoredRegion` renders contextual notifications tied to an anchor element. Both regions
-create their `Portal`, `Viewport`, and anchored `Positioner` service slots automatically, so the
-public composition stays focused on visible toast content.
+`ToastAnchoredRegion` renders contextual feedback for a specific anchor element.
 
 ```text
 ToastProvider
@@ -111,22 +108,22 @@ ToastProvider
 | `ToastClose`          | Dismiss button with the default close icon, or custom children.                                      |
 | `ToastAnchoredRegion` | Renders anchored feedback near the element passed to `useAnchoredToastManager().show({ anchor })`.   |
 
-The service slots are still customizable when needed: pass `container` to choose the portal target
-and `classNames.portal`, `classNames.viewport`, or `classNames.positioner` to style infrastructure.
-For ordinary visual changes, prefer `className` on `ToastRegion` or a custom `renderToast`
-composition.
+The service slots are still customizable: use `container` to choose the portal target, and
+`classNames.portal`, `classNames.viewport`, or `classNames.positioner` when the infrastructure
+itself needs styling. For ordinary visual changes, prefer `className` on `ToastRegion` or a custom
+`renderToast` composition.
 
 ## Composition
 
-Mount one `ToastProvider` near the application root, place `ToastRegion` once per stacked viewport,
-and call `useToastManager()` from descendants to enqueue notifications. `ToastRegion` owns
-placement, stack behavior, and the default toast markup, so applications do not need to compose
-`Portal` or `Viewport` manually.
+Mount one `ToastProvider`, place `ToastRegion` once per stacked viewport, and call
+`useToastManager()` from descendants to enqueue notifications. `ToastRegion` owns placement, stack
+behavior, and the default toast markup, so applications do not need to compose `Portal` or
+`Viewport` manually.
 
-Use `renderToast` when the default markup is not enough. The callback receives the Base UI toast
+Use `renderToast` only when the default markup is not enough. The callback receives the toast
 object and should return a complete visible composition with `ToastRoot` and the parts your layout
-needs. Anchored feedback uses the same provider, but goes through `useAnchoredToastManager()` and
-`ToastAnchoredRegion` so contextual toasts do not mix with the stacked notification queue.
+needs. Anchored feedback uses the same provider, but stays isolated through
+`useAnchoredToastManager()` and `ToastAnchoredRegion`.
 
 ### Defaults
 
@@ -347,8 +344,8 @@ Create a manager outside React when app services need to enqueue notifications t
 
 ### Custom Styles
 
-Use `renderToast` when the application keeps the shared provider and region pattern but needs custom
-layout, custom icons, or slot-level `className` styling for each toast.
+Use `renderToast` when the shared provider/region setup is still correct, but each toast needs a
+custom layout, icon, or slot-level `className`.
 
 <Preview>
   <CustomToastExample />
@@ -458,8 +455,8 @@ layout, custom icons, or slot-level `className` styling for each toast.
 ### Anchored Toast
 
 Use `useAnchoredToastManager()` and `ToastAnchoredRegion` for transient feedback tied to a specific
-button or control. Anchored and stacked toasts can share the same `ToastProvider`; each region
-renders only the toast type it owns.
+button or control. Anchored and stacked toasts can share one `ToastProvider`; each region renders
+only its own toast type.
 
 <Preview>
   <AnchoredToastExample />

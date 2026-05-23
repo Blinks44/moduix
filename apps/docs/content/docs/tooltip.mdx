@@ -23,8 +23,8 @@ import {
 
 ## Basic
 
-Use a tooltip for short visual labels on controls. Always give the trigger its own accessible name:
-tooltips are not a replacement for `aria-label` or visible text.
+Use a tooltip for short visual labels on controls. Keep an accessible name on the trigger itself:
+tooltips do not replace `aria-label` or visible text.
 
 <Preview cssProperties={tooltipPlaygroundCssProperties}>
   <TooltipExample />
@@ -78,9 +78,8 @@ tooltips are not a replacement for `aria-label` or visible text.
 
 ## Anatomy
 
-Tooltip is composed of one trigger and one popup layer managed by `Tooltip`. Keep each
-`TooltipTrigger` connected to its matching `Tooltip` root so focus, hover, and delay behavior stay
-predictable.
+`Tooltip` manages one trigger and one popup layer. Keep each `TooltipTrigger` paired with its
+matching root so hover, focus, and delay behavior stay predictable.
 
 ```text
 Tooltip
@@ -107,20 +106,17 @@ Tooltip
 | `TooltipTrigger` | Interactive anchor element. Opens the tooltip on hover/focus and should keep its own accessible name.          |
 | `TooltipContent` | Composed popup layer. Renders `portal`, `positioner`, `popup`, optional `arrow`, and `viewport` automatically. |
 
-In most cases, keep the default composition and style only visible parts with `className`.
-Use `classNames`, `container`, and the focused placement props on `TooltipContent` for common
-customization. Reach for the slot prop escape hatches only when you need to pass non-class props to
-the internal service slots.
+In most cases, keep the default composition and style the visible popup with `className`.
 
 ## Composition
 
-Use `Tooltip` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, and `handle`.
+Use `Tooltip` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`, and
+`handle`.
 
-`className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use `container`, `withArrow={false}` to hide the arrow,
-`arrow` to replace its graphic, and placement props such as `side` or `sideOffset` for positioning.
-Use `slotProps` only when you need to pass non-class props to the internal Base UI service slots:
+`className` styles the visible popup. `classNames` styles the internal service slots. Use
+`container` for portal placement, `withArrow={false}` to hide the arrow, `arrow` to replace its
+graphic, and props such as `side` or `sideOffset` for positioning. Reach for `slotProps` only when
+you need to pass non-class props to the internal Base UI slots:
 
 ```tsx
 <TooltipContent

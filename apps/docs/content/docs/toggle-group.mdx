@@ -68,9 +68,8 @@ import {
 
 ## Anatomy
 
-`ToggleGroup` is a single root that coordinates a set of `ToggleGroupItem` buttons. Keep every
-choice inside the same group so keyboard navigation, pressed state, and selection rules (`multiple`
-or single-select) stay consistent.
+`ToggleGroup` coordinates a set of `ToggleGroupItem` buttons. Keep related choices in one group so
+keyboard navigation and selection rules stay consistent.
 
 ```text
 ToggleGroup
@@ -91,12 +90,8 @@ ToggleGroup
 | `ToggleGroup`     | Root state machine. Controls selected values, arrow-key navigation, and orientation.                  |
 | `ToggleGroupItem` | Interactive toggle button with a unique `value` used by `defaultValue`, `value`, and `onValueChange`. |
 
-`ToggleGroup` does not include service layers such as `portal`, `backdrop`, `viewport`, or hidden
-internal slots. In most cases, keep structure and behavior defaults and style the visible parts
-with `className` on the group and on each `ToggleGroupItem`.
-
-`ToggleGroupItem` renders `Toggle`, so item-level styling also supports the `Toggle` CSS variables
-(`--toggle-*`). Use `--toggle-group-*` for the group container and `--toggle-*` for item states.
+`ToggleGroupItem` renders `Toggle`, so item styling supports `--toggle-*`. Use
+`--toggle-group-*` for the container and `--toggle-*` for item states.
 
 ```css
 .filterGroup {
@@ -114,12 +109,10 @@ with `className` on the group and on each `ToggleGroupItem`.
 
 ## Composition
 
-Use `ToggleGroup` for root state and behavior props such as `value`, `defaultValue`,
-`onValueChange`, `multiple`, `orientation`, `disabled`, and `loopFocus`.
-
-Use group-level props (`variant`, `size`, `className`) when all items should share one setup.
-Override a specific `ToggleGroupItem` with its own `variant`, `size`, or `className` when one
-option needs a different presentation.
+Use `ToggleGroup` for shared state and behavior (`value`, `defaultValue`, `onValueChange`,
+`multiple`, `orientation`, `disabled`, `loopFocus`). Use group-level `variant`, `size`, and
+`className` when all items should match; override them on a specific `ToggleGroupItem` only when
+one option needs different presentation.
 
 ### Defaults
 
@@ -603,9 +596,8 @@ Pass icons as children. Icon-only items must include an accessible label.
 
 ### Custom Styles
 
-Pass `className` to the group and items when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
-Use `--toggle-group-*` to style the group container and `--toggle-*` to style `ToggleGroupItem`
-states such as hover and pressed.
+Pass `className` to the group and items. Use `--toggle-group-*` for the container and `--toggle-*`
+for item states such as hover and pressed.
 
 <Preview>
   <CustomStylesToggleGroupExample />

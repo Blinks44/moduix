@@ -138,7 +138,13 @@ function TooltipContent({
   children,
   ...popupProps
 }: TooltipContentProps) {
-  const positionerSlotProps = slotProps?.positioner;
+  const {
+    portal: portalSlotProps,
+    positioner: positionerSlotProps,
+    arrow: arrowSlotProps,
+    viewport: viewportSlotProps,
+  } = slotProps ?? {};
+
   const resolvedPositionerProps: TooltipContentPositionerProps = {
     ...positionerSlotProps,
     disableAnchorTracking: disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking,
@@ -154,7 +160,8 @@ function TooltipContent({
     sticky: sticky ?? positionerSlotProps?.sticky,
     positionMethod: positionMethod ?? positionerSlotProps?.positionMethod,
   };
-  const { container: portalSlotContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
+
+  const { container: portalSlotContainer, ...restPortalSlotProps } = portalSlotProps ?? {};
   const portalContainer = container ?? portalSlotContainer;
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
   const arrowContent = typeof arrow === 'boolean' ? null : arrow;
@@ -168,11 +175,11 @@ function TooltipContent({
       <TooltipPositioner {...resolvedPositionerProps} className={classNames?.positioner}>
         <TooltipPopup className={className} {...popupProps}>
           {showArrow ? (
-            <TooltipArrow className={classNames?.arrow} {...slotProps?.arrow}>
+            <TooltipArrow className={classNames?.arrow} {...arrowSlotProps}>
               {arrowContent}
             </TooltipArrow>
           ) : null}
-          <TooltipViewport className={classNames?.viewport} {...slotProps?.viewport}>
+          <TooltipViewport className={classNames?.viewport} {...viewportSlotProps}>
             {children}
           </TooltipViewport>
         </TooltipPopup>

@@ -135,7 +135,7 @@ export const toolbarPlaygroundCssProperties: CssPropertyInput[] = [
   ['--toolbar-separator-color', 'var(--color-border)', 'Controls separator color.'],
 ];
 
-export function ToolbarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function ToolbarCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={toolbarOverrideCssProperties.map(normalizeCssProperty)}
