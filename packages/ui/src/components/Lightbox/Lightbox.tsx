@@ -59,6 +59,34 @@ type LightboxGalleryProps = {
 const Lightbox = DialogPrimitive.Root;
 const createLightboxHandle = DialogPrimitive.createHandle;
 
+const getGalleryRoot = (rootRef?: React.RefObject<HTMLElement | null>, rootSelector?: string) => {
+  return rootRef?.current ?? (rootSelector ? document.querySelector(rootSelector) : null);
+};
+
+const getGalleryImage = (
+  target: EventTarget | null,
+  selector: string,
+): LightboxImageData | null => {
+  if (!(target instanceof Element)) {
+    return null;
+  }
+
+  const imageNode = target.closest(selector);
+  if (!(imageNode instanceof HTMLImageElement)) {
+    return null;
+  }
+
+  const source = imageNode.dataset.lightboxSrc ?? imageNode.currentSrc ?? imageNode.src;
+  if (!source) {
+    return null;
+  }
+
+  return {
+    src: source,
+    alt: imageNode.alt,
+  };
+};
+
 function LightboxTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
   const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
 
@@ -107,13 +135,7 @@ function LightboxPopup({ className, ...props }: DialogPrimitive.Popup.Props) {
 }
 
 function LightboxClose({ className, ...props }: DialogPrimitive.Close.Props) {
-  return (
-    <DialogPrimitive.Close
-      data-slot="lightbox-close"
-      className={mergeClassName(className, styles.close)}
-      {...props}
-    />
-  );
+  return <DialogPrimitive.Close data-slot="lightbox-close" className={className} {...props} />;
 }
 
 function LightboxImage({ src, previewSrc, alt, className, ...props }: LightboxImageProps) {
@@ -202,32 +224,18 @@ function LightboxGallery({
   const [image, setImage] = React.useState<LightboxImageData | null>(null);
 
   React.useEffect(() => {
-    const rootNode =
-      rootRef?.current ?? (rootSelector ? document.querySelector(rootSelector) : null);
+    const rootNode = getGalleryRoot(rootRef, rootSelector);
     if (!rootNode) {
       return;
     }
 
     const handleClick = (event: MouseEvent) => {
-      const eventTarget = event.target;
-      if (!(eventTarget instanceof Element)) {
+      const nextImage = getGalleryImage(event.target, selector);
+      if (!nextImage) {
         return;
       }
 
-      const imageNode = eventTarget.closest(selector);
-      if (!(imageNode instanceof HTMLImageElement)) {
-        return;
-      }
-
-      const source = imageNode.dataset.lightboxSrc ?? imageNode.currentSrc ?? imageNode.src;
-      if (!source) {
-        return;
-      }
-
-      setImage({
-        src: source,
-        alt: imageNode.alt,
-      });
+      setImage(nextImage);
       setOpen(true);
     };
 
@@ -254,12 +262,7 @@ function LightboxGallery({
         container={container}
       >
         {image ? (
-          <img
-            data-slot="lightbox-content-image"
-            className={styles.image}
-            src={image.src}
-            alt={image.alt ?? ''}
-          />
+          <img data-slot="lightbox-content-image" src={image.src} alt={image.alt ?? ''} />
         ) : null}
       </LightboxContent>
     </Lightbox>

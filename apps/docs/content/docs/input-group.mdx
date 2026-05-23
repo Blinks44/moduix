@@ -19,8 +19,8 @@ import {
 
 ## API Reference
 
-`InputGroup` is a standalone moduix component and does not wrap a Base UI primitive.
-Use it when an input needs a shared border, focus ring, prefix, suffix, inline text, or action.
+`InputGroup` is a standalone moduix composition component for inputs with a shared border, focus
+ring, prefix, suffix, inline text, or action.
 
 ## Basic
 
@@ -60,8 +60,8 @@ Use it when an input needs a shared border, focus ring, prefix, suffix, inline t
 
 ## Anatomy
 
-`InputGroup` controls the visual shell. Place `InputGroupInput` once inside it, then compose
-addons, text, and buttons before or after the input.
+Use one `InputGroupInput` inside `InputGroup`, then place addons, text, or buttons before or after
+it.
 
 ```text
 InputGroup
@@ -81,8 +81,8 @@ InputGroup
 
 ## Composition
 
-Use `size` on `InputGroup` to keep all parts aligned. `InputGroupInput` accepts the same props as
-`Input`, including `value`, `defaultValue`, `onValueChange`, `type`, native attributes, and Field
+Use `size` on `InputGroup` to keep every part aligned. `InputGroupInput` accepts the same props as
+`Input`, including controlled and uncontrolled values, native input attributes, and Field
 validation behavior.
 
 Pass `className` to the root or individual parts for targeted overrides. Use CSS variables for
@@ -105,7 +105,7 @@ stronger action is intended.
 
 ### With Action
 
-Use `InputGroupButton` for compact actions that operate on the current input value.
+Use `InputGroupButton` for compact actions tied to the current input value.
 
 <Preview>
   <InputGroupWithActionExample />
@@ -140,8 +140,8 @@ Use `InputGroupButton` for compact actions that operate on the current input val
 
 ### Prefix And Suffix
 
-Mix `InputGroupAddon` and `InputGroupText` when one side should feel like a fixed token and the
-other should read as quiet helper text.
+Mix `InputGroupAddon` and `InputGroupText` when one side should feel fixed and the other should
+read as helper text.
 
 <Preview>
   <InputGroupPrefixSuffixExample />
@@ -169,7 +169,7 @@ other should read as quiet helper text.
 
 ### Sizes
 
-Set `size` on the group instead of each child.
+Set `size` on the group instead of each child part.
 
 <Preview>
   <InputGroupSizesExample />
@@ -211,7 +211,7 @@ Set `size` on the group instead of each child.
 
 ### Disabled
 
-Disabled input state dims the shared shell.
+A disabled input dims the whole group shell.
 
 <Preview>
   <DisabledInputGroupExample />
@@ -264,7 +264,7 @@ Disabled input state dims the shared shell.
 
 ### Custom Styles
 
-Use root CSS variables for durable customization without reaching into child internals.
+Use root CSS variables for customization without reaching into child internals.
 
 <Preview>
   <CustomStylesInputGroupExample />

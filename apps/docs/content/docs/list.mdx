@@ -20,9 +20,9 @@ import {
 
 ## API Reference
 
-`List` is a moduix typography primitive. Base UI does not provide a matching list
-primitive, so the public API stays focused on native `ul`/`ol` semantics, visual
-variants, and root `className` composition.
+`List` keeps native `ul`/`ol` semantics and adds design-system control over markers,
+spacing, typography, and tone. `ListItem` is optional: use it for the exported item
+slot, or render plain `li` elements directly.
 
 ## Basic
 
@@ -71,9 +71,8 @@ variants, and root `className` composition.
 
 ## Anatomy
 
-`List` is composed as a semantic list root with repeated `li` items. Use `ListItem`
-when you want the exported item slot, or native `li` elements when a wrapper component
-is unnecessary. The root controls marker style, spacing, and typography tokens.
+`List` renders a semantic list root with direct `li` children. The root owns marker
+style, spacing, and typography tokens.
 
 ```text
 List (ul | ol)
@@ -85,20 +84,16 @@ List (ul | ol)
 | `List`     | Semantic list root that controls marker, spacing, size, and tone.      |
 | `ListItem` | Individual item wrapper rendered as native list item semantics (`li`). |
 
-`List` does not use portal-like service layers such as `portal`, `backdrop`, or
-`viewport`. The root and direct `li` items are the complete DOM structure.
-
 ## Composition
 
-Use `as="ul"` or `as="ol"` for list semantics, `marker` for marker visibility/style,
-and `size`, `gap`, `tone`, plus `className` for visual customization.
+Use `as` for list semantics, `marker` for marker style or visibility, and `size`,
+`gap`, `tone`, plus `className` for visual customization.
 
-The default marker follows the root element: unordered lists use `disc`, ordered lists
-use `decimal`. Pass `marker="none"` for markerless semantic lists or `marker="bullet"`
-when marker size, gap, radius, or vertical offset must be styled independently from text.
-All direct `li` elements receive root spacing and marker styles. For `marker="bullet"`,
-`ListItem` exposes marker/content composition and supports marker styling via
-`classNames.marker` and marker content overrides via `marker`.
+The default marker follows the root element: `ul` uses `disc`, `ol` uses `decimal`.
+Use `marker="none"` to keep list semantics without visible markers. Use
+`marker="bullet"` when marker size, gap, radius, or vertical offset must be styled
+independently from the text. In that mode, `ListItem` exposes the marker/content split,
+while plain `li` elements still inherit root spacing and typography.
 
 ### Defaults
 
@@ -114,7 +109,7 @@ All direct `li` elements receive root spacing and marker styles. For `marker="bu
 
 ### Ordered
 
-Use `as="ol"` for ordered steps. The marker defaults to decimal for ordered lists.
+Use `as="ol"` for ordered steps. The marker defaults to `decimal`.
 
 <Preview>
   <OrderedListExample />
@@ -159,7 +154,7 @@ Use `as="ol"` for ordered steps. The marker defaults to decimal for ordered list
 
 ### Markerless
 
-Use `marker="none"` when list semantics are useful but visual markers are not.
+Use `marker="none"` when you need list semantics without visible markers.
 
 <Preview>
   <MarkerlessListExample />
@@ -253,7 +248,7 @@ Use native `li` elements when you do not need the exported `ListItem` slot.
 
 ### Sizes
 
-Use `size` for visual sizing. Override size-specific CSS variables in your project for responsive typography.
+Use `size` for visual sizing.
 
 <Preview>
   <ListSizesExample />
@@ -354,7 +349,7 @@ Use `gap` to control vertical spacing between list items.
 
 ### Tones
 
-Use `tone` when the list should inherit a semantic text color from the design system.
+Use `tone` when the list should inherit a semantic text color.
 
 <Preview>
   <ListTonesExample />
@@ -406,7 +401,7 @@ Use `tone` when the list should inherit a semantic text color from the design sy
 
 ### Custom Styles
 
-Use `marker="bullet"` when marker size, color, gap, or vertical offset must be controlled independently from the text.
+Use `marker="bullet"` when marker styling must be controlled independently from the text.
 
 <Preview>
   <CustomStylesListExample />

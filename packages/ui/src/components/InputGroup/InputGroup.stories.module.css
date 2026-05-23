@@ -8,14 +8,6 @@
   width: min(24rem, 100%);
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-3);
-  align-items: center;
-  width: min(36rem, 100%);
-}
-
 .group {
   width: min(24rem, 100%);
 }

@@ -13,9 +13,9 @@ type InputGroupAddonProps = React.ComponentPropsWithoutRef<'span'>;
 type InputGroupTextProps = React.ComponentPropsWithoutRef<'span'>;
 type InputGroupButtonProps = ButtonProps;
 
-const InputGroup = React.forwardRef(function InputGroup(
-  { className, size = 'md', ...props }: InputGroupProps,
-  ref: React.ForwardedRef<HTMLDivElement>,
+const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(function InputGroup(
+  { className, size = 'md', ...props },
+  ref,
 ) {
   return (
     <div
@@ -28,64 +28,63 @@ const InputGroup = React.forwardRef(function InputGroup(
   );
 });
 
-const InputGroupInput = React.forwardRef(function InputGroupInput(
-  { className, ...props }: InputGroupInputProps,
-  ref: React.ForwardedRef<HTMLInputElement>,
-) {
-  return (
-    <Input
-      ref={ref}
-      data-slot="input-group-input"
-      className={clsx(styles.input, className)}
-      {...props}
-    />
-  );
-});
+const InputGroupInput = React.forwardRef<HTMLInputElement, InputGroupInputProps>(
+  function InputGroupInput({ className, ...props }, ref) {
+    return (
+      <Input
+        ref={ref}
+        data-slot="input-group-input"
+        className={clsx(styles.input, className)}
+        {...props}
+      />
+    );
+  },
+);
 
-const InputGroupAddon = React.forwardRef(function InputGroupAddon(
-  { className, ...props }: InputGroupAddonProps,
-  ref: React.ForwardedRef<HTMLSpanElement>,
-) {
-  return (
-    <span
-      ref={ref}
-      data-slot="input-group-addon"
-      className={clsx(styles.addon, className)}
-      {...props}
-    />
-  );
-});
+const InputGroupAddon = React.forwardRef<HTMLSpanElement, InputGroupAddonProps>(
+  function InputGroupAddon({ className, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        data-slot="input-group-addon"
+        className={clsx(styles.addon, className)}
+        {...props}
+      />
+    );
+  },
+);
 
-const InputGroupText = React.forwardRef(function InputGroupText(
-  { className, ...props }: InputGroupTextProps,
-  ref: React.ForwardedRef<HTMLSpanElement>,
-) {
-  return (
-    <span
-      ref={ref}
-      data-slot="input-group-text"
-      className={clsx(styles.text, className)}
-      {...props}
-    />
-  );
-});
+const InputGroupText = React.forwardRef<HTMLSpanElement, InputGroupTextProps>(
+  function InputGroupText({ className, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        data-slot="input-group-text"
+        className={clsx(styles.text, className)}
+        {...props}
+      />
+    );
+  },
+);
 
-const InputGroupButton = React.forwardRef(function InputGroupButton(
-  { className, variant = 'ghost', size, type = 'button', ...props }: InputGroupButtonProps,
-  ref: React.ForwardedRef<HTMLButtonElement>,
-) {
-  return (
-    <Button
-      ref={ref}
-      data-slot="input-group-button"
-      className={clsx(styles.button, className)}
-      variant={variant}
-      size={size}
-      type={type}
-      {...props}
-    />
-  );
-});
+const InputGroupButton = React.forwardRef<HTMLButtonElement, InputGroupButtonProps>(
+  function InputGroupButton(
+    { className, variant = 'ghost', size, type = 'button', ...props },
+    ref,
+  ) {
+    return (
+      <Button
+        ref={ref}
+        data-slot="input-group-button"
+        className={clsx(styles.button, className)}
+        variant={variant}
+        size={size}
+        type={type}
+        {...props}
+      />
+    );
+  },
+);
 
 export { InputGroup, InputGroupInput, InputGroupAddon, InputGroupText, InputGroupButton };
 

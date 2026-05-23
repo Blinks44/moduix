@@ -56,8 +56,8 @@ import {
 
 ## Anatomy
 
-`Input` is composed as a single native input root. It is commonly composed inside `Field` for labels,
-descriptions, and validation messaging.
+`Input` is a single native input root. Use it on its own or inside `Field` for labels, descriptions,
+and validation.
 
 ```text
 Field (optional wrapper)
@@ -70,10 +70,10 @@ Field (optional wrapper)
 
 ## Composition
 
-Use `Input` props such as `value`, `defaultValue`, `onValueChange`, `render`, function `className`,
-function `style`, and Field state data attributes from Base UI.
+Use `value`, `defaultValue`, `onValueChange`, `render`, function `className`, function `style`, and
+Base UI Field state data attributes as needed.
 
-Use `size` for the visual component size. Use `htmlSize` for the native HTML `size` attribute:
+Use `size` for the visual size and `htmlSize` for the native HTML `size` attribute:
 
 ```tsx
 <Input size="lg" htmlSize={24} placeholder="Search projects" />
@@ -90,7 +90,8 @@ Use `size` for the visual component size. Use `htmlSize` for the native HTML `si
 `Input` does not render hidden service slots such as `Positioner`, `Backdrop`, or `Viewport`, so it
 does not need a `classNames` API. Style the input element directly with `className`.
 
-The package exports Base UI event and state types for controlled inputs and styling callbacks:
+The package also exports the Base UI event and state types used by controlled inputs and styling
+callbacks:
 
 ```tsx
 import { type InputChangeEventDetails, type InputChangeEventReason, type InputState } from 'moduix';
@@ -140,7 +141,7 @@ Use `value` and `onValueChange` when the input value needs to stay in React stat
 
 ### Sizes
 
-Use the `size` prop for visual sizing. Use `htmlSize` when you need the native input `size` attribute.
+Use `size` to change the visual height, padding, and typography.
 
 <Preview>
   <InputSizesExample />
@@ -178,7 +179,8 @@ Use the `size` prop for visual sizing. Use `htmlSize` when you need the native i
 
 ### Native Attributes
 
-Use standard input attributes for keyboard, autocomplete, validation, and form behavior. The `htmlSize` prop maps to the native `size` attribute because `size` controls the visual component size.
+Use standard input attributes for keyboard, autocomplete, validation, and form behavior. Use
+`htmlSize` when you need the native `size` attribute.
 
 <Preview>
   <InputNativeAttributesExample />
@@ -254,7 +256,7 @@ Set `disabled` to prevent interaction while keeping the input visible in forms.
 
 ### Field Validation
 
-Place `Input` inside `Field` to connect labels, errors, native validity, and Base UI data attributes.
+Use `Field` when the input needs labels, errors, native validity, and Base UI data attributes.
 
 <Preview>
   <InputFieldValidationExample />
@@ -289,7 +291,7 @@ Place `Input` inside `Field` to connect labels, errors, native validity, and Bas
 
 ### Custom Styles
 
-Pass `className` directly to `Input` when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` directly to `Input` for custom styling.
 
 <Preview>
   <CustomStylesInputExample />

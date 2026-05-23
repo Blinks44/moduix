@@ -48,16 +48,8 @@
       --kbd-padding-x-default: var(--kbd-padding-x-lg, 0.5rem);
     }
 
-    &[data-variant='default'] {
-      --kbd-bg-default: var(--color-muted);
-      --kbd-border-color-default: var(--color-border);
-      --kbd-color-default: var(--color-foreground);
-    }
-
     &[data-variant='outline'] {
       --kbd-bg-default: var(--color-background);
-      --kbd-border-color-default: var(--color-border);
-      --kbd-color-default: var(--color-foreground);
     }
 
     &[data-variant='ghost'] {

@@ -26,27 +26,17 @@ type ListItemProps = React.ComponentProps<'li'> & {
   classNames?: ListItemClassNames;
 };
 
-const DEFAULT_AS: ListAs = 'ul';
-const DEFAULT_GAP: ListGap = 'sm';
-const DEFAULT_SIZE: ListSize = 'md';
-const DEFAULT_TONE: ListTone = 'default';
-
-const DEFAULT_MARKER_BY_ELEMENT: Record<ListAs, ListMarker> = {
-  ul: 'disc',
-  ol: 'decimal',
-};
-
 function List({
-  as = DEFAULT_AS,
+  as = 'ul',
   marker,
-  gap = DEFAULT_GAP,
-  size = DEFAULT_SIZE,
-  tone = DEFAULT_TONE,
+  gap = 'sm',
+  size = 'md',
+  tone = 'default',
   className,
   ...props
 }: ListProps) {
   const Component = as;
-  const resolvedMarker = marker ?? DEFAULT_MARKER_BY_ELEMENT[as];
+  const resolvedMarker = marker ?? (as === 'ol' ? 'decimal' : 'disc');
 
   return (
     <Component

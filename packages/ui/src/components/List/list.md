@@ -1,10 +1,10 @@
 # List
 
-`List` is a moduix typography primitive for semantic unordered and ordered lists.
+`List` is a semantic typography primitive for unordered and ordered lists.
 
-Use it to keep marker style, spacing, and typography on the design-system scale while
-preserving native `ul`/`ol` semantics. `ListItem` stays optional: you can use native
-`li` elements when wrapper composition is unnecessary.
+It preserves native `ul`/`ol` behavior while standardizing marker style, spacing, and
+text tokens. Use `ListItem` when you need the exported item slot; plain `li` elements
+work the same when extra composition is unnecessary.
 
 ## Defaults
 

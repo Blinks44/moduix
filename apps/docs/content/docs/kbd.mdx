@@ -18,7 +18,7 @@ import {
 ## API Reference
 
 `Kbd` is a standalone moduix component and does not wrap a Base UI primitive.
-Use it to display keyboard shortcuts, single keys, and small command hints.
+Use it for single keys, shortcuts, and compact command hints.
 
 ## Basic
 
@@ -41,8 +41,7 @@ Use it to display keyboard shortcuts, single keys, and small command hints.
 
 ## Anatomy
 
-Use `Kbd` for a single key or command label. Use `KbdGroup` when multiple keys must stay aligned
-as one shortcut.
+Use `Kbd` for a single key label. Use `KbdGroup` to keep multi-key shortcuts aligned.
 
 ```text
 KbdGroup
@@ -62,13 +61,10 @@ KbdGroup
 | `Kbd`      | Root keycap slot. Applies size, variant, border, and tone. |
 | `KbdGroup` | Inline wrapper for keyboard shortcut combinations.         |
 
-`Kbd` does not use service slots such as `portal`, `positioner`, `backdrop`, or `viewport`.
-
 ## Composition
 
-Pass `className` to `Kbd` or `KbdGroup` for targeted overrides. `Kbd` accepts standard native
-`kbd` props, so you can add `title`, `aria-*`, and testing attributes without wrappers. `KbdGroup`
-accepts standard `span` props.
+Pass `className` to `Kbd` or `KbdGroup` for targeted overrides. `Kbd` accepts native `kbd` props,
+and `KbdGroup` accepts native `span` props.
 
 ### Defaults
 
@@ -82,7 +78,7 @@ accepts standard `span` props.
 
 ### Variants
 
-Use `default` for primary keycap hints, `outline` for quieter surfaces, and `ghost` for dense menus.
+Use `default` for primary hints, `outline` for quieter surfaces, and `ghost` for dense menus.
 
 <Preview>
   <KbdVariantsExample />
@@ -107,7 +103,7 @@ Use `default` for primary keycap hints, `outline` for quieter surfaces, and `gho
 
 ### Sizes
 
-Switch `size` between `sm`, `md`, and `lg` to match dense lists, toolbars, and command panels.
+Switch `size` between `sm`, `md`, and `lg` to match the surrounding UI density.
 
 <Preview>
   <KbdSizesExample />
@@ -156,7 +152,7 @@ Use `KbdGroup` to keep multi-key shortcuts together.
 
 ### Custom Styles
 
-Use `className` and CSS variables for product-specific shortcut styling.
+Use `className` and CSS variables for product-specific styling.
 
 <Preview>
   <CustomStylesKbdExample />

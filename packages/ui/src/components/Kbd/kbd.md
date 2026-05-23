@@ -6,13 +6,8 @@ Keyboard shortcut display component.
 
 ## Defaults
 
-| Prop      | Default   | Values                        |
-| --------- | --------- | ----------------------------- |
-| `variant` | `default` | `default`, `outline`, `ghost` |
-| `size`    | `md`      | `sm`, `md`, `lg`              |
-
-For `KbdGroup`:
-
-| Prop   | Default | Values           |
-| ------ | ------- | ---------------- |
-| `size` | `md`    | `sm`, `md`, `lg` |
+| Part       | Prop      | Default   | Values                        |
+| ---------- | --------- | --------- | ----------------------------- |
+| `Kbd`      | `variant` | `default` | `default`, `outline`, `ghost` |
+| `Kbd`      | `size`    | `md`      | `sm`, `md`, `lg`              |
+| `KbdGroup` | `size`    | `md`      | `sm`, `md`, `lg`              |

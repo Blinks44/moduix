@@ -50,9 +50,8 @@ import {
 
 ## Anatomy
 
-`Lightbox` is composed from dialog primitives and keeps image-specific structure in one content slot.
-`LightboxContent` renders internal service layers (`portal`, `backdrop`, `viewport`) and the visual
-image frame with an optional close button.
+`LightboxContent` already renders `portal`, `backdrop`, `viewport`, and the image frame.
+Most usage stays at `Lightbox`, `LightboxImage` or `LightboxTrigger`, and `LightboxContent`.
 
 ```text
 Lightbox
@@ -86,18 +85,14 @@ Lightbox
 | `LightboxClose`   | Optional close control rendered in the frame area.                                  |
 | `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists.                 |
 
-Use `className` for the popup surface and `classNames` for service slots like `backdrop` and
-`viewport`. Keep `withBackdrop` enabled in modal scenarios; disable it only for non-modal overlays.
-
 ## Composition
 
-`Lightbox` passes through dialog root behavior from Base UI. Use controlled state when external UI
-needs to open or close previews. `LightboxContent` supports `container`, `slotProps`, and
-`classNames` for service-slot customization, plus `withBackdrop` and `withCloseButton` for
-high-level behavior.
+Use controlled state on `Lightbox` when outside UI needs to open or close the preview.
+Use `className` for the popup, `classNames` for service slots, and `slotProps` for non-class slot props.
+`container` overrides `slotProps.portal.container`.
 
-`LightboxGallery` adds delegation-based capture for dynamic content. It listens for image clicks
-inside `rootRef` or `rootSelector` and opens the preview with the clicked image source.
+`LightboxGallery` listens for image clicks inside `rootRef` or `rootSelector` and opens the clicked source.
+Keep `withBackdrop` enabled for modal previews; disable it only when the page should stay interactive behind the image.
 
 ### Defaults
 
@@ -114,8 +109,7 @@ inside `rootRef` or `rootSelector` and opens the preview with the clicked image 
 
 ### Dynamic Gallery Capture
 
-Use `LightboxGallery` when page content comes from CMS or admin HTML and individual images cannot
-be wrapped manually.
+Use `LightboxGallery` when images come from CMS or HTML you do not compose manually.
 
 <Preview>
   <DynamicLightboxGalleryExample />
@@ -146,8 +140,7 @@ be wrapped manually.
 
 ### Customized Surface
 
-Customize size limits, backdrop tone, and close button appearance with `className`, `classNames`,
-and CSS variables.
+Customize popup size, backdrop tone, and the built-in close button with `className`, `classNames`, and CSS variables.
 
 <Preview>
   <CustomizedLightboxExample />

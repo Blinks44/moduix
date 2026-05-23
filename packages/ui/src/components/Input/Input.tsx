@@ -14,14 +14,14 @@ type InputChangeEventReason = InputPrimitive.ChangeEventReason;
 type InputChangeEventDetails = InputPrimitive.ChangeEventDetails;
 
 const Input = React.forwardRef(function Input(
-  { className, size = 'md', htmlSize, ...props }: InputProps,
+  { className, size: componentSize = 'md', htmlSize, ...props }: InputProps,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) {
   return (
     <InputPrimitive
       ref={ref}
       data-slot="input-root"
-      data-size={size}
+      data-size={componentSize}
       className={mergeClassName(className, styles.root)}
       size={htmlSize}
       {...props}

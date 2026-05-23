@@ -1,7 +1,7 @@
 # InputGroup
 
 `InputGroup` is a standalone composition component for decorating `Input` with inline icons,
-prefixes, suffixes, and actions. It does not wrap a Base UI primitive.
+prefixes, suffixes, text, and actions. It does not wrap a Base UI primitive.
 
 ## Parts
 

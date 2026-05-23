@@ -97,7 +97,6 @@
     opacity: 0;
   }
 
-  .image,
   .frame img,
   .frame picture > img {
     display: block;
