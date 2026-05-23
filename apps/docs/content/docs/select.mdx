@@ -26,8 +26,8 @@ import {
 
 ## Choosing the right component
 
-Use `Select` for strict, predefined choices where the trigger behaves like a button and users do
-not type into the field itself.
+Use `Select` for strict, predefined choices where users pick from a popup list and do not type into
+the field.
 
 - Choose **`Select`** for canonical form pickers with fixed options.
 - Choose **`Combobox`** when users should search/filter predefined options via text input.
@@ -61,7 +61,7 @@ not type into the field itself.
           <Select items={fruits}>
             <SelectField>
               <SelectLabel>Choose fruit</SelectLabel>
-              <SelectTrigger className={styles.customTrigger}>
+              <SelectTrigger>
                 <SelectValue placeholder="Select an option" />
                 <SelectIcon />
               </SelectTrigger>
@@ -109,9 +109,8 @@ not type into the field itself.
 
 ## Anatomy
 
-`Select` combines a trigger-like field with a popup list of options. Keep field parts grouped inside
-`SelectField` and list parts inside `SelectContent` so labeling, selection state, and keyboard behavior
-stay synchronized.
+Keep field parts inside `SelectField` and list parts inside `SelectContent`. That preserves labeling,
+selection state, and keyboard behavior.
 
 ```text
 Select
@@ -154,48 +153,42 @@ Select
 </Select>
 ```
 
-| Part            | Role                                                                                                            |
-| --------------- | --------------------------------------------------------------------------------------------------------------- |
-| `Select`        | Root state machine. Controls selected value(s), popup open state, keyboard navigation, and item string mapping. |
-| `SelectField`   | Field wrapper for label and trigger. Keeps form semantics and visible control layout together.                  |
-| `SelectTrigger` | Interactive button that opens/closes the popup and exposes open/disabled state attributes.                      |
-| `SelectValue`   | Value renderer inside the trigger. Shows placeholder, selected label, or a custom function output.              |
-| `SelectContent` | Popup surface that hosts list/scroll controls and configures internal service layers and positioning props.     |
-| `SelectItem`    | One selectable option. Works with `SelectItemIndicator` and `SelectItemText` to render selection state.         |
+| Part            | Role                                                           |
+| --------------- | -------------------------------------------------------------- |
+| `Select`        | Root state and selection logic.                                |
+| `SelectField`   | Groups the visible field parts.                                |
+| `SelectTrigger` | Button that opens and closes the popup.                        |
+| `SelectValue`   | Renders placeholder or selected value.                         |
+| `SelectContent` | Popup surface plus positioning and service-slot configuration. |
+| `SelectItem`    | Selectable option row.                                         |
 
-In most cases, keep default popup infrastructure and style visible parts (`SelectTrigger`,
-`SelectValue`, `SelectContent`, `SelectItem`, `SelectItemIndicator`, `SelectItemText`).
-Use `SelectContent` service-slot props (`classNames`, `slotProps`, `withBackdrop`, `arrow`)
-only when you need custom portal, layering, backdrop, or arrow behavior.
+In most cases, style the visible parts and keep the default popup infrastructure. Reach for
+`classNames`, `slotProps`, `withBackdrop`, and `arrow` only when you need custom portal, layering,
+backdrop, or arrow behavior.
 
 ## Composition
 
 Use `Select` for root state and behavior props such as `value`, `defaultValue`, `multiple`,
-`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`. Base UI root props pass
-through as well: form props (`name`, `form`, `required`, `inputRef`, `autoComplete`), interaction
-state (`disabled`, `readOnly`, `open`, `defaultOpen`, `modal`, `onOpenChange`,
-`onOpenChangeComplete`, `actionsRef`), and item behavior (`highlightItemOnHover`,
-`isItemEqualToValue`).
+`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`. Base UI root props for
+form integration, open state, and item comparison also pass through.
 
-`className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use positioning props such as `alignItemWithTrigger`, `side`,
-`sideOffset`, `align`, `collisionPadding`, and `disableAnchorTracking` directly on
-`SelectContent`; use `container` for the portal target and `slotProps` for the matching Base UI
-escape hatches:
+`className` styles the popup surface. `classNames` targets internal service slots. Put positioning
+props directly on `SelectContent`, use `container` for the portal target, and use `slotProps` for
+the matching Base UI escape hatches:
 
 ```tsx
 <SelectContent
-  className={styles.popup}
+  className="popup"
   withArrow
   withBackdrop
   slotProps={{
     positioner: { sticky: true },
   }}
   classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-    arrow: styles.arrow,
+    portal: 'portal',
+    backdrop: 'backdrop',
+    positioner: 'positioner',
+    arrow: 'arrow',
   }}
 />
 ```
@@ -218,7 +211,8 @@ escape hatches:
 
 ### Indicator Right With Icon
 
-Use `indicator="end"` to place the selected indicator after the item text. Pass children to `SelectIcon` or `SelectItemTextIcon` to use icons from your application.
+Use `indicator="end"` to place the selected indicator after the item text. Pass children to
+`SelectIcon` or `SelectItemTextIcon` to render your own icons.
 
 <Preview>
   <IndicatorRightSelectExample />
@@ -399,7 +393,7 @@ Use `SelectGroup` and `SelectGroupLabel` to organize related items inside the po
 
 ### Animated
 
-Pass `animation="scale"` to `SelectContent` when the popup should animate in the default overlapping select positioning mode.
+Pass `animation="scale"` to animate the popup in the default overlapping select positioning mode.
 
 <Preview>
   <AnimatedSelectExample />
@@ -472,7 +466,8 @@ Pass `animation="scale"` to `SelectContent` when the popup should animate in the
 
 ### Multiple
 
-Use the `multiple` prop when a field can contain several selected values. Render `SelectValue` with a function to format the array.
+Use `multiple` when the field can contain several selected values. Render `SelectValue` with a
+function to format the array.
 
 <Preview>
   <MultipleSelectExample />
@@ -549,7 +544,8 @@ Use the `multiple` prop when a field can contain several selected values. Render
 
 ### Custom Styles
 
-Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Backdrop`, and `Arrow` are rendered internally, so application code only configures behavior and service-slot classes.
+Use `SelectContent` props to configure popup infrastructure. `Portal`, `Positioner`, `Backdrop`,
+and `Arrow` stay internal; application code only passes behavior and service-slot classes.
 
 <Preview>
   <CustomStylesSelectExample />
@@ -660,7 +656,7 @@ Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Bac
 
 ### Controlled
 
-Control `value` from React state when the selected option needs to coordinate with other application state.
+Control `value` from React state when the selected option needs to coordinate with other state.
 
 <Preview>
   <ControlledSelectExample />
@@ -726,7 +722,8 @@ Control `value` from React state when the selected option needs to coordinate wi
 
 ### Clearable With Null Item
 
-Include an item with `value={null}` when users should be able to clear the field from the same popup.
+Include an item with `value={null}` when users should be able to clear the field from the same
+popup.
 
 <Preview>
   <ClearableSelectExample />

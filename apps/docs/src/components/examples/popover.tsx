@@ -245,6 +245,24 @@ export function ControlledPopoverExample() {
   );
 }
 
+export function CustomTriggerPopoverExample() {
+  return (
+    <Popover>
+      <PopoverTrigger className={styles.customAnchor} nativeButton={false} render={<div />}>
+        Open custom trigger
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverHeader>
+          <PopoverTitle>Custom trigger element</PopoverTitle>
+          <PopoverDescription>
+            Set nativeButton to false when the rendered trigger element is not a button.
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 export function DetachedTriggerPopoverExample() {
   const popoverHandle = React.useMemo(() => createPopoverHandle(), []);
 
@@ -264,6 +282,33 @@ export function DetachedTriggerPopoverExample() {
         </PopoverContent>
       </Popover>
     </div>
+  );
+}
+
+export function ModalFocusPopoverExample() {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  return (
+    <Popover modal="trap-focus">
+      <PopoverTrigger render={<Button />}>Invite teammates</PopoverTrigger>
+      <PopoverContent initialFocus={inputRef}>
+        <PopoverHeader>
+          <PopoverTitle>Invite teammates</PopoverTitle>
+          <PopoverDescription>
+            Focus moves into the first field, and the close action stays available inside the popup.
+          </PopoverDescription>
+        </PopoverHeader>
+        <PopoverBody>
+          <label className={styles.field}>
+            <span>Email</span>
+            <input ref={inputRef} className={styles.input} placeholder="name@example.com" />
+          </label>
+        </PopoverBody>
+        <PopoverFooter>
+          <PopoverClose>Done</PopoverClose>
+        </PopoverFooter>
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -347,7 +392,7 @@ export function CustomStylesPopoverExample() {
           viewport: styles.customViewport,
           arrow: styles.customArrowSlot,
         }}
-        arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
+        arrowContent={<CheckSmallIcon className={styles.customArrowIcon} />}
       >
         <PopoverHeader>
           <PopoverTitle>Custom styles</PopoverTitle>

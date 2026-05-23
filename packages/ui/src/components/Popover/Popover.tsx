@@ -43,7 +43,7 @@ type PopoverContentProps = PopoverPrimitive.Popup.Props &
     slotProps?: PopoverContentSlotProps;
     container?: PopoverPrimitive.Portal.Props['container'];
     withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
+    arrowContent?: React.ReactNode;
     withBackdrop?: boolean;
     withViewport?: boolean;
   };
@@ -51,18 +51,22 @@ type PopoverContentProps = PopoverPrimitive.Popup.Props &
 const Popover = PopoverPrimitive.Root;
 const createPopoverHandle = PopoverPrimitive.createHandle;
 
-function PopoverTrigger({ className, render, ...props }: PopoverPrimitive.Trigger.Props) {
+const PopoverTrigger = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Trigger>,
+  PopoverPrimitive.Trigger.Props
+>(function PopoverTrigger({ className, render, ...props }, ref) {
   const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
 
   return (
     <PopoverPrimitive.Trigger
+      ref={ref as never}
       data-slot="popover-trigger"
       render={render}
       className={triggerClassName}
       {...props}
     />
   );
-}
+});
 
 function PopoverPortal({ className, ...props }: PopoverPrimitive.Portal.Props) {
   return (
@@ -94,15 +98,19 @@ function PopoverPositioner({ className, ...props }: PopoverPrimitive.Positioner.
   );
 }
 
-function PopoverPopup({ className, ...props }: PopoverPrimitive.Popup.Props) {
+const PopoverPopup = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Popup>,
+  PopoverPrimitive.Popup.Props
+>(function PopoverPopup({ className, ...props }, ref) {
   return (
     <PopoverPrimitive.Popup
+      ref={ref}
       data-slot="popover-popup"
       className={mergeClassName(className, styles.popup)}
       {...props}
     />
   );
-}
+});
 
 function PopoverViewport({ className, ...props }: PopoverPrimitive.Viewport.Props) {
   return (
@@ -126,72 +134,112 @@ function PopoverArrow({ className, children, ...props }: PopoverPrimitive.Arrow.
   );
 }
 
-function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
+const PopoverTitle = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Title>,
+  PopoverPrimitive.Title.Props
+>(function PopoverTitle({ className, ...props }, ref) {
   return (
     <PopoverPrimitive.Title
+      ref={ref}
       data-slot="popover-title"
       className={mergeClassName(className, styles.title)}
       {...props}
     />
   );
-}
+});
 
-function PopoverDescription({ className, ...props }: PopoverPrimitive.Description.Props) {
+const PopoverDescription = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Description>,
+  PopoverPrimitive.Description.Props
+>(function PopoverDescription({ className, ...props }, ref) {
   return (
     <PopoverPrimitive.Description
+      ref={ref}
       data-slot="popover-description"
       className={mergeClassName(className, styles.description)}
       {...props}
     />
   );
-}
+});
 
-function PopoverHeader({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="popover-header" className={clsx(styles.header, className)} {...props} />;
-}
+const PopoverHeader = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
+  function PopoverHeader({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        data-slot="popover-header"
+        className={clsx(styles.header, className)}
+        {...props}
+      />
+    );
+  },
+);
 
-function PopoverBody({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="popover-body" className={clsx(styles.body, className)} {...props} />;
-}
+const PopoverBody = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
+  function PopoverBody({ className, ...props }, ref) {
+    return (
+      <div ref={ref} data-slot="popover-body" className={clsx(styles.body, className)} {...props} />
+    );
+  },
+);
 
-function PopoverFooter({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="popover-footer" className={clsx(styles.footer, className)} {...props} />;
-}
+const PopoverFooter = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
+  function PopoverFooter({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        data-slot="popover-footer"
+        className={clsx(styles.footer, className)}
+        {...props}
+      />
+    );
+  },
+);
 
-function PopoverClose({ className, ...props }: PopoverPrimitive.Close.Props) {
+const PopoverClose = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Close>,
+  PopoverPrimitive.Close.Props
+>(function PopoverClose({ className, ...props }, ref) {
   return (
     <PopoverPrimitive.Close
+      ref={ref}
       data-slot="popover-close"
       className={mergeClassName(className, styles.close)}
       {...props}
     />
   );
-}
+});
 
-function PopoverContent({
-  className,
-  classNames,
-  slotProps,
-  container,
-  withArrow,
-  arrow,
-  withBackdrop = false,
-  withViewport = false,
-  disableAnchorTracking,
-  side,
-  sideOffset,
-  align,
-  alignOffset,
-  arrowPadding,
-  anchor,
-  collisionAvoidance,
-  collisionBoundary,
-  collisionPadding,
-  sticky,
-  positionMethod,
-  children,
-  ...props
-}: PopoverContentProps) {
+const PopoverContent = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Popup>,
+  PopoverContentProps
+>(function PopoverContent(
+  {
+    className,
+    classNames,
+    slotProps,
+    container,
+    withArrow,
+    arrowContent,
+    withBackdrop = false,
+    withViewport = false,
+    disableAnchorTracking,
+    side,
+    sideOffset,
+    align,
+    alignOffset,
+    arrowPadding,
+    anchor,
+    collisionAvoidance,
+    collisionBoundary,
+    collisionPadding,
+    sticky,
+    positionMethod,
+    children,
+    ...props
+  },
+  ref,
+) {
   const portalProps = slotProps?.portal;
   const backdropProps = slotProps?.backdrop;
   const positionerProps = slotProps?.positioner;
@@ -213,8 +261,7 @@ function PopoverContent({
     sticky: sticky ?? positionerProps?.sticky,
     positionMethod: positionMethod ?? positionerProps?.positionMethod,
   };
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
+  const showArrow = withArrow ?? true;
 
   return (
     <PopoverPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
@@ -226,7 +273,7 @@ function PopoverContent({
         {...resolvedPositionerProps}
         className={classNames?.positioner}
       >
-        <PopoverPopup className={className} {...props}>
+        <PopoverPopup ref={ref} className={className} {...props}>
           {showArrow ? (
             <PopoverArrow className={classNames?.arrow} {...arrowProps}>
               {arrowContent}
@@ -243,7 +290,7 @@ function PopoverContent({
       </PopoverPositioner>
     </PopoverPortal>
   );
-}
+});
 
 function ArrowSvg(props: React.ComponentProps<'svg'>) {
   return (
@@ -261,9 +308,9 @@ type PopoverHandle<Payload = unknown> = PopoverPrimitive.Handle<Payload>;
 type PopoverTriggerProps = PopoverPrimitive.Trigger.Props;
 type PopoverTitleProps = PopoverPrimitive.Title.Props;
 type PopoverDescriptionProps = PopoverPrimitive.Description.Props;
-type PopoverHeaderProps = React.ComponentProps<'div'>;
-type PopoverBodyProps = React.ComponentProps<'div'>;
-type PopoverFooterProps = React.ComponentProps<'div'>;
+type PopoverHeaderProps = React.ComponentPropsWithoutRef<'div'>;
+type PopoverBodyProps = React.ComponentPropsWithoutRef<'div'>;
+type PopoverFooterProps = React.ComponentPropsWithoutRef<'div'>;
 type PopoverCloseProps = PopoverPrimitive.Close.Props;
 
 export {

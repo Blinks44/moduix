@@ -154,7 +154,7 @@ export const DetachedTrigger: Story = {
           Open details
         </PopoverTrigger>
         <Popover handle={popoverHandle}>
-          <PopoverContent arrow>
+          <PopoverContent>
             <PopoverHeader className={storyStyles.contentGrid}>
               <PopoverTitle>Detached trigger</PopoverTitle>
               <PopoverDescription>
@@ -263,7 +263,7 @@ export const CustomStyles: Story = {
             viewport: storyStyles.customViewport,
             arrow: storyStyles.customArrowSlot,
           }}
-          arrow={<CheckSmallIcon className={storyStyles.customArrowIcon} />}
+          arrowContent={<CheckSmallIcon className={storyStyles.customArrowIcon} />}
         >
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Custom styles</PopoverTitle>

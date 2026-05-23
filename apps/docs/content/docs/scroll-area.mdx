@@ -4,7 +4,6 @@ description: A native scroll container with automatically rendered custom scroll
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   BothScrollbarsScrollAreaExample,
   CustomStylesScrollAreaExample,
@@ -16,8 +15,6 @@ import {
   ScrollAreaExample,
   scrollAreaPlaygroundCssProperties,
 } from '@/components/examples/scroll-area';
-
-## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/scroll-area" />
 
@@ -136,8 +133,8 @@ import {
 
 ## Anatomy
 
-`ScrollArea` is composed around one visible root and internal scrolling infrastructure.
-The component renders viewport, content, scrollbars, thumbs, and corner slots automatically.
+`ScrollArea` renders one root plus internal scrolling slots. In most cases you style the root and,
+when needed, target internal slots through `classNames`.
 
 ```text
 ScrollArea
@@ -163,9 +160,9 @@ ScrollArea
 
 ## Composition
 
-Use `ScrollArea` for root behavior props such as `scrollbars`, `fade`, `overflowEdgeThreshold`,
-and `scrollbarKeepMounted`. Use `className` for the root element and `classNames` for internal
-slots hidden from the default composition.
+Use `ScrollArea` for root behavior props such as `scrollbars`, `fade`,
+`overflowEdgeThreshold`, and `scrollbarKeepMounted`.
+Use `className` for the root and `classNames` for internal slots.
 Use `contentMinWidth="fit-content"` when horizontal overflow should follow intrinsic content width.
 
 ### Defaults
@@ -178,7 +175,7 @@ Use `contentMinWidth="fit-content"` when horizontal overflow should follow intri
 | `scrollbarKeepMounted` | `false`    | `true`, `false`                                   |
 
 Shared `classNames.scrollbar` and `classNames.thumb` are applied before axis-specific classes, so
-you can keep common styling in one class and override only vertical or horizontal details.
+common styling can stay shared and only per-axis differences need overrides.
 
 Use `slotProps` when you need Base UI escape hatches such as `render`, state-based `style`, or
 other non-class props for an internal slot:
@@ -209,10 +206,9 @@ other non-class props for an internal slot:
 
 ### Both Scrollbars
 
-Set `scrollbars="both"` when content can overflow in both axes. `ScrollArea` renders both
-scrollbars and the corner automatically. Set `contentMinWidth="fit-content"` so the content keeps
-its intrinsic width and can overflow horizontally; without it, the content usually collapses to the
-viewport width and behaves like a vertical-only scroll area.
+Set `scrollbars="both"` when content can overflow in both axes. Use
+`contentMinWidth="fit-content"` so content keeps its intrinsic width and can actually overflow
+horizontally.
 
 <Preview>
   <BothScrollbarsScrollAreaExample />
@@ -282,9 +278,9 @@ viewport width and behaves like a vertical-only scroll area.
 
 ### Gradient Fade
 
-Set `fade` to fade content near the vertical scroll edges. Tune the size with
+Set `fade` to fade content near the scroll edges. Tune the size with
 `--scroll-area-fade-size`, `--scroll-area-fade-start-size`, and `--scroll-area-fade-end-size`.
-Pass `fade="horizontal"` for horizontal overflow or `fade="both"` when both axes can scroll.
+Pass `fade="horizontal"` for horizontal overflow or `fade="both"` for both axes.
 
 <Preview>
   <GradientFadeScrollAreaExample />
@@ -375,8 +371,8 @@ Pass `fade="horizontal"` for horizontal overflow or `fade="both"` when both axes
 
 ### Overflow Edge Threshold
 
-Use `overflowEdgeThreshold` when fade and edge attributes should appear only after the user scrolls
-past a specific offset.
+Use `overflowEdgeThreshold` when fade and edge attributes should appear only after a specific
+scroll offset.
 
 <Preview>
   <OverflowEdgeThresholdScrollAreaExample />
@@ -446,7 +442,8 @@ past a specific offset.
 
 ### Keep Mounted
 
-Use `scrollbarKeepMounted` when scrollbar DOM needs to stay mounted while the viewport changes between scrollable and non-scrollable states.
+Use `scrollbarKeepMounted` when scrollbar DOM must stay mounted while the viewport switches between
+scrollable and non-scrollable states.
 
 <Preview>
   <KeepMountedScrollAreaExample />

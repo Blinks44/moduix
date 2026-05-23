@@ -6,9 +6,11 @@ icon: Component
 
 import {
   ControlledPopoverExample,
+  CustomTriggerPopoverExample,
   CustomStylesPopoverExample,
   DetachedTriggerPopoverExample,
   ImageOnlyPopoverExample,
+  ModalFocusPopoverExample,
   OpenOnHoverPopoverExample,
   PopoverCssPlaygroundPanel,
   PopoverCssPropertiesPanel,
@@ -150,9 +152,16 @@ Pass placement props such as `side`, `align`, `sideOffset`, `alignOffset`, `coll
 and `collisionPadding` directly to `PopoverContent`. `className` styles the visible popup;
 `classNames` styles internal service slots. Use `container` to choose the portal container,
 `withBackdrop` to enable the optional backdrop, `withViewport` to wrap content in Base UI's
-viewport, `withArrow={false}` to remove the default arrow, and `arrow` to replace it. Reach for
-`slotProps` only when you need Base UI escape-hatch props such as `keepMounted` on the portal or
-custom viewport rendering:
+viewport, `withArrow={false}` to remove the default arrow, and `arrowContent` to replace the
+default arrow graphic. Reach for `slotProps` only when you need Base UI escape-hatch props such as
+`keepMounted` on the portal or custom viewport rendering.
+
+When replacing the trigger element with `render`, keep `nativeButton={true}` for real button-like
+elements and set `nativeButton={false}` for non-button elements such as `div` or `span`.
+
+For focus-sensitive popovers, pass `initialFocus` and `finalFocus` to `PopoverContent`. If you use
+`modal` or `modal="trap-focus"` on `Popover`, keep a `PopoverClose` action inside the popup so
+keyboard users and touch screen readers always have a way to leave it.
 
 ### Defaults
 
@@ -379,6 +388,64 @@ Control the open state from React when the popover needs to coordinate with othe
   </Preview.Code>
 </Preview>
 
+### Custom Trigger Element
+
+Set `nativeButton={false}` when `PopoverTrigger` renders a non-button element through `render`.
+
+<Preview>
+  <CustomTriggerPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+
+      export function CustomTriggerPopoverDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger className={styles.customAnchor} nativeButton={false} render={<div />}>
+              Open custom trigger
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>Custom trigger element</PopoverTitle>
+                <PopoverDescription>
+                  Set nativeButton to false when the rendered trigger element is not a button.
+                </PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customAnchor {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: var(--size-lg);
+        padding: 0 var(--spacing-3);
+        border: var(--border-width-sm) dashed var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-muted);
+        color: var(--color-foreground);
+        cursor: pointer;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ### Detached Trigger
 
 Use `createPopoverHandle` when the trigger lives outside the popover tree.
@@ -424,6 +491,92 @@ Use `createPopoverHandle` when the trigger lives outside the popover tree.
     `}
 
   </Preview.Code>
+</Preview>
+
+### Modal Focus
+
+Use `initialFocus` when the popup should move focus to a specific field on open. If the popover is
+modal or traps focus, keep `PopoverClose` inside the popup.
+
+<Preview>
+  <ModalFocusPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverBody,
+        PopoverClose,
+        PopoverContent,
+        PopoverDescription,
+        PopoverFooter,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+      import { useRef } from "react";
+
+      export function ModalFocusPopoverDemo() {
+        const inputRef = useRef<HTMLInputElement>(null);
+
+        return (
+          <Popover modal="trap-focus">
+            <PopoverTrigger render={<Button />}>Invite teammates</PopoverTrigger>
+            <PopoverContent initialFocus={inputRef}>
+              <PopoverHeader>
+                <PopoverTitle>Invite teammates</PopoverTitle>
+                <PopoverDescription>
+                  Focus moves into the first field, and the close action stays available inside the
+                  popup.
+                </PopoverDescription>
+              </PopoverHeader>
+              <PopoverBody>
+                <label className={styles.field}>
+                  <span>Email</span>
+                  <input
+                    ref={inputRef}
+                    className={styles.input}
+                    placeholder="name@example.com"
+                  />
+                </label>
+              </PopoverBody>
+              <PopoverFooter>
+                <PopoverClose>Done</PopoverClose>
+              </PopoverFooter>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        display: grid;
+        gap: var(--spacing-2);
+        margin-top: var(--spacing-3);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .input {
+        width: 100%;
+        min-width: 16rem;
+        min-height: var(--size-lg);
+        padding: 0 var(--spacing-3);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-background);
+        color: var(--color-foreground);
+        font: inherit;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Side Control
@@ -682,7 +835,7 @@ positioner, viewport, and arrow slots.
                 viewport: styles.customViewport,
                 arrow: styles.customArrowSlot,
               }}
-              arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
+              arrowContent={<CheckSmallIcon className={styles.customArrowIcon} />}
             >
               <PopoverHeader>
                 <PopoverTitle>Custom styles</PopoverTitle>

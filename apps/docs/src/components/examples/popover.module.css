@@ -26,6 +26,19 @@
   gap: var(--spacing-3);
 }
 
+.customAnchor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--size-lg);
+  padding: 0 var(--spacing-3);
+  border: var(--border-width-sm) dashed var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-muted);
+  color: var(--color-foreground);
+  cursor: pointer;
+}
+
 .row {
   display: flex;
   align-items: center;
@@ -71,6 +84,27 @@
 
 .narrowPopup {
   --popover-max-width: 20rem;
+}
+
+.field {
+  display: grid;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-3);
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}
+
+.input {
+  width: 100%;
+  min-width: 16rem;
+  min-height: var(--size-lg);
+  padding: 0 var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font: inherit;
 }
 
 .imagePopup {

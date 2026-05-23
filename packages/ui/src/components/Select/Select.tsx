@@ -160,6 +160,7 @@ function SelectArrow({ className, children, ...props }: SelectPrimitive.Arrow.Pr
 
 function SelectContent({
   className,
+  children,
   classNames,
   slotProps,
   container,
@@ -181,10 +182,12 @@ function SelectContent({
   disableAnchorTracking,
   ...props
 }: SelectContentProps) {
-  const portalProps = slotProps?.portal;
-  const backdropProps = slotProps?.backdrop;
-  const positionerProps = slotProps?.positioner;
-  const arrowProps = slotProps?.arrow;
+  const {
+    portal: portalProps,
+    backdrop: backdropProps,
+    positioner: positionerProps,
+    arrow: arrowProps,
+  } = slotProps ?? {};
   const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
   const portalContainer = container ?? portalPropsContainer;
   const resolvedPositionerProps: SelectContentPositionerProps = {
@@ -219,7 +222,7 @@ function SelectContent({
               {arrowContent}
             </SelectArrow>
           ) : null}
-          {props.children}
+          {children}
         </SelectPopup>
       </SelectPositioner>
     </SelectPortal>

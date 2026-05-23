@@ -1,5 +1,6 @@
 @layer ui.stories {
-  .root {
+  .root,
+  .customRoot {
     width: 24rem;
     max-width: calc(100vw - 2rem);
     height: 13rem;
@@ -63,11 +64,6 @@
   }
 
   .customRoot {
-    width: 24rem;
-    max-width: calc(100vw - 2rem);
-    height: 13rem;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-lg);
     --scroll-area-scrollbar-size: 0.625rem;
     --scroll-area-scrollbar-margin: var(--spacing-1);
     --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);

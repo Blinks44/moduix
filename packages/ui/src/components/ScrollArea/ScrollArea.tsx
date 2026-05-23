@@ -21,24 +21,21 @@ type ScrollAreaClassNames = {
   corner?: ScrollAreaPrimitive.Corner.Props['className'];
 };
 
+type ScrollAreaScrollbarSlotProps = Omit<
+  ScrollAreaPrimitive.Scrollbar.Props,
+  'className' | 'children' | 'orientation' | 'keepMounted'
+>;
+type ScrollAreaThumbSlotProps = Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
+
 type ScrollAreaSlotProps = {
   viewport?: Omit<ScrollAreaPrimitive.Viewport.Props, 'className' | 'children'>;
   content?: Omit<ScrollAreaPrimitive.Content.Props, 'className' | 'children'>;
-  scrollbar?: Omit<
-    ScrollAreaPrimitive.Scrollbar.Props,
-    'className' | 'children' | 'orientation' | 'keepMounted'
-  >;
-  verticalScrollbar?: Omit<
-    ScrollAreaPrimitive.Scrollbar.Props,
-    'className' | 'children' | 'orientation' | 'keepMounted'
-  >;
-  horizontalScrollbar?: Omit<
-    ScrollAreaPrimitive.Scrollbar.Props,
-    'className' | 'children' | 'orientation' | 'keepMounted'
-  >;
-  thumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
-  verticalThumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
-  horizontalThumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
+  scrollbar?: ScrollAreaScrollbarSlotProps;
+  verticalScrollbar?: ScrollAreaScrollbarSlotProps;
+  horizontalScrollbar?: ScrollAreaScrollbarSlotProps;
+  thumb?: ScrollAreaThumbSlotProps;
+  verticalThumb?: ScrollAreaThumbSlotProps;
+  horizontalThumb?: ScrollAreaThumbSlotProps;
   corner?: Omit<ScrollAreaPrimitive.Corner.Props, 'className'>;
 };
 
@@ -85,46 +82,53 @@ function ScrollArea({
   const fadeDirection = fade === true ? 'vertical' : fade || undefined;
   const hasVerticalScrollbar = scrollbars === 'vertical' || scrollbars === 'both';
   const hasHorizontalScrollbar = scrollbars === 'horizontal' || scrollbars === 'both';
+  const showCorner = hasVerticalScrollbar && hasHorizontalScrollbar;
   const scrollbarProps = slotPropsByName.scrollbar;
   const thumbProps = slotPropsByName.thumb;
+  const contentMinWidthValue = contentMinWidth === 'fit-content' ? 'fit-content' : '100%';
   const contentStyle = {
     ...slotPropsByName.content?.style,
-    minWidth: contentMinWidth === 'fit-content' ? 'fit-content' : '100%',
+    minWidth: contentMinWidthValue,
   };
 
   const renderScrollbar = (orientation: 'vertical' | 'horizontal') => {
     const isVertical = orientation === 'vertical';
-    const axisScrollbarProps = isVertical
-      ? slotPropsByName.verticalScrollbar
-      : slotPropsByName.horizontalScrollbar;
-    const axisThumbProps = isVertical
-      ? slotPropsByName.verticalThumb
-      : slotPropsByName.horizontalThumb;
-    const axisScrollbarClassName = isVertical
-      ? slotClassNames.verticalScrollbar
-      : slotClassNames.horizontalScrollbar;
-    const axisThumbClassName = isVertical
-      ? slotClassNames.verticalThumb
-      : slotClassNames.horizontalThumb;
+    const axisProps = isVertical
+      ? {
+          scrollbarProps: slotPropsByName.verticalScrollbar,
+          thumbProps: slotPropsByName.verticalThumb,
+          scrollbarClassName: slotClassNames.verticalScrollbar,
+          thumbClassName: slotClassNames.verticalThumb,
+        }
+      : {
+          scrollbarProps: slotPropsByName.horizontalScrollbar,
+          thumbProps: slotPropsByName.horizontalThumb,
+          scrollbarClassName: slotClassNames.horizontalScrollbar,
+          thumbClassName: slotClassNames.horizontalThumb,
+        };
 
     return (
       <ScrollAreaPrimitive.Scrollbar
         {...scrollbarProps}
-        {...axisScrollbarProps}
+        {...axisProps.scrollbarProps}
         data-slot="scroll-area-scrollbar"
         orientation={orientation}
         keepMounted={scrollbarKeepMounted}
         className={mergeSlotClassName(
           styles.scrollbar,
           slotClassNames.scrollbar,
-          axisScrollbarClassName,
+          axisProps.scrollbarClassName,
         )}
       >
         <ScrollAreaPrimitive.Thumb
           {...thumbProps}
-          {...axisThumbProps}
+          {...axisProps.thumbProps}
           data-slot="scroll-area-thumb"
-          className={mergeSlotClassName(styles.thumb, slotClassNames.thumb, axisThumbClassName)}
+          className={mergeSlotClassName(
+            styles.thumb,
+            slotClassNames.thumb,
+            axisProps.thumbClassName,
+          )}
         />
       </ScrollAreaPrimitive.Scrollbar>
     );
@@ -153,7 +157,7 @@ function ScrollArea({
       </ScrollAreaPrimitive.Viewport>
       {hasVerticalScrollbar ? renderScrollbar('vertical') : null}
       {hasHorizontalScrollbar ? renderScrollbar('horizontal') : null}
-      {scrollbars === 'both' ? (
+      {showCorner ? (
         <ScrollAreaPrimitive.Corner
           {...slotPropsByName.corner}
           data-slot="scroll-area-corner"

@@ -275,22 +275,22 @@
     &[data-highlighted] {
       z-index: 0;
       color: var(--select-highlight-color, var(--color-background));
-    }
 
-    &[data-highlighted]::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      inset-block: 0;
-      inset-inline: var(
-        --select-highlight-inset-x,
-        var(--popup-highlight-inset-x, var(--spacing-1))
-      );
-      border-radius: var(
-        --select-highlight-radius,
-        var(--popup-highlight-radius, var(--radius-sm))
-      );
-      background-color: var(--select-highlight-bg, var(--color-foreground));
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset-block: 0;
+        inset-inline: var(
+          --select-highlight-inset-x,
+          var(--popup-highlight-inset-x, var(--spacing-1))
+        );
+        border-radius: var(
+          --select-highlight-radius,
+          var(--popup-highlight-radius, var(--radius-sm))
+        );
+        background-color: var(--select-highlight-bg, var(--color-foreground));
+      }
     }
 
     &[data-disabled] {
