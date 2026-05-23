@@ -3,40 +3,38 @@ import * as React from 'react';
 import styles from './Skeleton.module.css';
 
 type SkeletonDimension = number | string;
+type SkeletonGrow = number | boolean;
+type SkeletonSpacingProps = {
+  gap?: SkeletonDimension;
+  pt?: SkeletonDimension;
+  pb?: SkeletonDimension;
+};
 
 type SkeletonProps = React.ComponentProps<'div'> & {
   width?: SkeletonDimension;
   height?: SkeletonDimension;
   radius?: SkeletonDimension;
-  grow?: number | boolean;
+  grow?: SkeletonGrow;
   animated?: boolean;
 };
 
-function toCssValue(value: SkeletonDimension | undefined) {
+const toCssValue = (value: SkeletonDimension | undefined) => {
   if (typeof value === 'number') {
     return `${value}px`;
   }
 
   return value;
-}
+};
 
-function toSpacingStyle({
-  gap,
-  pt,
-  pb,
-}: {
-  gap?: SkeletonDimension;
-  pt?: SkeletonDimension;
-  pb?: SkeletonDimension;
-}) {
+const toSpacingStyle = ({ gap, pt, pb }: SkeletonSpacingProps) => {
   return {
     gap: toCssValue(gap),
     paddingTop: toCssValue(pt),
     paddingBottom: toCssValue(pb),
   } satisfies React.CSSProperties;
-}
+};
 
-function toFlexValue(grow: number | boolean | undefined) {
+const toFlexValue = (grow: SkeletonGrow | undefined) => {
   if (grow === true) {
     return '1 1 0';
   }
@@ -46,7 +44,7 @@ function toFlexValue(grow: number | boolean | undefined) {
   }
 
   return undefined;
-}
+};
 
 function Skeleton({
   className,
@@ -78,12 +76,10 @@ function Skeleton({
   );
 }
 
-type SkeletonRowProps = React.ComponentProps<'div'> & {
-  gap?: SkeletonDimension;
-  pt?: SkeletonDimension;
-  pb?: SkeletonDimension;
-  mobileStack?: boolean;
-};
+type SkeletonRowProps = React.ComponentProps<'div'> &
+  SkeletonSpacingProps & {
+    mobileStack?: boolean;
+  };
 
 function SkeletonRow({
   className,
@@ -110,12 +106,10 @@ function SkeletonRow({
   );
 }
 
-type SkeletonColumnProps = React.ComponentProps<'div'> & {
-  gap?: SkeletonDimension;
-  pt?: SkeletonDimension;
-  pb?: SkeletonDimension;
-  grow?: number | boolean;
-};
+type SkeletonColumnProps = React.ComponentProps<'div'> &
+  SkeletonSpacingProps & {
+    grow?: SkeletonGrow;
+  };
 
 function SkeletonColumn({ className, style, gap, pt, pb, grow, ...props }: SkeletonColumnProps) {
   const columnStyle = {
@@ -142,9 +136,7 @@ function SkeletonCircle({ size = 40, ...props }: SkeletonCircleProps) {
   return <Skeleton width={size} height={size} radius="50%" {...props} />;
 }
 
-type SkeletonRectProps = Omit<SkeletonProps, 'radius'> & {
-  radius?: SkeletonDimension;
-};
+type SkeletonRectProps = SkeletonProps;
 
 function SkeletonRect({ height = 60, ...props }: SkeletonRectProps) {
   return <Skeleton height={height} {...props} />;

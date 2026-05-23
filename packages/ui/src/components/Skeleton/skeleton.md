@@ -2,8 +2,11 @@
 
 `Skeleton` is a moduix loading placeholder primitive. It does not wrap a Base UI primitive.
 
-Use `Skeleton`, `SkeletonRect`, and `SkeletonCircle` for visual loading shapes, then compose
-layout with `SkeletonRow` and `SkeletonColumn` when placeholders must match loaded spacing.
+Use `Skeleton` for text lines and custom blocks, `SkeletonRect` and `SkeletonCircle` for common
+shapes, and `SkeletonRow` / `SkeletonColumn` when the loading state should preserve layout spacing.
+
+All parts accept standard `div` props. The base shape is `aria-hidden`, since it represents a
+loading surface rather than readable content.
 
 ## Defaults
 

@@ -518,7 +518,7 @@ modal or traps focus, keep `PopoverClose` inside the popup.
       import { useRef } from "react";
 
       export function ModalFocusPopoverDemo() {
-        const inputRef = useRef<HTMLInputElement>(null);
+        const inputRef = useRef(null as HTMLInputElement | null);
 
         return (
           <Popover modal="trap-focus">

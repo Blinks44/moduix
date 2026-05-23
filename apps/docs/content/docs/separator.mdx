@@ -44,8 +44,7 @@ import {
 
 ## Anatomy
 
-`Separator` is a single visible slot. It renders an accessible divider and receives
-`data-orientation` so CSS can size horizontal and vertical separators differently.
+`Separator` exposes a single root slot with `data-orientation` for orientation-based styling.
 
 ```text
 Separator
@@ -60,19 +59,17 @@ Separator
 | ----------- | ------------------------------------------------------------------------------------------------------ |
 | `Separator` | Root divider element. Controls `orientation`, accessibility attributes, styling, and element override. |
 
-`Separator` does not use portal-like service layers such as `portal`, `positioner`,
-`backdrop`, or `viewport`. Style the root directly with `className` or the
-`--separator-*` CSS properties.
+Style the root directly with `className` or the `--separator-*` CSS properties.
 
 ## Composition
 
-Use `Separator` wherever related content needs a non-interactive visual divider.
-Horizontal separators fill their container by default. Vertical separators are intended
+Use `Separator` for non-interactive visual division between related content.
+Horizontal separators fill the container by default. Vertical separators are intended
 for inline groups and default to `1em` height so they align with surrounding text.
 
 Pass `orientation="vertical"` for inline layouts. Use `className` for direct styling,
-CSS variables for size and color adjustments, and `render` when you need to compose the
-root with another element.
+`--separator-*` variables for size and color, and `render` to compose the root with a
+different element.
 
 ### Defaults
 
@@ -87,7 +84,7 @@ root with another element.
 
 ### Vertical
 
-Use `orientation="vertical"` when the separator divides inline groups, such as navigation actions.
+Use `orientation="vertical"` for inline groups such as navigation actions.
 
 <Preview>
   <VerticalSeparatorExample />
@@ -113,7 +110,7 @@ Use `orientation="vertical"` when the separator divides inline groups, such as n
 
 ### Custom Styles
 
-Pass `className` to style the root element directly or override the `--separator-*` custom properties.
+Use `className` or `--separator-*` custom properties to adjust the root styling.
 
 <Preview>
   <CustomSeparatorExample />
@@ -155,8 +152,7 @@ Pass `className` to style the root element directly or override the `--separator
 
 ### Custom Element
 
-Use `render` to compose the separator with another element while keeping the component
-state and accessibility attributes.
+Use `render` to swap the root element while preserving separator state and accessibility attributes.
 
 <Preview>
   <SeparatorExample render={<span />} />

@@ -19,9 +19,10 @@ import {
 ## API Reference
 
 `Skeleton` is a moduix loading primitive and does not wrap a Base UI primitive.
-Use `Skeleton`, `SkeletonRect`, and `SkeletonCircle` for placeholders, then compose rows and
-columns with `SkeletonRow` and `SkeletonColumn`. Skeleton parts are marked `aria-hidden` because
-they describe loading shape, not user-readable content.
+Use `Skeleton` for text lines and custom blocks, `SkeletonRect` and `SkeletonCircle` for common
+shapes, and `SkeletonRow` / `SkeletonColumn` when the loading state should preserve layout spacing.
+The shape parts are marked `aria-hidden` because they describe loading surfaces, not readable
+content.
 
 ## Basic
 
@@ -50,9 +51,7 @@ they describe loading shape, not user-readable content.
 
 ## Anatomy
 
-`Skeleton` is composed from visual placeholder blocks and optional layout helpers. Use the shape
-parts for the visible loading state and the layout parts only when they match the spacing of the
-loaded UI.
+`Skeleton` is composed from visual placeholder blocks and optional layout helpers.
 
 ```text
 SkeletonColumn
@@ -77,10 +76,6 @@ SkeletonColumn
 | `SkeletonRow`    | Horizontal layout helper with `gap`, `pt`, `pb`, and `mobileStack` spacing controls.            |
 | `SkeletonColumn` | Vertical layout helper with `gap`, `pt`, `pb`, and `grow` spacing controls.                     |
 
-`Skeleton` does not use portal-like service layers such as `portal`, `positioner`, `backdrop`, or
-`viewport`. In most cases, keep the default shape styling and adjust dimensions with props. Use
-`className` and the CSS variables only when the placeholder needs to match a custom surface.
-
 ## Composition
 
 Use `Skeleton` directly for text lines and small custom blocks. Use `SkeletonRect` and
@@ -89,7 +84,7 @@ Use `Skeleton` directly for text lines and small custom blocks. Use `SkeletonRec
 
 All parts accept `className` and standard `div` props. The component exposes `--skeleton-bg`,
 `--skeleton-radius`, and `--skeleton-animation` for targeted styling; avoid broad overrides in a
-shared parent when a page demonstrates multiple skeleton styles.
+shared parent when one screen demonstrates multiple skeleton styles.
 
 ### Defaults
 
@@ -105,7 +100,7 @@ shared parent when a page demonstrates multiple skeleton styles.
 
 ### Card
 
-Use `SkeletonRect` with smaller line skeletons to reserve the shape of card content while data is loading.
+Use `SkeletonRect` with smaller line skeletons to reserve the shape of card content.
 
 <Preview>
   <SkeletonCardExample />
@@ -146,7 +141,7 @@ Use `SkeletonRect` with smaller line skeletons to reserve the shape of card cont
 
 ### Media Object
 
-Combine `SkeletonCircle`, `SkeletonColumn`, and `grow` when mirroring avatar rows, list items, and comments.
+Combine `SkeletonCircle`, `SkeletonColumn`, and `grow` for avatar rows, list items, and comments.
 
 <Preview>
   <SkeletonMediaObjectExample />
@@ -184,8 +179,7 @@ Combine `SkeletonCircle`, `SkeletonColumn`, and `grow` when mirroring avatar row
 
 ### Layout Props
 
-Use `gap`, `pt`, `pb`, `grow`, and `mobileStack` on the layout primitives when the skeleton must
-reserve the same spacing as the loaded UI.
+Use `gap`, `pt`, `pb`, `grow`, and `mobileStack` when the skeleton should preserve loaded spacing.
 
 <Preview>
   <SkeletonLayoutPropsExample />
@@ -231,7 +225,7 @@ reserve the same spacing as the loaded UI.
 
 ### Static
 
-Pass `animated={false}` when motion is unnecessary or when the placeholder appears in dense repeated layouts.
+Pass `animated={false}` when motion is unnecessary or when the placeholder appears in dense lists.
 
 <Preview>
   <SkeletonStaticExample />
@@ -250,7 +244,7 @@ Pass `animated={false}` when motion is unnecessary or when the placeholder appea
 
 ### Class Names
 
-Pass `className` to the root or layout primitives when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to the root or layout primitives for local styling overrides.
 
 <Preview>
   <SkeletonClassNameExample />

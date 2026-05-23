@@ -27,8 +27,6 @@
   .column {
     display: flex;
     gap: var(--spacing-2);
-    padding-top: 0;
-    padding-bottom: 0;
   }
 
   .row {
