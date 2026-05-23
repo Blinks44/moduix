@@ -28,7 +28,7 @@ import {
 
 ## Basic
 
-`MenuContent` renders the portal and positioner internally, so the public composition only needs the trigger, content, optional arrow, and menu items.
+`MenuContent` already renders the portal and positioner. In the common case, compose only the trigger, content, optional arrow, and items.
 
 <Preview cssProperties={menuPlaygroundCssProperties}>
   <MenuExample />
@@ -75,8 +75,7 @@ import {
 
 ## Anatomy
 
-Menu is composed from a trigger and a popup content layer. Keep interactive items and nested branches
-inside `MenuContent` so roving focus, keyboard navigation, and close behavior stay managed by the root.
+Menu is built from a trigger and popup content. Keep items and nested branches inside `MenuContent` so focus management, keyboard navigation, and close behavior stay on the root.
 
 ```text
 Menu
@@ -114,39 +113,26 @@ Menu
 </Menu>
 ```
 
-| Part                    | Role                                                                                                     |
-| ----------------------- | -------------------------------------------------------------------------------------------------------- |
-| `Menu`                  | Root state machine. Handles open state, focus management, and close interactions.                        |
-| `MenuTrigger`           | Control that opens and closes the menu. Accepts trigger props like `openOnHover`, `delay`, and `handle`. |
-| `MenuTriggerIcon`       | Optional trigger indicator. Renders the default icon or your custom icon as children.                    |
-| `MenuContent`           | Popup container for items. Accepts positioning props and renders service slots internally.               |
-| `MenuArrow`             | Optional visual pointer from popup to trigger.                                                           |
-| `MenuItem`              | Action row. Supports disabled state and `closeOnClick` behavior.                                         |
-| `MenuLinkItem`          | Item variant for navigation links while preserving menu behavior.                                        |
-| `MenuSeparator`         | Visual divider between related item groups.                                                              |
-| `MenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, and `Content`).                           |
-| `MenuGroup*` / controls | Optional structured controls: labels, radio groups/items, checkbox items, and indicator slots.           |
+| Part                    | Role                                                                                      |
+| ----------------------- | ----------------------------------------------------------------------------------------- |
+| `Menu`                  | Root state and interactions.                                                              |
+| `MenuTrigger`           | Control that opens the menu. Supports props such as `openOnHover`, `delay`, and `handle`. |
+| `MenuTriggerIcon`       | Optional trigger icon. Renders the default icon or your custom children.                  |
+| `MenuContent`           | Popup container for items. Accepts positioning props and owns the internal service slots. |
+| `MenuArrow`             | Optional pointer from popup to trigger.                                                   |
+| `MenuItem`              | Action row with disabled state and optional `closeOnClick`.                               |
+| `MenuLinkItem`          | Link-style item that keeps menu behavior.                                                 |
+| `MenuSeparator`         | Divider between related items.                                                            |
+| `MenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, `Content`).                |
+| `MenuGroup*` / controls | Group labels, radio groups/items, checkbox items, and indicator slots.                    |
 
-`MenuContent` renders the Base UI portal, positioner, optional backdrop, optional viewport,
-and popup internally. In most cases, keep those service slots hidden and style visible parts
-such as trigger, items, separators, and arrow. Use `classNames` for service-slot classes and
-`slotProps` only when you need to pass non-class props to `portal`, `backdrop`, `positioner`,
-`arrow`, or `viewport`.
+`MenuContent` keeps `portal`, `backdrop`, `positioner`, `arrow`, and `viewport` internal. Style the popup with `className`, style internal service slots with `classNames`, and use `slotProps` only for non-class slot props.
 
 ## Composition
 
-Use `Menu` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, and `handle`. Add `withViewport` only when you need Base UI content transitions for
-menus shared by multiple detached triggers.
+Use `Menu` for root behavior such as `open`, `defaultOpen`, `onOpenChange`, and `handle`. Use `withViewport` only when you need Base UI content transitions for menus shared by detached triggers.
 
-`className` styles the visible popup. `classNames` styles the internal service slots hidden from
-the default composition. `MenuContent` forwards Base UI popup props and accepts positioner props
-such as `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`,
-`collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`,
-and `disableAnchorTracking` directly. Use `container`, `withBackdrop`, and `withViewport` for
-common service-slot behavior, and use `slotProps` for the rare cases that need lower-level
-Base UI portal, backdrop, positioner, arrow, or viewport props. Arrow is enabled by default;
-set `withArrow={false}` to disable it:
+`MenuContent` styles the visible popup through `className` and the internal service slots through `classNames`. It forwards Base UI popup props and accepts positioner props directly, including `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`, and `disableAnchorTracking`. Use `container`, `withBackdrop`, and `withViewport` for common slot behavior. Use `slotProps` only when you need lower-level props for `portal`, `backdrop`, `positioner`, `arrow`, or `viewport`. Arrow is enabled by default; set `withArrow={false}` to disable it:
 
 ### Defaults
 
@@ -727,7 +713,7 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
 
 ### Custom Styles
 
-Use `className` for visible slots and `classNames` for internal service slots. Icon slots accept children from your application or an external icon library.
+Use `className` for visible slots, `classNames` for internal service slots, and custom children when you need to replace the default icons.
 
 <Preview>
   <CustomStylesMenuExample />

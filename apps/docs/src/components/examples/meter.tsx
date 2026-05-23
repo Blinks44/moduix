@@ -39,19 +39,17 @@ export const meterPlaygroundCssProperties: CssPropertyInput[] = [
   ['--meter-track-height', '0.5rem', 'Controls track height.'],
   ['--meter-track-radius', 'var(--radius-full)', 'Controls track radius.'],
 ];
+const meterCssProperties = meterOverrideCssProperties.map(normalizeCssProperty);
+const meterPlaygroundProperties = meterPlaygroundCssProperties.map(normalizeCssProperty);
 
 export function MeterCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={meterOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+  return <CSSPropertiesReferenceTable properties={meterCssProperties} />;
 }
 
 export function MeterCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesEditor
-      properties={meterPlaygroundCssProperties.map(normalizeCssProperty)}
+      properties={meterPlaygroundProperties}
       values={values}
       onChange={onChange}
       onReset={onReset}

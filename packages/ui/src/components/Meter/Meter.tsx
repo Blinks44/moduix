@@ -13,8 +13,6 @@ type MeterProps = MeterPrimitive.Root.Props & {
 };
 
 function Meter({ className, classNames, children, withTrack = true, ...props }: MeterProps) {
-  const { track, indicator } = classNames ?? {};
-
   return (
     <MeterPrimitive.Root
       data-slot="meter-root"
@@ -23,8 +21,8 @@ function Meter({ className, classNames, children, withTrack = true, ...props }: 
     >
       {children}
       {withTrack && (
-        <MeterTrack className={track}>
-          <MeterIndicator className={indicator} />
+        <MeterTrack className={classNames?.track}>
+          <MeterIndicator className={classNames?.indicator} />
         </MeterTrack>
       )}
     </MeterPrimitive.Root>

@@ -50,9 +50,8 @@ import {
 
 ## Anatomy
 
-`Meter` combines a semantic root with visible value text and a visual fill track. In the default setup,
-the track and indicator are rendered automatically, so most use cases only need `Meter`, `MeterLabel`,
-and `MeterValue`.
+`Meter` combines a semantic root, a visible value, and a visual fill track. By default it renders
+the track and indicator automatically, so most cases only need `Meter`, `MeterLabel`, and `MeterValue`.
 
 ```text
 Meter[value]
@@ -69,21 +68,18 @@ Meter[value]
 </Meter>
 ```
 
-| Part             | Role                                                                                               |
-| ---------------- | -------------------------------------------------------------------------------------------------- |
-| `Meter`          | Root state and accessibility layer. Provides `value`, `min`, `max`, formatting, and ARIA metadata. |
-| `MeterLabel`     | Visible text label associated with the meter for users and assistive technology.                   |
-| `MeterValue`     | Formatted value output. Can render default text or a custom function for value wording.            |
-| `MeterTrack`     | Visual track slot behind the fill. Rendered automatically unless `withTrack={false}` is set.       |
-| `MeterIndicator` | Fill slot that reflects current progress within the track.                                         |
-
-`Meter` does not use service slots such as `portal`, `backdrop`, or `viewport`.
-Keep the default track structure when possible, and customize slot-level visuals through `classNames`
-or by composing `MeterTrack` and `MeterIndicator` manually when the design needs full control.
+| Part             | Role                                                                                           |
+| ---------------- | ---------------------------------------------------------------------------------------------- |
+| `Meter`          | Root state and accessibility layer. Provides `value`, `min`, `max`, formatting, and ARIA text. |
+| `MeterLabel`     | Label associated with the meter.                                                               |
+| `MeterValue`     | Formatted value output, with optional custom text rendering.                                   |
+| `MeterTrack`     | Visual track behind the fill. Rendered automatically unless `withTrack={false}` is set.        |
+| `MeterIndicator` | Fill that reflects the current value within the range.                                         |
 
 ## Composition
 
-Use `withTrack={false}` and compose `MeterTrack` with `MeterIndicator` when the visual structure needs direct access to Base UI slots.
+Keep the built-in track for standard usage. Switch to `withTrack={false}` only when you need to
+compose `MeterTrack` and `MeterIndicator` manually; otherwise you'll render a second track.
 
 ### Defaults
 
@@ -96,7 +92,7 @@ Use `withTrack={false}` and compose `MeterTrack` with `MeterIndicator` when the 
 | `format`    | -       | `Intl.NumberFormatOptions` |
 | `locale`    | runtime | `Intl.LocalesArgument`     |
 
-Use `className` for root-level styling and `classNames` for internal `track`/`indicator` slots.
+Use `className` for the root and `classNames` for the built-in `track` and `indicator`.
 
 <Preview>
   <CompositionMeterExample />
@@ -148,8 +144,6 @@ Use `className` for root-level styling and `classNames` for internal `track`/`in
       }
 
       .composedIndicator {
-        display: block;
-        height: 100%;
         border-radius: calc(var(--radius-md) - var(--border-width-sm));
         background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
       }
@@ -163,7 +157,7 @@ Use `className` for root-level styling and `classNames` for internal `track`/`in
 
 ### Min Max Range
 
-Use `min` and `max` when the value belongs to a custom range instead of the default `0` to `100`.
+Use `min` and `max` for ranges other than `0` to `100`.
 
 <Preview>
   <MinMaxRangeMeterExample />
@@ -191,7 +185,7 @@ Use `min` and `max` when the value belongs to a custom range instead of the defa
 
 ### Controlled
 
-Keep the value in React state when the meter mirrors another control or live application state.
+Keep the value in React state when the meter mirrors another control.
 
 <Preview>
   <ControlledMeterExample />
@@ -248,7 +242,7 @@ Keep the value in React state when the meter mirrors another control or live app
 
 ### Percent Format
 
-Use `format` and a custom `MeterValue` child function to present the value in user-facing text.
+Use `format` and a custom `MeterValue` child function for user-facing value text.
 
 <Preview>
   <PercentFormatMeterExample />
@@ -276,7 +270,8 @@ Use `format` and a custom `MeterValue` child function to present the value in us
 
 ### Custom Styles
 
-`Meter` renders the track and indicator automatically. Use `className` for the root and `classNames` for the internal track or indicator slots.
+`Meter` renders the track and indicator automatically. Use `className` for the root and `classNames`
+for the internal track and indicator slots.
 
 <Preview>
   <CustomStylesMeterExample />

@@ -41,8 +41,6 @@
 }
 
 .composedIndicator {
-  display: block;
-  height: 100%;
   border-radius: calc(var(--radius-md) - var(--border-width-sm));
   background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
 }

@@ -13,7 +13,6 @@ import {
   IndicatorRightMenubarExample,
   LinkItemsMenubarExample,
   MenubarExample,
-  NestedMenubarExample,
   ShortcutsMenubarExample,
   VerticalMenubarExample,
   menubarPlaygroundCssProperties,
@@ -92,10 +91,9 @@ import {
 
 ## Anatomy
 
-`Menubar` is built from top-level menus. Each `MenubarMenu` pairs one `MenubarTrigger`
-with one `MenubarContent`; keep this pair together so keyboard navigation and open state
-stay predictable. `MenubarContent` renders service slots internally, so day-to-day usage
-only needs the visible command parts.
+`Menubar` is built from top-level menus. Each `MenubarMenu` should contain one
+`MenubarTrigger` and one `MenubarContent`. `MenubarContent` renders service slots
+internally, so most usage only needs the visible command parts.
 
 ```text
 Menubar
@@ -144,24 +142,21 @@ Menubar
 | `MenubarSeparator` / `MenubarGroup*`       | Visual grouping parts for related commands.                                                                  |
 | `MenubarSubmenu`                           | Nested command group rendered from a submenu trigger and submenu content.                                    |
 
-In most cases, keep default portal and positioning behavior and style visible parts first:
-`Menubar`, `MenubarTrigger`, `MenubarContent`, and item rows. Use `classNames` plus
-`slotProps` only when you need to customize service layers (`portal`, `backdrop`, `positioner`,
-or `viewport`) beyond classes.
+Start by styling the visible parts: `Menubar`, `MenubarTrigger`, `MenubarContent`, and
+item rows. Reach for `classNames` and `slotProps` only when you need to customize internal
+service slots such as `portal`, `backdrop`, `positioner`, or `viewport`.
 
 ## Composition
 
-`Menubar` owns the root menubar behavior. Each `MenubarMenu` owns a top-level menu and
-uses `MenubarTrigger` plus `MenubarContent` for the popup.
+`Menubar` owns the root menubar behavior. Each `MenubarMenu` owns one top-level popup.
 
-`className` styles the visible popup. `classNames` styles internal service slots hidden from
-the default composition. `MenubarContent` forwards Base UI popup props and accepts positioner
-props such as `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`,
-`collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`,
-and `disableAnchorTracking` directly. Arrow is disabled by default; set `arrow` to render
-the default arrow, or pass a custom node to `arrow` for full control. Use `container`
-and `withBackdrop` for common service-slot behavior, and use `slotProps` for lower-level Base UI
-portal, backdrop, positioner, arrow, or viewport props:
+`className` styles the visible popup. `classNames` styles internal service slots.
+`MenubarContent` forwards Base UI popup props and accepts positioner props such as `side`,
+`sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`,
+`collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`, and
+`disableAnchorTracking`. Arrow is disabled by default; set `arrow` to `true` for the
+default arrow, or pass a custom node. Use `container` and `withBackdrop` for the common
+cases, and `slotProps` for lower-level portal, backdrop, positioner, arrow, or viewport props:
 
 ### Defaults
 
@@ -391,58 +386,6 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Text an
                   </MenubarItemText>
                   <MenubarCheckboxItemIndicator />
                 </MenubarCheckboxItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Nested
-
-Use `MenubarSubmenu` with `MenubarSubmenuTrigger` and `MenubarSubmenuContent` for nested command groups.
-
-<Preview>
-  <NestedMenubarExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Menubar,
-        MenubarMenu,
-        MenubarTrigger,
-        MenubarContent,
-        MenubarItem,
-        MenubarSubmenu,
-        MenubarSubmenuTrigger,
-        MenubarSubmenuTriggerIcon,
-        MenubarSubmenuContent,
-        MenubarSeparator,
-      } from "moduix";
-
-      export function NestedMenubarDemo() {
-        return (
-          <Menubar>
-            <MenubarMenu>
-              <MenubarTrigger>File</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem closeOnClick>New File</MenubarItem>
-                <MenubarSubmenu>
-                  <MenubarSubmenuTrigger>
-                    Export
-                    <MenubarSubmenuTriggerIcon />
-                  </MenubarSubmenuTrigger>
-                  <MenubarSubmenuContent>
-                    <MenubarItem closeOnClick>PDF</MenubarItem>
-                    <MenubarItem closeOnClick>PNG</MenubarItem>
-                    <MenubarItem closeOnClick>SVG</MenubarItem>
-                  </MenubarSubmenuContent>
-                </MenubarSubmenu>
-                <MenubarSeparator />
-                <MenubarItem closeOnClick>Print</MenubarItem>
               </MenubarContent>
             </MenubarMenu>
           </Menubar>

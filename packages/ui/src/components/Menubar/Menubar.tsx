@@ -22,22 +22,24 @@ type MenubarContentSlotProps = {
   viewport?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
 };
 
+type MenubarPositionerProps = Pick<
+  MenuPrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'anchor'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'positionMethod'
+  | 'disableAnchorTracking'
+>;
+
 type MenubarContentProps = MenuPrimitive.Popup.Props &
-  Pick<
-    MenuPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-    | 'disableAnchorTracking'
-  > & {
+  MenubarPositionerProps & {
     classNames?: MenubarContentClassNames;
     slotProps?: MenubarContentSlotProps;
     container?: MenuPrimitive.Portal.Props['container'];
@@ -161,7 +163,7 @@ function MenubarContent({
   ...props
 }: MenubarContentProps) {
   const positionerSlotProps = slotProps?.positioner;
-  const resolvedPositionerProps = {
+  const resolvedPositionerProps: MenubarPositionerProps = {
     side: side ?? positionerSlotProps?.side,
     sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? 6,
     align: align ?? positionerSlotProps?.align,
@@ -174,21 +176,7 @@ function MenubarContent({
     sticky: sticky ?? positionerSlotProps?.sticky,
     positionMethod: positionMethod ?? positionerSlotProps?.positionMethod,
     disableAnchorTracking: disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking,
-  } satisfies Pick<
-    MenuPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-    | 'disableAnchorTracking'
-  >;
+  };
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPropsContainer;
   const { arrowChildren, viewportChildren } = splitArrowChildren(children);

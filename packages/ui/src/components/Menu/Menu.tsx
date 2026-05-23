@@ -75,6 +75,7 @@ type MenuCheckboxItemProps = MenuPrimitive.CheckboxItem.Props & {
   indicator?: IndicatorPosition;
 };
 
+const MENU_CONTENT_SIDE_OFFSET = 8;
 const Menu = MenuPrimitive.Root;
 const MenuSubmenu = MenuPrimitive.SubmenuRoot;
 const createMenuHandle = MenuPrimitive.createHandle;
@@ -180,10 +181,16 @@ function MenuContent({
   disableAnchorTracking,
   ...props
 }: MenuContentProps) {
-  const positionerSlotProps = slotProps?.positioner;
+  const {
+    portal: portalSlotProps = {},
+    backdrop: backdropSlotProps,
+    positioner: positionerSlotProps,
+    arrow: arrowSlotProps,
+    viewport: viewportSlotProps,
+  } = slotProps ?? {};
   const resolvedPositionerProps: MenuPositionerControlProps = {
     side: side ?? positionerSlotProps?.side,
-    sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? 8,
+    sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? MENU_CONTENT_SIDE_OFFSET,
     align: align ?? positionerSlotProps?.align,
     alignOffset: alignOffset ?? positionerSlotProps?.alignOffset,
     arrowPadding: arrowPadding ?? positionerSlotProps?.arrowPadding,
@@ -195,7 +202,7 @@ function MenuContent({
     positionMethod: positionMethod ?? positionerSlotProps?.positionMethod,
     disableAnchorTracking: disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking,
   };
-  const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
+  const { container: slotPropsContainer, ...portalProps } = portalSlotProps;
   const portalContainer = container ?? slotPropsContainer;
   const { arrowChild, viewportChildren } = splitArrowChild(children);
   const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
@@ -203,15 +210,15 @@ function MenuContent({
   const resolvedArrow =
     arrowChild ??
     (showArrow ? (
-      <MenuArrow className={classNames?.arrow} {...slotProps?.arrow}>
+      <MenuArrow className={classNames?.arrow} {...arrowSlotProps}>
         {arrowContent}
       </MenuArrow>
     ) : null);
 
   return (
-    <MenuPortal className={classNames?.portal} container={portalContainer} {...portalSlotProps}>
+    <MenuPortal className={classNames?.portal} container={portalContainer} {...portalProps}>
       {withBackdrop ? (
-        <MenuBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
+        <MenuBackdrop className={classNames?.backdrop} {...backdropSlotProps} />
       ) : null}
       <MenuPositioner
         {...positionerSlotProps}
@@ -221,7 +228,7 @@ function MenuContent({
         <MenuPopup className={className} {...props}>
           {resolvedArrow}
           {withViewport ? (
-            <MenuViewport className={classNames?.viewport} {...slotProps?.viewport}>
+            <MenuViewport className={classNames?.viewport} {...viewportSlotProps}>
               {viewportChildren}
             </MenuViewport>
           ) : (
@@ -472,8 +479,6 @@ type MenuHandle<Payload = unknown> = MenuPrimitive.Handle<Payload>;
 type MenuTriggerProps = MenuPrimitive.Trigger.Props;
 type MenuItemProps = MenuPrimitive.Item.Props;
 type MenuLinkItemProps = MenuPrimitive.LinkItem.Props;
-type MenuRadioItemPropsPublic = MenuRadioItemProps;
-type MenuCheckboxItemPropsPublic = MenuCheckboxItemProps;
 type MenuSubmenuTriggerProps = MenuPrimitive.SubmenuTrigger.Props;
 type MenuItemShortcutProps = React.ComponentProps<'span'>;
 
@@ -514,8 +519,8 @@ export type {
   MenuTriggerProps,
   MenuItemProps,
   MenuLinkItemProps,
-  MenuRadioItemPropsPublic as MenuRadioItemProps,
-  MenuCheckboxItemPropsPublic as MenuCheckboxItemProps,
+  MenuRadioItemProps,
+  MenuCheckboxItemProps,
   MenuSubmenuTriggerProps,
   MenuItemShortcutProps,
 };
