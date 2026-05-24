@@ -110,13 +110,15 @@ CloseButton
 - `render` and `nativeButton` for custom element composition.
 - `focusableWhenDisabled` when a disabled control must stay in tab order.
 
-Default accessible name is `Close`; set `aria-label` to describe the dismissed surface.
+When `children` are omitted, the default accessible name is `Close`. Set `aria-label` to
+describe the dismissed surface when you render an icon-only custom child. If you render visible
+text, that text can provide the accessible name.
 
-| Prop         | Default     | Values                                           |
-| ------------ | ----------- | ------------------------------------------------ |
-| `type`       | `button`    | Any valid button `type` value                    |
-| `aria-label` | `Close`     | Any descriptive label for the dismissed surface  |
-| `children`   | `CloseIcon` | Any React node (typically custom icon component) |
+| Prop         | Default                             | Values                                           |
+| ------------ | ----------------------------------- | ------------------------------------------------ |
+| `type`       | `button`                            | Any valid button `type` value                    |
+| `aria-label` | `Close` when `children` are omitted | Any descriptive label for the dismissed surface  |
+| `children`   | `CloseIcon`                         | Any React node (typically custom icon component) |
 
 Use `className` to style the root. `classNames` is not needed because there are no extra service slots.
 

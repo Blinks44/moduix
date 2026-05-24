@@ -7,16 +7,18 @@ import styles from './CloseButton.module.css';
 export type CloseButtonProps = ButtonPrimitive.Props;
 
 const CloseButton = React.forwardRef(function CloseButton(
-  { className, children, 'aria-label': ariaLabel = 'Close', ...props }: CloseButtonProps,
+  { className, children, 'aria-label': ariaLabel, ...props }: CloseButtonProps,
   ref: React.ForwardedRef<HTMLElement>,
 ) {
+  const resolvedAriaLabel = ariaLabel ?? (children == null ? 'Close' : undefined);
+
   return (
     <ButtonPrimitive
       ref={ref}
       type="button"
       data-slot="close-button"
       className={mergeClassName(className, styles.root)}
-      aria-label={ariaLabel}
+      aria-label={resolvedAriaLabel}
       {...props}
     >
       {children ?? <CloseIcon />}
