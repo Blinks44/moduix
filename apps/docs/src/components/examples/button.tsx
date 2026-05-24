@@ -272,12 +272,21 @@ export function ButtonDisabledExample() {
   );
 }
 
+export function ButtonCustomTagExample() {
+  return (
+    <Button render={<div />} nativeButton={false}>
+      Complex Trigger
+    </Button>
+  );
+}
+
 export function ButtonLoadingExample() {
   const [loading, setLoading] = React.useState(false);
 
   return (
     <Button
       loading={loading}
+      focusableWhenDisabled
       loadingText="Saving"
       onClick={() => {
         setLoading(true);

@@ -7,6 +7,7 @@ icon: Component
 import {
   ButtonCssPlaygroundPanel,
   ButtonCssPropertiesPanel,
+  ButtonCustomTagExample,
   ButtonCustomLoadingIndicatorExample,
   ButtonDisabledExample,
   ButtonExample,
@@ -66,6 +67,7 @@ Button
 | `spinner`          | Default spinner inside `loadingIndicator` when no custom indicator is provided. |
 
 The root exposes `data-disabled` (Base UI) and `data-loading` (moduix) for state styling.
+When `loading` is enabled without `loadingText`, the original button content stays in the accessibility tree so the button keeps its accessible name.
 
 ## Composition
 
@@ -83,18 +85,16 @@ Use `className` for the root and `classNames` for internal slots:
 />
 ```
 
-For submit buttons, pass `type="submit"`. For links, style an `<a>` directly.
+For submit buttons, pass `type="submit"`. For links, style an `<a>` directly. For icon-only buttons, provide an accessible name with `aria-label`.
 
 | Prop                    | Default           | Values                                                                                   |
 | ----------------------- | ----------------- | ---------------------------------------------------------------------------------------- |
 | `variant`               | `default`         | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`                  | `md`              | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
 | `loading`               | `false`           | `true`, `false`                                                                          |
-| `focusableWhenDisabled` | `loading`\*       | `true`, `false`                                                                          |
+| `focusableWhenDisabled` | `false`           | `true`, `false`                                                                          |
 | `loadingText`           | `undefined`       | `ReactNode`                                                                              |
 | `loadingIndicator`      | `default spinner` | `ReactNode`                                                                              |
-
-\* If `focusableWhenDisabled` is not provided, the component uses the current `loading` value.
 
 ## Examples
 
@@ -222,9 +222,32 @@ Use `focusableWhenDisabled` when the button becomes disabled after focus, for ex
   </Preview.Code>
 </Preview>
 
+### Custom Tag
+
+Use `render` and `nativeButton={false}` when the button should render another tag but keep button semantics.
+
+<Preview>
+  <ButtonCustomTagExample />
+
+  <Preview.Code>
+    {`
+      import { Button } from "moduix";
+
+      export function ButtonCustomTagDemo() {
+        return (
+          <Button render={<div />} nativeButton={false}>
+            Complex Trigger
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ### Loading
 
-Use built-in loading props when an action is pending and layout should stay stable.
+Use built-in loading props when an action is pending and layout should stay stable. Add `focusableWhenDisabled` when the loading state starts after the button has already received focus.
 
 <Preview>
   <ButtonLoadingExample />
@@ -240,6 +263,7 @@ Use built-in loading props when an action is pending and layout should stay stab
         return (
           <Button
             loading={loading}
+            focusableWhenDisabled
             loadingText="Saving"
             onClick={() => {
               setLoading(true);
