@@ -282,7 +282,12 @@ export const autocompleteOverrideCssProperties: CssPropertyInput[] = [
     'Controls inline list top scroll padding.',
   ],
   ['--autocomplete-input-group-padding-x', '0', 'Controls horizontal input-group padding.'],
-  ['--autocomplete-input-padding-x-end', '3.25rem', 'Controls input end padding.'],
+  ['--autocomplete-input-padding-x-end', '0.875rem', 'Controls input end padding without actions.'],
+  [
+    '--autocomplete-input-padding-x-end-with-actions',
+    '3.25rem',
+    'Controls input end padding when control actions are rendered.',
+  ],
   ['--autocomplete-input-padding-x-start', '0.875rem', 'Controls input start padding.'],
   [
     '--autocomplete-input-placeholder-color',

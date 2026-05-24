@@ -281,7 +281,8 @@
   --autocomplete-inline-list-scroll-padding-bottom: initial; /* 0.5rem */
   --autocomplete-inline-list-scroll-padding-top: initial; /* 0.375rem */
   --autocomplete-input-group-padding-x: initial; /* 0 */
-  --autocomplete-input-padding-x-end: initial; /* 3.25rem */
+  --autocomplete-input-padding-x-end: initial; /* 0.875rem */
+  --autocomplete-input-padding-x-end-with-actions: initial; /* 3.25rem */
   --autocomplete-input-padding-x-start: initial; /* 0.875rem */
   --autocomplete-input-placeholder-color: initial; /* var(--color-muted-foreground) */
   --autocomplete-item-color: initial; /* var(--color-foreground) */

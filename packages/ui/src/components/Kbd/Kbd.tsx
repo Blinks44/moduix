@@ -10,7 +10,7 @@ type KbdProps = React.ComponentPropsWithoutRef<'kbd'> & {
   size?: KbdSize;
 };
 
-const Kbd = React.forwardRef<React.ElementRef<'kbd'>, KbdProps>(function Kbd(
+const Kbd = React.forwardRef<React.ComponentRef<'kbd'>, KbdProps>(function Kbd(
   { className, variant = 'default', size = 'md', ...props },
   ref,
 ) {
@@ -30,7 +30,7 @@ type KbdGroupProps = React.ComponentPropsWithoutRef<'span'> & {
   size?: KbdSize;
 };
 
-const KbdGroup = React.forwardRef<React.ElementRef<'span'>, KbdGroupProps>(function KbdGroup(
+const KbdGroup = React.forwardRef<React.ComponentRef<'span'>, KbdGroupProps>(function KbdGroup(
   { className, size = 'md', ...props },
   ref,
 ) {

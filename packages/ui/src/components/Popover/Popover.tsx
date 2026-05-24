@@ -52,7 +52,7 @@ const Popover = PopoverPrimitive.Root;
 const createPopoverHandle = PopoverPrimitive.createHandle;
 
 const PopoverTrigger = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Trigger>,
+  React.ComponentRef<typeof PopoverPrimitive.Trigger>,
   PopoverPrimitive.Trigger.Props
 >(function PopoverTrigger({ className, render, ...props }, ref) {
   const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
@@ -99,7 +99,7 @@ function PopoverPositioner({ className, ...props }: PopoverPrimitive.Positioner.
 }
 
 const PopoverPopup = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Popup>,
+  React.ComponentRef<typeof PopoverPrimitive.Popup>,
   PopoverPrimitive.Popup.Props
 >(function PopoverPopup({ className, ...props }, ref) {
   return (
@@ -135,7 +135,7 @@ function PopoverArrow({ className, children, ...props }: PopoverPrimitive.Arrow.
 }
 
 const PopoverTitle = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Title>,
+  React.ComponentRef<typeof PopoverPrimitive.Title>,
   PopoverPrimitive.Title.Props
 >(function PopoverTitle({ className, ...props }, ref) {
   return (
@@ -149,7 +149,7 @@ const PopoverTitle = React.forwardRef<
 });
 
 const PopoverDescription = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Description>,
+  React.ComponentRef<typeof PopoverPrimitive.Description>,
   PopoverPrimitive.Description.Props
 >(function PopoverDescription({ className, ...props }, ref) {
   return (
@@ -197,7 +197,7 @@ const PopoverFooter = React.forwardRef<HTMLDivElement, React.ComponentPropsWitho
 );
 
 const PopoverClose = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Close>,
+  React.ComponentRef<typeof PopoverPrimitive.Close>,
   PopoverPrimitive.Close.Props
 >(function PopoverClose({ className, ...props }, ref) {
   return (
@@ -211,7 +211,7 @@ const PopoverClose = React.forwardRef<
 });
 
 const PopoverContent = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Popup>,
+  React.ComponentRef<typeof PopoverPrimitive.Popup>,
   PopoverContentProps
 >(function PopoverContent(
   {

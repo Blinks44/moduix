@@ -32,6 +32,8 @@ const Component = forwardRef(function Component(props, ref) {
 });
 ```
 
+- Do not use `React.ElementRef`; it is deprecated. Use `React.ComponentRef` for `forwardRef` typing.
+
 - Do not add `displayName` when the wrapped function is already named and React can infer it.
 - Add `displayName` only when the wrapper uses an anonymous function or the name would otherwise be unclear in DevTools.
 

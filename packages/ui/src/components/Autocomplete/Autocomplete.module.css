@@ -42,7 +42,7 @@
     border: 0;
     border-radius: inherit;
     padding-inline: var(--autocomplete-input-padding-x-start, 0.875rem)
-      var(--autocomplete-input-padding-x-end, 3.25rem);
+      var(--autocomplete-input-padding-x-end, 0.875rem);
     background: transparent;
     color: inherit;
     font: inherit;
@@ -50,6 +50,12 @@
 
     &::placeholder {
       color: var(--autocomplete-input-placeholder-color, var(--color-muted-foreground));
+    }
+  }
+
+  .inputGroup:has(> [data-slot='autocomplete-control-actions']) {
+    & .input {
+      padding-inline-end: var(--autocomplete-input-padding-x-end-with-actions, 3.25rem);
     }
   }
 
