@@ -11,12 +11,13 @@
     display: flex;
     width: 100%;
     align-items: center;
+    justify-content: space-between;
     gap: var(--collapsible-trigger-gap, var(--spacing-2));
     margin: 0;
     border: 0;
     border-radius: var(--collapsible-trigger-radius, 0);
-    padding-block: var(--collapsible-trigger-padding-y, 0);
-    padding-inline: var(--collapsible-trigger-padding-x, 0);
+    padding-block: var(--collapsible-trigger-padding-y, var(--spacing-1));
+    padding-inline: var(--collapsible-trigger-padding-x, var(--spacing-2));
     background-color: var(--collapsible-trigger-bg, transparent);
     color: var(--collapsible-trigger-color, var(--collapsible-color, var(--color-foreground)));
     font: inherit;

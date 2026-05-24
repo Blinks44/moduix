@@ -61,7 +61,7 @@ import {
         flex-direction: column;
         gap: var(--spacing-1);
         margin: 0;
-        padding-inline-start: var(--spacing-5);
+        padding-inline-start: var(--spacing-2);
       }
     `}
 
@@ -104,16 +104,17 @@ Collapsible
 </Collapsible>
 ```
 
-| Part                     | Role                                                                                                          |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| `Collapsible`            | Root state machine. Controls `open`, `defaultOpen`, `disabled`, and `onOpenChange`.                           |
-| `CollapsibleTrigger`     | Interactive toggle button. Opens or closes the panel, receives open/disabled attributes, and renders an icon. |
-| `CollapsibleTriggerIcon` | Advanced visual state marker. Use directly only when manually composing trigger contents.                     |
-| `CollapsiblePanel`       | Collapsible content region. Put spacing/surface wrappers inside it for cleaner animations.                    |
+| Part                     | Role                                                                                                                          |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `Collapsible`            | Root state machine. Controls `open`, `defaultOpen`, `disabled`, and `onOpenChange`.                                           |
+| `CollapsibleTrigger`     | Interactive toggle button. Opens or closes the panel, receives open/disabled attributes, and renders an icon after the label. |
+| `CollapsibleTriggerIcon` | Advanced visual state marker. Use directly only when manually composing trigger contents.                                     |
+| `CollapsiblePanel`       | Collapsible content region. Put spacing/surface wrappers inside it for cleaner animations.                                    |
 
-`CollapsibleTrigger` renders its icon internally. Use `icon`, `withIcon`, `classNames.icon`, and
+`CollapsibleTrigger` renders its icon internally after the label. Use `icon`, `withIcon`, `classNames.icon`, and
 `slotProps.icon` to replace, hide, style, or pass props to that slot. `CollapsibleTriggerIcon` is
-still exported for manual composition when needed.
+still exported for manual composition when needed. The built-in icon slot is `aria-hidden` by
+default, so decorative icons stay out of the accessibility tree.
 
 ## Composition
 
@@ -122,6 +123,10 @@ Style root/trigger/panel with `className`; style the built-in icon via `classNam
 Use `slotProps.icon` for icon slot attributes, or compose `CollapsibleTriggerIcon` manually when
 you need full trigger markup control. Base UI behavior props (`render`, `nativeButton`,
 `keepMounted`, `hiddenUntilFound`) pass through to matching parts.
+
+When replacing the trigger element with `render`, keep button semantics intact. If the rendered
+element is not a native `<button>`, pass `nativeButton={false}` so Base UI applies the correct
+ARIA button behavior.
 
 | Prop              | Default      | Values                                                                     |
 | ----------------- | ------------ | -------------------------------------------------------------------------- |
@@ -133,6 +138,17 @@ you need full trigger markup control. Base UI behavior props (`render`, `nativeB
 | `className`       | -            | Root/part class string or Base UI state resolver function                  |
 | `classNames.icon` | -            | Icon slot class string                                                     |
 | `slotProps.icon`  | -            | Icon slot props (`aria-*`, `data-*`, etc., excluding `children/className`) |
+
+```tsx
+<Collapsible>
+  <CollapsibleTrigger render={<div />} nativeButton={false}>
+    Recovery keys
+  </CollapsibleTrigger>
+  <CollapsiblePanel keepMounted>
+    <div className={styles.panelContent}>Store these keys somewhere safe.</div>
+  </CollapsiblePanel>
+</Collapsible>
+```
 
 ## Examples
 
@@ -180,7 +196,7 @@ Use `defaultOpen` when the panel should be expanded on first render.
         flex-direction: column;
         gap: var(--spacing-1);
         margin: 0;
-        padding-inline-start: var(--spacing-5);
+        padding-inline-start: var(--spacing-2);
       }
     `}
 
@@ -242,7 +258,7 @@ Control `open` from React state when the collapsible needs to coordinate with ot
         flex-direction: column;
         gap: var(--spacing-1);
         margin: 0;
-        padding-inline-start: var(--spacing-5);
+        padding-inline-start: var(--spacing-2);
       }
 
       .status {
@@ -307,7 +323,7 @@ Set `disabled` on the root when the trigger should be visible but unavailable fo
         flex-direction: column;
         gap: var(--spacing-1);
         margin: 0;
-        padding-inline-start: var(--spacing-5);
+        padding-inline-start: var(--spacing-2);
       }
     `}
 
@@ -365,7 +381,7 @@ Use `hiddenUntilFound` when browser page search should be able to find and expan
         flex-direction: column;
         gap: var(--spacing-1);
         margin: 0;
-        padding-inline-start: var(--spacing-5);
+        padding-inline-start: var(--spacing-2);
       }
     `}
 
@@ -465,7 +481,7 @@ content needs extra layout or surface styles.
         flex-direction: column;
         gap: var(--spacing-1);
         margin: 0;
-        padding-inline-start: var(--spacing-5);
+        padding-inline-start: var(--spacing-2);
       }
     `}
 

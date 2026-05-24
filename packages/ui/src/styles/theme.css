@@ -653,8 +653,8 @@
   --collapsible-trigger-font-size: initial; /* var(--text-sm) */
   --collapsible-trigger-gap: initial; /* var(--spacing-2) */
   --collapsible-trigger-line-height: initial; /* var(--line-height-text-sm) */
-  --collapsible-trigger-padding-x: initial; /* 0 */
-  --collapsible-trigger-padding-y: initial; /* 0 */
+  --collapsible-trigger-padding-x: initial; /* var(--spacing-2) */
+  --collapsible-trigger-padding-y: initial; /* var(--spacing-1) */
   --collapsible-trigger-radius: initial; /* 0 */
   --collapsible-trigger-transition: initial; /* var(--transition-default) */
 

@@ -7,65 +7,79 @@ import styles from './Collapsible.module.css';
 
 type CollapsibleTriggerIconProps = React.ComponentProps<'span'>;
 
-function Collapsible({ className, ...props }: CollapsiblePrimitive.Root.Props) {
+const Collapsible = React.forwardRef<
+  React.ComponentRef<typeof CollapsiblePrimitive.Root>,
+  CollapsiblePrimitive.Root.Props
+>(function Collapsible({ className, ...props }, ref) {
   return (
     <CollapsiblePrimitive.Root
+      ref={ref}
       data-slot="collapsible-root"
       className={mergeClassName(className, styles.root)}
       {...props}
     />
   );
-}
+});
 
-function CollapsibleTrigger({
-  className,
-  children,
-  icon,
-  withIcon = true,
-  classNames,
-  slotProps,
-  ...props
-}: CollapsibleTriggerProps) {
+const CollapsibleTrigger = React.forwardRef<
+  React.ComponentRef<typeof CollapsiblePrimitive.Trigger>,
+  CollapsibleTriggerProps
+>(function CollapsibleTrigger(
+  { className, children, icon, withIcon = true, classNames, slotProps, ...props },
+  ref,
+) {
   const iconClassName = classNames?.icon;
   const iconProps = slotProps?.icon;
 
   return (
     <CollapsiblePrimitive.Trigger
+      ref={ref}
       data-slot="collapsible-trigger"
       className={mergeClassName(className, styles.trigger)}
       {...props}
     >
+      {children}
       {withIcon && (
         <CollapsibleTriggerIcon {...iconProps} className={iconClassName}>
           {icon}
         </CollapsibleTriggerIcon>
       )}
-      {children}
     </CollapsiblePrimitive.Trigger>
   );
-}
+});
 
-function CollapsibleTriggerIcon({ className, children, ...props }: CollapsibleTriggerIconProps) {
-  return (
-    <span
-      data-slot="collapsible-trigger-icon"
-      className={clsx(styles.triggerIcon, className)}
-      {...props}
-    >
-      {children ?? <ChevronRightIcon />}
-    </span>
-  );
-}
+const CollapsibleTriggerIcon = React.forwardRef<HTMLSpanElement, CollapsibleTriggerIconProps>(
+  function CollapsibleTriggerIcon(
+    { className, children, 'aria-hidden': ariaHidden = true, ...props },
+    ref,
+  ) {
+    return (
+      <span
+        ref={ref}
+        data-slot="collapsible-trigger-icon"
+        aria-hidden={ariaHidden}
+        className={clsx(styles.triggerIcon, className)}
+        {...props}
+      >
+        {children ?? <ChevronRightIcon />}
+      </span>
+    );
+  },
+);
 
-function CollapsiblePanel({ className, ...props }: CollapsiblePrimitive.Panel.Props) {
+const CollapsiblePanel = React.forwardRef<
+  React.ComponentRef<typeof CollapsiblePrimitive.Panel>,
+  CollapsiblePrimitive.Panel.Props
+>(function CollapsiblePanel({ className, ...props }, ref) {
   return (
     <CollapsiblePrimitive.Panel
+      ref={ref}
       data-slot="collapsible-panel"
       className={mergeClassName(className, styles.panel)}
       {...props}
     />
   );
-}
+});
 
 type CollapsibleProps = CollapsiblePrimitive.Root.Props;
 type CollapsiblePanelProps = CollapsiblePrimitive.Panel.Props;
@@ -77,7 +91,7 @@ type CollapsibleTriggerSlotProps = {
 };
 type CollapsibleTriggerProps = CollapsiblePrimitive.Trigger.Props & {
   /**
-   * Icon rendered at the start of the trigger.
+   * Icon rendered at the end of the trigger.
    */
   icon?: React.ReactNode;
   /**

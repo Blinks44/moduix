@@ -60,8 +60,8 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-sm)',
     'Controls trigger line height.',
   ],
-  ['--collapsible-trigger-padding-x', '0', 'Controls trigger horizontal padding.'],
-  ['--collapsible-trigger-padding-y', '0', 'Controls trigger vertical padding.'],
+  ['--collapsible-trigger-padding-x', 'var(--spacing-2)', 'Controls trigger horizontal padding.'],
+  ['--collapsible-trigger-padding-y', 'var(--spacing-1)', 'Controls trigger vertical padding.'],
   ['--collapsible-trigger-radius', '0', 'Controls trigger corner radius.'],
   [
     '--collapsible-trigger-transition',
