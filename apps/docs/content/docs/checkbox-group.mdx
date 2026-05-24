@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  CheckboxGroupCustomItemWrapperExample,
   CheckboxGroupCssPlaygroundPanel,
   CheckboxGroupCssPropertiesPanel,
   CheckboxGroupExample,
@@ -39,14 +40,11 @@ import {
         CheckboxGroupLabel,
         CheckboxGroupList,
       } from "moduix";
-      import { useId } from "react";
 
       export function CheckboxGroupDemo() {
-        const labelId = useId();
-
         return (
-          <CheckboxGroup aria-labelledby={labelId} defaultValue={["email"]}>
-            <CheckboxGroupLabel id={labelId}>Notification Channels</CheckboxGroupLabel>
+          <CheckboxGroup defaultValue={["email"]}>
+            <CheckboxGroupLabel>Notification Channels</CheckboxGroupLabel>
             <CheckboxGroupList>
               {options.map((option) => (
                 <CheckboxGroupItem key={option.value}>
@@ -83,8 +81,10 @@ import {
 ## Anatomy
 
 Checkbox Group uses one shared root state with optional label and list wrappers.
-Keep `CheckboxGroupItemControl` and `CheckboxGroupItemLabel` inside the same
-`CheckboxGroupItem` so focus and labeling stay aligned.
+`CheckboxGroupLabel` auto-labels the nearest `CheckboxGroup` when you place it
+inside the same tree. Keep `CheckboxGroupItemControl` and `CheckboxGroupItemLabel`
+inside the same default `CheckboxGroupItem` label wrapper for the compact
+enclosing-label pattern.
 
 ```text
 CheckboxGroup
@@ -98,8 +98,8 @@ CheckboxGroup
 ```
 
 ```tsx
-<CheckboxGroup aria-labelledby={labelId} defaultValue={['email']}>
-  <CheckboxGroupLabel id={labelId}>Notification Channels</CheckboxGroupLabel>
+<CheckboxGroup defaultValue={['email']}>
+  <CheckboxGroupLabel>Notification Channels</CheckboxGroupLabel>
   <CheckboxGroupList>
     <CheckboxGroupItem>
       <CheckboxGroupItemControl value="email" name="notifications" />
@@ -112,9 +112,9 @@ CheckboxGroup
 | Part                       | Role                                                                                |
 | -------------------------- | ----------------------------------------------------------------------------------- |
 | `CheckboxGroup`            | Root state. Manages selected values, `disabled`, `allValues`, and change callbacks. |
-| `CheckboxGroupLabel`       | Optional group heading.                                                             |
+| `CheckboxGroupLabel`       | Optional group heading. Auto-connects to the nearest `CheckboxGroup`.               |
 | `CheckboxGroupList`        | Optional list wrapper for checkbox rows.                                            |
-| `CheckboxGroupItem`        | Optional row wrapper for one control + one text label.                              |
+| `CheckboxGroupItem`        | Optional row wrapper for one control + one text label. Defaults to `<label>`.       |
 | `CheckboxGroupItemControl` | Interactive checkbox control for an item.                                           |
 | `CheckboxGroupItemLabel`   | Optional text label for the item.                                                   |
 
@@ -134,15 +134,18 @@ Use `allValues` with `CheckboxGroupItemControl parent` for select-all behavior.
 | `value`                                 | `undefined` | `string[]` (controlled mode, with `onValueChange`)                      |
 | `className`                             | `undefined` | `string \| ((state) => string \| undefined)`                            |
 | `allValues`                             | `undefined` | `string[]` (required for parent/select-all checkbox patterns)           |
+| `CheckboxGroupItem.render`              | `undefined` | `ReactElement` (replaces the default `<label>` wrapper)                 |
 | `CheckboxGroupItemControl.size`         | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                                            |
 | `CheckboxGroupItemControl.parent`       | `false`     | `boolean` (enables parent checkbox behavior when group has `allValues`) |
 | `CheckboxGroupItemControl.nativeButton` | `false`     | `boolean`                                                               |
 
 `CheckboxGroupLabel`, `CheckboxGroupList`, `CheckboxGroupItem`, and
 `CheckboxGroupItemLabel` are layout slots and accept `className`.
-`CheckboxGroupItemControl` composes `Checkbox`, so it also supports checkbox props
-(`size`, `nativeButton`, `render`, `name`, `value`, `checkedIcon`,
-`indeterminateIcon`, `classNames`, `slotProps`).
+`CheckboxGroupItemControl` composes `Checkbox`, so it also supports the same
+checkbox customization props, refs, and form props described on the Checkbox
+page. Inside a group,
+prefer letting `CheckboxGroup` own checked state rather than mixing in per-item
+`checked` or `defaultChecked`.
 
 Use `className` for the checkbox root, `classNames` for internal indicator slots, and
 `slotProps.indicator` for Base UI indicator props like `keepMounted`:
@@ -181,14 +184,11 @@ Use `size` on `CheckboxGroupItemControl` to align the controls with different fo
         CheckboxGroupLabel,
         CheckboxGroupList,
       } from "moduix";
-      import { useId } from "react";
 
       export function CheckboxGroupSizesDemo() {
-        const labelId = useId();
-
         return (
-          <CheckboxGroup aria-labelledby={labelId} defaultValue={["md"]}>
-            <CheckboxGroupLabel id={labelId}>Control Size</CheckboxGroupLabel>
+          <CheckboxGroup defaultValue={["md"]}>
+            <CheckboxGroupLabel>Control Size</CheckboxGroupLabel>
             <CheckboxGroupList>
               {options.map((option) => (
                 <CheckboxGroupItem key={option.value}>
@@ -235,16 +235,15 @@ Control `value` from React state when the selected options need to coordinate wi
         CheckboxGroupLabel,
         CheckboxGroupList,
       } from "moduix";
-      import { useId, useState } from "react";
+      import { useState } from "react";
 
       export function ControlledCheckboxGroupDemo() {
-        const labelId = useId();
         const [value, setValue] = useState(["push"] as string[]);
 
         return (
           <div className={styles.wrapper}>
-            <CheckboxGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
-              <CheckboxGroupLabel id={labelId}>Active Alerts</CheckboxGroupLabel>
+            <CheckboxGroup value={value} onValueChange={setValue}>
+              <CheckboxGroupLabel>Active Alerts</CheckboxGroupLabel>
               <CheckboxGroupList>
                 {options.map((option) => (
                   <CheckboxGroupItem key={option.value}>
@@ -309,14 +308,11 @@ Use `disabled` on the group to prevent interaction with every checkbox in the gr
         CheckboxGroupLabel,
         CheckboxGroupList,
       } from "moduix";
-      import { useId } from "react";
 
       export function DisabledCheckboxGroupDemo() {
-        const labelId = useId();
-
         return (
-          <CheckboxGroup aria-labelledby={labelId} defaultValue={["push"]} disabled>
-            <CheckboxGroupLabel id={labelId}>Disabled Settings</CheckboxGroupLabel>
+          <CheckboxGroup defaultValue={["push"]} disabled>
+            <CheckboxGroupLabel>Disabled Settings</CheckboxGroupLabel>
             <CheckboxGroupList>
               {options.map((option) => (
                 <CheckboxGroupItem key={option.value}>
@@ -362,20 +358,14 @@ indeterminate state when only some child options are checked.
         CheckboxGroupLabel,
         CheckboxGroupList,
       } from "moduix";
-      import { useId, useState } from "react";
+      import { useState } from "react";
 
       export function ParentCheckboxGroupDemo() {
-        const labelId = useId();
         const [value, setValue] = useState([] as string[]);
 
         return (
-          <CheckboxGroup
-            aria-labelledby={labelId}
-            value={value}
-            onValueChange={setValue}
-            allValues={fruitValues}
-          >
-            <CheckboxGroupLabel id={labelId}>Fruits</CheckboxGroupLabel>
+          <CheckboxGroup value={value} onValueChange={setValue} allValues={fruitValues}>
+            <CheckboxGroupLabel>Fruits</CheckboxGroupLabel>
             <CheckboxGroupList>
               <CheckboxGroupItem>
                 <CheckboxGroupItemControl parent />
@@ -428,7 +418,6 @@ Pass `checkedIcon`, `indeterminateIcon`, `indicator`, or custom children to
         CheckboxGroupLabel,
         CheckboxGroupList,
       } from "moduix";
-      import { useId } from "react";
 
       function CustomPlusIcon() {
         return (
@@ -444,11 +433,9 @@ Pass `checkedIcon`, `indeterminateIcon`, `indicator`, or custom children to
       }
 
       export function CustomIconCheckboxGroupDemo() {
-        const labelId = useId();
-
         return (
-          <CheckboxGroup aria-labelledby={labelId} defaultValue={["email"]}>
-            <CheckboxGroupLabel id={labelId}>Custom Indicators</CheckboxGroupLabel>
+          <CheckboxGroup defaultValue={["email"]}>
+            <CheckboxGroupLabel>Custom Indicators</CheckboxGroupLabel>
             <CheckboxGroupList>
               {options.map((option) => (
                 <CheckboxGroupItem key={option.value}>
@@ -498,20 +485,11 @@ Pass `className` to the group, label, list, item, control, and item label slots.
         CheckboxGroupLabel,
         CheckboxGroupList,
       } from "moduix";
-      import { useId } from "react";
 
       export function CustomStylesCheckboxGroupDemo() {
-        const labelId = useId();
-
         return (
-          <CheckboxGroup
-            aria-labelledby={labelId}
-            defaultValue={["email"]}
-            className={styles.customGroup}
-          >
-            <CheckboxGroupLabel id={labelId} className={styles.customLabel}>
-              Styled Channels
-            </CheckboxGroupLabel>
+          <CheckboxGroup defaultValue={["email"]} className={styles.customGroup}>
+            <CheckboxGroupLabel className={styles.customLabel}>Styled Channels</CheckboxGroupLabel>
             <CheckboxGroupList className={styles.customList}>
               {options.map((option) => (
                 <CheckboxGroupItem key={option.value} className={styles.customItem}>
@@ -592,20 +570,74 @@ want a compact enclosing-label composition.
         CheckboxGroupList,
         CheckboxLabel,
       } from "moduix";
-      import { useId } from "react";
 
       export function CheckboxGroupFieldCompositionDemo() {
-        const labelId = useId();
-
         return (
-          <CheckboxGroup aria-labelledby={labelId} defaultValue={["email"]}>
-            <CheckboxGroupLabel id={labelId}>Channels</CheckboxGroupLabel>
+          <CheckboxGroup defaultValue={["email"]}>
+            <CheckboxGroupLabel>Channels</CheckboxGroupLabel>
             <CheckboxGroupList>
               {options.map((option) => (
                 <CheckboxField key={option.value}>
                   <Checkbox value={option.value} name="field-composition" />
                   <CheckboxLabel>{option.label}</CheckboxLabel>
                 </CheckboxField>
+              ))}
+            </CheckboxGroupList>
+          </CheckboxGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "email", label: "Email updates" },
+        { value: "push", label: "Push notifications" },
+        { value: "sms", label: "SMS alerts" },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Custom Item Wrapper
+
+Use `CheckboxGroupItem render` when the row should not be a `<label>`, such as
+button-based or custom grid layouts. In that case, use `nativeButton` and a
+sibling `<label htmlFor>` if clicking the text should still toggle the checkbox.
+
+<Preview>
+  <CheckboxGroupCustomItemWrapperExample />
+
+  <Preview.Code>
+    {`
+      import {
+        CheckboxGroup,
+        CheckboxGroupItem,
+        CheckboxGroupItemControl,
+        CheckboxGroupItemLabel,
+        CheckboxGroupLabel,
+        CheckboxGroupList,
+      } from "moduix";
+
+      export function CheckboxGroupCustomItemWrapperDemo() {
+        return (
+          <CheckboxGroup defaultValue={["email"]}>
+            <CheckboxGroupLabel>Channels</CheckboxGroupLabel>
+            <CheckboxGroupList>
+              {options.map((option) => (
+                <CheckboxGroupItem key={option.value} render={<div />}>
+                  <CheckboxGroupItemControl
+                    nativeButton
+                    render={<button />}
+                    id={\`custom-item-\${option.value}\`}
+                    value={option.value}
+                    name="custom-item-wrapper"
+                  />
+                  <label htmlFor={\`custom-item-\${option.value}\`}>{option.label}</label>
+                </CheckboxGroupItem>
               ))}
             </CheckboxGroupList>
           </CheckboxGroup>
