@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { CheckFilledIcon, InfoIcon } from '@/primitives';
-import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from './Alert';
+import { Alert, AlertClose, AlertContent, AlertDescription, AlertIcon, AlertTitle } from './Alert';
 import styles from './Alert.stories.module.css';
 
 const meta = {
@@ -82,6 +82,23 @@ export const Dismissible: Story = {
       </div>
     );
   },
+};
+
+export const CustomDismissLayout: Story = {
+  render: () => (
+    <Alert variant="info">
+      <AlertIcon>
+        <InfoIcon />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle as="h2">Workspace sync is active</AlertTitle>
+        <AlertDescription>
+          Render AlertClose manually when you need custom placement or button content.
+        </AlertDescription>
+      </AlertContent>
+      <AlertClose className={styles.inlineClose}>Dismiss</AlertClose>
+    </Alert>
+  ),
 };
 
 export const WithoutDismissAnimation: Story = {

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
+import { CloseButton } from '@/components/CloseButton';
 import {
   Lightbox,
   LightboxContent,
@@ -53,6 +54,35 @@ export const TriggerComposition: Story = {
           }
         />
         <LightboxContent withBackdrop={false}>
+          <img
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=90"
+            alt="Earth from space"
+            style={{ display: 'block', width: '100%', height: 'auto' }}
+          />
+        </LightboxContent>
+      </Lightbox>
+    );
+  },
+};
+
+export const CustomBuiltInCloseButton: Story = {
+  render: () => {
+    return (
+      <Lightbox>
+        <LightboxTrigger
+          render={
+            <button type="button" style={{ cursor: 'zoom-in' }}>
+              Open image
+            </button>
+          }
+        />
+        <LightboxContent
+          closeButton={
+            <CloseButton aria-label="Close preview">
+              <span aria-hidden="true">x</span>
+            </CloseButton>
+          }
+        >
           <img
             src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=90"
             alt="Earth from space"

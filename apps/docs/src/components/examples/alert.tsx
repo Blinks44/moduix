@@ -1,5 +1,6 @@
 import {
   Alert,
+  AlertClose,
   AlertContent,
   AlertDescription,
   AlertIcon,
@@ -237,6 +238,23 @@ export function AlertWithoutDismissAnimationExample() {
           Use this mode when animation would conflict with layout changes.
         </AlertDescription>
       </AlertContent>
+    </Alert>
+  );
+}
+
+export function AlertCustomDismissExample() {
+  return (
+    <Alert variant="info">
+      <AlertIcon>
+        <InfoIcon />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle as="h2">Workspace sync is active</AlertTitle>
+        <AlertDescription>
+          Render AlertClose manually when you need custom placement or button content.
+        </AlertDescription>
+      </AlertContent>
+      <AlertClose className={styles.inlineClose}>Dismiss</AlertClose>
     </Alert>
   );
 }

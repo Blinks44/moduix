@@ -11,6 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
+  CloseButton,
   CloseLineIcon,
   ScrollArea,
   createAlertDialogHandle,
@@ -327,15 +328,15 @@ export function CustomCloseIconAlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent
+        closeButton={
+          <CloseButton aria-label="Close archive dialog" className={styles.customCloseIcon}>
+            <CloseLineIcon />
+          </CloseButton>
+        }
+      >
         <AlertDialogHeader>
           <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-          <AlertDialogCloseIcon
-            aria-label="Close archive dialog"
-            className={styles.customCloseIcon}
-          >
-            <CloseLineIcon />
-          </AlertDialogCloseIcon>
           <AlertDialogDescription>
             Team members will lose access until the workspace is restored.
           </AlertDialogDescription>

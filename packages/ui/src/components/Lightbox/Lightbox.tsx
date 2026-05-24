@@ -170,6 +170,7 @@ function LightboxContent({
 }: LightboxContentProps) {
   const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
   const resolvedContainer = container ?? slotPortalContainer;
+  const shouldRenderCloseButton = closeButton !== undefined || withCloseButton;
   const content = closeOnContentClick ? (
     <LightboxClose className={styles.contentClose} aria-label={closeLabel} render={<div />}>
       {children}
@@ -192,7 +193,7 @@ function LightboxContent({
         data-with-backdrop={withBackdrop ? 'true' : 'false'}
         {...slotProps?.viewport}
       >
-        {withCloseButton ? (
+        {shouldRenderCloseButton ? (
           <LightboxClose
             className={styles.closeButton}
             aria-label={closeLabel}

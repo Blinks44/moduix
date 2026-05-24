@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  AlertCustomDismissExample,
   AlertCssPlaygroundPanel,
   AlertCssPropertiesPanel,
   AlertDismissibleExample,
@@ -51,8 +52,8 @@ Use it for inline messages with optional icon, dismiss control, and close animat
 
 ## Anatomy
 
-`Alert` is composed from semantic content slots. `AlertIcon` is optional, and `AlertClose` is
-rendered automatically when `withCloseButton` is set on the root.
+`Alert` is composed from semantic content slots. `AlertIcon` is optional. `AlertClose` can be
+rendered manually, or automatically by setting `withCloseButton` on the root.
 
 ```text
 Alert
@@ -88,8 +89,9 @@ Alert
 
 Use `variant` for intent (`default`, `info`, `success`, `warning`, `destructive`).
 Use `open` / `defaultOpen` / `onOpenChange` to control visibility.
-Set `withCloseButton` to render the built-in `CloseButton`, and `withDismissAnimation={false}` for instant close.
-Use `className` on root or parts for local styles, and override CSS variables on the root slot.
+Set `withCloseButton` to render the built-in top-right `CloseButton`, pass `closeButton` to override its content, and use `withDismissAnimation={false}` for instant close.
+Use `className` on root or parts for local styles, override CSS variables on the root slot, and use `AlertTitle as` when the default `h3` does not fit the surrounding heading structure.
+All exported parts forward refs to their underlying DOM elements.
 
 ### Defaults
 
@@ -99,6 +101,7 @@ Use `className` on root or parts for local styles, and override CSS variables on
 | `size`                 | `md`          | `sm`, `md`, `lg`                                                     |
 | `defaultOpen`          | `true`        | `true`, `false`                                                      |
 | `withCloseButton`      | `false`       | `true`, `false`                                                      |
+| `closeButton`          | `undefined`   | React node rendered inside the built-in top-right `AlertClose`       |
 | `withDismissAnimation` | `true`        | `true`, `false`                                                      |
 | `closeButtonLabel`     | `Close alert` | Any accessible text label for the built-in close button              |
 | `role`                 | Auto          | `status` by default, `alert` when `variant="destructive"`, or custom |
@@ -195,6 +198,38 @@ Set `withCloseButton` for the standard close control. Use `open` and `onOpenChan
               <AlertTitle>Saved</AlertTitle>
               <AlertDescription>The alert closes with the default exit animation.</AlertDescription>
             </AlertContent>
+          </Alert>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Dismiss Layout
+
+Render `AlertClose` manually when you need custom placement, button content, or direct access to the close button ref. Use `AlertTitle as` when the default heading level is not appropriate for the page structure.
+
+<Preview>
+  <AlertCustomDismissExample />
+
+  <Preview.Code>
+    {`
+      import { Alert, AlertClose, AlertContent, AlertDescription, AlertIcon, AlertTitle, InfoIcon } from "moduix";
+
+      export function AlertCustomDismissDemo() {
+        return (
+          <Alert variant="info">
+            <AlertIcon>
+              <InfoIcon />
+            </AlertIcon>
+            <AlertContent>
+              <AlertTitle as="h2">Workspace sync is active</AlertTitle>
+              <AlertDescription>
+                Render AlertClose manually when you need custom placement or button content.
+              </AlertDescription>
+            </AlertContent>
+            <AlertClose>Dismiss</AlertClose>
           </Alert>
         );
       }

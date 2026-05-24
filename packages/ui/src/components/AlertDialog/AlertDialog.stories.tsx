@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
+import { CloseButton } from '@/components/CloseButton';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { CloseLineIcon } from '@/primitives';
 import { Button } from '../Button';
@@ -159,15 +160,15 @@ export const CustomCloseIcon: Story = {
     return (
       <AlertDialog>
         <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent
+          closeButton={
+            <CloseButton aria-label="Close archive dialog" className={storyStyles.customCloseIcon}>
+              <CloseLineIcon />
+            </CloseButton>
+          }
+        >
           <AlertDialogHeader>
             <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-            <AlertDialogCloseIcon
-              aria-label="Close archive dialog"
-              className={storyStyles.customCloseIcon}
-            >
-              <CloseLineIcon />
-            </AlertDialogCloseIcon>
             <AlertDialogDescription>
               Team members will lose access until the workspace is restored.
             </AlertDialogDescription>

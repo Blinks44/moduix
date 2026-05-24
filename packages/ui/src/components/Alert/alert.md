@@ -4,6 +4,7 @@
 
 Use it for inline status, feedback, and system messages. The root supports controlled and
 uncontrolled dismissal through `open`, `defaultOpen`, and `onOpenChange`.
+All exported parts forward refs to their underlying DOM elements.
 
 ## Parts
 
@@ -22,9 +23,17 @@ uncontrolled dismissal through `open`, `defaultOpen`, and `onOpenChange`.
 - `defaultOpen`: initial uncontrolled visibility state (default: `true`)
 - `onOpenChange`: called when visibility changes
 - `withCloseButton`: renders the built-in `CloseButton`
+- `closeButton`: overrides the built-in top-right close button content
 - `withDismissAnimation`: controls close animation (default: `true`)
 - `closeButtonLabel`: accessible label for the built-in close button
+- `ref`: forwarded to the root `div`
 - `className` and standard `div` props
+
+`AlertTitle` supports `as` to change the rendered tag when the default `h3` does not fit the
+surrounding heading structure.
+
+`AlertClose` can be rendered manually for custom placement or custom button content. `closeButton`
+overrides the built-in top-right close button, and takes precedence over `withCloseButton`.
 
 ## Defaults
 
@@ -34,6 +43,7 @@ uncontrolled dismissal through `open`, `defaultOpen`, and `onOpenChange`.
 | `size`                 | `md`          | `sm`, `md`, `lg`                                                     |
 | `defaultOpen`          | `true`        | `true`, `false`                                                      |
 | `withCloseButton`      | `false`       | `true`, `false`                                                      |
+| `closeButton`          | `undefined`   | React node rendered inside the built-in top-right `AlertClose`       |
 | `withDismissAnimation` | `true`        | `true`, `false`                                                      |
 | `closeButtonLabel`     | `Close alert` | Any accessible text label for the built-in close button              |
 | `role`                 | Auto          | `status` by default, `alert` when `variant="destructive"`, or custom |

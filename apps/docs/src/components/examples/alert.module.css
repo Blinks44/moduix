@@ -13,3 +13,9 @@
 
   max-width: 32rem;
 }
+
+.inlineClose {
+  justify-self: start;
+  margin-block-start: 0;
+  margin-inline-end: 0;
+}

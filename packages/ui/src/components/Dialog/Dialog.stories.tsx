@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
+import { CloseButton } from '@/components/CloseButton';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../Button';
 import { ScrollArea } from '../ScrollArea';
@@ -181,6 +182,33 @@ export const NonModal: Story = {
             <DialogTitle>Non-modal dialog</DialogTitle>
             <DialogDescription>
               The page remains interactive because modal behavior and backdrop are disabled.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  },
+};
+
+export const CustomBuiltInCloseButton: Story = {
+  render: () => {
+    return (
+      <Dialog>
+        <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
+        <DialogContent
+          closeButton={
+            <CloseButton aria-label="Close dialog">
+              <span aria-hidden="true">x</span>
+            </CloseButton>
+          }
+        >
+          <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>
+              The top-right close control is overridden through the closeButton prop.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

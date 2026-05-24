@@ -100,6 +100,12 @@ Use these rules for popup/dialog-like and other multi-part components (for examp
   - modal surfaces (`Dialog`, `Drawer`, `Lightbox`) usually default to `withBackdrop = true`;
   - non-modal popups (`Select`, `Combobox`, `Popover`) usually default to `withBackdrop = false`.
 - Keep controlled/uncontrolled behavior on root primitives predictable (`open/defaultOpen/onOpenChange` patterns) and avoid moving state control into visual subparts.
+- For dismissible/closable surfaces with a built-in top-right close control (`Alert`, `Dialog`, `Drawer`, `Lightbox`, `AlertDialog`, etc.), keep a consistent close-button contract:
+  - `withCloseButton` toggles the default built-in top-right close button.
+  - `closeButton` overrides the built-in top-right close button content/rendering.
+  - If `closeButton` is provided, it takes precedence over `withCloseButton`.
+  - Public `ComponentClose` / `ComponentCloseIcon` parts remain available for manual composition in headers, footers, or custom layouts.
+  - Do not rely on implicit child inspection to detect whether a manual close control was rendered.
 
 ## Class Name Composition
 

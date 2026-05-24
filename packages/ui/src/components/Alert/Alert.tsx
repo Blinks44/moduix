@@ -6,6 +6,7 @@ import styles from './Alert.module.css';
 
 type AlertVariant = 'default' | 'info' | 'success' | 'warning' | 'destructive';
 type AlertSize = 'sm' | 'md' | 'lg';
+type AlertTitleAs = 'h2' | 'h3' | 'h4' | 'div' | 'p' | 'span';
 
 type AlertProps = Omit<React.ComponentProps<'div'>, 'title'> & {
   variant?: AlertVariant;
@@ -16,36 +17,44 @@ type AlertProps = Omit<React.ComponentProps<'div'>, 'title'> & {
   withCloseButton?: boolean;
   withDismissAnimation?: boolean;
   closeButtonLabel?: string;
+  closeButton?: React.ReactNode;
 };
 
 type AlertIconProps = React.ComponentProps<'span'>;
-type AlertTitleProps = React.ComponentProps<'h3'>;
+type AlertTitleProps = React.ComponentProps<'h3'> & {
+  as?: AlertTitleAs;
+};
 type AlertDescriptionProps = React.ComponentProps<'div'>;
 type AlertContentProps = React.ComponentProps<'div'>;
 type AlertCloseProps = CloseButtonProps;
 
 const AlertContext = React.createContext<(() => void) | null>(null);
 
-function Alert({
-  className,
-  variant = 'default',
-  size = 'md',
-  open,
-  defaultOpen = true,
-  onOpenChange,
-  withCloseButton = false,
-  withDismissAnimation = true,
-  closeButtonLabel = 'Close alert',
-  role,
-  children,
-  onAnimationEnd,
-  ...props
-}: AlertProps) {
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  {
+    className,
+    variant = 'default',
+    size = 'md',
+    open,
+    defaultOpen = true,
+    onOpenChange,
+    withCloseButton = false,
+    withDismissAnimation = true,
+    closeButtonLabel = 'Close alert',
+    closeButton,
+    role,
+    children,
+    onAnimationEnd,
+    ...props
+  },
+  ref,
+) {
   const isControlled = open !== undefined;
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
   const isOpen = open ?? uncontrolledOpen;
   const [mounted, setMounted] = React.useState(isOpen);
   const resolvedRole = role ?? (variant === 'destructive' ? 'alert' : 'status');
+  const shouldRenderCloseButton = closeButton !== undefined || withCloseButton;
 
   React.useEffect(() => {
     if (isOpen) {
@@ -81,6 +90,7 @@ function Alert({
   return (
     <AlertContext.Provider value={dismiss}>
       <div
+        ref={ref}
         role={resolvedRole}
         data-slot="alert-root"
         data-state={isOpen ? 'open' : 'closed'}
@@ -92,38 +102,78 @@ function Alert({
         {...props}
       >
         {children}
-        {withCloseButton ? <AlertClose aria-label={closeButtonLabel} /> : null}
+        {shouldRenderCloseButton ? (
+          <AlertClose aria-label={closeButtonLabel}>{closeButton}</AlertClose>
+        ) : null}
       </div>
     </AlertContext.Provider>
   );
-}
+});
 
-function AlertIcon({ className, ...props }: AlertIconProps) {
+const AlertIcon = React.forwardRef<HTMLSpanElement, AlertIconProps>(function AlertIcon(
+  { className, ...props },
+  ref,
+) {
   return (
     <span
+      ref={ref}
       data-slot="alert-icon"
       aria-hidden="true"
       className={clsx(styles.icon, className)}
       {...props}
     />
   );
-}
+});
 
-function AlertContent({ className, ...props }: AlertContentProps) {
-  return <div data-slot="alert-content" className={clsx(styles.content, className)} {...props} />;
-}
-
-function AlertTitle({ className, ...props }: AlertTitleProps) {
-  return <h3 data-slot="alert-title" className={clsx(styles.title, className)} {...props} />;
-}
-
-function AlertDescription({ className, ...props }: AlertDescriptionProps) {
+const AlertContent = React.forwardRef<HTMLDivElement, AlertContentProps>(function AlertContent(
+  { className, ...props },
+  ref,
+) {
   return (
-    <div data-slot="alert-description" className={clsx(styles.description, className)} {...props} />
+    <div
+      ref={ref}
+      data-slot="alert-content"
+      className={clsx(styles.content, className)}
+      {...props}
+    />
   );
-}
+});
 
-function AlertClose({ className, onClick, ...props }: AlertCloseProps) {
+const AlertTitle = React.forwardRef<HTMLElement, AlertTitleProps>(function AlertTitle(
+  { as: Component = 'h3', className, ...props },
+  ref,
+) {
+  return (
+    <Component
+      ref={
+        ref as React.Ref<
+          HTMLHeadingElement & HTMLDivElement & HTMLParagraphElement & HTMLSpanElement
+        >
+      }
+      data-slot="alert-title"
+      className={clsx(styles.title, className)}
+      {...props}
+    />
+  );
+});
+
+const AlertDescription = React.forwardRef<HTMLDivElement, AlertDescriptionProps>(
+  function AlertDescription({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        data-slot="alert-description"
+        className={clsx(styles.description, className)}
+        {...props}
+      />
+    );
+  },
+);
+
+const AlertClose = React.forwardRef<HTMLElement, AlertCloseProps>(function AlertClose(
+  { className, onClick, ...props },
+  ref,
+) {
   const dismiss = React.useContext(AlertContext);
   const handleClick = (event: Parameters<NonNullable<CloseButtonProps['onClick']>>[0]) => {
     onClick?.(event);
@@ -132,13 +182,14 @@ function AlertClose({ className, onClick, ...props }: AlertCloseProps) {
 
   return (
     <CloseButton
+      ref={ref}
       data-slot="alert-close"
       className={mergeClassName(className, styles.close)}
       onClick={handleClick}
       {...props}
     />
   );
-}
+});
 
 export { Alert, AlertIcon, AlertContent, AlertTitle, AlertDescription, AlertClose };
 export type {

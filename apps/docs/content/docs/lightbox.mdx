@@ -90,20 +90,22 @@ Lightbox
 Use controlled state on `Lightbox` when outside UI needs to open or close the preview.
 Use `className` for the popup, `classNames` for service slots, and `slotProps` for non-class slot props.
 `container` overrides `slotProps.portal.container`.
+Use `withCloseButton` for the built-in top-right close control, or pass `closeButton` to replace its rendered button while keeping the same dismissal behavior.
 
 `LightboxGallery` listens for image clicks inside `rootRef` or `rootSelector` and opens the clicked source.
 Keep `withBackdrop` enabled for modal previews; disable it only when the page should stay interactive behind the image.
 
 ### Defaults
 
-| Part              | Prop                  | Default       | Values / Notes                                   |
-| ----------------- | --------------------- | ------------- | ------------------------------------------------ |
-| `LightboxContent` | `withBackdrop`        | `true`        | `true`, `false`                                  |
-| `LightboxContent` | `withCloseButton`     | `true`        | `true`, `false`                                  |
-| `LightboxContent` | `closeOnContentClick` | `true`        | `true`, `false`                                  |
-| `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for close controls              |
-| `LightboxGallery` | `selector`            | `img`         | Any selector supported by `Element.closest(...)` |
-| `LightboxGallery` | `withBackdrop`        | `true`        | Passed through to internal `LightboxContent`     |
+| Part              | Prop                  | Default       | Values / Notes                                                 |
+| ----------------- | --------------------- | ------------- | -------------------------------------------------------------- |
+| `LightboxContent` | `withBackdrop`        | `true`        | `true`, `false`                                                |
+| `LightboxContent` | `withCloseButton`     | `true`        | `true`, `false`                                                |
+| `LightboxContent` | `closeButton`         | `undefined`   | Rendered element used for the built-in top-right close control |
+| `LightboxContent` | `closeOnContentClick` | `true`        | `true`, `false`                                                |
+| `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for close controls                            |
+| `LightboxGallery` | `selector`            | `img`         | Any selector supported by `Element.closest(...)`               |
+| `LightboxGallery` | `withBackdrop`        | `true`        | Passed through to internal `LightboxContent`                   |
 
 ## Examples
 

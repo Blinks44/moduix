@@ -134,21 +134,23 @@ props (`onOpenChangeComplete`, `disablePointerDismissal`, `actionsRef`, `handle`
 `slotProps.viewport`). `DialogContent` also forwards popup props such as `initialFocus` and
 `finalFocus`.
 
-Set `withCloseButton` for the built-in top-right close icon. Use manual `DialogCloseIcon` when you
-need custom placement or icon replacement. For a viewport-level close control (outside popup
+Set `withCloseButton` for the built-in top-right close icon. Pass `closeButton` to replace that
+built-in control while keeping the same placement and dismiss behavior. Use manual
+`DialogCloseIcon` when you need custom placement. For a viewport-level close control (outside popup
 bounds), use `outsideCloseIcon`.
 
 ### Defaults
 
-| Prop               | Default        | Values                                          |
-| ------------------ | -------------- | ----------------------------------------------- |
-| `withBackdrop`     | `true`         | `true`, `false`                                 |
-| `withCloseButton`  | `false`        | `true`, `false`                                 |
-| `closeButtonLabel` | `Close dialog` | Any accessible text label for built-in close    |
-| `outsideCloseIcon` | `undefined`    | React node rendered in `DialogViewport`         |
-| `container`        | `undefined`    | `HTMLElement`, ref callback, or `null`          |
-| `classNames`       | `undefined`    | `{ portal?; backdrop?; viewport?; closeIcon? }` |
-| `slotProps`        | `undefined`    | `{ portal?; backdrop?; viewport? }`             |
+| Prop               | Default        | Values                                                         |
+| ------------------ | -------------- | -------------------------------------------------------------- |
+| `withBackdrop`     | `true`         | `true`, `false`                                                |
+| `withCloseButton`  | `false`        | `true`, `false`                                                |
+| `closeButton`      | `undefined`    | Rendered element used for the built-in top-right close control |
+| `closeButtonLabel` | `Close dialog` | Any accessible text label for built-in close                   |
+| `outsideCloseIcon` | `undefined`    | React node rendered in `DialogViewport`                        |
+| `container`        | `undefined`    | `HTMLElement`, ref callback, or `null`                         |
+| `classNames`       | `undefined`    | `{ portal?; backdrop?; viewport?; closeIcon? }`                |
+| `slotProps`        | `undefined`    | `{ portal?; backdrop?; viewport? }`                            |
 
 ```tsx
 <DialogContent

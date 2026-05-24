@@ -26,6 +26,7 @@ type AlertDialogContentProps = Omit<AlertDialogPrimitive.Popup.Props, 'className
   withBackdrop?: boolean;
   withCloseButton?: boolean;
   closeButtonLabel?: string;
+  closeButton?: AlertDialogPrimitive.Close.Props['render'];
 };
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
@@ -108,12 +109,13 @@ function AlertDialogCloseIcon({
   className,
   children,
   'aria-label': ariaLabel = 'Close dialog',
+  render,
   ...props
 }: AlertDialogPrimitive.Close.Props) {
   return (
     <AlertDialogPrimitive.Close
       data-slot="alert-dialog-close-icon"
-      render={<CloseButton aria-label={ariaLabel}>{children}</CloseButton>}
+      render={render ?? <CloseButton aria-label={ariaLabel}>{children}</CloseButton>}
       className={mergeClassName(className, styles.closeIcon)}
       {...props}
     />
@@ -128,11 +130,13 @@ function AlertDialogContent({
   withBackdrop = true,
   withCloseButton = false,
   closeButtonLabel = DEFAULT_CLOSE_BUTTON_LABEL,
+  closeButton,
   children,
   ...props
 }: AlertDialogContentProps) {
   const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
   const resolvedContainer = container ?? slotPortalContainer;
+  const shouldRenderCloseButton = closeButton !== undefined || withCloseButton;
 
   return (
     <AlertDialogPrimitive.Portal
@@ -150,10 +154,11 @@ function AlertDialogContent({
         data-with-backdrop={withBackdrop ? 'true' : 'false'}
       >
         <AlertDialogPopup className={className} {...props}>
-          {withCloseButton ? (
+          {shouldRenderCloseButton ? (
             <AlertDialogCloseIcon
               aria-label={closeButtonLabel}
               className={mergeClassName(styles.autoCloseIcon, classNames?.closeIcon)}
+              render={closeButton}
             />
           ) : null}
           {children}

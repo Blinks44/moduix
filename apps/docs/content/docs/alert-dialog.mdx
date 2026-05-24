@@ -130,7 +130,8 @@ Use `AlertDialogContent` for surface behavior and styling:
 - `classNames` styles portal/backdrop/viewport/closeIcon slots
 - `slotProps` passes props to service slots
 - `container` overrides portal mount
-- `withCloseButton` adds built-in top-right close icon
+- `withCloseButton` adds the built-in top-right close icon
+- `closeButton` overrides the built-in top-right close control
 - `withBackdrop={false}` disables overlay
 
 `AlertDialog` root defaults:
@@ -146,6 +147,7 @@ Use `AlertDialogContent` for surface behavior and styling:
 | ------------------ | -------------- | ------------------------------------------------------------------------------------------- |
 | `withBackdrop`     | `true`         | `true`, `false`                                                                             |
 | `withCloseButton`  | `false`        | `true`, `false`                                                                             |
+| `closeButton`      | `undefined`    | Rendered element used for the built-in top-right close control                              |
 | `closeButtonLabel` | `Close dialog` | Any accessible text label for built-in close                                                |
 | `classNames`       | —              | `{ portal?: className; backdrop?: className; viewport?: className; closeIcon?: className }` |
 | `slotProps`        | —              | `{ portal?; backdrop?; viewport? }`                                                         |
@@ -426,9 +428,10 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
   </Preview.Data>
 </Preview>
 
-### Custom Close Icon
+### Custom Built-in Close Button
 
-Pass children to `AlertDialogCloseIcon` to use any icon from your application or icon library.
+Pass `closeButton` when you want to replace the built-in top-right close control without moving it
+out of the standard alert-dialog layout.
 
 <Preview>
   <CustomCloseIconAlertDialogExample />
@@ -442,7 +445,7 @@ Pass children to `AlertDialogCloseIcon` to use any icon from your application or
         AlertDialogContent,
         AlertDialogHeader,
         AlertDialogTitle,
-        AlertDialogCloseIcon,
+        CloseButton,
         CloseLineIcon,
         AlertDialogDescription,
         AlertDialogFooter,
@@ -454,15 +457,15 @@ Pass children to `AlertDialogCloseIcon` to use any icon from your application or
         return (
           <AlertDialog>
             <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent
+              closeButton={
+                <CloseButton aria-label="Close archive dialog" className={styles.customCloseIcon}>
+                  <CloseLineIcon />
+                </CloseButton>
+              }
+            >
               <AlertDialogHeader>
                 <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-                <AlertDialogCloseIcon
-                  aria-label="Close archive dialog"
-                  className={styles.customCloseIcon}
-                >
-                  <CloseLineIcon />
-                </AlertDialogCloseIcon>
                 <AlertDialogDescription>
                   Team members will lose access until the workspace is restored.
                 </AlertDialogDescription>
