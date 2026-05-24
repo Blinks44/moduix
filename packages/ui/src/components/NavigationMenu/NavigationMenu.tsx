@@ -42,7 +42,7 @@ type NavigationMenuPopupOptions = NavigationMenuPrimitive.Popup.Props &
     slotProps?: NavigationMenuPopupSlotProps;
     container?: NavigationMenuPrimitive.Portal.Props['container'];
     withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
+    arrow?: React.ReactNode;
     withBackdrop?: boolean;
     /**
      * Stretches the popup to viewport width while preserving trigger-driven vertical positioning.
@@ -278,8 +278,7 @@ function NavigationMenuPopupContent({
     positionMethod: positionMethod ?? positionerProps?.positionMethod,
     disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
   };
-  const shouldRenderArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
+  const shouldRenderArrow = withArrow ?? true;
   const { container: slotPropsContainer, ...portalSlotProps } = portalProps ?? {};
   const portalContainer = container ?? slotPropsContainer;
 
@@ -303,7 +302,7 @@ function NavigationMenuPopupContent({
         >
           {shouldRenderArrow ? (
             <NavigationMenuArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrowContent}
+              {arrow}
             </NavigationMenuArrow>
           ) : null}
           {children}

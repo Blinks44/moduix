@@ -40,7 +40,7 @@ type TooltipContentProps = TooltipPrimitive.Popup.Props &
     slotProps?: TooltipContentSlotProps;
     container?: TooltipPrimitive.Portal.Props['container'];
     withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
+    arrow?: React.ReactNode;
   };
 
 const Tooltip = TooltipPrimitive.Root;
@@ -163,8 +163,7 @@ function TooltipContent({
 
   const { container: portalSlotContainer, ...restPortalSlotProps } = portalSlotProps ?? {};
   const portalContainer = container ?? portalSlotContainer;
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
-  const arrowContent = typeof arrow === 'boolean' ? null : arrow;
+  const showArrow = withArrow ?? true;
 
   return (
     <TooltipPortal
@@ -176,7 +175,7 @@ function TooltipContent({
         <TooltipPopup className={className} {...popupProps}>
           {showArrow ? (
             <TooltipArrow className={classNames?.arrow} {...arrowSlotProps}>
-              {arrowContent}
+              {arrow}
             </TooltipArrow>
           ) : null}
           <TooltipViewport className={classNames?.viewport} {...viewportSlotProps}>

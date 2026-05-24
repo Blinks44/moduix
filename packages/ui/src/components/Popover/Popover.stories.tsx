@@ -263,7 +263,7 @@ export const CustomStyles: Story = {
             viewport: storyStyles.customViewport,
             arrow: storyStyles.customArrowSlot,
           }}
-          arrowContent={<CheckSmallIcon className={storyStyles.customArrowIcon} />}
+          arrow={<CheckSmallIcon className={storyStyles.customArrowIcon} />}
         >
           <PopoverHeader className={storyStyles.contentGrid}>
             <PopoverTitle>Custom styles</PopoverTitle>

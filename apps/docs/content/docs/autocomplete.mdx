@@ -179,12 +179,13 @@ rendering.
 composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `withBackdrop`,
 `withArrow`, and `slotProps` when you need Base UI escape hatches for service slots.
 
-| Prop           | Default | Values                                        |
-| -------------- | ------- | --------------------------------------------- |
-| `withBackdrop` | `false` | `true \| false`                               |
-| `withArrow`    | `false` | `true \| false`                               |
-| `sideOffset`   | `5`     | `number \| OffsetFunction`                    |
-| `slotProps`    | —       | `{ portal?, backdrop?, positioner?, arrow? }` |
+| Prop           | Default | Values                                                     |
+| -------------- | ------- | ---------------------------------------------------------- |
+| `withBackdrop` | `false` | `true \| false`                                            |
+| `withArrow`    | `false` | `true \| false`                                            |
+| `arrow`        | `—`     | Custom `ReactNode` rendered inside the built-in arrow slot |
+| `sideOffset`   | `5`     | `number \| OffsetFunction`                                 |
+| `slotProps`    | —       | `{ portal?, backdrop?, positioner?, arrow? }`              |
 
 For overlapping positioning props, the precedence is:
 top-level prop on `AutocompleteContent` -> `slotProps.positioner` -> internal default.

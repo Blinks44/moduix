@@ -152,7 +152,7 @@ Pass placement props such as `side`, `align`, `sideOffset`, `alignOffset`, `coll
 and `collisionPadding` directly to `PopoverContent`. `className` styles the visible popup;
 `classNames` styles internal service slots. Use `container` to choose the portal container,
 `withBackdrop` to enable the optional backdrop, `withViewport` to wrap content in Base UI's
-viewport, `withArrow={false}` to remove the default arrow, and `arrowContent` to replace the
+viewport, `withArrow={false}` to remove the default arrow, and `arrow` to replace the
 default arrow graphic. Reach for `slotProps` only when you need Base UI escape-hatch props such as
 `keepMounted` on the portal or custom viewport rendering.
 
@@ -168,6 +168,7 @@ keyboard users and touch screen readers always have a way to leave it.
 | Prop           | Default | Values                                                                      |
 | -------------- | ------- | --------------------------------------------------------------------------- |
 | `withArrow`    | `true`  | `boolean`                                                                   |
+| `arrow`        | `—`     | `ReactNode` rendered inside the built-in arrow slot                         |
 | `withBackdrop` | `false` | `boolean`                                                                   |
 | `withViewport` | `false` | `boolean`                                                                   |
 | `sideOffset`   | `8`     | `number`                                                                    |
@@ -835,7 +836,7 @@ positioner, viewport, and arrow slots.
                 viewport: styles.customViewport,
                 arrow: styles.customArrowSlot,
               }}
-              arrowContent={<CheckSmallIcon className={styles.customArrowIcon} />}
+              arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
             >
               <PopoverHeader>
                 <PopoverTitle>Custom styles</PopoverTitle>

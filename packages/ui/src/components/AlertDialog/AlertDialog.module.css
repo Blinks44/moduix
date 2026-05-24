@@ -82,11 +82,7 @@
     padding: var(--alert-dialog-viewport-padding, var(--spacing-4));
 
     &[data-with-backdrop='false'] {
-      pointer-events: none;
-
-      & > :is([data-slot='alert-dialog-popup']) {
-        pointer-events: auto;
-      }
+      background-color: transparent;
     }
   }
 

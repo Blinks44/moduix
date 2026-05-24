@@ -106,6 +106,12 @@ Use these rules for popup/dialog-like and other multi-part components (for examp
   - If `closeButton` is provided, it takes precedence over `withCloseButton`.
   - Public `ComponentClose` / `ComponentCloseIcon` parts remain available for manual composition in headers, footers, or custom layouts.
   - Do not rely on implicit child inspection to detect whether a manual close control was rendered.
+- For popup-like surfaces with an optional pointer arrow (`Popover`, `Tooltip`, `Select`, `Menu`, `NavigationMenu`, `PreviewCard`, `Combobox`, etc.), keep a consistent arrow contract:
+  - `withArrow` toggles the built-in arrow slot and preserves the component's existing default.
+  - `arrow` overrides the built-in arrow content.
+  - If `arrow` is provided, it does not change visibility by itself; `withArrow` or the component default still decides whether the built-in arrow renders.
+  - `classNames.arrow` styles the built-in arrow slot and `slotProps.arrow` passes non-class arrow props.
+  - Public `ComponentArrow` parts may remain available for manual composition as compatibility shims, but new API and docs should prefer `withArrow` + `arrow`.
 
 ## Class Name Composition
 

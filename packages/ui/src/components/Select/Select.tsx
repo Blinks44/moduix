@@ -55,7 +55,7 @@ type SelectContentProps = SelectPopupProps &
     container?: SelectPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
     withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
+    arrow?: React.ReactNode;
   };
 
 type IndicatorPosition = 'start' | 'end';
@@ -205,8 +205,7 @@ function SelectContent({
     positionMethod: positionMethod ?? positionerProps?.positionMethod,
     disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
   };
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
+  const showArrow = withArrow ?? false;
 
   return (
     <SelectPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
@@ -219,7 +218,7 @@ function SelectContent({
         <SelectPopup className={className} {...props}>
           {showArrow ? (
             <SelectArrow className={classNames?.arrow} {...arrowProps}>
-              {arrowContent}
+              {arrow}
             </SelectArrow>
           ) : null}
           {children}

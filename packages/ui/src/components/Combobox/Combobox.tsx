@@ -47,7 +47,7 @@ type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
     container?: ComboboxPrimitive.Portal.Props['container'];
     withBackdrop?: boolean;
     withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
+    arrow?: React.ReactNode;
   };
 
 type IndicatorPosition = 'start' | 'end';
@@ -236,8 +236,7 @@ function ComboboxContent({
     sticky: sticky ?? positioner?.sticky,
     positionMethod: positionMethod ?? positioner?.positionMethod,
   };
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
+  const showArrow = withArrow ?? false;
   const portalContainer = container ?? portalSlotContainer;
 
   return (
@@ -251,7 +250,7 @@ function ComboboxContent({
         <ComboboxPopup className={className} {...props}>
           {showArrow ? (
             <ComboboxArrow className={classNames?.arrow} {...arrowSlotProps}>
-              {arrowContent}
+              {arrow}
             </ComboboxArrow>
           ) : null}
           {children}

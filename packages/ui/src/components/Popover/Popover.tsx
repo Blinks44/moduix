@@ -43,7 +43,7 @@ type PopoverContentProps = PopoverPrimitive.Popup.Props &
     slotProps?: PopoverContentSlotProps;
     container?: PopoverPrimitive.Portal.Props['container'];
     withArrow?: boolean;
-    arrowContent?: React.ReactNode;
+    arrow?: React.ReactNode;
     withBackdrop?: boolean;
     withViewport?: boolean;
   };
@@ -220,7 +220,7 @@ const PopoverContent = React.forwardRef<
     slotProps,
     container,
     withArrow,
-    arrowContent,
+    arrow,
     withBackdrop = false,
     withViewport = false,
     disableAnchorTracking,
@@ -276,7 +276,7 @@ const PopoverContent = React.forwardRef<
         <PopoverPopup ref={ref} className={className} {...props}>
           {showArrow ? (
             <PopoverArrow className={classNames?.arrow} {...arrowProps}>
-              {arrowContent}
+              {arrow}
             </PopoverArrow>
           ) : null}
           {withViewport ? (

@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  AsyncAlertDialogExample,
   AlertDialogCssPlaygroundPanel,
   AlertDialogCssPropertiesPanel,
   AlertDialogExample,
@@ -12,6 +13,7 @@ import {
   ControlledAlertDialogExample,
   CustomCloseIconAlertDialogExample,
   CustomStylesAlertDialogExample,
+  NoBackdropAlertDialogExample,
   ScrollableAlertDialogExample,
   alertDialogPlaygroundCssProperties,
 } from '@/components/examples/alert-dialog';
@@ -132,7 +134,7 @@ Use `AlertDialogContent` for surface behavior and styling:
 - `container` overrides portal mount
 - `withCloseButton` adds the built-in top-right close icon
 - `closeButton` overrides the built-in top-right close control
-- `withBackdrop={false}` disables overlay
+- `withBackdrop={false}` removes only the visual dimming layer; the dialog still stays modal
 
 `AlertDialog` root defaults:
 
@@ -154,11 +156,15 @@ Use `AlertDialogContent` for surface behavior and styling:
 
 `container` has priority over `slotProps.portal.container`.
 
+`AlertDialogAction` and `AlertDialogCancel` are convenience close actions with library styling.
+Use them when the click may dismiss the dialog immediately.
+If the primary action must wait for async work, render your own button and close the dialog from
+controlled state or a handle after the request succeeds.
+
 ```tsx
 <AlertDialogContent
   className={styles.popup}
   classNames={{
-    portal: styles.portal,
     backdrop: styles.backdrop,
     viewport: styles.viewport,
   }}
@@ -277,6 +283,80 @@ copy depends on the source action.
               </AlertDialogContent>
             </AlertDialog>
           </Fragment>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Async Confirmation
+
+Keep the dialog open during async work and close it only after the request succeeds.
+
+<Preview>
+  <AsyncAlertDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        AlertDialog,
+        AlertDialogTrigger,
+        Button,
+        AlertDialogContent,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        AlertDialogDescription,
+        AlertDialogBody,
+        AlertDialogFooter,
+        AlertDialogCancel,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function AsyncAlertDialogDemo() {
+        const [open, setOpen] = useState(false);
+        const [pending, setPending] = useState(false);
+        const [error, setError] = useState("");
+
+        const handleArchive = async () => {
+          setPending(true);
+          setError("");
+
+          try {
+            await archiveWorkspace();
+            setOpen(false);
+          } catch {
+            setError("Workspace could not be archived. Review the warning and try again.");
+          } finally {
+            setPending(false);
+          }
+        };
+
+        return (
+          <AlertDialog open={open} onOpenChange={setOpen}>
+            <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Keep the dialog open while the request is pending, then close it only after success.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              {error ? (
+                <AlertDialogBody>
+                  <p>{error}</p>
+                </AlertDialogBody>
+              ) : null}
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={pending} render={<Button variant="outline" />}>
+                  Cancel
+                </AlertDialogCancel>
+                <Button type="button" disabled={pending} onClick={handleArchive}>
+                  {pending ? "Archiving..." : "Archive"}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         );
       }
     `}
@@ -426,6 +506,55 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
     `}
 
   </Preview.Data>
+</Preview>
+
+### Without Backdrop
+
+Disable backdrop rendering when you want the modal confirmation without page dimming.
+This removes only the backdrop layer; the rest of the page still remains non-interactive.
+
+<Preview>
+  <NoBackdropAlertDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        AlertDialog,
+        AlertDialogTrigger,
+        Button,
+        AlertDialogContent,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        AlertDialogDescription,
+        AlertDialogFooter,
+        AlertDialogCancel,
+        AlertDialogAction,
+      } from "moduix";
+
+      export function NoBackdropAlertDialogDemo() {
+        return (
+          <AlertDialog>
+            <AlertDialogTrigger render={<Button variant="outline" />}>
+              Open without backdrop
+            </AlertDialogTrigger>
+            <AlertDialogContent withBackdrop={false}>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Continue without backdrop?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Background dimming is removed, but the dialog still behaves as a modal confirmation.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+                <AlertDialogAction render={<Button />}>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>
 
 ### Custom Built-in Close Button

@@ -263,6 +263,63 @@ export function ControlledAlertDialogExample() {
   );
 }
 
+export function AsyncAlertDialogExample() {
+  const [open, setOpen] = React.useState(false);
+  const [pending, setPending] = React.useState(false);
+  const [error, setError] = React.useState('');
+
+  const handleArchive = async () => {
+    setPending(true);
+    setError('');
+
+    try {
+      await new Promise((resolve, reject) => {
+        window.setTimeout(() => {
+          if (Math.random() > 0.5) {
+            resolve(null);
+            return;
+          }
+
+          reject(new Error('Archive failed'));
+        }, 900);
+      });
+
+      setOpen(false);
+    } catch {
+      setError('Workspace could not be archived. Review the warning and try again.');
+    } finally {
+      setPending(false);
+    }
+  };
+
+  return (
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Keep the dialog open while the request is pending, then close it only after success.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        {error ? (
+          <AlertDialogBody>
+            <p>{error}</p>
+          </AlertDialogBody>
+        ) : null}
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={pending} render={<Button variant="outline" />}>
+            Cancel
+          </AlertDialogCancel>
+          <Button type="button" disabled={pending} onClick={handleArchive}>
+            {pending ? 'Archiving...' : 'Archive'}
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
 export function AlertDialogHandleExample() {
   const alertDialogHandle = React.useMemo(() => createAlertDialogHandle(), []);
 
@@ -357,7 +414,6 @@ export function CustomStylesAlertDialogExample() {
       <AlertDialogContent
         className={styles.customPopup}
         classNames={{
-          portal: styles.customPortal,
           backdrop: styles.customBackdrop,
           viewport: styles.customViewport,
         }}
@@ -371,6 +427,28 @@ export function CustomStylesAlertDialogExample() {
         <AlertDialogFooter>
           <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
           <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+export function NoBackdropAlertDialogExample() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="outline" />}>
+        Open without backdrop
+      </AlertDialogTrigger>
+      <AlertDialogContent withBackdrop={false}>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Continue without backdrop?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Background dimming is removed, but the dialog still behaves as a modal confirmation.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
+          <AlertDialogAction render={<Button />}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

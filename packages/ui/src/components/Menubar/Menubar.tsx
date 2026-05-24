@@ -44,7 +44,7 @@ type MenubarContentProps = MenuPrimitive.Popup.Props &
     slotProps?: MenubarContentSlotProps;
     container?: MenuPrimitive.Portal.Props['container'];
     withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
+    arrow?: React.ReactNode;
     withBackdrop?: boolean;
   };
 
@@ -179,16 +179,7 @@ function MenubarContent({
   };
   const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
   const portalContainer = container ?? slotPropsContainer;
-  const { arrowChildren, viewportChildren } = splitArrowChildren(children);
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : false);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
-  const resolvedArrow =
-    arrowChildren[0] ??
-    (showArrow ? (
-      <MenubarArrow className={classNames?.arrow} {...slotProps?.arrow}>
-        {arrowContent}
-      </MenubarArrow>
-    ) : null);
+  const showArrow = withArrow ?? false;
 
   return (
     <MenubarPortal className={classNames?.portal} container={portalContainer} {...portalSlotProps}>
@@ -201,9 +192,13 @@ function MenubarContent({
         className={classNames?.positioner}
       >
         <MenubarPopup className={className} {...props}>
-          {resolvedArrow}
+          {showArrow ? (
+            <MenubarArrow className={classNames?.arrow} {...slotProps?.arrow}>
+              {arrow}
+            </MenubarArrow>
+          ) : null}
           <MenubarViewport className={classNames?.viewport} {...slotProps?.viewport}>
-            {viewportChildren}
+            {children}
           </MenubarViewport>
         </MenubarPopup>
       </MenubarPositioner>
@@ -417,22 +412,6 @@ function MenubarItemShortcut({ className, ...props }: React.ComponentProps<'span
 
 function getSubmenuOffset({ side }: { side: MenuPrimitive.Positioner.Props['side'] }) {
   return side === 'top' || side === 'bottom' ? 4 : -4;
-}
-
-function splitArrowChildren(children: React.ReactNode) {
-  const arrowChildren: React.ReactElement<MenuPrimitive.Arrow.Props>[] = [];
-  const viewportChildren: React.ReactNode[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child) && child.type === MenubarArrow) {
-      arrowChildren.push(child as React.ReactElement<MenuPrimitive.Arrow.Props>);
-      return;
-    }
-
-    viewportChildren.push(child);
-  });
-
-  return { arrowChildren, viewportChildren };
 }
 
 function ArrowSvg(props: React.ComponentProps<'svg'>) {

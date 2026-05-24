@@ -392,7 +392,7 @@ export function CustomStylesPopoverExample() {
           viewport: styles.customViewport,
           arrow: styles.customArrowSlot,
         }}
-        arrowContent={<CheckSmallIcon className={styles.customArrowIcon} />}
+        arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
       >
         <PopoverHeader>
           <PopoverTitle>Custom styles</PopoverTitle>

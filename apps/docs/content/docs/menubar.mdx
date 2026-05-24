@@ -154,9 +154,10 @@ service slots such as `portal`, `backdrop`, `positioner`, or `viewport`.
 `MenubarContent` forwards Base UI popup props and accepts positioner props such as `side`,
 `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`,
 `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`, and
-`disableAnchorTracking`. Arrow is disabled by default; set `arrow` to `true` for the
-default arrow, or pass a custom node. Use `container` and `withBackdrop` for the common
-cases, and `slotProps` for lower-level portal, backdrop, positioner, arrow, or viewport props:
+`disableAnchorTracking`. Arrow is disabled by default; set `withArrow` to enable the
+built-in arrow and pass `arrow` to replace its content. Use `container` and `withBackdrop`
+for the common cases, and `slotProps` for lower-level portal, backdrop, positioner, arrow,
+or viewport props:
 
 ### Defaults
 
