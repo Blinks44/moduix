@@ -15,6 +15,9 @@ type BreadcrumbsItem = {
   target?: React.ComponentProps<'a'>['target'];
   rel?: React.ComponentProps<'a'>['rel'];
   onClick?: React.ComponentProps<'a'>['onClick'];
+  linkProps?: Omit<React.ComponentProps<'a'>, 'children' | 'href' | 'target' | 'rel' | 'onClick'>;
+  actionProps?: Omit<React.ComponentProps<'button'>, 'children' | 'type' | 'onClick'>;
+  pageProps?: Omit<React.ComponentProps<'span'>, 'children'>;
   render?: (props: BreadcrumbsItemRenderProps) => React.ReactElement;
 };
 
@@ -39,7 +42,7 @@ type BreadcrumbsSlotProps = {
 type BreadcrumbsProps = Omit<React.ComponentProps<'nav'>, 'children'> & {
   items: BreadcrumbsItem[];
   separator?: React.ReactNode;
-  maxItems?: number;
+  maxVisibleItems?: number;
   ellipsisLabel?: React.ReactNode;
   hiddenItemsMenuLabel?: string;
   classNames?: BreadcrumbsClassNames;
@@ -50,14 +53,17 @@ function Breadcrumbs({
   className,
   items,
   separator = '/',
-  maxItems = 3,
+  maxVisibleItems = 3,
   ellipsisLabel = '...',
   hiddenItemsMenuLabel = 'Show hidden path items',
   classNames,
   slotProps,
   ...props
 }: BreadcrumbsProps) {
-  const { startItems, collapsedItems, endItems } = getVisibleItems({ items, maxItems });
+  const { startItems, collapsedItems, endItems } = getVisibleItems({
+    items,
+    maxVisibleItems,
+  });
   const lastGlobalItemIndex = items.length - 1;
   const parts: Array<
     { type: 'item'; item: BreadcrumbsItem; globalIndex: number } | { type: 'collapsed' }
@@ -123,6 +129,7 @@ function Breadcrumbs({
 
 function BreadcrumbsListItem({ item, isCurrent }: { item: BreadcrumbsItem; isCurrent: boolean }) {
   const shouldRenderAsPage = isCurrent || !isBreadcrumbsItemInteractive(item);
+  const pageClassName = clsx(styles.page, item.pageProps?.className);
   const content = (
     <span data-slot="breadcrumbs-item-label" className={styles.itemLabel}>
       {item.label}
@@ -134,7 +141,8 @@ function BreadcrumbsListItem({ item, isCurrent }: { item: BreadcrumbsItem; isCur
       {shouldRenderAsPage ? (
         <span
           data-slot="breadcrumbs-page"
-          className={styles.page}
+          {...item.pageProps}
+          className={pageClassName}
           aria-current={isCurrent ? 'page' : undefined}
         >
           {content}
@@ -147,28 +155,36 @@ function BreadcrumbsListItem({ item, isCurrent }: { item: BreadcrumbsItem; isCur
 }
 
 function BreadcrumbsLink({ item, children }: { item: BreadcrumbsItem; children: React.ReactNode }) {
-  const anchorProps: BreadcrumbsItemRenderProps = {
-    href: item.href,
-    target: item.target,
-    rel: item.rel,
-    onClick: item.onClick
-      ? (event) => {
-          item.onClick?.(event);
-        }
-      : undefined,
-    className: styles.link,
-    children,
-  };
+  if (item.href) {
+    const linkClassName = clsx(styles.link, item.linkProps?.className);
+    const anchorProps: BreadcrumbsItemRenderProps = {
+      ...item.linkProps,
+      href: item.href,
+      target: item.target,
+      rel: item.rel,
+      onClick: item.onClick
+        ? (event) => {
+            item.onClick?.(event);
+          }
+        : undefined,
+      className: linkClassName,
+      children,
+    };
 
-  if (item.render) {
-    return item.render(anchorProps);
+    if (item.render) {
+      return item.render(anchorProps);
+    }
+
+    return <a {...anchorProps} />;
   }
 
-  if (item.onClick && !item.href) {
+  if (item.onClick) {
+    const actionClassName = clsx(styles.link, styles.linkButton, item.actionProps?.className);
     return (
       <button
         type="button"
-        className={clsx(styles.link, styles.linkButton)}
+        {...item.actionProps}
+        className={actionClassName}
         onClick={(event) => {
           item.onClick?.(event as unknown as React.MouseEvent<HTMLAnchorElement>);
         }}
@@ -178,7 +194,11 @@ function BreadcrumbsLink({ item, children }: { item: BreadcrumbsItem; children: 
     );
   }
 
-  return <a {...anchorProps} />;
+  return (
+    <span data-slot="breadcrumbs-page" className={styles.page}>
+      {children}
+    </span>
+  );
 }
 
 function BreadcrumbsSeparator({ separator }: { separator: React.ReactNode }) {
@@ -202,6 +222,7 @@ function BreadcrumbsCollapsedMenu({
   classNames?: BreadcrumbsClassNames;
   slotProps?: BreadcrumbsSlotProps;
 }) {
+  const popupLinkItemCloseOnClick = slotProps?.popupLinkItem?.closeOnClick ?? true;
   const popupItemClassName = mergeClassName(classNames?.popupItem, styles.popupItem);
   const popupLinkItemClassName = mergeClassName(
     classNames?.popupLinkItem,
@@ -241,7 +262,7 @@ function BreadcrumbsCollapsedMenu({
             {items.map((item, index) => {
               const renderItem = item.render;
 
-              return item.href || renderItem ? (
+              return item.href ? (
                 <MenuPrimitive.LinkItem
                   key={item.key ?? `hidden-link-${index}`}
                   data-slot="breadcrumbs-ellipsis-link-item"
@@ -249,6 +270,8 @@ function BreadcrumbsCollapsedMenu({
                   href={item.href}
                   target={item.target}
                   rel={item.rel}
+                  {...item.linkProps}
+                  closeOnClick={popupLinkItemCloseOnClick}
                   onClick={
                     item.onClick
                       ? (event) => {
@@ -273,7 +296,7 @@ function BreadcrumbsCollapsedMenu({
                 >
                   {item.label}
                 </MenuPrimitive.LinkItem>
-              ) : isBreadcrumbsItemInteractive(item) ? (
+              ) : item.onClick ? (
                 <MenuPrimitive.Item
                   key={item.key ?? `hidden-item-action-${index}`}
                   data-slot="breadcrumbs-ellipsis-item"
@@ -307,7 +330,13 @@ function BreadcrumbsCollapsedMenu({
   );
 }
 
-function getVisibleItems({ items, maxItems }: { items: BreadcrumbsItem[]; maxItems?: number }) {
+function getVisibleItems({
+  items,
+  maxVisibleItems,
+}: {
+  items: BreadcrumbsItem[];
+  maxVisibleItems?: number;
+}) {
   if (items.length <= 2) {
     return {
       startItems: items,
@@ -316,7 +345,8 @@ function getVisibleItems({ items, maxItems }: { items: BreadcrumbsItem[]; maxIte
     };
   }
 
-  const maxMiddleItems = Math.max(0, Math.floor(maxItems ?? Number.POSITIVE_INFINITY));
+  const safeMaxVisibleItems = Math.max(2, Math.floor(maxVisibleItems ?? Number.POSITIVE_INFINITY));
+  const maxMiddleItems = Math.max(0, safeMaxVisibleItems - 2);
   const middleItems = items.slice(1, -1);
 
   if (middleItems.length <= maxMiddleItems) {
@@ -337,7 +367,7 @@ function getVisibleItems({ items, maxItems }: { items: BreadcrumbsItem[]; maxIte
 }
 
 function isBreadcrumbsItemInteractive(item: BreadcrumbsItem) {
-  return Boolean(item.href || item.render || item.onClick);
+  return Boolean(item.href || item.onClick);
 }
 
 export { Breadcrumbs };

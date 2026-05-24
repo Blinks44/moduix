@@ -25,17 +25,19 @@ const CollapsibleTrigger = React.forwardRef<
   React.ComponentRef<typeof CollapsiblePrimitive.Trigger>,
   CollapsibleTriggerProps
 >(function CollapsibleTrigger(
-  { className, children, icon, withIcon = true, classNames, slotProps, ...props },
+  { className, children, icon, withIcon = true, classNames, slotProps, render, ...props },
   ref,
 ) {
   const iconClassName = classNames?.icon;
   const iconProps = slotProps?.icon;
+  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
 
   return (
     <CollapsiblePrimitive.Trigger
       ref={ref}
       data-slot="collapsible-trigger"
-      className={mergeClassName(className, styles.trigger)}
+      render={render}
+      className={triggerClassName}
       {...props}
     >
       {children}

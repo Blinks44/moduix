@@ -20,6 +20,8 @@ import {
 
 `Container` is a moduix layout primitive (not a Base UI wrapper).  
 Use `size` to set content width and `gutter` to keep responsive inline spacing around it.
+`size="full"` expands the root to the available inline space and keeps the chosen gutter inside it.
+Use `as` for semantic block-level HTML roots such as `main` or `section`.
 
 ## Basic
 
@@ -89,21 +91,23 @@ Use `as` when the wrapper should be semantic (`main`, `section`, `article`).
 
 ### Defaults
 
-| Prop     | Default  | Values                               |
-| -------- | -------- | ------------------------------------ |
-| `size`   | `lg`     | `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `gutter` | `md`     | `none`, `sm`, `md`, `lg`             |
-| `align`  | `center` | `start`, `center`, `end`             |
-| `as`     | `div`    | Any valid React element or component |
+| Prop     | Default  | Values                                                         |
+| -------- | -------- | -------------------------------------------------------------- |
+| `size`   | `lg`     | `xs`, `sm`, `md`, `lg`, `xl`, `full`                           |
+| `gutter` | `md`     | `none`, `sm`, `md`, `lg`                                       |
+| `align`  | `center` | `start`, `center`, `end`                                       |
+| `as`     | `div`    | `div`, `main`, `section`, `article`, `header`, `footer`, `nav` |
 
 `Container` does not manage vertical rhythm. Add section spacing outside it.
+`size="full"` still keeps inline gutter padding unless `gutter="none"` is used.
 Use `Bleed` inside `Container` when content must escape the constrained column.
+`Container` is a layout primitive, so `as` is intentionally limited to semantic block-level HTML elements.
 
 ## Examples
 
 ### Sizes
 
-Use `size` to choose the content column width.
+Use `size` to choose the content column width. `full` fills the available inline space while preserving the selected gutter.
 
 <Preview>
   <ContainerSizesExample />
@@ -120,6 +124,7 @@ Use `size` to choose the content column width.
             <Container size="md"><Text>md</Text></Container>
             <Container size="lg"><Text>lg</Text></Container>
             <Container size="xl"><Text>xl</Text></Container>
+            <Container size="full"><Text>full</Text></Container>
           </>
         );
       }

@@ -67,7 +67,7 @@ export function ContainerSizesExample() {
   return (
     <div className={styles.viewport}>
       <div className={styles.stack}>
-        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
+        {(['xs', 'sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
           <Container key={size} size={size} className={styles.container}>
             <Text weight="semibold">size=&quot;{size}&quot;</Text>
           </Container>

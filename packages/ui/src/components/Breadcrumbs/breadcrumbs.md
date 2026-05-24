@@ -9,6 +9,6 @@ Recommended composition:
 - `@base-ui/react/menu` for collapsed intermediate items (ellipsis trigger + popup list);
 - compact typography and popup sizing to keep breadcrumbs visually minimal.
 
-This component follows that composition and keeps full support for custom links via `render`.
-Regular links, action items, and custom router links keep the same behavior when they move into
-the collapsed menu.
+This component follows that composition and keeps router-link composition via `render` for
+href-based items. Regular links and action items keep the same behavior when they move into the
+collapsed menu.

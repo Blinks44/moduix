@@ -11,7 +11,7 @@ It is a standalone moduix component (not a Base UI wrapper).
 
 - `inline`: `none` | `xs` | `sm` | `md` | `lg` | `xl` | `full` (default: `full`)
 - `block`: `none` | `xs` | `sm` | `md` | `lg` | `xl` (default: `none`)
-- `as`: polymorphic root element with matching element/component props (default: `div`)
+- `as`: semantic block-level HTML root (`div`, `main`, `section`, `article`, `header`, `footer`, `nav`, `aside`, `figure`; default: `div`)
 - `className` and root-element props
 
 ## Styling
@@ -21,6 +21,6 @@ The component exposes `--bleed-*` CSS variables in `src/styles/theme.css` for co
 ## Layout Notes
 
 - `inline="full"` is viewport-based. It is meant for full-bleed sections, not for matching the width of a nearby layout container.
-- The root should render as a block/flex/grid-capable element. Inline roots such as `span` are not a practical fit for bleed layout.
+- The `as` prop is intentionally limited to semantic block-level HTML elements that are a practical fit for bleed layout.
 - Ancestors with `overflow: hidden` or `overflow: clip` can visually crop the bleed.
 - For nested scroll regions, drawers, or layouts that need custom full-bleed math, override `--bleed-inline-full` and `--bleed-inline-full-size` locally.

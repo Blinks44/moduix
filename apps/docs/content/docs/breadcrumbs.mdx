@@ -24,7 +24,7 @@ import {
 ## Basic
 
 <Preview cssProperties={breadcrumbsPlaygroundCssProperties}>
-  <BreadcrumbsExample maxItems={1} />
+  <BreadcrumbsExample maxVisibleItems={3} />
 
   <Preview.Code>
     {`
@@ -33,7 +33,7 @@ import {
       export function BreadcrumbsDemo() {
         return (
           <Breadcrumbs
-            maxItems={1}
+            maxVisibleItems={3}
             items={[
               { label: "Home", href: "/" },
               { label: "Engineering", href: "/engineering" },
@@ -67,13 +67,13 @@ Breadcrumbs
    └─ current page item
 ```
 
-| Part                     | Role                                                              |
-| ------------------------ | ----------------------------------------------------------------- |
-| `Breadcrumbs`            | Root navigation region with aria label and path layout.           |
-| `item`                   | Breadcrumb segment, rendered as link or current-page text.        |
-| `separator`              | Visual delimiter between visible segments.                        |
-| `collapsed menu trigger` | Ellipsis control shown when `maxItems` collapses middle segments. |
-| `collapsed menu popup`   | Compact list of hidden segments built with Base UI `Menu`.        |
+| Part                     | Role                                                       |
+| ------------------------ | ---------------------------------------------------------- |
+| `Breadcrumbs`            | Root navigation region with aria label and path layout.    |
+| `item`                   | Breadcrumb segment, rendered as link or current-page text. |
+| `separator`              | Visual delimiter between visible segments.                 |
+| `collapsed menu trigger` | Ellipsis control shown when middle segments collapse.      |
+| `collapsed menu popup`   | Compact list of hidden segments built with Base UI `Menu`. |
 
 Visible items stay on one line, and long labels are clamped.
 
@@ -82,13 +82,17 @@ Visible items stay on one line, and long labels are clamped.
 Use `items` to describe the path. Each item can be plain text, a regular link (`href`),
 or an action item (`onClick`).
 
-For framework routers, use `render` and return your own link while preserving provided
-`className`, `children`, and navigation props such as `href`, `target`, `rel`, and `onClick`.
-That same contract is used both in the visible breadcrumb row and in the collapsed menu, so
+For framework routers, use `render` together with `href` and return your own link while
+preserving all provided props. The rendered component must forward `ref` and spread the received
+props onto its underlying DOM element, following the Base UI composition contract.
+That same link contract is used both in the visible breadcrumb row and in the collapsed menu, so
 router links behave consistently when items move under the ellipsis.
 
-`maxItems` controls how many middle segments stay visible. The first segment and current
-page always stay visible; hidden middle segments move to the collapsed menu.
+Use `linkProps`, `actionProps`, and `pageProps` for common per-item attributes such as
+`title`, `aria-label`, `data-*`, and test selectors without dropping into `render`.
+
+`maxVisibleItems` controls how many breadcrumb items stay visible in total. The first segment
+and current page always stay visible; hidden middle segments move to the collapsed menu.
 
 For collapsed items, style internal parts via `classNames`
 (`ellipsisTrigger`, `popup`, `popupItem`, `popupLinkItem`, `portal`, `positioner`)
@@ -97,7 +101,7 @@ and pass behavior props to the same slots via `slotProps`.
 | Prop                   | Default                  | Values         |
 | ---------------------- | ------------------------ | -------------- |
 | `separator`            | `/`                      | Any React node |
-| `maxItems`             | `3`                      | Number >= `0`  |
+| `maxVisibleItems`      | `3`                      | Number >= `2`  |
 | `ellipsisLabel`        | `...`                    | Any React node |
 | `hiddenItemsMenuLabel` | `Show hidden path items` | String         |
 
@@ -105,8 +109,8 @@ and pass behavior props to the same slots via `slotProps`.
 
 ### Collapsed Path
 
-Collapse middle segments into an ellipsis menu. Here `maxItems={2}` keeps two middle
-segments visible next to the current page.
+Collapse middle segments into an ellipsis menu. Here `maxVisibleItems={4}` keeps four breadcrumb
+items visible in total, including the first segment and current page.
 
 <Preview>
   <BreadcrumbsCollapsedExample />
@@ -118,7 +122,7 @@ segments visible next to the current page.
       export function BreadcrumbsCollapsedDemo() {
         return (
           <Breadcrumbs
-            maxItems={2}
+            maxVisibleItems={4}
             items={[
               { label: "Home", href: "/" },
               { label: "Engineering", href: "/engineering" },
@@ -165,7 +169,8 @@ Replace the default `/` separator with your own symbol or icon.
 
 ### Long Current Label
 
-Current item text is clamped to one line.
+Current item text is clamped to one line. Use `pageProps` or `linkProps` to attach `title`
+when you want the full label on hover.
 
 <Preview>
   <BreadcrumbsLongLabelExample />
@@ -183,6 +188,10 @@ Current item text is clamped to one line.
               {
                 label:
                   "Go lang developer to production team with cross-functional ownership and platform support",
+                pageProps: {
+                  title:
+                    "Go lang developer to production team with cross-functional ownership and platform support",
+                },
               },
             ]}
           />
@@ -209,7 +218,7 @@ pattern works for Next.js, TanStack Router, Inertia, and other router link compo
       export function BreadcrumbsWithNextLinkDemo() {
         return (
           <Breadcrumbs
-            maxItems={1}
+            maxVisibleItems={3}
             items={[
               {
                 label: "Home",
@@ -264,7 +273,7 @@ rendering a plain anchor. The same handler is preserved when the item moves into
       export function BreadcrumbsActionDemo() {
         return (
           <Breadcrumbs
-            maxItems={1}
+            maxVisibleItems={3}
             items={[
               { label: "Home", href: "/" },
               { label: "Projects", onClick: () => console.log("Projects") },
@@ -293,7 +302,7 @@ Use `classNames` and `slotProps` to customize collapsed trigger and popup intern
       export function BreadcrumbsSlotsDemo() {
         return (
           <Breadcrumbs
-            maxItems={1}
+            maxVisibleItems={3}
             items={[
               { label: "Home", href: "/" },
               { label: "Engineering", href: "/engineering" },

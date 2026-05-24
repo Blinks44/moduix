@@ -4,6 +4,7 @@ import {
   Button,
   CommandPalette,
   CommandPaletteClear,
+  CommandPaletteCollection,
   CommandPaletteContent,
   CommandPaletteEmpty,
   CommandPaletteFooter,
@@ -22,7 +23,6 @@ import {
   CommandPaletteTrigger,
   PlusIcon,
   StarIcon,
-  useCommandPaletteFilteredItems,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -40,6 +40,16 @@ type CommandItem = {
 
 type CommandActionItem = CommandItem & {
   action: () => void;
+};
+
+type CommandGroup = {
+  value: string;
+  items: CommandItem[];
+};
+
+type CommandActionGroup = {
+  value: string;
+  items: CommandActionItem[];
 };
 
 const commands: CommandItem[] = [
@@ -104,6 +114,22 @@ const commands: CommandItem[] = [
     icon: <BellIcon />,
   },
 ];
+
+function groupCommands<T extends { section: string }>(
+  items: T[],
+): Array<{ value: string; items: T[] }> {
+  return items.reduce<Array<{ value: string; items: T[] }>>((groups, item) => {
+    const existingGroup = groups.find((group) => group.value === item.section);
+
+    if (existingGroup) {
+      existingGroup.items.push(item);
+      return groups;
+    }
+
+    groups.push({ value: item.section, items: [item] });
+    return groups;
+  }, []);
+}
 
 export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-backdrop-bg', 'var(--backdrop-bg, rgb(8 12 20 / 0.42))'],
@@ -257,67 +283,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function CommandResults() {
-  const filteredItems = useCommandPaletteFilteredItems<CommandItem>();
-  const sections = Array.from(new Set(filteredItems.map((item) => item.section)));
-
-  return (
-    <CommandPaletteList>
-      {sections.map((section) => {
-        const sectionItems = filteredItems.filter((item) => item.section === section);
-
-        return (
-          <CommandPaletteGroup key={section}>
-            <CommandPaletteGroupLabel>{section}</CommandPaletteGroupLabel>
-            {sectionItems.map((item) => (
-              <CommandPaletteItem key={item.id} value={item}>
-                <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                <CommandPaletteItemText>
-                  <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                  <CommandPaletteItemDescription>{item.description}</CommandPaletteItemDescription>
-                </CommandPaletteItemText>
-                {item.shortcut ? (
-                  <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                ) : null}
-              </CommandPaletteItem>
-            ))}
-          </CommandPaletteGroup>
-        );
-      })}
-    </CommandPaletteList>
-  );
-}
-
-function CommandResultsWithActions() {
-  const filteredItems = useCommandPaletteFilteredItems<CommandActionItem>();
-  const sections = Array.from(new Set(filteredItems.map((item) => item.section)));
-
-  return (
-    <CommandPaletteList>
-      {sections.map((section) => {
-        const sectionItems = filteredItems.filter((item) => item.section === section);
-
-        return (
-          <CommandPaletteGroup key={section}>
-            <CommandPaletteGroupLabel>{section}</CommandPaletteGroupLabel>
-            {sectionItems.map((item) => (
-              <CommandPaletteItem key={item.id} value={item} onClick={() => item.action()}>
-                <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                <CommandPaletteItemText>
-                  <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                  <CommandPaletteItemDescription>{item.description}</CommandPaletteItemDescription>
-                </CommandPaletteItemText>
-                {item.shortcut ? (
-                  <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                ) : null}
-              </CommandPaletteItem>
-            ))}
-          </CommandPaletteGroup>
-        );
-      })}
-    </CommandPaletteList>
-  );
-}
+const commandGroups: CommandGroup[] = groupCommands(commands);
 
 export function CommandPaletteExample() {
   return (
@@ -325,9 +291,9 @@ export function CommandPaletteExample() {
       <CommandPaletteTrigger render={<Button />}>
         Open palette <span className={styles.triggerMeta}>⌘K</span>
       </CommandPaletteTrigger>
-      <CommandPaletteContent
+      <CommandPaletteContent<CommandItem>
         aria-label="Command palette"
-        items={commands}
+        items={commandGroups}
         itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
       >
         <CommandPaletteInputWrap>
@@ -338,7 +304,29 @@ export function CommandPaletteExample() {
           <CommandPaletteClear aria-label="Clear search" />
         </CommandPaletteInputWrap>
         <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-        <CommandResults />
+        <CommandPaletteList>
+          {(group: CommandGroup) => (
+            <CommandPaletteGroup key={group.value} items={group.items}>
+              <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
+              <CommandPaletteCollection>
+                {(item: CommandItem) => (
+                  <CommandPaletteItem key={item.id} value={item}>
+                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                    <CommandPaletteItemText>
+                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                      <CommandPaletteItemDescription>
+                        {item.description}
+                      </CommandPaletteItemDescription>
+                    </CommandPaletteItemText>
+                    {item.shortcut ? (
+                      <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
+                    ) : null}
+                  </CommandPaletteItem>
+                )}
+              </CommandPaletteCollection>
+            </CommandPaletteGroup>
+          )}
+        </CommandPaletteList>
         <CommandPaletteFooter>
           <span className={styles.footerHint}>
             <CommandPaletteKbd>Enter</CommandPaletteKbd> run
@@ -447,15 +435,19 @@ export function CommandPaletteActionsExample() {
     ],
     [actions],
   );
+  const actionGroups = React.useMemo<CommandActionGroup[]>(
+    () => groupCommands(actionItems),
+    [actionItems],
+  );
 
   return (
     <CommandPalette>
       <CommandPaletteTrigger render={<Button />}>
         Open actions palette <span className={styles.triggerMeta}>⌘K</span>
       </CommandPaletteTrigger>
-      <CommandPaletteContent
+      <CommandPaletteContent<CommandActionItem>
         aria-label="Command palette with actions"
-        items={actionItems}
+        items={actionGroups}
         itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
       >
         <CommandPaletteInputWrap>
@@ -466,7 +458,29 @@ export function CommandPaletteActionsExample() {
           <CommandPaletteClear aria-label="Clear search" />
         </CommandPaletteInputWrap>
         <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-        <CommandResultsWithActions />
+        <CommandPaletteList>
+          {(group: CommandActionGroup) => (
+            <CommandPaletteGroup key={group.value} items={group.items}>
+              <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
+              <CommandPaletteCollection>
+                {(item: CommandActionItem) => (
+                  <CommandPaletteItem key={item.id} value={item} onClick={() => item.action()}>
+                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                    <CommandPaletteItemText>
+                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                      <CommandPaletteItemDescription>
+                        {item.description}
+                      </CommandPaletteItemDescription>
+                    </CommandPaletteItemText>
+                    {item.shortcut ? (
+                      <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
+                    ) : null}
+                  </CommandPaletteItem>
+                )}
+              </CommandPaletteCollection>
+            </CommandPaletteGroup>
+          )}
+        </CommandPaletteList>
         <CommandPaletteFooter>
           <span className={styles.footerHint}>
             <CommandPaletteKbd>Enter</CommandPaletteKbd> run

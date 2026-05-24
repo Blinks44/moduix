@@ -213,7 +213,7 @@ export function BreadcrumbsCollapsedExample() {
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        maxItems={2}
+        maxVisibleItems={4}
         items={[
           { label: 'Home', href: '#' },
           { label: 'Engineering', href: '#' },
@@ -252,6 +252,10 @@ export function BreadcrumbsLongLabelExample() {
           {
             label:
               'Go lang developer to production team with cross-functional ownership and platform support',
+            pageProps: {
+              title:
+                'Go lang developer to production team with cross-functional ownership and platform support',
+            },
           },
         ]}
       />
@@ -263,7 +267,7 @@ export function BreadcrumbsRenderExample() {
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        maxItems={1}
+        maxVisibleItems={3}
         items={[
           {
             label: 'Home',
@@ -304,7 +308,7 @@ export function BreadcrumbsSlotsExample() {
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        maxItems={1}
+        maxVisibleItems={3}
         items={[
           { label: 'Home', href: '/home' },
           { label: 'Engineering', href: '/engineering' },
@@ -330,7 +334,7 @@ export function BreadcrumbsActionExample() {
   return (
     <div className={styles.container}>
       <Breadcrumbs
-        maxItems={1}
+        maxVisibleItems={3}
         items={[
           { label: 'Home', href: '#' },
           { label: 'Projects', onClick: () => undefined },

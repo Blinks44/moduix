@@ -6,7 +6,7 @@ autocomplete popup open inside the dialog instead of rendering a positioned popu
 The root opens with `mod+k` by default, where `mod` maps to Command on macOS and Control on
 Windows/Linux. Pass `shortcut={false}` or `shortcutTarget={null}` to disable the global listener.
 The listener ignores editable targets such as inputs, textareas, selects, and contenteditable
-regions.
+regions, and it matches the exact modifier set.
 
 ## Defaults
 
@@ -22,5 +22,6 @@ regions.
 
 `CommandPaletteContent` also forwards commonly needed `Autocomplete.Root` props such as
 `filteredItems`, `highlightItemOnHover`, `loopFocus`, `locale`, `onItemHighlighted`,
-`openOnInputClick`, `submitOnItemClick`, `virtualized`, `disabled`, `readOnly`, `required`,
-`inputRef`, `form`, and `id`.
+`submitOnItemClick`, `virtualized`, `disabled`, `readOnly`, `required`, `inputRef`, `form`, and
+`id`. Use grouped `items` data with `CommandPaletteList` + `CommandPaletteCollection`, and use
+`CommandPaletteClose` when you need an explicit dismiss control inside the popup.

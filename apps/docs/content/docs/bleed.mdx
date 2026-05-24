@@ -21,7 +21,7 @@ import {
 `Bleed` is a moduix layout primitive (not a Base UI wrapper).
 Control each axis with `inline` and `block`; use `none` to keep an axis constrained.
 Supported amounts: `xs`, `sm`, `md`, `lg`, `xl`, and `full` (inline only).
-Use `as` for semantic/custom roots without changing bleed behavior. `inline="full"` is viewport-based,
+Use `as` for semantic block-level HTML roots without changing bleed behavior. `inline="full"` is viewport-based,
 so it is best suited for full-bleed sections rather than container-matching layout.
 
 ## Basic
@@ -107,18 +107,18 @@ Bleed
 ## Composition
 
 Use `inline` and `block` to control bleed per axis, and `as` when the root should be semantic
-(`section`, `figure`, etc.). `Bleed` forwards refs and matching element props to the rendered root.
+(`section`, `figure`, etc.).
 
-| Prop     | Default | Values                                       |
-| -------- | ------- | -------------------------------------------- |
-| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
-| `as`     | `div`   | Any valid React element or component         |
+| Prop     | Default | Values                                                                            |
+| -------- | ------- | --------------------------------------------------------------------------------- |
+| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full`                                      |
+| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`                                              |
+| `as`     | `div`   | `div`, `main`, `section`, `article`, `header`, `footer`, `nav`, `aside`, `figure` |
 
 `Bleed` has no internal slots. Customize via `className` and root `--bleed-*` variables.
 
-Use a block/flex/grid-capable root for predictable layout. Inline roots such as `span` are not a
-practical fit for bleed behavior.
+`Bleed` is a layout primitive, so `as` is intentionally limited to semantic block-level HTML
+elements that are a practical fit for bleed behavior.
 
 `inline="full"` uses viewport math, so ancestor clipping still applies:
 

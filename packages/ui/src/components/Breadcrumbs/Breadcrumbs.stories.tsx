@@ -38,7 +38,7 @@ export const Default: Story = {};
 export const Collapsed: Story = {
   args: {
     items: nestedItems,
-    maxItems: 1,
+    maxVisibleItems: 3,
   },
 };
 
@@ -63,7 +63,7 @@ export const LongCurrentLabel: Story = {
 
 export const ActionItems: Story = {
   args: {
-    maxItems: 1,
+    maxVisibleItems: 3,
     items: [
       { label: 'Home', href: '#' },
       { label: 'Projects', onClick: () => undefined },

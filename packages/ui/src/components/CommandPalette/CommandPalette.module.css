@@ -1,4 +1,17 @@
 @layer ui.components {
+  .close {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
   .trigger {
     box-sizing: border-box;
     display: inline-flex;

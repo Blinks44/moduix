@@ -5,28 +5,28 @@ import styles from './Bleed.module.css';
 type BleedSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type BleedInline = BleedSize | 'full';
 type BleedBlock = BleedSize;
-type BleedAs = React.ElementType;
+type BleedAs =
+  | 'div'
+  | 'main'
+  | 'section'
+  | 'article'
+  | 'header'
+  | 'footer'
+  | 'nav'
+  | 'aside'
+  | 'figure';
 
-type BleedOwnProps<TElement extends BleedAs = 'div'> = {
-  as?: TElement;
+type BleedProps = React.ComponentPropsWithoutRef<'div'> & {
+  as?: BleedAs;
   inline?: BleedInline;
   block?: BleedBlock;
 };
 
-type BleedProps<TElement extends BleedAs = 'div'> = BleedOwnProps<TElement> &
-  Omit<React.ComponentPropsWithoutRef<TElement>, keyof BleedOwnProps<TElement>>;
-
-type BleedComponent = <TElement extends BleedAs = 'div'>(
-  props: BleedProps<TElement> & {
-    ref?: React.Ref<React.ComponentRef<TElement>>;
-  },
-) => React.ReactElement | null;
-
-const Bleed = React.forwardRef(function Bleed<TElement extends BleedAs = 'div'>(
-  { as, inline = 'full', block = 'none', className, ...props }: BleedProps<TElement>,
-  ref: React.ForwardedRef<Element>,
+const Bleed = React.forwardRef(function Bleed(
+  { as, inline = 'full', block = 'none', className, ...props }: BleedProps,
+  ref: React.ForwardedRef<HTMLElement>,
 ) {
-  const Component = (as ?? 'div') as BleedAs;
+  const Component = as ?? 'div';
 
   return React.createElement(Component, {
     ...props,
@@ -36,7 +36,7 @@ const Bleed = React.forwardRef(function Bleed<TElement extends BleedAs = 'div'>(
     'data-block': block,
     className: clsx(styles.root, className),
   });
-}) as BleedComponent;
+});
 
 export { Bleed };
 

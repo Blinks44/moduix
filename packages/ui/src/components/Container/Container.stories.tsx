@@ -31,7 +31,7 @@ export const Basic: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className={storyStyles.stack}>
-      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
+      {(['xs', 'sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
         <Container key={size} size={size} className={storyStyles.container}>
           <Text weight="semibold">size=&quot;{size}&quot;</Text>
         </Container>

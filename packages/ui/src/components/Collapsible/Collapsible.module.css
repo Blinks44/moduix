@@ -73,7 +73,7 @@
       height: 100%;
     }
 
-    [data-panel-open] > & {
+    [data-panel-open] & {
       transform: var(--collapsible-icon-open-transform, rotate(90deg));
     }
   }

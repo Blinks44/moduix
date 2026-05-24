@@ -2,6 +2,7 @@ import {
   Collapsible,
   CollapsiblePanel,
   CollapsibleTrigger,
+  CollapsibleTriggerIcon,
   ChevronDownIcon,
   type CollapsibleProps,
 } from 'moduix';
@@ -183,6 +184,33 @@ export function CustomStylesCollapsibleExample() {
         classNames={{ icon: styles.customTriggerIcon }}
       >
         Styled recovery keys
+      </CollapsibleTrigger>
+      <CollapsiblePanel className={styles.customPanel}>
+        <div className={styles.customPanelContent}>
+          <ul className={styles.keysList}>
+            {recoveryKeys.map((key) => (
+              <li key={key}>{key}</li>
+            ))}
+          </ul>
+        </div>
+      </CollapsiblePanel>
+    </Collapsible>
+  );
+}
+
+export function ManualTriggerCompositionCollapsibleExample() {
+  return (
+    <Collapsible className={styles.customRoot}>
+      <CollapsibleTrigger
+        render={<div />}
+        nativeButton={false}
+        withIcon={false}
+        className={styles.customTrigger}
+      >
+        <span className={styles.triggerLabel}>Recovery keys</span>
+        <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+          <ChevronDownIcon />
+        </CollapsibleTriggerIcon>
       </CollapsibleTrigger>
       <CollapsiblePanel className={styles.customPanel}>
         <div className={styles.customPanelContent}>

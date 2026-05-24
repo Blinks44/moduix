@@ -12,6 +12,7 @@ import {
   CustomStylesCollapsibleExample,
   DisabledCollapsibleExample,
   HiddenUntilFoundCollapsibleExample,
+  ManualTriggerCompositionCollapsibleExample,
   collapsiblePlaygroundCssProperties,
 } from '@/components/examples/collapsible';
 
@@ -121,12 +122,14 @@ default, so decorative icons stay out of the accessibility tree.
 Use `Collapsible` for root state props (`open`, `defaultOpen`, `onOpenChange`, `disabled`).
 Style root/trigger/panel with `className`; style the built-in icon via `classNames.icon`.
 Use `slotProps.icon` for icon slot attributes, or compose `CollapsibleTriggerIcon` manually when
-you need full trigger markup control. Base UI behavior props (`render`, `nativeButton`,
+you need full trigger markup control. When using a manual icon inside `children`, set
+`withIcon={false}` to avoid rendering the built-in icon twice. Base UI behavior props (`render`, `nativeButton`,
 `keepMounted`, `hiddenUntilFound`) pass through to matching parts.
 
-When replacing the trigger element with `render`, keep button semantics intact. If the rendered
-element is not a native `<button>`, pass `nativeButton={false}` so Base UI applies the correct
-ARIA button behavior.
+When replacing the trigger element with `render`, `CollapsibleTrigger` keeps its content contract
+and only swaps the host element. For fully custom trigger markup, compose your own children and
+`CollapsibleTriggerIcon`. If the rendered element is not a native `<button>`, pass
+`nativeButton={false}` so Base UI applies the correct ARIA button behavior.
 
 | Prop              | Default      | Values                                                                     |
 | ----------------- | ------------ | -------------------------------------------------------------------------- |
@@ -266,6 +269,119 @@ Control `open` from React state when the collapsible needs to coordinate with ot
         color: var(--color-muted-foreground);
         font-size: var(--text-xs);
         line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Manual Trigger Composition
+
+Use `render` to swap the trigger element, and set `withIcon={false}` when composing your own
+`CollapsibleTriggerIcon` inside custom trigger content.
+
+<Preview>
+  <ManualTriggerCompositionCollapsibleExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Collapsible,
+        CollapsiblePanel,
+        CollapsibleTrigger,
+        CollapsibleTriggerIcon,
+        ChevronDownIcon,
+      } from "moduix";
+
+      export function ManualTriggerCompositionCollapsibleDemo() {
+        return (
+          <Collapsible className={styles.customRoot}>
+            <CollapsibleTrigger
+              render={<div />}
+              nativeButton={false}
+              withIcon={false}
+              className={styles.customTrigger}
+            >
+              <span className={styles.triggerLabel}>Recovery keys</span>
+              <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+                <ChevronDownIcon />
+              </CollapsibleTriggerIcon>
+            </CollapsibleTrigger>
+            <CollapsiblePanel className={styles.customPanel}>
+              <div className={styles.customPanelContent}>
+                <ul className={styles.keysList}>
+                  {recoveryKeys.map((key) => (
+                    <li key={key}>{key}</li>
+                  ))}
+                </ul>
+              </div>
+            </CollapsiblePanel>
+          </Collapsible>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customRoot {
+        width: 16rem;
+        color: var(--color-foreground);
+      }
+
+      .customTrigger {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-2);
+        padding: var(--spacing-2) var(--spacing-3);
+        border-radius: var(--radius-md);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+      }
+
+      @media (hover: hover) {
+        .customTrigger:hover {
+          background-color: var(--color-accent);
+        }
+      }
+
+      .triggerLabel {
+        min-width: 0;
+      }
+
+      .customTriggerIcon {
+        --collapsible-icon-open-transform: rotate(180deg);
+
+        color: var(--color-primary);
+      }
+
+      .customPanel {
+        color: var(--color-muted-foreground);
+      }
+
+      .customPanelContent {
+        margin-top: var(--spacing-1);
+        padding: var(--spacing-2) var(--spacing-3);
+        border-radius: var(--radius-md);
+        background-color: var(--color-muted);
+      }
+
+      .keysList {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding-inline-start: var(--spacing-2);
       }
     `}
 

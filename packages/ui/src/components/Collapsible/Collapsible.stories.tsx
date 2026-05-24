@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { ChevronDownIcon } from '@/primitives';
-import { Collapsible, CollapsiblePanel, CollapsibleTrigger } from './Collapsible';
+import {
+  Collapsible,
+  CollapsiblePanel,
+  CollapsibleTrigger,
+  CollapsibleTriggerIcon,
+} from './Collapsible';
 import styles from './Collapsible.stories.module.css';
 
 const meta = {
@@ -117,6 +122,35 @@ export const CustomStyles: Story = {
           classNames={{ icon: styles.customTriggerIcon }}
         >
           Styled recovery keys
+        </CollapsibleTrigger>
+        <CollapsiblePanel className={styles.customPanel}>
+          <div className={styles.customPanelContent}>
+            <ul className={styles.keysList}>
+              {recoveryKeys.map((key) => (
+                <li key={key}>{key}</li>
+              ))}
+            </ul>
+          </div>
+        </CollapsiblePanel>
+      </Collapsible>
+    );
+  },
+};
+
+export const ManualTriggerComposition: Story = {
+  render: () => {
+    return (
+      <Collapsible className={styles.customRoot}>
+        <CollapsibleTrigger
+          render={<div />}
+          nativeButton={false}
+          withIcon={false}
+          className={styles.customTrigger}
+        >
+          <span className={styles.triggerLabel}>Recovery keys</span>
+          <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+            <ChevronDownIcon />
+          </CollapsibleTriggerIcon>
         </CollapsibleTrigger>
         <CollapsiblePanel className={styles.customPanel}>
           <div className={styles.customPanelContent}>
