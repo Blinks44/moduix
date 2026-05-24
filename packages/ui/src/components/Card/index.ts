@@ -20,4 +20,5 @@ export type {
   CardVariant,
   CardSize,
   CardFooterAlign,
+  CardTitleAs,
 } from './Card';

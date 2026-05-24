@@ -43,6 +43,8 @@ export const cardOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--card-divider-color', 'var(--color-border)', 'Controls header/footer divider color.'],
   ['--card-divider-width', 'var(--border-width-sm)', 'Controls header/footer divider width.'],
+  ['--card-focus-ring-color', 'var(--color-ring)', 'Controls interactive focus ring color.'],
+  ['--card-focus-ring-width', 'var(--border-width-sm)', 'Controls interactive focus ring width.'],
   [
     '--card-footer-divided-padding-top',
     'var(--card-padding-default)',
@@ -254,9 +256,14 @@ export function CardSizesExample() {
 
 export function InteractiveCardExample() {
   return (
-    <Card as="article" className={styles.card} interactive tabIndex={0}>
+    <Card
+      className={styles.card}
+      interactive
+      render={<a href="#card-interactive-demo" />}
+      aria-label="Open import report"
+    >
       <CardHeader>
-        <CardTitle>Data import completed</CardTitle>
+        <CardTitle as="h2">Data import completed</CardTitle>
         <CardDescription>42,816 rows processed without validation errors.</CardDescription>
         <CardAction>
           <Badge>New</Badge>

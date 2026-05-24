@@ -98,18 +98,22 @@ Card
 ## Composition
 
 Use `variant` to set visual weight and `size` to control density.
-`Card` supports `as` for semantics and `interactive` for hover affordance.
-When `interactive` is enabled, add keyboard and click behavior in application code.
+`Card` supports `as` for sectioning semantics, `render` for semantic interactive roots such as links
+and buttons, and `interactive` for hover/focus affordance.
+Prefer `render={<a />}` or `render={<button />}` over `tabIndex` on non-interactive elements.
+`CardTitle` defaults to `h3` and supports `as` for heading-level control.
 Pass `className` to slots and customize visuals with `--card-*` variables.
 
-| Prop          | Default   | Values                                             |
-| ------------- | --------- | -------------------------------------------------- |
-| `variant`     | `default` | `default`, `elevated`, `outline`, `ghost`          |
-| `size`        | `md`      | `xs`, `sm`, `md`, `lg`                             |
-| `interactive` | `false`   | `true`, `false`                                    |
-| `as`          | `div`     | `div`, `article`, `section`, `aside`               |
-| `align`       | `end`     | `start`, `center`, `end`, `between` (`CardFooter`) |
-| `withDivider` | `false`   | `true`, `false` (`CardHeader` and `CardFooter`)    |
+| Prop           | Default   | Values                                             |
+| -------------- | --------- | -------------------------------------------------- |
+| `render`       | —         | Rendered root element for semantic link/button use |
+| `variant`      | `default` | `default`, `elevated`, `outline`, `ghost`          |
+| `size`         | `md`      | `xs`, `sm`, `md`, `lg`                             |
+| `interactive`  | `false`   | `true`, `false`                                    |
+| `as`           | `div`     | `div`, `article`, `section`, `aside`               |
+| `align`        | `end`     | `start`, `center`, `end`, `between` (`CardFooter`) |
+| `withDivider`  | `false`   | `true`, `false` (`CardHeader` and `CardFooter`)    |
+| `CardTitle as` | `h3`      | `h1`, `h2`, `h3`, `h4`, `h5`, `h6`                 |
 
 ## Examples
 
@@ -244,6 +248,7 @@ Use size to tune density.
 ### Interactive
 
 Use `interactive` when app logic makes the card selectable or navigable.
+Pair it with `render` so the root element keeps correct semantics.
 
 <Preview>
   <InteractiveCardExample />
@@ -254,9 +259,13 @@ Use `interactive` when app logic makes the card selectable or navigable.
 
       export function InteractiveCardDemo() {
         return (
-          <Card as="article" interactive tabIndex={0}>
+          <Card
+            interactive
+            render={<a href="/imports/42" />}
+            aria-label="Open import report"
+          >
             <CardHeader>
-              <CardTitle>Data import completed</CardTitle>
+              <CardTitle as="h2">Data import completed</CardTitle>
               <CardDescription>42,816 rows processed without validation errors.</CardDescription>
               <CardAction>
                 <Badge>New</Badge>

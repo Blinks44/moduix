@@ -6,12 +6,14 @@ type CardAs = 'div' | 'article' | 'section' | 'aside';
 type CardVariant = 'default' | 'elevated' | 'outline' | 'ghost';
 type CardSize = 'xs' | 'sm' | 'md' | 'lg';
 type CardFooterAlign = 'start' | 'center' | 'end' | 'between';
+type CardTitleAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-type CardProps = React.ComponentPropsWithoutRef<CardAs> & {
+type CardProps = React.ComponentPropsWithoutRef<'div'> & {
   as?: CardAs;
   variant?: CardVariant;
   size?: CardSize;
   interactive?: boolean;
+  render?: React.ReactElement<{ className?: string }>;
 };
 
 type CardHeaderProps = React.ComponentProps<'div'> & {
@@ -25,31 +27,45 @@ type CardFooterProps = React.ComponentProps<'div'> & {
   withDivider?: boolean;
 };
 
-type CardTitleProps = React.ComponentProps<'h3'>;
+type CardTitleProps = React.ComponentPropsWithoutRef<'h3'> & {
+  as?: CardTitleAs;
+};
 type CardDescriptionProps = React.ComponentProps<'p'>;
 type CardActionProps = React.ComponentProps<'div'>;
 
-function Card({
-  as = 'div',
-  className,
-  variant = 'default',
-  size = 'md',
-  interactive = false,
-  ...props
-}: CardProps) {
+const Card = React.forwardRef<HTMLElement, CardProps>(function Card(
+  {
+    as = 'div',
+    className,
+    variant = 'default',
+    size = 'md',
+    interactive = false,
+    render,
+    ...props
+  },
+  ref,
+) {
   const Root = as;
+  const rootProps = {
+    'data-slot': 'card-root',
+    'data-variant': variant,
+    'data-size': size,
+    'data-interactive': interactive ? '' : undefined,
+    className: clsx(styles.root, className),
+    ...props,
+  };
 
-  return (
-    <Root
-      data-slot="card-root"
-      data-variant={variant}
-      data-size={size}
-      data-interactive={interactive ? '' : undefined}
-      className={clsx(styles.root, className)}
-      {...props}
-    />
-  );
-}
+  if (render) {
+    return React.cloneElement(render, {
+      ref,
+      ...rootProps,
+      ...render.props,
+      className: clsx(rootProps.className, render.props.className),
+    } as any);
+  }
+
+  return <Root ref={ref as React.Ref<any>} {...rootProps} />;
+});
 
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(function CardHeader(
   { className, withDivider = false, ...props },
@@ -92,11 +108,13 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(function Ca
 });
 
 const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(function CardTitle(
-  { className, ...props },
+  { as = 'h3', className, ...props },
   ref,
 ) {
+  const Root = as;
+
   return (
-    <h3 ref={ref} data-slot="card-title" className={clsx(styles.title, className)} {...props} />
+    <Root ref={ref} data-slot="card-title" className={clsx(styles.title, className)} {...props} />
   );
 });
 
@@ -136,4 +154,5 @@ export type {
   CardVariant,
   CardSize,
   CardFooterAlign,
+  CardTitleAs,
 };

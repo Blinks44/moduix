@@ -537,6 +537,8 @@
   --card-description-line-height: initial; /* var(--line-height-text-sm) */
   --card-divider-color: initial; /* var(--color-border) */
   --card-divider-width: initial; /* var(--border-width-sm) */
+  --card-focus-ring-color: initial; /* var(--color-ring) */
+  --card-focus-ring-width: initial; /* var(--border-width-sm) */
   --card-footer-divided-padding-top: initial; /* var(--card-padding-default) */
   --card-footer-gap: initial; /* var(--spacing-2) */
   --card-footer-padding-y: initial; /* 0 var(--card-padding-default) */
