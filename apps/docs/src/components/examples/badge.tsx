@@ -149,6 +149,14 @@ export function BadgeWithRightIconExample() {
   );
 }
 
+export function BadgeAsLinkExample() {
+  return (
+    <Badge render={<a href="#badge-link" />} variant="outline">
+      Release notes
+    </Badge>
+  );
+}
+
 export function CustomStylesBadgeExample() {
   return (
     <Badge className={styles.customBadge}>

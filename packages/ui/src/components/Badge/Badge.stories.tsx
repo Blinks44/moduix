@@ -92,6 +92,16 @@ export const WithRightIcon: Story = {
   },
 };
 
+export const AsLink: Story = {
+  render: () => {
+    return (
+      <Badge render={<a href="#badge-link" />} variant="outline">
+        Release notes
+      </Badge>
+    );
+  },
+};
+
 export const CustomStyles: Story = {
   render: () => {
     return (

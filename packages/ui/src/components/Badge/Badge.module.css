@@ -30,7 +30,7 @@
     text-decoration: none;
     vertical-align: middle;
     white-space: nowrap;
-    user-select: none;
+    text-overflow: ellipsis;
     transition:
       color var(--transition-default),
       background-color var(--transition-default),

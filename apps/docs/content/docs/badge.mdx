@@ -7,6 +7,7 @@ icon: Component
 import {
   BadgeCssPlaygroundPanel,
   BadgeCssPropertiesPanel,
+  BadgeAsLinkExample,
   BadgeExample,
   BadgeSizesExample,
   BadgeVariantsExample,
@@ -19,7 +20,8 @@ import {
 ## API Reference
 
 `Badge` is a standalone moduix component. Use `variant` and `size` to control
-appearance, and `BadgeDot` as an optional status marker.
+appearance, `render` to swap the root element, and `BadgeDot` as an optional
+status marker.
 
 ## Basic
 
@@ -42,7 +44,8 @@ appearance, and `BadgeDot` as an optional status marker.
 
 ## Anatomy
 
-`Badge` can render as text only, with `BadgeDot`, or with an inline icon.
+`Badge` can render as text only, with `BadgeDot`, with an inline icon, or as a
+custom root element via `render`.
 
 ```text
 Badge
@@ -70,12 +73,18 @@ Badge
 Pass `className` to `Badge` and `BadgeDot` when integrating with CSS Modules, Tailwind CSS, or
 CSS-in-JS. Place icons directly before or after the label; direct child `svg` icons inherit
 `currentColor` and use `--badge-icon-size`. The root accepts standard `span` props so you can add
-`title`, `aria-*`, and testing attributes without extra wrappers.
+`title`, `aria-*`, and testing attributes without extra wrappers, and `render` lets the badge use
+the semantics of an anchor, button, or app-specific link component.
+
+Keep the visible status in text. `BadgeDot` is decorative and is hidden from assistive
+technology, so color or the dot alone should not be the only signal. Long labels stay on one line
+and are truncated by the root; add `title` when the full value should remain discoverable.
 
 | Prop      | Default   | Values                                                    |
 | --------- | --------- | --------------------------------------------------------- |
 | `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost` |
 | `size`    | `md`      | `sm`, `md`, `lg`                                          |
+| `render`  | -         | `ReactElement`                                            |
 
 ## Examples
 
@@ -173,6 +182,29 @@ Place an icon after the label when the badge acts like a drill-in marker or meta
           <Badge variant="default">
             Release
             <ChevronRightIcon />
+          </Badge>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### As Link
+
+Use `render` when the badge should keep link or button semantics without an extra wrapper.
+
+<Preview>
+  <BadgeAsLinkExample />
+
+  <Preview.Code>
+    {`
+      import { Badge } from "moduix";
+
+      export function BadgeAsLinkDemo() {
+        return (
+          <Badge render={<a href="/releases" />} variant="outline">
+            Release notes
           </Badge>
         );
       }
