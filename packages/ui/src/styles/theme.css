@@ -391,6 +391,7 @@
   --bleed-block-lg: initial; /* var(--spacing-4) */
   --bleed-block-xl: initial; /* var(--spacing-6) */
   --bleed-inline-full: initial; /* calc(50% - 50vw) */
+  --bleed-inline-full-size: initial; /* 100vw */
   --bleed-inline-xs: initial; /* var(--spacing-1) */
   --bleed-inline-sm: initial; /* var(--spacing-2) */
   --bleed-inline-md: initial; /* var(--spacing-3) */

@@ -9,6 +9,7 @@ import {
   BleedCssPlaygroundPanel,
   BleedCssPropertiesPanel,
   BleedExample,
+  BleedFlexStartExample,
   BleedInlineAmountsExample,
   BleedSemanticExample,
   CustomStylesBleedExample,
@@ -20,7 +21,8 @@ import {
 `Bleed` is a moduix layout primitive (not a Base UI wrapper).
 Control each axis with `inline` and `block`; use `none` to keep an axis constrained.
 Supported amounts: `xs`, `sm`, `md`, `lg`, `xl`, and `full` (inline only).
-Use `as` for semantic/custom roots without changing bleed behavior.
+Use `as` for semantic/custom roots without changing bleed behavior. `inline="full"` is viewport-based,
+so it is best suited for full-bleed sections rather than container-matching layout.
 
 ## Basic
 
@@ -105,7 +107,7 @@ Bleed
 ## Composition
 
 Use `inline` and `block` to control bleed per axis, and `as` when the root should be semantic
-(`section`, `figure`, etc.). `Bleed` forwards refs to the rendered element.
+(`section`, `figure`, etc.). `Bleed` forwards refs and matching element props to the rendered root.
 
 | Prop     | Default | Values                                       |
 | -------- | ------- | -------------------------------------------- |
@@ -114,6 +116,15 @@ Use `inline` and `block` to control bleed per axis, and `as` when the root shoul
 | `as`     | `div`   | Any valid React element or component         |
 
 `Bleed` has no internal slots. Customize via `className` and root `--bleed-*` variables.
+
+Use a block/flex/grid-capable root for predictable layout. Inline roots such as `span` are not a
+practical fit for bleed behavior.
+
+`inline="full"` uses viewport math, so ancestor clipping still applies:
+
+- `overflow: hidden` or `overflow: clip` on an ancestor can crop the bleed.
+- Nested scroll areas, drawers, and app shells may need local overrides for `--bleed-inline-full`
+  and `--bleed-inline-full-size`.
 
 ## Examples
 
@@ -205,6 +216,63 @@ Use `block` when a surface should also escape vertical container padding.
         flex-direction: column;
         gap: var(--spacing-4);
         padding: var(--spacing-6);
+        border: var(--border-width-sm) dashed var(--color-border);
+      }
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--spacing-4);
+        background-color: var(--color-muted);
+        text-align: center;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Full Bleed In Flex Layouts
+
+`inline="full"` keeps working when the parent is a flex column with `align-items: flex-start`, but
+it still uses viewport-based sizing. In app shells or nested scroll regions, override the full-bleed
+variables locally if your layout needs custom math.
+
+<Preview>
+  <BleedFlexStartExample />
+
+  <Preview.Code>
+    {`
+      import { Bleed, Text } from "moduix";
+
+      export function BleedFlexStartDemo() {
+        return (
+          <div className={styles.flexStartContainer}>
+            <Text tone="muted">
+              Parent uses flex column with align-items: flex-start.
+            </Text>
+            <Bleed inline="full" className={styles.panel}>
+              <Text>Full inline bleed in flex-start context</Text>
+            </Bleed>
+            <Text tone="muted">
+              Following content stays constrained to parent width.
+            </Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .flexStartContainer {
+        display: flex;
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4);
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
@@ -317,6 +385,7 @@ Pass `className` when styling the root or overriding bleed variables in local CS
 
       .customBleed {
         --bleed-inline-full: calc(var(--spacing-8) * -1);
+        --bleed-inline-full-size: calc(100vw - (var(--spacing-8) * 2));
         display: flex;
         flex-direction: column;
         align-items: center;

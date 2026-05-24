@@ -29,8 +29,8 @@
     }
 
     &[data-inline='full'] {
-      width: 100vw;
-      max-width: 100vw;
+      inline-size: var(--bleed-inline-full-size, 100vw);
+      max-inline-size: var(--bleed-inline-full-size, 100vw);
       margin-inline: var(--bleed-inline-full, calc(50% - 50vw));
     }
 

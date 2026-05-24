@@ -10,6 +10,7 @@ export const bleedOverrideCssProperties: CssPropertyInput[] = [
   ['--bleed-block-lg', 'var(--spacing-4)', 'Controls large block bleed.'],
   ['--bleed-block-xl', 'var(--spacing-6)', 'Controls extra-large block bleed.'],
   ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
+  ['--bleed-inline-full-size', '100vw', 'Controls the width used by full viewport inline bleed.'],
   ['--bleed-inline-xs', 'var(--spacing-1)', 'Controls extra-small inline bleed.'],
   ['--bleed-inline-sm', 'var(--spacing-2)', 'Controls small inline bleed.'],
   ['--bleed-inline-md', 'var(--spacing-3)', 'Controls medium inline bleed.'],
@@ -19,6 +20,7 @@ export const bleedOverrideCssProperties: CssPropertyInput[] = [
 
 export const bleedPlaygroundCssProperties: CssPropertyInput[] = [
   ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
+  ['--bleed-inline-full-size', '100vw', 'Controls the width used by full viewport inline bleed.'],
 ];
 
 export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -88,6 +90,18 @@ export function BleedBlockExample() {
         <Text>Inline and block bleed</Text>
       </Bleed>
       <Text tone="muted">Container padding below.</Text>
+    </div>
+  );
+}
+
+export function BleedFlexStartExample() {
+  return (
+    <div className={styles.flexStartContainer}>
+      <Text tone="muted">Parent uses flex column with align-items: flex-start.</Text>
+      <Bleed inline="full" className={styles.panel}>
+        <Text>Full inline bleed in flex-start context</Text>
+      </Bleed>
+      <Text tone="muted">Following content stays constrained to parent width.</Text>
     </div>
   );
 }

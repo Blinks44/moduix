@@ -80,3 +80,13 @@ export const SemanticElement: Story = {
     </div>
   ),
 };
+
+export const CustomStyles: Story = {
+  render: () => (
+    <div className={storyStyles.container}>
+      <Bleed className={storyStyles.customBleed}>
+        <Text weight="semibold">Customized bleed amount.</Text>
+      </Bleed>
+    </div>
+  ),
+};
