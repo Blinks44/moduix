@@ -90,7 +90,8 @@ Avatar
 Use `className` on `Avatar`, `AvatarImage`, and `AvatarFallback`. Each slot also supports
 state-based `className` and `style` functions, and `render` for composition. Use
 `AvatarImage onLoadingStatusChange` when you need image load state, and `AvatarFallback delay`
-to avoid fallback flash during normal loading.
+to avoid fallback flash during normal loading. All public slots also forward `ref` to the
+underlying Base UI element.
 
 | Prop                   | Default | Values                               |
 | ---------------------- | ------- | ------------------------------------ |
@@ -325,3 +326,44 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
 
   </Preview.CSS>
 </Preview>
+
+### Accessibility
+
+Treat avatar accessibility as part of the surrounding UI, not as a fixed rule on the component.
+
+- If the avatar is purely decorative because nearby text already names the person, use `alt=""` on
+  `AvatarImage` and keep fallback text out of the accessibility tree with `aria-hidden="true"`.
+- If the avatar is the only visible identity cue, provide meaningful `alt` text on `AvatarImage`.
+- If the avatar is interactive through `render`, make sure the rendered link or button has an
+  accessible name, usually with `aria-label`.
+- If the fallback is only an icon, give the interactive root its accessible name on the rendered
+  element instead of relying on the icon.
+
+```tsx
+import { Avatar, AvatarImage, AvatarFallback } from 'moduix';
+
+export function DecorativeAvatarDemo() {
+  return (
+    <div className={styles.userRow}>
+      <Avatar>
+        <AvatarImage src={avatarImage} alt="" />
+        <AvatarFallback aria-hidden="true">LT</AvatarFallback>
+      </Avatar>
+      <span>Alex Thompson</span>
+    </div>
+  );
+}
+```
+
+```tsx
+import { Avatar, AvatarImage, AvatarFallback } from 'moduix';
+
+export function InteractiveAvatarDemo() {
+  return (
+    <Avatar render={<a href="/team/alex-thompson" aria-label="Open Alex Thompson profile" />}>
+      <AvatarImage src={avatarImage} alt="" />
+      <AvatarFallback aria-hidden="true">AT</AvatarFallback>
+    </Avatar>
+  );
+}
+```
