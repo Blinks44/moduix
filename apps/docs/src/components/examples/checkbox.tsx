@@ -1,4 +1,11 @@
-import { Checkbox, CheckboxField, CheckboxLabel, type CheckboxProps } from 'moduix';
+import {
+  Checkbox,
+  CheckboxField,
+  CheckboxIndicator,
+  CheckboxIndicatorIcon,
+  CheckboxLabel,
+  type CheckboxProps,
+} from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -165,6 +172,21 @@ export function CheckboxDisabledExample() {
   );
 }
 
+export function CheckboxReadOnlyExample() {
+  return (
+    <div className={styles.stack}>
+      <CheckboxField>
+        <Checkbox readOnly />
+        <CheckboxLabel>Keep current selection</CheckboxLabel>
+      </CheckboxField>
+      <CheckboxField>
+        <Checkbox defaultChecked readOnly />
+        <CheckboxLabel>Preserve existing setting</CheckboxLabel>
+      </CheckboxField>
+    </div>
+  );
+}
+
 export function ControlledCheckboxExample() {
   const [checked, setChecked] = React.useState(false);
 
@@ -184,6 +206,19 @@ export function CustomIconCheckboxExample() {
     <CheckboxField>
       <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
       <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
+    </CheckboxField>
+  );
+}
+
+export function CheckboxIndicatorCompositionExample() {
+  return (
+    <CheckboxField>
+      <Checkbox defaultChecked>
+        <CheckboxIndicator className={styles.customIndicator}>
+          <CheckboxIndicatorIcon className={styles.customIndicatorIcon} />
+        </CheckboxIndicator>
+      </Checkbox>
+      <CheckboxLabel>Compose the indicator tree manually</CheckboxLabel>
     </CheckboxField>
   );
 }

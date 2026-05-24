@@ -28,17 +28,20 @@ type CheckboxProps = CheckboxPrimitive.Root.Props & {
   slotProps?: CheckboxSlotProps;
 };
 
-function Checkbox({
-  className,
-  size = 'md',
-  children,
-  indicator,
-  checkedIcon,
-  indeterminateIcon,
-  classNames,
-  slotProps,
-  ...props
-}: CheckboxProps) {
+const Checkbox = React.forwardRef(function Checkbox(
+  {
+    className,
+    size = 'md',
+    children,
+    indicator,
+    checkedIcon,
+    indeterminateIcon,
+    classNames,
+    slotProps,
+    ...props
+  }: CheckboxProps,
+  ref: React.ForwardedRef<HTMLElement>,
+) {
   const indicatorNode = indicator ?? (
     <CheckboxIndicatorIcon
       {...slotProps?.indicatorIcon}
@@ -52,6 +55,7 @@ function Checkbox({
 
   return (
     <CheckboxPrimitive.Root
+      ref={ref}
       data-slot="checkbox-root"
       data-size={size}
       className={mergeClassName(className, styles.root)}
@@ -64,7 +68,7 @@ function Checkbox({
       )}
     </CheckboxPrimitive.Root>
   );
-}
+});
 
 type CheckboxIndicatorProps = CheckboxPrimitive.Indicator.Props & {
   checkedIcon?: React.ReactNode;

@@ -6,7 +6,8 @@
     vertical-align: middle;
     cursor: pointer;
 
-    &:has(.root[data-disabled]) {
+    &:has(.root[data-disabled]),
+    &:has(.root[data-readonly]) {
       cursor: default;
     }
   }
@@ -29,6 +30,7 @@
     outline: 0;
     line-height: 0;
     user-select: none;
+    cursor: pointer;
     transition:
       background-color var(--checkbox-transition, var(--transition-default)),
       border-color var(--checkbox-transition, var(--transition-default)),
@@ -48,9 +50,13 @@
     }
 
     @media (hover: hover) {
-      &[data-unchecked]:hover {
+      &[data-unchecked]:not([data-readonly]):hover {
         background-color: var(--checkbox-bg-hover, var(--color-accent));
       }
+    }
+
+    &[data-readonly] {
+      cursor: default;
     }
 
     &[data-disabled] {

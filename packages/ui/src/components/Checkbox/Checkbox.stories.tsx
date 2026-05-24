@@ -128,6 +128,23 @@ export const Disabled: Story = {
   },
 };
 
+export const ReadOnly: Story = {
+  render: () => {
+    return (
+      <div className={styles.stack}>
+        <CheckboxField>
+          <Checkbox readOnly />
+          <CheckboxLabel>Keep current selection</CheckboxLabel>
+        </CheckboxField>
+        <CheckboxField>
+          <Checkbox defaultChecked readOnly />
+          <CheckboxLabel>Preserve existing setting</CheckboxLabel>
+        </CheckboxField>
+      </div>
+    );
+  },
+};
+
 export const Controlled: Story = {
   render: () => {
     const [checked, setChecked] = React.useState(false);
