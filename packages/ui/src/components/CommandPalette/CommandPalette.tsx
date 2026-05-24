@@ -44,11 +44,26 @@ type CommandPaletteContentProps<ItemValue = unknown> = Omit<
   defaultValue?: AutocompletePrimitive.Root.Props<ItemValue>['defaultValue'];
   onValueChange?: AutocompletePrimitive.Root.Props<ItemValue>['onValueChange'];
   onAutocompleteOpenChange?: AutocompletePrimitive.Root.Props<ItemValue>['onOpenChange'];
+  onAutocompleteOpenChangeComplete?: AutocompletePrimitive.Root.Props<ItemValue>['onOpenChangeComplete'];
   filter?: AutocompletePrimitive.Root.Props<ItemValue>['filter'];
+  filteredItems?: AutocompletePrimitive.Root.Props<ItemValue>['filteredItems'];
   limit?: AutocompletePrimitive.Root.Props<ItemValue>['limit'];
   autoHighlight?: AutocompletePrimitive.Root.Props<ItemValue>['autoHighlight'];
   keepHighlight?: AutocompletePrimitive.Root.Props<ItemValue>['keepHighlight'];
+  highlightItemOnHover?: AutocompletePrimitive.Root.Props<ItemValue>['highlightItemOnHover'];
+  loopFocus?: AutocompletePrimitive.Root.Props<ItemValue>['loopFocus'];
+  locale?: AutocompletePrimitive.Root.Props<ItemValue>['locale'];
   mode?: AutocompletePrimitive.Root.Props<ItemValue>['mode'];
+  onItemHighlighted?: AutocompletePrimitive.Root.Props<ItemValue>['onItemHighlighted'];
+  openOnInputClick?: AutocompletePrimitive.Root.Props<ItemValue>['openOnInputClick'];
+  submitOnItemClick?: AutocompletePrimitive.Root.Props<ItemValue>['submitOnItemClick'];
+  virtualized?: AutocompletePrimitive.Root.Props<ItemValue>['virtualized'];
+  disabled?: AutocompletePrimitive.Root.Props<ItemValue>['disabled'];
+  readOnly?: AutocompletePrimitive.Root.Props<ItemValue>['readOnly'];
+  required?: AutocompletePrimitive.Root.Props<ItemValue>['required'];
+  inputRef?: AutocompletePrimitive.Root.Props<ItemValue>['inputRef'];
+  form?: AutocompletePrimitive.Root.Props<ItemValue>['form'];
+  id?: AutocompletePrimitive.Root.Props<ItemValue>['id'];
 };
 
 type CommandPaletteItemProps = AutocompletePrimitive.Item.Props & {
@@ -93,6 +108,16 @@ function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
   );
 }
 
+function isEditableTarget(target: EventTarget | null) {
+  if (!(target instanceof Element)) {
+    return false;
+  }
+
+  return (
+    target.closest('input, textarea, select, [contenteditable], [contenteditable="true"]') !== null
+  );
+}
+
 function CommandPalette<Payload = unknown>({
   shortcut = 'mod+k',
   shortcutTarget,
@@ -104,13 +129,18 @@ function CommandPalette<Payload = unknown>({
   const resolvedHandle = handle ?? fallbackHandle;
 
   React.useEffect(() => {
-    if (shortcut === false) {
+    if (shortcut === false || shortcutTarget === null) {
       return;
     }
 
     const target = shortcutTarget ?? document;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || !isShortcutMatch(event, shortcut)) {
+      if (
+        event.defaultPrevented ||
+        event.isComposing ||
+        isEditableTarget(event.target) ||
+        !isShortcutMatch(event, shortcut)
+      ) {
         return;
       }
 
@@ -203,11 +233,26 @@ function CommandPaletteContent<ItemValue = unknown>({
   defaultValue,
   onValueChange,
   onAutocompleteOpenChange,
+  onAutocompleteOpenChangeComplete,
   filter,
+  filteredItems,
   limit,
   autoHighlight = 'always',
   keepHighlight = true,
+  highlightItemOnHover,
+  loopFocus,
+  locale,
   mode = 'list',
+  onItemHighlighted,
+  openOnInputClick,
+  submitOnItemClick,
+  virtualized,
+  disabled,
+  readOnly,
+  required,
+  inputRef,
+  form,
+  id,
   onKeyDownCapture,
   ...props
 }: CommandPaletteContentProps<ItemValue>) {
@@ -253,17 +298,33 @@ function CommandPaletteContent<ItemValue = unknown>({
         >
           <AutocompletePrimitive.Root
             open
+            inline
             items={items}
             itemToStringValue={itemToStringValue}
             value={value}
             defaultValue={defaultValue}
             onValueChange={onValueChange}
             onOpenChange={onAutocompleteOpenChange}
+            onOpenChangeComplete={onAutocompleteOpenChangeComplete}
             filter={filter}
+            filteredItems={filteredItems}
             limit={limit}
             autoHighlight={autoHighlight}
             keepHighlight={keepHighlight}
+            highlightItemOnHover={highlightItemOnHover}
+            loopFocus={loopFocus}
+            locale={locale}
             mode={mode}
+            onItemHighlighted={onItemHighlighted}
+            openOnInputClick={openOnInputClick}
+            submitOnItemClick={submitOnItemClick}
+            virtualized={virtualized}
+            disabled={disabled}
+            readOnly={readOnly}
+            required={required}
+            inputRef={inputRef}
+            form={form}
+            id={id}
           >
             {children}
           </AutocompletePrimitive.Root>

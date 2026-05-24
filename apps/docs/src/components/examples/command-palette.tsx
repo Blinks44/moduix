@@ -331,7 +331,10 @@ export function CommandPaletteExample() {
         itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
       >
         <CommandPaletteInputWrap>
-          <CommandPaletteInput placeholder="Search commands, pages, and settings..." />
+          <CommandPaletteInput
+            aria-label="Search commands"
+            placeholder="Search commands, pages, and settings..."
+          />
           <CommandPaletteClear aria-label="Clear search" />
         </CommandPaletteInputWrap>
         <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
@@ -456,7 +459,10 @@ export function CommandPaletteActionsExample() {
         itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
       >
         <CommandPaletteInputWrap>
-          <CommandPaletteInput placeholder="Search and run commands..." />
+          <CommandPaletteInput
+            aria-label="Search commands"
+            placeholder="Search and run commands..."
+          />
           <CommandPaletteClear aria-label="Clear search" />
         </CommandPaletteInputWrap>
         <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>

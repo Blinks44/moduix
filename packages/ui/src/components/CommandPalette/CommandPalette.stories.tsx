@@ -138,7 +138,10 @@ export const Basic: Story = {
         itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
       >
         <CommandPaletteInputWrap>
-          <CommandPaletteInput placeholder="Search commands, pages, and settings..." />
+          <CommandPaletteInput
+            aria-label="Search commands"
+            placeholder="Search commands, pages, and settings..."
+          />
           <CommandPaletteClear aria-label="Clear search" />
         </CommandPaletteInputWrap>
         <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>

@@ -12,9 +12,7 @@ import {
   commandPalettePlaygroundCssProperties,
 } from '@/components/examples/command-palette';
 
-## API Reference
-
-`CommandPalette` is built from `Dialog` and `Autocomplete`, so it does not have a dedicated Base UI primitive page.
+<BaseUIReference href="https://base-ui.com/react/components/autocomplete#command-palette" />
 
 ## Basic
 
@@ -56,7 +54,10 @@ import {
               itemToStringValue={(item) => \`\${item.label} \${item.description} \${item.section}\`}
             >
               <CommandPaletteInputWrap>
-                <CommandPaletteInput placeholder="Search commands, pages, and settings..." />
+                <CommandPaletteInput
+                  aria-label="Search commands"
+                  placeholder="Search commands, pages, and settings..."
+                />
                 <CommandPaletteClear aria-label="Clear search" />
               </CommandPaletteInputWrap>
               <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
@@ -230,11 +231,15 @@ CommandPalette
 ## Composition
 
 `CommandPalette` opens on `mod+k` by default (`mod` is Command on macOS and Control on Windows/Linux).
-Set `shortcut="shift+mod+p"` for another combo or `shortcut={false}` to disable the global listener.
+Set `shortcut="shift+mod+p"` for another combo or use `shortcut={false}` / `shortcutTarget={null}` to
+disable the global listener. The shortcut listener ignores editable targets such as inputs,
+textareas, selects, and contenteditable regions.
 
 `CommandPaletteContent` accepts common autocomplete props (`items`, `itemToStringValue`, `value`,
-`onValueChange`, `filter`, `limit`, `autoHighlight`, `keepHighlight`, `mode`). Results are rendered
-in place with `CommandPaletteList` or `useCommandPaletteFilteredItems`.
+`onValueChange`, `filter`, `filteredItems`, `limit`, `autoHighlight`, `keepHighlight`,
+`highlightItemOnHover`, `loopFocus`, `locale`, `mode`, `onItemHighlighted`, `openOnInputClick`,
+`submitOnItemClick`, `virtualized`, `disabled`, `readOnly`, `required`, `inputRef`, `form`, and
+`id`. Results are rendered in place with `CommandPaletteList` or `useCommandPaletteFilteredItems`.
 
 Use `className` to style the popup and `classNames` for dialog service slots (`portal`,
 `backdrop`, `viewport`). Use `container`, `slotProps`, and `withBackdrop` for the same layering
@@ -253,8 +258,14 @@ controls as other dialog-like components.
 | `slotProps.backdrop`                   | —               | Base UI `Dialog.Backdrop` props (without `className`) |
 | `slotProps.viewport`                   | —               | Base UI `Dialog.Viewport` props (without `className`) |
 | `autoHighlight`                        | `always`        | Base UI autocomplete `autoHighlight` values           |
+| `filteredItems`                        | —               | Externally computed filtered item list                |
+| `highlightItemOnHover`                 | `true`          | `true`, `false`                                       |
 | `keepHighlight`                        | `true`          | `true`, `false`                                       |
+| `loopFocus`                            | `true`          | `true`, `false`                                       |
 | `mode`                                 | `list`          | Base UI autocomplete `mode` values                    |
+| `virtualized`                          | `false`         | `true`, `false`                                       |
+| `disabled`                             | `false`         | `true`, `false`                                       |
+| `readOnly`                             | `false`         | `true`, `false`                                       |
 | `closeOnSelect` (`CommandPaletteItem`) | `true`          | `true`, `false`                                       |
 
 ## Examples
@@ -436,7 +447,10 @@ Keep an `action` function on each item and call it from `CommandPaletteItem` cli
               itemToStringValue={(item) => \`\${item.label} \${item.description} \${item.section}\`}
             >
               <CommandPaletteInputWrap>
-                <CommandPaletteInput placeholder="Search and run commands..." />
+                <CommandPaletteInput
+                  aria-label="Search commands"
+                  placeholder="Search and run commands..."
+                />
                 <CommandPaletteClear aria-label="Clear search" />
               </CommandPaletteInputWrap>
               <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
@@ -487,6 +501,16 @@ export function ControlledCommandPalette() {
 
 ```tsx
 <CommandPalette shortcut="shift+mod+p">
+  <CommandPaletteContent aria-label="Command palette" items={commands}>
+    {/* input and results */}
+  </CommandPaletteContent>
+</CommandPalette>
+```
+
+### Disable Global Shortcut
+
+```tsx
+<CommandPalette shortcutTarget={null}>
   <CommandPaletteContent aria-label="Command palette" items={commands}>
     {/* input and results */}
   </CommandPaletteContent>
