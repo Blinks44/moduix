@@ -15,6 +15,7 @@ import {
   ComboboxEmpty,
   ComboboxField,
   ComboboxFieldLabel,
+  ComboboxFieldTrigger,
   ComboboxGroup,
   ComboboxGroupLabel,
   ComboboxIcon,
@@ -239,10 +240,10 @@ export const InputInsidePopup: Story = {
       <Combobox items={countries}>
         <ComboboxField>
           <ComboboxFieldLabel>Country</ComboboxFieldLabel>
-          <ComboboxTrigger className={styles.triggerField}>
+          <ComboboxFieldTrigger>
             <ComboboxValue placeholder="Select country" />
             <ComboboxIcon />
-          </ComboboxTrigger>
+          </ComboboxFieldTrigger>
         </ComboboxField>
 
         <ComboboxContent className={styles.popupWithInlineInput}>

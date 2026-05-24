@@ -99,6 +99,36 @@
     height: var(--combobox-icon-svg-size, 1rem);
   }
 
+  .fieldTrigger {
+    display: inline-flex;
+    width: var(--combobox-width, 16rem);
+    min-height: var(--combobox-control-height, var(--size-lg));
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0 0.875rem;
+    border: var(--combobox-border-width, var(--border-width-sm)) solid
+      var(--combobox-border-color, var(--color-border));
+    border-radius: var(--combobox-radius, var(--radius-md));
+    background-color: var(--combobox-bg, var(--color-background));
+    color: var(--combobox-color, var(--color-foreground));
+    outline: var(--combobox-border-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--combobox-border-width, var(--border-width-sm)) * -1);
+    transition:
+      background-color var(--transition-default),
+      border-color var(--transition-default),
+      outline-color var(--transition-default);
+
+    &[data-popup-open] {
+      background-color: var(--color-muted);
+    }
+
+    &:focus-visible {
+      border-color: var(--combobox-focus-ring-color, var(--color-ring));
+      outline-color: var(--combobox-focus-ring-color, var(--color-ring));
+    }
+  }
+
   .backdrop {
     position: fixed;
     z-index: var(--z-backdrop);
@@ -288,6 +318,10 @@
       color: var(--combobox-highlight-color, var(--color-background));
     }
 
+    &[data-selected]:not([data-highlighted]) {
+      z-index: 0;
+    }
+
     &[data-highlighted]::before {
       content: '';
       position: absolute;
@@ -302,6 +336,22 @@
         var(--popup-highlight-radius, var(--radius-sm))
       );
       background-color: var(--combobox-highlight-bg, var(--color-foreground));
+    }
+
+    &[data-selected]:not([data-highlighted])::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      inset-block: 0;
+      inset-inline: var(
+        --combobox-highlight-inset-x,
+        var(--popup-highlight-inset-x, var(--spacing-1))
+      );
+      border-radius: var(
+        --combobox-highlight-radius,
+        var(--popup-highlight-radius, var(--radius-sm))
+      );
+      background-color: var(--color-muted);
     }
 
     &[data-disabled] {

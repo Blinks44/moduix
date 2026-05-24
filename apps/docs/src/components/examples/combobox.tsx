@@ -12,6 +12,7 @@ import {
   ComboboxEmpty,
   ComboboxField,
   ComboboxFieldLabel,
+  ComboboxFieldTrigger,
   ComboboxGroup,
   ComboboxGroupLabel,
   ComboboxIcon,
@@ -453,10 +454,10 @@ export function InputInsidePopupComboboxExample() {
     <Combobox items={countries} itemToStringLabel={(item: OptionItem) => item.label}>
       <ComboboxField>
         <ComboboxFieldLabel>Country</ComboboxFieldLabel>
-        <ComboboxTrigger className={styles.triggerField}>
+        <ComboboxFieldTrigger>
           <ComboboxValue placeholder="Select country" />
           <ComboboxIcon />
-        </ComboboxTrigger>
+        </ComboboxFieldTrigger>
       </ComboboxField>
 
       <ComboboxContent className={styles.popupWithInlineInput}>

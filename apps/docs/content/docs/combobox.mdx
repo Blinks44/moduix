@@ -318,7 +318,9 @@ Use `indicator="end"` when the selected indicator should be aligned to the end. 
 
 ### Input Inside Popup
 
-Render `ComboboxInput` inside the popup when the closed field should behave like a select trigger.
+Use `ComboboxFieldTrigger` when the visible field opens a popup that contains the searchable
+input. `ComboboxFieldLabel` stays associated with the trigger and inline input through Base UI
+field labeling, so no extra `htmlFor` wiring is needed in this composition.
 
 <Preview>
   <InputInsidePopupComboboxExample />
@@ -329,7 +331,7 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
         Combobox,
         ComboboxField,
         ComboboxFieldLabel,
-        ComboboxTrigger,
+        ComboboxFieldTrigger,
         ComboboxValue,
         ComboboxIcon,
         ComboboxContent,
@@ -348,10 +350,10 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
           <Combobox items={countries} itemToStringLabel={(item) => item.label}>
             <ComboboxField>
               <ComboboxFieldLabel>Country</ComboboxFieldLabel>
-              <ComboboxTrigger className={styles.triggerField}>
+              <ComboboxFieldTrigger>
                 <ComboboxValue placeholder="Select country" />
                 <ComboboxIcon />
-              </ComboboxTrigger>
+              </ComboboxFieldTrigger>
             </ComboboxField>
 
             <ComboboxContent className={styles.popupWithInlineInput}>
@@ -377,34 +379,6 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
 
   <Preview.CSS>
     {`
-      .triggerField {
-        display: inline-flex;
-        width: var(--combobox-width, 16rem);
-        min-height: var(--combobox-control-height, var(--size-lg));
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-        padding: 0 0.875rem;
-        border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
-        border-radius: var(--combobox-radius, var(--radius-md));
-        background-color: var(--combobox-bg, var(--color-background));
-        color: var(--combobox-color, var(--color-foreground));
-        transition:
-          background-color var(--transition-default),
-          border-color var(--transition-default),
-          outline-color var(--transition-default);
-
-        &[data-popup-open] {
-          background-color: var(--color-muted);
-        }
-
-        &:focus-visible {
-          border-color: var(--combobox-focus-ring-color, var(--color-ring));
-          outline: var(--border-width-sm) solid var(--combobox-focus-ring-color, var(--color-ring));
-          outline-offset: calc(var(--border-width-sm) * -1);
-        }
-      }
-
       .popupWithInlineInput {
         --combobox-inline-input-container-height: calc(
           var(--combobox-control-height, var(--size-lg)) +
