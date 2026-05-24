@@ -325,3 +325,19 @@ export function BreadcrumbsSlotsExample() {
     </div>
   );
 }
+
+export function BreadcrumbsActionExample() {
+  return (
+    <div className={styles.container}>
+      <Breadcrumbs
+        maxItems={1}
+        items={[
+          { label: 'Home', href: '#' },
+          { label: 'Projects', onClick: () => undefined },
+          { label: 'Backend', onClick: () => undefined },
+          { label: 'Go Developer' },
+        ]}
+      />
+    </div>
+  );
+}

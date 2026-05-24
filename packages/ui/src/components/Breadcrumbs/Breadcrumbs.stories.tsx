@@ -60,3 +60,15 @@ export const LongCurrentLabel: Story = {
     ],
   },
 };
+
+export const ActionItems: Story = {
+  args: {
+    maxItems: 1,
+    items: [
+      { label: 'Home', href: '#' },
+      { label: 'Projects', onClick: () => undefined },
+      { label: 'Backend', onClick: () => undefined },
+      { label: 'Go Developer' },
+    ],
+  },
+};

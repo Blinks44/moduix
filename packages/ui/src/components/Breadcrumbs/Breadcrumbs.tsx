@@ -1,6 +1,7 @@
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import { clsx } from 'clsx';
 import * as React from 'react';
+import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Breadcrumbs.module.css';
 
 type BreadcrumbsItemRenderProps = Omit<React.ComponentProps<'a'>, 'children'> & {
@@ -121,7 +122,7 @@ function Breadcrumbs({
 }
 
 function BreadcrumbsListItem({ item, isCurrent }: { item: BreadcrumbsItem; isCurrent: boolean }) {
-  const shouldRenderAsPage = isCurrent || (!item.href && !item.render);
+  const shouldRenderAsPage = isCurrent || !isBreadcrumbsItemInteractive(item);
   const content = (
     <span data-slot="breadcrumbs-item-label" className={styles.itemLabel}>
       {item.label}
@@ -150,13 +151,31 @@ function BreadcrumbsLink({ item, children }: { item: BreadcrumbsItem; children: 
     href: item.href,
     target: item.target,
     rel: item.rel,
-    onClick: item.onClick,
+    onClick: item.onClick
+      ? (event) => {
+          item.onClick?.(event);
+        }
+      : undefined,
     className: styles.link,
     children,
   };
 
   if (item.render) {
     return item.render(anchorProps);
+  }
+
+  if (item.onClick && !item.href) {
+    return (
+      <button
+        type="button"
+        className={clsx(styles.link, styles.linkButton)}
+        onClick={(event) => {
+          item.onClick?.(event as unknown as React.MouseEvent<HTMLAnchorElement>);
+        }}
+      >
+        {children}
+      </button>
+    );
   }
 
   return <a {...anchorProps} />;
@@ -183,11 +202,17 @@ function BreadcrumbsCollapsedMenu({
   classNames?: BreadcrumbsClassNames;
   slotProps?: BreadcrumbsSlotProps;
 }) {
-  const popupItemClassName = clsx(styles.popupItem, classNames?.popupItem);
-  const popupLinkItemClassName = clsx(
-    styles.popupItem,
-    classNames?.popupItem,
+  const popupItemClassName = mergeClassName(classNames?.popupItem, styles.popupItem);
+  const popupLinkItemClassName = mergeClassName(
     classNames?.popupLinkItem,
+    styles.popupItem,
+    styles.popupItemInteractive,
+    classNames?.popupItem,
+  );
+  const popupActionItemClassName = mergeClassName(
+    classNames?.popupItem,
+    styles.popupItem,
+    styles.popupItemInteractive,
   );
 
   return (
@@ -195,7 +220,7 @@ function BreadcrumbsCollapsedMenu({
       <MenuPrimitive.Trigger
         data-slot="breadcrumbs-ellipsis-trigger"
         aria-label={hiddenItemsMenuLabel}
-        className={clsx(styles.ellipsisTrigger, classNames?.ellipsisTrigger)}
+        className={mergeClassName(classNames?.ellipsisTrigger, styles.ellipsisTrigger)}
         {...slotProps?.ellipsisTrigger}
       >
         {ellipsisLabel}
@@ -210,7 +235,7 @@ function BreadcrumbsCollapsedMenu({
         >
           <MenuPrimitive.Popup
             data-slot="breadcrumbs-ellipsis-popup"
-            className={clsx(styles.popup, classNames?.popup)}
+            className={mergeClassName(classNames?.popup, styles.popup)}
             {...slotProps?.popup}
           >
             {items.map((item, index) => {
@@ -220,15 +245,27 @@ function BreadcrumbsCollapsedMenu({
                 <MenuPrimitive.LinkItem
                   key={item.key ?? `hidden-link-${index}`}
                   data-slot="breadcrumbs-ellipsis-link-item"
-                  href={item.href}
-                  className={popupLinkItemClassName}
                   {...slotProps?.popupLinkItem}
+                  href={item.href}
+                  target={item.target}
+                  rel={item.rel}
+                  onClick={
+                    item.onClick
+                      ? (event) => {
+                          item.onClick?.(event as unknown as React.MouseEvent<HTMLAnchorElement>);
+                        }
+                      : undefined
+                  }
+                  className={popupLinkItemClassName}
                   render={
                     renderItem
-                      ? ({ className, ...renderProps }) =>
+                      ? (props, state) =>
                           renderItem({
-                            ...renderProps,
-                            className: clsx(popupLinkItemClassName, className),
+                            ...props,
+                            className:
+                              typeof popupLinkItemClassName === 'function'
+                                ? popupLinkItemClassName(state)
+                                : popupLinkItemClassName,
                             children: item.label,
                           })
                       : undefined
@@ -236,12 +273,28 @@ function BreadcrumbsCollapsedMenu({
                 >
                   {item.label}
                 </MenuPrimitive.LinkItem>
+              ) : isBreadcrumbsItemInteractive(item) ? (
+                <MenuPrimitive.Item
+                  key={item.key ?? `hidden-item-action-${index}`}
+                  data-slot="breadcrumbs-ellipsis-item"
+                  {...slotProps?.popupItem}
+                  onClick={
+                    item.onClick
+                      ? (event) => {
+                          item.onClick?.(event as unknown as React.MouseEvent<HTMLAnchorElement>);
+                        }
+                      : undefined
+                  }
+                  className={popupActionItemClassName}
+                >
+                  {item.label}
+                </MenuPrimitive.Item>
               ) : (
                 <MenuPrimitive.Item
                   key={item.key ?? `hidden-item-${index}`}
                   data-slot="breadcrumbs-ellipsis-item"
-                  className={popupItemClassName}
                   {...slotProps?.popupItem}
+                  className={popupItemClassName}
                 >
                   {item.label}
                 </MenuPrimitive.Item>
@@ -281,6 +334,10 @@ function getVisibleItems({ items, maxItems }: { items: BreadcrumbsItem[]; maxIte
   const endItems = [...visibleMiddleItems, items[items.length - 1]];
 
   return { startItems, collapsedItems, endItems };
+}
+
+function isBreadcrumbsItemInteractive(item: BreadcrumbsItem) {
+  return Boolean(item.href || item.render || item.onClick);
 }
 
 export { Breadcrumbs };

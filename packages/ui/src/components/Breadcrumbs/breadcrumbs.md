@@ -10,3 +10,5 @@ Recommended composition:
 - compact typography and popup sizing to keep breadcrumbs visually minimal.
 
 This component follows that composition and keeps full support for custom links via `render`.
+Regular links, action items, and custom router links keep the same behavior when they move into
+the collapsed menu.

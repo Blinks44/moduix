@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  BreadcrumbsActionExample,
   BreadcrumbsCollapsedExample,
   BreadcrumbsCssPlaygroundPanel,
   BreadcrumbsCssPropertiesPanel,
@@ -78,9 +79,13 @@ Visible items stay on one line, and long labels are clamped.
 
 ## Composition
 
-Use `items` to describe the path. Each item can be plain text or a link (`href`).
+Use `items` to describe the path. Each item can be plain text, a regular link (`href`),
+or an action item (`onClick`).
+
 For framework routers, use `render` and return your own link while preserving provided
-`className` and `children`.
+`className`, `children`, and navigation props such as `href`, `target`, `rel`, and `onClick`.
+That same contract is used both in the visible breadcrumb row and in the collapsed menu, so
+router links behave consistently when items move under the ellipsis.
 
 `maxItems` controls how many middle segments stay visible. The first segment and current
 page always stay visible; hidden middle segments move to the collapsed menu.
@@ -190,7 +195,8 @@ Current item text is clamped to one line.
 
 ### Framework Links
 
-Use `render` to integrate external routing links while keeping component styles.
+Use `render` to integrate external routing links while keeping component styles. The same
+pattern works for Next.js, TanStack Router, Inertia, and other router link components.
 
 <Preview>
   <BreadcrumbsRenderExample />
@@ -233,6 +239,36 @@ Use `render` to integrate external routing links while keeping component styles.
                 ),
               },
               { label: "Vacancies", href: "/vacancies" },
+              { label: "Go Developer" },
+            ]}
+          />
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Action Items
+
+Use `onClick` for intermediate path items that trigger navigation or another action without
+rendering a plain anchor. The same handler is preserved when the item moves into the collapsed menu.
+
+<Preview>
+  <BreadcrumbsActionExample />
+
+  <Preview.Code>
+    {`
+      import { Breadcrumbs } from "moduix";
+
+      export function BreadcrumbsActionDemo() {
+        return (
+          <Breadcrumbs
+            maxItems={1}
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Projects", onClick: () => console.log("Projects") },
+              { label: "Backend", onClick: () => console.log("Backend") },
               { label: "Go Developer" },
             ]}
           />

@@ -61,6 +61,15 @@
     }
   }
 
+  .linkButton {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    text-align: inherit;
+  }
+
   .page {
     color: var(--breadcrumbs-page-color, var(--color-foreground));
     font-weight: var(--breadcrumbs-page-font-weight, var(--weight-medium));
@@ -163,5 +172,9 @@
       box-shadow: 0 0 0 var(--breadcrumbs-focus-ring-width, var(--border-width-sm))
         var(--breadcrumbs-focus-ring-color, var(--color-ring));
     }
+  }
+
+  .popupItemInteractive {
+    cursor: pointer;
   }
 }
