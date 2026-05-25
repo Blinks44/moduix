@@ -9,7 +9,6 @@ import {
   BleedCssPlaygroundPanel,
   BleedCssPropertiesPanel,
   BleedExample,
-  BleedFlexStartExample,
   BleedInlineAmountsExample,
   BleedSemanticExample,
   CustomStylesBleedExample,
@@ -18,11 +17,9 @@ import {
 
 ## API Reference
 
-`Bleed` is a moduix layout primitive (not a Base UI wrapper).
-Control each axis with `inline` and `block`; use `none` to keep an axis constrained.
-Supported amounts: `xs`, `sm`, `md`, `lg`, `xl`, and `full` (inline only).
-Use `as` for semantic block-level HTML roots without changing bleed behavior. `inline="full"` is viewport-based,
-so it is best suited for full-bleed sections rather than container-matching layout.
+`Bleed` is a small layout wrapper for content that should escape a constrained parent without leaving normal document flow.
+Use `inline` and `block` to control each axis, and `as` when the root should render as a different element.
+`inline="full"` is viewport-based, so it is best suited for full-bleed sections rather than container-matching layout.
 
 ## Basic
 
@@ -100,25 +97,22 @@ Bleed
 </Bleed>
 ```
 
-| Part    | Role                                                                       |
-| ------- | -------------------------------------------------------------------------- |
-| `Bleed` | Root layout wrapper. Controls inline/block bleed amounts and element type. |
+| Part    | Role                                            |
+| ------- | ----------------------------------------------- |
+| `Bleed` | Root layout wrapper for inline and block bleed. |
 
 ## Composition
 
-Use `inline` and `block` to control bleed per axis, and `as` when the root should be semantic
-(`section`, `figure`, etc.).
+Use `inline` and `block` to control bleed per axis. Use `as` when the root should render as a
+different element.
 
-| Prop     | Default | Values                                                                            |
-| -------- | ------- | --------------------------------------------------------------------------------- |
-| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full`                                      |
-| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`                                              |
-| `as`     | `div`   | `div`, `main`, `section`, `article`, `header`, `footer`, `nav`, `aside`, `figure` |
+| Prop     | Default | Values                                       |
+| -------- | ------- | -------------------------------------------- |
+| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
+| `as`     | `div`   | Any React element type                       |
 
 `Bleed` has no internal slots. Customize via `className` and root `--bleed-*` variables.
-
-`Bleed` is a layout primitive, so `as` is intentionally limited to semantic block-level HTML
-elements that are a practical fit for bleed behavior.
 
 `inline="full"` uses viewport math, so ancestor clipping still applies:
 
@@ -216,63 +210,6 @@ Use `block` when a surface should also escape vertical container padding.
         flex-direction: column;
         gap: var(--spacing-4);
         padding: var(--spacing-6);
-        border: var(--border-width-sm) dashed var(--color-border);
-      }
-
-      .panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--spacing-4);
-        background-color: var(--color-muted);
-        text-align: center;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Full Bleed In Flex Layouts
-
-`inline="full"` keeps working when the parent is a flex column with `align-items: flex-start`, but
-it still uses viewport-based sizing. In app shells or nested scroll regions, override the full-bleed
-variables locally if your layout needs custom math.
-
-<Preview>
-  <BleedFlexStartExample />
-
-  <Preview.Code>
-    {`
-      import { Bleed, Text } from "moduix";
-
-      export function BleedFlexStartDemo() {
-        return (
-          <div className={styles.flexStartContainer}>
-            <Text tone="muted">
-              Parent uses flex column with align-items: flex-start.
-            </Text>
-            <Bleed inline="full" className={styles.panel}>
-              <Text>Full inline bleed in flex-start context</Text>
-            </Bleed>
-            <Text tone="muted">
-              Following content stays constrained to parent width.
-            </Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .flexStartContainer {
-        display: flex;
-        width: min(28rem, calc(100vw - var(--spacing-8)));
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-4);
-        padding: var(--spacing-4);
         border: var(--border-width-sm) dashed var(--color-border);
       }
 

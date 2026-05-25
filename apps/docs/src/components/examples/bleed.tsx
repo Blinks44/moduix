@@ -1,4 +1,5 @@
-import { Bleed, Text, type BleedProps } from 'moduix';
+import type { ComponentProps } from 'react';
+import { Bleed, Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './bleed.module.css';
@@ -54,7 +55,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function BleedExample(props: BleedProps) {
+export function BleedExample(props: ComponentProps<typeof Bleed>) {
   return (
     <div className={styles.container}>
       <Text tone="muted">Container content stays constrained.</Text>
@@ -90,18 +91,6 @@ export function BleedBlockExample() {
         <Text>Inline and block bleed</Text>
       </Bleed>
       <Text tone="muted">Container padding below.</Text>
-    </div>
-  );
-}
-
-export function BleedFlexStartExample() {
-  return (
-    <div className={styles.flexStartContainer}>
-      <Text tone="muted">Parent uses flex column with align-items: flex-start.</Text>
-      <Bleed inline="full" className={styles.panel}>
-        <Text>Full inline bleed in flex-start context</Text>
-      </Bleed>
-      <Text tone="muted">Following content stays constrained to parent width.</Text>
     </div>
   );
 }

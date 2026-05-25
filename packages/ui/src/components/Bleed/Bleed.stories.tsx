@@ -44,14 +44,15 @@ export const InlineAmounts: Story = {
   ),
 };
 
-export const FullInlineInFlexStart: Story = {
+export const SemanticElement: Story = {
   render: () => (
-    <div className={storyStyles.flexStartContainer}>
-      <Text tone="muted">Parent uses flex column with align-items: flex-start.</Text>
-      <Bleed inline="full" className={storyStyles.panel}>
-        <Text>Full inline bleed in flex-start context</Text>
+    <div className={storyStyles.container}>
+      <Bleed as="figure" className={storyStyles.figure}>
+        <div className={storyStyles.media} />
+        <Text tone="muted" size="sm">
+          Full-width media with a constrained parent.
+        </Text>
       </Bleed>
-      <Text tone="muted">Following content stays constrained to parent width.</Text>
     </div>
   ),
 };
@@ -64,19 +65,6 @@ export const BlockBleed: Story = {
         <Text>Inline and block bleed</Text>
       </Bleed>
       <Text tone="muted">Container padding below.</Text>
-    </div>
-  ),
-};
-
-export const SemanticElement: Story = {
-  render: () => (
-    <div className={storyStyles.container}>
-      <Bleed as="figure" className={storyStyles.figure}>
-        <div className={storyStyles.media} />
-        <Text tone="muted" size="sm">
-          Full-width media with a constrained parent.
-        </Text>
-      </Bleed>
     </div>
   ),
 };
