@@ -1,9 +1,7 @@
 .popupWithInlineInput {
-  --combobox-inline-input-container-height: calc(
-    var(--combobox-control-height, var(--size-lg)) +
-      var(--combobox-inline-input-container-padding-top, var(--spacing-2)) +
-      var(--combobox-inline-input-container-padding-bottom, var(--spacing-2)) +
-      var(--combobox-inline-input-divider-width, var(--border-width-sm))
+  --inline-input-container-height: calc(
+    var(--combobox-control-height, var(--size-lg)) + var(--spacing-2) + var(--spacing-2) +
+      var(--border-width-sm)
   );
 }
 
@@ -11,14 +9,20 @@
   max-height: min(
     calc(
       var(--combobox-list-max-height, var(--combobox-popup-max-height, 24rem)) -
-        var(--combobox-inline-input-container-height, 0px)
+        var(--inline-input-container-height, 0px)
     ),
-    calc(var(--available-height) - var(--combobox-inline-input-container-height, 0px))
+    calc(var(--available-height) - var(--inline-input-container-height, 0px))
   );
   padding-top: 0.375rem;
   padding-bottom: 0.5rem;
   scroll-padding-top: 0.375rem;
   scroll-padding-bottom: 0.5rem;
+}
+
+.inlineInputContainer {
+  box-sizing: border-box;
+  padding: var(--spacing-2);
+  border-bottom: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
 }
 
 .inlineInput {

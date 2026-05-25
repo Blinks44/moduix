@@ -1,5 +1,7 @@
 import {
   Combobox,
+  ComboboxArrow,
+  ComboboxBackdrop,
   ComboboxChip,
   ComboboxChipRemove,
   ComboboxChipText,
@@ -16,7 +18,6 @@ import {
   ComboboxGroup,
   ComboboxGroupLabel,
   ComboboxIcon,
-  ComboboxInlineInputContainer,
   ComboboxInput,
   ComboboxInputGroup,
   ComboboxItem,
@@ -26,10 +27,13 @@ import {
   ComboboxItemTextIcon,
   ComboboxItemTextLabel,
   ComboboxList,
+  ComboboxPortal,
+  ComboboxPositioner,
+  ComboboxPopup,
+  InfoIcon,
   ComboboxStatus,
   ComboboxTrigger,
   ComboboxValue,
-  InfoIcon,
   useComboboxFilter,
 } from 'moduix';
 import * as React from 'react';
@@ -245,28 +249,6 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--combobox-icon-size', '0.875rem', 'Default: 0.875rem.'],
   ['--combobox-icon-svg-size', '1rem', 'Default: 1rem.'],
-  [
-    '--combobox-inline-input-container-padding-bottom',
-    'var(--spacing-2)',
-    'Default: var(--spacing-2).',
-  ],
-  [
-    '--combobox-inline-input-container-padding-top',
-    'var(--spacing-2)',
-    'Default: var(--spacing-2).',
-  ],
-  ['--combobox-inline-input-container-padding-x', 'var(--spacing-2)', 'Default: var(--spacing-2).'],
-  [
-    '--combobox-inline-input-divider-color',
-    'var(--combobox-border-color)',
-    'Default: var(--combobox-border-color).',
-  ],
-  ['--combobox-inline-input-divider-style', 'solid', 'Default: solid.'],
-  [
-    '--combobox-inline-input-divider-width',
-    'var(--border-width-sm)',
-    'Default: var(--border-width-sm).',
-  ],
   ['--combobox-input-group-padding-x', '0', 'Default: 0.'],
   ['--combobox-input-padding-x-end', '3.25rem', 'Default: 3.25rem.'],
   ['--combobox-input-padding-x-start', '0.875rem', 'Default: 0.875rem.'],
@@ -397,7 +379,7 @@ export function ComboboxExample() {
         </ComboboxInputGroup>
       </ComboboxField>
 
-      <ComboboxContent>
+      <ComboboxContent sideOffset={4}>
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           {(item: OptionItem) => (
@@ -428,7 +410,7 @@ export function IndicatorRightComboboxExample() {
         </ComboboxInputGroup>
       </ComboboxField>
 
-      <ComboboxContent>
+      <ComboboxContent sideOffset={4}>
         <ComboboxList>
           {(item: OptionItem) => (
             <ComboboxItem key={item.id} value={item} indicator="end">
@@ -460,10 +442,10 @@ export function InputInsidePopupComboboxExample() {
         </ComboboxFieldTrigger>
       </ComboboxField>
 
-      <ComboboxContent className={styles.popupWithInlineInput}>
-        <ComboboxInlineInputContainer>
+      <ComboboxContent sideOffset={4} className={styles.popupWithInlineInput}>
+        <div className={styles.inlineInputContainer}>
           <ComboboxInput className={styles.inlineInput} placeholder="Search country" />
-        </ComboboxInlineInputContainer>
+        </div>
         <ComboboxEmpty>No countries found.</ComboboxEmpty>
         <ComboboxList className={styles.listWithInlineInput}>
           {(item: OptionItem) => (
@@ -494,7 +476,7 @@ export function GroupedComboboxExample() {
         </ComboboxInputGroup>
       </ComboboxField>
 
-      <ComboboxContent>
+      <ComboboxContent sideOffset={4}>
         <ComboboxEmpty>No produce found.</ComboboxEmpty>
         <ComboboxList>
           {(group: GroupedOption) => (
@@ -542,7 +524,7 @@ export function MultipleComboboxExample() {
         </ComboboxInputGroup>
       </ComboboxField>
 
-      <ComboboxContent>
+      <ComboboxContent sideOffset={4}>
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           {(item: OptionItem) => (
@@ -723,28 +705,23 @@ export function CustomStylesComboboxExample() {
         </ComboboxInputGroup>
       </ComboboxField>
 
-      <ComboboxContent
-        className={styles.customPopup}
-        sideOffset={8}
-        withArrow
-        withBackdrop
-        classNames={{
-          portal: styles.portal,
-          backdrop: styles.backdrop,
-          positioner: styles.positioner,
-          arrow: styles.arrow,
-        }}
-      >
-        <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-        <ComboboxList>
-          {(item: OptionItem) => (
-            <ComboboxItem key={item.id} value={item}>
-              <ComboboxItemIndicator />
-              <ComboboxItemText>{item.label}</ComboboxItemText>
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxContent>
+      <ComboboxPortal className={styles.portal}>
+        <ComboboxBackdrop className={styles.backdrop} />
+        <ComboboxPositioner className={styles.positioner} sideOffset={8}>
+          <ComboboxPopup className={styles.customPopup}>
+            <ComboboxArrow className={styles.arrow} />
+            <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+            <ComboboxList>
+              {(item: OptionItem) => (
+                <ComboboxItem key={item.id} value={item}>
+                  <ComboboxItemIndicator />
+                  <ComboboxItemText>{item.label}</ComboboxItemText>
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxPopup>
+        </ComboboxPositioner>
+      </ComboboxPortal>
     </Combobox>
   );
 }

@@ -3,6 +3,8 @@ import * as React from 'react';
 import { InfoIcon } from '@/primitives/Icons';
 import {
   Combobox,
+  ComboboxArrow,
+  ComboboxBackdrop,
   ComboboxChip,
   ComboboxChipRemove,
   ComboboxChipText,
@@ -20,15 +22,17 @@ import {
   ComboboxGroupLabel,
   ComboboxIcon,
   ComboboxInput,
-  ComboboxInlineInputContainer,
   ComboboxInputGroup,
   ComboboxItem,
   ComboboxItemIndicator,
+  ComboboxItemText,
   ComboboxItemTextContent,
   ComboboxItemTextIcon,
   ComboboxItemTextLabel,
-  ComboboxItemText,
   ComboboxList,
+  ComboboxPortal,
+  ComboboxPositioner,
+  ComboboxPopup,
   ComboboxStatus,
   ComboboxTrigger,
   ComboboxValue,
@@ -179,7 +183,7 @@ export const Basic: Story = {
           </ComboboxInputGroup>
         </ComboboxField>
 
-        <ComboboxContent>
+        <ComboboxContent sideOffset={4}>
           <ComboboxEmpty>No fruits found.</ComboboxEmpty>
           <ComboboxList>
             {(item: OptionItem) => (
@@ -195,7 +199,7 @@ export const Basic: Story = {
   },
 };
 
-export const IndicatorRightWithIcon: Story = {
+export const IndicatorRight: Story = {
   render: () => {
     const id = React.useId();
 
@@ -212,7 +216,7 @@ export const IndicatorRightWithIcon: Story = {
           </ComboboxInputGroup>
         </ComboboxField>
 
-        <ComboboxContent>
+        <ComboboxContent sideOffset={4}>
           <ComboboxList>
             {(item: OptionItem) => (
               <ComboboxItem key={item.id} value={item} indicator="end">
@@ -246,10 +250,10 @@ export const InputInsidePopup: Story = {
           </ComboboxFieldTrigger>
         </ComboboxField>
 
-        <ComboboxContent className={styles.popupWithInlineInput}>
-          <ComboboxInlineInputContainer>
+        <ComboboxContent sideOffset={4} className={styles.popupWithInlineInput}>
+          <div className={styles.inlineInputContainer}>
             <ComboboxInput className={styles.inlineInput} placeholder="Search country" />
-          </ComboboxInlineInputContainer>
+          </div>
           <ComboboxEmpty>No countries found.</ComboboxEmpty>
           <ComboboxList className={styles.listWithInlineInput}>
             {(item: OptionItem) => (
@@ -282,7 +286,7 @@ export const Grouped: Story = {
           </ComboboxInputGroup>
         </ComboboxField>
 
-        <ComboboxContent>
+        <ComboboxContent sideOffset={4}>
           <ComboboxEmpty>No produce found.</ComboboxEmpty>
           <ComboboxList>
             {(group: GroupedOption) => (
@@ -335,7 +339,7 @@ export const Multiple: Story = {
           </ComboboxInputGroup>
         </ComboboxField>
 
-        <ComboboxContent>
+        <ComboboxContent sideOffset={4}>
           <ComboboxEmpty>No fruits found.</ComboboxEmpty>
           <ComboboxList>
             {(item: OptionItem) => (
@@ -534,28 +538,23 @@ export const CustomStyles: Story = {
           </ComboboxInputGroup>
         </ComboboxField>
 
-        <ComboboxContent
-          className={styles.customPopup}
-          sideOffset={8}
-          withArrow
-          withBackdrop
-          classNames={{
-            portal: styles.portal,
-            backdrop: styles.backdrop,
-            positioner: styles.positioner,
-            arrow: styles.arrow,
-          }}
-        >
-          <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-          <ComboboxList>
-            {(item: OptionItem) => (
-              <ComboboxItem key={item.id} value={item}>
-                <ComboboxItemIndicator />
-                <ComboboxItemText>{item.label}</ComboboxItemText>
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
+        <ComboboxPortal className={styles.portal}>
+          <ComboboxBackdrop className={styles.backdrop} />
+          <ComboboxPositioner className={styles.positioner} sideOffset={8}>
+            <ComboboxPopup className={styles.customPopup}>
+              <ComboboxArrow className={styles.arrow} />
+              <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+              <ComboboxList>
+                {(item: OptionItem) => (
+                  <ComboboxItem key={item.id} value={item}>
+                    <ComboboxItemIndicator />
+                    <ComboboxItemText>{item.label}</ComboboxItemText>
+                  </ComboboxItem>
+                )}
+              </ComboboxList>
+            </ComboboxPopup>
+          </ComboboxPositioner>
+        </ComboboxPortal>
       </Combobox>
     );
   },

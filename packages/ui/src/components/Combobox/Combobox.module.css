@@ -287,7 +287,7 @@
     display: grid;
     grid-template-columns:
       var(--combobox-item-indicator-size, var(--popup-check-indicator-size, 0.75rem))
-      1fr;
+      minmax(0, 1fr);
     align-items: center;
     gap: var(--combobox-item-gap, var(--spacing-2));
     min-height: var(--combobox-item-min-height, var(--popup-item-min-height, 2rem));
@@ -318,10 +318,6 @@
       color: var(--combobox-highlight-color, var(--color-background));
     }
 
-    &[data-selected]:not([data-highlighted]) {
-      z-index: 0;
-    }
-
     &[data-highlighted]::before {
       content: '';
       position: absolute;
@@ -336,22 +332,6 @@
         var(--popup-highlight-radius, var(--radius-sm))
       );
       background-color: var(--combobox-highlight-bg, var(--color-foreground));
-    }
-
-    &[data-selected]:not([data-highlighted])::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      inset-block: 0;
-      inset-inline: var(
-        --combobox-highlight-inset-x,
-        var(--popup-highlight-inset-x, var(--spacing-1))
-      );
-      border-radius: var(
-        --combobox-highlight-radius,
-        var(--popup-highlight-radius, var(--radius-sm))
-      );
-      background-color: var(--color-muted);
     }
 
     &[data-disabled] {
@@ -547,27 +527,16 @@
     color: var(--combobox-item-text-icon-color, currentColor);
   }
 
-  .itemTextLabel,
-  .chipText {
+  .itemTextLabel {
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .itemTextLabel {
-    min-width: 0;
-  }
-
-  .inlineInputContainer {
-    box-sizing: border-box;
-    padding: var(--combobox-inline-input-container-padding-top, var(--spacing-2))
-      var(--combobox-inline-input-container-padding-x, var(--spacing-2))
-      var(--combobox-inline-input-container-padding-bottom, var(--spacing-2));
-    border-bottom-width: var(--combobox-inline-input-divider-width, var(--border-width-sm));
-    border-bottom-style: var(--combobox-inline-input-divider-style, solid);
-    border-bottom-color: var(
-      --combobox-inline-input-divider-color,
-      var(--combobox-border-color, var(--color-border))
-    );
+  .chipText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
