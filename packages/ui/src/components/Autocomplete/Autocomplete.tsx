@@ -6,47 +6,6 @@ import { ChevronDownIcon, ChevronUpDownIcon, CloseLineIcon, PopupArrowIcon } fro
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Autocomplete.module.css';
 
-type AutocompleteContentClassNames = {
-  portal?: AutocompletePrimitive.Portal.Props['className'];
-  backdrop?: AutocompletePrimitive.Backdrop.Props['className'];
-  positioner?: AutocompletePrimitive.Positioner.Props['className'];
-  arrow?: AutocompletePrimitive.Arrow.Props['className'];
-};
-
-type AutocompleteContentSlotProps = {
-  portal?: Omit<AutocompletePrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<AutocompletePrimitive.Backdrop.Props, 'className'>;
-  positioner?: Omit<AutocompletePrimitive.Positioner.Props, 'className' | 'children'>;
-  arrow?: Omit<AutocompletePrimitive.Arrow.Props, 'className' | 'children'>;
-};
-
-type AutocompleteContentPositionerProps = Pick<
-  AutocompletePrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'anchor'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
-  | 'sticky'
-  | 'positionMethod'
->;
-
-type AutocompleteContentProps = AutocompletePrimitive.Popup.Props &
-  AutocompleteContentPositionerProps & {
-    classNames?: AutocompleteContentClassNames;
-    slotProps?: AutocompleteContentSlotProps;
-    container?: AutocompletePrimitive.Portal.Props['container'];
-    withBackdrop?: boolean;
-    withArrow?: boolean;
-    arrow?: React.ReactNode;
-  };
-type AutocompleteFieldLabelProps = ComboboxPrimitive.Label.Props &
-  Pick<React.ComponentProps<'label'>, 'htmlFor'>;
-
 const Autocomplete = AutocompletePrimitive.Root;
 
 const AutocompleteField = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
@@ -78,7 +37,7 @@ const AutocompleteInlineInputContainer = React.forwardRef<
 
 const AutocompleteFieldLabel = React.forwardRef<
   React.ComponentRef<typeof ComboboxPrimitive.Label>,
-  AutocompleteFieldLabelProps
+  ComboboxPrimitive.Label.Props & Pick<React.ComponentProps<'label'>, 'htmlFor'>
 >(function AutocompleteFieldLabel({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Label
@@ -264,66 +223,16 @@ const AutocompleteArrow = React.forwardRef<
 
 function AutocompleteContent({
   className,
-  classNames,
-  slotProps,
-  container,
-  withBackdrop = false,
-  withArrow = false,
-  arrow,
   children,
-  side,
   sideOffset,
-  align,
-  alignOffset,
-  arrowPadding,
-  anchor,
-  collisionAvoidance,
-  collisionBoundary,
-  collisionPadding,
-  sticky,
-  positionMethod,
   ...props
-}: AutocompleteContentProps) {
-  const portalProps = slotProps?.portal;
-  const backdropProps = slotProps?.backdrop;
-  const positionerProps = slotProps?.positioner;
-  const arrowProps = slotProps?.arrow;
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
-  const resolvedPositionerProps: AutocompleteContentPositionerProps = {
-    side: side ?? positionerProps?.side,
-    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 5,
-    align: align ?? positionerProps?.align,
-    alignOffset: alignOffset ?? positionerProps?.alignOffset,
-    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
-    anchor: anchor ?? positionerProps?.anchor,
-    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
-    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
-    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
-    sticky: sticky ?? positionerProps?.sticky,
-    positionMethod: positionMethod ?? positionerProps?.positionMethod,
-  };
-
+}: AutocompletePrimitive.Popup.Props & {
+  sideOffset?: AutocompletePrimitive.Positioner.Props['sideOffset'];
+}) {
   return (
-    <AutocompletePortal
-      className={classNames?.portal}
-      container={portalContainer}
-      {...restPortalProps}
-    >
-      {withBackdrop ? (
-        <AutocompleteBackdrop className={classNames?.backdrop} {...backdropProps} />
-      ) : null}
-      <AutocompletePositioner
-        {...positionerProps}
-        {...resolvedPositionerProps}
-        className={classNames?.positioner}
-      >
+    <AutocompletePortal>
+      <AutocompletePositioner sideOffset={sideOffset ?? 5}>
         <AutocompletePopup className={className} {...props}>
-          {withArrow ? (
-            <AutocompleteArrow className={classNames?.arrow} {...arrowProps}>
-              {arrow}
-            </AutocompleteArrow>
-          ) : null}
           {children}
         </AutocompletePopup>
       </AutocompletePositioner>
@@ -499,10 +408,6 @@ function AutocompleteCollection(props: AutocompletePrimitive.Collection.Props) {
   return <AutocompletePrimitive.Collection data-slot="autocomplete-collection" {...props} />;
 }
 
-function useAutocompleteAnchor() {
-  return React.useRef<HTMLDivElement | null>(null);
-}
-
 function ArrowSvg(props: React.ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
@@ -517,32 +422,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 const useAutocompleteFilter = AutocompletePrimitive.useFilter;
 const useAutocompleteFilteredItems = AutocompletePrimitive.useFilteredItems;
 
-type AutocompleteProps<Value = unknown> = AutocompletePrimitive.Root.Props<Value>;
-type AutocompleteValueType<Value = unknown> = AutocompleteProps<Value>['value'];
-type AutocompleteFieldProps = React.ComponentProps<'div'>;
-type AutocompleteInlineInputContainerProps = React.ComponentProps<'div'>;
-type AutocompleteValueProps = AutocompletePrimitive.Value.Props;
-type AutocompleteInputGroupProps = AutocompletePrimitive.InputGroup.Props;
-type AutocompleteInputProps = AutocompletePrimitive.Input.Props;
-type AutocompleteControlActionsProps = React.ComponentProps<'div'>;
-type AutocompleteTriggerProps = AutocompletePrimitive.Trigger.Props;
-type AutocompleteFieldTriggerProps = AutocompletePrimitive.Trigger.Props;
-type AutocompleteIconProps = AutocompletePrimitive.Icon.Props;
-type AutocompleteClearProps = AutocompletePrimitive.Clear.Props;
-type AutocompleteStatusProps = AutocompletePrimitive.Status.Props;
-type AutocompleteEmptyProps = AutocompletePrimitive.Empty.Props;
-type AutocompleteListProps = AutocompletePrimitive.List.Props;
-type AutocompleteRowProps = AutocompletePrimitive.Row.Props;
-type AutocompleteItemProps = AutocompletePrimitive.Item.Props;
-type AutocompleteItemTextProps = React.ComponentProps<'span'>;
-type AutocompleteItemTextContentProps = React.ComponentProps<'span'>;
-type AutocompleteItemTextIconProps = React.ComponentProps<'span'>;
-type AutocompleteItemTextLabelProps = React.ComponentProps<'span'>;
-type AutocompleteSeparatorProps = AutocompletePrimitive.Separator.Props;
-type AutocompleteGroupProps = AutocompletePrimitive.Group.Props;
-type AutocompleteGroupLabelProps = AutocompletePrimitive.GroupLabel.Props;
-type AutocompleteCollectionProps = AutocompletePrimitive.Collection.Props;
-
 export {
   Autocomplete,
   AutocompleteField,
@@ -556,6 +435,11 @@ export {
   AutocompleteFieldTrigger,
   AutocompleteIcon,
   AutocompleteClear,
+  AutocompletePortal,
+  AutocompleteBackdrop,
+  AutocompletePositioner,
+  AutocompletePopup,
+  AutocompleteArrow,
   AutocompleteContent,
   AutocompleteStatus,
   AutocompleteEmpty,
@@ -570,39 +454,6 @@ export {
   AutocompleteGroup,
   AutocompleteGroupLabel,
   AutocompleteCollection,
-  useAutocompleteAnchor,
   useAutocompleteFilter,
   useAutocompleteFilteredItems,
-};
-
-export type {
-  AutocompleteProps,
-  AutocompleteValueType,
-  AutocompleteContentClassNames,
-  AutocompleteContentSlotProps,
-  AutocompleteContentProps,
-  AutocompleteFieldProps,
-  AutocompleteInlineInputContainerProps,
-  AutocompleteFieldLabelProps,
-  AutocompleteValueProps,
-  AutocompleteInputGroupProps,
-  AutocompleteInputProps,
-  AutocompleteControlActionsProps,
-  AutocompleteTriggerProps,
-  AutocompleteFieldTriggerProps,
-  AutocompleteIconProps,
-  AutocompleteClearProps,
-  AutocompleteStatusProps,
-  AutocompleteEmptyProps,
-  AutocompleteListProps,
-  AutocompleteRowProps,
-  AutocompleteItemProps,
-  AutocompleteItemTextProps,
-  AutocompleteItemTextContentProps,
-  AutocompleteItemTextIconProps,
-  AutocompleteItemTextLabelProps,
-  AutocompleteSeparatorProps,
-  AutocompleteGroupProps,
-  AutocompleteGroupLabelProps,
-  AutocompleteCollectionProps,
 };

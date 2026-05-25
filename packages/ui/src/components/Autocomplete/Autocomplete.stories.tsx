@@ -5,6 +5,8 @@ import {
   Autocomplete,
   AutocompleteClear,
   AutocompleteCollection,
+  AutocompleteArrow,
+  AutocompleteBackdrop,
   AutocompleteContent,
   AutocompleteControlActions,
   AutocompleteEmpty,
@@ -23,6 +25,9 @@ import {
   AutocompleteItemTextIcon,
   AutocompleteItemTextLabel,
   AutocompleteList,
+  AutocompletePopup,
+  AutocompletePortal,
+  AutocompletePositioner,
   AutocompleteRow,
   AutocompleteStatus,
   AutocompleteTrigger,
@@ -611,27 +616,22 @@ export const CustomStyles: Story = {
           </AutocompleteInputGroup>
         </AutocompleteField>
 
-        <AutocompleteContent
-          className={styles.customPopup}
-          sideOffset={8}
-          withArrow
-          withBackdrop
-          classNames={{
-            portal: styles.customPortal,
-            backdrop: styles.customBackdrop,
-            positioner: styles.customPositioner,
-            arrow: styles.customArrow,
-          }}
-        >
-          <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-          <AutocompleteList>
-            {(item: TagItem) => (
-              <AutocompleteItem key={item.id} value={item}>
-                <AutocompleteItemText>{item.value}</AutocompleteItemText>
-              </AutocompleteItem>
-            )}
-          </AutocompleteList>
-        </AutocompleteContent>
+        <AutocompletePortal className={styles.customPortal}>
+          <AutocompleteBackdrop className={styles.customBackdrop} />
+          <AutocompletePositioner className={styles.customPositioner} sideOffset={8}>
+            <AutocompletePopup className={styles.customPopup}>
+              <AutocompleteArrow className={styles.customArrow} />
+              <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+              <AutocompleteList>
+                {(item: TagItem) => (
+                  <AutocompleteItem key={item.id} value={item}>
+                    <AutocompleteItemText>{item.value}</AutocompleteItemText>
+                  </AutocompleteItem>
+                )}
+              </AutocompleteList>
+            </AutocompletePopup>
+          </AutocompletePositioner>
+        </AutocompletePortal>
       </Autocomplete>
     );
   },

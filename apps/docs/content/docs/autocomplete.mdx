@@ -140,29 +140,34 @@ Autocomplete
             └─ AutocompleteItem
 ```
 
-| Part                         | Role                                                                                               |
-| ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `Autocomplete`               | Root state machine. Handles value, filtering, highlighting, and open/close behavior.               |
-| `AutocompleteField`          | Semantic wrapper for field-level structure. Keeps label and input wiring in one place.             |
-| `AutocompleteFieldLabel`     | Accessible label wired through Base UI field labeling for the input or field trigger.              |
-| `AutocompleteInputGroup`     | Layout wrapper for the input and optional control actions.                                         |
-| `AutocompleteInput`          | Text input where users type a query or free-form value.                                            |
-| `AutocompleteControlActions` | Optional container for clear/open controls.                                                        |
-| `AutocompleteClear`          | Optional action that clears the current input value.                                               |
-| `AutocompleteTrigger`        | Optional action that toggles or opens the suggestion popup.                                        |
-| `AutocompleteContent`        | Popup surface. Also renders service slots (`portal`, `backdrop`, `positioner`, `arrow`) via props. |
-| `AutocompleteStatus`         | Optional status region for loading or result-count feedback.                                       |
-| `AutocompleteEmpty`          | Empty-state content shown when no items match.                                                     |
-| `AutocompleteList`           | Collection container for options.                                                                  |
-| `AutocompleteRow`            | Optional row wrapper when `grid` is enabled on the root.                                           |
-| `AutocompleteItem`           | One selectable option in the list.                                                                 |
-| `AutocompleteSeparator`      | Optional visual separator between groups or custom sections.                                       |
-| `AutocompleteGroup`          | Optional grouped section with its own item subset.                                                 |
-| `AutocompleteCollection`     | Renderer for group items inside `AutocompleteGroup`.                                               |
+| Part                         | Role                                                                                                |
+| ---------------------------- | --------------------------------------------------------------------------------------------------- |
+| `Autocomplete`               | Root state machine. Handles value, filtering, highlighting, and open/close behavior.                |
+| `AutocompleteField`          | Semantic wrapper for field-level structure. Keeps label and input wiring in one place.              |
+| `AutocompleteFieldLabel`     | Accessible label wired through Base UI field labeling for the input or field trigger.               |
+| `AutocompleteInputGroup`     | Layout wrapper for the input and optional control actions.                                          |
+| `AutocompleteInput`          | Text input where users type a query or free-form value.                                             |
+| `AutocompleteControlActions` | Optional container for clear/open controls.                                                         |
+| `AutocompleteClear`          | Optional action that clears the current input value.                                                |
+| `AutocompleteTrigger`        | Optional action that toggles or opens the suggestion popup.                                         |
+| `AutocompleteContent`        | Default popup composition: `AutocompletePortal` -> `AutocompletePositioner` -> `AutocompletePopup`. |
+| `AutocompletePortal`         | Optional portal wrapper when you need explicit control over popup placement in the DOM.             |
+| `AutocompleteBackdrop`       | Optional overlay rendered inside `AutocompletePortal`.                                              |
+| `AutocompletePositioner`     | Optional positioning wrapper for custom placement and collision settings.                           |
+| `AutocompletePopup`          | Visible popup surface when composing the infrastructure manually.                                   |
+| `AutocompleteArrow`          | Optional arrow rendered inside `AutocompletePopup`.                                                 |
+| `AutocompleteStatus`         | Optional status region for loading or result-count feedback.                                        |
+| `AutocompleteEmpty`          | Empty-state content shown when no items match.                                                      |
+| `AutocompleteList`           | Collection container for options.                                                                   |
+| `AutocompleteRow`            | Optional row wrapper when `grid` is enabled on the root.                                            |
+| `AutocompleteItem`           | One selectable option in the list.                                                                  |
+| `AutocompleteSeparator`      | Optional visual separator between groups or custom sections.                                        |
+| `AutocompleteGroup`          | Optional grouped section with its own item subset.                                                  |
+| `AutocompleteCollection`     | Renderer for group items inside `AutocompleteGroup`.                                                |
 
-Use default styling for service slots in most cases. Customize `portal`, `backdrop`,
-`positioner`, and `arrow` when you need custom layering, overlay behavior, popup placement, or
-arrow visuals.
+Use `AutocompleteContent` for the default popup. Reach for `AutocompletePortal`,
+`AutocompleteBackdrop`, `AutocompletePositioner`, `AutocompletePopup`, and `AutocompleteArrow`
+only when the popup infrastructure itself needs to change.
 
 ## Composition
 
@@ -175,39 +180,25 @@ is rendered by an external virtualization layer. `useAutocompleteFilter` provide
 matching helpers, and `useAutocompleteFilteredItems` returns the filtered result list for custom
 rendering.
 
-`className` styles the visible popup. `classNames` styles service slots hidden from the default
-composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `withBackdrop`,
-`withArrow`, and `slotProps` when you need Base UI escape hatches for service slots.
+`AutocompleteContent` is the short path for the common case. It styles the popup surface and keeps
+the default `Portal -> Positioner -> Popup` structure.
 
-| Prop           | Default | Values                                                     |
-| -------------- | ------- | ---------------------------------------------------------- |
-| `withBackdrop` | `false` | `true \| false`                                            |
-| `withArrow`    | `false` | `true \| false`                                            |
-| `arrow`        | `—`     | Custom `ReactNode` rendered inside the built-in arrow slot |
-| `sideOffset`   | `5`     | `number \| OffsetFunction`                                 |
-| `slotProps`    | —       | `{ portal?, backdrop?, positioner?, arrow? }`              |
-
-For overlapping positioning props, the precedence is:
-top-level prop on `AutocompleteContent` -> `slotProps.positioner` -> internal default.
-For portal container, `container` takes precedence over `slotProps.portal.container`.
-
-Use the `arrow` prop to replace the built-in arrow content. Keep `classNames.arrow` for styling and
-`slotProps.arrow` for non-class arrow props.
+Use `className` for the visible popup and `sideOffset` when the default spacing needs a small
+adjustment. When you need a backdrop, custom portal container, arrow styling, or advanced
+positioning, compose the infrastructure parts explicitly instead of passing configuration props to
+`AutocompleteContent`.
 
 ```tsx
-<AutocompleteContent
-  className={styles.popup}
-  sideOffset={8}
-  withArrow
-  withBackdrop
-  arrow={<span>▲</span>}
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-    arrow: styles.arrow,
-  }}
-/>
+<AutocompletePortal className={styles.portal}>
+  <AutocompleteBackdrop className={styles.backdrop} />
+  <AutocompletePositioner className={styles.positioner} sideOffset={8}>
+    <AutocompletePopup className={styles.popup}>
+      <AutocompleteArrow className={styles.arrow} />
+      <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+      <AutocompleteList>{/* items */}</AutocompleteList>
+    </AutocompletePopup>
+  </AutocompletePositioner>
+</AutocompletePortal>
 ```
 
 ## Examples
@@ -223,6 +214,8 @@ Pass grouped data and render `AutocompleteCollection` inside each `AutocompleteG
     {`
       import {
         Autocomplete,
+        AutocompleteArrow,
+        AutocompleteBackdrop,
         AutocompleteField,
         AutocompleteFieldLabel,
         AutocompleteInputGroup,
@@ -489,6 +482,9 @@ Set `limit` to cap the number of rendered matches.
         AutocompleteList,
         AutocompleteItem,
         AutocompleteItemText,
+        AutocompletePopup,
+        AutocompletePortal,
+        AutocompletePositioner,
       } from "moduix";
       import { useId } from "react";
 
@@ -966,7 +962,8 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
 
 ### Custom Styles
 
-Style the popup directly with `className` and service slots with `classNames`.
+Style the default popup with `className`. Switch to explicit popup composition when the portal,
+backdrop, positioner, or arrow need their own styling.
 
 <Preview>
   <CustomStylesAutocompleteExample />
@@ -1006,27 +1003,22 @@ Style the popup directly with `className` and service slots with `classNames`.
               </AutocompleteInputGroup>
             </AutocompleteField>
 
-            <AutocompleteContent
-              className={styles.customPopup}
-              sideOffset={8}
-              withArrow
-              withBackdrop
-              classNames={{
-                portal: styles.customPortal,
-                backdrop: styles.customBackdrop,
-                positioner: styles.customPositioner,
-                arrow: styles.customArrow,
-              }}
-            >
-              <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-              <AutocompleteList>
-                {(item) => (
-                  <AutocompleteItem key={item.id} value={item}>
-                    <AutocompleteItemText>{item.value}</AutocompleteItemText>
-                  </AutocompleteItem>
-                )}
-              </AutocompleteList>
-            </AutocompleteContent>
+            <AutocompletePortal className={styles.customPortal}>
+              <AutocompleteBackdrop className={styles.customBackdrop} />
+              <AutocompletePositioner className={styles.customPositioner} sideOffset={8}>
+                <AutocompletePopup className={styles.customPopup}>
+                  <AutocompleteArrow className={styles.customArrow} />
+                  <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+                  <AutocompleteList>
+                    {(item) => (
+                      <AutocompleteItem key={item.id} value={item}>
+                        <AutocompleteItemText>{item.value}</AutocompleteItemText>
+                      </AutocompleteItem>
+                    )}
+                  </AutocompleteList>
+                </AutocompletePopup>
+              </AutocompletePositioner>
+            </AutocompletePortal>
           </Autocomplete>
         );
       }
