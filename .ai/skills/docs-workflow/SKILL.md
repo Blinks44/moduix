@@ -29,6 +29,7 @@ Docs must reflect the simplified component architecture:
 - composition-first usage
 - minimal public API
 - minimal customization surface
+- simple path first, advanced composition second
 
 If an API, type, prop, slot, or styling hook was removed, docs should stop teaching it immediately.
 
@@ -49,6 +50,7 @@ Keep demo styles out of inline style objects and utility-heavy strings when a CS
 - Prefer `as T` over generic syntax like `useState<T>()` in MDX snippets.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Prefer composition examples over customization APIs when both express the same outcome.
+- Do not document exported types that were intentionally removed from the public surface.
 
 ## Section Guidance
 
@@ -57,6 +59,8 @@ For component pages, keep the existing page structure unless the task requires a
 - `Anatomy` should explain the parts that actually matter to consumers.
 - `Composition` should explain the current supported usage patterns.
 - `Examples` should move from common cases to narrower cases.
+- The first example should demonstrate the default high-level usage path.
+- If low-level parts remain for customization, show them in a separate advanced section such as `Custom composition` or `Custom styles`.
 
 Do not keep sections whose only purpose is to explain removed complexity such as legacy slot APIs, deep customization paths, or deleted feature flags.
 
@@ -77,3 +81,4 @@ Do not keep sections whose only purpose is to explain removed complexity such as
    - `npm run fmt:fix`
    - `npm run lint:check`
    - `npm run tsc:check`
+7. Code samples, page copy, and docs structure all point to the same simplified architecture.

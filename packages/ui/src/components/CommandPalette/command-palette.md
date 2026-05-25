@@ -1,12 +1,12 @@
 # CommandPalette
 
-`CommandPalette` is a best-practice composition built from Dialog and Autocomplete. It keeps the
-autocomplete popup open inside the dialog instead of rendering a positioned popup.
+`CommandPalette` is a small composition of `Dialog` and `Autocomplete`.
 
-The root opens with `mod+k` by default, where `mod` maps to Command on macOS and Control on
-Windows/Linux. Pass `shortcut={false}` or `shortcutTarget={null}` to disable the global listener.
-The listener ignores editable targets such as inputs, textareas, selects, and contenteditable
-regions, and it matches the exact modifier set.
+- `CommandPalette` is a dialog root with a built-in global shortcut listener.
+- `CommandPaletteContent` is the default modal composition: portal, backdrop, viewport, popup, and
+  an inline always-open autocomplete root.
+- `CommandPalettePortal`, `CommandPaletteBackdrop`, `CommandPaletteViewport`, and
+  `CommandPalettePopup` are exported for composition when the default content layout is not enough.
 
 ## Defaults
 
@@ -14,14 +14,9 @@ regions, and it matches the exact modifier set.
 | ----------------------------------------- | ---------- |
 | `shortcut`                                | `mod+k`    |
 | `shortcutTarget`                          | `document` |
-| `withBackdrop` (`CommandPaletteContent`)  | `true`     |
 | `autoHighlight` (`CommandPaletteContent`) | `always`   |
 | `keepHighlight` (`CommandPaletteContent`) | `true`     |
-| `mode` (`CommandPaletteContent`)          | `list`     |
 | `closeOnSelect` (`CommandPaletteItem`)    | `true`     |
 
-`CommandPaletteContent` also forwards commonly needed `Autocomplete.Root` props such as
-`filteredItems`, `highlightItemOnHover`, `loopFocus`, `locale`, `onItemHighlighted`,
-`submitOnItemClick`, `virtualized`, `disabled`, `readOnly`, `required`, `inputRef`, `form`, and
-`id`. Use grouped `items` data with `CommandPaletteList` + `CommandPaletteCollection`, and use
-`CommandPaletteClose` when you need an explicit dismiss control inside the popup.
+The shortcut listener ignores editable targets such as inputs, textareas, selects, and
+contenteditable regions, and it matches the exact modifier set.

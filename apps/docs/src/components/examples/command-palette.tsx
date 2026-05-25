@@ -1,8 +1,10 @@
 import {
+  Autocomplete,
   ArrowUpRightIcon,
   BellIcon,
   Button,
   CommandPalette,
+  CommandPaletteBackdrop,
   CommandPaletteClear,
   CommandPaletteCollection,
   CommandPaletteContent,
@@ -20,7 +22,10 @@ import {
   CommandPaletteItemText,
   CommandPaletteKbd,
   CommandPaletteList,
+  CommandPalettePopup,
+  CommandPalettePortal,
   CommandPaletteTrigger,
+  CommandPaletteViewport,
   PlusIcon,
   StarIcon,
 } from 'moduix';
@@ -287,9 +292,9 @@ const commandGroups: CommandGroup[] = groupCommands(commands);
 
 export function CommandPaletteExample() {
   return (
-    <CommandPalette>
+    <CommandPalette shortcut="alt+k">
       <CommandPaletteTrigger render={<Button />}>
-        Open palette <span className={styles.triggerMeta}>⌘K</span>
+        Open palette <span className={styles.triggerMeta}>Alt+K</span>
       </CommandPaletteTrigger>
       <CommandPaletteContent<CommandItem>
         aria-label="Command palette"
@@ -441,9 +446,9 @@ export function CommandPaletteActionsExample() {
   );
 
   return (
-    <CommandPalette>
+    <CommandPalette shortcut="alt+k">
       <CommandPaletteTrigger render={<Button />}>
-        Open actions palette <span className={styles.triggerMeta}>⌘K</span>
+        Open actions palette <span className={styles.triggerMeta}>Alt+K</span>
       </CommandPaletteTrigger>
       <CommandPaletteContent<CommandActionItem>
         aria-label="Command palette with actions"
@@ -488,6 +493,70 @@ export function CommandPaletteActionsExample() {
           <span className={styles.footerHint}>{lastAction}</span>
         </CommandPaletteFooter>
       </CommandPaletteContent>
+    </CommandPalette>
+  );
+}
+
+export function CommandPaletteCustomStylesExample() {
+  return (
+    <CommandPalette shortcut="alt+k">
+      <CommandPaletteTrigger render={<Button />}>
+        Open custom palette <span className={styles.triggerMeta}>Alt+K</span>
+      </CommandPaletteTrigger>
+      <CommandPalettePortal>
+        <CommandPaletteBackdrop className={styles.customBackdrop} />
+        <CommandPaletteViewport className={styles.customViewport}>
+          <CommandPalettePopup className={styles.customPopup} aria-label="Custom command palette">
+            <Autocomplete
+              autoHighlight="always"
+              inline
+              items={commandGroups}
+              keepHighlight
+              itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
+            >
+              <CommandPaletteInputWrap>
+                <CommandPaletteInput
+                  aria-label="Search commands"
+                  placeholder="Jump to places, pages, and settings..."
+                />
+                <CommandPaletteClear aria-label="Clear search" />
+              </CommandPaletteInputWrap>
+              <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
+              <CommandPaletteList>
+                {(group: CommandGroup) => (
+                  <CommandPaletteGroup key={group.value} items={group.items}>
+                    <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
+                    <CommandPaletteCollection>
+                      {(item: CommandItem) => (
+                        <CommandPaletteItem key={item.id} value={item}>
+                          <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                          <CommandPaletteItemText>
+                            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                            <CommandPaletteItemDescription>
+                              {item.description}
+                            </CommandPaletteItemDescription>
+                          </CommandPaletteItemText>
+                          {item.shortcut ? (
+                            <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
+                          ) : null}
+                        </CommandPaletteItem>
+                      )}
+                    </CommandPaletteCollection>
+                  </CommandPaletteGroup>
+                )}
+              </CommandPaletteList>
+              <CommandPaletteFooter>
+                <span className={styles.footerHint}>
+                  <CommandPaletteKbd>Enter</CommandPaletteKbd> run
+                </span>
+                <span className={styles.footerHint}>
+                  <CommandPaletteKbd>Esc</CommandPaletteKbd> close
+                </span>
+              </CommandPaletteFooter>
+            </Autocomplete>
+          </CommandPalettePopup>
+        </CommandPaletteViewport>
+      </CommandPalettePortal>
     </CommandPalette>
   );
 }

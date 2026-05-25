@@ -6,75 +6,15 @@ import { CloseLineIcon } from '@/primitives';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './CommandPalette.module.css';
 
-type CommandPaletteShortcut = false | string;
+const createCommandPaletteHandle = DialogPrimitive.createHandle;
+
 type CommandPaletteGroup<ItemValue> = Record<string, unknown> & {
   items: readonly ItemValue[];
 };
 
-type CommandPaletteContextValue = {
-  handle: CommandPaletteHandle;
-};
-
-type CommandPaletteProps<Payload = unknown> = DialogPrimitive.Root.Props<Payload> & {
-  shortcut?: CommandPaletteShortcut;
-  shortcutTarget?: Document | HTMLElement | null;
-};
-
-type CommandPaletteContentClassNames = {
-  portal?: DialogPrimitive.Portal.Props['className'];
-  backdrop?: DialogPrimitive.Backdrop.Props['className'];
-  viewport?: DialogPrimitive.Viewport.Props['className'];
-};
-
-type CommandPaletteContentSlotProps = {
-  portal?: Omit<DialogPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<DialogPrimitive.Backdrop.Props, 'className'>;
-  viewport?: Omit<DialogPrimitive.Viewport.Props, 'className'>;
-};
-
-type CommandPaletteContentProps<ItemValue = unknown> = Omit<
-  DialogPrimitive.Popup.Props,
-  'className'
-> & {
-  className?: DialogPrimitive.Popup.Props['className'];
-  classNames?: CommandPaletteContentClassNames;
-  slotProps?: CommandPaletteContentSlotProps;
-  container?: DialogPrimitive.Portal.Props['container'];
-  withBackdrop?: boolean;
-  items?: readonly ItemValue[] | readonly CommandPaletteGroup<ItemValue>[];
-  itemToStringValue?: AutocompletePrimitive.Root.Props<ItemValue>['itemToStringValue'];
-  value?: AutocompletePrimitive.Root.Props<ItemValue>['value'];
-  defaultValue?: AutocompletePrimitive.Root.Props<ItemValue>['defaultValue'];
-  onValueChange?: AutocompletePrimitive.Root.Props<ItemValue>['onValueChange'];
-  filter?: AutocompletePrimitive.Root.Props<ItemValue>['filter'];
-  filteredItems?: AutocompletePrimitive.Root.Props<ItemValue>['filteredItems'];
-  limit?: AutocompletePrimitive.Root.Props<ItemValue>['limit'];
-  autoHighlight?: AutocompletePrimitive.Root.Props<ItemValue>['autoHighlight'];
-  keepHighlight?: AutocompletePrimitive.Root.Props<ItemValue>['keepHighlight'];
-  highlightItemOnHover?: AutocompletePrimitive.Root.Props<ItemValue>['highlightItemOnHover'];
-  loopFocus?: AutocompletePrimitive.Root.Props<ItemValue>['loopFocus'];
-  locale?: AutocompletePrimitive.Root.Props<ItemValue>['locale'];
-  mode?: AutocompletePrimitive.Root.Props<ItemValue>['mode'];
-  onItemHighlighted?: AutocompletePrimitive.Root.Props<ItemValue>['onItemHighlighted'];
-  submitOnItemClick?: AutocompletePrimitive.Root.Props<ItemValue>['submitOnItemClick'];
-  virtualized?: AutocompletePrimitive.Root.Props<ItemValue>['virtualized'];
-  disabled?: AutocompletePrimitive.Root.Props<ItemValue>['disabled'];
-  readOnly?: AutocompletePrimitive.Root.Props<ItemValue>['readOnly'];
-  required?: AutocompletePrimitive.Root.Props<ItemValue>['required'];
-  inputRef?: AutocompletePrimitive.Root.Props<ItemValue>['inputRef'];
-  form?: AutocompletePrimitive.Root.Props<ItemValue>['form'];
-  id?: AutocompletePrimitive.Root.Props<ItemValue>['id'];
-};
-
-type CommandPaletteItemProps = AutocompletePrimitive.Item.Props & {
-  closeOnSelect?: boolean;
-};
-
-const CommandPaletteContext = React.createContext<CommandPaletteContextValue | null>(null);
-const createCommandPaletteHandle = DialogPrimitive.createHandle;
-const useCommandPaletteFilter = AutocompletePrimitive.useFilter;
-const useCommandPaletteFilteredItems = AutocompletePrimitive.useFilteredItems;
-type CommandPaletteHandle = DialogPrimitive.Handle<unknown>;
+const CommandPaletteContext = React.createContext<{
+  handle: DialogPrimitive.Handle<unknown>;
+} | null>(null);
 
 function useCommandPaletteContext(componentName: string) {
   const context = React.useContext(CommandPaletteContext);
@@ -98,8 +38,13 @@ function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
   const needsMeta = parts.includes('meta') || parts.includes('cmd') || parts.includes('command');
   const needsAlt = parts.includes('alt') || parts.includes('option');
   const needsShift = parts.includes('shift');
+  const eventKey = event.key.toLowerCase();
+  const eventCode =
+    event.code.startsWith('Key') || event.code.startsWith('Digit')
+      ? event.code.slice(event.code.startsWith('Key') ? 3 : 5).toLowerCase()
+      : event.code.toLowerCase();
 
-  if (!key || event.key.toLowerCase() !== key) {
+  if (!key || (eventKey !== key && eventCode !== key)) {
     return false;
   }
 
@@ -133,7 +78,10 @@ function CommandPalette<Payload = unknown>({
   handle,
   children,
   ...props
-}: CommandPaletteProps<Payload>) {
+}: DialogPrimitive.Root.Props<Payload> & {
+  shortcut?: false | string;
+  shortcutTarget?: Document | HTMLElement | null;
+}) {
   const fallbackHandle = React.useMemo(() => createCommandPaletteHandle<Payload>(), []);
   const resolvedHandle = handle ?? fallbackHandle;
 
@@ -162,13 +110,8 @@ function CommandPalette<Payload = unknown>({
     return () => target.removeEventListener('keydown', eventListener);
   }, [resolvedHandle, shortcut, shortcutTarget]);
 
-  const contextValue = React.useMemo<CommandPaletteContextValue>(
-    () => ({ handle: resolvedHandle as CommandPaletteHandle }),
-    [resolvedHandle],
-  );
-
   return (
-    <CommandPaletteContext.Provider value={contextValue}>
+    <CommandPaletteContext.Provider value={{ handle: resolvedHandle }}>
       <DialogPrimitive.Root handle={resolvedHandle} {...props}>
         {children}
       </DialogPrimitive.Root>
@@ -177,26 +120,18 @@ function CommandPalette<Payload = unknown>({
 }
 
 function CommandPaletteTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <DialogPrimitive.Trigger
       data-slot="command-palette-trigger"
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       render={render}
       {...props}
     />
   );
 }
 
-function CommandPalettePortal({ className, ...props }: DialogPrimitive.Portal.Props) {
-  return (
-    <DialogPrimitive.Portal
-      data-slot="command-palette-portal"
-      className={mergeClassName(className)}
-      {...props}
-    />
-  );
+function CommandPalettePortal(props: DialogPrimitive.Portal.Props) {
+  return <DialogPrimitive.Portal data-slot="command-palette-portal" {...props} />;
 }
 
 function CommandPaletteBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props) {
@@ -241,10 +176,6 @@ function CommandPaletteClose({ className, ...props }: DialogPrimitive.Close.Prop
 
 function CommandPaletteContent<ItemValue = unknown>({
   className,
-  classNames,
-  slotProps,
-  container,
-  withBackdrop = true,
   children,
   items,
   itemToStringValue,
@@ -254,73 +185,54 @@ function CommandPaletteContent<ItemValue = unknown>({
   filter,
   filteredItems,
   limit,
-  autoHighlight = 'always',
-  keepHighlight = true,
-  highlightItemOnHover,
-  loopFocus,
-  locale,
-  mode = 'list',
-  onItemHighlighted,
-  submitOnItemClick,
-  virtualized,
-  disabled,
-  readOnly,
-  required,
-  inputRef,
-  form,
-  id,
   ...props
-}: CommandPaletteContentProps<ItemValue>) {
-  const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? slotPortalContainer;
-  const autocompleteProps = {
-    open: true,
-    inline: true,
-    itemToStringValue,
-    value,
-    defaultValue,
-    onValueChange,
-    filter,
-    filteredItems,
-    limit,
-    autoHighlight,
-    keepHighlight,
-    highlightItemOnHover,
-    loopFocus,
-    locale,
-    mode,
-    onItemHighlighted,
-    submitOnItemClick,
-    virtualized,
-    disabled,
-    readOnly,
-    required,
-    inputRef,
-    form,
-    id,
-  } satisfies Omit<AutocompletePrimitive.Root.Props<ItemValue>, 'items'>;
-
+}: DialogPrimitive.Popup.Props & {
+  items?: AutocompletePrimitive.Root.Props<ItemValue>['items'];
+  itemToStringValue?: AutocompletePrimitive.Root.Props<ItemValue>['itemToStringValue'];
+  value?: AutocompletePrimitive.Root.Props<ItemValue>['value'];
+  defaultValue?: AutocompletePrimitive.Root.Props<ItemValue>['defaultValue'];
+  onValueChange?: AutocompletePrimitive.Root.Props<ItemValue>['onValueChange'];
+  filter?: AutocompletePrimitive.Root.Props<ItemValue>['filter'];
+  filteredItems?: AutocompletePrimitive.Root.Props<ItemValue>['filteredItems'];
+  limit?: AutocompletePrimitive.Root.Props<ItemValue>['limit'];
+}) {
   return (
-    <CommandPalettePortal
-      className={classNames?.portal}
-      container={portalContainer}
-      {...restPortalSlotProps}
-    >
-      {withBackdrop ? (
-        <CommandPaletteBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
-      ) : null}
-      <CommandPaletteViewport
-        className={classNames?.viewport}
-        data-with-backdrop={withBackdrop ? 'true' : 'false'}
-        {...slotProps?.viewport}
-      >
+    <CommandPalettePortal>
+      <CommandPaletteBackdrop />
+      <CommandPaletteViewport>
         <CommandPalettePopup className={className} {...props}>
           {isGroupedItems(items) ? (
-            <AutocompletePrimitive.Root items={items} {...autocompleteProps}>
+            <AutocompletePrimitive.Root
+              autoHighlight="always"
+              defaultValue={defaultValue}
+              filter={filter}
+              filteredItems={filteredItems}
+              inline
+              itemToStringValue={itemToStringValue}
+              items={items}
+              keepHighlight
+              limit={limit}
+              onValueChange={onValueChange}
+              open
+              value={value}
+            >
               {children}
             </AutocompletePrimitive.Root>
           ) : (
-            <AutocompletePrimitive.Root items={items} {...autocompleteProps}>
+            <AutocompletePrimitive.Root
+              autoHighlight="always"
+              defaultValue={defaultValue}
+              filter={filter}
+              filteredItems={filteredItems}
+              inline
+              itemToStringValue={itemToStringValue}
+              items={items}
+              keepHighlight
+              limit={limit}
+              onValueChange={onValueChange}
+              open
+              value={value}
+            >
               {children}
             </AutocompletePrimitive.Root>
           )}
@@ -421,10 +333,12 @@ function CommandPaletteItem({
   closeOnSelect = true,
   onClick,
   ...props
-}: CommandPaletteItemProps) {
+}: AutocompletePrimitive.Item.Props & {
+  closeOnSelect?: boolean;
+}) {
   const { handle } = useCommandPaletteContext('CommandPaletteItem');
 
-  const handleClick: CommandPaletteItemProps['onClick'] = (event) => {
+  const handleClick: AutocompletePrimitive.Item.Props['onClick'] = (event) => {
     onClick?.(event);
 
     if (!event.defaultPrevented && closeOnSelect) {
@@ -512,31 +426,14 @@ function CommandPaletteKbd({ className, ...props }: React.ComponentProps<'kbd'>)
   return <kbd data-slot="command-palette-kbd" className={clsx(styles.kbd, className)} {...props} />;
 }
 
-type CommandPalettePublicHandle<Payload = unknown> = DialogPrimitive.Handle<Payload>;
-type CommandPaletteTriggerProps = DialogPrimitive.Trigger.Props;
-type CommandPaletteCloseProps = DialogPrimitive.Close.Props;
-type CommandPaletteInputWrapProps = React.ComponentProps<'div'>;
-type CommandPaletteInputProps = AutocompletePrimitive.Input.Props;
-type CommandPaletteClearProps = AutocompletePrimitive.Clear.Props;
-type CommandPaletteStatusProps = AutocompletePrimitive.Status.Props;
-type CommandPaletteEmptyProps = AutocompletePrimitive.Empty.Props;
-type CommandPaletteListProps = AutocompletePrimitive.List.Props;
-type CommandPaletteGroupProps = AutocompletePrimitive.Group.Props;
-type CommandPaletteGroupLabelProps = AutocompletePrimitive.GroupLabel.Props;
-type CommandPaletteCollectionProps = AutocompletePrimitive.Collection.Props;
-type CommandPaletteItemIconProps = React.ComponentProps<'span'>;
-type CommandPaletteItemTextProps = React.ComponentProps<'span'>;
-type CommandPaletteItemLabelProps = React.ComponentProps<'span'>;
-type CommandPaletteItemDescriptionProps = React.ComponentProps<'span'>;
-type CommandPaletteItemMetaProps = React.ComponentProps<'span'>;
-type CommandPaletteSeparatorProps = AutocompletePrimitive.Separator.Props;
-type CommandPaletteFooterProps = React.ComponentProps<'div'>;
-type CommandPaletteKbdProps = React.ComponentProps<'kbd'>;
-
 export {
   CommandPalette,
   createCommandPaletteHandle,
   CommandPaletteTrigger,
+  CommandPalettePortal,
+  CommandPaletteBackdrop,
+  CommandPaletteViewport,
+  CommandPalettePopup,
   CommandPaletteClose,
   CommandPaletteContent,
   CommandPaletteInputWrap,
@@ -557,35 +454,4 @@ export {
   CommandPaletteSeparator,
   CommandPaletteFooter,
   CommandPaletteKbd,
-  useCommandPaletteFilter,
-  useCommandPaletteFilteredItems,
-};
-
-export type {
-  CommandPaletteProps,
-  CommandPalettePublicHandle as CommandPaletteHandle,
-  CommandPaletteTriggerProps,
-  CommandPaletteCloseProps,
-  CommandPaletteContentProps,
-  CommandPaletteContentClassNames,
-  CommandPaletteContentSlotProps,
-  CommandPaletteGroup as CommandPaletteItemsGroup,
-  CommandPaletteInputWrapProps,
-  CommandPaletteInputProps,
-  CommandPaletteClearProps,
-  CommandPaletteStatusProps,
-  CommandPaletteEmptyProps,
-  CommandPaletteListProps,
-  CommandPaletteGroupProps,
-  CommandPaletteGroupLabelProps,
-  CommandPaletteCollectionProps,
-  CommandPaletteItemProps,
-  CommandPaletteItemIconProps,
-  CommandPaletteItemTextProps,
-  CommandPaletteItemLabelProps,
-  CommandPaletteItemDescriptionProps,
-  CommandPaletteItemMetaProps,
-  CommandPaletteSeparatorProps,
-  CommandPaletteFooterProps,
-  CommandPaletteKbdProps,
 };

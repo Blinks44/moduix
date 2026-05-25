@@ -79,14 +79,6 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: var(--command-palette-viewport-padding, 10dvh var(--spacing-4) var(--spacing-4));
-
-    &[data-with-backdrop='false'] {
-      pointer-events: none;
-
-      & > [data-slot='command-palette-popup'] {
-        pointer-events: auto;
-      }
-    }
   }
 
   .popup {

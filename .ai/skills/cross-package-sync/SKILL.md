@@ -10,17 +10,18 @@ Use this skill when a task touches both `packages/ui` and `apps/docs`, or when a
 
 ## Required Sequence
 
-1. Apply `ui-component-workflow`.
-2. Run `npm run build:ui` from repo root.
-3. Apply `docs-workflow` against the freshly built UI output.
+Follow the routing order from `AGENTS.md`, then run `npm run build:ui` from repo root before validating docs against changed UI output.
 
 ## Synchronization Rules
 
+- Code, CSS, stories, and docs must converge on the same simplified architecture rather than preserving compatibility-era complexity in one layer.
 - Docs must reflect the simplified API, not the historical one.
 - Remove docs for deleted props, types, slot APIs, feature flags, or legacy examples in the same task.
 - Examples should use the recommended composition-first API, not compatibility shims.
-- Exported names, part names, and imports in docs must match the actual UI package.
+- Default examples should use the simple high-level path.
+- If low-level parts remain as an escape hatch, keep them documented as an advanced path and ensure the names match the actual exported building blocks.
 - `CSS Properties` must reflect the current public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
+- When a UI simplification removes CSS hooks, verify that docs, stories, and examples stop referencing them in the same task.
 
 ## Done Criteria
 
@@ -31,3 +32,4 @@ Use this skill when a task touches both `packages/ui` and `apps/docs`, or when a
    - `npm run fmt:fix`
    - `npm run lint:check`
    - `npm run tsc:check`
+5. The same default usage and escape-hatch story appears consistently across UI, stories, and docs.
