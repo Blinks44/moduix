@@ -4,7 +4,6 @@ import {
   CheckboxIndicator,
   CheckboxIndicatorIcon,
   CheckboxLabel,
-  type CheckboxProps,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -33,20 +32,6 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-icon-size-md', '0.75rem', 'Controls `md` indicator icon size.'],
   ['--checkbox-icon-size-lg', '0.875rem', 'Controls `lg` indicator icon size.'],
   ['--checkbox-icon-size-xl', '1rem', 'Controls `xl` indicator icon size.'],
-  ['--checkbox-indicator-bg', 'transparent', 'Controls indicator background color.'],
-  [
-    '--checkbox-indicator-bg-checked',
-    'var(--checkbox-indicator-bg, transparent)',
-    'Controls checked and indeterminate indicator background color.',
-  ],
-  ['--checkbox-indicator-border-color', 'transparent', 'Controls indicator border color.'],
-  [
-    '--checkbox-indicator-border-color-checked',
-    'var(--checkbox-indicator-border-color, transparent)',
-    'Controls checked and indeterminate indicator border color.',
-  ],
-  ['--checkbox-indicator-border-width', '0', 'Controls indicator border width.'],
-  ['--checkbox-indicator-radius', 'inherit', 'Controls indicator border radius.'],
   ['--checkbox-label-color', 'var(--color-foreground)', 'Controls label text color.'],
   ['--checkbox-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
   ['--checkbox-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
@@ -112,7 +97,7 @@ function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function CheckboxExample(props: CheckboxProps) {
+export function CheckboxExample(props: React.ComponentProps<typeof Checkbox>) {
   return (
     <CheckboxField>
       <Checkbox defaultChecked {...props} />
@@ -204,7 +189,11 @@ export function ControlledCheckboxExample() {
 export function CustomIconCheckboxExample() {
   return (
     <CheckboxField>
-      <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
+      <Checkbox defaultChecked>
+        <CheckboxIndicator>
+          <CustomPlusIcon className={styles.customIndicatorIcon} />
+        </CheckboxIndicator>
+      </Checkbox>
       <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
     </CheckboxField>
   );
@@ -227,16 +216,11 @@ export function CheckboxClassNameExample() {
   return (
     <div className={styles.row}>
       <CheckboxField className={styles.customField}>
-        <Checkbox
-          className={styles.customCheckbox}
-          classNames={{
-            indicator: styles.customIndicator,
-            indicatorIcon: styles.customIndicatorIcon,
-            checkedIcon: styles.customCheckedIcon,
-            indeterminateIcon: styles.customIndeterminateIcon,
-          }}
-          defaultChecked
-        />
+        <Checkbox className={styles.customCheckbox} defaultChecked>
+          <CheckboxIndicator className={styles.customIndicator}>
+            <CheckboxIndicatorIcon className={styles.customIndicatorIcon} />
+          </CheckboxIndicator>
+        </Checkbox>
         <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
       </CheckboxField>
     </div>

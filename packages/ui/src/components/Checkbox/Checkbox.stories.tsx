@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { Checkbox, CheckboxField, CheckboxLabel } from './Checkbox';
+import {
+  Checkbox,
+  CheckboxField,
+  CheckboxIndicator,
+  CheckboxIndicatorIcon,
+  CheckboxLabel,
+} from './Checkbox';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {
@@ -44,7 +50,11 @@ export const IndicatorIcon: Story = {
   render: () => {
     return (
       <CheckboxField>
-        <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
+        <Checkbox defaultChecked>
+          <CheckboxIndicator>
+            <CustomPlusIcon className={styles.customIndicatorIcon} />
+          </CheckboxIndicator>
+        </Checkbox>
         <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
       </CheckboxField>
     );
@@ -55,16 +65,11 @@ export const CustomStyles: Story = {
   render: () => {
     return (
       <CheckboxField className={styles.customField}>
-        <Checkbox
-          className={styles.customCheckbox}
-          classNames={{
-            indicator: styles.customIndicator,
-            indicatorIcon: styles.customIndicatorIcon,
-            checkedIcon: styles.customCheckedIcon,
-            indeterminateIcon: styles.customIndeterminateIcon,
-          }}
-          defaultChecked
-        />
+        <Checkbox className={styles.customCheckbox} defaultChecked>
+          <CheckboxIndicator className={styles.customIndicator}>
+            <CheckboxIndicatorIcon className={styles.customIndicatorIcon} />
+          </CheckboxIndicator>
+        </Checkbox>
         <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
       </CheckboxField>
     );

@@ -86,55 +86,42 @@ CheckboxField
 | `CheckboxLabel`         | Optional text label associated with the checkbox for pointer and keyboard interaction.                 |
 
 `Checkbox` has no service slots (`portal`, `backdrop`, `viewport`).
-Most customization is done through `className`, `classNames`, and CSS variables.
+Most customization is done through `className`, composition, and CSS variables.
 
 ## Composition
 
 `Checkbox` forwards Base UI root props and renders the indicator by default.
 Use `defaultChecked` for uncontrolled mode, `checked` + `onCheckedChange` for controlled mode,
 and form props (`name`, `value`, `uncheckedValue`, `form`, `required`, `readOnly`, `inputRef`)
-when binding to form submission. `render` and `nativeButton` are supported.
-Pass `checkedIcon` and `indeterminateIcon` to swap the built-in visuals, `indicator` to replace the
-default icon node inside the built-in indicator, or `children` to replace the full default indicator tree.
-When both `children` and `indicator` are provided, `children` takes precedence because it fully owns root composition.
-The root also forwards its `ref` to the underlying Base UI element for focus management and imperative integrations.
+when binding to form submission. `render`, `nativeButton`, and the root `ref` are preserved from Base UI.
+Use `size` for the built-in scale. When the default indicator is enough, render `<Checkbox />` directly.
+When you need a different icon or indicator behavior, compose `CheckboxIndicator` and `CheckboxIndicatorIcon`
+through `children` instead of using extra customization props.
 
-| Prop                | Default     | Values                                                             |
-| ------------------- | ----------- | ------------------------------------------------------------------ |
-| `size`              | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                                       |
-| `defaultChecked`    | `false`     | `boolean`                                                          |
-| `indeterminate`     | `false`     | `boolean`                                                          |
-| `disabled`          | `false`     | `boolean`                                                          |
-| `readOnly`          | `false`     | `boolean`                                                          |
-| `parent`            | `false`     | `boolean` (for parent checkboxes inside `CheckboxGroup`)           |
-| `required`          | `false`     | `boolean`                                                          |
-| `nativeButton`      | `false`     | `boolean`                                                          |
-| `checked`           | `undefined` | `boolean` (controlled mode, with `onCheckedChange`)                |
-| `checkedIcon`       | `undefined` | `ReactNode`                                                        |
-| `indeterminateIcon` | `undefined` | `ReactNode`                                                        |
-| `indicator`         | `undefined` | `ReactNode`                                                        |
-| `children`          | `undefined` | `ReactNode` (manual indicator/root composition)                    |
-| `className`         | `undefined` | `string \| ((state) => string \| undefined)`                       |
-| `classNames`        | `undefined` | `{ indicator?, indicatorIcon?, checkedIcon?, indeterminateIcon? }` |
-| `slotProps`         | `undefined` | `{ indicator?, indicatorIcon? }`                                   |
+| Prop             | Default     | Values                                              |
+| ---------------- | ----------- | --------------------------------------------------- |
+| `size`           | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                        |
+| `defaultChecked` | `false`     | `boolean`                                           |
+| `checked`        | `undefined` | `boolean` (controlled mode, with `onCheckedChange`) |
+| `indeterminate`  | `false`     | `boolean`                                           |
+| `disabled`       | `false`     | `boolean`                                           |
+| `readOnly`       | `false`     | `boolean`                                           |
+| `required`       | `false`     | `boolean`                                           |
+| `parent`         | `false`     | `boolean` (for parent checkboxes inside group)      |
+| `children`       | `undefined` | `ReactNode` (manual indicator composition)          |
+| `className`      | `undefined` | `string \| ((state) => string \| undefined)`        |
+| `nativeButton`   | `false`     | `boolean`                                           |
 
-Use `className` for the root, `classNames` for default indicator parts, and
-`slotProps.indicator` for indicator behavior props (for example `keepMounted`, `render`, `style`).
-Compose `CheckboxIndicator` and `CheckboxIndicatorIcon` directly only when you need full slot control:
+Use `className` for the root. Compose indicator parts directly when you need extra control.
+Because `CheckboxIndicator` is the underlying Base UI primitive, it still supports primitive props such as
+`keepMounted`, `render`, and state-aware `className`/`style`:
 
 ```tsx
-<Checkbox
-  className={styles.checkbox}
-  classNames={{
-    indicator: styles.indicator,
-    indicatorIcon: styles.indicatorIcon,
-    checkedIcon: styles.checkedIcon,
-    indeterminateIcon: styles.indeterminateIcon,
-  }}
-  slotProps={{
-    indicator: { keepMounted: true },
-  }}
-/>
+<Checkbox className={styles.checkbox}>
+  <CheckboxIndicator className={styles.indicator} keepMounted>
+    <CheckboxIndicatorIcon className={styles.indicatorIcon} />
+  </CheckboxIndicator>
+</Checkbox>
 ```
 
 ## Examples
@@ -351,7 +338,7 @@ Use `readOnly` when the current state should remain focusable and perceivable bu
 
 ### Indicator Icon
 
-Pass icon nodes to `checkedIcon` and `indeterminateIcon`, or compose `CheckboxIndicator` directly when you need full control over the indicator slot.
+Compose `CheckboxIndicator` when you want a different visual without expanding the root API.
 
 <Preview>
   <CustomIconCheckboxExample />
@@ -361,6 +348,7 @@ Pass icon nodes to `checkedIcon` and `indeterminateIcon`, or compose `CheckboxIn
       import {
         Checkbox,
         CheckboxField,
+        CheckboxIndicator,
         CheckboxLabel,
       } from "moduix";
       import type { ComponentProps } from "react";
@@ -381,7 +369,11 @@ Pass icon nodes to `checkedIcon` and `indeterminateIcon`, or compose `CheckboxIn
       export function IndicatorIconCheckboxDemo() {
         return (
           <CheckboxField>
-            <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
+            <Checkbox defaultChecked>
+              <CheckboxIndicator>
+                <CustomPlusIcon className={styles.customIndicatorIcon} />
+              </CheckboxIndicator>
+            </Checkbox>
             <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
           </CheckboxField>
         );
@@ -393,7 +385,7 @@ Pass icon nodes to `checkedIcon` and `indeterminateIcon`, or compose `CheckboxIn
 
 ### Manual Indicator Composition
 
-Pass `children` when you need to replace the full default indicator tree instead of only swapping the icon node.
+Pass `children` when you need to replace the full default indicator tree.
 
 <Preview>
   <CheckboxIndicatorCompositionExample />
@@ -427,28 +419,29 @@ Pass `children` when you need to replace the full default indicator tree instead
 
 ### Custom Styles
 
-Pass `className` to the field, root, and label slots. Use `classNames` for the automatically rendered indicator slots.
+Pass `className` to the field, root, and label slots. When indicator styles need their own selectors, compose the indicator explicitly.
 
 <Preview>
   <CustomStylesCheckboxExample />
 
   <Preview.Code>
     {`
-      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+      import {
+        Checkbox,
+        CheckboxField,
+        CheckboxIndicator,
+        CheckboxIndicatorIcon,
+        CheckboxLabel,
+      } from "moduix";
 
       export function CustomStylesCheckboxDemo() {
         return (
           <CheckboxField className={styles.customField}>
-            <Checkbox
-              className={styles.customCheckbox}
-              classNames={{
-                indicator: styles.customIndicator,
-                indicatorIcon: styles.customIndicatorIcon,
-                checkedIcon: styles.customCheckedIcon,
-                indeterminateIcon: styles.customIndeterminateIcon,
-              }}
-              defaultChecked
-            />
+            <Checkbox className={styles.customCheckbox} defaultChecked>
+              <CheckboxIndicator className={styles.customIndicator}>
+                <CheckboxIndicatorIcon className={styles.customIndicatorIcon} />
+              </CheckboxIndicator>
+            </Checkbox>
             <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
           </CheckboxField>
         );
@@ -477,14 +470,6 @@ Pass `className` to the field, root, and label slots. Use `classNames` for the a
 
       .customIndicatorIcon {
         transform: rotate(-8deg);
-      }
-
-      .customCheckedIcon {
-        filter: drop-shadow(0 0 0.25rem rgb(255 255 255 / 0.4));
-      }
-
-      .customIndeterminateIcon {
-        opacity: 0.86;
       }
 
       .customLabel {

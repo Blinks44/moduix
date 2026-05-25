@@ -119,7 +119,7 @@ CheckboxGroup
 | `CheckboxGroupItemLabel`   | Optional text label for the item.                                                   |
 
 `CheckboxGroup` does not use service slots (`portal`, `backdrop`, `viewport`).
-Customize visible parts with `className`, `classNames`, and CSS variables.
+Customize visible parts with `className`, composition, and CSS variables.
 
 ## Composition
 
@@ -142,27 +142,18 @@ Use `allValues` with `CheckboxGroupItemControl parent` for select-all behavior.
 `CheckboxGroupLabel`, `CheckboxGroupList`, `CheckboxGroupItem`, and
 `CheckboxGroupItemLabel` are layout slots and accept `className`.
 `CheckboxGroupItemControl` composes `Checkbox`, so it also supports the same
-checkbox customization props, refs, and form props described on the Checkbox
+checkbox composition patterns, refs, and form props described on the Checkbox
 page. Inside a group,
 prefer letting `CheckboxGroup` own checked state rather than mixing in per-item
 `checked` or `defaultChecked`.
 
-Use `className` for the checkbox root, `classNames` for internal indicator slots, and
-`slotProps.indicator` for Base UI indicator props like `keepMounted`:
+Use `className` for the checkbox root. Compose `CheckboxIndicator` when you need
+indicator-specific styling or behavior:
 
 ```tsx
-<CheckboxGroupItemControl
-  className={styles.customControl}
-  classNames={{
-    indicator: styles.customIndicator,
-    indicatorIcon: styles.customIndicatorIcon,
-    checkedIcon: styles.customCheckedIcon,
-    indeterminateIcon: styles.customIndeterminateIcon,
-  }}
-  slotProps={{
-    indicator: { keepMounted: true },
-  }}
-/>
+<CheckboxGroupItemControl className={styles.customControl}>
+  <CheckboxIndicator className={styles.customIndicator} keepMounted />
+</CheckboxGroupItemControl>
 ```
 
 ## Examples
@@ -402,8 +393,8 @@ indeterminate state when only some child options are checked.
 
 ### Custom Icon
 
-Pass `checkedIcon`, `indeterminateIcon`, `indicator`, or custom children to
-`CheckboxGroupItemControl` to use any icon from your application or icon library.
+Compose `CheckboxIndicator` inside `CheckboxGroupItemControl` to use any icon from your
+application or icon library.
 
 <Preview>
   <CustomIconCheckboxGroupExample />
@@ -417,6 +408,7 @@ Pass `checkedIcon`, `indeterminateIcon`, `indicator`, or custom children to
         CheckboxGroupItemLabel,
         CheckboxGroupLabel,
         CheckboxGroupList,
+        CheckboxIndicator,
       } from "moduix";
 
       function CustomPlusIcon() {
@@ -439,11 +431,11 @@ Pass `checkedIcon`, `indeterminateIcon`, `indicator`, or custom children to
             <CheckboxGroupList>
               {options.map((option) => (
                 <CheckboxGroupItem key={option.value}>
-                  <CheckboxGroupItemControl
-                    value={option.value}
-                    name="custom-indicators"
-                    checkedIcon={<CustomPlusIcon />}
-                  />
+                  <CheckboxGroupItemControl value={option.value} name="custom-indicators">
+                    <CheckboxIndicator>
+                      <CustomPlusIcon className={styles.customIndicatorIcon} />
+                    </CheckboxIndicator>
+                  </CheckboxGroupItemControl>
                   <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
                 </CheckboxGroupItem>
               ))}
@@ -470,7 +462,7 @@ Pass `checkedIcon`, `indeterminateIcon`, `indicator`, or custom children to
 ### Custom Styles
 
 Pass `className` to the group, label, list, item, control, and item label slots. Use
-`classNames` on `CheckboxGroupItemControl` for internal checkbox slots such as `indicator`.
+composition on `CheckboxGroupItemControl` when the indicator needs its own selector.
 
 <Preview>
   <CustomStylesCheckboxGroupExample />
@@ -484,6 +476,7 @@ Pass `className` to the group, label, list, item, control, and item label slots.
         CheckboxGroupItemLabel,
         CheckboxGroupLabel,
         CheckboxGroupList,
+        CheckboxIndicator,
       } from "moduix";
 
       export function CustomStylesCheckboxGroupDemo() {
@@ -497,8 +490,9 @@ Pass `className` to the group, label, list, item, control, and item label slots.
                     value={option.value}
                     name="styled-notifications"
                     className={styles.customControl}
-                    classNames={{ indicator: styles.customIndicator }}
-                  />
+                  >
+                    <CheckboxIndicator className={styles.customIndicator} />
+                  </CheckboxGroupItemControl>
                   <CheckboxGroupItemLabel className={styles.customItemLabel}>
                     {option.label}
                   </CheckboxGroupItemLabel>

@@ -46,3 +46,7 @@
 .customIndicator {
   color: var(--color-primary-foreground);
 }
+
+.customIndicatorIcon {
+  transform: rotate(-8deg);
+}

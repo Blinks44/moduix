@@ -7,6 +7,7 @@ import {
   CheckboxGroupItemLabel,
   CheckboxGroupLabel,
   CheckboxGroupList,
+  CheckboxIndicator,
   CheckboxLabel,
   Field,
   FieldItem,
@@ -63,20 +64,6 @@ export const checkboxGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-icon-size-md', '0.75rem', 'Controls `md` checkbox indicator icon size.'],
   ['--checkbox-icon-size-lg', '0.875rem', 'Controls `lg` checkbox indicator icon size.'],
   ['--checkbox-icon-size-xl', '1rem', 'Controls `xl` checkbox indicator icon size.'],
-  ['--checkbox-indicator-bg', 'transparent', 'Controls indicator background color.'],
-  [
-    '--checkbox-indicator-bg-checked',
-    'var(--checkbox-indicator-bg, transparent)',
-    'Controls checked and indeterminate indicator background color.',
-  ],
-  ['--checkbox-indicator-border-color', 'transparent', 'Controls indicator border color.'],
-  [
-    '--checkbox-indicator-border-color-checked',
-    'var(--checkbox-indicator-border-color, transparent)',
-    'Controls checked and indeterminate indicator border color.',
-  ],
-  ['--checkbox-indicator-border-width', '0', 'Controls indicator border width.'],
-  ['--checkbox-indicator-radius', 'inherit', 'Controls indicator radius.'],
   ['--checkbox-radius', 'var(--radius-xs)', 'Controls checkbox corner radius.'],
   ['--checkbox-size-xs', '0.875rem', 'Controls `xs` checkbox size.'],
   ['--checkbox-size-sm', '1rem', 'Controls `sm` checkbox size.'],
@@ -203,11 +190,11 @@ export function CustomIconCheckboxGroupExample() {
       <CheckboxGroupList>
         {notificationOptions.map((option) => (
           <CheckboxGroupItem key={option.value}>
-            <CheckboxGroupItemControl
-              value={option.value}
-              name="custom-indicators"
-              checkedIcon={<CustomPlusIcon />}
-            />
+            <CheckboxGroupItemControl value={option.value} name="custom-indicators">
+              <CheckboxIndicator>
+                <CustomPlusIcon className={styles.customIndicatorIcon} />
+              </CheckboxIndicator>
+            </CheckboxGroupItemControl>
             <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
           </CheckboxGroupItem>
         ))}
@@ -303,8 +290,9 @@ export function CustomStylesCheckboxGroupExample() {
               value={option.value}
               name="styled-notifications"
               className={styles.customControl}
-              classNames={{ indicator: styles.customIndicator }}
-            />
+            >
+              <CheckboxIndicator className={styles.customIndicator} />
+            </CheckboxGroupItemControl>
             <CheckboxGroupItemLabel className={styles.customItemLabel}>
               {option.label}
             </CheckboxGroupItemLabel>

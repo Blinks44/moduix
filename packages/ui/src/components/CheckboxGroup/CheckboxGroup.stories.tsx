@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { Checkbox, CheckboxField, CheckboxLabel } from '../Checkbox';
+import { Checkbox, CheckboxField, CheckboxIndicator, CheckboxLabel } from '../Checkbox';
 import { Field, FieldItem, FieldLabel } from '../Field';
 import { Fieldset, FieldsetLegend } from '../Fieldset';
 import {
@@ -81,11 +81,11 @@ export const CustomIcon: Story = {
         <CheckboxGroupList>
           {options.map((option) => (
             <CheckboxGroupItem key={option.value}>
-              <CheckboxGroupItemControl
-                value={option.value}
-                name="custom-indicators"
-                checkedIcon={<CustomPlusIcon />}
-              />
+              <CheckboxGroupItemControl value={option.value} name="custom-indicators">
+                <CheckboxIndicator>
+                  <CustomPlusIcon className={styles.customIndicatorIcon} />
+                </CheckboxIndicator>
+              </CheckboxGroupItemControl>
               <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
             </CheckboxGroupItem>
           ))}
@@ -199,8 +199,9 @@ export const CustomStyles: Story = {
                 value={option.value}
                 name="styled-notifications"
                 className={styles.customControl}
-                classNames={{ indicator: styles.customIndicator }}
-              />
+              >
+                <CheckboxIndicator className={styles.customIndicator} />
+              </CheckboxGroupItemControl>
               <CheckboxGroupItemLabel className={styles.customLabel}>
                 {option.label}
               </CheckboxGroupItemLabel>

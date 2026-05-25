@@ -411,19 +411,10 @@ type CheckboxIndicatorState = {
 };
 ```
 
-## Export Groups
+## Moduix note
 
-- `Checkbox.Root`: `Checkbox.Root`, `Checkbox.Root.State`, `Checkbox.Root.Props`, `Checkbox.Root.ChangeEventReason`, `Checkbox.Root.ChangeEventDetails`
-- `Checkbox.Indicator`: `Checkbox.Indicator`, `Checkbox.Indicator.State`, `Checkbox.Indicator.Props`
-- `Default`: `CheckboxRootState`, `CheckboxRootProps`, `CheckboxRootChangeEventReason`, `CheckboxRootChangeEventDetails`, `CheckboxIndicatorState`, `CheckboxIndicatorProps`
-
-## Canonical Types
-
-Maps `Canonical`: `Alias` — Use Canonical when its namespace is already imported; otherwise use Alias.
-
-- `Checkbox.Root.State`: `CheckboxRootState`
-- `Checkbox.Root.Props`: `CheckboxRootProps`
-- `Checkbox.Root.ChangeEventReason`: `CheckboxRootChangeEventReason`
-- `Checkbox.Root.ChangeEventDetails`: `CheckboxRootChangeEventDetails`
-- `Checkbox.Indicator.State`: `CheckboxIndicatorState`
-- `Checkbox.Indicator.Props`: `CheckboxIndicatorProps`
+`moduix` keeps `Checkbox` as a thin styled wrapper over these Base UI parts.
+The public component exports parts such as `Checkbox`, `CheckboxIndicator`,
+and `CheckboxIndicatorIcon`, but it does not re-export local prop or state
+aliases for the primitive types. Use the Base UI namespaces directly when you
+need primitive type references.
