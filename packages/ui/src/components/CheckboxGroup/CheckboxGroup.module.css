@@ -4,10 +4,6 @@
     flex-direction: column;
     gap: var(--checkbox-group-gap, var(--spacing-2));
     color: var(--checkbox-group-color, var(--color-foreground));
-
-    &[data-disabled] .item {
-      cursor: default;
-    }
   }
 
   .label {
@@ -28,11 +24,6 @@
     display: inline-flex;
     align-items: center;
     gap: var(--checkbox-group-item-gap, var(--checkbox-gap, var(--spacing-2)));
-    cursor: pointer;
-
-    &:has([data-disabled]) {
-      cursor: default;
-    }
   }
 
   .itemLabel {
