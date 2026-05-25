@@ -197,39 +197,4 @@
       height: var(--button-size-icon-lg, var(--size-xl));
     }
   }
-
-  .content {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: inherit;
-  }
-
-  .contentHidden {
-    opacity: 0;
-  }
-
-  .loadingIndicator {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .loadingIndicatorOverlay {
-    position: absolute;
-    inset-block-start: 50%;
-    inset-inline-start: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .spinner {
-    box-sizing: border-box;
-    width: var(--button-spinner-size, 0.875rem);
-    height: var(--button-spinner-size, 0.875rem);
-    border: var(--border-width-sm) solid currentColor;
-    border-width: var(--button-spinner-border-width, var(--border-width-sm));
-    border-inline-end-color: transparent;
-    border-radius: var(--button-spinner-radius, var(--radius-full));
-    animation: var(--button-spinner-animation, var(--animation-spin));
-  }
 }

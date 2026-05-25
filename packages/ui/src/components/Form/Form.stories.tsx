@@ -4,6 +4,7 @@ import type { FormActions, FormProps } from './Form';
 import { Button } from '../Button';
 import { Field, FieldError, FieldLabel } from '../Field';
 import { Input } from '../Input';
+import { Spinner } from '../Spinner';
 import { Form } from './Form';
 import storyStyles from './Form.stories.module.css';
 
@@ -114,8 +115,20 @@ export const Basic: Story = {
           <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
           <FieldError />
         </Field>
-        <Button type="submit" loading={submitting}>
-          Submit
+        <Button
+          type="submit"
+          disabled={submitting}
+          focusableWhenDisabled
+          aria-busy={submitting || undefined}
+        >
+          {submitting ? (
+            <>
+              <Spinner decorative size="sm" />
+              Submitting
+            </>
+          ) : (
+            'Submit'
+          )}
         </Button>
       </Form>
     );
@@ -162,8 +175,20 @@ export const WithOnFormSubmit: Story = {
           <Input type="number" placeholder="18" />
           <FieldError />
         </Field>
-        <Button type="submit" loading={submitting}>
-          Submit
+        <Button
+          type="submit"
+          disabled={submitting}
+          focusableWhenDisabled
+          aria-busy={submitting || undefined}
+        >
+          {submitting ? (
+            <>
+              <Spinner decorative size="sm" />
+              Submitting
+            </>
+          ) : (
+            'Submit'
+          )}
         </Button>
       </Form>
     );
@@ -233,8 +258,20 @@ export const WithActionState: Story = {
           <Input required defaultValue="admin" placeholder="e.g. alice132" />
           <FieldError />
         </Field>
-        <Button type="submit" loading={loading}>
-          Submit
+        <Button
+          type="submit"
+          disabled={loading}
+          focusableWhenDisabled
+          aria-busy={loading || undefined}
+        >
+          {loading ? (
+            <>
+              <Spinner decorative size="sm" />
+              Submitting
+            </>
+          ) : (
+            'Submit'
+          )}
         </Button>
         {state.message ? <p className={storyStyles.helper}>{state.message}</p> : null}
       </Form>

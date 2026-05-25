@@ -34,6 +34,7 @@ import {
         Input,
         FieldError,
         Button,
+        Spinner,
       } from "moduix";
       import { useState } from "react";
 
@@ -93,8 +94,20 @@ import {
               </FieldError>
               <FieldError />
             </Field>
-            <Button type="submit" loading={submitting}>
-              Submit
+            <Button
+              type="submit"
+              disabled={submitting}
+              focusableWhenDisabled
+              aria-busy={submitting || undefined}
+            >
+              {submitting ? (
+                <>
+                  <Spinner decorative size="sm" />
+                  Submitting
+                </>
+              ) : (
+                "Submit"
+              )}
             </Button>
           </Form>
         );
@@ -168,6 +181,7 @@ Base UI prevents the native submit event for this handler.
         Input,
         FieldError,
         Button,
+        Spinner,
       } from "moduix";
       import { useState } from "react";
 
@@ -210,8 +224,20 @@ Base UI prevents the native submit event for this handler.
               <Input type="number" placeholder="18" />
               <FieldError />
             </Field>
-            <Button type="submit" loading={submitting}>
-              Submit
+            <Button
+              type="submit"
+              disabled={submitting}
+              focusableWhenDisabled
+              aria-busy={submitting || undefined}
+            >
+              {submitting ? (
+                <>
+                  <Spinner decorative size="sm" />
+                  Submitting
+                </>
+              ) : (
+                "Submit"
+              )}
             </Button>
           </Form>
         );
@@ -248,6 +274,7 @@ Pass `actionsRef` when another control needs to trigger validation for one field
         Input,
         FieldError,
         Button,
+        Spinner,
       } from "moduix";
       import { useRef, useState } from "react";
 
@@ -382,8 +409,20 @@ errors.
               <Input required defaultValue="admin" placeholder="e.g. alice132" />
               <FieldError />
             </Field>
-            <Button type="submit" loading={loading}>
-              Submit
+            <Button
+              type="submit"
+              disabled={loading}
+              focusableWhenDisabled
+              aria-busy={loading || undefined}
+            >
+              {loading ? (
+                <>
+                  <Spinner decorative size="sm" />
+                  Submitting
+                </>
+              ) : (
+                "Submit"
+              )}
             </Button>
             {state.message ? <p className={styles.helper}>{state.message}</p> : null}
           </Form>

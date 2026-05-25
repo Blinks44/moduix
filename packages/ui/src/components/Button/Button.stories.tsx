@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { ArrowUpRightIcon, PlusIcon, StarIcon } from '@/primitives/Icons';
+import { Spinner } from '../Spinner';
 import { Button } from './Button';
 
 const meta = {
@@ -163,32 +164,30 @@ export const WithLink: Story = {
   },
 };
 
-export const LoadingBuiltInProp: Story = {
-  name: 'Loading (Built-in Prop)',
+export const PendingState: Story = {
+  name: 'Pending State',
   render: () => {
-    const [loading, setLoading] = React.useState(false);
+    const [pending, setPending] = React.useState(false);
 
     return (
       <Button
-        loading={loading}
-        loadingText="Saving"
+        disabled={pending}
+        focusableWhenDisabled
+        aria-busy={pending || undefined}
         onClick={() => {
-          setLoading(true);
-          setTimeout(() => setLoading(false), 1800);
+          setPending(true);
+          setTimeout(() => setPending(false), 1800);
         }}
       >
-        Save Changes
+        {pending ? (
+          <>
+            <Spinner decorative size="sm" />
+            Saving
+          </>
+        ) : (
+          'Save Changes'
+        )}
       </Button>
     );
-  },
-};
-
-export const LoadingCustomIndicator: Story = {
-  name: 'Loading (Custom Indicator)',
-  args: {
-    loading: true,
-    loadingText: 'Syncing',
-    variant: 'outline',
-    loadingIndicator: <StarIcon />,
   },
 };

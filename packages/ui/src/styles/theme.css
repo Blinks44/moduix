@@ -421,10 +421,6 @@
   --button-size-md: initial; /* var(--size-lg) */
   --button-size-lg: initial; /* var(--size-xl) */
   --button-size-xl: initial; /* 3.5rem */
-  --button-spinner-animation: initial; /* var(--animation-spin) */
-  --button-spinner-border-width: initial; /* var(--border-width-sm) */
-  --button-spinner-radius: initial; /* var(--radius-full) */
-  --button-spinner-size: initial; /* 0.875rem */
   --button-transition: initial; /* var(--transition-default) */
 
   /* Card */

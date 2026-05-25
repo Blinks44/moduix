@@ -6,6 +6,7 @@ import {
   FieldLabel,
   Form,
   Input,
+  Spinner,
   type FormActions,
   type FormProps,
 } from 'moduix';
@@ -141,8 +142,20 @@ export function FormExample(props: FormProps) {
         <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
         <FieldError />
       </Field>
-      <Button type="submit" loading={submitting}>
-        Submit
+      <Button
+        type="submit"
+        disabled={submitting}
+        focusableWhenDisabled
+        aria-busy={submitting || undefined}
+      >
+        {submitting ? (
+          <>
+            <Spinner decorative size="sm" />
+            Submitting
+          </>
+        ) : (
+          'Submit'
+        )}
       </Button>
     </Form>
   );
@@ -187,8 +200,20 @@ export function FormOnFormSubmitExample() {
         <Input type="number" placeholder="18" />
         <FieldError />
       </Field>
-      <Button type="submit" loading={submitting}>
-        Submit
+      <Button
+        type="submit"
+        disabled={submitting}
+        focusableWhenDisabled
+        aria-busy={submitting || undefined}
+      >
+        {submitting ? (
+          <>
+            <Spinner decorative size="sm" />
+            Submitting
+          </>
+        ) : (
+          'Submit'
+        )}
       </Button>
     </Form>
   );
@@ -254,8 +279,20 @@ export function FormActionStateExample() {
         <Input required defaultValue="admin" placeholder="e.g. alice132" />
         <FieldError />
       </Field>
-      <Button type="submit" loading={loading}>
-        Submit
+      <Button
+        type="submit"
+        disabled={loading}
+        focusableWhenDisabled
+        aria-busy={loading || undefined}
+      >
+        {loading ? (
+          <>
+            <Spinner decorative size="sm" />
+            Submitting
+          </>
+        ) : (
+          'Submit'
+        )}
       </Button>
       {state.message ? <p className={styles.helper}>{state.message}</p> : null}
     </Form>
