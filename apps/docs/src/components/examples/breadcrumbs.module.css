@@ -7,16 +7,19 @@
   height: 0.25rem;
 }
 
-.ellipsisTrigger {
-  border-radius: var(--radius-full);
-  background-color: var(--color-muted);
+.menuTrigger {
+  min-width: auto;
+  min-height: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
 }
 
-.popup {
-  --breadcrumbs-popup-bg: var(--color-background);
-  --breadcrumbs-popup-border-color: var(--color-primary);
-}
-
-.popupItem {
-  --breadcrumbs-popup-item-bg-highlighted: var(--color-accent);
+.menuContent {
+  min-width: 8rem;
+  --menu-item-font-size: var(--text-xs);
+  --menu-item-padding-x-start: 0.75rem;
+  --menu-item-padding-x-end: 0.75rem;
+  --menu-item-padding-y: 0.375rem;
 }

@@ -1,11 +1,10 @@
 ---
 title: Breadcrumbs
-description: Compact path navigation with optional collapsed middle items.
+description: Composition-first path navigation built from small semantic parts.
 icon: Component
 ---
 
 import {
-  BreadcrumbsActionExample,
   BreadcrumbsCollapsedExample,
   BreadcrumbsCssPlaygroundPanel,
   BreadcrumbsCssPropertiesPanel,
@@ -13,36 +12,42 @@ import {
   BreadcrumbsExample,
   BreadcrumbsLongLabelExample,
   BreadcrumbsRenderExample,
-  BreadcrumbsSlotsExample,
   breadcrumbsPlaygroundCssProperties,
 } from '@/components/examples/breadcrumbs';
-
-## API Reference
-
-<BaseUIReference href="https://base-ui.com/react/components/menu" />
 
 ## Basic
 
 <Preview cssProperties={breadcrumbsPlaygroundCssProperties}>
-  <BreadcrumbsExample maxVisibleItems={3} />
+  <BreadcrumbsExample />
 
   <Preview.Code>
     {`
-      import { Breadcrumbs } from "moduix";
+      import {
+        Breadcrumbs,
+        BreadcrumbsItem,
+        BreadcrumbsLink,
+        BreadcrumbsList,
+        BreadcrumbsPage,
+        BreadcrumbsSeparator,
+      } from "moduix";
 
       export function BreadcrumbsDemo() {
         return (
-          <Breadcrumbs
-            maxVisibleItems={3}
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Engineering", href: "/engineering" },
-              { label: "Backend", href: "/engineering/backend" },
-              { label: "Golang", href: "/engineering/backend/golang" },
-              { label: "Vacancies", href: "/vacancies" },
-              { label: "Go Developer" },
-            ]}
-          />
+          <Breadcrumbs>
+            <BreadcrumbsList>
+              <BreadcrumbsItem>
+                <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+              </BreadcrumbsItem>
+            </BreadcrumbsList>
+          </Breadcrumbs>
         );
       }
     `}
@@ -54,84 +59,80 @@ import {
 
 ## Anatomy
 
-`Breadcrumbs` uses semantic `nav` + `ol` for path navigation.
-Long paths collapse middle items into an ellipsis trigger with a compact Base UI menu.
+`Breadcrumbs` is a small set of semantic building blocks.
 
 ```text
 Breadcrumbs
-└─ list
-   ├─ item link
-   ├─ separator
-   ├─ collapsed menu trigger (optional)
-   ├─ separator
-   └─ current page item
+└─ BreadcrumbsList
+   ├─ BreadcrumbsItem
+   │  └─ BreadcrumbsLink
+   ├─ BreadcrumbsSeparator
+   └─ BreadcrumbsItem
+      └─ BreadcrumbsPage
 ```
 
-| Part                     | Role                                                       |
-| ------------------------ | ---------------------------------------------------------- |
-| `Breadcrumbs`            | Root navigation region with aria label and path layout.    |
-| `item`                   | Breadcrumb segment, rendered as link or current-page text. |
-| `separator`              | Visual delimiter between visible segments.                 |
-| `collapsed menu trigger` | Ellipsis control shown when middle segments collapse.      |
-| `collapsed menu popup`   | Compact list of hidden segments built with Base UI `Menu`. |
-
-Visible items stay on one line, and long labels are clamped.
+| Part                   | Role                                     |
+| ---------------------- | ---------------------------------------- |
+| `Breadcrumbs`          | Root navigation region.                  |
+| `BreadcrumbsList`      | Ordered list of breadcrumb segments.     |
+| `BreadcrumbsItem`      | List item wrapper for a segment.         |
+| `BreadcrumbsLink`      | Styled link for navigable segments.      |
+| `BreadcrumbsPage`      | Current page text with `aria-current`.   |
+| `BreadcrumbsSeparator` | Visual delimiter between visible items.  |
+| `BreadcrumbsEllipsis`  | Minimal collapsed marker for menu usage. |
 
 ## Composition
 
-Use `items` to describe the path. Each item can be plain text, a regular link (`href`),
-or an action item (`onClick`).
+Use `BreadcrumbsLink` for regular links and `BreadcrumbsPage` for the current page.
 
-For framework routers, use `render` together with `href` and return your own link while
-preserving all provided props. The rendered component must forward `ref` and spread the received
-props onto its underlying DOM element, following the Base UI composition contract.
-That same link contract is used both in the visible breadcrumb row and in the collapsed menu, so
-router links behave consistently when items move under the ellipsis.
+For framework routers, pass `render` to `BreadcrumbsLink` and return your own link while
+forwarding the received props to the underlying DOM element.
 
-Use `linkProps`, `actionProps`, and `pageProps` for common per-item attributes such as
-`title`, `aria-label`, `data-*`, and test selectors without dropping into `render`.
-
-`maxVisibleItems` controls how many breadcrumb items stay visible in total. The first segment
-and current page always stay visible; hidden middle segments move to the collapsed menu.
-
-For collapsed items, style internal parts via `classNames`
-(`ellipsisTrigger`, `popup`, `popupItem`, `popupLinkItem`, `portal`, `positioner`)
-and pass behavior props to the same slots via `slotProps`.
-
-| Prop                   | Default                  | Values         |
-| ---------------------- | ------------------------ | -------------- |
-| `separator`            | `/`                      | Any React node |
-| `maxVisibleItems`      | `3`                      | Number >= `2`  |
-| `ellipsisLabel`        | `...`                    | Any React node |
-| `hiddenItemsMenuLabel` | `Show hidden path items` | String         |
+Collapsed paths are composed explicitly with `Menu`. `Breadcrumbs` no longer owns collapsed state
+or hidden-items logic.
 
 ## Examples
 
-### Collapsed Path
+### Custom Separator
 
-Collapse middle segments into an ellipsis menu. Here `maxVisibleItems={4}` keeps four breadcrumb
-items visible in total, including the first segment and current page.
+Replace the default slash with your own icon or symbol.
 
 <Preview>
-  <BreadcrumbsCollapsedExample />
+  <BreadcrumbsCustomSeparatorExample />
 
   <Preview.Code>
     {`
-      import { Breadcrumbs } from "moduix";
+      import {
+        Breadcrumbs,
+        BreadcrumbsItem,
+        BreadcrumbsLink,
+        BreadcrumbsList,
+        BreadcrumbsPage,
+        BreadcrumbsSeparator,
+        SeparatorMarkIcon,
+      } from "moduix";
 
-      export function BreadcrumbsCollapsedDemo() {
+      export function BreadcrumbsSeparatorDemo() {
         return (
-          <Breadcrumbs
-            maxVisibleItems={4}
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Engineering", href: "/engineering" },
-              { label: "Backend", href: "/engineering/backend" },
-              { label: "Golang", href: "/engineering/backend/golang" },
-              { label: "Vacancies", href: "/vacancies" },
-              { label: "Go Developer" },
-            ]}
-          />
+          <Breadcrumbs>
+            <BreadcrumbsList>
+              <BreadcrumbsItem>
+                <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator>
+                <SeparatorMarkIcon style={{ width: "0.75rem", height: "0.25rem" }} />
+              </BreadcrumbsSeparator>
+              <BreadcrumbsItem>
+                <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator>
+                <SeparatorMarkIcon style={{ width: "0.75rem", height: "0.25rem" }} />
+              </BreadcrumbsSeparator>
+              <BreadcrumbsItem>
+                <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+              </BreadcrumbsItem>
+            </BreadcrumbsList>
+          </Breadcrumbs>
         );
       }
     `}
@@ -139,27 +140,68 @@ items visible in total, including the first segment and current page.
   </Preview.Code>
 </Preview>
 
-### Custom Separator
+### Collapsed Path
 
-Replace the default `/` separator with your own symbol or icon.
+Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
 
 <Preview>
-  <BreadcrumbsCustomSeparatorExample />
+  <BreadcrumbsCollapsedExample />
 
   <Preview.Code>
     {`
-      import { Breadcrumbs, SeparatorMarkIcon } from "moduix";
+      import {
+        Breadcrumbs,
+        BreadcrumbsEllipsis,
+        BreadcrumbsItem,
+        BreadcrumbsLink,
+        BreadcrumbsList,
+        BreadcrumbsPage,
+        BreadcrumbsSeparator,
+        Menu,
+        MenuContent,
+        MenuLinkItem,
+        MenuTrigger,
+      } from "moduix";
 
-      export function BreadcrumbsSeparatorDemo() {
+      export function BreadcrumbsCollapsedDemo() {
         return (
-          <Breadcrumbs
-            separator={<SeparatorMarkIcon style={{ width: "0.75rem", height: "0.25rem" }} />}
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Vacancies", href: "/vacancies" },
-              { label: "Go Developer" },
-            ]}
-          />
+          <Breadcrumbs>
+            <BreadcrumbsList>
+              <BreadcrumbsItem>
+                <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <Menu>
+                  <MenuTrigger aria-label="Show hidden path items">
+                    <BreadcrumbsEllipsis />
+                  </MenuTrigger>
+                  <MenuContent
+                    align="start"
+                    withArrow={false}
+                    style={{
+                      "--menu-item-font-size": "var(--text-xs)",
+                      "--menu-item-padding-x-end": "0.75rem",
+                      "--menu-item-padding-x-start": "0.75rem",
+                      "--menu-item-padding-y": "0.375rem",
+                    }}
+                  >
+                    <MenuLinkItem closeOnClick href="/engineering">Engineering</MenuLinkItem>
+                    <MenuLinkItem closeOnClick href="/engineering/backend">Backend</MenuLinkItem>
+                    <MenuLinkItem closeOnClick href="/engineering/backend/golang">Golang</MenuLinkItem>
+                  </MenuContent>
+                </Menu>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+              </BreadcrumbsItem>
+            </BreadcrumbsList>
+          </Breadcrumbs>
         );
       }
     `}
@@ -169,32 +211,43 @@ Replace the default `/` separator with your own symbol or icon.
 
 ### Long Current Label
 
-Current item text is clamped to one line. Use `pageProps` or `linkProps` to attach `title`
-when you want the full label on hover.
+Wrap the current page content with your own element when you need extra attributes such as `title`.
 
 <Preview>
   <BreadcrumbsLongLabelExample />
 
   <Preview.Code>
     {`
-      import { Breadcrumbs } from "moduix";
+      import {
+        Breadcrumbs,
+        BreadcrumbsItem,
+        BreadcrumbsLink,
+        BreadcrumbsList,
+        BreadcrumbsPage,
+        BreadcrumbsSeparator,
+      } from "moduix";
 
       export function BreadcrumbsLongLabelDemo() {
         return (
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Vacancies", href: "/vacancies" },
-              {
-                label:
-                  "Go lang developer to production team with cross-functional ownership and platform support",
-                pageProps: {
-                  title:
-                    "Go lang developer to production team with cross-functional ownership and platform support",
-                },
-              },
-            ]}
-          />
+          <Breadcrumbs>
+            <BreadcrumbsList>
+              <BreadcrumbsItem>
+                <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <BreadcrumbsPage>
+                  <span title="Go lang developer to production team with cross-functional ownership and platform support">
+                    Go lang developer to production team with cross-functional ownership and platform support
+                  </span>
+                </BreadcrumbsPage>
+              </BreadcrumbsItem>
+            </BreadcrumbsList>
+          </Breadcrumbs>
         );
       }
     `}
@@ -204,122 +257,58 @@ when you want the full label on hover.
 
 ### Framework Links
 
-Use `render` to integrate external routing links while keeping component styles. The same
-pattern works for Next.js, TanStack Router, Inertia, and other router link components.
+Use `render` to integrate router link components while keeping breadcrumb styles.
 
 <Preview>
   <BreadcrumbsRenderExample />
 
   <Preview.Code>
     {`
-      import { Breadcrumbs } from "moduix";
       import Link from "next/link";
+      import {
+        Breadcrumbs,
+        BreadcrumbsItem,
+        BreadcrumbsLink,
+        BreadcrumbsList,
+        BreadcrumbsPage,
+        BreadcrumbsSeparator,
+      } from "moduix";
 
       export function BreadcrumbsWithNextLinkDemo() {
         return (
-          <Breadcrumbs
-            maxVisibleItems={3}
-            items={[
-              {
-                label: "Home",
-                href: "/",
-                render: ({ href, className, children, ...props }) => (
-                  <Link href={href ?? "/"} className={className} {...props}>
-                    {children}
-                  </Link>
-                ),
-              },
-              {
-                label: "Engineering",
-                href: "/engineering",
-                render: ({ href, className, children, ...props }) => (
-                  <Link href={href ?? "/engineering"} className={className} {...props}>
-                    {children}
-                  </Link>
-                ),
-              },
-              {
-                label: "Backend",
-                href: "/engineering/backend",
-                render: ({ href, className, children, ...props }) => (
-                  <Link href={href ?? "/engineering/backend"} className={className} {...props}>
-                    {children}
-                  </Link>
-                ),
-              },
-              { label: "Vacancies", href: "/vacancies" },
-              { label: "Go Developer" },
-            ]}
-          />
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Action Items
-
-Use `onClick` for intermediate path items that trigger navigation or another action without
-rendering a plain anchor. The same handler is preserved when the item moves into the collapsed menu.
-
-<Preview>
-  <BreadcrumbsActionExample />
-
-  <Preview.Code>
-    {`
-      import { Breadcrumbs } from "moduix";
-
-      export function BreadcrumbsActionDemo() {
-        return (
-          <Breadcrumbs
-            maxVisibleItems={3}
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Projects", onClick: () => console.log("Projects") },
-              { label: "Backend", onClick: () => console.log("Backend") },
-              { label: "Go Developer" },
-            ]}
-          />
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Collapsed Menu Slots
-
-Use `classNames` and `slotProps` to customize collapsed trigger and popup internals.
-
-<Preview>
-  <BreadcrumbsSlotsExample />
-
-  <Preview.Code>
-    {`
-      import { Breadcrumbs } from "moduix";
-
-      export function BreadcrumbsSlotsDemo() {
-        return (
-          <Breadcrumbs
-            maxVisibleItems={3}
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Engineering", href: "/engineering" },
-              { label: "Backend", href: "/engineering/backend" },
-              { label: "Vacancies", href: "/vacancies" },
-              { label: "Go Developer" },
-            ]}
-            classNames={{
-              ellipsisTrigger: styles.ellipsisTrigger,
-              popup: styles.popup,
-              popupItem: styles.popupItem,
-            }}
-            slotProps={{
-              positioner: { sideOffset: 6 },
-              popup: { "aria-label": "Hidden breadcrumb links" },
-            }}
-          />
+          <Breadcrumbs>
+            <BreadcrumbsList>
+              <BreadcrumbsItem>
+                <BreadcrumbsLink
+                  href="/"
+                  render={({ href, className, children, ...props }) => (
+                    <Link href={href ?? "/"} className={className} {...props}>
+                      {children}
+                    </Link>
+                  )}
+                >
+                  Home
+                </BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <BreadcrumbsLink
+                  href="/vacancies"
+                  render={({ href, className, children, ...props }) => (
+                    <Link href={href ?? "/vacancies"} className={className} {...props}>
+                      {children}
+                    </Link>
+                  )}
+                >
+                  Vacancies
+                </BreadcrumbsLink>
+              </BreadcrumbsItem>
+              <BreadcrumbsSeparator />
+              <BreadcrumbsItem>
+                <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+              </BreadcrumbsItem>
+            </BreadcrumbsList>
+          </Breadcrumbs>
         );
       }
     `}
