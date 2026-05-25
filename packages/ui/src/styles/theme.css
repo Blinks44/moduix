@@ -296,28 +296,13 @@
   --avatar-fallback-bg: initial; /* var(--avatar-bg) */
   --avatar-fallback-color: initial; /* inherit */
   --avatar-fallback-padding: initial; /* 0 */
-  --avatar-font-size: initial; /* var(--avatar-font-size-md) */
-  --avatar-font-size-xs: initial; /* var(--text-xs) */
-  --avatar-font-size-sm: initial; /* var(--text-sm) */
-  --avatar-font-size-md: initial; /* var(--text-md) */
-  --avatar-font-size-lg: initial; /* var(--text-lg) */
-  --avatar-font-size-xl: initial; /* var(--text-lg) */
+  --avatar-font-size: initial; /* var(--text-md) */
   --avatar-font-weight: initial; /* var(--weight-medium) */
   --avatar-image-object-fit: initial; /* cover */
   --avatar-image-object-position: initial; /* center */
-  --avatar-line-height: initial; /* var(--avatar-line-height-md) */
-  --avatar-line-height-xs: initial; /* var(--line-height-text-xs) */
-  --avatar-line-height-sm: initial; /* var(--line-height-text-sm) */
-  --avatar-line-height-md: initial; /* var(--line-height-text-md) */
-  --avatar-line-height-lg: initial; /* var(--line-height-text-lg) */
-  --avatar-line-height-xl: initial; /* var(--line-height-text-lg) */
+  --avatar-line-height: initial; /* var(--line-height-text-md) */
   --avatar-radius: initial; /* var(--radius-full) */
-  --avatar-size: initial; /* var(--avatar-size-md) */
-  --avatar-size-xs: initial; /* var(--size-xs) */
-  --avatar-size-sm: initial; /* var(--size-sm) */
-  --avatar-size-md: initial; /* var(--size-md) */
-  --avatar-size-lg: initial; /* var(--size-lg) */
-  --avatar-size-xl: initial; /* var(--size-xl) */
+  --avatar-size: initial; /* var(--size-md) */
   --avatar-transition: initial; /* var(--transition-default) */
   /* Badge */
   --badge-bg: initial; /* var(--color-primary) */

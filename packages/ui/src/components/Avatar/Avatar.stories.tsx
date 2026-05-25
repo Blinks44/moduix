@@ -32,19 +32,19 @@ export const FallbackOnly: Story = {
   render: () => {
     return (
       <div className={styles.fallbackRow}>
-        <Avatar size="xs">
+        <Avatar className={styles.sizeXs}>
           <AvatarFallback>XS</AvatarFallback>
         </Avatar>
-        <Avatar size="sm">
+        <Avatar className={styles.sizeSm}>
           <AvatarFallback>SM</AvatarFallback>
         </Avatar>
-        <Avatar size="md">
+        <Avatar>
           <AvatarFallback>MD</AvatarFallback>
         </Avatar>
-        <Avatar size="lg">
+        <Avatar className={styles.sizeLg}>
           <AvatarFallback>LG</AvatarFallback>
         </Avatar>
-        <Avatar size="xl">
+        <Avatar className={styles.sizeXl}>
           <AvatarFallback>XL</AvatarFallback>
         </Avatar>
       </div>
@@ -66,7 +66,7 @@ export const ImageError: Story = {
 export const CustomStyles: Story = {
   render: () => {
     return (
-      <Avatar size="lg" className={styles.customAvatar}>
+      <Avatar className={styles.customAvatar}>
         <AvatarImage className={styles.customImage} src={imageUrl} alt="Alex T." />
         <AvatarFallback className={styles.customFallback}>
           <ComputerIcon className={styles.customIcon} />

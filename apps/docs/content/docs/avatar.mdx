@@ -79,7 +79,7 @@ Avatar
 
 | Part             | Role                                                                                      |
 | ---------------- | ----------------------------------------------------------------------------------------- |
-| `Avatar`         | Root slot. Controls size, shape, inherited styles, and composition with `render`.         |
+| `Avatar`         | Root slot. Controls shape, inherited styles, and composition with `render`.               |
 | `AvatarImage`    | Image slot. Renders the visual identity when the `src` is loaded successfully.            |
 | `AvatarFallback` | Fallback slot. Renders initials, icon, or custom content while loading or on image error. |
 
@@ -90,12 +90,11 @@ Avatar
 Use `className` on `Avatar`, `AvatarImage`, and `AvatarFallback`. Each slot also supports
 state-based `className` and `style` functions, and `render` for composition. Use
 `AvatarImage onLoadingStatusChange` when you need image load state, and `AvatarFallback delay`
-to avoid fallback flash during normal loading. All public slots also forward `ref` to the
-underlying Base UI element.
+to avoid fallback flash during normal loading. Change avatar size with root styles or CSS
+variables such as `--avatar-size`, `--avatar-font-size`, and `--avatar-line-height`.
 
 | Prop                   | Default | Values                               |
 | ---------------------- | ------- | ------------------------------------ |
-| `Avatar size`          | `md`    | `xs`, `sm`, `md`, `lg`, `xl`         |
 | `AvatarFallback delay` | -       | `number` (milliseconds)              |
 | `Avatar render`        | `span`  | Any valid React element or component |
 
@@ -103,8 +102,8 @@ underlying Base UI element.
 
 ### Fallback Only
 
-Render initials or short text in `AvatarFallback` when no image is available. Use `size` for
-`xs`, `sm`, `md`, `lg`, and `xl`.
+Render initials or short text in `AvatarFallback` when no image is available. Use root styles or
+CSS variables to change the avatar dimensions and typography.
 
 <Preview>
   <AvatarFallbackOnlyExample />
@@ -116,11 +115,21 @@ Render initials or short text in `AvatarFallback` when no image is available. Us
       export function AvatarFallbackOnlyDemo() {
         return (
           <div className={styles.row}>
-            {sizes.map((size) => (
-              <Avatar key={size} size={size}>
-                <AvatarFallback>{size.toUpperCase()}</AvatarFallback>
-              </Avatar>
-            ))}
+            <Avatar className={styles.sizeXs}>
+              <AvatarFallback>XS</AvatarFallback>
+            </Avatar>
+            <Avatar className={styles.sizeSm}>
+              <AvatarFallback>SM</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback>MD</AvatarFallback>
+            </Avatar>
+            <Avatar className={styles.sizeLg}>
+              <AvatarFallback>LG</AvatarFallback>
+            </Avatar>
+            <Avatar className={styles.sizeXl}>
+              <AvatarFallback>XL</AvatarFallback>
+            </Avatar>
           </div>
         );
       }
@@ -135,16 +144,33 @@ Render initials or short text in `AvatarFallback` when no image is available. Us
         align-items: center;
         gap: var(--spacing-3);
       }
+
+      .sizeXs {
+        --avatar-size: var(--size-xs);
+        --avatar-font-size: var(--text-xs);
+        --avatar-line-height: var(--line-height-text-xs);
+      }
+
+      .sizeSm {
+        --avatar-size: var(--size-sm);
+        --avatar-font-size: var(--text-sm);
+        --avatar-line-height: var(--line-height-text-sm);
+      }
+
+      .sizeLg {
+        --avatar-size: var(--size-lg);
+        --avatar-font-size: var(--text-lg);
+        --avatar-line-height: var(--line-height-text-lg);
+      }
+
+      .sizeXl {
+        --avatar-size: var(--size-xl);
+        --avatar-font-size: var(--text-lg);
+        --avatar-line-height: var(--line-height-text-lg);
+      }
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Render Composition
@@ -249,7 +275,7 @@ Pass `className` to root, image, and fallback when styling with CSS Modules, Tai
 
       export function CustomStylesAvatarDemo() {
         return (
-          <Avatar size="lg" className={styles.ring}>
+          <Avatar className={styles.ring}>
             <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
             <AvatarFallback className={styles.uppercase}>LT</AvatarFallback>
           </Avatar>
@@ -262,6 +288,10 @@ Pass `className` to root, image, and fallback when styling with CSS Modules, Tai
   <Preview.CSS>
     {`
       .ring {
+        --avatar-size: var(--size-lg);
+        --avatar-font-size: var(--text-lg);
+        --avatar-line-height: var(--line-height-text-lg);
+
         box-shadow:
           0 0 0 2px var(--color-background),
           0 0 0 4px var(--color-ring);
@@ -300,7 +330,7 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
 
       export function AvatarCustomFallbackDemo() {
         return (
-          <Avatar size="lg" className={styles.customFallbackAvatar}>
+          <Avatar className={styles.customFallbackAvatar}>
             <AvatarFallback>
               <ComputerIcon className={styles.customFallbackIcon} />
             </AvatarFallback>
@@ -316,6 +346,9 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
       .customFallbackAvatar {
         --avatar-bg: var(--color-accent);
         --avatar-fallback-color: var(--color-accent-foreground);
+        --avatar-size: var(--size-lg);
+        --avatar-font-size: var(--text-lg);
+        --avatar-line-height: var(--line-height-text-lg);
       }
 
       .customFallbackIcon {
