@@ -1,21 +1,17 @@
 @layer ui.components {
   .root {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     width: var(--close-button-size, 28px);
     height: var(--close-button-size, 28px);
-    margin: 0;
     padding: 0;
     cursor: pointer;
     border: none;
     background-color: var(--close-button-bg, transparent);
     border-radius: var(--close-button-radius, var(--radius-sm));
     color: var(--close-button-color, var(--color-muted-foreground));
-    font: inherit;
-    user-select: none;
     transition:
       background-color var(--close-button-transition, var(--transition-default)),
       color var(--close-button-transition, var(--transition-default)),

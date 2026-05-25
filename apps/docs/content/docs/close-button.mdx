@@ -9,7 +9,6 @@ import {
   CloseButtonCssPropertiesPanel,
   CloseButtonCustomIconExample,
   CloseButtonCustomStylesExample,
-  CloseButtonDisabledExample,
   CloseButtonExample,
   closeButtonPlaygroundCssProperties,
 } from '@/components/examples/close-button';
@@ -104,11 +103,12 @@ CloseButton
 
 ## Composition
 
-`CloseButton` is built on Base UI Button. Use:
+`CloseButton` is a thin wrapper over Base UI `Button`.
 
-- `children` to replace the default icon.
-- `render` and `nativeButton` for custom element composition.
-- `focusableWhenDisabled` when a disabled control must stay in tab order.
+- Use `children` to replace the default icon.
+- Use `className` to style the root.
+- Use any Base UI `Button` prop directly when you need native composition behavior such as `render`,
+  `nativeButton`, `disabled`, or `focusableWhenDisabled`.
 
 When `children` are omitted, the default accessible name is `Close`. Set `aria-label` to
 describe the dismissed surface when you render an icon-only custom child. If you render visible
@@ -145,42 +145,6 @@ Replace the default icon via `children`.
     `}
 
   </Preview.Code>
-</Preview>
-
-### Disabled
-
-Use `focusableWhenDisabled` if disabled state should remain keyboard-focusable.
-
-<Preview>
-  <CloseButtonDisabledExample />
-
-  <Preview.Code>
-    {`
-      import { CloseButton } from "moduix";
-
-      export function CloseButtonDisabledDemo() {
-        return (
-          <div className={styles.row}>
-            <CloseButton aria-label="Close panel" disabled />
-            <CloseButton aria-label="Close panel" disabled focusableWhenDisabled />
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### Custom Styles

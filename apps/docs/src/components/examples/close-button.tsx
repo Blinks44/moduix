@@ -1,4 +1,5 @@
-import { CloseButton, CloseLineIcon, type CloseButtonProps } from 'moduix';
+import type { ComponentProps } from 'react';
+import { CloseButton, CloseLineIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './close-button.module.css';
@@ -57,7 +58,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function CloseButtonExample(props: CloseButtonProps) {
+export function CloseButtonExample(props: ComponentProps<typeof CloseButton>) {
   return (
     <div className={styles.surface}>
       <div className={styles.content}>
@@ -74,15 +75,6 @@ export function CloseButtonCustomIconExample() {
     <CloseButton aria-label="Close panel">
       <CloseLineIcon />
     </CloseButton>
-  );
-}
-
-export function CloseButtonDisabledExample() {
-  return (
-    <div className={styles.row}>
-      <CloseButton aria-label="Close panel" disabled />
-      <CloseButton aria-label="Close panel" disabled focusableWhenDisabled />
-    </div>
   );
 }
 

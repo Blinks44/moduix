@@ -4,21 +4,17 @@ import { CloseIcon } from '@/primitives/Icons';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './CloseButton.module.css';
 
-export type CloseButtonProps = ButtonPrimitive.Props;
-
-const CloseButton = React.forwardRef(function CloseButton(
-  { className, children, 'aria-label': ariaLabel, ...props }: CloseButtonProps,
-  ref: React.ForwardedRef<HTMLElement>,
-) {
-  const resolvedAriaLabel = ariaLabel ?? (children == null ? 'Close' : undefined);
-
+const CloseButton = React.forwardRef<
+  React.ComponentRef<typeof ButtonPrimitive>,
+  ButtonPrimitive.Props
+>(function CloseButton({ className, children, 'aria-label': ariaLabel, ...props }, ref) {
   return (
     <ButtonPrimitive
       ref={ref}
       type="button"
       data-slot="close-button"
       className={mergeClassName(className, styles.root)}
-      aria-label={resolvedAriaLabel}
+      aria-label={ariaLabel ?? (children == null ? 'Close' : undefined)}
       {...props}
     >
       {children ?? <CloseIcon />}
