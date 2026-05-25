@@ -1,15 +1,12 @@
 import {
   Alert,
-  AlertClose,
   AlertContent,
   AlertDescription,
   AlertIcon,
   AlertTitle,
   CheckFilledIcon,
   InfoIcon,
-  type AlertProps,
 } from 'moduix';
-import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './alert.module.css';
@@ -24,14 +21,6 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
     'Controls alert border color.',
   ],
   ['--alert-border-width', 'var(--border-width-sm)', 'Controls alert border width.'],
-  ['--alert-close-bg-hover', 'var(--color-accent)', 'Controls close button hover background.'],
-  ['--alert-close-color', 'var(--color-muted-foreground)', 'Controls close button color.'],
-  ['--alert-close-color-hover', 'var(--color-foreground)', 'Controls close button hover color.'],
-  ['--alert-close-icon-size', '0.75rem', 'Controls close icon size.'],
-  ['--alert-close-margin-right', '-0.25rem', 'Controls close button inline offset.'],
-  ['--alert-close-margin-top', '-0.25rem', 'Controls close button block offset.'],
-  ['--alert-close-radius', 'var(--radius-md)', 'Controls close button border radius.'],
-  ['--alert-close-size', '1.75rem', 'Controls close button size.'],
   [
     '--alert-color',
     'var(--alert-color-default, var(--color-card-foreground))',
@@ -43,50 +32,17 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-muted-foreground)',
     'Controls description text color.',
   ],
-  [
-    '--alert-description-font-size',
-    'var(--alert-description-font-size-md)',
-    'Controls description font size.',
-  ],
-  ['--alert-description-font-size-sm', 'var(--text-xs)', 'Controls `sm` description size.'],
-  ['--alert-description-font-size-md', 'var(--text-sm)', 'Controls `md` description size.'],
-  ['--alert-description-font-size-lg', 'var(--text-sm)', 'Controls `lg` description size.'],
+  ['--alert-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
   [
     '--alert-description-line-height',
-    'var(--alert-description-line-height-md)',
+    'var(--line-height-text-sm)',
     'Controls description line-height.',
   ],
-  [
-    '--alert-description-line-height-sm',
-    'var(--line-height-text-xs)',
-    'Controls `sm` description line-height.',
-  ],
-  [
-    '--alert-description-line-height-md',
-    'var(--line-height-text-sm)',
-    'Controls `md` description line-height.',
-  ],
-  [
-    '--alert-description-line-height-lg',
-    'var(--line-height-text-sm)',
-    'Controls `lg` description line-height.',
-  ],
-  ['--alert-dismiss-duration', '160ms', 'Controls dismiss animation duration.'],
-  ['--alert-dismiss-easing', 'ease-out', 'Controls dismiss animation easing.'],
-  ['--alert-enter-translate-y', '-0.25rem', 'Controls enter animation offset.'],
-  ['--alert-exit-translate-y', '-0.25rem', 'Controls exit animation offset.'],
   ['--alert-gap', 'var(--spacing-3)', 'Controls root column gap.'],
   ['--alert-icon-color', 'var(--alert-icon-color-default, currentColor)', 'Controls icon color.'],
-  ['--alert-icon-margin-top', '0.125rem', 'Controls icon vertical offset.'],
+  ['--alert-icon-offset', '0.125rem', 'Controls icon vertical offset.'],
   ['--alert-icon-size', '1rem', 'Controls icon size.'],
-  ['--alert-padding-x', 'var(--alert-padding-x-md)', 'Controls horizontal padding.'],
-  ['--alert-padding-x-sm', 'var(--spacing-3)', 'Controls `sm` horizontal padding.'],
-  ['--alert-padding-x-md', 'var(--spacing-4)', 'Controls `md` horizontal padding.'],
-  ['--alert-padding-x-lg', 'var(--spacing-5)', 'Controls `lg` horizontal padding.'],
-  ['--alert-padding-y', 'var(--alert-padding-y-md)', 'Controls vertical padding.'],
-  ['--alert-padding-y-sm', 'var(--spacing-2)', 'Controls `sm` vertical padding.'],
-  ['--alert-padding-y-md', 'var(--spacing-3)', 'Controls `md` vertical padding.'],
-  ['--alert-padding-y-lg', 'var(--spacing-4)', 'Controls `lg` vertical padding.'],
+  ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
   ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
   ['--alert-shadow', 'none', 'Controls alert shadow.'],
   ['--alert-success-color', '#16a34a', 'Controls success variant accent color.'],
@@ -95,27 +51,9 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
     'var(--alert-color, var(--alert-color-default))',
     'Controls title text color.',
   ],
-  ['--alert-title-font-size', 'var(--alert-title-font-size-md)', 'Controls title font size.'],
-  ['--alert-title-font-size-sm', 'var(--text-sm)', 'Controls `sm` title size.'],
-  ['--alert-title-font-size-md', 'var(--text-sm)', 'Controls `md` title size.'],
-  ['--alert-title-font-size-lg', 'var(--text-md)', 'Controls `lg` title size.'],
+  ['--alert-title-font-size', 'var(--text-sm)', 'Controls title font size.'],
   ['--alert-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
-  ['--alert-title-line-height', 'var(--alert-title-line-height-md)', 'Controls title line-height.'],
-  [
-    '--alert-title-line-height-sm',
-    'var(--line-height-text-sm)',
-    'Controls `sm` title line-height.',
-  ],
-  [
-    '--alert-title-line-height-md',
-    'var(--line-height-text-sm)',
-    'Controls `md` title line-height.',
-  ],
-  [
-    '--alert-title-line-height-lg',
-    'var(--line-height-text-md)',
-    'Controls `lg` title line-height.',
-  ],
+  ['--alert-title-line-height', 'var(--line-height-text-sm)', 'Controls title line-height.'],
   ['--alert-warning-color', '#ca8a04', 'Controls warning variant accent color.'],
 ];
 
@@ -132,8 +70,7 @@ export const alertPlaygroundCssProperties: CssPropertyInput[] = [
   ['--alert-gap', 'var(--spacing-3)', 'Controls root column gap.'],
   ['--alert-icon-color', 'var(--alert-icon-color-default)', 'Controls icon color.'],
   ['--alert-icon-size', '1rem', 'Controls icon size.'],
-  ['--alert-padding-x', 'var(--alert-padding-x-md)', 'Controls horizontal padding.'],
-  ['--alert-padding-y', 'var(--alert-padding-y-md)', 'Controls vertical padding.'],
+  ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
   ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
   ['--alert-shadow', 'none', 'Controls alert shadow.'],
 ];
@@ -163,7 +100,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function AlertExample(props: AlertProps) {
+export function AlertExample(props: React.ComponentProps<typeof Alert>) {
   return (
     <Alert {...props}>
       <AlertContent>
@@ -195,9 +132,7 @@ export function AlertVariantsExample() {
     <div className={styles.stack}>
       {variants.map((variant) => (
         <Alert key={variant} variant={variant}>
-          <AlertIcon>
-            <InfoIcon />
-          </AlertIcon>
+          <AlertIcon>{variant === 'success' ? <CheckFilledIcon /> : <InfoIcon />}</AlertIcon>
           <AlertContent>
             <AlertTitle>{variant}</AlertTitle>
             <AlertDescription>Use this alert for {variant} feedback.</AlertDescription>
@@ -208,60 +143,25 @@ export function AlertVariantsExample() {
   );
 }
 
-export function AlertDismissibleExample() {
-  const [open, setOpen] = React.useState(true);
-
+export function AlertDestructiveExample() {
   return (
-    <div className={styles.stack}>
-      <Alert variant="success" open={open} onOpenChange={setOpen} withCloseButton>
-        <AlertIcon>
-          <CheckFilledIcon />
-        </AlertIcon>
-        <AlertContent>
-          <AlertTitle>Saved</AlertTitle>
-          <AlertDescription>The alert closes with the default exit animation.</AlertDescription>
-        </AlertContent>
-      </Alert>
-    </div>
-  );
-}
-
-export function AlertWithoutDismissAnimationExample() {
-  return (
-    <Alert variant="warning" withCloseButton withDismissAnimation={false}>
+    <Alert variant="destructive">
       <AlertIcon>
         <InfoIcon />
       </AlertIcon>
       <AlertContent>
-        <AlertTitle>Closing is instant</AlertTitle>
+        <AlertTitle>Payment failed</AlertTitle>
         <AlertDescription>
-          Use this mode when animation would conflict with layout changes.
+          Your payment could not be processed. Check the payment method and try again.
         </AlertDescription>
       </AlertContent>
-    </Alert>
-  );
-}
-
-export function AlertCustomDismissExample() {
-  return (
-    <Alert variant="info">
-      <AlertIcon>
-        <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle as="h2">Workspace sync is active</AlertTitle>
-        <AlertDescription>
-          Render AlertClose manually when you need custom placement or button content.
-        </AlertDescription>
-      </AlertContent>
-      <AlertClose className={styles.inlineClose}>Dismiss</AlertClose>
     </Alert>
   );
 }
 
 export function CustomStylesAlertExample() {
   return (
-    <Alert className={styles.customAlert} withCloseButton>
+    <Alert className={styles.customAlert}>
       <AlertIcon>
         <InfoIcon />
       </AlertIcon>

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
 import { CheckFilledIcon, InfoIcon } from '@/primitives';
-import { Alert, AlertClose, AlertContent, AlertDescription, AlertIcon, AlertTitle } from './Alert';
+import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from './Alert';
 import styles from './Alert.stories.module.css';
 
 const meta = {
@@ -51,9 +50,7 @@ export const Variants: Story = {
     <div className={styles.stack}>
       {variants.map((variant) => (
         <Alert key={variant} variant={variant}>
-          <AlertIcon>
-            <InfoIcon />
-          </AlertIcon>
+          <AlertIcon>{variant === 'success' ? <CheckFilledIcon /> : <InfoIcon />}</AlertIcon>
           <AlertContent>
             <AlertTitle>{variant}</AlertTitle>
             <AlertDescription>Use this alert for {variant} feedback.</AlertDescription>
@@ -64,53 +61,16 @@ export const Variants: Story = {
   ),
 };
 
-export const Dismissible: Story = {
-  render: () => {
-    const [open, setOpen] = React.useState(true);
-
-    return (
-      <div className={styles.stack}>
-        <Alert variant="success" open={open} onOpenChange={setOpen} withCloseButton>
-          <AlertIcon>
-            <CheckFilledIcon />
-          </AlertIcon>
-          <AlertContent>
-            <AlertTitle>Saved</AlertTitle>
-            <AlertDescription>The alert closes with the default exit animation.</AlertDescription>
-          </AlertContent>
-        </Alert>
-      </div>
-    );
-  },
-};
-
-export const CustomDismissLayout: Story = {
+export const Destructive: Story = {
   render: () => (
-    <Alert variant="info">
+    <Alert variant="destructive">
       <AlertIcon>
         <InfoIcon />
       </AlertIcon>
       <AlertContent>
-        <AlertTitle as="h2">Workspace sync is active</AlertTitle>
+        <AlertTitle>Payment failed</AlertTitle>
         <AlertDescription>
-          Render AlertClose manually when you need custom placement or button content.
-        </AlertDescription>
-      </AlertContent>
-      <AlertClose className={styles.inlineClose}>Dismiss</AlertClose>
-    </Alert>
-  ),
-};
-
-export const WithoutDismissAnimation: Story = {
-  render: () => (
-    <Alert variant="warning" withCloseButton withDismissAnimation={false}>
-      <AlertIcon>
-        <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Closing is instant</AlertTitle>
-        <AlertDescription>
-          Use this mode when animation would conflict with layout changes.
+          Your payment could not be processed. Check the payment method and try again.
         </AlertDescription>
       </AlertContent>
     </Alert>
@@ -119,7 +79,7 @@ export const WithoutDismissAnimation: Story = {
 
 export const CustomStyles: Story = {
   render: () => (
-    <Alert className={styles.customAlert} withCloseButton>
+    <Alert className={styles.customAlert}>
       <AlertIcon>
         <InfoIcon />
       </AlertIcon>
