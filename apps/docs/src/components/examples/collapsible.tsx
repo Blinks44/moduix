@@ -4,7 +4,6 @@ import {
   CollapsibleTrigger,
   CollapsibleTriggerIcon,
   ChevronDownIcon,
-  type CollapsibleProps,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -112,10 +111,13 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 
-export function CollapsibleExample(props: CollapsibleProps) {
+export function CollapsibleExample(props: React.ComponentProps<typeof Collapsible>) {
   return (
     <Collapsible className={styles.root} {...props}>
-      <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
+      <CollapsibleTrigger>
+        Recovery keys
+        <CollapsibleTriggerIcon />
+      </CollapsibleTrigger>
       <CollapsiblePanel>
         <ul className={styles.keysList}>
           {recoveryKeys.map((key) => (
@@ -132,7 +134,10 @@ export function ControlledCollapsibleExample() {
 
   return (
     <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
-      <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
+      <CollapsibleTrigger>
+        Recovery keys
+        <CollapsibleTriggerIcon />
+      </CollapsibleTrigger>
       <CollapsiblePanel>
         <ul className={styles.keysList}>
           {recoveryKeys.map((key) => (
@@ -148,7 +153,10 @@ export function ControlledCollapsibleExample() {
 export function DisabledCollapsibleExample() {
   return (
     <Collapsible disabled className={styles.root}>
-      <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
+      <CollapsibleTrigger>
+        Recovery keys
+        <CollapsibleTriggerIcon />
+      </CollapsibleTrigger>
       <CollapsiblePanel>
         <ul className={styles.keysList}>
           {recoveryKeys.map((key) => (
@@ -163,7 +171,10 @@ export function DisabledCollapsibleExample() {
 export function HiddenUntilFoundCollapsibleExample() {
   return (
     <Collapsible className={styles.root}>
-      <CollapsibleTrigger>Searchable recovery keys</CollapsibleTrigger>
+      <CollapsibleTrigger>
+        Searchable recovery keys
+        <CollapsibleTriggerIcon />
+      </CollapsibleTrigger>
       <CollapsiblePanel hiddenUntilFound>
         <ul className={styles.keysList}>
           {recoveryKeys.map((key) => (
@@ -178,12 +189,11 @@ export function HiddenUntilFoundCollapsibleExample() {
 export function CustomStylesCollapsibleExample() {
   return (
     <Collapsible className={styles.customRoot}>
-      <CollapsibleTrigger
-        className={styles.customTrigger}
-        icon={<ChevronDownIcon />}
-        classNames={{ icon: styles.customTriggerIcon }}
-      >
+      <CollapsibleTrigger className={styles.customTrigger}>
         Styled recovery keys
+        <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+          <ChevronDownIcon />
+        </CollapsibleTriggerIcon>
       </CollapsibleTrigger>
       <CollapsiblePanel className={styles.customPanel}>
         <div className={styles.customPanelContent}>
@@ -201,12 +211,7 @@ export function CustomStylesCollapsibleExample() {
 export function ManualTriggerCompositionCollapsibleExample() {
   return (
     <Collapsible className={styles.customRoot}>
-      <CollapsibleTrigger
-        render={<div />}
-        nativeButton={false}
-        withIcon={false}
-        className={styles.customTrigger}
-      >
+      <CollapsibleTrigger render={<div />} nativeButton={false} className={styles.customTrigger}>
         <span className={styles.triggerLabel}>Recovery keys</span>
         <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
           <ChevronDownIcon />
