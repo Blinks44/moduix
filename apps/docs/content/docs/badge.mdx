@@ -7,7 +7,6 @@ icon: Component
 import {
   BadgeCssPlaygroundPanel,
   BadgeCssPropertiesPanel,
-  BadgeAsLinkExample,
   BadgeExample,
   BadgeSizesExample,
   BadgeVariantsExample,
@@ -19,9 +18,9 @@ import {
 
 ## API Reference
 
-`Badge` is a standalone moduix component. Use `variant` and `size` to control
-appearance, `render` to swap the root element, and `BadgeDot` as an optional
-status marker.
+`Badge` is a standalone moduix component. Use `variant` for the built-in visual
+styles, `className` or CSS variables for local overrides, and `BadgeDot` as an
+optional status marker.
 
 ## Basic
 
@@ -44,8 +43,7 @@ status marker.
 
 ## Anatomy
 
-`Badge` can render as text only, with `BadgeDot`, with an inline icon, or as a
-custom root element via `render`.
+`Badge` can render text only, with `BadgeDot`, or with an inline icon.
 
 ```text
 Badge
@@ -63,7 +61,7 @@ Badge
 
 | Part       | Role                                                                                 |
 | ---------- | ------------------------------------------------------------------------------------ |
-| `Badge`    | Root slot. Applies size, variant, border, and spacing.                               |
+| `Badge`    | Root slot. Applies variant, border, spacing, and text truncation.                    |
 | `BadgeDot` | Optional indicator slot. Renders a circular marker that inherits current text color. |
 
 `Badge` does not use service slots such as `portal`, `positioner`, `backdrop`, or `viewport`.
@@ -73,18 +71,16 @@ Badge
 Pass `className` to `Badge` and `BadgeDot` when integrating with CSS Modules, Tailwind CSS, or
 CSS-in-JS. Place icons directly before or after the label; direct child `svg` icons inherit
 `currentColor` and use `--badge-icon-size`. The root accepts standard `span` props so you can add
-`title`, `aria-*`, and testing attributes without extra wrappers, and `render` lets the badge use
-the semantics of an anchor, button, or app-specific link component.
+`title`, `aria-*`, and testing attributes without extra wrappers.
 
 Keep the visible status in text. `BadgeDot` is decorative and is hidden from assistive
 technology, so color or the dot alone should not be the only signal. Long labels stay on one line
-and are truncated by the root; add `title` when the full value should remain discoverable.
+and are truncated by the root; add `title` when the full value should remain discoverable. For
+one-off size changes, prefer `className` or local CSS variables instead of extra badge props.
 
 | Prop      | Default   | Values                                                    |
 | --------- | --------- | --------------------------------------------------------- |
 | `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost` |
-| `size`    | `md`      | `sm`, `md`, `lg`                                          |
-| `render`  | -         | `ReactElement`                                            |
 
 ## Examples
 
@@ -119,7 +115,7 @@ Use shadcn-like variants: `default`, `secondary`, `destructive`, `outline`, `gho
 
 ### Sizes
 
-Switch `size` between `sm`, `md`, and `lg` when compactness differs across table rows, cards, and headers.
+Adjust size with local CSS variables when a context needs a smaller or larger badge.
 
 <Preview>
   <BadgeSizesExample />
@@ -127,19 +123,41 @@ Switch `size` between `sm`, `md`, and `lg` when compactness differs across table
   <Preview.Code>
     {`
       import { Badge } from "moduix";
+      import styles from "./badge-demo.module.css";
 
       export function BadgeSizesDemo() {
         return (
           <>
-            <Badge size="sm">Small</Badge>
-            <Badge size="md">Default</Badge>
-            <Badge size="lg">Large</Badge>
+            <Badge className={styles.small}>Small</Badge>
+            <Badge>Default</Badge>
+            <Badge className={styles.large}>Large</Badge>
           </>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .small {
+        --badge-height: 1.125rem;
+        --badge-font-size: var(--text-xs);
+        --badge-icon-size: 0.6875rem;
+        --badge-line-height: var(--line-height-text-xs);
+        --badge-padding-x: 0.5rem;
+      }
+
+      .large {
+        --badge-height: 1.5rem;
+        --badge-font-size: var(--text-sm);
+        --badge-icon-size: 0.875rem;
+        --badge-line-height: var(--line-height-text-sm);
+        --badge-padding-x: 0.75rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### With Dot
@@ -182,29 +200,6 @@ Place an icon after the label when the badge acts like a drill-in marker or meta
           <Badge variant="default">
             Release
             <ChevronRightIcon />
-          </Badge>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### As Link
-
-Use `render` when the badge should keep link or button semantics without an extra wrapper.
-
-<Preview>
-  <BadgeAsLinkExample />
-
-  <Preview.Code>
-    {`
-      import { Badge } from "moduix";
-
-      export function BadgeAsLinkDemo() {
-        return (
-          <Badge render={<a href="/releases" />} variant="outline">
-            Release notes
           </Badge>
         );
       }

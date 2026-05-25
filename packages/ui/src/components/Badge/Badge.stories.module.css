@@ -22,3 +22,19 @@
 .customDot {
   --badge-dot-size: 0.5rem;
 }
+
+.small {
+  --badge-height: 1.125rem;
+  --badge-font-size: var(--text-xs);
+  --badge-icon-size: 0.6875rem;
+  --badge-line-height: var(--line-height-text-xs);
+  --badge-padding-x: 0.5rem;
+}
+
+.large {
+  --badge-height: 1.5rem;
+  --badge-font-size: var(--text-sm);
+  --badge-icon-size: 0.875rem;
+  --badge-line-height: var(--line-height-text-sm);
+  --badge-padding-x: 0.75rem;
+}

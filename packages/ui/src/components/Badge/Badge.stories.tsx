@@ -42,9 +42,9 @@ export const Sizes: Story = {
   render: () => {
     return (
       <div className={styles.row}>
-        <Badge size="sm">Small</Badge>
-        <Badge size="md">Default</Badge>
-        <Badge size="lg">Large</Badge>
+        <Badge className={styles.small}>Small</Badge>
+        <Badge>Default</Badge>
+        <Badge className={styles.large}>Large</Badge>
       </div>
     );
   },
@@ -88,16 +88,6 @@ export const WithRightIcon: Story = {
           <ChevronRightIcon />
         </Badge>
       </div>
-    );
-  },
-};
-
-export const AsLink: Story = {
-  render: () => {
-    return (
-      <Badge render={<a href="#badge-link" />} variant="outline">
-        Release notes
-      </Badge>
     );
   },
 };

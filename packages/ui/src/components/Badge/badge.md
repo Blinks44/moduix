@@ -12,8 +12,6 @@ It is a standalone moduix component and does not wrap a Base UI primitive.
 ## Props
 
 - `variant`: `default` | `secondary` | `destructive` | `outline` | `ghost` (default: `default`)
-- `size`: `sm` | `md` | `lg` (default: `md`)
-- `render`: `ReactElement` for anchor/button/custom-link semantics
 - `className` and standard `span` props
 
 ## Styling
