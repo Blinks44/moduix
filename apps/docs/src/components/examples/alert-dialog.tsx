@@ -100,16 +100,6 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
     'Controls close icon button border radius.',
   ],
   ['--alert-dialog-close-icon-size', '1.75rem', 'Controls close icon button size.'],
-  [
-    '--alert-dialog-close-outside-offset-right',
-    'var(--spacing-4)',
-    'Controls outside close icon right offset.',
-  ],
-  [
-    '--alert-dialog-close-outside-offset-top',
-    'var(--spacing-4)',
-    'Controls outside close icon top offset.',
-  ],
   ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--alert-dialog-content-margin', 'var(--spacing-4) 0 0', 'Controls body top margin.'],
   ['--alert-dialog-control-bg', 'var(--color-background)', 'Controls control background.'],
@@ -225,7 +215,7 @@ export function AlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
-      <AlertDialogContent withCloseButton>
+      <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Discard draft?</AlertDialogTitle>
           <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
@@ -385,15 +375,16 @@ export function CustomCloseIconAlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-      <AlertDialogContent
-        closeButton={
-          <CloseButton aria-label="Close archive dialog" className={styles.customCloseIcon}>
-            <CloseLineIcon />
-          </CloseButton>
-        }
-      >
+      <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
+          <AlertDialogCloseIcon
+            render={
+              <CloseButton aria-label="Close archive dialog" className={styles.customCloseIcon}>
+                <CloseLineIcon />
+              </CloseButton>
+            }
+          />
           <AlertDialogDescription>
             Team members will lose access until the workspace is restored.
           </AlertDialogDescription>
@@ -411,13 +402,7 @@ export function CustomStylesAlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
-      <AlertDialogContent
-        className={styles.customPopup}
-        classNames={{
-          backdrop: styles.customBackdrop,
-          viewport: styles.customViewport,
-        }}
-      >
+      <AlertDialogContent className={styles.customPopup}>
         <AlertDialogHeader>
           <AlertDialogTitle>Reset environment?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -427,28 +412,6 @@ export function CustomStylesAlertDialogExample() {
         <AlertDialogFooter>
           <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
           <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-}
-
-export function NoBackdropAlertDialogExample() {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="outline" />}>
-        Open without backdrop
-      </AlertDialogTrigger>
-      <AlertDialogContent withBackdrop={false}>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Continue without backdrop?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Background dimming is removed, but the dialog still behaves as a modal confirmation.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-          <AlertDialogAction render={<Button />}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

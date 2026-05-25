@@ -38,7 +38,7 @@ export const Basic: Story = {
     return (
       <AlertDialog>
         <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
-        <AlertDialogContent withCloseButton>
+        <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Discard draft?</AlertDialogTitle>
             <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
@@ -219,15 +219,19 @@ export const CustomCloseIcon: Story = {
     return (
       <AlertDialog>
         <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-        <AlertDialogContent
-          closeButton={
-            <CloseButton aria-label="Close archive dialog" className={storyStyles.customCloseIcon}>
-              <CloseLineIcon />
-            </CloseButton>
-          }
-        >
+        <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
+            <AlertDialogCloseIcon
+              render={
+                <CloseButton
+                  aria-label="Close archive dialog"
+                  className={storyStyles.customCloseIcon}
+                >
+                  <CloseLineIcon />
+                </CloseButton>
+              }
+            />
             <AlertDialogDescription>
               Team members will lose access until the workspace is restored.
             </AlertDialogDescription>
@@ -247,13 +251,7 @@ export const CustomStyles: Story = {
     return (
       <AlertDialog>
         <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
-        <AlertDialogContent
-          className={storyStyles.customPopup}
-          classNames={{
-            backdrop: storyStyles.customBackdrop,
-            viewport: storyStyles.customViewport,
-          }}
-        >
+        <AlertDialogContent className={storyStyles.customPopup}>
           <AlertDialogHeader>
             <AlertDialogTitle>Reset environment?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -263,30 +261,6 @@ export const CustomStyles: Story = {
           <AlertDialogFooter>
             <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
             <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    );
-  },
-};
-
-export const WithoutBackdrop: Story = {
-  render: () => {
-    return (
-      <AlertDialog>
-        <AlertDialogTrigger render={<Button variant="outline" />}>
-          Open without backdrop
-        </AlertDialogTrigger>
-        <AlertDialogContent withBackdrop={false}>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Continue without backdrop?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Background dimming is removed, but the dialog still behaves as a modal confirmation.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Continue</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

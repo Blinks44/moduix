@@ -5,130 +5,115 @@ Use this skill for work in `packages/ui`.
 ## Scope
 
 - New components
-- Updates to component API/behavior/styles
+- Component API, behavior, and style changes
 - Storybook updates
-- Public exports and package surface
+- Public exports
 
 ## Read First
 
 1. `AGENTS.md` (repo root)
-2. `.ai/skills/cross-package-sync/SKILL.md` when docs parity may be affected
+2. `packages/ui/references/base-ui-llms.txt`
+3. `packages/ui/references/shadcn-llms.txt`
+4. `src/components/<ComponentName>/<component-name>.md` for the touched primitive
+5. `.ai/skills/cross-package-sync/SKILL.md` when docs parity may be affected
 
-## Mandatory References
+If a required Base UI reference file is missing, refresh it before component work.
 
-Before Base UI component work, check:
+## Component Goal
 
-- `packages/ui/references/base-ui-llms.txt`
-- `packages/ui/references/shadcn-llms.txt`
+Build components as thin styled wrappers over Base UI primitives.
 
-If missing, download with:
+The target shape is close to shadcn/ui:
 
-```bash
-cd packages/ui
-curl -o references/base-ui-llms.txt https://base-ui.com/llms.txt
-curl -o references/shadcn-llms.txt https://ui.shadcn.com/llms.txt
-```
+- simple function components
+- inline prop typing
+- minimal wrapper logic
+- predictable composition
+- small public surface area
 
-Before editing a specific component, read `src/components/<ComponentName>/<component-name>.md`.
-If missing, fetch the file from the Base UI page for that component.
+Every API addition must justify itself. Ask: does this improve real DX, or does it just make the component more configurable?
 
-## Implementation Contract
+## Implementation Rules
 
 - Stack: React + TypeScript + CSS Modules + `@base-ui-components/react`.
-- Use `src/components/AlertDialog/` and `src/components/Lightbox/` as architecture and API references.
-- File layout for each component:
+- Keep file layout consistent with existing components:
   - `ComponentName.tsx`
   - `ComponentName.module.css`
   - `ComponentName.stories.tsx`
   - `component-name.md`
   - `index.ts`
-- Use PascalCase for component folders/files, kebab-case for component `.md`.
-- Keep component APIs reusable and business-logic free.
-- Components must accept `className`.
-- Use shared icons from `src/primitives/Icons/Icons.tsx` for reusable icons.
-- Keep composition and DX shadcn-like: clear compound parts, predictable naming, no unnecessary API overload.
-- Prefer the simplest readable implementation that preserves behavior: avoid extra generic/type indirection when it does not improve type safety or DX, so mid-level developers can follow component code quickly.
+- Use PascalCase for component folders/files and kebab-case for the local `.md` file.
+- Components must accept `className` when there is a meaningful visual root.
+- Use `data-slot` on exported parts and meaningful internal wrappers that are part of the styling contract.
+- Prefer direct primitive passthrough over custom wrapper logic.
+- Do not add business logic, state abstractions, or "future-proof" APIs.
+
+## API Simplification Rules
+
+- Prefer composition over feature flags.
+- Prefer public parts over `slotProps` and `classNames`.
+- Do not add customization APIs by default. Add them only when composition cannot cover a common production case.
+- Keep infrastructure slots internal unless they are meaningful user-facing content.
+- Do not create "god components" that own every optional UI concern.
+- Keep controlled and uncontrolled primitive behavior intact. Do not rewrap it unless the wrapper adds real value.
+
+When reviewing an existing API, remove or simplify anything that:
+
+- duplicates Base UI behavior
+- exists only for symmetry or completeness
+- is rarely needed
+- makes typing or docs noticeably harder
+- can be expressed with composition instead
+
+## Typing Rules
+
+- Type props inline where possible.
+- Do not export prop aliases that only restate primitive props.
+- Avoid exported `*Props`, `*Handle`, `*ClassNames`, `*SlotProps`, and primitive alias types unless they provide concrete consumer value.
+- Avoid generics that only pass through to the primitive.
+- Avoid helper types, `Pick`, `Omit`, and complex type composition unless they protect a real public contract.
+- Keep component code understandable without reading internal types first.
+
+## `forwardRef` and Imperative APIs
+
+- Do not use `forwardRef` unless the ref is part of the real consumer API or required by the primitive contract.
+- Do not keep imperative helpers or handles unless they are part of the primitive's actual UX and are used in real scenarios.
 
 ## Styling Rules
 
-- Use tokens from `src/styles/*` (`--color-*`, `--spacing-*`, `--radius-*`, etc.).
-- Add missing tokens in the appropriate token files and `src/styles/theme.css`.
-- Add Base UI runtime variables to `src/styles/theme.css` with `initial`; include default values in nearby comments.
-- Keep CSS variable declarations in `src/styles/theme.css` sorted alphabetically. Exception: size scale groups with `-xs/-sm/-md/-lg/-xl` must be ordered from `xs` to `xl`.
-- For CSS variable fallbacks used in component styles, avoid complex expressions (for example nested `calc(var(...))`) because they can break IDE CSS parsing; prefer simple literal fallbacks or a dedicated precomputed variable.
-- Keep variants on slot selectors via `data-*`, not modifier class names.
-- Use nested selectors for derived states/elements.
-- Library CSS (`ComponentName.module.css`) must not contain Storybook/demo layout styles.
+- Use tokens from `src/styles/*`.
+- Add missing public styling tokens to `src/styles/theme.css` with `initial` and a nearby default-value comment.
+- Keep CSS variable declarations in `src/styles/theme.css` sorted alphabetically, except ordered size scales (`xs` to `xl`).
+- Keep selectors simple and readable.
+- Remove styles for deleted props, slots, data attributes, and legacy modifiers.
+- Avoid nested or defensive selectors when a flat selector is enough.
+- Library CSS must not include Storybook/demo layout styles.
 - Story/demo styles belong in `ComponentName.stories.module.css`.
 
 ## Exports and Build
 
-- Export component parts/types from component `index.ts`.
+- Export component parts from the component `index.ts`.
 - Update `packages/ui/src/index.ts` in alphabetical order.
-- Keep public type exports limited to broadly useful types (usually base props). Do not export narrow helper/internal types unless clearly needed.
-- Always rebuild UI package after any change in `packages/ui` by running `npm run build:ui` from repo root.
-- For local package-only iteration, `npm run build` in `packages/ui` is allowed, but task handoff and docs sync must use root `npm run build:ui`.
+- Keep public type exports to the minimum genuinely useful set.
+- Rebuild UI after any `packages/ui` change with `npm run build:ui` from repo root.
 
-## Slot and Customization Contract
+## Stories and Local Docs
 
-- Keep service-oriented infrastructure slots (`Portal`, `Positioner`, `Viewport`, `Backdrop`, etc.) internal when they are not meaningful user content.
-- Expose behavior via parent props (`withBackdrop`, `container`, `placement`, `offset`) on the component that renders those slots.
-- For optional UI parts that are toggled on/off, use `with*` boolean naming (`withArrow`, `withBackdrop`, `withViewport`, etc.) instead of mixed forms like `show*`/`hide*`.
-- For styling internal slots, prefer a compact `classNames` object.
-- Keep `className` for the main/root visual slot; do not duplicate it inside `classNames`.
-- Introduce `slotProps` only when there is a concrete need for non-class slot props.
-- Do not add many slot-specific escape hatches (`portalProps`, `viewportProps`, etc.) without clear need.
-
-## Composition Consistency Rules (Compound Components)
-
-Use these rules for popup/dialog-like and other multi-part components (for example `Select`, `ScrollArea`, `Lightbox`, `Popover`, `Combobox`, `Dialog`, `Drawer`).
-
-- Keep a predictable public part model: `Component` (root), `ComponentTrigger`, `ComponentContent` plus semantic content parts (`Header`, `Body`, `Footer`, `Title`, `Description`, etc.) only when they add real structure.
-- Concentrate popup infrastructure (`Portal`, `Backdrop`, `Positioner`, `Viewport`, `Arrow`) inside `*Content`; app code should configure it through `*Content` props instead of composing those infrastructure parts manually.
-- Keep boolean capability toggles in `with*` form (`withArrow`, `withBackdrop`, `withViewport`, `withHandle`, ...). Avoid `is*`, `show*`, `hide*`, `enable*` for the same concern.
-- Keep service-slot customization symmetric:
-  - visual customization in `classNames`
-  - non-class customization in `slotProps`
-  - keys should match between both objects (`portal`, `backdrop`, `positioner`, ...).
-- Keep `container` as a first-class top-level prop on `*Content`; if `slotProps.portal.container` also exists, top-level `container` must win.
-- For position-related props, keep a single override order: explicit top-level prop > corresponding `slotProps` value > local default.
-- If supporting legacy API aliases (for example `arrow`, `portalProps`), treat them as compatibility shims only:
-  - new API (`withArrow`, `slotProps`) takes precedence;
-  - do not introduce new slot-specific escape-hatch props in new components.
-- Use `data-slot` on every exported part and meaningful internal slot wrapper for stable styling/testing hooks.
-- Default behavior should match component semantics:
-  - modal surfaces (`Dialog`, `Drawer`, `Lightbox`) usually default to `withBackdrop = true`;
-  - non-modal popups (`Select`, `Combobox`, `Popover`) usually default to `withBackdrop = false`.
-- Keep controlled/uncontrolled behavior on root primitives predictable (`open/defaultOpen/onOpenChange` patterns) and avoid moving state control into visual subparts.
-- For dismissible/closable surfaces with a built-in top-right close control (`Alert`, `Dialog`, `Drawer`, `Lightbox`, `AlertDialog`, etc.), keep a consistent close-button contract:
-  - `withCloseButton` toggles the default built-in top-right close button.
-  - `closeButton` overrides the built-in top-right close button content/rendering.
-  - If `closeButton` is provided, it takes precedence over `withCloseButton`.
-  - Public `ComponentClose` / `ComponentCloseIcon` parts remain available for manual composition in headers, footers, or custom layouts.
-  - Do not rely on implicit child inspection to detect whether a manual close control was rendered.
-- For popup-like surfaces with an optional pointer arrow (`Popover`, `Tooltip`, `Select`, `Menu`, `NavigationMenu`, `PreviewCard`, `Combobox`, etc.), keep a consistent arrow contract:
-  - `withArrow` toggles the built-in arrow slot and preserves the component's existing default.
-  - `arrow` overrides the built-in arrow content.
-  - If `arrow` is provided, it does not change visibility by itself; `withArrow` or the component default still decides whether the built-in arrow renders.
-  - `classNames.arrow` styles the built-in arrow slot and `slotProps.arrow` passes non-class arrow props.
-  - Public `ComponentArrow` parts may remain available for manual composition as compatibility shims, but new API and docs should prefer `withArrow` + `arrow`.
-
-## Class Name Composition
-
-- Use `mergeClassName` when Base UI supports function `className` and internal/external classes must be merged.
-- Use `clsx` when `className` is string/class-array only.
+- Stories and adjacent component docs must match the real API.
+- Remove examples of deleted props, slot escape hatches, or legacy customization paths.
+- Prefer small, production-like composition examples over exhaustive configuration examples.
 
 ## Docs Impact
 
-Any UI component update must be reflected in docs. Activate `cross-package-sync` for parity checks and required docs updates.
+If the change affects API, behavior, styling hooks, or recommended usage, activate `cross-package-sync` and update docs in the same task.
 
 ## Done Criteria
 
-1. Component structure/API matches project patterns.
-2. Exports updated (`component/index.ts` and root `src/index.ts`).
-3. Stories updated.
-4. Styles use tokens; all important public styling variables are declared in `packages/ui/src/styles/theme.css` (with `initial` and default-value comments) when component styling surface changes.
-5. Related docs updated when API/behavior/examples changed.
+1. Component code is thinner, simpler, and closer to the primitive.
+2. Public API is no larger than necessary.
+3. Dead types, dead props, and dead styling paths introduced by the change are removed.
+4. Stories and local component docs reflect the simplified API.
+5. Related docs are updated when public behavior changed.
 6. Root validations pass:
    - `npm run fmt:fix`
    - `npm run lint:check`

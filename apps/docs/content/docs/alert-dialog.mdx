@@ -13,7 +13,6 @@ import {
   ControlledAlertDialogExample,
   CustomCloseIconAlertDialogExample,
   CustomStylesAlertDialogExample,
-  NoBackdropAlertDialogExample,
   ScrollableAlertDialogExample,
   alertDialogPlaygroundCssProperties,
 } from '@/components/examples/alert-dialog';
@@ -46,7 +45,7 @@ import {
         return (
           <AlertDialog>
             <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
-            <AlertDialogContent withCloseButton>
+            <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Discard draft?</AlertDialogTitle>
                 <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
@@ -108,33 +107,25 @@ AlertDialog
 </AlertDialog>
 ```
 
-| Part                                     | Role                                                                                              |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `AlertDialog`                            | Root state machine. Manages open state, controlled/uncontrolled behavior, and close interactions. |
-| `AlertDialogTrigger`                     | Opens the dialog. Usually rendered as a button via `render`.                                      |
-| `AlertDialogContent`                     | Main dialog surface. Renders popup plus portal/backdrop/viewport infrastructure.                  |
-| `AlertDialogHeader`                      | Layout group for title, description, and optional close icon.                                     |
-| `AlertDialogTitle`                       | Required accessible title.                                                                        |
-| `AlertDialogDescription`                 | Optional supporting copy.                                                                         |
-| `AlertDialogCloseIcon`                   | Optional dismiss button in header.                                                                |
-| `AlertDialogBody`                        | Optional long-form/scrollable content area.                                                       |
-| `AlertDialogFooter`                      | Layout container for decision actions.                                                            |
-| `AlertDialogCancel`                      | Secondary close action.                                                                           |
-| `AlertDialogAction`                      | Primary confirm action.                                                                           |
-| `portal` / `backdrop` / `viewport` slots | Service slots for mount point, overlay, and alignment container.                                  |
+| Part                     | Role                                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------------------- |
+| `AlertDialog`            | Root state machine. Manages open state, controlled/uncontrolled behavior, and close interactions. |
+| `AlertDialogTrigger`     | Opens the dialog. Usually rendered as a button via `render`.                                      |
+| `AlertDialogContent`     | Main dialog surface. Renders popup plus portal/backdrop/viewport infrastructure.                  |
+| `AlertDialogHeader`      | Layout group for title, description, and optional close icon.                                     |
+| `AlertDialogTitle`       | Required accessible title.                                                                        |
+| `AlertDialogDescription` | Optional supporting copy.                                                                         |
+| `AlertDialogCloseIcon`   | Optional dismiss button in header.                                                                |
+| `AlertDialogBody`        | Optional long-form/scrollable content area.                                                       |
+| `AlertDialogFooter`      | Layout container for decision actions.                                                            |
+| `AlertDialogCancel`      | Secondary close action.                                                                           |
+| `AlertDialogAction`      | Primary confirm action.                                                                           |
 
 ## Composition
 
 Use `AlertDialog` for state (`open`, `defaultOpen`, `onOpenChange`, `handle`).
-Use `AlertDialogContent` for surface behavior and styling:
-
-- `className` styles the popup
-- `classNames` styles portal/backdrop/viewport/closeIcon slots
-- `slotProps` passes props to service slots
-- `container` overrides portal mount
-- `withCloseButton` adds the built-in top-right close icon
-- `closeButton` overrides the built-in top-right close control
-- `withBackdrop={false}` removes only the visual dimming layer; the dialog still stays modal
+Use `AlertDialogContent` for the surface. It already renders the portal, backdrop, viewport, and
+popup with the library defaults, so the main customization path is composition inside the content.
 
 `AlertDialog` root defaults:
 
@@ -143,40 +134,13 @@ Use `AlertDialogContent` for surface behavior and styling:
 | `defaultOpen` | `false` | `true`, `false`                         |
 | `handle`      | —       | Handle from `createAlertDialogHandle()` |
 
-`AlertDialogContent` defaults:
-
-| Prop               | Default        | Values                                                                                      |
-| ------------------ | -------------- | ------------------------------------------------------------------------------------------- |
-| `withBackdrop`     | `true`         | `true`, `false`                                                                             |
-| `withCloseButton`  | `false`        | `true`, `false`                                                                             |
-| `closeButton`      | `undefined`    | Rendered element used for the built-in top-right close control                              |
-| `closeButtonLabel` | `Close dialog` | Any accessible text label for built-in close                                                |
-| `classNames`       | —              | `{ portal?: className; backdrop?: className; viewport?: className; closeIcon?: className }` |
-| `slotProps`        | —              | `{ portal?; backdrop?; viewport? }`                                                         |
-
-`container` has priority over `slotProps.portal.container`.
+`AlertDialogContent` accepts `AlertDialog.Popup` props from Base UI. In practice, the important
+one for library consumers is `className`, which styles the popup itself.
 
 `AlertDialogAction` and `AlertDialogCancel` are convenience close actions with library styling.
 Use them when the click may dismiss the dialog immediately.
 If the primary action must wait for async work, render your own button and close the dialog from
 controlled state or a handle after the request succeeds.
-
-```tsx
-<AlertDialogContent
-  className={styles.popup}
-  classNames={{
-    backdrop: styles.backdrop,
-    viewport: styles.viewport,
-  }}
-  slotProps={{
-    portal: { keepMounted: true },
-    backdrop: { forceRender: true },
-    viewport: { render: <div /> },
-  }}
-/>
-```
-
-Service slots keep Base UI state attributes. Popup also exposes `--nested-dialogs`.
 
 ## Examples
 
@@ -508,59 +472,11 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
   </Preview.Data>
 </Preview>
 
-### Without Backdrop
+### Custom Close Button
 
-Disable backdrop rendering when you want the modal confirmation without page dimming.
-This removes only the backdrop layer; the rest of the page still remains non-interactive.
-
-<Preview>
-  <NoBackdropAlertDialogExample />
-
-  <Preview.Code>
-    {`
-      import {
-        AlertDialog,
-        AlertDialogTrigger,
-        Button,
-        AlertDialogContent,
-        AlertDialogHeader,
-        AlertDialogTitle,
-        AlertDialogDescription,
-        AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
-      } from "moduix";
-
-      export function NoBackdropAlertDialogDemo() {
-        return (
-          <AlertDialog>
-            <AlertDialogTrigger render={<Button variant="outline" />}>
-              Open without backdrop
-            </AlertDialogTrigger>
-            <AlertDialogContent withBackdrop={false}>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Continue without backdrop?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Background dimming is removed, but the dialog still behaves as a modal confirmation.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-                <AlertDialogAction render={<Button />}>Continue</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Built-in Close Button
-
-Pass `closeButton` when you want to replace the built-in top-right close control without moving it
-out of the standard alert-dialog layout.
+Render `AlertDialogCloseIcon` where you need it. The default close button is already styled, and
+you can replace its rendered control through the `render` prop when the icon or button shell
+needs to change.
 
 <Preview>
   <CustomCloseIconAlertDialogExample />
@@ -574,6 +490,7 @@ out of the standard alert-dialog layout.
         AlertDialogContent,
         AlertDialogHeader,
         AlertDialogTitle,
+        AlertDialogCloseIcon,
         CloseButton,
         CloseLineIcon,
         AlertDialogDescription,
@@ -586,15 +503,19 @@ out of the standard alert-dialog layout.
         return (
           <AlertDialog>
             <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-            <AlertDialogContent
-              closeButton={
-                <CloseButton aria-label="Close archive dialog" className={styles.customCloseIcon}>
-                  <CloseLineIcon />
-                </CloseButton>
-              }
-            >
+            <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
+                <AlertDialogCloseIcon
+                  render={
+                    <CloseButton
+                      aria-label="Close archive dialog"
+                      className={styles.customCloseIcon}
+                    >
+                      <CloseLineIcon />
+                    </CloseButton>
+                  }
+                />
                 <AlertDialogDescription>
                   Team members will lose access until the workspace is restored.
                 </AlertDialogDescription>
@@ -623,8 +544,8 @@ out of the standard alert-dialog layout.
 
 ### Custom Styles
 
-Use `className` for the popup and `classNames` for the automatically rendered portal, backdrop,
-and viewport.
+Use `className` for popup-level styling and CSS variables for visual changes. That keeps the public
+API small while still exposing the usual theming hooks.
 
 <Preview>
   <CustomStylesAlertDialogExample />
@@ -648,14 +569,7 @@ and viewport.
         return (
           <AlertDialog>
             <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
-            <AlertDialogContent
-              className={styles.customPopup}
-              classNames={{
-                portal: styles.customPortal,
-                backdrop: styles.customBackdrop,
-                viewport: styles.customViewport,
-              }}
-            >
+            <AlertDialogContent className={styles.customPopup}>
               <AlertDialogHeader>
                 <AlertDialogTitle>Reset environment?</AlertDialogTitle>
                 <AlertDialogDescription>
@@ -676,19 +590,6 @@ and viewport.
 
   <Preview.CSS>
     {`
-      .customPortal {
-        pointer-events: auto;
-      }
-
-      .customBackdrop {
-        background-color: rgb(15 23 42 / 0.56);
-      }
-
-      .customViewport {
-        align-items: start;
-        padding-top: var(--spacing-10);
-      }
-
       .customPopup {
         --alert-dialog-width: 28rem;
         --alert-dialog-radius: var(--radius-md);

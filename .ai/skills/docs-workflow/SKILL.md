@@ -5,80 +5,75 @@ Use this skill for work in `apps/docs`.
 ## Scope
 
 - MDX component pages
-- Docs site content/routing
-- Live examples in docs app
+- Docs site content and routing
+- Live examples
 - CSS properties and playground documentation
 
 ## Read First
 
 1. `AGENTS.md` (repo root)
 
-If docs changes depend on current UI output, build first from root:
-
-```bash
-npm run build:ui
-```
+If docs depend on changed UI output, run `npm run build:ui` from repo root before validating docs behavior.
 
 ## Source of Truth
 
-- UI components must be imported from `moduix`.
-- Do not duplicate library components inside docs app.
-- Reference page template:
-  - `apps/docs/content/docs/alert-dialog.mdx`
-  - `apps/docs/content/docs/lightbox.mdx`
-  - `apps/docs/src/components/examples/alert-dialog.tsx`
-  - `apps/docs/src/components/examples/lightbox.tsx`
+- Import UI components from `moduix`.
+- Do not duplicate library components inside the docs app.
+- Use existing docs pages and examples as structure references, not as permission to preserve old complexity.
+
+## Documentation Goal
+
+Docs must reflect the simplified component architecture:
+
+- thin wrapper over Base UI
+- composition-first usage
+- minimal public API
+- minimal customization surface
+
+If an API, type, prop, slot, or styling hook was removed, docs should stop teaching it immediately.
 
 ## Structure Rules
 
-- MDX pages: `apps/docs/content/docs/`
-- Site components: `apps/docs/src/components/`
-- Live examples: `apps/docs/src/components/examples/`
-- Example styles: `apps/docs/src/components/examples/<component>.module.css`
+- MDX pages live in `apps/docs/content/docs/`
+- Live examples live in `apps/docs/src/components/examples/`
+- Example styles live in colocated CSS Modules
 
-Keep demo styles out of inline style objects and utility string class names; use CSS Modules.
+Keep demo styles out of inline style objects and utility-heavy strings when a CSS Module is clearer.
 
 ## MDX and Example Rules
 
-- MDX should focus on documentation structure/text/snippets.
-- Interactive logic, example data, and `cssProperties` lists belong in example `.tsx`.
-- Snippets should show consumer usage from `moduix` and be self-contained for each preview variant.
-- Do not repeat global setup imports like `import "moduix/style.css";` or `import * as React from "react";`.
+- MDX should stay focused on the public API and the most useful usage patterns.
+- Put interactive logic, example data, and `cssProperties` lists in the example `.tsx` file.
+- Snippets should show consumer usage from `moduix` and be self-contained for the shown variant.
+- Do not repeat global setup imports like `import "moduix/style.css";`.
 - Prefer `as T` over generic syntax like `useState<T>()` in MDX snippets.
-- Keep `Anatomy` and `Composition` non-duplicative:
-  - `Anatomy` explains parts/slots and structure.
-  - `Composition` explains API usage patterns (`render`, controlled props, `className`, `classNames`, slot escape hatches).
-- For components with meaningful defaults, include a compact defaults table in `Composition`
-  (`Prop` / `Default` / `Values`) so runtime behavior is visible in docs.
-  Do not place prop defaults in `Anatomy`.
+- Prefer short, production-like examples over exhaustive configuration demos.
+- Prefer composition examples over customization APIs when both express the same outcome.
 
-## Section Order Contract
+## Section Guidance
 
-For component pages, keep order:
+For component pages, keep the existing page structure unless the task requires a change. Within that structure:
 
-1. Frontmatter
-2. `BaseUIReference`
-3. `Basic` preview
-4. Tabs with code and CSS docs (`CSS Properties` + `CSS Playground` split when needed)
-5. `## Anatomy`
-6. `## Composition` (when meaningful)
-7. `## Examples`
+- `Anatomy` should explain the parts that actually matter to consumers.
+- `Composition` should explain the current supported usage patterns.
+- `Examples` should move from common cases to narrower cases.
 
-Inside `Examples`, order by learning flow (common -> controlled/stateful -> customization -> edge/accessibility).
+Do not keep sections whose only purpose is to explain removed complexity such as legacy slot APIs, deep customization paths, or deleted feature flags.
 
 ## CSS Variables Documentation
 
-- `CSS Properties` must list full public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
-- `CSS Playground` should expose only a safe subset that does not flatten documented variants globally.
-- Keep CSS variable entries sorted alphabetically in both `CSS Properties` and `CSS Playground`. Exception: size scale groups with `-xs/-sm/-md/-lg/-xl` must be ordered from `xs` to `xl`.
+- `CSS Properties` must document the full public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
+- `CSS Playground` should expose only a safe, useful subset.
+- Keep CSS variable entries sorted alphabetically, except ordered size scales (`xs` to `xl`).
 
 ## Done Criteria
 
-1. Docs page and live examples follow template and section ordering.
-2. Snippets are consumer-oriented and self-contained.
-3. Example styles are in colocated CSS modules.
-4. For every changed UI component, docs `CSS Properties` tab includes the full public `--<component>-*` variables from `packages/ui/src/styles/theme.css`; `CSS Playground` stays a safe subset.
-5. Root validations pass:
+1. Docs describe the real current API and usage patterns.
+2. Removed props, types, and legacy examples are deleted from docs.
+3. Snippets are consumer-oriented, concise, and self-contained.
+4. Example styles are in colocated CSS modules.
+5. For every changed UI component, docs `CSS Properties` reflects the current public variable contract.
+6. Root validations pass:
    - `npm run fmt:fix`
    - `npm run lint:check`
    - `npm run tsc:check`

@@ -1,50 +1,53 @@
 # Skill: js-react-conventions
 
-Use this skill for JS/TS coding tasks in this repo.
+Use this skill for JS/TS work in this repo.
 
 ## Scope
 
 - React components in JS/TS/TSX
-- Local helper functions and handler naming
-- `memo` and `forwardRef` component shape conventions
+- Local helpers and handler naming
+- `memo` and `forwardRef` usage
 
-## Conventions
+## Core Rules
 
-- Regular components: use function declarations.
+- Prefer plain function components.
 
-```js
+```tsx
 function Component(props) {
-  // ...
+  return <div {...props} />;
 }
 ```
 
-- Components wrapped in `memo` or `forwardRef`: use `const` + named function inside wrapper.
+- Type props inline unless a named type adds clear reuse or meaning.
 
-```js
-const Component = memo(function Component(props) {
-  // ...
-});
+```tsx
+function Component(props: Primitive.Component.Props) {
+  return <Primitive.Component {...props} />;
+}
 ```
 
-```js
+- Do not create exported prop aliases that only restate primitive props.
+- Avoid helper types, generics, `Pick`, and `Omit` unless they solve a real API problem.
+- Prefer composition over configuration. Do not add booleans, render helpers, or escape hatches when children or adjacent parts express the same thing more clearly.
+
+## `memo` and `forwardRef`
+
+- Do not add `memo` by default. Use it only when there is measured or obvious value.
+- Do not add `forwardRef` by default. Keep it only when the ref is part of the real consumer API or required by the primitive.
+- When `memo` or `forwardRef` is needed, use `const` with a named function.
+
+```tsx
 const Component = forwardRef(function Component(props, ref) {
-  // ...
+  return <div ref={ref} {...props} />;
 });
 ```
 
-- Do not use `React.ElementRef`; it is deprecated. Use `React.ComponentRef` for `forwardRef` typing.
+- Use `React.ComponentRef` for `forwardRef` typing, not `React.ElementRef`.
+- Do not add `displayName` when React can infer it from the named function.
 
-- Do not add `displayName` when the wrapped function is already named and React can infer it.
-- Add `displayName` only when the wrapper uses an anonymous function or the name would otherwise be unclear in DevTools.
+## Local Code Style
 
-- Functions inside components and local helpers: use arrow function assignments.
-
-```js
-const someFunc = () => {
-  // ...
-};
-```
-
-- Naming rules:
-  - `handleX` for internal component handlers.
-  - `onX` for callback props received from outside.
+- Use arrow functions for local helpers and handlers.
+- Use `handleX` for internal handlers.
+- Use `onX` for callback props received from outside.
+- Keep render flow direct. Avoid intermediate variables and branches when an inline expression is clear enough.
