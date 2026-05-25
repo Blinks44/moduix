@@ -1,26 +1,23 @@
 ---
 title: Card
-description: A flexible content container with semantic header, body, footer, title, description, and action slots.
+description: A thin styled container with composable header, content, footer, title, description, and action parts.
 icon: Component
 ---
 
 import {
+  CardCompactExample,
   CardCssPlaygroundPanel,
   CardCssPropertiesPanel,
   CardExample,
-  CardSizesExample,
-  CardVariantsExample,
   CardWithActionExample,
-  CardWithFooterExample,
+  CardWithImageExample,
   CustomStylesCardExample,
-  InteractiveCardExample,
   cardPlaygroundCssProperties,
 } from '@/components/examples/card';
 
 ## API Reference
 
-`Card` is a standalone moduix component and does not wrap a Base UI primitive.
-Use its compound slots for consistent content structure.
+`Card` is a standalone presentational component. It does not wrap a Base UI primitive, so the API stays intentionally small: a styled root, a compact size option, and composable parts.
 
 ## Basic
 
@@ -29,11 +26,21 @@ Use its compound slots for consistent content structure.
 
   <Preview.Code>
     {`
-      import { Badge, Button, Card, CardAction, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "moduix";
+      import {
+        Badge,
+        Button,
+        Card,
+        CardAction,
+        CardContent,
+        CardDescription,
+        CardFooter,
+        CardHeader,
+        CardTitle,
+      } from "moduix";
 
       export function CardDemo() {
         return (
-          <Card variant="elevated">
+          <Card>
             <CardHeader>
               <CardTitle>Release health</CardTitle>
               <CardDescription>Summary for the current production rollout.</CardDescription>
@@ -41,12 +48,12 @@ Use its compound slots for consistent content structure.
                 <Badge variant="secondary">Canary</Badge>
               </CardAction>
             </CardHeader>
-            <CardBody>
+            <CardContent>
               <div>
                 <strong>98.4%</strong> successful sessions
               </div>
-            </CardBody>
-            <CardFooter withDivider>
+            </CardContent>
+            <CardFooter>
               <Button variant="outline">View log</Button>
               <Button>Promote release</Button>
             </CardFooter>
@@ -60,9 +67,9 @@ Use its compound slots for consistent content structure.
   <Preview.CSSPlayground>{(context) => <CardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+## Composition
 
-`Card` exposes semantic slots for common card structure.
+Use the following composition to build a `Card`:
 
 ```text
 Card
@@ -70,7 +77,7 @@ Card
 │  ├─ CardTitle
 │  ├─ CardDescription
 │  └─ CardAction (optional)
-├─ CardBody
+├─ CardContent
 └─ CardFooter
 ```
 
@@ -80,63 +87,55 @@ Card
     <CardTitle>Billing plan</CardTitle>
     <CardDescription>Team workspace, monthly billing.</CardDescription>
   </CardHeader>
-  <CardBody>...</CardBody>
-  <CardFooter withDivider>...</CardFooter>
+  <CardContent>...</CardContent>
+  <CardFooter>...</CardFooter>
 </Card>
 ```
 
-| Part              | Role                                                                        |
-| ----------------- | --------------------------------------------------------------------------- |
-| `Card`            | Root slot. Applies size, variant, border, radius, shadow, and text color.   |
-| `CardHeader`      | Header layout for title, description, and optional action content.          |
-| `CardBody`        | Main content area. Trims first and last child margins for predictable flow. |
-| `CardFooter`      | Footer layout for actions or metadata. Supports alignment and dividers.     |
-| `CardTitle`       | Heading slot for the primary card label.                                    |
-| `CardDescription` | Muted supporting text for the card title.                                   |
-| `CardAction`      | Right-aligned header action slot.                                           |
+| Part              | Role                                                                 |
+| ----------------- | -------------------------------------------------------------------- |
+| `Card`            | Root container. Supports `className`, native props, and `size="sm"`. |
+| `CardHeader`      | Header layout for title, description, and action content.            |
+| `CardContent`     | Main content area with card body spacing.                            |
+| `CardFooter`      | Footer layout for actions or secondary content.                      |
+| `CardTitle`       | Card heading. Defaults to `h3` and supports `as`.                    |
+| `CardDescription` | Muted supporting text under the title.                               |
+| `CardAction`      | Right-aligned header action slot.                                    |
 
-## Composition
+## Usage Notes
 
-Use `variant` to set visual weight and `size` to control density.
-`Card` supports `as` for sectioning semantics, `render` for semantic interactive roots such as links
-and buttons, and `interactive` for hover/focus affordance.
-Prefer `render={<a />}` or `render={<button />}` over `tabIndex` on non-interactive elements.
-`CardTitle` defaults to `h3` and supports `as` for heading-level control.
-Pass `className` to slots and customize visuals with `--card-*` variables.
-
-| Prop           | Default   | Values                                             |
-| -------------- | --------- | -------------------------------------------------- |
-| `render`       | —         | Rendered root element for semantic link/button use |
-| `variant`      | `default` | `default`, `elevated`, `outline`, `ghost`          |
-| `size`         | `md`      | `xs`, `sm`, `md`, `lg`                             |
-| `interactive`  | `false`   | `true`, `false`                                    |
-| `as`           | `div`     | `div`, `article`, `section`, `aside`               |
-| `align`        | `end`     | `start`, `center`, `end`, `between` (`CardFooter`) |
-| `withDivider`  | `false`   | `true`, `false` (`CardHeader` and `CardFooter`)    |
-| `CardTitle as` | `h3`      | `h1`, `h2`, `h3`, `h4`, `h5`, `h6`                 |
+- Prefer composition over root-level behavior flags. If the whole card should be interactive, use a link or button inside the card instead of turning the root into a custom interactive wrapper.
+- Use `size="sm"` for denser cards. The default size covers standard page and dashboard layouts.
+- Use `className` and `--card-*` variables for visual customization.
 
 ## Examples
 
-### With Footer
-
-Use `CardFooter` for actions. Add `withDivider` to separate it visually.
+### Compact
 
 <Preview>
-  <CardWithFooterExample />
+  <CardCompactExample />
 
   <Preview.Code>
     {`
-      import { Button, Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "moduix";
+      import {
+        Button,
+        Card,
+        CardContent,
+        CardDescription,
+        CardFooter,
+        CardHeader,
+        CardTitle,
+      } from "moduix";
 
-      export function CardWithFooterDemo() {
+      export function CardCompactDemo() {
         return (
-          <Card>
+          <Card size="sm">
             <CardHeader>
               <CardTitle>Billing plan</CardTitle>
               <CardDescription>Team workspace, monthly billing.</CardDescription>
             </CardHeader>
-            <CardBody>$48 per month</CardBody>
-            <CardFooter withDivider>
+            <CardContent>$48 per month</CardContent>
+            <CardFooter>
               <Button variant="outline">Cancel</Button>
               <Button>Upgrade</Button>
             </CardFooter>
@@ -150,18 +149,24 @@ Use `CardFooter` for actions. Add `withDivider` to separate it visually.
 
 ### With Action
 
-Use `CardAction` for compact controls aligned opposite the title.
-
 <Preview>
   <CardWithActionExample />
 
   <Preview.Code>
     {`
-      import { Badge, Card, CardAction, CardDescription, CardHeader, CardTitle } from "moduix";
+      import {
+        Badge,
+        Card,
+        CardAction,
+        CardContent,
+        CardDescription,
+        CardHeader,
+        CardTitle,
+      } from "moduix";
 
       export function CardWithActionDemo() {
         return (
-          <Card variant="elevated">
+          <Card>
             <CardHeader>
               <CardTitle>Incident response</CardTitle>
               <CardDescription>Owner rotation and escalation readiness.</CardDescription>
@@ -169,6 +174,7 @@ Use `CardAction` for compact controls aligned opposite the title.
                 <Badge variant="secondary">Stable</Badge>
               </CardAction>
             </CardHeader>
+            <CardContent>Current on-call and uptime summary.</CardContent>
           </Card>
         );
       }
@@ -177,100 +183,40 @@ Use `CardAction` for compact controls aligned opposite the title.
   </Preview.Code>
 </Preview>
 
-### Variants
-
-Pick the visual weight that matches surrounding content.
+### With Image
 
 <Preview>
-  <CardVariantsExample />
+  <CardWithImageExample />
 
   <Preview.Code>
     {`
-      import { Card, CardDescription, CardHeader, CardTitle } from "moduix";
+      import {
+        Badge,
+        Button,
+        Card,
+        CardContent,
+        CardDescription,
+        CardFooter,
+        CardHeader,
+        CardTitle,
+      } from "moduix";
 
-      const variants = ["default", "elevated", "outline", "ghost"] as const;
-
-      export function CardVariantsDemo() {
+      export function CardWithImageDemo() {
         return (
-          <div>
-            {variants.map((variant) => (
-              <Card key={variant} variant={variant}>
-                <CardHeader>
-                  <CardTitle>{variant}</CardTitle>
-                  <CardDescription>Card variant</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Sizes
-
-Use size to tune density.
-
-<Preview>
-  <CardSizesExample />
-
-  <Preview.Code>
-    {`
-      import { Card, CardBody, CardDescription, CardHeader, CardTitle } from "moduix";
-
-      export function CardSizesDemo() {
-        return (
-          <>
-            <Card size="xs">
-              <CardHeader>
-                <CardTitle>Extra small card</CardTitle>
-                <CardDescription>Very compact surface.</CardDescription>
-              </CardHeader>
-              <CardBody>Short supporting content.</CardBody>
-            </Card>
-            <Card size="lg">
-              <CardHeader>
-                <CardTitle>Large card</CardTitle>
-                <CardDescription>Roomier section surface.</CardDescription>
-              </CardHeader>
-              <CardBody>Longer supporting content.</CardBody>
-            </Card>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Interactive
-
-Use `interactive` when app logic makes the card selectable or navigable.
-Pair it with `render` so the root element keeps correct semantics.
-
-<Preview>
-  <InteractiveCardExample />
-
-  <Preview.Code>
-    {`
-      import { Badge, Card, CardAction, CardDescription, CardHeader, CardTitle } from "moduix";
-
-      export function InteractiveCardDemo() {
-        return (
-          <Card
-            interactive
-            render={<a href="/imports/42" />}
-            aria-label="Open import report"
-          >
+          <Card>
+            <img
+              alt="A warehouse with neatly stacked delivery boxes."
+              src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
+            />
             <CardHeader>
-              <CardTitle as="h2">Data import completed</CardTitle>
-              <CardDescription>42,816 rows processed without validation errors.</CardDescription>
-              <CardAction>
-                <Badge>New</Badge>
-              </CardAction>
+              <CardTitle>Warehouse capacity</CardTitle>
+              <CardDescription>North region allocation for the next planning cycle.</CardDescription>
             </CardHeader>
+            <CardContent>72%</CardContent>
+            <CardFooter>
+              <Badge variant="outline">Forecast</Badge>
+              <Button variant="outline">Open report</Button>
+            </CardFooter>
           </Card>
         );
       }
@@ -281,28 +227,30 @@ Pair it with `render` so the root element keeps correct semantics.
 
 ### Custom Styles
 
-Use `className` and CSS variables for custom styling.
-
 <Preview>
   <CustomStylesCardExample />
 
   <Preview.Code>
     {`
-      import { Badge, Button, Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "moduix";
+      import {
+        Card,
+        CardContent,
+        CardDescription,
+        CardHeader,
+        CardTitle,
+      } from "moduix";
       import styles from "./custom-card-demo.module.css";
 
       export function CustomCardDemo() {
         return (
           <Card className={styles.customCard}>
-            <CardHeader withDivider>
-              <CardTitle>Warehouse capacity</CardTitle>
-              <CardDescription>North region allocation.</CardDescription>
+            <CardHeader>
+              <CardTitle>System load</CardTitle>
+              <CardDescription>
+                Aggregated worker utilization across the current batch.
+              </CardDescription>
             </CardHeader>
-            <CardBody>72%</CardBody>
-            <CardFooter align="between" withDivider>
-              <Badge variant="outline">Forecast</Badge>
-              <Button variant="outline">Open report</Button>
-            </CardFooter>
+            <CardContent>64%</CardContent>
           </Card>
         );
       }
@@ -313,9 +261,8 @@ Use `className` and CSS variables for custom styling.
   <Preview.CSS>
     {`
       .customCard {
-        --card-bg: color-mix(in oklab, var(--color-card) 92%, var(--color-primary));
+        --card-bg: color-mix(in oklab, var(--color-card) 94%, var(--color-primary));
         --card-border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
-        --card-divider-color: color-mix(in oklab, var(--color-primary) 25%, var(--color-border));
         --card-radius: var(--radius-md);
         --card-shadow: var(--shadow-md);
       }

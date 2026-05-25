@@ -2,23 +2,6 @@
   width: min(24rem, calc(100vw - var(--spacing-8)));
 }
 
-.grid {
-  display: grid;
-  width: min(48rem, calc(100vw - var(--spacing-8)));
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: var(--spacing-3);
-}
-
-.sizesGrid {
-  display: grid;
-  width: min(24rem, calc(100vw - var(--spacing-8)));
-  gap: var(--spacing-3);
-}
-
-.variantCard {
-  min-height: 8rem;
-}
-
 .releaseSummary {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -58,13 +41,18 @@
   line-height: var(--line-height-text-xl);
 }
 
+.image {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
+}
+
 .customCard {
-  --card-bg: color-mix(in oklab, var(--color-card) 92%, var(--color-primary));
+  --card-bg: color-mix(in oklab, var(--color-card) 94%, var(--color-primary));
   --card-border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
-  --card-divider-color: color-mix(in oklab, var(--color-primary) 25%, var(--color-border));
   --card-radius: var(--radius-md);
   --card-shadow: var(--shadow-md);
-  width: min(26rem, calc(100vw - var(--spacing-8)));
+  width: min(24rem, calc(100vw - var(--spacing-8)));
 }
 
 .capacity {
@@ -88,4 +76,8 @@
   height: 100%;
   border-radius: inherit;
   background-color: var(--color-primary);
+}
+
+.capacityFill {
+  width: 64%;
 }

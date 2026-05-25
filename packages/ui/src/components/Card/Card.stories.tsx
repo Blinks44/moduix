@@ -4,7 +4,7 @@ import { Button } from '../Button';
 import {
   Card,
   CardAction,
-  CardBody,
+  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -28,7 +28,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => {
     return (
-      <Card className={styles.card} variant="elevated">
+      <Card className={styles.card}>
         <CardHeader>
           <CardTitle>Release health</CardTitle>
           <CardDescription>Summary for the current production rollout.</CardDescription>
@@ -36,7 +36,7 @@ export const Basic: Story = {
             <Badge variant="secondary">Canary</Badge>
           </CardAction>
         </CardHeader>
-        <CardBody>
+        <CardContent>
           <div className={styles.releaseSummary}>
             <div>
               <span className={styles.statValue}>98.4%</span>
@@ -47,8 +47,8 @@ export const Basic: Story = {
               <span className={styles.statLabel}>checks passed</span>
             </div>
           </div>
-        </CardBody>
-        <CardFooter withDivider>
+        </CardContent>
+        <CardFooter>
           <Button variant="outline">View log</Button>
           <Button>Promote release</Button>
         </CardFooter>
@@ -57,21 +57,21 @@ export const Basic: Story = {
   },
 };
 
-export const WithFooter: Story = {
+export const Compact: Story = {
   render: () => {
     return (
-      <Card className={styles.card}>
+      <Card className={styles.card} size="sm">
         <CardHeader>
           <CardTitle>Billing plan</CardTitle>
           <CardDescription>Team workspace, monthly billing.</CardDescription>
         </CardHeader>
-        <CardBody>
+        <CardContent>
           <div className={styles.metric}>
             <span className={styles.metricValue}>$48</span>
             <span className={styles.metricLabel}>per month</span>
           </div>
-        </CardBody>
-        <CardFooter withDivider>
+        </CardContent>
+        <CardFooter>
           <Button variant="outline">Cancel</Button>
           <Button>Upgrade</Button>
         </CardFooter>
@@ -80,10 +80,40 @@ export const WithFooter: Story = {
   },
 };
 
-export const WithAction: Story = {
+export const WithImage: Story = {
   render: () => {
     return (
-      <Card className={styles.card} variant="elevated">
+      <Card className={styles.card}>
+        <img
+          alt="A warehouse with neatly stacked delivery boxes."
+          className={styles.image}
+          src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
+        />
+        <CardHeader>
+          <CardTitle>Warehouse capacity</CardTitle>
+          <CardDescription>North region allocation for the next planning cycle.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className={styles.capacity}>
+            <span>72%</span>
+            <div className={styles.capacityBar}>
+              <div />
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Badge variant="outline">Forecast</Badge>
+          <Button variant="outline">Open report</Button>
+        </CardFooter>
+      </Card>
+    );
+  },
+};
+
+export const CustomStyles: Story = {
+  render: () => {
+    return (
+      <Card className={styles.customCard}>
         <CardHeader>
           <CardTitle>Incident response</CardTitle>
           <CardDescription>Owner rotation and escalation readiness.</CardDescription>
@@ -91,7 +121,7 @@ export const WithAction: Story = {
             <Badge variant="secondary">Stable</Badge>
           </CardAction>
         </CardHeader>
-        <CardBody>
+        <CardContent>
           <div className={styles.statsGrid}>
             <div>
               <span className={styles.statValue}>18 min</span>
@@ -102,92 +132,7 @@ export const WithAction: Story = {
               <span className={styles.statLabel}>service uptime</span>
             </div>
           </div>
-        </CardBody>
-      </Card>
-    );
-  },
-};
-
-export const Variants: Story = {
-  render: () => {
-    const variants = ['default', 'elevated', 'outline', 'ghost'] as const;
-
-    return (
-      <div className={styles.grid}>
-        {variants.map((variant) => (
-          <Card key={variant} className={styles.variantCard} variant={variant}>
-            <CardHeader>
-              <CardTitle>{variant}</CardTitle>
-              <CardDescription>Card variant</CardDescription>
-            </CardHeader>
-          </Card>
-        ))}
-      </div>
-    );
-  },
-};
-
-export const Sizes: Story = {
-  render: () => {
-    return (
-      <div className={styles.sizesGrid}>
-        {(['xs', 'sm', 'md', 'lg'] as const).map((size) => (
-          <Card key={size} className={styles.card} size={size}>
-            <CardHeader>
-              <CardTitle>{size.toUpperCase()} card</CardTitle>
-              <CardDescription>Padding and title scale follow the size.</CardDescription>
-            </CardHeader>
-            <CardBody>
-              <p>Use size to tune density for compact lists, dashboards, and page sections.</p>
-            </CardBody>
-          </Card>
-        ))}
-      </div>
-    );
-  },
-};
-
-export const Interactive: Story = {
-  render: () => {
-    return (
-      <Card
-        className={styles.card}
-        interactive
-        render={<a href="#card-interactive-demo" />}
-        aria-label="Open import report"
-      >
-        <CardHeader>
-          <CardTitle as="h2">Data import completed</CardTitle>
-          <CardDescription>42,816 rows processed without validation errors.</CardDescription>
-          <CardAction>
-            <Badge>New</Badge>
-          </CardAction>
-        </CardHeader>
-      </Card>
-    );
-  },
-};
-
-export const CustomStyles: Story = {
-  render: () => {
-    return (
-      <Card className={styles.customCard}>
-        <CardHeader withDivider>
-          <CardTitle>Warehouse capacity</CardTitle>
-          <CardDescription>North region allocation for the next planning cycle.</CardDescription>
-        </CardHeader>
-        <CardBody>
-          <div className={styles.capacity}>
-            <span>72%</span>
-            <div className={styles.capacityBar}>
-              <div />
-            </div>
-          </div>
-        </CardBody>
-        <CardFooter align="between" withDivider>
-          <Badge variant="outline">Forecast</Badge>
-          <Button variant="outline">Open report</Button>
-        </CardFooter>
+        </CardContent>
       </Card>
     );
   },
