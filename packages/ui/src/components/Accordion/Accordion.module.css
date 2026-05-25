@@ -5,7 +5,6 @@
     width: var(--accordion-width, 24rem);
     max-width: var(--accordion-max-width, 100%);
     flex-direction: column;
-    justify-content: center;
     color: var(--accordion-color, var(--color-foreground));
   }
 
@@ -20,7 +19,6 @@
 
   .trigger {
     box-sizing: border-box;
-    position: relative;
     display: flex;
     width: 100%;
     align-items: baseline;
@@ -50,6 +48,7 @@
     }
 
     &:focus-visible {
+      position: relative;
       z-index: 1;
       outline: var(--accordion-focus-ring-width, var(--border-width-md)) solid
         var(--accordion-focus-ring-color, var(--color-ring));

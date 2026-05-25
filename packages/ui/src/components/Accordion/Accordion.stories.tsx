@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { ChevronDownIcon } from '@/primitives/Icons';
-import { Accordion, AccordionItem, AccordionPanel, AccordionTrigger } from './Accordion';
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionItem,
+  AccordionPanel,
+  AccordionTrigger,
+  AccordionTriggerIcon,
+} from './Accordion';
 import styles from './Accordion.stories.module.css';
 
 const meta = {
@@ -42,7 +49,12 @@ export const Basic: Story = {
       <Accordion defaultValue={['what-is-base-ui']}>
         {faqItems.map((item) => (
           <AccordionItem key={item.value} value={item.value}>
-            <AccordionTrigger>{item.title}</AccordionTrigger>
+            <AccordionHeader>
+              <AccordionTrigger>
+                {item.title}
+                <AccordionTriggerIcon />
+              </AccordionTrigger>
+            </AccordionHeader>
             <AccordionPanel>
               <div className={styles.panelContent}>{item.description}</div>
             </AccordionPanel>
@@ -59,7 +71,12 @@ export const Multiple: Story = {
       <Accordion multiple defaultValue={['what-is-base-ui', 'can-i-use-it']}>
         {faqItems.map((item) => (
           <AccordionItem key={item.value} value={item.value}>
-            <AccordionTrigger>{item.title}</AccordionTrigger>
+            <AccordionHeader>
+              <AccordionTrigger>
+                {item.title}
+                <AccordionTriggerIcon />
+              </AccordionTrigger>
+            </AccordionHeader>
             <AccordionPanel>
               <div className={styles.panelContent}>{item.description}</div>
             </AccordionPanel>
@@ -80,7 +97,12 @@ export const DisabledItem: Story = {
             value={item.value}
             disabled={item.value === 'getting-started'}
           >
-            <AccordionTrigger>{item.title}</AccordionTrigger>
+            <AccordionHeader>
+              <AccordionTrigger>
+                {item.title}
+                <AccordionTriggerIcon />
+              </AccordionTrigger>
+            </AccordionHeader>
             <AccordionPanel>
               <div className={styles.panelContent}>{item.description}</div>
             </AccordionPanel>
@@ -99,7 +121,12 @@ export const Controlled: Story = {
       <Accordion value={value} onValueChange={setValue}>
         {faqItems.map((item) => (
           <AccordionItem key={item.value} value={item.value}>
-            <AccordionTrigger>{item.title}</AccordionTrigger>
+            <AccordionHeader>
+              <AccordionTrigger>
+                {item.title}
+                <AccordionTriggerIcon />
+              </AccordionTrigger>
+            </AccordionHeader>
             <AccordionPanel>
               <div className={styles.panelContent}>{item.description}</div>
             </AccordionPanel>
@@ -116,9 +143,14 @@ export const CustomStyles: Story = {
       <Accordion defaultValue={['what-is-base-ui']}>
         {faqItems.map((item) => (
           <AccordionItem key={item.value} value={item.value}>
-            <AccordionTrigger icon={<ChevronDownIcon />} classNames={{ icon: styles.customIcon }}>
-              {item.title}
-            </AccordionTrigger>
+            <AccordionHeader>
+              <AccordionTrigger>
+                {item.title}
+                <AccordionTriggerIcon className={styles.customIcon}>
+                  <ChevronDownIcon />
+                </AccordionTriggerIcon>
+              </AccordionTrigger>
+            </AccordionHeader>
             <AccordionPanel>
               <div className={styles.panelContent}>{item.description}</div>
             </AccordionPanel>

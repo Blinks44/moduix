@@ -1,9 +1,10 @@
-import type { AccordionProps } from 'moduix';
 import {
   Accordion,
+  AccordionHeader,
   AccordionItem,
   AccordionPanel,
   AccordionTrigger,
+  AccordionTriggerIcon,
   ChevronDownIcon,
 } from 'moduix';
 import * as React from 'react';
@@ -156,12 +157,17 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function AccordionExample(props: AccordionProps<string>) {
+export function AccordionExample(props: React.ComponentProps<typeof Accordion>) {
   return (
     <Accordion {...props}>
       {accordionItems.map((item) => (
         <AccordionItem key={item.value} value={item.value}>
-          <AccordionTrigger>{item.title}</AccordionTrigger>
+          <AccordionHeader>
+            <AccordionTrigger>
+              {item.title}
+              <AccordionTriggerIcon />
+            </AccordionTrigger>
+          </AccordionHeader>
           <AccordionPanel>
             <div className={styles.panelContent}>{item.description}</div>
           </AccordionPanel>
@@ -186,7 +192,12 @@ export function DisabledItemAccordionExample() {
           value={item.value}
           disabled={item.value === 'getting-started'}
         >
-          <AccordionTrigger>{item.title}</AccordionTrigger>
+          <AccordionHeader>
+            <AccordionTrigger>
+              {item.title}
+              <AccordionTriggerIcon />
+            </AccordionTrigger>
+          </AccordionHeader>
           <AccordionPanel>
             <div className={styles.panelContent}>{item.description}</div>
           </AccordionPanel>
@@ -201,9 +212,14 @@ export function CustomStylesAccordionExample() {
     <Accordion defaultValue={['what-is-base-ui']}>
       {accordionItems.map((item) => (
         <AccordionItem key={item.value} value={item.value}>
-          <AccordionTrigger icon={<ChevronDownIcon />} classNames={{ icon: styles.customIcon }}>
-            {item.title}
-          </AccordionTrigger>
+          <AccordionHeader>
+            <AccordionTrigger>
+              {item.title}
+              <AccordionTriggerIcon className={styles.customIcon}>
+                <ChevronDownIcon />
+              </AccordionTriggerIcon>
+            </AccordionTrigger>
+          </AccordionHeader>
           <AccordionPanel>
             <div className={styles.panelContent}>{item.description}</div>
           </AccordionPanel>
