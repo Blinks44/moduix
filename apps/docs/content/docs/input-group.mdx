@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  CustomCompositionInputGroupExample,
   DisabledInputGroupExample,
   InputGroupCssPlaygroundPanel,
   InputGroupCssPropertiesPanel,
@@ -14,13 +13,14 @@ import {
   InputGroupPrefixSuffixExample,
   InputGroupSizesExample,
   InputGroupWithActionExample,
+  CustomStylesInputGroupExample,
   inputGroupPlaygroundCssProperties,
 } from '@/components/examples/input-group';
 
 ## API Reference
 
-`InputGroup` is a standalone moduix composition component for inputs with a shared border, focus
-ring, prefix, suffix, inline text, or action.
+`InputGroup` is a thin styled wrapper for composing `Input` with inline addons, text, and actions
+inside one field shell.
 
 ## Basic
 
@@ -71,13 +71,13 @@ InputGroup
 └─ InputGroupButton (optional)
 ```
 
-| Part               | Role                                                               |
-| ------------------ | ------------------------------------------------------------------ |
-| `InputGroup`       | Root slot. Applies size, border, background, focus, and state.     |
-| `InputGroupInput`  | Input slot. Renders the moduix `Input` without its own border.     |
-| `InputGroupAddon`  | Prefix or suffix surface with separator and optional icon content. |
-| `InputGroupText`   | Inline prefix or suffix text without filled addon background.      |
-| `InputGroupButton` | Inline action slot based on the moduix `Button`.                   |
+| Part               | Role                                                     |
+| ------------------ | -------------------------------------------------------- |
+| `InputGroup`       | Shared shell for border, radius, focus ring, and sizing. |
+| `InputGroupInput`  | The `Input` inside the shell.                            |
+| `InputGroupAddon`  | Filled prefix or suffix surface with a separator.        |
+| `InputGroupText`   | Plain inline text without the filled addon background.   |
+| `InputGroupButton` | Inline action based on `Button`.                         |
 
 ## Composition
 
@@ -85,21 +85,23 @@ Use `size` on `InputGroup` to keep every part aligned. `InputGroupInput` accepts
 `Input`, including controlled and uncontrolled values, native input attributes, and Field
 validation behavior.
 
+Clicking the shell focuses the input, matching the expected Base UI `InputGroup` behavior from
+combobox-like primitives.
+
 Pass `className` to the root or individual parts for targeted overrides. Use CSS variables for
 theme-level changes such as border color, addon background, padding, radius, and focus ring.
 
-`InputGroupButton` defaults to `type="button"` and `variant="ghost"` so it can be used inside forms
-without submitting them accidentally. Override `type`, `variant`, or `size` when a form submit or
-stronger action is intended.
+`InputGroupButton` defaults to `type="button"` and `variant="ghost"` so it can sit inside forms
+without submitting them accidentally. Override `type` or `variant` when the action needs a
+different behavior.
 
 ### Defaults
 
-| Part / Prop                | Default     | Values                                                  |
-| -------------------------- | ----------- | ------------------------------------------------------- |
-| `InputGroup.size`          | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                            |
-| `InputGroupButton.variant` | `ghost`     | Any `Button` variant (`default`, `outline`, `ghost`, …) |
-| `InputGroupButton.type`    | `button`    | `button`, `submit`, `reset`                             |
-| `InputGroupButton.size`    | from Button | Any `Button` size (`xs`, `sm`, `md`, `lg`, `xl`, …)     |
+| Part / Prop                | Default  | Values                                                  |
+| -------------------------- | -------- | ------------------------------------------------------- |
+| `InputGroup.size`          | `md`     | `xs`, `sm`, `md`, `lg`, `xl`                            |
+| `InputGroupButton.variant` | `ghost`  | Any `Button` variant (`default`, `outline`, `ghost`, …) |
+| `InputGroupButton.type`    | `button` | `button`, `submit`, `reset`                             |
 
 ## Examples
 
@@ -262,12 +264,12 @@ A disabled input dims the whole group shell.
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
-Use root CSS variables for customization without reaching into child internals.
+Use root CSS variables and part-level `className` overrides for custom styling.
 
 <Preview>
-  <CustomCompositionInputGroupExample />
+  <CustomStylesInputGroupExample />
 
   <Preview.Code>
     {`

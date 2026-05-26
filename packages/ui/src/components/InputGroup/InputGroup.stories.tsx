@@ -129,7 +129,7 @@ export const WithFieldValidation: Story = {
   },
 };
 
-export const CustomComposition: Story = {
+export const CustomStyles: Story = {
   render: () => {
     return (
       <InputGroup className={storyStyles.customGroup}>

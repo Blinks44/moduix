@@ -7,7 +7,6 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-  type InputGroupProps,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -124,7 +123,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function InputGroupExample(props: InputGroupProps) {
+export function InputGroupExample(props: React.ComponentProps<typeof InputGroup>) {
   return (
     <Field className={styles.field}>
       <FieldLabel>Workspace</FieldLabel>
@@ -218,7 +217,7 @@ export function InputGroupFieldValidationExample() {
   );
 }
 
-export function CustomCompositionInputGroupExample() {
+export function CustomStylesInputGroupExample() {
   return (
     <InputGroup className={styles.customGroup}>
       <InputGroupAddon className={styles.customAddon}>@</InputGroupAddon>
