@@ -6,22 +6,10 @@ export {
   NavigationMenuIcon,
   NavigationMenuContent,
   NavigationMenuLink,
-} from './NavigationMenu';
-
-export type {
-  NavigationMenuValue,
-  NavigationMenuProps,
-  NavigationMenuListProps,
-  NavigationMenuItemProps,
-  NavigationMenuTriggerProps,
-  NavigationMenuIconProps,
-  NavigationMenuContentProps,
-  NavigationMenuLinkProps,
-  NavigationMenuClassNames,
-  NavigationMenuSlotProps,
-  NavigationMenuTriggerClassNames,
-  NavigationMenuTriggerSlotProps,
-  NavigationMenuPopupClassNames,
-  NavigationMenuPopupSlotProps,
-  NavigationMenuPopupOptions,
+  NavigationMenuPortal,
+  NavigationMenuBackdrop,
+  NavigationMenuPositioner,
+  NavigationMenuPopup,
+  NavigationMenuArrow,
+  NavigationMenuViewport,
 } from './NavigationMenu';

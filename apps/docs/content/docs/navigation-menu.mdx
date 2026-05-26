@@ -5,11 +5,11 @@ icon: Component
 ---
 
 import {
+  CustomCompositionNavigationMenuExample,
   CustomIconNavigationMenuExample,
   FullWidthNavigationMenuExample,
   NavigationMenuCssPlaygroundPanel,
   NavigationMenuCssPropertiesPanel,
-  CustomCompositionNavigationMenuExample,
   NavigationMenuExample,
   NestedInlineNavigationMenuExample,
   NestedNavigationMenuExample,
@@ -29,11 +29,11 @@ import {
     {`
       import {
         NavigationMenu,
-        NavigationMenuList,
-        NavigationMenuItem,
-        NavigationMenuTrigger,
         NavigationMenuContent,
+        NavigationMenuItem,
         NavigationMenuLink,
+        NavigationMenuList,
+        NavigationMenuTrigger,
       } from "moduix";
 
       export function NavigationMenuDemo() {
@@ -41,38 +41,16 @@ import {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  Product
-                </NavigationMenuTrigger>
+                <NavigationMenuTrigger>Product</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className={styles.contentGrid}>
-                    {productLinks.map((link) => (
-                      <li key={link.title}>
-                        <a href={link.href} className={styles.linkCard}>
-                          <p className={styles.title}>{link.title}</p>
-                          <p className={styles.description}>{link.description}</p>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                  <ul className={styles.contentGrid}>{/* links */}</ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  Guides
-                </NavigationMenuTrigger>
+                <NavigationMenuTrigger>Guides</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className={styles.contentList}>
-                    {guideLinks.slice(0, 2).map((link) => (
-                      <li key={link.title}>
-                        <a href={link.href} className={styles.linkCard}>
-                          <p className={styles.title}>{link.title}</p>
-                          <p className={styles.description}>{link.description}</p>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                  <ul className={styles.contentList}>{/* links */}</ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
@@ -89,95 +67,6 @@ import {
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .contentList,
-      .contentGrid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--spacing-1);
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .linkCard {
-        box-sizing: border-box;
-        display: grid;
-        gap: var(--spacing-1);
-        min-width: 0;
-        width: 100%;
-        padding: var(--spacing-2) var(--spacing-3);
-        border-radius: var(--radius-md);
-        color: inherit;
-        text-decoration: none;
-        overflow-wrap: anywhere;
-      }
-
-      .linkCard:hover {
-        background-color: var(--color-muted);
-      }
-
-      .title {
-        margin: 0;
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .description {
-        margin: 0;
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      @media (min-width: 700px) {
-        .contentGrid {
-          grid-template-columns: repeat(2, minmax(12rem, 1fr));
-          width: min(34rem, calc(100vw - var(--spacing-8)));
-        }
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const productLinks = [
-        {
-          href: "#",
-          title: "Quick Start",
-          description: "Install the package and assemble your first navigation.",
-        },
-        {
-          href: "#",
-          title: "Composition",
-          description: "Use slots and className to match your application layout.",
-        },
-      ];
-
-      const guideLinks = [
-        {
-          href: "#",
-          title: "Accessibility handbook",
-          description: "Take a practical pass over focus order and keyboard support.",
-        },
-        {
-          href: "#",
-          title: "Composition handbook",
-          description: "Learn when to wrap parts and expose flexible APIs.",
-        },
-        {
-          href: "#",
-          title: "Styling handbook",
-          description: "Apply tokens and state styles without fighting markup.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
   <Preview.CSSProperties>
     {(context) => <NavigationMenuCssPropertiesPanel {...context} />}
   </Preview.CSSProperties>
@@ -188,401 +77,63 @@ import {
 
 ## Anatomy
 
-`NavigationMenu` is built from the visible navigation parts (`List`, `Item`, `Trigger`,
-`Content`, `Link`) plus the trigger icon slot. Popup infrastructure (`Portal`, `Positioner`,
-`Popup`, `Arrow`, `Viewport`) stays internal by default through `popupContent`, so common menus
-can use a short composition.
+`NavigationMenu` is a styled wrapper around the Base UI primitive. The default path keeps popup
+infrastructure internal and only asks for the visible parts.
 
 ```text
 NavigationMenu
 └─ NavigationMenuList
    ├─ NavigationMenuItem
    │  ├─ NavigationMenuTrigger
-   │  │  └─ label
    │  └─ NavigationMenuContent
-   │     └─ content
    └─ NavigationMenuItem
       └─ NavigationMenuLink
 ```
 
-```tsx
-<NavigationMenu>
-  <NavigationMenuList>
-    <NavigationMenuItem>
-      <NavigationMenuTrigger>Product</NavigationMenuTrigger>
-      <NavigationMenuContent>
-        <ul>
-          <li>
-            <a href="#">Quick Start</a>
-          </li>
-          <li>
-            <a href="#">Composition</a>
-          </li>
-        </ul>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-
-    <NavigationMenuItem>
-      <NavigationMenuLink href="#" closeOnClick>
-        Releases
-      </NavigationMenuLink>
-    </NavigationMenuItem>
-  </NavigationMenuList>
-</NavigationMenu>
-```
-
-| Part                    | Role                                                                                                          |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `NavigationMenu`        | Root state machine. Controls value, orientation, open state, and shared popup behavior.                       |
-| `NavigationMenuList`    | Semantic list wrapper for top-level navigation items.                                                         |
-| `NavigationMenuItem`    | One navigation node that can render either a trigger/content pair or a direct link.                           |
-| `NavigationMenuTrigger` | Interactive control that toggles associated content and receives state attributes.                            |
-| `NavigationMenuIcon`    | Icon slot rendered by `NavigationMenuTrigger`; use `icon`, `hideIcon`, or `classNames.icon` for common cases. |
-| `NavigationMenuContent` | Panel content for a trigger item; rendered with popup mechanics by default.                                   |
-| `NavigationMenuLink`    | Direct navigation link item that can participate in close behavior with `closeOnClick`.                       |
-
-In most cases, style the visible parts first. Use `popupContent.className` and
-`popupContent.classNames` only when popup infrastructure needs separate styling.
+The root renders `Portal`, `Positioner`, `Popup`, `Arrow`, and `Viewport` automatically. Those
+parts stay available as explicit building blocks when you need a different DOM structure, popup
+layout, backdrop, or inline viewport.
 
 ## Composition
 
 `NavigationMenu` forwards Base UI root props such as `value`, `defaultValue`, `onValueChange`,
 `delay`, `closeDelay`, `orientation`, `actionsRef`, `render`, `className`, and `style`.
-`NavigationMenuTrigger`, `NavigationMenuContent`, and `NavigationMenuLink` forward their matching
-Base UI props, including `render`, `keepMounted`, `active`, and `closeOnClick`.
 
-`NavigationMenuTrigger` renders a chevron icon by default. Pass `icon` to replace it, `hideIcon`
-to remove it, or `classNames.icon` / `slotProps.icon` when only the icon slot needs styling or
-extra props.
+The high-level root also accepts a small popup contract:
 
-Use `popupContent` for placement and popup styling. `popupContent.className` styles the visible
-popup, while `popupContent.classNames` styles the internal service slots:
+| Prop                                                                                                                                                                         | Default                             | Purpose                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `showPopup`                                                                                                                                                                  | `true`                              | Disables the built-in popup composition so you can assemble `Portal`, `Positioner`, `Popup`, `Arrow`, and `Viewport` manually. |
+| `showArrow`                                                                                                                                                                  | `true`                              | Toggles the built-in popup arrow in the default composition.                                                                   |
+| `sideOffset`                                                                                                                                                                 | `10`                                | Default offset for the built-in `Positioner`.                                                                                  |
+| `side`, `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`, `disableAnchorTracking` | Base UI defaults unless noted above | Forwarded to the built-in `Positioner`.                                                                                        |
 
-```tsx
-<NavigationMenu
-  popupContent={{
-    sideOffset: 16,
-    withBackdrop: true,
-    className: styles.popup,
-    classNames: {
-      portal: styles.portal,
-      backdrop: styles.backdrop,
-      positioner: styles.positioner,
-      arrow: styles.arrow,
-      viewport: styles.viewport,
-    },
-  }}
-/>
-```
+`NavigationMenuTrigger` keeps two small DX shortcuts:
 
-`popupContent` accepts Base UI popup props and the full positioner surface: `side`, `sideOffset`,
-`align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`,
-`collisionPadding`, `sticky`, `positionMethod`, and `disableAnchorTracking`. Use
-`popupContent.container` for the portal container, `popupContent.withBackdrop` for a backdrop,
-`popupContent.withArrow={false}` to hide the arrow, `popupContent.fullWidth` for viewport-width
-popup layout, and `popupContent.slotProps` when a service slot needs non-class props.
+| Prop       | Default                | Purpose                            |
+| ---------- | ---------------------- | ---------------------------------- |
+| `icon`     | `ChevronDownSmallIcon` | Replaces the default trigger icon. |
+| `hideIcon` | `false`                | Removes the built-in trigger icon. |
 
-Use `popupContent={false}` and `withViewport` when a nested menu should render its content inside
-the current panel instead of opening another popup.
-
-### Defaults
-
-| Prop                             | Default                | Values                          |
-| -------------------------------- | ---------------------- | ------------------------------- |
-| `withViewport`                   | `false`                | `true`, `false`                 |
-| `popupContent`                   | `{}`                   | `false` or popup options object |
-| `popupContent.sideOffset`        | `10`                   | Number                          |
-| `popupContent.withArrow`         | `true`                 | `true`, `false`                 |
-| `popupContent.withBackdrop`      | `false`                | `true`, `false`                 |
-| `popupContent.fullWidth`         | `false`                | `true`, `false`                 |
-| `NavigationMenuTrigger.hideIcon` | `false`                | `true`, `false`                 |
-| `NavigationMenuTrigger.icon`     | `ChevronDownSmallIcon` | Any React node                  |
+When the default path is enough, style `NavigationMenu`, `NavigationMenuTrigger`,
+`NavigationMenuContent`, and `NavigationMenuLink`. Switch to explicit parts only when structure or
+popup behavior needs to change.
 
 ## Examples
 
-### Full Width Popup
-
-Use `popupContent.fullWidth` when the popup should span the full viewport width, while the menu
-itself stays inside the page container. The example also shows 2/3/4-column layouts and content
-alignment control through CSS.
-
-<Preview>
-  <FullWidthNavigationMenuExample />
-
-  <Preview.Code>
-    {`
-      import {
-        NavigationMenu,
-        NavigationMenuContent,
-        NavigationMenuItem,
-        NavigationMenuLink,
-        NavigationMenuList,
-        NavigationMenuTrigger,
-      } from "moduix";
-      import styles from "./navigation-menu.module.css";
-
-      export function FullWidthNavigationMenuDemo() {
-        return (
-          <header className={styles.header}>
-            <div className={styles.container}>
-              <NavigationMenu
-                className={styles.menu}
-                popupContent={{
-                  fullWidth: true,
-                  sideOffset: 12,
-                  withArrow: false,
-                  classNames: { positioner: styles.positioner },
-                }}
-              >
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
-                    <NavigationMenuContent className={styles.content}>
-                      <div className={styles.contentInner}>
-                        <ul className={styles.gridCols2}>{/* 2-column links */}</ul>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Developers</NavigationMenuTrigger>
-                    <NavigationMenuContent className={styles.content}>
-                      <div className={styles.contentInner}>
-                        <ul className={styles.gridCols3}>{/* 3-column links */}</ul>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Design System</NavigationMenuTrigger>
-                    <NavigationMenuContent className={styles.content}>
-                      <div className={styles.contentInner}>
-                        <ul className={styles.gridCols4}>{/* 4-column links */}</ul>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink href="#">Pricing</NavigationMenuLink>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-          </header>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .header {
-        width: 100%;
-      }
-
-      .container {
-        display: flex;
-        justify-content: center;
-        max-width: 72rem;
-        margin: 0 auto;
-        padding: 0 var(--spacing-4);
-      }
-
-      .menu {
-        --navigation-menu-full-width-content-justify: center;
-      }
-
-      .positioner {
-        --navigation-menu-full-width-inset: 32px;
-      }
-
-      .content {
-        padding: var(--spacing-5) 0;
-      }
-
-      .contentInner {
-        display: grid;
-        justify-content: var(--navigation-menu-full-width-content-justify, center);
-        max-width: 72rem;
-        margin: 0 auto;
-        padding: 0 var(--spacing-4);
-      }
-
-      .gridCols2,
-      .gridCols3,
-      .gridCols4 {
-        display: grid;
-        width: max-content;
-        gap: var(--spacing-1);
-        margin: 0 auto;
-        padding: 0;
-        list-style: none;
-      }
-
-      .gridCols2 {
-        grid-template-columns: repeat(2, minmax(12rem, 16rem));
-      }
-
-      .gridCols3 {
-        grid-template-columns: repeat(3, minmax(12rem, 16rem));
-      }
-
-      .gridCols4 {
-        grid-template-columns: repeat(4, minmax(12rem, 16rem));
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### Nested Submenu
 
-Nest another `NavigationMenu` inside content when a second-level menu should open in a separate popup.
-The nested popup can still use collision handling from Base UI.
+Use another `NavigationMenu` inside content when a second-level submenu should open in its own
+popup.
 
 <Preview>
   <NestedNavigationMenuExample />
-
-  <Preview.Code>
-    {`
-      import {
-        ChevronRightIcon,
-        NavigationMenu,
-        NavigationMenuContent,
-        NavigationMenuItem,
-        NavigationMenuLink,
-        NavigationMenuList,
-        NavigationMenuTrigger,
-      } from "moduix";
-
-      export function NestedNavigationMenuDemo() {
-        return (
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  Overview
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className={styles.contentList}>
-                    <li>
-                      <a href="#" className={styles.linkCard}>Quick Start</a>
-                    </li>
-                    <li className={styles.fullWidth}>
-                      <NavigationMenu
-                        className={styles.nestedRoot}
-                        orientation="vertical"
-                        popupContent={{
-                          side: "right",
-                          align: "end",
-                          sideOffset: 24,
-                          alignOffset: -24,
-                          withArrow: false,
-                        }}
-                      >
-                        <NavigationMenuList className={styles.fullWidth}>
-                          <NavigationMenuItem className={styles.fullWidth}>
-                            <NavigationMenuTrigger
-                              className={styles.nestedTrigger}
-                              icon={<ChevronRightIcon />}
-                              classNames={{ icon: styles.nestedIcon }}
-                            >
-                              <span>Handbook</span>
-                            </NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                              <ul className={styles.contentList}>
-                                {guideLinks.map((link) => (
-                                  <li key={link.title}>
-                                    <a href={link.href} className={styles.linkCard}>
-                                      {link.title}
-                                    </a>
-                                  </li>
-                                ))}
-                              </ul>
-                            </NavigationMenuContent>
-                          </NavigationMenuItem>
-                        </NavigationMenuList>
-                      </NavigationMenu>
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink href="#">GitHub</NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .contentList {
-        display: grid;
-        gap: var(--spacing-1);
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .linkCard,
-      .nestedTrigger {
-        box-sizing: border-box;
-        display: grid;
-        gap: var(--spacing-1);
-        width: 100%;
-        padding: var(--spacing-2) var(--spacing-3);
-        border-radius: var(--radius-md);
-        color: inherit;
-        text-align: left;
-        text-decoration: none;
-        overflow-wrap: anywhere;
-      }
-
-      .fullWidth {
-        width: 100%;
-      }
-
-      .nestedRoot {
-        --navigation-menu-bg: transparent;
-        --navigation-menu-min-width: 0;
-        --navigation-menu-padding: 0;
-      }
-
-      .nestedTrigger {
-        position: relative;
-        padding-right: 2rem;
-      }
-
-      .nestedIcon {
-        position: absolute;
-        top: 50%;
-        right: 0.625rem;
-        transform: translateY(-50%);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const guideLinks = [
-        { href: "#", title: "Accessibility handbook" },
-        { href: "#", title: "Composition handbook" },
-        { href: "#", title: "Styling handbook" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Nested Inline Submenu
 
-Use `popupContent={false}` when second-level content should stay inside the same panel.
-Set `withViewport` on the nested menu and pass `classNames.viewport` to style the automatic viewport.
+When second-level content should stay inside the current panel, disable the built-in popup and
+render `NavigationMenuViewport` inline.
 
 <Preview>
   <NestedInlineNavigationMenuExample />
@@ -595,47 +146,23 @@ Set `withViewport` on the nested menu and pass `classNames.viewport` to style th
         NavigationMenuItem,
         NavigationMenuList,
         NavigationMenuTrigger,
+        NavigationMenuViewport,
       } from "moduix";
-      import { useMediaQuery } from "@base-ui/react/unstable-use-media-query";
 
-      export function NestedInlineNavigationMenuDemo() {
-        const isDesktop = useMediaQuery("(min-width: 700px)", { defaultMatches: true });
-
+      export function InlineNavigationMenuDemo() {
         return (
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  Product
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className={styles.inlineProductContent}>
+                <NavigationMenuTrigger>Product</NavigationMenuTrigger>
+                <NavigationMenuContent>
                   <NavigationMenu
-                    className={styles.inlineNestedRoot}
-                    orientation={isDesktop ? "vertical" : "horizontal"}
                     defaultValue="developers"
-                    popupContent={false}
-                    withViewport
-                    classNames={{ viewport: styles.inlineViewport }}
+                    orientation="vertical"
+                    showPopup={false}
                   >
-                    <NavigationMenuList className={styles.inlineList}>
-                      {sections.map((section) => (
-                        <NavigationMenuItem key={section.value} value={section.value}>
-                          <NavigationMenuTrigger className={styles.inlineTrigger} hideIcon>
-                            <span>{section.title}</span>
-                            <span>{section.description}</span>
-                          </NavigationMenuTrigger>
-                          <NavigationMenuContent className={styles.inlineSubmenuContent}>
-                            <ul className={styles.contentList}>
-                              {section.links.map((link) => (
-                                <li key={link}>
-                                  <a href="#" className={styles.linkCard}>{link}</a>
-                                </li>
-                              ))}
-                            </ul>
-                          </NavigationMenuContent>
-                        </NavigationMenuItem>
-                      ))}
-                    </NavigationMenuList>
+                    <NavigationMenuList>{/* nested items */}</NavigationMenuList>
+                    <NavigationMenuViewport className={styles.inlineViewport} />
                   </NavigationMenu>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -646,110 +173,12 @@ Set `withViewport` on the nested menu and pass `classNames.viewport` to style th
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .inlineProductContent {
-        width: calc(100vw - 40px);
-        height: 100%;
-        max-width: 675px;
-        padding: 0;
-      }
-
-      .inlineNestedRoot {
-        display: grid;
-        grid-template-columns: 1fr;
-        overflow: hidden;
-        padding: 0;
-        border-radius: var(--radius-lg);
-      }
-
-      .inlineList {
-        display: flex;
-        flex-direction: row;
-        gap: var(--spacing-2);
-        overflow-x: auto;
-        margin: 0;
-        padding: var(--spacing-3);
-        border-bottom: var(--border-width-sm) solid var(--color-border);
-        background-color: var(--color-muted);
-        list-style: none;
-      }
-
-      .inlineTrigger {
-        box-sizing: border-box;
-        display: grid;
-        justify-content: flex-start;
-        gap: var(--spacing-1);
-        width: 100%;
-        min-width: 10rem;
-        padding: var(--spacing-2) var(--spacing-3);
-        border-radius: var(--radius-md);
-        text-align: left;
-      }
-
-      .inlineTrigger[data-popup-open],
-      .inlineTrigger[data-active] {
-        background-color: var(--color-background);
-      }
-
-      .inlineSubmenuContent {
-        height: 100%;
-        padding: var(--spacing-4);
-      }
-
-      .inlineViewport {
-        min-height: 16.5rem;
-        border-top: var(--border-width-sm) solid var(--color-border);
-      }
-
-      @media (min-width: 700px) {
-        .inlineNestedRoot {
-          grid-template-columns: 13rem minmax(0, 1fr);
-        }
-
-        .inlineList {
-          flex-direction: column;
-          height: var(--popup-height);
-          overflow-x: visible;
-          overflow-y: auto;
-          border-right: var(--border-width-sm) solid var(--color-border);
-          border-bottom: 0;
-        }
-
-        .inlineViewport {
-          border-top: 0;
-        }
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sections = [
-        {
-          value: "developers",
-          title: "Developers",
-          description: "API, SDK and integrations",
-          links: ["API Overview", "Web SDK", "Composition"],
-        },
-        {
-          value: "systems",
-          title: "Design Systems",
-          description: "Patterns and governance",
-          links: ["Styling", "Accessibility", "Release notes"],
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Composition
 
-Use `popupContent.className` and `popupContent.classNames` when styling the popup and the hidden
-Base UI service slots.
+When you need a backdrop, custom popup structure, or direct styling hooks for the infrastructure
+parts, disable the default popup and compose the low-level parts explicitly.
 
 <Preview>
   <CustomCompositionNavigationMenuExample />
@@ -758,196 +187,57 @@ Base UI service slots.
     {`
       import {
         NavigationMenu,
+        NavigationMenuArrow,
+        NavigationMenuBackdrop,
         NavigationMenuContent,
         NavigationMenuItem,
         NavigationMenuList,
+        NavigationMenuPopup,
+        NavigationMenuPortal,
+        NavigationMenuPositioner,
         NavigationMenuTrigger,
+        NavigationMenuViewport,
       } from "moduix";
 
-      export function CustomCompositionNavigationMenuDemo() {
+      export function CustomNavigationMenuDemo() {
         return (
-          <NavigationMenu
-            className={styles.customRoot}
-            popupContent={{
-              sideOffset: 16,
-              withBackdrop: true,
-              classNames: {
-                portal: styles.portal,
-                backdrop: styles.backdrop,
-                positioner: styles.positioner,
-                arrow: styles.arrow,
-                viewport: styles.viewport,
-              },
-            }}
-          >
+          <NavigationMenu showPopup={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  Resources
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className={styles.contentList}>
-                    {guideLinks.map((link) => (
-                      <li key={link.title}>
-                        <a href={link.href} className={styles.linkCard}>
-                          {link.title}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
+                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                <NavigationMenuContent>{/* content */}</NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
+
+            <NavigationMenuPortal>
+              <NavigationMenuBackdrop />
+              <NavigationMenuPositioner sideOffset={16}>
+                <NavigationMenuPopup>
+                  <NavigationMenuArrow />
+                  <NavigationMenuViewport />
+                </NavigationMenuPopup>
+              </NavigationMenuPositioner>
+            </NavigationMenuPortal>
           </NavigationMenu>
         );
       }
     `}
 
   </Preview.Code>
+</Preview>
 
-  <Preview.CSS>
-    {`
-      .contentList {
-        display: grid;
-        gap: var(--spacing-1);
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
+### Full Width Popup
 
-      .linkCard {
-        display: block;
-        padding: var(--spacing-2) var(--spacing-3);
-        border-radius: var(--radius-md);
-        color: inherit;
-        text-decoration: none;
-      }
+The same low-level path covers viewport-width popups without adding a dedicated root prop.
 
-      .portal {
-        z-index: var(--z-popup);
-      }
-
-      .customRoot {
-        position: relative;
-        z-index: calc(var(--z-popup) + 1);
-      }
-
-      .backdrop {
-        background-color: rgb(15 23 42 / 0.08);
-        backdrop-filter: blur(2px);
-      }
-
-      .positioner {
-        --navigation-menu-positioner-gap: var(--spacing-2);
-      }
-
-      .arrow {
-        color: var(--color-background);
-        --navigation-menu-arrow-stroke-color: var(--navigation-menu-popup-border-color);
-      }
-
-      .viewport {
-        overflow: hidden;
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const guideLinks = [
-        { href: "#", title: "Accessibility handbook" },
-        { href: "#", title: "Composition handbook" },
-        { href: "#", title: "Styling handbook" },
-      ];
-    `}
-
-  </Preview.Data>
+<Preview>
+  <FullWidthNavigationMenuExample />
 </Preview>
 
 ### Custom Icon
 
-Pass `icon` to `NavigationMenuTrigger` to use any icon from your app or icon library.
+Use `icon` for the common case. Use `hideIcon` when the trigger should not render one.
 
 <Preview>
   <CustomIconNavigationMenuExample />
-
-  <Preview.Code>
-    {`
-      import {
-        ChevronDownIcon,
-        NavigationMenu,
-        NavigationMenuContent,
-        NavigationMenuItem,
-        NavigationMenuList,
-        NavigationMenuTrigger,
-      } from "moduix";
-
-      export function CustomIconNavigationMenuDemo() {
-        return (
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger
-                  icon={<ChevronDownIcon />}
-                  classNames={{ icon: styles.customIcon }}
-                >
-                  Resources
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className={styles.contentList}>
-                    {guideLinks.slice(0, 2).map((link) => (
-                      <li key={link.title}>
-                        <a href={link.href} className={styles.linkCard}>
-                          {link.title}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .contentList {
-        display: grid;
-        gap: var(--spacing-1);
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .linkCard {
-        display: block;
-        padding: var(--spacing-2) var(--spacing-3);
-        border-radius: var(--radius-md);
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .customIcon {
-        width: 1rem;
-        height: 1rem;
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const guideLinks = [
-        { href: "#", title: "Accessibility handbook" },
-        { href: "#", title: "Composition handbook" },
-        { href: "#", title: "Styling handbook" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>

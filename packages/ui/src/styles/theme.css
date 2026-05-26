@@ -1450,7 +1450,6 @@
   --navigation-menu-disabled-opacity: initial; /* var(--opacity-disabled) */
   --navigation-menu-focus-ring-color: initial; /* var(--color-ring) */
   --navigation-menu-focus-ring-width: initial; /* var(--border-width-sm) */
-  --navigation-menu-full-width-inset: initial; /* 0px */
   --navigation-menu-icon-color: initial; /* currentColor */
   --navigation-menu-icon-size: initial; /* 0.875rem */
   --navigation-menu-icon-transition: initial; /* var(--navigation-menu-transition, 200ms ease) */

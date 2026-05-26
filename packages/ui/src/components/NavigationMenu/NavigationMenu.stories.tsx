@@ -3,11 +3,18 @@ import { useMediaQuery } from '@base-ui/react/unstable-use-media-query';
 import { ChevronRightIcon } from '@/primitives/Icons';
 import {
   NavigationMenu,
+  NavigationMenuArrow,
+  NavigationMenuBackdrop,
   NavigationMenuContent,
+  NavigationMenuIcon,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuPopup,
+  NavigationMenuPortal,
+  NavigationMenuPositioner,
   NavigationMenuTrigger,
+  NavigationMenuViewport,
 } from './NavigationMenu';
 import styles from './NavigationMenu.stories.module.css';
 
@@ -92,20 +99,7 @@ export const CustomComposition: Story = {
   name: 'Custom Composition',
   render: () => {
     return (
-      <NavigationMenu
-        className={styles.customRoot}
-        popupContent={{
-          sideOffset: 16,
-          withBackdrop: true,
-          classNames: {
-            portal: styles.portal,
-            backdrop: styles.backdrop,
-            positioner: styles.positioner,
-            arrow: styles.arrow,
-            viewport: styles.viewport,
-          },
-        }}
-      >
+      <NavigationMenu className={styles.customRoot} showPopup={false}>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
@@ -123,6 +117,15 @@ export const CustomComposition: Story = {
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
+        <NavigationMenuPortal className={styles.portal}>
+          <NavigationMenuBackdrop className={styles.backdrop} />
+          <NavigationMenuPositioner className={styles.positioner} sideOffset={16}>
+            <NavigationMenuPopup>
+              <NavigationMenuArrow className={styles.arrow} />
+              <NavigationMenuViewport className={styles.viewport} />
+            </NavigationMenuPopup>
+          </NavigationMenuPositioner>
+        </NavigationMenuPortal>
       </NavigationMenu>
     );
   },
@@ -134,15 +137,7 @@ export const FullWidthPopup: Story = {
     return (
       <header className={styles.fullWidthHeader}>
         <div className={styles.fullWidthContainer}>
-          <NavigationMenu
-            className={styles.fullWidthMenu}
-            popupContent={{
-              fullWidth: true,
-              sideOffset: 12,
-              withArrow: false,
-              classNames: { positioner: styles.fullWidthPositioner },
-            }}
-          >
+          <NavigationMenu className={styles.fullWidthMenu} showPopup={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
@@ -199,6 +194,13 @@ export const FullWidthPopup: Story = {
                 <NavigationMenuLink href="#">Pricing</NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
+            <NavigationMenuPortal>
+              <NavigationMenuPositioner className={styles.fullWidthPositioner} sideOffset={12}>
+                <NavigationMenuPopup className={styles.fullWidthPopup}>
+                  <NavigationMenuViewport />
+                </NavigationMenuPopup>
+              </NavigationMenuPositioner>
+            </NavigationMenuPortal>
           </NavigationMenu>
         </div>
       </header>
@@ -228,25 +230,22 @@ export const NestedSubmenu: Story = {
                   <NavigationMenu
                     className={styles.nestedMenu}
                     orientation="vertical"
-                    popupContent={{
-                      side: 'right',
-                      align: 'end',
-                      sideOffset: 24,
-                      alignOffset: -24,
-                      withArrow: false,
-                    }}
+                    side="right"
+                    align="end"
+                    sideOffset={24}
+                    alignOffset={-24}
+                    showArrow={false}
                   >
                     <NavigationMenuList className={styles.nestedList}>
                       <NavigationMenuItem className={styles.nestedItem}>
-                        <NavigationMenuTrigger
-                          className={styles.nestedTrigger}
-                          icon={<ChevronRightIcon />}
-                          classNames={{ icon: styles.nestedTriggerIcon }}
-                        >
+                        <NavigationMenuTrigger className={styles.nestedTrigger} hideIcon>
                           <span className={styles.contentTitle}>Handbook</span>
                           <span className={styles.contentDescription}>
                             How to use Base UI effectively.
                           </span>
+                          <NavigationMenuIcon className={styles.nestedTriggerIcon}>
+                            <ChevronRightIcon />
+                          </NavigationMenuIcon>
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <ul className={styles.contentList}>
@@ -291,10 +290,7 @@ export const NestedInlineSubmenu: Story = {
     const isDesktop = useMediaQuery('(min-width: 700px)', { defaultMatches: true });
 
     return (
-      <NavigationMenu
-        className={styles.inlineRoot}
-        popupContent={{ collisionAvoidance: { side: 'none' } }}
-      >
+      <NavigationMenu className={styles.inlineRoot} collisionAvoidance={{ side: 'none' }}>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Product</NavigationMenuTrigger>
@@ -303,9 +299,7 @@ export const NestedInlineSubmenu: Story = {
                 orientation={isDesktop ? 'vertical' : 'horizontal'}
                 defaultValue="developers"
                 className={`${styles.inlineNestedRoot} ${styles.inlineLayout}`}
-                popupContent={false}
-                withViewport
-                classNames={{ viewport: styles.inlineViewport }}
+                showPopup={false}
               >
                 <NavigationMenuList className={styles.inlineList}>
                   <NavigationMenuItem value="developers">
@@ -354,6 +348,7 @@ export const NestedInlineSubmenu: Story = {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                 </NavigationMenuList>
+                <NavigationMenuViewport className={styles.inlineViewport} />
               </NavigationMenu>
             </NavigationMenuContent>
           </NavigationMenuItem>

@@ -210,15 +210,6 @@
     }
   }
 
-  .positionerFullWidth[data-side='top'],
-  .positionerFullWidth[data-side='bottom'] {
-    width: calc(100vw - (var(--navigation-menu-full-width-inset, 0px) * 2));
-    max-width: calc(100vw - (var(--navigation-menu-full-width-inset, 0px) * 2));
-    left: 50vw !important;
-    right: auto !important;
-    transform: translateX(-50%);
-  }
-
   .popup {
     box-sizing: border-box;
     position: relative;
@@ -252,15 +243,6 @@
       transition-duration: var(--navigation-menu-popup-leave-duration, 150ms);
       transition-timing-function: ease;
     }
-  }
-
-  .popupFullWidth {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .popupFullWidth .content {
-    width: 100%;
   }
 
   .content {

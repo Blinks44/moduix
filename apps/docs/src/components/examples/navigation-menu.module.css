@@ -38,7 +38,16 @@
 }
 
 .fullWidthPositioner {
-  --navigation-menu-full-width-inset: 32px;
+  width: calc(100vw - 64px);
+  max-width: calc(100vw - 64px);
+  left: 50vw !important;
+  right: auto !important;
+  transform: translateX(-50%);
+}
+
+.fullWidthPopup {
+  width: 100%;
+  max-width: 100%;
 }
 
 .fullWidthContent {
