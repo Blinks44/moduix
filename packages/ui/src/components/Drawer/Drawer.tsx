@@ -1,80 +1,41 @@
 import { Drawer as DrawerPrimitive } from '@base-ui/react/drawer';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { ChevronDownIcon, ChevronUpIcon } from '@/primitives';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Drawer.module.css';
 
-type DrawerContentClassNames = {
-  portal?: DrawerPrimitive.Portal.Props['className'];
-  backdrop?: DrawerPrimitive.Backdrop.Props['className'];
-  viewport?: DrawerPrimitive.Viewport.Props['className'];
-  content?: DrawerPrimitive.Content.Props['className'];
-  handle?: React.ComponentProps<'div'>['className'];
-};
+const DrawerModalContext = React.createContext<DrawerPrimitive.Root.Props['modal']>(true);
 
-type DrawerContentSlotProps = {
-  portal?: Omit<DrawerPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<DrawerPrimitive.Backdrop.Props, 'className'>;
-  viewport?: Omit<DrawerPrimitive.Viewport.Props, 'className' | 'children'>;
-  content?: Omit<DrawerPrimitive.Content.Props, 'className' | 'children'>;
-  handle?: Omit<React.ComponentProps<'div'>, 'className'>;
-};
+function useMountReady(disableInitialAnimation: boolean) {
+  const [mountReady, setMountReady] = React.useState(!disableInitialAnimation);
 
-type DrawerContentProps = Omit<DrawerPrimitive.Popup.Props, 'className'> & {
-  className?: DrawerPrimitive.Popup.Props['className'];
-  classNames?: DrawerContentClassNames;
-  slotProps?: DrawerContentSlotProps;
-  container?: DrawerPrimitive.Portal.Props['container'];
-  withBackdrop?: boolean;
-  withHandle?: boolean;
-  snapLayout?: boolean;
-  variant?: 'bleed' | 'island';
-  disableInitialAnimation?: boolean;
-};
+  React.useEffect(() => {
+    if (!disableInitialAnimation) {
+      setMountReady(true);
+      return;
+    }
 
-type DrawerProps<Payload = unknown> = DrawerPrimitive.Root.Props<Payload> & {
-  persistent?: boolean;
-};
+    setMountReady(false);
+    let frame = window.requestAnimationFrame(() => {
+      setMountReady(true);
+    });
 
-const DEFAULT_DRAWER_VARIANT: NonNullable<DrawerContentProps['variant']> = 'bleed';
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
+  }, [disableInitialAnimation]);
+
+  return mountReady;
+}
 
 function Drawer<Payload = unknown>({
-  persistent = false,
-  onOpenChange,
-  onSnapPointChange,
+  modal = true,
   ...props
-}: DrawerProps<Payload>) {
-  const handleOpenChange: DrawerPrimitive.Root.Props<Payload>['onOpenChange'] = (
-    open,
-    eventDetails,
-  ) => {
-    if (persistent && !open) {
-      eventDetails.cancel();
-      return;
-    }
-
-    onOpenChange?.(persistent ? true : open, eventDetails);
-  };
-
-  const handleSnapPointChange: DrawerPrimitive.Root.Props<Payload>['onSnapPointChange'] = (
-    snapPoint,
-    eventDetails,
-  ) => {
-    if (persistent && snapPoint === null) {
-      eventDetails.cancel();
-      return;
-    }
-
-    onSnapPointChange?.(snapPoint, eventDetails);
-  };
-
+}: DrawerPrimitive.Root.Props<Payload>) {
   return (
-    <DrawerPrimitive.Root
-      onOpenChange={handleOpenChange}
-      onSnapPointChange={handleSnapPointChange}
-      {...props}
-    />
+    <DrawerModalContext.Provider value={modal}>
+      <DrawerPrimitive.Root modal={modal} {...props} />
+    </DrawerModalContext.Provider>
   );
 }
 
@@ -146,18 +107,21 @@ function DrawerViewport({ className, ...props }: DrawerPrimitive.Viewport.Props)
   );
 }
 
-function DrawerPopup({ className, style, ...props }: DrawerPrimitive.Popup.Props) {
+function DrawerPopup({ className, ...props }: DrawerPrimitive.Popup.Props) {
   return (
     <DrawerPrimitive.Popup
       data-slot="drawer-popup"
       className={mergeClassName(className, styles.popup)}
-      style={{ outline: 'none', ...style }}
       {...props}
     />
   );
 }
 
-function DrawerContentSlot({ className, ...props }: DrawerPrimitive.Content.Props) {
+function DrawerHandle({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div data-slot="drawer-handle" className={clsx(styles.handle, className)} {...props} />;
+}
+
+function DrawerContentInner({ className, ...props }: DrawerPrimitive.Content.Props) {
   return (
     <DrawerPrimitive.Content
       data-slot="drawer-content"
@@ -197,36 +161,6 @@ function DrawerClose({ className, ...props }: DrawerPrimitive.Close.Props) {
   );
 }
 
-type DrawerSnapToggleProps = React.ComponentProps<'button'> & {
-  expanded: boolean;
-};
-
-function DrawerSnapToggle({
-  expanded,
-  className,
-  children,
-  type = 'button',
-  ...props
-}: DrawerSnapToggleProps) {
-  return (
-    <button
-      data-slot="drawer-snap-toggle"
-      data-base-ui-swipe-ignore=""
-      aria-label={expanded ? 'Collapse drawer' : 'Expand drawer'}
-      aria-pressed={expanded}
-      type={type}
-      className={clsx(styles.snapToggle, className)}
-      {...props}
-    >
-      {children ?? (expanded ? <ChevronDownIcon /> : <ChevronUpIcon />)}
-    </button>
-  );
-}
-
-function DrawerHandle({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="drawer-handle" className={clsx(styles.handle, className)} {...props} />;
-}
-
 function DrawerHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return <div data-slot="drawer-header" className={clsx(styles.header, className)} {...props} />;
 }
@@ -239,87 +173,37 @@ function DrawerFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return <div data-slot="drawer-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-function useMountReady(disableInitialAnimation: boolean) {
-  const [mountReady, setMountReady] = React.useState(!disableInitialAnimation);
-
-  React.useEffect(() => {
-    if (!disableInitialAnimation) {
-      setMountReady(true);
-      return;
-    }
-
-    setMountReady(false);
-    let frame = 0;
-    frame = window.requestAnimationFrame(() => {
-      setMountReady(true);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-    };
-  }, [disableInitialAnimation]);
-
-  return mountReady;
-}
-
 function DrawerContent({
-  withBackdrop = true,
-  withHandle = true,
   snapLayout = false,
-  variant = DEFAULT_DRAWER_VARIANT,
   disableInitialAnimation = false,
   className,
-  classNames,
-  slotProps,
-  container,
   children,
   ...props
-}: DrawerContentProps) {
+}: DrawerPrimitive.Popup.Props & {
+  snapLayout?: boolean;
+  disableInitialAnimation?: boolean;
+}) {
+  const modal = React.useContext(DrawerModalContext);
   const mountReady = useMountReady(disableInitialAnimation);
 
-  const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
-  const resolvedContainer = container ?? slotPortalContainer;
-
   return (
-    <DrawerPortal
-      className={classNames?.portal}
-      container={resolvedContainer}
-      {...restPortalSlotProps}
-    >
-      {withBackdrop ? (
-        <DrawerBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
-      ) : null}
-      <DrawerViewport className={classNames?.viewport} {...slotProps?.viewport}>
+    <DrawerPortal>
+      {modal === true ? <DrawerBackdrop /> : null}
+      <DrawerViewport className={modal === true ? undefined : styles.viewportNonModal}>
         <DrawerPopup
           data-snap-layout={snapLayout ? '' : undefined}
-          data-variant={variant}
           data-disable-initial-animation={disableInitialAnimation ? 'true' : undefined}
           data-mount-ready={mountReady ? 'true' : 'false'}
           className={className}
           {...props}
         >
-          {withHandle ? (
-            <DrawerHandle className={classNames?.handle} {...slotProps?.handle} />
-          ) : null}
-          <DrawerContentSlot className={classNames?.content} {...slotProps?.content}>
-            {children}
-          </DrawerContentSlot>
+          <DrawerHandle />
+          <DrawerContentInner>{children}</DrawerContentInner>
         </DrawerPopup>
       </DrawerViewport>
     </DrawerPortal>
   );
 }
-
-type DrawerHandle<Payload = unknown> = DrawerPrimitive.Handle<Payload>;
-type DrawerTriggerProps = DrawerPrimitive.Trigger.Props;
-type DrawerSwipeAreaProps = DrawerPrimitive.SwipeArea.Props;
-type DrawerTitleProps = DrawerPrimitive.Title.Props;
-type DrawerDescriptionProps = DrawerPrimitive.Description.Props;
-type DrawerCloseProps = DrawerPrimitive.Close.Props;
-type DrawerHeaderProps = React.ComponentProps<'div'>;
-type DrawerBodyProps = React.ComponentProps<'div'>;
-type DrawerFooterProps = React.ComponentProps<'div'>;
-type DrawerSnapPoint = NonNullable<DrawerProps['snapPoints']>[number];
 
 export {
   Drawer,
@@ -329,30 +213,17 @@ export {
   DrawerIndentBackground,
   DrawerTrigger,
   DrawerSwipeArea,
+  DrawerPortal,
+  DrawerBackdrop,
+  DrawerViewport,
+  DrawerPopup,
+  DrawerHandle,
+  DrawerContentInner,
   DrawerTitle,
   DrawerDescription,
   DrawerClose,
-  DrawerSnapToggle,
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
   DrawerContent,
-};
-
-export type {
-  DrawerProps,
-  DrawerHandle,
-  DrawerTriggerProps,
-  DrawerSwipeAreaProps,
-  DrawerTitleProps,
-  DrawerDescriptionProps,
-  DrawerCloseProps,
-  DrawerHeaderProps,
-  DrawerBodyProps,
-  DrawerFooterProps,
-  DrawerContentProps,
-  DrawerContentClassNames,
-  DrawerContentSlotProps,
-  DrawerSnapToggleProps,
-  DrawerSnapPoint,
 };

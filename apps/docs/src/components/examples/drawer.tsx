@@ -2,41 +2,33 @@ import {
   Button,
   ChevronDownIcon,
   ChevronUpIcon,
+  createDrawerHandle,
   Drawer,
+  DrawerBackdrop,
   DrawerBody,
   DrawerClose,
   DrawerContent,
+  DrawerContentInner,
   DrawerDescription,
   DrawerFooter,
+  DrawerHandle,
   DrawerHeader,
   DrawerIndent,
   DrawerIndentBackground,
+  DrawerPopup,
+  DrawerPortal,
   DrawerProvider,
-  DrawerSnapToggle,
   DrawerSwipeArea,
   DrawerTitle,
   DrawerTrigger,
+  DrawerViewport,
   ScrollArea,
 } from 'moduix';
 import * as React from 'react';
+import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './drawer.module.css';
-
-const releaseSections = [
-  {
-    title: 'Migration',
-    body: 'Verify migration scripts, rollback steps, and staging smoke tests.',
-  },
-  {
-    title: 'Monitoring',
-    body: 'Check dashboards, alerts, and post-release health checks.',
-  },
-  {
-    title: 'Rollout',
-    body: 'Confirm feature flags, analytics events, and support notes.',
-  },
-];
 
 export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Backdrop background.'],
@@ -86,7 +78,6 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-indent-scale-active', '0.98', 'Active indent scale.'],
   ['--drawer-indent-transition', '400ms cubic-bezier(0.32, 0.72, 0, 1)', 'Indent transition.'],
   ['--drawer-indent-translate-y-active', 'var(--spacing-2)', 'Active indent Y translation.'],
-  ['--drawer-island-inset', 'var(--spacing-2)', 'Inset for island variant.'],
   ['--drawer-max-height', '80vh', 'Maximum height for top and bottom drawers.'],
   ['--drawer-nested-peek', '2.75rem', 'Visible peek of nested drawers.'],
   ['--drawer-nested-scale-step', '0.06', 'Scale step for nested drawers.'],
@@ -98,19 +89,6 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-side-height', '100%', 'Height of left and right drawers.'],
   ['--drawer-side-max-height', '100%', 'Maximum height of left and right drawers.'],
   ['--drawer-side-width', '22rem', 'Width of left and right drawers.'],
-  ['--drawer-snap-toggle-bg', 'transparent', 'Snap toggle background color.'],
-  ['--drawer-snap-toggle-bg-hover', 'var(--color-accent)', 'Snap toggle hover background color.'],
-  ['--drawer-snap-toggle-border-color', 'currentColor', 'Snap toggle border color.'],
-  ['--drawer-snap-toggle-border-style', 'solid', 'Snap toggle border style.'],
-  ['--drawer-snap-toggle-border-width', '0', 'Snap toggle border width.'],
-  [
-    '--drawer-snap-toggle-color',
-    'var(--drawer-description-color, var(--color-muted-foreground))',
-    'Snap toggle icon color.',
-  ],
-  ['--drawer-snap-toggle-icon-size', '1rem', 'Snap toggle icon size.'],
-  ['--drawer-snap-toggle-radius', 'var(--radius-md)', 'Snap toggle border radius.'],
-  ['--drawer-snap-toggle-size', '1.75rem', 'Snap toggle button size.'],
   ['--drawer-swipe-area-size', 'var(--spacing-10)', 'Edge swipe area size.'],
   ['--drawer-title-color', 'var(--drawer-color)', 'Title text color.'],
   ['--drawer-title-font-size', 'var(--text-lg)', 'Title font size.'],
@@ -119,16 +97,13 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-transition', '450ms cubic-bezier(0.32, 0.72, 0, 1)', 'Popup transition.'],
   ['--drawer-viewport-bottom', '0', 'Viewport bottom inset.'],
   ['--drawer-viewport-left', '0', 'Viewport left inset.'],
-  [
-    '--drawer-viewport-padding',
-    '0px',
-    'Viewport padding (island variant defaults to var(--drawer-island-inset)).',
-  ],
+  ['--drawer-viewport-padding', '0px', 'Viewport padding.'],
   ['--drawer-viewport-pointer-events', 'auto', 'Viewport pointer-events behavior.'],
   ['--drawer-viewport-right', '0', 'Viewport right inset.'],
   ['--drawer-viewport-top', '0', 'Viewport top inset.'],
   ['--drawer-width', '100%', 'Width of top and bottom drawers.'],
 ];
+
 export const drawerPlaygroundCssProperties: CssPropertyInput[] = [
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
   ['--drawer-bg', 'var(--color-popover)', 'Controls popup background.'],
@@ -168,8 +143,10 @@ export function DrawerCssPlaygroundPanel({
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
@@ -220,10 +197,10 @@ export function LeftDrawerExample() {
         <DrawerHeader>
           <DrawerTitle>Filters</DrawerTitle>
           <DrawerDescription>
-            Side drawers use the same composition and slot classes.
+            Use side drawers for filters, navigation, or contextual panels.
           </DrawerDescription>
         </DrawerHeader>
-        <DrawerBody>Use side drawers for filters, navigation, or contextual panels.</DrawerBody>
+        <DrawerBody>Set side width through CSS variables on DrawerContent.</DrawerBody>
         <DrawerFooter>
           <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
         </DrawerFooter>
@@ -243,7 +220,7 @@ export function RightDrawerExample() {
             Right drawers are useful for entity details and inspectors.
           </DrawerDescription>
         </DrawerHeader>
-        <DrawerBody>Set width through CSS variables or a className on DrawerContent.</DrawerBody>
+        <DrawerBody>Use the same API as bottom drawers and adjust width with CSS.</DrawerBody>
         <DrawerFooter>
           <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
         </DrawerFooter>
@@ -258,15 +235,15 @@ export function SnapPointsDrawerExample() {
 
   return (
     <Drawer snapPoints={snapPoints} snapPoint={snapPoint} onSnapPointChange={setSnapPoint}>
-      <DrawerTrigger render={<Button />}>Open snap drawer</DrawerTrigger>
+      <DrawerTrigger render={<Button />}>Open drawer with snap points</DrawerTrigger>
       <DrawerContent snapLayout>
         <DrawerHeader>
-          <DrawerTitle>Release checklist</DrawerTitle>
+          <DrawerTitle>Snap points</DrawerTitle>
           <DrawerDescription>Current snap point: {String(snapPoint)}</DrawerDescription>
         </DrawerHeader>
         <DrawerBody>
           <ScrollArea className={styles.scrollArea} classNames={{ content: styles.scrollContent }}>
-            {releaseSections.map((item) => (
+            {insideScrollSections.map((item) => (
               <section key={item.title}>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -282,23 +259,48 @@ export function SnapPointsDrawerExample() {
   );
 }
 
-export function WithoutBackdropDrawerExample() {
+export function NonModalDrawerExample() {
   return (
-    <Drawer>
-      <DrawerTrigger render={<Button />}>Open without backdrop</DrawerTrigger>
-      <DrawerContent withBackdrop={false} className={styles.compactContent}>
+    <Drawer modal={false}>
+      <DrawerTrigger render={<Button />}>Open non-modal drawer</DrawerTrigger>
+      <DrawerContent className={styles.compactContent}>
         <DrawerHeader>
-          <DrawerTitle>No backdrop</DrawerTitle>
-          <DrawerDescription>
-            Use this when the page should stay visually available.
-          </DrawerDescription>
+          <DrawerTitle>Non-modal drawer</DrawerTitle>
+          <DrawerDescription>Outside pointer interaction stays enabled.</DrawerDescription>
         </DrawerHeader>
-        <DrawerBody>The drawer still keeps the same popup and content slots.</DrawerBody>
+        <DrawerBody>The default content wrapper skips the backdrop when modal is false.</DrawerBody>
         <DrawerFooter>
           <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
+  );
+}
+
+export function DrawerHandleExample() {
+  const drawerHandle = React.useMemo(() => createDrawerHandle(), []);
+
+  return (
+    <>
+      <DrawerTrigger handle={drawerHandle} render={<Button variant="outline" />}>
+        Open from detached trigger
+      </DrawerTrigger>
+      <Button type="button" onClick={() => drawerHandle.open(null)}>
+        Open programmatically
+      </Button>
+
+      <Drawer handle={drawerHandle}>
+        <DrawerContent className={styles.compactContent}>
+          <DrawerHeader>
+            <DrawerTitle>Detached trigger</DrawerTitle>
+            <DrawerDescription>createDrawerHandle is preserved from Base UI.</DrawerDescription>
+          </DrawerHeader>
+          <DrawerFooter>
+            <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 }
 
@@ -309,11 +311,9 @@ export function NestedDrawerExample() {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Account</DrawerTitle>
-          <DrawerDescription>
-            Nested drawers visually recede while the child is active.
-          </DrawerDescription>
+          <DrawerDescription>Main drawer with nested flow.</DrawerDescription>
         </DrawerHeader>
-        <DrawerBody>Open a nested drawer to continue the flow without leaving context.</DrawerBody>
+        <DrawerBody>Open a nested drawer to see stack behavior.</DrawerBody>
         <DrawerFooter>
           <div className={styles.nestedActionsStart}>
             <Drawer>
@@ -337,149 +337,17 @@ export function NestedDrawerExample() {
   );
 }
 
-export function BottomIslandDrawerExample() {
-  return (
-    <Drawer>
-      <DrawerTrigger render={<Button />}>Open bottom island</DrawerTrigger>
-      <DrawerContent variant="island" className={styles.islandContent}>
-        <DrawerHeader>
-          <DrawerTitle>Bottom island</DrawerTitle>
-          <DrawerDescription>
-            Island drawers remove the bleed tail and add viewport inset.
-          </DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-export function TopIslandDrawerExample() {
-  return (
-    <Drawer swipeDirection="up">
-      <DrawerTrigger render={<Button />}>Open top island</DrawerTrigger>
-      <DrawerContent variant="island" className={styles.islandContent}>
-        <DrawerHeader>
-          <DrawerTitle>Top island</DrawerTitle>
-          <DrawerDescription>The same variant works from the top edge.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-export function LeftIslandDrawerExample() {
-  return (
-    <Drawer swipeDirection="left">
-      <DrawerTrigger render={<Button />}>Open left island</DrawerTrigger>
-      <DrawerContent variant="island" className={styles.islandContent}>
-        <DrawerHeader>
-          <DrawerTitle>Left island</DrawerTitle>
-          <DrawerDescription>
-            Side island drawers keep an inset around the viewport.
-          </DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-export function RightIslandDrawerExample() {
-  return (
-    <Drawer swipeDirection="right">
-      <DrawerTrigger render={<Button />}>Open right island</DrawerTrigger>
-      <DrawerContent variant="island" className={styles.islandContent}>
-        <DrawerHeader>
-          <DrawerTitle>Right island</DrawerTitle>
-          <DrawerDescription>
-            Use className to tune important slots for your layout.
-          </DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-export function PersistentSnapDrawerExample() {
-  const snapPoints = [0.35, 0.85] as const;
-  const [open, setOpen] = React.useState(false);
-  const [snapPoint, setSnapPoint] = React.useState<number | string | null>(snapPoints[0]);
-  const expanded = snapPoint === snapPoints[1];
-
-  return (
-    <React.Fragment>
-      <Button type="button" onClick={() => setOpen(true)}>
-        Open persistent drawer
-      </Button>
-      {open ? (
-        <Button type="button" variant="outline" onClick={() => setOpen(false)}>
-          Close persistent drawer
-        </Button>
-      ) : null}
-      <Drawer
-        open={open}
-        persistent
-        modal={false}
-        disablePointerDismissal
-        snapPoints={[...snapPoints]}
-        defaultSnapPoint={snapPoints[0]}
-        snapPoint={snapPoint}
-        onSnapPointChange={setSnapPoint}
-      >
-        <DrawerContent snapLayout withBackdrop={false} disableInitialAnimation>
-          <DrawerHeader>
-            <DrawerTitle>Persistent drawer</DrawerTitle>
-            <DrawerSnapToggle
-              expanded={expanded}
-              onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}
-            />
-            <DrawerDescription>
-              Switch between compact and expanded snap points without closing the panel.
-            </DrawerDescription>
-          </DrawerHeader>
-          <DrawerBody>
-            <ScrollArea
-              className={styles.scrollArea}
-              classNames={{ content: styles.scrollContent }}
-            >
-              {releaseSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </section>
-              ))}
-            </ScrollArea>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    </React.Fragment>
-  );
-}
-
 export function SwipeAreaDrawerExample() {
   return (
     <Drawer swipeDirection="right" modal={false}>
       <DrawerSwipeArea className={styles.swipeArea} />
       <DrawerTrigger render={<Button />}>Open with trigger</DrawerTrigger>
-      <DrawerContent withBackdrop={false} className={styles.sideContent}>
+      <DrawerContent className={styles.sideContent}>
         <DrawerHeader>
           <DrawerTitle>Swipe area</DrawerTitle>
           <DrawerDescription>Swipe from the left edge or use the trigger.</DrawerDescription>
         </DrawerHeader>
-        <DrawerBody>
-          The swipe area part enables edge-open gestures for non-modal drawers.
-        </DrawerBody>
+        <DrawerBody>The swipe area part is still available for edge-open gestures.</DrawerBody>
         <DrawerFooter>
           <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
         </DrawerFooter>
@@ -500,7 +368,7 @@ export function IndentEffectDrawerExample() {
               <DrawerHeader>
                 <DrawerTitle>Indent effect</DrawerTitle>
                 <DrawerDescription>
-                  Provider, indent, and background parts react to open drawers.
+                  Provider, indent, and background parts follow Base UI composition.
                 </DrawerDescription>
               </DrawerHeader>
               <DrawerFooter>
@@ -514,40 +382,96 @@ export function IndentEffectDrawerExample() {
   );
 }
 
-export function CustomCompositionDrawerExample() {
-  const snapPoints = [0.35, 0.75] as const;
+export function ControlledPersistentDrawerExample() {
+  const snapPoints = [0.35, 0.85] as const;
+  const [open, setOpen] = React.useState(false);
   const [snapPoint, setSnapPoint] = React.useState<number | string | null>(snapPoints[0]);
   const expanded = snapPoint === snapPoints[1];
 
   return (
-    <Drawer snapPoints={[...snapPoints]} snapPoint={snapPoint} onSnapPointChange={setSnapPoint}>
-      <DrawerTrigger render={<Button />}>Open custom drawer</DrawerTrigger>
-      <DrawerContent
-        snapLayout
-        className={styles.customPopup}
-        classNames={{
-          backdrop: styles.customBackdrop,
-          viewport: styles.customViewport,
-          handle: styles.customHandle,
-          content: styles.customContent,
+    <>
+      <Button type="button" onClick={() => setOpen(true)}>
+        Open persistent drawer
+      </Button>
+      <Drawer
+        open={open}
+        onOpenChange={(nextOpen) => {
+          if (nextOpen) {
+            setOpen(true);
+          }
+        }}
+        modal={false}
+        disablePointerDismissal
+        snapPoints={[...snapPoints]}
+        snapPoint={snapPoint}
+        onSnapPointChange={(nextSnapPoint) => {
+          if (nextSnapPoint !== null) {
+            setSnapPoint(nextSnapPoint);
+          }
         }}
       >
-        <DrawerHeader>
-          <DrawerTitle>Custom composition</DrawerTitle>
-          <DrawerSnapToggle
-            expanded={expanded}
-            onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}
-          >
-            {expanded ? <ChevronDownIcon /> : <ChevronUpIcon />}
-          </DrawerSnapToggle>
-          <DrawerDescription>
-            Popup styles use className. Internal slots use classNames.
-          </DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
+        <DrawerContent snapLayout>
+          <DrawerHeader className={styles.headerWithAction}>
+            <div>
+              <DrawerTitle>Controlled persistent drawer</DrawerTitle>
+              <DrawerDescription>
+                Persistence is controlled from application state instead of a wrapper prop.
+              </DrawerDescription>
+            </div>
+            <button
+              type="button"
+              className={styles.snapToggle}
+              onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}
+              aria-label={expanded ? 'Collapse drawer' : 'Expand drawer'}
+            >
+              {expanded ? <ChevronDownIcon /> : <ChevronUpIcon />}
+            </button>
+          </DrawerHeader>
+          <DrawerBody>
+            <ScrollArea
+              className={styles.scrollArea}
+              classNames={{ content: styles.scrollContent }}
+            >
+              {insideScrollSections.map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </section>
+              ))}
+            </ScrollArea>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+}
+
+export function CustomCompositionDrawerExample() {
+  return (
+    <Drawer swipeDirection="right">
+      <DrawerTrigger render={<Button />}>Open custom drawer</DrawerTrigger>
+      <DrawerPortal keepMounted>
+        <DrawerBackdrop className={styles.customBackdrop} forceRender />
+        <DrawerViewport className={styles.customViewport}>
+          <DrawerPopup className={styles.customPopup}>
+            <DrawerHandle className={styles.customHandle} />
+            <DrawerContentInner>
+              <DrawerHeader>
+                <DrawerTitle>Custom composition</DrawerTitle>
+                <DrawerDescription>
+                  Manual composition replaces the removed wrapper props and style maps.
+                </DrawerDescription>
+              </DrawerHeader>
+              <DrawerBody>
+                Use the exported structural parts when you need different layout.
+              </DrawerBody>
+              <DrawerFooter>
+                <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
+              </DrawerFooter>
+            </DrawerContentInner>
+          </DrawerPopup>
+        </DrawerViewport>
+      </DrawerPortal>
     </Drawer>
   );
 }
