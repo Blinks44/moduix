@@ -27,7 +27,6 @@ import {
   <Preview.Code>
     {`
       import {
-        type FormErrors,
         Form,
         Field,
         FieldLabel,
@@ -61,7 +60,7 @@ import {
       }
 
       export function FormDemo() {
-        const [errors, setErrors] = useState({} as FormErrors);
+        const [errors, setErrors] = useState({} as Record<string, string>);
         const [submitting, setSubmitting] = useState(false);
 
         return (
@@ -148,11 +147,10 @@ Form
 
 ## Composition
 
-Use `errors`, `actionsRef`, `onFormSubmit`, `validationMode`, `action`, and native form attributes
-on `Form`.
-Compose fields with `Field`, `FieldLabel`, `Input`, `FieldDescription`, and `FieldError`.
-`Form` does not expose internal slots. Use `className` on the root and style composed child parts
-directly.
+`Form` is only the styled root. Use Base UI form props such as `errors`, `actionsRef`,
+`onFormSubmit`, `validationMode`, `action`, and native form attributes directly on it.
+Everything else stays regular composition with `Field`, `FieldLabel`, `Input`,
+`FieldDescription`, and `FieldError`.
 
 ### Defaults
 
@@ -174,7 +172,6 @@ Base UI prevents the native submit event for this handler.
   <Preview.Code>
     {`
       import {
-        type FormErrors,
         Form,
         Field,
         FieldLabel,
@@ -186,7 +183,7 @@ Base UI prevents the native submit event for this handler.
       import { useState } from "react";
 
       export function OnFormSubmitDemo() {
-        const [errors, setErrors] = useState({} as FormErrors);
+        const [errors, setErrors] = useState({} as Record<string, string>);
         const [submitting, setSubmitting] = useState(false);
 
         return (
@@ -197,7 +194,7 @@ Base UI prevents the native submit event for this handler.
             onFormSubmit={(values) => {
               setSubmitting(true);
 
-              const nextErrors = {} as FormErrors;
+              const nextErrors = {} as Record<string, string>;
               const age = Number(values.age);
 
               if (!values.name?.trim()) {
@@ -266,8 +263,6 @@ Pass `actionsRef` when another control needs to trigger validation for one field
   <Preview.Code>
     {`
       import {
-        type FormActions,
-        type FormErrors,
         Form,
         Field,
         FieldLabel,
@@ -279,8 +274,10 @@ Pass `actionsRef` when another control needs to trigger validation for one field
       import { useRef, useState } from "react";
 
       export function ActionsRefForm() {
-        const actionsRef = useRef(null as FormActions | null);
-        const [errors, setErrors] = useState({} as FormErrors);
+        const actionsRef = useRef<{
+          validate: (fieldName?: string) => void;
+        } | null>(null);
+        const [errors, setErrors] = useState({} as Record<string, string>);
 
         return (
           <Form
@@ -289,7 +286,7 @@ Pass `actionsRef` when another control needs to trigger validation for one field
             validationMode="onSubmit"
             className={styles.form}
             onFormSubmit={(values) => {
-              const nextErrors = {} as FormErrors;
+              const nextErrors = {} as Record<string, string>;
               const email = String(values.email ?? "");
 
               if (!email.trim()) {
@@ -344,7 +341,6 @@ errors.
   <Preview.Code>
     {`
       import {
-        type FormErrors,
         Form,
         Field,
         FieldLabel,
@@ -355,7 +351,7 @@ errors.
       import { useActionState } from "react";
 
       interface ActionState {
-        serverErrors?: FormErrors;
+        serverErrors?: Record<string, string>;
         message?: string;
       }
 
@@ -449,7 +445,7 @@ errors.
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
 Pass `className` to the form root and composed field, input, error, and button parts when styling
 with CSS Modules, Tailwind CSS, or CSS-in-JS.

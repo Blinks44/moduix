@@ -7,8 +7,6 @@ import {
   Form,
   Input,
   Spinner,
-  type FormActions,
-  type FormProps,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -49,7 +47,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 }
 
 interface ActionState {
-  serverErrors?: FormProps['errors'];
+  serverErrors?: Record<string, string>;
   message?: string;
 }
 
@@ -59,7 +57,7 @@ function sleep(ms: number) {
   });
 }
 
-async function validateHomepage(homepage: string): Promise<FormProps['errors']> {
+async function validateHomepage(homepage: string): Promise<Record<string, string>> {
   await sleep(500);
 
   try {
@@ -109,8 +107,8 @@ async function submitUsername(
   };
 }
 
-export function FormExample(props: FormProps) {
-  const [errors, setErrors] = React.useState<FormProps['errors']>({});
+export function FormExample(props: React.ComponentProps<typeof Form>) {
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [submitting, setSubmitting] = React.useState(false);
 
   return (
@@ -162,7 +160,7 @@ export function FormExample(props: FormProps) {
 }
 
 export function FormOnFormSubmitExample() {
-  const [errors, setErrors] = React.useState<FormProps['errors']>({});
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [submitting, setSubmitting] = React.useState(false);
 
   return (
@@ -173,7 +171,7 @@ export function FormOnFormSubmitExample() {
       onFormSubmit={(values) => {
         setSubmitting(true);
 
-        const nextErrors: FormProps['errors'] = {};
+        const nextErrors: Record<string, string> = {};
         const age = Number(values.age);
 
         if (!values.name?.trim()) {
@@ -220,8 +218,8 @@ export function FormOnFormSubmitExample() {
 }
 
 export function FormActionsRefExample() {
-  const actionsRef = React.useRef<FormActions | null>(null);
-  const [errors, setErrors] = React.useState<FormProps['errors']>({});
+  const actionsRef = React.useRef<{ validate: (fieldName?: string) => void } | null>(null);
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
 
   return (
     <Form
@@ -230,7 +228,7 @@ export function FormActionsRefExample() {
       validationMode="onSubmit"
       className={styles.form}
       onFormSubmit={(values) => {
-        const nextErrors: FormProps['errors'] = {};
+        const nextErrors: Record<string, string> = {};
         const email = String(values.email ?? '');
 
         if (!email.trim()) {

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import type { FormActions, FormProps } from './Form';
 import { Button } from '../Button';
 import { Field, FieldError, FieldLabel } from '../Field';
 import { Input } from '../Input';
@@ -28,11 +27,11 @@ function sleep(ms: number) {
 }
 
 interface ActionState {
-  serverErrors?: FormProps['errors'];
+  serverErrors?: Record<string, string>;
   message?: string;
 }
 
-async function validateHomepage(homepage: string): Promise<FormProps['errors']> {
+async function validateHomepage(homepage: string): Promise<Record<string, string>> {
   await sleep(500);
 
   try {
@@ -84,7 +83,7 @@ async function submitUsername(
 
 export const Basic: Story = {
   render: () => {
-    const [errors, setErrors] = React.useState<FormProps['errors']>({});
+    const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [submitting, setSubmitting] = React.useState(false);
 
     return (
@@ -137,7 +136,7 @@ export const Basic: Story = {
 
 export const WithOnFormSubmit: Story = {
   render: () => {
-    const [errors, setErrors] = React.useState<FormProps['errors']>({});
+    const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [submitting, setSubmitting] = React.useState(false);
 
     return (
@@ -148,7 +147,7 @@ export const WithOnFormSubmit: Story = {
         onFormSubmit={(values) => {
           setSubmitting(true);
 
-          const nextErrors: FormProps['errors'] = {};
+          const nextErrors: Record<string, string> = {};
           const age = Number(values.age);
 
           if (!values.name?.trim()) {
@@ -197,8 +196,8 @@ export const WithOnFormSubmit: Story = {
 
 export const WithActionsRef: Story = {
   render: () => {
-    const actionsRef = React.useRef<FormActions | null>(null);
-    const [errors, setErrors] = React.useState<FormProps['errors']>({});
+    const actionsRef = React.useRef<{ validate: (fieldName?: string) => void } | null>(null);
+    const [errors, setErrors] = React.useState<Record<string, string>>({});
 
     return (
       <Form
@@ -207,7 +206,7 @@ export const WithActionsRef: Story = {
         validationMode="onSubmit"
         className={storyStyles.form}
         onFormSubmit={(values) => {
-          const nextErrors: FormProps['errors'] = {};
+          const nextErrors: Record<string, string> = {};
           const email = String(values.email ?? '');
 
           if (!email.trim()) {
