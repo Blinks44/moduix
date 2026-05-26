@@ -3,6 +3,8 @@ import * as React from 'react';
 import { InfoIcon, MapIcon } from '@/primitives/Icons';
 import {
   Menubar,
+  MenubarArrow,
+  MenubarBackdrop,
   MenubarCheckboxItem,
   MenubarCheckboxItemIndicator,
   MenubarContent,
@@ -25,7 +27,12 @@ import {
   MenubarSubmenuTrigger,
   MenubarSubmenuTriggerIcon,
   MenubarTrigger,
+  MenubarPortal,
+  MenubarPopup,
+  MenubarPositioner,
+  MenubarViewport,
 } from './Menubar';
+import styles from './Menubar.module.css';
 
 const meta = {
   title: 'Components/Menubar',
@@ -240,6 +247,42 @@ export const LinkItems: Story = {
             <MenubarSeparator />
             <MenubarItem closeOnClick>Copy Link</MenubarItem>
           </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
+    );
+  },
+};
+
+export const CustomComposition: Story = {
+  render: () => {
+    return (
+      <Menubar>
+        <MenubarMenu>
+          <MenubarTrigger>Window</MenubarTrigger>
+          <MenubarPortal>
+            <MenubarBackdrop />
+            <MenubarPositioner sideOffset={10} align="start" alignOffset={-4}>
+              <MenubarPopup
+                className={styles.popup}
+                style={
+                  {
+                    '--menubar-popup-min-width': '14rem',
+                    '--menubar-popup-border-color': 'rgb(37 99 235)',
+                    '--menubar-highlight-bg': 'rgb(37 99 235)',
+                    '--menubar-highlight-color': 'rgb(255 255 255)',
+                  } as React.CSSProperties
+                }
+              >
+                <MenubarArrow />
+                <MenubarViewport style={{ paddingBlock: 'var(--spacing-2)' }}>
+                  <MenubarItem closeOnClick>Minimize</MenubarItem>
+                  <MenubarItem closeOnClick>Zoom</MenubarItem>
+                  <MenubarSeparator />
+                  <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
+                </MenubarViewport>
+              </MenubarPopup>
+            </MenubarPositioner>
+          </MenubarPortal>
         </MenubarMenu>
       </Menubar>
     );

@@ -6,56 +6,21 @@ import { CheckSmallIcon, ChevronRightLargeIcon, PopupArrowIcon } from '@/primiti
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Menubar.module.css';
 
-type MenubarContentClassNames = {
-  portal?: MenuPrimitive.Portal.Props['className'];
-  backdrop?: MenuPrimitive.Backdrop.Props['className'];
-  positioner?: MenuPrimitive.Positioner.Props['className'];
-  arrow?: MenuPrimitive.Arrow.Props['className'];
-  viewport?: MenuPrimitive.Viewport.Props['className'];
-};
-
-type MenubarContentSlotProps = {
-  portal?: Omit<MenuPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<MenuPrimitive.Backdrop.Props, 'className'>;
-  positioner?: Omit<MenuPrimitive.Positioner.Props, 'className' | 'children'>;
-  arrow?: Omit<MenuPrimitive.Arrow.Props, 'className' | 'children'>;
-  viewport?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
-};
-
-type MenubarContentPositionerProps = Pick<
+type MenubarPositionerProps = Pick<
   MenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
   | 'align'
   | 'alignOffset'
   | 'arrowPadding'
-  | 'anchor'
   | 'collisionAvoidance'
   | 'collisionBoundary'
   | 'collisionPadding'
-  | 'sticky'
-  | 'positionMethod'
-  | 'disableAnchorTracking'
 >;
 
-type MenubarContentProps = MenuPrimitive.Popup.Props &
-  MenubarContentPositionerProps & {
-    classNames?: MenubarContentClassNames;
-    slotProps?: MenubarContentSlotProps;
-    container?: MenuPrimitive.Portal.Props['container'];
-    withArrow?: boolean;
-    arrow?: React.ReactNode;
-    withBackdrop?: boolean;
-  };
-
 type IndicatorPosition = 'start' | 'end';
-type MenubarRadioItemProps = MenuPrimitive.RadioItem.Props & {
-  indicator?: IndicatorPosition;
-};
-type MenubarCheckboxItemProps = MenuPrimitive.CheckboxItem.Props & {
-  indicator?: IndicatorPosition;
-};
 
+const DEFAULT_CONTENT_SIDE_OFFSET = 6;
 const MenubarMenu = MenuPrimitive.Root;
 const MenubarSubmenu = MenuPrimitive.SubmenuRoot;
 const createMenubarMenuHandle = MenuPrimitive.createHandle;
@@ -141,65 +106,36 @@ function MenubarViewport({ className, ...props }: MenuPrimitive.Viewport.Props) 
 
 function MenubarContent({
   className,
-  classNames,
-  slotProps,
   children,
-  container,
-  withArrow,
-  arrow,
-  withBackdrop = false,
+  showArrow = false,
   side,
-  sideOffset,
+  sideOffset = DEFAULT_CONTENT_SIDE_OFFSET,
   align,
   alignOffset,
   arrowPadding,
-  anchor,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
-  sticky,
-  positionMethod,
-  disableAnchorTracking,
   ...props
-}: MenubarContentProps) {
-  const positionerSlotProps = slotProps?.positioner;
-  const resolvedPositionerProps: MenubarContentPositionerProps = {
-    side: side ?? positionerSlotProps?.side,
-    sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? 6,
-    align: align ?? positionerSlotProps?.align,
-    alignOffset: alignOffset ?? positionerSlotProps?.alignOffset,
-    arrowPadding: arrowPadding ?? positionerSlotProps?.arrowPadding,
-    anchor: anchor ?? positionerSlotProps?.anchor,
-    collisionAvoidance: collisionAvoidance ?? positionerSlotProps?.collisionAvoidance,
-    collisionBoundary: collisionBoundary ?? positionerSlotProps?.collisionBoundary,
-    collisionPadding: collisionPadding ?? positionerSlotProps?.collisionPadding,
-    sticky: sticky ?? positionerSlotProps?.sticky,
-    positionMethod: positionMethod ?? positionerSlotProps?.positionMethod,
-    disableAnchorTracking: disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking,
-  };
-  const { container: slotPropsContainer, ...portalSlotProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? slotPropsContainer;
-  const showArrow = withArrow ?? false;
-
+}: MenuPrimitive.Popup.Props &
+  MenubarPositionerProps & {
+    showArrow?: boolean;
+  }) {
   return (
-    <MenubarPortal className={classNames?.portal} container={portalContainer} {...portalSlotProps}>
-      {withBackdrop ? (
-        <MenubarBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
-      ) : null}
+    <MenubarPortal>
       <MenubarPositioner
-        {...positionerSlotProps}
-        {...resolvedPositionerProps}
-        className={classNames?.positioner}
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
       >
         <MenubarPopup className={className} {...props}>
-          {showArrow ? (
-            <MenubarArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrow}
-            </MenubarArrow>
-          ) : null}
-          <MenubarViewport className={classNames?.viewport} {...slotProps?.viewport}>
-            {children}
-          </MenubarViewport>
+          {showArrow ? <MenubarArrow /> : null}
+          <MenubarViewport>{children}</MenubarViewport>
         </MenubarPopup>
       </MenubarPositioner>
     </MenubarPortal>
@@ -207,21 +143,14 @@ function MenubarContent({
 }
 
 function MenubarSubmenuContent({
-  withArrow = false,
-  arrow,
   sideOffset = getSubmenuOffset,
   alignOffset = getSubmenuOffset,
   ...props
-}: MenubarContentProps) {
-  return (
-    <MenubarContent
-      withArrow={withArrow}
-      arrow={arrow}
-      sideOffset={sideOffset}
-      alignOffset={alignOffset}
-      {...props}
-    />
-  );
+}: MenuPrimitive.Popup.Props &
+  MenubarPositionerProps & {
+    showArrow?: boolean;
+  }) {
+  return <MenubarContent sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
 }
 
 function MenubarItem({ className, ...props }: MenuPrimitive.Item.Props) {
@@ -310,7 +239,13 @@ function MenubarRadioGroup({ className, ...props }: MenuPrimitive.RadioGroup.Pro
   );
 }
 
-function MenubarRadioItem({ className, indicator, ...props }: MenubarRadioItemProps) {
+function MenubarRadioItem({
+  className,
+  indicator,
+  ...props
+}: MenuPrimitive.RadioItem.Props & {
+  indicator?: IndicatorPosition;
+}) {
   return (
     <MenuPrimitive.RadioItem
       data-slot="menubar-radio-item"
@@ -337,7 +272,13 @@ function MenubarRadioItemIndicator({
   );
 }
 
-function MenubarCheckboxItem({ className, indicator, ...props }: MenubarCheckboxItemProps) {
+function MenubarCheckboxItem({
+  className,
+  indicator,
+  ...props
+}: MenuPrimitive.CheckboxItem.Props & {
+  indicator?: IndicatorPosition;
+}) {
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="menubar-checkbox-item"
@@ -428,35 +369,18 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 const ChevronRightIcon = ChevronRightLargeIcon;
 const CheckIcon = CheckSmallIcon;
 
-type MenubarProps = MenubarPrimitive.Props;
-type MenubarMenuProps<Payload = unknown> = MenuPrimitive.Root.Props<Payload>;
-type MenubarMenuHandle<Payload = unknown> = MenuPrimitive.Handle<Payload>;
-type MenubarSubmenuProps = MenuPrimitive.SubmenuRoot.Props;
-type MenubarTriggerProps = MenuPrimitive.Trigger.Props;
-type MenubarArrowProps = MenuPrimitive.Arrow.Props;
-type MenubarItemProps = MenuPrimitive.Item.Props;
-type MenubarLinkItemProps = MenuPrimitive.LinkItem.Props;
-type MenubarSeparatorProps = MenuPrimitive.Separator.Props;
-type MenubarGroupProps = MenuPrimitive.Group.Props;
-type MenubarGroupLabelProps = MenuPrimitive.GroupLabel.Props;
-type MenubarSubmenuTriggerProps = MenuPrimitive.SubmenuTrigger.Props;
-type MenubarSubmenuTriggerIconProps = React.ComponentProps<'span'>;
-type MenubarRadioGroupProps = MenuPrimitive.RadioGroup.Props;
-type MenubarRadioItemIndicatorProps = MenuPrimitive.RadioItemIndicator.Props;
-type MenubarCheckboxItemIndicatorProps = MenuPrimitive.CheckboxItemIndicator.Props;
-type MenubarItemTextProps = React.ComponentProps<'span'>;
-type MenubarItemTextContentProps = React.ComponentProps<'span'>;
-type MenubarItemTextIconProps = React.ComponentProps<'span'>;
-type MenubarItemTextLabelProps = React.ComponentProps<'span'>;
-type MenubarItemShortcutProps = React.ComponentProps<'span'>;
-
 export {
   Menubar,
   MenubarMenu,
   MenubarSubmenu,
   createMenubarMenuHandle,
   MenubarTrigger,
+  MenubarPortal,
+  MenubarBackdrop,
+  MenubarPositioner,
+  MenubarPopup,
   MenubarArrow,
+  MenubarViewport,
   MenubarContent,
   MenubarSubmenuContent,
   MenubarItem,
@@ -476,33 +400,4 @@ export {
   MenubarItemTextIcon,
   MenubarItemTextLabel,
   MenubarItemShortcut,
-};
-
-export type {
-  MenubarProps,
-  MenubarMenuProps,
-  MenubarMenuHandle,
-  MenubarSubmenuProps,
-  MenubarTriggerProps,
-  MenubarArrowProps,
-  MenubarContentProps,
-  MenubarContentClassNames,
-  MenubarContentSlotProps,
-  MenubarItemProps,
-  MenubarLinkItemProps,
-  MenubarSeparatorProps,
-  MenubarGroupProps,
-  MenubarGroupLabelProps,
-  MenubarSubmenuTriggerProps,
-  MenubarSubmenuTriggerIconProps,
-  MenubarRadioGroupProps,
-  MenubarRadioItemProps,
-  MenubarRadioItemIndicatorProps,
-  MenubarCheckboxItemProps,
-  MenubarCheckboxItemIndicatorProps,
-  MenubarItemTextProps,
-  MenubarItemTextContentProps,
-  MenubarItemTextIconProps,
-  MenubarItemTextLabelProps,
-  MenubarItemShortcutProps,
 };

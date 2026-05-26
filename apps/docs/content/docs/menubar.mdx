@@ -129,35 +129,32 @@ Menubar
 </Menubar>
 ```
 
-| Part                                       | Role                                                                                                         |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `Menubar`                                  | Root state machine for orientation, roving focus, and top-level menu behavior.                               |
-| `MenubarMenu`                              | One top-level menu scope that links a trigger and its popup content.                                         |
-| `MenubarTrigger`                           | Interactive control in the menubar row that opens the matching menu.                                         |
-| `MenubarContent`                           | Popup container for menu items and submenus. Accepts popup props, placement props, and service-slot options. |
-| `MenubarArrow`                             | Optional visual arrow that points from popup to trigger.                                                     |
-| `MenubarItem` / `MenubarLinkItem`          | Action and navigation rows.                                                                                  |
-| `MenubarCheckboxItem` / `MenubarRadioItem` | Stateful command rows with indicator slots.                                                                  |
-| `MenubarItemText*` / `MenubarItemShortcut` | Optional layout helpers for icons, labels, and shortcut text inside rows.                                    |
-| `MenubarSeparator` / `MenubarGroup*`       | Visual grouping parts for related commands.                                                                  |
-| `MenubarSubmenu`                           | Nested command group rendered from a submenu trigger and submenu content.                                    |
+| Part                                                                                           | Role                                                                                                                       |
+| ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `Menubar`                                                                                      | Root state machine for orientation, roving focus, and top-level menu behavior.                                             |
+| `MenubarMenu`                                                                                  | One top-level menu scope that links a trigger and its popup content.                                                       |
+| `MenubarTrigger`                                                                               | Interactive control in the menubar row that opens the matching menu.                                                       |
+| `MenubarContent`                                                                               | High-level popup wrapper that renders `MenubarPortal`, `MenubarPositioner`, `MenubarPopup`, and `MenubarViewport` for you. |
+| `MenubarArrow`                                                                                 | Optional visual arrow that points from popup to trigger.                                                                   |
+| `MenubarItem` / `MenubarLinkItem`                                                              | Action and navigation rows.                                                                                                |
+| `MenubarCheckboxItem` / `MenubarRadioItem`                                                     | Stateful command rows with indicator slots.                                                                                |
+| `MenubarItemText*` / `MenubarItemShortcut`                                                     | Optional layout helpers for icons, labels, and shortcut text inside rows.                                                  |
+| `MenubarSeparator` / `MenubarGroup*`                                                           | Visual grouping parts for related commands.                                                                                |
+| `MenubarSubmenu`                                                                               | Nested command group rendered from a submenu trigger and submenu content.                                                  |
+| `MenubarPortal` / `MenubarPositioner` / `MenubarPopup` / `MenubarViewport` / `MenubarBackdrop` | Low-level building blocks for custom composition.                                                                          |
 
-Start by styling the visible parts: `Menubar`, `MenubarTrigger`, `MenubarContent`, and
-item rows. Reach for `classNames` and `slotProps` only when you need to customize internal
-service slots such as `portal`, `backdrop`, `positioner`, or `viewport`.
+Start with `Menubar`, `MenubarTrigger`, `MenubarContent`, and item rows. When the default
+content wrapper is not enough, switch to the exported low-level parts and compose the popup
+structure yourself.
 
 ## Composition
 
 `Menubar` owns the root menubar behavior. Each `MenubarMenu` owns one top-level popup.
 
-`className` styles the visible popup. `classNames` styles internal service slots.
-`MenubarContent` forwards Base UI popup props and accepts positioner props such as `side`,
-`sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`,
-`collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`, and
-`disableAnchorTracking`. Arrow is disabled by default; set `withArrow` to enable the
-built-in arrow and pass `arrow` to replace its content. Use `container` and `withBackdrop`
-for the common cases, and `slotProps` for lower-level portal, backdrop, positioner, arrow,
-or viewport props:
+`MenubarContent` is the default path. It forwards popup props to `MenubarPopup`, placement
+props to `MenubarPositioner`, and keeps the DOM shape close to Base UI. Use `showArrow`
+when you want the built-in arrow. When you need a custom portal container, backdrop, popup
+layout, arrow node, or viewport styling, compose with the exported low-level parts instead.
 
 ### Defaults
 
@@ -168,32 +165,13 @@ or viewport props:
 | `Menubar.loopFocus`                 | `true`                                                      | `true`, `false`          |
 | `Menubar.disabled`                  | `false`                                                     | `true`, `false`          |
 | `MenubarContent.sideOffset`         | `6`                                                         | Any `number`             |
-| `MenubarContent.withArrow`          | `false`                                                     | `true`, `false`          |
-| `MenubarContent.withBackdrop`       | `false`                                                     | `true`, `false`          |
-| `MenubarSubmenuContent.withArrow`   | `false`                                                     | `true`, `false`          |
+| `MenubarContent.showArrow`          | `false`                                                     | `true`, `false`          |
+| `MenubarSubmenuContent.showArrow`   | `false`                                                     | `true`, `false`          |
 | `MenubarSubmenuContent.sideOffset`  | by `side` (`4` for `top`/`bottom`, `-4` for `left`/`right`) | Any `number`             |
 | `MenubarSubmenuContent.alignOffset` | by `side` (`4` for `top`/`bottom`, `-4` for `left`/`right`) | Any `number`             |
 
 ```tsx
-<MenubarContent
-  className={styles.popup}
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-    arrow: styles.arrow,
-    viewport: styles.viewport,
-  }}
-  slotProps={{
-    arrow: {
-      offset: 4,
-    },
-    positioner: {
-      collisionPadding: 8,
-    },
-  }}
-  withBackdrop
-/>
+<MenubarContent showArrow sideOffset={8} collisionPadding={8} />
 ```
 
 ## Examples
@@ -481,97 +459,6 @@ Use `MenubarLinkItem` for navigation commands that should render as links while 
   </Preview.Code>
 </Preview>
 
-### Custom Composition
-
-Style the root and popup with `className`. Use `classNames` for the internal portal,
-backdrop, positioner, and viewport slots rendered by `MenubarContent`.
-
-<Preview>
-  <CustomCompositionMenubarExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Menubar,
-        MenubarMenu,
-        MenubarTrigger,
-        MenubarContent,
-        MenubarItem,
-        MenubarSeparator,
-      } from "moduix";
-
-      export function CustomCompositionMenubarDemo() {
-        return (
-          <Menubar className={styles.customRoot}>
-            <MenubarMenu>
-              <MenubarTrigger>Window</MenubarTrigger>
-              <MenubarContent
-                className={styles.customPopup}
-                classNames={{
-                  portal: styles.customPortal,
-                  backdrop: styles.customBackdrop,
-                  positioner: styles.customPositioner,
-                  viewport: styles.customViewport,
-                }}
-                sideOffset={10}
-                align="start"
-                alignOffset={-4}
-                withArrow
-                withBackdrop
-              >
-                <MenubarItem closeOnClick>Minimize</MenubarItem>
-                <MenubarItem closeOnClick>Zoom</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customRoot {
-        --menubar-bg: var(--color-background);
-        --menubar-border-color: rgb(37 99 235);
-        --menubar-radius: var(--radius-lg);
-        --menubar-trigger-bg-hover: rgb(219 234 254);
-        --menubar-trigger-color-active: rgb(255 255 255);
-        --menubar-trigger-bg-active: rgb(37 99 235);
-      }
-
-      .customPortal {
-        pointer-events: auto;
-      }
-
-      .customBackdrop {
-        background-color: rgb(15 23 42 / 0.48);
-        backdrop-filter: blur(4px);
-      }
-
-      .customPositioner {
-        --menubar-popup-min-width: 14rem;
-      }
-
-      .customPopup {
-        --menubar-popup-bg: var(--color-background);
-        --menubar-popup-border-color: rgb(37 99 235);
-        --menubar-popup-shadow: var(--shadow-lg);
-        --menubar-highlight-bg: rgb(37 99 235);
-        --menubar-highlight-color: rgb(255 255 255);
-      }
-
-      .customViewport {
-        padding-block: var(--spacing-2);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### Icons
 
 Pass children to icon slots to use icons from your application or an external icon library.
@@ -632,4 +519,106 @@ Pass children to icon slots to use icons from your application or an external ic
     `}
 
   </Preview.Code>
+</Preview>
+
+### Custom Composition
+
+Use the low-level parts when you need to change the portal container, add a backdrop,
+replace the arrow, or style popup structure directly.
+
+<Preview>
+  <CustomCompositionMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarArrow,
+        MenubarBackdrop,
+        MenubarMenu,
+        MenubarItem,
+        MenubarPopup,
+        MenubarPortal,
+        MenubarPositioner,
+        MenubarSeparator,
+        MenubarTrigger,
+        MenubarViewport,
+      } from "moduix";
+
+          export function CustomCompositionMenubarDemo() {
+            return (
+              <Menubar className={styles.customRoot}>
+                <MenubarMenu>
+                  <MenubarTrigger>Window</MenubarTrigger>
+                  <MenubarPortal className={styles.customPortal}>
+                    <MenubarBackdrop className={styles.customBackdrop} />
+                    <MenubarPositioner
+                      className={styles.customPositioner}
+                      sideOffset={10}
+                      align="start"
+                      alignOffset={-4}
+                    >
+                      <MenubarPopup className={styles.customPopup}>
+                        <MenubarArrow className={styles.customArrow} />
+                        <MenubarViewport className={styles.customViewport}>
+                          <MenubarItem closeOnClick>Minimize</MenubarItem>
+                          <MenubarItem closeOnClick>Zoom</MenubarItem>
+                          <MenubarSeparator />
+                          <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
+                        </MenubarViewport>
+                      </MenubarPopup>
+                    </MenubarPositioner>
+                  </MenubarPortal>
+                </MenubarMenu>
+              </Menubar>
+            );
+          }
+
+`}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customRoot {
+        --menubar-bg: var(--color-background);
+        --menubar-border-color: rgb(37 99 235);
+        --menubar-radius: var(--radius-lg);
+        --menubar-trigger-bg-hover: rgb(219 234 254);
+        --menubar-trigger-color-active: rgb(255 255 255);
+        --menubar-trigger-bg-active: rgb(37 99 235);
+      }
+
+          .customPortal {
+            pointer-events: auto;
+          }
+
+          .customBackdrop {
+            background-color: rgb(15 23 42 / 0.48);
+            backdrop-filter: blur(4px);
+          }
+
+          .customPositioner {
+            --menubar-popup-min-width: 14rem;
+          }
+
+          .customPopup {
+            --menubar-popup-bg: var(--color-background);
+            --menubar-popup-border-color: rgb(37 99 235);
+            --menubar-popup-shadow: var(--shadow-lg);
+            --menubar-highlight-bg: rgb(37 99 235);
+            --menubar-highlight-color: rgb(255 255 255);
+          }
+
+          .customArrow {
+            --menubar-arrow-stroke-color: var(--menubar-popup-border-color);
+          }
+
+          .customViewport {
+            padding-block: var(--spacing-2);
+          }
+
+`}
+
+  </Preview.CSS>
 </Preview>

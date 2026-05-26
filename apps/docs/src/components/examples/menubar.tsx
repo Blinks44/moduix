@@ -3,6 +3,8 @@ import {
   InfoIcon,
   MapIcon,
   Menubar,
+  MenubarArrow,
+  MenubarBackdrop,
   MenubarCheckboxItem,
   MenubarCheckboxItemIndicator,
   MenubarContent,
@@ -25,6 +27,10 @@ import {
   MenubarSubmenuTrigger,
   MenubarSubmenuTriggerIcon,
   MenubarTrigger,
+  MenubarPortal,
+  MenubarPopup,
+  MenubarPositioner,
+  MenubarViewport,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -482,26 +488,25 @@ export function CustomCompositionMenubarExample() {
     <Menubar className={styles.customRoot}>
       <MenubarMenu>
         <MenubarTrigger className={styles.customTrigger}>Window</MenubarTrigger>
-        <MenubarContent
-          className={styles.customPopup}
-          classNames={{
-            portal: styles.customPortal,
-            backdrop: styles.customBackdrop,
-            positioner: styles.customPositioner,
-            arrow: styles.customArrow,
-            viewport: styles.customViewport,
-          }}
-          sideOffset={10}
-          align="start"
-          alignOffset={-4}
-          withArrow
-          withBackdrop
-        >
-          <MenubarItem closeOnClick>Minimize</MenubarItem>
-          <MenubarItem closeOnClick>Zoom</MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
-        </MenubarContent>
+        <MenubarPortal className={styles.customPortal}>
+          <MenubarBackdrop className={styles.customBackdrop} />
+          <MenubarPositioner
+            className={styles.customPositioner}
+            sideOffset={10}
+            align="start"
+            alignOffset={-4}
+          >
+            <MenubarPopup className={styles.customPopup}>
+              <MenubarArrow className={styles.customArrow} />
+              <MenubarViewport className={styles.customViewport}>
+                <MenubarItem closeOnClick>Minimize</MenubarItem>
+                <MenubarItem closeOnClick>Zoom</MenubarItem>
+                <MenubarSeparator />
+                <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
+              </MenubarViewport>
+            </MenubarPopup>
+          </MenubarPositioner>
+        </MenubarPortal>
       </MenubarMenu>
     </Menubar>
   );
