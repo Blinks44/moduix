@@ -1,4 +1,3 @@
-import type { TooltipContentProps } from 'moduix';
 import {
   BellIcon,
   Button,
@@ -6,9 +5,14 @@ import {
   PlusIcon,
   ShareIcon,
   Tooltip,
+  TooltipArrow,
   TooltipContent,
+  TooltipPopup,
+  TooltipPortal,
   TooltipProvider,
+  TooltipPositioner,
   TooltipTrigger,
+  TooltipViewport,
   createTooltipHandle,
 } from 'moduix';
 import * as React from 'react';
@@ -16,7 +20,8 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './tooltip.module.css';
 
-const tooltipSides: TooltipSide[] = ['top', 'right', 'bottom', 'left'];
+const tooltipSides = ['top', 'right', 'bottom', 'left'] as const;
+type TooltipSide = (typeof tooltipSides)[number];
 
 export const tooltipOverrideCssProperties: CssPropertyInput[] = [
   ['--tooltip-arrow-height', '0.625rem', 'Controls the default arrow SVG height.'],
@@ -126,21 +131,27 @@ export function ToolbarTooltipExample() {
           <TooltipTrigger aria-label="Add item" data-variant="ghost">
             <PlusIcon className={styles.icon} />
           </TooltipTrigger>
-          <TooltipContent sideOffset={16}>Add item</TooltipContent>
+          <TooltipContent showArrow sideOffset={16}>
+            Add item
+          </TooltipContent>
         </Tooltip>
 
         <Tooltip>
           <TooltipTrigger aria-label="Share" data-variant="ghost">
             <ShareIcon className={styles.icon} />
           </TooltipTrigger>
-          <TooltipContent sideOffset={16}>Share</TooltipContent>
+          <TooltipContent showArrow sideOffset={16}>
+            Share
+          </TooltipContent>
         </Tooltip>
 
         <Tooltip>
           <TooltipTrigger aria-label="Details" data-variant="ghost">
             <InfoIcon className={styles.icon} />
           </TooltipTrigger>
-          <TooltipContent sideOffset={16}>Details</TooltipContent>
+          <TooltipContent showArrow sideOffset={16}>
+            Details
+          </TooltipContent>
         </Tooltip>
       </div>
     </TooltipProvider>
@@ -153,7 +164,7 @@ export function TooltipWithoutArrowExample() {
       <TooltipTrigger render={<Button />} aria-label="Tooltip without arrow">
         Hover or focus
       </TooltipTrigger>
-      <TooltipContent withArrow={false}>Tooltip without arrow</TooltipContent>
+      <TooltipContent>Tooltip without arrow</TooltipContent>
     </Tooltip>
   );
 }
@@ -247,19 +258,16 @@ export function CustomCompositionTooltipExample() {
       <TooltipTrigger aria-label="Custom styled tooltip" className={styles.customTrigger}>
         Custom style
       </TooltipTrigger>
-      <TooltipContent
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          positioner: styles.customPositioner,
-          arrow: styles.customArrow,
-          viewport: styles.customViewport,
-        }}
-      >
-        Styled through className
-      </TooltipContent>
+      <TooltipPortal>
+        <TooltipPositioner sideOffset={10} className={styles.customPositioner}>
+          <TooltipPopup className={styles.customPopup}>
+            <TooltipArrow className={styles.customArrow} />
+            <TooltipViewport className={styles.customViewport}>
+              Styled through explicit parts
+            </TooltipViewport>
+          </TooltipPopup>
+        </TooltipPositioner>
+      </TooltipPortal>
     </Tooltip>
   );
 }
-
-type TooltipSide = Exclude<TooltipContentProps['side'], undefined>;

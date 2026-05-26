@@ -78,10 +78,6 @@
   --tooltip-padding-y: var(--spacing-2);
 }
 
-.customPortal {
-  z-index: var(--z-popup);
-}
-
 .customPositioner {
   filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.14));
 }

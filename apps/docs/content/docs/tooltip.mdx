@@ -78,77 +78,81 @@ tooltips do not replace `aria-label` or visible text.
 
 ## Anatomy
 
-`Tooltip` manages one trigger and one popup layer. Keep each `TooltipTrigger` paired with its
-matching root so hover, focus, and delay behavior stay predictable.
+`TooltipContent` is the default high-level wrapper. It renders the structural Base UI parts for the
+common case and keeps the public API small.
 
 ```text
 Tooltip
 ├─ TooltipTrigger
 └─ TooltipContent
-   └─ portal
-      └─ positioner
-         └─ popup
-            ├─ arrow
-            └─ viewport
+   └─ TooltipPortal
+      └─ TooltipPositioner
+         └─ TooltipPopup
+            └─ TooltipViewport
                └─ content
 ```
+
+When you need to override structure, styling hooks, or positioning behavior more deeply, compose
+the low-level parts directly:
+
+```text
+Tooltip
+├─ TooltipTrigger
+└─ TooltipPortal
+   └─ TooltipPositioner
+      └─ TooltipPopup
+         ├─ TooltipArrow
+         └─ TooltipViewport
+            └─ content
+```
+
+| Part                | Role                                                                                                     |
+| ------------------- | -------------------------------------------------------------------------------------------------------- |
+| `Tooltip`           | Root state, open lifecycle, delay behavior, controlled props, and optional `handle` linking.             |
+| `TooltipProvider`   | Shared timing config for related tooltips.                                                               |
+| `TooltipTrigger`    | Interactive anchor element. Opens the tooltip on hover or focus and should keep its own accessible name. |
+| `TooltipContent`    | Simple default content wrapper. Composes portal, positioner, popup, and viewport for you.                |
+| `TooltipPortal`     | Escape hatch for custom portal placement and DOM structure.                                              |
+| `TooltipPositioner` | Escape hatch for advanced positioning props that are intentionally not mirrored on `TooltipContent`.     |
+| `TooltipPopup`      | Visible popup surface.                                                                                   |
+| `TooltipArrow`      | Optional default arrow part.                                                                             |
+| `TooltipViewport`   | Content viewport that preserves Base UI transition behavior between triggers.                            |
+
+## Composition
+
+Use `TooltipContent` for the default path. It supports:
+
+- `className`
+- `showArrow`
+- `side`
+- `sideOffset`
+- `align`
+- `alignOffset`
+- `arrowPadding`
+- `collisionAvoidance`
+- `collisionBoundary`
+- `collisionPadding`
+
+That keeps the common path small:
 
 ```tsx
 <Tooltip>
   <TooltipTrigger aria-label="Notifications">Hover or focus</TooltipTrigger>
-  <TooltipContent>Notifications</TooltipContent>
+  <TooltipContent side="top" sideOffset={8}>
+    Notifications
+  </TooltipContent>
 </Tooltip>
 ```
 
-| Part             | Role                                                                                                           |
-| ---------------- | -------------------------------------------------------------------------------------------------------------- |
-| `Tooltip`        | Root state and timing behavior. Handles open state, delay, controlled props, and optional `handle` linking.    |
-| `TooltipTrigger` | Interactive anchor element. Opens the tooltip on hover/focus and should keep its own accessible name.          |
-| `TooltipContent` | Composed popup layer. Renders `portal`, `positioner`, `popup`, optional `arrow`, and `viewport` automatically. |
-
-In most cases, keep the default composition and style the visible popup with `className`.
-
-## Composition
-
-Use `Tooltip` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`, and
-`handle`.
-
-`className` styles the visible popup. `classNames` styles the internal service slots. Use
-`container` for portal placement, `withArrow={false}` to hide the arrow, `arrow` to replace its
-graphic, and props such as `side` or `sideOffset` for positioning. Reach for `slotProps` only when
-you need to pass non-class props to the internal Base UI slots:
-
-```tsx
-<TooltipContent
-  className={styles.popup}
-  classNames={{
-    portal: styles.portal,
-    positioner: styles.positioner,
-    arrow: styles.arrow,
-    viewport: styles.viewport,
-  }}
-  slotProps={{
-    portal: { keepMounted: true },
-    positioner: { collisionPadding: 8 },
-    arrow: { style: { transformOrigin: 'center' } },
-  }}
-/>
-```
-
-### Defaults
-
-| Prop         | Default | Values                                             |
-| ------------ | ------- | -------------------------------------------------- |
-| `withArrow`  | `true`  | `true`, `false`                                    |
-| `sideOffset` | `8`     | Number                                             |
-| `container`  | `-`     | HTMLElement, ref, or callback (portal container)   |
-| `arrow`      | `—`     | React node rendered inside the built-in arrow slot |
+If you need portal options, custom DOM structure, a custom arrow setup, or less common positioning
+props such as `anchor`, `disableAnchorTracking`, `sticky`, or `positionMethod`, switch to explicit
+composition with the exported low-level parts.
 
 ## Examples
 
-### Toolbar
+### With Arrow
 
-Wrap related tooltips in one `TooltipProvider` to share delay behavior across a toolbar.
+Keep the default path compact and opt into the built-in arrow only when it adds value.
 
 <Preview>
   <ToolbarTooltipExample />
@@ -174,21 +178,27 @@ Wrap related tooltips in one `TooltipProvider` to share delay behavior across a 
                 <TooltipTrigger aria-label="Add item" data-variant="ghost">
                   <PlusIcon className={styles.icon} />
                 </TooltipTrigger>
-                <TooltipContent sideOffset={16}>Add item</TooltipContent>
+                <TooltipContent showArrow sideOffset={16}>
+                  Add item
+                </TooltipContent>
               </Tooltip>
 
               <Tooltip>
                 <TooltipTrigger aria-label="Share" data-variant="ghost">
                   <ShareIcon className={styles.icon} />
                 </TooltipTrigger>
-                <TooltipContent sideOffset={16}>Share</TooltipContent>
+                <TooltipContent showArrow sideOffset={16}>
+                  Share
+                </TooltipContent>
               </Tooltip>
 
               <Tooltip>
                 <TooltipTrigger aria-label="Details" data-variant="ghost">
                   <InfoIcon className={styles.icon} />
                 </TooltipTrigger>
-                <TooltipContent sideOffset={16}>Details</TooltipContent>
+                <TooltipContent showArrow sideOffset={16}>
+                  Details
+                </TooltipContent>
               </Tooltip>
             </div>
           </TooltipProvider>
@@ -219,9 +229,9 @@ Wrap related tooltips in one `TooltipProvider` to share delay behavior across a 
   </Preview.CSS>
 </Preview>
 
-### Without Arrow
+### Compact Label
 
-Set `arrow` to `false` when the popup should read as a compact floating label.
+The default `TooltipContent` has no arrow, which keeps simple labels minimal.
 
 <Preview>
   <TooltipWithoutArrowExample />
@@ -235,13 +245,13 @@ Set `arrow` to `false` when the popup should read as a compact floating label.
         TooltipTrigger,
       } from "moduix";
 
-      export function TooltipWithoutArrowDemo() {
+      export function TooltipCompactLabelDemo() {
         return (
           <Tooltip>
             <TooltipTrigger render={<Button />} aria-label="Tooltip without arrow">
               Hover or focus
             </TooltipTrigger>
-            <TooltipContent withArrow={false}>Tooltip without arrow</TooltipContent>
+            <TooltipContent>Tooltip without arrow</TooltipContent>
           </Tooltip>
         );
       }
@@ -268,7 +278,9 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 
-      type TooltipSide = "top" | "right" | "bottom" | "left";
+      const tooltipSides = ["top", "right", "bottom", "left"] as const;
+      type TooltipSide = (typeof tooltipSides)[number];
+
       export function SideControlTooltip() {
         const [side, setSide] = useState("top" as TooltipSide);
 
@@ -347,13 +359,6 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const tooltipSides = ["top", "right", "bottom", "left"] as TooltipSide[];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Detached Trigger
@@ -486,8 +491,8 @@ active trigger payload.
 
 ### Custom Composition
 
-Use `className` for the popup itself, `classNames` for internal slots such as the arrow, and
-CSS variables for broad theme changes. Portal, positioner, and viewport are rendered automatically.
+When you need to control portal placement, the DOM structure, arrow placement, or advanced
+positioner props, compose the low-level parts explicitly.
 
 <Preview>
   <CustomCompositionTooltipExample />
@@ -496,8 +501,12 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
     {`
       import {
         Tooltip,
-        TooltipContent,
+        TooltipArrow,
+        TooltipPopup,
+        TooltipPortal,
+        TooltipPositioner,
         TooltipTrigger,
+        TooltipViewport,
       } from "moduix";
       import styles from "./tooltip-demo.module.css";
 
@@ -510,17 +519,16 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
             >
               Custom style
             </TooltipTrigger>
-            <TooltipContent
-              className={styles.customPopup}
-              classNames={{
-                portal: styles.customPortal,
-                positioner: styles.customPositioner,
-                arrow: styles.customArrow,
-                viewport: styles.customViewport,
-              }}
-            >
-              Styled through className
-            </TooltipContent>
+            <TooltipPortal>
+              <TooltipPositioner sideOffset={10} className={styles.customPositioner}>
+                <TooltipPopup className={styles.customPopup}>
+                  <TooltipArrow className={styles.customArrow} />
+                  <TooltipViewport className={styles.customViewport}>
+                    Styled through explicit parts
+                  </TooltipViewport>
+                </TooltipPopup>
+              </TooltipPositioner>
+            </TooltipPortal>
           </Tooltip>
         );
       }
@@ -537,10 +545,6 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
         --tooltip-arrow-stroke-color: var(--tooltip-border-color);
         --tooltip-padding-x: var(--spacing-3);
         --tooltip-padding-y: var(--spacing-2);
-      }
-
-      .customPortal {
-        z-index: var(--z-popup);
       }
 
       .customPositioner {
