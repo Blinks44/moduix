@@ -1,13 +1,21 @@
 # Kbd
 
-Keyboard shortcut display component.
+`Kbd` is a compact keyboard key primitive for shortcuts and command hints.
+It is a standalone moduix component and does not wrap a Base UI primitive.
 
-`Kbd` is a standalone moduix component and does not wrap a Base UI primitive.
+## Parts
 
-## Defaults
+- `Kbd` (`data-slot="kbd-root"`)
+- `KbdGroup` (`data-slot="kbd-group"`)
 
-| Part       | Prop      | Default   | Values                        |
-| ---------- | --------- | --------- | ----------------------------- |
-| `Kbd`      | `variant` | `default` | `default`, `outline`, `ghost` |
-| `Kbd`      | `size`    | `md`      | `sm`, `md`, `lg`              |
-| `KbdGroup` | `size`    | `md`      | `sm`, `md`, `lg`              |
+## Props
+
+- `className` and standard `kbd` props on `Kbd`
+- `className` and standard `span` props on `KbdGroup`
+
+## Styling
+
+Use `className` or the public `--kbd-*` CSS variables from `src/styles/theme.css` for local
+styling. `KbdGroup` is an inline wrapper that keeps grouped keys aligned and uses
+`--kbd-group-gap` for spacing. For quieter or denser presentations, prefer local CSS variables
+instead of component props.

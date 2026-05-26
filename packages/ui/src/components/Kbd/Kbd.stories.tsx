@@ -18,37 +18,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const variants = ['default', 'outline', 'ghost'] as const;
-
 export const Basic: Story = {};
-
-export const Variants: Story = {
-  render: () => (
-    <div className={styles.row}>
-      {variants.map((variant) => (
-        <Kbd key={variant} variant={variant}>
-          {variant}
-        </Kbd>
-      ))}
-    </div>
-  ),
-};
-
-export const Sizes: Story = {
-  render: () => (
-    <div className={styles.row}>
-      <Kbd size="sm">Esc</Kbd>
-      <Kbd size="md">Cmd K</Kbd>
-      <Kbd size="lg">Enter</Kbd>
-    </div>
-  ),
-};
 
 export const ShortcutGroup: Story = {
   render: () => (
     <KbdGroup>
-      <Kbd>Cmd</Kbd>
-      <Kbd>K</Kbd>
+      <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
     </KbdGroup>
   ),
 };
@@ -58,15 +33,13 @@ export const ShortcutList: Story = {
     <div className={styles.column}>
       <div className={styles.shortcutRow}>
         <KbdGroup>
-          <Kbd>Cmd</Kbd>
-          <Kbd>K</Kbd>
+          <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
         </KbdGroup>
         Open command menu
       </div>
       <div className={styles.shortcutRow}>
         <KbdGroup>
-          <Kbd>Shift</Kbd>
-          <Kbd>?</Kbd>
+          <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
         </KbdGroup>
         Show shortcuts
       </div>
@@ -78,6 +51,29 @@ export const ShortcutList: Story = {
   ),
 };
 
+export const Dense: Story = {
+  render: () => (
+    <div className={styles.row}>
+      <Kbd className={styles.dense}>Esc</Kbd>
+      <Kbd className={styles.dense}>Ctrl</Kbd>
+      <Kbd className={styles.dense}>/</Kbd>
+    </div>
+  ),
+};
+
+export const Muted: Story = {
+  render: () => (
+    <div className={styles.row}>
+      <Kbd className={styles.muted}>Ctrl</Kbd>
+      <Kbd className={styles.muted}>B</Kbd>
+    </div>
+  ),
+};
+
 export const CustomComposition: Story = {
-  render: () => <Kbd className={styles.customKbd}>Cmd K</Kbd>,
+  render: () => (
+    <KbdGroup className={styles.customGroup}>
+      <Kbd className={styles.customKbd}>Cmd</Kbd>+<Kbd className={styles.customKbd}>K</Kbd>
+    </KbdGroup>
+  ),
 };

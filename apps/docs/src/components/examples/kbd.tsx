@@ -1,9 +1,8 @@
-import { Kbd, KbdGroup, type KbdProps } from 'moduix';
+import type { ComponentProps } from 'react';
+import { Kbd, KbdGroup } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './kbd.module.css';
-
-const variants = ['default', 'outline', 'ghost'] as const;
 
 export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--kbd-bg', 'var(--color-muted)', 'Controls key background color.'],
@@ -11,34 +10,18 @@ export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--kbd-border-width', 'var(--border-width-sm)', 'Controls key border width.'],
   ['--kbd-color', 'var(--color-foreground)', 'Controls key text color.'],
   ['--kbd-font-family', 'var(--font-mono)', 'Controls key font family.'],
-  ['--kbd-font-size', 'var(--kbd-font-size-md)', 'Controls key font size.'],
-  ['--kbd-font-size-sm', '0.6875rem', 'Controls font size for `sm` keys.'],
-  ['--kbd-font-size-md', 'var(--text-xs)', 'Controls font size for `md` keys.'],
-  ['--kbd-font-size-lg', 'var(--text-sm)', 'Controls font size for `lg` keys.'],
+  ['--kbd-font-size', 'var(--text-xs)', 'Controls key font size.'],
   ['--kbd-font-weight', 'var(--weight-medium)', 'Controls key font weight.'],
   ['--kbd-group-gap', '0.25rem', 'Controls spacing between grouped keys.'],
-  ['--kbd-group-gap-sm', '0.1875rem', 'Controls group spacing for `sm`.'],
-  ['--kbd-group-gap-md', '0.25rem', 'Controls group spacing for `md`.'],
-  ['--kbd-group-gap-lg', '0.3125rem', 'Controls group spacing for `lg`.'],
   [
     '--kbd-group-separator-color',
     'var(--color-muted-foreground)',
     'Controls text separator color inside KbdGroup.',
   ],
-  ['--kbd-height', 'var(--kbd-height-md)', 'Controls key height.'],
-  ['--kbd-height-sm', '1.25rem', 'Controls height for `sm` keys.'],
-  ['--kbd-height-md', '1.5rem', 'Controls height for `md` keys.'],
-  ['--kbd-height-lg', '1.75rem', 'Controls height for `lg` keys.'],
-  ['--kbd-letter-spacing', '0', 'Controls key letter spacing.'],
-  ['--kbd-line-height', 'var(--kbd-line-height-md)', 'Controls key line-height.'],
-  ['--kbd-line-height-sm', '1rem', 'Controls line-height for `sm`.'],
-  ['--kbd-line-height-md', 'var(--line-height-text-xs)', 'Controls line-height for `md`.'],
-  ['--kbd-line-height-lg', 'var(--line-height-text-sm)', 'Controls line-height for `lg`.'],
-  ['--kbd-min-width', 'var(--kbd-height)', 'Controls minimum key width.'],
-  ['--kbd-padding-x', 'var(--kbd-padding-x-md)', 'Controls horizontal key padding.'],
-  ['--kbd-padding-x-sm', '0.375rem', 'Controls horizontal padding for `sm`.'],
-  ['--kbd-padding-x-md', '0.4375rem', 'Controls horizontal padding for `md`.'],
-  ['--kbd-padding-x-lg', '0.5rem', 'Controls horizontal padding for `lg`.'],
+  ['--kbd-height', '1.5rem', 'Controls key height.'],
+  ['--kbd-line-height', 'var(--line-height-text-xs)', 'Controls key line-height.'],
+  ['--kbd-min-width', 'var(--kbd-height, 1.5rem)', 'Controls minimum key width.'],
+  ['--kbd-padding-x', '0.4375rem', 'Controls horizontal key padding.'],
   ['--kbd-padding-y', '0', 'Controls vertical key padding.'],
   ['--kbd-radius', 'var(--radius-sm)', 'Controls key border radius.'],
   [
@@ -53,11 +36,11 @@ export const kbdPlaygroundCssProperties: CssPropertyInput[] = [
   ['--kbd-border-color', 'var(--color-border)', 'Controls key border color.'],
   ['--kbd-border-width', 'var(--border-width-sm)', 'Controls key border width.'],
   ['--kbd-color', 'var(--color-foreground)', 'Controls key text color.'],
-  ['--kbd-font-size', 'var(--kbd-font-size-md)', 'Controls key font size.'],
+  ['--kbd-font-size', 'var(--text-xs)', 'Controls key font size.'],
   ['--kbd-group-gap', '0.25rem', 'Controls spacing between grouped keys.'],
-  ['--kbd-height', 'var(--kbd-height-md)', 'Controls key height.'],
-  ['--kbd-min-width', 'var(--kbd-height)', 'Controls minimum key width.'],
-  ['--kbd-padding-x', 'var(--kbd-padding-x-md)', 'Controls horizontal key padding.'],
+  ['--kbd-height', '1.5rem', 'Controls key height.'],
+  ['--kbd-min-width', 'var(--kbd-height, 1.5rem)', 'Controls minimum key width.'],
+  ['--kbd-padding-x', '0.4375rem', 'Controls horizontal key padding.'],
   ['--kbd-radius', 'var(--radius-sm)', 'Controls key border radius.'],
 ];
 
@@ -84,46 +67,30 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function KbdExample(props: KbdProps) {
+export function KbdExample(props: ComponentProps<typeof Kbd>) {
   return <Kbd {...props}>Cmd K</Kbd>;
-}
-
-export function KbdVariantsExample() {
-  return (
-    <div className={styles.row}>
-      {variants.map((variant) => (
-        <Kbd key={variant} variant={variant}>
-          {variant}
-        </Kbd>
-      ))}
-    </div>
-  );
-}
-
-export function KbdSizesExample() {
-  return (
-    <div className={styles.row}>
-      <Kbd size="sm">Esc</Kbd>
-      <Kbd size="md">Cmd K</Kbd>
-      <Kbd size="lg">Enter</Kbd>
-    </div>
-  );
 }
 
 export function KbdGroupExample() {
   return (
+    <KbdGroup>
+      <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
+    </KbdGroup>
+  );
+}
+
+export function KbdShortcutListExample() {
+  return (
     <div className={styles.column}>
       <div className={styles.shortcutRow}>
         <KbdGroup>
-          <Kbd>Cmd</Kbd>
-          <Kbd>K</Kbd>
+          <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
         </KbdGroup>
         Open command menu
       </div>
       <div className={styles.shortcutRow}>
         <KbdGroup>
-          <Kbd>Shift</Kbd>
-          <Kbd>?</Kbd>
+          <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
         </KbdGroup>
         Show shortcuts
       </div>
@@ -135,11 +102,29 @@ export function KbdGroupExample() {
   );
 }
 
+export function KbdDenseExample() {
+  return (
+    <div className={styles.row}>
+      <Kbd className={styles.dense}>Esc</Kbd>
+      <Kbd className={styles.dense}>Ctrl</Kbd>
+      <Kbd className={styles.dense}>/</Kbd>
+    </div>
+  );
+}
+
+export function KbdMutedExample() {
+  return (
+    <div className={styles.row}>
+      <Kbd className={styles.muted}>Ctrl</Kbd>
+      <Kbd className={styles.muted}>B</Kbd>
+    </div>
+  );
+}
+
 export function CustomCompositionKbdExample() {
   return (
     <KbdGroup className={styles.customGroup}>
-      <Kbd className={styles.customKbd}>Cmd</Kbd>
-      <Kbd className={styles.customKbd}>K</Kbd>
+      <Kbd className={styles.customKbd}>Cmd</Kbd>+<Kbd className={styles.customKbd}>K</Kbd>
     </KbdGroup>
   );
 }

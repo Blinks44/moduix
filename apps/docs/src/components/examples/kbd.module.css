@@ -24,6 +24,21 @@
   --kbd-group-gap: 0.375rem;
 }
 
+.dense {
+  --kbd-height: 1.25rem;
+  --kbd-font-size: 0.6875rem;
+  --kbd-line-height: 1rem;
+  --kbd-min-width: 1.25rem;
+  --kbd-padding-x: 0.375rem;
+}
+
+.muted {
+  --kbd-bg: transparent;
+  --kbd-border-color: transparent;
+  --kbd-color: var(--color-muted-foreground);
+  --kbd-shadow: none;
+}
+
 .customKbd {
   --kbd-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
   --kbd-border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
