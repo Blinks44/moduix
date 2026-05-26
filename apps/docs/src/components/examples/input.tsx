@@ -1,4 +1,4 @@
-import { Field, FieldError, FieldLabel, Input, type InputProps } from 'moduix';
+import { Field, FieldError, FieldLabel, Input } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -82,7 +82,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function InputExample(props: InputProps) {
+export function InputExample(props: React.ComponentProps<typeof Input>) {
   return (
     <Field className={styles.field}>
       <FieldLabel>Name</FieldLabel>
@@ -151,7 +151,7 @@ export function InputFieldValidationExample() {
   );
 }
 
-export function CustomCompositionInputExample() {
+export function CustomStylesInputExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel>Project key</FieldLabel>

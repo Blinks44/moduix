@@ -6,7 +6,7 @@ icon: Component
 
 import {
   ControlledInputExample,
-  CustomCompositionInputExample,
+  CustomStylesInputExample,
   DisabledInputExample,
   InputExample,
   InputCssPlaygroundPanel,
@@ -70,10 +70,11 @@ Field (optional wrapper)
 
 ## Composition
 
-Use `value`, `defaultValue`, `onValueChange`, `render`, function `className`, function `style`, and
-Base UI Field state data attributes as needed.
+`Input` stays close to the Base UI primitive. Pass Base UI props such as `value`,
+`defaultValue`, `onValueChange`, `render`, function `className`, and function `style` directly to
+the component.
 
-Use `size` for the visual size and `htmlSize` for the native HTML `size` attribute:
+Use `size` for the visual size and `htmlSize` when you need the native HTML `size` attribute:
 
 ```tsx
 <Input size="lg" htmlSize={24} placeholder="Search projects" />
@@ -81,21 +82,14 @@ Use `size` for the visual size and `htmlSize` for the native HTML `size` attribu
 
 ### Defaults
 
-| Prop        | Default | Values                                                   |
-| ----------- | ------- | -------------------------------------------------------- |
-| `size`      | `md`    | `xs`, `sm`, `md`, `lg`, `xl`                             |
-| `htmlSize`  | -       | Any valid native `input` `size` number                   |
-| `className` | -       | `string` or `(state: InputState) => string \| undefined` |
+| Prop        | Default | Values                                 |
+| ----------- | ------- | -------------------------------------- |
+| `size`      | `md`    | `xs`, `sm`, `md`, `lg`, `xl`           |
+| `htmlSize`  | -       | Any valid native `input` `size` number |
+| `className` | -       | `string` or Base UI state callback     |
 
-`Input` does not render hidden service slots such as `Positioner`, `Backdrop`, or `Viewport`, so it
-does not need a `classNames` API. Style the input element directly with `className`.
-
-The package also exports the Base UI event and state types used by controlled inputs and styling
-callbacks:
-
-```tsx
-import { type InputChangeEventDetails, type InputChangeEventReason, type InputState } from 'moduix';
-```
+`Input` is a single styled root, so there are no internal slots, slot props, or class name maps to
+learn. Style the element directly with `className` or CSS variables.
 
 ## Examples
 
@@ -289,12 +283,12 @@ Use `Field` when the input needs labels, errors, native validity, and Base UI da
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
 Pass `className` directly to `Input` for custom styling.
 
 <Preview>
-  <CustomCompositionInputExample />
+  <CustomStylesInputExample />
 
   <Preview.Code>
     {`

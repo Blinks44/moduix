@@ -1,14 +1,14 @@
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { Button } from '@/components/Button';
-import { Input, type InputProps, type InputSize } from '@/components/Input';
+import { Input } from '@/components/Input';
 import styles from './InputGroup.module.css';
 
 type InputGroupProps = React.ComponentPropsWithoutRef<'div'> & {
-  size?: InputSize;
+  size?: React.ComponentProps<typeof Input>['size'];
 };
 
-type InputGroupInputProps = InputProps;
+type InputGroupInputProps = React.ComponentProps<typeof Input>;
 type InputGroupAddonProps = React.ComponentPropsWithoutRef<'span'>;
 type InputGroupTextProps = React.ComponentPropsWithoutRef<'span'>;
 type InputGroupButtonProps = React.ComponentProps<typeof Button>;

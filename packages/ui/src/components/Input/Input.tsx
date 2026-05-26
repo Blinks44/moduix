@@ -3,25 +3,20 @@ import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Input.module.css';
 
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type InputVisualSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-type InputProps = Omit<InputPrimitive.Props, 'size'> & {
-  size?: InputSize;
-  htmlSize?: React.ComponentProps<'input'>['size'];
-};
-type InputState = InputPrimitive.State;
-type InputChangeEventReason = InputPrimitive.ChangeEventReason;
-type InputChangeEventDetails = InputPrimitive.ChangeEventDetails;
-
-const Input = React.forwardRef(function Input(
-  { className, size: componentSize = 'md', htmlSize, ...props }: InputProps,
-  ref: React.ForwardedRef<HTMLInputElement>,
-) {
+const Input = React.forwardRef<
+  React.ComponentRef<typeof InputPrimitive>,
+  Omit<InputPrimitive.Props, 'size'> & {
+    size?: InputVisualSize;
+    htmlSize?: React.ComponentProps<'input'>['size'];
+  }
+>(function Input({ className, size = 'md', htmlSize, ...props }, ref) {
   return (
     <InputPrimitive
       ref={ref}
       data-slot="input-root"
-      data-size={componentSize}
+      data-size={size}
       className={mergeClassName(className, styles.root)}
       size={htmlSize}
       {...props}
@@ -30,5 +25,3 @@ const Input = React.forwardRef(function Input(
 });
 
 export { Input };
-
-export type { InputProps, InputState, InputChangeEventReason, InputChangeEventDetails, InputSize };
