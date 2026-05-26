@@ -9,7 +9,7 @@ import {
   CollapsibleCssPropertiesPanel,
   CollapsibleExample,
   ControlledCollapsibleExample,
-  CustomStylesCollapsibleExample,
+  CustomCompositionCollapsibleExample,
   DisabledCollapsibleExample,
   HiddenUntilFoundCollapsibleExample,
   ManualTriggerCompositionCollapsibleExample,
@@ -530,7 +530,7 @@ Use `className` on root, trigger, panel, and icon, and add your own wrapper insi
 content needs extra layout or surface styles.
 
 <Preview>
-  <CustomStylesCollapsibleExample />
+  <CustomCompositionCollapsibleExample />
 
   <Preview.Code>
     {`
@@ -542,7 +542,7 @@ content needs extra layout or surface styles.
         ChevronDownIcon,
       } from "moduix";
 
-      export function CustomStylesCollapsibleDemo() {
+      export function CustomCompositionCollapsibleDemo() {
         return (
           <Collapsible className={styles.customRoot}>
             <CollapsibleTrigger className={styles.customTrigger}>

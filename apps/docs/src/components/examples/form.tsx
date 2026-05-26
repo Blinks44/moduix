@@ -299,7 +299,7 @@ export function FormActionStateExample() {
   );
 }
 
-export function CustomStylesFormExample() {
+export function CustomCompositionFormExample() {
   return (
     <Form validationMode="onBlur" className={styles.customForm}>
       <Field name="project" className={styles.customField}>

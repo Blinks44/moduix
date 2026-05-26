@@ -105,7 +105,7 @@ export function ContainerSemanticExample() {
   );
 }
 
-export function CustomStylesContainerExample() {
+export function CustomCompositionContainerExample() {
   return (
     <div className={styles.viewport}>
       <Container className={styles.customContainer}>

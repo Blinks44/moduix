@@ -9,7 +9,7 @@ import {
   FieldCssPropertiesPanel,
   FieldCheckboxExample,
   FieldCustomValidationExample,
-  FieldCustomStylesExample,
+  FieldCustomCompositionExample,
   FieldDisabledExample,
   FieldExample,
   FieldInputExample,
@@ -413,12 +413,12 @@ Pair `Field` with compound controls by linking the label with the control id.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` to the slots that need overrides when styling the field with CSS Modules.
 
 <Preview>
-  <FieldCustomStylesExample />
+  <FieldCustomCompositionExample />
 
   <Preview.Code>
     {`
@@ -430,7 +430,7 @@ Pass `className` to the slots that need overrides when styling the field with CS
         FieldLabel,
       } from "moduix";
 
-      export function CustomStylesFieldDemo() {
+      export function CustomCompositionFieldDemo() {
         return (
           <Field validationMode="onBlur" className={styles.customField}>
             <FieldLabel className={styles.customLabel}>Project key</FieldLabel>

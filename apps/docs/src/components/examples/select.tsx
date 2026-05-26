@@ -494,7 +494,7 @@ export function ObjectValuesSelectExample() {
   );
 }
 
-export function CustomStylesSelectExample() {
+export function CustomCompositionSelectExample() {
   return (
     <Select items={fruits}>
       <SelectField>

@@ -165,7 +165,7 @@ export function HeadingSemanticExample() {
   );
 }
 
-export function CustomStylesHeadingExample() {
+export function CustomCompositionHeadingExample() {
   return (
     <Heading as="h2" className={styles.customHeading}>
       Customized heading

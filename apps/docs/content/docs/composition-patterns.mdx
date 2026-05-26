@@ -7,7 +7,9 @@ icon: Blocks
 # Composition Patterns
 
 Many moduix components are compound wrappers around Base UI primitives. They expose visible parts
-for product markup and keep service slots internal so behavior stays consistent.
+for product markup and usually keep service slots internal by default so behavior stays consistent.
+Some components, such as `Dialog`, also export those low-level parts when manual composition is a
+real customization path.
 
 ## Service Slots
 
@@ -22,69 +24,32 @@ Service slots are infrastructure layers that usually should not be composed manu
 | `Arrow`      | Optional anchored pointer between trigger and popup surface.                    |
 
 In moduix wrappers (`PopoverContent`, `SelectContent`, `DialogContent`, `DrawerContent`, and
-similar), these slots are rendered internally.
+similar), these slots are rendered internally for the default path. When a component exports its own
+service slots, prefer the high-level wrapper first and drop to manual composition only when you need
+control over portal behavior, overlay presence, or DOM structure.
 
 ## Public Customization Contract
 
 Use this contract consistently when customizing a component:
 
-| Concern                             | API surface                       |
-| ----------------------------------- | --------------------------------- |
-| Main visible surface                | `className`                       |
-| Internal service-slot classes       | `classNames`                      |
-| Non-class props for service slots   | `slotProps`                       |
-| Optional internal visual/service UI | `with*` booleans (`withBackdrop`) |
-| Portal target                       | top-level `container`             |
+| Concern                          | API surface                                          |
+| -------------------------------- | ---------------------------------------------------- |
+| Main visible surface             | `className`                                          |
+| Common wrapper defaults          | high-level content wrapper (`DialogContent`)         |
+| Deep structure / portal behavior | exported low-level parts or component-specific props |
+| Optional internal UI             | composition first, component-specific props second   |
 
-`className` and `classNames` are intentionally separated. If a component has internal slots, prefer
-`classNames` instead of manually rendering those internal layers.
-
-## Prop Priority Rules
-
-When both top-level props and slot props can define the same behavior, moduix uses this order:
-
-1. Explicit top-level prop (`side`, `align`, `container`, and similar)
-2. Matching value in `slotProps`
-3. Component default
-
-That keeps public API predictable and avoids hidden overrides.
-
-## Toggle Naming
-
-For optional internals, moduix uses `with*` naming:
-
-- `withBackdrop`
-- `withArrow`
-- `withViewport`
-- `withHandle`
-
-For mode props (not binary toggles), use semantic names like `variant` (for example, `fade` can be
-mode-based when it supports directional values).
-
-## Styling and Slot Props Example
-
-```tsx
-<PopoverContent
-  className={styles.popup}
-  withBackdrop
-  classNames={{
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-  }}
-  slotProps={{
-    portal: { keepMounted: true },
-    positioner: { collisionPadding: 12 },
-  }}
-/>
-```
-
-In this example, app code customizes internals without taking ownership of service-slot composition.
+Prefer the simplest public path the component gives you. For `Dialog`, that means `DialogContent`
+for the common case and `DialogPortal` / `DialogBackdrop` / `DialogViewport` / `DialogPopup` only
+when you intentionally need to own that structure. The wrapper can still carry small behavior sugar
+when it clearly matches the primitive contract, such as `DialogContent` automatically adapting to
+non-modal pointer behavior from `Dialog`.
 
 ## When To Compose Manually
 
 Compose primitives manually only when you intentionally need behavior outside the moduix wrapper
-contract (for example a custom library-level abstraction). For regular product screens, prefer
-wrapper parts and wrapper props to keep behavior, accessibility, and styling consistent.
+contract (for example a custom library-level abstraction or explicit viewport behavior). For regular
+product screens, prefer wrapper parts to keep behavior, accessibility, and styling consistent.
 
 ## Wrapper Example (Dialog)
 
@@ -96,22 +61,24 @@ import type { ComponentProps } from 'react';
 import { clsx } from 'clsx';
 import {
   Dialog as DialogBase,
+  DialogBackdrop as DialogBackdropBase,
   DialogClose as DialogCloseBase,
   DialogBody as DialogBodyBase,
   DialogCloseIcon as DialogCloseIconBase,
-  DialogContent as DialogContentBase,
   DialogDescription as DialogDescriptionBase,
   DialogFooter as DialogFooterBase,
   DialogHeader as DialogHeaderBase,
-  DialogProvider as DialogProviderBase,
+  DialogPopup as DialogPopupBase,
+  DialogPortal as DialogPortalBase,
   DialogTitle as DialogTitleBase,
   DialogTrigger as DialogTriggerBase,
+  DialogViewport as DialogViewportBase,
   createDialogHandle as createDialogHandleBase,
 } from 'moduix';
 import styles from './AppDialog.module.css';
 
 type DialogProps = ComponentProps<typeof DialogBase>;
-type DialogContentProps = ComponentProps<typeof DialogContentBase>;
+type DialogContentProps = ComponentProps<typeof DialogPopupBase>;
 
 export function Dialog(props: DialogProps) {
   return <DialogBase {...props} />;
@@ -121,29 +88,16 @@ export function DialogTrigger(props: ComponentProps<typeof DialogTriggerBase>) {
   return <DialogTriggerBase {...props} />;
 }
 
-export function DialogContent({
-  className,
-  classNames,
-  slotProps,
-  withBackdrop = true,
-  ...props
-}: DialogContentProps) {
+export function DialogContent({ className, children, ...props }: DialogContentProps) {
   return (
-    <DialogContentBase
-      withBackdrop={withBackdrop}
-      className={className}
-      classNames={{
-        backdrop: styles.backdrop,
-        viewport: styles.viewport,
-        ...classNames,
-      }}
-      slotProps={{
-        portal: { keepMounted: true, ...slotProps?.portal },
-        backdrop: slotProps?.backdrop,
-        viewport: slotProps?.viewport,
-      }}
-      {...props}
-    />
+    <DialogPortalBase keepMounted>
+      <DialogBackdropBase className={styles.backdrop} forceRender />
+      <DialogViewportBase className={styles.viewport}>
+        <DialogPopupBase className={clsx(styles.popup, className)} {...props}>
+          {children}
+        </DialogPopupBase>
+      </DialogViewportBase>
+    </DialogPortalBase>
   );
 }
 
@@ -181,7 +135,6 @@ export function DialogCloseIcon({
   return <DialogCloseIconBase className={clsx(styles.closeIcon, className)} {...props} />;
 }
 
-export const DialogProvider = DialogProviderBase;
 export const createDialogHandle = createDialogHandleBase;
 ```
 

@@ -108,7 +108,7 @@ export function BleedSemanticExample() {
   );
 }
 
-export function CustomStylesBleedExample() {
+export function CustomCompositionBleedExample() {
   return (
     <div className={styles.container}>
       <Bleed className={styles.customBleed}>

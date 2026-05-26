@@ -241,7 +241,7 @@ export function ToggleRenderCallbackExample() {
   );
 }
 
-export function CustomStylesToggleExample() {
+export function CustomCompositionToggleExample() {
   return (
     <Toggle className={styles.customToggle} variant="outline" defaultPressed>
       <CheckSmallIcon />

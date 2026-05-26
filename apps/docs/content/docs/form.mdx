@@ -7,7 +7,7 @@ icon: Component
 import {
   FormActionStateExample,
   FormActionsRefExample,
-  CustomStylesFormExample,
+  CustomCompositionFormExample,
   FormCssPlaygroundPanel,
   FormCssPropertiesPanel,
   FormExample,
@@ -449,13 +449,13 @@ errors.
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` to the form root and composed field, input, error, and button parts when styling
 with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <CustomStylesFormExample />
+  <CustomCompositionFormExample />
 
   <Preview.Code>
     {`
@@ -469,7 +469,7 @@ with CSS Modules, Tailwind CSS, or CSS-in-JS.
         Button,
       } from "moduix";
 
-      export function CustomStylesFormDemo() {
+      export function CustomCompositionFormDemo() {
         return (
           <Form validationMode="onBlur" className={styles.customForm}>
             <Field name="project" className={styles.customField}>

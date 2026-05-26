@@ -6,7 +6,7 @@ icon: Component
 
 import {
   ControlledToggleGroupExample,
-  CustomStylesToggleGroupExample,
+  CustomCompositionToggleGroupExample,
   ToggleGroupCssPlaygroundPanel,
   ToggleGroupCssPropertiesPanel,
   ToggleGroupDisabledExample,
@@ -594,20 +594,20 @@ Pass icons as children. Icon-only items must include an accessible label.
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` to the group and items. Use `--toggle-group-*` for the container and `--toggle-*`
 for item states such as hover and pressed.
 
 <Preview>
-  <CustomStylesToggleGroupExample />
+  <CustomCompositionToggleGroupExample />
 
   <Preview.Code>
     {`
       import { ToggleGroup, ToggleGroupItem } from "moduix";
       import styles from "./toggle-group.module.css";
 
-      export function CustomStylesToggleGroupDemo() {
+      export function CustomCompositionToggleGroupDemo() {
         return (
           <ToggleGroup
             defaultValue={["day"]}

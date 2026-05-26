@@ -56,8 +56,8 @@ export const NativeItems: Story = {
   ),
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   render: () => (
     <List marker="bullet" className={storyStyles.customBullet}>
       <ListItem classNames={{ marker: storyStyles.glowMarker }}>

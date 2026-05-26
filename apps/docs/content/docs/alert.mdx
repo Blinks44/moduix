@@ -11,7 +11,7 @@ import {
   AlertExample,
   AlertVariantsExample,
   AlertWithIconExample,
-  CustomStylesAlertExample,
+  CustomCompositionAlertExample,
   alertPlaygroundCssProperties,
 } from '@/components/examples/alert';
 
@@ -193,19 +193,19 @@ Use `variant="destructive"` when the message needs assertive announcement semant
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Override CSS variables from the root slot for local theming.
 
 <Preview>
-  <CustomStylesAlertExample />
+  <CustomCompositionAlertExample />
 
   <Preview.Code>
     {`
       import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, InfoIcon } from "moduix";
       import styles from "./alert.module.css";
 
-      export function AlertCustomStylesDemo() {
+      export function AlertCustomCompositionDemo() {
         return (
           <Alert className={styles.customAlert}>
             <AlertIcon>

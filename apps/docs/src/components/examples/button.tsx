@@ -297,7 +297,7 @@ export function ButtonLoadingExample() {
   );
 }
 
-export function CustomStylesButtonExample() {
+export function CustomCompositionButtonExample() {
   return (
     <Button className={styles.customButton} disabled focusableWhenDisabled aria-busy>
       <Spinner decorative size="sm" className={styles.customSpinner} />

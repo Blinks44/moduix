@@ -12,7 +12,7 @@ import {
   AlertDialogHandleExample,
   ControlledAlertDialogExample,
   CustomCloseIconAlertDialogExample,
-  CustomStylesAlertDialogExample,
+  CustomCompositionAlertDialogExample,
   ScrollableAlertDialogExample,
   alertDialogPlaygroundCssProperties,
 } from '@/components/examples/alert-dialog';
@@ -542,13 +542,13 @@ needs to change.
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Use `className` for popup-level styling and CSS variables for visual changes. That keeps the public
 API small while still exposing the usual theming hooks.
 
 <Preview>
-  <CustomStylesAlertDialogExample />
+  <CustomCompositionAlertDialogExample />
 
   <Preview.Code>
     {`
@@ -565,7 +565,7 @@ API small while still exposing the usual theming hooks.
         AlertDialogAction,
       } from "moduix";
 
-      export function CustomStylesAlertDialogDemo() {
+      export function CustomCompositionAlertDialogDemo() {
         return (
           <AlertDialog>
             <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>

@@ -102,8 +102,8 @@ export const Aligned: Story = {
   ),
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   render: () => (
     <Heading as="h2" className={storyStyles.customHeading}>
       Customized heading

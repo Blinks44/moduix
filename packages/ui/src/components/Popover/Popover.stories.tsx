@@ -244,13 +244,13 @@ export const WithoutArrow: Story = {
   },
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   render: () => {
     return (
       <Popover>
         <PopoverTrigger className={storyStyles.customTrigger} render={<Button />}>
-          Open custom styles
+          Open custom composition
         </PopoverTrigger>
         <PopoverContent
           withBackdrop
@@ -266,7 +266,7 @@ export const CustomStyles: Story = {
           arrow={<CheckSmallIcon className={storyStyles.customArrowIcon} />}
         >
           <PopoverHeader className={storyStyles.contentGrid}>
-            <PopoverTitle>Custom styles</PopoverTitle>
+            <PopoverTitle>Custom composition</PopoverTitle>
             <PopoverDescription>
               Popup, portal, backdrop, positioner, viewport, and arrow slots are styled through
               className and classNames.

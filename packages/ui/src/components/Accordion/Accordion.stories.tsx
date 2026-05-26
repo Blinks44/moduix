@@ -137,7 +137,7 @@ export const Controlled: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Accordion defaultValue={['what-is-base-ui']}>

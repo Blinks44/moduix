@@ -514,7 +514,7 @@ export function IndentEffectDrawerExample() {
   );
 }
 
-export function CustomStylesDrawerExample() {
+export function CustomCompositionDrawerExample() {
   const snapPoints = [0.35, 0.75] as const;
   const [snapPoint, setSnapPoint] = React.useState<number | string | null>(snapPoints[0]);
   const expanded = snapPoint === snapPoints[1];
@@ -533,7 +533,7 @@ export function CustomStylesDrawerExample() {
         }}
       >
         <DrawerHeader>
-          <DrawerTitle>Custom styles</DrawerTitle>
+          <DrawerTitle>Custom composition</DrawerTitle>
           <DrawerSnapToggle
             expanded={expanded}
             onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}

@@ -9,7 +9,7 @@ import {
   ComboboxExample,
   ComboboxCssPlaygroundPanel,
   ComboboxCssPropertiesPanel,
-  CustomStylesComboboxExample,
+  CustomCompositionComboboxExample,
   GroupedComboboxExample,
   IndicatorRightComboboxExample,
   InputInsidePopupComboboxExample,
@@ -193,7 +193,7 @@ compact:
 | Backdrop or arrow                       | Use the lower-level popup parts only for custom popup infrastructure.                                                      |
 
 For a custom popup stack with your own backdrop or arrow, use the lower-level parts shown in
-`Custom Styles` below.
+`Custom Composition` below.
 
 Every visible part accepts `className` and the Base UI `render` prop where the underlying primitive
 supports it, so the component can be styled with CSS Modules, plain CSS, CSS-in-JS, cascade layers,
@@ -726,12 +726,12 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Style each popup part directly when you need custom layering, backdrop, or arrow treatment.
 
 <Preview>
-  <CustomStylesComboboxExample />
+  <CustomCompositionComboboxExample />
 
   <Preview.Code>
     {`
@@ -759,7 +759,7 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
       import { useId } from "react";
       import styles from "./combobox.module.css";
 
-      export function CustomStylesComboboxDemo() {
+      export function CustomCompositionComboboxDemo() {
         const id = useId();
 
         return (

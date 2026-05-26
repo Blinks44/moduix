@@ -13,7 +13,7 @@ import {
   IndicatorRightSelectExample,
   MultipleSelectExample,
   ObjectValuesSelectExample,
-  CustomStylesSelectExample,
+  CustomCompositionSelectExample,
   SelectCssPlaygroundPanel,
   SelectCssPropertiesPanel,
   SelectExample,
@@ -542,13 +542,13 @@ function to format the array.
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Use `SelectContent` props to configure popup infrastructure. `Portal`, `Positioner`, `Backdrop`,
 and `Arrow` stay internal; application code only passes behavior and service-slot classes.
 
 <Preview>
-  <CustomStylesSelectExample />
+  <CustomCompositionSelectExample />
 
   <Preview.Code>
     {`
@@ -566,7 +566,7 @@ and `Arrow` stay internal; application code only passes behavior and service-slo
         SelectItemText,
       } from "moduix";
 
-      export function CustomStylesSelectDemo() {
+      export function CustomCompositionSelectDemo() {
         return (
           <Select items={fruits}>
             <SelectField>

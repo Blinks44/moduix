@@ -151,7 +151,7 @@ export function InputFieldValidationExample() {
   );
 }
 
-export function CustomStylesInputExample() {
+export function CustomCompositionInputExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel>Project key</FieldLabel>

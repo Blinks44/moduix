@@ -139,7 +139,7 @@ export function RadioGroupFieldsetExample() {
   );
 }
 
-export function CustomStylesFieldsetExample() {
+export function CustomCompositionFieldsetExample() {
   return (
     <Fieldset className={styles.customFieldset}>
       <FieldsetLegend className={styles.customLegend}>Styled fieldset</FieldsetLegend>

@@ -461,7 +461,7 @@ export function LinkItemsContextMenuExample() {
   );
 }
 
-export function CustomStylesContextMenuExample() {
+export function CustomCompositionContextMenuExample() {
   return (
     <ContextMenu>
       <ContextMenuTrigger className={styles.customTrigger}>Right click card</ContextMenuTrigger>

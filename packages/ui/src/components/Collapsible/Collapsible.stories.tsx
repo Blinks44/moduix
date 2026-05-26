@@ -127,7 +127,7 @@ export const HiddenUntilFound: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Collapsible className={styles.customRoot}>

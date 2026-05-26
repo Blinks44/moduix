@@ -77,7 +77,7 @@ export const Destructive: Story = {
   ),
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => (
     <Alert className={styles.customAlert}>
       <AlertIcon>

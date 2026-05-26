@@ -7,7 +7,7 @@ icon: Component
 import {
   MenuCssPlaygroundPanel,
   MenuCssPropertiesPanel,
-  CustomStylesMenuExample,
+  CustomCompositionMenuExample,
   DetachedTriggerMenuExample,
   GroupsAndControlsMenuExample,
   IndicatorRightMenuExample,
@@ -711,12 +711,12 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Use `className` for visible slots, `classNames` for internal service slots, and custom children when you need to replace the default icons.
 
 <Preview>
-  <CustomStylesMenuExample />
+  <CustomCompositionMenuExample />
 
   <Preview.Code>
     {`
@@ -739,7 +739,7 @@ Use `className` for visible slots, `classNames` for internal service slots, and 
         MenuSubmenuContent,
       } from "moduix";
 
-      export function CustomStylesMenu() {
+      export function CustomCompositionMenu() {
         return (
           <Menu>
             <MenuTrigger render={<Button />} className={styles.customTrigger}>

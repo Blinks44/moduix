@@ -6,7 +6,7 @@ icon: Component
 
 import {
   ControlledToggleExample,
-  CustomStylesToggleExample,
+  CustomCompositionToggleExample,
   ToggleCssPlaygroundPanel,
   ToggleCssPropertiesPanel,
   ToggleDisabledExample,
@@ -360,19 +360,19 @@ Use `render` when the icon or rendered element should depend on the pressed stat
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` to layer custom styles on top of the default Toggle styling.
 
 <Preview>
-  <CustomStylesToggleExample />
+  <CustomCompositionToggleExample />
 
   <Preview.Code>
     {`
       import { CheckSmallIcon, Toggle } from "moduix";
       import styles from "./toggle.module.css";
 
-      export function CustomStylesToggleDemo() {
+      export function CustomCompositionToggleDemo() {
         return (
           <Toggle className={styles.customToggle} variant="outline" defaultPressed>
             <CheckSmallIcon />

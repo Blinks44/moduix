@@ -218,7 +218,7 @@ export function InputGroupFieldValidationExample() {
   );
 }
 
-export function CustomStylesInputGroupExample() {
+export function CustomCompositionInputGroupExample() {
   return (
     <InputGroup className={styles.customGroup}>
       <InputGroupAddon className={styles.customAddon}>@</InputGroupAddon>

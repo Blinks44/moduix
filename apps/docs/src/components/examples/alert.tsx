@@ -159,7 +159,7 @@ export function AlertDestructiveExample() {
   );
 }
 
-export function CustomStylesAlertExample() {
+export function CustomCompositionAlertExample() {
   return (
     <Alert className={styles.customAlert}>
       <AlertIcon>

@@ -9,7 +9,7 @@ import {
   AccordionCssPropertiesPanel,
   AccordionExample,
   ControlledAccordionExample,
-  CustomStylesAccordionExample,
+  CustomCompositionAccordionExample,
   DisabledItemAccordionExample,
   accordionPlaygroundCssProperties,
 } from '@/components/examples/accordion';
@@ -300,7 +300,7 @@ Set `disabled` on an item to keep it visible and non-interactive.
 Compose a custom indicator by passing children to `AccordionTriggerIcon`.
 
 <Preview>
-  <CustomStylesAccordionExample />
+  <CustomCompositionAccordionExample />
 
   <Preview.Code>
     {`
@@ -314,7 +314,7 @@ Compose a custom indicator by passing children to `AccordionTriggerIcon`.
         ChevronDownIcon,
       } from "moduix";
 
-      export function CustomStylesAccordionDemo() {
+      export function CustomCompositionAccordionDemo() {
         return (
           <Accordion defaultValue={["what-is-base-ui"]}>
             {items.map((item) => (

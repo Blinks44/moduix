@@ -78,6 +78,6 @@ export const ShortcutList: Story = {
   ),
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => <Kbd className={styles.customKbd}>Cmd K</Kbd>,
 };

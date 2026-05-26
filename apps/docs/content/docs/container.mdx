@@ -11,7 +11,7 @@ import {
   ContainerGuttersExample,
   ContainerSemanticExample,
   ContainerSizesExample,
-  CustomStylesContainerExample,
+  CustomCompositionContainerExample,
   containerPlaygroundCssProperties,
 } from '@/components/examples/container';
 
@@ -181,18 +181,18 @@ Use `as` when the layout wrapper should also describe document structure.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` when styling the root or overriding container variables locally.
 
 <Preview>
-  <CustomStylesContainerExample />
+  <CustomCompositionContainerExample />
 
   <Preview.Code>
     {`
       import { Container, Text } from "moduix";
 
-      export function CustomStylesContainerDemo() {
+      export function CustomCompositionContainerDemo() {
         return (
           <Container className={styles.customContainer}>
             <Text weight="semibold">Customized max width and gutters</Text>

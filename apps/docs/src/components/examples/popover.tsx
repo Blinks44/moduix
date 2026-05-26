@@ -375,11 +375,11 @@ export function PopoverWithoutArrowExample() {
   );
 }
 
-export function CustomStylesPopoverExample() {
+export function CustomCompositionPopoverExample() {
   return (
     <Popover>
       <PopoverTrigger className={styles.customTrigger} render={<Button />}>
-        Open custom styles
+        Open custom composition
       </PopoverTrigger>
       <PopoverContent
         withBackdrop
@@ -395,7 +395,7 @@ export function CustomStylesPopoverExample() {
         arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
       >
         <PopoverHeader>
-          <PopoverTitle>Custom styles</PopoverTitle>
+          <PopoverTitle>Custom composition</PopoverTitle>
           <PopoverDescription>
             Popup, portal, backdrop, positioner, viewport, and arrow slots are styled through
             className and classNames.

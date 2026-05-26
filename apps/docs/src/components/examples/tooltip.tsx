@@ -241,7 +241,7 @@ export function MultipleTriggersTooltipExample() {
   );
 }
 
-export function CustomStylesTooltipExample() {
+export function CustomCompositionTooltipExample() {
   return (
     <Tooltip>
       <TooltipTrigger aria-label="Custom styled tooltip" className={styles.customTrigger}>

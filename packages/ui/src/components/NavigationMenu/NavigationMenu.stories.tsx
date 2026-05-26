@@ -88,8 +88,8 @@ export const Basic: Story = {
   },
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   render: () => {
     return (
       <NavigationMenu

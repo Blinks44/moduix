@@ -497,7 +497,7 @@ export function CommandPaletteActionsExample() {
   );
 }
 
-export function CommandPaletteCustomStylesExample() {
+export function CommandPaletteCustomCompositionExample() {
   return (
     <CommandPalette shortcut="alt+k">
       <CommandPaletteTrigger render={<Button />}>

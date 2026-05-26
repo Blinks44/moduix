@@ -78,6 +78,6 @@ export function CloseButtonCustomIconExample() {
   );
 }
 
-export function CloseButtonCustomStylesExample() {
+export function CloseButtonCustomCompositionExample() {
   return <CloseButton className={styles.customButton} aria-label="Close message" />;
 }

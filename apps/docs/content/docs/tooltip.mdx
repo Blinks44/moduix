@@ -5,7 +5,7 @@ icon: Component
 ---
 
 import {
-  CustomStylesTooltipExample,
+  CustomCompositionTooltipExample,
   DetachedTriggerTooltipExample,
   MultipleTriggersTooltipExample,
   SideControlTooltipExample,
@@ -484,13 +484,13 @@ active trigger payload.
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Use `className` for the popup itself, `classNames` for internal slots such as the arrow, and
 CSS variables for broad theme changes. Portal, positioner, and viewport are rendered automatically.
 
 <Preview>
-  <CustomStylesTooltipExample />
+  <CustomCompositionTooltipExample />
 
   <Preview.Code>
     {`
@@ -501,7 +501,7 @@ CSS variables for broad theme changes. Portal, positioner, and viewport are rend
       } from "moduix";
       import styles from "./tooltip-demo.module.css";
 
-      export function CustomStylesTooltip() {
+      export function CustomCompositionTooltip() {
         return (
           <Tooltip>
             <TooltipTrigger

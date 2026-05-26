@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { CloseButton } from '@/components/CloseButton';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../Button';
 import { ScrollArea } from '../ScrollArea';
 import {
   Dialog,
+  DialogBackdrop,
   createDialogHandle,
   DialogClose,
   DialogCloseIcon,
@@ -14,8 +14,11 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogPopup,
+  DialogPortal,
   DialogTitle,
   DialogTrigger,
+  DialogViewport,
 } from './Dialog';
 import storyStyles from './Dialog.stories.module.css';
 
@@ -36,9 +39,10 @@ export const Basic: Story = {
     return (
       <Dialog>
         <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
-        <DialogContent withCloseButton>
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Notifications</DialogTitle>
+            <DialogCloseIcon />
             <DialogDescription>You are all caught up. Good job!</DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -177,9 +181,10 @@ export const NonModal: Story = {
     return (
       <Dialog modal={false}>
         <DialogTrigger render={<Button />}>Open non-modal dialog</DialogTrigger>
-        <DialogContent withBackdrop={false}>
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Non-modal dialog</DialogTitle>
+            <DialogCloseIcon />
             <DialogDescription>
               The page remains interactive because modal behavior and backdrop are disabled.
             </DialogDescription>
@@ -193,22 +198,19 @@ export const NonModal: Story = {
   },
 };
 
-export const CustomBuiltInCloseButton: Story = {
+export const CustomCloseIcon: Story = {
   render: () => {
     return (
       <Dialog>
         <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
-        <DialogContent
-          closeButton={
-            <CloseButton aria-label="Close dialog">
-              <span aria-hidden="true">x</span>
-            </CloseButton>
-          }
-        >
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
+            <DialogCloseIcon aria-label="Close dialog">
+              <span aria-hidden="true">x</span>
+            </DialogCloseIcon>
             <DialogDescription>
-              The top-right close control is overridden through the closeButton prop.
+              The close control stays composable and can be replaced without DialogContent props.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -225,76 +227,71 @@ export const InsideScrollDialog: Story = {
     return (
       <Dialog>
         <DialogTrigger render={<Button />}>Open inside scroll dialog</DialogTrigger>
-        <DialogContent
-          className={storyStyles.insidePopup}
-          classNames={{ viewport: storyStyles.insideViewport }}
-        >
-          <DialogHeader>
-            <DialogTitle>Dialog</DialogTitle>
-            <DialogCloseIcon className={storyStyles.insideCloseIcon} />
-            <DialogDescription>
-              This layout keeps the popup fully on screen while allowing its content to scroll.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogViewport className={storyStyles.insideViewport}>
+            <DialogPopup className={storyStyles.insidePopup}>
+              <DialogHeader>
+                <DialogTitle>Dialog</DialogTitle>
+                <DialogCloseIcon className={storyStyles.insideCloseIcon} />
+                <DialogDescription>
+                  This layout keeps the popup fully on screen while allowing its content to scroll.
+                </DialogDescription>
+              </DialogHeader>
 
-          <DialogBody className={storyStyles.insideBodyWrapper}>
-            <ScrollArea
-              className={storyStyles.insideBody}
-              classNames={{
-                viewport: storyStyles.insideBodyViewport,
-                content: storyStyles.insideBodyContent,
-              }}
-            >
-              {insideScrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3 className={storyStyles.insideSectionTitle}>{item.title}</h3>
-                  <p className={storyStyles.insideSectionBody}>{item.body}</p>
-                </section>
-              ))}
-            </ScrollArea>
-          </DialogBody>
+              <DialogBody className={storyStyles.insideBodyWrapper}>
+                <ScrollArea
+                  className={storyStyles.insideBody}
+                  classNames={{
+                    viewport: storyStyles.insideBodyViewport,
+                    content: storyStyles.insideBodyContent,
+                  }}
+                >
+                  {insideScrollSections.map((item) => (
+                    <section key={item.title}>
+                      <h3 className={storyStyles.insideSectionTitle}>{item.title}</h3>
+                      <p className={storyStyles.insideSectionBody}>{item.body}</p>
+                    </section>
+                  ))}
+                </ScrollArea>
+              </DialogBody>
 
-          <DialogFooter>
-            <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-          </DialogFooter>
-        </DialogContent>
+              <DialogFooter>
+                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+              </DialogFooter>
+            </DialogPopup>
+          </DialogViewport>
+        </DialogPortal>
       </Dialog>
     );
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Dialog>
-        <DialogTrigger render={<Button />}>Open outside close icon</DialogTrigger>
-        <DialogContent
-          className={storyStyles.customPopup}
-          classNames={{
-            portal: storyStyles.customPortal,
-            backdrop: storyStyles.customBackdrop,
-            viewport: storyStyles.customViewport,
-          }}
-          outsideCloseIcon={<DialogCloseIcon className={storyStyles.customCloseIcon} />}
-          slotProps={{
-            portal: { keepMounted: true },
-            backdrop: { forceRender: true },
-          }}
-        >
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              This popup, backdrop, viewport, and close icon are styled with className and
-              classNames.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogBody>
-            <p>Update the public profile fields and save changes.</p>
-          </DialogBody>
-          <DialogFooter>
-            <DialogClose render={<Button />}>Save</DialogClose>
-          </DialogFooter>
-        </DialogContent>
+        <DialogTrigger render={<Button />}>Open custom composition</DialogTrigger>
+        <DialogPortal keepMounted>
+          <DialogBackdrop className={storyStyles.customBackdrop} forceRender />
+          <DialogViewport className={storyStyles.customViewport}>
+            <DialogPopup className={storyStyles.customPopup}>
+              <DialogCloseIcon className={storyStyles.customCloseIcon} />
+              <DialogHeader>
+                <DialogTitle>Edit profile</DialogTitle>
+                <DialogDescription>
+                  Portal, backdrop, viewport, popup, and close icon are composed explicitly.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogBody>
+                <p>Update the public profile fields and save changes.</p>
+              </DialogBody>
+              <DialogFooter>
+                <DialogClose render={<Button />}>Save</DialogClose>
+              </DialogFooter>
+            </DialogPopup>
+          </DialogViewport>
+        </DialogPortal>
       </Dialog>
     );
   },

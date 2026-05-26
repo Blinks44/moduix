@@ -97,10 +97,6 @@
     line-height: var(--line-height-text-md);
   }
 
-  .customPortal {
-    pointer-events: auto;
-  }
-
   .customBackdrop {
     background: rgb(15 23 42 / 0.56);
   }
@@ -116,7 +112,7 @@
   }
 
   .customCloseIcon {
-    position: fixed;
+    position: absolute;
     top: var(--spacing-4);
     right: var(--spacing-4);
     color: var(--dialog-color, var(--color-popover-foreground));

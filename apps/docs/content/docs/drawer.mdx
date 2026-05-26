@@ -7,7 +7,7 @@ icon: Component
 import 'moduix/style.css';
 import {
   BottomIslandDrawerExample,
-  CustomStylesDrawerExample,
+  CustomCompositionDrawerExample,
   DrawerExample,
   DrawerCssPlaygroundPanel,
   DrawerCssPropertiesPanel,
@@ -944,13 +944,13 @@ page while a drawer is open.
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Use `className` for the visible popup and `classNames` for the internal slots rendered by
 `DrawerContent`. Pass children to `DrawerSnapToggle` to replace the default icon.
 
 <Preview>
-  <CustomStylesDrawerExample />
+  <CustomCompositionDrawerExample />
 
   <Preview.Code>
     {`
@@ -970,7 +970,7 @@ Use `className` for the visible popup and `classNames` for the internal slots re
       } from "moduix";
       import { useState } from "react";
 
-      export function CustomStylesDrawerDemo() {
+      export function CustomCompositionDrawerDemo() {
         const snapPoints = [0.35, 0.75] as const;
         const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[0]);
         const expanded = snapPoint === snapPoints[1];
@@ -989,7 +989,7 @@ Use `className` for the visible popup and `classNames` for the internal slots re
               }}
             >
               <DrawerHeader>
-                <DrawerTitle>Custom styles</DrawerTitle>
+                <DrawerTitle>Custom composition</DrawerTitle>
                 <DrawerSnapToggle
                   expanded={expanded}
                   onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}

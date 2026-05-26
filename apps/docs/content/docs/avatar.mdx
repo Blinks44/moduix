@@ -12,7 +12,7 @@ import {
   AvatarExample,
   AvatarFallbackOnlyExample,
   AvatarImageErrorExample,
-  CustomStylesAvatarExample,
+  CustomCompositionAvatarExample,
   avatarPlaygroundCssProperties,
 } from '@/components/examples/avatar';
 
@@ -262,18 +262,18 @@ Keep a fallback so the avatar remains meaningful when the image fails to load.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` to root, image, and fallback when styling with CSS Modules, Tailwind, or CSS-in-JS.
 
 <Preview>
-  <CustomStylesAvatarExample />
+  <CustomCompositionAvatarExample />
 
   <Preview.Code>
     {`
       import { Avatar, AvatarImage, AvatarFallback } from "moduix";
 
-      export function CustomStylesAvatarDemo() {
+      export function CustomCompositionAvatarDemo() {
         return (
           <Avatar className={styles.ring}>
             <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />

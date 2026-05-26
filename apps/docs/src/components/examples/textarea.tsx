@@ -214,7 +214,7 @@ export function TextareaFieldValidationExample() {
   );
 }
 
-export function CustomStylesTextareaExample() {
+export function CustomCompositionTextareaExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel>Notes</FieldLabel>

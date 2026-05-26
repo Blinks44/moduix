@@ -195,7 +195,7 @@ export function KeepMountedScrollAreaExample() {
   );
 }
 
-export function CustomStylesScrollAreaExample() {
+export function CustomCompositionScrollAreaExample() {
   return (
     <ScrollArea
       scrollbars="both"

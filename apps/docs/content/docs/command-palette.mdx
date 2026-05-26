@@ -6,7 +6,7 @@ icon: Component
 
 import {
   CommandPaletteActionsExample,
-  CommandPaletteCustomStylesExample,
+  CommandPaletteCustomCompositionExample,
   CommandPaletteCssPlaygroundPanel,
   CommandPaletteCssPropertiesPanel,
   CommandPaletteExample,
@@ -259,7 +259,7 @@ export function ControlledCommandPalette() {
 </CommandPalette>
 ```
 
-### Custom Styles
+### Custom Composition
 
 When the default `CommandPaletteContent` is too opinionated, compose the palette manually from
 `CommandPalettePortal`, `CommandPaletteBackdrop`, `CommandPaletteViewport`, and
@@ -267,7 +267,7 @@ When the default `CommandPaletteContent` is too opinionated, compose the palette
 directly.
 
 <Preview>
-  <CommandPaletteCustomStylesExample />
+  <CommandPaletteCustomCompositionExample />
 
   <Preview.Code>
     {`
@@ -298,7 +298,7 @@ directly.
         CommandPaletteViewport,
       } from "moduix";
 
-      export function CustomStylesCommandPaletteDemo() {
+      export function CustomCompositionCommandPaletteDemo() {
         return (
           <CommandPalette>
             <CommandPaletteTrigger render={<Button />}>Open custom palette</CommandPaletteTrigger>

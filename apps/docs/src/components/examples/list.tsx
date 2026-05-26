@@ -200,7 +200,7 @@ export function NativeItemsListExample() {
   );
 }
 
-export function CustomStylesListExample() {
+export function CustomCompositionListExample() {
   return (
     <List marker="bullet" className={styles.customBullet}>
       {customStyleItems.map((item) => (

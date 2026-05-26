@@ -424,7 +424,7 @@ export function NestedNavigationMenuExample() {
   );
 }
 
-export function CustomStylesNavigationMenuExample() {
+export function CustomCompositionNavigationMenuExample() {
   return (
     <NavigationMenu
       className={styles.customRoot}

@@ -16,7 +16,7 @@ import {
   CheckboxSiblingLabelNativeButtonExample,
   CheckboxSizesExample,
   ControlledCheckboxExample,
-  CustomStylesCheckboxExample,
+  CustomCompositionCheckboxExample,
   CustomIconCheckboxExample,
   checkboxPlaygroundCssProperties,
 } from '@/components/examples/checkbox';
@@ -417,12 +417,12 @@ Pass `children` when you need to replace the full default indicator tree.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` to the field, root, and label slots. When indicator styles need their own selectors, compose the indicator explicitly.
 
 <Preview>
-  <CustomStylesCheckboxExample />
+  <CustomCompositionCheckboxExample />
 
   <Preview.Code>
     {`
@@ -434,7 +434,7 @@ Pass `className` to the field, root, and label slots. When indicator styles need
         CheckboxLabel,
       } from "moduix";
 
-      export function CustomStylesCheckboxDemo() {
+      export function CustomCompositionCheckboxDemo() {
         return (
           <CheckboxField className={styles.customField}>
             <Checkbox className={styles.customCheckbox} defaultChecked>

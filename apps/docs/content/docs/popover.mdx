@@ -7,7 +7,7 @@ icon: Component
 import {
   ControlledPopoverExample,
   CustomTriggerPopoverExample,
-  CustomStylesPopoverExample,
+  CustomCompositionPopoverExample,
   DetachedTriggerPopoverExample,
   ImageOnlyPopoverExample,
   ModalFocusPopoverExample,
@@ -798,13 +798,13 @@ Set `withArrow={false}` when the popup should look like a floating panel without
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Use `className` for the popup and `classNames` for the automatically rendered portal, backdrop,
 positioner, viewport, and arrow slots.
 
 <Preview>
-  <CustomStylesPopoverExample />
+  <CustomCompositionPopoverExample />
 
   <Preview.Code>
     {`
@@ -819,11 +819,11 @@ positioner, viewport, and arrow slots.
         PopoverTrigger,
       } from "moduix";
 
-      export function CustomStylesPopoverDemo() {
+      export function CustomCompositionPopoverDemo() {
         return (
           <Popover>
             <PopoverTrigger className={styles.customTrigger} render={<Button />}>
-              Open custom styles
+              Open custom composition
             </PopoverTrigger>
             <PopoverContent
               withBackdrop
@@ -839,7 +839,7 @@ positioner, viewport, and arrow slots.
               arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
             >
               <PopoverHeader>
-                <PopoverTitle>Custom styles</PopoverTitle>
+                <PopoverTitle>Custom composition</PopoverTitle>
                 <PopoverDescription>
                   Popup, portal, backdrop, positioner, viewport, and arrow slots are styled through
                   className and classNames.

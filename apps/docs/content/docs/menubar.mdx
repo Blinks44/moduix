@@ -7,7 +7,7 @@ icon: Component
 import {
   MenubarCssPlaygroundPanel,
   MenubarCssPropertiesPanel,
-  CustomStylesMenubarExample,
+  CustomCompositionMenubarExample,
   GroupsAndControlsMenubarExample,
   IconsMenubarExample,
   IndicatorRightMenubarExample,
@@ -481,13 +481,13 @@ Use `MenubarLinkItem` for navigation commands that should render as links while 
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Style the root and popup with `className`. Use `classNames` for the internal portal,
 backdrop, positioner, and viewport slots rendered by `MenubarContent`.
 
 <Preview>
-  <CustomStylesMenubarExample />
+  <CustomCompositionMenubarExample />
 
   <Preview.Code>
     {`
@@ -500,7 +500,7 @@ backdrop, positioner, and viewport slots rendered by `MenubarContent`.
         MenubarSeparator,
       } from "moduix";
 
-      export function CustomStylesMenubarDemo() {
+      export function CustomCompositionMenubarDemo() {
         return (
           <Menubar className={styles.customRoot}>
             <MenubarMenu>

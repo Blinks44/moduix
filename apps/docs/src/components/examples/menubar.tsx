@@ -477,7 +477,7 @@ export function LinkItemsMenubarExample() {
   );
 }
 
-export function CustomStylesMenubarExample() {
+export function CustomCompositionMenubarExample() {
   return (
     <Menubar className={styles.customRoot}>
       <MenubarMenu>

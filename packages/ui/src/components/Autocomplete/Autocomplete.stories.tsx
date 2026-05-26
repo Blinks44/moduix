@@ -599,7 +599,7 @@ export const AsyncSearch: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     const id = React.useId();
 

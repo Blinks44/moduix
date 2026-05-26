@@ -8,7 +8,7 @@ import {
   CloseButtonCssPlaygroundPanel,
   CloseButtonCssPropertiesPanel,
   CloseButtonCustomIconExample,
-  CloseButtonCustomStylesExample,
+  CloseButtonCustomCompositionExample,
   CloseButtonExample,
   closeButtonPlaygroundCssProperties,
 } from '@/components/examples/close-button';
@@ -147,18 +147,18 @@ Replace the default icon via `children`.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Style the root button through `className`.
 
 <Preview>
-  <CloseButtonCustomStylesExample />
+  <CloseButtonCustomCompositionExample />
 
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
 
-      export function CloseButtonCustomStylesDemo() {
+      export function CloseButtonCustomCompositionDemo() {
         return <CloseButton className={styles.customButton} aria-label="Close message" />;
       }
     `}

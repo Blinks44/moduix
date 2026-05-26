@@ -77,7 +77,7 @@ export const PercentFormat: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Meter

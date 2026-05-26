@@ -60,7 +60,7 @@ For component pages, keep the existing page structure unless the task requires a
 - `Composition` should explain the current supported usage patterns.
 - `Examples` should move from common cases to narrower cases.
 - The first example should demonstrate the default high-level usage path.
-- If low-level parts remain for customization, show them in a separate advanced section such as `Custom composition` or `Custom styles`.
+- If low-level parts remain for customization, show them in a separate advanced section named `Custom Composition`.
 
 Do not keep sections whose only purpose is to explain removed complexity such as legacy slot APIs, deep customization paths, or deleted feature flags.
 

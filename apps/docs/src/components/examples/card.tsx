@@ -202,7 +202,7 @@ export function CardWithImageExample() {
   );
 }
 
-export function CustomStylesCardExample() {
+export function CustomCompositionCardExample() {
   return (
     <Card className={styles.customCard}>
       <CardHeader>

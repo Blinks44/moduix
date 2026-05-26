@@ -7,7 +7,7 @@ icon: Component
 import {
   CompositionMeterExample,
   ControlledMeterExample,
-  CustomStylesMeterExample,
+  CustomCompositionMeterExample,
   MeterCssPlaygroundPanel,
   MeterCssPropertiesPanel,
   MeterExample,
@@ -268,13 +268,13 @@ Use `format` and a custom `MeterValue` child function for user-facing value text
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 `Meter` renders the track and indicator automatically. Use `className` for the root and `classNames`
 for the internal track and indicator slots.
 
 <Preview>
-  <CustomStylesMeterExample />
+  <CustomCompositionMeterExample />
 
   <Preview.Code>
     {`
@@ -284,7 +284,7 @@ for the internal track and indicator slots.
         MeterValue,
       } from "moduix";
 
-      export function CustomStylesMeterDemo() {
+      export function CustomCompositionMeterDemo() {
         return (
           <Meter
             value={72}

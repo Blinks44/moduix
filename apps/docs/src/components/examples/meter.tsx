@@ -113,7 +113,7 @@ export function PercentFormatMeterExample() {
   );
 }
 
-export function CustomStylesMeterExample() {
+export function CustomCompositionMeterExample() {
   return (
     <Meter
       value={72}

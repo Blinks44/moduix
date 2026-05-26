@@ -125,7 +125,7 @@ export function BadgeWithRightIconExample() {
   );
 }
 
-export function CustomStylesBadgeExample() {
+export function CustomCompositionBadgeExample() {
   return (
     <Badge className={styles.customBadge}>
       <BadgeDot />

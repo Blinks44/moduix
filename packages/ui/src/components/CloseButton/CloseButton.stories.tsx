@@ -27,7 +27,7 @@ export const CustomIcon: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   args: {
     className: styles.customButton,
     'aria-label': 'Close message',

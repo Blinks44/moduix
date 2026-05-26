@@ -186,7 +186,7 @@ export function HiddenUntilFoundCollapsibleExample() {
   );
 }
 
-export function CustomStylesCollapsibleExample() {
+export function CustomCompositionCollapsibleExample() {
   return (
     <Collapsible className={styles.customRoot}>
       <CollapsibleTrigger className={styles.customTrigger}>

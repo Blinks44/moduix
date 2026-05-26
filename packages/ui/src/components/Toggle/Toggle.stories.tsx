@@ -123,8 +123,8 @@ export const RenderCallback: Story = {
   },
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   args: {
     className: storyStyles.customToggle,
     variant: 'outline',

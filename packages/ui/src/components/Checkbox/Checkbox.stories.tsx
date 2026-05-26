@@ -61,7 +61,7 @@ export const IndicatorIcon: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <CheckboxField className={styles.customField}>

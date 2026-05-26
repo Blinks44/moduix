@@ -6,7 +6,7 @@ icon: Component
 
 import {
   BothScrollbarsScrollAreaExample,
-  CustomStylesScrollAreaExample,
+  CustomCompositionScrollAreaExample,
   GradientFadeScrollAreaExample,
   KeepMountedScrollAreaExample,
   OverflowEdgeThresholdScrollAreaExample,
@@ -540,19 +540,19 @@ scrollable and non-scrollable states.
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Style every internal slot through `classNames`, including the viewport, content, both scrollbars,
 both thumbs, and the corner.
 
 <Preview>
-  <CustomStylesScrollAreaExample />
+  <CustomCompositionScrollAreaExample />
 
   <Preview.Code>
     {`
       import { ScrollArea } from "moduix";
 
-      export function CustomStylesScrollAreaDemo() {
+      export function CustomCompositionScrollAreaDemo() {
         return (
           <ScrollArea
             scrollbars="both"

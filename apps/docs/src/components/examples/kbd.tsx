@@ -135,7 +135,7 @@ export function KbdGroupExample() {
   );
 }
 
-export function CustomStylesKbdExample() {
+export function CustomCompositionKbdExample() {
   return (
     <KbdGroup className={styles.customGroup}>
       <Kbd className={styles.customKbd}>Cmd</Kbd>

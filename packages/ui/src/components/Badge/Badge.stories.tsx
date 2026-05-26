@@ -92,7 +92,7 @@ export const WithRightIcon: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Badge className={styles.customBadge}>

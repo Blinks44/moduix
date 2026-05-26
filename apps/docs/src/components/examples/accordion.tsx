@@ -207,7 +207,7 @@ export function DisabledItemAccordionExample() {
   );
 }
 
-export function CustomStylesAccordionExample() {
+export function CustomCompositionAccordionExample() {
   return (
     <Accordion defaultValue={['what-is-base-ui']}>
       {accordionItems.map((item) => (

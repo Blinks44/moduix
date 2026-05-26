@@ -110,7 +110,7 @@ export const WithImage: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Card className={styles.customCard}>

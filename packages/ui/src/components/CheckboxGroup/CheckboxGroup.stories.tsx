@@ -201,8 +201,8 @@ export const ParentCheckbox: Story = {
   },
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   render: () => {
     const labelId = React.useId();
 

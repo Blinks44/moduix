@@ -5,7 +5,7 @@ icon: Component
 ---
 
 import {
-  CustomStylesListExample,
+  CustomCompositionListExample,
   ListExample,
   ListCssPlaygroundPanel,
   ListCssPropertiesPanel,
@@ -399,18 +399,18 @@ Use `tone` when the list should inherit a semantic text color.
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Use `marker="bullet"` when marker styling must be controlled independently from the text.
 
 <Preview>
-  <CustomStylesListExample />
+  <CustomCompositionListExample />
 
   <Preview.Code>
     {`
       import { List, ListItem } from "moduix";
 
-      export function CustomStylesListDemo() {
+      export function CustomCompositionListDemo() {
         return (
           <List marker="bullet" className={styles.customBullet}>
             {items.map((item) => (

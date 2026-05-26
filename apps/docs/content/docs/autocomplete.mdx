@@ -10,7 +10,7 @@ import {
   AutocompleteCssPlaygroundPanel,
   AutocompleteCssPropertiesPanel,
   AutocompleteExample,
-  CustomStylesAutocompleteExample,
+  CustomCompositionAutocompleteExample,
   FuzzyAutocompleteExample,
   GroupedAutocompleteExample,
   GridAutocompleteExample,
@@ -960,13 +960,13 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Style the default popup with `className`. Switch to explicit popup composition when the portal,
 backdrop, positioner, or arrow need their own styling.
 
 <Preview>
-  <CustomStylesAutocompleteExample />
+  <CustomCompositionAutocompleteExample />
 
   <Preview.Code>
     {`
@@ -987,7 +987,7 @@ backdrop, positioner, or arrow need their own styling.
       } from "moduix";
       import { useId } from "react";
 
-      export function CustomStylesAutocompleteDemo() {
+      export function CustomCompositionAutocompleteDemo() {
         const id = useId();
 
         return (

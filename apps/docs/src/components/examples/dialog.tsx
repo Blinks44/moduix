@@ -1,7 +1,7 @@
 import {
   Button,
-  CloseLineIcon,
   Dialog,
+  DialogBackdrop,
   DialogBody,
   DialogClose,
   DialogCloseIcon,
@@ -9,8 +9,11 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogPopup,
+  DialogPortal,
   DialogTitle,
   DialogTrigger,
+  DialogViewport,
   ScrollArea,
   createDialogHandle,
 } from 'moduix';
@@ -42,16 +45,6 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-close-icon-glyph-size', '0.75rem', 'Controls icon close glyph size.'],
   ['--dialog-close-icon-radius', 'var(--radius-md)', 'Controls icon close border radius.'],
   ['--dialog-close-icon-size', '1.75rem', 'Controls icon close button size.'],
-  [
-    '--dialog-close-outside-offset-right',
-    'var(--spacing-4)',
-    'Controls outside close icon right offset.',
-  ],
-  [
-    '--dialog-close-outside-offset-top',
-    'var(--spacing-4)',
-    'Controls outside close icon top offset.',
-  ],
   ['--dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--dialog-content-margin', 'var(--spacing-4) 0 0', 'Controls `DialogBody` margin.'],
   ['--dialog-control-bg', 'var(--color-background)', 'Controls trigger and close background.'],
@@ -156,9 +149,10 @@ export function DialogExample() {
   return (
     <Dialog>
       <DialogTrigger render={<Button />}>View notifications</DialogTrigger>
-      <DialogContent withCloseButton>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Notifications</DialogTitle>
+          <DialogCloseIcon />
           <DialogDescription>You are all caught up. Good job!</DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -285,9 +279,10 @@ export function NonModalDialogExample() {
   return (
     <Dialog modal={false}>
       <DialogTrigger render={<Button />}>Open non-modal dialog</DialogTrigger>
-      <DialogContent withBackdrop={false}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Non-modal dialog</DialogTitle>
+          <DialogCloseIcon />
           <DialogDescription>
             The page remains interactive because modal behavior and backdrop are disabled.
           </DialogDescription>
@@ -300,40 +295,30 @@ export function NonModalDialogExample() {
   );
 }
 
-export function CustomStylesDialogExample() {
+export function CustomCompositionDialogExample() {
   return (
     <Dialog>
-      <DialogTrigger render={<Button />}>Open outside close icon</DialogTrigger>
-      <DialogContent
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          viewport: styles.customViewport,
-        }}
-        outsideCloseIcon={
-          <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon}>
-            <CloseLineIcon />
-          </DialogCloseIcon>
-        }
-        slotProps={{
-          portal: { keepMounted: true },
-          backdrop: { forceRender: true },
-        }}
-      >
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            This popup, backdrop, viewport, and close icon are styled with className and classNames.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogBody>
-          <p>Update the public profile fields and save changes.</p>
-        </DialogBody>
-        <DialogFooter>
-          <DialogClose render={<Button />}>Save</DialogClose>
-        </DialogFooter>
-      </DialogContent>
+      <DialogTrigger render={<Button />}>Open custom composition</DialogTrigger>
+      <DialogPortal keepMounted>
+        <DialogBackdrop className={styles.customBackdrop} forceRender />
+        <DialogViewport className={styles.customViewport}>
+          <DialogPopup className={styles.customPopup}>
+            <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon} />
+            <DialogHeader>
+              <DialogTitle>Edit profile</DialogTitle>
+              <DialogDescription>
+                Portal, backdrop, viewport, popup, and close icon are composed explicitly.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogBody>
+              <p>Update the public profile fields and save changes.</p>
+            </DialogBody>
+            <DialogFooter>
+              <DialogClose render={<Button />}>Save</DialogClose>
+            </DialogFooter>
+          </DialogPopup>
+        </DialogViewport>
+      </DialogPortal>
     </Dialog>
   );
 }

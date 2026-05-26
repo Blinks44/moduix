@@ -69,7 +69,7 @@ export const BlockBleed: Story = {
   ),
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => (
     <div className={storyStyles.container}>
       <Bleed className={storyStyles.customBleed}>

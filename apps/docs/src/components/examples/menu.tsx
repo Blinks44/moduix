@@ -508,7 +508,7 @@ export function DetachedTriggerMenuExample() {
   );
 }
 
-export function CustomStylesMenuExample() {
+export function CustomCompositionMenuExample() {
   return (
     <Menu>
       <MenuButtonTrigger className={styles.customTrigger}>

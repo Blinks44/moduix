@@ -398,7 +398,7 @@ export function CustomCloseIconAlertDialogExample() {
   );
 }
 
-export function CustomStylesAlertDialogExample() {
+export function CustomCompositionAlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>

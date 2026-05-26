@@ -163,7 +163,7 @@ export function AvatarImageErrorExample() {
   );
 }
 
-export function CustomStylesAvatarExample() {
+export function CustomCompositionAvatarExample() {
   return (
     <Avatar className={styles.ring}>
       <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />

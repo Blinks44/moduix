@@ -113,7 +113,7 @@ export const WithFieldValidation: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>

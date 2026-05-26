@@ -14,7 +14,7 @@ import {
   NestedContextMenuExample,
   PositionedContextMenuExample,
   ShortcutsContextMenuExample,
-  CustomStylesContextMenuExample,
+  CustomCompositionContextMenuExample,
   contextMenuPlaygroundCssProperties,
 } from '@/components/examples/context-menu';
 
@@ -476,13 +476,13 @@ Use `ContextMenuLinkItem` for navigation actions that should render as links.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 When styling the popup surface is enough, use `className` on `ContextMenuContent`. When you need a
 backdrop or custom structure, switch to explicit composition.
 
 <Preview>
-  <CustomStylesContextMenuExample />
+  <CustomCompositionContextMenuExample />
 
   <Preview.Code>
     {`
@@ -498,7 +498,7 @@ backdrop or custom structure, switch to explicit composition.
         ContextMenuTrigger,
       } from "moduix";
 
-      export function CustomStylesContextMenuDemo() {
+      export function CustomCompositionContextMenuDemo() {
         return (
           <ContextMenu>
             <ContextMenuTrigger className={styles.customTrigger}>Right click card</ContextMenuTrigger>

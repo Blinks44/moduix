@@ -9,7 +9,7 @@ import {
   FullWidthNavigationMenuExample,
   NavigationMenuCssPlaygroundPanel,
   NavigationMenuCssPropertiesPanel,
-  CustomStylesNavigationMenuExample,
+  CustomCompositionNavigationMenuExample,
   NavigationMenuExample,
   NestedInlineNavigationMenuExample,
   NestedNavigationMenuExample,
@@ -746,13 +746,13 @@ Set `withViewport` on the nested menu and pass `classNames.viewport` to style th
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Use `popupContent.className` and `popupContent.classNames` when styling the popup and the hidden
 Base UI service slots.
 
 <Preview>
-  <CustomStylesNavigationMenuExample />
+  <CustomCompositionNavigationMenuExample />
 
   <Preview.Code>
     {`
@@ -764,7 +764,7 @@ Base UI service slots.
         NavigationMenuTrigger,
       } from "moduix";
 
-      export function CustomStylesNavigationMenuDemo() {
+      export function CustomCompositionNavigationMenuDemo() {
         return (
           <NavigationMenu
             className={styles.customRoot}

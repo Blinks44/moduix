@@ -864,7 +864,7 @@ export function AsyncSearchAutocompleteExample() {
   );
 }
 
-export function CustomStylesAutocompleteExample() {
+export function CustomCompositionAutocompleteExample() {
   const id = React.useId();
 
   return (

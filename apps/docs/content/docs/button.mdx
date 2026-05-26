@@ -14,7 +14,7 @@ import {
   ButtonLoadingExample,
   ButtonSizesExample,
   ButtonVariantsExample,
-  CustomStylesButtonExample,
+  CustomCompositionButtonExample,
   buttonPlaygroundCssProperties,
 } from '@/components/examples/button';
 
@@ -260,16 +260,16 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 <Preview>
-  <CustomStylesButtonExample />
+  <CustomCompositionButtonExample />
 
   <Preview.Code>
     {`
       import { Button, Spinner } from "moduix";
 
-      export function CustomStylesButtonDemo() {
+      export function CustomCompositionButtonDemo() {
         return (
           <Button
             className={styles.customButton}

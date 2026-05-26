@@ -689,7 +689,7 @@ export function AsyncSearchComboboxExample() {
   );
 }
 
-export function CustomStylesComboboxExample() {
+export function CustomCompositionComboboxExample() {
   const id = React.useId();
 
   return (

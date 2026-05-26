@@ -63,7 +63,7 @@ export const ImageError: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Avatar className={styles.customAvatar}>

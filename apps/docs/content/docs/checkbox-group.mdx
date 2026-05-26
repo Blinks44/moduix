@@ -14,7 +14,7 @@ import {
   CheckboxGroupSizesExample,
   ControlledCheckboxGroupExample,
   CustomIconCheckboxGroupExample,
-  CustomStylesCheckboxGroupExample,
+  CustomCompositionCheckboxGroupExample,
   DisabledCheckboxGroupExample,
   ParentCheckboxGroupExample,
   checkboxGroupPlaygroundCssProperties,
@@ -476,13 +476,13 @@ application or icon library.
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` to the group, label, list, item, control, and item label slots. Use
 composition on `CheckboxGroupItemControl` when the indicator needs its own selector.
 
 <Preview>
-  <CustomStylesCheckboxGroupExample />
+  <CustomCompositionCheckboxGroupExample />
 
   <Preview.Code>
     {`
@@ -496,7 +496,7 @@ composition on `CheckboxGroupItemControl` when the indicator needs its own selec
         CheckboxIndicator,
       } from "moduix";
 
-      export function CustomStylesCheckboxGroupDemo() {
+      export function CustomCompositionCheckboxGroupDemo() {
         return (
           <CheckboxGroup
             defaultValue={["email"]}

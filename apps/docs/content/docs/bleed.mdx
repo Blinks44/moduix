@@ -11,7 +11,7 @@ import {
   BleedExample,
   BleedInlineAmountsExample,
   BleedSemanticExample,
-  CustomStylesBleedExample,
+  CustomCompositionBleedExample,
   bleedPlaygroundCssProperties,
 } from '@/components/examples/bleed';
 
@@ -285,18 +285,18 @@ Use `as` when the escaping content has a more specific semantic role.
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
 Pass `className` when styling the root or overriding bleed variables in local CSS.
 
 <Preview>
-  <CustomStylesBleedExample />
+  <CustomCompositionBleedExample />
 
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
 
-      export function CustomStylesBleedDemo() {
+      export function CustomCompositionBleedDemo() {
         return (
           <div className={styles.container}>
             <Bleed className={styles.customBleed}>

@@ -227,7 +227,7 @@ export function CheckboxClassNameExample() {
   );
 }
 
-export const CustomStylesCheckboxExample = CheckboxClassNameExample;
+export const CustomCompositionCheckboxExample = CheckboxClassNameExample;
 
 export function CheckboxSiblingLabelNativeButtonExample() {
   const id = React.useId();
