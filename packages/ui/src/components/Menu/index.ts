@@ -4,7 +4,12 @@ export {
   createMenuHandle,
   MenuTrigger,
   MenuTriggerIcon,
+  MenuPortal,
+  MenuBackdrop,
+  MenuPositioner,
+  MenuPopup,
   MenuArrow,
+  MenuViewport,
   MenuContent,
   MenuSubmenuContent,
   MenuItem,
@@ -24,19 +29,4 @@ export {
   MenuItemTextIcon,
   MenuItemTextLabel,
   MenuItemShortcut,
-} from './Menu';
-
-export type {
-  MenuProps,
-  MenuHandle,
-  MenuContentProps,
-  MenuContentClassNames,
-  MenuContentSlotProps,
-  MenuTriggerProps,
-  MenuItemProps,
-  MenuLinkItemProps,
-  MenuRadioItemProps,
-  MenuCheckboxItemProps,
-  MenuSubmenuTriggerProps,
-  MenuItemShortcutProps,
 } from './Menu';

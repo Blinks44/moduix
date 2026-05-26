@@ -10,56 +10,19 @@ import {
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Menu.module.css';
 
-type MenuContentClassNames = {
-  portal?: MenuPrimitive.Portal.Props['className'];
-  backdrop?: MenuPrimitive.Backdrop.Props['className'];
-  positioner?: MenuPrimitive.Positioner.Props['className'];
-  arrow?: MenuPrimitive.Arrow.Props['className'];
-  viewport?: MenuPrimitive.Viewport.Props['className'];
-};
-
-type MenuContentSlotProps = {
-  portal?: Omit<MenuPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<MenuPrimitive.Backdrop.Props, 'className'>;
-  positioner?: Omit<MenuPrimitive.Positioner.Props, 'className' | 'children'>;
-  arrow?: Omit<MenuPrimitive.Arrow.Props, 'className' | 'children'>;
-  viewport?: Omit<MenuPrimitive.Viewport.Props, 'className' | 'children'>;
-};
-
-type MenuContentPositionerProps = Pick<
+type MenuPositionerProps = Pick<
   MenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
   | 'align'
   | 'alignOffset'
   | 'arrowPadding'
-  | 'anchor'
   | 'collisionAvoidance'
   | 'collisionBoundary'
   | 'collisionPadding'
-  | 'sticky'
-  | 'positionMethod'
-  | 'disableAnchorTracking'
 >;
 
-type MenuContentProps = MenuPrimitive.Popup.Props &
-  MenuContentPositionerProps & {
-    classNames?: MenuContentClassNames;
-    slotProps?: MenuContentSlotProps;
-    container?: MenuPrimitive.Portal.Props['container'];
-    withArrow?: boolean;
-    arrow?: React.ReactNode;
-    withBackdrop?: boolean;
-    withViewport?: boolean;
-  };
-
 type IndicatorPosition = 'start' | 'end';
-type MenuRadioItemProps = MenuPrimitive.RadioItem.Props & {
-  indicator?: IndicatorPosition;
-};
-type MenuCheckboxItemProps = MenuPrimitive.CheckboxItem.Props & {
-  indicator?: IndicatorPosition;
-};
 
 const MENU_CONTENT_SIDE_OFFSET = 8;
 const Menu = MenuPrimitive.Root;
@@ -87,8 +50,8 @@ function MenuTriggerIcon({ className, children, ...props }: React.ComponentProps
   );
 }
 
-function MenuPortal({ className, ...props }: MenuPrimitive.Portal.Props) {
-  return <MenuPrimitive.Portal data-slot="menu-portal" className={className} {...props} />;
+function MenuPortal(props: MenuPrimitive.Portal.Props) {
+  return <MenuPrimitive.Portal data-slot="menu-portal" {...props} />;
 }
 
 function MenuBackdrop({ className, ...props }: MenuPrimitive.Backdrop.Props) {
@@ -145,76 +108,36 @@ function MenuViewport({ className, ...props }: MenuPrimitive.Viewport.Props) {
 
 function MenuContent({
   className,
-  classNames,
-  slotProps,
   children,
-  container,
-  withArrow,
-  arrow,
-  withBackdrop = false,
-  withViewport = false,
+  showArrow = false,
   side,
-  sideOffset,
+  sideOffset = MENU_CONTENT_SIDE_OFFSET,
   align,
   alignOffset,
   arrowPadding,
-  anchor,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
-  sticky,
-  positionMethod,
-  disableAnchorTracking,
   ...props
-}: MenuContentProps) {
-  const {
-    portal: portalSlotProps = {},
-    backdrop: backdropSlotProps,
-    positioner: positionerSlotProps,
-    arrow: arrowSlotProps,
-    viewport: viewportSlotProps,
-  } = slotProps ?? {};
-  const resolvedPositionerProps: MenuContentPositionerProps = {
-    side: side ?? positionerSlotProps?.side,
-    sideOffset: sideOffset ?? positionerSlotProps?.sideOffset ?? MENU_CONTENT_SIDE_OFFSET,
-    align: align ?? positionerSlotProps?.align,
-    alignOffset: alignOffset ?? positionerSlotProps?.alignOffset,
-    arrowPadding: arrowPadding ?? positionerSlotProps?.arrowPadding,
-    anchor: anchor ?? positionerSlotProps?.anchor,
-    collisionAvoidance: collisionAvoidance ?? positionerSlotProps?.collisionAvoidance,
-    collisionBoundary: collisionBoundary ?? positionerSlotProps?.collisionBoundary,
-    collisionPadding: collisionPadding ?? positionerSlotProps?.collisionPadding,
-    sticky: sticky ?? positionerSlotProps?.sticky,
-    positionMethod: positionMethod ?? positionerSlotProps?.positionMethod,
-    disableAnchorTracking: disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking,
-  };
-  const { container: slotPropsContainer, ...portalProps } = portalSlotProps;
-  const portalContainer = container ?? slotPropsContainer;
-  const showArrow = withArrow ?? true;
-
+}: MenuPrimitive.Popup.Props &
+  MenuPositionerProps & {
+    showArrow?: boolean;
+  }) {
   return (
-    <MenuPortal className={classNames?.portal} container={portalContainer} {...portalProps}>
-      {withBackdrop ? (
-        <MenuBackdrop className={classNames?.backdrop} {...backdropSlotProps} />
-      ) : null}
+    <MenuPortal>
       <MenuPositioner
-        {...positionerSlotProps}
-        {...resolvedPositionerProps}
-        className={classNames?.positioner}
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
       >
         <MenuPopup className={className} {...props}>
-          {showArrow ? (
-            <MenuArrow className={classNames?.arrow} {...arrowSlotProps}>
-              {arrow}
-            </MenuArrow>
-          ) : null}
-          {withViewport ? (
-            <MenuViewport className={classNames?.viewport} {...viewportSlotProps}>
-              {children}
-            </MenuViewport>
-          ) : (
-            children
-          )}
+          {showArrow ? <MenuArrow /> : null}
+          {children}
         </MenuPopup>
       </MenuPositioner>
     </MenuPortal>
@@ -222,21 +145,14 @@ function MenuContent({
 }
 
 function MenuSubmenuContent({
-  withArrow = false,
-  arrow,
   sideOffset = getSubmenuOffset,
   alignOffset = getSubmenuOffset,
   ...props
-}: MenuContentProps) {
-  return (
-    <MenuContent
-      withArrow={withArrow}
-      arrow={arrow}
-      sideOffset={sideOffset}
-      alignOffset={alignOffset}
-      {...props}
-    />
-  );
+}: MenuPrimitive.Popup.Props &
+  MenuPositionerProps & {
+    showArrow?: boolean;
+  }) {
+  return <MenuContent sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
 }
 
 function MenuItem({ className, ...props }: MenuPrimitive.Item.Props) {
@@ -321,7 +237,13 @@ function MenuRadioGroup({ className, ...props }: MenuPrimitive.RadioGroup.Props)
   );
 }
 
-function MenuRadioItem({ className, indicator, ...props }: MenuRadioItemProps) {
+function MenuRadioItem({
+  className,
+  indicator,
+  ...props
+}: MenuPrimitive.RadioItem.Props & {
+  indicator?: IndicatorPosition;
+}) {
   return (
     <MenuPrimitive.RadioItem
       data-slot="menu-radio-item"
@@ -348,7 +270,13 @@ function MenuRadioItemIndicator({
   );
 }
 
-function MenuCheckboxItem({ className, indicator, ...props }: MenuCheckboxItemProps) {
+function MenuCheckboxItem({
+  className,
+  indicator,
+  ...props
+}: MenuPrimitive.CheckboxItem.Props & {
+  indicator?: IndicatorPosition;
+}) {
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="menu-checkbox-item"
@@ -439,21 +367,18 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 const ChevronRightIcon = ChevronRightLargeIcon;
 const CheckIcon = CheckSmallIcon;
 
-type MenuProps<Payload = unknown> = MenuPrimitive.Root.Props<Payload>;
-type MenuHandle<Payload = unknown> = MenuPrimitive.Handle<Payload>;
-type MenuTriggerProps = MenuPrimitive.Trigger.Props;
-type MenuItemProps = MenuPrimitive.Item.Props;
-type MenuLinkItemProps = MenuPrimitive.LinkItem.Props;
-type MenuSubmenuTriggerProps = MenuPrimitive.SubmenuTrigger.Props;
-type MenuItemShortcutProps = React.ComponentProps<'span'>;
-
 export {
   Menu,
   MenuSubmenu,
   createMenuHandle,
   MenuTrigger,
   MenuTriggerIcon,
+  MenuPortal,
+  MenuBackdrop,
+  MenuPositioner,
+  MenuPopup,
   MenuArrow,
+  MenuViewport,
   MenuContent,
   MenuSubmenuContent,
   MenuItem,
@@ -473,19 +398,4 @@ export {
   MenuItemTextIcon,
   MenuItemTextLabel,
   MenuItemShortcut,
-};
-
-export type {
-  MenuProps,
-  MenuHandle,
-  MenuContentProps,
-  MenuContentClassNames,
-  MenuContentSlotProps,
-  MenuTriggerProps,
-  MenuItemProps,
-  MenuLinkItemProps,
-  MenuRadioItemProps,
-  MenuCheckboxItemProps,
-  MenuSubmenuTriggerProps,
-  MenuItemShortcutProps,
 };

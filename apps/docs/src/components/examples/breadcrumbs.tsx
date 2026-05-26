@@ -146,7 +146,7 @@ export function BreadcrumbsCollapsedExample() {
               <MenuTrigger className={styles.menuTrigger} aria-label="Show hidden path items">
                 <BreadcrumbsEllipsis />
               </MenuTrigger>
-              <MenuContent align="start" withArrow={false} className={styles.menuContent}>
+              <MenuContent align="start" className={styles.menuContent}>
                 <MenuLinkItem closeOnClick href="#">
                   Engineering
                 </MenuLinkItem>

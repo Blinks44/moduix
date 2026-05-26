@@ -69,7 +69,7 @@ export const Collapsed: Story = {
             <MenuTrigger aria-label="Show hidden path items">
               <BreadcrumbsEllipsis />
             </MenuTrigger>
-            <MenuContent align="start" withArrow={false} style={collapsedMenuContentStyle}>
+            <MenuContent align="start" style={collapsedMenuContentStyle}>
               <MenuLinkItem closeOnClick href="#">
                 Engineering
               </MenuLinkItem>

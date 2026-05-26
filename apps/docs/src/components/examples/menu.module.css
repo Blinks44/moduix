@@ -4,16 +4,6 @@
   margin-bottom: var(--spacing-4);
 }
 
-.backdropDemoSurface {
-  position: relative;
-  z-index: var(--z-popup);
-}
-
-.backdropDemoTrigger {
-  position: relative;
-  z-index: var(--z-popup);
-}
-
 .customTriggerIcon {
   --menu-trigger-icon-size: 0.875rem;
 }
@@ -26,10 +16,6 @@
     linear-gradient(var(--color-background), var(--color-background)) padding-box,
     linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
   color: var(--color-primary);
-}
-
-.customPortal {
-  position: relative;
 }
 
 .customBackdrop {
@@ -49,6 +35,11 @@
   --menu-highlight-bg: var(--color-primary);
   --menu-highlight-color: var(--color-primary-foreground);
   --menu-separator-color: var(--color-primary);
+}
+
+.customViewport {
+  max-height: 18rem;
+  overflow-y: auto;
 }
 
 .customArrow {

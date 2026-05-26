@@ -12,6 +12,8 @@ import {
   InfoIcon,
   MapIcon,
   Menu,
+  MenuArrow,
+  MenuBackdrop,
   MenuCheckboxItem,
   MenuCheckboxItemIndicator,
   MenuContent,
@@ -24,6 +26,9 @@ import {
   MenuItemTextIcon,
   MenuItemTextLabel,
   MenuLinkItem,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
   MenuRadioGroup,
   MenuRadioItem,
   MenuRadioItemIndicator,
@@ -34,6 +39,7 @@ import {
   MenuSubmenuTriggerIcon,
   MenuTrigger,
   MenuTriggerIcon,
+  MenuViewport,
   createMenuHandle,
 } from 'moduix';
 import * as React from 'react';
@@ -224,14 +230,14 @@ export function MenuExample() {
   );
 }
 
-export function WithoutArrowMenuExample() {
+export function WithArrowMenuExample() {
   return (
     <Menu>
       <MenuButtonTrigger>
         Song
         <MenuTriggerIcon />
       </MenuButtonTrigger>
-      <MenuContent withArrow={false}>
+      <MenuContent showArrow>
         <MenuItem closeOnClick>Add to Library</MenuItem>
         <MenuItem closeOnClick>Add to Playlist</MenuItem>
         <MenuSeparator />
@@ -406,20 +412,18 @@ export function OpenOnHoverMenuExample() {
 
 export function PositionedWithBackdropMenuExample() {
   return (
-    <div className={styles.backdropDemoSurface}>
-      <Menu>
-        <MenuButtonTrigger className={styles.backdropDemoTrigger}>
-          Export
-          <MenuTriggerIcon />
-        </MenuButtonTrigger>
-        <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
-          <MenuItem closeOnClick>Export PNG</MenuItem>
-          <MenuItem closeOnClick>Export PDF</MenuItem>
-          <MenuSeparator />
-          <MenuItem closeOnClick>Copy share link</MenuItem>
-        </MenuContent>
-      </Menu>
-    </div>
+    <Menu>
+      <MenuButtonTrigger>
+        Export
+        <MenuTriggerIcon />
+      </MenuButtonTrigger>
+      <MenuContent showArrow side="right" align="start" sideOffset={12}>
+        <MenuItem closeOnClick>Export PNG</MenuItem>
+        <MenuItem closeOnClick>Export PDF</MenuItem>
+        <MenuSeparator />
+        <MenuItem closeOnClick>Copy share link</MenuItem>
+      </MenuContent>
+    </Menu>
   );
 }
 
@@ -517,46 +521,45 @@ export function CustomCompositionMenuExample() {
           <ChevronDownIcon />
         </MenuTriggerIcon>
       </MenuButtonTrigger>
-      <MenuContent
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          positioner: styles.customPositioner,
-          arrow: styles.customArrow,
-        }}
-        withBackdrop
-      >
-        <MenuItem closeOnClick className={styles.customItem}>
-          <MenuItemTextContent>
-            <MenuItemTextIcon>
-              <MapIcon />
-            </MenuItemTextIcon>
-            <MenuItemTextLabel>Open map</MenuItemTextLabel>
-          </MenuItemTextContent>
-        </MenuItem>
-        <MenuSubmenu>
-          <MenuSubmenuTrigger className={styles.customItem}>
-            <MenuItemTextContent>
-              <MenuItemTextIcon>
-                <InfoIcon />
-              </MenuItemTextIcon>
-              <MenuItemTextLabel>More</MenuItemTextLabel>
-            </MenuItemTextContent>
-            <MenuSubmenuTriggerIcon>
-              <ChevronDownIcon />
-            </MenuSubmenuTriggerIcon>
-          </MenuSubmenuTrigger>
-          <MenuSubmenuContent>
-            <MenuItem closeOnClick className={styles.customItem}>
-              Nearby
-            </MenuItem>
-            <MenuItem closeOnClick className={styles.customItem}>
-              Routes
-            </MenuItem>
-          </MenuSubmenuContent>
-        </MenuSubmenu>
-      </MenuContent>
+      <MenuPortal>
+        <MenuBackdrop className={styles.customBackdrop} />
+        <MenuPositioner className={styles.customPositioner} sideOffset={12}>
+          <MenuPopup className={styles.customPopup}>
+            <MenuArrow className={styles.customArrow} />
+            <MenuViewport className={styles.customViewport}>
+              <MenuItem closeOnClick className={styles.customItem}>
+                <MenuItemTextContent>
+                  <MenuItemTextIcon>
+                    <MapIcon />
+                  </MenuItemTextIcon>
+                  <MenuItemTextLabel>Open map</MenuItemTextLabel>
+                </MenuItemTextContent>
+              </MenuItem>
+              <MenuSubmenu>
+                <MenuSubmenuTrigger className={styles.customItem}>
+                  <MenuItemTextContent>
+                    <MenuItemTextIcon>
+                      <InfoIcon />
+                    </MenuItemTextIcon>
+                    <MenuItemTextLabel>More</MenuItemTextLabel>
+                  </MenuItemTextContent>
+                  <MenuSubmenuTriggerIcon>
+                    <ChevronDownIcon />
+                  </MenuSubmenuTriggerIcon>
+                </MenuSubmenuTrigger>
+                <MenuSubmenuContent>
+                  <MenuItem closeOnClick className={styles.customItem}>
+                    Nearby
+                  </MenuItem>
+                  <MenuItem closeOnClick className={styles.customItem}>
+                    Routes
+                  </MenuItem>
+                </MenuSubmenuContent>
+              </MenuSubmenu>
+            </MenuViewport>
+          </MenuPopup>
+        </MenuPositioner>
+      </MenuPortal>
     </Menu>
   );
 }

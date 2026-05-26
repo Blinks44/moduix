@@ -14,6 +14,8 @@ import {
 import { Button } from '../Button';
 import {
   Menu,
+  MenuArrow,
+  MenuBackdrop,
   MenuCheckboxItem,
   MenuCheckboxItemIndicator,
   MenuContent,
@@ -26,6 +28,9 @@ import {
   MenuItemShortcut,
   MenuItemText,
   MenuLinkItem,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
   MenuRadioGroup,
   MenuRadioItem,
   MenuRadioItemIndicator,
@@ -64,7 +69,7 @@ export const Basic: Story = {
           Song
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent withArrow>
+        <MenuContent>
           <MenuItem closeOnClick>Add to Library</MenuItem>
           <MenuItem closeOnClick>Add to Playlist</MenuItem>
           <MenuSeparator />
@@ -93,7 +98,7 @@ export const WithGroupsAndControls: Story = {
           View
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent withArrow>
+        <MenuContent>
           <MenuGroup>
             <MenuGroupLabel>Sort</MenuGroupLabel>
             <MenuRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -141,7 +146,7 @@ export const WithShortcuts: Story = {
           Edit
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent withArrow>
+        <MenuContent>
           <MenuItem closeOnClick>
             Copy
             <MenuItemShortcut>Ctrl+C</MenuItemShortcut>
@@ -172,7 +177,7 @@ export const IndicatorRightWithIcon: Story = {
           View
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent withArrow>
+        <MenuContent>
           <MenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap} indicator="end">
             <MenuItemText>
               <MenuItemTextContent>
@@ -207,7 +212,7 @@ export const Nested: Story = {
           Song
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent withArrow>
+        <MenuContent>
           <MenuItem closeOnClick>Add to Library</MenuItem>
           <MenuSubmenu>
             <MenuSubmenuTrigger>
@@ -239,7 +244,7 @@ export const OpenOnHover: Story = {
           Add to playlist
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent withArrow>
+        <MenuContent>
           <MenuItem closeOnClick>Get Up!</MenuItem>
           <MenuItem closeOnClick>Inside Out</MenuItem>
           <MenuItem closeOnClick>Night Beats</MenuItem>
@@ -251,7 +256,7 @@ export const OpenOnHover: Story = {
   },
 };
 
-export const PositionedWithBackdrop: Story = {
+export const WithArrow: Story = {
   render: () => {
     return (
       <Menu>
@@ -259,13 +264,45 @@ export const PositionedWithBackdrop: Story = {
           Export
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent side="right" align="start" sideOffset={12} withBackdrop withArrow>
+        <MenuContent showArrow side="right" align="start" sideOffset={12}>
           <MenuItem closeOnClick>Export PNG</MenuItem>
           <MenuItem closeOnClick>Export PDF</MenuItem>
           <MenuSeparator />
           <MenuItem closeOnClick>Copy share link</MenuItem>
         </MenuContent>
       </Menu>
+    );
+  },
+};
+
+export const CustomComposition: Story = {
+  render: () => {
+    return (
+      <div className={storyStyles.backdropDemoSurface}>
+        <Menu>
+          <MenuButtonTrigger className={storyStyles.backdropDemoTrigger}>
+            Export
+            <MenuTriggerIcon />
+          </MenuButtonTrigger>
+          <MenuPortal>
+            <MenuBackdrop className={storyStyles.backdrop} />
+            <MenuPositioner
+              className={storyStyles.positioner}
+              side="right"
+              align="start"
+              sideOffset={12}
+            >
+              <MenuPopup className={storyStyles.customPopup}>
+                <MenuArrow />
+                <MenuItem closeOnClick>Export PNG</MenuItem>
+                <MenuItem closeOnClick>Export PDF</MenuItem>
+                <MenuSeparator />
+                <MenuItem closeOnClick>Copy share link</MenuItem>
+              </MenuPopup>
+            </MenuPositioner>
+          </MenuPortal>
+        </Menu>
+      </div>
     );
   },
 };
@@ -282,7 +319,7 @@ export const OpenAlertDialog: Story = {
             Project
             <MenuTriggerIcon />
           </MenuButtonTrigger>
-          <MenuContent withArrow>
+          <MenuContent>
             <MenuItem closeOnClick>Rename</MenuItem>
             <MenuItem closeOnClick>Duplicate</MenuItem>
             <MenuSeparator />
@@ -325,7 +362,7 @@ export const LinkItems: Story = {
           Navigate
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent withArrow>
+        <MenuContent>
           <MenuLinkItem href="#projects">Projects</MenuLinkItem>
           <MenuLinkItem href="#teams">Teams</MenuLinkItem>
           <MenuLinkItem href="#billing">Billing</MenuLinkItem>
@@ -352,7 +389,7 @@ export const DetachedTrigger: Story = {
         </div>
 
         <Menu handle={menuHandle}>
-          <MenuContent withArrow>
+          <MenuContent>
             <MenuItem closeOnClick>Edit</MenuItem>
             <MenuItem closeOnClick>Share</MenuItem>
             <MenuSeparator />
