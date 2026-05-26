@@ -1,12 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { BellIcon, CheckSmallIcon } from '@/primitives/Icons';
-import type { PopoverContentProps } from './Popover';
 import { Button } from '../Button';
 import {
   Popover,
   createPopoverHandle,
+  PopoverArrow,
+  PopoverBackdrop,
   PopoverTrigger,
+  PopoverPortal,
+  PopoverPositioner,
+  PopoverPopup,
+  PopoverViewport,
   PopoverHeader,
   PopoverBody,
   PopoverFooter,
@@ -29,7 +34,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const SIDES: PopoverSide[] = ['top', 'right', 'bottom', 'left'];
+const SIDES = ['top', 'right', 'bottom', 'left'] as const;
+type PopoverSide = (typeof SIDES)[number];
 
 export const Basic: Story = {
   render: () => {
@@ -81,18 +87,19 @@ export const WithBackdrop: Story = {
         <PopoverTrigger className={storyStyles.backdropTrigger} render={<Button />}>
           Open with backdrop
         </PopoverTrigger>
-        <PopoverContent
-          withArrow={false}
-          withBackdrop
-          classNames={{ backdrop: storyStyles.backdrop }}
-        >
-          <PopoverHeader className={storyStyles.contentGrid}>
-            <PopoverTitle>Backdrop</PopoverTitle>
-            <PopoverDescription>
-              The backdrop is rendered automatically and styled through classNames.
-            </PopoverDescription>
-          </PopoverHeader>
-        </PopoverContent>
+        <PopoverPortal>
+          <PopoverBackdrop className={storyStyles.backdrop} />
+          <PopoverPositioner sideOffset={8}>
+            <PopoverPopup>
+              <PopoverHeader className={storyStyles.contentGrid}>
+                <PopoverTitle>Backdrop</PopoverTitle>
+                <PopoverDescription>
+                  The backdrop is composed explicitly when you need it.
+                </PopoverDescription>
+              </PopoverHeader>
+            </PopoverPopup>
+          </PopoverPositioner>
+        </PopoverPortal>
       </Popover>
     );
   },
@@ -225,17 +232,17 @@ export const ImageOnlyContent: Story = {
   },
 };
 
-export const WithoutArrow: Story = {
-  name: 'Without Arrow',
+export const WithArrow: Story = {
+  name: 'With Arrow',
   render: () => {
     return (
       <Popover>
-        <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-        <PopoverContent withArrow={false}>
+        <PopoverTrigger render={<Button />}>Open with arrow</PopoverTrigger>
+        <PopoverContent showArrow>
           <PopoverHeader className={storyStyles.contentGrid}>
-            <PopoverTitle>No arrow</PopoverTitle>
+            <PopoverTitle>With arrow</PopoverTitle>
             <PopoverDescription>
-              Set withArrow to false when the popup should look like a floating panel.
+              Enable showArrow when the popup should visually point to its trigger.
             </PopoverDescription>
           </PopoverHeader>
         </PopoverContent>
@@ -252,30 +259,26 @@ export const CustomComposition: Story = {
         <PopoverTrigger className={storyStyles.customTrigger} render={<Button />}>
           Open custom composition
         </PopoverTrigger>
-        <PopoverContent
-          withBackdrop
-          withViewport
-          className={storyStyles.customPopup}
-          classNames={{
-            portal: storyStyles.customPortal,
-            backdrop: storyStyles.customBackdrop,
-            positioner: storyStyles.customPositioner,
-            viewport: storyStyles.customViewport,
-            arrow: storyStyles.customArrowSlot,
-          }}
-          arrow={<CheckSmallIcon className={storyStyles.customArrowIcon} />}
-        >
-          <PopoverHeader className={storyStyles.contentGrid}>
-            <PopoverTitle>Custom composition</PopoverTitle>
-            <PopoverDescription>
-              Popup, portal, backdrop, positioner, viewport, and arrow slots are styled through
-              className and classNames.
-            </PopoverDescription>
-          </PopoverHeader>
-        </PopoverContent>
+        <PopoverPortal className={storyStyles.customPortal}>
+          <PopoverBackdrop className={storyStyles.customBackdrop} />
+          <PopoverPositioner sideOffset={8} className={storyStyles.customPositioner}>
+            <PopoverPopup className={storyStyles.customPopup}>
+              <PopoverArrow className={storyStyles.customArrowSlot}>
+                <CheckSmallIcon className={storyStyles.customArrowIcon} />
+              </PopoverArrow>
+              <PopoverViewport className={storyStyles.customViewport}>
+                <PopoverHeader className={storyStyles.contentGrid}>
+                  <PopoverTitle>Custom composition</PopoverTitle>
+                  <PopoverDescription>
+                    Portal, backdrop, popup, arrow, and viewport stay available as explicit building
+                    blocks.
+                  </PopoverDescription>
+                </PopoverHeader>
+              </PopoverViewport>
+            </PopoverPopup>
+          </PopoverPositioner>
+        </PopoverPortal>
       </Popover>
     );
   },
 };
-
-type PopoverSide = Exclude<PopoverContentProps['side'], undefined>;

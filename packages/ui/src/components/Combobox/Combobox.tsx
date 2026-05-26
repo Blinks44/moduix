@@ -211,16 +211,45 @@ const ComboboxArrow = React.forwardRef<
 
 function ComboboxContent({
   className,
+  showArrow = false,
   children,
-  sideOffset,
+  side,
+  sideOffset = 5,
+  align,
+  alignOffset,
+  arrowPadding,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
   ...props
-}: ComboboxPrimitive.Popup.Props & {
-  sideOffset?: ComboboxPrimitive.Positioner.Props['sideOffset'];
-}) {
+}: ComboboxPrimitive.Popup.Props &
+  Pick<
+    ComboboxPrimitive.Positioner.Props,
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+  > & {
+    showArrow?: boolean;
+  }) {
   return (
     <ComboboxPortal>
-      <ComboboxPositioner sideOffset={sideOffset ?? 5}>
+      <ComboboxPositioner
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+      >
         <ComboboxPopup className={className} {...props}>
+          {showArrow ? <ComboboxArrow /> : null}
           {children}
         </ComboboxPopup>
       </ComboboxPositioner>

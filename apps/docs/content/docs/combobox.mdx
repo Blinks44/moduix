@@ -180,17 +180,18 @@ Use `Combobox` for root state and behavior props such as `value`, `defaultValue`
 The moduix wrapper keeps Base UI behavior available while keeping the default popup composition
 compact:
 
-| Base UI capability                      | moduix API                                                                                                                 |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Root state, filtering, forms, grid mode | Pass Base UI root props directly to `Combobox`.                                                                            |
-| Flat items                              | Pass `items` to `Combobox` and render items with a function child on `ComboboxList`.                                       |
-| Grouped items                           | Pass grouped `items`, then render `ComboboxGroup`, `ComboboxGroupLabel`, and `ComboboxCollection`.                         |
-| Async or remote search                  | Pass `filter={null}`, manage `items`, and announce progress with `ComboboxStatus`.                                         |
-| Externally filtered items               | Pass `filteredItems` or combine `useComboboxFilter` with application state.                                                |
-| Virtualized lists                       | Pass `virtualized`, render custom rows in `ComboboxList`, and read `useComboboxFilteredItems`.                             |
-| Multiple values                         | Pass `multiple` and render chips through `ComboboxValue`, `ComboboxChips`, and `ComboboxChip`.                             |
-| Popup placement                         | Pass `sideOffset` to `ComboboxContent` for the common case, or use the lower-level popup parts when you need full control. |
-| Backdrop or arrow                       | Use the lower-level popup parts only for custom popup infrastructure.                                                      |
+| Base UI capability                      | moduix API                                                                                                                                                                    |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Root state, filtering, forms, grid mode | Pass Base UI root props directly to `Combobox`.                                                                                                                               |
+| Flat items                              | Pass `items` to `Combobox` and render items with a function child on `ComboboxList`.                                                                                          |
+| Grouped items                           | Pass grouped `items`, then render `ComboboxGroup`, `ComboboxGroupLabel`, and `ComboboxCollection`.                                                                            |
+| Async or remote search                  | Pass `filter={null}`, manage `items`, and announce progress with `ComboboxStatus`.                                                                                            |
+| Externally filtered items               | Pass `filteredItems` or combine `useComboboxFilter` with application state.                                                                                                   |
+| Virtualized lists                       | Pass `virtualized`, render custom rows in `ComboboxList`, and read `useComboboxFilteredItems`.                                                                                |
+| Multiple values                         | Pass `multiple` and render chips through `ComboboxValue`, `ComboboxChips`, and `ComboboxChip`.                                                                                |
+| Popup placement                         | Pass `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`, `collisionBoundary`, or `collisionPadding` to `ComboboxContent` for the common case. |
+| Default arrow                           | Use `showArrow` to enable the built-in arrow, or switch to low-level popup parts for a custom arrow.                                                                          |
+| Backdrop or custom structure            | Use the lower-level popup parts only when the popup infrastructure itself needs to change.                                                                                    |
 
 For a custom popup stack with your own backdrop or arrow, use the lower-level parts shown in
 `Custom Composition` below.

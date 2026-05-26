@@ -196,43 +196,31 @@ function CommandPaletteContent<ItemValue = unknown>({
   filteredItems?: AutocompletePrimitive.Root.Props<ItemValue>['filteredItems'];
   limit?: AutocompletePrimitive.Root.Props<ItemValue>['limit'];
 }) {
+  const autocompleteProps = {
+    autoHighlight: 'always' as const,
+    defaultValue,
+    filter,
+    filteredItems,
+    inline: true,
+    itemToStringValue,
+    keepHighlight: true,
+    limit,
+    onValueChange,
+    open: true,
+    value,
+  };
+
   return (
     <CommandPalettePortal>
       <CommandPaletteBackdrop />
       <CommandPaletteViewport>
         <CommandPalettePopup className={className} {...props}>
           {isGroupedItems(items) ? (
-            <AutocompletePrimitive.Root
-              autoHighlight="always"
-              defaultValue={defaultValue}
-              filter={filter}
-              filteredItems={filteredItems}
-              inline
-              itemToStringValue={itemToStringValue}
-              items={items}
-              keepHighlight
-              limit={limit}
-              onValueChange={onValueChange}
-              open
-              value={value}
-            >
+            <AutocompletePrimitive.Root {...autocompleteProps} items={items}>
               {children}
             </AutocompletePrimitive.Root>
           ) : (
-            <AutocompletePrimitive.Root
-              autoHighlight="always"
-              defaultValue={defaultValue}
-              filter={filter}
-              filteredItems={filteredItems}
-              inline
-              itemToStringValue={itemToStringValue}
-              items={items}
-              keepHighlight
-              limit={limit}
-              onValueChange={onValueChange}
-              open
-              value={value}
-            >
+            <AutocompletePrimitive.Root {...autocompleteProps} items={items}>
               {children}
             </AutocompletePrimitive.Root>
           )}

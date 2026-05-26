@@ -5,7 +5,6 @@ export {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogClose,
-  AlertDialogCloseIcon,
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogBody,

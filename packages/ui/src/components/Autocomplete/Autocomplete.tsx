@@ -223,16 +223,45 @@ const AutocompleteArrow = React.forwardRef<
 
 function AutocompleteContent({
   className,
+  showArrow = false,
   children,
-  sideOffset,
+  side,
+  sideOffset = 5,
+  align,
+  alignOffset,
+  arrowPadding,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
   ...props
-}: AutocompletePrimitive.Popup.Props & {
-  sideOffset?: AutocompletePrimitive.Positioner.Props['sideOffset'];
-}) {
+}: AutocompletePrimitive.Popup.Props &
+  Pick<
+    AutocompletePrimitive.Positioner.Props,
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+  > & {
+    showArrow?: boolean;
+  }) {
   return (
     <AutocompletePortal>
-      <AutocompletePositioner sideOffset={sideOffset ?? 5}>
+      <AutocompletePositioner
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+      >
         <AutocompletePopup className={className} {...props}>
+          {showArrow ? <AutocompleteArrow /> : null}
           {children}
         </AutocompletePopup>
       </AutocompletePositioner>

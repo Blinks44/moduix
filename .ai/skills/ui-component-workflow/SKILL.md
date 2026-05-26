@@ -62,7 +62,9 @@ When simplifying a component, ask before each abstraction or prop: is this impro
 
 - Prefer composition over feature flags.
 - Prefer public parts over `slotProps` and `classNames`.
-- Do not add customization APIs by default. Add them only when composition cannot cover a common production case.
+- Do not add customization APIs by default. Add them only when composition cannot cover a common
+  production case, or when a very small DX shortcut clearly improves the default path without
+  expanding the component into a combinator.
 - Keep infrastructure slots internal unless they are meaningful user-facing building blocks.
 - Do not create "god components" that own every optional UI concern.
 - Keep controlled and uncontrolled primitive behavior intact. Do not rewrap it unless the wrapper adds real value.
@@ -88,6 +90,106 @@ For each custom prop, verify:
 5. Does it keep the component from turning into a combinator?
 
 If the answer is weak, simplify or delete it.
+
+## Small Sugar Contract
+
+Small sugar is acceptable when it solves a high-frequency consumer action without hiding the real
+composition model.
+
+Use it conservatively:
+
+- keep the name literal and predictable
+- keep the scope narrow
+- remove obvious boilerplate from the default path
+- target a scenario that users write the same way over and over
+- keep composition available for the advanced case
+- do not combine multiple internal parts behind one prop bag
+- do not add parallel `classNames`, `slotProps`, render-node shims, or internal part overrides
+- do not add a prop just because it is theoretically useful or symmetrical with another component
+
+Good small sugar:
+
+- improves the common case
+- keeps the API easier to explain
+- does not hide the architecture
+- does not block full composition
+
+Bad small sugar:
+
+- replaces composition wholesale
+- duplicates large parts of the primitive API
+- adds many custom props at once
+- introduces an abstraction layer over internal parts
+- makes behavior harder to predict from the component shape
+
+When evaluating a sugar prop, verify:
+
+1. Is this a common production scenario?
+2. Does it noticeably improve DX?
+3. Is it small enough to keep the API simple?
+4. Does it preserve the composition escape hatch?
+5. Would the component still look plausible in shadcn/ui?
+
+For positioned popup-like components with a high-level `*Content` wrapper, the preferred default
+contract is:
+
+- `className`
+- `side`
+- `sideOffset`
+- `align`
+- `alignOffset`
+- `arrowPadding`
+- `collisionAvoidance`
+- `collisionBoundary`
+- `collisionPadding`
+- `showArrow`
+
+Rules for this contract:
+
+- `showArrow` is the preferred name for toggling the built-in arrow.
+- for popup-like components with a built-in default arrow, keep that arrow off by default and make
+  it opt-in through `showArrow`.
+- `showArrow` should only control the default arrow on and off. It should not accept custom nodes.
+- custom arrow content, portal options, backdrops, viewports, and DOM structure changes belong to
+  explicit composition parts.
+- if a component is not a positioned popup, this exact contract does not apply. Do not invent
+  matching props for dialogs, drawers, alerts, or other non-positioned overlays just for symmetry.
+- non-popup components may still use small sugar, but it should be domain-specific and tied to a
+  frequent workflow rather than copied from another component family.
+- a little sugar for a popular behavior is good when it keeps the component easy to explain in one
+  sentence. If the explanation starts sounding like infrastructure, move that behavior back to
+  composition.
+
+For dialog-like components, use a different family contract. These components are not positioned
+popups, so do not copy popup sugar into them.
+
+Preferred dialog-like sugar:
+
+- keep `className` and primitive passthrough props on the visible content part
+- allow narrow workflow sugar only when it matches a repeated UX pattern in the library
+- keep backdrop, viewport, popup, and close structure simple by default
+
+Good dialog-like sugar examples:
+
+- a built-in backdrop or viewport inside the default `*Content` when that is the normal product
+  path
+- a small dismissal affordance prop such as `showCloseButton` only when it is a stable,
+  high-frequency library convention
+- domain-specific workflow props for a specialized overlay, such as shortcut handling in a command
+  palette or animation toggles in a drawer
+
+Bad dialog-like sugar examples:
+
+- `slotProps`, `classNames`, or prop bags for internal dialog parts
+- `withBackdrop`, `withViewport`, `withPortal`, or similar switches for every structural part
+- render-node sugar for internal close/backdrop/viewport parts on the high-level content wrapper
+- copying popup-family props like `side`, `align`, or `showArrow` into dialog-family components
+
+Rules for dialog-like sugar:
+
+- the prop should simplify a common workflow, not expose hidden structure
+- the default content component should still read like a thin wrapper, not a configuration surface
+- if the sugar starts describing internal layout, move that behavior back to explicit composition
 
 ## Typing Rules
 

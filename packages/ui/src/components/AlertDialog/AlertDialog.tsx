@@ -1,7 +1,6 @@
 import type { ComponentProps } from 'react';
 import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog';
 import { clsx } from 'clsx';
-import { CloseButton } from '@/components/CloseButton';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './AlertDialog.module.css';
 
@@ -44,23 +43,6 @@ function AlertDialogClose({ className, ...props }: AlertDialogPrimitive.Close.Pr
     <AlertDialogPrimitive.Close
       data-slot="alert-dialog-close"
       className={mergeClassName(className, styles.close)}
-      {...props}
-    />
-  );
-}
-
-function AlertDialogCloseIcon({
-  className,
-  children,
-  'aria-label': ariaLabel = 'Close dialog',
-  render,
-  ...props
-}: AlertDialogPrimitive.Close.Props) {
-  return (
-    <AlertDialogPrimitive.Close
-      data-slot="alert-dialog-close-icon"
-      render={render ?? <CloseButton aria-label={ariaLabel}>{children}</CloseButton>}
-      className={mergeClassName(className, styles.closeIcon)}
       {...props}
     />
   );
@@ -117,7 +99,6 @@ export {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogClose,
-  AlertDialogCloseIcon,
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogBody,

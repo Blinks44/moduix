@@ -12,13 +12,9 @@ type ContextMenuPositionerProps = Pick<
   | 'align'
   | 'alignOffset'
   | 'arrowPadding'
-  | 'anchor'
   | 'collisionAvoidance'
   | 'collisionBoundary'
   | 'collisionPadding'
-  | 'sticky'
-  | 'positionMethod'
-  | 'disableAnchorTracking'
 >;
 
 const CONTEXT_MENU_CONTENT_SIDE_OFFSET = 8;
@@ -87,21 +83,21 @@ function ContextMenuArrow({ className, children, ...props }: ContextMenuPrimitiv
 
 function ContextMenuContent({
   className,
+  showArrow = false,
   children,
   sideOffset = CONTEXT_MENU_CONTENT_SIDE_OFFSET,
   side,
   align,
   alignOffset,
   arrowPadding,
-  anchor,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
-  sticky,
-  positionMethod,
-  disableAnchorTracking,
   ...props
-}: ContextMenuPrimitive.Popup.Props & ContextMenuPositionerProps) {
+}: ContextMenuPrimitive.Popup.Props &
+  ContextMenuPositionerProps & {
+    showArrow?: boolean;
+  }) {
   return (
     <ContextMenuPortal>
       <ContextMenuPositioner
@@ -110,15 +106,12 @@ function ContextMenuContent({
         align={align}
         alignOffset={alignOffset}
         arrowPadding={arrowPadding}
-        anchor={anchor}
         collisionAvoidance={collisionAvoidance}
         collisionBoundary={collisionBoundary}
         collisionPadding={collisionPadding}
-        sticky={sticky}
-        positionMethod={positionMethod}
-        disableAnchorTracking={disableAnchorTracking}
       >
         <ContextMenuPopup className={className} {...props}>
+          {showArrow ? <ContextMenuArrow /> : null}
           {children}
         </ContextMenuPopup>
       </ContextMenuPositioner>
@@ -130,7 +123,10 @@ function ContextMenuSubmenuContent({
   sideOffset = getSubmenuOffset,
   alignOffset = getSubmenuOffset,
   ...props
-}: ContextMenuPrimitive.Popup.Props & ContextMenuPositionerProps) {
+}: ContextMenuPrimitive.Popup.Props &
+  ContextMenuPositionerProps & {
+    showArrow?: boolean;
+  }) {
   return <ContextMenuContent sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
 }
 

@@ -20,6 +20,14 @@ Follow the routing order from `AGENTS.md`, then run `npm run build:ui` from repo
 - Examples should use the recommended composition-first API, not compatibility shims.
 - Default examples should use the simple high-level path.
 - If low-level parts remain as an escape hatch, keep them documented as an advanced path and ensure the names match the actual exported building blocks.
+- When a component family shares a small-sugar contract, docs and stories should use the same prop
+  names and supported behavior across that family.
+- If a popup-family component exposes a built-in arrow, keep its default state consistent across
+  that family and update docs/stories/examples in the same task when the default changes.
+- Keep popup-family and dialog-family contracts separate in docs and stories. Do not let one
+  family inherit the other's sugar vocabulary by accident.
+- When a component keeps a narrow DX sugar prop, make sure code, stories, and docs all present it
+  as a small convenience on top of the default path rather than as a replacement for composition.
 - `CSS Properties` must reflect the current public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
 - When a UI simplification removes CSS hooks, verify that docs, stories, and examples stop referencing them in the same task.
 

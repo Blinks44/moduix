@@ -51,6 +51,22 @@ Keep demo styles out of inline style objects and utility-heavy strings when a CS
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Prefer composition examples over customization APIs when both express the same outcome.
 - Do not document exported types that were intentionally removed from the public surface.
+- When a component intentionally keeps a small DX sugar prop or a small shared high-level contract,
+  teach it consistently and briefly as part of the default path.
+- For popup-like components, teach the shared `*Content` sugar consistently:
+  `showArrow` plus the common positioning props (`side`, `sideOffset`, `align`, `alignOffset`,
+  `arrowPadding`, `collisionAvoidance`, `collisionBoundary`, `collisionPadding`) when those props
+  are supported.
+- For popup-like components with a built-in default arrow, docs should treat the arrow as opt-in:
+  default examples should omit it, and `showArrow` should be shown as the narrow switch that turns
+  the built-in arrow on.
+- For dialog-like components, teach only narrow workflow sugar that matches the component family.
+  Do not document popup-style positioning or arrow props on dialogs, drawers, alert dialogs, or
+  command palettes.
+- When docs show custom arrow content, portal options, backdrops, or viewport composition, present
+  that as the advanced path with explicit parts rather than additional `*Content` props.
+- Do not oversell sugar. If the advanced path is still the real explanation of how the component
+  works, keep the sugar mention short and keep composition as the deeper section.
 
 ## Section Guidance
 

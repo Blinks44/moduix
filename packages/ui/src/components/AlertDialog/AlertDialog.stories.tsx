@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { CloseButton } from '@/components/CloseButton';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import { CloseLineIcon } from '@/primitives';
 import { Button } from '../Button';
 import { ScrollArea } from '../ScrollArea';
 import {
@@ -10,7 +8,6 @@ import {
   AlertDialogAction,
   AlertDialogBody,
   AlertDialogCancel,
-  AlertDialogCloseIcon,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -186,7 +183,6 @@ export const WithScrollableViewport: Story = {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete project?</AlertDialogTitle>
-            <AlertDialogCloseIcon />
             <AlertDialogDescription>
               This removes all deployment environments and API keys.
             </AlertDialogDescription>
@@ -206,38 +202,6 @@ export const WithScrollableViewport: Story = {
           <AlertDialogFooter>
             <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
             <AlertDialogAction render={<Button />}>Delete permanently</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    );
-  },
-};
-
-export const CustomCloseIcon: Story = {
-  render: () => {
-    return (
-      <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-            <AlertDialogCloseIcon
-              render={
-                <CloseButton
-                  aria-label="Close archive dialog"
-                  className={storyStyles.customCloseIcon}
-                >
-                  <CloseLineIcon />
-                </CloseButton>
-              }
-            />
-            <AlertDialogDescription>
-              Team members will lose access until the workspace is restored.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Archive</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

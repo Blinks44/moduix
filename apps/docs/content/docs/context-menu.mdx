@@ -102,27 +102,26 @@ ContextMenu
 </ContextMenu>
 ```
 
-| Part                           | Role                                                                   |
-| ------------------------------ | ---------------------------------------------------------------------- |
-| `ContextMenu`                  | Root state machine for open state, focus management, and interactions. |
-| `ContextMenuTrigger`           | Opens the menu on right click or long press.                           |
-| `ContextMenuContent`           | Default popup wrapper. Renders `Portal`, `Positioner`, and `Popup`.    |
-| `ContextMenuArrow`             | Optional visual pointer for the popup.                                 |
-| `ContextMenuItem`              | Action row with disabled state and optional `closeOnClick`.            |
-| `ContextMenuLinkItem`          | Link row with the same menu highlight and focus behavior.              |
-| `ContextMenuSeparator`         | Divider between related item groups.                                   |
-| `ContextMenuSubmenu*`          | Nested actions (`Trigger`, `TriggerIcon`, `Content`).                  |
-| `ContextMenuGroup*` / controls | Group labels plus radio and checkbox controls.                         |
+| Part                           | Role                                                                                                                       |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `ContextMenu`                  | Root state machine for open state, focus management, and interactions.                                                     |
+| `ContextMenuTrigger`           | Opens the menu on right click or long press.                                                                               |
+| `ContextMenuContent`           | Default popup wrapper. Renders `Portal`, `Positioner`, and `Popup`, with the built-in arrow available through `showArrow`. |
+| `ContextMenuArrow`             | Built-in visual pointer for the popup. Enable it with `showArrow` or replace it in custom composition.                     |
+| `ContextMenuItem`              | Action row with disabled state and optional `closeOnClick`.                                                                |
+| `ContextMenuLinkItem`          | Link row with the same menu highlight and focus behavior.                                                                  |
+| `ContextMenuSeparator`         | Divider between related item groups.                                                                                       |
+| `ContextMenuSubmenu*`          | Nested actions (`Trigger`, `TriggerIcon`, `Content`).                                                                      |
+| `ContextMenuGroup*` / controls | Group labels plus radio and checkbox controls.                                                                             |
 
 ## Composition
 
-Use `ContextMenuContent` for the default path. It accepts popup props plus the positioning props
-you most commonly need (`side`, `sideOffset`, `align`, `alignOffset`, `collisionPadding`, and
-related Base UI positioner options).
+Use `ContextMenuContent` for the default path. It accepts popup props plus the shared positioning
+props `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`,
+`collisionBoundary`, and `collisionPadding`. Use `showArrow` to enable the built-in arrow.
 
 ```tsx
 <ContextMenuContent className={styles.popup} align="start" sideOffset={12}>
-  <ContextMenuArrow />
   {children}
 </ContextMenuContent>
 ```
@@ -151,6 +150,7 @@ compose the low-level building blocks explicitly.
 
 | Prop         | Default         | Values                                                         |
 | ------------ | --------------- | -------------------------------------------------------------- |
+| `showArrow`  | `false`         | `boolean`                                                      |
 | `sideOffset` | `8`             | `number`                                                       |
 | `side`       | Base UI default | `top`, `right`, `bottom`, `left`, `inline-start`, `inline-end` |
 | `align`      | Base UI default | `start`, `center`, `end`                                       |

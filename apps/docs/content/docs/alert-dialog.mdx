@@ -11,7 +11,6 @@ import {
   AlertDialogExample,
   AlertDialogHandleExample,
   ControlledAlertDialogExample,
-  CustomCloseIconAlertDialogExample,
   CustomCompositionAlertDialogExample,
   ScrollableAlertDialogExample,
   alertDialogPlaygroundCssProperties,
@@ -82,7 +81,6 @@ AlertDialog
 └─ AlertDialogContent
    ├─ AlertDialogHeader
    │  ├─ AlertDialogTitle
-   │  ├─ AlertDialogCloseIcon (optional)
    │  └─ AlertDialogDescription
    ├─ AlertDialogBody (optional)
    └─ AlertDialogFooter
@@ -96,7 +94,6 @@ AlertDialog
   <AlertDialogContent>
     <AlertDialogHeader>
       <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-      <AlertDialogCloseIcon />
       <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
@@ -112,10 +109,9 @@ AlertDialog
 | `AlertDialog`            | Root state machine. Manages open state, controlled/uncontrolled behavior, and close interactions. |
 | `AlertDialogTrigger`     | Opens the dialog. Usually rendered as a button via `render`.                                      |
 | `AlertDialogContent`     | Main dialog surface. Renders popup plus portal/backdrop/viewport infrastructure.                  |
-| `AlertDialogHeader`      | Layout group for title, description, and optional close icon.                                     |
+| `AlertDialogHeader`      | Layout group for title and description.                                                           |
 | `AlertDialogTitle`       | Required accessible title.                                                                        |
 | `AlertDialogDescription` | Optional supporting copy.                                                                         |
-| `AlertDialogCloseIcon`   | Optional dismiss button in header.                                                                |
 | `AlertDialogBody`        | Optional long-form/scrollable content area.                                                       |
 | `AlertDialogFooter`      | Layout container for decision actions.                                                            |
 | `AlertDialogCancel`      | Secondary close action.                                                                           |
@@ -344,7 +340,6 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
         AlertDialogContent,
         AlertDialogHeader,
         AlertDialogTitle,
-        AlertDialogCloseIcon,
         AlertDialogDescription,
         AlertDialogBody,
         AlertDialogFooter,
@@ -360,7 +355,6 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Delete project?</AlertDialogTitle>
-                <AlertDialogCloseIcon />
                 <AlertDialogDescription>
                   This removes all deployment environments and API keys.
                 </AlertDialogDescription>
@@ -469,76 +463,6 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
     `}
 
   </Preview.Data>
-</Preview>
-
-### Custom Close Button
-
-Render `AlertDialogCloseIcon` where you need it. The default close button is already styled, and
-you can replace its rendered control through the `render` prop when the icon or button shell
-needs to change.
-
-<Preview>
-  <CustomCloseIconAlertDialogExample />
-
-  <Preview.Code>
-    {`
-      import {
-        AlertDialog,
-        AlertDialogTrigger,
-        Button,
-        AlertDialogContent,
-        AlertDialogHeader,
-        AlertDialogTitle,
-        AlertDialogCloseIcon,
-        CloseButton,
-        CloseLineIcon,
-        AlertDialogDescription,
-        AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
-      } from "moduix";
-
-      export function CustomCloseIconAlertDialogDemo() {
-        return (
-          <AlertDialog>
-            <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-                <AlertDialogCloseIcon
-                  render={
-                    <CloseButton
-                      aria-label="Close archive dialog"
-                      className={styles.customCloseIcon}
-                    >
-                      <CloseLineIcon />
-                    </CloseButton>
-                  }
-                />
-                <AlertDialogDescription>
-                  Team members will lose access until the workspace is restored.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-                <AlertDialogAction render={<Button />}>Archive</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customCloseIcon {
-        --alert-dialog-close-icon-color: var(--color-muted-foreground);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### Custom Composition

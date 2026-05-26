@@ -3,7 +3,6 @@ import {
   AlertDialogAction,
   AlertDialogBody,
   AlertDialogCancel,
-  AlertDialogCloseIcon,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -11,8 +10,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-  CloseButton,
-  CloseLineIcon,
   ScrollArea,
   createAlertDialogHandle,
 } from 'moduix';
@@ -72,34 +69,6 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
     'var(--alert-dialog-control-color, var(--color-foreground))',
     'Controls cancel button text color.',
   ],
-  ['--alert-dialog-close-icon-bg', 'transparent', 'Controls close icon button background.'],
-  [
-    '--alert-dialog-close-icon-bg-hover',
-    'var(--color-accent)',
-    'Controls close icon button hover background.',
-  ],
-  [
-    '--alert-dialog-close-icon-color',
-    'var(--alert-dialog-muted-color)',
-    'Controls close icon button color.',
-  ],
-  [
-    '--alert-dialog-close-icon-color-hover',
-    'var(--alert-dialog-color)',
-    'Controls close icon button hover color.',
-  ],
-  [
-    '--alert-dialog-close-icon-focus-ring-color',
-    'var(--alert-dialog-focus-ring-color)',
-    'Controls close icon focus ring color.',
-  ],
-  ['--alert-dialog-close-icon-glyph-size', '0.75rem', 'Controls default close icon glyph size.'],
-  [
-    '--alert-dialog-close-icon-radius',
-    'var(--radius-md)',
-    'Controls close icon button border radius.',
-  ],
-  ['--alert-dialog-close-icon-size', '1.75rem', 'Controls close icon button size.'],
   ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--alert-dialog-content-margin', 'var(--spacing-4) 0 0', 'Controls body top margin.'],
   ['--alert-dialog-control-bg', 'var(--color-background)', 'Controls control background.'],
@@ -347,7 +316,6 @@ export function ScrollableAlertDialogExample() {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete project?</AlertDialogTitle>
-          <AlertDialogCloseIcon />
           <AlertDialogDescription>
             This removes all deployment environments and API keys.
           </AlertDialogDescription>
@@ -367,33 +335,6 @@ export function ScrollableAlertDialogExample() {
         <AlertDialogFooter>
           <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
           <AlertDialogAction render={<Button />}>Delete permanently</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-}
-
-export function CustomCloseIconAlertDialogExample() {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-          <AlertDialogCloseIcon
-            render={
-              <CloseButton aria-label="Close archive dialog" className={styles.customCloseIcon}>
-                <CloseLineIcon />
-              </CloseButton>
-            }
-          />
-          <AlertDialogDescription>
-            Team members will lose access until the workspace is restored.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-          <AlertDialogAction render={<Button />}>Archive</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -155,7 +155,7 @@ Autocomplete
 | `AutocompleteBackdrop`       | Optional overlay rendered inside `AutocompletePortal`.                                              |
 | `AutocompletePositioner`     | Optional positioning wrapper for custom placement and collision settings.                           |
 | `AutocompletePopup`          | Visible popup surface when composing the infrastructure manually.                                   |
-| `AutocompleteArrow`          | Optional arrow rendered inside `AutocompletePopup`.                                                 |
+| `AutocompleteArrow`          | Built-in arrow for the popup. Enable it with `showArrow` or replace it in custom composition.       |
 | `AutocompleteStatus`         | Optional status region for loading or result-count feedback.                                        |
 | `AutocompleteEmpty`          | Empty-state content shown when no items match.                                                      |
 | `AutocompleteList`           | Collection container for options.                                                                   |
@@ -183,9 +183,12 @@ rendering.
 `AutocompleteContent` is the short path for the common case. It styles the popup surface and keeps
 the default `Portal -> Positioner -> Popup` structure.
 
-Use `className` for the visible popup and `sideOffset` when the default spacing needs a small
-adjustment. When you need a backdrop, custom portal container, arrow styling, or advanced
-positioning, compose the infrastructure parts explicitly instead of passing configuration props to
+Use `className` for the visible popup. `AutocompleteContent` also accepts the shared popup sugar:
+`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`,
+`collisionBoundary`, `collisionPadding`, and `showArrow`.
+
+When you need a backdrop, custom portal container, custom arrow content, or a different popup
+structure, compose the infrastructure parts explicitly instead of passing more props to
 `AutocompleteContent`.
 
 ```tsx
