@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { Progress, ProgressLabel, ProgressValue } from './Progress';
+import {
+  Progress,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressRoot,
+  ProgressTrack,
+  ProgressValue,
+} from './Progress';
 import styles from './Progress.stories.module.css';
 
 const meta = {
@@ -116,17 +123,16 @@ export const CustomValueText: Story = {
   },
 };
 
-export const CustomStyling: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
-      <Progress
-        value={72}
-        className={styles.customProgress}
-        classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-      >
+      <ProgressRoot value={72} className={styles.customProgress}>
         <ProgressLabel>Monthly export</ProgressLabel>
         <ProgressValue />
-      </Progress>
+        <ProgressTrack className={styles.customTrack}>
+          <ProgressIndicator className={styles.customIndicator} />
+        </ProgressTrack>
+      </ProgressRoot>
     );
   },
 };

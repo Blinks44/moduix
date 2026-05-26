@@ -2,7 +2,18 @@ import { Meter as MeterPrimitive } from '@base-ui/react/meter';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Meter.module.css';
 
-function Meter({ className, ...props }: MeterPrimitive.Root.Props) {
+function Meter({ children, ...props }: MeterPrimitive.Root.Props) {
+  return (
+    <MeterRoot {...props}>
+      {children}
+      <MeterTrack>
+        <MeterIndicator />
+      </MeterTrack>
+    </MeterRoot>
+  );
+}
+
+function MeterRoot({ className, ...props }: MeterPrimitive.Root.Props) {
   return (
     <MeterPrimitive.Root
       data-slot="meter-root"
@@ -52,4 +63,4 @@ function MeterIndicator({ className, ...props }: MeterPrimitive.Indicator.Props)
   );
 }
 
-export { Meter, MeterLabel, MeterValue, MeterTrack, MeterIndicator };
+export { Meter, MeterRoot, MeterLabel, MeterValue, MeterTrack, MeterIndicator };

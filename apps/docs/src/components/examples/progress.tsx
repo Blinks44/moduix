@@ -1,4 +1,11 @@
-import { Progress, ProgressLabel, ProgressValue, type ProgressProps } from 'moduix';
+import {
+  Progress,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressRoot,
+  ProgressTrack,
+  ProgressValue,
+} from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -76,7 +83,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ProgressExample({ value = 24, ...props }: ProgressProps) {
+export function ProgressExample({ value = 24, ...props }: React.ComponentProps<typeof Progress>) {
   return (
     <Progress value={value} {...props}>
       <ProgressLabel>Export data</ProgressLabel>
@@ -156,15 +163,14 @@ export function CustomValueTextProgressExample() {
   );
 }
 
-export function CustomStylingProgressExample() {
+export function CustomCompositionProgressExample() {
   return (
-    <Progress
-      value={72}
-      className={styles.customProgress}
-      classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-    >
+    <ProgressRoot value={72} className={styles.customProgress}>
       <ProgressLabel>Monthly export</ProgressLabel>
       <ProgressValue />
-    </Progress>
+      <ProgressTrack className={styles.customTrack}>
+        <ProgressIndicator className={styles.customIndicator} />
+      </ProgressTrack>
+    </ProgressRoot>
   );
 }

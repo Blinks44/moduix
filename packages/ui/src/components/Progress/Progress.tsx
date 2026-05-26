@@ -2,35 +2,44 @@ import { Progress as ProgressPrimitive } from '@base-ui/react/progress';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Progress.module.css';
 
-type ProgressClassNames = {
-  track?: ProgressPrimitive.Track.Props['className'];
-  indicator?: ProgressPrimitive.Indicator.Props['className'];
-};
+function Progress({ children, ...props }: ProgressPrimitive.Root.Props) {
+  return (
+    <ProgressRoot {...props}>
+      {children}
+      <ProgressTrack>
+        <ProgressIndicator />
+      </ProgressTrack>
+    </ProgressRoot>
+  );
+}
 
-type ProgressProps = ProgressPrimitive.Root.Props & {
-  classNames?: ProgressClassNames;
-};
-
-function Progress({ className, classNames, children, ...props }: ProgressProps) {
-  const { track, indicator } = classNames ?? {};
-
+function ProgressRoot({ className, ...props }: ProgressPrimitive.Root.Props) {
   return (
     <ProgressPrimitive.Root
       data-slot="progress-root"
       className={mergeClassName(className, styles.root)}
       {...props}
-    >
-      {children}
-      <ProgressPrimitive.Track
-        data-slot="progress-track"
-        className={mergeClassName(track, styles.track)}
-      >
-        <ProgressPrimitive.Indicator
-          data-slot="progress-indicator"
-          className={mergeClassName(indicator, styles.indicator)}
-        />
-      </ProgressPrimitive.Track>
-    </ProgressPrimitive.Root>
+    />
+  );
+}
+
+function ProgressTrack({ className, ...props }: ProgressPrimitive.Track.Props) {
+  return (
+    <ProgressPrimitive.Track
+      data-slot="progress-track"
+      className={mergeClassName(className, styles.track)}
+      {...props}
+    />
+  );
+}
+
+function ProgressIndicator({ className, ...props }: ProgressPrimitive.Indicator.Props) {
+  return (
+    <ProgressPrimitive.Indicator
+      data-slot="progress-indicator"
+      className={mergeClassName(className, styles.indicator)}
+      {...props}
+    />
   );
 }
 
@@ -54,9 +63,4 @@ function ProgressValue({ className, ...props }: ProgressPrimitive.Value.Props) {
   );
 }
 
-type ProgressLabelProps = ProgressPrimitive.Label.Props;
-type ProgressValueProps = ProgressPrimitive.Value.Props;
-
-export { Progress, ProgressLabel, ProgressValue };
-
-export type { ProgressClassNames, ProgressProps, ProgressLabelProps, ProgressValueProps };
+export { Progress, ProgressRoot, ProgressTrack, ProgressIndicator, ProgressLabel, ProgressValue };

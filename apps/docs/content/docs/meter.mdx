@@ -29,9 +29,7 @@ import {
     {`
       import {
         Meter,
-        MeterIndicator,
         MeterLabel,
-        MeterTrack,
         MeterValue,
       } from "moduix";
 
@@ -39,9 +37,6 @@ import {
         return (
           <Meter value={24}>
             <MeterLabel>Storage Used</MeterLabel>
-            <MeterTrack>
-              <MeterIndicator />
-            </MeterTrack>
             <MeterValue />
           </Meter>
         );
@@ -55,38 +50,38 @@ import {
 
 ## Anatomy
 
-`Meter` stays close to the Base UI primitive. You compose the visible parts explicitly.
+`Meter` renders the standard visual bar automatically. For the usual case, you only compose the
+visible text slots.
 
 ```text
 Meter[value]
 ├─ MeterLabel
-├─ MeterTrack
-│  └─ MeterIndicator
-└─ MeterValue
+├─ MeterValue
+└─ track
+   └─ indicator
 ```
 
 ```tsx
 <Meter value={64}>
   <MeterLabel>Storage used</MeterLabel>
-  <MeterTrack>
-    <MeterIndicator />
-  </MeterTrack>
   <MeterValue>{(formattedValue) => `${formattedValue} used`}</MeterValue>
 </Meter>
 ```
 
-| Part             | Role                                                                                           |
-| ---------------- | ---------------------------------------------------------------------------------------------- |
-| `Meter`          | Root state and accessibility layer. Provides `value`, `min`, `max`, formatting, and ARIA text. |
-| `MeterLabel`     | Label associated with the meter.                                                               |
-| `MeterTrack`     | Visual track behind the fill.                                                                  |
-| `MeterIndicator` | Fill that reflects the current value within the range.                                         |
-| `MeterValue`     | Formatted value output, with optional custom text rendering.                                   |
+| Part         | Role                                                                                           |
+| ------------ | ---------------------------------------------------------------------------------------------- |
+| `Meter`      | Root state and accessibility layer. Provides `value`, `min`, `max`, formatting, and ARIA text. |
+| `MeterLabel` | Label associated with the meter.                                                               |
+| `MeterValue` | Formatted value output, with optional custom text rendering.                                   |
+| `track`      | Default visual rail rendered by `Meter`.                                                       |
+| `indicator`  | Default fill rendered inside the track.                                                        |
 
 ## Composition
 
-Compose `MeterTrack` and `MeterIndicator` directly. Structure and styling stay on the same visible
-parts you render.
+Style the default component with `className` and the public CSS variables. When the meter bar
+itself needs separate selectors or a different DOM shape, switch to explicit composition with
+`MeterRoot`, `MeterTrack`, and `MeterIndicator`. `MeterLabel` and `MeterValue` keep their own
+`className` and `render` props from Base UI.
 
 ### Defaults
 
@@ -111,9 +106,7 @@ Use `min` and `max` for ranges other than `0` to `100`.
     {`
       import {
         Meter,
-        MeterIndicator,
         MeterLabel,
-        MeterTrack,
         MeterValue,
       } from "moduix";
 
@@ -121,9 +114,6 @@ Use `min` and `max` for ranges other than `0` to `100`.
         return (
           <Meter value={420} min={200} max={800}>
             <MeterLabel>Requests per minute</MeterLabel>
-            <MeterTrack>
-              <MeterIndicator />
-            </MeterTrack>
             <MeterValue />
           </Meter>
         );
@@ -144,9 +134,7 @@ Keep the value in React state when the meter mirrors another control.
     {`
       import {
         Meter,
-        MeterIndicator,
         MeterLabel,
-        MeterTrack,
         MeterValue,
       } from "moduix";
       import { useState } from "react";
@@ -158,9 +146,6 @@ Keep the value in React state when the meter mirrors another control.
           <div className={styles.stack}>
             <Meter value={value}>
               <MeterLabel>Capacity</MeterLabel>
-              <MeterTrack>
-                <MeterIndicator />
-              </MeterTrack>
               <MeterValue />
             </Meter>
             <input
@@ -206,9 +191,7 @@ Use `format` and a custom `MeterValue` child function for user-facing value text
     {`
       import {
         Meter,
-        MeterIndicator,
         MeterLabel,
-        MeterTrack,
         MeterValue,
       } from "moduix";
 
@@ -216,9 +199,6 @@ Use `format` and a custom `MeterValue` child function for user-facing value text
         return (
           <Meter value={0.64} min={0} max={1} format={{ style: "percent", maximumFractionDigits: 0 }}>
             <MeterLabel>Usage</MeterLabel>
-            <MeterTrack>
-              <MeterIndicator />
-            </MeterTrack>
             <MeterValue>{(formattedValue) => \`\${formattedValue} used\`}</MeterValue>
           </Meter>
         );
@@ -230,7 +210,8 @@ Use `format` and a custom `MeterValue` child function for user-facing value text
 
 ### Custom Styles
 
-Style each visible part directly with `className`.
+Style the root with `className`, CSS variables, and the built-in `data-slot` hooks when the
+default bar needs more specific selectors.
 
 <Preview>
   <CustomStylesMeterExample />
@@ -239,9 +220,7 @@ Style each visible part directly with `className`.
     {`
       import {
         Meter,
-        MeterIndicator,
         MeterLabel,
-        MeterTrack,
         MeterValue,
       } from "moduix";
 
@@ -249,9 +228,6 @@ Style each visible part directly with `className`.
         return (
           <Meter value={72} className={styles.customMeter}>
             <MeterLabel>Monthly quota</MeterLabel>
-            <MeterTrack className={styles.customTrack}>
-              <MeterIndicator className={styles.customIndicator} />
-            </MeterTrack>
             <MeterValue />
           </Meter>
         );
@@ -268,12 +244,12 @@ Style each visible part directly with `className`.
         --meter-track-bg: var(--color-accent);
       }
 
-      .customTrack {
+      .customMeter [data-slot="meter-track"] {
         box-shadow: inset 0 0 0 var(--border-width-md)
           color-mix(in oklab, var(--color-primary), transparent 75%);
       }
 
-      .customIndicator {
+      .customMeter [data-slot="meter-indicator"] {
         background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
       }
     `}
@@ -291,7 +267,7 @@ Use the same parts when you need to change layout or structure more deeply.
   <Preview.Code>
     {`
       import {
-        Meter,
+        MeterRoot,
         MeterIndicator,
         MeterLabel,
         MeterTrack,
@@ -300,13 +276,13 @@ Use the same parts when you need to change layout or structure more deeply.
 
       export function CompositionMeterDemo() {
         return (
-          <Meter value={58} className={styles.composedMeter}>
+          <MeterRoot value={58} className={styles.composedMeter}>
             <MeterLabel>Team capacity</MeterLabel>
             <MeterValue>{(formattedValue) => \`\${formattedValue} available\`}</MeterValue>
             <MeterTrack className={styles.composedTrack}>
               <MeterIndicator className={styles.composedIndicator} />
             </MeterTrack>
-          </Meter>
+          </MeterRoot>
         );
       }
 

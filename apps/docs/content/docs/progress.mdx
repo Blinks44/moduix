@@ -7,7 +7,7 @@ icon: Component
 import {
   AriaValueTextProgressExample,
   ControlledProgressExample,
-  CustomStylingProgressExample,
+  CustomCompositionProgressExample,
   CustomValueTextProgressExample,
   IndeterminateProgressExample,
   LocaleAndFormatProgressExample,
@@ -52,7 +52,7 @@ import {
 
 ## Anatomy
 
-`Progress` renders the visual bar automatically, so consumers only compose the visible text slots.
+`Progress` renders the visual bar automatically, so the default path only needs the visible text slots.
 
 ```text
 Progress[value]
@@ -75,16 +75,16 @@ export function ProgressDemo() {
 }
 ```
 
-| Part            | Role                                                                                                      |
-| --------------- | --------------------------------------------------------------------------------------------------------- |
-| `Progress`      | Root state machine. Controls `value`, `min`, `max`, formatting, and accessible progress attributes.       |
-| `ProgressLabel` | Optional text label associated with the progress root.                                                    |
-| `ProgressValue` | Optional formatted value text. It can render the default formatted value or use a child render function.  |
-| `track`         | Internal visual rail rendered by `Progress`. Customize it with CSS variables or `classNames.track`.       |
-| `indicator`     | Internal filled bar rendered inside the track. Customize it with CSS variables or `classNames.indicator`. |
+| Part            | Role                                                                                                     |
+| --------------- | -------------------------------------------------------------------------------------------------------- |
+| `Progress`      | Root state machine. Controls `value`, `min`, `max`, formatting, and accessible progress attributes.      |
+| `ProgressLabel` | Optional text label associated with the progress root.                                                   |
+| `ProgressValue` | Optional formatted value text. It can render the default formatted value or use a child render function. |
+| `track`         | Default visual rail rendered by `Progress`.                                                              |
+| `indicator`     | Default filled bar rendered inside the track.                                                            |
 
-`Progress` does not expose `ProgressTrack` or `ProgressIndicator` in the public composition.
-Use `classNames` only when the internal track or indicator needs separate styling.
+For deeper customization, the same parts are also exported as `ProgressRoot`, `ProgressTrack`, and
+`ProgressIndicator`.
 
 ## Composition
 
@@ -92,18 +92,18 @@ Use `value={null}` for indeterminate work, or pass a number with optional `min` 
 known progress. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` live on the root and
 keep the visible value and accessible text aligned.
 
-Style the root with `className`. Style the internal bar with CSS variables, or pass
-`classNames={{ track, indicator }}` when those slots need separate selectors. `ProgressLabel` and
-`ProgressValue` keep their own `className` and `render` props from Base UI.
+Style the default component with `className` and the public CSS variables. When the bar structure
+itself needs separate selectors or a different DOM shape, switch to explicit composition with
+`ProgressRoot`, `ProgressTrack`, and `ProgressIndicator`. `ProgressLabel` and `ProgressValue` keep
+their own `className` and `render` props from Base UI.
 
 ### Defaults
 
-| Prop         | Default     | Values                   |
-| ------------ | ----------- | ------------------------ |
-| `value`      | `null`      | `number` \| `null`       |
-| `min`        | `0`         | `number`                 |
-| `max`        | `100`       | `number`                 |
-| `classNames` | `undefined` | `{ track?, indicator? }` |
+| Prop    | Default | Values             |
+| ------- | ------- | ------------------ |
+| `value` | `null`  | `number` \| `null` |
+| `min`   | `0`     | `number`           |
+| `max`   | `100`   | `number`           |
 
 ## Examples
 
@@ -294,30 +294,31 @@ Use `getAriaValueText` with custom rendered value text when visual and accessibl
 
 ### Custom Composition
 
-`Progress` renders the track and indicator automatically. Use `className` for the root and `classNames` for the internal track or indicator slots.
+Use explicit parts when the track or indicator needs its own class names, DOM structure, or custom render behavior.
 
 <Preview>
-  <CustomStylingProgressExample />
+  <CustomCompositionProgressExample />
 
   <Preview.Code>
     {`
       import {
-        Progress,
+        ProgressIndicator,
         ProgressLabel,
+        ProgressRoot,
+        ProgressTrack,
         ProgressValue,
       } from "moduix";
       import styles from "./progress-demo.module.css";
 
-      export function CustomStylingProgressDemo() {
+      export function CustomCompositionProgressDemo() {
         return (
-          <Progress
-            value={72}
-            className={styles.customProgress}
-            classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-          >
+          <ProgressRoot value={72} className={styles.customProgress}>
             <ProgressLabel>Monthly export</ProgressLabel>
             <ProgressValue />
-          </Progress>
+            <ProgressTrack className={styles.customTrack}>
+              <ProgressIndicator className={styles.customIndicator} />
+            </ProgressTrack>
+          </ProgressRoot>
         );
       }
     `}

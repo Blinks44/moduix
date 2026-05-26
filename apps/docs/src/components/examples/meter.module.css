@@ -13,12 +13,12 @@
   --meter-track-bg: var(--color-accent);
 }
 
-.customTrack {
+.customMeter [data-slot='meter-track'] {
   box-shadow: inset 0 0 0 var(--border-width-md)
     color-mix(in oklab, var(--color-primary), transparent 75%);
 }
 
-.customIndicator {
+.customMeter [data-slot='meter-indicator'] {
   background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
 }
 

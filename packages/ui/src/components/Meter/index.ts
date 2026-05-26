@@ -1,1 +1,1 @@
-export { Meter, MeterLabel, MeterValue, MeterTrack, MeterIndicator } from './Meter';
+export { Meter, MeterRoot, MeterLabel, MeterValue, MeterTrack, MeterIndicator } from './Meter';
