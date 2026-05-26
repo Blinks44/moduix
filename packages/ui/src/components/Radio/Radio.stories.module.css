@@ -33,4 +33,28 @@
     height: 100%;
     color: currentColor;
   }
+
+  .customGroup {
+    gap: var(--spacing-3);
+  }
+
+  .customLabel {
+    color: var(--color-primary);
+  }
+
+  .customList {
+    gap: var(--spacing-3);
+  }
+
+  .customField {
+    gap: var(--spacing-3);
+  }
+
+  .customRadio {
+    border-color: var(--color-primary);
+  }
+
+  .customRadio[data-checked] {
+    background-color: var(--color-primary);
+  }
 }

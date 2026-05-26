@@ -131,31 +131,4 @@
     align-items: flex-start;
     gap: var(--radio-group-list-gap, var(--spacing-2));
   }
-
-  .groupItem {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--radio-group-item-gap, var(--radio-gap, var(--spacing-2)));
-    cursor: pointer;
-
-    &:has([data-disabled]) {
-      cursor: default;
-    }
-  }
-
-  .groupItemLabel {
-    color: var(--radio-group-item-label-color, var(--radio-label-color, var(--color-foreground)));
-    font-size: var(
-      --radio-group-item-label-font-size,
-      var(--radio-label-font-size, var(--text-sm))
-    );
-    font-weight: var(
-      --radio-group-item-label-font-weight,
-      var(--radio-label-font-weight, var(--weight-medium))
-    );
-    line-height: var(
-      --radio-group-item-label-line-height,
-      var(--radio-label-line-height, var(--line-height-text-sm))
-    );
-  }
 }

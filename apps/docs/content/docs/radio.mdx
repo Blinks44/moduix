@@ -9,11 +9,10 @@ import {
   ControlledRadioExample,
   CustomIndicatorRadioExample,
   DisabledRadioExample,
+  RadioClassNameExample,
   RadioCssPlaygroundPanel,
   RadioCssPropertiesPanel,
-  RadioClassNameExample,
   RadioExample,
-  RadioFieldCompositionExample,
   RadioFormIntegrationExample,
   RadioSiblingLabelNativeButtonExample,
   RadioSizesExample,
@@ -26,7 +25,7 @@ import {
 
 ## Basic
 
-`RadioGroupItemControl` renders the indicator automatically. Use `indicator` or `classNames` only when the default dot needs to change.
+Use `RadioGroup` for shared state and compose each option with `RadioField`, `Radio`, and `RadioLabel`.
 
 <Preview cssProperties={radioPlaygroundCssProperties}>
   <RadioExample />
@@ -34,14 +33,20 @@ import {
   <Preview.Code>
     {`
       import {
+        Radio,
+        RadioField,
         RadioGroup,
-        RadioGroupItem,
-        RadioGroupItemControl,
-        RadioGroupItemLabel,
         RadioGroupLabel,
         RadioGroupList,
+        RadioLabel,
       } from "moduix";
       import { useId } from "react";
+
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
 
       export function RadioDemo() {
         const labelId = useId();
@@ -51,10 +56,10 @@ import {
             <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
             <RadioGroupList>
               {options.map((option) => (
-                <RadioGroupItem key={option.value}>
-                  <RadioGroupItemControl value={option.value} />
-                  <RadioGroupItemLabel>{option.label}</RadioGroupItemLabel>
-                </RadioGroupItem>
+                <RadioField key={option.value}>
+                  <Radio value={option.value} />
+                  <RadioLabel>{option.label}</RadioLabel>
+                </RadioField>
               ))}
             </RadioGroupList>
           </RadioGroup>
@@ -64,92 +69,43 @@ import {
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-    `}
-
-  </Preview.Data>
   <Preview.CSSProperties>{(context) => <RadioCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <RadioCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy
 
-`Radio` is used inside `RadioGroup`. The recommended composition keeps the row, control, and label explicit while the indicator stays internal.
+The default path keeps the group explicit and the indicator internal:
 
 ```text
 RadioGroup
 ├─ RadioGroupLabel
 └─ RadioGroupList
-   └─ RadioGroupItem
-      ├─ RadioGroupItemControl
-      │  └─ indicator (internal)
-      └─ RadioGroupItemLabel
+   └─ RadioField
+      ├─ Radio
+      │  └─ RadioIndicator (default)
+      └─ RadioLabel
 ```
 
-```tsx
-<RadioGroup defaultValue="team" aria-labelledby={labelId}>
-  <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
-  <RadioGroupList>
-    <RadioGroupItem>
-      <RadioGroupItemControl value="team" />
-      <RadioGroupItemLabel>Team account</RadioGroupItemLabel>
-    </RadioGroupItem>
-  </RadioGroupList>
-</RadioGroup>
-```
-
-| Part                    | Role                                                                                                            |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `RadioGroup`            | Root state machine. Controls selected value, disabled/read-only state, form ownership, and validation metadata. |
-| `RadioGroupLabel`       | Visible group label. Pair it with `aria-labelledby` on `RadioGroup`.                                            |
-| `RadioGroupList`        | Layout wrapper for the available options.                                                                       |
-| `RadioGroupItem`        | Enclosing label row for one option.                                                                             |
-| `RadioGroupItemControl` | The radio control. It renders the indicator automatically and accepts `size`, `indicator`, and `classNames`.    |
-| `RadioGroupItemLabel`   | Text label for the option.                                                                                      |
-| `RadioField`            | Compact enclosing-label helper for direct `Radio` + `RadioLabel` composition.                                   |
-| `Radio`                 | Standalone radio control for custom layouts, field composition, and sibling-label/native-button patterns.       |
-| `RadioLabel`            | Text label used with `RadioField` or form field labels.                                                         |
-
-Use `indicator` for custom graphics and `classNames.indicator` or `classNames.indicatorIcon` when the internal indicator needs targeted styling.
+| Part              | Role                                                                             |
+| ----------------- | -------------------------------------------------------------------------------- |
+| `RadioGroup`      | Shared state, form ownership, disabled/read-only state, and validation metadata. |
+| `RadioGroupLabel` | Visible group label. Pair it with `aria-labelledby` on `RadioGroup`.             |
+| `RadioGroupList`  | Layout wrapper for radio rows.                                                   |
+| `RadioField`      | Enclosing label row for one option.                                              |
+| `Radio`           | The control itself. Renders a default indicator when `children` is omitted.      |
+| `RadioIndicator`  | Optional escape hatch for custom checked content.                                |
+| `RadioLabel`      | Text label for a radio row.                                                      |
 
 ## Composition
 
-Put behavior props such as `value`, `defaultValue`, `onValueChange`, `disabled`, `readOnly`, `required`, `name`, and `form` on `RadioGroup`. Use `RadioGroupItemControl` for the common grouped option pattern, `RadioField` for compact enclosing-label rows, and `Radio` with `nativeButton` plus `render={<button />}` for sibling-label composition.
-
-### Defaults
-
-| Prop (Part)                                                    | Default            | Values                       |
-| -------------------------------------------------------------- | ------------------ | ---------------------------- |
-| `size` (`Radio` / `RadioGroupItemControl`)                     | `md`               | `xs`, `sm`, `md`, `lg`, `xl` |
-| `children` (`Radio`)                                           | Internal indicator | Any React node               |
-| `indicator` (`Radio` / `RadioGroupItemControl`)                | Internal dot icon  | Any React node               |
-| `classNames.indicator` (`Radio` / `RadioGroupItemControl`)     | `undefined`        | `string`                     |
-| `classNames.indicatorIcon` (`Radio` / `RadioGroupItemControl`) | `undefined`        | `string`                     |
-
-Visible parts accept `className`. The internal indicator is customized through `indicator` or `classNames`:
-
-```tsx
-<RadioGroupItemControl
-  value="team"
-  indicator={<CustomRadioIcon />}
-  classNames={{
-    indicator: styles.indicator,
-    indicatorIcon: styles.indicatorIcon,
-  }}
-/>
-```
+Put selection state and form props on `RadioGroup`. Keep `Radio` close to the Base UI primitive: pass primitive props directly, use `size` for the built-in scale, and use `children` only when you need custom indicator markup.
 
 ## Examples
 
 ### Sizes
 
-Use `size` to align the control with different form densities.
+Use `size` when the control needs to match a different form density.
 
 <Preview>
   <RadioSizesExample />
@@ -157,12 +113,12 @@ Use `size` to align the control with different form densities.
   <Preview.Code>
     {`
       import {
+        Radio,
+        RadioField,
         RadioGroup,
-        RadioGroupItem,
-        RadioGroupItemControl,
-        RadioGroupItemLabel,
         RadioGroupLabel,
         RadioGroupList,
+        RadioLabel,
       } from "moduix";
       import { useId } from "react";
 
@@ -173,12 +129,18 @@ Use `size` to align the control with different form densities.
           <RadioGroup aria-labelledby={labelId} defaultValue="md">
             <RadioGroupLabel id={labelId}>Control Size</RadioGroupLabel>
             <RadioGroupList>
-              {sizes.map((item) => (
-                <RadioGroupItem key={item.value}>
-                  <RadioGroupItemControl value={item.value} size={item.value} />
-                  <RadioGroupItemLabel>{item.label}</RadioGroupItemLabel>
-                </RadioGroupItem>
-              ))}
+              <RadioField>
+                <Radio value="xs" size="xs" />
+                <RadioLabel>Extra-small</RadioLabel>
+              </RadioField>
+              <RadioField>
+                <Radio value="sm" size="sm" />
+                <RadioLabel>Small</RadioLabel>
+              </RadioField>
+              <RadioField>
+                <Radio value="md" size="md" />
+                <RadioLabel>Medium</RadioLabel>
+              </RadioField>
             </RadioGroupList>
           </RadioGroup>
         );
@@ -186,24 +148,9 @@ Use `size` to align the control with different form densities.
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const sizes = [
-        { value: "xs", label: "Extra-small" },
-        { value: "sm", label: "Small" },
-        { value: "md", label: "Medium" },
-        { value: "lg", label: "Large" },
-        { value: "xl", label: "Extra-large" },
-      ] as const;
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Controlled
-
-Control `value` from React state when the selection needs to coordinate with other UI.
 
 <Preview>
   <ControlledRadioExample />
@@ -211,12 +158,12 @@ Control `value` from React state when the selection needs to coordinate with oth
   <Preview.Code>
     {`
       import {
+        Radio,
+        RadioField,
         RadioGroup,
-        RadioGroupItem,
-        RadioGroupItemControl,
-        RadioGroupItemLabel,
         RadioGroupLabel,
         RadioGroupList,
+        RadioLabel,
       } from "moduix";
       import { useId, useState } from "react";
 
@@ -228,14 +175,14 @@ Control `value` from React state when the selection needs to coordinate with oth
           <RadioGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
             <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
             <RadioGroupList>
-              <RadioGroupItem>
-                <RadioGroupItemControl value="personal" />
-                <RadioGroupItemLabel>Only me</RadioGroupItemLabel>
-              </RadioGroupItem>
-              <RadioGroupItem>
-                <RadioGroupItemControl value="team" />
-                <RadioGroupItemLabel>Team</RadioGroupItemLabel>
-              </RadioGroupItem>
+              <RadioField>
+                <Radio value="personal" />
+                <RadioLabel>Only me</RadioLabel>
+              </RadioField>
+              <RadioField>
+                <Radio value="team" />
+                <RadioLabel>Team</RadioLabel>
+              </RadioField>
             </RadioGroupList>
           </RadioGroup>
         );
@@ -247,20 +194,18 @@ Control `value` from React state when the selection needs to coordinate with oth
 
 ### Disabled
 
-Set `disabled` on the group to prevent interaction with every option.
-
 <Preview>
   <DisabledRadioExample />
 
   <Preview.Code>
     {`
       import {
+        Radio,
+        RadioField,
         RadioGroup,
-        RadioGroupItem,
-        RadioGroupItemControl,
-        RadioGroupItemLabel,
         RadioGroupLabel,
         RadioGroupList,
+        RadioLabel,
       } from "moduix";
       import { useId } from "react";
 
@@ -271,12 +216,14 @@ Set `disabled` on the group to prevent interaction with every option.
           <RadioGroup aria-labelledby={labelId} defaultValue="enterprise" disabled>
             <RadioGroupLabel id={labelId}>Plan</RadioGroupLabel>
             <RadioGroupList>
-              {options.map((option) => (
-                <RadioGroupItem key={option.value}>
-                  <RadioGroupItemControl value={option.value} />
-                  <RadioGroupItemLabel>{option.label}</RadioGroupItemLabel>
-                </RadioGroupItem>
-              ))}
+              <RadioField>
+                <Radio value="personal" />
+                <RadioLabel>Personal account</RadioLabel>
+              </RadioField>
+              <RadioField>
+                <Radio value="enterprise" />
+                <RadioLabel>Enterprise account</RadioLabel>
+              </RadioField>
             </RadioGroupList>
           </RadioGroup>
         );
@@ -284,236 +231,11 @@ Set `disabled` on the group to prevent interaction with every option.
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Custom Indicator
-
-Pass a custom `indicator` node to `Radio` or `RadioGroupItemControl` to replace the default dot.
-
-<Preview>
-  <CustomIndicatorRadioExample />
-
-  <Preview.Code>
-    {`
-      import {
-        RadioGroup,
-        RadioGroupItem,
-        RadioGroupItemControl,
-        RadioGroupItemLabel,
-        RadioGroupLabel,
-        RadioGroupList,
-      } from "moduix";
-      import type { ComponentProps } from "react";
-      import { useId } from "react";
-
-      function CustomRadioIcon(props: ComponentProps<"svg">) {
-        return (
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            aria-hidden="true"
-            focusable="false"
-            {...props}
-          >
-            <path d="M6 1.5L10.5 6L6 10.5L1.5 6L6 1.5Z" fill="currentColor" />
-          </svg>
-        );
-      }
-
-      export function CustomIndicatorRadioDemo() {
-        const labelId = useId();
-
-        return (
-          <RadioGroup aria-labelledby={labelId} defaultValue="team">
-            <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
-            <RadioGroupList>
-              {options.map((option) => (
-                <RadioGroupItem key={option.value}>
-                  <RadioGroupItemControl value={option.value} indicator={<CustomRadioIcon />} />
-                  <RadioGroupItemLabel>{option.label}</RadioGroupItemLabel>
-                </RadioGroupItem>
-              ))}
-            </RadioGroupList>
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Class Names
-
-Pass `className` to visible slots and `classNames` to the internal indicator.
-
-<Preview>
-  <RadioClassNameExample />
-
-  <Preview.Code>
-    {`
-      import {
-        RadioGroup,
-        RadioGroupItem,
-        RadioGroupItemControl,
-        RadioGroupItemLabel,
-        RadioGroupLabel,
-        RadioGroupList,
-      } from "moduix";
-      import { useId } from "react";
-      import styles from "./styled-radio-demo.module.css";
-
-      export function StyledRadioDemo() {
-        const labelId = useId();
-
-        return (
-          <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.group}>
-            <RadioGroupLabel id={labelId} className={styles.label}>
-              Styled Account Type
-            </RadioGroupLabel>
-            <RadioGroupList className={styles.list}>
-              {options.map((option) => (
-                <RadioGroupItem key={option.value} className={styles.item}>
-                  <RadioGroupItemControl
-                    value={option.value}
-                    className={styles.control}
-                    classNames={{ indicator: styles.indicator }}
-                  />
-                  <RadioGroupItemLabel className={styles.label}>
-                    {option.label}
-                  </RadioGroupItemLabel>
-                </RadioGroupItem>
-              ))}
-            </RadioGroupList>
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .group {
-        gap: var(--spacing-3);
-      }
-
-      .label {
-        color: var(--color-primary);
-      }
-
-      .list {
-        gap: var(--spacing-3);
-      }
-
-      .item {
-        gap: var(--spacing-3);
-      }
-
-      .control {
-        border-color: var(--color-primary);
-      }
-
-      .control[data-checked] {
-        background-color: var(--color-primary);
-      }
-
-      .indicator {
-        color: var(--color-primary-foreground);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Field Composition
-
-Use `RadioField`, `Radio`, and `RadioLabel` directly for a compact enclosing-label composition.
-
-<Preview>
-  <RadioFieldCompositionExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Radio,
-        RadioField,
-        RadioGroup,
-        RadioGroupLabel,
-        RadioLabel,
-      } from "moduix";
-      import { useId } from "react";
-
-      export function RadioFieldDemo() {
-        const labelId = useId();
-
-        return (
-          <RadioGroup aria-labelledby={labelId} defaultValue="personal">
-            <RadioGroupLabel id={labelId}>Members</RadioGroupLabel>
-            <div>
-              {options.map((option) => (
-                <RadioField key={option.value}>
-                  <Radio value={option.value} />
-                  <RadioLabel>{option.label}</RadioLabel>
-                </RadioField>
-              ))}
-            </div>
-          </RadioGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Sibling Label
 
-Use `nativeButton` with `render={<button />}` for the sibling `label` pattern with `htmlFor` and `id`.
+Use `nativeButton` with `render={<button />}` when the label must sit outside the radio row.
 
 <Preview>
   <RadioSiblingLabelNativeButtonExample />
@@ -544,7 +266,7 @@ Use `nativeButton` with `render={<button />}` for the sibling `label` pattern wi
 
 ### Form Integration
 
-Use `Field` and `Fieldset` when the group needs form naming, validation, or shared labeling.
+Use `Field` and `Fieldset` when the group needs naming, validation, or shared labeling.
 
 <Preview>
   <RadioFormIntegrationExample />
@@ -584,6 +306,155 @@ Use `Field` and `Fieldset` when the group needs form naming, validation, or shar
         );
       }
     `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Style visible parts with `className`.
+
+<Preview>
+  <RadioClassNameExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Radio,
+        RadioField,
+        RadioGroup,
+        RadioGroupLabel,
+        RadioGroupList,
+        RadioLabel,
+      } from "moduix";
+      import { useId } from "react";
+      import styles from "./styled-radio-demo.module.css";
+
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+
+      export function StyledRadioDemo() {
+        const labelId = useId();
+
+        return (
+          <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.group}>
+            <RadioGroupLabel id={labelId} className={styles.label}>
+              Styled Account Type
+            </RadioGroupLabel>
+            <RadioGroupList className={styles.list}>
+              {options.map((option) => (
+                <RadioField key={option.value} className={styles.field}>
+                  <Radio value={option.value} className={styles.control} />
+                  <RadioLabel className={styles.label}>{option.label}</RadioLabel>
+                </RadioField>
+              ))}
+            </RadioGroupList>
+          </RadioGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .group {
+        gap: var(--spacing-3);
+      }
+    
+          .label {
+            color: var(--color-primary);
+          }
+    
+          .list {
+            gap: var(--spacing-3);
+          }
+    
+          .field {
+            gap: var(--spacing-3);
+          }
+    
+          .control {
+            border-color: var(--color-primary);
+          }
+    
+          .control[data-checked] {
+            background-color: var(--color-primary);
+          }
+`}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Composition
+
+Use `children` with `RadioIndicator` when the default dot is not enough.
+
+<Preview>
+  <CustomIndicatorRadioExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Radio,
+        RadioField,
+        RadioGroup,
+        RadioGroupLabel,
+        RadioGroupList,
+        RadioIndicator,
+        RadioLabel,
+      } from "moduix";
+      import type { ComponentProps } from "react";
+      import { useId } from "react";
+
+      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];
+
+      function CustomRadioIcon(props: ComponentProps<"svg">) {
+        return (
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+            {...props}
+          >
+            <path d="M6 1.5L10.5 6L6 10.5L1.5 6L6 1.5Z" fill="currentColor" />
+          </svg>
+        );
+      }
+
+          export function CustomCompositionRadioDemo() {
+            const labelId = useId();
+
+        return (
+          <RadioGroup aria-labelledby={labelId} defaultValue="team">
+            <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
+            <RadioGroupList>
+              {options.map((option) => (
+                <RadioField key={option.value}>
+                  <Radio value={option.value}>
+                    <RadioIndicator>
+                      <CustomRadioIcon />
+                    </RadioIndicator>
+                  </Radio>
+                  <RadioLabel>{option.label}</RadioLabel>
+                </RadioField>
+              ))}
+            </RadioGroupList>
+          </RadioGroup>
+        );
+          }
+
+`}
 
   </Preview.Code>
 </Preview>

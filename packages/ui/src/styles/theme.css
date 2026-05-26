@@ -1721,11 +1721,6 @@
   /* RadioGroup */
   --radio-group-color: initial; /* var(--color-foreground) */
   --radio-group-gap: initial; /* var(--spacing-2) */
-  --radio-group-item-gap: initial; /* var(--radio-gap, var(--spacing-2)) */
-  --radio-group-item-label-color: initial; /* var(--radio-label-color, var(--color-foreground)) */
-  --radio-group-item-label-font-size: initial; /* var(--radio-label-font-size, var(--text-sm)) */
-  --radio-group-item-label-font-weight: initial; /* var(--radio-label-font-weight, var(--weight-medium)) */
-  --radio-group-item-label-line-height: initial; /* var(--radio-label-line-height, var(--line-height-text-sm)) */
   --radio-group-label-color: initial; /* var(--radio-group-color, var(--color-foreground)) */
   --radio-group-label-font-size: initial; /* var(--text-sm) */
   --radio-group-label-font-weight: initial; /* var(--weight-semibold) */
