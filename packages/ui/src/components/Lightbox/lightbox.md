@@ -7,7 +7,7 @@ Composed component based on `@base-ui/react/dialog` primitives for image preview
 - Wrap a known image with `LightboxImage` + `LightboxContent`.
 - Use custom trigger composition with `LightboxTrigger`.
 - Dynamically capture images in CMS-rendered content with `LightboxGallery`.
-- Toggle the built-in top-right close button with `withCloseButton` or override it with `closeButton`.
+- Drop down to `LightboxPortal`, `LightboxBackdrop`, `LightboxViewport`, `LightboxPopup`, and `LightboxFrame` when the default structure is not enough.
 
 ## Basic anatomy
 
@@ -19,6 +19,10 @@ Composed component based on `@base-ui/react/dialog` primitives for image preview
   </LightboxContent>
 </Lightbox>
 ```
+
+`LightboxContent` renders the default portal, backdrop, viewport, popup, frame, and close button.
+
+For advanced layout or styling, compose the low-level parts manually.
 
 ## Dynamic capture
 

@@ -1,13 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { CloseButton } from '@/components/CloseButton';
 import {
   Lightbox,
+  LightboxBackdrop,
+  LightboxClose,
+  LightboxCloseButton,
   LightboxContent,
+  LightboxFrame,
   LightboxGallery,
   LightboxImage,
+  LightboxPopup,
+  LightboxPortal,
   LightboxTrigger,
+  LightboxViewport,
 } from './Lightbox';
+
+const customPopupStyle = {
+  '--lightbox-width': '72vw',
+  '--lightbox-height': '72dvh',
+} as React.CSSProperties;
 
 const meta = {
   title: 'Components/Lightbox',
@@ -53,7 +64,7 @@ export const TriggerComposition: Story = {
             </button>
           }
         />
-        <LightboxContent withBackdrop={false}>
+        <LightboxContent>
           <img
             src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=90"
             alt="Earth from space"
@@ -65,7 +76,7 @@ export const TriggerComposition: Story = {
   },
 };
 
-export const CustomBuiltInCloseButton: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Lightbox>
@@ -76,19 +87,23 @@ export const CustomBuiltInCloseButton: Story = {
             </button>
           }
         />
-        <LightboxContent
-          closeButton={
-            <CloseButton aria-label="Close preview">
-              <span aria-hidden="true">x</span>
-            </CloseButton>
-          }
-        >
-          <img
-            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=90"
-            alt="Earth from space"
-            style={{ display: 'block', width: '100%', height: 'auto' }}
-          />
-        </LightboxContent>
+        <LightboxPortal>
+          <LightboxBackdrop style={{ backgroundColor: 'rgb(15 23 42 / 0.62)' }} />
+          <LightboxViewport>
+            <LightboxCloseButton />
+            <LightboxPopup style={customPopupStyle}>
+              <LightboxFrame>
+                <LightboxClose aria-label="Close image" nativeButton={false} render={<div />}>
+                  <img
+                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=90"
+                    alt="Earth from space"
+                    style={{ display: 'block', width: '100%', height: 'auto' }}
+                  />
+                </LightboxClose>
+              </LightboxFrame>
+            </LightboxPopup>
+          </LightboxViewport>
+        </LightboxPortal>
       </Lightbox>
     );
   },

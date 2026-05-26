@@ -26,15 +26,6 @@
     place-items: center;
     overflow: hidden;
     padding: var(--lightbox-viewport-padding, var(--spacing-4));
-
-    &[data-with-backdrop='false'] {
-      pointer-events: none;
-
-      & > [data-slot='lightbox-popup'],
-      & > [data-slot='lightbox-close'] {
-        pointer-events: auto;
-      }
-    }
   }
 
   .popup {

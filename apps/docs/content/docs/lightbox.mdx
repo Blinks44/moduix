@@ -50,20 +50,21 @@ import {
 
 ## Anatomy
 
-`LightboxContent` already renders `portal`, `backdrop`, `viewport`, and the image frame.
-Most usage stays at `Lightbox`, `LightboxImage` or `LightboxTrigger`, and `LightboxContent`.
+`LightboxContent` already renders the default `portal`, `backdrop`, `viewport`, `popup`, frame,
+and close button. Most usage stays at `Lightbox`, `LightboxImage` or `LightboxTrigger`, and
+`LightboxContent`.
 
 ```text
 Lightbox
 ├─ LightboxTrigger (optional)
 │  └─ LightboxImage (optional helper)
 └─ LightboxContent
-   ├─ portal (service slot)
-   │  ├─ backdrop (service slot, optional)
-   │  └─ viewport (service slot)
+   ├─ portal
+   │  ├─ backdrop
+   │  └─ viewport
+   │     ├─ LightboxCloseButton (optional)
    │     └─ popup
-   │        └─ frame
-   │           ├─ LightboxClose (optional)
+   │        └─ LightboxFrame
    │           └─ image content
 ```
 
@@ -76,36 +77,31 @@ Lightbox
 </Lightbox>
 ```
 
-| Part              | Role                                                                                |
-| ----------------- | ----------------------------------------------------------------------------------- |
-| `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`). |
-| `LightboxTrigger` | Opens the preview from any custom trigger composition.                              |
-| `LightboxImage`   | Helper that wraps an image as a trigger and supports `previewSrc` mapping.          |
-| `LightboxContent` | Modal content slot that owns `portal`, `backdrop`, `viewport`, popup, and frame.    |
-| `LightboxClose`   | Optional close control rendered in the frame area.                                  |
-| `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists.                 |
+| Part              | Role                                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------------ |
+| `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`).                    |
+| `LightboxTrigger` | Opens the preview from any custom trigger composition.                                                 |
+| `LightboxImage`   | Helper that wraps an image as a trigger and supports `previewSrc` mapping.                             |
+| `LightboxContent` | Default high-level wrapper that owns `portal`, `backdrop`, `viewport`, popup, frame, and close button. |
+| `LightboxClose`   | Primitive close part for custom composition inside the popup.                                          |
+| `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists.                                    |
 
 ## Composition
 
 Use controlled state on `Lightbox` when outside UI needs to open or close the preview.
-Use `className` for the popup, `classNames` for service slots, and `slotProps` for non-class slot props.
-`container` overrides `slotProps.portal.container`.
-Use `withCloseButton` for the built-in top-right close control, or pass `closeButton` to replace its rendered button while keeping the same dismissal behavior.
-
 `LightboxGallery` listens for image clicks inside `rootRef` or `rootSelector` and opens the clicked source.
-Keep `withBackdrop` enabled for modal previews; disable it only when the page should stay interactive behind the image.
+`LightboxContent` keeps the default path small and supports the common image-preview workflow:
 
 ### Defaults
 
-| Part              | Prop                  | Default       | Values / Notes                                                 |
-| ----------------- | --------------------- | ------------- | -------------------------------------------------------------- |
-| `LightboxContent` | `withBackdrop`        | `true`        | `true`, `false`                                                |
-| `LightboxContent` | `withCloseButton`     | `true`        | `true`, `false`                                                |
-| `LightboxContent` | `closeButton`         | `undefined`   | Rendered element used for the built-in top-right close control |
-| `LightboxContent` | `closeOnContentClick` | `true`        | `true`, `false`                                                |
-| `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for close controls                            |
-| `LightboxGallery` | `selector`            | `img`         | Any selector supported by `Element.closest(...)`               |
-| `LightboxGallery` | `withBackdrop`        | `true`        | Passed through to internal `LightboxContent`                   |
+| Part              | Prop                  | Default       | Values / Notes                                   |
+| ----------------- | --------------------- | ------------- | ------------------------------------------------ |
+| `LightboxContent` | `showCloseButton`     | `true`        | `true`, `false`                                  |
+| `LightboxContent` | `closeOnContentClick` | `true`        | `true`, `false`                                  |
+| `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for close controls              |
+| `LightboxGallery` | `selector`            | `img`         | Any selector supported by `Element.closest(...)` |
+
+When the default wrapper is not enough, assemble the lower-level parts manually.
 
 ## Examples
 
@@ -142,26 +138,42 @@ Use `LightboxGallery` when images come from CMS or HTML you do not compose manua
 
 ### Customized Surface
 
-Customize popup size, backdrop tone, and the built-in close button with `className`, `classNames`, and CSS variables.
+Customize popup size, backdrop tone, and close controls by composing the lower-level parts directly.
 
 <Preview>
   <CustomizedLightboxExample />
 
   <Preview.Code>
     {`
-      import { CloseButton, Lightbox, LightboxImage, LightboxContent } from "moduix";
+      import {
+        Lightbox,
+        LightboxBackdrop,
+        LightboxClose,
+        LightboxCloseButton,
+        LightboxFrame,
+        LightboxImage,
+        LightboxPopup,
+        LightboxPortal,
+        LightboxViewport,
+      } from "moduix";
 
       export function CustomizedLightboxDemo() {
         return (
           <Lightbox>
             <LightboxImage src={thumbnail} alt="Road through forest" className={styles.previewImage} />
-            <LightboxContent
-              className={styles.customPopup}
-              classNames={{ backdrop: styles.customBackdrop }}
-              closeButton={<CloseButton aria-label="Close preview" className={styles.customClose} />}
-            >
-              <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
-            </LightboxContent>
+            <LightboxPortal>
+              <LightboxBackdrop className={styles.customBackdrop} />
+              <LightboxViewport>
+                <LightboxCloseButton className={styles.customClose} aria-label="Close preview" />
+                <LightboxPopup className={styles.customPopup}>
+                  <LightboxFrame>
+                    <LightboxClose aria-label="Close preview" nativeButton={false} render={<div />}>
+                      <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
+                    </LightboxClose>
+                  </LightboxFrame>
+                </LightboxPopup>
+              </LightboxViewport>
+            </LightboxPortal>
           </Lightbox>
         );
       }
@@ -169,3 +181,27 @@ Customize popup size, backdrop tone, and the built-in close button with `classNa
 
   </Preview.Code>
 </Preview>
+
+## Custom Composition
+
+Use the low-level parts when you need a different portal target, no backdrop, custom layout around
+the image, or a fully custom close affordance.
+
+```tsx
+<Lightbox>
+  <LightboxTrigger render={<button type="button">Open image</button>} />
+  <LightboxPortal>
+    <LightboxBackdrop />
+    <LightboxViewport>
+      <LightboxCloseButton />
+      <LightboxPopup className={styles.popup}>
+        <LightboxFrame>
+          <LightboxClose aria-label="Close image" nativeButton={false} render={<div />}>
+            <img src={fullSize} alt="Preview image" />
+          </LightboxClose>
+        </LightboxFrame>
+      </LightboxPopup>
+    </LightboxViewport>
+  </LightboxPortal>
+</Lightbox>
+```

@@ -1,4 +1,16 @@
-import { CloseButton, Lightbox, LightboxContent, LightboxGallery, LightboxImage } from 'moduix';
+import {
+  Lightbox,
+  LightboxBackdrop,
+  LightboxClose,
+  LightboxCloseButton,
+  LightboxContent,
+  LightboxFrame,
+  LightboxGallery,
+  LightboxImage,
+  LightboxPopup,
+  LightboxPortal,
+  LightboxViewport,
+} from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -118,13 +130,19 @@ export function CustomizedLightboxExample() {
   return (
     <Lightbox>
       <LightboxImage src={images.road} alt="Road through forest" className={styles.previewImage} />
-      <LightboxContent
-        className={styles.customPopup}
-        classNames={{ backdrop: styles.customBackdrop }}
-        closeButton={<CloseButton aria-label="Close preview" className={styles.customClose} />}
-      >
-        <img src={images.road} alt="Road through forest" className={styles.contentImage} />
-      </LightboxContent>
+      <LightboxPortal>
+        <LightboxBackdrop className={styles.customBackdrop} />
+        <LightboxViewport>
+          <LightboxCloseButton className={styles.customClose} aria-label="Close preview" />
+          <LightboxPopup className={styles.customPopup}>
+            <LightboxFrame>
+              <LightboxClose aria-label="Close preview" nativeButton={false} render={<div />}>
+                <img src={images.road} alt="Road through forest" className={styles.contentImage} />
+              </LightboxClose>
+            </LightboxFrame>
+          </LightboxPopup>
+        </LightboxViewport>
+      </LightboxPortal>
     </Lightbox>
   );
 }
