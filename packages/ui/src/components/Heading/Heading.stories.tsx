@@ -86,22 +86,6 @@ export const SemanticLevelWithVisualSize: Story = {
   ),
 };
 
-export const Aligned: Story = {
-  render: () => (
-    <div className={storyStyles.aligned}>
-      <Heading as="h2" align="left">
-        Left aligned
-      </Heading>
-      <Heading as="h2" align="center">
-        Center aligned
-      </Heading>
-      <Heading as="h2" align="right">
-        Right aligned
-      </Heading>
-    </div>
-  ),
-};
-
 export const CustomComposition: Story = {
   name: 'Custom Composition',
   render: () => (

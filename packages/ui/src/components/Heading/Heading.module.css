@@ -13,7 +13,6 @@
       var(--heading-line-height, var(--line-height-text-3xl))
     );
     letter-spacing: var(--heading-letter-spacing, 0);
-    text-align: start;
     text-wrap: var(--heading-text-wrap, balance);
     overflow-wrap: break-word;
 
@@ -73,18 +72,6 @@
 
     &[data-weight='bold'] {
       font-weight: var(--heading-font-weight-bold, var(--heading-font-weight, var(--weight-bold)));
-    }
-
-    &[data-align='left'] {
-      text-align: left;
-    }
-
-    &[data-align='center'] {
-      text-align: center;
-    }
-
-    &[data-align='right'] {
-      text-align: right;
     }
   }
 }

@@ -5,13 +5,6 @@
   gap: var(--spacing-3);
 }
 
-.aligned {
-  display: flex;
-  width: min(32rem, calc(100vw - var(--spacing-8)));
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
 .customHeading {
   --heading-color: var(--color-primary);
   --heading-font-size-xl: var(--text-3xl);

@@ -1,4 +1,5 @@
-import { Heading, type HeadingProps } from 'moduix';
+import { Heading } from 'moduix';
+import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './heading.module.css';
@@ -80,7 +81,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function HeadingExample(props: HeadingProps) {
+export function HeadingExample(props: React.ComponentProps<typeof Heading>) {
   return <Heading {...props}>Build reliable interfaces</Heading>;
 }
 
@@ -136,22 +137,6 @@ export function HeadingWeightsExample() {
       </Heading>
       <Heading as="h2" weight="bold">
         Bold weight
-      </Heading>
-    </div>
-  );
-}
-
-export function HeadingAlignedExample() {
-  return (
-    <div className={styles.aligned}>
-      <Heading as="h2" align="left">
-        Left aligned
-      </Heading>
-      <Heading as="h2" align="center">
-        Center aligned
-      </Heading>
-      <Heading as="h2" align="right">
-        Right aligned
       </Heading>
     </div>
   );
