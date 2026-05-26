@@ -1,6 +1,7 @@
 import {
   ContextMenu,
   ContextMenuArrow,
+  ContextMenuBackdrop,
   ContextMenuCheckboxItem,
   ContextMenuCheckboxItemIndicator,
   ContextMenuContent,
@@ -13,6 +14,9 @@ import {
   ContextMenuItemTextContent,
   ContextMenuItemTextIcon,
   ContextMenuItemTextLabel,
+  ContextMenuPopup,
+  ContextMenuPortal,
+  ContextMenuPositioner,
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
   ContextMenuRadioItemIndicator,
@@ -273,7 +277,6 @@ export function ContextMenuExample() {
     <ContextMenu>
       <ContextMenuTrigger>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
         <ContextMenuItem closeOnClick>Add to Playlist</ContextMenuItem>
         <ContextMenuSeparator />
@@ -293,7 +296,6 @@ export function NestedContextMenuExample() {
     <ContextMenu>
       <ContextMenuTrigger>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
         <ContextMenuSubmenu>
           <ContextMenuSubmenuTrigger>
@@ -321,7 +323,6 @@ export function ShortcutsContextMenuExample() {
     <ContextMenu>
       <ContextMenuTrigger>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>
           Copy
           <ContextMenuItemShortcut>Ctrl+C</ContextMenuItemShortcut>
@@ -350,7 +351,6 @@ export function GroupsAndControlsContextMenuExample() {
     <ContextMenu>
       <ContextMenuTrigger>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuGroup>
           <ContextMenuGroupLabel>Sort</ContextMenuGroupLabel>
           <ContextMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -397,7 +397,6 @@ export function IndicatorRightContextMenuExample() {
     <ContextMenu>
       <ContextMenuTrigger>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuCheckboxItem
           checked={showMinimap}
           onCheckedChange={setShowMinimap}
@@ -438,7 +437,6 @@ export function PositionedContextMenuExample() {
     <ContextMenu>
       <ContextMenuTrigger>Right click here</ContextMenuTrigger>
       <ContextMenuContent align="start" sideOffset={12} collisionPadding={16}>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>Open</ContextMenuItem>
         <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
         <ContextMenuSeparator />
@@ -453,7 +451,6 @@ export function LinkItemsContextMenuExample() {
     <ContextMenu>
       <ContextMenuTrigger>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
         <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
         <ContextMenuLinkItem href="#billing">Billing</ContextMenuLinkItem>
@@ -468,22 +465,20 @@ export function CustomStylesContextMenuExample() {
   return (
     <ContextMenu>
       <ContextMenuTrigger className={styles.customTrigger}>Right click card</ContextMenuTrigger>
-      <ContextMenuContent
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          positioner: styles.customPositioner,
-        }}
-        withBackdrop
-      >
-        <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
-        <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
-        <ContextMenuSeparator />
-        <ContextMenuItem closeOnClick disabled>
-          Delete
-        </ContextMenuItem>
-      </ContextMenuContent>
+      <ContextMenuPortal>
+        <ContextMenuBackdrop className={styles.customBackdrop} />
+        <ContextMenuPositioner className={styles.customPositioner} sideOffset={12}>
+          <ContextMenuPopup className={styles.customPopup}>
+            <ContextMenuArrow />
+            <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
+            <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem closeOnClick disabled>
+              Delete
+            </ContextMenuItem>
+          </ContextMenuPopup>
+        </ContextMenuPositioner>
+      </ContextMenuPortal>
     </ContextMenu>
   );
 }

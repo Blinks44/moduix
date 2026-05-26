@@ -9,10 +9,6 @@
     linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
 }
 
-.customPortal {
-  position: relative;
-}
-
 .customBackdrop {
   background-color: rgb(0 0 0 / 0.08);
   backdrop-filter: blur(0.125rem);

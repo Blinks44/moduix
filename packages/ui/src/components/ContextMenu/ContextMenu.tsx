@@ -5,19 +5,7 @@ import { CheckSmallIcon, ChevronRightLargeIcon, PopupArrowIcon } from '@/primiti
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './ContextMenu.module.css';
 
-type ContextMenuContentClassNames = {
-  portal?: ContextMenuPrimitive.Portal.Props['className'];
-  backdrop?: ContextMenuPrimitive.Backdrop.Props['className'];
-  positioner?: ContextMenuPrimitive.Positioner.Props['className'];
-};
-
-type ContextMenuContentSlotProps = {
-  portal?: Omit<ContextMenuPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<ContextMenuPrimitive.Backdrop.Props, 'className'>;
-  positioner?: Omit<ContextMenuPrimitive.Positioner.Props, 'className' | 'children'>;
-};
-
-type ContextMenuPositionerControlProps = Pick<
+type ContextMenuPositionerProps = Pick<
   ContextMenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -33,24 +21,10 @@ type ContextMenuPositionerControlProps = Pick<
   | 'disableAnchorTracking'
 >;
 
-type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
-  ContextMenuPositionerControlProps & {
-    classNames?: ContextMenuContentClassNames;
-    slotProps?: ContextMenuContentSlotProps;
-    container?: ContextMenuPrimitive.Portal.Props['container'];
-    withBackdrop?: boolean;
-  };
-
-type IndicatorPosition = 'start' | 'end';
-type ContextMenuRadioItemProps = ContextMenuPrimitive.RadioItem.Props & {
-  indicator?: IndicatorPosition;
-};
-type ContextMenuCheckboxItemProps = ContextMenuPrimitive.CheckboxItem.Props & {
-  indicator?: IndicatorPosition;
-};
-
+const CONTEXT_MENU_CONTENT_SIDE_OFFSET = 8;
 const ContextMenu = ContextMenuPrimitive.Root;
 const ContextMenuSubmenu = ContextMenuPrimitive.SubmenuRoot;
+type IndicatorPosition = 'start' | 'end';
 
 function ContextMenuTrigger({ className, render, ...props }: ContextMenuPrimitive.Trigger.Props) {
   const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
@@ -65,10 +39,8 @@ function ContextMenuTrigger({ className, render, ...props }: ContextMenuPrimitiv
   );
 }
 
-function ContextMenuPortal({ className, ...props }: ContextMenuPrimitive.Portal.Props) {
-  return (
-    <ContextMenuPrimitive.Portal data-slot="context-menu-portal" className={className} {...props} />
-  );
+function ContextMenuPortal(props: ContextMenuPrimitive.Portal.Props) {
+  return <ContextMenuPrimitive.Portal data-slot="context-menu-portal" {...props} />;
 }
 
 function ContextMenuBackdrop({ className, ...props }: ContextMenuPrimitive.Backdrop.Props) {
@@ -115,12 +87,9 @@ function ContextMenuArrow({ className, children, ...props }: ContextMenuPrimitiv
 
 function ContextMenuContent({
   className,
-  classNames,
-  slotProps,
-  container,
-  withBackdrop = false,
+  children,
+  sideOffset = CONTEXT_MENU_CONTENT_SIDE_OFFSET,
   side,
-  sideOffset,
   align,
   alignOffset,
   arrowPadding,
@@ -132,40 +101,26 @@ function ContextMenuContent({
   positionMethod,
   disableAnchorTracking,
   ...props
-}: ContextMenuContentProps) {
-  const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? portalPropsContainer;
-  const positionerProps = slotProps?.positioner;
-  const resolvedPositionerProps: ContextMenuPositionerControlProps = {
-    side: side ?? positionerProps?.side,
-    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 8,
-    align: align ?? positionerProps?.align,
-    alignOffset: alignOffset ?? positionerProps?.alignOffset,
-    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
-    anchor: anchor ?? positionerProps?.anchor,
-    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
-    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
-    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
-    sticky: sticky ?? positionerProps?.sticky,
-    positionMethod: positionMethod ?? positionerProps?.positionMethod,
-    disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
-  };
-
+}: ContextMenuPrimitive.Popup.Props & ContextMenuPositionerProps) {
   return (
-    <ContextMenuPortal
-      className={classNames?.portal}
-      container={portalContainer}
-      {...restPortalProps}
-    >
-      {withBackdrop ? (
-        <ContextMenuBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
-      ) : null}
+    <ContextMenuPortal>
       <ContextMenuPositioner
-        {...positionerProps}
-        {...resolvedPositionerProps}
-        className={classNames?.positioner}
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        anchor={anchor}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        sticky={sticky}
+        positionMethod={positionMethod}
+        disableAnchorTracking={disableAnchorTracking}
       >
-        <ContextMenuPopup className={className} {...props} />
+        <ContextMenuPopup className={className} {...props}>
+          {children}
+        </ContextMenuPopup>
       </ContextMenuPositioner>
     </ContextMenuPortal>
   );
@@ -175,7 +130,7 @@ function ContextMenuSubmenuContent({
   sideOffset = getSubmenuOffset,
   alignOffset = getSubmenuOffset,
   ...props
-}: ContextMenuContentProps) {
+}: ContextMenuPrimitive.Popup.Props & ContextMenuPositionerProps) {
   return <ContextMenuContent sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
 }
 
@@ -268,7 +223,13 @@ function ContextMenuRadioGroup({ className, ...props }: ContextMenuPrimitive.Rad
   );
 }
 
-function ContextMenuRadioItem({ className, indicator, ...props }: ContextMenuRadioItemProps) {
+function ContextMenuRadioItem({
+  className,
+  indicator,
+  ...props
+}: ContextMenuPrimitive.RadioItem.Props & {
+  indicator?: IndicatorPosition;
+}) {
   return (
     <ContextMenuPrimitive.RadioItem
       data-slot="context-menu-radio-item"
@@ -295,7 +256,13 @@ function ContextMenuRadioItemIndicator({
   );
 }
 
-function ContextMenuCheckboxItem({ className, indicator, ...props }: ContextMenuCheckboxItemProps) {
+function ContextMenuCheckboxItem({
+  className,
+  indicator,
+  ...props
+}: ContextMenuPrimitive.CheckboxItem.Props & {
+  indicator?: IndicatorPosition;
+}) {
   return (
     <ContextMenuPrimitive.CheckboxItem
       data-slot="context-menu-checkbox-item"
@@ -390,30 +357,14 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
 const ChevronRightIcon = ChevronRightLargeIcon;
 const CheckIcon = CheckSmallIcon;
 
-type ContextMenuProps = ContextMenuPrimitive.Root.Props;
-type ContextMenuSubmenuProps = ContextMenuPrimitive.SubmenuRoot.Props;
-type ContextMenuTriggerProps = ContextMenuPrimitive.Trigger.Props;
-type ContextMenuArrowProps = ContextMenuPrimitive.Arrow.Props;
-type ContextMenuItemProps = ContextMenuPrimitive.Item.Props;
-type ContextMenuLinkItemProps = ContextMenuPrimitive.LinkItem.Props;
-type ContextMenuSeparatorProps = ContextMenuPrimitive.Separator.Props;
-type ContextMenuGroupProps = ContextMenuPrimitive.Group.Props;
-type ContextMenuGroupLabelProps = ContextMenuPrimitive.GroupLabel.Props;
-type ContextMenuSubmenuTriggerProps = ContextMenuPrimitive.SubmenuTrigger.Props;
-type ContextMenuSubmenuTriggerIconProps = React.ComponentProps<'span'>;
-type ContextMenuRadioGroupProps = ContextMenuPrimitive.RadioGroup.Props;
-type ContextMenuRadioItemIndicatorProps = ContextMenuPrimitive.RadioItemIndicator.Props;
-type ContextMenuCheckboxItemIndicatorProps = ContextMenuPrimitive.CheckboxItemIndicator.Props;
-type ContextMenuItemTextProps = React.ComponentProps<'span'>;
-type ContextMenuItemTextContentProps = React.ComponentProps<'span'>;
-type ContextMenuItemTextIconProps = React.ComponentProps<'span'>;
-type ContextMenuItemTextLabelProps = React.ComponentProps<'span'>;
-type ContextMenuItemShortcutProps = React.ComponentProps<'span'>;
-
 export {
   ContextMenu,
   ContextMenuSubmenu,
   ContextMenuTrigger,
+  ContextMenuPortal,
+  ContextMenuBackdrop,
+  ContextMenuPositioner,
+  ContextMenuPopup,
   ContextMenuArrow,
   ContextMenuContent,
   ContextMenuSubmenuContent,
@@ -434,31 +385,4 @@ export {
   ContextMenuItemTextIcon,
   ContextMenuItemTextLabel,
   ContextMenuItemShortcut,
-};
-
-export type {
-  ContextMenuProps,
-  ContextMenuSubmenuProps,
-  ContextMenuTriggerProps,
-  ContextMenuArrowProps,
-  ContextMenuContentClassNames,
-  ContextMenuContentSlotProps,
-  ContextMenuContentProps,
-  ContextMenuItemProps,
-  ContextMenuLinkItemProps,
-  ContextMenuSeparatorProps,
-  ContextMenuGroupProps,
-  ContextMenuGroupLabelProps,
-  ContextMenuSubmenuTriggerProps,
-  ContextMenuSubmenuTriggerIconProps,
-  ContextMenuRadioGroupProps,
-  ContextMenuRadioItemProps,
-  ContextMenuRadioItemIndicatorProps,
-  ContextMenuCheckboxItemProps,
-  ContextMenuCheckboxItemIndicatorProps,
-  ContextMenuItemTextProps,
-  ContextMenuItemTextContentProps,
-  ContextMenuItemTextIconProps,
-  ContextMenuItemTextLabelProps,
-  ContextMenuItemShortcutProps,
 };

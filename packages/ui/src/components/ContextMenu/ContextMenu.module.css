@@ -299,7 +299,7 @@
     gap: var(--context-menu-check-gap, var(--popup-check-gap, 0.5rem));
     grid-template-columns:
       var(--context-menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem))
-      1fr;
+      minmax(0, 1fr);
     padding-block: var(--context-menu-item-padding-y, var(--popup-item-padding-y, 0.5rem));
     padding-inline: var(
         --context-menu-check-padding-x-start,
@@ -312,25 +312,26 @@
         minmax(0, 1fr)
         var(--context-menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem));
 
+      & > .radioItemIndicator,
+      & > .checkboxItemIndicator {
+        grid-column-start: 2;
+        justify-self: end;
+      }
+
       & > .itemText {
         grid-column-start: 1;
       }
     }
   }
 
-  .radioItem[data-indicator-position='end'] > .radioItemIndicator,
-  .checkboxItem[data-indicator-position='end'] > .checkboxItemIndicator {
-    grid-column-start: 2;
-    justify-self: end;
-  }
-
   .radioItemIndicator,
   .checkboxItemIndicator {
-    grid-column-start: 1;
+    grid-column: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    flex-shrink: 0;
     width: var(--context-menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem));
     height: var(--context-menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem));
     padding: var(--context-menu-check-indicator-padding, 0);
@@ -347,7 +348,7 @@
   }
 
   .itemText {
-    grid-column-start: 2;
+    grid-column: 2;
     min-width: 0;
     overflow: hidden;
   }

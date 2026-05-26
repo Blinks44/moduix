@@ -31,7 +31,6 @@ import {
     {`
       import {
         ContextMenu,
-        ContextMenuArrow,
         ContextMenuContent,
         ContextMenuItem,
         ContextMenuSeparator,
@@ -43,7 +42,6 @@ import {
           <ContextMenu>
             <ContextMenuTrigger>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
-              <ContextMenuArrow />
               <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
               <ContextMenuItem closeOnClick>Add to Playlist</ContextMenuItem>
               <ContextMenuSeparator />
@@ -70,14 +68,13 @@ import {
 
 ## Anatomy
 
-`ContextMenu` combines a trigger surface with popup content. Keep interactive rows inside
-`ContextMenuContent` so focus and close behavior stay centralized.
+`ContextMenuContent` is the default path. It renders the portal, positioner, and popup for you,
+so the common case stays small.
 
 ```text
 ContextMenu
 ├─ ContextMenuTrigger
 └─ ContextMenuContent
-   ├─ ContextMenuArrow
    ├─ ContextMenuItem
    ├─ ContextMenuSeparator
    └─ ContextMenuSubmenu
@@ -91,7 +88,6 @@ ContextMenu
 <ContextMenu>
   <ContextMenuTrigger>Right click here</ContextMenuTrigger>
   <ContextMenuContent>
-    <ContextMenuArrow />
     <ContextMenuItem closeOnClick>Open</ContextMenuItem>
     <ContextMenuSubmenu>
       <ContextMenuSubmenuTrigger>
@@ -106,59 +102,65 @@ ContextMenu
 </ContextMenu>
 ```
 
-| Part                           | Role                                                                         |
-| ------------------------------ | ---------------------------------------------------------------------------- |
-| `ContextMenu`                  | Root state machine for open state, focus management, and close interactions. |
-| `ContextMenuTrigger`           | Opens the menu on right click or long press.                                 |
-| `ContextMenuContent`           | Popup container with positioning props and internal service layers.          |
-| `ContextMenuArrow`             | Optional visual pointer from popup to trigger location.                      |
-| `ContextMenuItem`              | Action row with disabled state and optional `closeOnClick`.                  |
-| `ContextMenuLinkItem`          | Link row with the same menu highlight/focus behavior.                        |
-| `ContextMenuSeparator`         | Divider between related item groups.                                         |
-| `ContextMenuSubmenu*`          | Nested actions (`Trigger`, `TriggerIcon`, `Content`).                        |
-| `ContextMenuGroup*` / controls | Group labels plus radio/checkbox controls with indicator slots.              |
-
-`ContextMenuContent` includes internal service slots (`portal`, optional `backdrop`, `positioner`, `popup`).
-Most use cases should style visible parts only; use `classNames`, `slotProps`, and `withBackdrop` for slot-level overrides.
+| Part                           | Role                                                                   |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| `ContextMenu`                  | Root state machine for open state, focus management, and interactions. |
+| `ContextMenuTrigger`           | Opens the menu on right click or long press.                           |
+| `ContextMenuContent`           | Default popup wrapper. Renders `Portal`, `Positioner`, and `Popup`.    |
+| `ContextMenuArrow`             | Optional visual pointer for the popup.                                 |
+| `ContextMenuItem`              | Action row with disabled state and optional `closeOnClick`.            |
+| `ContextMenuLinkItem`          | Link row with the same menu highlight and focus behavior.              |
+| `ContextMenuSeparator`         | Divider between related item groups.                                   |
+| `ContextMenuSubmenu*`          | Nested actions (`Trigger`, `TriggerIcon`, `Content`).                  |
+| `ContextMenuGroup*` / controls | Group labels plus radio and checkbox controls.                         |
 
 ## Composition
 
-Pass positioning props (`sideOffset`, `align`, `collisionPadding`, `positionMethod`) directly to `ContextMenuContent`.
-Use `className` for the visible popup and `classNames` for internal service slots. `container`, `slotProps`,
-and `withBackdrop` expose matching Base UI escape hatches:
+Use `ContextMenuContent` for the default path. It accepts popup props plus the positioning props
+you most commonly need (`side`, `sideOffset`, `align`, `alignOffset`, `collisionPadding`, and
+related Base UI positioner options).
 
 ```tsx
-<ContextMenuContent
-  className={styles.popup}
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-  }}
-  slotProps={{
-    portal: { keepMounted: true },
-    positioner: { sideOffset: 10 },
-  }}
-  withBackdrop
-/>
+<ContextMenuContent className={styles.popup} align="start" sideOffset={12}>
+  <ContextMenuArrow />
+  {children}
+</ContextMenuContent>
 ```
 
-Legacy aliases `portalProps`, `backdropProps`, and `positionerProps` remain available for backward compatibility.
+### Custom composition
+
+When you need a custom DOM structure, backdrop, or direct access to portal and positioning parts,
+compose the low-level building blocks explicitly.
+
+```tsx
+<ContextMenu>
+  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+  <ContextMenuPortal>
+    <ContextMenuBackdrop className={styles.backdrop} />
+    <ContextMenuPositioner sideOffset={12}>
+      <ContextMenuPopup className={styles.popup}>
+        <ContextMenuArrow />
+        <ContextMenuItem closeOnClick>Open</ContextMenuItem>
+      </ContextMenuPopup>
+    </ContextMenuPositioner>
+  </ContextMenuPortal>
+</ContextMenu>
+```
 
 ### Defaults
 
-| Prop           | Default         | Values                                                         |
-| -------------- | --------------- | -------------------------------------------------------------- |
-| `withBackdrop` | `false`         | `true`, `false`                                                |
-| `sideOffset`   | `8`             | `number`                                                       |
-| `side`         | Base UI default | `top`, `right`, `bottom`, `left`, `inline-start`, `inline-end` |
-| `align`        | Base UI default | `start`, `center`, `end`                                       |
+| Prop         | Default         | Values                                                         |
+| ------------ | --------------- | -------------------------------------------------------------- |
+| `sideOffset` | `8`             | `number`                                                       |
+| `side`       | Base UI default | `top`, `right`, `bottom`, `left`, `inline-start`, `inline-end` |
+| `align`      | Base UI default | `start`, `center`, `end`                                       |
 
 ## Examples
 
 ### Nested
 
-Use `ContextMenuSubmenu` with `ContextMenuSubmenuTrigger` and `ContextMenuSubmenuContent` for nested actions.
+Use `ContextMenuSubmenu` with `ContextMenuSubmenuTrigger` and `ContextMenuSubmenuContent` for
+nested actions.
 
 <Preview>
   <NestedContextMenuExample />
@@ -167,7 +169,6 @@ Use `ContextMenuSubmenu` with `ContextMenuSubmenuTrigger` and `ContextMenuSubmen
     {`
       import {
         ContextMenu,
-        ContextMenuArrow,
         ContextMenuContent,
         ContextMenuItem,
         ContextMenuSeparator,
@@ -183,7 +184,6 @@ Use `ContextMenuSubmenu` with `ContextMenuSubmenuTrigger` and `ContextMenuSubmen
           <ContextMenu>
             <ContextMenuTrigger>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
-              <ContextMenuArrow />
               <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
               <ContextMenuSubmenu>
                 <ContextMenuSubmenuTrigger>
@@ -212,7 +212,7 @@ Use `ContextMenuSubmenu` with `ContextMenuSubmenuTrigger` and `ContextMenuSubmen
 
 ### Shortcuts
 
-Use `ContextMenuItemShortcut` for keyboard shortcut text instead of reserving extra item padding.
+Use `ContextMenuItemShortcut` for keyboard shortcut text.
 
 <Preview>
   <ShortcutsContextMenuExample />
@@ -221,7 +221,6 @@ Use `ContextMenuItemShortcut` for keyboard shortcut text instead of reserving ex
     {`
       import {
         ContextMenu,
-        ContextMenuArrow,
         ContextMenuContent,
         ContextMenuItem,
         ContextMenuItemShortcut,
@@ -234,7 +233,6 @@ Use `ContextMenuItemShortcut` for keyboard shortcut text instead of reserving ex
           <ContextMenu>
             <ContextMenuTrigger>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
-              <ContextMenuArrow />
               <ContextMenuItem closeOnClick>
                 Copy
                 <ContextMenuItemShortcut>Ctrl+C</ContextMenuItemShortcut>
@@ -269,7 +267,6 @@ Use groups, radio items, and checkbox items when the menu changes application st
       import { useState } from "react";
       import {
         ContextMenu,
-        ContextMenuArrow,
         ContextMenuCheckboxItem,
         ContextMenuCheckboxItemIndicator,
         ContextMenuContent,
@@ -293,7 +290,6 @@ Use groups, radio items, and checkbox items when the menu changes application st
           <ContextMenu>
             <ContextMenuTrigger>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
-              <ContextMenuArrow />
               <ContextMenuGroup>
                 <ContextMenuGroupLabel>Sort</ContextMenuGroupLabel>
                 <ContextMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -338,7 +334,8 @@ Use groups, radio items, and checkbox items when the menu changes application st
 
 ### Indicator Right With Icon
 
-Use `indicator="end"` to align checkbox and radio indicators to the end. Item text slots and icon slots accept custom content and `className`.
+Use `indicator="end"` when the indicator should stay on the trailing edge while preserving a
+stable text layout.
 
 <Preview>
   <IndicatorRightContextMenuExample />
@@ -348,7 +345,6 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Item te
       import { useState } from "react";
       import {
         ContextMenu,
-        ContextMenuArrow,
         ContextMenuCheckboxItem,
         ContextMenuCheckboxItemIndicator,
         ContextMenuContent,
@@ -369,7 +365,6 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Item te
           <ContextMenu>
             <ContextMenuTrigger>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
-              <ContextMenuArrow />
               <ContextMenuCheckboxItem
                 checked={showMinimap}
                 onCheckedChange={setShowMinimap}
@@ -411,7 +406,7 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Item te
 
 ### Positioning
 
-Pass positioning props to `ContextMenuContent`. It renders the portal and positioner internally.
+Pass positioning props to `ContextMenuContent` when the default structure is enough.
 
 <Preview>
   <PositionedContextMenuExample />
@@ -420,7 +415,6 @@ Pass positioning props to `ContextMenuContent`. It renders the portal and positi
     {`
       import {
         ContextMenu,
-        ContextMenuArrow,
         ContextMenuContent,
         ContextMenuItem,
         ContextMenuSeparator,
@@ -432,7 +426,6 @@ Pass positioning props to `ContextMenuContent`. It renders the portal and positi
           <ContextMenu>
             <ContextMenuTrigger>Right click here</ContextMenuTrigger>
             <ContextMenuContent align="start" sideOffset={12} collisionPadding={16}>
-              <ContextMenuArrow />
               <ContextMenuItem closeOnClick>Open</ContextMenuItem>
               <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
               <ContextMenuSeparator />
@@ -457,7 +450,6 @@ Use `ContextMenuLinkItem` for navigation actions that should render as links.
     {`
       import {
         ContextMenu,
-        ContextMenuArrow,
         ContextMenuContent,
         ContextMenuItem,
         ContextMenuLinkItem,
@@ -470,7 +462,6 @@ Use `ContextMenuLinkItem` for navigation actions that should render as links.
           <ContextMenu>
             <ContextMenuTrigger>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
-              <ContextMenuArrow />
               <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
               <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
               <ContextMenuLinkItem href="#billing">Billing</ContextMenuLinkItem>
@@ -487,7 +478,8 @@ Use `ContextMenuLinkItem` for navigation actions that should render as links.
 
 ### Custom Styles
 
-Use `className` for the popup and `classNames` for internal service slots. Set `withBackdrop` when the menu should render a backdrop.
+When styling the popup surface is enough, use `className` on `ContextMenuContent`. When you need a
+backdrop or custom structure, switch to explicit composition.
 
 <Preview>
   <CustomStylesContextMenuExample />
@@ -496,8 +488,12 @@ Use `className` for the popup and `classNames` for internal service slots. Set `
     {`
       import {
         ContextMenu,
-        ContextMenuContent,
+        ContextMenuArrow,
+        ContextMenuBackdrop,
         ContextMenuItem,
+        ContextMenuPopup,
+        ContextMenuPortal,
+        ContextMenuPositioner,
         ContextMenuSeparator,
         ContextMenuTrigger,
       } from "moduix";
@@ -506,22 +502,20 @@ Use `className` for the popup and `classNames` for internal service slots. Set `
         return (
           <ContextMenu>
             <ContextMenuTrigger className={styles.customTrigger}>Right click card</ContextMenuTrigger>
-            <ContextMenuContent
-              className={styles.customPopup}
-              classNames={{
-                portal: styles.customPortal,
-                backdrop: styles.customBackdrop,
-                positioner: styles.customPositioner,
-              }}
-              withBackdrop
-            >
-              <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
-              <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
-              <ContextMenuSeparator />
-              <ContextMenuItem closeOnClick disabled>
-                Delete
-              </ContextMenuItem>
-            </ContextMenuContent>
+            <ContextMenuPortal>
+              <ContextMenuBackdrop className={styles.customBackdrop} />
+              <ContextMenuPositioner className={styles.customPositioner} sideOffset={12}>
+                <ContextMenuPopup className={styles.customPopup}>
+                  <ContextMenuArrow />
+                  <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
+                  <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
+                  <ContextMenuSeparator />
+                  <ContextMenuItem closeOnClick disabled>
+                    Delete
+                  </ContextMenuItem>
+                </ContextMenuPopup>
+              </ContextMenuPositioner>
+            </ContextMenuPortal>
           </ContextMenu>
         );
       }
@@ -538,10 +532,6 @@ Use `className` for the popup and `classNames` for internal service slots. Set `
         background:
           linear-gradient(var(--color-background), var(--color-background)) padding-box,
           linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
-      }
-
-      .customPortal {
-        position: relative;
       }
 
       .customBackdrop {
