@@ -9,8 +9,9 @@ import {
   NumberFieldGroup,
   NumberFieldIncrement,
   NumberFieldInput,
+  NumberFieldRoot,
   NumberFieldScrubArea,
-  type NumberFieldProps,
+  NumberFieldScrubAreaCursor,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -103,7 +104,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function NumberFieldExample(props: NumberFieldProps) {
+export function NumberFieldExample(props: React.ComponentProps<typeof NumberField>) {
   const id = React.useId();
 
   return (
@@ -137,6 +138,7 @@ export function NumberFieldScrubAreaExample() {
       <NumberField id={id} defaultValue={250}>
         <NumberFieldScrubArea>
           <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+          <NumberFieldScrubAreaCursor />
         </NumberFieldScrubArea>
       </NumberField>
     </Field>
@@ -180,17 +182,17 @@ export function CustomIconsNumberFieldExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Floors</FieldLabel>
-      <NumberField id={id} defaultValue={8} withGroup={false}>
+      <NumberFieldRoot id={id} defaultValue={8}>
         <NumberFieldGroup>
-          <NumberFieldDecrement aria-label="Decrease value" className={styles.customButton}>
+          <NumberFieldDecrement className={styles.customButton}>
             <ChevronDownIcon />
           </NumberFieldDecrement>
           <NumberFieldInput className={styles.customInput} />
-          <NumberFieldIncrement aria-label="Increase value" className={styles.customButton}>
+          <NumberFieldIncrement className={styles.customButton}>
             <ChevronUpIcon />
           </NumberFieldIncrement>
         </NumberFieldGroup>
-      </NumberField>
+      </NumberFieldRoot>
     </Field>
   );
 }

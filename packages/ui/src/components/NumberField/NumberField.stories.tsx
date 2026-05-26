@@ -8,7 +8,9 @@ import {
   NumberFieldGroup,
   NumberFieldIncrement,
   NumberFieldInput,
+  NumberFieldRoot,
   NumberFieldScrubArea,
+  NumberFieldScrubAreaCursor,
 } from './NumberField';
 import storyStyles from './NumberField.stories.module.css';
 
@@ -96,6 +98,7 @@ export const WithScrubArea: Story = {
         <NumberField defaultValue={250} id={id}>
           <NumberFieldScrubArea>
             <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+            <NumberFieldScrubAreaCursor />
           </NumberFieldScrubArea>
         </NumberField>
       </Field>
@@ -126,17 +129,17 @@ export const CustomIcons: Story = {
     return (
       <Field>
         <FieldLabel htmlFor={id}>Floors</FieldLabel>
-        <NumberField id={id} defaultValue={8} withGroup={false}>
+        <NumberFieldRoot id={id} defaultValue={8}>
           <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" className={storyStyles.customButton}>
+            <NumberFieldDecrement className={storyStyles.customButton}>
               <ChevronDownIcon />
             </NumberFieldDecrement>
             <NumberFieldInput className={storyStyles.customInput} />
-            <NumberFieldIncrement aria-label="Increase value" className={storyStyles.customButton}>
+            <NumberFieldIncrement className={storyStyles.customButton}>
               <ChevronUpIcon />
             </NumberFieldIncrement>
           </NumberFieldGroup>
-        </NumberField>
+        </NumberFieldRoot>
       </Field>
     );
   },
