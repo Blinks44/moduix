@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { BellIcon, CheckSmallIcon, StarIcon } from '@/primitives/Icons';
+import { BellIcon, StarIcon } from '@/icons/demo';
+import { CheckIcon } from '@/icons/ui';
 import { Toggle } from './Toggle';
 import storyStyles from './Toggle.stories.module.css';
 
@@ -70,7 +71,7 @@ export const WithIcon: Story = {
     defaultPressed: true,
     children: (
       <React.Fragment>
-        <CheckSmallIcon />
+        <CheckIcon />
         Enabled
       </React.Fragment>
     ),
@@ -115,7 +116,7 @@ export const RenderCallback: Story = {
         size="icon-md"
         render={(buttonProps, state) => (
           <button type="button" {...buttonProps}>
-            {state.pressed ? <CheckSmallIcon /> : <StarIcon />}
+            {state.pressed ? <CheckIcon /> : <StarIcon />}
           </button>
         )}
       />
@@ -131,7 +132,7 @@ export const CustomComposition: Story = {
     defaultPressed: true,
     children: (
       <React.Fragment>
-        <CheckSmallIcon />
+        <CheckIcon />
         Styled with className
       </React.Fragment>
     ),

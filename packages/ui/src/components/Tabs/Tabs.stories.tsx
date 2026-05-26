@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { HandshakeIcon, MapIcon, PresentIcon } from '@/primitives/Icons';
+import { HandshakeIcon, MapIcon, PresentIcon } from '@/icons/demo';
 import {
   Tabs,
   TabsList,

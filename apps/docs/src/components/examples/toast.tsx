@@ -1,7 +1,7 @@
 import type { ToastPlacement, ToastStackBehavior } from 'moduix';
 import {
   Button,
-  CloseLineIcon,
+  CloseIcon,
   InfoIcon,
   ToastAnchoredRegion,
   ToastClose,
@@ -244,7 +244,7 @@ export function CustomToastExample() {
               <ToastTitle />
               <ToastDescription />
               <ToastClose aria-label="Close toast">
-                <CloseLineIcon className={styles.closeIcon} />
+                <CloseIcon className={styles.closeIcon} />
               </ToastClose>
             </ToastContent>
           </ToastRoot>

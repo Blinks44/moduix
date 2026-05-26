@@ -1,6 +1,6 @@
 import { Button as ButtonPrimitive } from '@base-ui/react/button';
 import * as React from 'react';
-import { CloseIcon } from '@/primitives/Icons';
+import { CloseIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './CloseButton.module.css';
 

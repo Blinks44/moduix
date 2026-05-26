@@ -2,7 +2,7 @@ import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import { Menubar as MenubarPrimitive } from '@base-ui/react/menubar';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { CheckSmallIcon, ChevronRightLargeIcon, PopupArrowIcon } from '@/primitives';
+import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Menubar.module.css';
 
@@ -365,9 +365,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
     />
   );
 }
-
-const ChevronRightIcon = ChevronRightLargeIcon;
-const CheckIcon = CheckSmallIcon;
 
 export {
   Menubar,

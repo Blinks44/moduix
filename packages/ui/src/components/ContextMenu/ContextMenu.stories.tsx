@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { InfoIcon, ShareIcon } from '@/primitives/Icons';
+import { InfoIcon, ShareIcon } from '@/icons/demo';
 import {
   ContextMenu,
   ContextMenuArrow,

@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { CloseButton, CloseLineIcon } from 'moduix';
+import { CloseButton, CloseIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './close-button.module.css';
@@ -73,7 +73,7 @@ export function CloseButtonExample(props: ComponentProps<typeof CloseButton>) {
 export function CloseButtonCustomIconExample() {
   return (
     <CloseButton aria-label="Close panel">
-      <CloseLineIcon />
+      <CloseIcon />
     </CloseButton>
   );
 }

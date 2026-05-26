@@ -30,7 +30,7 @@ import {
   AutocompleteTrigger,
   AutocompleteValue,
   ChevronUpIcon,
-  CloseLineIcon,
+  CloseIcon,
   InfoIcon,
   useAutocompleteFilter,
   useAutocompleteFilteredItems,
@@ -551,7 +551,7 @@ export function ItemIconsAutocompleteExample() {
           <AutocompleteInput id={id} placeholder="e.g. feature" />
           <AutocompleteControlActions>
             <AutocompleteClear aria-label="Clear value">
-              <CloseLineIcon />
+              <CloseIcon />
             </AutocompleteClear>
             <AutocompleteTrigger aria-label="Open suggestions">
               <ChevronUpIcon />

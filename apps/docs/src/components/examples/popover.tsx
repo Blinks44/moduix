@@ -1,7 +1,7 @@
 import {
   BellIcon,
   Button,
-  CheckSmallIcon,
+  CheckIcon,
   Popover,
   PopoverArrow,
   PopoverBackdrop,
@@ -397,7 +397,7 @@ export function CustomCompositionPopoverExample() {
         <PopoverPositioner sideOffset={8} className={styles.customPositioner}>
           <PopoverPopup className={styles.customPopup}>
             <PopoverArrow className={styles.customArrowSlot}>
-              <CheckSmallIcon className={styles.customArrowIcon} />
+              <CheckIcon className={styles.customArrowIcon} />
             </PopoverArrow>
             <PopoverViewport className={styles.customViewport}>
               <PopoverHeader>

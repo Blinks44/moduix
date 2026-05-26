@@ -2,7 +2,7 @@ import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomple
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { CloseLineIcon } from '@/primitives';
+import { CloseIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './CommandPalette.module.css';
 
@@ -257,7 +257,7 @@ function CommandPaletteClear({ className, children, ...props }: AutocompletePrim
       className={mergeClassName(className, styles.clear)}
       {...props}
     >
-      {children ?? <CloseLineIcon className={styles.iconSvg} />}
+      {children ?? <CloseIcon className={styles.iconSvg} />}
     </AutocompletePrimitive.Clear>
   );
 }

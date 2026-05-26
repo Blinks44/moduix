@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { ChevronDownIcon } from '@/primitives/Icons';
+import { ChevronDownIcon } from '@/icons/ui';
 import {
   Accordion,
   AccordionHeader,

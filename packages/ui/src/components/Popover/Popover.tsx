@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Popover as PopoverPrimitive } from '@base-ui/react/popover';
 import { clsx } from 'clsx';
-import { PopupArrowIcon } from '@/primitives';
+import { PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Popover.module.css';
 

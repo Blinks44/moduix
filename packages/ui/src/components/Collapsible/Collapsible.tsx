@@ -1,7 +1,7 @@
 import { Collapsible as CollapsiblePrimitive } from '@base-ui/react/collapsible';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { ChevronRightIcon } from '@/primitives';
+import { ChevronRightIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Collapsible.module.css';
 

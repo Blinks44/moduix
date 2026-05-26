@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { InfoIcon } from '@/primitives/Icons';
+import { InfoIcon } from '@/icons/demo';
 import {
   Combobox,
   ComboboxArrow,

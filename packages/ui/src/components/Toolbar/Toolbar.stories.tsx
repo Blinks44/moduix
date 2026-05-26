@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { BellIcon, ChevronUpDownIcon, StarIcon } from '@/primitives/Icons';
+import { BellIcon, StarIcon } from '@/icons/demo';
+import { ChevronUpDownIcon } from '@/icons/ui';
 import {
   Select,
   SelectContent,

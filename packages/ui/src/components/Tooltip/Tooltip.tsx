@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
-import { PopupArrowIcon } from '@/primitives';
+import { PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Tooltip.module.css';
 

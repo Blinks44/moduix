@@ -1,6 +1,7 @@
 import './styles/tokens.css';
 
-export * from './primitives';
+export * from './icons/ui';
+export * from './icons/demo';
 
 export * from './components/Accordion';
 export * from './components/Alert';

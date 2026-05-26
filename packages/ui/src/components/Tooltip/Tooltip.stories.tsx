@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { BellIcon, InfoIcon, PlusIcon, ShareIcon } from '@/primitives/Icons';
+import { BellIcon, InfoIcon, ShareIcon } from '@/icons/demo';
+import { PlusIcon } from '@/icons/ui';
 import {
   Tooltip,
   TooltipProvider,

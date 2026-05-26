@@ -4,7 +4,7 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  CheckFilledIcon,
+  CheckIcon,
   InfoIcon,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -132,7 +132,7 @@ export function AlertVariantsExample() {
     <div className={styles.stack}>
       {variants.map((variant) => (
         <Alert key={variant} variant={variant}>
-          <AlertIcon>{variant === 'success' ? <CheckFilledIcon /> : <InfoIcon />}</AlertIcon>
+          <AlertIcon>{variant === 'success' ? <CheckIcon /> : <InfoIcon />}</AlertIcon>
           <AlertContent>
             <AlertTitle>{variant}</AlertTitle>
             <AlertDescription>Use this alert for {variant} feedback.</AlertDescription>

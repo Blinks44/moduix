@@ -1,12 +1,7 @@
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import {
-  CheckSmallIcon,
-  ChevronDownIcon,
-  ChevronRightLargeIcon,
-  PopupArrowIcon,
-} from '@/primitives';
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Menu.module.css';
 
@@ -363,9 +358,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
     />
   );
 }
-
-const ChevronRightIcon = ChevronRightLargeIcon;
-const CheckIcon = CheckSmallIcon;
 
 export {
   Menu,

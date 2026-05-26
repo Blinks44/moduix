@@ -1,19 +1,16 @@
 ---
 title: Pagination
-description: Page navigation with arrows, numbers, and collapsed ranges.
+description: Composable page navigation built on the Base UI toolbar primitive.
 icon: Component
 ---
 
 import {
-  PaginationArrowsOnlyExample,
   PaginationClassNameExample,
-  PaginationControlledLinksExample,
+  PaginationCompactExample,
+  PaginationControlledExample,
   PaginationCssPlaygroundPanel,
   PaginationCssPropertiesPanel,
   PaginationExample,
-  PaginationNumbersOnlyExample,
-  PaginationSizesExample,
-  PaginationVariantsExample,
   paginationPlaygroundCssProperties,
 } from '@/components/examples/pagination';
 
@@ -28,10 +25,73 @@ import {
 
   <Preview.Code>
     {`
-      import { Pagination } from "moduix";
+      import {
+        Pagination,
+        PaginationContent,
+        PaginationEllipsis,
+        PaginationItem,
+        PaginationLink,
+        PaginationNext,
+        PaginationPrevious,
+      } from "moduix";
+      import { useState } from "react";
 
       export function PaginationDemo() {
-        return <Pagination count={10} defaultPage={1} />;
+        const [page, setPage] = useState(5);
+
+        return (
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  render={<button type="button" />}
+                  onClick={() => setPage((current) => Math.max(current - 1, 1))}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink render={<button type="button" />} onClick={() => setPage(1)}>
+                  1
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink render={<button type="button" />} onClick={() => setPage(4)}>
+                  4
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  render={<button type="button" />}
+                  isActive={page === 5}
+                  onClick={() => setPage(5)}
+                >
+                  5
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink render={<button type="button" />} onClick={() => setPage(6)}>
+                  6
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink render={<button type="button" />} onClick={() => setPage(10)}>
+                  10
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  render={<button type="button" />}
+                  onClick={() => setPage((current) => Math.min(current + 1, 10))}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        );
       }
     `}
 
@@ -46,198 +106,364 @@ import {
 
 ## Anatomy
 
-`Pagination` is built on top of `Toolbar` and renders page controls as focusable toolbar items.
-It can include arrow controls, page buttons, and non-interactive ellipsis markers.
+`Pagination` keeps the public surface small and exposes only styled building blocks.
 
 ```text
 Pagination
-└─ Toolbar
-   ├─ previous control (optional)
-   ├─ page controls (optional)
-   ├─ ellipsis markers (when range is collapsed)
-   └─ next control (optional)
+└─ PaginationContent
+   ├─ PaginationItem
+   │  └─ PaginationPrevious
+   ├─ PaginationItem
+   │  └─ PaginationLink
+   ├─ PaginationItem
+   │  └─ PaginationEllipsis
+   └─ PaginationItem
+      └─ PaginationNext
 ```
 
-```tsx
-<Pagination count={10} defaultPage={5} />
-```
-
-| Part               | Role                                                                              |
-| ------------------ | --------------------------------------------------------------------------------- |
-| `Pagination`       | Root navigation region. Controls current page, range logic, variants, and sizing. |
-| `previous` control | Moves to the previous page when arrows are enabled.                               |
-| `page` controls    | Select a specific page and expose the current page with `aria-current="page"`.    |
-| `ellipsis` marker  | Indicates hidden pages when the full range is collapsed into the middle window.   |
-| `next` control     | Moves to the next page when arrows are enabled.                                   |
-
-Style the component with `className` and CSS variables.
+| Part                 | Role                                                               |
+| -------------------- | ------------------------------------------------------------------ |
+| `Pagination`         | Navigation landmark.                                               |
+| `PaginationContent`  | Base UI toolbar root for keyboard navigation and item arrangement. |
+| `PaginationItem`     | Lightweight wrapper for one pagination element.                    |
+| `PaginationLink`     | Page link with active styling via `isActive`.                      |
+| `PaginationPrevious` | Previous-page shortcut with a default icon-only control.           |
+| `PaginationNext`     | Next-page shortcut with a default icon-only control.               |
+| `PaginationEllipsis` | Non-interactive collapsed-range marker.                            |
 
 ## Composition
 
-Use `defaultPage` for local state, or `page` with `onPageChange` when pagination must stay in sync
-with URL state or external filters.
+Pagination no longer owns page state, range generation, or URL mapping. Those concerns stay in
+consumer code, where they are easier to reason about and easier to customize.
 
-Use `getPageHref` to map pages to links for any URL scheme, such as `/page/7` or `?page=7`.
-Use `withArrows` and `withPages` to keep only the controls needed for the layout.
+Use the Base UI `render` prop when pagination is driven by local React state or framework-specific
+link components. Plain `href` props still work for regular anchor links.
 
-### Defaults
+`PaginationPrevious` and `PaginationNext` are icon-only by default. Pass `children` when the
+surrounding UI needs text labels or a custom layout.
 
-| Prop             | Default          | Values                                       |
-| ---------------- | ---------------- | -------------------------------------------- |
-| `defaultPage`    | `1`              | Any positive integer                         |
-| `visiblePages`   | `5`              | Any integer (minimum effective value is `3`) |
-| `withPages`      | `true`           | `true`, `false`                              |
-| `withArrows`     | `true`           | `true`, `false`                              |
-| `disabled`       | `false`          | `true`, `false`                              |
-| `size`           | `md`             | `xs`, `sm`, `md`, `lg`, `xl`                 |
-| `toolbarVariant` | `ghost`          | `default`, `outline`, `ghost`                |
-| `toolbarSize`    | Auto from `size` | `sm`, `md`, `lg`                             |
-| `previousLabel`  | `Previous page`  | Any string                                   |
-| `nextLabel`      | `Next page`      | Any string                                   |
-
-`count` is required and clamped to at least `1`. `visiblePages` is clamped to a minimum effective
-value of `3`. Controlled mode is enabled when `page` is provided.
+The default examples keep a fixed pagination window, so the control does not grow when the current
+page moves from the edge into the middle range.
 
 ## Examples
 
-### Numbers Only
+### Compact Range
 
-Hide arrow controls when only direct page selection is needed.
+Build only the items that the current layout needs.
 
 <Preview>
-  <PaginationNumbersOnlyExample />
+  <PaginationCompactExample />
 
   <Preview.Code>
     {`
-      import { Pagination } from "moduix";
-
-      export function PaginationNumbersOnlyDemo() {
-        return <Pagination count={10} defaultPage={5} withArrows={false} />;
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Arrows Only
-
-Hide page numbers when the UI needs compact previous/next controls.
-
-<Preview>
-  <PaginationArrowsOnlyExample />
-
-  <Preview.Code>
-    {`
-      import { Pagination } from "moduix";
-
-      export function PaginationArrowsOnlyDemo() {
-        return <Pagination count={10} defaultPage={5} withPages={false} />;
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Controlled With Links
-
-Control the page from React state and provide link URLs for navigation.
-
-<Preview>
-  <PaginationControlledLinksExample />
-
-  <Preview.Code>
-    {`
-      import { Pagination } from "moduix";
+      import {
+        Pagination,
+        PaginationContent,
+        PaginationItem,
+        PaginationLink,
+        PaginationNext,
+        PaginationPrevious,
+      } from "moduix";
       import { useState } from "react";
 
-      export function PaginationControlledLinksDemo() {
+      export function PaginationCompactDemo() {
         const [page, setPage] = useState(5);
 
         return (
-          <Pagination
-            count={10}
-            page={page}
-            onPageChange={setPage}
-            getPageHref={(next) => \`?page=\${next}\`}
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  render={<button type="button" />}
+                  onClick={() => setPage((current) => Math.max(current - 1, 1))}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  render={<button type="button" />}
+                  isActive={page === 4}
+                  onClick={() => setPage(4)}
+                >
+                  4
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  render={<button type="button" />}
+                  isActive={page === 5}
+                  onClick={() => setPage(5)}
+                >
+                  5
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  render={<button type="button" />}
+                  isActive={page === 6}
+                  onClick={() => setPage(6)}
+                >
+                  6
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  render={<button type="button" />}
+                  onClick={() => setPage((current) => Math.min(current + 1, 10))}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled State
+
+Use the Base UI `render` prop when the controls should behave like buttons instead of links.
+
+<Preview>
+  <PaginationControlledExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Pagination,
+        PaginationContent,
+        PaginationEllipsis,
+        PaginationItem,
+        PaginationLink,
+        PaginationNext,
+        PaginationPrevious,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function PaginationControlledDemo() {
+        const [page, setPage] = useState(5);
+
+        return (
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  render={<button type="button" />}
+                  aria-disabled={page === 1 || undefined}
+                  onClick={() => setPage((current) => Math.max(current - 1, 1))}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  render={<button type="button" />}
+                  isActive={page === 5}
+                  onClick={() => setPage(5)}
+                >
+                  5
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  render={<button type="button" />}
+                  aria-disabled={page === 10 || undefined}
+                  onClick={() => setPage((current) => Math.min(current + 1, 10))}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Next.js
+
+Use `render` with `next/link` when the app standardizes on framework links.
+
+```tsx
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from 'moduix';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
+
+export function PaginationNextJs({ pageCount }: { pageCount: number }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get('page') ?? '1');
+
+  const createHref = (nextPage: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', String(nextPage));
+    return `${pathname}?${params.toString()}`;
+  };
+
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            render={<Link href={createHref(Math.max(page - 1, 1))} />}
+            aria-disabled={page <= 1 || undefined}
           />
-        );
-      }
-    `}
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink render={<Link href={createHref(page)} />} isActive>
+            {page}
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext
+            render={<Link href={createHref(Math.min(page + 1, pageCount))} />}
+            aria-disabled={page >= pageCount || undefined}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+}
+```
 
-  </Preview.Code>
-</Preview>
+### TanStack Start
 
-### Variants
+With TanStack Start, `render` can target router `Link` components directly.
 
-Use toolbar variants to match the surrounding surface.
+```tsx
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from 'moduix';
+import { Link, useSearch } from '@tanstack/react-router';
 
-<Preview>
-  <PaginationVariantsExample />
+export function PaginationTanStackStart({ pageCount }: { pageCount: number }) {
+  const search = useSearch({ from: '/' });
+  const page = search.page ?? 1;
 
-  <Preview.Code>
-    {`
-      import { Pagination } from "moduix";
-
-      export function PaginationVariantsDemo() {
-        return (
-          <>
-            <Pagination count={10} defaultPage={5} toolbarVariant="default" />
-            <Pagination count={10} defaultPage={5} toolbarVariant="outline" />
-            <Pagination count={10} defaultPage={5} toolbarVariant="ghost" />
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Sizes
-
-Use `size` to fit compact and spacious interfaces.
-
-<Preview>
-  <PaginationSizesExample />
-
-  <Preview.Code>
-    {`
-      import { Pagination } from "moduix";
-
-      export function PaginationSizesDemo() {
-        return (
-          <>
-            <Pagination count={10} defaultPage={5} size="xs" />
-            <Pagination count={10} defaultPage={5} size="sm" />
-            <Pagination count={10} defaultPage={5} size="md" />
-            <Pagination count={10} defaultPage={5} size="lg" />
-            <Pagination count={10} defaultPage={5} size="xl" />
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            render={
+              <Link
+                to="/"
+                search={(previous) => ({
+                  ...previous,
+                  page: Math.max(page - 1, 1),
+                })}
+              />
+            }
+            aria-disabled={page <= 1 || undefined}
+          />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink
+            render={
+              <Link
+                to="/"
+                search={(previous) => ({
+                  ...previous,
+                  page,
+                })}
+              />
+            }
+            isActive
+          >
+            {page}
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext
+            render={
+              <Link
+                to="/"
+                search={(previous) => ({
+                  ...previous,
+                  page: Math.min(page + 1, pageCount),
+                })}
+              />
+            }
+            aria-disabled={page >= pageCount || undefined}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+}
+```
 
 ### Class Name
 
-Use `className` to theme active items and spacing with scoped CSS variables.
+Style the composed parts with `className` on `Pagination` and CSS variables.
 
 <Preview>
   <PaginationClassNameExample />
 
   <Preview.Code>
     {`
-      import { Pagination } from "moduix";
+      import {
+        Pagination,
+        PaginationContent,
+        PaginationItem,
+        PaginationLink,
+        PaginationNext,
+        PaginationPrevious,
+      } from "moduix";
+      import { useState } from "react";
 
       export function PaginationClassNameDemo() {
+        const [page, setPage] = useState(5);
+
         return (
-          <Pagination
-            count={10}
-            defaultPage={5}
-            toolbarVariant="outline"
-            className={styles.customPagination}
-          />
+          <Pagination className={styles.customPagination}>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  render={<button type="button" />}
+                  onClick={() => setPage((current) => Math.max(current - 1, 1))}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink render={<button type="button" />} onClick={() => setPage(4)}>
+                  4
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  render={<button type="button" />}
+                  isActive={page === 5}
+                  onClick={() => setPage(5)}
+                >
+                  5
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink render={<button type="button" />} onClick={() => setPage(6)}>
+                  6
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  render={<button type="button" />}
+                  onClick={() => setPage((current) => Math.min(current + 1, 10))}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         );
       }
     `}
@@ -247,7 +473,6 @@ Use `className` to theme active items and spacing with scoped CSS variables.
   <Preview.CSS>
     {`
       .customPagination {
-        --pagination-toolbar-padding-filled: var(--spacing-1);
         --pagination-item-radius: var(--radius-sm);
         --pagination-item-bg-active: var(--color-primary);
         --pagination-item-color-active: var(--color-primary-foreground);

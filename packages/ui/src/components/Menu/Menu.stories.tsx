@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { InfoIcon, MapIcon } from '@/primitives/Icons';
+import { InfoIcon, MapIcon } from '@/icons/demo';
 import {
   AlertDialog,
   AlertDialogAction,

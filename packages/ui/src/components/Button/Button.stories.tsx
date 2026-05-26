@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { ArrowUpRightIcon, PlusIcon, StarIcon } from '@/primitives/Icons';
+import { ArrowUpRightIcon, StarIcon } from '@/icons/demo';
+import { PlusIcon } from '@/icons/ui';
 import { Spinner } from '../Spinner';
 import { Button } from './Button';
 

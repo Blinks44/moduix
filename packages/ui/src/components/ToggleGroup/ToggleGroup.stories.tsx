@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { BellIcon, CheckSmallIcon, StarIcon } from '@/primitives/Icons';
+import { BellIcon, StarIcon } from '@/icons/demo';
+import { CheckIcon } from '@/icons/ui';
 import { ToggleGroup, ToggleGroupItem } from './ToggleGroup';
 import storyStyles from './ToggleGroup.stories.module.css';
 
@@ -180,7 +181,7 @@ export const Controlled: Story = {
           multiple
         >
           <ToggleGroupItem value="favorites">
-            {value.includes('favorites') ? <CheckSmallIcon /> : <StarIcon />}
+            {value.includes('favorites') ? <CheckIcon /> : <StarIcon />}
             Favorites
           </ToggleGroupItem>
           <ToggleGroupItem value="alerts">

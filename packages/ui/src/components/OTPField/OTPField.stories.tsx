@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { SeparatorMarkIcon } from '@/primitives/Icons';
+import { SeparatorMarkIcon } from '@/icons/ui';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../Field';
 import { OTPField, OTPFieldInput, OTPFieldSeparator } from './OTPField';
 import storyStyles from './OTPField.stories.module.css';

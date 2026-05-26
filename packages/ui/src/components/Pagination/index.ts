@@ -1,8 +1,9 @@
-export { Pagination } from './Pagination';
-
-export type {
-  PaginationProps,
-  PaginationSize,
-  PaginationToolbarVariant,
-  PaginationToolbarSize,
+export {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
 } from './Pagination';

@@ -1,4 +1,4 @@
-import { BellIcon, CheckSmallIcon, StarIcon, Toggle, type ToggleProps } from 'moduix';
+import { BellIcon, CheckIcon, StarIcon, Toggle, type ToggleProps } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -191,7 +191,7 @@ export function ToggleIconExample() {
         <StarIcon />
       </Toggle>
       <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
-        <CheckSmallIcon />
+        <CheckIcon />
       </Toggle>
     </div>
   );
@@ -244,7 +244,7 @@ export function ToggleRenderCallbackExample() {
 export function CustomCompositionToggleExample() {
   return (
     <Toggle className={styles.customToggle} variant="outline" defaultPressed>
-      <CheckSmallIcon />
+      <CheckIcon />
       Styled with className
     </Toggle>
   );

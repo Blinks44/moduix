@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ComputerIcon } from '@/primitives';
+import { ComputerIcon } from '@/icons/demo';
 import { Avatar, AvatarFallback, AvatarImage } from './Avatar';
 import styles from './Avatar.stories.module.css';
 

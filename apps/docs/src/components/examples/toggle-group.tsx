@@ -1,6 +1,6 @@
 import {
   BellIcon,
-  CheckSmallIcon,
+  CheckIcon,
   StarIcon,
   ToggleGroup,
   ToggleGroupItem,
@@ -234,7 +234,7 @@ export function ControlledToggleGroupExample() {
     <div className={styles.stack}>
       <ToggleGroup value={value} onValueChange={setValue} aria-label="Controlled options" multiple>
         <ToggleGroupItem value="favorites">
-          {value.includes('favorites') ? <CheckSmallIcon /> : <StarIcon />}
+          {value.includes('favorites') ? <CheckIcon /> : <StarIcon />}
           Favorites
         </ToggleGroupItem>
         <ToggleGroupItem value="alerts">

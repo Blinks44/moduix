@@ -1,6 +1,6 @@
 import { PreviewCard as PreviewCardPrimitive } from '@base-ui/react/preview-card';
 import * as React from 'react';
-import { PopupArrowIcon } from '@/primitives';
+import { PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './PreviewCard.module.css';
 

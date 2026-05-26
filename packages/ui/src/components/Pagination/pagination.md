@@ -1,23 +1,12 @@
 # Pagination
 
-Pagination is built with the `Toolbar` primitive and provides page buttons, optional arrows, and ellipses for collapsed ranges.
+Pagination is a thin wrapper over the Base UI `Toolbar` primitive.
 
-Use uncontrolled mode with `defaultPage`, or controlled mode with `page` and `onPageChange`.
-Use `getPageHref(page)` to render links for URL-driven pagination such as `/page/7` or `?page=7`.
+`Pagination` provides the navigation landmark. `PaginationContent` provides the toolbar behavior.
+`PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, and
+`PaginationEllipsis` are the styled building blocks.
 
-The default toolbar style is transparent (`toolbarVariant="ghost"`). Use `toolbarVariant="default"` or `toolbarVariant="outline"` when the control should render on a visible surface.
-
-## Defaults
-
-| Prop             | Default          | Values                                       |
-| ---------------- | ---------------- | -------------------------------------------- |
-| `defaultPage`    | `1`              | Any positive integer                         |
-| `visiblePages`   | `5`              | Any integer (minimum effective value is `3`) |
-| `withPages`      | `true`           | `true`, `false`                              |
-| `withArrows`     | `true`           | `true`, `false`                              |
-| `disabled`       | `false`          | `true`, `false`                              |
-| `size`           | `md`             | `xs`, `sm`, `md`, `lg`, `xl`                 |
-| `toolbarVariant` | `ghost`          | `default`, `outline`, `ghost`                |
-| `toolbarSize`    | Auto from `size` | `sm`, `md`, `lg`                             |
-| `previousLabel`  | `Previous page`  | Any string                                   |
-| `nextLabel`      | `Next page`      | Any string                                   |
+Build the page structure explicitly in JSX. That keeps the default API small and makes custom page
+ranges, links, and button-driven state straightforward without extra wrapper logic. `PaginationPrevious`
+and `PaginationNext` render icon-only controls by default; pass `children` when a custom label or
+layout is needed.

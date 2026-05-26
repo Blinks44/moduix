@@ -1,6 +1,6 @@
 import { NavigationMenu as NavigationMenuPrimitive } from '@base-ui/react/navigation-menu';
 import * as React from 'react';
-import { ChevronDownSmallIcon, PopupArrowIcon } from '@/primitives';
+import { ChevronDownIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './NavigationMenu.module.css';
 
@@ -121,7 +121,7 @@ function NavigationMenuIcon({ className, children, ...props }: NavigationMenuPri
       className={mergeClassName(className, styles.icon)}
       {...props}
     >
-      {children ?? <ChevronDownSmallIcon />}
+      {children ?? <ChevronDownIcon />}
     </NavigationMenuPrimitive.Icon>
   );
 }

@@ -2,7 +2,7 @@ import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomple
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { ChevronDownIcon, ChevronUpDownIcon, CloseLineIcon, PopupArrowIcon } from '@/primitives';
+import { ChevronDownIcon, ChevronUpDownIcon, CloseIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Autocomplete.module.css';
 
@@ -151,7 +151,7 @@ const AutocompleteClear = React.forwardRef<
       className={mergeClassName(className, styles.clear)}
       {...props}
     >
-      {children ?? <CloseLineIcon className={styles.iconSvg} />}
+      {children ?? <CloseIcon className={styles.iconSvg} />}
     </AutocompletePrimitive.Clear>
   );
 });

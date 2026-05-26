@@ -8,7 +8,7 @@ import type {
 } from '@base-ui/react/toast';
 import { Toast as ToastPrimitive } from '@base-ui/react/toast';
 import * as React from 'react';
-import { CloseLineIcon } from '@/primitives';
+import { CloseIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Toast.module.css';
 
@@ -236,7 +236,7 @@ function ToastClose({ className, children, ...props }: ToastPrimitive.Close.Prop
       className={mergeClassName(className, styles.close)}
       {...props}
     >
-      {children ?? <CloseLineIcon className={styles.closeIcon} />}
+      {children ?? <CloseIcon className={styles.closeIcon} />}
     </ToastPrimitive.Close>
   );
 }

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import { ChevronDownIcon, ChevronUpIcon } from '@/primitives';
+import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ui';
 import { Button } from '../Button';
 import { ScrollArea } from '../ScrollArea';
 import {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { ChevronDownIcon, ChevronUpIcon } from '@/primitives';
+import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ui';
 import { Field, FieldError, FieldLabel } from '../Field';
 import {
   NumberField,

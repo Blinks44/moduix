@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { CheckFilledIcon, InfoIcon } from '@/primitives';
+import { InfoIcon } from '@/icons/demo';
+import { CheckIcon } from '@/icons/ui';
 import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from './Alert';
 import styles from './Alert.stories.module.css';
 
@@ -50,7 +51,7 @@ export const Variants: Story = {
     <div className={styles.stack}>
       {variants.map((variant) => (
         <Alert key={variant} variant={variant}>
-          <AlertIcon>{variant === 'success' ? <CheckFilledIcon /> : <InfoIcon />}</AlertIcon>
+          <AlertIcon>{variant === 'success' ? <CheckIcon /> : <InfoIcon />}</AlertIcon>
           <AlertContent>
             <AlertTitle>{variant}</AlertTitle>
             <AlertDescription>Use this alert for {variant} feedback.</AlertDescription>

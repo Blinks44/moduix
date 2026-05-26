@@ -2,12 +2,12 @@ import { Select as SelectPrimitive } from '@base-ui/react/select';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import {
-  CheckFilledIcon,
+  CheckIcon,
   ChevronDownIcon,
   ChevronUpDownIcon,
   ChevronUpIcon,
   PopupArrowIcon,
-} from '@/primitives';
+} from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Select.module.css';
 
@@ -316,8 +316,6 @@ function SelectGroupLabel({ className, ...props }: SelectPrimitive.GroupLabel.Pr
     />
   );
 }
-
-const CheckIcon = CheckFilledIcon;
 
 function ArrowSvg(props: React.ComponentProps<'svg'>) {
   return (

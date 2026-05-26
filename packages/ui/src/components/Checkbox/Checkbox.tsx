@@ -1,7 +1,7 @@
 import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { CheckSmallIcon, IndeterminateIcon } from '@/primitives';
+import { CheckIcon, IndeterminateIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Checkbox.module.css';
 
@@ -47,7 +47,7 @@ function CheckboxIndicatorIcon({ className, children, ...props }: React.Componen
       {children ?? (
         <>
           <span data-slot="checkbox-indicator-checked-icon" className={styles.iconChecked}>
-            <CheckSmallIcon />
+            <CheckIcon />
           </span>
           <span
             data-slot="checkbox-indicator-indeterminate-icon"

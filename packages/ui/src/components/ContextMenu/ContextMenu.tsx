@@ -1,7 +1,7 @@
 import { ContextMenu as ContextMenuPrimitive } from '@base-ui/react/context-menu';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { CheckSmallIcon, ChevronRightLargeIcon, PopupArrowIcon } from '@/primitives';
+import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './ContextMenu.module.css';
 
@@ -349,9 +349,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
     />
   );
 }
-
-const ChevronRightIcon = ChevronRightLargeIcon;
-const CheckIcon = CheckSmallIcon;
 
 export {
   ContextMenu,

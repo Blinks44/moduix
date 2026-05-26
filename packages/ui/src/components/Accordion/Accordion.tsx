@@ -1,7 +1,7 @@
 import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { PlusFilledIcon } from '@/primitives';
+import { PlusIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Accordion.module.css';
 
@@ -74,7 +74,7 @@ function AccordionTriggerIcon({
       className={clsx(styles.triggerIcon, className)}
       {...props}
     >
-      {children ?? <PlusFilledIcon />}
+      {children ?? <PlusIcon />}
     </span>
   );
 }

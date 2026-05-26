@@ -2,12 +2,12 @@ import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import {
-  CheckFilledIcon,
+  CheckIcon,
   ChevronDownIcon,
   ChevronUpDownIcon,
-  CloseLineIcon,
+  CloseIcon,
   PopupArrowIcon,
-} from '@/primitives';
+} from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Combobox.module.css';
 
@@ -132,7 +132,7 @@ const ComboboxClear = React.forwardRef<
       className={mergeClassName(className, styles.clear)}
       {...props}
     >
-      {children ?? <CloseLineIcon className={styles.iconSvg} />}
+      {children ?? <CloseIcon className={styles.iconSvg} />}
     </ComboboxPrimitive.Clear>
   );
 });
@@ -341,7 +341,7 @@ const ComboboxItemIndicator = React.forwardRef<
       className={mergeClassName(className, styles.itemIndicator)}
       {...props}
     >
-      {children ?? <CheckFilledIcon className={styles.itemIndicatorIcon} />}
+      {children ?? <CheckIcon className={styles.itemIndicatorIcon} />}
     </ComboboxPrimitive.ItemIndicator>
   );
 });
@@ -467,7 +467,7 @@ const ComboboxChipRemove = React.forwardRef<
       className={mergeClassName(className, styles.chipRemove)}
       {...props}
     >
-      {children ?? <CloseLineIcon className={styles.chipRemoveIcon} />}
+      {children ?? <CloseIcon className={styles.chipRemoveIcon} />}
     </ComboboxPrimitive.ChipRemove>
   );
 });

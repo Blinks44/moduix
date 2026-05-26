@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useMediaQuery } from '@base-ui/react/unstable-use-media-query';
-import { ChevronRightIcon } from '@/primitives/Icons';
+import { ChevronRightIcon } from '@/icons/ui';
 import {
   NavigationMenu,
   NavigationMenuArrow,

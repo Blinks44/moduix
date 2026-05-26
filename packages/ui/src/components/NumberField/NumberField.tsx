@@ -1,5 +1,5 @@
 import { NumberField as NumberFieldPrimitive } from '@base-ui/react/number-field';
-import { MinusIcon, PlusSmallIcon, ScrubCursorIcon } from '@/primitives';
+import { MinusIcon, PlusIcon, ScrubCursorIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './NumberField.module.css';
 
@@ -115,7 +115,7 @@ function NumberFieldIncrement({
       className={mergeClassName(className, styles.increment)}
       {...props}
     >
-      {children ?? <PlusSmallIcon />}
+      {children ?? <PlusIcon />}
     </NumberFieldPrimitive.Increment>
   );
 }

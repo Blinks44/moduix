@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { BellIcon, CheckSmallIcon } from '@/primitives/Icons';
+import { BellIcon } from '@/icons/demo';
+import { CheckIcon } from '@/icons/ui';
 import { Button } from '../Button';
 import {
   Popover,
@@ -264,7 +265,7 @@ export const CustomComposition: Story = {
           <PopoverPositioner sideOffset={8} className={storyStyles.customPositioner}>
             <PopoverPopup className={storyStyles.customPopup}>
               <PopoverArrow className={storyStyles.customArrowSlot}>
-                <CheckSmallIcon className={storyStyles.customArrowIcon} />
+                <CheckIcon className={storyStyles.customArrowIcon} />
               </PopoverArrow>
               <PopoverViewport className={storyStyles.customViewport}>
                 <PopoverHeader className={storyStyles.contentGrid}>
