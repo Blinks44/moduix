@@ -7,7 +7,7 @@ icon: Component
 import {
   CompositionMeterExample,
   ControlledMeterExample,
-  CustomCompositionMeterExample,
+  CustomStylesMeterExample,
   MeterCssPlaygroundPanel,
   MeterCssPropertiesPanel,
   MeterExample,
@@ -29,7 +29,9 @@ import {
     {`
       import {
         Meter,
+        MeterIndicator,
         MeterLabel,
+        MeterTrack,
         MeterValue,
       } from "moduix";
 
@@ -37,6 +39,9 @@ import {
         return (
           <Meter value={24}>
             <MeterLabel>Storage Used</MeterLabel>
+            <MeterTrack>
+              <MeterIndicator />
+            </MeterTrack>
             <MeterValue />
           </Meter>
         );
@@ -50,20 +55,22 @@ import {
 
 ## Anatomy
 
-`Meter` combines a semantic root, a visible value, and a visual fill track. By default it renders
-the track and indicator automatically, so most cases only need `Meter`, `MeterLabel`, and `MeterValue`.
+`Meter` stays close to the Base UI primitive. You compose the visible parts explicitly.
 
 ```text
 Meter[value]
 ├─ MeterLabel
-├─ MeterValue
-└─ MeterTrack
-   └─ MeterIndicator
+├─ MeterTrack
+│  └─ MeterIndicator
+└─ MeterValue
 ```
 
 ```tsx
 <Meter value={64}>
   <MeterLabel>Storage used</MeterLabel>
+  <MeterTrack>
+    <MeterIndicator />
+  </MeterTrack>
   <MeterValue>{(formattedValue) => `${formattedValue} used`}</MeterValue>
 </Meter>
 ```
@@ -72,86 +79,24 @@ Meter[value]
 | ---------------- | ---------------------------------------------------------------------------------------------- |
 | `Meter`          | Root state and accessibility layer. Provides `value`, `min`, `max`, formatting, and ARIA text. |
 | `MeterLabel`     | Label associated with the meter.                                                               |
-| `MeterValue`     | Formatted value output, with optional custom text rendering.                                   |
-| `MeterTrack`     | Visual track behind the fill. Rendered automatically unless `withTrack={false}` is set.        |
+| `MeterTrack`     | Visual track behind the fill.                                                                  |
 | `MeterIndicator` | Fill that reflects the current value within the range.                                         |
+| `MeterValue`     | Formatted value output, with optional custom text rendering.                                   |
 
 ## Composition
 
-Keep the built-in track for standard usage. Switch to `withTrack={false}` only when you need to
-compose `MeterTrack` and `MeterIndicator` manually; otherwise you'll render a second track.
+Compose `MeterTrack` and `MeterIndicator` directly. Structure and styling stay on the same visible
+parts you render.
 
 ### Defaults
 
-| Prop        | Default | Values                     |
-| ----------- | ------- | -------------------------- |
-| `min`       | `0`     | Any `number`               |
-| `max`       | `100`   | Any `number`               |
-| `withTrack` | `true`  | `true` \| `false`          |
-| `value`     | -       | Required `number`          |
-| `format`    | -       | `Intl.NumberFormatOptions` |
-| `locale`    | runtime | `Intl.LocalesArgument`     |
-
-Use `className` for the root and `classNames` for the built-in `track` and `indicator`.
-
-<Preview>
-  <CompositionMeterExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Meter,
-        MeterIndicator,
-        MeterLabel,
-        MeterTrack,
-        MeterValue,
-      } from "moduix";
-
-      export function CompositionMeterDemo() {
-        return (
-          <Meter value={58} withTrack={false} className={styles.composedMeter}>
-            <MeterLabel>Team capacity</MeterLabel>
-            <MeterValue>{(formattedValue) => \`\${formattedValue} available\`}</MeterValue>
-            <MeterTrack className={styles.composedTrack}>
-              <MeterIndicator className={styles.composedIndicator} />
-            </MeterTrack>
-          </Meter>
-        );
-      }
-
-`}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .composedMeter {
-        --meter-width: 18rem;
-        --meter-track-height: 0.625rem;
-      }
-
-      .composedTrack {
-        box-sizing: border-box;
-        display: flex;
-        align-items: stretch;
-        height: 1rem;
-        border: var(--border-width-sm) solid transparent;
-        border-radius: var(--radius-md);
-        background:
-          linear-gradient(var(--color-background), var(--color-background)) padding-box,
-          linear-gradient(90deg, var(--color-chart-3), var(--color-primary)) border-box;
-        box-shadow: none;
-      }
-
-      .composedIndicator {
-        border-radius: calc(var(--radius-md) - var(--border-width-sm));
-        background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
-      }
-
-`}
-
-  </Preview.CSS>
-</Preview>
+| Prop     | Default | Values                     |
+| -------- | ------- | -------------------------- |
+| `min`    | `0`     | Any `number`               |
+| `max`    | `100`   | Any `number`               |
+| `value`  | -       | Required `number`          |
+| `format` | -       | `Intl.NumberFormatOptions` |
+| `locale` | runtime | `Intl.LocalesArgument`     |
 
 ## Examples
 
@@ -166,7 +111,9 @@ Use `min` and `max` for ranges other than `0` to `100`.
     {`
       import {
         Meter,
+        MeterIndicator,
         MeterLabel,
+        MeterTrack,
         MeterValue,
       } from "moduix";
 
@@ -174,6 +121,9 @@ Use `min` and `max` for ranges other than `0` to `100`.
         return (
           <Meter value={420} min={200} max={800}>
             <MeterLabel>Requests per minute</MeterLabel>
+            <MeterTrack>
+              <MeterIndicator />
+            </MeterTrack>
             <MeterValue />
           </Meter>
         );
@@ -194,7 +144,9 @@ Keep the value in React state when the meter mirrors another control.
     {`
       import {
         Meter,
+        MeterIndicator,
         MeterLabel,
+        MeterTrack,
         MeterValue,
       } from "moduix";
       import { useState } from "react";
@@ -206,6 +158,9 @@ Keep the value in React state when the meter mirrors another control.
           <div className={styles.stack}>
             <Meter value={value}>
               <MeterLabel>Capacity</MeterLabel>
+              <MeterTrack>
+                <MeterIndicator />
+              </MeterTrack>
               <MeterValue />
             </Meter>
             <input
@@ -251,7 +206,9 @@ Use `format` and a custom `MeterValue` child function for user-facing value text
     {`
       import {
         Meter,
+        MeterIndicator,
         MeterLabel,
+        MeterTrack,
         MeterValue,
       } from "moduix";
 
@@ -259,6 +216,9 @@ Use `format` and a custom `MeterValue` child function for user-facing value text
         return (
           <Meter value={0.64} min={0} max={1} format={{ style: "percent", maximumFractionDigits: 0 }}>
             <MeterLabel>Usage</MeterLabel>
+            <MeterTrack>
+              <MeterIndicator />
+            </MeterTrack>
             <MeterValue>{(formattedValue) => \`\${formattedValue} used\`}</MeterValue>
           </Meter>
         );
@@ -268,30 +228,30 @@ Use `format` and a custom `MeterValue` child function for user-facing value text
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
-`Meter` renders the track and indicator automatically. Use `className` for the root and `classNames`
-for the internal track and indicator slots.
+Style each visible part directly with `className`.
 
 <Preview>
-  <CustomCompositionMeterExample />
+  <CustomStylesMeterExample />
 
   <Preview.Code>
     {`
       import {
         Meter,
+        MeterIndicator,
         MeterLabel,
+        MeterTrack,
         MeterValue,
       } from "moduix";
 
-      export function CustomCompositionMeterDemo() {
+      export function CustomStylesMeterDemo() {
         return (
-          <Meter
-            value={72}
-            className={styles.customMeter}
-            classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-          >
+          <Meter value={72} className={styles.customMeter}>
             <MeterLabel>Monthly quota</MeterLabel>
+            <MeterTrack className={styles.customTrack}>
+              <MeterIndicator className={styles.customIndicator} />
+            </MeterTrack>
             <MeterValue />
           </Meter>
         );
@@ -316,6 +276,69 @@ for the internal track and indicator slots.
       .customIndicator {
         background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
       }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Composition
+
+Use the same parts when you need to change layout or structure more deeply.
+
+<Preview>
+  <CompositionMeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterIndicator,
+        MeterLabel,
+        MeterTrack,
+        MeterValue,
+      } from "moduix";
+
+      export function CompositionMeterDemo() {
+        return (
+          <Meter value={58} className={styles.composedMeter}>
+            <MeterLabel>Team capacity</MeterLabel>
+            <MeterValue>{(formattedValue) => \`\${formattedValue} available\`}</MeterValue>
+            <MeterTrack className={styles.composedTrack}>
+              <MeterIndicator className={styles.composedIndicator} />
+            </MeterTrack>
+          </Meter>
+        );
+      }
+
+`}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .composedMeter {
+        --meter-width: 18rem;
+        --meter-track-height: 0.625rem;
+      }
+
+      .composedTrack {
+        box-sizing: border-box;
+        display: flex;
+        align-items: stretch;
+        height: 1rem;
+        border: var(--border-width-sm) solid transparent;
+        border-radius: var(--radius-md);
+        background:
+          linear-gradient(var(--color-background), var(--color-background)) padding-box,
+          linear-gradient(90deg, var(--color-chart-3), var(--color-primary)) border-box;
+        box-shadow: none;
+      }
+
+      .composedIndicator {
+        border-radius: calc(var(--radius-md) - var(--border-width-sm));
+        background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
+      }
+
     `}
 
   </Preview.CSS>

@@ -1,4 +1,4 @@
-import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue, type MeterProps } from 'moduix';
+import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -63,10 +63,15 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function MeterExample({ value = 24, ...props }: MeterProps) {
+export function MeterExample(props: React.ComponentProps<typeof Meter>) {
+  const { value = 24, ...restProps } = props;
+
   return (
-    <Meter value={value} {...props}>
+    <Meter value={value} {...restProps}>
       <MeterLabel>Storage Used</MeterLabel>
+      <MeterTrack>
+        <MeterIndicator />
+      </MeterTrack>
       <MeterValue />
     </Meter>
   );
@@ -76,6 +81,9 @@ export function MinMaxRangeMeterExample() {
   return (
     <Meter value={420} min={200} max={800}>
       <MeterLabel>Requests per minute</MeterLabel>
+      <MeterTrack>
+        <MeterIndicator />
+      </MeterTrack>
       <MeterValue />
     </Meter>
   );
@@ -88,6 +96,9 @@ export function ControlledMeterExample() {
     <div className={styles.stack}>
       <Meter value={value}>
         <MeterLabel>Capacity</MeterLabel>
+        <MeterTrack>
+          <MeterIndicator />
+        </MeterTrack>
         <MeterValue />
       </Meter>
       <input
@@ -108,19 +119,21 @@ export function PercentFormatMeterExample() {
   return (
     <Meter value={0.64} min={0} max={1} format={{ style: 'percent', maximumFractionDigits: 0 }}>
       <MeterLabel>Usage</MeterLabel>
+      <MeterTrack>
+        <MeterIndicator />
+      </MeterTrack>
       <MeterValue>{(formattedValue) => `${formattedValue} used`}</MeterValue>
     </Meter>
   );
 }
 
-export function CustomCompositionMeterExample() {
+export function CustomStylesMeterExample() {
   return (
-    <Meter
-      value={72}
-      className={styles.customMeter}
-      classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-    >
+    <Meter value={72} className={styles.customMeter}>
       <MeterLabel>Monthly quota</MeterLabel>
+      <MeterTrack className={styles.customTrack}>
+        <MeterIndicator className={styles.customIndicator} />
+      </MeterTrack>
       <MeterValue />
     </Meter>
   );
@@ -128,7 +141,7 @@ export function CustomCompositionMeterExample() {
 
 export function CompositionMeterExample() {
   return (
-    <Meter value={58} withTrack={false} className={styles.composedMeter}>
+    <Meter value={58} className={styles.composedMeter}>
       <MeterLabel>Team capacity</MeterLabel>
       <MeterValue>{(formattedValue) => `${formattedValue} available`}</MeterValue>
       <MeterTrack className={styles.composedTrack}>
