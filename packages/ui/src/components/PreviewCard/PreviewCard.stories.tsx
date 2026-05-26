@@ -1,11 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import type { PreviewCardContentProps } from './PreviewCard';
 import {
   PreviewCard,
+  PreviewCardArrow,
+  PreviewCardBackdrop,
   createPreviewCardHandle,
+  PreviewCardPopup,
+  PreviewCardPortal,
+  PreviewCardPositioner,
   PreviewCardTrigger,
   PreviewCardContent,
+  PreviewCardViewport,
 } from './PreviewCard';
 import styles from './PreviewCard.stories.module.css';
 
@@ -47,7 +52,7 @@ const linkPayloads: LinkPreviewPayload[] = [
   },
 ];
 
-const SIDES: PreviewCardSide[] = ['top', 'right', 'bottom', 'left'];
+const SIDES = ['top', 'right', 'bottom', 'left'] as const;
 
 export const Basic: Story = {
   render: () => {
@@ -175,7 +180,7 @@ export const MultipleTriggersWithPayload: Story = {
 export const SideControl: Story = {
   name: 'Side Control',
   render: () => {
-    const [side, setSide] = React.useState<PreviewCardSide>('bottom');
+    const [side, setSide] = React.useState<(typeof SIDES)[number]>('bottom');
 
     return (
       <div className={styles.sideControl}>
@@ -219,40 +224,50 @@ export const CustomArrow: Story = {
         <PreviewCardTrigger href={linkPayloads[0].url}>
           Preview with custom arrow
         </PreviewCardTrigger>
-        <PreviewCardContent className={styles.customArrowPopup} arrow={<CustomArrowSvg />}>
-          <div className={styles.popupContent}>
-            <p className={styles.summary}>
-              Pass any React node to the arrow prop to use a custom SVG or icon.
-            </p>
-          </div>
-        </PreviewCardContent>
+        <PreviewCardPortal>
+          <PreviewCardPositioner>
+            <PreviewCardPopup className={styles.customArrowPopup}>
+              <PreviewCardArrow>
+                <CustomArrowSvg />
+              </PreviewCardArrow>
+              <PreviewCardViewport>
+                <div className={styles.popupContent}>
+                  <p className={styles.summary}>
+                    Custom arrow content now lives in explicit composition.
+                  </p>
+                </div>
+              </PreviewCardViewport>
+            </PreviewCardPopup>
+          </PreviewCardPositioner>
+        </PreviewCardPortal>
       </PreviewCard>
     );
   },
 };
 
-export const SlotCustomization: Story = {
-  name: 'Slot Customization',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   render: () => {
     return (
       <PreviewCard>
         <PreviewCardTrigger className={styles.slotTrigger} href={linkPayloads[0].url}>
-          Preview with styled slots
+          Preview with custom composition
         </PreviewCardTrigger>
-        <PreviewCardContent
-          withBackdrop
-          classNames={{
-            backdrop: styles.backdrop,
-            arrow: styles.slotArrow,
-            viewport: styles.viewport,
-          }}
-        >
-          <div className={styles.popupContent}>
-            <p className={styles.summary}>
-              Portal, backdrop, positioner, and viewport are rendered by PreviewCardContent.
-            </p>
-          </div>
-        </PreviewCardContent>
+        <PreviewCardPortal>
+          <PreviewCardBackdrop className={styles.backdrop} />
+          <PreviewCardPositioner side="right" sideOffset={12}>
+            <PreviewCardPopup className={styles.composedPopup}>
+              <PreviewCardArrow className={styles.slotArrow} />
+              <PreviewCardViewport className={styles.viewport}>
+                <div className={styles.popupContent}>
+                  <p className={styles.summary}>
+                    Portal, backdrop, arrow, and viewport stay available as explicit parts.
+                  </p>
+                </div>
+              </PreviewCardViewport>
+            </PreviewCardPopup>
+          </PreviewCardPositioner>
+        </PreviewCardPortal>
       </PreviewCard>
     );
   },
@@ -265,5 +280,3 @@ function CustomArrowSvg() {
     </svg>
   );
 }
-
-type PreviewCardSide = Exclude<PreviewCardContentProps['side'], undefined>;

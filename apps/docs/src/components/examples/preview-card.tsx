@@ -1,8 +1,13 @@
-import type { PreviewCardContentProps } from 'moduix';
 import {
   PreviewCard,
+  PreviewCardArrow,
+  PreviewCardBackdrop,
   PreviewCardContent,
+  PreviewCardPopup,
+  PreviewCardPortal,
+  PreviewCardPositioner,
   PreviewCardTrigger,
+  PreviewCardViewport,
   createPreviewCardHandle,
 } from 'moduix';
 import * as React from 'react';
@@ -17,7 +22,7 @@ type LinkPreviewPayload = {
   url: string;
 };
 
-const previewCardSides: PreviewCardSide[] = ['top', 'right', 'bottom', 'left'];
+const previewCardSides = ['top', 'right', 'bottom', 'left'] as const;
 
 const linkPayloads: LinkPreviewPayload[] = [
   {
@@ -233,7 +238,7 @@ export function MultipleTriggersPreviewCardExample() {
 }
 
 export function SideControlPreviewCardExample() {
-  const [side, setSide] = React.useState<PreviewCardSide>('bottom');
+  const [side, setSide] = React.useState<(typeof previewCardSides)[number]>('bottom');
 
   return (
     <div className={styles.stack}>
@@ -270,40 +275,50 @@ export function CustomArrowPreviewCardExample() {
   return (
     <PreviewCard>
       <PreviewCardTrigger href={linkPayloads[0].url}>Preview with custom arrow</PreviewCardTrigger>
-      <PreviewCardContent className={styles.customArrowPopup} arrow={<CustomArrow />}>
-        <PreviewCardPreview
-          item={{
-            ...linkPayloads[0],
-            summary: 'Pass any React node to the arrow prop to use a custom SVG or icon.',
-          }}
-        />
-      </PreviewCardContent>
+      <PreviewCardPortal>
+        <PreviewCardPositioner>
+          <PreviewCardPopup className={styles.customArrowPopup}>
+            <PreviewCardArrow>
+              <CustomArrow />
+            </PreviewCardArrow>
+            <PreviewCardViewport>
+              <PreviewCardPreview
+                item={{
+                  ...linkPayloads[0],
+                  summary: 'Custom arrow content now lives in explicit composition.',
+                }}
+              />
+            </PreviewCardViewport>
+          </PreviewCardPopup>
+        </PreviewCardPositioner>
+      </PreviewCardPortal>
     </PreviewCard>
   );
 }
 
-export function SlotCustomizationPreviewCardExample() {
+export function CustomCompositionPreviewCardExample() {
   return (
     <PreviewCard>
       <PreviewCardTrigger className={styles.slotTrigger} href={linkPayloads[0].url}>
-        Preview with styled slots
+        Preview with custom composition
       </PreviewCardTrigger>
-      <PreviewCardContent
-        withBackdrop
-        classNames={{
-          backdrop: styles.backdrop,
-          arrow: styles.slotArrow,
-          viewport: styles.viewport,
-        }}
-      >
-        <PreviewCardPreview
-          item={{
-            ...linkPayloads[0],
-            summary:
-              'Portal, backdrop, positioner, and viewport are rendered by PreviewCardContent.',
-          }}
-        />
-      </PreviewCardContent>
+      <PreviewCardPortal>
+        <PreviewCardBackdrop className={styles.backdrop} />
+        <PreviewCardPositioner side="right" sideOffset={12}>
+          <PreviewCardPopup className={styles.composedPopup}>
+            <PreviewCardArrow className={styles.slotArrow} />
+            <PreviewCardViewport className={styles.viewport}>
+              <PreviewCardPreview
+                item={{
+                  ...linkPayloads[0],
+                  summary:
+                    'Portal, backdrop, arrow, and viewport stay available as explicit parts.',
+                }}
+              />
+            </PreviewCardViewport>
+          </PreviewCardPopup>
+        </PreviewCardPositioner>
+      </PreviewCardPortal>
     </PreviewCard>
   );
 }
@@ -332,5 +347,3 @@ function CustomArrow() {
     </svg>
   );
 }
-
-type PreviewCardSide = Exclude<PreviewCardContentProps['side'], undefined>;

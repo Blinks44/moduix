@@ -1,13 +1,13 @@
 # PreviewCard
 
-Composed preview popup built on top of `@base-ui/react/preview-card`.
+Thin preview popup built on top of `@base-ui/react/preview-card`.
 
 ## Key use cases
 
-- Show a small hover/focus preview for a link or inline trigger.
+- Show a small hover or focus preview for a link.
 - Keep trigger and popup detached with `createPreviewCardHandle()`.
 - Reuse one popup for multiple triggers via `payload`.
-- Style internal infrastructure slots through `classNames` and `slotProps`.
+- Drop down to explicit composition when you need custom structure, arrow content, or backdrop.
 
 ## Basic anatomy
 
@@ -20,19 +20,12 @@ Composed preview popup built on top of `@base-ui/react/preview-card`.
 </PreviewCard>
 ```
 
-`PreviewCardContent` renders and wires the internal `Portal`, `Positioner`, `Popup`, `Arrow`, and `Viewport` slots for you.
+`PreviewCardContent` renders `Portal`, `Positioner`, `Popup`, and `Viewport` for the default path.
 
-## Composition notes
+## Defaults
 
-- `withArrow` defaults to `true`.
-- `withBackdrop` defaults to `false`.
+- `showArrow` defaults to `false`.
 - `sideOffset` defaults to `8`.
-- Top-level `container` overrides `slotProps.portal.container`.
-- Top-level positioning props override matching values from `slotProps.positioner`.
-- `arrow` supports both legacy boolean control and custom React node content:
-  - `arrow={false}` hides the arrow.
-  - `arrow={<CustomArrow />}` replaces the default arrow.
-  - `withArrow` still has higher priority when both are provided.
 
 ## Detached trigger
 
@@ -88,28 +81,26 @@ const previewCardHandle = createPreviewCardHandle<LinkPayload>();
 </PreviewCard>
 ```
 
-## Slot customization
+## Custom composition
 
 ```tsx
 <PreviewCard>
   <PreviewCardTrigger href="https://example.com">Styled preview</PreviewCardTrigger>
-  <PreviewCardContent
-    withBackdrop
-    classNames={{
-      backdrop: styles.backdrop,
-      arrow: styles.arrow,
-      viewport: styles.viewport,
-    }}
-    slotProps={{
-      positioner: {
-        side: 'right',
-        sideOffset: 12,
-      },
-    }}
-  >
-    <div>Preview content</div>
-  </PreviewCardContent>
+  <PreviewCardPortal>
+    <PreviewCardBackdrop className={styles.backdrop} />
+    <PreviewCardPositioner side="right" sideOffset={12}>
+      <PreviewCardPopup className={styles.popup}>
+        <PreviewCardArrow className={styles.arrow}>
+          <CustomArrow />
+        </PreviewCardArrow>
+        <PreviewCardViewport className={styles.viewport}>
+          <div>Preview content</div>
+        </PreviewCardViewport>
+      </PreviewCardPopup>
+    </PreviewCardPositioner>
+  </PreviewCardPortal>
 </PreviewCard>
 ```
 
-Use `className` for the popup itself, `classNames` for internal visual slots, and `slotProps` for non-class slot configuration.
+Use this path when you need a backdrop, custom arrow markup, custom portal behavior, or direct styling
+of the structural parts.

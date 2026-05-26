@@ -111,3 +111,7 @@
 .viewport {
   padding: var(--spacing-1);
 }
+
+.composedPopup {
+  --preview-card-max-width: 17rem;
+}
