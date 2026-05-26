@@ -24,6 +24,6 @@
   border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
 }
 
-.customControl:focus {
+.customControl:focus-visible {
   outline-color: var(--color-primary);
 }

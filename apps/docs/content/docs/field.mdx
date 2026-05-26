@@ -9,7 +9,7 @@ import {
   FieldCssPropertiesPanel,
   FieldCheckboxExample,
   FieldCustomValidationExample,
-  FieldCustomCompositionExample,
+  FieldCustomStylesExample,
   FieldDisabledExample,
   FieldExample,
   FieldInputExample,
@@ -98,15 +98,14 @@ Use `Field` for root behavior and validation props such as `name`, `validationMo
 
 Compose `FieldLabel`, one compatible control (`FieldControl`, `Input`, `NumberField`, and others),
 then optional `FieldError` and `FieldDescription`. `FieldControl` is the default native input slot,
-but you can replace it with another Base UI-compatible control. All visible parts accept `className`;
-Base UI parts also support `render`, function `className`, function `style`, and state data
-attributes such as `data-invalid`, `data-valid`, `data-dirty`, `data-touched`, `data-filled`,
-`data-focused`, and `data-disabled`.
+but you can replace it with another Base UI-compatible control. All visible parts accept `className`
+and keep Base UI state data attributes such as `data-invalid`, `data-valid`, `data-dirty`,
+`data-touched`, `data-filled`, `data-focused`, and `data-disabled`.
 
 Use `FieldLabel nativeLabel={false}` when the label should render as a non-`label` element for
-controls such as select or combobox triggers. `FieldError match` accepts `true` or a
-`ValidityState` key such as `valueMissing`, `typeMismatch`, or `customError`. `FieldValidity`
-exposes the full validity object through a render function.
+controls such as select or combobox triggers. `FieldError match` accepts `true` or a validity key
+such as `valueMissing`, `typeMismatch`, or `customError`. `FieldValidity` remains available as the
+escape hatch when you need the full validity object in a render function.
 
 ### Defaults
 
@@ -118,17 +117,6 @@ exposes the full validity object through a render function.
 | `FieldLabel.nativeLabel`       | `true`      | `true`, `false`                   |
 | `FieldItem.disabled`           | `false`     | `true`, `false`                   |
 | `FieldError.match`             | `undefined` | `true` or any `ValidityState` key |
-
-The package exports Base UI helper types for advanced composition:
-
-```tsx
-import {
-  type FieldActions,
-  type FieldState,
-  type FieldControlChangeEventDetails,
-  type FieldValidityState,
-} from 'moduix';
-```
 
 ## Examples
 
@@ -413,12 +401,12 @@ Pair `Field` with compound controls by linking the label with the control id.
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
 Pass `className` to the slots that need overrides when styling the field with CSS Modules.
 
 <Preview>
-  <FieldCustomCompositionExample />
+  <FieldCustomStylesExample />
 
   <Preview.Code>
     {`
@@ -430,7 +418,7 @@ Pass `className` to the slots that need overrides when styling the field with CS
         FieldLabel,
       } from "moduix";
 
-      export function CustomCompositionFieldDemo() {
+      export function CustomStylesFieldDemo() {
         return (
           <Field validationMode="onBlur" className={styles.customField}>
             <FieldLabel className={styles.customLabel}>Project key</FieldLabel>
@@ -467,7 +455,7 @@ Pass `className` to the slots that need overrides when styling the field with CS
         border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
       }
 
-      .customControl:focus {
+      .customControl:focus-visible {
         outline-color: var(--color-primary);
       }
 

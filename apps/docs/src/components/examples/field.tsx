@@ -20,7 +20,6 @@ import {
   RadioLabel,
   Switch,
   SwitchLabel,
-  type FieldProps,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -133,7 +132,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function FieldExample(props: FieldProps) {
+export function FieldExample(props: React.ComponentProps<typeof Field>) {
   return (
     <Field validationMode="onBlur" className={styles.field} {...props}>
       <FieldLabel>Name</FieldLabel>
@@ -262,7 +261,7 @@ export function FieldNumberFieldExample() {
   );
 }
 
-export function FieldCustomCompositionExample() {
+export function FieldCustomStylesExample() {
   return (
     <Field validationMode="onBlur" className={styles.customField}>
       <FieldLabel className={styles.customLabel}>Project key</FieldLabel>

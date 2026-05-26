@@ -582,36 +582,18 @@ type FieldValidityData = {
 type ValidationMode = 'onSubmit' | 'onBlur' | 'onChange';
 ```
 
-## Export Groups
+## Moduix wrapper notes
 
-- `Field.Root`: `Field.Root`, `Field.Root.State`, `Field.Root.Props`, `Field.Root.Actions`
-- `Field.Label`: `Field.Label`, `Field.Label.State`, `Field.Label.Props`
-- `Field.Error`: `Field.Error`, `Field.Error.State`, `Field.Error.Props`
-- `Field.Description`: `Field.Description`, `Field.Description.State`, `Field.Description.Props`
-- `Field.Control`: `Field.Control`, `Field.Control.State`, `Field.Control.Props`, `Field.Control.ChangeEventReason`, `Field.Control.ChangeEventDetails`
-- `Field.Validity`: `Field.Validity`, `Field.Validity.State`, `Field.Validity.Props`
-- `Field.Item`: `Field.Item`, `Field.Item.State`, `Field.Item.Props`
-- `Default`: `Field.ValidityData`, `FieldValidityData`, `FieldRootActions`, `FieldRootState`, `FieldRootProps`, `FieldLabelState`, `FieldLabelProps`, `FieldDescriptionState`, `FieldDescriptionProps`, `FieldErrorState`, `FieldErrorProps`, `FieldControlState`, `FieldControlProps`, `FieldControlChangeEventReason`, `FieldControlChangeEventDetails`, `FieldValidityState`, `FieldValidityProps`, `FieldItemState`, `FieldItemProps`
+The `moduix` `Field` component is intentionally a thin styled wrapper over these Base UI parts:
 
-## Canonical Types
+- `Field`
+- `FieldItem`
+- `FieldLabel`
+- `FieldControl`
+- `FieldDescription`
+- `FieldError`
+- `FieldValidity`
 
-Maps `Canonical`: `Alias` — Use Canonical when its namespace is already imported; otherwise use Alias.
-
-- `Field.Root.State`: `FieldRootState`
-- `Field.Root.Props`: `FieldRootProps`
-- `Field.Root.Actions`: `FieldRootActions`
-- `Field.Label.State`: `FieldLabelState`
-- `Field.Label.Props`: `FieldLabelProps`
-- `Field.Error.State`: `FieldErrorState`
-- `Field.Error.Props`: `FieldErrorProps`
-- `Field.Description.State`: `FieldDescriptionState`
-- `Field.Description.Props`: `FieldDescriptionProps`
-- `Field.Control.State`: `FieldControlState`
-- `Field.Control.Props`: `FieldControlProps`
-- `Field.Control.ChangeEventReason`: `FieldControlChangeEventReason`
-- `Field.Control.ChangeEventDetails`: `FieldControlChangeEventDetails`
-- `Field.Validity.State`: `FieldValidityState`
-- `Field.Validity.Props`: `FieldValidityProps`
-- `Field.Item.State`: `FieldItemState`
-- `Field.Item.Props`: `FieldItemProps`
-- `Field.ValidityData`: `FieldValidityData`
+`moduix` does not re-export helper prop, state, action, or event-detail type aliases for `Field`.
+If you need primitive types for advanced integration, import them directly from
+`@base-ui/react/field`.
