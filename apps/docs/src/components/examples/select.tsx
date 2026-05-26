@@ -2,6 +2,8 @@ import {
   ChevronDownIcon,
   InfoIcon,
   Select,
+  SelectArrow,
+  SelectBackdrop,
   SelectContent,
   SelectField,
   SelectGroup,
@@ -15,6 +17,9 @@ import {
   SelectItemTextLabel,
   SelectLabel,
   SelectList,
+  SelectPopup,
+  SelectPortal,
+  SelectPositioner,
   SelectScrollDownArrow,
   SelectScrollUpArrow,
   SelectSeparator,
@@ -505,26 +510,22 @@ export function CustomCompositionSelectExample() {
         </SelectTrigger>
       </SelectField>
 
-      <SelectContent
-        alignItemWithTrigger={false}
-        sideOffset={8}
-        withArrow
-        withBackdrop
-        slotProps={{
-          positioner: { sticky: true },
-        }}
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          positioner: styles.customPositioner,
-          arrow: styles.customArrow,
-        }}
-      >
-        <SelectList>
-          <FruitItems />
-        </SelectList>
-      </SelectContent>
+      <SelectPortal>
+        <SelectBackdrop className={styles.customBackdrop} />
+        <SelectPositioner
+          alignItemWithTrigger={false}
+          sideOffset={8}
+          sticky
+          className={styles.customPositioner}
+        >
+          <SelectPopup className={styles.customPopup}>
+            <SelectArrow className={styles.customArrow} />
+            <SelectList>
+              <FruitItems />
+            </SelectList>
+          </SelectPopup>
+        </SelectPositioner>
+      </SelectPortal>
     </Select>
   );
 }

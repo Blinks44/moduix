@@ -11,53 +11,6 @@ import {
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Select.module.css';
 
-type SelectAnimation = 'scale';
-
-type SelectPopupProps = SelectPrimitive.Popup.Props & {
-  animation?: SelectAnimation;
-};
-
-type SelectContentClassNames = {
-  portal?: SelectPrimitive.Portal.Props['className'];
-  backdrop?: SelectPrimitive.Backdrop.Props['className'];
-  positioner?: SelectPrimitive.Positioner.Props['className'];
-  arrow?: SelectPrimitive.Arrow.Props['className'];
-};
-
-type SelectContentSlotProps = {
-  portal?: Omit<SelectPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<SelectPrimitive.Backdrop.Props, 'className'>;
-  positioner?: Omit<SelectPrimitive.Positioner.Props, 'className' | 'children'>;
-  arrow?: Omit<SelectPrimitive.Arrow.Props, 'className' | 'children'>;
-};
-
-type SelectContentPositionerProps = Pick<
-  SelectPrimitive.Positioner.Props,
-  | 'alignItemWithTrigger'
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'anchor'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
-  | 'sticky'
-  | 'positionMethod'
-  | 'disableAnchorTracking'
->;
-
-type SelectContentProps = SelectPopupProps &
-  SelectContentPositionerProps & {
-    classNames?: SelectContentClassNames;
-    slotProps?: SelectContentSlotProps;
-    container?: SelectPrimitive.Portal.Props['container'];
-    withBackdrop?: boolean;
-    withArrow?: boolean;
-    arrow?: React.ReactNode;
-  };
-
 type IndicatorPosition = 'start' | 'end';
 type SelectItemProps = SelectPrimitive.Item.Props & {
   indicator?: IndicatorPosition;
@@ -135,7 +88,11 @@ function SelectPositioner({ className, ...props }: SelectPrimitive.Positioner.Pr
   );
 }
 
-function SelectPopup({ className, animation, ...props }: SelectPopupProps) {
+function SelectPopup({
+  className,
+  animation,
+  ...props
+}: SelectPrimitive.Popup.Props & { animation?: 'scale' }) {
   return (
     <SelectPrimitive.Popup
       data-slot="select-popup"
@@ -161,12 +118,7 @@ function SelectArrow({ className, children, ...props }: SelectPrimitive.Arrow.Pr
 function SelectContent({
   className,
   children,
-  classNames,
-  slotProps,
-  container,
-  withBackdrop = false,
-  withArrow,
-  arrow,
+  showArrow = false,
   alignItemWithTrigger,
   side,
   sideOffset,
@@ -180,47 +132,45 @@ function SelectContent({
   sticky,
   positionMethod,
   disableAnchorTracking,
-  ...props
-}: SelectContentProps) {
-  const {
-    portal: portalProps,
-    backdrop: backdropProps,
-    positioner: positionerProps,
-    arrow: arrowProps,
-  } = slotProps ?? {};
-  const { container: portalPropsContainer, ...restPortalProps } = portalProps ?? {};
-  const portalContainer = container ?? portalPropsContainer;
-  const resolvedPositionerProps: SelectContentPositionerProps = {
-    alignItemWithTrigger: alignItemWithTrigger ?? positionerProps?.alignItemWithTrigger,
-    side: side ?? positionerProps?.side,
-    sideOffset: sideOffset ?? positionerProps?.sideOffset ?? 8,
-    align: align ?? positionerProps?.align,
-    alignOffset: alignOffset ?? positionerProps?.alignOffset,
-    arrowPadding: arrowPadding ?? positionerProps?.arrowPadding,
-    anchor: anchor ?? positionerProps?.anchor,
-    collisionAvoidance: collisionAvoidance ?? positionerProps?.collisionAvoidance,
-    collisionBoundary: collisionBoundary ?? positionerProps?.collisionBoundary,
-    collisionPadding: collisionPadding ?? positionerProps?.collisionPadding,
-    sticky: sticky ?? positionerProps?.sticky,
-    positionMethod: positionMethod ?? positionerProps?.positionMethod,
-    disableAnchorTracking: disableAnchorTracking ?? positionerProps?.disableAnchorTracking,
-  };
-  const showArrow = withArrow ?? false;
-
+  ...popupProps
+}: React.ComponentProps<typeof SelectPopup> &
+  Pick<
+    SelectPrimitive.Positioner.Props,
+    | 'alignItemWithTrigger'
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'arrowPadding'
+    | 'anchor'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'sticky'
+    | 'positionMethod'
+    | 'disableAnchorTracking'
+  > & {
+    showArrow?: boolean;
+  }) {
   return (
-    <SelectPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
-      {withBackdrop ? <SelectBackdrop className={classNames?.backdrop} {...backdropProps} /> : null}
+    <SelectPortal>
       <SelectPositioner
-        {...positionerProps}
-        {...resolvedPositionerProps}
-        className={classNames?.positioner}
+        alignItemWithTrigger={alignItemWithTrigger}
+        side={side}
+        sideOffset={sideOffset ?? 8}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        anchor={anchor}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        sticky={sticky}
+        positionMethod={positionMethod}
+        disableAnchorTracking={disableAnchorTracking}
       >
-        <SelectPopup className={className} {...props}>
-          {showArrow ? (
-            <SelectArrow className={classNames?.arrow} {...arrowProps}>
-              {arrow}
-            </SelectArrow>
-          ) : null}
+        <SelectPopup className={className} {...popupProps}>
+          {showArrow ? <SelectArrow /> : null}
           {children}
         </SelectPopup>
       </SelectPositioner>
@@ -380,31 +330,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   );
 }
 
-type SelectProps<
-  Value = unknown,
-  Multiple extends boolean | undefined = false,
-> = SelectPrimitive.Root.Props<Value, Multiple>;
-type SelectValueType<Value = unknown, Multiple extends boolean | undefined = false> = SelectProps<
-  Value,
-  Multiple
->['value'];
-type SelectFieldProps = React.ComponentProps<'div'>;
-type SelectLabelProps = SelectPrimitive.Label.Props;
-type SelectTriggerProps = SelectPrimitive.Trigger.Props;
-type SelectValueProps = SelectPrimitive.Value.Props;
-type SelectIconProps = SelectPrimitive.Icon.Props;
-type SelectScrollUpArrowProps = SelectPrimitive.ScrollUpArrow.Props;
-type SelectScrollDownArrowProps = SelectPrimitive.ScrollDownArrow.Props;
-type SelectListProps = SelectPrimitive.List.Props;
-type SelectItemIndicatorProps = SelectPrimitive.ItemIndicator.Props;
-type SelectItemTextProps = SelectPrimitive.ItemText.Props;
-type SelectItemTextContentProps = React.ComponentProps<'span'>;
-type SelectItemTextIconProps = React.ComponentProps<'span'>;
-type SelectItemTextLabelProps = React.ComponentProps<'span'>;
-type SelectSeparatorProps = SelectPrimitive.Separator.Props;
-type SelectGroupProps = SelectPrimitive.Group.Props;
-type SelectGroupLabelProps = SelectPrimitive.GroupLabel.Props;
-
 export {
   Select,
   SelectField,
@@ -412,6 +337,11 @@ export {
   SelectTrigger,
   SelectValue,
   SelectIcon,
+  SelectPortal,
+  SelectBackdrop,
+  SelectPositioner,
+  SelectPopup,
+  SelectArrow,
   SelectContent,
   SelectScrollUpArrow,
   SelectScrollDownArrow,
@@ -425,30 +355,4 @@ export {
   SelectSeparator,
   SelectGroup,
   SelectGroupLabel,
-};
-
-export type {
-  SelectProps,
-  SelectAnimation,
-  SelectValueType,
-  SelectContentClassNames,
-  SelectContentSlotProps,
-  SelectFieldProps,
-  SelectLabelProps,
-  SelectTriggerProps,
-  SelectValueProps,
-  SelectIconProps,
-  SelectContentProps,
-  SelectScrollUpArrowProps,
-  SelectScrollDownArrowProps,
-  SelectListProps,
-  SelectItemProps,
-  SelectItemIndicatorProps,
-  SelectItemTextProps,
-  SelectItemTextContentProps,
-  SelectItemTextIconProps,
-  SelectItemTextLabelProps,
-  SelectSeparatorProps,
-  SelectGroupProps,
-  SelectGroupLabelProps,
 };

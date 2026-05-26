@@ -34,10 +34,6 @@
   line-height: var(--line-height-text-xs);
 }
 
-.customPortal {
-  pointer-events: auto;
-}
-
 .customBackdrop {
   --select-backdrop-bg: rgb(15 23 42 / 0.48);
   --select-backdrop-blur: 3px;

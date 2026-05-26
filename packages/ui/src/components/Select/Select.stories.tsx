@@ -3,6 +3,8 @@ import * as React from 'react';
 import { InfoIcon } from '@/primitives/Icons';
 import {
   Select,
+  SelectArrow,
+  SelectBackdrop,
   SelectContent,
   SelectField,
   SelectGroup,
@@ -16,6 +18,9 @@ import {
   SelectItemText,
   SelectLabel,
   SelectList,
+  SelectPopup,
+  SelectPortal,
+  SelectPositioner,
   SelectScrollDownArrow,
   SelectScrollUpArrow,
   SelectSeparator,
@@ -372,7 +377,7 @@ export const ObjectValues: Story = {
   },
 };
 
-export const PopupOptions: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Select items={fruits}>
@@ -384,28 +389,22 @@ export const PopupOptions: Story = {
           </SelectTrigger>
         </SelectField>
 
-        <SelectContent
-          alignItemWithTrigger={false}
-          sideOffset={8}
-          withArrow
-          withBackdrop
-          slotProps={{
-            positioner: { sticky: true },
-          }}
-          classNames={{
-            backdrop: styles.backdrop,
-            arrow: styles.arrow,
-          }}
-        >
-          <SelectList>
-            {fruits.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                <SelectItemIndicator />
-                <SelectItemText>{item.label}</SelectItemText>
-              </SelectItem>
-            ))}
-          </SelectList>
-        </SelectContent>
+        <SelectPortal>
+          <SelectBackdrop className={styles.backdrop} />
+          <SelectPositioner alignItemWithTrigger={false} sideOffset={8} sticky>
+            <SelectPopup>
+              <SelectArrow className={styles.arrow} />
+              <SelectList>
+                {fruits.map((item) => (
+                  <SelectItem key={item.value} value={item.value}>
+                    <SelectItemIndicator />
+                    <SelectItemText>{item.label}</SelectItemText>
+                  </SelectItem>
+                ))}
+              </SelectList>
+            </SelectPopup>
+          </SelectPositioner>
+        </SelectPortal>
       </Select>
     );
   },
