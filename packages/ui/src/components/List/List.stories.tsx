@@ -48,7 +48,7 @@ export const Markerless: Story = {
 export const NativeItems: Story = {
   name: 'Native Items',
   render: () => (
-    <List marker="bullet" className={storyStyles.customBullet}>
+    <List className={storyStyles.list}>
       <li>Use native li elements when a wrapper component is unnecessary.</li>
       <li>The root still controls spacing, marker style, size, and tone.</li>
       <li>Reach for ListItem when you want the stable item slot.</li>
@@ -56,18 +56,18 @@ export const NativeItems: Story = {
   ),
 };
 
-export const CustomComposition: Story = {
-  name: 'Custom Composition',
+export const CustomStyles: Story = {
+  name: 'Custom Styles',
   render: () => (
-    <List marker="bullet" className={storyStyles.customBullet}>
-      <ListItem classNames={{ marker: storyStyles.glowMarker }}>
-        Bullet size is independent from text size.
+    <List className={storyStyles.accentList}>
+      <ListItem className={storyStyles.accentItem}>
+        Native markers stay available for per-item styling.
       </ListItem>
-      <ListItem classNames={{ marker: storyStyles.glowMarker }}>
-        Bullet color and gap are controlled by CSS variables.
+      <ListItem className={storyStyles.accentItem}>
+        Root CSS variables still control spacing and typography.
       </ListItem>
-      <ListItem classNames={{ marker: storyStyles.glowMarker }}>
-        Text color remains unchanged.
+      <ListItem className={storyStyles.accentItem}>
+        No extra marker/content API is required.
       </ListItem>
     </List>
   ),

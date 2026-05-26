@@ -1,4 +1,5 @@
-import { List, ListItem, type ListProps } from 'moduix';
+import type { ComponentProps } from 'react';
+import { List, ListItem } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './list.module.css';
@@ -28,9 +29,9 @@ const nativeItems = [
 ];
 
 const customStyleItems = [
-  'Bullet size is independent from text size.',
-  'Bullet color and gap are controlled by CSS variables.',
-  'Text color remains unchanged.',
+  'Native markers stay available for per-item styling.',
+  'Root CSS variables still control spacing and typography.',
+  'No extra marker/content API is required.',
 ];
 
 const sizeItems = [
@@ -79,7 +80,6 @@ export const listOverrideCssProperties: CssPropertyInput[] = [
   ['--list-gap-lg', 'var(--spacing-4)', 'Controls large list item gap.'],
   ['--list-gap-xl', 'var(--spacing-5)', 'Controls extra-large list item gap.'],
   ['--list-gap-2xl', 'var(--spacing-6)', 'Controls 2xl list item gap.'],
-  ['--list-item-padding-x', '0', 'Controls list item inline start padding.'],
   ['--list-letter-spacing', '0', 'Controls list letter spacing.'],
   [
     '--list-line-height',
@@ -93,10 +93,6 @@ export const listOverrideCssProperties: CssPropertyInput[] = [
   ['--list-line-height-xl', 'var(--line-height-text-xl)', 'Controls extra-large list line height.'],
   ['--list-marker-color', 'currentColor', 'Controls marker color.'],
   ['--list-marker-font-weight', 'inherit', 'Controls native marker font weight.'],
-  ['--list-marker-gap', 'var(--spacing-3)', 'Controls custom bullet marker gap.'],
-  ['--list-marker-offset-y', '0.625em', 'Controls custom bullet vertical offset.'],
-  ['--list-marker-radius', 'var(--radius-full)', 'Controls custom bullet marker radius.'],
-  ['--list-marker-size', '0.375rem', 'Controls custom bullet marker size.'],
   ['--list-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
   ['--list-padding-x', 'var(--spacing-5)', 'Controls marker indentation.'],
   ['--list-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
@@ -118,7 +114,6 @@ export const listPlaygroundCssProperties: CssPropertyInput[] = [
   ['--list-gap-lg', 'var(--spacing-4)', 'Controls large list item gap.'],
   ['--list-gap-xl', 'var(--spacing-5)', 'Controls extra-large list item gap.'],
   ['--list-gap-2xl', 'var(--spacing-6)', 'Controls 2xl list item gap.'],
-  ['--list-item-padding-x', '0', 'Controls list item inline start padding.'],
   ['--list-letter-spacing', '0', 'Controls list letter spacing.'],
   ['--list-line-height-xs', 'var(--line-height-text-xs)', 'Controls extra-small list line height.'],
   ['--list-line-height-sm', 'var(--line-height-text-sm)', 'Controls small list line height.'],
@@ -127,10 +122,6 @@ export const listPlaygroundCssProperties: CssPropertyInput[] = [
   ['--list-line-height-xl', 'var(--line-height-text-xl)', 'Controls extra-large list line height.'],
   ['--list-marker-color', 'currentColor', 'Controls marker color.'],
   ['--list-marker-font-weight', 'inherit', 'Controls native marker font weight.'],
-  ['--list-marker-gap', 'var(--spacing-3)', 'Controls custom bullet marker gap.'],
-  ['--list-marker-offset-y', '0.625em', 'Controls custom bullet vertical offset.'],
-  ['--list-marker-radius', 'var(--radius-full)', 'Controls custom bullet marker radius.'],
-  ['--list-marker-size', '0.375rem', 'Controls custom bullet marker size.'],
   ['--list-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
   ['--list-padding-x', 'var(--spacing-5)', 'Controls marker indentation.'],
   ['--list-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
@@ -160,7 +151,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ListExample(props: ListProps) {
+export function ListExample(props: ComponentProps<typeof List>) {
   return (
     <List className={styles.list} {...props}>
       {basicItems.map((item) => (
@@ -192,7 +183,7 @@ export function MarkerlessListExample() {
 
 export function NativeItemsListExample() {
   return (
-    <List marker="bullet" className={styles.customBullet}>
+    <List className={styles.list}>
       {nativeItems.map((item) => (
         <li key={item}>{item}</li>
       ))}
@@ -200,11 +191,11 @@ export function NativeItemsListExample() {
   );
 }
 
-export function CustomCompositionListExample() {
+export function CustomStylesListExample() {
   return (
-    <List marker="bullet" className={styles.customBullet}>
+    <List className={styles.accentList}>
       {customStyleItems.map((item) => (
-        <ListItem key={item} classNames={{ marker: styles.glowMarker }}>
+        <ListItem key={item} className={styles.accentItem}>
           {item}
         </ListItem>
       ))}

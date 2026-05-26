@@ -39,21 +39,6 @@
       list-style-type: decimal;
     }
 
-    &[data-marker='bullet'] {
-      padding-inline-start: 0;
-      list-style: none;
-
-      & > :where(li) {
-        display: flex;
-        align-items: flex-start;
-        gap: var(--list-marker-gap, var(--spacing-3));
-      }
-
-      & .marker {
-        display: block;
-      }
-    }
-
     &[data-size='xs'] {
       font-size: var(--list-font-size, var(--list-font-size-xs, var(--text-xs)));
       line-height: var(--list-line-height, var(--list-line-height-xs, var(--line-height-text-xs)));
@@ -102,30 +87,8 @@
 
   .item {
     box-sizing: border-box;
-    padding-inline-start: var(--list-item-padding-x, 0);
   }
 
-  .content {
-    min-width: 0;
-  }
-
-  .marker {
-    display: none;
-    flex-shrink: 0;
-    width: var(--list-marker-size, 0.375rem);
-    height: var(--list-marker-size, 0.375rem);
-    border-radius: var(--list-marker-radius, var(--radius-full));
-    margin-block-start: var(--list-marker-offset-y, 0.625em);
-    background-color: var(--list-marker-color, currentColor);
-  }
-
-  .marker:not(:empty) {
-    width: auto;
-    height: auto;
-    border-radius: 0;
-    margin-block-start: 0;
-    background-color: transparent;
-  }
   .root[data-gap='xs'] {
     --list-gap: var(--list-gap-xs, var(--spacing-1));
   }

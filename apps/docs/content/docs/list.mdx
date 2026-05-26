@@ -5,7 +5,7 @@ icon: Component
 ---
 
 import {
-  CustomCompositionListExample,
+  CustomStylesListExample,
   ListExample,
   ListCssPlaygroundPanel,
   ListCssPropertiesPanel,
@@ -76,13 +76,13 @@ style, spacing, and typography tokens.
 
 ```text
 List (ul | ol)
-└─ ListItem
+└─ li | ListItem
 ```
 
-| Part       | Role                                                                   |
-| ---------- | ---------------------------------------------------------------------- |
-| `List`     | Semantic list root that controls marker, spacing, size, and tone.      |
-| `ListItem` | Individual item wrapper rendered as native list item semantics (`li`). |
+| Part       | Role                                                                |
+| ---------- | ------------------------------------------------------------------- |
+| `List`     | Semantic list root that controls marker, spacing, size, and tone.   |
+| `ListItem` | Optional thin wrapper around a native `li` with a stable item slot. |
 
 ## Composition
 
@@ -90,17 +90,16 @@ Use `as` for list semantics, `marker` for marker style or visibility, and `size`
 `gap`, `tone`, plus `className` for visual customization.
 
 The default marker follows the root element: `ul` uses `disc`, `ol` uses `decimal`.
-Use `marker="none"` to keep list semantics without visible markers. Use
-`marker="bullet"` when marker size, gap, radius, or vertical offset must be styled
-independently from the text. In that mode, `ListItem` exposes the marker/content split,
-while plain `li` elements still inherit root spacing and typography.
+Use `marker="none"` to keep list semantics without visible markers. For deeper marker
+styling, rely on native `li::marker` selectors and root CSS variables instead of a
+custom marker API.
 
 ### Defaults
 
 | Prop     | Default   | Values                                                 |
 | -------- | --------- | ------------------------------------------------------ |
 | `as`     | `ul`      | `ul`, `ol`                                             |
-| `marker` | by `as`   | `disc`, `decimal`, `bullet`, `none`                    |
+| `marker` | by `as`   | `disc`, `decimal`, `none`                              |
 | `gap`    | `sm`      | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`                    |
 | `size`   | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                           |
 | `tone`   | `default` | `default`, `muted`, `subtle`, `primary`, `destructive` |
@@ -210,7 +209,7 @@ Use native `li` elements when you do not need the exported `ListItem` slot.
 
       export function NativeItemsListDemo() {
         return (
-          <List marker="bullet" className={styles.customBullet}>
+          <List className={styles.list}>
             {items.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -223,12 +222,8 @@ Use native `li` elements when you do not need the exported `ListItem` slot.
 
   <Preview.CSS>
     {`
-      .customBullet {
+      .list {
         width: min(32rem, calc(100vw - var(--spacing-8)));
-        --list-marker-color: var(--color-chart-2);
-        --list-marker-size: 0.5rem;
-        --list-marker-gap: var(--spacing-4);
-        --list-marker-offset-y: 0.5em;
       }
     `}
 
@@ -399,22 +394,23 @@ Use `tone` when the list should inherit a semantic text color.
   </Preview.Data>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
-Use `marker="bullet"` when marker styling must be controlled independently from the text.
+Use native marker styling when you need per-item marker customization without adding
+extra wrapper structure.
 
 <Preview>
-  <CustomCompositionListExample />
+  <CustomStylesListExample />
 
   <Preview.Code>
     {`
       import { List, ListItem } from "moduix";
 
-      export function CustomCompositionListDemo() {
+      export function CustomStylesListDemo() {
         return (
-          <List marker="bullet" className={styles.customBullet}>
+          <List className={styles.accentList}>
             {items.map((item) => (
-              <ListItem key={item} classNames={{ marker: styles.glowMarker }}>
+              <ListItem key={item} className={styles.accentItem}>
                 {item}
               </ListItem>
             ))}
@@ -427,18 +423,14 @@ Use `marker="bullet"` when marker styling must be controlled independently from 
 
   <Preview.CSS>
     {`
-      .customBullet {
+      .accentList {
         width: min(32rem, calc(100vw - var(--spacing-8)));
-        --list-marker-color: var(--color-chart-2);
-        --list-marker-size: 0.5rem;
-        --list-marker-gap: var(--spacing-4);
-        --list-marker-offset-y: 0.5em;
+        --list-padding-x: var(--spacing-6);
       }
 
-      .glowMarker {
-        box-shadow:
-          0 0 0 0.25rem color-mix(in oklab, var(--list-marker-color), transparent 78%),
-          0 0.125rem 0.375rem color-mix(in oklab, var(--list-marker-color), transparent 68%);
+      .accentItem::marker {
+        color: var(--color-chart-2);
+        font-weight: var(--weight-semibold);
       }
     `}
 
@@ -447,9 +439,9 @@ Use `marker="bullet"` when marker styling must be controlled independently from 
   <Preview.Data>
     {`
       const items = [
-        "Bullet size is independent from text size.",
-        "Bullet color and gap are controlled by CSS variables.",
-        "Text color remains unchanged.",
+        "Native markers stay available for per-item styling.",
+        "Root CSS variables still control spacing and typography.",
+        "No extra marker/content API is required.",
       ];
     `}
 

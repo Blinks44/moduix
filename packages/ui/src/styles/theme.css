@@ -1213,7 +1213,6 @@
   --list-gap-lg: initial; /* var(--spacing-4) */
   --list-gap-xl: initial; /* var(--spacing-5) */
   --list-gap-2xl: initial; /* var(--spacing-6) */
-  --list-item-padding-x: initial; /* 0 */
   --list-letter-spacing: initial; /* 0 */
   --list-line-height: initial; /* var(--list-line-height-md, var(--line-height-text-md)) */
   --list-line-height-xs: initial; /* var(--line-height-text-xs) */
@@ -1223,10 +1222,6 @@
   --list-line-height-xl: initial; /* var(--line-height-text-xl) */
   --list-marker-color: initial; /* currentColor */
   --list-marker-font-weight: initial; /* inherit */
-  --list-marker-gap: initial; /* var(--spacing-3) */
-  --list-marker-offset-y: initial; /* 0.625em */
-  --list-marker-radius: initial; /* var(--radius-full) */
-  --list-marker-size: initial; /* 0.375rem */
   --list-muted-color: initial; /* var(--color-muted-foreground) */
   --list-padding-x: initial; /* var(--spacing-5) */
   --list-primary-color: initial; /* var(--color-primary) */
