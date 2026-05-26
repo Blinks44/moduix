@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { SeparatorMarkIcon } from '@/primitives/Icons';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../Field';
-import { OTPField } from './OTPField';
+import { OTPField, OTPFieldInput, OTPFieldSeparator } from './OTPField';
 import storyStyles from './OTPField.stories.module.css';
 
 const OTP_LENGTH = 6;
@@ -22,6 +22,17 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
+function renderOTPInputs(length: number, className?: string, placeholder?: string) {
+  return Array.from({ length }, (_, index) => (
+    <OTPFieldInput
+      key={index}
+      className={className}
+      placeholder={placeholder}
+      aria-label={index === 0 ? undefined : `Character ${index + 1} of ${length}`}
+    />
+  ));
+}
 
 export const Basic: Story = {
   render: () => {
@@ -69,7 +80,13 @@ export const GroupedLayout: Story = {
     return (
       <Field>
         <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-        <OTPField id={id} length={OTP_LENGTH} groupSize={3} />
+        <OTPField id={id} length={OTP_LENGTH}>
+          <div className={storyStyles.group}>{renderOTPInputs(3)}</div>
+          <OTPFieldSeparator>
+            <SeparatorMarkIcon />
+          </OTPFieldSeparator>
+          <div className={storyStyles.group}>{renderOTPInputs(3)}</div>
+        </OTPField>
       </Field>
     );
   },
@@ -82,14 +99,13 @@ export const CustomSeparator: Story = {
     return (
       <Field>
         <FieldLabel htmlFor={id}>Styled code</FieldLabel>
-        <OTPField
-          id={id}
-          length={OTP_LENGTH}
-          groupSize={3}
-          inputProps={{ className: storyStyles.customInput }}
-          separator={<SeparatorMarkIcon />}
-          className={storyStyles.customRoot}
-        />
+        <OTPField id={id} length={OTP_LENGTH} className={storyStyles.customRoot}>
+          <div className={storyStyles.group}>{renderOTPInputs(3, storyStyles.customInput)}</div>
+          <OTPFieldSeparator>
+            <SeparatorMarkIcon />
+          </OTPFieldSeparator>
+          <div className={storyStyles.group}>{renderOTPInputs(3, storyStyles.customInput)}</div>
+        </OTPField>
       </Field>
     );
   },
@@ -105,14 +121,9 @@ export const PlaceholderHints: Story = {
         <FieldDescription>
           Placeholder hints stay visible until the active slot is focused.
         </FieldDescription>
-        <OTPField
-          id={id}
-          length={OTP_LENGTH}
-          inputProps={{
-            className: storyStyles.placeholderInput,
-            placeholder: '•',
-          }}
-        />
+        <OTPField id={id} length={OTP_LENGTH}>
+          {renderOTPInputs(OTP_LENGTH, storyStyles.placeholderInput, '•')}
+        </OTPField>
       </Field>
     );
   },

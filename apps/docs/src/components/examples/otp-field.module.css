@@ -15,6 +15,11 @@
   width: 20rem;
 }
 
+.group {
+  display: inline-flex;
+  gap: inherit;
+}
+
 .hint {
   color: var(--color-muted-foreground);
   font-size: var(--text-xs);

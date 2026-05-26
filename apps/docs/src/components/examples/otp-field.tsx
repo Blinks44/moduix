@@ -4,8 +4,9 @@ import {
   FieldError,
   FieldLabel,
   OTPField,
+  OTPFieldInput,
+  OTPFieldSeparator,
   SeparatorMarkIcon,
-  type OTPFieldProps,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -94,11 +95,21 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-type OTPFieldExampleProps = Omit<OTPFieldProps, 'length'> & {
-  length?: OTPFieldProps['length'];
-};
+function renderOTPInputs(length: number, className?: string, placeholder?: string) {
+  return Array.from({ length }, (_, index) => (
+    <OTPFieldInput
+      key={index}
+      className={className}
+      placeholder={placeholder}
+      aria-label={index === 0 ? undefined : `Character ${index + 1} of ${length}`}
+    />
+  ));
+}
 
-export function OTPFieldExample({ length = OTP_LENGTH, ...props }: OTPFieldExampleProps = {}) {
+export function OTPFieldExample({
+  length = OTP_LENGTH,
+  ...props
+}: Partial<React.ComponentProps<typeof OTPField>> & { length?: number } = {}) {
   const id = React.useId();
 
   return (
@@ -139,7 +150,13 @@ export function OTPFieldGroupedLayoutExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-      <OTPField id={id} length={OTP_LENGTH} groupSize={3} className={styles.groupedRoot} />
+      <OTPField id={id} length={OTP_LENGTH} className={styles.groupedRoot}>
+        <div className={styles.group}>{renderOTPInputs(3)}</div>
+        <OTPFieldSeparator>
+          <SeparatorMarkIcon />
+        </OTPFieldSeparator>
+        <div className={styles.group}>{renderOTPInputs(3)}</div>
+      </OTPField>
     </Field>
   );
 }
@@ -153,14 +170,9 @@ export function OTPFieldPlaceholderHintsExample() {
       <FieldDescription>
         Placeholder hints stay visible until the active slot is focused.
       </FieldDescription>
-      <OTPField
-        id={id}
-        length={OTP_LENGTH}
-        inputProps={{
-          className: styles.placeholderInput,
-          placeholder: '•',
-        }}
-      />
+      <OTPField id={id} length={OTP_LENGTH}>
+        {renderOTPInputs(OTP_LENGTH, styles.placeholderInput, '•')}
+      </OTPField>
     </Field>
   );
 }
@@ -257,14 +269,13 @@ export function OTPFieldCustomSeparatorExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Styled code</FieldLabel>
-      <OTPField
-        id={id}
-        length={OTP_LENGTH}
-        groupSize={3}
-        inputProps={{ className: styles.customInput }}
-        separator={<SeparatorMarkIcon />}
-        className={styles.customRoot}
-      />
+      <OTPField id={id} length={OTP_LENGTH} className={styles.customRoot}>
+        <div className={styles.group}>{renderOTPInputs(3, styles.customInput)}</div>
+        <OTPFieldSeparator>
+          <SeparatorMarkIcon />
+        </OTPFieldSeparator>
+        <div className={styles.group}>{renderOTPInputs(3, styles.customInput)}</div>
+      </OTPField>
     </Field>
   );
 }

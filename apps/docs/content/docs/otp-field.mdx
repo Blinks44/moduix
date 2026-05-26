@@ -26,9 +26,9 @@ import {
 
 ## Basic
 
-`OTPField` renders one input slot per character in `length`. Use `inputProps` to customize the
-generated slots, `groupSize` for grouped layouts, and manual children only when the slot layout
-must be fully custom.
+`OTPField` is a thin wrapper over the Base UI root primitive. By default it renders one styled slot
+per character in `length`. When the layout or per-slot markup needs to change, compose it manually
+with `OTPFieldInput` and `OTPFieldSeparator`.
 
 <Preview cssProperties={otpFieldPlaygroundCssProperties}>
   <OTPFieldExample />
@@ -57,43 +57,53 @@ must be fully custom.
 
 ## Anatomy
 
-`OTPField` owns the field state and renders slots automatically by default.
+`OTPField` owns the field state. `OTPFieldInput` renders a slot and `OTPFieldSeparator` is an
+optional visual separator for grouped layouts.
 
 ```text
 OTPField[length]
 ├─ OTPFieldInput
 ├─ OTPFieldInput
-├─ OTPFieldSeparator (optional, from groupSize)
+├─ OTPFieldSeparator (optional)
 └─ OTPFieldInput
 ```
 
 ```tsx
-<OTPField id={id} length={6} groupSize={3} />
+<OTPField id={id} length={6} />
 ```
 
-| Part                | Role                                                                                                   |
-| ------------------- | ------------------------------------------------------------------------------------------------------ |
-| `OTPField`          | Root state machine. Controls value, validation, completion callbacks, masking, and automatic slots.    |
-| `OTPFieldInput`     | Visible character slot. Rendered automatically unless custom `children` are provided.                  |
-| `OTPFieldSeparator` | Optional visible separator between groups. Rendered automatically from `groupSize` or manually placed. |
+| Part                | Role                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------- |
+| `OTPField`          | Root state machine. Controls value, validation, completion callbacks, masking, and default slots. |
+| `OTPFieldInput`     | Visible character slot. Use it directly for custom layouts or per-slot styling.                   |
+| `OTPFieldSeparator` | Optional visible separator between groups.                                                        |
 
 ## Composition
 
-Use `length` for the number of slots. Add `groupSize` to split the code visually, for example
-`groupSize={3}` for `123-456` or `groupSize={[3, 2]}` for `ABC-DE-F`.
+Use the default path when all slots look the same:
 
-`inputProps` accepts either an object for every generated slot or a function that receives
-`index` and `length` for per-slot props. Use `separator` to replace the default separator icon when
-`groupSize` is set. For layouts that need custom markup around slots, pass `OTPFieldInput` and
-`OTPFieldSeparator` as children manually.
+```tsx
+<OTPField id={id} length={6} />
+```
 
-### Defaults
+Switch to explicit composition when you need grouped layout, custom separators, or different props
+per slot:
 
-| Prop         | Default                | Values                                           |
-| ------------ | ---------------------- | ------------------------------------------------ |
-| `groupSize`  | `undefined`            | `number` or `number[]` (positive integers)       |
-| `inputProps` | `undefined`            | `OTPFieldInput` props object or props factory    |
-| `separator`  | `<SeparatorMarkIcon/>` | React node or `({ index, length }) => ReactNode` |
+```tsx
+<OTPField id={id} length={6}>
+  <div className={styles.group}>
+    <OTPFieldInput />
+    <OTPFieldInput aria-label="Character 2 of 6" />
+    <OTPFieldInput aria-label="Character 3 of 6" />
+  </div>
+  <OTPFieldSeparator>-</OTPFieldSeparator>
+  <div className={styles.group}>
+    <OTPFieldInput aria-label="Character 4 of 6" />
+    <OTPFieldInput aria-label="Character 5 of 6" />
+    <OTPFieldInput aria-label="Character 6 of 6" />
+  </div>
+</OTPField>
+```
 
 ## Examples
 
@@ -141,7 +151,7 @@ Use `validationType="alphanumeric"` for recovery, backup, or invite codes.
 
 ### Grouped Layout
 
-Use `groupSize` when a code should be shown in smaller visual groups.
+Use explicit composition when a code should be shown in smaller visual groups.
 
 <Preview>
   <OTPFieldGroupedLayoutExample />
@@ -152,8 +162,12 @@ Use `groupSize` when a code should be shown in smaller visual groups.
         Field,
         FieldLabel,
         OTPField,
+        OTPFieldInput,
+        OTPFieldSeparator,
+        SeparatorMarkIcon,
       } from "moduix";
       import { useId } from "react";
+      import styles from "./otp-field.module.css";
 
       export function GroupedOTPField() {
         const id = useId();
@@ -161,7 +175,21 @@ Use `groupSize` when a code should be shown in smaller visual groups.
         return (
           <Field>
             <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-            <OTPField id={id} length={6} groupSize={3} />
+            <OTPField id={id} length={6} className={styles.groupedRoot}>
+              <div className={styles.group}>
+                <OTPFieldInput />
+                <OTPFieldInput aria-label="Character 2 of 6" />
+                <OTPFieldInput aria-label="Character 3 of 6" />
+              </div>
+              <OTPFieldSeparator>
+                <SeparatorMarkIcon />
+              </OTPFieldSeparator>
+              <div className={styles.group}>
+                <OTPFieldInput aria-label="Character 4 of 6" />
+                <OTPFieldInput aria-label="Character 5 of 6" />
+                <OTPFieldInput aria-label="Character 6 of 6" />
+              </div>
+            </OTPField>
           </Field>
         );
       }
@@ -172,14 +200,20 @@ Use `groupSize` when a code should be shown in smaller visual groups.
 
 ### Placeholder Hints
 
-Pass native `placeholder` props to the generated slots and style them with `className`.
+`OTPFieldInput` is a real input, so native `placeholder` props and CSS work as usual.
 
 <Preview>
   <OTPFieldPlaceholderHintsExample />
 
   <Preview.Code>
     {`
-      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
+      import {
+        Field,
+        FieldDescription,
+        FieldLabel,
+        OTPField,
+        OTPFieldInput,
+      } from "moduix";
       import { useId } from "react";
       import styles from "./otp-field.module.css";
 
@@ -192,14 +226,34 @@ Pass native `placeholder` props to the generated slots and style them with `clas
             <FieldDescription>
               Placeholder hints stay visible until the active slot is focused.
             </FieldDescription>
-            <OTPField
-              id={id}
-              length={6}
-              inputProps={{
-                className: styles.placeholderInput,
-                placeholder: "•",
-              }}
-            />
+            <OTPField id={id} length={6}>
+              <OTPFieldInput className={styles.placeholderInput} placeholder="•" />
+              <OTPFieldInput
+                className={styles.placeholderInput}
+                placeholder="•"
+                aria-label="Character 2 of 6"
+              />
+              <OTPFieldInput
+                className={styles.placeholderInput}
+                placeholder="•"
+                aria-label="Character 3 of 6"
+              />
+              <OTPFieldInput
+                className={styles.placeholderInput}
+                placeholder="•"
+                aria-label="Character 4 of 6"
+              />
+              <OTPFieldInput
+                className={styles.placeholderInput}
+                placeholder="•"
+                aria-label="Character 5 of 6"
+              />
+              <OTPFieldInput
+                className={styles.placeholderInput}
+                placeholder="•"
+                aria-label="Character 6 of 6"
+              />
+            </OTPField>
           </Field>
         );
       }
@@ -370,9 +424,9 @@ normalization.
   </Preview.Code>
 </Preview>
 
-### Custom Separator
+### Custom Composition
 
-Style generated slots with `inputProps` and pass any icon to `separator`.
+Build the grouped layout manually when you need custom slot styles, separators, or DOM structure.
 
 <Preview>
   <OTPFieldCustomSeparatorExample />
@@ -383,6 +437,8 @@ Style generated slots with `inputProps` and pass any icon to `separator`.
         Field,
         FieldLabel,
         OTPField,
+        OTPFieldInput,
+        OTPFieldSeparator,
         SeparatorMarkIcon,
       } from "moduix";
       import { useId } from "react";
@@ -394,14 +450,21 @@ Style generated slots with `inputProps` and pass any icon to `separator`.
         return (
           <Field>
             <FieldLabel htmlFor={id}>Styled code</FieldLabel>
-            <OTPField
-              id={id}
-              length={6}
-              groupSize={3}
-              inputProps={{ className: styles.customInput }}
-              separator={<SeparatorMarkIcon />}
-              className={styles.customRoot}
-            />
+            <OTPField id={id} length={6} className={styles.customRoot}>
+              <div className={styles.group}>
+                <OTPFieldInput className={styles.customInput} />
+                <OTPFieldInput className={styles.customInput} aria-label="Character 2 of 6" />
+                <OTPFieldInput className={styles.customInput} aria-label="Character 3 of 6" />
+              </div>
+              <OTPFieldSeparator>
+                <SeparatorMarkIcon />
+              </OTPFieldSeparator>
+              <div className={styles.group}>
+                <OTPFieldInput className={styles.customInput} aria-label="Character 4 of 6" />
+                <OTPFieldInput className={styles.customInput} aria-label="Character 5 of 6" />
+                <OTPFieldInput className={styles.customInput} aria-label="Character 6 of 6" />
+              </div>
+            </OTPField>
           </Field>
         );
       }
@@ -421,6 +484,11 @@ Style generated slots with `inputProps` and pass any icon to `separator`.
       .customRoot {
         --otp-field-separator-size: 1.5rem;
         --otp-field-separator-color: var(--color-primary);
+      }
+
+      .group {
+        display: inline-flex;
+        gap: inherit;
       }
     `}
 
