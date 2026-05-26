@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  ContainerAlignmentExample,
   ContainerCssPlaygroundPanel,
   ContainerCssPropertiesPanel,
   ContainerExample,
@@ -18,10 +17,10 @@ import {
 
 ## API Reference
 
-`Container` is a moduix layout primitive (not a Base UI wrapper).  
+`Container` is a simple layout wrapper for a centered content column with responsive inline gutters.  
 Use `size` to set content width and `gutter` to keep responsive inline spacing around it.
-`size="full"` expands the root to the available inline space and keeps the chosen gutter inside it.
-Use `as` for semantic block-level HTML roots such as `main` or `section`.
+`size="full"` expands to the available inline space while keeping the chosen gutter inside it.
+Use `as` when the wrapper should render a different root element.
 
 ## Basic
 
@@ -66,7 +65,7 @@ Use `as` for semantic block-level HTML roots such as `main` or `section`.
 ## Anatomy
 
 `Container` is a single root layout primitive. It sets width, max content width,
-inline gutters, and horizontal alignment while leaving block spacing to parent
+inline gutters, and centering while leaving block spacing to parent
 sections or local CSS.
 
 ```text
@@ -80,28 +79,27 @@ Container
 </Container>
 ```
 
-| Part        | Role                                                                 |
-| ----------- | -------------------------------------------------------------------- |
-| `Container` | Root layout wrapper. Controls content width, gutters, and alignment. |
+| Part        | Role                                                     |
+| ----------- | -------------------------------------------------------- |
+| `Container` | Root layout wrapper. Controls content width and gutters. |
 
 ## Composition
 
-Use `size` for content width, `gutter` for edge spacing, and `align` for side pinning.
-Use `as` when the wrapper should be semantic (`main`, `section`, `article`).
+Use `size` for content width and `gutter` for edge spacing.
+Use `as` when the wrapper should render a different element.
 
 ### Defaults
 
-| Prop     | Default  | Values                                                         |
-| -------- | -------- | -------------------------------------------------------------- |
-| `size`   | `lg`     | `xs`, `sm`, `md`, `lg`, `xl`, `full`                           |
-| `gutter` | `md`     | `none`, `sm`, `md`, `lg`                                       |
-| `align`  | `center` | `start`, `center`, `end`                                       |
-| `as`     | `div`    | `div`, `main`, `section`, `article`, `header`, `footer`, `nav` |
+| Prop     | Default | Values                               |
+| -------- | ------- | ------------------------------------ |
+| `size`   | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `gutter` | `md`    | `none`, `sm`, `md`, `lg`             |
+| `as`     | `div`   | Any React element type               |
 
 `Container` does not manage vertical rhythm. Add section spacing outside it.
 `size="full"` still keeps inline gutter padding unless `gutter="none"` is used.
 Use `Bleed` inside `Container` when content must escape the constrained column.
-`Container` is a layout primitive, so `as` is intentionally limited to semantic block-level HTML elements.
+Use `className` when you need custom alignment or local variable overrides.
 
 ## Examples
 
@@ -151,31 +149,6 @@ Use `gutter` to control responsive inline padding.
             <Container gutter="sm"><Text>Small gutter</Text></Container>
             <Container gutter="md"><Text>Medium gutter</Text></Container>
             <Container gutter="lg"><Text>Large gutter</Text></Container>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Alignment
-
-Use `align` for narrow containers that should not be centered.
-
-<Preview>
-  <ContainerAlignmentExample />
-
-  <Preview.Code>
-    {`
-      import { Container, Text } from "moduix";
-
-      export function ContainerAlignmentDemo() {
-        return (
-          <>
-            <Container size="sm" align="start"><Text>Start</Text></Container>
-            <Container size="sm" align="center"><Text>Center</Text></Container>
-            <Container size="sm" align="end"><Text>End</Text></Container>
           </>
         );
       }

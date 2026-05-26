@@ -1,59 +1,46 @@
 @layer ui.components {
   .root {
-    --container-gutter-current: var(--container-gutter-md, clamp(1rem, 4vw, 2rem));
-    --container-max-width-current: var(--container-max-width-lg, 72rem);
-    --container-outer-width: calc(
-      var(--container-max-width-current) + (var(--container-gutter-current) * 2)
-    );
+    --container-gutter: var(--container-gutter-md, clamp(1rem, 4vw, 2rem));
+    --container-max-width: var(--container-max-width-lg, 72rem);
 
     box-sizing: border-box;
     display: block;
-    width: min(100%, var(--container-outer-width));
+    width: 100%;
+    max-width: calc(var(--container-max-width) + (var(--container-gutter) * 2));
     min-width: 0;
-    padding-inline: var(--container-gutter-current);
+    margin-inline: auto;
+    padding-inline: var(--container-gutter);
+  }
 
-    &[data-size='xs'] {
-      --container-max-width-current: var(--container-max-width-xs, 40rem);
-    }
+  .root[data-size='xs'] {
+    --container-max-width: var(--container-max-width-xs, 40rem);
+  }
 
-    &[data-size='sm'] {
-      --container-max-width-current: var(--container-max-width-sm, 48rem);
-    }
+  .root[data-size='sm'] {
+    --container-max-width: var(--container-max-width-sm, 48rem);
+  }
 
-    &[data-size='md'] {
-      --container-max-width-current: var(--container-max-width-md, 64rem);
-    }
+  .root[data-size='md'] {
+    --container-max-width: var(--container-max-width-md, 64rem);
+  }
 
-    &[data-size='xl'] {
-      --container-max-width-current: var(--container-max-width-xl, 90rem);
-    }
+  .root[data-size='xl'] {
+    --container-max-width: var(--container-max-width-xl, 90rem);
+  }
 
-    &[data-size='full'] {
-      width: 100%;
-    }
+  .root[data-size='full'] {
+    max-width: none;
+  }
 
-    &[data-gutter='none'] {
-      --container-gutter-current: 0;
-    }
+  .root[data-gutter='none'] {
+    --container-gutter: 0;
+  }
 
-    &[data-gutter='sm'] {
-      --container-gutter-current: var(--container-gutter-sm, clamp(0.75rem, 3vw, 1.5rem));
-    }
+  .root[data-gutter='sm'] {
+    --container-gutter: var(--container-gutter-sm, clamp(0.75rem, 3vw, 1.5rem));
+  }
 
-    &[data-gutter='lg'] {
-      --container-gutter-current: var(--container-gutter-lg, clamp(1.5rem, 5vw, 3rem));
-    }
-
-    &[data-align='start'] {
-      margin-inline-end: auto;
-    }
-
-    &[data-align='center'] {
-      margin-inline: auto;
-    }
-
-    &[data-align='end'] {
-      margin-inline-start: auto;
-    }
+  .root[data-gutter='lg'] {
+    --container-gutter: var(--container-gutter-lg, clamp(1.5rem, 5vw, 3rem));
   }
 }

@@ -1,4 +1,5 @@
-import { Container, Heading, Text, type ContainerProps } from 'moduix';
+import type * as React from 'react';
+import { Container, Heading, Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './container.module.css';
@@ -48,7 +49,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ContainerExample(props: ContainerProps) {
+export function ContainerExample(props: React.ComponentProps<typeof Container>) {
   return (
     <div className={styles.viewport}>
       <Container className={styles.container} {...props}>
@@ -86,24 +87,6 @@ export function ContainerGuttersExample() {
             <Text weight="semibold">gutter=&quot;{gutter}&quot;</Text>
           </Container>
         ))}
-      </div>
-    </div>
-  );
-}
-
-export function ContainerAlignmentExample() {
-  return (
-    <div className={styles.viewport}>
-      <div className={styles.stack}>
-        <Container size="sm" align="start" className={styles.container}>
-          <Text weight="semibold">Start aligned</Text>
-        </Container>
-        <Container size="sm" align="center" className={styles.container}>
-          <Text weight="semibold">Center aligned</Text>
-        </Container>
-        <Container size="sm" align="end" className={styles.container}>
-          <Text weight="semibold">End aligned</Text>
-        </Container>
       </div>
     </div>
   );

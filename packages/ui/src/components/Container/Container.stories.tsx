@@ -52,22 +52,6 @@ export const Gutters: Story = {
   ),
 };
 
-export const Alignment: Story = {
-  render: () => (
-    <div className={storyStyles.stack}>
-      <Container size="sm" align="start" className={storyStyles.container}>
-        <Text weight="semibold">Start aligned</Text>
-      </Container>
-      <Container size="sm" align="center" className={storyStyles.container}>
-        <Text weight="semibold">Center aligned</Text>
-      </Container>
-      <Container size="sm" align="end" className={storyStyles.container}>
-        <Text weight="semibold">End aligned</Text>
-      </Container>
-    </div>
-  ),
-};
-
 export const SemanticElement: Story = {
   render: () => (
     <Container as="main" size="md" className={storyStyles.container}>
