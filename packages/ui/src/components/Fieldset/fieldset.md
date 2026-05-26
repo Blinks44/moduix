@@ -10,7 +10,7 @@ description: A high-quality, unstyled React fieldset component with an easily st
 
 # Fieldset
 
-A native fieldset wrapper with a stylable legend.
+A thin wrapper around Base UI `Fieldset` with library styles for the root and legend.
 
 ## Demo
 
@@ -192,63 +192,34 @@ export default function ExampleField() {
 ## Anatomy
 
 ```jsx title="Anatomy"
-import { Fieldset } from '@base-ui/react/fieldset';
+import { Fieldset, FieldsetLegend } from 'moduix';
 
-<Fieldset.Root>
-  <Fieldset.Legend />
-</Fieldset.Root>;
+<Fieldset>
+  <FieldsetLegend />
+</Fieldset>;
 ```
 
-## API reference
+## API
 
-### Root
+`Fieldset` renders `FieldsetPrimitive.Root` with `data-slot="fieldset-root"` and the default
+`root` styles from [Fieldset.module.css](./Fieldset.module.css).
 
-Groups related controls under a shared legend.
-Renders a `<fieldset>` element.
+`FieldsetLegend` renders `FieldsetPrimitive.Legend` with `data-slot="fieldset-legend"` and the
+default `legend` styles.
 
-**Root Props:**
+Both components pass Base UI props through directly. The only wrapper behavior is merging the
+provided `className` with the library styles.
 
-| Prop      | Type                                                                                        | Default | Description                                                                                                                                                                                   |
-| :-------- | :------------------------------------------------------------------------------------------ | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| className | `string \| ((state: Fieldset.Root.State) => string \| undefined)`                           | -       | CSS class applied to the element, or a function that&#xA;returns a class based on the component's state.                                                                                      |
-| style     | `React.CSSProperties \| ((state: Fieldset.Root.State) => React.CSSProperties \| undefined)` | -       | Style applied to the element, or a function that&#xA;returns a style object based on the component's state.                                                                                   |
-| render    | `ReactElement \| ((props: HTMLProps, state: Fieldset.Root.State) => ReactElement)`          | -       | Allows you to replace the component's HTML element&#xA;with a different tag, or compose it with another component. Accepts a `ReactElement` or a function that returns the element to render. |
+## Composition
 
-### Root.Props
+The default path is plain semantic grouping:
 
-Re-export of [Root](/react/components/fieldset.md) props.
-
-### Root.State
-
-```typescript
-type FieldsetRootState = {
-  /** Whether the component should ignore user interaction. */
-  disabled: boolean;
-};
+```tsx
+<Fieldset>
+  <FieldsetLegend>Billing details</FieldsetLegend>
+  {children}
+</Fieldset>
 ```
 
-### Legend
-
-An accessible label that is automatically associated with the fieldset.
-Renders a `<div>` element.
-
-**Legend Props:**
-
-| Prop      | Type                                                                                          | Default | Description                                                                                                                                                                                   |
-| :-------- | :-------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| className | `string \| ((state: Fieldset.Legend.State) => string \| undefined)`                           | -       | CSS class applied to the element, or a function that&#xA;returns a class based on the component's state.                                                                                      |
-| style     | `React.CSSProperties \| ((state: Fieldset.Legend.State) => React.CSSProperties \| undefined)` | -       | Style applied to the element, or a function that&#xA;returns a style object based on the component's state.                                                                                   |
-| render    | `ReactElement \| ((props: HTMLProps, state: Fieldset.Legend.State) => ReactElement)`          | -       | Allows you to replace the component's HTML element&#xA;with a different tag, or compose it with another component. Accepts a `ReactElement` or a function that returns the element to render. |
-
-### Legend.Props
-
-Re-export of [Legend](/react/components/fieldset.md) props.
-
-### Legend.State
-
-```typescript
-type FieldsetLegendState = {
-  /** Whether the component should ignore user interaction. */
-  disabled: boolean;
-};
-```
+For the advanced case, keep using Base UI's `render` prop on `Fieldset` when the same semantic
+group also needs to act as another root component, such as `RadioGroup` or `CheckboxGroup`.

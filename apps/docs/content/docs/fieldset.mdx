@@ -6,7 +6,7 @@ icon: Component
 
 import {
   DisabledFieldsetExample,
-  CustomCompositionFieldsetExample,
+  CustomStylesFieldsetExample,
   FieldsetCssPlaygroundPanel,
   FieldsetCssPropertiesPanel,
   FieldsetExample,
@@ -94,19 +94,18 @@ Fieldset
 | `Fieldset`       | Root semantic group. Renders native `fieldset`, controls shared disabled state, and supports `render`. |
 | `FieldsetLegend` | Group label announced by assistive technologies for all nested controls in the fieldset.               |
 
-`Fieldset` does not have service slots such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep default semantic structure and customize visible parts (`Fieldset`,
-`FieldsetLegend`, and nested field slots) with `className` and CSS variables.
+`Fieldset` has only two public parts: `Fieldset` and `FieldsetLegend`. There are no extra slot APIs
+or exported helper types to learn. In most cases, keep the native structure and style the visible
+parts with `className` and CSS variables.
 
 ## Composition
 
-`Fieldset` renders a native `fieldset` by default and forwards Base UI state, refs, `className`,
-function `className`, `style`, function `style`, and `render`. Use `render` when the same root
-needs to also be another Base UI component, such as `RadioGroup`.
+`Fieldset` renders a native `fieldset` by default and passes Base UI props through directly. The
+main escape hatch is `render`, which lets the same semantic group also act as another Base UI root
+such as `RadioGroup` or `CheckboxGroup`.
 
-`Fieldset` and `FieldsetLegend` are the only public parts. There are no hidden positioner,
-backdrop, viewport, portal, or other service slots to style through `classNames`; pass `className`
-directly to the part you want to customize.
+`Fieldset` and `FieldsetLegend` are the whole component surface. Pass `className` directly to the
+part you want to customize.
 
 ### Defaults
 
@@ -120,12 +119,6 @@ directly to the part you want to customize.
 <Fieldset className={styles.fieldset}>
   <FieldsetLegend className={styles.legend}>Billing details</FieldsetLegend>
 </Fieldset>
-```
-
-The package exports Base UI state types for advanced styling callbacks:
-
-```tsx
-import { type FieldsetState, type FieldsetLegendState } from 'moduix';
 ```
 
 ## Examples
@@ -169,7 +162,7 @@ Use `disabled` on `Fieldset` to prevent interaction with every native control in
   </Preview.Code>
 </Preview>
 
-### Radio Group
+### Composed Root
 
 Use `render` to compose the fieldset semantics with another root component, such as `RadioGroup`.
 
@@ -222,12 +215,12 @@ Use `render` to compose the fieldset semantics with another root component, such
   </Preview.Data>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
 Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
-  <CustomCompositionFieldsetExample />
+  <CustomStylesFieldsetExample />
 
   <Preview.Code>
     {`

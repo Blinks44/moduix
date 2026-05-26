@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   Field,
   FieldControl,
@@ -9,7 +10,6 @@ import {
   Radio,
   RadioGroup,
   RadioLabel,
-  type FieldsetProps,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -82,7 +82,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function FieldsetExample(props: FieldsetProps) {
+export function FieldsetExample(props: ComponentProps<typeof Fieldset>) {
   return (
     <Fieldset {...props}>
       <FieldsetLegend>Billing details</FieldsetLegend>
@@ -139,7 +139,7 @@ export function RadioGroupFieldsetExample() {
   );
 }
 
-export function CustomCompositionFieldsetExample() {
+export function CustomStylesFieldsetExample() {
   return (
     <Fieldset className={styles.customFieldset}>
       <FieldsetLegend className={styles.customLegend}>Styled fieldset</FieldsetLegend>

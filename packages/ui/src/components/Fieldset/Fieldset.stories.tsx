@@ -85,7 +85,7 @@ export const RadioGroupComposition: Story = {
   },
 };
 
-export const CustomComposition: Story = {
+export const CustomStyles: Story = {
   render: () => {
     return (
       <Fieldset className={styles.customFieldset}>
