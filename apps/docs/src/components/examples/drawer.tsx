@@ -242,13 +242,15 @@ export function SnapPointsDrawerExample() {
           <DrawerDescription>Current snap point: {String(snapPoint)}</DrawerDescription>
         </DrawerHeader>
         <DrawerBody>
-          <ScrollArea className={styles.scrollArea} classNames={{ content: styles.scrollContent }}>
-            {insideScrollSections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </section>
-            ))}
+          <ScrollArea className={styles.scrollArea}>
+            <div className={styles.scrollContent}>
+              {insideScrollSections.map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </section>
+              ))}
+            </div>
           </ScrollArea>
         </DrawerBody>
         <DrawerFooter>
@@ -428,16 +430,15 @@ export function ControlledPersistentDrawerExample() {
             </button>
           </DrawerHeader>
           <DrawerBody>
-            <ScrollArea
-              className={styles.scrollArea}
-              classNames={{ content: styles.scrollContent }}
-            >
-              {insideScrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </section>
-              ))}
+            <ScrollArea className={styles.scrollArea}>
+              <div className={styles.scrollContent}>
+                {insideScrollSections.map((item) => (
+                  <section key={item.title}>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </section>
+                ))}
+              </div>
             </ScrollArea>
           </DrawerBody>
         </DrawerContent>

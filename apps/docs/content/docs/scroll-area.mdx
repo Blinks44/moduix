@@ -1,6 +1,6 @@
 ---
 title: ScrollArea
-description: A native scroll container with automatically rendered custom scrollbars.
+description: A native scroll container with custom scrollbars.
 icon: Component
 ---
 
@@ -8,8 +8,6 @@ import {
   BothScrollbarsScrollAreaExample,
   CustomCompositionScrollAreaExample,
   GradientFadeScrollAreaExample,
-  KeepMountedScrollAreaExample,
-  OverflowEdgeThresholdScrollAreaExample,
   ScrollAreaCssPlaygroundPanel,
   ScrollAreaCssPropertiesPanel,
   ScrollAreaExample,
@@ -20,6 +18,9 @@ import {
 
 ## Basic
 
+`ScrollArea` is the default path. It renders the root, viewport, content, and matching scrollbars
+for you.
+
 <Preview cssProperties={scrollAreaPlaygroundCssProperties}>
   <ScrollAreaExample />
 
@@ -29,13 +30,15 @@ import {
 
       export function ScrollAreaDemo() {
         return (
-          <ScrollArea className={styles.root} classNames={{ content: styles.textContent }}>
-            {sections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p className={styles.paragraph}>{item.body}</p>
-              </section>
-            ))}
+          <ScrollArea className={styles.root}>
+            <div className={styles.textContent}>
+              {sections.map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p className={styles.paragraph}>{item.body}</p>
+                </section>
+              ))}
+            </div>
           </ScrollArea>
         );
       }
@@ -56,6 +59,8 @@ import {
       .textContent {
         display: grid;
         gap: var(--spacing-3);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-6);
       }
 
       .paragraph {
@@ -133,82 +138,68 @@ import {
 
 ## Anatomy
 
-`ScrollArea` renders one root plus internal scrolling slots. In most cases you style the root and,
-when needed, target internal slots through `classNames`.
+For the common case, use the high-level wrapper:
 
-```text
-ScrollArea
-├─ viewport
-│  └─ content
-├─ verticalScrollbar
-│  └─ verticalThumb
-├─ horizontalScrollbar
-│  └─ horizontalThumb
-└─ corner
+```tsx
+import { ScrollArea } from 'moduix';
+
+<ScrollArea>{children}</ScrollArea>;
 ```
 
-| Part                  | Role                                                              |
-| --------------------- | ----------------------------------------------------------------- |
-| `ScrollArea`          | Root wrapper that controls overflow behavior and overall sizing.  |
-| `viewport`            | Scroll container that receives pointer and keyboard scroll input. |
-| `content`             | Inner content wrapper for your scrollable children.               |
-| `verticalScrollbar`   | Vertical scrollbar track, shown based on overflow and settings.   |
-| `horizontalScrollbar` | Horizontal scrollbar track, shown based on overflow and settings. |
-| `verticalThumb`       | Thumb inside the vertical scrollbar.                              |
-| `horizontalThumb`     | Thumb inside the horizontal scrollbar.                            |
-| `corner`              | Corner filler when both scrollbars are visible.                   |
+When you need full control over layout or DOM structure, use the low-level parts directly:
+
+```tsx
+import {
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaRoot,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from 'moduix';
+
+<ScrollAreaRoot>
+  <ScrollAreaViewport>
+    <ScrollAreaContent>{children}</ScrollAreaContent>
+  </ScrollAreaViewport>
+  <ScrollAreaScrollbar>
+    <ScrollAreaThumb />
+  </ScrollAreaScrollbar>
+  <ScrollAreaCorner />
+</ScrollAreaRoot>;
+```
 
 ## Composition
 
-Use `ScrollArea` for root behavior props such as `scrollbars`, `fade`,
-`overflowEdgeThreshold`, and `scrollbarKeepMounted`.
-Use `className` for the root and `classNames` for internal slots.
-Use `contentMinWidth="fit-content"` when horizontal overflow should follow intrinsic content width.
+`ScrollArea` keeps the default API small:
 
-### Defaults
+| Prop         | Default    | Values                                            |
+| ------------ | ---------- | ------------------------------------------------- |
+| `scrollbars` | `vertical` | `vertical`, `horizontal`, `both`, `false`         |
+| `fade`       | `false`    | `false`, `true`, `vertical`, `horizontal`, `both` |
 
-| Prop                   | Default    | Values                                            |
-| ---------------------- | ---------- | ------------------------------------------------- |
-| `scrollbars`           | `vertical` | `vertical`, `horizontal`, `both`, `false`         |
-| `fade`                 | `false`    | `false`, `true`, `vertical`, `horizontal`, `both` |
-| `contentMinWidth`      | `full`     | `full`, `fit-content`                             |
-| `scrollbarKeepMounted` | `false`    | `true`, `false`                                   |
+Other root props such as `overflowEdgeThreshold` are forwarded directly to Base UI.
 
-Shared `classNames.scrollbar` and `classNames.thumb` are applied before axis-specific classes, so
-common styling can stay shared and only per-axis differences need overrides.
+Use the high-level wrapper when you only need:
 
-Use `slotProps` when you need Base UI escape hatches such as `render`, state-based `style`, or
-other non-class props for an internal slot:
+- root sizing and borders through `className`
+- a default vertical scrollbar
+- an optional horizontal scrollbar with `scrollbars="both"` or `scrollbars="horizontal"`
+- a fade mask with `fade`
 
-```tsx
-<ScrollArea
-  scrollbars="both"
-  className={styles.root}
-  classNames={{
-    viewport: styles.viewport,
-    content: styles.content,
-    scrollbar: styles.scrollbar,
-    verticalScrollbar: styles.verticalScrollbar,
-    horizontalScrollbar: styles.horizontalScrollbar,
-    thumb: styles.thumb,
-    verticalThumb: styles.verticalThumb,
-    horizontalThumb: styles.horizontalThumb,
-    corner: styles.corner,
-  }}
-  slotProps={{
-    viewport: { render: <section /> },
-    verticalScrollbar: { render: <aside /> },
-  }}
-/>
-```
+Use the low-level parts when you need:
+
+- custom viewport or content classes
+- manual scrollbar props such as `keepMounted`
+- a different DOM structure
+- per-part styling beyond CSS variables
 
 ## Examples
 
 ### Both Scrollbars
 
-Set `scrollbars="both"` when content can overflow in both axes. Use
-`contentMinWidth="fit-content"` so content keeps its intrinsic width and can actually overflow
-horizontally.
+Use `scrollbars="both"` when content can overflow on both axes. Make the inner content as wide as
+it needs to be.
 
 <Preview>
   <BothScrollbarsScrollAreaExample />
@@ -219,17 +210,14 @@ horizontally.
 
       export function BothScrollbarsScrollAreaDemo() {
         return (
-          <ScrollArea
-            scrollbars="both"
-            contentMinWidth="fit-content"
-            className={styles.sizedRoot}
-            classNames={{ content: styles.gridContent }}
-          >
-            {cells.map((cell) => (
-              <div key={cell} className={styles.cell}>
-                {cell}
-              </div>
-            ))}
+          <ScrollArea scrollbars="both" className={styles.sizedRoot}>
+            <div className={styles.gridContent}>
+              {Array.from({ length: 96 }, (_, index) => index + 1).map((cell) => (
+                <div key={cell} className={styles.cell}>
+                  {cell}
+                </div>
+              ))}
+            </div>
           </ScrollArea>
         );
       }
@@ -251,6 +239,7 @@ horizontally.
         display: grid;
         grid-template-columns: repeat(12, 5rem);
         grid-template-rows: repeat(8, 5rem);
+        width: max-content;
         gap: var(--spacing-2);
         padding: var(--spacing-3);
       }
@@ -267,20 +256,11 @@ horizontally.
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const cells = Array.from({ length: 96 }, (_, index) => index + 1);
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Gradient Fade
 
-Set `fade` to fade content near the scroll edges. Tune the size with
-`--scroll-area-fade-size`, `--scroll-area-fade-start-size`, and `--scroll-area-fade-end-size`.
-Pass `fade="horizontal"` for horizontal overflow or `fade="both"` for both axes.
+Use `fade` to add a built-in edge fade driven by the scroll position CSS variables from Base UI.
 
 <Preview>
   <GradientFadeScrollAreaExample />
@@ -291,366 +271,74 @@ Pass `fade="horizontal"` for horizontal overflow or `fade="both"` for both axes.
 
       export function GradientFadeScrollAreaDemo() {
         return (
-          <ScrollArea
-            fade
-            className={styles.sizedRoot}
-            classNames={{ content: styles.paddedTextContent }}
-          >
-            {sections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p className={styles.paragraph}>{item.body}</p>
-              </section>
-            ))}
-          </ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .sizedRoot {
-        --scroll-area-width: 24rem;
-        --scroll-area-height: 13rem;
-        max-width: calc(100vw - 2rem);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-      }
-
-      .paddedTextContent {
-        display: grid;
-        gap: var(--spacing-3);
-        padding: var(--spacing-3);
-        padding-right: var(--spacing-6);
-      }
-
-      .paragraph {
-        margin: 0;
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sections = [
-        {
-          title: 'What this surface is for',
-          body: 'Use temporary surfaces for focused tasks that should keep users in the current page context.',
-        },
-        {
-          title: 'Keyboard and focus',
-          body: 'Tab and Shift+Tab should stay predictable while Escape or explicit controls request close.',
-        },
-        {
-          title: 'Viewport overflow',
-          body: 'Keep the container visible and place long content in a dedicated scrollable inner region.',
-        },
-        {
-          title: 'Close affordances',
-          body: 'Always provide an explicit close action when the surface can be dismissed by the user.',
-        },
-        {
-          title: 'Mobile ergonomics',
-          body: 'Keep touch targets reachable and avoid cramped headers on narrow viewports.',
-        },
-        {
-          title: 'Persistent panels',
-          body: 'For persistent workflows, keep the important controls fixed and scroll only the supporting content.',
-        },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Overflow Edge Threshold
-
-Use `overflowEdgeThreshold` when fade and edge attributes should appear only after a specific
-scroll offset.
-
-<Preview>
-  <OverflowEdgeThresholdScrollAreaExample />
-
-  <Preview.Code>
-    {`
-      import { ScrollArea } from "moduix";
-
-      export function OverflowEdgeThresholdScrollAreaDemo() {
-        return (
-          <ScrollArea
-            fade
-            className={styles.sizedRoot}
-            classNames={{ content: styles.compactTextContent }}
-            overflowEdgeThreshold={28}
-          >
-            {rows.map((row) => (
-              <p key={row} className={styles.paragraph}>
-                {row}
-              </p>
-            ))}
-          </ScrollArea>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .sizedRoot {
-        --scroll-area-width: 24rem;
-        --scroll-area-height: 13rem;
-        max-width: calc(100vw - 2rem);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-      }
-
-      .compactTextContent {
-        display: grid;
-        gap: var(--spacing-2);
-        padding: var(--spacing-3);
-        padding-right: var(--spacing-5);
-      }
-
-      .paragraph {
-        margin: 0;
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const rows = Array.from(
-        { length: 18 },
-        (_, index) =>
-          \`Threshold demo row \${index + 1}. Edge attributes appear only after the configured offset.\`,
-      );
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Keep Mounted
-
-Use `scrollbarKeepMounted` when scrollbar DOM must stay mounted while the viewport switches between
-scrollable and non-scrollable states.
-
-<Preview>
-  <KeepMountedScrollAreaExample />
-
-  <Preview.Code>
-    {`
-      import { ScrollArea } from "moduix";
-      import { useState } from "react";
-
-      export function KeepMountedScrollAreaDemo() {
-        const [denseContent, setDenseContent] = useState(false);
-
-        return (
-          <div className={styles.controls}>
-            <button
-              type="button"
-              className={styles.button}
-              onClick={() => setDenseContent((value) => !value)}
-            >
-              Toggle overflow: {denseContent ? "on" : "off"}
-            </button>
-
-            <ScrollArea
-              className={styles.sizedRoot}
-              classNames={{ content: styles.compactTextContent }}
-              scrollbarKeepMounted
-            >
-              {(denseContent ? denseRows : rows).map((row) => (
-                <p key={row} className={styles.paragraph}>
-                  {row}
-                </p>
+          <ScrollArea fade className={styles.sizedRoot}>
+            <div className={styles.paddedTextContent}>
+              {Array.from({ length: 8 }, (_, index) => ({
+                title: \`Section \${index + 1}\`,
+                body: "Scrollable content stays readable while the edges fade in and out.",
+              })).map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p className={styles.paragraph}>{item.body}</p>
+                </section>
               ))}
-            </ScrollArea>
-          </div>
+            </div>
+          </ScrollArea>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .sizedRoot {
-        --scroll-area-width: 24rem;
-        --scroll-area-height: 13rem;
-        max-width: calc(100vw - 2rem);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-      }
-
-      .compactTextContent {
-        display: grid;
-        gap: var(--spacing-2);
-        padding: var(--spacing-3);
-        padding-right: var(--spacing-5);
-      }
-
-      .paragraph {
-        margin: 0;
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .controls {
-        display: grid;
-        gap: var(--spacing-3);
-      }
-
-      .button {
-        width: fit-content;
-        min-height: var(--size-sm);
-        padding-inline: var(--spacing-3);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-sm);
-        background: var(--color-background);
-        color: var(--color-foreground);
-        cursor: pointer;
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const rows = ['KeepMounted demo row 1', 'KeepMounted demo row 2'];
-
-      const denseRows = Array.from(
-        { length: 16 },
-        (_, index) => \`KeepMounted demo row \${index + 1}\`,
-      );
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Composition
 
-Style every internal slot through `classNames`, including the viewport, content, both scrollbars,
-both thumbs, and the corner.
+Use the low-level parts when you need direct control over the viewport, content, or scrollbars.
 
 <Preview>
   <CustomCompositionScrollAreaExample />
 
   <Preview.Code>
     {`
-      import { ScrollArea } from "moduix";
+      import {
+        ScrollAreaContent,
+        ScrollAreaCorner,
+        ScrollAreaRoot,
+        ScrollAreaScrollbar,
+        ScrollAreaThumb,
+        ScrollAreaViewport,
+      } from "moduix";
 
       export function CustomCompositionScrollAreaDemo() {
         return (
-          <ScrollArea
-            scrollbars="both"
+          <ScrollAreaRoot
             className={styles.customRoot}
-            classNames={{
-              viewport: styles.customViewport,
-              content: styles.customContent,
-              verticalScrollbar: styles.customVerticalScrollbar,
-              horizontalScrollbar: styles.customHorizontalScrollbar,
-              verticalThumb: styles.customVerticalThumb,
-              horizontalThumb: styles.customHorizontalThumb,
-              corner: styles.customCorner,
-            }}
+            data-fade="both"
+            overflowEdgeThreshold={28}
           >
-            {cells.map((cell) => (
-              <div key={cell} className={styles.customCell}>
-                {cell}
-              </div>
-            ))}
-          </ScrollArea>
+            <ScrollAreaViewport className={styles.customViewport}>
+              <ScrollAreaContent className={styles.customContent}>
+                {Array.from({ length: 80 }, (_, index) => index + 1).map((cell) => (
+                  <div key={cell} className={styles.customCell}>
+                    {cell}
+                  </div>
+                ))}
+              </ScrollAreaContent>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar className={styles.customVerticalScrollbar} keepMounted>
+              <ScrollAreaThumb className={styles.customVerticalThumb} />
+            </ScrollAreaScrollbar>
+            <ScrollAreaScrollbar
+              orientation="horizontal"
+              className={styles.customHorizontalScrollbar}
+            >
+              <ScrollAreaThumb className={styles.customHorizontalThumb} />
+            </ScrollAreaScrollbar>
+            <ScrollAreaCorner className={styles.customCorner} />
+          </ScrollAreaRoot>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customRoot {
-        --scroll-area-width: 24rem;
-        --scroll-area-height: 13rem;
-        --scroll-area-scrollbar-size: 0.625rem;
-        --scroll-area-scrollbar-margin: var(--spacing-1);
-        --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
-        --scroll-area-thumb-bg: var(--color-primary);
-        --scroll-area-corner-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
-        max-width: calc(100vw - 2rem);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-      }
-
-      .customViewport {
-        border-radius: var(--radius-lg);
-        outline: var(--border-width-sm) solid var(--color-border);
-        outline-offset: calc(var(--border-width-sm) * -1);
-
-        &[data-scrolling] {
-          outline-color: var(--color-primary);
-        }
-      }
-
-      .customContent {
-        display: grid;
-        grid-template-columns: repeat(10, 5rem);
-        grid-template-rows: repeat(8, 4rem);
-        gap: var(--spacing-2);
-        padding: var(--spacing-3);
-      }
-
-      .customVerticalScrollbar {
-        background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
-      }
-
-      .customHorizontalScrollbar {
-        background-color: color-mix(in srgb, var(--color-chart-3) 18%, transparent);
-      }
-
-      .customVerticalThumb {
-        background-color: var(--color-primary);
-      }
-
-      .customHorizontalThumb {
-        background-color: var(--color-chart-3);
-      }
-
-      .customCorner {
-        border-radius: var(--radius-sm);
-        background-color: color-mix(in srgb, var(--color-foreground) 10%, transparent);
-      }
-
-      .customCell {
-        display: grid;
-        place-items: center;
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-sm);
-        background-color: var(--color-background);
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        font-weight: var(--weight-medium);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const cells = Array.from({ length: 80 }, (_, index) => index + 1);
-    `}
-
-  </Preview.Data>
 </Preview>

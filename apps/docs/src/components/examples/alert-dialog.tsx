@@ -353,13 +353,15 @@ export function ScrollableAlertDialogExample() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogBody className={styles.scrollBody}>
-          <ScrollArea className={styles.scrollArea} classNames={{ content: styles.scrollContent }}>
-            {insideScrollSections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </section>
-            ))}
+          <ScrollArea className={styles.scrollArea}>
+            <div className={styles.scrollContent}>
+              {insideScrollSections.map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </section>
+              ))}
+            </div>
           </ScrollArea>
         </AlertDialogBody>
         <AlertDialogFooter>

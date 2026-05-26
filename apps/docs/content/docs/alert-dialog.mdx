@@ -366,16 +366,15 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogBody className={styles.scrollBody}>
-                <ScrollArea
-                  className={styles.scrollArea}
-                  classNames={{ content: styles.scrollContent }}
-                >
-                  {sections.map((item) => (
-                    <section key={item.title}>
-                      <h3>{item.title}</h3>
-                      <p>{item.body}</p>
-                    </section>
-                  ))}
+                <ScrollArea className={styles.scrollArea}>
+                  <div className={styles.scrollContent}>
+                    {sections.map((item) => (
+                      <section key={item.title}>
+                        <h3>{item.title}</h3>
+                        <p>{item.body}</p>
+                      </section>
+                    ))}
+                  </div>
                 </ScrollArea>
               </AlertDialogBody>
               <AlertDialogFooter>

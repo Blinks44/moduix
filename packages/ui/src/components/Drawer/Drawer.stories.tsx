@@ -125,16 +125,15 @@ export const WithSnapPoints: Story = {
             <DrawerDescription>Current snap point: {String(snapPoint)}</DrawerDescription>
           </DrawerHeader>
           <DrawerBody>
-            <ScrollArea
-              className={storyStyles.scrollArea}
-              classNames={{ content: storyStyles.scrollContent }}
-            >
-              {insideScrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </section>
-              ))}
+            <ScrollArea className={storyStyles.scrollArea}>
+              <div className={storyStyles.scrollContent}>
+                {insideScrollSections.map((item) => (
+                  <section key={item.title}>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </section>
+                ))}
+              </div>
             </ScrollArea>
           </DrawerBody>
           <DrawerFooter>
@@ -213,16 +212,15 @@ export const ControlledPersistent: Story = {
               </button>
             </DrawerHeader>
             <DrawerBody>
-              <ScrollArea
-                className={storyStyles.scrollArea}
-                classNames={{ content: storyStyles.scrollContent }}
-              >
-                {insideScrollSections.map((item) => (
-                  <section key={item.title}>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
-                  </section>
-                ))}
+              <ScrollArea className={storyStyles.scrollArea}>
+                <div className={storyStyles.scrollContent}>
+                  {insideScrollSections.map((item) => (
+                    <section key={item.title}>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </section>
+                  ))}
+                </div>
               </ScrollArea>
             </DrawerBody>
           </DrawerContent>

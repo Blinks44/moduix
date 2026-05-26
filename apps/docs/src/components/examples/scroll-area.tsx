@@ -1,4 +1,12 @@
-import { ScrollArea, type ScrollAreaProps } from 'moduix';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaRoot,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from 'moduix';
 import * as React from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -8,7 +16,7 @@ import styles from './scroll-area.module.css';
 export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--scroll-area-bg', 'transparent', 'Controls the viewport background color.'],
   ['--scroll-area-color', 'var(--color-foreground)', 'Controls the root text color.'],
-  ['--scroll-area-content-padding', 'var(--spacing-3)', 'Controls the content slot padding.'],
+  ['--scroll-area-content-padding', '0', 'Controls the content slot padding.'],
   ['--scroll-area-corner-bg', 'transparent', 'Controls the corner color for two-axis scrolling.'],
   ['--scroll-area-fade-end-size', 'var(--scroll-area-fade-size)', 'Controls vertical end fade.'],
   [
@@ -62,10 +70,11 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--scroll-area-transition', 'var(--transition-default)', 'Controls scrollbar fade timing.'],
   ['--scroll-area-width', '24rem', 'Controls the root width.'],
 ];
+
 export const scrollAreaPlaygroundCssProperties: CssPropertyInput[] = [
   ['--scroll-area-bg', 'transparent', 'Controls viewport background color.'],
   ['--scroll-area-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--scroll-area-content-padding', 'var(--spacing-3)', 'Controls content slot padding.'],
+  ['--scroll-area-content-padding', '0', 'Controls content slot padding.'],
   ['--scroll-area-focus-ring-color', 'var(--color-ring)', 'Controls viewport focus ring color.'],
   ['--scroll-area-radius', 'var(--radius-md)', 'Controls viewport border radius.'],
   ['--scroll-area-scrollbar-bg', 'transparent', 'Controls scrollbar track background color.'],
@@ -101,120 +110,69 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ScrollAreaExample(props: ScrollAreaProps) {
+export function ScrollAreaExample(props: React.ComponentProps<typeof ScrollArea>) {
   return (
-    <ScrollArea {...props} className={styles.root} classNames={{ content: styles.textContent }}>
-      {insideScrollSections.map((item) => (
-        <section key={item.title}>
-          <h3>{item.title}</h3>
-          <p className={styles.paragraph}>{item.body}</p>
-        </section>
-      ))}
+    <ScrollArea {...props} className={styles.root}>
+      <div className={styles.textContent}>
+        {insideScrollSections.map((item) => (
+          <section key={item.title}>
+            <h3>{item.title}</h3>
+            <p className={styles.paragraph}>{item.body}</p>
+          </section>
+        ))}
+      </div>
     </ScrollArea>
   );
 }
 
 export function BothScrollbarsScrollAreaExample() {
   return (
-    <ScrollArea
-      scrollbars="both"
-      contentMinWidth="fit-content"
-      className={styles.sizedRoot}
-      classNames={{ content: styles.gridContent }}
-    >
-      {Array.from({ length: 96 }, (_, index) => (
-        <div key={index} className={styles.cell}>
-          {index + 1}
-        </div>
-      ))}
+    <ScrollArea scrollbars="both" className={styles.sizedRoot}>
+      <div className={styles.gridContent}>
+        {Array.from({ length: 96 }, (_, index) => (
+          <div key={index} className={styles.cell}>
+            {index + 1}
+          </div>
+        ))}
+      </div>
     </ScrollArea>
   );
 }
 
 export function GradientFadeScrollAreaExample() {
   return (
-    <ScrollArea
-      fade
-      className={styles.sizedRoot}
-      classNames={{ content: styles.paddedTextContent }}
-    >
-      {insideScrollSections.map((item) => (
-        <section key={item.title}>
-          <h3>{item.title}</h3>
-          <p className={styles.paragraph}>{item.body}</p>
-        </section>
-      ))}
-    </ScrollArea>
-  );
-}
-
-export function OverflowEdgeThresholdScrollAreaExample() {
-  return (
-    <ScrollArea
-      fade
-      className={styles.sizedRoot}
-      classNames={{ content: styles.compactTextContent }}
-      overflowEdgeThreshold={28}
-    >
-      {insideScrollSections.map((item) => (
-        <section key={item.title}>
-          <h3>{item.title}</h3>
-          <p className={styles.paragraph}>{item.body}</p>
-        </section>
-      ))}
-    </ScrollArea>
-  );
-}
-
-export function KeepMountedScrollAreaExample() {
-  const [denseContent, setDenseContent] = React.useState(false);
-
-  return (
-    <div className={styles.controls}>
-      <button
-        type="button"
-        className={styles.button}
-        onClick={() => setDenseContent((value) => !value)}
-      >
-        Toggle overflow: {denseContent ? 'on' : 'off'}
-      </button>
-
-      <ScrollArea
-        className={styles.sizedRoot}
-        classNames={{ content: styles.compactTextContent }}
-        scrollbarKeepMounted
-      >
-        {(denseContent ? insideScrollSections : insideScrollSections.slice(0, 2)).map((item) => (
+    <ScrollArea fade className={styles.sizedRoot}>
+      <div className={styles.paddedTextContent}>
+        {insideScrollSections.map((item) => (
           <section key={item.title}>
             <h3>{item.title}</h3>
             <p className={styles.paragraph}>{item.body}</p>
           </section>
         ))}
-      </ScrollArea>
-    </div>
+      </div>
+    </ScrollArea>
   );
 }
 
 export function CustomCompositionScrollAreaExample() {
   return (
-    <ScrollArea
-      scrollbars="both"
-      className={styles.customRoot}
-      classNames={{
-        viewport: styles.customViewport,
-        content: styles.customContent,
-        verticalScrollbar: styles.customVerticalScrollbar,
-        horizontalScrollbar: styles.customHorizontalScrollbar,
-        verticalThumb: styles.customVerticalThumb,
-        horizontalThumb: styles.customHorizontalThumb,
-        corner: styles.customCorner,
-      }}
-    >
-      {Array.from({ length: 80 }, (_, index) => (
-        <div key={index} className={styles.customCell}>
-          {index + 1}
-        </div>
-      ))}
-    </ScrollArea>
+    <ScrollAreaRoot className={styles.customRoot} data-fade="both" overflowEdgeThreshold={28}>
+      <ScrollAreaViewport className={styles.customViewport}>
+        <ScrollAreaContent className={styles.customContent}>
+          {Array.from({ length: 80 }, (_, index) => (
+            <div key={index} className={styles.customCell}>
+              {index + 1}
+            </div>
+          ))}
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar className={styles.customVerticalScrollbar} keepMounted>
+        <ScrollAreaThumb className={styles.customVerticalThumb} />
+      </ScrollAreaScrollbar>
+      <ScrollAreaScrollbar orientation="horizontal" className={styles.customHorizontalScrollbar}>
+        <ScrollAreaThumb className={styles.customHorizontalThumb} />
+      </ScrollAreaScrollbar>
+      <ScrollAreaCorner className={styles.customCorner} />
+    </ScrollAreaRoot>
   );
 }

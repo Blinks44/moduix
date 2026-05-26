@@ -229,13 +229,15 @@ export function ScrollableDialogExample() {
           <DialogDescription>Review all items before publishing to production.</DialogDescription>
         </DialogHeader>
         <DialogBody className={styles.scrollBody}>
-          <ScrollArea className={styles.scrollArea} classNames={{ content: styles.scrollContent }}>
-            {insideScrollSections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </section>
-            ))}
+          <ScrollArea className={styles.scrollArea}>
+            <div className={styles.scrollContent}>
+              {insideScrollSections.map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </section>
+              ))}
+            </div>
           </ScrollArea>
         </DialogBody>
         <DialogFooter>

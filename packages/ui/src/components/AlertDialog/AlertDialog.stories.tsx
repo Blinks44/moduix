@@ -192,16 +192,15 @@ export const WithScrollableViewport: Story = {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogBody className={storyStyles.scrollBody}>
-            <ScrollArea
-              className={storyStyles.scrollArea}
-              classNames={{ content: storyStyles.scrollContent }}
-            >
-              {insideScrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </section>
-              ))}
+            <ScrollArea className={storyStyles.scrollArea}>
+              <div className={storyStyles.scrollContent}>
+                {insideScrollSections.map((item) => (
+                  <section key={item.title}>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </section>
+                ))}
+              </div>
             </ScrollArea>
           </AlertDialogBody>
           <AlertDialogFooter>

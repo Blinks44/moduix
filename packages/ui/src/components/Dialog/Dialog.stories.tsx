@@ -240,19 +240,15 @@ export const InsideScrollDialog: Story = {
               </DialogHeader>
 
               <DialogBody className={storyStyles.insideBodyWrapper}>
-                <ScrollArea
-                  className={storyStyles.insideBody}
-                  classNames={{
-                    viewport: storyStyles.insideBodyViewport,
-                    content: storyStyles.insideBodyContent,
-                  }}
-                >
-                  {insideScrollSections.map((item) => (
-                    <section key={item.title}>
-                      <h3 className={storyStyles.insideSectionTitle}>{item.title}</h3>
-                      <p className={storyStyles.insideSectionBody}>{item.body}</p>
-                    </section>
-                  ))}
+                <ScrollArea className={storyStyles.insideBody}>
+                  <div className={storyStyles.insideBodyContent}>
+                    {insideScrollSections.map((item) => (
+                      <section key={item.title}>
+                        <h3 className={storyStyles.insideSectionTitle}>{item.title}</h3>
+                        <p className={storyStyles.insideSectionBody}>{item.body}</p>
+                      </section>
+                    ))}
+                  </div>
                 </ScrollArea>
               </DialogBody>
 
