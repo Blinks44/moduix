@@ -6,6 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  usePagination,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -72,57 +73,48 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function getPaginationItems(currentPage: number, pageCount: number) {
-  if (pageCount <= 7) {
-    return Array.from({ length: pageCount }, (_, index) => index + 1);
-  }
-
-  if (currentPage <= 4) {
-    return [1, 2, 3, 4, 5, 'end', pageCount];
-  }
-
-  if (currentPage >= pageCount - 3) {
-    return [1, 'start', pageCount - 4, pageCount - 3, pageCount - 2, pageCount - 1, pageCount];
-  }
-
-  return [1, 'start', currentPage - 1, currentPage, currentPage + 1, 'end', pageCount];
-}
-
 function PaginationItems({
+  boundaryCount = 1,
   currentPage,
   onPageChange,
   pageCount,
+  siblingCount = 1,
 }: {
+  boundaryCount?: number;
   currentPage: number;
   onPageChange?: (page: number) => void;
   pageCount: number;
+  siblingCount?: number;
 }) {
-  const handlePageChange = (page: number) => {
-    onPageChange?.(page);
-  };
+  const pagination = usePagination({
+    boundaryCount,
+    count: pageCount,
+    page: currentPage,
+    siblingCount,
+  });
 
   return (
     <>
       <PaginationItem>
         <PaginationPrevious
           render={<button type="button" />}
-          aria-disabled={currentPage === 1 || undefined}
+          aria-disabled={!pagination.canPreviousPage || undefined}
           onClick={() => {
-            if (currentPage > 1) {
-              handlePageChange(currentPage - 1);
+            if (pagination.canPreviousPage) {
+              onPageChange?.(pagination.previousPage);
             }
           }}
         />
       </PaginationItem>
-      {getPaginationItems(currentPage, pageCount).map((item, index) => (
+      {pagination.items.map((item, index) => (
         <PaginationItem key={`${item}-${index}`}>
           {typeof item !== 'number' ? (
             <PaginationEllipsis />
           ) : (
             <PaginationLink
               render={<button type="button" />}
-              isActive={item === currentPage}
-              onClick={() => handlePageChange(item)}
+              isActive={item === pagination.page}
+              onClick={() => onPageChange?.(item)}
             >
               {item}
             </PaginationLink>
@@ -132,10 +124,10 @@ function PaginationItems({
       <PaginationItem>
         <PaginationNext
           render={<button type="button" />}
-          aria-disabled={currentPage === pageCount || undefined}
+          aria-disabled={!pagination.canNextPage || undefined}
           onClick={() => {
-            if (currentPage < pageCount) {
-              handlePageChange(currentPage + 1);
+            if (pagination.canNextPage) {
+              onPageChange?.(pagination.nextPage);
             }
           }}
         />
@@ -253,6 +245,27 @@ export function PaginationControlledExample() {
       <Pagination>
         <PaginationContent>
           <PaginationItems currentPage={page} onPageChange={setPage} pageCount={10} />
+        </PaginationContent>
+      </Pagination>
+      <div className={styles.code}>Current page: {page}</div>
+    </div>
+  );
+}
+
+export function PaginationDensityExample() {
+  const [page, setPage] = React.useState(12);
+
+  return (
+    <div className={styles.stack}>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItems
+            boundaryCount={2}
+            currentPage={page}
+            onPageChange={setPage}
+            pageCount={24}
+            siblingCount={2}
+          />
         </PaginationContent>
       </Pagination>
       <div className={styles.code}>Current page: {page}</div>

@@ -8,6 +8,7 @@ import {
   PaginationClassNameExample,
   PaginationCompactExample,
   PaginationControlledExample,
+  PaginationDensityExample,
   PaginationCssPlaygroundPanel,
   PaginationCssPropertiesPanel,
   PaginationExample,
@@ -33,11 +34,13 @@ import {
         PaginationLink,
         PaginationNext,
         PaginationPrevious,
+        usePagination,
       } from "moduix";
       import { useState } from "react";
 
       export function PaginationDemo() {
         const [page, setPage] = useState(5);
+        const pagination = usePagination({ count: 10, page });
 
         return (
           <Pagination>
@@ -45,47 +48,29 @@ import {
               <PaginationItem>
                 <PaginationPrevious
                   render={<button type="button" />}
+                  aria-disabled={!pagination.canPreviousPage || undefined}
                   onClick={() => setPage((current) => Math.max(current - 1, 1))}
                 />
               </PaginationItem>
-              <PaginationItem>
-                <PaginationLink render={<button type="button" />} onClick={() => setPage(1)}>
-                  1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink render={<button type="button" />} onClick={() => setPage(4)}>
-                  4
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  render={<button type="button" />}
-                  isActive={page === 5}
-                  onClick={() => setPage(5)}
-                >
-                  5
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink render={<button type="button" />} onClick={() => setPage(6)}>
-                  6
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink render={<button type="button" />} onClick={() => setPage(10)}>
-                  10
-                </PaginationLink>
-              </PaginationItem>
+              {pagination.items.map((item, index) => (
+                <PaginationItem key={String(item) + "-" + index}>
+                  {typeof item !== "number" ? (
+                    <PaginationEllipsis />
+                  ) : (
+                    <PaginationLink
+                      render={<button type="button" />}
+                      isActive={item === pagination.page}
+                      onClick={() => setPage(item)}
+                    >
+                      {item}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
               <PaginationItem>
                 <PaginationNext
                   render={<button type="button" />}
+                  aria-disabled={!pagination.canNextPage || undefined}
                   onClick={() => setPage((current) => Math.min(current + 1, 10))}
                 />
               </PaginationItem>
@@ -136,14 +121,29 @@ Pagination
 Pagination no longer owns page state, range generation, or URL mapping. Those concerns stay in
 consumer code, where they are easier to reason about and easier to customize.
 
-Use the Base UI `render` prop when pagination is driven by local React state or framework-specific
-link components. Plain `href` props still work for regular anchor links.
+Use `usePagination` when you want the library to calculate the visible page items, ellipses, and
+previous/next targets.
+
+Use plain `href` when a normal anchor is enough. Use `render={<Link />}` when your app standardizes
+on router link components. Use `render={<button />}` when pagination is driven by local state.
 
 `PaginationPrevious` and `PaginationNext` are icon-only by default. Pass `children` when the
 surrounding UI needs text labels or a custom layout.
 
 The default examples keep a fixed pagination window, so the control does not grow when the current
 page moves from the edge into the middle range.
+
+## Links and Buttons
+
+| Pattern                | Best fit                                              |
+| ---------------------- | ----------------------------------------------------- |
+| `href="/items?page=4"` | Plain links, SSR-first pages, no framework wrapper    |
+| `render={<Link />}`    | Next.js, TanStack Router, Remix, or custom router API |
+| `render={<button />}`  | Local state, client-side tables, or filtered lists    |
+
+Prefer `href` when navigation is the main job and the platform link is enough. Prefer `render` with
+a router `Link` when the app already relies on framework-level prefetching, active-state handling,
+or typed route params.
 
 ## Examples
 
@@ -159,15 +159,18 @@ Build only the items that the current layout needs.
       import {
         Pagination,
         PaginationContent,
+        PaginationEllipsis,
         PaginationItem,
         PaginationLink,
         PaginationNext,
         PaginationPrevious,
+        usePagination,
       } from "moduix";
       import { useState } from "react";
 
       export function PaginationCompactDemo() {
         const [page, setPage] = useState(5);
+        const pagination = usePagination({ count: 10, page });
 
         return (
           <Pagination>
@@ -175,40 +178,102 @@ Build only the items that the current layout needs.
               <PaginationItem>
                 <PaginationPrevious
                   render={<button type="button" />}
-                  onClick={() => setPage((current) => Math.max(current - 1, 1))}
+                  aria-disabled={!pagination.canPreviousPage || undefined}
+                  onClick={() => setPage(pagination.previousPage)}
                 />
               </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  render={<button type="button" />}
-                  isActive={page === 4}
-                  onClick={() => setPage(4)}
-                >
-                  4
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  render={<button type="button" />}
-                  isActive={page === 5}
-                  onClick={() => setPage(5)}
-                >
-                  5
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  render={<button type="button" />}
-                  isActive={page === 6}
-                  onClick={() => setPage(6)}
-                >
-                  6
-                </PaginationLink>
-              </PaginationItem>
+              {pagination.items.map((item, index) => (
+                <PaginationItem key={String(item) + "-" + index}>
+                  {typeof item !== "number" ? (
+                    <PaginationEllipsis />
+                  ) : (
+                    <PaginationLink
+                      render={<button type="button" />}
+                      isActive={item === pagination.page}
+                      onClick={() => setPage(item)}
+                    >
+                      {item}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
               <PaginationItem>
                 <PaginationNext
                   render={<button type="button" />}
-                  onClick={() => setPage((current) => Math.min(current + 1, 10))}
+                  aria-disabled={!pagination.canNextPage || undefined}
+                  onClick={() => setPage(pagination.nextPage)}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Pagination Density
+
+Tune `siblingCount` and `boundaryCount` on `usePagination` when you need a denser or wider page
+window.
+
+<Preview>
+  <PaginationDensityExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Pagination,
+        PaginationContent,
+        PaginationEllipsis,
+        PaginationItem,
+        PaginationLink,
+        PaginationNext,
+        PaginationPrevious,
+        usePagination,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function PaginationDensityDemo() {
+        const [page, setPage] = useState(12);
+        const pagination = usePagination({
+          count: 24,
+          page,
+          siblingCount: 2,
+          boundaryCount: 2,
+        });
+
+        return (
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  render={<button type="button" />}
+                  aria-disabled={!pagination.canPreviousPage || undefined}
+                  onClick={() => setPage(pagination.previousPage)}
+                />
+              </PaginationItem>
+              {pagination.items.map((item, index) => (
+                <PaginationItem key={String(item) + "-" + index}>
+                  {typeof item !== "number" ? (
+                    <PaginationEllipsis />
+                  ) : (
+                    <PaginationLink
+                      render={<button type="button" />}
+                      isActive={item === pagination.page}
+                      onClick={() => setPage(item)}
+                    >
+                      {item}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  render={<button type="button" />}
+                  aria-disabled={!pagination.canNextPage || undefined}
+                  onClick={() => setPage(pagination.nextPage)}
                 />
               </PaginationItem>
             </PaginationContent>
@@ -237,11 +302,13 @@ Use the Base UI `render` prop when the controls should behave like buttons inste
         PaginationLink,
         PaginationNext,
         PaginationPrevious,
+        usePagination,
       } from "moduix";
       import { useState } from "react";
 
       export function PaginationControlledDemo() {
         const [page, setPage] = useState(5);
+        const pagination = usePagination({ count: 10, page });
 
         return (
           <Pagination>
@@ -249,27 +316,30 @@ Use the Base UI `render` prop when the controls should behave like buttons inste
               <PaginationItem>
                 <PaginationPrevious
                   render={<button type="button" />}
-                  aria-disabled={page === 1 || undefined}
-                  onClick={() => setPage((current) => Math.max(current - 1, 1))}
+                  aria-disabled={!pagination.canPreviousPage || undefined}
+                  onClick={() => setPage(pagination.previousPage)}
                 />
               </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  render={<button type="button" />}
-                  isActive={page === 5}
-                  onClick={() => setPage(5)}
-                >
-                  5
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
+              {pagination.items.map((item, index) => (
+                <PaginationItem key={String(item) + "-" + index}>
+                  {typeof item !== "number" ? (
+                    <PaginationEllipsis />
+                  ) : (
+                    <PaginationLink
+                      render={<button type="button" />}
+                      isActive={item === pagination.page}
+                      onClick={() => setPage(item)}
+                    >
+                      {item}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
               <PaginationItem>
                 <PaginationNext
                   render={<button type="button" />}
-                  aria-disabled={page === 10 || undefined}
-                  onClick={() => setPage((current) => Math.min(current + 1, 10))}
+                  aria-disabled={!pagination.canNextPage || undefined}
+                  onClick={() => setPage(pagination.nextPage)}
                 />
               </PaginationItem>
             </PaginationContent>
@@ -289,10 +359,12 @@ Use `render` with `next/link` when the app standardizes on framework links.
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  usePagination,
 } from 'moduix';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -301,6 +373,7 @@ export function PaginationNextJs({ pageCount }: { pageCount: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const page = Number(searchParams.get('page') ?? '1');
+  const pagination = usePagination({ count: pageCount, page });
 
   const createHref = (nextPage: number) => {
     const params = new URLSearchParams(searchParams);
@@ -313,19 +386,28 @@ export function PaginationNextJs({ pageCount }: { pageCount: number }) {
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            render={<Link href={createHref(Math.max(page - 1, 1))} />}
-            aria-disabled={page <= 1 || undefined}
+            render={<Link href={createHref(pagination.previousPage)} />}
+            aria-disabled={!pagination.canPreviousPage || undefined}
           />
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink render={<Link href={createHref(page)} />} isActive>
-            {page}
-          </PaginationLink>
-        </PaginationItem>
+        {pagination.items.map((item, index) => (
+          <PaginationItem key={String(item) + '-' + index}>
+            {typeof item !== 'number' ? (
+              <PaginationEllipsis />
+            ) : (
+              <PaginationLink
+                render={<Link href={createHref(item)} />}
+                isActive={item === pagination.page}
+              >
+                {item}
+              </PaginationLink>
+            )}
+          </PaginationItem>
+        ))}
         <PaginationItem>
           <PaginationNext
-            render={<Link href={createHref(Math.min(page + 1, pageCount))} />}
-            aria-disabled={page >= pageCount || undefined}
+            render={<Link href={createHref(pagination.nextPage)} />}
+            aria-disabled={!pagination.canNextPage || undefined}
           />
         </PaginationItem>
       </PaginationContent>
@@ -342,16 +424,19 @@ With TanStack Start, `render` can target router `Link` components directly.
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  usePagination,
 } from 'moduix';
 import { Link, useSearch } from '@tanstack/react-router';
 
 export function PaginationTanStackStart({ pageCount }: { pageCount: number }) {
   const search = useSearch({ from: '/' });
   const page = search.page ?? 1;
+  const pagination = usePagination({ count: pageCount, page });
 
   return (
     <Pagination>
@@ -363,29 +448,35 @@ export function PaginationTanStackStart({ pageCount }: { pageCount: number }) {
                 to="/"
                 search={(previous) => ({
                   ...previous,
-                  page: Math.max(page - 1, 1),
+                  page: pagination.previousPage,
                 })}
               />
             }
-            aria-disabled={page <= 1 || undefined}
+            aria-disabled={!pagination.canPreviousPage || undefined}
           />
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink
-            render={
-              <Link
-                to="/"
-                search={(previous) => ({
-                  ...previous,
-                  page,
-                })}
-              />
-            }
-            isActive
-          >
-            {page}
-          </PaginationLink>
-        </PaginationItem>
+        {pagination.items.map((item, index) => (
+          <PaginationItem key={String(item) + '-' + index}>
+            {typeof item !== 'number' ? (
+              <PaginationEllipsis />
+            ) : (
+              <PaginationLink
+                render={
+                  <Link
+                    to="/"
+                    search={(previous) => ({
+                      ...previous,
+                      page: item,
+                    })}
+                  />
+                }
+                isActive={item === pagination.page}
+              >
+                {item}
+              </PaginationLink>
+            )}
+          </PaginationItem>
+        ))}
         <PaginationItem>
           <PaginationNext
             render={
@@ -393,11 +484,11 @@ export function PaginationTanStackStart({ pageCount }: { pageCount: number }) {
                 to="/"
                 search={(previous) => ({
                   ...previous,
-                  page: Math.min(page + 1, pageCount),
+                  page: pagination.nextPage,
                 })}
               />
             }
-            aria-disabled={page >= pageCount || undefined}
+            aria-disabled={!pagination.canNextPage || undefined}
           />
         </PaginationItem>
       </PaginationContent>

@@ -6,4 +6,5 @@ export {
   PaginationPrevious,
   PaginationNext,
   PaginationEllipsis,
+  usePagination,
 } from './Pagination';

@@ -8,23 +8,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  usePagination,
 } from './Pagination';
-
-function getPaginationItems(currentPage: number, pageCount: number) {
-  if (pageCount <= 7) {
-    return Array.from({ length: pageCount }, (_, index) => index + 1);
-  }
-
-  if (currentPage <= 4) {
-    return [1, 2, 3, 4, 5, 'end', pageCount];
-  }
-
-  if (currentPage >= pageCount - 3) {
-    return [1, 'start', pageCount - 4, pageCount - 3, pageCount - 2, pageCount - 1, pageCount];
-  }
-
-  return [1, 'start', currentPage - 1, currentPage, currentPage + 1, 'end', pageCount];
-}
 
 function PaginationDemo({
   currentPage = 5,
@@ -34,6 +19,7 @@ function PaginationDemo({
   pageCount?: number;
 }) {
   const [page, setPage] = React.useState(currentPage);
+  const pagination = usePagination({ count: pageCount, page });
 
   React.useEffect(() => {
     setPage(currentPage);
@@ -45,22 +31,22 @@ function PaginationDemo({
         <PaginationItem>
           <PaginationPrevious
             render={<button type="button" />}
-            aria-disabled={page === 1 || undefined}
+            aria-disabled={!pagination.canPreviousPage || undefined}
             onClick={() => {
-              if (page > 1) {
-                setPage(page - 1);
+              if (pagination.canPreviousPage) {
+                setPage(pagination.previousPage);
               }
             }}
           />
         </PaginationItem>
-        {getPaginationItems(page, pageCount).map((item, index) => (
+        {pagination.items.map((item, index) => (
           <PaginationItem key={`${item}-${index}`}>
             {typeof item !== 'number' ? (
               <PaginationEllipsis />
             ) : (
               <PaginationLink
                 render={<button type="button" />}
-                isActive={item === page}
+                isActive={item === pagination.page}
                 onClick={() => setPage(item)}
               >
                 {item}
@@ -71,10 +57,10 @@ function PaginationDemo({
         <PaginationItem>
           <PaginationNext
             render={<button type="button" />}
-            aria-disabled={page === pageCount || undefined}
+            aria-disabled={!pagination.canNextPage || undefined}
             onClick={() => {
-              if (page < pageCount) {
-                setPage(page + 1);
+              if (pagination.canNextPage) {
+                setPage(pagination.nextPage);
               }
             }}
           />
@@ -114,8 +100,7 @@ export const End: Story = {
 export const Controlled: Story = {
   render: () => {
     const [page, setPage] = React.useState(5);
-    const previousPage = Math.max(page - 1, 1);
-    const nextPage = Math.min(page + 1, 10);
+    const pagination = usePagination({ count: 10, page });
 
     return (
       <Pagination>
@@ -123,22 +108,22 @@ export const Controlled: Story = {
           <PaginationItem>
             <PaginationPrevious
               render={<button type="button" />}
-              aria-disabled={page === 1 || undefined}
+              aria-disabled={!pagination.canPreviousPage || undefined}
               onClick={() => {
-                if (page > 1) {
-                  setPage(previousPage);
+                if (pagination.canPreviousPage) {
+                  setPage(pagination.previousPage);
                 }
               }}
             />
           </PaginationItem>
-          {getPaginationItems(page, 10).map((item, index) => (
+          {pagination.items.map((item, index) => (
             <PaginationItem key={`${item}-${index}`}>
               {typeof item !== 'number' ? (
                 <PaginationEllipsis />
               ) : (
                 <PaginationLink
                   render={<button type="button" />}
-                  isActive={item === page}
+                  isActive={item === pagination.page}
                   onClick={() => setPage(item)}
                 >
                   {item}
@@ -149,10 +134,10 @@ export const Controlled: Story = {
           <PaginationItem>
             <PaginationNext
               render={<button type="button" />}
-              aria-disabled={page === 10 || undefined}
+              aria-disabled={!pagination.canNextPage || undefined}
               onClick={() => {
-                if (page < 10) {
-                  setPage(nextPage);
+                if (pagination.canNextPage) {
+                  setPage(pagination.nextPage);
                 }
               }}
             />
