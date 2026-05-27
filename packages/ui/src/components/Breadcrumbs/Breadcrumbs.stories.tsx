@@ -141,3 +141,25 @@ export const LongCurrentLabel: Story = {
     </Breadcrumbs>
   ),
 };
+
+export const FrameworkLink: Story = {
+  render: () => (
+    <Breadcrumbs>
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink render={<a href="#home" data-framework-link />}>Home</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink render={<a href="#vacancies" data-framework-link />}>
+            Vacancies
+          </BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
+    </Breadcrumbs>
+  ),
+};

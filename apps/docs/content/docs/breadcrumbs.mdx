@@ -10,8 +10,8 @@ import {
   BreadcrumbsCssPropertiesPanel,
   BreadcrumbsCustomSeparatorExample,
   BreadcrumbsExample,
+  BreadcrumbsFrameworkLinkExample,
   BreadcrumbsLongLabelExample,
-  BreadcrumbsRenderExample,
   breadcrumbsPlaygroundCssProperties,
 } from '@/components/examples/breadcrumbs';
 
@@ -83,13 +83,11 @@ Breadcrumbs
 
 ## Composition
 
-Use `BreadcrumbsLink` for regular links and `BreadcrumbsPage` for the current page.
+Use `BreadcrumbsLink` for navigable segments and `BreadcrumbsPage` for the current page.
 
-For framework routers, pass `render` to `BreadcrumbsLink` and return your own link while
-forwarding the received props to the underlying DOM element.
-
-Collapsed paths are composed explicitly with `Menu`. `Breadcrumbs` no longer owns collapsed state
-or hidden-items logic.
+Use plain `href` when a normal anchor is enough. Use `render={<Link />}` when the app
+standardizes on a router link component. Keep collapsed paths explicit by composing `Breadcrumbs`
+with `Menu`; the breadcrumb parts themselves stay stateless and semantic.
 
 ## Examples
 
@@ -254,12 +252,12 @@ Wrap the current page content with your own element when you need extra attribut
   </Preview.Code>
 </Preview>
 
-### Framework Links
+## Custom Composition
 
-Use `render` to integrate router link components while keeping breadcrumb styles.
+Use `render={<Link />}` when the app standardizes on framework links.
 
 <Preview>
-  <BreadcrumbsRenderExample />
+  <BreadcrumbsFrameworkLinkExample />
 
   <Preview.Code>
     {`
@@ -278,27 +276,13 @@ Use `render` to integrate router link components while keeping breadcrumb styles
           <Breadcrumbs>
             <BreadcrumbsList>
               <BreadcrumbsItem>
-                <BreadcrumbsLink
-                  href="/"
-                  render={({ href, className, children, ...props }) => (
-                    <Link href={href ?? "/"} className={className} {...props}>
-                      {children}
-                    </Link>
-                  )}
-                >
+                <BreadcrumbsLink render={<Link href="/" />}>
                   Home
                 </BreadcrumbsLink>
               </BreadcrumbsItem>
               <BreadcrumbsSeparator />
               <BreadcrumbsItem>
-                <BreadcrumbsLink
-                  href="/vacancies"
-                  render={({ href, className, children, ...props }) => (
-                    <Link href={href ?? "/vacancies"} className={className} {...props}>
-                      {children}
-                    </Link>
-                  )}
-                >
+                <BreadcrumbsLink render={<Link href="/vacancies" />}>
                   Vacancies
                 </BreadcrumbsLink>
               </BreadcrumbsItem>

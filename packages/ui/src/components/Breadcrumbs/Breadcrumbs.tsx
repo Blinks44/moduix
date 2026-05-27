@@ -1,12 +1,13 @@
+import type { ComponentProps } from 'react';
+import { useRender } from '@base-ui/react/use-render';
 import { clsx } from 'clsx';
-import * as React from 'react';
 import styles from './Breadcrumbs.module.css';
 
 function Breadcrumbs({
   className,
   'aria-label': ariaLabel = 'Breadcrumb',
   ...props
-}: React.ComponentProps<'nav'>) {
+}: ComponentProps<'nav'>) {
   return (
     <nav
       data-slot="breadcrumbs-root"
@@ -17,35 +18,27 @@ function Breadcrumbs({
   );
 }
 
-function BreadcrumbsList({ className, ...props }: React.ComponentProps<'ol'>) {
+function BreadcrumbsList({ className, ...props }: ComponentProps<'ol'>) {
   return <ol data-slot="breadcrumbs-list" className={clsx(styles.list, className)} {...props} />;
 }
 
-function BreadcrumbsItem({ className, ...props }: React.ComponentProps<'li'>) {
+function BreadcrumbsItem({ className, ...props }: ComponentProps<'li'>) {
   return <li data-slot="breadcrumbs-item" className={clsx(styles.item, className)} {...props} />;
 }
 
-function BreadcrumbsLink({
-  className,
-  render,
-  ...props
-}: React.ComponentProps<'a'> & {
-  render?: (
-    props: React.ComponentPropsWithRef<'a'> & {
-      'data-slot': 'breadcrumbs-link';
+function BreadcrumbsLink({ className, render, ...props }: useRender.ComponentProps<'a'>) {
+  return useRender({
+    defaultTagName: 'a',
+    render,
+    props: {
+      ...props,
+      'data-slot': 'breadcrumbs-link',
+      className: clsx(styles.link, className),
     },
-  ) => React.ReactElement;
-}) {
-  const resolvedClassName = clsx(styles.link, className);
-
-  if (render) {
-    return render({ ...props, 'data-slot': 'breadcrumbs-link', className: resolvedClassName });
-  }
-
-  return <a data-slot="breadcrumbs-link" className={resolvedClassName} {...props} />;
+  });
 }
 
-function BreadcrumbsPage({ className, ...props }: React.ComponentProps<'span'>) {
+function BreadcrumbsPage({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="breadcrumbs-page"
@@ -56,7 +49,7 @@ function BreadcrumbsPage({ className, ...props }: React.ComponentProps<'span'>) 
   );
 }
 
-function BreadcrumbsSeparator({ className, children, ...props }: React.ComponentProps<'li'>) {
+function BreadcrumbsSeparator({ className, children, ...props }: ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumbs-separator"
@@ -69,7 +62,7 @@ function BreadcrumbsSeparator({ className, children, ...props }: React.Component
   );
 }
 
-function BreadcrumbsEllipsis({ className, children, ...props }: React.ComponentProps<'span'>) {
+function BreadcrumbsEllipsis({ className, children, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="breadcrumbs-ellipsis"

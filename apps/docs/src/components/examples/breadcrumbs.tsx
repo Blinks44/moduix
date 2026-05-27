@@ -226,46 +226,23 @@ export function BreadcrumbsLongLabelExample() {
   );
 }
 
-export function BreadcrumbsRenderExample() {
+export function BreadcrumbsFrameworkLinkExample() {
   return (
     <div className={styles.container}>
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>
-            <BreadcrumbsLink
-              href="/home"
-              render={({ href, className, children, ...props }) => (
-                <a href={href} className={className} data-framework-link {...props}>
-                  {children}
-                </a>
-              )}
-            >
-              Home
-            </BreadcrumbsLink>
+            <BreadcrumbsLink render={<a href="/home" data-framework-link />}>Home</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
-            <BreadcrumbsLink
-              href="/engineering"
-              render={({ href, className, children, ...props }) => (
-                <a href={href} className={className} data-framework-link {...props}>
-                  {children}
-                </a>
-              )}
-            >
+            <BreadcrumbsLink render={<a href="/engineering" data-framework-link />}>
               Engineering
             </BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
-            <BreadcrumbsLink
-              href="/vacancies"
-              render={({ href, className, children, ...props }) => (
-                <a href={href} className={className} data-framework-link {...props}>
-                  {children}
-                </a>
-              )}
-            >
+            <BreadcrumbsLink render={<a href="/vacancies" data-framework-link />}>
               Vacancies
             </BreadcrumbsLink>
           </BreadcrumbsItem>
