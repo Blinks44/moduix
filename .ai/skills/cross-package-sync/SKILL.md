@@ -10,7 +10,7 @@ Use this skill when a task touches both `packages/ui` and `apps/docs`, or when a
 
 ## Required Sequence
 
-Follow the routing order from `AGENTS.md`, then run `npm run build:ui` from repo root before validating docs against changed UI output.
+Follow the routing order from `AGENTS.md`, then run `npm run build:ui` from repo root before validating docs against changed UI output and before `npm run tsc:check`, otherwise docs can see stale UI declaration output.
 
 ## Synchronization Rules
 

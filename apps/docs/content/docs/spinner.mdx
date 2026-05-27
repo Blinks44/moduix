@@ -1,6 +1,6 @@
 ---
 title: Spinner
-description: A compact loading indicator with built-in visual variants and custom icon support.
+description: A compact loading indicator with one default ring and a small customization surface.
 icon: Component
 ---
 
@@ -8,18 +8,21 @@ import {
   SpinnerClassNameExample,
   SpinnerCssPlaygroundPanel,
   SpinnerCssPropertiesPanel,
-  SpinnerCustomIconExample,
+  SpinnerCustomIndicatorExample,
   SpinnerExample,
   SpinnerSizesExample,
-  SpinnerVariantsExample,
   spinnerPlaygroundCssProperties,
 } from '@/components/examples/spinner';
 
 ## API Reference
 
-`Spinner` is a moduix loading primitive and does not wrap a Base UI primitive.
+`Spinner` is a compact loading primitive. Base UI does not provide a dedicated spinner primitive, so
+moduix keeps this one intentionally small: one default ring indicator, size control, and standard
+status semantics.
+
 Use it for pending controls, inline loading feedback, and compact empty states. By default it
-announces loading with `role="status"`. Set `decorative` when nearby text already covers that.
+announces loading with `role="status"` and `aria-label="Loading"`. Set `decorative` when nearby
+text already covers that.
 
 ## Basic
 
@@ -42,8 +45,7 @@ announces loading with `role="status"`. Set `decorative` when nearby text alread
 
 ## Anatomy
 
-`Spinner` exposes one public root and one internal visual slot. The indicator renders either the
-built-in glyph or the custom `icon` node.
+`Spinner` exposes one public root and one internal visual slot.
 
 ```text
 Spinner
@@ -51,59 +53,29 @@ Spinner
 ```
 
 ```tsx
-<Spinner variant="ring" size="md" />
+<Spinner size="md" />
 ```
 
-| Part                | Role                                                                 |
-| ------------------- | -------------------------------------------------------------------- |
-| `Spinner`           | Root status element. Use `variant`, `size`, `label`, and `icon`.     |
-| `spinner-indicator` | Internal visual slot that hosts the built-in shape or custom `icon`. |
+| Part                | Role                                                                    |
+| ------------------- | ----------------------------------------------------------------------- |
+| `Spinner`           | Root status element. Use `size`, `decorative`, and standard span props. |
+| `spinner-indicator` | Internal visual slot that hosts the default ring or custom children.    |
 
 ## Composition
 
-Use `variant` for built-in visuals: `ring`, `dots`, `bars`, or `pulse`. Use `icon` to swap in a
-custom SVG while keeping Spinner sizing, color, and default spin behavior.
-
-`Spinner` forwards standard `span` props. Pass `label` for a more specific loading announcement.
-Set `decorative` when the spinner is paired with visible loading text.
+`Spinner` forwards standard `span` props. Use `size` for common density changes and `decorative`
+when the spinner is paired with visible loading text. Override the announcement with `aria-label`
+when you need a more specific status message.
 
 ### Defaults
 
-| Prop         | Default   | Values                          |
-| ------------ | --------- | ------------------------------- |
-| `variant`    | `ring`    | `ring`, `dots`, `bars`, `pulse` |
-| `size`       | `md`      | `xs`, `sm`, `md`, `lg`, `xl`    |
-| `label`      | `Loading` | Any React node                  |
-| `decorative` | `false`   | `true`, `false`                 |
-| `animated`   | `true`    | `true`, `false`                 |
+| Prop         | Default   | Values                       |
+| ------------ | --------- | ---------------------------- |
+| `size`       | `md`      | `xs`, `sm`, `md`, `lg`, `xl` |
+| `decorative` | `false`   | `true`, `false`              |
+| `aria-label` | `Loading` | String                       |
 
 ## Examples
-
-### Variants
-
-Choose the variant that fits the surrounding UI density.
-
-<Preview>
-  <SpinnerVariantsExample />
-
-  <Preview.Code>
-    {`
-      import { Spinner } from "moduix";
-
-      export function SpinnerVariantsDemo() {
-        return (
-          <>
-            <Spinner variant="ring" />
-            <Spinner variant="dots" />
-            <Spinner variant="bars" />
-            <Spinner variant="pulse" />
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
 
 ### Sizes
 
@@ -132,32 +104,30 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
   </Preview.Code>
 </Preview>
 
-### Custom Icon
+### Custom Composition
 
-Pass `icon` to replace the built-in shape without changing Spinner sizing or accessibility behavior.
+Pass custom children when you need a different indicator while keeping Spinner sizing and status
+semantics.
 
 <Preview>
-  <SpinnerCustomIconExample />
+  <SpinnerCustomIndicatorExample />
 
   <Preview.Code>
     {`
       import { Spinner } from "moduix";
 
-      export function SpinnerCustomIconDemo() {
+      export function SpinnerCustomIndicatorDemo() {
         return (
-          <Spinner
-            size="lg"
-            icon={
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M12 3v4M12 17v4M3 12h4M17 12h4M5.64 5.64l2.83 2.83M15.53 15.53l2.83 2.83M18.36 5.64l-2.83 2.83M8.47 15.53l-2.83 2.83"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            }
-          />
+          <Spinner size="lg" aria-label="Syncing">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M12 3v4M12 17v4M3 12h4M17 12h4M5.64 5.64l2.83 2.83M15.53 15.53l2.83 2.83M18.36 5.64l-2.83 2.83M8.47 15.53l-2.83 2.83"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </Spinner>
         );
       }
     `}
@@ -180,7 +150,7 @@ Use `className` or CSS variables for targeted color changes.
       export function SpinnerStylingDemo() {
         return (
           <div className={styles.brand}>
-            <Spinner variant="dots" size="lg" />
+            <Spinner size="lg" />
           </div>
         );
       }

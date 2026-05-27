@@ -28,6 +28,7 @@ If a task spans UI and docs:
 - Formatting uses `oxfmt` (config in `packages/oxfmt-config`).
 - Do not start dev servers manually; use the already running project server.
 - Before docs validation or docs changes that depend on UI output, run `npm run build:ui` from repo root.
+- After changes in `packages/ui`, run `npm run build:ui` before `npm run tsc:check`, otherwise workspace consumers can read stale declaration output.
 - In MDX snippets, avoid `useState<T>()` style generics when `as T` works; MDX parsers can treat `<T>` as JSX.
 - Keep component APIs, naming, code structure, and composition patterns uniform across the library. Similar components must use the same prop names and conventions (for example, avoid mismatches like `withArrow` vs `showArrow` for the same behavior).
 
@@ -37,4 +38,5 @@ After code changes, run from repo root:
 
 - `npm run fmt:fix`
 - `npm run lint:check`
+- `npm run build:ui` (before `npm run tsc:check` when `packages/ui` changed)
 - `npm run tsc:check`

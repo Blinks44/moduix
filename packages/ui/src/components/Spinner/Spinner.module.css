@@ -18,6 +18,7 @@
     height: 100%;
     align-items: center;
     justify-content: center;
+    animation: var(--animation-spin);
   }
 
   .ring {
@@ -27,83 +28,13 @@
     height: 100%;
     border: var(--spinner-ring-border-width, 0.125rem) solid
       var(--spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
-    border-block-start-color: var(--spinner-ring-color, currentColor);
+    border-block-start-color: var(--spinner-color, currentColor);
     border-radius: var(--spinner-radius, var(--radius-full));
-    animation: var(--spinner-ring-animation, var(--animation-spin));
   }
 
-  .dot {
-    display: block;
-    width: var(--spinner-dot-size, 22%);
-    height: var(--spinner-dot-size, 22%);
-    border-radius: var(--spinner-radius, var(--radius-full));
-    animation: var(--spinner-dot-animation, var(--animation-spinner-dot));
-    background-color: var(--spinner-dot-color, currentColor);
-
-    &:nth-child(2) {
-      animation-delay: 0.12s;
-    }
-
-    &:nth-child(3) {
-      animation-delay: 0.24s;
-    }
-  }
-
-  .bar {
-    display: block;
-    width: var(--spinner-bar-width, 18%);
-    height: var(--spinner-bar-height, 62%);
-    border-radius: var(--spinner-bar-radius, var(--radius-full));
-    animation: var(--spinner-bar-animation, var(--animation-spinner-bar));
-    background-color: var(--spinner-bar-color, currentColor);
-
-    &:nth-child(2) {
-      animation-delay: 0.12s;
-    }
-
-    &:nth-child(3) {
-      animation-delay: 0.24s;
-    }
-  }
-
-  .pulse {
-    display: block;
-    width: 72%;
-    height: 72%;
-    border-radius: var(--spinner-radius, var(--radius-full));
-    animation: var(--spinner-pulse-animation, var(--animation-spinner-pulse));
-    background-color: var(--spinner-pulse-color, currentColor);
-  }
-
-  .label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    clip-path: inset(50%);
-  }
-
-  .root[data-variant='dots'] .indicator {
-    gap: var(--spinner-dot-gap, 12%);
-  }
-
-  .root[data-variant='bars'] .indicator {
-    gap: var(--spinner-bar-gap, 12%);
-  }
-
-  .root[data-custom-icon] .indicator {
-    animation: var(--spinner-custom-icon-animation, var(--animation-spin));
-  }
-
-  .root[data-custom-icon] .indicator :where(svg) {
+  .indicator :where(svg) {
     width: 100%;
     height: 100%;
-  }
-
-  .root:not([data-animated]) :where(.indicator, .ring, .dot, .bar, .pulse) {
-    animation: none;
   }
 
   .root[data-size='xs'] {
@@ -127,7 +58,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .root :where(.indicator, .ring, .dot, .bar, .pulse) {
+    .indicator {
       animation-duration: 1.8s;
     }
   }

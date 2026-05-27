@@ -39,51 +39,6 @@
   }
 }
 
-@keyframes moduix-spinner-dot {
-  0%,
-  80%,
-  100% {
-    transform: scale(0.72);
-    opacity: 0.42;
-  }
-
-  40% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes moduix-spinner-bar {
-  0%,
-  80%,
-  100% {
-    transform: scaleY(0.45);
-    opacity: 0.45;
-  }
-
-  40% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-}
-
-@keyframes moduix-spinner-pulse {
-  0% {
-    transform: scale(0.72);
-    opacity: 0.36;
-  }
-
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(0.72);
-    opacity: 0.36;
-  }
-}
-
 :root {
   --animation-pulse: moduix-pulse 2.5s ease-in-out infinite;
   --animation-fade-in: moduix-fade-in var(--duration-normal, 200ms)
@@ -94,8 +49,5 @@
     var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
   --animation-slide-down: moduix-slide-down var(--duration-normal, 200ms)
     var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
-  --animation-spinner-bar: moduix-spinner-bar 0.85s ease-in-out infinite;
-  --animation-spinner-dot: moduix-spinner-dot 0.9s ease-in-out infinite;
-  --animation-spinner-pulse: moduix-spinner-pulse 1s ease-in-out infinite;
   --animation-spin: moduix-spin 0.75s linear infinite;
 }

@@ -1,15 +1,15 @@
 # Spinner
 
-Spinner is a loading indicator for pending states. It is a moduix primitive and does not wrap a Base UI primitive.
+Spinner is a compact loading indicator for pending states. It is a local moduix primitive because
+Base UI does not provide a dedicated spinner primitive.
 
 ## API
 
-- `variant`: built-in visual style. Supports `ring`, `dots`, `bars`, and `pulse`.
 - `size`: visual size. Supports `xs`, `sm`, `md`, `lg`, and `xl`.
-- `icon`: replaces the built-in glyph with a custom React node.
-- `label`: accessible loading label. Defaults to `Loading`.
 - `decorative`: removes status semantics when the spinner is only visual.
-- `animated`: disables animation when set to `false`.
+- `children`: optional custom indicator content inside the default sized wrapper.
 - `className`: custom class for the root slot.
+- `aria-label`: overrides the default loading announcement when the spinner is not decorative.
 
-The root uses `data-slot="spinner-root"`. The visual wrapper uses `data-slot="spinner-indicator"`.
+The root uses `data-slot="spinner-root"`. The visual wrapper uses
+`data-slot="spinner-indicator"`.

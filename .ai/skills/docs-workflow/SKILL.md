@@ -13,7 +13,7 @@ Use this skill for work in `apps/docs`.
 
 1. `AGENTS.md` (repo root)
 
-If docs depend on changed UI output, run `npm run build:ui` from repo root before validating docs behavior.
+If docs depend on changed UI output, run `npm run build:ui` from repo root before validating docs behavior and before `npm run tsc:check`, otherwise the docs app can type-check against stale UI declarations.
 
 ## Source of Truth
 

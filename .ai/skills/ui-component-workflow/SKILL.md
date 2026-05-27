@@ -225,7 +225,7 @@ Rules for dialog-like sugar:
 - Export component parts from the component `index.ts`.
 - Update `packages/ui/src/index.ts` in alphabetical order.
 - Keep public type exports to the minimum genuinely useful set.
-- Rebuild UI after any `packages/ui` change with `npm run build:ui` from repo root.
+- Rebuild UI after any `packages/ui` change with `npm run build:ui` from repo root. Run it before `npm run tsc:check`, otherwise workspace consumers can pick up stale declaration output.
 
 ## Stories and Local Docs
 
