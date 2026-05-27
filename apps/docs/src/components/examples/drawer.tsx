@@ -24,7 +24,7 @@ import {
   DrawerViewport,
   ScrollArea,
 } from 'moduix';
-import * as React from 'react';
+import { useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -59,12 +59,18 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-focus-ring-width', 'var(--drawer-control-border-width)', 'Focus ring width.'],
   ['--drawer-footer-gap', 'var(--spacing-2)', 'Spacing between footer actions.'],
   ['--drawer-footer-margin-top', 'var(--spacing-6)', 'Spacing above footer.'],
+  [
+    '--drawer-frontmost-height',
+    'auto (runtime)',
+    'Current height of the frontmost drawer in a stack.',
+  ],
   ['--drawer-handle-bg', 'var(--color-muted-foreground)', 'Handle color.'],
   ['--drawer-handle-height', '0.25rem', 'Handle height.'],
   ['--drawer-handle-offset', 'var(--spacing-3)', 'Handle offset from edge.'],
   ['--drawer-handle-opacity', '0.45', 'Handle opacity.'],
   ['--drawer-handle-radius', 'var(--radius-full)', 'Handle border radius.'],
   ['--drawer-handle-width', '3rem', 'Handle width.'],
+  ['--drawer-height', 'auto (runtime)', 'Current popup height measured by Base UI.'],
   ['--drawer-header-gap', 'var(--spacing-1)', 'Gap between header elements.'],
   ['--drawer-indent-background-bg', 'var(--color-foreground)', 'Indent background color.'],
   ['--drawer-indent-background-opacity', '0', 'Indent background opacity in idle state.'],
@@ -89,7 +95,12 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-side-height', '100%', 'Height of left and right drawers.'],
   ['--drawer-side-max-height', '100%', 'Maximum height of left and right drawers.'],
   ['--drawer-side-width', '22rem', 'Width of left and right drawers.'],
+  ['--drawer-snap-point-offset', 'auto (runtime)', 'Current snap-point offset applied by Base UI.'],
   ['--drawer-swipe-area-size', 'var(--spacing-10)', 'Edge swipe area size.'],
+  ['--drawer-swipe-movement-x', 'auto (runtime)', 'Current horizontal swipe offset.'],
+  ['--drawer-swipe-movement-y', 'auto (runtime)', 'Current vertical swipe offset.'],
+  ['--drawer-swipe-progress', 'auto (runtime)', 'Current swipe progress from 0 to 1.'],
+  ['--drawer-swipe-strength', 'auto (runtime)', 'Current swipe velocity multiplier.'],
   ['--drawer-title-color', 'var(--drawer-color)', 'Title text color.'],
   ['--drawer-title-font-size', 'var(--text-lg)', 'Title font size.'],
   ['--drawer-title-font-weight', 'var(--weight-semibold)', 'Title font weight.'],
@@ -231,7 +242,7 @@ export function RightDrawerExample() {
 
 export function SnapPointsDrawerExample() {
   const snapPoints = [0.35, 0.65, 1];
-  const [snapPoint, setSnapPoint] = React.useState<number | string | null>(snapPoints[1]);
+  const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[1]);
 
   return (
     <Drawer snapPoints={snapPoints} snapPoint={snapPoint} onSnapPointChange={setSnapPoint}>
@@ -280,7 +291,7 @@ export function NonModalDrawerExample() {
 }
 
 export function DrawerHandleExample() {
-  const drawerHandle = React.useMemo(() => createDrawerHandle(), []);
+  const drawerHandle = useMemo(() => createDrawerHandle(), []);
 
   return (
     <>
@@ -386,8 +397,8 @@ export function IndentEffectDrawerExample() {
 
 export function ControlledPersistentDrawerExample() {
   const snapPoints = [0.35, 0.85] as const;
-  const [open, setOpen] = React.useState(false);
-  const [snapPoint, setSnapPoint] = React.useState<number | string | null>(snapPoints[0]);
+  const [open, setOpen] = useState(false);
+  const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[0]);
   const expanded = snapPoint === snapPoints[1];
 
   return (

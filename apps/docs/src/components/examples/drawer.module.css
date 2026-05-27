@@ -28,10 +28,6 @@
   --drawer-handle-opacity: 0.8;
 }
 
-.customContent {
-  gap: var(--spacing-4);
-}
-
 .scrollArea {
   height: 100%;
   min-height: 0;

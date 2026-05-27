@@ -1,15 +1,15 @@
 import { Drawer as DrawerPrimitive } from '@base-ui/react/drawer';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { createContext, useContext, useEffect, useState, type ComponentProps } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Drawer.module.css';
 
-const DrawerModalContext = React.createContext<DrawerPrimitive.Root.Props['modal']>(true);
+const DrawerModeContext = createContext<DrawerPrimitive.Root.Props['modal']>(true);
 
 function useMountReady(disableInitialAnimation: boolean) {
-  const [mountReady, setMountReady] = React.useState(!disableInitialAnimation);
+  const [mountReady, setMountReady] = useState(!disableInitialAnimation);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!disableInitialAnimation) {
       setMountReady(true);
       return;
@@ -33,9 +33,9 @@ function Drawer<Payload = unknown>({
   ...props
 }: DrawerPrimitive.Root.Props<Payload>) {
   return (
-    <DrawerModalContext.Provider value={modal}>
+    <DrawerModeContext.Provider value={modal}>
       <DrawerPrimitive.Root modal={modal} {...props} />
-    </DrawerModalContext.Provider>
+    </DrawerModeContext.Provider>
   );
 }
 
@@ -117,7 +117,7 @@ function DrawerPopup({ className, ...props }: DrawerPrimitive.Popup.Props) {
   );
 }
 
-function DrawerHandle({ className, ...props }: React.ComponentProps<'div'>) {
+function DrawerHandle({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="drawer-handle" className={clsx(styles.handle, className)} {...props} />;
 }
 
@@ -161,15 +161,15 @@ function DrawerClose({ className, ...props }: DrawerPrimitive.Close.Props) {
   );
 }
 
-function DrawerHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function DrawerHeader({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="drawer-header" className={clsx(styles.header, className)} {...props} />;
 }
 
-function DrawerBody({ className, ...props }: React.ComponentProps<'div'>) {
+function DrawerBody({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="drawer-body" className={clsx(styles.body, className)} {...props} />;
 }
 
-function DrawerFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function DrawerFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="drawer-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
@@ -183,13 +183,16 @@ function DrawerContent({
   snapLayout?: boolean;
   disableInitialAnimation?: boolean;
 }) {
-  const modal = React.useContext(DrawerModalContext);
+  const modal = useContext(DrawerModeContext);
   const mountReady = useMountReady(disableInitialAnimation);
+  const blocksOutsidePointerInteraction = modal === true;
 
   return (
     <DrawerPortal>
-      {modal === true ? <DrawerBackdrop /> : null}
-      <DrawerViewport className={modal === true ? undefined : styles.viewportNonModal}>
+      {blocksOutsidePointerInteraction ? <DrawerBackdrop /> : null}
+      <DrawerViewport
+        className={blocksOutsidePointerInteraction ? undefined : styles.viewportNonModal}
+      >
         <DrawerPopup
           data-snap-layout={snapLayout ? '' : undefined}
           data-disable-initial-animation={disableInitialAnimation ? 'true' : undefined}

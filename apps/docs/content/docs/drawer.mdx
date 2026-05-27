@@ -26,10 +26,16 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/drawer" />
 
-## When to use Drawer
+## Overview
 
 Use `Drawer` for edge-attached panels that need gesture support, snap points, or the indent effect.
 If a panel only needs edge positioning, prefer `Dialog`.
+
+Common fits:
+
+- bottom sheet for mobile actions, details, or secondary flows
+- side panel for filters, inspectors, and contextual editing
+- persistent edge surface controlled by application state
 
 ## Basic
 
@@ -74,6 +80,9 @@ If a panel only needs edge positioning, prefer `Dialog`.
   <Preview.CSSProperties>{(context) => <DrawerCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <DrawerCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
+
+`DrawerContent` is the recommended default path. It already renders the portal, backdrop, viewport,
+popup surface, handle, and content wrapper for you.
 
 ## Anatomy
 
@@ -668,7 +677,7 @@ shift and scale under the active drawer.
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+## Custom Composition
 
 When you need custom portal behavior, a different backdrop, or popup layout that should not be
 baked into `DrawerContent`, compose the low-level parts directly.

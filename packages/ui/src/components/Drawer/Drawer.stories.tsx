@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ui';
 import { Button } from '../Button';
@@ -114,7 +114,7 @@ export const Right: Story = {
 export const WithSnapPoints: Story = {
   render: () => {
     const snapPoints = [0.35, 0.65, 1];
-    const [snapPoint, setSnapPoint] = React.useState<number | string | null>(snapPoints[1]);
+    const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[1]);
 
     return (
       <Drawer snapPoints={snapPoints} snapPoint={snapPoint} onSnapPointChange={setSnapPoint}>
@@ -166,8 +166,8 @@ export const NonModal: Story = {
 export const ControlledPersistent: Story = {
   render: () => {
     const snapPoints = [0.35, 0.85] as const;
-    const [open, setOpen] = React.useState(true);
-    const [snapPoint, setSnapPoint] = React.useState<number | string | null>(snapPoints[0]);
+    const [open, setOpen] = useState(true);
+    const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[0]);
     const expanded = snapPoint === snapPoints[1];
 
     const handleOpenChange = (nextOpen: boolean) => {
@@ -284,7 +284,7 @@ export const Nested: Story = {
 
 export const Handle: Story = {
   render: () => {
-    const drawerHandle = React.useMemo(() => createDrawerHandle(), []);
+    const drawerHandle = useMemo(() => createDrawerHandle(), []);
 
     return (
       <>
