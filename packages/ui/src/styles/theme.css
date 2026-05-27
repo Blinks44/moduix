@@ -2082,6 +2082,7 @@
   --toast-description-font-size: initial; /* var(--text-sm) */
   --toast-description-line-height: initial; /* var(--line-height-text-sm) */
   --toast-focus-ring-color: initial; /* var(--color-ring) */
+  --toast-focus-ring-offset: initial; /* 0 */
   --toast-focus-ring-width: initial; /* var(--toast-border-width, var(--border-width-sm)) */
   --toast-padding: initial; /* 1rem */
   --toast-radius: initial; /* var(--radius-lg) */

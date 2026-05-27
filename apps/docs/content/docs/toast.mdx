@@ -7,9 +7,11 @@ icon: Component
 import {
   ActionToastExample,
   AnchoredToastExample,
+  CustomAnchoredToastExample,
   CustomToastExample,
   ExpandedToastExample,
   GlobalManagerToastExample,
+  ManualToastCompositionExample,
   PlacementToastExample,
   ToastCssPlaygroundPanel,
   ToastCssPropertiesPanel,
@@ -22,12 +24,45 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/toast" />
 
-## Basic
+## Overview
 
-Mount one `ToastProvider` near the application root. Descendants call `useToastManager()` for
-stacked toasts or `useAnchoredToastManager()` for anchored toasts. `ToastRegion` and
-`ToastAnchoredRegion` already render their portal and viewport infrastructure, so
-`classNames.portal` and `classNames.viewport` are only needed for infrastructure styling.
+`Toast` has two user-facing flows:
+
+- `ToastRegion` for page-level stacked notifications
+- `ToastAnchoredRegion` for contextual feedback attached to a specific control
+
+Both flows are mounted under one `ToastProvider`.
+
+## App Integration
+
+Mount `ToastProvider` once near the app root. Render both regions once if the app uses both toast
+styles.
+
+```tsx
+import { ToastAnchoredRegion, ToastProvider, ToastRegion } from 'moduix';
+
+export function App() {
+  return (
+    <ToastProvider>
+      <AppShell />
+      <ToastRegion />
+      <ToastAnchoredRegion />
+    </ToastProvider>
+  );
+}
+```
+
+How it maps in the app:
+
+- `useToastManager()` sends stacked toasts to `ToastRegion`
+- `useAnchoredToastManager()` sends anchored toasts to `ToastAnchoredRegion`
+- both regions work independently under the same provider
+
+This is the recommended layout for root providers, app shells, and application wrappers.
+
+## Basic Toast
+
+Use `ToastRegion` for the default stacked toast flow.
 
 <Preview cssProperties={toastPlaygroundCssProperties}>
   <ToastExample />
@@ -44,23 +79,27 @@ stacked toasts or `useAnchoredToastManager()` for anchored toasts. `ToastRegion`
       export function App() {
         return (
           <ToastProvider>
-            <AppShell />
+            <SaveButton />
             <ToastRegion />
           </ToastProvider>
         );
       }
 
-      function AppShell() {
+      function SaveButton() {
         const toastManager = useToastManager();
 
-        function showToast() {
-          toastManager.add({
-            title: "Saved",
-            description: "Changes were saved successfully.",
-          });
-        }
-
-        return <Button onClick={showToast}>Save changes</Button>;
+        return (
+          <Button
+            onClick={() =>
+              toastManager.add({
+                title: "Saved",
+                description: "Changes were saved successfully.",
+              })
+            }
+          >
+            Save changes
+          </Button>
+        );
       }
     `}
 
@@ -69,94 +108,126 @@ stacked toasts or `useAnchoredToastManager()` for anchored toasts. `ToastRegion`
   <Preview.CSSPlayground>{(context) => <ToastCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+`ToastRegion` already renders `ToastPortal` and `ToastViewport`, so the default path stays short.
 
-`ToastProvider` owns the toast managers. `ToastRegion` renders stacked notifications and
-`ToastAnchoredRegion` renders contextual feedback for a specific anchor element.
+## Anchored Toast
+
+Use `ToastAnchoredRegion` when feedback should appear next to the control that triggered it.
+
+<Preview>
+  <AnchoredToastExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        ToastAnchoredRegion,
+        ToastProvider,
+        useAnchoredToastManager,
+      } from "moduix";
+      import { useRef } from "react";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <CopyButton />
+            <ToastAnchoredRegion />
+          </ToastProvider>
+        );
+      }
+
+      function CopyButton() {
+        const buttonRef = useRef(null as HTMLButtonElement | null);
+        const anchoredToast = useAnchoredToastManager();
+
+        return (
+          <Button
+            ref={buttonRef}
+            onClick={() => {
+              if (!buttonRef.current) {
+                return;
+              }
+
+              anchoredToast.show({
+                anchor: buttonRef.current,
+                description: "Copied",
+                timeout: 1800,
+              });
+            }}
+          >
+            Copy
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Parts
+
+The library keeps a short default path, but the visible toast parts are still exported for custom
+layout.
 
 ```text
 ToastProvider
 ├─ app content
 ├─ ToastRegion
-│  └─ ToastRoot
-│     └─ ToastContent
-│        ├─ ToastTitle
-│        ├─ ToastDescription
-│        ├─ ToastAction
-│        └─ ToastClose
+│  ├─ ToastPortal
+│  └─ ToastViewport
+│     └─ ToastRoot
+│        └─ ToastContent
+│           ├─ ToastTitle
+│           ├─ ToastDescription
+│           ├─ ToastAction
+│           └─ ToastClose
 └─ ToastAnchoredRegion
-   └─ anchored toast
+   └─ ToastPositioner
+      └─ ToastRoot
+         ├─ ToastArrow
+         └─ ToastContent
+            └─ ToastDescription
 ```
 
-```tsx
-<ToastProvider>
-  <AppShell />
-  <ToastRegion placement="bottom-right" />
-  <ToastAnchoredRegion />
-</ToastProvider>
-```
+| Part                  | Role                                                                |
+| --------------------- | ------------------------------------------------------------------- |
+| `ToastProvider`       | Provides the stacked toast manager and the anchored toast helper.   |
+| `ToastRegion`         | Default stacked toast renderer with built-in portal and viewport.   |
+| `ToastAnchoredRegion` | Default anchored toast renderer with built-in positioner and arrow. |
+| `ToastPortal`         | Low-level portal wrapper for manual stacked composition.            |
+| `ToastViewport`       | Low-level viewport wrapper for manual stacked composition.          |
+| `ToastPositioner`     | Low-level anchored positioner wrapper.                              |
+| `ToastRoot`           | Visible toast surface.                                              |
+| `ToastContent`        | Content wrapper for the visible toast body.                         |
+| `ToastTitle`          | Renders `toast.title`.                                              |
+| `ToastDescription`    | Renders `toast.description`.                                        |
+| `ToastAction`         | Renders `toast.actionProps` when present.                           |
+| `ToastClose`          | Dismiss button with the default close icon or custom children.      |
+| `ToastArrow`          | Default anchored arrow.                                             |
 
-| Part                  | Role                                                                                                 |
-| --------------------- | ---------------------------------------------------------------------------------------------------- |
-| `ToastProvider`       | Provides the stacked and anchored toast managers to the subtree.                                     |
-| `ToastRegion`         | Renders the shared portal and viewport for stacked toasts. Use `placement` and `stackBehavior` here. |
-| `ToastRoot`           | Visible notification surface. Use it inside `renderToast` when a custom toast layout is needed.      |
-| `ToastContent`        | Content wrapper for title, description, actions, icons, and custom layout.                           |
-| `ToastTitle`          | Renders the toast title from the toast object.                                                       |
-| `ToastDescription`    | Renders the toast description from the toast object.                                                 |
-| `ToastAction`         | Optional action button rendered from `actionProps` in the default composition.                       |
-| `ToastClose`          | Dismiss button with the default close icon, or custom children.                                      |
-| `ToastAnchoredRegion` | Renders anchored feedback near the element passed to `useAnchoredToastManager().show({ anchor })`.   |
+## Defaults
 
-The service slots are still customizable: use `container` to choose the portal target, and
-`classNames.portal`, `classNames.viewport`, or `classNames.positioner` when the infrastructure
-itself needs styling. For ordinary visual changes, prefer `className` on `ToastRegion` or a custom
-`renderToast` composition.
+Small sugar stays on the region components only.
 
-## Composition
+| Surface               | Prop            | Default        | Values                                                                                |
+| --------------------- | --------------- | -------------- | ------------------------------------------------------------------------------------- |
+| `ToastRegion`         | `placement`     | `bottom-right` | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right` |
+| `ToastRegion`         | `stackBehavior` | `stacked`      | `stacked`, `expanded`                                                                 |
+| `ToastRegion`         | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
+| `ToastAnchoredRegion` | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
 
-Mount one `ToastProvider`, place `ToastRegion` once per stacked viewport, and call
-`useToastManager()` from descendants to enqueue notifications. `ToastRegion` owns placement, stack
-behavior, and the default toast markup, so applications do not need to compose `Portal` or
-`Viewport` manually.
+Use `createToastManager()` only when a service outside React needs to enqueue stacked toasts.
 
-Use `renderToast` only when the default markup is not enough. The callback receives the toast
-object and should return a complete visible composition with `ToastRoot` and the parts your layout
-needs. Anchored feedback uses the same provider, but stays isolated through
-`useAnchoredToastManager()` and `ToastAnchoredRegion`.
-
-### Defaults
-
-| Surface               | Prop                   | Default                                      | Values                                                                                |
-| --------------------- | ---------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `ToastRegion`         | `placement`            | `bottom-right`                               | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right` |
-| `ToastRegion`         | `stackBehavior`        | `stacked`                                    | `stacked`, `expanded`                                                                 |
-| `ToastRegion`         | `renderToast`          | default markup                               | `(toast, index) => ReactNode`                                                         |
-| `ToastAnchoredRegion` | `renderToast`          | default markup                               | `(toast, index) => ReactNode`                                                         |
-| `ToastProvider`       | `toastManager`         | internal manager from `createToastManager()` | `ToastManager`                                                                        |
-| `ToastProvider`       | `anchoredToastManager` | internal manager from `createToastManager()` | `ToastManager`                                                                        |
-
-## Examples
+## Common Patterns
 
 ### Action
-
-Use `actionProps` for a compact action button inside the default toast composition.
 
 <Preview>
   <ActionToastExample />
 
   <Preview.Code>
     {`
-      import { ToastProvider, ToastRegion, useToastManager, Button } from "moduix";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <UploadButton />
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
+      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
 
       function UploadButton() {
         const toastManager = useToastManager();
@@ -189,143 +260,35 @@ Pass `placement` to `ToastRegion` to choose the viewport corner or center edge.
 
 <Preview>
   <PlacementToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        ToastPlacement,
-        ToastProvider,
-        ToastRegion,
-        useToastManager,
-        Button,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function App() {
-        const [placement, setPlacement] = useState("bottom-right" as ToastPlacement);
-
-        return (
-          <ToastProvider>
-            <AppShell placement={placement} onPlacementChange={setPlacement} />
-            <ToastRegion placement={placement} />
-          </ToastProvider>
-        );
-      }
-
-      function AppShell({
-        placement,
-        onPlacementChange,
-      }: {
-        placement: ToastPlacement;
-        onPlacementChange: (placement: ToastPlacement) => void;
-      }) {
-        const toastManager = useToastManager();
-        return (
-          <div>
-            {placements.map((item) => (
-              <button
-                key={item}
-                type="button"
-                aria-pressed={item === placement}
-                onClick={() => onPlacementChange(item)}
-              >
-                {item}
-              </button>
-            ))}
-            <Button
-              onClick={() =>
-                toastManager.add({
-                  title: "Placement",
-                  description: \`Current placement: \${placement}\`,
-                })
-              }
-            >
-              Show toast
-            </Button>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const placements: ToastPlacement[] = [
-        "top-left",
-        "top-center",
-        "top-right",
-        "bottom-left",
-        "bottom-center",
-        "bottom-right",
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Always Expanded
 
-Set `stackBehavior="expanded"` when the stack should stay readable without requiring hover or focus.
+Pass `stackBehavior="expanded"` when the stack should always stay readable.
 
 <Preview>
   <ExpandedToastExample />
 
   <Preview.Code>
     {`
-      import { ToastProvider, ToastRegion, useToastManager, Button } from "moduix";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <AppShell />
-            <ToastRegion placement="bottom-right" stackBehavior="expanded" />
-          </ToastProvider>
-        );
-      }
-
-      function AppShell() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Background task",
-                description: "Create several notifications to compare the expanded stack.",
-              })
-            }
-          >
-            Create toast
-          </Button>
-        );
-      }
+      <ToastProvider>
+        <Toolbar />
+        <ToastRegion placement="bottom-right" stackBehavior="expanded" />
+      </ToastProvider>
     `}
-
   </Preview.Code>
 </Preview>
 
 ### Global Manager
-
-Create a manager outside React when app services need to enqueue notifications through the same renderer.
 
 <Preview>
   <GlobalManagerToastExample />
 
   <Preview.Code>
     {`
-      import { createToastManager, ToastProvider, ToastRegion, Button } from "moduix";
+      import { Button, ToastProvider, ToastRegion, createToastManager } from "moduix";
 
       const toastManager = createToastManager();
-
-      export function App() {
-        return (
-          <ToastProvider toastManager={toastManager}>
-            <AppShell />
-            <ToastRegion />
-          </ToastProvider>
-        );
-      }
 
       function notifyFromService() {
         toastManager.add({
@@ -333,248 +296,97 @@ Create a manager outside React when app services need to enqueue notifications t
           description: "Created with createToastManager().",
         });
       }
-
-      function AppShell() {
-        return <Button onClick={notifyFromService}>Create global toast</Button>;
-      }
     `}
 
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Stacked and Anchored Together
 
-Use `renderToast` when the shared provider/region setup is still correct, but each toast needs a
-custom layout, icon, or slot-level `className`.
+<Preview>
+  <ToastAndAnchoredToastExample />
+</Preview>
+
+## Custom Composition
+
+Use `renderToast` when the region setup stays the same but the visible layout needs to change.
+
+### Custom Stacked Toast
 
 <Preview>
   <CustomToastExample />
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        CloseLineIcon,
-        InfoIcon,
-        ToastProvider,
-        ToastRegion,
-        ToastRoot,
-        ToastContent,
-        ToastTitle,
-        ToastDescription,
-        ToastClose,
-        useToastManager,
-      } from "moduix";
-      import styles from "./custom-toast.module.css";
+      <ToastRegion
+        renderToast={(toast) => (
+          <ToastRoot key={toast.id} toast={toast} className={styles.toast}>
+            <ToastContent className={styles.content}>
+              <InfoIcon className={styles.icon} />
+              <ToastTitle />
+              <ToastDescription />
+              <ToastClose aria-label="Close toast">
+                <CloseIcon className={styles.closeIcon} />
+              </ToastClose>
+            </ToastContent>
+          </ToastRoot>
+        )}
+      />
+    `}
+  </Preview.Code>
+</Preview>
 
-      export function App() {
+### Custom Anchored Toast
+
+<Preview>
+  <CustomAnchoredToastExample />
+
+  <Preview.Code>
+    {`
+      <ToastAnchoredRegion
+        renderToast={(toast) => (
+          <ToastRoot key={toast.id} toast={toast}>
+            <ToastArrow />
+            <ToastContent className={styles.content}>
+              <InfoIcon className={styles.icon} />
+              <ToastDescription />
+            </ToastContent>
+          </ToastRoot>
+        )}
+      />
+    `}
+  </Preview.Code>
+</Preview>
+
+## Manual Composition
+
+Most applications should use `ToastRegion` and `ToastAnchoredRegion`. Drop to low-level parts only
+when you need to own the stacked viewport structure directly.
+
+### Manual Stacked Region
+
+<Preview>
+  <ManualToastCompositionExample />
+
+  <Preview.Code>
+    {`
+      function ManualToastRegion() {
+        const { toasts } = useToastManager();
+
         return (
-          <ToastProvider>
-            <CreateToastButton />
-            <ToastRegion
-              renderToast={(toast) => (
-                <ToastRoot toast={toast} className={styles.toast}>
-                  <ToastContent className={styles.content}>
-                    <InfoIcon className={styles.icon} />
+          <ToastPortal>
+            <ToastViewport placement="bottom-left">
+              {toasts.map((toast) => (
+                <ToastRoot key={toast.id} toast={toast}>
+                  <ToastContent>
                     <ToastTitle />
                     <ToastDescription />
-                    <ToastClose aria-label="Close toast">
-                      <CloseLineIcon className={styles.closeIcon} />
-                    </ToastClose>
+                    <ToastClose aria-label="Close toast" />
                   </ToastContent>
                 </ToastRoot>
-              )}
-            />
-          </ToastProvider>
-        );
-      }
-
-      function CreateToastButton() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Custom composition",
-                description: "Every important part accepts className and custom children.",
-              })
-            }
-          >
-            Create custom toast
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .toast {
-        --toast-bg: var(--color-primary);
-        --toast-color: var(--color-primary-foreground);
-        --toast-border-color: var(--color-primary);
-        --toast-description-color: color-mix(
-          in srgb,
-          var(--color-primary-foreground) 72%,
-          transparent
-        );
-        --toast-close-color: var(--color-primary-foreground);
-        --toast-close-color-hover: var(--color-primary-foreground);
-        --toast-close-bg-hover: color-mix(
-          in srgb,
-          var(--color-primary-foreground) 14%,
-          transparent
-        );
-      }
-
-      .content {
-        grid-template-columns: auto minmax(0, 1fr);
-        column-gap: var(--spacing-3);
-        padding-right: 1.75rem;
-      }
-
-      .icon {
-        grid-row: span 2;
-        inline-size: 1.125rem;
-        block-size: 1.125rem;
-        color: currentColor;
-      }
-
-      .closeIcon {
-        inline-size: var(--toast-close-icon-size, 1rem);
-        block-size: var(--toast-close-icon-size, 1rem);
-        flex: none;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Anchored Toast
-
-Use `useAnchoredToastManager()` and `ToastAnchoredRegion` for transient feedback tied to a specific
-button or control. Anchored and stacked toasts can share one `ToastProvider`; each region renders
-only its own toast type.
-
-<Preview>
-  <AnchoredToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        ToastAnchoredRegion,
-        ToastProvider,
-        useAnchoredToastManager,
-      } from "moduix";
-      import { useRef } from "react";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <CopyButton />
-            <ToastAnchoredRegion />
-          </ToastProvider>
-        );
-      }
-
-      function CopyButton() {
-        const buttonRef = useRef(null as HTMLButtonElement | null);
-        const anchoredToast = useAnchoredToastManager();
-
-        function showCopiedToast() {
-          if (!buttonRef.current) {
-            return;
-          }
-
-          anchoredToast.show({
-            anchor: buttonRef.current,
-            description: "Copied",
-            timeout: 1800,
-          });
-        }
-
-        return (
-          <Button ref={buttonRef} onClick={showCopiedToast}>
-            Copy
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Stacked and Anchored Toasts
-
-Render both regions under one provider when an app needs page-level notifications and contextual
-feedback at the same time.
-
-<Preview>
-  <ToastAndAnchoredToastExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        ToastAnchoredRegion,
-        ToastProvider,
-        ToastRegion,
-        useAnchoredToastManager,
-        useToastManager,
-      } from "moduix";
-      import { useRef } from "react";
-
-      export function App() {
-        return (
-          <ToastProvider>
-            <SaveButton />
-            <CopyButton />
-            <ToastRegion />
-            <ToastAnchoredRegion />
-          </ToastProvider>
-        );
-      }
-
-      function SaveButton() {
-        const toastManager = useToastManager();
-
-        return (
-          <Button
-            onClick={() =>
-              toastManager.add({
-                title: "Saved",
-                description: "Changes were saved successfully.",
-              })
-            }
-          >
-            Save changes
-          </Button>
-        );
-      }
-
-      function CopyButton() {
-        const buttonRef = useRef(null as HTMLButtonElement | null);
-        const anchoredToast = useAnchoredToastManager();
-
-        function showCopiedToast() {
-          if (!buttonRef.current) {
-            return;
-          }
-
-          anchoredToast.show({
-            anchor: buttonRef.current,
-            description: "Copied",
-            timeout: 1800,
-          });
-        }
-
-        return (
-          <Button ref={buttonRef} variant="outline" onClick={showCopiedToast}>
-            Copy
-          </Button>
+              ))}
+            </ToastViewport>
+          </ToastPortal>
         );
       }
     `}

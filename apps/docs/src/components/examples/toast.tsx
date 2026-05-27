@@ -1,16 +1,19 @@
-import type { ToastPlacement, ToastStackBehavior } from 'moduix';
 import {
   Button,
   CloseIcon,
   InfoIcon,
   ToastAnchoredRegion,
+  ToastArrow,
   ToastClose,
   ToastContent,
   ToastDescription,
+  ToastPortal,
+  ToastPositioner,
   ToastProvider,
   ToastRegion,
   ToastRoot,
   ToastTitle,
+  ToastViewport,
   createToastManager,
   useAnchoredToastManager,
   useToastManager,
@@ -19,6 +22,9 @@ import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toast.module.css';
+
+type ToastPlacement = NonNullable<React.ComponentProps<typeof ToastRegion>['placement']>;
+type ToastStackBehavior = NonNullable<React.ComponentProps<typeof ToastRegion>['stackBehavior']>;
 
 const globalToastManager = createToastManager();
 const placements: ToastPlacement[] = [
@@ -90,6 +96,7 @@ export const toastOverrideCssProperties: CssPropertyInput[] = [
     'Controls description line height.',
   ],
   ['--toast-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus rings.'],
+  ['--toast-focus-ring-offset', '0', 'Controls anchored toast focus ring offset.'],
   [
     '--toast-focus-ring-width',
     'var(--toast-border-width, var(--border-width-sm))',
@@ -112,6 +119,7 @@ export const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--toast-viewport-width', '20rem', 'Controls the fixed toast viewport width.'],
   ['--toast-z-index', 'var(--z-toast)', 'Controls toast portal and stack z-index.'],
 ];
+
 export const toastPlaygroundCssProperties: CssPropertyInput[] = [
   ['--toast-action-bg', 'var(--color-background)', 'Controls action button background.'],
   ['--toast-action-border-color', 'var(--color-border)', 'Controls action border color.'],
@@ -145,8 +153,10 @@ export function ToastCssPlaygroundPanel({ values, onChange, onReset }: CSSProper
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
@@ -222,15 +232,86 @@ export function GlobalManagerToastExample() {
 }
 
 export function CustomToastExample() {
-  const toastManager = React.useMemo(() => createToastManager(), []);
+  return (
+    <ToastProvider>
+      <CustomToastExampleContent />
+    </ToastProvider>
+  );
+}
+
+export function ManualToastCompositionExample() {
+  return (
+    <ToastProvider>
+      <ManualToastButton />
+      <ManualToastRegion />
+    </ToastProvider>
+  );
+}
+
+export function AnchoredToastExample() {
+  return (
+    <ToastProvider>
+      <AnchoredToastActions />
+      <ToastAnchoredRegion />
+    </ToastProvider>
+  );
+}
+
+export function CustomAnchoredToastExample() {
+  return (
+    <ToastProvider>
+      <AnchoredToastActions />
+      <ToastAnchoredRegion
+        renderToast={(toast) => (
+          <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
+            <ToastArrow />
+            <ToastContent className={styles.customAnchoredContent}>
+              <InfoIcon className={styles.customAnchoredIcon} />
+              <ToastDescription />
+            </ToastContent>
+          </ToastRoot>
+        )}
+      />
+    </ToastProvider>
+  );
+}
+
+export function ManualAnchoredCompositionExample() {
+  const anchoredToastManager = React.useMemo(() => createToastManager(), []);
 
   return (
-    <ToastProvider toastManager={toastManager}>
+    <ToastProvider anchoredToastManager={anchoredToastManager}>
+      <AnchoredToastActions />
+      <ToastProvider toastManager={anchoredToastManager}>
+        <ManualAnchoredRegion />
+      </ToastProvider>
+    </ToastProvider>
+  );
+}
+
+export function ToastAndAnchoredToastExample() {
+  return (
+    <ToastProvider>
+      <div className={styles.stack}>
+        <CreateToastButton />
+        <AnchoredToastActions />
+      </div>
+      <ToastRegion />
+      <ToastAnchoredRegion />
+    </ToastProvider>
+  );
+}
+
+function CustomToastExampleContent() {
+  const toastManager = useToastManager();
+
+  return (
+    <>
       <Button
         onClick={() =>
           toastManager.add({
             title: 'Custom composition',
-            description: 'Every important part accepts className and custom children.',
+            description: 'Every important part stays composable without slot prop APIs.',
           })
         }
       >
@@ -250,29 +331,52 @@ export function CustomToastExample() {
           </ToastRoot>
         )}
       />
-    </ToastProvider>
+    </>
   );
 }
 
-export function AnchoredToastExample() {
+function ManualToastRegion() {
+  const { toasts } = useToastManager();
+
   return (
-    <ToastProvider>
-      <AnchoredToastActions />
-      <ToastAnchoredRegion />
-    </ToastProvider>
+    <ToastPortal>
+      <ToastViewport placement="bottom-left">
+        {toasts.map((toast) => (
+          <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
+            <ToastContent className={styles.customContent}>
+              <InfoIcon className={styles.customIcon} />
+              <ToastTitle />
+              <ToastDescription />
+              <ToastClose aria-label="Close toast">
+                <CloseIcon className={styles.closeIcon} />
+              </ToastClose>
+            </ToastContent>
+          </ToastRoot>
+        ))}
+      </ToastViewport>
+    </ToastPortal>
   );
 }
 
-export function ToastAndAnchoredToastExample() {
+function ManualAnchoredRegion() {
+  const { toasts } = useToastManager();
+
   return (
-    <ToastProvider>
-      <div className={styles.stack}>
-        <CreateToastButton />
-        <AnchoredToastActions />
-      </div>
-      <ToastRegion />
-      <ToastAnchoredRegion />
-    </ToastProvider>
+    <ToastPortal>
+      <ToastViewport className={styles.manualAnchoredViewport}>
+        {toasts.map((toast) => (
+          <ToastPositioner key={toast.id} toast={toast}>
+            <ToastRoot toast={toast} className={styles.customToast}>
+              <ToastArrow />
+              <ToastContent className={styles.customAnchoredContent}>
+                <InfoIcon className={styles.customAnchoredIcon} />
+                <ToastDescription />
+              </ToastContent>
+            </ToastRoot>
+          </ToastPositioner>
+        ))}
+      </ToastViewport>
+    </ToastPortal>
   );
 }
 
@@ -282,11 +386,11 @@ function AnchoredToastActions() {
   const shareRef = React.useRef<HTMLButtonElement | null>(null);
   const anchoredToast = useAnchoredToastManager();
 
-  function showAnchored(
+  const showAnchored = (
     anchor: HTMLButtonElement | null,
     description: string,
     positionerProps?: { side?: 'top' | 'right' | 'bottom' | 'left' },
-  ) {
+  ) => {
     if (!anchor) {
       return;
     }
@@ -297,7 +401,7 @@ function AnchoredToastActions() {
       timeout: 1800,
       positionerProps,
     });
-  }
+  };
 
   return (
     <div className={styles.anchoredActions}>
@@ -330,14 +434,14 @@ function CreateToastButton() {
   const toastManager = useToastManager();
   const [count, setCount] = React.useState(0);
 
-  function createToast() {
+  const createToast = () => {
     const next = count + 1;
     setCount(next);
     toastManager.add({
       title: `Toast ${next}`,
       description: 'This notification is rendered in the shared toast region.',
     });
-  }
+  };
 
   return <Button onClick={createToast}>Create toast</Button>;
 }
@@ -384,14 +488,31 @@ function StackedToastButton({ stackBehavior }: { stackBehavior: ToastStackBehavi
   const toastManager = useToastManager();
   const [count, setCount] = React.useState(0);
 
-  function createToast() {
+  const createToast = () => {
     const next = count + 1;
     setCount(next);
     toastManager.add({
       title: `Stacked toast ${next}`,
       description: 'Create several notifications to compare the expanded stack behavior.',
     });
-  }
+  };
 
   return <Button onClick={createToast}>Create {stackBehavior} toast</Button>;
+}
+
+function ManualToastButton() {
+  const toastManager = useToastManager();
+
+  return (
+    <Button
+      onClick={() =>
+        toastManager.add({
+          title: 'Manual viewport',
+          description: 'This stack is assembled from ToastPortal and ToastViewport.',
+        })
+      }
+    >
+      Create manual toast
+    </Button>
+  );
 }

@@ -1,4 +1,49 @@
 @layer ui.storybook {
+  .customToast {
+    --toast-bg: var(--color-primary);
+    --toast-color: var(--color-primary-foreground);
+    --toast-border-color: var(--color-primary);
+    --toast-description-color: color-mix(in srgb, var(--color-primary-foreground) 72%, transparent);
+    --toast-close-color: var(--color-primary-foreground);
+    --toast-close-color-hover: var(--color-primary-foreground);
+    --toast-close-bg-hover: color-mix(in srgb, var(--color-primary-foreground) 14%, transparent);
+  }
+
+  .customContent {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--spacing-3);
+    padding-right: 1.75rem;
+  }
+
+  .customIcon {
+    grid-row: span 2;
+    width: 1.125rem;
+    height: 1.125rem;
+    color: currentColor;
+  }
+
+  .customAnchoredContent {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--spacing-2);
+  }
+
+  .customAnchoredIcon {
+    width: 1rem;
+    height: 1rem;
+    color: currentColor;
+  }
+
+  .closeIcon {
+    inline-size: var(--toast-close-icon-size, 1rem);
+    block-size: var(--toast-close-icon-size, 1rem);
+    flex: none;
+  }
+
+  .manualAnchoredViewport {
+    outline: 0;
+  }
+
   .anchoredActions {
     display: flex;
     gap: var(--spacing-2);
