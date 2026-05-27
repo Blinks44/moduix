@@ -1,0 +1,36 @@
+@layer ui.storybook {
+  .panel {
+    width: 20rem;
+    padding: var(--spacing-4);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-background);
+  }
+
+  .row {
+    width: 20rem;
+    padding: var(--spacing-4);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-background);
+  }
+
+  .wrap {
+    width: 20rem;
+  }
+
+  .pill {
+    padding-inline: var(--spacing-3);
+    padding-block: var(--spacing-2);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-full);
+    background-color: var(--color-muted);
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .skeletonCard {
+    width: 20rem;
+  }
+}

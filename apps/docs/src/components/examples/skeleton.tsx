@@ -1,11 +1,5 @@
-import {
-  Skeleton,
-  SkeletonCircle,
-  SkeletonColumn,
-  SkeletonRect,
-  SkeletonRow,
-  type SkeletonProps,
-} from 'moduix';
+import type * as React from 'react';
+import { Skeleton, Stack } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './skeleton.module.css';
@@ -55,73 +49,73 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function SkeletonExample(props: SkeletonProps) {
+export function SkeletonExample(props: React.ComponentProps<typeof Skeleton>) {
   return (
-    <SkeletonColumn className={styles.textBlock} gap={10}>
+    <Stack gap={10} className={styles.stack}>
       <Skeleton height={18} {...props} />
-      <Skeleton height={18} width="86%" {...props} />
-      <Skeleton height={18} width="64%" {...props} />
-    </SkeletonColumn>
+      <Skeleton width="86%" height={18} {...props} />
+      <Skeleton width="64%" height={18} {...props} />
+    </Stack>
   );
 }
 
 export function SkeletonCardExample() {
   return (
-    <div className={styles.card}>
-      <SkeletonRect height={148} radius="var(--radius-lg)" />
-      <SkeletonColumn gap={12}>
-        <Skeleton height={20} width="70%" />
+    <Stack gap={16} className={styles.card}>
+      <Skeleton height={148} radius="var(--radius-lg)" />
+      <Stack gap={12}>
+        <Skeleton width="70%" height={20} />
         <Skeleton height={14} />
-        <Skeleton height={14} width="82%" />
-      </SkeletonColumn>
-    </div>
+        <Skeleton width="82%" height={14} />
+      </Stack>
+    </Stack>
   );
 }
 
 export function SkeletonMediaObjectExample() {
   return (
-    <SkeletonRow className={styles.mediaObject} gap={12}>
-      <SkeletonCircle size={48} />
-      <SkeletonColumn grow gap={8}>
-        <Skeleton height={16} width="46%" />
+    <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
+      <Skeleton size={48} shape="circle" />
+      <Stack gap={8} className={styles.growStack}>
+        <Skeleton width="46%" height={16} />
         <Skeleton height={14} />
-        <Skeleton height={14} width="72%" />
-      </SkeletonColumn>
-    </SkeletonRow>
+        <Skeleton width="72%" height={14} />
+      </Stack>
+    </Stack>
   );
 }
 
-export function SkeletonLayoutPropsExample() {
+export function SkeletonCompositionExample() {
   return (
-    <SkeletonColumn className={styles.layoutProps} gap={12} pt={4} pb={4}>
-      <SkeletonRow gap={12} mobileStack={false}>
+    <Stack gap={12} className={styles.layoutExample}>
+      <Stack gap={12} className={styles.listRow}>
         <Skeleton width={72} height={48} />
-        <SkeletonColumn grow gap={8}>
-          <Skeleton height={14} width="62%" />
+        <Stack gap={8} className={styles.growStack}>
+          <Skeleton width="62%" height={14} />
           <Skeleton height={14} />
-        </SkeletonColumn>
-      </SkeletonRow>
-      <SkeletonRow gap={12} mobileStack={false}>
+        </Stack>
+      </Stack>
+      <Stack gap={12} className={styles.listRow}>
         <Skeleton width={72} height={48} />
-        <SkeletonColumn grow gap={8}>
-          <Skeleton height={14} width="48%" />
+        <Stack gap={8} className={styles.growStack}>
+          <Skeleton width="48%" height={14} />
           <Skeleton height={14} />
-        </SkeletonColumn>
-      </SkeletonRow>
-    </SkeletonColumn>
+        </Stack>
+      </Stack>
+    </Stack>
   );
 }
 
 export function SkeletonStaticExample() {
-  return <SkeletonRect width={320} height={72} animated={false} />;
+  return <Skeleton width={320} height={72} animated={false} />;
 }
 
 export function SkeletonClassNameExample() {
   return (
-    <SkeletonColumn className={styles.customBlock} gap={10}>
+    <Stack gap={10} className={styles.customBlock}>
       <Skeleton className={styles.customSkeleton} height={18} />
-      <Skeleton className={styles.customSkeleton} height={18} width="78%" />
-      <Skeleton className={styles.customSkeleton} height={18} width="52%" />
-    </SkeletonColumn>
+      <Skeleton className={styles.customSkeleton} width="78%" height={18} />
+      <Skeleton className={styles.customSkeleton} width="52%" height={18} />
+    </Stack>
   );
 }

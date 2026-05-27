@@ -1,25 +1,37 @@
-.textBlock {
-  display: flex;
+.stack {
   width: min(20rem, calc(100vw - var(--spacing-8)));
 }
 
 .card {
-  display: flex;
   width: min(20rem, calc(100vw - var(--spacing-8)));
-  flex-direction: column;
-  gap: var(--spacing-4);
 }
 
 .mediaObject {
   width: min(24rem, calc(100vw - var(--spacing-8)));
 }
 
-.layoutProps {
+.growStack {
+  flex: 1 1 0;
+}
+
+.layoutExample {
   width: min(24rem, calc(100vw - var(--spacing-8)));
+  padding-block: 4px;
+}
+
+.listRow {
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .listRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
 }
 
 .customBlock {
-  display: flex;
   width: min(20rem, calc(100vw - var(--spacing-8)));
   --skeleton-bg: var(--color-primary);
   --skeleton-radius: var(--radius-full);
