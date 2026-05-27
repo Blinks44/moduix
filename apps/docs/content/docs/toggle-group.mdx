@@ -109,6 +109,9 @@ ToggleGroup
 
 ## Composition
 
+`ToggleGroup` is the Base UI root with group styles. `ToggleGroupItem` is a styled `Toggle` that
+gets the group state through Base UI and inherits the group's `variant` and `size` by default.
+
 Use `ToggleGroup` for shared state and behavior (`value`, `defaultValue`, `onValueChange`,
 `multiple`, `orientation`, `disabled`, `loopFocus`). Use group-level `variant`, `size`, and
 `className` when all items should match; override them on a specific `ToggleGroupItem` only when
@@ -594,7 +597,7 @@ Pass icons as children. Icon-only items must include an accessible label.
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
 Pass `className` to the group and items. Use `--toggle-group-*` for the container and `--toggle-*`
 for item states such as hover and pressed.

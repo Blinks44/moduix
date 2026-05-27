@@ -1,11 +1,4 @@
-import {
-  BellIcon,
-  CheckIcon,
-  StarIcon,
-  ToggleGroup,
-  ToggleGroupItem,
-  type ToggleGroupProps,
-} from 'moduix';
+import { BellIcon, CheckIcon, StarIcon, ToggleGroup, ToggleGroupItem } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -109,7 +102,7 @@ function AlignRightIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function ToggleGroupExample(props: ToggleGroupProps<string>) {
+export function ToggleGroupExample(props: React.ComponentProps<typeof ToggleGroup>) {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment" {...props}>
       <ToggleGroupItem value="left">Left</ToggleGroupItem>

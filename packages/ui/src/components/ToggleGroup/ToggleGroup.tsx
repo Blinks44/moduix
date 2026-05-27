@@ -7,35 +7,23 @@ import styles from './ToggleGroup.module.css';
 type ToggleVariant = React.ComponentProps<typeof Toggle>['variant'];
 type ToggleSize = React.ComponentProps<typeof Toggle>['size'];
 
-type ToggleGroupContextValue = {
+const ToggleGroupContext = React.createContext<{
   variant: ToggleVariant;
   size: ToggleSize;
-};
-
-const DEFAULT_TOGGLE_GROUP_CONTEXT: ToggleGroupContextValue = {
+}>({
   variant: 'default',
   size: 'md',
-};
+});
 
-const ToggleGroupContext = React.createContext<ToggleGroupContextValue>(
-  DEFAULT_TOGGLE_GROUP_CONTEXT,
-);
-
-type ToggleGroupProps<Value extends string = string> = ToggleGroupPrimitive.Props<Value> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
-type ToggleGroupValue<Value extends string = string> = readonly Value[];
-type ToggleGroupState = ToggleGroupPrimitive.State;
-type ToggleGroupChangeEventReason = ToggleGroupPrimitive.ChangeEventReason;
-type ToggleGroupChangeEventDetails = ToggleGroupPrimitive.ChangeEventDetails;
-
-function ToggleGroup<Value extends string = string>({
+function ToggleGroup({
   className,
   variant = 'default',
   size = 'md',
   ...props
-}: ToggleGroupProps<Value>) {
+}: ToggleGroupPrimitive.Props & {
+  variant?: ToggleVariant;
+  size?: ToggleSize;
+}) {
   return (
     <ToggleGroupContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive
@@ -49,34 +37,23 @@ function ToggleGroup<Value extends string = string>({
   );
 }
 
-type ToggleGroupItemProps = React.ComponentProps<typeof Toggle>;
-
-function ToggleGroupItem({ className, variant, size, ...props }: ToggleGroupItemProps) {
-  const context = React.useContext(ToggleGroupContext);
+function ToggleGroupItem({
+  className,
+  variant,
+  size,
+  ...props
+}: React.ComponentProps<typeof Toggle>) {
+  const inherited = React.useContext(ToggleGroupContext);
 
   return (
     <Toggle
       data-slot="toggle-group-item"
-      variant={variant ?? context.variant}
-      size={size ?? context.size}
+      variant={variant ?? inherited.variant}
+      size={size ?? inherited.size}
       className={mergeClassName(className, styles.item)}
       {...props}
     />
   );
 }
 
-type ToggleGroupVariant = ToggleVariant;
-type ToggleGroupSize = ToggleSize;
-
 export { ToggleGroup, ToggleGroupItem };
-
-export type {
-  ToggleGroupValue,
-  ToggleGroupProps,
-  ToggleGroupState,
-  ToggleGroupChangeEventReason,
-  ToggleGroupChangeEventDetails,
-  ToggleGroupItemProps,
-  ToggleGroupVariant,
-  ToggleGroupSize,
-};
