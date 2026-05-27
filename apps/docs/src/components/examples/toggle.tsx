@@ -1,4 +1,4 @@
-import { BellIcon, CheckIcon, StarIcon, Toggle, type ToggleProps } from 'moduix';
+import { BellIcon, CheckIcon, StarIcon, Toggle } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -149,7 +149,7 @@ function BookmarkFilledIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function ToggleExample(props: ToggleProps) {
+export function ToggleExample(props: React.ComponentProps<typeof Toggle>) {
   return (
     <Toggle defaultPressed {...props}>
       <StarIcon />
@@ -241,7 +241,7 @@ export function ToggleRenderCallbackExample() {
   );
 }
 
-export function CustomCompositionToggleExample() {
+export function CustomStylesToggleExample() {
   return (
     <Toggle className={styles.customToggle} variant="outline" defaultPressed>
       <CheckIcon />

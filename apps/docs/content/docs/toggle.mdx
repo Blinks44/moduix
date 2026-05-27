@@ -6,7 +6,7 @@ icon: Component
 
 import {
   ControlledToggleExample,
-  CustomCompositionToggleExample,
+  CustomStylesToggleExample,
   ToggleCssPlaygroundPanel,
   ToggleCssPropertiesPanel,
   ToggleDisabledExample,
@@ -61,21 +61,12 @@ Toggle
 
 ## Composition
 
-Use `pressed`, `defaultPressed`, and `onPressedChange` for controlled or uncontrolled state.
-Use `disabled` to lock interaction, `render` when the rendered element depends on state, and
-`className` or `style` for styling. `Toggle` has a single root slot, so `className` is the main
-customization entry point.
+`Toggle` is a single styled root over the Base UI primitive.
 
-### Defaults
-
-| Prop             | Default     | Values                                                  |
-| ---------------- | ----------- | ------------------------------------------------------- |
-| `variant`        | `default`   | `default`, `outline`, `ghost`                           |
-| `size`           | `md`        | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
-| `defaultPressed` | `false`     | `true`, `false`                                         |
-| `disabled`       | `false`     | `true`, `false`                                         |
-| `nativeButton`   | `true`      | `true`, `false`                                         |
-| `value`          | `undefined` | Any `string`                                            |
+- Use `variant` and `size` for the built-in library styles.
+- Use `pressed`, `defaultPressed`, and `onPressedChange` for controlled or uncontrolled state.
+- Use `render` only when the rendered element or icon needs to depend on primitive state.
+- Use `className`, `style`, or CSS variables for visual overrides.
 
 ## Examples
 
@@ -360,19 +351,19 @@ Use `render` when the icon or rendered element should depend on the pressed stat
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
 Pass `className` to layer custom styles on top of the default Toggle styling.
 
 <Preview>
-  <CustomCompositionToggleExample />
+  <CustomStylesToggleExample />
 
   <Preview.Code>
     {`
       import { CheckSmallIcon, Toggle } from "moduix";
       import styles from "./toggle.module.css";
 
-      export function CustomCompositionToggleDemo() {
+      export function CustomStylesToggleDemo() {
         return (
           <Toggle className={styles.customToggle} variant="outline" defaultPressed>
             <CheckSmallIcon />

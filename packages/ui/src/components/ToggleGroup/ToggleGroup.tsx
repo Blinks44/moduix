@@ -1,8 +1,11 @@
 import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group';
 import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
-import { Toggle, type ToggleProps, type ToggleSize, type ToggleVariant } from '../Toggle';
+import { Toggle } from '../Toggle';
 import styles from './ToggleGroup.module.css';
+
+type ToggleVariant = React.ComponentProps<typeof Toggle>['variant'];
+type ToggleSize = React.ComponentProps<typeof Toggle>['size'];
 
 type ToggleGroupContextValue = {
   variant: ToggleVariant;
@@ -46,7 +49,7 @@ function ToggleGroup<Value extends string = string>({
   );
 }
 
-type ToggleGroupItemProps = ToggleProps;
+type ToggleGroupItemProps = React.ComponentProps<typeof Toggle>;
 
 function ToggleGroupItem({ className, variant, size, ...props }: ToggleGroupItemProps) {
   const context = React.useContext(ToggleGroupContext);
