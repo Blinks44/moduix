@@ -82,7 +82,7 @@
     }
   }
 
-  .viewportNonModal {
+  .viewportNonBlocking {
     pointer-events: none;
 
     & > [data-slot='dialog-popup'] {

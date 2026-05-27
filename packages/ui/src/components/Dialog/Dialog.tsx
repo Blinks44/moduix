@@ -1,13 +1,12 @@
-import type { ComponentProps } from 'react';
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { createContext, useContext, type ComponentProps } from 'react';
 import { CloseButton } from '@/components/CloseButton';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Dialog.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
-const DialogModalContext = React.createContext<DialogPrimitive.Root.Props['modal']>(true);
+const DialogModeContext = createContext<DialogPrimitive.Root.Props['modal']>(true);
 
 const createDialogHandle = DialogPrimitive.createHandle;
 
@@ -16,9 +15,9 @@ function Dialog<Payload = unknown>({
   ...props
 }: DialogPrimitive.Root.Props<Payload>) {
   return (
-    <DialogModalContext.Provider value={modal}>
+    <DialogModeContext.Provider value={modal}>
       <DialogPrimitive.Root modal={modal} {...props} />
-    </DialogModalContext.Provider>
+    </DialogModeContext.Provider>
   );
 }
 
@@ -115,13 +114,15 @@ function DialogCloseIcon({
 }
 
 function DialogContent({ className, children, ...props }: DialogPrimitive.Popup.Props) {
-  const modal = React.useContext(DialogModalContext);
-  const hasBackdrop = modal === true;
+  const modal = useContext(DialogModeContext);
+  const blocksOutsidePointerInteraction = modal === true;
 
   return (
     <DialogPortal>
-      {hasBackdrop ? <DialogBackdrop /> : null}
-      <DialogViewport className={modal === true ? undefined : styles.viewportNonModal}>
+      {blocksOutsidePointerInteraction ? <DialogBackdrop /> : null}
+      <DialogViewport
+        className={blocksOutsidePointerInteraction ? undefined : styles.viewportNonBlocking}
+      >
         <DialogPopup className={className} {...props}>
           {children}
         </DialogPopup>

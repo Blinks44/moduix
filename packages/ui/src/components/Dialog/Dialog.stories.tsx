@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../Button';
 import { ScrollArea } from '../ScrollArea';
@@ -56,10 +56,10 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Button type="button" onClick={() => setOpen(true)}>
           Open controlled dialog
         </Button>
@@ -76,17 +76,17 @@ export const Controlled: Story = {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </React.Fragment>
+      </Fragment>
     );
   },
 };
 
 export const WithHandle: Story = {
   render: () => {
-    const dialogHandle = React.useMemo(() => createDialogHandle(), []);
+    const dialogHandle = useMemo(() => createDialogHandle(), []);
 
     return (
-      <React.Fragment>
+      <Fragment>
         <DialogTrigger handle={dialogHandle} render={<Button />}>
           Open from detached trigger
         </DialogTrigger>
@@ -111,28 +111,33 @@ export const WithHandle: Story = {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </React.Fragment>
+      </Fragment>
     );
   },
 };
 
-export const WithScrollableViewport: Story = {
+export const ScrollableBody: Story = {
   render: () => {
     return (
       <Dialog>
         <DialogTrigger render={<Button />}>Open long content</DialogTrigger>
-        <DialogContent>
+        <DialogContent className={storyStyles.scrollPopup}>
           <DialogHeader>
             <DialogTitle>Release checklist</DialogTitle>
+            <DialogCloseIcon />
             <DialogDescription>Review all items before publishing to production.</DialogDescription>
           </DialogHeader>
-          <DialogBody>
-            <p>Confirm migration scripts are idempotent and have rollback steps.</p>
-            <p>Check that the monitoring dashboard includes new API endpoints.</p>
-            <p>Verify analytics events for the onboarding funnel are firing.</p>
-            <p>Run smoke tests in staging with a production-like dataset.</p>
-            <p>Ensure feature flags are configured for gradual rollout.</p>
-            <p>Notify support about possible temporary UI inconsistencies.</p>
+          <DialogBody className={storyStyles.scrollBody}>
+            <ScrollArea className={storyStyles.scrollArea}>
+              <div className={storyStyles.scrollContent}>
+                {insideScrollSections.map((item) => (
+                  <section key={item.title}>
+                    <h3 className={storyStyles.scrollSectionTitle}>{item.title}</h3>
+                    <p className={storyStyles.scrollSectionBody}>{item.body}</p>
+                  </section>
+                ))}
+              </div>
+            </ScrollArea>
           </DialogBody>
           <DialogFooter>
             <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
@@ -198,6 +203,29 @@ export const NonModal: Story = {
   },
 };
 
+export const TrapFocus: Story = {
+  render: () => {
+    return (
+      <Dialog modal="trap-focus">
+        <DialogTrigger render={<Button />}>Open focus-trapped dialog</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Focus stays inside the dialog</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>
+              Outside content remains clickable, but keyboard focus stays trapped until the dialog
+              closes.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  },
+};
+
 export const CustomCloseIcon: Story = {
   render: () => {
     return (
@@ -217,47 +245,6 @@ export const CustomCloseIcon: Story = {
             <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
-    );
-  },
-};
-
-export const InsideScrollDialog: Story = {
-  render: () => {
-    return (
-      <Dialog>
-        <DialogTrigger render={<Button />}>Open inside scroll dialog</DialogTrigger>
-        <DialogPortal>
-          <DialogBackdrop />
-          <DialogViewport className={storyStyles.insideViewport}>
-            <DialogPopup className={storyStyles.insidePopup}>
-              <DialogHeader>
-                <DialogTitle>Dialog</DialogTitle>
-                <DialogCloseIcon className={storyStyles.insideCloseIcon} />
-                <DialogDescription>
-                  This layout keeps the popup fully on screen while allowing its content to scroll.
-                </DialogDescription>
-              </DialogHeader>
-
-              <DialogBody className={storyStyles.insideBodyWrapper}>
-                <ScrollArea className={storyStyles.insideBody}>
-                  <div className={storyStyles.insideBodyContent}>
-                    {insideScrollSections.map((item) => (
-                      <section key={item.title}>
-                        <h3 className={storyStyles.insideSectionTitle}>{item.title}</h3>
-                        <p className={storyStyles.insideSectionBody}>{item.body}</p>
-                      </section>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </DialogBody>
-
-              <DialogFooter>
-                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
-              </DialogFooter>
-            </DialogPopup>
-          </DialogViewport>
-        </DialogPortal>
       </Dialog>
     );
   },

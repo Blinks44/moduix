@@ -14,12 +14,17 @@ import {
   NonModalDialogExample,
   NestedDialogExample,
   ScrollableDialogExample,
+  TrapFocusDialogExample,
   dialogPlaygroundCssProperties,
 } from '@/components/examples/dialog';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/dialog" />
+
+`DialogContent` is the recommended default path. It keeps the visible structure short while still
+leaving `DialogPortal`, `DialogBackdrop`, `DialogViewport`, and `DialogPopup` available for custom
+composition when the workflow needs it.
 
 ## Basic
 
@@ -131,9 +136,9 @@ when you need to change portal behavior, backdrop presence, viewport behavior, o
 
 ## Composition
 
-`Dialog` owns root behavior: `open`, `defaultOpen`, `onOpenChange`, `modal`, plus Base UI passthrough
-props (`onOpenChangeComplete`, `disablePointerDismissal`, `actionsRef`, `handle`, `triggerId`,
-`defaultTriggerId`).
+`Dialog` owns root behavior: `open`, `defaultOpen`, `onOpenChange`, `modal`, plus the matching Base
+UI passthrough props such as `onOpenChangeComplete`, `disablePointerDismissal`, `actionsRef`,
+`handle`, `triggerId`, and `defaultTriggerId`.
 
 `DialogContent` stays thin: it accepts the popup props from Base UI, applies the library styles,
 and renders the default portal/backdrop/viewport/popup stack. When `modal` allows outside pointer
@@ -459,6 +464,55 @@ the backdrop automatically.
                 <DialogCloseIcon />
                 <DialogDescription>
                   The page remains interactive because modal behavior and backdrop are disabled.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Trap Focus Without Blocking the Page
+
+Set `modal="trap-focus"` when focus should stay inside the dialog but the rest of the page should
+remain scrollable and clickable. `DialogContent` uses the same backdrop-free path here as it does
+for non-modal dialogs.
+
+<Preview>
+  <TrapFocusDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Dialog,
+        DialogTrigger,
+        Button,
+        DialogCloseIcon,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogDescription,
+        DialogFooter,
+        DialogClose,
+      } from "moduix";
+
+      export function TrapFocusDialogDemo() {
+        return (
+          <Dialog modal="trap-focus">
+            <DialogTrigger render={<Button />}>Open focus-trapped dialog</DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Focus stays inside the dialog</DialogTitle>
+                <DialogCloseIcon />
+                <DialogDescription>
+                  Outside content remains clickable, but keyboard focus stays trapped until the
+                  dialog closes.
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>

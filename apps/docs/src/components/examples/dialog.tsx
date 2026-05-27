@@ -17,7 +17,7 @@ import {
   ScrollArea,
   createDialogHandle,
 } from 'moduix';
-import * as React from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -164,10 +164,10 @@ export function DialogExample() {
 }
 
 export function ControlledDialogExample() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Button type="button" onClick={() => setOpen(true)}>
         Open controlled dialog
       </Button>
@@ -185,15 +185,15 @@ export function ControlledDialogExample() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
 export function DialogHandleExample() {
-  const dialogHandle = React.useMemo(() => createDialogHandle(), []);
+  const dialogHandle = useMemo(() => createDialogHandle(), []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <DialogTrigger handle={dialogHandle} render={<Button variant="outline" />}>
         Open from detached trigger
       </DialogTrigger>
@@ -214,7 +214,7 @@ export function DialogHandleExample() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
@@ -287,6 +287,27 @@ export function NonModalDialogExample() {
           <DialogCloseIcon />
           <DialogDescription>
             The page remains interactive because modal behavior and backdrop are disabled.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export function TrapFocusDialogExample() {
+  return (
+    <Dialog modal="trap-focus">
+      <DialogTrigger render={<Button />}>Open focus-trapped dialog</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Focus stays inside the dialog</DialogTitle>
+          <DialogCloseIcon />
+          <DialogDescription>
+            Outside content remains clickable, but keyboard focus stays trapped until the dialog
+            closes.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
