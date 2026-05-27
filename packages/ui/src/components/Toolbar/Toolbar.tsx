@@ -3,43 +3,24 @@ import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Toolbar.module.css';
 
-type ToolbarVariant = 'default' | 'outline' | 'ghost';
-type ToolbarSize = 'sm' | 'md' | 'lg';
+const Toolbar = React.forwardRef(function Toolbar(
+  { className, ...props }: ToolbarPrimitive.Root.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Root>>,
+) {
+  return (
+    <ToolbarPrimitive.Root
+      ref={ref}
+      data-slot="toolbar-root"
+      className={mergeClassName(className, styles.root)}
+      {...props}
+    />
+  );
+});
 
-type ToolbarProps = ToolbarPrimitive.Root.Props & {
-  variant?: ToolbarVariant;
-  size?: ToolbarSize;
-};
-
-type ToolbarGroupProps = ToolbarPrimitive.Group.Props;
-type ToolbarButtonProps = ToolbarPrimitive.Button.Props;
-type ToolbarLinkProps = ToolbarPrimitive.Link.Props;
-type ToolbarInputProps = ToolbarPrimitive.Input.Props;
-type ToolbarSeparatorProps = ToolbarPrimitive.Separator.Props;
-
-const Toolbar = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.Root>, ToolbarProps>(
-  function Toolbar(
-    { className, variant = 'default', size = 'md', orientation = 'horizontal', ...props },
-    ref,
-  ) {
-    return (
-      <ToolbarPrimitive.Root
-        ref={ref}
-        data-slot="toolbar-root"
-        data-variant={variant}
-        data-size={size}
-        orientation={orientation}
-        className={mergeClassName(className, styles.root)}
-        {...props}
-      />
-    );
-  },
-);
-
-const ToolbarGroup = React.forwardRef<
-  React.ComponentRef<typeof ToolbarPrimitive.Group>,
-  ToolbarGroupProps
->(function ToolbarGroup({ className, ...props }, ref) {
+const ToolbarGroup = React.forwardRef(function ToolbarGroup(
+  { className, ...props }: ToolbarPrimitive.Group.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Group>>,
+) {
   return (
     <ToolbarPrimitive.Group
       ref={ref}
@@ -50,10 +31,10 @@ const ToolbarGroup = React.forwardRef<
   );
 });
 
-const ToolbarButton = React.forwardRef<
-  React.ComponentRef<typeof ToolbarPrimitive.Button>,
-  ToolbarButtonProps
->(function ToolbarButton({ className, ...props }, ref) {
+const ToolbarButton = React.forwardRef(function ToolbarButton(
+  { className, ...props }: ToolbarPrimitive.Button.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Button>>,
+) {
   return (
     <ToolbarPrimitive.Button
       ref={ref}
@@ -64,10 +45,10 @@ const ToolbarButton = React.forwardRef<
   );
 });
 
-const ToolbarLink = React.forwardRef<
-  React.ComponentRef<typeof ToolbarPrimitive.Link>,
-  ToolbarLinkProps
->(function ToolbarLink({ className, ...props }, ref) {
+const ToolbarLink = React.forwardRef(function ToolbarLink(
+  { className, ...props }: ToolbarPrimitive.Link.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Link>>,
+) {
   return (
     <ToolbarPrimitive.Link
       ref={ref}
@@ -78,10 +59,10 @@ const ToolbarLink = React.forwardRef<
   );
 });
 
-const ToolbarInput = React.forwardRef<
-  React.ComponentRef<typeof ToolbarPrimitive.Input>,
-  ToolbarInputProps
->(function ToolbarInput({ className, ...props }, ref) {
+const ToolbarInput = React.forwardRef(function ToolbarInput(
+  { className, ...props }: ToolbarPrimitive.Input.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Input>>,
+) {
   return (
     <ToolbarPrimitive.Input
       ref={ref}
@@ -92,10 +73,10 @@ const ToolbarInput = React.forwardRef<
   );
 });
 
-const ToolbarSeparator = React.forwardRef<
-  React.ComponentRef<typeof ToolbarPrimitive.Separator>,
-  ToolbarSeparatorProps
->(function ToolbarSeparator({ className, ...props }, ref) {
+const ToolbarSeparator = React.forwardRef(function ToolbarSeparator(
+  { className, ...props }: ToolbarPrimitive.Separator.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Separator>>,
+) {
   return (
     <ToolbarPrimitive.Separator
       ref={ref}
@@ -107,14 +88,3 @@ const ToolbarSeparator = React.forwardRef<
 });
 
 export { Toolbar, ToolbarGroup, ToolbarButton, ToolbarLink, ToolbarInput, ToolbarSeparator };
-
-export type {
-  ToolbarProps,
-  ToolbarVariant,
-  ToolbarSize,
-  ToolbarGroupProps,
-  ToolbarButtonProps,
-  ToolbarLinkProps,
-  ToolbarInputProps,
-  ToolbarSeparatorProps,
-};

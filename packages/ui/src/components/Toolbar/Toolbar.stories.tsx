@@ -117,60 +117,6 @@ export const WithSelectAndInput: Story = {
   },
 };
 
-export const Variants: Story = {
-  render: () => {
-    return (
-      <div className={storyStyles.stack}>
-        <Toolbar aria-label="Default toolbar">
-          <ToolbarButton>Default</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-        <Toolbar aria-label="Outline toolbar" variant="outline">
-          <ToolbarButton>Outline</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-        <Toolbar aria-label="Ghost toolbar" variant="ghost">
-          <ToolbarButton>Ghost</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-      </div>
-    );
-  },
-};
-
-export const Sizes: Story = {
-  render: () => {
-    return (
-      <div className={storyStyles.stack}>
-        <Toolbar aria-label="Small toolbar" size="sm">
-          <ToolbarButton>Small</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-        <Toolbar aria-label="Medium toolbar" size="md">
-          <ToolbarButton>Medium</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-        <Toolbar aria-label="Large toolbar" size="lg">
-          <ToolbarButton>Large</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-      </div>
-    );
-  },
-};
-
 export const Vertical: Story = {
   render: () => {
     return (

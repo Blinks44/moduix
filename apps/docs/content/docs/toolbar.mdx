@@ -12,9 +12,7 @@ import {
   ToolbarDisabledControlsExample,
   ToolbarExample,
   ToolbarSelectInputExample,
-  ToolbarSizesExample,
   ToolbarToggleGroupExample,
-  ToolbarVariantsExample,
   ToolbarVerticalExample,
   toolbarPlaygroundCssProperties,
 } from '@/components/examples/toolbar';
@@ -80,7 +78,7 @@ Toolbar[aria-label]
 
 | Part               | Role                                                                                              |
 | ------------------ | ------------------------------------------------------------------------------------------------- |
-| `Toolbar`          | Root toolbar region. Controls orientation, disabled state, visual `variant`, and control `size`.  |
+| `Toolbar`          | Root toolbar region. Controls orientation and disabled state for grouped actions and inputs.      |
 | `ToolbarGroup`     | Groups related controls inside the toolbar and gives them a shared label when needed.             |
 | `ToolbarButton`    | Toolbar-aware button. Compose it with `Toggle`, `SelectTrigger`, or another trigger via `render`. |
 | `ToolbarInput`     | Native input that participates in toolbar keyboard navigation.                                    |
@@ -92,9 +90,9 @@ parts directly with `className` or scoped CSS variables.
 
 ## Composition
 
-Use `Toolbar` for shared behavior and layout props: `aria-label`, `orientation`, `disabled`,
-`variant`, and `size`. Add `ToolbarGroup` when a subset of controls needs its own accessible
-name, and `ToolbarSeparator` when controls should be split into separate clusters.
+Use `Toolbar` for shared behavior and layout props such as `aria-label`, `orientation`, and
+`disabled`. Add `ToolbarGroup` when a subset of controls needs its own accessible name, and
+`ToolbarSeparator` when controls should be split into separate clusters.
 
 `ToolbarButton` supports the Base UI `render` prop. This lets one element act as both a toolbar
 item and another interactive primitive, such as a `Toggle` or `SelectTrigger`, without nesting
@@ -130,8 +128,6 @@ portal and positioning behavior. Configure those slots on the popup component, n
 
 | Prop                           | Default                   | Values                                                             |
 | ------------------------------ | ------------------------- | ------------------------------------------------------------------ |
-| `variant`                      | `default`                 | `default`, `outline`, `ghost`                                      |
-| `size`                         | `md`                      | `sm`, `md`, `lg`                                                   |
 | `orientation`                  | `horizontal`              | `horizontal`, `vertical`                                           |
 | `disabled`                     | `false`                   | `true`, `false`                                                    |
 | `ToolbarSeparator.orientation` | auto-opposite orientation | `vertical` in horizontal toolbar, `horizontal` in vertical toolbar |
@@ -257,98 +253,6 @@ horizontal toolbars.
     `}
 
   </Preview.Data>
-</Preview>
-
-### Variants
-
-Use `variant` to match the surrounding surface.
-
-<Preview>
-  <ToolbarVariantsExample />
-
-  <Preview.Code>
-    {`
-      import { BellIcon, Toolbar, ToolbarButton, ToolbarSeparator } from "moduix";
-
-      export function ToolbarVariantsDemo() {
-        return (
-          <>
-            <Toolbar aria-label="Default toolbar">
-              <ToolbarButton>Undo</ToolbarButton>
-              <ToolbarButton>Redo</ToolbarButton>
-              <ToolbarSeparator />
-              <ToolbarButton aria-label="Notifications">
-                <BellIcon />
-              </ToolbarButton>
-            </Toolbar>
-            <Toolbar aria-label="Outline toolbar" variant="outline">
-              <ToolbarButton>Undo</ToolbarButton>
-              <ToolbarButton>Redo</ToolbarButton>
-              <ToolbarSeparator />
-              <ToolbarButton aria-label="Notifications">
-                <BellIcon />
-              </ToolbarButton>
-            </Toolbar>
-            <Toolbar aria-label="Ghost toolbar" variant="ghost">
-              <ToolbarButton>Undo</ToolbarButton>
-              <ToolbarButton>Redo</ToolbarButton>
-              <ToolbarSeparator />
-              <ToolbarButton aria-label="Notifications">
-                <BellIcon />
-              </ToolbarButton>
-            </Toolbar>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Sizes
-
-Use `size` to fit compact or roomy interfaces.
-
-<Preview>
-  <ToolbarSizesExample />
-
-  <Preview.Code>
-    {`
-      import { BellIcon, Toolbar, ToolbarButton, ToolbarSeparator } from "moduix";
-
-      export function ToolbarSizesDemo() {
-        return (
-          <>
-            <Toolbar aria-label="Small toolbar" size="sm">
-              <ToolbarButton>Undo</ToolbarButton>
-              <ToolbarButton>Redo</ToolbarButton>
-              <ToolbarSeparator />
-              <ToolbarButton aria-label="Notifications">
-                <BellIcon />
-              </ToolbarButton>
-            </Toolbar>
-            <Toolbar aria-label="Medium toolbar" size="md">
-              <ToolbarButton>Undo</ToolbarButton>
-              <ToolbarButton>Redo</ToolbarButton>
-              <ToolbarSeparator />
-              <ToolbarButton aria-label="Notifications">
-                <BellIcon />
-              </ToolbarButton>
-            </Toolbar>
-            <Toolbar aria-label="Large toolbar" size="lg">
-              <ToolbarButton>Undo</ToolbarButton>
-              <ToolbarButton>Redo</ToolbarButton>
-              <ToolbarSeparator />
-              <ToolbarButton aria-label="Notifications">
-                <BellIcon />
-              </ToolbarButton>
-            </Toolbar>
-          </>
-        );
-      }
-    `}
-
-  </Preview.Code>
 </Preview>
 
 ### Vertical
@@ -484,10 +388,10 @@ Pass icons as children. Icon-only buttons must include an accessible label.
   </Preview.Code>
 </Preview>
 
-### Class Names
+### Custom Styles
 
-Pass `className` to the root and individual parts when styling with CSS Modules, Tailwind CSS, or
-CSS-in-JS.
+Style the root and visible parts directly with `className` or scoped CSS variables. This keeps the
+default API small while leaving layout and visual changes in consumer space.
 
 <Preview>
   <ToolbarClassNameExample />
