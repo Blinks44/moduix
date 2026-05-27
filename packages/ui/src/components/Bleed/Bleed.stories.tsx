@@ -7,6 +7,23 @@ const meta = {
   title: 'Components/Bleed',
   component: Bleed,
   tags: ['autodocs'],
+  args: {
+    inline: 'full',
+    block: 'none',
+  },
+  argTypes: {
+    inline: {
+      control: 'inline-radio',
+      options: ['none', 'xs', 'sm', 'md', 'lg', 'xl', 'full'],
+    },
+    block: {
+      control: 'inline-radio',
+      options: ['none', 'xs', 'sm', 'md', 'lg', 'xl'],
+    },
+    as: {
+      control: 'text',
+    },
+  },
   parameters: {
     layout: 'centered',
   },
@@ -17,10 +34,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  render: () => (
+  render: (args) => (
     <div className={storyStyles.container}>
       <Text tone="muted">Container content stays constrained.</Text>
-      <Bleed className={storyStyles.bleed}>
+      <Bleed {...args} className={storyStyles.bleed}>
         <Text weight="semibold">This block bleeds to the viewport edges.</Text>
       </Bleed>
       <Text tone="muted">Following content returns to the container width.</Text>

@@ -1,22 +1,20 @@
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
 import clsx from 'clsx';
-import * as React from 'react';
 import styles from './Bleed.module.css';
 
 function Bleed({
-  as,
+  as: Root = 'div',
   inline = 'full',
   block = 'none',
   className,
   ...props
-}: React.ComponentPropsWithoutRef<'div'> & {
-  as?: React.ElementType;
+}: ComponentPropsWithoutRef<'div'> & {
+  as?: ElementType;
   inline?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   block?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }) {
-  const Component = as ?? 'div';
-
   return (
-    <Component
+    <Root
       {...props}
       data-slot="bleed-root"
       data-inline={inline}

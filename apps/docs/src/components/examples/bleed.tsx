@@ -26,24 +26,20 @@ export const bleedPlaygroundCssProperties: CssPropertyInput[] = [
 
 export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
-    <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={bleedOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </div>
+    <CSSPropertiesReferenceTable
+      properties={bleedOverrideCssProperties.map(normalizeCssProperty)}
+    />
   );
 }
 
 export function BleedCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
   return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={bleedPlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
-    </div>
+    <CSSPropertiesEditor
+      properties={bleedPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
   );
 }
 

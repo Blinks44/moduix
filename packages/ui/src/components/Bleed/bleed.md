@@ -1,21 +1,28 @@
 # Bleed
 
-`Bleed` lets content extend beyond the inline and/or block bounds of its parent container.
+`Bleed` is a small layout primitive for content that should intentionally escape a constrained
+parent while staying in normal document flow.
+
+Use `inline` to control horizontal bleed, add `block` when content also needs to escape vertical
+padding, and use `as` when the root should render a different element.
+`inline="full"` is the default path for full-bleed sections and media.
 
 ## Parts
 
-- `Bleed` (`data-slot="bleed-root"`)
+- `Bleed` (`data-slot="bleed-root"`) root layout wrapper
 
-## Props
+## Defaults
 
-- `inline`: `none` | `xs` | `sm` | `md` | `lg` | `xl` | `full` (default: `full`)
-- `block`: `none` | `xs` | `sm` | `md` | `lg` | `xl` (default: `none`)
-- `as`: root element override (default: `div`)
-- `className` and root-element props
+| Prop     | Default | Values                                       |
+| -------- | ------- | -------------------------------------------- |
+| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
+| `as`     | `div`   | Any React element type                       |
 
 ## Styling
 
-The component exposes `--bleed-*` CSS variables in `src/styles/theme.css` for consumer overrides.
+Customize the root with `className` and override `--bleed-*` CSS variables in
+`src/styles/theme.css` when layout math needs to change locally.
 
 ## Layout Notes
 
