@@ -24,11 +24,11 @@
   }
 
   .legend {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 100%;
     margin: var(--fieldset-legend-margin, 0);
-    padding: var(
-      --fieldset-legend-padding,
-      0 0 var(--fieldset-legend-padding-bottom, var(--spacing-3))
-    );
+    padding: var(--fieldset-legend-padding, 0 0 var(--spacing-3));
     border-bottom-width: var(--fieldset-legend-border-width, var(--border-width-sm));
     border-bottom-style: var(--fieldset-legend-border-style, solid);
     border-bottom-color: var(--fieldset-legend-border-color, var(--color-border));

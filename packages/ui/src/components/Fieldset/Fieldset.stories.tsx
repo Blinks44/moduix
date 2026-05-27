@@ -17,7 +17,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   render: () => {
     return (
       <Fieldset>
@@ -59,7 +59,7 @@ export const Disabled: Story = {
   },
 };
 
-export const RadioGroupComposition: Story = {
+export const ComposedRoot: Story = {
   render: () => {
     return (
       <Field name="storageType">

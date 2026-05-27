@@ -5,12 +5,12 @@ icon: Component
 ---
 
 import {
-  DisabledFieldsetExample,
   CustomStylesFieldsetExample,
+  CustomCompositionFieldsetExample,
+  DisabledFieldsetExample,
   FieldsetCssPlaygroundPanel,
   FieldsetCssPropertiesPanel,
   FieldsetExample,
-  RadioGroupFieldsetExample,
   fieldsetPlaygroundCssProperties,
 } from '@/components/examples/fieldset';
 
@@ -60,6 +60,9 @@ import {
   <Preview.CSSPlayground>{(context) => <FieldsetCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+`Fieldset` keeps the default path short: render one root, put the visible group label in
+`FieldsetLegend`, then place the related controls inside.
+
 ## Anatomy
 
 `Fieldset` groups related controls under one semantic legend. Keep the visible group label in
@@ -89,10 +92,10 @@ Fieldset
 </Fieldset>
 ```
 
-| Part             | Role                                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------------------------ |
-| `Fieldset`       | Root semantic group. Renders native `fieldset`, controls shared disabled state, and supports `render`. |
-| `FieldsetLegend` | Group label announced by assistive technologies for all nested controls in the fieldset.               |
+| Part             | Role                                                                                                  |
+| ---------------- | ----------------------------------------------------------------------------------------------------- |
+| `Fieldset`       | Root semantic group. Renders native `fieldset`, carries shared disabled state, and supports `render`. |
+| `FieldsetLegend` | Group label announced for the whole fieldset.                                                         |
 
 `Fieldset` has only two public parts: `Fieldset` and `FieldsetLegend`. There are no extra slot APIs
 or exported helper types to learn. In most cases, keep the native structure and style the visible
@@ -100,9 +103,9 @@ parts with `className` and CSS variables.
 
 ## Composition
 
-`Fieldset` renders a native `fieldset` by default and passes Base UI props through directly. The
-main escape hatch is `render`, which lets the same semantic group also act as another Base UI root
-such as `RadioGroup` or `CheckboxGroup`.
+`Fieldset` is a thin wrapper over the Base UI primitive. By default it renders a native
+`fieldset`, forwards Base UI props directly, and exposes only the visible parts that consumers
+actually style.
 
 `Fieldset` and `FieldsetLegend` are the whole component surface. Pass `className` directly to the
 part you want to customize.
@@ -120,6 +123,10 @@ part you want to customize.
   <FieldsetLegend className={styles.legend}>Billing details</FieldsetLegend>
 </Fieldset>
 ```
+
+Use `render` only when the fieldset semantics need to be composed with another root, such as
+`RadioGroup` or `CheckboxGroup`. That keeps the normal path simple while preserving the Base UI
+escape hatch for grouped selection controls.
 
 ## Examples
 
@@ -162,62 +169,10 @@ Use `disabled` on `Fieldset` to prevent interaction with every native control in
   </Preview.Code>
 </Preview>
 
-### Composed Root
-
-Use `render` to compose the fieldset semantics with another root component, such as `RadioGroup`.
-
-<Preview>
-  <RadioGroupFieldsetExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        Fieldset,
-        RadioGroup,
-        FieldsetLegend,
-        FieldItem,
-        FieldLabel,
-        Radio,
-        RadioLabel,
-      } from "moduix";
-
-      export function RadioGroupFieldsetDemo() {
-        return (
-          <Field name="storageType">
-            <Fieldset render={<RadioGroup defaultValue="ssd" />}>
-              <FieldsetLegend>Storage type</FieldsetLegend>
-
-              {storageTypes.map((item) => (
-                <FieldItem key={item.value}>
-                  <FieldLabel>
-                    <Radio value={item.value} />
-                    <RadioLabel>{item.label}</RadioLabel>
-                  </FieldLabel>
-                </FieldItem>
-              ))}
-            </Fieldset>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const storageTypes = [
-        { value: "ssd", label: "SSD" },
-        { value: "hdd", label: "HDD" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
 ### Custom Styles
 
-Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field parts when styling with CSS
+Modules, Tailwind CSS, or CSS-in-JS.
 
 <Preview>
   <CustomStylesFieldsetExample />
@@ -288,6 +243,74 @@ Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field slots when st
 
       .customControl:focus {
         outline-color: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
+
+Use `render` when the semantic fieldset also needs to be another Base UI root. This is the main
+advanced composition path for radio groups and checkbox groups inside forms.
+
+<Preview>
+  <CustomCompositionFieldsetExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldItem,
+        FieldLabel,
+        Fieldset,
+        FieldsetLegend,
+        Radio,
+        RadioGroup,
+        RadioLabel,
+      } from "moduix";
+
+      export function StorageTypeFieldset() {
+        return (
+          <Field name="storageType">
+            <Fieldset render={<RadioGroup defaultValue="ssd" className={styles.choiceGroup} />}>
+              <FieldsetLegend>Storage type</FieldsetLegend>
+
+              {storageTypes.map((item) => (
+                <FieldItem key={item.value}>
+                  <FieldLabel className={styles.choiceRow}>
+                    <Radio value={item.value} />
+                    <RadioLabel>{item.label}</RadioLabel>
+                  </FieldLabel>
+                </FieldItem>
+              ))}
+            </Fieldset>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const storageTypes = [
+        { value: "ssd", label: "SSD" },
+        { value: "hdd", label: "HDD" },
+      ];
+    `}
+
+  </Preview.Data>
+
+  <Preview.CSS>
+    {`
+      .choiceGroup {
+        gap: var(--spacing-2);
+      }
+
+      .choiceRow {
+        align-items: center;
+        gap: var(--spacing-3);
       }
     `}
 

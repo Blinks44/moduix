@@ -27,3 +27,12 @@
 .customControl:focus {
   outline-color: var(--color-primary);
 }
+
+.choiceGroup {
+  gap: var(--spacing-2);
+}
+
+.choiceRow {
+  align-items: center;
+  gap: var(--spacing-3);
+}

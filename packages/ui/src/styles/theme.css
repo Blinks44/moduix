@@ -984,8 +984,7 @@
   --fieldset-legend-font-weight: initial; /* var(--weight-semibold) */
   --fieldset-legend-line-height: initial; /* var(--line-height-text-lg) */
   --fieldset-legend-margin: initial; /* 0 */
-  --fieldset-legend-padding: initial; /* 0 0 var(--fieldset-legend-padding-bottom, var(--spacing-3)) */
-  --fieldset-legend-padding-bottom: initial; /* var(--spacing-3) */
+  --fieldset-legend-padding: initial; /* 0 0 var(--spacing-3) */
   --fieldset-margin: initial; /* 0 */
   --fieldset-max-width: initial; /* none */
   --fieldset-padding: initial; /* 0 */
