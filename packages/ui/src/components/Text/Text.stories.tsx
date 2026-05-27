@@ -24,12 +24,12 @@ export const Basic: Story = {};
 export const Elements: Story = {
   render: () => (
     <div className={storyStyles.stack}>
-      <Text as="p">Paragraph text rendered as p.</Text>
-      <Text as="span">Inline text rendered as span.</Text>
-      <Text as="small">Small supporting text rendered as small.</Text>
-      <Text as="strong">Important text rendered as strong.</Text>
-      <Text as="em">Emphasized text rendered as em.</Text>
-      <Text as="div">Block text rendered as div.</Text>
+      <Text>Paragraph text rendered as p.</Text>
+      <Text render={<span />}>Inline text rendered as span.</Text>
+      <Text render={<small />}>Small supporting text rendered as small.</Text>
+      <Text render={<strong />}>Important text rendered as strong.</Text>
+      <Text render={<em />}>Emphasized text rendered as em.</Text>
+      <Text render={<div />}>Block text rendered as div.</Text>
     </div>
   ),
 };
@@ -43,7 +43,7 @@ function InlineLink(props: InlineLinkProps) {
 export const CustomElement: Story = {
   name: 'Custom Element',
   render: () => (
-    <Text as={InlineLink} href="#" tone="primary" weight="medium">
+    <Text render={<InlineLink href="#" />} tone="primary" weight="medium">
       Text rendered through a custom link component.
     </Text>
   ),

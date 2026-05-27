@@ -21,7 +21,7 @@ import {
 ## API Reference
 
 `Text` is a typography primitive for body copy, inline text, and supporting descriptions.
-Its API stays focused on semantic element choice, visual variants, and root `className`.
+Its API stays focused on visual variants, root `className`, and Base UI `render` composition.
 
 ## Basic
 
@@ -48,7 +48,7 @@ Its API stays focused on semantic element choice, visual variants, and root `cla
 
 ## Anatomy
 
-`Text` is composed as a single typography root that renders the chosen semantic element.
+`Text` is composed as a single typography root that renders a `p` by default.
 
 ```text
 Text
@@ -56,7 +56,7 @@ Text
 ```
 
 ```tsx
-<Text as="small" size="sm" tone="muted">
+<Text render={<small />} size="sm" tone="muted">
   Last updated just now
 </Text>
 ```
@@ -67,31 +67,33 @@ Text
 
 ## Composition
 
-Use `as` for semantics and `size` for visual scale when they should differ. Built-in defaults
-keep `strong` semibold and `small` at `sm`; other elements and custom components default to
-regular `md` text. Use `className` and CSS variables for local styling.
+Use the default `p` for body copy. When the semantic element should change, use Base UI's `render`
+prop. Built-in defaults keep `render={<strong />}` semibold and `render={<small />}` at `sm`;
+other rendered elements and custom components default to regular `md` text. Use `className` and
+CSS variables for local styling.
 
 ### Defaults
 
 | Prop     | Default         | Values                                                 |
 | -------- | --------------- | ------------------------------------------------------ |
-| `as`     | `p`             | Any valid React element or component                   |
-| `size`   | Element-based   | `xs`, `sm`, `md`, `lg`, `xl`                           |
-| `weight` | Element-based   | `regular`, `medium`, `semibold`, `bold`                |
+| `render` | `p` root        | React element or render function                       |
+| `size`   | Render-based    | `xs`, `sm`, `md`, `lg`, `xl`                           |
+| `weight` | Render-based    | `regular`, `medium`, `semibold`, `bold`                |
 | `tone`   | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive` |
 | `align`  | Unset (`start`) | `left`, `center`, `right`                              |
 
-Element-based defaults for `size` and `weight`:
+Render-based defaults for `size` and `weight`:
 
-- `small`: `size="sm"`, `weight="regular"`
-- `strong`: `size="md"`, `weight="semibold"`
-- `p`, `span`, `em`, `div`, and custom components: `size="md"`, `weight="regular"`
+- default root (`p`): `size="md"`, `weight="regular"`
+- `render={<small />}`: `size="sm"`, `weight="regular"`
+- `render={<strong />}`: `size="md"`, `weight="semibold"`
+- other rendered elements and custom components: `size="md"`, `weight="regular"`
 
 ## Examples
 
 ### Elements
 
-Use `as` to choose the semantic element without leaving the typography scale.
+Use `render` to change the semantic element without leaving the typography scale.
 
 <Preview>
   <TextElementsExample />
@@ -103,12 +105,12 @@ Use `as` to choose the semantic element without leaving the typography scale.
       export function TextElementsDemo() {
         return (
           <div className={styles.stack}>
-            <Text as="p">Paragraph text rendered as p.</Text>
-            <Text as="span">Inline text rendered as span.</Text>
-            <Text as="small">Small supporting text rendered as small.</Text>
-            <Text as="strong">Important text rendered as strong.</Text>
-            <Text as="em">Emphasized text rendered as em.</Text>
-            <Text as="div">Block text rendered as div.</Text>
+            <Text>Paragraph text rendered as p.</Text>
+            <Text render={<span />}>Inline text rendered as span.</Text>
+            <Text render={<small />}>Small supporting text rendered as small.</Text>
+            <Text render={<strong />}>Important text rendered as strong.</Text>
+            <Text render={<em />}>Emphasized text rendered as em.</Text>
+            <Text render={<div />}>Block text rendered as div.</Text>
           </div>
         );
       }
@@ -131,8 +133,7 @@ Use `as` to choose the semantic element without leaving the typography scale.
 
 ### Custom Element
 
-Pass a React element or component to `as` when the rendered element belongs to a routing or
-app-level primitive.
+Pass a React element to `render` when the root should be a routing or app-level primitive.
 
 <Preview>
   <TextCustomElementExample />
@@ -150,7 +151,7 @@ app-level primitive.
 
       export function TextCustomElementDemo() {
         return (
-          <Text as={InlineLink} href="/docs" tone="primary" weight="medium">
+          <Text render={<InlineLink href="/docs" />} tone="primary" weight="medium">
             Read the documentation
           </Text>
         );
@@ -240,7 +241,8 @@ Use `tone` to match the role of the copy without local color classes.
 
 ### Weights
 
-Use `weight` for emphasis. `strong` defaults to semibold while other elements default to regular.
+Use `weight` for emphasis. `render={<strong />}` defaults to semibold while other rendered
+elements default to regular.
 
 <Preview>
   <TextWeightsExample />
@@ -326,7 +328,7 @@ Pass `className` when styling the root with local CSS.
 
       export function TextClassNameDemo() {
         return (
-          <Text as="p" className={styles.customText}>
+          <Text className={styles.customText}>
             Customized body copy with local CSS variables.
           </Text>
         );

@@ -4,7 +4,7 @@ Typography primitive for body copy, inline text, and supporting descriptions.
 
 ## API
 
-- `as`: semantic element or custom component (defaults to `p`)
+- `render`: Base UI render prop for replacing the default `p` element
 - `size`: `xs` | `sm` | `md` | `lg` | `xl`
 - `weight`: `regular` | `medium` | `semibold` | `bold`
 - `tone`: `default` | `muted` | `subtle` | `primary` | `destructive`
@@ -15,9 +15,10 @@ Typography primitive for body copy, inline text, and supporting descriptions.
 
 When `size` and `weight` are omitted:
 
-- `small` -> `size="sm"`, `weight="regular"`
-- `strong` -> `size="md"`, `weight="semibold"`
-- `p`, `span`, `em`, `div`, and custom components -> `size="md"`, `weight="regular"`
+- default root (`p`) -> `size="md"`, `weight="regular"`
+- `render={<small />}` -> `size="sm"`, `weight="regular"`
+- `render={<strong />}` -> `size="md"`, `weight="semibold"`
+- other rendered elements and custom components -> `size="md"`, `weight="regular"`
 
 ## Styling
 
