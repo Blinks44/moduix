@@ -18,11 +18,9 @@
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
-    justify-content: flex-start;
     -webkit-appearance: none;
     appearance: none;
     width: var(--switch-width, 2.5rem);
-    min-width: var(--switch-width, 2.5rem);
     height: var(--switch-height, 1.5rem);
     --switch-thumb-translate-default: calc(
       var(--switch-width, 2.5rem) - var(--switch-thumb-size, 1.125rem) -

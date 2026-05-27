@@ -50,14 +50,15 @@ import {
 
 ## Anatomy
 
-`Switch` renders the track and internal thumb automatically. Use `SwitchField` and
-`SwitchLabel` for the wrapping-label pattern. For sibling labels, use a native `label`
-with `id`.
+`Switch` is the styled Base UI root. It renders `SwitchThumb` automatically for the common
+case, while still allowing explicit thumb composition when the default thumb is not enough.
+Use `SwitchField` and `SwitchLabel` for the wrapping-label pattern. For sibling labels, use a
+native `label` with `id`.
 
 ```text
 SwitchField
 |- Switch
-|  `- internal thumb
+|  `- SwitchThumb (default)
 `- SwitchLabel
 ```
 
@@ -68,20 +69,21 @@ SwitchField
 </SwitchField>
 ```
 
-| Part           | Role                                                                                                           |
-| -------------- | -------------------------------------------------------------------------------------------------------------- |
-| `Switch`       | Root state machine and visible track. Controls `checked`, `defaultChecked`, form props, and `size`.            |
-| internal thumb | Movable visual marker rendered by `Switch`. Customize content with `thumb` and styles with `classNames.thumb`. |
-| `SwitchField`  | Optional wrapping label for the common inline field pattern.                                                   |
-| `SwitchLabel`  | Optional text label slot styled to match the switch field.                                                     |
+| Part          | Role                                                                                                           |
+| ------------- | -------------------------------------------------------------------------------------------------------------- |
+| `Switch`      | Root state machine and visible track. Controls `checked`, `defaultChecked`, form props, `size`, and rendering. |
+| `SwitchThumb` | Thumb primitive for explicit composition or custom thumb content and styling.                                  |
+| `SwitchField` | Optional wrapping label for the common inline field pattern.                                                   |
+| `SwitchLabel` | Optional text label slot styled to match the switch field.                                                     |
 
 `Switch` has no portal or overlay slots. Most customization belongs on `Switch`,
-`SwitchField`, `SwitchLabel`, and `classNames.thumb`.
+`SwitchField`, `SwitchLabel`, and `SwitchThumb`.
 
 ## Composition
 
-Use `className` to style the track, `classNames.thumb` to style the internal thumb, and
-`thumb` to render custom thumb content such as an icon.
+Use `className` to style the track. When the default thumb is enough, render `<Switch />`
+directly. When the thumb needs custom content or styling, compose `SwitchThumb` through
+`children`.
 
 Use `nativeButton` with `render={<button />}` for sibling-label patterns. Use the render
 callback when the switch must stay inside a wrapping label without nesting a button inside
@@ -89,11 +91,11 @@ that label.
 
 ### Defaults
 
-| Prop         | Default   | Values/Notes                                   |
-| ------------ | --------- | ---------------------------------------------- |
-| `size`       | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                   |
-| `thumb`      | internal  | Any `ReactNode` rendered inside thumb          |
-| `classNames` | undefined | Supports `thumb` key for internal thumb styles |
+| Prop        | Default    | Values/Notes                               |
+| ----------- | ---------- | ------------------------------------------ |
+| `size`      | `md`       | `xs`, `sm`, `md`, `lg`, `xl`               |
+| `className` | undefined  | Root class name or state callback          |
+| `children`  | auto thumb | Compose `SwitchThumb` manually when needed |
 
 ## Examples
 
@@ -240,60 +242,6 @@ Control `checked` from React state when the switch must coordinate with other UI
         color: var(--color-muted-foreground);
         font-size: var(--text-xs);
         line-height: var(--line-height-text-xs);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Custom Icon
-
-Pass `thumb` to render custom content inside the internal thumb.
-
-<Preview>
-  <CustomIconSwitchExample />
-
-  <Preview.Code>
-    {`
-      import { Switch, SwitchField, SwitchLabel } from "moduix";
-      import type { ComponentProps } from "react";
-      import styles from "./switch-demo.module.css";
-
-      function PowerIcon(props: ComponentProps<"svg">) {
-        return (
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-            <path
-              d="M8 2.5V7M5.1 4.3A5 5 0 1 0 10.9 4.3"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
-        );
-      }
-
-      export function CustomIconSwitchDemo() {
-        return (
-          <SwitchField>
-            <Switch
-              defaultChecked
-              thumb={<PowerIcon />}
-              classNames={{ thumb: styles.customIconThumb }}
-            />
-            <SwitchLabel>Use custom thumb icon</SwitchLabel>
-          </SwitchField>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customIconThumb {
-        --switch-thumb-color-checked: var(--color-primary);
-        --switch-thumb-color-unchecked: var(--color-muted-foreground);
-        --switch-thumb-icon-size: 0.75rem;
       }
     `}
 
@@ -472,3 +420,70 @@ Use `Field` when the switch participates in form labeling, validation, or submis
 
   </Preview.Code>
 </Preview>
+
+### Custom Icon
+
+Compose `SwitchThumb` when the thumb needs custom content or separate styling hooks.
+
+<Preview>
+  <CustomIconSwitchExample />
+
+  <Preview.Code>
+    {`
+      import { Switch, SwitchField, SwitchLabel, SwitchThumb } from "moduix";
+      import type { ComponentProps } from "react";
+      import styles from "./switch-demo.module.css";
+
+      function PowerIcon(props: ComponentProps<"svg">) {
+        return (
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
+            <path
+              d="M8 2.5V7M5.1 4.3A5 5 0 1 0 10.9 4.3"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      }
+
+          export function CustomIconSwitchDemo() {
+            return (
+              <SwitchField>
+                <Switch defaultChecked>
+                  <SwitchThumb className={styles.customIconThumb}>
+                    <PowerIcon />
+                  </SwitchThumb>
+                </Switch>
+                <SwitchLabel>Use custom thumb icon</SwitchLabel>
+              </SwitchField>
+            );
+          }
+
+`}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customIconThumb {
+        --switch-thumb-color-checked: var(--color-primary);
+        --switch-thumb-color-unchecked: var(--color-muted-foreground);
+        --switch-thumb-icon-size: 0.75rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Composition
+
+Use explicit thumb composition when the default thumb structure is not enough.
+
+```tsx
+<Switch defaultChecked className={styles.switch}>
+  <SwitchThumb className={styles.thumb}>
+    <PowerIcon />
+  </SwitchThumb>
+</Switch>
+```

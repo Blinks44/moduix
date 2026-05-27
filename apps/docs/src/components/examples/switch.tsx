@@ -1,4 +1,4 @@
-import { Field, FieldLabel, Switch, SwitchField, SwitchLabel, type SwitchProps } from 'moduix';
+import { Field, FieldLabel, Switch, SwitchField, SwitchLabel, SwitchThumb } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -139,7 +139,7 @@ function PowerIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function SwitchExample(props: SwitchProps) {
+export function SwitchExample(props: React.ComponentProps<typeof Switch>) {
   return (
     <SwitchField>
       <Switch defaultChecked {...props} />
@@ -207,7 +207,11 @@ export function ControlledSwitchExample() {
 export function CustomIconSwitchExample() {
   return (
     <SwitchField>
-      <Switch defaultChecked thumb={<PowerIcon />} classNames={{ thumb: styles.customIconThumb }} />
+      <Switch defaultChecked>
+        <SwitchThumb className={styles.customIconThumb}>
+          <PowerIcon />
+        </SwitchThumb>
+      </Switch>
       <SwitchLabel>Use custom thumb icon</SwitchLabel>
     </SwitchField>
   );

@@ -4,24 +4,14 @@ import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Switch.module.css';
 
-type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type SwitchRootProps = Omit<SwitchPrimitive.Root.Props, 'children'>;
-type SwitchFieldProps = React.ComponentPropsWithoutRef<'label'>;
-type SwitchLabelProps = React.ComponentPropsWithoutRef<'span'>;
-
-type SwitchClassNames = {
-  thumb?: SwitchPrimitive.Thumb.Props['className'];
-};
-
-type SwitchProps = SwitchRootProps & {
-  size?: SwitchSize;
-  thumb?: React.ReactNode;
-  classNames?: SwitchClassNames;
-};
-
 const Switch = React.forwardRef(function Switch(
-  { className, size = 'md', thumb, classNames, ...props }: SwitchProps,
-  ref: React.ForwardedRef<HTMLElement>,
+  {
+    className,
+    size = 'md',
+    children,
+    ...props
+  }: SwitchPrimitive.Root.Props & { size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' },
+  ref: React.ForwardedRef<React.ComponentRef<typeof SwitchPrimitive.Root>>,
 ) {
   return (
     <SwitchPrimitive.Root
@@ -31,24 +21,27 @@ const Switch = React.forwardRef(function Switch(
       className={mergeClassName(className, styles.root)}
       {...props}
     >
-      <SwitchPrimitive.Thumb
-        data-slot="switch-thumb"
-        className={mergeClassName(classNames?.thumb, styles.thumb)}
-      >
-        {thumb}
-      </SwitchPrimitive.Thumb>
+      {children ?? <SwitchThumb />}
     </SwitchPrimitive.Root>
   );
 });
 
-function SwitchField({ className, ...props }: SwitchFieldProps) {
+function SwitchThumb({ className, ...props }: SwitchPrimitive.Thumb.Props) {
+  return (
+    <SwitchPrimitive.Thumb
+      data-slot="switch-thumb"
+      className={mergeClassName(className, styles.thumb)}
+      {...props}
+    />
+  );
+}
+
+function SwitchField({ className, ...props }: React.ComponentProps<'label'>) {
   return <label data-slot="switch-field" className={clsx(styles.field, className)} {...props} />;
 }
 
-function SwitchLabel({ className, ...props }: SwitchLabelProps) {
+function SwitchLabel({ className, ...props }: React.ComponentProps<'span'>) {
   return <span data-slot="switch-label" className={clsx(styles.label, className)} {...props} />;
 }
 
-export { Switch, SwitchField, SwitchLabel };
-
-export type { SwitchSize, SwitchClassNames, SwitchProps, SwitchFieldProps, SwitchLabelProps };
+export { Switch, SwitchThumb, SwitchField, SwitchLabel };
