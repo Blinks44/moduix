@@ -1,12 +1,13 @@
+import type { ComponentProps, ComponentRef } from 'react';
 import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { forwardRef } from 'react';
 import { PlusIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Accordion.module.css';
 
-const Accordion = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Root>,
+const Accordion = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Root>,
   AccordionPrimitive.Root.Props
 >(function Accordion({ className, ...props }, ref) {
   return (
@@ -19,8 +20,8 @@ const Accordion = React.forwardRef<
   );
 });
 
-const AccordionItem = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Item>,
+const AccordionItem = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Item>,
   AccordionPrimitive.Item.Props
 >(function AccordionItem({ className, ...props }, ref) {
   return (
@@ -33,8 +34,8 @@ const AccordionItem = React.forwardRef<
   );
 });
 
-const AccordionHeader = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Header>,
+const AccordionHeader = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Header>,
   AccordionPrimitive.Header.Props
 >(function AccordionHeader({ className, ...props }, ref) {
   return (
@@ -47,8 +48,8 @@ const AccordionHeader = React.forwardRef<
   );
 });
 
-const AccordionTrigger = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Trigger>,
+const AccordionTrigger = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionPrimitive.Trigger.Props
 >(function AccordionTrigger({ className, ...props }, ref) {
   return (
@@ -66,7 +67,7 @@ function AccordionTriggerIcon({
   children,
   'aria-hidden': ariaHidden = true,
   ...props
-}: React.ComponentProps<'span'>) {
+}: ComponentProps<'span'>) {
   return (
     <span
       data-slot="accordion-trigger-icon"
@@ -79,8 +80,8 @@ function AccordionTriggerIcon({
   );
 }
 
-const AccordionPanel = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Panel>,
+const AccordionPanel = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Panel>,
   AccordionPrimitive.Panel.Props
 >(function AccordionPanel({ className, ...props }, ref) {
   return (

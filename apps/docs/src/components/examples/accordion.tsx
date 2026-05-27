@@ -1,3 +1,4 @@
+import type { ComponentProps, ReactNode } from 'react';
 import {
   Accordion,
   AccordionHeader,
@@ -7,7 +8,7 @@ import {
   AccordionTriggerIcon,
   ChevronDownIcon,
 } from 'moduix';
-import * as React from 'react';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './accordion.module.css';
@@ -46,7 +47,6 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-md)',
     'Controls trigger focus ring outline width.',
   ],
-  ['--accordion-icon-margin-right', 'var(--spacing-2)', 'Controls trigger icon right margin.'],
   [
     '--accordion-icon-open-transform',
     'rotate(45deg) scale(1.1)',
@@ -94,16 +94,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-md)',
     'Controls trigger text line height.',
   ],
-  [
-    '--accordion-trigger-padding-x-end',
-    'var(--spacing-1)',
-    'Controls trigger end-side horizontal padding.',
-  ],
-  [
-    '--accordion-trigger-padding-x-start',
-    'var(--spacing-3)',
-    'Controls trigger start-side horizontal padding.',
-  ],
+  ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
   ['--accordion-width', '24rem', 'Controls the root accordion width.'],
 ];
@@ -118,6 +109,7 @@ export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
   ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
   ['--accordion-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
   ['--accordion-trigger-gap', 'var(--spacing-4)', 'Controls trigger content and icon spacing.'],
+  ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
 ];
 
@@ -157,28 +149,42 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function AccordionExample(props: React.ComponentProps<typeof Accordion>) {
+type AccordionItemsProps = {
+  disabledValue?: string;
+  icon?: ReactNode;
+  iconClassName?: string;
+};
+
+function AccordionItems({ disabledValue, icon, iconClassName }: AccordionItemsProps) {
+  return accordionItems.map((item) => (
+    <AccordionItem key={item.value} value={item.value} disabled={item.value === disabledValue}>
+      <AccordionHeader>
+        <AccordionTrigger>
+          {item.title}
+          <AccordionTriggerIcon className={iconClassName}>{icon}</AccordionTriggerIcon>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionPanel>
+        <div className={styles.panelContent}>{item.description}</div>
+      </AccordionPanel>
+    </AccordionItem>
+  ));
+}
+
+export function AccordionExample({ className, ...props }: ComponentProps<typeof Accordion>) {
   return (
-    <Accordion {...props}>
-      {accordionItems.map((item) => (
-        <AccordionItem key={item.value} value={item.value}>
-          <AccordionHeader>
-            <AccordionTrigger>
-              {item.title}
-              <AccordionTriggerIcon />
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
-            <div className={styles.panelContent}>{item.description}</div>
-          </AccordionPanel>
-        </AccordionItem>
-      ))}
+    <Accordion className={className} {...props}>
+      <AccordionItems />
     </Accordion>
   );
 }
 
+export function MultipleAccordionExample() {
+  return <AccordionExample multiple defaultValue={['what-is-base-ui', 'can-i-use-it']} />;
+}
+
 export function ControlledAccordionExample() {
-  const [value, setValue] = React.useState(['getting-started']);
+  const [value, setValue] = useState(['getting-started']);
 
   return <AccordionExample value={value} onValueChange={setValue} />;
 }
@@ -186,23 +192,7 @@ export function ControlledAccordionExample() {
 export function DisabledItemAccordionExample() {
   return (
     <Accordion defaultValue={['what-is-base-ui']}>
-      {accordionItems.map((item) => (
-        <AccordionItem
-          key={item.value}
-          value={item.value}
-          disabled={item.value === 'getting-started'}
-        >
-          <AccordionHeader>
-            <AccordionTrigger>
-              {item.title}
-              <AccordionTriggerIcon />
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
-            <div className={styles.panelContent}>{item.description}</div>
-          </AccordionPanel>
-        </AccordionItem>
-      ))}
+      <AccordionItems disabledValue="getting-started" />
     </Accordion>
   );
 }
@@ -210,21 +200,7 @@ export function DisabledItemAccordionExample() {
 export function CustomCompositionAccordionExample() {
   return (
     <Accordion defaultValue={['what-is-base-ui']}>
-      {accordionItems.map((item) => (
-        <AccordionItem key={item.value} value={item.value}>
-          <AccordionHeader>
-            <AccordionTrigger>
-              {item.title}
-              <AccordionTriggerIcon className={styles.customIcon}>
-                <ChevronDownIcon />
-              </AccordionTriggerIcon>
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
-            <div className={styles.panelContent}>{item.description}</div>
-          </AccordionPanel>
-        </AccordionItem>
-      ))}
+      <AccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
     </Accordion>
   );
 }

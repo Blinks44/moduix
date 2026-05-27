@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
 import { ChevronDownIcon } from '@/icons/ui';
 import {
   Accordion,
@@ -13,11 +14,12 @@ import styles from './Accordion.stories.module.css';
 
 const meta = {
   title: 'Components/Accordion',
+  component: Accordion,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta;
+} satisfies Meta<typeof Accordion>;
 
 export default meta;
 
@@ -43,23 +45,35 @@ const faqItems = [
   },
 ];
 
+function FaqAccordionItems({
+  disabledValue,
+  icon,
+  iconClassName,
+}: {
+  disabledValue?: string;
+  icon?: ReactNode;
+  iconClassName?: string;
+}) {
+  return faqItems.map((item) => (
+    <AccordionItem key={item.value} value={item.value} disabled={item.value === disabledValue}>
+      <AccordionHeader>
+        <AccordionTrigger>
+          {item.title}
+          <AccordionTriggerIcon className={iconClassName}>{icon}</AccordionTriggerIcon>
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionPanel>
+        <div className={styles.panelContent}>{item.description}</div>
+      </AccordionPanel>
+    </AccordionItem>
+  ));
+}
+
 export const Basic: Story = {
   render: () => {
     return (
       <Accordion defaultValue={['what-is-base-ui']}>
-        {faqItems.map((item) => (
-          <AccordionItem key={item.value} value={item.value}>
-            <AccordionHeader>
-              <AccordionTrigger>
-                {item.title}
-                <AccordionTriggerIcon />
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionPanel>
-              <div className={styles.panelContent}>{item.description}</div>
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
+        <FaqAccordionItems />
       </Accordion>
     );
   },
@@ -69,19 +83,7 @@ export const Multiple: Story = {
   render: () => {
     return (
       <Accordion multiple defaultValue={['what-is-base-ui', 'can-i-use-it']}>
-        {faqItems.map((item) => (
-          <AccordionItem key={item.value} value={item.value}>
-            <AccordionHeader>
-              <AccordionTrigger>
-                {item.title}
-                <AccordionTriggerIcon />
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionPanel>
-              <div className={styles.panelContent}>{item.description}</div>
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
+        <FaqAccordionItems />
       </Accordion>
     );
   },
@@ -91,23 +93,7 @@ export const DisabledItem: Story = {
   render: () => {
     return (
       <Accordion defaultValue={['what-is-base-ui']}>
-        {faqItems.map((item) => (
-          <AccordionItem
-            key={item.value}
-            value={item.value}
-            disabled={item.value === 'getting-started'}
-          >
-            <AccordionHeader>
-              <AccordionTrigger>
-                {item.title}
-                <AccordionTriggerIcon />
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionPanel>
-              <div className={styles.panelContent}>{item.description}</div>
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
+        <FaqAccordionItems disabledValue="getting-started" />
       </Accordion>
     );
   },
@@ -115,23 +101,11 @@ export const DisabledItem: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = React.useState<string[]>(['getting-started']);
+    const [value, setValue] = useState<string[]>(['getting-started']);
 
     return (
       <Accordion value={value} onValueChange={setValue}>
-        {faqItems.map((item) => (
-          <AccordionItem key={item.value} value={item.value}>
-            <AccordionHeader>
-              <AccordionTrigger>
-                {item.title}
-                <AccordionTriggerIcon />
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionPanel>
-              <div className={styles.panelContent}>{item.description}</div>
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
+        <FaqAccordionItems />
       </Accordion>
     );
   },
@@ -141,21 +115,7 @@ export const CustomComposition: Story = {
   render: () => {
     return (
       <Accordion defaultValue={['what-is-base-ui']}>
-        {faqItems.map((item) => (
-          <AccordionItem key={item.value} value={item.value}>
-            <AccordionHeader>
-              <AccordionTrigger>
-                {item.title}
-                <AccordionTriggerIcon className={styles.customIcon}>
-                  <ChevronDownIcon />
-                </AccordionTriggerIcon>
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionPanel>
-              <div className={styles.panelContent}>{item.description}</div>
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
+        <FaqAccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
       </Accordion>
     );
   },

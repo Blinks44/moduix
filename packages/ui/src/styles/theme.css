@@ -86,24 +86,22 @@
   --accordion-focus-ring-color: initial; /* var(--color-ring) */
   --accordion-focus-ring-offset: initial; /* var(--border-width-sm) */
   --accordion-focus-ring-width: initial; /* var(--border-width-md) */
-  --accordion-icon-margin-right: initial; /* var(--spacing-2) */
   --accordion-icon-open-transform: initial; /* rotate(45deg) scale(1.1) */
   --accordion-icon-size: initial; /* 0.75rem */
-  --accordion-icon-transition: initial; /* 150ms ease-out */
+  --accordion-icon-transition: initial; /* var(--transition-default) */
   --accordion-item-border-color: initial; /* var(--color-border) */
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
   --accordion-max-width: initial; /* 100% */
   --accordion-panel-color: initial; /* var(--color-muted-foreground) */
   --accordion-panel-font-size: initial; /* var(--text-md) */
   --accordion-panel-line-height: initial; /* var(--line-height-text-md) */
-  --accordion-panel-transition: initial; /* 150ms ease-out */
+  --accordion-panel-transition: initial; /* var(--transition-default) */
   --accordion-trigger-bg: initial; /* var(--color-muted) */
   --accordion-trigger-bg-hover: initial; /* var(--color-accent) */
   --accordion-trigger-font-size: initial; /* var(--text-md) */
   --accordion-trigger-gap: initial; /* var(--spacing-4) */
   --accordion-trigger-line-height: initial; /* var(--line-height-text-md) */
-  --accordion-trigger-padding-x-end: initial; /* var(--spacing-1) */
-  --accordion-trigger-padding-x-start: initial; /* var(--spacing-3) */
+  --accordion-trigger-padding-x: initial; /* var(--spacing-3) */
   --accordion-trigger-padding-y: initial; /* var(--spacing-2) */
   --accordion-width: initial; /* 24rem */
   /* Alert */

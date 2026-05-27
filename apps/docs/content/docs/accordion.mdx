@@ -11,6 +11,7 @@ import {
   ControlledAccordionExample,
   CustomCompositionAccordionExample,
   DisabledItemAccordionExample,
+  MultipleAccordionExample,
   accordionPlaygroundCssProperties,
 } from '@/components/examples/accordion';
 
@@ -56,20 +57,34 @@ import {
     `}
 
   </Preview.Code>
+
   <Preview.CSS>
     {`
       .panelContent {
         padding: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
 
 <Preview.Data>
   {`
       const items = [
-        { value: "what-is-base-ui", title: "What is Base UI?", description: "Base UI is a library of high-quality unstyled React components for design systems and web apps." },
-        { value: "getting-started", title: "How do I get started?", description: "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home." },
-        { value: "can-i-use-it", title: "Can I use it for my project?", description: "Of course. Base UI is free and open source." },
+        {
+          value: "what-is-base-ui",
+          title: "What is Base UI?",
+          description: "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
+        },
+        {
+          value: "getting-started",
+          title: "How do I get started?",
+          description: "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
+        },
+        {
+          value: "can-i-use-it",
+          title: "Can I use it for my project?",
+          description: "Of course. Base UI is free and open source.",
+        },
       ];
     `}
 </Preview.Data>
@@ -83,10 +98,10 @@ import {
   </Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+The default path is explicit composition: `Accordion` owns state, each `AccordionItem` pairs one
+`AccordionTrigger` with one `AccordionPanel`, and `AccordionTriggerIcon` stays optional.
 
-`Accordion` is a stack of independent items. Keep each `AccordionTrigger` and `AccordionPanel`
-inside the same `AccordionItem` so state and accessibility bindings stay paired.
+## Anatomy
 
 ```text
 Accordion
@@ -94,25 +109,9 @@ Accordion
    ├─ AccordionHeader
    │  └─ AccordionTrigger
    │     ├─ label
-   │     └─ AccordionTriggerIcon
+   │     └─ AccordionTriggerIcon (optional)
    └─ AccordionPanel
       └─ content
-```
-
-```tsx
-<Accordion defaultValue={['shipping']}>
-  <AccordionItem value="shipping">
-    <AccordionHeader>
-      <AccordionTrigger>
-        Shipping details
-        <AccordionTriggerIcon />
-      </AccordionTrigger>
-    </AccordionHeader>
-    <AccordionPanel>
-      <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
-    </AccordionPanel>
-  </AccordionItem>
-</Accordion>
 ```
 
 | Part                   | Role                                                                                                             |
@@ -126,29 +125,27 @@ Accordion
 
 ## Composition
 
-Use `Accordion` for state and behavior (`value`, `defaultValue`, `onValueChange`, `multiple`,
-`disabled`, `orientation`, `loopFocus`). Use `keepMounted` or `hiddenUntilFound` on the root or
-panel when closed content must remain in the DOM.
+Use `Accordion` for state props such as `value`, `defaultValue`, `onValueChange`, `multiple`,
+`disabled`, `orientation`, and `loopFocus`. Use `keepMounted` or `hiddenUntilFound` on the root or
+panel when closed content must remain searchable or stay mounted for app logic.
 
-Style public parts with `className` on the exported parts. Base UI behavior props (for example
-`render`, `keepMounted`, `hiddenUntilFound`) pass through to the matching primitive part.
-
-Keep the structure explicit: wrap each trigger in `AccordionHeader`, and render
-`AccordionTriggerIcon` only when you want a visual indicator. This keeps the component close to the
-Base UI primitive and avoids trigger-specific slot APIs.
+Style the exported parts directly with `className`. The root already ships with its default width,
+so only override layout when the surrounding UI needs a different footprint.
 
 ```tsx
-<AccordionItem value="shipping">
-  <AccordionHeader render={<h3 />}>
-    <AccordionTrigger>
-      Shipping details
-      <AccordionTriggerIcon />
-    </AccordionTrigger>
-  </AccordionHeader>
-  <AccordionPanel>
-    <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
-  </AccordionPanel>
-</AccordionItem>
+<Accordion defaultValue={['shipping']}>
+  <AccordionItem value="shipping">
+    <AccordionHeader render={<h3 />}>
+      <AccordionTrigger>
+        Shipping details
+        <AccordionTriggerIcon />
+      </AccordionTrigger>
+    </AccordionHeader>
+    <AccordionPanel keepMounted>
+      <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
 ```
 
 | Prop          | Default    | Values                   |
@@ -162,10 +159,10 @@ Base UI primitive and avoids trigger-specific slot APIs.
 
 ### Multiple
 
-Use `multiple` to allow multiple open items.
+Use `multiple` to allow several items to stay open at once.
 
 <Preview>
-  <AccordionExample multiple defaultValue={["what-is-base-ui", "can-i-use-it"]} />
+  <MultipleAccordionExample />
 
   <Preview.Code>
     {`
@@ -180,7 +177,10 @@ Use `multiple` to allow multiple open items.
 
       export function MultipleAccordionDemo() {
         return (
-          <Accordion multiple defaultValue={["what-is-base-ui", "can-i-use-it"]}>
+          <Accordion
+            multiple
+            defaultValue={["what-is-base-ui", "can-i-use-it"]}
+          >
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
                 <AccordionHeader>
@@ -204,7 +204,7 @@ Use `multiple` to allow multiple open items.
 
 ### Controlled
 
-Control the open panels from React state when the accordion needs to coordinate with other UI.
+Control `value` from React state when the open panels need to coordinate with surrounding UI.
 
 <Preview>
   <ControlledAccordionExample />
@@ -222,7 +222,7 @@ Control the open panels from React state when the accordion needs to coordinate 
       import { useState } from "react";
 
       export function ControlledAccordionDemo() {
-        const [value, setValue] = useState(["getting-started"] as string[])
+        const [value, setValue] = useState(["getting-started"] as string[]);
 
         return (
           <Accordion value={value} onValueChange={setValue}>
@@ -245,12 +245,11 @@ Control the open panels from React state when the accordion needs to coordinate 
     `}
 
   </Preview.Code>
-
 </Preview>
 
 ### Disabled Item
 
-Set `disabled` on an item to keep it visible and non-interactive.
+Set `disabled` on an item to keep it visible while blocking interaction.
 
 <Preview>
   <DisabledItemAccordionExample />
@@ -292,12 +291,12 @@ Set `disabled` on an item to keep it visible and non-interactive.
     `}
 
   </Preview.Code>
-
 </Preview>
 
-### Custom Icon
+## Custom Composition
 
-Compose a custom indicator by passing children to `AccordionTriggerIcon`.
+`AccordionTriggerIcon` is narrow sugar for the common visual affordance. Keep it when the default
+plus icon works, replace its children when the UI needs a different cue, or omit it entirely.
 
 <Preview>
   <CustomCompositionAccordionExample />
