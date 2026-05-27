@@ -1,6 +1,6 @@
 # CloseButton
 
-Icon-only button for dismissing overlays, notifications, and other closeable surfaces.
+Icon-only dismiss button built on Base UI `Button`.
 
 ## Usage
 
@@ -12,20 +12,20 @@ export function Example() {
 }
 ```
 
-Pass children to replace the default icon. The component is built on Base UI Button, so it
-supports the same button behavior and composition props.
+Use `CloseButton` for dismiss actions in dialogs, toasts, cards, and other closeable surfaces.
+The wrapper keeps the Base UI `Button` contract and adds only three defaults:
 
-When `children` are omitted, `CloseButton` renders `CloseIcon` and applies the default
-accessible name `Close`. If you pass a custom icon, keep the button labeled with `aria-label`.
-If you pass visible text, that text can provide the accessible name.
+- `type="button"`
+- default `CloseIcon` when `children` are omitted
+- fallback `aria-label="Close"` when `children` are omitted
 
-Use `className` to style the root button. `CloseButton` has no hidden service slots, so it does
-not expose a `classNames` object.
+Pass `children` to replace the default icon with other icon-sized content. When you do that, keep
+the control labeled with `aria-label`.
 
-Everything beyond the default icon, default `type="button"`, and fallback `aria-label` passes
-through directly to Base UI `Button`.
+Use `className` or CSS variables to style the root button. `CloseButton` has a single public slot,
+so it does not expose `classNames` or extra structural parts.
 
-## Defaults
+## Composition
 
 | Prop         | Default                             |
 | ------------ | ----------------------------------- |
@@ -33,7 +33,10 @@ through directly to Base UI `Button`.
 | `aria-label` | `Close` when `children` are omitted |
 | `children`   | `CloseIcon`                         |
 
-## CSS variables
+Everything else passes through directly to Base UI `Button`, including props such as `render`,
+`disabled`, and `focusableWhenDisabled`.
+
+## CSS Variables
 
 - `--close-button-bg`
 - `--close-button-bg-hover`

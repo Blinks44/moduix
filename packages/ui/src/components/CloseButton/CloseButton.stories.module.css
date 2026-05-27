@@ -1,3 +1,8 @@
+.customChildrenButton {
+  --close-button-size: 2.25rem;
+  --close-button-icon-size: 1.125rem;
+}
+
 .customButton {
   --close-button-size: 2.25rem;
   --close-button-icon-size: 1rem;

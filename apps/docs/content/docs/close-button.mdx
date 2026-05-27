@@ -7,7 +7,7 @@ icon: Component
 import {
   CloseButtonCssPlaygroundPanel,
   CloseButtonCssPropertiesPanel,
-  CloseButtonCustomIconExample,
+  CloseButtonCustomChildrenExample,
   CloseButtonCustomCompositionExample,
   CloseButtonExample,
   closeButtonPlaygroundCssProperties,
@@ -90,7 +90,7 @@ import {
 
 ## Anatomy
 
-`CloseButton` is a single icon-button slot. By default it renders `CloseIcon`; pass `children` to replace it.
+`CloseButton` is a single icon-button slot. By default it renders `CloseIcon`; pass `children` to replace it with other icon-sized content.
 
 ```text
 CloseButton
@@ -105,49 +105,78 @@ CloseButton
 
 `CloseButton` is a thin wrapper over Base UI `Button`.
 
-- Use `children` to replace the default icon.
+- Use `children` to replace the default icon with another icon-sized child.
 - Use `className` to style the root.
 - Use any Base UI `Button` prop directly when you need native composition behavior such as `render`,
   `nativeButton`, `disabled`, or `focusableWhenDisabled`.
 
-When `children` are omitted, the default accessible name is `Close`. Set `aria-label` to
-describe the dismissed surface when you render an icon-only custom child. If you render visible
-text, that text can provide the accessible name.
+When `children` are omitted, the default accessible name is `Close`. When you render a custom
+icon-like child, set `aria-label` to describe the dismissed surface.
 
-| Prop         | Default                             | Values                                           |
-| ------------ | ----------------------------------- | ------------------------------------------------ |
-| `type`       | `button`                            | Any valid button `type` value                    |
-| `aria-label` | `Close` when `children` are omitted | Any descriptive label for the dismissed surface  |
-| `children`   | `CloseIcon`                         | Any React node (typically custom icon component) |
+| Prop         | Default                             | Values                                          |
+| ------------ | ----------------------------------- | ----------------------------------------------- |
+| `type`       | `button`                            | Any valid button `type` value                   |
+| `aria-label` | `Close` when `children` are omitted | Any descriptive label for the dismissed surface |
+| `children`   | `CloseIcon`                         | Any icon-sized React node                       |
 
 Use `className` to style the root. `classNames` is not needed because there are no extra service slots.
 
 ## Examples
 
-### Custom Icon
+### Custom Children
 
 Replace the default icon via `children`.
 
 <Preview>
-  <CloseButtonCustomIconExample />
+  <CloseButtonCustomChildrenExample />
 
   <Preview.Code>
     {`
-      import { CloseButton, CloseLineIcon } from "moduix";
+      import { CloseButton } from "moduix";
 
-      export function CloseButtonCustomIconDemo() {
+      function CircleXIcon() {
         return (
-          <CloseButton aria-label="Close panel">
-            <CloseLineIcon />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m15 9-6 6" />
+            <path d="m9 9 6 6" />
+          </svg>
+        );
+      }
+
+      export function CloseButtonCustomChildrenDemo() {
+        return (
+          <CloseButton className={styles.customChildrenButton} aria-label="Close panel">
+            <CircleXIcon />
           </CloseButton>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customChildrenButton {
+        --close-button-size: 2.25rem;
+        --close-button-icon-size: 1.125rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
-### Custom Composition
+## Custom Composition
 
 Style the root button through `className`.
 

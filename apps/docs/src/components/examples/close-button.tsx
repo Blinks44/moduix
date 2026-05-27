@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { CloseButton, CloseIcon } from 'moduix';
+import { CloseButton } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './close-button.module.css';
@@ -70,14 +70,35 @@ export function CloseButtonExample(props: ComponentProps<typeof CloseButton>) {
   );
 }
 
-export function CloseButtonCustomIconExample() {
+export function CloseButtonCustomChildrenExample() {
   return (
-    <CloseButton aria-label="Close panel">
-      <CloseIcon />
+    <CloseButton className={styles.customChildrenButton} aria-label="Close panel">
+      <CircleXIcon />
     </CloseButton>
   );
 }
 
 export function CloseButtonCustomCompositionExample() {
   return <CloseButton className={styles.customButton} aria-label="Close message" />;
+}
+
+function CircleXIcon(props: ComponentProps<'svg'>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="m15 9-6 6" />
+      <path d="m9 9 6 6" />
+    </svg>
+  );
 }
