@@ -206,8 +206,8 @@ icon set.
 
 ### Indicator Right
 
-The item layout follows composition: render `ComboboxItemText` before `ComboboxItemIndicator`
-when the selected marker should stay on the right.
+Use `indicator="end"` when the selected marker should stay on the right while the leading icon and
+text keep their own layout.
 
 <Preview>
   <IndicatorRightComboboxExample />
@@ -228,7 +228,9 @@ when the selected marker should stay on the right.
         ComboboxItem,
         ComboboxItemText,
         ComboboxItemIndicator,
+        InfoIcon,
       } from "moduix";
+      import styles from "./combobox.module.css";
       import { useId } from "react";
 
       export function IndicatorRightComboboxDemo() {
@@ -250,8 +252,11 @@ when the selected marker should stay on the right.
             <ComboboxContent sideOffset={4}>
               <ComboboxList>
                 {(item) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
+                  <ComboboxItem key={item.id} value={item} indicator="end">
+                    <ComboboxItemText className={styles.itemTextWithIcon}>
+                      <InfoIcon className={styles.itemIcon} />
+                      <span>{item.label}</span>
+                    </ComboboxItemText>
                     <ComboboxItemIndicator />
                   </ComboboxItem>
                 )}
@@ -263,6 +268,23 @@ when the selected marker should stay on the right.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .itemTextWithIcon {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .itemIcon {
+        flex-shrink: 0;
+        width: 1rem;
+        height: 1rem;
+      }
+    `}
+
+  </Preview.CSS>
 
   <Preview.Data>
     {`
@@ -597,6 +619,7 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
         ComboboxItemText,
         useComboboxFilter,
       } from "moduix";
+      import styles from "./combobox.module.css";
       import { useId, useMemo, useRef, useState, useTransition } from "react";
 
       export function AsyncSearchComboboxDemo() {
@@ -605,6 +628,7 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
         const [searchResults, setSearchResults] = useState([]);
         const [selectedValue, setSelectedValue] = useState(null);
         const [searchValue, setSearchValue] = useState("");
+        const [error, setError] = useState(null);
         const [isPending, startTransition] = useTransition();
         const abortControllerRef = useRef(null);
         const trimmedSearchValue = searchValue.trim();
@@ -617,22 +641,49 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
           return [...searchResults, selectedValue];
         }, [searchResults, selectedValue]);
 
+        async function searchUsers(query) {
+          await new Promise((resolve) => setTimeout(resolve, 250));
+
+          if (query === "error") {
+            return { users: [], error: "Failed to fetch people. Try again." };
+          }
+
+          return {
+            users: directoryUsers.filter(
+              (user) =>
+                contains(user.name, query) ||
+                contains(user.username, query) ||
+                contains(user.email, query) ||
+                contains(user.title, query),
+            ),
+            error: null,
+          };
+        }
+
         const status = isPending
           ? "Searching..."
-          : trimmedSearchValue === ""
-            ? selectedValue ? null : "Start typing to search people..."
-            : searchResults.length === 0
-              ? \`No matches for "\${trimmedSearchValue}".\`
-              : null;
+          : error
+            ? error
+            : trimmedSearchValue === ""
+              ? selectedValue ? null : "Start typing to search people..."
+              : searchResults.length === 0
+                ? \`No matches for "\${trimmedSearchValue}".\`
+                : null;
 
         return (
           <Combobox
             items={items}
             itemToStringLabel={(user) => user.name}
             filter={null}
+            onOpenChangeComplete={(open) => {
+              if (!open && selectedValue) {
+                setSearchResults([selectedValue]);
+              }
+            }}
             onValueChange={(nextSelectedValue) => {
               setSelectedValue(nextSelectedValue);
               setSearchValue("");
+              setError(null);
             }}
             onInputValueChange={(nextSearchValue, { reason }) => {
               setSearchValue(nextSearchValue);
@@ -640,6 +691,7 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
               if (nextSearchValue === "") {
                 abortControllerRef.current?.abort();
                 setSearchResults([]);
+                setError(null);
                 return;
               }
 
@@ -652,21 +704,17 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
               abortControllerRef.current = controller;
 
               startTransition(async () => {
-                await new Promise((resolve) => setTimeout(resolve, 250));
+                setError(null);
+                const result = await searchUsers(nextSearchValue);
 
                 if (controller.signal.aborted) {
                   return;
                 }
 
-                setSearchResults(
-                  directoryUsers.filter(
-                    (user) =>
-                      contains(user.name, nextSearchValue) ||
-                      contains(user.username, nextSearchValue) ||
-                      contains(user.email, nextSearchValue) ||
-                      contains(user.title, nextSearchValue),
-                  ),
-                );
+                startTransition(() => {
+                  setSearchResults(result.users);
+                  setError(result.error);
+                });
               });
             }}
           >
@@ -692,7 +740,14 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
                 {(user) => (
                   <ComboboxItem key={user.id} value={user}>
                     <ComboboxItemIndicator />
-                    <ComboboxItemText>{user.name}</ComboboxItemText>
+                    <ComboboxItemText className={styles.multilineItemText}>
+                      <span className={styles.itemTitle}>{user.name}</span>
+                      <span className={styles.itemMeta}>
+                        <span>@{user.username}</span>
+                        <span>{user.title}</span>
+                      </span>
+                      <span className={styles.itemMeta}>{user.email}</span>
+                    </ComboboxItemText>
                   </ComboboxItem>
                 )}
               </ComboboxList>
@@ -703,6 +758,33 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .multilineItemText {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        white-space: normal;
+      }
+
+      .itemTitle {
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+        font-weight: var(--weight-semibold);
+      }
+
+      .itemMeta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+        color: var(--combobox-empty-color, var(--color-muted-foreground));
+      }
+    `}
+
+  </Preview.CSS>
 
   <Preview.Data>
     {`

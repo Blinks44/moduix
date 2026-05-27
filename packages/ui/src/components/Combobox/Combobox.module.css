@@ -356,6 +356,7 @@
   }
 
   .itemIndicator {
+    grid-column-start: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -506,32 +507,6 @@
     grid-column-start: 2;
     min-width: 0;
     overflow: hidden;
-  }
-
-  .itemTextContent {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--combobox-item-text-content-gap, var(--spacing-2));
-    max-width: 100%;
-    min-width: 0;
-    vertical-align: top;
-  }
-
-  .itemTextIcon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: var(--combobox-item-text-icon-size, 1rem);
-    height: var(--combobox-item-text-icon-size, 1rem);
-    color: var(--combobox-item-text-icon-color, currentColor);
-  }
-
-  .itemTextLabel {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .chipText {

@@ -26,9 +26,6 @@ import {
   ComboboxItem,
   ComboboxItemIndicator,
   ComboboxItemText,
-  ComboboxItemTextContent,
-  ComboboxItemTextIcon,
-  ComboboxItemTextLabel,
   ComboboxList,
   ComboboxPortal,
   ComboboxPositioner,
@@ -171,7 +168,7 @@ export const Basic: Story = {
     const id = React.useId();
 
     return (
-      <Combobox items={fruits}>
+      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
           <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
           <ComboboxInputGroup>
@@ -204,7 +201,7 @@ export const IndicatorRight: Story = {
     const id = React.useId();
 
     return (
-      <Combobox items={fruits}>
+      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
           <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
           <ComboboxInputGroup>
@@ -220,13 +217,9 @@ export const IndicatorRight: Story = {
           <ComboboxList>
             {(item: OptionItem) => (
               <ComboboxItem key={item.id} value={item} indicator="end">
-                <ComboboxItemText>
-                  <ComboboxItemTextContent>
-                    <ComboboxItemTextIcon>
-                      <InfoIcon />
-                    </ComboboxItemTextIcon>
-                    <ComboboxItemTextLabel>{item.label}</ComboboxItemTextLabel>
-                  </ComboboxItemTextContent>
+                <ComboboxItemText className={styles.itemTextWithIcon}>
+                  <InfoIcon className={styles.itemIcon} />
+                  <span>{item.label}</span>
                 </ComboboxItemText>
                 <ComboboxItemIndicator />
               </ComboboxItem>
@@ -241,7 +234,7 @@ export const IndicatorRight: Story = {
 export const InputInsidePopup: Story = {
   render: () => {
     return (
-      <Combobox items={countries}>
+      <Combobox items={countries} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
           <ComboboxFieldLabel>Country</ComboboxFieldLabel>
           <ComboboxFieldTrigger>
@@ -274,7 +267,7 @@ export const Grouped: Story = {
     const id = React.useId();
 
     return (
-      <Combobox items={groupedProduce}>
+      <Combobox items={groupedProduce} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
           <ComboboxFieldLabel htmlFor={id}>Select produce</ComboboxFieldLabel>
           <ComboboxInputGroup>
@@ -314,7 +307,7 @@ export const Multiple: Story = {
     const id = React.useId();
 
     return (
-      <Combobox items={fruits} multiple>
+      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label} multiple>
         <ComboboxField className={styles.fieldWide}>
           <ComboboxFieldLabel htmlFor={id}>Select fruits</ComboboxFieldLabel>
           <ComboboxInputGroup className={styles.inputGroupMulti}>
@@ -526,7 +519,7 @@ export const CustomComposition: Story = {
     const id = React.useId();
 
     return (
-      <Combobox items={fruits}>
+      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
           <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
           <ComboboxInputGroup className={styles.customInputGroup}>

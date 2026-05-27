@@ -12,10 +12,6 @@ description: A high-quality, unstyled React collapsible component that displays 
 
 A high-quality, unstyled React collapsible component that displays a panel controlled by a button.
 
-> `moduix` ships a thin styled wrapper over this primitive with the exported parts
-> `Collapsible`, `CollapsibleTrigger`, `CollapsibleTriggerIcon`, and `CollapsiblePanel`.
-> Layout, spacing, and panel content structure stay in consumer code.
-
 ## Demo
 
 ### Tailwind

@@ -12,11 +12,6 @@ description: A high-quality, unstyled React accordion component that displays a 
 
 A high-quality, unstyled React accordion component that displays a set of collapsible panels with headings.
 
-> `moduix` ships a thin styled wrapper over this primitive with the exported parts
-> `Accordion`, `AccordionItem`, `AccordionHeader`, `AccordionTrigger`,
-> `AccordionTriggerIcon`, and `AccordionPanel`. Width is left to consumer layout code rather than
-> enforced by the root component.
-
 ## Demo
 
 ### Tailwind

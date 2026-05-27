@@ -1,6 +1,7 @@
+import type { ComponentProps, ComponentRef } from 'react';
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { forwardRef } from 'react';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -15,13 +16,13 @@ type IndicatorPosition = 'start' | 'end';
 
 const Combobox = ComboboxPrimitive.Root;
 
-function ComboboxField({ className, ...props }: React.ComponentProps<'div'>) {
+function ComboboxField({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="combobox-field" className={clsx(styles.field, className)} {...props} />;
 }
 
-const ComboboxFieldLabel = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Label>,
-  ComboboxPrimitive.Label.Props & Pick<React.ComponentProps<'label'>, 'htmlFor'>
+const ComboboxFieldLabel = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Label>,
+  ComboboxPrimitive.Label.Props & Pick<ComponentProps<'label'>, 'htmlFor'>
 >(function ComboboxFieldLabel({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Label
@@ -37,8 +38,8 @@ function ComboboxValue(props: ComboboxPrimitive.Value.Props) {
   return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />;
 }
 
-const ComboboxInputGroup = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.InputGroup>,
+const ComboboxInputGroup = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.InputGroup>,
   ComboboxPrimitive.InputGroup.Props
 >(function ComboboxInputGroup({ className, ...props }, ref) {
   return (
@@ -51,8 +52,8 @@ const ComboboxInputGroup = React.forwardRef<
   );
 });
 
-const ComboboxInput = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Input>,
+const ComboboxInput = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Input>,
   ComboboxPrimitive.Input.Props
 >(function ComboboxInput({ className, ...props }, ref) {
   return (
@@ -65,7 +66,7 @@ const ComboboxInput = React.forwardRef<
   );
 });
 
-function ComboboxControlActions({ className, ...props }: React.ComponentProps<'div'>) {
+function ComboboxControlActions({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="combobox-control-actions"
@@ -75,8 +76,8 @@ function ComboboxControlActions({ className, ...props }: React.ComponentProps<'d
   );
 }
 
-const ComboboxTrigger = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Trigger>,
+const ComboboxTrigger = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Trigger>,
   ComboboxPrimitive.Trigger.Props
 >(function ComboboxTrigger({ className, children, ...props }, ref) {
   return (
@@ -91,8 +92,8 @@ const ComboboxTrigger = React.forwardRef<
   );
 });
 
-const ComboboxFieldTrigger = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Trigger>,
+const ComboboxFieldTrigger = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Trigger>,
   ComboboxPrimitive.Trigger.Props
 >(function ComboboxFieldTrigger({ className, ...props }, ref) {
   return (
@@ -105,8 +106,8 @@ const ComboboxFieldTrigger = React.forwardRef<
   );
 });
 
-const ComboboxIcon = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Icon>,
+const ComboboxIcon = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Icon>,
   ComboboxPrimitive.Icon.Props
 >(function ComboboxIcon({ className, children, ...props }, ref) {
   return (
@@ -121,8 +122,8 @@ const ComboboxIcon = React.forwardRef<
   );
 });
 
-const ComboboxClear = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Clear>,
+const ComboboxClear = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Clear>,
   ComboboxPrimitive.Clear.Props
 >(function ComboboxClear({ className, children, ...props }, ref) {
   return (
@@ -137,8 +138,8 @@ const ComboboxClear = React.forwardRef<
   );
 });
 
-const ComboboxPortal = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Portal>,
+const ComboboxPortal = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Portal>,
   ComboboxPrimitive.Portal.Props
 >(function ComboboxPortal({ className, ...props }, ref) {
   return (
@@ -151,8 +152,8 @@ const ComboboxPortal = React.forwardRef<
   );
 });
 
-const ComboboxBackdrop = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Backdrop>,
+const ComboboxBackdrop = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Backdrop>,
   ComboboxPrimitive.Backdrop.Props
 >(function ComboboxBackdrop({ className, ...props }, ref) {
   return (
@@ -165,8 +166,8 @@ const ComboboxBackdrop = React.forwardRef<
   );
 });
 
-const ComboboxPositioner = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Positioner>,
+const ComboboxPositioner = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Positioner>,
   ComboboxPrimitive.Positioner.Props
 >(function ComboboxPositioner({ className, ...props }, ref) {
   return (
@@ -179,8 +180,8 @@ const ComboboxPositioner = React.forwardRef<
   );
 });
 
-const ComboboxPopup = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Popup>,
+const ComboboxPopup = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Popup>,
   ComboboxPrimitive.Popup.Props
 >(function ComboboxPopup({ className, ...props }, ref) {
   return (
@@ -193,8 +194,8 @@ const ComboboxPopup = React.forwardRef<
   );
 });
 
-const ComboboxArrow = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Arrow>,
+const ComboboxArrow = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Arrow>,
   ComboboxPrimitive.Arrow.Props
 >(function ComboboxArrow({ className, children, ...props }, ref) {
   return (
@@ -257,8 +258,8 @@ function ComboboxContent({
   );
 }
 
-const ComboboxStatus = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Status>,
+const ComboboxStatus = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Status>,
   ComboboxPrimitive.Status.Props
 >(function ComboboxStatus({ className, ...props }, ref) {
   return (
@@ -271,8 +272,8 @@ const ComboboxStatus = React.forwardRef<
   );
 });
 
-const ComboboxEmpty = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Empty>,
+const ComboboxEmpty = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Empty>,
   ComboboxPrimitive.Empty.Props
 >(function ComboboxEmpty({ className, ...props }, ref) {
   return (
@@ -285,8 +286,8 @@ const ComboboxEmpty = React.forwardRef<
   );
 });
 
-const ComboboxList = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.List>,
+const ComboboxList = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.List>,
   ComboboxPrimitive.List.Props
 >(function ComboboxList({ className, ...props }, ref) {
   return (
@@ -299,8 +300,8 @@ const ComboboxList = React.forwardRef<
   );
 });
 
-const ComboboxRow = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Row>,
+const ComboboxRow = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Row>,
   ComboboxPrimitive.Row.Props
 >(function ComboboxRow({ className, ...props }, ref) {
   return (
@@ -313,8 +314,8 @@ const ComboboxRow = React.forwardRef<
   );
 });
 
-const ComboboxItem = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Item>,
+const ComboboxItem = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Item>,
   ComboboxPrimitive.Item.Props & {
     indicator?: IndicatorPosition;
   }
@@ -330,8 +331,8 @@ const ComboboxItem = React.forwardRef<
   );
 });
 
-const ComboboxItemIndicator = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.ItemIndicator>,
+const ComboboxItemIndicator = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.ItemIndicator>,
   ComboboxPrimitive.ItemIndicator.Props
 >(function ComboboxItemIndicator({ className, children, ...props }, ref) {
   return (
@@ -346,44 +347,14 @@ const ComboboxItemIndicator = React.forwardRef<
   );
 });
 
-function ComboboxItemText({ className, ...props }: React.ComponentProps<'span'>) {
+function ComboboxItemText({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span data-slot="combobox-item-text" className={clsx(styles.itemText, className)} {...props} />
   );
 }
 
-function ComboboxItemTextContent({ className, ...props }: React.ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="combobox-item-text-content"
-      className={clsx(styles.itemTextContent, className)}
-      {...props}
-    />
-  );
-}
-
-function ComboboxItemTextIcon({ className, ...props }: React.ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="combobox-item-text-icon"
-      className={clsx(styles.itemTextIcon, className)}
-      {...props}
-    />
-  );
-}
-
-function ComboboxItemTextLabel({ className, ...props }: React.ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="combobox-item-text-label"
-      className={clsx(styles.itemTextLabel, className)}
-      {...props}
-    />
-  );
-}
-
-const ComboboxSeparator = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Separator>,
+const ComboboxSeparator = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Separator>,
   ComboboxPrimitive.Separator.Props
 >(function ComboboxSeparator({ className, ...props }, ref) {
   return (
@@ -396,8 +367,8 @@ const ComboboxSeparator = React.forwardRef<
   );
 });
 
-const ComboboxGroup = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Group>,
+const ComboboxGroup = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Group>,
   ComboboxPrimitive.Group.Props
 >(function ComboboxGroup({ className, ...props }, ref) {
   return (
@@ -410,8 +381,8 @@ const ComboboxGroup = React.forwardRef<
   );
 });
 
-const ComboboxGroupLabel = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.GroupLabel>,
+const ComboboxGroupLabel = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.GroupLabel>,
   ComboboxPrimitive.GroupLabel.Props
 >(function ComboboxGroupLabel({ className, ...props }, ref) {
   return (
@@ -428,8 +399,8 @@ function ComboboxCollection(props: ComboboxPrimitive.Collection.Props) {
   return <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />;
 }
 
-const ComboboxChips = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Chips>,
+const ComboboxChips = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Chips>,
   ComboboxPrimitive.Chips.Props
 >(function ComboboxChips({ className, ...props }, ref) {
   return (
@@ -442,8 +413,8 @@ const ComboboxChips = React.forwardRef<
   );
 });
 
-const ComboboxChip = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Chip>,
+const ComboboxChip = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Chip>,
   ComboboxPrimitive.Chip.Props
 >(function ComboboxChip({ className, ...props }, ref) {
   return (
@@ -456,8 +427,8 @@ const ComboboxChip = React.forwardRef<
   );
 });
 
-const ComboboxChipRemove = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.ChipRemove>,
+const ComboboxChipRemove = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.ChipRemove>,
   ComboboxPrimitive.ChipRemove.Props
 >(function ComboboxChipRemove({ className, children, ...props }, ref) {
   return (
@@ -472,14 +443,14 @@ const ComboboxChipRemove = React.forwardRef<
   );
 });
 
-function ComboboxChipText({ className, ...props }: React.ComponentProps<'span'>) {
+function ComboboxChipText({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span data-slot="combobox-chip-text" className={clsx(styles.chipText, className)} {...props} />
   );
 }
 
-const ComboboxChipsInput = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Input>,
+const ComboboxChipsInput = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Input>,
   ComboboxPrimitive.Input.Props
 >(function ComboboxChipsInput({ className, ...props }, ref) {
   return (
@@ -495,7 +466,7 @@ const ComboboxChipsInput = React.forwardRef<
 const useComboboxFilter = ComboboxPrimitive.useFilter;
 const useComboboxFilteredItems = ComboboxPrimitive.useFilteredItems;
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}
@@ -531,9 +502,6 @@ export {
   ComboboxItem,
   ComboboxItemIndicator,
   ComboboxItemText,
-  ComboboxItemTextContent,
-  ComboboxItemTextIcon,
-  ComboboxItemTextLabel,
   ComboboxSeparator,
   ComboboxGroup,
   ComboboxGroupLabel,

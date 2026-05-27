@@ -49,6 +49,18 @@
   white-space: normal;
 }
 
+.itemTextWithIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.itemIcon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
 .itemTitle {
   font-size: var(--text-sm);
   line-height: var(--line-height-text-sm);

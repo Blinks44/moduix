@@ -606,9 +606,6 @@
   --combobox-item-min-height: initial; /* 2rem */
   --combobox-item-padding-x-end: initial; /* 1rem */
   --combobox-item-padding-y: initial; /* var(--spacing-2) */
-  --combobox-item-text-content-gap: initial; /* var(--spacing-2) */
-  --combobox-item-text-icon-color: initial; /* currentColor */
-  --combobox-item-text-icon-size: initial; /* 1rem */
   --combobox-label-font-size: initial; /* var(--text-sm) */
   --combobox-label-font-weight: initial; /* var(--weight-medium) */
   --combobox-label-line-height: initial; /* var(--line-height-text-sm) */

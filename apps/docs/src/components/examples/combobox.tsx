@@ -23,9 +23,6 @@ import {
   ComboboxItem,
   ComboboxItemIndicator,
   ComboboxItemText,
-  ComboboxItemTextContent,
-  ComboboxItemTextIcon,
-  ComboboxItemTextLabel,
   ComboboxList,
   ComboboxPortal,
   ComboboxPositioner,
@@ -279,9 +276,6 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ['--combobox-item-min-height', '2rem', 'Default: 2rem.'],
   ['--combobox-item-padding-x-end', '1rem', 'Default: 1rem.'],
   ['--combobox-item-padding-y', 'var(--spacing-2)', 'Default: var(--spacing-2).'],
-  ['--combobox-item-text-content-gap', 'var(--spacing-2)', 'Default: var(--spacing-2).'],
-  ['--combobox-item-text-icon-color', 'currentColor', 'Default: currentColor.'],
-  ['--combobox-item-text-icon-size', '1rem', 'Default: 1rem.'],
   ['--combobox-label-font-size', 'var(--text-sm)', 'Default: var(--text-sm).'],
   ['--combobox-label-font-weight', 'var(--weight-medium)', 'Default: var(--weight-medium).'],
   [
@@ -414,13 +408,9 @@ export function IndicatorRightComboboxExample() {
         <ComboboxList>
           {(item: OptionItem) => (
             <ComboboxItem key={item.id} value={item} indicator="end">
-              <ComboboxItemText>
-                <ComboboxItemTextContent>
-                  <ComboboxItemTextIcon>
-                    <InfoIcon />
-                  </ComboboxItemTextIcon>
-                  <ComboboxItemTextLabel>{item.label}</ComboboxItemTextLabel>
-                </ComboboxItemTextContent>
+              <ComboboxItemText className={styles.itemTextWithIcon}>
+                <InfoIcon className={styles.itemIcon} />
+                <span>{item.label}</span>
               </ComboboxItemText>
               <ComboboxItemIndicator />
             </ComboboxItem>
