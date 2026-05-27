@@ -19,6 +19,18 @@ import {
 
 `Card` is a standalone presentational component. It does not wrap a Base UI primitive, so the API stays intentionally small: a styled root, a compact size option, and composable parts.
 
+## Overview
+
+Use `Card` as a thin styled container for grouped content. The default path stays short:
+
+- `Card` for the visible surface
+- `CardHeader` for heading content
+- `CardTitle` and `CardDescription` for the primary label
+- `CardContent` for the body
+- `CardFooter` for actions or secondary metadata
+
+`CardAction` is optional and only handles the common header-side layout for a badge or compact action.
+
 ## Basic
 
 <Preview cssProperties={cardPlaygroundCssProperties} cssVariableScope="local">
@@ -27,10 +39,8 @@ import {
   <Preview.Code>
     {`
       import {
-        Badge,
         Button,
         Card,
-        CardAction,
         CardContent,
         CardDescription,
         CardFooter,
@@ -44,9 +54,6 @@ import {
             <CardHeader>
               <CardTitle>Release health</CardTitle>
               <CardDescription>Summary for the current production rollout.</CardDescription>
-              <CardAction>
-                <Badge variant="secondary">Canary</Badge>
-              </CardAction>
             </CardHeader>
             <CardContent>
               <div>
@@ -67,7 +74,7 @@ import {
   <Preview.CSSPlayground>{(context) => <CardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
-## Composition
+## Anatomy
 
 Use the following composition to build a `Card`:
 
@@ -102,11 +109,15 @@ Card
 | `CardDescription` | Muted supporting text under the title.                               |
 | `CardAction`      | Right-aligned header action slot.                                    |
 
-## Usage Notes
+## Composition
 
-- Prefer composition over root-level behavior flags. If the whole card should be interactive, use a link or button inside the card instead of turning the root into a custom interactive wrapper.
-- Use `size="sm"` for denser cards. The default size covers standard page and dashboard layouts.
-- Use `className` and `--card-*` variables for visual customization.
+Prefer the default composition when the card is just grouping content. Add `CardAction` only when the header needs a compact status or control aligned to the trailing edge.
+
+If the whole surface should navigate somewhere, keep the root presentational and place a link or button inside the content instead of turning `Card` into an interactive wrapper.
+
+Use `size="sm"` for denser dashboards, menus, and supporting panels. Keep the default size for standard page sections and primary summaries.
+
+Use `className` and `--card-*` CSS variables for visual customization. The layout parts stay the same even when the visuals change.
 
 ## Examples
 
@@ -149,6 +160,8 @@ Card
 
 ### With Action
 
+Use `CardAction` for the common header-side slot without introducing an alternate header API.
+
 <Preview>
   <CardWithActionExample />
 
@@ -185,6 +198,8 @@ Card
 
 ### With Image
 
+`Card` stays open to extra content before the header, so media blocks can stay in plain composition.
+
 <Preview>
   <CardWithImageExample />
 
@@ -200,6 +215,7 @@ Card
         CardHeader,
         CardTitle,
       } from "moduix";
+      import styles from "./card-with-image-demo.module.css";
 
       export function CardWithImageDemo() {
         return (
@@ -213,7 +229,7 @@ Card
               <CardDescription>North region allocation for the next planning cycle.</CardDescription>
             </CardHeader>
             <CardContent>72%</CardContent>
-            <CardFooter>
+            <CardFooter className={styles.footerBetween}>
               <Badge variant="outline">Forecast</Badge>
               <Button variant="outline">Open report</Button>
             </CardFooter>
@@ -223,9 +239,19 @@ Card
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .footerBetween {
+        justify-content: space-between;
+      }
+    `}
+  </Preview.CSS>
 </Preview>
 
 ### Custom Composition
+
+Use local CSS variables when the layout stays the same and only the surface styling needs to change.
 
 <Preview>
   <CustomCompositionCardExample />

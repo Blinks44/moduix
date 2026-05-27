@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   Badge,
   Button,
@@ -97,15 +98,12 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function CardExample(props: React.ComponentProps<typeof Card>) {
+export function CardExample(props: ComponentProps<typeof Card>) {
   return (
     <Card className={styles.card} {...props}>
       <CardHeader>
         <CardTitle>Release health</CardTitle>
         <CardDescription>Summary for the current production rollout.</CardDescription>
-        <CardAction>
-          <Badge variant="secondary">Canary</Badge>
-        </CardAction>
       </CardHeader>
       <CardContent>
         <div className={styles.releaseSummary}>
@@ -194,7 +192,7 @@ export function CardWithImageExample() {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className={styles.footerBetween}>
         <Badge variant="outline">Forecast</Badge>
         <Button variant="outline">Open report</Button>
       </CardFooter>

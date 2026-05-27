@@ -55,6 +55,10 @@
   width: min(24rem, calc(100vw - var(--spacing-8)));
 }
 
+.footerBetween {
+  justify-content: space-between;
+}
+
 .capacity {
   display: grid;
   gap: var(--spacing-2);
