@@ -6,7 +6,7 @@ import styles from './badge.module.css';
 
 const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost'] as const;
 
-export const badgeOverrideCssProperties: CssPropertyInput[] = [
+const badgeCssProperties: CssPropertyInput[] = [
   ['--badge-bg', 'var(--color-primary)', 'Controls badge background color.'],
   ['--badge-border-color', 'transparent', 'Controls badge border color.'],
   ['--badge-border-width', 'var(--border-width-sm)', 'Controls badge border width.'],
@@ -24,24 +24,20 @@ export const badgeOverrideCssProperties: CssPropertyInput[] = [
 ];
 
 export const badgePlaygroundCssProperties: CssPropertyInput[] = [
-  ['--badge-bg', 'var(--color-primary)', 'Controls badge background color.'],
-  ['--badge-border-color', 'transparent', 'Controls badge border color.'],
-  ['--badge-border-width', 'var(--border-width-sm)', 'Controls badge border width.'],
-  ['--badge-color', 'var(--color-primary-foreground)', 'Controls badge text and icon color.'],
-  ['--badge-dot-size', '0.375rem', 'Controls BadgeDot size.'],
-  ['--badge-gap', '0.375rem', 'Controls space between badge children.'],
-  ['--badge-height', '1.25rem', 'Controls badge minimum height.'],
-  ['--badge-icon-size', '0.75rem', 'Controls direct child SVG icon size.'],
-  ['--badge-padding-x', '0.625rem', 'Controls horizontal badge padding.'],
-  ['--badge-radius', 'var(--radius-full)', 'Controls badge border radius.'],
+  badgeCssProperties[0],
+  badgeCssProperties[1],
+  badgeCssProperties[2],
+  badgeCssProperties[3],
+  badgeCssProperties[4],
+  badgeCssProperties[7],
+  badgeCssProperties[8],
+  badgeCssProperties[9],
+  badgeCssProperties[11],
+  badgeCssProperties[13],
 ];
 
 export function BadgeCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={badgeOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+  return <CSSPropertiesReferenceTable properties={badgeCssProperties.map(normalizeCssProperty)} />;
 }
 
 export function BadgeCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
@@ -77,16 +73,6 @@ export function BadgeVariantsExample() {
   );
 }
 
-export function BadgeSizesExample() {
-  return (
-    <div className={styles.row}>
-      <Badge className={styles.small}>Small</Badge>
-      <Badge>Default</Badge>
-      <Badge className={styles.large}>Large</Badge>
-    </div>
-  );
-}
-
 export function BadgeWithDotExample() {
   return (
     <div className={styles.row}>
@@ -106,7 +92,7 @@ export function BadgeWithDotExample() {
   );
 }
 
-export function BadgeWithRightIconExample() {
+export function BadgeWithIconExample() {
   return (
     <div className={styles.row}>
       <Badge variant="default">
@@ -125,11 +111,24 @@ export function BadgeWithRightIconExample() {
   );
 }
 
-export function CustomCompositionBadgeExample() {
+export function BadgeTruncatedExample() {
   return (
-    <Badge className={styles.customBadge}>
-      <BadgeDot />
-      Priority
+    <Badge className={styles.constrained} title="Ready for stakeholder review after legal approval">
+      Ready for stakeholder review after legal approval
     </Badge>
+  );
+}
+
+export function CustomBadgeExample() {
+  return (
+    <div className={styles.row}>
+      <Badge className={styles.small}>Small</Badge>
+      <Badge>Default</Badge>
+      <Badge className={styles.large}>Large</Badge>
+      <Badge className={styles.customBadge}>
+        <BadgeDot />
+        Priority
+      </Badge>
+    </div>
   );
 }

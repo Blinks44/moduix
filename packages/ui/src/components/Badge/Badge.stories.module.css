@@ -10,6 +10,10 @@
   gap: var(--spacing-2);
 }
 
+.constrained {
+  max-width: 14rem;
+}
+
 .customBadge {
   --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
   --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);

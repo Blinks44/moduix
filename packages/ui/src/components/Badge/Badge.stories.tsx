@@ -38,18 +38,6 @@ export const Variants: Story = {
   },
 };
 
-export const Sizes: Story = {
-  render: () => {
-    return (
-      <div className={styles.row}>
-        <Badge className={styles.small}>Small</Badge>
-        <Badge>Default</Badge>
-        <Badge className={styles.large}>Large</Badge>
-      </div>
-    );
-  },
-};
-
 export const WithDot: Story = {
   render: () => {
     return (
@@ -71,7 +59,7 @@ export const WithDot: Story = {
   },
 };
 
-export const WithRightIcon: Story = {
+export const WithIcon: Story = {
   render: () => {
     return (
       <div className={styles.row}>
@@ -92,13 +80,31 @@ export const WithRightIcon: Story = {
   },
 };
 
-export const CustomComposition: Story = {
+export const TruncatedLabel: Story = {
   render: () => {
     return (
-      <Badge className={styles.customBadge}>
-        <BadgeDot className={styles.customDot} />
-        Priority
+      <Badge
+        className={styles.constrained}
+        title="Ready for stakeholder review after legal approval"
+      >
+        Ready for stakeholder review after legal approval
       </Badge>
+    );
+  },
+};
+
+export const CustomStyling: Story = {
+  render: () => {
+    return (
+      <div className={styles.row}>
+        <Badge className={styles.small}>Small</Badge>
+        <Badge>Default</Badge>
+        <Badge className={styles.large}>Large</Badge>
+        <Badge className={styles.customBadge}>
+          <BadgeDot className={styles.customDot} />
+          Priority
+        </Badge>
+      </div>
     );
   },
 };
