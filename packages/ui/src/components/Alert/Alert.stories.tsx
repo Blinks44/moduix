@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { InfoIcon } from '@/icons/demo';
 import { CheckIcon } from '@/icons/ui';
+import { Button } from '../Button';
 import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from './Alert';
 import styles from './Alert.stories.module.css';
 
@@ -80,13 +81,21 @@ export const Destructive: Story = {
 
 export const CustomComposition: Story = {
   render: () => (
-    <Alert className={styles.customAlert}>
+    <Alert variant="warning" className={styles.customAlert}>
       <AlertIcon>
         <InfoIcon />
       </AlertIcon>
       <AlertContent>
-        <AlertTitle>Custom alert</AlertTitle>
-        <AlertDescription>Override CSS variables from the root alert slot.</AlertDescription>
+        <AlertTitle>Storage is almost full</AlertTitle>
+        <AlertDescription>
+          You are using 92% of the available storage. Archive old uploads or upgrade the plan.
+        </AlertDescription>
+        <div className={styles.actions}>
+          <Button size="sm">Review uploads</Button>
+          <Button size="sm" variant="outline">
+            Dismiss
+          </Button>
+        </div>
       </AlertContent>
     </Alert>
   ),

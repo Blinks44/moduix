@@ -1,14 +1,16 @@
+import type { ComponentProps } from 'react';
 import clsx from 'clsx';
-import * as React from 'react';
 import styles from './Alert.module.css';
+
+type AlertVariant = 'default' | 'info' | 'success' | 'warning' | 'destructive';
 
 function Alert({
   className,
   role,
   variant = 'default',
   ...props
-}: React.ComponentProps<'div'> & {
-  variant?: 'default' | 'info' | 'success' | 'warning' | 'destructive';
+}: ComponentProps<'div'> & {
+  variant?: AlertVariant;
 }) {
   return (
     <div
@@ -21,7 +23,7 @@ function Alert({
   );
 }
 
-function AlertIcon({ className, ...props }: React.ComponentProps<'span'>) {
+function AlertIcon({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="alert-icon"
@@ -32,15 +34,15 @@ function AlertIcon({ className, ...props }: React.ComponentProps<'span'>) {
   );
 }
 
-function AlertContent({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertContent({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="alert-content" className={clsx(styles.content, className)} {...props} />;
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<'h3'>) {
+function AlertTitle({ className, ...props }: ComponentProps<'h3'>) {
   return <h3 data-slot="alert-title" className={clsx(styles.title, className)} {...props} />;
 }
 
-function AlertDescription({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertDescription({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div data-slot="alert-description" className={clsx(styles.description, className)} {...props} />
   );

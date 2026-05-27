@@ -18,7 +18,8 @@ import {
 ## API Reference
 
 `Alert` is a standalone moduix component and does not wrap a Base UI primitive.
-Use it for inline messages with a small composition-first API: `variant` on the root, semantic content parts, and regular children for everything else.
+Use it for inline messages with a small composition-first API: one `variant` prop on the root,
+semantic content parts, and regular children for everything else.
 
 ## Basic
 
@@ -47,6 +48,9 @@ Use it for inline messages with a small composition-first API: `variant` on the 
   <Preview.CSSProperties>{(context) => <AlertCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <AlertCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
+
+The default path stays short: use `Alert` for the surface and `AlertContent` for the text group.
+Add `AlertIcon` only when the message benefits from a leading visual cue.
 
 ## Anatomy
 
@@ -82,8 +86,13 @@ Alert
 
 ## Composition
 
-Use `variant` for intent (`default`, `info`, `success`, `warning`, `destructive`).
-Use `className` on the root or parts for local styles, and override CSS variables on the root slot when you need theme-level customization.
+Use `variant` for intent: `default`, `info`, `success`, `warning`, or `destructive`.
+
+Keep text, links, and extra actions inside `AlertContent`. The component intentionally avoids
+special-purpose action props or slot bags; normal composition already covers those cases cleanly.
+
+Use `className` on the root or parts for local styles. Override `--alert-*` CSS variables on the
+root slot when the alert needs local theming.
 
 `role` defaults to `status`, and switches to `alert` for `variant="destructive"`.
 
@@ -136,7 +145,7 @@ Use variants for neutral, informational, success, warning, and destructive state
 
   <Preview.Code>
     {`
-      import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, CheckFilledIcon, InfoIcon } from "moduix";
+      import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, CheckIcon, InfoIcon } from "moduix";
 
       const variants = ["default", "info", "success", "warning", "destructive"] as const;
 
@@ -146,7 +155,7 @@ Use variants for neutral, informational, success, warning, and destructive state
             {variants.map((variant) => (
               <Alert key={variant} variant={variant}>
                 <AlertIcon>
-                  {variant === "success" ? <CheckFilledIcon /> : <InfoIcon />}
+                  {variant === "success" ? <CheckIcon /> : <InfoIcon />}
                 </AlertIcon>
                 <AlertContent>
                   <AlertTitle>{variant}</AlertTitle>
@@ -195,25 +204,40 @@ Use `variant="destructive"` when the message needs assertive announcement semant
 
 ### Custom Composition
 
-Override CSS variables from the root slot for local theming.
+Compose extra controls inside `AlertContent` when the message needs a recovery path or follow-up
+action. No alert-specific action API is required for that workflow.
 
 <Preview>
   <CustomCompositionAlertExample />
 
   <Preview.Code>
     {`
-      import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, InfoIcon } from "moduix";
+      import {
+        Alert,
+        AlertContent,
+        AlertDescription,
+        AlertIcon,
+        AlertTitle,
+        Button,
+        InfoIcon,
+      } from "moduix";
       import styles from "./alert.module.css";
 
       export function AlertCustomCompositionDemo() {
         return (
-          <Alert className={styles.customAlert}>
+          <Alert variant="warning" className={styles.customAlert}>
             <AlertIcon>
               <InfoIcon />
             </AlertIcon>
             <AlertContent>
-              <AlertTitle>Custom alert</AlertTitle>
-              <AlertDescription>Override CSS variables from the root alert slot.</AlertDescription>
+              <AlertTitle>Storage is almost full</AlertTitle>
+              <AlertDescription>
+                You are using 92% of the available storage. Archive old uploads or upgrade the plan.
+              </AlertDescription>
+              <div className={styles.actions}>
+                <Button size="sm">Review uploads</Button>
+                <Button size="sm" variant="outline">Dismiss</Button>
+              </div>
             </AlertContent>
           </Alert>
         );

@@ -2,8 +2,9 @@
 
 `Alert` is a standalone moduix component and does not wrap a Base UI primitive.
 
-Use it for inline status, feedback, and system messages. The component is intentionally thin:
-semantic slots, a `variant` prop for intent, and regular composition for everything else.
+Use it for inline status, feedback, and system messages. The public surface stays intentionally
+small: one `variant` prop on the root, semantic content parts, and normal child composition for
+everything else.
 
 ## Parts
 
@@ -16,10 +17,29 @@ semantic slots, a `variant` prop for intent, and regular composition for everyth
 ## Props
 
 - `Alert`: `variant`, `className`, standard `div` props
-- `AlertTitle`: standard `h3` props
 - `AlertIcon`, `AlertContent`, `AlertDescription`: standard element props
+- `AlertTitle`: standard `h3` props
 
-`role` defaults to `status`, and switches to `alert` for `variant="destructive"`.
+## Composition
+
+The recommended path is:
+
+```tsx
+<Alert>
+  <AlertContent>
+    <AlertTitle>Update available</AlertTitle>
+    <AlertDescription>
+      Install the latest version when your workflow allows it.
+    </AlertDescription>
+  </AlertContent>
+</Alert>
+```
+
+Add `AlertIcon` when the message benefits from a leading visual cue. Keep extra layout, links, and
+actions inside `AlertContent`; the component does not need a dedicated action API for those cases.
+
+`role` defaults to `status`, and switches to `alert` for `variant="destructive"`. Pass an explicit
+`role` only when your announcement semantics need to differ from that default.
 
 ## Defaults
 
@@ -30,5 +50,7 @@ semantic slots, a `variant` prop for intent, and regular composition for everyth
 
 ## Styling
 
-The component exposes `--alert-*` CSS variables in `src/styles/theme.css`.
+The component exposes `--alert-*` CSS variables in `src/styles/theme.css`. Override them on the
+root slot for local theming or at a higher scope for application-wide defaults.
+
 Place icons inside `AlertIcon`; SVG icons inherit current color and use `--alert-icon-size`.

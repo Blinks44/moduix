@@ -1,9 +1,11 @@
+import type { ComponentProps } from 'react';
 import {
   Alert,
   AlertContent,
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  Button,
   CheckIcon,
   InfoIcon,
 } from 'moduix';
@@ -100,7 +102,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function AlertExample(props: React.ComponentProps<typeof Alert>) {
+export function AlertExample(props: ComponentProps<typeof Alert>) {
   return (
     <Alert {...props}>
       <AlertContent>
@@ -161,13 +163,21 @@ export function AlertDestructiveExample() {
 
 export function CustomCompositionAlertExample() {
   return (
-    <Alert className={styles.customAlert}>
+    <Alert variant="warning" className={styles.customAlert}>
       <AlertIcon>
         <InfoIcon />
       </AlertIcon>
       <AlertContent>
-        <AlertTitle>Custom alert</AlertTitle>
-        <AlertDescription>Override CSS variables from the root alert slot.</AlertDescription>
+        <AlertTitle>Storage is almost full</AlertTitle>
+        <AlertDescription>
+          You are using 92% of the available storage. Archive old uploads or upgrade the plan.
+        </AlertDescription>
+        <div className={styles.actions}>
+          <Button size="sm">Review uploads</Button>
+          <Button size="sm" variant="outline">
+            Dismiss
+          </Button>
+        </div>
       </AlertContent>
     </Alert>
   );

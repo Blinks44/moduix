@@ -7,7 +7,6 @@
     width: 100%;
     min-width: 0;
     gap: var(--alert-gap, var(--spacing-3));
-    overflow: hidden;
     border: var(--alert-border-width, var(--border-width-sm)) solid
       var(--alert-border-color, var(--alert-border-color-default, var(--color-border)));
     border-radius: var(--alert-radius, var(--radius-lg));
@@ -94,10 +93,12 @@
 
   .title {
     margin: 0;
+    min-width: 0;
     color: var(--alert-title-color, var(--alert-color, var(--alert-color-default)));
     font-size: var(--alert-title-font-size, var(--text-sm));
     font-weight: var(--alert-title-font-weight, var(--weight-semibold));
     line-height: var(--alert-title-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
   }
 
   .description {
@@ -105,6 +106,7 @@
     color: var(--alert-description-color, var(--color-muted-foreground));
     font-size: var(--alert-description-font-size, var(--text-sm));
     line-height: var(--alert-description-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
 
     & > :first-child {
       margin-top: 0;
@@ -115,7 +117,7 @@
     }
   }
 
-  .root:not(:has(.icon)) .content {
+  .root:not(:has([data-slot='alert-icon'])) .content {
     grid-column: 1 / -1;
   }
 }
