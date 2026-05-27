@@ -2,12 +2,10 @@
 
 Thin styled wrapper over `@base-ui/react/button`.
 
-## What moduix adds
+## Overview
 
-- visual `variant`
-- visual `size`
-- default button styles and tokens
-- `data-slot="button-root"`, `data-variant`, and `data-size` styling hooks
+`Button` keeps the Base UI primitive intact and only adds library styling plus two visual props:
+`variant` and `size`.
 
 Everything else comes directly from Base UI `Button` props, including `render`,
 `nativeButton`, `disabled`, and `focusableWhenDisabled`.
@@ -22,7 +20,28 @@ export function Example() {
 }
 ```
 
-## Pending actions
+## Composition
+
+- Use `variant` for visual intent.
+- Use `size` for density and icon-only controls.
+- Use `render` when the button should render another element, such as an anchor or router link.
+- Use `className` and `--button-*` CSS properties for styling overrides.
+
+For navigation-first actions, render an anchor instead of keeping button semantics:
+
+```tsx
+import { Button } from 'moduix';
+
+export function LinkButton() {
+  return (
+    <Button render={<a href="#button" />} nativeButton={false} variant="outline">
+      Open docs
+    </Button>
+  );
+}
+```
+
+## Pending State
 
 `Button` does not include a custom loading API. Compose pending UI with existing props and
 children:
@@ -46,11 +65,15 @@ export function PendingButton({ pending }: { pending: boolean }) {
 }
 ```
 
-## Styling
+## Styling Hooks
 
-- Use `className` for root-level overrides.
-- Override `--button-*` CSS properties from `theme.css` for theme-level changes.
-- Style nested icons or other children through normal composition.
+- `data-slot="button-root"`
+- `data-variant`
+- `data-size`
+- Base UI state attributes such as `data-disabled`
+
+Use `className` for local overrides and `--button-*` CSS properties from `theme.css` for
+theme-level changes.
 
 ## Base UI reference
 

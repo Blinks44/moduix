@@ -11,10 +11,12 @@
     border-radius: var(--button-radius, var(--radius-md));
     background-color: transparent;
     color: var(--button-color, var(--color-foreground));
+    appearance: none;
     font: inherit;
     font-size: var(--button-font-size, var(--text-sm));
     font-weight: var(--button-font-weight, var(--weight-medium));
     line-height: var(--button-line-height, var(--line-height-text-sm));
+    text-decoration: none;
     user-select: none;
     white-space: nowrap;
     cursor: pointer;

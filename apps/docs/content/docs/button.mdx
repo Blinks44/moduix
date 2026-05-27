@@ -7,10 +7,10 @@ icon: Component
 import {
   ButtonCssPlaygroundPanel,
   ButtonCssPropertiesPanel,
-  ButtonCustomTagExample,
   ButtonDisabledExample,
   ButtonExample,
   ButtonIconExample,
+  ButtonLinkCompositionExample,
   ButtonLoadingExample,
   ButtonSizesExample,
   ButtonVariantsExample,
@@ -21,6 +21,14 @@ import {
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/button" />
+
+## Overview
+
+`Button` is a thin styled wrapper over Base UI `Button`. The library keeps the default path short:
+pick a `variant`, pick a `size` when needed, and compose content through `children`.
+
+Base UI behavior stays available on the same component, including `render`, `nativeButton`,
+`disabled`, and `focusableWhenDisabled`.
 
 ## Basic
 
@@ -64,9 +72,6 @@ The root exposes `data-slot="button-root"`, `data-variant`, `data-size`, and Bas
 
 ## Composition
 
-`Button` keeps the primitive API intact. Use Base UI props such as `render`, `nativeButton`,
-`disabled`, and `focusableWhenDisabled` directly on the component.
-
 moduix only adds two visual props:
 
 | Prop      | Default   | Values                                                                                   |
@@ -74,11 +79,14 @@ moduix only adds two visual props:
 | `variant` | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
 
-Use `className` for root-level overrides. Compose icons, spinners, and labels through
-`children`.
+Use `variant` and `size` for the common visual path. Keep everything else in composition:
 
-For submit buttons, pass `type="submit"`. For links, style an `<a>` directly instead of using
-button semantics.
+- pass `type="submit"` for form actions
+- pass `disabled` and `focusableWhenDisabled` for disabled states
+- compose icons and spinners through `children`
+- use `render` when the styled control should render another element
+
+For navigation-first actions, render an anchor or router link instead of keeping button semantics.
 
 ## Examples
 
@@ -174,7 +182,7 @@ button semantics.
   </Preview.Code>
 </Preview>
 
-### Disabled
+### Disabled and Focusable Disabled
 
 <Preview>
   <ButtonDisabledExample />
@@ -191,27 +199,6 @@ button semantics.
               Focusable Disabled
             </Button>
           </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Tag
-
-<Preview>
-  <ButtonCustomTagExample />
-
-  <Preview.Code>
-    {`
-      import { Button } from "moduix";
-
-      export function ButtonCustomTagDemo() {
-        return (
-          <Button render={<div />} nativeButton={false}>
-            Complex Trigger
-          </Button>
         );
       }
     `}
@@ -260,7 +247,34 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+## Custom Composition
+
+### Render as a Link
+
+<Preview>
+  <ButtonLinkCompositionExample />
+
+  <Preview.Code>
+    {`
+      import { Button } from "moduix";
+
+      export function ButtonLinkDemo() {
+        return (
+          <Button
+            render={<a href="#button" />}
+            nativeButton={false}
+            variant="outline"
+          >
+            Open Button Docs
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Styling Override
 
 <Preview>
   <CustomCompositionButtonExample />
@@ -271,13 +285,8 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
 
       export function CustomCompositionButtonDemo() {
         return (
-          <Button
-            className={styles.customButton}
-            disabled
-            focusableWhenDisabled
-            aria-busy
-          >
-            <Spinner decorative size="sm" className={styles.customSpinner} />
+          <Button className="customButton" disabled focusableWhenDisabled aria-busy>
+            <Spinner decorative size="sm" className="customSpinner" />
             Publishing
           </Button>
         );

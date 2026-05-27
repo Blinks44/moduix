@@ -1,5 +1,6 @@
+import type { ComponentProps } from 'react';
 import { ArrowUpRightIcon, Button, PlusIcon, Spinner, StarIcon } from 'moduix';
-import * as React from 'react';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './button.module.css';
@@ -196,7 +197,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ButtonExample(props: React.ComponentProps<typeof Button>) {
+export function ButtonExample(props: ComponentProps<typeof Button>) {
   return <Button {...props}>Save Changes</Button>;
 }
 
@@ -264,16 +265,16 @@ export function ButtonDisabledExample() {
   );
 }
 
-export function ButtonCustomTagExample() {
+export function ButtonLinkCompositionExample() {
   return (
-    <Button render={<div />} nativeButton={false}>
-      Complex Trigger
+    <Button render={<a href="#button" />} nativeButton={false} variant="outline">
+      Open Button Docs
     </Button>
   );
 }
 
 export function ButtonLoadingExample() {
-  const [pending, setPending] = React.useState(false);
+  const [pending, setPending] = useState(false);
 
   return (
     <Button

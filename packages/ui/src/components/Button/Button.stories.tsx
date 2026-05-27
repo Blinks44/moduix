@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useState } from 'react';
 import { ArrowUpRightIcon, StarIcon } from '@/icons/demo';
 import { PlusIcon } from '@/icons/ui';
 import { Spinner } from '../Spinner';
 import { Button } from './Button';
+import styles from './Button.stories.module.css';
 
 const meta = {
   title: 'Components/Button',
@@ -21,154 +22,90 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+const variants = [
+  'default',
+  'outline',
+  'secondary',
+  'destructive',
+  'destructive-outline',
+  'ghost',
+  'link',
+] as const;
 
-export const Outline: Story = {
-  args: {
-    variant: 'outline',
-    children: 'Outline',
-  },
+const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+export const Basic: Story = {};
+
+export const Variants: Story = {
+  render: () => (
+    <div className={styles.row}>
+      {variants.map((variant) => (
+        <Button key={variant} variant={variant}>
+          {variant}
+        </Button>
+      ))}
+    </div>
+  ),
 };
 
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Secondary',
-  },
-};
-
-export const Destructive: Story = {
-  args: {
-    variant: 'destructive',
-    children: 'Destructive',
-  },
-};
-
-export const DestructiveOutline: Story = {
-  name: 'Destructive Outline',
-  args: {
-    variant: 'destructive-outline',
-    children: 'Destructive Outline',
-  },
-};
-
-export const Ghost: Story = {
-  args: {
-    variant: 'ghost',
-    children: 'Ghost',
-  },
-};
-
-export const Link: Story = {
-  args: {
-    variant: 'link',
-    children: 'Link',
-  },
-};
-
-export const ExtraSmallSize: Story = {
-  name: 'Extra-small Size',
-  args: {
-    size: 'xs',
-    children: 'Extra-small',
-  },
-};
-
-export const SmallSize: Story = {
-  name: 'Small Size',
-  args: {
-    size: 'sm',
-    children: 'Small',
-  },
-};
-
-export const MediumSize: Story = {
-  name: 'Medium Size',
-  args: {
-    size: 'md',
-    children: 'Medium',
-  },
-};
-
-export const LargeSize: Story = {
-  name: 'Large Size',
-  args: {
-    size: 'lg',
-    children: 'Large',
-  },
-};
-
-export const ExtraLargeSize: Story = {
-  name: 'Extra-large Size',
-  args: {
-    size: 'xl',
-    children: 'Extra-large',
-  },
+export const Sizes: Story = {
+  render: () => (
+    <div className={styles.row}>
+      {sizes.map((size) => (
+        <Button key={size} size={size}>
+          {size}
+        </Button>
+      ))}
+    </div>
+  ),
 };
 
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-    children: 'Disabled',
-  },
+  render: () => (
+    <div className={styles.row}>
+      <Button disabled>Disabled</Button>
+      <Button disabled focusableWhenDisabled variant="outline">
+        Focusable disabled
+      </Button>
+    </div>
+  ),
 };
 
-export const IconSmallSize: Story = {
-  name: 'Icon Small Size',
-  args: {
-    size: 'icon-sm',
-    'aria-label': 'Favorites',
-    children: <StarIcon />,
-  },
-};
-
-export const Icon: Story = {
-  name: 'Icon Medium Size',
-  args: {
-    size: 'icon-md',
-    'aria-label': 'Favorites',
-    children: <StarIcon />,
-  },
-};
-
-export const IconLargeSize: Story = {
-  name: 'Icon Large Size',
-  args: {
-    size: 'icon-lg',
-    'aria-label': 'Favorites',
-    children: <StarIcon />,
-  },
-};
-
-export const WithIcon: Story = {
-  name: 'With Icon',
-  args: {
-    children: (
-      <React.Fragment>
+export const WithIcons: Story = {
+  render: () => (
+    <div className={styles.row}>
+      <Button>
         <PlusIcon />
         Create Item
-      </React.Fragment>
-    ),
-  },
-};
-
-export const WithLink: Story = {
-  name: 'With Link',
-  args: {
-    variant: 'link',
-    children: (
-      <React.Fragment>
+      </Button>
+      <Button size="icon-sm" variant="outline" aria-label="Small favorite">
+        <StarIcon />
+      </Button>
+      <Button size="icon-md" variant="outline" aria-label="Favorite">
+        <StarIcon />
+      </Button>
+      <Button size="icon-lg" variant="outline" aria-label="Large favorite">
+        <StarIcon />
+      </Button>
+      <Button variant="link">
         Open Docs
         <ArrowUpRightIcon />
-      </React.Fragment>
-    ),
-  },
+      </Button>
+    </div>
+  ),
+};
+
+export const RenderedLink: Story = {
+  render: () => (
+    <Button render={<a href="#button" />} nativeButton={false} variant="outline">
+      Open Button Docs
+    </Button>
+  ),
 };
 
 export const PendingState: Story = {
-  name: 'Pending State',
   render: () => {
-    const [pending, setPending] = React.useState(false);
+    const [pending, setPending] = useState(false);
 
     return (
       <Button

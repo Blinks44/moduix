@@ -6,12 +6,6 @@
   gap: var(--spacing-3);
 }
 
-.customLoadingIndicator {
-  width: 0.875rem;
-  height: 0.875rem;
-  animation: var(--animation-spin);
-}
-
 .customButton {
   border-color: var(--color-primary);
   background-color: var(--color-primary);
