@@ -6,7 +6,7 @@ icon: Component
 
 import {
   ControlledSliderExample,
-  CustomClassesSliderExample,
+  CustomCompositionSliderExample,
   DisabledSliderExample,
   EdgeThumbAlignmentSliderExample,
   RangeSliderExample,
@@ -54,16 +54,16 @@ import {
 
 ## Anatomy
 
-`Slider` renders the control, track, and indicator internally. In app code you compose only the
-label, optional value, and one thumb per value.
+`Slider` is the default high-level wrapper. It renders the control, track, and indicator internally,
+so the common path stays short.
 
 ```text
 Slider
 ├─ SliderLabel
 ├─ SliderValue
-└─ internal control
-   └─ internal track
-      ├─ internal indicator
+└─ SliderControl
+   └─ SliderTrack
+      ├─ SliderIndicator
       └─ SliderThumb[index]
 ```
 
@@ -75,41 +75,40 @@ Slider
 </Slider>
 ```
 
-| Part          | Role                                                                                                        |
-| ------------- | ----------------------------------------------------------------------------------------------------------- |
-| `Slider`      | Root state machine. Controls value, range values, steps, orientation, disabled state, and form integration. |
-| `SliderLabel` | Visible label connected to the slider inputs. Use it when the control has a readable label on screen.       |
-| `SliderValue` | Optional formatted value display. It receives formatted values and raw numeric values as render arguments.  |
-| `SliderThumb` | Interactive handle. Render one thumb for a single value and multiple indexed thumbs for a range.            |
-
-The control, track, and indicator stay internal by default. Use `classNames.control`,
-`classNames.track`, and `classNames.indicator` when CSS variables are not enough.
+| Part              | Role                                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `Slider`          | High-level wrapper for the common case. It owns slider state and renders the structural parts internally.                            |
+| `SliderRoot`      | Low-level root for manual composition. Use it when you want to place `SliderControl`, `SliderTrack`, and `SliderIndicator` yourself. |
+| `SliderLabel`     | Visible label connected to the slider inputs. Use it when the control has a readable label on screen.                                |
+| `SliderValue`     | Optional formatted value display. It receives formatted values and raw numeric values as render arguments.                           |
+| `SliderControl`   | Pointer and keyboard interaction area. Exported for custom composition.                                                              |
+| `SliderTrack`     | Visual track container for the indicator and thumbs.                                                                                 |
+| `SliderIndicator` | Filled portion of the track.                                                                                                         |
+| `SliderThumb`     | Interactive handle. Render one thumb for a single value and multiple indexed thumbs for a range.                                     |
 
 ## Composition
 
-Use `Slider` for behavior props such as `value`, `defaultValue`, `onValueChange`, `min`, `max`,
-`step`, `orientation`, and `thumbAlignment`.
+Use `Slider` for the default path. It accepts the same behavior props as `SliderRoot`, including
+`value`, `defaultValue`, `onValueChange`, `min`, `max`, `step`, `orientation`, and
+`thumbAlignment`.
 
 Use `SliderThumb` for the accessible name of each handle. `SliderLabel` labels the group, but
 multi-thumb sliders still need distinct `aria-label` values on each thumb.
 
-Style the root with `className`, visible parts with their own `className`, and internal slots with
-`classNames`:
+Style the default path with `className` on `Slider`, `SliderLabel`, `SliderValue`, and
+`SliderThumb`. For deeper structure or part-level styling, switch to the low-level parts:
 
 ```tsx
-<Slider
-  defaultValue={56}
-  className={styles.slider}
-  classNames={{
-    control: styles.control,
-    track: styles.track,
-    indicator: styles.indicator,
-  }}
->
+<SliderRoot defaultValue={56}>
   <SliderLabel>Temperature</SliderLabel>
   <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-  <SliderThumb aria-label="Temperature" className={styles.thumb} />
-</Slider>
+  <SliderControl className={styles.control}>
+    <SliderTrack className={styles.track}>
+      <SliderIndicator className={styles.indicator} />
+      <SliderThumb aria-label="Temperature" className={styles.thumb} />
+    </SliderTrack>
+  </SliderControl>
+</SliderRoot>
 ```
 
 ### Defaults
@@ -124,7 +123,6 @@ Style the root with `className`, visible parts with their own `className`, and i
 | `minStepsBetweenValues`  | `0`          | number                               |
 | `thumbAlignment`         | `center`     | `center`, `edge`, `edge-client-only` |
 | `thumbCollisionBehavior` | `push`       | `push`, `swap`, `none`               |
-| `classNames`             | `undefined`  | `{ control?, track?, indicator? }`   |
 | `className`              | `undefined`  | string                               |
 
 For range sliders, pass an array value and render the same number of `SliderThumb` elements. Keep
@@ -395,35 +393,37 @@ Use `disabled` to make the slider non-interactive while preserving its current v
 
 ### Custom Composition
 
-Use `className` for the root and `classNames` for internal slots.
+Use `SliderRoot`, `SliderControl`, `SliderTrack`, and `SliderIndicator` when you need to override
+the DOM structure or style the internal parts directly.
 
 <Preview>
-  <CustomClassesSliderExample />
+  <CustomCompositionSliderExample />
 
   <Preview.Code>
     {`
       import {
-        Slider,
+        SliderControl,
+        SliderIndicator,
         SliderLabel,
+        SliderRoot,
         SliderValue,
         SliderThumb,
+        SliderTrack,
       } from "moduix";
       import styles from "./slider.module.css";
 
-      export function CustomClassesSliderDemo() {
+      export function CustomCompositionSliderDemo() {
         return (
-          <Slider
-            defaultValue={56}
-            classNames={{
-              control: styles.customControl,
-              track: styles.customTrack,
-              indicator: styles.customIndicator,
-            }}
-          >
+          <SliderRoot defaultValue={56}>
             <SliderLabel>Temperature</SliderLabel>
             <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-            <SliderThumb aria-label="Temperature" className={styles.customThumb} />
-          </Slider>
+            <SliderControl className={styles.customControl}>
+              <SliderTrack className={styles.customTrack}>
+                <SliderIndicator className={styles.customIndicator} />
+                <SliderThumb aria-label="Temperature" className={styles.customThumb} />
+              </SliderTrack>
+            </SliderControl>
+          </SliderRoot>
         );
       }
     `}

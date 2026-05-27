@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { Slider, SliderLabel, SliderThumb, SliderValue } from './Slider';
+import {
+  Slider,
+  SliderControl,
+  SliderIndicator,
+  SliderLabel,
+  SliderRoot,
+  SliderThumb,
+  SliderTrack,
+  SliderValue,
+} from './Slider';
 import styles from './Slider.stories.module.css';
 
 const meta = {
@@ -97,21 +106,19 @@ export const Disabled: Story = {
   },
 };
 
-export const CustomClasses: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
-      <Slider
-        defaultValue={56}
-        classNames={{
-          control: styles.customControl,
-          track: styles.customTrack,
-          indicator: styles.customIndicator,
-        }}
-      >
+      <SliderRoot defaultValue={56}>
         <SliderLabel>Temperature</SliderLabel>
         <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-        <SliderThumb aria-label="Temperature" className={styles.customThumb} />
-      </Slider>
+        <SliderControl className={styles.customControl}>
+          <SliderTrack className={styles.customTrack}>
+            <SliderIndicator className={styles.customIndicator} />
+            <SliderThumb aria-label="Temperature" className={styles.customThumb} />
+          </SliderTrack>
+        </SliderControl>
+      </SliderRoot>
     );
   },
 };

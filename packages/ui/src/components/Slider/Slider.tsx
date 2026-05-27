@@ -3,49 +3,27 @@ import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Slider.module.css';
 
-type SliderValueType = number | readonly number[];
 type SliderChildrenParts = {
   content: React.ReactNode[];
   thumbs: React.ReactNode[];
 };
 
-type SliderClassNames = {
-  control?: SliderPrimitive.Control.Props['className'];
-  track?: SliderPrimitive.Track.Props['className'];
-  indicator?: SliderPrimitive.Indicator.Props['className'];
-};
-
-function Slider<Value extends SliderValueType>({
-  className,
-  classNames,
+function Slider<Value extends number | readonly number[]>({
   children,
   ...props
-}: SliderProps<Value>) {
+}: SliderPrimitive.Root.Props<Value>) {
   const { content, thumbs } = splitSliderChildren(children);
 
   return (
-    <SliderPrimitive.Root
-      data-slot="slider-root"
-      className={mergeClassName(className, styles.root)}
-      {...props}
-    >
+    <SliderRoot {...props}>
       {content}
-      <SliderPrimitive.Control
-        data-slot="slider-control"
-        className={mergeClassName(classNames?.control, styles.control)}
-      >
-        <SliderPrimitive.Track
-          data-slot="slider-track"
-          className={mergeClassName(classNames?.track, styles.track)}
-        >
-          <SliderPrimitive.Indicator
-            data-slot="slider-indicator"
-            className={mergeClassName(classNames?.indicator, styles.indicator)}
-          />
+      <SliderControl>
+        <SliderTrack>
+          <SliderIndicator />
           {thumbs}
-        </SliderPrimitive.Track>
-      </SliderPrimitive.Control>
-    </SliderPrimitive.Root>
+        </SliderTrack>
+      </SliderControl>
+    </SliderRoot>
   );
 }
 
@@ -83,8 +61,23 @@ const isReactFragment = (
 ): child is React.ReactElement<{ children?: React.ReactNode }> =>
   React.isValidElement(child) && child.type === React.Fragment;
 
-const isSliderThumb = (child: React.ReactNode): child is React.ReactElement<SliderThumbProps> =>
+const isSliderThumb = (
+  child: React.ReactNode,
+): child is React.ReactElement<SliderPrimitive.Thumb.Props> =>
   React.isValidElement(child) && child.type === SliderThumb;
+
+function SliderRoot<Value extends number | readonly number[]>({
+  className,
+  ...props
+}: SliderPrimitive.Root.Props<Value>) {
+  return (
+    <SliderPrimitive.Root
+      data-slot="slider-root"
+      className={mergeClassName(className, styles.root)}
+      {...props}
+    />
+  );
+}
 
 function SliderLabel({ className, ...props }: SliderPrimitive.Label.Props) {
   return (
@@ -106,6 +99,36 @@ function SliderValue({ className, ...props }: SliderPrimitive.Value.Props) {
   );
 }
 
+function SliderControl({ className, ...props }: SliderPrimitive.Control.Props) {
+  return (
+    <SliderPrimitive.Control
+      data-slot="slider-control"
+      className={mergeClassName(className, styles.control)}
+      {...props}
+    />
+  );
+}
+
+function SliderTrack({ className, ...props }: SliderPrimitive.Track.Props) {
+  return (
+    <SliderPrimitive.Track
+      data-slot="slider-track"
+      className={mergeClassName(className, styles.track)}
+      {...props}
+    />
+  );
+}
+
+function SliderIndicator({ className, ...props }: SliderPrimitive.Indicator.Props) {
+  return (
+    <SliderPrimitive.Indicator
+      data-slot="slider-indicator"
+      className={mergeClassName(className, styles.indicator)}
+      {...props}
+    />
+  );
+}
+
 function SliderThumb({ className, ...props }: SliderPrimitive.Thumb.Props) {
   return (
     <SliderPrimitive.Thumb
@@ -116,14 +139,13 @@ function SliderThumb({ className, ...props }: SliderPrimitive.Thumb.Props) {
   );
 }
 
-type SliderProps<Value extends SliderValueType = SliderValueType> =
-  SliderPrimitive.Root.Props<Value> & {
-    classNames?: SliderClassNames;
-  };
-type SliderLabelProps = SliderPrimitive.Label.Props;
-type SliderValueProps = SliderPrimitive.Value.Props;
-type SliderThumbProps = SliderPrimitive.Thumb.Props;
-
-export { Slider, SliderLabel, SliderValue, SliderThumb };
-
-export type { SliderProps, SliderClassNames, SliderLabelProps, SliderValueProps, SliderThumbProps };
+export {
+  Slider,
+  SliderRoot,
+  SliderLabel,
+  SliderValue,
+  SliderControl,
+  SliderTrack,
+  SliderIndicator,
+  SliderThumb,
+};

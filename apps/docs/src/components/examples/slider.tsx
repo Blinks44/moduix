@@ -1,4 +1,13 @@
-import { Slider, SliderLabel, SliderThumb, SliderValue, type SliderProps } from 'moduix';
+import {
+  Slider,
+  SliderControl,
+  SliderIndicator,
+  SliderLabel,
+  SliderRoot,
+  SliderThumb,
+  SliderTrack,
+  SliderValue,
+} from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -86,9 +95,9 @@ const priceFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 });
 
-export function SliderExample({ defaultValue = 40, ...props }: SliderProps<number>) {
+export function SliderExample() {
   return (
-    <Slider defaultValue={defaultValue} {...props}>
+    <Slider defaultValue={40}>
       <SliderLabel>Volume</SliderLabel>
       <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
       <SliderThumb aria-label="Volume" />
@@ -196,19 +205,17 @@ export function DisabledSliderExample() {
   );
 }
 
-export function CustomClassesSliderExample() {
+export function CustomCompositionSliderExample() {
   return (
-    <Slider
-      defaultValue={56}
-      classNames={{
-        control: styles.customControl,
-        track: styles.customTrack,
-        indicator: styles.customIndicator,
-      }}
-    >
+    <SliderRoot defaultValue={56}>
       <SliderLabel>Temperature</SliderLabel>
       <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-      <SliderThumb aria-label="Temperature" className={styles.customThumb} />
-    </Slider>
+      <SliderControl className={styles.customControl}>
+        <SliderTrack className={styles.customTrack}>
+          <SliderIndicator className={styles.customIndicator} />
+          <SliderThumb aria-label="Temperature" className={styles.customThumb} />
+        </SliderTrack>
+      </SliderControl>
+    </SliderRoot>
   );
 }
