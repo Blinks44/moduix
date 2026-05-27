@@ -1,5 +1,5 @@
-import type * as React from 'react';
-import { Container, Heading, Text } from 'moduix';
+import type { ComponentProps } from 'react';
+import { Bleed, Container, Heading, Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './container.module.css';
@@ -49,7 +49,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ContainerExample(props: React.ComponentProps<typeof Container>) {
+export function ContainerExample(props: ComponentProps<typeof Container>) {
   return (
     <div className={styles.viewport}>
       <Container className={styles.container} {...props}>
@@ -110,6 +110,25 @@ export function CustomCompositionContainerExample() {
     <div className={styles.viewport}>
       <Container className={styles.customContainer}>
         <Text weight="semibold">Customized max width and gutters</Text>
+      </Container>
+    </div>
+  );
+}
+
+export function ContainerBleedExample() {
+  return (
+    <div className={styles.viewport}>
+      <Container className={styles.container}>
+        <Heading as="h3" size="lg">
+          Article body
+        </Heading>
+        <Text tone="muted">
+          Keep the reading width constrained, then use `Bleed` for elements that should stretch
+          wider.
+        </Text>
+        <Bleed inline="md">
+          <div className={styles.bleedSurface}>Bleed content escapes the constrained column.</div>
+        </Bleed>
       </Container>
     </div>
   );

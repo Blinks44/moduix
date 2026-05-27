@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Bleed } from '../Bleed';
 import { Text } from '../Text';
 import { Container } from './Container';
 import storyStyles from './Container.stories.module.css';
@@ -57,6 +58,20 @@ export const SemanticElement: Story = {
     <Container as="main" size="md" className={storyStyles.container}>
       <Text weight="semibold">Rendered as main</Text>
       <Text tone="muted">Use as when the layout wrapper also carries page semantics.</Text>
+    </Container>
+  ),
+};
+
+export const WithBleed: Story = {
+  render: () => (
+    <Container className={storyStyles.container}>
+      <Text weight="semibold">Constrained text column</Text>
+      <Text tone="muted">
+        Use Bleed when media or dividers should extend beyond the readable width.
+      </Text>
+      <Bleed inline="md">
+        <div className={storyStyles.bleedSurface}>Bleed content escapes the container width.</div>
+      </Bleed>
     </Container>
   ),
 };

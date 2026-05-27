@@ -1,6 +1,16 @@
+import type { ComponentPropsWithoutRef } from 'react';
 import clsx from 'clsx';
-import * as React from 'react';
 import styles from './Container.module.css';
+
+type ContainerElement =
+  | 'article'
+  | 'aside'
+  | 'div'
+  | 'footer'
+  | 'header'
+  | 'main'
+  | 'nav'
+  | 'section';
 
 function Container({
   as: Root = 'div',
@@ -8,8 +18,8 @@ function Container({
   gutter = 'md',
   className,
   ...props
-}: React.ComponentPropsWithoutRef<'div'> & {
-  as?: React.ElementType;
+}: ComponentPropsWithoutRef<'div'> & {
+  as?: ContainerElement;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   gutter?: 'none' | 'sm' | 'md' | 'lg';
 }) {

@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  ContainerBleedExample,
   ContainerCssPlaygroundPanel,
   ContainerCssPropertiesPanel,
   ContainerExample,
@@ -15,12 +16,13 @@ import {
   containerPlaygroundCssProperties,
 } from '@/components/examples/container';
 
-## API Reference
+## Overview
 
-`Container` is a simple layout wrapper for a centered content column with responsive inline gutters.  
-Use `size` to set content width and `gutter` to keep responsive inline spacing around it.
-`size="full"` expands to the available inline space while keeping the chosen gutter inside it.
-Use `as` when the wrapper should render a different root element.
+`Container` is the library's centered page-width primitive. It keeps a readable content column,
+adds responsive inline gutters, and stays out of vertical layout decisions.
+
+Use `size` to choose the content width and `gutter` to control the edge padding. Use `as` when the
+wrapper should also carry page semantics such as `main` or `section`.
 
 ## Basic
 
@@ -64,9 +66,8 @@ Use `as` when the wrapper should render a different root element.
 
 ## Anatomy
 
-`Container` is a single root layout primitive. It sets width, max content width,
-inline gutters, and centering while leaving block spacing to parent
-sections or local CSS.
+`Container` is a single root layout primitive. It owns width, max width, centering, and inline
+gutters while leaving block spacing to parent sections or local CSS.
 
 ```text
 Container
@@ -86,15 +87,15 @@ Container
 ## Composition
 
 Use `size` for content width and `gutter` for edge spacing.
-Use `as` when the wrapper should render a different element.
+Use `as` when the wrapper should render a semantic landmark or sectioning element.
 
 ### Defaults
 
-| Prop     | Default | Values                               |
-| -------- | ------- | ------------------------------------ |
-| `size`   | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `gutter` | `md`    | `none`, `sm`, `md`, `lg`             |
-| `as`     | `div`   | Any React element type               |
+| Prop     | Default | Values                                                                  |
+| -------- | ------- | ----------------------------------------------------------------------- |
+| `size`   | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full`                                    |
+| `gutter` | `md`    | `none`, `sm`, `md`, `lg`                                                |
+| `as`     | `div`   | `div`, `main`, `section`, `article`, `aside`, `header`, `footer`, `nav` |
 
 `Container` does not manage vertical rhythm. Add section spacing outside it.
 `size="full"` still keeps inline gutter padding unless `gutter="none"` is used.
@@ -181,7 +182,47 @@ Use `as` when the layout wrapper should also describe document structure.
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### With Bleed
+
+Keep the text column constrained and let only the wider child opt out.
+
+<Preview>
+  <ContainerBleedExample />
+
+  <Preview.Code>
+    {`
+      import { Bleed, Container, Heading, Text } from "moduix";
+
+      export function ContainerBleedDemo() {
+        return (
+          <Container>
+            <Heading as="h3" size="lg">Article body</Heading>
+            <Text tone="muted">
+              Keep the reading width constrained, then use Bleed for content that should stretch wider.
+            </Text>
+            <Bleed inline="md">
+              <div className={styles.bleedSurface}>Bleed content escapes the constrained column.</div>
+            </Bleed>
+          </Container>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .bleedSurface {
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        background-color: var(--color-background);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
 
 Pass `className` when styling the root or overriding container variables locally.
 

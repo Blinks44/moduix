@@ -30,3 +30,9 @@
   --container-gutter-md: clamp(1.25rem, 6vw, 4rem);
   --container-max-width-lg: 54rem;
 }
+
+.bleedSurface {
+  padding: var(--spacing-4);
+  border: var(--border-width-sm) solid var(--color-border);
+  background-color: var(--color-background);
+}

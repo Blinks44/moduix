@@ -17,3 +17,9 @@
 .container > * {
   max-width: 42rem;
 }
+
+.bleedSurface {
+  padding: var(--spacing-4);
+  border: var(--border-width-sm) solid var(--color-border);
+  background-color: var(--color-background);
+}
