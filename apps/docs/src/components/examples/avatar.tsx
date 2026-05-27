@@ -145,9 +145,9 @@ export function AvatarFallbackOnlyExample() {
 
 export function AvatarCompositionExample() {
   return (
-    <Avatar render={<a href="mailto:alex@example.com" />} className={styles.compositionRoot}>
-      <AvatarImage className={styles.compositionImage} src={avatarImage} alt="Alex T." />
-      <AvatarFallback className={styles.compositionFallback} delay={600}>
+    <Avatar render={<a href="mailto:alex@example.com" />} className={styles.linkAvatar}>
+      <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
+      <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
         LT
       </AvatarFallback>
     </Avatar>
@@ -174,9 +174,9 @@ export function CustomCompositionAvatarExample() {
 
 export function AvatarCustomFallbackExample() {
   return (
-    <Avatar className={styles.customFallbackAvatar}>
+    <Avatar className={styles.iconAvatar}>
       <AvatarFallback>
-        <ComputerIcon className={styles.customFallbackIcon} />
+        <ComputerIcon className={styles.iconAvatarGlyph} />
       </AvatarFallback>
     </Avatar>
   );

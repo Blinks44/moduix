@@ -52,6 +52,19 @@ export const FallbackOnly: Story = {
   },
 };
 
+export const RenderComposition: Story = {
+  render: () => {
+    return (
+      <Avatar render={<a href="mailto:alex@example.com" />} className={styles.linkAvatar}>
+        <AvatarImage className={styles.linkAvatarImage} src={imageUrl} alt="Alex T." />
+        <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
+          LT
+        </AvatarFallback>
+      </Avatar>
+    );
+  },
+};
+
 export const ImageError: Story = {
   render: () => {
     return (
@@ -63,13 +76,12 @@ export const ImageError: Story = {
   },
 };
 
-export const CustomComposition: Story = {
+export const FallbackIcon: Story = {
   render: () => {
     return (
-      <Avatar className={styles.customAvatar}>
-        <AvatarImage className={styles.customImage} src={imageUrl} alt="Alex T." />
-        <AvatarFallback className={styles.customFallback}>
-          <ComputerIcon className={styles.customIcon} />
+      <Avatar className={styles.iconAvatar}>
+        <AvatarFallback>
+          <ComputerIcon className={styles.iconAvatarGlyph} />
         </AvatarFallback>
       </Avatar>
     );

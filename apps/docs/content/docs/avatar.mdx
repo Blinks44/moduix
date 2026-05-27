@@ -1,6 +1,6 @@
 ---
 title: Avatar
-description: A compact visual identity element that shows an image, initials, or fallback content.
+description: Compact identity media with image and fallback slots.
 icon: Component
 ---
 
@@ -22,12 +22,18 @@ import {
 
 ## Basic
 
+Use `AvatarImage` and `AvatarFallback` together inside `Avatar`. That is the recommended default
+path and keeps image loading, error handling, and fallback timing on the primitive.
+
 <Preview cssProperties={avatarPlaygroundCssProperties}>
   <AvatarExample />
 
   <Preview.Code>
     {`
-      import { Avatar, AvatarImage, AvatarFallback } from "moduix";
+      import { Avatar, AvatarFallback, AvatarImage } from "moduix";
+
+      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
 
       export function AvatarDemo() {
         return (
@@ -41,14 +47,6 @@ import {
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`
-      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-    `}
-
-  </Preview.Data>
-
 <Preview.CSSProperties>
   {(context) => <AvatarCssPropertiesPanel {...context} />}
 </Preview.CSSProperties>
@@ -60,8 +58,7 @@ import {
 
 ## Anatomy
 
-`Avatar` is composed of one root and two content slots. Keep `AvatarImage` and `AvatarFallback`
-inside the same `Avatar` so loading state, error state, and fallback timing stay synchronized.
+`Avatar` keeps the public surface short: one root and two visible slots.
 
 ```text
 Avatar
@@ -70,40 +67,32 @@ Avatar
    └─ initials | icon | custom content
 ```
 
-```tsx
-<Avatar>
-  <AvatarImage src={avatarImage} alt="Alex T." />
-  <AvatarFallback delay={600}>LT</AvatarFallback>
-</Avatar>
-```
-
-| Part             | Role                                                                                      |
-| ---------------- | ----------------------------------------------------------------------------------------- |
-| `Avatar`         | Root slot. Controls shape, inherited styles, and composition with `render`.               |
-| `AvatarImage`    | Image slot. Renders the visual identity when the `src` is loaded successfully.            |
-| `AvatarFallback` | Fallback slot. Renders initials, icon, or custom content while loading or on image error. |
-
-`Avatar` does not use service slots (`portal`, `backdrop`, `viewport`).
+| Part             | Role                                                                 |
+| ---------------- | -------------------------------------------------------------------- |
+| `Avatar`         | Root slot. Controls size, shape, shared color, and `render` support. |
+| `AvatarImage`    | Visible image when the source loads successfully.                    |
+| `AvatarFallback` | Fallback content during loading, missing image, or image error.      |
 
 ## Composition
 
-Use `className` on `Avatar`, `AvatarImage`, and `AvatarFallback`. Each slot also supports
-state-based `className` and `style` functions, and `render` for composition. Use
-`AvatarImage onLoadingStatusChange` when you need image load state, and `AvatarFallback delay`
-to avoid fallback flash during normal loading. Change avatar size with root styles or CSS
-variables such as `--avatar-size`, `--avatar-font-size`, and `--avatar-line-height`.
+`Avatar`, `AvatarImage`, and `AvatarFallback` all accept `className` and preserve the underlying
+Base UI composition API such as `render`.
 
-| Prop                   | Default | Values                               |
-| ---------------------- | ------- | ------------------------------------ |
-| `AvatarFallback delay` | -       | `number` (milliseconds)              |
-| `Avatar render`        | `span`  | Any valid React element or component |
+Use `AvatarFallback delay` when you want to suppress a brief fallback flash during normal image
+loading. Use root-level CSS variables such as `--avatar-size`, `--avatar-font-size`, and
+`--avatar-line-height` when the same size system should apply to both image and fallback content.
+
+| Surface          | Prop                    | Default | Values                   |
+| ---------------- | ----------------------- | ------- | ------------------------ |
+| `Avatar`         | `render`                | `span`  | Any valid React element  |
+| `AvatarFallback` | `delay`                 | -       | `number` in milliseconds |
+| `AvatarImage`    | `onLoadingStatusChange` | -       | `(status) => void`       |
 
 ## Examples
 
 ### Fallback Only
 
-Render initials or short text in `AvatarFallback` when no image is available. Use root styles or
-CSS variables to change the avatar dimensions and typography.
+Render initials or short labels when there is no image source.
 
 <Preview>
   <AvatarFallbackOnlyExample />
@@ -173,81 +162,16 @@ CSS variables to change the avatar dimensions and typography.
   </Preview.CSS>
 </Preview>
 
-### Render Composition
-
-`Avatar`, `AvatarImage`, and `AvatarFallback` are public slots. Use `className` on each slot,
-and use `render` when the root should compose with another element.
-
-<Preview>
-  <AvatarCompositionExample />
-
-  <Preview.Code>
-    {`
-      import { Avatar, AvatarImage, AvatarFallback } from "moduix";
-
-      export function AvatarCompositionDemo() {
-        return (
-          <Avatar render={<a href="mailto:alex@example.com" />} className={styles.compositionRoot}>
-            <AvatarImage className={styles.compositionImage} src={avatarImage} alt="Alex T." />
-            <AvatarFallback className={styles.compositionFallback} delay={600}>
-              LT
-            </AvatarFallback>
-          </Avatar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .compositionRoot {
-        --avatar-size: var(--size-xl);
-
-        text-decoration: none;
-        transition:
-          box-shadow var(--transition-default),
-          transform var(--transition-default);
-      }
-
-      .compositionRoot:hover {
-        box-shadow:
-          0 0 0 2px var(--color-background),
-          0 0 0 4px var(--color-primary);
-        transform: translateY(-1px);
-      }
-
-      .compositionImage {
-        object-position: 50% 35%;
-      }
-
-      .compositionFallback {
-        --avatar-fallback-bg: var(--color-primary);
-        --avatar-fallback-color: var(--color-primary-foreground);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-    `}
-
-  </Preview.Data>
-</Preview>
-
 ### Image Error
 
-Keep a fallback so the avatar remains meaningful when the image fails to load.
+Keep fallback content in place so the avatar still carries identity when the image fails.
 
 <Preview>
   <AvatarImageErrorExample />
 
   <Preview.Code>
     {`
-      import { Avatar, AvatarImage, AvatarFallback } from "moduix";
+      import { Avatar, AvatarFallback, AvatarImage } from "moduix";
 
       export function AvatarImageErrorDemo() {
         return (
@@ -262,16 +186,81 @@ Keep a fallback so the avatar remains meaningful when the image fails to load.
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+## Custom Composition
 
-Pass `className` to root, image, and fallback when styling with CSS Modules, Tailwind, or CSS-in-JS.
+### Interactive Root
+
+Use `render` when the avatar should act as a link or compose with an app-specific element.
+
+<Preview>
+  <AvatarCompositionExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar, AvatarFallback, AvatarImage } from "moduix";
+
+      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
+
+      export function AvatarLinkDemo() {
+        return (
+          <Avatar render={<a href="mailto:alex@example.com" />} className={styles.linkAvatar}>
+            <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
+            <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
+              LT
+            </AvatarFallback>
+          </Avatar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .linkAvatar {
+        --avatar-size: var(--size-xl);
+
+        text-decoration: none;
+        transition:
+          box-shadow var(--transition-default),
+          transform var(--transition-default);
+      }
+
+      .linkAvatar:hover {
+        box-shadow:
+          0 0 0 2px var(--color-background),
+          0 0 0 4px var(--color-primary);
+        transform: translateY(-1px);
+      }
+
+      .linkAvatarImage {
+        object-position: 50% 35%;
+      }
+
+      .linkAvatarFallback {
+        --avatar-fallback-bg: var(--color-primary);
+        --avatar-fallback-color: var(--color-primary-foreground);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Per-Slot Styling
+
+The root, image, and fallback remain public parts, so you can style them independently without
+adding extra wrapper APIs.
 
 <Preview>
   <CustomCompositionAvatarExample />
 
   <Preview.Code>
     {`
-      import { Avatar, AvatarImage, AvatarFallback } from "moduix";
+      import { Avatar, AvatarFallback, AvatarImage } from "moduix";
+
+      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
 
       export function CustomCompositionAvatarDemo() {
         return (
@@ -307,19 +296,11 @@ Pass `className` to root, image, and fallback when styling with CSS Modules, Tai
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Fallback Icon
+### Icon Fallback
 
-Pass any React node to `AvatarFallback` to use an icon from your application or icon library.
+Pass any React node to `AvatarFallback` when initials are not the right visual fallback.
 
 <Preview>
   <AvatarCustomFallbackExample />
@@ -328,11 +309,11 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
     {`
       import { Avatar, AvatarFallback, ComputerIcon } from "moduix";
 
-      export function AvatarCustomFallbackDemo() {
+      export function AvatarIconFallbackDemo() {
         return (
-          <Avatar className={styles.customFallbackAvatar}>
+          <Avatar className={styles.iconAvatar}>
             <AvatarFallback>
-              <ComputerIcon className={styles.customFallbackIcon} />
+              <ComputerIcon className={styles.iconAvatarGlyph} />
             </AvatarFallback>
           </Avatar>
         );
@@ -343,7 +324,7 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
 
   <Preview.CSS>
     {`
-      .customFallbackAvatar {
+      .iconAvatar {
         --avatar-bg: var(--color-accent);
         --avatar-fallback-color: var(--color-accent-foreground);
         --avatar-size: var(--size-lg);
@@ -351,7 +332,7 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
         --avatar-line-height: var(--line-height-text-lg);
       }
 
-      .customFallbackIcon {
+      .iconAvatarGlyph {
         width: 55%;
         height: 55%;
       }
@@ -360,20 +341,20 @@ Pass any React node to `AvatarFallback` to use an icon from your application or 
   </Preview.CSS>
 </Preview>
 
-### Accessibility
+## Accessibility
 
-Treat avatar accessibility as part of the surrounding UI, not as a fixed rule on the component.
+Treat avatar accessibility as part of the surrounding UI rather than as a fixed rule on the
+component.
 
-- If the avatar is purely decorative because nearby text already names the person, use `alt=""` on
-  `AvatarImage` and keep fallback text out of the accessibility tree with `aria-hidden="true"`.
-- If the avatar is the only visible identity cue, provide meaningful `alt` text on `AvatarImage`.
-- If the avatar is interactive through `render`, make sure the rendered link or button has an
-  accessible name, usually with `aria-label`.
-- If the fallback is only an icon, give the interactive root its accessible name on the rendered
-  element instead of relying on the icon.
+- If nearby text already names the person, use `alt=""` and keep initials out of the accessibility
+  tree with `aria-hidden="true"`.
+- If the avatar is the only visible identity cue, provide meaningful `alt` text.
+- If the root is interactive through `render`, give the rendered element an accessible name.
+- If the fallback is icon-only, put the accessible name on the interactive root instead of on the
+  icon.
 
 ```tsx
-import { Avatar, AvatarImage, AvatarFallback } from 'moduix';
+import { Avatar, AvatarFallback, AvatarImage } from 'moduix';
 
 export function DecorativeAvatarDemo() {
   return (
@@ -389,7 +370,7 @@ export function DecorativeAvatarDemo() {
 ```
 
 ```tsx
-import { Avatar, AvatarImage, AvatarFallback } from 'moduix';
+import { Avatar, AvatarFallback, AvatarImage } from 'moduix';
 
 export function InteractiveAvatarDemo() {
   return (

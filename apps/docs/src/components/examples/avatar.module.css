@@ -28,7 +28,7 @@
   --avatar-line-height: var(--line-height-text-lg);
 }
 
-.compositionRoot {
+.linkAvatar {
   --avatar-size: var(--size-xl);
 
   text-decoration: none;
@@ -44,11 +44,11 @@
   }
 }
 
-.compositionImage {
+.linkAvatarImage {
   object-position: 50% 35%;
 }
 
-.compositionFallback {
+.linkAvatarFallback {
   --avatar-fallback-bg: var(--color-primary);
   --avatar-fallback-color: var(--color-primary-foreground);
 }
@@ -71,7 +71,7 @@
   text-transform: uppercase;
 }
 
-.customFallbackAvatar {
+.iconAvatar {
   --avatar-bg: var(--color-accent);
   --avatar-fallback-color: var(--color-accent-foreground);
   --avatar-size: var(--size-lg);
@@ -79,7 +79,7 @@
   --avatar-line-height: var(--line-height-text-lg);
 }
 
-.customFallbackIcon {
+.iconAvatarGlyph {
   width: 55%;
   height: 55%;
 }
