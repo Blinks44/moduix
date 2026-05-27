@@ -392,7 +392,7 @@ export function CustomCompositionPopoverExample() {
       <PopoverTrigger className={styles.customTrigger} render={<Button />}>
         Open custom composition
       </PopoverTrigger>
-      <PopoverPortal className={styles.customPortal}>
+      <PopoverPortal>
         <PopoverBackdrop className={styles.customBackdrop} />
         <PopoverPositioner sideOffset={8} className={styles.customPositioner}>
           <PopoverPopup className={styles.customPopup}>

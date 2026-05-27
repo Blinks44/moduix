@@ -5,6 +5,24 @@ import { PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Popover.module.css';
 
+type PopoverPositionerProps = Pick<
+  PopoverPrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+>;
+
+type PopoverContentProps = PopoverPrimitive.Popup.Props &
+  PopoverPositionerProps & {
+    showArrow?: boolean;
+  };
+
+const POPOVER_CONTENT_SIDE_OFFSET = 8;
 const Popover = PopoverPrimitive.Root;
 const createPopoverHandle = PopoverPrimitive.createHandle;
 
@@ -22,13 +40,7 @@ function PopoverTrigger({ className, render, ...props }: PopoverPrimitive.Trigge
 }
 
 function PopoverPortal({ className, ...props }: PopoverPrimitive.Portal.Props) {
-  return (
-    <PopoverPrimitive.Portal
-      data-slot="popover-portal"
-      className={mergeClassName(className, styles.portal)}
-      {...props}
-    />
-  );
+  return <PopoverPrimitive.Portal data-slot="popover-portal" className={className} {...props} />;
 }
 
 function PopoverBackdrop({ className, ...props }: PopoverPrimitive.Backdrop.Props) {
@@ -127,31 +139,18 @@ function PopoverClose({ className, ...props }: PopoverPrimitive.Close.Props) {
 
 function PopoverContent({
   className,
+  children,
   showArrow = false,
-  sideOffset = 8,
   side,
+  sideOffset = POPOVER_CONTENT_SIDE_OFFSET,
   align,
   alignOffset,
   arrowPadding,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
-  children,
   ...popupProps
-}: PopoverPrimitive.Popup.Props &
-  Pick<
-    PopoverPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-  > & {
-    showArrow?: boolean;
-  }) {
+}: PopoverContentProps) {
   return (
     <PopoverPortal>
       <PopoverPositioner

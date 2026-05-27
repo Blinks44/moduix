@@ -69,29 +69,13 @@
     z-index: calc(var(--z-popup) + 1);
   }
 
-  .contentGrid {
-    display: grid;
-  }
-
-  .popupNarrow {
-    max-width: 20rem;
+  .narrowPopup {
+    --popover-max-width: 20rem;
   }
 
   .imagePopup {
-    padding: var(--spacing-2);
-  }
-
-  .image {
-    display: block;
-    width: 18rem;
-    max-width: min(18rem, calc(100vw - 4rem));
-    height: 10.5rem;
-    border-radius: var(--radius-md);
-    object-fit: cover;
-  }
-
-  .customPortal {
-    pointer-events: auto;
+    --popover-padding-x: var(--spacing-2);
+    --popover-padding-y: var(--spacing-2);
   }
 
   .customBackdrop {
@@ -127,6 +111,15 @@
     --popover-description-color: color-mix(in oklab, var(--popover-color), transparent 18%);
     --popover-radius: var(--radius-lg);
     --popover-shadow: var(--shadow-lg);
+  }
+
+  .image {
+    display: block;
+    width: 18rem;
+    max-width: min(18rem, calc(100vw - 4rem));
+    height: 10.5rem;
+    border-radius: var(--radius-md);
+    object-fit: cover;
   }
 
   .customArrowSlot {

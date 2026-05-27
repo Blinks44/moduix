@@ -151,6 +151,12 @@ Use `Popover` for root state and behavior props such as `open`, `defaultOpen`, `
 `collisionBoundary`, and `collisionPadding`. Use `showArrow` to enable the built-in arrow.
 `className` styles the popup surface.
 
+| `PopoverContent` prop | Default | Notes                                                                |
+| --------------------- | ------- | -------------------------------------------------------------------- |
+| `sideOffset`          | `8`     | Keeps the popup separated from the trigger in the default path.      |
+| `showArrow`           | `false` | Opts into the built-in arrow without changing the composition model. |
+| `className`           | -       | Styles the visible popup surface.                                    |
+
 When you need a different DOM structure, manual backdrop control, a custom arrow, a viewport, or
 portal options such as `keepMounted` and `container`, switch to explicit composition:
 
@@ -796,7 +802,7 @@ arrow content.
     {`
       import {
         Button,
-        CheckSmallIcon,
+        CheckIcon,
         Popover,
         PopoverArrow,
         PopoverBackdrop,
@@ -816,12 +822,12 @@ arrow content.
             <PopoverTrigger className={styles.customTrigger} render={<Button />}>
               Open custom composition
             </PopoverTrigger>
-            <PopoverPortal className={styles.customPortal}>
+            <PopoverPortal>
               <PopoverBackdrop className={styles.customBackdrop} />
               <PopoverPositioner sideOffset={8} className={styles.customPositioner}>
                 <PopoverPopup className={styles.customPopup}>
                   <PopoverArrow className={styles.customArrowSlot}>
-                    <CheckSmallIcon className={styles.customArrowIcon} />
+                    <CheckIcon className={styles.customArrowIcon} />
                   </PopoverArrow>
                   <PopoverViewport className={styles.customViewport}>
                     <PopoverHeader>
@@ -844,10 +850,6 @@ arrow content.
 
   <Preview.CSS>
     {`
-      .customPortal {
-        pointer-events: auto;
-      }
-
       .customBackdrop {
         background-color: rgb(15 23 42 / 0.42);
         backdrop-filter: blur(3px);
