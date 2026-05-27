@@ -1,14 +1,15 @@
+import type { ComponentProps, ComponentRef } from 'react';
 import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomplete';
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { forwardRef } from 'react';
 import { ChevronDownIcon, ChevronUpDownIcon, CloseIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Autocomplete.module.css';
 
 const Autocomplete = AutocompletePrimitive.Root;
 
-const AutocompleteField = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
+const AutocompleteField = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
   function AutocompleteField({ className, ...props }, ref) {
     return (
       <div
@@ -21,23 +22,22 @@ const AutocompleteField = React.forwardRef<HTMLDivElement, React.ComponentProps<
   },
 );
 
-const AutocompleteInlineInputContainer = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<'div'>
->(function AutocompleteInlineInputContainer({ className, ...props }, ref) {
-  return (
-    <div
-      ref={ref}
-      data-slot="autocomplete-inline-input-container"
-      className={clsx(styles.inlineInputContainer, className)}
-      {...props}
-    />
-  );
-});
+const AutocompleteInlineInputContainer = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+  function AutocompleteInlineInputContainer({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        data-slot="autocomplete-inline-input-container"
+        className={clsx(styles.inlineInputContainer, className)}
+        {...props}
+      />
+    );
+  },
+);
 
-const AutocompleteFieldLabel = React.forwardRef<
-  React.ComponentRef<typeof ComboboxPrimitive.Label>,
-  ComboboxPrimitive.Label.Props & Pick<React.ComponentProps<'label'>, 'htmlFor'>
+const AutocompleteFieldLabel = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Label>,
+  ComboboxPrimitive.Label.Props & Pick<ComponentProps<'label'>, 'htmlFor'>
 >(function AutocompleteFieldLabel({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Label
@@ -53,8 +53,8 @@ function AutocompleteValue(props: AutocompletePrimitive.Value.Props) {
   return <AutocompletePrimitive.Value data-slot="autocomplete-value" {...props} />;
 }
 
-const AutocompleteInputGroup = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.InputGroup>,
+const AutocompleteInputGroup = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.InputGroup>,
   AutocompletePrimitive.InputGroup.Props
 >(function AutocompleteInputGroup({ className, ...props }, ref) {
   return (
@@ -67,8 +67,8 @@ const AutocompleteInputGroup = React.forwardRef<
   );
 });
 
-const AutocompleteInput = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Input>,
+const AutocompleteInput = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Input>,
   AutocompletePrimitive.Input.Props
 >(function AutocompleteInput({ className, ...props }, ref) {
   return (
@@ -81,7 +81,7 @@ const AutocompleteInput = React.forwardRef<
   );
 });
 
-const AutocompleteControlActions = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
+const AutocompleteControlActions = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
   function AutocompleteControlActions({ className, ...props }, ref) {
     return (
       <div
@@ -94,8 +94,8 @@ const AutocompleteControlActions = React.forwardRef<HTMLDivElement, React.Compon
   },
 );
 
-const AutocompleteTrigger = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Trigger>,
+const AutocompleteTrigger = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Trigger>,
   AutocompletePrimitive.Trigger.Props
 >(function AutocompleteTrigger({ className, children, ...props }, ref) {
   return (
@@ -110,8 +110,8 @@ const AutocompleteTrigger = React.forwardRef<
   );
 });
 
-const AutocompleteFieldTrigger = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Trigger>,
+const AutocompleteFieldTrigger = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Trigger>,
   AutocompletePrimitive.Trigger.Props
 >(function AutocompleteFieldTrigger({ className, ...props }, ref) {
   return (
@@ -124,8 +124,8 @@ const AutocompleteFieldTrigger = React.forwardRef<
   );
 });
 
-const AutocompleteIcon = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Icon>,
+const AutocompleteIcon = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Icon>,
   AutocompletePrimitive.Icon.Props
 >(function AutocompleteIcon({ className, children, ...props }, ref) {
   return (
@@ -140,8 +140,8 @@ const AutocompleteIcon = React.forwardRef<
   );
 });
 
-const AutocompleteClear = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Clear>,
+const AutocompleteClear = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Clear>,
   AutocompletePrimitive.Clear.Props
 >(function AutocompleteClear({ className, children, ...props }, ref) {
   return (
@@ -156,15 +156,15 @@ const AutocompleteClear = React.forwardRef<
   );
 });
 
-const AutocompletePortal = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Portal>,
+const AutocompletePortal = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Portal>,
   AutocompletePrimitive.Portal.Props
 >(function AutocompletePortal(props, ref) {
   return <AutocompletePrimitive.Portal ref={ref} data-slot="autocomplete-portal" {...props} />;
 });
 
-const AutocompleteBackdrop = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Backdrop>,
+const AutocompleteBackdrop = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Backdrop>,
   AutocompletePrimitive.Backdrop.Props
 >(function AutocompleteBackdrop({ className, ...props }, ref) {
   return (
@@ -177,8 +177,8 @@ const AutocompleteBackdrop = React.forwardRef<
   );
 });
 
-const AutocompletePositioner = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Positioner>,
+const AutocompletePositioner = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Positioner>,
   AutocompletePrimitive.Positioner.Props
 >(function AutocompletePositioner({ className, ...props }, ref) {
   return (
@@ -191,8 +191,8 @@ const AutocompletePositioner = React.forwardRef<
   );
 });
 
-const AutocompletePopup = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Popup>,
+const AutocompletePopup = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Popup>,
   AutocompletePrimitive.Popup.Props
 >(function AutocompletePopup({ className, ...props }, ref) {
   return (
@@ -205,8 +205,8 @@ const AutocompletePopup = React.forwardRef<
   );
 });
 
-const AutocompleteArrow = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Arrow>,
+const AutocompleteArrow = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Arrow>,
   AutocompletePrimitive.Arrow.Props
 >(function AutocompleteArrow({ className, children, ...props }, ref) {
   return (
@@ -221,20 +221,7 @@ const AutocompleteArrow = React.forwardRef<
   );
 });
 
-function AutocompleteContent({
-  className,
-  showArrow = false,
-  children,
-  side,
-  sideOffset = 5,
-  align,
-  alignOffset,
-  arrowPadding,
-  collisionAvoidance,
-  collisionBoundary,
-  collisionPadding,
-  ...props
-}: AutocompletePrimitive.Popup.Props &
+type AutocompleteContentProps = AutocompletePrimitive.Popup.Props &
   Pick<
     AutocompletePrimitive.Positioner.Props,
     | 'side'
@@ -247,7 +234,28 @@ function AutocompleteContent({
     | 'collisionPadding'
   > & {
     showArrow?: boolean;
-  }) {
+  };
+
+const AutocompleteContent = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Popup>,
+  AutocompleteContentProps
+>(function AutocompleteContent(
+  {
+    className,
+    showArrow = false,
+    children,
+    side,
+    sideOffset = 5,
+    align,
+    alignOffset,
+    arrowPadding,
+    collisionAvoidance,
+    collisionBoundary,
+    collisionPadding,
+    ...props
+  },
+  ref,
+) {
   return (
     <AutocompletePortal>
       <AutocompletePositioner
@@ -260,17 +268,17 @@ function AutocompleteContent({
         collisionBoundary={collisionBoundary}
         collisionPadding={collisionPadding}
       >
-        <AutocompletePopup className={className} {...props}>
+        <AutocompletePopup ref={ref} className={className} {...props}>
           {showArrow ? <AutocompleteArrow /> : null}
           {children}
         </AutocompletePopup>
       </AutocompletePositioner>
     </AutocompletePortal>
   );
-}
+});
 
-const AutocompleteStatus = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Status>,
+const AutocompleteStatus = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Status>,
   AutocompletePrimitive.Status.Props
 >(function AutocompleteStatus({ className, ...props }, ref) {
   return (
@@ -283,8 +291,8 @@ const AutocompleteStatus = React.forwardRef<
   );
 });
 
-const AutocompleteEmpty = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Empty>,
+const AutocompleteEmpty = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Empty>,
   AutocompletePrimitive.Empty.Props
 >(function AutocompleteEmpty({ className, ...props }, ref) {
   return (
@@ -297,8 +305,8 @@ const AutocompleteEmpty = React.forwardRef<
   );
 });
 
-const AutocompleteList = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.List>,
+const AutocompleteList = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.List>,
   AutocompletePrimitive.List.Props
 >(function AutocompleteList({ className, ...props }, ref) {
   return (
@@ -311,8 +319,8 @@ const AutocompleteList = React.forwardRef<
   );
 });
 
-const AutocompleteRow = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Row>,
+const AutocompleteRow = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Row>,
   AutocompletePrimitive.Row.Props
 >(function AutocompleteRow({ className, ...props }, ref) {
   return (
@@ -325,8 +333,8 @@ const AutocompleteRow = React.forwardRef<
   );
 });
 
-const AutocompleteItem = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Item>,
+const AutocompleteItem = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Item>,
   AutocompletePrimitive.Item.Props
 >(function AutocompleteItem({ className, ...props }, ref) {
   return (
@@ -339,7 +347,7 @@ const AutocompleteItem = React.forwardRef<
   );
 });
 
-const AutocompleteItemText = React.forwardRef<HTMLSpanElement, React.ComponentProps<'span'>>(
+const AutocompleteItemText = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
   function AutocompleteItemText({ className, ...props }, ref) {
     return (
       <span
@@ -352,7 +360,7 @@ const AutocompleteItemText = React.forwardRef<HTMLSpanElement, React.ComponentPr
   },
 );
 
-const AutocompleteItemTextContent = React.forwardRef<HTMLSpanElement, React.ComponentProps<'span'>>(
+const AutocompleteItemTextContent = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
   function AutocompleteItemTextContent({ className, ...props }, ref) {
     return (
       <span
@@ -365,7 +373,7 @@ const AutocompleteItemTextContent = React.forwardRef<HTMLSpanElement, React.Comp
   },
 );
 
-const AutocompleteItemTextIcon = React.forwardRef<HTMLSpanElement, React.ComponentProps<'span'>>(
+const AutocompleteItemTextIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
   function AutocompleteItemTextIcon({ className, ...props }, ref) {
     return (
       <span
@@ -378,7 +386,7 @@ const AutocompleteItemTextIcon = React.forwardRef<HTMLSpanElement, React.Compone
   },
 );
 
-const AutocompleteItemTextLabel = React.forwardRef<HTMLSpanElement, React.ComponentProps<'span'>>(
+const AutocompleteItemTextLabel = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
   function AutocompleteItemTextLabel({ className, ...props }, ref) {
     return (
       <span
@@ -391,8 +399,8 @@ const AutocompleteItemTextLabel = React.forwardRef<HTMLSpanElement, React.Compon
   },
 );
 
-const AutocompleteSeparator = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Separator>,
+const AutocompleteSeparator = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Separator>,
   AutocompletePrimitive.Separator.Props
 >(function AutocompleteSeparator({ className, ...props }, ref) {
   return (
@@ -405,8 +413,8 @@ const AutocompleteSeparator = React.forwardRef<
   );
 });
 
-const AutocompleteGroup = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.Group>,
+const AutocompleteGroup = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.Group>,
   AutocompletePrimitive.Group.Props
 >(function AutocompleteGroup({ className, ...props }, ref) {
   return (
@@ -419,8 +427,8 @@ const AutocompleteGroup = React.forwardRef<
   );
 });
 
-const AutocompleteGroupLabel = React.forwardRef<
-  React.ComponentRef<typeof AutocompletePrimitive.GroupLabel>,
+const AutocompleteGroupLabel = forwardRef<
+  ComponentRef<typeof AutocompletePrimitive.GroupLabel>,
   AutocompletePrimitive.GroupLabel.Props
 >(function AutocompleteGroupLabel({ className, ...props }, ref) {
   return (
@@ -437,7 +445,7 @@ function AutocompleteCollection(props: AutocompletePrimitive.Collection.Props) {
   return <AutocompletePrimitive.Collection data-slot="autocomplete-collection" {...props} />;
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}
