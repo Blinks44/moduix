@@ -1,12 +1,12 @@
 import { Collapsible as CollapsiblePrimitive } from '@base-ui/react/collapsible';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
 import { ChevronRightIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Collapsible.module.css';
 
-const Collapsible = React.forwardRef<
-  React.ComponentRef<typeof CollapsiblePrimitive.Root>,
+const Collapsible = forwardRef<
+  ComponentRef<typeof CollapsiblePrimitive.Root>,
   CollapsiblePrimitive.Root.Props
 >(function Collapsible({ className, ...props }, ref) {
   return (
@@ -19,8 +19,8 @@ const Collapsible = React.forwardRef<
   );
 });
 
-const CollapsibleTrigger = React.forwardRef<
-  React.ComponentRef<typeof CollapsiblePrimitive.Trigger>,
+const CollapsibleTrigger = forwardRef<
+  ComponentRef<typeof CollapsiblePrimitive.Trigger>,
   CollapsiblePrimitive.Trigger.Props
 >(function CollapsibleTrigger({ className, render, ...props }, ref) {
   return (
@@ -39,7 +39,7 @@ function CollapsibleTriggerIcon({
   children,
   'aria-hidden': ariaHidden = true,
   ...props
-}: React.ComponentProps<'span'>) {
+}: ComponentProps<'span'>) {
   return (
     <span
       data-slot="collapsible-trigger-icon"
@@ -52,8 +52,8 @@ function CollapsibleTriggerIcon({
   );
 }
 
-const CollapsiblePanel = React.forwardRef<
-  React.ComponentRef<typeof CollapsiblePrimitive.Panel>,
+const CollapsiblePanel = forwardRef<
+  ComponentRef<typeof CollapsiblePrimitive.Panel>,
   CollapsiblePrimitive.Panel.Props
 >(function CollapsiblePanel({ className, ...props }, ref) {
   return (

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useState } from 'react';
 import { ChevronDownIcon } from '@/icons/ui';
 import {
   Collapsible,
@@ -66,7 +66,7 @@ export const DefaultOpen: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
       <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
@@ -131,32 +131,8 @@ export const CustomComposition: Story = {
   render: () => {
     return (
       <Collapsible className={styles.customRoot}>
-        <CollapsibleTrigger className={styles.customTrigger}>
-          Styled recovery keys
-          <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
-            <ChevronDownIcon />
-          </CollapsibleTriggerIcon>
-        </CollapsibleTrigger>
-        <CollapsiblePanel className={styles.customPanel}>
-          <div className={styles.customPanelContent}>
-            <ul className={styles.keysList}>
-              {recoveryKeys.map((key) => (
-                <li key={key}>{key}</li>
-              ))}
-            </ul>
-          </div>
-        </CollapsiblePanel>
-      </Collapsible>
-    );
-  },
-};
-
-export const ManualTriggerComposition: Story = {
-  render: () => {
-    return (
-      <Collapsible className={styles.customRoot}>
         <CollapsibleTrigger render={<div />} nativeButton={false} className={styles.customTrigger}>
-          <span className={styles.triggerLabel}>Recovery keys</span>
+          <span className={styles.triggerLabel}>Styled recovery keys</span>
           <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
             <ChevronDownIcon />
           </CollapsibleTriggerIcon>

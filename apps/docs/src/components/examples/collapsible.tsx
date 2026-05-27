@@ -5,7 +5,7 @@ import {
   CollapsibleTriggerIcon,
   ChevronDownIcon,
 } from 'moduix';
-import * as React from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './collapsible.module.css';
@@ -111,7 +111,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 
-export function CollapsibleExample(props: React.ComponentProps<typeof Collapsible>) {
+export function CollapsibleExample(props: ComponentProps<typeof Collapsible>) {
   return (
     <Collapsible className={styles.root} {...props}>
       <CollapsibleTrigger>
@@ -130,7 +130,7 @@ export function CollapsibleExample(props: React.ComponentProps<typeof Collapsibl
 }
 
 export function ControlledCollapsibleExample() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
@@ -189,30 +189,8 @@ export function HiddenUntilFoundCollapsibleExample() {
 export function CustomCompositionCollapsibleExample() {
   return (
     <Collapsible className={styles.customRoot}>
-      <CollapsibleTrigger className={styles.customTrigger}>
-        Styled recovery keys
-        <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
-          <ChevronDownIcon />
-        </CollapsibleTriggerIcon>
-      </CollapsibleTrigger>
-      <CollapsiblePanel className={styles.customPanel}>
-        <div className={styles.customPanelContent}>
-          <ul className={styles.keysList}>
-            {recoveryKeys.map((key) => (
-              <li key={key}>{key}</li>
-            ))}
-          </ul>
-        </div>
-      </CollapsiblePanel>
-    </Collapsible>
-  );
-}
-
-export function ManualTriggerCompositionCollapsibleExample() {
-  return (
-    <Collapsible className={styles.customRoot}>
       <CollapsibleTrigger render={<div />} nativeButton={false} className={styles.customTrigger}>
-        <span className={styles.triggerLabel}>Recovery keys</span>
+        <span className={styles.triggerLabel}>Styled recovery keys</span>
         <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
           <ChevronDownIcon />
         </CollapsibleTriggerIcon>
