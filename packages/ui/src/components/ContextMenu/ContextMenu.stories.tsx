@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useState } from 'react';
 import { InfoIcon, ShareIcon } from '@/icons/demo';
 import {
   ContextMenu,
@@ -48,7 +48,7 @@ export const Basic: Story = {
   render: () => {
     return (
       <ContextMenu>
-        <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
           <ContextMenuItem closeOnClick>Add to Playlist</ContextMenuItem>
@@ -69,7 +69,7 @@ export const Nested: Story = {
   render: () => {
     return (
       <ContextMenu>
-        <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
           <ContextMenuSubmenu>
@@ -94,11 +94,27 @@ export const Nested: Story = {
   },
 };
 
+export const WithArrow: Story = {
+  render: () => {
+    return (
+      <ContextMenu>
+        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
+        <ContextMenuContent showArrow align="start" sideOffset={12}>
+          <ContextMenuItem closeOnClick>Open</ContextMenuItem>
+          <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
+    );
+  },
+};
+
 export const WithShortcuts: Story = {
   render: () => {
     return (
       <ContextMenu>
-        <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem closeOnClick>
             Copy
@@ -121,14 +137,14 @@ export const WithShortcuts: Story = {
 
 export const WithGroupsAndControls: Story = {
   render: () => {
-    const [sortBy, setSortBy] = React.useState('date');
-    const [showMinimap, setShowMinimap] = React.useState(true);
-    const [showSearch, setShowSearch] = React.useState(true);
-    const [showSidebar, setShowSidebar] = React.useState(false);
+    const [sortBy, setSortBy] = useState('date');
+    const [showMinimap, setShowMinimap] = useState(true);
+    const [showSearch, setShowSearch] = useState(true);
+    const [showSidebar, setShowSidebar] = useState(false);
 
     return (
       <ContextMenu>
-        <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuGroup>
             <ContextMenuGroupLabel>Sort</ContextMenuGroupLabel>
@@ -171,12 +187,12 @@ export const WithGroupsAndControls: Story = {
 
 export const IndicatorRightWithIcon: Story = {
   render: () => {
-    const [showMinimap, setShowMinimap] = React.useState(true);
-    const [showSearch, setShowSearch] = React.useState(true);
+    const [showMinimap, setShowMinimap] = useState(true);
+    const [showSearch, setShowSearch] = useState(true);
 
     return (
       <ContextMenu>
-        <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuCheckboxItem
             checked={showMinimap}
@@ -219,7 +235,7 @@ export const LinkItems: Story = {
   render: () => {
     return (
       <ContextMenu>
-        <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
           <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
@@ -239,7 +255,7 @@ export const CustomComposition: Story = {
         <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
         <ContextMenuPortal>
           <ContextMenuBackdrop className={storyStyles.backdrop} />
-          <ContextMenuPositioner className={storyStyles.positioner} sideOffset={12}>
+          <ContextMenuPositioner sideOffset={12}>
             <ContextMenuPopup className={storyStyles.customPopup}>
               <ContextMenuArrow />
               <ContextMenuItem closeOnClick>Open details</ContextMenuItem>

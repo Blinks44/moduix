@@ -1,6 +1,6 @@
+import type { ComponentProps } from 'react';
 import { ContextMenu as ContextMenuPrimitive } from '@base-ui/react/context-menu';
 import { clsx } from 'clsx';
-import * as React from 'react';
 import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './ContextMenu.module.css';
@@ -16,6 +16,11 @@ type ContextMenuPositionerProps = Pick<
   | 'collisionBoundary'
   | 'collisionPadding'
 >;
+
+type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
+  ContextMenuPositionerProps & {
+    showArrow?: boolean;
+  };
 
 const CONTEXT_MENU_CONTENT_SIDE_OFFSET = 8;
 const ContextMenu = ContextMenuPrimitive.Root;
@@ -94,10 +99,7 @@ function ContextMenuContent({
   collisionBoundary,
   collisionPadding,
   ...props
-}: ContextMenuPrimitive.Popup.Props &
-  ContextMenuPositionerProps & {
-    showArrow?: boolean;
-  }) {
+}: ContextMenuContentProps) {
   return (
     <ContextMenuPortal>
       <ContextMenuPositioner
@@ -123,10 +125,7 @@ function ContextMenuSubmenuContent({
   sideOffset = getSubmenuOffset,
   alignOffset = getSubmenuOffset,
   ...props
-}: ContextMenuPrimitive.Popup.Props &
-  ContextMenuPositionerProps & {
-    showArrow?: boolean;
-  }) {
+}: ContextMenuContentProps) {
   return <ContextMenuContent sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
 }
 
@@ -193,11 +192,7 @@ function ContextMenuSubmenuTrigger({
   );
 }
 
-function ContextMenuSubmenuTriggerIcon({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<'span'>) {
+function ContextMenuSubmenuTriggerIcon({ className, children, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="context-menu-submenu-trigger-icon"
@@ -285,7 +280,7 @@ function ContextMenuCheckboxItemIndicator({
   );
 }
 
-function ContextMenuItemText({ className, ...props }: React.ComponentProps<'span'>) {
+function ContextMenuItemText({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="context-menu-item-text"
@@ -295,7 +290,7 @@ function ContextMenuItemText({ className, ...props }: React.ComponentProps<'span
   );
 }
 
-function ContextMenuItemTextContent({ className, ...props }: React.ComponentProps<'span'>) {
+function ContextMenuItemTextContent({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="context-menu-item-text-content"
@@ -305,7 +300,7 @@ function ContextMenuItemTextContent({ className, ...props }: React.ComponentProp
   );
 }
 
-function ContextMenuItemTextIcon({ className, ...props }: React.ComponentProps<'span'>) {
+function ContextMenuItemTextIcon({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="context-menu-item-text-icon"
@@ -315,7 +310,7 @@ function ContextMenuItemTextIcon({ className, ...props }: React.ComponentProps<'
   );
 }
 
-function ContextMenuItemTextLabel({ className, ...props }: React.ComponentProps<'span'>) {
+function ContextMenuItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="context-menu-item-text-label"
@@ -325,7 +320,7 @@ function ContextMenuItemTextLabel({ className, ...props }: React.ComponentProps<
   );
 }
 
-function ContextMenuItemShortcut({ className, ...props }: React.ComponentProps<'span'>) {
+function ContextMenuItemShortcut({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="context-menu-item-shortcut"
@@ -339,7 +334,7 @@ function getSubmenuOffset({ side }: { side: ContextMenuPrimitive.Positioner.Prop
   return side === 'top' || side === 'bottom' ? 4 : -4;
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}

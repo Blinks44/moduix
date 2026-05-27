@@ -1,48 +1,12 @@
 @layer ui.components {
   .trigger {
     box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: var(--context-menu-trigger-min-width, 15rem);
-    min-height: var(--context-menu-trigger-min-height, 12rem);
     margin: 0;
-    padding: var(--context-menu-trigger-padding-y, 0.5rem)
-      var(--context-menu-trigger-padding-x, 0.875rem);
-    border: var(--context-menu-trigger-border-width, var(--border-width-sm)) solid
-      var(--context-menu-trigger-border-color, var(--color-border));
-    border-radius: var(--context-menu-trigger-radius, var(--radius-md));
-    background-color: var(--context-menu-trigger-bg, var(--color-background));
-    color: var(--context-menu-trigger-color, var(--color-foreground));
-    font: inherit;
-    font-size: var(--context-menu-trigger-font-size, var(--text-md));
-    line-height: var(--context-menu-trigger-line-height, var(--line-height-text-md));
-    text-align: center;
-    user-select: none;
     outline: 0;
-    cursor: context-menu;
-    transition:
-      background-color var(--context-menu-transition, var(--transition-default)),
-      border-color var(--context-menu-transition, var(--transition-default)),
-      color var(--context-menu-transition, var(--transition-default));
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--context-menu-trigger-bg-hover, var(--color-accent));
-      }
-    }
-
-    &:active,
-    &[data-popup-open] {
-      background-color: var(
-        --context-menu-trigger-bg-active,
-        var(--context-menu-trigger-bg-hover, var(--color-accent))
-      );
-    }
 
     &:focus-visible {
       outline: var(--border-width-sm) solid var(--context-menu-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline-offset: 0;
     }
 
     &[data-disabled],
@@ -95,6 +59,7 @@
     max-height: min(var(--context-menu-popup-max-height, 24rem), var(--available-height, 100dvh));
     overflow-y: auto;
     overscroll-behavior: contain;
+    outline: 0;
     padding-block: var(--context-menu-popup-padding-y, 0.25rem);
     border: var(--border-width-sm) solid var(--context-menu-popup-border-color, var(--color-border));
     border-radius: var(--context-menu-popup-radius, var(--radius-md));

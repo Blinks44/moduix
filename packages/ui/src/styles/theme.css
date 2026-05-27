@@ -811,19 +811,6 @@
   --context-menu-submenu-trigger-gap: initial; /* var(--spacing-3) */
   --context-menu-submenu-trigger-padding-x-end: initial; /* 1rem */
   --context-menu-transition: initial; /* var(--transition-default) */
-  --context-menu-trigger-bg: initial; /* var(--color-background) */
-  --context-menu-trigger-bg-active: initial; /* var(--context-menu-trigger-bg-hover) */
-  --context-menu-trigger-bg-hover: initial; /* var(--color-accent) */
-  --context-menu-trigger-border-color: initial; /* var(--color-border) */
-  --context-menu-trigger-border-width: initial; /* var(--border-width-sm) */
-  --context-menu-trigger-color: initial; /* var(--color-foreground) */
-  --context-menu-trigger-font-size: initial; /* var(--text-md) */
-  --context-menu-trigger-line-height: initial; /* var(--line-height-text-md) */
-  --context-menu-trigger-min-height: initial; /* 12rem */
-  --context-menu-trigger-min-width: initial; /* 15rem */
-  --context-menu-trigger-padding-x: initial; /* 0.875rem */
-  --context-menu-trigger-padding-y: initial; /* 0.5rem */
-  --context-menu-trigger-radius: initial; /* var(--radius-md) */
 
   /* Dialog */
   --dialog-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
