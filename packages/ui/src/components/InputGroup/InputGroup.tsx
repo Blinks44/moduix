@@ -1,17 +1,26 @@
 import { clsx } from 'clsx';
-import * as React from 'react';
+import {
+  createContext,
+  forwardRef,
+  useContext,
+  type ComponentProps,
+  type ComponentRef,
+  type MouseEvent,
+} from 'react';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './InputGroup.module.css';
 
-const InputGroup = React.forwardRef<
-  React.ComponentRef<'div'>,
-  React.ComponentProps<'div'> & {
-    size?: React.ComponentProps<typeof Input>['size'];
+const InputGroupSizeContext = createContext<ComponentProps<typeof Input>['size']>('md');
+
+const InputGroup = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'> & {
+    size?: ComponentProps<typeof Input>['size'];
   }
->(function InputGroup({ className, onMouseDown, size = 'md', ...props }, ref) {
-  const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+>(function InputGroup({ children, className, onMouseDown, size = 'md', ...props }, ref) {
+  const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     onMouseDown?.(event);
 
     if (
@@ -38,33 +47,39 @@ const InputGroup = React.forwardRef<
   };
 
   return (
-    <div
-      ref={ref}
-      role="group"
-      data-slot="input-group-root"
-      data-size={size}
-      className={clsx(styles.root, className)}
-      onMouseDown={handleMouseDown}
-      {...props}
-    />
+    <InputGroupSizeContext.Provider value={size}>
+      <div
+        ref={ref}
+        role="group"
+        data-slot="input-group-root"
+        data-size={size}
+        className={clsx(styles.root, className)}
+        onMouseDown={handleMouseDown}
+        {...props}
+      >
+        {children}
+      </div>
+    </InputGroupSizeContext.Provider>
   );
 });
 
-const InputGroupInput = React.forwardRef<
-  React.ComponentRef<typeof Input>,
-  React.ComponentProps<typeof Input>
->(function InputGroupInput({ className, ...props }, ref) {
-  return (
-    <Input
-      ref={ref}
-      data-slot="input-group-input"
-      className={mergeClassName(className, styles.input)}
-      {...props}
-    />
-  );
-});
+const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeof Input>>(
+  function InputGroupInput({ className, size, ...props }, ref) {
+    const groupSize = useContext(InputGroupSizeContext);
 
-const InputGroupAddon = React.forwardRef<React.ComponentRef<'span'>, React.ComponentProps<'span'>>(
+    return (
+      <Input
+        ref={ref}
+        data-slot="input-group-input"
+        className={mergeClassName(className, styles.input)}
+        size={size ?? groupSize}
+        {...props}
+      />
+    );
+  },
+);
+
+const InputGroupAddon = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
   function InputGroupAddon({ className, ...props }, ref) {
     return (
       <span
@@ -77,7 +92,7 @@ const InputGroupAddon = React.forwardRef<React.ComponentRef<'span'>, React.Compo
   },
 );
 
-const InputGroupText = React.forwardRef<React.ComponentRef<'span'>, React.ComponentProps<'span'>>(
+const InputGroupText = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
   function InputGroupText({ className, ...props }, ref) {
     return (
       <span
@@ -90,24 +105,25 @@ const InputGroupText = React.forwardRef<React.ComponentRef<'span'>, React.Compon
   },
 );
 
-const InputGroupButton = React.forwardRef<
-  React.ComponentRef<typeof Button>,
-  React.ComponentProps<typeof Button>
->(function InputGroupButton(
-  { className, variant = 'ghost', size, type = 'button', ...props },
-  ref,
-) {
-  return (
-    <Button
-      ref={ref}
-      data-slot="input-group-button"
-      className={mergeClassName(className, styles.button)}
-      variant={variant}
-      size={size}
-      type={type}
-      {...props}
-    />
-  );
-});
+const InputGroupButton = forwardRef<ComponentRef<typeof Button>, ComponentProps<typeof Button>>(
+  function InputGroupButton(
+    { className, variant = 'ghost', size, type = 'button', ...props },
+    ref,
+  ) {
+    const groupSize = useContext(InputGroupSizeContext);
+
+    return (
+      <Button
+        ref={ref}
+        data-slot="input-group-button"
+        className={mergeClassName(className, styles.button)}
+        variant={variant}
+        size={size ?? groupSize}
+        type={type}
+        {...props}
+      />
+    );
+  },
+);
 
 export { InputGroup, InputGroupInput, InputGroupAddon, InputGroupText, InputGroupButton };

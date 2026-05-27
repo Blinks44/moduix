@@ -8,7 +8,7 @@ import {
   InputGroupInput,
   InputGroupText,
 } from 'moduix';
-import * as React from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './input-group.module.css';
@@ -123,7 +123,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function InputGroupExample(props: React.ComponentProps<typeof InputGroup>) {
+export function InputGroupExample(props: ComponentProps<typeof InputGroup>) {
   return (
     <Field className={styles.field}>
       <FieldLabel>Workspace</FieldLabel>
@@ -136,7 +136,7 @@ export function InputGroupExample(props: React.ComponentProps<typeof InputGroup>
 }
 
 export function InputGroupWithActionExample() {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = useState('');
 
   return (
     <Field className={styles.field}>

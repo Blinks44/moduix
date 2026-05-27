@@ -1,10 +1,11 @@
 ---
 title: InputGroup
-description: A composition wrapper for decorating inputs with inline addons, text, and actions.
+description: A composable field shell for inline prefixes, suffixes, helper text, and compact actions.
 icon: Component
 ---
 
 import {
+  CustomStylesInputGroupExample,
   DisabledInputGroupExample,
   InputGroupCssPlaygroundPanel,
   InputGroupCssPropertiesPanel,
@@ -13,14 +14,23 @@ import {
   InputGroupPrefixSuffixExample,
   InputGroupSizesExample,
   InputGroupWithActionExample,
-  CustomStylesInputGroupExample,
   inputGroupPlaygroundCssProperties,
 } from '@/components/examples/input-group';
 
 ## API Reference
 
-`InputGroup` is a thin styled wrapper for composing `Input` with inline addons, text, and actions
-inside one field shell.
+<BaseUIReference href="https://base-ui.com/react/components/input" />
+
+## Overview
+
+`InputGroup` keeps the public surface short:
+
+- `InputGroup` renders the shared field shell
+- `InputGroupInput` renders the actual `Input`
+- `InputGroupAddon`, `InputGroupText`, and `InputGroupButton` decorate the input inline
+
+The group is composition-first. You place one `InputGroupInput` inside the shell, then add the
+parts you need before or after it.
 
 ## Basic
 
@@ -46,22 +56,19 @@ inside one field shell.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
+<Preview.CSS>
+  {`
       .field {
         width: min(24rem, 100%);
       }
     `}
+</Preview.CSS>
 
-  </Preview.CSS>
   <Preview.CSSProperties>{(context) => <InputGroupCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <InputGroupCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy
-
-Use one `InputGroupInput` inside `InputGroup`, then place addons, text, or buttons before or after
-it.
 
 ```text
 InputGroup
@@ -74,40 +81,44 @@ InputGroup
 | Part               | Role                                                     |
 | ------------------ | -------------------------------------------------------- |
 | `InputGroup`       | Shared shell for border, radius, focus ring, and sizing. |
-| `InputGroupInput`  | The `Input` inside the shell.                            |
+| `InputGroupInput`  | The `Input` rendered inside the shell.                   |
 | `InputGroupAddon`  | Filled prefix or suffix surface with a separator.        |
 | `InputGroupText`   | Plain inline text without the filled addon background.   |
 | `InputGroupButton` | Inline action based on `Button`.                         |
 
 ## Composition
 
-Use `size` on `InputGroup` to keep every part aligned. `InputGroupInput` accepts the same props as
-`Input`, including controlled and uncontrolled values, native input attributes, and Field
-validation behavior.
+Use one `InputGroupInput` per group. Addons, helper text, and buttons can sit on either side of
+it depending on the flow you need.
 
-Clicking the shell focuses the input, matching the expected Base UI `InputGroup` behavior from
-combobox-like primitives.
+Set `size` on `InputGroup` to keep the whole row aligned. `InputGroupInput` and
+`InputGroupButton` inherit that size automatically, so the default path stays short. Pass an
+explicit `size` to either part only when one child should intentionally differ from the group.
 
-Pass `className` to the root or individual parts for targeted overrides. Use CSS variables for
-theme-level changes such as border color, addon background, padding, radius, and focus ring.
+Clicking the shell focuses the input, which keeps prefix and suffix layouts feeling like one field
+instead of separate controls.
 
-`InputGroupButton` defaults to `type="button"` and `variant="ghost"` so it can sit inside forms
-without submitting them accidentally. Override `type` or `variant` when the action needs a
-different behavior.
+`InputGroupInput` accepts the same props as `Input`, including controlled values, native input
+attributes, and Base UI field validation state.
+
+`InputGroupButton` defaults to `variant="ghost"` and `type="button"`, so inline actions work
+inside forms without submitting them accidentally.
 
 ### Defaults
 
-| Part / Prop                | Default  | Values                                                  |
-| -------------------------- | -------- | ------------------------------------------------------- |
-| `InputGroup.size`          | `md`     | `xs`, `sm`, `md`, `lg`, `xl`                            |
-| `InputGroupButton.variant` | `ghost`  | Any `Button` variant (`default`, `outline`, `ghost`, …) |
-| `InputGroupButton.type`    | `button` | `button`, `submit`, `reset`                             |
+| Part / Prop                | Default              | Notes                                                     |
+| -------------------------- | -------------------- | --------------------------------------------------------- |
+| `InputGroup.size`          | `md`                 | Supports `xs`, `sm`, `md`, `lg`, and `xl`.                |
+| `InputGroupInput.size`     | inherited from group | Override only when one input should intentionally differ. |
+| `InputGroupButton.variant` | `ghost`              | Accepts the same variants as `Button`.                    |
+| `InputGroupButton.size`    | inherited from group | Override for icon or mixed-density actions.               |
+| `InputGroupButton.type`    | `button`             | Use `submit` or `reset` when the action should do that.   |
 
 ## Examples
 
 ### With Action
 
-Use `InputGroupButton` for compact actions tied to the current input value.
+Use `InputGroupButton` for compact inline actions tied to the current field value.
 
 <Preview>
   <InputGroupWithActionExample />
@@ -169,9 +180,63 @@ read as helper text.
   </Preview.Code>
 </Preview>
 
+### Field Validation
+
+`InputGroupInput` keeps the Base UI input state, so `Field` validation can style the whole group as
+invalid.
+
+<Preview>
+  <InputGroupFieldValidationExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldError, FieldLabel, InputGroup, InputGroupInput, InputGroupText } from "moduix";
+
+      export function InputGroupFieldValidationDemo() {
+        return (
+          <Field className={styles.field} validationMode="onBlur">
+            <FieldLabel>Domain</FieldLabel>
+            <InputGroup>
+              <InputGroupInput required placeholder="company" />
+              <InputGroupText>.test.com</InputGroupText>
+            </InputGroup>
+            <FieldError match="valueMissing">Please enter a domain.</FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Disabled
+
+When the input is disabled, the group shell dims with it.
+
+<Preview>
+  <DisabledInputGroupExample />
+
+  <Preview.Code>
+    {`
+      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "moduix";
+
+      export function DisabledInputGroupDemo() {
+        return (
+          <InputGroup className={styles.group}>
+            <InputGroupAddon>@</InputGroupAddon>
+            <InputGroupInput disabled value="readonly" />
+            <InputGroupButton disabled>Copy</InputGroupButton>
+          </InputGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ### Sizes
 
-Set `size` on the group instead of each child part.
+Set `size` on the group instead of wiring the same size into each child.
 
 <Preview>
   <InputGroupSizesExample />
@@ -211,62 +276,9 @@ Set `size` on the group instead of each child part.
   </Preview.Code>
 </Preview>
 
-### Disabled
+## Custom Styling
 
-A disabled input dims the whole group shell.
-
-<Preview>
-  <DisabledInputGroupExample />
-
-  <Preview.Code>
-    {`
-      import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "moduix";
-
-      export function DisabledInputGroupDemo() {
-        return (
-          <InputGroup className={styles.group}>
-            <InputGroupAddon>@</InputGroupAddon>
-            <InputGroupInput disabled value="readonly" />
-            <InputGroupButton disabled>Copy</InputGroupButton>
-          </InputGroup>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Field Validation
-
-`InputGroupInput` keeps the Base UI input state, so Field validation can style the group as invalid.
-
-<Preview>
-  <InputGroupFieldValidationExample />
-
-  <Preview.Code>
-    {`
-      import { Field, FieldError, FieldLabel, InputGroup, InputGroupInput, InputGroupText } from "moduix";
-
-      export function InputGroupFieldValidationDemo() {
-        return (
-          <Field className={styles.field} validationMode="onBlur">
-            <FieldLabel>Domain</FieldLabel>
-            <InputGroup>
-              <InputGroupInput required placeholder="company" />
-              <InputGroupText>.test.com</InputGroupText>
-            </InputGroup>
-            <FieldError match="valueMissing">Please enter a domain.</FieldError>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Styles
-
-Use root CSS variables and part-level `className` overrides for custom styling.
+Use root CSS variables for theme-level changes and part-level `className` props for local styling.
 
 <Preview>
   <CustomStylesInputGroupExample />

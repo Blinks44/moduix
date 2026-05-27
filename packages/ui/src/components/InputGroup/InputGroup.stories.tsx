@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useState } from 'react';
 import { Field, FieldError, FieldLabel } from '../Field';
 import {
   InputGroup,
@@ -23,7 +23,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const Default: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
@@ -39,7 +39,7 @@ export const Basic: Story = {
 
 export const WithAction: Story = {
   render: () => {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = useState('');
 
     return (
       <Field className={storyStyles.field}>
@@ -58,7 +58,7 @@ export const WithAction: Story = {
   },
 };
 
-export const PrefixAndSuffix: Story = {
+export const PrefixSuffix: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
