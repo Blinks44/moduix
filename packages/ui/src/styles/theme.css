@@ -141,7 +141,6 @@
   --alert-dialog-cancel-border-color: initial; /* var(--color-border) */
   --alert-dialog-cancel-color: initial; /* var(--alert-dialog-control-color, var(--color-foreground)) */
   --alert-dialog-color: initial; /* var(--color-popover-foreground) */
-  --alert-dialog-content-margin: initial; /* var(--spacing-4) 0 0 */
   --alert-dialog-control-bg: initial; /* var(--color-background) */
   --alert-dialog-control-bg-hover: initial; /* var(--color-accent) */
   --alert-dialog-control-border-color: initial; /* var(--color-border) */
@@ -159,7 +158,6 @@
   --alert-dialog-focus-ring-color: initial; /* var(--color-ring) */
   --alert-dialog-focus-ring-width: initial; /* var(--alert-dialog-control-border-width) */
   --alert-dialog-footer-gap: initial; /* var(--spacing-2) */
-  --alert-dialog-footer-margin-top: initial; /* var(--spacing-6) */
   --alert-dialog-header-gap: initial; /* var(--spacing-1) */
   --alert-dialog-max-width: initial; /* calc(100vw - var(--spacing-8)) */
   --alert-dialog-muted-color: initial; /* var(--color-muted-foreground) */

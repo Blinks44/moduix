@@ -85,6 +85,8 @@
   .popup {
     box-sizing: border-box;
     position: relative;
+    display: grid;
+    gap: var(--spacing-4);
     width: min(
       var(--alert-dialog-width, 24rem),
       var(--alert-dialog-max-width, calc(100vw - var(--spacing-8, 2rem))),
@@ -140,9 +142,9 @@
 
   .footer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
     gap: var(--alert-dialog-footer-gap, var(--spacing-2));
-    margin-top: var(--alert-dialog-footer-margin-top, var(--spacing-6));
   }
 
   .cancel {
@@ -179,7 +181,6 @@
   }
 
   .body {
-    margin: var(--alert-dialog-content-margin, var(--spacing-4) 0 0);
     color: var(
       --alert-dialog-description-color,
       var(--alert-dialog-muted-color, var(--color-muted-foreground))

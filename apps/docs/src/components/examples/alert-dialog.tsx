@@ -13,7 +13,7 @@ import {
   ScrollArea,
   createAlertDialogHandle,
 } from 'moduix';
-import * as React from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -70,7 +70,6 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
     'Controls cancel button text color.',
   ],
   ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--alert-dialog-content-margin', 'var(--spacing-4) 0 0', 'Controls body top margin.'],
   ['--alert-dialog-control-bg', 'var(--color-background)', 'Controls control background.'],
   ['--alert-dialog-control-bg-hover', 'var(--color-accent)', 'Controls control hover background.'],
   ['--alert-dialog-control-border-color', 'var(--color-border)', 'Controls control border color.'],
@@ -112,7 +111,6 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
     'Controls focus ring width.',
   ],
   ['--alert-dialog-footer-gap', 'var(--spacing-2)', 'Controls footer actions gap.'],
-  ['--alert-dialog-footer-margin-top', 'var(--spacing-6)', 'Controls footer top margin.'],
   ['--alert-dialog-header-gap', 'var(--spacing-1)', 'Controls header gap.'],
   ['--alert-dialog-max-width', 'calc(100vw - var(--spacing-8))', 'Controls popup max width.'],
   ['--alert-dialog-muted-color', 'var(--color-muted-foreground)', 'Controls muted text color.'],
@@ -127,7 +125,7 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-dialog-transition', 'var(--transition-default)', 'Controls popup transition timing.'],
   ['--alert-dialog-trigger-color', 'var(--color-destructive)', 'Controls trigger text color.'],
   ['--alert-dialog-viewport-padding', 'var(--spacing-4)', 'Controls viewport padding.'],
-  ['--alert-dialog-width', '24rem', 'Controls the popup width.'],
+  ['--alert-dialog-width', '24rem', 'Controls popup width.'],
 ];
 
 export const alertDialogPlaygroundCssProperties: CssPropertyInput[] = [
@@ -183,15 +181,15 @@ function normalizeCssProperty(property: CssPropertyInput) {
 export function AlertDialogExample() {
   return (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
+      <AlertDialogTrigger>Discard draft</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Discard draft?</AlertDialogTitle>
           <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-          <AlertDialogAction render={<Button />}>Discard</AlertDialogAction>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Discard</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -199,33 +197,35 @@ export function AlertDialogExample() {
 }
 
 export function ControlledAlertDialogExample() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger render={<Button />}>Open controlled dialog</AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Publish changes?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This will make the latest version visible to all users.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel render={<Button variant="outline" />}>
-            Back to editing
-          </AlertDialogCancel>
-          <AlertDialogAction render={<Button />}>Publish</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <Fragment>
+      <Button type="button" onClick={() => setOpen(true)}>
+        Open controlled dialog
+      </Button>
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Publish changes?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will make the latest version visible to all users.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Back to editing</AlertDialogCancel>
+            <AlertDialogAction>Publish</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </Fragment>
   );
 }
 
 export function AsyncAlertDialogExample() {
-  const [open, setOpen] = React.useState(false);
-  const [pending, setPending] = React.useState(false);
-  const [error, setError] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState('');
 
   const handleArchive = async () => {
     setPending(true);
@@ -253,7 +253,7 @@ export function AsyncAlertDialogExample() {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
+      <AlertDialogTrigger>Archive workspace</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
@@ -267,9 +267,7 @@ export function AsyncAlertDialogExample() {
           </AlertDialogBody>
         ) : null}
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={pending} render={<Button variant="outline" />}>
-            Cancel
-          </AlertDialogCancel>
+          <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
           <Button type="button" disabled={pending} onClick={handleArchive}>
             {pending ? 'Archiving...' : 'Archive'}
           </Button>
@@ -280,13 +278,11 @@ export function AsyncAlertDialogExample() {
 }
 
 export function AlertDialogHandleExample() {
-  const alertDialogHandle = React.useMemo(() => createAlertDialogHandle(), []);
+  const alertDialogHandle = useMemo(() => createAlertDialogHandle(), []);
 
   return (
-    <React.Fragment>
-      <AlertDialogTrigger handle={alertDialogHandle} render={<Button variant="outline" />}>
-        Open from detached trigger
-      </AlertDialogTrigger>
+    <Fragment>
+      <AlertDialogTrigger handle={alertDialogHandle}>Open from detached trigger</AlertDialogTrigger>
       <Button type="button" onClick={() => alertDialogHandle.open(null)}>
         Open programmatically
       </Button>
@@ -300,19 +296,19 @@ export function AlertDialogHandleExample() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Delete</AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
 export function ScrollableAlertDialogExample() {
   return (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button />}>Delete project</AlertDialogTrigger>
+      <AlertDialogTrigger>Delete project</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete project?</AlertDialogTitle>
@@ -333,8 +329,8 @@ export function ScrollableAlertDialogExample() {
           </ScrollArea>
         </AlertDialogBody>
         <AlertDialogFooter>
-          <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-          <AlertDialogAction render={<Button />}>Delete permanently</AlertDialogAction>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Delete permanently</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -344,7 +340,7 @@ export function ScrollableAlertDialogExample() {
 export function CustomCompositionAlertDialogExample() {
   return (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
+      <AlertDialogTrigger>Reset environment</AlertDialogTrigger>
       <AlertDialogContent className={styles.customPopup}>
         <AlertDialogHeader>
           <AlertDialogTitle>Reset environment?</AlertDialogTitle>
@@ -353,8 +349,8 @@ export function CustomCompositionAlertDialogExample() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-          <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Reset</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

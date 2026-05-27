@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../Button';
 import { ScrollArea } from '../ScrollArea';
@@ -34,15 +34,15 @@ export const Basic: Story = {
   render: () => {
     return (
       <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
+        <AlertDialogTrigger>Discard draft</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Discard draft?</AlertDialogTitle>
             <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Discard</AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Discard</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -52,10 +52,10 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Button type="button" onClick={() => setOpen(true)}>
           Open controlled dialog
         </Button>
@@ -68,23 +68,21 @@ export const Controlled: Story = {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel render={<Button variant="outline" />}>
-                Back to editing
-              </AlertDialogCancel>
-              <AlertDialogAction render={<Button />}>Publish</AlertDialogAction>
+              <AlertDialogCancel>Back to editing</AlertDialogCancel>
+              <AlertDialogAction>Publish</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </React.Fragment>
+      </Fragment>
     );
   },
 };
 
 export const AsyncConfirmation: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
-    const [pending, setPending] = React.useState(false);
-    const [error, setError] = React.useState('');
+    const [open, setOpen] = useState(false);
+    const [pending, setPending] = useState(false);
+    const [error, setError] = useState('');
 
     const handleArchive = async () => {
       setPending(true);
@@ -112,7 +110,7 @@ export const AsyncConfirmation: Story = {
 
     return (
       <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
+        <AlertDialogTrigger>Archive workspace</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
@@ -126,9 +124,7 @@ export const AsyncConfirmation: Story = {
             </AlertDialogBody>
           ) : null}
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={pending} render={<Button variant="outline" />}>
-              Cancel
-            </AlertDialogCancel>
+            <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
             <Button type="button" disabled={pending} onClick={handleArchive}>
               {pending ? 'Archiving...' : 'Archive'}
             </Button>
@@ -141,11 +137,11 @@ export const AsyncConfirmation: Story = {
 
 export const WithHandle: Story = {
   render: () => {
-    const alertDialogHandle = React.useMemo(() => createAlertDialogHandle(), []);
+    const alertDialogHandle = useMemo(() => createAlertDialogHandle(), []);
 
     return (
-      <React.Fragment>
-        <AlertDialogTrigger handle={alertDialogHandle} render={<Button />}>
+      <Fragment>
+        <AlertDialogTrigger handle={alertDialogHandle}>
           Open from detached trigger
         </AlertDialogTrigger>
         <Button
@@ -165,12 +161,12 @@ export const WithHandle: Story = {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-              <AlertDialogAction render={<Button />}>Delete</AlertDialogAction>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Delete</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </React.Fragment>
+      </Fragment>
     );
   },
 };
@@ -179,7 +175,7 @@ export const WithScrollableViewport: Story = {
   render: () => {
     return (
       <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Delete project</AlertDialogTrigger>
+        <AlertDialogTrigger>Delete project</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete project?</AlertDialogTitle>
@@ -200,8 +196,8 @@ export const WithScrollableViewport: Story = {
             </ScrollArea>
           </AlertDialogBody>
           <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Delete permanently</AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Delete permanently</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -213,7 +209,7 @@ export const CustomComposition: Story = {
   render: () => {
     return (
       <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
+        <AlertDialogTrigger>Reset environment</AlertDialogTrigger>
         <AlertDialogContent className={storyStyles.customPopup}>
           <AlertDialogHeader>
             <AlertDialogTitle>Reset environment?</AlertDialogTitle>
@@ -222,8 +218,8 @@ export const CustomComposition: Story = {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Reset</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
