@@ -1,20 +1,20 @@
 import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { forwardRef, type ComponentProps, type ComponentRef, type ForwardedRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-const Checkbox = React.forwardRef(function Checkbox(
+const Checkbox = forwardRef(function Checkbox(
   {
     className,
     size = 'md',
     children,
     ...props
   }: CheckboxPrimitive.Root.Props & { size?: CheckboxSize },
-  ref: React.ForwardedRef<React.ComponentRef<typeof CheckboxPrimitive.Root>>,
+  ref: ForwardedRef<ComponentRef<typeof CheckboxPrimitive.Root>>,
 ) {
   return (
     <CheckboxPrimitive.Root
@@ -41,9 +41,14 @@ function CheckboxIndicator({ className, children, ...props }: CheckboxPrimitive.
   );
 }
 
-function CheckboxIndicatorIcon({ className, children, ...props }: React.ComponentProps<'span'>) {
+function CheckboxIndicatorIcon({ className, children, ...props }: ComponentProps<'span'>) {
   return (
-    <span data-slot="checkbox-indicator-icon" className={clsx(styles.icon, className)} {...props}>
+    <span
+      aria-hidden="true"
+      data-slot="checkbox-indicator-icon"
+      className={clsx(styles.icon, className)}
+      {...props}
+    >
       {children ?? (
         <>
           <span data-slot="checkbox-indicator-checked-icon" className={styles.iconChecked}>
@@ -61,11 +66,11 @@ function CheckboxIndicatorIcon({ className, children, ...props }: React.Componen
   );
 }
 
-function CheckboxField({ className, ...props }: React.ComponentProps<'label'>) {
+function CheckboxField({ className, ...props }: ComponentProps<'label'>) {
   return <label data-slot="checkbox-field" className={clsx(styles.field, className)} {...props} />;
 }
 
-function CheckboxLabel({ className, ...props }: React.ComponentProps<'span'>) {
+function CheckboxLabel({ className, ...props }: ComponentProps<'span'>) {
   return <span data-slot="checkbox-label" className={clsx(styles.label, className)} {...props} />;
 }
 

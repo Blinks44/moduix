@@ -14,11 +14,11 @@
 
   .root {
     box-sizing: border-box;
-    display: flex;
+    display: inline-flex;
+    flex: none;
     align-items: center;
     justify-content: center;
     width: var(--_checkbox-size, 1.25rem);
-    min-width: var(--_checkbox-size, 1.25rem);
     height: var(--_checkbox-size, 1.25rem);
     margin: 0;
     border: var(--checkbox-border-width, var(--border-width-sm)) solid

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import {
   Checkbox,
   CheckboxField,
@@ -22,7 +22,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
+function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -152,7 +152,7 @@ export const ReadOnly: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = useState(false);
 
     return (
       <div className={styles.stack}>
@@ -169,7 +169,7 @@ export const Controlled: Story = {
 export const SiblingLabelNativeButton: Story = {
   name: 'Sibling Label (Native Button)',
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <div className={styles.siblingRow}>
