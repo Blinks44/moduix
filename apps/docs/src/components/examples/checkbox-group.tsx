@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   Checkbox,
   CheckboxField,
@@ -153,7 +154,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
+function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -166,7 +167,7 @@ function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function CheckboxGroupExample(props: React.ComponentProps<typeof CheckboxGroup>) {
+export function CheckboxGroupExample(props: ComponentProps<typeof CheckboxGroup>) {
   const labelId = React.useId();
 
   return (

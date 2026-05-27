@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import * as React from 'react';
 import { Checkbox, CheckboxField, CheckboxIndicator, CheckboxLabel } from '../Checkbox';
 import { Field, FieldItem, FieldLabel } from '../Field';
@@ -42,7 +43,7 @@ const sizeOptions = [
   { value: 'xl', label: 'Extra-large' },
 ] as const;
 
-function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
+function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -225,7 +226,7 @@ export const CustomComposition: Story = {
               >
                 <CheckboxIndicator className={styles.customIndicator} />
               </CheckboxGroupItemControl>
-              <CheckboxGroupItemLabel className={styles.customLabel}>
+              <CheckboxGroupItemLabel className={styles.customItemLabel}>
                 {option.label}
               </CheckboxGroupItemLabel>
             </CheckboxGroupItem>
@@ -244,14 +245,14 @@ export const FieldComposition: Story = {
     return (
       <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId}>
         <CheckboxGroupLabel id={labelId}>Channels</CheckboxGroupLabel>
-        <div className={styles.wrapper}>
+        <CheckboxGroupList className={styles.wrapper}>
           {options.map((option) => (
             <CheckboxField key={option.value}>
               <Checkbox value={option.value} name="field-composition" />
               <CheckboxLabel>{option.label}</CheckboxLabel>
             </CheckboxField>
           ))}
-        </div>
+        </CheckboxGroupList>
       </CheckboxGroup>
     );
   },

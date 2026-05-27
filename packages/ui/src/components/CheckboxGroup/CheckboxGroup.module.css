@@ -21,8 +21,6 @@
   }
 
   .item {
-    display: inline-flex;
-    align-items: center;
     gap: var(--checkbox-group-item-gap, var(--checkbox-gap, var(--spacing-2)));
   }
 

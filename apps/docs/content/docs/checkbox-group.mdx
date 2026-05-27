@@ -26,6 +26,10 @@ import {
 
 ## Basic
 
+Use `CheckboxGroup` for shared selection state and the `CheckboxGroupItem*` parts for the default
+row layout. `CheckboxGroupItem` and `CheckboxGroupItemLabel` are thin convenience wrappers over
+`CheckboxField` and `CheckboxLabel`.
+
 <Preview cssProperties={checkboxGroupPlaygroundCssProperties}>
   <CheckboxGroupExample />
 
@@ -81,11 +85,10 @@ import {
 
 ## Anatomy
 
-Checkbox Group uses one shared root state with optional label and list wrappers.
-Use `aria-labelledby` on `CheckboxGroup` when `CheckboxGroupLabel` is the visible
-group label. Keep `CheckboxGroupItemControl` and `CheckboxGroupItemLabel` inside
-the default `CheckboxGroupItem` label wrapper for the compact enclosing-label
-pattern.
+Checkbox Group keeps one shared root state and a short default composition.
+Use `aria-labelledby` on `CheckboxGroup` when `CheckboxGroupLabel` is the visible group label.
+Keep `CheckboxGroupItemControl` and `CheckboxGroupItemLabel` inside `CheckboxGroupItem` for the
+default enclosing-label row.
 
 ```text
 CheckboxGroup
@@ -115,17 +118,18 @@ CheckboxGroup
 | `CheckboxGroup`            | Root state. Manages selected values, `disabled`, `allValues`, and change callbacks. |
 | `CheckboxGroupLabel`       | Optional group heading. Use its `id` with `aria-labelledby` on `CheckboxGroup`.     |
 | `CheckboxGroupList`        | Optional list wrapper for checkbox rows.                                            |
-| `CheckboxGroupItem`        | Optional row wrapper for one control + one text label. Defaults to `<label>`.       |
+| `CheckboxGroupItem`        | Default row wrapper for one control + one text label. Built on `CheckboxField`.     |
 | `CheckboxGroupItemControl` | Interactive checkbox control for an item.                                           |
-| `CheckboxGroupItemLabel`   | Optional text label for the item.                                                   |
+| `CheckboxGroupItemLabel`   | Default item label. Built on `CheckboxLabel`.                                       |
 
-`CheckboxGroup` does not use service slots (`portal`, `backdrop`, `viewport`).
-Customize visible parts with `className`, composition, and CSS variables.
+Customize visible parts with `className`, explicit composition, and CSS variables.
 
 ## Composition
 
-Use `CheckboxGroup` for shared state (`value`, `defaultValue`, `onValueChange`) and
-group behavior (`allValues`, `disabled`). Use `allValues` with
+Use `CheckboxGroup` for shared state (`value`, `defaultValue`, `onValueChange`) and group behavior
+(`allValues`, `disabled`). Use `CheckboxGroupItem`, `CheckboxGroupItemControl`, and
+`CheckboxGroupItemLabel` for the common row layout. Drop down to `CheckboxField`, `Checkbox`, and
+`CheckboxLabel` when the row structure needs to change. Use `allValues` with
 `CheckboxGroupItemControl parent` for select-all behavior.
 
 | Prop                                    | Default     | Values                                                                  |
@@ -138,13 +142,11 @@ group behavior (`allValues`, `disabled`). Use `allValues` with
 | `CheckboxGroupItemControl.parent`       | `false`     | `boolean` (enables parent checkbox behavior when group has `allValues`) |
 | `CheckboxGroupItemControl.nativeButton` | `false`     | `boolean`                                                               |
 
-`CheckboxGroupLabel`, `CheckboxGroupList`, `CheckboxGroupItem`, and
-`CheckboxGroupItemLabel` are layout slots and accept `className`.
-`CheckboxGroupItemControl` composes `Checkbox`, so it also supports the same
-checkbox composition patterns, refs, and form props described on the Checkbox
-page. Inside a group,
-prefer letting `CheckboxGroup` own checked state rather than mixing in per-item
-`checked` or `defaultChecked`.
+`CheckboxGroupLabel`, `CheckboxGroupList`, `CheckboxGroupItem`, and `CheckboxGroupItemLabel`
+accept `className`. `CheckboxGroupItemControl` composes `Checkbox`, so it also supports the same
+checkbox composition patterns, refs, and form props described on the Checkbox page. Inside a
+group, prefer letting `CheckboxGroup` own checked state rather than mixing in per-item `checked`
+or `defaultChecked`.
 
 For sibling labels or custom row layouts, compose `CheckboxGroupItemControl` with
 your own wrapper element instead of replacing `CheckboxGroupItem`.
@@ -476,7 +478,12 @@ application or icon library.
   </Preview.Data>
 </Preview>
 
-### Custom Composition
+## Custom Composition
+
+Use the higher-level parts by default. Drop to the lower-level composition shown here only when the
+row layout, indicator markup, or form structure needs to change.
+
+### Slot Styling
 
 Pass `className` to the group, label, list, item, control, and item label slots. Use
 composition on `CheckboxGroupItemControl` when the indicator needs its own selector.
@@ -569,7 +576,7 @@ composition on `CheckboxGroupItemControl` when the indicator needs its own selec
   </Preview.Data>
 </Preview>
 
-### Field Composition
+### CheckboxField Composition
 
 Use `CheckboxField`, `Checkbox`, and `CheckboxLabel` directly inside `CheckboxGroup` when you
 want a compact enclosing-label composition.
