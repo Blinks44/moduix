@@ -14,12 +14,14 @@ import {
   scrollAreaPlaygroundCssProperties,
 } from '@/components/examples/scroll-area';
 
+## API Reference
+
 <BaseUIReference href="https://base-ui.com/react/components/scroll-area" />
 
 ## Basic
 
-`ScrollArea` is the default path. It renders the root, viewport, content, and matching scrollbars
-for you.
+`ScrollArea` is the recommended path for most cases. It renders the root, viewport, content, and a
+default vertical scrollbar for you.
 
 <Preview cssProperties={scrollAreaPlaygroundCssProperties}>
   <ScrollAreaExample />
@@ -77,56 +79,28 @@ for you.
     {`
       const sections = [
         {
-          title: 'What this surface is for',
-          body: 'Use temporary surfaces for focused tasks that should keep users in the current page context.',
+          title: "Overview",
+          body: "Use ScrollArea when content needs a bounded viewport without giving up native scrolling behavior.",
         },
         {
-          title: 'Keyboard and focus',
-          body: 'Tab and Shift+Tab should stay predictable while Escape or explicit controls request close.',
+          title: "Dense panels",
+          body: "Long settings forms, sidebars, drawers, and inspectors often need a stable frame with scrollable content inside.",
         },
         {
-          title: 'Viewport overflow',
-          body: 'Keep the container visible and place long content in a dedicated scrollable inner region.',
+          title: "Readable overflow",
+          body: "A visible scrollbar makes it clear that more content exists outside the current viewport.",
         },
         {
-          title: 'Close affordances',
-          body: 'Always provide an explicit close action when the surface can be dismissed by the user.',
+          title: "Keyboard support",
+          body: "The viewport remains focusable, so keyboard scrolling works without extra wrapper logic.",
         },
         {
-          title: 'Mobile ergonomics',
-          body: 'Keep touch targets reachable and avoid cramped headers on narrow viewports.',
+          title: "Touch and wheel input",
+          body: "Because the container stays native, wheel, trackpad, touch, and drag behavior remain predictable.",
         },
         {
-          title: 'Persistent panels',
-          body: 'For persistent workflows, keep the important controls fixed and scroll only the supporting content.',
-        },
-        {
-          title: 'Status updates',
-          body: 'After completion, close the surface and show an inline confirmation or toast.',
-        },
-        {
-          title: 'Error handling',
-          body: 'When an action fails, keep the user in context and show the recovery step near the failed control.',
-        },
-        {
-          title: 'Long descriptions',
-          body: 'Dense explanatory copy should remain readable without pushing primary actions out of reach.',
-        },
-        {
-          title: 'Scrolling feedback',
-          body: 'Visible scrollbars, fades, or edge states help users understand that additional content is available.',
-        },
-        {
-          title: 'Footer behavior',
-          body: 'Footer actions should stay stable when the user reviews long terms, warnings, or settings.',
-        },
-        {
-          title: 'Review checklist',
-          body: 'Use repeated sections to test keyboard scrolling, wheel scrolling, touch scrolling, and drag gestures.',
-        },
-        {
-          title: 'Final confirmation',
-          body: 'The final section should be reachable without layout jumps or hidden content at the bottom edge.',
+          title: "Stable layout",
+          body: "Keep the outer surface fixed and scroll only the content that can grow unpredictably.",
         },
       ];
     `}
@@ -136,9 +110,12 @@ for you.
   <Preview.CSSPlayground>{(context) => <ScrollAreaCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+`fade` and `scrollbars` are the only wrapper-level conveniences. Everything else is passed through
+to the Base UI root.
+
 ## Anatomy
 
-For the common case, use the high-level wrapper:
+Use the high-level wrapper when the default structure is enough:
 
 ```tsx
 import { ScrollArea } from 'moduix';
@@ -146,7 +123,7 @@ import { ScrollArea } from 'moduix';
 <ScrollArea>{children}</ScrollArea>;
 ```
 
-When you need full control over layout or DOM structure, use the low-level parts directly:
+Use the low-level parts when you need direct control over the viewport, content, or scrollbars:
 
 ```tsx
 import {
@@ -165,41 +142,49 @@ import {
   <ScrollAreaScrollbar>
     <ScrollAreaThumb />
   </ScrollAreaScrollbar>
-  <ScrollAreaCorner />
 </ScrollAreaRoot>;
 ```
 
+| Part                  | Role                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| `ScrollArea`          | High-level wrapper with default viewport, content, and bars. |
+| `ScrollAreaRoot`      | Root scroll area container.                                  |
+| `ScrollAreaViewport`  | Focusable native scroll viewport.                            |
+| `ScrollAreaContent`   | Inner content wrapper.                                       |
+| `ScrollAreaScrollbar` | One scrollbar track.                                         |
+| `ScrollAreaThumb`     | Draggable scrollbar thumb.                                   |
+| `ScrollAreaCorner`    | Fills the corner when both scrollbars are visible.           |
+
 ## Composition
 
-`ScrollArea` keeps the default API small:
+The wrapper keeps the API intentionally small:
 
 | Prop         | Default    | Values                                            |
 | ------------ | ---------- | ------------------------------------------------- |
 | `scrollbars` | `vertical` | `vertical`, `horizontal`, `both`, `false`         |
 | `fade`       | `false`    | `false`, `true`, `vertical`, `horizontal`, `both` |
 
-Other root props such as `overflowEdgeThreshold` are forwarded directly to Base UI.
+`fade={true}` maps to a vertical edge fade, which matches the most common single-column case.
 
-Use the high-level wrapper when you only need:
+Use `ScrollArea` when you need:
 
-- root sizing and borders through `className`
-- a default vertical scrollbar
-- an optional horizontal scrollbar with `scrollbars="both"` or `scrollbars="horizontal"`
-- a fade mask with `fade`
+- root sizing, borders, and spacing through `className`
+- the default vertical scrollbar
+- an optional horizontal scrollbar via `scrollbars`
+- a small edge-fade convenience via `fade`
 
 Use the low-level parts when you need:
 
-- custom viewport or content classes
+- custom classes on viewport or content
 - manual scrollbar props such as `keepMounted`
-- a different DOM structure
-- per-part styling beyond CSS variables
+- different scrollbar markup or orientation-specific styling
+- a custom root data contract such as `data-fade="both"`
 
 ## Examples
 
 ### Both Scrollbars
 
-Use `scrollbars="both"` when content can overflow on both axes. Make the inner content as wide as
-it needs to be.
+Use `scrollbars="both"` when content can overflow on both axes.
 
 <Preview>
   <BothScrollbarsScrollAreaExample />
@@ -212,9 +197,9 @@ it needs to be.
         return (
           <ScrollArea scrollbars="both" className={styles.sizedRoot}>
             <div className={styles.gridContent}>
-              {Array.from({ length: 96 }, (_, index) => index + 1).map((cell) => (
-                <div key={cell} className={styles.cell}>
-                  {cell}
+              {Array.from({ length: 96 }, (_, index) => (
+                <div key={index} className={styles.cell}>
+                  {index + 1}
                 </div>
               ))}
             </div>
@@ -258,9 +243,9 @@ it needs to be.
   </Preview.CSS>
 </Preview>
 
-### Gradient Fade
+### Edge Fade
 
-Use `fade` to add a built-in edge fade driven by the scroll position CSS variables from Base UI.
+Use `fade` when the scroll position itself should hint that more content is available.
 
 <Preview>
   <GradientFadeScrollAreaExample />
@@ -269,14 +254,11 @@ Use `fade` to add a built-in edge fade driven by the scroll position CSS variabl
     {`
       import { ScrollArea } from "moduix";
 
-      export function GradientFadeScrollAreaDemo() {
+      export function EdgeFadeScrollAreaDemo() {
         return (
           <ScrollArea fade className={styles.sizedRoot}>
-            <div className={styles.paddedTextContent}>
-              {Array.from({ length: 8 }, (_, index) => ({
-                title: \`Section \${index + 1}\`,
-                body: "Scrollable content stays readable while the edges fade in and out.",
-              })).map((item) => (
+            <div className={styles.textContent}>
+              {sections.map((item) => (
                 <section key={item.title}>
                   <h3>{item.title}</h3>
                   <p className={styles.paragraph}>{item.body}</p>
@@ -291,9 +273,9 @@ Use `fade` to add a built-in edge fade driven by the scroll position CSS variabl
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+## Custom Composition
 
-Use the low-level parts when you need direct control over the viewport, content, or scrollbars.
+Use the exported parts directly when the default wrapper stops being enough.
 
 <Preview>
   <CustomCompositionScrollAreaExample />
@@ -318,9 +300,9 @@ Use the low-level parts when you need direct control over the viewport, content,
           >
             <ScrollAreaViewport className={styles.customViewport}>
               <ScrollAreaContent className={styles.customContent}>
-                {Array.from({ length: 80 }, (_, index) => index + 1).map((cell) => (
-                  <div key={cell} className={styles.customCell}>
-                    {cell}
+                {Array.from({ length: 80 }, (_, index) => (
+                  <div key={index} className={styles.customCell}>
+                    {index + 1}
                   </div>
                 ))}
               </ScrollAreaContent>

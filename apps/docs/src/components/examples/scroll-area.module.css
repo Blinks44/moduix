@@ -1,5 +1,6 @@
 .root,
-.sizedRoot {
+.sizedRoot,
+.customRoot {
   --scroll-area-width: 24rem;
   --scroll-area-height: 13rem;
   max-width: calc(100vw - 2rem);
@@ -8,13 +9,6 @@
 }
 
 .textContent {
-  display: grid;
-  gap: var(--spacing-3);
-  padding: var(--spacing-3);
-  padding-right: var(--spacing-6);
-}
-
-.paddedTextContent {
   display: grid;
   gap: var(--spacing-3);
   padding: var(--spacing-3);
@@ -48,16 +42,11 @@
 }
 
 .customRoot {
-  --scroll-area-width: 24rem;
-  --scroll-area-height: 13rem;
   --scroll-area-scrollbar-size: 0.625rem;
   --scroll-area-scrollbar-margin: var(--spacing-1);
   --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
   --scroll-area-thumb-bg: var(--color-primary);
   --scroll-area-corner-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
-  max-width: calc(100vw - 2rem);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
 }
 
 .customViewport {

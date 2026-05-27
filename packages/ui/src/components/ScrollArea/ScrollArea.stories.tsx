@@ -58,8 +58,8 @@ export const BothScrollbars: Story = {
   },
 };
 
-export const GradientFade: Story = {
-  name: 'Gradient Fade',
+export const EdgeFade: Story = {
+  name: 'Edge Fade',
   render: () => {
     return (
       <ScrollArea fade className={styles.root}>

@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   ScrollArea,
   ScrollAreaContent,
@@ -7,7 +8,6 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
 } from 'moduix';
-import * as React from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -17,22 +17,30 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--scroll-area-bg', 'transparent', 'Controls the viewport background color.'],
   ['--scroll-area-color', 'var(--color-foreground)', 'Controls the root text color.'],
   ['--scroll-area-content-padding', '0', 'Controls the content slot padding.'],
-  ['--scroll-area-corner-bg', 'transparent', 'Controls the corner color for two-axis scrolling.'],
-  ['--scroll-area-fade-end-size', 'var(--scroll-area-fade-size)', 'Controls vertical end fade.'],
+  [
+    '--scroll-area-corner-bg',
+    'var(--scroll-area-scrollbar-bg, transparent)',
+    'Controls the corner color for two-axis scrolling.',
+  ],
+  [
+    '--scroll-area-fade-end-size',
+    'var(--scroll-area-fade-size, var(--spacing-10))',
+    'Controls vertical end fade.',
+  ],
   [
     '--scroll-area-fade-inline-end-size',
-    'var(--scroll-area-fade-size)',
+    'var(--scroll-area-fade-size, var(--spacing-10))',
     'Controls horizontal end fade.',
   ],
   [
     '--scroll-area-fade-inline-start-size',
-    'var(--scroll-area-fade-size)',
+    'var(--scroll-area-fade-size, var(--spacing-10))',
     'Controls horizontal start fade.',
   ],
   ['--scroll-area-fade-size', 'var(--spacing-10)', 'Controls the default fade size.'],
   [
     '--scroll-area-fade-start-size',
-    'var(--scroll-area-fade-size)',
+    'var(--scroll-area-fade-size, var(--spacing-10))',
     'Controls vertical start fade.',
   ],
   [
@@ -46,7 +54,7 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls the viewport focus ring width.',
   ],
-  ['--scroll-area-height', '13rem', 'Controls the root height.'],
+  ['--scroll-area-height', '100%', 'Controls the root height.'],
   ['--scroll-area-radius', 'var(--radius-md)', 'Controls the viewport border radius.'],
   ['--scroll-area-scrollbar-bg', 'transparent', 'Controls the scrollbar track background color.'],
   ['--scroll-area-scrollbar-hidden-opacity', '0', 'Controls hidden scrollbar opacity.'],
@@ -68,7 +76,7 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--scroll-area-thumb-min-size', '1.5rem', 'Controls the minimum draggable thumb size.'],
   ['--scroll-area-thumb-radius', 'var(--radius-full)', 'Controls the thumb border radius.'],
   ['--scroll-area-transition', 'var(--transition-default)', 'Controls scrollbar fade timing.'],
-  ['--scroll-area-width', '24rem', 'Controls the root width.'],
+  ['--scroll-area-width', '100%', 'Controls the root width.'],
 ];
 
 export const scrollAreaPlaygroundCssProperties: CssPropertyInput[] = [
@@ -110,7 +118,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ScrollAreaExample(props: React.ComponentProps<typeof ScrollArea>) {
+export function ScrollAreaExample(props: ComponentProps<typeof ScrollArea>) {
   return (
     <ScrollArea {...props} className={styles.root}>
       <div className={styles.textContent}>
@@ -142,7 +150,7 @@ export function BothScrollbarsScrollAreaExample() {
 export function GradientFadeScrollAreaExample() {
   return (
     <ScrollArea fade className={styles.sizedRoot}>
-      <div className={styles.paddedTextContent}>
+      <div className={styles.textContent}>
         {insideScrollSections.map((item) => (
           <section key={item.title}>
             <h3>{item.title}</h3>

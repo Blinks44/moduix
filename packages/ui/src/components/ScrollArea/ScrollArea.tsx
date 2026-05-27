@@ -1,14 +1,14 @@
 import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
-import * as React from 'react';
+import { forwardRef, type ComponentRef, type ForwardedRef, type ReactNode } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './ScrollArea.module.css';
 
 type FadeDirection = boolean | 'vertical' | 'horizontal' | 'both';
 type Scrollbars = 'vertical' | 'horizontal' | 'both' | false;
 
-const ScrollAreaRoot = React.forwardRef(function ScrollAreaRoot(
+const ScrollAreaRoot = forwardRef(function ScrollAreaRoot(
   { className, ...props }: ScrollAreaPrimitive.Root.Props,
-  ref: React.ForwardedRef<React.ComponentRef<typeof ScrollAreaPrimitive.Root>>,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Root>>,
 ) {
   return (
     <ScrollAreaPrimitive.Root
@@ -20,9 +20,9 @@ const ScrollAreaRoot = React.forwardRef(function ScrollAreaRoot(
   );
 });
 
-const ScrollAreaViewport = React.forwardRef(function ScrollAreaViewport(
+const ScrollAreaViewport = forwardRef(function ScrollAreaViewport(
   { className, ...props }: ScrollAreaPrimitive.Viewport.Props,
-  ref: React.ForwardedRef<React.ComponentRef<typeof ScrollAreaPrimitive.Viewport>>,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Viewport>>,
 ) {
   return (
     <ScrollAreaPrimitive.Viewport
@@ -34,9 +34,9 @@ const ScrollAreaViewport = React.forwardRef(function ScrollAreaViewport(
   );
 });
 
-const ScrollAreaContent = React.forwardRef(function ScrollAreaContent(
+const ScrollAreaContent = forwardRef(function ScrollAreaContent(
   { className, ...props }: ScrollAreaPrimitive.Content.Props,
-  ref: React.ForwardedRef<React.ComponentRef<typeof ScrollAreaPrimitive.Content>>,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Content>>,
 ) {
   return (
     <ScrollAreaPrimitive.Content
@@ -48,9 +48,9 @@ const ScrollAreaContent = React.forwardRef(function ScrollAreaContent(
   );
 });
 
-const ScrollAreaScrollbar = React.forwardRef(function ScrollAreaScrollbar(
+const ScrollAreaScrollbar = forwardRef(function ScrollAreaScrollbar(
   { className, ...props }: ScrollAreaPrimitive.Scrollbar.Props,
-  ref: React.ForwardedRef<React.ComponentRef<typeof ScrollAreaPrimitive.Scrollbar>>,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Scrollbar>>,
 ) {
   return (
     <ScrollAreaPrimitive.Scrollbar
@@ -62,9 +62,9 @@ const ScrollAreaScrollbar = React.forwardRef(function ScrollAreaScrollbar(
   );
 });
 
-const ScrollAreaThumb = React.forwardRef(function ScrollAreaThumb(
+const ScrollAreaThumb = forwardRef(function ScrollAreaThumb(
   { className, ...props }: ScrollAreaPrimitive.Thumb.Props,
-  ref: React.ForwardedRef<React.ComponentRef<typeof ScrollAreaPrimitive.Thumb>>,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Thumb>>,
 ) {
   return (
     <ScrollAreaPrimitive.Thumb
@@ -76,9 +76,9 @@ const ScrollAreaThumb = React.forwardRef(function ScrollAreaThumb(
   );
 });
 
-const ScrollAreaCorner = React.forwardRef(function ScrollAreaCorner(
+const ScrollAreaCorner = forwardRef(function ScrollAreaCorner(
   { className, ...props }: ScrollAreaPrimitive.Corner.Props,
-  ref: React.ForwardedRef<React.ComponentRef<typeof ScrollAreaPrimitive.Corner>>,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Corner>>,
 ) {
   return (
     <ScrollAreaPrimitive.Corner
@@ -97,7 +97,7 @@ function ScrollArea({
   scrollbars = 'vertical',
   ...props
 }: ScrollAreaPrimitive.Root.Props & {
-  children?: React.ReactNode;
+  children?: ReactNode;
   fade?: FadeDirection;
   scrollbars?: Scrollbars;
 }) {
