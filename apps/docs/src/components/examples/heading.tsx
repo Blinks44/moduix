@@ -1,5 +1,5 @@
+import type { ComponentProps } from 'react';
 import { Heading } from 'moduix';
-import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './heading.module.css';
@@ -81,7 +81,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function HeadingExample(props: React.ComponentProps<typeof Heading>) {
+export function HeadingExample(props: ComponentProps<typeof Heading>) {
   return <Heading {...props}>Build reliable interfaces</Heading>;
 }
 
@@ -142,7 +142,7 @@ export function HeadingWeightsExample() {
   );
 }
 
-export function HeadingSemanticExample() {
+export function HeadingSemanticLevelExample() {
   return (
     <Heading as="h2" size="2xl">
       Page title rendered as h2

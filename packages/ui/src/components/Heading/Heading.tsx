@@ -1,5 +1,5 @@
+import type { ComponentPropsWithoutRef } from 'react';
 import clsx from 'clsx';
-import * as React from 'react';
 import styles from './Heading.module.css';
 
 const defaultSizeByElement = {
@@ -11,15 +11,18 @@ const defaultSizeByElement = {
   h6: 'xs',
 } as const;
 
+type HeadingLevel = keyof typeof defaultSizeByElement;
+type HeadingSize = (typeof defaultSizeByElement)[HeadingLevel];
+
 function Heading({
   as = 'h1',
   size,
   weight = 'semibold',
   className,
   ...props
-}: React.ComponentPropsWithoutRef<'h1'> & {
-  as?: keyof typeof defaultSizeByElement;
-  size?: (typeof defaultSizeByElement)[keyof typeof defaultSizeByElement];
+}: ComponentPropsWithoutRef<'h1'> & {
+  as?: HeadingLevel;
+  size?: HeadingSize;
   weight?: 'regular' | 'medium' | 'semibold' | 'bold';
 }) {
   const Component = as;

@@ -18,9 +18,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {};
+export const Default: Story = {};
 
-export const Elements: Story = {
+export const Levels: Story = {
   render: () => (
     <div className={storyStyles.stack}>
       <Heading as="h1">Heading level 1</Heading>
@@ -33,7 +33,15 @@ export const Elements: Story = {
   ),
 };
 
-export const Sizes: Story = {
+export const SemanticLevel: Story = {
+  render: () => (
+    <Heading as="h2" size="2xl">
+      Page title rendered as h2
+    </Heading>
+  ),
+};
+
+export const VisualSizes: Story = {
   render: () => (
     <div className={storyStyles.stack}>
       <Heading as="h2" size="2xl">
@@ -77,17 +85,7 @@ export const Weights: Story = {
   ),
 };
 
-export const SemanticLevelWithVisualSize: Story = {
-  name: 'Semantic Level with Visual Size',
-  render: () => (
-    <Heading as="h2" size="2xl">
-      Page title rendered as h2
-    </Heading>
-  ),
-};
-
-export const CustomComposition: Story = {
-  name: 'Custom Composition',
+export const CustomStyles: Story = {
   render: () => (
     <Heading as="h2" className={storyStyles.customHeading}>
       Customized heading
