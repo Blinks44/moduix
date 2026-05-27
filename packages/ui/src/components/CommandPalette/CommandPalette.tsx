@@ -1,7 +1,8 @@
+import type { ComponentProps } from 'react';
 import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomplete';
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { createContext, useContext, useEffect, useMemo } from 'react';
 import { CloseIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './CommandPalette.module.css';
@@ -12,18 +13,30 @@ type CommandPaletteGroup<ItemValue> = Record<string, unknown> & {
   items: readonly ItemValue[];
 };
 
-const CommandPaletteContext = React.createContext<{
+const CommandPaletteContext = createContext<{
   handle: DialogPrimitive.Handle<unknown>;
+  modal: DialogPrimitive.Root.Props['modal'];
 } | null>(null);
 
 function useCommandPaletteContext(componentName: string) {
-  const context = React.useContext(CommandPaletteContext);
+  const context = useContext(CommandPaletteContext);
 
   if (!context) {
     throw new Error(`${componentName} must be used within CommandPalette.`);
   }
 
   return context;
+}
+
+function isMacLikePlatform() {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
+
+  const platform =
+    (navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform ??
+    navigator.platform;
+  return /mac|iphone|ipad|ipod/i.test(platform);
 }
 
 function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
@@ -33,9 +46,14 @@ function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
     .map((part) => part.trim())
     .filter(Boolean);
   const key = parts.at(-1);
-  const needsMod = parts.includes('mod');
-  const needsCtrl = parts.includes('ctrl') || parts.includes('control');
-  const needsMeta = parts.includes('meta') || parts.includes('cmd') || parts.includes('command');
+  const primaryModifier = parts.includes('mod') ? (isMacLikePlatform() ? 'meta' : 'ctrl') : null;
+  const needsCtrl =
+    parts.includes('ctrl') || parts.includes('control') || primaryModifier === 'ctrl';
+  const needsMeta =
+    parts.includes('meta') ||
+    parts.includes('cmd') ||
+    parts.includes('command') ||
+    primaryModifier === 'meta';
   const needsAlt = parts.includes('alt') || parts.includes('option');
   const needsShift = parts.includes('shift');
   const eventKey = event.key.toLowerCase();
@@ -49,8 +67,8 @@ function isShortcutMatch(event: KeyboardEvent, shortcut: string) {
   }
 
   return (
-    event.ctrlKey === (needsCtrl || (needsMod && !needsMeta)) &&
-    event.metaKey === (needsMeta || (needsMod && !needsCtrl)) &&
+    event.ctrlKey === needsCtrl &&
+    event.metaKey === needsMeta &&
     event.altKey === needsAlt &&
     event.shiftKey === needsShift
   );
@@ -73,6 +91,7 @@ function isGroupedItems<ItemValue>(
 }
 
 function CommandPalette<Payload = unknown>({
+  modal = true,
   shortcut = 'mod+k',
   shortcutTarget,
   handle,
@@ -82,10 +101,10 @@ function CommandPalette<Payload = unknown>({
   shortcut?: false | string;
   shortcutTarget?: Document | HTMLElement | null;
 }) {
-  const fallbackHandle = React.useMemo(() => createCommandPaletteHandle<Payload>(), []);
+  const fallbackHandle = useMemo(() => createCommandPaletteHandle<Payload>(), []);
   const resolvedHandle = handle ?? fallbackHandle;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (shortcut === false || shortcutTarget === null) {
       return;
     }
@@ -111,8 +130,8 @@ function CommandPalette<Payload = unknown>({
   }, [resolvedHandle, shortcut, shortcutTarget]);
 
   return (
-    <CommandPaletteContext.Provider value={{ handle: resolvedHandle }}>
-      <DialogPrimitive.Root handle={resolvedHandle} {...props}>
+    <CommandPaletteContext.Provider value={{ handle: resolvedHandle, modal }}>
+      <DialogPrimitive.Root modal={modal} handle={resolvedHandle} {...props}>
         {children}
       </DialogPrimitive.Root>
     </CommandPaletteContext.Provider>
@@ -196,6 +215,7 @@ function CommandPaletteContent<ItemValue = unknown>({
   filteredItems?: AutocompletePrimitive.Root.Props<ItemValue>['filteredItems'];
   limit?: AutocompletePrimitive.Root.Props<ItemValue>['limit'];
 }) {
+  const { modal } = useCommandPaletteContext('CommandPaletteContent');
   const autocompleteProps = {
     autoHighlight: 'always' as const,
     defaultValue,
@@ -212,8 +232,8 @@ function CommandPaletteContent<ItemValue = unknown>({
 
   return (
     <CommandPalettePortal>
-      <CommandPaletteBackdrop />
-      <CommandPaletteViewport>
+      {modal === true ? <CommandPaletteBackdrop /> : null}
+      <CommandPaletteViewport className={modal === true ? undefined : styles.viewportNonModal}>
         <CommandPalettePopup className={className} {...props}>
           {isGroupedItems(items) ? (
             <AutocompletePrimitive.Root {...autocompleteProps} items={items}>
@@ -230,7 +250,7 @@ function CommandPaletteContent<ItemValue = unknown>({
   );
 }
 
-function CommandPaletteInputWrap({ className, ...props }: React.ComponentProps<'div'>) {
+function CommandPaletteInputWrap({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="command-palette-input-wrap"
@@ -344,7 +364,7 @@ function CommandPaletteItem({
   );
 }
 
-function CommandPaletteItemIcon({ className, ...props }: React.ComponentProps<'span'>) {
+function CommandPaletteItemIcon({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="command-palette-item-icon"
@@ -354,7 +374,7 @@ function CommandPaletteItemIcon({ className, ...props }: React.ComponentProps<'s
   );
 }
 
-function CommandPaletteItemText({ className, ...props }: React.ComponentProps<'span'>) {
+function CommandPaletteItemText({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="command-palette-item-text"
@@ -364,7 +384,7 @@ function CommandPaletteItemText({ className, ...props }: React.ComponentProps<'s
   );
 }
 
-function CommandPaletteItemLabel({ className, ...props }: React.ComponentProps<'span'>) {
+function CommandPaletteItemLabel({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="command-palette-item-label"
@@ -374,7 +394,7 @@ function CommandPaletteItemLabel({ className, ...props }: React.ComponentProps<'
   );
 }
 
-function CommandPaletteItemDescription({ className, ...props }: React.ComponentProps<'span'>) {
+function CommandPaletteItemDescription({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="command-palette-item-description"
@@ -384,7 +404,7 @@ function CommandPaletteItemDescription({ className, ...props }: React.ComponentP
   );
 }
 
-function CommandPaletteItemMeta({ className, ...props }: React.ComponentProps<'span'>) {
+function CommandPaletteItemMeta({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="command-palette-item-meta"
@@ -404,13 +424,13 @@ function CommandPaletteSeparator({ className, ...props }: AutocompletePrimitive.
   );
 }
 
-function CommandPaletteFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function CommandPaletteFooter({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div data-slot="command-palette-footer" className={clsx(styles.footer, className)} {...props} />
   );
 }
 
-function CommandPaletteKbd({ className, ...props }: React.ComponentProps<'kbd'>) {
+function CommandPaletteKbd({ className, ...props }: ComponentProps<'kbd'>) {
   return <kbd data-slot="command-palette-kbd" className={clsx(styles.kbd, className)} {...props} />;
 }
 

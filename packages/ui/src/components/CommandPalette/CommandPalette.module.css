@@ -81,6 +81,10 @@
     padding: var(--command-palette-viewport-padding, 10dvh var(--spacing-4) var(--spacing-4));
   }
 
+  .viewportNonModal {
+    pointer-events: none;
+  }
+
   .popup {
     box-sizing: border-box;
     position: relative;
@@ -101,6 +105,7 @@
       var(--command-palette-top-bg, color-mix(in oklab, var(--color-popover) 96%, white 4%)),
       var(--command-palette-bg, var(--color-popover)) 7rem
     );
+    pointer-events: auto;
     color: var(--command-palette-color, var(--color-popover-foreground));
     box-shadow: var(--command-palette-shadow, var(--shadow-lg));
     transform-origin: top center;

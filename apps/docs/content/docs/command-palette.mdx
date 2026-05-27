@@ -13,9 +13,24 @@ import {
   commandPalettePlaygroundCssProperties,
 } from '@/components/examples/command-palette';
 
+## API Reference
+
 <BaseUIReference href="https://base-ui.com/react/components/autocomplete#command-palette" />
 
+## Overview
+
+`CommandPalette` keeps the public model short:
+
+- `CommandPalette` manages dialog state and the optional global shortcut.
+- `CommandPaletteContent` is the recommended default shell for the popup and inline autocomplete.
+- low-level layout parts remain exported for custom composition.
+
+`mod+k` uses the platform primary modifier: `Meta` on macOS/iOS and `Control` elsewhere.
+
 ## Basic
+
+Use `CommandPaletteContent` for the default path. In these docs demos we use `shortcut="alt+k"` to
+avoid common browser conflicts.
 
 <Preview cssProperties={commandPalettePlaygroundCssProperties}>
   <CommandPaletteExample />
@@ -47,8 +62,10 @@ import {
 
       export function CommandPaletteDemo() {
         return (
-          <CommandPalette>
-            <CommandPaletteTrigger render={<Button />}>Open palette</CommandPaletteTrigger>
+          <CommandPalette shortcut="alt+k">
+            <CommandPaletteTrigger render={<Button />}>
+              Open palette
+            </CommandPaletteTrigger>
             <CommandPaletteContent
               aria-label="Command palette"
               items={commandGroups}
@@ -97,8 +114,8 @@ import {
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`
+<Preview.Data>
+  {`
       const commandGroups = [
         {
           value: "Create",
@@ -115,13 +132,11 @@ import {
         },
       ];
     `}
+</Preview.Data>
 
-  </Preview.Data>
-
-<Preview.CSSProperties>
-  {(context) => <CommandPaletteCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
-
+  <Preview.CSSProperties>
+    {(context) => <CommandPaletteCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
   <Preview.CSSPlayground>
     {(context) => <CommandPaletteCssPlaygroundPanel {...context} />}
   </Preview.CSSPlayground>
@@ -135,85 +150,223 @@ import {
 CommandPalette
 ├─ CommandPaletteTrigger (optional)
 └─ CommandPaletteContent
-   ├─ CommandPaletteBackdrop
+   ├─ CommandPaletteBackdrop (modal only)
    ├─ CommandPaletteViewport
    │  └─ CommandPalettePopup
    │     └─ autocomplete root
    │        ├─ CommandPaletteInputWrap
    │        │  ├─ CommandPaletteInput
    │        │  └─ CommandPaletteClear (optional)
+   │        ├─ CommandPaletteStatus (optional)
    │        ├─ CommandPaletteEmpty
    │        ├─ CommandPaletteList
    │        └─ CommandPaletteFooter (optional)
 ```
 
-| Part                            | Role                                                |
-| ------------------------------- | --------------------------------------------------- |
-| `CommandPalette`                | Dialog state and optional global shortcut listener. |
-| `CommandPaletteTrigger`         | Optional visible trigger.                           |
-| `CommandPaletteContent`         | Ready-to-use modal shell with inline autocomplete.  |
-| `CommandPalettePortal`          | Portal part for custom composition.                 |
-| `CommandPaletteBackdrop`        | Backdrop part for custom composition.               |
-| `CommandPaletteViewport`        | Viewport part for custom composition.               |
-| `CommandPalettePopup`           | Styled popup surface for custom composition.        |
-| `CommandPaletteClose`           | Explicit dismiss control.                           |
-| `CommandPaletteCollection`      | Group collection renderer for Base UI grouped data. |
-| `CommandPaletteItem`            | Selectable row that closes the palette by default.  |
-| `CommandPaletteItemIcon`        | Leading icon container.                             |
-| `CommandPaletteItemText`        | Text column wrapper.                                |
-| `CommandPaletteItemLabel`       | Primary label.                                      |
-| `CommandPaletteItemDescription` | Secondary label.                                    |
-| `CommandPaletteItemMeta`        | Trailing metadata, usually a shortcut.              |
-| `CommandPaletteFooter`          | Optional footer row.                                |
-| `CommandPaletteKbd`             | Compact shortcut badge.                             |
+| Part                            | Role                                                 |
+| ------------------------------- | ---------------------------------------------------- |
+| `CommandPalette`                | Dialog state and optional global shortcut listener.  |
+| `CommandPaletteTrigger`         | Optional visible trigger.                            |
+| `CommandPaletteContent`         | Ready-to-use modal or non-modal shell.               |
+| `CommandPalettePortal`          | Portal part for custom composition.                  |
+| `CommandPaletteBackdrop`        | Backdrop part for custom composition.                |
+| `CommandPaletteViewport`        | Viewport part for popup alignment and scrolling.     |
+| `CommandPalettePopup`           | Styled popup surface for custom composition.         |
+| `CommandPaletteClose`           | Explicit dismiss control.                            |
+| `CommandPaletteStatus`          | Optional live status row from the autocomplete root. |
+| `CommandPaletteCollection`      | Group collection renderer for Base UI grouped data.  |
+| `CommandPaletteItem`            | Selectable row that closes the palette by default.   |
+| `CommandPaletteItemIcon`        | Leading icon container.                              |
+| `CommandPaletteItemText`        | Text column wrapper.                                 |
+| `CommandPaletteItemLabel`       | Primary label.                                       |
+| `CommandPaletteItemDescription` | Secondary label.                                     |
+| `CommandPaletteItemMeta`        | Trailing metadata, usually a shortcut.               |
+| `CommandPaletteSeparator`       | Visual divider inside the list or footer area.       |
+| `CommandPaletteFooter`          | Optional footer row.                                 |
+| `CommandPaletteKbd`             | Compact shortcut badge.                              |
 
 ## Composition
 
-`CommandPalette` opens on `mod+k` by default. In these docs demos we use `shortcut="alt+k"` to
-avoid common browser conflicts. Set another combo or use `shortcut={false}` / `shortcutTarget={null}`
-to disable the listener.
+`CommandPaletteContent` stays intentionally narrow:
 
-`CommandPaletteContent` keeps the default palette thin and opinionated:
+- it always renders through `CommandPalettePortal`;
+- it keeps the autocomplete root `inline` and `open`;
+- it fixes `autoHighlight="always"` and `keepHighlight={true}`;
+- it forwards only the data and filtering props most palettes need:
+  `items`, `itemToStringValue`, `value`, `defaultValue`, `onValueChange`, `filter`,
+  `filteredItems`, and `limit`.
 
-- always rendered through a portal with backdrop and viewport;
-- always uses inline open autocomplete;
-- keeps `autoHighlight="always"` and `keepHighlight={true}`;
-- accepts the data and filtering props most command palettes need: `items`, `itemToStringValue`,
-  `value`, `defaultValue`, `onValueChange`, `filter`, `filteredItems`, and `limit`.
+`CommandPaletteItem` adds one small DX helper: `closeOnSelect`, which defaults to `true`. Keep it
+enabled for action-style command rows. Turn it off only when the item updates palette state and the
+surface should stay open.
 
-When you need a different container or layering, compose the public parts directly instead of
-passing slot configuration through `CommandPaletteContent`.
+When you need different layering, a non-standard popup shell, or a different autocomplete root
+setup, compose the exported parts directly instead of extending `CommandPaletteContent`.
 
-| Prop                                   | Default    | Values                                        |
-| -------------------------------------- | ---------- | --------------------------------------------- |
-| `shortcut`                             | `mod+k`    | `false` or keyboard combo string like `alt+k` |
-| `shortcutTarget`                       | `document` | `document`, `HTMLElement`, or `null`          |
-| `autoHighlight`                        | `always`   | Fixed on `CommandPaletteContent`              |
-| `keepHighlight`                        | `true`     | Fixed on `CommandPaletteContent`              |
-| `closeOnSelect` (`CommandPaletteItem`) | `true`     | `true`, `false`                               |
+## Defaults
+
+| Surface                 | Prop             | Default    | Values                               |
+| ----------------------- | ---------------- | ---------- | ------------------------------------ |
+| `CommandPalette`        | `modal`          | `true`     | `true`, `false`                      |
+| `CommandPalette`        | `shortcut`       | `mod+k`    | `false` or a combo like `alt+k`      |
+| `CommandPalette`        | `shortcutTarget` | `document` | `document`, `HTMLElement`, or `null` |
+| `CommandPaletteContent` | `autoHighlight`  | `always`   | Fixed on `CommandPaletteContent`     |
+| `CommandPaletteContent` | `keepHighlight`  | `true`     | Fixed on `CommandPaletteContent`     |
+| `CommandPaletteItem`    | `closeOnSelect`  | `true`     | `true`, `false`                      |
+
+The shortcut listener ignores editable targets such as inputs, textareas, selects, and
+`contenteditable` regions.
 
 ## Examples
 
 ### Item Actions
 
-Keep an `action` function on each item and call it from `CommandPaletteItem`.
+Keep the action on the item itself, then group the data before passing it to
+`CommandPaletteContent`. This keeps filtering, rendering, and execution in one predictable data
+flow.
 
 <Preview>
   <CommandPaletteActionsExample />
 
   <Preview.Code>
     {`
-      <CommandPaletteItem key={item.id} value={item} onClick={() => item.action()}>
-        <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-        <CommandPaletteItemText>
-          <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-          <CommandPaletteItemDescription>{item.description}</CommandPaletteItemDescription>
-        </CommandPaletteItemText>
-      </CommandPaletteItem>
+      import {
+        ArrowUpRightIcon,
+        Button,
+        CommandPalette,
+        CommandPaletteClear,
+        CommandPaletteCollection,
+        CommandPaletteContent,
+        CommandPaletteEmpty,
+        CommandPaletteFooter,
+        CommandPaletteGroup,
+        CommandPaletteGroupLabel,
+        CommandPaletteInput,
+        CommandPaletteInputWrap,
+        CommandPaletteItem,
+        CommandPaletteItemDescription,
+        CommandPaletteItemIcon,
+        CommandPaletteItemLabel,
+        CommandPaletteItemText,
+        CommandPaletteKbd,
+        CommandPaletteList,
+        CommandPaletteTrigger,
+        PlusIcon,
+      } from "moduix";
+      import { useMemo, useState } from "react";
+
+      type CommandItem = {
+        id: string;
+        section: string;
+        label: string;
+        description: string;
+        action: () => void;
+        icon: React.ReactNode;
+      };
+
+      type CommandGroup = {
+        value: string;
+        items: CommandItem[];
+      };
+
+      function groupCommands(items: CommandItem[]): CommandGroup[] {
+        return items.reduce<CommandGroup[]>((groups, item) => {
+          const group = groups.find((entry) => entry.value === item.section);
+
+          if (group) {
+            group.items.push(item);
+            return groups;
+          }
+
+          groups.push({ value: item.section, items: [item] });
+          return groups;
+        }, []);
+      }
+
+      export function CommandPaletteActionsDemo() {
+        const [lastAction, setLastAction] = useState("No command executed yet.");
+
+        const commands = useMemo<CommandItem[]>(
+          () => [
+            {
+              id: "new-project",
+              section: "Create",
+              label: "New project",
+              description: "Start a blank workspace",
+              icon: <PlusIcon />,
+              action: () => setLastAction("Executed: New project"),
+            },
+            {
+              id: "release-notes",
+              section: "Navigate",
+              label: "Release notes",
+              description: "Read the latest product changes",
+              icon: <ArrowUpRightIcon />,
+              action: () => {
+                window.open("https://moduix.dev/docs/roadmap", "_blank", "noopener,noreferrer");
+                setLastAction("Navigated: Release notes");
+              },
+            },
+          ],
+          [],
+        );
+
+        const commandGroups = useMemo(() => groupCommands(commands), [commands]);
+
+        return (
+          <CommandPalette shortcut="alt+k">
+            <CommandPaletteTrigger render={<Button />}>
+              Open actions palette
+            </CommandPaletteTrigger>
+            <CommandPaletteContent
+              aria-label="Command palette with actions"
+              items={commandGroups}
+              itemToStringValue={(item) => \`\${item.label} \${item.description} \${item.section}\`}
+            >
+              <CommandPaletteInputWrap>
+                <CommandPaletteInput
+                  aria-label="Search commands"
+                  placeholder="Search and run..."
+                />
+                <CommandPaletteClear aria-label="Clear search" />
+              </CommandPaletteInputWrap>
+              <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
+              <CommandPaletteList>
+                {(group) => (
+                  <CommandPaletteGroup key={group.value} items={group.items}>
+                    <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
+                    <CommandPaletteCollection>
+                      {(item) => (
+                        <CommandPaletteItem key={item.id} value={item} onClick={item.action}>
+                          <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                          <CommandPaletteItemText>
+                            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                            <CommandPaletteItemDescription>{item.description}</CommandPaletteItemDescription>
+                          </CommandPaletteItemText>
+                        </CommandPaletteItem>
+                      )}
+                    </CommandPaletteCollection>
+                  </CommandPaletteGroup>
+                )}
+              </CommandPaletteList>
+              <CommandPaletteFooter>
+                <span>
+                  <CommandPaletteKbd>Enter</CommandPaletteKbd> run
+                </span>
+                <span>{lastAction}</span>
+              </CommandPaletteFooter>
+            </CommandPaletteContent>
+          </CommandPalette>
+        );
+      }
     `}
 
   </Preview.Code>
 </Preview>
+
+The example mixes local commands and navigation commands. `New project` updates local app state,
+while `Release notes` opens an external page in a new tab and then records the last action in the
+footer.
 
 ### Controlled Open State
 
@@ -239,32 +392,20 @@ export function ControlledCommandPalette() {
 }
 ```
 
-### Custom Shortcut
+### Disable the Global Shortcut
 
 ```tsx
-<CommandPalette shortcut="alt+k">
+<CommandPalette shortcut={false}>
   <CommandPaletteContent aria-label="Command palette" items={commands}>
     {/* input and results */}
   </CommandPaletteContent>
 </CommandPalette>
 ```
 
-### Disable Global Shortcut
+## Custom Composition
 
-```tsx
-<CommandPalette shortcutTarget={null}>
-  <CommandPaletteContent aria-label="Command palette" items={commands}>
-    {/* input and results */}
-  </CommandPaletteContent>
-</CommandPalette>
-```
-
-### Custom Composition
-
-When the default `CommandPaletteContent` is too opinionated, compose the palette manually from
-`CommandPalettePortal`, `CommandPaletteBackdrop`, `CommandPaletteViewport`, and
-`CommandPalettePopup`. Keep the autocomplete state inside the popup and style the visible parts
-directly.
+Use manual composition when the default shell is too opinionated but the styled parts are still
+useful.
 
 <Preview>
   <CommandPaletteCustomCompositionExample />
@@ -300,8 +441,10 @@ directly.
 
       export function CustomCompositionCommandPaletteDemo() {
         return (
-          <CommandPalette>
-            <CommandPaletteTrigger render={<Button />}>Open custom palette</CommandPaletteTrigger>
+          <CommandPalette shortcut="alt+k">
+            <CommandPaletteTrigger render={<Button />}>
+              Open custom palette
+            </CommandPaletteTrigger>
             <CommandPalettePortal>
               <CommandPaletteBackdrop className={styles.customBackdrop} />
               <CommandPaletteViewport className={styles.customViewport}>

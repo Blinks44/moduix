@@ -1,22 +1,31 @@
 # CommandPalette
 
-`CommandPalette` is a small composition of `Dialog` and `Autocomplete`.
+`CommandPalette` is a thin composition of `Dialog` and `Autocomplete`.
 
-- `CommandPalette` is a dialog root with a built-in global shortcut listener.
-- `CommandPaletteContent` is the default modal composition: portal, backdrop, viewport, popup, and
-  an inline always-open autocomplete root.
-- `CommandPalettePortal`, `CommandPaletteBackdrop`, `CommandPaletteViewport`, and
-  `CommandPalettePopup` are exported for composition when the default content layout is not enough.
+- `CommandPalette` owns dialog state and the optional global keyboard shortcut.
+- `CommandPaletteContent` is the recommended default shell: portal, optional backdrop, viewport,
+  popup, and an inline always-open autocomplete root.
+- The low-level layout parts stay exported for custom composition when the default shell is too
+  opinionated.
 
 ## Defaults
 
-| Prop                                      | Default    |
-| ----------------------------------------- | ---------- |
-| `shortcut`                                | `mod+k`    |
-| `shortcutTarget`                          | `document` |
-| `autoHighlight` (`CommandPaletteContent`) | `always`   |
-| `keepHighlight` (`CommandPaletteContent`) | `true`     |
-| `closeOnSelect` (`CommandPaletteItem`)    | `true`     |
+| Surface               | Prop            | Default    |
+| --------------------- | --------------- | ---------- |
+| `CommandPalette`      | `modal`         | `true`     |
+| `CommandPalette`      | `shortcut`      | `mod+k`    |
+| `CommandPalette`      | `shortcutTarget`| `document` |
+| `CommandPaletteContent` | `autoHighlight` | `always` |
+| `CommandPaletteContent` | `keepHighlight` | `true`   |
+| `CommandPaletteItem`  | `closeOnSelect` | `true`     |
 
-The shortcut listener ignores editable targets such as inputs, textareas, selects, and
-contenteditable regions, and it matches the exact modifier set.
+## Notes
+
+- `mod` uses the platform primary modifier: `Meta` on macOS/iOS and `Control` elsewhere.
+- The shortcut listener ignores editable targets such as inputs, textareas, selects, and
+  `contenteditable` regions.
+- `CommandPaletteContent` respects `modal={false}` by dropping the default backdrop and allowing
+  pointer interaction outside the popup.
+- When you need different layering or a different popup shell, compose
+  `CommandPalettePortal`, `CommandPaletteBackdrop`, `CommandPaletteViewport`, and
+  `CommandPalettePopup` directly instead of extending `CommandPaletteContent`.
