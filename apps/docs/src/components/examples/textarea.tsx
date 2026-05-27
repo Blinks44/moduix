@@ -1,11 +1,4 @@
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-  Textarea,
-  type TextareaProps,
-} from 'moduix';
+import { Field, FieldDescription, FieldError, FieldLabel, Textarea } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -27,40 +20,11 @@ export const textareaOverrideCssProperties: CssPropertyInput[] = [
   ['--textarea-focus-ring-offset', 'depends on focus ring width', 'Controls focus ring offset.'],
   ['--textarea-focus-ring-width', 'depends on border width', 'Controls focus ring width.'],
   ['--textarea-font-size', 'var(--text-md)', 'Controls default font size.'],
-  ['--textarea-font-size-xs', 'var(--text-xs)', 'Controls extra-small textarea font size.'],
-  ['--textarea-font-size-sm', 'var(--text-sm)', 'Controls small textarea font size.'],
-  ['--textarea-font-size-md', 'var(--text-md)', 'Controls medium textarea font size.'],
-  ['--textarea-font-size-lg', 'var(--text-lg)', 'Controls large textarea font size.'],
-  ['--textarea-font-size-xl', 'var(--text-lg)', 'Controls extra-large textarea font size.'],
   ['--textarea-line-height', 'var(--line-height-text-md)', 'Controls default line height.'],
-  [
-    '--textarea-line-height-xs',
-    'var(--line-height-text-xs)',
-    'Controls extra-small textarea line height.',
-  ],
-  ['--textarea-line-height-sm', 'var(--line-height-text-sm)', 'Controls small line height.'],
-  ['--textarea-line-height-md', 'var(--line-height-text-md)', 'Controls medium line height.'],
-  ['--textarea-line-height-lg', 'var(--line-height-text-lg)', 'Controls large line height.'],
-  ['--textarea-line-height-xl', 'var(--line-height-text-lg)', 'Controls extra-large line height.'],
   ['--textarea-max-width', 'none', 'Controls the textarea max width.'],
   ['--textarea-min-height', '6rem', 'Controls default minimum textarea height.'],
-  ['--textarea-min-height-xs', '4rem', 'Controls extra-small textarea minimum height.'],
-  ['--textarea-min-height-sm', '5rem', 'Controls small textarea minimum height.'],
-  ['--textarea-min-height-md', '6rem', 'Controls medium textarea minimum height.'],
-  ['--textarea-min-height-lg', '7rem', 'Controls large textarea minimum height.'],
-  ['--textarea-min-height-xl', '8rem', 'Controls extra-large textarea minimum height.'],
   ['--textarea-padding-x', '0.875rem', 'Controls default horizontal padding.'],
-  ['--textarea-padding-x-xs', '0.625rem', 'Controls extra-small horizontal padding.'],
-  ['--textarea-padding-x-sm', '0.75rem', 'Controls small horizontal padding.'],
-  ['--textarea-padding-x-md', '0.875rem', 'Controls medium horizontal padding.'],
-  ['--textarea-padding-x-lg', '1rem', 'Controls large horizontal padding.'],
-  ['--textarea-padding-x-xl', '1.125rem', 'Controls extra-large horizontal padding.'],
   ['--textarea-padding-y', '0.5rem', 'Controls default vertical padding.'],
-  ['--textarea-padding-y-xs', '0.25rem', 'Controls extra-small vertical padding.'],
-  ['--textarea-padding-y-sm', '0.3125rem', 'Controls small vertical padding.'],
-  ['--textarea-padding-y-md', '0.5rem', 'Controls medium vertical padding.'],
-  ['--textarea-padding-y-lg', '0.625rem', 'Controls large vertical padding.'],
-  ['--textarea-padding-y-xl', '0.75rem', 'Controls extra-large vertical padding.'],
   ['--textarea-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
   ['--textarea-radius', 'var(--radius-md)', 'Controls textarea corner radius.'],
   [
@@ -117,7 +81,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TextareaExample(props: TextareaProps) {
+export function TextareaExample(props: React.ComponentProps<typeof Textarea>) {
   return (
     <Field className={styles.field}>
       <FieldLabel>Comment</FieldLabel>
@@ -142,34 +106,27 @@ export function ControlledTextareaExample() {
   );
 }
 
-export function TextareaSizesExample() {
+export function DisabledAndReadOnlyTextareaExample() {
   return (
     <div className={styles.stack}>
-      <Textarea className={styles.demoTextarea} size="xs" placeholder="Extra-small textarea" />
-      <Textarea className={styles.demoTextarea} size="sm" placeholder="Small textarea" />
-      <Textarea className={styles.demoTextarea} size="md" placeholder="Medium textarea" />
-      <Textarea className={styles.demoTextarea} size="lg" placeholder="Large textarea" />
-      <Textarea className={styles.demoTextarea} size="xl" placeholder="Extra-large textarea" />
+      <Textarea className={styles.demoTextarea} disabled placeholder="Disabled textarea" />
+      <Textarea className={styles.demoTextarea} readOnly value="Read-only text value" />
     </div>
   );
 }
 
-export function TextareaResizeModesExample() {
+export function NativePropsTextareaExample() {
   return (
-    <div className={styles.stack}>
-      <Textarea className={styles.demoTextarea} resize="none" placeholder="Resize disabled" />
-      <Textarea className={styles.demoTextarea} resize="vertical" placeholder="Vertical resize" />
+    <Field className={styles.field}>
+      <FieldLabel>Notes</FieldLabel>
       <Textarea
         className={styles.demoTextarea}
-        resize="horizontal"
-        placeholder="Horizontal resize"
+        rows={6}
+        maxLength={280}
+        placeholder="Add enough context for the next person reading this."
+        style={{ resize: 'vertical' }}
       />
-      <Textarea
-        className={styles.demoTextarea}
-        resize="both"
-        placeholder="Both directions resize"
-      />
-    </div>
+    </Field>
   );
 }
 
@@ -183,15 +140,6 @@ export function AutoResizeTextareaExample() {
         placeholder="Start typing a longer description. Height grows with content."
       />
     </Field>
-  );
-}
-
-export function DisabledAndReadOnlyTextareaExample() {
-  return (
-    <div className={styles.stack}>
-      <Textarea className={styles.demoTextarea} disabled placeholder="Disabled textarea" />
-      <Textarea className={styles.demoTextarea} readOnly value="Read-only text value" />
-    </div>
   );
 }
 

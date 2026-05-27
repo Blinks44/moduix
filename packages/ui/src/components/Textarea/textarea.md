@@ -1,15 +1,15 @@
 ---
 title: Textarea
 subtitle: A multi-line native textarea with moduix styling tokens.
-description: A reusable textarea component for long-form input with size and resize controls.
+description: A reusable textarea component for long-form input with Field integration.
 ---
 
 # Textarea
 
-`Textarea` renders a native `<textarea>` through Base UI `Field.Control` and applies moduix
-design tokens for consistent styling and Field validation integration.
+`Textarea` is a thin styled wrapper over Base UI `Field.Control` that renders a native
+`<textarea>`.
 
-## Anatomy
+## Parts
 
 ```tsx
 import { Textarea } from '@test/moduix';
@@ -17,12 +17,30 @@ import { Textarea } from '@test/moduix';
 <Textarea />;
 ```
 
-## API
+- `Textarea` renders the native textarea element and keeps `data-slot="textarea-root"` as the
+  styling hook.
 
-- `size`: `'xs' | 'sm' | 'md' | 'lg' | 'xl'` (default: `'md'`)
-- `resize`: `'none' | 'both' | 'horizontal' | 'vertical'` (default: `'vertical'`)
-- `autoResize`: `boolean` (default: `false`) - grows height to fit content and disables manual resize handle
-- Accepts all native `<textarea>` props.
+## Props
+
+- All native `<textarea>` props pass through directly.
+- `autoResize`: enables CSS-based auto-resize with `field-sizing: content` and disables the
+  manual resize handle.
+- `className`: direct styling entry point for the root element.
+
+## Behavior
+
+- Works on its own or inside `Field` for labels, descriptions, and validation.
+- Keeps native controlled and uncontrolled textarea behavior.
+- Keeps `autoResize` as a small opt-in sugar for the common grow-with-content workflow in browsers
+  that support `field-sizing: content`.
+- Forwards its ref to the native `<textarea>`.
+
+## Styling
+
+- Base UI state attributes such as `data-invalid`, `data-focused`, and `data-filled` remain
+  available on the root element.
+- The component exposes `--textarea-*` CSS variables in `src/styles/theme.css` for consumer
+  overrides.
 
 ## Accessibility
 

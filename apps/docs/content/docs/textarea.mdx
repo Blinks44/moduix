@@ -1,6 +1,6 @@
 ---
 title: Textarea
-description: A native multi-line input with size, resize, auto-resize, and Field integration.
+description: A native multi-line input with Field integration and moduix styling.
 icon: Component
 ---
 
@@ -9,12 +9,11 @@ import {
   ControlledTextareaExample,
   CustomCompositionTextareaExample,
   DisabledAndReadOnlyTextareaExample,
+  NativePropsTextareaExample,
   TextareaCssPlaygroundPanel,
   TextareaCssPropertiesPanel,
   TextareaExample,
   TextareaFieldValidationExample,
-  TextareaResizeModesExample,
-  TextareaSizesExample,
   textareaPlaygroundCssProperties,
 } from '@/components/examples/textarea';
 
@@ -76,24 +75,13 @@ Field (optional wrapper)
 
 `Textarea` renders through Base UI `Field.Control`, so it works with `FieldLabel`,
 `FieldDescription`, `FieldError`, native validation, and standard textarea props such as `value`,
-`defaultValue`, `onChange`, `rows`, `maxLength`, and `name`.
+`defaultValue`, `onChange`, `rows`, `maxLength`, `name`, and `readOnly`.
 
-Use `size` for visual sizing, `resize` for native resize behavior, and `autoResize` to grow with
-content while disabling the manual resize handle:
+`autoResize` stays as a small opt-in sugar for the common grow-with-content case in browsers that
+support `field-sizing: content`.
 
-```tsx
-<Textarea size="md" resize="vertical" autoResize />
-```
-
-For styling, pass `className` directly to `Textarea`.
-
-### Defaults
-
-| Prop         | Default    | Values                                   |
-| ------------ | ---------- | ---------------------------------------- |
-| `size`       | `md`       | `xs`, `sm`, `md`, `lg`, `xl`             |
-| `resize`     | `vertical` | `none`, `both`, `horizontal`, `vertical` |
-| `autoResize` | `false`    | `true`, `false`                          |
+For styling, pass `className` directly to `Textarea`, or override the public `--textarea-*` CSS
+variables. Use native textarea props and CSS when you need different sizing or resize behavior.
 
 ## Examples
 
@@ -137,26 +125,28 @@ Use `value` and `onChange` when content should stay in React state.
   </Preview.CSS>
 </Preview>
 
-### Sizes
+### Native Props
 
-Use `size` to change the visual scale.
+Use native textarea props for common adjustments such as `rows`, `maxLength`, and `resize`.
 
 <Preview>
-  <TextareaSizesExample />
+  <NativePropsTextareaExample />
 
   <Preview.Code>
     {`
-      import { Textarea } from "moduix";
+      import { Field, FieldLabel, Textarea } from "moduix";
 
-      export function TextareaSizesDemo() {
+      export function TextareaNativePropsDemo() {
         return (
-          <div className={styles.stack}>
-            <Textarea size="xs" placeholder="Extra-small textarea" />
-            <Textarea size="sm" placeholder="Small textarea" />
-            <Textarea size="md" placeholder="Medium textarea" />
-            <Textarea size="lg" placeholder="Large textarea" />
-            <Textarea size="xl" placeholder="Extra-large textarea" />
-          </div>
+          <Field className={styles.field}>
+            <FieldLabel>Notes</FieldLabel>
+            <Textarea
+              rows={6}
+              maxLength={280}
+              placeholder="Add enough context for the next person reading this."
+              style={{ resize: "vertical" }}
+            />
+          </Field>
         );
       }
     `}
@@ -165,9 +155,7 @@ Use `size` to change the visual scale.
 
   <Preview.CSS>
     {`
-      .stack {
-        display: grid;
-        gap: var(--spacing-3);
+      .field {
         width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
@@ -177,7 +165,7 @@ Use `size` to change the visual scale.
 
 ### Auto Resize
 
-Set `autoResize` for longer content without internal scrolling.
+Use `autoResize` when the textarea should grow with its content.
 
 <Preview>
   <AutoResizeTextareaExample />
@@ -204,43 +192,6 @@ Set `autoResize` for longer content without internal scrolling.
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Resize Modes
-
-Use `resize` to control native browser resize behavior.
-
-<Preview>
-  <TextareaResizeModesExample />
-
-  <Preview.Code>
-    {`
-      import { Textarea } from "moduix";
-
-      export function TextareaResizeModesDemo() {
-        return (
-          <div className={styles.stack}>
-            <Textarea resize="none" placeholder="Resize disabled" />
-            <Textarea resize="vertical" placeholder="Vertical resize" />
-            <Textarea resize="horizontal" placeholder="Horizontal resize" />
-            <Textarea resize="both" placeholder="Both directions resize" />
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: grid;
-        gap: var(--spacing-3);
         width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
@@ -321,7 +272,7 @@ Use `Field` with `FieldError` for native validity and accessible error messaging
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Custom Styles
 
 Pass `className` to style the textarea with your own module.
 

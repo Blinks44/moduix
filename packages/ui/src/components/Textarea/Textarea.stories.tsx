@@ -45,29 +45,18 @@ export const Controlled: Story = {
   },
 };
 
-export const Sizes: Story = {
+export const NativeProps: Story = {
   render: () => {
     return (
-      <div className={storyStyles.stack}>
-        <Textarea size="xs" placeholder="Extra-small textarea" />
-        <Textarea size="sm" placeholder="Small textarea" />
-        <Textarea size="md" placeholder="Medium textarea" />
-        <Textarea size="lg" placeholder="Large textarea" />
-        <Textarea size="xl" placeholder="Extra-large textarea" />
-      </div>
-    );
-  },
-};
-
-export const ResizeModes: Story = {
-  render: () => {
-    return (
-      <div className={storyStyles.stack}>
-        <Textarea resize="none" placeholder="Resize disabled" />
-        <Textarea resize="vertical" placeholder="Vertical resize" />
-        <Textarea resize="horizontal" placeholder="Horizontal resize" />
-        <Textarea resize="both" placeholder="Both directions resize" />
-      </div>
+      <Field className={storyStyles.field}>
+        <FieldLabel>Notes</FieldLabel>
+        <Textarea
+          rows={6}
+          maxLength={280}
+          placeholder="Add enough context for the next person reading this."
+          style={{ resize: 'vertical' }}
+        />
+      </Field>
     );
   },
 };
