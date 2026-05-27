@@ -3,14 +3,10 @@ import {
   MapIcon,
   PresentIcon,
   Tabs,
+  TabsIndicator,
   TabsList,
   TabsPanel,
   TabsTab,
-  TabsTabContent,
-  TabsTabIcon,
-  TabsTabLabel,
-  type TabsProps,
-  type TabsValue,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -139,7 +135,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TabsExample(props: TabsProps) {
+export function TabsExample(props: React.ComponentProps<typeof Tabs>) {
   return (
     <Tabs defaultValue="overview" {...props}>
       <TabsList>
@@ -159,7 +155,7 @@ export function TabsExample(props: TabsProps) {
 }
 
 export function ControlledTabsExample() {
-  const [value, setValue] = React.useState<TabsValue>('projects');
+  const [value, setValue] = React.useState('projects');
 
   return <TabsExample value={value} onValueChange={setValue} />;
 }
@@ -191,25 +187,6 @@ export function LineTabsExample() {
   return <TabsExample variant="line" />;
 }
 
-export function WithoutIndicatorTabsExample() {
-  return (
-    <Tabs defaultValue="overview">
-      <TabsList withIndicator={false}>
-        {tabsItems.map((item) => (
-          <TabsTab key={item.value} value={item.value}>
-            {item.title}
-          </TabsTab>
-        ))}
-      </TabsList>
-      {tabsItems.map((item) => (
-        <TabsPanel key={item.value} value={item.value}>
-          {item.content}
-        </TabsPanel>
-      ))}
-    </Tabs>
-  );
-}
-
 export function LinkTabsExample() {
   return (
     <Tabs defaultValue="overview">
@@ -239,28 +216,16 @@ export function IconTabsExample() {
     <Tabs defaultValue="overview">
       <TabsList>
         <TabsTab value="overview">
-          <TabsTabContent>
-            <TabsTabIcon>
-              <HandshakeIcon />
-            </TabsTabIcon>
-            <TabsTabLabel>Overview</TabsTabLabel>
-          </TabsTabContent>
+          <HandshakeIcon />
+          <span>Overview</span>
         </TabsTab>
         <TabsTab value="projects">
-          <TabsTabContent>
-            <TabsTabIcon>
-              <PresentIcon />
-            </TabsTabIcon>
-            <TabsTabLabel>Projects</TabsTabLabel>
-          </TabsTabContent>
+          <PresentIcon />
+          <span>Projects</span>
         </TabsTab>
         <TabsTab value="account">
-          <TabsTabContent>
-            <TabsTabIcon>
-              <MapIcon />
-            </TabsTabIcon>
-            <TabsTabLabel>Account</TabsTabLabel>
-          </TabsTabContent>
+          <MapIcon />
+          <span>Account</span>
         </TabsTab>
       </TabsList>
       {tabsItems.map((item) => (
@@ -294,17 +259,14 @@ export function DisabledTabTabsExample() {
 export function InlineInputsTabsExample() {
   return (
     <Tabs defaultValue="name" className={styles.inlineRoot}>
-      <TabsList
-        className={styles.inlineList}
-        classNames={{ indicator: styles.inlineIndicator }}
-        slotProps={{ indicator: { renderBeforeHydration: true } }}
-      >
+      <TabsList className={styles.inlineList}>
         <TabsTab value="name" className={styles.inlineTab}>
           Name
         </TabsTab>
         <TabsTab value="email" className={styles.inlineTab}>
           Email
         </TabsTab>
+        <TabsIndicator className={styles.inlineIndicator} renderBeforeHydration />
       </TabsList>
       <TabsPanel value="name" className={styles.inlinePanel}>
         <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />

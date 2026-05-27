@@ -17,7 +17,6 @@ import {
   TabsCssPropertiesPanel,
   TabsExample,
   VerticalTabsExample,
-  WithoutIndicatorTabsExample,
   tabsPlaygroundCssProperties,
 } from '@/components/examples/tabs';
 
@@ -91,17 +90,16 @@ import {
 
 ## Anatomy
 
-`Tabs` combines a root state machine, one tab list, tab buttons, and matching panels.
-`TabsList` renders the moving indicator internally by default.
+`Tabs` keeps the default path small: root, list, tabs, and panels.
+`TabsList` renders the default indicator internally. Add `TabsIndicator` only when you need to
+override indicator props or styles directly.
 
 ```text
 Tabs
 ├─ TabsList
 │  ├─ TabsTab[value]
-│  │  └─ label or TabsTabContent
-│  │     ├─ TabsTabIcon
-│  │     └─ TabsTabLabel
-│  └─ indicator
+│  │  └─ content
+│  └─ TabsIndicator (optional override)
 └─ TabsPanel[value]
    └─ content
 ```
@@ -117,16 +115,13 @@ Tabs
 </Tabs>
 ```
 
-| Part             | Role                                                                                                 |
-| ---------------- | ---------------------------------------------------------------------------------------------------- |
-| `Tabs`           | Root state machine for selected value, orientation, variant, and controlled/uncontrolled state.      |
-| `TabsList`       | Groups tabs, owns keyboard list behavior, and renders the active indicator internally.               |
-| `TabsTab`        | Interactive tab button. Its `value` must match a `TabsPanel` value.                                  |
-| `TabsTabContent` | Optional wrapper for compound tab labels, usually icon plus text.                                    |
-| `TabsTabIcon`    | Optional icon wrapper for application icons or icons exported by `moduix`.                           |
-| `TabsTabLabel`   | Optional text wrapper used inside `TabsTabContent`.                                                  |
-| `TabsPanel`      | Content region for the active tab. Use `keepMounted` when hidden DOM must stay mounted.              |
-| `indicator`      | Internal service slot that follows the active tab. Style it through `TabsList classNames.indicator`. |
+| Part            | Role                                                                                            |
+| --------------- | ----------------------------------------------------------------------------------------------- |
+| `Tabs`          | Root state machine for selected value, orientation, variant, and controlled/uncontrolled state. |
+| `TabsList`      | Groups tabs, owns keyboard list behavior, and renders the default active indicator.             |
+| `TabsIndicator` | Optional low-level escape hatch for custom indicator props or styling.                          |
+| `TabsTab`       | Interactive tab button. Its `value` must match a `TabsPanel` value.                             |
+| `TabsPanel`     | Content region for the active tab. Use `keepMounted` when hidden DOM must stay mounted.         |
 
 ## Composition
 
@@ -135,36 +130,32 @@ Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `or
 `activateOnFocus` and `loopFocus`, `TabsTab` supports `disabled`, `render`, and `nativeButton`,
 and `TabsPanel` supports `keepMounted`.
 
-Visible parts accept `className`. The internal indicator can be styled through
-`TabsList classNames.indicator`, disabled with `withIndicator={false}`, or configured with
-non-class Base UI props through `TabsList slotProps.indicator`.
+Visible parts accept `className`. For the common case, let `TabsList` render the default
+indicator. When you need direct control over indicator props such as `renderBeforeHydration`, or a
+custom indicator class, compose `TabsIndicator` inside `TabsList`.
 
 ### Defaults
 
-| Prop                     | Default      | Values                   |
-| ------------------------ | ------------ | ------------------------ |
-| `Tabs.variant`           | `default`    | `default`, `line`        |
-| `TabsList.withIndicator` | `true`       | `true`, `false`          |
-| `Tabs.orientation`       | `horizontal` | `horizontal`, `vertical` |
+| Prop               | Default      | Values                   |
+| ------------------ | ------------ | ------------------------ |
+| `Tabs.variant`     | `default`    | `default`, `line`        |
+| `Tabs.orientation` | `horizontal` | `horizontal`, `vertical` |
 
 ```tsx
-import { Tabs, TabsList, TabsPanel, TabsTab } from 'moduix';
+import { Tabs, TabsIndicator, TabsList, TabsPanel, TabsTab } from 'moduix';
 import styles from './custom-indicator-tabs-demo.module.css';
 
 export function CustomIndicatorTabsDemo() {
   return (
     <Tabs defaultValue="profile" className={styles.root}>
-      <TabsList
-        className={styles.list}
-        classNames={{ indicator: styles.indicator }}
-        slotProps={{ indicator: { renderBeforeHydration: true } }}
-      >
+      <TabsList className={styles.list}>
         <TabsTab value="profile" className={styles.tab}>
           Profile
         </TabsTab>
         <TabsTab value="security" className={styles.tab}>
           Security
         </TabsTab>
+        <TabsIndicator className={styles.indicator} renderBeforeHydration />
       </TabsList>
       <TabsPanel value="profile" className={styles.panel}>
         Profile settings
@@ -371,70 +362,6 @@ Use `variant="line"` for a compact indicator that sits along the active tab edge
   </Preview.Data>
 </Preview>
 
-### Without Indicator
-
-Set `withIndicator={false}` on `TabsList` when the active tab should be shown only through tab state styles.
-
-<Preview>
-  <WithoutIndicatorTabsExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Tabs,
-        TabsList,
-        TabsPanel,
-        TabsTab,
-      } from "moduix";
-
-      export function WithoutIndicatorTabsDemo() {
-        return (
-          <Tabs defaultValue="overview">
-            <TabsList withIndicator={false}>
-              {items.map((item) => (
-                <TabsTab key={item.value} value={item.value}>
-                  {item.title}
-                </TabsTab>
-              ))}
-            </TabsList>
-
-            {items.map((item) => (
-              <TabsPanel key={item.value} value={item.value}>
-                {item.content}
-              </TabsPanel>
-            ))}
-          </Tabs>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
 ### Controlled
 
 Control the active tab from React state when the selected panel needs to coordinate with other UI.
@@ -449,12 +376,11 @@ Control the active tab from React state when the selected panel needs to coordin
         TabsList,
         TabsPanel,
         TabsTab,
-        type TabsValue,
       } from "moduix";
       import { useState } from "react";
 
       export function ControlledTabsDemo() {
-        const [value, setValue] = useState("projects" as TabsValue);
+        const [value, setValue] = useState("projects");
 
         return (
           <Tabs value={value} onValueChange={setValue}>
@@ -574,7 +500,8 @@ Use `render` with `nativeButton={false}` when tabs should render as links.
 
 ### Custom Icons
 
-Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to use icons from your application or icon library.
+Compose tab content directly inside `TabsTab`. The default tab styles already handle icon + label
+layouts.
 
 <Preview>
   <IconTabsExample />
@@ -589,9 +516,6 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
         TabsList,
         TabsPanel,
         TabsTab,
-        TabsTabContent,
-        TabsTabIcon,
-        TabsTabLabel,
       } from "moduix";
 
       export function IconTabsDemo() {
@@ -599,28 +523,16 @@ Compose tab content with `TabsTabContent`, `TabsTabIcon`, and `TabsTabLabel` to 
           <Tabs defaultValue="overview">
             <TabsList>
               <TabsTab value="overview">
-                <TabsTabContent>
-                  <TabsTabIcon>
-                    <HandshakeIcon />
-                  </TabsTabIcon>
-                  <TabsTabLabel>Overview</TabsTabLabel>
-                </TabsTabContent>
+                <HandshakeIcon />
+                <span>Overview</span>
               </TabsTab>
               <TabsTab value="projects">
-                <TabsTabContent>
-                  <TabsTabIcon>
-                    <PresentIcon />
-                  </TabsTabIcon>
-                  <TabsTabLabel>Projects</TabsTabLabel>
-                </TabsTabContent>
+                <PresentIcon />
+                <span>Projects</span>
               </TabsTab>
               <TabsTab value="account">
-                <TabsTabContent>
-                  <TabsTabIcon>
-                    <MapIcon />
-                  </TabsTabIcon>
-                  <TabsTabLabel>Account</TabsTabLabel>
-                </TabsTabContent>
+                <MapIcon />
+                <span>Account</span>
               </TabsTab>
             </TabsList>
 
@@ -725,8 +637,8 @@ stay mounted for forms, measurements, or preserved local state.
 
 ### Custom Composition
 
-Use `className`, `classNames.indicator`, and CSS variables when the default Tabs styling needs a
-lighter fit for the surrounding layout.
+Use `className`, `TabsIndicator`, and CSS variables when the default Tabs styling needs a lighter
+fit for the surrounding layout.
 
 <Preview>
   <InlineInputsTabsExample />
@@ -735,6 +647,7 @@ lighter fit for the surrounding layout.
     {`
       import {
         Tabs,
+        TabsIndicator,
         TabsList,
         TabsPanel,
         TabsTab,
@@ -744,17 +657,14 @@ lighter fit for the surrounding layout.
       export function InlineInputsTabsDemo() {
         return (
           <Tabs defaultValue="name" className={styles.inlineRoot}>
-            <TabsList
-              className={styles.inlineList}
-              classNames={{ indicator: styles.inlineIndicator }}
-              slotProps={{ indicator: { renderBeforeHydration: true } }}
-            >
+            <TabsList className={styles.inlineList}>
               <TabsTab value="name" className={styles.inlineTab}>
                 Name
               </TabsTab>
               <TabsTab value="email" className={styles.inlineTab}>
                 Email
               </TabsTab>
+              <TabsIndicator className={styles.inlineIndicator} renderBeforeHydration />
             </TabsList>
             <TabsPanel value="name" className={styles.inlinePanel}>
               <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />
@@ -819,6 +729,7 @@ lighter fit for the surrounding layout.
 
       .inlineIndicator {
         position: absolute;
+        top: auto;
         left: 0;
         bottom: 0;
         width: var(--active-tab-width);

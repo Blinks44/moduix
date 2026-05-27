@@ -49,6 +49,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: var(--tabs-tab-content-gap, 0.5rem);
     height: var(--tabs-tab-height, 2rem);
     margin: 0;
     appearance: none;
@@ -96,33 +97,13 @@
       opacity: var(--tabs-tab-disabled-opacity, var(--opacity-disabled));
       pointer-events: none;
     }
-  }
-
-  .tabContent {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--tabs-tab-content-gap, 0.5rem);
-    min-width: 0;
-  }
-
-  .tabIcon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--tabs-tab-icon-size, 1rem);
-    height: var(--tabs-tab-icon-size, 1rem);
-    color: var(--tabs-tab-icon-color, currentColor);
-    flex-shrink: 0;
 
     & > svg {
-      width: 100%;
-      height: 100%;
-      display: block;
+      width: var(--tabs-tab-icon-size, 1rem);
+      height: var(--tabs-tab-icon-size, 1rem);
+      color: var(--tabs-tab-icon-color, currentColor);
+      flex-shrink: 0;
     }
-  }
-
-  .tabLabel {
-    min-width: 0;
   }
 
   .indicator {

@@ -1,69 +1,57 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
-import { clsx } from 'clsx';
 import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Tabs.module.css';
 
-type TabsVariant = 'default' | 'line';
+const Tabs = React.forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.Root>,
+  TabsPrimitive.Root.Props & { variant?: 'default' | 'line' }
+>(function Tabs({ className, variant = 'default', ...props }, ref) {
+  return (
+    <TabsPrimitive.Root
+      ref={ref}
+      data-slot="tabs-root"
+      data-variant={variant}
+      className={mergeClassName(className, styles.root)}
+      {...props}
+    />
+  );
+});
 
-type TabsProps = TabsPrimitive.Root.Props & {
-  variant?: TabsVariant;
-};
+const TabsList = React.forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.List>,
+  TabsPrimitive.List.Props
+>(function TabsList({ className, children, ...props }, ref) {
+  const hasIndicator = React.Children.toArray(children).some(
+    (child) => React.isValidElement(child) && child.type === TabsIndicator,
+  );
 
-type TabsListClassNames = {
-  indicator?: TabsPrimitive.Indicator.Props['className'];
-};
+  return (
+    <TabsPrimitive.List
+      ref={ref}
+      data-slot="tabs-list"
+      className={mergeClassName(className, styles.list)}
+      {...props}
+    >
+      {children}
+      {!hasIndicator ? <TabsIndicator /> : null}
+    </TabsPrimitive.List>
+  );
+});
 
-type TabsListSlotProps = {
-  indicator?: Omit<TabsPrimitive.Indicator.Props, 'className' | 'children'>;
-};
-
-type TabsListProps = TabsPrimitive.List.Props & {
-  classNames?: TabsListClassNames;
-  slotProps?: TabsListSlotProps;
-  withIndicator?: boolean;
-};
-
-const Tabs = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.Root>, TabsProps>(
-  function Tabs({ className, variant = 'default', ...props }, ref) {
-    return (
-      <TabsPrimitive.Root
-        ref={ref}
-        data-slot="tabs-root"
-        data-variant={variant}
-        className={mergeClassName(className, styles.root)}
-        {...props}
-      />
-    );
-  },
-);
-
-const TabsList = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.List>, TabsListProps>(
-  function TabsList(
-    { className, classNames, children, slotProps, withIndicator = true, ...props },
-    ref,
-  ) {
-    const indicator = withIndicator ? (
-      <TabsPrimitive.Indicator
-        {...slotProps?.indicator}
-        data-slot="tabs-indicator"
-        className={mergeClassName(classNames?.indicator, styles.indicator)}
-      />
-    ) : null;
-
-    return (
-      <TabsPrimitive.List
-        ref={ref}
-        data-slot="tabs-list"
-        className={mergeClassName(className, styles.list)}
-        {...props}
-      >
-        {children}
-        {indicator}
-      </TabsPrimitive.List>
-    );
-  },
-);
+const TabsIndicator = React.forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.Indicator>,
+  TabsPrimitive.Indicator.Props
+>(function TabsIndicator({ className, ...props }, ref) {
+  return (
+    <TabsPrimitive.Indicator
+      ref={ref}
+      data-slot="tabs-indicator"
+      className={mergeClassName(className, styles.indicator)}
+      {...props}
+    />
+  );
+});
 
 const TabsTab = React.forwardRef<
   React.ComponentRef<typeof TabsPrimitive.Tab>,
@@ -93,69 +81,4 @@ const TabsPanel = React.forwardRef<
   );
 });
 
-type TabSpanProps = React.ComponentPropsWithoutRef<'span'>;
-
-const TabsTabContent = React.forwardRef<HTMLSpanElement, TabSpanProps>(function TabsTabContent(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <span
-      ref={ref}
-      data-slot="tabs-tab-content"
-      className={clsx(styles.tabContent, className)}
-      {...props}
-    />
-  );
-});
-
-const TabsTabIcon = React.forwardRef<HTMLSpanElement, TabSpanProps>(function TabsTabIcon(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <span
-      ref={ref}
-      data-slot="tabs-tab-icon"
-      className={clsx(styles.tabIcon, className)}
-      {...props}
-    />
-  );
-});
-
-const TabsTabLabel = React.forwardRef<HTMLSpanElement, TabSpanProps>(function TabsTabLabel(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <span
-      ref={ref}
-      data-slot="tabs-tab-label"
-      className={clsx(styles.tabLabel, className)}
-      {...props}
-    />
-  );
-});
-
-type TabsValue = TabsPrimitive.Tab.Value;
-type TabsTabProps = TabsPrimitive.Tab.Props;
-type TabsPanelProps = TabsPrimitive.Panel.Props;
-type TabsTabContentProps = TabSpanProps;
-type TabsTabIconProps = TabSpanProps;
-type TabsTabLabelProps = TabSpanProps;
-
-export { Tabs, TabsList, TabsTab, TabsPanel, TabsTabContent, TabsTabIcon, TabsTabLabel };
-
-export type {
-  TabsValue,
-  TabsProps,
-  TabsVariant,
-  TabsListClassNames,
-  TabsListSlotProps,
-  TabsListProps,
-  TabsTabProps,
-  TabsPanelProps,
-  TabsTabContentProps,
-  TabsTabIconProps,
-  TabsTabLabelProps,
-};
+export { Tabs, TabsList, TabsIndicator, TabsTab, TabsPanel };

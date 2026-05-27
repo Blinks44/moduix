@@ -46,6 +46,7 @@
 
 .inlineIndicator {
   position: absolute;
+  top: auto;
   left: 0;
   bottom: 0;
   width: var(--active-tab-width);

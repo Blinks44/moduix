@@ -1,15 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { HandshakeIcon, MapIcon, PresentIcon } from '@/icons/demo';
-import {
-  Tabs,
-  TabsList,
-  TabsPanel,
-  TabsTab,
-  TabsTabContent,
-  TabsTabIcon,
-  TabsTabLabel,
-} from './Tabs';
+import { Tabs, TabsIndicator, TabsList, TabsPanel, TabsTab } from './Tabs';
 import styles from './Tabs.stories.module.css';
 
 const meta = {
@@ -150,27 +142,6 @@ export const Line: Story = {
   },
 };
 
-export const WithoutIndicator: Story = {
-  render: () => {
-    return (
-      <Tabs defaultValue="overview">
-        <TabsList withIndicator={false}>
-          {tabItems.map((item) => (
-            <TabsTab key={item.value} value={item.value}>
-              {item.title}
-            </TabsTab>
-          ))}
-        </TabsList>
-        {tabItems.map((item) => (
-          <TabsPanel key={item.value} value={item.value}>
-            <p className={styles.panelText}>{item.content}</p>
-          </TabsPanel>
-        ))}
-      </Tabs>
-    );
-  },
-};
-
 export const Links: Story = {
   render: () => {
     return (
@@ -205,28 +176,16 @@ export const WithIcons: Story = {
       <Tabs defaultValue="overview">
         <TabsList>
           <TabsTab value="overview">
-            <TabsTabContent>
-              <TabsTabIcon>
-                <HandshakeIcon />
-              </TabsTabIcon>
-              <TabsTabLabel>Overview</TabsTabLabel>
-            </TabsTabContent>
+            <HandshakeIcon />
+            <span>Overview</span>
           </TabsTab>
           <TabsTab value="projects">
-            <TabsTabContent>
-              <TabsTabIcon>
-                <PresentIcon />
-              </TabsTabIcon>
-              <TabsTabLabel>Projects</TabsTabLabel>
-            </TabsTabContent>
+            <PresentIcon />
+            <span>Projects</span>
           </TabsTab>
           <TabsTab value="account">
-            <TabsTabContent>
-              <TabsTabIcon>
-                <MapIcon />
-              </TabsTabIcon>
-              <TabsTabLabel>Account</TabsTabLabel>
-            </TabsTabContent>
+            <MapIcon />
+            <span>Account</span>
           </TabsTab>
         </TabsList>
         {tabItems.map((item) => (
@@ -260,21 +219,18 @@ export const DisabledTab: Story = {
   },
 };
 
-export const InlineInputs: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Tabs defaultValue="name" className={styles.inlineRoot}>
-        <TabsList
-          className={styles.inlineList}
-          classNames={{ indicator: styles.inlineIndicator }}
-          slotProps={{ indicator: { renderBeforeHydration: true } }}
-        >
+        <TabsList className={styles.inlineList}>
           <TabsTab value="name" className={styles.inlineTab}>
             Name
           </TabsTab>
           <TabsTab value="email" className={styles.inlineTab}>
             Email
           </TabsTab>
+          <TabsIndicator className={styles.inlineIndicator} renderBeforeHydration />
         </TabsList>
         <TabsPanel value="name" className={styles.inlinePanel}>
           <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />
