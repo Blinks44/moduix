@@ -68,15 +68,13 @@ Horizontal separators fill the container by default. Vertical separators are int
 for inline groups and default to `1em` height so they align with surrounding text.
 
 Pass `orientation="vertical"` for inline layouts. Use `className` for direct styling,
-`--separator-*` variables for size and color, and `render` to compose the root with a
-different element.
+or the small `--separator-*` CSS contract when you want to tune color, thickness, or length.
 
 ### Defaults
 
 | Prop          | Default      | Values                                 |
 | ------------- | ------------ | -------------------------------------- |
 | `orientation` | `horizontal` | `horizontal`, `vertical`               |
-| `render`      | `div`        | Any valid React element or component   |
 | `className`   | `undefined`  | `string` or state-based class function |
 | `style`       | `undefined`  | style object or state-based style fn   |
 
@@ -148,29 +146,4 @@ Use `className` or `--separator-*` custom properties to adjust the root styling.
     `}
 
   </Preview.CSS>
-</Preview>
-
-### Custom Element
-
-Use `render` to swap the root element while preserving separator state and accessibility attributes.
-
-<Preview>
-  <SeparatorExample render={<span />} />
-
-  <Preview.Code>
-    {`
-      import { Separator } from "moduix";
-
-      export function CustomElementSeparatorDemo() {
-        return (
-          <section aria-label="Account setup">
-            <span>Account settings</span>
-            <Separator render={<span />} />
-            <span>Billing details</span>
-          </section>
-        );
-      }
-    `}
-
-  </Preview.Code>
 </Preview>

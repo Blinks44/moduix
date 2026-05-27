@@ -6,11 +6,11 @@
 
     &[data-orientation='horizontal'] {
       width: var(--separator-length-horizontal, 100%);
-      height: var(--separator-thickness-horizontal, var(--separator-thickness, 1px));
+      height: var(--separator-thickness, 1px);
     }
 
     &[data-orientation='vertical'] {
-      width: var(--separator-thickness-vertical, var(--separator-thickness, 1px));
+      width: var(--separator-thickness, 1px);
       height: var(--separator-length-vertical, 1em);
     }
   }

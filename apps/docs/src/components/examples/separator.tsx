@@ -1,4 +1,5 @@
-import { Separator, type SeparatorProps } from 'moduix';
+import type { ComponentProps } from 'react';
+import { Separator } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './separator.module.css';
@@ -8,16 +9,6 @@ export const separatorOverrideCssProperties: CssPropertyInput[] = [
   ['--separator-length-horizontal', '100%', 'Controls horizontal separator width.'],
   ['--separator-length-vertical', '1em', 'Controls vertical separator height.'],
   ['--separator-thickness', '1px', 'Controls separator thickness for both orientations.'],
-  [
-    '--separator-thickness-horizontal',
-    'var(--separator-thickness, 1px)',
-    'Controls horizontal separator thickness.',
-  ],
-  [
-    '--separator-thickness-vertical',
-    'var(--separator-thickness, 1px)',
-    'Controls vertical separator thickness.',
-  ],
 ];
 export const separatorPlaygroundCssProperties: CssPropertyInput[] = [
   ['--separator-color', 'var(--color-border)', 'Controls separator color.'],
@@ -53,7 +44,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function SeparatorExample(props: SeparatorProps) {
+export function SeparatorExample(props: ComponentProps<typeof Separator>) {
   return (
     <div className={styles.card}>
       <div className={styles.stack}>

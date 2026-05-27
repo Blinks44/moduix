@@ -1761,8 +1761,6 @@
   --separator-length-horizontal: initial; /* 100% */
   --separator-length-vertical: initial; /* 1em */
   --separator-thickness: initial; /* 1px */
-  --separator-thickness-horizontal: initial; /* var(--separator-thickness, 1px) */
-  --separator-thickness-vertical: initial; /* var(--separator-thickness, 1px) */
 
   /* Select */
   --select-arrow-height: initial; /* 0.625rem */
