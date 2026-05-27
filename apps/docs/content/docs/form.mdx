@@ -5,12 +5,13 @@ icon: Component
 ---
 
 import {
+  CustomCompositionFormExample,
   FormActionStateExample,
   FormActionsRefExample,
-  CustomCompositionFormExample,
   FormCssPlaygroundPanel,
   FormCssPropertiesPanel,
   FormExample,
+  FormNativeSubmitExample,
   FormOnFormSubmitExample,
   formPlaygroundCssProperties,
 } from '@/components/examples/form';
@@ -18,6 +19,20 @@ import {
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/form" />
+
+## Overview
+
+`Form` is the styled root for native form behavior, consolidated field errors, and Base UI
+validation timing.
+
+The recommended path is:
+
+- put layout styles on `Form`
+- compose visible controls with `Field`, `FieldLabel`, `Input`, `FieldDescription`, and `FieldError`
+- use `onFormSubmit` when object-shaped values are more convenient than reading `FormData`
+
+Use native `onSubmit` when you need the raw event, direct `FormData` access, or lower-level submit
+control.
 
 ## Basic
 
@@ -66,19 +81,16 @@ import {
         return (
           <Form
             errors={errors}
+            validationMode="onBlur"
             className={styles.form}
-            onSubmit={async (event) => {
-              event.preventDefault();
-              const formData = new FormData(event.currentTarget);
-              const homepage = String(formData.get("homepage") ?? "");
-
+            onFormSubmit={async (values) => {
               setSubmitting(true);
-              const nextErrors = await validateHomepage(homepage);
+              const nextErrors = await validateHomepage(String(values.homepage ?? ""));
               setErrors(nextErrors);
               setSubmitting(false);
             }}
           >
-            <Field name="homepage" validationMode="onBlur">
+            <Field name="homepage">
               <FieldLabel>Homepage</FieldLabel>
               <Input
                 type="url"
@@ -147,10 +159,19 @@ Form
 
 ## Composition
 
-`Form` is only the styled root. Use Base UI form props such as `errors`, `actionsRef`,
-`onFormSubmit`, `validationMode`, `action`, and native form attributes directly on it.
-Everything else stays regular composition with `Field`, `FieldLabel`, `Input`,
-`FieldDescription`, and `FieldError`.
+`Form` stays intentionally small. It does not own field markup, button layout, or submit UI.
+Those concerns stay in composition with `Field` and the rest of the form controls.
+
+Use `onFormSubmit` for the short default path when object-shaped values are enough.
+Use native `onSubmit` when you need `event.currentTarget`, `FormData`, or lower-level submit
+control.
+
+Pass `errors` when server-side or action-driven validation should appear inside `FieldError`.
+Set `validationMode` once on the form when most fields should share the same timing, then override
+it per field only when one control genuinely needs a different behavior.
+
+`actionsRef` is the narrow imperative escape hatch. Use it when another control needs to validate
+one field or the entire form before the next user step.
 
 ### Defaults
 
@@ -161,10 +182,119 @@ Everything else stays regular composition with `Field`, `FieldLabel`, `Input`,
 
 ## Examples
 
+### Native Submit Event
+
+Use native `onSubmit` when you want direct access to the submit event or need to build
+`FormData` yourself.
+
+<Preview>
+  <FormNativeSubmitExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Form,
+        Field,
+        FieldLabel,
+        Input,
+        FieldError,
+        Button,
+        Spinner,
+      } from "moduix";
+      import { useState } from "react";
+
+      async function validateHomepage(homepage: string) {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 500);
+        });
+
+        try {
+          const value = new URL(homepage);
+
+          if (value.hostname.endsWith("example.com")) {
+            return {
+              homepage: "The example.com domain is not allowed.",
+            };
+          }
+
+          return {};
+        } catch {
+          return {
+            homepage: "Please enter a valid URL.",
+          };
+        }
+      }
+
+      export function NativeSubmitDemo() {
+        const [errors, setErrors] = useState({} as Record<string, string>);
+        const [submitting, setSubmitting] = useState(false);
+
+        return (
+          <Form
+            errors={errors}
+            className={styles.form}
+            onSubmit={async (event) => {
+              event.preventDefault();
+              const formData = new FormData(event.currentTarget);
+              const homepage = String(formData.get("homepage") ?? "");
+
+              setSubmitting(true);
+              const nextErrors = await validateHomepage(homepage);
+              setErrors(nextErrors);
+              setSubmitting(false);
+            }}
+          >
+            <Field name="homepage" validationMode="onBlur">
+              <FieldLabel>Homepage</FieldLabel>
+              <Input
+                type="url"
+                required
+                defaultValue="https://example.com"
+                placeholder="https://example.com"
+                pattern="https?://.*"
+              />
+              <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
+              <FieldError match="patternMismatch">
+                Please start with http:// or https://.
+              </FieldError>
+              <FieldError />
+            </Field>
+            <Button
+              type="submit"
+              disabled={submitting}
+              focusableWhenDisabled
+              aria-busy={submitting || undefined}
+            >
+              {submitting ? (
+                <>
+                  <Spinner decorative size="sm" />
+                  Submitting
+                </>
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </Form>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ### On Form Submit
 
-Use `onFormSubmit` when you want form values as an object instead of reading `FormData` manually.
-Base UI prevents the native submit event for this handler.
+Use `onFormSubmit` when object-shaped values make the submit handler easier to read. Base UI
+prevents the native submit event for this handler.
 
 <Preview>
   <FormOnFormSubmitExample />
@@ -269,7 +399,6 @@ Pass `actionsRef` when another control needs to trigger validation for one field
         Input,
         FieldError,
         Button,
-        Spinner,
       } from "moduix";
       import { useRef, useState } from "react";
 
@@ -347,6 +476,7 @@ errors.
         Input,
         FieldError,
         Button,
+        Spinner,
       } from "moduix";
       import { useActionState } from "react";
 
@@ -444,6 +574,8 @@ errors.
 
   </Preview.CSS>
 </Preview>
+
+## Custom Composition
 
 ### Custom Styles
 

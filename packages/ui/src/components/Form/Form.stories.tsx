@@ -1,5 +1,6 @@
+import type { FormActions } from '@base-ui/react/form';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useActionState, useRef, useState } from 'react';
 import { Button } from '../Button';
 import { Field, FieldError, FieldLabel } from '../Field';
 import { Input } from '../Input';
@@ -83,8 +84,58 @@ async function submitUsername(
 
 export const Basic: Story = {
   render: () => {
-    const [errors, setErrors] = React.useState<Record<string, string>>({});
-    const [submitting, setSubmitting] = React.useState(false);
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitting, setSubmitting] = useState(false);
+
+    return (
+      <Form
+        errors={errors}
+        validationMode="onBlur"
+        className={storyStyles.form}
+        onFormSubmit={async (values) => {
+          setSubmitting(true);
+          const nextErrors = await validateHomepage(String(values.homepage ?? ''));
+          setErrors(nextErrors);
+          setSubmitting(false);
+        }}
+      >
+        <Field name="homepage">
+          <FieldLabel>Homepage</FieldLabel>
+          <Input
+            type="url"
+            required
+            defaultValue="https://example.com"
+            placeholder="https://example.com"
+            pattern="https?://.*"
+          />
+          <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
+          <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
+          <FieldError />
+        </Field>
+        <Button
+          type="submit"
+          disabled={submitting}
+          focusableWhenDisabled
+          aria-busy={submitting || undefined}
+        >
+          {submitting ? (
+            <>
+              <Spinner decorative size="sm" />
+              Submitting
+            </>
+          ) : (
+            'Submit'
+          )}
+        </Button>
+      </Form>
+    );
+  },
+};
+
+export const WithNativeSubmit: Story = {
+  render: () => {
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitting, setSubmitting] = useState(false);
 
     return (
       <Form
@@ -134,70 +185,10 @@ export const Basic: Story = {
   },
 };
 
-export const WithOnFormSubmit: Story = {
-  render: () => {
-    const [errors, setErrors] = React.useState<Record<string, string>>({});
-    const [submitting, setSubmitting] = React.useState(false);
-
-    return (
-      <Form
-        errors={errors}
-        validationMode="onBlur"
-        className={storyStyles.form}
-        onFormSubmit={(values) => {
-          setSubmitting(true);
-
-          const nextErrors: Record<string, string> = {};
-          const age = Number(values.age);
-
-          if (!values.name?.trim()) {
-            nextErrors.name = 'Name is required.';
-          }
-
-          if (!values.age?.trim()) {
-            nextErrors.age = 'Age is required.';
-          } else if (!Number.isFinite(age) || age < 18) {
-            nextErrors.age = 'Age should be 18 or greater.';
-          }
-
-          setErrors(nextErrors);
-          setSubmitting(false);
-        }}
-      >
-        <Field name="name">
-          <FieldLabel>Name</FieldLabel>
-          <Input placeholder="Enter your name" />
-          <FieldError />
-        </Field>
-        <Field name="age">
-          <FieldLabel>Age</FieldLabel>
-          <Input type="number" placeholder="18" />
-          <FieldError />
-        </Field>
-        <Button
-          type="submit"
-          disabled={submitting}
-          focusableWhenDisabled
-          aria-busy={submitting || undefined}
-        >
-          {submitting ? (
-            <>
-              <Spinner decorative size="sm" />
-              Submitting
-            </>
-          ) : (
-            'Submit'
-          )}
-        </Button>
-      </Form>
-    );
-  },
-};
-
 export const WithActionsRef: Story = {
   render: () => {
-    const actionsRef = React.useRef<{ validate: (fieldName?: string) => void } | null>(null);
-    const [errors, setErrors] = React.useState<Record<string, string>>({});
+    const actionsRef = useRef<FormActions | null>(null);
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
     return (
       <Form
@@ -240,10 +231,7 @@ export const WithActionsRef: Story = {
 
 export const WithActionState: Story = {
   render: () => {
-    const [state, formAction, loading] = React.useActionState<ActionState, FormData>(
-      submitUsername,
-      {},
-    );
+    const [state, formAction, loading] = useActionState<ActionState, FormData>(submitUsername, {});
 
     return (
       <Form

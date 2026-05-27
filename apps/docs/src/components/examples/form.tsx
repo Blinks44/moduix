@@ -8,7 +8,7 @@ import {
   Input,
   Spinner,
 } from 'moduix';
-import * as React from 'react';
+import { useActionState, useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './form.module.css';
@@ -18,6 +18,7 @@ const formCssProperties: CssPropertyInput[] = [
   ['--form-max-width', 'none', 'Controls the root form max width.'],
   ['--form-width', '100%', 'Controls the root form width.'],
 ];
+
 export const formOverrideCssProperties = formCssProperties;
 export const formPlaygroundCssProperties = formCssProperties;
 
@@ -107,9 +108,58 @@ async function submitUsername(
   };
 }
 
-export function FormExample(props: React.ComponentProps<typeof Form>) {
-  const [errors, setErrors] = React.useState<Record<string, string>>({});
-  const [submitting, setSubmitting] = React.useState(false);
+export function FormExample(props: ComponentProps<typeof Form>) {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+
+  return (
+    <Form
+      errors={errors}
+      validationMode="onBlur"
+      className={styles.form}
+      onFormSubmit={async (values) => {
+        setSubmitting(true);
+        const nextErrors = await validateHomepage(String(values.homepage ?? ''));
+        setErrors(nextErrors);
+        setSubmitting(false);
+      }}
+      {...props}
+    >
+      <Field name="homepage">
+        <FieldLabel>Homepage</FieldLabel>
+        <Input
+          type="url"
+          required
+          defaultValue="https://example.com"
+          placeholder="https://example.com"
+          pattern="https?://.*"
+        />
+        <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
+        <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
+        <FieldError />
+      </Field>
+      <Button
+        type="submit"
+        disabled={submitting}
+        focusableWhenDisabled
+        aria-busy={submitting || undefined}
+      >
+        {submitting ? (
+          <>
+            <Spinner decorative size="sm" />
+            Submitting
+          </>
+        ) : (
+          'Submit'
+        )}
+      </Button>
+    </Form>
+  );
+}
+
+export function FormNativeSubmitExample() {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <Form
@@ -125,7 +175,6 @@ export function FormExample(props: React.ComponentProps<typeof Form>) {
         setErrors(nextErrors);
         setSubmitting(false);
       }}
-      {...props}
     >
       <Field name="homepage" validationMode="onBlur">
         <FieldLabel>Homepage</FieldLabel>
@@ -160,8 +209,8 @@ export function FormExample(props: React.ComponentProps<typeof Form>) {
 }
 
 export function FormOnFormSubmitExample() {
-  const [errors, setErrors] = React.useState<Record<string, string>>({});
-  const [submitting, setSubmitting] = React.useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <Form
@@ -218,8 +267,8 @@ export function FormOnFormSubmitExample() {
 }
 
 export function FormActionsRefExample() {
-  const actionsRef = React.useRef<{ validate: (fieldName?: string) => void } | null>(null);
-  const [errors, setErrors] = React.useState<Record<string, string>>({});
+  const actionsRef = useRef<{ validate: (fieldName?: string) => void } | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   return (
     <Form
@@ -260,10 +309,7 @@ export function FormActionsRefExample() {
 }
 
 export function FormActionStateExample() {
-  const [state, formAction, loading] = React.useActionState<ActionState, FormData>(
-    submitUsername,
-    {},
-  );
+  const [state, formAction, loading] = useActionState<ActionState, FormData>(submitUsername, {});
 
   return (
     <Form
