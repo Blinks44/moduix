@@ -10,7 +10,7 @@ function OTPField({ children, className, length, ...props }: OTPFieldPrimitive.R
       length={length}
       {...props}
     >
-      {children ?? renderInputs(length)}
+      {children ?? renderDefaultInputs(length)}
     </OTPFieldPrimitive.Root>
   );
 }
@@ -35,12 +35,13 @@ function OTPFieldSeparator({ className, ...props }: OTPFieldPrimitive.Separator.
   );
 }
 
-function renderInputs(length: number) {
+function getCharacterAriaLabel(index: number, length: number) {
+  return index === 0 ? undefined : `Character ${index + 1} of ${length}`;
+}
+
+function renderDefaultInputs(length: number) {
   return Array.from({ length }, (_, index) => (
-    <OTPFieldInput
-      key={index}
-      aria-label={index === 0 ? undefined : `Character ${index + 1} of ${length}`}
-    />
+    <OTPFieldInput key={index} aria-label={getCharacterAriaLabel(index, length)} />
   ));
 }
 

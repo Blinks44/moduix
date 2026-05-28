@@ -27,8 +27,8 @@ import {
 ## Basic
 
 `OTPField` is a thin wrapper over the Base UI root primitive. By default it renders one styled slot
-per character in `length`. When the layout or per-slot markup needs to change, compose it manually
-with `OTPFieldInput` and `OTPFieldSeparator`.
+per character in `length`, so the common path stays short. Drop down to `OTPFieldInput` and
+`OTPFieldSeparator` only when the markup or per-slot styling needs to change.
 
 <Preview cssProperties={otpFieldPlaygroundCssProperties}>
   <OTPFieldExample />
@@ -51,14 +51,18 @@ with `OTPFieldInput` and `OTPFieldSeparator`.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <OTPFieldCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <OTPFieldCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <Preview.CSSProperties>
+    {(context) => <OTPFieldCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <OTPFieldCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+The generated first slot keeps the field label association from `htmlFor={id}`. The remaining slots
+receive position-aware labels automatically in the default path.
 
-`OTPField` owns the field state. `OTPFieldInput` renders a slot and `OTPFieldSeparator` is an
-optional visual separator for grouped layouts.
+## Anatomy
 
 ```text
 OTPField[length]
@@ -68,26 +72,22 @@ OTPField[length]
 └─ OTPFieldInput
 ```
 
-```tsx
-<OTPField id={id} length={6} />
-```
-
-| Part                | Role                                                                                              |
-| ------------------- | ------------------------------------------------------------------------------------------------- |
-| `OTPField`          | Root state machine. Controls value, validation, completion callbacks, masking, and default slots. |
-| `OTPFieldInput`     | Visible character slot. Use it directly for custom layouts or per-slot styling.                   |
-| `OTPFieldSeparator` | Optional visible separator between groups.                                                        |
+| Part                | Role                                                                                         |
+| ------------------- | -------------------------------------------------------------------------------------------- |
+| `OTPField`          | Root state machine. Owns value, validation, completion, masking, and default slot rendering. |
+| `OTPFieldInput`     | Visible character slot. Use it for grouped layouts, placeholders, or per-slot styling.       |
+| `OTPFieldSeparator` | Optional visual separator between groups.                                                    |
 
 ## Composition
 
-Use the default path when all slots look the same:
+Use the default path when every slot shares the same structure:
 
 ```tsx
 <OTPField id={id} length={6} />
 ```
 
-Switch to explicit composition when you need grouped layout, custom separators, or different props
-per slot:
+Compose it manually when the layout needs grouping, separators, or different props on specific
+slots:
 
 ```tsx
 <OTPField id={id} length={6}>
@@ -104,6 +104,9 @@ per slot:
   </div>
 </OTPField>
 ```
+
+When composing manually, keep the first slot unlabeled so it inherits the field label, and give the
+remaining slots position-aware `aria-label` values.
 
 ## Examples
 
@@ -149,9 +152,160 @@ Use `validationType="alphanumeric"` for recovery, backup, or invite codes.
   </Preview.Code>
 </Preview>
 
-### Grouped Layout
+### Masked
 
-Use explicit composition when a code should be shown in smaller visual groups.
+Use `mask` when the code should stay obscured while it is being typed.
+
+<Preview>
+  <OTPFieldMaskedExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldLabel, OTPField } from "moduix";
+      import { useId } from "react";
+
+      export function MaskedOTPField() {
+        const id = useId();
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>PIN</FieldLabel>
+            <OTPField id={id} length={4} mask />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Field Validation
+
+Wrap the field in `Field` when you want label, description, and validation messaging to stay in one
+form primitive flow.
+
+<Preview>
+  <OTPFieldValidationExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldError,
+        FieldLabel,
+        OTPField,
+      } from "moduix";
+      import { useId } from "react";
+
+      export function ValidatedOTPField() {
+        const id = useId();
+
+        return (
+          <Field name="verificationCode" validationMode="onBlur">
+            <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+            <OTPField id={id} length={6} required />
+            <FieldError match="valueMissing">Please enter the verification code.</FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Auto Submit
+
+Use `autoSubmit` when a complete code should submit its owning form immediately.
+
+<Preview>
+  <OTPFieldAutoSubmitExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
+      import { useId, useState } from "react";
+
+      export function AutoSubmitOTPField() {
+        const id = useId();
+        const [completedValue, setCompletedValue] = useState("");
+        const [submittedValue, setSubmittedValue] = useState("");
+
+        return (
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              const formData = new FormData(event.currentTarget);
+              setSubmittedValue(String(formData.get("verificationCode") ?? ""));
+            }}
+          >
+            <Field>
+              <FieldLabel htmlFor={id}>Verification code</FieldLabel>
+              <FieldDescription>
+                Last completed: {completedValue || "empty"}, submitted: {submittedValue || "empty"}
+              </FieldDescription>
+              <OTPField
+                id={id}
+                name="verificationCode"
+                length={6}
+                autoSubmit
+                onValueComplete={setCompletedValue}
+              />
+            </Field>
+          </form>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Sanitization
+
+Set `validationType="none"` with `normalizeValue` when typed or pasted input needs app-specific
+normalization.
+
+<Preview>
+  <OTPFieldCustomSanitizationExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
+      import { useId, useState } from "react";
+
+      export function CustomSanitizationOTPField() {
+        const id = useId();
+        const [value, setValue] = useState("");
+        const [invalidValue, setInvalidValue] = useState("");
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>Invite code</FieldLabel>
+            <FieldDescription>
+              Last invalid attempt: {invalidValue || "none"}
+            </FieldDescription>
+            <OTPField
+              id={id}
+              length={6}
+              value={value}
+              validationType="none"
+              normalizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, "")}
+              onValueChange={setValue}
+              onValueInvalid={setInvalidValue}
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Custom Composition
+
+Use explicit composition when the layout needs grouped slots, custom separators, or per-slot native
+input props.
+
+### Grouped Layout
 
 <Preview>
   <OTPFieldGroupedLayoutExample />
@@ -175,7 +329,7 @@ Use explicit composition when a code should be shown in smaller visual groups.
         return (
           <Field>
             <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-            <OTPField id={id} length={6} className={styles.groupedRoot}>
+            <OTPField id={id} length={6}>
               <div className={styles.group}>
                 <OTPFieldInput />
                 <OTPFieldInput aria-label="Character 2 of 6" />
@@ -277,156 +431,7 @@ Use explicit composition when a code should be shown in smaller visual groups.
   </Preview.CSS>
 </Preview>
 
-### Masked
-
-Use `mask` when the code should be obscured while it is being typed.
-
-<Preview>
-  <OTPFieldMaskedExample />
-
-  <Preview.Code>
-    {`
-      import { Field, FieldLabel, OTPField } from "moduix";
-      import { useId } from "react";
-
-      export function MaskedOTPField() {
-        const id = useId();
-
-        return (
-          <Field>
-            <FieldLabel htmlFor={id}>PIN</FieldLabel>
-            <OTPField id={id} length={4} mask />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Field Validation
-
-Wrap the control in `Field` to show validation errors from props such as `required`.
-
-<Preview>
-  <OTPFieldValidationExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldError,
-        FieldLabel,
-        OTPField,
-      } from "moduix";
-      import { useId } from "react";
-
-      export function ValidatedOTPField() {
-        const id = useId();
-
-        return (
-          <Field name="verificationCode" validationMode="onBlur">
-            <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-            <OTPField id={id} length={6} required />
-            <FieldError match="valueMissing">Please enter the verification code.</FieldError>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Auto Submit
-
-Use `autoSubmit` to submit the owning form as soon as all slots are filled.
-
-<Preview>
-  <OTPFieldAutoSubmitExample />
-
-  <Preview.Code>
-    {`
-      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
-      import { useId, useState } from "react";
-
-      export function AutoSubmitOTPField() {
-        const id = useId();
-        const [completedValue, setCompletedValue] = useState("");
-        const [submittedValue, setSubmittedValue] = useState("");
-
-        return (
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              const formData = new FormData(event.currentTarget);
-              setSubmittedValue(String(formData.get("verificationCode") ?? ""));
-            }}
-          >
-            <Field>
-              <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-              <FieldDescription>
-                Last completed: {completedValue || "empty"}, submitted: {submittedValue || "empty"}
-              </FieldDescription>
-              <OTPField
-                id={id}
-                name="verificationCode"
-                length={6}
-                autoSubmit
-                onValueComplete={setCompletedValue}
-              />
-            </Field>
-          </form>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Sanitization
-
-Set `validationType="none"` with `normalizeValue` when pasted or typed values need custom
-normalization.
-
-<Preview>
-  <OTPFieldCustomSanitizationExample />
-
-  <Preview.Code>
-    {`
-      import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
-      import { useId, useState } from "react";
-
-      export function CustomSanitizationOTPField() {
-        const id = useId();
-        const [value, setValue] = useState("");
-        const [invalidValue, setInvalidValue] = useState("");
-
-        return (
-          <Field>
-            <FieldLabel htmlFor={id}>Invite code</FieldLabel>
-            <FieldDescription>
-              Last invalid attempt: {invalidValue || "none"}
-            </FieldDescription>
-            <OTPField
-              id={id}
-              length={6}
-              value={value}
-              validationType="none"
-              normalizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, "")}
-              onValueChange={setValue}
-              onValueInvalid={setInvalidValue}
-            />
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Composition
-
-Build the grouped layout manually when you need custom slot styles, separators, or DOM structure.
+### Styled Slots and Separator
 
 <Preview>
   <OTPFieldCustomSeparatorExample />
@@ -444,7 +449,7 @@ Build the grouped layout manually when you need custom slot styles, separators, 
       import { useId } from "react";
       import styles from "./otp-field.module.css";
 
-      export function CustomSeparatorOTPField() {
+      export function StyledOTPField() {
         const id = useId();
 
         return (
