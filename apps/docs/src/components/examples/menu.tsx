@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -42,7 +43,7 @@ import {
   MenuViewport,
   createMenuHandle,
 } from 'moduix';
-import * as React from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './menu.module.css';
@@ -53,7 +54,11 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-arrow-size', '0.5rem', 'Controls popup arrow size.'],
   ['--menu-arrow-stroke-color', 'var(--menu-popup-border-color)', 'Controls arrow stroke color.'],
   ['--menu-arrow-width', '1.25rem', 'Controls popup arrow width.'],
-  ['--menu-backdrop-bg', 'var(--color-overlay)', 'Controls backdrop background.'],
+  [
+    '--menu-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls backdrop background.',
+  ],
   ['--menu-backdrop-blur', '2px', 'Controls backdrop blur.'],
   ['--menu-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
   ['--menu-check-gap', '0.5rem', 'Controls checkbox/radio indicator gap.'],
@@ -204,7 +209,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function MenuButtonTrigger(props: React.ComponentProps<typeof MenuTrigger>) {
+function MenuButtonTrigger(props: ComponentProps<typeof MenuTrigger>) {
   return <MenuTrigger render={<Button />} {...props} />;
 }
 
@@ -248,10 +253,10 @@ export function WithArrowMenuExample() {
 }
 
 export function GroupsAndControlsMenuExample() {
-  const [sortBy, setSortBy] = React.useState('date');
-  const [showMinimap, setShowMinimap] = React.useState(true);
-  const [showSearch, setShowSearch] = React.useState(true);
-  const [showSidebar, setShowSidebar] = React.useState(false);
+  const [sortBy, setSortBy] = useState('date');
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [showSearch, setShowSearch] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   return (
     <Menu>
@@ -325,8 +330,8 @@ export function ShortcutsMenuExample() {
 }
 
 export function IndicatorRightMenuExample() {
-  const [showMinimap, setShowMinimap] = React.useState(true);
-  const [showSearch, setShowSearch] = React.useState(true);
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [showSearch, setShowSearch] = useState(true);
 
   return (
     <Menu>
@@ -410,7 +415,7 @@ export function OpenOnHoverMenuExample() {
   );
 }
 
-export function PositionedWithBackdropMenuExample() {
+export function PositionedMenuExample() {
   return (
     <Menu>
       <MenuButtonTrigger>
@@ -428,10 +433,10 @@ export function PositionedWithBackdropMenuExample() {
 }
 
 export function OpenAlertDialogMenuExample() {
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Menu>
         <MenuButtonTrigger>
           Project
@@ -466,7 +471,7 @@ export function OpenAlertDialogMenuExample() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
@@ -489,10 +494,10 @@ export function LinkItemsMenuExample() {
 }
 
 export function DetachedTriggerMenuExample() {
-  const menuHandle = React.useMemo(() => createMenuHandle(), []);
+  const menuHandle = useMemo(() => createMenuHandle(), []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div className={styles.detachedTrigger}>
         <MenuButtonTrigger handle={menuHandle}>
           Actions
@@ -508,7 +513,7 @@ export function DetachedTriggerMenuExample() {
           <MenuItem closeOnClick>Archive</MenuItem>
         </MenuContent>
       </Menu>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

@@ -1222,7 +1222,7 @@
   --menu-checkbox-indicator-bg-checked: initial; /* var(--menu-checkbox-indicator-bg) */
   --menu-checkbox-indicator-border-color: initial; /* currentColor */
   --menu-checkbox-indicator-border-color-checked: initial; /* var(--menu-checkbox-indicator-border-color) */
-  --menu-checkbox-indicator-border-width: initial; /* var(--border-width-sm) */
+  --menu-checkbox-indicator-border-width: initial; /* 0 */
   --menu-checkbox-indicator-radius: initial; /* var(--radius-xs) */
   --menu-disabled-opacity: initial; /* var(--opacity-disabled) */
   --menu-focus-ring-color: initial; /* var(--color-ring) */
