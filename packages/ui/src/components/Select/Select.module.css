@@ -149,18 +149,6 @@
       transform: none;
       opacity: 1;
     }
-
-    &[data-animation='scale'][data-side='none'] {
-      transition:
-        opacity var(--select-transition, var(--transition-default)),
-        transform var(--select-transition, var(--transition-default));
-    }
-
-    &[data-animation='scale'][data-side='none'][data-starting-style],
-    &[data-animation='scale'][data-side='none'][data-ending-style] {
-      opacity: 0;
-      transform: scale(var(--select-scale, var(--scale-popup)));
-    }
   }
 
   .arrow {

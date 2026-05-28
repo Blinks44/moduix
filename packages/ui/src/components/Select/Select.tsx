@@ -1,6 +1,6 @@
+import type { ComponentProps } from 'react';
 import { Select as SelectPrimitive } from '@base-ui/react/select';
 import { clsx } from 'clsx';
-import * as React from 'react';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -12,13 +12,27 @@ import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Select.module.css';
 
 type IndicatorPosition = 'start' | 'end';
-type SelectItemProps = SelectPrimitive.Item.Props & {
-  indicator?: IndicatorPosition;
-};
+type SelectContentProps = SelectPrimitive.Popup.Props &
+  Pick<
+    SelectPrimitive.Positioner.Props,
+    | 'align'
+    | 'alignItemWithTrigger'
+    | 'alignOffset'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'side'
+    | 'sideOffset'
+  > & {
+    showArrow?: boolean;
+  };
+type SelectItemProps = SelectPrimitive.Item.Props & { indicator?: IndicatorPosition };
 
+const SELECT_CONTENT_SIDE_OFFSET = 8;
 const Select = SelectPrimitive.Root;
 
-function SelectField({ className, ...props }: React.ComponentProps<'div'>) {
+function SelectField({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="select-field" className={clsx(styles.field, className)} {...props} />;
 }
 
@@ -88,15 +102,10 @@ function SelectPositioner({ className, ...props }: SelectPrimitive.Positioner.Pr
   );
 }
 
-function SelectPopup({
-  className,
-  animation,
-  ...props
-}: SelectPrimitive.Popup.Props & { animation?: 'scale' }) {
+function SelectPopup({ className, ...props }: SelectPrimitive.Popup.Props) {
   return (
     <SelectPrimitive.Popup
       data-slot="select-popup"
-      data-animation={animation}
       className={mergeClassName(className, styles.popup)}
       {...props}
     />
@@ -121,53 +130,27 @@ function SelectContent({
   showArrow = false,
   alignItemWithTrigger,
   side,
-  sideOffset,
+  sideOffset = SELECT_CONTENT_SIDE_OFFSET,
   align,
   alignOffset,
   arrowPadding,
-  anchor,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
-  sticky,
-  positionMethod,
-  disableAnchorTracking,
   ...popupProps
-}: React.ComponentProps<typeof SelectPopup> &
-  Pick<
-    SelectPrimitive.Positioner.Props,
-    | 'alignItemWithTrigger'
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-    | 'disableAnchorTracking'
-  > & {
-    showArrow?: boolean;
-  }) {
+}: SelectContentProps) {
   return (
     <SelectPortal>
       <SelectPositioner
         alignItemWithTrigger={alignItemWithTrigger}
         side={side}
-        sideOffset={sideOffset ?? 8}
+        sideOffset={sideOffset}
         align={align}
         alignOffset={alignOffset}
         arrowPadding={arrowPadding}
-        anchor={anchor}
         collisionAvoidance={collisionAvoidance}
         collisionBoundary={collisionBoundary}
         collisionPadding={collisionPadding}
-        sticky={sticky}
-        positionMethod={positionMethod}
-        disableAnchorTracking={disableAnchorTracking}
       >
         <SelectPopup className={className} {...popupProps}>
           {showArrow ? <SelectArrow /> : null}
@@ -257,7 +240,7 @@ function SelectItemText({ className, ...props }: SelectPrimitive.ItemText.Props)
   );
 }
 
-function SelectItemTextContent({ className, ...props }: React.ComponentProps<'span'>) {
+function SelectItemTextContent({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="select-item-text-content"
@@ -267,7 +250,7 @@ function SelectItemTextContent({ className, ...props }: React.ComponentProps<'sp
   );
 }
 
-function SelectItemTextIcon({ className, ...props }: React.ComponentProps<'span'>) {
+function SelectItemTextIcon({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="select-item-text-icon"
@@ -277,7 +260,7 @@ function SelectItemTextIcon({ className, ...props }: React.ComponentProps<'span'
   );
 }
 
-function SelectItemTextLabel({ className, ...props }: React.ComponentProps<'span'>) {
+function SelectItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="select-item-text-label"
@@ -317,7 +300,7 @@ function SelectGroupLabel({ className, ...props }: SelectPrimitive.GroupLabel.Pr
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}
