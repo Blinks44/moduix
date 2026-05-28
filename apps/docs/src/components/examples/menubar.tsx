@@ -1,5 +1,4 @@
 import {
-  ChevronDownIcon,
   InfoIcon,
   MapIcon,
   Menubar,
@@ -417,32 +416,6 @@ export function IndicatorRightMenubarExample() {
   );
 }
 
-export function NestedMenubarExample() {
-  return (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger>File</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem closeOnClick>New File</MenubarItem>
-          <MenubarSubmenu>
-            <MenubarSubmenuTrigger>
-              Export
-              <MenubarSubmenuTriggerIcon />
-            </MenubarSubmenuTrigger>
-            <MenubarSubmenuContent>
-              <MenubarItem closeOnClick>PDF</MenubarItem>
-              <MenubarItem closeOnClick>PNG</MenubarItem>
-              <MenubarItem closeOnClick>SVG</MenubarItem>
-            </MenubarSubmenuContent>
-          </MenubarSubmenu>
-          <MenubarSeparator />
-          <MenubarItem closeOnClick>Print</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
-  );
-}
-
 export function VerticalMenubarExample() {
   return (
     <Menubar orientation="vertical">
@@ -507,38 +480,6 @@ export function CustomCompositionMenubarExample() {
             </MenubarPopup>
           </MenubarPositioner>
         </MenubarPortal>
-      </MenubarMenu>
-    </Menubar>
-  );
-}
-
-export function IconsMenubarExample() {
-  return (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger>Places</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem closeOnClick>
-            <MenubarItemTextContent>
-              <MenubarItemTextIcon>
-                <MapIcon />
-              </MenubarItemTextIcon>
-              <MenubarItemTextLabel>Open map</MenubarItemTextLabel>
-            </MenubarItemTextContent>
-          </MenubarItem>
-          <MenubarSubmenu>
-            <MenubarSubmenuTrigger>
-              More
-              <MenubarSubmenuTriggerIcon>
-                <ChevronDownIcon />
-              </MenubarSubmenuTriggerIcon>
-            </MenubarSubmenuTrigger>
-            <MenubarSubmenuContent>
-              <MenubarItem closeOnClick>Nearby</MenubarItem>
-              <MenubarItem closeOnClick>Routes</MenubarItem>
-            </MenubarSubmenuContent>
-          </MenubarSubmenu>
-        </MenubarContent>
       </MenubarMenu>
     </Menubar>
   );

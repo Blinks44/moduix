@@ -1,17 +1,16 @@
 ---
 title: Menubar
-description: A horizontal or vertical menu bar for application-level commands.
+description: A horizontal or vertical menubar for application commands, links, and nested menus.
 icon: Component
 ---
 
 import {
-  MenubarCssPlaygroundPanel,
-  MenubarCssPropertiesPanel,
   CustomCompositionMenubarExample,
   GroupsAndControlsMenubarExample,
-  IconsMenubarExample,
   IndicatorRightMenubarExample,
   LinkItemsMenubarExample,
+  MenubarCssPlaygroundPanel,
+  MenubarCssPropertiesPanel,
   MenubarExample,
   ShortcutsMenubarExample,
   VerticalMenubarExample,
@@ -24,6 +23,8 @@ import {
 
 ## Basic
 
+Use `Menubar`, `MenubarMenu`, `MenubarTrigger`, and `MenubarContent` for the default path.
+
 <Preview cssProperties={menubarPlaygroundCssProperties}>
   <MenubarExample />
 
@@ -31,15 +32,15 @@ import {
     {`
       import {
         Menubar,
-        MenubarMenu,
-        MenubarTrigger,
         MenubarContent,
         MenubarItem,
+        MenubarMenu,
+        MenubarSeparator,
         MenubarSubmenu,
+        MenubarSubmenuContent,
         MenubarSubmenuTrigger,
         MenubarSubmenuTriggerIcon,
-        MenubarSubmenuContent,
-        MenubarSeparator,
+        MenubarTrigger,
       } from "moduix";
 
       export function MenubarDemo() {
@@ -91,17 +92,16 @@ import {
 
 ## Anatomy
 
-`Menubar` is built from top-level menus. Each `MenubarMenu` should contain one
-`MenubarTrigger` and one `MenubarContent`. `MenubarContent` renders service slots
-internally, so most usage only needs the visible command parts.
+`Menubar` keeps the high-level path short. Most consumers only need top-level menus, visible items,
+and submenu parts.
 
 ```text
 Menubar
 └─ MenubarMenu
    ├─ MenubarTrigger
    └─ MenubarContent
-      ├─ MenubarArrow
-      ├─ MenubarItem / MenubarCheckboxItem / MenubarRadioItem
+      ├─ MenubarItem / MenubarLinkItem
+      ├─ MenubarCheckboxItem / MenubarRadioItem
       ├─ MenubarGroup
       ├─ MenubarSeparator
       └─ MenubarSubmenu
@@ -109,76 +109,51 @@ Menubar
          └─ MenubarSubmenuContent
 ```
 
-```tsx
-<Menubar>
-  <MenubarMenu>
-    <MenubarTrigger>File</MenubarTrigger>
-    <MenubarContent>
-      <MenubarItem closeOnClick>New</MenubarItem>
-      <MenubarSubmenu>
-        <MenubarSubmenuTrigger>
-          Export
-          <MenubarSubmenuTriggerIcon />
-        </MenubarSubmenuTrigger>
-        <MenubarSubmenuContent>
-          <MenubarItem closeOnClick>PDF</MenubarItem>
-        </MenubarSubmenuContent>
-      </MenubarSubmenu>
-    </MenubarContent>
-  </MenubarMenu>
-</Menubar>
-```
-
-| Part                                                                                           | Role                                                                                                                       |
-| ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `Menubar`                                                                                      | Root state machine for orientation, roving focus, and top-level menu behavior.                                             |
-| `MenubarMenu`                                                                                  | One top-level menu scope that links a trigger and its popup content.                                                       |
-| `MenubarTrigger`                                                                               | Interactive control in the menubar row that opens the matching menu.                                                       |
-| `MenubarContent`                                                                               | High-level popup wrapper that renders `MenubarPortal`, `MenubarPositioner`, `MenubarPopup`, and `MenubarViewport` for you. |
-| `MenubarArrow`                                                                                 | Optional visual arrow that points from popup to trigger.                                                                   |
-| `MenubarItem` / `MenubarLinkItem`                                                              | Action and navigation rows.                                                                                                |
-| `MenubarCheckboxItem` / `MenubarRadioItem`                                                     | Stateful command rows with indicator slots.                                                                                |
-| `MenubarItemText*` / `MenubarItemShortcut`                                                     | Optional layout helpers for icons, labels, and shortcut text inside rows.                                                  |
-| `MenubarSeparator` / `MenubarGroup*`                                                           | Visual grouping parts for related commands.                                                                                |
-| `MenubarSubmenu`                                                                               | Nested command group rendered from a submenu trigger and submenu content.                                                  |
-| `MenubarPortal` / `MenubarPositioner` / `MenubarPopup` / `MenubarViewport` / `MenubarBackdrop` | Low-level building blocks for custom composition.                                                                          |
-
-Start with `Menubar`, `MenubarTrigger`, `MenubarContent`, and item rows. When the default
-content wrapper is not enough, switch to the exported low-level parts and compose the popup
-structure yourself.
+| Part                                                                                           | Role                                                                                                             |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `Menubar`                                                                                      | Root state machine for orientation, roving focus, and top-level menu behavior.                                   |
+| `MenubarMenu`                                                                                  | One top-level menu scope that links a trigger and popup content.                                                 |
+| `MenubarTrigger`                                                                               | Interactive trigger inside the menubar row or column.                                                            |
+| `MenubarContent`                                                                               | Default popup wrapper with built-in `MenubarPortal`, `MenubarPositioner`, `MenubarPopup`, and `MenubarViewport`. |
+| `MenubarItem` / `MenubarLinkItem`                                                              | Action and navigation rows.                                                                                      |
+| `MenubarCheckboxItem` / `MenubarRadioItem`                                                     | Stateful command rows with indicator slots.                                                                      |
+| `MenubarItemText*` / `MenubarItemShortcut`                                                     | Optional layout helpers for icons, labels, and shortcut text.                                                    |
+| `MenubarSeparator` / `MenubarGroup*`                                                           | Visual grouping parts for related commands.                                                                      |
+| `MenubarSubmenu`                                                                               | Nested command group with its own trigger and popup content.                                                     |
+| `MenubarPortal` / `MenubarPositioner` / `MenubarPopup` / `MenubarViewport` / `MenubarBackdrop` | Low-level popup parts for advanced composition.                                                                  |
 
 ## Composition
 
-`Menubar` owns the root menubar behavior. Each `MenubarMenu` owns one top-level popup.
+Each `MenubarMenu` should contain one `MenubarTrigger` and one popup branch. Start with
+`MenubarContent`. It keeps the markup close to Base UI while covering the common path:
 
-`MenubarContent` is the default path. It forwards popup props to `MenubarPopup`, placement
-props to `MenubarPositioner`, and keeps the DOM shape close to Base UI. Use `showArrow`
-when you want the built-in arrow. When you need a custom portal container, backdrop, popup
-layout, arrow node, or viewport styling, compose with the exported low-level parts instead.
+- portal mounting
+- popup positioning
+- scrollable viewport
+- optional built-in arrow via `showArrow`
 
-### Defaults
+Use `MenubarSubmenuContent` for nested menus. It keeps the same API as `MenubarContent` and adds
+side-aware submenu offsets by default.
 
-| Prop                                | Default                                                     | Values                   |
-| ----------------------------------- | ----------------------------------------------------------- | ------------------------ |
-| `Menubar.orientation`               | `horizontal`                                                | `horizontal`, `vertical` |
-| `Menubar.modal`                     | `true`                                                      | `true`, `false`          |
-| `Menubar.loopFocus`                 | `true`                                                      | `true`, `false`          |
-| `Menubar.disabled`                  | `false`                                                     | `true`, `false`          |
-| `MenubarContent.sideOffset`         | `6`                                                         | Any `number`             |
-| `MenubarContent.showArrow`          | `false`                                                     | `true`, `false`          |
-| `MenubarSubmenuContent.showArrow`   | `false`                                                     | `true`, `false`          |
-| `MenubarSubmenuContent.sideOffset`  | by `side` (`4` for `top`/`bottom`, `-4` for `left`/`right`) | Any `number`             |
-| `MenubarSubmenuContent.alignOffset` | by `side` (`4` for `top`/`bottom`, `-4` for `left`/`right`) | Any `number`             |
+When you need a custom portal container, backdrop, popup layout, or manual arrow placement, switch
+to the exported low-level parts and compose the popup yourself.
 
-```tsx
-<MenubarContent showArrow sideOffset={8} collisionPadding={8} />
-```
+### Small Sugar
+
+| Surface                                    | Prop          | Default                                                     | Why it exists                                                               |
+| ------------------------------------------ | ------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `MenubarContent`                           | `showArrow`   | `false`                                                     | Turns on the built-in popup arrow.                                          |
+| `MenubarContent`                           | `sideOffset`  | `6`                                                         | Gives the root popup a usable default gap.                                  |
+| `MenubarSubmenuContent`                    | `showArrow`   | `false`                                                     | Same arrow toggle for submenu popups.                                       |
+| `MenubarSubmenuContent`                    | `sideOffset`  | by `side` (`4` for `top`/`bottom`, `-4` for `left`/`right`) | Keeps submenu spacing aligned by default.                                   |
+| `MenubarSubmenuContent`                    | `alignOffset` | by `side` (`4` for `top`/`bottom`, `-4` for `left`/`right`) | Keeps submenu alignment aligned by default.                                 |
+| `MenubarCheckboxItem` / `MenubarRadioItem` | `indicator`   | `start`                                                     | Lets checked-state indicators move to the end without changing composition. |
 
 ## Examples
 
 ### Groups And Controls
 
-Use groups, radio items, and checkbox items when menubar commands update application state.
+Use groups, radio items, and checkbox items when menubar commands change application state.
 
 <Preview>
   <GroupsAndControlsMenubarExample />
@@ -187,18 +162,18 @@ Use groups, radio items, and checkbox items when menubar commands update applica
     {`
       import {
         Menubar,
-        MenubarMenu,
-        MenubarTrigger,
+        MenubarCheckboxItem,
+        MenubarCheckboxItemIndicator,
         MenubarContent,
         MenubarGroup,
         MenubarGroupLabel,
+        MenubarItemText,
+        MenubarMenu,
         MenubarRadioGroup,
         MenubarRadioItem,
         MenubarRadioItemIndicator,
-        MenubarItemText,
         MenubarSeparator,
-        MenubarCheckboxItem,
-        MenubarCheckboxItemIndicator,
+        MenubarTrigger,
       } from "moduix";
       import { useState } from "react";
 
@@ -255,7 +230,7 @@ Use groups, radio items, and checkbox items when menubar commands update applica
 
 ### Shortcuts
 
-Use `MenubarItemShortcut` for keyboard shortcut text that aligns to the end of each item.
+Use `MenubarItemShortcut` for keyboard shortcut text that should align to the end of the row.
 
 <Preview>
   <ShortcutsMenubarExample />
@@ -264,12 +239,12 @@ Use `MenubarItemShortcut` for keyboard shortcut text that aligns to the end of e
     {`
       import {
         Menubar,
-        MenubarMenu,
-        MenubarTrigger,
         MenubarContent,
         MenubarItem,
         MenubarItemShortcut,
+        MenubarMenu,
         MenubarSeparator,
+        MenubarTrigger,
       } from "moduix";
 
       export function ShortcutsMenubarDemo() {
@@ -301,9 +276,10 @@ Use `MenubarItemShortcut` for keyboard shortcut text that aligns to the end of e
   </Preview.Code>
 </Preview>
 
-### Indicator Right With Icon
+### Rich Items
 
-Use `indicator="end"` to align checkbox and radio indicators to the end. Text and icon slots accept custom content and `className`.
+Use `indicator="end"` when the indicator should stay at the trailing edge, and use `MenubarItemText*`
+helpers when a row needs icon-and-label layout.
 
 <Preview>
   <IndicatorRightMenubarExample />
@@ -314,19 +290,19 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Text an
         InfoIcon,
         MapIcon,
         Menubar,
-        MenubarMenu,
-        MenubarTrigger,
-        MenubarContent,
         MenubarCheckboxItem,
         MenubarCheckboxItemIndicator,
+        MenubarContent,
         MenubarItemText,
         MenubarItemTextContent,
         MenubarItemTextIcon,
         MenubarItemTextLabel,
+        MenubarMenu,
+        MenubarTrigger,
       } from "moduix";
       import { useState } from "react";
 
-      export function IndicatorRightMenubarDemo() {
+      export function RichItemsMenubarDemo() {
         const [showSidebar, setShowSidebar] = useState(true);
         const [showPanel, setShowPanel] = useState(false);
 
@@ -375,6 +351,46 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Text an
   </Preview.Code>
 </Preview>
 
+### Link Items
+
+Use `MenubarLinkItem` for navigation actions that should still participate in menu focus behavior.
+
+<Preview>
+  <LinkItemsMenubarExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Menubar,
+        MenubarContent,
+        MenubarItem,
+        MenubarLinkItem,
+        MenubarMenu,
+        MenubarSeparator,
+        MenubarTrigger,
+      } from "moduix";
+
+      export function LinkItemsMenubarDemo() {
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>Navigate</MenubarTrigger>
+              <MenubarContent>
+                <MenubarLinkItem href="#projects">Projects</MenubarLinkItem>
+                <MenubarLinkItem href="#teams">Teams</MenubarLinkItem>
+                <MenubarLinkItem href="#billing">Billing</MenubarLinkItem>
+                <MenubarSeparator />
+                <MenubarItem closeOnClick>Copy Link</MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ### Vertical
 
 Set `orientation="vertical"` when the menubar should behave like a compact command rail.
@@ -386,10 +402,10 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
     {`
       import {
         Menubar,
-        MenubarMenu,
-        MenubarTrigger,
         MenubarContent,
         MenubarItem,
+        MenubarMenu,
+        MenubarTrigger,
       } from "moduix";
 
       export function VerticalMenubarDemo() {
@@ -419,112 +435,10 @@ Set `orientation="vertical"` when the menubar should behave like a compact comma
   </Preview.Code>
 </Preview>
 
-### Link Items
+## Custom Composition
 
-Use `MenubarLinkItem` for navigation commands that should render as links while keeping menu focus behavior.
-
-<Preview>
-  <LinkItemsMenubarExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Menubar,
-        MenubarMenu,
-        MenubarTrigger,
-        MenubarContent,
-        MenubarLinkItem,
-        MenubarSeparator,
-        MenubarItem,
-      } from "moduix";
-
-      export function LinkItemsMenubarDemo() {
-        return (
-          <Menubar>
-            <MenubarMenu>
-              <MenubarTrigger>Navigate</MenubarTrigger>
-              <MenubarContent>
-                <MenubarLinkItem href="#projects">Projects</MenubarLinkItem>
-                <MenubarLinkItem href="#teams">Teams</MenubarLinkItem>
-                <MenubarLinkItem href="#billing">Billing</MenubarLinkItem>
-                <MenubarSeparator />
-                <MenubarItem closeOnClick>Copy Link</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Icons
-
-Pass children to icon slots to use icons from your application or an external icon library.
-
-<Preview>
-  <IconsMenubarExample />
-
-  <Preview.Code>
-    {`
-      import {
-        ChevronDownIcon,
-        MapIcon,
-        Menubar,
-        MenubarMenu,
-        MenubarTrigger,
-        MenubarContent,
-        MenubarItem,
-        MenubarItemTextContent,
-        MenubarItemTextIcon,
-        MenubarItemTextLabel,
-        MenubarSubmenu,
-        MenubarSubmenuTrigger,
-        MenubarSubmenuTriggerIcon,
-        MenubarSubmenuContent,
-      } from "moduix";
-
-      export function IconsMenubarDemo() {
-        return (
-          <Menubar>
-            <MenubarMenu>
-              <MenubarTrigger>Places</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem closeOnClick>
-                  <MenubarItemTextContent>
-                    <MenubarItemTextIcon>
-                      <MapIcon />
-                    </MenubarItemTextIcon>
-                    <MenubarItemTextLabel>Open map</MenubarItemTextLabel>
-                  </MenubarItemTextContent>
-                </MenubarItem>
-                <MenubarSubmenu>
-                  <MenubarSubmenuTrigger>
-                    More
-                    <MenubarSubmenuTriggerIcon>
-                      <ChevronDownIcon />
-                    </MenubarSubmenuTriggerIcon>
-                  </MenubarSubmenuTrigger>
-                  <MenubarSubmenuContent>
-                    <MenubarItem closeOnClick>Nearby</MenubarItem>
-                    <MenubarItem closeOnClick>Routes</MenubarItem>
-                  </MenubarSubmenuContent>
-                </MenubarSubmenu>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Composition
-
-Use the low-level parts when you need to change the portal container, add a backdrop,
-replace the arrow, or style popup structure directly.
+Use the low-level popup parts when the default wrapper is not enough. This is the path for custom
+portal control, backdrops, arrow placement, or popup-specific styling.
 
 <Preview>
   <CustomCompositionMenubarExample />
@@ -535,8 +449,8 @@ replace the arrow, or style popup structure directly.
         Menubar,
         MenubarArrow,
         MenubarBackdrop,
-        MenubarMenu,
         MenubarItem,
+        MenubarMenu,
         MenubarPopup,
         MenubarPortal,
         MenubarPositioner,
@@ -545,80 +459,30 @@ replace the arrow, or style popup structure directly.
         MenubarViewport,
       } from "moduix";
 
-          export function CustomCompositionMenubarDemo() {
-            return (
-              <Menubar className={styles.customRoot}>
-                <MenubarMenu>
-                  <MenubarTrigger>Window</MenubarTrigger>
-                  <MenubarPortal className={styles.customPortal}>
-                    <MenubarBackdrop className={styles.customBackdrop} />
-                    <MenubarPositioner
-                      className={styles.customPositioner}
-                      sideOffset={10}
-                      align="start"
-                      alignOffset={-4}
-                    >
-                      <MenubarPopup className={styles.customPopup}>
-                        <MenubarArrow className={styles.customArrow} />
-                        <MenubarViewport className={styles.customViewport}>
-                          <MenubarItem closeOnClick>Minimize</MenubarItem>
-                          <MenubarItem closeOnClick>Zoom</MenubarItem>
-                          <MenubarSeparator />
-                          <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
-                        </MenubarViewport>
-                      </MenubarPopup>
-                    </MenubarPositioner>
-                  </MenubarPortal>
-                </MenubarMenu>
-              </Menubar>
-            );
-          }
-
-`}
+      export function CustomCompositionMenubarDemo() {
+        return (
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>Window</MenubarTrigger>
+              <MenubarPortal>
+                <MenubarBackdrop />
+                <MenubarPositioner sideOffset={10} align="start" alignOffset={-4}>
+                  <MenubarPopup>
+                    <MenubarArrow />
+                    <MenubarViewport>
+                      <MenubarItem closeOnClick>Minimize</MenubarItem>
+                      <MenubarItem closeOnClick>Zoom</MenubarItem>
+                      <MenubarSeparator />
+                      <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
+                    </MenubarViewport>
+                  </MenubarPopup>
+                </MenubarPositioner>
+              </MenubarPortal>
+            </MenubarMenu>
+          </Menubar>
+        );
+      }
+    `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customRoot {
-        --menubar-bg: var(--color-background);
-        --menubar-border-color: rgb(37 99 235);
-        --menubar-radius: var(--radius-lg);
-        --menubar-trigger-bg-hover: rgb(219 234 254);
-        --menubar-trigger-color-active: rgb(255 255 255);
-        --menubar-trigger-bg-active: rgb(37 99 235);
-      }
-
-          .customPortal {
-            pointer-events: auto;
-          }
-
-          .customBackdrop {
-            background-color: rgb(15 23 42 / 0.48);
-            backdrop-filter: blur(4px);
-          }
-
-          .customPositioner {
-            --menubar-popup-min-width: 14rem;
-          }
-
-          .customPopup {
-            --menubar-popup-bg: var(--color-background);
-            --menubar-popup-border-color: rgb(37 99 235);
-            --menubar-popup-shadow: var(--shadow-lg);
-            --menubar-highlight-bg: rgb(37 99 235);
-            --menubar-highlight-color: rgb(255 255 255);
-          }
-
-          .customArrow {
-            --menubar-arrow-stroke-color: var(--menubar-popup-border-color);
-          }
-
-          .customViewport {
-            padding-block: var(--spacing-2);
-          }
-
-`}
-
-  </Preview.CSS>
 </Preview>

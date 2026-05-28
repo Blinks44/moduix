@@ -1,7 +1,7 @@
+import type { ComponentProps } from 'react';
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import { Menubar as MenubarPrimitive } from '@base-ui/react/menubar';
 import { clsx } from 'clsx';
-import * as React from 'react';
 import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Menubar.module.css';
@@ -19,6 +19,10 @@ type MenubarPositionerProps = Pick<
 >;
 
 type IndicatorPosition = 'start' | 'end';
+type MenubarContentProps = MenuPrimitive.Popup.Props &
+  MenubarPositionerProps & {
+    showArrow?: boolean;
+  };
 
 const DEFAULT_CONTENT_SIDE_OFFSET = 6;
 const MenubarMenu = MenuPrimitive.Root;
@@ -117,10 +121,7 @@ function MenubarContent({
   collisionBoundary,
   collisionPadding,
   ...props
-}: MenuPrimitive.Popup.Props &
-  MenubarPositionerProps & {
-    showArrow?: boolean;
-  }) {
+}: MenubarContentProps) {
   return (
     <MenubarPortal>
       <MenubarPositioner
@@ -146,10 +147,7 @@ function MenubarSubmenuContent({
   sideOffset = getSubmenuOffset,
   alignOffset = getSubmenuOffset,
   ...props
-}: MenuPrimitive.Popup.Props &
-  MenubarPositionerProps & {
-    showArrow?: boolean;
-  }) {
+}: MenubarContentProps) {
   return <MenubarContent sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
 }
 
@@ -213,11 +211,7 @@ function MenubarSubmenuTrigger({ className, ...props }: MenuPrimitive.SubmenuTri
   );
 }
 
-function MenubarSubmenuTriggerIcon({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<'span'>) {
+function MenubarSubmenuTriggerIcon({ className, children, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="menubar-submenu-trigger-icon"
@@ -305,13 +299,13 @@ function MenubarCheckboxItemIndicator({
   );
 }
 
-function MenubarItemText({ className, ...props }: React.ComponentProps<'span'>) {
+function MenubarItemText({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span data-slot="menubar-item-text" className={clsx(styles.itemText, className)} {...props} />
   );
 }
 
-function MenubarItemTextContent({ className, ...props }: React.ComponentProps<'span'>) {
+function MenubarItemTextContent({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="menubar-item-text-content"
@@ -321,7 +315,7 @@ function MenubarItemTextContent({ className, ...props }: React.ComponentProps<'s
   );
 }
 
-function MenubarItemTextIcon({ className, ...props }: React.ComponentProps<'span'>) {
+function MenubarItemTextIcon({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="menubar-item-text-icon"
@@ -331,7 +325,7 @@ function MenubarItemTextIcon({ className, ...props }: React.ComponentProps<'span
   );
 }
 
-function MenubarItemTextLabel({ className, ...props }: React.ComponentProps<'span'>) {
+function MenubarItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="menubar-item-text-label"
@@ -341,7 +335,7 @@ function MenubarItemTextLabel({ className, ...props }: React.ComponentProps<'spa
   );
 }
 
-function MenubarItemShortcut({ className, ...props }: React.ComponentProps<'span'>) {
+function MenubarItemShortcut({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="menubar-item-shortcut"
@@ -355,7 +349,7 @@ function getSubmenuOffset({ side }: { side: MenuPrimitive.Positioner.Props['side
   return side === 'top' || side === 'bottom' ? 4 : -4;
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}
