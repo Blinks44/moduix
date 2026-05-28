@@ -10,7 +10,7 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    children: 'Cmd K',
+    children: 'Esc',
   },
 } satisfies Meta<typeof Kbd>;
 
@@ -18,15 +18,15 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {};
-
-export const ShortcutGroup: Story = {
+export const Basic: Story = {
   render: () => (
     <KbdGroup>
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
     </KbdGroup>
   ),
 };
+
+export const SingleKey: Story = {};
 
 export const ShortcutList: Story = {
   render: () => (
@@ -57,15 +57,6 @@ export const Dense: Story = {
       <Kbd className={styles.dense}>Esc</Kbd>
       <Kbd className={styles.dense}>Ctrl</Kbd>
       <Kbd className={styles.dense}>/</Kbd>
-    </div>
-  ),
-};
-
-export const Muted: Story = {
-  render: () => (
-    <div className={styles.row}>
-      <Kbd className={styles.muted}>Ctrl</Kbd>
-      <Kbd className={styles.muted}>B</Kbd>
     </div>
   ),
 };

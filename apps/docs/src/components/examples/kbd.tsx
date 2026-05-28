@@ -1,4 +1,3 @@
-import type { ComponentProps } from 'react';
 import { Kbd, KbdGroup } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -67,16 +66,16 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function KbdExample(props: ComponentProps<typeof Kbd>) {
-  return <Kbd {...props}>Cmd K</Kbd>;
-}
-
-export function KbdGroupExample() {
+export function KbdExample() {
   return (
     <KbdGroup>
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
     </KbdGroup>
   );
+}
+
+export function KbdSingleKeyExample() {
+  return <Kbd>Esc</Kbd>;
 }
 
 export function KbdShortcutListExample() {
@@ -108,15 +107,6 @@ export function KbdDenseExample() {
       <Kbd className={styles.dense}>Esc</Kbd>
       <Kbd className={styles.dense}>Ctrl</Kbd>
       <Kbd className={styles.dense}>/</Kbd>
-    </div>
-  );
-}
-
-export function KbdMutedExample() {
-  return (
-    <div className={styles.row}>
-      <Kbd className={styles.muted}>Ctrl</Kbd>
-      <Kbd className={styles.muted}>B</Kbd>
     </div>
   );
 }
