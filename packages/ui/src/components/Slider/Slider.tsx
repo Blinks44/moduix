@@ -1,11 +1,11 @@
 import { Slider as SliderPrimitive } from '@base-ui/react/slider';
-import * as React from 'react';
+import { Children, Fragment, isValidElement, type ReactElement, type ReactNode } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Slider.module.css';
 
 type SliderChildrenParts = {
-  content: React.ReactNode[];
-  thumbs: React.ReactNode[];
+  content: ReactNode[];
+  thumbs: ReactNode[];
 };
 
 function Slider<Value extends number | readonly number[]>({
@@ -27,12 +27,12 @@ function Slider<Value extends number | readonly number[]>({
   );
 }
 
-function splitSliderChildren(children: React.ReactNode): SliderChildrenParts {
+function splitSliderChildren(children: ReactNode): SliderChildrenParts {
   const parts: SliderChildrenParts = { content: [], thumbs: [] };
 
-  const collectChildren = (nodes: React.ReactNode) => {
-    React.Children.forEach(nodes, (child) => {
-      if (!React.isValidElement(child)) {
+  const collectChildren = (nodes: ReactNode) => {
+    Children.forEach(nodes, (child) => {
+      if (!isValidElement(child)) {
         parts.content.push(child);
         return;
       }
@@ -56,15 +56,11 @@ function splitSliderChildren(children: React.ReactNode): SliderChildrenParts {
   return parts;
 }
 
-const isReactFragment = (
-  child: React.ReactNode,
-): child is React.ReactElement<{ children?: React.ReactNode }> =>
-  React.isValidElement(child) && child.type === React.Fragment;
+const isReactFragment = (child: ReactNode): child is ReactElement<{ children?: ReactNode }> =>
+  isValidElement(child) && child.type === Fragment;
 
-const isSliderThumb = (
-  child: React.ReactNode,
-): child is React.ReactElement<SliderPrimitive.Thumb.Props> =>
-  React.isValidElement(child) && child.type === SliderThumb;
+const isSliderThumb = (child: ReactNode): child is ReactElement<SliderPrimitive.Thumb.Props> =>
+  isValidElement(child) && child.type === SliderThumb;
 
 function SliderRoot<Value extends number | readonly number[]>({
   className,

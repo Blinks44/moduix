@@ -8,7 +8,7 @@ import {
   SliderTrack,
   SliderValue,
 } from 'moduix';
-import * as React from 'react';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './slider.module.css';
@@ -106,7 +106,7 @@ export function SliderExample() {
 }
 
 export function RangeSliderExample() {
-  const [value, setValue] = React.useState<readonly number[]>([20, 70]);
+  const [value, setValue] = useState([20, 70] as readonly number[]);
 
   return (
     <Slider value={value} min={0} max={100} onValueChange={setValue}>
@@ -119,7 +119,7 @@ export function RangeSliderExample() {
 }
 
 export function SteppedRangeSliderExample() {
-  const [value, setValue] = React.useState<readonly number[]>([250, 750]);
+  const [value, setValue] = useState([250, 750] as readonly number[]);
 
   return (
     <Slider
@@ -150,7 +150,7 @@ export function SteppedRangeSliderExample() {
 }
 
 export function ControlledSliderExample() {
-  const [value, setValue] = React.useState(24);
+  const [value, setValue] = useState(24);
 
   return (
     <div className={styles.stack}>
@@ -182,16 +182,6 @@ export function VerticalSliderExample() {
         <SliderThumb aria-label="Output" />
       </Slider>
     </div>
-  );
-}
-
-export function EdgeThumbAlignmentSliderExample() {
-  return (
-    <Slider defaultValue={0} thumbAlignment="edge">
-      <SliderLabel>Zoom</SliderLabel>
-      <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-      <SliderThumb aria-label="Zoom" />
-    </Slider>
   );
 }
 
