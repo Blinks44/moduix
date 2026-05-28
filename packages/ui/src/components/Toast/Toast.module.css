@@ -274,6 +274,9 @@
     display: grid;
     gap: var(--toast-content-gap, 0.25rem);
     overflow: hidden;
+    padding-inline-end: calc(
+      var(--toast-close-offset-right, 0.5rem) + var(--toast-close-size, 1.25rem) + var(--spacing-2)
+    );
     transition: opacity 250ms ease;
 
     &[data-behind] {

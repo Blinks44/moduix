@@ -1,16 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { type ComponentProps, useRef, useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
 import { CloseIcon } from '@/icons/ui';
 import { Button } from '../Button';
 import {
   ToastAnchoredRegion,
-  ToastArrow,
   ToastClose,
   ToastContent,
   ToastDescription,
   ToastPortal,
-  ToastPositioner,
   ToastProvider,
   ToastRegion,
   ToastRoot,
@@ -33,84 +31,43 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type ToastPlacement = NonNullable<React.ComponentProps<typeof ToastRegion>['placement']>;
-type ToastStackBehavior = NonNullable<React.ComponentProps<typeof ToastRegion>['stackBehavior']>;
+type ToastPlacement = NonNullable<ComponentProps<typeof ToastRegion>['placement']>;
+type ToastStackBehavior = NonNullable<ComponentProps<typeof ToastRegion>['stackBehavior']>;
 
 const globalToastManager = createToastManager();
 
-function PlacementDemo({
-  placement,
-  buttonText,
-  stackBehavior = 'stacked',
-}: {
-  placement: ToastPlacement;
-  buttonText: string;
-  stackBehavior?: ToastStackBehavior;
-}) {
-  const toastManager = useToastManager();
-  const [count, setCount] = React.useState(0);
-
-  const handleAddToast = () => {
-    const next = count + 1;
-    setCount(next);
-    toastManager.add({
-      title: `Toast ${next}`,
-      description: `Placement: ${placement}`,
-    });
-  };
-
-  return (
-    <>
-      <Button onClick={handleAddToast}>{buttonText}</Button>
-      <ToastRegion placement={placement} stackBehavior={stackBehavior} />
-    </>
-  );
-}
-
-export const TopLeft: Story = {
+export const Default: Story = {
   render: () => (
     <ToastProvider>
-      <PlacementDemo placement="top-left" buttonText="Top Left Toast" />
+      <CreateToastButton />
+      <ToastRegion />
     </ToastProvider>
   ),
 };
 
-export const TopCenter: Story = {
+export const Action: Story = {
   render: () => (
     <ToastProvider>
-      <PlacementDemo placement="top-center" buttonText="Top Center Toast" />
+      <ActionToastButton />
+      <ToastRegion />
     </ToastProvider>
   ),
 };
 
-export const TopRight: Story = {
+export const Placement: Story = {
   render: () => (
     <ToastProvider>
-      <PlacementDemo placement="top-right" buttonText="Top Right Toast" />
+      <PlacementDemo />
     </ToastProvider>
   ),
 };
 
-export const BottomLeft: Story = {
+export const AlwaysExpanded: Story = {
+  name: 'Always Expanded',
   render: () => (
     <ToastProvider>
-      <PlacementDemo placement="bottom-left" buttonText="Bottom Left Toast" />
-    </ToastProvider>
-  ),
-};
-
-export const BottomCenter: Story = {
-  render: () => (
-    <ToastProvider>
-      <PlacementDemo placement="bottom-center" buttonText="Bottom Center Toast" />
-    </ToastProvider>
-  ),
-};
-
-export const BottomRight: Story = {
-  render: () => (
-    <ToastProvider>
-      <PlacementDemo placement="bottom-right" buttonText="Bottom Right Toast" />
+      <StackedToastButton stackBehavior="expanded" />
+      <ToastRegion placement="bottom-right" stackBehavior="expanded" />
     </ToastProvider>
   ),
 };
@@ -127,22 +84,9 @@ export const GlobalManager: Story = {
           })
         }
       >
-        Create Global Toast
+        Create global toast
       </Button>
-      <ToastRegion placement="bottom-right" />
-    </ToastProvider>
-  ),
-};
-
-export const AlwaysExpanded: Story = {
-  name: 'Always Expanded',
-  render: () => (
-    <ToastProvider>
-      <PlacementDemo
-        placement="bottom-right"
-        buttonText="Create Expanded Toast"
-        stackBehavior="expanded"
-      />
+      <ToastRegion />
     </ToastProvider>
   ),
 };
@@ -190,26 +134,122 @@ export const AnchoredToast: Story = {
   ),
 };
 
-export const ManualAnchoredComposition: Story = {
-  name: 'Manual Anchored Composition',
-  render: () => (
-    <ToastProvider>
-      <AnchoredToastButtons />
-      <ManualAnchoredRegion />
-    </ToastProvider>
-  ),
-};
-
 export const ToastAndAnchoredToast: Story = {
   name: 'Toast and Anchored Toast',
   render: () => (
     <ToastProvider>
-      <PlacementDemo placement="bottom-right" buttonText="Create Toast" />
-      <AnchoredToastButtons />
+      <div className={styles.stack}>
+        <CreateToastButton />
+        <AnchoredToastButtons />
+      </div>
+      <ToastRegion />
       <ToastAnchoredRegion />
     </ToastProvider>
   ),
 };
+
+function PlacementDemo() {
+  const [placement, setPlacement] = useState<ToastPlacement>('bottom-right');
+
+  return (
+    <>
+      <div className={styles.stack}>
+        <div className={styles.segmented}>
+          {[
+            'top-left',
+            'top-center',
+            'top-right',
+            'bottom-left',
+            'bottom-center',
+            'bottom-right',
+          ].map((item) => (
+            <button
+              key={item}
+              type="button"
+              className={styles.segment}
+              data-active={item === placement || undefined}
+              onClick={() => setPlacement(item as ToastPlacement)}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <PlacementToastButton placement={placement} />
+      </div>
+      <ToastRegion placement={placement} />
+    </>
+  );
+}
+
+function CreateToastButton() {
+  const toastManager = useToastManager();
+  const [count, setCount] = useState(0);
+
+  const handleCreateToast = () => {
+    const next = count + 1;
+    setCount(next);
+    toastManager.add({
+      title: `Toast ${next}`,
+      description: 'This notification is rendered in the shared toast region.',
+    });
+  };
+
+  return <Button onClick={handleCreateToast}>Create toast</Button>;
+}
+
+function ActionToastButton() {
+  const toastManager = useToastManager();
+
+  return (
+    <Button
+      onClick={() =>
+        toastManager.add({
+          title: 'File uploaded',
+          description: 'The file is ready to share.',
+          actionProps: {
+            children: 'Undo',
+            onClick: () => toastManager.add({ description: 'Upload reverted.' }),
+          },
+        })
+      }
+    >
+      Create action toast
+    </Button>
+  );
+}
+
+function PlacementToastButton({ placement }: { placement: ToastPlacement }) {
+  const toastManager = useToastManager();
+
+  return (
+    <Button
+      onClick={() =>
+        toastManager.add({
+          title: 'Placement',
+          description: `Current placement: ${placement}`,
+        })
+      }
+    >
+      Show {placement}
+    </Button>
+  );
+}
+
+function StackedToastButton({ stackBehavior }: { stackBehavior: ToastStackBehavior }) {
+  const toastManager = useToastManager();
+  const [count, setCount] = useState(0);
+
+  const handleCreateToast = () => {
+    const next = count + 1;
+    setCount(next);
+    toastManager.add({
+      title: `Stacked toast ${next}`,
+      description: 'Create several notifications to compare the expanded stack behavior.',
+    });
+  };
+
+  return <Button onClick={handleCreateToast}>Create {stackBehavior} toast</Button>;
+}
 
 function CustomToastTrigger() {
   const toastManager = useToastManager();
@@ -223,7 +263,7 @@ function CustomToastTrigger() {
         })
       }
     >
-      Create Custom Toast
+      Create custom toast
     </Button>
   );
 }
@@ -240,7 +280,7 @@ function ManualToastTrigger() {
         })
       }
     >
-      Create Manual Toast
+      Create manual toast
     </Button>
   );
 }
@@ -269,11 +309,11 @@ function ManualToastRegion() {
 }
 
 function AnchoredToastButtons() {
-  const copyRef = React.useRef<HTMLButtonElement | null>(null);
-  const saveRef = React.useRef<HTMLButtonElement | null>(null);
+  const copyRef = useRef<HTMLButtonElement | null>(null);
+  const saveRef = useRef<HTMLButtonElement | null>(null);
   const anchoredToast = useAnchoredToastManager();
-  const [copyCount, setCopyCount] = React.useState(0);
-  const [saveCount, setSaveCount] = React.useState(0);
+  const [copyCount, setCopyCount] = useState(0);
+  const [saveCount, setSaveCount] = useState(0);
 
   const showAnchored = (anchor: HTMLButtonElement | null, label: string, count: number) => {
     if (!anchor) {
@@ -311,36 +351,5 @@ function AnchoredToastButtons() {
         Save
       </Button>
     </div>
-  );
-}
-
-function ManualAnchoredRegion() {
-  const anchoredToast = useAnchoredToastManager();
-
-  return (
-    <ToastProvider toastManager={anchoredToast.manager}>
-      <ManualAnchoredRegionContent />
-    </ToastProvider>
-  );
-}
-
-function ManualAnchoredRegionContent() {
-  const { toasts } = useToastManager();
-
-  return (
-    <ToastPortal>
-      <ToastViewport className={styles.manualAnchoredViewport}>
-        {toasts.map((toast) => (
-          <ToastPositioner key={toast.id} toast={toast}>
-            <ToastRoot toast={toast}>
-              <ToastArrow />
-              <ToastContent>
-                <ToastDescription />
-              </ToastContent>
-            </ToastRoot>
-          </ToastPositioner>
-        ))}
-      </ToastViewport>
-    </ToastPortal>
   );
 }

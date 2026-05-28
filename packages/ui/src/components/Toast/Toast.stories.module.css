@@ -1,4 +1,36 @@
 @layer ui.storybook {
+  .stack {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .segmented {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-1);
+  }
+
+  .segment {
+    min-height: var(--size-sm);
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    padding: 0.25rem 0.5rem;
+    font: inherit;
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+    cursor: pointer;
+  }
+
+  .segment[data-active] {
+    border-color: var(--color-foreground);
+    background: var(--color-foreground);
+    color: var(--color-background);
+  }
+
   .customToast {
     --toast-bg: var(--color-primary);
     --toast-color: var(--color-primary-foreground);
@@ -22,30 +54,16 @@
     color: currentColor;
   }
 
-  .customAnchoredContent {
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    column-gap: var(--spacing-2);
-  }
-
-  .customAnchoredIcon {
-    width: 1rem;
-    height: 1rem;
-    color: currentColor;
-  }
-
   .closeIcon {
     inline-size: var(--toast-close-icon-size, 1rem);
     block-size: var(--toast-close-icon-size, 1rem);
     flex: none;
   }
 
-  .manualAnchoredViewport {
-    outline: 0;
-  }
-
   .anchoredActions {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--spacing-2);
   }
 }

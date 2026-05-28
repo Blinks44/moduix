@@ -13,9 +13,9 @@ import {
   GlobalManagerToastExample,
   ManualToastCompositionExample,
   PlacementToastExample,
+  ToastAndAnchoredToastExample,
   ToastCssPlaygroundPanel,
   ToastCssPropertiesPanel,
-  ToastAndAnchoredToastExample,
   ToastExample,
   toastPlaygroundCssProperties,
 } from '@/components/examples/toast';
@@ -24,19 +24,13 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/toast" />
 
-## Overview
+## Default Path
 
-`Toast` has two user-facing flows:
+Mount `ToastProvider` once near the app root, then render one or both regions depending on the
+feedback flows the app needs:
 
-- `ToastRegion` for page-level stacked notifications
-- `ToastAnchoredRegion` for contextual feedback attached to a specific control
-
-Both flows are mounted under one `ToastProvider`.
-
-## App Integration
-
-Mount `ToastProvider` once near the app root. Render both regions once if the app uses both toast
-styles.
+- `ToastRegion` for stacked page-level notifications
+- `ToastAnchoredRegion` for short feedback next to the triggering control
 
 ```tsx
 import { ToastAnchoredRegion, ToastProvider, ToastRegion } from 'moduix';
@@ -52,17 +46,8 @@ export function App() {
 }
 ```
 
-How it maps in the app:
-
-- `useToastManager()` sends stacked toasts to `ToastRegion`
-- `useAnchoredToastManager()` sends anchored toasts to `ToastAnchoredRegion`
-- both regions work independently under the same provider
-
-This is the recommended layout for root providers, app shells, and application wrappers.
-
-## Basic Toast
-
-Use `ToastRegion` for the default stacked toast flow.
+Use `useToastManager()` to enqueue stacked toasts and `useAnchoredToastManager()` to enqueue
+anchored ones. Most applications never need lower-level setup than this.
 
 <Preview cssProperties={toastPlaygroundCssProperties}>
   <ToastExample />
@@ -104,15 +89,78 @@ Use `ToastRegion` for the default stacked toast flow.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <ToastCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <ToastCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <Preview.CSSProperties>
+    {(context) => <ToastCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <ToastCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
-`ToastRegion` already renders `ToastPortal` and `ToastViewport`, so the default path stays short.
+`ToastRegion` already renders `ToastPortal` and `ToastViewport`, so the default stacked path stays
+short.
 
-## Anchored Toast
+## Anatomy
 
-Use `ToastAnchoredRegion` when feedback should appear next to the control that triggered it.
+```text
+ToastProvider
+├─ app content
+├─ ToastRegion
+│  ├─ ToastPortal
+│  └─ ToastViewport
+│     └─ ToastRoot
+│        └─ ToastContent
+│           ├─ ToastTitle
+│           ├─ ToastDescription
+│           ├─ ToastAction
+│           └─ ToastClose
+└─ ToastAnchoredRegion
+   └─ ToastPositioner
+      └─ ToastRoot
+         ├─ ToastArrow
+         └─ ToastContent
+            └─ ToastDescription
+```
+
+| Part                  | Role                                                                |
+| --------------------- | ------------------------------------------------------------------- |
+| `ToastProvider`       | Provides the stacked toast manager and the anchored toast helper.   |
+| `ToastRegion`         | Default stacked toast renderer with built-in portal and viewport.   |
+| `ToastAnchoredRegion` | Default anchored toast renderer with built-in positioner and arrow. |
+| `ToastPortal`         | Low-level portal wrapper for manual stacked composition.            |
+| `ToastViewport`       | Low-level viewport wrapper for manual stacked composition.          |
+| `ToastPositioner`     | Low-level anchored positioner wrapper.                              |
+| `ToastRoot`           | Visible toast surface.                                              |
+| `ToastContent`        | Content wrapper for the visible toast body.                         |
+| `ToastTitle`          | Renders `toast.title`.                                              |
+| `ToastDescription`    | Renders `toast.description`.                                        |
+| `ToastAction`         | Renders `toast.actionProps` when present.                           |
+| `ToastClose`          | Dismiss button with the default close icon or custom children.      |
+| `ToastArrow`          | Default anchored arrow.                                             |
+
+## Composition
+
+`Toast` keeps the high-level API on the region components:
+
+| Surface               | Prop            | Default        | Values                                                                                |
+| --------------------- | --------------- | -------------- | ------------------------------------------------------------------------------------- |
+| `ToastRegion`         | `placement`     | `bottom-right` | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right` |
+| `ToastRegion`         | `stackBehavior` | `stacked`      | `stacked`, `expanded`                                                                 |
+| `ToastRegion`         | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
+| `ToastAnchoredRegion` | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
+
+Composition rules:
+
+- use `ToastRegion` for the normal stacked flow
+- use `ToastAnchoredRegion` for contextual feedback near a control
+- use `renderToast` when the region setup stays the same but the visible markup needs to change
+- drop to `ToastPortal` and `ToastViewport` only when the stacked viewport structure itself must be owned by consumer code
+
+Use `createToastManager()` only when a service outside React needs to enqueue stacked toasts.
+
+## Examples
+
+### Anchored Toast
 
 <Preview>
   <AnchoredToastExample />
@@ -163,62 +211,6 @@ Use `ToastAnchoredRegion` when feedback should appear next to the control that t
 
   </Preview.Code>
 </Preview>
-
-## Parts
-
-The library keeps a short default path, but the visible toast parts are still exported for custom
-layout.
-
-```text
-ToastProvider
-├─ app content
-├─ ToastRegion
-│  ├─ ToastPortal
-│  └─ ToastViewport
-│     └─ ToastRoot
-│        └─ ToastContent
-│           ├─ ToastTitle
-│           ├─ ToastDescription
-│           ├─ ToastAction
-│           └─ ToastClose
-└─ ToastAnchoredRegion
-   └─ ToastPositioner
-      └─ ToastRoot
-         ├─ ToastArrow
-         └─ ToastContent
-            └─ ToastDescription
-```
-
-| Part                  | Role                                                                |
-| --------------------- | ------------------------------------------------------------------- |
-| `ToastProvider`       | Provides the stacked toast manager and the anchored toast helper.   |
-| `ToastRegion`         | Default stacked toast renderer with built-in portal and viewport.   |
-| `ToastAnchoredRegion` | Default anchored toast renderer with built-in positioner and arrow. |
-| `ToastPortal`         | Low-level portal wrapper for manual stacked composition.            |
-| `ToastViewport`       | Low-level viewport wrapper for manual stacked composition.          |
-| `ToastPositioner`     | Low-level anchored positioner wrapper.                              |
-| `ToastRoot`           | Visible toast surface.                                              |
-| `ToastContent`        | Content wrapper for the visible toast body.                         |
-| `ToastTitle`          | Renders `toast.title`.                                              |
-| `ToastDescription`    | Renders `toast.description`.                                        |
-| `ToastAction`         | Renders `toast.actionProps` when present.                           |
-| `ToastClose`          | Dismiss button with the default close icon or custom children.      |
-| `ToastArrow`          | Default anchored arrow.                                             |
-
-## Defaults
-
-Small sugar stays on the region components only.
-
-| Surface               | Prop            | Default        | Values                                                                                |
-| --------------------- | --------------- | -------------- | ------------------------------------------------------------------------------------- |
-| `ToastRegion`         | `placement`     | `bottom-right` | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right` |
-| `ToastRegion`         | `stackBehavior` | `stacked`      | `stacked`, `expanded`                                                                 |
-| `ToastRegion`         | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
-| `ToastAnchoredRegion` | `renderToast`   | default markup | `(toast, index) => ReactNode`                                                         |
-
-Use `createToastManager()` only when a service outside React needs to enqueue stacked toasts.
-
-## Common Patterns
 
 ### Action
 
@@ -358,12 +350,10 @@ Use `renderToast` when the region setup stays the same but the visible layout ne
   </Preview.Code>
 </Preview>
 
-## Manual Composition
-
-Most applications should use `ToastRegion` and `ToastAnchoredRegion`. Drop to low-level parts only
-when you need to own the stacked viewport structure directly.
-
 ### Manual Stacked Region
+
+Most applications should stay on `ToastRegion`, but the stacked viewport can still be composed
+manually when needed.
 
 <Preview>
   <ManualToastCompositionExample />

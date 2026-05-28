@@ -71,10 +71,6 @@
   flex: none;
 }
 
-.manualAnchoredViewport {
-  outline: 0;
-}
-
 .anchoredActions {
   display: flex;
   flex-wrap: wrap;

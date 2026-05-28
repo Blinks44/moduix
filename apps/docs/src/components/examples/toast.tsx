@@ -8,7 +8,6 @@ import {
   ToastContent,
   ToastDescription,
   ToastPortal,
-  ToastPositioner,
   ToastProvider,
   ToastRegion,
   ToastRoot,
@@ -18,13 +17,13 @@ import {
   useAnchoredToastManager,
   useToastManager,
 } from 'moduix';
-import * as React from 'react';
+import { type ComponentProps, useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toast.module.css';
 
-type ToastPlacement = NonNullable<React.ComponentProps<typeof ToastRegion>['placement']>;
-type ToastStackBehavior = NonNullable<React.ComponentProps<typeof ToastRegion>['stackBehavior']>;
+type ToastPlacement = NonNullable<ComponentProps<typeof ToastRegion>['placement']>;
+type ToastStackBehavior = NonNullable<ComponentProps<typeof ToastRegion>['stackBehavior']>;
 
 const globalToastManager = createToastManager();
 const placements: ToastPlacement[] = [
@@ -179,7 +178,7 @@ export function ActionToastExample() {
 }
 
 export function PlacementToastExample() {
-  const [placement, setPlacement] = React.useState<ToastPlacement>('bottom-right');
+  const [placement, setPlacement] = useState<ToastPlacement>('bottom-right');
 
   return (
     <ToastProvider>
@@ -276,19 +275,6 @@ export function CustomAnchoredToastExample() {
   );
 }
 
-export function ManualAnchoredCompositionExample() {
-  const anchoredToastManager = React.useMemo(() => createToastManager(), []);
-
-  return (
-    <ToastProvider anchoredToastManager={anchoredToastManager}>
-      <AnchoredToastActions />
-      <ToastProvider toastManager={anchoredToastManager}>
-        <ManualAnchoredRegion />
-      </ToastProvider>
-    </ToastProvider>
-  );
-}
-
 export function ToastAndAnchoredToastExample() {
   return (
     <ToastProvider>
@@ -358,32 +344,10 @@ function ManualToastRegion() {
   );
 }
 
-function ManualAnchoredRegion() {
-  const { toasts } = useToastManager();
-
-  return (
-    <ToastPortal>
-      <ToastViewport className={styles.manualAnchoredViewport}>
-        {toasts.map((toast) => (
-          <ToastPositioner key={toast.id} toast={toast}>
-            <ToastRoot toast={toast} className={styles.customToast}>
-              <ToastArrow />
-              <ToastContent className={styles.customAnchoredContent}>
-                <InfoIcon className={styles.customAnchoredIcon} />
-                <ToastDescription />
-              </ToastContent>
-            </ToastRoot>
-          </ToastPositioner>
-        ))}
-      </ToastViewport>
-    </ToastPortal>
-  );
-}
-
 function AnchoredToastActions() {
-  const copyRef = React.useRef<HTMLButtonElement | null>(null);
-  const saveRef = React.useRef<HTMLButtonElement | null>(null);
-  const shareRef = React.useRef<HTMLButtonElement | null>(null);
+  const copyRef = useRef<HTMLButtonElement | null>(null);
+  const saveRef = useRef<HTMLButtonElement | null>(null);
+  const shareRef = useRef<HTMLButtonElement | null>(null);
   const anchoredToast = useAnchoredToastManager();
 
   const showAnchored = (
@@ -432,7 +396,7 @@ function AnchoredToastActions() {
 
 function CreateToastButton() {
   const toastManager = useToastManager();
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = useState(0);
 
   const createToast = () => {
     const next = count + 1;
@@ -486,7 +450,7 @@ function PlacementToastButton({ placement }: { placement: ToastPlacement }) {
 
 function StackedToastButton({ stackBehavior }: { stackBehavior: ToastStackBehavior }) {
   const toastManager = useToastManager();
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = useState(0);
 
   const createToast = () => {
     const next = count + 1;
