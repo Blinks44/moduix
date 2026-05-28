@@ -1,5 +1,6 @@
+import type { ComponentProps } from 'react';
 import { Meter, MeterIndicator, MeterLabel, MeterRoot, MeterTrack, MeterValue } from 'moduix';
-import * as React from 'react';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './meter.module.css';
@@ -63,7 +64,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function MeterExample(props: React.ComponentProps<typeof Meter>) {
+export function MeterExample(props: ComponentProps<typeof Meter>) {
   const { value = 24, ...restProps } = props;
 
   return (
@@ -84,7 +85,7 @@ export function MinMaxRangeMeterExample() {
 }
 
 export function ControlledMeterExample() {
-  const [value, setValue] = React.useState(45);
+  const [value, setValue] = useState(45);
 
   return (
     <div className={styles.stack}>
@@ -106,11 +107,26 @@ export function ControlledMeterExample() {
   );
 }
 
-export function PercentFormatMeterExample() {
+export function LocaleAndFormatMeterExample() {
   return (
-    <Meter value={0.64} min={0} max={1} format={{ style: 'percent', maximumFractionDigits: 0 }}>
-      <MeterLabel>Usage</MeterLabel>
-      <MeterValue>{(formattedValue) => `${formattedValue} used`}</MeterValue>
+    <Meter
+      value={0.64}
+      min={0}
+      max={1}
+      locale="de-DE"
+      format={{ style: 'percent', maximumFractionDigits: 0 }}
+    >
+      <MeterLabel>Storage usage</MeterLabel>
+      <MeterValue>{(formattedValue) => `${formattedValue} belegt`}</MeterValue>
+    </Meter>
+  );
+}
+
+export function AriaValueTextMeterExample() {
+  return (
+    <Meter value={3} min={0} max={5} aria-valuetext="3 of 5 service checks are healthy">
+      <MeterLabel>Service health</MeterLabel>
+      <MeterValue>{() => '3 of 5 healthy'}</MeterValue>
     </Meter>
   );
 }

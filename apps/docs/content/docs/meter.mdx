@@ -5,14 +5,15 @@ icon: Component
 ---
 
 import {
+  AriaValueTextMeterExample,
   CompositionMeterExample,
   ControlledMeterExample,
   CustomStylesMeterExample,
+  LocaleAndFormatMeterExample,
   MeterCssPlaygroundPanel,
   MeterCssPropertiesPanel,
   MeterExample,
   MinMaxRangeMeterExample,
-  PercentFormatMeterExample,
   meterPlaygroundCssProperties,
 } from '@/components/examples/meter';
 
@@ -50,8 +51,7 @@ import {
 
 ## Anatomy
 
-`Meter` renders the standard visual bar automatically. For the usual case, you only compose the
-visible text slots.
+`Meter` renders the visual bar automatically, so the default path only needs the visible text slots.
 
 ```text
 Meter[value]
@@ -76,7 +76,14 @@ Meter[value]
 | `track`      | Default visual rail rendered by `Meter`.                                                       |
 | `indicator`  | Default fill rendered inside the track.                                                        |
 
+For deeper customization, the same parts are also exported as `MeterRoot`, `MeterTrack`, and
+`MeterIndicator`.
+
 ## Composition
+
+Use `value` with optional `min` and `max` for bounded metrics such as storage usage, quotas, or
+health checks. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` live on the root and
+keep the visible value and accessible text aligned.
 
 Style the default component with `className` and the public CSS variables. When the meter bar
 itself needs separate selectors or a different DOM shape, switch to explicit composition with
@@ -180,12 +187,12 @@ Keep the value in React state when the meter mirrors another control.
   </Preview.CSS>
 </Preview>
 
-### Percent Format
+### Locale And Format
 
-Use `format` and a custom `MeterValue` child function for user-facing value text.
+Use `locale`, `format`, and a custom `MeterValue` child function for localized value text.
 
 <Preview>
-  <PercentFormatMeterExample />
+  <LocaleAndFormatMeterExample />
 
   <Preview.Code>
     {`
@@ -195,11 +202,46 @@ Use `format` and a custom `MeterValue` child function for user-facing value text
         MeterValue,
       } from "moduix";
 
-      export function PercentFormatMeterDemo() {
+      export function LocaleAndFormatMeterDemo() {
         return (
-          <Meter value={0.64} min={0} max={1} format={{ style: "percent", maximumFractionDigits: 0 }}>
-            <MeterLabel>Usage</MeterLabel>
-            <MeterValue>{(formattedValue) => \`\${formattedValue} used\`}</MeterValue>
+          <Meter
+            value={0.64}
+            min={0}
+            max={1}
+            locale="de-DE"
+            format={{ style: "percent", maximumFractionDigits: 0 }}
+          >
+            <MeterLabel>Storage usage</MeterLabel>
+            <MeterValue>{(formattedValue) => \`\${formattedValue} belegt\`}</MeterValue>
+          </Meter>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Aria Value Text
+
+Use `aria-valuetext` when the numeric value needs a clearer accessible label than the formatted
+number alone.
+
+<Preview>
+  <AriaValueTextMeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterLabel,
+        MeterValue,
+      } from "moduix";
+
+      export function AriaValueTextMeterDemo() {
+        return (
+          <Meter value={3} min={0} max={5} aria-valuetext="3 of 5 service checks are healthy">
+            <MeterLabel>Service health</MeterLabel>
+            <MeterValue>{() => "3 of 5 healthy"}</MeterValue>
           </Meter>
         );
       }
@@ -302,16 +344,14 @@ Use the same parts when you need to change layout or structure more deeply.
         display: flex;
         align-items: stretch;
         height: 1rem;
-        border: var(--border-width-sm) solid transparent;
         border-radius: var(--radius-md);
-        background:
-          linear-gradient(var(--color-background), var(--color-background)) padding-box,
-          linear-gradient(90deg, var(--color-chart-3), var(--color-primary)) border-box;
-        box-shadow: none;
+        background: var(--color-background);
+        box-shadow: inset 0 0 0 var(--border-width-sm)
+          color-mix(in oklab, var(--color-chart-3), var(--color-primary) 45%);
       }
 
       .composedIndicator {
-        border-radius: calc(var(--radius-md) - var(--border-width-sm));
+        border-radius: inherit;
         background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
       }
 
