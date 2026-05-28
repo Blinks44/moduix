@@ -8,9 +8,9 @@ import {
   PaginationClassNameExample,
   PaginationCompactExample,
   PaginationControlledExample,
-  PaginationDensityExample,
   PaginationCssPlaygroundPanel,
   PaginationCssPropertiesPanel,
+  PaginationDensityExample,
   PaginationExample,
   paginationPlaygroundCssProperties,
 } from '@/components/examples/pagination';
@@ -19,7 +19,9 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/toolbar" />
 
-## Basic
+## Default Path
+
+Use `Pagination` with `usePagination` when the page window should be calculated for you.
 
 <Preview cssProperties={paginationPlaygroundCssProperties}>
   <PaginationExample />
@@ -47,9 +49,12 @@ import {
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
-                  render={<button type="button" />}
                   aria-disabled={!pagination.canPreviousPage || undefined}
-                  onClick={() => setPage((current) => Math.max(current - 1, 1))}
+                  onClick={() => {
+                    if (pagination.canPreviousPage) {
+                      setPage(pagination.previousPage);
+                    }
+                  }}
                 />
               </PaginationItem>
               {pagination.items.map((item, index) => (
@@ -58,7 +63,6 @@ import {
                     <PaginationEllipsis />
                   ) : (
                     <PaginationLink
-                      render={<button type="button" />}
                       isActive={item === pagination.page}
                       onClick={() => setPage(item)}
                     >
@@ -69,9 +73,12 @@ import {
               ))}
               <PaginationItem>
                 <PaginationNext
-                  render={<button type="button" />}
                   aria-disabled={!pagination.canNextPage || undefined}
-                  onClick={() => setPage((current) => Math.min(current + 1, 10))}
+                  onClick={() => {
+                    if (pagination.canNextPage) {
+                      setPage(pagination.nextPage);
+                    }
+                  }}
                 />
               </PaginationItem>
             </PaginationContent>
@@ -89,9 +96,11 @@ import {
   </Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+When `href` and `render` are omitted, `PaginationLink`, `PaginationPrevious`, and
+`PaginationNext` render native `button` elements automatically. Use that path for client-side page
+state, tables, and filtered lists.
 
-`Pagination` keeps the public surface small and exposes only styled building blocks.
+## Anatomy
 
 ```text
 Pagination
@@ -111,183 +120,36 @@ Pagination
 | `Pagination`         | Navigation landmark.                                               |
 | `PaginationContent`  | Base UI toolbar root for keyboard navigation and item arrangement. |
 | `PaginationItem`     | Lightweight wrapper for one pagination element.                    |
-| `PaginationLink`     | Page link with active styling via `isActive`.                      |
+| `PaginationLink`     | Page control with active styling via `isActive`.                   |
 | `PaginationPrevious` | Previous-page shortcut with a default icon-only control.           |
 | `PaginationNext`     | Next-page shortcut with a default icon-only control.               |
 | `PaginationEllipsis` | Non-interactive collapsed-range marker.                            |
 
 ## Composition
 
-Pagination no longer owns page state, range generation, or URL mapping. Those concerns stay in
-consumer code, where they are easier to reason about and easier to customize.
+`Pagination` stays thin on purpose:
 
-Use `usePagination` when you want the library to calculate the visible page items, ellipses, and
-previous/next targets.
+- `usePagination` handles range generation only
+- URL mapping stays in consumer code
+- routing stays in consumer code
+- visible layout stays explicit in JSX
 
-Use plain `href` when a normal anchor is enough. Use `render={<Link />}` when your app standardizes
-on router link components. Use `render={<button />}` when pagination is driven by local state.
-
-`PaginationPrevious` and `PaginationNext` are icon-only by default. Pass `children` when the
-surrounding UI needs text labels or a custom layout.
-
-The default examples keep a fixed pagination window, so the control does not grow when the current
-page moves from the edge into the middle range.
-
-## Links and Buttons
+Use these paths:
 
 | Pattern                | Best fit                                              |
 | ---------------------- | ----------------------------------------------------- |
-| `href="/items?page=4"` | Plain links, SSR-first pages, no framework wrapper    |
-| `render={<Link />}`    | Next.js, TanStack Router, Remix, or custom router API |
-| `render={<button />}`  | Local state, client-side tables, or filtered lists    |
+| default button path    | Local state, client-side tables, filtered collections |
+| `href="/items?page=4"` | Plain links and SSR-first pages                       |
+| `render={<Link />}`    | Router-specific link components                       |
 
-Prefer `href` when navigation is the main job and the platform link is enough. Prefer `render` with
-a router `Link` when the app already relies on framework-level prefetching, active-state handling,
-or typed route params.
+`PaginationPrevious` and `PaginationNext` are icon-only by default. Pass `children` when the UI
+needs text labels or a custom layout.
 
 ## Examples
 
-### Compact Range
-
-Build only the items that the current layout needs.
-
-<Preview>
-  <PaginationCompactExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Pagination,
-        PaginationContent,
-        PaginationEllipsis,
-        PaginationItem,
-        PaginationLink,
-        PaginationNext,
-        PaginationPrevious,
-        usePagination,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function PaginationCompactDemo() {
-        const [page, setPage] = useState(5);
-        const pagination = usePagination({ count: 10, page });
-
-        return (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  render={<button type="button" />}
-                  aria-disabled={!pagination.canPreviousPage || undefined}
-                  onClick={() => setPage(pagination.previousPage)}
-                />
-              </PaginationItem>
-              {pagination.items.map((item, index) => (
-                <PaginationItem key={String(item) + "-" + index}>
-                  {typeof item !== "number" ? (
-                    <PaginationEllipsis />
-                  ) : (
-                    <PaginationLink
-                      render={<button type="button" />}
-                      isActive={item === pagination.page}
-                      onClick={() => setPage(item)}
-                    >
-                      {item}
-                    </PaginationLink>
-                  )}
-                </PaginationItem>
-              ))}
-              <PaginationItem>
-                <PaginationNext
-                  render={<button type="button" />}
-                  aria-disabled={!pagination.canNextPage || undefined}
-                  onClick={() => setPage(pagination.nextPage)}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Pagination Density
-
-Tune `siblingCount` and `boundaryCount` on `usePagination` when you need a denser or wider page
-window.
-
-<Preview>
-  <PaginationDensityExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Pagination,
-        PaginationContent,
-        PaginationEllipsis,
-        PaginationItem,
-        PaginationLink,
-        PaginationNext,
-        PaginationPrevious,
-        usePagination,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function PaginationDensityDemo() {
-        const [page, setPage] = useState(12);
-        const pagination = usePagination({
-          count: 24,
-          page,
-          siblingCount: 2,
-          boundaryCount: 2,
-        });
-
-        return (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  render={<button type="button" />}
-                  aria-disabled={!pagination.canPreviousPage || undefined}
-                  onClick={() => setPage(pagination.previousPage)}
-                />
-              </PaginationItem>
-              {pagination.items.map((item, index) => (
-                <PaginationItem key={String(item) + "-" + index}>
-                  {typeof item !== "number" ? (
-                    <PaginationEllipsis />
-                  ) : (
-                    <PaginationLink
-                      render={<button type="button" />}
-                      isActive={item === pagination.page}
-                      onClick={() => setPage(item)}
-                    >
-                      {item}
-                    </PaginationLink>
-                  )}
-                </PaginationItem>
-              ))}
-              <PaginationItem>
-                <PaginationNext
-                  render={<button type="button" />}
-                  aria-disabled={!pagination.canNextPage || undefined}
-                  onClick={() => setPage(pagination.nextPage)}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
 ### Controlled State
 
-Use the Base UI `render` prop when the controls should behave like buttons instead of links.
+The default button path keeps client-side pagination short.
 
 <Preview>
   <PaginationControlledExample />
@@ -315,9 +177,12 @@ Use the Base UI `render` prop when the controls should behave like buttons inste
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
-                  render={<button type="button" />}
                   aria-disabled={!pagination.canPreviousPage || undefined}
-                  onClick={() => setPage(pagination.previousPage)}
+                  onClick={() => {
+                    if (pagination.canPreviousPage) {
+                      setPage(pagination.previousPage);
+                    }
+                  }}
                 />
               </PaginationItem>
               {pagination.items.map((item, index) => (
@@ -326,7 +191,6 @@ Use the Base UI `render` prop when the controls should behave like buttons inste
                     <PaginationEllipsis />
                   ) : (
                     <PaginationLink
-                      render={<button type="button" />}
                       isActive={item === pagination.page}
                       onClick={() => setPage(item)}
                     >
@@ -337,9 +201,12 @@ Use the Base UI `render` prop when the controls should behave like buttons inste
               ))}
               <PaginationItem>
                 <PaginationNext
-                  render={<button type="button" />}
                   aria-disabled={!pagination.canNextPage || undefined}
-                  onClick={() => setPage(pagination.nextPage)}
+                  onClick={() => {
+                    if (pagination.canNextPage) {
+                      setPage(pagination.nextPage);
+                    }
+                  }}
                 />
               </PaginationItem>
             </PaginationContent>
@@ -351,9 +218,99 @@ Use the Base UI `render` prop when the controls should behave like buttons inste
   </Preview.Code>
 </Preview>
 
-### Next.js
+### Range Density
 
-Use `render` with `next/link` when the app standardizes on framework links.
+Tune `siblingCount` and `boundaryCount` on `usePagination` when the page window should be denser or
+wider.
+
+<Preview>
+  <PaginationDensityExample />
+
+  <Preview.Code>
+    {`
+      const pagination = usePagination({
+        count: 24,
+        page,
+        siblingCount: 2,
+        boundaryCount: 2,
+      });
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Styling
+
+Style the composed parts with `className` on `Pagination` and the public `--pagination-*`
+variables.
+
+<Preview>
+  <PaginationClassNameExample />
+
+  <Preview.Code>
+    {`
+      <Pagination className={styles.customPagination}>
+        <PaginationContent>{/* items */}</PaginationContent>
+      </Pagination>
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customPagination {
+        --pagination-item-radius: var(--radius-sm);
+        --pagination-item-bg-active: var(--color-primary);
+        --pagination-item-color-active: var(--color-primary-foreground);
+        --pagination-item-border-color-active: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
+
+### Manual Window
+
+Build a shorter explicit window when the surrounding layout already knows which pages should be
+shown.
+
+<Preview>
+  <PaginationCompactExample />
+
+  <Preview.Code>
+    {`
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious onClick={() => setPage((current) => Math.max(current - 1, 1))} />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink onClick={() => setPage(4)}>4</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink isActive={page === 5} onClick={() => setPage(5)}>
+              5
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink onClick={() => setPage(6)}>6</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext onClick={() => setPage((current) => Math.min(current + 1, 10))} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Router Links
+
+Use `href` for plain anchors and `render={<Link />}` when the app standardizes on a router link
+component.
 
 ```tsx
 import {
@@ -369,7 +326,7 @@ import {
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-export function PaginationNextJs({ pageCount }: { pageCount: number }) {
+export function PaginationLinks({ pageCount }: { pageCount: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const page = Number(searchParams.get('page') ?? '1');
@@ -416,160 +373,12 @@ export function PaginationNextJs({ pageCount }: { pageCount: number }) {
 }
 ```
 
-### TanStack Start
+`createHref` is just a small consumer helper that turns a page number into the next URL. In this
+example it:
 
-With TanStack Start, `render` can target router `Link` components directly.
+- reads the current query string
+- updates only the `page` param
+- preserves the rest of the URL state
+- returns the final `href` string for the router link
 
-```tsx
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  usePagination,
-} from 'moduix';
-import { Link, useSearch } from '@tanstack/react-router';
-
-export function PaginationTanStackStart({ pageCount }: { pageCount: number }) {
-  const search = useSearch({ from: '/' });
-  const page = search.page ?? 1;
-  const pagination = usePagination({ count: pageCount, page });
-
-  return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious
-            render={
-              <Link
-                to="/"
-                search={(previous) => ({
-                  ...previous,
-                  page: pagination.previousPage,
-                })}
-              />
-            }
-            aria-disabled={!pagination.canPreviousPage || undefined}
-          />
-        </PaginationItem>
-        {pagination.items.map((item, index) => (
-          <PaginationItem key={String(item) + '-' + index}>
-            {typeof item !== 'number' ? (
-              <PaginationEllipsis />
-            ) : (
-              <PaginationLink
-                render={
-                  <Link
-                    to="/"
-                    search={(previous) => ({
-                      ...previous,
-                      page: item,
-                    })}
-                  />
-                }
-                isActive={item === pagination.page}
-              >
-                {item}
-              </PaginationLink>
-            )}
-          </PaginationItem>
-        ))}
-        <PaginationItem>
-          <PaginationNext
-            render={
-              <Link
-                to="/"
-                search={(previous) => ({
-                  ...previous,
-                  page: pagination.nextPage,
-                })}
-              />
-            }
-            aria-disabled={!pagination.canNextPage || undefined}
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
-  );
-}
-```
-
-### Class Name
-
-Style the composed parts with `className` on `Pagination` and CSS variables.
-
-<Preview>
-  <PaginationClassNameExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Pagination,
-        PaginationContent,
-        PaginationItem,
-        PaginationLink,
-        PaginationNext,
-        PaginationPrevious,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function PaginationClassNameDemo() {
-        const [page, setPage] = useState(5);
-
-        return (
-          <Pagination className={styles.customPagination}>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  render={<button type="button" />}
-                  onClick={() => setPage((current) => Math.max(current - 1, 1))}
-                />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink render={<button type="button" />} onClick={() => setPage(4)}>
-                  4
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  render={<button type="button" />}
-                  isActive={page === 5}
-                  onClick={() => setPage(5)}
-                >
-                  5
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink render={<button type="button" />} onClick={() => setPage(6)}>
-                  6
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext
-                  render={<button type="button" />}
-                  onClick={() => setPage((current) => Math.min(current + 1, 10))}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customPagination {
-        --pagination-item-radius: var(--radius-sm);
-        --pagination-item-bg-active: var(--color-primary);
-        --pagination-item-color-active: var(--color-primary-foreground);
-        --pagination-item-border-color-active: var(--color-primary);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
+Keep that helper in app code, close to the router you actually use.

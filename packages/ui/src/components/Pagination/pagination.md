@@ -9,5 +9,6 @@ logic for page windows, ellipses, and previous/next navigation.
 
 Build the page structure explicitly in JSX and use `usePagination` when you want the library to
 calculate the visible items. Keep `href` for plain anchor links, use `render={<Link />}` for router
-links, and use `render={<button />}` for local state. `PaginationPrevious` and `PaginationNext`
-render icon-only controls by default; pass `children` when a custom label or layout is needed.
+links, and omit both when local state should use native buttons. `PaginationPrevious` and
+`PaginationNext` render icon-only controls by default; pass `children` when a custom label or
+layout is needed.

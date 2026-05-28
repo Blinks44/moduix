@@ -1,6 +1,6 @@
 import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { useMemo, type ComponentProps } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Pagination.module.css';
@@ -29,7 +29,7 @@ function usePagination({
   const safeSiblingCount = Math.max(0, Math.floor(siblingCount));
   const safeBoundaryCount = Math.max(0, Math.floor(boundaryCount));
 
-  const items = React.useMemo(() => {
+  const items = useMemo(() => {
     if (safeCount === 0) {
       return [];
     }
@@ -83,7 +83,15 @@ function usePagination({
   };
 }
 
-function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
+const getPaginationRender = (props: ToolbarPrimitive.Link.Props) => {
+  if (props.render || 'href' in props) {
+    return props.render;
+  }
+
+  return <button type="button" />;
+};
+
+function Pagination({ className, ...props }: ComponentProps<'nav'>) {
   return (
     <nav
       data-slot="pagination-root"
@@ -104,13 +112,14 @@ function PaginationContent({ className, ...props }: ToolbarPrimitive.Root.Props)
   );
 }
 
-function PaginationItem({ className, ...props }: React.ComponentProps<'div'>) {
+function PaginationItem({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="pagination-item" className={clsx(styles.item, className)} {...props} />;
 }
 
 function PaginationLink({
   className,
   isActive,
+  render,
   ...props
 }: ToolbarPrimitive.Link.Props & {
   isActive?: boolean;
@@ -120,36 +129,51 @@ function PaginationLink({
       data-slot="pagination-link"
       aria-current={isActive ? 'page' : undefined}
       className={mergeClassName(className, styles.link, isActive && styles.linkActive)}
+      render={render ?? getPaginationRender(props)}
       {...props}
     />
   );
 }
 
-function PaginationPrevious({ children, className, ...props }: ToolbarPrimitive.Link.Props) {
+function PaginationPrevious({
+  children,
+  className,
+  render,
+  'aria-label': ariaLabel,
+  ...props
+}: ToolbarPrimitive.Link.Props) {
   return (
     <PaginationLink
-      aria-label="Go to previous page"
+      aria-label={children ? ariaLabel : (ariaLabel ?? 'Go to previous page')}
       className={mergeClassName(className, styles.previous, !children && styles.iconOnly)}
+      render={render}
       {...props}
     >
-      {children ?? <ChevronLeftIcon className={styles.previousIcon} />}
+      {children ?? <ChevronLeftIcon />}
     </PaginationLink>
   );
 }
 
-function PaginationNext({ children, className, ...props }: ToolbarPrimitive.Link.Props) {
+function PaginationNext({
+  children,
+  className,
+  render,
+  'aria-label': ariaLabel,
+  ...props
+}: ToolbarPrimitive.Link.Props) {
   return (
     <PaginationLink
-      aria-label="Go to next page"
+      aria-label={children ? ariaLabel : (ariaLabel ?? 'Go to next page')}
       className={mergeClassName(className, styles.next, !children && styles.iconOnly)}
+      render={render}
       {...props}
     >
-      {children ?? <ChevronRightIcon className={styles.nextIcon} />}
+      {children ?? <ChevronRightIcon />}
     </PaginationLink>
   );
 }
 
-function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'>) {
+function PaginationEllipsis({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span data-slot="pagination-ellipsis" className={clsx(styles.ellipsis, className)} {...props}>
       <span aria-hidden>...</span>

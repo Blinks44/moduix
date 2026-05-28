@@ -59,6 +59,7 @@
     }
 
     :where(svg) {
+      flex-shrink: 0;
       width: var(--pagination-icon-size, 1rem);
       height: var(--pagination-icon-size, 1rem);
     }
@@ -84,11 +85,6 @@
   .iconOnly {
     width: var(--pagination-item-size, var(--size-lg));
     padding-inline: 0;
-  }
-
-  .nextIcon,
-  .previousIcon {
-    flex-shrink: 0;
   }
 
   .ellipsis {

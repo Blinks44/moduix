@@ -8,7 +8,7 @@ import {
   PaginationPrevious,
   usePagination,
 } from 'moduix';
-import * as React from 'react';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './pagination.module.css';
@@ -97,7 +97,6 @@ function PaginationItems({
     <>
       <PaginationItem>
         <PaginationPrevious
-          render={<button type="button" />}
           aria-disabled={!pagination.canPreviousPage || undefined}
           onClick={() => {
             if (pagination.canPreviousPage) {
@@ -112,7 +111,6 @@ function PaginationItems({
             <PaginationEllipsis />
           ) : (
             <PaginationLink
-              render={<button type="button" />}
               isActive={item === pagination.page}
               onClick={() => onPageChange?.(item)}
             >
@@ -123,7 +121,6 @@ function PaginationItems({
       ))}
       <PaginationItem>
         <PaginationNext
-          render={<button type="button" />}
           aria-disabled={!pagination.canNextPage || undefined}
           onClick={() => {
             if (pagination.canNextPage) {
@@ -160,7 +157,7 @@ export function PaginationCssPlaygroundPanel({
 }
 
 export function PaginationExample() {
-  const [page, setPage] = React.useState(5);
+  const [page, setPage] = useState(5);
 
   return (
     <div className={styles.stack}>
@@ -175,7 +172,7 @@ export function PaginationExample() {
 }
 
 export function PaginationCompactExample() {
-  const [page, setPage] = React.useState(5);
+  const [page, setPage] = useState(5);
 
   return (
     <div className={styles.stack}>
@@ -183,7 +180,6 @@ export function PaginationCompactExample() {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              render={<button type="button" />}
               aria-disabled={page === 1 || undefined}
               onClick={() => {
                 if (page > 1) {
@@ -193,35 +189,22 @@ export function PaginationCompactExample() {
             />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink
-              render={<button type="button" />}
-              isActive={page === 4}
-              onClick={() => setPage(4)}
-            >
+            <PaginationLink isActive={page === 4} onClick={() => setPage(4)}>
               4
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink
-              render={<button type="button" />}
-              isActive={page === 5}
-              onClick={() => setPage(5)}
-            >
+            <PaginationLink isActive={page === 5} onClick={() => setPage(5)}>
               5
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink
-              render={<button type="button" />}
-              isActive={page === 6}
-              onClick={() => setPage(6)}
-            >
+            <PaginationLink isActive={page === 6} onClick={() => setPage(6)}>
               6
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
-              render={<button type="button" />}
               aria-disabled={page === 10 || undefined}
               onClick={() => {
                 if (page < 10) {
@@ -238,7 +221,7 @@ export function PaginationCompactExample() {
 }
 
 export function PaginationControlledExample() {
-  const [page, setPage] = React.useState(5);
+  const [page, setPage] = useState(5);
 
   return (
     <div className={styles.stack}>
@@ -253,7 +236,7 @@ export function PaginationControlledExample() {
 }
 
 export function PaginationDensityExample() {
-  const [page, setPage] = React.useState(12);
+  const [page, setPage] = useState(12);
 
   return (
     <div className={styles.stack}>
@@ -274,7 +257,7 @@ export function PaginationDensityExample() {
 }
 
 export function PaginationClassNameExample() {
-  const [page, setPage] = React.useState(5);
+  const [page, setPage] = useState(5);
 
   return (
     <Pagination className={styles.customPagination}>

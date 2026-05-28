@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -18,10 +18,10 @@ function PaginationDemo({
   currentPage?: number;
   pageCount?: number;
 }) {
-  const [page, setPage] = React.useState(currentPage);
+  const [page, setPage] = useState(currentPage);
   const pagination = usePagination({ count: pageCount, page });
 
-  React.useEffect(() => {
+  useEffect(() => {
     setPage(currentPage);
   }, [currentPage]);
 
@@ -30,7 +30,6 @@ function PaginationDemo({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            render={<button type="button" />}
             aria-disabled={!pagination.canPreviousPage || undefined}
             onClick={() => {
               if (pagination.canPreviousPage) {
@@ -44,11 +43,7 @@ function PaginationDemo({
             {typeof item !== 'number' ? (
               <PaginationEllipsis />
             ) : (
-              <PaginationLink
-                render={<button type="button" />}
-                isActive={item === pagination.page}
-                onClick={() => setPage(item)}
-              >
+              <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
                 {item}
               </PaginationLink>
             )}
@@ -56,7 +51,6 @@ function PaginationDemo({
         ))}
         <PaginationItem>
           <PaginationNext
-            render={<button type="button" />}
             aria-disabled={!pagination.canNextPage || undefined}
             onClick={() => {
               if (pagination.canNextPage) {
@@ -99,7 +93,7 @@ export const End: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [page, setPage] = React.useState(5);
+    const [page, setPage] = useState(5);
     const pagination = usePagination({ count: 10, page });
 
     return (
@@ -107,7 +101,6 @@ export const Controlled: Story = {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              render={<button type="button" />}
               aria-disabled={!pagination.canPreviousPage || undefined}
               onClick={() => {
                 if (pagination.canPreviousPage) {
@@ -121,11 +114,7 @@ export const Controlled: Story = {
               {typeof item !== 'number' ? (
                 <PaginationEllipsis />
               ) : (
-                <PaginationLink
-                  render={<button type="button" />}
-                  isActive={item === pagination.page}
-                  onClick={() => setPage(item)}
-                >
+                <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
                   {item}
                 </PaginationLink>
               )}
@@ -133,7 +122,6 @@ export const Controlled: Story = {
           ))}
           <PaginationItem>
             <PaginationNext
-              render={<button type="button" />}
               aria-disabled={!pagination.canNextPage || undefined}
               onClick={() => {
                 if (pagination.canNextPage) {
@@ -157,7 +145,7 @@ export const CustomStyles: Story = {
           '--pagination-item-border-color-active': 'var(--color-primary)',
           '--pagination-item-color-active': 'var(--color-primary-foreground)',
           '--pagination-item-radius': 'var(--radius-sm)',
-        } as React.CSSProperties
+        } as CSSProperties
       }
     >
       <PaginationDemo />
