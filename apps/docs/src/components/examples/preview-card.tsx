@@ -188,6 +188,22 @@ export function ControlledPreviewCardExample() {
   );
 }
 
+export function ArrowPreviewCardExample() {
+  return (
+    <PreviewCard>
+      <PreviewCardTrigger href={linkPayloads[0].url}>Preview with arrow</PreviewCardTrigger>
+      <PreviewCardContent showArrow>
+        <PreviewCardPreview
+          item={{
+            ...linkPayloads[0],
+            summary: 'Enable showArrow when the popup should visually point to its trigger.',
+          }}
+        />
+      </PreviewCardContent>
+    </PreviewCard>
+  );
+}
+
 export function DetachedTriggerPreviewCardExample() {
   const previewCardHandle = React.useMemo(() => createPreviewCardHandle(), []);
 
@@ -237,7 +253,7 @@ export function MultipleTriggersPreviewCardExample() {
   );
 }
 
-export function SideControlPreviewCardExample() {
+export function PlacementPreviewCardExample() {
   const [side, setSide] = React.useState<(typeof previewCardSides)[number]>('bottom');
 
   return (

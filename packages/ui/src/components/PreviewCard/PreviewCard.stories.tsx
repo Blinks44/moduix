@@ -54,7 +54,7 @@ const linkPayloads: LinkPreviewPayload[] = [
 
 const SIDES = ['top', 'right', 'bottom', 'left'] as const;
 
-export const Basic: Story = {
+export const DefaultPath: Story = {
   render: () => {
     return (
       <PreviewCard>
@@ -73,6 +73,29 @@ export const Basic: Story = {
               className={styles.image}
             />
             <p className={styles.summary}>{linkPayloads[0].summary}</p>
+          </div>
+        </PreviewCardContent>
+      </PreviewCard>
+    );
+  },
+};
+
+export const WithArrow: Story = {
+  name: 'With Arrow',
+  render: () => {
+    return (
+      <PreviewCard>
+        <PreviewCardTrigger href={linkPayloads[0].url}>Preview with arrow</PreviewCardTrigger>
+        <PreviewCardContent showArrow>
+          <div className={styles.popupContent}>
+            <img
+              alt="Preview illustration for typography article"
+              src={linkPayloads[0].image}
+              className={styles.image}
+            />
+            <p className={styles.summary}>
+              Enable <code>showArrow</code> when the popup should visually point to its trigger.
+            </p>
           </div>
         </PreviewCardContent>
       </PreviewCard>
@@ -177,8 +200,7 @@ export const MultipleTriggersWithPayload: Story = {
   },
 };
 
-export const SideControl: Story = {
-  name: 'Side Control',
+export const Placement: Story = {
   render: () => {
     const [side, setSide] = React.useState<(typeof SIDES)[number]>('bottom');
 
