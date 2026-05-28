@@ -9,6 +9,7 @@ import {
   LightboxImage,
   LightboxPopup,
   LightboxPortal,
+  LightboxTrigger,
   LightboxViewport,
 } from 'moduix';
 import * as React from 'react';
@@ -97,15 +98,23 @@ export function LightboxExample() {
     <Lightbox>
       <LightboxImage
         src={images.mountainSmall}
+        previewSrc={images.mountainLarge}
         alt="Mountain ridge at sunset"
         className={styles.previewImage}
       />
+      <LightboxContent />
+    </Lightbox>
+  );
+}
+
+export function TriggerLightboxExample() {
+  return (
+    <Lightbox>
+      <LightboxTrigger render={<button type="button" className={styles.triggerButton} />}>
+        Open image
+      </LightboxTrigger>
       <LightboxContent>
-        <img
-          src={images.mountainLarge}
-          alt="Mountain ridge at sunset"
-          className={styles.contentImage}
-        />
+        <img src={images.road} alt="Road through forest" className={styles.contentImage} />
       </LightboxContent>
     </Lightbox>
   );
@@ -117,9 +126,24 @@ export function DynamicLightboxGalleryExample() {
   return (
     <React.Fragment>
       <div ref={rootRef} className={styles.dynamicRoot}>
-        <img src={images.mountainSmall} alt="Mountain landscape" className={styles.dynamicImage} />
-        <img src={images.sea} alt="Sea at sunset" className={styles.dynamicImage} />
-        <img src={images.forest} alt="Forest and mountain road" className={styles.dynamicImage} />
+        <img
+          src={images.mountainSmall}
+          data-lightbox-src={images.mountainLarge}
+          alt="Mountain landscape"
+          className={styles.dynamicImage}
+        />
+        <img
+          src={images.sea}
+          data-lightbox-src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90"
+          alt="Sea at sunset"
+          className={styles.dynamicImage}
+        />
+        <img
+          src={images.forest}
+          data-lightbox-src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90"
+          alt="Forest and mountain road"
+          className={styles.dynamicImage}
+        />
       </div>
       <LightboxGallery rootRef={rootRef} />
     </React.Fragment>

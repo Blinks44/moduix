@@ -10,6 +10,7 @@ import {
   LightboxCssPlaygroundPanel,
   LightboxCssPropertiesPanel,
   LightboxExample,
+  TriggerLightboxExample,
   lightboxPlaygroundCssProperties,
 } from '@/components/examples/lightbox';
 
@@ -34,10 +35,13 @@ import {
       export function LightboxDemo() {
         return (
           <Lightbox>
-            <LightboxImage src={thumbnail} alt="Mountain ridge at sunset" className={styles.previewImage} />
-            <LightboxContent>
-              <img src={fullSize} alt="Mountain ridge at sunset" className={styles.contentImage} />
-            </LightboxContent>
+            <LightboxImage
+              src={thumbnail}
+              previewSrc={fullSize}
+              alt="Mountain ridge at sunset"
+              className={styles.previewImage}
+            />
+            <LightboxContent />
           </Lightbox>
         );
       }
@@ -48,15 +52,17 @@ import {
   <Preview.CSSPlayground>{(context) => <LightboxCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+`LightboxContent` stays short by default: when `children` are omitted, it reuses the image data from
+`LightboxImage` and opens `previewSrc` if you provide one.
+
 ## Anatomy
 
 `LightboxContent` already renders the default `portal`, `backdrop`, `viewport`, `popup`, frame,
-and close button. Most usage stays at `Lightbox`, `LightboxImage` or `LightboxTrigger`, and
-`LightboxContent`.
+and close button, so most usage stays at `Lightbox`, `LightboxImage`, and `LightboxContent`.
 
 ```text
 Lightbox
-├─ LightboxTrigger (optional)
+├─ LightboxTrigger
 │  └─ LightboxImage (optional helper)
 └─ LightboxContent
    ├─ portal
@@ -70,10 +76,8 @@ Lightbox
 
 ```tsx
 <Lightbox>
-  <LightboxImage src={thumbnail} alt="Preview image" />
-  <LightboxContent>
-    <img src={fullSize} alt="Preview image" />
-  </LightboxContent>
+  <LightboxImage src={thumbnail} previewSrc={fullSize} alt="Preview image" />
+  <LightboxContent />
 </Lightbox>
 ```
 
@@ -81,15 +85,22 @@ Lightbox
 | ----------------- | ------------------------------------------------------------------------------------------------------ |
 | `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`).                    |
 | `LightboxTrigger` | Opens the preview from any custom trigger composition.                                                 |
-| `LightboxImage`   | Helper that wraps an image as a trigger and supports `previewSrc` mapping.                             |
+| `LightboxImage`   | Trigger helper for the common thumbnail-to-preview flow. `previewSrc` can point to a larger asset.     |
 | `LightboxContent` | Default high-level wrapper that owns `portal`, `backdrop`, `viewport`, popup, frame, and close button. |
 | `LightboxClose`   | Primitive close part for custom composition inside the popup.                                          |
 | `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists.                                    |
 
 ## Composition
 
+Use the default path when one trigger image opens one preview image.
+
 Use controlled state on `Lightbox` when outside UI needs to open or close the preview.
-`LightboxGallery` listens for image clicks inside `rootRef` or `rootSelector` and opens the clicked source.
+
+Use `LightboxTrigger` when the trigger is not an image.
+
+Use `LightboxGallery` when images come from CMS or HTML you do not compose manually. It reads
+`data-lightbox-src` first, then falls back to `currentSrc` or `src`.
+
 `LightboxContent` keeps the default path small and supports the common image-preview workflow:
 
 ### Defaults
@@ -105,9 +116,36 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
 
 ## Examples
 
-### Dynamic Gallery Capture
+### Custom Trigger
 
-Use `LightboxGallery` when images come from CMS or HTML you do not compose manually.
+<Preview>
+  <TriggerLightboxExample />
+
+  <Preview.Code>
+    {`
+      import { Lightbox, LightboxContent, LightboxTrigger } from "moduix";
+      
+      const fullSize =
+        "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90";
+
+      export function TriggerLightboxDemo() {
+        return (
+          <Lightbox>
+            <LightboxTrigger render={<button type="button" className={styles.triggerButton} />}>
+              Open image
+            </LightboxTrigger>
+            <LightboxContent>
+              <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
+            </LightboxContent>
+          </Lightbox>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Dynamic Gallery Capture
 
 <Preview>
   <DynamicLightboxGalleryExample />
@@ -117,15 +155,44 @@ Use `LightboxGallery` when images come from CMS or HTML you do not compose manua
       import { LightboxGallery } from "moduix";
       import { Fragment, useRef } from "react";
 
+      const images = {
+        mountain:
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+        mountainLarge:
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90",
+        sea: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=900&q=80",
+        seaLarge:
+          "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90",
+        forest:
+          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80",
+        forestLarge:
+          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90",
+      };
+
       export function DynamicGalleryDemo() {
         const rootRef = useRef<HTMLDivElement | null>(null);
 
         return (
           <Fragment>
             <div ref={rootRef} className={styles.dynamicRoot}>
-              <img src={images.mountain} alt="Mountain landscape" className={styles.dynamicImage} />
-              <img src={images.sea} alt="Sea at sunset" className={styles.dynamicImage} />
-              <img src={images.forest} alt="Forest and mountain road" className={styles.dynamicImage} />
+              <img
+                src={images.mountain}
+                data-lightbox-src={images.mountainLarge}
+                alt="Mountain landscape"
+                className={styles.dynamicImage}
+              />
+              <img
+                src={images.sea}
+                data-lightbox-src={images.seaLarge}
+                alt="Sea at sunset"
+                className={styles.dynamicImage}
+              />
+              <img
+                src={images.forest}
+                data-lightbox-src={images.forestLarge}
+                alt="Forest and mountain road"
+                className={styles.dynamicImage}
+              />
             </div>
             <LightboxGallery rootRef={rootRef} />
           </Fragment>

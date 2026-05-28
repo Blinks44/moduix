@@ -1,16 +1,33 @@
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ComponentProps,
+  type RefObject,
+} from 'react';
 import { CloseButton } from '@/components/CloseButton';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Lightbox.module.css';
 
 const DEFAULT_CLOSE_LABEL = 'Close image';
-
-const Lightbox = DialogPrimitive.Root;
 const createLightboxHandle = DialogPrimitive.createHandle;
 
-const getGalleryRoot = (rootRef?: React.RefObject<HTMLElement | null>, rootSelector?: string) => {
+type LightboxImageData = {
+  alt?: string;
+  previewSrc?: string;
+  src: string;
+};
+
+const LightboxImageContext = createContext<{
+  image: LightboxImageData | null;
+  setImage: (image: LightboxImageData | null) => void;
+} | null>(null);
+
+const getGalleryRoot = (rootRef?: RefObject<HTMLElement | null>, rootSelector?: string) => {
   return rootRef?.current ?? (rootSelector ? document.querySelector(rootSelector) : null);
 };
 
@@ -37,6 +54,17 @@ const getGalleryImage = (
     alt: imageNode.alt,
   };
 };
+
+function Lightbox<Payload = unknown>(props: DialogPrimitive.Root.Props<Payload>) {
+  const [image, setImage] = useState<LightboxImageData | null>(null);
+  const value = useMemo(() => ({ image, setImage }), [image]);
+
+  return (
+    <LightboxImageContext.Provider value={value}>
+      <DialogPrimitive.Root {...props} />
+    </LightboxImageContext.Provider>
+  );
+}
 
 function LightboxTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
   const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
@@ -106,7 +134,7 @@ function LightboxCloseButton({
   );
 }
 
-function LightboxFrame({ className, ...props }: React.ComponentProps<'div'>) {
+function LightboxFrame({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="lightbox-frame" className={clsx(styles.frame, className)} {...props} />;
 }
 
@@ -116,9 +144,20 @@ function LightboxImage({
   alt,
   className,
   ...props
-}: React.ComponentProps<'img'> & {
+}: Omit<ComponentProps<'img'>, 'src'> & {
+  src: string;
   previewSrc?: string;
 }) {
+  const context = useContext(LightboxImageContext);
+
+  useEffect(() => {
+    context?.setImage({ src, previewSrc, alt });
+
+    return () => {
+      context?.setImage(null);
+    };
+  }, [alt, context, previewSrc, src]);
+
   return (
     <LightboxTrigger
       render={
@@ -147,6 +186,17 @@ function LightboxContent({
   closeLabel?: string;
   closeOnContentClick?: boolean;
 }) {
+  const context = useContext(LightboxImageContext);
+  const contentChildren =
+    children ??
+    (context?.image ? (
+      <img
+        data-slot="lightbox-content-image"
+        src={context.image.previewSrc ?? context.image.src}
+        alt={context.image.alt ?? ''}
+      />
+    ) : null);
+
   const content = closeOnContentClick ? (
     <LightboxClose
       className={styles.contentClose}
@@ -154,10 +204,10 @@ function LightboxContent({
       nativeButton={false}
       render={<div />}
     >
-      {children}
+      {contentChildren}
     </LightboxClose>
   ) : (
-    children
+    contentChildren
   );
 
   return (
@@ -183,17 +233,17 @@ function LightboxGallery({
   closeOnContentClick,
 }: {
   selector?: string;
-  rootRef?: React.RefObject<HTMLElement | null>;
+  rootRef?: RefObject<HTMLElement | null>;
   rootSelector?: string;
   className?: DialogPrimitive.Popup.Props['className'];
   closeLabel?: string;
   showCloseButton?: boolean;
   closeOnContentClick?: boolean;
 }) {
-  const [open, setOpen] = React.useState(false);
-  const [image, setImage] = React.useState<{ src: string; alt?: string } | null>(null);
+  const [open, setOpen] = useState(false);
+  const [image, setImage] = useState<{ src: string; alt?: string } | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const rootNode = getGalleryRoot(rootRef, rootSelector);
     if (!rootNode) {
       return;
