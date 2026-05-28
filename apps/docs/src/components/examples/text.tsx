@@ -68,11 +68,13 @@ export function TextElementsExample() {
   return (
     <div className={styles.stack}>
       <Text>Paragraph text rendered as p.</Text>
-      <Text render={<span />}>Inline text rendered as span.</Text>
-      <Text render={<small />}>Small supporting text rendered as small.</Text>
-      <Text render={<strong />}>Important text rendered as strong.</Text>
-      <Text render={<em />}>Emphasized text rendered as em.</Text>
-      <Text render={<div />}>Block text rendered as div.</Text>
+      <Text as="span">Inline text rendered as span.</Text>
+      <Text as="small" tone="muted">
+        Small supporting text rendered as small.
+      </Text>
+      <Text as="strong">Important text rendered as strong.</Text>
+      <Text as="em">Emphasized text rendered as em.</Text>
+      <Text as="div">Block text rendered as div.</Text>
     </div>
   );
 }

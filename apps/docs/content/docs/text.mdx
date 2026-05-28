@@ -5,10 +5,10 @@ icon: Component
 ---
 
 import {
-  TextCssPlaygroundPanel,
-  TextCssPropertiesPanel,
   TextAlignExample,
   TextClassNameExample,
+  TextCssPlaygroundPanel,
+  TextCssPropertiesPanel,
   TextCustomElementExample,
   TextElementsExample,
   TextExample,
@@ -20,10 +20,16 @@ import {
 
 ## API Reference
 
-`Text` is a typography primitive for body copy, inline text, and supporting descriptions.
-Its API stays focused on visual variants, root `className`, and Base UI `render` composition.
+`Text` is the default typography primitive for body copy and supporting UI text. It stays focused on
+three things:
 
-## Basic
+- body typography defaults
+- a small set of visual variants
+- simple semantic composition
+
+## Default Path
+
+Use the default `p` for body copy. When only the intrinsic HTML tag should change, use `as`.
 
 <Preview cssProperties={textPlaygroundCssProperties}>
   <TextExample />
@@ -34,9 +40,14 @@ Its API stays focused on visual variants, root `className`, and Base UI `render`
 
       export function TextDemo() {
         return (
-          <Text>
-            Use text to describe interface state and supporting details.
-          </Text>
+          <>
+            <Text>
+              Use text to describe interface state and supporting details.
+            </Text>
+            <Text as="small" tone="muted">
+              Last updated 2 minutes ago
+            </Text>
+          </>
         );
       }
     `}
@@ -46,19 +57,16 @@ Its API stays focused on visual variants, root `className`, and Base UI `render`
   <Preview.CSSPlayground>{(context) => <TextCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+Use `render` only when the root should be a custom component such as a router link or app-specific
+primitive.
+
 ## Anatomy
 
-`Text` is composed as a single typography root that renders a `p` by default.
+`Text` renders a single root element.
 
 ```text
 Text
 └─ text or inline content
-```
-
-```tsx
-<Text render={<small />} size="sm" tone="muted">
-  Last updated just now
-</Text>
 ```
 
 | Part   | Role                                                                |
@@ -67,16 +75,20 @@ Text
 
 ## Composition
 
-Use the default `p` for body copy. When the semantic element should change, use Base UI's `render`
-prop. Built-in defaults keep `render={<strong />}` semibold and `render={<small />}` at `sm`;
-other rendered elements and custom components default to regular `md` text. Use `className` and
-CSS variables for local styling.
+`Text` has two composition paths:
 
-### Defaults
+| Pattern             | Best fit                                           |
+| ------------------- | -------------------------------------------------- |
+| default `p`         | Body copy and descriptive text                     |
+| `as="small"`        | Common intrinsic tags with the same styling system |
+| `render={<Link />}` | Router links and app-level custom primitives       |
+
+Defaults stay intentionally small:
 
 | Prop     | Default         | Values                                                 |
 | -------- | --------------- | ------------------------------------------------------ |
-| `render` | `p` root        | React element or render function                       |
+| `as`     | `p`             | `p`, `span`, `small`, `strong`, `em`, `div`            |
+| `render` | Unset           | React element or render function                       |
 | `size`   | Render-based    | `xs`, `sm`, `md`, `lg`, `xl`                           |
 | `weight` | Render-based    | `regular`, `medium`, `semibold`, `bold`                |
 | `tone`   | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive` |
@@ -85,15 +97,15 @@ CSS variables for local styling.
 Render-based defaults for `size` and `weight`:
 
 - default root (`p`): `size="md"`, `weight="regular"`
-- `render={<small />}`: `size="sm"`, `weight="regular"`
-- `render={<strong />}`: `size="md"`, `weight="semibold"`
-- other rendered elements and custom components: `size="md"`, `weight="regular"`
+- `as="small"` or `render={<small />}`: `size="sm"`, `weight="regular"`
+- `as="strong"` or `render={<strong />}`: `size="md"`, `weight="semibold"`
+- other intrinsic elements and custom components: `size="md"`, `weight="regular"`
 
 ## Examples
 
-### Elements
+### Semantics
 
-Use `render` to change the semantic element without leaving the typography scale.
+Use `as` for common semantic tags without leaving the typography scale.
 
 <Preview>
   <TextElementsExample />
@@ -102,15 +114,17 @@ Use `render` to change the semantic element without leaving the typography scale
     {`
       import { Text } from "moduix";
 
-      export function TextElementsDemo() {
+      export function TextSemanticsDemo() {
         return (
           <div className={styles.stack}>
             <Text>Paragraph text rendered as p.</Text>
-            <Text render={<span />}>Inline text rendered as span.</Text>
-            <Text render={<small />}>Small supporting text rendered as small.</Text>
-            <Text render={<strong />}>Important text rendered as strong.</Text>
-            <Text render={<em />}>Emphasized text rendered as em.</Text>
-            <Text render={<div />}>Block text rendered as div.</Text>
+            <Text as="span">Inline text rendered as span.</Text>
+            <Text as="small" tone="muted">
+              Small supporting text rendered as small.
+            </Text>
+            <Text as="strong">Important text rendered as strong.</Text>
+            <Text as="em">Emphasized text rendered as em.</Text>
+            <Text as="div">Block text rendered as div.</Text>
           </div>
         );
       }
@@ -131,76 +145,7 @@ Use `render` to change the semantic element without leaving the typography scale
   </Preview.CSS>
 </Preview>
 
-### Custom Element
-
-Pass a React element to `render` when the root should be a routing or app-level primitive.
-
-<Preview>
-  <TextCustomElementExample />
-
-  <Preview.Code>
-    {`
-      import { Text } from "moduix";
-      import type { ComponentPropsWithoutRef } from "react";
-
-      type InlineLinkProps = ComponentPropsWithoutRef<"a">;
-
-      function InlineLink(props: InlineLinkProps) {
-        return <a {...props} />;
-      }
-
-      export function TextCustomElementDemo() {
-        return (
-          <Text render={<InlineLink href="/docs" />} tone="primary" weight="medium">
-            Read the documentation
-          </Text>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Sizes
-
-Use `size` for visual sizing.
-
-<Preview>
-  <TextSizesExample />
-
-  <Preview.Code>
-    {`
-      import { Text } from "moduix";
-
-      export function TextSizesDemo() {
-        return (
-          <div className={styles.stack}>
-            <Text size="xl">Extra-large text</Text>
-            <Text size="lg">Large text</Text>
-            <Text size="md">Medium text</Text>
-            <Text size="sm">Small text</Text>
-            <Text size="xs">Extra-small text</Text>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        width: min(34rem, calc(100vw - var(--spacing-8)));
-        flex-direction: column;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Tones
+### Tone
 
 Use `tone` to match the role of the copy without local color classes.
 
@@ -239,10 +184,44 @@ Use `tone` to match the role of the copy without local color classes.
   </Preview.CSS>
 </Preview>
 
-### Weights
+### Size and Weight
 
-Use `weight` for emphasis. `render={<strong />}` defaults to semibold while other rendered
-elements default to regular.
+Use `size` and `weight` when the visual hierarchy should shift inside the same text primitive.
+
+<Preview>
+  <TextSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+
+      export function TextSizesDemo() {
+        return (
+          <div className={styles.stack}>
+            <Text size="xl">Extra-large text</Text>
+            <Text size="lg">Large text</Text>
+            <Text size="md">Medium text</Text>
+            <Text size="sm">Small text</Text>
+            <Text size="xs">Extra-small text</Text>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
 
 <Preview>
   <TextWeightsExample />
@@ -280,7 +259,7 @@ elements default to regular.
 
 ### Alignment
 
-Use `align` when alignment belongs to the typography primitive instead of the surrounding layout.
+Use `align` when alignment belongs to the text itself instead of the surrounding layout container.
 
 <Preview>
   <TextAlignExample />
@@ -315,9 +294,41 @@ Use `align` when alignment belongs to the typography primitive instead of the su
   </Preview.CSS>
 </Preview>
 
-### Class Names
+## Custom Composition
 
-Pass `className` when styling the root with local CSS.
+### Custom Element
+
+Use `render` when the root should be a custom component instead of an intrinsic tag.
+
+<Preview>
+  <TextCustomElementExample />
+
+  <Preview.Code>
+    {`
+      import { Text } from "moduix";
+      import type { ComponentPropsWithoutRef } from "react";
+
+      type InlineLinkProps = ComponentPropsWithoutRef<"a">;
+
+      function InlineLink(props: InlineLinkProps) {
+        return <a {...props} />;
+      }
+
+      export function TextCustomElementDemo() {
+        return (
+          <Text render={<InlineLink href="/docs" />} tone="primary" weight="medium">
+            Read the documentation
+          </Text>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Styling
+
+Pass `className` when styling the root with local CSS variables.
 
 <Preview>
   <TextClassNameExample />
