@@ -73,7 +73,7 @@ export function VerticalSeparatorExample() {
   );
 }
 
-export function CustomSeparatorExample() {
+export function StyledSeparatorExample() {
   return (
     <div className={styles.section}>
       <span className={styles.text}>Completed profile</span>

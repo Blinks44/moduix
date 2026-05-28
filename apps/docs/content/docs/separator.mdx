@@ -5,10 +5,10 @@ icon: Component
 ---
 
 import {
-  CustomSeparatorExample,
   SeparatorCssPlaygroundPanel,
   SeparatorCssPropertiesPanel,
   SeparatorExample,
+  StyledSeparatorExample,
   VerticalSeparatorExample,
   separatorPlaygroundCssProperties,
 } from '@/components/examples/separator';
@@ -17,7 +17,7 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/separator" />
 
-## Basic
+## Default Path
 
 <Preview cssProperties={separatorPlaygroundCssProperties}>
   <SeparatorExample />
@@ -42,6 +42,9 @@ import {
   <Preview.CSSPlayground>{(context) => <SeparatorCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+Use `Separator` directly for non-interactive visual division between related pieces of content.
+The default horizontal path already fills the available width, so the common case stays short.
+
 ## Anatomy
 
 `Separator` exposes a single root slot with `data-orientation` for orientation-based styling.
@@ -63,9 +66,15 @@ Style the root directly with `className` or the `--separator-*` CSS properties.
 
 ## Composition
 
-Use `Separator` for non-interactive visual division between related content.
-Horizontal separators fill the container by default. Vertical separators are intended
-for inline groups and default to `1em` height so they align with surrounding text.
+`Separator` stays intentionally thin:
+
+- one exported part
+- orientation passed straight through to Base UI
+- direct root styling with `className`
+- a small `--separator-*` CSS contract for common visual tuning
+
+Horizontal separators fill the container by default. Vertical separators are intended for inline
+groups and default to `1em` height so they align with surrounding text.
 
 Pass `orientation="vertical"` for inline layouts. Use `className` for direct styling,
 or the small `--separator-*` CSS contract when you want to tune color, thickness, or length.
@@ -106,12 +115,13 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Styling
 
-Use `className` or `--separator-*` custom properties to adjust the root styling.
+Use `className` or `--separator-*` custom properties when the divider needs a stronger visual
+weight or a fixed length.
 
 <Preview>
-  <CustomSeparatorExample />
+  <StyledSeparatorExample />
 
   <Preview.Code>
     {`
