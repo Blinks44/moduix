@@ -12,7 +12,7 @@ import {
   RadioIndicator,
   RadioLabel,
 } from 'moduix';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './radio.module.css';
@@ -104,12 +104,14 @@ export function RadioCssPlaygroundPanel({ values, onChange, onReset }: CSSProper
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
-function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
+function CustomRadioIcon(props: ComponentProps<'svg'>) {
   return (
     <svg
       width="12"
@@ -125,8 +127,8 @@ function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function RadioExample(props: React.ComponentProps<typeof RadioGroup>) {
-  const labelId = React.useId();
+export function RadioExample(props: ComponentProps<typeof RadioGroup>) {
+  const labelId = useId();
 
   return (
     <RadioGroup aria-labelledby={labelId} defaultValue="team" {...props}>
@@ -144,7 +146,7 @@ export function RadioExample(props: React.ComponentProps<typeof RadioGroup>) {
 }
 
 export function RadioSizesExample() {
-  const labelId = React.useId();
+  const labelId = useId();
 
   return (
     <RadioGroup aria-labelledby={labelId} defaultValue="md">
@@ -176,8 +178,8 @@ export function RadioSizesExample() {
 }
 
 export function ControlledRadioExample() {
-  const labelId = React.useId();
-  const [value, setValue] = React.useState('personal');
+  const labelId = useId();
+  const [value, setValue] = useState('personal');
 
   return (
     <div className={styles.stack}>
@@ -200,11 +202,65 @@ export function ControlledRadioExample() {
 }
 
 export function DisabledRadioExample() {
-  return <RadioExample defaultValue="enterprise" disabled />;
+  const labelId = useId();
+
+  return (
+    <RadioGroup aria-labelledby={labelId} defaultValue="enterprise" disabled>
+      <RadioGroupLabel id={labelId}>Plan</RadioGroupLabel>
+      <RadioGroupList>
+        {radioOptions.map((option) => (
+          <RadioField key={option.value}>
+            <Radio value={option.value} />
+            <RadioLabel>{option.label}</RadioLabel>
+          </RadioField>
+        ))}
+      </RadioGroupList>
+    </RadioGroup>
+  );
+}
+
+export function ReadOnlyRadioExample() {
+  const labelId = useId();
+
+  return (
+    <RadioGroup aria-labelledby={labelId} defaultValue="team" readOnly>
+      <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
+      <RadioGroupList>
+        <RadioField>
+          <Radio value="personal" />
+          <RadioLabel>Only me</RadioLabel>
+        </RadioField>
+        <RadioField>
+          <Radio value="team" />
+          <RadioLabel>Team</RadioLabel>
+        </RadioField>
+      </RadioGroupList>
+    </RadioGroup>
+  );
+}
+
+export function RadioClassNameExample() {
+  const labelId = useId();
+
+  return (
+    <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.customGroup}>
+      <RadioGroupLabel id={labelId} className={styles.customLabel}>
+        Styled Account Type
+      </RadioGroupLabel>
+      <RadioGroupList className={styles.customList}>
+        {radioOptions.map((option) => (
+          <RadioField key={option.value} className={styles.customField}>
+            <Radio value={option.value} className={styles.customRadio} />
+            <RadioLabel className={styles.customLabel}>{option.label}</RadioLabel>
+          </RadioField>
+        ))}
+      </RadioGroupList>
+    </RadioGroup>
+  );
 }
 
 export function CustomIndicatorRadioExample() {
-  const labelId = React.useId();
+  const labelId = useId();
 
   return (
     <RadioGroup aria-labelledby={labelId} defaultValue="team">
@@ -225,33 +281,9 @@ export function CustomIndicatorRadioExample() {
   );
 }
 
-export function RadioClassNameExample() {
-  const labelId = React.useId();
-
-  return (
-    <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.customGroup}>
-      <RadioGroupLabel id={labelId} className={styles.customLabel}>
-        Styled Account Type
-      </RadioGroupLabel>
-      <RadioGroupList className={styles.customList}>
-        {radioOptions.map((option) => (
-          <RadioField key={option.value} className={styles.customField}>
-            <Radio value={option.value} className={styles.customRadio} />
-            <RadioLabel className={styles.customLabel}>{option.label}</RadioLabel>
-          </RadioField>
-        ))}
-      </RadioGroupList>
-    </RadioGroup>
-  );
-}
-
-export function RadioFieldCompositionExample() {
-  return <RadioExample />;
-}
-
 export function RadioSiblingLabelNativeButtonExample() {
-  const id = React.useId();
-  const labelId = React.useId();
+  const id = useId();
+  const labelId = useId();
 
   return (
     <div className={styles.siblingRow}>

@@ -1,17 +1,19 @@
 import { Radio as RadioPrimitive } from '@base-ui/react/radio';
 import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
 import { clsx } from 'clsx';
+import { forwardRef, type ComponentProps, type ComponentRef, type ForwardedRef } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Radio.module.css';
 
-function Radio({
-  className,
-  size = 'md',
-  children,
-  ...props
-}: RadioPrimitive.Root.Props & { size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' }) {
+type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+const Radio = forwardRef(function Radio(
+  { className, size = 'md', children, ...props }: RadioPrimitive.Root.Props & { size?: RadioSize },
+  ref: ForwardedRef<ComponentRef<typeof RadioPrimitive.Root>>,
+) {
   return (
     <RadioPrimitive.Root
+      ref={ref}
       data-slot="radio-root"
       data-size={size}
       className={mergeClassName(className, styles.radio)}
@@ -20,7 +22,7 @@ function Radio({
       {children ?? <RadioIndicator />}
     </RadioPrimitive.Root>
   );
-}
+});
 
 function RadioIndicator({ className, children, ...props }: RadioPrimitive.Indicator.Props) {
   return (
@@ -34,17 +36,22 @@ function RadioIndicator({ className, children, ...props }: RadioPrimitive.Indica
   );
 }
 
-function RadioIndicatorIcon({ className, ...props }: React.ComponentProps<'span'>) {
+function RadioIndicatorIcon({ className, ...props }: ComponentProps<'span'>) {
   return (
-    <span data-slot="radio-indicator-icon" className={clsx(styles.icon, className)} {...props} />
+    <span
+      aria-hidden="true"
+      data-slot="radio-indicator-icon"
+      className={clsx(styles.icon, className)}
+      {...props}
+    />
   );
 }
 
-function RadioField({ className, ...props }: React.ComponentProps<'label'>) {
+function RadioField({ className, ...props }: ComponentProps<'label'>) {
   return <label data-slot="radio-field" className={clsx(styles.field, className)} {...props} />;
 }
 
-function RadioLabel({ className, ...props }: React.ComponentProps<'span'>) {
+function RadioLabel({ className, ...props }: ComponentProps<'span'>) {
   return <span data-slot="radio-label" className={clsx(styles.label, className)} {...props} />;
 }
 
@@ -58,13 +65,13 @@ function RadioGroup({ className, ...props }: RadioGroupPrimitive.Props) {
   );
 }
 
-function RadioGroupLabel({ className, ...props }: React.ComponentProps<'div'>) {
+function RadioGroupLabel({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div data-slot="radio-group-label" className={clsx(styles.groupLabel, className)} {...props} />
   );
 }
 
-function RadioGroupList({ className, ...props }: React.ComponentProps<'div'>) {
+function RadioGroupList({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div data-slot="radio-group-list" className={clsx(styles.groupList, className)} {...props} />
   );

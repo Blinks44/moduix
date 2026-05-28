@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import { Field, FieldItem, FieldLabel } from '../Field';
 import { Fieldset, FieldsetLegend } from '../Fieldset';
 import {
@@ -32,7 +32,7 @@ const options = [
   { value: 'enterprise', label: 'Enterprise account' },
 ] as const;
 
-function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
+function CustomRadioIcon(props: ComponentProps<'svg'>) {
   return (
     <svg
       width="12"
@@ -50,7 +50,7 @@ function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
 
 export const Basic: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
       <RadioGroup aria-labelledby={labelId} defaultValue="team">
@@ -70,7 +70,7 @@ export const Basic: Story = {
 
 export const Sizes: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
       <RadioGroup aria-labelledby={labelId} defaultValue="md">
@@ -104,8 +104,8 @@ export const Sizes: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const labelId = React.useId();
-    const [value, setValue] = React.useState('personal');
+    const labelId = useId();
+    const [value, setValue] = useState('personal');
 
     return (
       <div className={styles.stack}>
@@ -128,33 +128,9 @@ export const Controlled: Story = {
   },
 };
 
-export const CustomComposition: Story = {
-  render: () => {
-    const labelId = React.useId();
-
-    return (
-      <RadioGroup aria-labelledby={labelId} defaultValue="team">
-        <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
-        <RadioGroupList>
-          {options.map((option) => (
-            <RadioField key={option.value}>
-              <Radio value={option.value}>
-                <RadioIndicator>
-                  <CustomRadioIcon className={styles.customIndicator} />
-                </RadioIndicator>
-              </Radio>
-              <RadioLabel>{option.label}</RadioLabel>
-            </RadioField>
-          ))}
-        </RadioGroupList>
-      </RadioGroup>
-    );
-  },
-};
-
 export const Disabled: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
       <RadioGroup aria-labelledby={labelId} defaultValue="enterprise" disabled>
@@ -172,9 +148,53 @@ export const Disabled: Story = {
   },
 };
 
+export const ReadOnly: Story = {
+  render: () => {
+    const labelId = useId();
+
+    return (
+      <RadioGroup aria-labelledby={labelId} defaultValue="team" readOnly>
+        <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
+        <RadioGroupList>
+          <RadioField>
+            <Radio value="personal" />
+            <RadioLabel>Only me</RadioLabel>
+          </RadioField>
+          <RadioField>
+            <Radio value="team" />
+            <RadioLabel>Team</RadioLabel>
+          </RadioField>
+        </RadioGroupList>
+      </RadioGroup>
+    );
+  },
+};
+
+export const SiblingLabelNativeButton: Story = {
+  name: 'Sibling Label (Native Button)',
+  render: () => {
+    const id = useId();
+    const labelId = useId();
+
+    return (
+      <div className={styles.siblingRow}>
+        <div id={labelId} className={styles.hint}>
+          Delivery method
+        </div>
+        <RadioGroup defaultValue="email" aria-labelledby={labelId}>
+          <Radio nativeButton render={<button />} id={id} value="email" />
+        </RadioGroup>
+        <label htmlFor={id} className={styles.siblingLabel}>
+          Email
+        </label>
+      </div>
+    );
+  },
+};
+
 export const CustomStyles: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
       <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.customGroup}>
@@ -194,48 +214,25 @@ export const CustomStyles: Story = {
   },
 };
 
-export const SiblingLabelNativeButton: Story = {
-  name: 'Sibling Label (Native Button)',
+export const CustomComposition: Story = {
   render: () => {
-    const id = React.useId();
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
-      <div className={styles.siblingRow}>
-        <div id={labelId} className={styles.hint}>
-          Delivery method
-        </div>
-        <RadioGroup defaultValue="email" aria-labelledby={labelId}>
-          <Radio nativeButton render={<button />} id={id} value="email" />
-        </RadioGroup>
-        <label htmlFor={id} className={styles.siblingLabel}>
-          Email
-        </label>
-      </div>
-    );
-  },
-};
-
-export const NativeButtonRenderCallback: Story = {
-  name: 'Native Button (Render Callback)',
-  render: () => {
-    const labelId = React.useId();
-
-    return (
-      <RadioGroup defaultValue="ssd" aria-labelledby={labelId}>
-        <div id={labelId} className={styles.hint}>
-          Storage type
-        </div>
-        <Radio
-          value="ssd"
-          nativeButton
-          render={(buttonProps) => (
-            <label className={styles.siblingRow}>
-              <button {...buttonProps} />
-              <span className={styles.siblingLabel}>SSD</span>
-            </label>
-          )}
-        />
+      <RadioGroup aria-labelledby={labelId} defaultValue="team">
+        <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
+        <RadioGroupList>
+          {options.map((option) => (
+            <RadioField key={option.value}>
+              <Radio value={option.value}>
+                <RadioIndicator>
+                  <CustomRadioIcon className={styles.customIndicator} />
+                </RadioIndicator>
+              </Radio>
+              <RadioLabel>{option.label}</RadioLabel>
+            </RadioField>
+          ))}
+        </RadioGroupList>
       </RadioGroup>
     );
   },

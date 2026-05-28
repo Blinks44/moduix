@@ -48,10 +48,6 @@
   background-color: var(--color-primary);
 }
 
-.customIndicator {
-  color: var(--color-primary-foreground);
-}
-
 .customIndicatorIcon {
   display: flex;
   align-items: center;
