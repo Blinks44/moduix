@@ -1,5 +1,5 @@
 import { Field, FieldLabel, Switch, SwitchField, SwitchLabel, SwitchThumb } from 'moduix';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './switch.module.css';
@@ -38,27 +38,27 @@ export const switchOverrideCssProperties: CssPropertyInput[] = [
     'Controls thumb background color for both states.',
   ],
   [
-    '--switch-thumb-bg-unchecked',
-    'var(--switch-thumb-bg, var(--color-background))',
-    'Controls unchecked thumb background color.',
-  ],
-  [
     '--switch-thumb-bg-checked',
     'var(--switch-thumb-bg, var(--color-primary-foreground))',
     'Controls checked thumb background color.',
+  ],
+  [
+    '--switch-thumb-bg-unchecked',
+    'var(--switch-thumb-bg, var(--color-background))',
+    'Controls unchecked thumb background color.',
   ],
   ['--switch-thumb-border-color', 'transparent', 'Controls thumb border color.'],
   ['--switch-thumb-border-width', '0', 'Controls thumb border width.'],
   ['--switch-thumb-color', 'var(--color-muted)', 'Controls thumb content color.'],
   [
-    '--switch-thumb-color-unchecked',
-    'var(--switch-thumb-color, var(--color-muted))',
-    'Controls unchecked thumb content color.',
-  ],
-  [
     '--switch-thumb-color-checked',
     'var(--switch-thumb-color, var(--color-primary))',
     'Controls checked thumb content color.',
+  ],
+  [
+    '--switch-thumb-color-unchecked',
+    'var(--switch-thumb-color, var(--color-muted))',
+    'Controls unchecked thumb content color.',
   ],
   ['--switch-thumb-icon-size', '65%', 'Controls custom thumb icon size.'],
   ['--switch-thumb-radius', 'var(--radius-full)', 'Controls thumb corner radius.'],
@@ -126,7 +126,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function PowerIcon(props: React.ComponentProps<'svg'>) {
+function PowerIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -139,7 +139,7 @@ function PowerIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function SwitchExample(props: React.ComponentProps<typeof Switch>) {
+export function SwitchExample(props: ComponentProps<typeof Switch>) {
   return (
     <SwitchField>
       <Switch defaultChecked {...props} />
@@ -191,7 +191,7 @@ export function SwitchDisabledExample() {
 }
 
 export function ControlledSwitchExample() {
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = useState(true);
 
   return (
     <div className={styles.stack}>
@@ -200,6 +200,21 @@ export function ControlledSwitchExample() {
         <SwitchLabel>{checked ? 'On' : 'Off'}</SwitchLabel>
       </SwitchField>
       <span className={styles.hint}>Current value: {String(checked)}</span>
+    </div>
+  );
+}
+
+export function SwitchReadOnlyExample() {
+  return (
+    <div className={styles.stack}>
+      <SwitchField>
+        <Switch readOnly />
+        <SwitchLabel>Managed by policy</SwitchLabel>
+      </SwitchField>
+      <SwitchField>
+        <Switch defaultChecked readOnly />
+        <SwitchLabel>Always on</SwitchLabel>
+      </SwitchField>
     </div>
   );
 }
@@ -217,19 +232,8 @@ export function CustomIconSwitchExample() {
   );
 }
 
-export function SwitchClassNameExample() {
-  return (
-    <div className={styles.row}>
-      <SwitchField className={styles.customField}>
-        <Switch className={styles.customSwitch} defaultChecked />
-        <SwitchLabel className={styles.customLabel}>Styled with className</SwitchLabel>
-      </SwitchField>
-    </div>
-  );
-}
-
 export function SwitchSiblingLabelNativeButtonExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <div className={styles.siblingRow}>

@@ -1,17 +1,19 @@
 import { Switch as SwitchPrimitive } from '@base-ui/react/switch';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { forwardRef, type ComponentProps, type ComponentRef, type ForwardedRef } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Switch.module.css';
 
-const Switch = React.forwardRef(function Switch(
+type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+const Switch = forwardRef(function Switch(
   {
     className,
     size = 'md',
     children,
     ...props
-  }: SwitchPrimitive.Root.Props & { size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' },
-  ref: React.ForwardedRef<React.ComponentRef<typeof SwitchPrimitive.Root>>,
+  }: SwitchPrimitive.Root.Props & { size?: SwitchSize },
+  ref: ForwardedRef<ComponentRef<typeof SwitchPrimitive.Root>>,
 ) {
   return (
     <SwitchPrimitive.Root
@@ -36,11 +38,11 @@ function SwitchThumb({ className, ...props }: SwitchPrimitive.Thumb.Props) {
   );
 }
 
-function SwitchField({ className, ...props }: React.ComponentProps<'label'>) {
+function SwitchField({ className, ...props }: ComponentProps<'label'>) {
   return <label data-slot="switch-field" className={clsx(styles.field, className)} {...props} />;
 }
 
-function SwitchLabel({ className, ...props }: React.ComponentProps<'span'>) {
+function SwitchLabel({ className, ...props }: ComponentProps<'span'>) {
   return <span data-slot="switch-label" className={clsx(styles.label, className)} {...props} />;
 }
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import { Field, FieldLabel } from '../Field';
 import { Switch, SwitchField, SwitchLabel, SwitchThumb } from './Switch';
 import styles from './Switch.stories.module.css';
@@ -17,7 +17,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function PowerIcon(props: React.ComponentProps<'svg'>) {
+function PowerIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -89,7 +89,7 @@ export const Disabled: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState(true);
+    const [checked, setChecked] = useState(true);
 
     return (
       <div className={styles.stack}>
@@ -98,6 +98,23 @@ export const Controlled: Story = {
           <SwitchLabel>{checked ? 'On' : 'Off'}</SwitchLabel>
         </SwitchField>
         <span className={styles.hint}>Current value: {String(checked)}</span>
+      </div>
+    );
+  },
+};
+
+export const ReadOnly: Story = {
+  render: () => {
+    return (
+      <div className={styles.stack}>
+        <SwitchField>
+          <Switch readOnly />
+          <SwitchLabel>Managed by policy</SwitchLabel>
+        </SwitchField>
+        <SwitchField>
+          <Switch defaultChecked readOnly />
+          <SwitchLabel>Always on</SwitchLabel>
+        </SwitchField>
       </div>
     );
   },
@@ -121,7 +138,7 @@ export const CustomIcon: Story = {
 export const SiblingLabelNativeButton: Story = {
   name: 'Sibling Label (Native Button)',
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <div className={styles.siblingRow}>
