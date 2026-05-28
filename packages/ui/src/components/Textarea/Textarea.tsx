@@ -1,10 +1,10 @@
 import { Field as FieldPrimitive } from '@base-ui/react/field';
 import { mergeProps } from '@base-ui/react/merge-props';
-import * as React from 'react';
+import { forwardRef, useCallback, type ComponentProps, type ForwardedRef } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Textarea.module.css';
 
-function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
+const assignForwardedRef = <T,>(ref: ForwardedRef<T>, value: T | null) => {
   if (typeof ref === 'function') {
     ref(value);
     return;
@@ -13,24 +13,24 @@ function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
   if (ref) {
     ref.current = value;
   }
-}
+};
 
-const Textarea = React.forwardRef<
+const Textarea = forwardRef<
   HTMLTextAreaElement,
-  React.ComponentProps<'textarea'> & { autoResize?: boolean }
+  ComponentProps<'textarea'> & { autoResize?: boolean }
 >(function Textarea(
   {
     autoResize = false,
     className,
     ...props
-  }: React.ComponentProps<'textarea'> & {
+  }: ComponentProps<'textarea'> & {
     autoResize?: boolean;
   },
-  forwardedRef: React.ForwardedRef<HTMLTextAreaElement>,
+  forwardedRef: ForwardedRef<HTMLTextAreaElement>,
 ) {
-  const setTextareaRef = React.useCallback(
+  const setTextareaRef = useCallback(
     (node: HTMLElement | null) => {
-      setForwardedRef(forwardedRef, node instanceof HTMLTextAreaElement ? node : null);
+      assignForwardedRef(forwardedRef, node instanceof HTMLTextAreaElement ? node : null);
     },
     [forwardedRef],
   );

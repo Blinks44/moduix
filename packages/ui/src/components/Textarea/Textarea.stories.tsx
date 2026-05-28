@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useState } from 'react';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../Field';
 import { Textarea } from './Textarea';
 import storyStyles from './Textarea.stories.module.css';
@@ -17,11 +17,14 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const DefaultPath: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
         <FieldLabel>Comment</FieldLabel>
+        <FieldDescription>
+          Included in the issue summary visible to the whole team.
+        </FieldDescription>
         <Textarea placeholder="Write a short comment" />
       </Field>
     );
@@ -30,7 +33,7 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = useState('');
 
     return (
       <Field className={storyStyles.field}>
@@ -45,14 +48,16 @@ export const Controlled: Story = {
   },
 };
 
-export const NativeProps: Story = {
+export const NativeAttributes: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>
         <FieldLabel>Notes</FieldLabel>
         <Textarea
+          name="notes"
           rows={6}
           maxLength={280}
+          spellCheck={false}
           placeholder="Add enough context for the next person reading this."
           style={{ resize: 'vertical' }}
         />
@@ -86,7 +91,7 @@ export const DisabledAndReadOnly: Story = {
   },
 };
 
-export const WithFieldValidation: Story = {
+export const FieldValidation: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field} validationMode="onBlur">
@@ -102,7 +107,7 @@ export const WithFieldValidation: Story = {
   },
 };
 
-export const CustomComposition: Story = {
+export const CustomStyles: Story = {
   render: () => {
     return (
       <Field className={storyStyles.field}>

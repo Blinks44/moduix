@@ -7,33 +7,36 @@ icon: Component
 import {
   AutoResizeTextareaExample,
   ControlledTextareaExample,
-  CustomCompositionTextareaExample,
+  CustomStylesTextareaExample,
   DisabledAndReadOnlyTextareaExample,
-  NativePropsTextareaExample,
+  FieldValidationTextareaExample,
+  NativeAttributesTextareaExample,
   TextareaCssPlaygroundPanel,
   TextareaCssPropertiesPanel,
   TextareaExample,
-  TextareaFieldValidationExample,
   textareaPlaygroundCssProperties,
 } from '@/components/examples/textarea';
 
 ## API Reference
 
-<BaseUIReference href="https://ui.shadcn.com/docs/components/textarea" />
+<BaseUIReference href="https://base-ui.com/react/components/field" />
 
-## Basic
+## Default Path
 
 <Preview cssProperties={textareaPlaygroundCssProperties}>
   <TextareaExample />
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Textarea } from "moduix";
+      import { Field, FieldDescription, FieldLabel, Textarea } from "moduix";
 
       export function TextareaDemo() {
         return (
           <Field className={styles.field}>
             <FieldLabel>Comment</FieldLabel>
+            <FieldDescription>
+              Included in the issue summary visible to the whole team.
+            </FieldDescription>
             <Textarea placeholder="Write a short comment" />
           </Field>
         );
@@ -45,7 +48,7 @@ import {
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, 100%);
       }
     `}
 
@@ -57,6 +60,9 @@ import {
     {(context) => <TextareaCssPlaygroundPanel {...context} />}
   </Preview.CSSPlayground>
 </Preview>
+
+`Textarea` stays intentionally small: it renders one styled native `<textarea>`, works directly with
+`Field`, and keeps the native textarea contract intact.
 
 ## Anatomy
 
@@ -77,11 +83,22 @@ Field (optional wrapper)
 `FieldDescription`, `FieldError`, native validation, and standard textarea props such as `value`,
 `defaultValue`, `onChange`, `rows`, `maxLength`, `name`, and `readOnly`.
 
-`autoResize` stays as a small opt-in sugar for the common grow-with-content case in browsers that
-support `field-sizing: content`.
+Use these paths:
 
-For styling, pass `className` directly to `Textarea`, or override the public `--textarea-*` CSS
-variables. Use native textarea props and CSS when you need different sizing or resize behavior.
+- default `Textarea` path for regular multiline input
+- `Textarea` inside `Field` when labels, descriptions, and validation should stay declarative
+- `autoResize` when the field should grow with content in browsers that support
+  `field-sizing: content`
+
+`Textarea` does not add slot props, render helpers, or a parallel customization API. Style the root
+directly with `className` or the public `--textarea-*` CSS variables.
+
+### Defaults
+
+| Prop         | Default | Notes                                                                |
+| ------------ | ------- | -------------------------------------------------------------------- |
+| `autoResize` | `false` | Keeps the native resize behavior unless CSS auto-resize is opted in. |
+| `className`  | -       | Applied directly to the visible textarea root.                       |
 
 ## Examples
 
@@ -118,31 +135,33 @@ Use `value` and `onChange` when content should stay in React state.
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, 100%);
       }
     `}
 
   </Preview.CSS>
 </Preview>
 
-### Native Props
+### Native Attributes
 
-Use native textarea props for common adjustments such as `rows`, `maxLength`, and `resize`.
+Use native textarea attributes for form behavior, spellcheck, sizing, and validation.
 
 <Preview>
-  <NativePropsTextareaExample />
+  <NativeAttributesTextareaExample />
 
   <Preview.Code>
     {`
       import { Field, FieldLabel, Textarea } from "moduix";
 
-      export function TextareaNativePropsDemo() {
+      export function TextareaNativeAttributesDemo() {
         return (
           <Field className={styles.field}>
             <FieldLabel>Notes</FieldLabel>
             <Textarea
+              name="notes"
               rows={6}
               maxLength={280}
+              spellCheck={false}
               placeholder="Add enough context for the next person reading this."
               style={{ resize: "vertical" }}
             />
@@ -156,7 +175,7 @@ Use native textarea props for common adjustments such as `rows`, `maxLength`, an
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, 100%);
       }
     `}
 
@@ -192,12 +211,15 @@ Use `autoResize` when the textarea should grow with its content.
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, 100%);
       }
     `}
 
   </Preview.CSS>
 </Preview>
+
+`autoResize` is CSS-based sugar. In browsers without `field-sizing: content`, the textarea keeps
+its normal sizing behavior.
 
 ### Disabled and Readonly
 
@@ -227,7 +249,7 @@ Set `disabled` or `readOnly` based on interaction requirements.
       .stack {
         display: grid;
         gap: var(--spacing-3);
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, 100%);
       }
     `}
 
@@ -239,7 +261,7 @@ Set `disabled` or `readOnly` based on interaction requirements.
 Use `Field` with `FieldError` for native validity and accessible error messaging.
 
 <Preview>
-  <TextareaFieldValidationExample />
+  <FieldValidationTextareaExample />
 
   <Preview.Code>
     {`
@@ -265,7 +287,7 @@ Use `Field` with `FieldError` for native validity and accessible error messaging
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, 100%);
       }
     `}
 
@@ -274,10 +296,10 @@ Use `Field` with `FieldError` for native validity and accessible error messaging
 
 ### Custom Styles
 
-Pass `className` to style the textarea with your own module.
+Pass `className` to style the textarea root with your own module or scope-level CSS variables.
 
 <Preview>
-  <CustomCompositionTextareaExample />
+  <CustomStylesTextareaExample />
 
   <Preview.Code>
     {`
@@ -298,7 +320,7 @@ Pass `className` to style the textarea with your own module.
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, 100%);
       }
 
       .customTextarea {

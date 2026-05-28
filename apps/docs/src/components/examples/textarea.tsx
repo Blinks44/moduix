@@ -1,10 +1,10 @@
 import { Field, FieldDescription, FieldError, FieldLabel, Textarea } from 'moduix';
-import * as React from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './textarea.module.css';
 
-export const textareaOverrideCssProperties: CssPropertyInput[] = [
+export const textareaCssProperties: CssPropertyInput[] = [
   ['--textarea-bg', 'var(--color-background)', 'Controls the textarea background color.'],
   ['--textarea-border-color', 'var(--color-border)', 'Controls the textarea border color.'],
   [
@@ -17,8 +17,16 @@ export const textareaOverrideCssProperties: CssPropertyInput[] = [
   ['--textarea-color', 'var(--color-foreground)', 'Controls the textarea text color.'],
   ['--textarea-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--textarea-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--textarea-focus-ring-offset', 'depends on focus ring width', 'Controls focus ring offset.'],
-  ['--textarea-focus-ring-width', 'depends on border width', 'Controls focus ring width.'],
+  [
+    '--textarea-focus-ring-offset',
+    'calc(0px - var(--textarea-border-width, var(--border-width-sm)))',
+    'Controls focus ring offset.',
+  ],
+  [
+    '--textarea-focus-ring-width',
+    'var(--textarea-border-width, var(--border-width-sm))',
+    'Controls focus ring width.',
+  ],
   ['--textarea-font-size', 'var(--text-md)', 'Controls default font size.'],
   ['--textarea-line-height', 'var(--line-height-text-md)', 'Controls default line height.'],
   ['--textarea-max-width', 'none', 'Controls the textarea max width.'],
@@ -29,10 +37,14 @@ export const textareaOverrideCssProperties: CssPropertyInput[] = [
   ['--textarea-radius', 'var(--radius-md)', 'Controls textarea corner radius.'],
   [
     '--textarea-readonly-bg',
-    'depends on textarea background',
+    'var(--textarea-bg, var(--color-background))',
     'Controls readonly background color.',
   ],
-  ['--textarea-readonly-color', 'depends on textarea text color', 'Controls readonly text color.'],
+  [
+    '--textarea-readonly-color',
+    'var(--textarea-color, var(--color-foreground))',
+    'Controls readonly text color.',
+  ],
   ['--textarea-resize', 'vertical', 'Controls default textarea resize behavior.'],
   ['--textarea-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--textarea-width', '100%', 'Controls textarea width.'],
@@ -54,9 +66,7 @@ export const textareaPlaygroundCssProperties: CssPropertyInput[] = [
 
 export function TextareaCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
-    <CSSPropertiesReferenceTable
-      properties={textareaOverrideCssProperties.map(normalizeCssProperty)}
-    />
+    <CSSPropertiesReferenceTable properties={textareaCssProperties.map(normalizeCssProperty)} />
   );
 }
 
@@ -81,17 +91,18 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TextareaExample(props: React.ComponentProps<typeof Textarea>) {
+export function TextareaExample(props: ComponentProps<typeof Textarea>) {
   return (
     <Field className={styles.field}>
       <FieldLabel>Comment</FieldLabel>
+      <FieldDescription>Included in the issue summary visible to the whole team.</FieldDescription>
       <Textarea className={styles.demoTextarea} placeholder="Write a short comment" {...props} />
     </Field>
   );
 }
 
 export function ControlledTextareaExample() {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = useState('');
 
   return (
     <Field className={styles.field}>
@@ -115,14 +126,16 @@ export function DisabledAndReadOnlyTextareaExample() {
   );
 }
 
-export function NativePropsTextareaExample() {
+export function NativeAttributesTextareaExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel>Notes</FieldLabel>
       <Textarea
         className={styles.demoTextarea}
+        name="notes"
         rows={6}
         maxLength={280}
+        spellCheck={false}
         placeholder="Add enough context for the next person reading this."
         style={{ resize: 'vertical' }}
       />
@@ -143,7 +156,7 @@ export function AutoResizeTextareaExample() {
   );
 }
 
-export function TextareaFieldValidationExample() {
+export function FieldValidationTextareaExample() {
   return (
     <Field className={styles.field} validationMode="onBlur">
       <FieldLabel>Details</FieldLabel>
@@ -162,7 +175,7 @@ export function TextareaFieldValidationExample() {
   );
 }
 
-export function CustomCompositionTextareaExample() {
+export function CustomStylesTextareaExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel>Notes</FieldLabel>

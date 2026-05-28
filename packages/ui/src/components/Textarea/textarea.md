@@ -7,9 +7,9 @@ description: A reusable textarea component for long-form input with Field integr
 # Textarea
 
 `Textarea` is a thin styled wrapper over Base UI `Field.Control` that renders a native
-`<textarea>`.
+`<textarea>` with moduix tokens.
 
-## Parts
+## Anatomy
 
 ```tsx
 import { Textarea } from '@test/moduix';
@@ -17,22 +17,20 @@ import { Textarea } from '@test/moduix';
 <Textarea />;
 ```
 
-- `Textarea` renders the native textarea element and keeps `data-slot="textarea-root"` as the
-  styling hook.
+`Textarea` is a single styled root and keeps `data-slot="textarea-root"` as its styling hook.
 
 ## Props
 
 - All native `<textarea>` props pass through directly.
-- `autoResize`: enables CSS-based auto-resize with `field-sizing: content` and disables the
-  manual resize handle.
+- `autoResize`: enables CSS-based auto-resize in browsers that support `field-sizing: content`.
 - `className`: direct styling entry point for the root element.
 
-## Behavior
+## Composition
 
 - Works on its own or inside `Field` for labels, descriptions, and validation.
 - Keeps native controlled and uncontrolled textarea behavior.
-- Keeps `autoResize` as a small opt-in sugar for the common grow-with-content workflow in browsers
-  that support `field-sizing: content`.
+- Keeps `autoResize` as a small opt-in sugar for the common grow-with-content workflow without
+  replacing the native textarea contract.
 - Forwards its ref to the native `<textarea>`.
 
 ## Styling
@@ -45,4 +43,5 @@ import { Textarea } from '@test/moduix';
 ## Accessibility
 
 - Provide an accessible name using a `<label>` or `FieldLabel`.
-- For validation messages and form metadata, use the component together with `Field`, `FieldDescription`, and `FieldError`.
+- For validation messages and form metadata, use the component together with `Field`,
+  `FieldDescription`, and `FieldError`.

@@ -43,21 +43,21 @@
     outline-color: var(--textarea-border-color-invalid, var(--color-destructive));
   }
 
-  .root[disabled],
-  .root[data-disabled] {
+  .root:is([disabled], [data-disabled]) {
     pointer-events: none;
     opacity: var(--textarea-disabled-opacity, var(--opacity-disabled));
   }
 
-  .root:read-only,
-  .root[data-readonly] {
+  .root:is(:read-only, [data-readonly]) {
     background-color: var(--textarea-readonly-bg, var(--textarea-bg, var(--color-background)));
     color: var(--textarea-readonly-color, var(--textarea-color, var(--color-foreground)));
   }
 
-  .root[data-auto-resize] {
-    field-sizing: content;
-    overflow-y: hidden;
-    resize: none;
+  @supports (field-sizing: content) {
+    .root[data-auto-resize] {
+      field-sizing: content;
+      overflow-y: hidden;
+      resize: none;
+    }
   }
 }
