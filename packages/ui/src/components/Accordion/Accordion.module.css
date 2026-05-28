@@ -2,8 +2,7 @@
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--accordion-width, 24rem);
-    max-width: var(--accordion-max-width, 100%);
+    min-width: 0;
     flex-direction: column;
     color: var(--accordion-color, var(--color-foreground));
   }

@@ -1,11 +1,17 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
-import * as React from 'react';
+import {
+  Children,
+  forwardRef,
+  isValidElement,
+  type ComponentRef,
+  type ComponentProps,
+} from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Tabs.module.css';
 
-const Tabs = React.forwardRef<
-  React.ComponentRef<typeof TabsPrimitive.Root>,
-  TabsPrimitive.Root.Props & { variant?: 'default' | 'line' }
+const Tabs = forwardRef<
+  ComponentRef<typeof TabsPrimitive.Root>,
+  ComponentProps<typeof TabsPrimitive.Root> & { variant?: 'default' | 'line' }
 >(function Tabs({ className, variant = 'default', ...props }, ref) {
   return (
     <TabsPrimitive.Root
@@ -18,12 +24,12 @@ const Tabs = React.forwardRef<
   );
 });
 
-const TabsList = React.forwardRef<
-  React.ComponentRef<typeof TabsPrimitive.List>,
-  TabsPrimitive.List.Props
+const TabsList = forwardRef<
+  ComponentRef<typeof TabsPrimitive.List>,
+  ComponentProps<typeof TabsPrimitive.List>
 >(function TabsList({ className, children, ...props }, ref) {
-  const hasIndicator = React.Children.toArray(children).some(
-    (child) => React.isValidElement(child) && child.type === TabsIndicator,
+  const hasIndicator = Children.toArray(children).some(
+    (child) => isValidElement(child) && child.type === TabsIndicator,
   );
 
   return (
@@ -39,9 +45,9 @@ const TabsList = React.forwardRef<
   );
 });
 
-const TabsIndicator = React.forwardRef<
-  React.ComponentRef<typeof TabsPrimitive.Indicator>,
-  TabsPrimitive.Indicator.Props
+const TabsIndicator = forwardRef<
+  ComponentRef<typeof TabsPrimitive.Indicator>,
+  ComponentProps<typeof TabsPrimitive.Indicator>
 >(function TabsIndicator({ className, ...props }, ref) {
   return (
     <TabsPrimitive.Indicator
@@ -53,9 +59,9 @@ const TabsIndicator = React.forwardRef<
   );
 });
 
-const TabsTab = React.forwardRef<
-  React.ComponentRef<typeof TabsPrimitive.Tab>,
-  TabsPrimitive.Tab.Props
+const TabsTab = forwardRef<
+  ComponentRef<typeof TabsPrimitive.Tab>,
+  ComponentProps<typeof TabsPrimitive.Tab>
 >(function TabsTab({ className, ...props }, ref) {
   return (
     <TabsPrimitive.Tab
@@ -67,9 +73,9 @@ const TabsTab = React.forwardRef<
   );
 });
 
-const TabsPanel = React.forwardRef<
-  React.ComponentRef<typeof TabsPrimitive.Panel>,
-  TabsPrimitive.Panel.Props
+const TabsPanel = forwardRef<
+  ComponentRef<typeof TabsPrimitive.Panel>,
+  ComponentProps<typeof TabsPrimitive.Panel>
 >(function TabsPanel({ className, ...props }, ref) {
   return (
     <TabsPrimitive.Panel

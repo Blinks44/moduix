@@ -72,7 +72,7 @@ function FaqAccordionItems({
 export const Basic: Story = {
   render: () => {
     return (
-      <Accordion defaultValue={['what-is-base-ui']}>
+      <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
         <FaqAccordionItems />
       </Accordion>
     );
@@ -82,7 +82,11 @@ export const Basic: Story = {
 export const Multiple: Story = {
   render: () => {
     return (
-      <Accordion multiple defaultValue={['what-is-base-ui', 'can-i-use-it']}>
+      <Accordion
+        multiple
+        defaultValue={['what-is-base-ui', 'can-i-use-it']}
+        className={styles.demoRoot}
+      >
         <FaqAccordionItems />
       </Accordion>
     );
@@ -92,7 +96,7 @@ export const Multiple: Story = {
 export const DisabledItem: Story = {
   render: () => {
     return (
-      <Accordion defaultValue={['what-is-base-ui']}>
+      <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
         <FaqAccordionItems disabledValue="getting-started" />
       </Accordion>
     );
@@ -104,7 +108,7 @@ export const Controlled: Story = {
     const [value, setValue] = useState<string[]>(['getting-started']);
 
     return (
-      <Accordion value={value} onValueChange={setValue}>
+      <Accordion value={value} onValueChange={setValue} className={styles.demoRoot}>
         <FaqAccordionItems />
       </Accordion>
     );
@@ -114,7 +118,7 @@ export const Controlled: Story = {
 export const CustomComposition: Story = {
   render: () => {
     return (
-      <Accordion defaultValue={['what-is-base-ui']}>
+      <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
         <FaqAccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
       </Accordion>
     );

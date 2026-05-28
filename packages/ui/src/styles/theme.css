@@ -91,7 +91,6 @@
   --accordion-icon-transition: initial; /* var(--transition-default) */
   --accordion-item-border-color: initial; /* var(--color-border) */
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
-  --accordion-max-width: initial; /* 100% */
   --accordion-panel-color: initial; /* var(--color-muted-foreground) */
   --accordion-panel-font-size: initial; /* var(--text-md) */
   --accordion-panel-line-height: initial; /* var(--line-height-text-md) */
@@ -103,7 +102,6 @@
   --accordion-trigger-line-height: initial; /* var(--line-height-text-md) */
   --accordion-trigger-padding-x: initial; /* var(--spacing-3) */
   --accordion-trigger-padding-y: initial; /* var(--spacing-2) */
-  --accordion-width: initial; /* 24rem */
   /* Alert */
   --alert-bg: initial; /* var(--alert-bg-default, var(--color-card)) */
   --alert-border-color: initial; /* var(--alert-border-color-default, var(--color-border)) */
@@ -1932,7 +1930,7 @@
   --tabs-focus-ring-color: initial; /* var(--color-ring) */
   --tabs-focus-ring-offset: initial; /* 0 */
   --tabs-focus-ring-width: initial; /* var(--border-width-sm) */
-  --tabs-gap: initial; /* 0 */
+  --tabs-gap: initial; /* 0.75rem */
   --tabs-indicator-bg: initial; /* var(--color-background) */
   --tabs-indicator-radius: initial; /* var(--radius-sm) */
   --tabs-indicator-size: initial; /* 1.75rem */
@@ -1943,12 +1941,11 @@
   --tabs-line-indicator-transition: initial; /* translate 200ms ease, width 200ms ease */
   --tabs-list-bg: initial; /* var(--color-muted) */
   --tabs-list-border-color: initial; /* var(--color-border) */
-  --tabs-list-border-width: initial; /* var(--tabs-border-width, var(--border-width-sm)) */
+  --tabs-list-border-width: initial; /* var(--border-width-sm) */
   --tabs-list-gap: initial; /* 0.25rem */
   --tabs-list-padding: initial; /* 0.25rem */
   --tabs-list-padding-x: initial; /* var(--tabs-list-padding, 0.25rem) */
   --tabs-list-padding-y: initial; /* var(--tabs-list-padding, 0.25rem) */
-  --tabs-max-width: initial; /* calc(100vw - 2rem) */
   --tabs-panel-color: initial; /* var(--tabs-color, var(--color-foreground)) */
   --tabs-panel-font-size: initial; /* var(--text-sm) */
   --tabs-panel-line-height: initial; /* var(--line-height-text-sm) */
@@ -1970,8 +1967,6 @@
   --tabs-tab-radius: initial; /* var(--radius-sm) */
   --tabs-tab-transition: initial; /* var(--transition-default) */
   --tabs-vertical-list-width: initial; /* 12rem */
-  --tabs-vertical-min-height: initial; /* 14rem */
-  --tabs-width: initial; /* 32rem */
 
   /* Text */
   --text-default-color: initial; /* var(--color-foreground) */

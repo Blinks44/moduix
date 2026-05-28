@@ -1,4 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react';
+import { clsx } from 'clsx';
 import {
   Accordion,
   AccordionHeader,
@@ -64,7 +65,6 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls the separator width between accordion items.',
   ],
-  ['--accordion-max-width', '100%', 'Controls the root accordion max width.'],
   ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
   ['--accordion-panel-font-size', 'var(--text-md)', 'Controls panel text font size.'],
   [
@@ -96,7 +96,6 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
-  ['--accordion-width', '24rem', 'Controls the root accordion width.'],
 ];
 
 export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
@@ -173,7 +172,7 @@ function AccordionItems({ disabledValue, icon, iconClassName }: AccordionItemsPr
 
 export function AccordionExample({ className, ...props }: ComponentProps<typeof Accordion>) {
   return (
-    <Accordion className={className} {...props}>
+    <Accordion className={clsx(styles.demoRoot, className)} {...props}>
       <AccordionItems />
     </Accordion>
   );
@@ -191,7 +190,7 @@ export function ControlledAccordionExample() {
 
 export function DisabledItemAccordionExample() {
   return (
-    <Accordion defaultValue={['what-is-base-ui']}>
+    <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
       <AccordionItems disabledValue="getting-started" />
     </Accordion>
   );
@@ -199,7 +198,7 @@ export function DisabledItemAccordionExample() {
 
 export function CustomCompositionAccordionExample() {
   return (
-    <Accordion defaultValue={['what-is-base-ui']}>
+    <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
       <AccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
     </Accordion>
   );

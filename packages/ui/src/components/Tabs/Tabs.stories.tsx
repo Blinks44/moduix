@@ -38,7 +38,7 @@ const tabItems = [
 export const Basic: Story = {
   render: () => {
     return (
-      <Tabs defaultValue="overview">
+      <Tabs defaultValue="overview" className={styles.demoRoot}>
         <TabsList>
           {tabItems.map((item) => (
             <TabsTab key={item.value} value={item.value}>
@@ -61,7 +61,7 @@ export const Controlled: Story = {
     const [value, setValue] = React.useState('projects');
 
     return (
-      <Tabs value={value} onValueChange={setValue}>
+      <Tabs value={value} onValueChange={setValue} className={styles.demoRoot}>
         <TabsList>
           {tabItems.map((item) => (
             <TabsTab key={item.value} value={item.value}>
@@ -82,7 +82,7 @@ export const Controlled: Story = {
 export const Vertical: Story = {
   render: () => {
     return (
-      <Tabs defaultValue="overview" orientation="vertical">
+      <Tabs defaultValue="overview" orientation="vertical" className={styles.demoRoot}>
         <TabsList>
           {tabItems.map((item) => (
             <TabsTab key={item.value} value={item.value}>
@@ -103,7 +103,7 @@ export const Vertical: Story = {
 export const ActivateOnFocus: Story = {
   render: () => {
     return (
-      <Tabs defaultValue="overview">
+      <Tabs defaultValue="overview" className={styles.demoRoot}>
         <TabsList activateOnFocus>
           {tabItems.map((item) => (
             <TabsTab key={item.value} value={item.value}>
@@ -124,7 +124,7 @@ export const ActivateOnFocus: Story = {
 export const Line: Story = {
   render: () => {
     return (
-      <Tabs defaultValue="overview" variant="line">
+      <Tabs defaultValue="overview" variant="line" className={styles.demoRoot}>
         <TabsList>
           {tabItems.map((item) => (
             <TabsTab key={item.value} value={item.value}>
@@ -145,7 +145,7 @@ export const Line: Story = {
 export const Links: Story = {
   render: () => {
     return (
-      <Tabs defaultValue="overview">
+      <Tabs defaultValue="overview" className={styles.demoRoot}>
         <TabsList>
           {tabItems.map((item) => (
             <TabsTab
@@ -173,7 +173,7 @@ export const Links: Story = {
 export const WithIcons: Story = {
   render: () => {
     return (
-      <Tabs defaultValue="overview">
+      <Tabs defaultValue="overview" className={styles.demoRoot}>
         <TabsList>
           <TabsTab value="overview">
             <HandshakeIcon />
@@ -201,7 +201,7 @@ export const WithIcons: Story = {
 export const DisabledTab: Story = {
   render: () => {
     return (
-      <Tabs defaultValue="overview">
+      <Tabs defaultValue="overview" className={styles.demoRoot}>
         <TabsList>
           <TabsTab value="overview">Overview</TabsTab>
           <TabsTab value="projects" disabled>
