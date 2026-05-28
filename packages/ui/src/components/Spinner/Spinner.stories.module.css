@@ -4,6 +4,16 @@
   gap: var(--spacing-4);
 }
 
+.inline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.muted {
+  color: var(--color-muted-foreground);
+}
+
 .accent {
   color: var(--color-primary);
 }

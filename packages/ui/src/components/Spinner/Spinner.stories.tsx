@@ -20,6 +20,17 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
 
+export const WithVisibleText: Story = {
+  render: () => {
+    return (
+      <div className={styles.inline}>
+        <Spinner decorative size="sm" />
+        <span className={styles.muted}>Saving changes</span>
+      </div>
+    );
+  },
+};
+
 export const Sizes: Story = {
   render: () => {
     return (
@@ -29,17 +40,6 @@ export const Sizes: Story = {
         <Spinner size="md" />
         <Spinner size="lg" />
         <Spinner size="xl" />
-      </div>
-    );
-  },
-};
-
-export const Decorative: Story = {
-  render: () => {
-    return (
-      <div className={styles.row}>
-        <Spinner />
-        <Spinner decorative />
       </div>
     );
   },
@@ -62,7 +62,7 @@ export const CustomIndicator: Story = {
   },
 };
 
-export const CustomColor: Story = {
+export const Styling: Story = {
   render: () => {
     return (
       <div className={styles.accent}>

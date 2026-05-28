@@ -1,4 +1,4 @@
-import type * as React from 'react';
+import type { ComponentProps } from 'react';
 import { Spinner } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -60,8 +60,17 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function SpinnerExample(props: React.ComponentProps<typeof Spinner>) {
+export function SpinnerExample(props: ComponentProps<typeof Spinner>) {
   return <Spinner {...props} />;
+}
+
+export function SpinnerInlineExample() {
+  return (
+    <div className={styles.inline}>
+      <Spinner decorative size="sm" />
+      <span className={styles.muted}>Saving changes</span>
+    </div>
+  );
 }
 
 export function SpinnerSizesExample() {
@@ -91,7 +100,7 @@ export function SpinnerCustomIndicatorExample() {
   );
 }
 
-export function SpinnerClassNameExample() {
+export function SpinnerStylingExample() {
   return (
     <div className={styles.brand}>
       <Spinner size="lg" />

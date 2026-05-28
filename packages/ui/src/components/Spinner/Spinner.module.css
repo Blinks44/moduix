@@ -45,10 +45,6 @@
     --_spinner-size: var(--spinner-size, var(--spinner-size-sm, 1rem));
   }
 
-  .root[data-size='md'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-md, 1.25rem));
-  }
-
   .root[data-size='lg'] {
     --_spinner-size: var(--spinner-size, var(--spinner-size-lg, 1.75rem));
   }

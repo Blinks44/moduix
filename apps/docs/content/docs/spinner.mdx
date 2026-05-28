@@ -5,16 +5,17 @@ icon: Component
 ---
 
 import {
-  SpinnerClassNameExample,
   SpinnerCssPlaygroundPanel,
   SpinnerCssPropertiesPanel,
   SpinnerCustomIndicatorExample,
   SpinnerExample,
+  SpinnerInlineExample,
   SpinnerSizesExample,
+  SpinnerStylingExample,
   spinnerPlaygroundCssProperties,
 } from '@/components/examples/spinner';
 
-## API Reference
+## Overview
 
 `Spinner` is a compact loading primitive. Base UI does not provide a dedicated spinner primitive, so
 moduix keeps this one intentionally small: one default ring indicator, size control, and standard
@@ -22,7 +23,7 @@ status semantics.
 
 Use it for pending controls, inline loading feedback, and compact empty states. By default it
 announces loading with `role="status"` and `aria-label="Loading"`. Set `decorative` when nearby
-text already covers that.
+text already covers that, or pass `aria-label` / `aria-labelledby` for a more specific status name.
 
 ## Basic
 
@@ -65,7 +66,8 @@ Spinner
 
 `Spinner` forwards standard `span` props. Use `size` for common density changes and `decorative`
 when the spinner is paired with visible loading text. Override the announcement with `aria-label`
-when you need a more specific status message.
+or `aria-labelledby` when you need a more specific status message. Pass `children` to swap the
+indicator while keeping the wrapper sizing and spin behavior.
 
 ### Defaults
 
@@ -76,6 +78,30 @@ when you need a more specific status message.
 | `aria-label` | `Loading` | String                       |
 
 ## Examples
+
+### Inline Loading Text
+
+Use `decorative` when the pending state already has visible text next to it.
+
+<Preview>
+  <SpinnerInlineExample />
+
+  <Preview.Code>
+    {`
+      import { Spinner } from "moduix";
+
+      export function SpinnerInlineDemo() {
+        return (
+          <div>
+            <Spinner decorative size="sm" />
+            <span>Saving changes</span>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
 
 ### Sizes
 
@@ -104,7 +130,40 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Styling
+
+Use `className` or CSS variables for targeted color changes.
+
+<Preview>
+  <SpinnerStylingExample />
+
+  <Preview.Code>
+    {`
+      import { Spinner } from "moduix";
+      import styles from "./spinner-demo.module.css";
+
+      export function SpinnerStylingDemo() {
+        return (
+          <div className={styles.brand}>
+            <Spinner size="lg" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .brand {
+        color: var(--color-primary);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
 
 Pass custom children when you need a different indicator while keeping Spinner sizing and status
 semantics.
@@ -133,37 +192,4 @@ semantics.
     `}
 
   </Preview.Code>
-</Preview>
-
-### Styling
-
-Use `className` or CSS variables for targeted color changes.
-
-<Preview>
-  <SpinnerClassNameExample />
-
-  <Preview.Code>
-    {`
-      import { Spinner } from "moduix";
-      import styles from "./spinner-demo.module.css";
-
-      export function SpinnerStylingDemo() {
-        return (
-          <div className={styles.brand}>
-            <Spinner size="lg" />
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .brand {
-        color: var(--color-primary);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
