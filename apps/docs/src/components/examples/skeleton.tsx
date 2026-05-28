@@ -1,4 +1,4 @@
-import type * as React from 'react';
+import type { ComponentProps } from 'react';
 import { Skeleton, Stack } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -49,7 +49,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function SkeletonExample(props: React.ComponentProps<typeof Skeleton>) {
+export function SkeletonExample(props: ComponentProps<typeof Skeleton>) {
   return (
     <Stack gap={10} className={styles.stack}>
       <Skeleton height={18} {...props} />
@@ -76,7 +76,7 @@ export function SkeletonMediaObjectExample() {
   return (
     <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
       <Skeleton size={48} shape="circle" />
-      <Stack gap={8} className={styles.growStack}>
+      <Stack gap={8} fill>
         <Skeleton width="46%" height={16} />
         <Skeleton height={14} />
         <Skeleton width="72%" height={14} />
@@ -88,16 +88,16 @@ export function SkeletonMediaObjectExample() {
 export function SkeletonCompositionExample() {
   return (
     <Stack gap={12} className={styles.layoutExample}>
-      <Stack gap={12} className={styles.listRow}>
+      <Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12}>
         <Skeleton width={72} height={48} />
-        <Stack gap={8} className={styles.growStack}>
+        <Stack gap={8} fill>
           <Skeleton width="62%" height={14} />
           <Skeleton height={14} />
         </Stack>
       </Stack>
-      <Stack gap={12} className={styles.listRow}>
+      <Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12}>
         <Skeleton width={72} height={48} />
-        <Stack gap={8} className={styles.growStack}>
+        <Stack gap={8} fill>
           <Skeleton width="48%" height={14} />
           <Skeleton height={14} />
         </Stack>

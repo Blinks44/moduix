@@ -1,12 +1,5 @@
 @layer ui.storybook {
-  .panel {
-    width: 20rem;
-    padding: var(--spacing-4);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-background);
-  }
-
+  .panel,
   .row {
     width: 20rem;
     padding: var(--spacing-4);

@@ -10,25 +10,9 @@
   width: min(24rem, calc(100vw - var(--spacing-8)));
 }
 
-.growStack {
-  flex: 1 1 0;
-}
-
 .layoutExample {
   width: min(24rem, calc(100vw - var(--spacing-8)));
   padding-block: 4px;
-}
-
-.listRow {
-  flex-direction: row;
-  align-items: center;
-}
-
-@media (max-width: 767px) {
-  .listRow {
-    align-items: stretch;
-    flex-direction: column;
-  }
 }
 
 .customBlock {

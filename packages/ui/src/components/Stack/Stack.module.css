@@ -1,6 +1,13 @@
 @layer ui.components {
   .root {
     display: flex;
-    flex-direction: column;
+    flex: var(--stack-flex, initial);
+    flex-direction: var(--stack-direction-mobile, column);
+  }
+
+  @media (min-width: 640px) {
+    .root {
+      flex-direction: var(--stack-direction-desktop, var(--stack-direction-mobile, column));
+    }
   }
 }

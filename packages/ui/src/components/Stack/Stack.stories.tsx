@@ -49,6 +49,27 @@ export const Wrap: Story = {
   ),
 };
 
+export const Fill: Story = {
+  render: () => (
+    <Stack direction="row" align="center" gap={12} className={styles.row}>
+      <Skeleton size={40} shape="circle" />
+      <Stack gap={8} fill>
+        <Skeleton width="48%" height={16} />
+        <Skeleton height={14} />
+      </Stack>
+    </Stack>
+  ),
+};
+
+export const ResponsiveDirection: Story = {
+  render: () => (
+    <Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12} className={styles.row}>
+      <Text weight="semibold">Adaptive layout</Text>
+      <Text tone="muted">Column on mobile, row from desktop width.</Text>
+    </Stack>
+  ),
+};
+
 export const SkeletonComposition: Story = {
   render: () => (
     <Stack gap={16} className={styles.skeletonCard}>

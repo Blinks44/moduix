@@ -6,19 +6,24 @@ icon: Component
 
 import {
   StackExample,
+  StackFillExample,
+  StackResponsiveDirectionExample,
   StackRowExample,
   StackSemanticExample,
   StackSkeletonExample,
   StackWrapExample,
 } from '@/components/examples/stack';
 
-## API Reference
+## Overview
 
-`Stack` is a small flex layout primitive for vertical and horizontal composition.
-Use it when the layout intent is just direction, spacing, and common flex alignment.
-Keep responsive layout rules and one-off overrides in `className` or `style`.
+`Stack` is a small flex layout primitive for vertical and horizontal composition. It does not wrap
+a Base UI primitive.
 
-## Basic
+Use it when the layout intent is just direction, spacing, and common flex alignment. Use `fill`
+when a stack should take the remaining flex space. Use responsive `direction` when the layout only
+needs a mobile/desktop switch without a dedicated CSS file.
+
+## Default Path
 
 <Preview>
   <StackExample />
@@ -58,8 +63,8 @@ Keep responsive layout rules and one-off overrides in `className` or `style`.
 
 ## Anatomy
 
-`Stack` is a single root flex wrapper. It owns direction, gap, and common alignment,
-while leaving sizing and responsive layout rules to local CSS.
+`Stack` is a single root flex wrapper. It owns direction, gap, common alignment, and a small amount
+of opt-in layout sugar, while leaving broader layout rules to local CSS.
 
 ```text
 Stack
@@ -80,21 +85,23 @@ Stack
 ## Composition
 
 Use `direction`, `gap`, `align`, `justify`, and `wrap` for common flex layout.
-Use `as` when the wrapper should render a different element.
+Use `fill` when the stack should grow as a flex item. Use `as` when the wrapper should render a
+different element.
 
 ### Defaults
 
-| Prop        | Default      | Values                            |
-| ----------- | ------------ | --------------------------------- |
-| `direction` | `column`     | `column`, `row`                   |
-| `gap`       | -            | CSS length (`number` = `px`)      |
-| `align`     | `stretch`    | Any valid `align-items` value     |
-| `justify`   | `flex-start` | Any valid `justify-content` value |
-| `wrap`      | `nowrap`     | Any valid `flex-wrap` value       |
-| `as`        | `div`        | Any React element type            |
+| Prop        | Default      | Values                                                |
+| ----------- | ------------ | ----------------------------------------------------- |
+| `direction` | `column`     | `column`, `row`, or `{ mobile?: ..., desktop?: ... }` |
+| `gap`       | -            | CSS length (`number` = `px`)                          |
+| `align`     | `stretch`    | Any valid `align-items` value                         |
+| `justify`   | `flex-start` | Any valid `justify-content` value                     |
+| `wrap`      | `nowrap`     | Any valid `flex-wrap` value                           |
+| `fill`      | `false`      | `true`, `false` (`true` = `flex: 1 1 0`)              |
+| `as`        | `div`        | Any React element type                                |
 
-`Stack` does not add responsive behavior or child-level layout abstractions.
-Use `className` or `style` when you need media queries, sizing constraints, or custom flex rules.
+Responsive `direction` is intentionally narrow: it only switches between mobile and desktop
+directions at `640px`. Use `className` or `style` when you need broader responsive layout rules.
 
 ## Examples
 
@@ -173,12 +180,67 @@ Use `wrap="wrap"` when items should flow to the next line.
         border-radius: var(--radius-full);
         background-color: var(--color-muted);
         color: var(--color-foreground);
-        font-size: var(--font-size-sm);
-        line-height: var(--line-height-sm);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
       }
     `}
 
   </Preview.CSS>
+</Preview>
+
+### Fill
+
+Use `fill` when a nested stack should take the remaining space in a flex row.
+
+<Preview>
+  <StackFillExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, Stack } from "moduix";
+
+      export function StackFillDemo() {
+        return (
+          <Stack direction="row" align="center" gap={12} className={styles.row}>
+            <Skeleton size={40} shape="circle" />
+            <Stack gap={8} fill>
+              <Skeleton width="48%" height={16} />
+              <Skeleton height={14} />
+            </Stack>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Responsive Direction
+
+Use responsive `direction` when the layout only needs a column-on-mobile and row-on-desktop switch.
+
+<Preview>
+  <StackResponsiveDirectionExample />
+
+  <Preview.Code>
+    {`
+      import { Stack, Text } from "moduix";
+
+      export function StackResponsiveDirectionDemo() {
+        return (
+          <Stack
+            direction={{ mobile: "column", desktop: "row" }}
+            gap={12}
+            className={styles.row}
+          >
+            <Text weight="semibold">Adaptive layout</Text>
+            <Text tone="muted">Column on mobile, row from desktop width.</Text>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>
 
 ### Semantic Element

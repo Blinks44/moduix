@@ -1,5 +1,5 @@
-import type * as React from 'react';
-import clsx from 'clsx';
+import type { ComponentProps } from 'react';
+import { clsx } from 'clsx';
 import styles from './Skeleton.module.css';
 
 function toCssValue(value: number | string | undefined) {
@@ -20,7 +20,7 @@ function Skeleton({
   size,
   shape,
   ...props
-}: React.ComponentProps<'div'> & {
+}: ComponentProps<'div'> & {
   animated?: boolean;
   width?: number | string;
   height?: number | string;

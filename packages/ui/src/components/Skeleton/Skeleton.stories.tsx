@@ -48,7 +48,7 @@ export const MediaObject: Story = {
     return (
       <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
         <Skeleton size={48} shape="circle" />
-        <Stack gap={8} className={styles.growStack}>
+        <Stack gap={8} fill>
           <Skeleton width="46%" height={16} />
           <Skeleton height={14} />
           <Skeleton width="72%" height={14} />
@@ -62,16 +62,16 @@ export const Composition: Story = {
   render: () => {
     return (
       <Stack gap={12} className={styles.layoutExample}>
-        <Stack gap={12} className={styles.listRow}>
+        <Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12}>
           <Skeleton width={72} height={48} />
-          <Stack gap={8} className={styles.growStack}>
+          <Stack gap={8} fill>
             <Skeleton width="62%" height={14} />
             <Skeleton height={14} />
           </Stack>
         </Stack>
-        <Stack gap={12} className={styles.listRow}>
+        <Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12}>
           <Skeleton width={72} height={48} />
-          <Stack gap={8} className={styles.growStack}>
+          <Stack gap={8} fill>
             <Skeleton width="48%" height={14} />
             <Skeleton height={14} />
           </Stack>
@@ -84,5 +84,17 @@ export const Composition: Story = {
 export const Static: Story = {
   render: () => {
     return <Skeleton width={320} height={72} animated={false} />;
+  },
+};
+
+export const CustomStyling: Story = {
+  render: () => {
+    return (
+      <Stack gap={10} className={styles.customBlock}>
+        <Skeleton className={styles.customSkeleton} height={18} />
+        <Skeleton className={styles.customSkeleton} width="78%" height={18} />
+        <Skeleton className={styles.customSkeleton} width="52%" height={18} />
+      </Stack>
+    );
   },
 };

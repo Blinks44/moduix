@@ -11,24 +11,19 @@
     width: 24rem;
   }
 
-  .growStack {
-    flex: 1 1 0;
-  }
-
   .layoutExample {
     width: 24rem;
     padding-block: 4px;
   }
 
-  .listRow {
-    flex-direction: row;
-    align-items: center;
+  .customBlock {
+    width: 20rem;
+    --skeleton-bg: var(--color-primary);
+    --skeleton-radius: var(--radius-full);
+    --skeleton-animation: none;
   }
 
-  @media (max-width: 767px) {
-    .listRow {
-      align-items: stretch;
-      flex-direction: column;
-    }
+  .customSkeleton {
+    opacity: 0.28;
   }
 }

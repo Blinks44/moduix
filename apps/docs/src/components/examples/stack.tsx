@@ -1,8 +1,8 @@
-import type * as React from 'react';
+import type { ComponentProps } from 'react';
 import { Heading, Skeleton, Stack, Text } from 'moduix';
 import styles from './stack.module.css';
 
-export function StackExample(props: React.ComponentProps<typeof Stack>) {
+export function StackExample(props: ComponentProps<typeof Stack>) {
   return (
     <Stack gap={12} className={styles.panel} {...props}>
       <Heading as="h3" size="md">
@@ -32,6 +32,27 @@ export function StackWrapExample() {
       <div className={styles.pill}>Engineering</div>
       <div className={styles.pill}>Docs</div>
       <div className={styles.pill}>Release</div>
+    </Stack>
+  );
+}
+
+export function StackFillExample() {
+  return (
+    <Stack direction="row" align="center" gap={12} className={styles.row}>
+      <Skeleton size={40} shape="circle" />
+      <Stack gap={8} fill>
+        <Skeleton width="48%" height={16} />
+        <Skeleton height={14} />
+      </Stack>
+    </Stack>
+  );
+}
+
+export function StackResponsiveDirectionExample() {
+  return (
+    <Stack direction={{ mobile: 'column', desktop: 'row' }} gap={12} className={styles.row}>
+      <Text weight="semibold">Adaptive layout</Text>
+      <Text tone="muted">Column on mobile, row from desktop width.</Text>
     </Stack>
   );
 }
