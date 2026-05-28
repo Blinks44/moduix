@@ -383,11 +383,10 @@ export function NestedNavigationMenuExample() {
                   align="end"
                   sideOffset={24}
                   alignOffset={-24}
-                  showArrow={false}
                 >
                   <NavigationMenuList className={styles.fullWidth}>
                     <NavigationMenuItem className={styles.fullWidth}>
-                      <NavigationMenuTrigger className={styles.nestedTrigger} hideIcon>
+                      <NavigationMenuTrigger className={styles.nestedTrigger} icon={null}>
                         <span className={styles.title}>Handbook</span>
                         <span className={styles.description}>Styling and composition guides.</span>
                         <NavigationMenuIcon className={styles.nestedIcon}>
@@ -472,7 +471,7 @@ export function NestedInlineNavigationMenuExample() {
             >
               <NavigationMenuList className={styles.inlineList}>
                 <NavigationMenuItem value="developers">
-                  <NavigationMenuTrigger className={styles.inlineTrigger} hideIcon>
+                  <NavigationMenuTrigger className={styles.inlineTrigger} icon={null}>
                     <span className={styles.title}>Developers</span>
                     <span className={styles.description}>API, SDK and integrations</span>
                   </NavigationMenuTrigger>
@@ -486,7 +485,7 @@ export function NestedInlineNavigationMenuExample() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem value="systems">
-                  <NavigationMenuTrigger className={styles.inlineTrigger} hideIcon>
+                  <NavigationMenuTrigger className={styles.inlineTrigger} icon={null}>
                     <span className={styles.title}>Design Systems</span>
                     <span className={styles.description}>Patterns and governance</span>
                   </NavigationMenuTrigger>
@@ -539,6 +538,22 @@ export function CustomIconNavigationMenuExample() {
                   </a>
                 </li>
               ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuTrigger icon={null}>Text-only</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className={styles.contentList}>
+              <li>
+                <a href="#" className={styles.linkCard}>
+                  <p className={styles.title}>Plain trigger</p>
+                  <p className={styles.description}>
+                    Pass icon as null when the navigation item should not show a chevron.
+                  </p>
+                </a>
+              </li>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

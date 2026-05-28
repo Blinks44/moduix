@@ -234,11 +234,10 @@ export const NestedSubmenu: Story = {
                     align="end"
                     sideOffset={24}
                     alignOffset={-24}
-                    showArrow={false}
                   >
                     <NavigationMenuList className={styles.nestedList}>
                       <NavigationMenuItem className={styles.nestedItem}>
-                        <NavigationMenuTrigger className={styles.nestedTrigger} hideIcon>
+                        <NavigationMenuTrigger className={styles.nestedTrigger} icon={null}>
                           <span className={styles.contentTitle}>Handbook</span>
                           <span className={styles.contentDescription}>
                             How to use Base UI effectively.
@@ -303,7 +302,7 @@ export const NestedInlineSubmenu: Story = {
               >
                 <NavigationMenuList className={styles.inlineList}>
                   <NavigationMenuItem value="developers">
-                    <NavigationMenuTrigger className={styles.inlineMenuTrigger} hideIcon>
+                    <NavigationMenuTrigger className={styles.inlineMenuTrigger} icon={null}>
                       <span className={styles.contentTitle}>Developers</span>
                       <span className={styles.contentDescription}>API, SDK and integrations</span>
                     </NavigationMenuTrigger>
@@ -326,7 +325,7 @@ export const NestedInlineSubmenu: Story = {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem value="systems">
-                    <NavigationMenuTrigger className={styles.inlineMenuTrigger} hideIcon>
+                    <NavigationMenuTrigger className={styles.inlineMenuTrigger} icon={null}>
                       <span className={styles.contentTitle}>Design Systems</span>
                       <span className={styles.contentDescription}>Patterns and governance</span>
                     </NavigationMenuTrigger>
@@ -372,6 +371,49 @@ export const NestedInlineSubmenu: Story = {
                   ))}
                 </ul>
               </div>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    );
+  },
+};
+
+export const TriggerIcons: Story = {
+  name: 'Trigger Icons',
+  render: () => {
+    return (
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger icon={<ChevronRightIcon />}>Custom icon</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className={styles.contentList}>
+                <li>
+                  <a href="#" className={styles.linkCard}>
+                    <p className={styles.contentTitle}>API Overview</p>
+                    <p className={styles.contentDescription}>
+                      Replace the default chevron when the nav needs a different signal.
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuTrigger icon={null}>No icon</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className={styles.contentList}>
+                <li>
+                  <a href="#" className={styles.linkCard}>
+                    <p className={styles.contentTitle}>Text-first trigger</p>
+                    <p className={styles.contentDescription}>
+                      Pass null when the trigger should render without the built-in icon.
+                    </p>
+                  </a>
+                </li>
+              </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>

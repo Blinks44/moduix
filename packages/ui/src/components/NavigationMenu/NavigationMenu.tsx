@@ -1,5 +1,5 @@
+import type { ComponentProps, ReactNode } from 'react';
 import { NavigationMenu as NavigationMenuPrimitive } from '@base-ui/react/navigation-menu';
-import * as React from 'react';
 import { ChevronDownIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './NavigationMenu.module.css';
@@ -7,11 +7,32 @@ import styles from './NavigationMenu.module.css';
 const DEFAULT_SIDE_OFFSET = 10;
 const DEFAULT_COLLISION_AVOIDANCE = { side: 'none' } as const;
 const DEFAULT_COLLISION_PADDING = { top: 5, bottom: 5, left: 20, right: 20 } as const;
+type NavigationMenuPositionerProps = Pick<
+  NavigationMenuPrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'anchor'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'positionMethod'
+  | 'disableAnchorTracking'
+>;
+
+type NavigationMenuProps = NavigationMenuPrimitive.Root.Props &
+  NavigationMenuPositionerProps & {
+    showArrow?: boolean;
+    showPopup?: boolean;
+  };
 
 function NavigationMenu({
   className,
   children,
-  showArrow = true,
+  showArrow = false,
   showPopup = true,
   side,
   sideOffset = DEFAULT_SIDE_OFFSET,
@@ -26,24 +47,7 @@ function NavigationMenu({
   positionMethod,
   disableAnchorTracking,
   ...props
-}: NavigationMenuPrimitive.Root.Props & {
-  showArrow?: boolean;
-  showPopup?: boolean;
-} & Pick<
-    NavigationMenuPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-    | 'disableAnchorTracking'
-  >) {
+}: NavigationMenuProps) {
   return (
     <NavigationMenuPrimitive.Root
       data-slot="navigation-menu-root"
@@ -96,11 +100,9 @@ function NavigationMenuTrigger({
   className,
   children,
   icon,
-  hideIcon = false,
   ...props
 }: NavigationMenuPrimitive.Trigger.Props & {
-  icon?: React.ReactNode;
-  hideIcon?: boolean;
+  icon?: ReactNode;
 }) {
   return (
     <NavigationMenuPrimitive.Trigger
@@ -109,7 +111,7 @@ function NavigationMenuTrigger({
       {...props}
     >
       {children}
-      {!hideIcon ? <NavigationMenuIcon>{icon}</NavigationMenuIcon> : null}
+      {icon === null || icon === false ? null : <NavigationMenuIcon>{icon}</NavigationMenuIcon>}
     </NavigationMenuPrimitive.Trigger>
   );
 }
@@ -215,7 +217,7 @@ function NavigationMenuViewport({ className, ...props }: NavigationMenuPrimitive
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}

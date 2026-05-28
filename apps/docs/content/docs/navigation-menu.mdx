@@ -20,6 +20,12 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/navigation-menu" />
 
+## Overview
+
+`NavigationMenu` keeps the visible API short, but this primitive still needs a separate popup
+viewport behind the scenes. The default root renders that infrastructure for you, so the common
+path only needs list, item, trigger, content, and link parts.
+
 ## Basic
 
 <Preview cssProperties={navigationMenuPlaygroundCssProperties}>
@@ -77,8 +83,7 @@ import {
 
 ## Anatomy
 
-`NavigationMenu` is a styled wrapper around the Base UI primitive. The default path keeps popup
-infrastructure internal and only asks for the visible parts.
+The recommended structure stays close to shadcn-style composition:
 
 ```text
 NavigationMenu
@@ -90,30 +95,38 @@ NavigationMenu
       └─ NavigationMenuLink
 ```
 
-The root renders `Portal`, `Positioner`, `Popup`, `Arrow`, and `Viewport` automatically. Those
-parts stay available as explicit building blocks when you need a different DOM structure, popup
-layout, backdrop, or inline viewport.
+By default, the root also renders:
+
+```text
+NavigationMenuPortal
+└─ NavigationMenuPositioner
+   └─ NavigationMenuPopup
+      ├─ NavigationMenuArrow (optional)
+      └─ NavigationMenuViewport
+```
+
+Those low-level parts stay available when you need a backdrop, a full-width popup, or an inline
+viewport.
 
 ## Composition
 
 `NavigationMenu` forwards Base UI root props such as `value`, `defaultValue`, `onValueChange`,
 `delay`, `closeDelay`, `orientation`, `actionsRef`, `render`, `className`, and `style`.
 
-The high-level root also accepts a small popup contract:
+The root also keeps a narrow popup contract for the built-in viewport composition:
 
 | Prop                                                                                                                                                                         | Default                             | Purpose                                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `showPopup`                                                                                                                                                                  | `true`                              | Disables the built-in popup composition so you can assemble `Portal`, `Positioner`, `Popup`, `Arrow`, and `Viewport` manually. |
-| `showArrow`                                                                                                                                                                  | `true`                              | Toggles the built-in popup arrow in the default composition.                                                                   |
+| `showArrow`                                                                                                                                                                  | `false`                             | Turns on the built-in popup arrow.                                                                                             |
 | `sideOffset`                                                                                                                                                                 | `10`                                | Default offset for the built-in `Positioner`.                                                                                  |
 | `side`, `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`, `disableAnchorTracking` | Base UI defaults unless noted above | Forwarded to the built-in `Positioner`.                                                                                        |
 
-`NavigationMenuTrigger` keeps two small DX shortcuts:
+`NavigationMenuTrigger` keeps one small DX shortcut:
 
-| Prop       | Default                | Purpose                            |
-| ---------- | ---------------------- | ---------------------------------- |
-| `icon`     | `ChevronDownSmallIcon` | Replaces the default trigger icon. |
-| `hideIcon` | `false`                | Removes the built-in trigger icon. |
+| Prop   | Default                | Purpose                                                      |
+| ------ | ---------------------- | ------------------------------------------------------------ |
+| `icon` | `ChevronDownSmallIcon` | Replaces the default trigger icon. Pass `null` to remove it. |
 
 When the default path is enough, style `NavigationMenu`, `NavigationMenuTrigger`,
 `NavigationMenuContent`, and `NavigationMenuLink`. Switch to explicit parts only when structure or
@@ -175,10 +188,26 @@ render `NavigationMenuViewport` inline.
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Full Width Popup
 
-When you need a backdrop, custom popup structure, or direct styling hooks for the infrastructure
-parts, disable the default popup and compose the low-level parts explicitly.
+The same low-level path covers viewport-width popups without adding another root prop.
+
+<Preview>
+  <FullWidthNavigationMenuExample />
+</Preview>
+
+### Trigger Icons
+
+Use `icon` for the common case. Pass `icon={null}` when the trigger should render without the
+built-in chevron.
+
+<Preview>
+  <CustomIconNavigationMenuExample />
+</Preview>
+
+## Custom Composition
+
+Set `showPopup={false}` when you need to own the popup structure directly.
 
 <Preview>
   <CustomCompositionNavigationMenuExample />
@@ -224,20 +253,4 @@ parts, disable the default popup and compose the low-level parts explicitly.
     `}
 
   </Preview.Code>
-</Preview>
-
-### Full Width Popup
-
-The same low-level path covers viewport-width popups without adding a dedicated root prop.
-
-<Preview>
-  <FullWidthNavigationMenuExample />
-</Preview>
-
-### Custom Icon
-
-Use `icon` for the common case. Use `hideIcon` when the trigger should not render one.
-
-<Preview>
-  <CustomIconNavigationMenuExample />
 </Preview>
