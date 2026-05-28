@@ -39,7 +39,7 @@
   .indicator {
     display: block;
     height: 100%;
-    border-radius: inherit;
+    border-radius: var(--progress-indicator-radius, inherit);
     background-color: var(--progress-indicator-bg, var(--color-primary));
     transition: width var(--progress-indicator-transition, var(--transition-default));
 

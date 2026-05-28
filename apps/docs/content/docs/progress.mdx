@@ -7,8 +7,10 @@ icon: Component
 import {
   AriaValueTextProgressExample,
   ControlledProgressExample,
+  CustomStylesProgressExample,
   CustomCompositionProgressExample,
   CustomValueTextProgressExample,
+  DeepCompositionProgressExample,
   IndeterminateProgressExample,
   LocaleAndFormatProgressExample,
   MinMaxRangeProgressExample,
@@ -92,10 +94,10 @@ Use `value={null}` for indeterminate work, or pass a number with optional `min` 
 known progress. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` live on the root and
 keep the visible value and accessible text aligned.
 
-Style the default component with `className` and the public CSS variables. When the bar structure
-itself needs separate selectors or a different DOM shape, switch to explicit composition with
-`ProgressRoot`, `ProgressTrack`, and `ProgressIndicator`. `ProgressLabel` and `ProgressValue` keep
-their own `className` and `render` props from Base UI.
+Style the default component with `className`, CSS variables, and the built-in `data-slot` hooks.
+When the bar structure itself needs a different DOM shape or part-level `render` control, switch to
+explicit composition with `ProgressRoot`, `ProgressTrack`, and `ProgressIndicator`.
+`ProgressLabel` and `ProgressValue` keep their own `className` and `render` props from Base UI.
 
 ### Defaults
 
@@ -194,7 +196,13 @@ Use `locale`, `format`, and a custom `ProgressValue` child function for localize
 
       export function LocaleAndFormatProgressDemo() {
         return (
-          <Progress value={0.64} min={0} max={1} locale="de-DE" format={{ style: "percent" }}>
+          <Progress
+            value={0.64}
+            min={0}
+            max={1}
+            locale="de-DE"
+            format={{ style: "percent", maximumFractionDigits: 0 }}
+          >
             <ProgressLabel>Storage usage</ProgressLabel>
             <ProgressValue>{(formattedValue) => \`\${formattedValue} belegt\`}</ProgressValue>
           </Progress>
@@ -250,15 +258,69 @@ Use `aria-valuetext` when the numeric value needs a clearer accessible label.
 
       export function AriaValueTextProgressDemo() {
         return (
-          <Progress value={3} min={0} max={5} aria-valuetext="Step 3 of 5 completed">
+          <Progress
+            value={3}
+            min={0}
+            max={5}
+            aria-valuetext="3 of 5 onboarding steps completed"
+          >
             <ProgressLabel>Onboarding</ProgressLabel>
-            <ProgressValue>{() => "Step 3 of 5"}</ProgressValue>
+            <ProgressValue>{() => "3 of 5 complete"}</ProgressValue>
           </Progress>
         );
       }
     `}
 
   </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Style the default wrapper with `className`, CSS variables, and the built-in `data-slot` hooks when
+the default structure still fits.
+
+<Preview>
+  <CustomStylesProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+
+      export function CustomStylesProgressDemo() {
+        return (
+          <Progress value={72} className={styles.customProgress}>
+            <ProgressLabel>Monthly quota</ProgressLabel>
+            <ProgressValue />
+          </Progress>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customProgress {
+        --progress-width: 16rem;
+        --progress-track-height: 0.75rem;
+        --progress-track-bg: var(--color-accent);
+      }
+
+      .customProgress [data-slot="progress-track"] {
+        box-shadow: inset 0 0 0 var(--border-width-md)
+          color-mix(in oklab, var(--color-primary), transparent 75%);
+      }
+
+      .customProgress [data-slot="progress-indicator"] {
+        background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Value Text
@@ -292,9 +354,9 @@ Use `getAriaValueText` with custom rendered value text when visual and accessibl
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+## Custom Composition
 
-Use explicit parts when the track or indicator needs its own class names, DOM structure, or custom render behavior.
+Use explicit parts when the layout or structure needs to change more deeply.
 
 <Preview>
   <CustomCompositionProgressExample />
@@ -312,11 +374,11 @@ Use explicit parts when the track or indicator needs its own class names, DOM st
 
       export function CustomCompositionProgressDemo() {
         return (
-          <ProgressRoot value={72} className={styles.customProgress}>
-            <ProgressLabel>Monthly export</ProgressLabel>
-            <ProgressValue />
-            <ProgressTrack className={styles.customTrack}>
-              <ProgressIndicator className={styles.customIndicator} />
+          <ProgressRoot value={58} className={styles.composedProgress}>
+            <ProgressLabel>Team rollout</ProgressLabel>
+            <ProgressValue>{(formattedValue) => \`\${formattedValue} shipped\`}</ProgressValue>
+            <ProgressTrack className={styles.composedTrack}>
+              <ProgressIndicator className={styles.composedIndicator} />
             </ProgressTrack>
           </ProgressRoot>
         );
@@ -327,21 +389,61 @@ Use explicit parts when the track or indicator needs its own class names, DOM st
 
   <Preview.CSS>
     {`
-      .customProgress {
-        --progress-width: 16rem;
-        --progress-track-height: 0.75rem;
-        --progress-track-bg: var(--color-accent);
+      .composedProgress {
+        --progress-width: 18rem;
+        --progress-track-height: 0.625rem;
       }
 
-      .customTrack {
-        box-shadow: inset 0 0 0 var(--border-width-md)
-          color-mix(in oklab, var(--color-primary), transparent 75%);
+      .composedTrack {
+        box-sizing: border-box;
+        display: flex;
+        align-items: stretch;
+        height: 1rem;
+        border-radius: var(--radius-md);
+        background: var(--color-background);
+        box-shadow: inset 0 0 0 var(--border-width-sm)
+          color-mix(in oklab, var(--color-chart-3), var(--color-primary) 45%);
       }
 
-      .customIndicator {
-        background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+      .composedIndicator {
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
       }
     `}
 
   </Preview.CSS>
+</Preview>
+
+### Deeper Structure
+
+Keep the default track and indicator styling hooks when composition only needs a custom root or
+layout wrapper.
+
+<Preview>
+  <DeepCompositionProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ProgressIndicator,
+        ProgressLabel,
+        ProgressRoot,
+        ProgressTrack,
+        ProgressValue,
+      } from "moduix";
+
+      export function DeepCompositionProgressDemo() {
+        return (
+          <ProgressRoot value={72} className={styles.customProgress}>
+            <ProgressLabel>Monthly export</ProgressLabel>
+            <ProgressValue />
+            <ProgressTrack>
+              <ProgressIndicator />
+            </ProgressTrack>
+          </ProgressRoot>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>

@@ -1647,6 +1647,7 @@
   --progress-color: initial; /* var(--color-foreground) */
   --progress-gap: initial; /* 0.5rem */
   --progress-indicator-bg: initial; /* var(--color-primary) */
+  --progress-indicator-radius: initial; /* inherit */
   --progress-indicator-indeterminate-animation: initial; /* progress-indeterminate 1.5s ease-in-out infinite */
   --progress-indicator-indeterminate-width: initial; /* 35% */
   --progress-indicator-transition: initial; /* var(--transition-default) */
