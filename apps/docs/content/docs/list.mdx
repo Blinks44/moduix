@@ -9,20 +9,21 @@ import {
   ListExample,
   ListCssPlaygroundPanel,
   ListCssPropertiesPanel,
-  ListGapsExample,
-  ListSizesExample,
-  ListTonesExample,
   MarkerlessListExample,
   NativeItemsListExample,
   OrderedListExample,
+  ToneListExample,
   listPlaygroundCssProperties,
 } from '@/components/examples/list';
 
-## API Reference
+## Overview
 
-`List` keeps native `ul`/`ol` semantics and adds design-system control over markers,
-spacing, typography, and tone. `ListItem` is optional: use it for the exported item
-slot, or render plain `li` elements directly.
+`List` keeps native `ul` and `ol` semantics and adds library-level control over
+markers, spacing, typography, and tone. `ListItem` is optional: use it for the
+exported item slot, or render plain `li` elements directly.
+
+When `as="ol"` is used, native ordered-list props like `start`, `reversed`, and `type`
+continue to pass through to the underlying `ol`.
 
 ## Basic
 
@@ -58,9 +59,9 @@ slot, or render plain `li` elements directly.
   <Preview.Data>
     {`
       const items = [
-        "Use native list semantics.",
-        "Keep spacing and typography on the design system scale.",
-        "Customize markers with CSS variables.",
+        "Use semantic list markup for grouped content.",
+        "Keep spacing and typography on the library scale.",
+        "Style markers with CSS variables or native ::marker selectors.",
       ];
     `}
 
@@ -94,6 +95,9 @@ Use `marker="none"` to keep list semantics without visible markers. For deeper m
 styling, rely on native `li::marker` selectors and root CSS variables instead of a
 custom marker API.
 
+Use `ListItem` when you want the stable item slot. Use plain `li` elements when a
+wrapper component would add no value.
+
 ### Defaults
 
 | Prop     | Default   | Values                                                 |
@@ -106,9 +110,10 @@ custom marker API.
 
 ## Examples
 
-### Ordered
+### Ordered Start
 
-Use `as="ol"` for ordered steps. The marker defaults to `decimal`.
+Use `as="ol"` for ordered steps. Native ordered-list props still work, so `start={3}`
+continues numbering from the underlying `ol`.
 
 <Preview>
   <OrderedListExample />
@@ -117,9 +122,9 @@ Use `as="ol"` for ordered steps. The marker defaults to `decimal`.
     {`
       import { List, ListItem } from "moduix";
 
-      export function OrderedListDemo() {
+      export function OrderedStartListDemo() {
         return (
-          <List as="ol" className={styles.list}>
+          <List as="ol" start={3} className={styles.list}>
             {items.map((item) => (
               <ListItem key={item}>{item}</ListItem>
             ))}
@@ -142,9 +147,9 @@ Use `as="ol"` for ordered steps. The marker defaults to `decimal`.
   <Preview.Data>
     {`
       const items = [
-        "Install the package.",
-        "Import the library stylesheet.",
-        "Use components in your app.",
+        "Prepare the release notes.",
+        "Publish the package.",
+        "Announce the release.",
       ];
     `}
 
@@ -177,6 +182,56 @@ Use `marker="none"` when you need list semantics without visible markers.
 
   <Preview.CSS>
     {`
+      .toneGrid {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-4) var(--spacing-6);
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        "Semantics stay intact without visible markers.",
+        "Useful for grouped metadata or key-value blocks.",
+        "Spacing and text tokens still come from the root.",
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Tone
+
+Use `tone` when the list should inherit a semantic text color.
+
+<Preview>
+  <ToneListExample />
+
+  <Preview.Code>
+    {`
+      import { List, ListItem } from "moduix";
+
+      export function ListToneDemo() {
+        return (
+          <div className={styles.toneGrid}>
+            {items.map((item) => (
+              <List key={item.tone} tone={item.tone}>
+                <ListItem>{item.label}</ListItem>
+              </List>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
       .list {
         width: min(32rem, calc(100vw - var(--spacing-8)));
       }
@@ -187,14 +242,18 @@ Use `marker="none"` when you need list semantics without visible markers.
   <Preview.Data>
     {`
       const items = [
-        "Markerless item",
-        "Another markerless item",
-        "Useful for compact metadata groups",
-      ];
+        { tone: "default", label: "Default list tone" },
+        { tone: "muted", label: "Muted list tone" },
+        { tone: "subtle", label: "Subtle list tone" },
+        { tone: "primary", label: "Primary list tone" },
+        { tone: "destructive", label: "Destructive list tone" },
+      ] as const;
     `}
 
   </Preview.Data>
 </Preview>
+
+## Custom Composition
 
 ### Native Items
 
@@ -236,159 +295,6 @@ Use native `li` elements when you do not need the exported `ListItem` slot.
         "The root still controls spacing, marker style, size, and tone.",
         "Reach for ListItem when you want the stable item slot.",
       ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Sizes
-
-Use `size` for visual sizing.
-
-<Preview>
-  <ListSizesExample />
-
-  <Preview.Code>
-    {`
-      import { List, ListItem } from "moduix";
-
-      export function ListSizesDemo() {
-        return (
-          <div className={styles.stack}>
-            {items.map((item) => (
-              <List key={item.size} size={item.size}>
-                <ListItem>{item.label}</ListItem>
-              </List>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        width: min(32rem, calc(100vw - var(--spacing-8)));
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-6);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        { size: "xl", label: "Extra-large list item" },
-        { size: "md", label: "Medium list item" },
-        { size: "xs", label: "Extra-small list item" },
-      ] as const;
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Gaps
-
-Use `gap` to control vertical spacing between list items.
-
-<Preview>
-  <ListGapsExample />
-
-  <Preview.Code>
-    {`
-      import { List, ListItem } from "moduix";
-
-      export function ListGapsDemo() {
-        return (
-          <div className={styles.stack}>
-            {groups.map((group) => (
-              <List key={group.gap} gap={group.gap}>
-                {group.items.map((item) => (
-                  <ListItem key={item}>{item}</ListItem>
-                ))}
-              </List>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        width: min(32rem, calc(100vw - var(--spacing-8)));
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-6);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const groups = [
-        { gap: "xs", items: ["Extra-small gap", "Second item"] },
-        { gap: "lg", items: ["Large gap", "Second item"] },
-      ] as const;
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Tones
-
-Use `tone` when the list should inherit a semantic text color.
-
-<Preview>
-  <ListTonesExample />
-
-  <Preview.Code>
-    {`
-      import { List, ListItem } from "moduix";
-
-      export function ListTonesDemo() {
-        return (
-          <div className={styles.toneGrid}>
-            {items.map((item) => (
-              <List key={item.tone} tone={item.tone}>
-                <ListItem>{item.label}</ListItem>
-              </List>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .toneGrid {
-        width: min(32rem, calc(100vw - var(--spacing-8)));
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--spacing-4) var(--spacing-6);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        { tone: "default", label: "Default list tone" },
-        { tone: "muted", label: "Muted list tone" },
-        { tone: "subtle", label: "Subtle list tone" },
-        { tone: "primary", label: "Primary list tone" },
-        { tone: "destructive", label: "Destructive list tone" },
-      ] as const;
     `}
 
   </Preview.Data>
@@ -440,7 +346,7 @@ extra wrapper structure.
     {`
       const items = [
         "Native markers stay available for per-item styling.",
-        "Root CSS variables still control spacing and typography.",
+        "Root CSS variables still control spacing and indentation.",
         "No extra marker/content API is required.",
       ];
     `}

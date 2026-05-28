@@ -2,12 +2,23 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { List, ListItem } from './List';
 import storyStyles from './List.stories.module.css';
 
+const defaultItems = [
+  'Use semantic list markup for grouped content.',
+  'Keep spacing and typography on the library scale.',
+  'Style markers with CSS variables or native ::marker selectors.',
+];
+
 const meta = {
   title: 'Components/List',
   component: List,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
+  },
+  args: {
+    gap: 'sm',
+    size: 'md',
+    tone: 'default',
   },
 } satisfies Meta<typeof List>;
 
@@ -16,21 +27,22 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  render: () => (
-    <List className={storyStyles.list}>
-      <ListItem>Use native list semantics.</ListItem>
-      <ListItem>Keep spacing and typography on the design system scale.</ListItem>
-      <ListItem>Customize markers with CSS variables.</ListItem>
+  render: (args) => (
+    <List className={storyStyles.list} {...args}>
+      {defaultItems.map((item) => (
+        <ListItem key={item}>{item}</ListItem>
+      ))}
     </List>
   ),
 };
 
-export const Ordered: Story = {
+export const OrderedStart: Story = {
+  name: 'Ordered Start',
   render: () => (
-    <List as="ol" className={storyStyles.list}>
-      <ListItem>Install the package.</ListItem>
-      <ListItem>Import the library stylesheet.</ListItem>
-      <ListItem>Use components in your app.</ListItem>
+    <List as="ol" start={3} className={storyStyles.list}>
+      <ListItem>Prepare the release notes.</ListItem>
+      <ListItem>Publish the package.</ListItem>
+      <ListItem>Announce the release.</ListItem>
     </List>
   ),
 };
@@ -38,10 +50,26 @@ export const Ordered: Story = {
 export const Markerless: Story = {
   render: () => (
     <List marker="none" className={storyStyles.list}>
-      <ListItem>Markerless item</ListItem>
-      <ListItem>Another markerless item</ListItem>
-      <ListItem>Useful for compact metadata groups</ListItem>
+      <ListItem>Semantics stay intact without visible markers.</ListItem>
+      <ListItem>Useful for grouped metadata or key-value blocks.</ListItem>
+      <ListItem>Spacing and text tokens still come from the root.</ListItem>
     </List>
+  ),
+};
+
+export const Tones: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <List tone="muted">
+        <ListItem>Muted list tone</ListItem>
+      </List>
+      <List tone="primary">
+        <ListItem>Primary list tone</ListItem>
+      </List>
+      <List tone="destructive">
+        <ListItem>Destructive list tone</ListItem>
+      </List>
+    </div>
   ),
 };
 
@@ -64,58 +92,11 @@ export const CustomStyles: Story = {
         Native markers stay available for per-item styling.
       </ListItem>
       <ListItem className={storyStyles.accentItem}>
-        Root CSS variables still control spacing and typography.
+        Root CSS variables still control spacing and indentation.
       </ListItem>
       <ListItem className={storyStyles.accentItem}>
         No extra marker/content API is required.
       </ListItem>
     </List>
-  ),
-};
-
-export const Sizes: Story = {
-  render: () => (
-    <div className={storyStyles.stack}>
-      <List size="xl">
-        <ListItem>Extra-large list item</ListItem>
-      </List>
-      <List size="md">
-        <ListItem>Medium list item</ListItem>
-      </List>
-      <List size="xs">
-        <ListItem>Extra-small list item</ListItem>
-      </List>
-    </div>
-  ),
-};
-
-export const Gaps: Story = {
-  render: () => (
-    <div className={storyStyles.stack}>
-      <List gap="xs">
-        <ListItem>Extra-small gap</ListItem>
-        <ListItem>Second item</ListItem>
-      </List>
-      <List gap="lg">
-        <ListItem>Large gap</ListItem>
-        <ListItem>Second item</ListItem>
-      </List>
-    </div>
-  ),
-};
-
-export const Tones: Story = {
-  render: () => (
-    <div className={storyStyles.stack}>
-      <List tone="muted">
-        <ListItem>Muted list</ListItem>
-      </List>
-      <List tone="primary">
-        <ListItem>Primary list</ListItem>
-      </List>
-      <List tone="destructive">
-        <ListItem>Destructive list</ListItem>
-      </List>
-    </div>
   ),
 };

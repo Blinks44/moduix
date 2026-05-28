@@ -2,9 +2,12 @@
 
 `List` is a semantic typography primitive for unordered and ordered lists.
 
-It preserves native `ul`/`ol` behavior while standardizing marker style, spacing, and
+It keeps native `ul` and `ol` behavior while standardizing marker style, spacing, and
 text tokens. Use `ListItem` when you want the exported item slot; plain `li` elements
 work the same when extra composition is unnecessary.
+
+When `as="ol"` is used, native ordered-list props such as `start`, `reversed`, and
+`type` continue to pass through to the underlying `ol`.
 
 ## Defaults
 

@@ -5,21 +5,21 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './list.module.css';
 
 const basicItems = [
-  'Use native list semantics.',
-  'Keep spacing and typography on the design system scale.',
-  'Customize markers with CSS variables.',
+  'Use semantic list markup for grouped content.',
+  'Keep spacing and typography on the library scale.',
+  'Style markers with CSS variables or native ::marker selectors.',
 ];
 
 const orderedItems = [
-  'Install the package.',
-  'Import the library stylesheet.',
-  'Use components in your app.',
+  'Prepare the release notes.',
+  'Publish the package.',
+  'Announce the release.',
 ];
 
 const markerlessItems = [
-  'Markerless item',
-  'Another markerless item',
-  'Useful for compact metadata groups',
+  'Semantics stay intact without visible markers.',
+  'Useful for grouped metadata or key-value blocks.',
+  'Spacing and text tokens still come from the root.',
 ];
 
 const nativeItems = [
@@ -30,20 +30,9 @@ const nativeItems = [
 
 const customStyleItems = [
   'Native markers stay available for per-item styling.',
-  'Root CSS variables still control spacing and typography.',
+  'Root CSS variables still control spacing and indentation.',
   'No extra marker/content API is required.',
 ];
-
-const sizeItems = [
-  { size: 'xl', label: 'Extra-large list item' },
-  { size: 'md', label: 'Medium list item' },
-  { size: 'xs', label: 'Extra-small list item' },
-] as const;
-
-const gapItems = [
-  { gap: 'xs', items: ['Extra-small gap', 'Second item'] },
-  { gap: 'lg', items: ['Large gap', 'Second item'] },
-] as const;
 
 const toneItems = [
   { tone: 'default', label: 'Default list tone' },
@@ -163,7 +152,7 @@ export function ListExample(props: ComponentProps<typeof List>) {
 
 export function OrderedListExample() {
   return (
-    <List as="ol" className={styles.list}>
+    <List as="ol" start={3} className={styles.list}>
       {orderedItems.map((item) => (
         <ListItem key={item}>{item}</ListItem>
       ))}
@@ -203,33 +192,7 @@ export function CustomStylesListExample() {
   );
 }
 
-export function ListSizesExample() {
-  return (
-    <div className={styles.stack}>
-      {sizeItems.map((item) => (
-        <List key={item.size} size={item.size}>
-          <ListItem>{item.label}</ListItem>
-        </List>
-      ))}
-    </div>
-  );
-}
-
-export function ListGapsExample() {
-  return (
-    <div className={styles.stack}>
-      {gapItems.map((group) => (
-        <List key={group.gap} gap={group.gap}>
-          {group.items.map((item) => (
-            <ListItem key={item}>{item}</ListItem>
-          ))}
-        </List>
-      ))}
-    </div>
-  );
-}
-
-export function ListTonesExample() {
+export function ToneListExample() {
   return (
     <div className={styles.toneGrid}>
       {toneItems.map((item) => (
