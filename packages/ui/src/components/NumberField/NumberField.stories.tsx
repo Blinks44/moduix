@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useId, useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ui';
 import { Field, FieldError, FieldLabel } from '../Field';
 import {
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -42,8 +42,8 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const id = React.useId();
-    const [value, setValue] = React.useState<number | null>(24);
+    const id = useId();
+    const [value, setValue] = useState<number | null>(24);
 
     return (
       <div className={storyStyles.stack}>
@@ -59,7 +59,7 @@ export const Controlled: Story = {
 
 export const MinMaxAndStep: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -72,7 +72,7 @@ export const MinMaxAndStep: Story = {
 
 export const Formatted: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -91,7 +91,7 @@ export const Formatted: Story = {
 
 export const WithScrubArea: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field name="quantity">
@@ -108,7 +108,7 @@ export const WithScrubArea: Story = {
 
 export const WithFieldValidation: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field name="quantity" validationMode="onBlur">
@@ -124,7 +124,7 @@ export const WithFieldValidation: Story = {
 
 export const CustomIcons: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -140,6 +140,24 @@ export const CustomIcons: Story = {
             </NumberFieldIncrement>
           </NumberFieldGroup>
         </NumberFieldRoot>
+      </Field>
+    );
+  },
+};
+
+export const CustomButtonLabels: Story = {
+  render: () => {
+    const id = useId();
+
+    return (
+      <Field>
+        <FieldLabel htmlFor={id}>Seats</FieldLabel>
+        <NumberField
+          id={id}
+          defaultValue={2}
+          decrementLabel="Decrease seat count"
+          incrementLabel="Increase seat count"
+        />
       </Field>
     );
   },
