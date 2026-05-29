@@ -167,6 +167,10 @@
     pointer-events: none;
   }
 
+  .viewportIsland {
+    --drawer-viewport-padding: var(--drawer-island-padding, var(--spacing-4));
+  }
+
   .popup {
     --drawer-bleed: var(--drawer-bleed-size, 3rem);
     box-sizing: border-box;
@@ -302,6 +306,21 @@
       &[data-starting-style][data-swipe-direction='right'] {
         transform: translateX(var(--drawer-swipe-movement-x, 0px));
       }
+    }
+
+    &[data-variant='island'] {
+      --drawer-bleed: 0px;
+    }
+
+    &[data-variant='island'][data-snap-layout] {
+      --drawer-snap-tail-size: 0px;
+    }
+
+    &[data-variant='island'][data-swipe-direction='down'],
+    &[data-variant='island'][data-swipe-direction='up'],
+    &[data-variant='island'][data-swipe-direction='left'],
+    &[data-variant='island'][data-swipe-direction='right'] {
+      border-radius: var(--drawer-radius, var(--radius-xl));
     }
 
     &[data-snap-layout][data-swipe-direction='down'] {

@@ -906,6 +906,7 @@
   --drawer-indent-scale-active: initial; /* 0.98 */
   --drawer-indent-transition: initial; /* 400ms cubic-bezier(0.32, 0.72, 0, 1) */
   --drawer-indent-translate-y-active: initial; /* var(--spacing-2) */
+  --drawer-island-padding: initial; /* var(--spacing-4) */
   --drawer-max-height: initial; /* 80vh */
   --drawer-nested-peek: initial; /* 2.75rem */
   --drawer-nested-scale-step: initial; /* 0.06 */

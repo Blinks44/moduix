@@ -11,6 +11,7 @@ import {
   DrawerCssPropertiesPanel,
   DrawerExample,
   DrawerHandleExample,
+  IslandDrawerExample,
   IndentEffectDrawerExample,
   LeftDrawerExample,
   NestedDrawerExample,
@@ -159,10 +160,11 @@ when you need to change portal behavior, backdrop presence, viewport behavior, o
 and renders the default portal/backdrop/viewport/popup stack. When `modal={false}` or
 `modal="trap-focus"`, it skips the backdrop and lets outside pointer interaction through.
 
-`snapLayout` is the only custom `DrawerContent` prop that remains. Use it when a snap-point drawer
-should resize its visible content with the active snap point instead of sliding a full-height panel
-behind the viewport. Use `disableInitialAnimation` only for drawers that are open on the first page
-paint and should render immediately in their final position.
+`snapLayout` and `variant` are the custom `DrawerContent` props. Use `snapLayout` when a
+snap-point drawer should resize its visible content with the active snap point instead of sliding a
+full-height panel behind the viewport. Use `variant="island"` when you want the drawer to stay
+fully on-screen without the off-screen bleed tail. Use `disableInitialAnimation` only for drawers
+that are open on the first page paint and should render immediately in their final position.
 
 When you need deeper control, compose `DrawerPortal`, `DrawerBackdrop`, `DrawerViewport`,
 `DrawerPopup`, `DrawerHandle`, and `DrawerContentInner` directly. That is the path for custom portal
@@ -285,6 +287,52 @@ structure.
                 <DrawerDescription>Right drawers are useful for inspectors.</DrawerDescription>
               </DrawerHeader>
               <DrawerBody>Use the same API as bottom drawers and adjust width with CSS.</DrawerBody>
+              <DrawerFooter>
+                <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Island Variant
+
+Use `variant="island"` on `DrawerContent` when the drawer should be rendered as a standalone
+surface without the off-screen tail.
+
+<Preview>
+  <IslandDrawerExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Drawer,
+        DrawerClose,
+        DrawerContent,
+        DrawerDescription,
+        DrawerFooter,
+        DrawerHeader,
+        DrawerTitle,
+        DrawerTrigger,
+      } from "moduix";
+      import styles from "./drawer-demo.module.css";
+
+      export function IslandDrawerDemo() {
+        return (
+          <Drawer swipeDirection="right">
+            <DrawerTrigger render={<Button />}>Open island drawer</DrawerTrigger>
+            <DrawerContent variant="island" className={styles.sideContent}>
+              <DrawerHeader>
+                <DrawerTitle>Island variant</DrawerTitle>
+                <DrawerDescription>
+                  variant="island" removes the off-screen bleed tail from the popup.
+                </DrawerDescription>
+              </DrawerHeader>
               <DrawerFooter>
                 <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
               </DrawerFooter>
@@ -461,6 +509,8 @@ replaces the removed wrapper-level `persistent` prop.
     {`
       import {
         Button,
+        ChevronDownIcon,
+        ChevronUpIcon,
         Drawer,
         DrawerBody,
         DrawerContent,
@@ -470,12 +520,14 @@ replaces the removed wrapper-level `persistent` prop.
         ScrollArea,
       } from "moduix";
       import { useState } from "react";
+      import styles from "./drawer-demo.module.css";
 
       const snapPoints = [0.35, 0.85] as const;
 
       export function ControlledPersistentDrawerDemo() {
         const [open, setOpen] = useState(false);
         const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[0]);
+        const expanded = snapPoint === snapPoints[1];
 
         return (
           <>
@@ -501,11 +553,22 @@ replaces the removed wrapper-level `persistent` prop.
               }}
             >
               <DrawerContent snapLayout>
-                <DrawerHeader>
-                  <DrawerTitle>Controlled persistent drawer</DrawerTitle>
-                  <DrawerDescription>
-                    Persistence lives in application state instead of a wrapper prop.
-                  </DrawerDescription>
+                <DrawerHeader className={styles.headerWithAction}>
+                  <div>
+                    <DrawerTitle>Controlled persistent drawer</DrawerTitle>
+                    <DrawerDescription>
+                      Persistence lives in application state; the icon button toggles between
+                      collapsed and expanded snap points.
+                    </DrawerDescription>
+                  </div>
+                  <button
+                    type="button"
+                    className={styles.snapToggle}
+                    onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}
+                    aria-label={expanded ? "Collapse drawer" : "Expand drawer"}
+                  >
+                    {expanded ? <ChevronDownIcon /> : <ChevronUpIcon />}
+                  </button>
                 </DrawerHeader>
                 <DrawerBody>
                   <ScrollArea>{/* content */}</ScrollArea>
@@ -565,6 +628,33 @@ pressed.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBackdrop {
+        --drawer-backdrop-bg: color-mix(in oklab, var(--color-foreground) 60%, transparent);
+      }
+
+      .customViewport {
+        --drawer-viewport-padding: var(--spacing-4);
+      }
+
+      .customPopup {
+        --drawer-bg: var(--color-card);
+        --drawer-bleed-size: 0px;
+        --drawer-border-color: var(--color-ring);
+        --drawer-shadow: var(--shadow-lg);
+        --drawer-side-width: 24rem;
+        border-radius: var(--radius-xl);
+      }
+
+      .customHandle {
+        --drawer-handle-bg: var(--color-destructive);
+        --drawer-handle-opacity: 0.8;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Nested
