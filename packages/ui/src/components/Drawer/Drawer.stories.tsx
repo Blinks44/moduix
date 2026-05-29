@@ -111,6 +111,25 @@ export const Right: Story = {
   ),
 };
 
+export const Island: Story = {
+  render: () => (
+    <Drawer swipeDirection="right">
+      <DrawerTrigger render={<Button />}>Open island drawer</DrawerTrigger>
+      <DrawerContent variant="island" className={storyStyles.sideContent}>
+        <DrawerHeader>
+          <DrawerTitle>Island variant</DrawerTitle>
+          <DrawerDescription>
+            variant="island" removes the off-screen bleed tail from the popup.
+          </DrawerDescription>
+        </DrawerHeader>
+        <DrawerFooter>
+          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  ),
+};
+
 export const WithSnapPoints: Story = {
   render: () => {
     const snapPoints = [0.35, 0.65, 1];
@@ -199,7 +218,8 @@ export const ControlledPersistent: Story = {
               <div>
                 <DrawerTitle>Controlled persistent drawer</DrawerTitle>
                 <DrawerDescription>
-                  Persistence is controlled from application state instead of a wrapper prop.
+                  Persistence is controlled from application state; the icon button toggles between
+                  collapsed and expanded snap points.
                 </DrawerDescription>
               </div>
               <button

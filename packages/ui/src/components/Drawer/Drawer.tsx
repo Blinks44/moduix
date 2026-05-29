@@ -176,27 +176,32 @@ function DrawerFooter({ className, ...props }: ComponentProps<'div'>) {
 function DrawerContent({
   snapLayout = false,
   disableInitialAnimation = false,
+  variant = 'default',
   className,
   children,
   ...props
 }: DrawerPrimitive.Popup.Props & {
   snapLayout?: boolean;
   disableInitialAnimation?: boolean;
+  variant?: 'default' | 'island';
 }) {
   const modal = useContext(DrawerModeContext);
   const mountReady = useMountReady(disableInitialAnimation);
   const blocksOutsidePointerInteraction = modal === true;
+  const viewportClassName = mergeClassName(
+    blocksOutsidePointerInteraction ? undefined : styles.viewportNonModal,
+    variant === 'island' ? styles.viewportIsland : undefined,
+  );
 
   return (
     <DrawerPortal>
       {blocksOutsidePointerInteraction ? <DrawerBackdrop /> : null}
-      <DrawerViewport
-        className={blocksOutsidePointerInteraction ? undefined : styles.viewportNonModal}
-      >
+      <DrawerViewport className={viewportClassName}>
         <DrawerPopup
           data-snap-layout={snapLayout ? '' : undefined}
           data-disable-initial-animation={disableInitialAnimation ? 'true' : undefined}
           data-mount-ready={mountReady ? 'true' : 'false'}
+          data-variant={variant}
           className={className}
           {...props}
         >
