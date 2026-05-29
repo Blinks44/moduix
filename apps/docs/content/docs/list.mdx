@@ -9,24 +9,25 @@ import {
   ListExample,
   ListCssPlaygroundPanel,
   ListCssPropertiesPanel,
-  ListGapsExample,
-  ListSizesExample,
-  ListTonesExample,
   MarkerlessListExample,
   NativeItemsListExample,
   OrderedListExample,
+  ToneListExample,
   listPlaygroundCssProperties,
 } from '@/components/examples/list';
 
-## API Reference
+## Overview
 
-`List` is a moduix typography primitive. Base UI does not provide a matching list
-primitive, so the public API stays focused on native `ul`/`ol` semantics, visual
-variants, and root `className` composition.
+`List` keeps native `ul` and `ol` semantics and adds library-level control over
+markers, spacing, typography, and tone. `ListItem` is optional: use it for the
+exported item slot, or render plain `li` elements directly.
+
+When `as="ol"` is used, native ordered-list props like `start`, `reversed`, and `type`
+continue to pass through to the underlying `ol`.
 
 ## Basic
 
-<Preview cssProperties={listPlaygroundCssProperties}>
+<Preview cssProperties={listPlaygroundCssProperties} cssVariableScope="local">
   <ListExample />
 
   <Preview.Code>
@@ -58,9 +59,9 @@ variants, and root `className` composition.
   <Preview.Data>
     {`
       const items = [
-        "Use native list semantics.",
-        "Keep spacing and typography on the design system scale.",
-        "Customize markers with CSS variables.",
+        "Use semantic list markup for grouped content.",
+        "Keep spacing and typography on the library scale.",
+        "Style markers with CSS variables or native ::marker selectors.",
       ];
     `}
 
@@ -71,48 +72,48 @@ variants, and root `className` composition.
 
 ## Anatomy
 
-`List` is composed as a semantic list root with repeated `li` items. Use `ListItem`
-when you want the exported item slot, or native `li` elements when a wrapper component
-is unnecessary. The root controls marker style, spacing, and typography tokens.
+`List` renders a semantic list root with direct `li` children. The root owns marker
+style, spacing, and typography tokens.
 
 ```text
 List (ul | ol)
-└─ ListItem
+└─ li | ListItem
 ```
 
-| Part       | Role                                                                   |
-| ---------- | ---------------------------------------------------------------------- |
-| `List`     | Semantic list root that controls marker, spacing, size, and tone.      |
-| `ListItem` | Individual item wrapper rendered as native list item semantics (`li`). |
-
-`List` does not use portal-like service layers such as `portal`, `backdrop`, or
-`viewport`. The root and direct `li` items are the complete DOM structure.
+| Part       | Role                                                                |
+| ---------- | ------------------------------------------------------------------- |
+| `List`     | Semantic list root that controls marker, spacing, size, and tone.   |
+| `ListItem` | Optional thin wrapper around a native `li` with a stable item slot. |
 
 ## Composition
 
-Use `as="ul"` or `as="ol"` for list semantics, `marker` for marker visibility/style,
-and `size`, `gap`, `tone`, plus `className` for visual customization.
+Use `as` for list semantics, `marker` for marker style or visibility, and `size`,
+`gap`, `tone`, plus `className` for visual customization.
 
-The default marker follows the root element: unordered lists use `disc`, ordered lists
-use `decimal`. Pass `marker="none"` for markerless semantic lists or `marker="bullet"`
-when marker size, gap, radius, or vertical offset must be styled independently from text.
-All direct `li` elements receive root spacing and marker styles. For `marker="bullet"`,
-`ListItem` exposes marker/content composition and supports marker styling via
-`classNames.marker` and marker content overrides via `marker`.
+The default marker follows the root element: `ul` uses `disc`, `ol` uses `decimal`.
+Use `marker="none"` to keep list semantics without visible markers. For deeper marker
+styling, rely on native `li::marker` selectors and root CSS variables instead of a
+custom marker API.
 
-| Prop     | Values                                                           | Default     |
-| -------- | ---------------------------------------------------------------- | ----------- |
-| `as`     | `"ul"`, `"ol"`                                                   | `"ul"`      |
-| `marker` | `"disc"`, `"decimal"`, `"bullet"`, `"none"`                      | by `as`     |
-| `gap`    | `"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`, `"2xl"`                  | `"sm"`      |
-| `size`   | `"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`                           | `"md"`      |
-| `tone`   | `"default"`, `"muted"`, `"subtle"`, `"primary"`, `"destructive"` | `"default"` |
+Use `ListItem` when you want the stable item slot. Use plain `li` elements when a
+wrapper component would add no value.
+
+### Defaults
+
+| Prop     | Default   | Values                                                 |
+| -------- | --------- | ------------------------------------------------------ |
+| `as`     | `ul`      | `ul`, `ol`                                             |
+| `marker` | by `as`   | `disc`, `decimal`, `none`                              |
+| `gap`    | `sm`      | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`                    |
+| `size`   | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                           |
+| `tone`   | `default` | `default`, `muted`, `subtle`, `primary`, `destructive` |
 
 ## Examples
 
-### Ordered
+### Ordered Start
 
-Use `as="ol"` for ordered steps. The marker defaults to decimal for ordered lists.
+Use `as="ol"` for ordered steps. Native ordered-list props still work, so `start={3}`
+continues numbering from the underlying `ol`.
 
 <Preview>
   <OrderedListExample />
@@ -121,9 +122,9 @@ Use `as="ol"` for ordered steps. The marker defaults to decimal for ordered list
     {`
       import { List, ListItem } from "moduix";
 
-      export function OrderedListDemo() {
+      export function OrderedStartListDemo() {
         return (
-          <List as="ol" className={styles.list}>
+          <List as="ol" start={3} className={styles.list}>
             {items.map((item) => (
               <ListItem key={item}>{item}</ListItem>
             ))}
@@ -146,9 +147,9 @@ Use `as="ol"` for ordered steps. The marker defaults to decimal for ordered list
   <Preview.Data>
     {`
       const items = [
-        "Install the package.",
-        "Import the library stylesheet.",
-        "Use components in your app.",
+        "Prepare the release notes.",
+        "Publish the package.",
+        "Announce the release.",
       ];
     `}
 
@@ -157,7 +158,7 @@ Use `as="ol"` for ordered steps. The marker defaults to decimal for ordered list
 
 ### Markerless
 
-Use `marker="none"` when list semantics are useful but visual markers are not.
+Use `marker="none"` when you need list semantics without visible markers.
 
 <Preview>
   <MarkerlessListExample />
@@ -181,8 +182,11 @@ Use `marker="none"` when list semantics are useful but visual markers are not.
 
   <Preview.CSS>
     {`
-      .list {
+      .toneGrid {
         width: min(32rem, calc(100vw - var(--spacing-8)));
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-4) var(--spacing-6);
       }
     `}
 
@@ -191,177 +195,27 @@ Use `marker="none"` when list semantics are useful but visual markers are not.
   <Preview.Data>
     {`
       const items = [
-        "Markerless item",
-        "Another markerless item",
-        "Useful for compact metadata groups",
+        "Semantics stay intact without visible markers.",
+        "Useful for grouped metadata or key-value blocks.",
+        "Spacing and text tokens still come from the root.",
       ];
     `}
 
   </Preview.Data>
 </Preview>
 
-### Native Items
+### Tone
 
-Use native `li` elements when you do not need the exported `ListItem` slot.
-
-<Preview>
-  <NativeItemsListExample />
-
-  <Preview.Code>
-    {`
-      import { List } from "moduix";
-
-      export function NativeItemsListDemo() {
-        return (
-          <List marker="bullet" className={styles.customBullet}>
-            {items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </List>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customBullet {
-        width: min(32rem, calc(100vw - var(--spacing-8)));
-        --list-marker-color: var(--color-chart-2);
-        --list-marker-size: 0.5rem;
-        --list-marker-gap: var(--spacing-4);
-        --list-marker-offset-y: 0.5em;
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        "Use native li elements when a wrapper component is unnecessary.",
-        "The root still controls spacing, marker style, size, and tone.",
-        "Reach for ListItem when you want the stable item slot.",
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Sizes
-
-Use `size` for visual sizing. Override size-specific CSS variables in your project for responsive typography.
+Use `tone` when the list should inherit a semantic text color.
 
 <Preview>
-  <ListSizesExample />
+  <ToneListExample />
 
   <Preview.Code>
     {`
       import { List, ListItem } from "moduix";
 
-      export function ListSizesDemo() {
-        return (
-          <div className={styles.stack}>
-            {items.map((item) => (
-              <List key={item.size} size={item.size}>
-                <ListItem>{item.label}</ListItem>
-              </List>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        width: min(32rem, calc(100vw - var(--spacing-8)));
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-6);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        { size: "xl", label: "Extra-large list item" },
-        { size: "md", label: "Medium list item" },
-        { size: "xs", label: "Extra-small list item" },
-      ] as const;
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Gaps
-
-Use `gap` to control vertical spacing between list items.
-
-<Preview>
-  <ListGapsExample />
-
-  <Preview.Code>
-    {`
-      import { List, ListItem } from "moduix";
-
-      export function ListGapsDemo() {
-        return (
-          <div className={styles.stack}>
-            {groups.map((group) => (
-              <List key={group.gap} gap={group.gap}>
-                {group.items.map((item) => (
-                  <ListItem key={item}>{item}</ListItem>
-                ))}
-              </List>
-            ))}
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        width: min(32rem, calc(100vw - var(--spacing-8)));
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-6);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const groups = [
-        { gap: "xs", items: ["Extra-small gap", "Second item"] },
-        { gap: "lg", items: ["Large gap", "Second item"] },
-      ] as const;
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Tones
-
-Use `tone` when the list should inherit a semantic text color from the design system.
-
-<Preview>
-  <ListTonesExample />
-
-  <Preview.Code>
-    {`
-      import { List, ListItem } from "moduix";
-
-      export function ListTonesDemo() {
+      export function ListToneDemo() {
         return (
           <div className={styles.toneGrid}>
             {items.map((item) => (
@@ -378,11 +232,8 @@ Use `tone` when the list should inherit a semantic text color from the design sy
 
   <Preview.CSS>
     {`
-      .toneGrid {
+      .list {
         width: min(32rem, calc(100vw - var(--spacing-8)));
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--spacing-4) var(--spacing-6);
       }
     `}
 
@@ -402,9 +253,57 @@ Use `tone` when the list should inherit a semantic text color from the design sy
   </Preview.Data>
 </Preview>
 
+## Custom Composition
+
+### Native Items
+
+Use native `li` elements when you do not need the exported `ListItem` slot.
+
+<Preview>
+  <NativeItemsListExample />
+
+  <Preview.Code>
+    {`
+      import { List } from "moduix";
+
+      export function NativeItemsListDemo() {
+        return (
+          <List className={styles.list}>
+            {items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </List>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .list {
+        width: min(32rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const items = [
+        "Use native li elements when a wrapper component is unnecessary.",
+        "The root still controls spacing, marker style, size, and tone.",
+        "Reach for ListItem when you want the stable item slot.",
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
 ### Custom Styles
 
-Use `marker="bullet"` when marker size, color, gap, or vertical offset must be controlled independently from the text.
+Use native marker styling when you need per-item marker customization without adding
+extra wrapper structure.
 
 <Preview>
   <CustomStylesListExample />
@@ -415,9 +314,9 @@ Use `marker="bullet"` when marker size, color, gap, or vertical offset must be c
 
       export function CustomStylesListDemo() {
         return (
-          <List marker="bullet" className={styles.customBullet}>
+          <List className={styles.accentList}>
             {items.map((item) => (
-              <ListItem key={item} classNames={{ marker: styles.glowMarker }}>
+              <ListItem key={item} className={styles.accentItem}>
                 {item}
               </ListItem>
             ))}
@@ -430,18 +329,14 @@ Use `marker="bullet"` when marker size, color, gap, or vertical offset must be c
 
   <Preview.CSS>
     {`
-      .customBullet {
+      .accentList {
         width: min(32rem, calc(100vw - var(--spacing-8)));
-        --list-marker-color: var(--color-chart-2);
-        --list-marker-size: 0.5rem;
-        --list-marker-gap: var(--spacing-4);
-        --list-marker-offset-y: 0.5em;
+        --list-padding-x: var(--spacing-6);
       }
 
-      .glowMarker {
-        box-shadow:
-          0 0 0 0.25rem color-mix(in oklab, var(--list-marker-color), transparent 78%),
-          0 0.125rem 0.375rem color-mix(in oklab, var(--list-marker-color), transparent 68%);
+      .accentItem::marker {
+        color: var(--color-chart-2);
+        font-weight: var(--weight-semibold);
       }
     `}
 
@@ -450,9 +345,9 @@ Use `marker="bullet"` when marker size, color, gap, or vertical offset must be c
   <Preview.Data>
     {`
       const items = [
-        "Bullet size is independent from text size.",
-        "Bullet color and gap are controlled by CSS variables.",
-        "Text color remains unchanged.",
+        "Native markers stay available for per-item styling.",
+        "Root CSS variables still control spacing and indentation.",
+        "No extra marker/content API is required.",
       ];
     `}
 

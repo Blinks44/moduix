@@ -1,48 +1,27 @@
+import type { ComponentProps } from 'react';
 import { PreviewCard as PreviewCardPrimitive } from '@base-ui/react/preview-card';
-import * as React from 'react';
-import { PopupArrowIcon } from '@/primitives';
+import { PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './PreviewCard.module.css';
 
-type PreviewCardContentClassNames = {
-  portal?: PreviewCardPrimitive.Portal.Props['className'];
-  backdrop?: PreviewCardPrimitive.Backdrop.Props['className'];
-  positioner?: PreviewCardPrimitive.Positioner.Props['className'];
-  arrow?: PreviewCardPrimitive.Arrow.Props['className'];
-  viewport?: PreviewCardPrimitive.Viewport.Props['className'];
-};
-
-type PreviewCardContentSlotProps = {
-  portal?: Omit<PreviewCardPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<PreviewCardPrimitive.Backdrop.Props, 'className'>;
-  positioner?: Omit<PreviewCardPrimitive.Positioner.Props, 'className' | 'children'>;
-  arrow?: Omit<PreviewCardPrimitive.Arrow.Props, 'className' | 'children'>;
-  viewport?: Omit<PreviewCardPrimitive.Viewport.Props, 'className' | 'children'>;
-};
+type PreviewCardPositionerProps = Pick<
+  PreviewCardPrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+>;
 
 type PreviewCardContentProps = PreviewCardPrimitive.Popup.Props &
-  Pick<
-    PreviewCardPrimitive.Positioner.Props,
-    | 'disableAnchorTracking'
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-  > & {
-    classNames?: PreviewCardContentClassNames;
-    slotProps?: PreviewCardContentSlotProps;
-    container?: PreviewCardPrimitive.Portal.Props['container'];
-    withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
-    withBackdrop?: boolean;
+  PreviewCardPositionerProps & {
+    showArrow?: boolean;
   };
+
+const DEFAULT_SIDE_OFFSET = 8;
 
 const PreviewCard = PreviewCardPrimitive.Root;
 const createPreviewCardHandle = PreviewCardPrimitive.createHandle;
@@ -60,14 +39,8 @@ function PreviewCardTrigger({ className, render, ...props }: PreviewCardPrimitiv
   );
 }
 
-function PreviewCardPortal({ className, ...props }: PreviewCardPrimitive.Portal.Props) {
-  return (
-    <PreviewCardPrimitive.Portal
-      data-slot="preview-card-portal"
-      className={mergeClassName(className, styles.portal)}
-      {...props}
-    />
-  );
+function PreviewCardPortal(props: PreviewCardPrimitive.Portal.Props) {
+  return <PreviewCardPrimitive.Portal data-slot="preview-card-portal" {...props} />;
 }
 
 function PreviewCardBackdrop({ className, ...props }: PreviewCardPrimitive.Backdrop.Props) {
@@ -124,87 +97,40 @@ function PreviewCardViewport({ className, ...props }: PreviewCardPrimitive.Viewp
 
 function PreviewCardContent({
   className,
-  classNames,
-  slotProps,
-  container,
-  withArrow,
-  arrow,
-  withBackdrop = false,
-  disableAnchorTracking,
+  sideOffset = DEFAULT_SIDE_OFFSET,
   side,
-  sideOffset,
   align,
   alignOffset,
   arrowPadding,
-  anchor,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
-  sticky,
-  positionMethod,
+  showArrow = false,
   children,
   ...props
 }: PreviewCardContentProps) {
-  const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
-  const positionerProps = slotProps?.positioner;
-  const portalContainer = container ?? portalPropsContainer;
-  const resolvedDisableAnchorTracking =
-    disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 8;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
-
   return (
-    <PreviewCardPortal
-      className={classNames?.portal}
-      container={portalContainer}
-      {...restPortalProps}
-    >
-      {withBackdrop ? (
-        <PreviewCardBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
-      ) : null}
+    <PreviewCardPortal>
       <PreviewCardPositioner
-        {...positionerProps}
-        disableAnchorTracking={resolvedDisableAnchorTracking}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
-        className={classNames?.positioner}
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
       >
         <PreviewCardPopup className={className} {...props}>
-          {showArrow ? (
-            <PreviewCardArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrowContent ?? <ArrowSvg className={styles.arrowSvg} />}
-            </PreviewCardArrow>
-          ) : null}
-          <PreviewCardViewport className={classNames?.viewport} {...slotProps?.viewport}>
-            {children}
-          </PreviewCardViewport>
+          {showArrow ? <PreviewCardArrow /> : null}
+          <PreviewCardViewport>{children}</PreviewCardViewport>
         </PreviewCardPopup>
       </PreviewCardPositioner>
     </PreviewCardPortal>
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}
@@ -215,17 +141,15 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   );
 }
 
-type PreviewCardProps<Payload = unknown> = PreviewCardPrimitive.Root.Props<Payload>;
-type PreviewCardHandle<Payload = unknown> = PreviewCardPrimitive.Handle<Payload>;
-type PreviewCardTriggerProps = PreviewCardPrimitive.Trigger.Props;
-
-export { PreviewCard, createPreviewCardHandle, PreviewCardTrigger, PreviewCardContent };
-
-export type {
-  PreviewCardProps,
-  PreviewCardHandle,
-  PreviewCardTriggerProps,
-  PreviewCardContentProps,
-  PreviewCardContentClassNames,
-  PreviewCardContentSlotProps,
+export {
+  PreviewCard,
+  createPreviewCardHandle,
+  PreviewCardTrigger,
+  PreviewCardPortal,
+  PreviewCardBackdrop,
+  PreviewCardPositioner,
+  PreviewCardPopup,
+  PreviewCardArrow,
+  PreviewCardViewport,
+  PreviewCardContent,
 };

@@ -15,7 +15,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Horizontal: Story = {
+export const Default: Story = {
   render: () => {
     return (
       <div className={styles.card}>
@@ -48,7 +48,7 @@ export const Vertical: Story = {
   },
 };
 
-export const CustomStyling: Story = {
+export const Styling: Story = {
   render: () => {
     return (
       <div className={styles.section}>

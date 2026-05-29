@@ -9,9 +9,9 @@ import {
   AlertDialogCssPropertiesPanel,
   AlertDialogExample,
   AlertDialogHandleExample,
+  AsyncAlertDialogExample,
   ControlledAlertDialogExample,
-  CustomCloseIconAlertDialogExample,
-  CustomStylesAlertDialogExample,
+  CustomCompositionAlertDialogExample,
   ScrollableAlertDialogExample,
   alertDialogPlaygroundCssProperties,
 } from '@/components/examples/alert-dialog';
@@ -29,31 +29,28 @@ import {
     {`
       import {
         AlertDialog,
-        AlertDialogTrigger,
-        Button,
+        AlertDialogAction,
+        AlertDialogCancel,
         AlertDialogContent,
-        AlertDialogHeader,
-        AlertDialogTitle,
-        AlertDialogCloseIcon,
         AlertDialogDescription,
         AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        AlertDialogTrigger,
       } from "moduix";
 
       export function AlertDialogDemo() {
         return (
           <AlertDialog>
-            <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
+            <AlertDialogTrigger>Discard draft</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-                <AlertDialogCloseIcon />
                 <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-                <AlertDialogAction render={<Button />}>Discard</AlertDialogAction>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Discard</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -63,20 +60,18 @@ import {
 
   </Preview.Code>
 
-<Preview.CSSProperties>
-  {(context) => <AlertDialogCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
-
+  <Preview.CSSProperties>
+    {(context) => <AlertDialogCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
   <Preview.CSSPlayground>
     {(context) => <AlertDialogCssPlaygroundPanel {...context} />}
   </Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+The default path keeps the API short: `AlertDialogContent` already renders the portal, backdrop,
+viewport, and popup for you.
 
-`AlertDialog` is built around a root state container and a content surface that renders the
-portal, backdrop, and viewport for you. Keep title, description, and actions inside
-`AlertDialogContent` so focus management and accessibility labeling stay connected.
+## Anatomy
 
 ```text
 AlertDialog
@@ -84,7 +79,6 @@ AlertDialog
 └─ AlertDialogContent
    ├─ AlertDialogHeader
    │  ├─ AlertDialogTitle
-   │  ├─ AlertDialogCloseIcon (optional)
    │  └─ AlertDialogDescription
    ├─ AlertDialogBody (optional)
    └─ AlertDialogFooter
@@ -94,16 +88,15 @@ AlertDialog
 
 ```tsx
 <AlertDialog>
-  <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
+  <AlertDialogTrigger>Discard draft</AlertDialogTrigger>
   <AlertDialogContent>
     <AlertDialogHeader>
       <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-      <AlertDialogCloseIcon />
       <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-      <AlertDialogAction render={<Button />}>Discard</AlertDialogAction>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Discard</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>
@@ -112,62 +105,33 @@ AlertDialog
 | Part                     | Role                                                                                              |
 | ------------------------ | ------------------------------------------------------------------------------------------------- |
 | `AlertDialog`            | Root state machine. Manages open state, controlled/uncontrolled behavior, and close interactions. |
-| `AlertDialogTrigger`     | Opens the confirmation dialog. Usually rendered as a button via `render`.                         |
-| `AlertDialogContent`     | Main dialog surface. Also renders portal/backdrop/viewport and exposes escape hatches via props.  |
-| `AlertDialogHeader`      | Groups heading content for the top area of the popup.                                             |
-| `AlertDialogTitle`       | Required accessible title for the dialog.                                                         |
-| `AlertDialogDescription` | Optional supporting text that explains the consequence of the action.                             |
-| `AlertDialogCloseIcon`   | Optional dismiss button in the header; accepts custom icon children.                              |
-| `AlertDialogBody`        | Optional scrollable/content area between header and footer for longer details.                    |
+| `AlertDialogTrigger`     | Opens the dialog with the built-in trigger styling.                                               |
+| `AlertDialogContent`     | Main dialog surface. Renders popup plus portal/backdrop/viewport infrastructure.                  |
+| `AlertDialogHeader`      | Layout group for title and description.                                                           |
+| `AlertDialogTitle`       | Required accessible title.                                                                        |
+| `AlertDialogDescription` | Optional supporting copy.                                                                         |
+| `AlertDialogBody`        | Optional long-form or scrollable content area.                                                    |
 | `AlertDialogFooter`      | Layout container for decision actions.                                                            |
-| `AlertDialogCancel`      | Secondary action that closes without confirming.                                                  |
-| `AlertDialogAction`      | Primary confirmation action; closes after activation unless custom logic keeps it open.           |
-| `portal` slot            | Mount layer outside normal layout flow. Useful for stacking and isolating dialog rendering roots. |
-| `backdrop` slot          | Overlay behind the popup. Dim background content and communicate modal focus.                     |
-| `viewport` slot          | Alignment container around the popup. Controls placement and outer spacing behavior.              |
-
-Use default slot styling in most cases. Customize `portal` when integrating with a specific
-mount container or layered app shell, `backdrop` for brand-specific overlay tone/interaction,
-and `viewport` when placement rules differ (for example top-aligned or edge-biased dialogs).
+| `AlertDialogCancel`      | Secondary close action with the default cancel styling.                                           |
+| `AlertDialogAction`      | Primary confirm action with the default action styling.                                           |
 
 ## Composition
 
-Use `AlertDialog` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, `triggerId`, `defaultTriggerId`, `actionsRef`, and `handle`. Triggers support
-Base UI `handle`, `payload`, `id`, `nativeButton`, `render`, state-based `className`, and
-state-based `style` props.
+Use `AlertDialog` for state: `open`, `defaultOpen`, `onOpenChange`, or `handle`.
 
-`className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. `AlertDialogContent` accepts the popup props from Base UI,
-including `initialFocus`, `finalFocus`, `render`, state-based `className`, and state-based `style`.
-Use `container`, `slotProps`, and `withBackdrop={false}` when you need service-slot escape hatches:
+Use `AlertDialogContent` for the visible surface. It is intentionally the high-level path, so most
+consumers only need `className` there plus composition inside the content.
 
-```tsx
-<AlertDialogContent
-  className={styles.popup}
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    viewport: styles.viewport,
-  }}
-  slotProps={{
-    portal: { keepMounted: true },
-    backdrop: { forceRender: true },
-    viewport: { render: <div /> },
-  }}
-/>
-```
-
-The service slots still expose the Base UI data attributes on their rendered elements: backdrop,
-viewport, and popup receive open/closed and transition attributes; viewport and popup also receive
-nested-dialog attributes. The popup also provides Base UI's `--nested-dialogs` variable for nested
-dialog styling.
+`AlertDialogAction` and `AlertDialogCancel` are small DX helpers for the common close-on-click
+workflow. Keep them when the click should dismiss immediately. If the primary action must wait for
+async work, render your own button in `AlertDialogFooter` and close the dialog from controlled
+state or `createAlertDialogHandle()` after the request succeeds.
 
 ## Examples
 
 ### Controlled
 
-Control the open state from React when the dialog needs to coordinate with other UI.
+Use controlled mode when another workflow owns the open state.
 
 <Preview>
   <ControlledAlertDialogExample />
@@ -176,36 +140,109 @@ Control the open state from React when the dialog needs to coordinate with other
     {`
       import {
         AlertDialog,
-        AlertDialogTrigger,
-        Button,
+        AlertDialogAction,
+        AlertDialogCancel,
         AlertDialogContent,
-        AlertDialogHeader,
-        AlertDialogTitle,
         AlertDialogDescription,
         AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        Button,
       } from "moduix";
-      import { useState } from "react";
+      import { Fragment, useState } from "react";
 
       export function ControlledAlertDialogDemo() {
         const [open, setOpen] = useState(false);
 
         return (
+          <Fragment>
+            <Button type="button" onClick={() => setOpen(true)}>
+              Open controlled dialog
+            </Button>
+            <AlertDialog open={open} onOpenChange={setOpen}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Publish changes?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will make the latest version visible to all users.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Back to editing</AlertDialogCancel>
+                  <AlertDialogAction>Publish</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </Fragment>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Async Confirmation
+
+Keep the dialog open during async work and close it only after the request succeeds.
+
+<Preview>
+  <AsyncAlertDialogExample />
+
+  <Preview.Code>
+    {`
+      import {
+        AlertDialog,
+        AlertDialogBody,
+        AlertDialogCancel,
+        AlertDialogContent,
+        AlertDialogDescription,
+        AlertDialogFooter,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        AlertDialogTrigger,
+        Button,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function AsyncAlertDialogDemo() {
+        const [open, setOpen] = useState(false);
+        const [pending, setPending] = useState(false);
+        const [error, setError] = useState("");
+
+        const handleArchive = async () => {
+          setPending(true);
+          setError("");
+
+          try {
+            await archiveWorkspace();
+            setOpen(false);
+          } catch {
+            setError("Workspace could not be archived. Review the warning and try again.");
+          } finally {
+            setPending(false);
+          }
+        };
+
+        return (
           <AlertDialog open={open} onOpenChange={setOpen}>
-            <AlertDialogTrigger render={<Button />}>Open controlled dialog</AlertDialogTrigger>
+            <AlertDialogTrigger>Archive workspace</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Publish changes?</AlertDialogTitle>
+                <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This will make the latest version visible to all users.
+                  Keep the dialog open while the request is pending, then close it only after success.
                 </AlertDialogDescription>
               </AlertDialogHeader>
+              {error ? (
+                <AlertDialogBody>
+                  <p>{error}</p>
+                </AlertDialogBody>
+              ) : null}
               <AlertDialogFooter>
-                <AlertDialogCancel render={<Button variant="outline" />}>
-                  Back to editing
-                </AlertDialogCancel>
-                <AlertDialogAction render={<Button />}>Publish</AlertDialogAction>
+                <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
+                <Button type="button" disabled={pending} onClick={handleArchive}>
+                  {pending ? "Archiving..." : "Archive"}
+                </Button>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -218,9 +255,7 @@ Control the open state from React when the dialog needs to coordinate with other
 
 ### Handle
 
-Use `createAlertDialogHandle` when a confirmation is opened from detached triggers or from
-imperative event handlers. Pass `payload` to detached triggers when the dialog copy depends on the
-source action.
+Use `createAlertDialogHandle()` for detached triggers or imperative opens.
 
 <Preview>
   <AlertDialogHandleExample />
@@ -228,28 +263,26 @@ source action.
   <Preview.Code>
     {`
       import {
-        createAlertDialogHandle,
-        AlertDialogTrigger,
-        Button,
         AlertDialog,
+        AlertDialogAction,
+        AlertDialogCancel,
         AlertDialogContent,
-        AlertDialogHeader,
-        AlertDialogTitle,
         AlertDialogDescription,
         AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
+        AlertDialogHeader,
+        AlertDialogTitle,
+        AlertDialogTrigger,
+        Button,
+        createAlertDialogHandle,
       } from "moduix";
-      import { useMemo, Fragment } from "react";
+      import { Fragment, useMemo } from "react";
 
       export function AlertDialogHandleDemo() {
         const alertDialogHandle = useMemo(() => createAlertDialogHandle(), []);
 
         return (
           <Fragment>
-            <AlertDialogTrigger handle={alertDialogHandle} render={<Button variant="outline" />}>
-              Open from detached trigger
-            </AlertDialogTrigger>
+            <AlertDialogTrigger handle={alertDialogHandle}>Open from detached trigger</AlertDialogTrigger>
             <Button type="button" onClick={() => alertDialogHandle.open(null)}>
               Open programmatically
             </Button>
@@ -263,8 +296,8 @@ source action.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-                  <AlertDialogAction render={<Button />}>Delete</AlertDialogAction>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>Delete</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -278,7 +311,7 @@ source action.
 
 ### Scrollable Content
 
-Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
+Put longer details inside `AlertDialogBody`, and place the scroll container inside that region.
 
 <Preview>
   <ScrollableAlertDialogExample />
@@ -287,48 +320,45 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
     {`
       import {
         AlertDialog,
-        AlertDialogTrigger,
-        Button,
+        AlertDialogAction,
+        AlertDialogBody,
+        AlertDialogCancel,
         AlertDialogContent,
+        AlertDialogDescription,
+        AlertDialogFooter,
         AlertDialogHeader,
         AlertDialogTitle,
-        AlertDialogCloseIcon,
-        AlertDialogDescription,
-        AlertDialogBody,
-        AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
+        AlertDialogTrigger,
         ScrollArea,
       } from "moduix";
+      import styles from "./alert-dialog-demo.module.css";
 
       export function ScrollableAlertDialogDemo() {
         return (
           <AlertDialog>
-            <AlertDialogTrigger render={<Button />}>Delete project</AlertDialogTrigger>
+            <AlertDialogTrigger>Delete project</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Delete project?</AlertDialogTitle>
-                <AlertDialogCloseIcon />
                 <AlertDialogDescription>
                   This removes all deployment environments and API keys.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogBody className={styles.scrollBody}>
-                <ScrollArea
-                  className={styles.scrollArea}
-                  classNames={{ content: styles.scrollContent }}
-                >
-                  {sections.map((item) => (
-                    <section key={item.title}>
-                      <h3>{item.title}</h3>
-                      <p>{item.body}</p>
-                    </section>
-                  ))}
+                <ScrollArea className={styles.scrollArea}>
+                  <div className={styles.scrollContent}>
+                    {sections.map((item) => (
+                      <section key={item.title}>
+                        <h3>{item.title}</h3>
+                        <p>{item.body}</p>
+                      </section>
+                    ))}
+                  </div>
                 </ScrollArea>
               </AlertDialogBody>
               <AlertDialogFooter>
-                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-                <AlertDialogAction render={<Button />}>Delete permanently</AlertDialogAction>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Delete permanently</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -378,146 +408,39 @@ Place `ScrollArea` inside `AlertDialogBody` for longer confirmation details.
           title: 'Close affordances',
           body: 'Always provide an explicit close action when the surface can be dismissed by the user.',
         },
-        {
-          title: 'Mobile ergonomics',
-          body: 'Keep touch targets reachable and avoid cramped headers on narrow viewports.',
-        },
-        {
-          title: 'Persistent panels',
-          body: 'For persistent workflows, keep the important controls fixed and scroll only the supporting content.',
-        },
-        {
-          title: 'Status updates',
-          body: 'After completion, close the surface and show an inline confirmation or toast.',
-        },
-        {
-          title: 'Error handling',
-          body: 'When an action fails, keep the user in context and show the recovery step near the failed control.',
-        },
-        {
-          title: 'Long descriptions',
-          body: 'Dense explanatory copy should remain readable without pushing primary actions out of reach.',
-        },
-        {
-          title: 'Scrolling feedback',
-          body: 'Visible scrollbars, fades, or edge states help users understand that additional content is available.',
-        },
-        {
-          title: 'Footer behavior',
-          body: 'Footer actions should stay stable when the user reviews long terms, warnings, or settings.',
-        },
-        {
-          title: 'Review checklist',
-          body: 'Use repeated sections to test keyboard scrolling, wheel scrolling, touch scrolling, and drag gestures.',
-        },
-        {
-          title: 'Final confirmation',
-          body: 'The final section should be reachable without layout jumps or hidden content at the bottom edge.',
-        },
       ];
     `}
-
   </Preview.Data>
 </Preview>
 
-### Custom Close Icon
+## Custom Composition
 
-Pass children to `AlertDialogCloseIcon` to use any icon from your application or icon library.
+Keep visual changes at the popup level with `className` and `--alert-dialog-*` CSS variables. That
+keeps the public API small while still exposing the normal theming hooks.
 
 <Preview>
-  <CustomCloseIconAlertDialogExample />
+  <CustomCompositionAlertDialogExample />
 
   <Preview.Code>
     {`
       import {
         AlertDialog,
-        AlertDialogTrigger,
-        Button,
+        AlertDialogAction,
+        AlertDialogCancel,
         AlertDialogContent,
-        AlertDialogHeader,
-        AlertDialogTitle,
-        AlertDialogCloseIcon,
-        CloseLineIcon,
         AlertDialogDescription,
         AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
-      } from "moduix";
-
-      export function CustomCloseIconAlertDialogDemo() {
-        return (
-          <AlertDialog>
-            <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-                <AlertDialogCloseIcon
-                  aria-label="Close archive dialog"
-                  className={styles.customCloseIcon}
-                >
-                  <CloseLineIcon />
-                </AlertDialogCloseIcon>
-                <AlertDialogDescription>
-                  Team members will lose access until the workspace is restored.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-                <AlertDialogAction render={<Button />}>Archive</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customCloseIcon {
-        --alert-dialog-close-icon-color: var(--color-muted-foreground);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Custom Styles
-
-Use `className` for the popup and `classNames` for the automatically rendered portal, backdrop,
-and viewport.
-
-<Preview>
-  <CustomStylesAlertDialogExample />
-
-  <Preview.Code>
-    {`
-      import {
-        AlertDialog,
-        AlertDialogTrigger,
-        Button,
-        AlertDialogContent,
         AlertDialogHeader,
         AlertDialogTitle,
-        AlertDialogDescription,
-        AlertDialogFooter,
-        AlertDialogCancel,
-        AlertDialogAction,
+        AlertDialogTrigger,
       } from "moduix";
+      import styles from "./alert-dialog-demo.module.css";
 
-      export function CustomStylesAlertDialogDemo() {
+      export function CustomCompositionAlertDialogDemo() {
         return (
           <AlertDialog>
-            <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
-            <AlertDialogContent
-              className={styles.customPopup}
-              classNames={{
-                portal: styles.customPortal,
-                backdrop: styles.customBackdrop,
-                viewport: styles.customViewport,
-              }}
-            >
+            <AlertDialogTrigger>Reset environment</AlertDialogTrigger>
+            <AlertDialogContent className={styles.customPopup}>
               <AlertDialogHeader>
                 <AlertDialogTitle>Reset environment?</AlertDialogTitle>
                 <AlertDialogDescription>
@@ -525,8 +448,8 @@ and viewport.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-                <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Reset</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -538,24 +461,10 @@ and viewport.
 
   <Preview.CSS>
     {`
-      .customPortal {
-        pointer-events: auto;
-      }
-
-      .customBackdrop {
-        background-color: rgb(15 23 42 / 0.56);
-      }
-
-      .customViewport {
-        align-items: start;
-        padding-top: var(--spacing-10);
-      }
-
       .customPopup {
         --alert-dialog-width: 28rem;
         --alert-dialog-radius: var(--radius-md);
       }
     `}
-
   </Preview.CSS>
 </Preview>

@@ -1,41 +1,24 @@
+import type { ComponentPropsWithoutRef } from 'react';
 import clsx from 'clsx';
-import * as React from 'react';
 import styles from './List.module.css';
 
-type ListAs = 'ul' | 'ol';
-type ListMarker = 'none' | 'disc' | 'decimal' | 'bullet';
-type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
-
-type ListProps = React.ComponentPropsWithoutRef<ListAs> & {
-  as?: ListAs;
-  marker?: ListMarker;
-  gap?: ListGap;
-  size?: ListSize;
-  tone?: ListTone;
+type ListOwnProps = {
+  as?: 'ul' | 'ol';
+  marker?: 'none' | 'disc' | 'decimal';
+  gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  tone?: 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 };
 
-type ListItemClassNames = {
-  marker?: string;
-  content?: string;
-};
+type UnorderedListProps = ListOwnProps &
+  ComponentPropsWithoutRef<'ul'> & {
+    as?: 'ul';
+  };
 
-type ListItemProps = React.ComponentProps<'li'> & {
-  marker?: React.ReactNode;
-  classNames?: ListItemClassNames;
-};
-
-type ListContextValue = {
-  marker: ListMarker;
-};
-
-const defaultMarkerByElement: Record<ListAs, ListMarker> = {
-  ul: 'disc',
-  ol: 'decimal',
-};
-
-const ListContext = React.createContext<ListContextValue | null>(null);
+type OrderedListProps = ListOwnProps &
+  ComponentPropsWithoutRef<'ol'> & {
+    as: 'ol';
+  };
 
 function List({
   as = 'ul',
@@ -45,56 +28,25 @@ function List({
   tone = 'default',
   className,
   ...props
-}: ListProps) {
+}: UnorderedListProps | OrderedListProps) {
   const Component = as;
-  const resolvedMarker = marker ?? defaultMarkerByElement[as];
+  const resolvedMarker = marker ?? (as === 'ol' ? 'decimal' : 'disc');
 
   return (
-    <ListContext.Provider value={{ marker: resolvedMarker }}>
-      <Component
-        data-slot="list-root"
-        data-gap={gap}
-        data-marker={resolvedMarker}
-        data-size={size}
-        data-tone={tone}
-        className={clsx(styles.root, className)}
-        {...props}
-      />
-    </ListContext.Provider>
+    <Component
+      data-slot="list-root"
+      data-gap={gap}
+      data-marker={resolvedMarker}
+      data-size={size}
+      data-tone={tone}
+      className={clsx(styles.root, className)}
+      {...props}
+    />
   );
 }
 
-function ListItem({ className, classNames, marker, children, ...props }: ListItemProps) {
-  const context = React.useContext(ListContext);
-  const shouldRenderMarker = context?.marker === 'bullet';
-
-  return (
-    <li data-slot="list-item" className={clsx(styles.item, className)} {...props}>
-      {shouldRenderMarker ? (
-        <span
-          data-slot="list-item-marker"
-          aria-hidden
-          className={clsx(styles.marker, classNames?.marker)}
-        >
-          {marker}
-        </span>
-      ) : null}
-      <span data-slot="list-item-content" className={clsx(styles.content, classNames?.content)}>
-        {children}
-      </span>
-    </li>
-  );
+function ListItem({ className, ...props }: ComponentPropsWithoutRef<'li'>) {
+  return <li data-slot="list-item" className={className} {...props} />;
 }
 
 export { List, ListItem };
-
-export type {
-  ListProps,
-  ListItemProps,
-  ListItemClassNames,
-  ListAs,
-  ListMarker,
-  ListGap,
-  ListSize,
-  ListTone,
-};

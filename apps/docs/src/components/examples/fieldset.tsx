@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   Field,
   FieldControl,
@@ -9,7 +10,6 @@ import {
   Radio,
   RadioGroup,
   RadioLabel,
-  type FieldsetProps,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -33,12 +33,7 @@ export const fieldsetOverrideCssProperties: CssPropertyInput[] = [
   ['--fieldset-legend-font-weight', 'var(--weight-semibold)', 'Controls legend font weight.'],
   ['--fieldset-legend-line-height', 'var(--line-height-text-lg)', 'Controls legend line height.'],
   ['--fieldset-legend-margin', '0', 'Controls legend margin.'],
-  [
-    '--fieldset-legend-padding',
-    '0 0 var(--fieldset-legend-padding-bottom, var(--spacing-3))',
-    'Controls legend padding.',
-  ],
-  ['--fieldset-legend-padding-bottom', 'var(--spacing-3)', 'Controls legend bottom padding.'],
+  ['--fieldset-legend-padding', '0 0 var(--spacing-3)', 'Controls legend padding.'],
   ['--fieldset-margin', '0', 'Controls the root fieldset margin.'],
   ['--fieldset-max-width', 'none', 'Controls the root fieldset max width.'],
   ['--fieldset-padding', '0', 'Controls the root fieldset padding.'],
@@ -82,7 +77,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function FieldsetExample(props: FieldsetProps) {
+export function FieldsetExample(props: ComponentProps<typeof Fieldset>) {
   return (
     <Fieldset {...props}>
       <FieldsetLegend>Billing details</FieldsetLegend>
@@ -120,15 +115,15 @@ export function DisabledFieldsetExample() {
   );
 }
 
-export function RadioGroupFieldsetExample() {
+export function CustomCompositionFieldsetExample() {
   return (
     <Field name="storageType">
-      <Fieldset render={<RadioGroup defaultValue="ssd" />}>
+      <Fieldset render={<RadioGroup defaultValue="ssd" className={styles.choiceGroup} />}>
         <FieldsetLegend>Storage type</FieldsetLegend>
 
         {storageTypes.map((item) => (
           <FieldItem key={item.value}>
-            <FieldLabel>
+            <FieldLabel className={styles.choiceRow}>
               <Radio value={item.value} />
               <RadioLabel>{item.label}</RadioLabel>
             </FieldLabel>

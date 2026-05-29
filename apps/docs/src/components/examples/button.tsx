@@ -1,5 +1,6 @@
-import { ArrowUpRightIcon, Button, PlusIcon, StarIcon, type ButtonProps } from 'moduix';
-import * as React from 'react';
+import type { ComponentProps } from 'react';
+import { ArrowUpRightIcon, Button, PlusIcon, Spinner, StarIcon } from 'moduix';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './button.module.css';
@@ -150,14 +151,6 @@ const buttonCssProperties: CssPropertyInput[] = [
   ['--button-size-md', 'var(--size-lg)', 'Controls `md` button min height.'],
   ['--button-size-lg', 'var(--size-xl)', 'Controls `lg` button min height.'],
   ['--button-size-xl', '3.5rem', 'Controls `xl` button min height.'],
-  ['--button-spinner-animation', 'var(--animation-spin)', 'Controls built-in spinner animation.'],
-  [
-    '--button-spinner-border-width',
-    'var(--border-width-sm)',
-    'Controls built-in spinner border width.',
-  ],
-  ['--button-spinner-radius', 'var(--radius-full)', 'Controls built-in spinner corner radius.'],
-  ['--button-spinner-size', '0.875rem', 'Controls built-in spinner size.'],
   [
     '--button-transition',
     'var(--transition-default)',
@@ -204,7 +197,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ButtonExample(props: ButtonProps) {
+export function ButtonExample(props: ComponentProps<typeof Button>) {
   return <Button {...props}>Save Changes</Button>;
 }
 
@@ -272,49 +265,44 @@ export function ButtonDisabledExample() {
   );
 }
 
+export function ButtonLinkCompositionExample() {
+  return (
+    <Button render={<a href="#button" />} nativeButton={false} variant="outline">
+      Open Button Docs
+    </Button>
+  );
+}
+
 export function ButtonLoadingExample() {
-  const [loading, setLoading] = React.useState(false);
+  const [pending, setPending] = useState(false);
 
   return (
     <Button
-      loading={loading}
-      loadingText="Saving"
+      disabled={pending}
+      focusableWhenDisabled
+      aria-busy={pending || undefined}
       onClick={() => {
-        setLoading(true);
-        setTimeout(() => setLoading(false), 1800);
+        setPending(true);
+        setTimeout(() => setPending(false), 1800);
       }}
     >
-      Save Changes
+      {pending ? (
+        <>
+          <Spinner decorative size="sm" />
+          Saving
+        </>
+      ) : (
+        'Save Changes'
+      )}
     </Button>
   );
 }
 
-export function ButtonCustomLoadingIndicatorExample() {
+export function CustomCompositionButtonExample() {
   return (
-    <Button
-      loading
-      loadingText="Syncing"
-      variant="outline"
-      loadingIndicator={<StarIcon className={styles.customLoadingIndicator} />}
-    >
-      Sync
-    </Button>
-  );
-}
-
-export function CustomStylesButtonExample() {
-  return (
-    <Button
-      className={styles.customButton}
-      classNames={{
-        content: styles.customButtonContent,
-        loadingIndicator: styles.customLoadingIndicatorColor,
-        spinner: styles.customSpinner,
-      }}
-      loading
-      loadingText="Publishing"
-    >
-      Publish
+    <Button className={styles.customButton} disabled focusableWhenDisabled aria-busy>
+      <Spinner decorative size="sm" className={styles.customSpinner} />
+      Publishing
     </Button>
   );
 }

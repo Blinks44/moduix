@@ -4,10 +4,11 @@ import {
   FieldError,
   FieldLabel,
   OTPField,
+  OTPFieldInput,
+  OTPFieldSeparator,
   SeparatorMarkIcon,
-  type OTPFieldProps,
 } from 'moduix';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './otp-field.module.css';
@@ -94,12 +95,38 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-type OTPFieldExampleProps = Omit<OTPFieldProps, 'length'> & {
-  length?: OTPFieldProps['length'];
-};
+function renderOTPInputs({
+  count,
+  total = count,
+  start = 0,
+  className,
+  placeholder,
+}: {
+  count: number;
+  total?: number;
+  start?: number;
+  className?: string;
+  placeholder?: string;
+}) {
+  return Array.from({ length: count }, (_, index) => {
+    const position = start + index;
 
-export function OTPFieldExample({ length = OTP_LENGTH, ...props }: OTPFieldExampleProps = {}) {
-  const id = React.useId();
+    return (
+      <OTPFieldInput
+        key={position}
+        className={className}
+        placeholder={placeholder}
+        aria-label={position === 0 ? undefined : `Character ${position + 1} of ${total}`}
+      />
+    );
+  });
+}
+
+export function OTPFieldExample({
+  length = OTP_LENGTH,
+  ...props
+}: Partial<ComponentProps<typeof OTPField>> & { length?: number } = {}) {
+  const id = useId();
 
   return (
     <Field className={styles.field}>
@@ -110,8 +137,8 @@ export function OTPFieldExample({ length = OTP_LENGTH, ...props }: OTPFieldExamp
 }
 
 export function OTPFieldAlphanumericExample() {
-  const id = React.useId();
-  const [value, setValue] = React.useState('');
+  const id = useId();
+  const [value, setValue] = useState('');
 
   return (
     <div className={styles.stack}>
@@ -134,18 +161,26 @@ export function OTPFieldAlphanumericExample() {
 }
 
 export function OTPFieldGroupedLayoutExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-      <OTPField id={id} length={OTP_LENGTH} groupSize={3} className={styles.groupedRoot} />
+      <OTPField id={id} length={OTP_LENGTH} className={styles.groupedRoot}>
+        <div className={styles.group}>{renderOTPInputs({ count: 3, total: OTP_LENGTH })}</div>
+        <OTPFieldSeparator>
+          <SeparatorMarkIcon />
+        </OTPFieldSeparator>
+        <div className={styles.group}>
+          {renderOTPInputs({ count: 3, start: 3, total: OTP_LENGTH })}
+        </div>
+      </OTPField>
     </Field>
   );
 }
 
 export function OTPFieldPlaceholderHintsExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field className={styles.field}>
@@ -153,20 +188,19 @@ export function OTPFieldPlaceholderHintsExample() {
       <FieldDescription>
         Placeholder hints stay visible until the active slot is focused.
       </FieldDescription>
-      <OTPField
-        id={id}
-        length={OTP_LENGTH}
-        inputProps={{
+      <OTPField id={id} length={OTP_LENGTH}>
+        {renderOTPInputs({
+          count: OTP_LENGTH,
           className: styles.placeholderInput,
           placeholder: '•',
-        }}
-      />
+        })}
+      </OTPField>
     </Field>
   );
 }
 
 export function OTPFieldMaskedExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field className={styles.field}>
@@ -177,7 +211,7 @@ export function OTPFieldMaskedExample() {
 }
 
 export function OTPFieldValidationExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field name="verificationCode" validationMode="onBlur" className={styles.field}>
@@ -189,9 +223,9 @@ export function OTPFieldValidationExample() {
 }
 
 export function OTPFieldAutoSubmitExample() {
-  const id = React.useId();
-  const [completedValue, setCompletedValue] = React.useState('');
-  const [submittedValue, setSubmittedValue] = React.useState('');
+  const id = useId();
+  const [completedValue, setCompletedValue] = useState('');
+  const [submittedValue, setSubmittedValue] = useState('');
 
   return (
     <form
@@ -222,9 +256,9 @@ export function OTPFieldAutoSubmitExample() {
 }
 
 export function OTPFieldCustomSanitizationExample() {
-  const id = React.useId();
-  const [value, setValue] = React.useState('');
-  const [invalidValue, setInvalidValue] = React.useState('');
+  const id = useId();
+  const [value, setValue] = useState('');
+  const [invalidValue, setInvalidValue] = useState('');
 
   return (
     <div className={styles.stack}>
@@ -252,19 +286,31 @@ export function OTPFieldCustomSanitizationExample() {
 }
 
 export function OTPFieldCustomSeparatorExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Styled code</FieldLabel>
-      <OTPField
-        id={id}
-        length={OTP_LENGTH}
-        groupSize={3}
-        inputProps={{ className: styles.customInput }}
-        separator={<SeparatorMarkIcon />}
-        className={styles.customRoot}
-      />
+      <OTPField id={id} length={OTP_LENGTH} className={styles.customRoot}>
+        <div className={styles.group}>
+          {renderOTPInputs({
+            count: 3,
+            total: OTP_LENGTH,
+            className: styles.customInput,
+          })}
+        </div>
+        <OTPFieldSeparator>
+          <SeparatorMarkIcon />
+        </OTPFieldSeparator>
+        <div className={styles.group}>
+          {renderOTPInputs({
+            count: 3,
+            start: 3,
+            total: OTP_LENGTH,
+            className: styles.customInput,
+          })}
+        </div>
+      </OTPField>
     </Field>
   );
 }

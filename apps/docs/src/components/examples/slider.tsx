@@ -1,5 +1,14 @@
-import { Slider, SliderLabel, SliderThumb, SliderValue, type SliderProps } from 'moduix';
-import * as React from 'react';
+import {
+  Slider,
+  SliderControl,
+  SliderIndicator,
+  SliderLabel,
+  SliderRoot,
+  SliderThumb,
+  SliderTrack,
+  SliderValue,
+} from 'moduix';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './slider.module.css';
@@ -86,9 +95,9 @@ const priceFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 });
 
-export function SliderExample({ defaultValue = 40, ...props }: SliderProps<number>) {
+export function SliderExample() {
   return (
-    <Slider defaultValue={defaultValue} {...props}>
+    <Slider defaultValue={40}>
       <SliderLabel>Volume</SliderLabel>
       <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
       <SliderThumb aria-label="Volume" />
@@ -97,7 +106,7 @@ export function SliderExample({ defaultValue = 40, ...props }: SliderProps<numbe
 }
 
 export function RangeSliderExample() {
-  const [value, setValue] = React.useState<readonly number[]>([20, 70]);
+  const [value, setValue] = useState([20, 70] as readonly number[]);
 
   return (
     <Slider value={value} min={0} max={100} onValueChange={setValue}>
@@ -110,7 +119,7 @@ export function RangeSliderExample() {
 }
 
 export function SteppedRangeSliderExample() {
-  const [value, setValue] = React.useState<readonly number[]>([250, 750]);
+  const [value, setValue] = useState([250, 750] as readonly number[]);
 
   return (
     <Slider
@@ -141,7 +150,7 @@ export function SteppedRangeSliderExample() {
 }
 
 export function ControlledSliderExample() {
-  const [value, setValue] = React.useState(24);
+  const [value, setValue] = useState(24);
 
   return (
     <div className={styles.stack}>
@@ -176,16 +185,6 @@ export function VerticalSliderExample() {
   );
 }
 
-export function EdgeThumbAlignmentSliderExample() {
-  return (
-    <Slider defaultValue={0} thumbAlignment="edge">
-      <SliderLabel>Zoom</SliderLabel>
-      <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-      <SliderThumb aria-label="Zoom" />
-    </Slider>
-  );
-}
-
 export function DisabledSliderExample() {
   return (
     <Slider defaultValue={32} disabled>
@@ -196,19 +195,17 @@ export function DisabledSliderExample() {
   );
 }
 
-export function CustomClassesSliderExample() {
+export function CustomCompositionSliderExample() {
   return (
-    <Slider
-      defaultValue={56}
-      classNames={{
-        control: styles.customControl,
-        track: styles.customTrack,
-        indicator: styles.customIndicator,
-      }}
-    >
+    <SliderRoot defaultValue={56}>
       <SliderLabel>Temperature</SliderLabel>
       <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-      <SliderThumb aria-label="Temperature" className={styles.customThumb} />
-    </Slider>
+      <SliderControl className={styles.customControl}>
+        <SliderTrack className={styles.customTrack}>
+          <SliderIndicator className={styles.customIndicator} />
+          <SliderThumb aria-label="Temperature" className={styles.customThumb} />
+        </SliderTrack>
+      </SliderControl>
+    </SliderRoot>
   );
 }

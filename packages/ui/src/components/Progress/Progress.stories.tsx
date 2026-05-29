@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { Progress, ProgressLabel, ProgressValue } from './Progress';
+import { useState } from 'react';
+import {
+  Progress,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressRoot,
+  ProgressTrack,
+  ProgressValue,
+} from './Progress';
 import styles from './Progress.stories.module.css';
 
 const meta = {
@@ -8,7 +15,7 @@ const meta = {
   component: Progress,
   tags: ['autodocs'],
   args: {
-    value: 0,
+    value: 24,
   },
   parameters: {
     layout: 'centered',
@@ -32,7 +39,7 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = React.useState(45);
+    const [value, setValue] = useState(45);
 
     return (
       <div className={styles.stack}>
@@ -69,7 +76,13 @@ export const MinMaxRange: Story = {
 export const LocaleAndFormat: Story = {
   render: () => {
     return (
-      <Progress value={0.64} min={0} max={1} locale="de-DE" format={{ style: 'percent' }}>
+      <Progress
+        value={0.64}
+        min={0}
+        max={1}
+        locale="de-DE"
+        format={{ style: 'percent', maximumFractionDigits: 0 }}
+      >
         <ProgressLabel>Storage usage</ProgressLabel>
         <ProgressValue>{(formattedValue) => `${formattedValue} belegt`}</ProgressValue>
       </Progress>
@@ -94,9 +107,20 @@ export const Indeterminate: Story = {
 export const AriaValueText: Story = {
   render: () => {
     return (
-      <Progress value={3} min={0} max={5} aria-valuetext="Step 3 of 5 completed">
+      <Progress value={3} min={0} max={5} aria-valuetext="3 of 5 onboarding steps completed">
         <ProgressLabel>Onboarding</ProgressLabel>
-        <ProgressValue>{() => 'Step 3 of 5'}</ProgressValue>
+        <ProgressValue>{() => '3 of 5 complete'}</ProgressValue>
+      </Progress>
+    );
+  },
+};
+
+export const CustomStyles: Story = {
+  render: () => {
+    return (
+      <Progress value={72} className={styles.customProgress}>
+        <ProgressLabel>Monthly quota</ProgressLabel>
+        <ProgressValue />
       </Progress>
     );
   },
@@ -116,17 +140,30 @@ export const CustomValueText: Story = {
   },
 };
 
-export const CustomStyling: Story = {
+export const Composition: Story = {
   render: () => {
     return (
-      <Progress
-        value={72}
-        className={styles.customProgress}
-        classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-      >
+      <ProgressRoot value={58} className={styles.composedProgress}>
+        <ProgressLabel>Team rollout</ProgressLabel>
+        <ProgressValue>{(formattedValue) => `${formattedValue} shipped`}</ProgressValue>
+        <ProgressTrack className={styles.composedTrack}>
+          <ProgressIndicator className={styles.composedIndicator} />
+        </ProgressTrack>
+      </ProgressRoot>
+    );
+  },
+};
+
+export const DeepComposition: Story = {
+  render: () => {
+    return (
+      <ProgressRoot value={72} className={styles.customProgress}>
         <ProgressLabel>Monthly export</ProgressLabel>
         <ProgressValue />
-      </Progress>
+        <ProgressTrack>
+          <ProgressIndicator />
+        </ProgressTrack>
+      </ProgressRoot>
     );
   },
 };

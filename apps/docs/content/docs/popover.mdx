@@ -6,16 +6,18 @@ icon: Component
 
 import {
   ControlledPopoverExample,
-  CustomStylesPopoverExample,
+  CustomTriggerPopoverExample,
+  CustomCompositionPopoverExample,
   DetachedTriggerPopoverExample,
   ImageOnlyPopoverExample,
+  ModalFocusPopoverExample,
   OpenOnHoverPopoverExample,
   PopoverCssPlaygroundPanel,
   PopoverCssPropertiesPanel,
   PopoverExample,
+  PopoverWithArrowExample,
   PopoverWithBackdropExample,
   PopoverWithCloseActionExample,
-  PopoverWithoutArrowExample,
   SideControlPopoverExample,
   popoverPlaygroundCssProperties,
 } from '@/components/examples/popover';
@@ -100,19 +102,12 @@ Popover
    ├─ PopoverBody (optional)
    ├─ PopoverFooter (optional)
    │  └─ PopoverClose (optional)
-   └─ arrow (optional)
-
-PopoverContent service slots (optional)
-├─ portal
-├─ backdrop
-├─ positioner
-└─ viewport
 ```
 
 ```tsx
 <Popover>
   <PopoverTrigger render={<Button />}>Open popover</PopoverTrigger>
-  <PopoverContent withBackdrop withViewport>
+  <PopoverContent>
     <PopoverHeader>
       <PopoverTitle>Popover title</PopoverTitle>
       <PopoverDescription>Short contextual details.</PopoverDescription>
@@ -125,55 +120,67 @@ PopoverContent service slots (optional)
 </Popover>
 ```
 
-| Part                 | Role                                                                                                         |
-| -------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `Popover`            | Root state machine. Controls `open`, `defaultOpen`, `onOpenChange`, `modal`, and shared behavior.            |
-| `PopoverTrigger`     | Interactive anchor that opens and closes the popup. Supports click and optional hover opening.               |
-| `PopoverContent`     | Floating container that renders popup structure, positioning, and optional arrow/backdrop/viewport plumbing. |
-| `PopoverHeader`      | Semantic top area for title and description. Useful for consistent spacing in information popovers.          |
-| `PopoverTitle`       | Main heading inside the popup. Helps users quickly identify popup purpose.                                   |
-| `PopoverDescription` | Supporting text under the title. Use for concise context or status details.                                  |
-| `PopoverBody`        | Optional free-form content region when header/footer wrappers are not enough.                                |
-| `PopoverFooter`      | Optional action area, commonly for dismiss, confirm, or secondary controls.                                  |
-| `PopoverClose`       | Built-in close action that dismisses the current popover without custom state wiring.                        |
+| Part                 | Role                                                                                                |
+| -------------------- | --------------------------------------------------------------------------------------------------- |
+| `Popover`            | Root state machine. Controls `open`, `defaultOpen`, `onOpenChange`, `modal`, and shared behavior.   |
+| `PopoverTrigger`     | Interactive anchor that opens and closes the popup. Supports click and optional hover opening.      |
+| `PopoverContent`     | Simple default popup. It renders the portal, positioner, and popup for the common case.             |
+| `PopoverPortal`      | Explicit portal part for advanced composition.                                                      |
+| `PopoverBackdrop`    | Optional backdrop part when the popover should visually separate from the page.                     |
+| `PopoverPositioner`  | Floating-positioning part for custom placement and layout composition.                              |
+| `PopoverPopup`       | Visible popup surface for custom composition and styling.                                           |
+| `PopoverArrow`       | Default arrow part. Enable it with `showArrow` or replace its children in custom composition.       |
+| `PopoverViewport`    | Optional viewport wrapper for animated or structured inner content.                                 |
+| `PopoverHeader`      | Semantic top area for title and description. Useful for consistent spacing in information popovers. |
+| `PopoverTitle`       | Main heading inside the popup. Helps users quickly identify popup purpose.                          |
+| `PopoverDescription` | Supporting text under the title. Use for concise context or status details.                         |
+| `PopoverBody`        | Optional free-form content region when header/footer wrappers are not enough.                       |
+| `PopoverFooter`      | Optional action area, commonly for dismiss, confirm, or secondary controls.                         |
+| `PopoverClose`       | Built-in close action that dismisses the current popover without custom state wiring.               |
 
-In most cases, style the visible popup layers first: `PopoverTrigger`, `PopoverContent`, and
-header/body/footer content. Use `classNames` for internal service slots (`portal`, `backdrop`,
-`positioner`, `viewport`, `arrow`) only when you need advanced placement, overlays, or transition
-coordination.
+Style the visible layers first: `PopoverTrigger`, `PopoverContent`, and header/body/footer
+content. Reach for explicit low-level parts only when you need to change the structure.
 
 ## Composition
 
-Use `Popover` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, `modal`, and `handle`. Set `withBackdrop` when the popup needs an overlay and
-`withViewport` when one popover switches between trigger payloads with animated content.
+Use `Popover` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`,
+`modal`, and `handle`.
 
-`className` styles the visible popup. `classNames` styles internal service slots that are
-hidden from the default composition. Pass placement props such as `side`, `align`, `sideOffset`,
-`alignOffset`, `collisionBoundary`, and `collisionPadding` directly to `PopoverContent`. Use
-`container` to choose the portal container, `withBackdrop` to enable the optional backdrop,
-`withViewport` to wrap content in Base UI's viewport, `withArrow={false}` to remove the default
-arrow, and `arrow` to replace it. Use `slotProps` only when you need Base UI escape-hatch props for
-an internal slot, such as `keepMounted` on the portal or a custom `render` for the viewport:
+`PopoverContent` is the default path. It accepts popup props plus the shared positioning props
+`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`,
+`collisionBoundary`, and `collisionPadding`. Use `showArrow` to enable the built-in arrow.
+`className` styles the popup surface.
+
+| `PopoverContent` prop | Default | Notes                                                                |
+| --------------------- | ------- | -------------------------------------------------------------------- |
+| `sideOffset`          | `8`     | Keeps the popup separated from the trigger in the default path.      |
+| `showArrow`           | `false` | Opts into the built-in arrow without changing the composition model. |
+| `className`           | -       | Styles the visible popup surface.                                    |
+
+When you need a different DOM structure, manual backdrop control, a custom arrow, a viewport, or
+portal options such as `keepMounted` and `container`, switch to explicit composition:
 
 ```tsx
-<PopoverContent
-  withBackdrop
-  withViewport
-  className={styles.popup}
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-    viewport: styles.viewport,
-    arrow: styles.arrow,
-  }}
-  slotProps={{
-    portal: { keepMounted: true },
-    positioner: { collisionPadding: 12 },
-  }}
-/>
+<Popover>
+  <PopoverTrigger render={<Button />}>Open popover</PopoverTrigger>
+  <PopoverPortal>
+    <PopoverBackdrop />
+    <PopoverPositioner sideOffset={8}>
+      <PopoverPopup className={styles.popup}>
+        <PopoverArrow />
+        <PopoverViewport>{children}</PopoverViewport>
+      </PopoverPopup>
+    </PopoverPositioner>
+  </PopoverPortal>
+</Popover>
 ```
+
+When replacing the trigger element with `render`, keep `nativeButton={true}` for real button-like
+elements and set `nativeButton={false}` for non-button elements such as `div` or `span`.
+
+For focus-sensitive popovers, pass `initialFocus` and `finalFocus` to `PopoverContent`. If you use
+`modal` or `modal="trap-focus"` on `Popover`, keep a `PopoverClose` action inside the popup so
+keyboard users and touch screen readers always have a way to leave it.
 
 ## Examples
 
@@ -223,8 +230,7 @@ Use `PopoverClose` inside the popup when the content includes an explicit dismis
 
 ### With Backdrop
 
-Set `withBackdrop` on `PopoverContent` when the popup should visually separate itself from the page.
-Use `classNames` to style internal service slots without rendering them manually.
+Compose `PopoverBackdrop` when the popup should visually separate itself from the page.
 
 <Preview>
   <PopoverWithBackdropExample />
@@ -234,9 +240,12 @@ Use `classNames` to style internal service slots without rendering them manually
       import {
         Button,
         Popover,
-        PopoverContent,
+        PopoverBackdrop,
         PopoverDescription,
         PopoverHeader,
+        PopoverPopup,
+        PopoverPortal,
+        PopoverPositioner,
         PopoverTitle,
         PopoverTrigger,
       } from "moduix";
@@ -247,18 +256,19 @@ Use `classNames` to style internal service slots without rendering them manually
             <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
               Open with backdrop
             </PopoverTrigger>
-            <PopoverContent
-              withArrow={false}
-              withBackdrop
-              classNames={{ backdrop: styles.backdrop }}
-            >
-              <PopoverHeader>
-                <PopoverTitle>Backdrop</PopoverTitle>
-                <PopoverDescription>
-                  The backdrop is rendered automatically and styled through classNames.
-                </PopoverDescription>
-              </PopoverHeader>
-            </PopoverContent>
+            <PopoverPortal>
+              <PopoverBackdrop className={styles.backdrop} />
+              <PopoverPositioner sideOffset={8}>
+                <PopoverPopup>
+                  <PopoverHeader>
+                    <PopoverTitle>Backdrop</PopoverTitle>
+                    <PopoverDescription>
+                      Compose the backdrop explicitly when the popup should separate from the page.
+                    </PopoverDescription>
+                  </PopoverHeader>
+                </PopoverPopup>
+              </PopoverPositioner>
+            </PopoverPortal>
           </Popover>
         );
       }
@@ -371,6 +381,64 @@ Control the open state from React when the popover needs to coordinate with othe
   </Preview.Code>
 </Preview>
 
+### Custom Trigger Element
+
+Set `nativeButton={false}` when `PopoverTrigger` renders a non-button element through `render`.
+
+<Preview>
+  <CustomTriggerPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+
+      export function CustomTriggerPopoverDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger className={styles.customAnchor} nativeButton={false} render={<div />}>
+              Open custom trigger
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>Custom trigger element</PopoverTitle>
+                <PopoverDescription>
+                  Set nativeButton to false when the rendered trigger element is not a button.
+                </PopoverDescription>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customAnchor {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: var(--size-lg);
+        padding: 0 var(--spacing-3);
+        border: var(--border-width-sm) dashed var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-muted);
+        color: var(--color-foreground);
+        cursor: pointer;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ### Detached Trigger
 
 Use `createPopoverHandle` when the trigger lives outside the popover tree.
@@ -418,10 +486,96 @@ Use `createPopoverHandle` when the trigger lives outside the popover tree.
   </Preview.Code>
 </Preview>
 
+### Modal Focus
+
+Use `initialFocus` when the popup should move focus to a specific field on open. If the popover is
+modal or traps focus, keep `PopoverClose` inside the popup.
+
+<Preview>
+  <ModalFocusPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverBody,
+        PopoverClose,
+        PopoverContent,
+        PopoverDescription,
+        PopoverFooter,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+      import { useRef } from "react";
+
+      export function ModalFocusPopoverDemo() {
+        const inputRef = useRef(null as HTMLInputElement | null);
+
+        return (
+          <Popover modal="trap-focus">
+            <PopoverTrigger render={<Button />}>Invite teammates</PopoverTrigger>
+            <PopoverContent initialFocus={inputRef}>
+              <PopoverHeader>
+                <PopoverTitle>Invite teammates</PopoverTitle>
+                <PopoverDescription>
+                  Focus moves into the first field, and the close action stays available inside the
+                  popup.
+                </PopoverDescription>
+              </PopoverHeader>
+              <PopoverBody>
+                <label className={styles.field}>
+                  <span>Email</span>
+                  <input
+                    ref={inputRef}
+                    className={styles.input}
+                    placeholder="name@example.com"
+                  />
+                </label>
+              </PopoverBody>
+              <PopoverFooter>
+                <PopoverClose>Done</PopoverClose>
+              </PopoverFooter>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        display: grid;
+        gap: var(--spacing-2);
+        margin-top: var(--spacing-3);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+
+      .input {
+        width: 100%;
+        min-width: 16rem;
+        min-height: var(--size-lg);
+        padding: 0 var(--spacing-3);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-background);
+        color: var(--color-foreground);
+        font: inherit;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ### Side Control
 
-Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to `PopoverContent`
-when you need to control popup placement.
+Pass `side`, `align`, offsets, and collision options to `PopoverContent` when you need to control
+popup placement.
 
 <Preview>
   <SideControlPopoverExample />
@@ -597,12 +751,12 @@ description slots.
   </Preview.Data>
 </Preview>
 
-### Without Arrow
+### With Arrow
 
-Set `withArrow={false}` when the popup should look like a floating panel without a pointer.
+Set `showArrow` when the popup should visually point back to its trigger.
 
 <Preview>
-  <PopoverWithoutArrowExample />
+  <PopoverWithArrowExample />
 
   <Preview.Code>
     {`
@@ -616,15 +770,15 @@ Set `withArrow={false}` when the popup should look like a floating panel without
         PopoverTrigger,
       } from "moduix";
 
-      export function PopoverWithoutArrowDemo() {
+      export function PopoverWithArrowDemo() {
         return (
           <Popover>
-            <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-            <PopoverContent withArrow={false}>
+            <PopoverTrigger render={<Button />}>Open with arrow</PopoverTrigger>
+            <PopoverContent showArrow>
               <PopoverHeader>
-                <PopoverTitle>No arrow</PopoverTitle>
+                <PopoverTitle>With arrow</PopoverTitle>
                 <PopoverDescription>
-                  Set arrow to false when the popup should look like a floating panel.
+                  Enable showArrow when the popup should visually point to its trigger.
                 </PopoverDescription>
               </PopoverHeader>
             </PopoverContent>
@@ -636,54 +790,57 @@ Set `withArrow={false}` when the popup should look like a floating panel without
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
-Use `className` for the popup and `classNames` for the automatically rendered portal, backdrop,
-positioner, viewport, and arrow slots.
+Use the low-level parts directly when you need to control the structure, backdrop, viewport, or
+arrow content.
 
 <Preview>
-  <CustomStylesPopoverExample />
+  <CustomCompositionPopoverExample />
 
   <Preview.Code>
     {`
       import {
         Button,
-        CheckSmallIcon,
+        CheckIcon,
         Popover,
-        PopoverContent,
+        PopoverArrow,
+        PopoverBackdrop,
         PopoverDescription,
         PopoverHeader,
+        PopoverPopup,
+        PopoverPortal,
+        PopoverPositioner,
         PopoverTitle,
         PopoverTrigger,
+        PopoverViewport,
       } from "moduix";
 
-      export function CustomStylesPopoverDemo() {
+      export function CustomCompositionPopoverDemo() {
         return (
           <Popover>
             <PopoverTrigger className={styles.customTrigger} render={<Button />}>
-              Open custom styles
+              Open custom composition
             </PopoverTrigger>
-            <PopoverContent
-              withBackdrop
-              withViewport
-              className={styles.customPopup}
-              classNames={{
-                portal: styles.customPortal,
-                backdrop: styles.customBackdrop,
-                positioner: styles.customPositioner,
-                viewport: styles.customViewport,
-                arrow: styles.customArrowSlot,
-              }}
-              arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
-            >
-              <PopoverHeader>
-                <PopoverTitle>Custom styles</PopoverTitle>
-                <PopoverDescription>
-                  Popup, portal, backdrop, positioner, viewport, and arrow slots are styled through
-                  className and classNames.
-                </PopoverDescription>
-              </PopoverHeader>
-            </PopoverContent>
+            <PopoverPortal>
+              <PopoverBackdrop className={styles.customBackdrop} />
+              <PopoverPositioner sideOffset={8} className={styles.customPositioner}>
+                <PopoverPopup className={styles.customPopup}>
+                  <PopoverArrow className={styles.customArrowSlot}>
+                    <CheckIcon className={styles.customArrowIcon} />
+                  </PopoverArrow>
+                  <PopoverViewport className={styles.customViewport}>
+                    <PopoverHeader>
+                      <PopoverTitle>Custom composition</PopoverTitle>
+                      <PopoverDescription>
+                        Portal, backdrop, popup, arrow, and viewport stay available as explicit
+                        building blocks.
+                      </PopoverDescription>
+                    </PopoverHeader>
+                  </PopoverViewport>
+                </PopoverPopup>
+              </PopoverPositioner>
+            </PopoverPortal>
           </Popover>
         );
       }
@@ -693,10 +850,6 @@ positioner, viewport, and arrow slots.
 
   <Preview.CSS>
     {`
-      .customPortal {
-        pointer-events: auto;
-      }
-
       .customBackdrop {
         background-color: rgb(15 23 42 / 0.42);
         backdrop-filter: blur(3px);

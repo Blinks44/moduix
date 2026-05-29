@@ -1,37 +1,30 @@
+import type { ComponentPropsWithoutRef } from 'react';
 import clsx from 'clsx';
-import * as React from 'react';
 import styles from './Heading.module.css';
 
-type HeadingAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
-type HeadingAlign = 'left' | 'center' | 'right';
-
-type HeadingProps = React.ComponentPropsWithoutRef<HeadingAs> & {
-  as?: HeadingAs;
-  size?: HeadingSize;
-  weight?: HeadingWeight;
-  align?: HeadingAlign;
-};
-
-const defaultSizeByElement: Record<HeadingAs, HeadingSize> = {
+const defaultSizeByElement = {
   h1: '2xl',
   h2: 'xl',
   h3: 'lg',
   h4: 'md',
   h5: 'sm',
   h6: 'xs',
-};
+} as const;
 
-export function Heading({
+type HeadingLevel = keyof typeof defaultSizeByElement;
+type HeadingSize = (typeof defaultSizeByElement)[HeadingLevel];
+
+function Heading({
   as = 'h1',
   size,
   weight = 'semibold',
-  align,
   className,
-  children,
   ...props
-}: HeadingProps) {
+}: ComponentPropsWithoutRef<'h1'> & {
+  as?: HeadingLevel;
+  size?: HeadingSize;
+  weight?: 'regular' | 'medium' | 'semibold' | 'bold';
+}) {
   const Component = as;
   const resolvedSize = size ?? defaultSizeByElement[as];
 
@@ -40,19 +33,10 @@ export function Heading({
       data-slot="heading-root"
       data-size={resolvedSize}
       data-weight={weight}
-      data-align={align}
       className={clsx(styles.root, className)}
       {...props}
-    >
-      {children}
-    </Component>
+    />
   );
 }
 
-export {
-  type HeadingProps,
-  type HeadingAs,
-  type HeadingSize,
-  type HeadingWeight,
-  type HeadingAlign,
-};
+export { Heading };

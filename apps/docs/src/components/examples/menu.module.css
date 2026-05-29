@@ -18,10 +18,6 @@
   color: var(--color-primary);
 }
 
-.customPortal {
-  position: relative;
-}
-
 .customBackdrop {
   background-color: rgb(0 0 0 / 0.08);
   backdrop-filter: blur(0.125rem);
@@ -39,6 +35,11 @@
   --menu-highlight-bg: var(--color-primary);
   --menu-highlight-color: var(--color-primary-foreground);
   --menu-separator-color: var(--color-primary);
+}
+
+.customViewport {
+  max-height: 18rem;
+  overflow-y: auto;
 }
 
 .customArrow {

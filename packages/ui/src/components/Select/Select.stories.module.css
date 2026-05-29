@@ -3,7 +3,7 @@
   --select-backdrop-blur: 2px;
 }
 
-.popupOptionsTrigger {
+.customTrigger {
   position: relative;
   z-index: calc(var(--z-popup) + 1);
 }

@@ -7,6 +7,23 @@ const meta = {
   title: 'Components/Bleed',
   component: Bleed,
   tags: ['autodocs'],
+  args: {
+    inline: 'full',
+    block: 'none',
+  },
+  argTypes: {
+    inline: {
+      control: 'inline-radio',
+      options: ['none', 'xs', 'sm', 'md', 'lg', 'xl', 'full'],
+    },
+    block: {
+      control: 'inline-radio',
+      options: ['none', 'xs', 'sm', 'md', 'lg', 'xl'],
+    },
+    as: {
+      control: 'text',
+    },
+  },
   parameters: {
     layout: 'centered',
   },
@@ -17,10 +34,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  render: () => (
+  render: (args) => (
     <div className={storyStyles.container}>
       <Text tone="muted">Container content stays constrained.</Text>
-      <Bleed className={storyStyles.bleed}>
+      <Bleed {...args} className={storyStyles.bleed}>
         <Text weight="semibold">This block bleeds to the viewport edges.</Text>
       </Bleed>
       <Text tone="muted">Following content returns to the container width.</Text>
@@ -44,14 +61,15 @@ export const InlineAmounts: Story = {
   ),
 };
 
-export const FullInlineInFlexStart: Story = {
+export const SemanticElement: Story = {
   render: () => (
-    <div className={storyStyles.flexStartContainer}>
-      <Text tone="muted">Parent uses flex column with align-items: flex-start.</Text>
-      <Bleed inline="full" className={storyStyles.panel}>
-        <Text>Full inline bleed in flex-start context</Text>
+    <div className={storyStyles.container}>
+      <Bleed as="figure" className={storyStyles.figure}>
+        <div className={storyStyles.media} />
+        <Text tone="muted" size="sm">
+          Full-width media with a constrained parent.
+        </Text>
       </Bleed>
-      <Text tone="muted">Following content stays constrained to parent width.</Text>
     </div>
   ),
 };
@@ -68,14 +86,11 @@ export const BlockBleed: Story = {
   ),
 };
 
-export const SemanticElement: Story = {
+export const CustomComposition: Story = {
   render: () => (
     <div className={storyStyles.container}>
-      <Bleed as="figure" className={storyStyles.figure}>
-        <div className={storyStyles.media} />
-        <Text tone="muted" size="sm">
-          Full-width media with a constrained parent.
-        </Text>
+      <Bleed className={storyStyles.customBleed}>
+        <Text weight="semibold">Customized bleed amount.</Text>
       </Bleed>
     </div>
   ),

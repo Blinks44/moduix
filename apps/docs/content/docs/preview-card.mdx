@@ -4,17 +4,17 @@ description: A hover and focus popup that shows a visual preview for a link dest
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
+  ArrowPreviewCardExample,
   ControlledPreviewCardExample,
   CustomArrowPreviewCardExample,
+  CustomCompositionPreviewCardExample,
   DetachedTriggerPreviewCardExample,
   MultipleTriggersPreviewCardExample,
+  PlacementPreviewCardExample,
   PreviewCardCssPlaygroundPanel,
   PreviewCardCssPropertiesPanel,
   PreviewCardExample,
-  SideControlPreviewCardExample,
-  SlotCustomizationPreviewCardExample,
   previewCardPlaygroundCssProperties,
 } from '@/components/examples/preview-card';
 
@@ -22,14 +22,16 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/preview-card" />
 
-## Basic
+## Default Path
+
+Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common hover-preview flow.
 
 <Preview cssProperties={previewCardPlaygroundCssProperties}>
   <PreviewCardExample />
 
   <Preview.Code>
     {`
-      import { PreviewCard, PreviewCardTrigger, PreviewCardContent } from "moduix";
+      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
 
       const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
       const typographyImageUrl = "/images/typography-preview.jpg";
@@ -42,6 +44,7 @@ import {
               <PreviewCardTrigger href={typographyUrl}>typography</PreviewCardTrigger>{" "}
               remain in the digital age.
             </p>
+
             <PreviewCardContent>
               <div className={styles.popupContent}>
                 <img
@@ -97,77 +100,77 @@ import {
     `}
 
   </Preview.CSS>
+
   <Preview.CSSProperties>{(context) => <PreviewCardCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <PreviewCardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+`PreviewCardContent` already renders `PreviewCardPortal`, `PreviewCardPositioner`,
+`PreviewCardPopup`, and `PreviewCardViewport`. That keeps the default path short while leaving the
+low-level parts available when the layout needs to change.
+
+Preview cards are a visual enhancement for sighted hover and focus users. Keep essential
+information available on the linked destination or nearby page content, because touch and screen
+reader users may not receive the same preview.
+
 ## Anatomy
-
-`PreviewCard` pairs one or more triggers with one popup. Consumers compose only the root state,
-visible trigger, and content; `PreviewCardContent` renders the portal, optional backdrop,
-positioner, popup, arrow, and viewport internally.
-
-Preview cards are a visual enhancement for hover and focus. Keep essential information available on
-the linked destination or in nearby page content, because touch and screen reader users may not
-receive the same popup preview.
 
 ```text
 PreviewCard
 ├─ PreviewCardTrigger
 └─ PreviewCardContent
-   ├─ portal (internal)
-   ├─ backdrop (internal, optional)
-   ├─ positioner (internal)
-   ├─ popup
-   │  ├─ arrow (internal, optional)
-   │  └─ viewport (internal)
-   │     └─ content
-   └─ placement state
+   ├─ PreviewCardPortal
+   └─ PreviewCardPositioner
+      └─ PreviewCardPopup
+         └─ PreviewCardViewport
 ```
 
-```tsx
-<PreviewCard>
-  <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
-    typography
-  </PreviewCardTrigger>
-  <PreviewCardContent>
-    <div className={styles.popupContent}>Preview content</div>
-  </PreviewCardContent>
-</PreviewCard>
-```
-
-| Part                 | Role                                                                                                       |
-| -------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `PreviewCard`        | Root state machine. Controls open state, delays, payload, and detached trigger handles.                    |
-| `PreviewCardTrigger` | Interactive link or trigger. It opens the preview on hover or focus and receives open/disabled state data. |
-| `PreviewCardContent` | Public popup slot. It owns placement props, popup styling, optional arrow, backdrop, and service slots.    |
-| `portal`             | Internal service layer that moves the popup to `document.body` or the supplied `container`.                |
-| `positioner`         | Internal service layer that measures the trigger and writes placement variables.                           |
-| `backdrop`           | Internal optional overlay enabled with `withBackdrop`.                                                     |
-| `viewport`           | Internal transition container for content changes between payload-driven triggers.                         |
-
-Style the popup with `className` on `PreviewCardContent`. Use `classNames` only for internal
-service slots such as `backdrop`, `positioner`, `arrow`, and `viewport` when those slots need
-targeted styling.
+| Part                    | Role                                                                |
+| ----------------------- | ------------------------------------------------------------------- |
+| `PreviewCard`           | Root state machine for open state, payload, and detached handles.   |
+| `PreviewCardTrigger`    | Hover and focus trigger, usually rendered as a link.                |
+| `PreviewCardContent`    | Default popup wrapper for the common case.                          |
+| `PreviewCardPortal`     | Escape hatch for custom portal placement or manual popup structure. |
+| `PreviewCardBackdrop`   | Optional backdrop for custom composition.                           |
+| `PreviewCardPositioner` | Low-level positioning part.                                         |
+| `PreviewCardPopup`      | Low-level visible popup container.                                  |
+| `PreviewCardArrow`      | Optional built-in arrow, with custom children supported.            |
+| `PreviewCardViewport`   | Transition-aware content container for the popup body.              |
 
 ## Composition
 
-Use `PreviewCard` for root behavior props such as `open`, `defaultOpen`, `onOpenChange`,
-`delay`, `closeDelay`, and `handle`. Use `PreviewCardTrigger` for the link itself; detached or
-shared triggers can be connected with `createPreviewCardHandle`.
+Use `PreviewCard` for root behavior such as `open`, `defaultOpen`, `onOpenChange`, and `handle`.
+Use `PreviewCardTrigger` for the interactive link itself.
 
-`PreviewCardContent` owns the rendered popup and its service slots. Pass placement props such as
-`side`, `align`, `sideOffset`, `alignOffset`, `collisionBoundary`, and `collisionPadding` directly
-to `PreviewCardContent`. Use `container` to choose the portal container, `withBackdrop` to enable
-the optional backdrop, `withArrow={false}` to remove the default arrow, and `arrow` to replace it.
-Use `slotProps` only when you need to pass Base UI escape-hatch props to an internal slot, such as
-`keepMounted` on the portal or a custom `render` for the viewport.
+`PreviewCardContent` is intentionally small. It accepts popup props plus the common positioning
+surface:
+
+- `side`
+- `sideOffset`
+- `align`
+- `alignOffset`
+- `arrowPadding`
+- `collisionAvoidance`
+- `collisionBoundary`
+- `collisionPadding`
+- `showArrow`
+
+Defaults:
+
+| Prop         | Default |
+| ------------ | ------- |
+| `showArrow`  | `false` |
+| `sideOffset` | `8`     |
+
+Use `showArrow` only when the popup should visually point back to its trigger. When the popup
+needs a custom arrow, backdrop, portal container, or manual viewport structure, switch to explicit
+composition with the low-level parts.
 
 ## Examples
 
-### Controlled
+### Controlled State
 
-Control the open state from React when the preview needs to coordinate with other UI.
+Use the controlled path when another part of the interface owns preview visibility.
 
 <Preview>
   <ControlledPreviewCardExample />
@@ -179,11 +182,12 @@ Control the open state from React when the preview needs to coordinate with othe
 
       export function ControlledPreviewCard() {
         const [open, setOpen] = useState(false);
-        const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
 
         return (
           <PreviewCard open={open} onOpenChange={setOpen}>
-            <PreviewCardTrigger href={typographyUrl}>Controlled preview card</PreviewCardTrigger>
+            <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
+              Controlled preview card
+            </PreviewCardTrigger>
             <PreviewCardContent>
               <div className={styles.popupContent}>
                 <p className={styles.summary}>
@@ -197,181 +201,102 @@ Control the open state from React when the preview needs to coordinate with othe
     `}
 
   </Preview.Code>
+</Preview>
 
-  <Preview.CSS>
+### Arrow
+
+`showArrow` is the narrow DX shortcut for the built-in arrow.
+
+<Preview>
+  <ArrowPreviewCardExample />
+
+  <Preview.Code>
     {`
-      .popupContent {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .summary {
-        max-width: 14rem;
-        margin: 0;
-        color: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
+      <PreviewCard>
+        <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
+          Preview with arrow
+        </PreviewCardTrigger>
+        <PreviewCardContent showArrow>
+          <div className={styles.popupContent}>{/* preview body */}</div>
+        </PreviewCardContent>
+      </PreviewCard>
     `}
+  </Preview.Code>
+</Preview>
 
-  </Preview.CSS>
+### Placement
+
+Pass placement props to `PreviewCardContent` for the common popup path.
+
+<Preview>
+  <PlacementPreviewCardExample />
+
+  <Preview.Code>
+    {`
+      <PreviewCard>
+        <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
+          Preview on the right
+        </PreviewCardTrigger>
+        <PreviewCardContent side="right" className={styles.sidePopup}>
+          <div className={styles.popupContent}>{/* preview body */}</div>
+        </PreviewCardContent>
+      </PreviewCard>
+    `}
+  </Preview.Code>
 </Preview>
 
 ### Detached Trigger
 
-Use `createPreviewCardHandle` when the trigger and popup content live in different parts of the tree.
+Use `createPreviewCardHandle()` when the trigger and popup need to live in different parts of the
+tree.
 
 <Preview>
   <DetachedTriggerPreviewCardExample />
 
   <Preview.Code>
     {`
-      import { createPreviewCardHandle, PreviewCardTrigger, PreviewCard, PreviewCardContent } from "moduix";
+      import { createPreviewCardHandle, PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
       import { useMemo } from "react";
 
       export function DetachedTriggerPreviewCard() {
         const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
-        const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
 
         return (
-          <div className={styles.row}>
-            <PreviewCardTrigger handle={previewCardHandle} href={typographyUrl}>
+          <>
+            <PreviewCardTrigger
+              handle={previewCardHandle}
+              href="https://en.wikipedia.org/wiki/Typography"
+            >
               Open detached preview
             </PreviewCardTrigger>
+
             <PreviewCard handle={previewCardHandle}>
               <PreviewCardContent>
-                <div className={styles.popupContent}>
-                  <p className={styles.summary}>
-                    Trigger and popup are linked with createPreviewCardHandle().
-                  </p>
-                </div>
+                <div className={styles.popupContent}>{/* preview body */}</div>
               </PreviewCardContent>
             </PreviewCard>
-          </div>
+          </>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .popupContent {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .summary {
-        max-width: 14rem;
-        margin: 0;
-        color: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-2);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
-### Multiple Triggers With Payload
+### Payload-Driven Content
 
-Share one popup between several links and pass trigger-specific data through `payload`.
+Pass `payload` through the trigger when one popup should render different content for different
+links.
 
 <Preview>
   <MultipleTriggersPreviewCardExample />
 
   <Preview.Code>
     {`
-      import {
-        createPreviewCardHandle,
-        PreviewCard,
-        PreviewCardContent,
-        PreviewCardTrigger,
-      } from "moduix";
+      import { createPreviewCardHandle, PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
       import { useMemo } from "react";
 
-      type LinkPreviewPayload = {
-        title: string;
-        url: string;
-        summary: string;
-      };
-
-      export function MultipleTriggersPreviewCard() {
-        const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
-        return (
-          <div className={styles.row}>
-            {items.map((item) => (
-              <PreviewCardTrigger
-                key={item.title}
-                handle={previewCardHandle}
-                href={item.url}
-                payload={item}
-              >
-                {item.title}
-              </PreviewCardTrigger>
-            ))}
-
-            <PreviewCard handle={previewCardHandle}>{renderPreview}</PreviewCard>
-          </div>
-        );
-
-        function renderPreview({ payload }) {
-          const item = (payload as LinkPreviewPayload | undefined) ?? items[0];
-
-          return (
-            <PreviewCardContent>
-              <div className={styles.popupContent}>
-                <p className={styles.summary}>
-                  <strong>{item.title}</strong>
-                  <br />
-                  {item.summary}
-                </p>
-              </div>
-            </PreviewCardContent>
-          );
-        }
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .popupContent {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .summary {
-        max-width: 14rem;
-        margin: 0;
-        color: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-2);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items: LinkPreviewPayload[] = [
+      const items = [
         {
           title: "Typography",
           url: "https://en.wikipedia.org/wiki/Typography",
@@ -383,140 +308,64 @@ Share one popup between several links and pass trigger-specific data through `pa
           summary: "Grid systems help organize content and spacing.",
         },
       ];
-    `}
+      type PreviewItem = (typeof items)[number];
 
-  </Preview.Data>
-</Preview>
-
-### Side Control
-
-Pass `side`, `align`, offsets, collision options, or `slotProps.positioner` to
-`PreviewCardContent` when you need to control popup placement.
-
-<Preview>
-  <SideControlPreviewCardExample />
-
-  <Preview.Code>
-    {`
-      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
-      import { useState } from "react";
-
-      export function SideControlPreviewCard() {
-        const [side, setSide] = useState("bottom" as (typeof sides)[number]);
-        const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      export function MultipleTriggersPreviewCard() {
+        const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
 
         return (
-          <div className={styles.stack}>
-            <div className={styles.sideButtons}>
-              {sides.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={styles.sideButton}
-                  data-active={item === side || undefined}
-                  onClick={() => setSide(item)}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+          <>
+            {items.map((item) => (
+              <PreviewCardTrigger
+                key={item.title}
+                handle={previewCardHandle}
+                href={item.url}
+                payload={item}
+              >
+                {item.title}
+              </PreviewCardTrigger>
+            ))}
 
-            <PreviewCard>
-              <PreviewCardTrigger href={typographyUrl}>Placement: {side}</PreviewCardTrigger>
-              <PreviewCardContent side={side} className={styles.sidePopup}>
-                <div className={styles.popupContent}>
-                  <p className={styles.summary}>Current side is {side}.</p>
-                </div>
-              </PreviewCardContent>
+            <PreviewCard handle={previewCardHandle}>
+              {({ payload }) => (
+                <PreviewCardContent>
+                  <div className={styles.popupContent}>
+                    <p className={styles.summary}>{payload?.summary}</p>
+                  </div>
+                </PreviewCardContent>
+              )}
             </PreviewCard>
-          </div>
+          </>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .popupContent {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .summary {
-        max-width: 14rem;
-        margin: 0;
-        color: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .stack {
-        display: grid;
-        justify-items: center;
-        gap: var(--spacing-3);
-      }
-
-      .sideButtons {
-        display: inline-flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-1);
-        padding: var(--spacing-1);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
-        background: var(--color-muted);
-      }
-
-      .sideButton {
-        min-width: 4.75rem;
-        min-height: 2rem;
-        padding: 0 var(--spacing-3);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-sm);
-        background: var(--color-background);
-        color: var(--color-foreground);
-        font: inherit;
-        font-size: var(--text-sm);
-        font-weight: var(--weight-medium);
-        line-height: var(--line-height-text-sm);
-        text-transform: capitalize;
-        cursor: pointer;
-        transition:
-          background-color var(--transition-default),
-          color var(--transition-default);
-
-        &[data-active] {
-          background: var(--color-primary);
-          color: var(--color-primary-foreground);
-        }
-      }
-
-      .sidePopup {
-        --preview-card-max-width: 17rem;
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sides = ["top", "right", "bottom", "left"] as const;
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Custom Arrow
+## Custom Composition
 
-Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
+Use the low-level parts when the default wrapper is no longer enough.
+
+### Custom Arrow Markup
+
+Keep `PreviewCardContent` for the default arrow. Switch to `PreviewCardArrow` directly when the
+arrow markup itself needs to change.
 
 <Preview>
   <CustomArrowPreviewCardExample />
 
   <Preview.Code>
     {`
-      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+      import {
+        PreviewCard,
+        PreviewCardArrow,
+        PreviewCardPopup,
+        PreviewCardPortal,
+        PreviewCardPositioner,
+        PreviewCardTrigger,
+        PreviewCardViewport,
+      } from "moduix";
 
       export function CustomArrowPreviewCard() {
         return (
@@ -524,133 +373,70 @@ Pass `arrow` to `PreviewCardContent` to render any custom icon or SVG.
             <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
               Preview with custom arrow
             </PreviewCardTrigger>
-            <PreviewCardContent className={styles.customArrowPopup} arrow={<CustomArrow />}>
-              <div className={styles.popupContent}>
-                <p className={styles.summary}>
-                  Pass any React node to the arrow prop to use a custom SVG or icon.
-                </p>
-              </div>
-            </PreviewCardContent>
+            <PreviewCardPortal>
+              <PreviewCardPositioner>
+                <PreviewCardPopup className={styles.customArrowPopup}>
+                  <PreviewCardArrow>
+                    <CustomArrow />
+                  </PreviewCardArrow>
+                  <PreviewCardViewport>
+                    <div className={styles.popupContent}>{/* preview body */}</div>
+                  </PreviewCardViewport>
+                </PreviewCardPopup>
+              </PreviewCardPositioner>
+            </PreviewCardPortal>
           </PreviewCard>
-        );
-      }
-
-      function CustomArrow() {
-        return (
-          <svg className={styles.customArrow} viewBox="0 0 16 8" fill="none" aria-hidden="true">
-            <path d="M8 0L16 8H0L8 0Z" fill="currentColor" />
-          </svg>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .popupContent {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .summary {
-        max-width: 14rem;
-        margin: 0;
-        color: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .customArrowPopup {
-        --preview-card-bg: var(--color-foreground);
-        --preview-card-color: var(--color-background);
-        --preview-card-border-color: color-mix(in oklab, var(--color-foreground), transparent 25%);
-      }
-
-      .customArrow {
-        display: block;
-        width: 1rem;
-        height: 0.5rem;
-        color: var(--preview-card-bg, var(--color-popover));
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Backdrop and Manual Structure
 
-`PreviewCardContent` renders the portal, backdrop, positioner, and viewport internally. Use
-`classNames` and `slotProps` when you need to style or configure those internal slots.
+Use explicit parts when the popup needs a backdrop or custom viewport styling.
 
 <Preview>
-  <SlotCustomizationPreviewCardExample />
+  <CustomCompositionPreviewCardExample />
 
   <Preview.Code>
     {`
-      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+      import {
+        PreviewCard,
+        PreviewCardArrow,
+        PreviewCardBackdrop,
+        PreviewCardPopup,
+        PreviewCardPortal,
+        PreviewCardPositioner,
+        PreviewCardTrigger,
+        PreviewCardViewport,
+      } from "moduix";
 
-      export function SlotCustomizationPreviewCard() {
+      export function CustomCompositionPreviewCard() {
         return (
           <PreviewCard>
-            <PreviewCardTrigger className={styles.slotTrigger} href="https://en.wikipedia.org/wiki/Typography">
-              Preview with styled slots
-            </PreviewCardTrigger>
-            <PreviewCardContent
-              withBackdrop
-              classNames={{
-                backdrop: styles.backdrop,
-                arrow: styles.slotArrow,
-                viewport: styles.viewport,
-              }}
+            <PreviewCardTrigger
+              className={styles.slotTrigger}
+              href="https://en.wikipedia.org/wiki/Typography"
             >
-              <div className={styles.popupContent}>
-                <p className={styles.summary}>
-                  Portal, backdrop, positioner, and viewport are rendered by PreviewCardContent.
-                </p>
-              </div>
-            </PreviewCardContent>
+              Preview with custom composition
+            </PreviewCardTrigger>
+            <PreviewCardPortal>
+              <PreviewCardBackdrop className={styles.backdrop} />
+              <PreviewCardPositioner side="right" sideOffset={12}>
+                <PreviewCardPopup className={styles.composedPopup}>
+                  <PreviewCardArrow className={styles.slotArrow} />
+                  <PreviewCardViewport className={styles.viewport}>
+                    <div className={styles.popupContent}>{/* preview body */}</div>
+                  </PreviewCardViewport>
+                </PreviewCardPopup>
+              </PreviewCardPositioner>
+            </PreviewCardPortal>
           </PreviewCard>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .popupContent {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .summary {
-        max-width: 14rem;
-        margin: 0;
-        color: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-
-      .backdrop {
-        --preview-card-backdrop-bg: color-mix(in oklab, var(--color-background), transparent 70%);
-        --preview-card-backdrop-blur: 2px;
-        --preview-card-backdrop-transition: 200ms ease;
-      }
-
-      .slotTrigger {
-        position: relative;
-        z-index: calc(var(--z-popup) + 1);
-      }
-
-      .slotArrow {
-        --preview-card-arrow-stroke-color: var(--preview-card-border-color);
-      }
-
-      .viewport {
-        padding: var(--spacing-1);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>

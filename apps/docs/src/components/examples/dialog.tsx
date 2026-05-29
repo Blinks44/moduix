@@ -1,7 +1,7 @@
 import {
   Button,
-  CloseLineIcon,
   Dialog,
+  DialogBackdrop,
   DialogBody,
   DialogClose,
   DialogCloseIcon,
@@ -9,12 +9,15 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogPopup,
+  DialogPortal,
   DialogTitle,
   DialogTrigger,
+  DialogViewport,
   ScrollArea,
   createDialogHandle,
 } from 'moduix';
-import * as React from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -42,16 +45,6 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-close-icon-glyph-size', '0.75rem', 'Controls icon close glyph size.'],
   ['--dialog-close-icon-radius', 'var(--radius-md)', 'Controls icon close border radius.'],
   ['--dialog-close-icon-size', '1.75rem', 'Controls icon close button size.'],
-  [
-    '--dialog-close-outside-offset-right',
-    'var(--spacing-4)',
-    'Controls outside close icon right offset.',
-  ],
-  [
-    '--dialog-close-outside-offset-top',
-    'var(--spacing-4)',
-    'Controls outside close icon top offset.',
-  ],
   ['--dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   ['--dialog-content-margin', 'var(--spacing-4) 0 0', 'Controls `DialogBody` margin.'],
   ['--dialog-control-bg', 'var(--color-background)', 'Controls trigger and close background.'],
@@ -171,10 +164,10 @@ export function DialogExample() {
 }
 
 export function ControlledDialogExample() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Button type="button" onClick={() => setOpen(true)}>
         Open controlled dialog
       </Button>
@@ -192,15 +185,15 @@ export function ControlledDialogExample() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
 export function DialogHandleExample() {
-  const dialogHandle = React.useMemo(() => createDialogHandle(), []);
+  const dialogHandle = useMemo(() => createDialogHandle(), []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <DialogTrigger handle={dialogHandle} render={<Button variant="outline" />}>
         Open from detached trigger
       </DialogTrigger>
@@ -221,7 +214,7 @@ export function DialogHandleExample() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
@@ -236,13 +229,15 @@ export function ScrollableDialogExample() {
           <DialogDescription>Review all items before publishing to production.</DialogDescription>
         </DialogHeader>
         <DialogBody className={styles.scrollBody}>
-          <ScrollArea className={styles.scrollArea} classNames={{ content: styles.scrollContent }}>
-            {insideScrollSections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </section>
-            ))}
+          <ScrollArea className={styles.scrollArea}>
+            <div className={styles.scrollContent}>
+              {insideScrollSections.map((item) => (
+                <section key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </section>
+              ))}
+            </div>
           </ScrollArea>
         </DialogBody>
         <DialogFooter>
@@ -286,9 +281,10 @@ export function NonModalDialogExample() {
   return (
     <Dialog modal={false}>
       <DialogTrigger render={<Button />}>Open non-modal dialog</DialogTrigger>
-      <DialogContent withBackdrop={false}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Non-modal dialog</DialogTitle>
+          <DialogCloseIcon />
           <DialogDescription>
             The page remains interactive because modal behavior and backdrop are disabled.
           </DialogDescription>
@@ -301,38 +297,51 @@ export function NonModalDialogExample() {
   );
 }
 
-export function CustomStylesDialogExample() {
+export function TrapFocusDialogExample() {
   return (
-    <Dialog>
-      <DialogTrigger render={<Button />}>Open outside close icon</DialogTrigger>
-      <DialogContent
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          viewport: styles.customViewport,
-        }}
-        slotProps={{
-          portal: { keepMounted: true },
-          backdrop: { forceRender: true },
-        }}
-      >
-        <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon}>
-          <CloseLineIcon />
-        </DialogCloseIcon>
+    <Dialog modal="trap-focus">
+      <DialogTrigger render={<Button />}>Open focus-trapped dialog</DialogTrigger>
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Focus stays inside the dialog</DialogTitle>
+          <DialogCloseIcon />
           <DialogDescription>
-            This popup, backdrop, viewport, and close icon are styled with className and classNames.
+            Outside content remains clickable, but keyboard focus stays trapped until the dialog
+            closes.
           </DialogDescription>
         </DialogHeader>
-        <DialogBody>
-          <p>Update the public profile fields and save changes.</p>
-        </DialogBody>
         <DialogFooter>
-          <DialogClose render={<Button />}>Save</DialogClose>
+          <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
         </DialogFooter>
       </DialogContent>
+    </Dialog>
+  );
+}
+
+export function CustomCompositionDialogExample() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button />}>Open custom composition</DialogTrigger>
+      <DialogPortal keepMounted>
+        <DialogBackdrop className={styles.customBackdrop} forceRender />
+        <DialogViewport className={styles.customViewport}>
+          <DialogPopup className={styles.customPopup}>
+            <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon} />
+            <DialogHeader>
+              <DialogTitle>Edit profile</DialogTitle>
+              <DialogDescription>
+                Portal, backdrop, viewport, popup, and close icon are composed explicitly.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogBody>
+              <p>Update the public profile fields and save changes.</p>
+            </DialogBody>
+            <DialogFooter>
+              <DialogClose render={<Button />}>Save</DialogClose>
+            </DialogFooter>
+          </DialogPopup>
+        </DialogViewport>
+      </DialogPortal>
     </Dialog>
   );
 }

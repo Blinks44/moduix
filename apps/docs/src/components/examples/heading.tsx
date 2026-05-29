@@ -1,4 +1,5 @@
-import { Heading, type HeadingProps } from 'moduix';
+import type { ComponentProps } from 'react';
+import { Heading } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './heading.module.css';
@@ -80,7 +81,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function HeadingExample(props: HeadingProps) {
+export function HeadingExample(props: ComponentProps<typeof Heading>) {
   return <Heading {...props}>Build reliable interfaces</Heading>;
 }
 
@@ -141,23 +142,7 @@ export function HeadingWeightsExample() {
   );
 }
 
-export function HeadingAlignedExample() {
-  return (
-    <div className={styles.aligned}>
-      <Heading as="h2" align="left">
-        Left aligned
-      </Heading>
-      <Heading as="h2" align="center">
-        Center aligned
-      </Heading>
-      <Heading as="h2" align="right">
-        Right aligned
-      </Heading>
-    </div>
-  );
-}
-
-export function HeadingSemanticExample() {
+export function HeadingSemanticLevelExample() {
   return (
     <Heading as="h2" size="2xl">
       Page title rendered as h2
@@ -165,7 +150,7 @@ export function HeadingSemanticExample() {
   );
 }
 
-export function CustomStylesHeadingExample() {
+export function CustomCompositionHeadingExample() {
   return (
     <Heading as="h2" className={styles.customHeading}>
       Customized heading

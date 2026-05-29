@@ -2,20 +2,17 @@
   --drawer-side-width: 26rem;
 }
 
-.islandContent {
-  --drawer-width: 32rem;
-  --drawer-side-width: 26rem;
-}
-
 .compactContent {
   --drawer-max-height: 28rem;
 }
 
 .customPopup {
   --drawer-bg: var(--color-card);
+  --drawer-bleed-size: 0px;
   --drawer-border-color: var(--color-ring);
   --drawer-shadow: var(--shadow-xl);
-  --drawer-max-height: 30rem;
+  --drawer-side-width: 24rem;
+  border-radius: var(--radius-xl);
 }
 
 .customBackdrop {
@@ -31,10 +28,6 @@
   --drawer-handle-opacity: 0.8;
 }
 
-.customContent {
-  gap: var(--spacing-4);
-}
-
 .scrollArea {
   height: 100%;
   min-height: 0;
@@ -48,6 +41,31 @@
 
 .nestedActionsStart {
   margin-right: auto;
+}
+
+.headerWithAction {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.snapToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-muted-foreground);
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      background: var(--color-accent);
+    }
+  }
 }
 
 .indentStage {

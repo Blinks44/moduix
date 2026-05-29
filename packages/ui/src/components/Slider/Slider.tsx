@@ -1,93 +1,77 @@
 import { Slider as SliderPrimitive } from '@base-ui/react/slider';
-import * as React from 'react';
+import { Children, Fragment, isValidElement, type ReactElement, type ReactNode } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Slider.module.css';
 
-type SliderValueType = number | readonly number[];
-const SLIDER_THUMB_SLOT = 'moduix.slider.thumb';
-
-type SliderClassNames = {
-  control?: SliderPrimitive.Control.Props['className'];
-  track?: SliderPrimitive.Track.Props['className'];
-  indicator?: SliderPrimitive.Indicator.Props['className'];
+type SliderChildrenParts = {
+  content: ReactNode[];
+  thumbs: ReactNode[];
 };
 
-type SliderThumbComponent = typeof SliderThumb & {
-  __moduixSlot?: typeof SLIDER_THUMB_SLOT;
-  displayName?: string;
-};
-
-function Slider<Value extends SliderValueType>({
-  className,
-  classNames,
+function Slider<Value extends number | readonly number[]>({
   children,
   ...props
-}: SliderProps<Value>) {
+}: SliderPrimitive.Root.Props<Value>) {
   const { content, thumbs } = splitSliderChildren(children);
 
+  return (
+    <SliderRoot {...props}>
+      {content}
+      <SliderControl>
+        <SliderTrack>
+          <SliderIndicator />
+          {thumbs}
+        </SliderTrack>
+      </SliderControl>
+    </SliderRoot>
+  );
+}
+
+function splitSliderChildren(children: ReactNode): SliderChildrenParts {
+  const parts: SliderChildrenParts = { content: [], thumbs: [] };
+
+  const collectChildren = (nodes: ReactNode) => {
+    Children.forEach(nodes, (child) => {
+      if (!isValidElement(child)) {
+        parts.content.push(child);
+        return;
+      }
+
+      if (isReactFragment(child)) {
+        collectChildren(child.props.children);
+        return;
+      }
+
+      if (isSliderThumb(child)) {
+        parts.thumbs.push(child);
+        return;
+      }
+
+      parts.content.push(child);
+    });
+  };
+
+  collectChildren(children);
+
+  return parts;
+}
+
+const isReactFragment = (child: ReactNode): child is ReactElement<{ children?: ReactNode }> =>
+  isValidElement(child) && child.type === Fragment;
+
+const isSliderThumb = (child: ReactNode): child is ReactElement<SliderPrimitive.Thumb.Props> =>
+  isValidElement(child) && child.type === SliderThumb;
+
+function SliderRoot<Value extends number | readonly number[]>({
+  className,
+  ...props
+}: SliderPrimitive.Root.Props<Value>) {
   return (
     <SliderPrimitive.Root
       data-slot="slider-root"
       className={mergeClassName(className, styles.root)}
       {...props}
-    >
-      {content}
-      <SliderPrimitive.Control
-        data-slot="slider-control"
-        className={mergeClassName(classNames?.control, styles.control)}
-      >
-        <SliderPrimitive.Track
-          data-slot="slider-track"
-          className={mergeClassName(classNames?.track, styles.track)}
-        >
-          <SliderPrimitive.Indicator
-            data-slot="slider-indicator"
-            className={mergeClassName(classNames?.indicator, styles.indicator)}
-          />
-          {thumbs}
-        </SliderPrimitive.Track>
-      </SliderPrimitive.Control>
-    </SliderPrimitive.Root>
-  );
-}
-
-function splitSliderChildren(children: React.ReactNode) {
-  const content: React.ReactNode[] = [];
-  const thumbs: React.ReactNode[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (!React.isValidElement(child)) {
-      content.push(child);
-      return;
-    }
-
-    if (child.type === React.Fragment) {
-      const fragment = child as React.ReactElement<{ children?: React.ReactNode }>;
-      const nested = splitSliderChildren(fragment.props.children);
-      content.push(...nested.content);
-      thumbs.push(...nested.thumbs);
-      return;
-    }
-
-    if (isSliderThumbElement(child)) {
-      thumbs.push(child);
-      return;
-    }
-
-    content.push(child);
-  });
-
-  return { content, thumbs };
-}
-
-function isSliderThumbElement(child: React.ReactElement) {
-  const type = child.type as SliderThumbComponent;
-
-  return (
-    type === SliderThumb ||
-    type.__moduixSlot === SLIDER_THUMB_SLOT ||
-    type.displayName === 'SliderThumb' ||
-    type.name === 'SliderThumb'
+    />
   );
 }
 
@@ -111,6 +95,36 @@ function SliderValue({ className, ...props }: SliderPrimitive.Value.Props) {
   );
 }
 
+function SliderControl({ className, ...props }: SliderPrimitive.Control.Props) {
+  return (
+    <SliderPrimitive.Control
+      data-slot="slider-control"
+      className={mergeClassName(className, styles.control)}
+      {...props}
+    />
+  );
+}
+
+function SliderTrack({ className, ...props }: SliderPrimitive.Track.Props) {
+  return (
+    <SliderPrimitive.Track
+      data-slot="slider-track"
+      className={mergeClassName(className, styles.track)}
+      {...props}
+    />
+  );
+}
+
+function SliderIndicator({ className, ...props }: SliderPrimitive.Indicator.Props) {
+  return (
+    <SliderPrimitive.Indicator
+      data-slot="slider-indicator"
+      className={mergeClassName(className, styles.indicator)}
+      {...props}
+    />
+  );
+}
+
 function SliderThumb({ className, ...props }: SliderPrimitive.Thumb.Props) {
   return (
     <SliderPrimitive.Thumb
@@ -121,17 +135,13 @@ function SliderThumb({ className, ...props }: SliderPrimitive.Thumb.Props) {
   );
 }
 
-(SliderThumb as SliderThumbComponent).__moduixSlot = SLIDER_THUMB_SLOT;
-SliderThumb.displayName = 'SliderThumb';
-
-type SliderProps<Value extends SliderValueType = SliderValueType> =
-  SliderPrimitive.Root.Props<Value> & {
-    classNames?: SliderClassNames;
-  };
-type SliderLabelProps = SliderPrimitive.Label.Props;
-type SliderValueProps = SliderPrimitive.Value.Props;
-type SliderThumbProps = SliderPrimitive.Thumb.Props;
-
-export { Slider, SliderLabel, SliderValue, SliderThumb };
-
-export type { SliderProps, SliderClassNames, SliderLabelProps, SliderValueProps, SliderThumbProps };
+export {
+  Slider,
+  SliderRoot,
+  SliderLabel,
+  SliderValue,
+  SliderControl,
+  SliderTrack,
+  SliderIndicator,
+  SliderThumb,
+};

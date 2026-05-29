@@ -1,0 +1,228 @@
+import {
+  Field,
+  FieldError,
+  FieldLabel,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from 'moduix';
+import { useState, type ComponentProps } from 'react';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import styles from './input-group.module.css';
+
+export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
+  ['--input-group-addon-bg', 'var(--color-muted)', 'Controls addon background color.'],
+  [
+    '--input-group-addon-color',
+    'var(--color-muted-foreground)',
+    'Controls addon text and icon color.',
+  ],
+  ['--input-group-addon-gap', 'var(--spacing-2)', 'Controls space between addon children.'],
+  ['--input-group-addon-padding-x', '0.875rem', 'Controls default addon padding.'],
+  ['--input-group-addon-padding-x-xs', '0.625rem', 'Controls addon padding for `xs`.'],
+  ['--input-group-addon-padding-x-sm', '0.75rem', 'Controls addon padding for `sm`.'],
+  ['--input-group-addon-padding-x-md', '0.875rem', 'Controls addon padding for `md`.'],
+  ['--input-group-addon-padding-x-lg', '1rem', 'Controls addon padding for `lg`.'],
+  ['--input-group-addon-padding-x-xl', '1.125rem', 'Controls addon padding for `xl`.'],
+  ['--input-group-bg', 'var(--color-background)', 'Controls group background color.'],
+  ['--input-group-border-color', 'var(--color-border)', 'Controls group border color.'],
+  [
+    '--input-group-border-color-invalid',
+    'var(--color-destructive)',
+    'Controls invalid border and focus ring color.',
+  ],
+  ['--input-group-border-style', 'solid', 'Controls group border style.'],
+  ['--input-group-border-width', 'var(--border-width-sm)', 'Controls group border width.'],
+  ['--input-group-button-color', 'var(--color-foreground)', 'Controls grouped button color.'],
+  ['--input-group-button-focus-ring-offset', '-1px', 'Controls grouped button focus offset.'],
+  ['--input-group-color', 'var(--color-foreground)', 'Controls group text color.'],
+  ['--input-group-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
+  ['--input-group-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--input-group-focus-ring-offset', '-1px', 'Controls focus ring offset.'],
+  ['--input-group-focus-ring-width', 'depends on border width', 'Controls focus ring width.'],
+  ['--input-group-font-size', 'var(--text-md)', 'Controls default font size.'],
+  ['--input-group-font-size-xs', 'var(--text-xs)', 'Controls font size for `xs`.'],
+  ['--input-group-font-size-sm', 'var(--text-sm)', 'Controls font size for `sm`.'],
+  ['--input-group-font-size-md', 'var(--text-md)', 'Controls font size for `md`.'],
+  ['--input-group-font-size-lg', 'var(--text-lg)', 'Controls font size for `lg`.'],
+  ['--input-group-font-size-xl', 'var(--text-lg)', 'Controls font size for `xl`.'],
+  ['--input-group-height', 'var(--input-group-height-md)', 'Controls group height.'],
+  ['--input-group-height-xs', 'var(--size-sm)', 'Controls height for `xs`.'],
+  ['--input-group-height-sm', '2rem', 'Controls height for `sm`.'],
+  ['--input-group-height-md', 'var(--size-lg)', 'Controls height for `md`.'],
+  ['--input-group-height-lg', 'var(--size-xl)', 'Controls height for `lg`.'],
+  ['--input-group-height-xl', '3rem', 'Controls height for `xl`.'],
+  ['--input-group-icon-size', '1rem', 'Controls addon icon size.'],
+  ['--input-group-input-padding-x', '0.875rem', 'Controls default input inline padding.'],
+  ['--input-group-input-padding-x-xs', '0.625rem', 'Controls input inline padding for `xs`.'],
+  ['--input-group-input-padding-x-sm', '0.75rem', 'Controls input inline padding for `sm`.'],
+  ['--input-group-input-padding-x-md', '0.875rem', 'Controls input inline padding for `md`.'],
+  ['--input-group-input-padding-x-lg', '1rem', 'Controls input inline padding for `lg`.'],
+  ['--input-group-input-padding-x-xl', '1.125rem', 'Controls input inline padding for `xl`.'],
+  ['--input-group-input-padding-y', '0.5rem', 'Controls default input block padding.'],
+  ['--input-group-input-padding-y-xs', '0.25rem', 'Controls input block padding for `xs`.'],
+  ['--input-group-input-padding-y-sm', '0.3125rem', 'Controls input block padding for `sm`.'],
+  ['--input-group-input-padding-y-md', '0.5rem', 'Controls input block padding for `md`.'],
+  ['--input-group-input-padding-y-lg', '0.625rem', 'Controls input block padding for `lg`.'],
+  ['--input-group-input-padding-y-xl', '0.75rem', 'Controls input block padding for `xl`.'],
+  ['--input-group-line-height', 'var(--line-height-text-md)', 'Controls default line height.'],
+  ['--input-group-line-height-xs', 'var(--line-height-text-xs)', 'Controls line height for `xs`.'],
+  ['--input-group-line-height-sm', 'var(--line-height-text-sm)', 'Controls line height for `sm`.'],
+  ['--input-group-line-height-md', 'var(--line-height-text-md)', 'Controls line height for `md`.'],
+  ['--input-group-line-height-lg', 'var(--line-height-text-lg)', 'Controls line height for `lg`.'],
+  ['--input-group-line-height-xl', 'var(--line-height-text-lg)', 'Controls line height for `xl`.'],
+  ['--input-group-max-width', 'none', 'Controls group max width.'],
+  ['--input-group-radius', 'var(--radius-md)', 'Controls group border radius.'],
+  ['--input-group-separator-color', 'var(--color-border)', 'Controls addon separator color.'],
+  ['--input-group-separator-width', 'var(--border-width-sm)', 'Controls addon separator width.'],
+  ['--input-group-transition', 'var(--transition-default)', 'Controls state transition timing.'],
+  ['--input-group-width', '100%', 'Controls group width.'],
+];
+
+export const inputGroupPlaygroundCssProperties: CssPropertyInput[] = [
+  ['--input-group-addon-bg', 'var(--color-muted)', 'Controls addon background color.'],
+  ['--input-group-addon-color', 'var(--color-muted-foreground)', 'Controls addon color.'],
+  ['--input-group-bg', 'var(--color-background)', 'Controls group background color.'],
+  ['--input-group-border-color', 'var(--color-border)', 'Controls group border color.'],
+  ['--input-group-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+  ['--input-group-height', 'var(--input-group-height-md)', 'Controls group height.'],
+  ['--input-group-input-padding-x', '0.875rem', 'Controls input inline padding.'],
+  ['--input-group-radius', 'var(--radius-md)', 'Controls group border radius.'],
+  ['--input-group-separator-color', 'var(--color-border)', 'Controls separator color.'],
+];
+
+export function InputGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesReferenceTable
+      properties={inputGroupOverrideCssProperties.map(normalizeCssProperty)}
+    />
+  );
+}
+
+export function InputGroupCssPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+}: CSSPropertiesEditorContext) {
+  return (
+    <CSSPropertiesEditor
+      properties={inputGroupPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
+}
+
+function normalizeCssProperty(property: CssPropertyInput) {
+  if (!('name' in property))
+    return { name: property[0], defaultValue: property[1], description: property[2] };
+  return property;
+}
+
+export function InputGroupExample(props: ComponentProps<typeof InputGroup>) {
+  return (
+    <Field className={styles.field}>
+      <FieldLabel>Workspace</FieldLabel>
+      <InputGroup {...props}>
+        <InputGroupAddon>@</InputGroupAddon>
+        <InputGroupInput placeholder="maps" />
+      </InputGroup>
+    </Field>
+  );
+}
+
+export function InputGroupWithActionExample() {
+  const [value, setValue] = useState('');
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel>Invite by email</FieldLabel>
+      <InputGroup>
+        <InputGroupInput
+          value={value}
+          onValueChange={setValue}
+          type="email"
+          placeholder="name@example.com"
+        />
+        <InputGroupButton disabled={!value}>Send</InputGroupButton>
+      </InputGroup>
+    </Field>
+  );
+}
+
+export function InputGroupPrefixSuffixExample() {
+  return (
+    <Field className={styles.field}>
+      <FieldLabel>Monthly budget</FieldLabel>
+      <InputGroup>
+        <InputGroupAddon className={styles.currency}>$</InputGroupAddon>
+        <InputGroupInput inputMode="decimal" placeholder="2500" />
+        <InputGroupText>USD</InputGroupText>
+      </InputGroup>
+    </Field>
+  );
+}
+
+export function InputGroupSizesExample() {
+  return (
+    <div className={styles.stack}>
+      <InputGroup size="xs">
+        <InputGroupAddon>@</InputGroupAddon>
+        <InputGroupInput placeholder="Extra-small group" />
+      </InputGroup>
+      <InputGroup size="sm">
+        <InputGroupAddon>@</InputGroupAddon>
+        <InputGroupInput placeholder="Small group" />
+      </InputGroup>
+      <InputGroup size="md">
+        <InputGroupAddon>@</InputGroupAddon>
+        <InputGroupInput placeholder="Medium group" />
+      </InputGroup>
+      <InputGroup size="lg">
+        <InputGroupAddon>@</InputGroupAddon>
+        <InputGroupInput placeholder="Large group" />
+      </InputGroup>
+      <InputGroup size="xl">
+        <InputGroupAddon>@</InputGroupAddon>
+        <InputGroupInput placeholder="Extra-large group" />
+      </InputGroup>
+    </div>
+  );
+}
+
+export function DisabledInputGroupExample() {
+  return (
+    <InputGroup className={styles.group}>
+      <InputGroupAddon>@</InputGroupAddon>
+      <InputGroupInput disabled value="readonly" />
+      <InputGroupButton disabled>Copy</InputGroupButton>
+    </InputGroup>
+  );
+}
+
+export function InputGroupFieldValidationExample() {
+  return (
+    <Field className={styles.field} validationMode="onBlur">
+      <FieldLabel>Domain</FieldLabel>
+      <InputGroup>
+        <InputGroupInput required placeholder="company" />
+        <InputGroupText>.test.com</InputGroupText>
+      </InputGroup>
+      <FieldError match="valueMissing">Please enter a domain.</FieldError>
+    </Field>
+  );
+}
+
+export function CustomStylesInputGroupExample() {
+  return (
+    <InputGroup className={styles.customGroup}>
+      <InputGroupAddon className={styles.customAddon}>@</InputGroupAddon>
+      <InputGroupInput placeholder="custom-group" />
+      <InputGroupButton className={styles.customButton}>Check</InputGroupButton>
+    </InputGroup>
+  );
+}

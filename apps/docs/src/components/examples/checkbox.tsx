@@ -1,5 +1,11 @@
-import { Checkbox, CheckboxField, CheckboxLabel, type CheckboxProps } from 'moduix';
-import * as React from 'react';
+import {
+  Checkbox,
+  CheckboxField,
+  CheckboxIndicator,
+  CheckboxIndicatorIcon,
+  CheckboxLabel,
+} from 'moduix';
+import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './checkbox.module.css';
@@ -16,30 +22,16 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--checkbox-border-width', 'var(--border-width-sm)', 'Controls checkbox border width.'],
   ['--checkbox-color', 'var(--color-primary-foreground)', 'Controls indicator icon color.'],
+  ['--checkbox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--checkbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--checkbox-focus-ring-offset', 'var(--border-width-sm)', 'Controls focus ring offset.'],
   ['--checkbox-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
-  ['--checkbox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--checkbox-gap', 'var(--spacing-2)', 'Controls spacing between control and label.'],
   ['--checkbox-icon-size-xs', '0.5rem', 'Controls `xs` indicator icon size.'],
   ['--checkbox-icon-size-sm', '0.625rem', 'Controls `sm` indicator icon size.'],
   ['--checkbox-icon-size-md', '0.75rem', 'Controls `md` indicator icon size.'],
   ['--checkbox-icon-size-lg', '0.875rem', 'Controls `lg` indicator icon size.'],
   ['--checkbox-icon-size-xl', '1rem', 'Controls `xl` indicator icon size.'],
-  ['--checkbox-indicator-bg', 'transparent', 'Controls indicator background color.'],
-  [
-    '--checkbox-indicator-bg-checked',
-    'var(--checkbox-indicator-bg, transparent)',
-    'Controls checked and indeterminate indicator background color.',
-  ],
-  ['--checkbox-indicator-border-color', 'transparent', 'Controls indicator border color.'],
-  [
-    '--checkbox-indicator-border-color-checked',
-    'var(--checkbox-indicator-border-color, transparent)',
-    'Controls checked and indeterminate indicator border color.',
-  ],
-  ['--checkbox-indicator-border-width', '0', 'Controls indicator border width.'],
-  ['--checkbox-indicator-radius', 'inherit', 'Controls indicator border radius.'],
   ['--checkbox-label-color', 'var(--color-foreground)', 'Controls label text color.'],
   ['--checkbox-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
   ['--checkbox-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
@@ -92,7 +84,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
+function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -105,7 +97,7 @@ function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function CheckboxExample(props: CheckboxProps) {
+export function CheckboxExample(props: ComponentProps<typeof Checkbox>) {
   return (
     <CheckboxField>
       <Checkbox defaultChecked {...props} />
@@ -165,8 +157,23 @@ export function CheckboxDisabledExample() {
   );
 }
 
+export function CheckboxReadOnlyExample() {
+  return (
+    <div className={styles.stack}>
+      <CheckboxField>
+        <Checkbox readOnly />
+        <CheckboxLabel>Keep current selection</CheckboxLabel>
+      </CheckboxField>
+      <CheckboxField>
+        <Checkbox defaultChecked readOnly />
+        <CheckboxLabel>Preserve existing setting</CheckboxLabel>
+      </CheckboxField>
+    </div>
+  );
+}
+
 export function ControlledCheckboxExample() {
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
 
   return (
     <div className={styles.stack}>
@@ -182,36 +189,31 @@ export function ControlledCheckboxExample() {
 export function CustomIconCheckboxExample() {
   return (
     <CheckboxField>
-      <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
-      <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
+      <Checkbox defaultChecked>
+        <CheckboxIndicator>
+          <CustomPlusIcon className={styles.customIndicatorIcon} />
+        </CheckboxIndicator>
+      </Checkbox>
+      <CheckboxLabel>Use a custom indicator icon</CheckboxLabel>
     </CheckboxField>
   );
 }
 
-export function CheckboxClassNameExample() {
+export function CheckboxIndicatorCompositionExample() {
   return (
-    <div className={styles.row}>
-      <CheckboxField className={styles.customField}>
-        <Checkbox
-          className={styles.customCheckbox}
-          classNames={{
-            indicator: styles.customIndicator,
-            indicatorIcon: styles.customIndicatorIcon,
-            checkedIcon: styles.customCheckedIcon,
-            indeterminateIcon: styles.customIndeterminateIcon,
-          }}
-          defaultChecked
-        />
-        <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
-      </CheckboxField>
-    </div>
+    <CheckboxField>
+      <Checkbox defaultChecked>
+        <CheckboxIndicator className={styles.customIndicator} keepMounted>
+          <CheckboxIndicatorIcon className={styles.customIndicatorIcon} />
+        </CheckboxIndicator>
+      </Checkbox>
+      <CheckboxLabel>Compose the indicator tree manually</CheckboxLabel>
+    </CheckboxField>
   );
 }
 
-export const CustomStylesCheckboxExample = CheckboxClassNameExample;
-
 export function CheckboxSiblingLabelNativeButtonExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <div className={styles.siblingRow}>

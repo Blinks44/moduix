@@ -24,20 +24,19 @@
     max-width: var(--breadcrumbs-item-max-width, 16rem);
   }
 
-  .itemLabel {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-  }
-
   .link,
   .page {
     display: inline-flex;
     min-width: 0;
     max-width: 100%;
     align-items: center;
+  }
+
+  .link,
+  .page,
+  .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .link {
@@ -67,101 +66,21 @@
   }
 
   .separator {
+    display: inline-flex;
+    align-items: center;
     color: var(--breadcrumbs-separator-color, var(--color-muted-foreground));
+    font-size: var(--breadcrumbs-separator-font-size, 0.875em);
+    line-height: 1;
     user-select: none;
   }
 
-  .ellipsisTrigger {
+  .ellipsis {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--breadcrumbs-ellipsis-size, 1.5rem);
-    min-height: var(--breadcrumbs-ellipsis-size, 1.5rem);
-    border: var(--breadcrumbs-ellipsis-border, none);
+    min-width: var(--breadcrumbs-ellipsis-size, 1rem);
+    min-height: var(--breadcrumbs-ellipsis-size, 1rem);
+    color: var(--breadcrumbs-ellipsis-color, var(--color-muted-foreground));
     border-radius: var(--breadcrumbs-ellipsis-radius, var(--radius-sm));
-    background-color: var(--breadcrumbs-ellipsis-bg, transparent);
-    color: var(
-      --breadcrumbs-ellipsis-color,
-      var(--breadcrumbs-color, var(--color-muted-foreground))
-    );
-    cursor: pointer;
-    padding: 0;
-    padding-inline: var(--breadcrumbs-ellipsis-padding-x, 0.2rem);
-    font: inherit;
-    line-height: 1;
-    transition: var(--breadcrumbs-ellipsis-transition, var(--transition-default));
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--breadcrumbs-ellipsis-bg-hover, var(--color-accent));
-        color: var(--breadcrumbs-ellipsis-color-hover, var(--color-foreground));
-      }
-    }
-
-    &:focus-visible {
-      box-shadow: 0 0 0 var(--breadcrumbs-focus-ring-width, var(--border-width-sm))
-        var(--breadcrumbs-focus-ring-color, var(--color-ring));
-      outline: none;
-    }
-  }
-
-  .popup {
-    min-width: var(--breadcrumbs-popup-min-width, 9rem);
-    max-width: var(--breadcrumbs-popup-max-width, 16rem);
-    border: var(--breadcrumbs-popup-border-width, var(--border-width-sm)) solid
-      var(--breadcrumbs-popup-border-color, var(--color-border));
-    border-radius: var(--breadcrumbs-popup-radius, var(--radius-md));
-    background-color: var(--breadcrumbs-popup-bg, var(--color-popover));
-    color: var(--breadcrumbs-popup-color, var(--color-popover-foreground));
-    box-shadow: var(--breadcrumbs-popup-shadow, var(--shadow-md));
-    padding: var(--breadcrumbs-popup-padding, var(--spacing-1));
-    transform-origin: var(--transform-origin);
-    transition:
-      transform var(--breadcrumbs-popup-transition, var(--transition-default)),
-      opacity var(--breadcrumbs-popup-transition, var(--transition-default));
-    outline: none;
-
-    &[data-starting-style],
-    &[data-ending-style] {
-      opacity: 0;
-      transform: scale(var(--breadcrumbs-popup-scale, var(--scale-popup)));
-    }
-  }
-
-  .popupItem {
-    display: flex;
-    width: 100%;
-    min-width: 0;
-    min-height: var(--breadcrumbs-popup-item-min-height, 1.75rem);
-    border: var(--breadcrumbs-popup-item-border, none);
-    align-items: center;
-    border-radius: var(--breadcrumbs-popup-item-radius, var(--radius-sm));
-    padding-block: var(--breadcrumbs-popup-item-padding-y, 0.25rem);
-    padding-inline: var(--breadcrumbs-popup-item-padding-x, 0.5rem);
-    background-color: var(--breadcrumbs-popup-item-bg, transparent);
-    color: var(--breadcrumbs-popup-item-color, inherit);
-    text-decoration: none;
-    font-size: var(--breadcrumbs-popup-item-font-size, var(--text-xs));
-    line-height: var(--breadcrumbs-popup-item-line-height, var(--line-height-text-xs));
-    transition: var(--breadcrumbs-popup-item-transition, var(--transition-default));
-    outline: none;
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(
-          --breadcrumbs-popup-item-bg-hover,
-          var(--breadcrumbs-popup-item-bg-highlighted, var(--color-accent))
-        );
-      }
-    }
-
-    &[data-highlighted] {
-      background-color: var(--breadcrumbs-popup-item-bg-highlighted, var(--color-accent));
-    }
-
-    &:focus-visible {
-      box-shadow: 0 0 0 var(--breadcrumbs-focus-ring-width, var(--border-width-sm))
-        var(--breadcrumbs-focus-ring-color, var(--color-ring));
-    }
   }
 }

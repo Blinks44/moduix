@@ -1,0 +1,43 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    min-width: var(--kbd-min-width, var(--kbd-height, 1.5rem));
+    height: var(--kbd-height, 1.5rem);
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: var(--kbd-border-width, var(--border-width-sm)) solid
+      var(--kbd-border-color, var(--color-border));
+    border-radius: var(--kbd-radius, var(--radius-sm));
+    padding-block: var(--kbd-padding-y, 0);
+    padding-inline: var(--kbd-padding-x, 0.4375rem);
+    background-color: var(--kbd-bg, var(--color-muted));
+    box-shadow: var(
+      --kbd-shadow,
+      inset 0 -1px 0 color-mix(in oklab, var(--color-foreground) 12%, transparent)
+    );
+    color: var(--kbd-color, var(--color-foreground));
+    font-family: var(--kbd-font-family, var(--font-mono));
+    font-size: var(--kbd-font-size, var(--text-xs));
+    font-weight: var(--kbd-font-weight, var(--weight-medium));
+    line-height: var(--kbd-line-height, var(--line-height-text-xs));
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .group {
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+    gap: var(--kbd-group-gap, 0.25rem);
+    color: var(--kbd-group-separator-color, var(--color-muted-foreground));
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+}

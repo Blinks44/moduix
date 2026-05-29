@@ -1,0 +1,25 @@
+.stack {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding-block: var(--spacing-4);
+}
+
+.container {
+  padding-block: var(--spacing-4);
+  border-block: var(--border-width-sm) dashed var(--color-border);
+  background:
+    linear-gradient(90deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px) 0 0 / 4rem 100%,
+    var(--color-muted);
+}
+
+.container > * {
+  max-width: 42rem;
+}
+
+.bleedSurface {
+  padding: var(--spacing-4);
+  border: var(--border-width-sm) solid var(--color-border);
+  background-color: var(--color-background);
+}

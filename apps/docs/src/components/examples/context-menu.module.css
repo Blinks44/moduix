@@ -1,25 +1,61 @@
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 15rem;
+  min-height: 12rem;
+  padding: 0.5rem 0.875rem;
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-size: var(--text-md);
+  line-height: var(--line-height-text-md);
+  text-align: center;
+  user-select: none;
+  cursor: context-menu;
+  transition:
+    background-color var(--transition-default),
+    border-color var(--transition-default),
+    color var(--transition-default);
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-accent);
+    }
+  }
+
+  &:active,
+  &[data-popup-open] {
+    background-color: var(--color-accent);
+  }
+}
+
 .customTrigger {
   position: relative;
   z-index: calc(var(--z-popup) - 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 14rem;
   min-height: 9rem;
-  border-color: var(--color-primary);
+  padding: 0.5rem 0.875rem;
+  border: var(--border-width-sm) solid var(--color-primary);
+  border-radius: var(--radius-md);
   background:
     linear-gradient(var(--color-background), var(--color-background)) padding-box,
     linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
-}
-
-.customPortal {
-  position: relative;
+  color: var(--color-foreground);
+  font-size: var(--text-md);
+  line-height: var(--line-height-text-md);
+  text-align: center;
+  user-select: none;
+  cursor: context-menu;
 }
 
 .customBackdrop {
   background-color: rgb(0 0 0 / 0.08);
   backdrop-filter: blur(0.125rem);
-}
-
-.customPositioner {
-  z-index: var(--z-popup);
 }
 
 .customPopup {

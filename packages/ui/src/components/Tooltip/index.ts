@@ -3,15 +3,10 @@ export {
   TooltipProvider,
   createTooltipHandle,
   TooltipTrigger,
+  TooltipPortal,
+  TooltipPositioner,
+  TooltipPopup,
+  TooltipArrow,
+  TooltipViewport,
   TooltipContent,
-} from './Tooltip';
-
-export type {
-  TooltipProps,
-  TooltipProviderProps,
-  TooltipHandle,
-  TooltipTriggerProps,
-  TooltipContentClassNames,
-  TooltipContentSlotProps,
-  TooltipContentProps,
 } from './Tooltip';

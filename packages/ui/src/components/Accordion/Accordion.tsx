@@ -1,124 +1,98 @@
+import type { ComponentProps, ComponentRef } from 'react';
 import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
 import { clsx } from 'clsx';
-import * as React from 'react';
-import { PlusFilledIcon } from '@/primitives';
+import { forwardRef } from 'react';
+import { PlusIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Accordion.module.css';
 
-function Accordion<Value = unknown>({ className, ...props }: AccordionProps<Value>) {
+const Accordion = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Root>,
+  AccordionPrimitive.Root.Props
+>(function Accordion({ className, ...props }, ref) {
   return (
     <AccordionPrimitive.Root
+      ref={ref}
       data-slot="accordion-root"
       className={mergeClassName(className, styles.root)}
       {...props}
     />
   );
-}
+});
 
-function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
+const AccordionItem = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Item>,
+  AccordionPrimitive.Item.Props
+>(function AccordionItem({ className, ...props }, ref) {
   return (
     <AccordionPrimitive.Item
+      ref={ref}
       data-slot="accordion-item"
       className={mergeClassName(className, styles.item)}
       {...props}
     />
   );
-}
+});
 
-function AccordionHeader({ className, ...props }: AccordionPrimitive.Header.Props) {
+const AccordionHeader = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Header>,
+  AccordionPrimitive.Header.Props
+>(function AccordionHeader({ className, ...props }, ref) {
   return (
     <AccordionPrimitive.Header
+      ref={ref}
       data-slot="accordion-header"
       className={mergeClassName(className, styles.header)}
       {...props}
     />
   );
-}
+});
 
-function AccordionTrigger({
+const AccordionTrigger = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Trigger>,
+  AccordionPrimitive.Trigger.Props
+>(function AccordionTrigger({ className, ...props }, ref) {
+  return (
+    <AccordionPrimitive.Trigger
+      ref={ref}
+      data-slot="accordion-trigger"
+      className={mergeClassName(className, styles.trigger)}
+      {...props}
+    />
+  );
+});
+
+function AccordionTriggerIcon({
   className,
   children,
-  icon,
-  hideIcon = false,
-  classNames,
-  slotProps,
+  'aria-hidden': ariaHidden = true,
   ...props
-}: AccordionTriggerProps) {
-  const { header: headerClassName, icon: iconClassName } = classNames ?? {};
-  const { header: headerProps, icon: iconProps } = slotProps ?? {};
-
-  return (
-    <AccordionHeader {...headerProps} className={headerClassName}>
-      <AccordionPrimitive.Trigger
-        data-slot="accordion-trigger"
-        className={mergeClassName(className, styles.trigger)}
-        {...props}
-      >
-        {children}
-        {!hideIcon && (
-          <AccordionTriggerIcon {...iconProps} className={iconClassName}>
-            {icon}
-          </AccordionTriggerIcon>
-        )}
-      </AccordionPrimitive.Trigger>
-    </AccordionHeader>
-  );
-}
-
-function AccordionTriggerIcon({ className, children, ...props }: React.ComponentProps<'span'>) {
+}: ComponentProps<'span'>) {
   return (
     <span
       data-slot="accordion-trigger-icon"
+      aria-hidden={ariaHidden}
       className={clsx(styles.triggerIcon, className)}
       {...props}
     >
-      {children ?? <PlusFilledIcon />}
+      {children ?? <PlusIcon />}
     </span>
   );
 }
 
-function AccordionPanel({ className, ...props }: AccordionPrimitive.Panel.Props) {
+const AccordionPanel = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Panel>,
+  AccordionPrimitive.Panel.Props
+>(function AccordionPanel({ className, ...props }, ref) {
   return (
     <AccordionPrimitive.Panel
+      ref={ref}
       data-slot="accordion-panel"
       className={mergeClassName(className, styles.panel)}
       {...props}
     />
   );
-}
-
-type AccordionProps<Value = unknown> = AccordionPrimitive.Root.Props<Value>;
-type AccordionValue<Value = unknown> = AccordionPrimitive.Root.Value<Value>;
-type AccordionItemProps = AccordionPrimitive.Item.Props;
-type AccordionHeaderProps = AccordionPrimitive.Header.Props;
-type AccordionTriggerIconProps = React.ComponentProps<'span'>;
-type AccordionPanelProps = AccordionPrimitive.Panel.Props;
-type AccordionTriggerClassNames = {
-  header?: AccordionHeaderProps['className'];
-  icon?: AccordionTriggerIconProps['className'];
-};
-type AccordionTriggerSlotProps = {
-  header?: Omit<AccordionHeaderProps, 'children' | 'className'>;
-  icon?: Omit<AccordionTriggerIconProps, 'children' | 'className'>;
-};
-type AccordionTriggerProps = AccordionPrimitive.Trigger.Props & {
-  /**
-   * Icon rendered at the end of the trigger. Pass `hideIcon` to remove it.
-   */
-  icon?: React.ReactNode;
-  /**
-   * Removes the default trigger icon.
-   */
-  hideIcon?: boolean;
-  /**
-   * Classes for internal slots rendered by the trigger.
-   */
-  classNames?: AccordionTriggerClassNames;
-  /**
-   * Props for internal slots rendered by the trigger.
-   */
-  slotProps?: AccordionTriggerSlotProps;
-};
+});
 
 export {
   Accordion,
@@ -127,16 +101,4 @@ export {
   AccordionTrigger,
   AccordionTriggerIcon,
   AccordionPanel,
-};
-
-export type {
-  AccordionValue,
-  AccordionProps,
-  AccordionItemProps,
-  AccordionHeaderProps,
-  AccordionTriggerProps,
-  AccordionTriggerIconProps,
-  AccordionPanelProps,
-  AccordionTriggerClassNames,
-  AccordionTriggerSlotProps,
 };

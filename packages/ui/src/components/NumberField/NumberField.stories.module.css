@@ -10,10 +10,6 @@
   line-height: var(--line-height-text-xs);
 }
 
-.scrubCursor {
-  color: var(--color-foreground);
-}
-
 .customButton {
   --number-field-button-bg: var(--color-muted);
   --number-field-button-bg-hover: var(--color-accent);

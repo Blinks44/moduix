@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { InfoIcon, MapIcon } from '@/primitives/Icons';
+import type { CSSProperties } from 'react';
+import { useState } from 'react';
+import { InfoIcon, MapIcon } from '@/icons/demo';
 import {
   Menubar,
+  MenubarArrow,
+  MenubarBackdrop,
   MenubarCheckboxItem,
   MenubarCheckboxItemIndicator,
   MenubarContent,
@@ -25,7 +28,12 @@ import {
   MenubarSubmenuTrigger,
   MenubarSubmenuTriggerIcon,
   MenubarTrigger,
+  MenubarPortal,
+  MenubarPopup,
+  MenubarPositioner,
+  MenubarViewport,
 } from './Menubar';
+import styles from './Menubar.module.css';
 
 const meta = {
   title: 'Components/Menubar',
@@ -47,7 +55,7 @@ export const Basic: Story = {
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent>
             <MenubarItem closeOnClick>New File</MenubarItem>
-            <MenubarItem closeOnClick>Open…</MenubarItem>
+            <MenubarItem closeOnClick>Open...</MenubarItem>
             <MenubarItem closeOnClick>Save</MenubarItem>
             <MenubarSubmenu>
               <MenubarSubmenuTrigger>
@@ -112,9 +120,9 @@ export const Basic: Story = {
 
 export const WithGroupsAndControls: Story = {
   render: () => {
-    const [sortBy, setSortBy] = React.useState('name');
-    const [showSidebar, setShowSidebar] = React.useState(true);
-    const [showPanel, setShowPanel] = React.useState(false);
+    const [sortBy, setSortBy] = useState('name');
+    const [showSidebar, setShowSidebar] = useState(true);
+    const [showPanel, setShowPanel] = useState(false);
 
     return (
       <Menubar>
@@ -161,8 +169,8 @@ export const WithGroupsAndControls: Story = {
 
 export const IndicatorRightWithIcon: Story = {
   render: () => {
-    const [showSidebar, setShowSidebar] = React.useState(true);
-    const [showPanel, setShowPanel] = React.useState(false);
+    const [showSidebar, setShowSidebar] = useState(true);
+    const [showPanel, setShowPanel] = useState(false);
 
     return (
       <Menubar>
@@ -240,6 +248,42 @@ export const LinkItems: Story = {
             <MenubarSeparator />
             <MenubarItem closeOnClick>Copy Link</MenubarItem>
           </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
+    );
+  },
+};
+
+export const CustomComposition: Story = {
+  render: () => {
+    return (
+      <Menubar>
+        <MenubarMenu>
+          <MenubarTrigger>Window</MenubarTrigger>
+          <MenubarPortal>
+            <MenubarBackdrop />
+            <MenubarPositioner sideOffset={10} align="start" alignOffset={-4}>
+              <MenubarPopup
+                className={styles.popup}
+                style={
+                  {
+                    '--menubar-popup-min-width': '14rem',
+                    '--menubar-popup-border-color': 'rgb(37 99 235)',
+                    '--menubar-highlight-bg': 'rgb(37 99 235)',
+                    '--menubar-highlight-color': 'rgb(255 255 255)',
+                  } as CSSProperties
+                }
+              >
+                <MenubarArrow />
+                <MenubarViewport style={{ paddingBlock: 'var(--spacing-2)' }}>
+                  <MenubarItem closeOnClick>Minimize</MenubarItem>
+                  <MenubarItem closeOnClick>Zoom</MenubarItem>
+                  <MenubarSeparator />
+                  <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
+                </MenubarViewport>
+              </MenubarPopup>
+            </MenubarPositioner>
+          </MenubarPortal>
         </MenubarMenu>
       </Menubar>
     );

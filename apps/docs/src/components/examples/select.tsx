@@ -2,6 +2,8 @@ import {
   ChevronDownIcon,
   InfoIcon,
   Select,
+  SelectArrow,
+  SelectBackdrop,
   SelectContent,
   SelectField,
   SelectGroup,
@@ -15,13 +17,16 @@ import {
   SelectItemTextLabel,
   SelectLabel,
   SelectList,
+  SelectPopup,
+  SelectPortal,
+  SelectPositioner,
   SelectScrollDownArrow,
   SelectScrollUpArrow,
   SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from 'moduix';
-import * as React from 'react';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './select.module.css';
@@ -136,7 +141,11 @@ export const selectOverrideCssProperties: CssPropertyInput[] = [
   ['--select-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--select-field-gap', '0.375rem', 'Controls field gap between label and trigger.'],
   ['--select-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--select-focus-ring-offset', '-1px', 'Controls focus ring offset.'],
+  [
+    '--select-focus-ring-offset',
+    'calc(var(--select-focus-ring-width, var(--select-border-width, var(--border-width-sm))) * -1)',
+    'Controls focus ring offset.',
+  ],
   ['--select-focus-ring-width', 'var(--select-border-width)', 'Controls focus ring width.'],
   ['--select-group-label-bg', 'var(--select-popup-bg)', 'Controls group label background.'],
   ['--select-group-label-color', 'var(--color-muted-foreground)', 'Controls group label color.'],
@@ -193,13 +202,11 @@ export const selectOverrideCssProperties: CssPropertyInput[] = [
   ['--select-scroll-arrow-height', '1rem', 'Controls scroll arrow height.'],
   ['--select-scroll-arrow-icon-size', '0.875rem', 'Controls scroll arrow icon size.'],
   ['--select-scroll-arrow-z-index', '1', 'Controls scroll arrow stacking order.'],
-  ['--select-scale', 'var(--scale-popup)', 'Controls popup scale animation value.'],
   ['--select-separator-color', 'var(--select-border-color)', 'Controls separator color.'],
   ['--select-separator-margin-x', '1rem', 'Controls separator horizontal margin.'],
   ['--select-separator-margin-y', '0.375rem', 'Controls separator vertical margin.'],
   ['--select-separator-thickness', 'var(--border-width-sm)', 'Controls separator thickness.'],
   ['--select-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--select-transition', 'var(--transition-default)', 'Controls popup transition timing.'],
   ['--select-trigger-gap', '0.75rem', 'Controls trigger content gap.'],
   ['--select-trigger-padding-x', '0.875rem', 'Controls trigger horizontal padding.'],
   ['--select-width', '14rem', 'Controls trigger and popup anchor width.'],
@@ -273,6 +280,46 @@ function FruitItems({ indicator = 'start' }: { indicator?: 'start' | 'end' }) {
 }
 
 export function SelectExample() {
+  return (
+    <Select items={fruits}>
+      <SelectField>
+        <SelectLabel>Choose fruit</SelectLabel>
+        <SelectTrigger>
+          <SelectValue placeholder="Select an option" />
+          <SelectIcon />
+        </SelectTrigger>
+      </SelectField>
+
+      <SelectContent>
+        <SelectList>
+          <FruitItems />
+        </SelectList>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function SelectArrowExample() {
+  return (
+    <Select items={fruits}>
+      <SelectField>
+        <SelectLabel>Choose fruit</SelectLabel>
+        <SelectTrigger>
+          <SelectValue placeholder="Select an option" />
+          <SelectIcon />
+        </SelectTrigger>
+      </SelectField>
+
+      <SelectContent showArrow alignItemWithTrigger={false}>
+        <SelectList>
+          <FruitItems />
+        </SelectList>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function ScrollableSelectExample() {
   return (
     <Select items={fruits}>
       <SelectField>
@@ -363,26 +410,6 @@ export function GroupedSelectExample() {
   );
 }
 
-export function AnimatedSelectExample() {
-  return (
-    <Select items={fruits}>
-      <SelectField>
-        <SelectLabel>Choose fruit</SelectLabel>
-        <SelectTrigger>
-          <SelectValue placeholder="Select an option" />
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
-
-      <SelectContent animation="scale" className={styles.animatedContent}>
-        <SelectList>
-          <FruitItems />
-        </SelectList>
-      </SelectContent>
-    </Select>
-  );
-}
-
 export function MultipleSelectExample() {
   return (
     <Select<Language, true> multiple defaultValue={['javascript', 'typescript']}>
@@ -409,7 +436,7 @@ export function MultipleSelectExample() {
 }
 
 export function ControlledSelectExample() {
-  const [value, setValue] = React.useState<string | null>('light');
+  const [value, setValue] = useState<string | null>('light');
 
   return (
     <Select value={value} onValueChange={setValue} items={themeOptions}>
@@ -494,7 +521,7 @@ export function ObjectValuesSelectExample() {
   );
 }
 
-export function CustomStylesSelectExample() {
+export function CustomCompositionSelectExample() {
   return (
     <Select items={fruits}>
       <SelectField>
@@ -505,26 +532,22 @@ export function CustomStylesSelectExample() {
         </SelectTrigger>
       </SelectField>
 
-      <SelectContent
-        alignItemWithTrigger={false}
-        sideOffset={8}
-        withArrow
-        withBackdrop
-        slotProps={{
-          positioner: { sticky: true },
-        }}
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          positioner: styles.customPositioner,
-          arrow: styles.customArrow,
-        }}
-      >
-        <SelectList>
-          <FruitItems />
-        </SelectList>
-      </SelectContent>
+      <SelectPortal>
+        <SelectBackdrop className={styles.customBackdrop} />
+        <SelectPositioner
+          alignItemWithTrigger={false}
+          sideOffset={8}
+          sticky
+          className={styles.customPositioner}
+        >
+          <SelectPopup className={styles.customPopup}>
+            <SelectArrow className={styles.customArrow} />
+            <SelectList>
+              <FruitItems />
+            </SelectList>
+          </SelectPopup>
+        </SelectPositioner>
+      </SelectPortal>
     </Select>
   );
 }

@@ -5,23 +5,24 @@ icon: Component
 ---
 
 import {
+  CustomCompositionHeadingExample,
   HeadingCssPlaygroundPanel,
   HeadingCssPropertiesPanel,
-  HeadingAlignedExample,
-  CustomStylesHeadingExample,
   HeadingElementsExample,
   HeadingExample,
-  HeadingSemanticExample,
+  HeadingSemanticLevelExample,
   HeadingSizesExample,
   HeadingWeightsExample,
   headingPlaygroundCssProperties,
 } from '@/components/examples/heading';
 
-## API Reference
+## Overview
 
-`Heading` is a moduix typography primitive. Base UI does not provide a matching heading
-primitive, so the public API stays focused on semantic element choice, visual variants,
-and root `className` composition.
+`Heading` is a thin styled wrapper around native `h1`-`h6` elements.
+
+Base UI does not ship a standalone heading primitive, so this component stays close to plain HTML:
+`as` controls semantics, `size` controls visual scale, and `weight` provides the built-in emphasis
+presets.
 
 ## Basic
 
@@ -42,32 +43,75 @@ and root `className` composition.
   <Preview.CSSPlayground>{(context) => <HeadingCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+Use the default `h1` when the heading is the page or section title. Reach for `size` only when the
+visual hierarchy should differ from the semantic outline.
+
 ## Anatomy
 
-`Heading` is composed as a single typography root that renders a semantic heading element.
-Visual style is controlled independently through size, weight, alignment, and CSS variables.
+`Heading` renders a single styled heading element.
 
 ```text
 Heading
 └─ text or inline content
 ```
 
-| Part      | Role                                                                |
-| --------- | ------------------------------------------------------------------- |
-| `Heading` | Semantic heading root with design-system typography and tone props. |
+| Part      | Role                                                     |
+| --------- | -------------------------------------------------------- |
+| `Heading` | Semantic heading root with design-system heading styles. |
+
+The root element exposes `data-slot="heading-root"` for targeted styling.
 
 ## Composition
 
-Use `as` for semantic heading level and `size` for visual scale when semantics and appearance
-should differ. Use `weight`, `align`, and `className` for presentation customization.
+Keep semantics and presentation separate:
 
-`Heading` has no hidden service slots; styling is done directly on the root element.
+- use `as` for document outline
+- use `size` when visual scale should differ from the heading level
+- use `weight` for the built-in typography presets
+- use `className` or CSS variables for one-off visual overrides
+
+`Heading` has no internal slots or structural composition. The rendered heading element is already
+the full public surface.
+
+### Defaults
+
+| Prop     | Default    | Values                                  |
+| -------- | ---------- | --------------------------------------- |
+| `as`     | `h1`       | `h1`, `h2`, `h3`, `h4`, `h5`, `h6`      |
+| `size`   | by `as`    | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
+| `weight` | `semibold` | `regular`, `medium`, `semibold`, `bold` |
+
+Default `size` mapping by `as`: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`, `h4 -> md`, `h5 -> sm`,
+`h6 -> xs`.
 
 ## Examples
 
-### Elements
+### Semantic Level and Visual Size
 
-Use `as` to choose the semantic heading level. Each level has a matching default visual size.
+Keep document structure and visual emphasis independent by combining `as` and `size`.
+
+<Preview>
+  <HeadingSemanticLevelExample />
+
+  <Preview.Code>
+    {`
+      import { Heading } from "moduix";
+
+      export function SemanticHeadingDemo() {
+        return (
+          <Heading as="h2" size="2xl">
+            Page title rendered as h2
+          </Heading>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Heading Levels
+
+Use `as` to pick the semantic level. Each level maps to a sensible default visual size.
 
 <Preview>
   <HeadingElementsExample />
@@ -76,7 +120,7 @@ Use `as` to choose the semantic heading level. Each level has a matching default
     {`
       import { Heading } from "moduix";
 
-      export function HeadingElementsDemo() {
+      export function HeadingLevelsDemo() {
         return (
           <div className={styles.stack}>
             <Heading as="h1">Heading level 1</Heading>
@@ -105,9 +149,9 @@ Use `as` to choose the semantic heading level. Each level has a matching default
   </Preview.CSS>
 </Preview>
 
-### Sizes
+### Visual Sizes
 
-Use `size` for visual sizing when the semantic level should stay separate from presentation.
+Use `size` when the same semantic level needs different visual density across layouts.
 
 <Preview>
   <HeadingSizesExample />
@@ -147,7 +191,7 @@ Use `size` for visual sizing when the semantic level should stay separate from p
 
 ### Weights
 
-Use `weight` for the intended emphasis without adding a custom class.
+Use `weight` for the common emphasis presets without writing custom CSS.
 
 <Preview>
   <HeadingWeightsExample />
@@ -183,72 +227,14 @@ Use `weight` for the intended emphasis without adding a custom class.
   </Preview.CSS>
 </Preview>
 
-### Alignment
+## Custom Composition
 
-Use `align` to set text alignment without adding custom CSS.
-
-<Preview>
-  <HeadingAlignedExample />
-
-  <Preview.Code>
-    {`
-      import { Heading } from "moduix";
-
-      export function HeadingAlignedDemo() {
-        return (
-          <div className={styles.aligned}>
-            <Heading as="h2" align="left">Left aligned</Heading>
-            <Heading as="h2" align="center">Center aligned</Heading>
-            <Heading as="h2" align="right">Right aligned</Heading>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .aligned {
-        display: flex;
-        width: min(32rem, calc(100vw - var(--spacing-8)));
-        flex-direction: column;
-        gap: var(--spacing-4);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Semantic Level
-
-Keep document outline and visual size independent by combining `as` and `size`.
+`Heading` is already the full structure, so the escape hatch is direct styling on the root element.
+Pass `className` when you need one-off presentation changes such as a different color or a scoped
+token override.
 
 <Preview>
-  <HeadingSemanticExample />
-
-  <Preview.Code>
-    {`
-      import { Heading } from "moduix";
-
-      export function SemanticHeadingDemo() {
-        return (
-          <Heading as="h2" size="2xl">
-            Page title rendered as h2
-          </Heading>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Custom Styles
-
-Pass `className` when styling the root with CSS Modules, Tailwind CSS, or CSS-in-JS.
-
-<Preview>
-  <CustomStylesHeadingExample />
+  <CustomCompositionHeadingExample />
 
   <Preview.Code>
     {`

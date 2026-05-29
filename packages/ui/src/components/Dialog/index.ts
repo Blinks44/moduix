@@ -2,6 +2,10 @@ export {
   Dialog,
   createDialogHandle,
   DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogViewport,
+  DialogPopup,
   DialogTitle,
   DialogDescription,
   DialogClose,
@@ -10,20 +14,4 @@ export {
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from './Dialog';
-
-export type {
-  DialogProps,
-  DialogHandle,
-  DialogTriggerProps,
-  DialogTitleProps,
-  DialogDescriptionProps,
-  DialogCloseProps,
-  DialogCloseIconProps,
-  DialogContentProps,
-  DialogContentClassNames,
-  DialogContentSlotProps,
-  DialogHeaderProps,
-  DialogBodyProps,
-  DialogFooterProps,
 } from './Dialog';

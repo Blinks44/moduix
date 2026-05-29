@@ -1,300 +1,86 @@
-import { Menu as MenuPrimitive } from '@base-ui/react/menu';
+import type { ComponentProps } from 'react';
+import { useRender } from '@base-ui/react/use-render';
 import { clsx } from 'clsx';
-import * as React from 'react';
 import styles from './Breadcrumbs.module.css';
-
-type BreadcrumbsItemRenderProps = Omit<React.ComponentProps<'a'>, 'children'> & {
-  children: React.ReactNode;
-};
-
-type BreadcrumbsItem = {
-  key?: React.Key;
-  label: React.ReactNode;
-  href?: string;
-  target?: React.ComponentProps<'a'>['target'];
-  rel?: React.ComponentProps<'a'>['rel'];
-  onClick?: React.ComponentProps<'a'>['onClick'];
-  render?: (props: BreadcrumbsItemRenderProps) => React.ReactElement;
-};
-
-type BreadcrumbsClassNames = {
-  ellipsisTrigger?: MenuPrimitive.Trigger.Props['className'];
-  popup?: MenuPrimitive.Popup.Props['className'];
-  popupItem?: MenuPrimitive.Item.Props['className'];
-  portal?: MenuPrimitive.Portal.Props['className'];
-  positioner?: MenuPrimitive.Positioner.Props['className'];
-};
-
-type BreadcrumbsSlotProps = {
-  ellipsisTrigger?: Omit<MenuPrimitive.Trigger.Props, 'children' | 'className'>;
-  popup?: Omit<MenuPrimitive.Popup.Props, 'children' | 'className'>;
-  popupItem?: Omit<MenuPrimitive.Item.Props, 'children' | 'className'>;
-  popupLinkItem?: Omit<MenuPrimitive.LinkItem.Props, 'children' | 'className' | 'href' | 'render'>;
-  portal?: Omit<MenuPrimitive.Portal.Props, 'children' | 'className'>;
-  positioner?: Omit<MenuPrimitive.Positioner.Props, 'children' | 'className'>;
-};
-
-type BreadcrumbsProps = Omit<React.ComponentProps<'nav'>, 'children'> & {
-  items: BreadcrumbsItem[];
-  separator?: React.ReactNode;
-  maxItems?: number;
-  itemsBeforeCollapse?: number;
-  itemsAfterCollapse?: number;
-  ellipsisLabel?: React.ReactNode;
-  hiddenItemsMenuLabel?: string;
-  classNames?: BreadcrumbsClassNames;
-  slotProps?: BreadcrumbsSlotProps;
-};
 
 function Breadcrumbs({
   className,
-  items,
-  separator = '/',
-  maxItems = 3,
-  itemsBeforeCollapse = 1,
-  itemsAfterCollapse = 2,
-  ellipsisLabel = '...',
-  hiddenItemsMenuLabel = 'Show hidden path items',
-  classNames,
-  slotProps,
+  'aria-label': ariaLabel = 'Breadcrumb',
   ...props
-}: BreadcrumbsProps) {
-  const normalizedItems = React.useMemo(() => items.filter(Boolean), [items]);
-  const { startItems, collapsedItems, endItems } = getVisibleItems({
-    items: normalizedItems,
-    maxItems,
-    itemsBeforeCollapse,
-    itemsAfterCollapse,
-  });
-  const lastGlobalItemIndex = normalizedItems.length - 1;
-  const visibleParts: Array<
-    { type: 'item'; item: BreadcrumbsItem; globalIndex: number } | { type: 'collapsed' }
-  > = [];
-
-  startItems.forEach((item, index) => {
-    visibleParts.push({ type: 'item', item, globalIndex: index });
-  });
-
-  if (collapsedItems.length > 0) {
-    visibleParts.push({ type: 'collapsed' });
-  }
-
-  endItems.forEach((item, index) => {
-    visibleParts.push({
-      type: 'item',
-      item,
-      globalIndex: startItems.length + collapsedItems.length + index,
-    });
-  });
-
+}: ComponentProps<'nav'>) {
   return (
     <nav
       data-slot="breadcrumbs-root"
-      aria-label="Breadcrumb"
+      aria-label={ariaLabel}
       className={clsx(styles.root, className)}
       {...props}
-    >
-      <ol data-slot="breadcrumbs-list" className={styles.list}>
-        {visibleParts.map((part, index) => {
-          const isLast = index === visibleParts.length - 1;
-
-          if (part.type === 'collapsed') {
-            return (
-              <React.Fragment key={`collapsed-${index}`}>
-                <li data-slot="breadcrumbs-item" className={styles.item}>
-                  <BreadcrumbsCollapsedMenu
-                    items={collapsedItems}
-                    ellipsisLabel={ellipsisLabel}
-                    hiddenItemsMenuLabel={hiddenItemsMenuLabel}
-                    classNames={classNames}
-                    slotProps={slotProps}
-                  />
-                </li>
-                {!isLast ? <BreadcrumbsSeparator separator={separator} /> : null}
-              </React.Fragment>
-            );
-          }
-
-          const isCurrent = part.globalIndex === lastGlobalItemIndex;
-
-          return (
-            <React.Fragment key={part.item.key ?? `item-${part.globalIndex}`}>
-              <BreadcrumbsListItem item={part.item} isCurrent={isCurrent} />
-              {!isLast ? <BreadcrumbsSeparator separator={separator} /> : null}
-            </React.Fragment>
-          );
-        })}
-      </ol>
-    </nav>
+    />
   );
 }
 
-function BreadcrumbsListItem({ item, isCurrent }: { item: BreadcrumbsItem; isCurrent: boolean }) {
-  const content = (
-    <span data-slot="breadcrumbs-item-label" className={styles.itemLabel}>
-      {item.label}
+function BreadcrumbsList({ className, ...props }: ComponentProps<'ol'>) {
+  return <ol data-slot="breadcrumbs-list" className={clsx(styles.list, className)} {...props} />;
+}
+
+function BreadcrumbsItem({ className, ...props }: ComponentProps<'li'>) {
+  return <li data-slot="breadcrumbs-item" className={clsx(styles.item, className)} {...props} />;
+}
+
+function BreadcrumbsLink({ className, render, ...props }: useRender.ComponentProps<'a'>) {
+  return useRender({
+    defaultTagName: 'a',
+    render,
+    props: {
+      ...props,
+      'data-slot': 'breadcrumbs-link',
+      className: clsx(styles.link, className),
+    },
+  });
+}
+
+function BreadcrumbsPage({ className, ...props }: ComponentProps<'span'>) {
+  return (
+    <span
+      data-slot="breadcrumbs-page"
+      aria-current="page"
+      className={clsx(styles.page, className)}
+      {...props}
+    />
+  );
+}
+
+function BreadcrumbsSeparator({ className, children, ...props }: ComponentProps<'li'>) {
+  return (
+    <li
+      data-slot="breadcrumbs-separator"
+      aria-hidden="true"
+      className={clsx(styles.separator, className)}
+      {...props}
+    >
+      {children ?? '/'}
+    </li>
+  );
+}
+
+function BreadcrumbsEllipsis({ className, children, ...props }: ComponentProps<'span'>) {
+  return (
+    <span
+      data-slot="breadcrumbs-ellipsis"
+      aria-hidden="true"
+      className={clsx(styles.ellipsis, className)}
+      {...props}
+    >
+      {children ?? '...'}
     </span>
   );
-
-  return (
-    <li data-slot="breadcrumbs-item" className={styles.item}>
-      {isCurrent || (!item.href && !item.render) ? (
-        <span
-          data-slot="breadcrumbs-page"
-          className={styles.page}
-          aria-current={isCurrent ? 'page' : undefined}
-        >
-          {content}
-        </span>
-      ) : (
-        <BreadcrumbsLink item={item}>{content}</BreadcrumbsLink>
-      )}
-    </li>
-  );
 }
 
-function BreadcrumbsLink({ item, children }: { item: BreadcrumbsItem; children: React.ReactNode }) {
-  const anchorProps: BreadcrumbsItemRenderProps = {
-    href: item.href,
-    target: item.target,
-    rel: item.rel,
-    onClick: item.onClick,
-    className: styles.link,
-    children,
-  };
-
-  if (item.render) {
-    return item.render(anchorProps);
-  }
-
-  return <a {...anchorProps} />;
-}
-
-function BreadcrumbsSeparator({ separator }: { separator: React.ReactNode }) {
-  return (
-    <li data-slot="breadcrumbs-separator" aria-hidden="true" className={styles.separator}>
-      {separator}
-    </li>
-  );
-}
-
-function BreadcrumbsCollapsedMenu({
-  items,
-  ellipsisLabel,
-  hiddenItemsMenuLabel,
-  classNames,
-  slotProps,
-}: {
-  items: BreadcrumbsItem[];
-  ellipsisLabel: React.ReactNode;
-  hiddenItemsMenuLabel: string;
-  classNames?: BreadcrumbsClassNames;
-  slotProps?: BreadcrumbsSlotProps;
-}) {
-  return (
-    <MenuPrimitive.Root>
-      <MenuPrimitive.Trigger
-        data-slot="breadcrumbs-ellipsis-trigger"
-        aria-label={hiddenItemsMenuLabel}
-        className={clsx(styles.ellipsisTrigger, classNames?.ellipsisTrigger)}
-        {...slotProps?.ellipsisTrigger}
-      >
-        {ellipsisLabel}
-      </MenuPrimitive.Trigger>
-
-      <MenuPrimitive.Portal className={classNames?.portal} {...slotProps?.portal}>
-        <MenuPrimitive.Positioner
-          sideOffset={4}
-          className={classNames?.positioner}
-          {...slotProps?.positioner}
-        >
-          <MenuPrimitive.Popup
-            data-slot="breadcrumbs-ellipsis-popup"
-            className={clsx(styles.popup, classNames?.popup)}
-            {...slotProps?.popup}
-          >
-            {items.map((item, index) => {
-              const hiddenItemRender = item.render;
-
-              return item.href || hiddenItemRender ? (
-                <MenuPrimitive.LinkItem
-                  key={item.key ?? `hidden-link-${index}`}
-                  data-slot="breadcrumbs-ellipsis-link-item"
-                  href={item.href}
-                  className={clsx(styles.popupItem, classNames?.popupItem)}
-                  {...slotProps?.popupLinkItem}
-                  render={
-                    hiddenItemRender
-                      ? ({ className, ...renderProps }) =>
-                          hiddenItemRender({
-                            ...renderProps,
-                            className: clsx(styles.popupItem, className),
-                            children: item.label,
-                          })
-                      : undefined
-                  }
-                >
-                  {item.label}
-                </MenuPrimitive.LinkItem>
-              ) : (
-                <MenuPrimitive.Item
-                  key={item.key ?? `hidden-item-${index}`}
-                  data-slot="breadcrumbs-ellipsis-item"
-                  className={clsx(styles.popupItem, classNames?.popupItem)}
-                  {...slotProps?.popupItem}
-                >
-                  {item.label}
-                </MenuPrimitive.Item>
-              );
-            })}
-          </MenuPrimitive.Popup>
-        </MenuPrimitive.Positioner>
-      </MenuPrimitive.Portal>
-    </MenuPrimitive.Root>
-  );
-}
-
-function getVisibleItems({
-  items,
-  maxItems,
-  itemsBeforeCollapse,
-  itemsAfterCollapse,
-}: {
-  items: BreadcrumbsItem[];
-  maxItems?: number;
-  itemsBeforeCollapse: number;
-  itemsAfterCollapse: number;
-}) {
-  if (!maxItems || maxItems < 2 || items.length <= maxItems) {
-    return {
-      startItems: items,
-      collapsedItems: [] as BreadcrumbsItem[],
-      endItems: [] as BreadcrumbsItem[],
-    };
-  }
-
-  const safeBefore = Math.max(0, itemsBeforeCollapse);
-  const safeAfter = Math.max(1, itemsAfterCollapse);
-  const startItems = items.slice(0, safeBefore);
-  const endItems = items.slice(items.length - safeAfter);
-  const collapsedItems = items.slice(safeBefore, items.length - safeAfter);
-
-  if (collapsedItems.length === 0) {
-    return {
-      startItems: items,
-      collapsedItems,
-      endItems: [] as BreadcrumbsItem[],
-    };
-  }
-
-  return { startItems, collapsedItems, endItems };
-}
-
-export { Breadcrumbs };
-export type {
-  BreadcrumbsProps,
+export {
+  Breadcrumbs,
+  BreadcrumbsList,
   BreadcrumbsItem,
-  BreadcrumbsItemRenderProps,
-  BreadcrumbsClassNames,
-  BreadcrumbsSlotProps,
+  BreadcrumbsLink,
+  BreadcrumbsPage,
+  BreadcrumbsSeparator,
+  BreadcrumbsEllipsis,
 };

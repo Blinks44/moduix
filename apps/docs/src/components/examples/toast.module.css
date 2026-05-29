@@ -53,6 +53,18 @@
   color: currentColor;
 }
 
+.customAnchoredContent {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--spacing-2);
+}
+
+.customAnchoredIcon {
+  width: 1rem;
+  height: 1rem;
+  color: currentColor;
+}
+
 .closeIcon {
   inline-size: var(--toast-close-icon-size, 1rem);
   block-size: var(--toast-close-icon-size, 1rem);

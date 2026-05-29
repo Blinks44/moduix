@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import * as React from 'react';
-import { Checkbox, CheckboxField, CheckboxLabel } from '../Checkbox';
+import { Checkbox, CheckboxField, CheckboxIndicator, CheckboxLabel } from '../Checkbox';
 import { Field, FieldItem, FieldLabel } from '../Field';
 import { Fieldset, FieldsetLegend } from '../Fieldset';
 import {
@@ -42,7 +43,7 @@ const sizeOptions = [
   { value: 'xl', label: 'Extra-large' },
 ] as const;
 
-function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
+function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -60,7 +61,7 @@ export const Basic: Story = {
     const labelId = React.useId();
 
     return (
-      <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']}>
+      <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId}>
         <CheckboxGroupLabel id={labelId}>Notification Channels</CheckboxGroupLabel>
         <CheckboxGroupList>
           {options.map((option) => (
@@ -80,16 +81,16 @@ export const CustomIcon: Story = {
     const labelId = React.useId();
 
     return (
-      <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']}>
+      <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId}>
         <CheckboxGroupLabel id={labelId}>Custom Indicators</CheckboxGroupLabel>
         <CheckboxGroupList>
           {options.map((option) => (
             <CheckboxGroupItem key={option.value}>
-              <CheckboxGroupItemControl
-                value={option.value}
-                name="custom-indicators"
-                checkedIcon={<CustomPlusIcon />}
-              />
+              <CheckboxGroupItemControl value={option.value} name="custom-indicators">
+                <CheckboxIndicator>
+                  <CustomPlusIcon className={styles.customIndicatorIcon} />
+                </CheckboxIndicator>
+              </CheckboxGroupItemControl>
               <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
             </CheckboxGroupItem>
           ))}
@@ -104,7 +105,7 @@ export const Sizes: Story = {
     const labelId = React.useId();
 
     return (
-      <CheckboxGroup aria-labelledby={labelId} defaultValue={['md']}>
+      <CheckboxGroup defaultValue={['md']} aria-labelledby={labelId}>
         <CheckboxGroupLabel id={labelId}>Control Size</CheckboxGroupLabel>
         <CheckboxGroupList>
           {sizeOptions.map((option) => (
@@ -126,7 +127,7 @@ export const Controlled: Story = {
 
     return (
       <div className={styles.wrapper}>
-        <CheckboxGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
+        <CheckboxGroup value={value} onValueChange={setValue} aria-labelledby={labelId}>
           <CheckboxGroupLabel id={labelId}>Active Alerts</CheckboxGroupLabel>
           <CheckboxGroupList>
             {options.map((option) => (
@@ -148,7 +149,7 @@ export const Disabled: Story = {
     const labelId = React.useId();
 
     return (
-      <CheckboxGroup aria-labelledby={labelId} defaultValue={['push']} disabled>
+      <CheckboxGroup defaultValue={['push']} disabled aria-labelledby={labelId}>
         <CheckboxGroupLabel id={labelId}>Disabled Settings</CheckboxGroupLabel>
         <CheckboxGroupList>
           {options.map((option) => (
@@ -171,10 +172,10 @@ export const ParentCheckbox: Story = {
 
     return (
       <CheckboxGroup
-        aria-labelledby={labelId}
         value={value}
         onValueChange={setValue}
         allValues={fruitValues}
+        aria-labelledby={labelId}
       >
         <CheckboxGroupLabel id={labelId}>Fruits</CheckboxGroupLabel>
         <CheckboxGroupList>
@@ -201,16 +202,16 @@ export const ParentCheckbox: Story = {
   },
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   render: () => {
     const labelId = React.useId();
 
     return (
       <CheckboxGroup
-        aria-labelledby={labelId}
         defaultValue={['email']}
         className={styles.customGroup}
+        aria-labelledby={labelId}
       >
         <CheckboxGroupLabel id={labelId} className={styles.customLabel}>
           Styled Channels
@@ -222,9 +223,10 @@ export const CustomStyles: Story = {
                 value={option.value}
                 name="styled-notifications"
                 className={styles.customControl}
-                classNames={{ indicator: styles.customIndicator }}
-              />
-              <CheckboxGroupItemLabel className={styles.customLabel}>
+              >
+                <CheckboxIndicator className={styles.customIndicator} />
+              </CheckboxGroupItemControl>
+              <CheckboxGroupItemLabel className={styles.customItemLabel}>
                 {option.label}
               </CheckboxGroupItemLabel>
             </CheckboxGroupItem>
@@ -241,16 +243,16 @@ export const FieldComposition: Story = {
     const labelId = React.useId();
 
     return (
-      <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']}>
+      <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId}>
         <CheckboxGroupLabel id={labelId}>Channels</CheckboxGroupLabel>
-        <div className={styles.wrapper}>
+        <CheckboxGroupList className={styles.wrapper}>
           {options.map((option) => (
             <CheckboxField key={option.value}>
               <Checkbox value={option.value} name="field-composition" />
               <CheckboxLabel>{option.label}</CheckboxLabel>
             </CheckboxField>
           ))}
-        </div>
+        </CheckboxGroupList>
       </CheckboxGroup>
     );
   },

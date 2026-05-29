@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   Checkbox,
   CheckboxField,
@@ -7,13 +8,13 @@ import {
   CheckboxGroupItemLabel,
   CheckboxGroupLabel,
   CheckboxGroupList,
+  CheckboxIndicator,
   CheckboxLabel,
   Field,
   FieldItem,
   FieldLabel,
   Fieldset,
   FieldsetLegend,
-  type CheckboxGroupProps,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -63,20 +64,6 @@ export const checkboxGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-icon-size-md', '0.75rem', 'Controls `md` checkbox indicator icon size.'],
   ['--checkbox-icon-size-lg', '0.875rem', 'Controls `lg` checkbox indicator icon size.'],
   ['--checkbox-icon-size-xl', '1rem', 'Controls `xl` checkbox indicator icon size.'],
-  ['--checkbox-indicator-bg', 'transparent', 'Controls indicator background color.'],
-  [
-    '--checkbox-indicator-bg-checked',
-    'var(--checkbox-indicator-bg, transparent)',
-    'Controls checked and indeterminate indicator background color.',
-  ],
-  ['--checkbox-indicator-border-color', 'transparent', 'Controls indicator border color.'],
-  [
-    '--checkbox-indicator-border-color-checked',
-    'var(--checkbox-indicator-border-color, transparent)',
-    'Controls checked and indeterminate indicator border color.',
-  ],
-  ['--checkbox-indicator-border-width', '0', 'Controls indicator border width.'],
-  ['--checkbox-indicator-radius', 'inherit', 'Controls indicator radius.'],
   ['--checkbox-radius', 'var(--radius-xs)', 'Controls checkbox corner radius.'],
   ['--checkbox-size-xs', '0.875rem', 'Controls `xs` checkbox size.'],
   ['--checkbox-size-sm', '1rem', 'Controls `sm` checkbox size.'],
@@ -130,9 +117,7 @@ export const checkboxGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-group-list-gap', 'var(--spacing-2)', 'Controls spacing between items.'],
 ];
 
-export const checkboxGroupPlaygroundCssProperties: CssPropertyInput[] = [
-  ...checkboxGroupOverrideCssProperties,
-];
+export const checkboxGroupPlaygroundCssProperties = checkboxGroupOverrideCssProperties;
 
 export function CheckboxGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
@@ -169,7 +154,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
+function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -182,11 +167,11 @@ function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function CheckboxGroupExample(props: CheckboxGroupProps) {
+export function CheckboxGroupExample(props: ComponentProps<typeof CheckboxGroup>) {
   const labelId = React.useId();
 
   return (
-    <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']} {...props}>
+    <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId} {...props}>
       <CheckboxGroupLabel id={labelId}>Notification Channels</CheckboxGroupLabel>
       <CheckboxGroupList>
         {notificationOptions.map((option) => (
@@ -204,16 +189,16 @@ export function CustomIconCheckboxGroupExample() {
   const labelId = React.useId();
 
   return (
-    <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']}>
+    <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId}>
       <CheckboxGroupLabel id={labelId}>Custom Indicators</CheckboxGroupLabel>
       <CheckboxGroupList>
         {notificationOptions.map((option) => (
           <CheckboxGroupItem key={option.value}>
-            <CheckboxGroupItemControl
-              value={option.value}
-              name="custom-indicators"
-              checkedIcon={<CustomPlusIcon />}
-            />
+            <CheckboxGroupItemControl value={option.value} name="custom-indicators">
+              <CheckboxIndicator>
+                <CustomPlusIcon className={styles.customIndicatorIcon} />
+              </CheckboxIndicator>
+            </CheckboxGroupItemControl>
             <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
           </CheckboxGroupItem>
         ))}
@@ -226,7 +211,7 @@ export function CheckboxGroupSizesExample() {
   const labelId = React.useId();
 
   return (
-    <CheckboxGroup aria-labelledby={labelId} defaultValue={['md']}>
+    <CheckboxGroup defaultValue={['md']} aria-labelledby={labelId}>
       <CheckboxGroupLabel id={labelId}>Control Size</CheckboxGroupLabel>
       <CheckboxGroupList>
         {sizeOptions.map((option) => (
@@ -246,7 +231,7 @@ export function ControlledCheckboxGroupExample() {
 
   return (
     <div className={styles.wrapper}>
-      <CheckboxGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
+      <CheckboxGroup value={value} onValueChange={setValue} aria-labelledby={labelId}>
         <CheckboxGroupLabel id={labelId}>Active Alerts</CheckboxGroupLabel>
         <CheckboxGroupList>
           {notificationOptions.map((option) => (
@@ -266,7 +251,7 @@ export function DisabledCheckboxGroupExample() {
   const labelId = React.useId();
 
   return (
-    <CheckboxGroup aria-labelledby={labelId} defaultValue={['push']} disabled>
+    <CheckboxGroup defaultValue={['push']} disabled aria-labelledby={labelId}>
       <CheckboxGroupLabel id={labelId}>Disabled Settings</CheckboxGroupLabel>
       <CheckboxGroupList>
         {notificationOptions.map((option) => (
@@ -286,10 +271,10 @@ export function ParentCheckboxGroupExample() {
 
   return (
     <CheckboxGroup
-      aria-labelledby={labelId}
       value={value}
       onValueChange={setValue}
       allValues={fruitValues}
+      aria-labelledby={labelId}
     >
       <CheckboxGroupLabel id={labelId}>Fruits</CheckboxGroupLabel>
       <CheckboxGroupList>
@@ -309,14 +294,14 @@ export function ParentCheckboxGroupExample() {
   );
 }
 
-export function CustomStylesCheckboxGroupExample() {
+export function CustomCompositionCheckboxGroupExample() {
   const labelId = React.useId();
 
   return (
     <CheckboxGroup
-      aria-labelledby={labelId}
       defaultValue={['email']}
       className={styles.customGroup}
+      aria-labelledby={labelId}
     >
       <CheckboxGroupLabel id={labelId} className={styles.customLabel}>
         Styled Channels
@@ -328,8 +313,9 @@ export function CustomStylesCheckboxGroupExample() {
               value={option.value}
               name="styled-notifications"
               className={styles.customControl}
-              classNames={{ indicator: styles.customIndicator }}
-            />
+            >
+              <CheckboxIndicator className={styles.customIndicator} />
+            </CheckboxGroupItemControl>
             <CheckboxGroupItemLabel className={styles.customItemLabel}>
               {option.label}
             </CheckboxGroupItemLabel>
@@ -344,7 +330,7 @@ export function CheckboxGroupFieldCompositionExample() {
   const labelId = React.useId();
 
   return (
-    <CheckboxGroup aria-labelledby={labelId} defaultValue={['email']}>
+    <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId}>
       <CheckboxGroupLabel id={labelId}>Channels</CheckboxGroupLabel>
       <CheckboxGroupList>
         {notificationOptions.map((option) => (

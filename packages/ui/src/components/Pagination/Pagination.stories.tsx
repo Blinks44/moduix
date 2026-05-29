@@ -1,19 +1,77 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { Pagination } from './Pagination';
+import { useEffect, useState, type CSSProperties } from 'react';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  usePagination,
+} from './Pagination';
+
+function PaginationDemo({
+  currentPage = 5,
+  pageCount = 10,
+}: {
+  currentPage?: number;
+  pageCount?: number;
+}) {
+  const [page, setPage] = useState(currentPage);
+  const pagination = usePagination({ count: pageCount, page });
+
+  useEffect(() => {
+    setPage(currentPage);
+  }, [currentPage]);
+
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            aria-disabled={!pagination.canPreviousPage || undefined}
+            onClick={() => {
+              if (pagination.canPreviousPage) {
+                setPage(pagination.previousPage);
+              }
+            }}
+          />
+        </PaginationItem>
+        {pagination.items.map((item, index) => (
+          <PaginationItem key={`${item}-${index}`}>
+            {typeof item !== 'number' ? (
+              <PaginationEllipsis />
+            ) : (
+              <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
+                {item}
+              </PaginationLink>
+            )}
+          </PaginationItem>
+        ))}
+        <PaginationItem>
+          <PaginationNext
+            aria-disabled={!pagination.canNextPage || undefined}
+            onClick={() => {
+              if (pagination.canNextPage) {
+                setPage(pagination.nextPage);
+              }
+            }}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+}
 
 const meta = {
   title: 'Components/Pagination',
-  component: Pagination,
+  component: PaginationDemo,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-  args: {
-    count: 10,
-    defaultPage: 1,
-  },
-} satisfies Meta<typeof Pagination>;
+} satisfies Meta<typeof PaginationDemo>;
 
 export default meta;
 
@@ -21,59 +79,76 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
-export const Middle: Story = {
+export const Start: Story = {
   args: {
-    defaultPage: 5,
+    currentPage: 1,
   },
 };
 
 export const End: Story = {
   args: {
-    defaultPage: 8,
+    currentPage: 10,
   },
 };
 
-export const NumbersOnly: Story = {
-  args: {
-    showArrows: false,
-  },
-};
-
-export const ArrowsOnly: Story = {
-  args: {
-    showPages: false,
-  },
-};
-
-export const OutlineToolbar: Story = {
-  args: {
-    toolbarVariant: 'outline',
-  },
-};
-
-export const AsLinks: Story = {
+export const Controlled: Story = {
   render: () => {
-    const [page, setPage] = React.useState(5);
+    const [page, setPage] = useState(5);
+    const pagination = usePagination({ count: 10, page });
 
     return (
-      <Pagination
-        count={10}
-        page={page}
-        onPageChange={setPage}
-        getPageHref={(nextPage) => `?page=${nextPage}`}
-      />
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              aria-disabled={!pagination.canPreviousPage || undefined}
+              onClick={() => {
+                if (pagination.canPreviousPage) {
+                  setPage(pagination.previousPage);
+                }
+              }}
+            />
+          </PaginationItem>
+          {pagination.items.map((item, index) => (
+            <PaginationItem key={`${item}-${index}`}>
+              {typeof item !== 'number' ? (
+                <PaginationEllipsis />
+              ) : (
+                <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
+                  {item}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext
+              aria-disabled={!pagination.canNextPage || undefined}
+              onClick={() => {
+                if (pagination.canNextPage) {
+                  setPage(pagination.nextPage);
+                }
+              }}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     );
   },
 };
 
-export const Sizes: Story = {
+export const CustomStyles: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: '0.75rem' }}>
-      <Pagination count={10} defaultPage={4} size="xs" />
-      <Pagination count={10} defaultPage={4} size="sm" />
-      <Pagination count={10} defaultPage={4} size="md" />
-      <Pagination count={10} defaultPage={4} size="lg" />
-      <Pagination count={10} defaultPage={4} size="xl" />
+    <div
+      style={
+        {
+          '--pagination-item-bg-active': 'var(--color-primary)',
+          '--pagination-item-border-color-active': 'var(--color-primary)',
+          '--pagination-item-color-active': 'var(--color-primary-foreground)',
+          '--pagination-item-radius': 'var(--radius-sm)',
+        } as CSSProperties
+      }
+    >
+      <PaginationDemo />
     </div>
   ),
 };

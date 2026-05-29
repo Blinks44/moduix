@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { Checkbox, CheckboxField, CheckboxLabel } from './Checkbox';
+import { useId, useState, type ComponentProps } from 'react';
+import {
+  Checkbox,
+  CheckboxField,
+  CheckboxIndicator,
+  CheckboxIndicatorIcon,
+  CheckboxLabel,
+} from './Checkbox';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {
@@ -16,7 +22,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function CustomPlusIcon(props: React.ComponentProps<'svg'>) {
+function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -44,27 +50,26 @@ export const IndicatorIcon: Story = {
   render: () => {
     return (
       <CheckboxField>
-        <Checkbox defaultChecked checkedIcon={<CustomPlusIcon />} />
+        <Checkbox defaultChecked>
+          <CheckboxIndicator>
+            <CustomPlusIcon className={styles.customIndicatorIcon} />
+          </CheckboxIndicator>
+        </Checkbox>
         <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
       </CheckboxField>
     );
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <CheckboxField className={styles.customField}>
-        <Checkbox
-          className={styles.customCheckbox}
-          classNames={{
-            indicator: styles.customIndicator,
-            indicatorIcon: styles.customIndicatorIcon,
-            checkedIcon: styles.customCheckedIcon,
-            indeterminateIcon: styles.customIndeterminateIcon,
-          }}
-          defaultChecked
-        />
+        <Checkbox className={styles.customCheckbox} defaultChecked>
+          <CheckboxIndicator className={styles.customIndicator}>
+            <CheckboxIndicatorIcon className={styles.customIndicatorIcon} />
+          </CheckboxIndicator>
+        </Checkbox>
         <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
       </CheckboxField>
     );
@@ -128,9 +133,26 @@ export const Disabled: Story = {
   },
 };
 
+export const ReadOnly: Story = {
+  render: () => {
+    return (
+      <div className={styles.stack}>
+        <CheckboxField>
+          <Checkbox readOnly />
+          <CheckboxLabel>Keep current selection</CheckboxLabel>
+        </CheckboxField>
+        <CheckboxField>
+          <Checkbox defaultChecked readOnly />
+          <CheckboxLabel>Preserve existing setting</CheckboxLabel>
+        </CheckboxField>
+      </div>
+    );
+  },
+};
+
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = useState(false);
 
     return (
       <div className={styles.stack}>
@@ -147,7 +169,7 @@ export const Controlled: Story = {
 export const SiblingLabelNativeButton: Story = {
   name: 'Sibling Label (Native Button)',
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <div className={styles.siblingRow}>

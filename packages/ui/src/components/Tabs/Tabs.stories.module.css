@@ -1,3 +1,11 @@
+.demoRoot {
+  width: 22rem;
+
+  @media (min-width: 32rem) {
+    width: 32rem;
+  }
+}
+
 .panelText {
   margin: 0;
 }
@@ -14,11 +22,15 @@
   --tabs-list-padding-y: 0;
   display: flex;
   flex-direction: row;
-  width: min(36rem, calc(100vw - 2rem));
+  width: 22rem;
   align-items: center;
   justify-content: space-between;
   gap: var(--tabs-gap);
   color: var(--color-foreground);
+
+  @media (min-width: 32rem) {
+    width: 32rem;
+  }
 }
 
 .inlineList {

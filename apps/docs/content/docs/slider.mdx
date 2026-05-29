@@ -4,12 +4,10 @@ description: A range input for selecting one value or a range of values.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ControlledSliderExample,
-  CustomClassesSliderExample,
+  CustomCompositionSliderExample,
   DisabledSliderExample,
-  EdgeThumbAlignmentSliderExample,
   RangeSliderExample,
   SliderCssPlaygroundPanel,
   SliderCssPropertiesPanel,
@@ -23,7 +21,10 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/slider" />
 
-## Basic
+## Default Path
+
+Use `Slider` for the common case. It keeps Base UI state and behavior intact, while rendering the
+control, track, and indicator for you.
 
 <Preview cssProperties={sliderPlaygroundCssProperties}>
   <SliderExample />
@@ -33,8 +34,8 @@ import {
       import {
         Slider,
         SliderLabel,
-        SliderValue,
         SliderThumb,
+        SliderValue,
       } from "moduix";
 
       export function SliderDemo() {
@@ -53,73 +54,87 @@ import {
   <Preview.CSSPlayground>{(context) => <SliderCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+`SliderLabel` gives the slider group a visible label. Each `SliderThumb` still needs its own
+accessible name through `aria-label`, especially for range sliders.
+
 ## Anatomy
 
-`Slider` renders the Base UI control, track, and indicator internally, so consumers only compose the
-meaningful content: label, value, and thumbs. Add one `SliderThumb` for each value in the slider.
+The default wrapper keeps the recommended structure short:
 
 ```text
 Slider
 ├─ SliderLabel
 ├─ SliderValue
-└─ internal control
-   └─ internal track
-      ├─ internal indicator
+└─ SliderThumb[index]
+```
+
+Internally, `Slider` renders:
+
+```text
+SliderRoot
+├─ SliderLabel
+├─ SliderValue
+└─ SliderControl
+   └─ SliderTrack
+      ├─ SliderIndicator
       └─ SliderThumb[index]
 ```
 
-```tsx
-<Slider defaultValue={40}>
-  <SliderLabel>Volume</SliderLabel>
-  <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-  <SliderThumb aria-label="Volume" />
-</Slider>
-```
-
-| Part          | Role                                                                                                        |
-| ------------- | ----------------------------------------------------------------------------------------------------------- |
-| `Slider`      | Root state machine. Controls value, range values, steps, orientation, disabled state, and form integration. |
-| `SliderLabel` | Visible label connected to the slider inputs. Use it when the control has a readable label on screen.       |
-| `SliderValue` | Optional formatted value display. It receives formatted values and raw numeric values as render arguments.  |
-| `SliderThumb` | Interactive handle. Render one thumb for a single value and multiple indexed thumbs for a range.            |
-
-The control, track, and indicator are service-like slots for this component. They stay internal by
-default and can be styled through `classNames.control`, `classNames.track`, and
-`classNames.indicator` when token-level customization is not enough.
+| Part              | Role                                                                 |
+| ----------------- | -------------------------------------------------------------------- |
+| `Slider`          | Default high-level wrapper for the common path.                      |
+| `SliderRoot`      | Low-level root for manual composition.                               |
+| `SliderLabel`     | Visible label for the slider group.                                  |
+| `SliderValue`     | Optional formatted value output.                                     |
+| `SliderControl`   | Interaction area for pointer and keyboard input.                     |
+| `SliderTrack`     | Visual track that contains the indicator and thumbs.                 |
+| `SliderIndicator` | Filled portion of the track.                                         |
+| `SliderThumb`     | Interactive handle. Render one thumb per value and index range ones. |
 
 ## Composition
 
-Use `Slider` for behavior props such as `value`, `defaultValue`, `onValueChange`,
-`onValueCommitted`, `min`, `max`, `step`, `largeStep`, `minStepsBetweenValues`, `orientation`,
-`thumbAlignment`, `thumbCollisionBehavior`, `name`, and `form`.
+Use `Slider` unless you need to restyle or rearrange the internal structural parts directly.
 
-Use `SliderThumb` for the accessible name of each handle. A visible `SliderLabel` labels the group,
-but multi-thumb sliders still need distinct `aria-label` values on each thumb.
+The high-level wrapper accepts the same behavior props as `SliderRoot`, including:
 
-Style the root with `className`, visible parts with their own `className`, and internally rendered
-track structure with `classNames`:
+- `value` and `defaultValue`
+- `onValueChange`
+- `min`, `max`, `step`, and `largeStep`
+- `minStepsBetweenValues`
+- `orientation`
+- `thumbAlignment`
+- `thumbCollisionBehavior`
 
-```tsx
-<Slider
-  defaultValue={56}
-  className={styles.slider}
-  classNames={{
-    control: styles.control,
-    track: styles.track,
-    indicator: styles.indicator,
-  }}
->
-  <SliderLabel>Temperature</SliderLabel>
-  <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-  <SliderThumb aria-label="Temperature" className={styles.thumb} />
-</Slider>
-```
+For the default path, put `className` on:
+
+- `Slider` for root width and layout
+- `SliderLabel` and `SliderValue` for text styling
+- `SliderThumb` for thumb styling
+
+Switch to `SliderRoot` composition when the styling needs to reach `SliderControl`,
+`SliderTrack`, or `SliderIndicator`.
+
+### Defaults
+
+| Prop                     | Default      | Values                               |
+| ------------------------ | ------------ | ------------------------------------ |
+| `orientation`            | `horizontal` | `horizontal`, `vertical`             |
+| `min`                    | `0`          | number                               |
+| `max`                    | `100`        | number                               |
+| `step`                   | `1`          | number                               |
+| `largeStep`              | `10`         | number                               |
+| `minStepsBetweenValues`  | `0`          | number                               |
+| `thumbAlignment`         | `center`     | `center`, `edge`, `edge-client-only` |
+| `thumbCollisionBehavior` | `push`       | `push`, `swap`, `none`               |
+
+For range sliders, pass an array value and render the same number of `SliderThumb` elements. Keep
+`index` aligned with the value array for SSR and stable thumb identity.
 
 ## Examples
 
 ### Range
 
-Pass an array value and render one `SliderThumb` for each value to let users select a range.
+Pass an array value and render one `SliderThumb` for each selected value.
 
 <Preview>
   <RangeSliderExample />
@@ -129,8 +144,8 @@ Pass an array value and render one `SliderThumb` for each value to let users sel
       import {
         Slider,
         SliderLabel,
-        SliderValue,
         SliderThumb,
+        SliderValue,
       } from "moduix";
       import { useState } from "react";
 
@@ -153,8 +168,8 @@ Pass an array value and render one `SliderThumb` for each value to let users sel
 
 ### Steps and Constraints
 
-Use `step`, `largeStep`, and `minStepsBetweenValues` to make range selection snap to meaningful
-increments. `thumbCollisionBehavior` controls what happens when thumbs meet.
+Use `step`, `largeStep`, `minStepsBetweenValues`, and `thumbCollisionBehavior` when the slider
+represents a constrained numeric domain.
 
 <Preview>
   <SteppedRangeSliderExample />
@@ -164,8 +179,8 @@ increments. `thumbCollisionBehavior` controls what happens when thumbs meet.
       import {
         Slider,
         SliderLabel,
-        SliderValue,
         SliderThumb,
+        SliderValue,
       } from "moduix";
       import { useState } from "react";
 
@@ -212,7 +227,8 @@ increments. `thumbCollisionBehavior` controls what happens when thumbs meet.
 
 ### Controlled
 
-Control the value from React state when the slider needs to synchronize with another control.
+Control the value from React state when the slider needs to stay in sync with another input or
+derived UI.
 
 <Preview>
   <ControlledSliderExample />
@@ -222,8 +238,8 @@ Control the value from React state when the slider needs to synchronize with ano
       import {
         Slider,
         SliderLabel,
-        SliderValue,
         SliderThumb,
+        SliderValue,
       } from "moduix";
       import { useState } from "react";
       import styles from "./slider.module.css";
@@ -272,7 +288,7 @@ Control the value from React state when the slider needs to synchronize with ano
 
 ### Vertical
 
-Set `orientation="vertical"` and size the vertical track with CSS custom properties.
+Set `orientation="vertical"` and size the wrapper with the public CSS custom properties.
 
 <Preview>
   <VerticalSliderExample />
@@ -282,8 +298,8 @@ Set `orientation="vertical"` and size the vertical track with CSS custom propert
       import {
         Slider,
         SliderLabel,
-        SliderValue,
         SliderThumb,
+        SliderValue,
       } from "moduix";
       import styles from "./slider.module.css";
 
@@ -310,47 +326,17 @@ Set `orientation="vertical"` and size the vertical track with CSS custom propert
       }
 
       .verticalSlider {
-        --slider-width-vertical: auto;
         --slider-height: 12rem;
+        --slider-width-vertical: auto;
       }
     `}
 
   </Preview.CSS>
 </Preview>
 
-### Edge Thumb Alignment
-
-Use `thumbAlignment="edge"` when the thumb should stay inside the control at the minimum and maximum values.
-
-<Preview>
-  <EdgeThumbAlignmentSliderExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Slider,
-        SliderLabel,
-        SliderValue,
-        SliderThumb,
-      } from "moduix";
-
-      export function EdgeThumbAlignmentSliderDemo() {
-        return (
-          <Slider defaultValue={0} thumbAlignment="edge">
-            <SliderLabel>Zoom</SliderLabel>
-            <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-            <SliderThumb aria-label="Zoom" />
-          </Slider>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
 ### Disabled
 
-Use `disabled` to make the whole slider non-interactive while preserving its current value.
+Use `disabled` to preserve the current value while preventing interaction.
 
 <Preview>
   <DisabledSliderExample />
@@ -360,8 +346,8 @@ Use `disabled` to make the whole slider non-interactive while preserving its cur
       import {
         Slider,
         SliderLabel,
-        SliderValue,
         SliderThumb,
+        SliderValue,
       } from "moduix";
 
       export function DisabledSliderDemo() {
@@ -378,37 +364,39 @@ Use `disabled` to make the whole slider non-interactive while preserving its cur
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+## Custom Composition
 
-Use `className` for the root and `classNames` for internally rendered slots.
+Use `SliderRoot` when the default wrapper is still the right behavior model, but the visible track
+structure needs direct control.
 
 <Preview>
-  <CustomClassesSliderExample />
+  <CustomCompositionSliderExample />
 
   <Preview.Code>
     {`
       import {
-        Slider,
+        SliderControl,
+        SliderIndicator,
         SliderLabel,
-        SliderValue,
+        SliderRoot,
         SliderThumb,
+        SliderTrack,
+        SliderValue,
       } from "moduix";
       import styles from "./slider.module.css";
 
-      export function CustomClassesSliderDemo() {
+      export function CustomCompositionSliderDemo() {
         return (
-          <Slider
-            defaultValue={56}
-            classNames={{
-              control: styles.customControl,
-              track: styles.customTrack,
-              indicator: styles.customIndicator,
-            }}
-          >
+          <SliderRoot defaultValue={56}>
             <SliderLabel>Temperature</SliderLabel>
             <SliderValue>{([formattedValue]) => \`\${formattedValue}%\`}</SliderValue>
-            <SliderThumb aria-label="Temperature" className={styles.customThumb} />
-          </Slider>
+            <SliderControl className={styles.customControl}>
+              <SliderTrack className={styles.customTrack}>
+                <SliderIndicator className={styles.customIndicator} />
+                <SliderThumb aria-label="Temperature" className={styles.customThumb} />
+              </SliderTrack>
+            </SliderControl>
+          </SliderRoot>
         );
       }
     `}
@@ -422,9 +410,9 @@ Use `className` for the root and `classNames` for internally rendered slots.
       }
 
       .customTrack {
-        --slider-track-size: 0.625rem;
         --slider-track-bg: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-muted));
         --slider-track-border-color: transparent;
+        --slider-track-size: 0.625rem;
       }
 
       .customIndicator {
@@ -432,9 +420,9 @@ Use `className` for the root and `classNames` for internally rendered slots.
       }
 
       .customThumb {
-        --slider-thumb-size: 1.25rem;
         --slider-thumb-bg: var(--color-chart-4);
         --slider-thumb-border-color: var(--color-background);
+        --slider-thumb-size: 1.25rem;
       }
     `}
 

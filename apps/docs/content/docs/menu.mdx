@@ -7,7 +7,7 @@ icon: Component
 import {
   MenuCssPlaygroundPanel,
   MenuCssPropertiesPanel,
-  CustomStylesMenuExample,
+  CustomCompositionMenuExample,
   DetachedTriggerMenuExample,
   GroupsAndControlsMenuExample,
   IndicatorRightMenuExample,
@@ -16,9 +16,9 @@ import {
   NestedMenuExample,
   OpenAlertDialogMenuExample,
   OpenOnHoverMenuExample,
-  PositionedWithBackdropMenuExample,
+  PositionedMenuExample,
   ShortcutsMenuExample,
-  WithoutArrowMenuExample,
+  WithArrowMenuExample,
   menuPlaygroundCssProperties,
 } from '@/components/examples/menu';
 
@@ -28,7 +28,7 @@ import {
 
 ## Basic
 
-`MenuContent` renders the portal and positioner internally, so the public composition only needs the trigger, content, optional arrow, and menu items.
+`MenuContent` already renders the portal, positioner, and popup. In the common case, compose only the trigger, content, and items.
 
 <Preview cssProperties={menuPlaygroundCssProperties}>
   <MenuExample />
@@ -75,15 +75,13 @@ import {
 
 ## Anatomy
 
-Menu is composed from a trigger and a popup content layer. Keep interactive items and nested branches
-inside `MenuContent` so roving focus, keyboard navigation, and close behavior stay managed by the root.
+Menu is built from a trigger and popup content. Keep items and nested branches inside `MenuContent` so focus management, keyboard navigation, and close behavior stay on the root.
 
 ```text
 Menu
 ├─ MenuTrigger
 │  └─ MenuTriggerIcon
 └─ MenuContent
-   ├─ MenuArrow
    ├─ MenuItem
    ├─ MenuSeparator
    └─ MenuSubmenu
@@ -114,68 +112,57 @@ Menu
 </Menu>
 ```
 
-| Part                    | Role                                                                                                     |
-| ----------------------- | -------------------------------------------------------------------------------------------------------- |
-| `Menu`                  | Root state machine. Handles open state, focus management, and close interactions.                        |
-| `MenuTrigger`           | Control that opens and closes the menu. Accepts trigger props like `openOnHover`, `delay`, and `handle`. |
-| `MenuTriggerIcon`       | Optional trigger indicator. Renders the default icon or your custom icon as children.                    |
-| `MenuContent`           | Popup container for items. Accepts positioning props and renders service slots internally.               |
-| `MenuArrow`             | Optional visual pointer from popup to trigger.                                                           |
-| `MenuItem`              | Action row. Supports disabled state and `closeOnClick` behavior.                                         |
-| `MenuLinkItem`          | Item variant for navigation links while preserving menu behavior.                                        |
-| `MenuSeparator`         | Visual divider between related item groups.                                                              |
-| `MenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, and `Content`).                           |
-| `MenuGroup*` / controls | Optional structured controls: labels, radio groups/items, checkbox items, and indicator slots.           |
-
-`MenuContent` renders the Base UI portal, positioner, optional backdrop, optional viewport,
-and popup internally. In most cases, keep those service slots hidden and style visible parts
-such as trigger, items, separators, and arrow. Use `classNames` for service-slot classes and
-`slotProps` only when you need to pass non-class props to `portal`, `backdrop`, `positioner`,
-`arrow`, or `viewport`.
+| Part                    | Role                                                                                      |
+| ----------------------- | ----------------------------------------------------------------------------------------- |
+| `Menu`                  | Root state and interactions.                                                              |
+| `MenuTrigger`           | Control that opens the menu. Supports props such as `openOnHover`, `delay`, and `handle`. |
+| `MenuTriggerIcon`       | Optional trigger icon. Renders the default icon or your custom children.                  |
+| `MenuContent`           | Default popup wrapper. Renders `MenuPortal`, `MenuPositioner`, and `MenuPopup`.           |
+| `MenuPortal`            | Low-level escape hatch for custom portal composition.                                     |
+| `MenuBackdrop`          | Optional backdrop for advanced compositions.                                              |
+| `MenuPositioner`        | Low-level positioning part for custom layout and collision tuning.                        |
+| `MenuPopup`             | Visible popup surface.                                                                    |
+| `MenuArrow`             | Optional pointer from popup to trigger.                                                   |
+| `MenuViewport`          | Optional viewport when you need manual popup content structure.                           |
+| `MenuItem`              | Action row with disabled state and optional `closeOnClick`.                               |
+| `MenuLinkItem`          | Link-style item that keeps menu behavior.                                                 |
+| `MenuSeparator`         | Divider between related items.                                                            |
+| `MenuSubmenu*`          | Nested branch for secondary actions (`Trigger`, `TriggerIcon`, `Content`).                |
+| `MenuGroup*` / controls | Group labels, radio groups/items, checkbox items, and indicator slots.                    |
 
 ## Composition
 
-Use `Menu` for root state and behavior props such as `open`, `defaultOpen`,
-`onOpenChange`, and `handle`. Add `withViewport` only when you need Base UI content transitions for
-menus shared by multiple detached triggers.
+Use `Menu` for root behavior such as `open`, `defaultOpen`, `onOpenChange`, and `handle`.
 
-`className` styles the visible popup. `classNames` styles the internal service slots hidden from
-the default composition. `MenuContent` forwards Base UI popup props and accepts positioner props
-such as `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `anchor`,
-`collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`,
-and `disableAnchorTracking` directly. Use `container`, `withBackdrop`, and `withViewport` for
-common service-slot behavior, and use `slotProps` for the rare cases that need lower-level
-Base UI portal, backdrop, positioner, arrow, or viewport props. Arrow is enabled by default;
-set `withArrow={false}` to disable it:
+`MenuContent` is the simple path. It styles the visible popup through `className`, forwards Base UI popup props, accepts the common positioning props directly, and keeps the structural parts internal. Use `showArrow` only when the popup should visually point to its trigger.
+
+### Defaults
+
+| Prop         | Default | Values          |
+| ------------ | ------- | --------------- |
+| `showArrow`  | `false` | `true`, `false` |
+| `sideOffset` | `8`     | `number`        |
+
+For `MenuSubmenuContent`, defaults are tuned for nested alignment:
+
+| Prop          | Default                 | Values                           |
+| ------------- | ----------------------- | -------------------------------- |
+| `showArrow`   | `false`                 | `true`, `false`                  |
+| `sideOffset`  | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
+| `alignOffset` | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
 
 ```tsx
-<MenuContent
-  className={styles.popup}
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-    arrow: styles.arrow,
-    viewport: styles.viewport,
-  }}
-  slotProps={{
-    positioner: {
-      collisionPadding: 8,
-    },
-  }}
-  withBackdrop
-  withViewport
-/>
+<MenuContent showArrow side="right" align="start" sideOffset={12} />
 ```
 
 ## Examples
 
-### Without Arrow
+### With Arrow
 
-Set `withArrow={false}` when the popup should appear without a pointer.
+Set `showArrow` when the popup should appear with a pointer.
 
 <Preview>
-  <WithoutArrowMenuExample />
+  <WithArrowMenuExample />
 
   <Preview.Code>
     {`
@@ -189,14 +176,14 @@ Set `withArrow={false}` when the popup should appear without a pointer.
         MenuSeparator,
       } from "moduix";
 
-      export function WithoutArrowMenu() {
+      export function WithArrowMenu() {
         return (
           <Menu>
             <MenuTrigger render={<Button />}>
               Song
               <MenuTriggerIcon />
             </MenuTrigger>
-            <MenuContent withArrow={false}>
+            <MenuContent showArrow>
               <MenuItem closeOnClick>Add to Library</MenuItem>
               <MenuItem closeOnClick>Add to Playlist</MenuItem>
               <MenuSeparator />
@@ -478,12 +465,12 @@ Use `openOnHover` when the trigger should behave like a hover menu while keeping
   </Preview.Code>
 </Preview>
 
-### Positioned With Backdrop
+### Positioning
 
-Use `side`, `align`, and offset props on `MenuContent` to position the popup. Add `withBackdrop` when the menu should render an internal backdrop; style internal service slots through `classNames`.
+Use `side`, `align`, and offset props on `MenuContent` to position the popup. Add `showArrow` when the popup should visually point to the trigger.
 
 <Preview>
-  <PositionedWithBackdropMenuExample />
+  <PositionedMenuExample />
 
   <Preview.Code>
     {`
@@ -496,15 +483,16 @@ Use `side`, `align`, and offset props on `MenuContent` to position the popup. Ad
         MenuItem,
         MenuSeparator,
       } from "moduix";
+      import styles from "./menu.module.css";
 
-      export function PositionedWithBackdropMenu() {
+      export function PositionedMenu() {
         return (
           <Menu>
             <MenuTrigger render={<Button />}>
               Export
               <MenuTriggerIcon />
             </MenuTrigger>
-            <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
+            <MenuContent showArrow side="right" align="start" sideOffset={12}>
               <MenuItem closeOnClick>Export PNG</MenuItem>
               <MenuItem closeOnClick>Export PDF</MenuItem>
               <MenuSeparator />
@@ -695,35 +683,40 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
-Use `className` for visible slots and `classNames` for internal service slots. Icon slots accept children from your application or an external icon library.
+Use the low-level parts when you need a custom backdrop, manual viewport, or full control over popup structure.
 
 <Preview>
-  <CustomStylesMenuExample />
+  <CustomCompositionMenuExample />
 
   <Preview.Code>
     {`
       import {
         Button,
-        Menu,
-        MenuTrigger,
-        MenuTriggerIcon,
         ChevronDownIcon,
-        MenuContent,
+        InfoIcon,
+        MapIcon,
+        Menu,
+        MenuArrow,
+        MenuBackdrop,
         MenuItem,
         MenuItemTextContent,
         MenuItemTextIcon,
-        MapIcon,
         MenuItemTextLabel,
+        MenuPopup,
+        MenuPortal,
+        MenuPositioner,
         MenuSubmenu,
-        MenuSubmenuTrigger,
-        InfoIcon,
-        MenuSubmenuTriggerIcon,
         MenuSubmenuContent,
+        MenuSubmenuTrigger,
+        MenuSubmenuTriggerIcon,
+        MenuTrigger,
+        MenuTriggerIcon,
+        MenuViewport,
       } from "moduix";
 
-      export function CustomStylesMenu() {
+      export function CustomCompositionMenu() {
         return (
           <Menu>
             <MenuTrigger render={<Button />} className={styles.customTrigger}>
@@ -732,45 +725,45 @@ Use `className` for visible slots and `classNames` for internal service slots. I
                 <ChevronDownIcon />
               </MenuTriggerIcon>
             </MenuTrigger>
-            <MenuContent
-              className={styles.customPopup}
-              classNames={{
-                portal: styles.customPortal,
-                backdrop: styles.customBackdrop,
-                positioner: styles.customPositioner,
-              }}
-              withBackdrop
-            >
-              <MenuItem closeOnClick className={styles.customItem}>
-                <MenuItemTextContent>
-                  <MenuItemTextIcon>
-                    <MapIcon />
-                  </MenuItemTextIcon>
-                  <MenuItemTextLabel>Open map</MenuItemTextLabel>
-                </MenuItemTextContent>
-              </MenuItem>
-              <MenuSubmenu>
-                <MenuSubmenuTrigger className={styles.customItem}>
-                  <MenuItemTextContent>
-                    <MenuItemTextIcon>
-                      <InfoIcon />
-                    </MenuItemTextIcon>
-                    <MenuItemTextLabel>More</MenuItemTextLabel>
-                  </MenuItemTextContent>
-                  <MenuSubmenuTriggerIcon>
-                    <ChevronDownIcon />
-                  </MenuSubmenuTriggerIcon>
-                </MenuSubmenuTrigger>
-                <MenuSubmenuContent>
-                  <MenuItem closeOnClick className={styles.customItem}>
-                    Nearby
-                  </MenuItem>
-                  <MenuItem closeOnClick className={styles.customItem}>
-                    Routes
-                  </MenuItem>
-                </MenuSubmenuContent>
-              </MenuSubmenu>
-            </MenuContent>
+            <MenuPortal>
+              <MenuBackdrop className={styles.customBackdrop} />
+              <MenuPositioner className={styles.customPositioner} sideOffset={12}>
+                <MenuPopup className={styles.customPopup}>
+                  <MenuArrow className={styles.customArrow} />
+                  <MenuViewport className={styles.customViewport}>
+                    <MenuItem closeOnClick className={styles.customItem}>
+                      <MenuItemTextContent>
+                        <MenuItemTextIcon>
+                          <MapIcon />
+                        </MenuItemTextIcon>
+                        <MenuItemTextLabel>Open map</MenuItemTextLabel>
+                      </MenuItemTextContent>
+                    </MenuItem>
+                    <MenuSubmenu>
+                      <MenuSubmenuTrigger className={styles.customItem}>
+                        <MenuItemTextContent>
+                          <MenuItemTextIcon>
+                            <InfoIcon />
+                          </MenuItemTextIcon>
+                          <MenuItemTextLabel>More</MenuItemTextLabel>
+                        </MenuItemTextContent>
+                        <MenuSubmenuTriggerIcon>
+                          <ChevronDownIcon />
+                        </MenuSubmenuTriggerIcon>
+                      </MenuSubmenuTrigger>
+                      <MenuSubmenuContent>
+                        <MenuItem closeOnClick className={styles.customItem}>
+                          Nearby
+                        </MenuItem>
+                        <MenuItem closeOnClick className={styles.customItem}>
+                          Routes
+                        </MenuItem>
+                      </MenuSubmenuContent>
+                    </MenuSubmenu>
+                  </MenuViewport>
+                </MenuPopup>
+              </MenuPositioner>
+            </MenuPortal>
           </Menu>
         );
       }
@@ -792,10 +785,6 @@ Use `className` for visible slots and `classNames` for internal service slots. I
         --menu-trigger-icon-size: 0.875rem;
       }
 
-      .customPortal {
-        position: relative;
-      }
-
       .customBackdrop {
         background-color: rgb(0 0 0 / 0.08);
         backdrop-filter: blur(0.125rem);
@@ -813,6 +802,11 @@ Use `className` for visible slots and `classNames` for internal service slots. I
         --menu-highlight-bg: var(--color-primary);
         --menu-highlight-color: var(--color-primary-foreground);
         --menu-separator-color: var(--color-primary);
+      }
+
+      .customViewport {
+        max-height: 18rem;
+        overflow-y: auto;
       }
 
       .customItem {

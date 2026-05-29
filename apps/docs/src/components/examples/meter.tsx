@@ -1,5 +1,6 @@
-import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue, type MeterProps } from 'moduix';
-import * as React from 'react';
+import type { ComponentProps } from 'react';
+import { Meter, MeterIndicator, MeterLabel, MeterRoot, MeterTrack, MeterValue } from 'moduix';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './meter.module.css';
@@ -39,19 +40,17 @@ export const meterPlaygroundCssProperties: CssPropertyInput[] = [
   ['--meter-track-height', '0.5rem', 'Controls track height.'],
   ['--meter-track-radius', 'var(--radius-full)', 'Controls track radius.'],
 ];
+const meterCssProperties = meterOverrideCssProperties.map(normalizeCssProperty);
+const meterPlaygroundProperties = meterPlaygroundCssProperties.map(normalizeCssProperty);
 
 export function MeterCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={meterOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+  return <CSSPropertiesReferenceTable properties={meterCssProperties} />;
 }
 
 export function MeterCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesEditor
-      properties={meterPlaygroundCssProperties.map(normalizeCssProperty)}
+      properties={meterPlaygroundProperties}
       values={values}
       onChange={onChange}
       onReset={onReset}
@@ -65,9 +64,11 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function MeterExample({ value = 24, ...props }: MeterProps) {
+export function MeterExample(props: ComponentProps<typeof Meter>) {
+  const { value = 24, ...restProps } = props;
+
   return (
-    <Meter value={value} {...props}>
+    <Meter value={value} {...restProps}>
       <MeterLabel>Storage Used</MeterLabel>
       <MeterValue />
     </Meter>
@@ -84,7 +85,7 @@ export function MinMaxRangeMeterExample() {
 }
 
 export function ControlledMeterExample() {
-  const [value, setValue] = React.useState(45);
+  const [value, setValue] = useState(45);
 
   return (
     <div className={styles.stack}>
@@ -106,22 +107,33 @@ export function ControlledMeterExample() {
   );
 }
 
-export function PercentFormatMeterExample() {
+export function LocaleAndFormatMeterExample() {
   return (
-    <Meter value={0.64} min={0} max={1} format={{ style: 'percent', maximumFractionDigits: 0 }}>
-      <MeterLabel>Usage</MeterLabel>
-      <MeterValue>{(formattedValue) => `${formattedValue} used`}</MeterValue>
+    <Meter
+      value={0.64}
+      min={0}
+      max={1}
+      locale="de-DE"
+      format={{ style: 'percent', maximumFractionDigits: 0 }}
+    >
+      <MeterLabel>Storage usage</MeterLabel>
+      <MeterValue>{(formattedValue) => `${formattedValue} belegt`}</MeterValue>
+    </Meter>
+  );
+}
+
+export function AriaValueTextMeterExample() {
+  return (
+    <Meter value={3} min={0} max={5} aria-valuetext="3 of 5 service checks are healthy">
+      <MeterLabel>Service health</MeterLabel>
+      <MeterValue>{() => '3 of 5 healthy'}</MeterValue>
     </Meter>
   );
 }
 
 export function CustomStylesMeterExample() {
   return (
-    <Meter
-      value={72}
-      className={styles.customMeter}
-      classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-    >
+    <Meter value={72} className={styles.customMeter}>
       <MeterLabel>Monthly quota</MeterLabel>
       <MeterValue />
     </Meter>
@@ -130,12 +142,12 @@ export function CustomStylesMeterExample() {
 
 export function CompositionMeterExample() {
   return (
-    <Meter value={58} withTrack={false} className={styles.composedMeter}>
+    <MeterRoot value={58} className={styles.composedMeter}>
       <MeterLabel>Team capacity</MeterLabel>
       <MeterValue>{(formattedValue) => `${formattedValue} available`}</MeterValue>
       <MeterTrack className={styles.composedTrack}>
         <MeterIndicator className={styles.composedIndicator} />
       </MeterTrack>
-    </Meter>
+    </MeterRoot>
   );
 }

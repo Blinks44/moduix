@@ -1,16 +1,14 @@
 # Pagination
 
-Pagination is built with the `Toolbar` primitive and provides page buttons, navigation arrows, and ellipses for collapsed ranges.
+Pagination is a thin wrapper over the Base UI `Toolbar` primitive.
 
-## Features
+`Pagination` provides the navigation landmark. `PaginationContent` provides the toolbar behavior.
+`PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, and
+`PaginationEllipsis` are the styled building blocks. `usePagination` provides the headless range
+logic for page windows, ellipses, and previous/next navigation.
 
-- Controlled and uncontrolled page state.
-- Optional page numbers and optional navigation arrows.
-- Collapsed ranges with `...` when total pages exceed the visible window.
-- Link mode via `getPageHref(page)` for patterns like `/page/7` or `?page=7`.
-- Size variants via `size="xs" | "sm" | "md" | "lg" | "xl"`.
-
-## Notes
-
-- Default toolbar style is transparent (`toolbarVariant="ghost"`).
-- To show a toolbar background, use `toolbarVariant="default"` or `toolbarVariant="outline"`.
+Build the page structure explicitly in JSX and use `usePagination` when you want the library to
+calculate the visible items. Keep `href` for plain anchor links, use `render={<Link />}` for router
+links, and omit both when local state should use native buttons. `PaginationPrevious` and
+`PaginationNext` render icon-only controls by default; pass `children` when a custom label or
+layout is needed.

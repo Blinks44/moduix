@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   Checkbox,
   CheckboxIndicator,
@@ -10,19 +11,14 @@ import {
   FieldValidity,
   Input,
   NumberField,
-  NumberFieldDecrement,
-  NumberFieldGroup,
-  NumberFieldIncrement,
-  NumberFieldInput,
   Radio,
   RadioField,
   RadioGroup,
   RadioLabel,
   Switch,
   SwitchLabel,
-  type FieldProps,
 } from 'moduix';
-import * as React from 'react';
+import { useId } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './field.module.css';
@@ -133,7 +129,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function FieldExample(props: FieldProps) {
+export function FieldExample(props: ComponentProps<typeof Field>) {
   return (
     <Field validationMode="onBlur" className={styles.field} {...props}>
       <FieldLabel>Name</FieldLabel>
@@ -144,7 +140,28 @@ export function FieldExample(props: FieldProps) {
   );
 }
 
-export function FieldCustomValidationExample() {
+export function FieldValidationMessageExample() {
+  return (
+    <Field
+      validationMode="onBlur"
+      validate={(value) => {
+        if (typeof value !== 'string' || value.length < 3) {
+          return 'Username must be at least 3 characters.';
+        }
+
+        return null;
+      }}
+      className={styles.field}
+    >
+      <FieldLabel>Username</FieldLabel>
+      <FieldControl placeholder="e.g. vinny" />
+      <FieldDescription>Use at least 3 characters.</FieldDescription>
+      <FieldError />
+    </Field>
+  );
+}
+
+export function FieldValidityExample() {
   return (
     <Field
       validationMode="onChange"
@@ -158,7 +175,7 @@ export function FieldCustomValidationExample() {
       className={styles.field}
     >
       <FieldLabel>Username</FieldLabel>
-      <FieldControl placeholder="e.g. Vinny" />
+      <FieldControl placeholder="e.g. vinny" />
       <FieldError match="customError" />
       <FieldValidity>
         {(state) => (
@@ -243,18 +260,12 @@ export function FieldInputExample() {
 }
 
 export function FieldNumberFieldExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field name="quantity" validationMode="onBlur" className={styles.field}>
       <FieldLabel htmlFor={id}>Items</FieldLabel>
-      <NumberField id={id} min={1} max={10} required>
-        <NumberFieldGroup>
-          <NumberFieldDecrement aria-label="Decrease value" />
-          <NumberFieldInput />
-          <NumberFieldIncrement aria-label="Increase value" />
-        </NumberFieldGroup>
-      </NumberField>
+      <NumberField id={id} min={1} max={10} required />
       <FieldError match="valueMissing">Please provide a number.</FieldError>
       <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
       <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
@@ -267,9 +278,7 @@ export function FieldCustomStylesExample() {
     <Field validationMode="onBlur" className={styles.customField}>
       <FieldLabel className={styles.customLabel}>Project key</FieldLabel>
       <FieldControl required placeholder="MAPS" className={styles.customControl} />
-      <FieldDescription className={styles.customDescription}>
-        Use three to five uppercase letters.
-      </FieldDescription>
+      <FieldDescription>Use three to five uppercase letters.</FieldDescription>
       <FieldError className={styles.customError} match="valueMissing">
         Please enter a project key.
       </FieldError>

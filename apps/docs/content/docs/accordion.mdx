@@ -4,14 +4,14 @@ description: A vertically stacked set of interactive headings that each reveal a
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   AccordionCssPlaygroundPanel,
   AccordionCssPropertiesPanel,
   AccordionExample,
   ControlledAccordionExample,
-  CustomStylesAccordionExample,
+  CustomCompositionAccordionExample,
   DisabledItemAccordionExample,
+  MultipleAccordionExample,
   accordionPlaygroundCssProperties,
 } from '@/components/examples/accordion';
 
@@ -28,9 +28,11 @@ import {
     {`
       import {
         Accordion,
+        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
+        AccordionTriggerIcon,
       } from "moduix";
 
       export function AccordionDemo() {
@@ -38,7 +40,12 @@ import {
           <Accordion defaultValue={["what-is-base-ui"]}>
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                <AccordionTrigger>{item.title}</AccordionTrigger>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon />
+                  </AccordionTrigger>
+                </AccordionHeader>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -60,20 +67,18 @@ import {
 
   </Preview.CSS>
 
-  <Preview.Data>
-    {`
+<Preview.Data>
+  {`
       const items = [
         {
           value: "what-is-base-ui",
           title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
+          description: "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
         },
         {
           value: "getting-started",
           title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
+          description: "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
         },
         {
           value: "can-i-use-it",
@@ -82,8 +87,7 @@ import {
         },
       ];
     `}
-
-  </Preview.Data>
+</Preview.Data>
 
 <Preview.CSSProperties>
   {(context) => <AccordionCssPropertiesPanel {...context} />}
@@ -94,79 +98,97 @@ import {
   </Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+The default path is explicit composition: `Accordion` owns state, each `AccordionItem` pairs one
+`AccordionTrigger` with one `AccordionPanel`, and `AccordionTriggerIcon` stays optional.
 
-`Accordion` is composed as a stack of independent items. Keep the trigger and panel inside the same
-`AccordionItem` so their state and accessibility wiring stay paired.
+## Anatomy
 
 ```text
 Accordion
 └─ AccordionItem[value]
-   ├─ AccordionTrigger
-   │  ├─ label
-   │  └─ icon
+   ├─ AccordionHeader
+   │  └─ AccordionTrigger
+   │     ├─ label
+   │     └─ AccordionTriggerIcon (optional)
    └─ AccordionPanel
       └─ content
 ```
 
+| Part                   | Role                                                                                                             |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `Accordion`            | Root state machine. Controls open values, keyboard navigation, `multiple`, `disabled`, and `orientation`.        |
+| `AccordionItem`        | One collapsible row. Its `value` identifies the row for `defaultValue`, controlled `value`, and change handlers. |
+| `AccordionHeader`      | Semantic heading wrapper for a trigger. Use `render` when the heading element needs to change.                   |
+| `AccordionTrigger`     | Interactive button that opens or closes the matching panel.                                                      |
+| `AccordionTriggerIcon` | Optional helper that renders the default plus icon. Replace its children or omit it when you want a custom cue.  |
+| `AccordionPanel`       | The collapsible content region. Put padding/content wrappers inside it so panel height animations stay clean.    |
+
+## Composition
+
+Use `Accordion` for state props such as `value`, `defaultValue`, `onValueChange`, `multiple`,
+`disabled`, `orientation`, and `loopFocus`. Use `keepMounted` or `hiddenUntilFound` on the root or
+panel when closed content must remain searchable or stay mounted for app logic.
+
+Style the exported parts directly with `className`. The root already ships with its default width,
+so only override layout when the surrounding UI needs a different footprint.
+
 ```tsx
 <Accordion defaultValue={['shipping']}>
   <AccordionItem value="shipping">
-    <AccordionTrigger>Shipping details</AccordionTrigger>
-    <AccordionPanel>
+    <AccordionHeader render={<h3 />}>
+      <AccordionTrigger>
+        Shipping details
+        <AccordionTriggerIcon />
+      </AccordionTrigger>
+    </AccordionHeader>
+    <AccordionPanel keepMounted>
       <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
     </AccordionPanel>
   </AccordionItem>
 </Accordion>
 ```
 
-| Part               | Role                                                                                                             |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
-| `Accordion`        | Root state machine. Controls open values, keyboard navigation, `multiple`, `disabled`, and `orientation`.        |
-| `AccordionItem`    | One collapsible row. Its `value` identifies the row for `defaultValue`, controlled `value`, and change handlers. |
-| `AccordionTrigger` | Semantic heading and interactive button. It opens or closes the matching panel and renders a default icon.       |
-| `AccordionPanel`   | The collapsible content region. Put padding/content wrappers inside it so panel height animations stay clean.    |
-
-`AccordionTrigger` renders the Base UI header internally so the common composition stays compact.
-Use `classNames.header`, `classNames.icon`, `slotProps.header`, and `slotProps.icon` when you need
-to style or customize those internal slots. `AccordionHeader` and `AccordionTriggerIcon` are still
-exported for advanced manual composition, but most projects do not need them.
-
-## Composition
-
-Use `Accordion` for root state and behavior props such as `value`, `defaultValue`,
-`onValueChange`, `multiple`, `disabled`, `orientation`, and `loopFocus`. Use `keepMounted`
-or `hiddenUntilFound` on the root or panel when closed content must stay in the DOM.
-
-Style the public parts with `className` on `Accordion`, `AccordionItem`, `AccordionTrigger`,
-and `AccordionPanel`. `AccordionTrigger` also accepts `icon`, `hideIcon`, `classNames`, and
-`slotProps` for the internal header and icon slots. All Base UI behavior props such as `render`,
-`keepMounted`, and `hiddenUntilFound` pass through to the matching primitive part.
+| Prop          | Default    | Values                   |
+| ------------- | ---------- | ------------------------ |
+| `multiple`    | `false`    | `true`, `false`          |
+| `disabled`    | `false`    | `true`, `false`          |
+| `orientation` | `vertical` | `vertical`, `horizontal` |
+| `loopFocus`   | `true`     | `true`, `false`          |
 
 ## Examples
 
 ### Multiple
 
-Use the `multiple` prop to allow multiple items to be open at the same time.
+Use `multiple` to allow several items to stay open at once.
 
 <Preview>
-  <AccordionExample multiple defaultValue={["what-is-base-ui", "can-i-use-it"]} />
+  <MultipleAccordionExample />
 
   <Preview.Code>
     {`
       import {
         Accordion,
+        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
+        AccordionTriggerIcon,
       } from "moduix";
 
       export function MultipleAccordionDemo() {
         return (
-          <Accordion multiple defaultValue={["what-is-base-ui", "can-i-use-it"]}>
+          <Accordion
+            multiple
+            defaultValue={["what-is-base-ui", "can-i-use-it"]}
+          >
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                <AccordionTrigger>{item.title}</AccordionTrigger>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon />
+                  </AccordionTrigger>
+                </AccordionHeader>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -178,45 +200,11 @@ Use the `multiple` prop to allow multiple items to be open at the same time.
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Controlled
 
-Control the open panels from React state when the accordion needs to coordinate with other UI.
+Control `value` from React state when the open panels need to coordinate with surrounding UI.
 
 <Preview>
   <ControlledAccordionExample />
@@ -225,20 +213,27 @@ Control the open panels from React state when the accordion needs to coordinate 
     {`
       import {
         Accordion,
+        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
+        AccordionTriggerIcon,
       } from "moduix";
       import { useState } from "react";
 
       export function ControlledAccordionDemo() {
-        const [value, setValue] = useState(["getting-started"] as string[])
+        const [value, setValue] = useState(["getting-started"] as string[]);
 
         return (
           <Accordion value={value} onValueChange={setValue}>
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                <AccordionTrigger>{item.title}</AccordionTrigger>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon />
+                  </AccordionTrigger>
+                </AccordionHeader>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -250,45 +245,11 @@ Control the open panels from React state when the accordion needs to coordinate 
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Disabled Item
 
-Set `disabled` on an item to keep it visible while preventing interaction.
+Set `disabled` on an item to keep it visible while blocking interaction.
 
 <Preview>
   <DisabledItemAccordionExample />
@@ -297,9 +258,11 @@ Set `disabled` on an item to keep it visible while preventing interaction.
     {`
       import {
         Accordion,
+        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
+        AccordionTriggerIcon,
       } from "moduix";
 
       export function DisabledItemAccordionDemo() {
@@ -311,7 +274,12 @@ Set `disabled` on an item to keep it visible while preventing interaction.
                 value={item.value}
                 disabled={item.value === "getting-started"}
               >
-                <AccordionTrigger>{item.title}</AccordionTrigger>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon />
+                  </AccordionTrigger>
+                </AccordionHeader>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -323,70 +291,41 @@ Set `disabled` on an item to keep it visible while preventing interaction.
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Custom Icon
+## Custom Composition
 
-Pass `icon` to replace the default visual marker and style the icon slot with `classNames.icon`.
+`AccordionTriggerIcon` is narrow sugar for the common visual affordance. Keep it when the default
+plus icon works, replace its children when the UI needs a different cue, or omit it entirely.
 
 <Preview>
-  <CustomStylesAccordionExample />
+  <CustomCompositionAccordionExample />
 
   <Preview.Code>
     {`
       import {
         Accordion,
+        AccordionHeader,
         AccordionItem,
         AccordionPanel,
         AccordionTrigger,
+        AccordionTriggerIcon,
         ChevronDownIcon,
       } from "moduix";
 
-      export function CustomStylesAccordionDemo() {
+      export function CustomCompositionAccordionDemo() {
         return (
           <Accordion defaultValue={["what-is-base-ui"]}>
             {items.map((item) => (
               <AccordionItem key={item.value} value={item.value}>
-                <AccordionTrigger
-                  icon={<ChevronDownIcon />}
-                  classNames={{ icon: styles.customIcon }}
-                >
-                  {item.title}
-                </AccordionTrigger>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {item.title}
+                    <AccordionTriggerIcon className={styles.customIcon}>
+                      <ChevronDownIcon />
+                    </AccordionTriggerIcon>
+                  </AccordionTrigger>
+                </AccordionHeader>
                 <AccordionPanel>
                   <div className={styles.panelContent}>{item.description}</div>
                 </AccordionPanel>
@@ -411,29 +350,4 @@ Pass `icon` to replace the default visual marker and style the icon slot with `c
     `}
 
   </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "what-is-base-ui",
-          title: "What is Base UI?",
-          description:
-            "Base UI is a library of high-quality unstyled React components for design systems and web apps.",
-        },
-        {
-          value: "getting-started",
-          title: "How do I get started?",
-          description:
-            "Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.",
-        },
-        {
-          value: "can-i-use-it",
-          title: "Can I use it for my project?",
-          description: "Of course. Base UI is free and open source.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>

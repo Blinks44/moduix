@@ -5,6 +5,11 @@ export {
   SelectTrigger,
   SelectValue,
   SelectIcon,
+  SelectPortal,
+  SelectBackdrop,
+  SelectPositioner,
+  SelectPopup,
+  SelectArrow,
   SelectContent,
   SelectScrollUpArrow,
   SelectScrollDownArrow,
@@ -18,13 +23,4 @@ export {
   SelectSeparator,
   SelectGroup,
   SelectGroupLabel,
-} from './Select';
-
-export type {
-  SelectProps,
-  SelectAnimation,
-  SelectValueType,
-  SelectContentClassNames,
-  SelectContentSlotProps,
-  SelectContentProps,
 } from './Select';

@@ -1,5 +1,6 @@
-import { Field, FieldError, FieldLabel, Input, type InputProps } from 'moduix';
-import * as React from 'react';
+import type { ComponentProps } from 'react';
+import { Field, FieldDescription, FieldError, FieldLabel, Input } from 'moduix';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './input.module.css';
@@ -82,17 +83,18 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function InputExample(props: InputProps) {
+export function InputExample(props: ComponentProps<typeof Input>) {
   return (
     <Field className={styles.field}>
       <FieldLabel>Name</FieldLabel>
+      <FieldDescription>Used in your public workspace profile.</FieldDescription>
       <Input placeholder="Enter your name" {...props} />
     </Field>
   );
 }
 
 export function ControlledInputExample() {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = useState('');
 
   return (
     <Field className={styles.field}>
@@ -131,11 +133,11 @@ export function InputNativeAttributesExample() {
   );
 }
 
-export function DisabledInputExample() {
+export function DisabledAndReadOnlyInputExample() {
   return (
     <div className={styles.stack}>
       <Input disabled placeholder="Disabled input" />
-      <Input disabled value="Read only value" />
+      <Input readOnly value="Assigned workspace" />
     </div>
   );
 }
@@ -157,5 +159,13 @@ export function CustomStylesInputExample() {
       <FieldLabel>Project key</FieldLabel>
       <Input placeholder="MAPS" className={styles.customInput} />
     </Field>
+  );
+}
+
+export function StandaloneInputExample() {
+  return (
+    <div className={styles.field}>
+      <Input aria-label="Search projects" placeholder="Search projects" />
+    </div>
   );
 }

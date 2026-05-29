@@ -1,13 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { BellIcon, InfoIcon, PlusIcon, ShareIcon } from '@/primitives/Icons';
-import type { TooltipContentProps } from './Tooltip';
+import { BellIcon, InfoIcon, ShareIcon } from '@/icons/demo';
+import { PlusIcon } from '@/icons/ui';
 import {
   Tooltip,
   TooltipProvider,
   createTooltipHandle,
+  TooltipArrow,
   TooltipContent,
+  TooltipPopup,
+  TooltipPortal,
+  TooltipPositioner,
   TooltipTrigger,
+  TooltipViewport,
 } from './Tooltip';
 import storyStyles from './Tooltip.stories.module.css';
 
@@ -22,9 +27,8 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type TooltipSide = NonNullable<TooltipContentProps['side']>;
-
-const SIDES: TooltipSide[] = ['top', 'right', 'bottom', 'left'];
+const SIDES = ['top', 'right', 'bottom', 'left'] as const;
+type TooltipSide = (typeof SIDES)[number];
 
 export const Basic: Story = {
   render: () => {
@@ -39,13 +43,25 @@ export const Basic: Story = {
   },
 };
 
-export const WithoutArrow: Story = {
-  name: 'Without Arrow',
+export const Default: Story = {
+  name: 'Default Content',
   render: () => {
     return (
       <Tooltip>
-        <TooltipTrigger aria-label="Tooltip without arrow">Hover or focus</TooltipTrigger>
-        <TooltipContent withArrow={false}>Tooltip without arrow</TooltipContent>
+        <TooltipTrigger aria-label="Tooltip content">Hover or focus</TooltipTrigger>
+        <TooltipContent>Tooltip content</TooltipContent>
+      </Tooltip>
+    );
+  },
+};
+
+export const WithArrow: Story = {
+  name: 'With Arrow',
+  render: () => {
+    return (
+      <Tooltip>
+        <TooltipTrigger aria-label="Tooltip with arrow">Hover or focus</TooltipTrigger>
+        <TooltipContent showArrow>Tooltip with arrow</TooltipContent>
       </Tooltip>
     );
   },
@@ -60,21 +76,27 @@ export const Toolbar: Story = {
             <TooltipTrigger aria-label="Add item" data-variant="ghost">
               <PlusIcon className={storyStyles.icon} />
             </TooltipTrigger>
-            <TooltipContent sideOffset={16}>Add item</TooltipContent>
+            <TooltipContent showArrow sideOffset={16}>
+              Add item
+            </TooltipContent>
           </Tooltip>
 
           <Tooltip>
             <TooltipTrigger aria-label="Share" data-variant="ghost">
               <ShareIcon className={storyStyles.icon} />
             </TooltipTrigger>
-            <TooltipContent sideOffset={16}>Share</TooltipContent>
+            <TooltipContent showArrow sideOffset={16}>
+              Share
+            </TooltipContent>
           </Tooltip>
 
           <Tooltip>
             <TooltipTrigger aria-label="Details" data-variant="ghost">
               <InfoIcon className={storyStyles.icon} />
             </TooltipTrigger>
-            <TooltipContent sideOffset={16}>Details</TooltipContent>
+            <TooltipContent showArrow sideOffset={16}>
+              Details
+            </TooltipContent>
           </Tooltip>
         </div>
       </TooltipProvider>
@@ -172,25 +194,24 @@ export const MultipleTriggers: Story = {
   },
 };
 
-export const CustomStyles: Story = {
-  name: 'Custom Styles',
+export const CustomComposition: Story = {
+  name: 'Custom Composition',
   render: () => {
     return (
       <Tooltip>
         <TooltipTrigger aria-label="Custom styled tooltip" className={storyStyles.customTrigger}>
           Custom style
         </TooltipTrigger>
-        <TooltipContent
-          className={storyStyles.customPopup}
-          classNames={{
-            portal: storyStyles.customPortal,
-            positioner: storyStyles.customPositioner,
-            arrow: storyStyles.customArrow,
-            viewport: storyStyles.customViewport,
-          }}
-        >
-          Styled through className
-        </TooltipContent>
+        <TooltipPortal>
+          <TooltipPositioner sideOffset={10} className={storyStyles.customPositioner}>
+            <TooltipPopup className={storyStyles.customPopup}>
+              <TooltipArrow className={storyStyles.customArrow} />
+              <TooltipViewport className={storyStyles.customViewport}>
+                Styled through explicit parts
+              </TooltipViewport>
+            </TooltipPopup>
+          </TooltipPositioner>
+        </TooltipPortal>
       </Tooltip>
     );
   },

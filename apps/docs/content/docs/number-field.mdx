@@ -4,11 +4,12 @@ description: A numeric input with increment and decrement buttons, formatting, v
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   ControlledNumberFieldExample,
   CustomIconsNumberFieldExample,
   FormattedNumberFieldExample,
+  LocalizedLabelsNumberFieldExample,
+  MinMaxStepNumberFieldExample,
   NumberFieldCssPlaygroundPanel,
   NumberFieldCssPropertiesPanel,
   NumberFieldExample,
@@ -59,8 +60,9 @@ import {
 ## Anatomy
 
 `NumberField` keeps numeric state on the root and renders the standard decrement, input, and
-increment group automatically. Add `NumberFieldScrubArea` only when the label or another visible
-part should support drag-to-change behavior.
+increment controls automatically. Add `NumberFieldScrubArea` when a visible part should support
+drag-to-change behavior above the built-in stepper. Use `NumberFieldRoot` only when you need to
+assemble the control manually.
 
 ```text
 Field
@@ -68,7 +70,7 @@ Field
 └─ NumberField
    ├─ NumberFieldScrubArea
    │  ├─ scrub label
-   │  └─ cursor (internal)
+   │  └─ NumberFieldScrubAreaCursor
    └─ NumberFieldGroup
       ├─ NumberFieldDecrement
       ├─ NumberFieldInput
@@ -82,41 +84,46 @@ Field
 </Field>
 ```
 
-| Part                   | Role                                                                                                        |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `NumberField`          | Root state machine. Controls value, formatting, validation, min/max, step, and change handlers.             |
-| `NumberFieldScrubArea` | Optional drag area for changing the value. It renders the scrub cursor internally by default.               |
-| `NumberFieldGroup`     | Visual wrapper for the stepper buttons and input. Rendered automatically unless `withGroup={false}` is set. |
-| `NumberFieldDecrement` | Button that decreases the value. It renders the default minus icon, or your custom icon as children.        |
-| `NumberFieldInput`     | Editable numeric input. It receives formatted text and invalid, disabled, and readonly state attributes.    |
-| `NumberFieldIncrement` | Button that increases the value. It renders the default plus icon, or your custom icon as children.         |
-
-`NumberField` does not use portal-like service layers such as `portal`, `backdrop`, or `viewport`.
-The standard group is rendered internally by default and can be styled with `classNames.group`,
-`classNames.decrement`, `classNames.input`, and `classNames.increment`. The scrub cursor is an
-internal service slot of `NumberFieldScrubArea`, so it is customized through `cursor`,
-`withCursor`, and `classNames.cursor` instead of being added to the public composition.
+| Part                         | Role                                                                                                                             |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `NumberField`                | High-level number field. Renders the default group with decrement button, input, and increment button.                           |
+| `NumberFieldRoot`            | Low-level root state machine for custom composition. Controls value, formatting, validation, min/max, step, and change handlers. |
+| `NumberFieldScrubArea`       | Optional drag area for changing the value.                                                                                       |
+| `NumberFieldScrubAreaCursor` | Optional scrub cursor part. Renders the default scrub cursor icon unless you pass children.                                      |
+| `NumberFieldGroup`           | Visual wrapper for the stepper buttons and input.                                                                                |
+| `NumberFieldDecrement`       | Button that decreases the value. It renders the default minus icon, or your custom icon as children.                             |
+| `NumberFieldInput`           | Editable numeric input. It receives formatted text and invalid, disabled, and readonly state attributes.                         |
+| `NumberFieldIncrement`       | Button that increases the value. It renders the default plus icon, or your custom icon as children.                              |
 
 ## Composition
 
 Use `NumberField` for root behavior props such as `value`, `defaultValue`, `onValueChange`, `min`,
 `max`, `step`, `required`, `disabled`, `readOnly`, and `format`.
 
-Use the default group for standard number inputs. Set `decrementLabel` and `incrementLabel` to
-localize the internal button labels, or set `withGroup={false}` and compose `NumberFieldGroup`,
-`NumberFieldDecrement`, `NumberFieldInput`, and `NumberFieldIncrement` manually when the layout or
-icons need full control.
+Use the default `NumberField` for standard inputs. It already renders the decrement button, input,
+and increment button for you, so `children` stay reserved for extra visible parts such as
+`NumberFieldScrubArea`.
 
-Visible parts accept `className`: `NumberField`, `NumberFieldScrubArea`, `NumberFieldGroup`,
-`NumberFieldDecrement`, `NumberFieldInput`, and `NumberFieldIncrement`. `NumberFieldScrubArea`
-also accepts `cursor` for replacing the default scrub cursor icon, `withCursor={false}` for hiding
-it, and `classNames.cursor` for styling the internal cursor wrapper.
+Keep `decrementLabel` and `incrementLabel` only for localizing the built-in icon buttons. When the
+layout, icons, or DOM structure need full control, switch to `NumberFieldRoot` and compose the
+exported parts directly.
+
+Visible parts accept `className`: `NumberField`, `NumberFieldRoot`, `NumberFieldScrubArea`,
+`NumberFieldScrubAreaCursor`, `NumberFieldGroup`, `NumberFieldDecrement`, `NumberFieldInput`, and
+`NumberFieldIncrement`.
+
+### Defaults
+
+| Prop             | Default            | Values     |
+| ---------------- | ------------------ | ---------- |
+| `decrementLabel` | `"Decrease value"` | Any string |
+| `incrementLabel` | `"Increase value"` | Any string |
 
 ## Examples
 
 ### Controlled
 
-Control the numeric value from React state when other UI needs to react to the current number.
+Use a controlled value when other UI needs to react to the current number.
 
 <Preview>
   <ControlledNumberFieldExample />
@@ -151,10 +158,10 @@ Control the numeric value from React state when other UI needs to react to the c
 
 ### Min, Max, and Step
 
-Use `min`, `max`, and `step` to constrain button, keyboard, scrub, and enabled wheel-scrub interactions.
+Use `min`, `max`, and `step` to constrain button, keyboard, scrub, and wheel interactions.
 
 <Preview>
-  <NumberFieldExample defaultValue={10} min={0} max={20} step={2} />
+  <MinMaxStepNumberFieldExample />
 
   <Preview.Code>
     {`
@@ -180,9 +187,46 @@ Use `min`, `max`, and `step` to constrain button, keyboard, scrub, and enabled w
   </Preview.Code>
 </Preview>
 
+### Localized Button Labels
+
+Use `decrementLabel` and `incrementLabel` when the default icon buttons need clearer or localized
+screen reader text.
+
+<Preview>
+  <LocalizedLabelsNumberFieldExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldLabel,
+        NumberField,
+      } from "moduix";
+      import { useId } from "react";
+
+      export function NumberFieldLabelsDemo() {
+        const id = useId();
+
+        return (
+          <Field>
+            <FieldLabel htmlFor={id}>Seats</FieldLabel>
+            <NumberField
+              id={id}
+              defaultValue={2}
+              decrementLabel="Decrease seat count"
+              incrementLabel="Increase seat count"
+            />
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ### Formatting
 
-Use `format` for localized presentation while keeping the value numeric.
+Use `format` for localized display while keeping the value numeric.
 
 <Preview>
   <FormattedNumberFieldExample />
@@ -219,7 +263,9 @@ Use `format` for localized presentation while keeping the value numeric.
 
 ### Scrub Area
 
-Add `NumberFieldScrubArea` when users should be able to drag the label area to change the value. The scrub cursor renders automatically and can be customized with the `cursor`, `withCursor`, and `classNames.cursor` props.
+Add `NumberFieldScrubArea` when users should be able to drag a label or another visible part to
+change the value. Add `NumberFieldScrubAreaCursor` when you want the default scrub cursor affordance
+or a custom cursor element.
 
 <Preview>
   <NumberFieldScrubAreaExample />
@@ -227,9 +273,11 @@ Add `NumberFieldScrubArea` when users should be able to drag the label area to c
   <Preview.Code>
     {`
       import {
+        Field,
+        FieldLabel,
         NumberField,
         NumberFieldScrubArea,
-        FieldLabel,
+        NumberFieldScrubAreaCursor,
       } from "moduix";
       import { useId } from "react";
 
@@ -237,11 +285,14 @@ Add `NumberFieldScrubArea` when users should be able to drag the label area to c
         const id = useId();
 
         return (
-          <NumberField id={id} defaultValue={250}>
-            <NumberFieldScrubArea>
-              <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
-            </NumberFieldScrubArea>
-          </NumberField>
+          <Field>
+            <NumberField id={id} defaultValue={250}>
+              <NumberFieldScrubArea>
+                <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+                <NumberFieldScrubAreaCursor />
+              </NumberFieldScrubArea>
+            </NumberField>
+          </Field>
         );
       }
     `}
@@ -284,9 +335,10 @@ Wrap the control in `Field` to show native validation errors from `required`, `m
   </Preview.Code>
 </Preview>
 
-### Custom Icons
+## Custom Composition
 
-Pass children to the stepper buttons to use icons from your application or icon library.
+Use `NumberFieldRoot` when the default stepper is close but not exact: custom icons, a different
+input width, or a custom scrub affordance are all good reasons to drop to explicit composition.
 
 <Preview>
   <CustomIconsNumberFieldExample />
@@ -296,7 +348,7 @@ Pass children to the stepper buttons to use icons from your application or icon 
       import {
         Field,
         FieldLabel,
-        NumberField,
+        NumberFieldRoot,
         NumberFieldGroup,
         NumberFieldDecrement,
         ChevronDownIcon,
@@ -313,17 +365,17 @@ Pass children to the stepper buttons to use icons from your application or icon 
         return (
           <Field>
             <FieldLabel htmlFor={id}>Floors</FieldLabel>
-            <NumberField id={id} defaultValue={8} withGroup={false}>
+            <NumberFieldRoot id={id} defaultValue={8}>
               <NumberFieldGroup>
-                <NumberFieldDecrement aria-label="Decrease value" className={styles.customButton}>
+                <NumberFieldDecrement className={styles.customButton}>
                   <ChevronDownIcon />
                 </NumberFieldDecrement>
                 <NumberFieldInput className={styles.customInput} />
-                <NumberFieldIncrement aria-label="Increase value" className={styles.customButton}>
+                <NumberFieldIncrement className={styles.customButton}>
                   <ChevronUpIcon />
                 </NumberFieldIncrement>
               </NumberFieldGroup>
-            </NumberField>
+            </NumberFieldRoot>
           </Field>
         );
       }

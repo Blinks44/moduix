@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { InfoIcon } from '@/primitives/Icons';
+import { useState } from 'react';
+import { InfoIcon } from '@/icons/demo';
 import {
   Select,
+  SelectArrow,
+  SelectBackdrop,
   SelectContent,
   SelectField,
   SelectGroup,
@@ -16,6 +18,9 @@ import {
   SelectItemText,
   SelectLabel,
   SelectList,
+  SelectPopup,
+  SelectPortal,
+  SelectPositioner,
   SelectScrollDownArrow,
   SelectScrollUpArrow,
   SelectSeparator,
@@ -129,6 +134,20 @@ function renderMultipleValue(value: Language[]) {
   return `${first}${suffix}`;
 }
 
+function FruitItems({ indicator = 'start' }: { indicator?: 'start' | 'end' }) {
+  return (
+    <>
+      {fruits.map((item) => (
+        <SelectItem key={item.value} value={item.value} indicator={indicator}>
+          {indicator === 'start' ? <SelectItemIndicator /> : null}
+          <SelectItemText>{item.label}</SelectItemText>
+          {indicator === 'end' ? <SelectItemIndicator /> : null}
+        </SelectItem>
+      ))}
+    </>
+  );
+}
+
 export const Basic: Story = {
   render: () => {
     return (
@@ -142,23 +161,16 @@ export const Basic: Story = {
         </SelectField>
 
         <SelectContent>
-          <SelectScrollUpArrow />
           <SelectList>
-            {fruits.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                <SelectItemIndicator />
-                <SelectItemText>{item.label}</SelectItemText>
-              </SelectItem>
-            ))}
+            <FruitItems />
           </SelectList>
-          <SelectScrollDownArrow />
         </SelectContent>
       </Select>
     );
   },
 };
 
-export const IndicatorRightWithIcon: Story = {
+export const WithArrow: Story = {
   render: () => {
     return (
       <Select items={fruits}>
@@ -170,21 +182,9 @@ export const IndicatorRightWithIcon: Story = {
           </SelectTrigger>
         </SelectField>
 
-        <SelectContent>
+        <SelectContent showArrow alignItemWithTrigger={false}>
           <SelectList>
-            {fruits.map((item) => (
-              <SelectItem key={item.value} value={item.value} indicator="end">
-                <SelectItemText>
-                  <SelectItemTextContent>
-                    <SelectItemTextIcon>
-                      <InfoIcon />
-                    </SelectItemTextIcon>
-                    <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
-                  </SelectItemTextContent>
-                </SelectItemText>
-                <SelectItemIndicator />
-              </SelectItem>
-            ))}
+            <FruitItems />
           </SelectList>
         </SelectContent>
       </Select>
@@ -229,7 +229,7 @@ export const Grouped: Story = {
   },
 };
 
-export const Animated: Story = {
+export const Scrollable: Story = {
   render: () => {
     return (
       <Select items={fruits}>
@@ -241,12 +241,43 @@ export const Animated: Story = {
           </SelectTrigger>
         </SelectField>
 
-        <SelectContent animation="scale">
+        <SelectContent>
+          <SelectScrollUpArrow />
+          <SelectList>
+            <FruitItems />
+          </SelectList>
+          <SelectScrollDownArrow />
+        </SelectContent>
+      </Select>
+    );
+  },
+};
+
+export const IndicatorRightWithIcon: Story = {
+  render: () => {
+    return (
+      <Select items={fruits}>
+        <SelectField>
+          <SelectLabel>Choose fruit</SelectLabel>
+          <SelectTrigger>
+            <SelectValue placeholder="Select an option" />
+            <SelectIcon />
+          </SelectTrigger>
+        </SelectField>
+
+        <SelectContent>
           <SelectList>
             {fruits.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
+              <SelectItem key={item.value} value={item.value} indicator="end">
+                <SelectItemText>
+                  <SelectItemTextContent>
+                    <SelectItemTextIcon>
+                      <InfoIcon />
+                    </SelectItemTextIcon>
+                    <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
+                  </SelectItemTextContent>
+                </SelectItemText>
                 <SelectItemIndicator />
-                <SelectItemText>{item.label}</SelectItemText>
               </SelectItem>
             ))}
           </SelectList>
@@ -285,7 +316,7 @@ export const Multiple: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = React.useState<string | null>('light');
+    const [value, setValue] = useState<string | null>('light');
 
     return (
       <Select value={value} onValueChange={setValue} items={themeOptions}>
@@ -372,40 +403,29 @@ export const ObjectValues: Story = {
   },
 };
 
-export const PopupOptions: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Select items={fruits}>
         <SelectField>
           <SelectLabel>Choose fruit</SelectLabel>
-          <SelectTrigger className={styles.popupOptionsTrigger}>
+          <SelectTrigger className={styles.customTrigger}>
             <SelectValue placeholder="Select an option" />
             <SelectIcon />
           </SelectTrigger>
         </SelectField>
 
-        <SelectContent
-          alignItemWithTrigger={false}
-          sideOffset={8}
-          withArrow
-          withBackdrop
-          slotProps={{
-            positioner: { sticky: true },
-          }}
-          classNames={{
-            backdrop: styles.backdrop,
-            arrow: styles.arrow,
-          }}
-        >
-          <SelectList>
-            {fruits.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                <SelectItemIndicator />
-                <SelectItemText>{item.label}</SelectItemText>
-              </SelectItem>
-            ))}
-          </SelectList>
-        </SelectContent>
+        <SelectPortal>
+          <SelectBackdrop className={styles.backdrop} />
+          <SelectPositioner alignItemWithTrigger={false} sideOffset={8} sticky>
+            <SelectPopup>
+              <SelectArrow className={styles.arrow} />
+              <SelectList>
+                <FruitItems />
+              </SelectList>
+            </SelectPopup>
+          </SelectPositioner>
+        </SelectPortal>
       </Select>
     );
   },

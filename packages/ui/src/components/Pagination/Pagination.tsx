@@ -1,257 +1,194 @@
+import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';
 import { clsx } from 'clsx';
-import * as React from 'react';
-import { ChevronRightLargeIcon } from '@/primitives';
-import { Toolbar, ToolbarButton, ToolbarLink } from '../Toolbar';
+import { useMemo, type ComponentProps } from 'react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/icons/ui';
+import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Pagination.module.css';
-
-type PaginationToolbarVariant = 'default' | 'outline' | 'ghost';
-type PaginationToolbarSize = 'sm' | 'md' | 'lg';
-type PaginationItem = number | 'ellipsis-start' | 'ellipsis-end';
-type PaginationSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-type PaginationProps = Omit<React.ComponentProps<'nav'>, 'onChange'> & {
-  count: number;
-  page?: number;
-  defaultPage?: number;
-  onPageChange?: (page: number) => void;
-  visiblePages?: number;
-  showPages?: boolean;
-  showArrows?: boolean;
-  disabled?: boolean;
-  getPageHref?: (page: number) => string;
-  size?: PaginationSize;
-  toolbarVariant?: PaginationToolbarVariant;
-  toolbarSize?: PaginationToolbarSize;
-  previousLabel?: string;
-  nextLabel?: string;
-};
-
-function getPageItems(page: number, count: number, visiblePages: number): PaginationItem[] {
-  if (count <= visiblePages) {
-    return Array.from({ length: count }, (_, index) => index + 1);
-  }
-
-  const startEdge = visiblePages - 2;
-  const endEdge = count - (visiblePages - 2);
-
-  if (page <= startEdge) {
-    const initialPages = Array.from({ length: visiblePages }, (_, index) => index + 1);
-    return [...initialPages, 'ellipsis-end', count];
-  }
-
-  if (page >= endEdge) {
-    const endingStart = count - visiblePages + 1;
-    const endingPages = Array.from({ length: visiblePages }, (_, index) => endingStart + index);
-    return [1, 'ellipsis-start', ...endingPages];
-  }
-
-  const middleCount = visiblePages - 2;
-  const middleOffset = Math.floor(middleCount / 2);
-  const middleStart = page - middleOffset;
-  const middlePages = Array.from({ length: middleCount }, (_, index) => middleStart + index);
-
-  return [1, 'ellipsis-start', ...middlePages, 'ellipsis-end', count];
-}
 
 function clampPage(page: number, count: number) {
   return Math.min(Math.max(page, 1), count);
 }
 
-function resolveToolbarSize(
-  size: PaginationSize,
-  toolbarSize?: PaginationToolbarSize,
-): PaginationToolbarSize {
-  if (toolbarSize) {
-    return toolbarSize;
-  }
-
-  if (size === 'xs' || size === 'sm') {
-    return 'sm';
-  }
-
-  if (size === 'xl') {
-    return 'lg';
-  }
-
-  return 'md';
+function range(start: number, end: number) {
+  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
 
-function Pagination({
-  className,
+function usePagination({
   count,
   page,
-  defaultPage = 1,
-  onPageChange,
-  visiblePages = 5,
-  showPages = true,
-  showArrows = true,
-  disabled = false,
-  getPageHref,
-  size = 'md',
-  toolbarVariant = 'ghost',
-  toolbarSize,
-  previousLabel = 'Previous page',
-  nextLabel = 'Next page',
-  ...props
-}: PaginationProps) {
-  const isControlled = page !== undefined;
-  const safeCount = Math.max(1, Math.floor(count));
-  const safeVisiblePages = Math.max(3, Math.floor(visiblePages));
-  const [uncontrolledPage, setUncontrolledPage] = React.useState(() =>
-    clampPage(defaultPage, safeCount),
-  );
-  const currentPage = clampPage(isControlled ? page : uncontrolledPage, safeCount);
+  siblingCount = 1,
+  boundaryCount = 1,
+}: {
+  count: number;
+  page: number;
+  siblingCount?: number;
+  boundaryCount?: number;
+}) {
+  const safeCount = Math.max(0, Math.floor(count));
+  const safePage = safeCount === 0 ? 0 : clampPage(Math.floor(page), safeCount);
+  const safeSiblingCount = Math.max(0, Math.floor(siblingCount));
+  const safeBoundaryCount = Math.max(0, Math.floor(boundaryCount));
 
-  React.useEffect(() => {
-    if (!isControlled) {
-      setUncontrolledPage((prev) => clampPage(prev, safeCount));
+  const items = useMemo(() => {
+    if (safeCount === 0) {
+      return [];
     }
-  }, [isControlled, safeCount]);
 
-  const setPage = React.useCallback(
-    (nextPage: number) => {
-      const clampedPage = clampPage(nextPage, safeCount);
+    const totalPageNumbers = safeSiblingCount * 2 + 3 + safeBoundaryCount * 2;
 
-      if (clampedPage === currentPage || disabled) {
-        return;
-      }
+    if (safeCount <= totalPageNumbers) {
+      return range(1, safeCount);
+    }
 
-      if (!isControlled) {
-        setUncontrolledPage(clampedPage);
-      }
+    const startPages = range(1, safeBoundaryCount);
+    const endPages = range(safeCount - safeBoundaryCount + 1, safeCount);
 
-      onPageChange?.(clampedPage);
-    },
-    [currentPage, disabled, isControlled, onPageChange, safeCount],
-  );
+    const siblingsStart = Math.max(
+      Math.min(
+        safePage - safeSiblingCount,
+        safeCount - safeBoundaryCount - safeSiblingCount * 2 - 1,
+      ),
+      safeBoundaryCount + 2,
+    );
 
-  const pageItems = showPages ? getPageItems(currentPage, safeCount, safeVisiblePages) : [];
-  const prevPage = currentPage - 1;
-  const nextPage = currentPage + 1;
-  const isPrevDisabled = disabled || currentPage <= 1;
-  const isNextDisabled = disabled || currentPage >= safeCount;
-  const hasLinks = Boolean(getPageHref);
-  const resolvedToolbarSize = resolveToolbarSize(size, toolbarSize);
+    const siblingsEnd = Math.min(
+      Math.max(safePage + safeSiblingCount, safeBoundaryCount + safeSiblingCount * 2 + 2),
+      endPages[0] - 2,
+    );
 
+    return [
+      ...startPages,
+      ...(siblingsStart > safeBoundaryCount + 2
+        ? ['ellipsis-start' as const]
+        : safeBoundaryCount + 1 < safeCount - safeBoundaryCount
+          ? [safeBoundaryCount + 1]
+          : []),
+      ...range(siblingsStart, siblingsEnd),
+      ...(siblingsEnd < safeCount - safeBoundaryCount - 1
+        ? ['ellipsis-end' as const]
+        : safeCount - safeBoundaryCount > safeBoundaryCount
+          ? [safeCount - safeBoundaryCount]
+          : []),
+      ...endPages,
+    ];
+  }, [safeBoundaryCount, safeCount, safePage, safeSiblingCount]);
+
+  return {
+    items,
+    page: safePage,
+    canNextPage: safeCount > 0 && safePage < safeCount,
+    canPreviousPage: safePage > 1,
+    nextPage: safeCount === 0 ? 0 : Math.min(safePage + 1, safeCount),
+    previousPage: safePage <= 1 ? safePage : safePage - 1,
+  };
+}
+
+const getPaginationRender = (props: ToolbarPrimitive.Link.Props) => {
+  if (props.render || 'href' in props) {
+    return props.render;
+  }
+
+  return <button type="button" />;
+};
+
+function Pagination({ className, ...props }: ComponentProps<'nav'>) {
   return (
     <nav
       data-slot="pagination-root"
-      data-size={size}
       aria-label="Pagination"
       className={clsx(styles.root, className)}
       {...props}
-    >
-      <Toolbar variant={toolbarVariant} size={resolvedToolbarSize} className={styles.toolbar}>
-        {showArrows &&
-          (hasLinks ? (
-            <ToolbarLink
-              data-slot="pagination-item"
-              aria-label={previousLabel}
-              aria-disabled={isPrevDisabled || undefined}
-              tabIndex={isPrevDisabled ? -1 : undefined}
-              href={getPageHref!(Math.max(prevPage, 1))}
-              onClick={(event) => {
-                if (isPrevDisabled) {
-                  event.preventDefault();
-                  return;
-                }
-                setPage(prevPage);
-              }}
-              className={clsx(styles.item, styles.arrow, isPrevDisabled && styles.itemDisabled)}
-            >
-              <ChevronRightLargeIcon className={styles.arrowLeftIcon} />
-            </ToolbarLink>
-          ) : (
-            <ToolbarButton
-              data-slot="pagination-item"
-              aria-label={previousLabel}
-              disabled={isPrevDisabled}
-              onClick={() => setPage(prevPage)}
-              className={clsx(styles.item, styles.arrow)}
-            >
-              <ChevronRightLargeIcon className={styles.arrowLeftIcon} />
-            </ToolbarButton>
-          ))}
-
-        {pageItems.map((item, index) => {
-          if (typeof item !== 'number') {
-            return (
-              <span
-                key={`${item}-${index}`}
-                data-slot="pagination-ellipsis"
-                className={styles.ellipsis}
-              >
-                ...
-              </span>
-            );
-          }
-
-          const isActive = item === currentPage;
-
-          if (hasLinks) {
-            return (
-              <ToolbarLink
-                key={item}
-                data-slot="pagination-item"
-                href={getPageHref!(item)}
-                aria-current={isActive ? 'page' : undefined}
-                className={clsx(styles.item, isActive && styles.itemActive)}
-                onClick={() => setPage(item)}
-              >
-                {item}
-              </ToolbarLink>
-            );
-          }
-
-          return (
-            <ToolbarButton
-              key={item}
-              data-slot="pagination-item"
-              aria-current={isActive ? 'page' : undefined}
-              data-active={isActive || undefined}
-              disabled={disabled}
-              onClick={() => setPage(item)}
-              className={clsx(styles.item, isActive && styles.itemActive)}
-            >
-              {item}
-            </ToolbarButton>
-          );
-        })}
-
-        {showArrows &&
-          (hasLinks ? (
-            <ToolbarLink
-              data-slot="pagination-item"
-              aria-label={nextLabel}
-              aria-disabled={isNextDisabled || undefined}
-              tabIndex={isNextDisabled ? -1 : undefined}
-              href={getPageHref!(Math.min(nextPage, safeCount))}
-              onClick={(event) => {
-                if (isNextDisabled) {
-                  event.preventDefault();
-                  return;
-                }
-                setPage(nextPage);
-              }}
-              className={clsx(styles.item, styles.arrow, isNextDisabled && styles.itemDisabled)}
-            >
-              <ChevronRightLargeIcon />
-            </ToolbarLink>
-          ) : (
-            <ToolbarButton
-              data-slot="pagination-item"
-              aria-label={nextLabel}
-              disabled={isNextDisabled}
-              onClick={() => setPage(nextPage)}
-              className={clsx(styles.item, styles.arrow)}
-            >
-              <ChevronRightLargeIcon />
-            </ToolbarButton>
-          ))}
-      </Toolbar>
-    </nav>
+    />
   );
 }
 
-export { Pagination };
-export type { PaginationProps, PaginationToolbarVariant, PaginationToolbarSize, PaginationSize };
+function PaginationContent({ className, ...props }: ToolbarPrimitive.Root.Props) {
+  return (
+    <ToolbarPrimitive.Root
+      data-slot="pagination-content"
+      className={mergeClassName(className, styles.content)}
+      {...props}
+    />
+  );
+}
+
+function PaginationItem({ className, ...props }: ComponentProps<'div'>) {
+  return <div data-slot="pagination-item" className={clsx(styles.item, className)} {...props} />;
+}
+
+function PaginationLink({
+  className,
+  isActive,
+  render,
+  ...props
+}: ToolbarPrimitive.Link.Props & {
+  isActive?: boolean;
+}) {
+  return (
+    <ToolbarPrimitive.Link
+      data-slot="pagination-link"
+      aria-current={isActive ? 'page' : undefined}
+      className={mergeClassName(className, styles.link, isActive && styles.linkActive)}
+      render={render ?? getPaginationRender(props)}
+      {...props}
+    />
+  );
+}
+
+function PaginationPrevious({
+  children,
+  className,
+  render,
+  'aria-label': ariaLabel,
+  ...props
+}: ToolbarPrimitive.Link.Props) {
+  return (
+    <PaginationLink
+      aria-label={children ? ariaLabel : (ariaLabel ?? 'Go to previous page')}
+      className={mergeClassName(className, styles.previous, !children && styles.iconOnly)}
+      render={render}
+      {...props}
+    >
+      {children ?? <ChevronLeftIcon />}
+    </PaginationLink>
+  );
+}
+
+function PaginationNext({
+  children,
+  className,
+  render,
+  'aria-label': ariaLabel,
+  ...props
+}: ToolbarPrimitive.Link.Props) {
+  return (
+    <PaginationLink
+      aria-label={children ? ariaLabel : (ariaLabel ?? 'Go to next page')}
+      className={mergeClassName(className, styles.next, !children && styles.iconOnly)}
+      render={render}
+      {...props}
+    >
+      {children ?? <ChevronRightIcon />}
+    </PaginationLink>
+  );
+}
+
+function PaginationEllipsis({ className, ...props }: ComponentProps<'span'>) {
+  return (
+    <span data-slot="pagination-ellipsis" className={clsx(styles.ellipsis, className)} {...props}>
+      <span aria-hidden>...</span>
+      <span className={styles.visuallyHidden}>More pages</span>
+    </span>
+  );
+}
+
+export {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+  usePagination,
+};

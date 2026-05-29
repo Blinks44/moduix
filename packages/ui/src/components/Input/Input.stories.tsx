@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { Field, FieldError, FieldLabel } from '../Field';
+import { useState } from 'react';
+import { Field, FieldDescription, FieldError, FieldLabel } from '../Field';
 import { Input } from './Input';
 import storyStyles from './Input.stories.module.css';
 
@@ -22,6 +22,7 @@ export const Basic: Story = {
     return (
       <Field className={storyStyles.field}>
         <FieldLabel>Name</FieldLabel>
+        <FieldDescription>Used in your public workspace profile.</FieldDescription>
         <Input placeholder="Enter your name" />
       </Field>
     );
@@ -30,7 +31,7 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = useState('');
 
     return (
       <Field className={storyStyles.field}>
@@ -74,12 +75,12 @@ export const NativeAttributes: Story = {
   },
 };
 
-export const Disabled: Story = {
+export const DisabledAndReadOnly: Story = {
   render: () => {
     return (
       <div className={storyStyles.stack}>
         <Input disabled placeholder="Disabled input" />
-        <Input disabled value="Read only value" />
+        <Input readOnly value="Assigned workspace" />
       </div>
     );
   },

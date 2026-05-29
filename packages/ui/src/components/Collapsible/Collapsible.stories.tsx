@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { ChevronDownIcon } from '@/primitives';
-import { Collapsible, CollapsiblePanel, CollapsibleTrigger } from './Collapsible';
+import { useState } from 'react';
+import { ChevronDownIcon } from '@/icons/ui';
+import {
+  Collapsible,
+  CollapsiblePanel,
+  CollapsibleTrigger,
+  CollapsibleTriggerIcon,
+} from './Collapsible';
 import styles from './Collapsible.stories.module.css';
 
 const meta = {
@@ -23,7 +28,10 @@ export const Basic: Story = {
   render: () => {
     return (
       <Collapsible className={styles.root}>
-        <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
+        <CollapsibleTrigger>
+          Recovery keys
+          <CollapsibleTriggerIcon />
+        </CollapsibleTrigger>
         <CollapsiblePanel>
           <ul className={styles.keysList}>
             {recoveryKeys.map((key) => (
@@ -40,7 +48,10 @@ export const DefaultOpen: Story = {
   render: () => {
     return (
       <Collapsible defaultOpen className={styles.root}>
-        <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
+        <CollapsibleTrigger>
+          Recovery keys
+          <CollapsibleTriggerIcon />
+        </CollapsibleTrigger>
         <CollapsiblePanel>
           <ul className={styles.keysList}>
             {recoveryKeys.map((key) => (
@@ -55,11 +66,14 @@ export const DefaultOpen: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
       <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
-        <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
+        <CollapsibleTrigger>
+          Recovery keys
+          <CollapsibleTriggerIcon />
+        </CollapsibleTrigger>
         <CollapsiblePanel>
           <ul className={styles.keysList}>
             {recoveryKeys.map((key) => (
@@ -77,7 +91,10 @@ export const Disabled: Story = {
   render: () => {
     return (
       <Collapsible disabled className={styles.root}>
-        <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
+        <CollapsibleTrigger>
+          Recovery keys
+          <CollapsibleTriggerIcon />
+        </CollapsibleTrigger>
         <CollapsiblePanel>
           <ul className={styles.keysList}>
             {recoveryKeys.map((key) => (
@@ -94,7 +111,10 @@ export const HiddenUntilFound: Story = {
   render: () => {
     return (
       <Collapsible className={styles.root}>
-        <CollapsibleTrigger>Searchable recovery keys</CollapsibleTrigger>
+        <CollapsibleTrigger>
+          Searchable recovery keys
+          <CollapsibleTriggerIcon />
+        </CollapsibleTrigger>
         <CollapsiblePanel hiddenUntilFound>
           <ul className={styles.keysList}>
             {recoveryKeys.map((key) => (
@@ -107,16 +127,15 @@ export const HiddenUntilFound: Story = {
   },
 };
 
-export const CustomStyles: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <Collapsible className={styles.customRoot}>
-        <CollapsibleTrigger
-          className={styles.customTrigger}
-          icon={<ChevronDownIcon />}
-          classNames={{ icon: styles.customTriggerIcon }}
-        >
-          Styled recovery keys
+        <CollapsibleTrigger render={<div />} nativeButton={false} className={styles.customTrigger}>
+          <span className={styles.triggerLabel}>Styled recovery keys</span>
+          <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+            <ChevronDownIcon />
+          </CollapsibleTriggerIcon>
         </CollapsibleTrigger>
         <CollapsiblePanel className={styles.customPanel}>
           <div className={styles.customPanelContent}>

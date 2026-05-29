@@ -1,14 +1,14 @@
-import type {
-  ToastManager as BaseToastManager,
-  ToastManagerAddOptions,
-  ToastManagerPromiseOptions,
-  ToastManagerUpdateOptions,
-  ToastObject,
-  UseToastManagerReturnValue,
-} from '@base-ui/react/toast';
+import type { ToastManager as BaseToastManager, ToastObject } from '@base-ui/react/toast';
 import { Toast as ToastPrimitive } from '@base-ui/react/toast';
-import * as React from 'react';
-import { CloseLineIcon } from '@/primitives';
+import {
+  createContext,
+  Fragment,
+  useContext,
+  useMemo,
+  type ComponentProps,
+  type ReactNode,
+} from 'react';
+import { CloseIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Toast.module.css';
 
@@ -19,111 +19,68 @@ type ToastPlacement =
   | 'bottom-left'
   | 'bottom-center'
   | 'bottom-right';
-
-type ToastRootProps = ToastPrimitive.Root.Props & {
-  placement?: ToastPlacement;
-};
-
-type ToastViewportProps = Omit<ToastPrimitive.Viewport.Props, 'className' | 'children'> & {
-  placement?: ToastPlacement;
-  stackBehavior?: ToastStackBehavior;
-};
-
-type ToastRegionClassNames = {
-  portal?: ToastPrimitive.Portal.Props['className'];
-  viewport?: ToastPrimitive.Viewport.Props['className'];
-  content?: ToastPrimitive.Content.Props['className'];
-  title?: ToastPrimitive.Title.Props['className'];
-  description?: ToastPrimitive.Description.Props['className'];
-  action?: ToastPrimitive.Action.Props['className'];
-  close?: ToastPrimitive.Close.Props['className'];
-};
-
-type ToastRegionProps = Omit<ToastViewportProps, 'children'> & {
-  className?: ToastPrimitive.Root.Props['className'];
-  classNames?: ToastRegionClassNames;
-  container?: ToastPrimitive.Portal.Props['container'];
-  renderToast?: (toast: ToastPrimitive.Root.ToastObject, index: number) => React.ReactNode;
-};
-
-type ToastAnchoredRegionClassNames = {
-  portal?: ToastPrimitive.Portal.Props['className'];
-  viewport?: ToastPrimitive.Viewport.Props['className'];
-  positioner?: ToastPrimitive.Positioner.Props['className'];
-  content?: ToastPrimitive.Content.Props['className'];
-  arrow?: ToastPrimitive.Arrow.Props['className'];
-};
-
-type ToastAnchoredRegionProps = Omit<ToastPrimitive.Viewport.Props, 'className' | 'children'> & {
-  className?: ToastPrimitive.Root.Props['className'];
-  classNames?: ToastAnchoredRegionClassNames;
-  container?: ToastPrimitive.Portal.Props['container'];
-  renderToast?: (toast: ToastPrimitive.Root.ToastObject, index: number) => React.ReactNode;
-};
-
 type ToastStackBehavior = 'stacked' | 'expanded';
-type ToastContentProps = ToastPrimitive.Content.Props;
-type ToastTitleProps = ToastPrimitive.Title.Props;
-type ToastDescriptionProps = ToastPrimitive.Description.Props;
-type ToastActionProps = ToastPrimitive.Action.Props;
-type ToastCloseProps = ToastPrimitive.Close.Props;
-type ToastManager<Data extends object = any> = BaseToastManager<Data>;
-type ToastProviderProps = Omit<ToastPrimitive.Provider.Props, 'children'> & {
-  children?: React.ReactNode;
-  anchoredToastController?: AnchoredToastController;
-  anchoredToastManager?: ToastManager;
-};
-type AnchoredToastShowOptions = Omit<
-  Parameters<ToastManager['add']>[0],
+type ToastItem = ToastObject<any>;
+type DataSlotProps = { 'data-slot'?: string };
+type AnchoredToastOptions = Omit<
+  Parameters<BaseToastManager['add']>[0],
   'id' | 'positionerProps'
 > & {
   anchor: Element;
   id?: string;
-  positionerProps?: NonNullable<Parameters<ToastManager['add']>[0]['positionerProps']>;
+  positionerProps?: NonNullable<Parameters<BaseToastManager['add']>[0]['positionerProps']>;
 };
 
-type AnchoredToastController = {
-  manager: ToastManager;
-  show: (options: AnchoredToastShowOptions) => string;
+const DEFAULT_TOAST_PLACEMENT: ToastPlacement = 'bottom-right';
+const DEFAULT_STACK_BEHAVIOR: ToastStackBehavior = 'stacked';
+const DEFAULT_ANCHORED_SIDE_OFFSET = 8;
+const TOP_TOAST_SWIPE_DIRECTIONS: Array<'left' | 'right' | 'up'> = ['left', 'right', 'up'];
+const BOTTOM_TOAST_SWIPE_DIRECTIONS: Array<'left' | 'right' | 'down'> = ['left', 'right', 'down'];
+
+const ToastPlacementContext = createContext<ToastPlacement>(DEFAULT_TOAST_PLACEMENT);
+const ToastStackBehaviorContext = createContext<ToastStackBehavior>(DEFAULT_STACK_BEHAVIOR);
+const ToastStyleContext = createContext<'stacked' | 'anchored'>('stacked');
+const AnchoredToastManagerContext = createContext<{
+  manager: BaseToastManager;
+  show: (options: AnchoredToastOptions) => string;
   closeByAnchor: (anchor: Element | null) => void;
   closeAll: () => void;
-};
-
-const ToastPlacementContext = React.createContext<ToastPlacement>('bottom-right');
-const ToastStackBehaviorContext = React.createContext<ToastStackBehavior>('stacked');
-const AnchoredToastControllerContext = React.createContext<AnchoredToastController | null>(null);
+} | null>(null);
 
 const createToastManager = ToastPrimitive.createToastManager;
 const useToastManager = ToastPrimitive.useToastManager;
 
-function isAnchoredToast(toast: ToastPrimitive.Root.ToastObject) {
+function isAnchoredToast(toast: ToastItem) {
   return Boolean(toast.positionerProps?.anchor);
+}
+
+function getToastSwipeDirection(placement: ToastPlacement) {
+  return placement.startsWith('top') ? TOP_TOAST_SWIPE_DIRECTIONS : BOTTOM_TOAST_SWIPE_DIRECTIONS;
 }
 
 function ToastProvider({
   children,
   toastManager,
-  anchoredToastController,
   anchoredToastManager,
   ...props
-}: ToastProviderProps) {
-  const defaultToastManager = React.useMemo(() => createToastManager(), []);
+}: ToastPrimitive.Provider.Props & {
+  anchoredToastManager?: BaseToastManager;
+}) {
+  const defaultToastManager = useMemo(() => createToastManager(), []);
+  const defaultAnchoredToastManager = useMemo(() => createToastManager(), []);
   const resolvedToastManager = toastManager ?? defaultToastManager;
-  const defaultAnchoredToastManager = React.useMemo(() => createToastManager(), []);
-  const resolvedAnchoredToastManager =
-    anchoredToastManager ?? anchoredToastController?.manager ?? defaultAnchoredToastManager;
-  const defaultAnchoredToastController = React.useMemo(
-    () => createAnchoredToastController(resolvedAnchoredToastManager),
+  const resolvedAnchoredToastManager = anchoredToastManager ?? defaultAnchoredToastManager;
+  const anchoredToast = useMemo(
+    () => createAnchoredToastManager(resolvedAnchoredToastManager),
     [resolvedAnchoredToastManager],
   );
-  const resolvedAnchoredToastController = anchoredToastController ?? defaultAnchoredToastController;
 
   return (
-    <AnchoredToastControllerContext.Provider value={resolvedAnchoredToastController}>
+    <AnchoredToastManagerContext.Provider value={anchoredToast}>
       <ToastPrimitive.Provider toastManager={resolvedToastManager} {...props}>
         {children}
       </ToastPrimitive.Provider>
-    </AnchoredToastControllerContext.Provider>
+    </AnchoredToastManagerContext.Provider>
   );
 }
 
@@ -139,8 +96,8 @@ function ToastPortal({ className, ...props }: ToastPrimitive.Portal.Props) {
 
 function ToastViewport({
   className,
-  placement = 'bottom-right',
-  stackBehavior = 'stacked',
+  placement = DEFAULT_TOAST_PLACEMENT,
+  stackBehavior = DEFAULT_STACK_BEHAVIOR,
   ...props
 }: ToastPrimitive.Viewport.Props & {
   placement?: ToastPlacement;
@@ -161,36 +118,50 @@ function ToastViewport({
   );
 }
 
-function ToastRoot({ className, placement, swipeDirection, ...props }: ToastRootProps) {
-  const contextPlacement = React.useContext(ToastPlacementContext);
-  const stackBehavior = React.useContext(ToastStackBehaviorContext);
+function ToastRoot(
+  props: ToastPrimitive.Root.Props & {
+    placement?: ToastPlacement;
+  },
+) {
+  const { className, placement, swipeDirection, toast, ...rootProps } = props;
+  const contextPlacement = useContext(ToastPlacementContext);
+  const stackBehavior = useContext(ToastStackBehaviorContext);
+  const anchored = isAnchoredToast(toast);
   const resolvedPlacement = placement ?? contextPlacement;
-  const isTopPlacement = resolvedPlacement.startsWith('top');
-  const fallbackSwipeDirection: Array<'left' | 'right' | 'up' | 'down'> = isTopPlacement
-    ? ['left', 'right', 'up']
-    : ['left', 'right', 'down'];
+  const dataSlot = (props as DataSlotProps)['data-slot'];
 
   return (
-    <ToastPrimitive.Root
-      data-slot="toast-root"
-      data-placement={resolvedPlacement}
-      data-stack-behavior={stackBehavior}
-      swipeDirection={swipeDirection ?? fallbackSwipeDirection}
-      className={mergeClassName(className, styles.root)}
-      {...props}
-    />
+    <ToastStyleContext.Provider value={anchored ? 'anchored' : 'stacked'}>
+      <ToastPrimitive.Root
+        {...rootProps}
+        toast={toast}
+        data-slot={dataSlot ?? (anchored ? 'toast-anchored-root' : 'toast-root')}
+        data-placement={resolvedPlacement}
+        data-stack-behavior={stackBehavior}
+        swipeDirection={
+          anchored ? swipeDirection : (swipeDirection ?? getToastSwipeDirection(resolvedPlacement))
+        }
+        className={mergeClassName(className, anchored ? styles.anchoredRoot : styles.root)}
+      />
+    </ToastStyleContext.Provider>
   );
 }
 
-function ToastContent({ className, ...props }: ToastPrimitive.Content.Props) {
-  const stackBehavior = React.useContext(ToastStackBehaviorContext);
+function ToastContent(props: ToastPrimitive.Content.Props) {
+  const { className, ...contentProps } = props;
+  const style = useContext(ToastStyleContext);
+  const stackBehavior = useContext(ToastStackBehaviorContext);
+  const dataSlot = (props as DataSlotProps)['data-slot'];
 
   return (
     <ToastPrimitive.Content
-      data-slot="toast-content"
-      data-stack-behavior={stackBehavior}
-      className={mergeClassName(className, styles.content)}
-      {...props}
+      {...contentProps}
+      data-slot={dataSlot ?? (style === 'anchored' ? 'toast-anchored-content' : 'toast-content')}
+      data-stack-behavior={style === 'stacked' ? stackBehavior : undefined}
+      className={mergeClassName(
+        className,
+        style === 'anchored' ? styles.anchoredContent : styles.content,
+      )}
     />
   );
 }
@@ -205,12 +176,21 @@ function ToastTitle({ className, ...props }: ToastPrimitive.Title.Props) {
   );
 }
 
-function ToastDescription({ className, ...props }: ToastPrimitive.Description.Props) {
+function ToastDescription(props: ToastPrimitive.Description.Props) {
+  const { className, ...descriptionProps } = props;
+  const style = useContext(ToastStyleContext);
+  const dataSlot = (props as DataSlotProps)['data-slot'];
+
   return (
     <ToastPrimitive.Description
-      data-slot="toast-description"
-      className={mergeClassName(className, styles.description)}
-      {...props}
+      {...descriptionProps}
+      data-slot={
+        dataSlot ?? (style === 'anchored' ? 'toast-anchored-description' : 'toast-description')
+      }
+      className={mergeClassName(
+        className,
+        style === 'anchored' ? styles.anchoredDescription : styles.description,
+      )}
     />
   );
 }
@@ -232,7 +212,7 @@ function ToastClose({ className, children, ...props }: ToastPrimitive.Close.Prop
       className={mergeClassName(className, styles.close)}
       {...props}
     >
-      {children ?? <CloseLineIcon className={styles.closeIcon} />}
+      {children ?? <CloseIcon className={styles.closeIcon} />}
     </ToastPrimitive.Close>
   );
 }
@@ -247,32 +227,50 @@ function ToastPositioner({ className, ...props }: ToastPrimitive.Positioner.Prop
   );
 }
 
+function ToastArrow(props: ToastPrimitive.Arrow.Props) {
+  const { className, children, ...arrowProps } = props;
+  const dataSlot = (props as DataSlotProps)['data-slot'];
+
+  return (
+    <ToastPrimitive.Arrow
+      {...arrowProps}
+      data-slot={dataSlot ?? 'toast-anchored-arrow'}
+      className={mergeClassName(className, styles.anchoredArrow)}
+    >
+      {children ?? <AnchoredArrowSvg className={styles.anchoredArrowSvg} />}
+    </ToastPrimitive.Arrow>
+  );
+}
+
 function ToastRegion({
   className,
-  classNames,
   container,
   renderToast,
-  placement = 'bottom-right',
+  placement = DEFAULT_TOAST_PLACEMENT,
+  stackBehavior = DEFAULT_STACK_BEHAVIOR,
   ...props
-}: ToastRegionProps) {
+}: Omit<ToastPrimitive.Viewport.Props, 'children'> & {
+  placement?: ToastPlacement;
+  stackBehavior?: ToastStackBehavior;
+  container?: ToastPrimitive.Portal.Props['container'];
+  renderToast?: (toast: ToastItem, index: number) => ReactNode;
+}) {
   const { toasts: allToasts } = useToastManager();
   const toasts = allToasts.filter((toast) => !isAnchoredToast(toast));
 
   return (
-    <ToastPortal className={classNames?.portal} container={container}>
-      <ToastViewport className={classNames?.viewport} placement={placement} {...props}>
+    <ToastPortal container={container}>
+      <ToastViewport
+        placement={placement}
+        stackBehavior={stackBehavior}
+        className={className}
+        {...props}
+      >
         {toasts.map((toast, index) =>
           renderToast ? (
-            <React.Fragment key={toast.id}>{renderToast(toast, index)}</React.Fragment>
+            <Fragment key={toast.id}>{renderToast(toast, index)}</Fragment>
           ) : (
-            <ToastRoot key={toast.id} toast={toast} className={className}>
-              <ToastContent className={classNames?.content}>
-                <ToastTitle className={classNames?.title} />
-                <ToastDescription className={classNames?.description} />
-                {toast.actionProps ? <ToastAction className={classNames?.action} /> : null}
-                <ToastClose className={classNames?.close} aria-label="Close toast" />
-              </ToastContent>
-            </ToastRoot>
+            <DefaultToast key={toast.id} toast={toast} />
           ),
         )}
       </ToastViewport>
@@ -282,71 +280,52 @@ function ToastRegion({
 
 function ToastAnchoredRegion({
   className,
-  classNames,
   container,
   renderToast,
   ...props
-}: ToastAnchoredRegionProps) {
-  const anchoredToastController = React.useContext(AnchoredToastControllerContext);
+}: Omit<ToastPrimitive.Viewport.Props, 'children'> & {
+  container?: ToastPrimitive.Portal.Props['container'];
+  renderToast?: (toast: ToastItem, index: number) => ReactNode;
+}) {
+  const anchoredToast = useContext(AnchoredToastManagerContext);
 
-  if (anchoredToastController) {
-    return (
-      <ToastPrimitive.Provider toastManager={anchoredToastController.manager}>
-        <ToastAnchoredRegionContent
-          className={className}
-          classNames={classNames}
-          container={container}
-          renderToast={renderToast}
-          {...props}
-        />
-      </ToastPrimitive.Provider>
-    );
+  if (!anchoredToast) {
+    throw new Error('ToastAnchoredRegion must be used within ToastProvider.');
   }
 
   return (
-    <ToastAnchoredRegionContent
-      className={className}
-      classNames={classNames}
-      container={container}
-      renderToast={renderToast}
-      {...props}
-    />
+    <ToastPrimitive.Provider toastManager={anchoredToast.manager}>
+      <ToastAnchoredRegionContent
+        className={className}
+        container={container}
+        renderToast={renderToast}
+        {...props}
+      />
+    </ToastPrimitive.Provider>
   );
 }
 
 function ToastAnchoredRegionContent({
   className,
-  classNames,
   container,
   renderToast,
   ...props
-}: ToastAnchoredRegionProps) {
-  const { toasts: allToasts } = useToastManager();
-  const toasts = allToasts.filter(isAnchoredToast);
+}: Omit<ToastPrimitive.Viewport.Props, 'children'> & {
+  container?: ToastPrimitive.Portal.Props['container'];
+  renderToast?: (toast: ToastItem, index: number) => ReactNode;
+}) {
+  const { toasts } = useToastManager();
 
   return (
-    <ToastPortal className={classNames?.portal} container={container}>
+    <ToastPortal container={container}>
       <ToastPrimitive.Viewport
         data-slot="toast-anchored-viewport"
-        className={mergeClassName(classNames?.viewport, styles.anchoredViewport)}
+        className={mergeClassName(className, styles.anchoredViewport)}
         {...props}
       >
         {toasts.map((toast, index) => (
-          <ToastPositioner
-            key={toast.id}
-            toast={toast}
-            className={mergeClassName(classNames?.positioner, styles.anchoredPositioner)}
-          >
-            {renderToast ? (
-              renderToast(toast, index)
-            ) : (
-              <ToastAnchoredRoot toast={toast} className={className}>
-                <ToastAnchoredArrow className={classNames?.arrow} />
-                <ToastAnchoredContent className={classNames?.content}>
-                  <ToastAnchoredDescription />
-                </ToastAnchoredContent>
-              </ToastAnchoredRoot>
-            )}
+          <ToastPositioner key={toast.id} toast={toast} className={styles.anchoredPositioner}>
+            {renderToast ? renderToast(toast, index) : <DefaultAnchoredToast toast={toast} />}
           </ToastPositioner>
         ))}
       </ToastPrimitive.Viewport>
@@ -354,103 +333,62 @@ function ToastAnchoredRegionContent({
   );
 }
 
-function ToastAnchoredRoot({ className, ...props }: ToastPrimitive.Root.Props) {
+function DefaultToast({ toast }: { toast: ToastItem }) {
   return (
-    <ToastPrimitive.Root
-      data-slot="toast-anchored-root"
-      className={mergeClassName(className, styles.anchoredRoot)}
+    <ToastRoot toast={toast}>
+      <ToastContent>
+        <ToastTitle />
+        <ToastDescription />
+        {toast.actionProps ? <ToastAction /> : null}
+        <ToastClose aria-label="Close toast" />
+      </ToastContent>
+    </ToastRoot>
+  );
+}
+
+function DefaultAnchoredToast({ toast }: { toast: ToastItem }) {
+  return (
+    <ToastRoot toast={toast}>
+      <ToastArrow />
+      <ToastContent>
+        <ToastDescription />
+      </ToastContent>
+    </ToastRoot>
+  );
+}
+
+function AnchoredArrowSvg(props: ComponentProps<'svg'>) {
+  return (
+    <PopupArrowIcon
+      fillClassName={styles.anchoredArrowFill}
+      outerStrokeClassName={styles.anchoredArrowOuterStroke}
+      innerStrokeClassName={styles.anchoredArrowInnerStroke}
       {...props}
     />
   );
 }
 
-function ToastAnchoredArrow({ className, children, ...props }: ToastPrimitive.Arrow.Props) {
-  return (
-    <ToastPrimitive.Arrow
-      data-slot="toast-anchored-arrow"
-      className={mergeClassName(className, styles.anchoredArrow)}
-      {...props}
-    >
-      {children ?? <AnchoredArrowSvg className={styles.anchoredArrowSvg} />}
-    </ToastPrimitive.Arrow>
-  );
-}
-
-function ToastAnchoredContent({ className, ...props }: ToastPrimitive.Content.Props) {
-  return (
-    <ToastPrimitive.Content
-      data-slot="toast-anchored-content"
-      className={mergeClassName(className, styles.anchoredContent)}
-      {...props}
-    />
-  );
-}
-
-function ToastAnchoredDescription({ className, ...props }: ToastPrimitive.Description.Props) {
-  return (
-    <ToastPrimitive.Description
-      data-slot="toast-anchored-description"
-      className={mergeClassName(className, styles.anchoredDescription)}
-      {...props}
-    />
-  );
-}
-
-function AnchoredArrowSvg(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" aria-hidden {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className={styles.anchoredArrowFill}
-      />
-      <path
-        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
-        className={styles.anchoredArrowStroke}
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className={styles.anchoredArrowOutline}
-      />
-    </svg>
-  );
-}
-
-function createAnchoredToastController(
-  manager: ToastManager = createToastManager(),
-): AnchoredToastController {
+function createAnchoredToastManager(manager: BaseToastManager = createToastManager()) {
   const anchorIds = new WeakMap<Element, string>();
-  let anchorlessCounter = 0;
+  let idCounter = 0;
 
-  function show({
-    anchor,
-    id,
-    positionerProps,
-    onClose,
-    onRemove,
-    ...options
-  }: AnchoredToastShowOptions) {
+  const show = ({ anchor, id, positionerProps, onRemove, ...options }: AnchoredToastOptions) => {
     const existingId = anchorIds.get(anchor);
-    const resolvedId = existingId ?? id ?? `anchored-${Date.now()}-${++anchorlessCounter}`;
-
-    const handleCleanup = () => {
-      if (anchorIds.get(anchor) === resolvedId) {
-        anchorIds.delete(anchor);
-      }
-    };
+    const resolvedId = existingId ?? id ?? `anchored-${Date.now()}-${++idCounter}`;
 
     manager.add({
       ...options,
       id: resolvedId,
       positionerProps: {
-        sideOffset: 8,
+        sideOffset: DEFAULT_ANCHORED_SIDE_OFFSET,
         ...positionerProps,
         anchor,
       },
-      onClose: () => {
-        onClose?.();
-      },
       onRemove: () => {
-        handleCleanup();
+        if (anchorIds.get(anchor) === resolvedId) {
+          anchorIds.delete(anchor);
+        }
+
         onRemove?.();
       },
     });
@@ -458,75 +396,55 @@ function createAnchoredToastController(
     anchorIds.set(anchor, resolvedId);
 
     return resolvedId;
-  }
+  };
 
-  function closeByAnchor(anchor: Element | null) {
+  const closeByAnchor = (anchor: Element | null) => {
     if (!anchor) {
       return;
     }
 
     const toastId = anchorIds.get(anchor);
+
     if (!toastId) {
       return;
     }
 
     manager.close(toastId);
     anchorIds.delete(anchor);
-  }
+  };
 
-  function closeAll() {
+  const closeAll = () => {
     manager.close();
-  }
+  };
 
   return { manager, show, closeByAnchor, closeAll };
 }
 
 function useAnchoredToastManager() {
-  const anchoredToastController = React.useContext(AnchoredToastControllerContext);
+  const anchoredToast = useContext(AnchoredToastManagerContext);
 
-  if (!anchoredToastController) {
+  if (!anchoredToast) {
     throw new Error('useAnchoredToastManager must be used within ToastProvider.');
   }
 
-  return anchoredToastController;
+  return anchoredToast;
 }
 
 export {
   ToastProvider,
+  ToastPortal,
+  ToastViewport,
   ToastRoot,
   ToastContent,
   ToastTitle,
   ToastDescription,
   ToastAction,
   ToastClose,
+  ToastPositioner,
+  ToastArrow,
   ToastRegion,
   ToastAnchoredRegion,
   createToastManager,
-  createAnchoredToastController,
   useToastManager,
   useAnchoredToastManager,
-};
-
-export type {
-  ToastPlacement,
-  ToastStackBehavior,
-  ToastProviderProps,
-  ToastRootProps,
-  ToastContentProps,
-  ToastTitleProps,
-  ToastDescriptionProps,
-  ToastActionProps,
-  ToastCloseProps,
-  ToastRegionClassNames,
-  ToastRegionProps,
-  ToastAnchoredRegionClassNames,
-  ToastAnchoredRegionProps,
-  ToastObject,
-  ToastManager,
-  ToastManagerAddOptions,
-  ToastManagerUpdateOptions,
-  ToastManagerPromiseOptions,
-  UseToastManagerReturnValue,
-  AnchoredToastShowOptions,
-  AnchoredToastController,
 };

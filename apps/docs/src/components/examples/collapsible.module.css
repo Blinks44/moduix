@@ -7,7 +7,7 @@
   flex-direction: column;
   gap: var(--spacing-1);
   margin: 0;
-  padding-inline-start: var(--spacing-5);
+  padding-inline-start: var(--spacing-2);
 }
 
 .status {
@@ -23,6 +23,11 @@
 }
 
 .customTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  width: 100%;
   padding: var(--spacing-2) var(--spacing-3);
   border-radius: var(--radius-md);
   background-color: var(--color-muted);
@@ -39,6 +44,10 @@
   --collapsible-icon-open-transform: rotate(180deg);
 
   color: var(--color-primary);
+}
+
+.triggerLabel {
+  min-width: 0;
 }
 
 .customPanel {

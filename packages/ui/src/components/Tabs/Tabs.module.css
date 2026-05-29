@@ -2,20 +2,14 @@
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--tabs-width, 32rem);
-    max-width: var(--tabs-max-width, calc(100vw - 2rem));
+    min-width: 0;
     flex-direction: column;
-    gap: var(--tabs-gap, 0);
-    border: var(--tabs-border-width, var(--border-width-sm)) solid
-      var(--tabs-border-color, var(--color-border));
-    border-radius: var(--tabs-radius, var(--radius-lg));
-    background-color: var(--tabs-bg, var(--color-background));
+    gap: var(--tabs-gap, 0.75rem);
     color: var(--tabs-color, var(--color-foreground));
 
     &[data-orientation='vertical'] {
       flex-direction: row;
       align-items: stretch;
-      min-height: var(--tabs-vertical-min-height, 14rem);
     }
   }
 
@@ -23,22 +17,35 @@
     box-sizing: border-box;
     position: relative;
     z-index: 0;
-    display: flex;
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
     align-items: stretch;
     gap: var(--tabs-list-gap, 0.25rem);
     padding: var(--tabs-list-padding-y, var(--tabs-list-padding, 0.25rem))
       var(--tabs-list-padding-x, var(--tabs-list-padding, 0.25rem));
-    border-bottom: var(--tabs-list-border-width, var(--tabs-border-width, var(--border-width-sm)))
-      solid var(--tabs-list-border-color, var(--color-border));
+    border: var(--tabs-list-border-width, var(--border-width-sm)) solid
+      var(--tabs-list-border-color, var(--color-border));
+    border-radius: var(--tabs-radius, var(--radius-lg));
     background-color: var(--tabs-list-bg, var(--color-muted));
 
     &[data-orientation='vertical'] {
       width: var(--tabs-vertical-list-width, 12rem);
       min-width: var(--tabs-vertical-list-width, 12rem);
       flex-direction: column;
-      border-right: var(--tabs-list-border-width, var(--tabs-border-width, var(--border-width-sm)))
-        solid var(--tabs-list-border-color, var(--color-border));
-      border-bottom: 0;
+    }
+
+    .root[data-variant='line'] & {
+      width: 100%;
+      border-width: 0 0 var(--tabs-list-border-width, var(--border-width-sm));
+      border-radius: 0;
+      padding-inline: 0;
+      background-color: transparent;
+    }
+
+    .root[data-orientation='vertical'][data-variant='line'] & {
+      width: var(--tabs-vertical-list-width, 12rem);
+      border-width: 0 var(--tabs-list-border-width, var(--border-width-sm)) 0 0;
     }
   }
 
@@ -49,6 +56,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: var(--tabs-tab-content-gap, 0.5rem);
     height: var(--tabs-tab-height, 2rem);
     margin: 0;
     appearance: none;
@@ -63,7 +71,6 @@
     line-height: var(--tabs-tab-line-height, var(--line-height-text-sm));
     text-decoration: none;
     user-select: none;
-    text-wrap: nowrap;
     white-space: nowrap;
     outline: 0;
     cursor: pointer;
@@ -97,33 +104,13 @@
       opacity: var(--tabs-tab-disabled-opacity, var(--opacity-disabled));
       pointer-events: none;
     }
-  }
-
-  .tabContent {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--tabs-tab-content-gap, 0.5rem);
-    min-width: 0;
-  }
-
-  .tabIcon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--tabs-tab-icon-size, 1rem);
-    height: var(--tabs-tab-icon-size, 1rem);
-    color: var(--tabs-tab-icon-color, currentColor);
-    flex-shrink: 0;
 
     & > svg {
-      width: 100%;
-      height: 100%;
-      display: block;
+      width: var(--tabs-tab-icon-size, 1rem);
+      height: var(--tabs-tab-icon-size, 1rem);
+      color: var(--tabs-tab-icon-color, currentColor);
+      flex-shrink: 0;
     }
-  }
-
-  .tabLabel {
-    min-width: 0;
   }
 
   .indicator {
@@ -172,7 +159,12 @@
   .panel {
     box-sizing: border-box;
     flex: 1;
+    min-width: 0;
     margin: 0;
+    border: var(--tabs-border-width, var(--border-width-sm)) solid
+      var(--tabs-border-color, var(--color-border));
+    border-radius: var(--tabs-radius, var(--radius-lg));
+    background-color: var(--tabs-bg, var(--color-background));
     padding: var(--tabs-panel-padding, 1rem);
     color: var(--tabs-panel-color, var(--tabs-color, var(--color-foreground)));
     font-size: var(--tabs-panel-font-size, var(--text-sm));

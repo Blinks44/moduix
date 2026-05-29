@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { SeparatorMarkIcon } from '@/primitives/Icons';
+import { useId, useState } from 'react';
+import { SeparatorMarkIcon } from '@/icons/ui';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../Field';
-import { OTPField } from './OTPField';
+import { OTPField, OTPFieldInput, OTPFieldSeparator } from './OTPField';
 import storyStyles from './OTPField.stories.module.css';
 
 const OTP_LENGTH = 6;
@@ -23,9 +23,36 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+function renderOTPInputs({
+  count,
+  total = count,
+  start = 0,
+  className,
+  placeholder,
+}: {
+  count: number;
+  total?: number;
+  start?: number;
+  className?: string;
+  placeholder?: string;
+}) {
+  return Array.from({ length: count }, (_, index) => {
+    const position = start + index;
+
+    return (
+      <OTPFieldInput
+        key={position}
+        className={className}
+        placeholder={placeholder}
+        aria-label={position === 0 ? undefined : `Character ${position + 1} of ${total}`}
+      />
+    );
+  });
+}
+
 export const Basic: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -38,8 +65,8 @@ export const Basic: Story = {
 
 export const Alphanumeric: Story = {
   render: () => {
-    const id = React.useId();
-    const [value, setValue] = React.useState('');
+    const id = useId();
+    const [value, setValue] = useState('');
 
     return (
       <div className={storyStyles.stack}>
@@ -64,12 +91,22 @@ export const Alphanumeric: Story = {
 
 export const GroupedLayout: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
         <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-        <OTPField id={id} length={OTP_LENGTH} groupSize={3} />
+        <OTPField id={id} length={OTP_LENGTH}>
+          <div className={storyStyles.group}>
+            {renderOTPInputs({ count: 3, total: OTP_LENGTH })}
+          </div>
+          <OTPFieldSeparator>
+            <SeparatorMarkIcon />
+          </OTPFieldSeparator>
+          <div className={storyStyles.group}>
+            {renderOTPInputs({ count: 3, start: 3, total: OTP_LENGTH })}
+          </div>
+        </OTPField>
       </Field>
     );
   },
@@ -77,19 +114,31 @@ export const GroupedLayout: Story = {
 
 export const CustomSeparator: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
         <FieldLabel htmlFor={id}>Styled code</FieldLabel>
-        <OTPField
-          id={id}
-          length={OTP_LENGTH}
-          groupSize={3}
-          inputProps={{ className: storyStyles.customInput }}
-          separator={<SeparatorMarkIcon />}
-          className={storyStyles.customRoot}
-        />
+        <OTPField id={id} length={OTP_LENGTH} className={storyStyles.customRoot}>
+          <div className={storyStyles.group}>
+            {renderOTPInputs({
+              count: 3,
+              total: OTP_LENGTH,
+              className: storyStyles.customInput,
+            })}
+          </div>
+          <OTPFieldSeparator>
+            <SeparatorMarkIcon />
+          </OTPFieldSeparator>
+          <div className={storyStyles.group}>
+            {renderOTPInputs({
+              count: 3,
+              start: 3,
+              total: OTP_LENGTH,
+              className: storyStyles.customInput,
+            })}
+          </div>
+        </OTPField>
       </Field>
     );
   },
@@ -97,7 +146,7 @@ export const CustomSeparator: Story = {
 
 export const PlaceholderHints: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -105,14 +154,13 @@ export const PlaceholderHints: Story = {
         <FieldDescription>
           Placeholder hints stay visible until the active slot is focused.
         </FieldDescription>
-        <OTPField
-          id={id}
-          length={OTP_LENGTH}
-          inputProps={{
+        <OTPField id={id} length={OTP_LENGTH}>
+          {renderOTPInputs({
+            count: OTP_LENGTH,
             className: storyStyles.placeholderInput,
             placeholder: '•',
-          }}
-        />
+          })}
+        </OTPField>
       </Field>
     );
   },
@@ -120,7 +168,7 @@ export const PlaceholderHints: Story = {
 
 export const Masked: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -133,7 +181,7 @@ export const Masked: Story = {
 
 export const WithFieldValidation: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field name="verificationCode" validationMode="onBlur">
@@ -147,9 +195,9 @@ export const WithFieldValidation: Story = {
 
 export const AutoSubmit: Story = {
   render: () => {
-    const id = React.useId();
-    const [completedValue, setCompletedValue] = React.useState('');
-    const [submittedValue, setSubmittedValue] = React.useState('');
+    const id = useId();
+    const [completedValue, setCompletedValue] = useState('');
+    const [submittedValue, setSubmittedValue] = useState('');
 
     return (
       <form
@@ -182,9 +230,9 @@ export const AutoSubmit: Story = {
 
 export const CustomSanitization: Story = {
   render: () => {
-    const id = React.useId();
-    const [value, setValue] = React.useState('');
-    const [invalidValue, setInvalidValue] = React.useState('');
+    const id = useId();
+    const [value, setValue] = useState('');
+    const [invalidValue, setInvalidValue] = useState('');
 
     return (
       <div className={storyStyles.stack}>

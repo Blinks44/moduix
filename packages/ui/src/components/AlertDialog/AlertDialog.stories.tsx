@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import { CloseLineIcon } from '@/primitives';
 import { Button } from '../Button';
 import { ScrollArea } from '../ScrollArea';
 import {
@@ -9,7 +8,6 @@ import {
   AlertDialogAction,
   AlertDialogBody,
   AlertDialogCancel,
-  AlertDialogCloseIcon,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -36,16 +34,15 @@ export const Basic: Story = {
   render: () => {
     return (
       <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Discard draft</AlertDialogTrigger>
+        <AlertDialogTrigger>Discard draft</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-            <AlertDialogCloseIcon />
             <AlertDialogDescription>You cannot undo this action.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Discard</AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Discard</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -55,10 +52,10 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Button type="button" onClick={() => setOpen(true)}>
           Open controlled dialog
         </Button>
@@ -71,25 +68,80 @@ export const Controlled: Story = {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel render={<Button variant="outline" />}>
-                Back to editing
-              </AlertDialogCancel>
-              <AlertDialogAction render={<Button />}>Publish</AlertDialogAction>
+              <AlertDialogCancel>Back to editing</AlertDialogCancel>
+              <AlertDialogAction>Publish</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </React.Fragment>
+      </Fragment>
+    );
+  },
+};
+
+export const AsyncConfirmation: Story = {
+  render: () => {
+    const [open, setOpen] = useState(false);
+    const [pending, setPending] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleArchive = async () => {
+      setPending(true);
+      setError('');
+
+      try {
+        await new Promise((resolve, reject) => {
+          window.setTimeout(() => {
+            if (Math.random() > 0.5) {
+              resolve(null);
+              return;
+            }
+
+            reject(new Error('Archive failed'));
+          }, 900);
+        });
+
+        setOpen(false);
+      } catch {
+        setError('Workspace could not be archived. Review the warning and try again.');
+      } finally {
+        setPending(false);
+      }
+    };
+
+    return (
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogTrigger>Archive workspace</AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Keep the dialog open while the request is pending, then close it only after success.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          {error ? (
+            <AlertDialogBody>
+              <p>{error}</p>
+            </AlertDialogBody>
+          ) : null}
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
+            <Button type="button" disabled={pending} onClick={handleArchive}>
+              {pending ? 'Archiving...' : 'Archive'}
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     );
   },
 };
 
 export const WithHandle: Story = {
   render: () => {
-    const alertDialogHandle = React.useMemo(() => createAlertDialogHandle(), []);
+    const alertDialogHandle = useMemo(() => createAlertDialogHandle(), []);
 
     return (
-      <React.Fragment>
-        <AlertDialogTrigger handle={alertDialogHandle} render={<Button />}>
+      <Fragment>
+        <AlertDialogTrigger handle={alertDialogHandle}>
           Open from detached trigger
         </AlertDialogTrigger>
         <Button
@@ -109,12 +161,12 @@ export const WithHandle: Story = {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-              <AlertDialogAction render={<Button />}>Delete</AlertDialogAction>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Delete</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </React.Fragment>
+      </Fragment>
     );
   },
 };
@@ -123,31 +175,29 @@ export const WithScrollableViewport: Story = {
   render: () => {
     return (
       <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Delete project</AlertDialogTrigger>
+        <AlertDialogTrigger>Delete project</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete project?</AlertDialogTitle>
-            <AlertDialogCloseIcon />
             <AlertDialogDescription>
               This removes all deployment environments and API keys.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogBody className={storyStyles.scrollBody}>
-            <ScrollArea
-              className={storyStyles.scrollArea}
-              classNames={{ content: storyStyles.scrollContent }}
-            >
-              {insideScrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </section>
-              ))}
+            <ScrollArea className={storyStyles.scrollArea}>
+              <div className={storyStyles.scrollContent}>
+                {insideScrollSections.map((item) => (
+                  <section key={item.title}>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </section>
+                ))}
+              </div>
             </ScrollArea>
           </AlertDialogBody>
           <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Delete permanently</AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Delete permanently</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -155,47 +205,12 @@ export const WithScrollableViewport: Story = {
   },
 };
 
-export const CustomCloseIcon: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
       <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Archive workspace</AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Archive workspace?</AlertDialogTitle>
-            <AlertDialogCloseIcon
-              aria-label="Close archive dialog"
-              className={storyStyles.customCloseIcon}
-            >
-              <CloseLineIcon />
-            </AlertDialogCloseIcon>
-            <AlertDialogDescription>
-              Team members will lose access until the workspace is restored.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Archive</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    );
-  },
-};
-
-export const CustomStyles: Story = {
-  render: () => {
-    return (
-      <AlertDialog>
-        <AlertDialogTrigger render={<Button />}>Reset environment</AlertDialogTrigger>
-        <AlertDialogContent
-          className={storyStyles.customPopup}
-          classNames={{
-            portal: storyStyles.customPortal,
-            backdrop: storyStyles.customBackdrop,
-            viewport: storyStyles.customViewport,
-          }}
-        >
+        <AlertDialogTrigger>Reset environment</AlertDialogTrigger>
+        <AlertDialogContent className={storyStyles.customPopup}>
           <AlertDialogHeader>
             <AlertDialogTitle>Reset environment?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -203,8 +218,8 @@ export const CustomStyles: Story = {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel render={<Button variant="outline" />}>Cancel</AlertDialogCancel>
-            <AlertDialogAction render={<Button />}>Reset</AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Reset</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

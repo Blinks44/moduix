@@ -8,6 +8,16 @@
   cursor: zoom-in;
 }
 
+.triggerButton {
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-muted);
+  padding: var(--spacing-3) var(--spacing-4);
+  color: var(--color-foreground);
+  cursor: zoom-in;
+  font: inherit;
+}
+
 .contentImage {
   display: block;
   width: auto;

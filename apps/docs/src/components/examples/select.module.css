@@ -6,11 +6,6 @@
   color: var(--color-muted-foreground);
 }
 
-.animatedContent {
-  --select-transition: 180ms var(--ease-out);
-  --select-scale: 0.96;
-}
-
 .assigneeItemText {
   display: flex;
   min-width: 0;
@@ -32,10 +27,6 @@
   color: var(--color-muted-foreground);
   font-size: var(--text-xs);
   line-height: var(--line-height-text-xs);
-}
-
-.customPortal {
-  pointer-events: auto;
 }
 
 .customBackdrop {

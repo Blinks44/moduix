@@ -1,38 +1,31 @@
 import { ToggleGroup as ToggleGroupPrimitive } from '@base-ui/react/toggle-group';
 import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
-import { Toggle, type ToggleProps, type ToggleSize, type ToggleVariant } from '../Toggle';
+import { Toggle } from '../Toggle';
 import styles from './ToggleGroup.module.css';
 
-type ToggleGroupContextValue = {
+type ToggleVariant = React.ComponentProps<typeof Toggle>['variant'];
+type ToggleSize = React.ComponentProps<typeof Toggle>['size'];
+
+const ToggleGroupContext = React.createContext<{
   variant: ToggleVariant;
   size: ToggleSize;
-};
-
-const ToggleGroupContext = React.createContext<ToggleGroupContextValue>({
+}>({
   variant: 'default',
   size: 'md',
 });
 
-type ToggleGroupProps<Value extends string = string> = ToggleGroupPrimitive.Props<Value> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
-type ToggleGroupValue<Value extends string = string> = readonly Value[];
-type ToggleGroupState = ToggleGroupPrimitive.State;
-type ToggleGroupChangeEventReason = ToggleGroupPrimitive.ChangeEventReason;
-type ToggleGroupChangeEventDetails = ToggleGroupPrimitive.ChangeEventDetails;
-
-function ToggleGroup<Value extends string = string>({
+function ToggleGroup({
   className,
   variant = 'default',
   size = 'md',
   ...props
-}: ToggleGroupProps<Value>) {
-  const contextValue = React.useMemo(() => ({ variant, size }), [variant, size]);
-
+}: ToggleGroupPrimitive.Props & {
+  variant?: ToggleVariant;
+  size?: ToggleSize;
+}) {
   return (
-    <ToggleGroupContext.Provider value={contextValue}>
+    <ToggleGroupContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive
         data-slot="toggle-group-root"
         data-variant={variant}
@@ -44,39 +37,23 @@ function ToggleGroup<Value extends string = string>({
   );
 }
 
-type ToggleGroupItemProps<Value extends string = string> = ToggleProps<Value>;
-
-function ToggleGroupItem<Value extends string = string>({
+function ToggleGroupItem({
   className,
   variant,
   size,
   ...props
-}: ToggleGroupItemProps<Value>) {
-  const context = React.useContext(ToggleGroupContext);
+}: React.ComponentProps<typeof Toggle>) {
+  const inherited = React.useContext(ToggleGroupContext);
 
   return (
     <Toggle
       data-slot="toggle-group-item"
-      variant={variant ?? context.variant}
-      size={size ?? context.size}
+      variant={variant ?? inherited.variant}
+      size={size ?? inherited.size}
       className={mergeClassName(className, styles.item)}
       {...props}
     />
   );
 }
 
-type ToggleGroupVariant = ToggleVariant;
-type ToggleGroupSize = ToggleSize;
-
 export { ToggleGroup, ToggleGroupItem };
-
-export type {
-  ToggleGroupValue,
-  ToggleGroupProps,
-  ToggleGroupState,
-  ToggleGroupChangeEventReason,
-  ToggleGroupChangeEventDetails,
-  ToggleGroupItemProps,
-  ToggleGroupVariant,
-  ToggleGroupSize,
-};

@@ -3,108 +3,88 @@ import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Toolbar.module.css';
 
-type ToolbarVariant = 'default' | 'outline' | 'ghost';
-type ToolbarSize = 'sm' | 'md' | 'lg';
-
-type ToolbarProps = ToolbarPrimitive.Root.Props & {
-  variant?: ToolbarVariant;
-  size?: ToolbarSize;
-};
-
-type ToolbarGroupProps = ToolbarPrimitive.Group.Props;
-type ToolbarButtonProps = ToolbarPrimitive.Button.Props;
-type ToolbarLinkProps = ToolbarPrimitive.Link.Props;
-type ToolbarInputProps = ToolbarPrimitive.Input.Props;
-type ToolbarSeparatorProps = ToolbarPrimitive.Separator.Props;
-
-const ToolbarOrientationContext =
-  React.createContext<ToolbarPrimitive.Root.Orientation>('horizontal');
-
-function Toolbar({
-  className,
-  variant = 'default',
-  size = 'md',
-  orientation = 'horizontal',
-  ...props
-}: ToolbarProps) {
+const Toolbar = React.forwardRef(function Toolbar(
+  { className, ...props }: ToolbarPrimitive.Root.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Root>>,
+) {
   return (
-    <ToolbarOrientationContext.Provider value={orientation}>
-      <ToolbarPrimitive.Root
-        data-slot="toolbar-root"
-        data-variant={variant}
-        data-size={size}
-        orientation={orientation}
-        className={mergeClassName(className, styles.root)}
-        {...props}
-      />
-    </ToolbarOrientationContext.Provider>
+    <ToolbarPrimitive.Root
+      ref={ref}
+      data-slot="toolbar-root"
+      className={mergeClassName(className, styles.root)}
+      {...props}
+    />
   );
-}
+});
 
-function ToolbarGroup({ className, ...props }: ToolbarGroupProps) {
+const ToolbarGroup = React.forwardRef(function ToolbarGroup(
+  { className, ...props }: ToolbarPrimitive.Group.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Group>>,
+) {
   return (
     <ToolbarPrimitive.Group
+      ref={ref}
       data-slot="toolbar-group"
       className={mergeClassName(className, styles.group)}
       {...props}
     />
   );
-}
+});
 
-function ToolbarButton({ className, ...props }: ToolbarButtonProps) {
+const ToolbarButton = React.forwardRef(function ToolbarButton(
+  { className, ...props }: ToolbarPrimitive.Button.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Button>>,
+) {
   return (
     <ToolbarPrimitive.Button
+      ref={ref}
       data-slot="toolbar-button"
       className={mergeClassName(className, styles.button)}
       {...props}
     />
   );
-}
+});
 
-function ToolbarLink({ className, ...props }: ToolbarLinkProps) {
+const ToolbarLink = React.forwardRef(function ToolbarLink(
+  { className, ...props }: ToolbarPrimitive.Link.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Link>>,
+) {
   return (
     <ToolbarPrimitive.Link
+      ref={ref}
       data-slot="toolbar-link"
       className={mergeClassName(className, styles.link)}
       {...props}
     />
   );
-}
+});
 
-function ToolbarInput({ className, ...props }: ToolbarInputProps) {
+const ToolbarInput = React.forwardRef(function ToolbarInput(
+  { className, ...props }: ToolbarPrimitive.Input.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Input>>,
+) {
   return (
     <ToolbarPrimitive.Input
+      ref={ref}
       data-slot="toolbar-input"
       className={mergeClassName(className, styles.input)}
       {...props}
     />
   );
-}
+});
 
-function ToolbarSeparator({ className, orientation, ...props }: ToolbarSeparatorProps) {
-  const toolbarOrientation = React.useContext(ToolbarOrientationContext);
-  const resolvedOrientation =
-    orientation ?? (toolbarOrientation === 'vertical' ? 'horizontal' : 'vertical');
-
+const ToolbarSeparator = React.forwardRef(function ToolbarSeparator(
+  { className, ...props }: ToolbarPrimitive.Separator.Props,
+  ref: React.ForwardedRef<React.ComponentRef<typeof ToolbarPrimitive.Separator>>,
+) {
   return (
     <ToolbarPrimitive.Separator
+      ref={ref}
       data-slot="toolbar-separator"
-      orientation={resolvedOrientation}
       className={mergeClassName(className, styles.separator)}
       {...props}
     />
   );
-}
+});
 
 export { Toolbar, ToolbarGroup, ToolbarButton, ToolbarLink, ToolbarInput, ToolbarSeparator };
-
-export type {
-  ToolbarProps,
-  ToolbarVariant,
-  ToolbarSize,
-  ToolbarGroupProps,
-  ToolbarButtonProps,
-  ToolbarLinkProps,
-  ToolbarInputProps,
-  ToolbarSeparatorProps,
-};

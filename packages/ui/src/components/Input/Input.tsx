@@ -1,21 +1,21 @@
-import type * as React from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
 import { Input as InputPrimitive } from '@base-ui/react/input';
+import { forwardRef } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Input.module.css';
 
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type InputVisualSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-type InputProps = Omit<InputPrimitive.Props, 'size'> & {
-  size?: InputSize;
-  htmlSize?: React.ComponentProps<'input'>['size'];
-};
-type InputState = InputPrimitive.State;
-type InputChangeEventReason = InputPrimitive.ChangeEventReason;
-type InputChangeEventDetails = InputPrimitive.ChangeEventDetails;
-
-function Input({ className, size = 'md', htmlSize, ...props }: InputProps) {
+const Input = forwardRef<
+  ComponentRef<typeof InputPrimitive>,
+  Omit<InputPrimitive.Props, 'size'> & {
+    size?: InputVisualSize;
+    htmlSize?: ComponentProps<'input'>['size'];
+  }
+>(function Input({ className, size = 'md', htmlSize, ...props }, ref) {
   return (
     <InputPrimitive
+      ref={ref}
       data-slot="input-root"
       data-size={size}
       className={mergeClassName(className, styles.root)}
@@ -23,8 +23,6 @@ function Input({ className, size = 'md', htmlSize, ...props }: InputProps) {
       {...props}
     />
   );
-}
+});
 
 export { Input };
-
-export type { InputProps, InputState, InputChangeEventReason, InputChangeEventDetails, InputSize };

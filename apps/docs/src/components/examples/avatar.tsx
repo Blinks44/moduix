@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage, ComputerIcon, type AvatarProps } from 'moduix';
+import type { ComponentProps } from 'react';
+import { Avatar, AvatarFallback, AvatarImage, ComputerIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor } from '../preview';
 import styles from './avatar.module.css';
@@ -16,12 +17,7 @@ export const avatarOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--avatar-fallback-color', 'inherit', 'Controls fallback text and icon color.'],
   ['--avatar-fallback-padding', '0', 'Controls fallback inner padding.'],
-  ['--avatar-font-size', 'var(--avatar-font-size-md)', 'Controls avatar text font size.'],
-  ['--avatar-font-size-xs', 'var(--text-xs)', 'Controls avatar text font size for `xs` size.'],
-  ['--avatar-font-size-sm', 'var(--text-sm)', 'Controls avatar text font size for `sm` size.'],
-  ['--avatar-font-size-md', 'var(--text-md)', 'Controls avatar text font size for `md` size.'],
-  ['--avatar-font-size-lg', 'var(--text-lg)', 'Controls avatar text font size for `lg` size.'],
-  ['--avatar-font-size-xl', 'var(--text-lg)', 'Controls avatar text font size for `xl` size.'],
+  ['--avatar-font-size', 'var(--text-md)', 'Controls avatar text font size.'],
   ['--avatar-font-weight', 'var(--weight-medium)', 'Controls avatar text font weight.'],
   ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
   [
@@ -29,39 +25,9 @@ export const avatarOverrideCssProperties: CssPropertyInput[] = [
     'center',
     'Controls which part of the image remains visible when cropped.',
   ],
-  ['--avatar-line-height', 'var(--avatar-line-height-md)', 'Controls avatar text line height.'],
-  [
-    '--avatar-line-height-xs',
-    'var(--line-height-text-xs)',
-    'Controls avatar text line height for `xs` size.',
-  ],
-  [
-    '--avatar-line-height-sm',
-    'var(--line-height-text-sm)',
-    'Controls avatar text line height for `sm` size.',
-  ],
-  [
-    '--avatar-line-height-md',
-    'var(--line-height-text-md)',
-    'Controls avatar text line height for `md` size.',
-  ],
-  [
-    '--avatar-line-height-lg',
-    'var(--line-height-text-lg)',
-    'Controls avatar text line height for `lg` size.',
-  ],
-  [
-    '--avatar-line-height-xl',
-    'var(--line-height-text-lg)',
-    'Controls avatar text line height for `xl` size.',
-  ],
+  ['--avatar-line-height', 'var(--line-height-text-md)', 'Controls avatar text line height.'],
   ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
-  ['--avatar-size', 'var(--avatar-size-md)', 'Controls avatar width and height.'],
-  ['--avatar-size-xs', 'var(--size-xs)', 'Controls the `xs` avatar size.'],
-  ['--avatar-size-sm', 'var(--size-sm)', 'Controls the `sm` avatar size.'],
-  ['--avatar-size-md', 'var(--size-md)', 'Controls the `md` avatar size.'],
-  ['--avatar-size-lg', 'var(--size-lg)', 'Controls the `lg` avatar size.'],
-  ['--avatar-size-xl', 'var(--size-xl)', 'Controls the `xl` avatar size.'],
+  ['--avatar-size', 'var(--size-md)', 'Controls avatar width and height.'],
   ['--avatar-transition', 'var(--transition-default)', 'Controls image fade transition.'],
 ];
 
@@ -146,7 +112,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function AvatarExample(props: AvatarProps) {
+export function AvatarExample(props: ComponentProps<typeof Avatar>) {
   return (
     <Avatar {...props}>
       <AvatarImage src={avatarImage} alt="Alex T." />
@@ -158,19 +124,19 @@ export function AvatarExample(props: AvatarProps) {
 export function AvatarFallbackOnlyExample() {
   return (
     <div className={styles.row}>
-      <Avatar size="xs">
+      <Avatar className={styles.sizeXs}>
         <AvatarFallback>XS</AvatarFallback>
       </Avatar>
-      <Avatar size="sm">
+      <Avatar className={styles.sizeSm}>
         <AvatarFallback>SM</AvatarFallback>
       </Avatar>
-      <Avatar size="md">
+      <Avatar>
         <AvatarFallback>MD</AvatarFallback>
       </Avatar>
-      <Avatar size="lg">
+      <Avatar className={styles.sizeLg}>
         <AvatarFallback>LG</AvatarFallback>
       </Avatar>
-      <Avatar size="xl">
+      <Avatar className={styles.sizeXl}>
         <AvatarFallback>XL</AvatarFallback>
       </Avatar>
     </div>
@@ -179,9 +145,9 @@ export function AvatarFallbackOnlyExample() {
 
 export function AvatarCompositionExample() {
   return (
-    <Avatar render={<a href="mailto:alex@example.com" />} className={styles.compositionRoot}>
-      <AvatarImage className={styles.compositionImage} src={avatarImage} alt="Alex T." />
-      <AvatarFallback className={styles.compositionFallback} delay={600}>
+    <Avatar render={<a href="mailto:alex@example.com" />} className={styles.linkAvatar}>
+      <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
+      <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
         LT
       </AvatarFallback>
     </Avatar>
@@ -197,9 +163,9 @@ export function AvatarImageErrorExample() {
   );
 }
 
-export function CustomStylesAvatarExample() {
+export function CustomCompositionAvatarExample() {
   return (
-    <Avatar size="lg" className={styles.ring}>
+    <Avatar className={styles.ring}>
       <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
       <AvatarFallback className={styles.uppercase}>LT</AvatarFallback>
     </Avatar>
@@ -208,9 +174,9 @@ export function CustomStylesAvatarExample() {
 
 export function AvatarCustomFallbackExample() {
   return (
-    <Avatar size="lg" className={styles.customFallbackAvatar}>
+    <Avatar className={styles.iconAvatar}>
       <AvatarFallback>
-        <ComputerIcon className={styles.customFallbackIcon} />
+        <ComputerIcon className={styles.iconAvatarGlyph} />
       </AvatarFallback>
     </Avatar>
   );

@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,6 +13,8 @@ import {
   InfoIcon,
   MapIcon,
   Menu,
+  MenuArrow,
+  MenuBackdrop,
   MenuCheckboxItem,
   MenuCheckboxItemIndicator,
   MenuContent,
@@ -24,6 +27,9 @@ import {
   MenuItemTextIcon,
   MenuItemTextLabel,
   MenuLinkItem,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
   MenuRadioGroup,
   MenuRadioItem,
   MenuRadioItemIndicator,
@@ -34,9 +40,10 @@ import {
   MenuSubmenuTriggerIcon,
   MenuTrigger,
   MenuTriggerIcon,
+  MenuViewport,
   createMenuHandle,
 } from 'moduix';
-import * as React from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './menu.module.css';
@@ -47,7 +54,11 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-arrow-size', '0.5rem', 'Controls popup arrow size.'],
   ['--menu-arrow-stroke-color', 'var(--menu-popup-border-color)', 'Controls arrow stroke color.'],
   ['--menu-arrow-width', '1.25rem', 'Controls popup arrow width.'],
-  ['--menu-backdrop-bg', 'var(--color-overlay)', 'Controls backdrop background.'],
+  [
+    '--menu-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls backdrop background.',
+  ],
   ['--menu-backdrop-blur', '2px', 'Controls backdrop blur.'],
   ['--menu-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
   ['--menu-check-gap', '0.5rem', 'Controls checkbox/radio indicator gap.'],
@@ -198,7 +209,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function MenuButtonTrigger(props: React.ComponentProps<typeof MenuTrigger>) {
+function MenuButtonTrigger(props: ComponentProps<typeof MenuTrigger>) {
   return <MenuTrigger render={<Button />} {...props} />;
 }
 
@@ -224,14 +235,14 @@ export function MenuExample() {
   );
 }
 
-export function WithoutArrowMenuExample() {
+export function WithArrowMenuExample() {
   return (
     <Menu>
       <MenuButtonTrigger>
         Song
         <MenuTriggerIcon />
       </MenuButtonTrigger>
-      <MenuContent withArrow={false}>
+      <MenuContent showArrow>
         <MenuItem closeOnClick>Add to Library</MenuItem>
         <MenuItem closeOnClick>Add to Playlist</MenuItem>
         <MenuSeparator />
@@ -242,10 +253,10 @@ export function WithoutArrowMenuExample() {
 }
 
 export function GroupsAndControlsMenuExample() {
-  const [sortBy, setSortBy] = React.useState('date');
-  const [showMinimap, setShowMinimap] = React.useState(true);
-  const [showSearch, setShowSearch] = React.useState(true);
-  const [showSidebar, setShowSidebar] = React.useState(false);
+  const [sortBy, setSortBy] = useState('date');
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [showSearch, setShowSearch] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   return (
     <Menu>
@@ -319,8 +330,8 @@ export function ShortcutsMenuExample() {
 }
 
 export function IndicatorRightMenuExample() {
-  const [showMinimap, setShowMinimap] = React.useState(true);
-  const [showSearch, setShowSearch] = React.useState(true);
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [showSearch, setShowSearch] = useState(true);
 
   return (
     <Menu>
@@ -404,14 +415,14 @@ export function OpenOnHoverMenuExample() {
   );
 }
 
-export function PositionedWithBackdropMenuExample() {
+export function PositionedMenuExample() {
   return (
     <Menu>
       <MenuButtonTrigger>
         Export
         <MenuTriggerIcon />
       </MenuButtonTrigger>
-      <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
+      <MenuContent showArrow side="right" align="start" sideOffset={12}>
         <MenuItem closeOnClick>Export PNG</MenuItem>
         <MenuItem closeOnClick>Export PDF</MenuItem>
         <MenuSeparator />
@@ -422,10 +433,10 @@ export function PositionedWithBackdropMenuExample() {
 }
 
 export function OpenAlertDialogMenuExample() {
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Menu>
         <MenuButtonTrigger>
           Project
@@ -460,7 +471,7 @@ export function OpenAlertDialogMenuExample() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
@@ -483,10 +494,10 @@ export function LinkItemsMenuExample() {
 }
 
 export function DetachedTriggerMenuExample() {
-  const menuHandle = React.useMemo(() => createMenuHandle(), []);
+  const menuHandle = useMemo(() => createMenuHandle(), []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div className={styles.detachedTrigger}>
         <MenuButtonTrigger handle={menuHandle}>
           Actions
@@ -502,11 +513,11 @@ export function DetachedTriggerMenuExample() {
           <MenuItem closeOnClick>Archive</MenuItem>
         </MenuContent>
       </Menu>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
-export function CustomStylesMenuExample() {
+export function CustomCompositionMenuExample() {
   return (
     <Menu>
       <MenuButtonTrigger className={styles.customTrigger}>
@@ -515,46 +526,45 @@ export function CustomStylesMenuExample() {
           <ChevronDownIcon />
         </MenuTriggerIcon>
       </MenuButtonTrigger>
-      <MenuContent
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          positioner: styles.customPositioner,
-          arrow: styles.customArrow,
-        }}
-        withBackdrop
-      >
-        <MenuItem closeOnClick className={styles.customItem}>
-          <MenuItemTextContent>
-            <MenuItemTextIcon>
-              <MapIcon />
-            </MenuItemTextIcon>
-            <MenuItemTextLabel>Open map</MenuItemTextLabel>
-          </MenuItemTextContent>
-        </MenuItem>
-        <MenuSubmenu>
-          <MenuSubmenuTrigger className={styles.customItem}>
-            <MenuItemTextContent>
-              <MenuItemTextIcon>
-                <InfoIcon />
-              </MenuItemTextIcon>
-              <MenuItemTextLabel>More</MenuItemTextLabel>
-            </MenuItemTextContent>
-            <MenuSubmenuTriggerIcon>
-              <ChevronDownIcon />
-            </MenuSubmenuTriggerIcon>
-          </MenuSubmenuTrigger>
-          <MenuSubmenuContent>
-            <MenuItem closeOnClick className={styles.customItem}>
-              Nearby
-            </MenuItem>
-            <MenuItem closeOnClick className={styles.customItem}>
-              Routes
-            </MenuItem>
-          </MenuSubmenuContent>
-        </MenuSubmenu>
-      </MenuContent>
+      <MenuPortal>
+        <MenuBackdrop className={styles.customBackdrop} />
+        <MenuPositioner className={styles.customPositioner} sideOffset={12}>
+          <MenuPopup className={styles.customPopup}>
+            <MenuArrow className={styles.customArrow} />
+            <MenuViewport className={styles.customViewport}>
+              <MenuItem closeOnClick className={styles.customItem}>
+                <MenuItemTextContent>
+                  <MenuItemTextIcon>
+                    <MapIcon />
+                  </MenuItemTextIcon>
+                  <MenuItemTextLabel>Open map</MenuItemTextLabel>
+                </MenuItemTextContent>
+              </MenuItem>
+              <MenuSubmenu>
+                <MenuSubmenuTrigger className={styles.customItem}>
+                  <MenuItemTextContent>
+                    <MenuItemTextIcon>
+                      <InfoIcon />
+                    </MenuItemTextIcon>
+                    <MenuItemTextLabel>More</MenuItemTextLabel>
+                  </MenuItemTextContent>
+                  <MenuSubmenuTriggerIcon>
+                    <ChevronDownIcon />
+                  </MenuSubmenuTriggerIcon>
+                </MenuSubmenuTrigger>
+                <MenuSubmenuContent>
+                  <MenuItem closeOnClick className={styles.customItem}>
+                    Nearby
+                  </MenuItem>
+                  <MenuItem closeOnClick className={styles.customItem}>
+                    Routes
+                  </MenuItem>
+                </MenuSubmenuContent>
+              </MenuSubmenu>
+            </MenuViewport>
+          </MenuPopup>
+        </MenuPositioner>
+      </MenuPortal>
     </Menu>
   );
 }

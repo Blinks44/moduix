@@ -9,7 +9,7 @@ import {
   ComboboxExample,
   ComboboxCssPlaygroundPanel,
   ComboboxCssPropertiesPanel,
-  CustomStylesComboboxExample,
+  CustomCompositionComboboxExample,
   GroupedComboboxExample,
   IndicatorRightComboboxExample,
   InputInsidePopupComboboxExample,
@@ -23,12 +23,8 @@ import {
 
 ## Choosing the right component
 
-Use `Combobox` when selection should come from predefined options, but users still need an input to
-search or narrow that list.
-
-- Choose **`Combobox`** for searchable selection from a known dataset.
-- Choose **`Autocomplete`** when free-form input is valid and suggestions are optional guidance.
-- Choose **`Select`** when input typing is unnecessary and a button-triggered list is enough.
+Use `Combobox` for searchable selection from a known dataset.
+Use `Autocomplete` when free-form input is allowed, and `Select` when typing is not needed.
 
 ## Basic
 
@@ -71,7 +67,7 @@ search or narrow that list.
               </ComboboxInputGroup>
             </ComboboxField>
 
-            <ComboboxContent>
+            <ComboboxContent sideOffset={4}>
               <ComboboxEmpty>No fruits found.</ComboboxEmpty>
               <ComboboxList>
                 {(item) => (
@@ -109,9 +105,8 @@ search or narrow that list.
 
 ## Anatomy
 
-`Combobox` combines an input-like control with a popup list. Keep the field parts together
-inside `ComboboxField` and keep list-related parts inside `ComboboxContent` so keyboard focus,
-selection state, and filtering stay synchronized.
+`Combobox` keeps popup infrastructure behind `ComboboxContent`, so the common composition stays
+short and focused on the actual field and list parts.
 
 ```text
 Combobox
@@ -123,7 +118,6 @@ Combobox
 │        ├─ ComboboxClear
 │        └─ ComboboxTrigger
 └─ ComboboxContent
-   ├─ service slots (internal): portal, backdrop, positioner, arrow
    ├─ ComboboxStatus / ComboboxEmpty
    └─ ComboboxList
       ├─ ComboboxGroup / ComboboxCollection
@@ -147,7 +141,7 @@ Combobox
     </ComboboxInputGroup>
   </ComboboxField>
 
-  <ComboboxContent>
+  <ComboboxContent sideOffset={4}>
     <ComboboxEmpty>No fruits found.</ComboboxEmpty>
     <ComboboxList>
       {(item) => (
@@ -167,16 +161,13 @@ Combobox
 | `ComboboxField`          | Field wrapper for label and input area. Keep visible form-control pieces here for layout and accessibility semantics.   |
 | `ComboboxInput`          | Search/input control. Drives filtering and exposes input events, placeholder, and focus behavior.                       |
 | `ComboboxControlActions` | Slot for inline controls such as clear and trigger buttons.                                                             |
-| `ComboboxContent`        | Popup surface with list/status/empty content. Also configures internal service layers and popup behavior props.         |
+| `ComboboxContent`        | Popup surface. It also owns the default portal and positioner used by the common composition.                           |
 | `ComboboxList`           | Collection renderer for options or grouped options. Contains `ComboboxItem`, `ComboboxGroup`, and `ComboboxCollection`. |
 | `ComboboxItem`           | One selectable option. Renders selected state and text/indicator subparts.                                              |
 | `ComboboxChips`          | Multiple-selection chip container used with `multiple` and `ComboboxValue`.                                             |
 
-In most cases, keep default popup infrastructure and style the visible parts (`ComboboxInput`,
-`ComboboxItem`, `ComboboxItemIndicator`, `ComboboxItemText`, `ComboboxContent`).
-Use `ComboboxContent` service-slot props (`classNames`, `portalProps`, `positionerProps`,
-`backdropProps`, `arrowProps`, `withBackdrop`, `arrow`) only when you need custom portal,
-layering, backdrop, or arrow behavior.
+Most customizations should stay on visible parts such as `ComboboxInput`, `ComboboxItem`,
+`ComboboxItemIndicator`, `ComboboxItemText`, and `ComboboxContent`.
 
 ## Composition
 
@@ -186,39 +177,24 @@ Use `Combobox` for root state and behavior props such as `value`, `defaultValue`
 `autoHighlight`, `loopFocus`, `itemToStringLabel`, `itemToStringValue`, and
 `isItemEqualToValue`.
 
-The moduix wrapper keeps Base UI behavior available while hiding service elements from the
-recommended composition:
+The moduix wrapper keeps Base UI behavior available while keeping the default popup composition
+compact:
 
-| Base UI capability                      | moduix API                                                                                         |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Root state, filtering, forms, grid mode | Pass Base UI root props directly to `Combobox`.                                                    |
-| Flat items                              | Pass `items` to `Combobox` and render items with a function child on `ComboboxList`.               |
-| Grouped items                           | Pass grouped `items`, then render `ComboboxGroup`, `ComboboxGroupLabel`, and `ComboboxCollection`. |
-| Async or remote search                  | Pass `filter={null}`, manage `items`, and announce progress with `ComboboxStatus`.                 |
-| Externally filtered items               | Pass `filteredItems` or combine `useComboboxFilter` with application state.                        |
-| Virtualized lists                       | Pass `virtualized`, render custom rows in `ComboboxList`, and read `useComboboxFilteredItems`.     |
-| Multiple values                         | Pass `multiple` and render chips through `ComboboxValue`, `ComboboxChips`, and `ComboboxChip`.     |
-| Popup placement                         | Pass `side`, `align`, offsets, collision props, and `container` to `ComboboxContent`.              |
-| Portal, backdrop, positioner, arrow     | Use `ComboboxContent` props instead of composing those service slots manually.                     |
+| Base UI capability                      | moduix API                                                                                                                                                                    |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Root state, filtering, forms, grid mode | Pass Base UI root props directly to `Combobox`.                                                                                                                               |
+| Flat items                              | Pass `items` to `Combobox` and render items with a function child on `ComboboxList`.                                                                                          |
+| Grouped items                           | Pass grouped `items`, then render `ComboboxGroup`, `ComboboxGroupLabel`, and `ComboboxCollection`.                                                                            |
+| Async or remote search                  | Pass `filter={null}`, manage `items`, and announce progress with `ComboboxStatus`.                                                                                            |
+| Externally filtered items               | Pass `filteredItems` or combine `useComboboxFilter` with application state.                                                                                                   |
+| Virtualized lists                       | Pass `virtualized`, render custom rows in `ComboboxList`, and read `useComboboxFilteredItems`.                                                                                |
+| Multiple values                         | Pass `multiple` and render chips through `ComboboxValue`, `ComboboxChips`, and `ComboboxChip`.                                                                                |
+| Popup placement                         | Pass `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`, `collisionBoundary`, or `collisionPadding` to `ComboboxContent` for the common case. |
+| Default arrow                           | Use `showArrow` to enable the built-in arrow, or switch to low-level popup parts for a custom arrow.                                                                          |
+| Backdrop or custom structure            | Use the lower-level popup parts only when the popup infrastructure itself needs to change.                                                                                    |
 
-`className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use `container`, `portalProps`, `backdropProps`,
-`positionerProps`, `arrowProps`, `withBackdrop`, and `arrow` when you need the matching
-Base UI escape hatches:
-
-```tsx
-<ComboboxContent
-  className={styles.popup}
-  withArrow
-  withBackdrop
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-    arrow: styles.arrow,
-  }}
-/>
-```
+For a custom popup stack with your own backdrop or arrow, use the lower-level parts shown in
+`Custom Composition` below.
 
 Every visible part accepts `className` and the Base UI `render` prop where the underlying primitive
 supports it, so the component can be styled with CSS Modules, plain CSS, CSS-in-JS, cascade layers,
@@ -228,9 +204,10 @@ icon set.
 
 ## Examples
 
-### Indicator Right With Icon
+### Indicator Right
 
-Use `indicator="end"` when the selected indicator should be aligned to the end. Pass children to icon slots to use icons from your application.
+Use `indicator="end"` when the selected marker should stay on the right while the leading icon and
+text keep their own layout.
 
 <Preview>
   <IndicatorRightComboboxExample />
@@ -250,12 +227,10 @@ Use `indicator="end"` when the selected indicator should be aligned to the end. 
         ComboboxList,
         ComboboxItem,
         ComboboxItemText,
-        ComboboxItemTextContent,
-        ComboboxItemTextIcon,
-        InfoIcon,
-        ComboboxItemTextLabel,
         ComboboxItemIndicator,
+        InfoIcon,
       } from "moduix";
+      import styles from "./combobox.module.css";
       import { useId } from "react";
 
       export function IndicatorRightComboboxDemo() {
@@ -274,17 +249,13 @@ Use `indicator="end"` when the selected indicator should be aligned to the end. 
               </ComboboxInputGroup>
             </ComboboxField>
 
-            <ComboboxContent>
+            <ComboboxContent sideOffset={4}>
               <ComboboxList>
                 {(item) => (
                   <ComboboxItem key={item.id} value={item} indicator="end">
-                    <ComboboxItemText>
-                      <ComboboxItemTextContent>
-                        <ComboboxItemTextIcon>
-                          <InfoIcon />
-                        </ComboboxItemTextIcon>
-                        <ComboboxItemTextLabel>{item.label}</ComboboxItemTextLabel>
-                      </ComboboxItemTextContent>
+                    <ComboboxItemText className={styles.itemTextWithIcon}>
+                      <InfoIcon className={styles.itemIcon} />
+                      <span>{item.label}</span>
                     </ComboboxItemText>
                     <ComboboxItemIndicator />
                   </ComboboxItem>
@@ -297,6 +268,23 @@ Use `indicator="end"` when the selected indicator should be aligned to the end. 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .itemTextWithIcon {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .itemIcon {
+        flex-shrink: 0;
+        width: 1rem;
+        height: 1rem;
+      }
+    `}
+
+  </Preview.CSS>
 
   <Preview.Data>
     {`
@@ -312,7 +300,9 @@ Use `indicator="end"` when the selected indicator should be aligned to the end. 
 
 ### Input Inside Popup
 
-Render `ComboboxInput` inside the popup when the closed field should behave like a select trigger.
+Use `ComboboxFieldTrigger` when the visible field opens a popup that contains the searchable
+input. `ComboboxFieldLabel` stays associated with the trigger and inline input through Base UI
+field labeling, so no extra `htmlFor` wiring is needed in this composition.
 
 <Preview>
   <InputInsidePopupComboboxExample />
@@ -323,11 +313,10 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
         Combobox,
         ComboboxField,
         ComboboxFieldLabel,
-        ComboboxTrigger,
+        ComboboxFieldTrigger,
         ComboboxValue,
         ComboboxIcon,
         ComboboxContent,
-        ComboboxInlineInputContainer,
         ComboboxInput,
         ComboboxEmpty,
         ComboboxList,
@@ -342,16 +331,16 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
           <Combobox items={countries} itemToStringLabel={(item) => item.label}>
             <ComboboxField>
               <ComboboxFieldLabel>Country</ComboboxFieldLabel>
-              <ComboboxTrigger className={styles.triggerField}>
+              <ComboboxFieldTrigger>
                 <ComboboxValue placeholder="Select country" />
                 <ComboboxIcon />
-              </ComboboxTrigger>
+              </ComboboxFieldTrigger>
             </ComboboxField>
 
-            <ComboboxContent className={styles.popupWithInlineInput}>
-              <ComboboxInlineInputContainer>
+            <ComboboxContent sideOffset={4} className={styles.popupWithInlineInput}>
+              <div className={styles.inlineInputContainer}>
                 <ComboboxInput className={styles.inlineInput} placeholder="Search country" />
-              </ComboboxInlineInputContainer>
+              </div>
               <ComboboxEmpty>No countries found.</ComboboxEmpty>
               <ComboboxList className={styles.listWithInlineInput}>
                 {(item) => (
@@ -371,40 +360,12 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
 
   <Preview.CSS>
     {`
-      .triggerField {
-        display: inline-flex;
-        width: var(--combobox-width, 16rem);
-        min-height: var(--combobox-control-height, var(--size-lg));
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-        padding: 0 0.875rem;
-        border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
-        border-radius: var(--combobox-radius, var(--radius-md));
-        background-color: var(--combobox-bg, var(--color-background));
-        color: var(--combobox-color, var(--color-foreground));
-        transition:
-          background-color var(--transition-default),
-          border-color var(--transition-default),
-          outline-color var(--transition-default);
-
-        &[data-popup-open] {
-          background-color: var(--color-muted);
-        }
-
-        &:focus-visible {
-          border-color: var(--combobox-focus-ring-color, var(--color-ring));
-          outline: var(--border-width-sm) solid var(--combobox-focus-ring-color, var(--color-ring));
-          outline-offset: calc(var(--border-width-sm) * -1);
-        }
-      }
-
       .popupWithInlineInput {
-        --combobox-inline-input-container-height: calc(
+        --inline-input-container-height: calc(
           var(--combobox-control-height, var(--size-lg)) +
-            var(--combobox-inline-input-container-padding-top, var(--spacing-2)) +
-            var(--combobox-inline-input-container-padding-bottom, var(--spacing-2)) +
-            var(--combobox-inline-input-divider-width, var(--border-width-sm))
+            var(--spacing-2) +
+            var(--spacing-2) +
+            var(--border-width-sm)
         );
       }
 
@@ -412,14 +373,20 @@ Render `ComboboxInput` inside the popup when the closed field should behave like
         max-height: min(
           calc(
             var(--combobox-list-max-height, var(--combobox-popup-max-height, 24rem)) -
-              var(--combobox-inline-input-container-height, 0px)
+              var(--inline-input-container-height, 0px)
           ),
-          calc(var(--available-height) - var(--combobox-inline-input-container-height, 0px))
+          calc(var(--available-height) - var(--inline-input-container-height, 0px))
         );
         padding-top: 0.375rem;
         padding-bottom: 0.5rem;
         scroll-padding-top: 0.375rem;
         scroll-padding-bottom: 0.5rem;
+      }
+
+      .inlineInputContainer {
+        box-sizing: border-box;
+        padding: var(--spacing-2);
+        border-bottom: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
       }
 
       .inlineInput {
@@ -489,7 +456,7 @@ Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `Com
               </ComboboxInputGroup>
             </ComboboxField>
 
-            <ComboboxContent>
+            <ComboboxContent sideOffset={4}>
               <ComboboxEmpty>No produce found.</ComboboxEmpty>
               <ComboboxList>
                 {(group) => (
@@ -595,7 +562,7 @@ Use the `multiple` prop and render chips inside `ComboboxValue`. The input remai
               </ComboboxInputGroup>
             </ComboboxField>
 
-            <ComboboxContent>
+            <ComboboxContent sideOffset={4}>
               <ComboboxEmpty>No fruits found.</ComboboxEmpty>
               <ComboboxList>
                 {(item) => (
@@ -652,6 +619,7 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
         ComboboxItemText,
         useComboboxFilter,
       } from "moduix";
+      import styles from "./combobox.module.css";
       import { useId, useMemo, useRef, useState, useTransition } from "react";
 
       export function AsyncSearchComboboxDemo() {
@@ -660,6 +628,7 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
         const [searchResults, setSearchResults] = useState([]);
         const [selectedValue, setSelectedValue] = useState(null);
         const [searchValue, setSearchValue] = useState("");
+        const [error, setError] = useState(null);
         const [isPending, startTransition] = useTransition();
         const abortControllerRef = useRef(null);
         const trimmedSearchValue = searchValue.trim();
@@ -672,22 +641,49 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
           return [...searchResults, selectedValue];
         }, [searchResults, selectedValue]);
 
+        async function searchUsers(query) {
+          await new Promise((resolve) => setTimeout(resolve, 250));
+
+          if (query === "error") {
+            return { users: [], error: "Failed to fetch people. Try again." };
+          }
+
+          return {
+            users: directoryUsers.filter(
+              (user) =>
+                contains(user.name, query) ||
+                contains(user.username, query) ||
+                contains(user.email, query) ||
+                contains(user.title, query),
+            ),
+            error: null,
+          };
+        }
+
         const status = isPending
           ? "Searching..."
-          : trimmedSearchValue === ""
-            ? selectedValue ? null : "Start typing to search people..."
-            : searchResults.length === 0
-              ? \`No matches for "\${trimmedSearchValue}".\`
-              : null;
+          : error
+            ? error
+            : trimmedSearchValue === ""
+              ? selectedValue ? null : "Start typing to search people..."
+              : searchResults.length === 0
+                ? \`No matches for "\${trimmedSearchValue}".\`
+                : null;
 
         return (
           <Combobox
             items={items}
             itemToStringLabel={(user) => user.name}
             filter={null}
+            onOpenChangeComplete={(open) => {
+              if (!open && selectedValue) {
+                setSearchResults([selectedValue]);
+              }
+            }}
             onValueChange={(nextSelectedValue) => {
               setSelectedValue(nextSelectedValue);
               setSearchValue("");
+              setError(null);
             }}
             onInputValueChange={(nextSearchValue, { reason }) => {
               setSearchValue(nextSearchValue);
@@ -695,6 +691,7 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
               if (nextSearchValue === "") {
                 abortControllerRef.current?.abort();
                 setSearchResults([]);
+                setError(null);
                 return;
               }
 
@@ -707,21 +704,17 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
               abortControllerRef.current = controller;
 
               startTransition(async () => {
-                await new Promise((resolve) => setTimeout(resolve, 250));
+                setError(null);
+                const result = await searchUsers(nextSearchValue);
 
                 if (controller.signal.aborted) {
                   return;
                 }
 
-                setSearchResults(
-                  directoryUsers.filter(
-                    (user) =>
-                      contains(user.name, nextSearchValue) ||
-                      contains(user.username, nextSearchValue) ||
-                      contains(user.email, nextSearchValue) ||
-                      contains(user.title, nextSearchValue),
-                  ),
-                );
+                startTransition(() => {
+                  setSearchResults(result.users);
+                  setError(result.error);
+                });
               });
             }}
           >
@@ -736,7 +729,7 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
               </ComboboxInputGroup>
             </ComboboxField>
 
-            <ComboboxContent>
+            <ComboboxContent sideOffset={4}>
               <ComboboxStatus>{status}</ComboboxStatus>
               <ComboboxEmpty>
                 {trimmedSearchValue !== "" && !isPending && searchResults.length === 0
@@ -747,7 +740,14 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
                 {(user) => (
                   <ComboboxItem key={user.id} value={user}>
                     <ComboboxItemIndicator />
-                    <ComboboxItemText>{user.name}</ComboboxItemText>
+                    <ComboboxItemText className={styles.multilineItemText}>
+                      <span className={styles.itemTitle}>{user.name}</span>
+                      <span className={styles.itemMeta}>
+                        <span>@{user.username}</span>
+                        <span>{user.title}</span>
+                      </span>
+                      <span className={styles.itemMeta}>{user.email}</span>
+                    </ComboboxItemText>
                   </ComboboxItem>
                 )}
               </ComboboxList>
@@ -758,6 +758,33 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .multilineItemText {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        white-space: normal;
+      }
+
+      .itemTitle {
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+        font-weight: var(--weight-semibold);
+      }
+
+      .itemMeta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+        color: var(--combobox-empty-color, var(--color-muted-foreground));
+      }
+    `}
+
+  </Preview.CSS>
 
   <Preview.Data>
     {`
@@ -782,12 +809,12 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
-Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `Backdrop`, and `Arrow` are rendered internally, so application code only configures behavior and service-slot classes.
+Style each popup part directly when you need custom layering, backdrop, or arrow treatment.
 
 <Preview>
-  <CustomStylesComboboxExample />
+  <CustomCompositionComboboxExample />
 
   <Preview.Code>
     {`
@@ -800,7 +827,12 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
         ComboboxControlActions,
         ComboboxClear,
         ComboboxTrigger,
+        ComboboxPortal,
+        ComboboxBackdrop,
+        ComboboxPositioner,
+        ComboboxPopup,
         ComboboxContent,
+        ComboboxArrow,
         ComboboxEmpty,
         ComboboxList,
         ComboboxItem,
@@ -810,7 +842,7 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
       import { useId } from "react";
       import styles from "./combobox.module.css";
 
-      export function CustomStylesComboboxDemo() {
+      export function CustomCompositionComboboxDemo() {
         const id = useId();
 
         return (
@@ -826,28 +858,23 @@ Use `ComboboxContent` props for popup infrastructure. `Portal`, `Positioner`, `B
               </ComboboxInputGroup>
             </ComboboxField>
 
-            <ComboboxContent
-              className={styles.customPopup}
-              sideOffset={8}
-              withArrow
-              withBackdrop
-              classNames={{
-                portal: styles.portal,
-                backdrop: styles.backdrop,
-                positioner: styles.positioner,
-                arrow: styles.arrow,
-              }}
-            >
-              <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-              <ComboboxList>
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
+            <ComboboxPortal className={styles.portal}>
+              <ComboboxBackdrop className={styles.backdrop} />
+              <ComboboxPositioner className={styles.positioner} sideOffset={8}>
+                <ComboboxPopup className={styles.customPopup}>
+                  <ComboboxArrow className={styles.arrow} />
+                  <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+                  <ComboboxList>
+                    {(item) => (
+                      <ComboboxItem key={item.id} value={item}>
+                        <ComboboxItemIndicator />
+                        <ComboboxItemText>{item.label}</ComboboxItemText>
+                      </ComboboxItem>
+                    )}
+                  </ComboboxList>
+                </ComboboxPopup>
+              </ComboboxPositioner>
+            </ComboboxPortal>
           </Combobox>
         );
       }

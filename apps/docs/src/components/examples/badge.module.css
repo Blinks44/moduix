@@ -1,0 +1,36 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.constrained {
+  max-width: 14rem;
+}
+
+.customBadge {
+  --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
+  --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+  --badge-color: var(--color-primary);
+  --badge-dot-size: 0.5rem;
+  --badge-height: 1.625rem;
+  --badge-padding-x: var(--spacing-3);
+  --badge-radius: var(--radius-sm);
+}
+
+.small {
+  --badge-height: 1.125rem;
+  --badge-font-size: var(--text-xs);
+  --badge-icon-size: 0.6875rem;
+  --badge-line-height: var(--line-height-text-xs);
+  --badge-padding-x: 0.5rem;
+}
+
+.large {
+  --badge-height: 1.5rem;
+  --badge-font-size: var(--text-sm);
+  --badge-icon-size: 0.875rem;
+  --badge-line-height: var(--line-height-text-sm);
+  --badge-padding-x: 0.75rem;
+}

@@ -44,6 +44,11 @@
 
   .decrement,
   .increment {
+    --_number-field-focus-ring-width: var(
+      --number-field-focus-ring-width,
+      var(--number-field-border-width, var(--border-width-sm))
+    );
+
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -80,18 +85,9 @@
     }
 
     &:focus-visible {
-      outline: var(
-          --number-field-focus-ring-width,
-          var(--number-field-border-width, var(--border-width-sm))
-        )
-        solid var(--number-field-focus-ring-color, var(--color-ring));
-      outline-offset: calc(
-        var(
-            --number-field-focus-ring-width,
-            var(--number-field-border-width, var(--border-width-sm))
-          ) *
-          -1
-      );
+      outline: var(--_number-field-focus-ring-width) solid
+        var(--number-field-focus-ring-color, var(--color-ring));
+      outline-offset: calc(var(--_number-field-focus-ring-width) * -1);
       z-index: 1;
     }
 
@@ -114,22 +110,23 @@
   }
 
   .decrement {
-    border-top-left-radius: var(--number-field-radius, var(--radius-md));
-    border-bottom-left-radius: var(--number-field-radius, var(--radius-md));
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: var(--number-field-radius, var(--radius-md)) 0 0
+      var(--number-field-radius, var(--radius-md));
     border-right: 0;
   }
 
   .increment {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: var(--number-field-radius, var(--radius-md));
-    border-bottom-right-radius: var(--number-field-radius, var(--radius-md));
+    border-radius: 0 var(--number-field-radius, var(--radius-md))
+      var(--number-field-radius, var(--radius-md)) 0;
     border-left: 0;
   }
 
   .input {
+    --_number-field-focus-ring-width: var(
+      --number-field-focus-ring-width,
+      var(--number-field-border-width, var(--border-width-sm))
+    );
+
     box-sizing: border-box;
     width: var(--number-field-input-width, 6rem);
     height: var(--number-field-control-height, var(--size-lg));
@@ -150,18 +147,8 @@
     line-height: var(--number-field-input-line-height, var(--line-height-text-md));
     text-align: center;
     font-variant-numeric: tabular-nums;
-    outline: var(
-        --number-field-focus-ring-width,
-        var(--number-field-border-width, var(--border-width-sm))
-      )
-      solid transparent;
-    outline-offset: calc(
-      var(
-          --number-field-focus-ring-width,
-          var(--number-field-border-width, var(--border-width-sm))
-        ) *
-        -1
-    );
+    outline: var(--_number-field-focus-ring-width) solid transparent;
+    outline-offset: calc(var(--_number-field-focus-ring-width) * -1);
     transition:
       border-color var(--transition-default),
       outline-color var(--transition-default),

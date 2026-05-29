@@ -1,8 +1,8 @@
+import type { ComponentProps } from 'react';
 import { CheckboxGroup as CheckboxGroupPrimitive } from '@base-ui/react/checkbox-group';
 import { clsx } from 'clsx';
-import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
-import { Checkbox, type CheckboxProps } from '../Checkbox';
+import { Checkbox, CheckboxField, CheckboxLabel } from '../Checkbox';
 import styles from './CheckboxGroup.module.css';
 
 function CheckboxGroup({ className, ...props }: CheckboxGroupPrimitive.Props) {
@@ -15,48 +15,41 @@ function CheckboxGroup({ className, ...props }: CheckboxGroupPrimitive.Props) {
   );
 }
 
-function CheckboxGroupLabel({ className, ...props }: CheckboxGroupLabelProps) {
+function CheckboxGroupLabel({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div data-slot="checkbox-group-label" className={clsx(styles.label, className)} {...props} />
   );
 }
 
-function CheckboxGroupList({ className, ...props }: CheckboxGroupListProps) {
+function CheckboxGroupList({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div data-slot="checkbox-group-list" className={clsx(styles.list, className)} {...props} />
   );
 }
 
-function CheckboxGroupItem({ className, ...props }: CheckboxGroupItemProps) {
+function CheckboxGroupItem({ className, ...props }: ComponentProps<typeof CheckboxField>) {
   return (
-    <label data-slot="checkbox-group-item" className={clsx(styles.item, className)} {...props} />
+    <CheckboxField
+      data-slot="checkbox-group-item"
+      className={clsx(styles.item, className)}
+      {...props}
+    />
   );
 }
 
-type CheckboxGroupItemControlProps = CheckboxProps;
-
-function CheckboxGroupItemControl(props: CheckboxGroupItemControlProps) {
+function CheckboxGroupItemControl(props: ComponentProps<typeof Checkbox>) {
   return <Checkbox data-slot="checkbox-group-item-control" {...props} />;
 }
 
-function CheckboxGroupItemLabel({ className, ...props }: CheckboxGroupItemLabelProps) {
+function CheckboxGroupItemLabel({ className, ...props }: ComponentProps<typeof CheckboxLabel>) {
   return (
-    <span
+    <CheckboxLabel
       data-slot="checkbox-group-item-label"
       className={clsx(styles.itemLabel, className)}
       {...props}
     />
   );
 }
-
-type CheckboxGroupProps = CheckboxGroupPrimitive.Props;
-type CheckboxGroupState = CheckboxGroupPrimitive.State;
-type CheckboxGroupChangeEventReason = CheckboxGroupPrimitive.ChangeEventReason;
-type CheckboxGroupChangeEventDetails = CheckboxGroupPrimitive.ChangeEventDetails;
-type CheckboxGroupLabelProps = React.ComponentProps<'div'>;
-type CheckboxGroupListProps = React.ComponentProps<'div'>;
-type CheckboxGroupItemProps = React.ComponentProps<'label'>;
-type CheckboxGroupItemLabelProps = React.ComponentProps<'span'>;
 
 export {
   CheckboxGroup,
@@ -65,16 +58,4 @@ export {
   CheckboxGroupItem,
   CheckboxGroupItemControl,
   CheckboxGroupItemLabel,
-};
-
-export type {
-  CheckboxGroupProps,
-  CheckboxGroupState,
-  CheckboxGroupChangeEventReason,
-  CheckboxGroupChangeEventDetails,
-  CheckboxGroupLabelProps,
-  CheckboxGroupListProps,
-  CheckboxGroupItemProps,
-  CheckboxGroupItemControlProps,
-  CheckboxGroupItemLabelProps,
 };

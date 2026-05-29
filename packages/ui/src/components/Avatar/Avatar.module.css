@@ -1,13 +1,9 @@
 @layer ui.components {
   .root {
-    --avatar-size-default: var(--avatar-size-md, var(--size-md));
-    --avatar-font-size-default: var(--avatar-font-size-md, var(--text-md));
-    --avatar-line-height-default: var(--avatar-line-height-md, var(--line-height-text-md));
-
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--avatar-size, var(--avatar-size-default));
-    height: var(--avatar-size, var(--avatar-size-default));
+    width: var(--avatar-size, var(--size-md));
+    height: var(--avatar-size, var(--size-md));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
@@ -15,41 +11,11 @@
     border-radius: var(--avatar-radius, var(--radius-full));
     background-color: var(--avatar-bg, var(--color-muted));
     color: var(--avatar-color, var(--color-foreground));
-    font-size: var(--avatar-font-size, var(--avatar-font-size-default));
+    font-size: var(--avatar-font-size, var(--text-md));
     font-weight: var(--avatar-font-weight, var(--weight-medium));
-    line-height: var(--avatar-line-height, var(--avatar-line-height-default));
+    line-height: var(--avatar-line-height, var(--line-height-text-md));
     user-select: none;
     vertical-align: middle;
-
-    &[data-size='xs'] {
-      --avatar-size-default: var(--avatar-size-xs, var(--size-xs));
-      --avatar-font-size-default: var(--avatar-font-size-xs, var(--text-xs));
-      --avatar-line-height-default: var(--avatar-line-height-xs, var(--line-height-text-xs));
-    }
-
-    &[data-size='sm'] {
-      --avatar-size-default: var(--avatar-size-sm, var(--size-sm));
-      --avatar-font-size-default: var(--avatar-font-size-sm, var(--text-sm));
-      --avatar-line-height-default: var(--avatar-line-height-sm, var(--line-height-text-sm));
-    }
-
-    &[data-size='md'] {
-      --avatar-size-default: var(--avatar-size-md, var(--size-md));
-      --avatar-font-size-default: var(--avatar-font-size-md, var(--text-md));
-      --avatar-line-height-default: var(--avatar-line-height-md, var(--line-height-text-md));
-    }
-
-    &[data-size='lg'] {
-      --avatar-size-default: var(--avatar-size-lg, var(--size-lg));
-      --avatar-font-size-default: var(--avatar-font-size-lg, var(--text-lg));
-      --avatar-line-height-default: var(--avatar-line-height-lg, var(--line-height-text-lg));
-    }
-
-    &[data-size='xl'] {
-      --avatar-size-default: var(--avatar-size-xl, var(--size-xl));
-      --avatar-font-size-default: var(--avatar-font-size-xl, var(--text-lg));
-      --avatar-line-height-default: var(--avatar-line-height-xl, var(--line-height-text-lg));
-    }
   }
 
   .image {

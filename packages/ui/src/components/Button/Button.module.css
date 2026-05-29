@@ -11,10 +11,12 @@
     border-radius: var(--button-radius, var(--radius-md));
     background-color: transparent;
     color: var(--button-color, var(--color-foreground));
+    appearance: none;
     font: inherit;
     font-size: var(--button-font-size, var(--text-sm));
     font-weight: var(--button-font-weight, var(--weight-medium));
     line-height: var(--button-line-height, var(--line-height-text-sm));
+    text-decoration: none;
     user-select: none;
     white-space: nowrap;
     cursor: pointer;
@@ -172,8 +174,8 @@
       line-height: var(--button-line-height-xl, var(--line-height-text-lg));
     }
 
-    &[data-size='icon-md'],
     &[data-size='icon-sm'],
+    &[data-size='icon-md'],
     &[data-size='icon-lg'] {
       padding: 0;
       gap: 0;
@@ -196,40 +198,5 @@
       min-width: var(--button-size-icon-lg, var(--size-xl));
       height: var(--button-size-icon-lg, var(--size-xl));
     }
-  }
-
-  .content {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: inherit;
-  }
-
-  .contentHidden {
-    visibility: hidden;
-  }
-
-  .loadingIndicator {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .loadingIndicatorOverlay {
-    position: absolute;
-    inset-block-start: 50%;
-    inset-inline-start: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .spinner {
-    box-sizing: border-box;
-    width: var(--button-spinner-size, 0.875rem);
-    height: var(--button-spinner-size, 0.875rem);
-    border: var(--border-width-sm) solid currentColor;
-    border-width: var(--button-spinner-border-width, var(--border-width-sm));
-    border-inline-end-color: transparent;
-    border-radius: var(--button-spinner-radius, var(--radius-full));
-    animation: var(--button-spinner-animation, var(--animation-spin));
   }
 }

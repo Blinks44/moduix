@@ -1,9 +1,10 @@
+import type { FormActions } from '@base-ui/react/form';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import type { FormActions, FormProps } from './Form';
+import { useActionState, useRef, useState } from 'react';
 import { Button } from '../Button';
 import { Field, FieldError, FieldLabel } from '../Field';
 import { Input } from '../Input';
+import { Spinner } from '../Spinner';
 import { Form } from './Form';
 import storyStyles from './Form.stories.module.css';
 
@@ -27,11 +28,11 @@ function sleep(ms: number) {
 }
 
 interface ActionState {
-  serverErrors?: FormProps['errors'];
+  serverErrors?: Record<string, string>;
   message?: string;
 }
 
-async function validateHomepage(homepage: string): Promise<FormProps['errors']> {
+async function validateHomepage(homepage: string): Promise<Record<string, string>> {
   await sleep(500);
 
   try {
@@ -83,8 +84,58 @@ async function submitUsername(
 
 export const Basic: Story = {
   render: () => {
-    const [errors, setErrors] = React.useState<FormProps['errors']>({});
-    const [submitting, setSubmitting] = React.useState(false);
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitting, setSubmitting] = useState(false);
+
+    return (
+      <Form
+        errors={errors}
+        validationMode="onBlur"
+        className={storyStyles.form}
+        onFormSubmit={async (values) => {
+          setSubmitting(true);
+          const nextErrors = await validateHomepage(String(values.homepage ?? ''));
+          setErrors(nextErrors);
+          setSubmitting(false);
+        }}
+      >
+        <Field name="homepage">
+          <FieldLabel>Homepage</FieldLabel>
+          <Input
+            type="url"
+            required
+            defaultValue="https://example.com"
+            placeholder="https://example.com"
+            pattern="https?://.*"
+          />
+          <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
+          <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
+          <FieldError />
+        </Field>
+        <Button
+          type="submit"
+          disabled={submitting}
+          focusableWhenDisabled
+          aria-busy={submitting || undefined}
+        >
+          {submitting ? (
+            <>
+              <Spinner decorative size="sm" />
+              Submitting
+            </>
+          ) : (
+            'Submit'
+          )}
+        </Button>
+      </Form>
+    );
+  },
+};
+
+export const WithNativeSubmit: Story = {
+  render: () => {
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitting, setSubmitting] = useState(false);
 
     return (
       <Form
@@ -114,56 +165,20 @@ export const Basic: Story = {
           <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
           <FieldError />
         </Field>
-        <Button type="submit" loading={submitting}>
-          Submit
-        </Button>
-      </Form>
-    );
-  },
-};
-
-export const WithOnFormSubmit: Story = {
-  render: () => {
-    const [errors, setErrors] = React.useState<FormProps['errors']>({});
-    const [submitting, setSubmitting] = React.useState(false);
-
-    return (
-      <Form
-        errors={errors}
-        validationMode="onBlur"
-        className={storyStyles.form}
-        onFormSubmit={(values) => {
-          setSubmitting(true);
-
-          const nextErrors: FormProps['errors'] = {};
-          const age = Number(values.age);
-
-          if (!values.name?.trim()) {
-            nextErrors.name = 'Name is required.';
-          }
-
-          if (!values.age?.trim()) {
-            nextErrors.age = 'Age is required.';
-          } else if (!Number.isFinite(age) || age < 18) {
-            nextErrors.age = 'Age should be 18 or greater.';
-          }
-
-          setErrors(nextErrors);
-          setSubmitting(false);
-        }}
-      >
-        <Field name="name">
-          <FieldLabel>Name</FieldLabel>
-          <Input placeholder="Enter your name" />
-          <FieldError />
-        </Field>
-        <Field name="age">
-          <FieldLabel>Age</FieldLabel>
-          <Input type="number" placeholder="18" />
-          <FieldError />
-        </Field>
-        <Button type="submit" loading={submitting}>
-          Submit
+        <Button
+          type="submit"
+          disabled={submitting}
+          focusableWhenDisabled
+          aria-busy={submitting || undefined}
+        >
+          {submitting ? (
+            <>
+              <Spinner decorative size="sm" />
+              Submitting
+            </>
+          ) : (
+            'Submit'
+          )}
         </Button>
       </Form>
     );
@@ -172,8 +187,8 @@ export const WithOnFormSubmit: Story = {
 
 export const WithActionsRef: Story = {
   render: () => {
-    const actionsRef = React.useRef<FormActions | null>(null);
-    const [errors, setErrors] = React.useState<FormProps['errors']>({});
+    const actionsRef = useRef<FormActions | null>(null);
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
     return (
       <Form
@@ -182,13 +197,13 @@ export const WithActionsRef: Story = {
         validationMode="onSubmit"
         className={storyStyles.form}
         onFormSubmit={(values) => {
-          const nextErrors: FormProps['errors'] = {};
+          const nextErrors: Record<string, string> = {};
           const email = String(values.email ?? '');
 
           if (!email.trim()) {
             nextErrors.email = 'Email is required.';
-          } else if (!email.endsWith('@2gis.com')) {
-            nextErrors.email = 'Use a @2gis.com email.';
+          } else if (!email.endsWith('@test.com')) {
+            nextErrors.email = 'Use a @test.com email.';
           }
 
           setErrors(nextErrors);
@@ -196,7 +211,7 @@ export const WithActionsRef: Story = {
       >
         <Field name="email">
           <FieldLabel>Work Email</FieldLabel>
-          <Input type="email" required placeholder="name@2gis.com" />
+          <Input type="email" required placeholder="name@test.com" />
           <FieldError />
         </Field>
         <Button
@@ -216,10 +231,7 @@ export const WithActionsRef: Story = {
 
 export const WithActionState: Story = {
   render: () => {
-    const [state, formAction, loading] = React.useActionState<ActionState, FormData>(
-      submitUsername,
-      {},
-    );
+    const [state, formAction, loading] = useActionState<ActionState, FormData>(submitUsername, {});
 
     return (
       <Form
@@ -233,8 +245,20 @@ export const WithActionState: Story = {
           <Input required defaultValue="admin" placeholder="e.g. alice132" />
           <FieldError />
         </Field>
-        <Button type="submit" loading={loading}>
-          Submit
+        <Button
+          type="submit"
+          disabled={loading}
+          focusableWhenDisabled
+          aria-busy={loading || undefined}
+        >
+          {loading ? (
+            <>
+              <Spinner decorative size="sm" />
+              Submitting
+            </>
+          ) : (
+            'Submit'
+          )}
         </Button>
         {state.message ? <p className={storyStyles.helper}>{state.message}</p> : null}
       </Form>

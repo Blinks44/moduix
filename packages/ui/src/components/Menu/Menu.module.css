@@ -324,12 +324,9 @@
       & > .itemText {
         grid-column-start: 1;
       }
-    }
-  }
 
-  .radioItem {
-    &[data-indicator-position='end'] {
-      & > .radioItemIndicator {
+      & > .radioItemIndicator,
+      & > .checkboxItemIndicator {
         grid-column-start: 2;
         justify-self: end;
       }
@@ -347,13 +344,6 @@
           --menu-checkbox-indicator-border-color-checked,
           var(--menu-checkbox-indicator-border-color, currentColor)
         );
-      }
-    }
-
-    &[data-indicator-position='end'] {
-      & > .checkboxItemIndicator {
-        grid-column-start: 2;
-        justify-self: end;
       }
     }
   }

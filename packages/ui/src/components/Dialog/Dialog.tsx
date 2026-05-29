@@ -1,54 +1,39 @@
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { clsx } from 'clsx';
-import * as React from 'react';
+import { createContext, useContext, type ComponentProps } from 'react';
 import { CloseButton } from '@/components/CloseButton';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Dialog.module.css';
 
-type DialogContentClassNames = {
-  portal?: DialogPrimitive.Portal.Props['className'];
-  backdrop?: DialogPrimitive.Backdrop.Props['className'];
-  viewport?: DialogPrimitive.Viewport.Props['className'];
-};
+const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
+const DialogModeContext = createContext<DialogPrimitive.Root.Props['modal']>(true);
 
-type DialogContentSlotProps = {
-  portal?: Omit<DialogPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<DialogPrimitive.Backdrop.Props, 'className'>;
-  viewport?: Omit<DialogPrimitive.Viewport.Props, 'className'>;
-};
-
-type DialogContentProps = Omit<DialogPrimitive.Popup.Props, 'className'> & {
-  className?: DialogPrimitive.Popup.Props['className'];
-  classNames?: DialogContentClassNames;
-  slotProps?: DialogContentSlotProps;
-  container?: DialogPrimitive.Portal.Props['container'];
-  withBackdrop?: boolean;
-};
-
-const Dialog = DialogPrimitive.Root;
 const createDialogHandle = DialogPrimitive.createHandle;
 
-function DialogTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
+function Dialog<Payload = unknown>({
+  modal = true,
+  ...props
+}: DialogPrimitive.Root.Props<Payload>) {
+  return (
+    <DialogModeContext.Provider value={modal}>
+      <DialogPrimitive.Root modal={modal} {...props} />
+    </DialogModeContext.Provider>
+  );
+}
 
+function DialogTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
   return (
     <DialogPrimitive.Trigger
       data-slot="dialog-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
 }
 
 function DialogPortal({ className, ...props }: DialogPrimitive.Portal.Props) {
-  return (
-    <DialogPrimitive.Portal
-      data-slot="dialog-portal"
-      className={mergeClassName(className)}
-      {...props}
-    />
-  );
+  return <DialogPrimitive.Portal data-slot="dialog-portal" className={className} {...props} />;
 }
 
 function DialogBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props) {
@@ -111,90 +96,61 @@ function DialogClose({ className, ...props }: DialogPrimitive.Close.Props) {
   );
 }
 
-function DialogCloseIcon({ className, children, ...props }: DialogPrimitive.Close.Props) {
+function DialogCloseIcon({
+  className,
+  children,
+  'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL,
+  render,
+  ...props
+}: DialogPrimitive.Close.Props) {
   return (
     <DialogPrimitive.Close
       data-slot="dialog-close-icon"
-      render={<CloseButton aria-label="Close dialog">{children}</CloseButton>}
+      render={render ?? <CloseButton aria-label={ariaLabel}>{children}</CloseButton>}
       className={mergeClassName(className, styles.closeIcon)}
       {...props}
     />
   );
 }
 
-function DialogContent({
-  className,
-  classNames,
-  slotProps,
-  container,
-  withBackdrop = true,
-  children,
-  ...props
-}: DialogContentProps) {
-  const { container: slotPortalContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? slotPortalContainer;
-  const popupChildren: React.ReactNode[] = [];
-  const viewportChildren: React.ReactNode[] = [];
-
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child) && child.type === DialogCloseIcon) {
-      viewportChildren.push(child);
-      return;
-    }
-
-    popupChildren.push(child);
-  });
+function DialogContent({ className, children, ...props }: DialogPrimitive.Popup.Props) {
+  const modal = useContext(DialogModeContext);
+  const blocksOutsidePointerInteraction = modal === true;
 
   return (
-    <DialogPortal
-      className={classNames?.portal}
-      container={portalContainer}
-      {...restPortalSlotProps}
-    >
-      {withBackdrop ? (
-        <DialogBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
-      ) : null}
+    <DialogPortal>
+      {blocksOutsidePointerInteraction ? <DialogBackdrop /> : null}
       <DialogViewport
-        className={classNames?.viewport}
-        {...slotProps?.viewport}
-        data-with-backdrop={withBackdrop ? 'true' : 'false'}
+        className={blocksOutsidePointerInteraction ? undefined : styles.viewportNonBlocking}
       >
-        {viewportChildren}
         <DialogPopup className={className} {...props}>
-          {popupChildren}
+          {children}
         </DialogPopup>
       </DialogViewport>
     </DialogPortal>
   );
 }
 
-function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function DialogHeader({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="dialog-header" className={clsx(styles.header, className)} {...props} />;
 }
 
-function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="dialog-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-function DialogBody({ className, ...props }: React.ComponentProps<'div'>) {
+function DialogBody({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="dialog-body" className={clsx(styles.body, className)} {...props} />;
 }
-
-type DialogProps<Payload = unknown> = DialogPrimitive.Root.Props<Payload>;
-type DialogHandle<Payload = unknown> = DialogPrimitive.Handle<Payload>;
-type DialogTriggerProps = DialogPrimitive.Trigger.Props;
-type DialogTitleProps = DialogPrimitive.Title.Props;
-type DialogDescriptionProps = DialogPrimitive.Description.Props;
-type DialogCloseProps = DialogPrimitive.Close.Props;
-type DialogCloseIconProps = DialogPrimitive.Close.Props;
-type DialogHeaderProps = React.ComponentProps<'div'>;
-type DialogBodyProps = React.ComponentProps<'div'>;
-type DialogFooterProps = React.ComponentProps<'div'>;
 
 export {
   Dialog,
   createDialogHandle,
   DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogViewport,
+  DialogPopup,
   DialogTitle,
   DialogDescription,
   DialogClose,
@@ -203,20 +159,4 @@ export {
   DialogHeader,
   DialogBody,
   DialogFooter,
-};
-
-export type {
-  DialogProps,
-  DialogHandle,
-  DialogTriggerProps,
-  DialogTitleProps,
-  DialogDescriptionProps,
-  DialogCloseProps,
-  DialogCloseIconProps,
-  DialogContentProps,
-  DialogContentClassNames,
-  DialogContentSlotProps,
-  DialogHeaderProps,
-  DialogBodyProps,
-  DialogFooterProps,
 };

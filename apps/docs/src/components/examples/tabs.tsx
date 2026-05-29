@@ -1,18 +1,15 @@
+import { clsx } from 'clsx';
 import {
   HandshakeIcon,
   MapIcon,
   PresentIcon,
   Tabs,
+  TabsIndicator,
   TabsList,
   TabsPanel,
   TabsTab,
-  TabsTabContent,
-  TabsTabIcon,
-  TabsTabLabel,
-  type TabsProps,
-  type TabsValue,
 } from 'moduix';
-import * as React from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './tabs.module.css';
@@ -38,14 +35,14 @@ const tabsItems = [
 ];
 
 export const tabsOverrideCssProperties: CssPropertyInput[] = [
-  ['--tabs-bg', 'var(--color-background)', 'Controls the root background color.'],
-  ['--tabs-border-color', 'var(--color-border)', 'Controls the root border color.'],
-  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls the root border width.'],
+  ['--tabs-bg', 'var(--color-background)', 'Controls the panel background color.'],
+  ['--tabs-border-color', 'var(--color-border)', 'Controls the panel border color.'],
+  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls the panel border width.'],
   ['--tabs-color', 'var(--color-foreground)', 'Controls the root text color.'],
   ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
   ['--tabs-focus-ring-offset', '0', 'Controls tab focus ring offset.'],
   ['--tabs-focus-ring-width', 'var(--border-width-sm)', 'Controls tab and panel focus ring width.'],
-  ['--tabs-gap', '0', 'Controls spacing between the tab list and panels.'],
+  ['--tabs-gap', '0.75rem', 'Controls spacing between the tab list and panels.'],
   ['--tabs-indicator-bg', 'var(--color-background)', 'Controls the default indicator background.'],
   ['--tabs-indicator-radius', 'var(--radius-sm)', 'Controls the default indicator radius.'],
   ['--tabs-indicator-size', '1.75rem', 'Controls the default indicator thickness.'],
@@ -63,17 +60,12 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
     'Controls the line indicator movement transition.',
   ],
   ['--tabs-list-bg', 'var(--color-muted)', 'Controls the tab list background color.'],
-  ['--tabs-list-border-color', 'var(--color-border)', 'Controls the tab list separator color.'],
-  [
-    '--tabs-list-border-width',
-    'var(--tabs-border-width, var(--border-width-sm))',
-    'Controls the tab list separator width.',
-  ],
+  ['--tabs-list-border-color', 'var(--color-border)', 'Controls the tab list border color.'],
+  ['--tabs-list-border-width', 'var(--border-width-sm)', 'Controls the tab list border width.'],
   ['--tabs-list-gap', '0.25rem', 'Controls spacing between tabs.'],
   ['--tabs-list-padding', '0.25rem', 'Controls the tab list padding.'],
   ['--tabs-list-padding-x', '0.25rem', 'Controls the tab list horizontal padding.'],
   ['--tabs-list-padding-y', '0.25rem', 'Controls the tab list vertical padding.'],
-  ['--tabs-max-width', 'calc(100vw - 2rem)', 'Controls the root tabs max width.'],
   ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
   ['--tabs-panel-font-size', 'var(--text-sm)', 'Controls panel text font size.'],
   ['--tabs-panel-line-height', 'var(--line-height-text-sm)', 'Controls panel text line height.'],
@@ -83,7 +75,7 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
     'Controls panel focus ring offset.',
   ],
   ['--tabs-panel-padding', '1rem', 'Controls panel padding.'],
-  ['--tabs-radius', 'var(--radius-lg)', 'Controls the root border radius.'],
+  ['--tabs-radius', 'var(--radius-lg)', 'Controls the tab list and panel border radius.'],
   ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
   ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
   ['--tabs-tab-color-hover', 'var(--color-foreground)', 'Controls hovered tab text color.'],
@@ -99,17 +91,16 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-tab-radius', 'var(--radius-sm)', 'Controls each tab border radius.'],
   ['--tabs-tab-transition', 'var(--transition-default)', 'Controls tab text color transition.'],
   ['--tabs-vertical-list-width', '12rem', 'Controls the list width in vertical orientation.'],
-  ['--tabs-vertical-min-height', '14rem', 'Controls the root min-height in vertical orientation.'],
-  ['--tabs-width', '32rem', 'Controls the root tabs width.'],
 ];
 export const tabsPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--tabs-bg', 'var(--color-background)', 'Controls root background color.'],
-  ['--tabs-border-color', 'var(--color-border)', 'Controls root border color.'],
-  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls root border width.'],
+  ['--tabs-bg', 'var(--color-background)', 'Controls panel background color.'],
+  ['--tabs-border-color', 'var(--color-border)', 'Controls panel border color.'],
+  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls panel border width.'],
   ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
+  ['--tabs-gap', '0.75rem', 'Controls spacing between the tab list and panels.'],
   ['--tabs-list-bg', 'var(--color-muted)', 'Controls tab list background color.'],
   ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
-  ['--tabs-radius', 'var(--radius-lg)', 'Controls root border radius.'],
+  ['--tabs-radius', 'var(--radius-lg)', 'Controls tab list and panel border radius.'],
   ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
   ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
   ['--tabs-tab-color-hover', 'var(--color-foreground)', 'Controls hovered tab text color.'],
@@ -139,9 +130,11 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TabsExample(props: TabsProps) {
+export function TabsExample(props: ComponentProps<typeof Tabs>) {
+  const { className, ...restProps } = props;
+
   return (
-    <Tabs defaultValue="overview" {...props}>
+    <Tabs defaultValue="overview" className={clsx(styles.demoRoot, className)} {...restProps}>
       <TabsList>
         {tabsItems.map((item) => (
           <TabsTab key={item.value} value={item.value}>
@@ -159,7 +152,7 @@ export function TabsExample(props: TabsProps) {
 }
 
 export function ControlledTabsExample() {
-  const [value, setValue] = React.useState<TabsValue>('projects');
+  const [value, setValue] = useState('projects');
 
   return <TabsExample value={value} onValueChange={setValue} />;
 }
@@ -170,7 +163,7 @@ export function VerticalTabsExample() {
 
 export function ActivateOnFocusTabsExample() {
   return (
-    <Tabs defaultValue="overview">
+    <Tabs defaultValue="overview" className={styles.demoRoot}>
       <TabsList activateOnFocus>
         {tabsItems.map((item) => (
           <TabsTab key={item.value} value={item.value}>
@@ -191,28 +184,9 @@ export function LineTabsExample() {
   return <TabsExample variant="line" />;
 }
 
-export function WithoutIndicatorTabsExample() {
-  return (
-    <Tabs defaultValue="overview">
-      <TabsList withIndicator={false}>
-        {tabsItems.map((item) => (
-          <TabsTab key={item.value} value={item.value}>
-            {item.title}
-          </TabsTab>
-        ))}
-      </TabsList>
-      {tabsItems.map((item) => (
-        <TabsPanel key={item.value} value={item.value}>
-          {item.content}
-        </TabsPanel>
-      ))}
-    </Tabs>
-  );
-}
-
 export function LinkTabsExample() {
   return (
-    <Tabs defaultValue="overview">
+    <Tabs defaultValue="overview" className={styles.demoRoot}>
       <TabsList>
         {tabsItems.map((item) => (
           <TabsTab
@@ -236,31 +210,19 @@ export function LinkTabsExample() {
 
 export function IconTabsExample() {
   return (
-    <Tabs defaultValue="overview">
+    <Tabs defaultValue="overview" className={styles.demoRoot}>
       <TabsList>
         <TabsTab value="overview">
-          <TabsTabContent>
-            <TabsTabIcon>
-              <HandshakeIcon />
-            </TabsTabIcon>
-            <TabsTabLabel>Overview</TabsTabLabel>
-          </TabsTabContent>
+          <HandshakeIcon />
+          <span>Overview</span>
         </TabsTab>
         <TabsTab value="projects">
-          <TabsTabContent>
-            <TabsTabIcon>
-              <PresentIcon />
-            </TabsTabIcon>
-            <TabsTabLabel>Projects</TabsTabLabel>
-          </TabsTabContent>
+          <PresentIcon />
+          <span>Projects</span>
         </TabsTab>
         <TabsTab value="account">
-          <TabsTabContent>
-            <TabsTabIcon>
-              <MapIcon />
-            </TabsTabIcon>
-            <TabsTabLabel>Account</TabsTabLabel>
-          </TabsTabContent>
+          <MapIcon />
+          <span>Account</span>
         </TabsTab>
       </TabsList>
       {tabsItems.map((item) => (
@@ -274,7 +236,7 @@ export function IconTabsExample() {
 
 export function DisabledTabTabsExample() {
   return (
-    <Tabs defaultValue="overview">
+    <Tabs defaultValue="overview" className={styles.demoRoot}>
       <TabsList>
         <TabsTab value="overview">Overview</TabsTab>
         <TabsTab value="projects" disabled>
@@ -294,17 +256,14 @@ export function DisabledTabTabsExample() {
 export function InlineInputsTabsExample() {
   return (
     <Tabs defaultValue="name" className={styles.inlineRoot}>
-      <TabsList
-        className={styles.inlineList}
-        classNames={{ indicator: styles.inlineIndicator }}
-        slotProps={{ indicator: { renderBeforeHydration: true } }}
-      >
+      <TabsList className={styles.inlineList}>
         <TabsTab value="name" className={styles.inlineTab}>
           Name
         </TabsTab>
         <TabsTab value="email" className={styles.inlineTab}>
           Email
         </TabsTab>
+        <TabsIndicator className={styles.inlineIndicator} renderBeforeHydration />
       </TabsList>
       <TabsPanel value="name" className={styles.inlinePanel}>
         <input className={styles.inlineInput} placeholder="Full name" aria-label="Full name" />

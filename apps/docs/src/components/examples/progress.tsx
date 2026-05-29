@@ -1,5 +1,13 @@
-import { Progress, ProgressLabel, ProgressValue, type ProgressProps } from 'moduix';
-import * as React from 'react';
+import type { ComponentProps } from 'react';
+import {
+  Progress,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressRoot,
+  ProgressTrack,
+  ProgressValue,
+} from 'moduix';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './progress.module.css';
@@ -8,6 +16,7 @@ export const progressOverrideCssProperties: CssPropertyInput[] = [
   ['--progress-color', 'var(--color-foreground)', 'Controls the default progress text color.'],
   ['--progress-gap', '0.5rem', 'Controls spacing between progress slots.'],
   ['--progress-indicator-bg', 'var(--color-primary)', 'Controls indicator background color.'],
+  ['--progress-indicator-radius', 'inherit', 'Controls indicator corner radius.'],
   [
     '--progress-indicator-indeterminate-animation',
     'progress-indeterminate 1.5s ease-in-out infinite',
@@ -41,18 +50,18 @@ export const progressOverrideCssProperties: CssPropertyInput[] = [
 export const progressPlaygroundCssProperties: CssPropertyInput[] = [
   ['--progress-color', 'var(--color-foreground)', 'Controls default text color.'],
   ['--progress-indicator-bg', 'var(--color-primary)', 'Controls indicator color.'],
+  ['--progress-indicator-radius', 'inherit', 'Controls indicator radius.'],
   ['--progress-track-bg', 'var(--color-muted)', 'Controls track background.'],
   ['--progress-track-border-color', 'var(--color-border)', 'Controls track border color.'],
+  ['--progress-track-border-width', 'var(--border-width-sm)', 'Controls track border width.'],
   ['--progress-track-height', '0.5rem', 'Controls track height.'],
   ['--progress-track-radius', 'var(--radius-full)', 'Controls track radius.'],
 ];
+const progressCssProperties = progressOverrideCssProperties.map(normalizeCssProperty);
+const progressPlaygroundProperties = progressPlaygroundCssProperties.map(normalizeCssProperty);
 
 export function ProgressCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={progressOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+  return <CSSPropertiesReferenceTable properties={progressCssProperties} />;
 }
 
 export function ProgressCssPlaygroundPanel({
@@ -62,7 +71,7 @@ export function ProgressCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesEditor
-      properties={progressPlaygroundCssProperties.map(normalizeCssProperty)}
+      properties={progressPlaygroundProperties}
       values={values}
       onChange={onChange}
       onReset={onReset}
@@ -76,9 +85,11 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function ProgressExample({ value = 24, ...props }: ProgressProps) {
+export function ProgressExample(props: ComponentProps<typeof Progress>) {
+  const { value = 24, ...restProps } = props;
+
   return (
-    <Progress value={value} {...props}>
+    <Progress value={value} {...restProps}>
       <ProgressLabel>Export data</ProgressLabel>
       <ProgressValue />
     </Progress>
@@ -86,7 +97,7 @@ export function ProgressExample({ value = 24, ...props }: ProgressProps) {
 }
 
 export function ControlledProgressExample() {
-  const [value, setValue] = React.useState(45);
+  const [value, setValue] = useState(45);
 
   return (
     <div className={styles.stack}>
@@ -119,7 +130,13 @@ export function MinMaxRangeProgressExample() {
 
 export function LocaleAndFormatProgressExample() {
   return (
-    <Progress value={0.64} min={0} max={1} locale="de-DE" format={{ style: 'percent' }}>
+    <Progress
+      value={0.64}
+      min={0}
+      max={1}
+      locale="de-DE"
+      format={{ style: 'percent', maximumFractionDigits: 0 }}
+    >
       <ProgressLabel>Storage usage</ProgressLabel>
       <ProgressValue>{(formattedValue) => `${formattedValue} belegt`}</ProgressValue>
     </Progress>
@@ -137,9 +154,18 @@ export function IndeterminateProgressExample() {
 
 export function AriaValueTextProgressExample() {
   return (
-    <Progress value={3} min={0} max={5} aria-valuetext="Step 3 of 5 completed">
+    <Progress value={3} min={0} max={5} aria-valuetext="3 of 5 onboarding steps completed">
       <ProgressLabel>Onboarding</ProgressLabel>
-      <ProgressValue>{() => 'Step 3 of 5'}</ProgressValue>
+      <ProgressValue>{() => '3 of 5 complete'}</ProgressValue>
+    </Progress>
+  );
+}
+
+export function CustomStylesProgressExample() {
+  return (
+    <Progress value={72} className={styles.customProgress}>
+      <ProgressLabel>Monthly quota</ProgressLabel>
+      <ProgressValue />
     </Progress>
   );
 }
@@ -156,15 +182,26 @@ export function CustomValueTextProgressExample() {
   );
 }
 
-export function CustomStylingProgressExample() {
+export function CustomCompositionProgressExample() {
   return (
-    <Progress
-      value={72}
-      className={styles.customProgress}
-      classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-    >
+    <ProgressRoot value={58} className={styles.composedProgress}>
+      <ProgressLabel>Team rollout</ProgressLabel>
+      <ProgressValue>{(formattedValue) => `${formattedValue} shipped`}</ProgressValue>
+      <ProgressTrack className={styles.composedTrack}>
+        <ProgressIndicator className={styles.composedIndicator} />
+      </ProgressTrack>
+    </ProgressRoot>
+  );
+}
+
+export function DeepCompositionProgressExample() {
+  return (
+    <ProgressRoot value={72} className={styles.customProgress}>
       <ProgressLabel>Monthly export</ProgressLabel>
       <ProgressValue />
-    </Progress>
+      <ProgressTrack>
+        <ProgressIndicator />
+      </ProgressTrack>
+    </ProgressRoot>
   );
 }

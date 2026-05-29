@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
-import { BellIcon, ChevronUpDownIcon, StarIcon } from '@/primitives/Icons';
+import { BellIcon, StarIcon } from '@/icons/demo';
+import { ChevronUpDownIcon } from '@/icons/ui';
 import {
   Select,
   SelectContent,
@@ -112,60 +113,6 @@ export const WithSelectAndInput: Story = {
         <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
         <ToolbarLink href="#">History</ToolbarLink>
       </Toolbar>
-    );
-  },
-};
-
-export const Variants: Story = {
-  render: () => {
-    return (
-      <div className={storyStyles.stack}>
-        <Toolbar aria-label="Default toolbar">
-          <ToolbarButton>Default</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-        <Toolbar aria-label="Outline toolbar" variant="outline">
-          <ToolbarButton>Outline</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-        <Toolbar aria-label="Ghost toolbar" variant="ghost">
-          <ToolbarButton>Ghost</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-      </div>
-    );
-  },
-};
-
-export const Sizes: Story = {
-  render: () => {
-    return (
-      <div className={storyStyles.stack}>
-        <Toolbar aria-label="Small toolbar" size="sm">
-          <ToolbarButton>Small</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-        <Toolbar aria-label="Medium toolbar" size="md">
-          <ToolbarButton>Medium</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-        <Toolbar aria-label="Large toolbar" size="lg">
-          <ToolbarButton>Large</ToolbarButton>
-          <ToolbarButton aria-label="Favorite">
-            <StarIcon />
-          </ToolbarButton>
-        </Toolbar>
-      </div>
     );
   },
 };

@@ -7,98 +7,42 @@
     margin-right: auto;
   }
 
-  .insideViewport {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: var(--spacing-6) 0;
-
-    @media (min-height: 37.5rem) {
-      padding: var(--spacing-8) 0 var(--spacing-10);
-    }
-  }
-
-  .insidePopup {
-    position: relative;
+  .scrollPopup {
     display: flex;
     flex-direction: column;
-    width: min(40rem, calc(100vw - var(--spacing-8, 2rem)));
-    max-width: 100%;
     height: min(42rem, calc(100dvh - var(--spacing-10)));
+    overflow: hidden;
+  }
+
+  .scrollBody {
+    flex: 1;
     min-height: 0;
     overflow: hidden;
   }
 
-  .insideCloseIcon {
-    margin-top: calc(var(--spacing-1) * -0.5);
-    margin-right: calc(var(--spacing-1) * -0.5);
-  }
-
-  .insideBody {
-    position: relative;
-    flex: 1 1 auto;
-    display: flex;
-    min-height: 0;
+  .scrollArea {
     height: 100%;
-    overflow: hidden;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: var(--border-width-sm);
-      background: var(--dialog-border-color, var(--color-border));
-    }
-
-    &::before {
-      top: 0;
-    }
-
-    &::after {
-      bottom: 0;
-    }
-  }
-
-  .insideBodyWrapper {
-    margin: var(--dialog-content-margin, var(--spacing-4) 0 0);
-    flex: 1 1 auto;
     min-height: 0;
-    display: flex;
   }
 
-  .insideBodyViewport {
-    box-sizing: border-box;
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: var(--spacing-6) var(--spacing-4) var(--spacing-6) var(--spacing-1);
-  }
-
-  .insideBodyContent {
+  .scrollContent {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-6);
+    gap: var(--spacing-5);
   }
 
-  .insideSectionTitle {
+  .scrollSectionTitle {
     margin: 0 0 var(--spacing-1);
-    font-size: var(--text-md);
-    line-height: var(--line-height-text-md);
+    font-size: var(--text-sm);
     font-weight: var(--weight-semibold);
+    line-height: var(--line-height-text-md);
   }
 
-  .insideSectionBody {
+  .scrollSectionBody {
     margin: 0;
     color: var(--dialog-muted-color, var(--color-muted-foreground));
     font-size: var(--text-sm);
     line-height: var(--line-height-text-md);
-  }
-
-  .customPortal {
-    pointer-events: auto;
   }
 
   .customBackdrop {
@@ -116,7 +60,7 @@
   }
 
   .customCloseIcon {
-    position: fixed;
+    position: absolute;
     top: var(--spacing-4);
     right: var(--spacing-4);
     color: var(--dialog-color, var(--color-popover-foreground));

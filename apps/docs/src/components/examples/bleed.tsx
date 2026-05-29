@@ -1,4 +1,5 @@
-import { Bleed, Text, type BleedProps } from 'moduix';
+import type { ComponentProps } from 'react';
+import { Bleed, Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './bleed.module.css';
@@ -10,6 +11,7 @@ export const bleedOverrideCssProperties: CssPropertyInput[] = [
   ['--bleed-block-lg', 'var(--spacing-4)', 'Controls large block bleed.'],
   ['--bleed-block-xl', 'var(--spacing-6)', 'Controls extra-large block bleed.'],
   ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
+  ['--bleed-inline-full-size', '100vw', 'Controls the width used by full viewport inline bleed.'],
   ['--bleed-inline-xs', 'var(--spacing-1)', 'Controls extra-small inline bleed.'],
   ['--bleed-inline-sm', 'var(--spacing-2)', 'Controls small inline bleed.'],
   ['--bleed-inline-md', 'var(--spacing-3)', 'Controls medium inline bleed.'],
@@ -19,28 +21,25 @@ export const bleedOverrideCssProperties: CssPropertyInput[] = [
 
 export const bleedPlaygroundCssProperties: CssPropertyInput[] = [
   ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
+  ['--bleed-inline-full-size', '100vw', 'Controls the width used by full viewport inline bleed.'],
 ];
 
 export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
-    <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={bleedOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </div>
+    <CSSPropertiesReferenceTable
+      properties={bleedOverrideCssProperties.map(normalizeCssProperty)}
+    />
   );
 }
 
 export function BleedCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
   return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={bleedPlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
-    </div>
+    <CSSPropertiesEditor
+      properties={bleedPlaygroundCssProperties.map(normalizeCssProperty)}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
   );
 }
 
@@ -52,7 +51,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function BleedExample(props: BleedProps) {
+export function BleedExample(props: ComponentProps<typeof Bleed>) {
   return (
     <div className={styles.container}>
       <Text tone="muted">Container content stays constrained.</Text>
@@ -105,7 +104,7 @@ export function BleedSemanticExample() {
   );
 }
 
-export function CustomStylesBleedExample() {
+export function CustomCompositionBleedExample() {
   return (
     <div className={styles.container}>
       <Bleed className={styles.customBleed}>

@@ -61,18 +61,18 @@ Toggle
 
 ## Composition
 
-Use `Toggle` props such as `pressed`, `defaultPressed`, `onPressedChange`, `disabled`, `render`,
-`className`, and `style`.
+`Toggle` is a single styled root over the Base UI primitive.
 
-There are no hidden service slots such as `Positioner`, `Backdrop`, or `Viewport` in this
-component, so `className` is the customization entry point. It supports the same state callback
-form as Base UI and is merged with moduix styles.
+- Use `variant` and `size` for the built-in library styles.
+- Use `pressed`, `defaultPressed`, and `onPressedChange` for controlled or uncontrolled state.
+- Use `render` only when the rendered element or icon needs to depend on primitive state.
+- Use `className`, `style`, or CSS variables for visual overrides.
 
 ## Examples
 
 ### Variants
 
-Use `variant` to match the visual weight of the toggle to the surrounding toolbar or form.
+Use `variant` to match the surrounding UI.
 
 <Preview>
   <ToggleVariantsExample />
@@ -287,7 +287,7 @@ Control `pressed` from React state when the toggle needs to coordinate with othe
 
 ### Render Callback
 
-Use the `render` callback when the icon or rendered element should depend on the pressed state.
+Use `render` when the icon or rendered element should depend on the pressed state.
 
 <Preview>
   <ToggleRenderCallbackExample />
@@ -353,7 +353,7 @@ Use the `render` callback when the icon or rendered element should depend on the
 
 ### Custom Styles
 
-Pass `className` when styling the toggle with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` to layer custom styles on top of the default Toggle styling.
 
 <Preview>
   <CustomStylesToggleExample />

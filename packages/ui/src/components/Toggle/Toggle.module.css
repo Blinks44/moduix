@@ -1,19 +1,28 @@
 @layer ui.components {
   .root {
     box-sizing: border-box;
-    position: relative;
+    --toggle-border-color-current: transparent;
+    --toggle-bg-current: transparent;
+    --toggle-bg-hover-current: var(--toggle-bg-current);
+    --toggle-bg-active-current: var(--toggle-bg-hover-current);
+    --toggle-bg-pressed-current: var(--toggle-bg-current);
+    --toggle-color-current: var(--toggle-color, var(--color-foreground));
+    --toggle-color-pressed-current: var(--toggle-color-current);
+    --toggle-border-color-pressed-current: var(--toggle-border-color-current);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--toggle-content-gap, var(--spacing-2));
     min-height: var(--toggle-size-md, var(--size-lg));
     margin: 0;
-    border: var(--toggle-border-width, var(--border-width-sm)) solid transparent;
+    border-style: solid;
+    border-width: var(--toggle-border-width, var(--border-width-sm));
     border-radius: var(--toggle-radius, var(--radius-md));
     padding-block: var(--toggle-padding-y-md, 0.5rem);
     padding-inline: var(--toggle-padding-x-md, 1rem);
-    background-color: transparent;
-    color: var(--toggle-color, var(--color-foreground));
+    border-color: var(--toggle-border-color-current);
+    background-color: var(--toggle-bg-current);
+    color: var(--toggle-color-current);
     font: inherit;
     font-size: var(--toggle-font-size, var(--text-sm));
     font-weight: var(--toggle-font-weight, var(--weight-medium));
@@ -25,8 +34,7 @@
       background-color var(--toggle-transition, var(--transition-default)),
       border-color var(--toggle-transition, var(--transition-default)),
       color var(--toggle-transition, var(--transition-default)),
-      opacity var(--toggle-transition, var(--transition-default)),
-      box-shadow var(--toggle-transition, var(--transition-default));
+      opacity var(--toggle-transition, var(--transition-default));
 
     &:focus-visible {
       outline: var(--toggle-focus-ring-width, var(--border-width-md)) solid
@@ -47,69 +55,73 @@
       flex-shrink: 0;
     }
 
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--toggle-bg-hover-current);
+      }
+    }
+
+    &:active {
+      background-color: var(--toggle-bg-active-current);
+    }
+
+    &[data-pressed] {
+      border-color: var(--toggle-border-color-pressed-current);
+      background-color: var(--toggle-bg-pressed-current);
+      color: var(--toggle-color-pressed-current);
+    }
+
     &[data-variant='default'] {
-      border-color: var(--toggle-default-border-color, transparent);
-      background-color: var(--toggle-default-bg, transparent);
-      color: var(--toggle-default-color, var(--toggle-color, var(--color-foreground)));
-
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--toggle-default-bg-hover, var(--color-accent));
-        }
-      }
-
-      &:active {
-        background-color: var(--toggle-default-bg-active, var(--color-accent));
-      }
-
-      &[data-pressed] {
-        border-color: var(--toggle-default-border-color-pressed, var(--color-primary));
-        background-color: var(--toggle-default-bg-pressed, var(--color-primary));
-        color: var(--toggle-default-color-pressed, var(--color-primary-foreground));
-      }
+      --toggle-border-color-current: var(--toggle-default-border-color, transparent);
+      --toggle-bg-current: var(--toggle-default-bg, transparent);
+      --toggle-bg-hover-current: var(--toggle-default-bg-hover, var(--color-accent));
+      --toggle-bg-active-current: var(--toggle-default-bg-active, var(--color-accent));
+      --toggle-bg-pressed-current: var(--toggle-default-bg-pressed, var(--color-primary));
+      --toggle-color-current: var(
+        --toggle-default-color,
+        var(--toggle-color, var(--color-foreground))
+      );
+      --toggle-color-pressed-current: var(
+        --toggle-default-color-pressed,
+        var(--color-primary-foreground)
+      );
+      --toggle-border-color-pressed-current: var(
+        --toggle-default-border-color-pressed,
+        var(--color-primary)
+      );
     }
 
     &[data-variant='outline'] {
-      border-color: var(--toggle-outline-border-color, var(--color-border));
-      background-color: var(--toggle-outline-bg, var(--color-background));
-      color: var(--toggle-outline-color, var(--toggle-color, var(--color-foreground)));
-
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--toggle-outline-bg-hover, var(--color-accent));
-        }
-      }
-
-      &:active {
-        background-color: var(--toggle-outline-bg-active, var(--color-accent));
-      }
-
-      &[data-pressed] {
-        border-color: var(--toggle-outline-border-color-pressed, var(--color-primary));
-        background-color: var(--toggle-outline-bg-pressed, var(--color-primary));
-        color: var(--toggle-outline-color-pressed, var(--color-primary-foreground));
-      }
+      --toggle-border-color-current: var(--toggle-outline-border-color, var(--color-border));
+      --toggle-bg-current: var(--toggle-outline-bg, var(--color-background));
+      --toggle-bg-hover-current: var(--toggle-outline-bg-hover, var(--color-accent));
+      --toggle-bg-active-current: var(--toggle-outline-bg-active, var(--color-accent));
+      --toggle-bg-pressed-current: var(--toggle-outline-bg-pressed, var(--color-primary));
+      --toggle-color-current: var(
+        --toggle-outline-color,
+        var(--toggle-color, var(--color-foreground))
+      );
+      --toggle-color-pressed-current: var(
+        --toggle-outline-color-pressed,
+        var(--color-primary-foreground)
+      );
+      --toggle-border-color-pressed-current: var(
+        --toggle-outline-border-color-pressed,
+        var(--color-primary)
+      );
     }
 
     &[data-variant='ghost'] {
-      border-color: var(--toggle-ghost-border-color, transparent);
-      background-color: var(--toggle-ghost-bg, transparent);
-      color: var(--toggle-ghost-color, var(--toggle-color, var(--color-foreground)));
-
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--toggle-ghost-bg-hover, var(--color-accent));
-        }
-      }
-
-      &:active {
-        background-color: var(--toggle-ghost-bg-active, var(--color-accent));
-      }
-
-      &[data-pressed] {
-        background-color: var(--toggle-ghost-bg-pressed, var(--color-accent));
-        color: var(--toggle-ghost-color-pressed, var(--color-foreground));
-      }
+      --toggle-border-color-current: var(--toggle-ghost-border-color, transparent);
+      --toggle-bg-current: var(--toggle-ghost-bg, transparent);
+      --toggle-bg-hover-current: var(--toggle-ghost-bg-hover, var(--color-accent));
+      --toggle-bg-active-current: var(--toggle-ghost-bg-active, var(--color-accent));
+      --toggle-bg-pressed-current: var(--toggle-ghost-bg-pressed, var(--color-accent));
+      --toggle-color-current: var(
+        --toggle-ghost-color,
+        var(--toggle-color, var(--color-foreground))
+      );
+      --toggle-color-pressed-current: var(--toggle-ghost-color-pressed, var(--color-foreground));
     }
 
     &[data-size='xs'] {
@@ -124,12 +136,6 @@
       min-height: var(--toggle-size-sm, var(--size-sm));
       padding-block: var(--toggle-padding-y-sm, 0.375rem);
       padding-inline: var(--toggle-padding-x-sm, 0.75rem);
-    }
-
-    &[data-size='md'] {
-      min-height: var(--toggle-size-md, var(--size-lg));
-      padding-block: var(--toggle-padding-y-md, 0.5rem);
-      padding-inline: var(--toggle-padding-x-md, 1rem);
     }
 
     &[data-size='lg'] {
@@ -149,19 +155,16 @@
 
     &[data-size='icon-sm'] {
       width: var(--toggle-size-icon-sm, var(--size-sm));
-      min-width: var(--toggle-size-icon-sm, var(--size-sm));
       height: var(--toggle-size-icon-sm, var(--size-sm));
     }
 
     &[data-size='icon-md'] {
       width: var(--toggle-size-icon-md, var(--size-lg));
-      min-width: var(--toggle-size-icon-md, var(--size-lg));
       height: var(--toggle-size-icon-md, var(--size-lg));
     }
 
     &[data-size='icon-lg'] {
       width: var(--toggle-size-icon-lg, var(--size-xl));
-      min-width: var(--toggle-size-icon-lg, var(--size-xl));
       height: var(--toggle-size-icon-lg, var(--size-xl));
     }
   }

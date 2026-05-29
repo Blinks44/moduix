@@ -33,11 +33,9 @@
   line-height: var(--line-height-text-sm);
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-3);
+.customChildrenButton {
+  --close-button-size: 2.25rem;
+  --close-button-icon-size: 1.125rem;
 }
 
 .customButton {

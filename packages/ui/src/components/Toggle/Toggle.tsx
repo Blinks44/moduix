@@ -1,26 +1,18 @@
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
+import * as React from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Toggle.module.css';
 
-type ToggleVariant = 'default' | 'outline' | 'ghost';
-type ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
-
-type ToggleProps<Value extends string = string> = TogglePrimitive.Props<Value> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
-type ToggleState = TogglePrimitive.State;
-type ToggleChangeEventReason = TogglePrimitive.ChangeEventReason;
-type ToggleChangeEventDetails = TogglePrimitive.ChangeEventDetails;
-
-function Toggle<Value extends string = string>({
-  className,
-  variant = 'default',
-  size = 'md',
-  ...props
-}: ToggleProps<Value>) {
+const Toggle = React.forwardRef<
+  React.ComponentRef<typeof TogglePrimitive>,
+  TogglePrimitive.Props & {
+    variant?: 'default' | 'outline' | 'ghost';
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
+  }
+>(function Toggle({ className, variant = 'default', size = 'md', ...props }, ref) {
   return (
     <TogglePrimitive
+      ref={ref}
       data-slot="toggle-root"
       data-variant={variant}
       data-size={size}
@@ -28,14 +20,6 @@ function Toggle<Value extends string = string>({
       {...props}
     />
   );
-}
+});
 
 export { Toggle };
-export type {
-  ToggleProps,
-  ToggleState,
-  ToggleChangeEventReason,
-  ToggleChangeEventDetails,
-  ToggleVariant,
-  ToggleSize,
-};

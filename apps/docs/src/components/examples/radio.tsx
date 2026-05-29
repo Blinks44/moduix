@@ -7,15 +7,12 @@ import {
   Radio,
   RadioField,
   RadioGroup,
-  RadioGroupItem,
-  RadioGroupItemControl,
-  RadioGroupItemLabel,
   RadioGroupLabel,
   RadioGroupList,
+  RadioIndicator,
   RadioLabel,
-  type RadioGroupProps,
 } from 'moduix';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './radio.module.css';
@@ -24,7 +21,7 @@ const radioOptions = [
   { value: 'personal', label: 'Personal account' },
   { value: 'team', label: 'Team account' },
   { value: 'enterprise', label: 'Enterprise account' },
-];
+] as const;
 
 export const radioOverrideCssProperties: CssPropertyInput[] = [
   ['--radio-bg', 'var(--color-background)', 'Controls unchecked background color.'],
@@ -40,28 +37,6 @@ export const radioOverrideCssProperties: CssPropertyInput[] = [
   ['--radio-gap', 'var(--spacing-2)', 'Controls spacing between control and label.'],
   ['--radio-group-color', 'var(--color-foreground)', 'Controls inherited group text color.'],
   ['--radio-group-gap', 'var(--spacing-2)', 'Controls spacing inside the group root.'],
-  ['--radio-group-list-gap', 'var(--spacing-2)', 'Controls spacing between group items.'],
-  ['--radio-group-item-gap', 'var(--radio-gap)', 'Controls spacing inside each group item.'],
-  [
-    '--radio-group-item-label-color',
-    'var(--radio-label-color)',
-    'Controls group item label text color.',
-  ],
-  [
-    '--radio-group-item-label-font-size',
-    'var(--radio-label-font-size)',
-    'Controls group item label font size.',
-  ],
-  [
-    '--radio-group-item-label-font-weight',
-    'var(--radio-label-font-weight)',
-    'Controls group item label font weight.',
-  ],
-  [
-    '--radio-group-item-label-line-height',
-    'var(--radio-label-line-height)',
-    'Controls group item label line height.',
-  ],
   ['--radio-group-label-color', 'var(--radio-group-color)', 'Controls group label text color.'],
   ['--radio-group-label-font-size', 'var(--text-sm)', 'Controls group label font size.'],
   [
@@ -74,6 +49,7 @@ export const radioOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-sm)',
     'Controls group label line height.',
   ],
+  ['--radio-group-list-gap', 'var(--spacing-2)', 'Controls spacing between radio rows.'],
   ['--radio-indicator-border-color', 'currentColor', 'Controls indicator border color.'],
   ['--radio-indicator-border-width', '0', 'Controls indicator border width.'],
   ['--radio-indicator-color', 'var(--color-primary-foreground)', 'Controls indicator color.'],
@@ -83,14 +59,10 @@ export const radioOverrideCssProperties: CssPropertyInput[] = [
   ['--radio-indicator-size-md', '0.5rem', 'Controls `md` indicator size.'],
   ['--radio-indicator-size-lg', '0.625rem', 'Controls `lg` indicator size.'],
   ['--radio-indicator-size-xl', '0.75rem', 'Controls `xl` indicator size.'],
-  ['--radio-label-color', 'var(--color-foreground)', 'Controls standalone label text color.'],
-  ['--radio-label-font-size', 'var(--text-sm)', 'Controls standalone label font size.'],
-  ['--radio-label-font-weight', 'var(--weight-medium)', 'Controls standalone label font weight.'],
-  [
-    '--radio-label-line-height',
-    'var(--line-height-text-sm)',
-    'Controls standalone label line height.',
-  ],
+  ['--radio-label-color', 'var(--color-foreground)', 'Controls label text color.'],
+  ['--radio-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
+  ['--radio-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
+  ['--radio-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
   ['--radio-size-xs', '0.875rem', 'Controls `xs` radio size.'],
   ['--radio-size-sm', '1rem', 'Controls `sm` radio size.'],
   ['--radio-size-md', '1.25rem', 'Controls `md` radio size.'],
@@ -98,6 +70,7 @@ export const radioOverrideCssProperties: CssPropertyInput[] = [
   ['--radio-size-xl', '1.75rem', 'Controls `xl` radio size.'],
   ['--radio-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
+
 export const radioPlaygroundCssProperties: CssPropertyInput[] = [
   ['--radio-bg', 'var(--color-background)', 'Controls unchecked background color.'],
   ['--radio-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
@@ -131,12 +104,14 @@ export function RadioCssPlaygroundPanel({ values, onChange, onReset }: CSSProper
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
-function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
+function CustomRadioIcon(props: ComponentProps<'svg'>) {
   return (
     <svg
       width="12"
@@ -152,18 +127,18 @@ function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function RadioExample(props: RadioGroupProps) {
-  const labelId = React.useId();
+export function RadioExample(props: ComponentProps<typeof RadioGroup>) {
+  const labelId = useId();
 
   return (
     <RadioGroup aria-labelledby={labelId} defaultValue="team" {...props}>
       <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
       <RadioGroupList>
         {radioOptions.map((option) => (
-          <RadioGroupItem key={option.value}>
-            <RadioGroupItemControl value={option.value} />
-            <RadioGroupItemLabel>{option.label}</RadioGroupItemLabel>
-          </RadioGroupItem>
+          <RadioField key={option.value}>
+            <Radio value={option.value} />
+            <RadioLabel>{option.label}</RadioLabel>
+          </RadioField>
         ))}
       </RadioGroupList>
     </RadioGroup>
@@ -171,54 +146,54 @@ export function RadioExample(props: RadioGroupProps) {
 }
 
 export function RadioSizesExample() {
-  const labelId = React.useId();
+  const labelId = useId();
 
   return (
     <RadioGroup aria-labelledby={labelId} defaultValue="md">
       <RadioGroupLabel id={labelId}>Control Size</RadioGroupLabel>
       <RadioGroupList>
-        <RadioGroupItem>
-          <RadioGroupItemControl value="xs" size="xs" />
-          <RadioGroupItemLabel>Extra-small</RadioGroupItemLabel>
-        </RadioGroupItem>
-        <RadioGroupItem>
-          <RadioGroupItemControl value="sm" size="sm" />
-          <RadioGroupItemLabel>Small</RadioGroupItemLabel>
-        </RadioGroupItem>
-        <RadioGroupItem>
-          <RadioGroupItemControl value="md" size="md" />
-          <RadioGroupItemLabel>Medium</RadioGroupItemLabel>
-        </RadioGroupItem>
-        <RadioGroupItem>
-          <RadioGroupItemControl value="lg" size="lg" />
-          <RadioGroupItemLabel>Large</RadioGroupItemLabel>
-        </RadioGroupItem>
-        <RadioGroupItem>
-          <RadioGroupItemControl value="xl" size="xl" />
-          <RadioGroupItemLabel>Extra-large</RadioGroupItemLabel>
-        </RadioGroupItem>
+        <RadioField>
+          <Radio value="xs" size="xs" />
+          <RadioLabel>Extra-small</RadioLabel>
+        </RadioField>
+        <RadioField>
+          <Radio value="sm" size="sm" />
+          <RadioLabel>Small</RadioLabel>
+        </RadioField>
+        <RadioField>
+          <Radio value="md" size="md" />
+          <RadioLabel>Medium</RadioLabel>
+        </RadioField>
+        <RadioField>
+          <Radio value="lg" size="lg" />
+          <RadioLabel>Large</RadioLabel>
+        </RadioField>
+        <RadioField>
+          <Radio value="xl" size="xl" />
+          <RadioLabel>Extra-large</RadioLabel>
+        </RadioField>
       </RadioGroupList>
     </RadioGroup>
   );
 }
 
 export function ControlledRadioExample() {
-  const labelId = React.useId();
-  const [value, setValue] = React.useState('personal');
+  const labelId = useId();
+  const [value, setValue] = useState('personal');
 
   return (
     <div className={styles.stack}>
       <RadioGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
         <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
         <RadioGroupList>
-          <RadioGroupItem>
-            <RadioGroupItemControl value="personal" />
-            <RadioGroupItemLabel>Only me</RadioGroupItemLabel>
-          </RadioGroupItem>
-          <RadioGroupItem>
-            <RadioGroupItemControl value="team" />
-            <RadioGroupItemLabel>Team</RadioGroupItemLabel>
-          </RadioGroupItem>
+          <RadioField>
+            <Radio value="personal" />
+            <RadioLabel>Only me</RadioLabel>
+          </RadioField>
+          <RadioField>
+            <Radio value="team" />
+            <RadioLabel>Team</RadioLabel>
+          </RadioField>
         </RadioGroupList>
       </RadioGroup>
       <span className={styles.hint}>Current value: {value}</span>
@@ -227,32 +202,45 @@ export function ControlledRadioExample() {
 }
 
 export function DisabledRadioExample() {
-  return <RadioExample defaultValue="enterprise" disabled />;
-}
-
-export function CustomIndicatorRadioExample() {
-  const labelId = React.useId();
+  const labelId = useId();
 
   return (
-    <RadioGroup aria-labelledby={labelId} defaultValue="team">
-      <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
+    <RadioGroup aria-labelledby={labelId} defaultValue="enterprise" disabled>
+      <RadioGroupLabel id={labelId}>Plan</RadioGroupLabel>
       <RadioGroupList>
         {radioOptions.map((option) => (
-          <RadioGroupItem key={option.value}>
-            <RadioGroupItemControl
-              value={option.value}
-              indicator={<CustomRadioIcon className={styles.customIndicatorIcon} />}
-            />
-            <RadioGroupItemLabel>{option.label}</RadioGroupItemLabel>
-          </RadioGroupItem>
+          <RadioField key={option.value}>
+            <Radio value={option.value} />
+            <RadioLabel>{option.label}</RadioLabel>
+          </RadioField>
         ))}
       </RadioGroupList>
     </RadioGroup>
   );
 }
 
+export function ReadOnlyRadioExample() {
+  const labelId = useId();
+
+  return (
+    <RadioGroup aria-labelledby={labelId} defaultValue="team" readOnly>
+      <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
+      <RadioGroupList>
+        <RadioField>
+          <Radio value="personal" />
+          <RadioLabel>Only me</RadioLabel>
+        </RadioField>
+        <RadioField>
+          <Radio value="team" />
+          <RadioLabel>Team</RadioLabel>
+        </RadioField>
+      </RadioGroupList>
+    </RadioGroup>
+  );
+}
+
 export function RadioClassNameExample() {
-  const labelId = React.useId();
+  const labelId = useId();
 
   return (
     <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.customGroup}>
@@ -261,41 +249,41 @@ export function RadioClassNameExample() {
       </RadioGroupLabel>
       <RadioGroupList className={styles.customList}>
         {radioOptions.map((option) => (
-          <RadioGroupItem key={option.value} className={styles.customItem}>
-            <RadioGroupItemControl
-              value={option.value}
-              className={styles.customRadio}
-              classNames={{ indicator: styles.customIndicator }}
-            />
-            <RadioGroupItemLabel className={styles.customLabel}>{option.label}</RadioGroupItemLabel>
-          </RadioGroupItem>
+          <RadioField key={option.value} className={styles.customField}>
+            <Radio value={option.value} className={styles.customRadio} />
+            <RadioLabel className={styles.customLabel}>{option.label}</RadioLabel>
+          </RadioField>
         ))}
       </RadioGroupList>
     </RadioGroup>
   );
 }
 
-export function RadioFieldCompositionExample() {
-  const labelId = React.useId();
+export function CustomIndicatorRadioExample() {
+  const labelId = useId();
 
   return (
-    <RadioGroup aria-labelledby={labelId} defaultValue="personal">
-      <RadioGroupLabel id={labelId}>Members</RadioGroupLabel>
-      <div className={styles.stack}>
+    <RadioGroup aria-labelledby={labelId} defaultValue="team">
+      <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
+      <RadioGroupList>
         {radioOptions.map((option) => (
           <RadioField key={option.value}>
-            <Radio value={option.value} />
+            <Radio value={option.value}>
+              <RadioIndicator>
+                <CustomRadioIcon className={styles.customIndicatorIcon} />
+              </RadioIndicator>
+            </Radio>
             <RadioLabel>{option.label}</RadioLabel>
           </RadioField>
         ))}
-      </div>
+      </RadioGroupList>
     </RadioGroup>
   );
 }
 
 export function RadioSiblingLabelNativeButtonExample() {
-  const id = React.useId();
-  const labelId = React.useId();
+  const id = useId();
+  const labelId = useId();
 
   return (
     <div className={styles.siblingRow}>

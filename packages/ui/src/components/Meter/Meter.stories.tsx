@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue } from './Meter';
+import { useState } from 'react';
+import { Meter, MeterIndicator, MeterLabel, MeterRoot, MeterTrack, MeterValue } from './Meter';
 import styles from './Meter.stories.module.css';
 
 const meta = {
@@ -43,7 +43,7 @@ export const MinMaxRange: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = React.useState(45);
+    const [value, setValue] = useState(45);
 
     return (
       <div className={styles.stack}>
@@ -66,12 +66,29 @@ export const Controlled: Story = {
   },
 };
 
-export const PercentFormat: Story = {
+export const LocaleAndFormat: Story = {
   render: () => {
     return (
-      <Meter value={0.64} min={0} max={1} format={{ style: 'percent', maximumFractionDigits: 0 }}>
-        <MeterLabel>Usage</MeterLabel>
-        <MeterValue>{(formattedValue) => `${formattedValue} used`}</MeterValue>
+      <Meter
+        value={0.64}
+        min={0}
+        max={1}
+        locale="de-DE"
+        format={{ style: 'percent', maximumFractionDigits: 0 }}
+      >
+        <MeterLabel>Storage usage</MeterLabel>
+        <MeterValue>{(formattedValue) => `${formattedValue} belegt`}</MeterValue>
+      </Meter>
+    );
+  },
+};
+
+export const AriaValueText: Story = {
+  render: () => {
+    return (
+      <Meter value={3} min={0} max={5} aria-valuetext="3 of 5 service checks are healthy">
+        <MeterLabel>Service health</MeterLabel>
+        <MeterValue>{() => '3 of 5 healthy'}</MeterValue>
       </Meter>
     );
   },
@@ -80,11 +97,7 @@ export const PercentFormat: Story = {
 export const CustomStyles: Story = {
   render: () => {
     return (
-      <Meter
-        value={72}
-        className={styles.customMeter}
-        classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-      >
+      <Meter value={72} className={styles.customMeter}>
         <MeterLabel>Monthly quota</MeterLabel>
         <MeterValue />
       </Meter>
@@ -95,13 +108,13 @@ export const CustomStyles: Story = {
 export const Composition: Story = {
   render: () => {
     return (
-      <Meter value={58} withTrack={false} className={styles.composedMeter}>
+      <MeterRoot value={58} className={styles.composedMeter}>
         <MeterLabel>Team capacity</MeterLabel>
         <MeterValue>{(formattedValue) => `${formattedValue} available`}</MeterValue>
         <MeterTrack className={styles.composedTrack}>
           <MeterIndicator className={styles.composedIndicator} />
         </MeterTrack>
-      </Meter>
+      </MeterRoot>
     );
   },
 };

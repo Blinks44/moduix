@@ -1,51 +1,28 @@
+import type { ComponentProps } from 'react';
 import { Popover as PopoverPrimitive } from '@base-ui/react/popover';
 import { clsx } from 'clsx';
-import * as React from 'react';
-import { PopupArrowIcon } from '@/primitives';
+import { PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Popover.module.css';
 
-type PopoverContentClassNames = {
-  portal?: PopoverPrimitive.Portal.Props['className'];
-  backdrop?: PopoverPrimitive.Backdrop.Props['className'];
-  positioner?: PopoverPrimitive.Positioner.Props['className'];
-  viewport?: PopoverPrimitive.Viewport.Props['className'];
-  arrow?: PopoverPrimitive.Arrow.Props['className'];
-};
-
-type PopoverContentSlotProps = {
-  portal?: Omit<PopoverPrimitive.Portal.Props, 'className' | 'children'>;
-  backdrop?: Omit<PopoverPrimitive.Backdrop.Props, 'className'>;
-  positioner?: Omit<PopoverPrimitive.Positioner.Props, 'className' | 'children'>;
-  arrow?: Omit<PopoverPrimitive.Arrow.Props, 'className' | 'children'>;
-  viewport?: Omit<PopoverPrimitive.Viewport.Props, 'className' | 'children'>;
-};
+type PopoverPositionerProps = Pick<
+  PopoverPrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+>;
 
 type PopoverContentProps = PopoverPrimitive.Popup.Props &
-  Pick<
-    PopoverPrimitive.Positioner.Props,
-    | 'disableAnchorTracking'
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-  > & {
-    classNames?: PopoverContentClassNames;
-    slotProps?: PopoverContentSlotProps;
-    container?: PopoverPrimitive.Portal.Props['container'];
-    withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
-    withBackdrop?: boolean;
-    withViewport?: boolean;
+  PopoverPositionerProps & {
+    showArrow?: boolean;
   };
 
+const POPOVER_CONTENT_SIDE_OFFSET = 8;
 const Popover = PopoverPrimitive.Root;
 const createPopoverHandle = PopoverPrimitive.createHandle;
 
@@ -63,13 +40,7 @@ function PopoverTrigger({ className, render, ...props }: PopoverPrimitive.Trigge
 }
 
 function PopoverPortal({ className, ...props }: PopoverPrimitive.Portal.Props) {
-  return (
-    <PopoverPrimitive.Portal
-      data-slot="popover-portal"
-      className={mergeClassName(className, styles.portal)}
-      {...props}
-    />
-  );
+  return <PopoverPrimitive.Portal data-slot="popover-portal" className={className} {...props} />;
 }
 
 function PopoverBackdrop({ className, ...props }: PopoverPrimitive.Backdrop.Props) {
@@ -144,15 +115,15 @@ function PopoverDescription({ className, ...props }: PopoverPrimitive.Descriptio
   );
 }
 
-function PopoverHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function PopoverHeader({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="popover-header" className={clsx(styles.header, className)} {...props} />;
 }
 
-function PopoverBody({ className, ...props }: React.ComponentProps<'div'>) {
+function PopoverBody({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="popover-body" className={clsx(styles.body, className)} {...props} />;
 }
 
-function PopoverFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function PopoverFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="popover-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
@@ -168,88 +139,40 @@ function PopoverClose({ className, ...props }: PopoverPrimitive.Close.Props) {
 
 function PopoverContent({
   className,
-  classNames,
-  slotProps,
-  container,
-  withArrow,
-  arrow,
-  withBackdrop = false,
-  withViewport = false,
-  disableAnchorTracking,
+  children,
+  showArrow = false,
   side,
-  sideOffset,
+  sideOffset = POPOVER_CONTENT_SIDE_OFFSET,
   align,
   alignOffset,
   arrowPadding,
-  anchor,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
-  sticky,
-  positionMethod,
-  children,
-  ...props
+  ...popupProps
 }: PopoverContentProps) {
-  const positionerProps = slotProps?.positioner;
-  const resolvedDisableAnchorTracking =
-    disableAnchorTracking ?? positionerProps?.disableAnchorTracking;
-  const resolvedSide = side ?? positionerProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerProps?.sideOffset ?? 8;
-  const resolvedAlign = align ?? positionerProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerProps?.positionMethod;
-  const { container: portalPropsContainer, ...restPortalProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? portalPropsContainer;
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
-
   return (
-    <PopoverPortal className={classNames?.portal} container={portalContainer} {...restPortalProps}>
-      {withBackdrop ? (
-        <PopoverBackdrop className={classNames?.backdrop} {...slotProps?.backdrop} />
-      ) : null}
+    <PopoverPortal>
       <PopoverPositioner
-        {...positionerProps}
-        disableAnchorTracking={resolvedDisableAnchorTracking}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
-        className={classNames?.positioner}
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
       >
-        <PopoverPopup className={className} {...props}>
-          {showArrow ? (
-            <PopoverArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrowContent ?? <ArrowSvg className={styles.arrowSvg} />}
-            </PopoverArrow>
-          ) : null}
-          {withViewport ? (
-            <PopoverViewport className={classNames?.viewport} {...slotProps?.viewport}>
-              {children}
-            </PopoverViewport>
-          ) : (
-            children
-          )}
+        <PopoverPopup className={className} {...popupProps}>
+          {showArrow ? <PopoverArrow /> : null}
+          {children}
         </PopoverPopup>
       </PopoverPositioner>
     </PopoverPortal>
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}
@@ -260,20 +183,16 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   );
 }
 
-type PopoverProps<Payload = unknown> = PopoverPrimitive.Root.Props<Payload>;
-type PopoverHandle<Payload = unknown> = PopoverPrimitive.Handle<Payload>;
-type PopoverTriggerProps = PopoverPrimitive.Trigger.Props;
-type PopoverTitleProps = PopoverPrimitive.Title.Props;
-type PopoverDescriptionProps = PopoverPrimitive.Description.Props;
-type PopoverHeaderProps = React.ComponentProps<'div'>;
-type PopoverBodyProps = React.ComponentProps<'div'>;
-type PopoverFooterProps = React.ComponentProps<'div'>;
-type PopoverCloseProps = PopoverPrimitive.Close.Props;
-
 export {
   Popover,
   createPopoverHandle,
   PopoverTrigger,
+  PopoverPortal,
+  PopoverBackdrop,
+  PopoverPositioner,
+  PopoverPopup,
+  PopoverViewport,
+  PopoverArrow,
   PopoverTitle,
   PopoverDescription,
   PopoverHeader,
@@ -281,19 +200,4 @@ export {
   PopoverFooter,
   PopoverClose,
   PopoverContent,
-};
-
-export type {
-  PopoverProps,
-  PopoverHandle,
-  PopoverTriggerProps,
-  PopoverTitleProps,
-  PopoverDescriptionProps,
-  PopoverHeaderProps,
-  PopoverBodyProps,
-  PopoverFooterProps,
-  PopoverCloseProps,
-  PopoverContentClassNames,
-  PopoverContentSlotProps,
-  PopoverContentProps,
 };

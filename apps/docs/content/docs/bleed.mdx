@@ -11,17 +11,18 @@ import {
   BleedExample,
   BleedInlineAmountsExample,
   BleedSemanticExample,
-  CustomStylesBleedExample,
+  CustomCompositionBleedExample,
   bleedPlaygroundCssProperties,
 } from '@/components/examples/bleed';
 
-## API Reference
+## Overview
 
-`Bleed` is a moduix layout primitive and does not wrap a Base UI primitive.
-Use `inline="none"` or `block="none"` to keep an axis constrained. Supported
-bleed amounts are `xs`, `sm`, `md`, `lg`, `xl`, plus `full` on the inline axis.
-Use `as` to render a semantic element or custom component while keeping the same
-bleed behavior.
+`Bleed` is a small layout primitive for content that should intentionally escape a constrained
+parent while staying in normal document flow.
+
+Use `inline` for horizontal bleed, add `block` when a surface should also escape vertical padding,
+and use `as` when the root needs a semantic element.
+The default path is `inline="full"` for full-bleed media, banners, and section accents.
 
 ## Basic
 
@@ -73,10 +74,7 @@ bleed behavior.
     `}
 
   </Preview.CSS>
-
-<Preview.CSSProperties>
-  {(context) => <BleedCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
+  <Preview.CSSProperties>{(context) => <BleedCssPropertiesPanel {...context} />}</Preview.CSSProperties>
 
   <Preview.CSSPlayground>
     {(context) => <BleedCssPlaygroundPanel {...context} />}
@@ -85,8 +83,8 @@ bleed behavior.
 
 ## Anatomy
 
-`Bleed` is a single root layout primitive. It applies negative inline and/or block margins so
-content can extend beyond a constrained parent while staying in normal document flow.
+`Bleed` has a single root element. It applies negative inline and/or block margins so content can
+escape a constrained parent while staying in normal document flow.
 
 ```text
 Bleed
@@ -99,19 +97,32 @@ Bleed
 </Bleed>
 ```
 
-| Part    | Role                                                                       |
-| ------- | -------------------------------------------------------------------------- |
-| `Bleed` | Root layout wrapper. Controls inline/block bleed amounts and element type. |
+| Part    | Role                                            |
+| ------- | ----------------------------------------------- |
+| `Bleed` | Root layout wrapper for inline and block bleed. |
 
 ## Composition
 
-Use `Bleed` props `inline` and `block` to control bleed amount per axis, and `as` when the root
-should be a specific semantic element such as `section` or `figure`. The component forwards refs to
-the rendered element, so it can be measured, focused, or passed to animation libraries like any
-native element.
+`Bleed` has one job: apply negative margins on the root element.
+It does not add inner wrappers, layout state, or slot APIs.
 
-`Bleed` has no internal service slots, so customization is done directly with `className` and
-bleed CSS variables on the root element.
+### Defaults
+
+| Prop     | Default | Values                                       |
+| -------- | ------- | -------------------------------------------- |
+| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
+| `as`     | `div`   | Any React element type                       |
+
+Use `className` for root styling and local `--bleed-*` overrides when layout math needs to change.
+
+`inline="full"` uses viewport math. Keep these constraints in mind:
+
+- `overflow: hidden` or `overflow: clip` on an ancestor can crop the bleed.
+- Nested scroll regions, drawers, and app shells may need local overrides for
+  `--bleed-inline-full` and `--bleed-inline-full-size`.
+- Use one of the fixed scale values when content only needs to escape container padding, not reach
+  the viewport edge.
 
 ## Examples
 
@@ -278,18 +289,20 @@ Use `as` when the escaping content has a more specific semantic role.
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+## Custom Composition
 
 Pass `className` when styling the root or overriding bleed variables in local CSS.
+This keeps the public API small while still allowing local full-bleed math for shells, drawers,
+and inset layouts that do not align with the viewport.
 
 <Preview>
-  <CustomStylesBleedExample />
+  <CustomCompositionBleedExample />
 
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
 
-      export function CustomStylesBleedDemo() {
+      export function CustomCompositionBleedDemo() {
         return (
           <div className={styles.container}>
             <Bleed className={styles.customBleed}>
@@ -315,6 +328,7 @@ Pass `className` when styling the root or overriding bleed variables in local CS
 
       .customBleed {
         --bleed-inline-full: calc(var(--spacing-8) * -1);
+        --bleed-inline-full-size: calc(100vw - (var(--spacing-8) * 2));
         display: flex;
         flex-direction: column;
         align-items: center;

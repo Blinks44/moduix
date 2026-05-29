@@ -1,11 +1,4 @@
-import {
-  BellIcon,
-  CheckSmallIcon,
-  StarIcon,
-  ToggleGroup,
-  ToggleGroupItem,
-  type ToggleGroupProps,
-} from 'moduix';
+import { BellIcon, CheckIcon, StarIcon, ToggleGroup, ToggleGroupItem } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -24,13 +17,13 @@ export const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
     'Controls ghost variant group border color.',
   ],
   ['--toggle-group-ghost-padding', '0', 'Controls ghost variant group padding.'],
-  ['--toggle-group-padding', '0.125rem', 'Controls group inner padding.'],
   ['--toggle-group-item-radius', 'var(--radius-md)', 'Controls item corner radius.'],
   [
     '--toggle-group-outline-bg',
     'var(--color-background)',
     'Controls outline variant group background.',
   ],
+  ['--toggle-group-padding', '0.125rem', 'Controls group inner padding.'],
   ['--toggle-group-radius', 'var(--radius-lg)', 'Controls group corner radius.'],
 ];
 export const toggleGroupPlaygroundCssProperties: CssPropertyInput[] = [
@@ -109,7 +102,7 @@ function AlignRightIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function ToggleGroupExample(props: ToggleGroupProps<string>) {
+export function ToggleGroupExample(props: React.ComponentProps<typeof ToggleGroup>) {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment" {...props}>
       <ToggleGroupItem value="left">Left</ToggleGroupItem>
@@ -234,7 +227,7 @@ export function ControlledToggleGroupExample() {
     <div className={styles.stack}>
       <ToggleGroup value={value} onValueChange={setValue} aria-label="Controlled options" multiple>
         <ToggleGroupItem value="favorites">
-          {value.includes('favorites') ? <CheckSmallIcon /> : <StarIcon />}
+          {value.includes('favorites') ? <CheckIcon /> : <StarIcon />}
           Favorites
         </ToggleGroupItem>
         <ToggleGroupItem value="alerts">
@@ -263,7 +256,7 @@ export function ToggleGroupIconExample() {
   );
 }
 
-export function CustomStylesToggleGroupExample() {
+export function CustomCompositionToggleGroupExample() {
   return (
     <ToggleGroup
       defaultValue={['day']}

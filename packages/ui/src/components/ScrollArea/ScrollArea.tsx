@@ -1,183 +1,136 @@
 import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
-import { clsx, type ClassValue } from 'clsx';
-import * as React from 'react';
+import { forwardRef, type ComponentRef, type ForwardedRef, type ReactNode } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './ScrollArea.module.css';
 
-type ScrollAreaFade = boolean | 'vertical' | 'horizontal' | 'both';
-type ScrollAreaScrollbars = 'vertical' | 'horizontal' | 'both' | false;
-type ScrollAreaContentMinWidth = 'full' | 'fit-content';
-type ScrollAreaClassName<TState> = ClassValue | ((state: TState) => ClassValue);
+type FadeDirection = boolean | 'vertical' | 'horizontal' | 'both';
+type Scrollbars = 'vertical' | 'horizontal' | 'both' | false;
 
-type ScrollAreaClassNames = {
-  viewport?: ScrollAreaPrimitive.Viewport.Props['className'];
-  content?: ScrollAreaPrimitive.Content.Props['className'];
-  scrollbar?: ScrollAreaPrimitive.Scrollbar.Props['className'];
-  verticalScrollbar?: ScrollAreaPrimitive.Scrollbar.Props['className'];
-  horizontalScrollbar?: ScrollAreaPrimitive.Scrollbar.Props['className'];
-  thumb?: ScrollAreaPrimitive.Thumb.Props['className'];
-  verticalThumb?: ScrollAreaPrimitive.Thumb.Props['className'];
-  horizontalThumb?: ScrollAreaPrimitive.Thumb.Props['className'];
-  corner?: ScrollAreaPrimitive.Corner.Props['className'];
-};
-
-type ScrollAreaSlotProps = {
-  viewport?: Omit<ScrollAreaPrimitive.Viewport.Props, 'className' | 'children'>;
-  content?: Omit<ScrollAreaPrimitive.Content.Props, 'className' | 'children'>;
-  scrollbar?: Omit<
-    ScrollAreaPrimitive.Scrollbar.Props,
-    'className' | 'children' | 'orientation' | 'keepMounted'
-  >;
-  verticalScrollbar?: Omit<
-    ScrollAreaPrimitive.Scrollbar.Props,
-    'className' | 'children' | 'orientation' | 'keepMounted'
-  >;
-  horizontalScrollbar?: Omit<
-    ScrollAreaPrimitive.Scrollbar.Props,
-    'className' | 'children' | 'orientation' | 'keepMounted'
-  >;
-  thumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
-  verticalThumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
-  horizontalThumb?: Omit<ScrollAreaPrimitive.Thumb.Props, 'className'>;
-  corner?: Omit<ScrollAreaPrimitive.Corner.Props, 'className'>;
-};
-
-type ScrollAreaProps = Omit<ScrollAreaPrimitive.Root.Props, 'children'> & {
-  children?: React.ReactNode;
-  fade?: ScrollAreaFade;
-  scrollbars?: ScrollAreaScrollbars;
-  contentMinWidth?: ScrollAreaContentMinWidth;
-  scrollbarKeepMounted?: boolean;
-  classNames?: ScrollAreaClassNames;
-  slotProps?: ScrollAreaSlotProps;
-};
-
-function mergeSlotClassName<TState>(
-  baseClassName: ClassValue,
-  ...classNames: Array<ScrollAreaClassName<TState> | undefined>
+const ScrollAreaRoot = forwardRef(function ScrollAreaRoot(
+  { className, ...props }: ScrollAreaPrimitive.Root.Props,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Root>>,
 ) {
-  if (classNames.some((className) => typeof className === 'function')) {
-    return (state: TState) =>
-      clsx(
-        baseClassName,
-        classNames.map((className) =>
-          typeof className === 'function' ? className(state) : className,
-        ),
-      );
-  }
+  return (
+    <ScrollAreaPrimitive.Root
+      ref={ref}
+      data-slot="scroll-area-root"
+      className={mergeClassName(className, styles.root)}
+      {...props}
+    />
+  );
+});
 
-  return clsx(baseClassName, classNames);
-}
+const ScrollAreaViewport = forwardRef(function ScrollAreaViewport(
+  { className, ...props }: ScrollAreaPrimitive.Viewport.Props,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Viewport>>,
+) {
+  return (
+    <ScrollAreaPrimitive.Viewport
+      ref={ref}
+      data-slot="scroll-area-viewport"
+      className={mergeClassName(className, styles.viewport)}
+      {...props}
+    />
+  );
+});
+
+const ScrollAreaContent = forwardRef(function ScrollAreaContent(
+  { className, ...props }: ScrollAreaPrimitive.Content.Props,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Content>>,
+) {
+  return (
+    <ScrollAreaPrimitive.Content
+      ref={ref}
+      data-slot="scroll-area-content"
+      className={mergeClassName(className, styles.content)}
+      {...props}
+    />
+  );
+});
+
+const ScrollAreaScrollbar = forwardRef(function ScrollAreaScrollbar(
+  { className, ...props }: ScrollAreaPrimitive.Scrollbar.Props,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Scrollbar>>,
+) {
+  return (
+    <ScrollAreaPrimitive.Scrollbar
+      ref={ref}
+      data-slot="scroll-area-scrollbar"
+      className={mergeClassName(className, styles.scrollbar)}
+      {...props}
+    />
+  );
+});
+
+const ScrollAreaThumb = forwardRef(function ScrollAreaThumb(
+  { className, ...props }: ScrollAreaPrimitive.Thumb.Props,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Thumb>>,
+) {
+  return (
+    <ScrollAreaPrimitive.Thumb
+      ref={ref}
+      data-slot="scroll-area-thumb"
+      className={mergeClassName(className, styles.thumb)}
+      {...props}
+    />
+  );
+});
+
+const ScrollAreaCorner = forwardRef(function ScrollAreaCorner(
+  { className, ...props }: ScrollAreaPrimitive.Corner.Props,
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Corner>>,
+) {
+  return (
+    <ScrollAreaPrimitive.Corner
+      ref={ref}
+      data-slot="scroll-area-corner"
+      className={mergeClassName(className, styles.corner)}
+      {...props}
+    />
+  );
+});
 
 function ScrollArea({
   className,
-  classNames,
   children,
   fade = false,
   scrollbars = 'vertical',
-  contentMinWidth = 'full',
-  scrollbarKeepMounted = false,
-  slotProps,
   ...props
-}: ScrollAreaProps) {
+}: ScrollAreaPrimitive.Root.Props & {
+  children?: ReactNode;
+  fade?: FadeDirection;
+  scrollbars?: Scrollbars;
+}) {
   const fadeDirection = fade === true ? 'vertical' : fade || undefined;
   const hasVerticalScrollbar = scrollbars === 'vertical' || scrollbars === 'both';
   const hasHorizontalScrollbar = scrollbars === 'horizontal' || scrollbars === 'both';
-  const scrollbarProps = slotProps?.scrollbar;
-  const contentStyle = {
-    ...slotProps?.content?.style,
-    minWidth: contentMinWidth === 'fit-content' ? 'fit-content' : '100%',
-  };
 
   return (
-    <ScrollAreaPrimitive.Root
-      data-slot="scroll-area-root"
-      data-fade={fadeDirection}
-      className={mergeClassName(className, styles.root)}
-      {...props}
-    >
-      <ScrollAreaPrimitive.Viewport
-        {...slotProps?.viewport}
-        data-slot="scroll-area-viewport"
-        className={mergeClassName(classNames?.viewport, styles.viewport)}
-      >
-        <ScrollAreaPrimitive.Content
-          {...slotProps?.content}
-          style={contentStyle}
-          data-slot="scroll-area-content"
-          className={mergeClassName(classNames?.content, styles.content)}
-        >
-          {children}
-        </ScrollAreaPrimitive.Content>
-      </ScrollAreaPrimitive.Viewport>
+    <ScrollAreaRoot className={className} data-fade={fadeDirection} {...props}>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>{children}</ScrollAreaContent>
+      </ScrollAreaViewport>
       {hasVerticalScrollbar ? (
-        <ScrollAreaPrimitive.Scrollbar
-          {...scrollbarProps}
-          {...slotProps?.verticalScrollbar}
-          data-slot="scroll-area-scrollbar"
-          orientation="vertical"
-          keepMounted={scrollbarKeepMounted}
-          className={mergeSlotClassName(
-            styles.scrollbar,
-            classNames?.scrollbar,
-            classNames?.verticalScrollbar,
-          )}
-        >
-          <ScrollAreaPrimitive.Thumb
-            {...slotProps?.thumb}
-            {...slotProps?.verticalThumb}
-            data-slot="scroll-area-thumb"
-            className={mergeSlotClassName(
-              styles.thumb,
-              classNames?.thumb,
-              classNames?.verticalThumb,
-            )}
-          />
-        </ScrollAreaPrimitive.Scrollbar>
+        <ScrollAreaScrollbar>
+          <ScrollAreaThumb />
+        </ScrollAreaScrollbar>
       ) : null}
       {hasHorizontalScrollbar ? (
-        <ScrollAreaPrimitive.Scrollbar
-          {...scrollbarProps}
-          {...slotProps?.horizontalScrollbar}
-          data-slot="scroll-area-scrollbar"
-          orientation="horizontal"
-          keepMounted={scrollbarKeepMounted}
-          className={mergeSlotClassName(
-            styles.scrollbar,
-            classNames?.scrollbar,
-            classNames?.horizontalScrollbar,
-          )}
-        >
-          <ScrollAreaPrimitive.Thumb
-            {...slotProps?.thumb}
-            {...slotProps?.horizontalThumb}
-            data-slot="scroll-area-thumb"
-            className={mergeSlotClassName(
-              styles.thumb,
-              classNames?.thumb,
-              classNames?.horizontalThumb,
-            )}
-          />
-        </ScrollAreaPrimitive.Scrollbar>
+        <ScrollAreaScrollbar orientation="horizontal">
+          <ScrollAreaThumb />
+        </ScrollAreaScrollbar>
       ) : null}
-      {scrollbars === 'both' ? (
-        <ScrollAreaPrimitive.Corner
-          {...slotProps?.corner}
-          data-slot="scroll-area-corner"
-          className={mergeClassName(classNames?.corner, styles.corner)}
-        />
-      ) : null}
-    </ScrollAreaPrimitive.Root>
+      {hasVerticalScrollbar && hasHorizontalScrollbar ? <ScrollAreaCorner /> : null}
+    </ScrollAreaRoot>
   );
 }
 
-export { ScrollArea };
-
-export type {
-  ScrollAreaProps,
-  ScrollAreaClassNames,
-  ScrollAreaSlotProps,
-  ScrollAreaFade,
-  ScrollAreaScrollbars,
-  ScrollAreaContentMinWidth,
+export {
+  ScrollArea,
+  ScrollAreaRoot,
+  ScrollAreaViewport,
+  ScrollAreaContent,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaCorner,
 };

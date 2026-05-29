@@ -1,6 +1,6 @@
 # CloseButton
 
-Icon-only button for dismissing overlays, notifications, and other closeable surfaces.
+Icon-only dismiss button built on Base UI `Button`.
 
 ## Usage
 
@@ -12,13 +12,31 @@ export function Example() {
 }
 ```
 
-Pass children to replace the default icon. The component is built on Base UI Button, so it
-supports button behavior such as `disabled`, `focusableWhenDisabled`, and `render`.
+Use `CloseButton` for dismiss actions in dialogs, toasts, cards, and other closeable surfaces.
+The wrapper keeps the Base UI `Button` contract and adds only three defaults:
 
-Use `className` to style the root button. `CloseButton` has no hidden service slots, so it does
-not expose a `classNames` object.
+- `type="button"`
+- default `CloseIcon` when `children` are omitted
+- fallback `aria-label="Close"` when `children` are omitted
 
-## CSS variables
+Pass `children` to replace the default icon with other icon-sized content. When you do that, keep
+the control labeled with `aria-label`.
+
+Use `className` or CSS variables to style the root button. `CloseButton` has a single public slot,
+so it does not expose `classNames` or extra structural parts.
+
+## Composition
+
+| Prop         | Default                             |
+| ------------ | ----------------------------------- |
+| `type`       | `button`                            |
+| `aria-label` | `Close` when `children` are omitted |
+| `children`   | `CloseIcon`                         |
+
+Everything else passes through directly to Base UI `Button`, including props such as `render`,
+`disabled`, and `focusableWhenDisabled`.
+
+## CSS Variables
 
 - `--close-button-bg`
 - `--close-button-bg-hover`
@@ -26,6 +44,8 @@ not expose a `classNames` object.
 - `--close-button-color-hover`
 - `--close-button-disabled-opacity`
 - `--close-button-focus-ring-color`
+- `--close-button-focus-ring-offset`
+- `--close-button-focus-ring-width`
 - `--close-button-icon-size`
 - `--close-button-radius`
 - `--close-button-size`

@@ -1,8 +1,8 @@
-export { Progress, ProgressLabel, ProgressValue } from './Progress';
-
-export type {
-  ProgressClassNames,
-  ProgressProps,
-  ProgressLabelProps,
-  ProgressValueProps,
+export {
+  Progress,
+  ProgressRoot,
+  ProgressTrack,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressValue,
 } from './Progress';

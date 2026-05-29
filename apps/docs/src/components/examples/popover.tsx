@@ -1,17 +1,22 @@
-import type { PopoverContentProps } from 'moduix';
 import {
   BellIcon,
   Button,
-  CheckSmallIcon,
+  CheckIcon,
   Popover,
+  PopoverArrow,
+  PopoverBackdrop,
   PopoverBody,
   PopoverClose,
   PopoverContent,
   PopoverDescription,
   PopoverFooter,
   PopoverHeader,
+  PopoverPopup,
+  PopoverPortal,
+  PopoverPositioner,
   PopoverTitle,
   PopoverTrigger,
+  PopoverViewport,
   createPopoverHandle,
 } from 'moduix';
 import * as React from 'react';
@@ -19,7 +24,8 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './popover.module.css';
 
-const popoverSides: PopoverSide[] = ['top', 'right', 'bottom', 'left'];
+const popoverSides = ['top', 'right', 'bottom', 'left'] as const;
+type PopoverSide = (typeof popoverSides)[number];
 const imageUrl =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 420'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230b1220' offset='0'/%3E%3Cstop stop-color='%231d3557' offset='0.52'/%3E%3Cstop stop-color='%23004e64' offset='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop stop-color='%23ffd166'/%3E%3Cstop stop-color='%23fca311'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%2306d6a0'/%3E%3Cstop stop-color='%23118ab2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='720' height='420' fill='url(%23bg)'/%3E%3Ccircle cx='120' cy='90' r='70' fill='%23ffffff22'/%3E%3Ccircle cx='620' cy='330' r='120' fill='%23ffffff18'/%3E%3Crect x='70' y='240' width='320' height='110' rx='22' fill='url(%23accent1)' opacity='0.88' transform='rotate(-8 230 295)'/%3E%3Crect x='320' y='90' width='300' height='120' rx='24' fill='url(%23accent2)' opacity='0.92' transform='rotate(10 470 150)'/%3E%3Cpath d='M40 370 C160 260, 270 360, 390 280 C510 200, 610 280, 720 210 L720 420 L40 420 Z' fill='%23ffffff22'/%3E%3C/svg%3E";
 
@@ -192,14 +198,19 @@ export function PopoverWithBackdropExample() {
       <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
         Open with backdrop
       </PopoverTrigger>
-      <PopoverContent withArrow={false} withBackdrop classNames={{ backdrop: styles.backdrop }}>
-        <PopoverHeader>
-          <PopoverTitle>Backdrop</PopoverTitle>
-          <PopoverDescription>
-            The backdrop is rendered automatically and styled through classNames.
-          </PopoverDescription>
-        </PopoverHeader>
-      </PopoverContent>
+      <PopoverPortal>
+        <PopoverBackdrop className={styles.backdrop} />
+        <PopoverPositioner sideOffset={8}>
+          <PopoverPopup>
+            <PopoverHeader>
+              <PopoverTitle>Backdrop</PopoverTitle>
+              <PopoverDescription>
+                Compose the backdrop explicitly when the popup should separate from the page.
+              </PopoverDescription>
+            </PopoverHeader>
+          </PopoverPopup>
+        </PopoverPositioner>
+      </PopoverPortal>
     </Popover>
   );
 }
@@ -245,6 +256,24 @@ export function ControlledPopoverExample() {
   );
 }
 
+export function CustomTriggerPopoverExample() {
+  return (
+    <Popover>
+      <PopoverTrigger className={styles.customAnchor} nativeButton={false} render={<div />}>
+        Open custom trigger
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverHeader>
+          <PopoverTitle>Custom trigger element</PopoverTitle>
+          <PopoverDescription>
+            Set nativeButton to false when the rendered trigger element is not a button.
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 export function DetachedTriggerPopoverExample() {
   const popoverHandle = React.useMemo(() => createPopoverHandle(), []);
 
@@ -264,6 +293,33 @@ export function DetachedTriggerPopoverExample() {
         </PopoverContent>
       </Popover>
     </div>
+  );
+}
+
+export function ModalFocusPopoverExample() {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  return (
+    <Popover modal="trap-focus">
+      <PopoverTrigger render={<Button />}>Invite teammates</PopoverTrigger>
+      <PopoverContent initialFocus={inputRef}>
+        <PopoverHeader>
+          <PopoverTitle>Invite teammates</PopoverTitle>
+          <PopoverDescription>
+            Focus moves into the first field, and the close action stays available inside the popup.
+          </PopoverDescription>
+        </PopoverHeader>
+        <PopoverBody>
+          <label className={styles.field}>
+            <span>Email</span>
+            <input ref={inputRef} className={styles.input} placeholder="name@example.com" />
+          </label>
+        </PopoverBody>
+        <PopoverFooter>
+          <PopoverClose>Done</PopoverClose>
+        </PopoverFooter>
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -314,15 +370,15 @@ export function ImageOnlyPopoverExample() {
   );
 }
 
-export function PopoverWithoutArrowExample() {
+export function PopoverWithArrowExample() {
   return (
     <Popover>
-      <PopoverTrigger render={<Button />}>Open without arrow</PopoverTrigger>
-      <PopoverContent withArrow={false}>
+      <PopoverTrigger render={<Button />}>Open with arrow</PopoverTrigger>
+      <PopoverContent showArrow>
         <PopoverHeader>
-          <PopoverTitle>No arrow</PopoverTitle>
+          <PopoverTitle>With arrow</PopoverTitle>
           <PopoverDescription>
-            Set arrow to false when the popup should look like a floating panel.
+            Enable showArrow when the popup should visually point to its trigger.
           </PopoverDescription>
         </PopoverHeader>
       </PopoverContent>
@@ -330,35 +386,31 @@ export function PopoverWithoutArrowExample() {
   );
 }
 
-export function CustomStylesPopoverExample() {
+export function CustomCompositionPopoverExample() {
   return (
     <Popover>
       <PopoverTrigger className={styles.customTrigger} render={<Button />}>
-        Open custom styles
+        Open custom composition
       </PopoverTrigger>
-      <PopoverContent
-        withBackdrop
-        withViewport
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          positioner: styles.customPositioner,
-          viewport: styles.customViewport,
-          arrow: styles.customArrowSlot,
-        }}
-        arrow={<CheckSmallIcon className={styles.customArrowIcon} />}
-      >
-        <PopoverHeader>
-          <PopoverTitle>Custom styles</PopoverTitle>
-          <PopoverDescription>
-            Popup, portal, backdrop, positioner, viewport, and arrow slots are styled through
-            className and classNames.
-          </PopoverDescription>
-        </PopoverHeader>
-      </PopoverContent>
+      <PopoverPortal>
+        <PopoverBackdrop className={styles.customBackdrop} />
+        <PopoverPositioner sideOffset={8} className={styles.customPositioner}>
+          <PopoverPopup className={styles.customPopup}>
+            <PopoverArrow className={styles.customArrowSlot}>
+              <CheckIcon className={styles.customArrowIcon} />
+            </PopoverArrow>
+            <PopoverViewport className={styles.customViewport}>
+              <PopoverHeader>
+                <PopoverTitle>Custom composition</PopoverTitle>
+                <PopoverDescription>
+                  Portal, backdrop, popup, arrow, and viewport stay available as explicit building
+                  blocks.
+                </PopoverDescription>
+              </PopoverHeader>
+            </PopoverViewport>
+          </PopoverPopup>
+        </PopoverPositioner>
+      </PopoverPortal>
     </Popover>
   );
 }
-
-type PopoverSide = Exclude<PopoverContentProps['side'], undefined>;

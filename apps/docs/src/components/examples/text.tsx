@@ -1,5 +1,5 @@
-import type { ComponentPropsWithoutRef } from 'react';
-import { Text, type TextProps } from 'moduix';
+import type { ComponentProps, ComponentPropsWithoutRef } from 'react';
+import { Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './text.module.css';
@@ -60,16 +60,18 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TextExample(props: TextProps) {
+export function TextExample(props: ComponentProps<typeof Text>) {
   return <Text {...props}>Use text to describe interface state and supporting details.</Text>;
 }
 
 export function TextElementsExample() {
   return (
     <div className={styles.stack}>
-      <Text as="p">Paragraph text rendered as p.</Text>
+      <Text>Paragraph text rendered as p.</Text>
       <Text as="span">Inline text rendered as span.</Text>
-      <Text as="small">Small supporting text rendered as small.</Text>
+      <Text as="small" tone="muted">
+        Small supporting text rendered as small.
+      </Text>
       <Text as="strong">Important text rendered as strong.</Text>
       <Text as="em">Emphasized text rendered as em.</Text>
       <Text as="div">Block text rendered as div.</Text>
@@ -85,7 +87,7 @@ function InlineLink(props: InlineLinkProps) {
 
 export function TextCustomElementExample() {
   return (
-    <Text as={InlineLink} href="/docs" tone="primary" weight="medium">
+    <Text render={<InlineLink href="/docs" />} tone="primary" weight="medium">
       Read the documentation
     </Text>
   );
@@ -137,9 +139,5 @@ export function TextAlignExample() {
 }
 
 export function TextClassNameExample() {
-  return (
-    <Text as="p" className={styles.customText}>
-      Customized body copy with local CSS variables.
-    </Text>
-  );
+  return <Text className={styles.customText}>Customized body copy with local CSS variables.</Text>;
 }

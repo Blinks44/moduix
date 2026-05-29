@@ -99,6 +99,36 @@
     height: var(--combobox-icon-svg-size, 1rem);
   }
 
+  .fieldTrigger {
+    display: inline-flex;
+    width: var(--combobox-width, 16rem);
+    min-height: var(--combobox-control-height, var(--size-lg));
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0 0.875rem;
+    border: var(--combobox-border-width, var(--border-width-sm)) solid
+      var(--combobox-border-color, var(--color-border));
+    border-radius: var(--combobox-radius, var(--radius-md));
+    background-color: var(--combobox-bg, var(--color-background));
+    color: var(--combobox-color, var(--color-foreground));
+    outline: var(--combobox-border-width, var(--border-width-sm)) solid transparent;
+    outline-offset: calc(var(--combobox-border-width, var(--border-width-sm)) * -1);
+    transition:
+      background-color var(--transition-default),
+      border-color var(--transition-default),
+      outline-color var(--transition-default);
+
+    &[data-popup-open] {
+      background-color: var(--color-muted);
+    }
+
+    &:focus-visible {
+      border-color: var(--combobox-focus-ring-color, var(--color-ring));
+      outline-color: var(--combobox-focus-ring-color, var(--color-ring));
+    }
+  }
+
   .backdrop {
     position: fixed;
     z-index: var(--z-backdrop);
@@ -200,14 +230,15 @@
     &:not(:empty) {
       display: flex;
       align-items: center;
-      gap: var(--combobox-status-gap, var(--spacing-2));
-      padding: var(--combobox-status-padding-y, var(--combobox-empty-padding-y, 0.75rem))
-        var(--combobox-status-padding-x, var(--combobox-empty-padding-x, 1rem));
-      font-size: var(--combobox-status-font-size, var(--combobox-empty-font-size, var(--text-sm)));
-      line-height: var(
-        --combobox-status-line-height,
-        var(--combobox-empty-line-height, var(--line-height-text-sm))
-      );
+      gap: var(--combobox-status-gap, var(--spacing-1));
+      padding: var(--combobox-status-padding-y, 0.5rem) var(--combobox-status-padding-x, 0.75rem);
+      border-bottom: var(--combobox-status-divider-width, var(--border-width-sm)) solid
+        var(
+          --combobox-status-divider-color,
+          var(--combobox-popup-border-color, var(--color-border))
+        );
+      font-size: var(--combobox-status-font-size, var(--text-xs));
+      line-height: var(--combobox-status-line-height, var(--line-height-text-xs));
       color: var(
         --combobox-status-color,
         var(--combobox-empty-color, var(--color-muted-foreground))
@@ -256,7 +287,7 @@
     display: grid;
     grid-template-columns:
       var(--combobox-item-indicator-size, var(--popup-check-indicator-size, 0.75rem))
-      1fr;
+      minmax(0, 1fr);
     align-items: center;
     gap: var(--combobox-item-gap, var(--spacing-2));
     min-height: var(--combobox-item-min-height, var(--popup-item-min-height, 2rem));
@@ -325,6 +356,7 @@
   }
 
   .itemIndicator {
+    grid-column-start: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -475,45 +507,6 @@
     grid-column-start: 2;
     min-width: 0;
     overflow: hidden;
-  }
-
-  .itemTextContent {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--combobox-item-text-content-gap, var(--spacing-2));
-    max-width: 100%;
-    min-width: 0;
-    vertical-align: top;
-  }
-
-  .itemTextIcon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: var(--combobox-item-text-icon-size, 1rem);
-    height: var(--combobox-item-text-icon-size, 1rem);
-    color: var(--combobox-item-text-icon-color, currentColor);
-  }
-
-  .itemTextLabel {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .inlineInputContainer {
-    box-sizing: border-box;
-    padding: var(--combobox-inline-input-container-padding-top, var(--spacing-2))
-      var(--combobox-inline-input-container-padding-x, var(--spacing-2))
-      var(--combobox-inline-input-container-padding-bottom, var(--spacing-2));
-    border-bottom-width: var(--combobox-inline-input-divider-width, var(--border-width-sm));
-    border-bottom-style: var(--combobox-inline-input-divider-style, solid);
-    border-bottom-color: var(
-      --combobox-inline-input-divider-color,
-      var(--combobox-border-color, var(--color-border))
-    );
   }
 
   .chipText {

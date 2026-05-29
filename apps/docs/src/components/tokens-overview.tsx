@@ -2,28 +2,33 @@ import type { ReactNode } from 'react';
 import styles from './tokens-overview.module.css';
 
 const colorTokens = [
-  ['--background', 'Canvas', 'oklch(1 0 0)', 'oklch(0.145 0 0)'],
-  ['--foreground', 'Text', 'oklch(0.145 0 0)', 'oklch(0.985 0 0)'],
-  ['--card', 'Raised surface', 'oklch(1 0 0)', 'oklch(0.205 0 0)'],
-  ['--popover', 'Layer surface', 'oklch(1 0 0)', 'oklch(0.205 0 0)'],
-  ['--primary', 'Primary action', 'oklch(0.205 0 0)', 'oklch(0.922 0 0)'],
-  ['--secondary', 'Secondary fill', 'oklch(0.97 0 0)', 'oklch(0.269 0 0)'],
-  ['--muted', 'Subtle fill', 'oklch(0.97 0 0)', 'oklch(0.269 0 0)'],
-  ['--accent', 'Hover fill', 'oklch(0.97 0 0)', 'oklch(0.269 0 0)'],
+  ['--background', 'Canvas', 'oklch(0.985 0.002 260)', 'oklch(0.164 0.006 260)'],
+  ['--foreground', 'Text', 'oklch(0.188 0.008 260)', 'oklch(0.972 0.002 255)'],
+  ['--card', 'Raised surface', 'oklch(0.998 0.001 260)', 'oklch(0.214 0.009 260)'],
+  ['--popover', 'Layer surface', 'oklch(0.998 0.001 260)', 'oklch(0.214 0.009 260)'],
+  ['--primary', 'Primary action', 'oklch(0.252 0.014 262)', 'oklch(0.924 0.005 255)'],
+  ['--secondary', 'Secondary fill', 'oklch(0.965 0.004 255)', 'oklch(0.268 0.009 260)'],
+  ['--muted', 'Subtle fill', 'oklch(0.959 0.004 255)', 'oklch(0.268 0.009 260)'],
+  ['--accent', 'Hover fill', 'oklch(0.955 0.008 250)', 'oklch(0.304 0.013 255)'],
   ['--destructive', 'Danger', 'oklch(0.577 0.245 27.325)', 'oklch(0.704 0.191 22.216)'],
-  ['--border', 'Borders', 'oklch(0.922 0 0)', 'oklch(1 0 0 / 10%)'],
-  ['--input', 'Input border', 'oklch(0.922 0 0)', 'oklch(1 0 0 / 15%)'],
-  ['--ring', 'Focus ring', 'oklch(0.708 0 0)', 'oklch(0.556 0 0)'],
-  ['--overlay', 'Backdrop base', 'oklch(0.205 0 0 / 0.14)', 'oklch(0.205 0 0 / 0.14)'],
-  ['--overlay-foreground', 'Soft overlay', 'oklch(0.205 0 0 / 0.04)', 'oklch(0.205 0 0 / 0.04)'],
+  ['--border', 'Borders', 'oklch(0.91 0.006 255)', 'oklch(1 0.002 255 / 12%)'],
+  ['--input', 'Input border', 'oklch(0.91 0.006 255)', 'oklch(1 0.002 255 / 16%)'],
+  ['--ring', 'Focus ring', 'oklch(0.643 0.028 257)', 'oklch(0.604 0.03 257)'],
+  ['--overlay', 'Backdrop base', 'oklch(0.188 0.012 260 / 0.18)', 'oklch(0.112 0.01 260 / 0.72)'],
+  [
+    '--overlay-foreground',
+    'Soft overlay',
+    'oklch(0.188 0.012 260 / 0.06)',
+    'oklch(0.972 0.002 255 / 0.08)',
+  ],
 ];
 
 const chartTokens = [
-  ['--chart-1', 'oklch(0.646 0.222 41.116)', 'oklch(0.488 0.243 264.376)'],
-  ['--chart-2', 'oklch(0.6 0.118 184.704)', 'oklch(0.696 0.17 162.48)'],
-  ['--chart-3', 'oklch(0.398 0.07 227.392)', 'oklch(0.769 0.188 70.08)'],
-  ['--chart-4', 'oklch(0.828 0.189 84.429)', 'oklch(0.627 0.265 303.9)'],
-  ['--chart-5', 'oklch(0.769 0.188 70.08)', 'oklch(0.645 0.246 16.439)'],
+  ['--chart-1', 'oklch(0.63 0.154 259)', 'oklch(0.69 0.147 259)'],
+  ['--chart-2', 'oklch(0.685 0.117 196)', 'oklch(0.748 0.116 196)'],
+  ['--chart-3', 'oklch(0.745 0.167 78)', 'oklch(0.792 0.161 78)'],
+  ['--chart-4', 'oklch(0.662 0.179 24)', 'oklch(0.717 0.173 24)'],
+  ['--chart-5', 'oklch(0.71 0.132 149)', 'oklch(0.769 0.128 149)'],
 ];
 
 const spacingTokens = [

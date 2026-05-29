@@ -1,45 +1,10 @@
+import type { ComponentProps } from 'react';
 import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
-import * as React from 'react';
-import { PopupArrowIcon } from '@/primitives';
+import { PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Tooltip.module.css';
 
-type TooltipContentClassNames = {
-  portal?: TooltipPrimitive.Portal.Props['className'];
-  positioner?: TooltipPrimitive.Positioner.Props['className'];
-  arrow?: TooltipPrimitive.Arrow.Props['className'];
-  viewport?: TooltipPrimitive.Viewport.Props['className'];
-};
-
-type TooltipContentSlotProps = {
-  portal?: Omit<TooltipPrimitive.Portal.Props, 'className' | 'children'>;
-  positioner?: Omit<TooltipPrimitive.Positioner.Props, 'className' | 'children'>;
-  arrow?: Omit<TooltipPrimitive.Arrow.Props, 'className' | 'children'>;
-  viewport?: Omit<TooltipPrimitive.Viewport.Props, 'className' | 'children'>;
-};
-
-type TooltipContentProps = TooltipPrimitive.Popup.Props &
-  Pick<
-    TooltipPrimitive.Positioner.Props,
-    | 'disableAnchorTracking'
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'anchor'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'sticky'
-    | 'positionMethod'
-  > & {
-    classNames?: TooltipContentClassNames;
-    slotProps?: TooltipContentSlotProps;
-    container?: TooltipPrimitive.Portal.Props['container'];
-    withArrow?: boolean;
-    arrow?: boolean | React.ReactNode;
-  };
+const DEFAULT_SIDE_OFFSET = 8;
 
 const Tooltip = TooltipPrimitive.Root;
 const TooltipProvider = TooltipPrimitive.Provider;
@@ -63,13 +28,7 @@ function TooltipTrigger<Payload = unknown>({
 }
 
 function TooltipPortal({ className, ...props }: TooltipPrimitive.Portal.Props) {
-  return (
-    <TooltipPrimitive.Portal
-      data-slot="tooltip-portal"
-      className={mergeClassName(className, styles.portal)}
-      {...props}
-    />
-  );
+  return <TooltipPrimitive.Portal data-slot="tooltip-portal" className={className} {...props} />;
 }
 
 function TooltipPositioner({ className, ...props }: TooltipPrimitive.Positioner.Props) {
@@ -116,82 +75,53 @@ function TooltipViewport({ className, ...props }: TooltipPrimitive.Viewport.Prop
 
 function TooltipContent({
   className,
-  classNames,
-  slotProps,
-  container,
-  withArrow,
-  arrow,
-  disableAnchorTracking,
+  showArrow = false,
+  sideOffset = DEFAULT_SIDE_OFFSET,
   side,
-  sideOffset,
   align,
   alignOffset,
   arrowPadding,
-  anchor,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
-  sticky,
-  positionMethod,
-  ...props
-}: TooltipContentProps) {
-  const positionerSlotProps = slotProps?.positioner;
-  const resolvedDisableAnchorTracking =
-    disableAnchorTracking ?? positionerSlotProps?.disableAnchorTracking;
-  const resolvedSide = side ?? positionerSlotProps?.side;
-  const resolvedSideOffset = sideOffset ?? positionerSlotProps?.sideOffset ?? 8;
-  const resolvedAlign = align ?? positionerSlotProps?.align;
-  const resolvedAlignOffset = alignOffset ?? positionerSlotProps?.alignOffset;
-  const resolvedArrowPadding = arrowPadding ?? positionerSlotProps?.arrowPadding;
-  const resolvedAnchor = anchor ?? positionerSlotProps?.anchor;
-  const resolvedCollisionAvoidance = collisionAvoidance ?? positionerSlotProps?.collisionAvoidance;
-  const resolvedCollisionBoundary = collisionBoundary ?? positionerSlotProps?.collisionBoundary;
-  const resolvedCollisionPadding = collisionPadding ?? positionerSlotProps?.collisionPadding;
-  const resolvedSticky = sticky ?? positionerSlotProps?.sticky;
-  const resolvedPositionMethod = positionMethod ?? positionerSlotProps?.positionMethod;
-  const { container: portalSlotContainer, ...restPortalSlotProps } = slotProps?.portal ?? {};
-  const portalContainer = container ?? portalSlotContainer;
-  const showArrow = withArrow ?? (typeof arrow === 'boolean' ? arrow : true);
-  const arrowContent = typeof arrow === 'boolean' ? undefined : arrow;
-
+  children,
+  ...popupProps
+}: TooltipPrimitive.Popup.Props &
+  Pick<
+    TooltipPrimitive.Positioner.Props,
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+  > & {
+    showArrow?: boolean;
+  }) {
   return (
-    <TooltipPortal
-      className={classNames?.portal}
-      container={portalContainer}
-      {...restPortalSlotProps}
-    >
+    <TooltipPortal>
       <TooltipPositioner
-        {...positionerSlotProps}
-        disableAnchorTracking={resolvedDisableAnchorTracking}
-        side={resolvedSide}
-        sideOffset={resolvedSideOffset}
-        align={resolvedAlign}
-        alignOffset={resolvedAlignOffset}
-        arrowPadding={resolvedArrowPadding}
-        anchor={resolvedAnchor}
-        collisionAvoidance={resolvedCollisionAvoidance}
-        collisionBoundary={resolvedCollisionBoundary}
-        collisionPadding={resolvedCollisionPadding}
-        sticky={resolvedSticky}
-        positionMethod={resolvedPositionMethod}
-        className={classNames?.positioner}
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
       >
-        <TooltipPopup className={className} {...props}>
-          {showArrow ? (
-            <TooltipArrow className={classNames?.arrow} {...slotProps?.arrow}>
-              {arrowContent ?? <ArrowSvg className={styles.arrowSvg} />}
-            </TooltipArrow>
-          ) : null}
-          <TooltipViewport className={classNames?.viewport} {...slotProps?.viewport}>
-            {props.children}
-          </TooltipViewport>
+        <TooltipPopup className={className} {...popupProps}>
+          {showArrow ? <TooltipArrow /> : null}
+          <TooltipViewport>{children}</TooltipViewport>
         </TooltipPopup>
       </TooltipPositioner>
     </TooltipPortal>
   );
 }
 
-function ArrowSvg(props: React.ComponentProps<'svg'>) {
+function ArrowSvg(props: ComponentProps<'svg'>) {
   return (
     <PopupArrowIcon
       fillClassName={styles.arrowFill}
@@ -202,19 +132,15 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   );
 }
 
-type TooltipProps<Payload = unknown> = TooltipPrimitive.Root.Props<Payload>;
-type TooltipProviderProps = TooltipPrimitive.Provider.Props;
-type TooltipHandle<Payload = unknown> = TooltipPrimitive.Handle<Payload>;
-type TooltipTriggerProps<Payload = unknown> = TooltipPrimitive.Trigger.Props<Payload>;
-
-export { Tooltip, TooltipProvider, createTooltipHandle, TooltipTrigger, TooltipContent };
-
-export type {
-  TooltipProps,
-  TooltipProviderProps,
-  TooltipHandle,
-  TooltipTriggerProps,
-  TooltipContentClassNames,
-  TooltipContentSlotProps,
-  TooltipContentProps,
+export {
+  Tooltip,
+  TooltipProvider,
+  createTooltipHandle,
+  TooltipTrigger,
+  TooltipPortal,
+  TooltipPositioner,
+  TooltipPopup,
+  TooltipArrow,
+  TooltipViewport,
+  TooltipContent,
 };

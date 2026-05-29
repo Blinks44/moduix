@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { Slider, SliderLabel, SliderThumb, SliderValue } from './Slider';
+import { useState } from 'react';
+import {
+  Slider,
+  SliderControl,
+  SliderIndicator,
+  SliderLabel,
+  SliderRoot,
+  SliderThumb,
+  SliderTrack,
+  SliderValue,
+} from './Slider';
 import styles from './Slider.stories.module.css';
 
 const meta = {
@@ -30,7 +39,7 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = React.useState(24);
+    const [value, setValue] = useState(24);
 
     return (
       <Slider value={value} onValueChange={setValue}>
@@ -44,7 +53,7 @@ export const Controlled: Story = {
 
 export const Range: Story = {
   render: () => {
-    const [value, setValue] = React.useState<readonly number[]>([20, 70]);
+    const [value, setValue] = useState([20, 70] as readonly number[]);
 
     return (
       <Slider value={value} min={0} max={100} onValueChange={setValue}>
@@ -52,6 +61,35 @@ export const Range: Story = {
         <SliderValue>{([minValue, maxValue]) => `${minValue} - ${maxValue}`}</SliderValue>
         <SliderThumb index={0} aria-label="Minimum price" />
         <SliderThumb index={1} aria-label="Maximum price" />
+      </Slider>
+    );
+  },
+};
+
+export const StepsAndConstraints: Story = {
+  render: () => {
+    const [value, setValue] = useState([250, 750] as readonly number[]);
+
+    return (
+      <Slider
+        value={value}
+        min={0}
+        max={1000}
+        step={50}
+        largeStep={200}
+        minStepsBetweenValues={2}
+        thumbCollisionBehavior="none"
+        format={{
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0,
+        }}
+        onValueChange={setValue}
+      >
+        <SliderLabel>Budget</SliderLabel>
+        <SliderValue>{([minValue, maxValue]) => `${minValue} - ${maxValue}`}</SliderValue>
+        <SliderThumb index={0} aria-label="Minimum budget" />
+        <SliderThumb index={1} aria-label="Maximum budget" />
       </Slider>
     );
   },
@@ -73,18 +111,6 @@ export const Vertical: Story = {
   },
 };
 
-export const EdgeThumbAlignment: Story = {
-  render: () => {
-    return (
-      <Slider defaultValue={0} thumbAlignment="edge">
-        <SliderLabel>Zoom</SliderLabel>
-        <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-        <SliderThumb aria-label="Zoom" />
-      </Slider>
-    );
-  },
-};
-
 export const Disabled: Story = {
   render: () => {
     return (
@@ -97,21 +123,19 @@ export const Disabled: Story = {
   },
 };
 
-export const CustomClasses: Story = {
+export const CustomComposition: Story = {
   render: () => {
     return (
-      <Slider
-        defaultValue={56}
-        classNames={{
-          control: styles.customControl,
-          track: styles.customTrack,
-          indicator: styles.customIndicator,
-        }}
-      >
+      <SliderRoot defaultValue={56}>
         <SliderLabel>Temperature</SliderLabel>
         <SliderValue>{([formattedValue]) => `${formattedValue}%`}</SliderValue>
-        <SliderThumb aria-label="Temperature" className={styles.customThumb} />
-      </Slider>
+        <SliderControl className={styles.customControl}>
+          <SliderTrack className={styles.customTrack}>
+            <SliderIndicator className={styles.customIndicator} />
+            <SliderThumb aria-label="Temperature" className={styles.customThumb} />
+          </SliderTrack>
+        </SliderControl>
+      </SliderRoot>
     );
   },
 };

@@ -7,13 +7,14 @@ icon: Component
 import {
   ControlledInputExample,
   CustomStylesInputExample,
-  DisabledInputExample,
-  InputExample,
+  DisabledAndReadOnlyInputExample,
   InputCssPlaygroundPanel,
   InputCssPropertiesPanel,
+  InputExample,
   InputFieldValidationExample,
   InputNativeAttributesExample,
   InputSizesExample,
+  StandaloneInputExample,
   inputPlaygroundCssProperties,
 } from '@/components/examples/input';
 
@@ -28,12 +29,13 @@ import {
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Input } from "moduix";
+      import { Field, FieldDescription, FieldLabel, Input } from "moduix";
 
       export function InputDemo() {
         return (
           <Field className={styles.field}>
             <FieldLabel>Name</FieldLabel>
+            <FieldDescription>Used in your public workspace profile.</FieldDescription>
             <Input placeholder="Enter your name" />
           </Field>
         );
@@ -54,10 +56,10 @@ import {
   <Preview.CSSPlayground>{(context) => <InputCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+`Input` is a thin styled wrapper over the Base UI primitive. The recommended path is to compose it
+inside `Field` so labels, descriptions, and validation stay declarative.
 
-`Input` is composed as a single native input root. It is commonly composed inside `Field` for labels,
-descriptions, and validation messaging.
+## Anatomy
 
 ```text
 Field (optional wrapper)
@@ -70,29 +72,33 @@ Field (optional wrapper)
 
 ## Composition
 
-Use `Input` props such as `value`, `defaultValue`, `onValueChange`, `render`, function `className`,
-function `style`, and Field state data attributes from Base UI.
+`Input` keeps the primitive contract intact. Pass Base UI props such as `value`, `defaultValue`,
+`onValueChange`, `render`, function `className`, and function `style` directly to the component.
 
-Use `size` for the visual component size. Use `htmlSize` for the native HTML `size` attribute:
+Use `size` for the visual size and `htmlSize` only when you need the native HTML `size` attribute
+without giving up the design-system size prop.
 
 ```tsx
 <Input size="lg" htmlSize={24} placeholder="Search projects" />
 ```
 
-`Input` does not render hidden service slots such as `Positioner`, `Backdrop`, or `Viewport`, so it
-does not need a `classNames` API. Style the input element directly with `className`.
+### Defaults
 
-The package exports Base UI event and state types for controlled inputs and styling callbacks:
+| Prop        | Default | Values                                 |
+| ----------- | ------- | -------------------------------------- |
+| `size`      | `md`    | `xs`, `sm`, `md`, `lg`, `xl`           |
+| `htmlSize`  | -       | Any valid native `input` `size` number |
+| `className` | -       | `string` or Base UI state callback     |
 
-```tsx
-import { type InputChangeEventDetails, type InputChangeEventReason, type InputState } from 'moduix';
-```
+`Input` is a single styled root, so there are no slot props, class name maps, or internal layout
+parts to learn. Style the element directly with `className` or the public `--input-*` CSS
+variables.
 
 ## Examples
 
 ### Controlled
 
-Use `value` and `onValueChange` when the input value needs to stay in React state.
+Use `value` and `onValueChange` when the input value should stay in React state.
 
 <Preview>
   <ControlledInputExample />
@@ -132,7 +138,7 @@ Use `value` and `onValueChange` when the input value needs to stay in React stat
 
 ### Sizes
 
-Use the `size` prop for visual sizing. Use `htmlSize` when you need the native input `size` attribute.
+Use `size` to change the visual height, padding, and typography.
 
 <Preview>
   <InputSizesExample />
@@ -170,7 +176,8 @@ Use the `size` prop for visual sizing. Use `htmlSize` when you need the native i
 
 ### Native Attributes
 
-Use standard input attributes for keyboard, autocomplete, validation, and form behavior. The `htmlSize` prop maps to the native `size` attribute because `size` controls the visual component size.
+Use native input attributes for keyboard, autocomplete, validation, and form behavior. Reach for
+`htmlSize` only when the native `size` attribute matters.
 
 <Preview>
   <InputNativeAttributesExample />
@@ -209,12 +216,13 @@ Use standard input attributes for keyboard, autocomplete, validation, and form b
   </Preview.CSS>
 </Preview>
 
-### Disabled
+### Disabled and Readonly
 
-Set `disabled` to prevent interaction while keeping the input visible in forms.
+Use `disabled` when the field must not participate in interaction or form submission. Use
+`readOnly` when the value should stay selectable and focusable.
 
 <Preview>
-  <DisabledInputExample />
+  <DisabledAndReadOnlyInputExample />
 
   <Preview.Code>
     {`
@@ -224,7 +232,7 @@ Set `disabled` to prevent interaction while keeping the input visible in forms.
         return (
           <div className={styles.stack}>
             <Input disabled placeholder="Disabled input" />
-            <Input disabled value="Read only value" />
+            <Input readOnly value="Assigned workspace" />
           </div>
         );
       }
@@ -246,14 +254,14 @@ Set `disabled` to prevent interaction while keeping the input visible in forms.
 
 ### Field Validation
 
-Place `Input` inside `Field` to connect labels, errors, native validity, and Base UI data attributes.
+Use `Field` when the input needs labels, errors, native validity, and Base UI validation state.
 
 <Preview>
   <InputFieldValidationExample />
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, Input, FieldError } from "moduix";
+      import { Field, FieldError, FieldLabel, Input } from "moduix";
 
       export function InputFieldValidationDemo() {
         return (
@@ -279,9 +287,44 @@ Place `Input` inside `Field` to connect labels, errors, native validity, and Bas
   </Preview.CSS>
 </Preview>
 
+## Custom Composition
+
+You can render `Input` outside `Field` when another form abstraction already provides labeling. In
+that case, keep the accessible name explicit with `aria-label`, `aria-labelledby`, or a native
+`label`.
+
+<Preview>
+  <StandaloneInputExample />
+
+  <Preview.Code>
+    {`
+      import { Input } from "moduix";
+
+      export function StandaloneInputDemo() {
+        return (
+          <div className={styles.field}>
+            <Input aria-label="Search projects" placeholder="Search projects" />
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
 ### Custom Styles
 
-Pass `className` directly to `Input` when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `className` directly to `Input` when one field needs local styling on top of the shared
+surface.
 
 <Preview>
   <CustomStylesInputExample />
@@ -320,7 +363,7 @@ Pass `className` directly to `Input` when styling with CSS Modules, Tailwind CSS
         text-transform: none;
       }
 
-      .customInput:focus {
+      .customInput:focus-visible {
         outline-color: var(--color-primary);
       }
     `}

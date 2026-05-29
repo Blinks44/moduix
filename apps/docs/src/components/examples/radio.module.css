@@ -36,7 +36,7 @@
   gap: var(--spacing-3);
 }
 
-.customItem {
+.customField {
   gap: var(--spacing-3);
 }
 
@@ -46,10 +46,6 @@
 
 .customRadio[data-checked] {
   background-color: var(--color-primary);
-}
-
-.customIndicator {
-  color: var(--color-primary-foreground);
 }
 
 .customIndicatorIcon {

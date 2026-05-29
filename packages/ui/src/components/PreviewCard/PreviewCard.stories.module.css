@@ -76,9 +76,7 @@
   }
 
   .sidePopup {
-    display: grid;
-    max-width: 17rem;
-    gap: var(--spacing-2);
+    --preview-card-max-width: 17rem;
   }
 
   .customArrowPopup {
@@ -111,5 +109,9 @@
 
   .viewport {
     padding: var(--spacing-1);
+  }
+
+  .composedPopup {
+    --preview-card-max-width: 17rem;
   }
 }

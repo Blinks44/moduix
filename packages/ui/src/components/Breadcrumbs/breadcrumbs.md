@@ -5,8 +5,11 @@ Base UI does not provide a dedicated breadcrumbs primitive.
 Recommended composition:
 
 - semantic `nav` + `ol`/`li` structure for breadcrumb landmarks;
-- regular links for path items;
-- `@base-ui/react/menu` for collapsed intermediate items (ellipsis trigger + popup list);
-- compact typography and popup sizing to keep breadcrumbs visually minimal.
+- regular links for navigable path items;
+- current-page text with `aria-current="page"`;
+- optional composition with `@base-ui/react/menu` when a collapsed middle segment is needed.
+- `render={<Link />}` on `BreadcrumbsLink` when your app standardizes on a router link component.
 
-This component follows that composition and keeps full support for custom links via `render`.
+This component intentionally stays close to raw semantics and exposes only small styled parts:
+`Breadcrumbs`, `BreadcrumbsList`, `BreadcrumbsItem`, `BreadcrumbsLink`, `BreadcrumbsPage`,
+`BreadcrumbsSeparator`, and `BreadcrumbsEllipsis`.

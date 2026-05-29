@@ -20,7 +20,7 @@
       text-transform: none;
     }
 
-    &:focus {
+    &:focus-visible {
       outline-color: var(--color-primary);
     }
   }

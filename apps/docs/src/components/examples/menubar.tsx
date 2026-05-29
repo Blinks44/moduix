@@ -1,8 +1,9 @@
 import {
-  ChevronDownIcon,
   InfoIcon,
   MapIcon,
   Menubar,
+  MenubarArrow,
+  MenubarBackdrop,
   MenubarCheckboxItem,
   MenubarCheckboxItemIndicator,
   MenubarContent,
@@ -25,6 +26,10 @@ import {
   MenubarSubmenuTrigger,
   MenubarSubmenuTriggerIcon,
   MenubarTrigger,
+  MenubarPortal,
+  MenubarPopup,
+  MenubarPositioner,
+  MenubarViewport,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -411,32 +416,6 @@ export function IndicatorRightMenubarExample() {
   );
 }
 
-export function NestedMenubarExample() {
-  return (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger>File</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem closeOnClick>New File</MenubarItem>
-          <MenubarSubmenu>
-            <MenubarSubmenuTrigger>
-              Export
-              <MenubarSubmenuTriggerIcon />
-            </MenubarSubmenuTrigger>
-            <MenubarSubmenuContent>
-              <MenubarItem closeOnClick>PDF</MenubarItem>
-              <MenubarItem closeOnClick>PNG</MenubarItem>
-              <MenubarItem closeOnClick>SVG</MenubarItem>
-            </MenubarSubmenuContent>
-          </MenubarSubmenu>
-          <MenubarSeparator />
-          <MenubarItem closeOnClick>Print</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
-  );
-}
-
 export function VerticalMenubarExample() {
   return (
     <Menubar orientation="vertical">
@@ -477,63 +456,30 @@ export function LinkItemsMenubarExample() {
   );
 }
 
-export function CustomStylesMenubarExample() {
+export function CustomCompositionMenubarExample() {
   return (
     <Menubar className={styles.customRoot}>
       <MenubarMenu>
         <MenubarTrigger className={styles.customTrigger}>Window</MenubarTrigger>
-        <MenubarContent
-          className={styles.customPopup}
-          classNames={{
-            portal: styles.customPortal,
-            backdrop: styles.customBackdrop,
-            positioner: styles.customPositioner,
-            arrow: styles.customArrow,
-            viewport: styles.customViewport,
-          }}
-          sideOffset={10}
-          align="start"
-          alignOffset={-4}
-          withArrow
-          withBackdrop
-        >
-          <MenubarItem closeOnClick>Minimize</MenubarItem>
-          <MenubarItem closeOnClick>Zoom</MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
-  );
-}
-
-export function IconsMenubarExample() {
-  return (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger>Places</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem closeOnClick>
-            <MenubarItemTextContent>
-              <MenubarItemTextIcon>
-                <MapIcon />
-              </MenubarItemTextIcon>
-              <MenubarItemTextLabel>Open map</MenubarItemTextLabel>
-            </MenubarItemTextContent>
-          </MenubarItem>
-          <MenubarSubmenu>
-            <MenubarSubmenuTrigger>
-              More
-              <MenubarSubmenuTriggerIcon>
-                <ChevronDownIcon />
-              </MenubarSubmenuTriggerIcon>
-            </MenubarSubmenuTrigger>
-            <MenubarSubmenuContent>
-              <MenubarItem closeOnClick>Nearby</MenubarItem>
-              <MenubarItem closeOnClick>Routes</MenubarItem>
-            </MenubarSubmenuContent>
-          </MenubarSubmenu>
-        </MenubarContent>
+        <MenubarPortal className={styles.customPortal}>
+          <MenubarBackdrop className={styles.customBackdrop} />
+          <MenubarPositioner
+            className={styles.customPositioner}
+            sideOffset={10}
+            align="start"
+            alignOffset={-4}
+          >
+            <MenubarPopup className={styles.customPopup}>
+              <MenubarArrow className={styles.customArrow} />
+              <MenubarViewport className={styles.customViewport}>
+                <MenubarItem closeOnClick>Minimize</MenubarItem>
+                <MenubarItem closeOnClick>Zoom</MenubarItem>
+                <MenubarSeparator />
+                <MenubarItem closeOnClick>Bring All to Front</MenubarItem>
+              </MenubarViewport>
+            </MenubarPopup>
+          </MenubarPositioner>
+        </MenubarPortal>
       </MenubarMenu>
     </Menubar>
   );

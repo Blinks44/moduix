@@ -1,12 +1,6 @@
-.root {
-  --scroll-area-width: 24rem;
-  --scroll-area-height: 13rem;
-  max-width: calc(100vw - 2rem);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-
-.sizedRoot {
+.root,
+.sizedRoot,
+.customRoot {
   --scroll-area-width: 24rem;
   --scroll-area-height: 13rem;
   max-width: calc(100vw - 2rem);
@@ -17,20 +11,8 @@
 .textContent {
   display: grid;
   gap: var(--spacing-3);
-}
-
-.paddedTextContent {
-  display: grid;
-  gap: var(--spacing-3);
   padding: var(--spacing-3);
   padding-right: var(--spacing-6);
-}
-
-.compactTextContent {
-  display: grid;
-  gap: var(--spacing-2);
-  padding: var(--spacing-3);
-  padding-right: var(--spacing-5);
 }
 
 .paragraph {
@@ -44,6 +26,7 @@
   display: grid;
   grid-template-columns: repeat(12, 5rem);
   grid-template-rows: repeat(8, 5rem);
+  width: max-content;
   gap: var(--spacing-2);
   padding: var(--spacing-3);
 }
@@ -58,33 +41,12 @@
   font-weight: var(--weight-medium);
 }
 
-.controls {
-  display: grid;
-  gap: var(--spacing-3);
-}
-
-.button {
-  width: fit-content;
-  min-height: var(--size-sm);
-  padding-inline: var(--spacing-3);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-background);
-  color: var(--color-foreground);
-  cursor: pointer;
-}
-
 .customRoot {
-  --scroll-area-width: 24rem;
-  --scroll-area-height: 13rem;
   --scroll-area-scrollbar-size: 0.625rem;
   --scroll-area-scrollbar-margin: var(--spacing-1);
   --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
   --scroll-area-thumb-bg: var(--color-primary);
   --scroll-area-corner-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
-  max-width: calc(100vw - 2rem);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
 }
 
 .customViewport {
@@ -101,6 +63,7 @@
   display: grid;
   grid-template-columns: repeat(10, 5rem);
   grid-template-rows: repeat(8, 4rem);
+  width: max-content;
   gap: var(--spacing-2);
   padding: var(--spacing-3);
 }

@@ -5,22 +5,12 @@
   gap: var(--spacing-3);
 }
 
-.sizesStack {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-3);
-  overflow-x: auto;
-}
-
 .code {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
 
 .customPagination {
-  --pagination-toolbar-padding-filled: var(--spacing-1);
   --pagination-item-radius: var(--radius-sm);
   --pagination-item-bg-active: var(--color-primary);
   --pagination-item-color-active: var(--color-primary-foreground);

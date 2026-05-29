@@ -3,11 +3,18 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   NavigationMenu,
+  NavigationMenuArrow,
+  NavigationMenuBackdrop,
   NavigationMenuContent,
+  NavigationMenuIcon,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuPopup,
+  NavigationMenuPortal,
+  NavigationMenuPositioner,
   NavigationMenuTrigger,
+  NavigationMenuViewport,
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -57,11 +64,6 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
     '--navigation-menu-focus-ring-width',
     'var(--border-width-sm)',
     'Controls trigger focus ring width.',
-  ],
-  [
-    '--navigation-menu-full-width-inset',
-    '0px',
-    'Controls screen gutter for full-width popup mode.',
   ],
   ['--navigation-menu-icon-color', 'currentColor', 'Controls trigger icon color.'],
   ['--navigation-menu-icon-size', '0.875rem', 'Controls trigger icon size.'],
@@ -190,7 +192,6 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
 export const navigationMenuPlaygroundCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-bg', 'transparent', 'Controls root background.'],
   ['--navigation-menu-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--navigation-menu-full-width-inset', '0px', 'Controls full-width popup viewport inset.'],
   ['--navigation-menu-list-justify', 'flex-start', 'Controls top-level item alignment.'],
   ['--navigation-menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
   ['--navigation-menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
@@ -290,10 +291,7 @@ export function FullWidthNavigationMenuExample() {
   return (
     <header className={styles.fullWidthHeader}>
       <div className={styles.fullWidthContainer}>
-        <NavigationMenu
-          className={styles.fullWidthMenu}
-          popupContent={{ fullWidth: true, sideOffset: 12, withArrow: false }}
-        >
+        <NavigationMenu className={styles.fullWidthMenu} showPopup={false}>
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
@@ -350,6 +348,13 @@ export function FullWidthNavigationMenuExample() {
               <NavigationMenuLink href="#">Pricing</NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
+          <NavigationMenuPortal>
+            <NavigationMenuPositioner className={styles.fullWidthPositioner} sideOffset={12}>
+              <NavigationMenuPopup className={styles.fullWidthPopup}>
+                <NavigationMenuViewport />
+              </NavigationMenuPopup>
+            </NavigationMenuPositioner>
+          </NavigationMenuPortal>
         </NavigationMenu>
       </div>
     </header>
@@ -358,7 +363,7 @@ export function FullWidthNavigationMenuExample() {
 
 export function NestedNavigationMenuExample() {
   return (
-    <NavigationMenu popupContent={{ collisionAvoidance: { side: 'none' } }}>
+    <NavigationMenu collisionAvoidance={{ side: 'none' }}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
@@ -374,23 +379,19 @@ export function NestedNavigationMenuExample() {
                 <NavigationMenu
                   className={styles.nestedRoot}
                   orientation="vertical"
-                  popupContent={{
-                    side: 'right',
-                    align: 'end',
-                    sideOffset: 24,
-                    alignOffset: -24,
-                    withArrow: false,
-                  }}
+                  side="right"
+                  align="end"
+                  sideOffset={24}
+                  alignOffset={-24}
                 >
                   <NavigationMenuList className={styles.fullWidth}>
                     <NavigationMenuItem className={styles.fullWidth}>
-                      <NavigationMenuTrigger
-                        className={styles.nestedTrigger}
-                        icon={<ChevronRightIcon />}
-                        classNames={{ icon: styles.nestedIcon }}
-                      >
+                      <NavigationMenuTrigger className={styles.nestedTrigger} icon={null}>
                         <span className={styles.title}>Handbook</span>
                         <span className={styles.description}>Styling and composition guides.</span>
+                        <NavigationMenuIcon className={styles.nestedIcon}>
+                          <ChevronRightIcon />
+                        </NavigationMenuIcon>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className={styles.contentList}>
@@ -420,22 +421,9 @@ export function NestedNavigationMenuExample() {
   );
 }
 
-export function CustomStylesNavigationMenuExample() {
+export function CustomCompositionNavigationMenuExample() {
   return (
-    <NavigationMenu
-      className={styles.customRoot}
-      popupContent={{
-        sideOffset: 16,
-        withBackdrop: true,
-        classNames: {
-          portal: styles.portal,
-          backdrop: styles.backdrop,
-          positioner: styles.positioner,
-          arrow: styles.arrow,
-          viewport: styles.viewport,
-        },
-      }}
-    >
+    <NavigationMenu className={styles.customRoot} showPopup={false}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
@@ -453,6 +441,15 @@ export function CustomStylesNavigationMenuExample() {
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
+      <NavigationMenuPortal className={styles.portal}>
+        <NavigationMenuBackdrop className={styles.backdrop} />
+        <NavigationMenuPositioner className={styles.positioner} sideOffset={16}>
+          <NavigationMenuPopup>
+            <NavigationMenuArrow className={styles.arrow} />
+            <NavigationMenuViewport className={styles.viewport} />
+          </NavigationMenuPopup>
+        </NavigationMenuPositioner>
+      </NavigationMenuPortal>
     </NavigationMenu>
   );
 }
@@ -470,13 +467,11 @@ export function NestedInlineNavigationMenuExample() {
               className={styles.inlineNestedRoot}
               orientation={isDesktop ? 'vertical' : 'horizontal'}
               defaultValue="developers"
-              popupContent={false}
-              withViewport
-              classNames={{ viewport: styles.inlineViewport }}
+              showPopup={false}
             >
               <NavigationMenuList className={styles.inlineList}>
                 <NavigationMenuItem value="developers">
-                  <NavigationMenuTrigger className={styles.inlineTrigger} hideIcon>
+                  <NavigationMenuTrigger className={styles.inlineTrigger} icon={null}>
                     <span className={styles.title}>Developers</span>
                     <span className={styles.description}>API, SDK and integrations</span>
                   </NavigationMenuTrigger>
@@ -490,7 +485,7 @@ export function NestedInlineNavigationMenuExample() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem value="systems">
-                  <NavigationMenuTrigger className={styles.inlineTrigger} hideIcon>
+                  <NavigationMenuTrigger className={styles.inlineTrigger} icon={null}>
                     <span className={styles.title}>Design Systems</span>
                     <span className={styles.description}>Patterns and governance</span>
                   </NavigationMenuTrigger>
@@ -503,6 +498,7 @@ export function NestedInlineNavigationMenuExample() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
+              <NavigationMenuViewport className={styles.inlineViewport} />
             </NavigationMenu>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -529,10 +525,7 @@ export function CustomIconNavigationMenuExample() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger
-            icon={<ChevronDownIcon />}
-            classNames={{ icon: styles.customIcon }}
-          >
+          <NavigationMenuTrigger icon={<ChevronDownIcon className={styles.customIcon} />}>
             Resources
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -545,6 +538,22 @@ export function CustomIconNavigationMenuExample() {
                   </a>
                 </li>
               ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuTrigger icon={null}>Text-only</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className={styles.contentList}>
+              <li>
+                <a href="#" className={styles.linkCard}>
+                  <p className={styles.title}>Plain trigger</p>
+                  <p className={styles.description}>
+                    Pass icon as null when the navigation item should not show a chevron.
+                  </p>
+                </a>
+              </li>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -664,6 +673,11 @@ const fullWidthPlatformLinks = [
     title: 'Routing API',
     description: 'Build routes, ETA and navigation flows.',
   },
+  {
+    href: '#',
+    title: 'Geocoder API',
+    description: 'Convert addresses and coordinates in both directions.',
+  },
 ] as const satisfies readonly NavigationLink[];
 
 const fullWidthDeveloperLinks = [
@@ -681,6 +695,11 @@ const fullWidthDeveloperLinks = [
     href: '#',
     title: 'Rate Limits',
     description: 'Plan request quotas and retries.',
+  },
+  {
+    href: '#',
+    title: 'SDK Changelog',
+    description: 'Track integration updates before release windows.',
   },
 ] as const satisfies readonly NavigationLink[];
 
@@ -704,5 +723,10 @@ const fullWidthSystemLinks = [
     href: '#',
     title: 'Governance',
     description: 'Keep patterns consistent across teams.',
+  },
+  {
+    href: '#',
+    title: 'Contributing',
+    description: 'Document review flow and ownership of UI changes.',
   },
 ] as const satisfies readonly NavigationLink[];

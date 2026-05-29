@@ -1,16 +1,16 @@
-@keyframes pulse {
+@keyframes moduix-pulse {
   50% {
-    opacity: 0.5;
+    opacity: 0.3;
   }
 }
 
-@keyframes fade-in {
+@keyframes moduix-fade-in {
   from {
     opacity: 0;
   }
 }
 
-@keyframes fade-out {
+@keyframes moduix-fade-out {
   from {
     opacity: 1;
   }
@@ -19,35 +19,35 @@
   }
 }
 
-@keyframes slide-up {
+@keyframes moduix-slide-up {
   from {
     transform: translateY(4px);
     opacity: 0;
   }
 }
 
-@keyframes slide-down {
+@keyframes moduix-slide-down {
   from {
     transform: translateY(-4px);
     opacity: 0;
   }
 }
 
-@keyframes spin {
+@keyframes moduix-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
 :root {
-  --animation-pulse: pulse 2s ease-in-out infinite;
-  --animation-fade-in: fade-in var(--duration-normal, 200ms)
+  --animation-pulse: moduix-pulse 2.5s ease-in-out infinite;
+  --animation-fade-in: moduix-fade-in var(--duration-normal, 200ms)
     var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
-  --animation-fade-out: fade-out var(--duration-normal, 200ms)
+  --animation-fade-out: moduix-fade-out var(--duration-normal, 200ms)
     var(--ease-in, cubic-bezier(0.4, 0, 1, 1));
-  --animation-slide-up: slide-up var(--duration-normal, 200ms)
+  --animation-slide-up: moduix-slide-up var(--duration-normal, 200ms)
     var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
-  --animation-slide-down: slide-down var(--duration-normal, 200ms)
+  --animation-slide-down: moduix-slide-down var(--duration-normal, 200ms)
     var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
-  --animation-spin: spin 0.75s linear infinite;
+  --animation-spin: moduix-spin 0.75s linear infinite;
 }

@@ -7,9 +7,8 @@ icon: Component
 import {
   CloseButtonCssPlaygroundPanel,
   CloseButtonCssPropertiesPanel,
-  CloseButtonCustomIconExample,
-  CloseButtonCustomStylesExample,
-  CloseButtonDisabledExample,
+  CloseButtonCustomChildrenExample,
+  CloseButtonCustomCompositionExample,
   CloseButtonExample,
   closeButtonPlaygroundCssProperties,
 } from '@/components/examples/close-button';
@@ -91,8 +90,7 @@ import {
 
 ## Anatomy
 
-`CloseButton` is composed as a single icon button slot. It renders a default close icon, or custom icon
-children when provided.
+`CloseButton` is a single icon-button slot. By default it renders `CloseIcon`; pass `children` to replace it with other icon-sized content.
 
 ```text
 CloseButton
@@ -105,56 +103,62 @@ CloseButton
 
 ## Composition
 
-Use `CloseButton` props such as `children` to replace the default icon, `render` to compose it
-with another element, `nativeButton` for non-button render targets, and `focusableWhenDisabled`
-when a disabled control should remain in the tab order. The default accessible name is `Close`;
-pass `aria-label` for the specific surface being dismissed.
+`CloseButton` is a thin wrapper over Base UI `Button`.
 
-Use `className` to style the root button. The component has no hidden service slots, so styling
-does not require `classNames`.
+- Use `children` to replace the default icon with another icon-sized child.
+- Use `className` to style the root.
+- Use any Base UI `Button` prop directly when you need native composition behavior such as `render`,
+  `nativeButton`, `disabled`, or `focusableWhenDisabled`.
+
+When `children` are omitted, the default accessible name is `Close`. When you render a custom
+icon-like child, set `aria-label` to describe the dismissed surface.
+
+| Prop         | Default                             | Values                                          |
+| ------------ | ----------------------------------- | ----------------------------------------------- |
+| `type`       | `button`                            | Any valid button `type` value                   |
+| `aria-label` | `Close` when `children` are omitted | Any descriptive label for the dismissed surface |
+| `children`   | `CloseIcon`                         | Any icon-sized React node                       |
+
+Use `className` to style the root. `classNames` is not needed because there are no extra service slots.
 
 ## Examples
 
-### Custom Icon
+### Custom Children
 
-Pass children to replace the default icon with an icon from your application or icon library.
-
-<Preview>
-  <CloseButtonCustomIconExample />
-
-  <Preview.Code>
-    {`
-      import { CloseButton, CloseLineIcon } from "moduix";
-
-      export function CloseButtonCustomIconDemo() {
-        return (
-          <CloseButton aria-label="Close panel">
-            <CloseLineIcon />
-          </CloseButton>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Disabled
-
-Use `focusableWhenDisabled` when a disabled close button should remain reachable by keyboard focus.
+Replace the default icon via `children`.
 
 <Preview>
-  <CloseButtonDisabledExample />
+  <CloseButtonCustomChildrenExample />
 
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
 
-      export function CloseButtonDisabledDemo() {
+      function CircleXIcon() {
         return (
-          <div className={styles.row}>
-            <CloseButton aria-label="Close panel" disabled />
-            <CloseButton aria-label="Close panel" disabled focusableWhenDisabled />
-          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m15 9-6 6" />
+            <path d="m9 9 6 6" />
+          </svg>
+        );
+      }
+
+      export function CloseButtonCustomChildrenDemo() {
+        return (
+          <CloseButton className={styles.customChildrenButton} aria-label="Close panel">
+            <CircleXIcon />
+          </CloseButton>
         );
       }
     `}
@@ -163,29 +167,27 @@ Use `focusableWhenDisabled` when a disabled close button should remain reachable
 
   <Preview.CSS>
     {`
-      .row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-3);
+      .customChildrenButton {
+        --close-button-size: 2.25rem;
+        --close-button-icon-size: 1.125rem;
       }
     `}
 
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+## Custom Composition
 
-Pass `className` to style the button root with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Style the root button through `className`.
 
 <Preview>
-  <CloseButtonCustomStylesExample />
+  <CloseButtonCustomCompositionExample />
 
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
 
-      export function CloseButtonCustomStylesDemo() {
+      export function CloseButtonCustomCompositionDemo() {
         return <CloseButton className={styles.customButton} aria-label="Close message" />;
       }
     `}

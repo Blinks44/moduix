@@ -9,7 +9,7 @@
   }
 
   .label {
-    color: var(--meter-label-color, var(--meter-color, var(--color-foreground)));
+    color: var(--meter-label-color, currentColor);
     font-size: var(--meter-label-font-size, var(--text-sm));
     font-weight: var(--meter-label-font-weight, var(--weight-regular));
     line-height: var(--meter-label-line-height, var(--line-height-text-sm));
@@ -17,7 +17,7 @@
 
   .value {
     justify-self: end;
-    color: var(--meter-value-color, var(--meter-color, var(--color-foreground)));
+    color: var(--meter-value-color, currentColor);
     font-size: var(--meter-value-font-size, var(--text-sm));
     font-weight: var(--meter-value-font-weight, var(--weight-regular));
     line-height: var(--meter-value-line-height, var(--line-height-text-sm));

@@ -6,24 +6,21 @@ import {
   FieldLabel,
   Form,
   Input,
-  type FormActions,
-  type FormProps,
+  Spinner,
 } from 'moduix';
-import * as React from 'react';
+import { useActionState, useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './form.module.css';
 
-export const formOverrideCssProperties: CssPropertyInput[] = [
+const formCssProperties: CssPropertyInput[] = [
   ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
   ['--form-max-width', 'none', 'Controls the root form max width.'],
   ['--form-width', '100%', 'Controls the root form width.'],
 ];
-export const formPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
-  ['--form-max-width', 'none', 'Controls the root form max width.'],
-  ['--form-width', '100%', 'Controls the root form width.'],
-];
+
+export const formOverrideCssProperties = formCssProperties;
+export const formPlaygroundCssProperties = formCssProperties;
 
 export function FormCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
@@ -43,13 +40,15 @@ export function FormCssPlaygroundPanel({ values, onChange, onReset }: CSSPropert
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
 interface ActionState {
-  serverErrors?: FormProps['errors'];
+  serverErrors?: Record<string, string>;
   message?: string;
 }
 
@@ -59,7 +58,7 @@ function sleep(ms: number) {
   });
 }
 
-async function validateHomepage(homepage: string): Promise<FormProps['errors']> {
+async function validateHomepage(homepage: string): Promise<Record<string, string>> {
   await sleep(500);
 
   try {
@@ -109,9 +108,58 @@ async function submitUsername(
   };
 }
 
-export function FormExample(props: FormProps) {
-  const [errors, setErrors] = React.useState<FormProps['errors']>({});
-  const [submitting, setSubmitting] = React.useState(false);
+export function FormExample(props: ComponentProps<typeof Form>) {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+
+  return (
+    <Form
+      errors={errors}
+      validationMode="onBlur"
+      className={styles.form}
+      onFormSubmit={async (values) => {
+        setSubmitting(true);
+        const nextErrors = await validateHomepage(String(values.homepage ?? ''));
+        setErrors(nextErrors);
+        setSubmitting(false);
+      }}
+      {...props}
+    >
+      <Field name="homepage">
+        <FieldLabel>Homepage</FieldLabel>
+        <Input
+          type="url"
+          required
+          defaultValue="https://example.com"
+          placeholder="https://example.com"
+          pattern="https?://.*"
+        />
+        <FieldError match="valueMissing">Please enter a homepage URL.</FieldError>
+        <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
+        <FieldError />
+      </Field>
+      <Button
+        type="submit"
+        disabled={submitting}
+        focusableWhenDisabled
+        aria-busy={submitting || undefined}
+      >
+        {submitting ? (
+          <>
+            <Spinner decorative size="sm" />
+            Submitting
+          </>
+        ) : (
+          'Submit'
+        )}
+      </Button>
+    </Form>
+  );
+}
+
+export function FormNativeSubmitExample() {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <Form
@@ -127,7 +175,6 @@ export function FormExample(props: FormProps) {
         setErrors(nextErrors);
         setSubmitting(false);
       }}
-      {...props}
     >
       <Field name="homepage" validationMode="onBlur">
         <FieldLabel>Homepage</FieldLabel>
@@ -142,16 +189,28 @@ export function FormExample(props: FormProps) {
         <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
         <FieldError />
       </Field>
-      <Button type="submit" loading={submitting}>
-        Submit
+      <Button
+        type="submit"
+        disabled={submitting}
+        focusableWhenDisabled
+        aria-busy={submitting || undefined}
+      >
+        {submitting ? (
+          <>
+            <Spinner decorative size="sm" />
+            Submitting
+          </>
+        ) : (
+          'Submit'
+        )}
       </Button>
     </Form>
   );
 }
 
 export function FormOnFormSubmitExample() {
-  const [errors, setErrors] = React.useState<FormProps['errors']>({});
-  const [submitting, setSubmitting] = React.useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <Form
@@ -161,7 +220,7 @@ export function FormOnFormSubmitExample() {
       onFormSubmit={(values) => {
         setSubmitting(true);
 
-        const nextErrors: FormProps['errors'] = {};
+        const nextErrors: Record<string, string> = {};
         const age = Number(values.age);
 
         if (!values.name?.trim()) {
@@ -188,16 +247,28 @@ export function FormOnFormSubmitExample() {
         <Input type="number" placeholder="18" />
         <FieldError />
       </Field>
-      <Button type="submit" loading={submitting}>
-        Submit
+      <Button
+        type="submit"
+        disabled={submitting}
+        focusableWhenDisabled
+        aria-busy={submitting || undefined}
+      >
+        {submitting ? (
+          <>
+            <Spinner decorative size="sm" />
+            Submitting
+          </>
+        ) : (
+          'Submit'
+        )}
       </Button>
     </Form>
   );
 }
 
 export function FormActionsRefExample() {
-  const actionsRef = React.useRef<FormActions | null>(null);
-  const [errors, setErrors] = React.useState<FormProps['errors']>({});
+  const actionsRef = useRef<{ validate: (fieldName?: string) => void } | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   return (
     <Form
@@ -206,13 +277,13 @@ export function FormActionsRefExample() {
       validationMode="onSubmit"
       className={styles.form}
       onFormSubmit={(values) => {
-        const nextErrors: FormProps['errors'] = {};
+        const nextErrors: Record<string, string> = {};
         const email = String(values.email ?? '');
 
         if (!email.trim()) {
           nextErrors.email = 'Email is required.';
-        } else if (!email.endsWith('@2gis.com')) {
-          nextErrors.email = 'Use a @2gis.com email.';
+        } else if (!email.endsWith('@test.com')) {
+          nextErrors.email = 'Use a @test.com email.';
         }
 
         setErrors(nextErrors);
@@ -220,7 +291,7 @@ export function FormActionsRefExample() {
     >
       <Field name="email">
         <FieldLabel>Work Email</FieldLabel>
-        <Input type="email" required placeholder="name@2gis.com" />
+        <Input type="email" required placeholder="name@test.com" />
         <FieldError />
       </Field>
       <Button
@@ -238,10 +309,7 @@ export function FormActionsRefExample() {
 }
 
 export function FormActionStateExample() {
-  const [state, formAction, loading] = React.useActionState<ActionState, FormData>(
-    submitUsername,
-    {},
-  );
+  const [state, formAction, loading] = useActionState<ActionState, FormData>(submitUsername, {});
 
   return (
     <Form
@@ -255,15 +323,27 @@ export function FormActionStateExample() {
         <Input required defaultValue="admin" placeholder="e.g. alice132" />
         <FieldError />
       </Field>
-      <Button type="submit" loading={loading}>
-        Submit
+      <Button
+        type="submit"
+        disabled={loading}
+        focusableWhenDisabled
+        aria-busy={loading || undefined}
+      >
+        {loading ? (
+          <>
+            <Spinner decorative size="sm" />
+            Submitting
+          </>
+        ) : (
+          'Submit'
+        )}
       </Button>
       {state.message ? <p className={styles.helper}>{state.message}</p> : null}
     </Form>
   );
 }
 
-export function CustomStylesFormExample() {
+export function CustomCompositionFormExample() {
   return (
     <Form validationMode="onBlur" className={styles.customForm}>
       <Field name="project" className={styles.customField}>

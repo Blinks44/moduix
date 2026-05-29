@@ -2,6 +2,12 @@ export {
   Popover,
   createPopoverHandle,
   PopoverTrigger,
+  PopoverPortal,
+  PopoverBackdrop,
+  PopoverPositioner,
+  PopoverPopup,
+  PopoverViewport,
+  PopoverArrow,
   PopoverTitle,
   PopoverDescription,
   PopoverHeader,
@@ -9,19 +15,4 @@ export {
   PopoverFooter,
   PopoverClose,
   PopoverContent,
-} from './Popover';
-
-export type {
-  PopoverProps,
-  PopoverHandle,
-  PopoverTriggerProps,
-  PopoverTitleProps,
-  PopoverDescriptionProps,
-  PopoverHeaderProps,
-  PopoverBodyProps,
-  PopoverFooterProps,
-  PopoverCloseProps,
-  PopoverContentClassNames,
-  PopoverContentSlotProps,
-  PopoverContentProps,
 } from './Popover';

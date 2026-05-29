@@ -6,18 +6,19 @@
     vertical-align: middle;
     cursor: pointer;
 
-    &:has(.radio[data-disabled]) {
+    &:has(.radio[data-disabled]),
+    &:has(.radio[data-readonly]) {
       cursor: default;
     }
   }
 
   .radio {
     box-sizing: border-box;
-    display: flex;
+    display: inline-flex;
+    flex: none;
     align-items: center;
     justify-content: center;
     width: var(--_radio-size, 1.25rem);
-    min-width: var(--_radio-size, 1.25rem);
     height: var(--_radio-size, 1.25rem);
     margin: 0;
     border: var(--radio-border-width, var(--border-width-sm)) solid
@@ -29,6 +30,7 @@
     outline: 0;
     line-height: 0;
     user-select: none;
+    cursor: pointer;
     transition:
       background-color var(--radio-transition, var(--transition-default)),
       border-color var(--radio-transition, var(--transition-default)),
@@ -47,9 +49,13 @@
     }
 
     @media (hover: hover) {
-      &[data-unchecked]:hover {
+      &[data-unchecked]:not([data-readonly]):hover {
         background-color: var(--radio-bg-hover, var(--color-accent));
       }
+    }
+
+    &[data-readonly] {
+      cursor: default;
     }
 
     &[data-disabled] {
@@ -116,10 +122,6 @@
     flex-direction: column;
     gap: var(--radio-group-gap, var(--spacing-2));
     color: var(--radio-group-color, var(--color-foreground));
-
-    &[data-disabled] .groupItem {
-      cursor: default;
-    }
   }
 
   .groupLabel {
@@ -134,32 +136,5 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--radio-group-list-gap, var(--spacing-2));
-  }
-
-  .groupItem {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--radio-group-item-gap, var(--radio-gap, var(--spacing-2)));
-    cursor: pointer;
-
-    &:has([data-disabled]) {
-      cursor: default;
-    }
-  }
-
-  .groupItemLabel {
-    color: var(--radio-group-item-label-color, var(--radio-label-color, var(--color-foreground)));
-    font-size: var(
-      --radio-group-item-label-font-size,
-      var(--radio-label-font-size, var(--text-sm))
-    );
-    font-weight: var(
-      --radio-group-item-label-font-weight,
-      var(--radio-label-font-weight, var(--weight-medium))
-    );
-    line-height: var(
-      --radio-group-item-label-line-height,
-      var(--radio-label-line-height, var(--line-height-text-sm))
-    );
   }
 }

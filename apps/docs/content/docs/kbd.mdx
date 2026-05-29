@@ -1,0 +1,215 @@
+---
+title: Kbd
+description: A compact keycap for keyboard shortcuts and command hints.
+icon: Component
+---
+
+import {
+  CustomCompositionKbdExample,
+  KbdDenseExample,
+  KbdCssPlaygroundPanel,
+  KbdCssPropertiesPanel,
+  KbdExample,
+  KbdSingleKeyExample,
+  KbdShortcutListExample,
+  kbdPlaygroundCssProperties,
+} from '@/components/examples/kbd';
+
+## API Reference
+
+`Kbd` is a standalone moduix component and does not wrap a Base UI primitive.
+Because Base UI does not ship a dedicated keyboard-key primitive, moduix keeps this component as a
+thin styled wrapper around the native `<kbd>` element. Use `Kbd` for a single key and `KbdGroup`
+when several keys need to read as one shortcut.
+
+## Basic
+
+<Preview cssProperties={kbdPlaygroundCssProperties} cssVariableScope="local">
+  <KbdExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd, KbdGroup } from "moduix";
+
+      export function KbdDemo() {
+        return (
+          <KbdGroup>
+            <Kbd>Cmd</Kbd>
+            +
+            <Kbd>K</Kbd>
+          </KbdGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <KbdCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <KbdCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+Use `Kbd` for a single key label. Use `KbdGroup` to keep multi-key shortcuts aligned.
+
+```text
+KbdGroup
+└─ Kbd
+└─ Kbd
+```
+
+```tsx
+<KbdGroup>
+  <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
+</KbdGroup>
+```
+
+| Part       | Role                                                 |
+| ---------- | ---------------------------------------------------- |
+| `Kbd`      | Root keycap slot. Applies the shared keycap styling. |
+| `KbdGroup` | Inline wrapper for keyboard shortcut combinations.   |
+
+## Composition
+
+Pass `className` to `Kbd` or `KbdGroup` for targeted overrides. `Kbd` accepts native `kbd` props,
+and `KbdGroup` accepts native `span` props.
+
+There is no extra variant or size API. For denser layouts or product-specific visuals, use
+`className` and the public `--kbd-*` CSS variables.
+
+## Examples
+
+### Single Key
+
+Use `Kbd` directly when the UI refers to one key.
+
+<Preview>
+  <KbdSingleKeyExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd } from "moduix";
+
+      export function KbdSingleKeyDemo() {
+        return <Kbd>Esc</Kbd>;
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Shortcut List
+
+Use plain composition when keys need to sit next to surrounding copy.
+
+<Preview>
+  <KbdShortcutListExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd, KbdGroup } from "moduix";
+
+      export function KbdShortcutListDemo() {
+        return (
+          <div>
+            <div>
+              <KbdGroup>
+                <Kbd>Cmd</Kbd>
+                +
+                <Kbd>K</Kbd>
+              </KbdGroup>
+              Open command menu
+            </div>
+            <div>
+              <Kbd>Esc</Kbd>
+              Close overlay
+            </div>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Compact Density
+
+Use local CSS variables for one-off density or tone changes instead of extra component props.
+
+<Preview>
+  <KbdDenseExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd } from "moduix";
+      import styles from "./kbd-demo.module.css";
+
+      export function KbdDenseDemo() {
+        return (
+          <>
+            <Kbd className={styles.dense}>Esc</Kbd>
+            <Kbd className={styles.dense}>Ctrl</Kbd>
+            <Kbd className={styles.dense}>/</Kbd>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .dense {
+        --kbd-height: 1.25rem;
+        --kbd-font-size: 0.6875rem;
+        --kbd-line-height: 1rem;
+        --kbd-min-width: 1.25rem;
+        --kbd-padding-x: 0.375rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Composition
+
+Use `className` and CSS variables when the default keycap needs to match product-specific styling.
+
+<Preview>
+  <CustomCompositionKbdExample />
+
+  <Preview.Code>
+    {`
+      import { Kbd, KbdGroup } from "moduix";
+      import styles from "./custom-kbd-demo.module.css";
+
+      export function CustomKbdDemo() {
+        return (
+          <KbdGroup className={styles.customGroup}>
+            <Kbd className={styles.customKbd}>Cmd</Kbd>
+            +
+            <Kbd className={styles.customKbd}>K</Kbd>
+          </KbdGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customGroup {
+        --kbd-group-gap: 0.375rem;
+      }
+
+      .customKbd {
+        --kbd-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+        --kbd-border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
+        --kbd-color: var(--color-primary);
+        --kbd-height: 1.625rem;
+        --kbd-min-width: 1.625rem;
+        --kbd-radius: var(--radius-md);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

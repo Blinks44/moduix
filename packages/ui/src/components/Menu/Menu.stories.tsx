@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { InfoIcon, MapIcon } from '@/primitives/Icons';
+import type { ComponentProps } from 'react';
+import { Fragment, useMemo, useState } from 'react';
+import { InfoIcon, MapIcon } from '@/icons/demo';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,6 +16,7 @@ import { Button } from '../Button';
 import {
   Menu,
   MenuArrow,
+  MenuBackdrop,
   MenuCheckboxItem,
   MenuCheckboxItemIndicator,
   MenuContent,
@@ -27,6 +29,9 @@ import {
   MenuItemShortcut,
   MenuItemText,
   MenuLinkItem,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
   MenuRadioGroup,
   MenuRadioItem,
   MenuRadioItemIndicator,
@@ -53,7 +58,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function MenuButtonTrigger(props: React.ComponentProps<typeof MenuTrigger>) {
+function MenuButtonTrigger(props: ComponentProps<typeof MenuTrigger>) {
   return <MenuTrigger render={<Button />} {...props} />;
 }
 
@@ -66,7 +71,6 @@ export const Basic: Story = {
           <MenuTriggerIcon />
         </MenuButtonTrigger>
         <MenuContent>
-          <MenuArrow />
           <MenuItem closeOnClick>Add to Library</MenuItem>
           <MenuItem closeOnClick>Add to Playlist</MenuItem>
           <MenuSeparator />
@@ -84,10 +88,10 @@ export const Basic: Story = {
 
 export const WithGroupsAndControls: Story = {
   render: () => {
-    const [sortBy, setSortBy] = React.useState('date');
-    const [showMinimap, setShowMinimap] = React.useState(true);
-    const [showSearch, setShowSearch] = React.useState(true);
-    const [showSidebar, setShowSidebar] = React.useState(false);
+    const [sortBy, setSortBy] = useState('date');
+    const [showMinimap, setShowMinimap] = useState(true);
+    const [showSearch, setShowSearch] = useState(true);
+    const [showSidebar, setShowSidebar] = useState(false);
 
     return (
       <Menu>
@@ -96,7 +100,6 @@ export const WithGroupsAndControls: Story = {
           <MenuTriggerIcon />
         </MenuButtonTrigger>
         <MenuContent>
-          <MenuArrow />
           <MenuGroup>
             <MenuGroupLabel>Sort</MenuGroupLabel>
             <MenuRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -145,7 +148,6 @@ export const WithShortcuts: Story = {
           <MenuTriggerIcon />
         </MenuButtonTrigger>
         <MenuContent>
-          <MenuArrow />
           <MenuItem closeOnClick>
             Copy
             <MenuItemShortcut>Ctrl+C</MenuItemShortcut>
@@ -167,8 +169,8 @@ export const WithShortcuts: Story = {
 
 export const IndicatorRightWithIcon: Story = {
   render: () => {
-    const [showMinimap, setShowMinimap] = React.useState(true);
-    const [showSearch, setShowSearch] = React.useState(true);
+    const [showMinimap, setShowMinimap] = useState(true);
+    const [showSearch, setShowSearch] = useState(true);
 
     return (
       <Menu>
@@ -177,7 +179,6 @@ export const IndicatorRightWithIcon: Story = {
           <MenuTriggerIcon />
         </MenuButtonTrigger>
         <MenuContent>
-          <MenuArrow />
           <MenuCheckboxItem checked={showMinimap} onCheckedChange={setShowMinimap} indicator="end">
             <MenuItemText>
               <MenuItemTextContent>
@@ -190,12 +191,14 @@ export const IndicatorRightWithIcon: Story = {
             <MenuCheckboxItemIndicator />
           </MenuCheckboxItem>
           <MenuCheckboxItem checked={showSearch} onCheckedChange={setShowSearch} indicator="end">
-            <MenuItemTextContent>
-              <MenuItemTextIcon>
-                <MapIcon />
-              </MenuItemTextIcon>
-              <MenuItemTextLabel>Search</MenuItemTextLabel>
-            </MenuItemTextContent>
+            <MenuItemText>
+              <MenuItemTextContent>
+                <MenuItemTextIcon>
+                  <MapIcon />
+                </MenuItemTextIcon>
+                <MenuItemTextLabel>Search</MenuItemTextLabel>
+              </MenuItemTextContent>
+            </MenuItemText>
             <MenuCheckboxItemIndicator />
           </MenuCheckboxItem>
         </MenuContent>
@@ -213,7 +216,6 @@ export const Nested: Story = {
           <MenuTriggerIcon />
         </MenuButtonTrigger>
         <MenuContent>
-          <MenuArrow />
           <MenuItem closeOnClick>Add to Library</MenuItem>
           <MenuSubmenu>
             <MenuSubmenuTrigger>
@@ -246,7 +248,6 @@ export const OpenOnHover: Story = {
           <MenuTriggerIcon />
         </MenuButtonTrigger>
         <MenuContent>
-          <MenuArrow />
           <MenuItem closeOnClick>Get Up!</MenuItem>
           <MenuItem closeOnClick>Inside Out</MenuItem>
           <MenuItem closeOnClick>Night Beats</MenuItem>
@@ -258,7 +259,7 @@ export const OpenOnHover: Story = {
   },
 };
 
-export const PositionedWithBackdrop: Story = {
+export const WithArrow: Story = {
   render: () => {
     return (
       <Menu>
@@ -266,8 +267,7 @@ export const PositionedWithBackdrop: Story = {
           Export
           <MenuTriggerIcon />
         </MenuButtonTrigger>
-        <MenuContent side="right" align="start" sideOffset={12} withBackdrop>
-          <MenuArrow />
+        <MenuContent showArrow side="right" align="start" sideOffset={12}>
           <MenuItem closeOnClick>Export PNG</MenuItem>
           <MenuItem closeOnClick>Export PDF</MenuItem>
           <MenuSeparator />
@@ -278,20 +278,51 @@ export const PositionedWithBackdrop: Story = {
   },
 };
 
+export const CustomComposition: Story = {
+  render: () => {
+    return (
+      <div className={storyStyles.backdropDemoSurface}>
+        <Menu>
+          <MenuButtonTrigger className={storyStyles.backdropDemoTrigger}>
+            Export
+            <MenuTriggerIcon />
+          </MenuButtonTrigger>
+          <MenuPortal>
+            <MenuBackdrop className={storyStyles.backdrop} />
+            <MenuPositioner
+              className={storyStyles.positioner}
+              side="right"
+              align="start"
+              sideOffset={12}
+            >
+              <MenuPopup className={storyStyles.customPopup}>
+                <MenuArrow />
+                <MenuItem closeOnClick>Export PNG</MenuItem>
+                <MenuItem closeOnClick>Export PDF</MenuItem>
+                <MenuSeparator />
+                <MenuItem closeOnClick>Copy share link</MenuItem>
+              </MenuPopup>
+            </MenuPositioner>
+          </MenuPortal>
+        </Menu>
+      </div>
+    );
+  },
+};
+
 export const OpenAlertDialog: Story = {
   name: 'Open AlertDialog',
   render: () => {
-    const [dialogOpen, setDialogOpen] = React.useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Menu>
           <MenuButtonTrigger>
             Project
             <MenuTriggerIcon />
           </MenuButtonTrigger>
           <MenuContent>
-            <MenuArrow />
             <MenuItem closeOnClick>Rename</MenuItem>
             <MenuItem closeOnClick>Duplicate</MenuItem>
             <MenuSeparator />
@@ -320,7 +351,7 @@ export const OpenAlertDialog: Story = {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </React.Fragment>
+      </Fragment>
     );
   },
 };
@@ -335,7 +366,6 @@ export const LinkItems: Story = {
           <MenuTriggerIcon />
         </MenuButtonTrigger>
         <MenuContent>
-          <MenuArrow />
           <MenuLinkItem href="#projects">Projects</MenuLinkItem>
           <MenuLinkItem href="#teams">Teams</MenuLinkItem>
           <MenuLinkItem href="#billing">Billing</MenuLinkItem>
@@ -350,10 +380,10 @@ export const LinkItems: Story = {
 export const DetachedTrigger: Story = {
   name: 'Detached Trigger',
   render: () => {
-    const menuHandle = React.useMemo(() => createMenuHandle(), []);
+    const menuHandle = useMemo(() => createMenuHandle(), []);
 
     return (
-      <React.Fragment>
+      <Fragment>
         <div className={storyStyles.detachedTrigger}>
           <MenuButtonTrigger handle={menuHandle}>
             Actions
@@ -363,14 +393,13 @@ export const DetachedTrigger: Story = {
 
         <Menu handle={menuHandle}>
           <MenuContent>
-            <MenuArrow />
             <MenuItem closeOnClick>Edit</MenuItem>
             <MenuItem closeOnClick>Share</MenuItem>
             <MenuSeparator />
             <MenuItem closeOnClick>Archive</MenuItem>
           </MenuContent>
         </Menu>
-      </React.Fragment>
+      </Fragment>
     );
   },
 };

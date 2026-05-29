@@ -2,40 +2,10 @@
   width: min(100%, 28rem);
 }
 
-.triggerField {
-  display: inline-flex;
-  width: var(--combobox-width, 16rem);
-  min-height: var(--combobox-control-height, var(--size-lg));
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0 0.875rem;
-  border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
-  border-radius: var(--combobox-radius, var(--radius-md));
-  background-color: var(--combobox-bg, var(--color-background));
-  color: var(--combobox-color, var(--color-foreground));
-  transition:
-    background-color var(--transition-default),
-    border-color var(--transition-default),
-    outline-color var(--transition-default);
-
-  &[data-popup-open] {
-    background-color: var(--color-muted);
-  }
-
-  &:focus-visible {
-    border-color: var(--combobox-focus-ring-color, var(--color-ring));
-    outline: var(--border-width-sm) solid var(--combobox-focus-ring-color, var(--color-ring));
-    outline-offset: calc(var(--border-width-sm) * -1);
-  }
-}
-
 .popupWithInlineInput {
-  --combobox-inline-input-container-height: calc(
-    var(--combobox-control-height, var(--size-lg)) +
-      var(--combobox-inline-input-container-padding-top, var(--spacing-2)) +
-      var(--combobox-inline-input-container-padding-bottom, var(--spacing-2)) +
-      var(--combobox-inline-input-divider-width, var(--border-width-sm))
+  --inline-input-container-height: calc(
+    var(--combobox-control-height, var(--size-lg)) + var(--spacing-2) + var(--spacing-2) +
+      var(--border-width-sm)
   );
 }
 
@@ -43,14 +13,20 @@
   max-height: min(
     calc(
       var(--combobox-list-max-height, var(--combobox-popup-max-height, 24rem)) -
-        var(--combobox-inline-input-container-height, 0px)
+        var(--inline-input-container-height, 0px)
     ),
-    calc(var(--available-height) - var(--combobox-inline-input-container-height, 0px))
+    calc(var(--available-height) - var(--inline-input-container-height, 0px))
   );
   padding-top: 0.375rem;
   padding-bottom: 0.5rem;
   scroll-padding-top: 0.375rem;
   scroll-padding-bottom: 0.5rem;
+}
+
+.inlineInputContainer {
+  box-sizing: border-box;
+  padding: var(--spacing-2);
+  border-bottom: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
 }
 
 .inlineInput {
@@ -71,6 +47,18 @@
   gap: var(--spacing-1);
   overflow: hidden;
   white-space: normal;
+}
+
+.itemTextWithIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.itemIcon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
 }
 
 .itemTitle {

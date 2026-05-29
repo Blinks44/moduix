@@ -8,6 +8,7 @@ type PreviewProps = React.ComponentProps<'div'> & {
   code?: string;
   cssProperties?: CssPropertyInput[];
   codeLanguage?: string;
+  cssVariableScope?: 'both' | 'local' | 'root';
 };
 
 type CssProperty = {
@@ -66,6 +67,7 @@ function PreviewRoot({
   code,
   cssProperties,
   codeLanguage = 'tsx',
+  cssVariableScope = 'both',
   ...props
 }: PreviewProps) {
   const {
@@ -118,13 +120,13 @@ function PreviewRoot({
     },
   };
 
-  useRootCssVariables(cssVariables);
+  useRootCssVariables(cssVariables, cssVariableScope === 'both' || cssVariableScope === 'root');
 
   return (
     <div className={cn('not-prose my-6', className)} {...props}>
       <div
         className="flex min-h-56 items-center overflow-x-auto overflow-y-hidden rounded-xl border bg-fd-primary-foreground p-6"
-        style={cssVariables}
+        style={cssVariableScope === 'root' ? undefined : cssVariables}
       >
         <div className="flex w-full justify-center-safe">
           <div className="flex w-max flex-wrap items-center justify-center gap-3">
@@ -321,11 +323,11 @@ function getInitialCssVariables(properties: CssProperty[]) {
   ) as CssVariables;
 }
 
-function useRootCssVariables(variables: CssVariables) {
+function useRootCssVariables(variables: CssVariables, enabled: boolean) {
   const id = React.useId();
 
   React.useEffect(() => {
-    if (typeof document === 'undefined') return;
+    if (!enabled || typeof document === 'undefined') return;
 
     const entries = Object.entries(variables).filter(([name]) => name.startsWith('--')) as [
       `--${string}`,
@@ -358,7 +360,7 @@ function useRootCssVariables(variables: CssVariables) {
         applyRootCssVariable(name);
       }
     };
-  }, [id, variables]);
+  }, [enabled, id, variables]);
 }
 
 function applyRootCssVariable(name: `--${string}`) {

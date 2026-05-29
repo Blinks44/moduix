@@ -2,17 +2,10 @@ import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Avatar.module.css';
 
-type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-type AvatarProps = AvatarPrimitive.Root.Props & {
-  size?: AvatarSize;
-};
-
-function Avatar({ className, size = 'md', ...props }: AvatarProps) {
+function Avatar({ className, ...props }: AvatarPrimitive.Root.Props) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar-root"
-      data-size={size}
       className={mergeClassName(className, styles.root)}
       {...props}
     />
@@ -39,9 +32,4 @@ function AvatarFallback({ className, ...props }: AvatarPrimitive.Fallback.Props)
   );
 }
 
-type AvatarImageProps = AvatarPrimitive.Image.Props;
-type AvatarFallbackProps = AvatarPrimitive.Fallback.Props;
-
 export { Avatar, AvatarImage, AvatarFallback };
-
-export type { AvatarProps, AvatarImageProps, AvatarFallbackProps, AvatarSize };

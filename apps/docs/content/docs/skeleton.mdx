@@ -1,121 +1,119 @@
 ---
 title: Skeleton
-description: A loading placeholder primitive for text, cards, media objects, and custom layouts.
+description: A loading placeholder block for text, cards, media objects, and custom layouts.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   SkeletonCardExample,
+  SkeletonClassNameExample,
+  SkeletonCompositionExample,
   SkeletonCssPlaygroundPanel,
   SkeletonCssPropertiesPanel,
-  SkeletonClassNameExample,
   SkeletonExample,
-  SkeletonLayoutPropsExample,
   SkeletonMediaObjectExample,
   SkeletonStaticExample,
   skeletonPlaygroundCssProperties,
 } from '@/components/examples/skeleton';
 
-## API Reference
+## Overview
 
-`Skeleton` is a moduix loading primitive and does not wrap a Base UI primitive.
-Use `Skeleton`, `SkeletonRect`, and `SkeletonCircle` for placeholders, then compose rows and
-columns with `SkeletonRow` and `SkeletonColumn`. Skeleton parts are marked `aria-hidden` because
-they describe loading shape, not user-readable content.
+`Skeleton` is a single loading placeholder block. It does not wrap a Base UI primitive.
 
-## Basic
+Use it as a thin styled `div`, then compose loading layouts with `Stack` or your own markup. The
+root is marked `aria-hidden` because it represents loading surfaces, not readable content.
+
+## Default Path
+
+Use a few line skeletons for the common text-loading case.
 
 <Preview cssProperties={skeletonPlaygroundCssProperties}>
   <SkeletonExample />
 
   <Preview.Code>
     {`
-      import { Skeleton, SkeletonColumn } from "moduix";
+      import { Skeleton, Stack } from "moduix";
 
       export function SkeletonDemo() {
         return (
-          <SkeletonColumn gap={10}>
+          <Stack gap={10}>
             <Skeleton height={18} />
-            <Skeleton height={18} width="86%" />
-            <Skeleton height={18} width="64%" />
-          </SkeletonColumn>
+            <Skeleton width="86%" height={18} />
+            <Skeleton width="64%" height={18} />
+          </Stack>
         );
       }
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <SkeletonCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <SkeletonCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  <Preview.CSSProperties>
+    {(context) => <SkeletonCssPropertiesPanel {...context} />}
+  </Preview.CSSProperties>
+  <Preview.CSSPlayground>
+    {(context) => <SkeletonCssPlaygroundPanel {...context} />}
+  </Preview.CSSPlayground>
 </Preview>
 
 ## Anatomy
 
-`Skeleton` is composed from visual placeholder blocks and optional layout helpers. Use the shape
-parts for the visible loading state and the layout parts only when they match the spacing of the
-loaded UI.
+`Skeleton` is a single visual block. Layout stays in the surrounding markup.
 
 ```text
-SkeletonColumn
+Stack
 ├─ Skeleton
 ├─ Skeleton
 └─ Skeleton
 ```
 
-```tsx
-<SkeletonColumn gap={10}>
-  <Skeleton height={18} />
-  <Skeleton height={18} width="86%" />
-  <Skeleton height={18} width="64%" />
-</SkeletonColumn>
-```
-
-| Part             | Role                                                                                            |
-| ---------------- | ----------------------------------------------------------------------------------------------- |
-| `Skeleton`       | Base placeholder block. Use `width`, `height`, `radius`, `grow`, and `animated` to size it.     |
-| `SkeletonRect`   | Rectangular shortcut for cards, media, and panels. It defaults to a taller block height.        |
-| `SkeletonCircle` | Circular shortcut for avatars, icons, and round media. It uses one `size` for width and height. |
-| `SkeletonRow`    | Horizontal layout helper with `gap`, `pt`, `pb`, and `mobileStack` spacing controls.            |
-| `SkeletonColumn` | Vertical layout helper with `gap`, `pt`, `pb`, and `grow` spacing controls.                     |
-
-`Skeleton` does not use portal-like service layers such as `portal`, `positioner`, `backdrop`, or
-`viewport`. In most cases, keep the default shape styling and adjust dimensions with props. Use
-`className` and the CSS variables only when the placeholder needs to match a custom surface.
+| Part       | Role                                                                                                            |
+| ---------- | --------------------------------------------------------------------------------------------------------------- |
+| `Skeleton` | Placeholder surface. Use size props for the common case, then override with `className` or `style` when needed. |
 
 ## Composition
 
-Use `Skeleton` directly for text lines and small custom blocks. Use `SkeletonRect` and
-`SkeletonCircle` when the placeholder has a clear geometric shape, then place those shapes inside
-`SkeletonRow` or `SkeletonColumn` to mirror the final layout.
+`Skeleton` stays intentionally small:
 
-All parts accept `className` and standard `div` props. The component exposes `--skeleton-bg`,
-`--skeleton-radius`, and `--skeleton-animation` for targeted styling; avoid broad overrides in a
-shared parent when a page demonstrates multiple skeleton styles.
+- use `width` and `height` for line and block placeholders
+- use `size` with `shape="circle"` for avatar-style placeholders
+- use `radius` when a surface should match a card or media container
+- use `animated={false}` when motion is unnecessary
+- use `className`, `style`, and `--skeleton-*` variables for styling overrides
+
+### Defaults
+
+| Prop       | Default | Values                             |
+| ---------- | ------- | ---------------------------------- |
+| `height`   | `1rem`  | CSS length (`number` = `px`)       |
+| `width`    | -       | CSS length (`number` = `px`)       |
+| `radius`   | -       | CSS length (`number` = `px`)       |
+| `size`     | -       | Sets `width` and `height` together |
+| `shape`    | `rect`  | `rect`, `circle`                   |
+| `animated` | `true`  | `true`, `false`                    |
 
 ## Examples
 
 ### Card
 
-Use `SkeletonRect` with smaller line skeletons to reserve the shape of card content while data is loading.
+Use a larger block plus shorter text lines to reserve card layout while content is loading.
 
 <Preview>
   <SkeletonCardExample />
 
   <Preview.Code>
     {`
-      import { Skeleton, SkeletonColumn, SkeletonRect } from "moduix";
+      import { Skeleton, Stack } from "moduix";
       import styles from "./skeleton-card-demo.module.css";
 
       export function SkeletonCardDemo() {
         return (
-          <div className={styles.card}>
-            <SkeletonRect height={148} radius="var(--radius-lg)" />
-            <SkeletonColumn gap={12}>
-              <Skeleton height={20} width="70%" />
+          <Stack gap={16} className={styles.card}>
+            <Skeleton height={148} radius="var(--radius-lg)" />
+            <Stack gap={12}>
+              <Skeleton width="70%" height={20} />
               <Skeleton height={14} />
-              <Skeleton height={14} width="82%" />
-            </SkeletonColumn>
-          </div>
+              <Skeleton width="82%" height={14} />
+            </Stack>
+          </Stack>
         );
       }
     `}
@@ -125,10 +123,7 @@ Use `SkeletonRect` with smaller line skeletons to reserve the shape of card cont
   <Preview.CSS>
     {`
       .card {
-        display: flex;
         width: min(20rem, calc(100vw - var(--spacing-8)));
-        flex-direction: column;
-        gap: var(--spacing-4);
       }
     `}
 
@@ -137,26 +132,26 @@ Use `SkeletonRect` with smaller line skeletons to reserve the shape of card cont
 
 ### Media Object
 
-Combine `SkeletonCircle`, `SkeletonColumn`, and `grow` when mirroring avatar rows, list items, and comments.
+Use `size` with `shape="circle"` for avatar placeholders, then compose text lines beside it.
 
 <Preview>
   <SkeletonMediaObjectExample />
 
   <Preview.Code>
     {`
-      import { Skeleton, SkeletonCircle, SkeletonColumn, SkeletonRow } from "moduix";
+      import { Skeleton, Stack } from "moduix";
       import styles from "./skeleton-media-object-demo.module.css";
 
       export function SkeletonMediaObjectDemo() {
         return (
-          <SkeletonRow className={styles.mediaObject} gap={12}>
-            <SkeletonCircle size={48} />
-            <SkeletonColumn grow gap={8}>
-              <Skeleton height={16} width="46%" />
+          <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
+            <Skeleton size={48} shape="circle" />
+            <Stack gap={8} fill>
+              <Skeleton width="46%" height={16} />
               <Skeleton height={14} />
-              <Skeleton height={14} width="72%" />
-            </SkeletonColumn>
-          </SkeletonRow>
+              <Skeleton width="72%" height={14} />
+            </Stack>
+          </Stack>
         );
       }
     `}
@@ -173,37 +168,36 @@ Combine `SkeletonCircle`, `SkeletonColumn`, and `grow` when mirroring avatar row
   </Preview.CSS>
 </Preview>
 
-### Layout Props
+### Responsive Layout
 
-Use `gap`, `pt`, `pb`, `grow`, and `mobileStack` on the layout primitives when the skeleton must
-reserve the same spacing as the loaded UI.
+Keep responsive layout logic in your wrapper markup while `Skeleton` stays a visual building block.
 
 <Preview>
-  <SkeletonLayoutPropsExample />
+  <SkeletonCompositionExample />
 
   <Preview.Code>
     {`
-      import { Skeleton, SkeletonColumn, SkeletonRow } from "moduix";
-      import styles from "./skeleton-layout-props-demo.module.css";
+      import { Skeleton, Stack } from "moduix";
+      import styles from "./skeleton-layout-demo.module.css";
 
-      export function SkeletonLayoutPropsDemo() {
+      export function SkeletonCompositionDemo() {
         return (
-          <SkeletonColumn className={styles.layoutProps} gap={12} pt={4} pb={4}>
-            <SkeletonRow gap={12} mobileStack={false}>
+          <Stack gap={12} className={styles.layoutExample}>
+            <Stack direction={{ mobile: "column", desktop: "row" }} gap={12}>
               <Skeleton width={72} height={48} />
-              <SkeletonColumn grow gap={8}>
-                <Skeleton height={14} width="62%" />
+              <Stack gap={8} fill>
+                <Skeleton width="62%" height={14} />
                 <Skeleton height={14} />
-              </SkeletonColumn>
-            </SkeletonRow>
-            <SkeletonRow gap={12} mobileStack={false}>
+              </Stack>
+            </Stack>
+            <Stack direction={{ mobile: "column", desktop: "row" }} gap={12}>
               <Skeleton width={72} height={48} />
-              <SkeletonColumn grow gap={8}>
-                <Skeleton height={14} width="48%" />
+              <Stack gap={8} fill>
+                <Skeleton width="48%" height={14} />
                 <Skeleton height={14} />
-              </SkeletonColumn>
-            </SkeletonRow>
-          </SkeletonColumn>
+              </Stack>
+            </Stack>
+          </Stack>
         );
       }
     `}
@@ -212,8 +206,9 @@ reserve the same spacing as the loaded UI.
 
   <Preview.CSS>
     {`
-      .layoutProps {
+      .layoutExample {
         width: min(24rem, calc(100vw - var(--spacing-8)));
+        padding-block: 4px;
       }
     `}
 
@@ -222,42 +217,42 @@ reserve the same spacing as the loaded UI.
 
 ### Static
 
-Pass `animated={false}` when motion is unnecessary or when the placeholder appears in dense repeated layouts.
+Pass `animated={false}` when the loading state is dense or motion should stay quieter.
 
 <Preview>
   <SkeletonStaticExample />
 
   <Preview.Code>
     {`
-      import { SkeletonRect } from "moduix";
+      import { Skeleton } from "moduix";
 
       export function StaticSkeletonDemo() {
-        return <SkeletonRect width={320} height={72} animated={false} />;
+        return <Skeleton width={320} height={72} animated={false} />;
       }
     `}
 
   </Preview.Code>
 </Preview>
 
-### Class Names
+## Custom Composition
 
-Pass `className` to the root or layout primitives when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Use `className` and the public CSS variables when the surface needs local styling overrides.
 
 <Preview>
   <SkeletonClassNameExample />
 
   <Preview.Code>
     {`
-      import { Skeleton, SkeletonColumn } from "moduix";
+      import { Skeleton, Stack } from "moduix";
       import styles from "./custom-skeleton-demo.module.css";
 
       export function CustomSkeletonDemo() {
         return (
-          <SkeletonColumn className={styles.customBlock} gap={10}>
+          <Stack gap={10} className={styles.customBlock}>
             <Skeleton className={styles.customSkeleton} height={18} />
-            <Skeleton className={styles.customSkeleton} height={18} width="78%" />
-            <Skeleton className={styles.customSkeleton} height={18} width="52%" />
-          </SkeletonColumn>
+            <Skeleton className={styles.customSkeleton} width="78%" height={18} />
+            <Skeleton className={styles.customSkeleton} width="52%" height={18} />
+          </Stack>
         );
       }
     `}
@@ -267,7 +262,6 @@ Pass `className` to the root or layout primitives when styling with CSS Modules,
   <Preview.CSS>
     {`
       .customBlock {
-        display: flex;
         width: min(20rem, calc(100vw - var(--spacing-8)));
         --skeleton-bg: var(--color-primary);
         --skeleton-radius: var(--radius-full);

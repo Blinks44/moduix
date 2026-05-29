@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { ChevronDownIcon, ChevronUpIcon } from '@/primitives';
+import { useId, useState } from 'react';
+import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ui';
 import { Field, FieldError, FieldLabel } from '../Field';
 import {
   NumberField,
@@ -8,7 +8,9 @@ import {
   NumberFieldGroup,
   NumberFieldIncrement,
   NumberFieldInput,
+  NumberFieldRoot,
   NumberFieldScrubArea,
+  NumberFieldScrubAreaCursor,
 } from './NumberField';
 import storyStyles from './NumberField.stories.module.css';
 
@@ -27,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -40,8 +42,8 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const id = React.useId();
-    const [value, setValue] = React.useState<number | null>(24);
+    const id = useId();
+    const [value, setValue] = useState<number | null>(24);
 
     return (
       <div className={storyStyles.stack}>
@@ -57,7 +59,7 @@ export const Controlled: Story = {
 
 export const MinMaxAndStep: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -70,7 +72,7 @@ export const MinMaxAndStep: Story = {
 
 export const Formatted: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
@@ -89,13 +91,14 @@ export const Formatted: Story = {
 
 export const WithScrubArea: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field name="quantity">
         <NumberField defaultValue={250} id={id}>
-          <NumberFieldScrubArea classNames={{ cursor: storyStyles.scrubCursor }}>
+          <NumberFieldScrubArea>
             <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+            <NumberFieldScrubAreaCursor />
           </NumberFieldScrubArea>
         </NumberField>
       </Field>
@@ -105,7 +108,7 @@ export const WithScrubArea: Story = {
 
 export const WithFieldValidation: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field name="quantity" validationMode="onBlur">
@@ -121,22 +124,40 @@ export const WithFieldValidation: Story = {
 
 export const CustomIcons: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field>
         <FieldLabel htmlFor={id}>Floors</FieldLabel>
-        <NumberField id={id} defaultValue={8} withGroup={false}>
+        <NumberFieldRoot id={id} defaultValue={8}>
           <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" className={storyStyles.customButton}>
+            <NumberFieldDecrement className={storyStyles.customButton}>
               <ChevronDownIcon />
             </NumberFieldDecrement>
             <NumberFieldInput className={storyStyles.customInput} />
-            <NumberFieldIncrement aria-label="Increase value" className={storyStyles.customButton}>
+            <NumberFieldIncrement className={storyStyles.customButton}>
               <ChevronUpIcon />
             </NumberFieldIncrement>
           </NumberFieldGroup>
-        </NumberField>
+        </NumberFieldRoot>
+      </Field>
+    );
+  },
+};
+
+export const CustomButtonLabels: Story = {
+  render: () => {
+    const id = useId();
+
+    return (
+      <Field>
+        <FieldLabel htmlFor={id}>Seats</FieldLabel>
+        <NumberField
+          id={id}
+          defaultValue={2}
+          decrementLabel="Decrease seat count"
+          incrementLabel="Increase seat count"
+        />
       </Field>
     );
   },

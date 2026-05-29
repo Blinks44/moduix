@@ -4,12 +4,13 @@ description: Displays the status of a task that takes a long time.
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
   AriaValueTextProgressExample,
   ControlledProgressExample,
-  CustomStylingProgressExample,
+  CustomStylesProgressExample,
+  CustomCompositionProgressExample,
   CustomValueTextProgressExample,
+  DeepCompositionProgressExample,
   IndeterminateProgressExample,
   LocaleAndFormatProgressExample,
   MinMaxRangeProgressExample,
@@ -53,8 +54,7 @@ import {
 
 ## Anatomy
 
-`Progress` groups the text label, formatted value, and visual bar for one long-running task.
-The bar structure is rendered automatically so consumers only compose the visible text slots.
+`Progress` renders the visual bar automatically, so the default path only needs the visible text slots.
 
 ```text
 Progress[value]
@@ -77,34 +77,41 @@ export function ProgressDemo() {
 }
 ```
 
-| Part            | Role                                                                                                      |
-| --------------- | --------------------------------------------------------------------------------------------------------- |
-| `Progress`      | Root state machine. Controls `value`, `min`, `max`, formatting, and accessible progress attributes.       |
-| `ProgressLabel` | Optional text label associated with the progress root.                                                    |
-| `ProgressValue` | Optional formatted value text. It can render the default formatted value or use a child render function.  |
-| `track`         | Internal visual rail rendered by `Progress`. Customize it with CSS variables or `classNames.track`.       |
-| `indicator`     | Internal filled bar rendered inside the track. Customize it with CSS variables or `classNames.indicator`. |
+| Part            | Role                                                                                                     |
+| --------------- | -------------------------------------------------------------------------------------------------------- |
+| `Progress`      | Root state machine. Controls `value`, `min`, `max`, formatting, and accessible progress attributes.      |
+| `ProgressLabel` | Optional text label associated with the progress root.                                                   |
+| `ProgressValue` | Optional formatted value text. It can render the default formatted value or use a child render function. |
+| `track`         | Default visual rail rendered by `Progress`.                                                              |
+| `indicator`     | Default filled bar rendered inside the track.                                                            |
 
-`Progress` does not expose `ProgressTrack` or `ProgressIndicator` in the public composition.
-Use the default internal bar for normal cases and reach for `classNames` only when slot-level
-track or indicator styling is needed.
+For deeper customization, the same parts are also exported as `ProgressRoot`, `ProgressTrack`, and
+`ProgressIndicator`.
 
 ## Composition
 
 Use `value={null}` for indeterminate work, or pass a number with optional `min` and `max` for
-known progress. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` come from the root
-and keep the visual value and accessibility text aligned.
+known progress. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` live on the root and
+keep the visible value and accessible text aligned.
 
-Style the root with `className`. Style the automatically rendered visual bar with CSS variables,
-or pass `classNames={{ track, indicator }}` when the track or indicator needs its own selector.
-`ProgressLabel` and `ProgressValue` remain regular visible slots and accept their own `className`
-and `render` props from Base UI.
+Style the default component with `className`, CSS variables, and the built-in `data-slot` hooks.
+When the bar structure itself needs a different DOM shape or part-level `render` control, switch to
+explicit composition with `ProgressRoot`, `ProgressTrack`, and `ProgressIndicator`.
+`ProgressLabel` and `ProgressValue` keep their own `className` and `render` props from Base UI.
+
+### Defaults
+
+| Prop    | Default | Values             |
+| ------- | ------- | ------------------ |
+| `value` | `null`  | `number` \| `null` |
+| `min`   | `0`     | `number`           |
+| `max`   | `100`   | `number`           |
 
 ## Examples
 
 ### Controlled
 
-Keep the value in React state when progress mirrors another control, upload, export, or background task.
+Keep the value in React state when progress mirrors another control or task.
 
 <Preview>
   <ControlledProgressExample />
@@ -146,7 +153,7 @@ Keep the value in React state when progress mirrors another control, upload, exp
 
 ### Min Max Range
 
-Use `min` and `max` when the current value belongs to a custom range instead of the default `0` to `100`.
+Use `min` and `max` when the value does not use the default `0` to `100` range.
 
 <Preview>
   <MinMaxRangeProgressExample />
@@ -174,7 +181,7 @@ Use `min` and `max` when the current value belongs to a custom range instead of 
 
 ### Locale And Format
 
-Use `locale`, `format`, and a custom `ProgressValue` child function to format progress text for users.
+Use `locale`, `format`, and a custom `ProgressValue` child function for localized value text.
 
 <Preview>
   <LocaleAndFormatProgressExample />
@@ -189,7 +196,13 @@ Use `locale`, `format`, and a custom `ProgressValue` child function to format pr
 
       export function LocaleAndFormatProgressDemo() {
         return (
-          <Progress value={0.64} min={0} max={1} locale="de-DE" format={{ style: "percent" }}>
+          <Progress
+            value={0.64}
+            min={0}
+            max={1}
+            locale="de-DE"
+            format={{ style: "percent", maximumFractionDigits: 0 }}
+          >
             <ProgressLabel>Storage usage</ProgressLabel>
             <ProgressValue>{(formattedValue) => \`\${formattedValue} belegt\`}</ProgressValue>
           </Progress>
@@ -230,7 +243,7 @@ Pass `value={null}` when the task is running but the current completion percenta
 
 ### Aria Value Text
 
-Use `aria-valuetext` when the numeric value needs a more descriptive accessible label.
+Use `aria-valuetext` when the numeric value needs a clearer accessible label.
 
 <Preview>
   <AriaValueTextProgressExample />
@@ -245,15 +258,69 @@ Use `aria-valuetext` when the numeric value needs a more descriptive accessible 
 
       export function AriaValueTextProgressDemo() {
         return (
-          <Progress value={3} min={0} max={5} aria-valuetext="Step 3 of 5 completed">
+          <Progress
+            value={3}
+            min={0}
+            max={5}
+            aria-valuetext="3 of 5 onboarding steps completed"
+          >
             <ProgressLabel>Onboarding</ProgressLabel>
-            <ProgressValue>{() => "Step 3 of 5"}</ProgressValue>
+            <ProgressValue>{() => "3 of 5 complete"}</ProgressValue>
           </Progress>
         );
       }
     `}
 
   </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Style the default wrapper with `className`, CSS variables, and the built-in `data-slot` hooks when
+the default structure still fits.
+
+<Preview>
+  <CustomStylesProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Progress,
+        ProgressLabel,
+        ProgressValue,
+      } from "moduix";
+
+      export function CustomStylesProgressDemo() {
+        return (
+          <Progress value={72} className={styles.customProgress}>
+            <ProgressLabel>Monthly quota</ProgressLabel>
+            <ProgressValue />
+          </Progress>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customProgress {
+        --progress-width: 16rem;
+        --progress-track-height: 0.75rem;
+        --progress-track-bg: var(--color-accent);
+      }
+
+      .customProgress [data-slot="progress-track"] {
+        box-shadow: inset 0 0 0 var(--border-width-md)
+          color-mix(in oklab, var(--color-primary), transparent 75%);
+      }
+
+      .customProgress [data-slot="progress-indicator"] {
+        background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Value Text
@@ -287,32 +354,33 @@ Use `getAriaValueText` with custom rendered value text when visual and accessibl
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+## Custom Composition
 
-`Progress` renders the track and indicator automatically. Use `className` for the root and `classNames` for the internal track or indicator slots.
+Use explicit parts when the layout or structure needs to change more deeply.
 
 <Preview>
-  <CustomStylingProgressExample />
+  <CustomCompositionProgressExample />
 
   <Preview.Code>
     {`
       import {
-        Progress,
+        ProgressIndicator,
         ProgressLabel,
+        ProgressRoot,
+        ProgressTrack,
         ProgressValue,
       } from "moduix";
       import styles from "./progress-demo.module.css";
 
-      export function CustomStylingProgressDemo() {
+      export function CustomCompositionProgressDemo() {
         return (
-          <Progress
-            value={72}
-            className={styles.customProgress}
-            classNames={{ track: styles.customTrack, indicator: styles.customIndicator }}
-          >
-            <ProgressLabel>Monthly export</ProgressLabel>
-            <ProgressValue />
-          </Progress>
+          <ProgressRoot value={58} className={styles.composedProgress}>
+            <ProgressLabel>Team rollout</ProgressLabel>
+            <ProgressValue>{(formattedValue) => \`\${formattedValue} shipped\`}</ProgressValue>
+            <ProgressTrack className={styles.composedTrack}>
+              <ProgressIndicator className={styles.composedIndicator} />
+            </ProgressTrack>
+          </ProgressRoot>
         );
       }
     `}
@@ -321,21 +389,61 @@ Use `getAriaValueText` with custom rendered value text when visual and accessibl
 
   <Preview.CSS>
     {`
-      .customProgress {
-        --progress-width: 16rem;
-        --progress-track-height: 0.75rem;
-        --progress-track-bg: var(--color-accent);
+      .composedProgress {
+        --progress-width: 18rem;
+        --progress-track-height: 0.625rem;
       }
 
-      .customTrack {
-        box-shadow: inset 0 0 0 var(--border-width-md)
-          color-mix(in oklab, var(--color-primary), transparent 75%);
+      .composedTrack {
+        box-sizing: border-box;
+        display: flex;
+        align-items: stretch;
+        height: 1rem;
+        border-radius: var(--radius-md);
+        background: var(--color-background);
+        box-shadow: inset 0 0 0 var(--border-width-sm)
+          color-mix(in oklab, var(--color-chart-3), var(--color-primary) 45%);
       }
 
-      .customIndicator {
-        background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+      .composedIndicator {
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
       }
     `}
 
   </Preview.CSS>
+</Preview>
+
+### Deeper Structure
+
+Keep the default track and indicator styling hooks when composition only needs a custom root or
+layout wrapper.
+
+<Preview>
+  <DeepCompositionProgressExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ProgressIndicator,
+        ProgressLabel,
+        ProgressRoot,
+        ProgressTrack,
+        ProgressValue,
+      } from "moduix";
+
+      export function DeepCompositionProgressDemo() {
+        return (
+          <ProgressRoot value={72} className={styles.customProgress}>
+            <ProgressLabel>Monthly export</ProgressLabel>
+            <ProgressValue />
+            <ProgressTrack>
+              <ProgressIndicator />
+            </ProgressTrack>
+          </ProgressRoot>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>

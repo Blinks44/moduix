@@ -1,26 +1,34 @@
 ---
 title: Button
-description: A composable action control with variants, sizes, icons, and loading states.
+description: A thin styled wrapper over the Base UI button primitive.
 icon: Component
 ---
 
 import {
   ButtonCssPlaygroundPanel,
   ButtonCssPropertiesPanel,
-  ButtonCustomLoadingIndicatorExample,
   ButtonDisabledExample,
   ButtonExample,
   ButtonIconExample,
+  ButtonLinkCompositionExample,
   ButtonLoadingExample,
   ButtonSizesExample,
   ButtonVariantsExample,
-  CustomStylesButtonExample,
+  CustomCompositionButtonExample,
   buttonPlaygroundCssProperties,
 } from '@/components/examples/button';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/button" />
+
+## Overview
+
+`Button` is a thin styled wrapper over Base UI `Button`. The library keeps the default path short:
+pick a `variant`, pick a `size` when needed, and compose content through `children`.
+
+Base UI behavior stays available on the same component, including `render`, `nativeButton`,
+`disabled`, and `focusableWhenDisabled`.
 
 ## Basic
 
@@ -49,51 +57,40 @@ import {
 
 ## Anatomy
 
-`Button` is composed as one interactive root with optional internal loading slots. In common
-usage, compose content as children and optionally enable loading states.
+`Button` is a single styled Base UI primitive root.
 
 ```text
 Button
-├─ content
-└─ loadingIndicator (when loading)
-   └─ spinner (default)
 ```
 
-| Part               | Role                                                                            |
-| ------------------ | ------------------------------------------------------------------------------- |
-| `Button`           | Interactive root. Handles click, disabled, loading, and focus states.           |
-| `content` slot     | Wrapper around button children so content layout stays stable.                  |
-| `loadingIndicator` | Slot rendered in loading state; accepts custom indicator via props.             |
-| `spinner`          | Default spinner inside `loadingIndicator` when no custom indicator is provided. |
+| Part     | Role                                                       |
+| -------- | ---------------------------------------------------------- |
+| `Button` | Interactive root with moduix styles plus Base UI behavior. |
 
-The root exposes `data-disabled` from Base UI and `data-loading` from moduix. Use these attributes
-or CSS variables when styling state from CSS.
+The root exposes `data-slot="button-root"`, `data-variant`, `data-size`, and Base UI
+`data-disabled`.
 
 ## Composition
 
-Use `Button` behavior props such as `render`, `nativeButton`, `disabled`, and
-`focusableWhenDisabled`. Use `className` for the
-root button. Use `classNames` for internal slots that are rendered by the component:
+moduix only adds two visual props:
 
-```tsx
-<Button
-  className={styles.button}
-  classNames={{
-    content: styles.content,
-    loadingIndicator: styles.loadingIndicator,
-    spinner: styles.spinner,
-  }}
-/>
-```
+| Prop      | Default   | Values                                                                                   |
+| --------- | --------- | ---------------------------------------------------------------------------------------- |
+| `variant` | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
+| `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
 
-For submit buttons, pass `type="submit"`. For links, style an `<a>` directly instead of rendering
-an anchor through `Button`; Base UI Button intentionally keeps button semantics.
+Use `variant` and `size` for the common visual path. Keep everything else in composition:
+
+- pass `type="submit"` for form actions
+- pass `disabled` and `focusableWhenDisabled` for disabled states
+- compose icons and spinners through `children`
+- use `render` when the styled control should render another element
+
+For navigation-first actions, render an anchor or router link instead of keeping button semantics.
 
 ## Examples
 
 ### Variants
-
-Use `variant` to match the intent of the action. For navigation links, style an `<a>` directly instead of rendering a link through `Button`.
 
 <Preview>
   <ButtonVariantsExample />
@@ -121,8 +118,6 @@ Use `variant` to match the intent of the action. For navigation links, style an 
 </Preview>
 
 ### Sizes
-
-Use text sizes for standard actions and icon sizes for buttons that only contain an icon.
 
 <Preview>
   <ButtonSizesExample />
@@ -158,14 +153,12 @@ Use text sizes for standard actions and icon sizes for buttons that only contain
 
 ### Icons
 
-Pass icons as children. The component does not lock you into a specific icon set.
-
 <Preview>
   <ButtonIconExample />
 
   <Preview.Code>
     {`
-      import { Button, PlusIcon, StarIcon, ArrowUpRightIcon } from "moduix";
+      import { ArrowUpRightIcon, Button, PlusIcon, StarIcon } from "moduix";
 
       export function ButtonIconsDemo() {
         return (
@@ -189,9 +182,7 @@ Pass icons as children. The component does not lock you into a specific icon set
   </Preview.Code>
 </Preview>
 
-### Disabled
-
-Use `focusableWhenDisabled` when the button becomes disabled after focus, for example during a pending action.
+### Disabled and Focusable Disabled
 
 <Preview>
   <ButtonDisabledExample />
@@ -215,31 +206,39 @@ Use `focusableWhenDisabled` when the button becomes disabled after focus, for ex
   </Preview.Code>
 </Preview>
 
-### Loading
+### Pending State
 
-Use the built-in loading props when an action should keep its size while it is pending.
+Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a child spinner.
 
 <Preview>
   <ButtonLoadingExample />
 
   <Preview.Code>
     {`
-      import { Button } from "moduix";
+      import { Button, Spinner } from "moduix";
       import { useState } from "react";
 
-      export function LoadingButton() {
-        const [loading, setLoading] = useState(false);
+      export function PendingButton() {
+        const [pending, setPending] = useState(false);
 
         return (
           <Button
-            loading={loading}
-            loadingText="Saving"
+            disabled={pending}
+            focusableWhenDisabled
+            aria-busy={pending || undefined}
             onClick={() => {
-              setLoading(true);
-              setTimeout(() => setLoading(false), 1800);
+              setPending(true);
+              setTimeout(() => setPending(false), 1800);
             }}
           >
-            Save Changes
+            {pending ? (
+              <>
+                <Spinner decorative size="sm" />
+                Saving
+              </>
+            ) : (
+              "Save Changes"
+            )}
           </Button>
         );
       }
@@ -248,69 +247,47 @@ Use the built-in loading props when an action should keep its size while it is p
   </Preview.Code>
 </Preview>
 
-### Custom Loading Indicator
+## Custom Composition
 
-Pass `loadingIndicator` to use an icon or spinner from your application.
-
-<Preview>
-  <ButtonCustomLoadingIndicatorExample />
-
-  <Preview.Code>
-    {`
-      import { Button, StarIcon } from "moduix";
-
-      export function CustomLoadingIndicatorDemo() {
-        return (
-          <Button
-            loading
-            loadingText="Syncing"
-            variant="outline"
-            loadingIndicator={<StarIcon className={styles.customLoadingIndicator} />}
-          >
-            Sync
-          </Button>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customLoadingIndicator {
-        width: 0.875rem;
-        height: 0.875rem;
-        animation: var(--animation-spin);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Custom Styles
-
-Pass `className` for the button root and `classNames` for internal slots when styling with CSS Modules, Tailwind CSS, or CSS-in-JS.
+### Render as a Link
 
 <Preview>
-  <CustomStylesButtonExample />
+  <ButtonLinkCompositionExample />
 
   <Preview.Code>
     {`
       import { Button } from "moduix";
 
-      export function CustomStylesButtonDemo() {
+      export function ButtonLinkDemo() {
         return (
           <Button
-            className={styles.customButton}
-            classNames={{
-              content: styles.customButtonContent,
-              loadingIndicator: styles.customLoadingIndicatorColor,
-              spinner: styles.customSpinner,
-            }}
-            loading
-            loadingText="Publishing"
+            render={<a href="#button" />}
+            nativeButton={false}
+            variant="outline"
           >
-            Publish
+            Open Button Docs
+          </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Styling Override
+
+<Preview>
+  <CustomCompositionButtonExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Spinner } from "moduix";
+
+      export function CustomCompositionButtonDemo() {
+        return (
+          <Button className="customButton" disabled focusableWhenDisabled aria-busy>
+            <Spinner decorative size="sm" className="customSpinner" />
+            Publishing
           </Button>
         );
       }
@@ -327,16 +304,8 @@ Pass `className` for the button root and `classNames` for internal slots when st
         box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
       }
 
-      .customButtonContent {
-        letter-spacing: 0.025em;
-      }
-
-      .customLoadingIndicatorColor {
-        color: var(--color-primary-foreground);
-      }
-
       .customSpinner {
-        border-width: var(--border-width-md);
+        color: currentColor;
       }
     `}
 

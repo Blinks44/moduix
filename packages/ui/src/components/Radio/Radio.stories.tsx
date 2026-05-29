@@ -1,16 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import { Field, FieldItem, FieldLabel } from '../Field';
 import { Fieldset, FieldsetLegend } from '../Fieldset';
 import {
   Radio,
   RadioField,
   RadioGroup,
-  RadioGroupItem,
-  RadioGroupItemControl,
-  RadioGroupItemLabel,
   RadioGroupLabel,
   RadioGroupList,
+  RadioIndicator,
   RadioLabel,
 } from './Radio';
 import styles from './Radio.stories.module.css';
@@ -32,9 +30,9 @@ const options = [
   { value: 'personal', label: 'Personal account' },
   { value: 'team', label: 'Team account' },
   { value: 'enterprise', label: 'Enterprise account' },
-];
+] as const;
 
-function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
+function CustomRadioIcon(props: ComponentProps<'svg'>) {
   return (
     <svg
       width="12"
@@ -52,17 +50,17 @@ function CustomRadioIcon(props: React.ComponentProps<'svg'>) {
 
 export const Basic: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
       <RadioGroup aria-labelledby={labelId} defaultValue="team">
         <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
         <RadioGroupList>
           {options.map((option) => (
-            <RadioGroupItem key={option.value}>
-              <RadioGroupItemControl value={option.value} />
-              <RadioGroupItemLabel>{option.label}</RadioGroupItemLabel>
-            </RadioGroupItem>
+            <RadioField key={option.value}>
+              <Radio value={option.value} />
+              <RadioLabel>{option.label}</RadioLabel>
+            </RadioField>
           ))}
         </RadioGroupList>
       </RadioGroup>
@@ -72,32 +70,32 @@ export const Basic: Story = {
 
 export const Sizes: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
       <RadioGroup aria-labelledby={labelId} defaultValue="md">
         <RadioGroupLabel id={labelId}>Control Size</RadioGroupLabel>
         <RadioGroupList>
-          <RadioGroupItem>
-            <RadioGroupItemControl value="xs" size="xs" />
-            <RadioGroupItemLabel>Extra-small</RadioGroupItemLabel>
-          </RadioGroupItem>
-          <RadioGroupItem>
-            <RadioGroupItemControl value="sm" size="sm" />
-            <RadioGroupItemLabel>Small</RadioGroupItemLabel>
-          </RadioGroupItem>
-          <RadioGroupItem>
-            <RadioGroupItemControl value="md" size="md" />
-            <RadioGroupItemLabel>Medium</RadioGroupItemLabel>
-          </RadioGroupItem>
-          <RadioGroupItem>
-            <RadioGroupItemControl value="lg" size="lg" />
-            <RadioGroupItemLabel>Large</RadioGroupItemLabel>
-          </RadioGroupItem>
-          <RadioGroupItem>
-            <RadioGroupItemControl value="xl" size="xl" />
-            <RadioGroupItemLabel>Extra-large</RadioGroupItemLabel>
-          </RadioGroupItem>
+          <RadioField>
+            <Radio value="xs" size="xs" />
+            <RadioLabel>Extra-small</RadioLabel>
+          </RadioField>
+          <RadioField>
+            <Radio value="sm" size="sm" />
+            <RadioLabel>Small</RadioLabel>
+          </RadioField>
+          <RadioField>
+            <Radio value="md" size="md" />
+            <RadioLabel>Medium</RadioLabel>
+          </RadioField>
+          <RadioField>
+            <Radio value="lg" size="lg" />
+            <RadioLabel>Large</RadioLabel>
+          </RadioField>
+          <RadioField>
+            <Radio value="xl" size="xl" />
+            <RadioLabel>Extra-large</RadioLabel>
+          </RadioField>
         </RadioGroupList>
       </RadioGroup>
     );
@@ -106,22 +104,22 @@ export const Sizes: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const labelId = React.useId();
-    const [value, setValue] = React.useState('personal');
+    const labelId = useId();
+    const [value, setValue] = useState('personal');
 
     return (
       <div className={styles.stack}>
         <RadioGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
           <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
           <RadioGroupList>
-            <RadioGroupItem>
-              <RadioGroupItemControl value="personal" />
-              <RadioGroupItemLabel>Only me</RadioGroupItemLabel>
-            </RadioGroupItem>
-            <RadioGroupItem>
-              <RadioGroupItemControl value="team" />
-              <RadioGroupItemLabel>Team</RadioGroupItemLabel>
-            </RadioGroupItem>
+            <RadioField>
+              <Radio value="personal" />
+              <RadioLabel>Only me</RadioLabel>
+            </RadioField>
+            <RadioField>
+              <Radio value="team" />
+              <RadioLabel>Team</RadioLabel>
+            </RadioField>
           </RadioGroupList>
         </RadioGroup>
         <span className={styles.hint}>Current value: {value}</span>
@@ -130,42 +128,19 @@ export const Controlled: Story = {
   },
 };
 
-export const CustomIndicator: Story = {
-  render: () => {
-    const labelId = React.useId();
-
-    return (
-      <RadioGroup aria-labelledby={labelId} defaultValue="team">
-        <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
-        <RadioGroupList>
-          {options.map((option) => (
-            <RadioGroupItem key={option.value}>
-              <RadioGroupItemControl
-                value={option.value}
-                indicator={<CustomRadioIcon className={styles.customIndicator} />}
-              />
-              <RadioGroupItemLabel>{option.label}</RadioGroupItemLabel>
-            </RadioGroupItem>
-          ))}
-        </RadioGroupList>
-      </RadioGroup>
-    );
-  },
-};
-
 export const Disabled: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
       <RadioGroup aria-labelledby={labelId} defaultValue="enterprise" disabled>
         <RadioGroupLabel id={labelId}>Plan</RadioGroupLabel>
         <RadioGroupList>
           {options.map((option) => (
-            <RadioGroupItem key={option.value}>
-              <RadioGroupItemControl value={option.value} />
-              <RadioGroupItemLabel>{option.label}</RadioGroupItemLabel>
-            </RadioGroupItem>
+            <RadioField key={option.value}>
+              <Radio value={option.value} />
+              <RadioLabel>{option.label}</RadioLabel>
+            </RadioField>
           ))}
         </RadioGroupList>
       </RadioGroup>
@@ -173,21 +148,23 @@ export const Disabled: Story = {
   },
 };
 
-export const FieldComposition: Story = {
+export const ReadOnly: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
-      <RadioGroup aria-labelledby={labelId} defaultValue="personal">
-        <RadioGroupLabel id={labelId}>Members</RadioGroupLabel>
-        <div className={styles.stack}>
-          {options.map((option) => (
-            <RadioField key={option.value}>
-              <Radio value={option.value} />
-              <RadioLabel>{option.label}</RadioLabel>
-            </RadioField>
-          ))}
-        </div>
+      <RadioGroup aria-labelledby={labelId} defaultValue="team" readOnly>
+        <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
+        <RadioGroupList>
+          <RadioField>
+            <Radio value="personal" />
+            <RadioLabel>Only me</RadioLabel>
+          </RadioField>
+          <RadioField>
+            <Radio value="team" />
+            <RadioLabel>Team</RadioLabel>
+          </RadioField>
+        </RadioGroupList>
       </RadioGroup>
     );
   },
@@ -196,8 +173,8 @@ export const FieldComposition: Story = {
 export const SiblingLabelNativeButton: Story = {
   name: 'Sibling Label (Native Button)',
   render: () => {
-    const id = React.useId();
-    const labelId = React.useId();
+    const id = useId();
+    const labelId = useId();
 
     return (
       <div className={styles.siblingRow}>
@@ -215,26 +192,47 @@ export const SiblingLabelNativeButton: Story = {
   },
 };
 
-export const NativeButtonRenderCallback: Story = {
-  name: 'Native Button (Render Callback)',
+export const CustomStyles: Story = {
   render: () => {
-    const labelId = React.useId();
+    const labelId = useId();
 
     return (
-      <RadioGroup defaultValue="ssd" aria-labelledby={labelId}>
-        <div id={labelId} className={styles.hint}>
-          Storage type
-        </div>
-        <Radio
-          value="ssd"
-          nativeButton
-          render={(buttonProps) => (
-            <label className={styles.siblingRow}>
-              <button {...buttonProps} />
-              <span className={styles.siblingLabel}>SSD</span>
-            </label>
-          )}
-        />
+      <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.customGroup}>
+        <RadioGroupLabel id={labelId} className={styles.customLabel}>
+          Styled Account Type
+        </RadioGroupLabel>
+        <RadioGroupList className={styles.customList}>
+          {options.map((option) => (
+            <RadioField key={option.value} className={styles.customField}>
+              <Radio value={option.value} className={styles.customRadio} />
+              <RadioLabel className={styles.customLabel}>{option.label}</RadioLabel>
+            </RadioField>
+          ))}
+        </RadioGroupList>
+      </RadioGroup>
+    );
+  },
+};
+
+export const CustomComposition: Story = {
+  render: () => {
+    const labelId = useId();
+
+    return (
+      <RadioGroup aria-labelledby={labelId} defaultValue="team">
+        <RadioGroupLabel id={labelId}>Account Type</RadioGroupLabel>
+        <RadioGroupList>
+          {options.map((option) => (
+            <RadioField key={option.value}>
+              <Radio value={option.value}>
+                <RadioIndicator>
+                  <CustomRadioIcon className={styles.customIndicator} />
+                </RadioIndicator>
+              </Radio>
+              <RadioLabel>{option.label}</RadioLabel>
+            </RadioField>
+          ))}
+        </RadioGroupList>
       </RadioGroup>
     );
   },

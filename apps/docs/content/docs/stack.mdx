@@ -1,0 +1,307 @@
+---
+title: Stack
+description: A small flex layout primitive for vertical and horizontal composition.
+icon: Component
+---
+
+import {
+  StackExample,
+  StackFillExample,
+  StackResponsiveDirectionExample,
+  StackRowExample,
+  StackSemanticExample,
+  StackSkeletonExample,
+  StackWrapExample,
+} from '@/components/examples/stack';
+
+## Overview
+
+`Stack` is a small flex layout primitive for vertical and horizontal composition. It does not wrap
+a Base UI primitive.
+
+Use it when the layout intent is just direction, spacing, and common flex alignment. Use `fill`
+when a stack should take the remaining flex space. Use responsive `direction` when the layout only
+needs a mobile/desktop switch without a dedicated CSS file.
+
+## Default Path
+
+<Preview>
+  <StackExample />
+
+  <Preview.Code>
+    {`
+      import { Heading, Stack, Text } from "moduix";
+
+      export function StackDemo() {
+        return (
+          <Stack gap={12} className={styles.panel}>
+            <Heading as="h3" size="md">Project updates</Heading>
+            <Text tone="muted">
+              Use Stack when the layout intent is just flex direction, spacing, and alignment.
+            </Text>
+            <Text tone="muted">Keep custom layout rules in local CSS.</Text>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .panel {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Anatomy
+
+`Stack` is a single root flex wrapper. It owns direction, gap, common alignment, and a small amount
+of opt-in layout sugar, while leaving broader layout rules to local CSS.
+
+```text
+Stack
+└─ children
+```
+
+```tsx
+<Stack gap={12}>
+  <div>First item</div>
+  <div>Second item</div>
+</Stack>
+```
+
+| Part    | Role                                                 |
+| ------- | ---------------------------------------------------- |
+| `Stack` | Root flex wrapper for direction, gap, and alignment. |
+
+## Composition
+
+Use `direction`, `gap`, `align`, `justify`, and `wrap` for common flex layout.
+Use `fill` when the stack should grow as a flex item. Use `as` when the wrapper should render a
+different element.
+
+### Defaults
+
+| Prop        | Default      | Values                                                |
+| ----------- | ------------ | ----------------------------------------------------- |
+| `direction` | `column`     | `column`, `row`, or `{ mobile?: ..., desktop?: ... }` |
+| `gap`       | -            | CSS length (`number` = `px`)                          |
+| `align`     | `stretch`    | Any valid `align-items` value                         |
+| `justify`   | `flex-start` | Any valid `justify-content` value                     |
+| `wrap`      | `nowrap`     | Any valid `flex-wrap` value                           |
+| `fill`      | `false`      | `true`, `false` (`true` = `flex: 1 1 0`)              |
+| `as`        | `div`        | Any React element type                                |
+
+Responsive `direction` is intentionally narrow: it only switches between mobile and desktop
+directions at `640px`. Use `className` or `style` when you need broader responsive layout rules.
+
+## Examples
+
+### Row
+
+Use `direction="row"` and alignment props for inline layouts.
+
+<Preview>
+  <StackRowExample />
+
+  <Preview.Code>
+    {`
+      import { Stack, Text } from "moduix";
+
+      export function StackRowDemo() {
+        return (
+          <Stack direction="row" align="center" justify="space-between" gap={12} className={styles.row}>
+            <Text weight="semibold">Status</Text>
+            <Text tone="muted">Ready to publish</Text>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Wrap
+
+Use `wrap="wrap"` when items should flow to the next line.
+
+<Preview>
+  <StackWrapExample />
+
+  <Preview.Code>
+    {`
+      import { Stack } from "moduix";
+
+      export function StackWrapDemo() {
+        return (
+          <Stack direction="row" gap={8} wrap="wrap" className={styles.wrap}>
+            <div className={styles.pill}>Design</div>
+            <div className={styles.pill}>Engineering</div>
+            <div className={styles.pill}>Docs</div>
+            <div className={styles.pill}>Release</div>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .wrap {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .pill {
+        padding-inline: var(--spacing-3);
+        padding-block: var(--spacing-2);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-full);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Fill
+
+Use `fill` when a nested stack should take the remaining space in a flex row.
+
+<Preview>
+  <StackFillExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, Stack } from "moduix";
+
+      export function StackFillDemo() {
+        return (
+          <Stack direction="row" align="center" gap={12} className={styles.row}>
+            <Skeleton size={40} shape="circle" />
+            <Stack gap={8} fill>
+              <Skeleton width="48%" height={16} />
+              <Skeleton height={14} />
+            </Stack>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Responsive Direction
+
+Use responsive `direction` when the layout only needs a column-on-mobile and row-on-desktop switch.
+
+<Preview>
+  <StackResponsiveDirectionExample />
+
+  <Preview.Code>
+    {`
+      import { Stack, Text } from "moduix";
+
+      export function StackResponsiveDirectionDemo() {
+        return (
+          <Stack
+            direction={{ mobile: "column", desktop: "row" }}
+            gap={12}
+            className={styles.row}
+          >
+            <Text weight="semibold">Adaptive layout</Text>
+            <Text tone="muted">Column on mobile, row from desktop width.</Text>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Semantic Element
+
+Use `as` when the layout wrapper should also describe document structure.
+
+<Preview>
+  <StackSemanticExample />
+
+  <Preview.Code>
+    {`
+      import { Heading, Stack, Text } from "moduix";
+
+      export function StackSemanticDemo() {
+        return (
+          <Stack as="section" gap={12} className={styles.panel}>
+            <Heading as="h3" size="md">Rendered as section</Heading>
+            <Text tone="muted">
+              Use as when the layout wrapper should also carry document semantics.
+            </Text>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Stack + Skeleton
+
+Use `Stack` with `Skeleton` when the loading state only needs flex composition and spacing.
+
+<Preview>
+  <StackSkeletonExample />
+
+  <Preview.Code>
+    {`
+      import { Skeleton, Stack } from "moduix";
+
+      export function StackSkeletonDemo() {
+        return (
+          <Stack gap={16} className={styles.skeletonCard}>
+            <Skeleton height={144} radius="var(--radius-lg)" />
+            <Stack gap={12}>
+              <Skeleton width="62%" height={18} />
+              <Skeleton height={14} />
+              <Skeleton width="78%" height={14} />
+            </Stack>
+          </Stack>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .skeletonCard {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

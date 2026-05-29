@@ -44,7 +44,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "storybook dev -p 6006",
+    "dev": "storybook dev -p 6006 --no-open",
     "build": "tsc -b && vite build",
     "build-storybook": "storybook build",
     "tsc:check": "tsc --noEmit"
@@ -62,7 +62,7 @@
     "react": "^19",
     "react-dom": "^19",
     "typescript": "~6.0.3",
-    "vite": "^8.0.13",
+    "vite": "^8.0.14",
     "vite-plugin-dts": "^5.0.1",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vite-plugin-svgr": "^5.2.0"

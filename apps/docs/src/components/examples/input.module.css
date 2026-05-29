@@ -20,6 +20,6 @@
   text-transform: none;
 }
 
-.customInput:focus {
+.customInput:focus-visible {
   outline-color: var(--color-primary);
 }

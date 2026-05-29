@@ -123,7 +123,6 @@
   .content {
     box-sizing: border-box;
     display: block;
-    min-width: 100%;
     padding: var(--scroll-area-content-padding, 0);
   }
 

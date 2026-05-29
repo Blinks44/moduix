@@ -4,97 +4,201 @@ Use this skill for work in `packages/ui`.
 
 ## Scope
 
-- New components
-- Updates to component API/behavior/styles
-- Storybook updates
-- Public exports and package surface
+- new components
+- component API, behavior, and style changes
+- stories, local component docs, and public exports
 
 ## Read First
 
-1. `AGENTS.md` (repo root)
-2. `.ai/skills/cross-package-sync/SKILL.md` when docs parity may be affected
+1. `AGENTS.md`
+2. `packages/ui/references/base-ui-llms.txt`
+3. `packages/ui/references/shadcn-llms.txt`
+4. `packages/ui/src/components/<ComponentName>/<component-name>.md`
+5. `.ai/skills/cross-package-sync/SKILL.md` when docs parity may be affected
 
-## Mandatory References
+If a required Base UI reference is missing, stop and report it instead of guessing.
 
-Before Base UI component work, check:
+Before editing an existing component, inspect:
 
-- `packages/ui/references/base-ui-llms.txt`
-- `packages/ui/references/shadcn-llms.txt`
+- current implementation
+- CSS module
+- stories
+- local component markdown
+- adjacent docs/examples when the API is user-facing
 
-If missing, download with:
+Build context first. Know what behavior is essential, what styling hooks are public, and what
+complexity is historical rather than useful.
 
-```bash
-cd packages/ui
-curl -o references/base-ui-llms.txt https://base-ui.com/llms.txt
-curl -o references/shadcn-llms.txt https://ui.shadcn.com/llms.txt
-```
+## Goal
 
-Before editing a specific component, read `src/components/<ComponentName>/<component-name>.md`.
-If missing, fetch the file from the Base UI page for that component.
+Build thin styled wrappers over Base UI primitives.
 
-## Implementation Contract
+Target shape:
 
-- Stack: React + TypeScript + CSS Modules + `@base-ui-components/react`.
-- Use `src/components/AlertDialog/` and `src/components/Lightbox/` as architecture and API references.
-- File layout for each component:
+- simple function components
+- inline prop typing where possible
+- minimal wrapper logic
+- predictable composition
+- small public API
+- simple default path with composition available for advanced cases
+
+Aim for the shadcn feel, but with small, high-value DX sugar when it removes repeated production
+boilerplate without turning the component into a configurator.
+
+## Implementation Rules
+
+- Stack: React + TypeScript + CSS Modules + `@base-ui/react`
+- Keep component structure consistent:
   - `ComponentName.tsx`
   - `ComponentName.module.css`
   - `ComponentName.stories.tsx`
   - `component-name.md`
   - `index.ts`
-- Use PascalCase for component folders/files, kebab-case for component `.md`.
-- Keep component APIs reusable and business-logic free.
-- Components must accept `className`.
-- Use shared icons from `src/primitives/Icons/Icons.tsx` for reusable icons.
-- Keep composition and DX shadcn-like: clear compound parts, predictable naming, no unnecessary API overload.
+- Use PascalCase for component files/folders and kebab-case for the local markdown file.
+- Accept `className` on meaningful visual roots.
+- Use `data-slot` on exported parts and meaningful styling hooks.
+- Prefer direct primitive passthrough over custom wrapper logic.
+- Do not add business logic, internal state layers, or future-proofing APIs.
+
+## API Rules
+
+- Prefer composition over feature flags.
+- Prefer explicit public parts over `slotProps`, `classNames`, render shims, or prop bags.
+- Keep controlled and uncontrolled primitive behavior intact unless a wrapper adds real user value.
+- Keep infrastructure slots internal unless they are meaningful building blocks for consumers.
+- Do not create god components that own every optional concern.
+
+For every custom prop, ask:
+
+1. Is this a common production case?
+2. Can composition already express it?
+3. Is it duplicating Base UI?
+4. Does it clearly improve DX?
+5. Does it keep the component simple?
+
+If the answer is weak, simplify or delete it.
+
+## Small Sugar Contract
+
+Small sugar is allowed only when it improves a frequent default workflow and keeps the real
+composition model visible.
+
+Good sugar:
+
+- literal, predictable naming
+- narrow scope
+- obvious boilerplate reduction
+- common production scenario
+- composition still available
+
+Bad sugar:
+
+- replaces composition wholesale
+- duplicates large areas of primitive API
+- introduces parallel customization systems
+- exposes internal structure through prop bags
+- makes the component harder to explain
+
+Use `Pagination` as the reference shape for non-trivial sugar: keep the compositional API, then add
+small headless convenience only where it materially improves repeated usage.
+
+### Popup-like Components
+
+For positioned popup-like `*Content` wrappers, the preferred default contract is:
+
+- `className`
+- `side`
+- `sideOffset`
+- `align`
+- `alignOffset`
+- `arrowPadding`
+- `collisionAvoidance`
+- `collisionBoundary`
+- `collisionPadding`
+- `showArrow`
+
+Rules:
+
+- `showArrow` is the standard name for toggling the built-in arrow.
+- built-in arrows are opt-in by default
+- `showArrow` only turns the default arrow on or off
+- custom arrow content and structural overrides stay in explicit composition
+
+Do not copy this popup vocabulary into dialogs, drawers, alerts, or other non-positioned overlays.
+
+### Dialog-like Components
+
+For dialog-like components:
+
+- keep the visible content wrapper thin
+- allow only narrow workflow sugar that matches repeated library usage
+- keep backdrop, viewport, and close structure simple by default
+
+If the prop starts describing internal layout or hidden structure, move that behavior back to
+composition.
+
+## Typing Rules
+
+- Type props inline unless a named type adds real meaning or reuse.
+- Do not export prop aliases that only restate primitive props.
+- Avoid helper types, generics, `Pick`, and `Omit` unless they protect a real public contract.
+- Keep the public type surface small.
+- Keep the file readable without understanding internal type plumbing first.
+- When `React.ComponentProps` or similar adds noise, prefer direct type imports such as
+  `import type { ComponentProps } from 'react'` in the touched file.
+
+## Refs and Imperative APIs
+
+- Do not add `forwardRef` unless the ref is part of the real consumer API or required by the primitive.
+- Remove wrapper-level imperative helpers that are not essential Base UI behavior.
 
 ## Styling Rules
 
-- Use tokens from `src/styles/*` (`--color-*`, `--spacing-*`, `--radius-*`, etc.).
-- Add missing tokens in the appropriate token files and `src/styles/theme.css`.
-- Add Base UI runtime variables to `src/styles/theme.css` with `initial`; include default values in nearby comments.
-- Keep CSS variable declarations in `src/styles/theme.css` sorted alphabetically. Exception: size scale groups with `-xs/-sm/-md/-lg/-xl` must be ordered from `xs` to `xl`.
-- For CSS variable fallbacks used in component styles, avoid complex expressions (for example nested `calc(var(...))`) because they can break IDE CSS parsing; prefer simple literal fallbacks or a dedicated precomputed variable.
-- Keep variants on slot selectors via `data-*`, not modifier class names.
-- Use nested selectors for derived states/elements.
-- Library CSS (`ComponentName.module.css`) must not contain Storybook/demo layout styles.
-- Story/demo styles belong in `ComponentName.stories.module.css`.
+- Use tokens from `src/styles/*`.
+- Add public styling tokens to `src/styles/theme.css` with `initial` and a nearby default-value comment.
+- Keep `theme.css` variables sorted alphabetically, except ordered size scales.
+- Keep selectors flat, simple, and readable.
+- Remove dead classes, selectors, modifiers, data-attribute branches, and obsolete CSS variables.
+- Do not keep defensive or speculative styling complexity.
+- Demo layout styles belong in `ComponentName.stories.module.css`, not library CSS.
 
-## Exports and Build
+## Stories, Docs, and Sync
 
-- Export component parts/types from component `index.ts`.
-- Update `packages/ui/src/index.ts` in alphabetical order.
-- Keep public type exports limited to broadly useful types (usually base props). Do not export narrow helper/internal types unless clearly needed.
-- Always rebuild UI package after any change in `packages/ui` by running `npm run build:ui` from repo root.
-- For local package-only iteration, `npm run build` in `packages/ui` is allowed, but task handoff and docs sync must use root `npm run build:ui`.
+- Stories and local component markdown must reflect the real API.
+- Remove deleted props, legacy customization paths, and outdated examples in the same task.
+- Prefer short, production-like examples over exhaustive configuration demos.
+- If API, behavior, styling hooks, or recommended usage changed, activate `cross-package-sync` and
+  update docs in the same task.
+- Docs should teach the simple path first, then composition, then advanced escape hatches.
+- Keep docs structurally clear and consistent with stronger pages like `Toast`.
 
-## Slot and Customization Contract
+## Preservation Rules
 
-- Keep service-oriented infrastructure slots (`Portal`, `Positioner`, `Viewport`, `Backdrop`, etc.) internal when they are not meaningful user content.
-- Expose behavior via parent props (`withBackdrop`, `container`, `placement`, `offset`) on the component that renders those slots.
-- For optional UI parts that are toggled on/off, use `with*` boolean naming (`withArrow`, `withBackdrop`, `withViewport`, etc.) instead of mixed forms like `show*`/`hide*`.
-- For styling internal slots, prefer a compact `classNames` object.
-- Keep `className` for the main/root visual slot; do not duplicate it inside `classNames`.
-- Introduce `slotProps` only when there is a concrete need for non-class slot props.
-- Do not add many slot-specific escape hatches (`portalProps`, `viewportProps`, etc.) without clear need.
+Simplification must preserve:
 
-## Class Name Composition
+- accessibility behavior
+- keyboard navigation
+- focus management
+- screen reader behavior
+- Base UI lifecycle, state, transitions, and interactions
+- meaningful styling hooks such as `data-slot`
 
-- Use `mergeClassName` when Base UI supports function `className` and internal/external classes must be merged.
-- Use `clsx` when `className` is string/class-array only.
-
-## Docs Impact
-
-Any UI component update must be reflected in docs. Activate `cross-package-sync` for parity checks and required docs updates.
+Remove architecture, not real behavior.
 
 ## Done Criteria
 
-1. Component structure/API matches project patterns.
-2. Exports updated (`component/index.ts` and root `src/index.ts`).
-3. Stories updated.
-4. Styles use tokens; all important public styling variables are declared in `packages/ui/src/styles/theme.css` (with `initial` and default-value comments) when component styling surface changes.
-5. Related docs updated when API/behavior/examples changed.
-6. Root validations pass:
+The task is done only when all of this is true:
+
+1. `tsx`, `css`, and local `md` files were analyzed before editing.
+2. The component is thinner, simpler, and still clearly shadcn-like.
+3. The API is no larger than necessary.
+4. Any added sugar is small, useful, and tied to a common production case.
+5. Dead props, dead types, dead styles, and unnecessary complexity are removed.
+6. The component is pleasant and easy for library consumers to use.
+7. Stories and local docs match the shipped API.
+8. Related docs are updated when public behavior changed.
+9. Root validations pass:
    - `npm run fmt:fix`
    - `npm run lint:check`
+   - `npm run build:ui` before `npm run tsc:check` when `packages/ui` changed
    - `npm run tsc:check`

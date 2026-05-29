@@ -1,6 +1,7 @@
 import {
   ContextMenu,
   ContextMenuArrow,
+  ContextMenuBackdrop,
   ContextMenuCheckboxItem,
   ContextMenuCheckboxItemIndicator,
   ContextMenuContent,
@@ -13,6 +14,9 @@ import {
   ContextMenuItemTextContent,
   ContextMenuItemTextIcon,
   ContextMenuItemTextLabel,
+  ContextMenuPopup,
+  ContextMenuPortal,
+  ContextMenuPositioner,
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
   ContextMenuRadioItemIndicator,
@@ -25,7 +29,7 @@ import {
   InfoIcon,
   ShareIcon,
 } from 'moduix';
-import * as React from 'react';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './context-menu.module.css';
@@ -203,31 +207,6 @@ export const contextMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--context-menu-submenu-trigger-padding-x-end', '1rem', 'Controls submenu trigger end padding.'],
   ['--context-menu-transition', 'var(--transition-default)', 'Controls shared transition timing.'],
-  ['--context-menu-trigger-bg', 'var(--color-background)', 'Controls trigger background.'],
-  [
-    '--context-menu-trigger-bg-active',
-    'var(--context-menu-trigger-bg-hover)',
-    'Controls trigger active/open background.',
-  ],
-  ['--context-menu-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  ['--context-menu-trigger-border-color', 'var(--color-border)', 'Controls trigger border color.'],
-  [
-    '--context-menu-trigger-border-width',
-    'var(--border-width-sm)',
-    'Controls trigger border width.',
-  ],
-  ['--context-menu-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
-  ['--context-menu-trigger-font-size', 'var(--text-md)', 'Controls trigger font size.'],
-  [
-    '--context-menu-trigger-line-height',
-    'var(--line-height-text-md)',
-    'Controls trigger line height.',
-  ],
-  ['--context-menu-trigger-min-height', '12rem', 'Controls trigger minimum height.'],
-  ['--context-menu-trigger-min-width', '15rem', 'Controls trigger minimum width.'],
-  ['--context-menu-trigger-padding-x', '0.875rem', 'Controls trigger horizontal padding.'],
-  ['--context-menu-trigger-padding-y', '0.5rem', 'Controls trigger vertical padding.'],
-  ['--context-menu-trigger-radius', 'var(--radius-md)', 'Controls trigger corner radius.'],
 ];
 
 export const contextMenuPlaygroundCssProperties: CssPropertyInput[] =
@@ -271,9 +250,8 @@ function normalizeCssProperty(property: CssPropertyInput) {
 export function ContextMenuExample() {
   return (
     <ContextMenu>
-      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
         <ContextMenuItem closeOnClick>Add to Playlist</ContextMenuItem>
         <ContextMenuSeparator />
@@ -291,9 +269,8 @@ export function ContextMenuExample() {
 export function NestedContextMenuExample() {
   return (
     <ContextMenu>
-      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
         <ContextMenuSubmenu>
           <ContextMenuSubmenuTrigger>
@@ -319,9 +296,8 @@ export function NestedContextMenuExample() {
 export function ShortcutsContextMenuExample() {
   return (
     <ContextMenu>
-      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>
           Copy
           <ContextMenuItemShortcut>Ctrl+C</ContextMenuItemShortcut>
@@ -341,16 +317,15 @@ export function ShortcutsContextMenuExample() {
 }
 
 export function GroupsAndControlsContextMenuExample() {
-  const [sortBy, setSortBy] = React.useState('date');
-  const [showMinimap, setShowMinimap] = React.useState(true);
-  const [showSearch, setShowSearch] = React.useState(true);
-  const [showSidebar, setShowSidebar] = React.useState(false);
+  const [sortBy, setSortBy] = useState('date');
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [showSearch, setShowSearch] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   return (
     <ContextMenu>
-      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuGroup>
           <ContextMenuGroupLabel>Sort</ContextMenuGroupLabel>
           <ContextMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -390,14 +365,13 @@ export function GroupsAndControlsContextMenuExample() {
 }
 
 export function IndicatorRightContextMenuExample() {
-  const [showMinimap, setShowMinimap] = React.useState(true);
-  const [showSearch, setShowSearch] = React.useState(true);
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [showSearch, setShowSearch] = useState(true);
 
   return (
     <ContextMenu>
-      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuCheckboxItem
           checked={showMinimap}
           onCheckedChange={setShowMinimap}
@@ -436,9 +410,8 @@ export function IndicatorRightContextMenuExample() {
 export function PositionedContextMenuExample() {
   return (
     <ContextMenu>
-      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
-      <ContextMenuContent align="start" sideOffset={12} collisionPadding={16}>
-        <ContextMenuArrow />
+      <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
+      <ContextMenuContent showArrow align="start" sideOffset={12} collisionPadding={16}>
         <ContextMenuItem closeOnClick>Open</ContextMenuItem>
         <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
         <ContextMenuSeparator />
@@ -451,9 +424,8 @@ export function PositionedContextMenuExample() {
 export function LinkItemsContextMenuExample() {
   return (
     <ContextMenu>
-      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuArrow />
         <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
         <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
         <ContextMenuLinkItem href="#billing">Billing</ContextMenuLinkItem>
@@ -464,26 +436,24 @@ export function LinkItemsContextMenuExample() {
   );
 }
 
-export function CustomStylesContextMenuExample() {
+export function CustomCompositionContextMenuExample() {
   return (
     <ContextMenu>
       <ContextMenuTrigger className={styles.customTrigger}>Right click card</ContextMenuTrigger>
-      <ContextMenuContent
-        className={styles.customPopup}
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          positioner: styles.customPositioner,
-        }}
-        withBackdrop
-      >
-        <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
-        <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
-        <ContextMenuSeparator />
-        <ContextMenuItem closeOnClick disabled>
-          Delete
-        </ContextMenuItem>
-      </ContextMenuContent>
+      <ContextMenuPortal>
+        <ContextMenuBackdrop className={styles.customBackdrop} />
+        <ContextMenuPositioner sideOffset={12}>
+          <ContextMenuPopup className={styles.customPopup}>
+            <ContextMenuArrow />
+            <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
+            <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem closeOnClick disabled>
+              Delete
+            </ContextMenuItem>
+          </ContextMenuPopup>
+        </ContextMenuPositioner>
+      </ContextMenuPortal>
     </ContextMenu>
   );
 }

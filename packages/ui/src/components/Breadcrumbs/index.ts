@@ -1,8 +1,9 @@
-export { Breadcrumbs } from './Breadcrumbs';
-export type {
-  BreadcrumbsProps,
+export {
+  Breadcrumbs,
+  BreadcrumbsList,
   BreadcrumbsItem,
-  BreadcrumbsItemRenderProps,
-  BreadcrumbsClassNames,
-  BreadcrumbsSlotProps,
+  BreadcrumbsLink,
+  BreadcrumbsPage,
+  BreadcrumbsSeparator,
+  BreadcrumbsEllipsis,
 } from './Breadcrumbs';

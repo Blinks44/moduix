@@ -10,8 +10,7 @@
 }
 
 .customField {
-  width: min(22rem, 100%);
-  max-width: 20rem;
+  width: min(20rem, 100%);
   gap: var(--spacing-2);
 }
 
@@ -24,10 +23,6 @@
   border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
 }
 
-.customControl:focus {
+.customControl:focus-visible {
   outline-color: var(--color-primary);
-}
-
-.customDescription {
-  color: var(--color-muted-foreground);
 }

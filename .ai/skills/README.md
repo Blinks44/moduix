@@ -4,9 +4,11 @@ Local project skills used by agents in this repository.
 
 ## Skills
 
-- `.ai/skills/ui-component-workflow/SKILL.md` - rules and workflow for `packages/ui`
-- `.ai/skills/docs-workflow/SKILL.md` - rules and workflow for `apps/docs`
-- `.ai/skills/cross-package-sync/SKILL.md` - synchronization contract between UI and docs
+- `.ai/skills/engineering-principles/SKILL.md` - mandatory baseline engineering behavior for all coding tasks
+- `.ai/skills/js-react-conventions/SKILL.md` - JS/TS React conventions with a simplicity-first bias and minimal type surface
+- `.ai/skills/ui-component-workflow/SKILL.md` - Base UI component workflow focused on shadcn-like thin wrappers, simple defaults, and composable escape hatches
+- `.ai/skills/docs-workflow/SKILL.md` - docs workflow focused on current API accuracy, simple default usage, and concise production-like examples
+- `.ai/skills/cross-package-sync/SKILL.md` - UI/docs parity rules that keep code, CSS, stories, and docs aligned around the same simplified architecture
 
 ## Routing
 

@@ -1,90 +1,63 @@
-import clsx from 'clsx';
-import * as React from 'react';
+import { useRender } from '@base-ui/react/use-render';
+import { clsx } from 'clsx';
+import { createElement } from 'react';
 import styles from './Text.module.css';
 
-type TextDefaultElement = 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
-type TextAs = React.ElementType;
-type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
-type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
-type TextAlign = 'left' | 'center' | 'right';
+const defaultVariants = { size: 'md', weight: 'regular' } as const;
 
-type TextOwnProps<TElement extends TextAs = 'p'> = {
-  as?: TElement;
-  size?: TextSize;
-  weight?: TextWeight;
-  tone?: TextTone;
-  align?: TextAlign;
-};
+const defaultVariantsByTagName = {
+  small: { size: 'sm', weight: 'regular' },
+  strong: { size: 'md', weight: 'semibold' },
+} as const;
 
-type TextProps<TElement extends TextAs = 'p'> = TextOwnProps<TElement> &
-  Omit<React.ComponentPropsWithoutRef<TElement>, keyof TextOwnProps<TElement>>;
+function getDefaultVariants(tagName: string | undefined) {
+  if (!tagName) {
+    return defaultVariants;
+  }
 
-const defaultSizeByElement: Record<TextDefaultElement, TextSize> = {
-  p: 'md',
-  span: 'md',
-  small: 'sm',
-  strong: 'md',
-  em: 'md',
-  div: 'md',
-};
-
-const defaultWeightByElement: Record<TextDefaultElement, TextWeight> = {
-  p: 'regular',
-  span: 'regular',
-  small: 'regular',
-  strong: 'semibold',
-  em: 'regular',
-  div: 'regular',
-};
-
-function getDefaultSize(element: TextAs): TextSize {
-  return typeof element === 'string' && element in defaultSizeByElement
-    ? defaultSizeByElement[element as TextDefaultElement]
-    : 'md';
+  return (
+    defaultVariantsByTagName[tagName as keyof typeof defaultVariantsByTagName] ?? defaultVariants
+  );
 }
 
-function getDefaultWeight(element: TextAs): TextWeight {
-  return typeof element === 'string' && element in defaultWeightByElement
-    ? defaultWeightByElement[element as TextDefaultElement]
-    : 'regular';
-}
-
-export function Text<TElement extends TextAs = 'p'>({
+function Text({
   as,
+  render,
   size,
   weight,
   tone = 'default',
   align,
   className,
-  children,
   ...props
-}: TextProps<TElement>) {
-  const Component = (as ?? 'p') as React.ElementType;
-  const resolvedSize = size ?? getDefaultSize(Component);
-  const resolvedWeight = weight ?? getDefaultWeight(Component);
+}: useRender.ComponentProps<'p'> & {
+  as?: 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  weight?: 'regular' | 'medium' | 'semibold' | 'bold';
+  tone?: 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+  align?: 'left' | 'center' | 'right';
+}) {
+  const resolvedRender = render ?? (as ? createElement(as) : undefined);
+  const tagName =
+    typeof resolvedRender === 'function'
+      ? undefined
+      : typeof resolvedRender?.type === 'string'
+        ? resolvedRender.type
+        : undefined;
+  const defaults = getDefaultVariants(tagName);
 
-  return React.createElement(
-    Component,
-    {
+  return useRender({
+    defaultTagName: 'p',
+    render: resolvedRender,
+    props: {
       ...props,
       'data-slot': 'text-root',
-      'data-size': resolvedSize,
-      'data-weight': resolvedWeight,
+      'data-size': size ?? defaults.size,
+      'data-weight': weight ?? defaults.weight,
       'data-tone': tone,
       'data-align': align,
       className: clsx(styles.root, className),
     },
-    children,
-  );
+  });
 }
 
-export {
-  type TextProps,
-  type TextAs,
-  type TextDefaultElement,
-  type TextSize,
-  type TextWeight,
-  type TextTone,
-  type TextAlign,
-};
+export { Text };

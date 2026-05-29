@@ -1,0 +1,267 @@
+---
+title: Badge
+description: A compact status label for short metadata such as state, category, and count.
+icon: Component
+---
+
+import {
+  BadgeCssPlaygroundPanel,
+  BadgeCssPropertiesPanel,
+  BadgeExample,
+  BadgeTruncatedExample,
+  BadgeVariantsExample,
+  BadgeWithDotExample,
+  BadgeWithIconExample,
+  CustomBadgeExample,
+  badgePlaygroundCssProperties,
+} from '@/components/examples/badge';
+
+## API Reference
+
+`Badge` is a standalone moduix component for short status labels, categories, and
+small counters. Use `variant` for the built-in visual styles, and reach for
+`BadgeDot` or direct child icons when a label needs an extra visual cue.
+
+## Overview
+
+The default path is intentionally short:
+
+- render `Badge`
+- choose a `variant` when the default tone is not enough
+- add `BadgeDot` only when the status needs a grouped indicator
+- use local CSS variables for one-off styling changes instead of extra props
+
+## Basic
+
+<Preview cssProperties={badgePlaygroundCssProperties} cssVariableScope="local">
+  <BadgeExample />
+
+  <Preview.Code>
+    {`
+      import { Badge } from "moduix";
+
+      export function BadgeDemo() {
+        return <Badge>New</Badge>;
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <BadgeCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <BadgeCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+`Badge` keeps the public surface small and exposes only the visible parts.
+
+```text
+Badge
+├─ content
+├─ BadgeDot (optional)
+└─ svg icon (optional)
+```
+
+```tsx
+<Badge>
+  <BadgeDot />
+  Online
+</Badge>
+```
+
+| Part       | Role                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------ |
+| `Badge`    | Root slot. Applies variant, border, spacing, and text truncation.                    |
+| `BadgeDot` | Optional indicator slot. Renders a circular marker that inherits current text color. |
+
+## Composition
+
+`Badge` stays a plain `span`, so the API remains predictable and easy to style. Pass `className`
+to `Badge` or `BadgeDot` when integrating with CSS Modules, Tailwind CSS, or CSS-in-JS.
+
+Place icons directly before or after the label; direct child `svg` icons inherit `currentColor`
+and use `--badge-icon-size`. The root also accepts standard `span` props such as `title`,
+`aria-*`, and testing attributes.
+
+Keep the visible status in text. `BadgeDot` is decorative and is hidden from assistive
+technology, so color or the dot alone should not be the only signal. Long labels stay on one line
+and are truncated by the root; add `title` when the full value should remain discoverable. For
+one-off size changes, prefer `className` or local CSS variables instead of extra badge props.
+
+| Prop      | Default   | Values                                                    |
+| --------- | --------- | --------------------------------------------------------- |
+| `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost` |
+
+## Examples
+
+### Variants
+
+Use the built-in variants for the common visual tones.
+
+<Preview>
+  <BadgeVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Badge } from "moduix";
+
+      const variants = ["default", "secondary", "destructive", "outline", "ghost"] as const;
+
+      export function BadgeVariantsDemo() {
+        return (
+          <div>
+            {variants.map((variant) => (
+              <Badge key={variant} variant={variant}>
+                {variant}
+              </Badge>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### With Dot
+
+Add `BadgeDot` when label and status indicator should stay visually grouped.
+
+<Preview>
+  <BadgeWithDotExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, BadgeDot } from "moduix";
+
+      export function BadgeWithDotDemo() {
+        return (
+          <Badge variant="default">
+            <BadgeDot />
+            Online
+          </Badge>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### With Icon
+
+Place an inline icon next to the label when the metadata needs a second visual cue.
+
+<Preview>
+  <BadgeWithIconExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, ChevronRightIcon } from "moduix";
+
+      export function BadgeWithIconDemo() {
+        return (
+          <Badge variant="default">
+            Release
+            <ChevronRightIcon />
+          </Badge>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Long Labels
+
+Badges truncate long labels by default. Add `title` when the full text should still be available.
+
+<Preview>
+  <BadgeTruncatedExample />
+
+  <Preview.Code>
+    {`
+      import { Badge } from "moduix";
+      import styles from "./badge-demo.module.css";
+
+      export function BadgeTruncatedDemo() {
+        return (
+          <Badge
+            className={styles.constrained}
+            title="Ready for stakeholder review after legal approval"
+          >
+            Ready for stakeholder review after legal approval
+          </Badge>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .constrained {
+        max-width: 14rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
+
+Use `className` and local CSS variables when a surface needs custom sizing or a different tone.
+
+<Preview>
+  <CustomBadgeExample />
+
+  <Preview.Code>
+    {`
+      import { Badge, BadgeDot } from "moduix";
+      import styles from "./badge-demo.module.css";
+
+      export function CustomBadgeDemo() {
+        return (
+          <>
+            <Badge className={styles.small}>Small</Badge>
+            <Badge>Default</Badge>
+            <Badge className={styles.large}>Large</Badge>
+            <Badge className={styles.customBadge}>
+              <BadgeDot />
+              Priority
+            </Badge>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBadge {
+        --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
+        --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+        --badge-color: var(--color-primary);
+        --badge-height: 1.625rem;
+        --badge-padding-x: var(--spacing-3);
+        --badge-radius: var(--radius-sm);
+      }
+
+      .small {
+        --badge-height: 1.125rem;
+        --badge-font-size: var(--text-xs);
+        --badge-icon-size: 0.6875rem;
+        --badge-line-height: var(--line-height-text-xs);
+        --badge-padding-x: 0.5rem;
+      }
+
+      .large {
+        --badge-height: 1.5rem;
+        --badge-font-size: var(--text-sm);
+        --badge-icon-size: 0.875rem;
+        --badge-line-height: var(--line-height-text-sm);
+        --badge-padding-x: 0.75rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

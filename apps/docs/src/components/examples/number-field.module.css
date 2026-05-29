@@ -29,7 +29,3 @@
   --number-field-input-width: 7rem;
   --number-field-input-font-size: var(--text-lg);
 }
-
-.scrubCursor {
-  color: var(--color-foreground);
-}

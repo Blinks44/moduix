@@ -1,0 +1,22 @@
+.field {
+  width: min(28rem, calc(100vw - var(--spacing-8)));
+}
+
+.stack {
+  display: grid;
+  gap: var(--spacing-3);
+  width: min(28rem, calc(100vw - var(--spacing-8)));
+}
+
+.demoTextarea,
+.customTextarea {
+  width: min(28rem, calc(100vw - var(--spacing-8)));
+  max-width: none;
+}
+
+.customTextarea {
+  border-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
+  background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
+  color: var(--color-primary);
+  resize: none;
+}

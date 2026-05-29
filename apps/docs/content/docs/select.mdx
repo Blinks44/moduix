@@ -4,16 +4,16 @@ description: A form control for choosing one or more predefined values from a po
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
-  AnimatedSelectExample,
   ClearableSelectExample,
   ControlledSelectExample,
+  CustomCompositionSelectExample,
   GroupedSelectExample,
   IndicatorRightSelectExample,
   MultipleSelectExample,
   ObjectValuesSelectExample,
-  CustomStylesSelectExample,
+  ScrollableSelectExample,
+  SelectArrowExample,
   SelectCssPlaygroundPanel,
   SelectCssPropertiesPanel,
   SelectExample,
@@ -26,14 +26,17 @@ import {
 
 ## Choosing the right component
 
-Use `Select` for strict, predefined choices where the trigger behaves like a button and users do
-not type into the field itself.
+Use `Select` for strict, predefined choices where users pick from a popup list and do not type
+into the field.
 
 - Choose **`Select`** for canonical form pickers with fixed options.
-- Choose **`Combobox`** when users should search/filter predefined options via text input.
+- Choose **`Combobox`** when users should search or filter predefined options.
 - Choose **`Autocomplete`** when users may enter arbitrary values beyond suggested options.
 
-## Basic
+## Default Path
+
+Start with `Select`, `SelectField`, `SelectTrigger`, and `SelectContent`. This is the recommended
+path for standard forms and settings panels.
 
 <Preview cssProperties={selectPlaygroundCssProperties}>
   <SelectExample />
@@ -42,18 +45,16 @@ not type into the field itself.
     {`
       import {
         Select,
-        SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        SelectIcon,
         SelectContent,
-        SelectScrollUpArrow,
-        SelectList,
+        SelectField,
+        SelectIcon,
         SelectItem,
         SelectItemIndicator,
         SelectItemText,
-        SelectScrollDownArrow,
+        SelectLabel,
+        SelectList,
+        SelectTrigger,
+        SelectValue,
       } from "moduix";
 
       export function SelectDemo() {
@@ -61,14 +62,13 @@ not type into the field itself.
           <Select items={fruits}>
             <SelectField>
               <SelectLabel>Choose fruit</SelectLabel>
-              <SelectTrigger className={styles.customTrigger}>
+              <SelectTrigger>
                 <SelectValue placeholder="Select an option" />
                 <SelectIcon />
               </SelectTrigger>
             </SelectField>
 
             <SelectContent>
-              <SelectScrollUpArrow />
               <SelectList>
                 {fruits.map((item) => (
                   <SelectItem key={item.value} value={item.value}>
@@ -77,7 +77,6 @@ not type into the field itself.
                   </SelectItem>
                 ))}
               </SelectList>
-              <SelectScrollDownArrow />
             </SelectContent>
           </Select>
         );
@@ -92,13 +91,6 @@ not type into the field itself.
         { label: "Apple", value: "apple" },
         { label: "Banana", value: "banana" },
         { label: "Blueberry", value: "blueberry" },
-        { label: "Grape", value: "grape" },
-        { label: "Kiwi", value: "kiwi" },
-        { label: "Mango", value: "mango" },
-        { label: "Orange", value: "orange" },
-        { label: "Pineapple", value: "pineapple" },
-        { label: "Strawberry", value: "strawberry" },
-        { label: "Watermelon", value: "watermelon" },
       ];
     `}
 
@@ -109,9 +101,7 @@ not type into the field itself.
 
 ## Anatomy
 
-`Select` combines a trigger-like field with a popup list of options. Keep field parts grouped inside
-`SelectField` and list parts inside `SelectContent` so labeling, selection state, and keyboard behavior
-stay synchronized.
+The normal consumer path is short:
 
 ```text
 Select
@@ -121,178 +111,71 @@ Select
 │     ├─ SelectValue
 │     └─ SelectIcon
 └─ SelectContent
-   ├─ service slots (internal): portal, backdrop, positioner, arrow
-   ├─ SelectScrollUpArrow / SelectScrollDownArrow (optional)
    └─ SelectList
       └─ SelectItem[value]
          ├─ SelectItemIndicator
          └─ SelectItemText
 ```
 
-```tsx
-<Select items={fruits}>
-  <SelectField>
-    <SelectLabel>Choose fruit</SelectLabel>
-    <SelectTrigger>
-      <SelectValue placeholder="Select an option" />
-      <SelectIcon />
-    </SelectTrigger>
-  </SelectField>
+`SelectContent` internally handles `SelectPortal`, `SelectPositioner`, and `SelectPopup`. Those
+low-level parts stay exported for custom composition when popup structure or layering needs to
+change.
 
-  <SelectContent>
-    <SelectScrollUpArrow />
-    <SelectList>
-      {fruits.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          <SelectItemIndicator />
-          <SelectItemText>{item.label}</SelectItemText>
-        </SelectItem>
-      ))}
-    </SelectList>
-    <SelectScrollDownArrow />
-  </SelectContent>
-</Select>
-```
-
-| Part            | Role                                                                                                            |
-| --------------- | --------------------------------------------------------------------------------------------------------------- |
-| `Select`        | Root state machine. Controls selected value(s), popup open state, keyboard navigation, and item string mapping. |
-| `SelectField`   | Field wrapper for label and trigger. Keeps form semantics and visible control layout together.                  |
-| `SelectTrigger` | Interactive button that opens/closes the popup and exposes open/disabled state attributes.                      |
-| `SelectValue`   | Value renderer inside the trigger. Shows placeholder, selected label, or a custom function output.              |
-| `SelectContent` | Popup surface that hosts list/scroll controls and configures internal service layers and positioning props.     |
-| `SelectItem`    | One selectable option. Works with `SelectItemIndicator` and `SelectItemText` to render selection state.         |
-
-In most cases, keep default popup infrastructure and style visible parts (`SelectTrigger`,
-`SelectValue`, `SelectContent`, `SelectItem`, `SelectItemIndicator`, `SelectItemText`).
-Use `SelectContent` service-slot props (`classNames`, `slotProps`, `withBackdrop`, `arrow`)
-only when you need custom portal, layering, backdrop, or arrow behavior.
+| Part            | Role                                                               |
+| --------------- | ------------------------------------------------------------------ |
+| `Select`        | Root state, selection, and form behavior.                          |
+| `SelectField`   | Groups the visible field parts.                                    |
+| `SelectTrigger` | Button that opens and closes the popup.                            |
+| `SelectValue`   | Renders placeholder text or the selected value.                    |
+| `SelectContent` | Default popup wrapper with built-in portal, positioner, and popup. |
+| `SelectItem`    | Selectable option row.                                             |
 
 ## Composition
 
-Use `Select` for root state and behavior props such as `value`, `defaultValue`, `multiple`,
-`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`. Base UI root props pass
-through as well: form props (`name`, `form`, `required`, `inputRef`, `autoComplete`), interaction
-state (`disabled`, `readOnly`, `open`, `defaultOpen`, `modal`, `onOpenChange`,
-`onOpenChangeComplete`, `actionsRef`), and item behavior (`highlightItemOnHover`,
-`isItemEqualToValue`).
+`Select` keeps Base UI root behavior intact. Use it for `value`, `defaultValue`, `multiple`,
+`onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`.
 
-`className` styles the visible popup. `classNames` styles the internal service slots that are
-hidden from the default composition. Use positioning props such as `alignItemWithTrigger`, `side`,
-`sideOffset`, `align`, `collisionPadding`, and `disableAnchorTracking` directly on
-`SelectContent`; use `container` for the portal target and `slotProps` for the matching Base UI
-escape hatches:
+`SelectContent` is the high-level popup wrapper. It accepts popup `className`, supports the shared
+positioning props (`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`,
+`collisionAvoidance`, `collisionBoundary`, `collisionPadding`), and keeps two select-specific
+conveniences:
 
-```tsx
-<SelectContent
-  className={styles.popup}
-  withArrow
-  withBackdrop
-  slotProps={{
-    positioner: { sticky: true },
-  }}
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-    arrow: styles.arrow,
-  }}
-/>
-```
+- `showArrow` for the built-in popup arrow
+- `alignItemWithTrigger` for the overlapping select layout behavior from Base UI
+
+When you need backdrop control, sticky positioning, or custom popup structure, switch to
+`SelectPortal`, `SelectBackdrop`, `SelectPositioner`, `SelectPopup`, and `SelectArrow` directly.
+
+### Defaults
+
+| Prop               | Default | Values / Notes                            |
+| ------------------ | ------- | ----------------------------------------- |
+| `showArrow`        | `false` | Enables the built-in arrow                |
+| `sideOffset`       | `8`     | Any number accepted by Base UI positioner |
+| `indicator` (item) | `start` | `start`, `end`                            |
 
 ## Examples
 
-### Indicator Right With Icon
+### Built-in Arrow
 
-Use `indicator="end"` to place the selected indicator after the item text. Pass children to `SelectIcon` or `SelectItemTextIcon` to use icons from your application.
+Use `showArrow` when the popup should render the library arrow without switching to low-level
+composition. Pair it with `alignItemWithTrigger={false}`, because the default overlapping select
+layout does not leave room for the arrow.
 
 <Preview>
-  <IndicatorRightSelectExample />
+  <SelectArrowExample />
 
   <Preview.Code>
     {`
-      import {
-        Select,
-        SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        SelectIcon,
-        ChevronDownIcon,
-        SelectContent,
-        SelectList,
-        SelectItem,
-        SelectItemText,
-        SelectItemTextContent,
-        SelectItemTextIcon,
-        InfoIcon,
-        SelectItemTextLabel,
-        SelectItemIndicator,
-      } from "moduix";
-
-      export function IndicatorRightSelectDemo() {
-        return (
-          <Select items={fruits}>
-            <SelectField>
-              <SelectLabel>Choose fruit</SelectLabel>
-              <SelectTrigger>
-                <SelectValue placeholder="Select an option" />
-                <SelectIcon>
-                  <ChevronDownIcon className={styles.customTriggerIcon} />
-                </SelectIcon>
-              </SelectTrigger>
-            </SelectField>
-
-            <SelectContent>
-              <SelectList>
-                {fruits.map((item) => (
-                  <SelectItem key={item.value} value={item.value} indicator="end">
-                    <SelectItemText>
-                      <SelectItemTextContent>
-                        <SelectItemTextIcon>
-                          <InfoIcon className={styles.statusIcon} />
-                        </SelectItemTextIcon>
-                        <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
-                      </SelectItemTextContent>
-                    </SelectItemText>
-                    <SelectItemIndicator />
-                  </SelectItem>
-                ))}
-              </SelectList>
-            </SelectContent>
-          </Select>
-        );
-      }
+      <SelectContent showArrow alignItemWithTrigger={false}>
+        <SelectList>{/* items */}</SelectList>
+      </SelectContent>
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customTriggerIcon {
-        color: var(--color-foreground);
-      }
-
-      .statusIcon {
-        color: var(--color-muted-foreground);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Grouped
+### Grouped Options
 
 Use `SelectGroup` and `SelectGroupLabel` to organize related items inside the popup.
 
@@ -303,19 +186,19 @@ Use `SelectGroup` and `SelectGroupLabel` to organize related items inside the po
     {`
       import {
         Select,
-        SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        SelectIcon,
         SelectContent,
-        SelectList,
+        SelectField,
         SelectGroup,
-        SelectSeparator,
         SelectGroupLabel,
+        SelectIcon,
         SelectItem,
         SelectItemIndicator,
         SelectItemText,
+        SelectLabel,
+        SelectList,
+        SelectSeparator,
+        SelectTrigger,
+        SelectValue,
       } from "moduix";
 
       export function GroupedSelectDemo() {
@@ -355,110 +238,39 @@ Use `SelectGroup` and `SelectGroupLabel` to organize related items inside the po
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const groupedOptions = [
-        {
-          label: "Fruits",
-          items: [
-            { label: "Apple", value: "apple" },
-            { label: "Mango", value: "mango" },
-          ],
-        },
-        {
-          label: "Vegetables",
-          items: [
-            { label: "Carrot", value: "carrot" },
-            { label: "Spinach", value: "spinach" },
-          ],
-        },
-      ];
-
-      const groupedLabelByValue = Object.fromEntries(
-        groupedOptions.flatMap((group) => group.items.map((item) => [item.value, item.label])),
-      );
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Animated
+### Scroll Controls
 
-Pass `animation="scale"` to `SelectContent` when the popup should animate in the default overlapping select positioning mode.
+Add `SelectScrollUpArrow` and `SelectScrollDownArrow` when the popup list can overflow and needs
+clear scroll affordances.
 
 <Preview>
-  <AnimatedSelectExample />
+  <ScrollableSelectExample />
 
   <Preview.Code>
     {`
       import {
-        Select,
-        SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        SelectIcon,
         SelectContent,
         SelectList,
-        SelectItem,
-        SelectItemIndicator,
-        SelectItemText,
+        SelectScrollDownArrow,
+        SelectScrollUpArrow,
       } from "moduix";
 
-      export function AnimatedSelectDemo() {
-        return (
-          <Select items={fruits}>
-            <SelectField>
-              <SelectLabel>Choose fruit</SelectLabel>
-              <SelectTrigger>
-                <SelectValue placeholder="Select an option" />
-                <SelectIcon />
-              </SelectTrigger>
-            </SelectField>
-
-            <SelectContent animation="scale" className={styles.animatedContent}>
-              <SelectList>
-                {fruits.map((item) => (
-                  <SelectItem key={item.value} value={item.value}>
-                    <SelectItemIndicator />
-                    <SelectItemText>{item.label}</SelectItemText>
-                  </SelectItem>
-                ))}
-              </SelectList>
-            </SelectContent>
-          </Select>
-        );
-      }
+      <SelectContent>
+        <SelectScrollUpArrow />
+        <SelectList>{/* items */}</SelectList>
+        <SelectScrollDownArrow />
+      </SelectContent>
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .animatedContent {
-        --select-transition: 180ms var(--ease-out);
-        --select-scale: 0.96;
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Multiple
+### Multiple Values
 
-Use the `multiple` prop when a field can contain several selected values. Render `SelectValue` with a function to format the array.
+Use `multiple` when the field can contain several selected values. Render `SelectValue` with a
+function to format the array.
 
 <Preview>
   <MultipleSelectExample />
@@ -467,16 +279,16 @@ Use the `multiple` prop when a field can contain several selected values. Render
     {`
       import {
         Select,
-        SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        SelectIcon,
         SelectContent,
-        SelectList,
+        SelectField,
+        SelectIcon,
         SelectItem,
         SelectItemIndicator,
         SelectItemText,
+        SelectLabel,
+        SelectList,
+        SelectTrigger,
+        SelectValue,
       } from "moduix";
 
       function renderMultipleValue(value) {
@@ -517,156 +329,24 @@ Use the `multiple` prop when a field can contain several selected values. Render
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const languages = {
-        javascript: "JavaScript",
-        python: "Python",
-        rust: "Rust",
-        typescript: "TypeScript",
-      };
-
-      const languageValues = Object.keys(languages);
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Controlled Value
 
-Use `SelectContent` props for popup infrastructure. `Portal`, `Positioner`, `Backdrop`, and `Arrow` are rendered internally, so application code only configures behavior and service-slot classes.
-
-<Preview>
-  <CustomStylesSelectExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Select,
-        SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        SelectIcon,
-        SelectContent,
-        SelectList,
-        SelectItem,
-        SelectItemIndicator,
-        SelectItemText,
-      } from "moduix";
-
-      export function CustomStylesSelectDemo() {
-        return (
-          <Select items={fruits}>
-            <SelectField>
-              <SelectLabel>Choose fruit</SelectLabel>
-              <SelectTrigger>
-                <SelectValue placeholder="Select an option" />
-                <SelectIcon />
-              </SelectTrigger>
-            </SelectField>
-
-            <SelectContent
-              alignItemWithTrigger={false}
-              sideOffset={8}
-              withArrow
-              withBackdrop
-              slotProps={{
-                positioner: { sticky: true },
-              }}
-              className={styles.customPopup}
-              classNames={{
-                portal: styles.customPortal,
-                backdrop: styles.customBackdrop,
-                positioner: styles.customPositioner,
-                arrow: styles.customArrow,
-              }}
-            >
-              <SelectList>
-                {fruits.map((item) => (
-                  <SelectItem key={item.value} value={item.value}>
-                    <SelectItemIndicator />
-                    <SelectItemText>{item.label}</SelectItemText>
-                  </SelectItem>
-                ))}
-              </SelectList>
-            </SelectContent>
-          </Select>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customPortal {
-        pointer-events: auto;
-      }
-
-      .customBackdrop {
-        --select-backdrop-bg: rgb(15 23 42 / 0.48);
-        --select-backdrop-blur: 3px;
-      }
-
-      .customPositioner {
-        filter: drop-shadow(var(--shadow-md));
-      }
-
-      .customTrigger {
-        position: relative;
-        z-index: calc(var(--z-popup) + 1);
-      }
-
-      .customArrow {
-        --select-arrow-stroke-color: var(--select-popup-border-color);
-      }
-
-      .customPopup {
-        --select-radius: var(--radius-lg);
-        --select-popup-bg: var(--color-background);
-        --select-shadow: var(--shadow-xl);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const fruits = [
-        { label: "Apple", value: "apple" },
-        { label: "Banana", value: "banana" },
-        { label: "Mango", value: "mango" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Controlled
-
-Control `value` from React state when the selected option needs to coordinate with other application state.
+Control `value` from React state when the selection coordinates with other application state.
 
 <Preview>
   <ControlledSelectExample />
 
   <Preview.Code>
     {`
-      import {
-        Select,
-        SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        SelectIcon,
-        SelectContent,
-        SelectList,
-        SelectItem,
-        SelectItemIndicator,
-        SelectItemText,
-      } from "moduix";
       import { useState } from "react";
+
+      const themeOptions = [
+        { label: "System", value: "system" },
+        { label: "Light", value: "light" },
+        { label: "Dark", value: "dark" },
+      ];
 
       export function ControlledSelectDemo() {
         const [value, setValue] = useState("light");
@@ -697,71 +377,17 @@ Control `value` from React state when the selected option needs to coordinate wi
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const themeOptions = [
-        { label: "System", value: "system" },
-        { label: "Light", value: "light" },
-        { label: "Dark", value: "dark" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Clearable With Null Item
+### Clearable Field
 
-Include an item with `value={null}` when users should be able to clear the field from the same popup.
+Include an item with `value={null}` when users should be able to clear the field from the same
+popup.
 
 <Preview>
   <ClearableSelectExample />
 
   <Preview.Code>
-    {`
-      import {
-        Select,
-        SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        SelectIcon,
-        SelectContent,
-        SelectList,
-        SelectItem,
-        SelectItemIndicator,
-        SelectItemText,
-      } from "moduix";
-
-      export function ClearableSelectDemo() {
-        return (
-          <Select items={clearableThemeOptions}>
-            <SelectField>
-              <SelectLabel>Theme</SelectLabel>
-              <SelectTrigger>
-                <SelectValue />
-                <SelectIcon />
-              </SelectTrigger>
-            </SelectField>
-
-            <SelectContent>
-              <SelectList>
-                {clearableThemeOptions.map((item) => (
-                  <SelectItem key={item.label} value={item.value}>
-                    <SelectItemIndicator />
-                    <SelectItemText>{item.label}</SelectItemText>
-                  </SelectItem>
-                ))}
-              </SelectList>
-            </SelectContent>
-          </Select>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
     {`
       const clearableThemeOptions = [
         { label: "Select theme", value: null },
@@ -769,9 +395,55 @@ Include an item with `value={null}` when users should be able to clear the field
         { label: "Light", value: "light" },
         { label: "Dark", value: "dark" },
       ];
+
+      <Select items={clearableThemeOptions}>
+        <SelectField>
+          <SelectLabel>Theme</SelectLabel>
+          <SelectTrigger>
+            <SelectValue />
+            <SelectIcon />
+          </SelectTrigger>
+        </SelectField>
+
+        <SelectContent>
+          <SelectList>
+            {clearableThemeOptions.map((item) => (
+              <SelectItem key={item.label} value={item.value}>
+                <SelectItemIndicator />
+                <SelectItemText>{item.label}</SelectItemText>
+              </SelectItem>
+            ))}
+          </SelectList>
+        </SelectContent>
+      </Select>
     `}
 
-  </Preview.Data>
+  </Preview.Code>
+</Preview>
+
+### Custom Item Layout
+
+Use `indicator="end"` when the selected-state marker should sit after the item text.
+
+<Preview>
+  <IndicatorRightSelectExample />
+
+  <Preview.Code>
+    {`
+      <SelectItem value={item.value} indicator="end">
+        <SelectItemText>
+          <SelectItemTextContent>
+            <SelectItemTextIcon>
+              <InfoIcon className={styles.statusIcon} />
+            </SelectItemTextIcon>
+            <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
+          </SelectItemTextContent>
+        </SelectItemText>
+        <SelectItemIndicator />
+      </SelectItem>
+    `}
+
+  </Preview.Code>
 </Preview>
 
 ### Object Values
@@ -783,97 +455,102 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
 
   <Preview.Code>
     {`
+      <Select
+        items={assignees.map((assignee) => ({
+          value: assignee,
+          label: assignee.name,
+        }))}
+        itemToStringLabel={(assignee) => assignee.name}
+        itemToStringValue={(assignee) => assignee.id}
+      >
+        <SelectField>
+          <SelectLabel>Assignee</SelectLabel>
+          <SelectTrigger>
+            <SelectValue placeholder="Select assignee" />
+            <SelectIcon />
+          </SelectTrigger>
+        </SelectField>
+
+        <SelectContent>
+          <SelectList>
+            {assignees.map((assignee) => (
+              <SelectItem key={assignee.id} value={assignee}>
+                <SelectItemIndicator />
+                <SelectItemText>{assignee.name}</SelectItemText>
+              </SelectItem>
+            ))}
+          </SelectList>
+        </SelectContent>
+      </Select>
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Custom Composition
+
+When the default wrapper is too opinionated, compose the popup parts directly. This is the escape
+hatch for custom layering, sticky positioning, backdrops, or popup structure.
+
+<Preview>
+  <CustomCompositionSelectExample />
+
+  <Preview.Code>
+    {`
       import {
         Select,
+        SelectArrow,
+        SelectBackdrop,
         SelectField,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
         SelectIcon,
-        SelectContent,
-        SelectList,
         SelectItem,
         SelectItemIndicator,
         SelectItemText,
+        SelectLabel,
+        SelectList,
+        SelectPopup,
+        SelectPortal,
+        SelectPositioner,
+        SelectTrigger,
+        SelectValue,
       } from "moduix";
 
-      export function ObjectValuesSelectDemo() {
+      export function CustomCompositionSelectDemo() {
         return (
-          <Select
-            items={assignees.map((assignee) => ({
-              value: assignee,
-              label: assignee.name,
-            }))}
-            itemToStringLabel={(assignee) => assignee.name}
-            itemToStringValue={(assignee) => assignee.id}
-          >
+          <Select items={fruits}>
             <SelectField>
-              <SelectLabel>Assignee</SelectLabel>
-              <SelectTrigger>
-                <SelectValue placeholder="Select assignee" />
+              <SelectLabel>Choose fruit</SelectLabel>
+              <SelectTrigger className={styles.customTrigger}>
+                <SelectValue placeholder="Select an option" />
                 <SelectIcon />
               </SelectTrigger>
             </SelectField>
 
-            <SelectContent>
-              <SelectList>
-                {assignees.map((assignee) => (
-                  <SelectItem key={assignee.id} value={assignee}>
-                    <SelectItemIndicator />
-                    <SelectItemText>
-                      <span className={styles.assigneeItemText}>
-                        <span className={styles.assigneeName}>{assignee.name}</span>
-                        <span className={styles.assigneeRole}>{assignee.role}</span>
-                      </span>
-                    </SelectItemText>
-                  </SelectItem>
-                ))}
-              </SelectList>
-            </SelectContent>
+            <SelectPortal>
+              <SelectBackdrop className={styles.customBackdrop} />
+              <SelectPositioner
+                alignItemWithTrigger={false}
+                sideOffset={8}
+                sticky
+                className={styles.customPositioner}
+              >
+                <SelectPopup className={styles.customPopup}>
+                  <SelectArrow className={styles.customArrow} />
+                  <SelectList>
+                    {fruits.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        <SelectItemIndicator />
+                        <SelectItemText>{item.label}</SelectItemText>
+                      </SelectItem>
+                    ))}
+                  </SelectList>
+                </SelectPopup>
+              </SelectPositioner>
+            </SelectPortal>
           </Select>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .assigneeItemText {
-        display: flex;
-        min-width: 0;
-        flex-direction: column;
-        gap: var(--spacing-1);
-      }
-
-      .assigneeName {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-weight: var(--weight-semibold);
-      }
-
-      .assigneeRole {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color: var(--color-muted-foreground);
-        font-size: var(--text-xs);
-        line-height: var(--line-height-text-xs);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const assignees = [
-        { id: "u-1", name: "Leslie Alexander", role: "Product Manager" },
-        { id: "u-2", name: "Kathryn Murphy", role: "Marketing Lead" },
-        { id: "u-3", name: "Courtney Henry", role: "Design Systems" },
-        { id: "u-4", name: "Michael Foster", role: "Frontend Engineer" },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>

@@ -8,7 +8,6 @@ import {
   FieldCssPlaygroundPanel,
   FieldCssPropertiesPanel,
   FieldCheckboxExample,
-  FieldCustomValidationExample,
   FieldCustomStylesExample,
   FieldDisabledExample,
   FieldExample,
@@ -16,6 +15,8 @@ import {
   FieldNumberFieldExample,
   FieldRadioExample,
   FieldSwitchExample,
+  FieldValidationMessageExample,
+  FieldValidityExample,
   fieldPlaygroundCssProperties,
 } from '@/components/examples/field';
 
@@ -57,9 +58,8 @@ import {
 
 ## Anatomy
 
-`Field` acts as a semantic wrapper around one form control and its helper text. Keep label,
-control, error, and description inside the same `Field` so IDs, validation state, and ARIA links
-stay synchronized.
+`Field` keeps the label, one compatible control, helper text, and validation state in the same
+context so IDs and ARIA links stay synchronized.
 
 ```text
 Field
@@ -89,61 +89,69 @@ Field
 | `FieldDescription` | Supplemental helper text linked to the control for assistive technologies.                      |
 | `FieldItem`        | Optional layout wrapper for grouped rows inside the same field, such as radio options.          |
 
-`Field` does not have service slots such as `portal`, `backdrop`, or `viewport`.
-In most cases, keep default structure and style only visible slots (`FieldLabel`, `FieldControl`,
-`FieldError`, `FieldDescription`, and optional `FieldItem`) via `className` and CSS variables.
+Style only the visible slots (`FieldLabel`, `FieldControl`, `FieldError`,
+`FieldDescription`, and optional `FieldItem`) with `className` and CSS variables.
 
 ## Composition
 
-Use `Field` for root behavior and validation props such as `name`, `validationMode`,
-`validationDebounceTime`, `validate`, `actionsRef`, `invalid`, `dirty`, `touched`, and `disabled`.
+Use `Field` for root-level behavior such as `name`, `validationMode`, `validationDebounceTime`,
+`validate`, `actionsRef`, `invalid`, `dirty`, `touched`, and `disabled`.
 
-Compose `FieldLabel`, one compatible control (`FieldControl`, `Input`, `NumberField`, and others),
-then optional `FieldError` and `FieldDescription`. Customize each visible slot through `className`.
-All Base UI parts also support `render`, function `className`, function `style`, and state data
-attributes such as `data-invalid`, `data-valid`, `data-dirty`, `data-touched`, `data-filled`,
-`data-focused`, and `data-disabled`.
+The recommended path is short:
 
-Use `FieldControl` for a default native input, or omit it and place another Base UI-compatible
-control in the field. `FieldLabel` supports `nativeLabel={false}` when the label is rendered as a
-non-label element for controls such as select or combobox triggers. `FieldError match` accepts
-`true` or a `ValidityState` key such as `valueMissing`, `typeMismatch`, or `customError`;
-`FieldValidity` exposes the full validity object through a render function.
+1. `Field`
+2. `FieldLabel`
+3. one compatible control (`FieldControl`, `Input`, `NumberField`, `Select`, and others)
+4. optional `FieldError`
+5. optional `FieldDescription`
 
-The package exports Base UI helper types for advanced composition:
+`FieldControl` is the default text-like input slot. Replace it with another Base UI-compatible
+control when the field needs a compound or trigger-based input.
 
-```tsx
-import {
-  type FieldActions,
-  type FieldState,
-  type FieldControlChangeEventDetails,
-  type FieldValidityState,
-} from 'moduix';
-```
+`FieldError` supports two useful paths:
+
+- pass children when the message is fully explicit
+- leave it empty to render the current native or custom validation message
+
+All visible parts accept `className` and preserve Base UI state data attributes such as
+`data-invalid`, `data-valid`, `data-dirty`, `data-touched`, `data-filled`, `data-focused`, and
+`data-disabled`.
+
+### Defaults
+
+| Prop                           | Default     | Values                            |
+| ------------------------------ | ----------- | --------------------------------- |
+| `Field.validationMode`         | `onSubmit`  | `onSubmit`, `onBlur`, `onChange`  |
+| `Field.validationDebounceTime` | `0`         | Any `number` (ms)                 |
+| `Field.disabled`               | `false`     | `true`, `false`                   |
+| `FieldLabel.nativeLabel`       | `true`      | `true`, `false`                   |
+| `FieldItem.disabled`           | `false`     | `true`, `false`                   |
+| `FieldError.match`             | `undefined` | `true` or any `ValidityState` key |
 
 ## Examples
 
-### Custom Validation
+### Validation Message
 
-Use `validate` for rules that are not covered by native input validity.
+Use `validate` with an empty `FieldError` when the field should render the current custom
+validation message without extra boilerplate.
 
 <Preview>
-  <FieldCustomValidationExample />
+  <FieldValidationMessageExample />
 
   <Preview.Code>
     {`
       import {
         Field,
         FieldControl,
+        FieldDescription,
         FieldError,
         FieldLabel,
-        FieldValidity,
       } from "moduix";
 
-      export function CustomValidationFieldDemo() {
+      export function ValidationMessageFieldDemo() {
         return (
           <Field
-            validationMode="onChange"
+            validationMode="onBlur"
             validate={(value) => {
               if (typeof value !== "string" || value.length < 3) {
                 return "Username must be at least 3 characters.";
@@ -153,59 +161,9 @@ Use `validate` for rules that are not covered by native input validity.
             }}
           >
             <FieldLabel>Username</FieldLabel>
-            <FieldControl placeholder="e.g. Vinny" />
-            <FieldError match="customError" />
-            <FieldValidity>
-              {(state) => (
-                <p className={styles.helper}>
-                  {state.validity.valid ? "Looks good." : "Waiting for valid value."}
-                </p>
-              )}
-            </FieldValidity>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .helper {
-        margin: 0;
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Disabled
-
-Set `disabled` on the root to disable the whole field and propagate the disabled state to supported controls.
-
-<Preview>
-  <FieldDisabledExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldControl,
-        FieldDescription,
-        FieldLabel,
-      } from "moduix";
-
-      export function DisabledFieldDemo() {
-        return (
-          <Field disabled>
-            <FieldLabel>Organization</FieldLabel>
-            <FieldControl placeholder="Acme Inc." />
-            <FieldDescription>
-              This field is currently managed by your workspace.
-            </FieldDescription>
+            <FieldControl placeholder="e.g. vinny" />
+            <FieldDescription>Use at least 3 characters.</FieldDescription>
+            <FieldError />
           </Field>
         );
       }
@@ -335,7 +293,8 @@ Compose `FieldLabel` with switch controls when the label should activate the con
 
 ### Input
 
-Use any Base UI-compatible input component inside `Field`; `Input` works with labels and validation out of the box.
+Use any Base UI-compatible input component inside `Field`; `Input` works with labels and validation
+out of the box.
 
 <Preview>
   <FieldInputExample />
@@ -372,10 +331,6 @@ Pair `Field` with compound controls by linking the label with the control id.
         Field,
         FieldError,
         NumberField,
-        NumberFieldDecrement,
-        NumberFieldGroup,
-        NumberFieldInput,
-        NumberFieldIncrement,
         FieldLabel,
       } from "moduix";
       import { useId } from "react";
@@ -386,13 +341,7 @@ Pair `Field` with compound controls by linking the label with the control id.
         return (
           <Field name="quantity" validationMode="onBlur">
             <FieldLabel htmlFor={id}>Items</FieldLabel>
-            <NumberField id={id} min={1} max={10} required>
-              <NumberFieldGroup>
-                <NumberFieldDecrement aria-label="Decrease value" />
-                <NumberFieldInput />
-                <NumberFieldIncrement aria-label="Increase value" />
-              </NumberFieldGroup>
-            </NumberField>
+            <NumberField id={id} min={1} max={10} required />
             <FieldError match="valueMissing">Please provide a number.</FieldError>
             <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
             <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
@@ -404,9 +353,159 @@ Pair `Field` with compound controls by linking the label with the control id.
   </Preview.Code>
 </Preview>
 
+### Disabled
+
+Set `disabled` on the root to disable the whole field and propagate the disabled state to
+supported controls.
+
+<Preview>
+  <FieldDisabledExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldControl,
+        FieldDescription,
+        FieldLabel,
+      } from "moduix";
+
+      export function DisabledFieldDemo() {
+        return (
+          <Field disabled>
+            <FieldLabel>Organization</FieldLabel>
+            <FieldControl placeholder="Acme Inc." />
+            <FieldDescription>
+              This field is currently managed by your workspace.
+            </FieldDescription>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Custom Composition
+
+### Validity State
+
+Use `FieldValidity` when the field needs custom validity-driven UI beyond a normal error message.
+
+<Preview>
+  <FieldValidityExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldControl,
+        FieldError,
+        FieldLabel,
+        FieldValidity,
+      } from "moduix";
+
+      export function FieldValidityDemo() {
+        return (
+          <Field
+            validationMode="onChange"
+            validate={(value) => {
+              if (typeof value !== "string" || value.length < 3) {
+                return "Username must be at least 3 characters.";
+              }
+
+              return null;
+            }}
+          >
+            <FieldLabel>Username</FieldLabel>
+            <FieldControl placeholder="e.g. vinny" />
+            <FieldError match="customError" />
+            <FieldValidity>
+              {(state) => (
+                <p className={styles.helper}>
+                  {state.validity.valid ? "Looks good." : "Waiting for valid value."}
+                </p>
+              )}
+            </FieldValidity>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .helper {
+        margin: 0;
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Trigger-Based Controls
+
+Use `FieldLabel nativeLabel={false}` when the visible label should not behave like a native
+`<label>` element for trigger-based controls such as `Select` or `Combobox`.
+
+```tsx
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  Select,
+  SelectContent,
+  SelectIcon,
+  SelectItem,
+  SelectItemIndicator,
+  SelectList,
+  SelectItemText,
+  SelectTrigger,
+  SelectValue,
+} from 'moduix';
+
+const assignees = [
+  { label: 'Alice', value: 'alice' },
+  { label: 'Bob', value: 'bob' },
+];
+
+export function TriggerFieldDemo() {
+  return (
+    <Field validationMode="onBlur">
+      <FieldLabel nativeLabel={false} render={<div />}>
+        Assignee
+      </FieldLabel>
+      <Select items={assignees} required>
+        <SelectTrigger>
+          <SelectValue placeholder="Choose assignee" />
+          <SelectIcon />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectList>
+            {assignees.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                <SelectItemIndicator />
+                <SelectItemText>{item.label}</SelectItemText>
+              </SelectItem>
+            ))}
+          </SelectList>
+        </SelectContent>
+      </Select>
+      <FieldDescription>Used for review requests.</FieldDescription>
+      <FieldError match="valueMissing">Choose an assignee.</FieldError>
+    </Field>
+  );
+}
+```
+
 ### Custom Styles
 
-Pass `className` to every visible slot when styling the field with CSS Modules.
+Pass `className` to the slots that need overrides when styling the field with CSS Modules.
 
 <Preview>
   <FieldCustomStylesExample />
@@ -430,9 +529,7 @@ Pass `className` to every visible slot when styling the field with CSS Modules.
               placeholder="MAPS"
               className={styles.customControl}
             />
-            <FieldDescription className={styles.customDescription}>
-              Use three to five uppercase letters.
-            </FieldDescription>
+            <FieldDescription>Use three to five uppercase letters.</FieldDescription>
             <FieldError className={styles.customError} match="valueMissing">
               Please enter a project key.
             </FieldError>
@@ -446,8 +543,7 @@ Pass `className` to every visible slot when styling the field with CSS Modules.
   <Preview.CSS>
     {`
       .customField {
-        width: min(22rem, 100%);
-        max-width: 20rem;
+        width: min(20rem, 100%);
         gap: var(--spacing-2);
       }
 
@@ -460,13 +556,10 @@ Pass `className` to every visible slot when styling the field with CSS Modules.
         border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
       }
 
-      .customControl:focus {
+      .customControl:focus-visible {
         outline-color: var(--color-primary);
       }
 
-      .customDescription {
-        color: var(--color-muted-foreground);
-      }
     `}
 
   </Preview.CSS>

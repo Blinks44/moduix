@@ -1,0 +1,66 @@
+@layer ui.components {
+  .root {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--badge-gap, 0.375rem);
+    overflow: hidden;
+    border: var(--badge-border-width, var(--border-width-sm)) solid transparent;
+    border-radius: var(--badge-radius, var(--radius-full));
+    padding-block: var(--badge-padding-y, 0);
+    padding-inline: var(--badge-padding-x, 0.625rem);
+    background-color: var(--badge-bg, var(--color-primary));
+    color: var(--badge-color, var(--color-primary-foreground));
+    font-size: var(--badge-font-size, var(--text-xs));
+    font-weight: var(--badge-font-weight, var(--weight-medium));
+    line-height: var(--badge-line-height, var(--line-height-text-xs));
+    min-height: var(--badge-height, 1.25rem);
+    white-space: nowrap;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    transition:
+      color var(--transition-default),
+      background-color var(--transition-default),
+      border-color var(--transition-default);
+
+    > svg {
+      width: var(--badge-icon-size, 0.75rem);
+      height: var(--badge-icon-size, 0.75rem);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    &[data-variant='secondary'] {
+      background-color: var(--badge-bg, var(--color-secondary));
+      color: var(--badge-color, var(--color-secondary-foreground));
+    }
+
+    &[data-variant='destructive'] {
+      background-color: var(--badge-bg, var(--color-destructive));
+      color: var(--badge-color, var(--color-primary-foreground));
+    }
+
+    &[data-variant='outline'] {
+      border-color: var(--badge-border-color, var(--color-border));
+      background-color: var(--badge-bg, transparent);
+      color: var(--badge-color, var(--color-foreground));
+    }
+
+    &[data-variant='ghost'] {
+      background-color: var(--badge-bg, transparent);
+      color: var(--badge-color, var(--color-foreground));
+    }
+  }
+
+  .dot {
+    width: var(--badge-dot-size, 0.375rem);
+    height: var(--badge-dot-size, 0.375rem);
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+}

@@ -1,3 +1,11 @@
+.demoRoot {
+  width: 22rem;
+
+  @media (min-width: 32rem) {
+    width: 32rem;
+  }
+}
+
 .inlineRoot {
   --tabs-bg: transparent;
   --tabs-border-color: transparent;
@@ -10,11 +18,15 @@
   --tabs-list-padding-y: 0;
   display: flex;
   flex-direction: row;
-  width: min(36rem, calc(100vw - 2rem));
+  width: 22rem;
   align-items: center;
   justify-content: space-between;
   gap: var(--tabs-gap);
   color: var(--color-foreground);
+
+  @media (min-width: 32rem) {
+    width: 32rem;
+  }
 }
 
 .inlineList {
@@ -62,10 +74,6 @@
 .inlinePanel {
   flex: 1;
   min-width: 0;
-
-  &[hidden]:not([hidden='until-found']) {
-    display: none;
-  }
 }
 
 .inlineInput {

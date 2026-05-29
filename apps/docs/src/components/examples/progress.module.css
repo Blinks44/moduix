@@ -13,11 +13,32 @@
   --progress-track-bg: var(--color-accent);
 }
 
-.customTrack {
+.customProgress [data-slot='progress-track'] {
   box-shadow: inset 0 0 0 var(--border-width-md)
     color-mix(in oklab, var(--color-primary), transparent 75%);
 }
 
-.customIndicator {
+.customProgress [data-slot='progress-indicator'] {
   background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+}
+
+.composedProgress {
+  --progress-width: 18rem;
+  --progress-track-height: 0.625rem;
+}
+
+.composedTrack {
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  height: 1rem;
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  box-shadow: inset 0 0 0 var(--border-width-sm)
+    color-mix(in oklab, var(--color-chart-3), var(--color-primary) 45%);
+}
+
+.composedIndicator {
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
 }

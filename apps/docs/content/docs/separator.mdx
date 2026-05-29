@@ -4,12 +4,11 @@ description: Separates related content or groups with an accessible horizontal o
 icon: Component
 ---
 
-import 'moduix/style.css';
 import {
-  CustomSeparatorExample,
   SeparatorCssPlaygroundPanel,
   SeparatorCssPropertiesPanel,
   SeparatorExample,
+  StyledSeparatorExample,
   VerticalSeparatorExample,
   separatorPlaygroundCssProperties,
 } from '@/components/examples/separator';
@@ -18,7 +17,7 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/separator" />
 
-## Basic
+## Default Path
 
 <Preview cssProperties={separatorPlaygroundCssProperties}>
   <SeparatorExample />
@@ -43,10 +42,12 @@ import {
   <Preview.CSSPlayground>{(context) => <SeparatorCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+Use `Separator` directly for non-interactive visual division between related pieces of content.
+The default horizontal path already fills the available width, so the common case stays short.
+
 ## Anatomy
 
-`Separator` is a single visible slot. It renders an accessible divider and receives
-`data-orientation` so CSS can size horizontal and vertical separators differently.
+`Separator` exposes a single root slot with `data-orientation` for orientation-based styling.
 
 ```text
 Separator
@@ -61,25 +62,36 @@ Separator
 | ----------- | ------------------------------------------------------------------------------------------------------ |
 | `Separator` | Root divider element. Controls `orientation`, accessibility attributes, styling, and element override. |
 
-`Separator` does not use portal-like service layers such as `portal`, `positioner`,
-`backdrop`, or `viewport`. Style the root directly with `className` or the
-`--separator-*` CSS properties.
+Style the root directly with `className` or the `--separator-*` CSS properties.
 
 ## Composition
 
-Use `Separator` wherever related content needs a non-interactive visual divider.
-Horizontal separators fill their container by default. Vertical separators are intended
-for inline groups and default to `1em` height so they align with surrounding text.
+`Separator` stays intentionally thin:
+
+- one exported part
+- orientation passed straight through to Base UI
+- direct root styling with `className`
+- a small `--separator-*` CSS contract for common visual tuning
+
+Horizontal separators fill the container by default. Vertical separators are intended for inline
+groups and default to `1em` height so they align with surrounding text.
 
 Pass `orientation="vertical"` for inline layouts. Use `className` for direct styling,
-CSS variables for size and color adjustments, and `render` when you need to compose the
-root with another element.
+or the small `--separator-*` CSS contract when you want to tune color, thickness, or length.
+
+### Defaults
+
+| Prop          | Default      | Values                                 |
+| ------------- | ------------ | -------------------------------------- |
+| `orientation` | `horizontal` | `horizontal`, `vertical`               |
+| `className`   | `undefined`  | `string` or state-based class function |
+| `style`       | `undefined`  | style object or state-based style fn   |
 
 ## Examples
 
 ### Vertical
 
-Use `orientation="vertical"` when the separator divides inline groups, such as navigation actions.
+Use `orientation="vertical"` for inline groups such as navigation actions.
 
 <Preview>
   <VerticalSeparatorExample />
@@ -103,12 +115,13 @@ Use `orientation="vertical"` when the separator divides inline groups, such as n
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Styling
 
-Pass `className` to style the root element directly or override the `--separator-*` custom properties.
+Use `className` or `--separator-*` custom properties when the divider needs a stronger visual
+weight or a fixed length.
 
 <Preview>
-  <CustomSeparatorExample />
+  <StyledSeparatorExample />
 
   <Preview.Code>
     {`
@@ -143,30 +156,4 @@ Pass `className` to style the root element directly or override the `--separator
     `}
 
   </Preview.CSS>
-</Preview>
-
-### Custom Element
-
-Use `render` to compose the separator with another element while keeping the component
-state and accessibility attributes.
-
-<Preview>
-  <SeparatorExample render={<span />} />
-
-  <Preview.Code>
-    {`
-      import { Separator } from "moduix";
-
-      export function CustomElementSeparatorDemo() {
-        return (
-          <section aria-label="Account setup">
-            <span>Account settings</span>
-            <Separator render={<span />} />
-            <span>Billing details</span>
-          </section>
-        );
-      }
-    `}
-
-  </Preview.Code>
 </Preview>

@@ -1,5 +1,7 @@
 import {
   Autocomplete,
+  AutocompleteArrow,
+  AutocompleteBackdrop,
   AutocompleteClear,
   AutocompleteCollection,
   AutocompleteContent,
@@ -20,12 +22,15 @@ import {
   AutocompleteItemTextIcon,
   AutocompleteItemTextLabel,
   AutocompleteList,
+  AutocompletePopup,
+  AutocompletePortal,
+  AutocompletePositioner,
   AutocompleteRow,
   AutocompleteStatus,
   AutocompleteTrigger,
   AutocompleteValue,
   ChevronUpIcon,
-  CloseLineIcon,
+  CloseIcon,
   InfoIcon,
   useAutocompleteFilter,
   useAutocompleteFilteredItems,
@@ -282,7 +287,12 @@ export const autocompleteOverrideCssProperties: CssPropertyInput[] = [
     'Controls inline list top scroll padding.',
   ],
   ['--autocomplete-input-group-padding-x', '0', 'Controls horizontal input-group padding.'],
-  ['--autocomplete-input-padding-x-end', '3.25rem', 'Controls input end padding.'],
+  ['--autocomplete-input-padding-x-end', '0.875rem', 'Controls input end padding without actions.'],
+  [
+    '--autocomplete-input-padding-x-end-with-actions',
+    '3.25rem',
+    'Controls input end padding when control actions are rendered.',
+  ],
   ['--autocomplete-input-padding-x-start', '0.875rem', 'Controls input start padding.'],
   [
     '--autocomplete-input-placeholder-color',
@@ -541,7 +551,7 @@ export function ItemIconsAutocompleteExample() {
           <AutocompleteInput id={id} placeholder="e.g. feature" />
           <AutocompleteControlActions>
             <AutocompleteClear aria-label="Clear value">
-              <CloseLineIcon />
+              <CloseIcon />
             </AutocompleteClear>
             <AutocompleteTrigger aria-label="Open suggestions">
               <ChevronUpIcon />
@@ -762,7 +772,7 @@ export function AsyncSearchAutocompleteExample() {
     }
 
     if (trimmedValue === '') {
-      return null;
+      return 'Start typing to search movies...';
     }
 
     if (searchResults.length === 0) {
@@ -854,7 +864,7 @@ export function AsyncSearchAutocompleteExample() {
   );
 }
 
-export function CustomStylesAutocompleteExample() {
+export function CustomCompositionAutocompleteExample() {
   const id = React.useId();
 
   return (
@@ -870,27 +880,22 @@ export function CustomStylesAutocompleteExample() {
         </AutocompleteInputGroup>
       </AutocompleteField>
 
-      <AutocompleteContent
-        className={styles.customPopup}
-        sideOffset={8}
-        withArrow
-        withBackdrop
-        classNames={{
-          portal: styles.customPortal,
-          backdrop: styles.customBackdrop,
-          positioner: styles.customPositioner,
-          arrow: styles.customArrow,
-        }}
-      >
-        <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-        <AutocompleteList>
-          {(item: TagItem) => (
-            <AutocompleteItem key={item.id} value={item}>
-              <AutocompleteItemText>{item.value}</AutocompleteItemText>
-            </AutocompleteItem>
-          )}
-        </AutocompleteList>
-      </AutocompleteContent>
+      <AutocompletePortal className={styles.customPortal}>
+        <AutocompleteBackdrop className={styles.customBackdrop} />
+        <AutocompletePositioner className={styles.customPositioner} sideOffset={8}>
+          <AutocompletePopup className={styles.customPopup}>
+            <AutocompleteArrow className={styles.customArrow} />
+            <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+            <AutocompleteList>
+              {(item: TagItem) => (
+                <AutocompleteItem key={item.id} value={item}>
+                  <AutocompleteItemText>{item.value}</AutocompleteItemText>
+                </AutocompleteItem>
+              )}
+            </AutocompleteList>
+          </AutocompletePopup>
+        </AutocompletePositioner>
+      </AutocompletePortal>
     </Autocomplete>
   );
 }

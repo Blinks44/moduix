@@ -9,10 +9,11 @@ import {
   NumberFieldGroup,
   NumberFieldIncrement,
   NumberFieldInput,
+  NumberFieldRoot,
   NumberFieldScrubArea,
-  type NumberFieldProps,
+  NumberFieldScrubAreaCursor,
 } from 'moduix';
-import * as React from 'react';
+import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './number-field.module.css';
@@ -103,8 +104,8 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function NumberFieldExample(props: NumberFieldProps) {
-  const id = React.useId();
+export function NumberFieldExample(props: ComponentProps<typeof NumberField>) {
+  const id = useId();
 
   return (
     <Field className={styles.field}>
@@ -115,8 +116,8 @@ export function NumberFieldExample(props: NumberFieldProps) {
 }
 
 export function ControlledNumberFieldExample() {
-  const id = React.useId();
-  const [value, setValue] = React.useState<number | null>(24);
+  const id = useId();
+  const [value, setValue] = useState<number | null>(24);
 
   return (
     <div className={styles.stack}>
@@ -129,14 +130,26 @@ export function ControlledNumberFieldExample() {
   );
 }
 
+export function MinMaxStepNumberFieldExample() {
+  const id = useId();
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
+      <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
+    </Field>
+  );
+}
+
 export function NumberFieldScrubAreaExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field className={styles.field}>
       <NumberField id={id} defaultValue={250}>
-        <NumberFieldScrubArea classNames={{ cursor: styles.scrubCursor }}>
+        <NumberFieldScrubArea>
           <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+          <NumberFieldScrubAreaCursor />
         </NumberFieldScrubArea>
       </NumberField>
     </Field>
@@ -144,7 +157,7 @@ export function NumberFieldScrubAreaExample() {
 }
 
 export function FormattedNumberFieldExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field className={styles.field}>
@@ -161,7 +174,7 @@ export function FormattedNumberFieldExample() {
 }
 
 export function NumberFieldValidationExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field name="quantity" validationMode="onBlur" className={styles.validationField}>
@@ -174,23 +187,39 @@ export function NumberFieldValidationExample() {
   );
 }
 
+export function LocalizedLabelsNumberFieldExample() {
+  const id = useId();
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel htmlFor={id}>Seats</FieldLabel>
+      <NumberField
+        id={id}
+        defaultValue={2}
+        decrementLabel="Decrease seat count"
+        incrementLabel="Increase seat count"
+      />
+    </Field>
+  );
+}
+
 export function CustomIconsNumberFieldExample() {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Floors</FieldLabel>
-      <NumberField id={id} defaultValue={8} withGroup={false}>
+      <NumberFieldRoot id={id} defaultValue={8}>
         <NumberFieldGroup>
-          <NumberFieldDecrement aria-label="Decrease value" className={styles.customButton}>
+          <NumberFieldDecrement className={styles.customButton}>
             <ChevronDownIcon />
           </NumberFieldDecrement>
           <NumberFieldInput className={styles.customInput} />
-          <NumberFieldIncrement aria-label="Increase value" className={styles.customButton}>
+          <NumberFieldIncrement className={styles.customButton}>
             <ChevronUpIcon />
           </NumberFieldIncrement>
         </NumberFieldGroup>
-      </NumberField>
+      </NumberFieldRoot>
     </Field>
   );
 }

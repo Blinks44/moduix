@@ -10,7 +10,7 @@ import {
   AutocompleteCssPlaygroundPanel,
   AutocompleteCssPropertiesPanel,
   AutocompleteExample,
-  CustomStylesAutocompleteExample,
+  CustomCompositionAutocompleteExample,
   FuzzyAutocompleteExample,
   GroupedAutocompleteExample,
   GridAutocompleteExample,
@@ -26,8 +26,7 @@ import {
 
 ## Choosing the right component
 
-Use `Autocomplete` when users need to type freely and you want to suggest matching options while
-they type.
+Use `Autocomplete` for free-form input with suggestions while typing.
 
 - Choose **`Autocomplete`** for free-form values with suggestions.
 - Choose **`Combobox`** when users should select from predefined options, with typing used to filter.
@@ -113,116 +112,83 @@ they type.
 
 ## Anatomy
 
-`Autocomplete` combines an input field, control actions, and a popup with filtered options. Keep
-input-related parts together inside `AutocompleteField` so labeling and keyboard behavior stay
-connected.
+`Autocomplete` keeps the popup infrastructure behind `AutocompleteContent`, so the default
+composition stays short and focused on the field and list parts.
 
 ```text
 Autocomplete
 ├─ AutocompleteField
 │  ├─ AutocompleteFieldLabel
-│  └─ AutocompleteInputGroup
-│     ├─ AutocompleteInput
-│     └─ AutocompleteControlActions (optional)
-│        ├─ AutocompleteClear (optional)
-│        └─ AutocompleteTrigger (optional)
+│  ├─ AutocompleteInputGroup
+│  │  ├─ AutocompleteInput
+│  │  └─ AutocompleteControlActions (optional)
+│  │     ├─ AutocompleteClear (optional)
+│  │     └─ AutocompleteTrigger (optional)
+│  └─ AutocompleteFieldTrigger (alternate)
+│     ├─ AutocompleteValue
+│     └─ AutocompleteIcon (optional)
 └─ AutocompleteContent
-   ├─ AutocompleteStatus (optional)
-   ├─ AutocompleteEmpty
-   ├─ AutocompleteSeparator (optional)
+   ├─ AutocompleteStatus / AutocompleteEmpty
    └─ AutocompleteList
       ├─ AutocompleteItem
-      │  └─ AutocompleteItemText
-      ├─ AutocompleteRow (optional, for grid lists)
-      │  └─ AutocompleteItem
-      └─ AutocompleteGroup (optional)
-         ├─ AutocompleteGroupLabel
-         └─ AutocompleteCollection
-            └─ AutocompleteItem
+      ├─ AutocompleteGroup / AutocompleteCollection
+      ├─ AutocompleteRow (for grid lists)
+      └─ AutocompleteSeparator
 ```
 
-```tsx
-<Autocomplete items={tags} itemToStringValue={(item) => item.value}>
-  <AutocompleteField>
-    <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
-    <AutocompleteInputGroup>
-      <AutocompleteInput id={id} placeholder="e.g. feature" />
-      <AutocompleteControlActions>
-        <AutocompleteClear aria-label="Clear value" />
-        <AutocompleteTrigger aria-label="Open suggestions" />
-      </AutocompleteControlActions>
-    </AutocompleteInputGroup>
-  </AutocompleteField>
+| Part                         | Role                                                                                                                        |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `Autocomplete`               | Root state machine. Controls the input value, filtering, highlighting, popup open state, and free-form typing.              |
+| `AutocompleteField`          | Field wrapper for the visible control and label.                                                                            |
+| `AutocompleteInput`          | Free-form text input for the common inline-field path.                                                                      |
+| `AutocompleteFieldTrigger`   | Trigger-style field for the "input inside popup" composition.                                                               |
+| `AutocompleteControlActions` | Optional slot for clear and open controls.                                                                                  |
+| `AutocompleteContent`        | Default popup wrapper. Renders `AutocompletePortal`, `AutocompletePositioner`, and `AutocompletePopup` for the common case. |
+| `AutocompleteList`           | Collection renderer for flat items, groups, or grid rows.                                                                   |
+| `AutocompleteItem`           | One suggestion option.                                                                                                      |
+| `AutocompleteStatus`         | Optional status region for loading, error, or result-count feedback.                                                        |
+| `AutocompleteEmpty`          | Empty-state content when nothing matches.                                                                                   |
 
-  <AutocompleteContent>
-    <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-    <AutocompleteList>
-      {(item) => (
-        <AutocompleteItem key={item.id} value={item}>
-          <AutocompleteItemText>{item.value}</AutocompleteItemText>
-        </AutocompleteItem>
-      )}
-    </AutocompleteList>
-  </AutocompleteContent>
-</Autocomplete>
-```
-
-| Part                         | Role                                                                                               |
-| ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `Autocomplete`               | Root state machine. Handles value, filtering, highlighting, and open/close behavior.               |
-| `AutocompleteField`          | Semantic wrapper for field-level structure. Keeps label and input wiring in one place.             |
-| `AutocompleteFieldLabel`     | Accessible label for the input or field trigger.                                                   |
-| `AutocompleteInputGroup`     | Layout wrapper for the input and optional control actions.                                         |
-| `AutocompleteInput`          | Text input where users type a query or free-form value.                                            |
-| `AutocompleteControlActions` | Optional container for clear/open controls.                                                        |
-| `AutocompleteClear`          | Optional action that clears the current input value.                                               |
-| `AutocompleteTrigger`        | Optional action that toggles or opens the suggestion popup.                                        |
-| `AutocompleteContent`        | Popup surface. Also renders service slots (`portal`, `backdrop`, `positioner`, `arrow`) via props. |
-| `AutocompleteStatus`         | Optional status region for loading or result-count feedback.                                       |
-| `AutocompleteEmpty`          | Empty-state content shown when no items match.                                                     |
-| `AutocompleteList`           | Collection container for options.                                                                  |
-| `AutocompleteRow`            | Optional row wrapper when `grid` is enabled on the root.                                           |
-| `AutocompleteItem`           | One selectable option in the list.                                                                 |
-| `AutocompleteSeparator`      | Optional visual separator between groups or custom sections.                                       |
-| `AutocompleteGroup`          | Optional grouped section with its own item subset.                                                 |
-| `AutocompleteCollection`     | Renderer for group items inside `AutocompleteGroup`.                                               |
-
-Use default styling for service slots in most cases. Customize `portal`, `backdrop`,
-`positioner`, and `arrow` when you need custom layering, overlay behavior, popup placement, or
-arrow visuals.
+Most customizations should stay on visible parts such as `AutocompleteInput`, `AutocompleteItem`,
+`AutocompleteItemText`, and `AutocompleteContent`.
 
 ## Composition
 
 Use `Autocomplete` for root state and Base UI behavior props such as `items`, `value`,
-`onValueChange`, `filter`, `limit`, `mode`, `autoHighlight`, and `openOnInputClick`.
+`onValueChange`, `filter`, `filteredItems`, `limit`, `mode`, `autoHighlight`, `grid`,
+`virtualized`, and `openOnInputClick`.
 
-The root keeps the Base UI behavior surface intact. Use `itemToStringValue` for object items,
-`filter={null}` or `filteredItems` for external filtering, `grid` with `AutocompleteRow` for grid
-navigation, `modal` for modal popup behavior, `submitOnItemClick` for single-field search forms,
-`onOpenChange` for controlled popup side effects, `virtualized` for externally virtualized lists,
-and `keepHighlight` or `highlightItemOnHover` when pointer and keyboard highlighting need custom
-rules. `actionsRef` is available for manual unmount flows with animation libraries.
-`useAutocompleteFilter` exposes Base UI string matching helpers, and
-`useAutocompleteFilteredItems` returns the currently filtered items for custom list layouts.
+Use `itemToStringValue` for object items. Use `filter={null}` or `filteredItems` for external
+search. Use `AutocompleteGroup`, `AutocompleteGroupLabel`, and `AutocompleteCollection` for grouped
+data. Use `grid` with `AutocompleteRow` for grid navigation. `useAutocompleteFilter` provides Base
+UI string-matching helpers, and `useAutocompleteFilteredItems` exposes the filtered result set for
+custom renderers.
 
-`className` styles the visible popup. `classNames` styles service slots hidden from the default
-composition: `portal`, `backdrop`, `positioner`, and `arrow`. Use `container`, `portalProps`,
-`backdropProps`, `positionerProps`, `arrowProps`, `withBackdrop`, and `arrow` when you need the
-matching Base UI escape hatches:
+`AutocompleteContent` is the short path for the common case. It styles the popup surface and keeps
+the default `Portal -> Positioner -> Popup` structure. It forwards popup props to the visible
+surface and accepts the shared positioning props directly.
+
+| `AutocompleteContent` prop                                                                   | Default         | Purpose                                               |
+| -------------------------------------------------------------------------------------------- | --------------- | ----------------------------------------------------- |
+| `sideOffset`                                                                                 | `5`             | Gap between the trigger and popup.                    |
+| `showArrow`                                                                                  | `false`         | Enables the built-in arrow.                           |
+| `side`, `align`                                                                              | Base UI default | Popup placement relative to the anchor.               |
+| `alignOffset`, `arrowPadding`, `collisionAvoidance`, `collisionBoundary`, `collisionPadding` | Base UI default | Collision and arrow tuning for the common popup path. |
+
+When you need a custom portal container, backdrop, custom arrow content, or a different popup
+stack, switch to the lower-level parts instead of extending `AutocompleteContent`.
 
 ```tsx
-<AutocompleteContent
-  className={styles.popup}
-  sideOffset={8}
-  withArrow
-  withBackdrop
-  classNames={{
-    portal: styles.portal,
-    backdrop: styles.backdrop,
-    positioner: styles.positioner,
-    arrow: styles.arrow,
-  }}
-/>
+<AutocompletePortal className={styles.portal}>
+  <AutocompleteBackdrop className={styles.backdrop} />
+  <AutocompletePositioner className={styles.positioner} sideOffset={8}>
+    <AutocompletePopup className={styles.popup}>
+      <AutocompleteArrow className={styles.arrow} />
+      <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+      <AutocompleteList>{/* items */}</AutocompleteList>
+    </AutocompletePopup>
+  </AutocompletePositioner>
+</AutocompletePortal>
 ```
 
 ## Examples
@@ -346,7 +312,7 @@ Use item text slots for richer option content. Control icons can be replaced by 
         AutocompleteItemTextContent,
         AutocompleteItemTextIcon,
         ChevronUpIcon,
-        CloseLineIcon,
+        CloseIcon,
         InfoIcon,
         AutocompleteItemTextLabel,
         AutocompleteItem,
@@ -364,7 +330,7 @@ Use item text slots for richer option content. Control icons can be replaced by 
                 <AutocompleteInput id={id} placeholder="e.g. feature" />
                 <AutocompleteControlActions>
                   <AutocompleteClear aria-label="Clear value">
-                    <CloseLineIcon />
+                    <CloseIcon />
                   </AutocompleteClear>
                   <AutocompleteTrigger aria-label="Open suggestions">
                     <ChevronUpIcon />
@@ -412,7 +378,9 @@ Use item text slots for richer option content. Control icons can be replaced by 
 
 ### Input Inside Popup
 
-Use `AutocompleteFieldTrigger` when the visible field opens a popup that contains the searchable input.
+Use `AutocompleteFieldTrigger` when the visible field opens a popup that contains the searchable
+input. `AutocompleteFieldLabel` stays associated with the trigger and the inline input through Base
+UI field labeling, so no extra `htmlFor` wiring is needed in this composition.
 
 <Preview>
   <InputInsidePopupAutocompleteExample />
@@ -888,6 +856,8 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
 
         const status = isPending
           ? "Searching..."
+          : trimmedValue === ""
+            ? "Start typing to search movies..."
           : trimmedValue !== "" && searchResults.length === 0
             ? \`No matches for "\${trimmedValue}".\`
             : null;
@@ -975,12 +945,13 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
   </Preview.Data>
 </Preview>
 
-### Custom Styles
+### Custom Composition
 
-Style the popup directly with `className` and service slots with `classNames`.
+Style the default popup with `className`. Switch to explicit popup composition when the portal,
+backdrop, positioner, or arrow need their own styling.
 
 <Preview>
-  <CustomStylesAutocompleteExample />
+  <CustomCompositionAutocompleteExample />
 
   <Preview.Code>
     {`
@@ -1001,7 +972,7 @@ Style the popup directly with `className` and service slots with `classNames`.
       } from "moduix";
       import { useId } from "react";
 
-      export function CustomStylesAutocompleteDemo() {
+      export function CustomCompositionAutocompleteDemo() {
         const id = useId();
 
         return (
@@ -1017,27 +988,22 @@ Style the popup directly with `className` and service slots with `classNames`.
               </AutocompleteInputGroup>
             </AutocompleteField>
 
-            <AutocompleteContent
-              className={styles.customPopup}
-              sideOffset={8}
-              withArrow
-              withBackdrop
-              classNames={{
-                portal: styles.customPortal,
-                backdrop: styles.customBackdrop,
-                positioner: styles.customPositioner,
-                arrow: styles.customArrow,
-              }}
-            >
-              <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-              <AutocompleteList>
-                {(item) => (
-                  <AutocompleteItem key={item.id} value={item}>
-                    <AutocompleteItemText>{item.value}</AutocompleteItemText>
-                  </AutocompleteItem>
-                )}
-              </AutocompleteList>
-            </AutocompleteContent>
+            <AutocompletePortal className={styles.customPortal}>
+              <AutocompleteBackdrop className={styles.customBackdrop} />
+              <AutocompletePositioner className={styles.customPositioner} sideOffset={8}>
+                <AutocompletePopup className={styles.customPopup}>
+                  <AutocompleteArrow className={styles.customArrow} />
+                  <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+                  <AutocompleteList>
+                    {(item) => (
+                      <AutocompleteItem key={item.id} value={item}>
+                        <AutocompleteItemText>{item.value}</AutocompleteItemText>
+                      </AutocompleteItem>
+                    )}
+                  </AutocompleteList>
+                </AutocompletePopup>
+              </AutocompletePositioner>
+            </AutocompletePortal>
           </Autocomplete>
         );
       }

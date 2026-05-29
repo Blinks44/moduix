@@ -1,20 +1,29 @@
 @layer ui.storybook {
-  .textBlock {
+  .stack {
     width: 20rem;
   }
 
   .card {
-    display: flex;
     width: 20rem;
-    flex-direction: column;
-    gap: var(--spacing-4);
   }
 
   .mediaObject {
     width: 24rem;
   }
 
-  .layoutProps {
+  .layoutExample {
     width: 24rem;
+    padding-block: 4px;
+  }
+
+  .customBlock {
+    width: 20rem;
+    --skeleton-bg: var(--color-primary);
+    --skeleton-radius: var(--radius-full);
+    --skeleton-animation: none;
+  }
+
+  .customSkeleton {
+    opacity: 0.28;
   }
 }

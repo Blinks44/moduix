@@ -44,10 +44,6 @@
     }
   }
 
-  .portal {
-    z-index: var(--z-popup);
-  }
-
   .backdrop {
     position: fixed;
     z-index: var(--z-backdrop);
@@ -114,7 +110,6 @@
 
     &[data-side='bottom'] {
       top: calc(var(--preview-card-arrow-size, 8px) * -1);
-      rotate: 0deg;
     }
 
     &[data-side='left'] {

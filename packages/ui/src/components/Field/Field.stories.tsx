@@ -1,14 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useId } from 'react';
 import { Checkbox, CheckboxIndicator } from '../Checkbox';
 import { Input } from '../Input';
-import {
-  NumberField,
-  NumberFieldDecrement,
-  NumberFieldGroup,
-  NumberFieldIncrement,
-  NumberFieldInput,
-} from '../NumberField';
+import { NumberField } from '../NumberField';
 import { Radio, RadioField, RadioGroup, RadioLabel } from '../Radio';
 import { Switch, SwitchLabel } from '../Switch';
 import {
@@ -48,7 +42,29 @@ export const Basic: Story = {
   },
 };
 
-export const WithCustomValidation: Story = {
+export const WithValidationMessage: Story = {
+  render: () => {
+    return (
+      <Field
+        validationMode="onBlur"
+        validate={(value) => {
+          if (typeof value !== 'string' || value.length < 3) {
+            return 'Username must be at least 3 characters.';
+          }
+
+          return null;
+        }}
+      >
+        <FieldLabel>Username</FieldLabel>
+        <FieldControl placeholder="e.g. vinny" />
+        <FieldDescription>Use at least 3 characters.</FieldDescription>
+        <FieldError />
+      </Field>
+    );
+  },
+};
+
+export const WithValidityState: Story = {
   render: () => {
     return (
       <Field
@@ -62,7 +78,7 @@ export const WithCustomValidation: Story = {
         }}
       >
         <FieldLabel>Username</FieldLabel>
-        <FieldControl placeholder="e.g. Vinny" />
+        <FieldControl placeholder="e.g. vinny" />
         <FieldError match="customError" />
         <FieldValidity>
           {(state) => (
@@ -159,18 +175,12 @@ export const WithInput: Story = {
 
 export const WithNumberField: Story = {
   render: () => {
-    const id = React.useId();
+    const id = useId();
 
     return (
       <Field name="quantity" validationMode="onBlur">
         <FieldLabel htmlFor={id}>Items</FieldLabel>
-        <NumberField id={id} min={1} max={10} required>
-          <NumberFieldGroup>
-            <NumberFieldDecrement aria-label="Decrease value" />
-            <NumberFieldInput />
-            <NumberFieldIncrement aria-label="Increase value" />
-          </NumberFieldGroup>
-        </NumberField>
+        <NumberField id={id} min={1} max={10} required />
         <FieldError match="valueMissing">Please provide a number.</FieldError>
         <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
         <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>

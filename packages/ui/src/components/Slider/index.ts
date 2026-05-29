@@ -1,9 +1,10 @@
-export { Slider, SliderLabel, SliderValue, SliderThumb } from './Slider';
-
-export type {
-  SliderProps,
-  SliderClassNames,
-  SliderLabelProps,
-  SliderValueProps,
-  SliderThumbProps,
+export {
+  Slider,
+  SliderRoot,
+  SliderLabel,
+  SliderValue,
+  SliderControl,
+  SliderTrack,
+  SliderIndicator,
+  SliderThumb,
 } from './Slider';
