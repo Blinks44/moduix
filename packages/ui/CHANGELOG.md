@@ -1,5 +1,11 @@
 # moduix
 
+## 0.9.0
+
+### Minor Changes
+
+- fad6c0a: New components: Badge, Alert, CommandPalette, Kbd, InputGroup, Card
+
 ## 0.8.5
 
 ### Patch Changes
