@@ -1,5 +1,11 @@
 # moduix
 
+## 0.9.1
+
+### Patch Changes
+
+- a239b37: [Drawer] new Island variant
+
 ## 0.9.0
 
 ### Minor Changes
