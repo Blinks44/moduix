@@ -15,7 +15,7 @@ import {
   TooltipViewport,
   createTooltipHandle,
 } from 'moduix';
-import * as React from 'react';
+import { useMemo, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './tooltip.module.css';
@@ -59,7 +59,6 @@ export const tooltipOverrideCssProperties: CssPropertyInput[] = [
   ['--tooltip-trigger-border-width', 'var(--border-width-sm)', 'Controls trigger border width.'],
   ['--tooltip-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
   ['--tooltip-trigger-font-size', 'var(--text-sm)', 'Controls trigger font size.'],
-  ['--tooltip-trigger-ghost-size', 'var(--size-lg)', 'Controls icon-only trigger size.'],
   ['--tooltip-trigger-height', 'var(--size-lg)', 'Controls trigger height.'],
   ['--tooltip-trigger-line-height', 'var(--line-height-text-sm)', 'Controls trigger line height.'],
   ['--tooltip-trigger-padding-x', '0.875rem', 'Controls trigger horizontal padding.'],
@@ -128,7 +127,7 @@ export function ToolbarTooltipExample() {
     <TooltipProvider delay={300}>
       <div className={styles.toolbar}>
         <Tooltip>
-          <TooltipTrigger aria-label="Add item" data-variant="ghost">
+          <TooltipTrigger render={<Button variant="ghost" size="icon-md" />} aria-label="Add item">
             <PlusIcon className={styles.icon} />
           </TooltipTrigger>
           <TooltipContent showArrow sideOffset={16}>
@@ -137,7 +136,7 @@ export function ToolbarTooltipExample() {
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger aria-label="Share" data-variant="ghost">
+          <TooltipTrigger render={<Button variant="ghost" size="icon-md" />} aria-label="Share">
             <ShareIcon className={styles.icon} />
           </TooltipTrigger>
           <TooltipContent showArrow sideOffset={16}>
@@ -146,7 +145,7 @@ export function ToolbarTooltipExample() {
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger aria-label="Details" data-variant="ghost">
+          <TooltipTrigger render={<Button variant="ghost" size="icon-md" />} aria-label="Details">
             <InfoIcon className={styles.icon} />
           </TooltipTrigger>
           <TooltipContent showArrow sideOffset={16}>
@@ -158,7 +157,7 @@ export function ToolbarTooltipExample() {
   );
 }
 
-export function TooltipWithoutArrowExample() {
+export function TooltipCompactLabelExample() {
   return (
     <Tooltip>
       <TooltipTrigger render={<Button />} aria-label="Tooltip without arrow">
@@ -170,7 +169,7 @@ export function TooltipWithoutArrowExample() {
 }
 
 export function SideControlTooltipExample() {
-  const [side, setSide] = React.useState<TooltipSide>('top');
+  const [side, setSide] = useState<TooltipSide>('top');
 
   return (
     <div className={styles.stack}>
@@ -199,7 +198,7 @@ export function SideControlTooltipExample() {
 }
 
 export function DetachedTriggerTooltipExample() {
-  const tooltipHandle = React.useMemo(() => createTooltipHandle(), []);
+  const tooltipHandle = useMemo(() => createTooltipHandle(), []);
 
   return (
     <div className={styles.row}>
@@ -214,7 +213,7 @@ export function DetachedTriggerTooltipExample() {
 }
 
 export function MultipleTriggersTooltipExample() {
-  const tooltipHandle = React.useMemo(() => createTooltipHandle<{ text: string }>(), []);
+  const tooltipHandle = useMemo(() => createTooltipHandle<{ text: string }>(), []);
 
   return (
     <TooltipProvider delay={250}>
@@ -223,7 +222,7 @@ export function MultipleTriggersTooltipExample() {
           aria-label="Create"
           handle={tooltipHandle}
           payload={{ text: 'Create' }}
-          data-variant="ghost"
+          render={<Button variant="ghost" size="icon-md" />}
         >
           <PlusIcon className={styles.icon} />
         </TooltipTrigger>
@@ -231,7 +230,7 @@ export function MultipleTriggersTooltipExample() {
           aria-label="Share"
           handle={tooltipHandle}
           payload={{ text: 'Share' }}
-          data-variant="ghost"
+          render={<Button variant="ghost" size="icon-md" />}
         >
           <ShareIcon className={styles.icon} />
         </TooltipTrigger>
@@ -239,7 +238,7 @@ export function MultipleTriggersTooltipExample() {
           aria-label="Details"
           handle={tooltipHandle}
           payload={{ text: 'Details' }}
-          data-variant="ghost"
+          render={<Button variant="ghost" size="icon-md" />}
         >
           <InfoIcon className={styles.icon} />
         </TooltipTrigger>

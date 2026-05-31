@@ -2151,7 +2151,6 @@
   --tooltip-trigger-border-width: initial; /* var(--border-width-sm) */
   --tooltip-trigger-color: initial; /* var(--color-foreground) */
   --tooltip-trigger-font-size: initial; /* var(--text-sm) */
-  --tooltip-trigger-ghost-size: initial; /* var(--size-lg) */
   --tooltip-trigger-height: initial; /* var(--size-lg) */
   --tooltip-trigger-line-height: initial; /* var(--line-height-text-sm) */
   --tooltip-trigger-padding-x: initial; /* 0.875rem */

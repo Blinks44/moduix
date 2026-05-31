@@ -1,9 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useState, type ComponentProps } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { CheckIcon } from '@/icons/ui';
 import { Toggle } from './Toggle';
 import storyStyles from './Toggle.stories.module.css';
+
+function FavoriteToggle(props: ComponentProps<typeof Toggle>) {
+  return (
+    <Toggle defaultPressed {...props}>
+      <StarIcon />
+      Favorite
+    </Toggle>
+  );
+}
 
 const meta = {
   title: 'Components/Toggle',
@@ -21,26 +30,20 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
-
-export const Pressed: Story = {
-  args: {
-    defaultPressed: true,
-    children: 'Pressed',
-  },
+export const Default: Story = {
+  render: (args) => <FavoriteToggle {...args} />,
 };
 
-export const Outline: Story = {
-  args: {
-    variant: 'outline',
-    children: 'Outline',
-  },
-};
-
-export const Ghost: Story = {
-  args: {
-    variant: 'ghost',
-    children: 'Ghost',
+export const Variants: Story = {
+  render: () => {
+    return (
+      <div className={storyStyles.row}>
+        <Toggle>Default</Toggle>
+        <Toggle variant="outline">Outline</Toggle>
+        <Toggle variant="ghost">Ghost</Toggle>
+        <Toggle defaultPressed>Pressed</Toggle>
+      </div>
+    );
   },
 };
 
@@ -57,24 +60,22 @@ export const Sizes: Story = {
   },
 };
 
-export const Icon: Story = {
-  args: {
-    size: 'icon-md',
-    'aria-label': 'Favorites',
-    children: <StarIcon />,
-  },
-};
-
-export const WithIcon: Story = {
-  args: {
-    variant: 'outline',
-    defaultPressed: true,
-    children: (
-      <React.Fragment>
-        <CheckIcon />
-        Enabled
-      </React.Fragment>
-    ),
+export const Icons: Story = {
+  render: () => {
+    return (
+      <div className={storyStyles.row}>
+        <Toggle variant="outline">
+          <BellIcon />
+          Alerts
+        </Toggle>
+        <Toggle size="icon-md" variant="outline" aria-label="Favorites">
+          <StarIcon />
+        </Toggle>
+        <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
+          <CheckIcon />
+        </Toggle>
+      </div>
+    );
   },
 };
 
@@ -93,7 +94,7 @@ export const Disabled: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [pressed, setPressed] = React.useState(false);
+    const [pressed, setPressed] = useState(false);
 
     return (
       <div className={storyStyles.stack}>
@@ -114,6 +115,7 @@ export const RenderCallback: Story = {
       <Toggle
         aria-label="Favorites"
         size="icon-md"
+        variant="outline"
         render={(buttonProps, state) => (
           <button type="button" {...buttonProps}>
             {state.pressed ? <CheckIcon /> : <StarIcon />}
@@ -131,10 +133,10 @@ export const CustomStyles: Story = {
     variant: 'outline',
     defaultPressed: true,
     children: (
-      <React.Fragment>
+      <>
         <CheckIcon />
         Styled with className
-      </React.Fragment>
+      </>
     ),
   },
 };

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { useMemo, useState } from 'react';
 import { BellIcon, InfoIcon, ShareIcon } from '@/icons/demo';
 import { PlusIcon } from '@/icons/ui';
+import { Button } from '../Button';
 import {
   Tooltip,
   TooltipProvider,
@@ -30,26 +31,18 @@ type Story = StoryObj<typeof meta>;
 const SIDES = ['top', 'right', 'bottom', 'left'] as const;
 type TooltipSide = (typeof SIDES)[number];
 
-export const Basic: Story = {
+export const Default: Story = {
+  name: 'Default',
   render: () => {
     return (
       <Tooltip>
-        <TooltipTrigger aria-label="Notifications" data-variant="ghost">
-          <BellIcon className={storyStyles.icon} />
+        <TooltipTrigger render={<Button />} aria-label="Notifications">
+          <span className={storyStyles.triggerContent}>
+            <BellIcon className={storyStyles.icon} />
+            Notifications
+          </span>
         </TooltipTrigger>
         <TooltipContent>Notifications</TooltipContent>
-      </Tooltip>
-    );
-  },
-};
-
-export const Default: Story = {
-  name: 'Default Content',
-  render: () => {
-    return (
-      <Tooltip>
-        <TooltipTrigger aria-label="Tooltip content">Hover or focus</TooltipTrigger>
-        <TooltipContent>Tooltip content</TooltipContent>
       </Tooltip>
     );
   },
@@ -73,7 +66,10 @@ export const Toolbar: Story = {
       <TooltipProvider delay={300}>
         <div className={storyStyles.toolbar}>
           <Tooltip>
-            <TooltipTrigger aria-label="Add item" data-variant="ghost">
+            <TooltipTrigger
+              render={<Button variant="ghost" size="icon-md" />}
+              aria-label="Add item"
+            >
               <PlusIcon className={storyStyles.icon} />
             </TooltipTrigger>
             <TooltipContent showArrow sideOffset={16}>
@@ -82,7 +78,7 @@ export const Toolbar: Story = {
           </Tooltip>
 
           <Tooltip>
-            <TooltipTrigger aria-label="Share" data-variant="ghost">
+            <TooltipTrigger render={<Button variant="ghost" size="icon-md" />} aria-label="Share">
               <ShareIcon className={storyStyles.icon} />
             </TooltipTrigger>
             <TooltipContent showArrow sideOffset={16}>
@@ -91,7 +87,7 @@ export const Toolbar: Story = {
           </Tooltip>
 
           <Tooltip>
-            <TooltipTrigger aria-label="Details" data-variant="ghost">
+            <TooltipTrigger render={<Button variant="ghost" size="icon-md" />} aria-label="Details">
               <InfoIcon className={storyStyles.icon} />
             </TooltipTrigger>
             <TooltipContent showArrow sideOffset={16}>
@@ -107,11 +103,11 @@ export const Toolbar: Story = {
 export const DetachedTrigger: Story = {
   name: 'Detached Trigger',
   render: () => {
-    const tooltipHandle = React.useMemo(() => createTooltipHandle(), []);
+    const tooltipHandle = useMemo(() => createTooltipHandle(), []);
 
     return (
       <div className={storyStyles.row}>
-        <TooltipTrigger aria-label="Detached tooltip" handle={tooltipHandle}>
+        <TooltipTrigger aria-label="Detached tooltip" handle={tooltipHandle} render={<Button />}>
           Detached trigger
         </TooltipTrigger>
         <Tooltip handle={tooltipHandle}>
@@ -125,7 +121,7 @@ export const DetachedTrigger: Story = {
 export const SideControl: Story = {
   name: 'Side Control',
   render: () => {
-    const [side, setSide] = React.useState<TooltipSide>('top');
+    const [side, setSide] = useState<TooltipSide>('top');
 
     return (
       <div className={storyStyles.stack}>
@@ -144,7 +140,9 @@ export const SideControl: Story = {
         </div>
 
         <Tooltip>
-          <TooltipTrigger aria-label={`Tooltip side: ${side}`}>Hover or focus</TooltipTrigger>
+          <TooltipTrigger render={<Button />} aria-label={`Tooltip side: ${side}`}>
+            Hover or focus
+          </TooltipTrigger>
           <TooltipContent side={side}>Side: {side}</TooltipContent>
         </Tooltip>
       </div>
@@ -155,7 +153,7 @@ export const SideControl: Story = {
 export const MultipleTriggers: Story = {
   name: 'Multiple Triggers',
   render: () => {
-    const tooltipHandle = React.useMemo(() => createTooltipHandle<{ text: string }>(), []);
+    const tooltipHandle = useMemo(() => createTooltipHandle<{ text: string }>(), []);
 
     return (
       <TooltipProvider delay={250}>
@@ -164,7 +162,7 @@ export const MultipleTriggers: Story = {
             aria-label="Create"
             handle={tooltipHandle}
             payload={{ text: 'Create' }}
-            data-variant="ghost"
+            render={<Button variant="ghost" size="icon-md" />}
           >
             <PlusIcon className={storyStyles.icon} />
           </TooltipTrigger>
@@ -172,7 +170,7 @@ export const MultipleTriggers: Story = {
             aria-label="Share"
             handle={tooltipHandle}
             payload={{ text: 'Share' }}
-            data-variant="ghost"
+            render={<Button variant="ghost" size="icon-md" />}
           >
             <ShareIcon className={storyStyles.icon} />
           </TooltipTrigger>
@@ -180,7 +178,7 @@ export const MultipleTriggers: Story = {
             aria-label="Details"
             handle={tooltipHandle}
             payload={{ text: 'Details' }}
-            data-variant="ghost"
+            render={<Button variant="ghost" size="icon-md" />}
           >
             <InfoIcon className={storyStyles.icon} />
           </TooltipTrigger>

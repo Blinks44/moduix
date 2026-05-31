@@ -1,6 +1,6 @@
 ---
 title: Toggle
-description: A two-state button that can be pressed or unpressed.
+description: A two-state button for compact on/off actions and saved states.
 icon: Component
 ---
 
@@ -22,7 +22,10 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/toggle" />
 
-## Basic
+## Default Path
+
+Use `Toggle` as a single styled button. In most cases you only need children plus Base UI state
+props like `defaultPressed` or `pressed`.
 
 <Preview cssProperties={togglePlaygroundCssProperties}>
   <ToggleExample />
@@ -46,9 +49,10 @@ import {
   <Preview.CSSPlayground>{(context) => <ToggleCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
-## Anatomy
+`Toggle` stays intentionally small: one root, three built-in visual variants, and a compact size
+scale for text or icon-only controls.
 
-`Toggle` is composed as a single interactive root that represents a pressed/unpressed state.
+## Anatomy
 
 ```text
 Toggle
@@ -61,18 +65,32 @@ Toggle
 
 ## Composition
 
-`Toggle` is a single styled root over the Base UI primitive.
+`Toggle` is a thin styled wrapper over the Base UI primitive.
 
-- Use `variant` and `size` for the built-in library styles.
-- Use `pressed`, `defaultPressed`, and `onPressedChange` for controlled or uncontrolled state.
-- Use `render` only when the rendered element or icon needs to depend on primitive state.
-- Use `className`, `style`, or CSS variables for visual overrides.
+Use these paths:
+
+| Pattern                            | Best fit                                                  |
+| ---------------------------------- | --------------------------------------------------------- |
+| `defaultPressed`                   | Local uncontrolled saved/favorite toggles                 |
+| `pressed` + `onPressedChange`      | Controlled state coordinated with other UI                |
+| `variant` + `size`                 | Library defaults for common visual treatments             |
+| `className`, `style`, `--toggle-*` | Visual overrides without changing structure               |
+| `render={(props, state) => ...}`   | Advanced composition when markup or icon depends on state |
+
+### Defaults
+
+| Prop      | Default   | Values                                                  |
+| --------- | --------- | ------------------------------------------------------- |
+| `variant` | `default` | `default`, `outline`, `ghost`                           |
+| `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
+
+Icon-only toggles should always include an accessible label such as `aria-label="Favorite"`.
 
 ## Examples
 
 ### Variants
 
-Use `variant` to match the surrounding UI.
+Use `variant` to match surrounding UI density and emphasis.
 
 <Preview>
   <ToggleVariantsExample />
@@ -106,60 +124,19 @@ Use `variant` to match the surrounding UI.
         gap: var(--spacing-3);
       }
     `}
-
-  </Preview.CSS>
-</Preview>
-
-### Sizes
-
-Use text sizes for labeled toggles and icon sizes for compact controls.
-
-<Preview>
-  <ToggleSizesExample />
-
-  <Preview.Code>
-    {`
-      import { Toggle } from "moduix";
-      import styles from "./toggle.module.css";
-
-      export function ToggleSizesDemo() {
-        return (
-          <div className={styles.row}>
-            <Toggle size="xs">Extra-small</Toggle>
-            <Toggle size="sm">Small</Toggle>
-            <Toggle size="md">Medium</Toggle>
-            <Toggle size="lg">Large</Toggle>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
   </Preview.CSS>
 </Preview>
 
 ### Icons
 
-Pass icons as children. Icon-only toggles must include an accessible label.
+Pass icons as regular children. Use icon-only sizes for compact toolbar or card actions.
 
 <Preview>
   <ToggleIconExample />
 
   <Preview.Code>
     {`
-      import { BellIcon, CheckSmallIcon, StarIcon, Toggle } from "moduix";
+      import { BellIcon, CheckIcon, StarIcon, Toggle } from "moduix";
       import styles from "./toggle.module.css";
 
       export function ToggleIconsDemo() {
@@ -173,7 +150,7 @@ Pass icons as children. Icon-only toggles must include an accessible label.
               <StarIcon />
             </Toggle>
             <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
-              <CheckSmallIcon />
+              <CheckIcon />
             </Toggle>
           </div>
         );
@@ -192,53 +169,12 @@ Pass icons as children. Icon-only toggles must include an accessible label.
         gap: var(--spacing-3);
       }
     `}
-
-  </Preview.CSS>
-</Preview>
-
-### Disabled
-
-Use `disabled` to prevent interaction while preserving the current pressed state.
-
-<Preview>
-  <ToggleDisabledExample />
-
-  <Preview.Code>
-    {`
-      import { Toggle } from "moduix";
-      import styles from "./toggle.module.css";
-
-      export function DisabledToggleDemo() {
-        return (
-          <div className={styles.row}>
-            <Toggle disabled>Disabled</Toggle>
-            <Toggle defaultPressed disabled>
-              Pressed
-            </Toggle>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
   </Preview.CSS>
 </Preview>
 
 ### Controlled
 
-Control `pressed` from React state when the toggle needs to coordinate with other UI.
+Control `pressed` from React state when the toggle participates in app state or analytics.
 
 <Preview>
   <ControlledToggleExample />
@@ -285,9 +221,129 @@ Control `pressed` from React state when the toggle needs to coordinate with othe
   </Preview.CSS>
 </Preview>
 
-### Render Callback
+### Sizes
 
-Use `render` when the icon or rendered element should depend on the pressed state.
+Use text sizes for labeled toggles and icon sizes for denser action rows.
+
+<Preview>
+  <ToggleSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Toggle } from "moduix";
+      import styles from "./toggle.module.css";
+
+      export function ToggleSizesDemo() {
+        return (
+          <div className={styles.row}>
+            <Toggle size="xs">Extra-small</Toggle>
+            <Toggle size="sm">Small</Toggle>
+            <Toggle size="md">Medium</Toggle>
+            <Toggle size="lg">Large</Toggle>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-3);
+      }
+    `}
+  </Preview.CSS>
+</Preview>
+
+### Disabled
+
+Use `disabled` to freeze interaction while preserving the current pressed state.
+
+<Preview>
+  <ToggleDisabledExample />
+
+  <Preview.Code>
+    {`
+      import { Toggle } from "moduix";
+      import styles from "./toggle.module.css";
+
+      export function DisabledToggleDemo() {
+        return (
+          <div className={styles.row}>
+            <Toggle disabled>Disabled</Toggle>
+            <Toggle defaultPressed disabled>
+              Pressed
+            </Toggle>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-3);
+      }
+    `}
+  </Preview.CSS>
+</Preview>
+
+### Styling
+
+Layer custom visuals through `className` and `--toggle-*` variables when the structure stays the
+same.
+
+<Preview>
+  <CustomStylesToggleExample />
+
+  <Preview.Code>
+    {`
+      import { CheckIcon, Toggle } from "moduix";
+      import styles from "./toggle.module.css";
+
+      export function CustomStylesToggleDemo() {
+        return (
+          <Toggle className={styles.customToggle} variant="outline" defaultPressed>
+            <CheckIcon />
+            Styled with className
+          </Toggle>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customToggle {
+        --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
+        --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
+        --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
+        --toggle-outline-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
+        --toggle-outline-color: var(--color-primary);
+        --toggle-outline-bg-pressed: var(--color-primary);
+        --toggle-outline-border-color-pressed: var(--color-primary);
+        --toggle-outline-color-pressed: var(--color-primary-foreground);
+      }
+    `}
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
+
+Use `render` when the visible element or icon should depend on primitive state. Keep this as the
+advanced path; most toggles should stay on normal children.
 
 <Preview>
   <ToggleRenderCallbackExample />
@@ -347,47 +403,5 @@ Use `render` when the icon or rendered element should depend on the pressed stat
         height: 1rem;
       }
     `}
-
-  </Preview.CSS>
-</Preview>
-
-### Custom Styles
-
-Pass `className` to layer custom styles on top of the default Toggle styling.
-
-<Preview>
-  <CustomStylesToggleExample />
-
-  <Preview.Code>
-    {`
-      import { CheckSmallIcon, Toggle } from "moduix";
-      import styles from "./toggle.module.css";
-
-      export function CustomStylesToggleDemo() {
-        return (
-          <Toggle className={styles.customToggle} variant="outline" defaultPressed>
-            <CheckSmallIcon />
-            Styled with className
-          </Toggle>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customToggle {
-        --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
-        --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
-        --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
-        --toggle-outline-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
-        --toggle-outline-color: var(--color-primary);
-        --toggle-outline-bg-pressed: var(--color-primary);
-        --toggle-outline-border-color-pressed: var(--color-primary);
-        --toggle-outline-color-pressed: var(--color-primary-foreground);
-      }
-    `}
-
   </Preview.CSS>
 </Preview>

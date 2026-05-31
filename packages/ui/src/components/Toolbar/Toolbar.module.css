@@ -15,10 +15,6 @@
       flex-direction: column;
       align-items: stretch;
     }
-
-    &[data-disabled] {
-      cursor: default;
-    }
   }
 
   .group {
@@ -30,14 +26,9 @@
       flex-direction: column;
       align-items: stretch;
     }
-
-    &[data-disabled] {
-      cursor: default;
-    }
   }
 
-  .button,
-  .link {
+  .button {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -118,6 +109,46 @@
 
   .link {
     flex: 0 0 auto;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--toolbar-control-height, var(--size-lg));
+    border-radius: var(--toolbar-control-radius, var(--radius-md));
+    padding-inline: var(--toolbar-control-padding-x, 0.75rem);
+    color: var(--toolbar-control-color, var(--color-foreground));
+    font: inherit;
+    font-size: var(--toolbar-font-size, var(--text-sm));
+    font-weight: var(--toolbar-font-weight, var(--weight-medium));
+    line-height: var(--toolbar-line-height, var(--line-height-text-sm));
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color var(--toolbar-transition, var(--transition-default)),
+      color var(--toolbar-transition, var(--transition-default)),
+      opacity var(--toolbar-transition, var(--transition-default));
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--toolbar-control-bg-hover, var(--color-accent));
+      }
+    }
+
+    &:active {
+      background-color: var(--toolbar-control-bg-active, var(--color-accent));
+    }
+
+    &:focus-visible {
+      outline: var(--toolbar-focus-ring-width, var(--border-width-md)) solid
+        var(--toolbar-focus-ring-color, var(--color-ring));
+      outline-offset: var(--toolbar-focus-ring-offset, -1px);
+    }
+
+    &[data-disabled],
+    &[disabled] {
+      opacity: var(--toolbar-disabled-opacity, var(--opacity-disabled));
+      cursor: default;
+      pointer-events: none;
+    }
   }
 
   .input {
@@ -149,6 +180,10 @@
 
     &:focus-visible {
       outline-color: var(--toolbar-focus-ring-color, var(--color-ring));
+    }
+
+    .root[data-orientation='vertical'] & {
+      width: 100%;
     }
 
     &[data-disabled],

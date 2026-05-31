@@ -1,5 +1,5 @@
 import { BellIcon, CheckIcon, StarIcon, ToggleGroup, ToggleGroupItem } from 'moduix';
-import * as React from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toggle-group.module.css';
@@ -26,6 +26,7 @@ export const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-group-padding', '0.125rem', 'Controls group inner padding.'],
   ['--toggle-group-radius', 'var(--radius-lg)', 'Controls group corner radius.'],
 ];
+
 export const toggleGroupPlaygroundCssProperties: CssPropertyInput[] = [
   ['--toggle-group-bg', 'var(--color-muted)', 'Controls group background color.'],
   ['--toggle-group-border-color', 'var(--color-border)', 'Controls group border color.'],
@@ -58,12 +59,14 @@ export function ToggleGroupCssPlaygroundPanel({
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
-function AlignLeftIcon(props: React.ComponentProps<'svg'>) {
+function AlignLeftIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -76,7 +79,7 @@ function AlignLeftIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-function AlignCenterIcon(props: React.ComponentProps<'svg'>) {
+function AlignCenterIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -89,7 +92,7 @@ function AlignCenterIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-function AlignRightIcon(props: React.ComponentProps<'svg'>) {
+function AlignRightIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -102,33 +105,12 @@ function AlignRightIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function ToggleGroupExample(props: React.ComponentProps<typeof ToggleGroup>) {
+export function ToggleGroupExample(props: ComponentProps<typeof ToggleGroup>) {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment" {...props}>
       <ToggleGroupItem value="left">Left</ToggleGroupItem>
       <ToggleGroupItem value="center">Center</ToggleGroupItem>
       <ToggleGroupItem value="right">Right</ToggleGroupItem>
-    </ToggleGroup>
-  );
-}
-
-export function ToggleGroupMultipleExample() {
-  return (
-    <ToggleGroup
-      multiple
-      defaultValue={['bold', 'italic']}
-      aria-label="Text formatting"
-      size="icon-md"
-    >
-      <ToggleGroupItem value="bold" aria-label="Bold">
-        <strong>B</strong>
-      </ToggleGroupItem>
-      <ToggleGroupItem value="italic" aria-label="Italic">
-        <em>I</em>
-      </ToggleGroupItem>
-      <ToggleGroupItem value="underline" aria-label="Underline">
-        <span className={styles.underline}>U</span>
-      </ToggleGroupItem>
     </ToggleGroup>
   );
 }
@@ -155,26 +137,60 @@ export function ToggleGroupVariantsExample() {
   );
 }
 
-export function ToggleGroupSizesExample() {
+export function ToggleGroupMultipleExample() {
+  return (
+    <ToggleGroup
+      multiple
+      defaultValue={['bold', 'italic']}
+      aria-label="Text formatting"
+      size="icon-md"
+    >
+      <ToggleGroupItem value="bold" aria-label="Bold">
+        <strong>B</strong>
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Italic">
+        <em>I</em>
+      </ToggleGroupItem>
+      <ToggleGroupItem value="underline" aria-label="Underline">
+        <span className={styles.underline}>U</span>
+      </ToggleGroupItem>
+    </ToggleGroup>
+  );
+}
+
+export function ControlledToggleGroupExample() {
+  const [value, setValue] = useState(['favorites'] as string[]);
+
   return (
     <div className={styles.stack}>
-      <ToggleGroup defaultValue={['xs']} aria-label="Extra-small size" size="xs">
-        <ToggleGroupItem value="xs">XS</ToggleGroupItem>
-        <ToggleGroupItem value="sm">SM</ToggleGroupItem>
+      <ToggleGroup value={value} onValueChange={setValue} aria-label="Controlled options" multiple>
+        <ToggleGroupItem value="favorites">
+          {value.includes('favorites') ? <CheckIcon /> : <StarIcon />}
+          Favorites
+        </ToggleGroupItem>
+        <ToggleGroupItem value="alerts">
+          <BellIcon />
+          Alerts
+        </ToggleGroupItem>
       </ToggleGroup>
-      <ToggleGroup defaultValue={['sm']} aria-label="Small size" size="sm">
-        <ToggleGroupItem value="sm">Small</ToggleGroupItem>
-        <ToggleGroupItem value="md">Medium</ToggleGroupItem>
-      </ToggleGroup>
-      <ToggleGroup defaultValue={['md']} aria-label="Medium size" size="md">
-        <ToggleGroupItem value="md">Medium</ToggleGroupItem>
-        <ToggleGroupItem value="lg">Large</ToggleGroupItem>
-      </ToggleGroup>
-      <ToggleGroup defaultValue={['lg']} aria-label="Large size" size="lg">
-        <ToggleGroupItem value="lg">Large</ToggleGroupItem>
-        <ToggleGroupItem value="xl">Extra</ToggleGroupItem>
-      </ToggleGroup>
+      <span className={styles.hint}>Current value: {value.join(', ') || 'empty'}</span>
     </div>
+  );
+}
+
+export function ToggleGroupIconExample() {
+  return (
+    <ToggleGroup defaultValue={['left']} aria-label="Text alignment" size="icon-md">
+      <ToggleGroupItem value="left" aria-label="Align left">
+        <AlignLeftIcon className={styles.customIcon} />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="center" aria-label="Align center">
+        <AlignCenterIcon className={styles.customIcon} />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="right" aria-label="Align right">
+        <AlignRightIcon className={styles.customIcon} />
+      </ToggleGroupItem>
+    </ToggleGroup>
   );
 }
 
@@ -207,52 +223,6 @@ export function ToggleGroupDisabledExample() {
         </ToggleGroupItem>
       </ToggleGroup>
     </div>
-  );
-}
-
-export function ToggleGroupLoopFocusExample() {
-  return (
-    <ToggleGroup defaultValue={['day']} aria-label="Schedule range" loopFocus={false}>
-      <ToggleGroupItem value="day">Day</ToggleGroupItem>
-      <ToggleGroupItem value="week">Week</ToggleGroupItem>
-      <ToggleGroupItem value="month">Month</ToggleGroupItem>
-    </ToggleGroup>
-  );
-}
-
-export function ControlledToggleGroupExample() {
-  const [value, setValue] = React.useState(['favorites']);
-
-  return (
-    <div className={styles.stack}>
-      <ToggleGroup value={value} onValueChange={setValue} aria-label="Controlled options" multiple>
-        <ToggleGroupItem value="favorites">
-          {value.includes('favorites') ? <CheckIcon /> : <StarIcon />}
-          Favorites
-        </ToggleGroupItem>
-        <ToggleGroupItem value="alerts">
-          <BellIcon />
-          Alerts
-        </ToggleGroupItem>
-      </ToggleGroup>
-      <span className={styles.hint}>Current value: {value.join(', ') || 'empty'}</span>
-    </div>
-  );
-}
-
-export function ToggleGroupIconExample() {
-  return (
-    <ToggleGroup defaultValue={['left']} aria-label="Text alignment" size="icon-md">
-      <ToggleGroupItem value="left" aria-label="Align left">
-        <AlignLeftIcon className={styles.customIcon} />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="center" aria-label="Align center">
-        <AlignCenterIcon className={styles.customIcon} />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="right" aria-label="Align right">
-        <AlignRightIcon className={styles.customIcon} />
-      </ToggleGroupItem>
-    </ToggleGroup>
   );
 }
 

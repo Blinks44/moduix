@@ -98,7 +98,7 @@ export function LightboxExample() {
     <Lightbox>
       <LightboxImage
         src={images.mountainSmall}
-        previewSrc={images.mountainLarge}
+        fullSrc={images.mountainLarge}
         alt="Mountain ridge at sunset"
         className={styles.previewImage}
       />

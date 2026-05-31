@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { Fragment } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { ChevronUpDownIcon } from '@/icons/ui';
 import {
@@ -35,14 +35,19 @@ const meta = {
   args: {
     'aria-label': 'Document actions',
     children: (
-      <React.Fragment>
-        <ToolbarButton>Undo</ToolbarButton>
-        <ToolbarButton>Redo</ToolbarButton>
+      <Fragment>
+        <ToolbarGroup aria-label="History">
+          <ToolbarButton>Undo</ToolbarButton>
+          <ToolbarButton>Redo</ToolbarButton>
+        </ToolbarGroup>
         <ToolbarSeparator />
         <ToolbarButton aria-label="Notifications">
           <BellIcon />
         </ToolbarButton>
-      </React.Fragment>
+        <ToolbarLink href="#" className={storyStyles.toolbarLink}>
+          Edited 51m ago
+        </ToolbarLink>
+      </Fragment>
     ),
   },
 } satisfies Meta<typeof Toolbar>;
@@ -86,12 +91,31 @@ export const WithToggleGroup: Story = {
   },
 };
 
-export const WithSelectAndInput: Story = {
+export const WithInput: Story = {
+  render: () => {
+    return (
+      <Toolbar aria-label="Search actions">
+        <ToolbarGroup aria-label="History">
+          <ToolbarButton>Undo</ToolbarButton>
+          <ToolbarButton>Redo</ToolbarButton>
+        </ToolbarGroup>
+        <ToolbarSeparator />
+        <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
+      </Toolbar>
+    );
+  },
+};
+
+export const WithSelectTrigger: Story = {
   render: () => {
     return (
       <Toolbar aria-label="Text properties">
         <Select defaultValue="Inter">
-          <ToolbarButton render={<SelectTrigger />} aria-label="Font family">
+          <ToolbarButton
+            render={<SelectTrigger />}
+            aria-label="Font family"
+            className={storyStyles.toolbarSelect}
+          >
             <SelectValue />
             <SelectIcon>
               <ChevronUpDownIcon />
@@ -110,8 +134,12 @@ export const WithSelectAndInput: Story = {
         </Select>
 
         <ToolbarSeparator />
-        <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
-        <ToolbarLink href="#">History</ToolbarLink>
+        <ToolbarButton aria-label="Notifications">
+          <BellIcon />
+        </ToolbarButton>
+        <ToolbarLink href="#" className={storyStyles.toolbarLink}>
+          Edited 51m ago
+        </ToolbarLink>
       </Toolbar>
     );
   },

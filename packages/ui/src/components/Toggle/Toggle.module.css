@@ -50,6 +50,7 @@
     }
 
     :where(svg) {
+      display: block;
       width: var(--toggle-icon-size, 1rem);
       height: var(--toggle-icon-size, 1rem);
       flex-shrink: 0;

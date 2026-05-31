@@ -7,19 +7,23 @@ Monorepo for the UI component library and documentation.
 Use project skills from [`.ai/skills/`](.ai/skills/README.md).
 
 - For every coding task, first apply `.ai/skills/engineering-principles/SKILL.md` (mandatory baseline).
+- If `rtk` is installed and available in `PATH`, immediately after that apply `.ai/skills/rtk-command-proxy/SKILL.md` (mandatory baseline for shell commands).
+- If `rtk` is not installed, skip `rtk-command-proxy` and run shell commands directly.
 - For JS/TS coding tasks, apply `.ai/skills/js-react-conventions/SKILL.md`.
 - Component work in `packages/ui` (new component, API/style updates, Storybook) -> `.ai/skills/ui-component-workflow/SKILL.md`
 - Documentation work in `apps/docs` (pages, MDX, examples, docs routing/content) -> `.ai/skills/docs-workflow/SKILL.md`
 - Tasks that touch both packages or require docs/UI parity -> `.ai/skills/cross-package-sync/SKILL.md`
 
-`engineering-principles` is an immutable baseline skill. Do not add project-specific coding style rules to it; place those rules in dedicated skills.
+`engineering-principles` and `rtk-command-proxy` are immutable baseline skills when applied. Do not add
+project-specific coding style rules to them; place those rules in dedicated skills.
 
 If a task spans UI and docs:
 
 1. Apply `engineering-principles`.
-2. Apply `ui-component-workflow`.
-3. Apply `cross-package-sync`.
-4. Apply `docs-workflow`.
+2. If `rtk` is available, apply `rtk-command-proxy`; otherwise skip it.
+3. Apply `ui-component-workflow`.
+4. Apply `cross-package-sync`.
+5. Apply `docs-workflow`.
 
 ## Global Rules
 
