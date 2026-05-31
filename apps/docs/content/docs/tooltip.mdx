@@ -10,10 +10,10 @@ import {
   MultipleTriggersTooltipExample,
   SideControlTooltipExample,
   ToolbarTooltipExample,
+  TooltipCompactLabelExample,
   TooltipCssPlaygroundPanel,
   TooltipCssPropertiesPanel,
   TooltipExample,
-  TooltipWithoutArrowExample,
   tooltipPlaygroundCssProperties,
 } from '@/components/examples/tooltip';
 
@@ -21,7 +21,7 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/tooltip" />
 
-## Basic
+## Default Path
 
 Use a tooltip for short visual labels on controls. Keep an accessible name on the trigger itself:
 tooltips do not replace `aria-label` or visible text.
@@ -120,7 +120,8 @@ Tooltip
 
 ## Composition
 
-Use `TooltipContent` for the default path. It supports:
+Use `TooltipContent` for the common path and compose `TooltipTrigger` with `render={<Button />}`
+when the trigger should inherit an existing control style. `TooltipContent` supports:
 
 - `className`
 - `showArrow`
@@ -137,7 +138,9 @@ That keeps the common path small:
 
 ```tsx
 <Tooltip>
-  <TooltipTrigger aria-label="Notifications">Hover or focus</TooltipTrigger>
+  <TooltipTrigger render={<Button />} aria-label="Notifications">
+    Hover or focus
+  </TooltipTrigger>
   <TooltipContent side="top" sideOffset={8}>
     Notifications
   </TooltipContent>
@@ -160,6 +163,7 @@ Keep the default path compact and opt into the built-in arrow only when it adds 
   <Preview.Code>
     {`
       import {
+        Button,
         InfoIcon,
         PlusIcon,
         ShareIcon,
@@ -175,7 +179,10 @@ Keep the default path compact and opt into the built-in arrow only when it adds 
           <TooltipProvider delay={300}>
             <div className={styles.toolbar}>
               <Tooltip>
-                <TooltipTrigger aria-label="Add item" data-variant="ghost">
+                <TooltipTrigger
+                  render={<Button variant="ghost" size="icon-md" />}
+                  aria-label="Add item"
+                >
                   <PlusIcon className={styles.icon} />
                 </TooltipTrigger>
                 <TooltipContent showArrow sideOffset={16}>
@@ -184,7 +191,10 @@ Keep the default path compact and opt into the built-in arrow only when it adds 
               </Tooltip>
 
               <Tooltip>
-                <TooltipTrigger aria-label="Share" data-variant="ghost">
+                <TooltipTrigger
+                  render={<Button variant="ghost" size="icon-md" />}
+                  aria-label="Share"
+                >
                   <ShareIcon className={styles.icon} />
                 </TooltipTrigger>
                 <TooltipContent showArrow sideOffset={16}>
@@ -193,7 +203,10 @@ Keep the default path compact and opt into the built-in arrow only when it adds 
               </Tooltip>
 
               <Tooltip>
-                <TooltipTrigger aria-label="Details" data-variant="ghost">
+                <TooltipTrigger
+                  render={<Button variant="ghost" size="icon-md" />}
+                  aria-label="Details"
+                >
                   <InfoIcon className={styles.icon} />
                 </TooltipTrigger>
                 <TooltipContent showArrow sideOffset={16}>
@@ -234,7 +247,7 @@ Keep the default path compact and opt into the built-in arrow only when it adds 
 The default `TooltipContent` has no arrow, which keeps simple labels minimal.
 
 <Preview>
-  <TooltipWithoutArrowExample />
+  <TooltipCompactLabelExample />
 
   <Preview.Code>
     {`
@@ -413,6 +426,7 @@ active trigger payload.
   <Preview.Code>
     {`
       import {
+        Button,
         InfoIcon,
         PlusIcon,
         ShareIcon,
@@ -438,7 +452,7 @@ active trigger payload.
                 aria-label="Create"
                 handle={tooltipHandle}
                 payload={{ text: "Create" }}
-                data-variant="ghost"
+                render={<Button variant="ghost" size="icon-md" />}
               >
                 <PlusIcon className={styles.icon} />
               </TooltipTrigger>
@@ -446,7 +460,7 @@ active trigger payload.
                 aria-label="Share"
                 handle={tooltipHandle}
                 payload={{ text: "Share" }}
-                data-variant="ghost"
+                render={<Button variant="ghost" size="icon-md" />}
               >
                 <ShareIcon className={styles.icon} />
               </TooltipTrigger>
@@ -454,7 +468,7 @@ active trigger payload.
                 aria-label="Details"
                 handle={tooltipHandle}
                 payload={{ text: "Details" }}
-                data-variant="ghost"
+                render={<Button variant="ghost" size="icon-md" />}
               >
                 <InfoIcon className={styles.icon} />
               </TooltipTrigger>

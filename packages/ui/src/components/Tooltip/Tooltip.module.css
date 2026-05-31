@@ -48,14 +48,6 @@
       pointer-events: none;
       opacity: var(--tooltip-disabled-opacity, var(--opacity-disabled));
     }
-
-    &[data-variant='ghost'] {
-      min-height: var(--tooltip-trigger-ghost-size, var(--size-lg));
-      min-width: var(--tooltip-trigger-ghost-size, var(--size-lg));
-      padding: 0;
-      border-color: transparent;
-      background-color: transparent;
-    }
   }
 
   .positioner {

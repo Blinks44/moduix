@@ -4,7 +4,24 @@ import { PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Tooltip.module.css';
 
-const DEFAULT_SIDE_OFFSET = 8;
+type TooltipPositionerProps = Pick<
+  TooltipPrimitive.Positioner.Props,
+  | 'side'
+  | 'sideOffset'
+  | 'align'
+  | 'alignOffset'
+  | 'arrowPadding'
+  | 'collisionAvoidance'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+>;
+
+type TooltipContentProps = TooltipPrimitive.Popup.Props &
+  TooltipPositionerProps & {
+    showArrow?: boolean;
+  };
+
+const TOOLTIP_CONTENT_SIDE_OFFSET = 8;
 
 const Tooltip = TooltipPrimitive.Root;
 const TooltipProvider = TooltipPrimitive.Provider;
@@ -76,8 +93,8 @@ function TooltipViewport({ className, ...props }: TooltipPrimitive.Viewport.Prop
 function TooltipContent({
   className,
   showArrow = false,
-  sideOffset = DEFAULT_SIDE_OFFSET,
   side,
+  sideOffset = TOOLTIP_CONTENT_SIDE_OFFSET,
   align,
   alignOffset,
   arrowPadding,
@@ -86,20 +103,7 @@ function TooltipContent({
   collisionPadding,
   children,
   ...popupProps
-}: TooltipPrimitive.Popup.Props &
-  Pick<
-    TooltipPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-  > & {
-    showArrow?: boolean;
-  }) {
+}: TooltipContentProps) {
   return (
     <TooltipPortal>
       <TooltipPositioner
