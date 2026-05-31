@@ -1,5 +1,11 @@
 # moduix
 
+## 0.10.0
+
+### Minor Changes
+
+- faa61f6: Api updates for remaining components, breadcrumbs fixes, lightbox fixes
+
 ## 0.9.1
 
 ### Patch Changes
