@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import {
   BellIcon,
   ChevronUpDownIcon,
@@ -20,7 +21,6 @@ import {
   ToolbarLink,
   ToolbarSeparator,
 } from 'moduix';
-import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toolbar.module.css';
@@ -136,7 +136,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function AlignLeftIcon(props: React.ComponentProps<'svg'>) {
+function AlignLeftIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -149,7 +149,7 @@ function AlignLeftIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-function AlignCenterIcon(props: React.ComponentProps<'svg'>) {
+function AlignCenterIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -162,7 +162,7 @@ function AlignCenterIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-function AlignRightIcon(props: React.ComponentProps<'svg'>) {
+function AlignRightIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -175,7 +175,7 @@ function AlignRightIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function ToolbarExample(props: React.ComponentProps<typeof Toolbar>) {
+export function ToolbarExample(props: ComponentProps<typeof Toolbar>) {
   return (
     <Toolbar aria-label="Document actions" {...props}>
       <ToolbarGroup aria-label="History">
@@ -183,13 +183,25 @@ export function ToolbarExample(props: React.ComponentProps<typeof Toolbar>) {
         <ToolbarButton>Redo</ToolbarButton>
       </ToolbarGroup>
       <ToolbarSeparator />
-      <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
       <ToolbarButton aria-label="Notifications">
         <BellIcon />
       </ToolbarButton>
       <ToolbarLink href="#" className={styles.toolbarLink}>
-        History
+        Edited 51m ago
       </ToolbarLink>
+    </Toolbar>
+  );
+}
+
+export function ToolbarInputExample() {
+  return (
+    <Toolbar aria-label="Search actions">
+      <ToolbarGroup aria-label="History">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton>Redo</ToolbarButton>
+      </ToolbarGroup>
+      <ToolbarSeparator />
+      <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
     </Toolbar>
   );
 }
@@ -223,7 +235,7 @@ export function ToolbarToggleGroupExample() {
   );
 }
 
-export function ToolbarSelectInputExample() {
+export function ToolbarSelectTriggerExample() {
   return (
     <Toolbar aria-label="Text properties">
       <Select defaultValue="Inter">
@@ -250,9 +262,11 @@ export function ToolbarSelectInputExample() {
       </Select>
 
       <ToolbarSeparator />
-      <ToolbarInput aria-label="Search actions" placeholder="Search actions" />
+      <ToolbarButton aria-label="Notifications">
+        <BellIcon />
+      </ToolbarButton>
       <ToolbarLink href="#" className={styles.toolbarLink}>
-        History
+        Edited 51m ago
       </ToolbarLink>
     </Toolbar>
   );
