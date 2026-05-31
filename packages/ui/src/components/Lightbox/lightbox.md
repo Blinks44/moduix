@@ -9,12 +9,12 @@ children are omitted.
 
 ```tsx
 <Lightbox>
-  <LightboxImage src={thumbnail} previewSrc={fullSize} alt="Preview image" />
+  <LightboxImage src={thumbnail} fullSrc={fullSize} alt="Preview image" />
   <LightboxContent />
 </Lightbox>
 ```
 
-`previewSrc` is optional. When it is not provided, the lightbox reuses `src`.
+`fullSrc` is optional. When it is not provided, the lightbox reuses `src`.
 
 ## Composition
 

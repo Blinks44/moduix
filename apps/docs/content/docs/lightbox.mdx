@@ -37,7 +37,7 @@ import {
           <Lightbox>
             <LightboxImage
               src={thumbnail}
-              previewSrc={fullSize}
+              fullSrc={fullSize}
               alt="Mountain ridge at sunset"
               className={styles.previewImage}
             />
@@ -53,7 +53,7 @@ import {
 </Preview>
 
 `LightboxContent` stays short by default: when `children` are omitted, it reuses the image data from
-`LightboxImage` and opens `previewSrc` if you provide one.
+`LightboxImage` and opens `fullSrc` if you provide one.
 
 ## Anatomy
 
@@ -76,7 +76,7 @@ Lightbox
 
 ```tsx
 <Lightbox>
-  <LightboxImage src={thumbnail} previewSrc={fullSize} alt="Preview image" />
+  <LightboxImage src={thumbnail} fullSrc={fullSize} alt="Preview image" />
   <LightboxContent />
 </Lightbox>
 ```
@@ -85,7 +85,7 @@ Lightbox
 | ----------------- | ------------------------------------------------------------------------------------------------------ |
 | `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`).                    |
 | `LightboxTrigger` | Opens the preview from any custom trigger composition.                                                 |
-| `LightboxImage`   | Trigger helper for the common thumbnail-to-preview flow. `previewSrc` can point to a larger asset.     |
+| `LightboxImage`   | Trigger helper for the common thumbnail-to-preview flow. `fullSrc` can point to a larger asset.        |
 | `LightboxContent` | Default high-level wrapper that owns `portal`, `backdrop`, `viewport`, popup, frame, and close button. |
 | `LightboxClose`   | Primitive close part for custom composition inside the popup.                                          |
 | `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists.                                    |

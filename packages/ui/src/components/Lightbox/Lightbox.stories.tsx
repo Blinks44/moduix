@@ -34,7 +34,7 @@ export const Basic: Story = {
       <Lightbox>
         <LightboxImage
           src="https://images.unsplash.com/photo-1470259078422-826894b933aa?auto=format&fit=crop&w=1200&q=80"
-          previewSrc="https://images.unsplash.com/photo-1470259078422-826894b933aa?auto=format&fit=crop&w=1800&q=90"
+          fullSrc="https://images.unsplash.com/photo-1470259078422-826894b933aa?auto=format&fit=crop&w=1800&q=90"
           alt="Mountain ridge at sunset"
           className={styles.previewImage}
         />

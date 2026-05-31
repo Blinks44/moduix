@@ -18,7 +18,7 @@ const createLightboxHandle = DialogPrimitive.createHandle;
 
 type LightboxImageData = {
   alt?: string;
-  previewSrc?: string;
+  fullSrc?: string;
   src: string;
 };
 
@@ -140,23 +140,23 @@ function LightboxFrame({ className, ...props }: ComponentProps<'div'>) {
 
 function LightboxImage({
   src,
-  previewSrc,
+  fullSrc,
   alt,
   className,
   ...props
 }: Omit<ComponentProps<'img'>, 'src'> & {
   src: string;
-  previewSrc?: string;
+  fullSrc?: string;
 }) {
   const context = useContext(LightboxImageContext);
 
   useEffect(() => {
-    context?.setImage({ src, previewSrc, alt });
+    context?.setImage({ src, fullSrc, alt });
 
     return () => {
       context?.setImage(null);
     };
-  }, [alt, context, previewSrc, src]);
+  }, [alt, context, fullSrc, src]);
 
   return (
     <LightboxTrigger
@@ -166,7 +166,7 @@ function LightboxImage({
           src={src}
           alt={alt}
           className={className}
-          data-lightbox-src={previewSrc}
+          data-lightbox-src={fullSrc}
           {...props}
         />
       }
@@ -192,7 +192,7 @@ function LightboxContent({
     (context?.image ? (
       <img
         data-slot="lightbox-content-image"
-        src={context.image.previewSrc ?? context.image.src}
+        src={context.image.fullSrc ?? context.image.src}
         alt={context.image.alt ?? ''}
       />
     ) : null);

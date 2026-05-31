@@ -1,5 +1,5 @@
 .root {
-  width: 16rem;
+  width: 13rem;
 }
 
 .keysList {
@@ -18,7 +18,7 @@
 }
 
 .customRoot {
-  width: 16rem;
+  width: 13rem;
   color: var(--color-foreground);
 }
 
