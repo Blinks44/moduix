@@ -1,13 +1,16 @@
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
-import * as React from 'react';
+import { forwardRef, type ComponentRef } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Toggle.module.css';
 
-const Toggle = React.forwardRef<
-  React.ComponentRef<typeof TogglePrimitive>,
+type ToggleVariant = 'default' | 'outline' | 'ghost';
+type ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
+
+const Toggle = forwardRef<
+  ComponentRef<typeof TogglePrimitive>,
   TogglePrimitive.Props & {
-    variant?: 'default' | 'outline' | 'ghost';
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
+    variant?: ToggleVariant;
+    size?: ToggleSize;
   }
 >(function Toggle({ className, variant = 'default', size = 'md', ...props }, ref) {
   return (

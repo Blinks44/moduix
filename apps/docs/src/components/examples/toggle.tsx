@@ -1,5 +1,5 @@
 import { BellIcon, CheckIcon, StarIcon, Toggle } from 'moduix';
-import * as React from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toggle.module.css';
@@ -123,12 +123,14 @@ export function ToggleCssPlaygroundPanel({
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
-function BookmarkIcon(props: React.ComponentProps<'svg'>) {
+function BookmarkIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
       <path
@@ -141,7 +143,7 @@ function BookmarkIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-function BookmarkFilledIcon(props: React.ComponentProps<'svg'>) {
+function BookmarkFilledIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
       <path d="M4 2.75A.75.75 0 0 1 4.75 2h6.5a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-1.16.63L8 12.03l-2.84 1.85A.75.75 0 0 1 4 13.25V2.75Z" />
@@ -149,7 +151,7 @@ function BookmarkFilledIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export function ToggleExample(props: React.ComponentProps<typeof Toggle>) {
+export function ToggleExample(props: ComponentProps<typeof Toggle>) {
   return (
     <Toggle defaultPressed {...props}>
       <StarIcon />
@@ -209,7 +211,7 @@ export function ToggleDisabledExample() {
 }
 
 export function ControlledToggleExample() {
-  const [pressed, setPressed] = React.useState(false);
+  const [pressed, setPressed] = useState(false);
 
   return (
     <div className={styles.stack}>
