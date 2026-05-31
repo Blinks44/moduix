@@ -10,25 +10,21 @@
     border-radius: var(--toggle-group-radius, var(--radius-lg));
     background-color: var(--toggle-group-bg, var(--color-muted));
     color: var(--toggle-group-color, var(--color-foreground));
+  }
 
-    &[data-orientation='vertical'] {
-      flex-direction: column;
-      align-items: stretch;
-    }
+  .root[data-orientation='vertical'] {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-    &[data-disabled] {
-      cursor: default;
-    }
+  .root[data-variant='ghost'] {
+    --toggle-group-bg: var(--toggle-group-ghost-bg, transparent);
+    --toggle-group-border-color: var(--toggle-group-ghost-border-color, transparent);
+    --toggle-group-padding: var(--toggle-group-ghost-padding, 0);
+  }
 
-    &[data-variant='ghost'] {
-      --toggle-group-bg: var(--toggle-group-ghost-bg, transparent);
-      --toggle-group-border-color: var(--toggle-group-ghost-border-color, transparent);
-      --toggle-group-padding: var(--toggle-group-ghost-padding, 0);
-    }
-
-    &[data-variant='outline'] {
-      --toggle-group-bg: var(--toggle-group-outline-bg, var(--color-background));
-    }
+  .root[data-variant='outline'] {
+    --toggle-group-bg: var(--toggle-group-outline-bg, var(--color-background));
   }
 
   .item {
@@ -37,9 +33,10 @@
     --toggle-default-color: var(--toggle-group-color, var(--color-foreground));
     --toggle-ghost-color: var(--toggle-group-color, var(--color-foreground));
     --toggle-outline-color: var(--toggle-group-color, var(--color-foreground));
+  }
 
-    .root[data-orientation='vertical'] & {
-      justify-content: flex-start;
-    }
+  .root[data-orientation='vertical'] > .item {
+    width: 100%;
+    justify-content: flex-start;
   }
 }

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
+import { Fragment, useState } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { CheckIcon } from '@/icons/ui';
 import { ToggleGroup, ToggleGroupItem } from './ToggleGroup';
@@ -16,11 +16,11 @@ const meta = {
     defaultValue: ['left'],
     'aria-label': 'Text alignment',
     children: (
-      <React.Fragment>
+      <Fragment>
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
         <ToggleGroupItem value="center">Center</ToggleGroupItem>
         <ToggleGroupItem value="right">Right</ToggleGroupItem>
-      </React.Fragment>
+      </Fragment>
     ),
   },
 } satisfies Meta<typeof ToggleGroup>;
@@ -156,7 +156,7 @@ export const Disabled: Story = {
   },
 };
 
-export const LoopFocusDisabled: Story = {
+export const LoopFocus: Story = {
   render: () => {
     return (
       <ToggleGroup defaultValue={['day']} aria-label="Schedule range" loopFocus={false}>
@@ -170,7 +170,7 @@ export const LoopFocusDisabled: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = React.useState<string[]>(['favorites']);
+    const [value, setValue] = useState<string[]>(['favorites']);
 
     return (
       <div className={storyStyles.stack}>
@@ -191,6 +191,28 @@ export const Controlled: Story = {
         </ToggleGroup>
         <span className={storyStyles.hint}>Current value: {value.join(', ') || 'empty'}</span>
       </div>
+    );
+  },
+};
+
+export const CustomStyles: Story = {
+  render: () => {
+    return (
+      <ToggleGroup
+        defaultValue={['day']}
+        aria-label="Schedule density"
+        className={storyStyles.customGroup}
+      >
+        <ToggleGroupItem value="day" className={storyStyles.customItem}>
+          Day
+        </ToggleGroupItem>
+        <ToggleGroupItem value="week" className={storyStyles.customItem}>
+          Week
+        </ToggleGroupItem>
+        <ToggleGroupItem value="month" className={storyStyles.customItem}>
+          Month
+        </ToggleGroupItem>
+      </ToggleGroup>
     );
   },
 };
