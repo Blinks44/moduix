@@ -14,9 +14,18 @@ import {
 
 const collapsedMenuContentStyle = {
   '--menu-item-font-size': 'var(--text-xs)',
-  '--menu-item-padding-x-end': '0.75rem',
-  '--menu-item-padding-x-start': '0.75rem',
-  '--menu-item-padding-y': '0.375rem',
+  '--menu-item-padding-x-end': '0.625rem',
+  '--menu-item-padding-x-start': '0.625rem',
+  '--menu-item-padding-y': '0.25rem',
+} as CSSProperties;
+
+const collapsedMenuTriggerStyle = {
+  minWidth: 'auto',
+  minHeight: 'auto',
+  padding: 0,
+  border: 'none',
+  background: 'transparent',
+  color: 'inherit',
 } as CSSProperties;
 
 function DefaultBreadcrumbs() {
@@ -66,7 +75,7 @@ export const Collapsed: Story = {
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
           <Menu>
-            <MenuTrigger aria-label="Show hidden path items">
+            <MenuTrigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
               <BreadcrumbsEllipsis />
             </MenuTrigger>
             <MenuContent align="start" style={collapsedMenuContentStyle}>

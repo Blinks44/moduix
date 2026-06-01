@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, CSSProperties } from 'react';
 import {
   Breadcrumbs,
   BreadcrumbsEllipsis,
@@ -16,6 +16,25 @@ import {
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './breadcrumbs.module.css';
+
+const separatorIconStyle = { width: '0.75rem', height: '0.25rem' } as CSSProperties;
+
+const collapsedMenuTriggerStyle = {
+  minWidth: 'auto',
+  minHeight: 'auto',
+  padding: 0,
+  border: 'none',
+  background: 'transparent',
+  color: 'inherit',
+} as CSSProperties;
+
+const collapsedMenuContentStyle = {
+  '--menu-popup-min-width': '8rem',
+  '--menu-item-font-size': 'var(--text-xs)',
+  '--menu-item-padding-x-start': '0.625rem',
+  '--menu-item-padding-x-end': '0.625rem',
+  '--menu-item-padding-y': '0.25rem',
+} as CSSProperties;
 
 export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-color', 'var(--color-muted-foreground)', 'Controls base breadcrumbs text color.'],
@@ -86,11 +105,11 @@ function BreadcrumbsDemo({ className, ...props }: ComponentProps<typeof Breadcru
     <Breadcrumbs className={className} {...props}>
       <BreadcrumbsList>
         <BreadcrumbsItem>
-          <BreadcrumbsLink href="#">Home</BreadcrumbsLink>
+          <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
-          <BreadcrumbsLink href="#">Vacancies</BreadcrumbsLink>
+          <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
@@ -138,22 +157,22 @@ export function BreadcrumbsCollapsedExample() {
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>
-            <BreadcrumbsLink href="#">Home</BreadcrumbsLink>
+            <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
             <Menu>
-              <MenuTrigger className={styles.menuTrigger} aria-label="Show hidden path items">
+              <MenuTrigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
                 <BreadcrumbsEllipsis />
               </MenuTrigger>
-              <MenuContent align="start" className={styles.menuContent}>
-                <MenuLinkItem closeOnClick href="#">
+              <MenuContent align="start" style={collapsedMenuContentStyle}>
+                <MenuLinkItem closeOnClick href="/engineering">
                   Engineering
                 </MenuLinkItem>
-                <MenuLinkItem closeOnClick href="#">
+                <MenuLinkItem closeOnClick href="/engineering/backend">
                   Backend
                 </MenuLinkItem>
-                <MenuLinkItem closeOnClick href="#">
+                <MenuLinkItem closeOnClick href="/engineering/backend/golang">
                   Golang
                 </MenuLinkItem>
               </MenuContent>
@@ -161,7 +180,7 @@ export function BreadcrumbsCollapsedExample() {
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
-            <BreadcrumbsLink href="#">Vacancies</BreadcrumbsLink>
+            <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
@@ -179,16 +198,16 @@ export function BreadcrumbsCustomSeparatorExample() {
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>
-            <BreadcrumbsLink href="#">Home</BreadcrumbsLink>
+            <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator>
-            <SeparatorMarkIcon className={styles.separatorIcon} />
+            <SeparatorMarkIcon style={separatorIconStyle} />
           </BreadcrumbsSeparator>
           <BreadcrumbsItem>
-            <BreadcrumbsLink href="#">Vacancies</BreadcrumbsLink>
+            <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator>
-            <SeparatorMarkIcon className={styles.separatorIcon} />
+            <SeparatorMarkIcon style={separatorIconStyle} />
           </BreadcrumbsSeparator>
           <BreadcrumbsItem>
             <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
@@ -205,11 +224,11 @@ export function BreadcrumbsLongLabelExample() {
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>
-            <BreadcrumbsLink href="#">Home</BreadcrumbsLink>
+            <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
-            <BreadcrumbsLink href="#">Vacancies</BreadcrumbsLink>
+            <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
@@ -232,7 +251,7 @@ export function BreadcrumbsFrameworkLinkExample() {
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>
-            <BreadcrumbsLink render={<a href="/home" data-framework-link />}>Home</BreadcrumbsLink>
+            <BreadcrumbsLink render={<a href="/" data-framework-link />}>Home</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
