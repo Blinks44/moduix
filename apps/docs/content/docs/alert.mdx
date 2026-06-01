@@ -81,7 +81,7 @@ Alert
 | `Alert`            | Root slot. Applies variant styles and semantics.        |
 | `AlertIcon`        | Optional icon slot. Sizes child SVG icons consistently. |
 | `AlertContent`     | Text content wrapper for title and description.         |
-| `AlertTitle`       | Alert heading slot. Renders an `h3`.                    |
+| `AlertTitle`       | Alert heading slot. Renders `h3` by default.            |
 | `AlertDescription` | Supporting message slot.                                |
 
 ## Composition
@@ -95,6 +95,8 @@ Use `className` on the root or parts for local styles. Override `--alert-*` CSS 
 root slot when the alert needs local theming.
 
 `role` defaults to `status`, and switches to `alert` for `variant="destructive"`.
+`AlertTitle` renders `h3` by default and accepts `as="h1"` through `as="h6"` when the surrounding
+document outline needs a different heading level.
 
 ### Defaults
 
@@ -102,6 +104,16 @@ root slot when the alert needs local theming.
 | --------- | --------- | --------------------------------------------------------- |
 | `variant` | `default` | `default`, `info`, `success`, `warning`, `destructive`    |
 | `role`    | Auto      | `status` by default, `alert` when `variant="destructive"` |
+
+### Props
+
+| Component          | Props                                                 |
+| ------------------ | ----------------------------------------------------- |
+| `Alert`            | native `div` props, `variant`, `className`, `role`    |
+| `AlertIcon`        | native `span` props, defaults to `aria-hidden="true"` |
+| `AlertContent`     | native `div` props                                    |
+| `AlertTitle`       | heading props, `as="h1"` through `as="h6"`            |
+| `AlertDescription` | native `div` props                                    |
 
 ## Examples
 
@@ -205,7 +217,7 @@ Use `variant="destructive"` when the message needs assertive announcement semant
 ### Custom Composition
 
 Compose extra controls inside `AlertContent` when the message needs a recovery path or follow-up
-action. No alert-specific action API is required for that workflow.
+action. Keep dismiss state in the consuming component when a local alert should be hidden.
 
 <Preview>
   <CustomCompositionAlertExample />
@@ -221,9 +233,14 @@ action. No alert-specific action API is required for that workflow.
         Button,
         InfoIcon,
       } from "moduix";
+      import { useState } from "react";
       import styles from "./alert.module.css";
 
       export function AlertCustomCompositionDemo() {
+        const [visible, setVisible] = useState(true);
+
+        if (!visible) return null;
+
         return (
           <Alert variant="warning" className={styles.customAlert}>
             <AlertIcon>
@@ -236,7 +253,9 @@ action. No alert-specific action API is required for that workflow.
               </AlertDescription>
               <div className={styles.actions}>
                 <Button size="sm">Review uploads</Button>
-                <Button size="sm" variant="outline">Dismiss</Button>
+                <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
+                  Dismiss
+                </Button>
               </div>
             </AlertContent>
           </Alert>
