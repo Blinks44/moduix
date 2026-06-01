@@ -1,35 +1,255 @@
 import type { ReactNode } from 'react';
 import styles from './tokens-overview.module.css';
 
+type ColorToken = {
+  name: string;
+  alias: string;
+  label: string;
+  light: string;
+  dark: string;
+};
+
 const colorTokens = [
-  ['--background', 'Canvas', 'oklch(0.985 0.002 260)', 'oklch(0.164 0.006 260)'],
-  ['--foreground', 'Text', 'oklch(0.188 0.008 260)', 'oklch(0.972 0.002 255)'],
-  ['--card', 'Raised surface', 'oklch(0.998 0.001 260)', 'oklch(0.214 0.009 260)'],
-  ['--popover', 'Layer surface', 'oklch(0.998 0.001 260)', 'oklch(0.214 0.009 260)'],
-  ['--primary', 'Primary action', 'oklch(0.252 0.014 262)', 'oklch(0.924 0.005 255)'],
-  ['--secondary', 'Secondary fill', 'oklch(0.965 0.004 255)', 'oklch(0.268 0.009 260)'],
-  ['--muted', 'Subtle fill', 'oklch(0.959 0.004 255)', 'oklch(0.268 0.009 260)'],
-  ['--accent', 'Hover fill', 'oklch(0.955 0.008 250)', 'oklch(0.304 0.013 255)'],
-  ['--destructive', 'Danger', 'oklch(0.577 0.245 27.325)', 'oklch(0.704 0.191 22.216)'],
-  ['--border', 'Borders', 'oklch(0.91 0.006 255)', 'oklch(1 0.002 255 / 12%)'],
-  ['--input', 'Input border', 'oklch(0.91 0.006 255)', 'oklch(1 0.002 255 / 16%)'],
-  ['--ring', 'Focus ring', 'oklch(0.643 0.028 257)', 'oklch(0.604 0.03 257)'],
-  ['--overlay', 'Backdrop base', 'oklch(0.188 0.012 260 / 0.18)', 'oklch(0.112 0.01 260 / 0.72)'],
-  [
-    '--overlay-foreground',
-    'Soft overlay',
-    'oklch(0.188 0.012 260 / 0.06)',
-    'oklch(0.972 0.002 255 / 0.08)',
-  ],
-];
+  {
+    name: '--background',
+    alias: '--color-background',
+    label: 'Canvas',
+    light: 'oklch(0.985 0.002 260)',
+    dark: 'oklch(0.164 0.006 260)',
+  },
+  {
+    name: '--foreground',
+    alias: '--color-foreground',
+    label: 'Canvas text',
+    light: 'oklch(0.188 0.008 260)',
+    dark: 'oklch(0.972 0.002 255)',
+  },
+  {
+    name: '--card',
+    alias: '--color-card',
+    label: 'Raised surface',
+    light: 'oklch(0.998 0.001 260)',
+    dark: 'oklch(0.214 0.009 260)',
+  },
+  {
+    name: '--card-foreground',
+    alias: '--color-card-foreground',
+    label: 'Raised text',
+    light: 'oklch(0.188 0.008 260)',
+    dark: 'oklch(0.972 0.002 255)',
+  },
+  {
+    name: '--popover',
+    alias: '--color-popover',
+    label: 'Layer surface',
+    light: 'oklch(0.998 0.001 260)',
+    dark: 'oklch(0.214 0.009 260)',
+  },
+  {
+    name: '--popover-foreground',
+    alias: '--color-popover-foreground',
+    label: 'Layer text',
+    light: 'oklch(0.188 0.008 260)',
+    dark: 'oklch(0.972 0.002 255)',
+  },
+  {
+    name: '--primary',
+    alias: '--color-primary',
+    label: 'Primary action',
+    light: 'oklch(0.252 0.014 262)',
+    dark: 'oklch(0.924 0.005 255)',
+  },
+  {
+    name: '--primary-foreground',
+    alias: '--color-primary-foreground',
+    label: 'Primary text',
+    light: 'oklch(0.985 0.002 260)',
+    dark: 'oklch(0.214 0.009 260)',
+  },
+  {
+    name: '--secondary',
+    alias: '--color-secondary',
+    label: 'Secondary fill',
+    light: 'oklch(0.965 0.004 255)',
+    dark: 'oklch(0.268 0.009 260)',
+  },
+  {
+    name: '--secondary-foreground',
+    alias: '--color-secondary-foreground',
+    label: 'Secondary text',
+    light: 'oklch(0.252 0.014 262)',
+    dark: 'oklch(0.972 0.002 255)',
+  },
+  {
+    name: '--muted',
+    alias: '--color-muted',
+    label: 'Subtle fill',
+    light: 'oklch(0.959 0.004 255)',
+    dark: 'oklch(0.268 0.009 260)',
+  },
+  {
+    name: '--muted-foreground',
+    alias: '--color-muted-foreground',
+    label: 'Subtle text',
+    light: 'oklch(0.5 0.013 255)',
+    dark: 'oklch(0.72 0.014 255)',
+  },
+  {
+    name: '--accent',
+    alias: '--color-accent',
+    label: 'Hover fill',
+    light: 'oklch(0.955 0.008 250)',
+    dark: 'oklch(0.304 0.013 255)',
+  },
+  {
+    name: '--accent-foreground',
+    alias: '--color-accent-foreground',
+    label: 'Hover text',
+    light: 'oklch(0.252 0.014 262)',
+    dark: 'oklch(0.972 0.002 255)',
+  },
+  {
+    name: '--destructive',
+    alias: '--color-destructive',
+    label: 'Danger',
+    light: 'oklch(0.577 0.245 27.325)',
+    dark: 'oklch(0.704 0.191 22.216)',
+  },
+  {
+    name: '--border',
+    alias: '--color-border',
+    label: 'Borders',
+    light: 'oklch(0.91 0.006 255)',
+    dark: 'oklch(1 0.002 255 / 12%)',
+  },
+  {
+    name: '--input',
+    alias: '--color-input',
+    label: 'Input border',
+    light: 'oklch(0.91 0.006 255)',
+    dark: 'oklch(1 0.002 255 / 16%)',
+  },
+  {
+    name: '--ring',
+    alias: '--color-ring',
+    label: 'Focus ring',
+    light: 'oklch(0.643 0.028 257)',
+    dark: 'oklch(0.604 0.03 257)',
+  },
+  {
+    name: '--overlay',
+    alias: '--color-overlay',
+    label: 'Backdrop base',
+    light: 'oklch(0.188 0.012 260 / 0.18)',
+    dark: 'oklch(0.112 0.01 260 / 0.72)',
+  },
+  {
+    name: '--overlay-foreground',
+    alias: '--color-overlay-foreground',
+    label: 'Soft overlay',
+    light: 'oklch(0.188 0.012 260 / 0.06)',
+    dark: 'oklch(0.972 0.002 255 / 0.08)',
+  },
+] satisfies ColorToken[];
 
 const chartTokens = [
-  ['--chart-1', 'oklch(0.63 0.154 259)', 'oklch(0.69 0.147 259)'],
-  ['--chart-2', 'oklch(0.685 0.117 196)', 'oklch(0.748 0.116 196)'],
-  ['--chart-3', 'oklch(0.745 0.167 78)', 'oklch(0.792 0.161 78)'],
-  ['--chart-4', 'oklch(0.662 0.179 24)', 'oklch(0.717 0.173 24)'],
-  ['--chart-5', 'oklch(0.71 0.132 149)', 'oklch(0.769 0.128 149)'],
-];
+  {
+    name: '--chart-1',
+    alias: '--color-chart-1',
+    label: 'Chart 1',
+    light: 'oklch(0.63 0.154 259)',
+    dark: 'oklch(0.69 0.147 259)',
+  },
+  {
+    name: '--chart-2',
+    alias: '--color-chart-2',
+    label: 'Chart 2',
+    light: 'oklch(0.685 0.117 196)',
+    dark: 'oklch(0.748 0.116 196)',
+  },
+  {
+    name: '--chart-3',
+    alias: '--color-chart-3',
+    label: 'Chart 3',
+    light: 'oklch(0.745 0.167 78)',
+    dark: 'oklch(0.792 0.161 78)',
+  },
+  {
+    name: '--chart-4',
+    alias: '--color-chart-4',
+    label: 'Chart 4',
+    light: 'oklch(0.662 0.179 24)',
+    dark: 'oklch(0.717 0.173 24)',
+  },
+  {
+    name: '--chart-5',
+    alias: '--color-chart-5',
+    label: 'Chart 5',
+    light: 'oklch(0.71 0.132 149)',
+    dark: 'oklch(0.769 0.128 149)',
+  },
+] satisfies ColorToken[];
+
+const sidebarTokens = [
+  {
+    name: '--sidebar',
+    alias: '--color-sidebar',
+    label: 'Sidebar surface',
+    light: 'oklch(0.978 0.003 255)',
+    dark: 'oklch(0.214 0.009 260)',
+  },
+  {
+    name: '--sidebar-foreground',
+    alias: '--color-sidebar-foreground',
+    label: 'Sidebar text',
+    light: 'oklch(0.188 0.008 260)',
+    dark: 'oklch(0.972 0.002 255)',
+  },
+  {
+    name: '--sidebar-primary',
+    alias: '--color-sidebar-primary',
+    label: 'Sidebar primary',
+    light: 'oklch(0.252 0.014 262)',
+    dark: 'oklch(0.69 0.147 259)',
+  },
+  {
+    name: '--sidebar-primary-foreground',
+    alias: '--color-sidebar-primary-foreground',
+    label: 'Sidebar primary text',
+    light: 'oklch(0.985 0.002 260)',
+    dark: 'oklch(0.164 0.006 260)',
+  },
+  {
+    name: '--sidebar-accent',
+    alias: '--color-sidebar-accent',
+    label: 'Sidebar accent',
+    light: 'oklch(0.955 0.008 250)',
+    dark: 'oklch(0.304 0.013 255)',
+  },
+  {
+    name: '--sidebar-accent-foreground',
+    alias: '--color-sidebar-accent-foreground',
+    label: 'Sidebar accent text',
+    light: 'oklch(0.252 0.014 262)',
+    dark: 'oklch(0.972 0.002 255)',
+  },
+  {
+    name: '--sidebar-border',
+    alias: '--color-sidebar-border',
+    label: 'Sidebar border',
+    light: 'oklch(0.91 0.006 255)',
+    dark: 'oklch(1 0.002 255 / 12%)',
+  },
+  {
+    name: '--sidebar-ring',
+    alias: '--color-sidebar-ring',
+    label: 'Sidebar focus ring',
+    light: 'oklch(0.643 0.028 257)',
+    dark: 'oklch(0.604 0.03 257)',
+  },
+] satisfies ColorToken[];
+
+const colorTokenCount = colorTokens.length + chartTokens.length + sidebarTokens.length;
 
 const spacingTokens = [
   ['--spacing-0', '0px'],
@@ -208,8 +428,8 @@ export function TokensOverview() {
           </div>
           <div className={styles.heroStats} aria-label="Token groups summary">
             <span>
-              <strong>{colorTokens.length}</strong>
-              color pairs
+              <strong>{colorTokenCount}</strong>
+              color tokens
             </span>
             <span>
               <strong>{spacingTokens.length + semanticSpacingTokens.length}</strong>
@@ -254,35 +474,39 @@ export function TokensOverview() {
           </span>
         </div>
         <div className={styles.colorGrid}>
-          {colorTokens.map(([name, label, light, dark]) => (
-            <ColorCard key={name} name={name} label={label} light={light} dark={dark} />
+          {colorTokens.map((token) => (
+            <ColorCard key={token.name} token={token} />
           ))}
         </div>
         <div className={styles.chartStrip}>
-          {chartTokens.map(([name, light, dark]) => {
-            const label = name.replace('--chart-', 'Chart ');
-
+          {chartTokens.map((token) => {
             return (
-              <article className={styles.chartToken} key={name}>
+              <article className={styles.chartToken} key={token.name}>
                 <div className={styles.tokenMeta}>
-                  <strong>{label}</strong>
-                  <code>{name}</code>
+                  <strong>{token.label}</strong>
+                  <code>{token.name}</code>
+                  <small>{token.alias}</small>
                 </div>
                 <div className={styles.swatches}>
                   <div className={styles.swatchBlock}>
-                    <span className={styles.chartLight} />
+                    <span className={styles.chartLight} style={{ background: token.light }} />
                     <small>Light</small>
-                    <code>{light}</code>
+                    <code>{token.light}</code>
                   </div>
                   <div className={styles.swatchBlock}>
-                    <span className={styles.chartDark} />
+                    <span className={styles.chartDark} style={{ background: token.dark }} />
                     <small>Dark</small>
-                    <code>{dark}</code>
+                    <code>{token.dark}</code>
                   </div>
                 </div>
               </article>
             );
           })}
+        </div>
+        <div className={styles.colorGrid}>
+          {sidebarTokens.map((token) => (
+            <ColorCard key={token.name} token={token} />
+          ))}
         </div>
       </Section>
 
@@ -435,33 +659,24 @@ function TokenCallout({ title, code, body }: { title: string; code: string; body
   );
 }
 
-function ColorCard({
-  name,
-  label,
-  light,
-  dark,
-}: {
-  name: string;
-  label: string;
-  light: string;
-  dark: string;
-}) {
+function ColorCard({ token }: { token: ColorToken }) {
   return (
     <article className={styles.colorCard}>
       <div className={styles.tokenMeta}>
-        <strong>{label}</strong>
-        <code>{name}</code>
+        <strong>{token.label}</strong>
+        <code>{token.name}</code>
+        <small>{token.alias}</small>
       </div>
       <div className={styles.swatches}>
         <div className={styles.swatchBlock}>
-          <span />
+          <span style={{ background: token.light }} />
           <small>Light</small>
-          <code>{light}</code>
+          <code>{token.light}</code>
         </div>
         <div className={styles.swatchBlock}>
-          <span />
+          <span style={{ background: token.dark }} />
           <small>Dark</small>
-          <code>{dark}</code>
+          <code>{token.dark}</code>
         </div>
       </div>
     </article>

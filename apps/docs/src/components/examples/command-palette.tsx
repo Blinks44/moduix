@@ -357,7 +357,7 @@ export function CommandPaletteActionsExample() {
         setLastAction('Logged: Logout');
       },
       openDocs: () => {
-        window.open('https://moduix.dev/docs/roadmap', '_blank', 'noopener,noreferrer');
+        window.open('https://github.com/Blinks44/moduix/releases', '_blank', 'noopener,noreferrer');
         setLastAction('Navigated: Open docs');
       },
       defaultAction: (label: string) => {
