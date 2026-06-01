@@ -2,10 +2,19 @@ import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Avatar.module.css';
 
-function Avatar({ className, ...props }: AvatarPrimitive.Root.Props) {
+type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+function Avatar({
+  className,
+  size,
+  ...props
+}: AvatarPrimitive.Root.Props & {
+  size?: AvatarSize;
+}) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar-root"
+      data-size={size}
       className={mergeClassName(className, styles.root)}
       {...props}
     />

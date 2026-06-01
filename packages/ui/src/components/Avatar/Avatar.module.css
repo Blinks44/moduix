@@ -16,6 +16,36 @@
     line-height: var(--avatar-line-height, var(--line-height-text-md));
     user-select: none;
     vertical-align: middle;
+
+    &:where([data-size='xs']) {
+      --avatar-size: var(--size-xs);
+      --avatar-font-size: var(--text-xs);
+      --avatar-line-height: var(--line-height-text-xs);
+    }
+
+    &:where([data-size='sm']) {
+      --avatar-size: var(--size-sm);
+      --avatar-font-size: var(--text-sm);
+      --avatar-line-height: var(--line-height-text-sm);
+    }
+
+    &:where([data-size='md']) {
+      --avatar-size: var(--size-md);
+      --avatar-font-size: var(--text-md);
+      --avatar-line-height: var(--line-height-text-md);
+    }
+
+    &:where([data-size='lg']) {
+      --avatar-size: var(--size-lg);
+      --avatar-font-size: var(--text-lg);
+      --avatar-line-height: var(--line-height-text-lg);
+    }
+
+    &:where([data-size='xl']) {
+      --avatar-size: var(--size-xl);
+      --avatar-font-size: var(--text-lg);
+      --avatar-line-height: var(--line-height-text-lg);
+    }
   }
 
   .image {

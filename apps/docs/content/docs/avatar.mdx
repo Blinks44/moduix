@@ -79,14 +79,15 @@ Avatar
 Base UI composition API such as `render`.
 
 Use `AvatarFallback delay` when you want to suppress a brief fallback flash during normal image
-loading. Use root-level CSS variables such as `--avatar-size`, `--avatar-font-size`, and
-`--avatar-line-height` when the same size system should apply to both image and fallback content.
+loading. Use `size` for token sizes, or root-level CSS variables such as `--avatar-size`,
+`--avatar-font-size`, and `--avatar-line-height` for custom dimensions.
 
-| Surface          | Prop                    | Default | Values                   |
-| ---------------- | ----------------------- | ------- | ------------------------ |
-| `Avatar`         | `render`                | `span`  | Any valid React element  |
-| `AvatarFallback` | `delay`                 | -       | `number` in milliseconds |
-| `AvatarImage`    | `onLoadingStatusChange` | -       | `(status) => void`       |
+| Surface          | Prop                    | Default | Values                       |
+| ---------------- | ----------------------- | ------- | ---------------------------- |
+| `Avatar`         | `render`                | `span`  | Any valid React element      |
+| `Avatar`         | `size`                  | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
+| `AvatarFallback` | `delay`                 | -       | `number` in milliseconds     |
+| `AvatarImage`    | `onLoadingStatusChange` | -       | `(status) => void`           |
 
 ## Examples
 
@@ -104,19 +105,19 @@ Render initials or short labels when there is no image source.
       export function AvatarFallbackOnlyDemo() {
         return (
           <div className={styles.row}>
-            <Avatar className={styles.sizeXs}>
+            <Avatar size="xs">
               <AvatarFallback>XS</AvatarFallback>
             </Avatar>
-            <Avatar className={styles.sizeSm}>
+            <Avatar size="sm">
               <AvatarFallback>SM</AvatarFallback>
             </Avatar>
             <Avatar>
               <AvatarFallback>MD</AvatarFallback>
             </Avatar>
-            <Avatar className={styles.sizeLg}>
+            <Avatar size="lg">
               <AvatarFallback>LG</AvatarFallback>
             </Avatar>
-            <Avatar className={styles.sizeXl}>
+            <Avatar size="xl">
               <AvatarFallback>XL</AvatarFallback>
             </Avatar>
           </div>
@@ -132,30 +133,6 @@ Render initials or short labels when there is no image source.
         display: flex;
         align-items: center;
         gap: var(--spacing-3);
-      }
-
-      .sizeXs {
-        --avatar-size: var(--size-xs);
-        --avatar-font-size: var(--text-xs);
-        --avatar-line-height: var(--line-height-text-xs);
-      }
-
-      .sizeSm {
-        --avatar-size: var(--size-sm);
-        --avatar-font-size: var(--text-sm);
-        --avatar-line-height: var(--line-height-text-sm);
-      }
-
-      .sizeLg {
-        --avatar-size: var(--size-lg);
-        --avatar-font-size: var(--text-lg);
-        --avatar-line-height: var(--line-height-text-lg);
-      }
-
-      .sizeXl {
-        --avatar-size: var(--size-xl);
-        --avatar-font-size: var(--text-lg);
-        --avatar-line-height: var(--line-height-text-lg);
       }
     `}
 
@@ -204,7 +181,7 @@ Use `render` when the avatar should act as a link or compose with an app-specifi
 
       export function AvatarLinkDemo() {
         return (
-          <Avatar render={<a href="mailto:alex@example.com" />} className={styles.linkAvatar}>
+          <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className={styles.linkAvatar}>
             <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
             <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
               LT
@@ -219,8 +196,6 @@ Use `render` when the avatar should act as a link or compose with an app-specifi
   <Preview.CSS>
     {`
       .linkAvatar {
-        --avatar-size: var(--size-xl);
-
         text-decoration: none;
         transition:
           box-shadow var(--transition-default),
@@ -264,7 +239,7 @@ adding extra wrapper APIs.
 
       export function CustomCompositionAvatarDemo() {
         return (
-          <Avatar className={styles.ring}>
+          <Avatar size="lg" className={styles.ring}>
             <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
             <AvatarFallback className={styles.uppercase}>LT</AvatarFallback>
           </Avatar>
@@ -277,10 +252,6 @@ adding extra wrapper APIs.
   <Preview.CSS>
     {`
       .ring {
-        --avatar-size: var(--size-lg);
-        --avatar-font-size: var(--text-lg);
-        --avatar-line-height: var(--line-height-text-lg);
-
         box-shadow:
           0 0 0 2px var(--color-background),
           0 0 0 4px var(--color-ring);
@@ -311,7 +282,7 @@ Pass any React node to `AvatarFallback` when initials are not the right visual f
 
       export function AvatarIconFallbackDemo() {
         return (
-          <Avatar className={styles.iconAvatar}>
+          <Avatar size="lg" className={styles.iconAvatar}>
             <AvatarFallback>
               <ComputerIcon className={styles.iconAvatarGlyph} />
             </AvatarFallback>
@@ -327,9 +298,6 @@ Pass any React node to `AvatarFallback` when initials are not the right visual f
       .iconAvatar {
         --avatar-bg: var(--color-accent);
         --avatar-fallback-color: var(--color-accent-foreground);
-        --avatar-size: var(--size-lg);
-        --avatar-font-size: var(--text-lg);
-        --avatar-line-height: var(--line-height-text-lg);
       }
 
       .iconAvatarGlyph {

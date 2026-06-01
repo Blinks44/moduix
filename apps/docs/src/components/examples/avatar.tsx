@@ -124,19 +124,19 @@ export function AvatarExample(props: ComponentProps<typeof Avatar>) {
 export function AvatarFallbackOnlyExample() {
   return (
     <div className={styles.row}>
-      <Avatar className={styles.sizeXs}>
+      <Avatar size="xs">
         <AvatarFallback>XS</AvatarFallback>
       </Avatar>
-      <Avatar className={styles.sizeSm}>
+      <Avatar size="sm">
         <AvatarFallback>SM</AvatarFallback>
       </Avatar>
       <Avatar>
         <AvatarFallback>MD</AvatarFallback>
       </Avatar>
-      <Avatar className={styles.sizeLg}>
+      <Avatar size="lg">
         <AvatarFallback>LG</AvatarFallback>
       </Avatar>
-      <Avatar className={styles.sizeXl}>
+      <Avatar size="xl">
         <AvatarFallback>XL</AvatarFallback>
       </Avatar>
     </div>
@@ -145,7 +145,7 @@ export function AvatarFallbackOnlyExample() {
 
 export function AvatarCompositionExample() {
   return (
-    <Avatar render={<a href="mailto:alex@example.com" />} className={styles.linkAvatar}>
+    <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className={styles.linkAvatar}>
       <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
       <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
         LT
@@ -165,7 +165,7 @@ export function AvatarImageErrorExample() {
 
 export function CustomCompositionAvatarExample() {
   return (
-    <Avatar className={styles.ring}>
+    <Avatar size="lg" className={styles.ring}>
       <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
       <AvatarFallback className={styles.uppercase}>LT</AvatarFallback>
     </Avatar>
@@ -174,7 +174,7 @@ export function CustomCompositionAvatarExample() {
 
 export function AvatarCustomFallbackExample() {
   return (
-    <Avatar className={styles.iconAvatar}>
+    <Avatar size="lg" className={styles.iconAvatar}>
       <AvatarFallback>
         <ComputerIcon className={styles.iconAvatarGlyph} />
       </AvatarFallback>
