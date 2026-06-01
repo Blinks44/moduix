@@ -1,10 +1,17 @@
+import type { BadgeVariant } from 'moduix';
 import type { ComponentProps } from 'react';
 import { Badge, BadgeDot, ChevronRightIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './badge.module.css';
 
-const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost'] as const;
+const variants = [
+  'default',
+  'secondary',
+  'destructive',
+  'outline',
+  'ghost',
+] satisfies BadgeVariant[];
 
 const badgeCssProperties: CssPropertyInput[] = [
   ['--badge-bg', 'var(--color-primary)', 'Controls badge background color.'],

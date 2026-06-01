@@ -2,13 +2,13 @@ import type { ComponentPropsWithoutRef } from 'react';
 import clsx from 'clsx';
 import styles from './Badge.module.css';
 
-function Badge({
-  className,
-  variant = 'default',
-  ...props
-}: ComponentPropsWithoutRef<'span'> & {
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost';
-}) {
+type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost';
+type BadgeProps = ComponentPropsWithoutRef<'span'> & {
+  variant?: BadgeVariant;
+};
+type BadgeDotProps = ComponentPropsWithoutRef<'span'>;
+
+function Badge({ className, variant = 'default', ...props }: BadgeProps) {
   return (
     <span
       data-slot="badge-root"
@@ -19,7 +19,7 @@ function Badge({
   );
 }
 
-function BadgeDot({ className, ...props }: ComponentPropsWithoutRef<'span'>) {
+function BadgeDot({ className, ...props }: BadgeDotProps) {
   return (
     <span
       data-slot="badge-dot"
@@ -31,3 +31,4 @@ function BadgeDot({ className, ...props }: ComponentPropsWithoutRef<'span'>) {
 }
 
 export { Badge, BadgeDot };
+export type { BadgeVariant, BadgeProps, BadgeDotProps };
