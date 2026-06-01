@@ -47,6 +47,7 @@ export * from './components/ScrollArea';
 export * from './components/Separator';
 export * from './components/Select';
 export * from './components/Slider';
+export * from './components/SnapCarousel';
 export * from './components/Skeleton';
 export * from './components/Spinner';
 export * from './components/Stack';

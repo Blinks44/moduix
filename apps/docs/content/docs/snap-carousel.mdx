@@ -1,0 +1,203 @@
+---
+title: Snap Carousel
+description: Minimal native scroll-snap carousel.
+icon: Component
+---
+
+import {
+  SnapCarouselCompositionExample,
+  SnapCarouselCssPlaygroundPanel,
+  SnapCarouselCssPropertiesPanel,
+  SnapCarouselExample,
+  SnapCarouselVerticalExample,
+  snapCarouselPlaygroundCssProperties,
+} from '@/components/examples/snap-carousel';
+
+## API Reference
+
+`SnapCarousel` is a small native carousel built on browser scrolling and CSS `scroll-snap`. It keeps
+only one desktop-friendly sugar: simple previous/next buttons that call native `scrollBy`. It does
+not include indicators, autoplay, looping, disabled button state, or controlled state; those belong
+in a future full carousel primitive.
+
+## Default Path
+
+Use `SnapCarousel` with `SnapCarouselContent` for the common case. Content creates the viewport and
+wraps each direct child in an item.
+
+<Preview cssProperties={snapCarouselPlaygroundCssProperties}>
+  <SnapCarouselExample />
+
+  <Preview.Code>
+    {`
+      import {
+        SnapCarousel,
+        SnapCarouselContent,
+        SnapCarouselNext,
+        SnapCarouselPrevious,
+      } from "moduix";
+
+      export function DestinationCarousel() {
+        return (
+          <SnapCarousel>
+            <SnapCarouselContent aria-label="Featured destinations">
+              {destinations.map((destination) => (
+                <article key={destination.title}>
+                  <img src={destination.image} alt={destination.alt} />
+                  <h3>{destination.title}</h3>
+                  <p>{destination.description}</p>
+                </article>
+              ))}
+            </SnapCarouselContent>
+            <SnapCarouselPrevious />
+            <SnapCarouselNext />
+          </SnapCarousel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <SnapCarouselCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <SnapCarouselCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+```text
+SnapCarousel
+├─ SnapCarouselContent
+├─ SnapCarouselPrevious
+└─ SnapCarouselNext
+
+SnapCarousel
+├─ SnapCarouselViewport
+│  └─ SnapCarouselContent
+│     └─ SnapCarouselItem
+├─ SnapCarouselPrevious
+└─ SnapCarouselNext
+```
+
+| Part                   | Role                                                                       |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `SnapCarousel`         | Root with orientation and alignment data attributes.                       |
+| `SnapCarouselViewport` | Focusable native scroll container.                                         |
+| `SnapCarouselContent`  | Creates viewport/items in simple usage; acts as track in full composition. |
+| `SnapCarouselItem`     | One snap point.                                                            |
+| `SnapCarouselPrevious` | Optional button that scrolls backward by most of the viewport.             |
+| `SnapCarouselNext`     | Optional button that scrolls forward by most of the viewport.              |
+
+## Composition
+
+Use `SnapCarousel > SnapCarouselContent` for the common path. Drop to
+`SnapCarousel > SnapCarouselViewport > SnapCarouselContent > SnapCarouselItem` when the carousel
+needs explicit item wrappers or direct viewport access.
+
+On the common path, accessibility props like `aria-label`, `aria-labelledby`, `aria-describedby`,
+`tabIndex`, and `onKeyDown` are forwarded from `SnapCarouselContent` to the generated native scroll
+container. `itemClassName` targets the generated item wrappers.
+
+`SnapCarouselPrevious` and `SnapCarouselNext` are intentionally stateless: they do not track the
+active item or disable themselves at the edges.
+
+Key props on `SnapCarousel`:
+
+| Prop          | Default        | Purpose                          |
+| ------------- | -------------- | -------------------------------- |
+| `align`       | `'start'`      | Sets item `scroll-snap-align`.   |
+| `orientation` | `'horizontal'` | Switches the native scroll axis. |
+
+## Examples
+
+### Custom Composition
+
+Use the parts directly when slide cards should be narrower than the viewport or when item wrappers
+need custom classes.
+
+<Preview>
+  <SnapCarouselCompositionExample />
+
+  <Preview.Code>
+    {`
+      import {
+        SnapCarousel,
+        SnapCarouselContent,
+        SnapCarouselItem,
+        SnapCarouselNext,
+        SnapCarouselPrevious,
+        SnapCarouselViewport,
+      } from "moduix";
+
+      export function CardsCarousel() {
+        return (
+          <SnapCarousel className={styles.cardsCarousel}>
+            <SnapCarouselViewport aria-label="Featured destination cards">
+              <SnapCarouselContent>
+                {destinations.map((destination) => (
+                  <SnapCarouselItem key={destination.title}>
+                    <article>{destination.title}</article>
+                  </SnapCarouselItem>
+                ))}
+              </SnapCarouselContent>
+            </SnapCarouselViewport>
+            <SnapCarouselPrevious />
+            <SnapCarouselNext />
+          </SnapCarousel>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .cardsCarousel {
+        --snap-carousel-item-size: min(17rem, 72%);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Vertical
+
+Set `orientation="vertical"` when slides should snap along the block axis. Provide a height through
+`--snap-carousel-height` or local CSS.
+
+<Preview>
+  <SnapCarouselVerticalExample />
+
+  <Preview.Code>
+    {`
+      <SnapCarousel orientation="vertical" className={styles.verticalCarousel}>
+        <SnapCarouselContent aria-label="Vertical destination carousel">
+          {destinations.map((destination) => (
+            <DestinationSlide key={destination.title} destination={destination} />
+          ))}
+        </SnapCarouselContent>
+        <SnapCarouselPrevious />
+        <SnapCarouselNext />
+      </SnapCarousel>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .verticalCarousel {
+        --snap-carousel-height: 24rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Styling
+
+Use `className` on any part for local layout and `--snap-carousel-*` variables for reusable
+customization. The most useful slide-size variable is `--snap-carousel-item-size`; set it below
+`100%` to show adjacent items.
+
+```css
+.cardsCarousel {
+  --snap-carousel-item-size: min(17rem, 72%);
+  --snap-carousel-item-gap: var(--spacing-4);
+}
+```

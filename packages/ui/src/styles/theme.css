@@ -1852,6 +1852,16 @@
   --slider-width: initial; /* 12rem */
   --slider-width-vertical: initial; /* fit-content */
 
+  /* SnapCarousel */
+  --snap-carousel-focus-ring-color: initial; /* var(--color-ring) */
+  --snap-carousel-focus-ring-offset: initial; /* var(--spacing-1) */
+  --snap-carousel-focus-ring-width: initial; /* var(--border-width-md) */
+  --snap-carousel-gap: initial; /* var(--spacing-3) */
+  --snap-carousel-height: initial; /* 100% */
+  --snap-carousel-item-gap: initial; /* var(--spacing-4) */
+  --snap-carousel-item-size: initial; /* 100% */
+  --snap-carousel-snap-stop: initial; /* normal */
+
   /* Stack */
   --stack-direction-desktop: initial; /* column */
   --stack-direction-mobile: initial; /* column */
