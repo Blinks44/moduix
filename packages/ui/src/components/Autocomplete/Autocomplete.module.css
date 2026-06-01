@@ -31,6 +31,13 @@
       border-color: var(--autocomplete-focus-ring-color, var(--color-ring));
       outline-color: var(--autocomplete-focus-ring-color, var(--color-ring));
     }
+
+    &:has(
+      > [data-slot='autocomplete-input'][data-disabled],
+      > [data-slot='autocomplete-input']:disabled
+    ) {
+      opacity: var(--opacity-disabled);
+    }
   }
 
   .input {
@@ -79,7 +86,7 @@
       background-color var(--transition-default),
       color var(--transition-default);
 
-    &:hover {
+    &:hover:not(:disabled):not([data-disabled]) {
       background-color: var(--autocomplete-action-bg-hover, var(--color-muted));
       color: var(--autocomplete-action-color-hover, var(--color-foreground));
     }
@@ -94,6 +101,10 @@
         --autocomplete-focus-ring-offset,
         var(--autocomplete-border-width, var(--border-width-sm))
       );
+    }
+
+    &:is(:disabled, [data-disabled]) {
+      cursor: not-allowed;
     }
   }
 
@@ -490,6 +501,11 @@
     &:focus-visible {
       border-color: var(--autocomplete-focus-ring-color, var(--color-ring));
       outline-color: var(--autocomplete-focus-ring-color, var(--color-ring));
+    }
+
+    &:is([disabled], [data-disabled]) {
+      opacity: var(--opacity-disabled);
+      cursor: not-allowed;
     }
   }
 

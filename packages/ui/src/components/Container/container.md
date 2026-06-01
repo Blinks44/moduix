@@ -9,10 +9,10 @@ Use `className` for local layout styling or CSS variable overrides.
 
 ## Defaults
 
-| Prop     | Default | Values                               |
-| -------- | ------- | ------------------------------------ |
-| `size`   | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `gutter` | `md`    | `none`, `sm`, `md`, `lg`             |
+| Prop     | Default | Values                                                                  |
+| -------- | ------- | ----------------------------------------------------------------------- |
+| `size`   | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full`                                    |
+| `gutter` | `md`    | `none`, `sm`, `md`, `lg`                                                |
 | `as`     | `div`   | `div`, `main`, `section`, `article`, `aside`, `header`, `footer`, `nav` |
 
 ## Notes

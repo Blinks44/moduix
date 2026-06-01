@@ -84,14 +84,14 @@ Accordion
 
 Exported parts:
 
-| Part | Renders | Notes |
-| --- | --- | --- |
-| `Accordion` | `div` | Root state machine. Accepts Base UI root props plus `className`. |
-| `AccordionItem` | `div` | Groups one trigger with one panel. `value` is required for predictable controlled state. |
-| `AccordionHeader` | `h3` | Semantic heading wrapper. Use `render={<h2 />}` or another heading level when needed. |
-| `AccordionTrigger` | `button` | Interactive control. With the default render, moduix trigger styles are applied. |
-| `AccordionTriggerIcon` | `span` | Optional visual cue. Renders `PlusIcon` by default and is `aria-hidden` by default. |
-| `AccordionPanel` | `div` | Collapsible content region. Put padding on an inner wrapper to keep height animation clean. |
+| Part                   | Renders  | Notes                                                                                       |
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------- |
+| `Accordion`            | `div`    | Root state machine. Accepts Base UI root props plus `className`.                            |
+| `AccordionItem`        | `div`    | Groups one trigger with one panel. `value` is required for predictable controlled state.    |
+| `AccordionHeader`      | `h3`     | Semantic heading wrapper. Use `render={<h2 />}` or another heading level when needed.       |
+| `AccordionTrigger`     | `button` | Interactive control. With the default render, moduix trigger styles are applied.            |
+| `AccordionTriggerIcon` | `span`   | Optional visual cue. Renders `PlusIcon` by default and is `aria-hidden` by default.         |
+| `AccordionPanel`       | `div`    | Collapsible content region. Put padding on an inner wrapper to keep height animation clean. |
 
 ## Public props
 
@@ -99,17 +99,17 @@ The wrappers preserve Base UI props instead of exporting local prop aliases.
 
 Common root props:
 
-| Prop | Default | Description |
-| --- | --- | --- |
-| `defaultValue` | `[]` | Uncontrolled open item values. |
-| `value` | - | Controlled open item values. |
-| `onValueChange` | - | Called with the next open value array and Base UI event details. |
-| `multiple` | `false` | Allows more than one item to be open. |
-| `disabled` | `false` | Disables interaction for the whole accordion. |
-| `orientation` | `'vertical'` | Changes keyboard direction semantics. |
-| `loopFocus` | `true` | Loops arrow-key focus through triggers. |
-| `keepMounted` | `false` | Keeps closed panels in the DOM. |
-| `hiddenUntilFound` | `false` | Uses `hidden="until-found"` so browser find-in-page can reveal closed content. |
+| Prop               | Default      | Description                                                                    |
+| ------------------ | ------------ | ------------------------------------------------------------------------------ |
+| `defaultValue`     | `[]`         | Uncontrolled open item values.                                                 |
+| `value`            | -            | Controlled open item values.                                                   |
+| `onValueChange`    | -            | Called with the next open value array and Base UI event details.               |
+| `multiple`         | `false`      | Allows more than one item to be open.                                          |
+| `disabled`         | `false`      | Disables interaction for the whole accordion.                                  |
+| `orientation`      | `'vertical'` | Changes keyboard direction semantics.                                          |
+| `loopFocus`        | `true`       | Loops arrow-key focus through triggers.                                        |
+| `keepMounted`      | `false`      | Keeps closed panels in the DOM.                                                |
+| `hiddenUntilFound` | `false`      | Uses `hidden="until-found"` so browser find-in-page can reveal closed content. |
 
 Common item/panel props:
 
@@ -148,25 +148,25 @@ Multiple-open example:
 
 Every exported visual part accepts `className` and receives a stable `data-slot`:
 
-| Part | `data-slot` |
-| --- | --- |
-| `Accordion` | `accordion-root` |
-| `AccordionItem` | `accordion-item` |
-| `AccordionHeader` | `accordion-header` |
-| `AccordionTrigger` | `accordion-trigger` |
+| Part                   | `data-slot`              |
+| ---------------------- | ------------------------ |
+| `Accordion`            | `accordion-root`         |
+| `AccordionItem`        | `accordion-item`         |
+| `AccordionHeader`      | `accordion-header`       |
+| `AccordionTrigger`     | `accordion-trigger`      |
 | `AccordionTriggerIcon` | `accordion-trigger-icon` |
-| `AccordionPanel` | `accordion-panel` |
+| `AccordionPanel`       | `accordion-panel`        |
 
 Base UI also adds state attributes used by styles and available to consumers:
 
-| Attribute | Where it appears | Meaning |
-| --- | --- | --- |
-| `data-orientation` | root, panel | Current orientation. |
-| `data-disabled` | root, item, trigger, panel | Root or item is disabled. |
-| `data-open` | item, panel | Item or panel is open. |
-| `data-panel-open` | trigger | Matching panel is open. Used by the icon rotation selector. |
-| `data-starting-style` | panel | Panel is entering. |
-| `data-ending-style` | panel | Panel is leaving. |
+| Attribute             | Where it appears           | Meaning                                                     |
+| --------------------- | -------------------------- | ----------------------------------------------------------- |
+| `data-orientation`    | root, panel                | Current orientation.                                        |
+| `data-disabled`       | root, item, trigger, panel | Root or item is disabled.                                   |
+| `data-open`           | item, panel                | Item or panel is open.                                      |
+| `data-panel-open`     | trigger                    | Matching panel is open. Used by the icon rotation selector. |
+| `data-starting-style` | panel                      | Panel is entering.                                          |
+| `data-ending-style`   | panel                      | Panel is leaving.                                           |
 
 The default trigger is a full-width flex button with hover, focus-visible, disabled, and typography
 styles. When `AccordionTrigger` receives Base UI's `render` prop, moduix does not attach default
@@ -192,29 +192,29 @@ the library and avoids leaking button layout onto custom controls.
 
 CSS variables:
 
-| Variable | Default |
-| --- | --- |
-| `--accordion-color` | `var(--color-foreground)` |
-| `--accordion-disabled-opacity` | `var(--opacity-disabled)` |
-| `--accordion-focus-ring-color` | `var(--color-ring)` |
-| `--accordion-focus-ring-offset` | `var(--border-width-sm)` |
-| `--accordion-focus-ring-width` | `var(--border-width-md)` |
-| `--accordion-icon-open-transform` | `rotate(45deg) scale(1.1)` |
-| `--accordion-icon-size` | `0.75rem` |
-| `--accordion-icon-transition` | `var(--transition-default)` |
-| `--accordion-item-border-color` | `var(--color-border)` |
-| `--accordion-item-border-width` | `var(--border-width-sm)` |
-| `--accordion-panel-color` | `var(--color-muted-foreground)` |
-| `--accordion-panel-font-size` | `var(--text-md)` |
-| `--accordion-panel-line-height` | `var(--line-height-text-md)` |
-| `--accordion-panel-transition` | `var(--transition-default)` |
-| `--accordion-trigger-bg` | `var(--color-muted)` |
-| `--accordion-trigger-bg-hover` | `var(--color-accent)` |
-| `--accordion-trigger-font-size` | `var(--text-md)` |
-| `--accordion-trigger-gap` | `var(--spacing-4)` |
-| `--accordion-trigger-line-height` | `var(--line-height-text-md)` |
-| `--accordion-trigger-padding-x` | `var(--spacing-3)` |
-| `--accordion-trigger-padding-y` | `var(--spacing-2)` |
+| Variable                          | Default                         |
+| --------------------------------- | ------------------------------- |
+| `--accordion-color`               | `var(--color-foreground)`       |
+| `--accordion-disabled-opacity`    | `var(--opacity-disabled)`       |
+| `--accordion-focus-ring-color`    | `var(--color-ring)`             |
+| `--accordion-focus-ring-offset`   | `var(--border-width-sm)`        |
+| `--accordion-focus-ring-width`    | `var(--border-width-md)`        |
+| `--accordion-icon-open-transform` | `rotate(45deg) scale(1.1)`      |
+| `--accordion-icon-size`           | `0.75rem`                       |
+| `--accordion-icon-transition`     | `var(--transition-default)`     |
+| `--accordion-item-border-color`   | `var(--color-border)`           |
+| `--accordion-item-border-width`   | `var(--border-width-sm)`        |
+| `--accordion-panel-color`         | `var(--color-muted-foreground)` |
+| `--accordion-panel-font-size`     | `var(--text-md)`                |
+| `--accordion-panel-line-height`   | `var(--line-height-text-md)`    |
+| `--accordion-panel-transition`    | `var(--transition-default)`     |
+| `--accordion-trigger-bg`          | `var(--color-muted)`            |
+| `--accordion-trigger-bg-hover`    | `var(--color-accent)`           |
+| `--accordion-trigger-font-size`   | `var(--text-md)`                |
+| `--accordion-trigger-gap`         | `var(--spacing-4)`              |
+| `--accordion-trigger-line-height` | `var(--line-height-text-md)`    |
+| `--accordion-trigger-padding-x`   | `var(--spacing-3)`              |
+| `--accordion-trigger-padding-y`   | `var(--spacing-2)`              |
 
 ## Accessibility and UX notes
 

@@ -28,15 +28,15 @@ Stack
 
 ## Defaults
 
-| Prop        | Default  | Values                                                   |
-| ----------- | -------- | -------------------------------------------------------- |
-| `direction` | `column` | `column`, `row`, or `{ mobile?: ..., desktop?: ... }`   |
-| `gap`       | -        | CSS length (`number` becomes `px`)                       |
-| `align`     | `stretch` | Any valid `align-items` value                           |
-| `justify`   | `flex-start` | Any valid `justify-content` value                    |
-| `wrap`      | `nowrap` | Any valid `flex-wrap` value                              |
-| `fill`      | `false`  | `true`, `false` (`true` = `flex: 1 1 0`)                |
-| `as`        | `div`    | Any React element type                                   |
+| Prop        | Default      | Values                                                |
+| ----------- | ------------ | ----------------------------------------------------- |
+| `direction` | `column`     | `column`, `row`, or `{ mobile?: ..., desktop?: ... }` |
+| `gap`       | -            | CSS length (`number` becomes `px`)                    |
+| `align`     | `stretch`    | Any valid `align-items` value                         |
+| `justify`   | `flex-start` | Any valid `justify-content` value                     |
+| `wrap`      | `nowrap`     | Any valid `flex-wrap` value                           |
+| `fill`      | `false`      | `true`, `false` (`true` = `flex: 1 1 0`)              |
+| `as`        | `div`        | Any React element type                                |
 
 Responsive `direction` switches at `640px`. For broader responsive layout rules, keep using
 `className` or `style`.

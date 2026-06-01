@@ -10,14 +10,14 @@
 
 ## Defaults
 
-| Surface               | Prop            | Default    |
-| --------------------- | --------------- | ---------- |
-| `CommandPalette`      | `modal`         | `true`     |
-| `CommandPalette`      | `shortcut`      | `mod+k`    |
-| `CommandPalette`      | `shortcutTarget`| `document` |
-| `CommandPaletteContent` | `autoHighlight` | `always` |
-| `CommandPaletteContent` | `keepHighlight` | `true`   |
-| `CommandPaletteItem`  | `closeOnSelect` | `true`     |
+| Surface                 | Prop             | Default    |
+| ----------------------- | ---------------- | ---------- |
+| `CommandPalette`        | `modal`          | `true`     |
+| `CommandPalette`        | `shortcut`       | `mod+k`    |
+| `CommandPalette`        | `shortcutTarget` | `document` |
+| `CommandPaletteContent` | `autoHighlight`  | `always`   |
+| `CommandPaletteContent` | `keepHighlight`  | `true`     |
+| `CommandPaletteItem`    | `closeOnSelect`  | `true`     |
 
 ## Notes
 

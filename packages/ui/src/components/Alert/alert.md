@@ -39,13 +39,13 @@ Add an icon only when it helps recognition:
 
 ## Parts
 
-| Part               | Element      | Slot data attribute             | Purpose                                      |
-| ------------------ | ------------ | ------------------------------- | -------------------------------------------- |
-| `Alert`            | `div`        | `data-slot="alert-root"`        | Root surface, variant, and live-region role. |
-| `AlertIcon`        | `span`       | `data-slot="alert-icon"`        | Optional leading visual cue.                 |
-| `AlertContent`     | `div`        | `data-slot="alert-content"`     | Text/content column.                         |
-| `AlertTitle`       | heading      | `data-slot="alert-title"`       | Short message title.                         |
-| `AlertDescription` | `div`        | `data-slot="alert-description"` | Supporting message body.                     |
+| Part               | Element | Slot data attribute             | Purpose                                      |
+| ------------------ | ------- | ------------------------------- | -------------------------------------------- |
+| `Alert`            | `div`   | `data-slot="alert-root"`        | Root surface, variant, and live-region role. |
+| `AlertIcon`        | `span`  | `data-slot="alert-icon"`        | Optional leading visual cue.                 |
+| `AlertContent`     | `div`   | `data-slot="alert-content"`     | Text/content column.                         |
+| `AlertTitle`       | heading | `data-slot="alert-title"`       | Short message title.                         |
+| `AlertDescription` | `div`   | `data-slot="alert-description"` | Supporting message body.                     |
 
 Recommended anatomy:
 
@@ -91,11 +91,11 @@ function StorageAlert() {
 
 Extends native `div` props.
 
-| Prop        | Type                                                              | Default                                      |
-| ----------- | ----------------------------------------------------------------- | -------------------------------------------- |
-| `variant`   | `'default' \| 'info' \| 'success' \| 'warning' \| 'destructive'` | `'default'`                                  |
-| `role`      | native `div` `role`                                               | `'status'`, or `'alert'` for `destructive`   |
-| `className` | `string`                                                          | -                                            |
+| Prop        | Type                                                             | Default                                    |
+| ----------- | ---------------------------------------------------------------- | ------------------------------------------ |
+| `variant`   | `'default' \| 'info' \| 'success' \| 'warning' \| 'destructive'` | `'default'`                                |
+| `role`      | native `div` `role`                                              | `'status'`, or `'alert'` for `destructive` |
+| `className` | `string`                                                         | -                                          |
 
 `variant` is also written to `data-variant` on the root.
 
@@ -114,9 +114,9 @@ custom content. If `AlertIcon` is omitted, CSS makes the content span the full a
 
 Extends heading props and renders `h3` by default.
 
-| Prop | Type                                                            | Default |
-| ---- | --------------------------------------------------------------- | ------- |
-| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'`                 | `'h3'` |
+| Prop | Type                                           | Default |
+| ---- | ---------------------------------------------- | ------- |
+| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`  |
 
 Use `as` to keep the document outline correct:
 
@@ -138,29 +138,29 @@ The component uses CSS variables from `Alert.module.css`; `theme.css` registers 
 `--alert-*` variables as theme-level overrides. Override variables on the root for one alert or on a
 higher scope for a theme.
 
-| Variable                            | Default/fallback                                      | Affects                         |
-| ----------------------------------- | ----------------------------------------------------- | ------------------------------- |
-| `--alert-bg`                        | `var(--alert-bg-default, var(--color-card))`          | Root background                 |
-| `--alert-border-color`              | `var(--alert-border-color-default, var(--color-border))` | Root border color            |
-| `--alert-border-width`              | `var(--border-width-sm)`                              | Root border width               |
-| `--alert-color`                     | `var(--alert-color-default, var(--color-card-foreground))` | Root text color              |
-| `--alert-gap`                       | `var(--spacing-3)`                                    | Gap between icon and content    |
-| `--alert-padding`                   | `var(--spacing-4)`                                    | Root padding                    |
-| `--alert-radius`                    | `var(--radius-lg)`                                    | Root radius                     |
-| `--alert-shadow`                    | `none`                                                | Root shadow                     |
-| `--alert-content-gap`               | `var(--spacing-1)`                                    | Gap inside `AlertContent`       |
-| `--alert-icon-color`                | `var(--alert-icon-color-default, currentColor)`       | Icon slot color                 |
-| `--alert-icon-offset`               | `0.125rem`                                            | Icon vertical alignment offset  |
-| `--alert-icon-size`                 | `1rem`                                                | Icon slot and SVG size          |
-| `--alert-title-color`               | `var(--alert-color, var(--alert-color-default))`      | Title color                     |
-| `--alert-title-font-size`           | `var(--text-sm)`                                      | Title font size                 |
-| `--alert-title-font-weight`         | `var(--weight-semibold)`                              | Title weight                    |
-| `--alert-title-line-height`         | `var(--line-height-text-sm)`                          | Title line-height               |
-| `--alert-description-color`         | `var(--color-muted-foreground)`                       | Description color               |
-| `--alert-description-font-size`     | `var(--text-sm)`                                      | Description font size           |
-| `--alert-description-line-height`   | `var(--line-height-text-sm)`                          | Description line-height         |
-| `--alert-success-color`             | `#16a34a`                                             | Success variant accent          |
-| `--alert-warning-color`             | `#ca8a04`                                             | Warning variant accent          |
+| Variable                          | Default/fallback                                           | Affects                        |
+| --------------------------------- | ---------------------------------------------------------- | ------------------------------ |
+| `--alert-bg`                      | `var(--alert-bg-default, var(--color-card))`               | Root background                |
+| `--alert-border-color`            | `var(--alert-border-color-default, var(--color-border))`   | Root border color              |
+| `--alert-border-width`            | `var(--border-width-sm)`                                   | Root border width              |
+| `--alert-color`                   | `var(--alert-color-default, var(--color-card-foreground))` | Root text color                |
+| `--alert-gap`                     | `var(--spacing-3)`                                         | Gap between icon and content   |
+| `--alert-padding`                 | `var(--spacing-4)`                                         | Root padding                   |
+| `--alert-radius`                  | `var(--radius-lg)`                                         | Root radius                    |
+| `--alert-shadow`                  | `none`                                                     | Root shadow                    |
+| `--alert-content-gap`             | `var(--spacing-1)`                                         | Gap inside `AlertContent`      |
+| `--alert-icon-color`              | `var(--alert-icon-color-default, currentColor)`            | Icon slot color                |
+| `--alert-icon-offset`             | `0.125rem`                                                 | Icon vertical alignment offset |
+| `--alert-icon-size`               | `1rem`                                                     | Icon slot and SVG size         |
+| `--alert-title-color`             | `var(--alert-color, var(--alert-color-default))`           | Title color                    |
+| `--alert-title-font-size`         | `var(--text-sm)`                                           | Title font size                |
+| `--alert-title-font-weight`       | `var(--weight-semibold)`                                   | Title weight                   |
+| `--alert-title-line-height`       | `var(--line-height-text-sm)`                               | Title line-height              |
+| `--alert-description-color`       | `var(--color-muted-foreground)`                            | Description color              |
+| `--alert-description-font-size`   | `var(--text-sm)`                                           | Description font size          |
+| `--alert-description-line-height` | `var(--line-height-text-sm)`                               | Description line-height        |
+| `--alert-success-color`           | `#16a34a`                                                  | Success variant accent         |
+| `--alert-warning-color`           | `#ca8a04`                                                  | Warning variant accent         |
 
 Variant defaults are internal CSS variables derived from `data-variant`:
 `--alert-bg-default`, `--alert-border-color-default`, `--alert-color-default`, and
