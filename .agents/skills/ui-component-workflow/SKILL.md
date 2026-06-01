@@ -11,12 +11,13 @@ Use this skill for work in `packages/ui`.
 ## Read First
 
 1. `AGENTS.md`
-2. `packages/ui/references/base-ui-llms.txt`
-3. `packages/ui/references/shadcn-llms.txt`
-4. `packages/ui/src/components/<ComponentName>/<component-name>.md`
-5. `.ai/skills/cross-package-sync/SKILL.md` when docs parity may be affected
+2. `.agents/skills/upstream-library-docs/SKILL.md` when Base UI or shadcn reference material is needed
+3. `packages/ui/src/components/<ComponentName>/<component-name>.md`
+4. `.agents/skills/local-component-docs/SKILL.md` when local component markdown is created or updated
+5. `.agents/skills/cross-package-sync/SKILL.md` when docs parity may be affected
 
-If a required Base UI reference is missing, stop and report it instead of guessing.
+Use online upstream sources for Base UI and shadcn reference material. Do not use local snapshots for
+those libraries.
 
 Before editing an existing component, inspect:
 
@@ -165,6 +166,7 @@ composition.
 ## Stories, Docs, and Sync
 
 - Stories and local component markdown must reflect the real API.
+- Local component markdown documents the `moduix` wrapper contract, not the upstream primitive API.
 - Remove deleted props, legacy customization paths, and outdated examples in the same task.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - If API, behavior, styling hooks, or recommended usage changed, activate `cross-package-sync` and
