@@ -5,7 +5,7 @@ import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './ContextMenu.module.css';
 
-type ContextMenuPositionerProps = Pick<
+export type ContextMenuPositionerProps = Pick<
   ContextMenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -17,7 +17,7 @@ type ContextMenuPositionerProps = Pick<
   | 'collisionPadding'
 >;
 
-type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
+export type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
   ContextMenuPositionerProps & {
     showArrow?: boolean;
   };
@@ -25,7 +25,13 @@ type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
 const CONTEXT_MENU_CONTENT_SIDE_OFFSET = 8;
 const ContextMenu = ContextMenuPrimitive.Root;
 const ContextMenuSubmenu = ContextMenuPrimitive.SubmenuRoot;
-type IndicatorPosition = 'start' | 'end';
+export type ContextMenuIndicatorPosition = 'start' | 'end';
+export type ContextMenuRadioItemProps = ContextMenuPrimitive.RadioItem.Props & {
+  indicator?: ContextMenuIndicatorPosition;
+};
+export type ContextMenuCheckboxItemProps = ContextMenuPrimitive.CheckboxItem.Props & {
+  indicator?: ContextMenuIndicatorPosition;
+};
 
 function ContextMenuTrigger({ className, render, ...props }: ContextMenuPrimitive.Trigger.Props) {
   const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
@@ -214,13 +220,7 @@ function ContextMenuRadioGroup({ className, ...props }: ContextMenuPrimitive.Rad
   );
 }
 
-function ContextMenuRadioItem({
-  className,
-  indicator,
-  ...props
-}: ContextMenuPrimitive.RadioItem.Props & {
-  indicator?: IndicatorPosition;
-}) {
+function ContextMenuRadioItem({ className, indicator, ...props }: ContextMenuRadioItemProps) {
   return (
     <ContextMenuPrimitive.RadioItem
       data-slot="context-menu-radio-item"
@@ -247,13 +247,7 @@ function ContextMenuRadioItemIndicator({
   );
 }
 
-function ContextMenuCheckboxItem({
-  className,
-  indicator,
-  ...props
-}: ContextMenuPrimitive.CheckboxItem.Props & {
-  indicator?: IndicatorPosition;
-}) {
+function ContextMenuCheckboxItem({ className, indicator, ...props }: ContextMenuCheckboxItemProps) {
   return (
     <ContextMenuPrimitive.CheckboxItem
       data-slot="context-menu-checkbox-item"

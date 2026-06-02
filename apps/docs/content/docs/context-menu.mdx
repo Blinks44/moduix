@@ -18,10 +18,6 @@ import {
   contextMenuPlaygroundCssProperties,
 } from '@/components/examples/context-menu';
 
-## API Reference
-
-<BaseUIReference href="https://base-ui.com/react/components/context-menu" />
-
 ## Overview
 
 `ContextMenuContent` is the recommended path for most menus. It keeps the portal and positioning
@@ -45,11 +41,12 @@ trigger can wrap your existing card, row, canvas, or editor surface directly.
         ContextMenuSeparator,
         ContextMenuTrigger,
       } from "moduix";
+      import styles from "./context-menu-demo.module.css";
 
       export function ContextMenuDemo() {
         return (
           <ContextMenu>
-            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
               <ContextMenuItem closeOnClick>Add to Playlist</ContextMenuItem>
@@ -67,6 +64,28 @@ trigger can wrap your existing card, row, canvas, or editor surface directly.
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      .trigger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 15rem;
+        min-height: 12rem;
+        padding: 0.5rem 0.875rem;
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-size: var(--text-md);
+        line-height: var(--line-height-text-md);
+        text-align: center;
+        user-select: none;
+        cursor: context-menu;
+      }
+    `}
+
+  </Preview.CSS>
   <Preview.CSSProperties>
     {(context) => <ContextMenuCssPropertiesPanel {...context} />}
   </Preview.CSSProperties>
@@ -74,6 +93,9 @@ trigger can wrap your existing card, row, canvas, or editor surface directly.
     {(context) => <ContextMenuCssPlaygroundPanel {...context} />}
   </Preview.CSSPlayground>
 </Preview>
+
+All examples below reuse the same `styles.trigger` class from the basic example so the previewed
+surface matches the code.
 
 ## Anatomy
 
@@ -198,11 +220,12 @@ nested actions.
         ContextMenuSubmenuTriggerIcon,
         ContextMenuTrigger,
       } from "moduix";
+      import styles from "./context-menu-demo.module.css";
 
       export function NestedContextMenuDemo() {
         return (
           <ContextMenu>
-            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuItem closeOnClick>Add to Library</ContextMenuItem>
               <ContextMenuSubmenu>
@@ -247,11 +270,12 @@ Use `ContextMenuItemShortcut` for keyboard shortcut text.
         ContextMenuSeparator,
         ContextMenuTrigger,
       } from "moduix";
+      import styles from "./context-menu-demo.module.css";
 
       export function ShortcutsContextMenuDemo() {
         return (
           <ContextMenu>
-            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuItem closeOnClick>
                 Copy
@@ -299,6 +323,7 @@ Use groups, radio items, and checkbox items when the menu changes application st
         ContextMenuSeparator,
         ContextMenuTrigger,
       } from "moduix";
+      import styles from "./context-menu-demo.module.css";
 
       export function GroupsAndControlsContextMenuDemo() {
         const [sortBy, setSortBy] = useState("date");
@@ -308,7 +333,7 @@ Use groups, radio items, and checkbox items when the menu changes application st
 
         return (
           <ContextMenu>
-            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuGroup>
                 <ContextMenuGroupLabel>Sort</ContextMenuGroupLabel>
@@ -376,6 +401,7 @@ stable text layout.
         InfoIcon,
         ShareIcon,
       } from "moduix";
+      import styles from "./context-menu-demo.module.css";
 
       export function IndicatorRightContextMenuDemo() {
         const [showMinimap, setShowMinimap] = useState(true);
@@ -383,7 +409,7 @@ stable text layout.
 
         return (
           <ContextMenu>
-            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuCheckboxItem
                 checked={showMinimap}
@@ -441,11 +467,12 @@ Pass positioning props to `ContextMenuContent` when the default structure is eno
         ContextMenuSeparator,
         ContextMenuTrigger,
       } from "moduix";
+      import styles from "./context-menu-demo.module.css";
 
       export function PositionedContextMenuDemo() {
         return (
           <ContextMenu>
-            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
             <ContextMenuContent showArrow align="start" sideOffset={12} collisionPadding={16}>
               <ContextMenuItem closeOnClick>Open</ContextMenuItem>
               <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
@@ -477,11 +504,12 @@ Use `ContextMenuLinkItem` for navigation actions that should render as links.
         ContextMenuSeparator,
         ContextMenuTrigger,
       } from "moduix";
+      import styles from "./context-menu-demo.module.css";
 
       export function LinkItemsContextMenuDemo() {
         return (
           <ContextMenu>
-            <ContextMenuTrigger>Right click here</ContextMenuTrigger>
+            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuLinkItem href="#projects">Projects</ContextMenuLinkItem>
               <ContextMenuLinkItem href="#teams">Teams</ContextMenuLinkItem>
@@ -518,6 +546,7 @@ backdrop or custom structure, switch to explicit composition.
         ContextMenuSeparator,
         ContextMenuTrigger,
       } from "moduix";
+      import styles from "./context-menu-demo.module.css";
 
       export function CustomCompositionContextMenuDemo() {
         return (

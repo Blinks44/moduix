@@ -27,3 +27,11 @@ export {
   ContextMenuItemTextLabel,
   ContextMenuItemShortcut,
 } from './ContextMenu';
+
+export type {
+  ContextMenuCheckboxItemProps,
+  ContextMenuContentProps,
+  ContextMenuIndicatorPosition,
+  ContextMenuPositionerProps,
+  ContextMenuRadioItemProps,
+} from './ContextMenu';
