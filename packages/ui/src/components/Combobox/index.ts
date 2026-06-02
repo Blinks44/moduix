@@ -3,6 +3,7 @@ export {
   ComboboxField,
   ComboboxFieldLabel,
   ComboboxValue,
+  ComboboxInlineInputContainer,
   ComboboxInputGroup,
   ComboboxInput,
   ComboboxControlActions,

@@ -21,6 +21,7 @@ import {
   ComboboxGroup,
   ComboboxGroupLabel,
   ComboboxIcon,
+  ComboboxInlineInputContainer,
   ComboboxInput,
   ComboboxInputGroup,
   ComboboxItem,
@@ -244,9 +245,9 @@ export const InputInsidePopup: Story = {
         </ComboboxField>
 
         <ComboboxContent sideOffset={4} className={styles.popupWithInlineInput}>
-          <div className={styles.inlineInputContainer}>
-            <ComboboxInput className={styles.inlineInput} placeholder="Search country" />
-          </div>
+          <ComboboxInlineInputContainer>
+            <ComboboxInput placeholder="Search country" />
+          </ComboboxInlineInputContainer>
           <ComboboxEmpty>No countries found.</ComboboxEmpty>
           <ComboboxList className={styles.listWithInlineInput}>
             {(item: OptionItem) => (
