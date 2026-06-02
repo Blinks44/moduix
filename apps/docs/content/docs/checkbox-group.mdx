@@ -17,6 +17,7 @@ import {
   CustomCompositionCheckboxGroupExample,
   DisabledCheckboxGroupExample,
   ParentCheckboxGroupExample,
+  ReadOnlyItemCheckboxGroupExample,
   checkboxGroupPlaygroundCssProperties,
 } from '@/components/examples/checkbox-group';
 
@@ -43,11 +44,20 @@ row layout. `CheckboxGroupItem` and `CheckboxGroupItemLabel` are thin convenienc
         CheckboxGroupLabel,
         CheckboxGroupList,
       } from "moduix";
+      import { useId } from "react";
+
+      const options = [
+        { value: "email", label: "Email updates" },
+        { value: "push", label: "Push notifications" },
+        { value: "sms", label: "SMS alerts" },
+      ];
 
       export function CheckboxGroupDemo() {
+        const labelId = useId();
+
         return (
-          <CheckboxGroup defaultValue={["email"]} aria-labelledby="notification-channels">
-            <CheckboxGroupLabel id="notification-channels">
+          <CheckboxGroup defaultValue={["email"]} aria-labelledby={labelId}>
+            <CheckboxGroupLabel id={labelId}>
               Notification Channels
             </CheckboxGroupLabel>
             <CheckboxGroupList>
@@ -65,16 +75,6 @@ row layout. `CheckboxGroupItem` and `CheckboxGroupItemLabel` are thin convenienc
 
   </Preview.Code>
 
-  <Preview.Data>
-    {`
-      const options = [
-        { value: "email", label: "Email updates" },
-        { value: "push", label: "Push notifications" },
-        { value: "sms", label: "SMS alerts" },
-      ];
-    `}
-
-  </Preview.Data>
   <Preview.CSSProperties>
     {(context) => <CheckboxGroupCssPropertiesPanel {...context} />}
   </Preview.CSSProperties>
@@ -141,6 +141,7 @@ Use `CheckboxGroup` for shared state (`value`, `defaultValue`, `onValueChange`) 
 | `CheckboxGroupItemControl.size`         | `md`        | `xs`, `sm`, `md`, `lg`, `xl`                                            |
 | `CheckboxGroupItemControl.parent`       | `false`     | `boolean` (enables parent checkbox behavior when group has `allValues`) |
 | `CheckboxGroupItemControl.nativeButton` | `false`     | `boolean`                                                               |
+| `CheckboxGroupItemControl.readOnly`     | `false`     | `boolean`                                                               |
 
 `CheckboxGroupLabel`, `CheckboxGroupList`, `CheckboxGroupItem`, and `CheckboxGroupItemLabel`
 accept `className`. `CheckboxGroupItemControl` composes `Checkbox`, so it also supports the same
@@ -341,6 +342,58 @@ Use `disabled` on the group to prevent interaction with every checkbox in the gr
     `}
 
   </Preview.Data>
+</Preview>
+
+### Read-only Item
+
+Use `readOnly` on an item control when that checkbox should stay focusable and visible but must not
+change. The group root supports `disabled`, but not a group-level `readOnly` prop.
+
+<Preview>
+  <ReadOnlyItemCheckboxGroupExample />
+
+  <Preview.Code>
+    {`
+      import {
+        CheckboxGroup,
+        CheckboxGroupItem,
+        CheckboxGroupItemControl,
+        CheckboxGroupItemLabel,
+        CheckboxGroupLabel,
+        CheckboxGroupList,
+      } from "moduix";
+      import { useId } from "react";
+
+      const options = [
+        { value: "email", label: "Email updates" },
+        { value: "push", label: "Push notifications" },
+        { value: "sms", label: "SMS alerts" },
+      ];
+
+      export function ReadOnlyItemCheckboxGroupDemo() {
+        const labelId = useId();
+
+        return (
+          <CheckboxGroup defaultValue={["push"]} aria-labelledby={labelId}>
+            <CheckboxGroupLabel id={labelId}>Partially Locked Settings</CheckboxGroupLabel>
+            <CheckboxGroupList>
+              {options.map((option) => (
+                <CheckboxGroupItem key={option.value}>
+                  <CheckboxGroupItemControl
+                    value={option.value}
+                    name="partially-locked-settings"
+                    readOnly={option.value === "push"}
+                  />
+                  <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+                </CheckboxGroupItem>
+              ))}
+            </CheckboxGroupList>
+          </CheckboxGroup>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>
 
 ### Parent Checkbox

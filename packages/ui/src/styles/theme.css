@@ -423,6 +423,9 @@
   --card-description-font-size: initial; /* var(--text-sm) */
   --card-description-line-height: initial; /* var(--line-height-text-sm) */
   --card-footer-gap: initial; /* var(--spacing-2) */
+  --card-focus-ring-color: initial; /* var(--color-ring) */
+  --card-focus-ring-offset: initial; /* var(--border-width-sm) */
+  --card-focus-ring-width: initial; /* var(--border-width-md) */
   --card-header-gap: initial; /* var(--spacing-1) */
   --card-padding: initial; /* var(--spacing-6) */
   --card-padding-sm: initial; /* var(--spacing-4) */

@@ -6,9 +6,11 @@ icon: Component
 
 import {
   CardCompactExample,
+  CardAsLinkExample,
   CardCssPlaygroundPanel,
   CardCssPropertiesPanel,
   CardExample,
+  CardLinkWithActionsExample,
   CardWithActionExample,
   CardWithImageExample,
   CustomCompositionCardExample,
@@ -120,6 +122,7 @@ Use the following composition to build a `Card`:
 Card
 ├─ CardHeader
 │  ├─ CardTitle
+│  │  └─ CardLink (optional)
 │  ├─ CardDescription
 │  └─ CardAction (optional)
 ├─ CardContent
@@ -146,6 +149,7 @@ Card
 | `CardTitle`       | Card heading. Defaults to `h3` and supports `as`.                    |
 | `CardDescription` | Muted supporting text under the title.                               |
 | `CardAction`      | Right-aligned header action slot.                                    |
+| `CardLink`        | Link that can stretch its hit area across the card.                  |
 
 ## Public Props
 
@@ -157,6 +161,12 @@ Card
 | `Card`      | `size` | `'default' \| 'sm'`                            | `'default'` |
 | `CardTitle` | `as`   | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`      |
 
+`Card` also supports Base UI-style `render` to replace the root element. Use it for a card that is a
+single link and has no nested buttons, links, or form controls.
+
+`CardLink` extends native anchor props and also supports `render`. Use it inside `CardTitle` when the
+card should navigate but still contain other interactive controls.
+
 Every part accepts `className`. `Card` writes `size` to `data-size`; all parts expose `data-slot`
 attributes for styling and tests.
 
@@ -165,8 +175,13 @@ attributes for styling and tests.
 Prefer the default composition when the card is just grouping content. Add `CardAction` only when the
 header needs a compact status or control aligned to the trailing edge.
 
-If the whole surface should navigate somewhere, keep the root presentational and place a link or
-button inside the content instead of turning `Card` into an interactive wrapper.
+If the whole surface should navigate somewhere and the card has no nested interactive content, render
+the root as a link with `render={<a href="..." />}`. Do not put buttons, links, menus, checkboxes, or
+other focusable controls inside that linked root.
+
+If the card needs both navigation and nested actions, keep `Card` as the presentational root and put
+`CardLink` in the title. `CardLink` uses the overlay-link pattern so the card surface is clickable
+without nesting interactive elements.
 
 Use `size="sm"` for denser dashboards, menus, and supporting panels. Keep the default size for
 standard page sections and primary summaries.
@@ -419,7 +434,166 @@ Use `CardAction` for the common header-side slot without introducing an alternat
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### As Link
+
+Use `Card render` when the entire card is a single navigation target and the card does not contain
+nested interactive controls.
+
+<Preview>
+  <CardAsLinkExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Card,
+        CardContent,
+        CardDescription,
+        CardHeader,
+        CardTitle,
+      } from "moduix";
+      import styles from "./card-as-link-demo.module.css";
+
+      export function CardAsLinkDemo() {
+        return (
+          <Card className={styles.card} render={<a href="/reports/release-health" />}>
+            <CardHeader>
+              <CardTitle>Release health</CardTitle>
+              <CardDescription>Summary for the current production rollout.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className={styles.releaseSummary}>
+                <div>
+                  <span className={styles.statValue}>98.4%</span>
+                  <span className={styles.statLabel}>successful sessions</span>
+                </div>
+                <div>
+                  <span className={styles.statValue}>12</span>
+                  <span className={styles.statLabel}>checks passed</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .card {
+        width: min(24rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .releaseSummary {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-3);
+      }
+
+      .statValue {
+        display: block;
+        color: var(--color-foreground);
+        font-size: var(--text-xl);
+        font-weight: var(--weight-semibold);
+        line-height: var(--line-height-text-xl);
+      }
+
+      .statLabel {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Link With Actions
+
+Use `CardLink` when the card should navigate but still contains buttons, menus, checkboxes, or other
+interactive controls. Place the real link in the title; its hit area stretches across the card while
+`CardAction` remains above the overlay.
+
+<Preview>
+  <CardLinkWithActionsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Card,
+        CardAction,
+        CardContent,
+        CardDescription,
+        CardHeader,
+        CardLink,
+        CardTitle,
+      } from "moduix";
+      import styles from "./card-link-with-actions-demo.module.css";
+
+      export function CardLinkWithActionsDemo() {
+        return (
+          <Card className={styles.card}>
+            <CardHeader>
+              <CardTitle>
+                <CardLink href="/incidents/response">Incident response</CardLink>
+              </CardTitle>
+              <CardDescription>Owner rotation and escalation readiness.</CardDescription>
+              <CardAction>
+                <Button variant="outline" size="sm">
+                  Acknowledge
+                </Button>
+              </CardAction>
+            </CardHeader>
+            <CardContent>
+              <div className={styles.statsGrid}>
+                <div>
+                  <span className={styles.statValue}>18 min</span>
+                  <span className={styles.statLabel}>median response</span>
+                </div>
+                <div>
+                  <span className={styles.statValue}>99.97%</span>
+                  <span className={styles.statLabel}>service uptime</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .card {
+        width: min(24rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .statsGrid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-3);
+      }
+
+      .statValue {
+        display: block;
+        color: var(--color-foreground);
+        font-size: var(--text-xl);
+        font-weight: var(--weight-semibold);
+        line-height: var(--line-height-text-xl);
+      }
+
+      .statLabel {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
 
 Use local CSS variables when the layout stays the same and only the surface styling needs to change.
 
@@ -502,12 +676,13 @@ Use local CSS variables when the layout stays the same and only the surface styl
   </Preview.CSS>
 </Preview>
 
-## UX and Accessibility
+## Accessibility
 
-- `Card` is a `div` and has no built-in landmark, button, link, or region semantics.
+- `Card` is a `div` by default and has no built-in landmark, button, link, or region semantics.
 - Use `CardTitle as` when the surrounding document outline needs a heading level other than `h3`.
-- Keep the root presentational. If a card needs navigation or actions, place explicit links or
-  buttons inside it.
+- Use `Card render={<a href="..." />}` only when the whole card is one link and there are no nested
+  interactive controls.
+- Use `CardLink` for cards that need a large navigation hit area plus nested actions.
 - `CardAction` is visual layout only; it does not connect controls to the title or description.
-- There are no hover, open, checked, disabled, read-only, keyboard, or focus-management states because
-  the component is not interactive by itself.
+- There are no open, checked, disabled, read-only, keyboard, or focus-management states because the
+  component does not manage interaction by itself.

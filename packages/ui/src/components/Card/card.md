@@ -7,7 +7,9 @@ state management, and does not add interaction semantics by itself.
 
 Use `Card` to group related content on a visible surface: summaries, settings panels, dashboard
 widgets, media previews, and short forms. Keep interaction inside the card with `Button`, links, form
-controls, or other focusable components instead of making the card root interactive.
+controls, or other focusable components. When the card itself is a navigation target, use either
+`Card render={<a />}` for a single-link card or `CardLink` for the overlay-link pattern with nested
+actions.
 
 ## Basic usage
 
@@ -19,6 +21,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardLink,
   CardTitle,
 } from 'moduix';
 
@@ -52,6 +55,7 @@ export function CardDemo() {
 | `CardTitle`       | heading | `data-slot="card-title"`       | Card heading; renders `h3` by default.      |
 | `CardDescription` | `p`     | `data-slot="card-description"` | Supporting text under the title.            |
 | `CardAction`      | `div`   | `data-slot="card-action"`      | Optional trailing header slot.              |
+| `CardLink`        | `a`     | `data-slot="card-link"`        | Link that can stretch over the card.        |
 | `CardContent`     | `div`   | `data-slot="card-content"`     | Main body area with body text styling.      |
 | `CardFooter`      | `div`   | `data-slot="card-footer"`      | Wrapping action or metadata row.            |
 
@@ -61,6 +65,7 @@ Recommended anatomy:
 Card
 ├─ CardHeader
 │  ├─ CardTitle
+│  │  └─ CardLink (optional)
 │  ├─ CardDescription
 │  └─ CardAction (optional)
 ├─ CardContent
@@ -88,11 +93,28 @@ Extends native `div` props.
 
 | Prop        | Type                | Default     |
 | ----------- | ------------------- | ----------- |
+| `render`    | Base UI render prop | -           |
 | `size`      | `'default' \| 'sm'` | `'default'` |
 | `className` | `string`            | -           |
 
 `size` is written to `data-size` on the root. `size="sm"` reduces padding and title typography for
 dense dashboard or sidebar layouts.
+
+Use `render={<a href="..." />}` when the entire card is one link and the card has no nested
+interactive controls:
+
+```tsx
+<Card render={<a href="/reports/release-health" />}>
+  <CardHeader>
+    <CardTitle>Release health</CardTitle>
+    <CardDescription>Summary for the current rollout.</CardDescription>
+  </CardHeader>
+  <CardContent>98.4% successful sessions</CardContent>
+</Card>
+```
+
+Do not use a linked root when children include buttons, menus, links, checkboxes, inputs, or other
+focusable controls.
 
 ### `CardHeader`, `CardContent`, `CardFooter`, `CardAction`
 
@@ -127,6 +149,31 @@ Use `as` to keep the document outline correct:
 Extends native `p` props. Keep the content phrasing/text-like; if the description needs complex
 blocks, compose them in `CardContent` instead.
 
+### `CardLink`
+
+Extends native anchor props and supports Base UI-style `render`.
+
+Use `CardLink` inside `CardTitle` when the card should navigate but also contains nested actions. The
+link keeps valid HTML semantics while its `::after` overlay makes the visible card surface clickable.
+`CardAction` is layered above the overlay by default.
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>
+      <CardLink href="/incidents/response">Incident response</CardLink>
+    </CardTitle>
+    <CardDescription>Owner rotation and escalation readiness.</CardDescription>
+    <CardAction>
+      <Button variant="outline" size="sm">
+        Acknowledge
+      </Button>
+    </CardAction>
+  </CardHeader>
+  <CardContent>18 min median response</CardContent>
+</Card>
+```
+
 ## Styling API
 
 Every part accepts `className`. The root exposes `data-size`, and all parts expose the `data-slot`
@@ -150,6 +197,9 @@ card root or on a parent theme scope.
 | `--card-description-font-size`   | `var(--text-sm)`                | Description font size.     |
 | `--card-description-line-height` | `var(--line-height-text-sm)`    | Description line-height.   |
 | `--card-footer-gap`              | `var(--spacing-2)`              | Footer item gap.           |
+| `--card-focus-ring-color`        | `var(--color-ring)`             | `CardLink` focus color.    |
+| `--card-focus-ring-offset`       | `var(--border-width-sm)`        | `CardLink` focus offset.   |
+| `--card-focus-ring-width`        | `var(--border-width-md)`        | `CardLink` focus width.    |
 | `--card-header-gap`              | `var(--spacing-1)`              | Header row gap.            |
 | `--card-padding`                 | `var(--spacing-6)`              | Default card padding.      |
 | `--card-padding-sm`              | `var(--spacing-4)`              | Compact card padding.      |
@@ -165,12 +215,13 @@ card root or on a parent theme scope.
 ## UX and accessibility
 
 - `Card` is a `div`, not an article, region, link, button, or form landmark. Choose semantic wrappers
-  outside the component when a page section needs them.
+  outside the component when a page section needs them. `render` can intentionally replace the root,
+  for example with an anchor for a single-link card.
 - `CardTitle` defaults to `h3`; set `as` when the page hierarchy requires another heading level.
 - The root does not manage focus, keyboard navigation, disabled/read-only states, or ARIA
   relationships.
 - Do not put click handlers on the card root unless you also implement correct keyboard and semantic
-  behavior. Prefer an explicit link or button inside the card.
+  behavior. Prefer a linked root for a single-link card or `CardLink` for the overlay-link pattern.
 - `CardAction` is layout only. It does not label, own, or connect controls to the title.
 - Long title, description, and content text wraps to avoid horizontal overflow.
 
@@ -183,7 +234,8 @@ card root or on a parent theme scope.
 - Media is plain composition. Add consumer CSS such as `display: block`, sizing, or clipping when an
   image/video should visually align with the card edge.
 - The component intentionally has no `asChild`, slot prop bags, class-name maps, variant system, or
-  built-in interactive states. Keep customization in composition and CSS variables.
+  built-in interactive states. Use Base UI-style `render` for element replacement and keep
+  customization in composition and CSS variables.
 
 ## Intentional differences from Base UI
 
@@ -196,6 +248,8 @@ thin React functions, CSS Modules, `data-slot` hooks, one `size` prop, and compo
   composition.
 - Preserve `data-slot` values and the root `data-size` contract; docs and tests can depend on them.
 - Keep `CardAction` narrow and optional. It is a header-side convenience, not a general action system.
+- Preserve the `Card render` and `CardLink` split: linked root for cards without nested interactive
+  content, overlay `CardLink` for cards with actions.
 - If CSS variables change, update `theme.css`, docs examples, and this file together.
 - If docs examples show a rich preview, the code snippet must include the same meaningful structure
   and CSS hooks used by the preview.
@@ -206,3 +260,4 @@ thin React functions, CSS Modules, `data-slot` hooks, one `size` prop, and compo
   behavior.
 - Documented `size`, `CardTitle as`, slots, CSS variables, accessibility boundaries, and composition
   constraints.
+- Added Base UI-style `render` support on `Card` and `CardLink` for accessible card-as-link patterns.

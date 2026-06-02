@@ -8,6 +8,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardLink,
   CardTitle,
 } from './Card';
 import styles from './Card.stories.module.css';
@@ -130,6 +131,63 @@ export const WithImage: Story = {
           <Badge variant="outline">Forecast</Badge>
           <Button variant="outline">Open report</Button>
         </CardFooter>
+      </Card>
+    );
+  },
+};
+
+export const AsLink: Story = {
+  render: () => {
+    return (
+      <Card className={styles.card} render={<a href="/docs/card" />}>
+        <CardHeader>
+          <CardTitle>Release health</CardTitle>
+          <CardDescription>Summary for the current production rollout.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className={styles.releaseSummary}>
+            <div>
+              <span className={styles.statValue}>98.4%</span>
+              <span className={styles.statLabel}>successful sessions</span>
+            </div>
+            <div>
+              <span className={styles.statValue}>12</span>
+              <span className={styles.statLabel}>checks passed</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  },
+};
+
+export const LinkWithActions: Story = {
+  render: () => {
+    return (
+      <Card className={styles.card}>
+        <CardHeader>
+          <CardTitle>
+            <CardLink href="/docs/card">Incident response</CardLink>
+          </CardTitle>
+          <CardDescription>Owner rotation and escalation readiness.</CardDescription>
+          <CardAction>
+            <Button variant="outline" size="sm">
+              Acknowledge
+            </Button>
+          </CardAction>
+        </CardHeader>
+        <CardContent>
+          <div className={styles.statsGrid}>
+            <div>
+              <span className={styles.statValue}>18 min</span>
+              <span className={styles.statLabel}>median response</span>
+            </div>
+            <div>
+              <span className={styles.statValue}>99.97%</span>
+              <span className={styles.statLabel}>service uptime</span>
+            </div>
+          </div>
+        </CardContent>
       </Card>
     );
   },

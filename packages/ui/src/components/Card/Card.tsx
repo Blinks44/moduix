@@ -1,4 +1,5 @@
 import type { ComponentProps, ComponentPropsWithoutRef } from 'react';
+import { useRender } from '@base-ui/react/use-render';
 import clsx from 'clsx';
 import styles from './Card.module.css';
 
@@ -7,12 +8,20 @@ type CardTitleElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 function Card({
   className,
+  render,
   size = 'default',
   ...props
-}: ComponentProps<'div'> & { size?: CardSize }) {
-  return (
-    <div data-slot="card" data-size={size} className={clsx(styles.root, className)} {...props} />
-  );
+}: useRender.ComponentProps<'div'> & { size?: CardSize }) {
+  return useRender({
+    defaultTagName: 'div',
+    render,
+    props: {
+      ...props,
+      'data-slot': 'card',
+      'data-size': size,
+      className: clsx(styles.root, className),
+    },
+  });
 }
 
 function CardHeader({ className, ...props }: ComponentProps<'div'>) {
@@ -47,5 +56,26 @@ function CardAction({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="card-action" className={clsx(styles.action, className)} {...props} />;
 }
 
-export { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription, CardAction };
+function CardLink({ className, render, ...props }: useRender.ComponentProps<'a'>) {
+  return useRender({
+    defaultTagName: 'a',
+    render,
+    props: {
+      ...props,
+      'data-slot': 'card-link',
+      className: clsx(styles.link, className),
+    },
+  });
+}
+
+export {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardAction,
+  CardLink,
+};
 export type { CardSize, CardTitleElement };

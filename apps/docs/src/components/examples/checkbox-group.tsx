@@ -265,6 +265,28 @@ export function DisabledCheckboxGroupExample() {
   );
 }
 
+export function ReadOnlyItemCheckboxGroupExample() {
+  const labelId = React.useId();
+
+  return (
+    <CheckboxGroup defaultValue={['push']} aria-labelledby={labelId}>
+      <CheckboxGroupLabel id={labelId}>Partially Locked Settings</CheckboxGroupLabel>
+      <CheckboxGroupList>
+        {notificationOptions.map((option) => (
+          <CheckboxGroupItem key={option.value}>
+            <CheckboxGroupItemControl
+              value={option.value}
+              name="partially-locked-settings"
+              readOnly={option.value === 'push'}
+            />
+            <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+          </CheckboxGroupItem>
+        ))}
+      </CheckboxGroupList>
+    </CheckboxGroup>
+  );
+}
+
 export function ParentCheckboxGroupExample() {
   const labelId = React.useId();
   const [value, setValue] = React.useState<string[]>([]);
