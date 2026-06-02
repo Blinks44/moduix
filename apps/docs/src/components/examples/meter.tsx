@@ -131,6 +131,20 @@ export function AriaValueTextMeterExample() {
   );
 }
 
+export function CustomValueTextMeterExample() {
+  return (
+    <Meter
+      value={68}
+      getAriaValueText={(formattedValue, value) =>
+        `${formattedValue} percent of storage used (${value} of 100)`
+      }
+    >
+      <MeterLabel>Storage usage</MeterLabel>
+      <MeterValue>{(formattedValue) => `${formattedValue}% used`}</MeterValue>
+    </Meter>
+  );
+}
+
 export function CustomStylesMeterExample() {
   return (
     <Meter value={72} className={styles.customMeter}>
