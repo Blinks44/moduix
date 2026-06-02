@@ -19,7 +19,14 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/input" />
+`InputGroup` does not wrap a dedicated Base UI primitive. It is a moduix composition helper built
+from the local `Input` and `Button` components, so the public API lives on these exported parts:
+
+- `InputGroup`
+- `InputGroupInput`
+- `InputGroupAddon`
+- `InputGroupText`
+- `InputGroupButton`
 
 ## Overview
 
@@ -88,21 +95,29 @@ InputGroup
 
 ## Composition
 
-Use one `InputGroupInput` per group. Addons, helper text, and buttons can sit on either side of
-it depending on the flow you need.
+Use one `InputGroupInput` per group. The shell click-to-focus behavior targets the first grouped
+input, so multiple grouped inputs are not a supported composition.
+
+Addons, helper text, and buttons can sit on either side of the input depending on the flow you
+need.
 
 Set `size` on `InputGroup` to keep the whole row aligned. `InputGroupInput` and
 `InputGroupButton` inherit that size automatically, so the default path stays short. Pass an
 explicit `size` to either part only when one child should intentionally differ from the group.
 
 Clicking the shell focuses the input, which keeps prefix and suffix layouts feeling like one field
-instead of separate controls.
+instead of separate controls. That focus redirect is skipped for `disabled` and `readOnly` grouped
+inputs.
 
 `InputGroupInput` accepts the same props as `Input`, including controlled values, native input
 attributes, and Base UI field validation state.
 
 `InputGroupButton` defaults to `variant="ghost"` and `type="button"`, so inline actions work
 inside forms without submitting them accidentally.
+
+For standalone widgets that combine an input and action into one logical unit, add `role="group"`
+with `aria-label` or `aria-labelledby` on `InputGroup`. When the group lives inside `Field`, prefer
+`FieldLabel` and keep `InputGroup` purely visual.
 
 ### Defaults
 
@@ -222,9 +237,9 @@ When the input is disabled, the group shell dims with it.
 
       export function DisabledInputGroupDemo() {
         return (
-          <InputGroup className={styles.group}>
+          <InputGroup className={styles.group} role="group" aria-label="Workspace handle">
             <InputGroupAddon>@</InputGroupAddon>
-            <InputGroupInput disabled value="readonly" />
+            <InputGroupInput disabled value="maps" />
             <InputGroupButton disabled>Copy</InputGroupButton>
           </InputGroup>
         );

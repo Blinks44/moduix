@@ -50,7 +50,6 @@ const InputGroup = forwardRef<
     <InputGroupSizeContext.Provider value={size}>
       <div
         ref={ref}
-        role="group"
         data-slot="input-group-root"
         data-size={size}
         className={clsx(styles.root, className)}

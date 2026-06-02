@@ -196,9 +196,9 @@ export function InputGroupSizesExample() {
 
 export function DisabledInputGroupExample() {
   return (
-    <InputGroup className={styles.group}>
+    <InputGroup className={styles.group} role="group" aria-label="Workspace handle">
       <InputGroupAddon>@</InputGroupAddon>
-      <InputGroupInput disabled value="readonly" />
+      <InputGroupInput disabled value="maps" />
       <InputGroupButton disabled>Copy</InputGroupButton>
     </InputGroup>
   );
