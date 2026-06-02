@@ -15,10 +15,6 @@ import {
   collapsiblePlaygroundCssProperties,
 } from '@/components/examples/collapsible';
 
-## API Reference
-
-<BaseUIReference href="https://base-ui.com/react/components/collapsible" />
-
 ## Basic
 
 <Preview cssProperties={collapsiblePlaygroundCssProperties}>
@@ -87,14 +83,16 @@ import {
   </Preview.CSSPlayground>
 </Preview>
 
-The default path stays explicit: one root, one trigger, one panel, and an optional
-`CollapsibleTriggerIcon` for the common disclosure cue.
+`Collapsible` is the moduix wrapper for a single trigger/panel pair. It keeps Base UI disclosure
+behavior, but the public API here is the flat moduix export surface: `Collapsible`,
+`CollapsibleTrigger`, `CollapsiblePanel`, and the optional `CollapsibleTriggerIcon`.
+
+Use it when one section of supporting content needs to expand inline without introducing the
+multi-item semantics of `Accordion`.
 
 ## Anatomy
 
-`Collapsible` groups one trigger and one panel that share the same open state. Keep
-`CollapsibleTrigger` and `CollapsiblePanel` inside the same root so Base UI can preserve the
-keyboard and accessibility wiring.
+Keep one trigger and one panel inside the same root:
 
 ```text
 Collapsible
@@ -117,31 +115,66 @@ Collapsible
 </Collapsible>
 ```
 
-| Part                     | Role                                                                                                   |
-| ------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `Collapsible`            | Root state machine. Controls `open`, `defaultOpen`, `disabled`, and `onOpenChange`.                    |
-| `CollapsibleTrigger`     | Interactive toggle button. Opens or closes the panel and receives open/disabled attributes.            |
-| `CollapsibleTriggerIcon` | Optional helper for a decorative state marker inside the trigger.                                      |
-| `CollapsiblePanel`       | Collapsible content region. Put spacing or surface wrappers inside it so height animation stays clean. |
+| Part                     | Role                                                                                                        |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| `Collapsible`            | Root state machine for one disclosure pair. Controls `open`, `defaultOpen`, `disabled`, and `onOpenChange`. |
+| `CollapsibleTrigger`     | Interactive toggle button. Uses the default moduix trigger styling unless `render` is provided.             |
+| `CollapsibleTriggerIcon` | Optional decorative helper. Defaults to `ChevronRightIcon` and rotates from `data-panel-open`.              |
+| `CollapsiblePanel`       | Collapsible content region. Put spacing or surface wrappers inside it so height animation stays clean.      |
 
 `CollapsibleTriggerIcon` is narrow sugar for a common production case. Keep it when the default
 chevron is enough, replace its children when the UI needs a different cue, or omit it entirely.
 
-## Composition
+## Public props
 
-Use `Collapsible` for root state props such as `open`, `defaultOpen`, `onOpenChange`, and
-`disabled`. Style the exported parts directly with `className`. Base UI behavior props such as
-`render`, `nativeButton`, `keepMounted`, and `hiddenUntilFound` pass through to the matching part.
+The wrappers preserve Base UI props instead of renaming them.
 
-If the trigger host is not a native `<button>`, pass `nativeButton={false}` so Base UI can apply
-the correct ARIA button behavior.
+| Part                 | Common props                                                                     |
+| -------------------- | -------------------------------------------------------------------------------- |
+| `Collapsible`        | `open`, `defaultOpen`, `onOpenChange`, `disabled`, `className`, `render`         |
+| `CollapsibleTrigger` | `className`, `render`, `nativeButton`, and native button props                   |
+| `CollapsiblePanel`   | `className`, `keepMounted`, `hiddenUntilFound`, `render`, and native `div` props |
 
-| Prop          | Default | Values                                               |
-| ------------- | ------- | ---------------------------------------------------- |
-| `open`        | -       | `boolean` (controlled)                               |
-| `defaultOpen` | `false` | `boolean` (uncontrolled initial state)               |
-| `disabled`    | `false` | `boolean`                                            |
-| `className`   | -       | Part class string or Base UI state resolver function |
+`className` also accepts Base UI state resolver functions; moduix merges those with the shipped
+classes. When the trigger host is not a native `<button>`, pass `nativeButton={false}` so Base UI
+can apply ARIA button behavior correctly.
+
+## Styling API
+
+Every exported part exposes `className` and a stable `data-slot`:
+
+| Part                     | `data-slot`                |
+| ------------------------ | -------------------------- |
+| `Collapsible`            | `collapsible-root`         |
+| `CollapsibleTrigger`     | `collapsible-trigger`      |
+| `CollapsibleTriggerIcon` | `collapsible-trigger-icon` |
+| `CollapsiblePanel`       | `collapsible-panel`        |
+
+Base UI state hooks used by the default styles:
+
+| Attribute             | Where it appears | Meaning                                                                      |
+| --------------------- | ---------------- | ---------------------------------------------------------------------------- |
+| `data-panel-open`     | trigger          | Matching panel is open.                                                      |
+| `data-open`           | panel            | Panel is open.                                                               |
+| `data-closed`         | panel            | Panel is closed.                                                             |
+| `data-starting-style` | panel            | Panel is entering.                                                           |
+| `data-ending-style`   | panel            | Panel is leaving.                                                            |
+| `hidden`              | panel            | Closed panels are hidden unless `keepMounted` or `hiddenUntilFound` is used. |
+
+The default trigger is a full-width flex button with hover, active, focus-visible, and disabled
+states. `CollapsibleTriggerIcon` rotates automatically. `CollapsiblePanel` animates its height from
+the runtime `--collapsible-panel-height` value. Use the **CSS Properties** tab in the preview above
+for the full variable contract.
+
+## Accessibility and UX notes
+
+- Prefer the default trigger render path. It gives correct button semantics and keyboard behavior with
+  no extra work.
+- Keep nested interactive controls out of `CollapsibleTrigger`; place them beside the trigger or inside
+  the panel.
+- `CollapsibleTriggerIcon` is decorative by default because it renders with `aria-hidden`.
+- For precise height animation, put padding and borders on inner panel content instead of the panel
+  element itself.
 
 ```tsx
 <Collapsible>
@@ -156,6 +189,9 @@ the correct ARIA button behavior.
 ```
 
 ## Examples
+
+`defaultOpen`, `open`, `disabled`, `keepMounted`, and `hiddenUntilFound` all stay on the same parts
+as in Base UI, but the examples below use the shipped moduix wrappers and styles.
 
 ### Default Open
 
