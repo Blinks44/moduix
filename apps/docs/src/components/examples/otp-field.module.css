@@ -26,11 +26,6 @@
   line-height: var(--line-height-text-xs);
 }
 
-.groupedRoot {
-  --otp-field-separator-size: 1.25rem;
-  --otp-field-separator-color: var(--color-foreground);
-}
-
 .placeholderInput {
   &::placeholder {
     color: var(--color-muted-foreground);
