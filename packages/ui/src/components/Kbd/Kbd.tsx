@@ -6,8 +6,8 @@ function Kbd({ className, ...props }: ComponentPropsWithoutRef<'kbd'>) {
   return <kbd data-slot="kbd-root" className={clsx(styles.root, className)} {...props} />;
 }
 
-function KbdGroup({ className, ...props }: ComponentPropsWithoutRef<'span'>) {
-  return <span data-slot="kbd-group" className={clsx(styles.group, className)} {...props} />;
+function KbdGroup({ className, ...props }: ComponentPropsWithoutRef<'kbd'>) {
+  return <kbd data-slot="kbd-group" className={clsx(styles.group, className)} {...props} />;
 }
 
 export { Kbd, KbdGroup };
