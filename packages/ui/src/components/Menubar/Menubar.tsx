@@ -6,7 +6,7 @@ import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Menubar.module.css';
 
-type MenubarPositionerProps = Pick<
+export type MenubarPositionerProps = Pick<
   MenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -18,13 +18,19 @@ type MenubarPositionerProps = Pick<
   | 'collisionPadding'
 >;
 
-type IndicatorPosition = 'start' | 'end';
-type MenubarContentProps = MenuPrimitive.Popup.Props &
+export type MenubarIndicatorPosition = 'start' | 'end';
+export type MenubarContentProps = MenuPrimitive.Popup.Props &
   MenubarPositionerProps & {
     showArrow?: boolean;
   };
+export type MenubarRadioItemProps = MenuPrimitive.RadioItem.Props & {
+  indicator?: MenubarIndicatorPosition;
+};
+export type MenubarCheckboxItemProps = MenuPrimitive.CheckboxItem.Props & {
+  indicator?: MenubarIndicatorPosition;
+};
 
-const DEFAULT_CONTENT_SIDE_OFFSET = 6;
+const MENUBAR_CONTENT_SIDE_OFFSET = 6;
 const MenubarMenu = MenuPrimitive.Root;
 const MenubarSubmenu = MenuPrimitive.SubmenuRoot;
 const createMenubarMenuHandle = MenuPrimitive.createHandle;
@@ -113,7 +119,7 @@ function MenubarContent({
   children,
   showArrow = false,
   side,
-  sideOffset = DEFAULT_CONTENT_SIDE_OFFSET,
+  sideOffset = MENUBAR_CONTENT_SIDE_OFFSET,
   align,
   alignOffset,
   arrowPadding,
@@ -233,13 +239,7 @@ function MenubarRadioGroup({ className, ...props }: MenuPrimitive.RadioGroup.Pro
   );
 }
 
-function MenubarRadioItem({
-  className,
-  indicator,
-  ...props
-}: MenuPrimitive.RadioItem.Props & {
-  indicator?: IndicatorPosition;
-}) {
+function MenubarRadioItem({ className, indicator, ...props }: MenubarRadioItemProps) {
   return (
     <MenuPrimitive.RadioItem
       data-slot="menubar-radio-item"
@@ -266,13 +266,7 @@ function MenubarRadioItemIndicator({
   );
 }
 
-function MenubarCheckboxItem({
-  className,
-  indicator,
-  ...props
-}: MenuPrimitive.CheckboxItem.Props & {
-  indicator?: IndicatorPosition;
-}) {
+function MenubarCheckboxItem({ className, indicator, ...props }: MenubarCheckboxItemProps) {
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="menubar-checkbox-item"

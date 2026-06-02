@@ -30,3 +30,10 @@ export {
   MenubarItemTextLabel,
   MenubarItemShortcut,
 } from './Menubar';
+export type {
+  MenubarPositionerProps,
+  MenubarContentProps,
+  MenubarIndicatorPosition,
+  MenubarRadioItemProps,
+  MenubarCheckboxItemProps,
+} from './Menubar';
