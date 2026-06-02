@@ -1,4 +1,3 @@
-import type { FormActions } from '@base-ui/react/form';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useActionState, useRef, useState } from 'react';
 import { Button } from '../Button';
@@ -187,7 +186,7 @@ export const WithNativeSubmit: Story = {
 
 export const WithActionsRef: Story = {
   render: () => {
-    const actionsRef = useRef<FormActions | null>(null);
+    const actionsRef = useRef<{ validate: (fieldName?: string) => void } | null>(null);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     return (
