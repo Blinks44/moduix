@@ -4,10 +4,11 @@ import {
   createContext,
   useContext,
   useEffect,
-  useMemo,
   useState,
   type ComponentProps,
+  type Dispatch,
   type RefObject,
+  type SetStateAction,
 } from 'react';
 import { CloseButton } from '@/components/CloseButton';
 import { mergeClassName } from '@/utils/mergeClassName';
@@ -22,10 +23,18 @@ type LightboxImageData = {
   src: string;
 };
 
-const LightboxImageContext = createContext<{
-  image: LightboxImageData | null;
-  setImage: (image: LightboxImageData | null) => void;
-} | null>(null);
+const LightboxImageContext = createContext<LightboxImageData | null>(null);
+const LightboxSetImageContext = createContext<Dispatch<
+  SetStateAction<LightboxImageData | null>
+> | null>(null);
+
+const isSameImage = (currentImage: LightboxImageData | null, nextImage: LightboxImageData) => {
+  return (
+    currentImage?.src === nextImage.src &&
+    currentImage?.fullSrc === nextImage.fullSrc &&
+    currentImage?.alt === nextImage.alt
+  );
+};
 
 const getGalleryRoot = (rootRef?: RefObject<HTMLElement | null>, rootSelector?: string) => {
   return rootRef?.current ?? (rootSelector ? document.querySelector(rootSelector) : null);
@@ -39,7 +48,13 @@ const getGalleryImage = (
     return null;
   }
 
-  const imageNode = target.closest(selector);
+  const matchedNode = target.closest(selector);
+  if (!matchedNode) {
+    return null;
+  }
+
+  const imageNode =
+    matchedNode instanceof HTMLImageElement ? matchedNode : matchedNode.querySelector('img');
   if (!(imageNode instanceof HTMLImageElement)) {
     return null;
   }
@@ -57,12 +72,13 @@ const getGalleryImage = (
 
 function Lightbox<Payload = unknown>(props: DialogPrimitive.Root.Props<Payload>) {
   const [image, setImage] = useState<LightboxImageData | null>(null);
-  const value = useMemo(() => ({ image, setImage }), [image]);
 
   return (
-    <LightboxImageContext.Provider value={value}>
-      <DialogPrimitive.Root {...props} />
-    </LightboxImageContext.Provider>
+    <LightboxSetImageContext.Provider value={setImage}>
+      <LightboxImageContext.Provider value={image}>
+        <DialogPrimitive.Root {...props} />
+      </LightboxImageContext.Provider>
+    </LightboxSetImageContext.Provider>
   );
 }
 
@@ -143,20 +159,22 @@ function LightboxImage({
   fullSrc,
   alt,
   className,
+  onClick,
   ...props
 }: Omit<ComponentProps<'img'>, 'src'> & {
   src: string;
   fullSrc?: string;
 }) {
-  const context = useContext(LightboxImageContext);
+  const setImage = useContext(LightboxSetImageContext);
+  const image = { src, fullSrc, alt };
 
   useEffect(() => {
-    context?.setImage({ src, fullSrc, alt });
+    setImage?.(image);
 
     return () => {
-      context?.setImage(null);
+      setImage?.((currentImage) => (isSameImage(currentImage, image) ? null : currentImage));
     };
-  }, [alt, context, fullSrc, src]);
+  }, [alt, fullSrc, setImage, src]);
 
   return (
     <LightboxTrigger
@@ -165,8 +183,15 @@ function LightboxImage({
           data-slot="lightbox-image"
           src={src}
           alt={alt}
-          className={className}
+          className={clsx(styles.trigger, className)}
           data-lightbox-src={fullSrc}
+          onClick={(event) => {
+            onClick?.(event);
+
+            if (!event.defaultPrevented) {
+              setImage?.(image);
+            }
+          }}
           {...props}
         />
       }
@@ -186,24 +211,19 @@ function LightboxContent({
   closeLabel?: string;
   closeOnContentClick?: boolean;
 }) {
-  const context = useContext(LightboxImageContext);
+  const image = useContext(LightboxImageContext);
   const contentChildren =
     children ??
-    (context?.image ? (
+    (image ? (
       <img
         data-slot="lightbox-content-image"
-        src={context.image.fullSrc ?? context.image.src}
-        alt={context.image.alt ?? ''}
+        src={image.fullSrc ?? image.src}
+        alt={image.alt ?? ''}
       />
     ) : null);
 
   const content = closeOnContentClick ? (
-    <LightboxClose
-      className={styles.contentClose}
-      aria-label={closeLabel}
-      nativeButton={false}
-      render={<div />}
-    >
+    <LightboxClose className={styles.contentClose} nativeButton={false} render={<div />}>
       {contentChildren}
     </LightboxClose>
   ) : (
@@ -249,18 +269,43 @@ function LightboxGallery({
       return;
     }
 
-    const handleClick = (event: MouseEvent) => {
-      const nextImage = getGalleryImage(event.target, selector);
+    const handleOpen = (target: EventTarget | null) => {
+      const nextImage = getGalleryImage(target, selector);
       if (!nextImage) {
-        return;
+        return false;
       }
 
       setImage(nextImage);
       setOpen(true);
+      return true;
+    };
+
+    const handleClick = (event: MouseEvent) => {
+      handleOpen(event.target);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.altKey ||
+        event.ctrlKey ||
+        event.metaKey ||
+        (event.key !== 'Enter' && event.key !== ' ')
+      ) {
+        return;
+      }
+
+      if (handleOpen(event.target)) {
+        event.preventDefault();
+      }
     };
 
     rootNode.addEventListener('click', handleClick);
-    return () => rootNode.removeEventListener('click', handleClick);
+    rootNode.addEventListener('keydown', handleKeyDown);
+    return () => {
+      rootNode.removeEventListener('click', handleClick);
+      rootNode.removeEventListener('keydown', handleKeyDown);
+    };
   }, [rootRef, rootSelector, selector]);
 
   return (

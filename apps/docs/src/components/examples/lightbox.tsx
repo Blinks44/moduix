@@ -110,9 +110,7 @@ export function LightboxExample() {
 export function TriggerLightboxExample() {
   return (
     <Lightbox>
-      <LightboxTrigger render={<button type="button" className={styles.triggerButton} />}>
-        Open image
-      </LightboxTrigger>
+      <LightboxTrigger className={styles.triggerButton}>Open image</LightboxTrigger>
       <LightboxContent>
         <img src={images.road} alt="Road through forest" className={styles.contentImage} />
       </LightboxContent>
@@ -126,26 +124,32 @@ export function DynamicLightboxGalleryExample() {
   return (
     <React.Fragment>
       <div ref={rootRef} className={styles.dynamicRoot}>
-        <img
-          src={images.mountainSmall}
-          data-lightbox-src={images.mountainLarge}
-          alt="Mountain landscape"
-          className={styles.dynamicImage}
-        />
-        <img
-          src={images.sea}
-          data-lightbox-src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90"
-          alt="Sea at sunset"
-          className={styles.dynamicImage}
-        />
-        <img
-          src={images.forest}
-          data-lightbox-src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90"
-          alt="Forest and mountain road"
-          className={styles.dynamicImage}
-        />
+        <button type="button" className={styles.dynamicItem}>
+          <img
+            src={images.mountainSmall}
+            data-lightbox-src={images.mountainLarge}
+            alt="Mountain landscape"
+            className={styles.dynamicImage}
+          />
+        </button>
+        <button type="button" className={styles.dynamicItem}>
+          <img
+            src={images.sea}
+            data-lightbox-src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90"
+            alt="Sea at sunset"
+            className={styles.dynamicImage}
+          />
+        </button>
+        <button type="button" className={styles.dynamicItem}>
+          <img
+            src={images.forest}
+            data-lightbox-src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90"
+            alt="Forest and mountain road"
+            className={styles.dynamicImage}
+          />
+        </button>
       </div>
-      <LightboxGallery rootRef={rootRef} />
+      <LightboxGallery rootRef={rootRef} selector="button" />
     </React.Fragment>
   );
 }
@@ -160,7 +164,7 @@ export function CustomizedLightboxExample() {
           <LightboxCloseButton className={styles.customClose} aria-label="Close preview" />
           <LightboxPopup className={styles.customPopup}>
             <LightboxFrame>
-              <LightboxClose aria-label="Close preview" nativeButton={false} render={<div />}>
+              <LightboxClose nativeButton={false} render={<div />}>
                 <img src={images.road} alt="Road through forest" className={styles.contentImage} />
               </LightboxClose>
             </LightboxFrame>

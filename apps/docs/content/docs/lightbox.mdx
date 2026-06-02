@@ -55,6 +55,10 @@ import {
 `LightboxContent` stays short by default: when `children` are omitted, it reuses the image data from
 `LightboxImage` and opens `fullSrc` if you provide one.
 
+Use this path for the common single-image preview flow. If the popup content contains controls,
+captions, or anything beyond the image itself, pass explicit `children` to `LightboxContent` or
+compose the low-level parts directly.
+
 ## Anatomy
 
 `LightboxContent` already renders the default `portal`, `backdrop`, `viewport`, `popup`, frame,
@@ -99,7 +103,8 @@ Use controlled state on `Lightbox` when outside UI needs to open or close the pr
 Use `LightboxTrigger` when the trigger is not an image.
 
 Use `LightboxGallery` when images come from CMS or HTML you do not compose manually. It reads
-`data-lightbox-src` first, then falls back to `currentSrc` or `src`.
+`data-lightbox-src` first, then falls back to `currentSrc` or `src`, and it can target a focusable
+wrapper with `selector` when the image is nested inside a button, card, or link-like control.
 
 `LightboxContent` keeps the default path small and supports the common image-preview workflow:
 
@@ -111,6 +116,21 @@ Use `LightboxGallery` when images come from CMS or HTML you do not compose manua
 | `LightboxContent` | `closeOnContentClick` | `true`        | `true`, `false`                                  |
 | `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for close controls              |
 | `LightboxGallery` | `selector`            | `img`         | Any selector supported by `Element.closest(...)` |
+
+When `closeOnContentClick` is enabled, clicking anywhere inside the content area closes the
+lightbox. Disable it for interactive children such as buttons, links, or media controls.
+
+## Styling
+
+Style the visual parts through `className`, `data-slot="lightbox-*"` hooks, and the documented
+`--lightbox-*` CSS variables in the CSS Properties panel.
+
+Most common hooks:
+
+- `LightboxImage` and `LightboxTrigger` for preview triggers.
+- `LightboxContent` `className` for the popup surface.
+- `LightboxBackdrop`, `LightboxViewport`, `LightboxPopup`, `LightboxFrame`, and
+  `LightboxCloseButton` for advanced composition.
 
 When the default wrapper is not enough, assemble the lower-level parts manually.
 
@@ -131,9 +151,7 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
       export function TriggerLightboxDemo() {
         return (
           <Lightbox>
-            <LightboxTrigger render={<button type="button" className={styles.triggerButton} />}>
-              Open image
-            </LightboxTrigger>
+            <LightboxTrigger className={styles.triggerButton}>Open image</LightboxTrigger>
             <LightboxContent>
               <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
             </LightboxContent>
@@ -175,26 +193,32 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
         return (
           <Fragment>
             <div ref={rootRef} className={styles.dynamicRoot}>
-              <img
-                src={images.mountain}
-                data-lightbox-src={images.mountainLarge}
-                alt="Mountain landscape"
-                className={styles.dynamicImage}
-              />
-              <img
-                src={images.sea}
-                data-lightbox-src={images.seaLarge}
-                alt="Sea at sunset"
-                className={styles.dynamicImage}
-              />
-              <img
-                src={images.forest}
-                data-lightbox-src={images.forestLarge}
-                alt="Forest and mountain road"
-                className={styles.dynamicImage}
-              />
+              <button type="button" className={styles.dynamicItem}>
+                <img
+                  src={images.mountain}
+                  data-lightbox-src={images.mountainLarge}
+                  alt="Mountain landscape"
+                  className={styles.dynamicImage}
+                />
+              </button>
+              <button type="button" className={styles.dynamicItem}>
+                <img
+                  src={images.sea}
+                  data-lightbox-src={images.seaLarge}
+                  alt="Sea at sunset"
+                  className={styles.dynamicImage}
+                />
+              </button>
+              <button type="button" className={styles.dynamicItem}>
+                <img
+                  src={images.forest}
+                  data-lightbox-src={images.forestLarge}
+                  alt="Forest and mountain road"
+                  className={styles.dynamicImage}
+                />
+              </button>
             </div>
-            <LightboxGallery rootRef={rootRef} />
+            <LightboxGallery rootRef={rootRef} selector="button" />
           </Fragment>
         );
       }
@@ -202,6 +226,9 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
 
   </Preview.Code>
 </Preview>
+
+Use a focusable wrapper when delegated gallery items must stay keyboard-accessible. `LightboxGallery`
+does not add `tabIndex` or button semantics to arbitrary CMS markup for you.
 
 ### Customized Surface
 
@@ -234,7 +261,7 @@ Customize popup size, backdrop tone, and close controls by composing the lower-l
                 <LightboxCloseButton className={styles.customClose} aria-label="Close preview" />
                 <LightboxPopup className={styles.customPopup}>
                   <LightboxFrame>
-                    <LightboxClose aria-label="Close preview" nativeButton={false} render={<div />}>
+                    <LightboxClose nativeButton={false} render={<div />}>
                       <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
                     </LightboxClose>
                   </LightboxFrame>
@@ -263,7 +290,7 @@ the image, or a fully custom close affordance.
       <LightboxCloseButton />
       <LightboxPopup className={styles.popup}>
         <LightboxFrame>
-          <LightboxClose aria-label="Close image" nativeButton={false} render={<div />}>
+          <LightboxClose nativeButton={false} render={<div />}>
             <img src={fullSize} alt="Preview image" />
           </LightboxClose>
         </LightboxFrame>

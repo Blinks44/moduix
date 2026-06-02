@@ -48,13 +48,7 @@ export const TriggerComposition: Story = {
   render: () => {
     return (
       <Lightbox>
-        <LightboxTrigger
-          render={
-            <button type="button" className={styles.triggerButton}>
-              Open image
-            </button>
-          }
-        />
+        <LightboxTrigger className={styles.triggerButton}>Open image</LightboxTrigger>
         <LightboxContent>
           <img
             src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=90"
@@ -84,7 +78,7 @@ export const CustomComposition: Story = {
             <LightboxCloseButton />
             <LightboxPopup className={styles.customPopup}>
               <LightboxFrame>
-                <LightboxClose aria-label="Close image" nativeButton={false} render={<div />}>
+                <LightboxClose nativeButton={false} render={<div />}>
                   <img
                     src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=90"
                     alt="Earth from space"
@@ -107,26 +101,32 @@ export const DynamicCapture: Story = {
     return (
       <React.Fragment>
         <div ref={rootRef} className={styles.galleryRoot}>
-          <img
-            src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=640&q=80"
-            data-lightbox-src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1800&q=90"
-            alt="Foggy mountain"
-            className={styles.galleryImage}
-          />
-          <img
-            src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=640&q=80"
-            data-lightbox-src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1800&q=90"
-            alt="Blue sea"
-            className={styles.galleryImage}
-          />
-          <img
-            src="https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=640&q=80"
-            data-lightbox-src="https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=1800&q=90"
-            alt="Road in forest"
-            className={styles.galleryImage}
-          />
+          <button type="button" className={styles.galleryItem}>
+            <img
+              src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=640&q=80"
+              data-lightbox-src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1800&q=90"
+              alt="Foggy mountain"
+              className={styles.galleryImage}
+            />
+          </button>
+          <button type="button" className={styles.galleryItem}>
+            <img
+              src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=640&q=80"
+              data-lightbox-src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1800&q=90"
+              alt="Blue sea"
+              className={styles.galleryImage}
+            />
+          </button>
+          <button type="button" className={styles.galleryItem}>
+            <img
+              src="https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=640&q=80"
+              data-lightbox-src="https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=1800&q=90"
+              alt="Road in forest"
+              className={styles.galleryImage}
+            />
+          </button>
         </div>
-        <LightboxGallery rootRef={rootRef} />
+        <LightboxGallery rootRef={rootRef} selector="button" />
       </React.Fragment>
     );
   },
