@@ -5,7 +5,7 @@ import { CheckIcon, ChevronDownIcon, ChevronRightIcon, PopupArrowIcon } from '@/
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Menu.module.css';
 
-type MenuPositionerProps = Pick<
+export type MenuPositionerProps = Pick<
   MenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -17,11 +17,17 @@ type MenuPositionerProps = Pick<
   | 'collisionPadding'
 >;
 
-type IndicatorPosition = 'start' | 'end';
-type MenuContentProps = MenuPrimitive.Popup.Props &
+export type MenuIndicatorPosition = 'start' | 'end';
+export type MenuContentProps = MenuPrimitive.Popup.Props &
   MenuPositionerProps & {
     showArrow?: boolean;
   };
+export type MenuRadioItemProps = MenuPrimitive.RadioItem.Props & {
+  indicator?: MenuIndicatorPosition;
+};
+export type MenuCheckboxItemProps = MenuPrimitive.CheckboxItem.Props & {
+  indicator?: MenuIndicatorPosition;
+};
 
 const MENU_CONTENT_SIDE_OFFSET = 8;
 const Menu = MenuPrimitive.Root;
@@ -230,13 +236,7 @@ function MenuRadioGroup({ className, ...props }: MenuPrimitive.RadioGroup.Props)
   );
 }
 
-function MenuRadioItem({
-  className,
-  indicator,
-  ...props
-}: MenuPrimitive.RadioItem.Props & {
-  indicator?: IndicatorPosition;
-}) {
+function MenuRadioItem({ className, indicator, ...props }: MenuRadioItemProps) {
   return (
     <MenuPrimitive.RadioItem
       data-slot="menu-radio-item"
@@ -263,13 +263,7 @@ function MenuRadioItemIndicator({
   );
 }
 
-function MenuCheckboxItem({
-  className,
-  indicator,
-  ...props
-}: MenuPrimitive.CheckboxItem.Props & {
-  indicator?: IndicatorPosition;
-}) {
+function MenuCheckboxItem({ className, indicator, ...props }: MenuCheckboxItemProps) {
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="menu-checkbox-item"
