@@ -54,11 +54,15 @@
     inset: 0;
     min-height: 100dvh;
     background-color: var(--dialog-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
-    transition: opacity var(--dialog-backdrop-transition, var(--transition-default));
+    backdrop-filter: var(--backdrop-filter, blur(var(--dialog-backdrop-blur, 4px)));
+    transition:
+      opacity var(--dialog-backdrop-transition, var(--transition-default)),
+      backdrop-filter var(--dialog-backdrop-transition, var(--transition-default));
 
     &[data-starting-style],
     &[data-ending-style] {
       opacity: 0;
+      backdrop-filter: none;
     }
 
     &[data-nested] {

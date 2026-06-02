@@ -253,6 +253,7 @@ Public CSS variables from `theme.css`:
 | CSS variable                      | Default                                    |
 | --------------------------------- | ------------------------------------------ |
 | `--lightbox-backdrop-bg`          | `var(--backdrop-bg, var(--color-overlay))` |
+| `--lightbox-backdrop-blur`        | `4px`                                      |
 | `--lightbox-backdrop-transition`  | `var(--transition-default)`                |
 | `--lightbox-close-bg`             | `var(--color-background)`                  |
 | `--lightbox-close-bg-hover`       | `var(--color-muted)`                       |

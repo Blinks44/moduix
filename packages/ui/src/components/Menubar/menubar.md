@@ -363,7 +363,7 @@ All built-in styling hooks are scoped under `--menubar-*`.
 | `--menubar-arrow-stroke-color`  | `var(--menubar-popup-border-color)`        |
 | `--menubar-arrow-width`         | `1.25rem`                                  |
 | `--menubar-backdrop-bg`         | `var(--backdrop-bg, var(--color-overlay))` |
-| `--menubar-backdrop-blur`       | `2px`                                      |
+| `--menubar-backdrop-blur`       | `4px`                                      |
 | `--menubar-backdrop-transition` | `var(--transition-default)`                |
 | `--menubar-popup-bg`            | `var(--color-popover)`                     |
 | `--menubar-popup-border-color`  | `var(--color-border)`                      |

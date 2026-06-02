@@ -32,6 +32,7 @@ import styles from './drawer.module.css';
 
 export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Backdrop background.'],
+  ['--drawer-backdrop-blur', '4px', 'Backdrop blur amount.'],
   ['--drawer-backdrop-pointer-events', 'auto', 'Backdrop pointer-events behavior.'],
   ['--drawer-backdrop-transition', '450ms cubic-bezier(0.32, 0.72, 0, 1)', 'Backdrop transition.'],
   ['--drawer-bg', 'var(--color-popover)', 'Popup background color.'],
@@ -117,6 +118,7 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
 
 export const drawerPlaygroundCssProperties: CssPropertyInput[] = [
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
+  ['--drawer-backdrop-blur', '4px', 'Controls backdrop blur.'],
   ['--drawer-bg', 'var(--color-popover)', 'Controls popup background.'],
   ['--drawer-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--drawer-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],

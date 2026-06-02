@@ -35,8 +35,12 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-arrow-size', '0.5rem', 'Controls the block-axis arrow offset.'],
   ['--popover-arrow-stroke-color', 'var(--popover-border-color)', 'Controls arrow border color.'],
   ['--popover-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
-  ['--popover-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop background.'],
-  ['--popover-backdrop-blur', '0', 'Controls backdrop blur.'],
+  [
+    '--popover-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls backdrop background.',
+  ],
+  ['--popover-backdrop-blur', '4px', 'Controls backdrop blur.'],
   [
     '--popover-backdrop-transition',
     'var(--transition-default)',
@@ -113,7 +117,11 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-width', 'auto', 'Controls the popup width.'],
 ];
 export const popoverPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--popover-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop background.'],
+  [
+    '--popover-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls backdrop background.',
+  ],
   ['--popover-bg', 'var(--color-popover)', 'Controls popup background color.'],
   ['--popover-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--popover-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],

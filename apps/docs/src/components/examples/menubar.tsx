@@ -45,8 +45,12 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
     'Controls arrow stroke color.',
   ],
   ['--menubar-arrow-width', '1.25rem', 'Controls popup arrow width.'],
-  ['--menubar-backdrop-bg', 'var(--color-overlay)', 'Controls optional backdrop background.'],
-  ['--menubar-backdrop-blur', '2px', 'Controls optional backdrop blur.'],
+  [
+    '--menubar-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls optional backdrop background.',
+  ],
+  ['--menubar-backdrop-blur', '4px', 'Controls optional backdrop blur.'],
   [
     '--menubar-backdrop-transition',
     'var(--transition-default)',

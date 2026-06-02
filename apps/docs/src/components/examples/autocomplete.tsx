@@ -149,7 +149,7 @@ export const autocompleteOverrideCssProperties: CssPropertyInput[] = [
     'var(--backdrop-bg, var(--color-overlay))',
     'Controls optional backdrop color.',
   ],
-  ['--autocomplete-backdrop-blur', '2px', 'Controls optional backdrop blur.'],
+  ['--autocomplete-backdrop-blur', '4px', 'Controls optional backdrop blur.'],
   [
     '--autocomplete-backdrop-transition',
     'var(--transition-default)',

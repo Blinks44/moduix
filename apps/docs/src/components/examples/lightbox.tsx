@@ -30,6 +30,7 @@ const images = {
 
 export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop fill.'],
+  ['--lightbox-backdrop-blur', '4px', 'Controls backdrop blur.'],
   ['--lightbox-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
   ['--lightbox-close-bg', 'var(--color-background)', 'Controls close button background.'],
   ['--lightbox-close-bg-hover', 'var(--color-muted)', 'Controls close button hover background.'],
@@ -58,6 +59,7 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
 
 export const lightboxPlaygroundCssProperties: CssPropertyInput[] = [
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop fill.'],
+  ['--lightbox-backdrop-blur', '4px', 'Controls backdrop blur.'],
   ['--lightbox-close-bg', 'var(--color-background)', 'Controls close button background.'],
   ['--lightbox-height', '80dvh', 'Controls popup height.'],
   ['--lightbox-image-radius', 'var(--radius-md)', 'Controls image corner radius.'],

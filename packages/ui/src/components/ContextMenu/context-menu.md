@@ -305,8 +305,8 @@ All built-in styling hooks are scoped under `--context-menu-*`.
 
 | Variable                             | Default                                                       |
 | ------------------------------------ | ------------------------------------------------------------- |
-| `--context-menu-backdrop-bg`         | `var(--backdrop-bg, transparent)`                             |
-| `--context-menu-backdrop-blur`       | `0`                                                           |
+| `--context-menu-backdrop-bg`         | `var(--backdrop-bg, var(--color-overlay))`                    |
+| `--context-menu-backdrop-blur`       | `4px`                                                         |
 | `--context-menu-backdrop-transition` | `var(--context-menu-transition)`                              |
 | `--context-menu-arrow-inline-offset` | `0.8125rem`                                                   |
 | `--context-menu-arrow-size`          | `0.5rem`                                                      |

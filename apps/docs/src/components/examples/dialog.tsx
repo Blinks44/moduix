@@ -25,6 +25,7 @@ import styles from './dialog.module.css';
 
 export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop color.'],
+  ['--dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
   ['--dialog-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
   ['--dialog-bg', 'var(--color-popover)', 'Controls popup background color.'],
   ['--dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
@@ -109,6 +110,7 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
 ];
 export const dialogPlaygroundCssProperties: CssPropertyInput[] = [
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
+  ['--dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
   ['--dialog-bg', 'var(--color-popover)', 'Controls popup background color.'],
   ['--dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],

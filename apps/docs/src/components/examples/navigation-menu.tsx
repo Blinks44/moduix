@@ -36,8 +36,12 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
     'Controls popup arrow movement duration.',
   ],
   ['--navigation-menu-arrow-width', '1.25rem', 'Controls popup arrow width.'],
-  ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
-  ['--navigation-menu-backdrop-blur', '0', 'Controls backdrop blur when backdrop is enabled.'],
+  [
+    '--navigation-menu-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls backdrop color.',
+  ],
+  ['--navigation-menu-backdrop-blur', '4px', 'Controls backdrop blur.'],
   [
     '--navigation-menu-backdrop-transition',
     'var(--navigation-menu-transition, var(--transition-default))',

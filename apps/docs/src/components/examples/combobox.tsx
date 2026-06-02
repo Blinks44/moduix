@@ -161,7 +161,7 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
     'var(--backdrop-bg, var(--color-overlay))',
     'Default: var(--backdrop-bg, var(--color-overlay)).',
   ],
-  ['--combobox-backdrop-blur', '2px', 'Default: 2px.'],
+  ['--combobox-backdrop-blur', '4px', 'Default: 4px.'],
   [
     '--combobox-backdrop-transition',
     'var(--transition-default)',

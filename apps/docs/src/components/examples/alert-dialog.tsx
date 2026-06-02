@@ -41,6 +41,7 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
     'var(--backdrop-bg, var(--color-overlay))',
     'Controls backdrop background.',
   ],
+  ['--alert-dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
   [
     '--alert-dialog-backdrop-transition',
     'var(--transition-default)',
@@ -134,6 +135,7 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
 
 export const alertDialogPlaygroundCssProperties: CssPropertyInput[] = [
   ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
+  ['--alert-dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
   ['--alert-dialog-bg', 'var(--color-popover)', 'Controls the popup background color.'],
   ['--alert-dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],

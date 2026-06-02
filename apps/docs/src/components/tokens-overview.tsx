@@ -370,17 +370,18 @@ const zIndexTokens = [
 
 const sharedBackdropTokens = [
   ['--backdrop-bg', 'var(--color-overlay)', 'Global backdrop color fallback'],
+  ['--backdrop-filter', 'blur(4px)', 'Global backdrop filter fallback'],
   ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'AlertDialog'],
   ['--autocomplete-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Autocomplete'],
   ['--combobox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Combobox'],
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Dialog'],
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Drawer'],
   ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Select'],
-  ['--menu-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Menu'],
-  ['--menubar-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Menubar'],
-  ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, transparent)', 'NavigationMenu'],
-  ['--popover-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Popover'],
-  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, transparent)', 'PreviewCard'],
+  ['--menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menu'],
+  ['--menubar-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menubar'],
+  ['--navigation-menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'NavigationMenu'],
+  ['--popover-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Popover'],
+  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'PreviewCard'],
 ];
 
 const sharedPopupTokens = [
@@ -449,8 +450,8 @@ export function TokensOverview() {
           />
           <TokenCallout
             title="Shared fallbacks"
-            code="--dialog-backdrop-bg -> --backdrop-bg -> --color-overlay"
-            body="Global decisions stay global, and component-level variables can still opt out."
+            code="--dialog-backdrop-bg -> --backdrop-bg / --backdrop-filter"
+            body="Global backdrop color and blur stay centralized, and component-level variables can still opt out."
           />
           <TokenCallout
             title="Scoped themes"
@@ -602,7 +603,7 @@ export function TokensOverview() {
             <div className={styles.backdropLayer} />
             <div className={styles.backdropDialog}>
               <strong>Layered UI</strong>
-              <span>--backdrop-bg</span>
+              <span>--backdrop-bg + --backdrop-filter</span>
             </div>
           </div>
           <TokenList title="Backdrop variables" tokens={sharedBackdropTokens} />

@@ -29,7 +29,7 @@
 
   .customBackdrop {
     --autocomplete-backdrop-bg: var(--color-overlay);
-    --autocomplete-backdrop-blur: 2px;
+    --autocomplete-backdrop-blur: 4px;
   }
 
   .customArrow {

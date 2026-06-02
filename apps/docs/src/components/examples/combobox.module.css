@@ -79,7 +79,7 @@
 
 .backdrop {
   --combobox-backdrop-bg: var(--color-overlay);
-  --combobox-backdrop-blur: 2px;
+  --combobox-backdrop-blur: 4px;
 }
 
 .arrow {

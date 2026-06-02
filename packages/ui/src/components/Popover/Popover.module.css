@@ -65,8 +65,8 @@
     z-index: var(--z-backdrop);
     inset: 0;
     min-height: 100dvh;
-    background-color: var(--popover-backdrop-bg, var(--backdrop-bg, transparent));
-    backdrop-filter: blur(var(--popover-backdrop-blur, 0));
+    background-color: var(--popover-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
+    backdrop-filter: var(--backdrop-filter, blur(var(--popover-backdrop-blur, 4px)));
     transition:
       opacity var(--popover-backdrop-transition, var(--transition-default)),
       backdrop-filter var(--popover-backdrop-transition, var(--transition-default));
@@ -74,7 +74,7 @@
     &[data-starting-style],
     &[data-ending-style] {
       opacity: 0;
-      backdrop-filter: blur(0);
+      backdrop-filter: none;
     }
   }
 

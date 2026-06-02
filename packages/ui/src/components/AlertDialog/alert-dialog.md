@@ -407,6 +407,7 @@ The component has no `variant`, `size`, or `tone` prop. Customize the provided C
 | `--alert-dialog-transition`              | `var(--transition-default)`                                  | Popup opacity/scale transition   |
 | `--alert-dialog-scale`                   | `var(--scale-popup)`                                         | Enter/exit scale                 |
 | `--alert-dialog-backdrop-bg`             | `var(--backdrop-bg, var(--color-overlay))`                   | Backdrop background              |
+| `--alert-dialog-backdrop-blur`           | `4px`                                                        | Backdrop blur                    |
 | `--alert-dialog-backdrop-transition`     | `var(--transition-default)`                                  | Backdrop transition              |
 | `--alert-dialog-viewport-padding`        | `var(--spacing-4)`                                           | Viewport padding                 |
 | `--alert-dialog-header-gap`              | `var(--spacing-1)`                                           | Header gap                       |

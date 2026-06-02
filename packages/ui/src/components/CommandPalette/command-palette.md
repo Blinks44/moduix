@@ -437,11 +437,11 @@ ancestor.
 
 #### Backdrop
 
-| Variable                                | Default                                   |
-| --------------------------------------- | ----------------------------------------- |
-| `--command-palette-backdrop-bg`         | `var(--backdrop-bg, rgb(8 12 20 / 0.42))` |
-| `--command-palette-backdrop-blur`       | `8px`                                     |
-| `--command-palette-backdrop-transition` | `var(--transition-default)`               |
+| Variable                                | Default                                    |
+| --------------------------------------- | ------------------------------------------ |
+| `--command-palette-backdrop-bg`         | `var(--backdrop-bg, var(--color-overlay))` |
+| `--command-palette-backdrop-blur`       | `4px`                                      |
+| `--command-palette-backdrop-transition` | `var(--transition-default)`                |
 
 #### Viewport
 

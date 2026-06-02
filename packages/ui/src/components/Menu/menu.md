@@ -363,7 +363,7 @@ All built-in styling hooks are scoped under `--menu-*`.
 | Variable                     | Default                                               |
 | ---------------------------- | ----------------------------------------------------- |
 | `--menu-backdrop-bg`         | `var(--backdrop-bg, var(--color-overlay))`            |
-| `--menu-backdrop-blur`       | `2px`                                                 |
+| `--menu-backdrop-blur`       | `4px`                                                 |
 | `--menu-backdrop-transition` | `var(--transition-default)`                           |
 | `--menu-popup-bg`            | `var(--color-popover)`                                |
 | `--menu-popup-border-color`  | `var(--color-border)`                                 |

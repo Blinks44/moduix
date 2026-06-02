@@ -577,6 +577,7 @@ The component has no `variant`, `size`, or `tone` prop. Customize via CSS variab
 | `--dialog-transition`                  | `var(--transition-default)`                                  | Popup opacity/scale/translate transition         |
 | `--dialog-scale`                       | `var(--scale-popup)`                                         | Enter/exit scale factor                          |
 | `--dialog-backdrop-bg`                 | `var(--backdrop-bg, var(--color-overlay))`                   | Backdrop background                              |
+| `--dialog-backdrop-blur`               | `4px`                                                        | Backdrop blur                                    |
 | `--dialog-backdrop-transition`         | `var(--transition-default)`                                  | Backdrop fade transition                         |
 | `--dialog-viewport-padding`            | `var(--spacing-4)`                                           | Viewport padding                                 |
 | `--dialog-header-gap`                  | `var(--spacing-1)`                                           | Header item gap                                  |
