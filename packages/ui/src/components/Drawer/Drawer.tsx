@@ -1,9 +1,11 @@
 import { Drawer as DrawerPrimitive } from '@base-ui/react/drawer';
 import { clsx } from 'clsx';
 import { createContext, useContext, useEffect, useState, type ComponentProps } from 'react';
+import { CloseButton } from '@/components/CloseButton';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Drawer.module.css';
 
+const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
 const DrawerModeContext = createContext<DrawerPrimitive.Root.Props['modal']>(true);
 
 function useMountReady(disableInitialAnimation: boolean) {
@@ -161,6 +163,23 @@ function DrawerClose({ className, ...props }: DrawerPrimitive.Close.Props) {
   );
 }
 
+function DrawerCloseIcon({
+  className,
+  children,
+  'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL,
+  render,
+  ...props
+}: DrawerPrimitive.Close.Props) {
+  return (
+    <DrawerPrimitive.Close
+      data-slot="drawer-close-icon"
+      render={render ?? <CloseButton aria-label={ariaLabel}>{children}</CloseButton>}
+      className={mergeClassName(className, styles.closeIcon)}
+      {...props}
+    />
+  );
+}
+
 function DrawerHeader({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="drawer-header" className={clsx(styles.header, className)} {...props} />;
 }
@@ -230,6 +249,7 @@ export {
   DrawerTitle,
   DrawerDescription,
   DrawerClose,
+  DrawerCloseIcon,
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
