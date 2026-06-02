@@ -7,6 +7,7 @@ Local project skills used by agents in this repository.
 - `.agents/skills/engineering-principles/SKILL.md` - mandatory baseline engineering behavior for all coding tasks
 - `.agents/skills/rtk-command-proxy/SKILL.md` - mandatory shell-command baseline that requires the `rtk` prefix immediately after `engineering-principles`
 - `.agents/skills/js-react-conventions/SKILL.md` - JS/TS React conventions with a simplicity-first bias and minimal type surface
+- `.agents/skills/tanstack-intent/SKILL.md` - TanStack Intent workflow for loading version-matched TanStack Start/Router skills used by `apps/docs`
 - `.agents/skills/upstream-library-docs/SKILL.md` - online upstream Base UI and shadcn reference routing for agents
 - `.agents/skills/ui-component-workflow/SKILL.md` - Base UI component workflow focused on shadcn-like thin wrappers, simple defaults, and composable escape hatches
 - `.agents/skills/local-component-docs/SKILL.md` - local component documentation contracts for `moduix` wrappers, including upstream Base UI markdown links and component-level changelog guidance

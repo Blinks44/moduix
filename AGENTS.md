@@ -1,3 +1,15 @@
+<!-- intent-skills:start -->
+
+## Skill Loading
+
+Before substantial work:
+
+- Skill check: run `npx @tanstack/intent@latest list`, or use skills already listed in context.
+- Skill guidance: if one local skill clearly matches the task, run `npx @tanstack/intent@latest load <package>#<skill>` and follow the returned `SKILL.md`.
+- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.
+- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
+<!-- intent-skills:end -->
+
 # moduix-monorepo
 
 Monorepo for the UI component library and documentation.
@@ -10,6 +22,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - If `rtk` is installed and available in `PATH`, immediately after that apply `.agents/skills/rtk-command-proxy/SKILL.md` (mandatory baseline for shell commands).
 - If `rtk` is not installed, skip `rtk-command-proxy` and run shell commands directly.
 - For JS/TS coding tasks, apply `.agents/skills/js-react-conventions/SKILL.md`.
+- For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
 - For upstream Base UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
 - Component work in `packages/ui` (new component, API/style updates, Storybook) -> `.agents/skills/ui-component-workflow/SKILL.md`
 - Local component markdown in `packages/ui/src/components` -> `.agents/skills/local-component-docs/SKILL.md`
