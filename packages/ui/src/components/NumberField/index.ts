@@ -8,3 +8,4 @@ export {
   NumberFieldInput,
   NumberFieldIncrement,
 } from './NumberField';
+export type { NumberFieldProps } from './NumberField';

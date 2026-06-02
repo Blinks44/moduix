@@ -6,6 +6,11 @@ import styles from './NumberField.module.css';
 const DEFAULT_DECREMENT_LABEL = 'Decrease value';
 const DEFAULT_INCREMENT_LABEL = 'Increase value';
 
+type NumberFieldProps = NumberFieldPrimitive.Root.Props & {
+  decrementLabel?: string;
+  incrementLabel?: string;
+};
+
 function NumberFieldRoot({ className, ...props }: NumberFieldPrimitive.Root.Props) {
   return (
     <NumberFieldPrimitive.Root
@@ -22,10 +27,7 @@ function NumberField({
   decrementLabel = DEFAULT_DECREMENT_LABEL,
   incrementLabel = DEFAULT_INCREMENT_LABEL,
   ...props
-}: NumberFieldPrimitive.Root.Props & {
-  decrementLabel?: string;
-  incrementLabel?: string;
-}) {
+}: NumberFieldProps) {
   return (
     <NumberFieldRoot className={className} {...props}>
       {children}
@@ -130,3 +132,4 @@ export {
   NumberFieldInput,
   NumberFieldIncrement,
 };
+export type { NumberFieldProps };
