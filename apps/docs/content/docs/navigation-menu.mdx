@@ -22,9 +22,11 @@ import {
 
 ## Overview
 
-`NavigationMenu` keeps the visible API short, but this primitive still needs a separate popup
-viewport behind the scenes. The default root renders that infrastructure for you, so the common
-path only needs list, item, trigger, content, and link parts.
+`NavigationMenu` keeps the common path short: the root renders the shared popup infrastructure for
+you, so the default composition is just list, item, trigger, content, and direct links.
+
+Use the low-level popup parts only when you need to own the structure yourself, such as a full-width
+panel, a visual backdrop, or an inline nested viewport.
 
 ## Basic
 
@@ -49,14 +51,48 @@ path only needs list, item, trigger, content, and link parts.
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Product</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className={styles.contentGrid}>{/* links */}</ul>
+                  <ul className={styles.contentGrid}>
+                    <li>
+                      <a href="#" className={styles.linkCard}>
+                        <p className={styles.title}>Quick Start</p>
+                        <p className={styles.description}>
+                          Install the package and assemble your first navigation.
+                        </p>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className={styles.linkCard}>
+                        <p className={styles.title}>Composition</p>
+                        <p className={styles.description}>
+                          Use slots and className to match your application layout.
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Guides</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className={styles.contentList}>{/* links */}</ul>
+                  <ul className={styles.contentList}>
+                    <li>
+                      <a href="#" className={styles.linkCard}>
+                        <p className={styles.title}>Accessibility handbook</p>
+                        <p className={styles.description}>
+                          Take a practical pass over focus order and keyboard support.
+                        </p>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className={styles.linkCard}>
+                        <p className={styles.title}>Composition handbook</p>
+                        <p className={styles.description}>
+                          Learn when to wrap parts and expose flexible APIs.
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
@@ -83,7 +119,7 @@ path only needs list, item, trigger, content, and link parts.
 
 ## Anatomy
 
-The recommended structure stays close to shadcn-style composition:
+The recommended structure stays close to a composition-first API:
 
 ```text
 NavigationMenu
@@ -105,32 +141,32 @@ NavigationMenuPortal
       └─ NavigationMenuViewport
 ```
 
-Those low-level parts stay available when you need a backdrop, a full-width popup, or an inline
-viewport.
-
 ## Composition
 
 `NavigationMenu` forwards Base UI root props such as `value`, `defaultValue`, `onValueChange`,
 `delay`, `closeDelay`, `orientation`, `actionsRef`, `render`, `className`, and `style`.
 
-The root also keeps a narrow popup contract for the built-in viewport composition:
+The root also adds a narrow popup contract for the built-in viewport composition:
 
 | Prop                                                                                                                                                                         | Default                             | Purpose                                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `showPopup`                                                                                                                                                                  | `true`                              | Disables the built-in popup composition so you can assemble `Portal`, `Positioner`, `Popup`, `Arrow`, and `Viewport` manually. |
 | `showArrow`                                                                                                                                                                  | `false`                             | Turns on the built-in popup arrow.                                                                                             |
 | `sideOffset`                                                                                                                                                                 | `10`                                | Default offset for the built-in `Positioner`.                                                                                  |
-| `side`, `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`, `disableAnchorTracking` | Base UI defaults unless noted above | Forwarded to the built-in `Positioner`.                                                                                        |
+| `side`, `align`, `alignOffset`, `arrowPadding`, `anchor`, `collisionAvoidance`, `collisionBoundary`, `collisionPadding`, `sticky`, `positionMethod`, `disableAnchorTracking` | Base UI defaults unless noted above | Forwarded to the built-in `Positioner` when `showPopup` stays enabled.                                                         |
 
 `NavigationMenuTrigger` keeps one small DX shortcut:
 
-| Prop   | Default                | Purpose                                                      |
-| ------ | ---------------------- | ------------------------------------------------------------ |
-| `icon` | `ChevronDownSmallIcon` | Replaces the default trigger icon. Pass `null` to remove it. |
+| Prop     | Default             | Purpose                                                                                                                    |
+| -------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `icon`   | built-in chevron    | Replaces the default trigger icon. Pass `null` or `false` to remove it.                                                    |
+| `render` | Base UI passthrough | Lets you own the trigger element. moduix skips the default trigger class, but `icon` still applies unless you suppress it. |
 
-When the default path is enough, style `NavigationMenu`, `NavigationMenuTrigger`,
-`NavigationMenuContent`, and `NavigationMenuLink`. Switch to explicit parts only when structure or
-popup behavior needs to change.
+Two important advanced-path details:
+
+1. If you set `showPopup={false}`, render `NavigationMenuViewport` somewhere in the tree yourself or
+   the active content will not appear.
+2. `NavigationMenuBackdrop` is visual-only by default; the moduix class uses `pointer-events: none`.
 
 ## Examples
 
@@ -141,18 +177,117 @@ popup.
 
 <Preview>
   <NestedNavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ChevronRightIcon,
+        NavigationMenu,
+        NavigationMenuContent,
+        NavigationMenuIcon,
+        NavigationMenuItem,
+        NavigationMenuLink,
+        NavigationMenuList,
+        NavigationMenuTrigger,
+      } from "moduix";
+
+      export function NestedNavigationMenuDemo() {
+        return (
+          <NavigationMenu collisionAvoidance={{ side: "none" }}>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className={styles.contentList}>
+                    <li>
+                      <a href="#" className={styles.linkCard}>
+                        <p className={styles.title}>Quick Start</p>
+                        <p className={styles.description}>
+                          Install and assemble your first screen.
+                        </p>
+                      </a>
+                    </li>
+
+                    <li className={styles.fullWidth}>
+                      <NavigationMenu
+                        className={styles.nestedRoot}
+                        orientation="vertical"
+                        side="right"
+                        align="end"
+                        sideOffset={24}
+                        alignOffset={-24}
+                      >
+                        <NavigationMenuList className={styles.fullWidth}>
+                          <NavigationMenuItem className={styles.fullWidth}>
+                            <NavigationMenuTrigger className={styles.nestedTrigger} icon={null}>
+                              <span className={styles.title}>Handbook</span>
+                              <span className={styles.description}>
+                                Styling and composition guides.
+                              </span>
+                              <NavigationMenuIcon className={styles.nestedIcon}>
+                                <ChevronRightIcon />
+                              </NavigationMenuIcon>
+                            </NavigationMenuTrigger>
+
+                            <NavigationMenuContent>
+                              <ul className={styles.contentList}>
+                                <li>
+                                  <a href="#" className={styles.linkCard}>
+                                    <p className={styles.title}>Accessibility handbook</p>
+                                    <p className={styles.description}>
+                                      Take a practical pass over focus order and keyboard support.
+                                    </p>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#" className={styles.linkCard}>
+                                    <p className={styles.title}>Composition handbook</p>
+                                    <p className={styles.description}>
+                                      Learn when to wrap parts and expose flexible APIs.
+                                    </p>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#" className={styles.linkCard}>
+                                    <p className={styles.title}>Styling handbook</p>
+                                    <p className={styles.description}>
+                                      Apply tokens and state styles without fighting markup.
+                                    </p>
+                                  </a>
+                                </li>
+                              </ul>
+                            </NavigationMenuContent>
+                          </NavigationMenuItem>
+                        </NavigationMenuList>
+                      </NavigationMenu>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#">GitHub</NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>
 
 ### Nested Inline Submenu
 
-When second-level content should stay inside the current panel, disable the built-in popup and
-render `NavigationMenuViewport` inline.
+When second-level content should stay inside the current panel, disable the built-in popup on the
+nested menu and render `NavigationMenuViewport` inline.
 
 <Preview>
   <NestedInlineNavigationMenuExample />
 
   <Preview.Code>
     {`
+      import { useMediaQuery } from "@base-ui/react/unstable-use-media-query";
       import {
         NavigationMenu,
         NavigationMenuContent,
@@ -163,20 +298,51 @@ render `NavigationMenuViewport` inline.
       } from "moduix";
 
       export function InlineNavigationMenuDemo() {
+        const isDesktop = useMediaQuery("(min-width: 700px)", { defaultMatches: true });
+
         return (
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Product</NavigationMenuTrigger>
-                <NavigationMenuContent>
+                <NavigationMenuContent className={styles.inlineProductContent}>
                   <NavigationMenu
+                    className={styles.inlineNestedRoot}
+                    orientation={isDesktop ? "vertical" : "horizontal"}
                     defaultValue="developers"
-                    orientation="vertical"
                     showPopup={false}
                   >
-                    <NavigationMenuList>{/* nested items */}</NavigationMenuList>
+                    <NavigationMenuList className={styles.inlineList}>
+                      <NavigationMenuItem value="developers">
+                        <NavigationMenuTrigger className={styles.inlineTrigger} icon={null}>
+                          <span className={styles.title}>Developers</span>
+                          <span className={styles.description}>API, SDK and integrations</span>
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent className={styles.inlineSubmenuContent}>
+                          {/* panel content */}
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+
+                      <NavigationMenuItem value="systems">
+                        <NavigationMenuTrigger className={styles.inlineTrigger} icon={null}>
+                          <span className={styles.title}>Design Systems</span>
+                          <span className={styles.description}>Patterns and governance</span>
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent className={styles.inlineSubmenuContent}>
+                          {/* panel content */}
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                    </NavigationMenuList>
+
                     <NavigationMenuViewport className={styles.inlineViewport} />
                   </NavigationMenu>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Learn</NavigationMenuTrigger>
+                <NavigationMenuContent className={styles.inlineGuidesContent}>
+                  {/* guide panel */}
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -194,6 +360,84 @@ The same low-level path covers viewport-width popups without adding another root
 
 <Preview>
   <FullWidthNavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        NavigationMenu,
+        NavigationMenuContent,
+        NavigationMenuItem,
+        NavigationMenuLink,
+        NavigationMenuList,
+        NavigationMenuPopup,
+        NavigationMenuPortal,
+        NavigationMenuPositioner,
+        NavigationMenuTrigger,
+        NavigationMenuViewport,
+      } from "moduix";
+
+      export function FullWidthNavigationMenuDemo() {
+        return (
+          <header className={styles.fullWidthHeader}>
+            <div className={styles.fullWidthContainer}>
+              <NavigationMenu className={styles.fullWidthMenu} showPopup={false}>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
+                    <NavigationMenuContent className={styles.fullWidthContent}>
+                      <div className={styles.fullWidthInner}>
+                        <ul className={\`\${styles.fullWidthGrid} \${styles.fullWidthCols2}\`}>
+                          {/* platform links */}
+                        </ul>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Developers</NavigationMenuTrigger>
+                    <NavigationMenuContent className={styles.fullWidthContent}>
+                      <div className={styles.fullWidthInner}>
+                        <ul className={\`\${styles.fullWidthGrid} \${styles.fullWidthCols3}\`}>
+                          {/* developer links */}
+                        </ul>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Design System</NavigationMenuTrigger>
+                    <NavigationMenuContent className={styles.fullWidthContent}>
+                      <div className={styles.fullWidthInner}>
+                        <ul className={\`\${styles.fullWidthGrid} \${styles.fullWidthCols4}\`}>
+                          {/* design system links */}
+                        </ul>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuLink href="#">Pricing</NavigationMenuLink>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+
+                <NavigationMenuPortal>
+                  <NavigationMenuPositioner
+                    className={styles.fullWidthPositioner}
+                    sideOffset={12}
+                  >
+                    <NavigationMenuPopup className={styles.fullWidthPopup}>
+                      <NavigationMenuViewport />
+                    </NavigationMenuPopup>
+                  </NavigationMenuPositioner>
+                </NavigationMenuPortal>
+              </NavigationMenu>
+            </div>
+          </header>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>
 
 ### Trigger Icons
@@ -203,6 +447,40 @@ built-in chevron.
 
 <Preview>
   <CustomIconNavigationMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ChevronDownIcon,
+        NavigationMenu,
+        NavigationMenuContent,
+        NavigationMenuItem,
+        NavigationMenuList,
+        NavigationMenuTrigger,
+      } from "moduix";
+
+      export function TriggerIconsNavigationMenuDemo() {
+        return (
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger icon={<ChevronDownIcon className={styles.customIcon} />}>
+                  Resources
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>{/* guide links */}</NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger icon={null}>Text-only</NavigationMenuTrigger>
+                <NavigationMenuContent>{/* plain trigger content */}</NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
 </Preview>
 
 ## Custom Composition
@@ -230,20 +508,47 @@ Set `showPopup={false}` when you need to own the popup structure directly.
 
       export function CustomNavigationMenuDemo() {
         return (
-          <NavigationMenu showPopup={false}>
+          <NavigationMenu className={styles.customRoot} showPopup={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                <NavigationMenuContent>{/* content */}</NavigationMenuContent>
+                <NavigationMenuContent>
+                  <ul className={styles.contentList}>
+                    <li>
+                      <a href="#" className={styles.linkCard}>
+                        <p className={styles.title}>Accessibility handbook</p>
+                        <p className={styles.description}>
+                          Take a practical pass over focus order and keyboard support.
+                        </p>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className={styles.linkCard}>
+                        <p className={styles.title}>Composition handbook</p>
+                        <p className={styles.description}>
+                          Learn when to wrap parts and expose flexible APIs.
+                        </p>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className={styles.linkCard}>
+                        <p className={styles.title}>Styling handbook</p>
+                        <p className={styles.description}>
+                          Apply tokens and state styles without fighting markup.
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
 
-            <NavigationMenuPortal>
-              <NavigationMenuBackdrop />
-              <NavigationMenuPositioner sideOffset={16}>
+            <NavigationMenuPortal className={styles.portal}>
+              <NavigationMenuBackdrop className={styles.backdrop} />
+              <NavigationMenuPositioner className={styles.positioner} sideOffset={16}>
                 <NavigationMenuPopup>
-                  <NavigationMenuArrow />
-                  <NavigationMenuViewport />
+                  <NavigationMenuArrow className={styles.arrow} />
+                  <NavigationMenuViewport className={styles.viewport} />
                 </NavigationMenuPopup>
               </NavigationMenuPositioner>
             </NavigationMenuPortal>
