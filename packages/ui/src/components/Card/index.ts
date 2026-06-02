@@ -7,3 +7,4 @@ export {
   CardDescription,
   CardAction,
 } from './Card';
+export type { CardSize, CardTitleElement } from './Card';

@@ -47,6 +47,7 @@
     color: var(--card-content-color, var(--color-muted-foreground));
     font-size: var(--card-content-font-size, var(--text-sm));
     line-height: var(--card-content-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
 
     &:first-child {
       padding-block-start: var(--card-padding-default);
@@ -72,18 +73,22 @@
   .title {
     grid-column: 1;
     margin: 0;
+    min-width: 0;
     color: var(--card-title-color, currentColor);
     font-size: var(--card-title-font-size-default);
     font-weight: var(--card-title-font-weight, var(--weight-semibold));
     line-height: var(--card-title-line-height-default);
+    overflow-wrap: anywhere;
   }
 
   .description {
     grid-column: 1;
     margin: 0;
+    min-width: 0;
     color: var(--card-description-color, var(--color-muted-foreground));
     font-size: var(--card-description-font-size, var(--text-sm));
     line-height: var(--card-description-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
   }
 
   .action {

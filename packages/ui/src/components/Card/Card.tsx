@@ -2,11 +2,14 @@ import type { ComponentProps, ComponentPropsWithoutRef } from 'react';
 import clsx from 'clsx';
 import styles from './Card.module.css';
 
+type CardSize = 'default' | 'sm';
+type CardTitleElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
 function Card({
   className,
   size = 'default',
   ...props
-}: ComponentProps<'div'> & { size?: 'default' | 'sm' }) {
+}: ComponentProps<'div'> & { size?: CardSize }) {
   return (
     <div data-slot="card" data-size={size} className={clsx(styles.root, className)} {...props} />
   );
@@ -29,7 +32,7 @@ function CardTitle({
   className,
   ...props
 }: ComponentPropsWithoutRef<'h3'> & {
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  as?: CardTitleElement;
 }) {
   return <Root data-slot="card-title" className={clsx(styles.title, className)} {...props} />;
 }
@@ -45,3 +48,4 @@ function CardAction({ className, ...props }: ComponentProps<'div'>) {
 }
 
 export { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription, CardAction };
+export type { CardSize, CardTitleElement };
