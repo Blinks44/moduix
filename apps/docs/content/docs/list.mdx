@@ -23,7 +23,8 @@ markers, spacing, typography, and tone. `ListItem` is optional: use it for the
 exported item slot, or render plain `li` elements directly.
 
 When `as="ol"` is used, native ordered-list props like `start`, `reversed`, and `type`
-continue to pass through to the underlying `ol`.
+continue to pass through to the underlying `ol`. Leave `marker` on its default ordered
+path when you want browser-provided alpha or roman numbering from `type`.
 
 ## Basic
 
@@ -96,7 +97,8 @@ styling, rely on native `li::marker` selectors and root CSS variables instead of
 custom marker API.
 
 Use `ListItem` when you want the stable item slot. Use plain `li` elements when a
-wrapper component would add no value.
+wrapper component would add no value. Keep items as direct `li` children so the root
+spacing and marker styles keep applying.
 
 ### Defaults
 
@@ -160,6 +162,8 @@ continues numbering from the underlying `ol`.
 
 Use `marker="none"` when you need list semantics without visible markers.
 
+`List` automatically keeps `role="list"` on this path unless you explicitly override `role`.
+
 <Preview>
   <MarkerlessListExample />
 
@@ -182,11 +186,8 @@ Use `marker="none"` when you need list semantics without visible markers.
 
   <Preview.CSS>
     {`
-      .toneGrid {
+      .list {
         width: min(32rem, calc(100vw - var(--spacing-8)));
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--spacing-4) var(--spacing-6);
       }
     `}
 
@@ -232,8 +233,11 @@ Use `tone` when the list should inherit a semantic text color.
 
   <Preview.CSS>
     {`
-      .list {
+      .toneGrid {
         width: min(32rem, calc(100vw - var(--spacing-8)));
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--spacing-4) var(--spacing-6);
       }
     `}
 

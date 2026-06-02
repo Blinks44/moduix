@@ -47,6 +47,17 @@ export const OrderedStart: Story = {
   ),
 };
 
+export const OrderedType: Story = {
+  name: 'Ordered Type',
+  render: () => (
+    <List as="ol" type="A" className={storyStyles.list}>
+      <ListItem>Draft the rollout checklist.</ListItem>
+      <ListItem>Coordinate the release window.</ListItem>
+      <ListItem>Confirm the post-release review.</ListItem>
+    </List>
+  ),
+};
+
 export const Markerless: Story = {
   render: () => (
     <List marker="none" className={storyStyles.list}>
