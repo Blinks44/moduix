@@ -1,26 +1,25 @@
 import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';
-import { forwardRef, type ComponentRef, type ForwardedRef } from 'react';
+import { forwardRef, type ComponentRef } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Toolbar.module.css';
 
-const Toolbar = forwardRef(function Toolbar(
-  { className, ...props }: ToolbarPrimitive.Root.Props,
-  ref: ForwardedRef<ComponentRef<typeof ToolbarPrimitive.Root>>,
-) {
-  return (
-    <ToolbarPrimitive.Root
-      ref={ref}
-      data-slot="toolbar-root"
-      className={mergeClassName(className, styles.root)}
-      {...props}
-    />
-  );
-});
+const Toolbar = forwardRef<ComponentRef<typeof ToolbarPrimitive.Root>, ToolbarPrimitive.Root.Props>(
+  function Toolbar({ className, ...props }, ref) {
+    return (
+      <ToolbarPrimitive.Root
+        ref={ref}
+        data-slot="toolbar-root"
+        className={mergeClassName(className, styles.root)}
+        {...props}
+      />
+    );
+  },
+);
 
-const ToolbarGroup = forwardRef(function ToolbarGroup(
-  { className, ...props }: ToolbarPrimitive.Group.Props,
-  ref: ForwardedRef<ComponentRef<typeof ToolbarPrimitive.Group>>,
-) {
+const ToolbarGroup = forwardRef<
+  ComponentRef<typeof ToolbarPrimitive.Group>,
+  ToolbarPrimitive.Group.Props
+>(function ToolbarGroup({ className, ...props }, ref) {
   return (
     <ToolbarPrimitive.Group
       ref={ref}
@@ -31,10 +30,10 @@ const ToolbarGroup = forwardRef(function ToolbarGroup(
   );
 });
 
-const ToolbarButton = forwardRef(function ToolbarButton(
-  { className, ...props }: ToolbarPrimitive.Button.Props,
-  ref: ForwardedRef<ComponentRef<typeof ToolbarPrimitive.Button>>,
-) {
+const ToolbarButton = forwardRef<
+  ComponentRef<typeof ToolbarPrimitive.Button>,
+  ToolbarPrimitive.Button.Props
+>(function ToolbarButton({ className, ...props }, ref) {
   return (
     <ToolbarPrimitive.Button
       ref={ref}
@@ -45,10 +44,10 @@ const ToolbarButton = forwardRef(function ToolbarButton(
   );
 });
 
-const ToolbarLink = forwardRef(function ToolbarLink(
-  { className, ...props }: ToolbarPrimitive.Link.Props,
-  ref: ForwardedRef<ComponentRef<typeof ToolbarPrimitive.Link>>,
-) {
+const ToolbarLink = forwardRef<
+  ComponentRef<typeof ToolbarPrimitive.Link>,
+  ToolbarPrimitive.Link.Props
+>(function ToolbarLink({ className, ...props }, ref) {
   return (
     <ToolbarPrimitive.Link
       ref={ref}
@@ -59,10 +58,10 @@ const ToolbarLink = forwardRef(function ToolbarLink(
   );
 });
 
-const ToolbarInput = forwardRef(function ToolbarInput(
-  { className, ...props }: ToolbarPrimitive.Input.Props,
-  ref: ForwardedRef<ComponentRef<typeof ToolbarPrimitive.Input>>,
-) {
+const ToolbarInput = forwardRef<
+  ComponentRef<typeof ToolbarPrimitive.Input>,
+  ToolbarPrimitive.Input.Props
+>(function ToolbarInput({ className, ...props }, ref) {
   return (
     <ToolbarPrimitive.Input
       ref={ref}
@@ -73,10 +72,10 @@ const ToolbarInput = forwardRef(function ToolbarInput(
   );
 });
 
-const ToolbarSeparator = forwardRef(function ToolbarSeparator(
-  { className, ...props }: ToolbarPrimitive.Separator.Props,
-  ref: ForwardedRef<ComponentRef<typeof ToolbarPrimitive.Separator>>,
-) {
+const ToolbarSeparator = forwardRef<
+  ComponentRef<typeof ToolbarPrimitive.Separator>,
+  ToolbarPrimitive.Separator.Props
+>(function ToolbarSeparator({ className, ...props }, ref) {
   return (
     <ToolbarPrimitive.Separator
       ref={ref}

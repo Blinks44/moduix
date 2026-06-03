@@ -186,9 +186,7 @@ export function ToolbarExample(props: ComponentProps<typeof Toolbar>) {
       <ToolbarButton aria-label="Notifications">
         <BellIcon />
       </ToolbarButton>
-      <ToolbarLink href="#" className={styles.toolbarLink}>
-        Edited 51m ago
-      </ToolbarLink>
+      <ToolbarLink href="#">Edited 51m ago</ToolbarLink>
     </Toolbar>
   );
 }
@@ -217,7 +215,7 @@ export function ToolbarToggleGroupExample() {
           <em>I</em>
         </ToolbarButton>
         <ToolbarButton render={<Toggle variant="ghost" />} value="underline" aria-label="Underline">
-          <span className={styles.underline}>U</span>
+          <u>U</u>
         </ToolbarButton>
       </ToggleGroup>
 
@@ -239,11 +237,7 @@ export function ToolbarSelectTriggerExample() {
   return (
     <Toolbar aria-label="Text properties">
       <Select defaultValue="Inter">
-        <ToolbarButton
-          render={<SelectTrigger />}
-          aria-label="Font family"
-          className={styles.toolbarSelect}
-        >
+        <ToolbarButton render={<SelectTrigger />} aria-label="Font family">
           <SelectValue />
           <SelectIcon>
             <ChevronUpDownIcon />
@@ -265,9 +259,7 @@ export function ToolbarSelectTriggerExample() {
       <ToolbarButton aria-label="Notifications">
         <BellIcon />
       </ToolbarButton>
-      <ToolbarLink href="#" className={styles.toolbarLink}>
-        Edited 51m ago
-      </ToolbarLink>
+      <ToolbarLink href="#">Edited 51m ago</ToolbarLink>
     </Toolbar>
   );
 }
@@ -303,13 +295,13 @@ export function ToolbarCustomIconsExample() {
   return (
     <Toolbar aria-label="Text alignment">
       <ToolbarButton aria-label="Align left">
-        <AlignLeftIcon className={styles.customIcon} />
+        <AlignLeftIcon />
       </ToolbarButton>
       <ToolbarButton aria-label="Align center">
-        <AlignCenterIcon className={styles.customIcon} />
+        <AlignCenterIcon />
       </ToolbarButton>
       <ToolbarButton aria-label="Align right">
-        <AlignRightIcon className={styles.customIcon} />
+        <AlignRightIcon />
       </ToolbarButton>
     </Toolbar>
   );
