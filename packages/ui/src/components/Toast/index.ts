@@ -16,3 +16,5 @@ export {
   useToastManager,
   useAnchoredToastManager,
 } from './Toast';
+
+export type { AnchoredToastOptions, ToastPlacement, ToastStackBehavior } from './Toast';

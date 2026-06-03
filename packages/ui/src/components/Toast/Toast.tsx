@@ -12,17 +12,17 @@ import { CloseIcon, PopupArrowIcon } from '@/icons/ui';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Toast.module.css';
 
-type ToastPlacement =
+export type ToastPlacement =
   | 'top-left'
   | 'top-center'
   | 'top-right'
   | 'bottom-left'
   | 'bottom-center'
   | 'bottom-right';
-type ToastStackBehavior = 'stacked' | 'expanded';
+export type ToastStackBehavior = 'stacked' | 'expanded';
 type ToastItem = ToastObject<any>;
 type DataSlotProps = { 'data-slot'?: string };
-type AnchoredToastOptions = Omit<
+export type AnchoredToastOptions = Omit<
   Parameters<BaseToastManager['add']>[0],
   'id' | 'positionerProps'
 > & {

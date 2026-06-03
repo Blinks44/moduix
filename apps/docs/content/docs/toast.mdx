@@ -20,9 +20,15 @@ import {
   toastPlaygroundCssProperties,
 } from '@/components/examples/toast';
 
-## API Reference
+## Overview
 
-<BaseUIReference href="https://base-ui.com/react/components/toast" />
+`Toast` in moduix is a two-flow wrapper over Base UI:
+
+- `ToastRegion` renders the normal stacked notification queue
+- `ToastAnchoredRegion` renders short, contextual feedback next to an anchor element
+
+The supported moduix API is provider + region composition first. Drop to low-level parts only when
+the default region wiring is no longer enough.
 
 ## Default Path
 
@@ -153,6 +159,7 @@ Composition rules:
 
 - use `ToastRegion` for the normal stacked flow
 - use `ToastAnchoredRegion` for contextual feedback near a control
+- the default anchored renderer shows only `description`, so use `renderToast` for richer anchored content
 - use `renderToast` when the region setup stays the same but the visible markup needs to change
 - drop to `ToastPortal` and `ToastViewport` only when the stacked viewport structure itself must be owned by consumer code
 
@@ -221,6 +228,15 @@ Use `createToastManager()` only when a service outside React needs to enqueue st
     {`
       import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
 
+      export function App() {
+        return (
+          <ToastProvider>
+            <UploadButton />
+            <ToastRegion />
+          </ToastProvider>
+        );
+      }
+
       function UploadButton() {
         const toastManager = useToastManager();
 
@@ -263,11 +279,39 @@ Pass `stackBehavior="expanded"` when the stack should always stay readable.
 
   <Preview.Code>
     {`
-      <ToastProvider>
-        <Toolbar />
-        <ToastRegion placement="bottom-right" stackBehavior="expanded" />
-      </ToastProvider>
+      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
+      import { useState } from "react";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <ExpandedToastButton />
+            <ToastRegion placement="bottom-right" stackBehavior="expanded" />
+          </ToastProvider>
+        );
+      }
+
+      function ExpandedToastButton() {
+        const toastManager = useToastManager();
+        const [count, setCount] = useState(0);
+
+        return (
+          <Button
+            onClick={() => {
+              const next = count + 1;
+              setCount(next);
+              toastManager.add({
+                title: \`Stacked toast \${next}\`,
+                description: "Create several notifications to compare the expanded stack behavior.",
+              });
+            }}
+          >
+            Create expanded toast
+          </Button>
+        );
+      }
     `}
+
   </Preview.Code>
 </Preview>
 
@@ -282,11 +326,22 @@ Pass `stackBehavior="expanded"` when the stack should always stay readable.
 
       const toastManager = createToastManager();
 
-      function notifyFromService() {
-        toastManager.add({
-          title: "Global toast",
-          description: "Created with createToastManager().",
-        });
+      export function App() {
+        return (
+          <ToastProvider toastManager={toastManager}>
+            <Button
+              onClick={() =>
+                toastManager.add({
+                  title: "Global toast",
+                  description: "Created with createToastManager().",
+                })
+              }
+            >
+              Create global toast
+            </Button>
+            <ToastRegion />
+          </ToastProvider>
+        );
       }
     `}
 
@@ -310,21 +365,61 @@ Use `renderToast` when the region setup stays the same but the visible layout ne
 
   <Preview.Code>
     {`
-      <ToastRegion
-        renderToast={(toast) => (
-          <ToastRoot key={toast.id} toast={toast} className={styles.toast}>
-            <ToastContent className={styles.content}>
-              <InfoIcon className={styles.icon} />
-              <ToastTitle />
-              <ToastDescription />
-              <ToastClose aria-label="Close toast">
-                <CloseIcon className={styles.closeIcon} />
-              </ToastClose>
-            </ToastContent>
-          </ToastRoot>
-        )}
-      />
+      import {
+        Button,
+        CloseIcon,
+        InfoIcon,
+        ToastClose,
+        ToastContent,
+        ToastDescription,
+        ToastProvider,
+        ToastRegion,
+        ToastRoot,
+        ToastTitle,
+        useToastManager,
+      } from "moduix";
+      import styles from "./toast.module.css";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <CustomToastButton />
+            <ToastRegion
+              renderToast={(toast) => (
+                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
+                  <ToastContent className={styles.customContent}>
+                    <InfoIcon className={styles.customIcon} />
+                    <ToastTitle />
+                    <ToastDescription />
+                    <ToastClose aria-label="Close toast">
+                      <CloseIcon className={styles.closeIcon} />
+                    </ToastClose>
+                  </ToastContent>
+                </ToastRoot>
+              )}
+            />
+          </ToastProvider>
+        );
+      }
+
+      function CustomToastButton() {
+        const toastManager = useToastManager();
+
+        return (
+          <Button
+            onClick={() =>
+              toastManager.add({
+                title: "Custom composition",
+                description: "Every important part stays composable without slot prop APIs.",
+              })
+            }
+          >
+            Create custom toast
+          </Button>
+        );
+      }
     `}
+
   </Preview.Code>
 </Preview>
 
@@ -335,18 +430,92 @@ Use `renderToast` when the region setup stays the same but the visible layout ne
 
   <Preview.Code>
     {`
-      <ToastAnchoredRegion
-        renderToast={(toast) => (
-          <ToastRoot key={toast.id} toast={toast}>
-            <ToastArrow />
-            <ToastContent className={styles.content}>
-              <InfoIcon className={styles.icon} />
-              <ToastDescription />
-            </ToastContent>
-          </ToastRoot>
-        )}
-      />
+      import {
+        type AnchoredToastOptions,
+        Button,
+        InfoIcon,
+        ToastAnchoredRegion,
+        ToastArrow,
+        ToastContent,
+        ToastDescription,
+        ToastProvider,
+        ToastRoot,
+        useAnchoredToastManager,
+      } from "moduix";
+      import { useRef } from "react";
+      import styles from "./toast.module.css";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <AnchoredToastActions />
+            <ToastAnchoredRegion
+              renderToast={(toast) => (
+                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
+                  <ToastArrow />
+                  <ToastContent className={styles.customAnchoredContent}>
+                    <InfoIcon className={styles.customAnchoredIcon} />
+                    <ToastDescription />
+                  </ToastContent>
+                </ToastRoot>
+              )}
+            />
+          </ToastProvider>
+        );
+      }
+
+      function AnchoredToastActions() {
+        const copyRef = useRef<HTMLButtonElement | null>(null);
+        const saveRef = useRef<HTMLButtonElement | null>(null);
+        const shareRef = useRef<HTMLButtonElement | null>(null);
+        const anchoredToast = useAnchoredToastManager();
+
+        const showAnchored = (
+          anchor: HTMLButtonElement | null,
+          description: string,
+          positionerProps?: AnchoredToastOptions["positionerProps"],
+        ) => {
+          if (!anchor) {
+            return;
+          }
+
+          anchoredToast.show({
+            anchor,
+            description,
+            timeout: 1800,
+            positionerProps,
+          });
+        };
+
+        return (
+          <>
+            <Button ref={copyRef} onClick={() => showAnchored(copyRef.current, "Copied")}>
+              Copy
+            </Button>
+            <Button
+              ref={saveRef}
+              variant="outline"
+              onClick={() => showAnchored(saveRef.current, "Saved")}
+            >
+              Save
+            </Button>
+            <Button
+              ref={shareRef}
+              variant="secondary"
+              onClick={() =>
+                showAnchored(shareRef.current, "Shared", {
+                  side: "bottom",
+                })
+              }
+            >
+              Share (bottom)
+            </Button>
+          </>
+        );
+      }
+
     `}
+
   </Preview.Code>
 </Preview>
 
@@ -360,6 +529,48 @@ manually when needed.
 
   <Preview.Code>
     {`
+      import {
+        Button,
+        CloseIcon,
+        InfoIcon,
+        ToastClose,
+        ToastContent,
+        ToastDescription,
+        ToastPortal,
+        ToastProvider,
+        ToastRoot,
+        ToastTitle,
+        ToastViewport,
+        useToastManager,
+      } from "moduix";
+      import styles from "./toast.module.css";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <ManualToastButton />
+            <ManualToastRegion />
+          </ToastProvider>
+        );
+      }
+
+      function ManualToastButton() {
+        const toastManager = useToastManager();
+
+        return (
+          <Button
+            onClick={() =>
+              toastManager.add({
+                title: "Manual viewport",
+                description: "This stack is assembled from ToastPortal and ToastViewport.",
+              })
+            }
+          >
+            Create manual toast
+          </Button>
+        );
+      }
+
       function ManualToastRegion() {
         const { toasts } = useToastManager();
 
@@ -367,11 +578,14 @@ manually when needed.
           <ToastPortal>
             <ToastViewport placement="bottom-left">
               {toasts.map((toast) => (
-                <ToastRoot key={toast.id} toast={toast}>
-                  <ToastContent>
+                <ToastRoot key={toast.id} toast={toast} className={styles.customToast}>
+                  <ToastContent className={styles.customContent}>
+                    <InfoIcon className={styles.customIcon} />
                     <ToastTitle />
                     <ToastDescription />
-                    <ToastClose aria-label="Close toast" />
+                    <ToastClose aria-label="Close toast">
+                      <CloseIcon className={styles.closeIcon} />
+                    </ToastClose>
                   </ToastContent>
                 </ToastRoot>
               ))}
