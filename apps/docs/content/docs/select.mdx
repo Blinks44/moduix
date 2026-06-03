@@ -455,7 +455,7 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
 
   <Preview.Code>
     {`
-      <Select
+      <Select<Assignee>
         items={assignees.map((assignee) => ({
           value: assignee,
           label: assignee.name,
@@ -476,7 +476,12 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
             {assignees.map((assignee) => (
               <SelectItem key={assignee.id} value={assignee}>
                 <SelectItemIndicator />
-                <SelectItemText>{assignee.name}</SelectItemText>
+                <SelectItemText>
+                  <span className={styles.assigneeItemText}>
+                    <span className={styles.assigneeName}>{assignee.name}</span>
+                    <span className={styles.assigneeRole}>{assignee.role}</span>
+                  </span>
+                </SelectItemText>
               </SelectItem>
             ))}
           </SelectList>
