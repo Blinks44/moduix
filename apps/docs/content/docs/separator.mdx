@@ -25,19 +25,45 @@ import {
   <Preview.Code>
     {`
       import { Separator } from "moduix";
+      import styles from "./separator-demo.module.css";
 
       export function SeparatorDemo() {
         return (
-          <section aria-label="Account setup">
-            <span>Account settings</span>
-            <Separator />
-            <span>Billing details</span>
-          </section>
+          <div className={styles.card}>
+            <div className={styles.stack}>
+              <span className={styles.text}>Account settings</span>
+              <Separator />
+              <span className={styles.text}>Billing details</span>
+            </div>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      .card {
+        width: min(18rem, 100%);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background-color: var(--color-background);
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--spacing-4);
+      }
+
+      .text {
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
   <Preview.CSSProperties>{(context) => <SeparatorCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <SeparatorCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
@@ -47,11 +73,11 @@ The default horizontal path already fills the available width, so the common cas
 
 ## Anatomy
 
-`Separator` exposes a single root slot with `data-orientation` for orientation-based styling.
+`Separator` exposes a single root slot with stable `data-slot` and `data-orientation` hooks.
 
 ```text
 Separator
-└─ root[data-orientation]
+└─ root[data-slot="separator-root"][data-orientation]
 ```
 
 ```tsx
@@ -69,12 +95,13 @@ Style the root directly with `className` or the `--separator-*` CSS properties.
 `Separator` stays intentionally thin:
 
 - one exported part
-- orientation passed straight through to Base UI
+- primitive `orientation`, `className`, `style`, and `render` props passed straight through
 - direct root styling with `className`
 - a small `--separator-*` CSS contract for common visual tuning
 
 Horizontal separators fill the container by default. Vertical separators are intended for inline
-groups and default to `1em` height so they align with surrounding text.
+groups and default to `1em` height so they align with surrounding text. The primitive keeps
+semantic separator output for assistive technology; there are no interactive or disabled states.
 
 Pass `orientation="vertical"` for inline layouts. Use `className` for direct styling,
 or the small `--separator-*` CSS contract when you want to tune color, thickness, or length.
@@ -99,20 +126,45 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
   <Preview.Code>
     {`
       import { Separator } from "moduix";
+      import styles from "./separator-demo.module.css";
 
       export function VerticalSeparatorDemo() {
         return (
-          <nav aria-label="Main navigation">
-            <a href="#">Home</a>
-            <a href="#">Pricing</a>
+          <nav className={styles.nav} aria-label="Main navigation">
+            <a href="#" className={styles.link}>
+              Home
+            </a>
+            <a href="#" className={styles.link}>
+              Pricing
+            </a>
             <Separator orientation="vertical" />
-            <a href="#">Sign in</a>
+            <a href="#" className={styles.link}>
+              Sign in
+            </a>
           </nav>
         );
       }
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      .nav {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-3);
+        text-wrap: nowrap;
+      }
+
+      .link {
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+        text-decoration: none;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Styling
@@ -130,11 +182,11 @@ weight or a fixed length.
 
       export function CustomSeparatorDemo() {
         return (
-          <section className={styles.section} aria-label="Profile progress">
-            <span>Completed profile</span>
+          <div className={styles.section}>
+            <span className={styles.text}>Completed profile</span>
             <Separator className={styles.customSeparator} />
-            <span>Next step: billing details</span>
-          </section>
+            <span className={styles.text}>Next step: billing details</span>
+          </div>
         );
       }
     `}
@@ -146,6 +198,12 @@ weight or a fixed length.
       .section {
         display: grid;
         gap: var(--spacing-2);
+      }
+
+      .text {
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
       }
 
       .customSeparator {
