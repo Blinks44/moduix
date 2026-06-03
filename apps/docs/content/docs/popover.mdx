@@ -130,7 +130,7 @@ Popover
 | `PopoverPositioner`  | Floating-positioning part for custom placement and layout composition.                              |
 | `PopoverPopup`       | Visible popup surface for custom composition and styling.                                           |
 | `PopoverArrow`       | Default arrow part. Enable it with `showArrow` or replace its children in custom composition.       |
-| `PopoverViewport`    | Optional viewport wrapper for animated or structured inner content.                                 |
+| `PopoverViewport`    | Optional viewport wrapper for panel-style inner transitions.                                        |
 | `PopoverHeader`      | Semantic top area for title and description. Useful for consistent spacing in information popovers. |
 | `PopoverTitle`       | Main heading inside the popup. Helps users quickly identify popup purpose.                          |
 | `PopoverDescription` | Supporting text under the title. Use for concise context or status details.                         |
@@ -150,6 +150,10 @@ Use `Popover` for root state and behavior props such as `open`, `defaultOpen`, `
 `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`,
 `collisionBoundary`, and `collisionPadding`. Use `showArrow` to enable the built-in arrow.
 `className` styles the popup surface.
+
+When `render` is provided to `PopoverTrigger`, moduix does not add the default trigger class. Style
+the rendered element directly or pass a component such as `Button` that already carries its own
+interactive states.
 
 | `PopoverContent` prop | Default | Notes                                                                |
 | --------------------- | ------- | -------------------------------------------------------------------- |
@@ -174,6 +178,10 @@ portal options such as `keepMounted` and `container`, switch to explicit composi
   </PopoverPortal>
 </Popover>
 ```
+
+`PopoverViewport` is intended for panel-style inner transitions, not for generic static content or
+scrollable overflow. If the popup content can grow taller than the default max height, add a
+scrollable inner wrapper inside `PopoverBody` instead of using `PopoverViewport`.
 
 When replacing the trigger element with `render`, keep `nativeButton={true}` for real button-like
 elements and set `nativeButton={false}` for non-button elements such as `div` or `span`.
@@ -792,8 +800,8 @@ Set `showArrow` when the popup should visually point back to its trigger.
 
 ### Custom Composition
 
-Use the low-level parts directly when you need to control the structure, backdrop, viewport, or
-arrow content.
+Use the low-level parts directly when you need to control the structure, backdrop, viewport-driven
+panel transitions, or arrow content.
 
 <Preview>
   <CustomCompositionPopoverExample />
