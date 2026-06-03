@@ -55,11 +55,11 @@
     }
 
     @media (hover: hover) {
-      &[data-unchecked]:hover {
+      &[data-unchecked]:not([data-readonly]):hover {
         background-color: var(--switch-bg-hover, var(--color-accent));
       }
 
-      &[data-checked]:hover {
+      &[data-checked]:not([data-readonly]):hover {
         background-color: var(
           --switch-bg-checked-hover,
           var(--switch-bg-checked, var(--color-primary))
