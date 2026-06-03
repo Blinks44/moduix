@@ -1,10 +1,13 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import {
   Children,
+  Fragment,
   forwardRef,
   isValidElement,
   type ComponentRef,
   type ComponentProps,
+  type ReactElement,
+  type ReactNode,
 } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Tabs.module.css';
@@ -24,14 +27,36 @@ const Tabs = forwardRef<
   );
 });
 
+function hasTabsIndicator(children: ReactNode) {
+  let found = false;
+
+  const collectChildren = (nodes: ReactNode) => {
+    Children.forEach(nodes, (child) => {
+      if (found || !isValidElement(child)) return;
+
+      if (isReactFragment(child)) {
+        collectChildren(child.props.children);
+        return;
+      }
+
+      if (child.type === TabsIndicator) {
+        found = true;
+      }
+    });
+  };
+
+  collectChildren(children);
+
+  return found;
+}
+
+const isReactFragment = (child: ReactNode): child is ReactElement<{ children?: ReactNode }> =>
+  isValidElement(child) && child.type === Fragment;
+
 const TabsList = forwardRef<
   ComponentRef<typeof TabsPrimitive.List>,
   ComponentProps<typeof TabsPrimitive.List>
 >(function TabsList({ className, children, ...props }, ref) {
-  const hasIndicator = Children.toArray(children).some(
-    (child) => isValidElement(child) && child.type === TabsIndicator,
-  );
-
   return (
     <TabsPrimitive.List
       ref={ref}
@@ -40,7 +65,7 @@ const TabsList = forwardRef<
       {...props}
     >
       {children}
-      {!hasIndicator ? <TabsIndicator /> : null}
+      {!hasTabsIndicator(children) ? <TabsIndicator /> : null}
     </TabsPrimitive.List>
   );
 });

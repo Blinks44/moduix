@@ -72,7 +72,8 @@ import {
         {
           value: "projects",
           title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
+          content:
+            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
         },
         {
           value: "account",
@@ -234,7 +235,8 @@ Use `variant="line"` when the indicator should sit on the active edge instead of
         {
           value: "projects",
           title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
+          content:
+            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
         },
         {
           value: "account",
@@ -301,7 +303,8 @@ Control the active tab from React state when the selected panel needs to coordin
         {
           value: "projects",
           title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
+          content:
+            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
         },
         {
           value: "account",
@@ -365,7 +368,8 @@ Use `orientation="vertical"` when the tab list should sit next to the active pan
         {
           value: "projects",
           title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
+          content:
+            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
         },
         {
           value: "account",
@@ -429,7 +433,8 @@ Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately sel
         {
           value: "projects",
           title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
+          content:
+            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
         },
         {
           value: "account",
@@ -498,7 +503,8 @@ Use `render` with `nativeButton={false}` when tabs should render as links.
         {
           value: "projects",
           title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
+          content:
+            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
         },
         {
           value: "account",
@@ -571,7 +577,8 @@ layouts.
         },
         {
           value: "projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
+          content:
+            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
         },
         {
           value: "account",
@@ -635,7 +642,8 @@ stay mounted for forms, measurements, or preserved local state.
         {
           value: "projects",
           title: "Projects",
-          content: "Track active workstreams, owners and milestones across all departments.",
+          content:
+            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
         },
         {
           value: "account",
@@ -706,11 +714,15 @@ fit for the surrounding layout.
         --tabs-list-padding-y: 0;
         display: flex;
         flex-direction: row;
-        width: min(36rem, calc(100vw - 2rem));
+        width: 22rem;
         align-items: center;
         justify-content: space-between;
         gap: var(--tabs-gap);
         color: var(--color-foreground);
+
+        @media (min-width: 32rem) {
+          width: 32rem;
+        }
       }
 
       .inlineList {
@@ -758,10 +770,6 @@ fit for the surrounding layout.
       .inlinePanel {
         flex: 1;
         min-width: 0;
-
-        &[hidden]:not([hidden='until-found']) {
-          display: none;
-        }
       }
 
       .inlineInput {
