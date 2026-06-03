@@ -59,7 +59,6 @@ export const NativeAttributes: Story = {
           maxLength={280}
           spellCheck={false}
           placeholder="Add enough context for the next person reading this."
-          style={{ resize: 'vertical' }}
         />
       </Field>
     );
@@ -84,8 +83,8 @@ export const DisabledAndReadOnly: Story = {
   render: () => {
     return (
       <div className={storyStyles.stack}>
-        <Textarea disabled placeholder="Disabled textarea" />
-        <Textarea readOnly value="Read-only text value" />
+        <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
+        <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
       </div>
     );
   },

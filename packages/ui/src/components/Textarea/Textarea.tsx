@@ -4,6 +4,10 @@ import { forwardRef, useCallback, type ComponentProps, type ForwardedRef } from 
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Textarea.module.css';
 
+type TextareaProps = ComponentProps<'textarea'> & {
+  autoResize?: boolean;
+};
+
 const assignForwardedRef = <T,>(ref: ForwardedRef<T>, value: T | null) => {
   if (typeof ref === 'function') {
     ref(value);
@@ -15,17 +19,8 @@ const assignForwardedRef = <T,>(ref: ForwardedRef<T>, value: T | null) => {
   }
 };
 
-const Textarea = forwardRef<
-  HTMLTextAreaElement,
-  ComponentProps<'textarea'> & { autoResize?: boolean }
->(function Textarea(
-  {
-    autoResize = false,
-    className,
-    ...props
-  }: ComponentProps<'textarea'> & {
-    autoResize?: boolean;
-  },
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
+  { autoResize = false, className, ...props }: TextareaProps,
   forwardedRef: ForwardedRef<HTMLTextAreaElement>,
 ) {
   const setTextareaRef = useCallback(
@@ -47,3 +42,4 @@ const Textarea = forwardRef<
 });
 
 export { Textarea };
+export type { TextareaProps };
