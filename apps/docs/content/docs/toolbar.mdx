@@ -351,7 +351,9 @@ portal and positioning behavior. Configure those slots on the popup component, n
 
 ### Toggle Group
 
-Compose `ToolbarButton` with `Toggle` inside a `ToggleGroup` when items need pressed state.
+Compose `ToolbarButton` with `Toggle` inside a `ToggleGroup` when items need pressed state. Because
+this path does not use `ToggleGroupItem`, pass any non-default `Toggle` props such as `variant`
+directly to the rendered `Toggle`.
 
 <Preview>
   <ToolbarToggleGroupExample />
@@ -373,13 +375,13 @@ Compose `ToolbarButton` with `Toggle` inside a `ToggleGroup` when items need pre
         return (
           <Toolbar aria-label="Editor formatting">
             <ToggleGroup multiple defaultValue={["bold"]} aria-label="Text formatting" variant="ghost">
-              <ToolbarButton render={<Toggle />} value="bold" aria-label="Bold">
+              <ToolbarButton render={<Toggle variant="ghost" />} value="bold" aria-label="Bold">
                 <strong>B</strong>
               </ToolbarButton>
-              <ToolbarButton render={<Toggle />} value="italic" aria-label="Italic">
+              <ToolbarButton render={<Toggle variant="ghost" />} value="italic" aria-label="Italic">
                 <em>I</em>
               </ToolbarButton>
-              <ToolbarButton render={<Toggle />} value="underline" aria-label="Underline">
+              <ToolbarButton render={<Toggle variant="ghost" />} value="underline" aria-label="Underline">
                 <u>U</u>
               </ToolbarButton>
             </ToggleGroup>

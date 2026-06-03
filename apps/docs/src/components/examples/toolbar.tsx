@@ -210,13 +210,13 @@ export function ToolbarToggleGroupExample() {
   return (
     <Toolbar aria-label="Editor formatting">
       <ToggleGroup multiple defaultValue={['bold']} aria-label="Text formatting" variant="ghost">
-        <ToolbarButton render={<Toggle />} value="bold" aria-label="Bold">
+        <ToolbarButton render={<Toggle variant="ghost" />} value="bold" aria-label="Bold">
           <strong>B</strong>
         </ToolbarButton>
-        <ToolbarButton render={<Toggle />} value="italic" aria-label="Italic">
+        <ToolbarButton render={<Toggle variant="ghost" />} value="italic" aria-label="Italic">
           <em>I</em>
         </ToolbarButton>
-        <ToolbarButton render={<Toggle />} value="underline" aria-label="Underline">
+        <ToolbarButton render={<Toggle variant="ghost" />} value="underline" aria-label="Underline">
           <span className={styles.underline}>U</span>
         </ToolbarButton>
       </ToggleGroup>

@@ -51,7 +51,9 @@ and `size` on the group when the whole set should share the same look.
 </Preview>
 
 `ToggleGroupItem` renders the library `Toggle`, so the default path stays short while items still
-inherit the same size and variant scale as standalone toggles.
+inherit the same size and variant scale as standalone toggles. Raw `Toggle` composition inside a
+group is still possible, but only `ToggleGroupItem` inherits the group `variant`, `size`, and
+`toggle-group-item` styling hooks automatically.
 
 ## Anatomy
 
@@ -72,6 +74,10 @@ ToggleGroup
 
 - Base UI owns group state, roving focus, and keyboard behavior
 - `ToggleGroupItem` inherits `variant` and `size` from the group by default
+- `value`, `defaultValue`, and `onValueChange` always work with string arrays, even when `multiple`
+  is not set
+- raw `Toggle` or `render={<Toggle ... />}` items can join the group through `value`, but they must
+  receive their own `variant` / `size` when they should not fall back to the `Toggle` defaults
 - item-level `variant`, `size`, `className`, and `--toggle-*` overrides remain available when one choice needs different styling
 
 Use these paths:
