@@ -34,6 +34,7 @@ function Stack({
 
   return (
     <Root
+      {...props}
       data-slot="stack-root"
       className={clsx(styles.root, className)}
       style={
@@ -50,7 +51,6 @@ function Stack({
           ...style,
         } as CSSProperties
       }
-      {...props}
     />
   );
 }
