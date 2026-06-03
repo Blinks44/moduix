@@ -119,23 +119,23 @@ reader users may not receive the same preview.
 PreviewCard
 ├─ PreviewCardTrigger
 └─ PreviewCardContent
-   ├─ PreviewCardPortal
-   └─ PreviewCardPositioner
-      └─ PreviewCardPopup
-         └─ PreviewCardViewport
+   └─ PreviewCardPortal
+      └─ PreviewCardPositioner
+         └─ PreviewCardPopup
+            └─ PreviewCardViewport
 ```
 
-| Part                    | Role                                                                |
-| ----------------------- | ------------------------------------------------------------------- |
-| `PreviewCard`           | Root state machine for open state, payload, and detached handles.   |
-| `PreviewCardTrigger`    | Hover and focus trigger, usually rendered as a link.                |
-| `PreviewCardContent`    | Default popup wrapper for the common case.                          |
-| `PreviewCardPortal`     | Escape hatch for custom portal placement or manual popup structure. |
-| `PreviewCardBackdrop`   | Optional backdrop for custom composition.                           |
-| `PreviewCardPositioner` | Low-level positioning part.                                         |
-| `PreviewCardPopup`      | Low-level visible popup container.                                  |
-| `PreviewCardArrow`      | Optional built-in arrow, with custom children supported.            |
-| `PreviewCardViewport`   | Transition-aware content container for the popup body.              |
+| Part                    | Role                                                                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `PreviewCard`           | Root state machine for open state, payload, and detached handles.                                                        |
+| `PreviewCardTrigger`    | Hover and focus trigger, usually rendered as a link.                                                                     |
+| `PreviewCardContent`    | Default popup wrapper for the common case.                                                                               |
+| `PreviewCardPortal`     | Popup mount target; used internally by `PreviewCardContent` and available for custom portal placement.                   |
+| `PreviewCardBackdrop`   | Optional backdrop for custom composition.                                                                                |
+| `PreviewCardPositioner` | Low-level positioning part.                                                                                              |
+| `PreviewCardPopup`      | Low-level visible popup container.                                                                                       |
+| `PreviewCardArrow`      | Optional built-in arrow, with custom children supported.                                                                 |
+| `PreviewCardViewport`   | Inner content wrapper; included by `PreviewCardContent` so payload transitions can be added later without restructuring. |
 
 ## Composition
 
@@ -180,22 +180,38 @@ Use the controlled path when another part of the interface owns preview visibili
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
       import { useState } from "react";
 
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+
       export function ControlledPreviewCard() {
         const [open, setOpen] = useState(false);
 
         return (
           <PreviewCard open={open} onOpenChange={setOpen}>
-            <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
+            <PreviewCardTrigger href={typographyUrl}>
               Controlled preview card
             </PreviewCardTrigger>
             <PreviewCardContent>
-              <div className={styles.popupContent}>
-                <p className={styles.summary}>
-                  This preview card is controlled with open and onOpenChange.
-                </p>
-              </div>
+              <PreviewCardPreview
+                image={typographyImageUrl}
+                title="Typography"
+                summary="This preview card is controlled with open and onOpenChange."
+              />
             </PreviewCardContent>
           </PreviewCard>
+        );
+      }
+
+      function PreviewCardPreview({ image, title, summary }) {
+        return (
+          <div className={styles.popupContent}>
+            <img className={styles.image} alt={"Preview illustration for " + title} src={image} />
+            <p className={styles.summary}>
+              <strong>{title}</strong>
+              <br />
+              {summary}
+            </p>
+          </div>
         );
       }
     `}
@@ -212,15 +228,34 @@ Use the controlled path when another part of the interface owns preview visibili
 
   <Preview.Code>
     {`
-      <PreviewCard>
-        <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
-          Preview with arrow
-        </PreviewCardTrigger>
-        <PreviewCardContent showArrow>
-          <div className={styles.popupContent}>{/* preview body */}</div>
-        </PreviewCardContent>
-      </PreviewCard>
+      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+
+      export function ArrowPreviewCard() {
+        return (
+          <PreviewCard>
+            <PreviewCardTrigger href={typographyUrl}>Preview with arrow</PreviewCardTrigger>
+            <PreviewCardContent showArrow>
+              <div className={styles.popupContent}>
+                <img
+                  className={styles.image}
+                  alt="Preview illustration for Typography"
+                  src={typographyImageUrl}
+                />
+                <p className={styles.summary}>
+                  <strong>Typography</strong>
+                  <br />
+                  Enable showArrow when the popup should visually point to its trigger.
+                </p>
+              </div>
+            </PreviewCardContent>
+          </PreviewCard>
+        );
+      }
     `}
+
   </Preview.Code>
 </Preview>
 
@@ -233,15 +268,34 @@ Pass placement props to `PreviewCardContent` for the common popup path.
 
   <Preview.Code>
     {`
-      <PreviewCard>
-        <PreviewCardTrigger href="https://en.wikipedia.org/wiki/Typography">
-          Preview on the right
-        </PreviewCardTrigger>
-        <PreviewCardContent side="right" className={styles.sidePopup}>
-          <div className={styles.popupContent}>{/* preview body */}</div>
-        </PreviewCardContent>
-      </PreviewCard>
+      import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+
+      export function RightPreviewCard() {
+        return (
+          <PreviewCard>
+            <PreviewCardTrigger href={typographyUrl}>Preview on the right</PreviewCardTrigger>
+            <PreviewCardContent side="right" className={styles.sidePopup}>
+              <div className={styles.popupContent}>
+                <img
+                  className={styles.image}
+                  alt="Preview illustration for Typography"
+                  src={typographyImageUrl}
+                />
+                <p className={styles.summary}>
+                  <strong>Typography</strong>
+                  <br />
+                  Current side is right.
+                </p>
+              </div>
+            </PreviewCardContent>
+          </PreviewCard>
+        );
+      }
     `}
+
   </Preview.Code>
 </Preview>
 
@@ -255,27 +309,46 @@ tree.
 
   <Preview.Code>
     {`
-      import { createPreviewCardHandle, PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+      import {
+        createPreviewCardHandle,
+        PreviewCard,
+        PreviewCardContent,
+        PreviewCardTrigger,
+      } from "moduix";
       import { useMemo } from "react";
+
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
 
       export function DetachedTriggerPreviewCard() {
         const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
 
         return (
-          <>
+          <div className={styles.row}>
             <PreviewCardTrigger
               handle={previewCardHandle}
-              href="https://en.wikipedia.org/wiki/Typography"
+              href={typographyUrl}
             >
               Open detached preview
             </PreviewCardTrigger>
 
             <PreviewCard handle={previewCardHandle}>
               <PreviewCardContent>
-                <div className={styles.popupContent}>{/* preview body */}</div>
+                <div className={styles.popupContent}>
+                  <img
+                    className={styles.image}
+                    alt="Preview illustration for Typography"
+                    src={typographyImageUrl}
+                  />
+                  <p className={styles.summary}>
+                    <strong>Typography</strong>
+                    <br />
+                    Trigger and popup are linked with createPreviewCardHandle().
+                  </p>
+                </div>
               </PreviewCardContent>
             </PreviewCard>
-          </>
+          </div>
         );
       }
     `}
@@ -293,17 +366,24 @@ links.
 
   <Preview.Code>
     {`
-      import { createPreviewCardHandle, PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
+      import {
+        createPreviewCardHandle,
+        PreviewCard,
+        PreviewCardContent,
+        PreviewCardTrigger,
+      } from "moduix";
       import { useMemo } from "react";
 
       const items = [
         {
           title: "Typography",
+          image: "/images/typography-preview.jpg",
           url: "https://en.wikipedia.org/wiki/Typography",
           summary: "Typography is the art and technique of arranging type.",
         },
         {
           title: "Grid systems",
+          image: "/images/grid-preview.jpg",
           url: "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
           summary: "Grid systems help organize content and spacing.",
         },
@@ -311,10 +391,10 @@ links.
       type PreviewItem = (typeof items)[number];
 
       export function MultipleTriggersPreviewCard() {
-        const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
+        const previewCardHandle = useMemo(() => createPreviewCardHandle<PreviewItem>(), []);
 
         return (
-          <>
+          <div className={styles.row}>
             {items.map((item) => (
               <PreviewCardTrigger
                 key={item.title}
@@ -330,12 +410,21 @@ links.
               {({ payload }) => (
                 <PreviewCardContent>
                   <div className={styles.popupContent}>
-                    <p className={styles.summary}>{payload?.summary}</p>
+                    <img
+                      className={styles.image}
+                      alt={"Preview illustration for " + (payload?.title ?? "Typography")}
+                      src={payload?.image ?? items[0].image}
+                    />
+                    <p className={styles.summary}>
+                      <strong>{payload?.title ?? "Typography"}</strong>
+                      <br />
+                      {payload?.summary ?? items[0].summary}
+                    </p>
                   </div>
                 </PreviewCardContent>
               )}
             </PreviewCard>
-          </>
+          </div>
         );
       }
     `}
@@ -380,12 +469,31 @@ arrow markup itself needs to change.
                     <CustomArrow />
                   </PreviewCardArrow>
                   <PreviewCardViewport>
-                    <div className={styles.popupContent}>{/* preview body */}</div>
-                  </PreviewCardViewport>
+                     <div className={styles.popupContent}>
+                       <img
+                         className={styles.image}
+                         alt="Preview illustration for Typography"
+                         src="/images/typography-preview.jpg"
+                       />
+                       <p className={styles.summary}>
+                         <strong>Typography</strong>
+                         <br />
+                         Custom arrow content now lives in explicit composition.
+                       </p>
+                     </div>
+                   </PreviewCardViewport>
                 </PreviewCardPopup>
               </PreviewCardPositioner>
             </PreviewCardPortal>
           </PreviewCard>
+        );
+      }
+
+      function CustomArrow() {
+        return (
+          <svg className={styles.customArrow} viewBox="0 0 16 8" fill="none" aria-hidden="true">
+            <path d="M8 0L16 8H0L8 0Z" fill="currentColor" />
+          </svg>
         );
       }
     `}
@@ -428,7 +536,18 @@ Use explicit parts when the popup needs a backdrop or custom viewport styling.
                 <PreviewCardPopup className={styles.composedPopup}>
                   <PreviewCardArrow className={styles.slotArrow} />
                   <PreviewCardViewport className={styles.viewport}>
-                    <div className={styles.popupContent}>{/* preview body */}</div>
+                    <div className={styles.popupContent}>
+                      <img
+                        className={styles.image}
+                        alt="Preview illustration for Typography"
+                        src="/images/typography-preview.jpg"
+                      />
+                      <p className={styles.summary}>
+                        <strong>Typography</strong>
+                        <br />
+                        Portal, backdrop, arrow, and viewport stay available as explicit parts.
+                      </p>
+                    </div>
                   </PreviewCardViewport>
                 </PreviewCardPopup>
               </PreviewCardPositioner>
