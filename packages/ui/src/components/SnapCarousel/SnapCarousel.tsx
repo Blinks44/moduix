@@ -2,6 +2,7 @@ import { clsx } from 'clsx';
 import {
   Children,
   createContext,
+  useCallback,
   useContext,
   useRef,
   type ComponentProps,
@@ -50,31 +51,36 @@ function SnapCarousel({
 }: SnapCarouselProps) {
   const viewportRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollViewport = (direction: SnapCarouselControlDirection) => {
-    if (!viewportRef.current) {
-      return;
-    }
+  const setViewport = useCallback((viewport: HTMLDivElement | null) => {
+    viewportRef.current = viewport;
+  }, []);
 
-    const viewport = viewportRef.current;
-    const distance =
-      (orientation === 'horizontal' ? viewport.clientWidth : viewport.clientHeight) * 0.85;
-    const scrollDistance = direction === 'previous' ? -distance : distance;
+  const scrollViewport = useCallback(
+    (direction: SnapCarouselControlDirection) => {
+      if (!viewportRef.current) {
+        return;
+      }
 
-    viewport.scrollBy(
-      orientation === 'horizontal'
-        ? { behavior: 'smooth', left: scrollDistance }
-        : { behavior: 'smooth', top: scrollDistance },
-    );
-  };
+      const viewport = viewportRef.current;
+      const distance =
+        (orientation === 'horizontal' ? viewport.clientWidth : viewport.clientHeight) * 0.85;
+      const scrollDistance = direction === 'previous' ? -distance : distance;
+
+      viewport.scrollBy(
+        orientation === 'horizontal'
+          ? { behavior: 'smooth', left: scrollDistance }
+          : { behavior: 'smooth', top: scrollDistance },
+      );
+    },
+    [orientation],
+  );
 
   return (
     <SnapCarouselContext.Provider
       value={{
         orientation,
         scrollViewport,
-        setViewport: (viewport) => {
-          viewportRef.current = viewport;
-        },
+        setViewport,
       }}
     >
       <div
@@ -88,13 +94,24 @@ function SnapCarousel({
   );
 }
 
-function SnapCarouselViewport({ className, tabIndex = 0, ...props }: ComponentProps<'div'>) {
+function SnapCarouselViewport({
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  className,
+  role,
+  tabIndex = 0,
+  ...props
+}: ComponentProps<'div'>) {
   const context = useSnapCarouselContext('SnapCarouselViewport');
+  const resolvedRole = role ?? (ariaLabel || ariaLabelledBy ? 'region' : undefined);
 
   return (
     <SnapCarouselViewportPresenceContext.Provider value>
       <div
         data-slot="snap-carousel-viewport"
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        role={resolvedRole}
         tabIndex={tabIndex}
         className={clsx(styles.viewport, className)}
         {...props}

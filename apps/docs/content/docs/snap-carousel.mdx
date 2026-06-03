@@ -15,15 +15,18 @@ import {
 
 ## API Reference
 
-`SnapCarousel` is a small native carousel built on browser scrolling and CSS `scroll-snap`. It keeps
-only one desktop-friendly sugar: simple previous/next buttons that call native `scrollBy`. It does
-not include indicators, autoplay, looping, disabled button state, or controlled state; those belong
-in a future full carousel primitive.
+`SnapCarousel` is the small native carousel in moduix. It keeps browser scrolling and CSS
+`scroll-snap` as the real interaction model, then adds a composition-first wrapper with optional
+previous / next controls.
+
+It does **not** include active-slide state, indicators, autoplay, looping, edge-aware button
+disabling, or slide announcements. If you need those features, reach for a separate higher-level
+carousel pattern instead of expecting this wrapper to own them.
 
 ## Default Path
 
-Use `SnapCarousel` with `SnapCarouselContent` for the common case. Content creates the viewport and
-wraps each direct child in an item.
+Use `SnapCarousel > SnapCarouselContent` for the common case. `SnapCarouselContent` creates the
+viewport automatically and wraps each direct child in a snap item.
 
 <Preview cssProperties={snapCarouselPlaygroundCssProperties}>
   <SnapCarouselExample />
@@ -36,17 +39,33 @@ wraps each direct child in an item.
         SnapCarouselNext,
         SnapCarouselPrevious,
       } from "moduix";
+      import styles from "./snap-carousel.module.css";
+
+      function DestinationSlide({ destination, index }) {
+        return (
+          <article className={styles.slide}>
+            <img src={destination.image} alt={destination.alt} className={styles.image} />
+            <div className={styles.slideContent}>
+              <p className={styles.eyebrow}>
+                {destination.eyebrow} / 0{index + 1}
+              </p>
+              <h3 className={styles.title}>{destination.title}</h3>
+              <p className={styles.description}>{destination.description}</p>
+            </div>
+          </article>
+        );
+      }
 
       export function DestinationCarousel() {
         return (
-          <SnapCarousel>
+          <SnapCarousel className={styles.carousel}>
             <SnapCarouselContent aria-label="Featured destinations">
-              {destinations.map((destination) => (
-                <article key={destination.title}>
-                  <img src={destination.image} alt={destination.alt} />
-                  <h3>{destination.title}</h3>
-                  <p>{destination.description}</p>
-                </article>
+              {destinations.map((destination, index) => (
+                <DestinationSlide
+                  key={destination.title}
+                  destination={destination}
+                  index={index}
+                />
               ))}
             </SnapCarouselContent>
             <SnapCarouselPrevious />
@@ -77,41 +96,30 @@ SnapCarousel
 └─ SnapCarouselNext
 ```
 
-| Part                   | Role                                                                       |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `SnapCarousel`         | Root with orientation and alignment data attributes.                       |
-| `SnapCarouselViewport` | Focusable native scroll container.                                         |
-| `SnapCarouselContent`  | Creates viewport/items in simple usage; acts as track in full composition. |
-| `SnapCarouselItem`     | One snap point.                                                            |
-| `SnapCarouselPrevious` | Optional button that scrolls backward by most of the viewport.             |
-| `SnapCarouselNext`     | Optional button that scrolls forward by most of the viewport.              |
+| Part                   | Role                                                                               |
+| ---------------------- | ---------------------------------------------------------------------------------- |
+| `SnapCarousel`         | Root `div` with `data-align` and `data-orientation`.                               |
+| `SnapCarouselViewport` | Focusable native scroll container.                                                 |
+| `SnapCarouselContent`  | Sugar wrapper in the default path, or the explicit flex track in full composition. |
+| `SnapCarouselItem`     | One snap point.                                                                    |
+| `SnapCarouselPrevious` | Optional button that scrolls backward by most of the viewport.                     |
+| `SnapCarouselNext`     | Optional button that scrolls forward by most of the viewport.                      |
 
 ## Composition
 
-Use `SnapCarousel > SnapCarouselContent` for the common path. Drop to
-`SnapCarousel > SnapCarouselViewport > SnapCarouselContent > SnapCarouselItem` when the carousel
-needs explicit item wrappers or direct viewport access.
+Use the default path when each direct child should become a slide. Drop to
+`SnapCarousel > SnapCarouselViewport > SnapCarouselContent > SnapCarouselItem` when you need
+explicit item wrappers, direct viewport props, or different slide markup per item.
 
-On the common path, accessibility props like `aria-label`, `aria-labelledby`, `aria-describedby`,
-`tabIndex`, and `onKeyDown` are forwarded from `SnapCarouselContent` to the generated native scroll
-container. `itemClassName` targets the generated item wrappers.
+In the default path:
 
-`SnapCarouselPrevious` and `SnapCarouselNext` are intentionally stateless: they do not track the
-active item or disable themselves at the edges.
-
-Key props on `SnapCarousel`:
-
-| Prop          | Default        | Purpose                          |
-| ------------- | -------------- | -------------------------------- |
-| `align`       | `'start'`      | Sets item `scroll-snap-align`.   |
-| `orientation` | `'horizontal'` | Switches the native scroll axis. |
-
-## Examples
+- `SnapCarouselContent` forwards `aria-label`, `aria-labelledby`, `aria-describedby`, `tabIndex`, and
+  `onKeyDown` to the generated viewport.
+- When a label is provided, the generated viewport becomes a named `region`, so the label is exposed
+  meaningfully to assistive tech.
+- `itemClassName` applies to the generated `SnapCarouselItem` wrappers.
 
 ### Custom Composition
-
-Use the parts directly when slide cards should be narrower than the viewport or when item wrappers
-need custom classes.
 
 <Preview>
   <SnapCarouselCompositionExample />
@@ -126,15 +134,31 @@ need custom classes.
         SnapCarouselPrevious,
         SnapCarouselViewport,
       } from "moduix";
+      import styles from "./snap-carousel.module.css";
 
       export function CardsCarousel() {
         return (
           <SnapCarousel className={styles.cardsCarousel}>
             <SnapCarouselViewport aria-label="Featured destination cards">
               <SnapCarouselContent>
-                {destinations.map((destination) => (
-                  <SnapCarouselItem key={destination.title}>
-                    <article>{destination.title}</article>
+                {destinations.map((destination, index) => (
+                  <SnapCarouselItem key={destination.title} className={styles.cardItem}>
+                    <article className={styles.card}>
+                      <img
+                        src={destination.image}
+                        alt=""
+                        className={styles.cardImage}
+                      />
+                      <div>
+                        <p className={styles.eyebrow}>
+                          0{index + 1} / {destination.eyebrow}
+                        </p>
+                        <h3 className={styles.cardTitle}>{destination.title}</h3>
+                        <p className={styles.cardDescription}>
+                          {destination.description}
+                        </p>
+                      </div>
+                    </article>
                   </SnapCarouselItem>
                 ))}
               </SnapCarouselContent>
@@ -150,7 +174,7 @@ need custom classes.
   <Preview.CSS>
     {`
       .cardsCarousel {
-        --snap-carousel-item-size: min(17rem, 72%);
+        --snap-carousel-item-size: min(15rem, 72%);
       }
     `}
 
@@ -159,23 +183,57 @@ need custom classes.
 
 ### Vertical
 
-Set `orientation="vertical"` when slides should snap along the block axis. Provide a height through
-`--snap-carousel-height` or local CSS.
+Set `orientation="vertical"` when slides should snap along the block axis. The root needs a bounded
+height, usually through `--snap-carousel-height` or local CSS.
 
 <Preview>
   <SnapCarouselVerticalExample />
 
   <Preview.Code>
     {`
-      <SnapCarousel orientation="vertical" className={styles.verticalCarousel}>
-        <SnapCarouselContent aria-label="Vertical destination carousel">
-          {destinations.map((destination) => (
-            <DestinationSlide key={destination.title} destination={destination} />
-          ))}
-        </SnapCarouselContent>
-        <SnapCarouselPrevious />
-        <SnapCarouselNext />
-      </SnapCarousel>
+      import {
+        SnapCarousel,
+        SnapCarouselContent,
+        SnapCarouselNext,
+        SnapCarouselPrevious,
+      } from "moduix";
+      import styles from "./snap-carousel.module.css";
+
+      function DestinationSlide({ destination, index }) {
+        return (
+          <article className={styles.slide}>
+            <img src={destination.image} alt={destination.alt} className={styles.image} />
+            <div className={styles.slideContent}>
+              <p className={styles.eyebrow}>
+                {destination.eyebrow} / 0{index + 1}
+              </p>
+              <h3 className={styles.title}>{destination.title}</h3>
+              <p className={styles.description}>{destination.description}</p>
+            </div>
+          </article>
+        );
+      }
+
+      export function VerticalDestinationCarousel() {
+        return (
+          <SnapCarousel
+            orientation="vertical"
+            className={styles.verticalCarousel}
+          >
+            <SnapCarouselContent aria-label="Vertical destination carousel">
+              {destinations.map((destination, index) => (
+                <DestinationSlide
+                  key={destination.title}
+                  destination={destination}
+                  index={index}
+                />
+              ))}
+            </SnapCarouselContent>
+            <SnapCarouselPrevious />
+            <SnapCarouselNext />
+          </SnapCarousel>
+        );
+      }
     `}
 
   </Preview.Code>
@@ -189,15 +247,38 @@ Set `orientation="vertical"` when slides should snap along the block axis. Provi
   </Preview.CSS>
 </Preview>
 
-## Styling
+## Styling API
 
-Use `className` on any part for local layout and `--snap-carousel-*` variables for reusable
-customization. The most useful slide-size variable is `--snap-carousel-item-size`; set it below
-`100%` to show adjacent items.
+All visual parts accept `className`. Stable styling hooks:
+
+- `data-slot="snap-carousel-root"`
+- `data-slot="snap-carousel-viewport"`
+- `data-slot="snap-carousel-content"`
+- `data-slot="snap-carousel-item"`
+- `data-slot="snap-carousel-previous"`
+- `data-slot="snap-carousel-next"`
+- `data-align="start|center|end"` on the root
+- `data-orientation="horizontal|vertical"` on the root
+
+Use `--snap-carousel-item-size` to show adjacent slides and `--snap-carousel-item-gap` to control
+spacing between them.
 
 ```css
 .cardsCarousel {
-  --snap-carousel-item-size: min(17rem, 72%);
+  --snap-carousel-item-size: min(15rem, 72%);
   --snap-carousel-item-gap: var(--spacing-4);
 }
 ```
+
+## Accessibility and UX
+
+- Put an accessible name on the viewport. In the default path, pass it to `SnapCarouselContent`; in
+  explicit composition, pass it to `SnapCarouselViewport`.
+- The viewport is focusable by default, so browser-native keyboard scrolling can work without extra
+  carousel state.
+- Previous / next buttons are intentionally stateless. They do not track the current slide or disable
+  themselves at the edges.
+- Native `disabled` works on the controls. `aria-disabled="true"` is only semantics and styling; when
+  you use it, prevent the click action yourself in `onClick`.
+- Slides are plain `div` wrappers. The component does not announce `"slide 2 of 5"` or add roving
+  focus between slides.
