@@ -11,13 +11,12 @@ import {
   usePagination,
 } from './Pagination';
 
-function PaginationDemo({
-  currentPage = 5,
-  pageCount = 10,
-}: {
+type PaginationStoryArgs = {
   currentPage?: number;
   pageCount?: number;
-}) {
+};
+
+function PaginationPreview({ currentPage = 5, pageCount = 10 }: PaginationStoryArgs) {
   const [page, setPage] = useState(currentPage);
   const pagination = usePagination({ count: pageCount, page });
 
@@ -66,28 +65,37 @@ function PaginationDemo({
 
 const meta = {
   title: 'Components/Pagination',
-  component: PaginationDemo,
-  tags: ['autodocs'],
+  component: PaginationPreview,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof PaginationDemo>;
+  render: ({ currentPage, pageCount }) => (
+    <PaginationPreview currentPage={currentPage} pageCount={pageCount} />
+  ),
+} satisfies Meta<PaginationStoryArgs>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    currentPage: 5,
+    pageCount: 10,
+  },
+};
 
 export const Start: Story = {
   args: {
     currentPage: 1,
+    pageCount: 10,
   },
 };
 
 export const End: Story = {
   args: {
     currentPage: 10,
+    pageCount: 10,
   },
 };
 
@@ -148,7 +156,7 @@ export const CustomStyles: Story = {
         } as CSSProperties
       }
     >
-      <PaginationDemo />
+      <PaginationPreview />
     </div>
   ),
 };

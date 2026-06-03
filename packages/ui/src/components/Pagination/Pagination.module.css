@@ -53,7 +53,9 @@
       outline-offset: -1px;
     }
 
-    &[aria-disabled='true'] {
+    &[aria-disabled='true'],
+    &[data-disabled],
+    &[disabled] {
       opacity: var(--pagination-disabled-opacity, var(--opacity-disabled));
       pointer-events: none;
     }
@@ -65,7 +67,8 @@
     }
   }
 
-  .linkActive {
+  .linkActive,
+  .link[aria-current='page'] {
     border-color: var(--pagination-item-border-color-active, var(--color-foreground));
     background-color: var(--pagination-item-bg-active, var(--color-foreground));
     color: var(--pagination-item-color-active, var(--color-background));

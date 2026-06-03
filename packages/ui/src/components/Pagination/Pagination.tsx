@@ -83,19 +83,23 @@ function usePagination({
   };
 }
 
-const getPaginationRender = (props: ToolbarPrimitive.Link.Props) => {
-  if (props.render || 'href' in props) {
-    return props.render;
+const getPaginationRender = ({ href }: ToolbarPrimitive.Link.Props) => {
+  if (href != null) {
+    return undefined;
   }
 
   return <button type="button" />;
 };
 
-function Pagination({ className, ...props }: ComponentProps<'nav'>) {
+function Pagination({
+  'aria-label': ariaLabel = 'Pagination',
+  className,
+  ...props
+}: ComponentProps<'nav'>) {
   return (
     <nav
       data-slot="pagination-root"
-      aria-label="Pagination"
+      aria-label={ariaLabel}
       className={clsx(styles.root, className)}
       {...props}
     />
