@@ -90,23 +90,26 @@ const ScrollAreaCorner = forwardRef(function ScrollAreaCorner(
   );
 });
 
-function ScrollArea({
-  className,
-  children,
-  fade = false,
-  scrollbars = 'vertical',
-  ...props
-}: ScrollAreaPrimitive.Root.Props & {
-  children?: ReactNode;
-  fade?: FadeDirection;
-  scrollbars?: Scrollbars;
-}) {
+const ScrollArea = forwardRef(function ScrollArea(
+  {
+    className,
+    children,
+    fade = false,
+    scrollbars = 'vertical',
+    ...props
+  }: ScrollAreaPrimitive.Root.Props & {
+    children?: ReactNode;
+    fade?: FadeDirection;
+    scrollbars?: Scrollbars;
+  },
+  ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Root>>,
+) {
   const fadeDirection = fade === true ? 'vertical' : fade || undefined;
   const hasVerticalScrollbar = scrollbars === 'vertical' || scrollbars === 'both';
   const hasHorizontalScrollbar = scrollbars === 'horizontal' || scrollbars === 'both';
 
   return (
-    <ScrollAreaRoot className={className} data-fade={fadeDirection} {...props}>
+    <ScrollAreaRoot ref={ref} className={className} {...props} data-fade={fadeDirection}>
       <ScrollAreaViewport>
         <ScrollAreaContent>{children}</ScrollAreaContent>
       </ScrollAreaViewport>
@@ -123,7 +126,7 @@ function ScrollArea({
       {hasVerticalScrollbar && hasHorizontalScrollbar ? <ScrollAreaCorner /> : null}
     </ScrollAreaRoot>
   );
-}
+});
 
 export {
   ScrollArea,
