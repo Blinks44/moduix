@@ -1889,6 +1889,7 @@
   --skeleton-radius: initial; /* var(--radius-md) */
 
   /* Spinner */
+  --spinner-animation: initial; /* var(--animation-spin) */
   --spinner-color: initial; /* currentColor */
   --spinner-radius: initial; /* var(--radius-full) */
   --spinner-ring-border-width: initial; /* 0.125rem */

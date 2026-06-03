@@ -3,6 +3,10 @@ import clsx from 'clsx';
 import styles from './Spinner.module.css';
 
 type SpinnerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type SpinnerProps = ComponentProps<'span'> & {
+  size?: SpinnerSize;
+  decorative?: boolean;
+};
 
 function Spinner({
   className,
@@ -12,10 +16,7 @@ function Spinner({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
   ...props
-}: ComponentProps<'span'> & {
-  size?: SpinnerSize;
-  decorative?: boolean;
-}) {
+}: SpinnerProps) {
   const accessibleLabel = decorative
     ? undefined
     : (ariaLabel ?? (ariaLabelledBy ? undefined : 'Loading'));
@@ -32,10 +33,11 @@ function Spinner({
       className={clsx(styles.root, className)}
     >
       <span data-slot="spinner-indicator" className={styles.indicator} aria-hidden="true">
-        {children ?? <span className={styles.ring} />}
+        {children ?? <span data-slot="spinner-ring" className={styles.ring} />}
       </span>
     </span>
   );
 }
 
 export { Spinner };
+export type { SpinnerProps, SpinnerSize };

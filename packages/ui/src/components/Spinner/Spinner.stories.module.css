@@ -13,7 +13,3 @@
 .muted {
   color: var(--color-muted-foreground);
 }
-
-.accent {
-  color: var(--color-primary);
-}
