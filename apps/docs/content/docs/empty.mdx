@@ -1,0 +1,261 @@
+---
+title: Empty
+description: A composed empty-state surface for no-results, no-data, and first-run screens.
+icon: Component
+---
+
+import {
+  EmptyCssPlaygroundPanel,
+  EmptyCssPropertiesPanel,
+  EmptyCustomStylesExample,
+  EmptyExample,
+  EmptyWithoutActionsExample,
+  EmptyWithoutIconExample,
+  emptyPlaygroundCssProperties,
+} from '@/components/examples/empty';
+
+## API Reference
+
+`Empty` does not wrap a Base UI primitive. It is a standalone moduix presentational component built for
+empty-state layouts.
+
+## Basic
+
+<Preview cssProperties={emptyPlaygroundCssProperties} cssVariableScope="local">
+  <EmptyExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        ComputerIcon,
+        Empty,
+        EmptyActions,
+        EmptyContent,
+        EmptyDescription,
+        EmptyIcon,
+        EmptyTitle,
+      } from "moduix";
+
+      export function EmptyDemo() {
+        return (
+          <Empty className={styles.empty}>
+            <EmptyIcon>
+              <ComputerIcon />
+            </EmptyIcon>
+            <EmptyContent>
+              <EmptyTitle>No deployments yet</EmptyTitle>
+              <EmptyDescription>
+                Connect a repository to start tracking release status and
+                deployment history.
+              </EmptyDescription>
+            </EmptyContent>
+            <EmptyActions>
+              <Button>Connect repository</Button>
+              <Button variant="outline">Read setup guide</Button>
+            </EmptyActions>
+          </Empty>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .empty {
+        width: min(28rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.CSSProperties>{(context) => <EmptyCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <EmptyCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+`Empty` gives missing-data states a consistent surface, optional icon slot, and wrapping actions row
+without locking consumers into high-level props like `title`, `description`, or `primaryAction`.
+
+## Anatomy
+
+```text
+Empty
+├─ EmptyIcon (optional)
+├─ EmptyContent
+│  ├─ EmptyTitle
+│  └─ EmptyDescription
+└─ EmptyActions (optional)
+```
+
+| Part               | Role                                                               |
+| ------------------ | ------------------------------------------------------------------ |
+| `Empty`            | Root surface that owns padding, border, background, and alignment. |
+| `EmptyIcon`        | Optional icon or small visual affordance container.                |
+| `EmptyContent`     | Groups text content with tighter inner spacing.                    |
+| `EmptyTitle`       | Main empty-state heading.                                          |
+| `EmptyDescription` | Supporting description block for one or more text nodes.           |
+| `EmptyActions`     | Optional wrapping row for actions.                                 |
+
+## Composition
+
+Use the component parts directly instead of passing a bag of content props. That keeps the common path
+simple while leaving room for richer descriptions, custom buttons, links, or omitted sections.
+
+`EmptyDescription` renders a `div`, not a `p`, so it can safely contain block content when needed.
+`EmptyTitle` renders `h3` by default and accepts `as` when the page outline needs another heading
+level.
+
+## Examples
+
+### Without Actions
+
+Omit `EmptyActions` when the state is only informational.
+
+<Preview>
+  <EmptyWithoutActionsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Empty,
+        EmptyContent,
+        EmptyDescription,
+        EmptyIcon,
+        EmptyTitle,
+        MapIcon,
+      } from "moduix";
+
+      export function SavedPlacesEmptyState() {
+        return (
+          <Empty className={styles.empty}>
+            <EmptyIcon>
+              <MapIcon />
+            </EmptyIcon>
+            <EmptyContent>
+              <EmptyTitle>No saved places</EmptyTitle>
+              <EmptyDescription>
+                Save frequently used destinations to keep them close to your
+                workspace.
+              </EmptyDescription>
+            </EmptyContent>
+          </Empty>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Without Icon
+
+The visual slot is optional, so plain text-only empty states stay simple.
+
+<Preview>
+  <EmptyWithoutIconExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Empty,
+        EmptyActions,
+        EmptyContent,
+        EmptyDescription,
+        EmptyTitle,
+      } from "moduix";
+
+      export function SearchResultsEmptyState() {
+        return (
+          <Empty className={styles.empty}>
+            <EmptyContent>
+              <EmptyTitle>No results found</EmptyTitle>
+              <EmptyDescription>
+                Try changing the search query or clearing one of the active
+                filters.
+              </EmptyDescription>
+            </EmptyContent>
+            <EmptyActions>
+              <Button variant="outline">Clear filters</Button>
+            </EmptyActions>
+          </Empty>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styles
+
+Override the `--empty-*` tokens on a single empty state when it should align with a more specific
+screen tone.
+
+<Preview>
+  <EmptyCustomStylesExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        ComputerIcon,
+        Empty,
+        EmptyActions,
+        EmptyContent,
+        EmptyDescription,
+        EmptyIcon,
+        EmptyTitle,
+      } from "moduix";
+      import styles from "./empty.module.css";
+
+      export function TeamInviteEmptyState() {
+        return (
+          <Empty className={styles.customEmpty}>
+            <EmptyIcon className={styles.customIcon}>
+              <ComputerIcon />
+            </EmptyIcon>
+            <EmptyContent>
+              <EmptyTitle>Invite your team</EmptyTitle>
+              <EmptyDescription>
+                Shared projects, comments, and approvals appear here after the
+                first teammate joins.
+              </EmptyDescription>
+            </EmptyContent>
+            <EmptyActions>
+              <Button>Send invite</Button>
+            </EmptyActions>
+          </Empty>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customEmpty {
+        --empty-bg: color-mix(
+          in oklab,
+          var(--color-primary) 8%,
+          var(--color-card)
+        );
+        --empty-border-color: color-mix(
+          in oklab,
+          var(--color-primary) 28%,
+          var(--color-border)
+        );
+        --empty-icon-bg: color-mix(
+          in oklab,
+          var(--color-primary) 14%,
+          var(--color-background)
+        );
+        --empty-icon-color: var(--color-primary);
+        --empty-shadow: var(--shadow-md);
+      }
+
+      .customIcon {
+        --empty-icon-size: 1.75rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

@@ -950,6 +950,30 @@
   --drawer-viewport-top: initial; /* 0 */
   --drawer-width: initial; /* 100% */
 
+  /* Empty */
+  --empty-actions-gap: initial; /* var(--spacing-2) */
+  --empty-bg: initial; /* color-mix(in oklab, var(--color-card) 92%, var(--color-muted)) */
+  --empty-border-color: initial; /* var(--color-border) */
+  --empty-border-width: initial; /* var(--border-width-sm) */
+  --empty-color: initial; /* var(--color-card-foreground) */
+  --empty-content-gap: initial; /* var(--spacing-1) */
+  --empty-content-max-width: initial; /* 28rem */
+  --empty-description-color: initial; /* var(--color-muted-foreground) */
+  --empty-description-font-size: initial; /* var(--text-sm) */
+  --empty-description-line-height: initial; /* var(--line-height-text-sm) */
+  --empty-gap: initial; /* var(--spacing-4) */
+  --empty-icon-bg: initial; /* var(--color-muted) */
+  --empty-icon-color: initial; /* var(--color-muted-foreground) */
+  --empty-icon-padding: initial; /* var(--spacing-3) */
+  --empty-icon-size: initial; /* 1.5rem */
+  --empty-padding: initial; /* var(--spacing-8) */
+  --empty-radius: initial; /* var(--radius-xl) */
+  --empty-shadow: initial; /* none */
+  --empty-title-color: initial; /* currentColor */
+  --empty-title-font-size: initial; /* var(--text-xl) */
+  --empty-title-font-weight: initial; /* var(--weight-semibold) */
+  --empty-title-line-height: initial; /* var(--line-height-text-xl) */
+
   /* Field */
   --field-color: initial; /* var(--color-foreground) */
   --field-control-bg: initial; /* var(--color-background) */
