@@ -28,6 +28,9 @@ Follow the routing order from `AGENTS.md`, then run `npm run build:ui` from repo
   family inherit the other's sugar vocabulary by accident.
 - When a component keeps a narrow DX sugar prop, make sure code, stories, and docs all present it
   as a small convenience on top of the default path rather than as a replacement for composition.
+- When docs previews rely on example data, make sure the docs snippet also shows that data in
+  `Preview.Code` or `Preview.Data`; the visible preview and the documented code should explain the
+  same behavior.
 - `CSS Properties` must reflect the current public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
 - When a UI simplification removes CSS hooks, verify that docs, stories, and examples stop referencing them in the same task.
 

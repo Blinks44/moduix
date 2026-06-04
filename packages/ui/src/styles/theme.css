@@ -81,6 +81,9 @@
   --popup-separator-margin-x-start: initial; /* 1rem */
   --popup-separator-margin-y: initial; /* 0.375rem */
 
+  /* AspectRatio */
+  --aspect-ratio-radius: initial; /* var(--radius-md) */
+
   /* Accordion */
   --accordion-color: initial; /* var(--color-foreground) */
   --accordion-disabled-opacity: initial; /* var(--opacity-disabled) */
@@ -1949,6 +1952,36 @@
   --switch-width-md: initial; /* 2.5rem */
   --switch-width-lg: initial; /* 3rem */
   --switch-width-xl: initial; /* 3.5rem */
+
+  /* Table */
+  --table-border-color: initial; /* var(--color-border) */
+  --table-border-width: initial; /* var(--border-width-sm) */
+  --table-caption-color: initial; /* var(--color-muted-foreground) */
+  --table-caption-font-size: initial; /* var(--text-sm) */
+  --table-caption-line-height: initial; /* var(--line-height-text-sm) */
+  --table-caption-padding-edge: initial; /* var(--spacing-2) */
+  --table-caption-padding-x: initial; /* var(--table-cell-padding-x, var(--spacing-4)) */
+  --table-caption-padding-y: initial; /* var(--spacing-3) */
+  --table-cell-padding-x: initial; /* var(--spacing-4) */
+  --table-cell-padding-y: initial; /* var(--spacing-3) */
+  --table-color: initial; /* var(--color-foreground) */
+  --table-container-bg: initial; /* var(--color-card) */
+  --table-container-border-color: initial; /* var(--table-border-color, var(--color-border)) */
+  --table-container-border-width: initial; /* var(--table-border-width, var(--border-width-sm)) */
+  --table-container-radius: initial; /* var(--radius-lg) */
+  --table-container-shadow: initial; /* none */
+  --table-empty-color: initial; /* var(--color-muted-foreground) */
+  --table-empty-padding-y: initial; /* calc(var(--table-cell-padding-y, var(--spacing-3)) * 2) */
+  --table-font-family: initial; /* var(--font-sans) */
+  --table-font-size: initial; /* var(--text-sm) */
+  --table-footer-bg: initial; /* var(--color-muted) */
+  --table-footer-color: initial; /* var(--table-color, var(--color-foreground)) */
+  --table-footer-font-weight: initial; /* var(--weight-medium) */
+  --table-head-color: initial; /* var(--color-muted-foreground) */
+  --table-head-font-weight: initial; /* var(--weight-medium) */
+  --table-line-height: initial; /* var(--line-height-text-sm) */
+  --table-row-bg-hover: initial; /* var(--color-muted) */
+  --table-row-transition: initial; /* background-color var(--transition-default) */
 
   /* Tabs */
   --tabs-bg: initial; /* var(--color-background) */

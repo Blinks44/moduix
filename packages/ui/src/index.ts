@@ -3,6 +3,7 @@ import './styles/tokens.css';
 export * from './icons/ui';
 export * from './icons/demo';
 
+export * from './components/AspectRatio';
 export * from './components/Accordion';
 export * from './components/Alert';
 export * from './components/AlertDialog';
@@ -52,6 +53,7 @@ export * from './components/Skeleton';
 export * from './components/Spinner';
 export * from './components/Stack';
 export * from './components/Switch';
+export * from './components/Table';
 export * from './components/Tabs';
 export * from './components/Text';
 export * from './components/Textarea';

@@ -46,6 +46,10 @@ Keep demo styles out of inline style objects and utility-heavy strings when a CS
 - MDX should stay focused on the public API and the most useful usage patterns.
 - Put interactive logic, example data, and `cssProperties` lists in the example `.tsx` file.
 - Snippets should show consumer usage from `moduix` and be self-contained for the shown variant.
+- When a preview depends on local arrays, objects, labels, or other example data, that data must be
+  visible in the docs snippet (`Preview.Code` or `Preview.Data`). Do not hide real preview behavior
+  behind `{/* ... */}` placeholders when the missing data is necessary to understand how the example
+  works.
 - Do not repeat global setup imports like `import "moduix/style.css";`.
 - Prefer `as T` over generic syntax like `useState<T>()` in MDX snippets.
 - Prefer short, production-like examples over exhaustive configuration demos.
