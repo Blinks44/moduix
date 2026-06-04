@@ -1,0 +1,251 @@
+---
+title: Stepper
+description: Composition-first ordered progress and step navigation.
+icon: Component
+---
+
+import {
+  ControlledStepperExample,
+  CustomStylesStepperExample,
+  LinkCompositionStepperExample,
+  StepperCssPlaygroundPanel,
+  StepperCssPropertiesPanel,
+  StepperExample,
+  VerticalStepperExample,
+  stepperPlaygroundCssProperties,
+} from '@/components/examples/stepper';
+
+## Default Path
+
+Use `Stepper` with `StepperList` and explicit `StepperItem step={...}` values when you need ordered
+progress without a large wizard abstraction.
+
+<Preview cssProperties={stepperPlaygroundCssProperties}>
+  <StepperExample currentStep={2} />
+
+  <Preview.Code>
+    {`
+      import {
+        Stepper,
+        StepperContent,
+        StepperDescription,
+        StepperIndicator,
+        StepperItem,
+        StepperList,
+        StepperTitle,
+        StepperTrigger,
+      } from "moduix";
+
+      export function StepperDemo() {
+        return (
+          <Stepper currentStep={2}>
+            <StepperList>
+              <StepperItem step={1}>
+                <StepperTrigger render={<div />}>
+                  <StepperIndicator />
+                  <StepperContent>
+                    <StepperTitle>Account</StepperTitle>
+                    <StepperDescription>
+                      Create the workspace owner account.
+                    </StepperDescription>
+                  </StepperContent>
+                </StepperTrigger>
+              </StepperItem>
+              <StepperItem step={2}>
+                <StepperTrigger render={<div />}>
+                  <StepperIndicator />
+                  <StepperContent>
+                    <StepperTitle>Profile</StepperTitle>
+                    <StepperDescription>
+                      Set team details and locale.
+                    </StepperDescription>
+                  </StepperContent>
+                </StepperTrigger>
+              </StepperItem>
+              <StepperItem step={3}>
+                <StepperTrigger render={<div />}>
+                  <StepperIndicator />
+                  <StepperContent>
+                    <StepperTitle>Billing</StepperTitle>
+                    <StepperDescription>
+                      Choose the plan and payment method.
+                    </StepperDescription>
+                  </StepperContent>
+                </StepperTrigger>
+              </StepperItem>
+            </StepperList>
+          </Stepper>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <StepperCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <StepperCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+`StepperTrigger` defaults to a native button. Use `render={<div />}` for a display-only progress
+stepper, or `render={<a />}` / router-link composition when each step should navigate.
+
+## Anatomy
+
+```text
+Stepper
+└─ StepperList
+   └─ StepperItem
+      └─ StepperTrigger
+         ├─ StepperIndicator
+         └─ StepperContent
+            ├─ StepperTitle
+            └─ StepperDescription
+```
+
+| Part                 | Role                                                               |
+| -------------------- | ------------------------------------------------------------------ |
+| `Stepper`            | Navigation landmark. Owns `currentStep` and `orientation`.         |
+| `StepperList`        | Ordered list of visible steps.                                     |
+| `StepperItem`        | One numbered step. Resolves `inactive`, `current`, or `completed`. |
+| `StepperTrigger`     | Optional interactive wrapper. Defaults to a native button.         |
+| `StepperIndicator`   | Number or completed check icon.                                    |
+| `StepperContent`     | Layout wrapper for step text.                                      |
+| `StepperTitle`       | Main step label.                                                   |
+| `StepperDescription` | Secondary helper text.                                             |
+
+## Composition
+
+`Stepper` stays small on purpose:
+
+- `currentStep` derives status only
+- panel rendering stays in consumer code
+- validation, form state, and route state stay in consumer code
+- step navigation stays explicit in JSX through `StepperTrigger`
+
+Rules of thumb:
+
+| Pattern              | Best fit                                                 |
+| -------------------- | -------------------------------------------------------- |
+| `render={<div />}`   | Read-only onboarding progress or checklist summaries     |
+| default button path  | Client-side multi-step forms and local flow state        |
+| `render={<a />}`     | Anchor or router-link navigation between steps           |
+| `status="completed"` | Manual overrides when visual progress differs from order |
+
+`StepperItem` requires `step`. The current implementation does not auto-number from child position.
+
+## Examples
+
+### Controlled State
+
+Keep the current step in React state when each step should be clickable.
+
+<Preview>
+  <ControlledStepperExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Stepper,
+        StepperContent,
+        StepperDescription,
+        StepperIndicator,
+        StepperItem,
+        StepperList,
+        StepperTitle,
+        StepperTrigger,
+      } from "moduix";
+      import { useState } from "react";
+
+      const steps = [
+        { step: 1, title: "Account" },
+        { step: 2, title: "Profile" },
+        { step: 3, title: "Billing" },
+      ];
+
+      export function ControlledStepperDemo() {
+        const [currentStep, setCurrentStep] = useState(2);
+
+        return (
+          <Stepper currentStep={currentStep}>
+            <StepperList>
+              {steps.map((item) => (
+                <StepperItem key={item.step} step={item.step}>
+                  <StepperTrigger onClick={() => setCurrentStep(item.step)}>
+                    <StepperIndicator />
+                    <StepperContent>
+                      <StepperTitle>{item.title}</StepperTitle>
+                    </StepperContent>
+                  </StepperTrigger>
+                </StepperItem>
+              ))}
+            </StepperList>
+          </Stepper>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Vertical
+
+Switch to `orientation="vertical"` when the layout should stack alongside longer descriptions.
+
+<Preview>
+  <VerticalStepperExample />
+
+  <Preview.Code>
+    {`
+      <Stepper currentStep={3} orientation="vertical">
+        <StepperList>{/* items */}</StepperList>
+      </Stepper>
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Link Composition
+
+Use `render` to keep framework-specific link components outside the Stepper API.
+
+<Preview>
+  <LinkCompositionStepperExample />
+
+  <Preview.Code>
+    {`
+      <Stepper currentStep={2}>
+        <StepperList>
+          <StepperItem step={1}>
+            <StepperTrigger render={<a href="#step-1" />}>
+              <StepperIndicator />
+              <StepperContent>
+                <StepperTitle>Account</StepperTitle>
+              </StepperContent>
+            </StepperTrigger>
+          </StepperItem>
+        </StepperList>
+      </Stepper>
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Styling
+
+Style the composed parts with `className` on `Stepper` and the public `--stepper-*` variables.
+
+<Preview>
+  <CustomStylesStepperExample />
+
+  <Preview.Code>
+    {`
+      .customStepper {
+        --stepper-connector-color-active: var(--color-primary);
+        --stepper-indicator-bg-completed: var(--color-primary);
+        --stepper-indicator-border-color-completed: var(--color-primary);
+        --stepper-indicator-border-color-current: var(--color-primary);
+        --stepper-indicator-color-current: var(--color-primary);
+        --stepper-title-color-current: var(--color-primary);
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

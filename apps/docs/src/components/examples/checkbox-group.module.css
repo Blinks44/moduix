@@ -5,6 +5,12 @@
   gap: var(--spacing-2);
 }
 
+.formGroup {
+  width: fit-content;
+  max-width: min(20rem, 100%);
+  align-self: center;
+}
+
 .hint {
   color: var(--color-muted-foreground);
   font-size: var(--text-xs);

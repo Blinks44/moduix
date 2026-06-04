@@ -20,7 +20,8 @@
 }
 
 .multipleField {
-  width: min(100%, 28rem);
+  width: fit-content;
+  max-width: min(100%, 28rem);
 }
 
 .multipleInputGroup {

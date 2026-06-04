@@ -5,6 +5,12 @@
   gap: var(--spacing-3);
 }
 
+.formField {
+  width: fit-content;
+  max-width: min(20rem, 100%);
+  align-self: center;
+}
+
 .siblingRow {
   display: flex;
   align-items: center;

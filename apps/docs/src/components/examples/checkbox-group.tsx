@@ -394,7 +394,7 @@ export function CheckboxGroupSiblingLabelNativeButtonExample() {
 export function CheckboxGroupFormIntegrationExample() {
   return (
     <Field name="notificationChannels">
-      <Fieldset render={<CheckboxGroup defaultValue={['email']} />}>
+      <Fieldset render={<CheckboxGroup defaultValue={['email']} className={styles.formGroup} />}>
         <FieldsetLegend>Notification Channels</FieldsetLegend>
         {notificationOptions.map((option) => (
           <FieldItem key={option.value}>
