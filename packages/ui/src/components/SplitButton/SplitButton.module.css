@@ -1,0 +1,60 @@
+@layer ui.components {
+  .root {
+    display: inline-flex;
+    align-items: stretch;
+  }
+
+  .action {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .trigger {
+    position: relative;
+    min-width: 0;
+    margin-inline-start: calc(var(--button-border-width, var(--border-width-sm)) * -1);
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    padding-inline: 0.75rem;
+  }
+
+  .trigger::before {
+    content: '';
+    position: absolute;
+    inset-block: 0.375rem;
+    inset-inline-start: 0;
+    width: 1px;
+    background-color: currentColor;
+    opacity: 0.16;
+    pointer-events: none;
+  }
+
+  .trigger[data-variant='outline']::before,
+  .trigger[data-variant='destructive-outline']::before {
+    opacity: 0;
+  }
+
+  .trigger[data-size='xs'] {
+    padding-inline: 0.5rem;
+  }
+
+  .trigger[data-size='sm'] {
+    padding-inline: 0.625rem;
+  }
+
+  .trigger[data-size='md'] {
+    padding-inline: 0.75rem;
+  }
+
+  .trigger[data-size='lg'] {
+    padding-inline: 0.875rem;
+  }
+
+  .trigger[data-size='xl'] {
+    padding-inline: 1rem;
+  }
+
+  .trigger :where(svg) {
+    flex-shrink: 0;
+  }
+}
