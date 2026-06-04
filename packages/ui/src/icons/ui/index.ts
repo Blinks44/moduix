@@ -1,6 +1,7 @@
 export {
   CheckIcon,
   CloseIcon,
+  CopyIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,

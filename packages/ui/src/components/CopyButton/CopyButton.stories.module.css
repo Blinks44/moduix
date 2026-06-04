@@ -1,0 +1,33 @@
+@layer storybook {
+  .field {
+    width: 16rem;
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+    width: 16rem;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .value {
+    min-width: 0;
+    flex: 1 1 auto;
+    color: var(--color-muted-foreground);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .customButton[data-copied] {
+    --button-outline-bg: color-mix(in srgb, var(--color-primary) 8%, transparent);
+    --button-outline-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+    --button-outline-color: var(--color-primary);
+    --button-focus-ring-color: var(--color-primary);
+  }
+}

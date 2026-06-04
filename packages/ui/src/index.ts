@@ -22,6 +22,7 @@ export * from './components/Combobox';
 export * from './components/CommandPalette';
 export * from './components/Container';
 export * from './components/ContextMenu';
+export * from './components/CopyButton';
 export * from './components/Dialog';
 export * from './components/Drawer';
 export * from './components/Field';
