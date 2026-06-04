@@ -12,6 +12,7 @@ export {
   MinusIcon,
   PlusIcon,
   PopupArrowIcon,
+  RatingStarIcon,
   ScrubCursorIcon,
   SeparatorMarkIcon,
 } from './Icons';

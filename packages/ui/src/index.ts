@@ -45,6 +45,7 @@ export * from './components/Popover';
 export * from './components/PreviewCard';
 export * from './components/Progress';
 export * from './components/Radio';
+export * from './components/Rating';
 export * from './components/ScrollArea';
 export * from './components/Separator';
 export * from './components/Select';

@@ -1,0 +1,81 @@
+@layer ui.components {
+  .root {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--rating-gap, var(--spacing-1));
+    color: var(--rating-color, var(--color-muted-foreground));
+  }
+
+  .root[data-disabled] {
+    opacity: var(--rating-disabled-opacity, var(--opacity-disabled));
+  }
+
+  .item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border: 0;
+    border-radius: var(--radius-sm);
+    padding: 0;
+    background-color: transparent;
+    color: inherit;
+    line-height: 0;
+    cursor: pointer;
+    transition:
+      color var(--rating-transition, var(--transition-default)),
+      opacity var(--rating-transition, var(--transition-default));
+  }
+
+  .item[data-filled] {
+    color: var(--rating-active-color, var(--color-primary));
+  }
+
+  .item[data-readonly] {
+    cursor: default;
+  }
+
+  .item[data-disabled] {
+    pointer-events: none;
+  }
+
+  .item:focus-visible {
+    outline: var(--rating-focus-ring-width, var(--border-width-sm)) solid
+      var(--rating-focus-ring-color, var(--color-ring));
+    outline-offset: var(--rating-focus-ring-offset, 0.125rem);
+  }
+
+  .root[data-size='xs'] {
+    --_rating-icon-size: var(--rating-icon-size-xs, 0.875rem);
+  }
+
+  .root[data-size='sm'] {
+    --_rating-icon-size: var(--rating-icon-size-sm, 1rem);
+  }
+
+  .root[data-size='md'] {
+    --_rating-icon-size: var(--rating-icon-size-md, 1.25rem);
+  }
+
+  .root[data-size='lg'] {
+    --_rating-icon-size: var(--rating-icon-size-lg, 1.5rem);
+  }
+
+  .root[data-size='xl'] {
+    --_rating-icon-size: var(--rating-icon-size-xl, 1.75rem);
+  }
+
+  .icon {
+    width: var(--_rating-icon-size, var(--rating-icon-size-md, 1.25rem));
+    height: var(--_rating-icon-size, var(--rating-icon-size-md, 1.25rem));
+    fill: transparent;
+    stroke: currentColor;
+    transition:
+      fill var(--rating-transition, var(--transition-default)),
+      stroke var(--rating-transition, var(--transition-default));
+  }
+
+  .item[data-filled] .icon {
+    fill: currentColor;
+  }
+}
