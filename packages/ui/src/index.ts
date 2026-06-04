@@ -40,6 +40,7 @@ export * from './components/NavigationMenu';
 export * from './components/NumberField';
 export * from './components/OTPField';
 export * from './components/Pagination';
+export * from './components/PasswordInput';
 export * from './components/Popover';
 export * from './components/PreviewCard';
 export * from './components/Progress';

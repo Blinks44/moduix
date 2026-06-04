@@ -6,6 +6,8 @@ export {
   ChevronRightIcon,
   ChevronUpIcon,
   ChevronUpDownIcon,
+  EyeClosedIcon,
+  EyeIcon,
   IndeterminateIcon,
   MinusIcon,
   PlusIcon,
