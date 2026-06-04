@@ -1,6 +1,7 @@
 .list,
 .toneGrid {
-  width: min(32rem, calc(100vw - var(--spacing-8)));
+  width: fit-content;
+  max-width: min(32rem, calc(100vw - var(--spacing-8)));
 }
 
 .toneGrid {
@@ -10,7 +11,8 @@
 }
 
 .accentList {
-  width: min(32rem, calc(100vw - var(--spacing-8)));
+  width: fit-content;
+  max-width: min(32rem, calc(100vw - var(--spacing-8)));
   --list-padding-x: var(--spacing-6);
 }
 

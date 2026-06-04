@@ -1,12 +1,14 @@
 @layer examples {
   .field {
-    width: min(20rem, 100%);
+    width: fit-content;
+    max-width: min(20rem, 100%);
   }
 
   .stack {
     display: grid;
     gap: var(--spacing-3);
-    width: min(20rem, 100%);
+    width: fit-content;
+    max-width: min(20rem, 100%);
   }
 
   .hint {

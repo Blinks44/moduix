@@ -62,12 +62,12 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function TextExample(props: ComponentProps<typeof Text>) {
   return (
-    <>
+    <div className={styles.stack}>
       <Text {...props}>Use text to describe interface state and supporting details.</Text>
       <Text as="small" tone="muted">
         Last updated 2 minutes ago
       </Text>
-    </>
+    </div>
   );
 }
 

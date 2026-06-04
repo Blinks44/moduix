@@ -1,15 +1,26 @@
 .field {
-  width: min(24rem, 100%);
+  width: fit-content;
+  max-width: min(24rem, 100%);
+}
+
+.field [data-slot='input-group-root'] {
+  max-width: 100%;
 }
 
 .stack {
   display: grid;
   gap: var(--spacing-3);
-  width: min(24rem, 100%);
+  width: fit-content;
+  max-width: min(24rem, 100%);
+}
+
+.stack > [data-slot='input-group-root'] {
+  max-width: 100%;
 }
 
 .group {
-  width: min(24rem, 100%);
+  width: fit-content;
+  max-width: min(24rem, 100%);
 }
 
 .currency {
@@ -22,6 +33,9 @@
   --input-group-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
   --input-group-focus-ring-color: color-mix(in oklab, var(--color-primary) 50%, transparent);
   --input-group-radius: var(--radius-lg);
+
+  width: fit-content;
+  max-width: min(24rem, 100%);
 }
 
 .customAddon {

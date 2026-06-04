@@ -1,4 +1,10 @@
+.fieldset {
+  width: fit-content;
+  max-width: min(20rem, 100%);
+}
+
 .customFieldset {
+  width: fit-content;
   max-width: 20rem;
   gap: var(--spacing-3);
   padding: var(--spacing-4);
@@ -29,6 +35,9 @@
 }
 
 .choiceGroup {
+  align-self: center;
+  width: fit-content;
+  max-width: min(20rem, 100%);
   gap: var(--spacing-2);
 }
 
