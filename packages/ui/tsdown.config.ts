@@ -15,7 +15,7 @@ export default defineConfig({
   unbundle: true,
   hash: false,
   platform: 'browser',
-  target: false,
+  target: 'es2023',
   alias: {
     '@': path.resolve(dirname, './src'),
   },
