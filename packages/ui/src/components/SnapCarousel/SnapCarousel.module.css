@@ -1,0 +1,132 @@
+@layer ui.components {
+  .root {
+    position: relative;
+    display: grid;
+    gap: var(--snap-carousel-gap, var(--spacing-3));
+  }
+
+  .viewport {
+    overflow: auto;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &:focus-visible {
+      outline: var(--snap-carousel-focus-ring-width, var(--border-width-md)) solid
+        var(--snap-carousel-focus-ring-color, var(--color-ring));
+      outline-offset: var(--snap-carousel-focus-ring-offset, var(--spacing-1));
+    }
+  }
+
+  .root[data-orientation='vertical'] {
+    height: var(--snap-carousel-height, 100%);
+
+    .viewport {
+      height: 100%;
+      overscroll-behavior-x: auto;
+      overscroll-behavior-y: contain;
+      scroll-snap-type: y mandatory;
+    }
+
+    .content {
+      min-height: 100%;
+      flex-direction: column;
+    }
+
+    .item {
+      flex-basis: var(--snap-carousel-item-size, 100%);
+    }
+
+    .control {
+      inset-inline-start: 50%;
+      transform: translateX(-50%);
+    }
+
+    .previous {
+      inset-block-start: var(--spacing-2);
+      inset-inline-end: auto;
+    }
+
+    .next {
+      inset-block-start: auto;
+      inset-block-end: var(--spacing-2);
+      inset-inline-start: 50%;
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: var(--snap-carousel-item-gap, var(--spacing-4));
+  }
+
+  .item {
+    box-sizing: border-box;
+    flex: 0 0 var(--snap-carousel-item-size, 100%);
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: var(--snap-carousel-snap-stop, normal);
+  }
+
+  .control {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 50%;
+    display: inline-flex;
+    width: var(--size-md);
+    height: var(--size-md);
+    align-items: center;
+    justify-content: center;
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-full);
+    background-color: color-mix(in oklab, var(--color-background) 86%, transparent);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-foreground);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+
+    &:not(:disabled):not([aria-disabled='true']):hover {
+      background-color: var(--color-accent);
+      color: var(--color-accent-foreground);
+    }
+
+    &:focus-visible {
+      outline: var(--snap-carousel-focus-ring-width, var(--border-width-md)) solid
+        var(--snap-carousel-focus-ring-color, var(--color-ring));
+      outline-offset: var(--snap-carousel-focus-ring-offset, var(--spacing-1));
+    }
+
+    & svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:is(:disabled, [aria-disabled='true']) {
+      cursor: not-allowed;
+      opacity: var(--opacity-disabled);
+    }
+  }
+
+  .previous {
+    inset-inline-start: var(--spacing-2);
+  }
+
+  .next {
+    inset-inline-end: var(--spacing-2);
+  }
+
+  .root[data-align='center'] .item {
+    scroll-snap-align: center;
+  }
+
+  .root[data-align='end'] .item {
+    scroll-snap-align: end;
+  }
+}

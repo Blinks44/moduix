@@ -27,11 +27,17 @@
       outline-color: var(--input-group-focus-ring-color, var(--color-ring));
     }
 
-    &:has([data-slot='input-group-input'][data-invalid]) {
+    &:has(
+      [data-slot='input-group-input'][data-invalid],
+      [data-slot='input-group-input'][aria-invalid='true']
+    ) {
       border-color: var(--input-group-border-color-invalid, var(--color-destructive));
     }
 
-    &:has([data-slot='input-group-input'][data-invalid]):focus-within {
+    &:has(
+        [data-slot='input-group-input'][data-invalid],
+        [data-slot='input-group-input'][aria-invalid='true']
+      ):focus-within {
       outline-color: var(--input-group-border-color-invalid, var(--color-destructive));
     }
 

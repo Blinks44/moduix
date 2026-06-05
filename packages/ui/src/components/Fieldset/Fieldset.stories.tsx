@@ -59,7 +59,7 @@ export const Disabled: Story = {
   },
 };
 
-export const ComposedRoot: Story = {
+export const FormIntegration: Story = {
   render: () => {
     return (
       <Field name="storageType">

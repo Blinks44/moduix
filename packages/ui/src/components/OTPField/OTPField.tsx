@@ -26,11 +26,15 @@ function OTPFieldInput({ className, ...props }: OTPFieldPrimitive.Input.Props) {
 }
 
 function OTPFieldSeparator({ className, ...props }: OTPFieldPrimitive.Separator.Props) {
+  const { 'aria-hidden': ariaHidden = true, role = 'presentation', ...separatorProps } = props;
+
   return (
     <OTPFieldPrimitive.Separator
       data-slot="otp-field-separator"
+      aria-hidden={ariaHidden}
+      role={role}
       className={mergeClassName(className, styles.separator)}
-      {...props}
+      {...separatorProps}
     />
   );
 }

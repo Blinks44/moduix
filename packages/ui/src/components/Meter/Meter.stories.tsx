@@ -94,6 +94,22 @@ export const AriaValueText: Story = {
   },
 };
 
+export const CustomValueText: Story = {
+  render: () => {
+    return (
+      <Meter
+        value={68}
+        getAriaValueText={(formattedValue, value) =>
+          `${formattedValue} percent of storage used (${value} of 100)`
+        }
+      >
+        <MeterLabel>Storage usage</MeterLabel>
+        <MeterValue>{(formattedValue) => `${formattedValue}% used`}</MeterValue>
+      </Meter>
+    );
+  },
+};
+
 export const CustomStyles: Story = {
   render: () => {
     return (

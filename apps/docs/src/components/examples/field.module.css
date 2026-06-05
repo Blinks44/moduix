@@ -1,5 +1,6 @@
 .field {
-  width: min(20rem, 100%);
+  width: fit-content;
+  max-width: min(20rem, 100%);
 }
 
 .helper {
@@ -10,7 +11,8 @@
 }
 
 .customField {
-  width: min(20rem, 100%);
+  width: fit-content;
+  max-width: min(20rem, 100%);
   gap: var(--spacing-2);
 }
 

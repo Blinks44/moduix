@@ -103,12 +103,13 @@ Use the built-in variants for the common visual tones.
   <Preview.Code>
     {`
       import { Badge } from "moduix";
+      import styles from "./badge-demo.module.css";
 
       const variants = ["default", "secondary", "destructive", "outline", "ghost"] as const;
 
       export function BadgeVariantsDemo() {
         return (
-          <div>
+          <div className={styles.row}>
             {variants.map((variant) => (
               <Badge key={variant} variant={variant}>
                 {variant}
@@ -120,6 +121,18 @@ Use the built-in variants for the common visual tones.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### With Dot
@@ -132,18 +145,41 @@ Add `BadgeDot` when label and status indicator should stay visually grouped.
   <Preview.Code>
     {`
       import { Badge, BadgeDot } from "moduix";
+      import styles from "./badge-demo.module.css";
 
       export function BadgeWithDotDemo() {
         return (
-          <Badge variant="default">
-            <BadgeDot />
-            Online
-          </Badge>
+          <div className={styles.row}>
+            <Badge variant="default">
+              <BadgeDot />
+              Online
+            </Badge>
+            <Badge variant="secondary">
+              <BadgeDot />
+              Draft
+            </Badge>
+            <Badge variant="destructive">
+              <BadgeDot />
+              Failed
+            </Badge>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### With Icon
@@ -156,18 +192,41 @@ Place an inline icon next to the label when the metadata needs a second visual c
   <Preview.Code>
     {`
       import { Badge, ChevronRightIcon } from "moduix";
+      import styles from "./badge-demo.module.css";
 
       export function BadgeWithIconDemo() {
         return (
-          <Badge variant="default">
-            Release
-            <ChevronRightIcon />
-          </Badge>
+          <div className={styles.row}>
+            <Badge variant="default">
+              Release
+              <ChevronRightIcon />
+            </Badge>
+            <Badge variant="secondary">
+              Details
+              <ChevronRightIcon />
+            </Badge>
+            <Badge variant="outline">
+              Read more
+              <ChevronRightIcon />
+            </Badge>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Long Labels
@@ -220,7 +279,7 @@ Use `className` and local CSS variables when a surface needs custom sizing or a 
 
       export function CustomBadgeDemo() {
         return (
-          <>
+          <div className={styles.row}>
             <Badge className={styles.small}>Small</Badge>
             <Badge>Default</Badge>
             <Badge className={styles.large}>Large</Badge>
@@ -228,7 +287,7 @@ Use `className` and local CSS variables when a surface needs custom sizing or a 
               <BadgeDot />
               Priority
             </Badge>
-          </>
+          </div>
         );
       }
     `}
@@ -241,9 +300,17 @@ Use `className` and local CSS variables when a surface needs custom sizing or a 
         --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
         --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
         --badge-color: var(--color-primary);
+        --badge-dot-size: 0.5rem;
         --badge-height: 1.625rem;
         --badge-padding-x: var(--spacing-3);
         --badge-radius: var(--radius-sm);
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
       }
 
       .small {

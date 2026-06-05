@@ -51,12 +51,13 @@ const AccordionHeader = forwardRef<
 const AccordionTrigger = forwardRef<
   ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionPrimitive.Trigger.Props
->(function AccordionTrigger({ className, ...props }, ref) {
+>(function AccordionTrigger({ className, render, ...props }, ref) {
   return (
     <AccordionPrimitive.Trigger
       ref={ref}
       data-slot="accordion-trigger"
-      className={mergeClassName(className, styles.trigger)}
+      render={render}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );

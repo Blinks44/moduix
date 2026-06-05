@@ -137,17 +137,24 @@
     inset: 0;
     min-height: 100dvh;
     pointer-events: none;
-    background-color: var(--navigation-menu-backdrop-bg, var(--backdrop-bg, transparent));
-    backdrop-filter: blur(var(--navigation-menu-backdrop-blur, 0));
-    transition: opacity
-      var(
-        --navigation-menu-backdrop-transition,
-        var(--navigation-menu-transition, var(--transition-default))
-      );
+    background-color: var(--navigation-menu-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
+    backdrop-filter: var(--backdrop-filter, blur(var(--navigation-menu-backdrop-blur, 4px)));
+    transition:
+      opacity
+        var(
+          --navigation-menu-backdrop-transition,
+          var(--navigation-menu-transition, var(--transition-default))
+        ),
+      backdrop-filter
+        var(
+          --navigation-menu-backdrop-transition,
+          var(--navigation-menu-transition, var(--transition-default))
+        );
 
     &[data-starting-style],
     &[data-ending-style] {
       opacity: 0;
+      backdrop-filter: none;
     }
   }
 

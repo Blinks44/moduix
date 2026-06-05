@@ -262,7 +262,7 @@ export function SwitchNativeButtonRenderCallbackExample() {
 
 export function SwitchFormIntegrationExample() {
   return (
-    <Field name="notifications">
+    <Field name="notifications" className={styles.formField}>
       <FieldLabel>
         <Switch defaultChecked />
         <SwitchLabel>Notifications</SwitchLabel>

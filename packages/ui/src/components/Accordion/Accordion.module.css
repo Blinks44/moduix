@@ -7,7 +7,7 @@
     color: var(--accordion-color, var(--color-foreground));
   }
 
-  .item {
+  .item:not(:last-child) {
     border-bottom: var(--accordion-item-border-width, var(--border-width-sm)) solid
       var(--accordion-item-border-color, var(--color-border));
   }

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
 import { CheckIcon } from '@/icons/ui';
 import { Button } from '../Button';
@@ -19,6 +20,32 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const variants = ['default', 'info', 'success', 'warning', 'destructive'] as const;
+
+function DismissibleCustomAlert() {
+  const [visible, setVisible] = useState(true);
+
+  if (!visible) return null;
+
+  return (
+    <Alert variant="warning" className={styles.customAlert}>
+      <AlertIcon>
+        <InfoIcon />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle>Storage is almost full</AlertTitle>
+        <AlertDescription>
+          You are using 92% of the available storage. Archive old uploads or upgrade the plan.
+        </AlertDescription>
+        <div className={styles.actions}>
+          <Button size="sm">Review uploads</Button>
+          <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
+            Dismiss
+          </Button>
+        </div>
+      </AlertContent>
+    </Alert>
+  );
+}
 
 export const Basic: Story = {
   render: () => (
@@ -80,23 +107,5 @@ export const Destructive: Story = {
 };
 
 export const CustomComposition: Story = {
-  render: () => (
-    <Alert variant="warning" className={styles.customAlert}>
-      <AlertIcon>
-        <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Storage is almost full</AlertTitle>
-        <AlertDescription>
-          You are using 92% of the available storage. Archive old uploads or upgrade the plan.
-        </AlertDescription>
-        <div className={styles.actions}>
-          <Button size="sm">Review uploads</Button>
-          <Button size="sm" variant="outline">
-            Dismiss
-          </Button>
-        </div>
-      </AlertContent>
-    </Alert>
-  ),
+  render: () => <DismissibleCustomAlert />,
 };

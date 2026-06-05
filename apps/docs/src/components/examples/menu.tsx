@@ -59,7 +59,7 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
     'var(--backdrop-bg, var(--color-overlay))',
     'Controls backdrop background.',
   ],
-  ['--menu-backdrop-blur', '2px', 'Controls backdrop blur.'],
+  ['--menu-backdrop-blur', '4px', 'Controls backdrop blur.'],
   ['--menu-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
   ['--menu-check-gap', '0.5rem', 'Controls checkbox/radio indicator gap.'],
   ['--menu-check-indicator-size', '0.75rem', 'Controls checkbox/radio indicator size.'],

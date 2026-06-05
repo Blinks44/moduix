@@ -19,8 +19,8 @@ import {
 
 `Kbd` is a standalone moduix component and does not wrap a Base UI primitive.
 Because Base UI does not ship a dedicated keyboard-key primitive, moduix keeps this component as a
-thin styled wrapper around the native `<kbd>` element. Use `Kbd` for a single key and `KbdGroup`
-when several keys need to read as one shortcut.
+thin styled wrapper around native `<kbd>` elements. Use `Kbd` for a single key and `KbdGroup`
+when several keys should read as one shortcut.
 
 ## Basic
 
@@ -33,7 +33,7 @@ when several keys need to read as one shortcut.
 
       export function KbdDemo() {
         return (
-          <KbdGroup>
+          <KbdGroup aria-label="Command K">
             <Kbd>Cmd</Kbd>
             +
             <Kbd>K</Kbd>
@@ -49,7 +49,8 @@ when several keys need to read as one shortcut.
 
 ## Anatomy
 
-Use `Kbd` for a single key label. Use `KbdGroup` to keep multi-key shortcuts aligned.
+Use `Kbd` for a single key label. Use `KbdGroup` to keep multi-key shortcuts aligned and preserve
+group-level keyboard semantics.
 
 ```text
 KbdGroup
@@ -58,23 +59,33 @@ KbdGroup
 ```
 
 ```tsx
-<KbdGroup>
+<KbdGroup aria-label="Command K">
   <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
 </KbdGroup>
 ```
 
-| Part       | Role                                                 |
-| ---------- | ---------------------------------------------------- |
-| `Kbd`      | Root keycap slot. Applies the shared keycap styling. |
-| `KbdGroup` | Inline wrapper for keyboard shortcut combinations.   |
+| Part       | Element | Data attributes         | Role                                                 |
+| ---------- | ------- | ----------------------- | ---------------------------------------------------- |
+| `Kbd`      | `kbd`   | `data-slot="kbd-root"`  | Root keycap slot. Applies the shared keycap styling. |
+| `KbdGroup` | `kbd`   | `data-slot="kbd-group"` | Inline wrapper for keyboard shortcut combinations.   |
 
 ## Composition
 
 Pass `className` to `Kbd` or `KbdGroup` for targeted overrides. `Kbd` accepts native `kbd` props,
-and `KbdGroup` accepts native `span` props.
+and `KbdGroup` accepts native `kbd` props.
 
 There is no extra variant or size API. For denser layouts or product-specific visuals, use
 `className` and the public `--kbd-*` CSS variables.
+
+Separators such as `+` or `/` stay in plain composition. There is no dedicated separator part or
+helper prop.
+
+## UX and Accessibility
+
+`Kbd` and `KbdGroup` are static shortcut labels, not interactive controls. Prefer short visible key
+labels and add `aria-label` to `KbdGroup` when abbreviations or symbols need a clearer spoken form.
+There is no keyboard behavior, focus management, disabled state, or controlled state because the
+component only renders native shortcut semantics.
 
 ## Examples
 
@@ -112,12 +123,20 @@ Use plain composition when keys need to sit next to surrounding copy.
         return (
           <div>
             <div>
-              <KbdGroup>
+              <KbdGroup aria-label="Command K">
                 <Kbd>Cmd</Kbd>
                 +
                 <Kbd>K</Kbd>
               </KbdGroup>
               Open command menu
+            </div>
+            <div>
+              <KbdGroup aria-label="Shift question mark">
+                <Kbd>Shift</Kbd>
+                +
+                <Kbd>?</Kbd>
+              </KbdGroup>
+              Show shortcuts
             </div>
             <div>
               <Kbd>Esc</Kbd>
@@ -184,7 +203,7 @@ Use `className` and CSS variables when the default keycap needs to match product
 
       export function CustomKbdDemo() {
         return (
-          <KbdGroup className={styles.customGroup}>
+          <KbdGroup aria-label="Command K" className={styles.customGroup}>
             <Kbd className={styles.customKbd}>Cmd</Kbd>
             +
             <Kbd className={styles.customKbd}>K</Kbd>
@@ -208,6 +227,7 @@ Use `className` and CSS variables when the default keycap needs to match product
         --kbd-height: 1.625rem;
         --kbd-min-width: 1.625rem;
         --kbd-radius: var(--radius-md);
+        --kbd-shadow: inset 0 -1px 0 color-mix(in oklab, var(--color-primary) 22%, transparent);
       }
     `}
 

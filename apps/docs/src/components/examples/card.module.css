@@ -43,6 +43,7 @@
 
 .image {
   aspect-ratio: 16 / 9;
+  display: block;
   width: 100%;
   object-fit: cover;
 }

@@ -26,11 +26,12 @@ import {
 
 ## Choosing the right component
 
-Use `Autocomplete` for free-form input with suggestions while typing.
+Use `Autocomplete` when the field accepts free-form text and suggestions help users complete
+the value without restricting what they can type.
 
-- Choose **`Autocomplete`** for free-form values with suggestions.
-- Choose **`Combobox`** when users should select from predefined options, with typing used to filter.
-- Choose **`Select`** for strict pickers with no text input in the trigger.
+- Choose **`Autocomplete`** when users can enter free-form text and suggestions only help complete the value.
+- Choose **`Combobox`** when users must choose predefined options, but typing helps search or filter the list.
+- Choose **`Select`** when users must choose predefined options and typing in the trigger is not needed.
 
 ## Basic
 
@@ -945,7 +946,7 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
   </Preview.Data>
 </Preview>
 
-### Custom Composition
+## Custom Composition
 
 Style the default popup with `className`. Switch to explicit popup composition when the portal,
 backdrop, positioner, or arrow need their own styling.
@@ -1029,7 +1030,7 @@ backdrop, positioner, or arrow need their own styling.
 
       .customBackdrop {
         --autocomplete-backdrop-bg: var(--color-overlay);
-        --autocomplete-backdrop-blur: 2px;
+        --autocomplete-backdrop-blur: 4px;
       }
 
       .customArrow {

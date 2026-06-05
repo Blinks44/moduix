@@ -26,12 +26,12 @@ import {
 
 ## Choosing the right component
 
-Use `Select` for strict, predefined choices where users pick from a popup list and do not type
-into the field.
+Use `Select` when users choose from a fixed set of options and do not need to type into the
+trigger to search or enter a value.
 
-- Choose **`Select`** for canonical form pickers with fixed options.
-- Choose **`Combobox`** when users should search or filter predefined options.
-- Choose **`Autocomplete`** when users may enter arbitrary values beyond suggested options.
+- Choose **`Autocomplete`** when users can enter free-form text and suggestions only help complete the value.
+- Choose **`Combobox`** when users must choose predefined options, but typing helps search or filter the list.
+- Choose **`Select`** when users must choose predefined options and typing in the trigger is not needed.
 
 ## Default Path
 
@@ -455,7 +455,7 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
 
   <Preview.Code>
     {`
-      <Select
+      <Select<Assignee>
         items={assignees.map((assignee) => ({
           value: assignee,
           label: assignee.name,
@@ -476,7 +476,12 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
             {assignees.map((assignee) => (
               <SelectItem key={assignee.id} value={assignee}>
                 <SelectItemIndicator />
-                <SelectItemText>{assignee.name}</SelectItemText>
+                <SelectItemText>
+                  <span className={styles.assigneeItemText}>
+                    <span className={styles.assigneeName}>{assignee.name}</span>
+                    <span className={styles.assigneeRole}>{assignee.role}</span>
+                  </span>
+                </SelectItemText>
               </SelectItem>
             ))}
           </SelectList>

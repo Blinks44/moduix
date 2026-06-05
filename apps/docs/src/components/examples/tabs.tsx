@@ -69,11 +69,7 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
   ['--tabs-panel-font-size', 'var(--text-sm)', 'Controls panel text font size.'],
   ['--tabs-panel-line-height', 'var(--line-height-text-sm)', 'Controls panel text line height.'],
-  [
-    '--tabs-panel-focus-ring-offset',
-    'calc(var(--tabs-focus-ring-width, var(--border-width-sm)) * -1)',
-    'Controls panel focus ring offset.',
-  ],
+  ['--tabs-panel-focus-ring-offset', '-1px', 'Controls panel focus ring offset.'],
   ['--tabs-panel-padding', '1rem', 'Controls panel padding.'],
   ['--tabs-radius', 'var(--radius-lg)', 'Controls the tab list and panel border radius.'],
   ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],

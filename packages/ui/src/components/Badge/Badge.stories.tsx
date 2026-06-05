@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ChevronRightIcon } from '@/icons/ui';
+import type { BadgeVariant } from './Badge';
 import { Badge, BadgeDot } from './Badge';
 import styles from './Badge.stories.module.css';
 
@@ -16,7 +17,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost'] as const;
+const variants = [
+  'default',
+  'secondary',
+  'destructive',
+  'outline',
+  'ghost',
+] satisfies BadgeVariant[];
 
 export const Basic: Story = {
   args: {
@@ -101,7 +108,7 @@ export const CustomStyling: Story = {
         <Badge>Default</Badge>
         <Badge className={styles.large}>Large</Badge>
         <Badge className={styles.customBadge}>
-          <BadgeDot className={styles.customDot} />
+          <BadgeDot />
           Priority
         </Badge>
       </div>

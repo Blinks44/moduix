@@ -40,12 +40,22 @@
     gap: var(--spacing-3);
   }
 
+  .galleryItem {
+    display: block;
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: var(--radius-sm);
+    padding: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
+
   .galleryImage {
     display: block;
     width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: var(--radius-sm);
     object-fit: cover;
-    cursor: zoom-in;
   }
 }

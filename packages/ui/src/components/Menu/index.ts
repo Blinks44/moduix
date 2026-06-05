@@ -30,3 +30,11 @@ export {
   MenuItemTextLabel,
   MenuItemShortcut,
 } from './Menu';
+
+export type {
+  MenuCheckboxItemProps,
+  MenuContentProps,
+  MenuIndicatorPosition,
+  MenuPositionerProps,
+  MenuRadioItemProps,
+} from './Menu';

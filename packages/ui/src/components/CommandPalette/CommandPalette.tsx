@@ -9,10 +9,6 @@ import styles from './CommandPalette.module.css';
 
 const createCommandPaletteHandle = DialogPrimitive.createHandle;
 
-type CommandPaletteGroup<ItemValue> = Record<string, unknown> & {
-  items: readonly ItemValue[];
-};
-
 const CommandPaletteContext = createContext<{
   handle: DialogPrimitive.Handle<unknown>;
   modal: DialogPrimitive.Root.Props['modal'];
@@ -84,10 +80,15 @@ function isEditableTarget(target: EventTarget | null) {
   );
 }
 
+// AutocompletePrimitive.Root has two overloads: one for grouped items and one for flat items.
+// TypeScript requires a type guard to resolve the correct overload signature; both branches
+// inside CommandPaletteContent are functionally identical at runtime.
 function isGroupedItems<ItemValue>(
-  items: readonly ItemValue[] | readonly CommandPaletteGroup<ItemValue>[] | undefined,
-): items is readonly CommandPaletteGroup<ItemValue>[] {
-  return Boolean(items?.[0] && typeof items[0] === 'object' && 'items' in items[0]);
+  items: readonly ItemValue[] | readonly { items: readonly unknown[] }[] | undefined,
+): items is readonly { items: readonly unknown[] }[] {
+  return Boolean(
+    items?.[0] && typeof items[0] === 'object' && items[0] !== null && 'items' in items[0],
+  );
 }
 
 function CommandPalette<Payload = unknown>({
@@ -150,7 +151,7 @@ function CommandPaletteTrigger({ className, render, ...props }: DialogPrimitive.
 }
 
 function CommandPalettePortal(props: DialogPrimitive.Portal.Props) {
-  return <DialogPrimitive.Portal data-slot="command-palette-portal" {...props} />;
+  return <DialogPrimitive.Portal {...props} />;
 }
 
 function CommandPaletteBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props) {

@@ -26,7 +26,11 @@ const DEFAULT_SIDE_OFFSET = 8;
 const PreviewCard = PreviewCardPrimitive.Root;
 const createPreviewCardHandle = PreviewCardPrimitive.createHandle;
 
-function PreviewCardTrigger({ className, render, ...props }: PreviewCardPrimitive.Trigger.Props) {
+function PreviewCardTrigger<Payload = unknown>({
+  className,
+  render,
+  ...props
+}: PreviewCardPrimitive.Trigger.Props<Payload>) {
   const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
 
   return (

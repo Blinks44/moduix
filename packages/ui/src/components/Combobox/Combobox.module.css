@@ -31,6 +31,10 @@
       border-color: var(--combobox-focus-ring-color, var(--color-ring));
       outline-color: var(--combobox-focus-ring-color, var(--color-ring));
     }
+
+    &:has(> [data-slot='combobox-input'][data-disabled], > [data-slot='combobox-input']:disabled) {
+      opacity: var(--opacity-disabled);
+    }
   }
 
   .input {
@@ -73,7 +77,7 @@
       background-color var(--transition-default),
       color var(--transition-default);
 
-    &:hover {
+    &:hover:not(:disabled):not([data-disabled]) {
       background-color: var(--combobox-action-bg-hover, var(--color-muted));
       color: var(--combobox-action-color-hover, var(--color-foreground));
     }
@@ -81,6 +85,10 @@
     &:focus-visible {
       outline: var(--border-width-sm) solid var(--combobox-focus-ring-color, var(--color-ring));
       outline-offset: var(--border-width-sm);
+    }
+
+    &:is(:disabled, [data-disabled]) {
+      cursor: not-allowed;
     }
   }
 
@@ -127,6 +135,11 @@
       border-color: var(--combobox-focus-ring-color, var(--color-ring));
       outline-color: var(--combobox-focus-ring-color, var(--color-ring));
     }
+
+    &:is([disabled], [data-disabled]) {
+      opacity: var(--opacity-disabled);
+      cursor: not-allowed;
+    }
   }
 
   .backdrop {
@@ -135,7 +148,7 @@
     inset: 0;
     min-height: 100dvh;
     background-color: var(--combobox-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
-    backdrop-filter: blur(var(--combobox-backdrop-blur, 2px));
+    backdrop-filter: var(--backdrop-filter, blur(var(--combobox-backdrop-blur, 4px)));
     transition:
       opacity var(--combobox-backdrop-transition, var(--transition-default)),
       backdrop-filter var(--combobox-backdrop-transition, var(--transition-default));
@@ -143,7 +156,7 @@
     &[data-starting-style],
     &[data-ending-style] {
       opacity: 0;
-      backdrop-filter: blur(0);
+      backdrop-filter: none;
     }
   }
 
@@ -513,5 +526,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .inlineInputContainer {
+    box-sizing: border-box;
+    padding: var(--spacing-2);
+    border-bottom: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
+
+    & > .input {
+      padding-inline: 0.75rem;
+      border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
+      border-radius: var(--radius-sm);
+    }
   }
 }

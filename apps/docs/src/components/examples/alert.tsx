@@ -9,6 +9,7 @@ import {
   CheckIcon,
   InfoIcon,
 } from 'moduix';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './alert.module.css';
@@ -162,6 +163,10 @@ export function AlertDestructiveExample() {
 }
 
 export function CustomCompositionAlertExample() {
+  const [visible, setVisible] = useState(true);
+
+  if (!visible) return null;
+
   return (
     <Alert variant="warning" className={styles.customAlert}>
       <AlertIcon>
@@ -174,7 +179,7 @@ export function CustomCompositionAlertExample() {
         </AlertDescription>
         <div className={styles.actions}>
           <Button size="sm">Review uploads</Button>
-          <Button size="sm" variant="outline">
+          <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
             Dismiss
           </Button>
         </div>

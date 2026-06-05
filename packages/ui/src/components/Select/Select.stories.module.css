@@ -1,6 +1,6 @@
 .backdrop {
   --select-backdrop-bg: var(--color-overlay);
-  --select-backdrop-blur: 2px;
+  --select-backdrop-blur: 4px;
 }
 
 .customTrigger {

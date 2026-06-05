@@ -79,7 +79,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function FieldsetExample(props: ComponentProps<typeof Fieldset>) {
   return (
-    <Fieldset {...props}>
+    <Fieldset className={styles.fieldset} {...props}>
       <FieldsetLegend>Billing details</FieldsetLegend>
 
       <Field validationMode="onBlur">
@@ -99,7 +99,7 @@ export function FieldsetExample(props: ComponentProps<typeof Fieldset>) {
 
 export function DisabledFieldsetExample() {
   return (
-    <Fieldset disabled>
+    <Fieldset disabled className={styles.fieldset}>
       <FieldsetLegend>Disabled account details</FieldsetLegend>
 
       <Field>
@@ -118,7 +118,10 @@ export function DisabledFieldsetExample() {
 export function CustomCompositionFieldsetExample() {
   return (
     <Field name="storageType">
-      <Fieldset render={<RadioGroup defaultValue="ssd" className={styles.choiceGroup} />}>
+      <Fieldset
+        className={styles.fieldset}
+        render={<RadioGroup defaultValue="ssd" className={styles.choiceGroup} />}
+      >
         <FieldsetLegend>Storage type</FieldsetLegend>
 
         {storageTypes.map((item) => (

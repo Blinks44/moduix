@@ -66,6 +66,33 @@
       mask-repeat: no-repeat;
     }
 
+    .root:dir(rtl)[data-fade='horizontal'] & {
+      mask-image: linear-gradient(
+        to left,
+        transparent 0,
+        black
+          min(
+            var(
+              --scroll-area-fade-inline-start-size,
+              var(--scroll-area-fade-size, var(--spacing-10))
+            ),
+            var(--scroll-area-overflow-x-start, 0px)
+          ),
+        black
+          calc(
+            100% -
+              min(
+                var(
+                  --scroll-area-fade-inline-end-size,
+                  var(--scroll-area-fade-size, var(--spacing-10))
+                ),
+                var(--scroll-area-overflow-x-end, 0px)
+              )
+          ),
+        transparent 100%
+      );
+    }
+
     .root[data-fade='both'] & {
       mask-image:
         linear-gradient(
@@ -111,6 +138,52 @@
           transparent 100%
         );
       mask-composite: intersect;
+    }
+
+    .root:dir(rtl)[data-fade='both'] & {
+      mask-image:
+        linear-gradient(
+          to bottom,
+          transparent 0,
+          black
+            min(
+              var(--scroll-area-fade-start-size, var(--scroll-area-fade-size, var(--spacing-10))),
+              var(--scroll-area-overflow-y-start, 0px)
+            ),
+          black
+            calc(
+              100% -
+                min(
+                  var(--scroll-area-fade-end-size, var(--scroll-area-fade-size, var(--spacing-10))),
+                  var(--scroll-area-overflow-y-end, 0px)
+                )
+            ),
+          transparent 100%
+        ),
+        linear-gradient(
+          to left,
+          transparent 0,
+          black
+            min(
+              var(
+                --scroll-area-fade-inline-start-size,
+                var(--scroll-area-fade-size, var(--spacing-10))
+              ),
+              var(--scroll-area-overflow-x-start, 0px)
+            ),
+          black
+            calc(
+              100% -
+                min(
+                  var(
+                    --scroll-area-fade-inline-end-size,
+                    var(--scroll-area-fade-size, var(--spacing-10))
+                  ),
+                  var(--scroll-area-overflow-x-end, 0px)
+                )
+            ),
+          transparent 100%
+        );
     }
 
     &:focus-visible {

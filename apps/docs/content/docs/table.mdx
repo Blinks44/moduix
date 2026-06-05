@@ -1,0 +1,486 @@
+---
+title: Table
+description: A native table primitive with small sugar for bordered overflow shells, numeric columns, captions, and empty states.
+icon: Component
+---
+
+import {
+  CustomCompositionTableExample,
+  EmptyTableExample,
+  NumericTableExample,
+  TableCaptionExample,
+  TableCssPlaygroundPanel,
+  TableCssPropertiesPanel,
+  TableExample,
+  TableInCardExample,
+  tablePlaygroundCssProperties,
+} from '@/components/examples/table';
+
+## API Reference
+
+`Table` is a native semantic primitive, not a Base UI wrapper. moduix keeps the underlying table
+markup intact and only adds a few small high-frequency conveniences:
+
+- `TableContainer` for the common bordered horizontal-scroll shell;
+- `numeric` on `TableHead` and `TableCell` for right-aligned numeric columns;
+- `TableEmpty` for empty-state rows;
+- `TableCaption side="top" | "bottom"` for short table labels.
+
+## Default Path
+
+Use `TableContainer` plus the semantic table parts for the common read-only data path.
+
+<Preview cssProperties={tablePlaygroundCssProperties} cssVariableScope="local">
+  <TableExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Badge,
+        Table,
+        TableBody,
+        TableCell,
+        TableContainer,
+        TableHead,
+        TableHeader,
+        TableRow,
+      } from "moduix";
+
+      const invoices = [
+        { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
+        { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
+        { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
+        { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
+      ];
+
+      export function TableDemo() {
+        return (
+          <TableContainer className={styles.shell}>
+            <Table className={styles.table}>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Invoice</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Method</TableHead>
+                  <TableHead numeric>Amount</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {invoices.map((invoice) => (
+                  <TableRow key={invoice.id}>
+                    <TableCell>{invoice.id}</TableCell>
+                    <TableCell>
+                      <Badge variant={invoice.status === "Paid" ? "secondary" : "outline"}>
+                        {invoice.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{invoice.method}</TableCell>
+                    <TableCell numeric>{invoice.amount}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.CSSProperties>{(context) => <TableCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <TableCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Anatomy
+
+```text
+TableContainer (optional)
+└─ Table
+   ├─ TableCaption (optional)
+   ├─ TableHeader
+   │  └─ TableRow
+   │     └─ TableHead
+   ├─ TableBody
+   │  ├─ TableRow
+   │  │  └─ TableCell
+   │  └─ TableEmpty (optional)
+   └─ TableFooter (optional)
+```
+
+| Part             | Role                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `TableContainer` | Optional bordered overflow shell for the common “table in a card-like surface” case. |
+| `Table`          | Native `table` root. Owns table typography, dividers, and hover styling.             |
+| `TableCaption`   | Optional label above or below the table via `side`.                                  |
+| `TableHeader`    | Native `thead` wrapper for column headers.                                           |
+| `TableBody`      | Native `tbody` wrapper for body rows.                                                |
+| `TableFooter`    | Native `tfoot` wrapper for summary rows.                                             |
+| `TableRow`       | Native `tr` wrapper with row divider and hover behavior.                             |
+| `TableHead`      | Native `th` wrapper. Supports `numeric`.                                             |
+| `TableCell`      | Native `td` wrapper. Supports `numeric`.                                             |
+| `TableEmpty`     | Convenience empty-state row inside `TableBody`.                                      |
+
+## Public Props
+
+All parts accept `className` and their matching native element props.
+
+Small sugar props:
+
+| Component      | Prop      | Type                | Default    |
+| -------------- | --------- | ------------------- | ---------- |
+| `TableCaption` | `side`    | `'top' \| 'bottom'` | `'bottom'` |
+| `TableHead`    | `numeric` | `boolean`           | `false`    |
+| `TableCell`    | `numeric` | `boolean`           | `false`    |
+| `TableEmpty`   | `colSpan` | `number`            | required   |
+
+## Composition
+
+Keep the mental model simple:
+
+- use `TableContainer` when you want the common overflow shell;
+- skip `TableContainer` when the surrounding layout already owns the wrapper;
+- use `numeric` for amounts, counts, percentages, and latency columns;
+- use `TableFooter` for totals or rollups;
+- use `TableEmpty` when a body would otherwise render no rows.
+
+`Table` intentionally does **not** own sorting, filtering, selection, sticky headers, pagination, or
+column sizing. Treat it as the visual/semantic layer that future higher-level tables can build on.
+
+## Examples
+
+### Caption and Footer
+
+Use `TableCaption side="top"` when the label reads better before the data, and `TableFooter` for
+totals or summaries.
+
+<Preview>
+  <TableCaptionExample />
+
+  <Preview.Code>
+    {`
+      const invoices = [
+        { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
+        { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
+        { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
+        { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
+      ];
+
+      <TableContainer className={styles.shell}>
+        <Table className={styles.table}>
+          <TableCaption side="top">
+            A list of recent invoices for the current billing cycle.
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Invoice</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Method</TableHead>
+              <TableHead numeric>Amount</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {invoices.map((invoice) => (
+              <TableRow key={invoice.id}>
+                <TableCell>{invoice.id}</TableCell>
+                <TableCell>{invoice.status}</TableCell>
+                <TableCell>{invoice.method}</TableCell>
+                <TableCell numeric>{invoice.amount}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={3}>Total</TableCell>
+              <TableCell numeric>$1,200.00</TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Numeric Columns
+
+Use `numeric` on both the header and the cells for the common “aligned metrics” case.
+
+<Preview>
+  <NumericTableExample />
+
+  <Preview.Code>
+    {`
+      <TableContainer className={styles.shell}>
+        <Table className={styles.table}>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Service</TableHead>
+              <TableHead numeric>Requests</TableHead>
+              <TableHead numeric>Error rate</TableHead>
+              <TableHead numeric>Latency</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Search API</TableCell>
+              <TableCell numeric>1,204,122</TableCell>
+              <TableCell numeric>0.12%</TableCell>
+              <TableCell numeric>128 ms</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Billing API</TableCell>
+              <TableCell numeric>248,421</TableCell>
+              <TableCell numeric>0.04%</TableCell>
+              <TableCell numeric>96 ms</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Docs site</TableCell>
+              <TableCell numeric>82,304</TableCell>
+              <TableCell numeric>0.00%</TableCell>
+              <TableCell numeric>42 ms</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Empty State
+
+`TableEmpty` keeps the empty-state row short and predictable. Pass the body column count through
+`colSpan`.
+
+<Preview>
+  <EmptyTableExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Table,
+        TableBody,
+        TableCaption,
+        TableContainer,
+        TableEmpty,
+        TableHead,
+        TableHeader,
+        TableRow,
+      } from "moduix";
+
+      export function EmptyStateTableDemo() {
+        return (
+          <TableContainer className={styles.shell}>
+            <Table>
+              <TableCaption side="top">
+                Projects filtered by the current workspace query.
+              </TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Project</TableHead>
+                  <TableHead>Owner</TableHead>
+                  <TableHead>Updated</TableHead>
+                  <TableHead numeric>Open issues</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableEmpty colSpan={4}>No projects matched the current filters.</TableEmpty>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Inside Card
+
+`TableContainer` fits naturally inside `CardContent` when the table should live on a card surface.
+
+<Preview>
+  <TableInCardExample />
+
+  <Preview.Code>
+    {`
+      const projects = [
+        { name: "Docs redesign", owner: "Product Design", updated: "2 hours ago", issues: "3 open" },
+        { name: "Billing migration", owner: "Growth", updated: "Yesterday", issues: "1 blocked" },
+        { name: "Command palette", owner: "Platform", updated: "Today", issues: "Healthy" },
+      ];
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Projects</CardTitle>
+        </CardHeader>
+        <CardContent className={styles.cardContent}>
+          <TableContainer>
+            <Table className={styles.table}>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Project</TableHead>
+                  <TableHead>Owner</TableHead>
+                  <TableHead>Updated</TableHead>
+                  <TableHead>Health</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {projects.map((project) => (
+                  <TableRow key={project.name}>
+                    <TableCell>{project.name}</TableCell>
+                    <TableCell>{project.owner}</TableCell>
+                    <TableCell>{project.updated}</TableCell>
+                    <TableCell>{project.issues}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </CardContent>
+      </Card>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .card {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .cardContent {
+        min-width: 0;
+        padding-top: 0;
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
+
+### Custom Wrapper
+
+Skip `TableContainer` when the surrounding layout already owns the shell or scrolling behavior.
+
+<Preview>
+  <CustomCompositionTableExample />
+
+  <Preview.Code>
+    {`
+      <div className={styles.shell}>
+        <Table className={styles.table}>
+          <TableCaption side="bottom">
+            This version uses a plain wrapper instead of TableContainer.
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Plan</TableHead>
+              <TableHead>Seats</TableHead>
+              <TableHead numeric>Monthly cost</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Starter</TableCell>
+              <TableCell>Up to 5</TableCell>
+              <TableCell numeric>$19</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Team</TableCell>
+              <TableCell>Up to 25</TableCell>
+              <TableCell numeric>$79</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Enterprise</TableCell>
+              <TableCell>Custom</TableCell>
+              <TableCell numeric>Contact sales</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+        overflow-x: auto;
+        padding: var(--spacing-3);
+        border: var(--border-width-sm) dashed var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: color-mix(in srgb, var(--color-muted) 35%, transparent);
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## CSS Properties
+
+The preview above exposes the most useful table variables for live tweaking. The full public
+contract includes:
+
+- caption spacing and typography variables;
+- cell spacing variables;
+- `TableContainer` surface variables;
+- `TableEmpty` text and spacing variables;
+- row, head, footer, and root typography variables.
+
+Use the `CSS Properties` panel in the preview to inspect the complete `--table-*` surface.

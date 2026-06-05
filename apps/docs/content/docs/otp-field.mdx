@@ -76,7 +76,7 @@ OTPField[length]
 | ------------------- | -------------------------------------------------------------------------------------------- |
 | `OTPField`          | Root state machine. Owns value, validation, completion, masking, and default slot rendering. |
 | `OTPFieldInput`     | Visible character slot. Use it for grouped layouts, placeholders, or per-slot styling.       |
-| `OTPFieldSeparator` | Optional visual separator between groups.                                                    |
+| `OTPFieldSeparator` | Optional visual separator between groups. Decorative by default.                             |
 
 ## Composition
 
@@ -105,8 +105,8 @@ slots:
 </OTPField>
 ```
 
-When composing manually, keep the first slot unlabeled so it inherits the field label, and give the
-remaining slots position-aware `aria-label` values.
+When composing manually, keep the first slot unlabeled so it inherits the field label, give the
+remaining slots position-aware `aria-label` values, and still render exactly `length` inputs.
 
 ## Examples
 
@@ -224,6 +224,7 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
     {`
       import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
       import { useId, useState } from "react";
+      import styles from "./otp-field.module.css";
 
       export function AutoSubmitOTPField() {
         const id = useId();
@@ -232,6 +233,7 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
 
         return (
           <form
+            className={styles.form}
             onSubmit={(event) => {
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
@@ -241,16 +243,20 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
             <Field>
               <FieldLabel htmlFor={id}>Verification code</FieldLabel>
               <FieldDescription>
-                Last completed: {completedValue || "empty"}, submitted: {submittedValue || "empty"}
+                Form submits automatically when all slots are filled.
               </FieldDescription>
               <OTPField
                 id={id}
                 name="verificationCode"
                 length={6}
                 autoSubmit
-                onValueComplete={setCompletedValue}
+                onValueComplete={(value) => {
+                  setCompletedValue(value);
+                }}
               />
             </Field>
+            <span className={styles.hint}>Last completed value: {completedValue || "empty"}</span>
+            <span className={styles.hint}>Last submitted value: {submittedValue || "empty"}</span>
           </form>
         );
       }
@@ -271,6 +277,7 @@ normalization.
     {`
       import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
       import { useId, useState } from "react";
+      import styles from "./otp-field.module.css";
 
       export function CustomSanitizationOTPField() {
         const id = useId();
@@ -278,21 +285,27 @@ normalization.
         const [invalidValue, setInvalidValue] = useState("");
 
         return (
-          <Field>
-            <FieldLabel htmlFor={id}>Invite code</FieldLabel>
-            <FieldDescription>
-              Last invalid attempt: {invalidValue || "none"}
-            </FieldDescription>
-            <OTPField
-              id={id}
-              length={6}
-              value={value}
-              validationType="none"
-              normalizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, "")}
-              onValueChange={setValue}
-              onValueInvalid={setInvalidValue}
-            />
-          </Field>
+          <div className={styles.stack}>
+            <Field className={styles.field}>
+              <FieldLabel htmlFor={id}>Invite code</FieldLabel>
+              <FieldDescription>
+                <code>validationType=&quot;none&quot;</code> with custom sanitization.
+              </FieldDescription>
+              <OTPField
+                id={id}
+                length={6}
+                value={value}
+                validationType="none"
+                normalizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, "")}
+                onValueChange={setValue}
+                onValueInvalid={(nextValue) => {
+                  setInvalidValue(nextValue);
+                }}
+              />
+            </Field>
+            <span className={styles.hint}>Current value: {value || "empty"}</span>
+            <span className={styles.hint}>Last invalid attempt: {invalidValue || "none"}</span>
+          </div>
         );
       }
     `}

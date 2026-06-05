@@ -18,6 +18,8 @@
     flex: none;
     align-items: center;
     justify-content: center;
+    -webkit-appearance: none;
+    appearance: none;
     width: var(--_radio-size, 1.25rem);
     height: var(--_radio-size, 1.25rem);
     margin: 0;

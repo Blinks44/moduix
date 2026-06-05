@@ -1,7 +1,10 @@
 import {
+  type AnchoredToastOptions,
   Button,
   CloseIcon,
   InfoIcon,
+  type ToastPlacement,
+  type ToastStackBehavior,
   ToastAnchoredRegion,
   ToastArrow,
   ToastClose,
@@ -17,13 +20,10 @@ import {
   useAnchoredToastManager,
   useToastManager,
 } from 'moduix';
-import { type ComponentProps, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './toast.module.css';
-
-type ToastPlacement = NonNullable<ComponentProps<typeof ToastRegion>['placement']>;
-type ToastStackBehavior = NonNullable<ComponentProps<typeof ToastRegion>['stackBehavior']>;
 
 const globalToastManager = createToastManager();
 const placements: ToastPlacement[] = [
@@ -353,7 +353,7 @@ function AnchoredToastActions() {
   const showAnchored = (
     anchor: HTMLButtonElement | null,
     description: string,
-    positionerProps?: { side?: 'top' | 'right' | 'bottom' | 'left' },
+    positionerProps?: AnchoredToastOptions['positionerProps'],
   ) => {
     if (!anchor) {
       return;

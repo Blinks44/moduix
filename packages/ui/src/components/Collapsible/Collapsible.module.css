@@ -2,6 +2,7 @@
   .root {
     box-sizing: border-box;
     display: flex;
+    min-width: 0;
     flex-direction: column;
     color: var(--collapsible-color, var(--color-foreground));
   }
@@ -24,6 +25,7 @@
     font-size: var(--collapsible-trigger-font-size, var(--text-sm));
     line-height: var(--collapsible-trigger-line-height, var(--line-height-text-sm));
     text-align: left;
+    user-select: none;
     outline: 0;
     cursor: pointer;
     transition:
@@ -31,7 +33,7 @@
       color var(--collapsible-trigger-transition, var(--transition-default));
 
     @media (hover: hover) {
-      &:hover {
+      &:hover:not([disabled]):not([data-disabled]) {
         background-color: var(
           --collapsible-trigger-bg-hover,
           var(--collapsible-trigger-bg, transparent)
@@ -39,7 +41,7 @@
       }
     }
 
-    &:active {
+    &:active:not([disabled]):not([data-disabled]) {
       background-color: var(
         --collapsible-trigger-bg-active,
         var(--collapsible-trigger-bg-hover, var(--collapsible-trigger-bg, transparent))

@@ -129,8 +129,11 @@ Use `Accordion` for state props such as `value`, `defaultValue`, `onValueChange`
 `disabled`, `orientation`, and `loopFocus`. Use `keepMounted` or `hiddenUntilFound` on the root or
 panel when closed content must remain searchable or stay mounted for app logic.
 
-Style the exported parts directly with `className`. The root already ships with its default width,
-so only override layout when the surrounding UI needs a different footprint.
+Style the exported parts directly with `className`. The root does not impose a fixed width, so set
+width on the root or parent according to the surrounding layout.
+
+When `AccordionTrigger` uses the `render` prop, the custom rendered element owns its styling and the
+default trigger CSS is not applied.
 
 ```tsx
 <Accordion defaultValue={['shipping']}>

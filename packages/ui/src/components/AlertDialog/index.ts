@@ -1,7 +1,11 @@
 export {
   AlertDialog,
   createAlertDialogHandle,
+  AlertDialogPortal,
   AlertDialogTrigger,
+  AlertDialogBackdrop,
+  AlertDialogViewport,
+  AlertDialogPopup,
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogClose,

@@ -153,17 +153,3 @@ export const Composition: Story = {
     );
   },
 };
-
-export const DeepComposition: Story = {
-  render: () => {
-    return (
-      <ProgressRoot value={72} className={styles.customProgress}>
-        <ProgressLabel>Monthly export</ProgressLabel>
-        <ProgressValue />
-        <ProgressTrack>
-          <ProgressIndicator />
-        </ProgressTrack>
-      </ProgressRoot>
-    );
-  },
-};

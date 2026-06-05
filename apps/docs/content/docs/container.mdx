@@ -22,7 +22,8 @@ import {
 adds responsive inline gutters, and stays out of vertical layout decisions.
 
 Use `size` to choose the content width and `gutter` to control the edge padding. Use `as` when the
-wrapper should also carry page semantics such as `main` or `section`.
+wrapper should also carry page semantics such as `main` or `section`, and use `className` or
+`--container-*` variables when a page needs local layout overrides.
 
 ## Basic
 
@@ -32,10 +33,11 @@ wrapper should also carry page semantics such as `main` or `section`.
   <Preview.Code>
     {`
       import { Container, Heading, Text } from "moduix";
+      import styles from "./container-demo.module.css";
 
       export function ContainerDemo() {
         return (
-          <Container>
+          <Container className={styles.container}>
             <Heading as="h3" size="lg">
               Responsive page content
             </Heading>
@@ -55,6 +57,10 @@ wrapper should also carry page semantics such as `main` or `section`.
         padding-block: var(--spacing-4);
         border-block: var(--border-width-sm) dashed var(--color-border);
         background-color: var(--color-muted);
+      }
+
+      .container > * {
+        max-width: 42rem;
       }
     `}
 
@@ -91,16 +97,17 @@ Use `as` when the wrapper should render a semantic landmark or sectioning elemen
 
 ### Defaults
 
-| Prop     | Default | Values                                                                  |
-| -------- | ------- | ----------------------------------------------------------------------- |
-| `size`   | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full`                                    |
-| `gutter` | `md`    | `none`, `sm`, `md`, `lg`                                                |
-| `as`     | `div`   | `div`, `main`, `section`, `article`, `aside`, `header`, `footer`, `nav` |
+| Prop     | Default | Values                               |
+| -------- | ------- | ------------------------------------ |
+| `size`   | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `gutter` | `md`    | `none`, `sm`, `md`, `lg`             |
+| `as`     | `div`   | Any React element type               |
 
 `Container` does not manage vertical rhythm. Add section spacing outside it.
 `size="full"` still keeps inline gutter padding unless `gutter="none"` is used.
 Use `Bleed` inside `Container` when content must escape the constrained column.
 Use `className` when you need custom alignment or local variable overrides.
+The root exposes `data-slot="container-root"`, `data-size`, and `data-gutter` for styling and tests.
 
 ## Examples
 
@@ -114,22 +121,42 @@ Use `size` to choose the content column width. `full` fills the available inline
   <Preview.Code>
     {`
       import { Container, Text } from "moduix";
+      import styles from "./container-demo.module.css";
 
       export function ContainerSizesDemo() {
         return (
-          <>
-            <Container size="xs"><Text>xs</Text></Container>
-            <Container size="sm"><Text>sm</Text></Container>
-            <Container size="md"><Text>md</Text></Container>
-            <Container size="lg"><Text>lg</Text></Container>
-            <Container size="xl"><Text>xl</Text></Container>
-            <Container size="full"><Text>full</Text></Container>
-          </>
+          <div className={styles.stack}>
+            <Container size="xs" className={styles.container}><Text>xs</Text></Container>
+            <Container size="sm" className={styles.container}><Text>sm</Text></Container>
+            <Container size="md" className={styles.container}><Text>md</Text></Container>
+            <Container size="lg" className={styles.container}><Text>lg</Text></Container>
+            <Container size="xl" className={styles.container}><Text>xl</Text></Container>
+            <Container size="full" className={styles.container}><Text>full</Text></Container>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+   {`
+    .stack {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: var(--spacing-4);
+    }
+
+    .container {
+      padding-block: var(--spacing-4);
+      border-block: var(--border-width-sm) dashed var(--color-border);
+      background-color: var(--color-muted);
+    }
+
+`}
+
+  </Preview.CSS>
 </Preview>
 
 ### Gutters
@@ -142,20 +169,40 @@ Use `gutter` to control responsive inline padding.
   <Preview.Code>
     {`
       import { Container, Text } from "moduix";
+      import styles from "./container-demo.module.css";
 
       export function ContainerGuttersDemo() {
         return (
-          <>
-            <Container gutter="none"><Text>No gutter</Text></Container>
-            <Container gutter="sm"><Text>Small gutter</Text></Container>
-            <Container gutter="md"><Text>Medium gutter</Text></Container>
-            <Container gutter="lg"><Text>Large gutter</Text></Container>
-          </>
+          <div className={styles.stack}>
+            <Container gutter="none" className={styles.container}><Text>No gutter</Text></Container>
+            <Container gutter="sm" className={styles.container}><Text>Small gutter</Text></Container>
+            <Container gutter="md" className={styles.container}><Text>Medium gutter</Text></Container>
+            <Container gutter="lg" className={styles.container}><Text>Large gutter</Text></Container>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+   {`
+    .stack {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: var(--spacing-4);
+    }
+
+    .container {
+      padding-block: var(--spacing-4);
+      border-block: var(--border-width-sm) dashed var(--color-border);
+      background-color: var(--color-muted);
+    }
+
+`}
+
+  </Preview.CSS>
 </Preview>
 
 ### Semantic Element
@@ -168,10 +215,11 @@ Use `as` when the layout wrapper should also describe document structure.
   <Preview.Code>
     {`
       import { Container, Heading, Text } from "moduix";
+      import styles from "./container-demo.module.css";
 
       export function ContainerSemanticDemo() {
         return (
-          <Container as="main" size="md">
+          <Container as="main" size="md" className={styles.container}>
             <Heading as="h3" size="lg">Main content area</Heading>
             <Text tone="muted">Use as when the wrapper should carry semantic meaning.</Text>
           </Container>
@@ -180,6 +228,22 @@ Use `as` when the layout wrapper should also describe document structure.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+   {`
+     .container {
+       padding-block: var(--spacing-4);
+       border-block: var(--border-width-sm) dashed var(--color-border);
+       background-color: var(--color-muted);
+     }
+
+     .container > * {
+       max-width: 42rem;
+     }
+
+`}
+
+  </Preview.CSS>
 </Preview>
 
 ### With Bleed
@@ -192,10 +256,11 @@ Keep the text column constrained and let only the wider child opt out.
   <Preview.Code>
     {`
       import { Bleed, Container, Heading, Text } from "moduix";
+      import styles from "./container-demo.module.css";
 
       export function ContainerBleedDemo() {
         return (
-          <Container>
+          <Container className={styles.container}>
             <Heading as="h3" size="lg">Article body</Heading>
             <Text tone="muted">
               Keep the reading width constrained, then use Bleed for content that should stretch wider.
@@ -212,6 +277,16 @@ Keep the text column constrained and let only the wider child opt out.
 
   <Preview.CSS>
     {`
+      .container {
+        padding-block: var(--spacing-4);
+        border-block: var(--border-width-sm) dashed var(--color-border);
+        background-color: var(--color-muted);
+      }
+
+      .container > * {
+        max-width: 42rem;
+      }
+
       .bleedSurface {
         padding: var(--spacing-4);
         border: var(--border-width-sm) solid var(--color-border);
@@ -232,6 +307,7 @@ Pass `className` when styling the root or overriding container variables locally
   <Preview.Code>
     {`
       import { Container, Text } from "moduix";
+      import styles from "./container-demo.module.css";
 
       export function CustomCompositionContainerDemo() {
         return (
@@ -247,8 +323,15 @@ Pass `className` when styling the root or overriding container variables locally
   <Preview.CSS>
     {`
       .customContainer {
+        padding-block: var(--spacing-4);
+        border-block: var(--border-width-sm) dashed var(--color-border);
+        background-color: var(--color-muted);
         --container-gutter-md: clamp(1.25rem, 6vw, 4rem);
         --container-max-width-lg: 54rem;
+      }
+
+      .customContainer > * {
+        max-width: 42rem;
       }
     `}
 

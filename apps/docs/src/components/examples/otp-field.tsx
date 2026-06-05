@@ -166,7 +166,7 @@ export function OTPFieldGroupedLayoutExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Auth code</FieldLabel>
-      <OTPField id={id} length={OTP_LENGTH} className={styles.groupedRoot}>
+      <OTPField id={id} length={OTP_LENGTH}>
         <div className={styles.group}>{renderOTPInputs({ count: 3, total: OTP_LENGTH })}</div>
         <OTPFieldSeparator>
           <SeparatorMarkIcon />

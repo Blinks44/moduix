@@ -27,7 +27,6 @@ type SelectContentProps = SelectPrimitive.Popup.Props &
   > & {
     showArrow?: boolean;
   };
-type SelectItemProps = SelectPrimitive.Item.Props & { indicator?: IndicatorPosition };
 
 const SELECT_CONTENT_SIDE_OFFSET = 8;
 const Select = SelectPrimitive.Root;
@@ -203,7 +202,11 @@ function SelectList({ className, ...props }: SelectPrimitive.List.Props) {
   );
 }
 
-function SelectItem({ className, indicator, ...props }: SelectItemProps) {
+function SelectItem({
+  className,
+  indicator,
+  ...props
+}: SelectPrimitive.Item.Props & { indicator?: IndicatorPosition }) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"

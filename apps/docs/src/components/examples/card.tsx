@@ -8,6 +8,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardLink,
   CardTitle,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -44,6 +45,9 @@ export const cardOverrideCssProperties: CssPropertyInput[] = [
     'Controls `CardDescription` line height.',
   ],
   ['--card-footer-gap', 'var(--spacing-2)', 'Controls `CardFooter` spacing.'],
+  ['--card-focus-ring-color', 'var(--color-ring)', 'Controls `CardLink` focus ring color.'],
+  ['--card-focus-ring-offset', 'var(--border-width-sm)', 'Controls `CardLink` focus ring offset.'],
+  ['--card-focus-ring-width', 'var(--border-width-md)', 'Controls `CardLink` focus ring width.'],
   ['--card-header-gap', 'var(--spacing-1)', 'Controls spacing inside `CardHeader`.'],
   ['--card-padding', 'var(--spacing-6)', 'Controls default card padding.'],
   ['--card-padding-sm', 'var(--spacing-4)', 'Controls compact card padding.'],
@@ -196,6 +200,59 @@ export function CardWithImageExample() {
         <Badge variant="outline">Forecast</Badge>
         <Button variant="outline">Open report</Button>
       </CardFooter>
+    </Card>
+  );
+}
+
+export function CardAsLinkExample() {
+  return (
+    <Card className={styles.card} render={<a href="/docs/card" />}>
+      <CardHeader>
+        <CardTitle>Release health</CardTitle>
+        <CardDescription>Summary for the current production rollout.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className={styles.releaseSummary}>
+          <div>
+            <span className={styles.statValue}>98.4%</span>
+            <span className={styles.statLabel}>successful sessions</span>
+          </div>
+          <div>
+            <span className={styles.statValue}>12</span>
+            <span className={styles.statLabel}>checks passed</span>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export function CardLinkWithActionsExample() {
+  return (
+    <Card className={styles.card}>
+      <CardHeader>
+        <CardTitle>
+          <CardLink href="/docs/card">Incident response</CardLink>
+        </CardTitle>
+        <CardDescription>Owner rotation and escalation readiness.</CardDescription>
+        <CardAction>
+          <Button variant="outline" size="sm">
+            Acknowledge
+          </Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <div className={styles.statsGrid}>
+          <div>
+            <span className={styles.statValue}>18 min</span>
+            <span className={styles.statLabel}>median response</span>
+          </div>
+          <div>
+            <span className={styles.statValue}>99.97%</span>
+            <span className={styles.statLabel}>service uptime</span>
+          </div>
+        </div>
+      </CardContent>
     </Card>
   );
 }

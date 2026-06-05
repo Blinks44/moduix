@@ -19,20 +19,9 @@
   scroll-padding-bottom: 0.5rem;
 }
 
-.inlineInputContainer {
-  box-sizing: border-box;
-  padding: var(--spacing-2);
-  border-bottom: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
-}
-
-.inlineInput {
-  padding-inline: 0.75rem;
-  border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
-  border-radius: var(--radius-sm);
-}
-
 .multipleField {
-  width: min(100%, 28rem);
+  width: fit-content;
+  max-width: min(100%, 28rem);
 }
 
 .multipleInputGroup {
@@ -91,7 +80,7 @@
 
 .backdrop {
   --combobox-backdrop-bg: var(--color-overlay);
-  --combobox-backdrop-blur: 2px;
+  --combobox-backdrop-blur: 4px;
 }
 
 .arrow {

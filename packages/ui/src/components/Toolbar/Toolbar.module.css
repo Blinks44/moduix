@@ -33,6 +33,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: var(--toolbar-control-gap, var(--spacing-2));
     min-width: var(--toolbar-control-height, var(--size-lg));
     min-height: var(--toolbar-control-height, var(--size-lg));
     margin: 0;
@@ -91,10 +92,6 @@
       height: var(--toolbar-icon-size, 1rem);
       flex-shrink: 0;
     }
-  }
-
-  .button {
-    gap: var(--toolbar-control-gap, var(--spacing-2));
 
     &:empty,
     &:has(> svg:only-child) {

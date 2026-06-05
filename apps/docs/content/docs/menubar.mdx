@@ -461,15 +461,49 @@ portal control, backdrops, arrow placement, or popup-specific styling.
 
       export function CustomCompositionMenubarDemo() {
         return (
-          <Menubar>
+          <Menubar
+            style={{
+              "--menubar-bg": "var(--color-background)",
+              "--menubar-border-color": "rgb(37 99 235)",
+              "--menubar-radius": "var(--radius-lg)",
+              "--menubar-trigger-bg-hover": "rgb(219 234 254)",
+              "--menubar-trigger-color-active": "rgb(255 255 255)",
+              "--menubar-trigger-bg-active": "rgb(37 99 235)",
+            }}
+          >
             <MenubarMenu>
-              <MenubarTrigger>Window</MenubarTrigger>
+              <MenubarTrigger
+                style={{
+                  position: "relative",
+                  zIndex: "var(--z-popup)",
+                }}
+              >
+                Window
+              </MenubarTrigger>
               <MenubarPortal>
-                <MenubarBackdrop />
+                <MenubarBackdrop
+                  style={{
+                    backgroundColor: "rgb(15 23 42 / 0.48)",
+                    backdropFilter: "blur(4px)",
+                  }}
+                />
                 <MenubarPositioner sideOffset={10} align="start" alignOffset={-4}>
-                  <MenubarPopup>
-                    <MenubarArrow />
-                    <MenubarViewport>
+                  <MenubarPopup
+                    style={{
+                      "--menubar-popup-min-width": "14rem",
+                      "--menubar-popup-bg": "var(--color-background)",
+                      "--menubar-popup-border-color": "rgb(37 99 235)",
+                      "--menubar-popup-shadow": "var(--shadow-lg)",
+                      "--menubar-highlight-bg": "rgb(37 99 235)",
+                      "--menubar-highlight-color": "rgb(255 255 255)",
+                    }}
+                  >
+                    <MenubarArrow
+                      style={{
+                        "--menubar-arrow-stroke-color": "var(--menubar-popup-border-color)",
+                      }}
+                    />
+                    <MenubarViewport style={{ paddingBlock: "var(--spacing-2)" }}>
                       <MenubarItem closeOnClick>Minimize</MenubarItem>
                       <MenubarItem closeOnClick>Zoom</MenubarItem>
                       <MenubarSeparator />

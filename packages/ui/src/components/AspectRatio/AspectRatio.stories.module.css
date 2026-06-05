@@ -1,0 +1,15 @@
+.container {
+  width: 480px;
+}
+
+.containerNarrow {
+  width: 240px;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.roundedFrame {
+  --aspect-ratio-radius: var(--radius-xl);
+}

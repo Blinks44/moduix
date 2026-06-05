@@ -9,11 +9,15 @@
     inset: 0;
     min-height: 100dvh;
     background-color: var(--lightbox-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
-    transition: opacity var(--lightbox-backdrop-transition, var(--transition-default));
+    backdrop-filter: var(--backdrop-filter, blur(var(--lightbox-backdrop-blur, 4px)));
+    transition:
+      opacity var(--lightbox-backdrop-transition, var(--transition-default)),
+      backdrop-filter var(--lightbox-backdrop-transition, var(--transition-default));
 
     &[data-starting-style],
     &[data-ending-style] {
       opacity: 0;
+      backdrop-filter: none;
     }
   }
 

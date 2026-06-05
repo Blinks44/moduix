@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { type ComponentProps, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
 import { CloseIcon } from '@/icons/ui';
 import { Button } from '../Button';
 import {
+  type ToastPlacement,
+  type ToastStackBehavior,
   ToastAnchoredRegion,
   ToastClose,
   ToastContent,
@@ -31,8 +33,6 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type ToastPlacement = NonNullable<ComponentProps<typeof ToastRegion>['placement']>;
-type ToastStackBehavior = NonNullable<ComponentProps<typeof ToastRegion>['stackBehavior']>;
 
 const globalToastManager = createToastManager();
 

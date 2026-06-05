@@ -48,10 +48,10 @@ export const contextMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--context-menu-backdrop-bg',
-    'var(--backdrop-bg, transparent)',
+    'var(--backdrop-bg, var(--color-overlay))',
     'Controls optional backdrop background.',
   ],
-  ['--context-menu-backdrop-blur', '0', 'Controls optional backdrop blur amount.'],
+  ['--context-menu-backdrop-blur', '4px', 'Controls optional backdrop blur amount.'],
   [
     '--context-menu-backdrop-transition',
     'var(--context-menu-transition)',

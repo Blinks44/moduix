@@ -32,13 +32,23 @@
   width: min(36rem, calc(100vw - var(--spacing-10)));
 }
 
+.dynamicItem {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
 .dynamicImage {
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: var(--radius-sm);
-  cursor: zoom-in;
 }
 
 .customPopup {

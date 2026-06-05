@@ -41,6 +41,7 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
     'var(--backdrop-bg, var(--color-overlay))',
     'Controls backdrop background.',
   ],
+  ['--alert-dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
   [
     '--alert-dialog-backdrop-transition',
     'var(--transition-default)',
@@ -56,7 +57,7 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--alert-dialog-cancel-bg-hover',
-    'var(--alert-dialog-control-bg-hover)',
+    'var(--alert-dialog-control-bg-hover, var(--color-accent))',
     'Controls cancel button hover background.',
   ],
   [
@@ -91,7 +92,7 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-dialog-control-radius', 'var(--radius-md)', 'Controls control border radius.'],
   [
     '--alert-dialog-description-color',
-    'var(--alert-dialog-muted-color)',
+    'var(--alert-dialog-muted-color, var(--color-muted-foreground))',
     'Controls description and body text color.',
   ],
   [
@@ -107,18 +108,22 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-dialog-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   [
     '--alert-dialog-focus-ring-width',
-    'var(--alert-dialog-control-border-width)',
+    'var(--alert-dialog-control-border-width, var(--border-width-sm))',
     'Controls focus ring width.',
   ],
   ['--alert-dialog-footer-gap', 'var(--spacing-2)', 'Controls footer actions gap.'],
   ['--alert-dialog-header-gap', 'var(--spacing-1)', 'Controls header gap.'],
-  ['--alert-dialog-max-width', 'calc(100vw - var(--spacing-8))', 'Controls popup max width.'],
+  ['--alert-dialog-max-width', 'calc(100vw - var(--spacing-8, 2rem))', 'Controls popup max width.'],
   ['--alert-dialog-muted-color', 'var(--color-muted-foreground)', 'Controls muted text color.'],
   ['--alert-dialog-padding', 'var(--spacing-6)', 'Controls popup padding.'],
   ['--alert-dialog-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
   ['--alert-dialog-scale', 'var(--scale-popup)', 'Controls enter/exit scale.'],
   ['--alert-dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--alert-dialog-title-color', 'var(--alert-dialog-color)', 'Controls title text color.'],
+  [
+    '--alert-dialog-title-color',
+    'var(--alert-dialog-color, var(--color-popover-foreground))',
+    'Controls title text color.',
+  ],
   ['--alert-dialog-title-font-size', 'var(--text-lg)', 'Controls title font size.'],
   ['--alert-dialog-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
   ['--alert-dialog-title-line-height', 'var(--line-height-text-lg)', 'Controls title line height.'],
@@ -130,17 +135,22 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
 
 export const alertDialogPlaygroundCssProperties: CssPropertyInput[] = [
   ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
+  ['--alert-dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
   ['--alert-dialog-bg', 'var(--color-popover)', 'Controls the popup background color.'],
   ['--alert-dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
   [
     '--alert-dialog-description-color',
-    'var(--alert-dialog-muted-color)',
+    'var(--alert-dialog-muted-color, var(--color-muted-foreground))',
     'Controls description and body text color.',
   ],
   ['--alert-dialog-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
   ['--alert-dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--alert-dialog-title-color', 'var(--alert-dialog-color)', 'Controls title text color.'],
+  [
+    '--alert-dialog-title-color',
+    'var(--alert-dialog-color, var(--color-popover-foreground))',
+    'Controls title text color.',
+  ],
 ];
 
 export function AlertDialogCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

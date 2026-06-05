@@ -163,7 +163,6 @@ Use native textarea attributes for form behavior, spellcheck, sizing, and valida
               maxLength={280}
               spellCheck={false}
               placeholder="Add enough context for the next person reading this."
-              style={{ resize: "vertical" }}
             />
           </Field>
         );
@@ -235,8 +234,8 @@ Set `disabled` or `readOnly` based on interaction requirements.
       export function DisabledAndReadonlyTextareaDemo() {
         return (
           <div className={styles.stack}>
-            <Textarea disabled placeholder="Disabled textarea" />
-            <Textarea readOnly value="Read-only text value" />
+            <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
+            <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
           </div>
         );
       }

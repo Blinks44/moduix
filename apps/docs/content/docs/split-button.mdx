@@ -1,0 +1,309 @@
+---
+title: Split Button
+description: A grouped primary action and dropdown trigger built from the moduix Button and Menu wrappers.
+icon: Component
+---
+
+import {
+  SplitButtonControlledExample,
+  SplitButtonExample,
+  SplitButtonIconExample,
+  SplitButtonLinkActionExample,
+  SplitButtonSizesExample,
+  SplitButtonVariantsExample,
+} from '@/components/examples/split-button';
+
+## API Reference
+
+<BaseUIReference href="https://base-ui.com/react/components/button" />
+
+<BaseUIReference href="https://base-ui.com/react/components/menu" />
+
+## Overview
+
+`SplitButton` combines one primary `Button` action with one adjacent menu trigger.
+
+Use it when there is a clear default action, but secondary actions should stay nearby in a compact
+menu instead of taking equal visual weight.
+
+## Basic
+
+The common path is `SplitButton`, `SplitButtonAction`, `SplitButtonTrigger`, and
+`SplitButtonContent`, with shared menu rows inside the content.
+
+<Preview>
+  <SplitButtonExample />
+
+  <Preview.Code>
+    {`
+      import {
+        MenuItem,
+        MenuSeparator,
+        SplitButton,
+        SplitButtonAction,
+        SplitButtonContent,
+        SplitButtonTrigger,
+      } from "moduix";
+
+      export function SplitButtonDemo() {
+        return (
+          <SplitButton>
+            <SplitButtonAction>Save Changes</SplitButtonAction>
+            <SplitButtonTrigger />
+            <SplitButtonContent>
+              <MenuItem closeOnClick>Save as Draft</MenuItem>
+              <MenuItem closeOnClick>Duplicate</MenuItem>
+              <MenuSeparator />
+              <MenuItem closeOnClick>Publish Now</MenuItem>
+            </SplitButtonContent>
+          </SplitButton>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Anatomy
+
+```text
+SplitButton
+├─ SplitButtonAction
+├─ SplitButtonTrigger
+└─ SplitButtonContent
+   ├─ MenuItem
+   ├─ MenuSeparator
+   └─ other shared Menu parts
+```
+
+| Part                 | Role                                                      |
+| -------------------- | --------------------------------------------------------- |
+| `SplitButton`        | Menu root behavior plus grouped visual wrapper.           |
+| `SplitButtonAction`  | Primary visible action.                                   |
+| `SplitButtonTrigger` | Secondary trigger for related actions.                    |
+| `SplitButtonContent` | Default popup wrapper. Use shared `Menu*` rows inside it. |
+
+The grouped parts expose `data-slot="split-button-root"`, `data-slot="split-button-action"`, and
+`data-slot="split-button-trigger"`.
+
+## Composition
+
+`SplitButton` shares `variant` and `size` defaults across the action and trigger.
+
+### Defaults
+
+| Prop         | Default   | Values                                                                           |
+| ------------ | --------- | -------------------------------------------------------------------------------- |
+| `variant`    | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost` |
+| `size`       | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                                                     |
+| `align`      | `end`     | any `MenuContent` align value                                                    |
+| `sideOffset` | `4`       | any `MenuContent` side offset                                                    |
+
+Keep the alternate actions on shared menu parts like `MenuItem`, `MenuSeparator`, `MenuGroup`, and
+`MenuCheckboxItem` instead of expecting a separate split-button row API.
+
+## Examples
+
+### Variants
+
+<Preview>
+  <SplitButtonVariantsExample />
+
+  <Preview.Code>
+    {`
+      import {
+        MenuItem,
+        SplitButton,
+        SplitButtonAction,
+        SplitButtonContent,
+        SplitButtonTrigger,
+      } from "moduix";
+
+      export function SplitButtonVariantsDemo() {
+        return (
+          <>
+            <SplitButton>
+              <SplitButtonAction>Default</SplitButtonAction>
+              <SplitButtonTrigger />
+              <SplitButtonContent>
+                <MenuItem closeOnClick>Edit</MenuItem>
+              </SplitButtonContent>
+            </SplitButton>
+
+            <SplitButton variant="outline">
+              <SplitButtonAction>Outline</SplitButtonAction>
+              <SplitButtonTrigger />
+              <SplitButtonContent>
+                <MenuItem closeOnClick>Edit</MenuItem>
+              </SplitButtonContent>
+            </SplitButton>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Sizes
+
+<Preview>
+  <SplitButtonSizesExample />
+
+  <Preview.Code>
+    {`
+      import {
+        MenuItem,
+        SplitButton,
+        SplitButtonAction,
+        SplitButtonContent,
+        SplitButtonTrigger,
+      } from "moduix";
+
+      export function SplitButtonSizesDemo() {
+        return (
+          <>
+            <SplitButton size="xs" variant="outline">
+              <SplitButtonAction>Extra-small</SplitButtonAction>
+              <SplitButtonTrigger />
+              <SplitButtonContent>
+                <MenuItem closeOnClick>Create</MenuItem>
+              </SplitButtonContent>
+            </SplitButton>
+
+            <SplitButton size="lg" variant="outline">
+              <SplitButtonAction>Large</SplitButtonAction>
+              <SplitButtonTrigger />
+              <SplitButtonContent>
+                <MenuItem closeOnClick>Create</MenuItem>
+              </SplitButtonContent>
+            </SplitButton>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### With Icons
+
+<Preview>
+  <SplitButtonIconExample />
+
+  <Preview.Code>
+    {`
+      import {
+        MenuItem,
+        MenuSeparator,
+        PlusIcon,
+        SplitButton,
+        SplitButtonAction,
+        SplitButtonContent,
+        SplitButtonTrigger,
+      } from "moduix";
+
+      export function SplitButtonIconsDemo() {
+        return (
+          <SplitButton>
+            <SplitButtonAction>
+              <PlusIcon />
+              Create Item
+            </SplitButtonAction>
+            <SplitButtonTrigger aria-label="More create actions" />
+            <SplitButtonContent>
+              <MenuItem closeOnClick>Create Blank</MenuItem>
+              <MenuItem closeOnClick>Create From Template</MenuItem>
+              <MenuSeparator />
+              <MenuItem closeOnClick>Import Existing</MenuItem>
+            </SplitButtonContent>
+          </SplitButton>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Controlled Menu State
+
+`SplitButton` forwards the same root menu state props as `Menu`.
+
+<Preview>
+  <SplitButtonControlledExample />
+
+  <Preview.Code>
+    {`
+      import {
+        MenuItem,
+        MenuSeparator,
+        SplitButton,
+        SplitButtonAction,
+        SplitButtonContent,
+        SplitButtonTrigger,
+      } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledSplitButton() {
+        const [open, setOpen] = useState(false);
+
+        return (
+          <SplitButton open={open} onOpenChange={setOpen} variant="outline">
+            <SplitButtonAction>Share</SplitButtonAction>
+            <SplitButtonTrigger aria-label="More share actions" />
+            <SplitButtonContent>
+              <MenuItem closeOnClick>Copy Link</MenuItem>
+              <MenuItem closeOnClick>Invite by Email</MenuItem>
+              <MenuSeparator />
+              <MenuItem closeOnClick onClick={() => setOpen(false)}>
+                Close Menu
+              </MenuItem>
+            </SplitButtonContent>
+          </SplitButton>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Custom Composition
+
+### Action Rendered As A Link
+
+The primary action still uses the shared `Button` API, so `render` and `nativeButton={false}` stay
+available on `SplitButtonAction`.
+
+<Preview>
+  <SplitButtonLinkActionExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ArrowUpRightIcon,
+        MenuItem,
+        SplitButton,
+        SplitButtonAction,
+        SplitButtonContent,
+        SplitButtonTrigger,
+      } from "moduix";
+
+      export function SplitButtonLinkAction() {
+        return (
+          <SplitButton variant="outline">
+            <SplitButtonAction render={<a href="#split-button" />} nativeButton={false}>
+              Open Docs
+              <ArrowUpRightIcon />
+            </SplitButtonAction>
+            <SplitButtonTrigger aria-label="More docs actions" />
+            <SplitButtonContent>
+              <MenuItem closeOnClick>Copy Link</MenuItem>
+              <MenuItem closeOnClick>Open in New Tab</MenuItem>
+            </SplitButtonContent>
+          </SplitButton>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>

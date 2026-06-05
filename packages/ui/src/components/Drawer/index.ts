@@ -15,6 +15,7 @@ export {
   DrawerTitle,
   DrawerDescription,
   DrawerClose,
+  DrawerCloseIcon,
   DrawerHeader,
   DrawerBody,
   DrawerFooter,

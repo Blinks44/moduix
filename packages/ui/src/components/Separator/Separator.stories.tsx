@@ -32,7 +32,7 @@ export const Default: Story = {
 export const Vertical: Story = {
   render: () => {
     return (
-      <div className={styles.nav}>
+      <nav className={styles.nav} aria-label="Main navigation">
         <a href="#" className={styles.link}>
           Home
         </a>
@@ -43,7 +43,7 @@ export const Vertical: Story = {
         <a href="#" className={styles.link}>
           Sign in
         </a>
-      </div>
+      </nav>
     );
   },
 };

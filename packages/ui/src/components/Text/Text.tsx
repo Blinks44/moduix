@@ -20,6 +20,19 @@ function getDefaultVariants(tagName: string | undefined) {
   );
 }
 
+type TextElement = 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
+type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
+type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+type TextAlign = 'left' | 'center' | 'right';
+type TextProps = useRender.ComponentProps<'p'> & {
+  as?: TextElement;
+  size?: TextSize;
+  weight?: TextWeight;
+  tone?: TextTone;
+  align?: TextAlign;
+};
+
 function Text({
   as,
   render,
@@ -29,13 +42,7 @@ function Text({
   align,
   className,
   ...props
-}: useRender.ComponentProps<'p'> & {
-  as?: 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  weight?: 'regular' | 'medium' | 'semibold' | 'bold';
-  tone?: 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
-  align?: 'left' | 'center' | 'right';
-}) {
+}: TextProps) {
   const resolvedRender = render ?? (as ? createElement(as) : undefined);
   const tagName =
     typeof resolvedRender === 'function'
@@ -61,3 +68,4 @@ function Text({
 }
 
 export { Text };
+export type { TextAlign, TextElement, TextProps, TextSize, TextTone, TextWeight };

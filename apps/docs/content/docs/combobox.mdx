@@ -23,8 +23,12 @@ import {
 
 ## Choosing the right component
 
-Use `Combobox` for searchable selection from a known dataset.
-Use `Autocomplete` when free-form input is allowed, and `Select` when typing is not needed.
+Use `Combobox` when users must choose from a known dataset, but typing is useful for searching
+or filtering the available options.
+
+- Choose **`Autocomplete`** when users can enter free-form text and suggestions only help complete the value.
+- Choose **`Combobox`** when users must choose predefined options, but typing helps search or filter the list.
+- Choose **`Select`** when users must choose predefined options and typing in the trigger is not needed.
 
 ## Basic
 
@@ -118,6 +122,7 @@ Combobox
 │        ├─ ComboboxClear
 │        └─ ComboboxTrigger
 └─ ComboboxContent
+   ├─ ComboboxInlineInputContainer (optional)
    ├─ ComboboxStatus / ComboboxEmpty
    └─ ComboboxList
       ├─ ComboboxGroup / ComboboxCollection
@@ -155,16 +160,17 @@ Combobox
 </Combobox>
 ```
 
-| Part                     | Role                                                                                                                    |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `Combobox`               | Root state machine. Controls selected value, input text, popup open state, filtering, and keyboard navigation.          |
-| `ComboboxField`          | Field wrapper for label and input area. Keep visible form-control pieces here for layout and accessibility semantics.   |
-| `ComboboxInput`          | Search/input control. Drives filtering and exposes input events, placeholder, and focus behavior.                       |
-| `ComboboxControlActions` | Slot for inline controls such as clear and trigger buttons.                                                             |
-| `ComboboxContent`        | Popup surface. It also owns the default portal and positioner used by the common composition.                           |
-| `ComboboxList`           | Collection renderer for options or grouped options. Contains `ComboboxItem`, `ComboboxGroup`, and `ComboboxCollection`. |
-| `ComboboxItem`           | One selectable option. Renders selected state and text/indicator subparts.                                              |
-| `ComboboxChips`          | Multiple-selection chip container used with `multiple` and `ComboboxValue`.                                             |
+| Part                           | Role                                                                                                                    |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `Combobox`                     | Root state machine. Controls selected value, input text, popup open state, filtering, and keyboard navigation.          |
+| `ComboboxField`                | Field wrapper for label and input area. Keep visible form-control pieces here for layout and accessibility semantics.   |
+| `ComboboxInput`                | Search/input control. Drives filtering and exposes input events, placeholder, and focus behavior.                       |
+| `ComboboxInlineInputContainer` | Optional inline search wrapper for the input-inside-popup composition. It adds the divider and nested input treatment.  |
+| `ComboboxControlActions`       | Slot for inline controls such as clear and trigger buttons.                                                             |
+| `ComboboxContent`              | Popup surface. It also owns the default portal and positioner used by the common composition.                           |
+| `ComboboxList`                 | Collection renderer for options or grouped options. Contains `ComboboxItem`, `ComboboxGroup`, and `ComboboxCollection`. |
+| `ComboboxItem`                 | One selectable option. Renders selected state and text/indicator subparts.                                              |
+| `ComboboxChips`                | Multiple-selection chip container used with `multiple` and `ComboboxValue`.                                             |
 
 Most customizations should stay on visible parts such as `ComboboxInput`, `ComboboxItem`,
 `ComboboxItemIndicator`, `ComboboxItemText`, and `ComboboxContent`.
@@ -301,8 +307,9 @@ text keep their own layout.
 ### Input Inside Popup
 
 Use `ComboboxFieldTrigger` when the visible field opens a popup that contains the searchable
-input. `ComboboxFieldLabel` stays associated with the trigger and inline input through Base UI
-field labeling, so no extra `htmlFor` wiring is needed in this composition.
+input. `ComboboxInlineInputContainer` applies the built-in divider and nested input treatment for
+that composition. `ComboboxFieldLabel` stays associated with the trigger and inline input through
+Base UI field labeling, so no extra `htmlFor` wiring is needed here.
 
 <Preview>
   <InputInsidePopupComboboxExample />
@@ -317,6 +324,7 @@ field labeling, so no extra `htmlFor` wiring is needed in this composition.
         ComboboxValue,
         ComboboxIcon,
         ComboboxContent,
+        ComboboxInlineInputContainer,
         ComboboxInput,
         ComboboxEmpty,
         ComboboxList,
@@ -338,9 +346,9 @@ field labeling, so no extra `htmlFor` wiring is needed in this composition.
             </ComboboxField>
 
             <ComboboxContent sideOffset={4} className={styles.popupWithInlineInput}>
-              <div className={styles.inlineInputContainer}>
-                <ComboboxInput className={styles.inlineInput} placeholder="Search country" />
-              </div>
+              <ComboboxInlineInputContainer>
+                <ComboboxInput placeholder="Search country" />
+              </ComboboxInlineInputContainer>
               <ComboboxEmpty>No countries found.</ComboboxEmpty>
               <ComboboxList className={styles.listWithInlineInput}>
                 {(item) => (
@@ -383,17 +391,6 @@ field labeling, so no extra `htmlFor` wiring is needed in this composition.
         scroll-padding-bottom: 0.5rem;
       }
 
-      .inlineInputContainer {
-        box-sizing: border-box;
-        padding: var(--spacing-2);
-        border-bottom: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
-      }
-
-      .inlineInput {
-        padding-inline: 0.75rem;
-        border: var(--border-width-sm) solid var(--combobox-border-color, var(--color-border));
-        border-radius: var(--radius-sm);
-      }
     `}
 
   </Preview.CSS>
@@ -900,7 +897,7 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
 
       .backdrop {
         --combobox-backdrop-bg: var(--color-overlay);
-        --combobox-backdrop-blur: 2px;
+        --combobox-backdrop-blur: 4px;
       }
 
       .arrow {

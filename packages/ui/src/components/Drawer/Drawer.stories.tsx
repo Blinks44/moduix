@@ -10,6 +10,7 @@ import {
   DrawerBackdrop,
   DrawerBody,
   DrawerClose,
+  DrawerCloseIcon,
   DrawerContent,
   DrawerContentInner,
   DrawerDescription,
@@ -100,12 +101,12 @@ export const Right: Story = {
       <DrawerContent className={storyStyles.sideContent}>
         <DrawerHeader>
           <DrawerTitle>Details</DrawerTitle>
-          <DrawerDescription>Right drawers work the same way.</DrawerDescription>
+          <DrawerCloseIcon aria-label="Close details drawer" />
+          <DrawerDescription>
+            Right drawers can place the close icon directly in the header.
+          </DrawerDescription>
         </DrawerHeader>
         <DrawerBody>Adjust width through CSS variables on DrawerContent.</DrawerBody>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   ),

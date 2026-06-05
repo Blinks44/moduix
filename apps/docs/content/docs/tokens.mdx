@@ -12,9 +12,9 @@ moduix styles are built from CSS custom properties. Start with semantic color to
 surface, text, borders, rings, and overlays, then tune spacing, radius, size, typography, motion,
 shadow, and layering tokens when the product system needs a different rhythm.
 
-Common override variables sit above individual components. For example, `--backdrop-bg` controls
-the default backdrop color for dialogs, drawers, selects, comboboxes, and other layered components
-until a component-specific variable overrides it.
+Common override variables sit above individual components. For example, `--backdrop-bg` and
+`--backdrop-filter` control the default backdrop color and blur for dialogs, drawers, menus,
+popovers, and other layered components until a component-specific variable overrides them.
 
 <TokensOverview />
 
@@ -28,6 +28,7 @@ components.
   --primary: oklch(0.52 0.18 145);
   --radius: 0.75rem;
   --backdrop-bg: oklch(0.12 0.03 250 / 0.34);
+  --backdrop-filter: blur(4px);
 }
 
 .dense-panel {

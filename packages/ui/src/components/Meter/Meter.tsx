@@ -1,66 +1,88 @@
 import { Meter as MeterPrimitive } from '@base-ui/react/meter';
+import { forwardRef, type ComponentRef } from 'react';
 import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Meter.module.css';
 
-function Meter({ children, ...props }: MeterPrimitive.Root.Props) {
-  return (
-    <MeterRoot {...props}>
-      {children}
-      <MeterTrack>
-        <MeterIndicator />
-      </MeterTrack>
-    </MeterRoot>
-  );
-}
+const Meter = forwardRef<ComponentRef<typeof MeterPrimitive.Root>, MeterPrimitive.Root.Props>(
+  function Meter({ children, ...props }, ref) {
+    return (
+      <MeterRoot ref={ref} {...props}>
+        {children}
+        <MeterTrack>
+          <MeterIndicator />
+        </MeterTrack>
+      </MeterRoot>
+    );
+  },
+);
 
-function MeterRoot({ className, ...props }: MeterPrimitive.Root.Props) {
-  return (
-    <MeterPrimitive.Root
-      data-slot="meter-root"
-      className={mergeClassName(className, styles.root)}
-      {...props}
-    />
-  );
-}
+const MeterRoot = forwardRef<ComponentRef<typeof MeterPrimitive.Root>, MeterPrimitive.Root.Props>(
+  function MeterRoot({ className, ...props }, ref) {
+    return (
+      <MeterPrimitive.Root
+        ref={ref}
+        data-slot="meter-root"
+        className={mergeClassName(className, styles.root)}
+        {...props}
+      />
+    );
+  },
+);
 
-function MeterLabel({ className, ...props }: MeterPrimitive.Label.Props) {
+const MeterLabel = forwardRef<
+  ComponentRef<typeof MeterPrimitive.Label>,
+  MeterPrimitive.Label.Props
+>(function MeterLabel({ className, ...props }, ref) {
   return (
     <MeterPrimitive.Label
+      ref={ref}
       data-slot="meter-label"
       className={mergeClassName(className, styles.label)}
       {...props}
     />
   );
-}
+});
 
-function MeterValue({ className, ...props }: MeterPrimitive.Value.Props) {
+const MeterValue = forwardRef<
+  ComponentRef<typeof MeterPrimitive.Value>,
+  MeterPrimitive.Value.Props
+>(function MeterValue({ className, ...props }, ref) {
   return (
     <MeterPrimitive.Value
+      ref={ref}
       data-slot="meter-value"
       className={mergeClassName(className, styles.value)}
       {...props}
     />
   );
-}
+});
 
-function MeterTrack({ className, ...props }: MeterPrimitive.Track.Props) {
+const MeterTrack = forwardRef<
+  ComponentRef<typeof MeterPrimitive.Track>,
+  MeterPrimitive.Track.Props
+>(function MeterTrack({ className, ...props }, ref) {
   return (
     <MeterPrimitive.Track
+      ref={ref}
       data-slot="meter-track"
       className={mergeClassName(className, styles.track)}
       {...props}
     />
   );
-}
+});
 
-function MeterIndicator({ className, ...props }: MeterPrimitive.Indicator.Props) {
+const MeterIndicator = forwardRef<
+  ComponentRef<typeof MeterPrimitive.Indicator>,
+  MeterPrimitive.Indicator.Props
+>(function MeterIndicator({ className, ...props }, ref) {
   return (
     <MeterPrimitive.Indicator
+      ref={ref}
       data-slot="meter-indicator"
       className={mergeClassName(className, styles.indicator)}
       {...props}
     />
   );
-}
+});
 
 export { Meter, MeterRoot, MeterLabel, MeterValue, MeterTrack, MeterIndicator };

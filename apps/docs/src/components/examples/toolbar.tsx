@@ -186,9 +186,7 @@ export function ToolbarExample(props: ComponentProps<typeof Toolbar>) {
       <ToolbarButton aria-label="Notifications">
         <BellIcon />
       </ToolbarButton>
-      <ToolbarLink href="#" className={styles.toolbarLink}>
-        Edited 51m ago
-      </ToolbarLink>
+      <ToolbarLink href="#">Edited 51m ago</ToolbarLink>
     </Toolbar>
   );
 }
@@ -210,14 +208,14 @@ export function ToolbarToggleGroupExample() {
   return (
     <Toolbar aria-label="Editor formatting">
       <ToggleGroup multiple defaultValue={['bold']} aria-label="Text formatting" variant="ghost">
-        <ToolbarButton render={<Toggle />} value="bold" aria-label="Bold">
+        <ToolbarButton render={<Toggle variant="ghost" />} value="bold" aria-label="Bold">
           <strong>B</strong>
         </ToolbarButton>
-        <ToolbarButton render={<Toggle />} value="italic" aria-label="Italic">
+        <ToolbarButton render={<Toggle variant="ghost" />} value="italic" aria-label="Italic">
           <em>I</em>
         </ToolbarButton>
-        <ToolbarButton render={<Toggle />} value="underline" aria-label="Underline">
-          <span className={styles.underline}>U</span>
+        <ToolbarButton render={<Toggle variant="ghost" />} value="underline" aria-label="Underline">
+          <u>U</u>
         </ToolbarButton>
       </ToggleGroup>
 
@@ -239,11 +237,7 @@ export function ToolbarSelectTriggerExample() {
   return (
     <Toolbar aria-label="Text properties">
       <Select defaultValue="Inter">
-        <ToolbarButton
-          render={<SelectTrigger />}
-          aria-label="Font family"
-          className={styles.toolbarSelect}
-        >
+        <ToolbarButton render={<SelectTrigger />} aria-label="Font family">
           <SelectValue />
           <SelectIcon>
             <ChevronUpDownIcon />
@@ -265,9 +259,7 @@ export function ToolbarSelectTriggerExample() {
       <ToolbarButton aria-label="Notifications">
         <BellIcon />
       </ToolbarButton>
-      <ToolbarLink href="#" className={styles.toolbarLink}>
-        Edited 51m ago
-      </ToolbarLink>
+      <ToolbarLink href="#">Edited 51m ago</ToolbarLink>
     </Toolbar>
   );
 }
@@ -303,13 +295,13 @@ export function ToolbarCustomIconsExample() {
   return (
     <Toolbar aria-label="Text alignment">
       <ToolbarButton aria-label="Align left">
-        <AlignLeftIcon className={styles.customIcon} />
+        <AlignLeftIcon />
       </ToolbarButton>
       <ToolbarButton aria-label="Align center">
-        <AlignCenterIcon className={styles.customIcon} />
+        <AlignCenterIcon />
       </ToolbarButton>
       <ToolbarButton aria-label="Align right">
-        <AlignRightIcon className={styles.customIcon} />
+        <AlignRightIcon />
       </ToolbarButton>
     </Toolbar>
   );

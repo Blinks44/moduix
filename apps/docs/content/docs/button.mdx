@@ -61,6 +61,8 @@ Base UI behavior stays available on the same component, including `render`, `nat
 
 ```text
 Button
+├─ icon, spinner, or other visual child (optional)
+└─ text label
 ```
 
 | Part     | Role                                                       |
@@ -68,7 +70,7 @@ Button
 | `Button` | Interactive root with moduix styles plus Base UI behavior. |
 
 The root exposes `data-slot="button-root"`, `data-variant`, `data-size`, and Base UI
-`data-disabled`.
+`data-disabled`. Icons, spinners, and labels are plain children, not separate Button slots.
 
 ## Composition
 

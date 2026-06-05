@@ -53,8 +53,12 @@ export const previewCardOverrideCssProperties: CssPropertyInput[] = [
     'Controls arrow border color.',
   ],
   ['--preview-card-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
-  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls the backdrop color.'],
-  ['--preview-card-backdrop-blur', '0', 'Controls the backdrop blur.'],
+  [
+    '--preview-card-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls the backdrop color.',
+  ],
+  ['--preview-card-backdrop-blur', '4px', 'Controls the backdrop blur.'],
   [
     '--preview-card-backdrop-transition',
     'var(--transition-default)',
@@ -116,7 +120,11 @@ export const previewCardOverrideCssProperties: CssPropertyInput[] = [
   ['--preview-card-width', 'auto', 'Controls the popup width.'],
 ];
 export const previewCardPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--preview-card-backdrop-bg', 'var(--backdrop-bg, transparent)', 'Controls backdrop color.'],
+  [
+    '--preview-card-backdrop-bg',
+    'var(--backdrop-bg, var(--color-overlay))',
+    'Controls backdrop color.',
+  ],
   ['--preview-card-bg', 'var(--color-popover)', 'Controls popup background color.'],
   ['--preview-card-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--preview-card-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],

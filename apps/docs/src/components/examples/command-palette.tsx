@@ -137,8 +137,8 @@ function groupCommands<T extends { section: string }>(
 }
 
 export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
-  ['--command-palette-backdrop-bg', 'var(--backdrop-bg, rgb(8 12 20 / 0.42))'],
-  ['--command-palette-backdrop-blur', '8px'],
+  ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))'],
+  ['--command-palette-backdrop-blur', '4px'],
   ['--command-palette-backdrop-transition', 'var(--transition-default)'],
   ['--command-palette-bg', 'var(--color-popover)'],
   ['--command-palette-border-color', 'color-mix(in oklab, var(--color-border) 84%, transparent)'],
@@ -247,9 +247,10 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
 export const commandPalettePlaygroundCssProperties: CssPropertyInput[] = [
   [
     '--command-palette-backdrop-bg',
-    'var(--backdrop-bg, rgb(8 12 20 / 0.42))',
+    'var(--backdrop-bg, var(--color-overlay))',
     'Controls backdrop fill.',
   ],
+  ['--command-palette-backdrop-blur', '4px', 'Controls backdrop blur.'],
   [
     '--command-palette-highlight-bg',
     'var(--color-accent)',
@@ -357,7 +358,7 @@ export function CommandPaletteActionsExample() {
         setLastAction('Logged: Logout');
       },
       openDocs: () => {
-        window.open('https://moduix.dev/docs/roadmap', '_blank', 'noopener,noreferrer');
+        window.open('https://github.com/Blinks44/moduix/releases', '_blank', 'noopener,noreferrer');
         setLastAction('Navigated: Open docs');
       },
       defaultAction: (label: string) => {

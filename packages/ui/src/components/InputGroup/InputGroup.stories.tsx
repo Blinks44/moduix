@@ -105,9 +105,9 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   render: () => {
     return (
-      <InputGroup className={storyStyles.group}>
+      <InputGroup className={storyStyles.group} role="group" aria-label="Workspace handle">
         <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput disabled value="readonly" />
+        <InputGroupInput disabled value="maps" />
         <InputGroupButton disabled>Copy</InputGroupButton>
       </InputGroup>
     );

@@ -69,6 +69,12 @@
           -1
       );
     }
+
+    &[data-disabled],
+    &[disabled] {
+      pointer-events: none;
+      opacity: var(--opacity-disabled);
+    }
   }
 
   .swipeArea {
@@ -115,13 +121,17 @@
     inset: 0;
     min-height: 100dvh;
     background-color: var(--drawer-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
+    backdrop-filter: var(--backdrop-filter, blur(var(--drawer-backdrop-blur, 4px)));
     opacity: calc(1 - var(--drawer-swipe-progress, 0));
     pointer-events: var(--drawer-backdrop-pointer-events, auto);
-    transition: opacity var(--drawer-backdrop-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1));
+    transition:
+      opacity var(--drawer-backdrop-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1)),
+      backdrop-filter var(--drawer-backdrop-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1));
 
     &[data-starting-style],
     &[data-ending-style] {
       opacity: 0;
+      backdrop-filter: none;
     }
 
     &[data-swiping] {
@@ -478,7 +488,23 @@
 
   .header {
     display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
     gap: var(--drawer-header-gap, var(--spacing-1));
+
+    & > [data-slot='drawer-title'] {
+      grid-column: 1;
+    }
+
+    & > [data-slot='drawer-close'],
+    & > [data-slot='drawer-close-icon'] {
+      grid-column: 2;
+      justify-self: end;
+    }
+
+    & > [data-slot='drawer-description'] {
+      grid-column: 1 / -1;
+    }
   }
 
   .title {
@@ -510,5 +536,28 @@
     justify-content: flex-end;
     gap: var(--drawer-footer-gap, var(--spacing-2));
     margin-top: var(--drawer-footer-margin-top, var(--spacing-6));
+  }
+
+  .closeIcon {
+    --close-button-size: var(--drawer-close-icon-size, 1.75rem);
+    --close-button-radius: var(--drawer-close-icon-radius, var(--radius-md));
+    --close-button-color: var(
+      --drawer-close-icon-color,
+      var(--drawer-description-color, var(--color-muted-foreground))
+    );
+    --close-button-color-hover: var(
+      --drawer-close-icon-color-hover,
+      var(--drawer-close-icon-color, var(--drawer-color, var(--color-popover-foreground)))
+    );
+    --close-button-bg: var(--drawer-close-icon-bg, transparent);
+    --close-button-bg-hover: var(--drawer-close-icon-bg-hover, var(--color-accent));
+    --close-button-focus-ring-color: var(
+      --drawer-close-icon-focus-ring-color,
+      var(--drawer-focus-ring-color, var(--color-ring))
+    );
+    --close-button-icon-size: var(--drawer-close-icon-glyph-size, 0.75rem);
+    min-height: auto;
+    padding: 0;
+    border: 0;
   }
 }

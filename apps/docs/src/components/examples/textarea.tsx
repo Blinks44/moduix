@@ -96,7 +96,7 @@ export function TextareaExample(props: ComponentProps<typeof Textarea>) {
     <Field className={styles.field}>
       <FieldLabel>Comment</FieldLabel>
       <FieldDescription>Included in the issue summary visible to the whole team.</FieldDescription>
-      <Textarea className={styles.demoTextarea} placeholder="Write a short comment" {...props} />
+      <Textarea placeholder="Write a short comment" {...props} />
     </Field>
   );
 }
@@ -108,7 +108,6 @@ export function ControlledTextareaExample() {
     <Field className={styles.field}>
       <FieldLabel>Feedback</FieldLabel>
       <Textarea
-        className={styles.demoTextarea}
         value={value}
         onChange={(event) => setValue(event.currentTarget.value)}
         placeholder="Type to control value"
@@ -120,8 +119,8 @@ export function ControlledTextareaExample() {
 export function DisabledAndReadOnlyTextareaExample() {
   return (
     <div className={styles.stack}>
-      <Textarea className={styles.demoTextarea} disabled placeholder="Disabled textarea" />
-      <Textarea className={styles.demoTextarea} readOnly value="Read-only text value" />
+      <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
+      <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
     </div>
   );
 }
@@ -131,13 +130,11 @@ export function NativeAttributesTextareaExample() {
     <Field className={styles.field}>
       <FieldLabel>Notes</FieldLabel>
       <Textarea
-        className={styles.demoTextarea}
         name="notes"
         rows={6}
         maxLength={280}
         spellCheck={false}
         placeholder="Add enough context for the next person reading this."
-        style={{ resize: 'vertical' }}
       />
     </Field>
   );
@@ -148,7 +145,6 @@ export function AutoResizeTextareaExample() {
     <Field className={styles.field}>
       <FieldLabel>Issue description</FieldLabel>
       <Textarea
-        className={styles.demoTextarea}
         autoResize
         placeholder="Start typing a longer description. Height grows with content."
       />
@@ -160,12 +156,7 @@ export function FieldValidationTextareaExample() {
   return (
     <Field className={styles.field} validationMode="onBlur">
       <FieldLabel>Details</FieldLabel>
-      <Textarea
-        className={styles.demoTextarea}
-        required
-        minLength={10}
-        placeholder="Add at least 10 characters"
-      />
+      <Textarea required minLength={10} placeholder="Add at least 10 characters" />
       <FieldDescription>
         Include enough detail for the team to reproduce the issue.
       </FieldDescription>

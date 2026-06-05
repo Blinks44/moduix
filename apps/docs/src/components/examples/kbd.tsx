@@ -68,7 +68,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function KbdExample() {
   return (
-    <KbdGroup>
+    <KbdGroup aria-label="Command K">
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
     </KbdGroup>
   );
@@ -82,13 +82,13 @@ export function KbdShortcutListExample() {
   return (
     <div className={styles.column}>
       <div className={styles.shortcutRow}>
-        <KbdGroup>
+        <KbdGroup aria-label="Command K">
           <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
         </KbdGroup>
         Open command menu
       </div>
       <div className={styles.shortcutRow}>
-        <KbdGroup>
+        <KbdGroup aria-label="Shift question mark">
           <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
         </KbdGroup>
         Show shortcuts
@@ -113,7 +113,7 @@ export function KbdDenseExample() {
 
 export function CustomCompositionKbdExample() {
   return (
-    <KbdGroup className={styles.customGroup}>
+    <KbdGroup aria-label="Command K" className={styles.customGroup}>
       <Kbd className={styles.customKbd}>Cmd</Kbd>+<Kbd className={styles.customKbd}>K</Kbd>
     </KbdGroup>
   );

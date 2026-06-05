@@ -5,6 +5,7 @@
     --card-title-line-height-default: var(--card-title-line-height, var(--line-height-text-lg));
 
     box-sizing: border-box;
+    position: relative;
     display: flex;
     width: 100%;
     min-width: 0;
@@ -16,6 +17,10 @@
     color: var(--card-color, var(--color-card-foreground));
     box-shadow: var(--card-shadow, none);
 
+    &:where(a) {
+      text-decoration: none;
+    }
+
     &[data-size='sm'] {
       --card-padding-default: var(--card-padding-sm, var(--spacing-4));
       --card-title-font-size-default: var(--card-title-font-size-sm, var(--text-md));
@@ -23,6 +28,27 @@
         --card-title-line-height-sm,
         var(--line-height-text-md)
       );
+    }
+
+    &:has(.link)
+      :where(
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        [role='button'],
+        [role='checkbox'],
+        [role='menuitem'],
+        [role='switch'],
+        [tabindex]:not([tabindex='-1'])
+      ):not(.link) {
+      position: relative;
+      z-index: 1;
+    }
+
+    & .link {
+      position: static;
     }
   }
 
@@ -47,6 +73,7 @@
     color: var(--card-content-color, var(--color-muted-foreground));
     font-size: var(--card-content-font-size, var(--text-sm));
     line-height: var(--card-content-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
 
     &:first-child {
       padding-block-start: var(--card-padding-default);
@@ -72,21 +99,27 @@
   .title {
     grid-column: 1;
     margin: 0;
+    min-width: 0;
     color: var(--card-title-color, currentColor);
     font-size: var(--card-title-font-size-default);
     font-weight: var(--card-title-font-weight, var(--weight-semibold));
     line-height: var(--card-title-line-height-default);
+    overflow-wrap: anywhere;
   }
 
   .description {
     grid-column: 1;
     margin: 0;
+    min-width: 0;
     color: var(--card-description-color, var(--color-muted-foreground));
     font-size: var(--card-description-font-size, var(--text-sm));
     line-height: var(--card-description-line-height, var(--line-height-text-sm));
+    overflow-wrap: anywhere;
   }
 
   .action {
+    position: relative;
+    z-index: 1;
     grid-column: 2;
     grid-row: 1 / span 2;
     display: inline-flex;
@@ -94,5 +127,29 @@
     justify-content: flex-end;
     gap: var(--card-action-gap, var(--spacing-2));
     justify-self: end;
+  }
+
+  .link {
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      border-radius: var(--card-radius, var(--radius-lg));
+    }
+
+    &:focus-visible {
+      outline: 0;
+    }
+
+    &:focus-visible::after {
+      outline: var(--card-focus-ring-width, var(--border-width-md)) solid
+        var(--card-focus-ring-color, var(--color-ring));
+      outline-offset: var(--card-focus-ring-offset, var(--border-width-sm));
+    }
   }
 }

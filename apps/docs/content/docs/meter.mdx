@@ -8,6 +8,7 @@ import {
   AriaValueTextMeterExample,
   CompositionMeterExample,
   ControlledMeterExample,
+  CustomValueTextMeterExample,
   CustomStylesMeterExample,
   LocaleAndFormatMeterExample,
   MeterCssPlaygroundPanel,
@@ -82,8 +83,9 @@ For deeper customization, the same parts are also exported as `MeterRoot`, `Mete
 ## Composition
 
 Use `value` with optional `min` and `max` for bounded metrics such as storage usage, quotas, or
-health checks. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` live on the root and
-keep the visible value and accessible text aligned.
+health checks. `Meter` always expects a concrete number and does not have the indeterminate/null
+state from `Progress`. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` live on the
+root and keep the visible value and accessible text aligned.
 
 Style the default component with `className` and the public CSS variables. When the meter bar
 itself needs separate selectors or a different DOM shape, switch to explicit composition with
@@ -145,6 +147,7 @@ Keep the value in React state when the meter mirrors another control.
         MeterValue,
       } from "moduix";
       import { useState } from "react";
+      import styles from "./meter-demo.module.css";
 
       function ControlledMeter() {
         const [value, setValue] = useState(45);
@@ -250,6 +253,40 @@ number alone.
   </Preview.Code>
 </Preview>
 
+### Custom Value Text
+
+Use `getAriaValueText` when the visible `MeterValue` wording and screen reader wording should stay
+aligned but the accessible text needs more context.
+
+<Preview>
+  <CustomValueTextMeterExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Meter,
+        MeterLabel,
+        MeterValue,
+      } from "moduix";
+
+      export function CustomValueTextMeterDemo() {
+        return (
+          <Meter
+            value={68}
+            getAriaValueText={(formattedValue, value) =>
+              \`\${formattedValue} percent of storage used (\${value} of 100)\`
+            }
+          >
+            <MeterLabel>Storage usage</MeterLabel>
+            <MeterValue>{(formattedValue) => \`\${formattedValue}% used\`}</MeterValue>
+          </Meter>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
 ### Custom Styles
 
 Style the root with `className`, CSS variables, and the built-in `data-slot` hooks when the
@@ -265,6 +302,7 @@ default bar needs more specific selectors.
         MeterLabel,
         MeterValue,
       } from "moduix";
+      import styles from "./meter-demo.module.css";
 
       export function CustomStylesMeterDemo() {
         return (
@@ -315,6 +353,7 @@ Use the same parts when you need to change layout or structure more deeply.
         MeterTrack,
         MeterValue,
       } from "moduix";
+      import styles from "./meter-demo.module.css";
 
       export function CompositionMeterDemo() {
         return (

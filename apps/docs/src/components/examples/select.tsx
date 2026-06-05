@@ -124,8 +124,8 @@ export const selectOverrideCssProperties: CssPropertyInput[] = [
     'Controls popup arrow stroke color.',
   ],
   ['--select-arrow-width', '1.25rem', 'Controls popup arrow width.'],
-  ['--select-backdrop-bg', 'var(--backdrop-bg)', 'Controls backdrop color.'],
-  ['--select-backdrop-blur', '2px', 'Controls backdrop blur.'],
+  ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop color.'],
+  ['--select-backdrop-blur', '4px', 'Controls backdrop blur.'],
   [
     '--select-backdrop-transition',
     'var(--transition-default)',

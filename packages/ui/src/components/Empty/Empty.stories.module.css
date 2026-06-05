@@ -1,0 +1,16 @@
+.empty,
+.customEmpty {
+  width: min(28rem, calc(100vw - var(--spacing-8)));
+}
+
+.customEmpty {
+  --empty-bg: color-mix(in oklab, var(--color-primary) 8%, var(--color-card));
+  --empty-border-color: color-mix(in oklab, var(--color-primary) 28%, var(--color-border));
+  --empty-icon-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
+  --empty-icon-color: var(--color-primary);
+  --empty-shadow: var(--shadow-md);
+}
+
+.customIcon {
+  --empty-icon-size: 1.75rem;
+}

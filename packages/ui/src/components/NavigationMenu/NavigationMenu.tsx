@@ -7,7 +7,7 @@ import styles from './NavigationMenu.module.css';
 const DEFAULT_SIDE_OFFSET = 10;
 const DEFAULT_COLLISION_AVOIDANCE = { side: 'none' } as const;
 const DEFAULT_COLLISION_PADDING = { top: 5, bottom: 5, left: 20, right: 20 } as const;
-type NavigationMenuPositionerProps = Pick<
+export type NavigationMenuPositionerProps = Pick<
   NavigationMenuPrimitive.Positioner.Props,
   | 'side'
   | 'sideOffset'
@@ -23,11 +23,15 @@ type NavigationMenuPositionerProps = Pick<
   | 'disableAnchorTracking'
 >;
 
-type NavigationMenuProps = NavigationMenuPrimitive.Root.Props &
+export type NavigationMenuProps = NavigationMenuPrimitive.Root.Props &
   NavigationMenuPositionerProps & {
     showArrow?: boolean;
     showPopup?: boolean;
   };
+
+export type NavigationMenuTriggerProps = NavigationMenuPrimitive.Trigger.Props & {
+  icon?: ReactNode;
+};
 
 function NavigationMenu({
   className,
@@ -100,14 +104,16 @@ function NavigationMenuTrigger({
   className,
   children,
   icon,
+  render,
   ...props
-}: NavigationMenuPrimitive.Trigger.Props & {
-  icon?: ReactNode;
-}) {
+}: NavigationMenuTriggerProps) {
+  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
+
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
-      className={mergeClassName(className, styles.trigger)}
+      render={render}
+      className={triggerClassName}
       {...props}
     >
       {children}

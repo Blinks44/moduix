@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId, useState, type ComponentProps } from 'react';
-import { Field, FieldItem, FieldLabel } from '../Field';
+import { Field, FieldItem } from '../Field';
 import { Fieldset, FieldsetLegend } from '../Fieldset';
 import {
   Radio,
@@ -245,16 +245,16 @@ export const FormIntegration: Story = {
         <Fieldset render={<RadioGroup defaultValue="ssd" />}>
           <FieldsetLegend>Storage type</FieldsetLegend>
           <FieldItem>
-            <FieldLabel>
+            <RadioField>
               <Radio value="ssd" />
               <RadioLabel>SSD</RadioLabel>
-            </FieldLabel>
+            </RadioField>
           </FieldItem>
           <FieldItem>
-            <FieldLabel>
+            <RadioField>
               <Radio value="hdd" />
               <RadioLabel>HDD</RadioLabel>
-            </FieldLabel>
+            </RadioField>
           </FieldItem>
         </Fieldset>
       </Field>

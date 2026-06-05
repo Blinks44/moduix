@@ -303,7 +303,7 @@ export function RadioSiblingLabelNativeButtonExample() {
 export function RadioFormIntegrationExample() {
   return (
     <Field name="storageType">
-      <Fieldset render={<RadioGroup defaultValue="ssd" />}>
+      <Fieldset render={<RadioGroup defaultValue="ssd" className={styles.formGroup} />}>
         <FieldsetLegend>Storage type</FieldsetLegend>
         <FieldItem>
           <FieldLabel>

@@ -1,5 +1,5 @@
 ---
-title: CloseButton
+title: Close Button
 description: An icon-only button for dismissing overlays, notifications, and other closeable surfaces.
 icon: Component
 ---
@@ -25,6 +25,7 @@ import {
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
+      import styles from "./close-button.module.css";
 
       export function CloseButtonDemo() {
         return (
@@ -103,21 +104,22 @@ CloseButton
 
 ## Composition
 
-`CloseButton` is a thin wrapper over Base UI `Button`.
+`CloseButton` is a thin wrapper over Base UI `Button` with one styled root.
 
 - Use `children` to replace the default icon with another icon-sized child.
 - Use `className` to style the root.
 - Use any Base UI `Button` prop directly when you need native composition behavior such as `render`,
-  `nativeButton`, `disabled`, or `focusableWhenDisabled`.
+  `nativeButton`, `disabled`, or `focusableWhenDisabled`, while keeping button semantics.
 
-When `children` are omitted, the default accessible name is `Close`. When you render a custom
-icon-like child, set `aria-label` to describe the dismissed surface.
+When `children`, `aria-label`, and `aria-labelledby` are omitted, the default accessible name is
+`Close`. When you render a custom icon-like child, set `aria-label` or `aria-labelledby` to describe
+the dismissed surface.
 
-| Prop         | Default                             | Values                                          |
-| ------------ | ----------------------------------- | ----------------------------------------------- |
-| `type`       | `button`                            | Any valid button `type` value                   |
-| `aria-label` | `Close` when `children` are omitted | Any descriptive label for the dismissed surface |
-| `children`   | `CloseIcon`                         | Any icon-sized React node                       |
+| Prop         | Default                                                           | Values                                          |
+| ------------ | ----------------------------------------------------------------- | ----------------------------------------------- |
+| `type`       | `button`                                                          | Any valid button `type` value                   |
+| `aria-label` | `Close` only when no children, `aria-label`, or `aria-labelledby` | Any descriptive label for the dismissed surface |
+| `children`   | `CloseIcon`                                                       | Any icon-sized React node                       |
 
 Use `className` to style the root. `classNames` is not needed because there are no extra service slots.
 
@@ -133,6 +135,7 @@ Replace the default icon via `children`.
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
+      import styles from "./close-button.module.css";
 
       function CircleXIcon() {
         return (
@@ -186,6 +189,7 @@ Style the root button through `className`.
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
+      import styles from "./close-button.module.css";
 
       export function CloseButtonCustomCompositionDemo() {
         return <CloseButton className={styles.customButton} aria-label="Close message" />;

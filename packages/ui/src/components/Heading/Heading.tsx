@@ -13,18 +13,14 @@ const defaultSizeByElement = {
 
 type HeadingLevel = keyof typeof defaultSizeByElement;
 type HeadingSize = (typeof defaultSizeByElement)[HeadingLevel];
-
-function Heading({
-  as = 'h1',
-  size,
-  weight = 'semibold',
-  className,
-  ...props
-}: ComponentPropsWithoutRef<'h1'> & {
+type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
+type HeadingProps = ComponentPropsWithoutRef<HeadingLevel> & {
   as?: HeadingLevel;
   size?: HeadingSize;
-  weight?: 'regular' | 'medium' | 'semibold' | 'bold';
-}) {
+  weight?: HeadingWeight;
+};
+
+function Heading({ as = 'h1', size, weight = 'semibold', className, ...props }: HeadingProps) {
   const Component = as;
   const resolvedSize = size ?? defaultSizeByElement[as];
 
@@ -40,3 +36,4 @@ function Heading({
 }
 
 export { Heading };
+export type { HeadingLevel, HeadingProps, HeadingSize, HeadingWeight };

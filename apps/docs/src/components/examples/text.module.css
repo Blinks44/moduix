@@ -1,6 +1,7 @@
 .stack {
   display: flex;
-  width: min(34rem, calc(100vw - var(--spacing-8)));
+  width: fit-content;
+  max-width: min(34rem, calc(100vw - var(--spacing-8)));
   flex-direction: column;
   gap: var(--spacing-3);
 }
@@ -14,7 +15,8 @@
 
 .aligned {
   display: flex;
-  width: min(34rem, calc(100vw - var(--spacing-8)));
+  width: fit-content;
+  max-width: min(34rem, calc(100vw - var(--spacing-8)));
   flex-direction: column;
   gap: var(--spacing-4);
 }

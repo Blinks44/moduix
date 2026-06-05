@@ -95,7 +95,7 @@
 
 .backdrop {
   --preview-card-backdrop-bg: color-mix(in oklab, var(--color-background), transparent 70%);
-  --preview-card-backdrop-blur: 2px;
+  --preview-card-backdrop-blur: 4px;
   --preview-card-backdrop-transition: 200ms ease;
 }
 

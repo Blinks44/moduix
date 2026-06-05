@@ -13,6 +13,22 @@ import { mergeClassName } from '@/utils/mergeClassName';
 import styles from './Combobox.module.css';
 
 type IndicatorPosition = 'start' | 'end';
+type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
+  Pick<
+    ComboboxPrimitive.Positioner.Props,
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+  > & {
+    showArrow?: boolean;
+  };
+
+const COMBOBOX_CONTENT_SIDE_OFFSET = 5;
 
 const Combobox = ComboboxPrimitive.Root;
 
@@ -37,6 +53,19 @@ const ComboboxFieldLabel = forwardRef<
 function ComboboxValue(props: ComboboxPrimitive.Value.Props) {
   return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />;
 }
+
+const ComboboxInlineInputContainer = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+  function ComboboxInlineInputContainer({ className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        data-slot="combobox-inline-input-container"
+        className={clsx(styles.inlineInputContainer, className)}
+        {...props}
+      />
+    );
+  },
+);
 
 const ComboboxInputGroup = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.InputGroup>,
@@ -210,33 +239,26 @@ const ComboboxArrow = forwardRef<
   );
 });
 
-function ComboboxContent({
-  className,
-  showArrow = false,
-  children,
-  side,
-  sideOffset = 5,
-  align,
-  alignOffset,
-  arrowPadding,
-  collisionAvoidance,
-  collisionBoundary,
-  collisionPadding,
-  ...props
-}: ComboboxPrimitive.Popup.Props &
-  Pick<
-    ComboboxPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-  > & {
-    showArrow?: boolean;
-  }) {
+const ComboboxContent = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Popup>,
+  ComboboxContentProps
+>(function ComboboxContent(
+  {
+    className,
+    showArrow = false,
+    children,
+    side,
+    sideOffset = COMBOBOX_CONTENT_SIDE_OFFSET,
+    align,
+    alignOffset,
+    arrowPadding,
+    collisionAvoidance,
+    collisionBoundary,
+    collisionPadding,
+    ...props
+  },
+  ref,
+) {
   return (
     <ComboboxPortal>
       <ComboboxPositioner
@@ -249,14 +271,14 @@ function ComboboxContent({
         collisionBoundary={collisionBoundary}
         collisionPadding={collisionPadding}
       >
-        <ComboboxPopup className={className} {...props}>
+        <ComboboxPopup ref={ref} className={className} {...props}>
           {showArrow ? <ComboboxArrow /> : null}
           {children}
         </ComboboxPopup>
       </ComboboxPositioner>
     </ComboboxPortal>
   );
-}
+});
 
 const ComboboxStatus = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Status>,
@@ -482,6 +504,7 @@ export {
   ComboboxField,
   ComboboxFieldLabel,
   ComboboxValue,
+  ComboboxInlineInputContainer,
   ComboboxInputGroup,
   ComboboxInput,
   ComboboxControlActions,

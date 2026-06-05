@@ -68,69 +68,11 @@ export const paginationPlaygroundCssProperties: CssPropertyInput[] = [
 ];
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
-}
-
-function PaginationItems({
-  boundaryCount = 1,
-  currentPage,
-  onPageChange,
-  pageCount,
-  siblingCount = 1,
-}: {
-  boundaryCount?: number;
-  currentPage: number;
-  onPageChange?: (page: number) => void;
-  pageCount: number;
-  siblingCount?: number;
-}) {
-  const pagination = usePagination({
-    boundaryCount,
-    count: pageCount,
-    page: currentPage,
-    siblingCount,
-  });
-
-  return (
-    <>
-      <PaginationItem>
-        <PaginationPrevious
-          aria-disabled={!pagination.canPreviousPage || undefined}
-          onClick={() => {
-            if (pagination.canPreviousPage) {
-              onPageChange?.(pagination.previousPage);
-            }
-          }}
-        />
-      </PaginationItem>
-      {pagination.items.map((item, index) => (
-        <PaginationItem key={`${item}-${index}`}>
-          {typeof item !== 'number' ? (
-            <PaginationEllipsis />
-          ) : (
-            <PaginationLink
-              isActive={item === pagination.page}
-              onClick={() => onPageChange?.(item)}
-            >
-              {item}
-            </PaginationLink>
-          )}
-        </PaginationItem>
-      ))}
-      <PaginationItem>
-        <PaginationNext
-          aria-disabled={!pagination.canNextPage || undefined}
-          onClick={() => {
-            if (pagination.canNextPage) {
-              onPageChange?.(pagination.nextPage);
-            }
-          }}
-        />
-      </PaginationItem>
-    </>
-  );
 }
 
 export function PaginationCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -158,12 +100,43 @@ export function PaginationCssPlaygroundPanel({
 
 export function PaginationExample() {
   const [page, setPage] = useState(5);
+  const pagination = usePagination({ count: 10, page });
 
   return (
     <div className={styles.stack}>
       <Pagination>
         <PaginationContent>
-          <PaginationItems currentPage={page} onPageChange={setPage} pageCount={10} />
+          <PaginationItem>
+            <PaginationPrevious
+              aria-disabled={!pagination.canPreviousPage || undefined}
+              onClick={() => {
+                if (pagination.canPreviousPage) {
+                  setPage(pagination.previousPage);
+                }
+              }}
+            />
+          </PaginationItem>
+          {pagination.items.map((item, index) => (
+            <PaginationItem key={`${item}-${index}`}>
+              {typeof item !== 'number' ? (
+                <PaginationEllipsis />
+              ) : (
+                <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
+                  {item}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext
+              aria-disabled={!pagination.canNextPage || undefined}
+              onClick={() => {
+                if (pagination.canNextPage) {
+                  setPage(pagination.nextPage);
+                }
+              }}
+            />
+          </PaginationItem>
         </PaginationContent>
       </Pagination>
       <div className={styles.code}>Current page: {page}</div>
@@ -222,12 +195,43 @@ export function PaginationCompactExample() {
 
 export function PaginationControlledExample() {
   const [page, setPage] = useState(5);
+  const pagination = usePagination({ count: 10, page });
 
   return (
     <div className={styles.stack}>
       <Pagination>
         <PaginationContent>
-          <PaginationItems currentPage={page} onPageChange={setPage} pageCount={10} />
+          <PaginationItem>
+            <PaginationPrevious
+              aria-disabled={!pagination.canPreviousPage || undefined}
+              onClick={() => {
+                if (pagination.canPreviousPage) {
+                  setPage(pagination.previousPage);
+                }
+              }}
+            />
+          </PaginationItem>
+          {pagination.items.map((item, index) => (
+            <PaginationItem key={`${item}-${index}`}>
+              {typeof item !== 'number' ? (
+                <PaginationEllipsis />
+              ) : (
+                <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
+                  {item}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext
+              aria-disabled={!pagination.canNextPage || undefined}
+              onClick={() => {
+                if (pagination.canNextPage) {
+                  setPage(pagination.nextPage);
+                }
+              }}
+            />
+          </PaginationItem>
         </PaginationContent>
       </Pagination>
       <div className={styles.code}>Current page: {page}</div>
@@ -237,18 +241,48 @@ export function PaginationControlledExample() {
 
 export function PaginationDensityExample() {
   const [page, setPage] = useState(12);
+  const pagination = usePagination({
+    boundaryCount: 2,
+    count: 24,
+    page,
+    siblingCount: 2,
+  });
 
   return (
     <div className={styles.stack}>
       <Pagination>
         <PaginationContent>
-          <PaginationItems
-            boundaryCount={2}
-            currentPage={page}
-            onPageChange={setPage}
-            pageCount={24}
-            siblingCount={2}
-          />
+          <PaginationItem>
+            <PaginationPrevious
+              aria-disabled={!pagination.canPreviousPage || undefined}
+              onClick={() => {
+                if (pagination.canPreviousPage) {
+                  setPage(pagination.previousPage);
+                }
+              }}
+            />
+          </PaginationItem>
+          {pagination.items.map((item, index) => (
+            <PaginationItem key={`${item}-${index}`}>
+              {typeof item !== 'number' ? (
+                <PaginationEllipsis />
+              ) : (
+                <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
+                  {item}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext
+              aria-disabled={!pagination.canNextPage || undefined}
+              onClick={() => {
+                if (pagination.canNextPage) {
+                  setPage(pagination.nextPage);
+                }
+              }}
+            />
+          </PaginationItem>
         </PaginationContent>
       </Pagination>
       <div className={styles.code}>Current page: {page}</div>
@@ -258,11 +292,42 @@ export function PaginationDensityExample() {
 
 export function PaginationClassNameExample() {
   const [page, setPage] = useState(5);
+  const pagination = usePagination({ count: 10, page });
 
   return (
     <Pagination className={styles.customPagination}>
       <PaginationContent>
-        <PaginationItems currentPage={page} onPageChange={setPage} pageCount={10} />
+        <PaginationItem>
+          <PaginationPrevious
+            aria-disabled={!pagination.canPreviousPage || undefined}
+            onClick={() => {
+              if (pagination.canPreviousPage) {
+                setPage(pagination.previousPage);
+              }
+            }}
+          />
+        </PaginationItem>
+        {pagination.items.map((item, index) => (
+          <PaginationItem key={`${item}-${index}`}>
+            {typeof item !== 'number' ? (
+              <PaginationEllipsis />
+            ) : (
+              <PaginationLink isActive={item === pagination.page} onClick={() => setPage(item)}>
+                {item}
+              </PaginationLink>
+            )}
+          </PaginationItem>
+        ))}
+        <PaginationItem>
+          <PaginationNext
+            aria-disabled={!pagination.canNextPage || undefined}
+            onClick={() => {
+              if (pagination.canNextPage) {
+                setPage(pagination.nextPage);
+              }
+            }}
+          />
+        </PaginationItem>
       </PaginationContent>
     </Pagination>
   );

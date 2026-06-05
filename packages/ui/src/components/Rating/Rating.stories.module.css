@@ -1,0 +1,23 @@
+@layer storybook {
+  .field {
+    width: 16rem;
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+  }
+
+  .hint {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-text-xs);
+  }
+
+  .customRating {
+    --rating-active-color: #f59e0b;
+    --rating-color: color-mix(in srgb, #f59e0b 35%, var(--color-muted-foreground));
+    --rating-focus-ring-color: #f59e0b;
+    --rating-gap: var(--spacing-2);
+  }
+}

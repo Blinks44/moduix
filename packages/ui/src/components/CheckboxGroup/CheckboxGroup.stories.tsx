@@ -164,6 +164,31 @@ export const Disabled: Story = {
   },
 };
 
+export const ReadOnlyItem: Story = {
+  name: 'Read-only Item',
+  render: () => {
+    const labelId = React.useId();
+
+    return (
+      <CheckboxGroup defaultValue={['push']} aria-labelledby={labelId}>
+        <CheckboxGroupLabel id={labelId}>Partially Locked Settings</CheckboxGroupLabel>
+        <CheckboxGroupList>
+          {options.map((option) => (
+            <CheckboxGroupItem key={option.value}>
+              <CheckboxGroupItemControl
+                value={option.value}
+                name="partially-locked-settings"
+                readOnly={option.value === 'push'}
+              />
+              <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
+            </CheckboxGroupItem>
+          ))}
+        </CheckboxGroupList>
+      </CheckboxGroup>
+    );
+  },
+};
+
 export const ParentCheckbox: Story = {
   name: 'Parent Checkbox',
   render: () => {

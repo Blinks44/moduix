@@ -32,19 +32,19 @@ export const FallbackOnly: Story = {
   render: () => {
     return (
       <div className={styles.fallbackRow}>
-        <Avatar className={styles.sizeXs}>
+        <Avatar size="xs">
           <AvatarFallback>XS</AvatarFallback>
         </Avatar>
-        <Avatar className={styles.sizeSm}>
+        <Avatar size="sm">
           <AvatarFallback>SM</AvatarFallback>
         </Avatar>
         <Avatar>
           <AvatarFallback>MD</AvatarFallback>
         </Avatar>
-        <Avatar className={styles.sizeLg}>
+        <Avatar size="lg">
           <AvatarFallback>LG</AvatarFallback>
         </Avatar>
-        <Avatar className={styles.sizeXl}>
+        <Avatar size="xl">
           <AvatarFallback>XL</AvatarFallback>
         </Avatar>
       </div>
@@ -55,7 +55,7 @@ export const FallbackOnly: Story = {
 export const RenderComposition: Story = {
   render: () => {
     return (
-      <Avatar render={<a href="mailto:alex@example.com" />} className={styles.linkAvatar}>
+      <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className={styles.linkAvatar}>
         <AvatarImage className={styles.linkAvatarImage} src={imageUrl} alt="Alex T." />
         <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
           LT
@@ -79,7 +79,7 @@ export const ImageError: Story = {
 export const FallbackIcon: Story = {
   render: () => {
     return (
-      <Avatar className={styles.iconAvatar}>
+      <Avatar size="lg" className={styles.iconAvatar}>
         <AvatarFallback>
           <ComputerIcon className={styles.iconAvatarGlyph} />
         </AvatarFallback>

@@ -13,3 +13,9 @@ export {
   NavigationMenuArrow,
   NavigationMenuViewport,
 } from './NavigationMenu';
+
+export type {
+  NavigationMenuPositionerProps,
+  NavigationMenuProps,
+  NavigationMenuTriggerProps,
+} from './NavigationMenu';

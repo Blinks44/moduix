@@ -18,7 +18,7 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    animation: var(--animation-spin);
+    animation: var(--spinner-animation, var(--animation-spin));
   }
 
   .ring {
@@ -55,7 +55,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .indicator {
-      animation-duration: 1.8s;
+      animation: none;
     }
   }
 }
