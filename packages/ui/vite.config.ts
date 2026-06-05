@@ -3,14 +3,12 @@ import path from 'path';
 import copy from 'rollup-plugin-copy';
 import { defineConfig, esmExternalRequirePlugin } from 'vite';
 import dts from 'vite-plugin-dts';
-import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
   plugins: [
     react(),
     svgr(),
-    libInjectCss(),
     dts({
       tsconfigPath: './tsconfig.app.json',
       include: ['src/**/*'],
