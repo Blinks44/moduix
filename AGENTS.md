@@ -6,8 +6,8 @@ Before substantial work:
 
 - Skill check: run `npx @tanstack/intent@latest list`, or use skills already listed in context.
 - Skill guidance: if one local skill clearly matches the task, run `npx @tanstack/intent@latest load <package>#<skill>` and follow the returned `SKILL.md`.
-- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.
-- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
+- Monorepos: run the skill check from the workspace root and prefer the local skill for the package being changed.
+- Multiple matches: prefer the most specific local skill; load additional skills only when the task spans multiple concerns.
 <!-- intent-skills:end -->
 
 # moduix-monorepo
@@ -18,41 +18,40 @@ Monorepo for the UI component library and documentation.
 
 Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 
-- For every coding task, first apply `.agents/skills/engineering-principles/SKILL.md` (mandatory baseline).
-- If `rtk` is installed and available in `PATH`, immediately after that apply `.agents/skills/rtk-command-proxy/SKILL.md` (mandatory baseline for shell commands).
-- If `rtk` is not installed, skip `rtk-command-proxy` and run shell commands directly.
-- For JS/TS coding tasks, apply `.agents/skills/js-react-conventions/SKILL.md`.
+- Always apply `.agents/skills/engineering-principles/SKILL.md` for coding tasks.
+- If `rtk` is in `PATH`, apply `.agents/skills/rtk-command-proxy/SKILL.md` immediately after `engineering-principles`. Otherwise run shell commands directly.
+- For JS/TS work, apply `.agents/skills/js-react-conventions/SKILL.md`.
 - For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
-- For upstream Base UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
-- Component work in `packages/ui` (new component, API/style updates, Storybook) -> `.agents/skills/ui-component-workflow/SKILL.md`
-- Local component markdown in `packages/ui/src/components` -> `.agents/skills/local-component-docs/SKILL.md`
-- Documentation work in `apps/docs` (pages, MDX, examples, docs routing/content) -> `.agents/skills/docs-workflow/SKILL.md`
-- Tasks that touch both packages or require docs/UI parity -> `.agents/skills/cross-package-sync/SKILL.md`
+- For Base UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
+- For component work in `packages/ui`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
+- For local component markdown in `packages/ui/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
+- For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
+- For tasks that touch both `packages/ui` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.
 
-`engineering-principles` and `rtk-command-proxy` are immutable baseline skills when applied. Do not add
-project-specific coding style rules to them; place those rules in dedicated skills.
+`engineering-principles` and `rtk-command-proxy` are immutable baseline skills. Keep project-specific rules in dedicated skills.
 
-If a task spans UI and docs:
+If a task spans UI and docs, apply skills in this order:
 
-1. Apply `engineering-principles`.
-2. If `rtk` is available, apply `rtk-command-proxy`; otherwise skip it.
-3. Apply `upstream-library-docs` when Base UI or shadcn reference material is needed.
-4. Apply `ui-component-workflow`.
-5. Apply `local-component-docs` when local component markdown is created or updated.
-6. Apply `cross-package-sync`.
-7. Apply `docs-workflow`.
+1. `engineering-principles`
+2. `rtk-command-proxy` when `rtk` is available
+3. `upstream-library-docs` when upstream Base UI or shadcn behavior matters
+4. `ui-component-workflow`
+5. `local-component-docs` when component markdown is created or updated
+6. `cross-package-sync`
+7. `docs-workflow`
 
 ## Global Rules
 
-- Monorepo is managed with Turborepo (`turbo.json`).
-- Linting uses `oxlint` (config in `packages/oxlint-config`).
-- Formatting uses `oxfmt` (config in `packages/oxfmt-config`).
+- Monorepo uses Turborepo (`turbo.json`).
+- Linting uses `oxlint` from `packages/oxlint-config`.
+- Formatting uses `oxfmt` from `packages/oxfmt-config`.
 - Do not start dev servers manually; use the already running project server.
 - Before docs validation or docs changes that depend on UI output, run `npm run build:ui` from repo root.
-- After changes in `packages/ui`, run `npm run build:ui` before `npm run tsc:check`, otherwise workspace consumers can read stale declaration output.
-- Base UI and shadcn upstream references should be read online via `.agents/skills/upstream-library-docs/SKILL.md`; do not use local snapshots for those libraries.
-- In MDX snippets, avoid `useState<T>()` style generics when `as T` works; MDX parsers can treat `<T>` as JSX.
-- Keep component APIs, naming, code structure, and composition patterns uniform across the library. Similar components must use the same prop names and conventions (for example, avoid mismatches like `withArrow` vs `showArrow` for the same behavior).
+- After changes in `packages/ui`, run `npm run build:ui` before `npm run tsc:check` so consumers do not read stale declarations.
+- After changes to a component in `packages/ui`, update that component's local `.md` file in `packages/ui/src/components` with the current functionality and a concise changelog entry when behavior, API, styling contract, or recommended usage changed.
+- Read Base UI and shadcn references online through `.agents/skills/upstream-library-docs/SKILL.md`; do not rely on local snapshots.
+- In MDX snippets, prefer `as T` over `useState<T>()`; MDX can parse `<T>` as JSX.
+- Keep component APIs, naming, code structure, and composition patterns uniform across the library. Similar components should share the same prop names and conventions.
 
 ## Required Validation
 
@@ -60,5 +59,5 @@ After code changes, run from repo root:
 
 - `npm run fmt:fix`
 - `npm run lint:check`
-- `npm run build:ui` (before `npm run tsc:check` when `packages/ui` changed)
+- `npm run build:ui` before `npm run tsc:check` when `packages/ui` changed
 - `npm run tsc:check`
