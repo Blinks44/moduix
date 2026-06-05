@@ -1,5 +1,11 @@
 # moduix
 
+## 0.11.1
+
+### Patch Changes
+
+- 3bc5ee5: Switch vite-library mode to tsdown
+
 ## 0.11.0
 
 ### Minor Changes
