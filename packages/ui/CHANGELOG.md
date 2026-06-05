@@ -1,5 +1,12 @@
 # moduix
 
+## 0.11.0
+
+### Minor Changes
+
+- 3197e84: New components: AspectRatio, Table, CopyButton, Empty, PasswordInput, SplitButton, Stepper.
+  Small api updates for each component
+
 ## 0.10.0
 
 ### Minor Changes
