@@ -21,7 +21,8 @@
     "directory": "packages/ui"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE.md"
   ],
   "type": "module",
   "sideEffects": [
