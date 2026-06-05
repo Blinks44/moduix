@@ -38,7 +38,7 @@ function ComboboxField({ className, ...props }: ComponentProps<'div'>) {
 
 const ComboboxFieldLabel = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Label>,
-  ComboboxPrimitive.Label.Props & Pick<ComponentProps<'label'>, 'htmlFor'>
+  ComboboxPrimitive.Label.Props
 >(function ComboboxFieldLabel({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Label

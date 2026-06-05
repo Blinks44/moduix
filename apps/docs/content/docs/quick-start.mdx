@@ -28,8 +28,8 @@ Import the library styles once in your application entry point:
 import 'moduix/style.css';
 ```
 
-The CSS file includes component styles and design tokens. It does not include a global reset or
-application-level base styles, so those stay under your project's control.
+The CSS file includes the shared design tokens and base layer styles. It does not include the
+optional reset, and component styles are loaded alongside the components you import.
 
 If you want the optional reset, import it explicitly before the main stylesheet:
 
@@ -37,6 +37,9 @@ If you want the optional reset, import it explicitly before the main stylesheet:
 import 'moduix/reset.css';
 import 'moduix/style.css';
 ```
+
+That keeps `style.css` focused on the global foundation, while unused component CSS can stay out of
+the consuming bundle.
 
 ## Use Components
 

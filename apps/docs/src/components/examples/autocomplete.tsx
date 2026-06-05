@@ -479,7 +479,9 @@ export function AutocompleteExample() {
   return (
     <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Search tags
+        </label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="e.g. feature" />
           <AutocompleteControlActions>
@@ -509,7 +511,9 @@ export function GroupedAutocompleteExample() {
   return (
     <Autocomplete items={groupedTags} itemToStringValue={(item) => item.value}>
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Search grouped tags</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Search grouped tags
+        </label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="e.g. docs" />
           <AutocompleteControlActions>
@@ -546,7 +550,9 @@ export function ItemIconsAutocompleteExample() {
   return (
     <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Search tags with icons</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Search tags with icons
+        </label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="e.g. feature" />
           <AutocompleteControlActions>
@@ -620,7 +626,9 @@ export function LimitAutocompleteExample() {
       openOnInputClick
     >
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Top 5 matches</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Top 5 matches
+        </label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="Type movie title" />
           <AutocompleteControlActions>
@@ -657,7 +665,9 @@ export function AutoHighlightAutocompleteExample() {
       mode="list"
     >
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Auto highlight</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Auto highlight
+        </label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="Use arrow keys or type" />
           <AutocompleteControlActions>
@@ -692,7 +702,9 @@ export function GridAutocompleteExample() {
       openOnInputClick
     >
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Shortcut command</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Shortcut command
+        </label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="Type a command" />
           <AutocompleteControlActions>
@@ -724,7 +736,9 @@ export function FuzzyAutocompleteExample() {
       }}
     >
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Fuzzy search</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Fuzzy search
+        </label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="e.g. tdk or sra" />
           <AutocompleteControlActions>
@@ -835,7 +849,9 @@ export function AsyncSearchAutocompleteExample() {
       }}
     >
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Search movies by name or year</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Search movies by name or year
+        </label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="e.g. Pulp Fiction or 1994" />
           <AutocompleteControlActions>
@@ -870,7 +886,9 @@ export function CustomCompositionAutocompleteExample() {
   return (
     <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+        <label className={styles.fieldLabel} htmlFor={id}>
+          Search tags
+        </label>
         <AutocompleteInputGroup className={styles.customInputGroup}>
           <AutocompleteInput id={id} placeholder="e.g. feature" />
           <AutocompleteControlActions>

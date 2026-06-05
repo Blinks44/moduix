@@ -61,7 +61,6 @@ const clientLoader = browserCollections.docs.createClientLoader({
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join('');
 
-    console.log(componentDir);
     const githubUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/tree/main/packages/ui/src/components/${componentDir}`;
 
     return (

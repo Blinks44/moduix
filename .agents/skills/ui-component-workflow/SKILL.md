@@ -1,3 +1,8 @@
+---
+name: ui-component-workflow
+description: Use for work in packages/ui, including component implementation, API changes, stories, exports, and local component docs.
+---
+
 # Skill: ui-component-workflow
 
 Use this skill for work in `packages/ui`.
@@ -11,196 +16,87 @@ Use this skill for work in `packages/ui`.
 ## Read First
 
 1. `AGENTS.md`
-2. `.agents/skills/upstream-library-docs/SKILL.md` when Base UI or shadcn reference material is needed
+2. `.agents/skills/upstream-library-docs/SKILL.md` when Base UI or shadcn reference material matters
 3. `packages/ui/src/components/<ComponentName>/<component-name>.md`
-4. `.agents/skills/local-component-docs/SKILL.md` when local component markdown is created or updated
-5. `.agents/skills/cross-package-sync/SKILL.md` when docs parity may be affected
+4. `.agents/skills/local-component-docs/SKILL.md` when component markdown is created or updated
+5. `.agents/skills/cross-package-sync/SKILL.md` when public changes affect docs
+6. `references/component-family-contracts.md` when popup-like or dialog-like contracts matter
 
-Use online upstream sources for Base UI and shadcn reference material. Do not use local snapshots for
-those libraries.
-
-Before editing an existing component, inspect:
-
-- current implementation
-- CSS module
-- stories
-- local component markdown
-- adjacent docs/examples when the API is user-facing
-
-Build context first. Know what behavior is essential, what styling hooks are public, and what
-complexity is historical rather than useful.
+Before editing an existing component, inspect the implementation, CSS module, stories, local markdown, and user-facing docs/examples when relevant.
 
 ## Goal
 
-Build thin styled wrappers over Base UI primitives.
-
-Target shape:
+Build thin styled wrappers over Base UI primitives:
 
 - simple function components
-- inline prop typing where possible
+- inline prop typing where practical
 - minimal wrapper logic
 - predictable composition
 - small public API
-- simple default path with composition available for advanced cases
+- simple default path with explicit advanced composition
 
-Aim for the shadcn feel, but with small, high-value DX sugar when it removes repeated production
-boilerplate without turning the component into a configurator.
+Small DX sugar is acceptable only when it removes repeated production boilerplate without hiding the real composition model.
 
-## Implementation Rules
+## Rules
 
-- Stack: React + TypeScript + CSS Modules + `@base-ui/react`
-- Keep component structure consistent:
+- Stack: React, TypeScript, CSS Modules, `@base-ui/react`
+- Keep the standard component shape:
   - `ComponentName.tsx`
   - `ComponentName.module.css`
   - `ComponentName.stories.tsx`
   - `component-name.md`
   - `index.ts`
-- Use PascalCase for component files/folders and kebab-case for the local markdown file.
+- Use PascalCase for component files and folders, kebab-case for the local markdown file.
 - Accept `className` on meaningful visual roots.
 - Use `data-slot` on exported parts and meaningful styling hooks.
 - Prefer direct primitive passthrough over custom wrapper logic.
-- Do not add business logic, internal state layers, or future-proofing APIs.
-
-## API Rules
-
+- Do not add business logic, extra state layers, or speculative APIs.
 - Prefer composition over feature flags.
 - Prefer explicit public parts over `slotProps`, `classNames`, render shims, or prop bags.
-- Keep controlled and uncontrolled primitive behavior intact unless a wrapper adds real user value.
+- Keep controlled and uncontrolled primitive behavior intact unless a wrapper adds clear value.
 - Keep infrastructure slots internal unless they are meaningful building blocks for consumers.
-- Do not create god components that own every optional concern.
+- Do not build god components.
 
 For every custom prop, ask:
 
-1. Is this a common production case?
+1. Is this common in production?
 2. Can composition already express it?
 3. Is it duplicating Base UI?
 4. Does it clearly improve DX?
 5. Does it keep the component simple?
 
-If the answer is weak, simplify or delete it.
+If the answer is weak, simplify or remove it.
 
-## Small Sugar Contract
-
-Small sugar is allowed only when it improves a frequent default workflow and keeps the real
-composition model visible.
-
-Good sugar:
-
-- literal, predictable naming
-- narrow scope
-- obvious boilerplate reduction
-- common production scenario
-- composition still available
-
-Bad sugar:
-
-- replaces composition wholesale
-- duplicates large areas of primitive API
-- introduces parallel customization systems
-- exposes internal structure through prop bags
-- makes the component harder to explain
-
-Use `Pagination` as the reference shape for non-trivial sugar: keep the compositional API, then add
-small headless convenience only where it materially improves repeated usage.
-
-### Popup-like Components
-
-For positioned popup-like `*Content` wrappers, the preferred default contract is:
-
-- `className`
-- `side`
-- `sideOffset`
-- `align`
-- `alignOffset`
-- `arrowPadding`
-- `collisionAvoidance`
-- `collisionBoundary`
-- `collisionPadding`
-- `showArrow`
-
-Rules:
-
-- `showArrow` is the standard name for toggling the built-in arrow.
-- built-in arrows are opt-in by default
-- `showArrow` only turns the default arrow on or off
-- custom arrow content and structural overrides stay in explicit composition
-
-Do not copy this popup vocabulary into dialogs, drawers, alerts, or other non-positioned overlays.
-
-### Dialog-like Components
-
-For dialog-like components:
-
-- keep the visible content wrapper thin
-- allow only narrow workflow sugar that matches repeated library usage
-- keep backdrop, viewport, and close structure simple by default
-
-If the prop starts describing internal layout or hidden structure, move that behavior back to
-composition.
-
-## Typing Rules
+Typing and refs:
 
 - Type props inline unless a named type adds real meaning or reuse.
 - Do not export prop aliases that only restate primitive props.
 - Avoid helper types, generics, `Pick`, and `Omit` unless they protect a real public contract.
 - Keep the public type surface small.
-- Keep the file readable without understanding internal type plumbing first.
-- When `React.ComponentProps` or similar adds noise, prefer direct type imports such as
-  `import type { ComponentProps } from 'react'` in the touched file.
-
-## Refs and Imperative APIs
-
 - Do not add `forwardRef` unless the ref is part of the real consumer API or required by the primitive.
 - Remove wrapper-level imperative helpers that are not essential Base UI behavior.
 
-## Styling Rules
+Styling:
 
 - Use tokens from `src/styles/*`.
 - Add public styling tokens to `src/styles/theme.css` with `initial` and a nearby default-value comment.
-- Keep `theme.css` variables sorted alphabetically, except ordered size scales.
-- Keep selectors flat, simple, and readable.
-- Remove dead classes, selectors, modifiers, data-attribute branches, and obsolete CSS variables.
-- Do not keep defensive or speculative styling complexity.
-- Demo layout styles belong in `ComponentName.stories.module.css`, not library CSS.
+- Keep `theme.css` variables sorted alphabetically except ordered size scales.
+- Keep selectors flat and readable.
+- Remove dead classes, selectors, modifiers, and obsolete CSS variables.
+- Put demo-only layout styles in stories CSS, not library CSS.
 
-## Stories, Docs, and Sync
+Sync and preservation:
 
-- Stories and local component markdown must reflect the real API.
-- Local component markdown documents the `moduix` wrapper contract, not the upstream primitive API.
+- Stories and local component markdown must match the shipped API.
 - Remove deleted props, legacy customization paths, and outdated examples in the same task.
-- Prefer short, production-like examples over exhaustive configuration demos.
-- If API, behavior, styling hooks, or recommended usage changed, activate `cross-package-sync` and
-  update docs in the same task.
-- Docs should teach the simple path first, then composition, then advanced escape hatches.
-- Keep docs structurally clear and consistent with stronger pages like `Toast`.
-
-## Preservation Rules
-
-Simplification must preserve:
-
-- accessibility behavior
-- keyboard navigation
-- focus management
-- screen reader behavior
-- Base UI lifecycle, state, transitions, and interactions
-- meaningful styling hooks such as `data-slot`
-
-Remove architecture, not real behavior.
+- If API, behavior, styling hooks, or recommended usage changed, update component markdown in the same task and apply `cross-package-sync` when docs are affected.
+- Simplification must preserve accessibility behavior, keyboard navigation, focus management, screen reader behavior, Base UI lifecycle/state/transitions, and meaningful styling hooks such as `data-slot`.
+- Load `references/component-family-contracts.md` for popup-like and dialog-like family rules instead of repeating them in task notes.
 
 ## Done Criteria
 
-The task is done only when all of this is true:
-
-1. `tsx`, `css`, and local `md` files were analyzed before editing.
-2. The component is thinner, simpler, and still clearly shadcn-like.
-3. The API is no larger than necessary.
-4. Any added sugar is small, useful, and tied to a common production case.
-5. Dead props, dead types, dead styles, and unnecessary complexity are removed.
-6. The component is pleasant and easy for library consumers to use.
-7. Stories and local docs match the shipped API.
-8. Related docs are updated when public behavior changed.
-9. Root validations pass:
-   - `npm run fmt:fix`
-   - `npm run lint:check`
-   - `npm run build:ui` before `npm run tsc:check` when `packages/ui` changed
-   - `npm run tsc:check`
+1. TSX, CSS, stories, and local markdown were reviewed before editing.
+2. The component is thinner and no more complex than necessary.
+3. Stories and local docs match the shipped API.
+4. Public docs were updated when user-facing behavior changed.
+5. Required validation from `AGENTS.md` passed.

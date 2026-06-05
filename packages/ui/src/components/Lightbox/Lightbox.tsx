@@ -178,6 +178,7 @@ function LightboxImage({
 
   return (
     <LightboxTrigger
+      nativeButton={false}
       render={
         <img
           data-slot="lightbox-image"

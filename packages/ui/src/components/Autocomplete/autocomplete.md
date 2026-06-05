@@ -55,7 +55,7 @@ export function AutocompleteDemo() {
   return (
     <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+        <label htmlFor={id}>Search tags</label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="e.g. feature" />
           <AutocompleteControlActions>
@@ -89,7 +89,7 @@ default icons when no children are passed.
 | ----------------------------- | ---------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
 | `Autocomplete`                | none             | -                                            | Root state, filtering, value, open state, and keyboard behavior.                |
 | `AutocompleteField`           | `div`            | `data-slot="autocomplete-field"`             | Vertical field layout wrapper.                                                  |
-| `AutocompleteFieldLabel`      | `label`          | `data-slot="autocomplete-field-label"`       | Accessible label powered by the primitive label.                                |
+| `AutocompleteFieldLabel`      | primitive label  | `data-slot="autocomplete-field-label"`       | Trigger label for the input-inside-popup composition.                           |
 | `AutocompleteInputGroup`      | `div`            | `data-slot="autocomplete-input-group"`       | Styled input control surface.                                                   |
 | `AutocompleteInput`           | `input`          | `data-slot="autocomplete-input"`             | Text input that drives filtering.                                               |
 | `AutocompleteControlActions`  | `div`            | `data-slot="autocomplete-control-actions"`   | Absolute-positioned clear/trigger action group.                                 |
@@ -123,7 +123,7 @@ Recommended input composition:
 ```text
 Autocomplete
 ├─ AutocompleteField
-│  ├─ AutocompleteFieldLabel
+│  ├─ label (native)
 │  └─ AutocompleteInputGroup
 │     ├─ AutocompleteInput
 │     └─ AutocompleteControlActions
@@ -139,7 +139,8 @@ Autocomplete
 ## Input inside popup
 
 For command-picker-like layouts, render a trigger field and put `AutocompleteInput` inside the popup.
-This is the composition used by the Storybook `InputInsidePopup` story.
+This is the composition used by the Storybook `InputInsidePopup` story. Without `htmlFor`,
+`AutocompleteFieldLabel` keeps the Base UI label behavior for the trigger-first field.
 
 ```tsx
 <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
@@ -189,7 +190,7 @@ function GroupedAutocomplete() {
   return (
     <Autocomplete items={groupedTags} itemToStringValue={(item) => item.value}>
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Search grouped tags</AutocompleteFieldLabel>
+        <label htmlFor={id}>Search grouped tags</label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="e.g. docs" />
           <AutocompleteControlActions>
@@ -270,7 +271,7 @@ function AsyncSearch() {
       }}
     >
       <AutocompleteField>
-        <AutocompleteFieldLabel htmlFor={id}>Search movies by name or year</AutocompleteFieldLabel>
+        <label htmlFor={id}>Search movies by name or year</label>
         <AutocompleteInputGroup>
           <AutocompleteInput id={id} placeholder="e.g. Pulp Fiction or 1994" />
           <AutocompleteControlActions>
@@ -385,7 +386,7 @@ higher theme scope:
 
 ```tsx
 <AutocompleteField className="wideAutocomplete">
-  <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+  <label htmlFor={id}>Search tags</label>
   <AutocompleteInputGroup>
     <AutocompleteInput id={id} placeholder="e.g. feature" />
     <AutocompleteControlActions>
@@ -398,8 +399,9 @@ higher theme scope:
 
 ## UX and accessibility
 
-- Always provide an accessible name for the input. Prefer `AutocompleteFieldLabel` with `htmlFor`
-  matching `AutocompleteInput id`.
+- Always provide an accessible name for the input. Prefer a native `<label htmlFor={id}>` with
+  `AutocompleteInput id={id}` for input-first fields. Use `AutocompleteFieldLabel` only for the
+  trigger-first composition.
 - Pass `aria-label` to icon-only `AutocompleteClear` and `AutocompleteTrigger`.
 - Keyboard behavior comes from the primitive: typing filters, arrow keys move highlight, Enter accepts
   the highlighted item, Escape closes, and grid mode changes navigation to rows/columns.
@@ -422,3 +424,8 @@ higher theme scope:
   when you need custom backdrop or portal behavior.
 - Prefer `Combobox` for required selection, single/multiple selected values, chips, or selected-item
   indicators.
+
+## Local changelog
+
+- 2026-06-05: Updated the recommended input-first composition to use a native `<label>` while
+  keeping `AutocompleteFieldLabel` for the trigger-first pattern that Base UI labels directly.

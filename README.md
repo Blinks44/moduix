@@ -58,6 +58,13 @@ Import the library styles once in your application entry point:
 import 'moduix/style.css';
 ```
 
+If you want the optional reset, import it explicitly before the main stylesheet:
+
+```tsx
+import 'moduix/reset.css';
+import 'moduix/style.css';
+```
+
 Then import and compose the components you need:
 
 ```tsx
@@ -75,8 +82,8 @@ export function Example() {
 }
 ```
 
-The distributed stylesheet includes component styles and design tokens. It does not force a
-global application theme or utility CSS runtime.
+`style.css` ships the shared design tokens and base styles. Component imports bring along only the
+CSS they use, so you do not need a library-wide component stylesheet.
 
 ## Styling
 

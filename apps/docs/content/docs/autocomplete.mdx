@@ -63,7 +63,7 @@ the value without restricting what they can type.
         return (
           <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+              <label htmlFor={id}>Search tags</label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="e.g. feature" />
                 <AutocompleteControlActions>
@@ -119,7 +119,7 @@ composition stays short and focused on the field and list parts.
 ```text
 Autocomplete
 ├─ AutocompleteField
-│  ├─ AutocompleteFieldLabel
+│  ├─ label (native)
 │  ├─ AutocompleteInputGroup
 │  │  ├─ AutocompleteInput
 │  │  └─ AutocompleteControlActions (optional)
@@ -152,6 +152,9 @@ Autocomplete
 
 Most customizations should stay on visible parts such as `AutocompleteInput`, `AutocompleteItem`,
 `AutocompleteItemText`, and `AutocompleteContent`.
+
+For the standard input path, use a native `<label htmlFor={id}>` with `AutocompleteInput id={id}`.
+Use `AutocompleteFieldLabel` only in the trigger-first layout, where Base UI labels the trigger.
 
 ## Composition
 
@@ -229,7 +232,7 @@ Pass grouped data and render `AutocompleteCollection` inside each `AutocompleteG
         return (
           <Autocomplete items={groupedTags} itemToStringValue={(item) => item.value}>
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Search grouped tags</AutocompleteFieldLabel>
+              <label htmlFor={id}>Search grouped tags</label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="e.g. docs" />
                 <AutocompleteControlActions>
@@ -326,7 +329,7 @@ Use item text slots for richer option content. Control icons can be replaced by 
         return (
           <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Search tags with icons</AutocompleteFieldLabel>
+              <label htmlFor={id}>Search tags with icons</label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="e.g. feature" />
                 <AutocompleteControlActions>
@@ -380,8 +383,8 @@ Use item text slots for richer option content. Control icons can be replaced by 
 ### Input Inside Popup
 
 Use `AutocompleteFieldTrigger` when the visible field opens a popup that contains the searchable
-input. `AutocompleteFieldLabel` stays associated with the trigger and the inline input through Base
-UI field labeling, so no extra `htmlFor` wiring is needed in this composition.
+input. In this trigger-first composition, omit `htmlFor` on `AutocompleteFieldLabel` so it keeps the
+Base UI trigger-label behavior; no extra input `id` wiring is needed here.
 
 <Preview>
   <InputInsidePopupAutocompleteExample />
@@ -485,7 +488,7 @@ Set `limit` to cap the number of rendered matches.
             openOnInputClick
           >
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Top 5 matches</AutocompleteFieldLabel>
+              <label htmlFor={id}>Top 5 matches</label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="Type movie title" />
                 <AutocompleteControlActions>
@@ -566,7 +569,7 @@ Use `autoHighlight="always"` when the first match should be active immediately.
             mode="list"
           >
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Auto highlight</AutocompleteFieldLabel>
+              <label htmlFor={id}>Auto highlight</label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="Use arrow keys or type" />
                 <AutocompleteControlActions>
@@ -667,7 +670,7 @@ Enable `grid` and render rows manually when options should navigate as a grid.
             openOnInputClick
           >
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Shortcut command</AutocompleteFieldLabel>
+              <label htmlFor={id}>Shortcut command</label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="Type a command" />
                 <AutocompleteControlActions>
@@ -753,7 +756,7 @@ Provide a custom `filter` when matching should differ from the default string co
             }}
           >
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Fuzzy search</AutocompleteFieldLabel>
+              <label htmlFor={id}>Fuzzy search</label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="e.g. tdk or sra" />
                 <AutocompleteControlActions>
@@ -899,9 +902,9 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
             }}
           >
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>
+              <label htmlFor={id}>
                 Search movies by name or year
-              </AutocompleteFieldLabel>
+              </label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="e.g. Pulp Fiction or 1994" />
                 <AutocompleteControlActions>
@@ -979,7 +982,7 @@ backdrop, positioner, or arrow need their own styling.
         return (
           <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
             <AutocompleteField>
-              <AutocompleteFieldLabel htmlFor={id}>Search tags</AutocompleteFieldLabel>
+              <label htmlFor={id}>Search tags</label>
               <AutocompleteInputGroup>
                 <AutocompleteInput id={id} placeholder="e.g. feature" />
                 <AutocompleteControlActions>

@@ -1,46 +1,29 @@
+---
+name: cross-package-sync
+description: Use when a task touches both packages/ui and apps/docs, or when a UI change can make docs inaccurate.
+---
+
 # Skill: cross-package-sync
 
-Use this skill when a task touches both `packages/ui` and `apps/docs`, or when a UI change can make docs inaccurate.
+Use this skill when work spans `packages/ui` and `apps/docs`.
 
 ## Scope
 
-- UI API, behavior, or style changes that require docs updates
-- New UI components that require docs pages or examples
-- Export changes affecting docs imports or snippets
+- UI API, behavior, or styling changes that require docs updates
+- new UI components that need docs pages or examples
+- export changes that affect docs imports or snippets
 
-## Required Sequence
+## Rules
 
-Follow the routing order from `AGENTS.md`, then run `npm run build:ui` from repo root before validating docs against changed UI output and before `npm run tsc:check`, otherwise docs can see stale UI declaration output.
-
-## Synchronization Rules
-
-- Code, CSS, stories, and docs must converge on the same simplified architecture rather than preserving compatibility-era complexity in one layer.
-- Docs must reflect the simplified API, not the historical one.
-- Remove docs for deleted props, types, slot APIs, feature flags, or legacy examples in the same task.
-- Examples should use the recommended composition-first API, not compatibility shims.
-- Default examples should use the simple high-level path.
-- If low-level parts remain as an escape hatch, keep them documented as an advanced path and ensure the names match the actual exported building blocks.
-- When a component family shares a small-sugar contract, docs and stories should use the same prop
-  names and supported behavior across that family.
-- If a popup-family component exposes a built-in arrow, keep its default state consistent across
-  that family and update docs/stories/examples in the same task when the default changes.
-- Keep popup-family and dialog-family contracts separate in docs and stories. Do not let one
-  family inherit the other's sugar vocabulary by accident.
-- When a component keeps a narrow DX sugar prop, make sure code, stories, and docs all present it
-  as a small convenience on top of the default path rather than as a replacement for composition.
-- When docs previews rely on example data, make sure the docs snippet also shows that data in
-  `Preview.Code` or `Preview.Data`; the visible preview and the documented code should explain the
-  same behavior.
-- `CSS Properties` must reflect the current public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
-- When a UI simplification removes CSS hooks, verify that docs, stories, and examples stop referencing them in the same task.
+- Follow the skill order in `AGENTS.md`.
+- Rebuild UI before validating docs against changed UI output.
+- Keep code, stories, local component docs, and site docs aligned to the same current API.
+- Remove docs for deleted props, types, styling hooks, feature flags, and legacy examples in the same task.
+- Teach the recommended default path first. Keep lower-level composition as the advanced path.
+- Reuse `docs-workflow/references/component-doc-patterns.md` for preview and CSS-variable doc rules instead of redefining them here.
 
 ## Done Criteria
 
-1. No mismatch remains between touched UI components and docs.
-2. Docs no longer teach removed or deprecated complexity.
-3. UI was rebuilt before docs verification.
-4. Root validations pass:
-   - `npm run fmt:fix`
-   - `npm run lint:check`
-   - `npm run tsc:check`
-5. The same default usage and escape-hatch story appears consistently across UI, stories, and docs.
+1. No mismatch remains between touched UI files and docs.
+2. Docs no longer teach removed or deprecated behavior.
+3. Required validation from `AGENTS.md` passed.

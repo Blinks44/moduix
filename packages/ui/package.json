@@ -36,8 +36,8 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./style.css": "./dist/index.css",
-    "./reset.css": "./dist/reset.css",
+    "./style.css": "./dist/styles/style.css",
+    "./reset.css": "./dist/styles/reset.css",
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -45,7 +45,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "tsc -b && vite build",
+    "build": "tsdown",
     "build-storybook": "storybook build",
     "tsc:check": "tsc --noEmit"
   },
@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@base-ui/react": "^1.5.0",
+    "@tsdown/css": "^0.22.2",
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
@@ -61,9 +62,9 @@
     "globals": "^17.6.0",
     "react": "^19",
     "react-dom": "^19",
+    "tsdown": "^0.22.2",
     "typescript": "~6.0.3",
     "vite": "^8.0.16",
-    "vite-plugin-dts": "^5.0.2",
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vite-plugin-svgr": "^5.2.0"
   },

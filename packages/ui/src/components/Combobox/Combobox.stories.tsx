@@ -171,7 +171,9 @@ export const Basic: Story = {
     return (
       <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
-          <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+          <label className={styles.fieldLabel} htmlFor={id}>
+            Choose fruit
+          </label>
           <ComboboxInputGroup>
             <ComboboxInput id={id} placeholder="e.g. Mango" />
             <ComboboxControlActions>
@@ -204,7 +206,9 @@ export const IndicatorRight: Story = {
     return (
       <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
-          <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+          <label className={styles.fieldLabel} htmlFor={id}>
+            Choose fruit
+          </label>
           <ComboboxInputGroup>
             <ComboboxInput id={id} placeholder="e.g. Mango" />
             <ComboboxControlActions>
@@ -270,7 +274,9 @@ export const Grouped: Story = {
     return (
       <Combobox items={groupedProduce} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
-          <ComboboxFieldLabel htmlFor={id}>Select produce</ComboboxFieldLabel>
+          <label className={styles.fieldLabel} htmlFor={id}>
+            Select produce
+          </label>
           <ComboboxInputGroup>
             <ComboboxInput id={id} placeholder="e.g. Spinach" />
             <ComboboxControlActions>
@@ -310,7 +316,9 @@ export const Multiple: Story = {
     return (
       <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label} multiple>
         <ComboboxField className={styles.fieldWide}>
-          <ComboboxFieldLabel htmlFor={id}>Select fruits</ComboboxFieldLabel>
+          <label className={styles.fieldLabel} htmlFor={id}>
+            Select fruits
+          </label>
           <ComboboxInputGroup className={styles.inputGroupMulti}>
             <ComboboxChips>
               <ComboboxValue>
@@ -481,7 +489,9 @@ export const AsyncSearchSingle: Story = {
         }}
       >
         <ComboboxField>
-          <ComboboxFieldLabel htmlFor={id}>Assign reviewer</ComboboxFieldLabel>
+          <label className={styles.fieldLabel} htmlFor={id}>
+            Assign reviewer
+          </label>
           <ComboboxInputGroup>
             <ComboboxInput id={id} placeholder="e.g. Michael" />
             <ComboboxControlActions>
@@ -522,7 +532,9 @@ export const CustomComposition: Story = {
     return (
       <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
         <ComboboxField>
-          <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+          <label className={styles.fieldLabel} htmlFor={id}>
+            Choose fruit
+          </label>
           <ComboboxInputGroup className={styles.customInputGroup}>
             <ComboboxInput id={id} placeholder="e.g. Mango" />
             <ComboboxControlActions>
