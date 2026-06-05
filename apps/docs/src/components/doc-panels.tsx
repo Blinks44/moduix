@@ -8,7 +8,7 @@ const quickStartSteps = [
   },
   {
     title: 'Connect CSS',
-    body: 'Import the component stylesheet once from the app entry point.',
+    body: 'Import shared tokens and base styles once from the app entry point.',
     code: "import 'moduix/style.css';",
   },
   {

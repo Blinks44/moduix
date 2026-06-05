@@ -1,5 +1,3 @@
-import './styles/tokens.css';
-
 export * from './icons/ui';
 export * from './icons/demo';
 
