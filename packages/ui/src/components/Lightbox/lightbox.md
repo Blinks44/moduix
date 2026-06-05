@@ -335,3 +335,5 @@ There are no variants, slot prop bags, `classNames` maps, or parallel styling AP
   limitations, and `closeOnContentClick` interaction caveat.
 - Clarified the recommended usage split between `LightboxImage`, explicit composition, and
   `LightboxGallery`.
+- 2026-06-05: `LightboxImage` now opts out of native button semantics for its rendered `<img>`
+  trigger so the default image helper stays warning-free with current Base UI behavior.

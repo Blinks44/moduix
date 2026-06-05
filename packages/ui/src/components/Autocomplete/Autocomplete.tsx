@@ -37,7 +37,7 @@ const AutocompleteInlineInputContainer = forwardRef<HTMLDivElement, ComponentPro
 
 const AutocompleteFieldLabel = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Label>,
-  ComboboxPrimitive.Label.Props & Pick<ComponentProps<'label'>, 'htmlFor'>
+  ComboboxPrimitive.Label.Props
 >(function AutocompleteFieldLabel({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Label

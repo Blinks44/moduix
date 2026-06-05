@@ -61,7 +61,7 @@ or filtering the available options.
         return (
           <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
             <ComboboxField>
-              <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+              <label htmlFor={id}>Choose fruit</label>
               <ComboboxInputGroup>
                 <ComboboxInput id={id} placeholder="e.g. Mango" />
                 <ComboboxControlActions>
@@ -115,7 +115,7 @@ short and focused on the actual field and list parts.
 ```text
 Combobox
 ├─ ComboboxField
-│  ├─ ComboboxFieldLabel
+│  ├─ label (native)
 │  └─ ComboboxInputGroup
 │     ├─ ComboboxInput
 │     └─ ComboboxControlActions
@@ -136,7 +136,7 @@ Combobox
 ```tsx
 <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
   <ComboboxField>
-    <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+    <label htmlFor={id}>Choose fruit</label>
     <ComboboxInputGroup>
       <ComboboxInput id={id} placeholder="e.g. Mango" />
       <ComboboxControlActions>
@@ -174,6 +174,9 @@ Combobox
 
 Most customizations should stay on visible parts such as `ComboboxInput`, `ComboboxItem`,
 `ComboboxItemIndicator`, `ComboboxItemText`, and `ComboboxContent`.
+
+For the standard input path, pair a native `<label htmlFor={id}>` with `ComboboxInput id={id}`.
+Use `ComboboxFieldLabel` only in the trigger-first layout, where Base UI labels the trigger.
 
 ## Composition
 
@@ -245,7 +248,7 @@ text keep their own layout.
         return (
           <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
             <ComboboxField>
-              <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+              <label htmlFor={id}>Choose fruit</label>
               <ComboboxInputGroup>
                 <ComboboxInput id={id} placeholder="e.g. Mango" />
                 <ComboboxControlActions>
@@ -308,8 +311,8 @@ text keep their own layout.
 
 Use `ComboboxFieldTrigger` when the visible field opens a popup that contains the searchable
 input. `ComboboxInlineInputContainer` applies the built-in divider and nested input treatment for
-that composition. `ComboboxFieldLabel` stays associated with the trigger and inline input through
-Base UI field labeling, so no extra `htmlFor` wiring is needed here.
+that composition. In this trigger-first layout, omit `htmlFor` on `ComboboxFieldLabel` so it keeps
+the Base UI trigger-label behavior; no extra input `id` wiring is needed here.
 
 <Preview>
   <InputInsidePopupComboboxExample />
@@ -443,7 +446,7 @@ Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `Com
         return (
           <Combobox items={groupedProduce} itemToStringLabel={(item) => item.label}>
             <ComboboxField>
-              <ComboboxFieldLabel htmlFor={id}>Select produce</ComboboxFieldLabel>
+              <label htmlFor={id}>Select produce</label>
               <ComboboxInputGroup>
                 <ComboboxInput id={id} placeholder="e.g. Spinach" />
                 <ComboboxControlActions>
@@ -536,7 +539,7 @@ Use the `multiple` prop and render chips inside `ComboboxValue`. The input remai
         return (
           <Combobox items={fruits} itemToStringLabel={(item) => item.label} multiple>
             <ComboboxField>
-              <ComboboxFieldLabel htmlFor={id}>Select fruits</ComboboxFieldLabel>
+              <label htmlFor={id}>Select fruits</label>
               <ComboboxInputGroup>
                 <ComboboxChips>
                   <ComboboxValue>
@@ -716,7 +719,7 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
             }}
           >
             <ComboboxField>
-              <ComboboxFieldLabel htmlFor={id}>Assign reviewer</ComboboxFieldLabel>
+              <label htmlFor={id}>Assign reviewer</label>
               <ComboboxInputGroup>
                 <ComboboxInput id={id} placeholder="e.g. Michael" />
                 <ComboboxControlActions>
@@ -845,7 +848,7 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
         return (
           <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
             <ComboboxField>
-              <ComboboxFieldLabel htmlFor={id}>Choose fruit</ComboboxFieldLabel>
+              <label htmlFor={id}>Choose fruit</label>
               <ComboboxInputGroup>
                 <ComboboxInput id={id} placeholder="e.g. Mango" />
                 <ComboboxControlActions>

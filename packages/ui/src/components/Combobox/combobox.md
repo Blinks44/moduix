@@ -16,11 +16,13 @@ Use it when the user must end up with selected items, not arbitrary free-form te
 ## Current behavior contract
 
 - `Combobox` itself is `@base-ui/react/combobox` root state. It does not render a DOM node.
-- The default input composition is `ComboboxField > ComboboxFieldLabel > ComboboxInputGroup >
+- The default input composition is `ComboboxField > label (native) > ComboboxInputGroup >
 ComboboxInput + ComboboxControlActions`.
 - `ComboboxContent` is the high-level popup wrapper for the common case. It renders
   `ComboboxPortal > ComboboxPositioner > ComboboxPopup` and can opt into the built-in arrow with
   `showArrow`.
+- `ComboboxFieldLabel` remains the trigger label for the trigger-first pattern where the search
+  input lives inside the popup.
 - `ComboboxFieldTrigger` plus `ComboboxValue` supports the trigger-first pattern where the search
   input lives inside the popup.
 - `ComboboxInlineInputContainer` is the built-in wrapper for that popup-inline input pattern. It
@@ -41,7 +43,7 @@ Recommended default composition:
 ```text
 Combobox
 ├─ ComboboxField
-│  ├─ ComboboxFieldLabel
+│  ├─ label (native)
 │  └─ ComboboxInputGroup
 │     ├─ ComboboxInput
 │     └─ ComboboxControlActions
@@ -85,7 +87,7 @@ Multiple selection composition:
 ```tsx
 <Combobox items={fruits} itemToStringLabel={(item) => item.label} multiple>
   <ComboboxField>
-    <ComboboxFieldLabel htmlFor={id}>Select fruits</ComboboxFieldLabel>
+    <label htmlFor={id}>Select fruits</label>
     <ComboboxInputGroup>
       <ComboboxChips>
         <ComboboxValue>
@@ -118,7 +120,7 @@ Multiple selection composition:
 | ------------------------------ | ------------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------ |
 | `Combobox`                     | none                     | -                                             | Root state, filtering, selected value(s), popup state, forms, and keyboard behavior. |
 | `ComboboxField`                | `div`                    | `data-slot="combobox-field"`                  | Vertical field wrapper. Plain div wrapper.                                           |
-| `ComboboxFieldLabel`           | primitive label          | `data-slot="combobox-field-label"`            | Accessible label.                                                                    |
+| `ComboboxFieldLabel`           | primitive label          | `data-slot="combobox-field-label"`            | Trigger label for the popup-inline input composition.                                |
 | `ComboboxValue`                | none                     | `data-slot="combobox-value"`                  | Reads the selected value or values.                                                  |
 | `ComboboxInlineInputContainer` | `div`                    | `data-slot="combobox-inline-input-container"` | Helper for popup-inline input composition.                                           |
 | `ComboboxInputGroup`           | primitive input-group    | `data-slot="combobox-input-group"`            | Styled control surface for the input path.                                           |
@@ -266,7 +268,7 @@ tokens instead of introducing a separate inline-input variable family.
 
 ## UX and accessibility
 
-- Prefer `ComboboxFieldLabel htmlFor={id}` plus `ComboboxInput id={id}` for the standard input path.
+- Prefer a native `<label htmlFor={id}>` plus `ComboboxInput id={id}` for the standard input path.
 - For icon-only `ComboboxClear` and `ComboboxTrigger`, always pass an accessible name with
   `aria-label`.
 - In the trigger-first composition, keep `ComboboxFieldLabel`, `ComboboxFieldTrigger`,
@@ -319,3 +321,5 @@ tokens instead of introducing a separate inline-input variable family.
   `ComboboxInlineInputContainer` for the popup-inline input pattern, forwarded refs through
   `ComboboxContent`, and documented the real slot, styling, and composition contracts instead of
   upstream Base UI copy.
+- 2026-06-05: Updated the recommended input-first composition to use a native `<label>` while
+  keeping `ComboboxFieldLabel` for the trigger-first pattern that Base UI labels directly.
