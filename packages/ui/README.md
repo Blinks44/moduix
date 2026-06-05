@@ -51,11 +51,14 @@ bundle, so moduix does not ship duplicate React or Base UI runtimes.
 
 ## Usage
 
-Import the library styles once in your application entry point:
+Import the required foundation stylesheet once in your application entry point:
 
 ```tsx
 import 'moduix/style.css';
 ```
+
+This stylesheet is required. It provides the shared design tokens and base styles that component
+CSS depends on.
 
 If you want the optional reset, import it explicitly before the main stylesheet:
 
@@ -81,8 +84,8 @@ export function Example() {
 }
 ```
 
-`style.css` ships the shared design tokens and base styles. Component imports bring along only the
-CSS they use, so you do not need a library-wide component stylesheet.
+`style.css` ships the shared design tokens and base styles. Component imports still bring along only
+the component CSS they use.
 
 ## Styling
 

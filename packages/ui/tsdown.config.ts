@@ -11,19 +11,16 @@ export default defineConfig({
     reset: './src/reset.ts',
   },
   tsconfig: './tsconfig.app.json',
-  format: ['esm', 'cjs'],
+  format: ['esm'],
   unbundle: true,
   hash: false,
   platform: 'browser',
-  target: false,
+  target: 'es2023',
   alias: {
     '@': path.resolve(dirname, './src'),
   },
   deps: {
     neverBundle: [/^@base-ui\/react(\/.*)?$/, /^react(\/.*)?$/, /^react-dom(\/.*)?$/],
-  },
-  dts: {
-    cjsReexport: true,
   },
   css: {
     inject: true,
