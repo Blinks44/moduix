@@ -1,5 +1,11 @@
 # moduix
 
+## 0.11.2
+
+### Patch Changes
+
+- c6ee677: Remove cjs exports, now library only esm
+
 ## 0.11.1
 
 ### Patch Changes
