@@ -11,7 +11,7 @@ export default defineConfig({
     reset: './src/reset.ts',
   },
   tsconfig: './tsconfig.app.json',
-  format: ['esm', 'cjs'],
+  format: ['esm'],
   unbundle: true,
   hash: false,
   platform: 'browser',
@@ -21,9 +21,6 @@ export default defineConfig({
   },
   deps: {
     neverBundle: [/^@base-ui\/react(\/.*)?$/, /^react(\/.*)?$/, /^react-dom(\/.*)?$/],
-  },
-  dts: {
-    cjsReexport: true,
   },
   css: {
     inject: true,
