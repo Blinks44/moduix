@@ -28,7 +28,7 @@
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--navigation-menu-trigger-gap, 0.375rem);
     min-height: var(--navigation-menu-trigger-height, var(--size-md));
     margin: 0;
@@ -43,6 +43,7 @@
     font: inherit;
     font-size: var(--navigation-menu-trigger-font-size, var(--text-sm));
     line-height: var(--navigation-menu-trigger-line-height, var(--line-height-text-sm));
+    text-align: left;
     text-decoration: none;
     user-select: none;
     outline: 0;

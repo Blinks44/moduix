@@ -7,7 +7,6 @@ icon: Component
 import {
   CustomCompositionNavigationMenuExample,
   CustomIconNavigationMenuExample,
-  FullWidthNavigationMenuExample,
   NavigationMenuCssPlaygroundPanel,
   NavigationMenuCssPropertiesPanel,
   NavigationMenuExample,
@@ -25,8 +24,8 @@ import {
 `NavigationMenu` keeps the common path short: the root renders the shared popup infrastructure for
 you, so the default composition is just list, item, trigger, content, and direct links.
 
-Use the low-level popup parts only when you need to own the structure yourself, such as a full-width
-panel, a visual backdrop, or an inline nested viewport.
+Use the low-level popup parts only when you need to own the structure yourself, such as a visual
+backdrop or an inline nested viewport.
 
 ## Basic
 
@@ -347,92 +346,6 @@ nested menu and render `NavigationMenuViewport` inline.
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Full Width Popup
-
-The same low-level path covers viewport-width popups without adding another root prop.
-
-<Preview>
-  <FullWidthNavigationMenuExample />
-
-  <Preview.Code>
-    {`
-      import {
-        NavigationMenu,
-        NavigationMenuContent,
-        NavigationMenuItem,
-        NavigationMenuLink,
-        NavigationMenuList,
-        NavigationMenuPopup,
-        NavigationMenuPortal,
-        NavigationMenuPositioner,
-        NavigationMenuTrigger,
-        NavigationMenuViewport,
-      } from "moduix";
-
-      export function FullWidthNavigationMenuDemo() {
-        return (
-          <header className={styles.fullWidthHeader}>
-            <div className={styles.fullWidthContainer}>
-              <NavigationMenu className={styles.fullWidthMenu} showPopup={false}>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
-                    <NavigationMenuContent className={styles.fullWidthContent}>
-                      <div className={styles.fullWidthInner}>
-                        <ul className={\`\${styles.fullWidthGrid} \${styles.fullWidthCols2}\`}>
-                          {/* platform links */}
-                        </ul>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Developers</NavigationMenuTrigger>
-                    <NavigationMenuContent className={styles.fullWidthContent}>
-                      <div className={styles.fullWidthInner}>
-                        <ul className={\`\${styles.fullWidthGrid} \${styles.fullWidthCols3}\`}>
-                          {/* developer links */}
-                        </ul>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Design System</NavigationMenuTrigger>
-                    <NavigationMenuContent className={styles.fullWidthContent}>
-                      <div className={styles.fullWidthInner}>
-                        <ul className={\`\${styles.fullWidthGrid} \${styles.fullWidthCols4}\`}>
-                          {/* design system links */}
-                        </ul>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <NavigationMenuLink href="#">Pricing</NavigationMenuLink>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-
-                <NavigationMenuPortal>
-                  <NavigationMenuPositioner
-                    className={styles.fullWidthPositioner}
-                    sideOffset={12}
-                  >
-                    <NavigationMenuPopup className={styles.fullWidthPopup}>
-                      <NavigationMenuViewport />
-                    </NavigationMenuPopup>
-                  </NavigationMenuPositioner>
-                </NavigationMenuPortal>
-              </NavigationMenu>
-            </div>
-          </header>
         );
       }
     `}
