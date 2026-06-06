@@ -74,16 +74,38 @@ export function Example() {
 Use this path when you want the installed files to become part of your own codebase instead of
 staying in `node_modules`.
 
-### 1. Initialize shadcn
+### 1. Prepare the project for shadcn
 
-Before you add registry items, initialize `shadcn` in the project:
+Make sure your project resolves the `@/*` alias to `src/*`. For Vite, that usually means:
 
-```bash
-npx shadcn@latest init
+```json title="tsconfig.app.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
 ```
 
-This creates `components.json` and sets up the project configuration that the CLI uses to place
-generated files in the correct `components` and `lib` locations.
+```ts title="vite.config.ts"
+resolve: {
+  alias: {
+    '@': path.resolve(__dirname, './src'),
+  },
+}
+```
+
+Initialize `shadcn` with the moduix registry base item:
+
+```bash
+npx shadcn@latest init Blinks44/moduix/init
+```
+
+This creates `components.json`, installs the shared moduix foundation files, and sets up the
+project configuration that the CLI uses to place generated files in the correct `components` and
+`lib` locations.
 
 ### 2. Install components with shadcn
 
@@ -106,7 +128,8 @@ import '@/lib/moduix/styles/style.css';
 ```
 
 The examples in this guide assume the default shadcn-style aliases such as `@/components` and
-`@/lib`. If your project uses different aliases, import the generated files from the matching paths.
+`@/lib`. If your project uses different aliases, update `components.json` and import the generated
+files from the matching paths.
 
 ### 4. Use the generated files
 

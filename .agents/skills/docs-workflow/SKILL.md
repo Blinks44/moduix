@@ -34,7 +34,7 @@ Use this skill for work in `apps/docs`.
 - Prefer `as T` over `useState<T>()` in MDX.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
-- For `shadcn`/GitHub registry docs, keep the full initialization flow in `quick-start.mdx`: `shadcn init`, then `shadcn add`, then the required `@/lib/moduix/styles/style.css` import, then imports from generated files.
+- For `shadcn`/GitHub registry docs, keep the full initialization flow in `quick-start.mdx`: mention the `@/* -> src/*` alias prerequisite when relevant, then `shadcn init Blinks44/moduix/init`, then `shadcn add`, then the required `@/lib/moduix/styles/style.css` import, then imports from generated files.
 - On component pages, put registry install guidance directly after the basic example. Show only the `add` commands there; do not repeat the full `init` walkthrough or stylesheet import on every page.
 - Load `references/component-doc-patterns.md` for preview, family-specific, and CSS-variable doc rules instead of duplicating them here.
 
