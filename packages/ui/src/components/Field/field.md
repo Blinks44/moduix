@@ -294,7 +294,7 @@ Public CSS variables:
 | `--field-control-font-size`            | `var(--text-md)`                | Control font size.                                |
 | `--field-control-line-height`          | `var(--line-height-text-md)`    | Control line height.                              |
 | `--field-control-placeholder-color`    | `var(--color-muted-foreground)` | Control placeholder color.                        |
-| `--field-control-transition`           | `var(--transition-default)`     | Control border/opacity transition timing.         |
+| `--field-control-transition`           | `var(--transition-default)`     | Control border/outline/opacity transition timing. |
 | `--field-focus-ring-width`             | `var(--border-width-sm)`        | Control focus ring width.                         |
 | `--field-focus-ring-offset`            | `-1px`                          | Control focus ring offset.                        |
 | `--field-focus-ring-color`             | `var(--color-ring)`             | Control focus ring color.                         |
@@ -344,3 +344,5 @@ Public CSS variables:
 
 - Rewrote the local documentation to describe the actual moduix Field wrapper, composition model,
   CSS variables, `data-slot` hooks, and usage patterns instead of the upstream Base UI documentation.
+- `FieldControl` focus ring now transitions with the same timing token as its border color so text
+  inputs inside `Field` match moduix `Input` more closely.

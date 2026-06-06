@@ -18,88 +18,6 @@
   list-style: none;
 }
 
-.fullWidthHeader {
-  width: 100%;
-  margin: 0 calc(var(--spacing-4) * -1);
-}
-
-.fullWidthContainer {
-  display: flex;
-  justify-content: center;
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: 0 var(--spacing-4);
-}
-
-.fullWidthMenu {
-  --navigation-menu-full-width-content-justify: center;
-  --navigation-menu-list-justify: center;
-  width: 100%;
-}
-
-.fullWidthPositioner {
-  width: calc(100vw - 64px);
-  max-width: calc(100vw - 64px);
-  left: 50vw !important;
-  right: auto !important;
-  transform: translateX(-50%);
-}
-
-.fullWidthPopup {
-  width: 100%;
-  max-width: 100%;
-}
-
-.fullWidthContent {
-  padding: var(--spacing-5) 0;
-}
-
-.fullWidthInner {
-  display: grid;
-  justify-content: var(--navigation-menu-full-width-content-justify, center);
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: 0 var(--spacing-4);
-}
-
-.fullWidthGrid {
-  --navigation-menu-full-width-columns: 2;
-  --navigation-menu-full-width-grid-max: calc(var(--navigation-menu-full-width-columns) * 16rem);
-  display: grid;
-  grid-template-columns: repeat(var(--navigation-menu-full-width-columns), minmax(0, 1fr));
-  gap: var(--spacing-1);
-  width: min(100%, var(--navigation-menu-full-width-grid-max));
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  list-style: none;
-}
-
-.fullWidthCols2 {
-  --navigation-menu-full-width-columns: 2;
-}
-
-.fullWidthCols3 {
-  --navigation-menu-full-width-columns: 3;
-}
-
-.fullWidthCols4 {
-  --navigation-menu-full-width-columns: 4;
-}
-
-@media (max-width: 900px) {
-  .fullWidthCols4 {
-    --navigation-menu-full-width-columns: 2;
-  }
-}
-
-@media (max-width: 700px) {
-  .fullWidthCols3,
-  .fullWidthCols4 {
-    --navigation-menu-full-width-columns: 1;
-  }
-}
-
 .linkCard {
   box-sizing: border-box;
   display: grid;
@@ -176,6 +94,9 @@
   color: var(--color-foreground);
   font-size: var(--text-md);
   line-height: var(--line-height-text-md);
+  max-width: 22ch;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
 .panelDescription {
@@ -183,6 +104,9 @@
   color: var(--color-muted-foreground);
   font-size: var(--text-sm);
   line-height: var(--line-height-text-sm);
+  max-width: 34ch;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
 .panelList {

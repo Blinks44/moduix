@@ -12,9 +12,8 @@ concurrency:
 
 jobs:
   changeset-check:
-    name: Require changeset for UI changes
+    name: Require changeset for releasable UI changes
     runs-on: ubuntu-latest
-    if: github.actor != 'github-actions[bot]' && !startsWith(github.head_ref, 'changeset-release/')
 
     steps:
       - name: Checkout
@@ -40,16 +39,26 @@ jobs:
           echo "Changed files:"
           echo "${changed_files}"
 
-          if ! grep -Eq '^packages/ui/src/|^packages/ui/package\.json$' <<< "${changed_files}"; then
-            echo "No releasable changes in packages/ui/src or packages/ui/package.json. Skipping changeset requirement."
+          releasable_files="$(
+            printf '%s\n' "${changed_files}" \
+              | grep -E '^(packages/ui/package\.json|packages/ui/tsdown\.config\.ts|packages/ui/tsconfig\.app\.json|packages/ui/tsconfig\.json|packages/ui/src/)' \
+              | grep -Ev '(^packages/ui/src/.*\.stories\.(ts|tsx|css)$|^packages/ui/src/components/.+/[^/]+\.md$)' \
+              || true
+          )"
+
+          if [[ -z "${releasable_files}" ]]; then
+            echo "No releasable UI changes detected. Skipping changeset requirement."
             exit 0
           fi
+
+          echo "Releasable UI files:"
+          echo "${releasable_files}"
 
           if grep -Eq '^\.changeset/[^/]+\.md$' <<< "${changed_files}"; then
             echo "Changeset file found. Check passed."
             exit 0
           fi
 
-          echo "::error::This PR changes packages/ui/src or packages/ui/package.json but does not include a changeset file in .changeset/*.md"
+          echo "::error::This PR changes releasable files in packages/ui but does not include a changeset file in .changeset/*.md"
           echo "Run 'npm run changeset' and commit the generated file."
           exit 1

@@ -1,9 +1,11 @@
 name: Deploy Docs
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows:
+      - Verify
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -16,12 +18,26 @@ concurrency:
 jobs:
   deploy-docs:
     name: Build and deploy docs
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event_name == 'workflow_run' &&
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main'
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: production
 
     steps:
-      - name: Checkout
+      - name: Checkout verified commit
+        if: github.event_name == 'workflow_run'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Checkout selected ref
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/checkout@v4
 
       - name: Setup Node.js

@@ -3,7 +3,12 @@ import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react from '@vitejs/plugin-react';
 import mdx from 'fumadocs-mdx/vite';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const uiPackageDir = path.resolve(dirname, '../../packages/ui');
 
 const baseUiOptimizeDeps = [
   '@base-ui/react/accordion',
@@ -72,6 +77,11 @@ export default defineConfig({
     react(),
   ],
   resolve: {
+    alias: [
+      { find: 'moduix/style.css', replacement: path.resolve(uiPackageDir, 'src/style.ts') },
+      { find: 'moduix/reset.css', replacement: path.resolve(uiPackageDir, 'src/reset.ts') },
+      { find: 'moduix', replacement: path.resolve(uiPackageDir, 'src/index.ts') },
+    ],
     tsconfigPaths: true,
     dedupe: ['react', 'react-dom'],
   },

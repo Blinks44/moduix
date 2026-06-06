@@ -1,23 +1,23 @@
-name: Changeset Release
+name: Release
 
 on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
 
 permissions:
   contents: read
   id-token: write
 
 concurrency:
-  group: changeset-release-${{ github.workflow }}
+  group: release-${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
-  changeset-release:
-    name: Publish packages to npm
+  release:
+    name: Verify and publish packages to npm
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -26,7 +26,6 @@ jobs:
           fetch-depth: 0
 
       - name: Ensure tagged commit belongs to main
-        if: github.event_name == 'push'
         shell: bash
         run: |
           set -euo pipefail
@@ -50,6 +49,31 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Validate tag matches package version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          package_version="$(node -p "require('./packages/ui/package.json').version")"
+          tag_version="${GITHUB_REF_NAME#v}"
+
+          if [[ "${tag_version}" != "${package_version}" ]]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match packages/ui version ${package_version}."
+            exit 1
+          fi
+
+      - name: Check formatting
+        run: npm run fmt:check
+
+      - name: Check lint
+        run: npm run lint:check
+
+      - name: Build UI
+        run: npm run build:ui
+
+      - name: Check TypeScript
+        run: npm run tsc:check
 
       - name: Check if package version is already published
         id: release-check

@@ -20,7 +20,8 @@ second navigation level.
 Use:
 
 - `NavigationMenuTrigger` + `NavigationMenuContent` for panels that open in the shared popup.
-- `NavigationMenuLink` for direct navigation items that do not need popup content.
+- `NavigationMenuLink` for direct navigation items and panel links that navigate to another page or
+  route.
 - nested `NavigationMenu` instances when a panel needs a second navigation layer.
 
 Avoid it for action menus, context menus, or lightweight command lists. Those belong to `Menu`,
@@ -53,7 +54,7 @@ Defaults applied by the wrapper:
 
 ## Recommended composition
 
-Use the default root composition unless you need a backdrop, a full-width popup, or an inline
+Use the default root composition unless you need a backdrop, manual popup placement, or an inline
 viewport.
 
 ```tsx
@@ -150,7 +151,7 @@ Use `NavigationMenuPortal`, `NavigationMenuPositioner`, `NavigationMenuPopup`,
 directly. The common reasons are:
 
 - adding a backdrop;
-- making the popup full-width or app-shell-aware;
+- taking control over popup placement;
 - moving the viewport inline for nested panels.
 
 ## Composition patterns
@@ -310,3 +311,6 @@ Two variables are especially easy to overlook:
 - 2026-06-02: Replaced copied Base UI markdown with moduix-specific documentation, documented the
   built-in popup contract and trigger icon sugar, and recorded styling/accessibility constraints that
   future changes must preserve.
+- 2026-06-06: Aligned trigger and link content to the start so panel links with different text
+  lengths stay visually stable. Removed the full-width example from stories and docs because it did
+  not demonstrate a strong recommended pattern.

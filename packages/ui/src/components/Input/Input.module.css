@@ -25,27 +25,27 @@
       border-color var(--input-transition, var(--transition-default)),
       outline-color var(--input-transition, var(--transition-default)),
       opacity var(--input-transition, var(--transition-default));
-  }
 
-  .root::placeholder {
-    color: var(--input-placeholder-color, var(--color-muted-foreground));
-  }
+    &::placeholder {
+      color: var(--input-placeholder-color, var(--color-muted-foreground));
+    }
 
-  .root:focus-visible {
-    outline-color: var(--input-focus-ring-color, var(--color-ring));
-  }
+    &:focus-visible {
+      outline-color: var(--input-focus-ring-color, var(--color-ring));
+    }
 
-  .root[data-invalid] {
-    border-color: var(--input-border-color-invalid, var(--color-destructive));
-  }
+    &[data-invalid] {
+      border-color: var(--input-border-color-invalid, var(--color-destructive));
+    }
 
-  .root[data-invalid]:focus-visible {
-    outline-color: var(--input-border-color-invalid, var(--color-destructive));
-  }
+    &[data-invalid]:focus-visible {
+      outline-color: var(--input-border-color-invalid, var(--color-destructive));
+    }
 
-  .root[data-disabled] {
-    pointer-events: none;
-    opacity: var(--input-disabled-opacity, var(--opacity-disabled));
+    &[data-disabled] {
+      pointer-events: none;
+      opacity: var(--input-disabled-opacity, var(--opacity-disabled));
+    }
   }
 
   .root[data-size='xs'] {
