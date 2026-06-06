@@ -1,0 +1,7 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "moduix",
+  "homepage": "https://github.com/Blinks44/moduix",
+  "items": [],
+  "include": ["./packages/ui/registry/default/registry.json"]
+}
