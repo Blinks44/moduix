@@ -42,12 +42,44 @@ it helps another team build consistent interfaces faster, that is already a good
 
 ## Installation
 
+moduix supports two installation paths:
+
+- Install the library as a regular npm package when you want package-managed updates.
+- Install component source into your own project with `shadcn` when you want direct ownership.
+
+### npm package
+
 ```bash
 npm install moduix @base-ui/react
 ```
 
 `react`, `react-dom`, and `@base-ui/react` are peer dependencies. They stay in your application
 bundle, so moduix does not ship duplicate React or Base UI runtimes.
+
+### shadcn copy-owned install
+
+`shadcn` can install selected moduix components from the GitHub registry directly into your project.
+The files become part of your codebase instead of staying in `node_modules`.
+
+Initialize `shadcn` in your project first:
+
+```bash
+npx shadcn@latest init
+```
+
+```bash
+npx shadcn@latest add Blinks44/moduix/button
+npx shadcn@latest add Blinks44/moduix/accordion
+```
+
+The registry install also pulls in the shared moduix foundation files those components need, such as
+styles, icons, and small utilities.
+
+Import the generated foundation stylesheet once in your application entry point:
+
+```tsx
+import '@/lib/moduix/styles/style.css';
+```
 
 ## Usage
 

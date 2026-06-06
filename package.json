@@ -9,6 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
+    "build:registry": "node scripts/build-registry.mjs",
     "build:ui": "turbo run build -F moduix",
     "changeset": "changeset",
     "changeset:version": "changeset version",
@@ -21,7 +22,6 @@
     "lint:fix": "oxlint --fix",
     "prepare": "husky",
     "publish:ui": "npm publish -w moduix",
-    "sync:base-ui": "node scripts/update-base-ui-docs.mjs",
     "tsc:check": "turbo run tsc:check"
   },
   "dependencies": {

@@ -1,4 +1,5 @@
 import type { MDXComponents } from 'mdx/types';
+import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { Preview } from './preview';
 
@@ -28,6 +29,7 @@ function BaseUIReference({ href, label = 'Base UI API' }: { href: string; label?
 export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
+    ...TabsComponents,
     BaseUIReference,
     Preview,
     ...components,

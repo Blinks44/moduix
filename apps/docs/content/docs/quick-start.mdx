@@ -6,8 +6,21 @@ icon: Rocket
 
 # Quick start
 
-The fastest way to start is to install moduix as a regular npm package. The components, CSS, and
-design tokens are shipped together, while Base UI stays as a peer dependency in your application:
+moduix supports two installation paths:
+
+- Install the library as a regular npm package when you want package-managed updates.
+- Install components into your own project with `shadcn` when you want direct ownership over the
+  source.
+
+## Install As A Package
+
+Use this path when you want moduix to stay in `node_modules` and receive updates through normal
+package management.
+
+### 1. Install the package
+
+The components, CSS, and design tokens are shipped together, while Base UI stays as a peer
+dependency in your application:
 
 ```bash
 npm install moduix @base-ui/react
@@ -16,11 +29,7 @@ npm install moduix @base-ui/react
 `@base-ui/react` stays in your application bundle, so moduix does not ship duplicate Base UI
 runtime.
 
-This package-first setup is the most convenient path for apps that want normal dependency updates.
-If a project needs full ownership over a component, the component source is intentionally small and
-readable enough to copy into your codebase and adapt locally.
-
-## Add Styles
+### 2. Add styles
 
 Import the required foundation stylesheet once in your application entry point:
 
@@ -41,9 +50,9 @@ import 'moduix/style.css';
 That keeps `style.css` focused on the global foundation, while unused component CSS can stay out of
 the consuming bundle.
 
-## Use Components
+### 3. Use components
 
-Import only the components and parts you need:
+Import the components and parts you need from `moduix`:
 
 ```tsx
 import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from 'moduix';
@@ -58,6 +67,61 @@ export function Example() {
     </Dialog>
   );
 }
+```
+
+## Install Components Into Your Project
+
+Use this path when you want the installed files to become part of your own codebase instead of
+staying in `node_modules`.
+
+### 1. Initialize shadcn
+
+Before you add registry items, initialize `shadcn` in the project:
+
+```bash
+npx shadcn@latest init
+```
+
+This creates `components.json` and sets up the project configuration that the CLI uses to place
+generated files in the correct `components` and `lib` locations.
+
+### 2. Install components with shadcn
+
+Install registry items from the moduix GitHub registry:
+
+```bash
+npx shadcn@latest add Blinks44/moduix/button
+npx shadcn@latest add Blinks44/moduix/accordion
+```
+
+The registry will also install the shared moduix foundation files those components need, including
+styles, icons, and small utilities.
+
+### 3. Add styles
+
+Import the generated foundation stylesheet from the files that `shadcn` added to your project:
+
+```tsx
+import '@/lib/moduix/styles/style.css';
+```
+
+The examples in this guide assume the default shadcn-style aliases such as `@/components` and
+`@/lib`. If your project uses different aliases, import the generated files from the matching paths.
+
+### 4. Use the generated files
+
+Import components from the generated files in your own project:
+
+```tsx
+import { Button } from '@/components/moduix/button';
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionItem,
+  AccordionPanel,
+  AccordionTrigger,
+  AccordionTriggerIcon,
+} from '@/components/moduix/accordion';
 ```
 
 Most components are composed from named parts. This keeps behavior accessible while letting you
