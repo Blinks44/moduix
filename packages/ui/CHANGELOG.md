@@ -1,5 +1,11 @@
 # moduix
 
+## 0.11.3
+
+### Patch Changes
+
+- a2e7db1: Deploy fixes and styles regression for several components
+
 ## 0.11.2
 
 ### Patch Changes
