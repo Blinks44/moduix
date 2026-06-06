@@ -1,4 +1,4 @@
-name: Lint
+name: Verify
 
 on:
   pull_request:
@@ -10,11 +10,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: lint-${{ github.workflow }}-${{ github.ref }}
+  group: verify-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  lint:
+  verify:
     name: Format, lint and typecheck
     runs-on: ubuntu-latest
     timeout-minutes: 20
