@@ -18,8 +18,16 @@ export const inputOverrideCssProperties: CssPropertyInput[] = [
   ['--input-color', 'var(--color-foreground)', 'Controls the input text color.'],
   ['--input-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled input opacity.'],
   ['--input-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--input-focus-ring-offset', 'depends on focus ring width', 'Controls focus ring offset.'],
-  ['--input-focus-ring-width', 'depends on border width', 'Controls focus ring width.'],
+  [
+    '--input-focus-ring-offset',
+    'calc(0px - var(--input-border-width, var(--border-width-sm)))',
+    'Controls focus ring offset.',
+  ],
+  [
+    '--input-focus-ring-width',
+    'var(--input-border-width, var(--border-width-sm))',
+    'Controls focus ring width.',
+  ],
   ['--input-font-size', 'var(--text-md)', 'Controls default font size.'],
   ['--input-font-size-xs', 'var(--text-xs)', 'Controls extra-small input font size.'],
   ['--input-font-size-sm', 'var(--text-sm)', 'Controls small input font size.'],

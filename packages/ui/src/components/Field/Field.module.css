@@ -55,6 +55,7 @@
     outline-offset: var(--field-focus-ring-offset, -1px);
     transition:
       border-color var(--field-control-transition, var(--transition-default)),
+      outline-color var(--field-control-transition, var(--transition-default)),
       opacity var(--field-control-transition, var(--transition-default));
 
     &::placeholder {
