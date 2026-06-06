@@ -16,6 +16,7 @@ const registryDefaultDir = path.join(registryDir, 'default');
 const configPath = path.join(registryDir, 'registry.config.json');
 
 const config = JSON.parse(await readFile(configPath, 'utf8'));
+const githubRegistryPrefix = `${config.github.owner}/${config.github.repo}`;
 
 await rm(registryDefaultDir, { recursive: true, force: true });
 await mkdir(registryDefaultDir, { recursive: true });
@@ -103,15 +104,24 @@ function createRegistryItem(item) {
     title: item.title,
     description: item.description,
     extends: item.extends,
+    config: item.config,
     dependencies: item.dependencies,
     docs: item.docs,
-    registryDependencies: item.registryDependencies,
+    registryDependencies: item.registryDependencies?.map(normalizeRegistryDependency),
     files: item.files?.map(({ path: filePath, target, type }) => ({
       path: filePath,
       target,
       type,
     })),
   });
+}
+
+function normalizeRegistryDependency(dependency) {
+  if (dependency.startsWith('@') || dependency.includes('/') || dependency.includes('://')) {
+    return dependency;
+  }
+
+  return `${githubRegistryPrefix}/${dependency}`;
 }
 
 function removeEmptyFields(value) {

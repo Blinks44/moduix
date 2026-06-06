@@ -63,7 +63,7 @@ The files become part of your codebase instead of staying in `node_modules`.
 
 Make sure your project resolves the `@/*` alias to `src/*` in TypeScript and your bundler.
 
-Then initialize `shadcn` with the moduix registry base item:
+Initialize `shadcn` with the moduix registry base item:
 
 ```bash
 npx shadcn@latest init Blinks44/moduix/init

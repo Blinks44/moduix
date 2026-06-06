@@ -10,6 +10,18 @@
     "title": "moduix init",
     "description": "Initialize shadcn for moduix and install the shared foundation files.",
     "extends": "none",
+    "config": {
+      "style": "moduix",
+      "rsc": false,
+      "tsx": true,
+      "aliases": {
+        "components": "@/components",
+        "ui": "@/components/ui",
+        "lib": "@/lib",
+        "hooks": "@/hooks",
+        "utils": "@/lib/utils"
+      }
+    },
     "dependencies": ["@base-ui/react", "clsx"],
     "registryDependencies": ["core"]
   },
