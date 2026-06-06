@@ -14,6 +14,10 @@
       "style": "moduix",
       "rsc": false,
       "tsx": true,
+      "tailwind": {
+        "css": "src/index.css",
+        "prefix": ""
+      },
       "aliases": {
         "components": "@/components",
         "ui": "@/components/ui",
