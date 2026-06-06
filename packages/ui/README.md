@@ -61,10 +61,12 @@ bundle, so moduix does not ship duplicate React or Base UI runtimes.
 `shadcn` can install selected moduix components from the GitHub registry directly into your project.
 The files become part of your codebase instead of staying in `node_modules`.
 
-Initialize `shadcn` in your project first:
+Make sure your project resolves the `@/*` alias to `src/*` in TypeScript and your bundler.
+
+Then initialize `shadcn` with the moduix registry base item:
 
 ```bash
-npx shadcn@latest init
+npx shadcn@latest init Blinks44/moduix/init
 ```
 
 ```bash

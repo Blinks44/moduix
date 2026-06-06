@@ -6,7 +6,7 @@
   },
   "init": {
     "name": "init",
-    "type": "registry:style",
+    "type": "registry:base",
     "title": "moduix init",
     "description": "Initialize shadcn for moduix and install the shared foundation files.",
     "extends": "none",
@@ -36,7 +36,7 @@
         "source": "packages/ui/src/icons/ui/Icons.tsx",
         "path": "lib/moduix/icons/ui/Icons.tsx",
         "target": "@lib/moduix/icons/ui/Icons.tsx",
-        "type": "registry:component"
+        "type": "registry:lib"
       },
       {
         "source": "packages/ui/src/styles/animations.css",
@@ -130,7 +130,7 @@
       "title": "Accordion",
       "description": "moduix Accordion component.",
       "sourceDir": "packages/ui/src/components/Accordion",
-      "dependencies": ["react", "react-dom", "@base-ui/react", "clsx"],
+      "dependencies": ["@base-ui/react", "clsx"],
       "registryDependencies": ["core"],
       "files": [
         {
@@ -158,7 +158,7 @@
       "title": "Button",
       "description": "moduix Button component.",
       "sourceDir": "packages/ui/src/components/Button",
-      "dependencies": ["react", "react-dom", "@base-ui/react"],
+      "dependencies": ["@base-ui/react"],
       "registryDependencies": ["core"],
       "files": [
         {

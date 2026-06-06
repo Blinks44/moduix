@@ -5,12 +5,12 @@
   "items": [
     {
       "name": "init",
-      "type": "registry:style",
+      "type": "registry:base",
       "title": "moduix init",
       "description": "Initialize shadcn for moduix and install the shared foundation files.",
       "extends": "none",
       "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"]
+      "registryDependencies": ["core"]
     },
     {
       "name": "core",
@@ -33,7 +33,7 @@
         {
           "path": "lib/moduix/icons/ui/Icons.tsx",
           "target": "@lib/moduix/icons/ui/Icons.tsx",
-          "type": "registry:component"
+          "type": "registry:lib"
         },
         {
           "path": "lib/moduix/styles/animations.css",
@@ -112,8 +112,8 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix Accordion component.",
-      "dependencies": ["react", "react-dom", "@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
       "files": [
         {
           "path": "ui/accordion/Accordion.tsx",
@@ -137,8 +137,8 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Button component.",
-      "dependencies": ["react", "react-dom", "@base-ui/react"],
-      "registryDependencies": ["Blinks44/moduix/core"],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["core"],
       "files": [
         {
           "path": "ui/button/Button.tsx",
