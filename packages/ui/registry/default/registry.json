@@ -4,6 +4,15 @@
   "homepage": "https://github.com/Blinks44/moduix",
   "items": [
     {
+      "name": "init",
+      "type": "registry:style",
+      "title": "moduix init",
+      "description": "Initialize shadcn for moduix and install the shared foundation files.",
+      "extends": "none",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/core"]
+    },
+    {
       "name": "core",
       "type": "registry:item",
       "title": "moduix core",

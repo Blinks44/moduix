@@ -40,6 +40,7 @@ for (const component of config.components) {
 }
 
 const registryItems = [
+  createRegistryItem(config.init),
   createRegistryItem(config.shared),
   ...config.components.map((component) => createRegistryItem(component)),
 ];
@@ -104,20 +105,37 @@ function rewriteImports(source) {
 }
 
 function createRegistryItem(item) {
-  return {
+  return removeEmptyFields({
     name: item.name,
-    type: 'registry:item',
+    type: item.type ?? 'registry:item',
     title: item.title,
     description: item.description,
+    extends: item.extends,
     dependencies: item.dependencies,
     docs: item.docs,
     registryDependencies: item.registryDependencies?.map(
       (dependency) => `${config.github.owner}/${config.github.repo}/${dependency}`,
     ),
-    files: item.files.map(({ path: filePath, target, type }) => ({
+    files: item.files?.map(({ path: filePath, target, type }) => ({
       path: filePath,
       target,
       type,
     })),
-  };
+  });
+}
+
+function removeEmptyFields(value) {
+  return Object.fromEntries(
+    Object.entries(value).filter(([, fieldValue]) => {
+      if (fieldValue == null) {
+        return false;
+      }
+
+      if (Array.isArray(fieldValue) && fieldValue.length === 0) {
+        return false;
+      }
+
+      return true;
+    }),
+  );
 }
