@@ -30,6 +30,9 @@
   font-size: var(--text-lg);
   font-weight: var(--weight-regular);
   line-height: var(--line-height-text-lg);
+  max-width: 22ch;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
 .panelDescription {
@@ -37,6 +40,9 @@
   color: var(--color-muted-foreground);
   font-size: var(--text-md);
   line-height: var(--line-height-text-md);
+  max-width: 34ch;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
 .panelList {
