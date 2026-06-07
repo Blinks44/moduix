@@ -1,0 +1,46 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--meter-gap, 0.5rem);
+    width: var(--meter-width, 12rem);
+    color: var(--meter-color, var(--color-foreground));
+  }
+
+  .label {
+    color: var(--meter-label-color, currentColor);
+    font-size: var(--meter-label-font-size, var(--text-sm));
+    font-weight: var(--meter-label-font-weight, var(--weight-regular));
+    line-height: var(--meter-label-line-height, var(--line-height-text-sm));
+  }
+
+  .value {
+    justify-self: end;
+    color: var(--meter-value-color, currentColor);
+    font-size: var(--meter-value-font-size, var(--text-sm));
+    font-weight: var(--meter-value-font-weight, var(--weight-regular));
+    line-height: var(--meter-value-line-height, var(--line-height-text-sm));
+    text-align: right;
+  }
+
+  .track {
+    grid-column: 1 / -1;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: var(--meter-track-height, 0.5rem);
+    border-radius: var(--meter-track-radius, var(--radius-full));
+    background-color: var(--meter-track-bg, var(--color-muted));
+    box-shadow: inset 0 0 0 var(--meter-track-border-width, var(--border-width-sm))
+      var(--meter-track-border-color, var(--color-border));
+  }
+
+  .indicator {
+    display: block;
+    height: 100%;
+    border-radius: var(--meter-indicator-radius, inherit);
+    background-color: var(--meter-indicator-bg, var(--color-primary));
+    transition: width var(--meter-indicator-transition, var(--transition-default));
+  }
+}

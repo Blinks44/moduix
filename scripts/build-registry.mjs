@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const registrySchemaUrl = 'https://ui.shadcn.com/schema/registry.json';
-const importRewrites = new Map([
+const sharedImportRewrites = new Map([
   ['@/utils/mergeClassName', '@/lib/moduix/mergeClassName'],
   ['@/icons/ui', '@/lib/moduix/icons/ui'],
 ]);
@@ -17,6 +17,18 @@ const configPath = path.join(registryDir, 'registry.config.json');
 
 const config = JSON.parse(await readFile(configPath, 'utf8'));
 const githubRegistryPrefix = `${config.github.owner}/${config.github.repo}`;
+const componentImportRewrites = new Map(
+  config.components.flatMap((component) => {
+    const componentDirName = path.basename(component.sourceDir);
+    const registryImportPath = `@/components/moduix/${component.name}`;
+
+    return [
+      [`@/components/${componentDirName}`, registryImportPath],
+      [`../${componentDirName}`, registryImportPath],
+    ];
+  }),
+);
+const importRewrites = new Map([...sharedImportRewrites, ...componentImportRewrites]);
 
 await rm(registryDefaultDir, { recursive: true, force: true });
 await mkdir(registryDefaultDir, { recursive: true });
@@ -91,10 +103,14 @@ function rewriteImports(source) {
   let output = source;
 
   for (const [from, to] of importRewrites) {
-    output = output.replaceAll(from, to);
+    output = output.replace(new RegExp(`(?<=['"])${escapeRegExp(from)}(?=['"])`, 'g'), to);
   }
 
   return output;
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function createRegistryItem(item) {

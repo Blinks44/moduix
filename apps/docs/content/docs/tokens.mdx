@@ -16,6 +16,9 @@ When you use moduix as an npm package, import `moduix/style.css` once. When you 
 with `shadcn`, import `@/lib/moduix/styles/style.css` once. Both entrypoints load the same token
 foundation.
 
+The reset stays optional in both paths. Import `moduix/reset.css` or
+`@/lib/moduix/styles/reset.css` explicitly before `style.css` only when you want the shared reset.
+
 Common override variables sit above individual components. For example, `--backdrop-bg` and
 `--backdrop-filter` control the default backdrop color and blur for dialogs, drawers, menus,
 popovers, and other layered components until a component-specific variable overrides them.

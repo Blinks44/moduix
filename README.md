@@ -108,6 +108,14 @@ Import the generated foundation stylesheet once in your application entry point:
 import '@/lib/moduix/styles/style.css';
 ```
 
+If you want the optional reset in the copy-owned path, import it explicitly before the main
+stylesheet:
+
+```tsx
+import '@/lib/moduix/styles/reset.css';
+import '@/lib/moduix/styles/style.css';
+```
+
 With the aliases above, generated files land in `src/components/moduix/*` and `src/lib/moduix/*`.
 
 ## Usage

@@ -1,0 +1,42 @@
+@layer ui.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--toggle-group-gap, var(--border-width-sm));
+    padding: var(--toggle-group-padding, 0.125rem);
+    border: var(--toggle-group-border-width, var(--border-width-sm)) solid
+      var(--toggle-group-border-color, var(--color-border));
+    border-radius: var(--toggle-group-radius, var(--radius-lg));
+    background-color: var(--toggle-group-bg, var(--color-muted));
+    color: var(--toggle-group-color, var(--color-foreground));
+  }
+
+  .root[data-orientation='vertical'] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .root[data-variant='ghost'] {
+    --toggle-group-bg: var(--toggle-group-ghost-bg, transparent);
+    --toggle-group-border-color: var(--toggle-group-ghost-border-color, transparent);
+    --toggle-group-padding: var(--toggle-group-ghost-padding, 0);
+  }
+
+  .root[data-variant='outline'] {
+    --toggle-group-bg: var(--toggle-group-outline-bg, var(--color-background));
+  }
+
+  .item {
+    flex: 0 0 auto;
+    border-radius: var(--toggle-group-item-radius, var(--radius-md));
+    --toggle-default-color: var(--toggle-group-color, var(--color-foreground));
+    --toggle-ghost-color: var(--toggle-group-color, var(--color-foreground));
+    --toggle-outline-color: var(--toggle-group-color, var(--color-foreground));
+  }
+
+  .root[data-orientation='vertical'] > .item {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

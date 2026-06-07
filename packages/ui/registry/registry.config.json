@@ -30,7 +30,7 @@
     "title": "moduix core",
     "description": "Shared styles, utilities, and icons for moduix registry components.",
     "dependencies": ["clsx", "@base-ui/react"],
-    "docs": "Import '@/lib/moduix/styles/style.css' once in your app entry.",
+    "docs": "Import '@/lib/moduix/styles/style.css' once in your app entry. Optionally import '@/lib/moduix/styles/reset.css' before it.",
     "files": [
       {
         "source": "packages/ui/src/utils/mergeClassName.ts",
@@ -78,6 +78,12 @@
         "source": "packages/ui/src/styles/radius.css",
         "path": "lib/moduix/styles/radius.css",
         "target": "@lib/moduix/styles/radius.css",
+        "type": "registry:file"
+      },
+      {
+        "source": "packages/ui/src/styles/reset.css",
+        "path": "lib/moduix/styles/reset.css",
+        "target": "@lib/moduix/styles/reset.css",
         "type": "registry:file"
       },
       {
@@ -166,11 +172,235 @@
       ]
     },
     {
+      "name": "alert",
+      "title": "Alert",
+      "description": "moduix Alert component.",
+      "sourceDir": "packages/ui/src/components/Alert",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Alert.tsx",
+          "path": "ui/alert/Alert.tsx",
+          "target": "@components/moduix/alert/Alert.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Alert.module.css",
+          "path": "ui/alert/Alert.module.css",
+          "target": "@components/moduix/alert/Alert.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/alert/index.ts",
+          "target": "@components/moduix/alert/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "title": "AlertDialog",
+      "description": "moduix AlertDialog component.",
+      "sourceDir": "packages/ui/src/components/AlertDialog",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "AlertDialog.tsx",
+          "path": "ui/alert-dialog/AlertDialog.tsx",
+          "target": "@components/moduix/alert-dialog/AlertDialog.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "AlertDialog.module.css",
+          "path": "ui/alert-dialog/AlertDialog.module.css",
+          "target": "@components/moduix/alert-dialog/AlertDialog.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/alert-dialog/index.ts",
+          "target": "@components/moduix/alert-dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "title": "AspectRatio",
+      "description": "moduix AspectRatio component.",
+      "sourceDir": "packages/ui/src/components/AspectRatio",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "AspectRatio.tsx",
+          "path": "ui/aspect-ratio/AspectRatio.tsx",
+          "target": "@components/moduix/aspect-ratio/AspectRatio.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "AspectRatio.module.css",
+          "path": "ui/aspect-ratio/AspectRatio.module.css",
+          "target": "@components/moduix/aspect-ratio/AspectRatio.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/aspect-ratio/index.ts",
+          "target": "@components/moduix/aspect-ratio/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "autocomplete",
+      "title": "Autocomplete",
+      "description": "moduix Autocomplete component.",
+      "sourceDir": "packages/ui/src/components/Autocomplete",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Autocomplete.tsx",
+          "path": "ui/autocomplete/Autocomplete.tsx",
+          "target": "@components/moduix/autocomplete/Autocomplete.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Autocomplete.module.css",
+          "path": "ui/autocomplete/Autocomplete.module.css",
+          "target": "@components/moduix/autocomplete/Autocomplete.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/autocomplete/index.ts",
+          "target": "@components/moduix/autocomplete/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "description": "moduix Avatar component.",
+      "sourceDir": "packages/ui/src/components/Avatar",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Avatar.tsx",
+          "path": "ui/avatar/Avatar.tsx",
+          "target": "@components/moduix/avatar/Avatar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Avatar.module.css",
+          "path": "ui/avatar/Avatar.module.css",
+          "target": "@components/moduix/avatar/Avatar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/avatar/index.ts",
+          "target": "@components/moduix/avatar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "description": "moduix Badge component.",
+      "sourceDir": "packages/ui/src/components/Badge",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Badge.tsx",
+          "path": "ui/badge/Badge.tsx",
+          "target": "@components/moduix/badge/Badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Badge.module.css",
+          "path": "ui/badge/Badge.module.css",
+          "target": "@components/moduix/badge/Badge.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/badge/index.ts",
+          "target": "@components/moduix/badge/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "bleed",
+      "title": "Bleed",
+      "description": "moduix Bleed component.",
+      "sourceDir": "packages/ui/src/components/Bleed",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Bleed.tsx",
+          "path": "ui/bleed/Bleed.tsx",
+          "target": "@components/moduix/bleed/Bleed.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Bleed.module.css",
+          "path": "ui/bleed/Bleed.module.css",
+          "target": "@components/moduix/bleed/Bleed.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/bleed/index.ts",
+          "target": "@components/moduix/bleed/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumbs",
+      "title": "Breadcrumbs",
+      "description": "moduix Breadcrumbs component.",
+      "sourceDir": "packages/ui/src/components/Breadcrumbs",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Breadcrumbs.tsx",
+          "path": "ui/breadcrumbs/Breadcrumbs.tsx",
+          "target": "@components/moduix/breadcrumbs/Breadcrumbs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Breadcrumbs.module.css",
+          "path": "ui/breadcrumbs/Breadcrumbs.module.css",
+          "target": "@components/moduix/breadcrumbs/Breadcrumbs.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/breadcrumbs/index.ts",
+          "target": "@components/moduix/breadcrumbs/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "button",
       "title": "Button",
       "description": "moduix Button component.",
       "sourceDir": "packages/ui/src/components/Button",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react", "clsx"],
       "registryDependencies": ["core"],
       "files": [
         {
@@ -189,6 +419,1546 @@
           "source": "index.ts",
           "path": "ui/button/index.ts",
           "target": "@components/moduix/button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "description": "moduix Card component.",
+      "sourceDir": "packages/ui/src/components/Card",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Card.tsx",
+          "path": "ui/card/Card.tsx",
+          "target": "@components/moduix/card/Card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Card.module.css",
+          "path": "ui/card/Card.module.css",
+          "target": "@components/moduix/card/Card.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/card/index.ts",
+          "target": "@components/moduix/card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "description": "moduix Checkbox component.",
+      "sourceDir": "packages/ui/src/components/Checkbox",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Checkbox.tsx",
+          "path": "ui/checkbox/Checkbox.tsx",
+          "target": "@components/moduix/checkbox/Checkbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Checkbox.module.css",
+          "path": "ui/checkbox/Checkbox.module.css",
+          "target": "@components/moduix/checkbox/Checkbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/checkbox/index.ts",
+          "target": "@components/moduix/checkbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-group",
+      "title": "CheckboxGroup",
+      "description": "moduix CheckboxGroup component.",
+      "sourceDir": "packages/ui/src/components/CheckboxGroup",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core", "checkbox"],
+      "files": [
+        {
+          "source": "CheckboxGroup.tsx",
+          "path": "ui/checkbox-group/CheckboxGroup.tsx",
+          "target": "@components/moduix/checkbox-group/CheckboxGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "CheckboxGroup.module.css",
+          "path": "ui/checkbox-group/CheckboxGroup.module.css",
+          "target": "@components/moduix/checkbox-group/CheckboxGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/checkbox-group/index.ts",
+          "target": "@components/moduix/checkbox-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "close-button",
+      "title": "CloseButton",
+      "description": "moduix CloseButton component.",
+      "sourceDir": "packages/ui/src/components/CloseButton",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "CloseButton.tsx",
+          "path": "ui/close-button/CloseButton.tsx",
+          "target": "@components/moduix/close-button/CloseButton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "CloseButton.module.css",
+          "path": "ui/close-button/CloseButton.module.css",
+          "target": "@components/moduix/close-button/CloseButton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/close-button/index.ts",
+          "target": "@components/moduix/close-button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "title": "Collapsible",
+      "description": "moduix Collapsible component.",
+      "sourceDir": "packages/ui/src/components/Collapsible",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Collapsible.tsx",
+          "path": "ui/collapsible/Collapsible.tsx",
+          "target": "@components/moduix/collapsible/Collapsible.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Collapsible.module.css",
+          "path": "ui/collapsible/Collapsible.module.css",
+          "target": "@components/moduix/collapsible/Collapsible.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/collapsible/index.ts",
+          "target": "@components/moduix/collapsible/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "title": "Combobox",
+      "description": "moduix Combobox component.",
+      "sourceDir": "packages/ui/src/components/Combobox",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Combobox.tsx",
+          "path": "ui/combobox/Combobox.tsx",
+          "target": "@components/moduix/combobox/Combobox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Combobox.module.css",
+          "path": "ui/combobox/Combobox.module.css",
+          "target": "@components/moduix/combobox/Combobox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/combobox/index.ts",
+          "target": "@components/moduix/combobox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "title": "CommandPalette",
+      "description": "moduix CommandPalette component.",
+      "sourceDir": "packages/ui/src/components/CommandPalette",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "CommandPalette.tsx",
+          "path": "ui/command-palette/CommandPalette.tsx",
+          "target": "@components/moduix/command-palette/CommandPalette.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "CommandPalette.module.css",
+          "path": "ui/command-palette/CommandPalette.module.css",
+          "target": "@components/moduix/command-palette/CommandPalette.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/command-palette/index.ts",
+          "target": "@components/moduix/command-palette/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "container",
+      "title": "Container",
+      "description": "moduix Container component.",
+      "sourceDir": "packages/ui/src/components/Container",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Container.tsx",
+          "path": "ui/container/Container.tsx",
+          "target": "@components/moduix/container/Container.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Container.module.css",
+          "path": "ui/container/Container.module.css",
+          "target": "@components/moduix/container/Container.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/container/index.ts",
+          "target": "@components/moduix/container/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "title": "ContextMenu",
+      "description": "moduix ContextMenu component.",
+      "sourceDir": "packages/ui/src/components/ContextMenu",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "ContextMenu.tsx",
+          "path": "ui/context-menu/ContextMenu.tsx",
+          "target": "@components/moduix/context-menu/ContextMenu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "ContextMenu.module.css",
+          "path": "ui/context-menu/ContextMenu.module.css",
+          "target": "@components/moduix/context-menu/ContextMenu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/context-menu/index.ts",
+          "target": "@components/moduix/context-menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "title": "CopyButton",
+      "description": "moduix CopyButton component.",
+      "sourceDir": "packages/ui/src/components/CopyButton",
+      "dependencies": [],
+      "registryDependencies": ["core", "button"],
+      "files": [
+        {
+          "source": "CopyButton.tsx",
+          "path": "ui/copy-button/CopyButton.tsx",
+          "target": "@components/moduix/copy-button/CopyButton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "CopyButton.module.css",
+          "path": "ui/copy-button/CopyButton.module.css",
+          "target": "@components/moduix/copy-button/CopyButton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/copy-button/index.ts",
+          "target": "@components/moduix/copy-button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "description": "moduix Dialog component.",
+      "sourceDir": "packages/ui/src/components/Dialog",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core", "close-button"],
+      "files": [
+        {
+          "source": "Dialog.tsx",
+          "path": "ui/dialog/Dialog.tsx",
+          "target": "@components/moduix/dialog/Dialog.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Dialog.module.css",
+          "path": "ui/dialog/Dialog.module.css",
+          "target": "@components/moduix/dialog/Dialog.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/dialog/index.ts",
+          "target": "@components/moduix/dialog/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "title": "Drawer",
+      "description": "moduix Drawer component.",
+      "sourceDir": "packages/ui/src/components/Drawer",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core", "close-button"],
+      "files": [
+        {
+          "source": "Drawer.tsx",
+          "path": "ui/drawer/Drawer.tsx",
+          "target": "@components/moduix/drawer/Drawer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Drawer.module.css",
+          "path": "ui/drawer/Drawer.module.css",
+          "target": "@components/moduix/drawer/Drawer.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/drawer/index.ts",
+          "target": "@components/moduix/drawer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "title": "Empty",
+      "description": "moduix Empty component.",
+      "sourceDir": "packages/ui/src/components/Empty",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Empty.tsx",
+          "path": "ui/empty/Empty.tsx",
+          "target": "@components/moduix/empty/Empty.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Empty.module.css",
+          "path": "ui/empty/Empty.module.css",
+          "target": "@components/moduix/empty/Empty.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/empty/index.ts",
+          "target": "@components/moduix/empty/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "description": "moduix Field component.",
+      "sourceDir": "packages/ui/src/components/Field",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Field.tsx",
+          "path": "ui/field/Field.tsx",
+          "target": "@components/moduix/field/Field.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Field.module.css",
+          "path": "ui/field/Field.module.css",
+          "target": "@components/moduix/field/Field.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/field/index.ts",
+          "target": "@components/moduix/field/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "fieldset",
+      "title": "Fieldset",
+      "description": "moduix Fieldset component.",
+      "sourceDir": "packages/ui/src/components/Fieldset",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Fieldset.tsx",
+          "path": "ui/fieldset/Fieldset.tsx",
+          "target": "@components/moduix/fieldset/Fieldset.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Fieldset.module.css",
+          "path": "ui/fieldset/Fieldset.module.css",
+          "target": "@components/moduix/fieldset/Fieldset.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/fieldset/index.ts",
+          "target": "@components/moduix/fieldset/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "title": "Form",
+      "description": "moduix Form component.",
+      "sourceDir": "packages/ui/src/components/Form",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Form.tsx",
+          "path": "ui/form/Form.tsx",
+          "target": "@components/moduix/form/Form.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Form.module.css",
+          "path": "ui/form/Form.module.css",
+          "target": "@components/moduix/form/Form.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/form/index.ts",
+          "target": "@components/moduix/form/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "title": "Heading",
+      "description": "moduix Heading component.",
+      "sourceDir": "packages/ui/src/components/Heading",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Heading.tsx",
+          "path": "ui/heading/Heading.tsx",
+          "target": "@components/moduix/heading/Heading.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Heading.module.css",
+          "path": "ui/heading/Heading.module.css",
+          "target": "@components/moduix/heading/Heading.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/heading/index.ts",
+          "target": "@components/moduix/heading/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "description": "moduix Input component.",
+      "sourceDir": "packages/ui/src/components/Input",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Input.tsx",
+          "path": "ui/input/Input.tsx",
+          "target": "@components/moduix/input/Input.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Input.module.css",
+          "path": "ui/input/Input.module.css",
+          "target": "@components/moduix/input/Input.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/input/index.ts",
+          "target": "@components/moduix/input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "title": "InputGroup",
+      "description": "moduix InputGroup component.",
+      "sourceDir": "packages/ui/src/components/InputGroup",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core", "button", "input"],
+      "files": [
+        {
+          "source": "InputGroup.tsx",
+          "path": "ui/input-group/InputGroup.tsx",
+          "target": "@components/moduix/input-group/InputGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "InputGroup.module.css",
+          "path": "ui/input-group/InputGroup.module.css",
+          "target": "@components/moduix/input-group/InputGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/input-group/index.ts",
+          "target": "@components/moduix/input-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "title": "Kbd",
+      "description": "moduix Kbd component.",
+      "sourceDir": "packages/ui/src/components/Kbd",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Kbd.tsx",
+          "path": "ui/kbd/Kbd.tsx",
+          "target": "@components/moduix/kbd/Kbd.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Kbd.module.css",
+          "path": "ui/kbd/Kbd.module.css",
+          "target": "@components/moduix/kbd/Kbd.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/kbd/index.ts",
+          "target": "@components/moduix/kbd/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "lightbox",
+      "title": "Lightbox",
+      "description": "moduix Lightbox component.",
+      "sourceDir": "packages/ui/src/components/Lightbox",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core", "close-button"],
+      "files": [
+        {
+          "source": "Lightbox.tsx",
+          "path": "ui/lightbox/Lightbox.tsx",
+          "target": "@components/moduix/lightbox/Lightbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Lightbox.module.css",
+          "path": "ui/lightbox/Lightbox.module.css",
+          "target": "@components/moduix/lightbox/Lightbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/lightbox/index.ts",
+          "target": "@components/moduix/lightbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "title": "List",
+      "description": "moduix List component.",
+      "sourceDir": "packages/ui/src/components/List",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "List.tsx",
+          "path": "ui/list/List.tsx",
+          "target": "@components/moduix/list/List.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "List.module.css",
+          "path": "ui/list/List.module.css",
+          "target": "@components/moduix/list/List.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/list/index.ts",
+          "target": "@components/moduix/list/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "title": "Menu",
+      "description": "moduix Menu component.",
+      "sourceDir": "packages/ui/src/components/Menu",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Menu.tsx",
+          "path": "ui/menu/Menu.tsx",
+          "target": "@components/moduix/menu/Menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Menu.module.css",
+          "path": "ui/menu/Menu.module.css",
+          "target": "@components/moduix/menu/Menu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/menu/index.ts",
+          "target": "@components/moduix/menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "menubar",
+      "title": "Menubar",
+      "description": "moduix Menubar component.",
+      "sourceDir": "packages/ui/src/components/Menubar",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Menubar.tsx",
+          "path": "ui/menubar/Menubar.tsx",
+          "target": "@components/moduix/menubar/Menubar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Menubar.module.css",
+          "path": "ui/menubar/Menubar.module.css",
+          "target": "@components/moduix/menubar/Menubar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/menubar/index.ts",
+          "target": "@components/moduix/menubar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "meter",
+      "title": "Meter",
+      "description": "moduix Meter component.",
+      "sourceDir": "packages/ui/src/components/Meter",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Meter.tsx",
+          "path": "ui/meter/Meter.tsx",
+          "target": "@components/moduix/meter/Meter.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Meter.module.css",
+          "path": "ui/meter/Meter.module.css",
+          "target": "@components/moduix/meter/Meter.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/meter/index.ts",
+          "target": "@components/moduix/meter/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "title": "NavigationMenu",
+      "description": "moduix NavigationMenu component.",
+      "sourceDir": "packages/ui/src/components/NavigationMenu",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "NavigationMenu.tsx",
+          "path": "ui/navigation-menu/NavigationMenu.tsx",
+          "target": "@components/moduix/navigation-menu/NavigationMenu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "NavigationMenu.module.css",
+          "path": "ui/navigation-menu/NavigationMenu.module.css",
+          "target": "@components/moduix/navigation-menu/NavigationMenu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/navigation-menu/index.ts",
+          "target": "@components/moduix/navigation-menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "number-field",
+      "title": "NumberField",
+      "description": "moduix NumberField component.",
+      "sourceDir": "packages/ui/src/components/NumberField",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "NumberField.tsx",
+          "path": "ui/number-field/NumberField.tsx",
+          "target": "@components/moduix/number-field/NumberField.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "NumberField.module.css",
+          "path": "ui/number-field/NumberField.module.css",
+          "target": "@components/moduix/number-field/NumberField.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/number-field/index.ts",
+          "target": "@components/moduix/number-field/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "otp-field",
+      "title": "OTPField",
+      "description": "moduix OTPField component.",
+      "sourceDir": "packages/ui/src/components/OTPField",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "OTPField.tsx",
+          "path": "ui/otp-field/OTPField.tsx",
+          "target": "@components/moduix/otp-field/OTPField.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "OTPField.module.css",
+          "path": "ui/otp-field/OTPField.module.css",
+          "target": "@components/moduix/otp-field/OTPField.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/otp-field/index.ts",
+          "target": "@components/moduix/otp-field/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "description": "moduix Pagination component.",
+      "sourceDir": "packages/ui/src/components/Pagination",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Pagination.tsx",
+          "path": "ui/pagination/Pagination.tsx",
+          "target": "@components/moduix/pagination/Pagination.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Pagination.module.css",
+          "path": "ui/pagination/Pagination.module.css",
+          "target": "@components/moduix/pagination/Pagination.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/pagination/index.ts",
+          "target": "@components/moduix/pagination/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "title": "PasswordInput",
+      "description": "moduix PasswordInput component.",
+      "sourceDir": "packages/ui/src/components/PasswordInput",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core", "input", "input-group"],
+      "files": [
+        {
+          "source": "PasswordInput.tsx",
+          "path": "ui/password-input/PasswordInput.tsx",
+          "target": "@components/moduix/password-input/PasswordInput.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "PasswordInput.module.css",
+          "path": "ui/password-input/PasswordInput.module.css",
+          "target": "@components/moduix/password-input/PasswordInput.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/password-input/index.ts",
+          "target": "@components/moduix/password-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "description": "moduix Popover component.",
+      "sourceDir": "packages/ui/src/components/Popover",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Popover.tsx",
+          "path": "ui/popover/Popover.tsx",
+          "target": "@components/moduix/popover/Popover.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Popover.module.css",
+          "path": "ui/popover/Popover.module.css",
+          "target": "@components/moduix/popover/Popover.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/popover/index.ts",
+          "target": "@components/moduix/popover/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "preview-card",
+      "title": "PreviewCard",
+      "description": "moduix PreviewCard component.",
+      "sourceDir": "packages/ui/src/components/PreviewCard",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "PreviewCard.tsx",
+          "path": "ui/preview-card/PreviewCard.tsx",
+          "target": "@components/moduix/preview-card/PreviewCard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "PreviewCard.module.css",
+          "path": "ui/preview-card/PreviewCard.module.css",
+          "target": "@components/moduix/preview-card/PreviewCard.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/preview-card/index.ts",
+          "target": "@components/moduix/preview-card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "title": "Progress",
+      "description": "moduix Progress component.",
+      "sourceDir": "packages/ui/src/components/Progress",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Progress.tsx",
+          "path": "ui/progress/Progress.tsx",
+          "target": "@components/moduix/progress/Progress.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Progress.module.css",
+          "path": "ui/progress/Progress.module.css",
+          "target": "@components/moduix/progress/Progress.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/progress/index.ts",
+          "target": "@components/moduix/progress/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "radio",
+      "title": "Radio",
+      "description": "moduix Radio component.",
+      "sourceDir": "packages/ui/src/components/Radio",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Radio.tsx",
+          "path": "ui/radio/Radio.tsx",
+          "target": "@components/moduix/radio/Radio.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Radio.module.css",
+          "path": "ui/radio/Radio.module.css",
+          "target": "@components/moduix/radio/Radio.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/radio/index.ts",
+          "target": "@components/moduix/radio/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "rating",
+      "title": "Rating",
+      "description": "moduix Rating component.",
+      "sourceDir": "packages/ui/src/components/Rating",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Rating.tsx",
+          "path": "ui/rating/Rating.tsx",
+          "target": "@components/moduix/rating/Rating.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Rating.module.css",
+          "path": "ui/rating/Rating.module.css",
+          "target": "@components/moduix/rating/Rating.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/rating/index.ts",
+          "target": "@components/moduix/rating/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "title": "ScrollArea",
+      "description": "moduix ScrollArea component.",
+      "sourceDir": "packages/ui/src/components/ScrollArea",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "ScrollArea.tsx",
+          "path": "ui/scroll-area/ScrollArea.tsx",
+          "target": "@components/moduix/scroll-area/ScrollArea.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "ScrollArea.module.css",
+          "path": "ui/scroll-area/ScrollArea.module.css",
+          "target": "@components/moduix/scroll-area/ScrollArea.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/scroll-area/index.ts",
+          "target": "@components/moduix/scroll-area/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "description": "moduix Select component.",
+      "sourceDir": "packages/ui/src/components/Select",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Select.tsx",
+          "path": "ui/select/Select.tsx",
+          "target": "@components/moduix/select/Select.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Select.module.css",
+          "path": "ui/select/Select.module.css",
+          "target": "@components/moduix/select/Select.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/select/index.ts",
+          "target": "@components/moduix/select/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "description": "moduix Separator component.",
+      "sourceDir": "packages/ui/src/components/Separator",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Separator.tsx",
+          "path": "ui/separator/Separator.tsx",
+          "target": "@components/moduix/separator/Separator.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Separator.module.css",
+          "path": "ui/separator/Separator.module.css",
+          "target": "@components/moduix/separator/Separator.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/separator/index.ts",
+          "target": "@components/moduix/separator/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "description": "moduix Skeleton component.",
+      "sourceDir": "packages/ui/src/components/Skeleton",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Skeleton.tsx",
+          "path": "ui/skeleton/Skeleton.tsx",
+          "target": "@components/moduix/skeleton/Skeleton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Skeleton.module.css",
+          "path": "ui/skeleton/Skeleton.module.css",
+          "target": "@components/moduix/skeleton/Skeleton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/skeleton/index.ts",
+          "target": "@components/moduix/skeleton/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "description": "moduix Slider component.",
+      "sourceDir": "packages/ui/src/components/Slider",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Slider.tsx",
+          "path": "ui/slider/Slider.tsx",
+          "target": "@components/moduix/slider/Slider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Slider.module.css",
+          "path": "ui/slider/Slider.module.css",
+          "target": "@components/moduix/slider/Slider.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/slider/index.ts",
+          "target": "@components/moduix/slider/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "snap-carousel",
+      "title": "SnapCarousel",
+      "description": "moduix SnapCarousel component.",
+      "sourceDir": "packages/ui/src/components/SnapCarousel",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "SnapCarousel.tsx",
+          "path": "ui/snap-carousel/SnapCarousel.tsx",
+          "target": "@components/moduix/snap-carousel/SnapCarousel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "SnapCarousel.module.css",
+          "path": "ui/snap-carousel/SnapCarousel.module.css",
+          "target": "@components/moduix/snap-carousel/SnapCarousel.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/snap-carousel/index.ts",
+          "target": "@components/moduix/snap-carousel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "description": "moduix Spinner component.",
+      "sourceDir": "packages/ui/src/components/Spinner",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Spinner.tsx",
+          "path": "ui/spinner/Spinner.tsx",
+          "target": "@components/moduix/spinner/Spinner.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Spinner.module.css",
+          "path": "ui/spinner/Spinner.module.css",
+          "target": "@components/moduix/spinner/Spinner.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/spinner/index.ts",
+          "target": "@components/moduix/spinner/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "split-button",
+      "title": "SplitButton",
+      "description": "moduix SplitButton component.",
+      "sourceDir": "packages/ui/src/components/SplitButton",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core", "button", "menu"],
+      "files": [
+        {
+          "source": "SplitButton.tsx",
+          "path": "ui/split-button/SplitButton.tsx",
+          "target": "@components/moduix/split-button/SplitButton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "SplitButton.module.css",
+          "path": "ui/split-button/SplitButton.module.css",
+          "target": "@components/moduix/split-button/SplitButton.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/split-button/index.ts",
+          "target": "@components/moduix/split-button/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stack",
+      "title": "Stack",
+      "description": "moduix Stack component.",
+      "sourceDir": "packages/ui/src/components/Stack",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Stack.tsx",
+          "path": "ui/stack/Stack.tsx",
+          "target": "@components/moduix/stack/Stack.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Stack.module.css",
+          "path": "ui/stack/Stack.module.css",
+          "target": "@components/moduix/stack/Stack.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/stack/index.ts",
+          "target": "@components/moduix/stack/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stepper",
+      "title": "Stepper",
+      "description": "moduix Stepper component.",
+      "sourceDir": "packages/ui/src/components/Stepper",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Stepper.tsx",
+          "path": "ui/stepper/Stepper.tsx",
+          "target": "@components/moduix/stepper/Stepper.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Stepper.module.css",
+          "path": "ui/stepper/Stepper.module.css",
+          "target": "@components/moduix/stepper/Stepper.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/stepper/index.ts",
+          "target": "@components/moduix/stepper/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "description": "moduix Switch component.",
+      "sourceDir": "packages/ui/src/components/Switch",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Switch.tsx",
+          "path": "ui/switch/Switch.tsx",
+          "target": "@components/moduix/switch/Switch.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Switch.module.css",
+          "path": "ui/switch/Switch.module.css",
+          "target": "@components/moduix/switch/Switch.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/switch/index.ts",
+          "target": "@components/moduix/switch/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "description": "moduix Table component.",
+      "sourceDir": "packages/ui/src/components/Table",
+      "dependencies": ["clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Table.tsx",
+          "path": "ui/table/Table.tsx",
+          "target": "@components/moduix/table/Table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Table.module.css",
+          "path": "ui/table/Table.module.css",
+          "target": "@components/moduix/table/Table.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/table/index.ts",
+          "target": "@components/moduix/table/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "description": "moduix Tabs component.",
+      "sourceDir": "packages/ui/src/components/Tabs",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Tabs.tsx",
+          "path": "ui/tabs/Tabs.tsx",
+          "target": "@components/moduix/tabs/Tabs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Tabs.module.css",
+          "path": "ui/tabs/Tabs.module.css",
+          "target": "@components/moduix/tabs/Tabs.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/tabs/index.ts",
+          "target": "@components/moduix/tabs/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "title": "Text",
+      "description": "moduix Text component.",
+      "sourceDir": "packages/ui/src/components/Text",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Text.tsx",
+          "path": "ui/text/Text.tsx",
+          "target": "@components/moduix/text/Text.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Text.module.css",
+          "path": "ui/text/Text.module.css",
+          "target": "@components/moduix/text/Text.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/text/index.ts",
+          "target": "@components/moduix/text/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "description": "moduix Textarea component.",
+      "sourceDir": "packages/ui/src/components/Textarea",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Textarea.tsx",
+          "path": "ui/textarea/Textarea.tsx",
+          "target": "@components/moduix/textarea/Textarea.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Textarea.module.css",
+          "path": "ui/textarea/Textarea.module.css",
+          "target": "@components/moduix/textarea/Textarea.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/textarea/index.ts",
+          "target": "@components/moduix/textarea/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "title": "Toast",
+      "description": "moduix Toast component.",
+      "sourceDir": "packages/ui/src/components/Toast",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Toast.tsx",
+          "path": "ui/toast/Toast.tsx",
+          "target": "@components/moduix/toast/Toast.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Toast.module.css",
+          "path": "ui/toast/Toast.module.css",
+          "target": "@components/moduix/toast/Toast.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/toast/index.ts",
+          "target": "@components/moduix/toast/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "title": "Toggle",
+      "description": "moduix Toggle component.",
+      "sourceDir": "packages/ui/src/components/Toggle",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Toggle.tsx",
+          "path": "ui/toggle/Toggle.tsx",
+          "target": "@components/moduix/toggle/Toggle.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Toggle.module.css",
+          "path": "ui/toggle/Toggle.module.css",
+          "target": "@components/moduix/toggle/Toggle.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/toggle/index.ts",
+          "target": "@components/moduix/toggle/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "title": "ToggleGroup",
+      "description": "moduix ToggleGroup component.",
+      "sourceDir": "packages/ui/src/components/ToggleGroup",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core", "toggle"],
+      "files": [
+        {
+          "source": "ToggleGroup.tsx",
+          "path": "ui/toggle-group/ToggleGroup.tsx",
+          "target": "@components/moduix/toggle-group/ToggleGroup.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "ToggleGroup.module.css",
+          "path": "ui/toggle-group/ToggleGroup.module.css",
+          "target": "@components/moduix/toggle-group/ToggleGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/toggle-group/index.ts",
+          "target": "@components/moduix/toggle-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toolbar",
+      "title": "Toolbar",
+      "description": "moduix Toolbar component.",
+      "sourceDir": "packages/ui/src/components/Toolbar",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Toolbar.tsx",
+          "path": "ui/toolbar/Toolbar.tsx",
+          "target": "@components/moduix/toolbar/Toolbar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Toolbar.module.css",
+          "path": "ui/toolbar/Toolbar.module.css",
+          "target": "@components/moduix/toolbar/Toolbar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/toolbar/index.ts",
+          "target": "@components/moduix/toolbar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "description": "moduix Tooltip component.",
+      "sourceDir": "packages/ui/src/components/Tooltip",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["core"],
+      "files": [
+        {
+          "source": "Tooltip.tsx",
+          "path": "ui/tooltip/Tooltip.tsx",
+          "target": "@components/moduix/tooltip/Tooltip.tsx",
+          "type": "registry:component"
+        },
+        {
+          "source": "Tooltip.module.css",
+          "path": "ui/tooltip/Tooltip.module.css",
+          "target": "@components/moduix/tooltip/Tooltip.module.css",
+          "type": "registry:file"
+        },
+        {
+          "source": "index.ts",
+          "path": "ui/tooltip/index.ts",
+          "target": "@components/moduix/tooltip/index.ts",
           "type": "registry:component"
         }
       ]

@@ -1,0 +1,73 @@
+@layer ui.components {
+  .root {
+    margin: 0;
+    font-family: var(--text-font-family, var(--font-sans));
+    font-size: var(--text-font-size-md, var(--text-md));
+    font-weight: var(--text-font-weight-regular, var(--weight-regular));
+    line-height: var(--text-line-height-md, var(--line-height-text-md));
+    letter-spacing: var(--text-letter-spacing, 0);
+    color: var(--text-default-color, var(--color-foreground));
+    text-align: start;
+    overflow-wrap: break-word;
+
+    &[data-size='xs'] {
+      font-size: var(--text-font-size-xs, var(--text-xs));
+      line-height: var(--text-line-height-xs, var(--line-height-text-xs));
+    }
+
+    &[data-size='sm'] {
+      font-size: var(--text-font-size-sm, var(--text-sm));
+      line-height: var(--text-line-height-sm, var(--line-height-text-sm));
+    }
+
+    &[data-size='lg'] {
+      font-size: var(--text-font-size-lg, var(--text-lg));
+      line-height: var(--text-line-height-lg, var(--line-height-text-lg));
+    }
+
+    &[data-size='xl'] {
+      font-size: var(--text-font-size-xl, var(--text-xl));
+      line-height: var(--text-line-height-xl, var(--line-height-text-xl));
+    }
+
+    &[data-weight='medium'] {
+      font-weight: var(--text-font-weight-medium, var(--weight-medium));
+    }
+
+    &[data-weight='semibold'] {
+      font-weight: var(--text-font-weight-semibold, var(--weight-semibold));
+    }
+
+    &[data-weight='bold'] {
+      font-weight: var(--text-font-weight-bold, var(--weight-bold));
+    }
+
+    &[data-tone='muted'] {
+      color: var(--text-muted-color, var(--color-muted-foreground));
+    }
+
+    &[data-tone='subtle'] {
+      color: var(--text-subtle-color, var(--color-secondary-foreground));
+    }
+
+    &[data-tone='primary'] {
+      color: var(--text-primary-color, var(--color-primary));
+    }
+
+    &[data-tone='destructive'] {
+      color: var(--text-destructive-color, var(--color-destructive));
+    }
+
+    &[data-align='left'] {
+      text-align: left;
+    }
+
+    &[data-align='center'] {
+      text-align: center;
+    }
+
+    &[data-align='right'] {
+      text-align: right;
+    }
+  }
+}

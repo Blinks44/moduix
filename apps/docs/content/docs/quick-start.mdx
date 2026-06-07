@@ -175,6 +175,14 @@ Import the generated foundation stylesheet from the files that `shadcn` added to
 import '@/lib/moduix/styles/style.css';
 ```
 
+If you want the optional reset in the copy-owned path, import it explicitly before the main
+stylesheet:
+
+```tsx
+import '@/lib/moduix/styles/reset.css';
+import '@/lib/moduix/styles/style.css';
+```
+
 The examples below assume `@/components` and `@/lib`. If your project uses different aliases,
 update `components.json` and import the generated files from the matching paths.
 

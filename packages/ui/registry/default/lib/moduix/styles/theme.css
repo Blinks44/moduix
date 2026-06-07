@@ -509,6 +509,7 @@
   --collapsible-focus-ring-color: initial; /* var(--color-ring) */
   --collapsible-focus-ring-offset: initial; /* var(--border-width-sm) */
   --collapsible-focus-ring-width: initial; /* var(--border-width-sm) */
+  --collapsible-max-width: initial; /* 100% */
   --collapsible-icon-open-transform: initial; /* rotate(90deg) */
   --collapsible-icon-size: initial; /* 0.75rem */
   --collapsible-icon-transition: initial; /* var(--transition-default) */
@@ -527,6 +528,7 @@
   --collapsible-trigger-padding-y: initial; /* var(--spacing-1) */
   --collapsible-trigger-radius: initial; /* 0 */
   --collapsible-trigger-transition: initial; /* var(--transition-default) */
+  --collapsible-width: initial; /* 14rem */
 
   /* Combobox */
   --combobox-action-bg: initial; /* transparent */
