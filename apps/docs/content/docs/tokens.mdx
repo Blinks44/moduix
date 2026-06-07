@@ -12,6 +12,10 @@ moduix styles are built from CSS custom properties. Start with semantic color to
 surface, text, borders, rings, and overlays, then tune spacing, radius, size, typography, motion,
 shadow, and layering tokens when the product system needs a different rhythm.
 
+When you use moduix as an npm package, import `moduix/style.css` once. When you install source files
+with `shadcn`, import `@/lib/moduix/styles/style.css` once. Both entrypoints load the same token
+foundation.
+
 Common override variables sit above individual components. For example, `--backdrop-bg` and
 `--backdrop-filter` control the default backdrop color and blur for dialogs, drawers, menus,
 popovers, and other layered components until a component-specific variable overrides them.

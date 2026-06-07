@@ -1,11 +1,3 @@
-.demoRoot {
-  width: 22rem;
-
-  @media (min-width: 32rem) {
-    width: 32rem;
-  }
-}
-
 .panelContent {
   padding: var(--spacing-3);
 }

@@ -90,6 +90,7 @@ Sync and preservation:
 - Stories and local component markdown must match the shipped API.
 - Remove deleted props, legacy customization paths, and outdated examples in the same task.
 - If API, behavior, styling hooks, or recommended usage changed, update component markdown in the same task and apply `cross-package-sync` when docs are affected.
+- If a registry-ready component changes its public styling or import contract, rebuild the GitHub registry output with `npm run build:registry` and keep registry-facing docs aligned.
 - Simplification must preserve accessibility behavior, keyboard navigation, focus management, screen reader behavior, Base UI lifecycle/state/transitions, and meaningful styling hooks such as `data-slot`.
 - Load `references/component-family-contracts.md` for popup-like and dialog-like family rules instead of repeating them in task notes.
 

@@ -173,6 +173,10 @@ styles. When `AccordionTrigger` receives Base UI's `render` prop, moduix does no
 trigger styles; the custom rendered element owns its styling. This matches other trigger wrappers in
 the library and avoids leaking button layout onto custom controls.
 
+The root ships with a compact default width of `22rem` and `max-width: 100%` through
+`--accordion-width` and `--accordion-max-width`. Override those variables or set width through
+`className` when a wider layout is required.
+
 `AccordionTriggerIcon` can be customized by passing children:
 
 ```tsx
@@ -204,6 +208,7 @@ CSS variables:
 | `--accordion-icon-transition`     | `var(--transition-default)`     |
 | `--accordion-item-border-color`   | `var(--color-border)`           |
 | `--accordion-item-border-width`   | `var(--border-width-sm)`        |
+| `--accordion-max-width`           | `100%`                          |
 | `--accordion-panel-color`         | `var(--color-muted-foreground)` |
 | `--accordion-panel-font-size`     | `var(--text-md)`                |
 | `--accordion-panel-line-height`   | `var(--line-height-text-md)`    |
@@ -215,6 +220,12 @@ CSS variables:
 | `--accordion-trigger-line-height` | `var(--line-height-text-md)`    |
 | `--accordion-trigger-padding-x`   | `var(--spacing-3)`              |
 | `--accordion-trigger-padding-y`   | `var(--spacing-2)`              |
+| `--accordion-width`               | `22rem`                         |
+
+## Changelog
+
+- Added a compact default root width (`22rem`) plus `--accordion-width` and
+  `--accordion-max-width` variables to keep layout stable out of the box.
 
 ## Accessibility and UX notes
 

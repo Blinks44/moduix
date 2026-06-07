@@ -62,12 +62,36 @@ bundle, so moduix does not ship duplicate React or Base UI runtimes.
 `shadcn` can install selected moduix components from the GitHub registry directly into your project.
 The files become part of your codebase instead of staying in `node_modules`.
 
-Make sure your project resolves the `@/*` alias to `src/*` in TypeScript and your bundler.
+Make sure your project resolves the `@/*` alias to `src/*` in both `tsconfig.json` and
+`tsconfig.app.json`, and mirror it in your bundler config.
 
-Initialize `shadcn` with the moduix registry base item:
+Create `components.json` in the project root. Temporary workaround while `shadcn` custom registry
+base init still requires a Tailwind-compatible setup:
 
-```bash
-npx shadcn@latest init Blinks44/moduix/init
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/index.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "rtl": false,
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {}
+}
 ```
 
 ```bash
@@ -83,6 +107,9 @@ Import the generated foundation stylesheet once in your application entry point:
 ```tsx
 import '@/lib/moduix/styles/style.css';
 ```
+
+Generated files are written to `src/components/moduix/*` and `src/lib/moduix/*` when the aliases
+above point `@/*` at `src/*`.
 
 ## Usage
 

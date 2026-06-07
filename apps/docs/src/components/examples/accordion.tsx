@@ -1,5 +1,4 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { clsx } from 'clsx';
 import {
   Accordion,
   AccordionHeader,
@@ -65,6 +64,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls the separator width between accordion items.',
   ],
+  ['--accordion-max-width', '100%', 'Controls the maximum accordion width.'],
   ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
   ['--accordion-panel-font-size', 'var(--text-md)', 'Controls panel text font size.'],
   [
@@ -96,6 +96,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
+  ['--accordion-width', '22rem', 'Controls the default accordion width.'],
 ];
 
 export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
@@ -104,12 +105,14 @@ export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
   ['--accordion-icon-size', '0.75rem', 'Controls trigger icon size.'],
   ['--accordion-item-border-color', 'var(--color-border)', 'Controls separator color.'],
   ['--accordion-item-border-width', 'var(--border-width-sm)', 'Controls separator width.'],
+  ['--accordion-max-width', '100%', 'Controls the maximum accordion width.'],
   ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
   ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
   ['--accordion-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
   ['--accordion-trigger-gap', 'var(--spacing-4)', 'Controls trigger content and icon spacing.'],
   ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
+  ['--accordion-width', '22rem', 'Controls the default accordion width.'],
 ];
 
 const accordionCssPropertiesReference = accordionOverrideCssProperties.map(normalizeCssProperty);
@@ -172,7 +175,7 @@ function AccordionItems({ disabledValue, icon, iconClassName }: AccordionItemsPr
 
 export function AccordionExample({ className, ...props }: ComponentProps<typeof Accordion>) {
   return (
-    <Accordion className={clsx(styles.demoRoot, className)} {...props}>
+    <Accordion className={className} {...props}>
       <AccordionItems />
     </Accordion>
   );
@@ -190,7 +193,7 @@ export function ControlledAccordionExample() {
 
 export function DisabledItemAccordionExample() {
   return (
-    <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
+    <Accordion defaultValue={['what-is-base-ui']}>
       <AccordionItems disabledValue="getting-started" />
     </Accordion>
   );
@@ -198,7 +201,7 @@ export function DisabledItemAccordionExample() {
 
 export function CustomCompositionAccordionExample() {
   return (
-    <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
+    <Accordion defaultValue={['what-is-base-ui']}>
       <AccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
     </Accordion>
   );

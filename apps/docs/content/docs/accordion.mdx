@@ -161,8 +161,9 @@ Use `Accordion` for state props such as `value`, `defaultValue`, `onValueChange`
 `disabled`, `orientation`, and `loopFocus`. Use `keepMounted` or `hiddenUntilFound` on the root or
 panel when closed content must remain searchable or stay mounted for app logic.
 
-Style the exported parts directly with `className`. The root does not impose a fixed width, so set
-width on the root or parent according to the surrounding layout.
+Style the exported parts directly with `className`. By default the root uses a compact
+`--accordion-width` of `22rem` with `--accordion-max-width: 100%`. Override either variable, or set
+width through `className`, when the surrounding layout needs a different size.
 
 When `AccordionTrigger` uses the `render` prop, the custom rendered element owns its styling and the
 default trigger CSS is not applied.
