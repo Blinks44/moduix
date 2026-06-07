@@ -12,12 +12,3 @@
 @import './transitions.css' layer(ui.tokens);
 @import './typography.css' layer(ui.tokens);
 @import './z-index.css' layer(ui.tokens);
-
-@layer ui.base {
-  body {
-    font-family: var(--font-sans), sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    font-variation-settings: 'wdth' 100;
-  }
-}

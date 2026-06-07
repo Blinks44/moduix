@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
+@import '../../../../packages/ui/src/styles/fonts.css';
 @import 'moduix/style.css';
 @import 'fumadocs-ui/css/preset.css';
 
