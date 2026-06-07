@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { ChevronDownIcon } from '@/icons/ui';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import {
   Collapsible,
   CollapsiblePanel,

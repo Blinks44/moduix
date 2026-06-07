@@ -1,5 +1,5 @@
 import { Fieldset as FieldsetPrimitive } from '@base-ui/react/fieldset';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Fieldset.module.css';
 
 function Fieldset({ className, ...props }: FieldsetPrimitive.Root.Props) {

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ui';
-import { Button } from '../Button';
-import { ScrollArea } from '../ScrollArea';
+import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
+import { Button } from '../button';
+import { ScrollArea } from '../scroll-area';
 import {
   createDrawerHandle,
   Drawer,

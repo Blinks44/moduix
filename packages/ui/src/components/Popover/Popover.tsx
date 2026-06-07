@@ -1,8 +1,8 @@
 import type { ComponentProps } from 'react';
 import { Popover as PopoverPrimitive } from '@base-ui/react/popover';
 import { clsx } from 'clsx';
-import { PopupArrowIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { PopupArrowIcon } from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Popover.module.css';
 
 type PopoverPositionerProps = Pick<

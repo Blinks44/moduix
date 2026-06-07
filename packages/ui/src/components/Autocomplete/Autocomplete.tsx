@@ -3,8 +3,13 @@ import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomple
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { ChevronDownIcon, ChevronUpDownIcon, CloseIcon, PopupArrowIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import {
+  ChevronDownIcon,
+  ChevronUpDownIcon,
+  CloseIcon,
+  PopupArrowIcon,
+} from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Autocomplete.module.css';
 
 const Autocomplete = AutocompletePrimitive.Root;

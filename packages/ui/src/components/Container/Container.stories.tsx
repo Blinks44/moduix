@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Bleed } from '../Bleed';
-import { Text } from '../Text';
+import { Bleed } from '../bleed';
+import { Text } from '../text';
 import { Container } from './Container';
 import storyStyles from './Container.stories.module.css';
 

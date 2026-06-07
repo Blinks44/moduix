@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId } from 'react';
-import { Checkbox, CheckboxIndicator } from '../Checkbox';
-import { Input } from '../Input';
-import { NumberField } from '../NumberField';
-import { Radio, RadioField, RadioGroup, RadioLabel } from '../Radio';
-import { Switch, SwitchLabel } from '../Switch';
+import { Checkbox, CheckboxIndicator } from '../checkbox';
+import { Input } from '../input';
+import { NumberField } from '../number-field';
+import { Radio, RadioField, RadioGroup, RadioLabel } from '../radio';
+import { Switch, SwitchLabel } from '../switch';
 import {
   Field,
   FieldControl,

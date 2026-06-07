@@ -17,7 +17,7 @@ Use this skill for work in `packages/ui`.
 
 1. `AGENTS.md`
 2. `.agents/skills/upstream-library-docs/SKILL.md` when Base UI or shadcn reference material matters
-3. `packages/ui/src/components/<ComponentName>/<component-name>.md`
+3. `packages/ui/src/components/<component-name>/<component-name>.md`
 4. `.agents/skills/local-component-docs/SKILL.md` when component markdown is created or updated
 5. `.agents/skills/cross-package-sync/SKILL.md` when public changes affect docs
 6. `references/component-family-contracts.md` when popup-like or dialog-like contracts matter
@@ -46,7 +46,9 @@ Small DX sugar is acceptable only when it removes repeated production boilerplat
   - `ComponentName.stories.tsx`
   - `component-name.md`
   - `index.ts`
-- Use PascalCase for component files and folders, kebab-case for the local markdown file.
+- Use `kebab-case` for component folders and local markdown files. Keep the main implementation, CSS module, stories, and `index.ts` filenames in their current per-component names, for example `password-input/PasswordInput.tsx`.
+- Prefer relative imports for component-to-component dependencies inside `src/components`.
+- Use `@/lib/moduix/*` imports for shared utilities, icons, and registry-safe foundation code.
 - Accept `className` on meaningful visual roots.
 - Use `data-slot` on exported parts and meaningful styling hooks.
 - Prefer direct primitive passthrough over custom wrapper logic.
@@ -90,7 +92,7 @@ Sync and preservation:
 - Stories and local component markdown must match the shipped API.
 - Remove deleted props, legacy customization paths, and outdated examples in the same task.
 - If API, behavior, styling hooks, or recommended usage changed, update component markdown in the same task and apply `cross-package-sync` when docs are affected.
-- If a registry-ready component changes its public styling or import contract, rebuild the GitHub registry output with `npm run build:registry` and keep `quick-start.mdx`, README files, and component install snippets aligned.
+- If a registry-ready component changes its public styling, import contract, or registry dependency graph, update the root `registry.json`, rebuild the registry output with `npm run build:registry`, and keep `quick-start.mdx`, README files, and component install snippets aligned.
 - Simplification must preserve accessibility behavior, keyboard navigation, focus management, screen reader behavior, Base UI lifecycle/state/transitions, and meaningful styling hooks such as `data-slot`.
 - Load `references/component-family-contracts.md` for popup-like and dialog-like family rules instead of repeating them in task notes.
 
@@ -101,3 +103,4 @@ Sync and preservation:
 3. Stories and local docs match the shipped API.
 4. Public docs were updated when user-facing behavior changed.
 5. Required validation from `AGENTS.md` passed.
+6. `npm run build:registry` ran when registry-shipped source code in `packages/ui` changed.

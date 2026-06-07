@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Text } from '../Text';
+import { Text } from '../text';
 import { Bleed } from './Bleed';
 import storyStyles from './Bleed.stories.module.css';
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ComputerIcon, MapIcon } from '@/icons/demo';
-import { Button } from '../Button';
+import { Button } from '../button';
 import {
   Empty,
   EmptyActions,

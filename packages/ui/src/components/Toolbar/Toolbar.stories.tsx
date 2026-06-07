@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Fragment } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
-import { ChevronUpDownIcon } from '@/icons/ui';
+import { ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
   Select,
   SelectContent,
@@ -12,9 +12,9 @@ import {
   SelectList,
   SelectTrigger,
   SelectValue,
-} from '../Select';
-import { Toggle } from '../Toggle';
-import { ToggleGroup } from '../ToggleGroup';
+} from '../select';
+import { Toggle } from '../toggle';
+import { ToggleGroup } from '../toggle-group';
 import {
   Toolbar,
   ToolbarButton,

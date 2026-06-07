@@ -10,8 +10,8 @@ import {
   type RefObject,
   type SetStateAction,
 } from 'react';
-import { CloseButton } from '@/components/CloseButton';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { CloseButton } from '../close-button';
 import styles from './Lightbox.module.css';
 
 const DEFAULT_CLOSE_LABEL = 'Close image';

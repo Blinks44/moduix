@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef, useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
-import { CloseIcon } from '@/icons/ui';
-import { Button } from '../Button';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
+import { Button } from '../button';
 import {
   type ToastPlacement,
   type ToastStackBehavior,

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../Field';
+import { Field, FieldDescription, FieldError, FieldLabel } from '../field';
 import { Input } from './Input';
 import storyStyles from './Input.stories.module.css';
 

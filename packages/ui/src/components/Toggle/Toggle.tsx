@@ -1,6 +1,6 @@
 import { Toggle as TogglePrimitive } from '@base-ui/react/toggle';
 import { forwardRef, type ComponentRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Toggle.module.css';
 
 type ToggleVariant = 'default' | 'outline' | 'ghost';

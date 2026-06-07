@@ -1,8 +1,8 @@
 import { Drawer as DrawerPrimitive } from '@base-ui/react/drawer';
 import { clsx } from 'clsx';
 import { createContext, useContext, useEffect, useState, type ComponentProps } from 'react';
-import { CloseButton } from '@/components/CloseButton';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';

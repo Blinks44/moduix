@@ -2,8 +2,8 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { PlusIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { PlusIcon } from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Accordion.module.css';
 
 const Accordion = forwardRef<

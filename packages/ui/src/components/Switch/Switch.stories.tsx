@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId, useState, type ComponentProps } from 'react';
-import { Field, FieldLabel } from '../Field';
+import { Field, FieldLabel } from '../field';
 import { Switch, SwitchField, SwitchLabel, SwitchThumb } from './Switch';
 import styles from './Switch.stories.module.css';
 

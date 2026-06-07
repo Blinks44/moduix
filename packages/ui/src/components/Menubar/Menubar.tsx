@@ -2,8 +2,8 @@ import type { ComponentProps } from 'react';
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import { Menubar as MenubarPrimitive } from '@base-ui/react/menubar';
 import { clsx } from 'clsx';
-import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Menubar.module.css';
 
 export type MenubarPositionerProps = Pick<

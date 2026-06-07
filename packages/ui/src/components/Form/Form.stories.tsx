@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useActionState, useRef, useState } from 'react';
-import { Button } from '../Button';
-import { Field, FieldError, FieldLabel } from '../Field';
-import { Input } from '../Input';
-import { Spinner } from '../Spinner';
+import { Button } from '../button';
+import { Field, FieldError, FieldLabel } from '../field';
+import { Input } from '../input';
+import { Spinner } from '../spinner';
 import { Form } from './Form';
 import storyStyles from './Form.stories.module.css';
 

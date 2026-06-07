@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
-import { CheckIcon } from '@/icons/ui';
-import { Button } from '../Button';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
+import { Button } from '../button';
 import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from './Alert';
 import styles from './Alert.stories.module.css';
 

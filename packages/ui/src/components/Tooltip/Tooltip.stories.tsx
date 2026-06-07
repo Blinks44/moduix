@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useMemo, useState } from 'react';
 import { BellIcon, InfoIcon, ShareIcon } from '@/icons/demo';
-import { PlusIcon } from '@/icons/ui';
-import { Button } from '../Button';
+import { PlusIcon } from '@/lib/moduix/icons/ui';
+import { Button } from '../button';
 import {
   Tooltip,
   TooltipProvider,

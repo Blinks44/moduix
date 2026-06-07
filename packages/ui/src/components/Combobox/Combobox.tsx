@@ -8,8 +8,8 @@ import {
   ChevronUpDownIcon,
   CloseIcon,
   PopupArrowIcon,
-} from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+} from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Combobox.module.css';
 
 type IndicatorPosition = 'start' | 'end';

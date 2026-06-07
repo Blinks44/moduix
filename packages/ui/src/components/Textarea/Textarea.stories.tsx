@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../Field';
+import { Field, FieldDescription, FieldError, FieldLabel } from '../field';
 import { Textarea } from './Textarea';
 import storyStyles from './Textarea.stories.module.css';
 

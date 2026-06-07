@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Fragment, useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import { Button } from '../Button';
-import { ScrollArea } from '../ScrollArea';
+import { Button } from '../button';
+import { ScrollArea } from '../scroll-area';
 import {
   Dialog,
   DialogBackdrop,

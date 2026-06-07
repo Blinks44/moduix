@@ -1,7 +1,7 @@
 import { Switch as SwitchPrimitive } from '@base-ui/react/switch';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentProps, type ComponentRef, type ForwardedRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

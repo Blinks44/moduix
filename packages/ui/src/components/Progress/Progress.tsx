@@ -1,6 +1,6 @@
 import { Progress as ProgressPrimitive } from '@base-ui/react/progress';
 import { forwardRef, type ComponentRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Progress.module.css';
 
 const Progress = forwardRef<

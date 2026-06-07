@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Skeleton } from '../Skeleton';
-import { Text } from '../Text';
+import { Skeleton } from '../skeleton';
+import { Text } from '../text';
 import { Stack } from './Stack';
 import styles from './Stack.stories.module.css';
 

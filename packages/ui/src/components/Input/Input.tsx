@@ -1,7 +1,7 @@
 import type { ComponentProps, ComponentRef } from 'react';
 import { Input as InputPrimitive } from '@base-ui/react/input';
 import { forwardRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Input.module.css';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

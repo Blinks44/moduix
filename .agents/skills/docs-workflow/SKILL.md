@@ -34,7 +34,8 @@ Use this skill for work in `apps/docs`.
 - Prefer `as T` over `useState<T>()` in MDX.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
-- For `shadcn`/GitHub registry docs, keep the full preparation flow in `quick-start.mdx`: root `tsconfig.json`, `tsconfig.app.json`, bundler alias, temporary `components.json` workaround, `shadcn add`, required `@/lib/moduix/styles/style.css` import, then imports from generated files.
+- For `shadcn`/GitHub registry docs, keep the full preparation flow in `quick-start.mdx`: root `tsconfig.json`, `tsconfig.app.json`, bundler alias, temporary `components.json` workaround when still required, `shadcn add`, required `@/lib/moduix/styles/style.css` import, then imports from generated files.
+- The root `registry.json` is the source of truth for registry items, and `npm run build:registry` generates JSON artifacts into `packages/ui/registry/default` via `shadcn build`.
 - Keep `index.mdx`, `quick-start.mdx`, `composition-patterns.mdx`, and `tokens.mdx` aligned whenever install paths, token entrypoints, or ownership guidance changes.
 - On component pages, put registry install guidance directly after the basic example. Show only the `add` commands there; do not repeat the full `init` walkthrough or stylesheet import on every page.
 - Load `references/component-doc-patterns.md` for preview, family-specific, and CSS-variable doc rules instead of duplicating them here.

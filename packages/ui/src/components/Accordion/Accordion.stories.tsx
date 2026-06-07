@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import { ChevronDownIcon } from '@/icons/ui';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import {
   Accordion,
   AccordionHeader,

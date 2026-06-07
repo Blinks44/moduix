@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
-import { SeparatorMarkIcon } from '@/icons/ui';
-import { Menu, MenuContent, MenuLinkItem, MenuTrigger } from '../Menu';
+import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
+import { Menu, MenuContent, MenuLinkItem, MenuTrigger } from '../menu';
 import {
   Breadcrumbs,
   BreadcrumbsEllipsis,

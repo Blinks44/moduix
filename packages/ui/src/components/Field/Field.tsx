@@ -1,5 +1,5 @@
 import { Field as FieldPrimitive } from '@base-ui/react/field';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Field.module.css';
 
 function Field({ className, ...props }: FieldPrimitive.Root.Props) {

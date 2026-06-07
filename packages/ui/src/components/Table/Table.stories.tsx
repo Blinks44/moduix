@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Badge } from '../Badge';
-import { Card, CardContent, CardHeader, CardTitle } from '../Card';
+import { Badge } from '../badge';
+import { Card, CardContent, CardHeader, CardTitle } from '../card';
 import {
   Table,
   TableBody,

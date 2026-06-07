@@ -8,8 +8,8 @@ import {
   type ComponentProps,
   type ReactNode,
 } from 'react';
-import { CloseIcon, PopupArrowIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { CloseIcon, PopupArrowIcon } from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Toast.module.css';
 
 export type ToastPlacement =

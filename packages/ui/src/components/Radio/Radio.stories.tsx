@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId, useState, type ComponentProps } from 'react';
-import { Field, FieldItem } from '../Field';
-import { Fieldset, FieldsetLegend } from '../Fieldset';
+import { Field, FieldItem } from '../field';
+import { Fieldset, FieldsetLegend } from '../fieldset';
 import {
   Radio,
   RadioField,

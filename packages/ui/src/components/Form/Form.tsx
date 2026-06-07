@@ -1,6 +1,6 @@
 import { Form as FormPrimitive } from '@base-ui/react/form';
 import { forwardRef, type ComponentRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Form.module.css';
 
 const Form = forwardRef<ComponentRef<typeof FormPrimitive>, FormPrimitive.Props>(function Form(

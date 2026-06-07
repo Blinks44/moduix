@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ChevronRightIcon } from '@/icons/ui';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import type { BadgeVariant } from './Badge';
 import { Badge, BadgeDot } from './Badge';
 import styles from './Badge.stories.module.css';

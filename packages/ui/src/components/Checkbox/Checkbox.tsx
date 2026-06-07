@@ -1,8 +1,8 @@
 import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentProps, type ComponentRef, type ForwardedRef } from 'react';
-import { CheckIcon, IndeterminateIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

@@ -1,8 +1,8 @@
 import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';
 import { clsx } from 'clsx';
 import { useMemo, type ComponentProps } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Pagination.module.css';
 
 function clampPage(page: number, count: number) {

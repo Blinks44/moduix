@@ -9,7 +9,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Tabs.module.css';
 
 const Tabs = forwardRef<

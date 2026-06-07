@@ -9,7 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
-    "build:registry": "node scripts/build-registry.mjs",
+    "build:registry": "rm -rf packages/ui/registry/default && npx shadcn@latest build registry.json --output packages/ui/registry/default",
     "build:ui": "turbo run build -F moduix",
     "changeset": "changeset",
     "changeset:version": "changeset version",
@@ -24,9 +24,7 @@
     "publish:ui": "npm publish -w moduix",
     "tsc:check": "turbo run tsc:check"
   },
-  "dependencies": {
-    "rollup-plugin-copy": "^3.5.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
     "@storybook/react-vite": "^10.4.1",

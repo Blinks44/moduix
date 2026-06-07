@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
-import { PopupArrowIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { PopupArrowIcon } from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Tooltip.module.css';
 
 type TooltipPositionerProps = Pick<

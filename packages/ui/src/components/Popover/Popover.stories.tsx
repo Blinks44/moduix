@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { BellIcon } from '@/icons/demo';
-import { CheckIcon } from '@/icons/ui';
-import { Button } from '../Button';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
+import { Button } from '../button';
 import {
   Popover,
   createPopoverHandle,

@@ -11,8 +11,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '../AlertDialog';
-import { Button } from '../Button';
+} from '../alert-dialog';
+import { Button } from '../button';
 import {
   Menu,
   MenuArrow,

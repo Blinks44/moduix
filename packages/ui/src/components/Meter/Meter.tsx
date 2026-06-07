@@ -1,6 +1,6 @@
 import { Meter as MeterPrimitive } from '@base-ui/react/meter';
 import { forwardRef, type ComponentRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Meter.module.css';
 
 const Meter = forwardRef<ComponentRef<typeof MeterPrimitive.Root>, MeterPrimitive.Root.Props>(

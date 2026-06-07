@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { ArrowUpRightIcon, StarIcon } from '@/icons/demo';
-import { PlusIcon } from '@/icons/ui';
-import { Spinner } from '../Spinner';
+import { PlusIcon } from '@/lib/moduix/icons/ui';
+import { Spinner } from '../spinner';
 import { Button } from './Button';
 import styles from './Button.stories.module.css';
 

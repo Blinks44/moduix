@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ComponentProps } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
-import { CheckIcon } from '@/icons/ui';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import { Toggle } from './Toggle';
 import storyStyles from './Toggle.stories.module.css';
 

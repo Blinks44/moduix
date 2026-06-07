@@ -2,7 +2,7 @@ import { Radio as RadioPrimitive } from '@base-ui/react/radio';
 import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentProps, type ComponentRef, type ForwardedRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Radio.module.css';
 
 type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

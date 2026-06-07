@@ -9,7 +9,7 @@ Use this skill for markdown files in `packages/ui/src/components`.
 
 ## Scope
 
-- `packages/ui/src/components/<ComponentName>/<component-name>.md`
+- `packages/ui/src/components/<component-name>/<component-name>.md`
 - wrapper behavior contracts
 - component-specific agent notes
 - component-level changelog entries

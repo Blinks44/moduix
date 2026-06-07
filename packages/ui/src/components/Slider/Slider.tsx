@@ -10,7 +10,7 @@ import {
   type ReactNode,
   type RefAttributes,
 } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Slider.module.css';
 
 type SliderValue = number | readonly number[];

@@ -1,6 +1,6 @@
 import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';
 import { forwardRef, type ComponentRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Toolbar.module.css';
 
 const Toolbar = forwardRef<ComponentRef<typeof ToolbarPrimitive.Root>, ToolbarPrimitive.Root.Props>(

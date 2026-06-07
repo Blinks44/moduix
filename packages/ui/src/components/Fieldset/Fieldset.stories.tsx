@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Field, FieldControl, FieldError, FieldItem, FieldLabel } from '../Field';
-import { Radio, RadioGroup, RadioLabel } from '../Radio';
+import { Field, FieldControl, FieldError, FieldItem, FieldLabel } from '../field';
+import { Radio, RadioGroup, RadioLabel } from '../radio';
 import { Fieldset, FieldsetLegend } from './Fieldset';
 import styles from './Fieldset.stories.module.css';
 

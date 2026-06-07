@@ -1,7 +1,7 @@
 import { useRender } from '@base-ui/react/use-render';
 import { clsx } from 'clsx';
 import { createContext, useContext, useMemo, type ComponentProps } from 'react';
-import { CheckIcon } from '@/icons/ui';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './Stepper.module.css';
 
 type StepperOrientation = 'horizontal' | 'vertical';

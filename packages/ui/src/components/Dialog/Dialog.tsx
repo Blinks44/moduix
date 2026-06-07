@@ -1,8 +1,8 @@
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { clsx } from 'clsx';
 import { createContext, useContext, type ComponentProps } from 'react';
-import { CloseButton } from '@/components/CloseButton';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { CloseButton } from '../close-button';
 import styles from './Dialog.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';

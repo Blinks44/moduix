@@ -1,6 +1,6 @@
 import { Button as ButtonPrimitive } from '@base-ui/react/button';
 import { forwardRef, type ComponentRef } from 'react';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Button.module.css';
 
 type ButtonVariant =

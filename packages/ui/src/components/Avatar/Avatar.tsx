@@ -1,5 +1,5 @@
 import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Avatar.module.css';
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

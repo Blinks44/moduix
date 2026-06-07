@@ -7,8 +7,8 @@ import {
   ChevronUpDownIcon,
   ChevronUpIcon,
   PopupArrowIcon,
-} from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+} from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Select.module.css';
 
 type IndicatorPosition = 'start' | 'end';

@@ -1,8 +1,8 @@
 import { Collapsible as CollapsiblePrimitive } from '@base-ui/react/collapsible';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
-import { ChevronRightIcon } from '@/icons/ui';
-import { mergeClassName } from '@/utils/mergeClassName';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Collapsible.module.css';
 
 const Collapsible = forwardRef<
