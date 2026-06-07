@@ -1,5 +1,15 @@
 # moduix
 
+## 1.0.0
+
+### Major Changes
+
+- d5e0852: Add shadcn registry along npm install, all components ready to first release, api and styles consistent across all present components
+
+### Patch Changes
+
+- d5e0852: Add shadcn registry (poc), update Accordion defaults
+
 ## 0.11.3
 
 ### Patch Changes
