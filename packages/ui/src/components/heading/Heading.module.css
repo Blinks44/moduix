@@ -2,7 +2,7 @@
   .root {
     margin: 0;
     color: var(--heading-color, var(--color-foreground));
-    font-family: var(--heading-font-family, var(--font-sans));
+    font-family: var(--heading-font-family, inherit);
     font-size: var(--heading-font-size-2xl, var(--heading-font-size, var(--text-3xl)));
     font-weight: var(
       --heading-font-weight-semibold,

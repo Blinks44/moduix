@@ -20,7 +20,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     color: var(--table-color, var(--color-foreground));
-    font-family: var(--table-font-family, var(--font-sans));
+    font-family: var(--table-font-family, inherit);
     font-size: var(--table-font-size, var(--text-sm));
     line-height: var(--table-line-height, var(--line-height-text-sm));
     text-align: left;

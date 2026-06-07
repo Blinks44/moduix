@@ -12,7 +12,7 @@
     margin: 0;
     padding: 0;
     color: var(--_list-color);
-    font-family: var(--list-font-family, var(--font-sans));
+    font-family: var(--list-font-family, inherit);
     font-size: var(--_list-font-size);
     font-weight: var(--list-font-weight, var(--weight-regular));
     line-height: var(--_list-line-height);

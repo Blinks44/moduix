@@ -1,7 +1,7 @@
 @layer ui.components {
   .root {
     margin: 0;
-    font-family: var(--text-font-family, var(--font-sans));
+    font-family: var(--text-font-family, inherit);
     font-size: var(--text-font-size-md, var(--text-md));
     font-weight: var(--text-font-weight-regular, var(--weight-regular));
     line-height: var(--text-line-height-md, var(--line-height-text-md));
