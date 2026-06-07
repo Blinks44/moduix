@@ -6,22 +6,17 @@ icon: BookOpen
 
 # moduix
 
-Moduix is a React component library built for real product work. I started it for my own
-work projects because our styling layer is plain native CSS, and I wanted a convenient set of
-primitives that still felt ergonomic, composable, and predictable in day-to-day development.
+Moduix is a React component library for product interfaces. It keeps the interaction layer close to
+[Base UI](https://base-ui.com/), ships ready-made CSS and tokens, and favors explicit React parts
+over large configuration surfaces.
 
-The library is built on top of [Base UI](https://base-ui.com/), so the difficult behavior,
-accessibility, focus management, and low-level primitive work stays close to a strong foundation.
-moduix adds ready-made structure, default styling, CSS variables, examples, and documentation around
-those primitives.
+The library supports two workflows:
 
-The project is also an experiment in combining two workflows that are usually separate. You can use
-moduix as a regular npm package and receive updates through package management, or install component
-source into your own project with `shadcn` when a project needs direct ownership and local
-customization.
+- use it as a normal npm package when you want package-managed updates
+- install component source into your own project with `shadcn` when you want local ownership and direct customization
 
-The recommended place to start is the [Quick start](/docs/quick-start). It covers both install
-paths and documents the current temporary `components.json` workaround for the `shadcn` path.
+Start with the [Quick start](/docs/quick-start). It covers both install paths and the current
+temporary `components.json` workaround for the `shadcn` path.
 
 <div className="not-prose my-8 overflow-hidden rounded-lg border bg-fd-card">
   <div className="grid gap-0 md:grid-cols-[0.92fr_1.08fr]">
@@ -72,10 +67,10 @@ paths and documents the current temporary `components.json` workaround for the `
   </div>
 </div>
 
-I am not trying to compete with [shadcn/ui](https://ui.shadcn.com/) or claim that this is the one
-right way to build interfaces. shadcn/ui is a huge inspiration for the composition-first API and
-the idea that components should be easy to read, own, and customize. moduix is simply the shape that
-works well for my projects. If it fits yours too, I will be glad.
+moduix is not trying to replace [shadcn/ui](https://ui.shadcn.com/). shadcn/ui is a strong
+inspiration for the composition-first API and the idea that components should stay easy to read,
+own, and customize. moduix explores that model with Base UI primitives and a plain CSS styling
+layer.
 
 ## What You Get
 

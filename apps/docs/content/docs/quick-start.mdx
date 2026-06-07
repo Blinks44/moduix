@@ -123,8 +123,8 @@ resolve: {
   </Tab>
 </Tabs>
 
-Create `components.json` in the project root with the following content. This is a temporary
-workaround until `shadcn` fixes custom registry base init for non-Tailwind setups:
+Create `components.json` in the project root with the following content. This is the current
+workaround while `shadcn` custom registry base init still fails for this setup:
 
 ```json title="components.json"
 {
@@ -152,8 +152,8 @@ workaround until `shadcn` fixes custom registry base init for non-Tailwind setup
 }
 ```
 
-This gives the `shadcn` CLI the aliases and project configuration it needs to place generated files
-in the correct `components` and `lib` locations.
+This gives the `shadcn` CLI the aliases and project metadata it needs to place generated files in
+`src/components` and `src/lib` instead of a literal `@` directory.
 
 ### 2. Install components with shadcn
 
@@ -175,9 +175,8 @@ Import the generated foundation stylesheet from the files that `shadcn` added to
 import '@/lib/moduix/styles/style.css';
 ```
 
-The examples in this guide assume the default shadcn-style aliases such as `@/components` and
-`@/lib`. If your project uses different aliases, update `components.json` and import the generated
-files from the matching paths.
+The examples below assume `@/components` and `@/lib`. If your project uses different aliases,
+update `components.json` and import the generated files from the matching paths.
 
 ### 4. Use the generated files
 

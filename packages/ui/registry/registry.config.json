@@ -11,7 +11,7 @@
     "description": "Initialize shadcn for moduix and install the shared foundation files.",
     "extends": "none",
     "config": {
-      "style": "moduix",
+      "style": "new-york",
       "rsc": false,
       "tsx": true,
       "aliases": {

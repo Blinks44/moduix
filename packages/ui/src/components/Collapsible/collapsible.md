@@ -24,6 +24,8 @@ coordinate together, prefer `Accordion`.
 - `CollapsibleTriggerIcon` is narrow moduix sugar for the common disclosure cue. It renders a
   decorative `span`, defaults `aria-hidden` to `true`, and shows `ChevronRightIcon` when no children
   are provided.
+- The root uses a compact default width through `--collapsible-width` and `--collapsible-max-width`
+  so the trigger does not jump with panel content width.
 - The panel animation relies on Base UI runtime measurement via `--collapsible-panel-height`.
 - `keepMounted` and `hiddenUntilFound` are passed through to the panel unchanged.
 
@@ -133,7 +135,8 @@ Base UI state hooks used by the shipped styles:
 
 Default styling behavior:
 
-- `Collapsible` is a simple column flex container with inherited text color and `min-width: 0`.
+- `Collapsible` is a simple column flex container with inherited text color, `min-width: 0`, a
+  default `--collapsible-width` of `14rem`, and `--collapsible-max-width: 100%`.
 - `CollapsibleTrigger` is a full-width flex button with hover, active, focus-visible, and disabled
   states, plus `user-select: none` to avoid accidental text selection during repeated toggles.
 - `CollapsibleTriggerIcon` rotates when the trigger receives `data-panel-open`.
@@ -168,6 +171,7 @@ Public CSS variables:
 | `--collapsible-focus-ring-color`    | `var(--color-ring)`                   |
 | `--collapsible-focus-ring-offset`   | `var(--border-width-sm)`              |
 | `--collapsible-focus-ring-width`    | `var(--border-width-sm)`              |
+| `--collapsible-max-width`           | `100%`                                |
 | `--collapsible-icon-open-transform` | `rotate(90deg)`                       |
 | `--collapsible-icon-size`           | `0.75rem`                             |
 | `--collapsible-icon-transition`     | `var(--transition-default)`           |
@@ -188,6 +192,7 @@ Public CSS variables:
 | `--collapsible-trigger-padding-y`   | `var(--spacing-1)`                    |
 | `--collapsible-trigger-radius`      | `0`                                   |
 | `--collapsible-trigger-transition`  | `var(--transition-default)`           |
+| `--collapsible-width`               | `14rem`                               |
 
 ## Accessibility and UX notes
 
@@ -229,3 +234,5 @@ Public CSS variables:
 - Documented the styling opt-out behavior for custom trigger rendering and the full public CSS variable
   contract.
 - Recorded the shipped trigger UX details: disabled hover/active suppression and `user-select: none`.
+- Added a compact default root width (`14rem`) plus `--collapsible-width` and
+  `--collapsible-max-width` variables to keep layout stable out of the box.

@@ -24,6 +24,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls trigger focus ring width.',
   ],
+  ['--collapsible-max-width', '100%', 'Controls root max width.'],
   [
     '--collapsible-icon-open-transform',
     'rotate(90deg)',
@@ -68,6 +69,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
     'var(--transition-default)',
     'Controls trigger color and background transition.',
   ],
+  ['--collapsible-width', '14rem', 'Controls root width.'],
 ];
 
 export const collapsiblePlaygroundCssProperties: CssPropertyInput[] = [
@@ -113,7 +115,7 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 
 export function CollapsibleExample(props: ComponentProps<typeof Collapsible>) {
   return (
-    <Collapsible className={styles.root} {...props}>
+    <Collapsible {...props}>
       <CollapsibleTrigger>
         Recovery keys
         <CollapsibleTriggerIcon />
@@ -133,7 +135,7 @@ export function ControlledCollapsibleExample() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
+    <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger>
         Recovery keys
         <CollapsibleTriggerIcon />
@@ -152,7 +154,7 @@ export function ControlledCollapsibleExample() {
 
 export function DisabledCollapsibleExample() {
   return (
-    <Collapsible disabled className={styles.root}>
+    <Collapsible disabled>
       <CollapsibleTrigger>
         Recovery keys
         <CollapsibleTriggerIcon />
@@ -170,7 +172,7 @@ export function DisabledCollapsibleExample() {
 
 export function HiddenUntilFoundCollapsibleExample() {
   return (
-    <Collapsible className={styles.root}>
+    <Collapsible>
       <CollapsibleTrigger>
         Searchable recovery keys
         <CollapsibleTriggerIcon />
@@ -188,7 +190,7 @@ export function HiddenUntilFoundCollapsibleExample() {
 
 export function CustomCompositionCollapsibleExample() {
   return (
-    <Collapsible className={styles.customRoot}>
+    <Collapsible>
       <CollapsibleTrigger render={<div />} nativeButton={false} className={styles.customTrigger}>
         <span className={styles.triggerLabel}>Styled recovery keys</span>
         <CollapsibleTriggerIcon className={styles.customTriggerIcon}>

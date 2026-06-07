@@ -95,6 +95,7 @@
   --accordion-icon-transition: initial; /* var(--transition-default) */
   --accordion-item-border-color: initial; /* var(--color-border) */
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
+  --accordion-max-width: initial; /* 100% */
   --accordion-panel-color: initial; /* var(--color-muted-foreground) */
   --accordion-panel-font-size: initial; /* var(--text-md) */
   --accordion-panel-line-height: initial; /* var(--line-height-text-md) */
@@ -106,6 +107,7 @@
   --accordion-trigger-line-height: initial; /* var(--line-height-text-md) */
   --accordion-trigger-padding-x: initial; /* var(--spacing-3) */
   --accordion-trigger-padding-y: initial; /* var(--spacing-2) */
+  --accordion-width: initial; /* 22rem */
   /* Alert */
   --alert-bg: initial; /* var(--alert-bg-default, var(--color-card)) */
   --alert-border-color: initial; /* var(--alert-border-color-default, var(--color-border)) */
@@ -507,6 +509,7 @@
   --collapsible-focus-ring-color: initial; /* var(--color-ring) */
   --collapsible-focus-ring-offset: initial; /* var(--border-width-sm) */
   --collapsible-focus-ring-width: initial; /* var(--border-width-sm) */
+  --collapsible-max-width: initial; /* 100% */
   --collapsible-icon-open-transform: initial; /* rotate(90deg) */
   --collapsible-icon-size: initial; /* 0.75rem */
   --collapsible-icon-transition: initial; /* var(--transition-default) */
@@ -525,6 +528,7 @@
   --collapsible-trigger-padding-y: initial; /* var(--spacing-1) */
   --collapsible-trigger-radius: initial; /* 0 */
   --collapsible-trigger-transition: initial; /* var(--transition-default) */
+  --collapsible-width: initial; /* 14rem */
 
   /* Combobox */
   --combobox-action-bg: initial; /* transparent */

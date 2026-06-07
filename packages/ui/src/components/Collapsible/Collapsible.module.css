@@ -2,6 +2,8 @@
   .root {
     box-sizing: border-box;
     display: flex;
+    width: var(--collapsible-width, 14rem);
+    max-width: var(--collapsible-max-width, 100%);
     min-width: 0;
     flex-direction: column;
     color: var(--collapsible-color, var(--color-foreground));

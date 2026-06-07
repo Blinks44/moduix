@@ -64,8 +64,8 @@ The files become part of your codebase instead of staying in `node_modules`.
 Make sure your project resolves the `@/*` alias to `src/*` in both `tsconfig.json` and
 `tsconfig.app.json`, and mirror it in your bundler config.
 
-Create `components.json` in the project root. Temporary workaround while `shadcn` custom registry
-base init still requires a Tailwind-compatible setup:
+Create `components.json` in the project root. Current workaround while `shadcn` custom registry
+base init still fails for this setup:
 
 ```json
 {
@@ -107,8 +107,7 @@ Import the generated foundation stylesheet once in your application entry point:
 import '@/lib/moduix/styles/style.css';
 ```
 
-Generated files are written to `src/components/moduix/*` and `src/lib/moduix/*` when the aliases
-above point `@/*` at `src/*`.
+With the aliases above, generated files land in `src/components/moduix/*` and `src/lib/moduix/*`.
 
 ## Usage
 
