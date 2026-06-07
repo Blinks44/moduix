@@ -31,7 +31,7 @@ import {
 
       export function CollapsibleDemo() {
         return (
-          <Collapsible className={styles.root}>
+          <Collapsible>
             <CollapsibleTrigger>
               Recovery keys
               <CollapsibleTriggerIcon />
@@ -52,10 +52,6 @@ import {
 
   <Preview.CSS>
     {`
-      .root {
-        width: 16rem;
-      }
-
       .keysList {
         display: flex;
         flex-direction: column;
@@ -163,8 +159,9 @@ Base UI state hooks used by the default styles:
 
 The default trigger is a full-width flex button with hover, active, focus-visible, and disabled
 states. `CollapsibleTriggerIcon` rotates automatically. `CollapsiblePanel` animates its height from
-the runtime `--collapsible-panel-height` value. Use the **CSS Properties** tab in the preview above
-for the full variable contract.
+the runtime `--collapsible-panel-height` value. By default the root uses
+`--collapsible-width: 14rem` with `--collapsible-max-width: 100%`. Use the **CSS Properties** tab
+in the preview above for the full variable contract.
 
 ## Accessibility and UX notes
 
@@ -211,7 +208,7 @@ Use `defaultOpen` when the panel should start expanded on first render.
 
       export function DefaultOpenCollapsibleDemo() {
         return (
-          <Collapsible defaultOpen className={styles.root}>
+          <Collapsible defaultOpen>
             <CollapsibleTrigger>
               Recovery keys
               <CollapsibleTriggerIcon />
@@ -252,7 +249,7 @@ Control `open` from React state when the collapsible must coordinate with surrou
         const [open, setOpen] = useState(false);
 
         return (
-          <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
+          <Collapsible open={open} onOpenChange={setOpen}>
             <CollapsibleTrigger>
               Recovery keys
               <CollapsibleTriggerIcon />
@@ -291,7 +288,7 @@ Set `disabled` on the root when the trigger should stay visible but unavailable 
 
       export function DisabledCollapsibleDemo() {
         return (
-          <Collapsible disabled className={styles.root}>
+          <Collapsible disabled>
             <CollapsibleTrigger>
               Recovery keys
               <CollapsibleTriggerIcon />
@@ -330,7 +327,7 @@ content.
 
       export function HiddenUntilFoundCollapsibleDemo() {
         return (
-          <Collapsible className={styles.root}>
+          <Collapsible>
             <CollapsibleTrigger>
               Searchable recovery keys
               <CollapsibleTriggerIcon />
@@ -371,7 +368,7 @@ the icon and surface styles.
 
       export function CustomCompositionCollapsibleDemo() {
         return (
-          <Collapsible className={styles.customRoot}>
+          <Collapsible>
             <CollapsibleTrigger
               render={<div />}
               nativeButton={false}

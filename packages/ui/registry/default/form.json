@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form",
+  "title": "Form",
+  "description": "moduix Form component.",
+  "dependencies": ["@base-ui/react", "clsx"],
+  "registryDependencies": ["Blinks44/moduix/core"],
+  "files": [
+    {
+      "path": "packages/ui/src/components/form/Form.tsx",
+      "content": "import { Form as FormPrimitive } from '@base-ui/react/form';\nimport { forwardRef, type ComponentRef } from 'react';\nimport { mergeClassName } from '@/lib/moduix/mergeClassName';\nimport styles from './Form.module.css';\n\nconst Form = forwardRef<ComponentRef<typeof FormPrimitive>, FormPrimitive.Props>(function Form(\n  { className, ...props },\n  ref,\n) {\n  return (\n    <FormPrimitive\n      ref={ref}\n      data-slot=\"form-root\"\n      className={mergeClassName(className, styles.root)}\n      {...props}\n    />\n  );\n});\n\nexport { Form };",
+      "type": "registry:component",
+      "target": "@components/moduix/form/Form.tsx"
+    },
+    {
+      "path": "packages/ui/src/components/form/Form.module.css",
+      "content": "@layer ui.components {\n  .root {\n    display: flex;\n    flex-direction: column;\n    gap: var(--form-gap, var(--spacing-4));\n    width: var(--form-width, 100%);\n    max-width: var(--form-max-width, none);\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/form/Form.module.css"
+    },
+    {
+      "path": "packages/ui/src/components/form/index.ts",
+      "content": "export { Form } from './Form';",
+      "type": "registry:component",
+      "target": "@components/moduix/form/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

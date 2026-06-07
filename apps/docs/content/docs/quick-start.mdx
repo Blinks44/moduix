@@ -76,9 +76,29 @@ staying in `node_modules`.
 
 ### 1. Prepare the project for shadcn
 
-Make sure your project resolves the `@/*` alias to `src/*`. For Vite, that usually means:
+Make sure your project resolves the `@/*` alias to `src/*`. For Vite, put the alias in both
+`tsconfig.json` and `tsconfig.app.json`, then mirror it in `vite.config.ts`:
 
-```json title="tsconfig.app.json"
+<Tabs items={['tsconfig.json', 'tsconfig.app.json', 'vite.config.ts']}>
+  <Tab value="tsconfig.json">
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+}
+```
+
+  </Tab>
+  <Tab value="tsconfig.app.json">
+
+```json
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -89,7 +109,10 @@ Make sure your project resolves the `@/*` alias to `src/*`. For Vite, that usual
 }
 ```
 
-```ts title="vite.config.ts"
+  </Tab>
+  <Tab value="vite.config.ts">
+
+```ts
 resolve: {
   alias: {
     '@': path.resolve(__dirname, './src'),
@@ -97,15 +120,40 @@ resolve: {
 }
 ```
 
-Initialize `shadcn` with the moduix registry base item:
+  </Tab>
+</Tabs>
 
-```bash
-npx shadcn@latest init Blinks44/moduix/init
+Create `components.json` in the project root with the following content. This is the current
+workaround while `shadcn` custom registry base init still fails for this setup:
+
+```json title="components.json"
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/index.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "rtl": false,
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {}
+}
 ```
 
-This creates `components.json`, installs the shared moduix foundation files, and sets up the
-project configuration that the CLI uses to place generated files in the correct `components` and
-`lib` locations.
+This gives the `shadcn` CLI the aliases and project metadata it needs to place generated files in
+`src/components` and `src/lib` instead of a literal `@` directory.
 
 ### 2. Install components with shadcn
 
@@ -127,9 +175,16 @@ Import the generated foundation stylesheet from the files that `shadcn` added to
 import '@/lib/moduix/styles/style.css';
 ```
 
-The examples in this guide assume the default shadcn-style aliases such as `@/components` and
-`@/lib`. If your project uses different aliases, update `components.json` and import the generated
-files from the matching paths.
+If you want the optional reset in the copy-owned path, import it explicitly before the main
+stylesheet:
+
+```tsx
+import '@/lib/moduix/styles/reset.css';
+import '@/lib/moduix/styles/style.css';
+```
+
+The examples below assume `@/components` and `@/lib`. If your project uses different aliases,
+update `components.json` and import the generated files from the matching paths.
 
 ### 4. Use the generated files
 

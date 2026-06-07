@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --background: oklch(0.982 0.003 285);
   --foreground: oklch(0.175 0.01 285);
   --card: oklch(0.995 0.002 285);
@@ -35,6 +36,7 @@
 
   .dark,
   &.dark {
+    color-scheme: dark;
     --background: oklch(0.155 0.008 285);
     --foreground: oklch(0.968 0.003 285);
     --card: oklch(0.2 0.011 285);

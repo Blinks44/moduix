@@ -4,6 +4,12 @@
 
 It contains user-facing guides, component pages, usage examples, and API references.
 
+Key docs that currently require extra synchronization with library behavior:
+
+- `content/docs/quick-start.mdx` for package install and `shadcn` registry setup
+- `content/docs/composition-patterns.mdx` for wrapper composition guidance
+- `content/docs/tokens.mdx` for shared token entrypoints and override scope
+
 ## Tech stack
 
 - TanStack Start

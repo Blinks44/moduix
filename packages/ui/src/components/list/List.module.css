@@ -1,0 +1,135 @@
+@layer ui.components {
+  .root {
+    --_list-color: var(--list-color, var(--list-default-color, var(--color-foreground)));
+    --_list-font-size: var(--list-font-size, var(--list-font-size-md, var(--text-md)));
+    --_list-gap: var(--list-gap, var(--list-gap-sm, var(--spacing-2)));
+    --_list-line-height: var(
+      --list-line-height,
+      var(--list-line-height-md, var(--line-height-text-md))
+    );
+
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: var(--_list-color);
+    font-family: var(--list-font-family, inherit);
+    font-size: var(--_list-font-size);
+    font-weight: var(--list-font-weight, var(--weight-regular));
+    line-height: var(--_list-line-height);
+    letter-spacing: var(--list-letter-spacing, 0);
+    list-style-position: outside;
+    overflow-wrap: break-word;
+
+    & > :where(li + li) {
+      margin-block-start: var(--_list-gap);
+    }
+
+    & > :where(li)::marker {
+      color: var(--list-marker-color, currentColor);
+      font-weight: var(--list-marker-font-weight, inherit);
+    }
+
+    &[data-marker='none'] {
+      padding-inline-start: 0;
+      list-style: none;
+    }
+
+    &[data-marker='disc'],
+    &[data-marker='decimal'] {
+      padding-inline-start: var(--list-padding-x, var(--spacing-5));
+    }
+
+    &[data-marker='disc'] {
+      list-style-type: disc;
+    }
+
+    &:is(ul)[data-marker='decimal'],
+    &[data-marker='decimal'][data-marker-mode='explicit'] {
+      list-style-type: decimal;
+    }
+
+    &[data-size='xs'] {
+      --_list-font-size: var(--list-font-size, var(--list-font-size-xs, var(--text-xs)));
+      --_list-line-height: var(
+        --list-line-height,
+        var(--list-line-height-xs, var(--line-height-text-xs))
+      );
+    }
+
+    &[data-size='sm'] {
+      --_list-font-size: var(--list-font-size, var(--list-font-size-sm, var(--text-sm)));
+      --_list-line-height: var(
+        --list-line-height,
+        var(--list-line-height-sm, var(--line-height-text-sm))
+      );
+    }
+
+    &[data-size='md'] {
+      --_list-font-size: var(--list-font-size, var(--list-font-size-md, var(--text-md)));
+      --_list-line-height: var(
+        --list-line-height,
+        var(--list-line-height-md, var(--line-height-text-md))
+      );
+    }
+
+    &[data-size='lg'] {
+      --_list-font-size: var(--list-font-size, var(--list-font-size-lg, var(--text-lg)));
+      --_list-line-height: var(
+        --list-line-height,
+        var(--list-line-height-lg, var(--line-height-text-lg))
+      );
+    }
+
+    &[data-size='xl'] {
+      --_list-font-size: var(--list-font-size, var(--list-font-size-xl, var(--text-xl)));
+      --_list-line-height: var(
+        --list-line-height,
+        var(--list-line-height-xl, var(--line-height-text-xl))
+      );
+    }
+
+    &[data-tone='default'] {
+      --_list-color: var(--list-color, var(--list-default-color, var(--color-foreground)));
+    }
+
+    &[data-tone='muted'] {
+      --_list-color: var(--list-color, var(--list-muted-color, var(--color-muted-foreground)));
+    }
+
+    &[data-tone='subtle'] {
+      --_list-color: var(--list-color, var(--list-subtle-color, var(--color-secondary-foreground)));
+    }
+
+    &[data-tone='primary'] {
+      --_list-color: var(--list-color, var(--list-primary-color, var(--color-primary)));
+    }
+
+    &[data-tone='destructive'] {
+      --_list-color: var(--list-color, var(--list-destructive-color, var(--color-destructive)));
+    }
+  }
+
+  .root[data-gap='xs'] {
+    --_list-gap: var(--list-gap, var(--list-gap-xs, var(--spacing-1)));
+  }
+
+  .root[data-gap='sm'] {
+    --_list-gap: var(--list-gap, var(--list-gap-sm, var(--spacing-2)));
+  }
+
+  .root[data-gap='md'] {
+    --_list-gap: var(--list-gap, var(--list-gap-md, var(--spacing-3)));
+  }
+
+  .root[data-gap='lg'] {
+    --_list-gap: var(--list-gap, var(--list-gap-lg, var(--spacing-4)));
+  }
+
+  .root[data-gap='xl'] {
+    --_list-gap: var(--list-gap, var(--list-gap-xl, var(--spacing-5)));
+  }
+
+  .root[data-gap='2xl'] {
+    --_list-gap: var(--list-gap, var(--list-gap-2xl, var(--spacing-6)));
+  }
+}

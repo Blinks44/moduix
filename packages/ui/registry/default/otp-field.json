@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "otp-field",
+  "title": "OTPField",
+  "description": "moduix OTPField component.",
+  "dependencies": ["@base-ui/react", "clsx"],
+  "registryDependencies": ["Blinks44/moduix/core"],
+  "files": [
+    {
+      "path": "packages/ui/src/components/otp-field/OTPField.tsx",
+      "content": "import { OTPFieldPreview as OTPFieldPrimitive } from '@base-ui/react/otp-field';\nimport { mergeClassName } from '@/lib/moduix/mergeClassName';\nimport styles from './OTPField.module.css';\n\nfunction OTPField({ children, className, length, ...props }: OTPFieldPrimitive.Root.Props) {\n  return (\n    <OTPFieldPrimitive.Root\n      data-slot=\"otp-field-root\"\n      className={mergeClassName(className, styles.root)}\n      length={length}\n      {...props}\n    >\n      {children ?? renderDefaultInputs(length)}\n    </OTPFieldPrimitive.Root>\n  );\n}\n\nfunction OTPFieldInput({ className, ...props }: OTPFieldPrimitive.Input.Props) {\n  return (\n    <OTPFieldPrimitive.Input\n      data-slot=\"otp-field-input\"\n      className={mergeClassName(className, styles.input)}\n      {...props}\n    />\n  );\n}\n\nfunction OTPFieldSeparator({ className, ...props }: OTPFieldPrimitive.Separator.Props) {\n  const { 'aria-hidden': ariaHidden = true, role = 'presentation', ...separatorProps } = props;\n\n  return (\n    <OTPFieldPrimitive.Separator\n      data-slot=\"otp-field-separator\"\n      aria-hidden={ariaHidden}\n      role={role}\n      className={mergeClassName(className, styles.separator)}\n      {...separatorProps}\n    />\n  );\n}\n\nfunction getCharacterAriaLabel(index: number, length: number) {\n  return index === 0 ? undefined : `Character ${index + 1} of ${length}`;\n}\n\nfunction renderDefaultInputs(length: number) {\n  return Array.from({ length }, (_, index) => (\n    <OTPFieldInput key={index} aria-label={getCharacterAriaLabel(index, length)} />\n  ));\n}\n\nexport { OTPField, OTPFieldInput, OTPFieldSeparator };",
+      "type": "registry:component",
+      "target": "@components/moduix/otp-field/OTPField.tsx"
+    },
+    {
+      "path": "packages/ui/src/components/otp-field/OTPField.module.css",
+      "content": "@layer ui.components {\n  .root {\n    display: inline-flex;\n    align-items: center;\n    gap: var(--otp-field-gap, var(--spacing-2));\n    width: var(--otp-field-width, auto);\n    max-width: var(--otp-field-max-width, none);\n\n    &[data-disabled],\n    &[data-readonly] {\n      opacity: var(--otp-field-disabled-opacity, var(--opacity-disabled));\n    }\n  }\n\n  .input {\n    box-sizing: border-box;\n    width: var(--otp-field-input-width, var(--otp-field-input-size, 2.5rem));\n    min-width: var(--otp-field-input-width, var(--otp-field-input-size, 2.5rem));\n    height: var(--otp-field-input-height, var(--otp-field-input-size, 2.5rem));\n    margin: 0;\n    border: var(--otp-field-border-width, var(--border-width-sm)) solid\n      var(--otp-field-border-color, var(--color-border));\n    border-radius: var(--otp-field-radius, var(--radius-md));\n    padding-block: var(--otp-field-input-padding-y, 0);\n    padding-inline: var(--otp-field-input-padding-x, 0);\n    background-color: var(--otp-field-bg, var(--color-background));\n    color: var(--otp-field-color, var(--color-foreground));\n    font: inherit;\n    font-size: var(--otp-field-font-size, var(--text-lg));\n    font-weight: var(--otp-field-font-weight, var(--weight-medium));\n    line-height: var(--otp-field-line-height, var(--line-height-text-lg));\n    text-align: center;\n    font-variant-numeric: tabular-nums;\n    outline: var(\n        --otp-field-focus-ring-width,\n        var(--otp-field-border-width, var(--border-width-sm))\n      )\n      solid transparent;\n    outline-offset: var(--otp-field-focus-ring-offset, -1px);\n    transition:\n      border-color var(--otp-field-transition, var(--transition-default)),\n      outline-color var(--otp-field-transition, var(--transition-default)),\n      background-color var(--otp-field-transition, var(--transition-default));\n\n    &::placeholder {\n      color: var(--otp-field-placeholder-color, var(--color-muted-foreground));\n    }\n\n    &:focus-visible {\n      outline-color: var(--otp-field-focus-ring-color, var(--color-ring));\n    }\n\n    &[data-filled] {\n      background-color: var(--otp-field-bg-filled, var(--otp-field-bg, var(--color-background)));\n    }\n\n    &[data-invalid] {\n      border-color: var(--otp-field-border-color-invalid, var(--color-destructive));\n    }\n\n    &[data-invalid]:focus-visible {\n      outline-color: var(--otp-field-border-color-invalid, var(--color-destructive));\n    }\n\n    &[data-complete][data-filled] {\n      border-color: var(\n        --otp-field-border-color-complete,\n        var(--otp-field-border-color, var(--color-border))\n      );\n    }\n\n    &[data-disabled],\n    &[data-readonly] {\n      pointer-events: none;\n    }\n  }\n\n  .separator {\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    width: var(--otp-field-separator-width, var(--otp-field-separator-size, 1rem));\n    height: var(--otp-field-separator-height, var(--otp-field-separator-size, 1rem));\n    color: var(--otp-field-separator-color, var(--color-muted-foreground));\n    flex-shrink: 0;\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/otp-field/OTPField.module.css"
+    },
+    {
+      "path": "packages/ui/src/components/otp-field/index.ts",
+      "content": "export { OTPField, OTPFieldInput, OTPFieldSeparator } from './OTPField';",
+      "type": "registry:component",
+      "target": "@components/moduix/otp-field/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

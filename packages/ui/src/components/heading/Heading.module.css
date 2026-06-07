@@ -1,0 +1,77 @@
+@layer ui.components {
+  .root {
+    margin: 0;
+    color: var(--heading-color, var(--color-foreground));
+    font-family: var(--heading-font-family, inherit);
+    font-size: var(--heading-font-size-2xl, var(--heading-font-size, var(--text-3xl)));
+    font-weight: var(
+      --heading-font-weight-semibold,
+      var(--heading-font-weight, var(--weight-semibold))
+    );
+    line-height: var(
+      --heading-line-height-2xl,
+      var(--heading-line-height, var(--line-height-text-3xl))
+    );
+    letter-spacing: var(--heading-letter-spacing, 0);
+    text-wrap: var(--heading-text-wrap, balance);
+    overflow-wrap: break-word;
+
+    &[data-size='xs'] {
+      font-size: var(--heading-font-size-xs, var(--heading-font-size, var(--text-sm)));
+      line-height: var(
+        --heading-line-height-xs,
+        var(--heading-line-height, var(--line-height-text-sm))
+      );
+    }
+
+    &[data-size='sm'] {
+      font-size: var(--heading-font-size-sm, var(--heading-font-size, var(--text-md)));
+      line-height: var(
+        --heading-line-height-sm,
+        var(--heading-line-height, var(--line-height-text-md))
+      );
+    }
+
+    &[data-size='md'] {
+      font-size: var(--heading-font-size-md, var(--heading-font-size, var(--text-lg)));
+      line-height: var(
+        --heading-line-height-md,
+        var(--heading-line-height, var(--line-height-text-lg))
+      );
+    }
+
+    &[data-size='lg'] {
+      font-size: var(--heading-font-size-lg, var(--heading-font-size, var(--text-xl)));
+      line-height: var(
+        --heading-line-height-lg,
+        var(--heading-line-height, var(--line-height-text-xl))
+      );
+    }
+
+    &[data-size='xl'] {
+      font-size: var(--heading-font-size-xl, var(--heading-font-size, var(--text-2xl)));
+      line-height: var(
+        --heading-line-height-xl,
+        var(--heading-line-height, var(--line-height-text-2xl))
+      );
+    }
+
+    &[data-weight='regular'] {
+      font-weight: var(
+        --heading-font-weight-regular,
+        var(--heading-font-weight, var(--weight-regular))
+      );
+    }
+
+    &[data-weight='medium'] {
+      font-weight: var(
+        --heading-font-weight-medium,
+        var(--heading-font-weight, var(--weight-medium))
+      );
+    }
+
+    &[data-weight='bold'] {
+      font-weight: var(--heading-font-weight-bold, var(--heading-font-weight, var(--weight-bold)));
+    }
+  }
+}
