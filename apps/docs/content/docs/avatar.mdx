@@ -56,6 +56,38 @@ path and keeps image loading, error handling, and fallback timing on the primiti
   </Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Avatar` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/avatar
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/avatar
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/avatar
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Avatar` depends on, such
+as styles, icons, and small utilities.
+
 ## Anatomy
 
 `Avatar` keeps the public surface short: one root and two visible slots.

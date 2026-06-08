@@ -103,6 +103,38 @@ anchored ones. Most applications never need lower-level setup than this.
   </Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Toast` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/toast
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/toast
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/toast
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Toast` depends on, such
+as styles, icons, and small utilities.
+
 `ToastRegion` already renders `ToastPortal` and `ToastViewport`, so the default stacked path stays
 short.
 

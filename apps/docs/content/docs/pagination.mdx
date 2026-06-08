@@ -96,6 +96,38 @@ Use `Pagination` with `usePagination` when the page window should be calculated 
   </Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Pagination` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/pagination
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/pagination
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/pagination
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Pagination` depends on, such
+as styles, icons, and small utilities.
+
 When `href` and `render` are omitted, `PaginationLink`, `PaginationPrevious`, and
 `PaginationNext` render native `button` elements automatically. Use that path for client-side page
 state, tables, and filtered lists.

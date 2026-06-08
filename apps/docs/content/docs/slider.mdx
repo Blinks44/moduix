@@ -54,6 +54,38 @@ control, track, and indicator for you.
   <Preview.CSSPlayground>{(context) => <SliderCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Slider` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/slider
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/slider
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/slider
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Slider` depends on, such
+as styles, icons, and small utilities.
+
 `SliderLabel` gives the slider group a visible label. Each `SliderThumb` still needs its own
 accessible name through `aria-label`, especially for range sliders.
 

@@ -50,6 +50,38 @@ and `size` on the group when the whole set should share the same look.
   <Preview.CSSPlayground>{(context) => <ToggleGroupCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Toggle Group` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/toggle-group
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/toggle-group
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/toggle-group
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Toggle Group` depends on, such
+as styles, icons, and small utilities.
+
 `ToggleGroupItem` renders the library `Toggle`, so the default path stays short while items still
 inherit the same size and variant scale as standalone toggles. Raw `Toggle` composition inside a
 group is still possible, but only `ToggleGroupItem` inherits the group `variant`, `size`, and

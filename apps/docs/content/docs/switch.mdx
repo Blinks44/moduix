@@ -47,6 +47,38 @@ import {
   <Preview.CSSPlayground>{(context) => <SwitchCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Switch` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/switch
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/switch
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/switch
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Switch` depends on, such
+as styles, icons, and small utilities.
+
 `Switch` is a thin styled wrapper over the Base UI switch root. It keeps the default path short by
 rendering `SwitchThumb` for you, while still exporting the thumb for explicit composition.
 

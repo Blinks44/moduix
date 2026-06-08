@@ -94,6 +94,38 @@ trigger can wrap your existing card, row, canvas, or editor surface directly.
   </Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Context Menu` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/context-menu
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/context-menu
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/context-menu
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Context Menu` depends on, such
+as styles, icons, and small utilities.
+
 All examples below reuse the same `styles.trigger` class from the basic example so the previewed
 surface matches the code.
 

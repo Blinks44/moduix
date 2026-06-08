@@ -105,6 +105,38 @@ Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common
   <Preview.CSSPlayground>{(context) => <PreviewCardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Preview Card` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/preview-card
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/preview-card
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/preview-card
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Preview Card` depends on, such
+as styles, icons, and small utilities.
+
 `PreviewCardContent` already renders `PreviewCardPortal`, `PreviewCardPositioner`,
 `PreviewCardPopup`, and `PreviewCardViewport`. That keeps the default path short while leaving the
 low-level parts available when the layout needs to change.

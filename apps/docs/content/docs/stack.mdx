@@ -61,6 +61,38 @@ needs a mobile/desktop switch without a dedicated CSS file.
   </Preview.CSS>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Stack` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/stack
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/stack
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/stack
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Stack` depends on, such
+as styles, icons, and small utilities.
+
 ## Anatomy
 
 `Stack` is a single root flex wrapper. It owns direction, gap, common alignment, and a small amount

@@ -58,6 +58,38 @@ per character in `length`, so the common path stays short. Drop down to `OTPFiel
   </Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `OTP Field` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/otp-field
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/otp-field
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/otp-field
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `OTP Field` depends on, such
+as styles, icons, and small utilities.
+
 The generated first slot keeps the field label association from `htmlFor={id}`. The remaining slots
 receive position-aware labels automatically in the default path.
 
