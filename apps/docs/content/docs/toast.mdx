@@ -14,6 +14,7 @@ import {
   ManualToastCompositionExample,
   PlacementToastExample,
   ToastAndAnchoredToastExample,
+  ToastVariantsExample,
   ToastCssPlaygroundPanel,
   ToastCssPropertiesPanel,
   ToastExample,
@@ -191,6 +192,7 @@ Composition rules:
 
 - use `ToastRegion` for the normal stacked flow
 - use `ToastAnchoredRegion` for contextual feedback near a control
+- use Base UI `type` for toast variants; moduix styles `info`, `success`, `warning`, and `destructive` out of the box, and custom types can still be targeted through `data-type`
 - the default anchored renderer shows only `description`, so use `renderToast` for richer anchored content
 - use `renderToast` when the region setup stays the same but the visible markup needs to change
 - drop to `ToastPortal` and `ToastViewport` only when the stacked viewport structure itself must be owned by consumer code
@@ -287,6 +289,89 @@ Use `createToastManager()` only when a service outside React needs to enqueue st
           >
             Create action toast
           </Button>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Variants
+
+`ToastRegion` stays shared. Pass `type` when creating the toast. moduix styles the same semantic
+variants as `Alert` out of the box: `info`, `success`, `warning`, and `destructive`.
+
+For app-specific toast types, keep using the rendered `data-type` hook and override `--toast-*`
+variables in your own CSS.
+
+<Preview>
+  <ToastVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Button, ToastProvider, ToastRegion, useToastManager } from "moduix";
+
+      export function App() {
+        return (
+          <ToastProvider>
+            <ToastVariantButtons />
+            <ToastRegion />
+          </ToastProvider>
+        );
+      }
+
+      function ToastVariantButtons() {
+        const toastManager = useToastManager();
+
+        return (
+          <>
+            <Button
+              onClick={() =>
+                toastManager.add({
+                  type: "info",
+                  title: "Heads up",
+                  description: "New teammates can see the shared workspace now.",
+                })
+              }
+            >
+              Info toast
+            </Button>
+            <Button
+              onClick={() =>
+                toastManager.add({
+                  type: "success",
+                  title: "Saved",
+                  description: "The document is available to everyone with access.",
+                })
+              }
+            >
+              Success toast
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() =>
+                toastManager.add({
+                  type: "warning",
+                  title: "Storage almost full",
+                  description: "Archive old uploads before the next sync.",
+                })
+              }
+            >
+              Warning toast
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() =>
+                toastManager.add({
+                  type: "destructive",
+                  title: "Publish failed",
+                  description: "Review the required fields and try again.",
+                })
+              }
+            >
+              Destructive toast
+            </Button>
+          </>
         );
       }
     `}

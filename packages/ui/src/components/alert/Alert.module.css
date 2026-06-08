@@ -30,33 +30,17 @@
     }
 
     &[data-variant='success'] {
-      --alert-bg-default: color-mix(
-        in oklab,
-        var(--alert-success-color, #16a34a) 10%,
-        var(--color-background)
-      );
-      --alert-border-color-default: color-mix(
-        in oklab,
-        var(--alert-success-color, #16a34a) 34%,
-        transparent
-      );
+      --alert-bg-default: color-mix(in oklab, var(--color-success) 10%, var(--color-background));
+      --alert-border-color-default: color-mix(in oklab, var(--color-success) 34%, transparent);
       --alert-color-default: var(--color-foreground);
-      --alert-icon-color-default: var(--alert-success-color, #16a34a);
+      --alert-icon-color-default: var(--color-success);
     }
 
     &[data-variant='warning'] {
-      --alert-bg-default: color-mix(
-        in oklab,
-        var(--alert-warning-color, #ca8a04) 13%,
-        var(--color-background)
-      );
-      --alert-border-color-default: color-mix(
-        in oklab,
-        var(--alert-warning-color, #ca8a04) 38%,
-        transparent
-      );
+      --alert-bg-default: color-mix(in oklab, var(--color-warning) 13%, var(--color-background));
+      --alert-border-color-default: color-mix(in oklab, var(--color-warning) 38%, transparent);
       --alert-color-default: var(--color-foreground);
-      --alert-icon-color-default: var(--alert-warning-color, #ca8a04);
+      --alert-icon-color-default: var(--color-warning);
     }
 
     &[data-variant='destructive'] {

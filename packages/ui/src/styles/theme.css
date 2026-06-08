@@ -124,12 +124,10 @@
   --alert-padding: initial; /* var(--spacing-4) */
   --alert-radius: initial; /* var(--radius-lg) */
   --alert-shadow: initial; /* none */
-  --alert-success-color: initial; /* #16a34a */
   --alert-title-color: initial; /* var(--alert-color, var(--alert-color-default)) */
   --alert-title-font-size: initial; /* var(--text-sm) */
   --alert-title-font-weight: initial; /* var(--weight-semibold) */
   --alert-title-line-height: initial; /* var(--line-height-text-sm) */
-  --alert-warning-color: initial; /* #ca8a04 */
   /* AlertDialog */
   --alert-dialog-action-bg: initial; /* var(--color-primary) */
   --alert-dialog-action-bg-hover: initial; /* var(--color-foreground) */

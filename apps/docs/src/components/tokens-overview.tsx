@@ -14,141 +14,155 @@ const colorTokens = [
     name: '--background',
     alias: '--color-background',
     label: 'Canvas',
-    light: 'oklch(0.985 0.002 260)',
-    dark: 'oklch(0.164 0.006 260)',
+    light: 'oklch(0.982 0.003 285)',
+    dark: 'oklch(0.155 0.008 285)',
   },
   {
     name: '--foreground',
     alias: '--color-foreground',
     label: 'Canvas text',
-    light: 'oklch(0.188 0.008 260)',
-    dark: 'oklch(0.972 0.002 255)',
+    light: 'oklch(0.175 0.01 285)',
+    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--card',
     alias: '--color-card',
     label: 'Raised surface',
-    light: 'oklch(0.998 0.001 260)',
-    dark: 'oklch(0.214 0.009 260)',
+    light: 'oklch(0.995 0.002 285)',
+    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--card-foreground',
     alias: '--color-card-foreground',
     label: 'Raised text',
-    light: 'oklch(0.188 0.008 260)',
-    dark: 'oklch(0.972 0.002 255)',
+    light: 'oklch(0.175 0.01 285)',
+    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--popover',
     alias: '--color-popover',
     label: 'Layer surface',
-    light: 'oklch(0.998 0.001 260)',
-    dark: 'oklch(0.214 0.009 260)',
+    light: 'oklch(0.995 0.002 285)',
+    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--popover-foreground',
     alias: '--color-popover-foreground',
     label: 'Layer text',
-    light: 'oklch(0.188 0.008 260)',
-    dark: 'oklch(0.972 0.002 255)',
+    light: 'oklch(0.175 0.01 285)',
+    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--primary',
     alias: '--color-primary',
     label: 'Primary action',
-    light: 'oklch(0.252 0.014 262)',
-    dark: 'oklch(0.924 0.005 255)',
+    light: 'oklch(0.235 0.016 285)',
+    dark: 'oklch(0.918 0.007 285)',
   },
   {
     name: '--primary-foreground',
     alias: '--color-primary-foreground',
     label: 'Primary text',
-    light: 'oklch(0.985 0.002 260)',
-    dark: 'oklch(0.214 0.009 260)',
+    light: 'oklch(0.982 0.003 285)',
+    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--secondary',
     alias: '--color-secondary',
     label: 'Secondary fill',
-    light: 'oklch(0.965 0.004 255)',
-    dark: 'oklch(0.268 0.009 260)',
+    light: 'oklch(0.96 0.006 285)',
+    dark: 'oklch(0.255 0.012 285)',
   },
   {
     name: '--secondary-foreground',
     alias: '--color-secondary-foreground',
     label: 'Secondary text',
-    light: 'oklch(0.252 0.014 262)',
-    dark: 'oklch(0.972 0.002 255)',
+    light: 'oklch(0.235 0.016 285)',
+    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--muted',
     alias: '--color-muted',
     label: 'Subtle fill',
-    light: 'oklch(0.959 0.004 255)',
-    dark: 'oklch(0.268 0.009 260)',
+    light: 'oklch(0.955 0.006 285)',
+    dark: 'oklch(0.255 0.012 285)',
   },
   {
     name: '--muted-foreground',
     alias: '--color-muted-foreground',
     label: 'Subtle text',
-    light: 'oklch(0.5 0.013 255)',
-    dark: 'oklch(0.72 0.014 255)',
+    light: 'oklch(0.485 0.015 285)',
+    dark: 'oklch(0.705 0.016 285)',
   },
   {
     name: '--accent',
     alias: '--color-accent',
     label: 'Hover fill',
-    light: 'oklch(0.955 0.008 250)',
-    dark: 'oklch(0.304 0.013 255)',
+    light: 'oklch(0.95 0.01 285)',
+    dark: 'oklch(0.29 0.015 285)',
   },
   {
     name: '--accent-foreground',
     alias: '--color-accent-foreground',
     label: 'Hover text',
-    light: 'oklch(0.252 0.014 262)',
-    dark: 'oklch(0.972 0.002 255)',
+    light: 'oklch(0.235 0.016 285)',
+    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--destructive',
     alias: '--color-destructive',
     label: 'Danger',
-    light: 'oklch(0.577 0.245 27.325)',
-    dark: 'oklch(0.704 0.191 22.216)',
+    light: 'oklch(0.565 0.235 22)',
+    dark: 'oklch(0.69 0.185 18)',
+  },
+  {
+    name: '--success',
+    alias: '--color-success',
+    label: 'Success',
+    light: 'oklch(0.627 0.194 149.214)',
+    dark: 'oklch(0.627 0.194 149.214)',
+  },
+  {
+    name: '--warning',
+    alias: '--color-warning',
+    label: 'Warning',
+    light: 'oklch(0.795 0.184 86.047)',
+    dark: 'oklch(0.795 0.184 86.047)',
   },
   {
     name: '--border',
     alias: '--color-border',
     label: 'Borders',
-    light: 'oklch(0.91 0.006 255)',
-    dark: 'oklch(1 0.002 255 / 12%)',
+    light: 'oklch(0.905 0.008 285)',
+    dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
     name: '--input',
     alias: '--color-input',
     label: 'Input border',
-    light: 'oklch(0.91 0.006 255)',
-    dark: 'oklch(1 0.002 255 / 16%)',
+    light: 'oklch(0.905 0.008 285)',
+    dark: 'oklch(1 0.004 285 / 17%)',
   },
   {
     name: '--ring',
     alias: '--color-ring',
     label: 'Focus ring',
-    light: 'oklch(0.643 0.028 257)',
-    dark: 'oklch(0.604 0.03 257)',
+    light: 'oklch(0.62 0.035 285)',
+    dark: 'oklch(0.585 0.038 285)',
   },
   {
     name: '--overlay',
     alias: '--color-overlay',
     label: 'Backdrop base',
-    light: 'oklch(0.188 0.012 260 / 0.18)',
-    dark: 'oklch(0.112 0.01 260 / 0.72)',
+    light: 'oklch(0.175 0.014 285 / 0.2)',
+    dark: 'oklch(0.105 0.012 285 / 0.74)',
   },
   {
     name: '--overlay-foreground',
     alias: '--color-overlay-foreground',
     label: 'Soft overlay',
-    light: 'oklch(0.188 0.012 260 / 0.06)',
-    dark: 'oklch(0.972 0.002 255 / 0.08)',
+    light: 'oklch(0.175 0.014 285 / 0.07)',
+    dark: 'oklch(0.968 0.003 285 / 0.09)',
   },
 ] satisfies ColorToken[];
 
@@ -157,36 +171,36 @@ const chartTokens = [
     name: '--chart-1',
     alias: '--color-chart-1',
     label: 'Chart 1',
-    light: 'oklch(0.63 0.154 259)',
-    dark: 'oklch(0.69 0.147 259)',
+    light: 'oklch(0.65 0.18 295)',
+    dark: 'oklch(0.72 0.17 295)',
   },
   {
     name: '--chart-2',
     alias: '--color-chart-2',
     label: 'Chart 2',
-    light: 'oklch(0.685 0.117 196)',
-    dark: 'oklch(0.748 0.116 196)',
+    light: 'oklch(0.7 0.14 175)',
+    dark: 'oklch(0.76 0.13 175)',
   },
   {
     name: '--chart-3',
     alias: '--color-chart-3',
     label: 'Chart 3',
-    light: 'oklch(0.745 0.167 78)',
-    dark: 'oklch(0.792 0.161 78)',
+    light: 'oklch(0.72 0.16 55)',
+    dark: 'oklch(0.78 0.15 55)',
   },
   {
     name: '--chart-4',
     alias: '--color-chart-4',
     label: 'Chart 4',
-    light: 'oklch(0.662 0.179 24)',
-    dark: 'oklch(0.717 0.173 24)',
+    light: 'oklch(0.6 0.2 350)',
+    dark: 'oklch(0.67 0.19 350)',
   },
   {
     name: '--chart-5',
     alias: '--color-chart-5',
     label: 'Chart 5',
-    light: 'oklch(0.71 0.132 149)',
-    dark: 'oklch(0.769 0.128 149)',
+    light: 'oklch(0.68 0.13 130)',
+    dark: 'oklch(0.74 0.12 130)',
   },
 ] satisfies ColorToken[];
 
@@ -195,57 +209,57 @@ const sidebarTokens = [
     name: '--sidebar',
     alias: '--color-sidebar',
     label: 'Sidebar surface',
-    light: 'oklch(0.978 0.003 255)',
-    dark: 'oklch(0.214 0.009 260)',
+    light: 'oklch(0.975 0.005 285)',
+    dark: 'oklch(0.2 0.011 285)',
   },
   {
     name: '--sidebar-foreground',
     alias: '--color-sidebar-foreground',
     label: 'Sidebar text',
-    light: 'oklch(0.188 0.008 260)',
-    dark: 'oklch(0.972 0.002 255)',
+    light: 'oklch(0.175 0.01 285)',
+    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--sidebar-primary',
     alias: '--color-sidebar-primary',
     label: 'Sidebar primary',
-    light: 'oklch(0.252 0.014 262)',
-    dark: 'oklch(0.69 0.147 259)',
+    light: 'oklch(0.235 0.016 285)',
+    dark: 'oklch(0.72 0.17 295)',
   },
   {
     name: '--sidebar-primary-foreground',
     alias: '--color-sidebar-primary-foreground',
     label: 'Sidebar primary text',
-    light: 'oklch(0.985 0.002 260)',
-    dark: 'oklch(0.164 0.006 260)',
+    light: 'oklch(0.982 0.003 285)',
+    dark: 'oklch(0.155 0.008 285)',
   },
   {
     name: '--sidebar-accent',
     alias: '--color-sidebar-accent',
     label: 'Sidebar accent',
-    light: 'oklch(0.955 0.008 250)',
-    dark: 'oklch(0.304 0.013 255)',
+    light: 'oklch(0.95 0.01 285)',
+    dark: 'oklch(0.29 0.015 285)',
   },
   {
     name: '--sidebar-accent-foreground',
     alias: '--color-sidebar-accent-foreground',
     label: 'Sidebar accent text',
-    light: 'oklch(0.252 0.014 262)',
-    dark: 'oklch(0.972 0.002 255)',
+    light: 'oklch(0.235 0.016 285)',
+    dark: 'oklch(0.968 0.003 285)',
   },
   {
     name: '--sidebar-border',
     alias: '--color-sidebar-border',
     label: 'Sidebar border',
-    light: 'oklch(0.91 0.006 255)',
-    dark: 'oklch(1 0.002 255 / 12%)',
+    light: 'oklch(0.905 0.008 285)',
+    dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
     name: '--sidebar-ring',
     alias: '--color-sidebar-ring',
     label: 'Sidebar focus ring',
-    light: 'oklch(0.643 0.028 257)',
-    dark: 'oklch(0.604 0.03 257)',
+    light: 'oklch(0.62 0.035 285)',
+    dark: 'oklch(0.585 0.038 285)',
   },
 ] satisfies ColorToken[];
 
@@ -308,6 +322,22 @@ const weightTokens = [
   ['--weight-bold', '700'],
 ];
 
+const fontFamilyTokens = [
+  [
+    '--font-sans',
+    "'Noto Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+  ],
+  [
+    '--font-mono',
+    "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+  ],
+];
+
+const trackingTokens = [
+  ['--tracking-text-sm', '-0.01em'],
+  ['--tracking-text-xs', '-0.016em'],
+];
+
 const borderTokens = [
   ['--border-width-sm', '1px'],
   ['--border-width-md', '2px'],
@@ -336,12 +366,24 @@ const motionTokens = [
 ];
 
 const animationTokens = [
-  ['--animation-pulse', 'pulse 2s ease-in-out infinite'],
-  ['--animation-fade-in', 'fade-in var(--duration-normal) var(--ease-out)'],
-  ['--animation-fade-out', 'fade-out var(--duration-normal) var(--ease-in)'],
-  ['--animation-slide-up', 'slide-up var(--duration-normal) var(--ease-out)'],
-  ['--animation-slide-down', 'slide-down var(--duration-normal) var(--ease-out)'],
-  ['--animation-spin', 'spin 0.75s linear infinite'],
+  ['--animation-pulse', 'moduix-pulse 2.5s ease-in-out infinite'],
+  [
+    '--animation-fade-in',
+    'moduix-fade-in var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
+  ],
+  [
+    '--animation-fade-out',
+    'moduix-fade-out var(--duration-normal, 200ms) var(--ease-in, cubic-bezier(0.4, 0, 1, 1))',
+  ],
+  [
+    '--animation-slide-up',
+    'moduix-slide-up var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
+  ],
+  [
+    '--animation-slide-down',
+    'moduix-slide-down var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
+  ],
+  ['--animation-spin', 'moduix-spin 0.75s linear infinite'],
 ];
 
 const shadowTokens = [
@@ -533,7 +575,10 @@ export function TokensOverview() {
         </div>
       </Section>
 
-      <Section title="Typography" note="Font sizes, line heights, weights, and tracking tokens.">
+      <Section
+        title="Typography"
+        note="Font families, sizes, line heights, weights, and tracking tokens."
+      >
         <div className={styles.typeGrid}>
           {typographyTokens.map(([textName, textValue, lineName, lineValue]) => (
             <div className={styles.typeRow} key={textName}>
@@ -555,15 +600,14 @@ export function TokensOverview() {
               <strong>{value}</strong>
             </span>
           ))}
-          <span className={styles.tokenPill}>
-            <code>--tracking-text-sm</code>
-            <strong>-0.01em</strong>
-          </span>
-          <span className={styles.tokenPill}>
-            <code>--tracking-text-xs</code>
-            <strong>-0.016em</strong>
-          </span>
+          {trackingTokens.map(([name, value]) => (
+            <span className={styles.tokenPill} key={name}>
+              <code>{name}</code>
+              <strong>{value}</strong>
+            </span>
+          ))}
         </div>
+        <TokenList title="Font families" tokens={fontFamilyTokens} />
       </Section>
 
       <Section

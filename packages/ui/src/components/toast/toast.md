@@ -22,6 +22,11 @@ markup, but the wrapper contract is centered on `ToastProvider`, `ToastRegion`,
 - `ToastAnchoredRegion` renders only anchored toasts from the anchored manager.
 - `useAnchoredToastManager().show()` requires an `anchor` element and reuses one toast per anchor.
 - Anchored toasts default `positionerProps.sideOffset` to `8`.
+- Base UI `toast.type` passes through unchanged and is exposed as `data-type` on `ToastRoot`.
+- moduix styles `info`, `success`, `warning`, and `destructive` out of the box so `Toast` stays in
+  sync with `Alert`.
+- Other `type` strings remain valid and can be styled through `[data-type]` plus `--toast-*`
+  overrides.
 - Default stacked markup is:
 
   ```text
@@ -249,6 +254,10 @@ Base UI state hooks that moduix styles rely on:
 - stacked content: `data-behind`, `data-expanded`
 - anchored arrow: `data-side`
 
+Variant hook:
+
+- `data-type` on `ToastRoot`, mirroring Base UI `toast.type`
+
 ### CSS variables
 
 Public `--toast-*` overrides used by this wrapper:
@@ -337,6 +346,10 @@ used internally by the CSS. Treat them as runtime inputs, not part of the moduix
 - Live-region behavior, swipe dismissal, timing, and keyboard interaction come from Base UI.
 - Default stacked toasts include a close button with `aria-label="Close toast"`.
 - If you replace the default close content, keep an accessible name on `ToastClose`.
+- Use `toast.type="info" | "success" | "warning" | "destructive"` for the built-in moduix
+  variants.
+- Use selectors such as `[data-slot='toast-root'][data-type='syncing']` plus `--toast-*` overrides
+  when one region needs app-specific variants; do not mount separate regions just for styling.
 - Anchored toasts are best for brief confirmations such as copy/save/share feedback.
 - The default anchored renderer has no close button or action button; keep timeouts short unless a
   custom `renderToast` adds explicit controls.
@@ -349,6 +362,10 @@ used internally by the CSS. Treat them as runtime inputs, not part of the moduix
 - anchored toasts use a separate manager and region so they do not mix into the stacked viewport.
 - moduix adds `placement` and `stackBehavior` sugar to `ToastViewport` and `ToastRegion`.
 - moduix adds normalized `data-slot` hooks to all exported parts.
+- moduix adds built-in `Alert`-aligned styles for `toast.type="info" | "success" | "warning" |
+"destructive"`.
+- moduix mirrors Base UI `toast.type` to a `data-type` hook on `ToastRoot` for CSS-driven custom
+  variants without extra regions.
 - default anchored toasts are intentionally description-only, with a built-in arrow.
 - `ToastClose` and `ToastArrow` provide default visuals out of the box.
 
@@ -371,6 +388,8 @@ used internally by the CSS. Treat them as runtime inputs, not part of the moduix
 - Preserve the default anchored description-only contract unless the requested behavior changes.
 - Preserve the existing `data-slot` names; docs, stories, tests, and consumer selectors can rely on
   them.
+- Preserve the built-in `Alert`-aligned toast variants and the `data-type` passthrough from Base UI
+  `toast.type`; together they provide the simple path and the custom escape hatch.
 - Preserve the public `--toast-*` variable names in `theme.css` and `Toast.module.css`.
 - Keep `ToastObject<any>` internal typing unless Base UI changes its generic constraint; `unknown`
   is not a drop-in replacement there.
@@ -379,3 +398,5 @@ used internally by the CSS. Treat them as runtime inputs, not part of the moduix
 
 - 2026-06: Rewrote the local docs around the actual moduix wrapper, documented the split stacked vs
   anchored contract, and recorded the public styling hooks and exported helper types.
+- 2026-06: Added built-in `Alert`-aligned toast variants for `info`, `success`, `warning`, and
+  `destructive`, while keeping `toast.type` on `ToastRoot[data-type]` for app-specific styling.

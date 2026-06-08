@@ -30,6 +30,13 @@
   color: var(--color-background);
 }
 
+.typedActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
 .customToast {
   --toast-bg: var(--color-primary);
   --toast-color: var(--color-primary-foreground);

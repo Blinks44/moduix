@@ -130,6 +130,14 @@ root slot when the alert needs local theming.
 `AlertTitle` renders `h3` by default and accepts `as="h1"` through `as="h6"` when the surrounding
 document outline needs a different heading level.
 
+`success` and `warning` use the shared semantic palette tokens instead of private alert-only colors:
+
+| Variant       | Shared token          | Default                      |
+| ------------- | --------------------- | ---------------------------- |
+| `success`     | `--color-success`     | `oklch(0.627 0.194 149.214)` |
+| `warning`     | `--color-warning`     | `oklch(0.795 0.184 86.047)`  |
+| `destructive` | `--color-destructive` | theme destructive            |
+
 ### Defaults
 
 | Prop      | Default   | Values                                                    |

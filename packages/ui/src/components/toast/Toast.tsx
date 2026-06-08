@@ -129,6 +129,7 @@ function ToastRoot(
   const anchored = isAnchoredToast(toast);
   const resolvedPlacement = placement ?? contextPlacement;
   const dataSlot = (props as DataSlotProps)['data-slot'];
+  const toastType = toast.type;
 
   return (
     <ToastStyleContext.Provider value={anchored ? 'anchored' : 'stacked'}>
@@ -138,6 +139,7 @@ function ToastRoot(
         data-slot={dataSlot ?? (anchored ? 'toast-anchored-root' : 'toast-root')}
         data-placement={resolvedPlacement}
         data-stack-behavior={stackBehavior}
+        data-type={toastType}
         swipeDirection={
           anchored ? swipeDirection : (swipeDirection ?? getToastSwipeDirection(resolvedPlacement))
         }

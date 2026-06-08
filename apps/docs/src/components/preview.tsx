@@ -88,6 +88,9 @@ function PreviewRoot({
   }, [normalizedCssProperties]);
   const [cssVariables, setCssVariables] = React.useState(initialCssVariables);
   const resolvedCode = code ? dedentCode(code) : codeContent;
+  const appliedCssVariables = React.useMemo(() => {
+    return getAppliedCssVariables(cssVariables, normalizedCssProperties);
+  }, [cssVariables, normalizedCssProperties]);
   const cssPropertiesContext: CSSPropertiesEditorContext = {
     properties: normalizedCssProperties,
     values: cssVariables,
@@ -120,13 +123,16 @@ function PreviewRoot({
     },
   };
 
-  useRootCssVariables(cssVariables, cssVariableScope === 'both' || cssVariableScope === 'root');
+  useRootCssVariables(
+    appliedCssVariables,
+    cssVariableScope === 'both' || cssVariableScope === 'root',
+  );
 
   return (
     <div className={cn('not-prose my-6', className)} {...props}>
       <div
         className="flex min-h-56 items-center overflow-x-hidden overflow-y-hidden rounded-xl border bg-white p-6 dark:bg-fd-card"
-        style={cssVariableScope === 'root' ? undefined : cssVariables}
+        style={cssVariableScope === 'root' ? undefined : appliedCssVariables}
       >
         <div className="flex w-full min-w-0 justify-center-safe">
           <div className="flex w-full min-w-0 flex-wrap items-center justify-center gap-3 [&>*]:max-w-full [&>*]:min-w-0">
@@ -320,6 +326,14 @@ function normalizeCssProperty(property: CssPropertyInput): CssProperty {
 function getInitialCssVariables(properties: CssProperty[]) {
   return Object.fromEntries(
     properties.map((property) => [property.name, property.defaultValue]),
+  ) as CssVariables;
+}
+
+function getAppliedCssVariables(values: CssVariables, properties: CssProperty[]) {
+  return Object.fromEntries(
+    properties
+      .map((property) => [property.name, values[property.name], property.defaultValue] as const)
+      .filter(([, value, defaultValue]) => value !== defaultValue),
   ) as CssVariables;
 }
 
