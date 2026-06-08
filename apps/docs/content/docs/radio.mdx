@@ -40,12 +40,6 @@ import {
       } from "moduix";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       export function RadioDemo() {
         const labelId = useId();
 
@@ -66,6 +60,15 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];`}
+
+  </Preview.Data>
   <Preview.CSSProperties>{(context) => <RadioCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <RadioCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
@@ -449,12 +452,6 @@ Style visible parts with `className` and the public `--radio-*` variables.
       import { useId } from "react";
       import styles from "./styled-radio-demo.module.css";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       export function StyledRadioDemo() {
         const labelId = useId();
 
@@ -477,6 +474,15 @@ Style visible parts with `className` and the public `--radio-*` variables.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];`}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -531,12 +537,6 @@ Compose `RadioIndicator` inside `Radio` when the built-in dot is not enough.
       import type { ComponentProps } from "react";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       function DiamondIcon(props: ComponentProps<"svg">) {
         return (
           <svg
@@ -577,4 +577,13 @@ Compose `RadioIndicator` inside `Radio` when the built-in dot is not enough.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];`}
+
+  </Preview.Data>
 </Preview>

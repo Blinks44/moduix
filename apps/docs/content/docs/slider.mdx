@@ -216,12 +216,6 @@ represents a constrained numeric domain.
       } from "moduix";
       import { useState } from "react";
 
-      const priceFormatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      });
-
       export function SteppedRangeSliderDemo() {
         const [value, setValue] = useState([250, 750] as readonly number[]);
 
@@ -255,6 +249,15 @@ represents a constrained numeric domain.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const priceFormatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0,
+      });`}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled

@@ -490,52 +490,19 @@ portal control, backdrops, arrow placement, or popup-specific styling.
         MenubarTrigger,
         MenubarViewport,
       } from "moduix";
+      import styles from "./menubar.module.css";
 
       export function CustomCompositionMenubarDemo() {
         return (
-          <Menubar
-            style={{
-              "--menubar-bg": "var(--color-background)",
-              "--menubar-border-color": "rgb(37 99 235)",
-              "--menubar-radius": "var(--radius-lg)",
-              "--menubar-trigger-bg-hover": "rgb(219 234 254)",
-              "--menubar-trigger-color-active": "rgb(255 255 255)",
-              "--menubar-trigger-bg-active": "rgb(37 99 235)",
-            }}
-          >
+          <Menubar className={styles.root}>
             <MenubarMenu>
-              <MenubarTrigger
-                style={{
-                  position: "relative",
-                  zIndex: "var(--z-popup)",
-                }}
-              >
-                Window
-              </MenubarTrigger>
+              <MenubarTrigger className={styles.trigger}>Window</MenubarTrigger>
               <MenubarPortal>
-                <MenubarBackdrop
-                  style={{
-                    backgroundColor: "rgb(15 23 42 / 0.48)",
-                    backdropFilter: "blur(4px)",
-                  }}
-                />
+                <MenubarBackdrop className={styles.backdrop} />
                 <MenubarPositioner sideOffset={10} align="start" alignOffset={-4}>
-                  <MenubarPopup
-                    style={{
-                      "--menubar-popup-min-width": "14rem",
-                      "--menubar-popup-bg": "var(--color-background)",
-                      "--menubar-popup-border-color": "rgb(37 99 235)",
-                      "--menubar-popup-shadow": "var(--shadow-lg)",
-                      "--menubar-highlight-bg": "rgb(37 99 235)",
-                      "--menubar-highlight-color": "rgb(255 255 255)",
-                    }}
-                  >
-                    <MenubarArrow
-                      style={{
-                        "--menubar-arrow-stroke-color": "var(--menubar-popup-border-color)",
-                      }}
-                    />
-                    <MenubarViewport style={{ paddingBlock: "var(--spacing-2)" }}>
+                  <MenubarPopup className={styles.popup}>
+                    <MenubarArrow className={styles.arrow} />
+                    <MenubarViewport className={styles.viewport}>
                       <MenubarItem closeOnClick>Minimize</MenubarItem>
                       <MenubarItem closeOnClick>Zoom</MenubarItem>
                       <MenubarSeparator />
@@ -551,4 +518,44 @@ portal control, backdrops, arrow placement, or popup-specific styling.
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      .root {
+        --menubar-bg: var(--color-background);
+        --menubar-border-color: rgb(37 99 235);
+        --menubar-radius: var(--radius-lg);
+        --menubar-trigger-bg-hover: rgb(219 234 254);
+        --menubar-trigger-color-active: rgb(255 255 255);
+        --menubar-trigger-bg-active: rgb(37 99 235);
+      }
+
+      .trigger {
+        position: relative;
+        z-index: var(--z-popup);
+      }
+
+      .backdrop {
+        background-color: rgb(15 23 42 / 0.48);
+        backdrop-filter: blur(4px);
+      }
+
+      .popup {
+        --menubar-popup-min-width: 14rem;
+        --menubar-popup-bg: var(--color-background);
+        --menubar-popup-border-color: rgb(37 99 235);
+        --menubar-popup-shadow: var(--shadow-lg);
+        --menubar-highlight-bg: rgb(37 99 235);
+        --menubar-highlight-color: rgb(255 255 255);
+      }
+
+      .arrow {
+        --menubar-arrow-stroke-color: var(--menubar-popup-border-color);
+      }
+
+      .viewport {
+        padding-block: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

@@ -46,13 +46,6 @@ Use `TableContainer` plus the semantic table parts for the common read-only data
         TableRow,
       } from "moduix";
 
-      const invoices = [
-        { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
-        { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
-        { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
-        { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
-      ];
-
       export function TableDemo() {
         return (
           <TableContainer className={styles.shell}>
@@ -86,6 +79,16 @@ Use `TableContainer` plus the semantic table parts for the common read-only data
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const invoices = [
+        { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
+        { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
+        { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
+        { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
+      ];`}
+
+  </Preview.Data>
   <Preview.CSS>
     {`
       .shell {
@@ -201,13 +204,6 @@ totals or summaries.
 
   <Preview.Code>
     {`
-      const invoices = [
-        { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
-        { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
-        { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
-        { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
-      ];
-
       <TableContainer className={styles.shell}>
         <Table className={styles.table}>
           <TableCaption side="top">
@@ -242,6 +238,16 @@ totals or summaries.
     `}
 
   </Preview.Code>
+  <Preview.Data>
+    {`
+      const invoices = [
+        { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
+        { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
+        { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
+        { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
+      ];
+    `}
+  </Preview.Data>
   <Preview.CSS>
     {`
       .shell {
@@ -383,12 +389,6 @@ Use `numeric` on both the header and the cells for the common “aligned metrics
 
   <Preview.Code>
     {`
-      const projects = [
-        { name: "Docs redesign", owner: "Product Design", updated: "2 hours ago", issues: "3 open" },
-        { name: "Billing migration", owner: "Growth", updated: "Yesterday", issues: "1 blocked" },
-        { name: "Command palette", owner: "Platform", updated: "Today", issues: "Healthy" },
-      ];
-
       <Card>
         <CardHeader>
           <CardTitle>Projects</CardTitle>
@@ -421,6 +421,15 @@ Use `numeric` on both the header and the cells for the common “aligned metrics
     `}
 
   </Preview.Code>
+  <Preview.Data>
+    {`
+      const projects = [
+        { name: "Docs redesign", owner: "Product Design", updated: "2 hours ago", issues: "3 open" },
+        { name: "Billing migration", owner: "Growth", updated: "Yesterday", issues: "1 blocked" },
+        { name: "Command palette", owner: "Platform", updated: "Today", issues: "Healthy" },
+      ];
+    `}
+  </Preview.Data>
   <Preview.CSS>
     {`
       .card {

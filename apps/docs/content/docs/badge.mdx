@@ -137,8 +137,6 @@ Use the built-in variants for the common visual tones.
       import { Badge } from "moduix";
       import styles from "./badge-demo.module.css";
 
-      const variants = ["default", "secondary", "destructive", "outline", "ghost"] as const;
-
       export function BadgeVariantsDemo() {
         return (
           <div className={styles.row}>
@@ -153,6 +151,11 @@ Use the built-in variants for the common visual tones.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const variants = ["default", "secondary", "destructive", "outline", "ghost"] as const;`}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`

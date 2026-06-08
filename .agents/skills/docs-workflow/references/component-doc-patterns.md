@@ -4,7 +4,10 @@ Load this file when docs work in `apps/docs` touches popup-like or dialog-like c
 
 ## Preview Snippets
 
-- When a preview depends on local data, show that data in `Preview.Code` or `Preview.Data`.
+- Put component code in `Preview.Code` so it renders in the `Code` tab.
+- Put example-local CSS in `Preview.CSS` so it renders in the `Styles` tab instead of staying inline in the code sample.
+- Put example-local arrays, mock payloads, and other setup data in `Preview.Data` so it renders in the `Data` tab.
+- Keep tiny literals inline in `Preview.Code` only when splitting them out would make the example harder to follow.
 - Keep snippets self-contained and consumer-facing.
 - Do not repeat global setup imports.
 

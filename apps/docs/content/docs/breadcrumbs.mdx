@@ -141,6 +141,7 @@ Replace the default slash with your own icon or symbol.
         BreadcrumbsSeparator,
         SeparatorMarkIcon,
       } from "moduix";
+      import styles from "./breadcrumbs.module.css";
 
       export function BreadcrumbsSeparatorDemo() {
         return (
@@ -150,13 +151,13 @@ Replace the default slash with your own icon or symbol.
                 <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
               </BreadcrumbsItem>
               <BreadcrumbsSeparator>
-                <SeparatorMarkIcon style={{ width: "0.75rem", height: "0.25rem" }} />
+                <SeparatorMarkIcon className={styles.separatorIcon} />
               </BreadcrumbsSeparator>
               <BreadcrumbsItem>
                 <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
               </BreadcrumbsItem>
               <BreadcrumbsSeparator>
-                <SeparatorMarkIcon style={{ width: "0.75rem", height: "0.25rem" }} />
+                <SeparatorMarkIcon className={styles.separatorIcon} />
               </BreadcrumbsSeparator>
               <BreadcrumbsItem>
                 <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
@@ -168,6 +169,14 @@ Replace the default slash with your own icon or symbol.
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      .separatorIcon {
+        width: 0.75rem;
+        height: 0.25rem;
+      }
+    `}
+  </Preview.CSS>
 </Preview>
 
 ### Collapsed Path
@@ -192,6 +201,7 @@ Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
         MenuLinkItem,
         MenuTrigger,
       } from "moduix";
+      import styles from "./breadcrumbs.module.css";
 
       export function BreadcrumbsCollapsedDemo() {
         return (
@@ -203,32 +213,15 @@ Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
               <BreadcrumbsSeparator />
               <BreadcrumbsItem>
                 <Menu>
-                  <MenuTrigger
-                    aria-label="Show hidden path items"
-                    style={{
-                      minWidth: "auto",
-                      minHeight: "auto",
-                      padding: 0,
-                      border: "none",
-                      background: "transparent",
-                      color: "inherit",
-                    }}
-                  >
+                  <MenuTrigger aria-label="Show hidden path items" className={styles.collapsedMenuTrigger}>
                     <BreadcrumbsEllipsis />
                   </MenuTrigger>
-                  <MenuContent
-                    align="start"
-                    style={{
-                      "--menu-popup-min-width": "8rem",
-                      "--menu-item-font-size": "var(--text-xs)",
-                      "--menu-item-padding-x-start": "0.625rem",
-                      "--menu-item-padding-x-end": "0.625rem",
-                      "--menu-item-padding-y": "0.25rem",
-                    }}
-                  >
-                    <MenuLinkItem closeOnClick href="/engineering">Engineering</MenuLinkItem>
-                    <MenuLinkItem closeOnClick href="/engineering/backend">Backend</MenuLinkItem>
-                    <MenuLinkItem closeOnClick href="/engineering/backend/golang">Golang</MenuLinkItem>
+                  <MenuContent align="start" className={styles.collapsedMenuContent}>
+                    {collapsedItems.map((item) => (
+                      <MenuLinkItem key={item.href} closeOnClick href={item.href}>
+                        {item.label}
+                      </MenuLinkItem>
+                    ))}
                   </MenuContent>
                 </Menu>
               </BreadcrumbsItem>
@@ -247,6 +240,36 @@ Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
     `}
 
   </Preview.Code>
+  <Preview.CSS>
+    {`
+      .collapsedMenuTrigger {
+        min-width: auto;
+        min-height: auto;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: inherit;
+      }
+
+      .collapsedMenuContent {
+        --menu-popup-min-width: 8rem;
+        --menu-item-font-size: var(--text-xs);
+        --menu-item-padding-x-start: 0.625rem;
+        --menu-item-padding-x-end: 0.625rem;
+        --menu-item-padding-y: 0.25rem;
+      }
+    `}
+
+  </Preview.CSS>
+  <Preview.Data>
+    {`
+      const collapsedItems = [
+        { href: "/engineering", label: "Engineering" },
+        { href: "/engineering/backend", label: "Backend" },
+        { href: "/engineering/backend/golang", label: "Golang" },
+      ] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Long Current Label

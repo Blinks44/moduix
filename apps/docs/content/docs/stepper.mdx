@@ -186,12 +186,6 @@ Keep the current step in React state when each step should be clickable.
       } from "moduix";
       import { useState } from "react";
 
-      const steps = [
-        { step: 1, title: "Account" },
-        { step: 2, title: "Profile" },
-        { step: 3, title: "Billing" },
-      ];
-
       export function ControlledStepperDemo() {
         const [currentStep, setCurrentStep] = useState(2);
 
@@ -215,6 +209,15 @@ Keep the current step in React state when each step should be clickable.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const steps = [
+        { step: 1, title: "Account" },
+        { step: 2, title: "Profile" },
+        { step: 3, title: "Billing" },
+      ];`}
+
+  </Preview.Data>
 </Preview>
 
 ### Vertical

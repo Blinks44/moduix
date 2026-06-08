@@ -402,8 +402,6 @@ resize with the active snap point.
       } from "moduix";
       import { useState } from "react";
 
-      const snapPoints = [0.35, 0.65, 1];
-
       export function SnapPointsDrawerDemo() {
         const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[1]);
 
@@ -428,6 +426,11 @@ resize with the active snap point.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const snapPoints = [0.35, 0.65, 1];`}
+
+  </Preview.Data>
 </Preview>
 
 ### Handle
@@ -554,8 +557,6 @@ replaces the removed wrapper-level `persistent` prop.
       import { useState } from "react";
       import styles from "./drawer-demo.module.css";
 
-      const snapPoints = [0.35, 0.85] as const;
-
       export function ControlledPersistentDrawerDemo() {
         const [open, setOpen] = useState(false);
         const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[0]);
@@ -613,6 +614,11 @@ replaces the removed wrapper-level `persistent` prop.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const snapPoints = [0.35, 0.85] as const;`}
+
+  </Preview.Data>
 </Preview>
 
 ### Swipe Area
@@ -660,33 +666,6 @@ pressed.
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customBackdrop {
-        --drawer-backdrop-bg: color-mix(in oklab, var(--color-foreground) 60%, transparent);
-      }
-
-      .customViewport {
-        --drawer-viewport-padding: var(--spacing-4);
-      }
-
-      .customPopup {
-        --drawer-bg: var(--color-card);
-        --drawer-bleed-size: 0px;
-        --drawer-border-color: var(--color-ring);
-        --drawer-shadow: var(--shadow-lg);
-        --drawer-side-width: 24rem;
-        border-radius: var(--radius-xl);
-      }
-
-      .customHandle {
-        --drawer-handle-bg: var(--color-destructive);
-        --drawer-handle-opacity: 0.8;
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### Nested
@@ -858,4 +837,31 @@ baked into `DrawerContent`, compose the low-level parts directly.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBackdrop {
+        --drawer-backdrop-bg: color-mix(in oklab, var(--color-foreground) 60%, transparent);
+      }
+
+      .customViewport {
+        --drawer-viewport-padding: var(--spacing-4);
+      }
+
+      .customPopup {
+        --drawer-bg: var(--color-card);
+        --drawer-bleed-size: 0px;
+        --drawer-border-color: var(--color-ring);
+        --drawer-shadow: var(--shadow-lg);
+        --drawer-side-width: 24rem;
+        border-radius: var(--radius-xl);
+      }
+
+      .customHandle {
+        --drawer-handle-bg: var(--color-destructive);
+        --drawer-handle-opacity: 0.8;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

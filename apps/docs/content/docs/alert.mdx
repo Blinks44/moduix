@@ -191,8 +191,6 @@ Use variants for neutral, informational, success, warning, and destructive state
     {`
       import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, CheckIcon, InfoIcon } from "moduix";
 
-      const variants = ["default", "info", "success", "warning", "destructive"] as const;
-
       export function AlertVariantsDemo() {
         return (
           <div>
@@ -213,6 +211,11 @@ Use variants for neutral, informational, success, warning, and destructive state
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const variants = ["default", "info", "success", "warning", "destructive"] as const;`}
+
+  </Preview.Data>
 </Preview>
 
 ### Destructive
@@ -296,4 +299,26 @@ action. Keep dismiss state in the consuming component when a local alert should 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customAlert {
+        --alert-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+        --alert-border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);
+        --alert-icon-color: var(--color-primary);
+        --alert-radius: var(--radius-md);
+        --alert-shadow: var(--shadow-sm);
+
+        max-width: 32rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        margin-block-start: var(--spacing-2);
+        gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

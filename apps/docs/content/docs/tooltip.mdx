@@ -323,7 +323,6 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
       import { useState } from "react";
       import styles from "./tooltip-demo.module.css";
 
-      const tooltipSides = ["top", "right", "bottom", "left"] as const;
       type TooltipSide = (typeof tooltipSides)[number];
 
       export function SideControlTooltip() {
@@ -357,6 +356,11 @@ Pass placement props directly to `TooltipContent` for the common positioning cas
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const tooltipSides = ["top", "right", "bottom", "left"] as const;`}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`

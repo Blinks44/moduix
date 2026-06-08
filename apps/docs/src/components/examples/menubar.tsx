@@ -34,6 +34,7 @@ import {
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import styles from './menubar.module.css';
 
 export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ['--menubar-arrow-height', '0.625rem', 'Controls popup arrow height.'],
@@ -460,52 +461,16 @@ export function LinkItemsMenubarExample() {
 }
 
 export function CustomCompositionMenubarExample() {
-  const rootStyle = {
-    '--menubar-bg': 'var(--color-background)',
-    '--menubar-border-color': 'rgb(37 99 235)',
-    '--menubar-radius': 'var(--radius-lg)',
-    '--menubar-trigger-bg-hover': 'rgb(219 234 254)',
-    '--menubar-trigger-color-active': 'rgb(255 255 255)',
-    '--menubar-trigger-bg-active': 'rgb(37 99 235)',
-  } as React.CSSProperties;
-
-  const triggerStyle = {
-    position: 'relative',
-    zIndex: 'var(--z-popup)',
-  } as React.CSSProperties;
-
-  const backdropStyle = {
-    backgroundColor: 'rgb(15 23 42 / 0.48)',
-    backdropFilter: 'blur(4px)',
-  } as React.CSSProperties;
-
-  const popupStyle = {
-    '--menubar-popup-min-width': '14rem',
-    '--menubar-popup-bg': 'var(--color-background)',
-    '--menubar-popup-border-color': 'rgb(37 99 235)',
-    '--menubar-popup-shadow': 'var(--shadow-lg)',
-    '--menubar-highlight-bg': 'rgb(37 99 235)',
-    '--menubar-highlight-color': 'rgb(255 255 255)',
-  } as React.CSSProperties;
-
-  const arrowStyle = {
-    '--menubar-arrow-stroke-color': 'var(--menubar-popup-border-color)',
-  } as React.CSSProperties;
-
-  const viewportStyle = {
-    paddingBlock: 'var(--spacing-2)',
-  } as React.CSSProperties;
-
   return (
-    <Menubar style={rootStyle}>
+    <Menubar className={styles.root}>
       <MenubarMenu>
-        <MenubarTrigger style={triggerStyle}>Window</MenubarTrigger>
+        <MenubarTrigger className={styles.trigger}>Window</MenubarTrigger>
         <MenubarPortal>
-          <MenubarBackdrop style={backdropStyle} />
+          <MenubarBackdrop className={styles.backdrop} />
           <MenubarPositioner sideOffset={10} align="start" alignOffset={-4}>
-            <MenubarPopup style={popupStyle}>
-              <MenubarArrow style={arrowStyle} />
-              <MenubarViewport style={viewportStyle}>
+            <MenubarPopup className={styles.popup}>
+              <MenubarArrow className={styles.arrow} />
+              <MenubarViewport className={styles.viewport}>
                 <MenubarItem closeOnClick>Minimize</MenubarItem>
                 <MenubarItem closeOnClick>Zoom</MenubarItem>
                 <MenubarSeparator />

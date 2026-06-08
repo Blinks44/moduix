@@ -356,8 +356,6 @@ Pass `stackBehavior="expanded"` when the stack should always stay readable.
     {`
       import { Button, ToastProvider, ToastRegion, createToastManager } from "moduix";
 
-      const toastManager = createToastManager();
-
       export function App() {
         return (
           <ToastProvider toastManager={toastManager}>
@@ -378,6 +376,11 @@ Pass `stackBehavior="expanded"` when the stack should always stay readable.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const toastManager = createToastManager();`}
+
+  </Preview.Data>
 </Preview>
 
 ### Stacked and Anchored Together

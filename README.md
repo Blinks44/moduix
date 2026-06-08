@@ -48,6 +48,11 @@ moduix supports two installation paths:
 - Install the library as a regular npm package when you want package-managed updates.
 - Install component source into your own project with `shadcn` when you want direct ownership.
 
+| Choose this path            | When it fits best                                                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| npm package                 | You want the fastest setup, package-managed updates, imports from `moduix`, and styles from `moduix/style.css`.        |
+| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`. |
+
 ### npm package
 
 ```bash
