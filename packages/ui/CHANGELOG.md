@@ -1,5 +1,11 @@
 # moduix
 
+## 1.0.1
+
+### Patch Changes
+
+- 0959302: Alert and Toast updates for colors, new tokens for success/warning
+
 ## 1.0.0
 
 ### Major Changes
