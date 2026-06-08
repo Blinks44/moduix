@@ -27,11 +27,6 @@ import {
     {`
       import { Lightbox, LightboxImage, LightboxContent } from "moduix";
 
-      const thumbnail =
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80";
-      const fullSize =
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90";
-
       export function LightboxDemo() {
         return (
           <Lightbox>
@@ -48,9 +43,49 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const thumbnail =
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80";
+      const fullSize =
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90";`}
+
+  </Preview.Data>
   <Preview.CSSProperties>{(context) => <LightboxCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <LightboxCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
+
+## Install with shadcn (optional)
+
+If you want `Lightbox` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/lightbox
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/lightbox
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/lightbox
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Lightbox` depends on, such
+as styles, icons, and small utilities.
 
 `LightboxContent` stays short by default: when `children` are omitted, it reuses the image data from
 `LightboxImage` and opens `fullSrc` if you provide one.
@@ -145,9 +180,6 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
     {`
       import { Lightbox, LightboxContent, LightboxTrigger } from "moduix";
       
-      const fullSize =
-        "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90";
-
       export function TriggerLightboxDemo() {
         return (
           <Lightbox>
@@ -161,6 +193,12 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const fullSize =
+        "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90";`}
+
+  </Preview.Data>
 </Preview>
 
 ### Dynamic Gallery Capture
@@ -172,20 +210,6 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
     {`
       import { LightboxGallery } from "moduix";
       import { Fragment, useRef } from "react";
-
-      const images = {
-        mountain:
-          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
-        mountainLarge:
-          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90",
-        sea: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=900&q=80",
-        seaLarge:
-          "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90",
-        forest:
-          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80",
-        forestLarge:
-          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90",
-      };
 
       export function DynamicGalleryDemo() {
         const rootRef = useRef<HTMLDivElement | null>(null);
@@ -225,6 +249,23 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const images = {
+        mountain:
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+        mountainLarge:
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90",
+        sea: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=900&q=80",
+        seaLarge:
+          "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90",
+        forest:
+          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80",
+        forestLarge:
+          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90",
+      };`}
+
+  </Preview.Data>
 </Preview>
 
 Use a focusable wrapper when delegated gallery items must stay keyboard-accessible. `LightboxGallery`

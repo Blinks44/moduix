@@ -35,6 +35,10 @@ export function Example() {
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
+          <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
           <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
         </BreadcrumbsItem>
       </BreadcrumbsList>

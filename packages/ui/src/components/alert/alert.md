@@ -138,6 +138,14 @@ The component uses CSS variables from `Alert.module.css`; `theme.css` registers 
 `--alert-*` variables as theme-level overrides. Override variables on the root for one alert or on a
 higher scope for a theme.
 
+The built-in semantic variants also read these shared palette tokens:
+
+| Variant       | Shared token          | Default                      |
+| ------------- | --------------------- | ---------------------------- |
+| `success`     | `--color-success`     | `oklch(0.627 0.194 149.214)` |
+| `warning`     | `--color-warning`     | `oklch(0.795 0.184 86.047)`  |
+| `destructive` | `--color-destructive` | current theme destructive    |
+
 | Variable                          | Default/fallback                                           | Affects                        |
 | --------------------------------- | ---------------------------------------------------------- | ------------------------------ |
 | `--alert-bg`                      | `var(--alert-bg-default, var(--color-card))`               | Root background                |
@@ -159,13 +167,12 @@ higher scope for a theme.
 | `--alert-description-color`       | `var(--color-muted-foreground)`                            | Description color              |
 | `--alert-description-font-size`   | `var(--text-sm)`                                           | Description font size          |
 | `--alert-description-line-height` | `var(--line-height-text-sm)`                               | Description line-height        |
-| `--alert-success-color`           | `#16a34a`                                                  | Success variant accent         |
-| `--alert-warning-color`           | `#ca8a04`                                                  | Warning variant accent         |
 
 Variant defaults are internal CSS variables derived from `data-variant`:
 `--alert-bg-default`, `--alert-border-color-default`, `--alert-color-default`, and
 `--alert-icon-color-default`. Override the public variables above instead of depending on those
-internal defaults directly.
+internal defaults directly. The built-in `success` and `warning` variants derive their accents from
+the shared `--color-success` and `--color-warning` tokens.
 
 ## UX and accessibility
 
@@ -186,3 +193,8 @@ internal defaults directly.
 - There is no dedicated action slot by design; compose actions inside `AlertContent`.
 - There are no hover, open, checked, disabled, or read-only states because the component is
   presentational.
+
+## Local changelog
+
+- 2026-06: Moved the success and warning accents onto shared `--color-success` and
+  `--color-warning` tokens so alert variants use the common palette instead of private color vars.

@@ -33,9 +33,6 @@ Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common
     {`
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
 
-      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";
-
       export function PreviewCardDemo() {
         return (
           <PreviewCard>
@@ -66,6 +63,12 @@ Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";`}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -104,6 +107,38 @@ Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common
   <Preview.CSSProperties>{(context) => <PreviewCardCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <PreviewCardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
+
+## Install with shadcn (optional)
+
+If you want `Preview Card` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/preview-card
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/preview-card
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/preview-card
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Preview Card` depends on, such
+as styles, icons, and small utilities.
 
 `PreviewCardContent` already renders `PreviewCardPortal`, `PreviewCardPositioner`,
 `PreviewCardPopup`, and `PreviewCardViewport`. That keeps the default path short while leaving the
@@ -180,9 +215,6 @@ Use the controlled path when another part of the interface owns preview visibili
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
       import { useState } from "react";
 
-      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";
-
       export function ControlledPreviewCard() {
         const [open, setOpen] = useState(false);
 
@@ -217,6 +249,12 @@ Use the controlled path when another part of the interface owns preview visibili
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";`}
+
+  </Preview.Data>
 </Preview>
 
 ### Arrow
@@ -229,9 +267,6 @@ Use the controlled path when another part of the interface owns preview visibili
   <Preview.Code>
     {`
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
-
-      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";
 
       export function ArrowPreviewCard() {
         return (
@@ -257,6 +292,12 @@ Use the controlled path when another part of the interface owns preview visibili
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";`}
+
+  </Preview.Data>
 </Preview>
 
 ### Placement
@@ -269,9 +310,6 @@ Pass placement props to `PreviewCardContent` for the common popup path.
   <Preview.Code>
     {`
       import { PreviewCard, PreviewCardContent, PreviewCardTrigger } from "moduix";
-
-      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";
 
       export function RightPreviewCard() {
         return (
@@ -297,6 +335,12 @@ Pass placement props to `PreviewCardContent` for the common popup path.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";`}
+
+  </Preview.Data>
 </Preview>
 
 ### Detached Trigger
@@ -316,9 +360,6 @@ tree.
         PreviewCardTrigger,
       } from "moduix";
       import { useMemo } from "react";
-
-      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";
 
       export function DetachedTriggerPreviewCard() {
         const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
@@ -354,6 +395,12 @@ tree.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";`}
+
+  </Preview.Data>
 </Preview>
 
 ### Payload-Driven Content
@@ -374,20 +421,6 @@ links.
       } from "moduix";
       import { useMemo } from "react";
 
-      const items = [
-        {
-          title: "Typography",
-          image: "/images/typography-preview.jpg",
-          url: "https://en.wikipedia.org/wiki/Typography",
-          summary: "Typography is the art and technique of arranging type.",
-        },
-        {
-          title: "Grid systems",
-          image: "/images/grid-preview.jpg",
-          url: "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
-          summary: "Grid systems help organize content and spacing.",
-        },
-      ];
       type PreviewItem = (typeof items)[number];
 
       export function MultipleTriggersPreviewCard() {
@@ -430,6 +463,24 @@ links.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const items = [
+        {
+          title: "Typography",
+          image: "/images/typography-preview.jpg",
+          url: "https://en.wikipedia.org/wiki/Typography",
+          summary: "Typography is the art and technique of arranging type.",
+        },
+        {
+          title: "Grid systems",
+          image: "/images/grid-preview.jpg",
+          url: "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
+          summary: "Grid systems help organize content and spacing.",
+        },
+      ];`}
+
+  </Preview.Data>
 </Preview>
 
 ## Custom Composition

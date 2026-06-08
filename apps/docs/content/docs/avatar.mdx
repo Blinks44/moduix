@@ -32,9 +32,6 @@ path and keeps image loading, error handling, and fallback timing on the primiti
     {`
       import { Avatar, AvatarFallback, AvatarImage } from "moduix";
 
-      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-
       export function AvatarDemo() {
         return (
           <Avatar>
@@ -47,6 +44,12 @@ path and keeps image loading, error handling, and fallback timing on the primiti
 
   </Preview.Code>
 
+  <Preview.Data>
+    {`      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";`}
+
+  </Preview.Data>
+
 <Preview.CSSProperties>
   {(context) => <AvatarCssPropertiesPanel {...context} />}
 </Preview.CSSProperties>
@@ -55,6 +58,38 @@ path and keeps image loading, error handling, and fallback timing on the primiti
     {(context) => <AvatarCssPlaygroundPanel {...context} />}
   </Preview.CSSPlayground>
 </Preview>
+
+## Install with shadcn (optional)
+
+If you want `Avatar` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/avatar
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/avatar
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/avatar
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Avatar` depends on, such
+as styles, icons, and small utilities.
 
 ## Anatomy
 
@@ -176,9 +211,6 @@ Use `render` when the avatar should act as a link or compose with an app-specifi
     {`
       import { Avatar, AvatarFallback, AvatarImage } from "moduix";
 
-      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-
       export function AvatarLinkDemo() {
         return (
           <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className={styles.linkAvatar}>
@@ -192,6 +224,12 @@ Use `render` when the avatar should act as a link or compose with an app-specifi
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";`}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -234,9 +272,6 @@ adding extra wrapper APIs.
     {`
       import { Avatar, AvatarFallback, AvatarImage } from "moduix";
 
-      const avatarImage =
-        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-
       export function CustomCompositionAvatarDemo() {
         return (
           <Avatar size="lg" className={styles.ring}>
@@ -248,6 +283,12 @@ adding extra wrapper APIs.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";`}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`

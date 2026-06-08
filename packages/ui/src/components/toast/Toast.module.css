@@ -57,14 +57,14 @@
     );
     flex-direction: column;
     border-radius: var(--toast-radius, var(--radius-md));
-    background-color: var(--toast-bg, var(--color-popover));
-    color: var(--toast-color, var(--color-popover-foreground));
+    background-color: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
+    color: var(--toast-color, var(--toast-color-default, var(--color-popover-foreground)));
     padding: var(--toast-anchored-padding-y, 0.25rem) var(--toast-anchored-padding-x, 0.5rem);
     font-size: var(--toast-anchored-font-size, var(--text-sm));
     line-height: var(--toast-anchored-line-height, var(--line-height-text-sm));
     box-shadow: var(--toast-shadow, var(--shadow-lg));
     outline: var(--toast-border-width, var(--border-width-sm)) solid
-      var(--toast-border-color, var(--color-border));
+      var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
     pointer-events: auto;
     transform-origin: var(--transform-origin);
     transition: var(--toast-anchored-transition, transform 150ms, opacity 150ms);
@@ -82,9 +82,57 @@
     }
   }
 
+  .root,
+  .anchoredRoot {
+    &[data-type='info'] {
+      --toast-bg-default: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
+      --toast-border-color-default: color-mix(in oklab, var(--color-primary) 32%, transparent);
+      --toast-close-bg-hover-default: color-mix(in oklab, var(--color-primary) 10%, transparent);
+      --toast-close-color-default: var(--color-primary);
+      --toast-close-color-hover-default: var(--color-primary);
+      --toast-color-default: var(--color-foreground);
+      --toast-description-color-default: var(--color-muted-foreground);
+    }
+
+    &[data-type='success'] {
+      --toast-bg-default: color-mix(in oklab, var(--color-success) 10%, var(--color-background));
+      --toast-border-color-default: color-mix(in oklab, var(--color-success) 34%, transparent);
+      --toast-close-bg-hover-default: color-mix(in oklab, var(--color-success) 12%, transparent);
+      --toast-close-color-default: var(--color-success);
+      --toast-close-color-hover-default: var(--color-success);
+      --toast-color-default: var(--color-foreground);
+      --toast-description-color-default: var(--color-muted-foreground);
+    }
+
+    &[data-type='warning'] {
+      --toast-bg-default: color-mix(in oklab, var(--color-warning) 13%, var(--color-background));
+      --toast-border-color-default: color-mix(in oklab, var(--color-warning) 38%, transparent);
+      --toast-close-bg-hover-default: color-mix(in oklab, var(--color-warning) 14%, transparent);
+      --toast-close-color-default: var(--color-warning);
+      --toast-close-color-hover-default: var(--color-warning);
+      --toast-color-default: var(--color-foreground);
+      --toast-description-color-default: var(--color-muted-foreground);
+    }
+
+    &[data-type='destructive'],
+    &[data-type='error'] {
+      --toast-bg-default: color-mix(in oklab, var(--color-destructive) 9%, var(--color-background));
+      --toast-border-color-default: color-mix(in oklab, var(--color-destructive) 35%, transparent);
+      --toast-close-bg-hover-default: color-mix(
+        in oklab,
+        var(--color-destructive) 10%,
+        transparent
+      );
+      --toast-close-color-default: var(--color-destructive);
+      --toast-close-color-hover-default: var(--color-destructive);
+      --toast-color-default: var(--color-foreground);
+      --toast-description-color-default: var(--color-muted-foreground);
+    }
+  }
+
   .anchoredArrow {
     display: flex;
-    color: var(--toast-bg, var(--color-popover));
+    color: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
 
     &[data-side='top'] {
       bottom: var(--toast-anchored-arrow-offset-y, -8px);
@@ -119,11 +167,11 @@
   }
 
   .anchoredArrowOuterStroke {
-    fill: var(--toast-border-color, var(--color-border));
+    fill: var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
   }
 
   .anchoredArrowInnerStroke {
-    fill: var(--toast-bg, var(--color-popover));
+    fill: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
   }
 
   .anchoredContent {
@@ -155,10 +203,10 @@
     box-sizing: border-box;
     width: 100%;
     border: var(--toast-border-width, var(--border-width-sm)) solid
-      var(--toast-border-color, var(--color-border));
+      var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
     border-radius: var(--toast-radius, var(--radius-lg));
-    background-color: var(--toast-bg, var(--color-popover));
-    color: var(--toast-color, var(--color-popover-foreground));
+    background-color: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
+    color: var(--toast-color, var(--toast-color-default, var(--color-popover-foreground)));
     box-shadow: var(--toast-shadow, var(--shadow-lg));
     background-clip: padding-box;
     padding: var(--toast-padding, 1rem);
@@ -301,7 +349,10 @@
 
   .description {
     margin: 0;
-    color: var(--toast-description-color, var(--color-muted-foreground));
+    color: var(
+      --toast-description-color,
+      var(--toast-description-color-default, var(--color-muted-foreground))
+    );
     font-size: var(--toast-description-font-size, var(--text-sm));
     line-height: var(--toast-description-line-height, var(--line-height-text-sm));
   }
@@ -352,14 +403,23 @@
     border: none;
     border-radius: var(--toast-close-radius, var(--radius-sm));
     background: var(--toast-close-bg, transparent);
-    color: var(--toast-close-color, var(--color-muted-foreground));
+    color: var(
+      --toast-close-color,
+      var(--toast-close-color-default, var(--color-muted-foreground))
+    );
     padding: var(--toast-close-padding, 0);
     cursor: pointer;
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--toast-close-bg-hover, var(--color-accent));
-        color: var(--toast-close-color-hover, var(--color-foreground));
+        background-color: var(
+          --toast-close-bg-hover,
+          var(--toast-close-bg-hover-default, var(--color-accent))
+        );
+        color: var(
+          --toast-close-color-hover,
+          var(--toast-close-color-hover-default, var(--color-foreground))
+        );
       }
     }
 

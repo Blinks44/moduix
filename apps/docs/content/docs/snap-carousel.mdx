@@ -80,6 +80,38 @@ viewport automatically and wraps each direct child in a snap item.
   <Preview.CSSPlayground>{(context) => <SnapCarouselCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Snap Carousel` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/snap-carousel
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/snap-carousel
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/snap-carousel
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Snap Carousel` depends on, such
+as styles, icons, and small utilities.
+
 ## Anatomy
 
 ```text

@@ -68,6 +68,38 @@ Use `Toolbar` as the roving-focus shell, then compose only the parts the row act
   <Preview.CSSPlayground>{(context) => <ToolbarCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Toolbar` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/toolbar
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/toolbar
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/toolbar
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Toolbar` depends on, such
+as styles, icons, and small utilities.
+
 ## Anatomy
 
 `Toolbar` groups related controls into one keyboard navigation region. The exported parts cover

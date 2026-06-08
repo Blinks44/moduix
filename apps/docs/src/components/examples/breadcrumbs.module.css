@@ -1,3 +1,25 @@
 .container {
   max-width: min(34rem, 100%);
 }
+
+.separatorIcon {
+  width: 0.75rem;
+  height: 0.25rem;
+}
+
+.collapsedMenuTrigger {
+  min-width: auto;
+  min-height: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+}
+
+.collapsedMenuContent {
+  --menu-popup-min-width: 8rem;
+  --menu-item-font-size: var(--text-xs);
+  --menu-item-padding-x-start: 0.625rem;
+  --menu-item-padding-x-end: 0.625rem;
+  --menu-item-padding-y: 0.25rem;
+}

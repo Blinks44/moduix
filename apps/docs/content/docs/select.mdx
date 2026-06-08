@@ -99,6 +99,38 @@ path for standard forms and settings panels.
   <Preview.CSSPlayground>{(context) => <SelectCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Select` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/select
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/select
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/select
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Select` depends on, such
+as styles, icons, and small utilities.
+
 ## Anatomy
 
 The normal consumer path is short:
@@ -134,6 +166,10 @@ change.
 
 `Select` keeps Base UI root behavior intact. Use it for `value`, `defaultValue`, `multiple`,
 `onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`.
+
+Use `onValueChange` when the selected value should immediately update React state. When the value
+only needs to be read during form submission, pass `name` on `Select` and read it from
+`new FormData(event.currentTarget)`.
 
 `SelectContent` is the high-level popup wrapper. It accepts popup `className`, supports the shared
 positioning props (`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`,
@@ -238,6 +274,23 @@ Use `SelectGroup` and `SelectGroupLabel` to organize related items inside the po
     `}
 
   </Preview.Code>
+  <Preview.Data>
+    {`
+      const languages = {
+        csharp: "C#",
+        go: "Go",
+        javascript: "JavaScript",
+        python: "Python",
+        rust: "Rust",
+        typescript: "TypeScript",
+      } as const;
+
+      type Language = keyof typeof languages;
+
+      const languageValues = Object.keys(languages) as Language[];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Scroll Controls
@@ -329,11 +382,29 @@ function to format the array.
     `}
 
   </Preview.Code>
+  <Preview.Data>
+    {`
+      const languages = {
+        csharp: "C#",
+        go: "Go",
+        javascript: "JavaScript",
+        python: "Python",
+        rust: "Rust",
+        typescript: "TypeScript",
+      } as const;
+
+      type Language = keyof typeof languages;
+
+      const languageValues = Object.keys(languages) as Language[];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled Value
 
-Control `value` from React state when the selection coordinates with other application state.
+Control `value` from React state when the selection coordinates with other application state. This
+is the direct path when you need to read the current value outside native form submission.
 
 <Preview>
   <ControlledSelectExample />
@@ -342,41 +413,48 @@ Control `value` from React state when the selection coordinates with other appli
     {`
       import { useState } from "react";
 
-      const themeOptions = [
-        { label: "System", value: "system" },
-        { label: "Light", value: "light" },
-        { label: "Dark", value: "dark" },
-      ];
-
       export function ControlledSelectDemo() {
         const [value, setValue] = useState("light");
 
         return (
-          <Select value={value} onValueChange={setValue} items={themeOptions}>
-            <SelectField>
-              <SelectLabel>Theme</SelectLabel>
-              <SelectTrigger>
-                <SelectValue placeholder="Select theme" />
-                <SelectIcon />
-              </SelectTrigger>
-            </SelectField>
+          <div>
+            <Select value={value} onValueChange={setValue} items={themeOptions}>
+              <SelectField>
+                <SelectLabel>Theme</SelectLabel>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select theme" />
+                  <SelectIcon />
+                </SelectTrigger>
+              </SelectField>
 
-            <SelectContent>
-              <SelectList>
-                {themeOptions.map((item) => (
-                  <SelectItem key={item.value} value={item.value}>
-                    <SelectItemIndicator />
-                    <SelectItemText>{item.label}</SelectItemText>
-                  </SelectItem>
-                ))}
-              </SelectList>
-            </SelectContent>
-          </Select>
+              <SelectContent>
+                <SelectList>
+                  {themeOptions.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      <SelectItemIndicator />
+                      <SelectItemText>{item.label}</SelectItemText>
+                    </SelectItem>
+                  ))}
+                </SelectList>
+              </SelectContent>
+            </Select>
+
+            <p>Current value: {value ?? "none"}</p>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const themeOptions = [
+        { label: "System", value: "system" },
+        { label: "Light", value: "light" },
+        { label: "Dark", value: "dark" },
+      ];`}
+
+  </Preview.Data>
 </Preview>
 
 ### Clearable Field
@@ -389,13 +467,6 @@ popup.
 
   <Preview.Code>
     {`
-      const clearableThemeOptions = [
-        { label: "Select theme", value: null },
-        { label: "System", value: "system" },
-        { label: "Light", value: "light" },
-        { label: "Dark", value: "dark" },
-      ];
-
       <Select items={clearableThemeOptions}>
         <SelectField>
           <SelectLabel>Theme</SelectLabel>
@@ -419,6 +490,16 @@ popup.
     `}
 
   </Preview.Code>
+  <Preview.Data>
+    {`
+      const clearableThemeOptions = [
+        { label: "Select theme", value: null },
+        { label: "System", value: "system" },
+        { label: "Light", value: "light" },
+        { label: "Dark", value: "dark" },
+      ];
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Custom Item Layout

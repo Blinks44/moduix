@@ -1,4 +1,4 @@
-import type { ComponentProps, CSSProperties } from 'react';
+import type { ComponentProps } from 'react';
 import {
   Breadcrumbs,
   BreadcrumbsEllipsis,
@@ -17,24 +17,11 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './breadcrumbs.module.css';
 
-const separatorIconStyle = { width: '0.75rem', height: '0.25rem' } as CSSProperties;
-
-const collapsedMenuTriggerStyle = {
-  minWidth: 'auto',
-  minHeight: 'auto',
-  padding: 0,
-  border: 'none',
-  background: 'transparent',
-  color: 'inherit',
-} as CSSProperties;
-
-const collapsedMenuContentStyle = {
-  '--menu-popup-min-width': '8rem',
-  '--menu-item-font-size': 'var(--text-xs)',
-  '--menu-item-padding-x-start': '0.625rem',
-  '--menu-item-padding-x-end': '0.625rem',
-  '--menu-item-padding-y': '0.25rem',
-} as CSSProperties;
+const collapsedItems = [
+  { href: '/engineering', label: 'Engineering' },
+  { href: '/engineering/backend', label: 'Backend' },
+  { href: '/engineering/backend/golang', label: 'Golang' },
+] as const;
 
 export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-color', 'var(--color-muted-foreground)', 'Controls base breadcrumbs text color.'],
@@ -162,19 +149,18 @@ export function BreadcrumbsCollapsedExample() {
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
             <Menu>
-              <MenuTrigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
+              <MenuTrigger
+                aria-label="Show hidden path items"
+                className={styles.collapsedMenuTrigger}
+              >
                 <BreadcrumbsEllipsis />
               </MenuTrigger>
-              <MenuContent align="start" style={collapsedMenuContentStyle}>
-                <MenuLinkItem closeOnClick href="/engineering">
-                  Engineering
-                </MenuLinkItem>
-                <MenuLinkItem closeOnClick href="/engineering/backend">
-                  Backend
-                </MenuLinkItem>
-                <MenuLinkItem closeOnClick href="/engineering/backend/golang">
-                  Golang
-                </MenuLinkItem>
+              <MenuContent align="start" className={styles.collapsedMenuContent}>
+                {collapsedItems.map((item) => (
+                  <MenuLinkItem key={item.href} closeOnClick href={item.href}>
+                    {item.label}
+                  </MenuLinkItem>
+                ))}
               </MenuContent>
             </Menu>
           </BreadcrumbsItem>
@@ -201,13 +187,13 @@ export function BreadcrumbsCustomSeparatorExample() {
             <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator>
-            <SeparatorMarkIcon style={separatorIconStyle} />
+            <SeparatorMarkIcon className={styles.separatorIcon} />
           </BreadcrumbsSeparator>
           <BreadcrumbsItem>
             <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator>
-            <SeparatorMarkIcon style={separatorIconStyle} />
+            <SeparatorMarkIcon className={styles.separatorIcon} />
           </BreadcrumbsSeparator>
           <BreadcrumbsItem>
             <BreadcrumbsPage>Go Developer</BreadcrumbsPage>

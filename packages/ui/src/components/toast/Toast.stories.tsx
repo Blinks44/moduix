@@ -54,6 +54,16 @@ export const Action: Story = {
   ),
 };
 
+export const Variants: Story = {
+  name: 'Variants',
+  render: () => (
+    <ToastProvider>
+      <ToastVariantButtons />
+      <ToastRegion />
+    </ToastProvider>
+  ),
+};
+
 export const Placement: Story = {
   render: () => (
     <ToastProvider>
@@ -232,6 +242,61 @@ function PlacementToastButton({ placement }: { placement: ToastPlacement }) {
     >
       Show {placement}
     </Button>
+  );
+}
+
+function ToastVariantButtons() {
+  const toastManager = useToastManager();
+
+  return (
+    <div className={styles.typedActions}>
+      <Button
+        onClick={() =>
+          toastManager.add({
+            type: 'info',
+            title: 'Heads up',
+            description: 'New teammates can see the shared workspace now.',
+          })
+        }
+      >
+        Info toast
+      </Button>
+      <Button
+        onClick={() =>
+          toastManager.add({
+            type: 'success',
+            title: 'Saved',
+            description: 'The document is available to everyone with access.',
+          })
+        }
+      >
+        Success toast
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() =>
+          toastManager.add({
+            type: 'warning',
+            title: 'Storage almost full',
+            description: 'Archive old uploads before the next sync.',
+          })
+        }
+      >
+        Warning toast
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() =>
+          toastManager.add({
+            type: 'destructive',
+            title: 'Publish failed',
+            description: 'Review the required fields and try again.',
+          })
+        }
+      >
+        Destructive toast
+      </Button>
+    </div>
   );
 }
 

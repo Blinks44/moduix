@@ -73,6 +73,38 @@ empty-state layouts.
   <Preview.CSSPlayground>{(context) => <EmptyCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Empty` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/empty
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/empty
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/empty
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Empty` depends on, such
+as styles, icons, and small utilities.
+
 `Empty` gives missing-data states a consistent surface, optional icon slot, and wrapping actions row
 without locking consumers into high-level props like `title`, `description`, or `primaryAction`.
 

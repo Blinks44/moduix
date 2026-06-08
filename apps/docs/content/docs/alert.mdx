@@ -49,6 +49,38 @@ semantic content parts, and regular children for everything else.
   <Preview.CSSPlayground>{(context) => <AlertCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Alert` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/alert
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/alert
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/alert
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Alert` depends on, such
+as styles, icons, and small utilities.
+
 The default path stays short: use `Alert` for the surface and `AlertContent` for the text group.
 Add `AlertIcon` only when the message benefits from a leading visual cue.
 
@@ -97,6 +129,14 @@ root slot when the alert needs local theming.
 `role` defaults to `status`, and switches to `alert` for `variant="destructive"`.
 `AlertTitle` renders `h3` by default and accepts `as="h1"` through `as="h6"` when the surrounding
 document outline needs a different heading level.
+
+`success` and `warning` use the shared semantic palette tokens instead of private alert-only colors:
+
+| Variant       | Shared token          | Default                      |
+| ------------- | --------------------- | ---------------------------- |
+| `success`     | `--color-success`     | `oklch(0.627 0.194 149.214)` |
+| `warning`     | `--color-warning`     | `oklch(0.795 0.184 86.047)`  |
+| `destructive` | `--color-destructive` | theme destructive            |
 
 ### Defaults
 
@@ -159,8 +199,6 @@ Use variants for neutral, informational, success, warning, and destructive state
     {`
       import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, CheckIcon, InfoIcon } from "moduix";
 
-      const variants = ["default", "info", "success", "warning", "destructive"] as const;
-
       export function AlertVariantsDemo() {
         return (
           <div>
@@ -181,6 +219,11 @@ Use variants for neutral, informational, success, warning, and destructive state
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const variants = ["default", "info", "success", "warning", "destructive"] as const;`}
+
+  </Preview.Data>
 </Preview>
 
 ### Destructive
@@ -264,4 +307,26 @@ action. Keep dismiss state in the consuming component when a local alert should 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customAlert {
+        --alert-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+        --alert-border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);
+        --alert-icon-color: var(--color-primary);
+        --alert-radius: var(--radius-md);
+        --alert-shadow: var(--shadow-sm);
+
+        max-width: 32rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        margin-block-start: var(--spacing-2);
+        gap: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>

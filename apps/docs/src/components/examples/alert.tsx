@@ -48,7 +48,11 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
   ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
   ['--alert-shadow', 'none', 'Controls alert shadow.'],
-  ['--alert-success-color', '#16a34a', 'Controls success variant accent color.'],
+  [
+    '--color-success',
+    'oklch(0.627 0.194 149.214)',
+    'Shared success palette token used by the success variant.',
+  ],
   [
     '--alert-title-color',
     'var(--alert-color, var(--alert-color-default))',
@@ -57,7 +61,11 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-title-font-size', 'var(--text-sm)', 'Controls title font size.'],
   ['--alert-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
   ['--alert-title-line-height', 'var(--line-height-text-sm)', 'Controls title line-height.'],
-  ['--alert-warning-color', '#ca8a04', 'Controls warning variant accent color.'],
+  [
+    '--color-warning',
+    'oklch(0.795 0.184 86.047)',
+    'Shared warning palette token used by the warning variant.',
+  ],
 ];
 
 export const alertPlaygroundCssProperties: CssPropertyInput[] = [

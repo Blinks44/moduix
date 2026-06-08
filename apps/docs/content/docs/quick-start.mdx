@@ -12,6 +12,11 @@ moduix supports two installation paths:
 - Install components into your own project with `shadcn` when you want direct ownership over the
   source.
 
+| Choose this path            | When it fits best                                                                                                          |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| npm package                 | You want the fastest setup, updates through package management, imports from `moduix`, and styles from `moduix/style.css`. |
+| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`.     |
+
 ## Install As A Package
 
 Use this path when you want moduix to stay in `node_modules` and receive updates through normal
@@ -22,9 +27,29 @@ package management.
 The components, CSS, and design tokens are shipped together, while Base UI stays as a peer
 dependency in your application:
 
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
 ```bash
 npm install moduix @base-ui/react
 ```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm add moduix @base-ui/react
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun add moduix @base-ui/react
+```
+
+  </Tab>
+</Tabs>
 
 `@base-ui/react` stays in your application bundle, so moduix does not ship duplicate Base UI
 runtime.
@@ -76,8 +101,12 @@ staying in `node_modules`.
 
 ### 1. Prepare the project for shadcn
 
-Make sure your project resolves the `@/*` alias to `src/*`. For Vite, put the alias in both
-`tsconfig.json` and `tsconfig.app.json`, then mirror it in `vite.config.ts`:
+Make sure your project resolves the `@/*` alias to `src/*`. The exact setup depends on the bundler:
+
+<Tabs items={['Vite', 'Rsbuild']}>
+  <Tab value="Vite">
+
+For Vite, put the alias in both `tsconfig.json` and `tsconfig.app.json`, then mirror it in `vite.config.ts`:
 
 <Tabs items={['tsconfig.json', 'tsconfig.app.json', 'vite.config.ts']}>
   <Tab value="tsconfig.json">
@@ -85,7 +114,6 @@ Make sure your project resolves the `@/*` alias to `src/*`. For Vite, put the al
 ```json
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -101,7 +129,6 @@ Make sure your project resolves the `@/*` alias to `src/*`. For Vite, put the al
 ```json
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -119,6 +146,41 @@ resolve: {
   },
 }
 ```
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+  <Tab value="Rsbuild">
+
+For Rsbuild, add the alias to `tsconfig.json`, then mirror it in `rsbuild.config.ts`:
+
+<Tabs items={['tsconfig.json', 'rsbuild.config.ts']}>
+  <Tab value="tsconfig.json">
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+  </Tab>
+  <Tab value="rsbuild.config.ts">
+
+```ts
+resolve: {
+  alias: {
+    '@': './src',
+  },
+}
+```
+
+  </Tab>
+</Tabs>
 
   </Tab>
 </Tabs>
@@ -159,10 +221,32 @@ This gives the `shadcn` CLI the aliases and project metadata it needs to place g
 
 Install registry items from the moduix GitHub registry:
 
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
 ```bash
 npx shadcn@latest add Blinks44/moduix/button
 npx shadcn@latest add Blinks44/moduix/accordion
 ```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/button
+pnpm dlx shadcn@latest add Blinks44/moduix/accordion
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/button
+bunx shadcn@latest add Blinks44/moduix/accordion
+```
+
+  </Tab>
+</Tabs>
 
 The registry will also install the shared moduix foundation files those components need, including
 styles, icons, and small utilities.

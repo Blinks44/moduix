@@ -40,12 +40,6 @@ import {
       } from "moduix";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       export function RadioDemo() {
         const labelId = useId();
 
@@ -66,9 +60,50 @@ import {
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];`}
+
+  </Preview.Data>
   <Preview.CSSProperties>{(context) => <RadioCssPropertiesPanel {...context} />}</Preview.CSSProperties>
   <Preview.CSSPlayground>{(context) => <RadioCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
+
+## Install with shadcn (optional)
+
+If you want `Radio` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/radio
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/radio
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/radio
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Radio` depends on, such
+as styles, icons, and small utilities.
 
 `Radio` stays close to the Base UI primitive. The default path keeps the checked indicator internal,
 while `RadioGroup` owns selection state and form behavior.
@@ -417,12 +452,6 @@ Style visible parts with `className` and the public `--radio-*` variables.
       import { useId } from "react";
       import styles from "./styled-radio-demo.module.css";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       export function StyledRadioDemo() {
         const labelId = useId();
 
@@ -445,6 +474,15 @@ Style visible parts with `className` and the public `--radio-*` variables.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];`}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -499,12 +537,6 @@ Compose `RadioIndicator` inside `Radio` when the built-in dot is not enough.
       import type { ComponentProps } from "react";
       import { useId } from "react";
 
-      const options = [
-        { value: "personal", label: "Personal account" },
-        { value: "team", label: "Team account" },
-        { value: "enterprise", label: "Enterprise account" },
-      ];
-
       function DiamondIcon(props: ComponentProps<"svg">) {
         return (
           <svg
@@ -545,4 +577,13 @@ Compose `RadioIndicator` inside `Radio` when the built-in dot is not enough.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const options = [
+        { value: "personal", label: "Personal account" },
+        { value: "team", label: "Team account" },
+        { value: "enterprise", label: "Enterprise account" },
+      ];`}
+
+  </Preview.Data>
 </Preview>

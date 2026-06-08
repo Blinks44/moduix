@@ -439,26 +439,30 @@ export function ControlledSelectExample() {
   const [value, setValue] = useState<string | null>('light');
 
   return (
-    <Select value={value} onValueChange={setValue} items={themeOptions}>
-      <SelectField>
-        <SelectLabel>Theme</SelectLabel>
-        <SelectTrigger>
-          <SelectValue placeholder="Select theme" />
-          <SelectIcon />
-        </SelectTrigger>
-      </SelectField>
+    <div>
+      <Select value={value} onValueChange={setValue} items={themeOptions}>
+        <SelectField>
+          <SelectLabel>Theme</SelectLabel>
+          <SelectTrigger>
+            <SelectValue placeholder="Select theme" />
+            <SelectIcon />
+          </SelectTrigger>
+        </SelectField>
 
-      <SelectContent>
-        <SelectList>
-          {themeOptions.map((item) => (
-            <SelectItem key={item.value} value={item.value}>
-              <SelectItemIndicator />
-              <SelectItemText>{item.label}</SelectItemText>
-            </SelectItem>
-          ))}
-        </SelectList>
-      </SelectContent>
-    </Select>
+        <SelectContent>
+          <SelectList>
+            {themeOptions.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                <SelectItemIndicator />
+                <SelectItemText>{item.label}</SelectItemText>
+              </SelectItem>
+            ))}
+          </SelectList>
+        </SelectContent>
+      </Select>
+
+      <p>Current value: {value ?? 'none'}</p>
+    </div>
   );
 }
 

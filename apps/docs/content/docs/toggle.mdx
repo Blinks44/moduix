@@ -49,6 +49,38 @@ props like `defaultPressed` or `pressed`.
   <Preview.CSSPlayground>{(context) => <ToggleCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Toggle` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/toggle
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/toggle
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/toggle
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Toggle` depends on, such
+as styles, icons, and small utilities.
+
 `Toggle` stays intentionally small: one root, three built-in visual variants, and a compact size
 scale for text or icon-only controls.
 

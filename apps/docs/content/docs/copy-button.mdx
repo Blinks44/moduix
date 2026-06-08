@@ -38,6 +38,38 @@ import {
   </Preview.Code>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Copy Button` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/copy-button
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/copy-button
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/copy-button
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Copy Button` depends on, such
+as styles, icons, and small utilities.
+
 `CopyButton` is a thin wrapper over the local `Button` that adds one narrow workflow: copying a
 known string to the clipboard and exposing a short-lived copied state.
 

@@ -79,6 +79,38 @@ import {
   </Preview.CSSPlayground>
 </Preview>
 
+## Install with shadcn (optional)
+
+If you want `Collapsible` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/collapsible
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/collapsible
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/collapsible
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Collapsible` depends on, such
+as styles, icons, and small utilities.
+
 `Collapsible` is the moduix wrapper for a single trigger/panel pair. It keeps Base UI disclosure
 behavior, but the public API here is the flat moduix export surface: `Collapsible`,
 `CollapsibleTrigger`, `CollapsiblePanel`, and the optional `CollapsibleTriggerIcon`.
