@@ -1,5 +1,11 @@
 # moduix
 
+## 1.0.2
+
+### Patch Changes
+
+- 0b79dae: update deps
+
 ## 1.0.1
 
 ### Patch Changes
