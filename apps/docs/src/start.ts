@@ -4,6 +4,10 @@ import { isMarkdownPreferred } from 'fumadocs-core/negotiation';
 import { docsRoute } from '@/lib/shared';
 import { slugsToMarkdownPath } from './lib/source';
 
+const csrfMiddleware = createCsrfMiddleware({
+  filter: (ctx) => ctx.handlerType === 'serverFn',
+});
+
 const llmMiddleware = createMiddleware().server(({ next, request }) => {
   const url = new URL(request.url);
 
@@ -22,10 +26,6 @@ const llmMiddleware = createMiddleware().server(({ next, request }) => {
   }
 
   return next();
-});
-
-const csrfMiddleware = createCsrfMiddleware({
-  filter: (ctx) => ctx.handlerType === 'serverFn',
 });
 
 export const startInstance = createStart(() => {
