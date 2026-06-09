@@ -1,5 +1,0 @@
----
-'moduix': patch
----
-
-update deps
