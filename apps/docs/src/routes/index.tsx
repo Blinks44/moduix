@@ -19,7 +19,7 @@ const highlights = [
   },
   {
     icon: PackageCheck,
-    label: 'Base UI as the foundation',
+    label: 'Shadcn-like composition',
   },
 ];
 
