@@ -308,6 +308,8 @@ Two variables are especially easy to overlook:
 
 ## Local changelog
 
+- 2026-06-10: Switched default motion fallbacks to shared transition and duration/easing tokens so
+  docs previews and shipped CSS use the same popup timing contract as Storybook.
 - 2026-06-02: Replaced copied Base UI markdown with moduix-specific documentation, documented the
   built-in popup contract and trigger icon sugar, and recorded styling/accessibility constraints that
   future changes must preserve.

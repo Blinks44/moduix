@@ -14,10 +14,14 @@
       opacity var(--lightbox-backdrop-transition, var(--transition-default)),
       backdrop-filter var(--lightbox-backdrop-transition, var(--transition-default));
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--lightbox-backdrop-starting-opacity, 0);
+      backdrop-filter: var(--lightbox-backdrop-starting-blur, none);
+    }
+
     &[data-ending-style] {
-      opacity: 0;
-      backdrop-filter: none;
+      opacity: var(--lightbox-backdrop-ending-opacity, 0);
+      backdrop-filter: var(--lightbox-backdrop-ending-blur, none);
     }
   }
 
@@ -47,13 +51,22 @@
     background: transparent;
     outline: 0;
     transition:
-      opacity var(--lightbox-transition, 220ms ease),
-      transform var(--lightbox-transition, 220ms ease);
+      opacity var(--lightbox-transition, var(--duration-normal) var(--ease-standard)),
+      transform var(--lightbox-transition, var(--duration-normal) var(--ease-standard)),
+      translate var(--lightbox-transition, var(--duration-normal) var(--ease-standard));
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--lightbox-popup-starting-opacity, 0);
+      translate: var(--lightbox-popup-starting-translate-x, 0)
+        var(--lightbox-popup-starting-translate-y, 0);
+      transform: scale(var(--lightbox-popup-starting-scale, 0.82));
+    }
+
     &[data-ending-style] {
-      opacity: 0;
-      transform: scale(var(--lightbox-scale, 0.82));
+      opacity: var(--lightbox-popup-ending-opacity, 0);
+      translate: var(--lightbox-popup-ending-translate-x, 0)
+        var(--lightbox-popup-ending-translate-y, 0);
+      transform: scale(var(--lightbox-popup-ending-scale, 0.82));
     }
   }
 
@@ -65,7 +78,8 @@
     max-width: min(var(--lightbox-width, 80vw), 100%);
     height: min(var(--lightbox-height, 80dvh), 100%);
     max-height: min(var(--lightbox-height, 80dvh), 100%);
-    animation: lightbox-image-enter var(--lightbox-image-enter-duration, 240ms) ease;
+    animation: lightbox-image-enter var(--lightbox-image-enter-duration, var(--duration-normal))
+      ease;
   }
 
   .closeButton {
@@ -87,9 +101,12 @@
     transition: opacity var(--lightbox-backdrop-transition, var(--transition-default));
   }
 
-  .viewport[data-starting-style] > .closeButton,
+  .viewport[data-starting-style] > .closeButton {
+    opacity: var(--lightbox-close-button-starting-opacity, 0);
+  }
+
   .viewport[data-ending-style] > .closeButton {
-    opacity: 0;
+    opacity: var(--lightbox-close-button-ending-opacity, 0);
   }
 
   .frame img,
@@ -112,8 +129,12 @@
 
   @keyframes lightbox-image-enter {
     from {
-      opacity: 0.35;
-      transform: scale(var(--lightbox-image-enter-scale, 0.9));
+      opacity: var(--lightbox-image-enter-opacity, 0.35);
+      transform: translate(
+          var(--lightbox-image-enter-translate-x, 0),
+          var(--lightbox-image-enter-translate-y, 0)
+        )
+        scale(var(--lightbox-image-enter-scale, 0.9));
     }
 
     to {

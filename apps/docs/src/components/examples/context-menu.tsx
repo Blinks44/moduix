@@ -188,7 +188,6 @@ export const contextMenuOverrideCssProperties: CssPropertyInput[] = [
   ['--context-menu-popup-min-width', '12rem', 'Controls popup minimum width.'],
   ['--context-menu-popup-padding-y', '0.25rem', 'Controls popup vertical padding.'],
   ['--context-menu-popup-radius', 'var(--radius-md)', 'Controls popup corner radius.'],
-  ['--context-menu-popup-scale', 'var(--scale-popup)', 'Controls popup start/end animation scale.'],
   ['--context-menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--context-menu-separator-color', 'var(--color-border)', 'Controls separator color.'],
   ['--context-menu-separator-margin-x-end', '1rem', 'Controls separator end margin.'],

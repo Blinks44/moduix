@@ -48,7 +48,7 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-indicator-size', '1.75rem', 'Controls the default indicator thickness.'],
   [
     '--tabs-indicator-transition',
-    'translate 200ms ease, width 200ms ease',
+    'translate var(--duration-normal) var(--ease-standard), width var(--duration-normal) var(--ease-standard)',
     'Controls the default indicator movement transition.',
   ],
   ['--tabs-line-indicator-bg', 'var(--color-foreground)', 'Controls the line indicator color.'],
@@ -56,7 +56,7 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-line-indicator-size', '2px', 'Controls the line indicator thickness.'],
   [
     '--tabs-line-indicator-transition',
-    'translate 200ms ease, width 200ms ease',
+    'translate var(--duration-normal) var(--ease-standard), width var(--duration-normal) var(--ease-standard)',
     'Controls the line indicator movement transition.',
   ],
   ['--tabs-list-bg', 'var(--color-muted)', 'Controls the tab list background color.'],

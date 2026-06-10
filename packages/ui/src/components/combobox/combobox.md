@@ -315,8 +315,13 @@ tokens instead of introducing a separate inline-input variable family.
 - Preserve the `indicator="end"` contract and its `data-indicator-position` styling hook.
 - Keep disabled styling coordinated across the input group, field trigger, and action buttons.
 
+## Motion tokens
+
+`ComboboxBackdrop` and `ComboboxPopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus `--combobox-popup-transition` and the matching popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to switch the popup from the default scale-in behavior to fade, slide, or custom motion.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so combobox overlays can be retuned to fade, slide, or mixed effects through CSS variables while preserving the current default animation.
 - 2026-06-02: Rewrote the local docs around the actual moduix wrapper, added
   `ComboboxInlineInputContainer` for the popup-inline input pattern, forwarded refs through
   `ComboboxContent`, and documented the real slot, styling, and composition contracts instead of

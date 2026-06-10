@@ -71,8 +71,8 @@
   background: var(--color-foreground);
   translate: var(--active-tab-left) 0;
   transition:
-    translate 200ms ease,
-    width 200ms ease;
+    translate var(--duration-normal) var(--ease-standard),
+    width var(--duration-normal) var(--ease-standard);
 }
 
 .inlinePanel {

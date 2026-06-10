@@ -90,15 +90,31 @@
     color: var(--accordion-panel-color, var(--color-muted-foreground));
     font-size: var(--accordion-panel-font-size, var(--text-md));
     line-height: var(--accordion-panel-line-height, var(--line-height-text-md));
-    transition: height var(--accordion-panel-transition, var(--transition-default));
 
     &[hidden]:not([hidden='until-found']) {
       display: none;
     }
 
-    &[data-starting-style],
+    transition:
+      height var(--accordion-panel-transition, var(--transition-default)),
+      opacity var(--accordion-panel-transition, var(--transition-default)),
+      transform var(--accordion-panel-transition, var(--transition-default)),
+      translate var(--accordion-panel-transition, var(--transition-default));
+
+    &[data-starting-style] {
+      height: var(--accordion-panel-starting-height, 0);
+      opacity: var(--accordion-panel-starting-opacity, 1);
+      translate: var(--accordion-panel-starting-translate-x, 0)
+        var(--accordion-panel-starting-translate-y, 0);
+      transform: scale(var(--accordion-panel-starting-scale, 1));
+    }
+
     &[data-ending-style] {
-      height: 0;
+      height: var(--accordion-panel-ending-height, 0);
+      opacity: var(--accordion-panel-ending-opacity, 1);
+      translate: var(--accordion-panel-ending-translate-x, 0)
+        var(--accordion-panel-ending-translate-y, 0);
+      transform: scale(var(--accordion-panel-ending-scale, 1));
     }
   }
 }

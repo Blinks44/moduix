@@ -274,7 +274,6 @@ Public CSS variables from `theme.css`:
 | `--lightbox-image-shadow`         | `var(--shadow-lg)`                         |
 | `--lightbox-max-height`           | `80dvh`                                    |
 | `--lightbox-max-width`            | `80vw`                                     |
-| `--lightbox-scale`                | `0.82`                                     |
 | `--lightbox-transition`           | `220ms ease`                               |
 | `--lightbox-viewport-padding`     | `var(--spacing-4)`                         |
 | `--lightbox-width`                | `80vw`                                     |
@@ -327,8 +326,13 @@ There are no variants, slot prop bags, `classNames` maps, or parallel styling AP
   `apps/docs/src/components/examples/lightbox.tsx` in the same task.
 - Keep the CSS properties docs in sync with `packages/ui/src/styles/theme.css`.
 
+## Motion tokens
+
+`LightboxBackdrop`, `LightboxPopup`, the viewport-mounted close button, and the image-enter keyframe now expose motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens, `--lightbox-close-button-starting/ending-opacity`, and the `--lightbox-image-enter-*` tokens to turn the default zoom-in preview into fade, slide, or mixed motion.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop, popup, close-button, and image-enter motion tokens so lightbox appearance can be retuned to fade, slide, or mixed effects through CSS variables while preserving the current defaults.
 - Rewrote the local docs around the actual moduix `Lightbox` contract instead of generic Base UI
   dialog behavior.
 - Documented the exported parts, helper props, `data-slot` hooks, CSS variables, delegated gallery

@@ -41,13 +41,9 @@
 
 :root {
   --animation-pulse: moduix-pulse 2.5s ease-in-out infinite;
-  --animation-fade-in: moduix-fade-in var(--duration-normal, 200ms)
-    var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
-  --animation-fade-out: moduix-fade-out var(--duration-normal, 200ms)
-    var(--ease-in, cubic-bezier(0.4, 0, 1, 1));
-  --animation-slide-up: moduix-slide-up var(--duration-normal, 200ms)
-    var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
-  --animation-slide-down: moduix-slide-down var(--duration-normal, 200ms)
-    var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+  --animation-fade-in: moduix-fade-in var(--duration-normal) var(--ease-out);
+  --animation-fade-out: moduix-fade-out var(--duration-normal) var(--ease-in);
+  --animation-slide-up: moduix-slide-up var(--duration-normal) var(--ease-out);
+  --animation-slide-down: moduix-slide-down var(--duration-normal) var(--ease-out);
   --animation-spin: moduix-spin 0.75s linear infinite;
 }

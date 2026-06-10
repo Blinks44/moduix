@@ -54,11 +54,22 @@
     height: 100%;
     object-fit: var(--avatar-image-object-fit, cover);
     object-position: var(--avatar-image-object-position, center);
-    transition: opacity var(--avatar-transition, var(--transition-default));
+    transition:
+      opacity var(--avatar-transition, var(--transition-default)),
+      transform var(--avatar-transition, var(--transition-default)),
+      translate var(--avatar-transition, var(--transition-default));
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--avatar-image-starting-opacity, 0);
+      translate: var(--avatar-image-starting-translate-x, 0)
+        var(--avatar-image-starting-translate-y, 0);
+      transform: scale(var(--avatar-image-starting-scale, 1));
+    }
+
     &[data-ending-style] {
-      opacity: 0;
+      opacity: var(--avatar-image-ending-opacity, 0);
+      translate: var(--avatar-image-ending-translate-x, 0) var(--avatar-image-ending-translate-y, 0);
+      transform: scale(var(--avatar-image-ending-scale, 1));
     }
   }
 

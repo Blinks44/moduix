@@ -97,8 +97,18 @@
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
   --accordion-max-width: initial; /* 100% */
   --accordion-panel-color: initial; /* var(--color-muted-foreground) */
+  --accordion-panel-ending-height: initial; /* 0 */
+  --accordion-panel-ending-opacity: initial; /* 1 */
+  --accordion-panel-ending-scale: initial; /* 1 */
+  --accordion-panel-ending-translate-x: initial; /* 0 */
+  --accordion-panel-ending-translate-y: initial; /* 0 */
   --accordion-panel-font-size: initial; /* var(--text-md) */
   --accordion-panel-line-height: initial; /* var(--line-height-text-md) */
+  --accordion-panel-starting-height: initial; /* 0 */
+  --accordion-panel-starting-opacity: initial; /* 1 */
+  --accordion-panel-starting-scale: initial; /* 1 */
+  --accordion-panel-starting-translate-x: initial; /* 0 */
+  --accordion-panel-starting-translate-y: initial; /* 0 */
   --accordion-panel-transition: initial; /* var(--transition-default) */
   --accordion-trigger-bg: initial; /* var(--color-muted) */
   --accordion-trigger-bg-hover: initial; /* var(--color-accent) */
@@ -135,6 +145,10 @@
   --alert-dialog-action-color: initial; /* var(--color-primary-foreground) */
   --alert-dialog-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --alert-dialog-backdrop-blur: initial; /* 4px */
+  --alert-dialog-backdrop-ending-blur: initial; /* none */
+  --alert-dialog-backdrop-ending-opacity: initial; /* 0 */
+  --alert-dialog-backdrop-starting-blur: initial; /* none */
+  --alert-dialog-backdrop-starting-opacity: initial; /* 0 */
   --alert-dialog-backdrop-transition: initial; /* var(--transition-default) */
   --alert-dialog-bg: initial; /* var(--color-popover) */
   --alert-dialog-border-color: initial; /* var(--color-border) */
@@ -165,8 +179,15 @@
   --alert-dialog-max-width: initial; /* calc(100vw - var(--spacing-8)) */
   --alert-dialog-muted-color: initial; /* var(--color-muted-foreground) */
   --alert-dialog-padding: initial; /* var(--spacing-6) */
+  --alert-dialog-popup-ending-opacity: initial; /* 0 */
+  --alert-dialog-popup-ending-scale: initial; /* var(--scale-popup) */
+  --alert-dialog-popup-ending-translate-x: initial; /* 0 */
+  --alert-dialog-popup-ending-translate-y: initial; /* 0 */
+  --alert-dialog-popup-starting-opacity: initial; /* 0 */
+  --alert-dialog-popup-starting-scale: initial; /* var(--scale-popup) */
+  --alert-dialog-popup-starting-translate-x: initial; /* 0 */
+  --alert-dialog-popup-starting-translate-y: initial; /* 0 */
   --alert-dialog-radius: initial; /* var(--radius-lg) */
-  --alert-dialog-scale: initial; /* var(--scale-popup) */
   --alert-dialog-shadow: initial; /* var(--shadow-lg) */
   --alert-dialog-title-color: initial; /* var(--alert-dialog-color) */
   --alert-dialog-title-font-size: initial; /* var(--text-lg) */
@@ -190,6 +211,10 @@
   --autocomplete-arrow-width: initial; /* 1.25rem */
   --autocomplete-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --autocomplete-backdrop-blur: initial; /* 4px */
+  --autocomplete-backdrop-ending-blur: initial; /* none */
+  --autocomplete-backdrop-ending-opacity: initial; /* 0 */
+  --autocomplete-backdrop-starting-blur: initial; /* none */
+  --autocomplete-backdrop-starting-opacity: initial; /* 0 */
   --autocomplete-backdrop-transition: initial; /* var(--transition-default) */
   --autocomplete-bg: initial; /* var(--color-background) */
   --autocomplete-border-color: initial; /* var(--color-border) */
@@ -262,7 +287,15 @@
   --autocomplete-popup-bg: initial; /* var(--color-popover) */
   --autocomplete-popup-border-color: initial; /* var(--color-border) */
   --autocomplete-popup-border-width: initial; /* var(--border-width-sm) */
+  --autocomplete-popup-ending-opacity: initial; /* 0 */
+  --autocomplete-popup-ending-scale: initial; /* var(--scale-popup) */
+  --autocomplete-popup-ending-translate-x: initial; /* 0 */
+  --autocomplete-popup-ending-translate-y: initial; /* 0 */
   --autocomplete-popup-max-height: initial; /* 24rem */
+  --autocomplete-popup-starting-opacity: initial; /* 0 */
+  --autocomplete-popup-starting-scale: initial; /* var(--scale-popup) */
+  --autocomplete-popup-starting-translate-x: initial; /* 0 */
+  --autocomplete-popup-starting-translate-y: initial; /* 0 */
   --autocomplete-radius: initial; /* var(--radius-md) */
   --autocomplete-row-gap: initial; /* var(--spacing-1) */
   --autocomplete-row-padding-x: initial; /* var(--spacing-1) */
@@ -289,8 +322,16 @@
   --avatar-fallback-padding: initial; /* 0 */
   --avatar-font-size: initial; /* var(--text-md) */
   --avatar-font-weight: initial; /* var(--weight-medium) */
+  --avatar-image-ending-opacity: initial; /* 0 */
+  --avatar-image-ending-scale: initial; /* 1 */
+  --avatar-image-ending-translate-x: initial; /* 0 */
+  --avatar-image-ending-translate-y: initial; /* 0 */
   --avatar-image-object-fit: initial; /* cover */
   --avatar-image-object-position: initial; /* center */
+  --avatar-image-starting-opacity: initial; /* 0 */
+  --avatar-image-starting-scale: initial; /* 1 */
+  --avatar-image-starting-translate-x: initial; /* 0 */
+  --avatar-image-starting-translate-y: initial; /* 0 */
   --avatar-line-height: initial; /* var(--line-height-text-md) */
   --avatar-radius: initial; /* var(--radius-full) */
   --avatar-size: initial; /* var(--size-md) */
@@ -512,8 +553,18 @@
   --collapsible-icon-size: initial; /* 0.75rem */
   --collapsible-icon-transition: initial; /* var(--transition-default) */
   --collapsible-panel-color: initial; /* var(--color-muted-foreground) */
+  --collapsible-panel-ending-height: initial; /* 0 */
+  --collapsible-panel-ending-opacity: initial; /* 1 */
+  --collapsible-panel-ending-scale: initial; /* 1 */
+  --collapsible-panel-ending-translate-x: initial; /* 0 */
+  --collapsible-panel-ending-translate-y: initial; /* 0 */
   --collapsible-panel-font-size: initial; /* var(--text-sm) */
   --collapsible-panel-line-height: initial; /* var(--line-height-text-sm) */
+  --collapsible-panel-starting-height: initial; /* 0 */
+  --collapsible-panel-starting-opacity: initial; /* 1 */
+  --collapsible-panel-starting-scale: initial; /* 1 */
+  --collapsible-panel-starting-translate-x: initial; /* 0 */
+  --collapsible-panel-starting-translate-y: initial; /* 0 */
   --collapsible-panel-transition: initial; /* var(--transition-default) */
   --collapsible-trigger-bg: initial; /* transparent */
   --collapsible-trigger-bg-active: initial; /* var(--collapsible-trigger-bg-hover) */
@@ -543,6 +594,10 @@
   --combobox-arrow-width: initial; /* 1.25rem */
   --combobox-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --combobox-backdrop-blur: initial; /* 2px */
+  --combobox-backdrop-ending-blur: initial; /* none */
+  --combobox-backdrop-ending-opacity: initial; /* 0 */
+  --combobox-backdrop-starting-blur: initial; /* none */
+  --combobox-backdrop-starting-opacity: initial; /* 0 */
   --combobox-backdrop-transition: initial; /* var(--transition-default) */
   --combobox-bg: initial; /* var(--color-background) */
   --combobox-border-color: initial; /* var(--color-border) */
@@ -622,7 +677,15 @@
   --combobox-list-scroll-padding-y: initial; /* 0.25rem */
   --combobox-popup-bg: initial; /* var(--color-popover) */
   --combobox-popup-border-color: initial; /* var(--color-border) */
+  --combobox-popup-ending-opacity: initial; /* 0 */
+  --combobox-popup-ending-scale: initial; /* var(--scale-popup) */
+  --combobox-popup-ending-translate-x: initial; /* 0 */
+  --combobox-popup-ending-translate-y: initial; /* 0 */
   --combobox-popup-max-height: initial; /* 24rem */
+  --combobox-popup-starting-opacity: initial; /* 0 */
+  --combobox-popup-starting-scale: initial; /* var(--scale-popup) */
+  --combobox-popup-starting-translate-x: initial; /* 0 */
+  --combobox-popup-starting-translate-y: initial; /* 0 */
   --combobox-radius: initial; /* var(--radius-md) */
   --combobox-separator-margin-x: initial; /* 1rem */
   --combobox-separator-margin-y: initial; /* 0.375rem */
@@ -640,6 +703,10 @@
   /* CommandPalette */
   --command-palette-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --command-palette-backdrop-blur: initial; /* 4px */
+  --command-palette-backdrop-ending-blur: initial; /* none */
+  --command-palette-backdrop-ending-opacity: initial; /* 0 */
+  --command-palette-backdrop-starting-blur: initial; /* none */
+  --command-palette-backdrop-starting-opacity: initial; /* 0 */
   --command-palette-backdrop-transition: initial; /* var(--transition-default) */
   --command-palette-bg: initial; /* var(--color-popover) */
   --command-palette-border-color: initial; /* color-mix(in oklab, var(--color-border) 84%, transparent) */
@@ -718,8 +785,15 @@
   --command-palette-max-height: initial; /* 34rem */
   --command-palette-max-width: initial; /* calc(100vw - var(--spacing-8)) */
   --command-palette-muted-color: initial; /* var(--color-muted-foreground) */
+  --command-palette-popup-ending-opacity: initial; /* 0 */
+  --command-palette-popup-ending-scale: initial; /* var(--scale-popup) */
+  --command-palette-popup-ending-translate-x: initial; /* 0 */
+  --command-palette-popup-ending-translate-y: initial; /* 0 */
+  --command-palette-popup-starting-opacity: initial; /* 0 */
+  --command-palette-popup-starting-scale: initial; /* var(--scale-popup) */
+  --command-palette-popup-starting-translate-x: initial; /* 0 */
+  --command-palette-popup-starting-translate-y: initial; /* 0 */
   --command-palette-radius: initial; /* var(--radius-lg) */
-  --command-palette-scale: initial; /* var(--scale-popup) */
   --command-palette-separator-margin-x: initial; /* var(--spacing-2) */
   --command-palette-separator-margin-y: initial; /* var(--spacing-2) */
   --command-palette-shadow: initial; /* var(--shadow-lg) */
@@ -760,6 +834,10 @@
   --context-menu-arrow-stroke-color: initial; /* var(--context-menu-popup-border-color) */
   --context-menu-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --context-menu-backdrop-blur: initial; /* 4px */
+  --context-menu-backdrop-ending-blur: initial; /* none */
+  --context-menu-backdrop-ending-opacity: initial; /* 0 */
+  --context-menu-backdrop-starting-blur: initial; /* none */
+  --context-menu-backdrop-starting-opacity: initial; /* 0 */
   --context-menu-backdrop-transition: initial; /* var(--context-menu-transition) */
   --context-menu-check-gap: initial; /* 0.5rem */
   --context-menu-check-icon-size: initial; /* 100% */
@@ -803,13 +881,20 @@
   --context-menu-popup-bg: initial; /* var(--color-popover) */
   --context-menu-popup-border-color: initial; /* var(--color-border) */
   --context-menu-popup-color: initial; /* var(--color-popover-foreground) */
+  --context-menu-popup-ending-opacity: initial; /* 0 */
+  --context-menu-popup-ending-scale: initial; /* var(--scale-popup) */
+  --context-menu-popup-ending-translate-x: initial; /* 0 */
+  --context-menu-popup-ending-translate-y: initial; /* 0 */
   --context-menu-popup-max-height: initial; /* 24rem */
   --context-menu-popup-max-width: initial; /* 20rem */
   --context-menu-popup-min-width: initial; /* 12rem */
   --context-menu-popup-padding-y: initial; /* 0.25rem */
   --context-menu-popup-radius: initial; /* var(--radius-md) */
-  --context-menu-popup-scale: initial; /* var(--scale-popup) */
   --context-menu-popup-shadow: initial; /* var(--shadow-lg) */
+  --context-menu-popup-starting-opacity: initial; /* 0 */
+  --context-menu-popup-starting-scale: initial; /* var(--scale-popup) */
+  --context-menu-popup-starting-translate-x: initial; /* 0 */
+  --context-menu-popup-starting-translate-y: initial; /* 0 */
   --context-menu-separator-color: initial; /* var(--color-border) */
   --context-menu-separator-margin-x-end: initial; /* 1rem */
   --context-menu-separator-margin-x-start: initial; /* 1rem */
@@ -823,6 +908,10 @@
   /* Dialog */
   --dialog-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --dialog-backdrop-blur: initial; /* 4px */
+  --dialog-backdrop-ending-blur: initial; /* none */
+  --dialog-backdrop-ending-opacity: initial; /* 0 */
+  --dialog-backdrop-starting-blur: initial; /* none */
+  --dialog-backdrop-starting-opacity: initial; /* 0 */
   --dialog-backdrop-transition: initial; /* var(--transition-default) */
   --dialog-bg: initial; /* var(--color-popover) */
   --dialog-border-color: initial; /* var(--color-border) */
@@ -862,8 +951,15 @@
   --dialog-nested-overlay-bg: initial; /* rgb(0 0 0 / 0.05) */
   --dialog-nested-scale-step: initial; /* 0.1 */
   --dialog-padding: initial; /* var(--spacing-6) */
+  --dialog-popup-ending-opacity: initial; /* 0 */
+  --dialog-popup-ending-scale: initial; /* var(--scale-popup) */
+  --dialog-popup-ending-translate-x: initial; /* 0 */
+  --dialog-popup-ending-translate-y: initial; /* 0 */
+  --dialog-popup-starting-opacity: initial; /* 0 */
+  --dialog-popup-starting-scale: initial; /* var(--scale-popup) */
+  --dialog-popup-starting-translate-x: initial; /* 0 */
+  --dialog-popup-starting-translate-y: initial; /* 0 */
   --dialog-radius: initial; /* var(--radius-lg) */
-  --dialog-scale: initial; /* var(--scale-popup) */
   --dialog-shadow: initial; /* var(--shadow-lg) */
   --dialog-title-color: initial; /* var(--dialog-color) */
   --dialog-title-font-size: initial; /* var(--text-lg) */
@@ -877,7 +973,7 @@
   --drawer-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --drawer-backdrop-blur: initial; /* 4px */
   --drawer-backdrop-pointer-events: initial; /* auto */
-  --drawer-backdrop-transition: initial; /* 450ms cubic-bezier(0.32, 0.72, 0, 1) */
+  --drawer-backdrop-transition: initial; /* var(--transition-spring) */
   --drawer-bg: initial; /* var(--color-popover) */
   --drawer-body-font-size: initial; /* var(--text-md) */
   --drawer-body-line-height: initial; /* var(--line-height-text-md) */
@@ -922,9 +1018,9 @@
   --drawer-indent-background-opacity: initial; /* 0 */
   --drawer-indent-background-opacity-active: initial; /* 1 */
   --drawer-indent-radius-active: initial; /* var(--radius-lg) */
-  --drawer-indent-radius-transition: initial; /* 250ms cubic-bezier(0.32, 0.72, 0, 1) */
+  --drawer-indent-radius-transition: initial; /* var(--transition-spring) */
   --drawer-indent-scale-active: initial; /* 0.98 */
-  --drawer-indent-transition: initial; /* 400ms cubic-bezier(0.32, 0.72, 0, 1) */
+  --drawer-indent-transition: initial; /* var(--transition-spring) */
   --drawer-indent-translate-y-active: initial; /* var(--spacing-2) */
   --drawer-island-padding: initial; /* var(--spacing-4) */
   --drawer-max-height: initial; /* 80vh */
@@ -943,7 +1039,7 @@
   --drawer-title-font-size: initial; /* var(--text-lg) */
   --drawer-title-font-weight: initial; /* var(--weight-semibold) */
   --drawer-title-line-height: initial; /* var(--line-height-text-lg) */
-  --drawer-transition: initial; /* 450ms cubic-bezier(0.32, 0.72, 0, 1) */
+  --drawer-transition: initial; /* var(--transition-spring) */
   --drawer-viewport-bottom: initial; /* 0 */
   --drawer-viewport-left: initial; /* 0 */
   --drawer-viewport-padding: initial; /* 0px */
@@ -1192,6 +1288,10 @@
   /* Lightbox */
   --lightbox-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --lightbox-backdrop-blur: initial; /* 4px */
+  --lightbox-backdrop-ending-blur: initial; /* none */
+  --lightbox-backdrop-ending-opacity: initial; /* 0 */
+  --lightbox-backdrop-starting-blur: initial; /* none */
+  --lightbox-backdrop-starting-opacity: initial; /* 0 */
   --lightbox-backdrop-transition: initial; /* var(--transition-default) */
   --lightbox-close-bg: initial; /* var(--color-background) */
   --lightbox-close-bg-hover: initial; /* var(--color-muted) */
@@ -1202,6 +1302,8 @@
   --lightbox-close-offset-top: initial; /* var(--spacing-4) */
   --lightbox-close-radius: initial; /* var(--radius-sm) */
   --lightbox-close-size: initial; /* 2rem */
+  --lightbox-close-button-ending-opacity: initial; /* 0 */
+  --lightbox-close-button-starting-opacity: initial; /* 0 */
   --lightbox-focus-ring-color: initial; /* var(--color-ring) */
   --lightbox-height: initial; /* 80dvh */
   --lightbox-image-enter-duration: initial; /* 240ms */
@@ -1212,7 +1314,14 @@
   --lightbox-image-shadow: initial; /* var(--shadow-lg) */
   --lightbox-max-height: initial; /* 80dvh */
   --lightbox-max-width: initial; /* 80vw */
-  --lightbox-scale: initial; /* 0.82 */
+  --lightbox-popup-ending-opacity: initial; /* 0 */
+  --lightbox-popup-ending-scale: initial; /* 0.82 */
+  --lightbox-popup-ending-translate-x: initial; /* 0 */
+  --lightbox-popup-ending-translate-y: initial; /* 0 */
+  --lightbox-popup-starting-opacity: initial; /* 0 */
+  --lightbox-popup-starting-scale: initial; /* 0.82 */
+  --lightbox-popup-starting-translate-x: initial; /* 0 */
+  --lightbox-popup-starting-translate-y: initial; /* 0 */
   --lightbox-transition: initial; /* 220ms ease */
   --lightbox-viewport-padding: initial; /* var(--spacing-4) */
   --lightbox-width: initial; /* 80vw */
@@ -1258,6 +1367,10 @@
   --menu-arrow-width: initial; /* 1.25rem */
   --menu-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --menu-backdrop-blur: initial; /* 4px */
+  --menu-backdrop-ending-blur: initial; /* none */
+  --menu-backdrop-ending-opacity: initial; /* 0 */
+  --menu-backdrop-starting-blur: initial; /* none */
+  --menu-backdrop-starting-opacity: initial; /* 0 */
   --menu-backdrop-transition: initial; /* var(--transition-default) */
   --menu-check-gap: initial; /* 0.5rem */
   --menu-check-indicator-size: initial; /* 0.75rem */
@@ -1303,14 +1416,21 @@
   --menu-popup-border-color: initial; /* var(--color-border) */
   --menu-popup-border-width: initial; /* var(--border-width-sm) */
   --menu-popup-color: initial; /* var(--color-popover-foreground) */
+  --menu-popup-ending-opacity: initial; /* 0 */
+  --menu-popup-ending-scale: initial; /* var(--scale-popup) */
+  --menu-popup-ending-translate-x: initial; /* 0 */
+  --menu-popup-ending-translate-y: initial; /* 0 */
   --menu-popup-height: initial; /* auto */
   --menu-popup-max-height: initial; /* 24rem */
   --menu-popup-max-width: initial; /* 20rem */
   --menu-popup-min-width: initial; /* 12rem */
   --menu-popup-padding-y: initial; /* 0.25rem */
   --menu-popup-radius: initial; /* var(--radius-md) */
-  --menu-popup-scale: initial; /* var(--scale-popup) */
   --menu-popup-shadow: initial; /* var(--shadow-lg) */
+  --menu-popup-starting-opacity: initial; /* 0 */
+  --menu-popup-starting-scale: initial; /* var(--scale-popup) */
+  --menu-popup-starting-translate-x: initial; /* 0 */
+  --menu-popup-starting-translate-y: initial; /* 0 */
   --menu-popup-width: initial; /* auto */
   --menu-separator-color: initial; /* var(--color-border) */
   --menu-separator-height: initial; /* var(--border-width-sm) */
@@ -1346,6 +1466,10 @@
   --menubar-arrow-width: initial; /* 1.25rem */
   --menubar-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --menubar-backdrop-blur: initial; /* 4px */
+  --menubar-backdrop-ending-blur: initial; /* none */
+  --menubar-backdrop-ending-opacity: initial; /* 0 */
+  --menubar-backdrop-starting-blur: initial; /* none */
+  --menubar-backdrop-starting-opacity: initial; /* 0 */
   --menubar-backdrop-transition: initial; /* var(--transition-default) */
   --menubar-bg: initial; /* var(--color-muted) */
   --menubar-border-color: initial; /* var(--color-border) */
@@ -1398,13 +1522,20 @@
   --menubar-popup-border-color: initial; /* var(--color-border) */
   --menubar-popup-border-width: initial; /* var(--border-width-sm) */
   --menubar-popup-color: initial; /* var(--color-popover-foreground) */
+  --menubar-popup-ending-opacity: initial; /* 0 */
+  --menubar-popup-ending-scale: initial; /* var(--scale-popup) */
+  --menubar-popup-ending-translate-x: initial; /* 0 */
+  --menubar-popup-ending-translate-y: initial; /* 0 */
   --menubar-popup-max-height: initial; /* 24rem */
   --menubar-popup-max-width: initial; /* 20rem */
   --menubar-popup-min-width: initial; /* 12rem */
   --menubar-popup-padding-y: initial; /* 0.25rem */
   --menubar-popup-radius: initial; /* var(--radius-md) */
-  --menubar-popup-scale: initial; /* var(--scale-popup) */
   --menubar-popup-shadow: initial; /* var(--shadow-lg) */
+  --menubar-popup-starting-opacity: initial; /* 0 */
+  --menubar-popup-starting-scale: initial; /* var(--scale-popup) */
+  --menubar-popup-starting-translate-x: initial; /* 0 */
+  --menubar-popup-starting-translate-y: initial; /* 0 */
   --menubar-radius: initial; /* var(--radius-md) */
   --menubar-separator-color: initial; /* var(--color-border) */
   --menubar-separator-height: initial; /* var(--border-width-sm) */
@@ -1466,7 +1597,7 @@
   --navigation-menu-bg: initial; /* transparent */
   --navigation-menu-color: initial; /* var(--color-foreground) */
   --navigation-menu-content-min-width: initial; /* 20rem */
-  --navigation-menu-content-opacity-duration: initial; /* calc(var(--duration-slow) * 0.7) */
+  --navigation-menu-content-opacity-duration: initial; /* var(--duration-normal) */
   --navigation-menu-content-padding: initial; /* var(--spacing-4) */
   --navigation-menu-content-slide-distance: initial; /* 50% */
   --navigation-menu-content-width-mobile: initial; /* calc(100vw - var(--spacing-8)) */
@@ -1475,7 +1606,7 @@
   --navigation-menu-focus-ring-width: initial; /* var(--border-width-sm) */
   --navigation-menu-icon-color: initial; /* currentColor */
   --navigation-menu-icon-size: initial; /* 0.875rem */
-  --navigation-menu-icon-transition: initial; /* var(--navigation-menu-transition, 200ms ease) */
+  --navigation-menu-icon-transition: initial; /* var(--navigation-menu-transition, var(--transition-default)) */
   --navigation-menu-list-gap: initial; /* 0 */
   --navigation-menu-list-justify: initial; /* flex-start */
   --navigation-menu-min-width: initial; /* max-content */
@@ -1485,12 +1616,12 @@
   --navigation-menu-popup-border-style: initial; /* solid */
   --navigation-menu-popup-border-width: initial; /* var(--border-width-sm) */
   --navigation-menu-popup-color: initial; /* var(--color-popover-foreground) */
-  --navigation-menu-popup-leave-duration: initial; /* 150ms */
+  --navigation-menu-popup-leave-duration: initial; /* var(--duration-fast) */
   --navigation-menu-popup-radius: initial; /* var(--radius-lg) */
   --navigation-menu-popup-scale: initial; /* var(--scale-popup) */
   --navigation-menu-popup-shadow: initial; /* var(--shadow-lg) */
   --navigation-menu-popup-transition-duration: initial; /* var(--duration-slow) */
-  --navigation-menu-popup-transition-easing: initial; /* cubic-bezier(0.22, 1, 0.36, 1) */
+  --navigation-menu-popup-transition-easing: initial; /* var(--ease-emphasized) */
   --navigation-menu-positioner-gap: initial; /* 0.625rem */
   --navigation-menu-positioner-max-width: initial; /* calc(100vw - var(--spacing-8)) */
   --navigation-menu-radius: initial; /* var(--radius-lg) */
@@ -1604,6 +1735,10 @@
   --popover-arrow-width: initial; /* 1.25rem */
   --popover-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --popover-backdrop-blur: initial; /* 4px */
+  --popover-backdrop-ending-blur: initial; /* none */
+  --popover-backdrop-ending-opacity: initial; /* 0 */
+  --popover-backdrop-starting-blur: initial; /* none */
+  --popover-backdrop-starting-opacity: initial; /* 0 */
   --popover-backdrop-transition: initial; /* var(--transition-default) */
   --popover-bg: initial; /* var(--color-popover) */
   --popover-body-margin: initial; /* 0 */
@@ -1639,8 +1774,15 @@
   --popover-min-width: initial; /* 16rem */
   --popover-padding-x: initial; /* 1rem */
   --popover-padding-y: initial; /* 1rem */
+  --popover-popup-ending-opacity: initial; /* 0 */
+  --popover-popup-ending-scale: initial; /* var(--scale-popup) */
+  --popover-popup-ending-translate-x: initial; /* 0 */
+  --popover-popup-ending-translate-y: initial; /* 0 */
+  --popover-popup-starting-opacity: initial; /* 0 */
+  --popover-popup-starting-scale: initial; /* var(--scale-popup) */
+  --popover-popup-starting-translate-x: initial; /* 0 */
+  --popover-popup-starting-translate-y: initial; /* 0 */
   --popover-radius: initial; /* var(--radius-md) */
-  --popover-scale: initial; /* var(--scale-popup) */
   --popover-shadow: initial; /* var(--shadow-lg) */
   --popover-title-color: initial; /* var(--popover-color) */
   --popover-title-font-size: initial; /* var(--text-md) */
@@ -1659,6 +1801,10 @@
   --preview-card-arrow-width: initial; /* 1.25rem */
   --preview-card-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --preview-card-backdrop-blur: initial; /* 4px */
+  --preview-card-backdrop-ending-blur: initial; /* none */
+  --preview-card-backdrop-ending-opacity: initial; /* 0 */
+  --preview-card-backdrop-starting-blur: initial; /* none */
+  --preview-card-backdrop-starting-opacity: initial; /* 0 */
   --preview-card-backdrop-transition: initial; /* var(--transition-default) */
   --preview-card-bg: initial; /* var(--color-popover) */
   --preview-card-border-color: initial; /* var(--color-border) */
@@ -1673,8 +1819,15 @@
   --preview-card-min-width: initial; /* 14rem */
   --preview-card-padding-x: initial; /* var(--spacing-2) */
   --preview-card-padding-y: initial; /* var(--spacing-2) */
+  --preview-card-popup-ending-opacity: initial; /* 0 */
+  --preview-card-popup-ending-scale: initial; /* var(--scale-popup) */
+  --preview-card-popup-ending-translate-x: initial; /* 0 */
+  --preview-card-popup-ending-translate-y: initial; /* 0 */
+  --preview-card-popup-starting-opacity: initial; /* 0 */
+  --preview-card-popup-starting-scale: initial; /* var(--scale-popup) */
+  --preview-card-popup-starting-translate-x: initial; /* 0 */
+  --preview-card-popup-starting-translate-y: initial; /* 0 */
   --preview-card-radius: initial; /* var(--radius-lg) */
-  --preview-card-scale: initial; /* var(--scale-popup) */
   --preview-card-shadow: initial; /* var(--shadow-lg) */
   --preview-card-transition: initial; /* var(--transition-default) */
   --preview-card-trigger-color: initial; /* var(--color-primary) */
@@ -1809,6 +1962,10 @@
   --select-arrow-width: initial; /* 1.25rem */
   --select-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --select-backdrop-blur: initial; /* 4px */
+  --select-backdrop-ending-blur: initial; /* none */
+  --select-backdrop-ending-opacity: initial; /* 0 */
+  --select-backdrop-starting-blur: initial; /* none */
+  --select-backdrop-starting-opacity: initial; /* 0 */
   --select-backdrop-transition: initial; /* var(--transition-default) */
   --select-bg: initial; /* var(--color-background) */
   --select-bg-active: initial; /* var(--color-muted) */
@@ -1863,7 +2020,15 @@
   --select-popup-bg: initial; /* var(--color-popover) */
   --select-popup-border-color: initial; /* var(--color-border) */
   --select-popup-border-width: initial; /* var(--border-width-sm) */
+  --select-popup-ending-opacity: initial; /* 0 */
+  --select-popup-ending-scale: initial; /* var(--scale-popup) */
+  --select-popup-ending-translate-x: initial; /* 0 */
+  --select-popup-ending-translate-y: initial; /* 0 */
   --select-popup-max-height: initial; /* 24rem */
+  --select-popup-starting-opacity: initial; /* 0 */
+  --select-popup-starting-scale: initial; /* var(--scale-popup) */
+  --select-popup-starting-translate-x: initial; /* 0 */
+  --select-popup-starting-translate-y: initial; /* 0 */
   --select-radius: initial; /* var(--radius-md) */
   --select-scroll-arrow-color: initial; /* var(--select-color, var(--color-foreground)) */
   --select-scroll-arrow-height: initial; /* 1rem */
@@ -2182,7 +2347,7 @@
   --toast-anchored-padding-x: initial; /* 0.5rem */
   --toast-anchored-padding-y: initial; /* 0.25rem */
   --toast-anchored-scale: initial; /* 0.9 */
-  --toast-anchored-transition: initial; /* transform 150ms, opacity 150ms */
+  --toast-anchored-transition: initial; /* var(--transition-fast) */
   --toast-bg: initial; /* var(--color-popover) */
   --toast-border-color: initial; /* var(--color-border) */
   --toast-border-width: initial; /* var(--border-width-sm) */
@@ -2213,7 +2378,7 @@
   --toast-title-font-size: initial; /* var(--text-sm) */
   --toast-title-font-weight: initial; /* var(--weight-semibold) */
   --toast-title-line-height: initial; /* var(--line-height-text-sm) */
-  --toast-transition: initial; /* 0.5s cubic-bezier(0.22, 1, 0.36, 1) */
+  --toast-transition: initial; /* var(--transition-emphasized) */
   --toast-viewport-inset: initial; /* 1rem */
   --toast-viewport-width: initial; /* 20rem */
   --toast-z-index: initial; /* var(--z-toast) */
@@ -2282,8 +2447,15 @@
   --tooltip-max-width: initial; /* 20rem */
   --tooltip-padding-x: initial; /* 0.5rem */
   --tooltip-padding-y: initial; /* 0.25rem */
+  --tooltip-popup-ending-opacity: initial; /* 0 */
+  --tooltip-popup-ending-scale: initial; /* var(--scale-popup) */
+  --tooltip-popup-ending-translate-x: initial; /* 0 */
+  --tooltip-popup-ending-translate-y: initial; /* 0 */
+  --tooltip-popup-starting-opacity: initial; /* 0 */
+  --tooltip-popup-starting-scale: initial; /* var(--scale-popup) */
+  --tooltip-popup-starting-translate-x: initial; /* 0 */
+  --tooltip-popup-starting-translate-y: initial; /* 0 */
   --tooltip-radius: initial; /* var(--radius-md) */
-  --tooltip-scale: initial; /* var(--scale-popup) */
   --tooltip-shadow: initial; /* var(--shadow-lg) */
   --tooltip-transition: initial; /* 150ms */
   --tooltip-trigger-bg: initial; /* var(--color-background) */

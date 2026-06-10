@@ -218,7 +218,6 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-max-width', 'calc(100vw - var(--spacing-8))'],
   ['--command-palette-muted-color', 'var(--color-muted-foreground)'],
   ['--command-palette-radius', 'var(--radius-lg)'],
-  ['--command-palette-scale', 'var(--scale-popup)'],
   ['--command-palette-separator-margin-x', 'var(--spacing-2)'],
   ['--command-palette-separator-margin-y', 'var(--spacing-2)'],
   ['--command-palette-shadow', 'var(--shadow-lg)'],

@@ -324,7 +324,6 @@ All built-in styling hooks are scoped under `--context-menu-*`.
 | `--context-menu-popup-min-width`    | `12rem`                           |
 | `--context-menu-popup-padding-y`    | `0.25rem`                         |
 | `--context-menu-popup-radius`       | `var(--radius-md)`                |
-| `--context-menu-popup-scale`        | `var(--scale-popup)`              |
 | `--context-menu-popup-shadow`       | `var(--shadow-lg)`                |
 
 #### Highlight, submenu, and groups
@@ -427,3 +426,11 @@ The current component already has the useful sugar we want for common scenarios:
 
 No additional helper prop is currently justified without duplicating existing composition patterns or
 diverging from `Menu` and `Menubar`.
+
+## Motion tokens
+
+`ContextMenuBackdrop` and `ContextMenuPopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to build fade or slide variants while keeping the default scale-in menu behavior.
+
+## Local changelog
+
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so context menu enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.

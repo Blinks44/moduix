@@ -117,7 +117,6 @@ export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-dialog-muted-color', 'var(--color-muted-foreground)', 'Controls muted text color.'],
   ['--alert-dialog-padding', 'var(--spacing-6)', 'Controls popup padding.'],
   ['--alert-dialog-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
-  ['--alert-dialog-scale', 'var(--scale-popup)', 'Controls enter/exit scale.'],
   ['--alert-dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   [
     '--alert-dialog-title-color',

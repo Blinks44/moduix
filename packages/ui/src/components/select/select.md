@@ -354,7 +354,12 @@ There are no component-level variant props. Style the part that owns the visual 
 - If `data-slot` values or `--select-*` variables change, update `theme.css`, Storybook, docs
   examples, and this file in the same task.
 
+## Motion tokens
+
+`SelectBackdrop` and `SelectPopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus `--select-popup-transition` and the matching popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to switch the popup from the default scale-in behavior to fade, slide, or custom motion.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so select overlays can be retuned to fade, slide, or mixed effects through CSS variables while preserving the current default animation.
 - Rewrote the local documentation around the actual moduix `Select` wrapper contract, including the
   exported parts, popup composition, styling API, accessibility guidance, and current DX sugar.

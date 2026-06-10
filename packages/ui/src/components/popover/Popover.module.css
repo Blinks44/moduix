@@ -71,10 +71,14 @@
       opacity var(--popover-backdrop-transition, var(--transition-default)),
       backdrop-filter var(--popover-backdrop-transition, var(--transition-default));
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--popover-backdrop-starting-opacity, 0);
+      backdrop-filter: var(--popover-backdrop-starting-blur, none);
+    }
+
     &[data-ending-style] {
-      opacity: 0;
-      backdrop-filter: none;
+      opacity: var(--popover-backdrop-ending-opacity, 0);
+      backdrop-filter: var(--popover-backdrop-ending-blur, none);
     }
   }
 
@@ -104,13 +108,22 @@
     box-shadow: var(--popover-shadow, var(--shadow-lg));
     transform-origin: var(--transform-origin);
     transition:
-      transform var(--popover-transition, 150ms),
-      opacity var(--popover-transition, 150ms);
+      transform var(--popover-transition, var(--duration-fast)),
+      opacity var(--popover-transition, var(--duration-fast)),
+      translate var(--popover-transition, var(--duration-fast));
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--popover-popup-starting-opacity, 0);
+      translate: var(--popover-popup-starting-translate-x, 0)
+        var(--popover-popup-starting-translate-y, 0);
+      transform: scale(var(--popover-popup-starting-scale, var(--scale-popup)));
+    }
+
     &[data-ending-style] {
-      opacity: 0;
-      transform: scale(var(--popover-scale, var(--scale-popup)));
+      opacity: var(--popover-popup-ending-opacity, 0);
+      translate: var(--popover-popup-ending-translate-x, 0)
+        var(--popover-popup-ending-translate-y, 0);
+      transform: scale(var(--popover-popup-ending-scale, var(--scale-popup)));
     }
   }
 
@@ -124,8 +137,8 @@
     & > [data-previous] {
       width: var(--popup-width, auto);
       transition:
-        translate var(--popover-viewport-transition, 220ms),
-        opacity var(--popover-viewport-transition, 220ms);
+        translate var(--popover-viewport-transition, var(--duration-normal)),
+        opacity var(--popover-viewport-transition, var(--duration-normal));
     }
 
     & > [data-current] {

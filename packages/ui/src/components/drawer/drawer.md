@@ -398,6 +398,8 @@ tokens to hard-code globally.
 
 ## Local changelog
 
+- 2026-06-10: Moved drawer motion defaults onto shared transition tokens so docs previews and shipped
+  CSS resolve the same fallback chain for popup, backdrop, and indent transitions.
 - Added `DrawerCloseIcon` and header auto-placement for close controls so side drawers match the
   overlay patterns already used by `Dialog` and `Lightbox`.
 - Aligned `DrawerTrigger` and `DrawerClose` disabled styling with the shared control pattern by

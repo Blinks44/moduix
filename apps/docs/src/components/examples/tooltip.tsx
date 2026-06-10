@@ -33,7 +33,11 @@ export const tooltipOverrideCssProperties: CssPropertyInput[] = [
   ['--tooltip-border-color', 'var(--color-border)', 'Controls the popup border color.'],
   ['--tooltip-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
   ['--tooltip-color', 'var(--color-popover-foreground)', 'Controls the popup text color.'],
-  ['--tooltip-content-transition', '150ms', 'Controls content transitions between triggers.'],
+  [
+    '--tooltip-content-transition',
+    'var(--duration-fast)',
+    'Controls content transitions between triggers.',
+  ],
   ['--tooltip-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
   ['--tooltip-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
   ['--tooltip-focus-ring-offset', '-1px', 'Controls trigger focus ring offset.'],
@@ -45,9 +49,8 @@ export const tooltipOverrideCssProperties: CssPropertyInput[] = [
   ['--tooltip-padding-x', '0.5rem', 'Controls the popup horizontal padding.'],
   ['--tooltip-padding-y', '0.25rem', 'Controls the popup vertical padding.'],
   ['--tooltip-radius', 'var(--radius-md)', 'Controls the popup border radius.'],
-  ['--tooltip-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
   ['--tooltip-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
-  ['--tooltip-transition', '150ms', 'Controls popup and trigger transitions.'],
+  ['--tooltip-transition', 'var(--duration-fast)', 'Controls popup and trigger transitions.'],
   ['--tooltip-trigger-bg', 'var(--color-background)', 'Controls trigger background color.'],
   [
     '--tooltip-trigger-bg-active',

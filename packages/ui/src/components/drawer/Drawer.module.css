@@ -4,7 +4,7 @@
     inset: 0;
     background: var(--drawer-indent-background-bg, var(--color-foreground));
     opacity: var(--drawer-indent-background-opacity, 0);
-    transition: opacity var(--drawer-indent-transition, 400ms cubic-bezier(0.32, 0.72, 0, 1));
+    transition: opacity var(--drawer-indent-transition, var(--transition-spring));
     pointer-events: none;
 
     &[data-active] {
@@ -15,8 +15,8 @@
   .indent {
     position: relative;
     transition:
-      transform var(--drawer-indent-transition, 400ms cubic-bezier(0.32, 0.72, 0, 1)),
-      border-radius var(--drawer-indent-radius-transition, 250ms cubic-bezier(0.32, 0.72, 0, 1));
+      transform var(--drawer-indent-transition, var(--transition-spring)),
+      border-radius var(--drawer-indent-radius-transition, var(--transition-spring));
     transform: translateY(0) scale(1);
     transform-origin: center top;
 
@@ -125,8 +125,8 @@
     opacity: calc(1 - var(--drawer-swipe-progress, 0));
     pointer-events: var(--drawer-backdrop-pointer-events, auto);
     transition:
-      opacity var(--drawer-backdrop-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1)),
-      backdrop-filter var(--drawer-backdrop-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1));
+      opacity var(--drawer-backdrop-transition, var(--transition-spring)),
+      backdrop-filter var(--drawer-backdrop-transition, var(--transition-spring));
 
     &[data-starting-style],
     &[data-ending-style] {
@@ -135,11 +135,11 @@
     }
 
     &[data-swiping] {
-      transition-duration: 0ms;
+      transition-duration: 0s;
     }
 
     &[data-ending-style] {
-      transition-duration: calc(var(--drawer-swipe-strength, 1) * 400ms);
+      transition-duration: calc(var(--drawer-swipe-strength, 1) * var(--duration-slower));
     }
   }
 
@@ -196,7 +196,7 @@
     overflow: hidden;
     overscroll-behavior: contain;
     pointer-events: var(--drawer-popup-pointer-events, auto);
-    transition: transform var(--drawer-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1));
+    transition: transform var(--drawer-transition, var(--transition-spring));
 
     &[data-swiping] {
       user-select: none;
@@ -299,7 +299,7 @@
     }
 
     &[data-ending-style] {
-      transition-duration: calc(var(--drawer-swipe-strength, 1) * 400ms);
+      transition-duration: calc(var(--drawer-swipe-strength, 1) * var(--duration-slower));
     }
 
     &[data-disable-initial-animation='true'][data-mount-ready='false'] {
@@ -476,9 +476,9 @@
       flex: 0 1 auto;
       flex-basis: var(--drawer-snap-visible-height, 100%);
       transition:
-        height var(--drawer-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1)),
-        max-height var(--drawer-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1)),
-        flex-basis var(--drawer-transition, 450ms cubic-bezier(0.32, 0.72, 0, 1));
+        height var(--drawer-transition, var(--transition-spring)),
+        max-height var(--drawer-transition, var(--transition-spring)),
+        flex-basis var(--drawer-transition, var(--transition-spring));
     }
 
     .popup[data-snap-layout][data-swiping] & {

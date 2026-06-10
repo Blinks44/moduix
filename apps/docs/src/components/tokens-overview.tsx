@@ -351,38 +351,30 @@ const opacityTokens = [
 ];
 
 const motionTokens = [
-  ['--duration-fast', '100ms'],
+  ['--duration-fast', '150ms'],
   ['--duration-normal', '200ms'],
   ['--duration-slow', '300ms'],
-  ['--duration-slower', '500ms'],
+  ['--duration-slower', '450ms'],
   ['--ease-in', 'cubic-bezier(0.4, 0, 1, 1)'],
   ['--ease-out', 'cubic-bezier(0, 0, 0.2, 1)'],
   ['--ease-in-out', 'cubic-bezier(0.4, 0, 0.2, 1)'],
   ['--ease-spring', 'cubic-bezier(0.32, 0.72, 0, 1)'],
+  ['--ease-standard', 'ease'],
+  ['--ease-emphasized', 'cubic-bezier(0.22, 1, 0.36, 1)'],
   ['--transition-default', 'var(--duration-normal) var(--ease-in-out)'],
   ['--transition-fast', 'var(--duration-fast) var(--ease-in-out)'],
   ['--transition-slow', 'var(--duration-slow) var(--ease-in-out)'],
   ['--transition-slower', 'var(--duration-slower) var(--ease-in-out)'],
+  ['--transition-spring', 'var(--duration-slower) var(--ease-spring)'],
+  ['--transition-emphasized', 'var(--duration-slower) var(--ease-emphasized)'],
 ];
 
 const animationTokens = [
   ['--animation-pulse', 'moduix-pulse 2.5s ease-in-out infinite'],
-  [
-    '--animation-fade-in',
-    'moduix-fade-in var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
-  ],
-  [
-    '--animation-fade-out',
-    'moduix-fade-out var(--duration-normal, 200ms) var(--ease-in, cubic-bezier(0.4, 0, 1, 1))',
-  ],
-  [
-    '--animation-slide-up',
-    'moduix-slide-up var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
-  ],
-  [
-    '--animation-slide-down',
-    'moduix-slide-down var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
-  ],
+  ['--animation-fade-in', 'moduix-fade-in var(--duration-normal) var(--ease-out)'],
+  ['--animation-fade-out', 'moduix-fade-out var(--duration-normal) var(--ease-in)'],
+  ['--animation-slide-up', 'moduix-slide-up var(--duration-normal) var(--ease-out)'],
+  ['--animation-slide-down', 'moduix-slide-down var(--duration-normal) var(--ease-out)'],
   ['--animation-spin', 'moduix-spin 0.75s linear infinite'],
 ];
 

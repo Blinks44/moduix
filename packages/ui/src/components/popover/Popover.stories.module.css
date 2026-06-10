@@ -85,16 +85,16 @@
 
   .customPositioner {
     transition:
-      top 220ms,
-      left 220ms,
-      right 220ms,
-      bottom 220ms,
-      transform 220ms;
+      top var(--duration-normal),
+      left var(--duration-normal),
+      right var(--duration-normal),
+      bottom var(--duration-normal),
+      transform var(--duration-normal);
   }
 
   .customViewport {
     --popover-viewport-offset: var(--spacing-3);
-    --popover-viewport-transition: 260ms;
+    --popover-viewport-transition: var(--duration-slow);
   }
 
   .customTrigger {

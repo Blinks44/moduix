@@ -67,7 +67,9 @@
       var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
     pointer-events: auto;
     transform-origin: var(--transform-origin);
-    transition: var(--toast-anchored-transition, transform 150ms, opacity 150ms);
+    transition:
+      transform var(--toast-anchored-transition, var(--transition-fast)),
+      opacity var(--toast-anchored-transition, var(--transition-fast));
 
     &[data-starting-style],
     &[data-ending-style] {
@@ -213,9 +215,9 @@
     user-select: none;
     pointer-events: auto;
     transition:
-      transform var(--toast-transition, 0.5s cubic-bezier(0.22, 1, 0.36, 1)),
-      opacity 0.5s,
-      height 150ms ease;
+      transform var(--toast-transition, var(--transition-emphasized)),
+      opacity var(--toast-transition, var(--transition-emphasized)),
+      height var(--transition-fast);
     z-index: calc(var(--toast-z-index, var(--z-toast)) - var(--toast-index));
     height: var(--height);
     transform: translateX(var(--toast-swipe-movement-x))
@@ -325,7 +327,7 @@
     padding-inline-end: calc(
       var(--toast-close-offset-right, 0.5rem) + var(--toast-close-size, 1.25rem) + var(--spacing-2)
     );
-    transition: opacity 250ms ease;
+    transition: opacity var(--transition-default);
 
     &[data-behind] {
       opacity: 0;

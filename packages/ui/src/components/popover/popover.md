@@ -268,7 +268,6 @@ If the popup can become taller than the default max height, add a scrollable inn
 | `--popover-border-width` | `var(--border-width-sm)`          |
 | `--popover-border-color` | `var(--color-border)`             |
 | `--popover-shadow`       | `var(--shadow-lg)`                |
-| `--popover-scale`        | `var(--scale-popup)`              |
 
 #### Backdrop and arrow
 
@@ -345,7 +344,12 @@ If the popup can become taller than the default max height, add a scrollable inn
 - `PopoverViewport` is for animated multi-panel content, not a scroll area. Use an inner wrapper
   with `overflow: auto` for tall content instead.
 
+## Motion tokens
+
+`PopoverBackdrop` and `PopoverPopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to build fade or slide variants while keeping the default scale-in popover behavior.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so popover enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
 - Replaced the previous upstream Base UI copy with moduix-native documentation that describes the
   shipped wrapper API, styling hooks, hidden constraints, and recommended composition paths.

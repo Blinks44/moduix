@@ -80,13 +80,22 @@
     text-align: center;
     transform-origin: var(--transform-origin);
     transition:
-      transform var(--tooltip-transition, 150ms),
-      opacity var(--tooltip-transition, 150ms);
+      transform var(--tooltip-transition, var(--duration-fast)),
+      opacity var(--tooltip-transition, var(--duration-fast)),
+      translate var(--tooltip-transition, var(--duration-fast));
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--tooltip-popup-starting-opacity, 0);
+      translate: var(--tooltip-popup-starting-translate-x, 0)
+        var(--tooltip-popup-starting-translate-y, 0);
+      transform: scale(var(--tooltip-popup-starting-scale, var(--scale-popup)));
+    }
+
     &[data-ending-style] {
-      opacity: 0;
-      transform: scale(var(--tooltip-scale, var(--scale-popup)));
+      opacity: var(--tooltip-popup-ending-opacity, 0);
+      translate: var(--tooltip-popup-ending-translate-x, 0)
+        var(--tooltip-popup-ending-translate-y, 0);
+      transform: scale(var(--tooltip-popup-ending-scale, var(--scale-popup)));
     }
 
     &[data-instant] {
@@ -151,8 +160,8 @@
     & > [data-current],
     & > [data-previous] {
       transition:
-        transform var(--tooltip-content-transition, 150ms),
-        opacity var(--tooltip-content-transition, 150ms);
+        transform var(--tooltip-content-transition, var(--duration-fast)),
+        opacity var(--tooltip-content-transition, var(--duration-fast));
     }
 
     & > [data-previous] {

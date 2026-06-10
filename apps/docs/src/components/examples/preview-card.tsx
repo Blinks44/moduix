@@ -82,7 +82,6 @@ export const previewCardOverrideCssProperties: CssPropertyInput[] = [
   ['--preview-card-padding-x', 'var(--spacing-2)', 'Controls the popup horizontal padding.'],
   ['--preview-card-padding-y', 'var(--spacing-2)', 'Controls the popup vertical padding.'],
   ['--preview-card-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
-  ['--preview-card-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
   ['--preview-card-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
   [
     '--preview-card-transition',

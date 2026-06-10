@@ -261,8 +261,13 @@ CSS variables:
 - If trigger `render` behavior changes, compare with `CollapsibleTrigger` and popup trigger wrappers
   for consistency.
 
+## Motion tokens
+
+`AccordionPanel` now exposes phase-specific motion variables for its enter and exit states. Override `--accordion-panel-starting-height`, `--accordion-panel-ending-height`, the matching `*-opacity`, `*-scale`, and `*-translate-x/y` tokens to layer fade or slide effects on top of the default measured height animation without changing markup.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific panel motion tokens so accordion enter/exit animations can be retuned to fade, slide, or mixed effects through CSS variables while preserving the default height-based behavior.
 - Rewritten to document the moduix wrapper contract instead of Base UI examples and API tables.
 - Documented that `AccordionTrigger` skips default trigger CSS when Base UI `render` is used, matching
   other custom-render trigger wrappers.
