@@ -4,6 +4,9 @@
 small count. It is a standalone moduix component built on native `span` elements; it does not wrap a
 Base UI primitive and does not inherit Base UI slot APIs.
 
+Use `Tag` instead when the UI is showing the selected value itself and that token may need an inline
+action such as remove or dismiss.
+
 ## Basic Usage
 
 ```tsx
