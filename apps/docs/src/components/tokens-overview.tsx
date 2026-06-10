@@ -408,8 +408,11 @@ const sharedBackdropTokens = [
   ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'AlertDialog'],
   ['--autocomplete-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Autocomplete'],
   ['--combobox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Combobox'],
+  ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'CommandPalette'],
+  ['--context-menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'ContextMenu'],
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Dialog'],
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Drawer'],
+  ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Lightbox'],
   ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Select'],
   ['--menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menu'],
   ['--menubar-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menubar'],
@@ -419,19 +422,25 @@ const sharedBackdropTokens = [
 ];
 
 const sharedPopupTokens = [
-  ['--popup-item-min-height', '2rem'],
-  ['--popup-item-padding-y', '0.5rem'],
-  ['--popup-item-padding-x-start', '1rem'],
-  ['--popup-item-padding-x-end', '1rem'],
-  ['--popup-item-font-size', 'var(--text-sm)'],
-  ['--popup-item-line-height', 'var(--line-height-text-sm)'],
-  ['--popup-highlight-inset-x', 'var(--spacing-1)'],
-  ['--popup-highlight-radius', 'var(--radius-sm)'],
-  ['--popup-list-padding-y', '0.25rem'],
-  ['--popup-group-label-font-size', 'var(--text-xs)'],
-  ['--popup-group-label-padding-y', '0.35rem'],
   ['--popup-check-gap', '0.5rem'],
   ['--popup-check-indicator-size', '0.75rem'],
+  ['--popup-check-padding-x-start', '0.625rem'],
+  ['--popup-group-label-font-size', 'var(--text-xs)'],
+  ['--popup-group-label-line-height', 'var(--line-height-text-xs)'],
+  ['--popup-group-label-padding-x-end', '0.75rem'],
+  ['--popup-group-label-padding-x-start', '0.625rem'],
+  ['--popup-group-label-padding-y', '0.35rem'],
+  ['--popup-highlight-inset-x', 'var(--spacing-1)'],
+  ['--popup-highlight-radius', 'var(--radius-sm)'],
+  ['--popup-item-font-size', 'var(--text-sm)'],
+  ['--popup-item-line-height', 'var(--line-height-text-sm)'],
+  ['--popup-item-min-height', '2rem'],
+  ['--popup-item-padding-x-start', '1rem'],
+  ['--popup-item-padding-x-end', '1rem'],
+  ['--popup-item-padding-y', '0.5rem'],
+  ['--popup-list-padding-y', '0.25rem'],
+  ['--popup-separator-margin-x-start', '1rem'],
+  ['--popup-separator-margin-x-end', '1rem'],
   ['--popup-separator-margin-y', '0.375rem'],
 ];
 
@@ -472,7 +481,7 @@ export function TokensOverview() {
             </span>
             <span>
               <strong>{sharedBackdropTokens.length + sharedPopupTokens.length}</strong>
-              shared overrides
+              shared defaults
             </span>
           </div>
         </div>
@@ -607,7 +616,7 @@ export function TokensOverview() {
         note="Durations, easing, transition shorthands, and reusable animations."
       >
         <div className={styles.motionGrid}>
-          <TokenList title="Transition tokens" tokens={motionTokens} />
+          <TokenList title="Timing and transition tokens" tokens={motionTokens} />
           <TokenList title="Animation tokens" tokens={animationTokens} />
         </div>
       </Section>
@@ -631,8 +640,8 @@ export function TokensOverview() {
       </Section>
 
       <Section
-        title="Shared Component Variables"
-        note="Global overrides used by multiple components."
+        title="Shared Component Defaults"
+        note="Backdrop and popup defaults reused across overlay families, with local component tokens layered on top."
       >
         <div className={styles.backdropPreview}>
           <div className={styles.backdropStage}>
@@ -642,9 +651,9 @@ export function TokensOverview() {
               <span>--backdrop-bg + --backdrop-filter</span>
             </div>
           </div>
-          <TokenList title="Backdrop variables" tokens={sharedBackdropTokens} />
+          <TokenList title="Backdrop defaults and fallbacks" tokens={sharedBackdropTokens} />
         </div>
-        <TokenList title="Popup menu variables" tokens={sharedPopupTokens} />
+        <TokenList title="Shared popup menu defaults" tokens={sharedPopupTokens} />
       </Section>
     </div>
   );

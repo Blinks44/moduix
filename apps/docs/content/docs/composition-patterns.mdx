@@ -1,6 +1,6 @@
 ---
 title: Composition Patterns
-description: Common rules for service slots, styling, and slot props across moduix components.
+description: Common rules for wrapper-first composition, service slots, and low-level escape hatches across moduix components.
 icon: Blocks
 ---
 
@@ -13,6 +13,16 @@ real customization path.
 
 These patterns stay the same whether you import from `moduix` as a package or install source files
 into your own project with `shadcn`.
+
+## Default Path First
+
+moduix prefers explicit visible parts over generic slot prop bags. In practice, the usual order is:
+
+1. Start with the high-level wrapper part the component gives you, such as `DialogContent` or
+   `PopoverContent`.
+2. Use `className` on the visible part for styling.
+3. Drop to low-level parts only when you need to own portal behavior, overlay structure, or a
+   different DOM arrangement.
 
 ## Service Slots
 
@@ -64,24 +74,20 @@ import type { ComponentProps } from 'react';
 import { clsx } from 'clsx';
 import {
   Dialog as DialogBase,
-  DialogBackdrop as DialogBackdropBase,
   DialogClose as DialogCloseBase,
   DialogBody as DialogBodyBase,
   DialogCloseIcon as DialogCloseIconBase,
+  DialogContent as DialogContentBase,
   DialogDescription as DialogDescriptionBase,
   DialogFooter as DialogFooterBase,
   DialogHeader as DialogHeaderBase,
-  DialogPopup as DialogPopupBase,
-  DialogPortal as DialogPortalBase,
   DialogTitle as DialogTitleBase,
   DialogTrigger as DialogTriggerBase,
-  DialogViewport as DialogViewportBase,
-  createDialogHandle as createDialogHandleBase,
 } from 'moduix';
 import styles from './AppDialog.module.css';
 
 type DialogProps = ComponentProps<typeof DialogBase>;
-type DialogContentProps = ComponentProps<typeof DialogPopupBase>;
+type DialogContentProps = ComponentProps<typeof DialogContentBase>;
 
 export function Dialog(props: DialogProps) {
   return <DialogBase {...props} />;
@@ -93,14 +99,9 @@ export function DialogTrigger(props: ComponentProps<typeof DialogTriggerBase>) {
 
 export function DialogContent({ className, children, ...props }: DialogContentProps) {
   return (
-    <DialogPortalBase keepMounted>
-      <DialogBackdropBase className={styles.backdrop} forceRender />
-      <DialogViewportBase className={styles.viewport}>
-        <DialogPopupBase className={clsx(styles.popup, className)} {...props}>
-          {children}
-        </DialogPopupBase>
-      </DialogViewportBase>
-    </DialogPortalBase>
+    <DialogContentBase className={clsx(styles.popup, className)} {...props}>
+      {children}
+    </DialogContentBase>
   );
 }
 
@@ -137,9 +138,8 @@ export function DialogCloseIcon({
 }: ComponentProps<typeof DialogCloseIconBase>) {
   return <DialogCloseIconBase className={clsx(styles.closeIcon, className)} {...props} />;
 }
-
-export const createDialogHandle = createDialogHandleBase;
 ```
 
 This pattern gives teams one product-level import while preserving moduix composition, accessibility,
-and escape hatches.
+and escape hatches. If your product wrapper needs to own the full overlay structure, start from the
+low-level parts on that component page instead of rebuilding the contract from scratch.

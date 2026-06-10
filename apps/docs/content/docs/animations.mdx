@@ -18,22 +18,39 @@ moduix appearance transitions now expose phase-specific motion tokens. Instead o
 `scale(...)` animation, popup-like components can override the entering and leaving opacity, scale,
 and translate values through CSS variables while keeping the same markup and accessibility behavior.
 
+Use the shared motion tokens for broad system changes:
+
+- `--duration-*`, `--ease-*`, and `--transition-*` change timing and easing across many components.
+- `--scale-popup` and `--scale-dropdown` change the default popup scale used by overlay families.
+
+Use component-local motion tokens when only one component or family should behave differently.
+
 The pattern is the same across popup, dialog, backdrop, and other appearance-enabled parts:
 
 - `*-starting-*` tokens apply while the element is entering.
 - `*-ending-*` tokens apply while the element is leaving.
 - the steady-state open element still uses the normal component styles.
 
-Use the component-local token namespace when it exists:
+Use the component-local token namespace when it exists. Common examples include:
 
 - `--popover-popup-*`
 - `--dialog-popup-*`
 - `--alert-dialog-popup-*`
+- `--menu-popup-*`
+- `--menubar-popup-*`
+- `--tooltip-popup-*`
+- `--preview-card-popup-*`
+- `--navigation-menu-popup-*`
+- `--command-palette-popup-*`
+- `--context-menu-popup-*`
+- `--lightbox-popup-*`
 - `--select-popup-*`
 - `--autocomplete-popup-*`
 - `--combobox-popup-*`
 
-Backdrops follow the same rule with `--*-backdrop-starting-*` and `--*-backdrop-ending-*`.
+Backdrops follow the same rule with `--*-backdrop-starting-*` and `--*-backdrop-ending-*`. Drawer is
+slightly different: it uses `--drawer-transition` and swipe-specific motion values instead of the
+shared popup phase tokens.
 
 ## Live Preview
 
@@ -218,6 +235,8 @@ That separation is useful when you want:
 
 ## Usage Rules
 
+- Prefer shared motion tokens when you want a broad product-wide change, and component tokens when
+  the change is local.
 - Prefer component tokens before global tokens when the motion change is local.
 - Use `className` on the visual part that owns the motion: `*Popup`, `*Backdrop`, `*Content`, or
   the animated part for non-popup components.

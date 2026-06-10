@@ -15,13 +15,8 @@ The library supports two workflows:
 - use it as a normal npm package when you want package-managed updates
 - install component source into your own project with `shadcn` when you want local ownership and direct customization
 
-Start with the [Quick start](/docs/quick-start). It covers both install paths and the current
-temporary `components.json` workaround for the `shadcn` path.
-
-| Choose this path            | When it fits best                                                                          |
-| --------------------------- | ------------------------------------------------------------------------------------------ |
-| npm package                 | You want the fastest setup, updates through package management, and imports from `moduix`. |
-| `shadcn` copy-owned install | You want the component files inside your app and plan to customize them directly.          |
+For installation and first-use, start with [Quick start](/docs/quick-start). It covers both
+delivery paths, the current `shadcn` preparation steps, and the required stylesheet imports.
 
 <div className="not-prose my-8 overflow-hidden rounded-lg border bg-fd-card">
   <div className="grid gap-0 md:grid-cols-[0.92fr_1.08fr]">
@@ -77,6 +72,15 @@ moduix is not trying to replace [shadcn/ui](https://ui.shadcn.com/). shadcn/ui i
 inspiration for the composition-first API and the idea that components should stay easy to read,
 own, and customize. moduix explores that model with Base UI primitives and a plain CSS styling
 layer.
+
+## Start Here
+
+| Page                                               | Use it for                                                                         |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [Quick start](/docs/quick-start)                   | Pick the install path, set up styles, and render the first components.             |
+| [Composition Patterns](/docs/composition-patterns) | Understand wrapper-first composition, visible parts, and low-level escape hatches. |
+| [Tokens](/docs/tokens)                             | Learn the shared design token system, global overrides, and component fallbacks.   |
+| [Animations](/docs/animations)                     | Tune motion with global timing tokens and component-local appearance variables.    |
 
 ## What You Get
 
