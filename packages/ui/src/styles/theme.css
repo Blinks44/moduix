@@ -296,6 +296,7 @@
   --autocomplete-popup-starting-scale: initial; /* var(--scale-popup) */
   --autocomplete-popup-starting-translate-x: initial; /* 0 */
   --autocomplete-popup-starting-translate-y: initial; /* 0 */
+  --autocomplete-popup-transition: initial; /* var(--transition-default) */
   --autocomplete-radius: initial; /* var(--radius-md) */
   --autocomplete-row-gap: initial; /* var(--spacing-1) */
   --autocomplete-row-padding-x: initial; /* var(--spacing-1) */
@@ -686,6 +687,7 @@
   --combobox-popup-starting-scale: initial; /* var(--scale-popup) */
   --combobox-popup-starting-translate-x: initial; /* 0 */
   --combobox-popup-starting-translate-y: initial; /* 0 */
+  --combobox-popup-transition: initial; /* var(--transition-default) */
   --combobox-radius: initial; /* var(--radius-md) */
   --combobox-separator-margin-x: initial; /* 1rem */
   --combobox-separator-margin-y: initial; /* 0.375rem */
@@ -1307,7 +1309,10 @@
   --lightbox-focus-ring-color: initial; /* var(--color-ring) */
   --lightbox-height: initial; /* 80dvh */
   --lightbox-image-enter-duration: initial; /* 240ms */
+  --lightbox-image-enter-opacity: initial; /* 0.35 */
   --lightbox-image-enter-scale: initial; /* 0.9 */
+  --lightbox-image-enter-translate-x: initial; /* 0 */
+  --lightbox-image-enter-translate-y: initial; /* 0 */
   --lightbox-image-max-height: initial; /* 80dvh */
   --lightbox-image-max-width: initial; /* 80vw */
   --lightbox-image-radius: initial; /* var(--radius-md) */
@@ -2029,6 +2034,7 @@
   --select-popup-starting-scale: initial; /* var(--scale-popup) */
   --select-popup-starting-translate-x: initial; /* 0 */
   --select-popup-starting-translate-y: initial; /* 0 */
+  --select-popup-transition: initial; /* var(--transition-default) */
   --select-radius: initial; /* var(--radius-md) */
   --select-scroll-arrow-color: initial; /* var(--select-color, var(--color-foreground)) */
   --select-scroll-arrow-height: initial; /* 1rem */
