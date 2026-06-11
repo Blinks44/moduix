@@ -56,7 +56,8 @@ export function Example() {
 - `BreadcrumbsSeparator` renders an `aria-hidden` list item and defaults to `/` when no children are
   provided.
 - `BreadcrumbsEllipsis` renders an `aria-hidden` `span` and defaults to `...` when no children are
-  provided.
+  provided. By default it also gets a subtle accent background on hover so collapsed menu triggers do
+  not feel visually inert.
 
 ## Composition
 
@@ -166,6 +167,7 @@ Public CSS variables:
 | `--breadcrumbs-font-size`                  | `var(--text-sm)`                |
 | `--breadcrumbs-gap`                        | `var(--spacing-1)`              |
 | `--breadcrumbs-item-max-width`             | `16rem`                         |
+| `--breadcrumbs-item-padding-x`             | `0.25rem`                       |
 | `--breadcrumbs-line-height`                | `var(--line-height-text-sm)`    |
 | `--breadcrumbs-link-color`                 | `var(--color-muted-foreground)` |
 | `--breadcrumbs-link-color-hover`           | `var(--color-foreground)`       |
@@ -182,6 +184,12 @@ Public CSS variables:
 
 The last `BreadcrumbsItem` can shrink and is capped by `--breadcrumbs-item-max-width`; links, page
 text, and ellipsis use `text-overflow: ellipsis`.
+
+Links, current page text, and `BreadcrumbsEllipsis` get a small shared inline padding by default via
+`--breadcrumbs-item-padding-x` so the trail reads less cramped.
+
+`BreadcrumbsEllipsis` keeps its compact size, rounded corners, muted text color, and default hover
+background with `var(--color-accent)`.
 
 ## Intentional differences from Base UI
 
@@ -214,3 +222,7 @@ text, and ellipsis use `text-overflow: ellipsis`.
 
 - Rewrote the local contract to describe the shipped semantic wrapper, its composition model, props,
   slots, CSS variables, and accessibility notes instead of generic Base UI behavior.
+- Added a default accent hover background to `BreadcrumbsEllipsis` so collapsed breadcrumb triggers
+  have clearer interactive feedback.
+- Added a shared small horizontal padding for links, current page text, and ellipsis so breadcrumb
+  items feel less compressed by default.
