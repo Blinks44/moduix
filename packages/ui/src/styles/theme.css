@@ -375,6 +375,7 @@
   --breadcrumbs-font-size: initial; /* var(--text-sm) */
   --breadcrumbs-gap: initial; /* var(--spacing-1) */
   --breadcrumbs-item-max-width: initial; /* 16rem */
+  --breadcrumbs-item-padding-x: initial; /* 0.25rem */
   --breadcrumbs-line-height: initial; /* var(--line-height-text-sm) */
   --breadcrumbs-link-color: initial; /* var(--color-muted-foreground) */
   --breadcrumbs-link-color-hover: initial; /* var(--color-foreground) */
