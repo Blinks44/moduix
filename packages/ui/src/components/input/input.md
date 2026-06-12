@@ -21,6 +21,8 @@ and steppers use `NumberField`.
   registers with field context directly and receives Base UI validation state attributes.
 - Controlled and uncontrolled usage stay unchanged: use `value` + `onValueChange` for controlled
   input, or `defaultValue` for uncontrolled input.
+- `readOnly` keeps the input focusable and submittable and now has dedicated visual tokens for
+  compact preview/edit compositions built from the same mounted control.
 - The wrapper is intentionally small: no built-in label, clear button, prefix/suffix props, loading
   state, masking, or validation UI.
 
@@ -124,6 +126,7 @@ Stable root hooks:
 | `data-touched`  | Present inside `Field` after interaction.                                      |
 | `data-filled`   | Present inside `Field` when the input currently has a value.                   |
 | `data-focused`  | Present while focused; useful for composed controls such as field-like shells. |
+| `readonly`      | Native `readonly` attribute from input props.                                  |
 
 Use `className` for local styling and `--input-*` variables for token-level customization. Public
 variables from `theme.css`:
@@ -133,7 +136,7 @@ variables from `theme.css`:
 | Layout         | `--input-width`, `--input-max-width`, `--input-height`, `--input-height-xs`, `--input-height-sm`, `--input-height-md`, `--input-height-lg`, `--input-height-xl`                                                                                                                                      |
 | Spacing        | `--input-padding-x`, `--input-padding-y`, `--input-padding-x-xs`, `--input-padding-y-xs`, `--input-padding-x-sm`, `--input-padding-y-sm`, `--input-padding-x-md`, `--input-padding-y-md`, `--input-padding-x-lg`, `--input-padding-y-lg`, `--input-padding-x-xl`, `--input-padding-y-xl`             |
 | Typography     | `--input-font-size`, `--input-line-height`, `--input-font-size-xs`, `--input-line-height-xs`, `--input-font-size-sm`, `--input-line-height-sm`, `--input-font-size-md`, `--input-line-height-md`, `--input-font-size-lg`, `--input-line-height-lg`, `--input-font-size-xl`, `--input-line-height-xl` |
-| Surface        | `--input-bg`, `--input-color`, `--input-placeholder-color`, `--input-radius`                                                                                                                                                                                                                         |
+| Surface        | `--input-bg`, `--input-color`, `--input-placeholder-color`, `--input-radius`, `--input-readonly-bg`, `--input-readonly-color`                                                                                                                                                                        |
 | Border/focus   | `--input-border-width`, `--input-border-style`, `--input-border-color`, `--input-border-color-invalid`, `--input-focus-ring-width`, `--input-focus-ring-offset`, `--input-focus-ring-color`, `--input-transition`                                                                                    |
 | Disabled       | `--input-disabled-opacity`                                                                                                                                                                                                                                                                           |
 
@@ -181,3 +184,5 @@ Example:
 - Rewrote the local documentation to describe the shipped moduix `Input` API, styling hooks,
   examples, and constraints instead of Base UI reference content.
 - Exported `InputProps` and `InputSize` for wrapper authors and consumer-side typing.
+- Added readonly styling tokens so compact preview/edit compositions can keep one mounted input
+  instead of swapping between text and field markup.

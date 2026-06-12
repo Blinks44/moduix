@@ -1207,6 +1207,8 @@
   --input-padding-y-xl: initial; /* 0.75rem */
   --input-placeholder-color: initial; /* var(--color-muted-foreground) */
   --input-radius: initial; /* var(--radius-md) */
+  --input-readonly-bg: initial; /* var(--input-bg, var(--color-background)) */
+  --input-readonly-color: initial; /* var(--input-color, var(--color-foreground)) */
   --input-transition: initial; /* var(--transition-default) */
   --input-width: initial; /* 100% */
 
@@ -1265,6 +1267,9 @@
   --input-group-line-height-xl: initial; /* var(--line-height-text-lg) */
   --input-group-max-width: initial; /* none */
   --input-group-radius: initial; /* var(--radius-md) */
+  --input-group-readonly-bg: initial; /* var(--input-group-bg, var(--color-background)) */
+  --input-group-readonly-border-color: initial; /* var(--input-group-border-color, var(--color-border)) */
+  --input-group-readonly-color: initial; /* var(--input-group-color, var(--color-foreground)) */
   --input-group-separator-color: initial; /* var(--color-border) */
   --input-group-separator-width: initial; /* var(--border-width-sm) */
   --input-group-transition: initial; /* var(--transition-default) */

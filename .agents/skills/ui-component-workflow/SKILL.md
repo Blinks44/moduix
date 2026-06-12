@@ -55,6 +55,9 @@ Small DX sugar is acceptable only when it removes repeated production boilerplat
 - Do not add business logic, extra state layers, or speculative APIs.
 - Prefer composition over feature flags.
 - Prefer explicit public parts over `slotProps`, `classNames`, render shims, or prop bags.
+- Keep adjacent component families consistent. Similar controls should share the same naming and API
+  shape for equivalent concepts such as `value`, `defaultValue`, `onValueChange`, `readOnly`,
+  `disabled`, size props, and ref behavior unless the difference is intentional and documented.
 - Keep controlled and uncontrolled primitive behavior intact unless a wrapper adds clear value.
 - Keep infrastructure slots internal unless they are meaningful building blocks for consumers.
 - Do not build god components.

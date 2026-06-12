@@ -11,6 +11,7 @@ export {
   EyeIcon,
   IndeterminateIcon,
   MinusIcon,
+  PencilIcon,
   PlusIcon,
   PopupArrowIcon,
   RatingStarIcon,

@@ -23,6 +23,9 @@ Use this skill for JS/TS React work in this repo.
 - Avoid booleans, render helpers, slot bags, or class-name maps when children or adjacent parts express the same thing more clearly.
 - Keep the public type surface small.
 - Do not narrow primitive props without a clear behavior or safety reason.
+- Keep APIs consistent across semantically similar components. If two controls solve the same kind of
+  problem, prefer the same prop names, controlled/uncontrolled contracts, event names, and ref
+  behavior unless there is a documented, defensible reason to differ.
 - Do not add `memo` by default.
 - Do not add `forwardRef` unless the ref is part of the real consumer API or required by the primitive.
 - When `forwardRef` is needed, use `React.ComponentRef`.

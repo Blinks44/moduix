@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
 import { Field, FieldError, FieldLabel } from '../field';
 import {
   InputGroup,
@@ -110,6 +111,65 @@ export const Disabled: Story = {
         <InputGroupInput disabled value="maps" />
         <InputGroupButton disabled>Copy</InputGroupButton>
       </InputGroup>
+    );
+  },
+};
+
+export const InlineEditing: Story = {
+  render: () => {
+    const [editing, setEditing] = useState(false);
+    const [value, setValue] = useState('Workspace display name');
+    const [draft, setDraft] = useState(value);
+    const inputRef = useRef<HTMLInputElement | null>(null);
+
+    useEffect(() => {
+      if (editing) {
+        inputRef.current?.focus();
+      }
+    }, [editing]);
+
+    const handleEdit = () => {
+      setDraft(value);
+      setEditing(true);
+    };
+
+    const handleCancel = () => {
+      setDraft(value);
+      setEditing(false);
+    };
+
+    const handleSave = () => {
+      setValue(draft);
+      setEditing(false);
+    };
+
+    return (
+      <Field className={storyStyles.field}>
+        <FieldLabel>Display name</FieldLabel>
+        <InputGroup>
+          <InputGroupInput
+            aria-label="Display name"
+            ref={inputRef}
+            readOnly={!editing}
+            value={editing ? draft : value}
+            onValueChange={setDraft}
+          />
+          {editing ? (
+            <>
+              <InputGroupButton aria-label="Cancel editing" size="icon-md" onClick={handleCancel}>
+                <CloseIcon />
+              </InputGroupButton>
+              <InputGroupButton aria-label="Save changes" size="icon-md" onClick={handleSave}>
+                <CheckIcon />
+              </InputGroupButton>
+            </>
+          ) : (
+            <InputGroupButton aria-label="Edit display name" size="icon-md" onClick={handleEdit}>
+              <PencilIcon />
+            </InputGroupButton>
+          )}
+        </InputGroup>
+      </Field>
     );
   },
 };

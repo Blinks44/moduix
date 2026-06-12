@@ -14,6 +14,7 @@ import {
   TextareaCssPlaygroundPanel,
   TextareaCssPropertiesPanel,
   TextareaExample,
+  TextareaReadOnlyEditingExample,
   textareaPlaygroundCssProperties,
 } from '@/components/examples/textarea';
 
@@ -113,7 +114,7 @@ Field (optional wrapper)
 
 `Textarea` renders through Base UI `Field.Control`, so it works with `FieldLabel`,
 `FieldDescription`, `FieldError`, native validation, and standard textarea props such as `value`,
-`defaultValue`, `onChange`, `rows`, `maxLength`, `name`, and `readOnly`.
+`defaultValue`, `onValueChange`, `rows`, `maxLength`, `name`, and `readOnly`.
 
 Use these paths:
 
@@ -127,16 +128,17 @@ directly with `className` or the public `--textarea-*` CSS variables.
 
 ### Defaults
 
-| Prop         | Default | Notes                                                                |
-| ------------ | ------- | -------------------------------------------------------------------- |
-| `autoResize` | `false` | Keeps the native resize behavior unless CSS auto-resize is opted in. |
-| `className`  | -       | Applied directly to the visible textarea root.                       |
+| Prop            | Default | Notes                                                                |
+| --------------- | ------- | -------------------------------------------------------------------- |
+| `autoResize`    | `false` | Keeps the native resize behavior unless CSS auto-resize is opted in. |
+| `onValueChange` | -       | Called with the next textarea value on change.                       |
+| `className`     | -       | Applied directly to the visible textarea root.                       |
 
 ## Examples
 
 ### Controlled
 
-Use `value` and `onChange` when content should stay in React state.
+Use `value` and `onValueChange` when content should stay in React state.
 
 <Preview>
   <ControlledTextareaExample />
@@ -154,7 +156,7 @@ Use `value` and `onChange` when content should stay in React state.
             <FieldLabel>Feedback</FieldLabel>
             <Textarea
               value={value}
-              onChange={(event) => setValue(event.currentTarget.value)}
+              onValueChange={setValue}
               placeholder="Type to control value"
             />
           </Field>
@@ -281,6 +283,111 @@ Set `disabled` or `readOnly` based on interaction requirements.
         display: grid;
         gap: var(--spacing-3);
         width: min(28rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Readonly Editing
+
+For multiline inline editing, keep the same `Textarea` mounted and switch only `readOnly` plus the
+action buttons. That avoids the text-to-textarea layout jump and lets you focus the field
+immediately when edit mode starts.
+
+<Preview>
+  <TextareaReadOnlyEditingExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        CheckIcon,
+        CloseIcon,
+        Field,
+        FieldDescription,
+        FieldLabel,
+        PencilIcon,
+        Textarea,
+      } from "moduix";
+      import { useEffect, useRef, useState } from "react";
+
+      export function ReadonlyEditingTextareaDemo() {
+        const [editing, setEditing] = useState(false);
+        const [value, setValue] = useState(
+          "Build the docs examples first, then harden the public API around real usage.",
+        );
+        const [draft, setDraft] = useState(value);
+        const textareaRef = useRef(null as HTMLTextAreaElement | null);
+
+        useEffect(() => {
+          if (editing) {
+            textareaRef.current?.focus();
+          }
+        }, [editing]);
+
+        const handleEdit = () => {
+          setDraft(value);
+          setEditing(true);
+        };
+
+        const handleCancel = () => {
+          setDraft(value);
+          setEditing(false);
+        };
+
+        const handleSave = () => {
+          setValue(draft);
+          setEditing(false);
+        };
+
+        return (
+          <Field className={styles.field}>
+            <FieldLabel>Team note</FieldLabel>
+            <FieldDescription>
+              The textarea stays mounted and only switches between read-only and editable modes.
+            </FieldDescription>
+            <Textarea
+              ref={textareaRef}
+              autoResize
+              readOnly={!editing}
+              rows={3}
+              value={editing ? draft : value}
+              onValueChange={setDraft}
+            />
+            <div className={styles.actions}>
+              {editing ? (
+                <>
+                  <Button aria-label="Cancel editing" size="icon-md" variant="ghost" onClick={handleCancel}>
+                    <CloseIcon />
+                  </Button>
+                  <Button aria-label="Save changes" size="icon-md" onClick={handleSave}>
+                    <CheckIcon />
+                  </Button>
+                </>
+              ) : (
+                <Button aria-label="Edit team note" size="icon-md" variant="ghost" onClick={handleEdit}>
+                  <PencilIcon />
+                </Button>
+              )}
+            </div>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--spacing-2);
       }
     `}
 

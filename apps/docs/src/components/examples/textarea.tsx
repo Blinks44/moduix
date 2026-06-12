@@ -1,5 +1,15 @@
-import { Field, FieldDescription, FieldError, FieldLabel, Textarea } from 'moduix';
-import { useState, type ComponentProps } from 'react';
+import {
+  Button,
+  CheckIcon,
+  CloseIcon,
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  PencilIcon,
+  Textarea,
+} from 'moduix';
+import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './textarea.module.css';
@@ -107,11 +117,7 @@ export function ControlledTextareaExample() {
   return (
     <Field className={styles.field}>
       <FieldLabel>Feedback</FieldLabel>
-      <Textarea
-        value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
-        placeholder="Type to control value"
-      />
+      <Textarea value={value} onValueChange={setValue} placeholder="Type to control value" />
     </Field>
   );
 }
@@ -122,6 +128,74 @@ export function DisabledAndReadOnlyTextareaExample() {
       <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
       <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
     </div>
+  );
+}
+
+export function TextareaReadOnlyEditingExample() {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(
+    'Build the docs examples first, then harden the public API around real usage.',
+  );
+  const [draft, setDraft] = useState(value);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    if (editing) {
+      textareaRef.current?.focus();
+    }
+  }, [editing]);
+
+  const handleEdit = () => {
+    setDraft(value);
+    setEditing(true);
+  };
+
+  const handleCancel = () => {
+    setDraft(value);
+    setEditing(false);
+  };
+
+  const handleSave = () => {
+    setValue(draft);
+    setEditing(false);
+  };
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel>Team note</FieldLabel>
+      <FieldDescription>
+        The textarea stays mounted and only switches between read-only and editable modes.
+      </FieldDescription>
+      <Textarea
+        autoResize
+        ref={textareaRef}
+        readOnly={!editing}
+        rows={3}
+        value={editing ? draft : value}
+        onValueChange={setDraft}
+      />
+      <div className={styles.actions}>
+        {editing ? (
+          <>
+            <Button
+              aria-label="Cancel editing"
+              size="icon-md"
+              variant="ghost"
+              onClick={handleCancel}
+            >
+              <CloseIcon />
+            </Button>
+            <Button aria-label="Save changes" size="icon-md" onClick={handleSave}>
+              <CheckIcon />
+            </Button>
+          </>
+        ) : (
+          <Button aria-label="Edit team note" size="icon-md" variant="ghost" onClick={handleEdit}>
+            <PencilIcon />
+          </Button>
+        )}
+      </div>
+    </Field>
   );
 }
 

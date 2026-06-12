@@ -4,8 +4,9 @@ import { forwardRef, useCallback, type ComponentProps, type ForwardedRef } from 
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Textarea.module.css';
 
-type TextareaProps = ComponentProps<'textarea'> & {
+type TextareaProps = Omit<ComponentProps<'textarea'>, 'onChange'> & {
   autoResize?: boolean;
+  onValueChange?: (value: string) => void;
 };
 
 const assignForwardedRef = <T,>(ref: ForwardedRef<T>, value: T | null) => {
@@ -20,7 +21,7 @@ const assignForwardedRef = <T,>(ref: ForwardedRef<T>, value: T | null) => {
 };
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
-  { autoResize = false, className, ...props }: TextareaProps,
+  { autoResize = false, className, onValueChange, ...props }: TextareaProps,
   forwardedRef: ForwardedRef<HTMLTextAreaElement>,
 ) {
   const setTextareaRef = useCallback(
@@ -36,7 +37,15 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textare
       data-slot="textarea-root"
       data-auto-resize={autoResize ? '' : undefined}
       className={mergeClassName(className, styles.root)}
-      render={(controlProps) => <textarea {...mergeProps(controlProps, props)} />}
+      render={(controlProps) => (
+        <textarea
+          {...mergeProps(controlProps, props, {
+            onChange: (event) => {
+              onValueChange?.(event.currentTarget.value);
+            },
+          })}
+        />
+      )}
     />
   );
 });
