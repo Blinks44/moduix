@@ -59,10 +59,14 @@
       opacity var(--dialog-backdrop-transition, var(--transition-default)),
       backdrop-filter var(--dialog-backdrop-transition, var(--transition-default));
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--dialog-backdrop-starting-opacity, 0);
+      backdrop-filter: var(--dialog-backdrop-starting-blur, none);
+    }
+
     &[data-ending-style] {
-      opacity: 0;
-      backdrop-filter: none;
+      opacity: var(--dialog-backdrop-ending-opacity, 0);
+      backdrop-filter: var(--dialog-backdrop-ending-blur, none);
     }
 
     &[data-nested] {
@@ -127,13 +131,32 @@
       }
     }
 
-    &[data-starting-style],
-    &[data-ending-style] {
-      opacity: 0;
+    &[data-starting-style] {
+      opacity: var(--dialog-popup-starting-opacity, 0);
+      translate: var(--dialog-popup-starting-translate-x, 0)
+        calc(
+          var(--dialog-nested-offset-y, 1.25rem) * var(--nested-dialogs, 0) +
+            var(--dialog-popup-starting-translate-y, 0)
+        );
       transform: scale(
         calc(
           (1 - var(--dialog-nested-scale-step, 0.1) * var(--nested-dialogs, 0)) *
-            var(--dialog-scale, var(--scale-popup))
+            var(--dialog-popup-starting-scale, var(--scale-popup))
+        )
+      );
+    }
+
+    &[data-ending-style] {
+      opacity: var(--dialog-popup-ending-opacity, 0);
+      translate: var(--dialog-popup-ending-translate-x, 0)
+        calc(
+          var(--dialog-nested-offset-y, 1.25rem) * var(--nested-dialogs, 0) +
+            var(--dialog-popup-ending-translate-y, 0)
+        );
+      transform: scale(
+        calc(
+          (1 - var(--dialog-nested-scale-step, 0.1) * var(--nested-dialogs, 0)) *
+            var(--dialog-popup-ending-scale, var(--scale-popup))
         )
       );
     }

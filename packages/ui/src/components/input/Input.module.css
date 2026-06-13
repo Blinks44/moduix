@@ -46,6 +46,11 @@
       pointer-events: none;
       opacity: var(--input-disabled-opacity, var(--opacity-disabled));
     }
+
+    &:is(:read-only, [data-readonly]) {
+      background-color: var(--input-readonly-bg, var(--input-bg, var(--color-background)));
+      color: var(--input-readonly-color, var(--input-color, var(--color-foreground)));
+    }
   }
 
   .root[data-size='xs'] {

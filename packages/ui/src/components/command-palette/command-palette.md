@@ -462,7 +462,6 @@ ancestor.
 | `--command-palette-top-bg`       | `color-mix(in oklab, var(--color-popover) 96%, white 4%)`   |
 | `--command-palette-shadow`       | `var(--shadow-lg)`                                          |
 | `--command-palette-transition`   | `var(--transition-default)`                                 |
-| `--command-palette-scale`        | `var(--scale-popup)`                                        |
 
 #### Input wrap
 
@@ -624,8 +623,13 @@ ancestor.
   intentional and must be preserved for API consistency with other trigger wrappers.
 - Keep all CSS variables as documented. They are the public override API for consumers.
 
+## Motion tokens
+
+`CommandPaletteBackdrop` and `CommandPalettePopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to replace the default lifted scale-in effect with a cleaner fade, slide, or mixed motion profile.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so the command palette enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables without changing the default lifted animation.
 - Removed dead `isGroupedItems` guard in `CommandPaletteContent` — both branches rendered identical
   JSX; the autocomplete root accepts both flat and grouped item arrays natively.
 - Removed internal `CommandPaletteGroup<ItemValue>` type used only by the dead code.

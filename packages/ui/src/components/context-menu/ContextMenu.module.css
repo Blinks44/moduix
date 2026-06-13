@@ -40,10 +40,14 @@
           var(--context-menu-transition, var(--transition-default))
         );
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--context-menu-backdrop-starting-opacity, 0);
+      backdrop-filter: var(--context-menu-backdrop-starting-blur, none);
+    }
+
     &[data-ending-style] {
-      opacity: 0;
-      backdrop-filter: none;
+      opacity: var(--context-menu-backdrop-ending-opacity, 0);
+      backdrop-filter: var(--context-menu-backdrop-ending-blur, none);
     }
   }
 
@@ -69,12 +73,21 @@
     transform-origin: var(--transform-origin);
     transition:
       transform var(--context-menu-transition, var(--transition-default)),
-      opacity var(--context-menu-transition, var(--transition-default));
+      opacity var(--context-menu-transition, var(--transition-default)),
+      translate var(--context-menu-transition, var(--transition-default));
 
-    &[data-starting-style],
+    &[data-starting-style] {
+      opacity: var(--context-menu-popup-starting-opacity, 0);
+      translate: var(--context-menu-popup-starting-translate-x, 0)
+        var(--context-menu-popup-starting-translate-y, 0);
+      transform: scale(var(--context-menu-popup-starting-scale, var(--scale-popup)));
+    }
+
     &[data-ending-style] {
-      opacity: 0;
-      transform: scale(var(--context-menu-popup-scale, var(--scale-popup)));
+      opacity: var(--context-menu-popup-ending-opacity, 0);
+      translate: var(--context-menu-popup-ending-translate-x, 0)
+        var(--context-menu-popup-ending-translate-y, 0);
+      transform: scale(var(--context-menu-popup-ending-scale, var(--scale-popup)));
     }
   }
 

@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
+import { Button } from '../button';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../field';
 import { Textarea } from './Textarea';
 import storyStyles from './Textarea.stories.module.css';
@@ -38,11 +40,7 @@ export const Controlled: Story = {
     return (
       <Field className={storyStyles.field}>
         <FieldLabel>Feedback</FieldLabel>
-        <Textarea
-          placeholder="Type to control value"
-          value={value}
-          onChange={(event) => setValue(event.currentTarget.value)}
-        />
+        <Textarea placeholder="Type to control value" value={value} onValueChange={setValue} />
       </Field>
     );
   },
@@ -86,6 +84,76 @@ export const DisabledAndReadOnly: Story = {
         <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
         <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
       </div>
+    );
+  },
+};
+
+export const ReadOnlyEditing: Story = {
+  render: () => {
+    const [editing, setEditing] = useState(false);
+    const [value, setValue] = useState(
+      'Build the docs examples first, then harden the public API around real usage.',
+    );
+    const [draft, setDraft] = useState(value);
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+    useEffect(() => {
+      if (editing) {
+        textareaRef.current?.focus();
+      }
+    }, [editing]);
+
+    const handleEdit = () => {
+      setDraft(value);
+      setEditing(true);
+    };
+
+    const handleCancel = () => {
+      setDraft(value);
+      setEditing(false);
+    };
+
+    const handleSave = () => {
+      setValue(draft);
+      setEditing(false);
+    };
+
+    return (
+      <Field className={storyStyles.field}>
+        <FieldLabel>Team note</FieldLabel>
+        <FieldDescription>
+          The textarea stays mounted and only switches between read-only and editable modes.
+        </FieldDescription>
+        <Textarea
+          autoResize
+          ref={textareaRef}
+          readOnly={!editing}
+          rows={3}
+          value={editing ? draft : value}
+          onValueChange={setDraft}
+        />
+        <div className={storyStyles.actions}>
+          {editing ? (
+            <>
+              <Button
+                aria-label="Cancel editing"
+                size="icon-md"
+                variant="ghost"
+                onClick={handleCancel}
+              >
+                <CloseIcon />
+              </Button>
+              <Button aria-label="Save changes" size="icon-md" onClick={handleSave}>
+                <CheckIcon />
+              </Button>
+            </>
+          ) : (
+            <Button aria-label="Edit team note" size="icon-md" variant="ghost" onClick={handleEdit}>
+              <PencilIcon />
+            </Button>
+          )}
+        </div>
+      </Field>
     );
   },
 };

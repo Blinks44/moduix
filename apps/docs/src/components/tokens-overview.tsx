@@ -351,38 +351,30 @@ const opacityTokens = [
 ];
 
 const motionTokens = [
-  ['--duration-fast', '100ms'],
+  ['--duration-fast', '150ms'],
   ['--duration-normal', '200ms'],
   ['--duration-slow', '300ms'],
-  ['--duration-slower', '500ms'],
+  ['--duration-slower', '450ms'],
   ['--ease-in', 'cubic-bezier(0.4, 0, 1, 1)'],
   ['--ease-out', 'cubic-bezier(0, 0, 0.2, 1)'],
   ['--ease-in-out', 'cubic-bezier(0.4, 0, 0.2, 1)'],
   ['--ease-spring', 'cubic-bezier(0.32, 0.72, 0, 1)'],
+  ['--ease-standard', 'ease'],
+  ['--ease-emphasized', 'cubic-bezier(0.22, 1, 0.36, 1)'],
   ['--transition-default', 'var(--duration-normal) var(--ease-in-out)'],
   ['--transition-fast', 'var(--duration-fast) var(--ease-in-out)'],
   ['--transition-slow', 'var(--duration-slow) var(--ease-in-out)'],
   ['--transition-slower', 'var(--duration-slower) var(--ease-in-out)'],
+  ['--transition-spring', 'var(--duration-slower) var(--ease-spring)'],
+  ['--transition-emphasized', 'var(--duration-slower) var(--ease-emphasized)'],
 ];
 
 const animationTokens = [
   ['--animation-pulse', 'moduix-pulse 2.5s ease-in-out infinite'],
-  [
-    '--animation-fade-in',
-    'moduix-fade-in var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
-  ],
-  [
-    '--animation-fade-out',
-    'moduix-fade-out var(--duration-normal, 200ms) var(--ease-in, cubic-bezier(0.4, 0, 1, 1))',
-  ],
-  [
-    '--animation-slide-up',
-    'moduix-slide-up var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
-  ],
-  [
-    '--animation-slide-down',
-    'moduix-slide-down var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1))',
-  ],
+  ['--animation-fade-in', 'moduix-fade-in var(--duration-normal) var(--ease-out)'],
+  ['--animation-fade-out', 'moduix-fade-out var(--duration-normal) var(--ease-in)'],
+  ['--animation-slide-up', 'moduix-slide-up var(--duration-normal) var(--ease-out)'],
+  ['--animation-slide-down', 'moduix-slide-down var(--duration-normal) var(--ease-out)'],
   ['--animation-spin', 'moduix-spin 0.75s linear infinite'],
 ];
 
@@ -416,8 +408,11 @@ const sharedBackdropTokens = [
   ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'AlertDialog'],
   ['--autocomplete-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Autocomplete'],
   ['--combobox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Combobox'],
+  ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'CommandPalette'],
+  ['--context-menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'ContextMenu'],
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Dialog'],
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Drawer'],
+  ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Lightbox'],
   ['--select-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Select'],
   ['--menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menu'],
   ['--menubar-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Menubar'],
@@ -427,19 +422,25 @@ const sharedBackdropTokens = [
 ];
 
 const sharedPopupTokens = [
-  ['--popup-item-min-height', '2rem'],
-  ['--popup-item-padding-y', '0.5rem'],
-  ['--popup-item-padding-x-start', '1rem'],
-  ['--popup-item-padding-x-end', '1rem'],
-  ['--popup-item-font-size', 'var(--text-sm)'],
-  ['--popup-item-line-height', 'var(--line-height-text-sm)'],
-  ['--popup-highlight-inset-x', 'var(--spacing-1)'],
-  ['--popup-highlight-radius', 'var(--radius-sm)'],
-  ['--popup-list-padding-y', '0.25rem'],
-  ['--popup-group-label-font-size', 'var(--text-xs)'],
-  ['--popup-group-label-padding-y', '0.35rem'],
   ['--popup-check-gap', '0.5rem'],
   ['--popup-check-indicator-size', '0.75rem'],
+  ['--popup-check-padding-x-start', '0.625rem'],
+  ['--popup-group-label-font-size', 'var(--text-xs)'],
+  ['--popup-group-label-line-height', 'var(--line-height-text-xs)'],
+  ['--popup-group-label-padding-x-end', '0.75rem'],
+  ['--popup-group-label-padding-x-start', '0.625rem'],
+  ['--popup-group-label-padding-y', '0.35rem'],
+  ['--popup-highlight-inset-x', 'var(--spacing-1)'],
+  ['--popup-highlight-radius', 'var(--radius-sm)'],
+  ['--popup-item-font-size', 'var(--text-sm)'],
+  ['--popup-item-line-height', 'var(--line-height-text-sm)'],
+  ['--popup-item-min-height', '2rem'],
+  ['--popup-item-padding-x-start', '1rem'],
+  ['--popup-item-padding-x-end', '1rem'],
+  ['--popup-item-padding-y', '0.5rem'],
+  ['--popup-list-padding-y', '0.25rem'],
+  ['--popup-separator-margin-x-start', '1rem'],
+  ['--popup-separator-margin-x-end', '1rem'],
   ['--popup-separator-margin-y', '0.375rem'],
 ];
 
@@ -480,7 +481,7 @@ export function TokensOverview() {
             </span>
             <span>
               <strong>{sharedBackdropTokens.length + sharedPopupTokens.length}</strong>
-              shared overrides
+              shared defaults
             </span>
           </div>
         </div>
@@ -615,7 +616,7 @@ export function TokensOverview() {
         note="Durations, easing, transition shorthands, and reusable animations."
       >
         <div className={styles.motionGrid}>
-          <TokenList title="Transition tokens" tokens={motionTokens} />
+          <TokenList title="Timing and transition tokens" tokens={motionTokens} />
           <TokenList title="Animation tokens" tokens={animationTokens} />
         </div>
       </Section>
@@ -639,8 +640,8 @@ export function TokensOverview() {
       </Section>
 
       <Section
-        title="Shared Component Variables"
-        note="Global overrides used by multiple components."
+        title="Shared Component Defaults"
+        note="Backdrop and popup defaults reused across overlay families, with local component tokens layered on top."
       >
         <div className={styles.backdropPreview}>
           <div className={styles.backdropStage}>
@@ -650,9 +651,9 @@ export function TokensOverview() {
               <span>--backdrop-bg + --backdrop-filter</span>
             </div>
           </div>
-          <TokenList title="Backdrop variables" tokens={sharedBackdropTokens} />
+          <TokenList title="Backdrop defaults and fallbacks" tokens={sharedBackdropTokens} />
         </div>
-        <TokenList title="Popup menu variables" tokens={sharedPopupTokens} />
+        <TokenList title="Shared popup menu defaults" tokens={sharedPopupTokens} />
       </Section>
     </div>
   );

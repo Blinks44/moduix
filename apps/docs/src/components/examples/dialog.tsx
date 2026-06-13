@@ -98,7 +98,6 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-nested-scale-step', '0.1', 'Controls scale step for nested dialogs.'],
   ['--dialog-padding', 'var(--spacing-6)', 'Controls popup padding.'],
   ['--dialog-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
-  ['--dialog-scale', 'var(--scale-popup)', 'Controls enter/exit popup scale.'],
   ['--dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--dialog-title-color', 'var(--dialog-color)', 'Controls title color.'],
   ['--dialog-title-font-size', 'var(--text-lg)', 'Controls title font size.'],

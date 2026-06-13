@@ -227,8 +227,13 @@ Public CSS variables:
 - Do not add broad sugar unless it removes common real boilerplate while keeping the explicit
   composition model easy to see.
 
+## Motion tokens
+
+`CollapsiblePanel` now exposes phase-specific motion variables for its enter and exit states. Override `--collapsible-panel-starting-height`, `--collapsible-panel-ending-height`, and the matching `*-opacity`, `*-scale`, and `*-translate-x/y` tokens to layer fade or slide effects on top of the default measured height animation without changing markup.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific panel motion tokens so collapsible enter/exit animations can be retuned to fade, slide, or mixed effects through CSS variables while preserving the default height-based behavior.
 - Rewritten to describe the moduix wrapper contract instead of mirroring the upstream Base UI
   documentation.
 - Documented the styling opt-out behavior for custom trigger rendering and the full public CSS variable

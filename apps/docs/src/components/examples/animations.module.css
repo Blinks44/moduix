@@ -1,0 +1,196 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.recipesGrid {
+  display: grid;
+  width: 100%;
+  max-width: 48rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--spacing-3);
+}
+
+.recipeCard {
+  display: grid;
+  gap: var(--spacing-3);
+  justify-items: center;
+  padding: var(--spacing-4);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-muted) 72%, white 28%),
+    var(--color-background)
+  );
+  text-align: center;
+}
+
+.recipeTitle {
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.recipeDescription {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.popup {
+  --popover-min-width: 14rem;
+  --popover-max-width: 14rem;
+  --popover-padding-x: var(--spacing-4);
+  --popover-padding-y: var(--spacing-4);
+  --popover-shadow: 0 18px 48px rgb(15 23 42 / 0.16);
+}
+
+.popupHeader {
+  display: grid;
+  gap: var(--spacing-1);
+}
+
+.label {
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.caption {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+.fadePopup {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-y: 0;
+  --popover-popup-ending-translate-y: 0;
+}
+
+.slideUpPopup {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-y: 0.75rem;
+  --popover-popup-ending-translate-y: 0.75rem;
+}
+
+.slideDownPopup {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-y: -0.75rem;
+  --popover-popup-ending-translate-y: -0.75rem;
+}
+
+.slideLeftPopup {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-x: 0.75rem;
+  --popover-popup-ending-translate-x: 0.75rem;
+  --popover-popup-starting-translate-y: 0;
+  --popover-popup-ending-translate-y: 0;
+}
+
+.slideRightPopup {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-x: -0.75rem;
+  --popover-popup-ending-translate-x: -0.75rem;
+  --popover-popup-starting-translate-y: 0;
+  --popover-popup-ending-translate-y: 0;
+}
+
+.zoomPopup {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 0.94;
+  --popover-popup-ending-scale: 0.94;
+  --popover-popup-starting-translate-y: 0;
+  --popover-popup-ending-translate-y: 0;
+}
+
+.liftPopup {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 0.96;
+  --popover-popup-ending-scale: 0.96;
+  --popover-popup-starting-translate-y: 0.5rem;
+  --popover-popup-ending-translate-y: 0.5rem;
+}
+
+.dropInPopup {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 0.98;
+  --popover-popup-ending-scale: 0.98;
+  --popover-popup-starting-translate-y: -0.5rem;
+  --popover-popup-ending-translate-y: -0.5rem;
+}
+
+.playgroundBackdrop {
+  background:
+    radial-gradient(circle at top, rgb(56 189 248 / 0.18), transparent 40%), rgb(15 23 42 / 0.44);
+}
+
+.playgroundTrigger {
+  position: relative;
+  z-index: calc(var(--z-popup) + 1);
+}
+
+.playgroundPopup {
+  --popover-min-width: 18rem;
+  --popover-max-width: 18rem;
+  --popover-padding-x: var(--spacing-4);
+  --popover-padding-y: var(--spacing-4);
+  --popover-radius: var(--radius-xl);
+  --popover-shadow: 0 28px 70px rgb(15 23 42 / 0.22);
+}
+
+.playgroundHeader {
+  display: grid;
+  gap: var(--spacing-1);
+}
+
+.playgroundKicker {
+  color: var(--color-primary);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.playgroundTitle {
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: var(--text-md);
+  line-height: var(--line-height-text-md);
+  font-weight: var(--weight-semibold);
+}
+
+.playgroundDescription {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+}

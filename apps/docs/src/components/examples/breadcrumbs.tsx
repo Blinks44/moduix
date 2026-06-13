@@ -33,6 +33,11 @@ export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-font-size', 'var(--text-sm)', 'Controls breadcrumbs font size.'],
   ['--breadcrumbs-gap', 'var(--spacing-1)', 'Controls spacing between breadcrumb parts.'],
   ['--breadcrumbs-item-max-width', '16rem', 'Controls max width of each breadcrumb item.'],
+  [
+    '--breadcrumbs-item-padding-x',
+    '0.25rem',
+    'Controls inline padding for links, page text, and ellipsis.',
+  ],
   ['--breadcrumbs-line-height', 'var(--line-height-text-sm)', 'Controls breadcrumbs line height.'],
   ['--breadcrumbs-link-color', 'var(--color-muted-foreground)', 'Controls breadcrumb link color.'],
   [
@@ -70,6 +75,11 @@ export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
 
 export const breadcrumbsPlaygroundCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-item-max-width', '16rem', 'Controls max width of each breadcrumb item.'],
+  [
+    '--breadcrumbs-item-padding-x',
+    '0.25rem',
+    'Controls inline padding for links, page text, and ellipsis.',
+  ],
   ['--breadcrumbs-link-color', 'var(--color-muted-foreground)', 'Controls breadcrumb link color.'],
   [
     '--breadcrumbs-link-color-hover',

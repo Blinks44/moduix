@@ -309,7 +309,6 @@ available for custom styling even when moduix does not target them by default.
 | `--tooltip-shadow`              | `var(--shadow-lg)`                                 |
 | `--tooltip-font-size`           | `var(--text-sm)`                                   |
 | `--tooltip-line-height`         | `var(--line-height-text-sm)`                       |
-| `--tooltip-scale`               | `var(--scale-popup)`                               |
 | `--tooltip-arrow-size`          | `8px`                                              |
 | `--tooltip-arrow-inline-offset` | `13px`                                             |
 | `--tooltip-arrow-width`         | `1.25rem`                                          |
@@ -369,7 +368,12 @@ Do not treat them as public theming hooks.
   intentional and matches Base UI.
 - Keep `TooltipTrigger` styling conditional on the absence of `render`.
 
+## Motion tokens
+
+`TooltipPopup` now exposes phase-specific motion variables. Override the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to replace the default scale-in tooltip motion with fade, slide, or mixed entry/exit effects without changing the wrapper structure.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific popup motion tokens so tooltip entry and exit can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
 - 2026-06-03: Replaced the copied Base UI page with moduix-specific Tooltip documentation and
   documented the actual wrapper contract, tooltip-only root props, styling hooks, and constraints.

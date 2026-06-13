@@ -425,7 +425,12 @@ higher theme scope:
 - Prefer `Combobox` for required selection, single/multiple selected values, chips, or selected-item
   indicators.
 
+## Motion tokens
+
+`AutocompleteBackdrop` and `AutocompletePopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus `--autocomplete-popup-transition` and the matching popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to switch the popup from the default scale-in behavior to fade, slide, or custom motion.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so autocomplete overlays can be retuned to fade, slide, or mixed effects through CSS variables while preserving the current default animation.
 - 2026-06-05: Updated the recommended input-first composition to use a native `<label>` while
   keeping `AutocompleteFieldLabel` for the trigger-first pattern that Base UI labels directly.

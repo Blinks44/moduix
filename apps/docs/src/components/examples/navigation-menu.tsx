@@ -52,7 +52,7 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-content-min-width', '20rem', 'Controls desktop content minimum width.'],
   [
     '--navigation-menu-content-opacity-duration',
-    'calc(var(--duration-slow) * 0.7)',
+    'var(--duration-normal)',
     'Controls content fade duration.',
   ],
   ['--navigation-menu-content-padding', 'var(--spacing-4)', 'Controls content padding.'],
@@ -73,7 +73,7 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ['--navigation-menu-icon-size', '0.875rem', 'Controls trigger icon size.'],
   [
     '--navigation-menu-icon-transition',
-    'var(--navigation-menu-transition, 200ms ease)',
+    'var(--navigation-menu-transition, var(--transition-default))',
     'Controls trigger icon rotation transition.',
   ],
   ['--navigation-menu-list-gap', '0', 'Controls spacing between top-level items.'],
@@ -103,7 +103,7 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--navigation-menu-popup-leave-duration',
-    '150ms',
+    'var(--duration-fast)',
     'Controls popup closing transition duration.',
   ],
   ['--navigation-menu-popup-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
@@ -116,7 +116,7 @@ export const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--navigation-menu-popup-transition-easing',
-    'cubic-bezier(0.22, 1, 0.36, 1)',
+    'var(--ease-emphasized)',
     'Controls popup transition easing.',
   ],
   [

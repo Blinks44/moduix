@@ -1,0 +1,391 @@
+---
+title: Tag
+description: A compact token for selected values, filters, and assignments with an optional remove action.
+icon: Component
+---
+
+import {
+  CustomTagExample,
+  RemovableTagExample,
+  TagCssPlaygroundPanel,
+  TagCssPropertiesPanel,
+  TagExample,
+  TagSizesExample,
+  TagTruncatedExample,
+  TagVariantsExample,
+  TagWithLeadingIconExample,
+  tagPlaygroundCssProperties,
+} from '@/components/examples/tag';
+
+## API Reference
+
+`Tag` is a standalone moduix component for selected values, filters, assignees, and other compact
+tokens that may need an inline remove action. Use `TagRemove` when the token should expose a clear,
+explicit dismiss button.
+
+## Choosing the right component
+
+Use `Tag` when the UI is showing **the selected value itself** and the value may need to be removed,
+reordered, or otherwise managed as a token.
+
+- Choose **`Badge`** when the UI is showing short metadata such as status, category, version, or count.
+- Choose **`Tag`** when the UI is showing selected values, filters, assignments, or labels that belong to the current state of the interface.
+
+## Basic
+
+<Preview cssProperties={tagPlaygroundCssProperties} cssVariableScope="local">
+  <TagExample />
+
+  <Preview.Code>
+    {`
+      import { Tag, TagLabel } from "moduix";
+
+      export function TagDemo() {
+        return (
+          <Tag>
+            <TagLabel>TypeScript</TagLabel>
+          </Tag>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSSProperties>{(context) => <TagCssPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <TagCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `Tag` to become part of your own project source instead of staying in `node_modules`,
+install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/tag
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/tag
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/tag
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `Tag` depends on, such as
+styles, icons, and small utilities.
+
+## Anatomy
+
+The default consumer path keeps the token presentational and the remove action explicit:
+
+```text
+Tag
+├─ svg icon (optional)
+├─ TagLabel
+└─ TagRemove (optional)
+```
+
+```tsx
+<Tag>
+  <TagLabel>TypeScript</TagLabel>
+  <TagRemove aria-label="Remove TypeScript tag" />
+</Tag>
+```
+
+| Part        | Role                                                                |
+| ----------- | ------------------------------------------------------------------- |
+| `Tag`       | Root slot. Applies token layout, border, size, and variant styling. |
+| `TagLabel`  | Truncation wrapper for the visible token value.                     |
+| `TagRemove` | Optional inline action for dismissing or removing the token.        |
+
+## Composition
+
+`Tag` stays a plain `span`, so the component does not own selection state, remove behavior, or list
+management. Consumers decide whether to render `TagRemove` and what should happen on click.
+
+Keep the token value in `TagLabel` when long text may truncate. Leading icons can stay as direct
+children of `Tag`; they inherit `currentColor` and use `--tag-icon-size`. `TagRemove` is a styled
+Base UI button that defaults to `type="button"` and renders a close icon when `children` are
+omitted.
+
+| Prop      | Default   | Values                                                    |
+| --------- | --------- | --------------------------------------------------------- |
+| `variant` | `default` | `default`, `secondary`, `outline`, `ghost`, `destructive` |
+| `size`    | `md`      | `sm`, `md`                                                |
+
+## Examples
+
+### Variants
+
+Use the built-in variants for the common visual tones.
+
+<Preview>
+  <TagVariantsExample />
+
+  <Preview.Code>
+    {`
+      import { Tag, TagLabel } from "moduix";
+      import styles from "./tag-demo.module.css";
+
+      const variants = ["default", "secondary", "outline", "ghost", "destructive"] as const;
+
+      export function TagVariantsDemo() {
+        return (
+          <div className={styles.row}>
+            {variants.map((variant) => (
+              <Tag key={variant} variant={variant}>
+                <TagLabel>{variant}</TagLabel>
+              </Tag>
+            ))}
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Sizes
+
+Use `size="sm"` for denser token rows.
+
+<Preview>
+  <TagSizesExample />
+
+  <Preview.Code>
+    {`
+      import { Tag, TagLabel } from "moduix";
+      import styles from "./tag-demo.module.css";
+
+      export function TagSizesDemo() {
+        return (
+          <div className={styles.row}>
+            <Tag size="sm">
+              <TagLabel>Compact</TagLabel>
+            </Tag>
+            <Tag>
+              <TagLabel>Default</TagLabel>
+            </Tag>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Removable Tags
+
+Render `TagRemove` only when the surrounding UI actually supports removing the token.
+
+<Preview>
+  <RemovableTagExample />
+
+  <Preview.Code>
+    {`
+      import { Tag, TagLabel, TagRemove } from "moduix";
+      import styles from "./tag-demo.module.css";
+
+      export function RemovableTagDemo() {
+        return (
+          <div className={styles.row}>
+            <Tag>
+              <TagLabel>TypeScript</TagLabel>
+              <TagRemove aria-label="Remove TypeScript tag" />
+            </Tag>
+            <Tag variant="secondary">
+              <TagLabel>Design review</TagLabel>
+              <TagRemove aria-label="Remove design review tag" />
+            </Tag>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Leading Icons
+
+Place a direct child icon before the label when the token benefits from a second visual cue.
+
+<Preview>
+  <TagWithLeadingIconExample />
+
+  <Preview.Code>
+    {`
+      import { CheckIcon, Tag, TagLabel, TagRemove } from "moduix";
+      import styles from "./tag-demo.module.css";
+
+      export function TagWithLeadingIconDemo() {
+        return (
+          <div className={styles.row}>
+            <Tag>
+              <CheckIcon />
+              <TagLabel>Selected</TagLabel>
+            </Tag>
+            <Tag variant="outline">
+              <CheckIcon />
+              <TagLabel>Deployed</TagLabel>
+              <TagRemove aria-label="Remove deployed tag" />
+            </Tag>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Long Labels
+
+`TagLabel` is the truncation point for longer token values. Add `title` when the full text should
+remain discoverable.
+
+<Preview>
+  <TagTruncatedExample />
+
+  <Preview.Code>
+    {`
+      import { Tag, TagLabel, TagRemove } from "moduix";
+      import styles from "./tag-demo.module.css";
+
+      export function TagTruncatedDemo() {
+        return (
+          <Tag className={styles.constrained}>
+            <TagLabel title="Ready for stakeholder review after legal approval">
+              Ready for stakeholder review after legal approval
+            </TagLabel>
+            <TagRemove aria-label="Remove long tag" />
+          </Tag>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .constrained {
+        max-width: 18rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Custom Composition
+
+Use `className` and local CSS variables when a token needs a different tone or spacing without
+changing the public API.
+
+<Preview>
+  <CustomTagExample />
+
+  <Preview.Code>
+    {`
+      import { CheckIcon, Tag, TagLabel, TagRemove } from "moduix";
+      import styles from "./tag-demo.module.css";
+
+      export function CustomTagDemo() {
+        return (
+          <div className={styles.row}>
+            <Tag className={styles.customSoft}>
+              <CheckIcon />
+              <TagLabel>Priority</TagLabel>
+              <TagRemove aria-label="Remove priority tag" />
+            </Tag>
+            <Tag className={styles.customOutline} variant="outline">
+              <TagLabel>Customer-facing</TagLabel>
+            </Tag>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customSoft {
+        --tag-bg: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
+        --tag-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+        --tag-color: var(--color-primary);
+        --tag-remove-bg-hover: color-mix(in oklab, var(--color-primary) 18%, transparent);
+      }
+
+      .customOutline {
+        --tag-border-color: color-mix(in oklab, var(--color-foreground) 18%, transparent);
+        --tag-padding-x-md: 0.625rem;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>

@@ -396,6 +396,9 @@ used internally by the CSS. Treat them as runtime inputs, not part of the moduix
 
 ## Local changelog
 
+- 2026-06-10: Moved stacked and anchored toast motion defaults onto shared transition tokens and kept
+  the property-specific `transition` shape in CSS so docs previews resolve the same motion as
+  Storybook.
 - 2026-06: Rewrote the local docs around the actual moduix wrapper, documented the split stacked vs
   anchored contract, and recorded the public styling hooks and exported helper types.
 - 2026-06: Added built-in `Alert`-aligned toast variants for `info`, `success`, `warning`, and

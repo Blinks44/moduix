@@ -158,8 +158,8 @@
 }
 
 .inlineRoot {
-  --nm-inline-duration: 300ms;
-  --nm-inline-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --nm-inline-duration: var(--duration-slow);
+  --nm-inline-easing: var(--ease-in-out);
   --nm-inline-easing-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
   --nm-inline-left-gap: var(--spacing-2);
   --nm-inline-shared-distance: 2rem;
@@ -227,8 +227,9 @@
   height: 100%;
   padding: 0;
   transition:
-    opacity calc(var(--nm-inline-duration, 300ms) * 0.5) ease,
-    transform var(--nm-inline-duration, 300ms) var(--nm-inline-easing, cubic-bezier(0.4, 0, 0.2, 1));
+    opacity calc(var(--nm-inline-duration, var(--duration-slow)) * 0.5) var(--ease-standard),
+    transform var(--nm-inline-duration, var(--duration-slow))
+      var(--nm-inline-easing, var(--ease-in-out));
 }
 
 .inlineSharedContent[data-starting-style][data-activation-direction='left'],
@@ -257,9 +258,9 @@
   height: 100%;
   padding: 1.75rem;
   transition:
-    opacity var(--nm-inline-duration, 300ms) cubic-bezier(0.22, 1, 0.36, 1),
-    transform var(--nm-inline-duration, 300ms) cubic-bezier(0.22, 1, 0.36, 1),
-    filter var(--nm-inline-duration, 300ms) cubic-bezier(0.22, 1, 0.36, 1);
+    opacity var(--nm-inline-duration, var(--duration-slow)) var(--ease-emphasized),
+    transform var(--nm-inline-duration, var(--duration-slow)) var(--ease-emphasized),
+    filter var(--nm-inline-duration, var(--duration-slow)) var(--ease-emphasized);
 }
 
 .inlineSubmenuContent[data-starting-style][data-activation-direction='left'],
@@ -303,8 +304,8 @@
     overflow-y: auto;
     border-right: var(--border-width-sm) solid var(--color-border);
     border-bottom: 0;
-    transition: height var(--nm-inline-duration, 300ms)
-      var(--nm-inline-easing, cubic-bezier(0.4, 0, 0.2, 1));
+    transition: height var(--nm-inline-duration, var(--duration-slow))
+      var(--nm-inline-easing, var(--ease-in-out));
   }
 
   .inlineProductContent {
@@ -317,7 +318,7 @@
 
   .inlineSubmenuContent {
     padding: 2rem;
-    transition-duration: calc(var(--nm-inline-duration, 300ms) * 1.35);
+    transition-duration: calc(var(--nm-inline-duration, var(--duration-slow)) * 1.35);
     transition-timing-function: var(--nm-inline-easing-emphasized, cubic-bezier(0.16, 1, 0.3, 1));
   }
 

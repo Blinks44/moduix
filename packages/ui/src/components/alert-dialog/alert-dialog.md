@@ -405,7 +405,6 @@ The component has no `variant`, `size`, or `tone` prop. Customize the provided C
 | `--alert-dialog-border-color`            | `var(--color-border)`                                        | Popup border color               |
 | `--alert-dialog-shadow`                  | `var(--shadow-lg)`                                           | Popup shadow                     |
 | `--alert-dialog-transition`              | `var(--transition-default)`                                  | Popup opacity/scale transition   |
-| `--alert-dialog-scale`                   | `var(--scale-popup)`                                         | Enter/exit scale                 |
 | `--alert-dialog-backdrop-bg`             | `var(--backdrop-bg, var(--color-overlay))`                   | Backdrop background              |
 | `--alert-dialog-backdrop-blur`           | `4px`                                                        | Backdrop blur                    |
 | `--alert-dialog-backdrop-transition`     | `var(--transition-default)`                                  | Backdrop transition              |
@@ -470,3 +469,11 @@ The component has no `variant`, `size`, or `tone` prop. Customize the provided C
   should be reserved for decisions that require confirmation.
 - Avoid custom `render` elements that are not accessible buttons unless you also provide equivalent
   keyboard and ARIA behavior.
+
+## Motion tokens
+
+`AlertDialogBackdrop` and `AlertDialogPopup` now expose phase-specific motion variables. Override `--alert-dialog-backdrop-starting/ending-opacity`, `--alert-dialog-backdrop-starting/ending-blur`, and the matching `--alert-dialog-popup-starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to build fade or slide variants while keeping the default scale-in dialog behavior.
+
+## Local changelog
+
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so alert dialogs can be retuned to fade, slide, or mixed entry/exit effects through CSS variables without changing the default animation.

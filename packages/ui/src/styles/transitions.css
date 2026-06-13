@@ -1,19 +1,23 @@
 :root {
   /* Duration */
-  --duration-fast: 100ms;
+  --duration-fast: 150ms;
   --duration-normal: 200ms;
   --duration-slow: 300ms;
-  --duration-slower: 500ms;
+  --duration-slower: 450ms;
 
   /* Easing */
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-standard: ease;
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Composed (shorthand) */
   --transition-default: var(--duration-normal) var(--ease-in-out);
   --transition-fast: var(--duration-fast) var(--ease-in-out);
   --transition-slow: var(--duration-slow) var(--ease-in-out);
   --transition-slower: var(--duration-slower) var(--ease-in-out);
+  --transition-spring: var(--duration-slower) var(--ease-spring);
+  --transition-emphasized: var(--duration-slower) var(--ease-emphasized);
 }

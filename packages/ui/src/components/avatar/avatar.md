@@ -223,8 +223,13 @@ wrapper class:
 - If a public prop, CSS variable, `data-slot`, or default changes, update this file, Storybook, and
   docs examples together.
 
+## Motion tokens
+
+`AvatarImage` now exposes phase-specific motion variables for its enter and exit states. Override the matching `--avatar-image-starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to keep the default fade or turn the image appearance into a subtle slide or zoom without changing the component structure.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific image motion tokens so avatar image appearance can be retuned to fade, slide, or zoom through CSS variables while preserving the shipped fade default.
 - Rewrote the local documentation to describe the moduix wrapper instead of the Base UI namespace
   API, including project parts, CSS variables, accessibility guidance, and real examples.
 - Added `size` on `Avatar` as narrow DX sugar for the repeated `xs`/`sm`/`md`/`lg`/`xl` sizing

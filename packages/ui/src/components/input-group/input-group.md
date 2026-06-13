@@ -33,8 +33,9 @@ Use it when the affordance belongs to the same row as the input value. For plain
 - Invalid and disabled shell styles are derived from the nested input state:
   - invalid shell state appears when the grouped input has `data-invalid` or `aria-invalid="true"`;
   - disabled shell opacity appears when the grouped input has `data-disabled` or `disabled`.
-- `readOnly` keeps the normal visual appearance. The only shell-specific `readOnly` behavior is that
-  clicking the shell does not programmatically focus the input.
+- `readOnly` shell styles are also derived from the nested input state. The shell can react to the
+  grouped input with readonly-specific border, background, and text tokens, and shell clicks still
+  do not programmatically focus the input.
 
 ## Composition
 
@@ -71,6 +72,10 @@ export function DomainField() {
   );
 }
 ```
+
+For single-line inline editing, prefer keeping one mounted `InputGroupInput`, toggling its
+`readOnly` state, and swapping only the trailing `InputGroupButton` actions. That avoids layout
+shift better than replacing text content with a different edit shell.
 
 ### Exported parts
 
@@ -142,7 +147,8 @@ Pass them explicitly when you render an icon-only grouped action.
 
 - `InputGroup` always writes `data-size`.
 - The shell does **not** mirror child state with its own `data-invalid`, `data-disabled`, or
-  `data-readonly` attributes. Root styling is driven by `:has(...)` selectors on the nested input.
+  `data-readonly` attributes. Root styling is driven by `:has(...)` selectors on the nested input
+  for invalid, disabled, and readonly states.
 - `InputGroupInput` uses `data-slot="input-group-input"` instead of the standalone `Input`
   `data-slot="input-root"`. Target grouped input styles through the group slot, not the standalone
   input slot.
@@ -158,8 +164,8 @@ shell and its inline parts.
 | Group        | Variables                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Layout       | `--input-group-width`, `--input-group-max-width`, `--input-group-height`, `--input-group-height-xs`, `--input-group-height-sm`, `--input-group-height-md`, `--input-group-height-lg`, `--input-group-height-xl`, `--input-group-radius`                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Surface      | `--input-group-bg`, `--input-group-color`, `--input-group-addon-bg`, `--input-group-addon-color`, `--input-group-button-color`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| Border/focus | `--input-group-border-width`, `--input-group-border-style`, `--input-group-border-color`, `--input-group-border-color-invalid`, `--input-group-focus-ring-width`, `--input-group-focus-ring-offset`, `--input-group-focus-ring-color`, `--input-group-button-focus-ring-offset`, `--input-group-separator-width`, `--input-group-separator-color`                                                                                                                                                                                                                                                                                                                                        |
+| Surface      | `--input-group-bg`, `--input-group-color`, `--input-group-readonly-bg`, `--input-group-readonly-color`, `--input-group-addon-bg`, `--input-group-addon-color`, `--input-group-button-color`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Border/focus | `--input-group-border-width`, `--input-group-border-style`, `--input-group-border-color`, `--input-group-border-color-invalid`, `--input-group-readonly-border-color`, `--input-group-focus-ring-width`, `--input-group-focus-ring-offset`, `--input-group-focus-ring-color`, `--input-group-button-focus-ring-offset`, `--input-group-separator-width`, `--input-group-separator-color`                                                                                                                                                                                                                                                                                                 |
 | Spacing      | `--input-group-addon-gap`, `--input-group-addon-padding-x`, `--input-group-addon-padding-x-xs`, `--input-group-addon-padding-x-sm`, `--input-group-addon-padding-x-md`, `--input-group-addon-padding-x-lg`, `--input-group-addon-padding-x-xl`, `--input-group-input-padding-x`, `--input-group-input-padding-x-xs`, `--input-group-input-padding-x-sm`, `--input-group-input-padding-x-md`, `--input-group-input-padding-x-lg`, `--input-group-input-padding-x-xl`, `--input-group-input-padding-y`, `--input-group-input-padding-y-xs`, `--input-group-input-padding-y-sm`, `--input-group-input-padding-y-md`, `--input-group-input-padding-y-lg`, `--input-group-input-padding-y-xl` |
 | Typography   | `--input-group-font-size`, `--input-group-font-size-xs`, `--input-group-font-size-sm`, `--input-group-font-size-md`, `--input-group-font-size-lg`, `--input-group-font-size-xl`, `--input-group-line-height`, `--input-group-line-height-xs`, `--input-group-line-height-sm`, `--input-group-line-height-md`, `--input-group-line-height-lg`, `--input-group-line-height-xl`, `--input-group-icon-size`                                                                                                                                                                                                                                                                                  |
 | State/motion | `--input-group-disabled-opacity`, `--input-group-transition`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -214,3 +220,7 @@ owns the visible border and surface.
   semantics by default and only becomes an ARIA group when consumers label it intentionally.
 - Expanded invalid shell styling to react to `aria-invalid="true"` on the grouped input in addition
   to Base UI `data-invalid`.
+- Documented the recommended inline-editing composition: keep one mounted grouped input and toggle
+  `readOnly` instead of replacing it with a separate edit shell.
+- Added readonly-aware shell styling and public `--input-group-readonly-*` tokens so consumers can
+  restyle the visible grouped surface, not just the nested input.

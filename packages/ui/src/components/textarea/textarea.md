@@ -18,11 +18,12 @@ Use it for notes, comments, descriptions, and other long-form text. For single-l
 - Accepts native `<textarea>` props plus one moduix wrapper prop: `autoResize`.
 - Works standalone or inside `Field`. When used with `Field`, skip `FieldControl`; `Textarea`
   registers with field context directly and receives field state data attributes from Base UI.
-- Controlled usage is native React textarea usage: `value` + `onChange`. Uncontrolled usage uses
-  `defaultValue`.
+- Controlled usage uses `value` + `onValueChange`. Uncontrolled usage uses `defaultValue`.
 - `autoResize` is progressive CSS sugar. In browsers that support `field-sizing: content`, the
   textarea grows with content and the native resize handle is disabled. In browsers without that
   support, the textarea keeps normal sizing behavior.
+- For inline edit/read-only compositions, prefer keeping the same mounted `Textarea` and toggling
+  `readOnly` instead of swapping between paragraph markup and a separate textarea shell.
 - The wrapper stays intentionally small: no label prop, no character counter, no resize presets, no
   clear button, and no custom `render` escape hatch.
 
@@ -95,10 +96,11 @@ extra composition helpers.
 
 `Textarea` accepts all native `<textarea>` props plus the moduix wrapper prop below.
 
-| Prop         | Type               | Default | Notes                                                               |
-| ------------ | ------------------ | ------- | ------------------------------------------------------------------- |
-| `autoResize` | `boolean`          | `false` | Enables CSS auto-resize where `field-sizing: content` is supported. |
-| `className`  | native `className` | —       | Merged with the moduix root class.                                  |
+| Prop            | Type                      | Default | Notes                                                               |
+| --------------- | ------------------------- | ------- | ------------------------------------------------------------------- |
+| `autoResize`    | `boolean`                 | `false` | Enables CSS auto-resize where `field-sizing: content` is supported. |
+| `onValueChange` | `(value: string) => void` | —       | Called with the next textarea value on change.                      |
+| `className`     | native `className`        | —       | Merged with the moduix root class.                                  |
 
 Exported helper types:
 
@@ -106,13 +108,13 @@ Exported helper types:
 
 Important native passthrough props remain available, including:
 
-- `value`, `defaultValue`, and `onChange`
+- `value`, `defaultValue`, and `onValueChange`
 - `name`, `rows`, `cols`, `placeholder`, `maxLength`, `minLength`, `readOnly`, `disabled`,
   `required`, `spellCheck`, `autoComplete`, `inputMode`, and `enterKeyHint`
 - `style`
 
-Unlike moduix `Input`, `Textarea` does **not** expose Base UI `onValueChange`, `htmlSize`, or a
-consumer `render` prop. Treat it like a styled native `<textarea>`.
+Unlike moduix `Input`, `Textarea` does **not** expose `htmlSize` or a consumer `render` prop. Treat
+it like a styled native `<textarea>` with one small DX addition: `onValueChange`.
 
 ## Styling API
 
@@ -191,3 +193,7 @@ Example:
 - Rewrote the local documentation to describe the shipped moduix `Textarea` API, styling hooks,
   examples, state attributes, and constraints instead of the older Base UI-oriented summary.
 - Exported `TextareaProps` for consumer-side typing consistency with adjacent form controls.
+- Documented the recommended inline-editing composition: keep one mounted textarea and toggle
+  `readOnly` instead of swapping in a separate edit shell.
+- Added `onValueChange` and removed the legacy `onChange` controlled path so `Textarea` now aligns
+  with `Input`.

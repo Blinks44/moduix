@@ -43,7 +43,11 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-close-size', '2rem', 'Controls close button size.'],
   ['--lightbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--lightbox-height', '80dvh', 'Controls the popup height limit.'],
-  ['--lightbox-image-enter-duration', '240ms', 'Controls image enter animation duration.'],
+  [
+    '--lightbox-image-enter-duration',
+    'var(--duration-normal)',
+    'Controls image enter animation duration.',
+  ],
   ['--lightbox-image-enter-scale', '0.9', 'Controls image enter animation scale.'],
   ['--lightbox-image-max-height', '80dvh', 'Controls max image height.'],
   ['--lightbox-image-max-width', '80vw', 'Controls max image width.'],
@@ -51,8 +55,11 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-image-shadow', 'var(--shadow-lg)', 'Controls image shadow in modal.'],
   ['--lightbox-max-height', '80dvh', 'Controls max popup height.'],
   ['--lightbox-max-width', '80vw', 'Controls max popup width.'],
-  ['--lightbox-scale', '0.82', 'Controls popup initial scale.'],
-  ['--lightbox-transition', '220ms ease', 'Controls popup transition.'],
+  [
+    '--lightbox-transition',
+    'var(--duration-normal) var(--ease-standard)',
+    'Controls popup transition.',
+  ],
   ['--lightbox-viewport-padding', 'var(--spacing-4)', 'Controls viewport padding.'],
   ['--lightbox-width', '80vw', 'Controls the popup width limit.'],
 ];

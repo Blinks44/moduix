@@ -374,7 +374,6 @@ All built-in styling hooks are scoped under `--menubar-*`.
 | `--menubar-popup-min-width`     | `12rem`                                    |
 | `--menubar-popup-padding-y`     | `0.25rem`                                  |
 | `--menubar-popup-radius`        | `var(--radius-md)`                         |
-| `--menubar-popup-scale`         | `var(--scale-popup)`                       |
 | `--menubar-popup-shadow`        | `var(--shadow-lg)`                         |
 
 #### Items, highlights, groups, and submenu rows
@@ -492,8 +491,13 @@ No additional wrapper sugar is currently justified beyond that surface.
 - If wrapper-specific props change, update this file, the Storybook stories, and the docs examples in
   the same task.
 
+## Motion tokens
+
+`MenubarBackdrop` and `MenubarPopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to build fade or slide variants while keeping the default scale-in menu behavior.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so menubar menu enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
 - 2026-06-02: Rewrote the local documentation around the actual moduix wrapper contract, documented
   the implicit `MenubarViewport` behavior of `MenubarContent`, and added exported wrapper prop types
   for content and indicator rows to match the rest of the menu family.

@@ -153,7 +153,6 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ['--menubar-popup-min-width', '12rem', 'Controls popup minimum width.'],
   ['--menubar-popup-padding-y', '0.25rem', 'Controls popup vertical padding.'],
   ['--menubar-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
-  ['--menubar-popup-scale', 'var(--scale-popup)', 'Controls popup enter/exit scale.'],
   ['--menubar-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--menubar-radius', 'var(--radius-md)', 'Controls menubar radius.'],
   ['--menubar-separator-color', 'var(--color-border)', 'Controls separator color.'],

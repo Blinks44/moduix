@@ -131,7 +131,6 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-popup-min-width', '12rem', 'Controls popup minimum width.'],
   ['--menu-popup-padding-y', '0.25rem', 'Controls popup vertical padding.'],
   ['--menu-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
-  ['--menu-popup-scale', 'var(--scale-popup)', 'Controls popup enter/exit scale.'],
   ['--menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--menu-popup-width', 'auto', 'Controls popup width.'],
   ['--menu-separator-color', 'var(--color-border)', 'Controls separator color.'],

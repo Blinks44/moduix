@@ -575,7 +575,6 @@ The component has no `variant`, `size`, or `tone` prop. Customize via CSS variab
 | `--dialog-border-color`                | `var(--color-border)`                                        | Popup border color                               |
 | `--dialog-shadow`                      | `var(--shadow-lg)`                                           | Popup shadow                                     |
 | `--dialog-transition`                  | `var(--transition-default)`                                  | Popup opacity/scale/translate transition         |
-| `--dialog-scale`                       | `var(--scale-popup)`                                         | Enter/exit scale factor                          |
 | `--dialog-backdrop-bg`                 | `var(--backdrop-bg, var(--color-overlay))`                   | Backdrop background                              |
 | `--dialog-backdrop-blur`               | `4px`                                                        | Backdrop blur                                    |
 | `--dialog-backdrop-transition`         | `var(--transition-default)`                                  | Backdrop fade transition                         |
@@ -665,7 +664,12 @@ The component has no `variant`, `size`, or `tone` prop. Customize via CSS variab
   consistent with `AlertDialogClose`. The library button styles override the control class.
 - `createDialogHandle` is a direct re-export of `DialogPrimitive.createHandle`.
 
+## Motion tokens
+
+`DialogBackdrop` and `DialogPopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to build fade or slide variants while preserving the existing nested-dialog offset and scale behavior by default.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so dialogs can be retuned to fade, slide, or mixed entry/exit effects through CSS variables without changing the default nested-dialog behavior.
 - Initial moduix-native documentation written. Previous `dialog.md` was a verbatim copy of the
   Base UI upstream dialog documentation and did not describe the moduix wrapper at all.

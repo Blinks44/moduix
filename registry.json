@@ -1536,6 +1536,31 @@
       ]
     },
     {
+      "name": "tag",
+      "type": "registry:item",
+      "title": "Tag",
+      "description": "moduix Tag component.",
+      "dependencies": ["@base-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/core"],
+      "files": [
+        {
+          "path": "packages/ui/src/components/tag/Tag.tsx",
+          "target": "@components/moduix/tag/Tag.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/ui/src/components/tag/Tag.module.css",
+          "target": "@components/moduix/tag/Tag.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/ui/src/components/tag/index.ts",
+          "target": "@components/moduix/tag/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "table",
       "type": "registry:item",
       "title": "Table",

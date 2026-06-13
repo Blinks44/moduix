@@ -7,8 +7,11 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
+  CheckIcon,
+  CloseIcon,
+  PencilIcon,
 } from 'moduix';
-import { useState, type ComponentProps } from 'react';
+import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './input-group.module.css';
@@ -76,6 +79,21 @@ export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--input-group-line-height-xl', 'var(--line-height-text-lg)', 'Controls line height for `xl`.'],
   ['--input-group-max-width', 'none', 'Controls group max width.'],
   ['--input-group-radius', 'var(--radius-md)', 'Controls group border radius.'],
+  [
+    '--input-group-readonly-bg',
+    'var(--input-group-bg, var(--color-background))',
+    'Controls shell background when the grouped input is read-only.',
+  ],
+  [
+    '--input-group-readonly-border-color',
+    'var(--input-group-border-color, var(--color-border))',
+    'Controls shell border color when the grouped input is read-only.',
+  ],
+  [
+    '--input-group-readonly-color',
+    'var(--input-group-color, var(--color-foreground))',
+    'Controls shell text color when the grouped input is read-only.',
+  ],
   ['--input-group-separator-color', 'var(--color-border)', 'Controls addon separator color.'],
   ['--input-group-separator-width', 'var(--border-width-sm)', 'Controls addon separator width.'],
   ['--input-group-transition', 'var(--transition-default)', 'Controls state transition timing.'],
@@ -91,6 +109,16 @@ export const inputGroupPlaygroundCssProperties: CssPropertyInput[] = [
   ['--input-group-height', 'var(--input-group-height-md)', 'Controls group height.'],
   ['--input-group-input-padding-x', '0.875rem', 'Controls input inline padding.'],
   ['--input-group-radius', 'var(--radius-md)', 'Controls group border radius.'],
+  [
+    '--input-group-readonly-border-color',
+    'var(--input-group-border-color, var(--color-border))',
+    'Controls readonly shell border color.',
+  ],
+  [
+    '--input-group-readonly-bg',
+    'var(--input-group-bg, var(--color-background))',
+    'Controls readonly shell background color.',
+  ],
   ['--input-group-separator-color', 'var(--color-border)', 'Controls separator color.'],
 ];
 
@@ -149,6 +177,63 @@ export function InputGroupWithActionExample() {
           placeholder="name@example.com"
         />
         <InputGroupButton disabled={!value}>Send</InputGroupButton>
+      </InputGroup>
+    </Field>
+  );
+}
+
+export function InputGroupInlineEditingExample() {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState('Workspace display name');
+  const [draft, setDraft] = useState(value);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (editing) {
+      inputRef.current?.focus();
+    }
+  }, [editing]);
+
+  const handleEdit = () => {
+    setDraft(value);
+    setEditing(true);
+  };
+
+  const handleCancel = () => {
+    setDraft(value);
+    setEditing(false);
+  };
+
+  const handleSave = () => {
+    setValue(draft);
+    setEditing(false);
+  };
+
+  return (
+    <Field className={styles.field}>
+      <FieldLabel>Display name</FieldLabel>
+      <InputGroup>
+        <InputGroupInput
+          aria-label="Display name"
+          ref={inputRef}
+          readOnly={!editing}
+          value={editing ? draft : value}
+          onValueChange={setDraft}
+        />
+        {editing ? (
+          <>
+            <InputGroupButton aria-label="Cancel editing" size="icon-md" onClick={handleCancel}>
+              <CloseIcon />
+            </InputGroupButton>
+            <InputGroupButton aria-label="Save changes" size="icon-md" onClick={handleSave}>
+              <CheckIcon />
+            </InputGroupButton>
+          </>
+        ) : (
+          <InputGroupButton aria-label="Edit display name" size="icon-md" onClick={handleEdit}>
+            <PencilIcon />
+          </InputGroupButton>
+        )}
       </InputGroup>
     </Field>
   );

@@ -48,6 +48,21 @@
       opacity: var(--input-group-disabled-opacity, var(--opacity-disabled));
     }
 
+    &:has(
+      [data-slot='input-group-input'][data-readonly],
+      [data-slot='input-group-input']:read-only
+    ) {
+      border-color: var(
+        --input-group-readonly-border-color,
+        var(--input-group-border-color, var(--color-border))
+      );
+      background-color: var(
+        --input-group-readonly-bg,
+        var(--input-group-bg, var(--color-background))
+      );
+      color: var(--input-group-readonly-color, var(--input-group-color, var(--color-foreground)));
+    }
+
     &[data-size='xs'] {
       --input-group-height: var(--input-group-height-xs, var(--size-sm));
       --input-group-addon-padding-x: var(--input-group-addon-padding-x-xs, 0.625rem);
@@ -154,18 +169,10 @@
     padding-block: 0;
     padding-inline: var(--input-group-addon-padding-x, 0.875rem);
     border: 0;
-    border-inline-start: var(--input-group-separator-width, var(--border-width-sm)) solid
-      var(--input-group-separator-color, var(--color-border));
     border-radius: 0;
     color: var(--input-group-button-color, var(--color-foreground));
     font-size: var(--input-group-font-size, var(--text-sm));
     line-height: var(--input-group-line-height, var(--line-height-text-sm));
-
-    &:first-child {
-      border-inline-start: 0;
-      border-inline-end: var(--input-group-separator-width, var(--border-width-sm)) solid
-        var(--input-group-separator-color, var(--color-border));
-    }
 
     &:focus-visible {
       outline-offset: var(--input-group-button-focus-ring-offset, -1px);

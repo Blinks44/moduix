@@ -262,7 +262,6 @@ attributes that the current CSS relies on:
   - `--preview-card-padding-x`
   - `--preview-card-padding-y`
   - `--preview-card-radius`
-  - `--preview-card-scale`
   - `--preview-card-shadow`
   - `--preview-card-transition`
   - `--preview-card-width`
@@ -309,8 +308,13 @@ viewport transitions.
 - If payload or detached-trigger behavior changes, update stories, docs examples, and this file in
   the same task.
 
+## Motion tokens
+
+`PreviewCardBackdrop` and `PreviewCardPopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to build fade or slide variants while keeping the default scale-in preview behavior.
+
 ## Local changelog
 
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens so preview-card enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
 - 2026-06-03: Rewrote the local docs around the actual moduix wrapper contract, documented the
   default `PreviewCardContent` composition and styling hooks, preserved generic payload typing on
   `PreviewCardTrigger`, and clarified that the viewport clips overflowing content while the popup

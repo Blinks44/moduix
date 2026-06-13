@@ -1,0 +1,251 @@
+---
+title: Animations
+description: Motion token recipes for fade, slide, zoom, and directional appearance transitions in moduix.
+icon: Sparkles
+---
+
+import {
+  AnimationMotionPlaygroundPanel,
+  AnimationMotionPropertiesPanel,
+  MotionPlaygroundExample,
+  MotionRecipesExample,
+  animationMotionCssProperties,
+} from '@/components/examples/animations';
+
+# Animations
+
+moduix appearance transitions now expose phase-specific motion tokens. Instead of a fixed
+`scale(...)` animation, popup-like components can override the entering and leaving opacity, scale,
+and translate values through CSS variables while keeping the same markup and accessibility behavior.
+
+Use the shared motion tokens for broad system changes:
+
+- `--duration-*`, `--ease-*`, and `--transition-*` change timing and easing across many components.
+- `--scale-popup` and `--scale-dropdown` change the default popup scale used by overlay families.
+
+Use component-local motion tokens when only one component or family should behave differently.
+
+The pattern is the same across popup, dialog, backdrop, and other appearance-enabled parts:
+
+- `*-starting-*` tokens apply while the element is entering.
+- `*-ending-*` tokens apply while the element is leaving.
+- the steady-state open element still uses the normal component styles.
+
+Use the component-local token namespace when it exists. Common examples include:
+
+- `--popover-popup-*`
+- `--dialog-popup-*`
+- `--alert-dialog-popup-*`
+- `--menu-popup-*`
+- `--menubar-popup-*`
+- `--tooltip-popup-*`
+- `--preview-card-popup-*`
+- `--navigation-menu-popup-*`
+- `--command-palette-popup-*`
+- `--context-menu-popup-*`
+- `--lightbox-popup-*`
+- `--select-popup-*`
+- `--autocomplete-popup-*`
+- `--combobox-popup-*`
+
+Backdrops follow the same rule with `--*-backdrop-starting-*` and `--*-backdrop-ending-*`. Drawer is
+slightly different: it uses `--drawer-transition` and swipe-specific motion values instead of the
+shared popup phase tokens.
+
+## Live Preview
+
+The example below uses `Popover` because it shows both popup motion and optional backdrop motion
+clearly, but the same recipe shape applies to the other motion-enabled components.
+
+<Preview cssProperties={animationMotionCssProperties} cssVariableScope="root">
+  <MotionPlaygroundExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverBackdrop,
+        PopoverPopup,
+        PopoverPortal,
+        PopoverPositioner,
+        PopoverTrigger,
+      } from "moduix";
+
+      export function MotionPlaygroundDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger render={<Button />}>Open motion playground</PopoverTrigger>
+            <PopoverPortal>
+              <PopoverBackdrop />
+              <PopoverPositioner sideOffset={12}>
+                <PopoverPopup>
+                  Tune the motion tokens in the Playground tab.
+                </PopoverPopup>
+              </PopoverPositioner>
+            </PopoverPortal>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSSProperties>{(context) => <AnimationMotionPropertiesPanel {...context} />}</Preview.CSSProperties>
+  <Preview.CSSPlayground>{(context) => <AnimationMotionPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+</Preview>
+
+## Ready Recipes
+
+These are the smallest useful recipes for common motion directions. The examples use `Popover`, but
+you can swap the `popover` prefix for the matching component token namespace.
+
+### Fade
+
+```css
+.fadeMotion {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-y: 0;
+  --popover-popup-ending-translate-y: 0;
+}
+```
+
+### Slide Up
+
+```css
+.slideUpMotion {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-y: 0.75rem;
+  --popover-popup-ending-translate-y: 0.75rem;
+}
+```
+
+### Slide Down
+
+```css
+.slideDownMotion {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-y: -0.75rem;
+  --popover-popup-ending-translate-y: -0.75rem;
+}
+```
+
+### Slide Left
+
+```css
+.slideLeftMotion {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-x: 0.75rem;
+  --popover-popup-ending-translate-x: 0.75rem;
+  --popover-popup-starting-translate-y: 0;
+  --popover-popup-ending-translate-y: 0;
+}
+```
+
+### Slide Right
+
+```css
+.slideRightMotion {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 1;
+  --popover-popup-ending-scale: 1;
+  --popover-popup-starting-translate-x: -0.75rem;
+  --popover-popup-ending-translate-x: -0.75rem;
+  --popover-popup-starting-translate-y: 0;
+  --popover-popup-ending-translate-y: 0;
+}
+```
+
+### Zoom
+
+```css
+.zoomMotion {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 0.94;
+  --popover-popup-ending-scale: 0.94;
+  --popover-popup-starting-translate-y: 0;
+  --popover-popup-ending-translate-y: 0;
+}
+```
+
+### Lift
+
+```css
+.liftMotion {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 0.96;
+  --popover-popup-ending-scale: 0.96;
+  --popover-popup-starting-translate-y: 0.5rem;
+  --popover-popup-ending-translate-y: 0.5rem;
+}
+```
+
+### Drop In
+
+```css
+.dropInMotion {
+  --popover-popup-starting-opacity: 0;
+  --popover-popup-ending-opacity: 0;
+  --popover-popup-starting-scale: 0.98;
+  --popover-popup-ending-scale: 0.98;
+  --popover-popup-starting-translate-y: -0.5rem;
+  --popover-popup-ending-translate-y: -0.5rem;
+}
+```
+
+### Recipe Gallery
+
+<Preview>
+  <MotionRecipesExample />
+</Preview>
+
+## Backdrop Motion
+
+When the component renders a backdrop, you can retune it independently from the popup:
+
+```css
+.softBackdropMotion {
+  --popover-backdrop-starting-opacity: 0;
+  --popover-backdrop-ending-opacity: 0;
+  --popover-backdrop-starting-blur: none;
+  --popover-backdrop-ending-blur: none;
+}
+```
+
+That separation is useful when you want:
+
+- a popup to slide while the backdrop only fades,
+- a tooltip-like popup with no zoom but a still-softened modal backdrop,
+- a sharper exit where the backdrop disappears faster than the surface.
+
+## Usage Rules
+
+- Prefer shared motion tokens when you want a broad product-wide change, and component tokens when
+  the change is local.
+- Prefer component tokens before global tokens when the motion change is local.
+- Use `className` on the visual part that owns the motion: `*Popup`, `*Backdrop`, `*Content`, or
+  the animated part for non-popup components.
+- Keep `starting` and `ending` values symmetric unless you intentionally want a different enter and
+  exit feel.
+- Set scale to `1` when you want pure fade or slide motion.
+- Set translate values to `0` when you only want opacity and scale changes.
+
+## Related
+
+- [Tokens](/docs/tokens)
+- [Composition Patterns](/docs/composition-patterns)

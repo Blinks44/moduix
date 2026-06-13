@@ -9,7 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
-    "build:registry": "rm -rf packages/ui/registry/default && npx shadcn@latest build registry.json --output packages/ui/registry/default",
+    "build:registry": "rm -rf packages/ui/registry/default && npx shadcn@latest build registry.json --output packages/ui/registry/default && oxfmt",
     "build:ui": "turbo run build -F moduix",
     "changeset": "changeset",
     "changeset:version": "changeset version",

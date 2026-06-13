@@ -105,7 +105,6 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-padding-x', '1rem', 'Controls the popup horizontal padding.'],
   ['--popover-padding-y', '1rem', 'Controls the popup vertical padding.'],
   ['--popover-radius', 'var(--radius-md)', 'Controls the popup border radius.'],
-  ['--popover-scale', 'var(--scale-popup)', 'Controls the popup enter and exit scale.'],
   ['--popover-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
   ['--popover-title-color', 'var(--popover-color)', 'Controls title color.'],
   ['--popover-title-font-size', 'var(--text-md)', 'Controls title font size.'],
@@ -113,7 +112,11 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-title-line-height', 'var(--line-height-text-md)', 'Controls title line height.'],
   ['--popover-transition', 'var(--transition-default)', 'Controls popup and control transitions.'],
   ['--popover-viewport-offset', '1rem', 'Controls viewport content transition offset.'],
-  ['--popover-viewport-transition', '220ms', 'Controls viewport content transitions.'],
+  [
+    '--popover-viewport-transition',
+    'var(--duration-normal)',
+    'Controls viewport content transitions.',
+  ],
   ['--popover-width', 'auto', 'Controls the popup width.'],
 ];
 export const popoverPlaygroundCssProperties: CssPropertyInput[] = [
