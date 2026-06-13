@@ -1,5 +1,12 @@
 # moduix
 
+## 1.0.3
+
+### Patch Changes
+
+- b5e2fcc: New animation tokens for components with interactive popups
+  New small component Tag
+
 ## 1.0.2
 
 ### Patch Changes
