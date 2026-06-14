@@ -12,7 +12,6 @@ import {
   IndicatorRightContextMenuExample,
   LinkItemsContextMenuExample,
   NestedContextMenuExample,
-  PositionedContextMenuExample,
   ShortcutsContextMenuExample,
   CustomCompositionContextMenuExample,
   contextMenuPlaygroundCssProperties,
@@ -179,23 +178,22 @@ ContextMenu
 </ContextMenu>
 ```
 
-| Part                           | Role                                                                                                                       |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| `ContextMenu`                  | Root state machine for open state, focus management, and interactions.                                                     |
-| `ContextMenuTrigger`           | Thin trigger wrapper for right click or long press.                                                                        |
-| `ContextMenuContent`           | Default popup wrapper. Renders `Portal`, `Positioner`, and `Popup`, with the built-in arrow available through `showArrow`. |
-| `ContextMenuArrow`             | Built-in visual pointer for the popup. Enable it with `showArrow` or replace it in custom composition.                     |
-| `ContextMenuItem`              | Action row with disabled state and optional `closeOnClick`.                                                                |
-| `ContextMenuLinkItem`          | Link row with the same menu highlight and focus behavior.                                                                  |
-| `ContextMenuSeparator`         | Divider between related item groups.                                                                                       |
-| `ContextMenuSubmenu*`          | Nested actions (`Trigger`, `TriggerIcon`, `Content`).                                                                      |
-| `ContextMenuGroup*` / controls | Group labels plus radio and checkbox controls.                                                                             |
+| Part                           | Role                                                                   |
+| ------------------------------ | ---------------------------------------------------------------------- |
+| `ContextMenu`                  | Root state machine for open state, focus management, and interactions. |
+| `ContextMenuTrigger`           | Thin trigger wrapper for right click or long press.                    |
+| `ContextMenuContent`           | Default popup wrapper. Renders `Portal`, `Positioner`, and `Popup`.    |
+| `ContextMenuItem`              | Action row with disabled state and optional `closeOnClick`.            |
+| `ContextMenuLinkItem`          | Link row with the same menu highlight and focus behavior.              |
+| `ContextMenuSeparator`         | Divider between related item groups.                                   |
+| `ContextMenuSubmenu*`          | Nested actions (`Trigger`, `TriggerIcon`, `Content`).                  |
+| `ContextMenuGroup*` / controls | Group labels plus radio and checkbox controls.                         |
 
 ## Composition
 
 Use `ContextMenuContent` for the default path. It accepts popup props plus the shared positioning
-props `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`,
-`collisionBoundary`, and `collisionPadding`. Use `showArrow` to enable the built-in arrow.
+props `side`, `sideOffset`, `align`, `alignOffset`, `collisionAvoidance`, `collisionBoundary`, and
+`collisionPadding`.
 
 Add your own `className` on `ContextMenuTrigger` when the target needs a visible surface. The
 component keeps only the interaction and focus behavior by default.
@@ -218,7 +216,6 @@ compose the low-level building blocks explicitly.
     <ContextMenuBackdrop className={styles.backdrop} />
     <ContextMenuPositioner sideOffset={12}>
       <ContextMenuPopup className={styles.popup}>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>Open</ContextMenuItem>
       </ContextMenuPopup>
     </ContextMenuPositioner>
@@ -230,7 +227,6 @@ compose the low-level building blocks explicitly.
 
 | Prop         | Default         | Values                                                         |
 | ------------ | --------------- | -------------------------------------------------------------- |
-| `showArrow`  | `false`         | `boolean`                                                      |
 | `sideOffset` | `8`             | `number`                                                       |
 | `side`       | Base UI default | `top`, `right`, `bottom`, `left`, `inline-start`, `inline-end` |
 | `align`      | Base UI default | `start`, `center`, `end`                                       |
@@ -239,7 +235,6 @@ For `ContextMenuSubmenuContent`, defaults stay tuned for nested alignment:
 
 | Prop          | Default                 | Values                           |
 | ------------- | ----------------------- | -------------------------------- |
-| `showArrow`   | `false`                 | `true`, `false`                  |
 | `sideOffset`  | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
 | `alignOffset` | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
 
@@ -426,7 +421,8 @@ Use groups, radio items, and checkbox items when the menu changes application st
 ### Indicator Right With Icon
 
 Use `indicator="end"` when the indicator should stay on the trailing edge while preserving a
-stable text layout.
+stable text layout. Use `indicator="none"` when the selected row should rely on background-only
+highlighting and no indicator column should be reserved.
 
 <Preview>
   <IndicatorRightContextMenuExample />
@@ -496,42 +492,24 @@ stable text layout.
   </Preview.Code>
 </Preview>
 
-### Positioning And Arrow
+```tsx
+<ContextMenuCheckboxItem checked={showSidebar} onCheckedChange={setShowSidebar} indicator="none">
+  <ContextMenuItemText>Sidebar</ContextMenuItemText>
+</ContextMenuCheckboxItem>
+```
 
-Pass positioning props to `ContextMenuContent` when the default structure is enough. Add
-`showArrow` when the popup should visually point back to the trigger surface.
+### Positioning
 
-<Preview>
-  <PositionedContextMenuExample />
+Pass positioning props to `ContextMenuContent` when the default structure is enough.
 
-  <Preview.Code>
-    {`
-      import {
-        ContextMenu,
-        ContextMenuContent,
-        ContextMenuItem,
-        ContextMenuSeparator,
-        ContextMenuTrigger,
-      } from "moduix";
-      import styles from "./context-menu-demo.module.css";
-
-      export function PositionedContextMenuDemo() {
-        return (
-          <ContextMenu>
-            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
-            <ContextMenuContent showArrow align="start" sideOffset={12} collisionPadding={16}>
-              <ContextMenuItem closeOnClick>Open</ContextMenuItem>
-              <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
-              <ContextMenuSeparator />
-              <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
-            </ContextMenuContent>
-          </ContextMenu>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
+```tsx
+<ContextMenuContent align="start" sideOffset={12} collisionPadding={16}>
+  <ContextMenuItem closeOnClick>Open</ContextMenuItem>
+  <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
+  <ContextMenuSeparator />
+  <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
+</ContextMenuContent>
+```
 
 ### Link Items
 
@@ -583,7 +561,6 @@ backdrop or custom structure, switch to explicit composition.
     {`
       import {
         ContextMenu,
-        ContextMenuArrow,
         ContextMenuBackdrop,
         ContextMenuItem,
         ContextMenuPopup,
@@ -602,7 +579,6 @@ backdrop or custom structure, switch to explicit composition.
               <ContextMenuBackdrop className={styles.customBackdrop} />
               <ContextMenuPositioner sideOffset={12}>
                 <ContextMenuPopup className={styles.customPopup}>
-                  <ContextMenuArrow />
                   <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
                   <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
                   <ContextMenuSeparator />

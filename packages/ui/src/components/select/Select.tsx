@@ -11,7 +11,7 @@ import {
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Select.module.css';
 
-type IndicatorPosition = 'start' | 'end';
+type IndicatorPosition = 'start' | 'end' | 'none';
 type SelectContentProps = SelectPrimitive.Popup.Props &
   Pick<
     SelectPrimitive.Positioner.Props,

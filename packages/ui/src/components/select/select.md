@@ -39,6 +39,9 @@ interaction.
   `SelectScrollDownArrow`. Those stay explicit so modal layering and scroll affordances are opt-in.
 - `SelectItem indicator="end"` is moduix-only sugar that moves the selected-state indicator to the
   trailing column through `data-indicator-position="end"`.
+- `SelectItem indicator="none"` disables the reserved indicator column. Use that mode when the
+  selected row should rely on background-only highlighting and no `SelectItemIndicator` should be
+  rendered.
 - `SelectIcon`, `SelectArrow`, `SelectScrollUpArrow`, `SelectScrollDownArrow`, and
   `SelectItemIndicator` render moduix default icons when `children` are omitted.
 - `SelectItemTextContent`, `SelectItemTextIcon`, and `SelectItemTextLabel` are plain `span` helpers
@@ -243,10 +246,10 @@ explicit `SelectPortal` composition when those are needed.
 
 ### `SelectItem`
 
-| Prop        | Type               | Notes                                                       |
-| ----------- | ------------------ | ----------------------------------------------------------- |
-| `value`     | item value         | Source of truth for the selected option.                    |
-| `indicator` | `'start' \| 'end'` | moduix-only indicator placement sugar. Defaults to `start`. |
+| Prop        | Type                         | Notes                                                                                                                |
+| ----------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `value`     | item value                   | Source of truth for the selected option.                                                                             |
+| `indicator` | `'start' \| 'end' \| 'none'` | moduix-only indicator layout sugar. Defaults to reserved start placement; use `none` to remove the indicator column. |
 
 ### Other exported parts
 
@@ -336,8 +339,8 @@ There are no component-level variant props. Style the part that owns the visual 
 - The wrapper ships with CSS Modules styling, `data-slot` hooks, and public `--select-*` variables.
 - `SelectContent` is the default high-level popup path with built-in `showArrow` and `sideOffset`
   sugar.
-- `SelectItem indicator="end"` and the `SelectItemTextContent/Icon/Label` helpers are moduix-only
-  composition conveniences.
+- `SelectItem indicator="end"`, `SelectItem indicator="none"`, and the
+  `SelectItemTextContent/Icon/Label` helpers are moduix-only composition conveniences.
 - Default chevron, check, and popup-arrow icons come from moduix when the corresponding icon parts
   do not receive custom children.
 
@@ -350,7 +353,8 @@ There are no component-level variant props. Style the part that owns the visual 
 - Preserve the anchor-width popup sizing and `overflow: visible` popup surface, because the current
   arrow and overlap behavior depend on them.
 - Keep the item indicator API aligned with other popup-like list components: `showArrow` on content,
-  `indicator="end"` on items, explicit item text composition for richer layouts.
+  `indicator="start" | "end" | "none"` on items, explicit item text composition for richer
+  layouts.
 - If `data-slot` values or `--select-*` variables change, update `theme.css`, Storybook, docs
   examples, and this file in the same task.
 
@@ -360,6 +364,9 @@ There are no component-level variant props. Style the part that owns the visual 
 
 ## Local changelog
 
+- 2026-06-14: Added `indicator="none"` so select rows can opt out of the reserved indicator column
+  without causing selection-time layout shift. Reserved start placement remains the default and
+  `end` still moves the indicator to the trailing edge.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens so select overlays can be retuned to fade, slide, or mixed effects through CSS variables while preserving the current default animation.
 - Rewrote the local documentation around the actual moduix `Select` wrapper contract, including the
   exported parts, popup composition, styling API, accessibility guidance, and current DX sugar.

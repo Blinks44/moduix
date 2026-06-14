@@ -29,6 +29,9 @@ ComboboxInput + ComboboxControlActions`.
   adds the divider and nested input border treatment so consumers do not need a raw wrapper `div`.
 - `ComboboxItem indicator="end"` is moduix-only sugar that flips the item indicator to the trailing
   side via `data-indicator-position="end"`.
+- `ComboboxItem indicator="none"` disables the reserved indicator column. Use that mode when the
+  selected row should rely on background-only highlighting and no `ComboboxItemIndicator` should be
+  rendered.
 - `ComboboxTrigger`, `ComboboxIcon`, `ComboboxClear`, `ComboboxItemIndicator`, and
   `ComboboxChipRemove` render default moduix icons when no children are passed.
 - Multiple selection is composed explicitly with `multiple`, `ComboboxValue`, `ComboboxChips`,
@@ -194,10 +197,10 @@ to `ComboboxPopup`.
 
 ### `ComboboxItem`
 
-| Prop        | Type               | Notes                                                                                   |
-| ----------- | ------------------ | --------------------------------------------------------------------------------------- |
-| `value`     | item               | The actual selected item. This is the source of truth, not `ComboboxItemText` children. |
-| `indicator` | `'start' \| 'end'` | moduix-only convenience prop for selected-indicator placement.                          |
+| Prop        | Type                         | Notes                                                                                                           |
+| ----------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `value`     | item                         | The actual selected item. This is the source of truth, not `ComboboxItemText` children.                         |
+| `indicator` | `'start' \| 'end' \| 'none'` | moduix-only convenience prop for selected-indicator layout. Use `none` to remove the reserved indicator column. |
 
 ### Hooks
 
@@ -312,7 +315,8 @@ tokens instead of introducing a separate inline-input variable family.
   APIs into it.
 - Keep the built-in arrow opt-in via `showArrow={false}` by default.
 - Preserve `ComboboxInlineInputContainer` as the recommended helper for input-inside-popup examples.
-- Preserve the `indicator="end"` contract and its `data-indicator-position` styling hook.
+- Preserve the `indicator="start" | "end" | "none"` contract and its `data-indicator-position`
+  styling hook.
 - Keep disabled styling coordinated across the input group, field trigger, and action buttons.
 
 ## Motion tokens
@@ -321,6 +325,9 @@ tokens instead of introducing a separate inline-input variable family.
 
 ## Local changelog
 
+- 2026-06-14: Added `indicator="none"` so combobox rows can opt out of the reserved indicator
+  column without causing selection-time layout shift. `start` remains the default reserved-slot
+  behavior and `end` still moves the indicator to the trailing edge.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens so combobox overlays can be retuned to fade, slide, or mixed effects through CSS variables while preserving the current default animation.
 - 2026-06-02: Rewrote the local docs around the actual moduix wrapper, added
   `ComboboxInlineInputContainer` for the popup-inline input pattern, forwarded refs through

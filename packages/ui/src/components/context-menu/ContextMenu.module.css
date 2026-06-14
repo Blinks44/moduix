@@ -91,46 +91,6 @@
     }
   }
 
-  .arrow {
-    display: flex;
-    color: var(--context-menu-popup-bg, var(--color-popover));
-
-    &[data-side='top'] {
-      bottom: calc(var(--context-menu-arrow-size, 0.5rem) * -1);
-      rotate: 180deg;
-    }
-
-    &[data-side='bottom'] {
-      top: calc(var(--context-menu-arrow-size, 0.5rem) * -1);
-      rotate: 0deg;
-    }
-
-    &[data-side='left'] {
-      right: calc(var(--context-menu-arrow-inline-offset, 0.8125rem) * -1);
-      rotate: 90deg;
-    }
-
-    &[data-side='right'] {
-      left: calc(var(--context-menu-arrow-inline-offset, 0.8125rem) * -1);
-      rotate: -90deg;
-    }
-  }
-
-  .arrowFill {
-    fill: currentColor;
-  }
-
-  .arrowOuterStroke {
-    fill: var(
-      --context-menu-arrow-stroke-color,
-      var(--context-menu-popup-border-color, var(--color-border))
-    );
-  }
-
-  .arrowInnerStroke {
-    fill: var(--context-menu-popup-bg, var(--color-popover));
-  }
-
   .item,
   .linkItem,
   .submenuTrigger,
@@ -284,6 +244,23 @@
         var(--popup-check-padding-x-start, 0.625rem)
       )
       var(--context-menu-item-padding-x-end, var(--popup-item-padding-x-end, 1rem));
+
+    &[data-indicator-position='none'] {
+      grid-template-columns: minmax(0, 1fr);
+      padding-inline-start: var(
+        --context-menu-item-padding-x-start,
+        var(--popup-item-padding-x-start, 1rem)
+      );
+
+      & > .radioItemIndicator,
+      & > .checkboxItemIndicator {
+        display: none;
+      }
+
+      & > .itemText {
+        grid-column: 1;
+      }
+    }
 
     &[data-indicator-position='end'] {
       grid-template-columns:

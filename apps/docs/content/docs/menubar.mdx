@@ -325,7 +325,8 @@ Use `MenubarItemShortcut` for keyboard shortcut text that should align to the en
 ### Rich Items
 
 Use `indicator="end"` when the indicator should stay at the trailing edge, and use `MenubarItemText*`
-helpers when a row needs icon-and-label layout.
+helpers when a row needs icon-and-label layout. Use `indicator="none"` when the selected row should
+rely on background-only highlighting and no indicator column should be reserved.
 
 <Preview>
   <IndicatorRightMenubarExample />
@@ -396,6 +397,12 @@ helpers when a row needs icon-and-label layout.
 
   </Preview.Code>
 </Preview>
+
+```tsx
+<MenubarCheckboxItem checked={showPreview} onCheckedChange={setShowPreview} indicator="none">
+  <MenubarItemText>Preview</MenubarItemText>
+</MenubarCheckboxItem>
+```
 
 ### Link Items
 

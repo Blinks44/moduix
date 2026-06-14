@@ -262,7 +262,8 @@ icon set.
 ### Indicator Right
 
 Use `indicator="end"` when the selected marker should stay on the right while the leading icon and
-text keep their own layout.
+text keep their own layout. Use `indicator="none"` when the selected row should rely on
+background-only highlighting and no indicator column should be reserved.
 
 <Preview>
   <IndicatorRightComboboxExample />
@@ -352,6 +353,12 @@ text keep their own layout.
 
   </Preview.Data>
 </Preview>
+
+```tsx
+<ComboboxItem value={item} indicator="none">
+  <ComboboxItemText>{item.label}</ComboboxItemText>
+</ComboboxItem>
+```
 
 ### Input Inside Popup
 

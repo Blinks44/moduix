@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { InfoIcon, ShareIcon } from '@/icons/demo';
 import {
   ContextMenu,
-  ContextMenuArrow,
   ContextMenuBackdrop,
   ContextMenuCheckboxItem,
   ContextMenuCheckboxItemIndicator,
@@ -88,22 +87,6 @@ export const Nested: Story = {
           <ContextMenuSeparator />
           <ContextMenuItem closeOnClick>Favorite</ContextMenuItem>
           <ContextMenuItem closeOnClick>Share</ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
-    );
-  },
-};
-
-export const WithArrow: Story = {
-  render: () => {
-    return (
-      <ContextMenu>
-        <ContextMenuTrigger className={storyStyles.trigger}>Right click here</ContextMenuTrigger>
-        <ContextMenuContent showArrow align="start" sideOffset={12}>
-          <ContextMenuItem closeOnClick>Open</ContextMenuItem>
-          <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
-          <ContextMenuSeparator />
-          <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
     );
@@ -257,7 +240,6 @@ export const CustomComposition: Story = {
           <ContextMenuBackdrop className={storyStyles.backdrop} />
           <ContextMenuPositioner sideOffset={12}>
             <ContextMenuPopup className={storyStyles.customPopup}>
-              <ContextMenuArrow />
               <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
               <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
               <ContextMenuSeparator />

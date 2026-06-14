@@ -38,7 +38,7 @@ moduix adds and standardizes:
 - `MenubarSubmenuTriggerIcon`, `MenubarItemText`, `MenubarItemTextContent`,
   `MenubarItemTextIcon`, `MenubarItemTextLabel`, and `MenubarItemShortcut` helpers for common row
   layouts.
-- `indicator="start" | "end"` on checkbox and radio rows.
+- `indicator="start" | "end" | "none"` on checkbox and radio rows.
 - stable `data-slot` attributes and CSS variable names under the `--menubar-*` namespace.
 - exported wrapper types: `MenubarPositionerProps`, `MenubarContentProps`,
   `MenubarIndicatorPosition`, `MenubarRadioItemProps`, and `MenubarCheckboxItemProps`.
@@ -192,12 +192,12 @@ Uses the same exported `MenubarContentProps` type.
 
 ### Action rows
 
-| Part                  | Extra moduix API               | Notes                                                                          |
-| --------------------- | ------------------------------ | ------------------------------------------------------------------------------ |
-| `MenubarItem`         | no extra props                 | Use for command-style actions. `closeOnClick` is commonly enabled in examples. |
-| `MenubarLinkItem`     | no extra props                 | Use for navigation; forwards link props such as `href`.                        |
-| `MenubarCheckboxItem` | `indicator?: 'start' \| 'end'` | Exported as `MenubarCheckboxItemProps`. Controls indicator column placement.   |
-| `MenubarRadioItem`    | `indicator?: 'start' \| 'end'` | Exported as `MenubarRadioItemProps`. Controls indicator column placement.      |
+| Part                  | Extra moduix API                         | Notes                                                                          |
+| --------------------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
+| `MenubarItem`         | no extra props                           | Use for command-style actions. `closeOnClick` is commonly enabled in examples. |
+| `MenubarLinkItem`     | no extra props                           | Use for navigation; forwards link props such as `href`.                        |
+| `MenubarCheckboxItem` | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `MenubarCheckboxItemProps`. Controls indicator column layout.      |
+| `MenubarRadioItem`    | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `MenubarRadioItemProps`. Controls indicator column layout.         |
 
 `MenubarIndicatorPosition` is exported for wrapper utilities and shared typing.
 
@@ -474,7 +474,7 @@ The current component already has the useful sugar we want for common scenarios:
 - `MenubarContent` and `MenubarSubmenuContent`
 - `showArrow`
 - `createMenubarMenuHandle`
-- `indicator="start" | "end"`
+- `indicator="start" | "end" | "none"`
 - submenu and item-text helper parts
 - exported wrapper prop types for content and indicator rows
 
@@ -497,6 +497,9 @@ No additional wrapper sugar is currently justified beyond that surface.
 
 ## Local changelog
 
+- 2026-06-14: Added `indicator="none"` for checkbox and radio rows so menubar menus can opt out of
+  the reserved indicator column without causing selection-time layout shift. Reserved start
+  placement remains the default and `end` still moves the indicator to the trailing edge.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens so menubar menu enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
 - 2026-06-02: Rewrote the local documentation around the actual moduix wrapper contract, documented
   the implicit `MenubarViewport` behavior of `MenubarContent`, and added exported wrapper prop types

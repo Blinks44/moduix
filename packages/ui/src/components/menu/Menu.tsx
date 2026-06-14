@@ -22,7 +22,7 @@ export type MenuPositionerProps = Pick<
   | 'collisionPadding'
 >;
 
-export type MenuIndicatorPosition = 'start' | 'end';
+export type MenuIndicatorPosition = 'start' | 'end' | 'none';
 export type MenuContentProps = MenuPrimitive.Popup.Props &
   MenuPositionerProps & {
     showArrow?: boolean;

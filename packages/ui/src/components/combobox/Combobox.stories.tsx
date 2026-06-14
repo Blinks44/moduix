@@ -236,6 +236,39 @@ export const IndicatorRight: Story = {
   },
 };
 
+export const WithoutIndicator: Story = {
+  render: () => {
+    const id = React.useId();
+
+    return (
+      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
+        <ComboboxField>
+          <label className={styles.fieldLabel} htmlFor={id}>
+            Choose fruit
+          </label>
+          <ComboboxInputGroup>
+            <ComboboxInput id={id} placeholder="e.g. Mango" />
+            <ComboboxControlActions>
+              <ComboboxClear aria-label="Clear selection" />
+              <ComboboxTrigger aria-label="Open options" />
+            </ComboboxControlActions>
+          </ComboboxInputGroup>
+        </ComboboxField>
+
+        <ComboboxContent sideOffset={4}>
+          <ComboboxList>
+            {(item: OptionItem) => (
+              <ComboboxItem key={item.id} value={item} indicator="none">
+                <ComboboxItemText>{item.label}</ComboboxItemText>
+              </ComboboxItem>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+    );
+  },
+};
+
 export const InputInsidePopup: Story = {
   render: () => {
     return (

@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { ContextMenu as ContextMenuPrimitive } from '@base-ui/react/context-menu';
 import { clsx } from 'clsx';
-import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './ContextMenu.module.css';
 
@@ -11,21 +11,17 @@ export type ContextMenuPositionerProps = Pick<
   | 'sideOffset'
   | 'align'
   | 'alignOffset'
-  | 'arrowPadding'
   | 'collisionAvoidance'
   | 'collisionBoundary'
   | 'collisionPadding'
 >;
 
-export type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props &
-  ContextMenuPositionerProps & {
-    showArrow?: boolean;
-  };
+export type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props & ContextMenuPositionerProps;
 
 const CONTEXT_MENU_CONTENT_SIDE_OFFSET = 8;
 const ContextMenu = ContextMenuPrimitive.Root;
 const ContextMenuSubmenu = ContextMenuPrimitive.SubmenuRoot;
-export type ContextMenuIndicatorPosition = 'start' | 'end';
+export type ContextMenuIndicatorPosition = 'start' | 'end' | 'none';
 export type ContextMenuRadioItemProps = ContextMenuPrimitive.RadioItem.Props & {
   indicator?: ContextMenuIndicatorPosition;
 };
@@ -80,27 +76,13 @@ function ContextMenuPopup({ className, ...props }: ContextMenuPrimitive.Popup.Pr
   );
 }
 
-function ContextMenuArrow({ className, children, ...props }: ContextMenuPrimitive.Arrow.Props) {
-  return (
-    <ContextMenuPrimitive.Arrow
-      data-slot="context-menu-arrow"
-      className={mergeClassName(className, styles.arrow)}
-      {...props}
-    >
-      {children ?? <ArrowSvg />}
-    </ContextMenuPrimitive.Arrow>
-  );
-}
-
 function ContextMenuContent({
   className,
-  showArrow = false,
   children,
   sideOffset = CONTEXT_MENU_CONTENT_SIDE_OFFSET,
   side,
   align,
   alignOffset,
-  arrowPadding,
   collisionAvoidance,
   collisionBoundary,
   collisionPadding,
@@ -113,13 +95,11 @@ function ContextMenuContent({
         sideOffset={sideOffset}
         align={align}
         alignOffset={alignOffset}
-        arrowPadding={arrowPadding}
         collisionAvoidance={collisionAvoidance}
         collisionBoundary={collisionBoundary}
         collisionPadding={collisionPadding}
       >
         <ContextMenuPopup className={className} {...props}>
-          {showArrow ? <ContextMenuArrow /> : null}
           {children}
         </ContextMenuPopup>
       </ContextMenuPositioner>
@@ -328,17 +308,6 @@ function getSubmenuOffset({ side }: { side: ContextMenuPrimitive.Positioner.Prop
   return side === 'top' || side === 'bottom' ? 4 : -4;
 }
 
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <PopupArrowIcon
-      fillClassName={styles.arrowFill}
-      outerStrokeClassName={styles.arrowOuterStroke}
-      innerStrokeClassName={styles.arrowInnerStroke}
-      {...props}
-    />
-  );
-}
-
 export {
   ContextMenu,
   ContextMenuSubmenu,
@@ -347,7 +316,6 @@ export {
   ContextMenuBackdrop,
   ContextMenuPositioner,
   ContextMenuPopup,
-  ContextMenuArrow,
   ContextMenuContent,
   ContextMenuSubmenuContent,
   ContextMenuItem,

@@ -363,7 +363,9 @@ Use `MenuItemShortcut` for shortcut text that aligns to the end of each item.
 
 ### Indicator Right With Icon
 
-Use `indicator="end"` to align checkbox and radio indicators to the end. Text and icon slots accept custom content and `className`.
+Use `indicator="end"` to align checkbox and radio indicators to the end. Text and icon slots accept
+custom content and `className`. Use `indicator="none"` when the selected row should rely on
+background-only highlighting and no indicator column should be reserved.
 
 <Preview>
   <IndicatorRightMenuExample />
@@ -415,6 +417,12 @@ Use `indicator="end"` to align checkbox and radio indicators to the end. Text an
 
   </Preview.Code>
 </Preview>
+
+```tsx
+<MenuCheckboxItem checked={showSearch} onCheckedChange={setShowSearch} indicator="none">
+  <MenuItemText>Search</MenuItemText>
+</MenuCheckboxItem>
+```
 
 ### Nested
 

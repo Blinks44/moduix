@@ -1,7 +1,7 @@
 ---
 title: Context Menu
 subtitle: A contextual action menu for right click and long press interactions.
-description: moduix wrapper around Base UI context menu primitives with a recommended composition, built-in styling hooks, and convenience helpers for arrows, submenu offsets, and selection indicators.
+description: moduix wrapper around Base UI context menu primitives with a recommended composition, built-in styling hooks, and convenience helpers for submenu offsets and selection indicators.
 ---
 
 # Context Menu
@@ -19,8 +19,7 @@ moduix adds and standardizes:
 - `ContextMenuContent` as the default high-level composition. It renders `Portal`, `Positioner`,
   and `Popup` for you.
 - `ContextMenuSubmenuContent` with submenu-specific default offsets.
-- `showArrow` on content wrappers.
-- `indicator="start" | "end"` on checkbox and radio items.
+- `indicator="start" | "end" | "none"` on checkbox and radio items.
 - ready-to-use helpers for structured rows:
   `ContextMenuItemText`, `ContextMenuItemTextContent`, `ContextMenuItemTextIcon`,
   `ContextMenuItemTextLabel`, `ContextMenuItemShortcut`, and `ContextMenuSubmenuTriggerIcon`.
@@ -70,7 +69,6 @@ existing surface such as a card, list row, canvas, or editor area.
 | `ContextMenuBackdrop`              | Optional overlay behind the menu.                             |
 | `ContextMenuPositioner`            | Low-level positioning part.                                   |
 | `ContextMenuPopup`                 | Low-level popup surface.                                      |
-| `ContextMenuArrow`                 | Popup arrow. Renders the moduix arrow icon by default.        |
 | `ContextMenuContent`               | Recommended wrapper around portal + positioner + popup.       |
 | `ContextMenuSubmenuContent`        | Same as `ContextMenuContent`, but with submenu-tuned offsets. |
 | `ContextMenuItem`                  | Action row.                                                   |
@@ -108,18 +106,16 @@ moduix adds behavior, defaults, or styling expectations.
 
 `ContextMenuContentProps` is exported from `moduix`.
 
-| Prop                 | Type                                      | Default         | Notes                                       |
-| -------------------- | ----------------------------------------- | --------------- | ------------------------------------------- |
-| `className`          | `string`                                  | -               | Applied to the popup surface.               |
-| `showArrow`          | `boolean`                                 | `false`         | Renders `ContextMenuArrow` before children. |
-| `sideOffset`         | `number \| ((args) => number)`            | `8`             | Gap between pointer/anchor and popup.       |
-| `side`               | `PositionerSide`                          | Base UI default | Forwarded to `ContextMenuPositioner`.       |
-| `align`              | `PositionerAlign`                         | Base UI default | Forwarded to `ContextMenuPositioner`.       |
-| `alignOffset`        | `number \| ((args) => number)`            | Base UI default | Forwarded to `ContextMenuPositioner`.       |
-| `arrowPadding`       | `number`                                  | Base UI default | Limits arrow collision near edges.          |
-| `collisionAvoidance` | `CollisionAvoidance`                      | Base UI default | Forwarded to `ContextMenuPositioner`.       |
-| `collisionBoundary`  | `Boundary`                                | Base UI default | Forwarded to `ContextMenuPositioner`.       |
-| `collisionPadding`   | `number \| Partial<Record<Side, number>>` | Base UI default | Forwarded to `ContextMenuPositioner`.       |
+| Prop                 | Type                                      | Default         | Notes                                 |
+| -------------------- | ----------------------------------------- | --------------- | ------------------------------------- |
+| `className`          | `string`                                  | -               | Applied to the popup surface.         |
+| `sideOffset`         | `number \| ((args) => number)`            | `8`             | Gap between pointer/anchor and popup. |
+| `side`               | `PositionerSide`                          | Base UI default | Forwarded to `ContextMenuPositioner`. |
+| `align`              | `PositionerAlign`                         | Base UI default | Forwarded to `ContextMenuPositioner`. |
+| `alignOffset`        | `number \| ((args) => number)`            | Base UI default | Forwarded to `ContextMenuPositioner`. |
+| `collisionAvoidance` | `CollisionAvoidance`                      | Base UI default | Forwarded to `ContextMenuPositioner`. |
+| `collisionBoundary`  | `Boundary`                                | Base UI default | Forwarded to `ContextMenuPositioner`. |
+| `collisionPadding`   | `number \| Partial<Record<Side, number>>` | Base UI default | Forwarded to `ContextMenuPositioner`. |
 
 `ContextMenuContent` also forwards popup props such as event handlers, id, and accessibility
 attributes to `ContextMenuPopup`.
@@ -128,19 +124,19 @@ attributes to `ContextMenuPopup`.
 
 Uses the same exported `ContextMenuContentProps` type.
 
-| Prop          | Default                        | Notes                                                   |
-| ------------- | ------------------------------ | ------------------------------------------------------- | ---------------------------- | --------------------------------------------------------- |
-| `sideOffset`  | `({ side }) => (side === 'top' |                                                         | side === 'bottom' ? 4 : -4)` | Keeps nested menus visually connected to the parent item. |
-| `alignOffset` | same as `sideOffset`           | Keeps submenu alignment consistent with the parent row. |
+| Prop          | Default                                                          | Notes                                                     |
+| ------------- | ---------------------------------------------------------------- | --------------------------------------------------------- |
+| `sideOffset`  | `({ side }) => (side === 'top' \|\| side === 'bottom' ? 4 : -4)` | Keeps nested menus visually connected to the parent item. |
+| `alignOffset` | same as `sideOffset`                                             | Keeps submenu alignment consistent with the parent row.   |
 
 ### Action rows
 
-| Part                      | Extra moduix API               | Notes                                                                            |
-| ------------------------- | ------------------------------ | -------------------------------------------------------------------------------- |
-| `ContextMenuItem`         | no extra props                 | Use for command-style actions. `closeOnClick` is commonly enabled in examples.   |
-| `ContextMenuLinkItem`     | no extra props                 | Use for navigation; forwards link props such as `href`.                          |
-| `ContextMenuCheckboxItem` | `indicator?: 'start' \| 'end'` | Exported as `ContextMenuCheckboxItemProps`. Controls indicator column placement. |
-| `ContextMenuRadioItem`    | `indicator?: 'start' \| 'end'` | Exported as `ContextMenuRadioItemProps`. Controls indicator column placement.    |
+| Part                      | Extra moduix API                         | Notes                                                                          |
+| ------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
+| `ContextMenuItem`         | no extra props                           | Use for command-style actions. `closeOnClick` is commonly enabled in examples. |
+| `ContextMenuLinkItem`     | no extra props                           | Use for navigation; forwards link props such as `href`.                        |
+| `ContextMenuCheckboxItem` | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `ContextMenuCheckboxItemProps`. Controls indicator column layout.  |
+| `ContextMenuRadioItem`    | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `ContextMenuRadioItemProps`. Controls indicator column layout.     |
 
 `ContextMenuIndicatorPosition` is exported for typing helper utilities and wrappers.
 
@@ -222,7 +218,6 @@ to `Portal`, `Positioner`, and `Popup`.
     <ContextMenuBackdrop className={styles.customBackdrop} />
     <ContextMenuPositioner sideOffset={12}>
       <ContextMenuPopup className={styles.customPopup}>
-        <ContextMenuArrow />
         <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
         <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
       </ContextMenuPopup>
@@ -257,7 +252,6 @@ moduix applies stable `data-slot` values to every exported part:
 | `ContextMenuBackdrop`              | `context-menu-backdrop`                |
 | `ContextMenuPositioner`            | `context-menu-positioner`              |
 | `ContextMenuPopup`                 | `context-menu-popup`                   |
-| `ContextMenuArrow`                 | `context-menu-arrow`                   |
 | `ContextMenuItem`                  | `context-menu-item`                    |
 | `ContextMenuLinkItem`              | `context-menu-link-item`               |
 | `ContextMenuSeparator`             | `context-menu-separator`               |
@@ -285,9 +279,8 @@ The list below covers attributes that our CSS depends on directly.
 | `ContextMenuTrigger`                                                                                                     | `data-disabled`, `disabled`                            |
 | `ContextMenuBackdrop`                                                                                                    | `data-starting-style`, `data-ending-style`             |
 | `ContextMenuPopup`                                                                                                       | `data-starting-style`, `data-ending-style`             |
-| `ContextMenuArrow`                                                                                                       | `data-side`                                            |
 | `ContextMenuItem`, `ContextMenuLinkItem`, `ContextMenuSubmenuTrigger`, `ContextMenuRadioItem`, `ContextMenuCheckboxItem` | `data-highlighted`, `data-popup-open`, `data-disabled` |
-| `ContextMenuRadioItem`, `ContextMenuCheckboxItem`                                                                        | `data-indicator-position` (`start` or `end`)           |
+| `ContextMenuRadioItem`, `ContextMenuCheckboxItem`                                                                        | `data-indicator-position` (`start`, `end`, or `none`)  |
 
 ### CSS variables
 
@@ -301,16 +294,13 @@ All built-in styling hooks are scoped under `--context-menu-*`.
 | `--context-menu-focus-ring-color` | `var(--color-ring)`         |
 | `--context-menu-transition`       | `var(--transition-default)` |
 
-#### Backdrop and arrow
+#### Backdrop
 
-| Variable                             | Default                                                       |
-| ------------------------------------ | ------------------------------------------------------------- |
-| `--context-menu-backdrop-bg`         | `var(--backdrop-bg, var(--color-overlay))`                    |
-| `--context-menu-backdrop-blur`       | `4px`                                                         |
-| `--context-menu-backdrop-transition` | `var(--context-menu-transition)`                              |
-| `--context-menu-arrow-inline-offset` | `0.8125rem`                                                   |
-| `--context-menu-arrow-size`          | `0.5rem`                                                      |
-| `--context-menu-arrow-stroke-color`  | `var(--context-menu-popup-border-color, var(--color-border))` |
+| Variable                             | Default                                    |
+| ------------------------------------ | ------------------------------------------ |
+| `--context-menu-backdrop-bg`         | `var(--backdrop-bg, var(--color-overlay))` |
+| `--context-menu-backdrop-blur`       | `4px`                                      |
+| `--context-menu-backdrop-transition` | `var(--context-menu-transition)`           |
 
 #### Popup surface
 
@@ -420,9 +410,9 @@ The current component already has the useful sugar we want for common scenarios:
 
 - high-level `ContextMenuContent`;
 - submenu-aware `ContextMenuSubmenuContent`;
-- `showArrow`;
 - default submenu and selection icons;
-- `indicator="end"` for checkbox and radio layouts.
+- `indicator="end"` for checkbox and radio layouts;
+- `indicator="none"` for checkbox and radio rows that should not reserve indicator space.
 
 No additional helper prop is currently justified without duplicating existing composition patterns or
 diverging from `Menu` and `Menubar`.
@@ -433,4 +423,9 @@ diverging from `Menu` and `Menubar`.
 
 ## Local changelog
 
+- 2026-06-14: Removed `showArrow`, `ContextMenuArrow`, and the related arrow styling contract
+  because the arrow path was not working and does not fit the intended context-menu API.
+- 2026-06-14: Added `indicator="none"` for checkbox and radio rows so context menus can opt out of
+  the reserved indicator column without causing selection-time layout shift. Reserved start
+  placement remains the default and `end` still moves the indicator to the trailing edge.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens so context menu enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
