@@ -1,5 +1,11 @@
 # moduix
 
+## 1.0.4
+
+### Patch Changes
+
+- 4d0850a: update deps
+
 ## 1.0.3
 
 ### Patch Changes
