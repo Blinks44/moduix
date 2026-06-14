@@ -49,7 +49,7 @@ text already covers that, or pass `aria-label` / `aria-labelledby` for a more sp
 If you want `Spinner` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
 
-<Tabs items={['npm', 'pnpm', 'bun']}>
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
@@ -68,6 +68,20 @@ pnpm dlx shadcn@latest add Blinks44/moduix/spinner
 
 ```bash
 bunx shadcn@latest add Blinks44/moduix/spinner
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/spinner
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/spinner
 ```
 
   </Tab>

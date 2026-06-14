@@ -75,7 +75,7 @@ wrapper should also carry page semantics such as `main` or `section`, and use `c
 If you want `Container` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
 
-<Tabs items={['npm', 'pnpm', 'bun']}>
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
@@ -94,6 +94,20 @@ pnpm dlx shadcn@latest add Blinks44/moduix/container
 
 ```bash
 bunx shadcn@latest add Blinks44/moduix/container
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/container
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/container
 ```
 
   </Tab>

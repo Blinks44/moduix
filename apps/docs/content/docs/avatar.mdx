@@ -64,7 +64,7 @@ path and keeps image loading, error handling, and fallback timing on the primiti
 If you want `Avatar` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
 
-<Tabs items={['npm', 'pnpm', 'bun']}>
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
@@ -83,6 +83,20 @@ pnpm dlx shadcn@latest add Blinks44/moduix/avatar
 
 ```bash
 bunx shadcn@latest add Blinks44/moduix/avatar
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/avatar
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/avatar
 ```
 
   </Tab>

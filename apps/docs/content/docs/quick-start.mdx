@@ -27,7 +27,7 @@ package management.
 The components, CSS, and design tokens are shipped together, while Base UI stays as a peer
 dependency in your application:
 
-<Tabs items={['npm', 'pnpm', 'bun']}>
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
@@ -46,6 +46,20 @@ pnpm add moduix @base-ui/react
 
 ```bash
 bun add moduix @base-ui/react
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno add moduix @base-ui/react
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aube add moduix @base-ui/react
 ```
 
   </Tab>
@@ -103,10 +117,10 @@ staying in `node_modules`.
 
 Make sure your project resolves the `@/*` alias to `src/*`. The exact setup depends on the bundler:
 
-<Tabs items={['Vite', 'Rsbuild']}>
-  <Tab value="Vite">
+#### Vite
 
-For Vite, put the alias in both `tsconfig.json` and `tsconfig.app.json`, then mirror it in `vite.config.ts`:
+For Vite, put the alias in both `tsconfig.json` and `tsconfig.app.json`, then mirror it in
+`vite.config.ts`:
 
 <Tabs items={['tsconfig.json', 'tsconfig.app.json', 'vite.config.ts']}>
   <Tab value="tsconfig.json">
@@ -150,8 +164,7 @@ resolve: {
   </Tab>
 </Tabs>
 
-  </Tab>
-  <Tab value="Rsbuild">
+#### Rsbuild
 
 For Rsbuild, add the alias to `tsconfig.json`, then mirror it in `rsbuild.config.ts`:
 
@@ -182,13 +195,10 @@ resolve: {
   </Tab>
 </Tabs>
 
-  </Tab>
-</Tabs>
-
 Create `components.json` in the project root with the following content. This is the current
 workaround while `shadcn` custom registry base init still fails for this setup:
 
-```json title="components.json"
+```json
 {
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "new-york",
@@ -221,7 +231,7 @@ This gives the `shadcn` CLI the aliases and project metadata it needs to place g
 
 Install registry items from the moduix GitHub registry:
 
-<Tabs items={['npm', 'pnpm', 'bun']}>
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
@@ -243,6 +253,22 @@ pnpm dlx shadcn@latest add Blinks44/moduix/accordion
 ```bash
 bunx shadcn@latest add Blinks44/moduix/button
 bunx shadcn@latest add Blinks44/moduix/accordion
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/button
+deno x -A npm:shadcn@latest add Blinks44/moduix/accordion
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/button
+aubx shadcn@latest add Blinks44/moduix/accordion
 ```
 
   </Tab>
