@@ -113,7 +113,7 @@ Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common
 If you want `Preview Card` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
 
-<Tabs items={['npm', 'pnpm', 'bun']}>
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
@@ -132,6 +132,20 @@ pnpm dlx shadcn@latest add Blinks44/moduix/preview-card
 
 ```bash
 bunx shadcn@latest add Blinks44/moduix/preview-card
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/preview-card
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/preview-card
 ```
 
   </Tab>
@@ -421,10 +435,8 @@ links.
       } from "moduix";
       import { useMemo } from "react";
 
-      type PreviewItem = (typeof items)[number];
-
       export function MultipleTriggersPreviewCard() {
-        const previewCardHandle = useMemo(() => createPreviewCardHandle<PreviewItem>(), []);
+        const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
 
         return (
           <div className={styles.row}>
