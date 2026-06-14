@@ -1,5 +1,11 @@
 # moduix
 
+## 1.0.5
+
+### Patch Changes
+
+- 6f75f82: New styles for indicators in select-like popups
+
 ## 1.0.4
 
 ### Patch Changes
