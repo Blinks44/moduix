@@ -27,13 +27,13 @@
   "dependencies": {},
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
-    "@storybook/react-vite": "^10.4.2",
+    "@storybook/react-vite": "^10.4.4",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
     "oxfmt": "^0.54.0",
     "oxlint": "^1.69.0",
-    "storybook": "^10.4.2",
-    "turbo": "^2.9.16"
+    "storybook": "^10.4.4",
+    "turbo": "^2.9.18"
   },
-  "packageManager": "npm@11.16.0"
+  "packageManager": "npm@11.17.0"
 }

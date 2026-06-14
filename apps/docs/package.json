@@ -17,10 +17,10 @@
     "@tanstack/react-router": "^1.170.15",
     "@tanstack/react-router-devtools": "^1.167.0",
     "@tanstack/react-start": "^1.168.25",
-    "fumadocs-core": "^16.9.3",
-    "fumadocs-mdx": "^15.0.11",
-    "fumadocs-ui": "^16.9.3",
-    "lucide-react": "^1.17.0",
+    "fumadocs-core": "^16.10.2",
+    "fumadocs-mdx": "^15.0.12",
+    "fumadocs-ui": "^16.10.2",
+    "lucide-react": "^1.18.0",
     "moduix": "*",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -28,16 +28,16 @@
     "vite": "^8.0.16"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.40.0",
-    "@tailwindcss/vite": "^4.3.0",
+    "@cloudflare/vite-plugin": "^1.40.2",
+    "@tailwindcss/vite": "^4.3.1",
     "@types/mdx": "^2.0.14",
-    "@types/node": "^25.9.2",
+    "@types/node": "^25.9.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
-    "nitro": "^3.0.260603-beta",
-    "tailwindcss": "^4.3.0",
+    "nitro": "^3.0.260610-beta",
+    "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
-    "wrangler": "^4.98.0"
+    "wrangler": "^4.100.0"
   }
 }
