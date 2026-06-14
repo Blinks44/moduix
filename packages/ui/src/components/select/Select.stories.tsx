@@ -134,7 +134,7 @@ function renderMultipleValue(value: Language[]) {
   return `${first}${suffix}`;
 }
 
-function FruitItems({ indicator = 'start' }: { indicator?: 'start' | 'end' }) {
+function FruitItems({ indicator = 'start' }: { indicator?: 'start' | 'end' | 'none' }) {
   return (
     <>
       {fruits.map((item) => (
@@ -280,6 +280,28 @@ export const IndicatorRightWithIcon: Story = {
                 <SelectItemIndicator />
               </SelectItem>
             ))}
+          </SelectList>
+        </SelectContent>
+      </Select>
+    );
+  },
+};
+
+export const WithoutIndicator: Story = {
+  render: () => {
+    return (
+      <Select items={fruits}>
+        <SelectField>
+          <SelectLabel>Choose fruit</SelectLabel>
+          <SelectTrigger>
+            <SelectValue placeholder="Select an option" />
+            <SelectIcon />
+          </SelectTrigger>
+        </SelectField>
+
+        <SelectContent>
+          <SelectList>
+            <FruitItems indicator="none" />
           </SelectList>
         </SelectContent>
       </Select>

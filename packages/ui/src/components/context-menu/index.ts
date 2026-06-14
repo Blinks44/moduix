@@ -6,7 +6,6 @@ export {
   ContextMenuBackdrop,
   ContextMenuPositioner,
   ContextMenuPopup,
-  ContextMenuArrow,
   ContextMenuContent,
   ContextMenuSubmenuContent,
   ContextMenuItem,

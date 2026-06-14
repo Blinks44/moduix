@@ -276,6 +276,7 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--combobox-item-min-height', '2rem', 'Default: 2rem.'],
   ['--combobox-item-padding-x-end', '1rem', 'Default: 1rem.'],
+  ['--combobox-item-padding-x-start', '1rem', 'Default: var(--popup-item-padding-x-start, 1rem).'],
   ['--combobox-item-padding-y', 'var(--spacing-2)', 'Default: var(--spacing-2).'],
   ['--combobox-label-font-size', 'var(--text-sm)', 'Default: var(--text-sm).'],
   ['--combobox-label-font-weight', 'var(--weight-medium)', 'Default: var(--weight-medium).'],

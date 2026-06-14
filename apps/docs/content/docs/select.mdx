@@ -518,7 +518,9 @@ popup.
 
 ### Custom Item Layout
 
-Use `indicator="end"` when the selected-state marker should sit after the item text.
+Use `indicator="end"` when the selected-state marker should sit after the item text. Use
+`indicator="none"` when the selected row should rely on background-only highlighting and no
+indicator column should be reserved.
 
 <Preview>
   <IndicatorRightSelectExample />
@@ -540,6 +542,12 @@ Use `indicator="end"` when the selected-state marker should sit after the item t
 
   </Preview.Code>
 </Preview>
+
+```tsx
+<SelectItem value={item.value} indicator="none">
+  <SelectItemText>{item.label}</SelectItemText>
+</SelectItem>
+```
 
 ### Object Values
 

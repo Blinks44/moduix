@@ -37,7 +37,9 @@ moduix adds and standardizes:
 - `createMenuHandle` for detached trigger/root composition.
 - `MenuTriggerIcon`, `MenuSubmenuTriggerIcon`, `MenuItemText`, `MenuItemTextContent`,
   `MenuItemTextIcon`, `MenuItemTextLabel`, and `MenuItemShortcut` helpers for common row layouts.
-- `indicator="start" | "end"` on checkbox and radio rows.
+- `indicator="start" | "end" | "none"` on checkbox and radio rows.
+- `indicator="none"` disables the reserved indicator column. Use that mode when the selected row
+  should rely on background-only highlighting and no indicator part should be rendered.
 - stable `data-slot` attributes and CSS variable names under the `--menu-*` namespace.
 - exported wrapper types: `MenuPositionerProps`, `MenuContentProps`, `MenuIndicatorPosition`,
   `MenuRadioItemProps`, and `MenuCheckboxItemProps`.
@@ -160,12 +162,12 @@ Uses the same exported `MenuContentProps` type.
 
 ### Action rows
 
-| Part               | Extra moduix API               | Notes                                                                          |
-| ------------------ | ------------------------------ | ------------------------------------------------------------------------------ |
-| `MenuItem`         | no extra props                 | Use for command-style actions. `closeOnClick` is commonly enabled in examples. |
-| `MenuLinkItem`     | no extra props                 | Use for navigation; forwards link props such as `href`.                        |
-| `MenuCheckboxItem` | `indicator?: 'start' \| 'end'` | Exported as `MenuCheckboxItemProps`. Controls indicator column placement.      |
-| `MenuRadioItem`    | `indicator?: 'start' \| 'end'` | Exported as `MenuRadioItemProps`. Controls indicator column placement.         |
+| Part               | Extra moduix API                         | Notes                                                                          |
+| ------------------ | ---------------------------------------- | ------------------------------------------------------------------------------ |
+| `MenuItem`         | no extra props                           | Use for command-style actions. `closeOnClick` is commonly enabled in examples. |
+| `MenuLinkItem`     | no extra props                           | Use for navigation; forwards link props such as `href`.                        |
+| `MenuCheckboxItem` | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `MenuCheckboxItemProps`. Controls indicator column layout.         |
+| `MenuRadioItem`    | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `MenuRadioItemProps`. Controls indicator column layout.            |
 
 `MenuIndicatorPosition` is exported for wrapper utilities and shared typing.
 
@@ -466,7 +468,7 @@ The current component already has the useful sugar we want for common scenarios:
 - `MenuContent` and `MenuSubmenuContent`
 - `showArrow`
 - `createMenuHandle`
-- `indicator="start" | "end"`
+- `indicator="start" | "end" | "none"`
 - trigger, submenu, and item text helper parts
 
 No additional wrapper sugar is currently justified beyond that surface.
@@ -488,6 +490,9 @@ No additional wrapper sugar is currently justified beyond that surface.
 
 ## Local changelog
 
+- 2026-06-14: Added `indicator="none"` for checkbox and radio rows so menus can opt out of the
+  reserved indicator column without causing selection-time layout shift. Reserved start placement
+  remains the default and `end` still moves the indicator to the trailing edge.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens so menu enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
 - 2026-06-02: Rewrote the local documentation around the actual moduix wrapper contract instead of
   upstream Base UI docs, documented the no-implicit-viewport behavior of `MenuContent`, and recorded

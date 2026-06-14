@@ -365,6 +365,22 @@
       pointer-events: none;
     }
 
+    &[data-indicator-position='none'] {
+      grid-template-columns: minmax(0, 1fr);
+      padding-inline-start: var(
+        --combobox-item-padding-x-start,
+        var(--popup-item-padding-x-start, 1rem)
+      );
+
+      & > .itemIndicator {
+        display: none;
+      }
+
+      & > .itemText {
+        grid-column-start: 1;
+      }
+    }
+
     &[data-indicator-position='end'] {
       grid-template-columns:
         minmax(0, 1fr)

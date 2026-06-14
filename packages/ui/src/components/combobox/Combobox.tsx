@@ -12,7 +12,7 @@ import {
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Combobox.module.css';
 
-type IndicatorPosition = 'start' | 'end';
+type IndicatorPosition = 'start' | 'end' | 'none';
 type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
   Pick<
     ComboboxPrimitive.Positioner.Props,

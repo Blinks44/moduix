@@ -1,6 +1,5 @@
 import {
   ContextMenu,
-  ContextMenuArrow,
   ContextMenuBackdrop,
   ContextMenuCheckboxItem,
   ContextMenuCheckboxItemIndicator,
@@ -35,17 +34,6 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './context-menu.module.css';
 
 export const contextMenuOverrideCssProperties: CssPropertyInput[] = [
-  [
-    '--context-menu-arrow-inline-offset',
-    '0.8125rem',
-    'Controls inline arrow offset for side placement.',
-  ],
-  ['--context-menu-arrow-size', '0.5rem', 'Controls popup arrow size.'],
-  [
-    '--context-menu-arrow-stroke-color',
-    'var(--context-menu-popup-border-color)',
-    'Controls popup arrow stroke color.',
-  ],
   [
     '--context-menu-backdrop-bg',
     'var(--backdrop-bg, var(--color-overlay))',
@@ -410,7 +398,7 @@ export function PositionedContextMenuExample() {
   return (
     <ContextMenu>
       <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
-      <ContextMenuContent showArrow align="start" sideOffset={12} collisionPadding={16}>
+      <ContextMenuContent align="start" sideOffset={12} collisionPadding={16}>
         <ContextMenuItem closeOnClick>Open</ContextMenuItem>
         <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
         <ContextMenuSeparator />
@@ -443,7 +431,6 @@ export function CustomCompositionContextMenuExample() {
         <ContextMenuBackdrop className={styles.customBackdrop} />
         <ContextMenuPositioner sideOffset={12}>
           <ContextMenuPopup className={styles.customPopup}>
-            <ContextMenuArrow />
             <ContextMenuItem closeOnClick>Open details</ContextMenuItem>
             <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
             <ContextMenuSeparator />

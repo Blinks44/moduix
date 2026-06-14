@@ -321,10 +321,24 @@
     display: grid;
     align-items: center;
     gap: var(--menubar-check-gap, 0.5rem);
-    grid-template-columns: var(--menubar-check-indicator-size, 0.75rem) 1fr;
+    grid-template-columns: var(--menubar-check-indicator-size, 0.75rem) minmax(0, 1fr);
     padding-block: var(--menubar-item-padding-y, 0.5rem);
     padding-inline: var(--menubar-check-padding-x-start, 0.625rem)
       var(--menubar-item-padding-x-end, 1rem);
+
+    &[data-indicator-position='none'] {
+      grid-template-columns: minmax(0, 1fr);
+      padding-inline-start: var(--menubar-item-padding-x-start, 1rem);
+
+      & > .radioItemIndicator,
+      & > .checkboxItemIndicator {
+        display: none;
+      }
+
+      & > .itemText {
+        grid-column-start: 1;
+      }
+    }
 
     &[data-indicator-position='end'] {
       grid-template-columns:

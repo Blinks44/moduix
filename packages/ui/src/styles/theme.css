@@ -670,6 +670,7 @@
   --combobox-item-line-height: initial; /* var(--line-height-text-sm) */
   --combobox-item-min-height: initial; /* 2rem */
   --combobox-item-padding-x-end: initial; /* 1rem */
+  --combobox-item-padding-x-start: initial; /* var(--popup-item-padding-x-start, 1rem) */
   --combobox-item-padding-y: initial; /* var(--spacing-2) */
   --combobox-label-font-size: initial; /* var(--text-sm) */
   --combobox-label-font-weight: initial; /* var(--weight-medium) */
@@ -2006,6 +2007,7 @@
   --select-icon-color: initial; /* var(--color-muted-foreground) */
   --select-icon-size: initial; /* 0.875rem */
   --select-icon-svg-size: initial; /* 1rem */
+  --select-check-padding-x-start: initial; /* var(--popup-check-padding-x-start, 0.625rem) */
   --select-item-color: initial; /* var(--color-foreground) */
   --select-item-font-size: initial; /* var(--popup-item-font-size, var(--text-sm)) */
   --select-item-gap: initial; /* var(--popup-check-gap, 0.5rem) */
@@ -2015,7 +2017,7 @@
   --select-item-min-height: initial; /* var(--popup-item-min-height, 2rem) */
   --select-item-radius: initial; /* 0 */
   --select-item-padding-x-end: initial; /* var(--popup-item-padding-x-end, 1rem) */
-  --select-item-padding-x-start: initial; /* var(--popup-check-padding-x-start, 0.625rem) */
+  --select-item-padding-x-start: initial; /* var(--popup-item-padding-x-start, 1rem) */
   --select-item-padding-y: initial; /* var(--popup-item-padding-y, 0.5rem) */
   --select-item-text-content-gap: initial; /* var(--spacing-2) */
   --select-item-text-icon-color: initial; /* currentColor */

@@ -322,10 +322,27 @@
     gap: var(--menu-check-gap, var(--popup-check-gap, 0.5rem));
     grid-template-columns:
       var(--menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem))
-      1fr;
+      minmax(0, 1fr);
     padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, 0.5rem));
     padding-inline: var(--menu-check-padding-x-start, var(--popup-check-padding-x-start, 0.625rem))
       var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, 1rem));
+
+    &[data-indicator-position='none'] {
+      grid-template-columns: minmax(0, 1fr);
+      padding-inline-start: var(
+        --menu-item-padding-x-start,
+        var(--popup-item-padding-x-start, 1rem)
+      );
+
+      & > .radioItemIndicator,
+      & > .checkboxItemIndicator {
+        display: none;
+      }
+
+      & > .itemText {
+        grid-column-start: 1;
+      }
+    }
 
     &[data-indicator-position='end'] {
       grid-template-columns:
