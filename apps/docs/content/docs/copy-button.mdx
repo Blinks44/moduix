@@ -4,6 +4,7 @@ description: A button that copies known text to the clipboard with transient cop
 icon: Component
 ---
 
+import { ButtonCssPropertiesPanel } from '@/components/examples/button';
 import {
   CopyButtonCustomLabelsExample,
   CopyButtonCustomStylesExample,
@@ -17,6 +18,9 @@ import {
 <BaseUIReference href="https://base-ui.com/react/components/button" />
 
 ## Basic
+
+Use `CopyButton` when the copied value is already known at render time and the UI only needs one
+small action: write that value to the clipboard and expose short-lived copied feedback.
 
 <Preview>
   <CopyButtonExample />
@@ -84,10 +88,10 @@ aubx shadcn@latest add Blinks44/moduix/copy-button
 This install path also pulls in the shared moduix foundation files that `Copy Button` depends on, such
 as styles, icons, and small utilities.
 
-`CopyButton` is a thin wrapper over the local `Button` that adds one narrow workflow: copying a
-known string to the clipboard and exposing a short-lived copied state.
-
 ## Anatomy
+
+`CopyButton` stays intentionally small: one local button root plus an internal live region for
+transient success feedback.
 
 ```text
 CopyButton
@@ -103,26 +107,55 @@ CopyButton
 
 ## Composition
 
-`CopyButton` keeps the normal `Button` composition model. Use `variant`, `size`, `className`, and
-`children` the same way you would on `Button`.
+### When to stay high-level
 
-The wrapper adds only these workflow-specific props:
+Stay with `CopyButton` directly for API tokens, invite links, commands, IDs, and similar values
+that are already known at render time.
+
+The wrapper keeps normal local `Button` behavior intact. Use it for `variant`, `size`, `className`,
+`disabled`, `render`, `nativeButton`, refs, native button attributes, and normal click handlers.
+
+The copy-specific surface is intentionally narrow:
 
 - `value` for the copied text
 - `copiedDuration` for how long copied state remains active
-- `copyLabels` for copy-state feedback text
+- `copyLabels` for accessible and visible copied-state wording
 - `onCopy` and `onCopyError` for app-level follow-up behavior
 
-If `children` is omitted, `CopyButton` becomes an icon-only button by default and uses `CopyIcon`
-plus `CheckIcon` during copied state.
+### When to go custom
 
-If `children` is plain text, that visible label also switches to the copied label during copied
-state. More complex custom JSX stays untouched.
+There are no exported subparts or slot maps. The custom path here is small:
 
-`copyLabels` has two jobs:
+- pass `children` for visible button content;
+- place `CopyButton` next to `Field`, `Input`, `PasswordInput`, or custom layout when the copied
+  value needs surrounding UI;
+- use inherited `Button` styling hooks and `[data-copied]` when copied state should change the
+  visual treatment.
 
-- `copy` is the default accessible label for icon-only buttons before click
-- `copied` is used after success for the icon-only accessible label, the screen-reader live-region announcement, and the temporary visible text on plain-text buttons
+If the workflow needs async state, toasts, tooltips, or editable field behavior, keep those outside
+the component instead of expanding `CopyButton` itself.
+
+### Default props
+
+| Prop             | Default                              | Values / Notes                                                                |
+| ---------------- | ------------------------------------ | ----------------------------------------------------------------------------- |
+| `type`           | `button`                             | Safe default for action usage inside forms                                    |
+| `copiedDuration` | `2000`                               | Duration in milliseconds                                                      |
+| `copyLabels`     | `{ copy: 'Copy', copied: 'Copied' }` | `copy` labels the idle icon-only state; `copied` drives success feedback text |
+| `size`           | `icon-md` or `md`                    | Defaults to `icon-md` without `children`, otherwise `md`                      |
+| `children`       | `CopyIcon` / `CheckIcon`             | Icon-only default swaps to `CheckIcon` while copied                           |
+
+### Behavioral notes
+
+- If `children` is omitted, `CopyButton` becomes an icon-only button and auto-generates an
+  accessible name from `copyLabels` unless `aria-label` or `aria-labelledby` is provided.
+- If `children` is plain text, the visible label temporarily switches to `copyLabels.copied` after
+  success. More complex custom JSX stays untouched.
+- The screen-reader live region announces `copyLabels.copied` after success, so copied feedback
+  does not rely on `aria-label` changes alone.
+- If the consumer `onClick` prevents default, the clipboard write does not run.
+- Clipboard failures flow through `onCopyError`. Without that handler, the error is rethrown
+  asynchronously instead of being swallowed.
 
 ## Examples
 
@@ -289,9 +322,24 @@ copied-state selectors when the default action styling should change.
 `CopyButton` intentionally reuses the local `Button` styling surface instead of introducing a
 parallel `--copy-button-*` token family.
 
-Use:
+### CSS Properties
 
-- `variant` and `size` for the default visual path
-- `className` for local styling
-- inherited `--button-*` variables for token-level customization
-- `[data-copied]` selectors when copied state should change the visual treatment
+`CopyButton` does not define public `--copy-button-*` variables. Use the inherited `Button`
+variables from `theme.css` when size, spacing, focus ring, or variant colors need to change.
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ButtonCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `CopyButton` exposes `data-slot="copy-button"` on the root button.
+- The root keeps the normal local `Button` selectors, including `data-variant`, `data-size`,
+  `[disabled]`, and Base UI disabled state hooks.
+- `data-copied` is present only while transient copied state is active.
+- `className` applies to the button root, and direct nested SVG icons inherit the normal
+  `--button-icon-size` sizing contract.
