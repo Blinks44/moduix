@@ -16,6 +16,7 @@ import styles from './Lightbox.module.css';
 
 const DEFAULT_CLOSE_LABEL = 'Close image';
 const createLightboxHandle = DialogPrimitive.createHandle;
+const preloadedImageSources = new Set<string>();
 
 type LightboxImageData = {
   alt?: string;
@@ -28,16 +29,18 @@ const LightboxSetImageContext = createContext<Dispatch<
   SetStateAction<LightboxImageData | null>
 > | null>(null);
 
-const isSameImage = (currentImage: LightboxImageData | null, nextImage: LightboxImageData) => {
-  return (
-    currentImage?.src === nextImage.src &&
-    currentImage?.fullSrc === nextImage.fullSrc &&
-    currentImage?.alt === nextImage.alt
-  );
-};
-
 const getGalleryRoot = (rootRef?: RefObject<HTMLElement | null>, rootSelector?: string) => {
   return rootRef?.current ?? (rootSelector ? document.querySelector(rootSelector) : null);
+};
+
+const preloadImage = (src?: string) => {
+  if (!src || typeof Image === 'undefined' || preloadedImageSources.has(src)) {
+    return;
+  }
+
+  preloadedImageSources.add(src);
+  const image = new Image();
+  image.src = src;
 };
 
 const getGalleryImage = (
@@ -160,6 +163,8 @@ function LightboxImage({
   alt,
   className,
   onClick,
+  onFocus,
+  onPointerEnter,
   ...props
 }: Omit<ComponentProps<'img'>, 'src'> & {
   src: string;
@@ -167,14 +172,6 @@ function LightboxImage({
 }) {
   const setImage = useContext(LightboxSetImageContext);
   const image = { src, fullSrc, alt };
-
-  useEffect(() => {
-    setImage?.(image);
-
-    return () => {
-      setImage?.((currentImage) => (isSameImage(currentImage, image) ? null : currentImage));
-    };
-  }, [alt, fullSrc, setImage, src]);
 
   return (
     <LightboxTrigger
@@ -186,6 +183,20 @@ function LightboxImage({
           alt={alt}
           className={clsx(styles.trigger, className)}
           data-lightbox-src={fullSrc}
+          onPointerEnter={(event) => {
+            onPointerEnter?.(event);
+
+            if (!event.defaultPrevented) {
+              preloadImage(fullSrc);
+            }
+          }}
+          onFocus={(event) => {
+            onFocus?.(event);
+
+            if (!event.defaultPrevented) {
+              preloadImage(fullSrc);
+            }
+          }}
           onClick={(event) => {
             onClick?.(event);
 
@@ -281,8 +292,25 @@ function LightboxGallery({
       return true;
     };
 
+    const handlePreload = (target: EventTarget | null) => {
+      const nextImage = getGalleryImage(target, selector);
+      if (!nextImage) {
+        return;
+      }
+
+      preloadImage(nextImage.src);
+    };
+
     const handleClick = (event: MouseEvent) => {
       handleOpen(event.target);
+    };
+
+    const handlePointerEnter = (event: PointerEvent) => {
+      handlePreload(event.target);
+    };
+
+    const handleFocusIn = (event: FocusEvent) => {
+      handlePreload(event.target);
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -302,9 +330,13 @@ function LightboxGallery({
     };
 
     rootNode.addEventListener('click', handleClick);
+    rootNode.addEventListener('pointerenter', handlePointerEnter, true);
+    rootNode.addEventListener('focusin', handleFocusIn);
     rootNode.addEventListener('keydown', handleKeyDown);
     return () => {
       rootNode.removeEventListener('click', handleClick);
+      rootNode.removeEventListener('pointerenter', handlePointerEnter, true);
+      rootNode.removeEventListener('focusin', handleFocusIn);
       rootNode.removeEventListener('keydown', handleKeyDown);
     };
   }, [rootRef, rootSelector, selector]);

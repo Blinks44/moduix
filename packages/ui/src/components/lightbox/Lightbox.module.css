@@ -97,7 +97,6 @@
     z-index: 1;
     border: 0;
     padding: 0;
-    opacity: 1;
     transition: opacity var(--lightbox-backdrop-transition, var(--transition-default));
   }
 
@@ -112,8 +111,6 @@
   .frame img,
   .frame picture > img {
     display: block;
-    width: auto;
-    height: auto;
     max-width: min(var(--lightbox-image-max-width, 80vw), 100%);
     max-height: min(var(--lightbox-image-max-height, 80dvh), 100%);
     object-fit: contain;

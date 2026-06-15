@@ -43,6 +43,7 @@ How the default path works:
 - `LightboxContent` renders the default portal, backdrop, viewport, popup, frame, and close button.
 - When `LightboxContent` has no `children`, it renders the active image from `LightboxImage`.
 - `fullSrc` is optional; when omitted, the preview reuses `src`.
+- When `fullSrc` is present, `LightboxImage` starts preloading it on pointer hover and keyboard focus.
 
 This wrapper is intentionally image-first. If the popup content is not just a preview image, compose
 the lower-level parts directly or pass explicit `children` to `LightboxContent`.
@@ -165,6 +166,7 @@ Behavior notes:
 
 - The helper applies the default zoom cursor styling itself.
 - Clicking the helper image updates the active preview image for the root before the popup opens.
+- When `fullSrc` is present, pointer hover and keyboard focus preload the larger asset before open.
 - For multi-image galleries with explicit composition, the active helper image is whichever helper
   was last activated. If you need full gallery state control, use controlled `open` state or
   `LightboxGallery`.
@@ -208,6 +210,7 @@ Important constraint:
 Behavior notes:
 
 - `data-lightbox-src` is preferred over `currentSrc`, which is preferred over `src`.
+- Pointer hover and keyboard focus preload the resolved gallery image source before open.
 - If `selector` matches a wrapper element instead of the image itself, `LightboxGallery` looks for
   the first nested `<img>` inside that matched element.
 - Keyboard activation is supported only when the matched element is already keyboard-focusable.

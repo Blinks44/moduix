@@ -102,7 +102,8 @@ This install path also pulls in the shared moduix foundation files that `Lightbo
 as styles, icons, and small utilities.
 
 `LightboxContent` stays short by default: when `children` are omitted, it reuses the image data from
-`LightboxImage` and opens `fullSrc` if you provide one.
+`LightboxImage` and opens `fullSrc` if you provide one. When `fullSrc` exists, `LightboxImage`
+preloads it on pointer hover and keyboard focus to reduce empty-overlay waits before open.
 
 Use this path for the common single-image preview flow. If the popup content contains controls,
 captions, or anything beyond the image itself, pass explicit `children` to `LightboxContent` or
@@ -134,14 +135,14 @@ Lightbox
 </Lightbox>
 ```
 
-| Part              | Role                                                                                                   |
-| ----------------- | ------------------------------------------------------------------------------------------------------ |
-| `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`).                    |
-| `LightboxTrigger` | Opens the preview from any custom trigger composition.                                                 |
-| `LightboxImage`   | Trigger helper for the common thumbnail-to-preview flow. `fullSrc` can point to a larger asset.        |
-| `LightboxContent` | Default high-level wrapper that owns `portal`, `backdrop`, `viewport`, popup, frame, and close button. |
-| `LightboxClose`   | Primitive close part for custom composition inside the popup.                                          |
-| `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists.                                    |
+| Part              | Role                                                                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`).                                             |
+| `LightboxTrigger` | Opens the preview from any custom trigger composition.                                                                          |
+| `LightboxImage`   | Trigger helper for the common thumbnail-to-preview flow. `fullSrc` can point to a larger asset and is preloaded on hover/focus. |
+| `LightboxContent` | Default high-level wrapper that owns `portal`, `backdrop`, `viewport`, popup, frame, and close button.                          |
+| `LightboxClose`   | Primitive close part for custom composition inside the popup.                                                                   |
+| `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists. It also preloads resolved image sources on hover/focus.     |
 
 ## Composition
 
@@ -153,7 +154,8 @@ Use `LightboxTrigger` when the trigger is not an image.
 
 Use `LightboxGallery` when images come from CMS or HTML you do not compose manually. It reads
 `data-lightbox-src` first, then falls back to `currentSrc` or `src`, and it can target a focusable
-wrapper with `selector` when the image is nested inside a button, card, or link-like control.
+wrapper with `selector` when the image is nested inside a button, card, or link-like control. Those
+resolved sources are also preloaded on pointer hover and keyboard focus.
 
 `LightboxContent` keeps the default path small and supports the common image-preview workflow:
 
