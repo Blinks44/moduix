@@ -5,28 +5,21 @@ icon: Component
 ---
 
 import {
-  CustomCompositionHeadingExample,
-  HeadingCssPlaygroundPanel,
+  CustomStylingHeadingExample,
   HeadingCssPropertiesPanel,
   HeadingElementsExample,
   HeadingExample,
   HeadingSemanticLevelExample,
   HeadingSizesExample,
   HeadingWeightsExample,
-  headingPlaygroundCssProperties,
 } from '@/components/examples/heading';
-
-## Overview
-
-`Heading` is a thin styled wrapper around native `h1`-`h6` elements.
-
-Base UI does not ship a standalone heading primitive, so this component stays close to plain HTML:
-`as` controls semantics, `size` controls visual scale, and `weight` provides the built-in emphasis
-presets.
 
 ## Basic
 
-<Preview cssProperties={headingPlaygroundCssProperties}>
+Use `Heading` for semantic page and section titles. Keep `as` tied to the document outline, then
+use `size` and `weight` when the visual hierarchy needs to differ from the heading level.
+
+<Preview>
   <HeadingExample />
 
   <Preview.Code>
@@ -39,8 +32,6 @@ presets.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <HeadingCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <HeadingCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -89,9 +80,6 @@ aubx shadcn@latest add Blinks44/moduix/heading
 This install path also pulls in the shared moduix foundation files that `Heading` depends on, such
 as styles, icons, and small utilities.
 
-Use the default `h1` when the heading is the page or section title. Reach for `size` only when the
-visual hierarchy should differ from the semantic outline.
-
 ## Anatomy
 
 `Heading` renders a single styled heading element.
@@ -105,21 +93,23 @@ Heading
 | --------- | -------------------------------------------------------- |
 | `Heading` | Semantic heading root with design-system heading styles. |
 
-The root element exposes `data-slot="heading-root"` for targeted styling.
-
 ## Composition
 
-Keep semantics and presentation separate:
+### When to stay high-level
 
-- use `as` for document outline
-- use `size` when visual scale should differ from the heading level
-- use `weight` for the built-in typography presets
-- use `className` or CSS variables for one-off visual overrides
+Stay with `Heading` for normal page titles, section titles, and other document-outline headings.
+The component already exposes the full public surface on one native `h1`-`h6` element.
 
-`Heading` has no internal slots or structural composition. The rendered heading element is already
-the full public surface.
+Use `as` for semantics, `size` for visual scale, and `weight` for the built-in emphasis presets.
 
-### Defaults
+### When to go custom
+
+There is no lower-level composition path here. The escape hatch is direct root styling through
+`className` and the documented `--heading-*` CSS variables.
+
+If you need body copy, inline copy, or a more general typography wrapper, use `Text` instead.
+
+### Default props
 
 | Prop     | Default    | Values                                  |
 | -------- | ---------- | --------------------------------------- |
@@ -127,8 +117,13 @@ the full public surface.
 | `size`   | by `as`    | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
 | `weight` | `semibold` | `regular`, `medium`, `semibold`, `bold` |
 
-Default `size` mapping by `as`: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`, `h4 -> md`, `h5 -> sm`,
-`h6 -> xs`.
+### Behavioral notes
+
+- Default size mapping follows the semantic level: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`, `h4 -> md`,
+  `h5 -> sm`, `h6 -> xs`.
+- `Heading` keeps native `h1`-`h6` semantics and does not need extra ARIA by default.
+- Use `size` for appearance changes instead of changing the semantic level for visual reasons.
+- The root uses `text-wrap: balance` and `overflow-wrap: break-word` by default.
 
 ## Examples
 
@@ -273,14 +268,13 @@ Use `weight` for the common emphasis presets without writing custom CSS.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
-`Heading` is already the full structure, so the escape hatch is direct styling on the root element.
-Pass `className` when you need one-off presentation changes such as a different color or a scoped
-token override.
+Pass `className` when one heading needs scoped visual overrides on top of the shared typography
+contract.
 
 <Preview>
-  <CustomCompositionHeadingExample />
+  <CustomStylingHeadingExample />
 
   <Preview.Code>
     {`
@@ -309,3 +303,26 @@ token override.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Heading` through `className`, root data attributes, and the public `--heading-*` CSS
+variables defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/ui/src/styles/theme.css:1140).
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <HeadingCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="heading-root"` is the stable selector on the exported root.
+- `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, `xl`, or `2xl`.
+- `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
+- Use `className` and `--heading-*` variables for color, typography scale, wrapping, and one-off
+  presentation overrides.

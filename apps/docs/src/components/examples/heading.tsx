@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Heading } from 'moduix';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './heading.module.css';
 
 export const headingOverrideCssProperties: CssPropertyInput[] = [
@@ -45,32 +45,10 @@ export const headingOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
 ];
-export const headingPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--heading-color', 'var(--color-foreground)', 'Controls heading text color.'],
-  ['--heading-font-family', 'var(--font-sans)', 'Controls heading font family.'],
-  ['--heading-letter-spacing', '0', 'Controls heading letter spacing.'],
-  ['--heading-text-wrap', 'balance', 'Controls heading text wrapping.'],
-];
-
-export function HeadingCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function HeadingCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={headingOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function HeadingCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={headingPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -150,7 +128,7 @@ export function HeadingSemanticLevelExample() {
   );
 }
 
-export function CustomCompositionHeadingExample() {
+export function CustomStylingHeadingExample() {
   return (
     <Heading as="h2" className={styles.customHeading}>
       Customized heading
