@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import { ArrowUpRightIcon, Button, PlusIcon, Spinner, StarIcon } from 'moduix';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './button.module.css';
 
 const buttonCssProperties: CssPropertyInput[] = [
@@ -160,30 +160,11 @@ const buttonCssProperties: CssPropertyInput[] = [
 
 export const buttonOverrideCssProperties: CssPropertyInput[] = buttonCssProperties;
 
-export const buttonPlaygroundCssProperties: CssPropertyInput[] = buttonCssProperties;
-
 export function ButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
       <CSSPropertiesReferenceTable
         properties={buttonOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </div>
-  );
-}
-
-export function ButtonCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={buttonPlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
       />
     </div>
   );

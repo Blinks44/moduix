@@ -49,6 +49,10 @@ Inside `## Styling`, use:
 - Do not put runnable snippets in `Composition` when the same case is already covered in `Examples`.
 - Use `Custom Composition` only as an example label inside `Examples` when a low-level escape hatch is worth showing.
 - If an example is named `Custom Composition`, it must show the real low-level composition path rather than only styling a high-level sugar wrapper.
+- Use `Custom Styling` when the example is only about `className`, local CSS overrides, `--component-*`
+  variables, or targeting public slots/state attributes without changing the rendered structure.
+- If a component has no meaningful composition escape hatch beyond its normal public path, prefer
+  `Custom Styling` and do not add a placeholder `Custom Composition` example.
 
 ## Preview Rules
 

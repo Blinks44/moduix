@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  ButtonCssPlaygroundPanel,
   ButtonCssPropertiesPanel,
   ButtonDisabledExample,
   ButtonExample,
@@ -15,24 +14,18 @@ import {
   ButtonSizesExample,
   ButtonVariantsExample,
   CustomCompositionButtonExample,
-  buttonPlaygroundCssProperties,
 } from '@/components/examples/button';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/button" />
 
-## Overview
-
-`Button` is a thin styled wrapper over Base UI `Button`. The library keeps the default path short:
-pick a `variant`, pick a `size` when needed, and compose content through `children`.
-
-Base UI behavior stays available on the same component, including `render`, `nativeButton`,
-`disabled`, and `focusableWhenDisabled`.
-
 ## Basic
 
-<Preview cssProperties={buttonPlaygroundCssProperties}>
+Start with `Button` alone. This is the recommended path for primary actions, form submits, and
+action-like controls that only need a visual `variant`, an optional `size`, and child content.
+
+<Preview>
   <ButtonExample />
 
   <Preview.Code>
@@ -45,14 +38,6 @@ Base UI behavior stays available on the same component, including `render`, `nat
     `}
 
   </Preview.Code>
-
-<Preview.CSSProperties>
-  {(context) => <ButtonCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
-
-  <Preview.CSSPlayground>
-    {(context) => <ButtonCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -107,8 +92,9 @@ as styles, icons, and small utilities.
 
 ```text
 Button
-├─ icon, spinner, or other visual child (optional)
-└─ text label
+└─ root[data-slot="button-root"]
+   ├─ icon, spinner, or other visual child (optional)
+   └─ text label
 ```
 
 | Part     | Role                                                       |
@@ -120,12 +106,25 @@ The root exposes `data-slot="button-root"`, `data-variant`, `data-size`, and Bas
 
 ## Composition
 
-moduix only adds two visual props:
+### When to stay high-level
+
+Stay with `Button` when Base UI button semantics are correct and the control only needs moduix
+variants, sizes, and child composition.
+
+moduix adds two visual props on top of the Base UI primitive:
 
 | Prop      | Default   | Values                                                                                   |
 | --------- | --------- | ---------------------------------------------------------------------------------------- |
 | `variant` | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
+
+### When to go custom
+
+Use Base UI passthrough props such as `render`, `nativeButton`, `disabled`,
+`focusableWhenDisabled`, and event handlers when the styled control needs different rendered
+elements or custom interaction logic.
+
+### Behavioral notes
 
 Use `variant` and `size` for the common visual path. Keep everything else in composition:
 
@@ -135,6 +134,12 @@ Use `variant` and `size` for the common visual path. Keep everything else in com
 - use `render` when the styled control should render another element
 
 For navigation-first actions, render an anchor or router link instead of keeping button semantics.
+
+- `Button` forwards Base UI button props and keeps Base UI focus/press semantics.
+- The root always writes `data-slot="button-root"`, `data-variant`, and `data-size`.
+- Direct child `svg` elements inherit `currentColor` and are sized with `--button-icon-size`.
+- Disabled state styling targets both Base UI `data-disabled` and the native `[disabled]`
+  attribute.
 
 ## Examples
 
@@ -295,8 +300,6 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
   </Preview.Code>
 </Preview>
 
-## Custom Composition
-
 ### Render as a Link
 
 <Preview>
@@ -322,7 +325,7 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
   </Preview.Code>
 </Preview>
 
-### Styling Override
+### Custom Styling
 
 <Preview>
   <CustomCompositionButtonExample />
@@ -359,3 +362,25 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+`Button` exposes one stable root plus the full `--button-*` token surface used for variants, sizes,
+focus ring, spacing, and icon sizing.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ButtonCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="button-root"` is the stable selector on the exported root.
+- `data-variant` reflects the current visual variant.
+- `data-size` reflects the current size, including `icon-sm`, `icon-md`, and `icon-lg`.
+- Base UI `data-disabled` and the native `[disabled]` attribute both drive the disabled styles.

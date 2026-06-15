@@ -224,3 +224,5 @@ Example:
 - Rewrote the local documentation to describe the moduix wrapper instead of Base UI examples.
 - Exported `ButtonProps`, `ButtonSize`, and `ButtonVariant` so consumers can type wrappers without
   duplicating the variant and size unions.
+- Synced the docs page structure with the current component-doc format and confirmed the public
+  `--button-*` variables against `src/styles/theme.css`.
