@@ -18,3 +18,7 @@
   --alert-dialog-width: 28rem;
   --alert-dialog-radius: var(--radius-md);
 }
+
+.customBackdrop {
+  --alert-dialog-backdrop-blur: 8px;
+}

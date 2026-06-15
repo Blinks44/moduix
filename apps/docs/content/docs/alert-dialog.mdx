@@ -490,13 +490,16 @@ keeps the public API small while still exposing the normal theming hooks.
       import {
         AlertDialog,
         AlertDialogAction,
+        AlertDialogBackdrop,
         AlertDialogCancel,
-        AlertDialogContent,
         AlertDialogDescription,
         AlertDialogFooter,
         AlertDialogHeader,
+        AlertDialogPopup,
+        AlertDialogPortal,
         AlertDialogTitle,
         AlertDialogTrigger,
+        AlertDialogViewport,
       } from "moduix";
       import styles from "./alert-dialog-demo.module.css";
 
@@ -504,18 +507,23 @@ keeps the public API small while still exposing the normal theming hooks.
         return (
           <AlertDialog>
             <AlertDialogTrigger>Reset environment</AlertDialogTrigger>
-            <AlertDialogContent className={styles.customPopup}>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Reset environment?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  All runtime variables will return to their default values.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Reset</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
+            <AlertDialogPortal>
+              <AlertDialogBackdrop className={styles.customBackdrop} />
+              <AlertDialogViewport>
+                <AlertDialogPopup className={styles.customPopup}>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Reset environment?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      All runtime variables will return to their default values.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>Reset</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogPopup>
+              </AlertDialogViewport>
+            </AlertDialogPortal>
           </AlertDialog>
         );
       }
@@ -525,6 +533,10 @@ keeps the public API small while still exposing the normal theming hooks.
 
   <Preview.CSS>
     {`
+      .customBackdrop {
+        --alert-dialog-backdrop-blur: 8px;
+      }
+
       .customPopup {
         --alert-dialog-width: 28rem;
         --alert-dialog-radius: var(--radius-md);

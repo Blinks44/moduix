@@ -1,14 +1,18 @@
 import {
   AlertDialog,
   AlertDialogAction,
+  AlertDialogBackdrop,
   AlertDialogBody,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogPopup,
+  AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogTrigger,
+  AlertDialogViewport,
   Button,
   ScrollArea,
   createAlertDialogHandle,
@@ -350,18 +354,23 @@ export function CustomCompositionAlertDialogExample() {
   return (
     <AlertDialog>
       <AlertDialogTrigger>Reset environment</AlertDialogTrigger>
-      <AlertDialogContent className={styles.customPopup}>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Reset environment?</AlertDialogTitle>
-          <AlertDialogDescription>
-            All runtime variables will return to their default values.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Reset</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
+      <AlertDialogPortal>
+        <AlertDialogBackdrop className={styles.customBackdrop} />
+        <AlertDialogViewport>
+          <AlertDialogPopup className={styles.customPopup}>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Reset environment?</AlertDialogTitle>
+              <AlertDialogDescription>
+                All runtime variables will return to their default values.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Reset</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogPopup>
+        </AlertDialogViewport>
+      </AlertDialogPortal>
     </AlertDialog>
   );
 }

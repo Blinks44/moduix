@@ -48,6 +48,7 @@ Inside `## Styling`, use:
 - Do not duplicate the `Basic` example in `Anatomy` as a full code block unless the structure would otherwise be unclear.
 - Do not put runnable snippets in `Composition` when the same case is already covered in `Examples`.
 - Use `Custom Composition` only as an example label inside `Examples` when a low-level escape hatch is worth showing.
+- If an example is named `Custom Composition`, it must show the real low-level composition path rather than only styling a high-level sugar wrapper.
 
 ## Preview Rules
 
