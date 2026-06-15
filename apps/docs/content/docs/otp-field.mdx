@@ -5,10 +5,9 @@ icon: Component
 ---
 
 import {
-  OTPFieldCssPlaygroundPanel,
-  OTPFieldCssPropertiesPanel,
   OTPFieldAlphanumericExample,
   OTPFieldAutoSubmitExample,
+  OTPFieldCssPropertiesPanel,
   OTPFieldCustomSanitizationExample,
   OTPFieldCustomSeparatorExample,
   OTPFieldExample,
@@ -16,20 +15,27 @@ import {
   OTPFieldMaskedExample,
   OTPFieldPlaceholderHintsExample,
   OTPFieldValidationExample,
-  otpFieldPlaygroundCssProperties,
 } from '@/components/examples/otp-field';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/otp-field" />
 
+## Choosing the right component
+
+Use `OTPField` when the value is a short fixed-length verification code and each character should be
+entered into its own visible slot.
+
+- Choose **`OTPField`** for one-time passwords, PINs, backup codes, and invite codes.
+- Choose **`Input`** when one plain text input is enough.
+- Choose **`PasswordInput`** when the value is a single secret string with a visibility toggle.
+
 ## Basic
 
-`OTPField` is a thin wrapper over the Base UI root primitive. By default it renders one styled slot
-per character in `length`, so the common path stays short. Drop down to `OTPFieldInput` and
-`OTPFieldSeparator` only when the markup or per-slot styling needs to change.
+Start with `OTPField` inside `Field`. When `children` is omitted, moduix renders one styled slot
+per character in `length`.
 
-<Preview cssProperties={otpFieldPlaygroundCssProperties}>
+<Preview>
   <OTPFieldExample />
 
   <Preview.Code>
@@ -50,17 +56,11 @@ per character in `length`, so the common path stays short. Drop down to `OTPFiel
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>
-    {(context) => <OTPFieldCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <OTPFieldCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
 
-If you want `OTP Field` to become part of your own project source instead of staying in
+If you want `OTPField` to become part of your own project source instead of staying in
 `node_modules`, install it from the moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
@@ -101,13 +101,12 @@ aubx shadcn@latest add Blinks44/moduix/otp-field
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `OTP Field` depends on, such
+This install path also pulls in the shared moduix foundation files that `OTPField` depends on, such
 as styles, icons, and small utilities.
 
-The generated first slot keeps the field label association from `htmlFor={id}`. The remaining slots
-receive position-aware labels automatically in the default path.
-
 ## Anatomy
+
+The public shape stays small:
 
 ```text
 OTPField[length]
@@ -117,41 +116,49 @@ OTPField[length]
 └─ OTPFieldInput
 ```
 
-| Part                | Role                                                                                         |
-| ------------------- | -------------------------------------------------------------------------------------------- |
-| `OTPField`          | Root state machine. Owns value, validation, completion, masking, and default slot rendering. |
-| `OTPFieldInput`     | Visible character slot. Use it for grouped layouts, placeholders, or per-slot styling.       |
-| `OTPFieldSeparator` | Optional visual separator between groups. Decorative by default.                             |
+| Part                | Role                                                             |
+| ------------------- | ---------------------------------------------------------------- |
+| `OTPField`          | Root state machine and default slot renderer.                    |
+| `OTPFieldInput`     | One visible character slot.                                      |
+| `OTPFieldSeparator` | Optional visual separator between groups. Decorative by default. |
 
 ## Composition
 
-Use the default path when every slot shares the same structure:
+### When to stay high-level
 
-```tsx
-<OTPField id={id} length={6} />
-```
+Stay with `OTPField` alone when every slot shares the same structure and styling.
 
-Compose it manually when the layout needs grouping, separators, or different props on specific
-slots:
+Pass Base UI root props such as `value`, `defaultValue`, `onValueChange`, `onValueComplete`,
+`validationType`, `normalizeValue`, `mask`, `autoSubmit`, `required`, `disabled`, and `readOnly`
+directly to `OTPField`.
 
-```tsx
-<OTPField id={id} length={6}>
-  <div className={styles.group}>
-    <OTPFieldInput />
-    <OTPFieldInput aria-label="Character 2 of 6" />
-    <OTPFieldInput aria-label="Character 3 of 6" />
-  </div>
-  <OTPFieldSeparator>-</OTPFieldSeparator>
-  <div className={styles.group}>
-    <OTPFieldInput aria-label="Character 4 of 6" />
-    <OTPFieldInput aria-label="Character 5 of 6" />
-    <OTPFieldInput aria-label="Character 6 of 6" />
-  </div>
-</OTPField>
-```
+The default path keeps the field label association on the first slot from `htmlFor={id}`. The
+remaining generated slots receive position-aware labels automatically.
 
-When composing manually, keep the first slot unlabeled so it inherits the field label, give the
-remaining slots position-aware `aria-label` values, and still render exactly `length` inputs.
+### When to go custom
+
+Switch to `OTPFieldInput` and `OTPFieldSeparator` when the layout needs grouped slots, separators,
+placeholders, or per-slot native input props.
+
+When composing manually, render exactly `length` inputs, keep the first slot unlabeled so the field
+label still names the control, and give later slots labels such as `"Character 2 of 6"`.
+
+### Default props
+
+| Prop             | Default   | Values / Notes                        |
+| ---------------- | --------- | ------------------------------------- |
+| `validationType` | `numeric` | `numeric`, `alphanumeric`, `none`     |
+| `mask`           | `false`   | Masks visible characters              |
+| `autoSubmit`     | `false`   | Submits the owning form on completion |
+| `className`      | -         | `string` or Base UI state callback    |
+
+### Behavioral notes
+
+- Use `value` with `onValueChange` for controlled fields, or `defaultValue` for uncontrolled ones.
+- `length` must match the number of rendered `OTPFieldInput` parts in manual composition.
+- `OTPFieldSeparator` is decorative by default with `aria-hidden="true"` and `role="presentation"`.
+- Use `validationType="alphanumeric"` for recovery or invite codes.
+- Use `validationType="none"` only when you also own normalization rules through `normalizeValue`.
 
 ## Examples
 
@@ -226,8 +233,8 @@ Use `mask` when the code should stay obscured while it is being typed.
 
 ### Field Validation
 
-Wrap the field in `Field` when you want label, description, and validation messaging to stay in one
-form primitive flow.
+Wrap the field in `Field` when the label, validation, and error message should stay in one form
+flow.
 
 <Preview>
   <OTPFieldValidationExample />
@@ -312,8 +319,8 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
 
 ### Custom Sanitization
 
-Set `validationType="none"` with `normalizeValue` when typed or pasted input needs app-specific
-normalization.
+Use `validationType="none"` with `normalizeValue` when pasted or typed input needs app-specific
+sanitization.
 
 <Preview>
   <OTPFieldCustomSanitizationExample />
@@ -358,12 +365,9 @@ normalization.
   </Preview.Code>
 </Preview>
 
-## Custom Composition
-
-Use explicit composition when the layout needs grouped slots, custom separators, or per-slot native
-input props.
-
 ### Grouped Layout
+
+Use manual composition when the code should be split into visual groups.
 
 <Preview>
   <OTPFieldGroupedLayoutExample />
@@ -412,7 +416,7 @@ input props.
 
 ### Placeholder Hints
 
-`OTPFieldInput` is a real input, so native `placeholder` props and CSS work as usual.
+`OTPFieldInput` is a real input, so native `placeholder` props and placeholder CSS work as usual.
 
 <Preview>
   <OTPFieldPlaceholderHintsExample />
@@ -489,7 +493,10 @@ input props.
   </Preview.CSS>
 </Preview>
 
-### Styled Slots and Separator
+### Custom Styling
+
+Use `className` and `--otp-field-*` variables when the structure stays the same but the slots or
+separator need different visual treatment.
 
 <Preview>
   <OTPFieldCustomSeparatorExample />
@@ -557,3 +564,33 @@ input props.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+### CSS Properties
+
+The public `--otp-field-*` variables in `theme.css` are current for this component and match the
+shipped stylesheet contract.
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <OTPFieldCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use `className` on the root or parts for local overrides, and target the stable public slots when
+you need CSS selectors.
+
+| Part                | `data-slot`           | Useful state hooks                                 |
+| ------------------- | --------------------- | -------------------------------------------------- |
+| `OTPField`          | `otp-field-root`      | `data-disabled`, `data-readonly`                   |
+| `OTPFieldInput`     | `otp-field-input`     | `data-filled`, `data-invalid`, `data-complete`     |
+| `OTPFieldSeparator` | `otp-field-separator` | No component-specific state; decorative by default |
+
+Base UI also exposes field-state attributes such as `data-focused`, `data-valid`, `data-touched`,
+and `data-dirty` on relevant parts. moduix only styles a subset by default, but the attributes stay
+available for consumer CSS.
