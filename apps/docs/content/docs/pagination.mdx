@@ -7,23 +7,21 @@ icon: Component
 import {
   PaginationClassNameExample,
   PaginationCompactExample,
-  PaginationControlledExample,
-  PaginationCssPlaygroundPanel,
   PaginationCssPropertiesPanel,
   PaginationDensityExample,
   PaginationExample,
-  paginationPlaygroundCssProperties,
 } from '@/components/examples/pagination';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/toolbar" />
 
-## Default Path
+## Basic
 
-Use `Pagination` with `usePagination` when the page window should be calculated for you.
+Start with `Pagination` and `usePagination` when the page window should be calculated for you and
+page changes stay in local UI state.
 
-<Preview cssProperties={paginationPlaygroundCssProperties}>
+<Preview>
   <PaginationExample />
 
   <Preview.Code>
@@ -45,7 +43,7 @@ Use `Pagination` with `usePagination` when the page window should be calculated 
         const pagination = usePagination({ count: 10, page });
 
         return (
-          <Pagination>
+          <Pagination aria-label="Search results pages">
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
@@ -88,12 +86,6 @@ Use `Pagination` with `usePagination` when the page window should be calculated 
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>
-    {(context) => <PaginationCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <PaginationCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -139,14 +131,12 @@ aubx shadcn@latest add Blinks44/moduix/pagination
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Pagination` depends on, such
-as styles, icons, and small utilities.
-
-When `href` and `render` are omitted, `PaginationLink`, `PaginationPrevious`, and
-`PaginationNext` render native `button` elements automatically. Use that path for client-side page
-state, tables, and filtered lists.
+This install path also pulls in the shared moduix foundation files that `Pagination` depends on,
+such as styles, icons, and small utilities.
 
 ## Anatomy
+
+The public structure stays explicit:
 
 ```text
 Pagination
@@ -165,109 +155,61 @@ Pagination
 | -------------------- | ------------------------------------------------------------------ |
 | `Pagination`         | Navigation landmark.                                               |
 | `PaginationContent`  | Base UI toolbar root for keyboard navigation and item arrangement. |
-| `PaginationItem`     | Lightweight wrapper for one pagination element.                    |
+| `PaginationItem`     | Lightweight layout wrapper for one pagination element.             |
 | `PaginationLink`     | Page control with active styling via `isActive`.                   |
-| `PaginationPrevious` | Previous-page shortcut with a default icon-only control.           |
-| `PaginationNext`     | Next-page shortcut with a default icon-only control.               |
+| `PaginationPrevious` | Previous-page shortcut with an icon-only default control.          |
+| `PaginationNext`     | Next-page shortcut with an icon-only default control.              |
 | `PaginationEllipsis` | Non-interactive collapsed-range marker.                            |
 
 ## Composition
 
-`Pagination` stays thin on purpose:
+### When to stay high-level
 
-- `usePagination` handles range generation only
-- URL mapping stays in consumer code
-- routing stays in consumer code
-- visible layout stays explicit in JSX
+Stay with `Pagination`, `PaginationContent`, and `usePagination` for most paginated lists, search
+results, and tables.
 
-Use these paths:
+`usePagination` only calculates the visible range. It does not own routing, URL state, fetching, or
+table state. Keep those concerns in application code and map them into `PaginationLink`,
+`PaginationPrevious`, and `PaginationNext`.
 
-| Pattern                | Best fit                                              |
-| ---------------------- | ----------------------------------------------------- |
-| default button path    | Local state, client-side tables, filtered collections |
-| `href="/items?page=4"` | Plain links and SSR-first pages                       |
-| `render={<Link />}`    | Router-specific link components                       |
+When `href` and `render` are omitted, `PaginationLink`, `PaginationPrevious`, and `PaginationNext`
+render native `button` elements automatically. Use that path for local state and client-side
+interactions.
 
-`PaginationPrevious` and `PaginationNext` are icon-only by default. Pass `children` when the UI
-needs text labels or a custom layout.
+### When to go custom
+
+Skip `usePagination` and compose the visible items manually when the surrounding layout already
+knows the exact page window, when the range is intentionally short, or when routing owns the page
+math elsewhere.
+
+Use `href="/items?page=4"` for plain anchors and `render={<Link />}` when the app standardizes on a
+router-specific link component.
+
+### Default props
+
+| Prop            | Default      | Values / Notes                                                    |
+| --------------- | ------------ | ----------------------------------------------------------------- |
+| `aria-label`    | `Pagination` | Applied on `Pagination` when no explicit label is passed          |
+| `siblingCount`  | `1`          | `usePagination` pages shown on each side of the current page      |
+| `boundaryCount` | `1`          | `usePagination` pages always shown at the start and end           |
+| `isActive`      | `false`      | Sets `aria-current="page"` and active styling on `PaginationLink` |
+
+### Behavioral notes
+
+- `PaginationContent` uses the Base UI toolbar primitive, so roving keyboard focus comes from the
+  toolbar contract.
+- `PaginationPrevious` and `PaginationNext` add accessible labels automatically when they stay
+  icon-only.
+- Disabled styling applies through `[aria-disabled='true']`, `[data-disabled]`, and `[disabled]`.
+- `PaginationItem` is only a layout wrapper. If surrounding list semantics matter, own that markup
+  in app code.
 
 ## Examples
 
-### Controlled State
-
-The default button path keeps client-side pagination short.
-
-<Preview>
-  <PaginationControlledExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Pagination,
-        PaginationContent,
-        PaginationEllipsis,
-        PaginationItem,
-        PaginationLink,
-        PaginationNext,
-        PaginationPrevious,
-        usePagination,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function PaginationControlledDemo() {
-        const [page, setPage] = useState(5);
-        const pagination = usePagination({ count: 10, page });
-
-        return (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  aria-disabled={!pagination.canPreviousPage || undefined}
-                  onClick={() => {
-                    if (pagination.canPreviousPage) {
-                      setPage(pagination.previousPage);
-                    }
-                  }}
-                />
-              </PaginationItem>
-              {pagination.items.map((item, index) => (
-                <PaginationItem key={String(item) + "-" + index}>
-                  {typeof item !== "number" ? (
-                    <PaginationEllipsis />
-                  ) : (
-                    <PaginationLink
-                      isActive={item === pagination.page}
-                      onClick={() => setPage(item)}
-                    >
-                      {item}
-                    </PaginationLink>
-                  )}
-                </PaginationItem>
-              ))}
-              <PaginationItem>
-                <PaginationNext
-                  aria-disabled={!pagination.canNextPage || undefined}
-                  onClick={() => {
-                    if (pagination.canNextPage) {
-                      setPage(pagination.nextPage);
-                    }
-                  }}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
 ### Range Density
 
-Tune `siblingCount` and `boundaryCount` on `usePagination` when the page window should be denser or
-wider.
+Tune `siblingCount` and `boundaryCount` when the page window should stay denser on wide result
+sets.
 
 <Preview>
   <PaginationDensityExample />
@@ -285,10 +227,9 @@ wider.
   </Preview.Code>
 </Preview>
 
-### Styling
+### Custom Styling
 
-Style the composed parts with `className` on `Pagination` and the public `--pagination-*`
-variables.
+Style the composed parts with `className` on `Pagination` and local `--pagination-*` overrides.
 
 <Preview>
   <PaginationClassNameExample />
@@ -315,9 +256,7 @@ variables.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
-
-### Manual Window
+### Custom Composition
 
 Build a shorter explicit window when the surrounding layout already knows which pages should be
 shown.
@@ -330,7 +269,14 @@ shown.
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious onClick={() => setPage((current) => Math.max(current - 1, 1))} />
+            <PaginationPrevious
+              aria-disabled={page === 1 || undefined}
+              onClick={() => {
+                if (page > 1) {
+                  setPage(page - 1);
+                }
+              }}
+            />
           </PaginationItem>
           <PaginationItem>
             <PaginationLink onClick={() => setPage(4)}>4</PaginationLink>
@@ -344,7 +290,14 @@ shown.
             <PaginationLink onClick={() => setPage(6)}>6</PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext onClick={() => setPage((current) => Math.min(current + 1, 10))} />
+            <PaginationNext
+              aria-disabled={page === 10 || undefined}
+              onClick={() => {
+                if (page < 10) {
+                  setPage(page + 1);
+                }
+              }}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
@@ -385,7 +338,7 @@ export function PaginationLinks({ pageCount }: { pageCount: number }) {
   };
 
   return (
-    <Pagination>
+    <Pagination aria-label="Articles pages">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -419,12 +372,29 @@ export function PaginationLinks({ pageCount }: { pageCount: number }) {
 }
 ```
 
-`createHref` is just a small consumer helper that turns a page number into the next URL. In this
-example it:
+Keep `createHref` close to the router integration so page math, current search params, and URL
+shape stay owned by the app.
 
-- reads the current query string
-- updates only the `page` param
-- preserves the rest of the URL state
-- returns the final `href` string for the router link
+## Styling
 
-Keep that helper in app code, close to the router you actually use.
+Style `Pagination` through `className`, `data-slot="pagination-*"` hooks, and the public
+`--pagination-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <PaginationCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="pagination-root"` for the outer navigation landmark
+- `data-slot="pagination-content"` for toolbar layout and gap overrides
+- `data-slot="pagination-link"` for page, previous, and next controls
+- `data-slot="pagination-ellipsis"` for collapsed-range marker styling
+- `aria-current="page"` and `isActive` for active page state targeting
+- `[aria-disabled='true']`, `[data-disabled]`, and `[disabled]` for disabled visual states
