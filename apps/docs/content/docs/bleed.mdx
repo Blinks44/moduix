@@ -6,27 +6,23 @@ icon: Component
 
 import {
   BleedBlockExample,
-  BleedCssPlaygroundPanel,
   BleedCssPropertiesPanel,
   BleedExample,
   BleedInlineAmountsExample,
   BleedSemanticExample,
   CustomCompositionBleedExample,
-  bleedPlaygroundCssProperties,
 } from '@/components/examples/bleed';
 
-## Overview
+## API Reference
 
-`Bleed` is a small layout primitive for content that should intentionally escape a constrained
-parent while staying in normal document flow.
-
-Use `inline` for horizontal bleed, add `block` when a surface should also escape vertical padding,
-and use `as` when the root needs a semantic element.
-The default path is `inline="full"` for full-bleed media, banners, and section accents.
+`Bleed` is a standalone moduix layout primitive and does not wrap a Base UI primitive.
 
 ## Basic
 
-<Preview cssProperties={bleedPlaygroundCssProperties}>
+Start with the default `inline="full"` behavior when media, banners, or section accents should
+break out of a constrained container while staying in normal document flow.
+
+<Preview>
   <BleedExample />
 
   <Preview.Code>
@@ -74,11 +70,6 @@ The default path is `inline="full"` for full-bleed media, banners, and section a
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <BleedCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-
-  <Preview.CSSPlayground>
-    {(context) => <BleedCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -129,18 +120,12 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Bleed` has a single root element. It applies negative inline and/or block margins so content can
-escape a constrained parent while staying in normal document flow.
+`Bleed` has a single root element. It applies negative inline and/or block margins on that root.
 
 ```text
 Bleed
-└─ children
-```
-
-```tsx
-<Bleed inline="md" block="none">
-  <div className={styles.panel}>Escaped content</div>
-</Bleed>
+└─ root[data-slot="bleed-root"]
+   └─ children
 ```
 
 | Part    | Role                                            |
@@ -149,10 +134,18 @@ Bleed
 
 ## Composition
 
-`Bleed` has one job: apply negative margins on the root element.
-It does not add inner wrappers, layout state, or slot APIs.
+### When to stay high-level
 
-### Defaults
+Stay with `Bleed` when the layout only needs controlled negative margins on one wrapper.
+This is the intended path for full-bleed media, inset section backgrounds, dividers, and banners
+inside centered or padded shells.
+
+### When to go custom
+
+Use `className` and local `--bleed-*` overrides when a drawer, nested scroll region, or app shell
+needs different full-bleed math than the default viewport-based values.
+
+### Default props
 
 | Prop     | Default | Values                                       |
 | -------- | ------- | -------------------------------------------- |
@@ -160,15 +153,16 @@ It does not add inner wrappers, layout state, or slot APIs.
 | `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
 | `as`     | `div`   | Any React element type                       |
 
-Use `className` for root styling and local `--bleed-*` overrides when layout math needs to change.
+### Behavioral notes
 
-`inline="full"` uses viewport math. Keep these constraints in mind:
-
-- `overflow: hidden` or `overflow: clip` on an ancestor can crop the bleed.
-- Nested scroll regions, drawers, and app shells may need local overrides for
+- `Bleed` renders exactly one root and forwards regular DOM props to it.
+- Use `inline` for horizontal escape, and add `block` when a surface should also escape vertical
+  padding.
+- Use one of the fixed scale values when content only needs to escape container padding instead of
+  reaching the viewport edge.
+- `inline="full"` uses viewport math, so nested shells may need local overrides for
   `--bleed-inline-full` and `--bleed-inline-full-size`.
-- Use one of the fixed scale values when content only needs to escape container padding, not reach
-  the viewport edge.
+- Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
 
 ## Examples
 
@@ -335,7 +329,7 @@ Use `as` when the escaping content has a more specific semantic role.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
 Pass `className` when styling the root or overriding bleed variables in local CSS.
 This keeps the public API small while still allowing local full-bleed math for shells, drawers,
@@ -386,3 +380,27 @@ and inset layouts that do not align with the viewport.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+`Bleed` exposes a small CSS variable contract and stable root data attributes. Use variables when
+the layout math needs to change, and use `className` for the visual surface inside the bleed.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <BleedCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="bleed-root"` is the stable selector on the exported root.
+- `data-inline` reflects the current inline bleed mode: `none`, `xs`, `sm`, `md`, `lg`, `xl`, or
+  `full`.
+- `data-block` reflects the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
+- The public `--bleed-*` variables in `theme.css` cover both scale-based bleed amounts and the
+  viewport math used by `inline="full"`.

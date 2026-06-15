@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Bleed, Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './bleed.module.css';
 
 export const bleedOverrideCssProperties: CssPropertyInput[] = [
@@ -19,26 +19,10 @@ export const bleedOverrideCssProperties: CssPropertyInput[] = [
   ['--bleed-inline-xl', 'var(--spacing-6)', 'Controls extra-large inline bleed.'],
 ];
 
-export const bleedPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--bleed-inline-full', 'calc(50% - 50vw)', 'Controls full viewport inline bleed.'],
-  ['--bleed-inline-full-size', '100vw', 'Controls the width used by full viewport inline bleed.'],
-];
-
 export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={bleedOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function BleedCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={bleedPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }

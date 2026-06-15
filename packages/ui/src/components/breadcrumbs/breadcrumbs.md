@@ -226,3 +226,5 @@ background with `var(--color-accent)`.
   have clearer interactive feedback.
 - Added a shared small horizontal padding for links, current page text, and ellipsis so breadcrumb
   items feel less compressed by default.
+- Synced the docs page structure with the current component-doc format and confirmed the public
+  `--breadcrumbs-*` variables against `src/styles/theme.css`.

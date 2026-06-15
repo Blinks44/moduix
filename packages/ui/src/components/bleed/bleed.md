@@ -152,5 +152,5 @@ needs different full-bleed math.
 
 ## Local changelog
 
-- Documented the real local `Bleed` contract, including root-only composition, data attributes,
-  CSS variables, accessibility notes, and limitations.
+- Synced the local `Bleed` docs with the current docs-page structure and confirmed the public
+  `--bleed-*` variables against `src/styles/theme.css`.

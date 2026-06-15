@@ -14,7 +14,7 @@ import {
   SeparatorMarkIcon,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './breadcrumbs.module.css';
 
 const collapsedItems = [
@@ -73,22 +73,6 @@ export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-separator-font-size', '0.875em', 'Controls separator font size.'],
 ];
 
-export const breadcrumbsPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--breadcrumbs-item-max-width', '16rem', 'Controls max width of each breadcrumb item.'],
-  [
-    '--breadcrumbs-item-padding-x',
-    '0.25rem',
-    'Controls inline padding for links, page text, and ellipsis.',
-  ],
-  ['--breadcrumbs-link-color', 'var(--color-muted-foreground)', 'Controls breadcrumb link color.'],
-  [
-    '--breadcrumbs-link-color-hover',
-    'var(--color-foreground)',
-    'Controls breadcrumb link hover color.',
-  ],
-  ['--breadcrumbs-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
-];
-
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
@@ -121,21 +105,6 @@ export function BreadcrumbsCssPropertiesPanel(_context: CSSPropertiesEditorConte
   return (
     <CSSPropertiesReferenceTable
       properties={breadcrumbsOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function BreadcrumbsCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={breadcrumbsPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }

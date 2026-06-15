@@ -6,18 +6,24 @@ icon: Component
 
 import {
   BreadcrumbsCollapsedExample,
-  BreadcrumbsCssPlaygroundPanel,
   BreadcrumbsCssPropertiesPanel,
   BreadcrumbsCustomSeparatorExample,
   BreadcrumbsExample,
   BreadcrumbsFrameworkLinkExample,
   BreadcrumbsLongLabelExample,
-  breadcrumbsPlaygroundCssProperties,
 } from '@/components/examples/breadcrumbs';
+
+## API Reference
+
+`Breadcrumbs` is a standalone moduix component set and does not wrap a Base UI primitive.
 
 ## Basic
 
-<Preview cssProperties={breadcrumbsPlaygroundCssProperties}>
+Start with `Breadcrumbs`, `BreadcrumbsList`, `BreadcrumbsItem`, `BreadcrumbsLink`,
+`BreadcrumbsSeparator`, and `BreadcrumbsPage`. This is the recommended path for semantic trail
+navigation where the app already knows the visible segments.
+
+<Preview>
   <BreadcrumbsExample />
 
   <Preview.Code>
@@ -53,8 +59,6 @@ import {
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <BreadcrumbsCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <BreadcrumbsCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -100,8 +104,8 @@ aubx shadcn@latest add Blinks44/moduix/breadcrumbs
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Breadcrumbs` depends on, such
-as styles, icons, and small utilities.
+This install path also pulls in the shared moduix foundation files that `Breadcrumbs` depends on,
+such as styles, icons, and small utilities.
 
 ## Anatomy
 
@@ -109,12 +113,13 @@ as styles, icons, and small utilities.
 
 ```text
 Breadcrumbs
-└─ BreadcrumbsList
-   ├─ BreadcrumbsItem
-   │  └─ BreadcrumbsLink
-   ├─ BreadcrumbsSeparator
-   └─ BreadcrumbsItem
-      └─ BreadcrumbsPage
+└─ nav[data-slot="breadcrumbs-root"]
+   └─ BreadcrumbsList
+      ├─ BreadcrumbsItem
+      │  └─ BreadcrumbsLink
+      ├─ BreadcrumbsSeparator
+      └─ BreadcrumbsItem
+         └─ BreadcrumbsPage
 ```
 
 | Part                   | Role                                     |
@@ -129,11 +134,27 @@ Breadcrumbs
 
 ## Composition
 
-Use `BreadcrumbsLink` for navigable segments and `BreadcrumbsPage` for the current page.
+### When to stay high-level
 
-Use plain `href` when a normal anchor is enough. Use `render={<Link />}` when the app
-standardizes on a router link component. Keep collapsed paths explicit by composing `Breadcrumbs`
-with `Menu`; the breadcrumb parts themselves stay stateless and semantic.
+Stay with the exported breadcrumb parts when the application already knows the visible path and
+just needs semantic navigation markup with library styling.
+
+Use `BreadcrumbsLink` for navigable ancestors and `BreadcrumbsPage` for the current page.
+
+### When to go custom
+
+Use `render={<Link />}` when the app standardizes on a framework router component, and compose
+`Breadcrumbs` with `Menu` when collapsed middle segments need disclosure behavior.
+
+### Behavioral notes
+
+- `Breadcrumbs` renders a `nav` landmark and defaults `aria-label` to `"Breadcrumb"`.
+- `BreadcrumbsList` owns the ordered-list structure and horizontal layout.
+- `BreadcrumbsSeparator` and `BreadcrumbsEllipsis` are explicit JSX parts and are hidden from
+  assistive technology.
+- `Breadcrumbs` does not calculate paths, inject separators, or manage collapsed state.
+- The last visible item can shrink and truncates with ellipsis through
+  `--breadcrumbs-item-max-width`.
 
 ## Examples
 
@@ -332,7 +353,7 @@ Wrap the current page content with your own element when you need extra attribut
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Framework Link
 
 Use `render={<Link />}` when the app standardizes on framework links.
 
@@ -384,3 +405,28 @@ Use `render={<Link />}` when the app standardizes on framework links.
 
   </Preview.Code>
 </Preview>
+
+## Styling
+
+Each exported part has a stable `data-slot`, and the public `--breadcrumbs-*` variables cover the
+layout, text treatment, focus ring, separators, and ellipsis sizing used by the component.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <BreadcrumbsCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`,
+  `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` are stable selectors on
+  the exported parts.
+- `BreadcrumbsLink`, `BreadcrumbsPage`, and `BreadcrumbsEllipsis` share the inline padding from
+  `--breadcrumbs-item-padding-x`.
+- The last visible `BreadcrumbsItem` is the truncation target and uses
+  `--breadcrumbs-item-max-width`.
