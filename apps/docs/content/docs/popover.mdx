@@ -6,29 +6,41 @@ icon: Component
 
 import {
   ControlledPopoverExample,
-  CustomTriggerPopoverExample,
   CustomCompositionPopoverExample,
+  CustomTriggerPopoverExample,
   DetachedTriggerPopoverExample,
   ImageOnlyPopoverExample,
   ModalFocusPopoverExample,
   OpenOnHoverPopoverExample,
-  PopoverCssPlaygroundPanel,
   PopoverCssPropertiesPanel,
   PopoverExample,
   PopoverWithArrowExample,
   PopoverWithBackdropExample,
   PopoverWithCloseActionExample,
   SideControlPopoverExample,
-  popoverPlaygroundCssProperties,
 } from '@/components/examples/popover';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/popover" />
 
+## Choosing the right component
+
+Use `Popover` for compact, contextual content that stays anchored to one trigger and can contain
+interactive UI.
+
+- Choose **`Tooltip`** for short, non-interactive hints or labels.
+- Choose **`Dialog`** when the content needs a dedicated overlay workflow, stronger interruption, or
+  a larger surface.
+- Choose **`Popover`** when users need lightweight actions, status details, or short forms without
+  leaving the current layout.
+
 ## Basic
 
-<Preview cssProperties={popoverPlaygroundCssProperties}>
+Start with `Popover`, `PopoverTrigger`, and `PopoverContent`. This is the recommended path for
+most menus, notifications, and compact forms.
+
+<Preview>
   <PopoverExample />
 
   <Preview.Code>
@@ -81,8 +93,6 @@ import {
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <PopoverCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <PopoverCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -133,9 +143,7 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Popover` combines a trigger and a floating content layer. Keep `PopoverTrigger` and
-`PopoverContent` under the same `Popover` root unless you intentionally connect them with
-`createPopoverHandle`.
+The normal consumer path stays short:
 
 ```text
 Popover
@@ -146,101 +154,76 @@ Popover
    │  ├─ PopoverTitle (optional)
    │  └─ PopoverDescription (optional)
    ├─ PopoverBody (optional)
-   ├─ PopoverFooter (optional)
-   │  └─ PopoverClose (optional)
+   └─ PopoverFooter (optional)
+      └─ PopoverClose (optional)
 ```
 
-```tsx
-<Popover>
-  <PopoverTrigger render={<Button />}>Open popover</PopoverTrigger>
-  <PopoverContent>
-    <PopoverHeader>
-      <PopoverTitle>Popover title</PopoverTitle>
-      <PopoverDescription>Short contextual details.</PopoverDescription>
-    </PopoverHeader>
-    <PopoverBody>Popup content</PopoverBody>
-    <PopoverFooter>
-      <PopoverClose>Close</PopoverClose>
-    </PopoverFooter>
-  </PopoverContent>
-</Popover>
-```
+`PopoverContent` internally renders `PopoverPortal`, `PopoverPositioner`, and `PopoverPopup`.
+`PopoverBackdrop`, `PopoverArrow`, and `PopoverViewport` stay explicit building blocks for advanced
+composition.
 
-| Part                 | Role                                                                                                |
-| -------------------- | --------------------------------------------------------------------------------------------------- |
-| `Popover`            | Root state machine. Controls `open`, `defaultOpen`, `onOpenChange`, `modal`, and shared behavior.   |
-| `PopoverTrigger`     | Interactive anchor that opens and closes the popup. Supports click and optional hover opening.      |
-| `PopoverContent`     | Simple default popup. It renders the portal, positioner, and popup for the common case.             |
-| `PopoverPortal`      | Explicit portal part for advanced composition.                                                      |
-| `PopoverBackdrop`    | Optional backdrop part when the popover should visually separate from the page.                     |
-| `PopoverPositioner`  | Floating-positioning part for custom placement and layout composition.                              |
-| `PopoverPopup`       | Visible popup surface for custom composition and styling.                                           |
-| `PopoverArrow`       | Default arrow part. Enable it with `showArrow` or replace its children in custom composition.       |
-| `PopoverViewport`    | Optional viewport wrapper for panel-style inner transitions.                                        |
-| `PopoverHeader`      | Semantic top area for title and description. Useful for consistent spacing in information popovers. |
-| `PopoverTitle`       | Main heading inside the popup. Helps users quickly identify popup purpose.                          |
-| `PopoverDescription` | Supporting text under the title. Use for concise context or status details.                         |
-| `PopoverBody`        | Optional free-form content region when header/footer wrappers are not enough.                       |
-| `PopoverFooter`      | Optional action area, commonly for dismiss, confirm, or secondary controls.                         |
-| `PopoverClose`       | Built-in close action that dismisses the current popover without custom state wiring.               |
-
-Style the visible layers first: `PopoverTrigger`, `PopoverContent`, and header/body/footer
-content. Reach for explicit low-level parts only when you need to change the structure.
+| Part                 | Role                                                                            |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `Popover`            | Root state and behavior. Controls `open`, `defaultOpen`, `modal`, and `handle`. |
+| `PopoverTrigger`     | Interactive anchor that opens and closes the popup.                             |
+| `PopoverContent`     | Default popup wrapper for the common case.                                      |
+| `PopoverHeader`      | Layout wrapper for title and description.                                       |
+| `PopoverTitle`       | Accessible popup heading.                                                       |
+| `PopoverDescription` | Supporting text inside the popup.                                               |
+| `PopoverBody`        | Optional free-form content region.                                              |
+| `PopoverFooter`      | Optional action row.                                                            |
+| `PopoverClose`       | Built-in dismiss action.                                                        |
 
 ## Composition
 
-Use `Popover` for root state and behavior props such as `open`, `defaultOpen`, `onOpenChange`,
-`modal`, and `handle`.
+### When to stay high-level
 
-`PopoverContent` is the default path. It accepts popup props plus the shared positioning props
-`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`,
-`collisionBoundary`, and `collisionPadding`. Use `showArrow` to enable the built-in arrow.
-`className` styles the popup surface.
+Stay with `Popover`, `PopoverTrigger`, and `PopoverContent` for most contextual actions and compact
+information panels.
 
-When `render` is provided to `PopoverTrigger`, moduix does not add the default trigger class. Style
-the rendered element directly or pass a component such as `Button` that already carries its own
-interactive states.
+`Popover` keeps the Base UI root contract intact. Use it for `open`, `defaultOpen`,
+`onOpenChange`, `modal`, and `handle`.
 
-| `PopoverContent` prop | Default | Notes                                                                |
-| --------------------- | ------- | -------------------------------------------------------------------- |
-| `sideOffset`          | `8`     | Keeps the popup separated from the trigger in the default path.      |
-| `showArrow`           | `false` | Opts into the built-in arrow without changing the composition model. |
-| `className`           | -       | Styles the visible popup surface.                                    |
+`PopoverContent` is the default popup path. It accepts popup `className`, supports the shared
+positioning props (`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`,
+`collisionAvoidance`, `collisionBoundary`, `collisionPadding`), and adds one convenience prop:
 
-When you need a different DOM structure, manual backdrop control, a custom arrow, a viewport, or
-portal options such as `keepMounted` and `container`, switch to explicit composition:
+- `showArrow` for the built-in popup arrow
 
-```tsx
-<Popover>
-  <PopoverTrigger render={<Button />}>Open popover</PopoverTrigger>
-  <PopoverPortal>
-    <PopoverBackdrop />
-    <PopoverPositioner sideOffset={8}>
-      <PopoverPopup className={styles.popup}>
-        <PopoverArrow />
-        <PopoverViewport>{children}</PopoverViewport>
-      </PopoverPopup>
-    </PopoverPositioner>
-  </PopoverPortal>
-</Popover>
-```
+### When to go custom
 
-`PopoverViewport` is intended for panel-style inner transitions, not for generic static content or
-scrollable overflow. If the popup content can grow taller than the default max height, add a
-scrollable inner wrapper inside `PopoverBody` instead of using `PopoverViewport`.
+Switch to `PopoverPortal`, `PopoverBackdrop`, `PopoverPositioner`, `PopoverPopup`,
+`PopoverArrow`, and `PopoverViewport` when you need portal props, backdrop control, custom arrow
+content, or a different popup structure.
 
-When replacing the trigger element with `render`, keep `nativeButton={true}` for real button-like
-elements and set `nativeButton={false}` for non-button elements such as `div` or `span`.
+`PopoverContent` does not expose portal-level props such as `keepMounted` or `container`. Use
+explicit `PopoverPortal` composition when those matter.
 
-For focus-sensitive popovers, pass `initialFocus` and `finalFocus` to `PopoverContent`. If you use
-`modal` or `modal="trap-focus"` on `Popover`, keep a `PopoverClose` action inside the popup so
-keyboard users and touch screen readers always have a way to leave it.
+### Default props
+
+| Prop         | Default | Values / Notes                            |
+| ------------ | ------- | ----------------------------------------- |
+| `showArrow`  | `false` | Enables the built-in `PopoverArrow`       |
+| `sideOffset` | `8`     | Any number accepted by Base UI positioner |
+
+### Behavioral notes
+
+- When `render` is provided to `PopoverTrigger`, moduix does not add the default trigger class.
+  Style the rendered element directly or pass a component such as `Button`.
+- Keep `nativeButton={false}` when `PopoverTrigger` renders a non-button element such as `div` or
+  `span`.
+- Use `initialFocus` and `finalFocus` on `PopoverContent` when focus needs to move predictably on
+  open and close.
+- If you use `modal` or `modal="trap-focus"`, keep a `PopoverClose` action inside the popup so
+  keyboard users always have a clear exit path.
+- `PopoverViewport` is for panel-style inner transitions. Do not use it as a generic scroll
+  container. For tall content, add a scrollable wrapper inside `PopoverBody` instead.
 
 ## Examples
 
 ### With Close Action
 
-Use `PopoverClose` inside the popup when the content includes an explicit dismiss action.
+Use `PopoverClose` when the popup includes an explicit dismiss action.
 
 <Preview>
   <PopoverWithCloseActionExample />
@@ -282,77 +265,12 @@ Use `PopoverClose` inside the popup when the content includes an explicit dismis
   </Preview.Code>
 </Preview>
 
-### With Backdrop
+### With Arrow
 
-Compose `PopoverBackdrop` when the popup should visually separate itself from the page.
-
-<Preview>
-  <PopoverWithBackdropExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        Popover,
-        PopoverBackdrop,
-        PopoverDescription,
-        PopoverHeader,
-        PopoverPopup,
-        PopoverPortal,
-        PopoverPositioner,
-        PopoverTitle,
-        PopoverTrigger,
-      } from "moduix";
-
-      export function PopoverWithBackdropDemo() {
-        return (
-          <Popover>
-            <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
-              Open with backdrop
-            </PopoverTrigger>
-            <PopoverPortal>
-              <PopoverBackdrop className={styles.backdrop} />
-              <PopoverPositioner sideOffset={8}>
-                <PopoverPopup>
-                  <PopoverHeader>
-                    <PopoverTitle>Backdrop</PopoverTitle>
-                    <PopoverDescription>
-                      Compose the backdrop explicitly when the popup should separate from the page.
-                    </PopoverDescription>
-                  </PopoverHeader>
-                </PopoverPopup>
-              </PopoverPositioner>
-            </PopoverPortal>
-          </Popover>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .backdrop {
-        background-color: color-mix(in oklab, var(--color-background), transparent 35%);
-        backdrop-filter: blur(2px);
-      }
-
-      .backdropTrigger {
-        position: relative;
-        z-index: calc(var(--z-popup) + 1);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Open On Hover
-
-Set `openOnHover` on the trigger for quick preview interactions. Use `delay` and `closeDelay` to
-tune hover timing.
+Set `showArrow` when the popup should visually point back to its trigger.
 
 <Preview>
-  <OpenOnHoverPopoverExample />
+  <PopoverWithArrowExample />
 
   <Preview.Code>
     {`
@@ -366,17 +284,15 @@ tune hover timing.
         PopoverTrigger,
       } from "moduix";
 
-      export function OpenOnHoverPopoverDemo() {
+      export function PopoverWithArrowDemo() {
         return (
           <Popover>
-            <PopoverTrigger openOnHover delay={150} closeDelay={120} render={<Button />}>
-              Open on hover
-            </PopoverTrigger>
-            <PopoverContent>
+            <PopoverTrigger render={<Button />}>Open with arrow</PopoverTrigger>
+            <PopoverContent showArrow>
               <PopoverHeader>
-                <PopoverTitle>Hover mode</PopoverTitle>
+                <PopoverTitle>With arrow</PopoverTitle>
                 <PopoverDescription>
-                  This popover uses delayed hover opening for quick preview interactions.
+                  Enable showArrow when the popup should visually point to its trigger.
                 </PopoverDescription>
               </PopoverHeader>
             </PopoverContent>
@@ -390,7 +306,7 @@ tune hover timing.
 
 ### Controlled
 
-Control the open state from React when the popover needs to coordinate with other UI.
+Use controlled state when the popup needs to coordinate with surrounding UI.
 
 <Preview>
   <ControlledPopoverExample />
@@ -435,16 +351,131 @@ Control the open state from React when the popover needs to coordinate with othe
   </Preview.Code>
 </Preview>
 
-### Custom Trigger Element
+### Placement
 
-Set `nativeButton={false}` when `PopoverTrigger` renders a non-button element through `render`.
+Pass `side`, alignment props, and collision options to `PopoverContent` when popup placement needs
+to be explicit.
 
 <Preview>
-  <CustomTriggerPopoverExample />
+  <SideControlPopoverExample />
 
   <Preview.Code>
     {`
       import {
+        Button,
+        Popover,
+        PopoverContent,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+      import { useState } from "react";
+
+      const sides = ["top", "right", "bottom", "left"] as const;
+
+      export function SideControlPopoverDemo() {
+        const [side, setSide] = useState("bottom" as (typeof sides)[number]);
+
+        return (
+          <div className={styles.stack}>
+            <div className={styles.sideButtons}>
+              {sides.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={styles.sideButton}
+                  data-active={item === side || undefined}
+                  onClick={() => setSide(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <Popover>
+              <PopoverTrigger render={<Button />}>Open with side: {side}</PopoverTrigger>
+              <PopoverContent side={side} className={styles.narrowPopup}>
+                <PopoverHeader>
+                  <PopoverTitle>Placement</PopoverTitle>
+                  <PopoverDescription>
+                    Current side is <strong>{side}</strong>. You can switch it with the buttons
+                    above.
+                  </PopoverDescription>
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+
+      .sideButtons {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-1);
+        padding: var(--spacing-1);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-muted);
+      }
+
+      .sideButton {
+        min-width: 4.75rem;
+        min-height: 2rem;
+        padding: 0 var(--spacing-3);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-sm);
+        background: var(--color-background);
+        color: var(--color-foreground);
+        font: inherit;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+        font-weight: var(--weight-medium);
+        text-transform: capitalize;
+        cursor: pointer;
+        transition:
+          background-color var(--transition-default),
+          color var(--transition-default);
+
+        &[data-active] {
+          background: var(--color-primary);
+          color: var(--color-primary-foreground);
+        }
+      }
+
+      .narrowPopup {
+        --popover-max-width: 20rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Open On Hover
+
+Set `openOnHover` for quick preview interactions. Use `delay` and `closeDelay` to tune hover
+timing.
+
+<Preview>
+  <OpenOnHoverPopoverExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
         Popover,
         PopoverContent,
         PopoverDescription,
@@ -453,17 +484,17 @@ Set `nativeButton={false}` when `PopoverTrigger` renders a non-button element th
         PopoverTrigger,
       } from "moduix";
 
-      export function CustomTriggerPopoverDemo() {
+      export function OpenOnHoverPopoverDemo() {
         return (
           <Popover>
-            <PopoverTrigger className={styles.customAnchor} nativeButton={false} render={<div />}>
-              Open custom trigger
+            <PopoverTrigger openOnHover delay={150} closeDelay={120} render={<Button />}>
+              Open on hover
             </PopoverTrigger>
             <PopoverContent>
               <PopoverHeader>
-                <PopoverTitle>Custom trigger element</PopoverTitle>
+                <PopoverTitle>Hover mode</PopoverTitle>
                 <PopoverDescription>
-                  Set nativeButton to false when the rendered trigger element is not a button.
+                  This popover uses delayed hover opening for quick preview interactions.
                 </PopoverDescription>
               </PopoverHeader>
             </PopoverContent>
@@ -473,29 +504,11 @@ Set `nativeButton={false}` when `PopoverTrigger` renders a non-button element th
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customAnchor {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: var(--size-lg);
-        padding: 0 var(--spacing-3);
-        border: var(--border-width-sm) dashed var(--color-border);
-        border-radius: var(--radius-md);
-        background: var(--color-muted);
-        color: var(--color-foreground);
-        cursor: pointer;
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### Detached Trigger
 
-Use `createPopoverHandle` when the trigger lives outside the popover tree.
+Use `createPopoverHandle` when the trigger and popup cannot live in the same subtree.
 
 <Preview>
   <DetachedTriggerPopoverExample />
@@ -518,7 +531,7 @@ Use `createPopoverHandle` when the trigger lives outside the popover tree.
         const popoverHandle = useMemo(() => createPopoverHandle(), []);
 
         return (
-          <div>
+          <div className={styles.row}>
             <PopoverTrigger handle={popoverHandle} render={<Button />}>
               Open details
             </PopoverTrigger>
@@ -542,8 +555,8 @@ Use `createPopoverHandle` when the trigger lives outside the popover tree.
 
 ### Modal Focus
 
-Use `initialFocus` when the popup should move focus to a specific field on open. If the popover is
-modal or traps focus, keep `PopoverClose` inside the popup.
+Use `initialFocus` when focus should move into a specific field on open. Keep a close action inside
+the popup when focus is trapped.
 
 <Preview>
   <ModalFocusPopoverExample />
@@ -626,127 +639,10 @@ modal or traps focus, keep `PopoverClose` inside the popup.
   </Preview.CSS>
 </Preview>
 
-### Side Control
+### Custom Styling
 
-Pass `side`, `align`, offsets, and collision options to `PopoverContent` when you need to control
-popup placement.
-
-<Preview>
-  <SideControlPopoverExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        Popover,
-        PopoverContent,
-        PopoverDescription,
-        PopoverHeader,
-        PopoverTitle,
-        PopoverTrigger,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function SideControlPopoverDemo() {
-        const [side, setSide] = useState("bottom" as (typeof sides)[number]);
-
-        return (
-          <div className={styles.stack}>
-            <div className={styles.sideButtons}>
-              {sides.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={styles.sideButton}
-                  data-active={item === side || undefined}
-                  onClick={() => setSide(item)}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-
-            <Popover>
-              <PopoverTrigger render={<Button />}>Open with side: {side}</PopoverTrigger>
-              <PopoverContent side={side} className={styles.narrowPopup}>
-                <PopoverHeader>
-                  <PopoverTitle>Placement</PopoverTitle>
-                  <PopoverDescription>
-                    Current side is <strong>{side}</strong>.
-                  </PopoverDescription>
-                </PopoverHeader>
-              </PopoverContent>
-            </Popover>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-
-      .sideButtons {
-        display: inline-flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: var(--spacing-1);
-        padding: var(--spacing-1);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
-        background: var(--color-muted);
-      }
-
-      .sideButton {
-        min-width: 4.75rem;
-        min-height: 2rem;
-        padding: 0 var(--spacing-3);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-sm);
-        background: var(--color-background);
-        color: var(--color-foreground);
-        font: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-        font-weight: var(--weight-medium);
-        text-transform: capitalize;
-        cursor: pointer;
-        transition:
-          background-color var(--transition-default),
-          color var(--transition-default);
-
-        &[data-active] {
-          background: var(--color-primary);
-          color: var(--color-primary-foreground);
-        }
-      }
-
-      .narrowPopup {
-        --popover-max-width: 20rem;
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const sides = ["top", "right", "bottom", "left"] as const;
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Image Only Content
-
-Use `PopoverBody` and popup-level CSS variables when the content does not need title and
-description slots.
+Pass `className` to `PopoverContent` and override `--popover-*` variables when one popup needs a
+different surface without changing the structure.
 
 <Preview>
   <ImageOnlyPopoverExample />
@@ -805,17 +701,16 @@ description slots.
   </Preview.Data>
 </Preview>
 
-### With Arrow
+### Custom Trigger Element
 
-Set `showArrow` when the popup should visually point back to its trigger.
+Set `nativeButton={false}` when `PopoverTrigger` renders a non-button element through `render`.
 
 <Preview>
-  <PopoverWithArrowExample />
+  <CustomTriggerPopoverExample />
 
   <Preview.Code>
     {`
       import {
-        Button,
         Popover,
         PopoverContent,
         PopoverDescription,
@@ -824,15 +719,17 @@ Set `showArrow` when the popup should visually point back to its trigger.
         PopoverTrigger,
       } from "moduix";
 
-      export function PopoverWithArrowDemo() {
+      export function CustomTriggerPopoverDemo() {
         return (
           <Popover>
-            <PopoverTrigger render={<Button />}>Open with arrow</PopoverTrigger>
-            <PopoverContent showArrow>
+            <PopoverTrigger className={styles.customAnchor} nativeButton={false} render={<div />}>
+              Open custom trigger
+            </PopoverTrigger>
+            <PopoverContent>
               <PopoverHeader>
-                <PopoverTitle>With arrow</PopoverTitle>
+                <PopoverTitle>Custom trigger element</PopoverTitle>
                 <PopoverDescription>
-                  Enable showArrow when the popup should visually point to its trigger.
+                  Set nativeButton to false when the rendered trigger element is not a button.
                 </PopoverDescription>
               </PopoverHeader>
             </PopoverContent>
@@ -842,12 +739,30 @@ Set `showArrow` when the popup should visually point back to its trigger.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customAnchor {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: var(--size-lg);
+        padding: 0 var(--spacing-3);
+        border: var(--border-width-sm) dashed var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-muted);
+        color: var(--color-foreground);
+        cursor: pointer;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Composition
 
-Use the low-level parts directly when you need to control the structure, backdrop, viewport-driven
-panel transitions, or arrow content.
+Use the low-level parts directly when you need backdrop control, portal props, custom arrow
+content, or a viewport-driven layout.
 
 <Preview>
   <CustomCompositionPopoverExample />
@@ -911,16 +826,16 @@ panel transitions, or arrow content.
 
       .customPositioner {
         transition:
-          top 220ms,
-          left 220ms,
-          right 220ms,
-          bottom 220ms,
-          transform 220ms;
+          top var(--duration-normal),
+          left var(--duration-normal),
+          right var(--duration-normal),
+          bottom var(--duration-normal),
+          transform var(--duration-normal);
       }
 
       .customViewport {
         --popover-viewport-offset: var(--spacing-3);
-        --popover-viewport-transition: 260ms;
+        --popover-viewport-transition: var(--duration-slow);
       }
 
       .customTrigger {
@@ -958,3 +873,97 @@ panel transitions, or arrow content.
 
   </Preview.CSS>
 </Preview>
+
+### With Backdrop
+
+Compose `PopoverBackdrop` explicitly when the popup should visually separate itself from the page.
+
+<Preview>
+  <PopoverWithBackdropExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Popover,
+        PopoverBackdrop,
+        PopoverDescription,
+        PopoverHeader,
+        PopoverPopup,
+        PopoverPortal,
+        PopoverPositioner,
+        PopoverTitle,
+        PopoverTrigger,
+      } from "moduix";
+
+      export function PopoverWithBackdropDemo() {
+        return (
+          <Popover>
+            <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
+              Open with backdrop
+            </PopoverTrigger>
+            <PopoverPortal>
+              <PopoverBackdrop className={styles.backdrop} />
+              <PopoverPositioner sideOffset={8}>
+                <PopoverPopup>
+                  <PopoverHeader>
+                    <PopoverTitle>Backdrop</PopoverTitle>
+                    <PopoverDescription>
+                      Compose the backdrop explicitly when the popup should separate from the page.
+                    </PopoverDescription>
+                  </PopoverHeader>
+                </PopoverPopup>
+              </PopoverPositioner>
+            </PopoverPortal>
+          </Popover>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .backdrop {
+        background-color: color-mix(in oklab, var(--color-background), transparent 35%);
+        backdrop-filter: blur(2px);
+      }
+
+      .backdropTrigger {
+        position: relative;
+        z-index: calc(var(--z-popup) + 1);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Styling
+
+Style `Popover` through `className`, exported DOM parts, `data-slot`, Base UI state attributes, and
+the public `--popover-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <PopoverCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+The useful public hooks are concentrated on the rendered parts:
+
+- `PopoverContent className` styles `PopoverPopup`, not the portal or positioner
+- `data-slot="popover-trigger"`, `popover-backdrop`, `popover-positioner`, `popover-popup`,
+  `popover-arrow`, `popover-title`, `popover-description`, `popover-header`, `popover-body`,
+  `popover-footer`, and `popover-close`
+- Base UI popup state attributes such as `data-open`, `data-closed`, `data-starting-style`, and
+  `data-ending-style`
+- `PopoverTrigger` state attributes such as `data-popup-open` and `data-disabled`
+- `PopoverArrow[data-side]` for side-specific arrow styling
+- `PopoverViewport` transition state such as `data-current`, `data-previous`, and
+  `data-activation-direction`

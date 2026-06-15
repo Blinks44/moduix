@@ -12,7 +12,7 @@ import {
 } from 'moduix';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './preview-card.module.css';
 
 type LinkPreviewPayload = {
@@ -49,7 +49,7 @@ export const previewCardOverrideCssProperties: CssPropertyInput[] = [
   ['--preview-card-arrow-size', '0.5rem', 'Controls the block-axis arrow offset.'],
   [
     '--preview-card-arrow-stroke-color',
-    'var(--preview-card-border-color)',
+    'var(--preview-card-border-color, var(--color-border))',
     'Controls arrow border color.',
   ],
   ['--preview-card-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
@@ -59,6 +59,10 @@ export const previewCardOverrideCssProperties: CssPropertyInput[] = [
     'Controls the backdrop color.',
   ],
   ['--preview-card-backdrop-blur', '4px', 'Controls the backdrop blur.'],
+  ['--preview-card-backdrop-ending-blur', 'none', 'Controls the backdrop blur at exit.'],
+  ['--preview-card-backdrop-ending-opacity', '0', 'Controls the backdrop opacity at exit.'],
+  ['--preview-card-backdrop-starting-blur', 'none', 'Controls the backdrop blur at entry.'],
+  ['--preview-card-backdrop-starting-opacity', '0', 'Controls the backdrop opacity at entry.'],
   [
     '--preview-card-backdrop-transition',
     'var(--transition-default)',
@@ -81,6 +85,18 @@ export const previewCardOverrideCssProperties: CssPropertyInput[] = [
   ['--preview-card-min-width', '14rem', 'Controls the popup min width.'],
   ['--preview-card-padding-x', 'var(--spacing-2)', 'Controls the popup horizontal padding.'],
   ['--preview-card-padding-y', 'var(--spacing-2)', 'Controls the popup vertical padding.'],
+  ['--preview-card-popup-ending-opacity', '0', 'Controls the popup opacity at exit.'],
+  ['--preview-card-popup-ending-scale', 'var(--scale-popup)', 'Controls the popup scale at exit.'],
+  ['--preview-card-popup-ending-translate-x', '0', 'Controls the popup x offset at exit.'],
+  ['--preview-card-popup-ending-translate-y', '0', 'Controls the popup y offset at exit.'],
+  ['--preview-card-popup-starting-opacity', '0', 'Controls the popup opacity at entry.'],
+  [
+    '--preview-card-popup-starting-scale',
+    'var(--scale-popup)',
+    'Controls the popup scale at entry.',
+  ],
+  ['--preview-card-popup-starting-translate-x', '0', 'Controls the popup x offset at entry.'],
+  ['--preview-card-popup-starting-translate-y', '0', 'Controls the popup y offset at entry.'],
   ['--preview-card-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
   ['--preview-card-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
   [
@@ -118,40 +134,11 @@ export const previewCardOverrideCssProperties: CssPropertyInput[] = [
   ['--preview-card-trigger-underline-offset', '2px', 'Controls the trigger underline offset.'],
   ['--preview-card-width', 'auto', 'Controls the popup width.'],
 ];
-export const previewCardPlaygroundCssProperties: CssPropertyInput[] = [
-  [
-    '--preview-card-backdrop-bg',
-    'var(--backdrop-bg, var(--color-overlay))',
-    'Controls backdrop color.',
-  ],
-  ['--preview-card-bg', 'var(--color-popover)', 'Controls popup background color.'],
-  ['--preview-card-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--preview-card-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--preview-card-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  ['--preview-card-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
-  ['--preview-card-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--preview-card-trigger-color', 'var(--color-primary)', 'Controls trigger text color.'],
-];
 
 export function PreviewCardCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={previewCardOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function PreviewCardCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={previewCardPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }

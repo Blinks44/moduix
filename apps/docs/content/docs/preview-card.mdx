@@ -12,21 +12,20 @@ import {
   DetachedTriggerPreviewCardExample,
   MultipleTriggersPreviewCardExample,
   PlacementPreviewCardExample,
-  PreviewCardCssPlaygroundPanel,
   PreviewCardCssPropertiesPanel,
   PreviewCardExample,
-  previewCardPlaygroundCssProperties,
 } from '@/components/examples/preview-card';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/preview-card" />
 
-## Default Path
+## Basic
 
-Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common hover-preview flow.
+Start with `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent`. This is the recommended
+path for standard link previews.
 
-<Preview cssProperties={previewCardPlaygroundCssProperties}>
+<Preview>
   <PreviewCardExample />
 
   <Preview.Code>
@@ -65,8 +64,10 @@ Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common
   </Preview.Code>
 
   <Preview.Data>
-    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";`}
+    {`
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+    `}
 
   </Preview.Data>
 
@@ -103,9 +104,6 @@ Use `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for the common
     `}
 
   </Preview.CSS>
-
-  <Preview.CSSProperties>{(context) => <PreviewCardCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <PreviewCardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -151,18 +149,12 @@ aubx shadcn@latest add Blinks44/moduix/preview-card
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Preview Card` depends on, such
-as styles, icons, and small utilities.
-
-`PreviewCardContent` already renders `PreviewCardPortal`, `PreviewCardPositioner`,
-`PreviewCardPopup`, and `PreviewCardViewport`. That keeps the default path short while leaving the
-low-level parts available when the layout needs to change.
-
-Preview cards are a visual enhancement for sighted hover and focus users. Keep essential
-information available on the linked destination or nearby page content, because touch and screen
-reader users may not receive the same preview.
+This install path also pulls in the shared moduix foundation files that `Preview Card` depends on,
+such as styles, icons, and small utilities.
 
 ## Anatomy
+
+The normal consumer path is short:
 
 ```text
 PreviewCard
@@ -174,52 +166,65 @@ PreviewCard
             └─ PreviewCardViewport
 ```
 
-| Part                    | Role                                                                                                                     |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `PreviewCard`           | Root state machine for open state, payload, and detached handles.                                                        |
-| `PreviewCardTrigger`    | Hover and focus trigger, usually rendered as a link.                                                                     |
-| `PreviewCardContent`    | Default popup wrapper for the common case.                                                                               |
-| `PreviewCardPortal`     | Popup mount target; used internally by `PreviewCardContent` and available for custom portal placement.                   |
-| `PreviewCardBackdrop`   | Optional backdrop for custom composition.                                                                                |
-| `PreviewCardPositioner` | Low-level positioning part.                                                                                              |
-| `PreviewCardPopup`      | Low-level visible popup container.                                                                                       |
-| `PreviewCardArrow`      | Optional built-in arrow, with custom children supported.                                                                 |
-| `PreviewCardViewport`   | Inner content wrapper; included by `PreviewCardContent` so payload transitions can be added later without restructuring. |
+`PreviewCardContent` can also render `PreviewCardArrow` when `showArrow` is enabled.
+
+| Part                    | Role                                                               |
+| ----------------------- | ------------------------------------------------------------------ |
+| `PreviewCard`           | Root state, payload, and detached handle provider.                 |
+| `PreviewCardTrigger`    | Hover and focus trigger, usually rendered as a link.               |
+| `PreviewCardContent`    | Default popup wrapper with built-in portal, positioner, and popup. |
+| `PreviewCardPortal`     | Popup mount target for custom composition.                         |
+| `PreviewCardPositioner` | Floating layout and collision-aware positioning layer.             |
+| `PreviewCardPopup`      | Visible popup surface.                                             |
+| `PreviewCardViewport`   | Inner content wrapper for preview content.                         |
 
 ## Composition
 
-Use `PreviewCard` for root behavior such as `open`, `defaultOpen`, `onOpenChange`, and `handle`.
-Use `PreviewCardTrigger` for the interactive link itself.
+### When to stay high-level
 
-`PreviewCardContent` is intentionally small. It accepts popup props plus the common positioning
-surface:
+Stay with `PreviewCard`, `PreviewCardTrigger`, and `PreviewCardContent` for most link-preview
+workflows.
 
-- `side`
-- `sideOffset`
-- `align`
-- `alignOffset`
-- `arrowPadding`
-- `collisionAvoidance`
-- `collisionBoundary`
-- `collisionPadding`
-- `showArrow`
+`PreviewCard` keeps the Base UI root behavior intact. Use it for controlled and uncontrolled open
+state, detached handles, trigger IDs, and payload-driven rendering.
 
-Defaults:
+`PreviewCardContent` is the high-level popup wrapper. It accepts popup `className`, supports the
+shared positioning props (`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`,
+`collisionAvoidance`, `collisionBoundary`, `collisionPadding`), and adds `showArrow` for the
+built-in arrow.
 
-| Prop         | Default |
-| ------------ | ------- |
-| `showArrow`  | `false` |
-| `sideOffset` | `8`     |
+### When to go custom
 
-Use `showArrow` only when the popup should visually point back to its trigger. When the popup
-needs a custom arrow, backdrop, portal container, or manual viewport structure, switch to explicit
-composition with the low-level parts.
+Switch to `PreviewCardPortal`, `PreviewCardBackdrop`, `PreviewCardPositioner`, `PreviewCardPopup`,
+`PreviewCardArrow`, and `PreviewCardViewport` when the popup needs custom arrow markup, backdrop
+control, portal props, or manual viewport styling.
+
+`PreviewCardContent` intentionally does not expose portal props such as `container` or
+`keepMounted`. Use explicit composition for those cases.
+
+### Default props
+
+| Prop         | Default | Values / Notes                            |
+| ------------ | ------- | ----------------------------------------- |
+| `showArrow`  | `false` | Enables the built-in arrow                |
+| `sideOffset` | `8`     | Any number accepted by Base UI positioner |
+
+### Behavioral notes
+
+- `PreviewCardTrigger` keeps the default moduix link styling only when `render` is omitted.
+- `PreviewCardContent className` styles `PreviewCardPopup`, not the portal, positioner, or
+  viewport.
+- `PreviewCardViewport` clips overflowing content. Add your own inner scroll container when preview
+  content must scroll.
+- `PreviewCardBackdrop` is visual-only by default because it keeps `pointer-events: none`.
+- Preview cards are a progressive enhancement for sighted hover and focus users. Keep essential
+  information available in nearby content or on the linked destination.
 
 ## Examples
 
-### Controlled State
+### Controlled
 
-Use the controlled path when another part of the interface owns preview visibility.
+Use `open` and `onOpenChange` when another part of the interface owns preview visibility.
 
 <Preview>
   <ControlledPreviewCardExample />
@@ -238,26 +243,20 @@ Use the controlled path when another part of the interface owns preview visibili
               Controlled preview card
             </PreviewCardTrigger>
             <PreviewCardContent>
-              <PreviewCardPreview
-                image={typographyImageUrl}
-                title="Typography"
-                summary="This preview card is controlled with open and onOpenChange."
-              />
+              <div className={styles.popupContent}>
+                <img
+                  className={styles.image}
+                  alt="Preview illustration for Typography"
+                  src={typographyImageUrl}
+                />
+                <p className={styles.summary}>
+                  <strong>Typography</strong>
+                  <br />
+                  This preview card is controlled with open and onOpenChange.
+                </p>
+              </div>
             </PreviewCardContent>
           </PreviewCard>
-        );
-      }
-
-      function PreviewCardPreview({ image, title, summary }) {
-        return (
-          <div className={styles.popupContent}>
-            <img className={styles.image} alt={"Preview illustration for " + title} src={image} />
-            <p className={styles.summary}>
-              <strong>{title}</strong>
-              <br />
-              {summary}
-            </p>
-          </div>
         );
       }
     `}
@@ -265,15 +264,18 @@ Use the controlled path when another part of the interface owns preview visibili
   </Preview.Code>
 
   <Preview.Data>
-    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";`}
+    {`
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+    `}
 
   </Preview.Data>
 </Preview>
 
-### Arrow
+### Built-in Arrow
 
-`showArrow` is the narrow DX shortcut for the built-in arrow.
+Use `showArrow` when the popup should visually point back to its trigger without switching to
+low-level composition.
 
 <Preview>
   <ArrowPreviewCardExample />
@@ -308,8 +310,10 @@ Use the controlled path when another part of the interface owns preview visibili
   </Preview.Code>
 
   <Preview.Data>
-    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";`}
+    {`
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+    `}
 
   </Preview.Data>
 </Preview>
@@ -351,8 +355,10 @@ Pass placement props to `PreviewCardContent` for the common popup path.
   </Preview.Code>
 
   <Preview.Data>
-    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";`}
+    {`
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+    `}
 
   </Preview.Data>
 </Preview>
@@ -380,10 +386,7 @@ tree.
 
         return (
           <div className={styles.row}>
-            <PreviewCardTrigger
-              handle={previewCardHandle}
-              href={typographyUrl}
-            >
+            <PreviewCardTrigger handle={previewCardHandle} href={typographyUrl}>
               Open detached preview
             </PreviewCardTrigger>
 
@@ -411,8 +414,10 @@ tree.
   </Preview.Code>
 
   <Preview.Data>
-    {`      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
-      const typographyImageUrl = "/images/typography-preview.jpg";`}
+    {`
+      const typographyUrl = "https://en.wikipedia.org/wiki/Typography";
+      const typographyImageUrl = "/images/typography-preview.jpg";
+    `}
 
   </Preview.Data>
 </Preview>
@@ -477,7 +482,8 @@ links.
   </Preview.Code>
 
   <Preview.Data>
-    {`      const items = [
+    {`
+      const items = [
         {
           title: "Typography",
           image: "/images/typography-preview.jpg",
@@ -490,16 +496,13 @@ links.
           url: "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
           summary: "Grid systems help organize content and spacing.",
         },
-      ];`}
+      ];
+    `}
 
   </Preview.Data>
 </Preview>
 
-## Custom Composition
-
-Use the low-level parts when the default wrapper is no longer enough.
-
-### Custom Arrow Markup
+### Custom Arrow
 
 Keep `PreviewCardContent` for the default arrow. Switch to `PreviewCardArrow` directly when the
 arrow markup itself needs to change.
@@ -532,19 +535,19 @@ arrow markup itself needs to change.
                     <CustomArrow />
                   </PreviewCardArrow>
                   <PreviewCardViewport>
-                     <div className={styles.popupContent}>
-                       <img
-                         className={styles.image}
-                         alt="Preview illustration for Typography"
-                         src="/images/typography-preview.jpg"
-                       />
-                       <p className={styles.summary}>
-                         <strong>Typography</strong>
-                         <br />
-                         Custom arrow content now lives in explicit composition.
-                       </p>
-                     </div>
-                   </PreviewCardViewport>
+                    <div className={styles.popupContent}>
+                      <img
+                        className={styles.image}
+                        alt="Preview illustration for Typography"
+                        src="/images/typography-preview.jpg"
+                      />
+                      <p className={styles.summary}>
+                        <strong>Typography</strong>
+                        <br />
+                        Custom arrow content now lives in explicit composition.
+                      </p>
+                    </div>
+                  </PreviewCardViewport>
                 </PreviewCardPopup>
               </PreviewCardPositioner>
             </PreviewCardPortal>
@@ -564,9 +567,10 @@ arrow markup itself needs to change.
   </Preview.Code>
 </Preview>
 
-### Backdrop and Manual Structure
+### Custom Composition
 
-Use explicit parts when the popup needs a backdrop or custom viewport styling.
+Use the low-level parts when the popup needs a backdrop, custom viewport styling, or manual popup
+structure.
 
 <Preview>
   <CustomCompositionPreviewCardExample />
@@ -622,3 +626,33 @@ Use explicit parts when the popup needs a backdrop or custom viewport styling.
 
   </Preview.Code>
 </Preview>
+
+## Styling
+
+Style `Preview Card` through `className`, `data-slot="preview-card-*"` hooks, and the public
+`--preview-card-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <PreviewCardCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `PreviewCardTrigger` for link color, underline, and focus styling
+- `PreviewCardContent` or `PreviewCardPopup` for popup surface overrides
+- `PreviewCardArrow` for arrow placement or custom arrow content
+- `PreviewCardViewport` for inner clipping and content transitions
+- `PreviewCardBackdrop` for optional ambient overlay styling
+
+The main public hooks include `data-slot="preview-card-trigger"`,
+`data-slot="preview-card-backdrop"`, `data-slot="preview-card-positioner"`,
+`data-slot="preview-card-popup"`, `data-slot="preview-card-arrow"`, and
+`data-slot="preview-card-viewport"`.

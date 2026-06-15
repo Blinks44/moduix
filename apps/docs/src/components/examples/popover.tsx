@@ -20,8 +20,8 @@ import {
   createPopoverHandle,
 } from 'moduix';
 import * as React from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './popover.module.css';
 
 const popoverSides = ['top', 'right', 'bottom', 'left'] as const;
@@ -41,6 +41,10 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
     'Controls backdrop background.',
   ],
   ['--popover-backdrop-blur', '4px', 'Controls backdrop blur.'],
+  ['--popover-backdrop-ending-blur', 'none', 'Controls backdrop blur at the end of exit.'],
+  ['--popover-backdrop-ending-opacity', '0', 'Controls backdrop opacity at the end of exit.'],
+  ['--popover-backdrop-starting-blur', 'none', 'Controls backdrop blur at the start of enter.'],
+  ['--popover-backdrop-starting-opacity', '0', 'Controls backdrop opacity at the start of enter.'],
   [
     '--popover-backdrop-transition',
     'var(--transition-default)',
@@ -104,6 +108,34 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-min-width', '16rem', 'Controls the popup min width.'],
   ['--popover-padding-x', '1rem', 'Controls the popup horizontal padding.'],
   ['--popover-padding-y', '1rem', 'Controls the popup vertical padding.'],
+  ['--popover-popup-ending-opacity', '0', 'Controls popup opacity at the end of exit.'],
+  [
+    '--popover-popup-ending-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the end of exit.',
+  ],
+  [
+    '--popover-popup-ending-translate-x',
+    '0',
+    'Controls popup horizontal offset at the end of exit.',
+  ],
+  ['--popover-popup-ending-translate-y', '0', 'Controls popup vertical offset at the end of exit.'],
+  ['--popover-popup-starting-opacity', '0', 'Controls popup opacity at the start of enter.'],
+  [
+    '--popover-popup-starting-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the start of enter.',
+  ],
+  [
+    '--popover-popup-starting-translate-x',
+    '0',
+    'Controls popup horizontal offset at the start of enter.',
+  ],
+  [
+    '--popover-popup-starting-translate-y',
+    '0',
+    'Controls popup vertical offset at the start of enter.',
+  ],
   ['--popover-radius', 'var(--radius-md)', 'Controls the popup border radius.'],
   ['--popover-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
   ['--popover-title-color', 'var(--popover-color)', 'Controls title color.'],
@@ -112,49 +144,14 @@ export const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--popover-title-line-height', 'var(--line-height-text-md)', 'Controls title line height.'],
   ['--popover-transition', 'var(--transition-default)', 'Controls popup and control transitions.'],
   ['--popover-viewport-offset', '1rem', 'Controls viewport content transition offset.'],
-  [
-    '--popover-viewport-transition',
-    'var(--duration-normal)',
-    'Controls viewport content transitions.',
-  ],
+  ['--popover-viewport-transition', '220ms', 'Controls viewport content transitions.'],
   ['--popover-width', 'auto', 'Controls the popup width.'],
 ];
-export const popoverPlaygroundCssProperties: CssPropertyInput[] = [
-  [
-    '--popover-backdrop-bg',
-    'var(--backdrop-bg, var(--color-overlay))',
-    'Controls backdrop background.',
-  ],
-  ['--popover-bg', 'var(--color-popover)', 'Controls popup background color.'],
-  ['--popover-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--popover-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--popover-control-bg', 'var(--color-background)', 'Controls trigger and close backgrounds.'],
-  ['--popover-control-bg-hover', 'var(--color-accent)', 'Controls control hover backgrounds.'],
-  ['--popover-control-color', 'var(--color-foreground)', 'Controls control text color.'],
-  ['--popover-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--popover-radius', 'var(--radius-md)', 'Controls popup border radius.'],
-  ['--popover-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-];
 
-export function PopoverCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function PopoverCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={popoverOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function PopoverCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={popoverPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
