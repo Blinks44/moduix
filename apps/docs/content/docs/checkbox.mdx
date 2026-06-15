@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  CheckboxCssPlaygroundPanel,
   CheckboxCssPropertiesPanel,
   CheckboxDisabledExample,
   CheckboxExample,
@@ -16,7 +15,6 @@ import {
   CheckboxSizesExample,
   ControlledCheckboxExample,
   CustomIconCheckboxExample,
-  checkboxPlaygroundCssProperties,
 } from '@/components/examples/checkbox';
 
 ## API Reference
@@ -25,7 +23,10 @@ import {
 
 ## Basic
 
-<Preview cssProperties={checkboxPlaygroundCssProperties}>
+Start with `Checkbox`, `CheckboxField`, and `CheckboxLabel`. This is the recommended path for
+standalone boolean settings and preference rows.
+
+<Preview>
   <CheckboxExample />
 
   <Preview.Code>
@@ -43,12 +44,6 @@ import {
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>
-    {(context) => <CheckboxCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <CheckboxCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -97,13 +92,9 @@ aubx shadcn@latest add Blinks44/moduix/checkbox
 This install path also pulls in the shared moduix foundation files that `Checkbox` depends on, such
 as styles, icons, and small utilities.
 
-`Checkbox` is a thin styled wrapper over the Base UI checkbox root. It keeps the default path
-short by rendering the indicator for you, while still exporting the indicator parts for manual
-composition.
-
 ## Anatomy
 
-Use `CheckboxField` when the checkbox and label can live inside one wrapping `<label>`.
+The normal consumer path is short:
 
 ```text
 CheckboxField
@@ -113,33 +104,37 @@ CheckboxField
 └─ CheckboxLabel
 ```
 
-```tsx
-<CheckboxField>
-  <Checkbox defaultChecked />
-  <CheckboxLabel>Enable notifications</CheckboxLabel>
-</CheckboxField>
-```
+Use `CheckboxField` when the checkbox and label can live inside one wrapping `<label>`.
 
 | Part                    | Role                                                                                  |
 | ----------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox`              | Interactive root. Handles checked, indeterminate, disabled, and readonly states.      |
+| `Checkbox`              | Interactive root. Handles checked, indeterminate, disabled, readonly, and form state. |
 | `CheckboxIndicator`     | Optional indicator part inside the root.                                              |
 | `CheckboxIndicatorIcon` | Default icon wrapper that switches between checked and indeterminate visuals.         |
 | `CheckboxField`         | Optional wrapping label for the common clickable-label layout.                        |
-| `CheckboxLabel`         | Optional text wrapper for label content that should inherit the checkbox text tokens. |
+| `CheckboxLabel`         | Optional text wrapper for label content that should inherit checkbox text tokens.     |
 
 ## Composition
 
-Use `defaultChecked` for uncontrolled mode and `checked` with `onCheckedChange` for controlled mode.
-Use `indeterminate` for parent-selection states. `Checkbox` forwards the Base UI root props, so form
-props such as `name`, `value`, `uncheckedValue`, `required`, `readOnly`, `form`, and `inputRef`
-continue to work without extra wrapper API.
+### When to stay high-level
 
-`size` is the only component-specific DX sugar. It scales the control and default icon without
+Stay with `Checkbox`, `CheckboxField`, and `CheckboxLabel` for most settings panels, forms, and
+single-option toggles.
+
+`Checkbox` keeps Base UI root behavior intact. Use it for `checked`, `defaultChecked`,
+`onCheckedChange`, `indeterminate`, `name`, `value`, `uncheckedValue`, `required`, `disabled`,
+`readOnly`, `inputRef`, `nativeButton`, and `render`.
+
+`size` is the only component-specific DX sugar. It scales the control and the default icon without
 changing the composition model.
 
-When the label must be a sibling instead of a wrapping `<label>`, switch the root to a native
-button:
+### When to go custom
+
+Render `<Checkbox />` directly when the default indicator is enough. Compose `CheckboxIndicator`
+and `CheckboxIndicatorIcon` when the visual needs to change or when you need primitive props such as
+`keepMounted`.
+
+For sibling-label layouts, switch the root to a native button:
 
 ```tsx
 <div>
@@ -148,17 +143,23 @@ button:
 </div>
 ```
 
-When the default indicator is enough, render `<Checkbox />` directly. When you need a custom visual
-or primitive-level control like `keepMounted`, compose `CheckboxIndicator` and
-`CheckboxIndicatorIcon` explicitly:
+### Default props
 
-```tsx
-<Checkbox defaultChecked>
-  <CheckboxIndicator keepMounted>
-    <CheckboxIndicatorIcon />
-  </CheckboxIndicator>
-</Checkbox>
-```
+| Prop        | Default        | Values / Notes                                       |
+| ----------- | -------------- | ---------------------------------------------------- |
+| `size`      | `md`           | `xs`, `sm`, `md`, `lg`, `xl`                         |
+| `className` | `undefined`    | Root class name or Base UI state callback class name |
+| `children`  | auto indicator | Compose `CheckboxIndicator` manually when needed     |
+
+### Behavioral notes
+
+- Use `defaultChecked` for uncontrolled mode and `checked` with `onCheckedChange` for controlled
+  mode.
+- Use `indeterminate` for mixed parent-selection state. It is not a third submitted form value.
+- Every checkbox needs an accessible name. The default recommendation is
+  `CheckboxField` + `CheckboxLabel`.
+- Use `readOnly` when the value should stay visible but not change. Use `disabled` when the control
+  is unavailable.
 
 ## Examples
 
@@ -286,12 +287,13 @@ Use `size` to match different form densities.
         gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
 </Preview>
 
 ### Disabled
 
-Use `disabled` to prevent interaction while preserving the visual state.
+Use `disabled` to prevent interaction while preserving the current visual state.
 
 <Preview>
   <CheckboxDisabledExample />
@@ -328,6 +330,7 @@ Use `disabled` to prevent interaction while preserving the visual state.
         gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
 </Preview>
 
@@ -370,6 +373,7 @@ Use `readOnly` when the current state should stay visible but should not be chan
         gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
 </Preview>
 
@@ -421,11 +425,10 @@ Render the root as a native button when the layout needs separate checkbox and l
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
-### Custom Icon
-
-Swap the default icon by composing `CheckboxIndicator` inside `Checkbox`.
+Swap the default indicator or take direct control over indicator behavior when the built-in visual
+is not enough.
 
 <Preview>
   <CustomIconCheckboxExample />
@@ -471,13 +474,9 @@ Swap the default icon by composing `CheckboxIndicator` inside `Checkbox`.
         transform: rotate(-8deg);
       }
     `}
+
   </Preview.CSS>
 </Preview>
-
-### Manual Indicator Tree
-
-Compose the indicator tree directly when you need primitive behavior like `keepMounted` or custom
-styling hooks on each layer.
 
 <Preview>
   <CheckboxIndicatorCompositionExample />
@@ -522,3 +521,28 @@ styling hooks on each layer.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Use CSS variables on the root when checkbox size, label typography, or state colors need to change.
+Use explicit composition when the indicator structure itself needs to change.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <CheckboxCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `Checkbox` exposes `data-slot="checkbox-root"` and writes `data-size` for the `size` presets.
+- `CheckboxIndicator` exposes `data-slot="checkbox-indicator"` and receives Base UI state
+  attributes such as `data-checked`, `data-unchecked`, and `data-indeterminate`.
+- `CheckboxIndicatorIcon`, `checkbox-indicator-checked-icon`, and
+  `checkbox-indicator-indeterminate-icon` are stable selectors for icon-level styling.
+- `CheckboxField` and `CheckboxLabel` expose `data-slot="checkbox-field"` and
+  `data-slot="checkbox-label"` for layout and typography overrides.
