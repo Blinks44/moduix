@@ -43,6 +43,10 @@
       list-style-type: disc;
     }
 
+    &:is(ol)[data-marker='decimal'][data-marker-mode='auto'] {
+      list-style-type: revert;
+    }
+
     &:is(ul)[data-marker='decimal'],
     &[data-marker='decimal'][data-marker-mode='explicit'] {
       list-style-type: decimal;

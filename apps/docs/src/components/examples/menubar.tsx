@@ -32,8 +32,8 @@ import {
   MenubarViewport,
 } from 'moduix';
 import * as React from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './menubar.module.css';
 
 export const menubarOverrideCssProperties: CssPropertyInput[] = [
@@ -52,6 +52,26 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
     'Controls optional backdrop background.',
   ],
   ['--menubar-backdrop-blur', '4px', 'Controls optional backdrop blur.'],
+  [
+    '--menubar-backdrop-ending-blur',
+    'none',
+    'Controls optional backdrop blur at the end of exit transitions.',
+  ],
+  [
+    '--menubar-backdrop-ending-opacity',
+    '0',
+    'Controls optional backdrop opacity at the end of exit transitions.',
+  ],
+  [
+    '--menubar-backdrop-starting-blur',
+    'none',
+    'Controls optional backdrop blur at the start of enter transitions.',
+  ],
+  [
+    '--menubar-backdrop-starting-opacity',
+    '0',
+    'Controls optional backdrop opacity at the start of enter transitions.',
+  ],
   [
     '--menubar-backdrop-transition',
     'var(--transition-default)',
@@ -148,12 +168,48 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ['--menubar-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--menubar-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
   ['--menubar-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--menubar-popup-ending-opacity', '0', 'Controls popup opacity at the end of exit transitions.'],
+  [
+    '--menubar-popup-ending-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the end of exit transitions.',
+  ],
+  [
+    '--menubar-popup-ending-translate-x',
+    '0',
+    'Controls popup horizontal offset at the end of exit transitions.',
+  ],
+  [
+    '--menubar-popup-ending-translate-y',
+    '0',
+    'Controls popup vertical offset at the end of exit transitions.',
+  ],
   ['--menubar-popup-max-height', '24rem', 'Controls popup maximum height.'],
   ['--menubar-popup-max-width', '20rem', 'Controls popup maximum width.'],
   ['--menubar-popup-min-width', '12rem', 'Controls popup minimum width.'],
   ['--menubar-popup-padding-y', '0.25rem', 'Controls popup vertical padding.'],
   ['--menubar-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
   ['--menubar-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  [
+    '--menubar-popup-starting-opacity',
+    '0',
+    'Controls popup opacity at the start of enter transitions.',
+  ],
+  [
+    '--menubar-popup-starting-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the start of enter transitions.',
+  ],
+  [
+    '--menubar-popup-starting-translate-x',
+    '0',
+    'Controls popup horizontal offset at the start of enter transitions.',
+  ],
+  [
+    '--menubar-popup-starting-translate-y',
+    '0',
+    'Controls popup vertical offset at the start of enter transitions.',
+  ],
   ['--menubar-radius', 'var(--radius-md)', 'Controls menubar radius.'],
   ['--menubar-separator-color', 'var(--color-border)', 'Controls separator color.'],
   ['--menubar-separator-height', 'var(--border-width-sm)', 'Controls separator thickness.'],
@@ -201,60 +257,11 @@ export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--menubar-vertical-width', '12rem', 'Controls vertical menubar width.'],
 ];
-export const menubarPlaygroundCssProperties: CssPropertyInput[] = [
-  [
-    '--menubar-arrow-stroke-color',
-    'var(--menubar-popup-border-color)',
-    'Controls arrow stroke color.',
-  ],
-  ['--menubar-bg', 'var(--color-muted)', 'Controls menubar background.'],
-  ['--menubar-border-color', 'var(--color-border)', 'Controls menubar border color.'],
-  ['--menubar-border-width', 'var(--border-width-sm)', 'Controls menubar border width.'],
-  [
-    '--menubar-checkbox-indicator-border-color',
-    'currentColor',
-    'Controls checkbox indicator border color.',
-  ],
-  ['--menubar-highlight-bg', 'var(--color-foreground)', 'Controls highlighted item background.'],
-  ['--menubar-highlight-color', 'var(--color-background)', 'Controls highlighted item text color.'],
-  ['--menubar-item-bg', 'transparent', 'Controls item background.'],
-  ['--menubar-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
-  ['--menubar-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--menubar-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
-  ['--menubar-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--menubar-radius', 'var(--radius-md)', 'Controls menubar radius.'],
-  [
-    '--menubar-trigger-bg-active',
-    'var(--menubar-trigger-bg-hover)',
-    'Controls open trigger background.',
-  ],
-  ['--menubar-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  [
-    '--menubar-trigger-ring-width',
-    'var(--menubar-border-width)',
-    'Controls active trigger ring width.',
-  ],
-];
 
-export function MenubarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function MenubarCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={menubarOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function MenubarCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={menubarPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }

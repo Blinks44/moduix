@@ -44,8 +44,8 @@ import {
   createMenuHandle,
 } from 'moduix';
 import { Fragment, useMemo, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './menu.module.css';
 
 export const menuOverrideCssProperties: CssPropertyInput[] = [
@@ -60,6 +60,22 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
     'Controls backdrop background.',
   ],
   ['--menu-backdrop-blur', '4px', 'Controls backdrop blur.'],
+  ['--menu-backdrop-ending-blur', 'none', 'Controls backdrop blur at the end of exit transitions.'],
+  [
+    '--menu-backdrop-ending-opacity',
+    '0',
+    'Controls backdrop opacity at the end of exit transitions.',
+  ],
+  [
+    '--menu-backdrop-starting-blur',
+    'none',
+    'Controls backdrop blur at the start of enter transitions.',
+  ],
+  [
+    '--menu-backdrop-starting-opacity',
+    '0',
+    'Controls backdrop opacity at the start of enter transitions.',
+  ],
   ['--menu-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
   ['--menu-check-gap', '0.5rem', 'Controls checkbox/radio indicator gap.'],
   ['--menu-check-indicator-size', '0.75rem', 'Controls checkbox/radio indicator size.'],
@@ -125,6 +141,22 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
   ['--menu-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
   ['--menu-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
+  ['--menu-popup-ending-opacity', '0', 'Controls popup opacity at the end of exit transitions.'],
+  [
+    '--menu-popup-ending-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the end of exit transitions.',
+  ],
+  [
+    '--menu-popup-ending-translate-x',
+    '0',
+    'Controls popup horizontal offset at the end of exit transitions.',
+  ],
+  [
+    '--menu-popup-ending-translate-y',
+    '0',
+    'Controls popup vertical offset at the end of exit transitions.',
+  ],
   ['--menu-popup-height', 'auto', 'Controls popup height.'],
   ['--menu-popup-max-height', '24rem', 'Controls popup maximum height.'],
   ['--menu-popup-max-width', '20rem', 'Controls popup maximum width.'],
@@ -132,6 +164,26 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-popup-padding-y', '0.25rem', 'Controls popup vertical padding.'],
   ['--menu-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
   ['--menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
+  [
+    '--menu-popup-starting-opacity',
+    '0',
+    'Controls popup opacity at the start of enter transitions.',
+  ],
+  [
+    '--menu-popup-starting-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the start of enter transitions.',
+  ],
+  [
+    '--menu-popup-starting-translate-x',
+    '0',
+    'Controls popup horizontal offset at the start of enter transitions.',
+  ],
+  [
+    '--menu-popup-starting-translate-y',
+    '0',
+    'Controls popup vertical offset at the start of enter transitions.',
+  ],
   ['--menu-popup-width', 'auto', 'Controls popup width.'],
   ['--menu-separator-color', 'var(--color-border)', 'Controls separator color.'],
   ['--menu-separator-height', 'var(--border-width-sm)', 'Controls separator thickness.'],
@@ -163,42 +215,10 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-trigger-padding-y', '0.5rem', 'Controls trigger vertical padding.'],
   ['--menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
 ];
-export const menuPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--menu-arrow-stroke-color', 'var(--menu-popup-border-color)', 'Controls arrow stroke color.'],
-  [
-    '--menu-checkbox-indicator-border-color',
-    'currentColor',
-    'Controls checkbox indicator border color.',
-  ],
-  ['--menu-highlight-bg', 'var(--color-foreground)', 'Controls highlight background.'],
-  ['--menu-highlight-color', 'var(--color-background)', 'Controls highlight text color.'],
-  ['--menu-item-bg', 'transparent', 'Controls item background.'],
-  ['--menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
-  ['--menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--menu-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
-  ['--menu-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--menu-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
-  ['--menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--menu-trigger-bg', 'var(--color-background)', 'Controls trigger background.'],
-  ['--menu-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  ['--menu-trigger-border-width', 'var(--border-width-sm)', 'Controls trigger border width.'],
-  ['--menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
-];
 
-export function MenuCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function MenuCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={menuOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function MenuCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={menuPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 

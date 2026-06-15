@@ -1,31 +1,40 @@
 ---
 title: Lightbox
-description: An image-focused modal overlay for zoomed preview and dynamic gallery capture.
+description: An image-first modal overlay for previewing one image or delegated gallery content.
 icon: Component
 ---
 
 import {
   CustomizedLightboxExample,
   DynamicLightboxGalleryExample,
-  LightboxCssPlaygroundPanel,
   LightboxCssPropertiesPanel,
   LightboxExample,
   TriggerLightboxExample,
-  lightboxPlaygroundCssProperties,
 } from '@/components/examples/lightbox';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/dialog" />
 
+## Choosing the right component
+
+Use `Lightbox` when the overlay is primarily about previewing imagery.
+
+- Choose **`Lightbox`** for zoomed image previews, media galleries, and image-first overlays.
+- Choose **`Dialog`** when the surface contains general application UI such as forms, actions, or
+  mixed content that is not centered around one preview image.
+
 ## Basic
 
-<Preview cssProperties={lightboxPlaygroundCssProperties}>
+Start with `Lightbox`, `LightboxImage`, and `LightboxContent`. This is the recommended path for a
+thumbnail that opens a larger preview.
+
+<Preview>
   <LightboxExample />
 
   <Preview.Code>
     {`
-      import { Lightbox, LightboxImage, LightboxContent } from "moduix";
+      import { Lightbox, LightboxContent, LightboxImage } from "moduix";
 
       export function LightboxDemo() {
         return (
@@ -45,14 +54,14 @@ import {
   </Preview.Code>
 
   <Preview.Data>
-    {`      const thumbnail =
+    {`
+      const thumbnail =
         "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80";
       const fullSize =
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90";`}
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90";
+    `}
 
   </Preview.Data>
-  <Preview.CSSProperties>{(context) => <LightboxCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <LightboxCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -101,93 +110,90 @@ aubx shadcn@latest add Blinks44/moduix/lightbox
 This install path also pulls in the shared moduix foundation files that `Lightbox` depends on, such
 as styles, icons, and small utilities.
 
-`LightboxContent` stays short by default: when `children` are omitted, it reuses the image data from
-`LightboxImage` and opens `fullSrc` if you provide one. When `fullSrc` exists, `LightboxImage`
-preloads it on pointer hover and keyboard focus to reduce empty-overlay waits before open.
-
-Use this path for the common single-image preview flow. If the popup content contains controls,
-captions, or anything beyond the image itself, pass explicit `children` to `LightboxContent` or
-compose the low-level parts directly.
-
 ## Anatomy
 
-`LightboxContent` already renders the default `portal`, `backdrop`, `viewport`, `popup`, frame,
-and close button, so most usage stays at `Lightbox`, `LightboxImage`, and `LightboxContent`.
+The common consumer path stays short:
 
 ```text
 Lightbox
 ├─ LightboxTrigger
 │  └─ LightboxImage (optional helper)
 └─ LightboxContent
-   ├─ portal
-   │  ├─ backdrop
-   │  └─ viewport
+   ├─ LightboxPortal
+   │  ├─ LightboxBackdrop
+   │  └─ LightboxViewport
    │     ├─ LightboxCloseButton (optional)
-   │     └─ popup
+   │     └─ LightboxPopup
    │        └─ LightboxFrame
-   │           └─ image content
+   │           └─ preview content
 ```
 
-```tsx
-<Lightbox>
-  <LightboxImage src={thumbnail} fullSrc={fullSize} alt="Preview image" />
-  <LightboxContent />
-</Lightbox>
-```
+`LightboxContent` already renders the default portal, backdrop, viewport, popup, frame, and close
+button, so most usage stays at `Lightbox`, `LightboxImage`, and `LightboxContent`.
 
-| Part              | Role                                                                                                                            |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `Lightbox`        | Root state and behavior (`open`, `defaultOpen`, `onOpenChange`, `modal`, `handle`).                                             |
-| `LightboxTrigger` | Opens the preview from any custom trigger composition.                                                                          |
-| `LightboxImage`   | Trigger helper for the common thumbnail-to-preview flow. `fullSrc` can point to a larger asset and is preloaded on hover/focus. |
-| `LightboxContent` | Default high-level wrapper that owns `portal`, `backdrop`, `viewport`, popup, frame, and close button.                          |
-| `LightboxClose`   | Primitive close part for custom composition inside the popup.                                                                   |
-| `LightboxGallery` | Dynamic image capture mode for CMS-rendered or unknown image lists. It also preloads resolved image sources on hover/focus.     |
+| Part                  | Role                                                             |
+| --------------------- | ---------------------------------------------------------------- |
+| `Lightbox`            | Root open state and dialog behavior.                             |
+| `LightboxImage`       | Image trigger helper for the common thumbnail-to-preview flow.   |
+| `LightboxTrigger`     | Opens the overlay from any custom trigger composition.           |
+| `LightboxContent`     | High-level wrapper for the default overlay structure.            |
+| `LightboxCloseButton` | Default close control rendered inside the viewport.              |
+| `LightboxGallery`     | Delegated image capture for CMS-rendered or unknown image lists. |
 
 ## Composition
 
-Use the default path when one trigger image opens one preview image.
+### When to stay high-level
 
-Use controlled state on `Lightbox` when outside UI needs to open or close the preview.
+Stay with `Lightbox`, `LightboxImage`, and `LightboxContent` for most preview flows.
+
+`Lightbox` keeps the Base UI dialog root contract intact, so pass `open`, `defaultOpen`,
+`onOpenChange`, `onOpenChangeComplete`, `modal`, and `handle` directly to it.
+
+`LightboxImage` is the narrow helper for one trigger image opening one preview image. It stores the
+active image for the root, reuses `src` by default, and switches to `fullSrc` when you provide a
+larger asset. When `fullSrc` is present, the helper preloads it on pointer hover and keyboard
+focus.
+
+`LightboxContent` keeps the default path compact. When `children` are omitted, it renders the
+active image from `LightboxImage` inside the default overlay structure.
+
+### When to go custom
 
 Use `LightboxTrigger` when the trigger is not an image.
 
-Use `LightboxGallery` when images come from CMS or HTML you do not compose manually. It reads
-`data-lightbox-src` first, then falls back to `currentSrc` or `src`, and it can target a focusable
-wrapper with `selector` when the image is nested inside a button, card, or link-like control. Those
-resolved sources are also preloaded on pointer hover and keyboard focus.
+Use `LightboxGallery` when the images come from delegated markup that you do not compose manually.
+It reads `data-lightbox-src` first, then falls back to `currentSrc` or `src`, and it can target a
+focusable wrapper with `selector` when the image is nested inside a button, card, or link-like
+control.
 
-`LightboxContent` keeps the default path small and supports the common image-preview workflow:
+Drop to `LightboxPortal`, `LightboxBackdrop`, `LightboxViewport`, `LightboxPopup`,
+`LightboxFrame`, and `LightboxClose` when you need a different overlay structure, dismissal
+behavior, or popup layout.
 
-### Defaults
+### Default props
 
 | Part              | Prop                  | Default       | Values / Notes                                   |
 | ----------------- | --------------------- | ------------- | ------------------------------------------------ |
-| `LightboxContent` | `showCloseButton`     | `true`        | `true`, `false`                                  |
-| `LightboxContent` | `closeOnContentClick` | `true`        | `true`, `false`                                  |
-| `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for close controls              |
+| `LightboxContent` | `showCloseButton`     | `true`        | Shows the built-in `LightboxCloseButton`         |
+| `LightboxContent` | `closeOnContentClick` | `true`        | Closes when the preview surface is clicked       |
+| `LightboxContent` | `closeLabel`          | `Close image` | Accessible label for the close control           |
 | `LightboxGallery` | `selector`            | `img`         | Any selector supported by `Element.closest(...)` |
 
-When `closeOnContentClick` is enabled, clicking anywhere inside the content area closes the
-lightbox. Disable it for interactive children such as buttons, links, or media controls.
+### Behavioral notes
 
-## Styling
-
-Style the visual parts through `className`, `data-slot="lightbox-*"` hooks, and the documented
-`--lightbox-*` CSS variables in the CSS Properties panel.
-
-Most common hooks:
-
-- `LightboxImage` and `LightboxTrigger` for preview triggers.
-- `LightboxContent` `className` for the popup surface.
-- `LightboxBackdrop`, `LightboxViewport`, `LightboxPopup`, `LightboxFrame`, and
-  `LightboxCloseButton` for advanced composition.
-
-When the default wrapper is not enough, assemble the lower-level parts manually.
+- Set `closeOnContentClick={false}` when the content contains links, buttons, or other interactive
+  children.
+- `LightboxGallery` supports keyboard activation only when the matched element is already
+  keyboard-focusable.
+- For detached or programmatic open flows, pass a Base UI `handle` to `Lightbox` or use the
+  exported `createLightboxHandle()`.
 
 ## Examples
 
 ### Custom Trigger
+
+Use `LightboxTrigger` when the preview opens from a button, card action, or any other non-image
+control.
 
 <Preview>
   <TriggerLightboxExample />
@@ -195,7 +201,7 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
   <Preview.Code>
     {`
       import { Lightbox, LightboxContent, LightboxTrigger } from "moduix";
-      
+
       export function TriggerLightboxDemo() {
         return (
           <Lightbox>
@@ -211,13 +217,18 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
   </Preview.Code>
 
   <Preview.Data>
-    {`      const fullSize =
-        "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90";`}
+    {`
+      const fullSize =
+        "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90";
+    `}
 
   </Preview.Data>
 </Preview>
 
 ### Dynamic Gallery Capture
+
+Use `LightboxGallery` for delegated galleries where the image nodes come from CMS or other external
+markup.
 
 <Preview>
   <DynamicLightboxGalleryExample />
@@ -267,7 +278,8 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
   </Preview.Code>
 
   <Preview.Data>
-    {`      const images = {
+    {`
+      const images = {
         mountain:
           "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
         mountainLarge:
@@ -279,17 +291,19 @@ When the default wrapper is not enough, assemble the lower-level parts manually.
           "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80",
         forestLarge:
           "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90",
-      };`}
+      };
+    `}
 
   </Preview.Data>
 </Preview>
 
 Use a focusable wrapper when delegated gallery items must stay keyboard-accessible. `LightboxGallery`
-does not add `tabIndex` or button semantics to arbitrary CMS markup for you.
+does not add `tabIndex`, button semantics, or labels to arbitrary markup.
 
-### Customized Surface
+### Custom Composition
 
-Customize popup size, backdrop tone, and close controls by composing the lower-level parts directly.
+Use the low-level parts when the default wrapper is too opinionated for the popup structure or the
+dismissal behavior.
 
 <Preview>
   <CustomizedLightboxExample />
@@ -311,7 +325,11 @@ Customize popup size, backdrop tone, and close controls by composing the lower-l
       export function CustomizedLightboxDemo() {
         return (
           <Lightbox>
-            <LightboxImage src={thumbnail} alt="Road through forest" className={styles.previewImage} />
+            <LightboxImage
+              src={thumbnail}
+              alt="Road through forest"
+              className={styles.previewImage}
+            />
             <LightboxPortal>
               <LightboxBackdrop className={styles.customBackdrop} />
               <LightboxViewport>
@@ -319,7 +337,11 @@ Customize popup size, backdrop tone, and close controls by composing the lower-l
                 <LightboxPopup className={styles.customPopup}>
                   <LightboxFrame>
                     <LightboxClose nativeButton={false} render={<div />}>
-                      <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
+                      <img
+                        src={fullSize}
+                        alt="Road through forest"
+                        className={styles.contentImage}
+                      />
                     </LightboxClose>
                   </LightboxFrame>
                 </LightboxPopup>
@@ -333,26 +355,27 @@ Customize popup size, backdrop tone, and close controls by composing the lower-l
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+## Styling
 
-Use the low-level parts when you need a different portal target, no backdrop, custom layout around
-the image, or a fully custom close affordance.
+Use `className` on `LightboxImage`, `LightboxTrigger`, `LightboxContent`, and the low-level parts
+for most visual overrides. Move to low-level composition when the overlay structure itself needs to
+change.
 
-```tsx
-<Lightbox>
-  <LightboxTrigger render={<button type="button">Open image</button>} />
-  <LightboxPortal>
-    <LightboxBackdrop />
-    <LightboxViewport>
-      <LightboxCloseButton />
-      <LightboxPopup className={styles.popup}>
-        <LightboxFrame>
-          <LightboxClose nativeButton={false} render={<div />}>
-            <img src={fullSize} alt="Preview image" />
-          </LightboxClose>
-        </LightboxFrame>
-      </LightboxPopup>
-    </LightboxViewport>
-  </LightboxPortal>
-</Lightbox>
-```
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <LightboxCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="lightbox-trigger"`, `lightbox-portal`, `lightbox-backdrop`, `lightbox-viewport`,
+  `lightbox-popup`, `lightbox-close`, `lightbox-close-button`, `lightbox-frame`, `lightbox-image`,
+  and `lightbox-content-image` are stable selectors on the exported parts.
+- Base UI also adds state attributes such as `data-open`, `data-closed`, `data-popup-open`,
+  `data-nested`, `data-nested-dialog-open`, `data-starting-style`, and `data-ending-style` on the
+  relevant overlay parts.

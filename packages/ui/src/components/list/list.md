@@ -246,6 +246,8 @@ export function Example() {
 
 ## Local changelog
 
+- 2026-06-15: Restored ordered-list markers on the default `as="ol"` path after the global reset,
+  while preserving native `type`-driven marker styles and explicit `marker="decimal"` overrides.
 - 2026-06-02: Rewrote the local documentation around the shipped moduix wrapper contract, documented
   styling hooks and CSS variables, and recorded the markerless accessibility + ordered-list marker
   behavior.
