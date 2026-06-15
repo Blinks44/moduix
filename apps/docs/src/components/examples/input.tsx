@@ -61,6 +61,16 @@ export const inputOverrideCssProperties: CssPropertyInput[] = [
   ['--input-padding-y-xl', '0.75rem', 'Controls extra-large vertical padding.'],
   ['--input-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
   ['--input-radius', 'var(--radius-md)', 'Controls input corner radius.'],
+  [
+    '--input-readonly-bg',
+    'var(--input-bg, var(--color-background))',
+    'Controls readonly input background color.',
+  ],
+  [
+    '--input-readonly-color',
+    'var(--input-color, var(--color-foreground))',
+    'Controls readonly input text color.',
+  ],
   ['--input-transition', 'var(--transition-default)', 'Controls state transition timing.'],
   ['--input-width', '100%', 'Controls the input width.'],
 ];

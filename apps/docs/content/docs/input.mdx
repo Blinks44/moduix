@@ -8,23 +8,33 @@ import {
   ControlledInputExample,
   CustomStylesInputExample,
   DisabledAndReadOnlyInputExample,
-  InputCssPlaygroundPanel,
   InputCssPropertiesPanel,
   InputExample,
   InputFieldValidationExample,
   InputNativeAttributesExample,
   InputSizesExample,
   StandaloneInputExample,
-  inputPlaygroundCssProperties,
 } from '@/components/examples/input';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/input" />
 
+## Choosing the right component
+
+Use `Input` for plain single-line text-like values when one styled native input is enough.
+
+- Choose **`Input`** for standard text, email, search, or code fields.
+- Choose **`InputGroup`** when the control needs inline addons or action buttons in the same shell.
+- Choose **`PasswordInput`** when the field needs a built-in visibility toggle.
+- Choose **`NumberField`** when the value is numeric and needs parsing, stepping, or formatting.
+- Choose **`Textarea`** when the content can span multiple lines.
+
 ## Basic
 
-<Preview cssProperties={inputPlaygroundCssProperties}>
+Start with `Input` inside `Field` when the value needs a label, description, and validation.
+
+<Preview>
   <InputExample />
 
   <Preview.Code>
@@ -52,8 +62,6 @@ import {
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <InputCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <InputCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -102,10 +110,9 @@ aubx shadcn@latest add Blinks44/moduix/input
 This install path also pulls in the shared moduix foundation files that `Input` depends on, such
 as styles, icons, and small utilities.
 
-`Input` is a thin styled wrapper over the Base UI primitive. The recommended path is to compose it
-inside `Field` so labels, descriptions, and validation stay declarative.
-
 ## Anatomy
+
+The public shape is intentionally small:
 
 ```text
 Field (optional wrapper)
@@ -118,17 +125,31 @@ Field (optional wrapper)
 
 ## Composition
 
-`Input` keeps the primitive contract intact. Pass Base UI props such as `value`, `defaultValue`,
-`onValueChange`, `render`, function `className`, and function `style` directly to the component.
+### When to stay high-level
 
-Use `size` for the visual size and `htmlSize` only when you need the native HTML `size` attribute
-without giving up the design-system size prop.
+Stay with `Input` for most plain text-like fields. The moduix wrapper keeps the Base UI input
+contract intact and adds the shared visual sizing surface.
 
-```tsx
-<Input size="lg" htmlSize={24} placeholder="Search projects" />
-```
+Pass Base UI props such as `value`, `defaultValue`, `onValueChange`, `render`, function
+`className`, and function `style` directly to `Input`.
 
-### Defaults
+Use `size` for visual density. Use `htmlSize` only when you need the native HTML `size` attribute
+without giving up the design-system `size` prop.
+
+### When to go custom
+
+There is no lower-level moduix `Input` composition tree to drop into. When the field needs more
+structure, switch to the component that owns that behavior:
+
+- `InputGroup` for inline prefixes, suffixes, or action buttons
+- `PasswordInput` for a visibility toggle
+- `NumberField` for numeric parsing and step controls
+
+Use standalone `Input` outside `Field` when another form abstraction already provides the label and
+validation wiring. In that case, keep the accessible name explicit with a real `label`,
+`aria-label`, or `aria-labelledby`.
+
+### Default props
 
 | Prop        | Default | Values                                 |
 | ----------- | ------- | -------------------------------------- |
@@ -136,9 +157,14 @@ without giving up the design-system size prop.
 | `htmlSize`  | -       | Any valid native `input` `size` number |
 | `className` | -       | `string` or Base UI state callback     |
 
-`Input` is a single styled root, so there are no slot props, class name maps, or internal layout
-parts to learn. Style the element directly with `className` or the public `--input-*` CSS
-variables.
+### Behavioral notes
+
+- Use `value` with `onValueChange` for controlled inputs, or `defaultValue` for uncontrolled ones.
+- `disabled` removes the field from interaction and form submission; `readOnly` keeps it focusable
+  and submittable.
+- `Input` works directly with `Field`, so you do not need `FieldControl` for this component.
+- Prefer semantic native attributes such as `type`, `autoComplete`, `inputMode`, and `name` before
+  adding custom input logic.
 
 ## Examples
 
@@ -333,11 +359,10 @@ Use `Field` when the input needs labels, errors, native validity, and Base UI va
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Standalone Input
 
-You can render `Input` outside `Field` when another form abstraction already provides labeling. In
-that case, keep the accessible name explicit with `aria-label`, `aria-labelledby`, or a native
-`label`.
+Render `Input` outside `Field` when another form abstraction already owns labeling and validation.
+Keep the accessible name explicit.
 
 <Preview>
   <StandaloneInputExample />
@@ -367,7 +392,7 @@ that case, keep the accessible name explicit with `aria-label`, `aria-labelledby
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Styling
 
 Pass `className` directly to `Input` when one field needs local styling on top of the shared
 surface.
@@ -416,3 +441,28 @@ surface.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Input` through `className`, the root `data-slot`, Base UI state attributes, and the public
+`--input-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <InputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+`Input` exposes a single styled root, so the useful public hooks stay simple:
+
+- `data-slot="input-root"` for direct element targeting
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` for size-specific styling
+- Base UI state attributes such as `data-disabled`, `data-invalid`, `data-valid`, `data-filled`,
+  `data-focused`, `data-dirty`, and `data-touched`
+- native `:read-only` and `[data-readonly]` matching when the field is readonly

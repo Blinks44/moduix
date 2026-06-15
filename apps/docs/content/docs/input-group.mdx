@@ -7,7 +7,6 @@ icon: Component
 import {
   CustomStylesInputGroupExample,
   DisabledInputGroupExample,
-  InputGroupCssPlaygroundPanel,
   InputGroupCssPropertiesPanel,
   InputGroupExample,
   InputGroupFieldValidationExample,
@@ -15,34 +14,30 @@ import {
   InputGroupPrefixSuffixExample,
   InputGroupSizesExample,
   InputGroupWithActionExample,
-  inputGroupPlaygroundCssProperties,
 } from '@/components/examples/input-group';
 
 ## API Reference
 
 `InputGroup` does not wrap a dedicated Base UI primitive. It is a moduix composition helper built
 from the local `Input` and `Button` components, so the public API lives on these exported parts:
+`InputGroup`, `InputGroupInput`, `InputGroupAddon`, `InputGroupText`, and `InputGroupButton`.
 
-- `InputGroup`
-- `InputGroupInput`
-- `InputGroupAddon`
-- `InputGroupText`
-- `InputGroupButton`
+## Choosing the right component
 
-## Overview
+Use `InputGroup` when one single-line input and its inline affordances should read as one merged
+control.
 
-`InputGroup` keeps the public surface short:
-
-- `InputGroup` renders the shared field shell
-- `InputGroupInput` renders the actual `Input`
-- `InputGroupAddon`, `InputGroupText`, and `InputGroupButton` decorate the input inline
-
-The group is composition-first. You place one `InputGroupInput` inside the shell, then add the
-parts you need before or after it.
+- Choose **`Input`** when the field only needs a plain input.
+- Choose **`InputGroup`** when the field needs inline prefixes, suffixes, helper text, or actions.
+- Choose **`PasswordInput`** when the grouped action is specifically a built-in visibility toggle.
+- Choose **`NumberField`** when the value is numeric and needs parsing, stepping, or formatting.
+- Choose **`Textarea`** when the content can span multiple lines.
 
 ## Basic
 
-<Preview cssProperties={inputGroupPlaygroundCssProperties} cssVariableScope="local">
+Start with `InputGroup`, one `InputGroupInput`, and only the inline parts the field actually needs.
+
+<Preview>
   <InputGroupExample />
 
   <Preview.Code>
@@ -64,16 +59,14 @@ parts you need before or after it.
 
   </Preview.Code>
 
-<Preview.CSS>
-  {`
+  <Preview.CSS>
+    {`
       .field {
         width: min(24rem, 100%);
       }
     `}
-</Preview.CSS>
 
-  <Preview.CSSProperties>{(context) => <InputGroupCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <InputGroupCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
+  </Preview.CSS>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -119,10 +112,12 @@ aubx shadcn@latest add Blinks44/moduix/input-group
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Input Group` depends on, such
-as styles, icons, and small utilities.
+This install path also pulls in the shared moduix foundation files that `Input Group` depends on,
+such as styles, icons, and small utilities.
 
 ## Anatomy
+
+The normal consumer path is short:
 
 ```text
 InputGroup
@@ -142,19 +137,13 @@ InputGroup
 
 ## Composition
 
-Use one `InputGroupInput` per group. The shell click-to-focus behavior targets the first grouped
-input, so multiple grouped inputs are not a supported composition.
+### When to stay high-level
 
-Addons, helper text, and buttons can sit on either side of the input depending on the flow you
-need.
+Stay with one `InputGroupInput` per group, then add addons, helper text, or buttons before or
+after it as needed.
 
 Set `size` on `InputGroup` to keep the whole row aligned. `InputGroupInput` and
-`InputGroupButton` inherit that size automatically, so the default path stays short. Pass an
-explicit `size` to either part only when one child should intentionally differ from the group.
-
-Clicking the shell focuses the input, which keeps prefix and suffix layouts feeling like one field
-instead of separate controls. That focus redirect is skipped for `disabled` and `readOnly` grouped
-inputs.
+`InputGroupButton` inherit that size automatically, so the default path stays short.
 
 `InputGroupInput` accepts the same props as `Input`, including controlled values, native input
 attributes, and Base UI field validation state.
@@ -162,11 +151,22 @@ attributes, and Base UI field validation state.
 `InputGroupButton` defaults to `variant="ghost"` and `type="button"`, so inline actions work
 inside forms without submitting them accidentally.
 
-For standalone widgets that combine an input and action into one logical unit, add `role="group"`
-with `aria-label` or `aria-labelledby` on `InputGroup`. When the group lives inside `Field`, prefer
+### When to go custom
+
+`InputGroup` is already the low-level moduix composition path for merged field shells. There is no
+deeper namespaced primitive tree below it.
+
+Switch away from `InputGroup` when the control stops being one input with inline decoration:
+
+- use `Input` for plain fields without extra inline parts
+- use `PasswordInput` when the grouped action is just a visibility toggle
+- use `NumberField` when the input needs numeric behavior instead of visual grouping
+
+Use `role="group"` with `aria-label` or `aria-labelledby` only for standalone widgets where the
+group itself needs an explicit grouped semantic. When the control lives inside `Field`, prefer
 `FieldLabel` and keep `InputGroup` purely visual.
 
-### Defaults
+### Default props
 
 | Part / Prop                | Default              | Notes                                                     |
 | -------------------------- | -------------------- | --------------------------------------------------------- |
@@ -175,6 +175,16 @@ with `aria-label` or `aria-labelledby` on `InputGroup`. When the group lives ins
 | `InputGroupButton.variant` | `ghost`              | Accepts the same variants as `Button`.                    |
 | `InputGroupButton.size`    | inherited from group | Override for icon or mixed-density actions.               |
 | `InputGroupButton.type`    | `button`             | Use `submit` or `reset` when the action should do that.   |
+
+### Behavioral notes
+
+- The shell click-to-focus behavior targets the first grouped input, so multiple grouped inputs are
+  not a supported composition.
+- Shell clicks focus the input for plain primary-button clicks, but skip interactive descendants and
+  do nothing when the grouped input is `disabled` or `readOnly`.
+- Invalid, disabled, and readonly shell styling is derived from the nested input state.
+- For inline edit flows, keep one mounted `InputGroupInput`, switch it between `readOnly` and
+  editable modes, and swap only the trailing actions.
 
 ## Examples
 
@@ -215,10 +225,10 @@ Use `InputGroupButton` for compact inline actions tied to the current field valu
 
 ### Inline Editing
 
-For single-line inline editing, keep one mounted `InputGroupInput`, switch it between `readOnly` and
-editable modes, and swap only the action buttons. This avoids layout shift and keeps focus handling
-simple. If you want the read-only state to look flatter or more text-like, override the
-`--input-group-readonly-*` shell variables instead of styling only the nested input.
+For single-line inline editing, keep one mounted `InputGroupInput`, switch it between `readOnly`
+and editable modes, and swap only the action buttons. If the readonly state should look flatter or
+more text-like, override the `--input-group-readonly-*` shell variables instead of styling only the
+nested input.
 
 <Preview>
   <InputGroupInlineEditingExample />
@@ -298,7 +308,7 @@ simple. If you want the read-only state to look flatter or more text-like, overr
   </Preview.Code>
 </Preview>
 
-### Prefix And Suffix
+### Prefix and Suffix
 
 Mix `InputGroupAddon` and `InputGroupText` when one side should feel fixed and the other should
 read as helper text.
@@ -308,7 +318,14 @@ read as helper text.
 
   <Preview.Code>
     {`
-      import { Field, FieldLabel, InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "moduix";
+      import {
+        Field,
+        FieldLabel,
+        InputGroup,
+        InputGroupAddon,
+        InputGroupInput,
+        InputGroupText,
+      } from "moduix";
 
       export function PrefixSuffixInputGroupDemo() {
         return (
@@ -358,7 +375,7 @@ invalid.
 
 ### Disabled
 
-When the input is disabled, the group shell dims with it.
+When the grouped input is disabled, the shell dims with it.
 
 <Preview>
   <DisabledInputGroupExample />
@@ -423,9 +440,9 @@ Set `size` on the group instead of wiring the same size into each child.
   </Preview.Code>
 </Preview>
 
-## Custom Styling
+### Custom Styling
 
-Use root CSS variables for theme-level changes and part-level `className` props for local styling.
+Use root CSS variables for shell-level changes and part-level `className` props for local styling.
 
 <Preview>
   <CustomStylesInputGroupExample />
@@ -478,3 +495,36 @@ Use root CSS variables for theme-level changes and part-level `className` props 
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `InputGroup` through `className`, the exported part hooks, and the public `--input-group-*`
+CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <InputGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `InputGroup` for the visible shell, radius, border, and focus ring
+- `InputGroupInput` for text alignment and input-specific local tweaks
+- `InputGroupAddon` for filled prefix and suffix surfaces
+- `InputGroupText` for plain inline helper text
+- `InputGroupButton` for grouped actions
+
+The main public hooks are `data-slot="input-group-root"`, `data-slot="input-group-input"`,
+`data-slot="input-group-addon"`, `data-slot="input-group-text"`, and
+`data-slot="input-group-button"`.
+
+The shell does not mirror child state with its own `data-invalid`, `data-disabled`, or
+`data-readonly` attributes. Root invalid, disabled, and readonly styling is derived from the nested
+input state.
