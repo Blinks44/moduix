@@ -140,6 +140,19 @@ export function SplitButtonControlledExample() {
   );
 }
 
+export function SplitButtonStylingExample() {
+  return (
+    <SplitButton className={styles.brandSplitButton} variant="outline">
+      <SplitButtonAction>Review</SplitButtonAction>
+      <SplitButtonTrigger aria-label="More review actions" />
+      <SplitButtonContent>
+        <MenuItem closeOnClick>Approve</MenuItem>
+        <MenuItem closeOnClick>Request Changes</MenuItem>
+      </SplitButtonContent>
+    </SplitButton>
+  );
+}
+
 export function SplitButtonLinkActionExample() {
   return (
     <SplitButton variant="outline">

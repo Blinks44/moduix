@@ -10,26 +10,20 @@ import {
   SplitButtonIconExample,
   SplitButtonLinkActionExample,
   SplitButtonSizesExample,
+  SplitButtonStylingExample,
   SplitButtonVariantsExample,
 } from '@/components/examples/split-button';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/button" />
-
-<BaseUIReference href="https://base-ui.com/react/components/menu" />
-
-## Overview
-
-`SplitButton` combines one primary `Button` action with one adjacent menu trigger.
-
-Use it when there is a clear default action, but secondary actions should stay nearby in a compact
-menu instead of taking equal visual weight.
+`SplitButton` is a local moduix composition built from the moduix `Button` and `Menu` wrappers.
+Base UI does not provide a dedicated split-button primitive for this API.
 
 ## Basic
 
-The common path is `SplitButton`, `SplitButtonAction`, `SplitButtonTrigger`, and
-`SplitButtonContent`, with shared menu rows inside the content.
+Start with `SplitButton`, `SplitButtonAction`, `SplitButtonTrigger`, and `SplitButtonContent`.
+This is the recommended path when one action is the default path and the rest belong in a compact
+dropdown.
 
 <Preview>
   <SplitButtonExample />
@@ -107,10 +101,12 @@ aubx shadcn@latest add Blinks44/moduix/split-button
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Split Button` depends on, such
-as styles, icons, and small utilities.
+This install path also pulls in the shared moduix foundation files that `Split Button` depends on,
+such as styles, icons, and small utilities.
 
 ## Anatomy
+
+The normal consumer path is short:
 
 ```text
 SplitButton
@@ -122,35 +118,65 @@ SplitButton
    └─ other shared Menu parts
 ```
 
-| Part                 | Role                                                      |
-| -------------------- | --------------------------------------------------------- |
-| `SplitButton`        | Menu root behavior plus grouped visual wrapper.           |
-| `SplitButtonAction`  | Primary visible action.                                   |
-| `SplitButtonTrigger` | Secondary trigger for related actions.                    |
-| `SplitButtonContent` | Default popup wrapper. Use shared `Menu*` rows inside it. |
-
-The grouped parts expose `data-slot="split-button-root"`, `data-slot="split-button-action"`, and
-`data-slot="split-button-trigger"`.
+| Part                 | Role                                                                  |
+| -------------------- | --------------------------------------------------------------------- |
+| `SplitButton`        | Menu root behavior plus grouped visual wrapper.                       |
+| `SplitButtonAction`  | Primary action button. Inherits root `variant` and `size` by default. |
+| `SplitButtonTrigger` | Secondary trigger button. Defaults to a chevron icon.                 |
+| `SplitButtonContent` | Default popup wrapper around `MenuContent`.                           |
 
 ## Composition
 
-`SplitButton` shares `variant` and `size` defaults across the action and trigger.
+### When to stay high-level
 
-### Defaults
+Stay with `SplitButtonAction`, `SplitButtonTrigger`, and `SplitButtonContent` for most grouped
+action menus.
 
-| Prop         | Default   | Values                                                                           |
-| ------------ | --------- | -------------------------------------------------------------------------------- |
-| `variant`    | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost` |
-| `size`       | `md`      | `xs`, `sm`, `md`, `lg`, `xl`                                                     |
-| `align`      | `end`     | any `MenuContent` align value                                                    |
-| `sideOffset` | `4`       | any `MenuContent` side offset                                                    |
+- Keep the primary action explicit on `SplitButtonAction`.
+- Keep alternate actions on shared menu parts such as `MenuItem`, `MenuSeparator`, `MenuGroup`, and
+  `MenuCheckboxItem`.
+- Let the root `variant` and `size` flow to both grouped buttons unless one side needs an override.
 
-Keep the alternate actions on shared menu parts like `MenuItem`, `MenuSeparator`, `MenuGroup`, and
-`MenuCheckboxItem` instead of expecting a separate split-button row API.
+### When to go custom
+
+`SplitButton` does not fork the menu row API. The custom path is still plain `Button` and `Menu`
+composition:
+
+- Override `size` or `variant` on `SplitButtonAction` or `SplitButtonTrigger` when one side needs a
+  different visual treatment.
+- Pass custom trigger `children` when the default chevron is not enough.
+- Use `render` and `nativeButton={false}` on `SplitButtonAction` when the primary side should render
+  as a link or another compatible element.
+- Use the full `MenuContent` API through `SplitButtonContent` when popup alignment or collision
+  behavior needs adjustment.
+
+### Default props
+
+| Part                 | Prop         | Default     | Notes                                                            |
+| -------------------- | ------------ | ----------- | ---------------------------------------------------------------- |
+| `SplitButton`        | `variant`    | `'default'` | Shared default for `SplitButtonAction` and `SplitButtonTrigger`. |
+| `SplitButton`        | `size`       | `'md'`      | Shared default for `SplitButtonAction` and `SplitButtonTrigger`. |
+| `SplitButtonContent` | `align`      | `'end'`     | Keeps the popup aligned with the trigger edge.                   |
+| `SplitButtonContent` | `sideOffset` | `4`         | Small gap between the trigger and popup surface.                 |
+| `SplitButtonTrigger` | `aria-label` | auto        | Defaults to `'More actions'` when it stays icon-only.            |
+
+### Behavioral notes
+
+- `SplitButton` forwards Base UI menu root props such as `open`, `defaultOpen`, `onOpenChange`, and
+  `modal`.
+- `SplitButtonTrigger` intentionally owns the rendered button and does not expose `render`.
+- The root `variant` excludes the `link` button variant because grouped link-style split buttons do
+  not form a coherent control.
+- The root `size` excludes icon-only button sizes because the default path expects a visible label on
+  the primary action.
+- `SplitButtonContent` is just a small wrapper over `MenuContent`; the menu rows still come from the
+  shared `Menu*` API.
 
 ## Examples
 
 ### Variants
+
+Use the root `variant` when both grouped buttons should share the same visual tone.
 
 <Preview>
   <SplitButtonVariantsExample />
@@ -193,6 +219,8 @@ Keep the alternate actions on shared menu parts like `MenuItem`, `MenuSeparator`
 
 ### Sizes
 
+Use the root `size` when both sides should scale together.
+
 <Preview>
   <SplitButtonSizesExample />
 
@@ -234,6 +262,8 @@ Keep the alternate actions on shared menu parts like `MenuItem`, `MenuSeparator`
 
 ### With Icons
 
+Add icons on the primary side when they clarify the default action without replacing the text label.
+
 <Preview>
   <SplitButtonIconExample />
 
@@ -273,7 +303,7 @@ Keep the alternate actions on shared menu parts like `MenuItem`, `MenuSeparator`
 
 ### Controlled Menu State
 
-`SplitButton` forwards the same root menu state props as `Menu`.
+Use the same controlled open-state contract as `Menu` when outside state should own the dropdown.
 
 <Preview>
   <SplitButtonControlledExample />
@@ -313,9 +343,58 @@ Keep the alternate actions on shared menu parts like `MenuItem`, `MenuSeparator`
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
-### Action Rendered As A Link
+Use root `className` and the stable `data-slot` hooks when the grouped control needs a custom tone.
+
+<Preview>
+  <SplitButtonStylingExample />
+
+  <Preview.Code>
+    {`
+      import {
+        MenuItem,
+        SplitButton,
+        SplitButtonAction,
+        SplitButtonContent,
+        SplitButtonTrigger,
+      } from "moduix";
+      import styles from "./split-button.module.css";
+
+      export function SplitButtonStylingDemo() {
+        return (
+          <SplitButton className={styles.brandSplitButton} variant="outline">
+            <SplitButtonAction>Review</SplitButtonAction>
+            <SplitButtonTrigger aria-label="More review actions" />
+            <SplitButtonContent>
+              <MenuItem closeOnClick>Approve</MenuItem>
+              <MenuItem closeOnClick>Request Changes</MenuItem>
+            </SplitButtonContent>
+          </SplitButton>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .brandSplitButton [data-slot="split-button-action"],
+      .brandSplitButton [data-slot="split-button-trigger"] {
+        border-color: color-mix(in oklab, var(--color-primary) 32%, var(--color-border));
+        background-color: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+        color: var(--color-primary);
+      }
+
+      .brandSplitButton [data-slot="split-button-trigger"]::before {
+        opacity: 0.28;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Composition
 
 The primary action still uses the shared `Button` API, so `render` and `nativeButton={false}` stay
 available on `SplitButtonAction`.
@@ -353,3 +432,17 @@ available on `SplitButtonAction`.
 
   </Preview.Code>
 </Preview>
+
+## Styling
+
+`SplitButton` exposes stable `data-slot` hooks, but it does not add dedicated `--split-button-*`
+theme variables. The grouped buttons still rely on the shared `Button` and `Menu` styling
+contracts.
+
+### Styling hooks
+
+- `data-slot="split-button-root"` targets the grouped wrapper.
+- `data-slot="split-button-action"` targets the primary action side.
+- `data-slot="split-button-trigger"` targets the dropdown trigger side.
+- `SplitButtonAction` and `SplitButtonTrigger` still carry the normal `Button` data attributes such
+  as `data-size` and `data-variant`.
