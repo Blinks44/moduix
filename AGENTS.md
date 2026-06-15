@@ -19,7 +19,6 @@ Monorepo for the UI component library and documentation.
 Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 
 - Always apply `.agents/skills/engineering-principles/SKILL.md` for coding tasks.
-- If `rtk` is installed on users computer (check this with command `rtk --version`), apply `.agents/skills/rtk-command-proxy/SKILL.md` immediately after `engineering-principles`. Otherwise run shell commands directly.
 - For JS/TS work, apply `.agents/skills/js-react-conventions/SKILL.md`.
 - For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
 - For Base UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
@@ -28,17 +27,16 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
 - For tasks that touch both `packages/ui` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.
 
-`engineering-principles` and `rtk-command-proxy` are immutable baseline skills. Keep project-specific rules in dedicated skills.
+`engineering-principles` is the immutable baseline skill. Keep project-specific rules in dedicated skills.
 
 If a task spans UI and docs, apply skills in this order:
 
 1. `engineering-principles`
-2. `rtk-command-proxy` when `rtk` is available
-3. `upstream-library-docs` when upstream Base UI or shadcn behavior matters
-4. `ui-component-workflow`
-5. `local-component-docs` when component markdown is created or updated
-6. `cross-package-sync`
-7. `docs-workflow`
+2. `upstream-library-docs` when upstream Base UI or shadcn behavior matters
+3. `ui-component-workflow`
+4. `local-component-docs` when component markdown is created or updated
+5. `cross-package-sync`
+6. `docs-workflow`
 
 ## Global Rules
 

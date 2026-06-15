@@ -11,20 +11,29 @@ import {
   CustomValueTextMeterExample,
   CustomStylesMeterExample,
   LocaleAndFormatMeterExample,
-  MeterCssPlaygroundPanel,
   MeterCssPropertiesPanel,
   MeterExample,
   MinMaxRangeMeterExample,
-  meterPlaygroundCssProperties,
 } from '@/components/examples/meter';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/meter" />
 
+## Choosing the right component
+
+Use `Meter` when the value is always known and represents a bounded measurement such as storage
+usage, quota consumption, or service health.
+
+- Choose **`Meter`** for known values that describe the current level of something.
+- Choose **`Progress`** when work can be indeterminate or the UI represents ongoing completion.
+
 ## Basic
 
-<Preview cssProperties={meterPlaygroundCssProperties}>
+Start with `Meter`, `MeterLabel`, and `MeterValue`. This is the recommended path when the default
+track and indicator structure already fits.
+
+<Preview>
   <MeterExample />
 
   <Preview.Code>
@@ -38,7 +47,7 @@ import {
       export function MeterDemo() {
         return (
           <Meter value={24}>
-            <MeterLabel>Storage Used</MeterLabel>
+            <MeterLabel>Storage used</MeterLabel>
             <MeterValue />
           </Meter>
         );
@@ -46,8 +55,6 @@ import {
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <MeterCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <MeterCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -98,7 +105,7 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Meter` renders the visual bar automatically, so the default path only needs the visible text slots.
+The normal consumer path is short:
 
 ```text
 Meter[value]
@@ -108,51 +115,55 @@ Meter[value]
    └─ indicator
 ```
 
-```tsx
-<Meter value={64}>
-  <MeterLabel>Storage used</MeterLabel>
-  <MeterValue>{(formattedValue) => `${formattedValue} used`}</MeterValue>
-</Meter>
-```
-
-| Part         | Role                                                                                           |
-| ------------ | ---------------------------------------------------------------------------------------------- |
-| `Meter`      | Root state and accessibility layer. Provides `value`, `min`, `max`, formatting, and ARIA text. |
-| `MeterLabel` | Label associated with the meter.                                                               |
-| `MeterValue` | Formatted value output, with optional custom text rendering.                                   |
-| `track`      | Default visual rail rendered by `Meter`.                                                       |
-| `indicator`  | Default fill rendered inside the track.                                                        |
-
-For deeper customization, the same parts are also exported as `MeterRoot`, `MeterTrack`, and
-`MeterIndicator`.
+| Part             | Role                                                                         |
+| ---------------- | ---------------------------------------------------------------------------- |
+| `Meter`          | High-level root wrapper with formatting, ARIA state, and default bar output. |
+| `MeterLabel`     | Accessible label associated with the meter root.                             |
+| `MeterValue`     | Formatted value output, with optional custom text rendering.                 |
+| `track`          | Default visual rail rendered by `Meter`.                                     |
+| `indicator`      | Default filled bar rendered inside the track.                                |
+| `MeterRoot`      | Low-level root for explicit composition and custom structure.                |
+| `MeterTrack`     | Explicit track part for custom layouts.                                      |
+| `MeterIndicator` | Explicit indicator part for custom layouts.                                  |
 
 ## Composition
 
-Use `value` with optional `min` and `max` for bounded metrics such as storage usage, quotas, or
-health checks. `Meter` always expects a concrete number and does not have the indeterminate/null
-state from `Progress`. `locale`, `format`, `aria-valuetext`, and `getAriaValueText` live on the
-root and keep the visible value and accessible text aligned.
+### When to stay high-level
 
-Style the default component with `className` and the public CSS variables. When the meter bar
-itself needs separate selectors or a different DOM shape, switch to explicit composition with
-`MeterRoot`, `MeterTrack`, and `MeterIndicator`. `MeterLabel` and `MeterValue` keep their own
-`className` and `render` props from Base UI.
+Stay with `Meter` for most dashboards, forms, and settings panels where the default track and
+indicator belong after the visible text content.
 
-### Defaults
+Use `Meter` or `MeterRoot` for the public root props: `value`, `min`, `max`, `locale`, `format`,
+`aria-valuetext`, and `getAriaValueText`.
+
+### When to go custom
+
+Switch to `MeterRoot`, `MeterTrack`, and `MeterIndicator` when the bar needs a different DOM
+position, separate part-level selectors, or custom layout around the default structure.
+
+### Default props
 
 | Prop     | Default | Values                     |
 | -------- | ------- | -------------------------- |
+| `value`  | -       | Required `number`          |
 | `min`    | `0`     | Any `number`               |
 | `max`    | `100`   | Any `number`               |
-| `value`  | -       | Required `number`          |
 | `format` | -       | `Intl.NumberFormatOptions` |
 | `locale` | runtime | `Intl.LocalesArgument`     |
+
+### Behavioral notes
+
+- `Meter` always expects a concrete `number`. It does not support `null` or indeterminate state.
+- Use `Progress` when the current amount is unknown or the UI represents ongoing completion.
+- Prefer `MeterValue` for visible numeric output so formatting stays aligned with the root value.
+- Use `aria-valuetext` or `getAriaValueText` when the numeric value needs domain-specific wording
+  for assistive technology.
 
 ## Examples
 
 ### Min Max Range
 
-Use `min` and `max` for ranges other than `0` to `100`.
+Use `min` and `max` when the value does not use the default `0` to `100` range.
 
 <Preview>
   <MinMaxRangeMeterExample />
@@ -193,19 +204,18 @@ Keep the value in React state when the meter mirrors another control.
         MeterValue,
       } from "moduix";
       import { useState } from "react";
-      import styles from "./meter-demo.module.css";
 
-      function ControlledMeter() {
+      export function ControlledMeterDemo() {
         const [value, setValue] = useState(45);
 
         return (
-          <div className={styles.stack}>
+          <div className="stack">
             <Meter value={value}>
               <MeterLabel>Capacity</MeterLabel>
               <MeterValue />
             </Meter>
             <input
-              className={styles.range}
+              className="range"
               type="range"
               min={0}
               max={100}
@@ -272,8 +282,8 @@ Use `locale`, `format`, and a custom `MeterValue` child function for localized v
 
 ### Aria Value Text
 
-Use `aria-valuetext` when the numeric value needs a clearer accessible label than the formatted
-number alone.
+Use `aria-valuetext` when the numeric value needs clearer accessible wording than the default
+formatted number.
 
 <Preview>
   <AriaValueTextMeterExample />
@@ -301,8 +311,8 @@ number alone.
 
 ### Custom Value Text
 
-Use `getAriaValueText` when the visible `MeterValue` wording and screen reader wording should stay
-aligned but the accessible text needs more context.
+Use `getAriaValueText` when visible and accessible wording should stay aligned but should not use
+the default number formatting alone.
 
 <Preview>
   <CustomValueTextMeterExample />
@@ -333,10 +343,10 @@ aligned but the accessible text needs more context.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Styling
 
-Style the root with `className`, CSS variables, and the built-in `data-slot` hooks when the
-default bar needs more specific selectors.
+Style the default wrapper with `className`, CSS variables, and `data-slot` hooks when the default
+structure still fits.
 
 <Preview>
   <CustomStylesMeterExample />
@@ -348,11 +358,10 @@ default bar needs more specific selectors.
         MeterLabel,
         MeterValue,
       } from "moduix";
-      import styles from "./meter-demo.module.css";
 
       export function CustomStylesMeterDemo() {
         return (
-          <Meter value={72} className={styles.customMeter}>
+          <Meter value={72} className="customMeter">
             <MeterLabel>Monthly quota</MeterLabel>
             <MeterValue />
           </Meter>
@@ -385,7 +394,7 @@ default bar needs more specific selectors.
 
 ### Custom Composition
 
-Use the same parts when you need to change layout or structure more deeply.
+Use explicit parts when the layout or bar structure needs to change more deeply.
 
 <Preview>
   <CompositionMeterExample />
@@ -393,27 +402,25 @@ Use the same parts when you need to change layout or structure more deeply.
   <Preview.Code>
     {`
       import {
-        MeterRoot,
         MeterIndicator,
         MeterLabel,
+        MeterRoot,
         MeterTrack,
         MeterValue,
       } from "moduix";
-      import styles from "./meter-demo.module.css";
 
       export function CompositionMeterDemo() {
         return (
-          <MeterRoot value={58} className={styles.composedMeter}>
+          <MeterRoot value={58} className="composedMeter">
             <MeterLabel>Team capacity</MeterLabel>
             <MeterValue>{(formattedValue) => \`\${formattedValue} available\`}</MeterValue>
-            <MeterTrack className={styles.composedTrack}>
-              <MeterIndicator className={styles.composedIndicator} />
+            <MeterTrack className="composedTrack">
+              <MeterIndicator className="composedIndicator" />
             </MeterTrack>
           </MeterRoot>
         );
       }
-
-`}
+    `}
 
   </Preview.Code>
 
@@ -439,8 +446,34 @@ Use the same parts when you need to change layout or structure more deeply.
         border-radius: inherit;
         background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
       }
-
     `}
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Meter` through `className`, stable `data-slot="meter-*"` hooks, and the public `--meter-*`
+CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <MeterCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `Meter` or `MeterRoot` for layout width, gap, and shared text color
+- `MeterLabel` and `MeterValue` for typography overrides
+- `MeterTrack` for rail background, border, and radius
+- `MeterIndicator` for fill color, gradient, and transition overrides
+
+The main public hooks are `data-slot="meter-root"`, `data-slot="meter-label"`,
+`data-slot="meter-value"`, `data-slot="meter-track"`, and `data-slot="meter-indicator"`.

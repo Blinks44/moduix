@@ -24,11 +24,11 @@ TanStack Start is used only by `apps/docs`. Do not apply this skill to `packages
 
 ## Commands
 
-Run from the repository root. When `rtk-command-proxy` is active, prefix commands with `rtk`.
+Run from the repository root.
 
 ```bash
-rtk npx @tanstack/intent@latest list
-rtk npx @tanstack/intent@latest load <package>#<skill>
+npx @tanstack/intent@latest list
+npx @tanstack/intent@latest load <package>#<skill>
 ```
 
 Use `install` only when intentionally updating agent config guidance. Use maintainer commands only when maintaining shipped skills.

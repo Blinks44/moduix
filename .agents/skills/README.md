@@ -5,7 +5,6 @@ Local skills for this repository.
 ## Skills
 
 - `.agents/skills/engineering-principles/SKILL.md` - baseline engineering behavior for coding tasks
-- `.agents/skills/rtk-command-proxy/SKILL.md` - shell-command baseline that requires the `rtk` prefix
 - `.agents/skills/js-react-conventions/SKILL.md` - JS/TS React conventions with a simplicity-first bias
 - `.agents/skills/tanstack-intent/SKILL.md` - workflow for loading version-matched TanStack skills in `apps/docs`
 - `.agents/skills/upstream-library-docs/SKILL.md` - routing for online Base UI and shadcn references
