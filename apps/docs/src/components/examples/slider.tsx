@@ -15,12 +15,12 @@ import styles from './slider.module.css';
 
 export const sliderOverrideCssProperties: CssPropertyInput[] = [
   ['--slider-color', 'var(--color-foreground)', 'Controls the default slider text color.'],
-  ['--slider-control-padding-x', '0.625rem', 'Controls vertical control horizontal padding.'],
-  ['--slider-control-padding-y', '0.625rem', 'Controls horizontal control vertical padding.'],
+  ['--slider-control-padding-x', '0.625rem', 'Controls inline padding on vertical sliders.'],
+  ['--slider-control-padding-y', '0.625rem', 'Controls block padding on horizontal sliders.'],
   ['--slider-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled slider opacity.'],
   ['--slider-focus-ring-color', 'var(--color-ring)', 'Controls thumb focus ring color.'],
   ['--slider-gap', '0.5rem', 'Controls spacing between slider slots.'],
-  ['--slider-height', '12rem', 'Controls the vertical slider control height.'],
+  ['--slider-height', '12rem', 'Controls vertical slider height.'],
   ['--slider-indicator-bg', 'var(--color-primary)', 'Controls filled indicator color.'],
   ['--slider-indicator-radius', 'inherit', 'Controls filled indicator corner radius.'],
   ['--slider-label-color', 'var(--slider-color)', 'Controls label text color.'],
@@ -44,8 +44,8 @@ export const sliderOverrideCssProperties: CssPropertyInput[] = [
   ['--slider-value-font-size', 'var(--text-sm)', 'Controls value font size.'],
   ['--slider-value-font-weight', 'var(--weight-regular)', 'Controls value font weight.'],
   ['--slider-value-line-height', 'var(--line-height-text-sm)', 'Controls value line height.'],
-  ['--slider-width', '12rem', 'Controls the horizontal slider root width.'],
-  ['--slider-width-vertical', 'fit-content', 'Controls the vertical slider root width.'],
+  ['--slider-width', '12rem', 'Controls horizontal slider width.'],
+  ['--slider-width-vertical', 'fit-content', 'Controls vertical slider width.'],
 ];
 export const sliderPlaygroundCssProperties: CssPropertyInput[] = [
   ['--slider-color', 'var(--color-foreground)', 'Controls default slider text color.'],

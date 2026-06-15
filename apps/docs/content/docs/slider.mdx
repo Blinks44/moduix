@@ -21,10 +21,20 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/slider" />
 
-## Default Path
+## Choosing the right component
 
-Use `Slider` for the common case. It keeps Base UI state and behavior intact, while rendering the
-control, track, and indicator for you.
+Use `Slider` when users should adjust a bounded numeric value directly with pointer or keyboard
+input.
+
+- Choose **`Slider`** for interactive values such as volume, brightness, budgets, and thresholds.
+- Choose **`Input`** or **`NumberField`** when exact typed entry matters more than scrubbing.
+- Choose **`Meter`** or **`Progress`** when the value is display-only and should not be adjusted by
+  the user.
+
+## Basic
+
+Start with `Slider`, `SliderLabel`, `SliderValue`, and `SliderThumb`. This is the recommended path
+when the default control, track, and indicator structure already fits.
 
 <Preview cssProperties={sliderPlaygroundCssProperties}>
   <SliderExample />
@@ -100,12 +110,9 @@ aubx shadcn@latest add Blinks44/moduix/slider
 This install path also pulls in the shared moduix foundation files that `Slider` depends on, such
 as styles, icons, and small utilities.
 
-`SliderLabel` gives the slider group a visible label. Each `SliderThumb` still needs its own
-accessible name through `aria-label`, especially for range sliders.
-
 ## Anatomy
 
-The default wrapper keeps the recommended structure short:
+The normal consumer path is short:
 
 ```text
 Slider
@@ -114,7 +121,7 @@ Slider
 └─ SliderThumb[index]
 ```
 
-Internally, `Slider` renders:
+`Slider` then renders the default interactive structure for you:
 
 ```text
 SliderRoot
@@ -126,55 +133,68 @@ SliderRoot
       └─ SliderThumb[index]
 ```
 
-| Part              | Role                                                                 |
-| ----------------- | -------------------------------------------------------------------- |
-| `Slider`          | Default high-level wrapper for the common path.                      |
-| `SliderRoot`      | Low-level root for manual composition.                               |
-| `SliderLabel`     | Visible label for the slider group.                                  |
-| `SliderValue`     | Optional formatted value output.                                     |
-| `SliderControl`   | Interaction area for pointer and keyboard input.                     |
-| `SliderTrack`     | Visual track that contains the indicator and thumbs.                 |
-| `SliderIndicator` | Filled portion of the track.                                         |
-| `SliderThumb`     | Interactive handle. Render one thumb per value and index range ones. |
+| Part              | Role                                                                |
+| ----------------- | ------------------------------------------------------------------- |
+| `Slider`          | High-level wrapper with the default control, track, and indicator.  |
+| `SliderRoot`      | Low-level root for explicit composition and custom track placement. |
+| `SliderLabel`     | Visible label for the slider group.                                 |
+| `SliderValue`     | Optional formatted value output.                                    |
+| `SliderControl`   | Interaction area for pointer and keyboard input.                    |
+| `SliderTrack`     | Visual track that contains the indicator and thumbs.                |
+| `SliderIndicator` | Filled portion of the track.                                        |
+| `SliderThumb`     | Interactive handle. Render one thumb per selected value.            |
 
 ## Composition
 
-Use `Slider` unless you need to restyle or rearrange the internal structural parts directly.
+### When to stay high-level
 
-The high-level wrapper accepts the same behavior props as `SliderRoot`, including:
+Stay with `Slider` for most settings panels and forms. It preserves the Base UI root behavior and
+automatically renders `SliderControl`, `SliderTrack`, and `SliderIndicator` after the visible
+content.
+
+Use `Slider` or `SliderRoot` for the public root props:
 
 - `value` and `defaultValue`
-- `onValueChange`
+- `onValueChange` and `onValueCommitted`
 - `min`, `max`, `step`, and `largeStep`
 - `minStepsBetweenValues`
 - `orientation`
 - `thumbAlignment`
 - `thumbCollisionBehavior`
+- `name`, `form`, `locale`, and `format`
 
-For the default path, put `className` on:
+`Slider` does not render a thumb automatically. Render one `SliderThumb` per selected value so each
+thumb can keep its own accessible name.
 
-- `Slider` for root width and layout
-- `SliderLabel` and `SliderValue` for text styling
-- `SliderThumb` for thumb styling
+### When to go custom
 
-Switch to `SliderRoot` composition when the styling needs to reach `SliderControl`,
-`SliderTrack`, or `SliderIndicator`.
+Switch to `SliderRoot`, `SliderControl`, `SliderTrack`, and `SliderIndicator` when the track needs
+its own layout position, separate part-level selectors, or styling that should not depend on the
+default wrapper structure.
 
-### Defaults
+### Default props
 
 | Prop                     | Default      | Values                               |
 | ------------------------ | ------------ | ------------------------------------ |
 | `orientation`            | `horizontal` | `horizontal`, `vertical`             |
-| `min`                    | `0`          | number                               |
-| `max`                    | `100`        | number                               |
-| `step`                   | `1`          | number                               |
-| `largeStep`              | `10`         | number                               |
-| `minStepsBetweenValues`  | `0`          | number                               |
+| `min`                    | `0`          | Any `number`                         |
+| `max`                    | `100`        | Any `number`                         |
+| `step`                   | `1`          | Any `number`                         |
+| `largeStep`              | `10`         | Any `number`                         |
+| `minStepsBetweenValues`  | `0`          | Any `number`                         |
 | `thumbAlignment`         | `center`     | `center`, `edge`, `edge-client-only` |
 | `thumbCollisionBehavior` | `push`       | `push`, `swap`, `none`               |
 
-For range sliders, pass an array value and render the same number of `SliderThumb` elements. Keep
-`index` aligned with the value array for SSR and stable thumb identity.
+### Behavioral notes
+
+- For range sliders, pass an array value and render the same number of `SliderThumb` elements.
+- For SSR-safe multi-thumb sliders, set `index` on each thumb to match the value array index.
+- Prefer `SliderLabel` for the shared visible label. Add `aria-label` on each thumb when there is
+  no visible label or when range thumbs need distinct names.
+- Pass `name` on `Slider` when the current value should submit with a form.
+- For multi-thumb form controls, `Fieldset` can own the shared visible label while each
+  `SliderThumb` keeps a distinct `aria-label`.
+- `SliderValue` render functions always receive arrays: `(formattedValues, values)`.
 
 ## Examples
 
@@ -265,19 +285,21 @@ represents a constrained numeric domain.
   </Preview.Code>
 
   <Preview.Data>
-    {`      const priceFormatter = new Intl.NumberFormat("en-US", {
+    {`
+      const priceFormatter = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
         maximumFractionDigits: 0,
-      });`}
+      });
+    `}
 
   </Preview.Data>
 </Preview>
 
 ### Controlled
 
-Control the value from React state when the slider needs to stay in sync with another input or
-derived UI.
+Control the value from React state when the slider must stay in sync with another input or derived
+UI.
 
 <Preview>
   <ControlledSliderExample />
@@ -413,7 +435,7 @@ Use `disabled` to preserve the current value while preventing interaction.
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
 Use `SliderRoot` when the default wrapper is still the right behavior model, but the visible track
 structure needs direct control.
@@ -477,3 +499,23 @@ structure needs direct control.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Slider` through `className`, stable `data-slot="slider-*"` hooks, and the public
+`--slider-*` CSS variables shown in the Basic preview tabs.
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `Slider` or `SliderRoot` for width, gap, shared text color, and vertical layout width
+- `SliderLabel` and `SliderValue` for typography
+- `SliderControl` for the interactive hit area and orientation-specific padding
+- `SliderTrack` for rail thickness, radius, background, and border treatment
+- `SliderIndicator` for the filled range color
+- `SliderThumb` for handle size, border, shadow, and focus-ring treatment
+
+The main public hooks are `data-slot="slider-root"`, `data-slot="slider-label"`,
+`data-slot="slider-value"`, `data-slot="slider-control"`, `data-slot="slider-track"`,
+`data-slot="slider-indicator"`, and `data-slot="slider-thumb"`.

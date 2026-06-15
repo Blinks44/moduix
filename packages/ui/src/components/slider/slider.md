@@ -305,6 +305,8 @@ Example:
 
 ## Local changelog
 
+- Revalidated the documented `--slider-*` variable list against `packages/ui/src/styles/theme.css`
+  and tightened the docs around form labeling, range-thumb naming, and the high-level default path.
 - Rewrote the local documentation to describe the actual moduix `Slider` wrapper, composition model,
   styling hooks, accessibility guidance, and limitations instead of mirroring Base UI docs.
 - Documented the default sugar boundary: `Slider` auto-renders control/track/indicator, but thumbs
