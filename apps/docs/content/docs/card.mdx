@@ -5,39 +5,26 @@ icon: Component
 ---
 
 import {
-  CardCompactExample,
   CardAsLinkExample,
-  CardCssPlaygroundPanel,
   CardCssPropertiesPanel,
+  CardCompactExample,
   CardExample,
   CardLinkWithActionsExample,
   CardWithActionExample,
   CardWithImageExample,
   CustomCompositionCardExample,
-  cardPlaygroundCssProperties,
 } from '@/components/examples/card';
 
 ## API Reference
 
-`Card` is a standalone presentational component. It does not wrap a Base UI primitive, so the API
-stays intentionally small: a styled root, one compact size option, and composable parts.
-
-## Overview
-
-Use `Card` to group related content on a visible surface. The default path stays short:
-
-- `Card` for the visible surface
-- `CardHeader` for heading content
-- `CardTitle` and `CardDescription` for the primary label
-- `CardContent` for the body
-- `CardFooter` for actions or secondary metadata
-
-`CardAction` is optional and only handles the common header-side layout for a badge or compact
-action.
+`Card` is a local moduix component. There is no upstream Base UI primitive for this API.
 
 ## Basic
 
-<Preview cssProperties={cardPlaygroundCssProperties} cssVariableScope="local">
+Start with `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, and `CardFooter`.
+This is the recommended path for summaries, settings panels, and dashboard surfaces.
+
+<Preview>
   <CardExample />
 
   <Preview.Code>
@@ -110,8 +97,6 @@ action.
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <CardCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <CardCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -157,12 +142,12 @@ aubx shadcn@latest add Blinks44/moduix/card
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Card` depends on, such
-as styles, icons, and small utilities.
+This install path also pulls in the shared moduix foundation files that `Card` depends on, such as
+styles, icons, and small utilities.
 
 ## Anatomy
 
-Use the following composition to build a `Card`:
+The normal consumer path is short:
 
 ```text
 Card
@@ -175,69 +160,63 @@ Card
 └─ CardFooter
 ```
 
-```tsx
-<Card>
-  <CardHeader>
-    <CardTitle>Billing plan</CardTitle>
-    <CardDescription>Team workspace, monthly billing.</CardDescription>
-  </CardHeader>
-  <CardContent>...</CardContent>
-  <CardFooter>...</CardFooter>
-</Card>
-```
-
-| Part              | Role                                                                 |
-| ----------------- | -------------------------------------------------------------------- |
-| `Card`            | Root container. Supports `className`, native props, and `size="sm"`. |
-| `CardHeader`      | Header layout for title, description, and action content.            |
-| `CardContent`     | Main content area with card body spacing.                            |
-| `CardFooter`      | Footer layout for actions or secondary content.                      |
-| `CardTitle`       | Card heading. Defaults to `h3` and supports `as`.                    |
-| `CardDescription` | Muted supporting text under the title.                               |
-| `CardAction`      | Right-aligned header action slot.                                    |
-| `CardLink`        | Link that can stretch its hit area across the card.                  |
-
-## Public Props
-
-`Card`, `CardHeader`, `CardContent`, `CardFooter`, and `CardAction` extend their native `div` props.
-`CardDescription` extends native `p` props.
-
-| Component   | Prop   | Type                                           | Default     |
-| ----------- | ------ | ---------------------------------------------- | ----------- |
-| `Card`      | `size` | `'default' \| 'sm'`                            | `'default'` |
-| `CardTitle` | `as`   | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`      |
-
-`Card` also supports Base UI-style `render` to replace the root element. Use it for a card that is a
-single link and has no nested buttons, links, or form controls.
-
-`CardLink` extends native anchor props and also supports `render`. Use it inside `CardTitle` when the
-card should navigate but still contain other interactive controls.
-
-Every part accepts `className`. `Card` writes `size` to `data-size`; all parts expose `data-slot`
-attributes for styling and tests.
+| Part              | Role                                                                                   |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| `Card`            | Root surface. Supports `className`, `render`, native props, and `size="sm"`.           |
+| `CardHeader`      | Header grid for title, description, and an optional trailing action.                   |
+| `CardTitle`       | Heading part. Defaults to `h3` and supports `as`.                                      |
+| `CardDescription` | Muted supporting text under the title.                                                 |
+| `CardAction`      | Optional compact header-side action slot.                                              |
+| `CardContent`     | Main body area with content spacing and body text styles.                              |
+| `CardFooter`      | Wrapping footer row for actions or secondary metadata.                                 |
+| `CardLink`        | Link that stretches its hit area across the card without nesting interactive elements. |
 
 ## Composition
 
-Prefer the default composition when the card is just grouping content. Add `CardAction` only when the
-header needs a compact status or control aligned to the trailing edge.
+### When to stay high-level
 
-If the whole surface should navigate somewhere and the card has no nested interactive content, render
-the root as a link with `render={<a href="..." />}`. Do not put buttons, links, menus, checkboxes, or
-other focusable controls inside that linked root.
+Stay with the standard parts when the card is grouping content on a visible surface.
 
-If the card needs both navigation and nested actions, keep `Card` as the presentational root and put
-`CardLink` in the title. `CardLink` uses the overlay-link pattern so the card surface is clickable
-without nesting interactive elements.
+- Use `CardHeader`, `CardTitle`, and `CardDescription` for the primary heading block.
+- Use `CardContent` for body copy, metrics, media summaries, or form fields.
+- Use `CardFooter` for actions that may need to wrap.
+- Use `CardAction` only for a compact badge, menu trigger, or one small control aligned to the
+  trailing edge of the header.
 
-Use `size="sm"` for denser dashboards, menus, and supporting panels. Keep the default size for
-standard page sections and primary summaries.
+### When to go custom
 
-Use `className` and `--card-*` CSS variables for visual customization. The layout parts stay the same
-even when the visuals change.
+`Card` does not expose a lower-level primitive stack. The custom path is plain composition:
+
+- Render the root as another element with `render`, such as `render={<a href="..." />}`, when the
+  whole card is a single navigation target.
+- Use `CardLink` inside `CardTitle` when the card should navigate but still contains nested
+  interactive controls.
+- Add plain children before the header for media blocks or other custom structure.
+- Override visuals with `className` and `--card-*` variables without changing the part layout.
+
+### Default props
+
+| Part        | Prop   | Default     | Notes                                   |
+| ----------- | ------ | ----------- | --------------------------------------- |
+| `Card`      | `size` | `'default'` | Accepts `'default' \| 'sm'`.            |
+| `CardTitle` | `as`   | `'h3'`      | Accepts heading tags `h1` through `h6`. |
+
+### Behavioral notes
+
+- `Card` is presentational by default and renders a `div`.
+- Use `render={<a href="..." />}` only when the card has no nested buttons, links, inputs, menus,
+  or other focusable controls.
+- Use `CardLink` for the overlay-link pattern when the card needs both navigation and nested
+  actions.
+- `size="sm"` reduces padding and title typography for denser dashboards and side panels.
+- `CardContent` removes the first and last direct-child margins and only adds top padding after a
+  preceding part.
 
 ## Examples
 
 ### Compact
+
+Use `size="sm"` for denser dashboards, side panels, and supporting summaries.
 
 <Preview>
   <CardCompactExample />
@@ -308,7 +287,7 @@ even when the visuals change.
 
 ### With Action
 
-Use `CardAction` for the common header-side slot without introducing an alternate header API.
+Use `CardAction` when the header needs a compact trailing status or control.
 
 <Preview>
   <CardWithActionExample />
@@ -386,7 +365,7 @@ Use `CardAction` for the common header-side slot without introducing an alternat
 
 ### With Image
 
-`Card` stays open to extra content before the header, so media blocks can stay in plain composition.
+Add plain children before the header when the card needs media or another custom top block.
 
 <Preview>
   <CardWithImageExample />
@@ -435,7 +414,6 @@ Use `CardAction` for the common header-side slot without introducing an alternat
     `}
 
   </Preview.Code>
-
   <Preview.CSS>
     {`
       .card {
@@ -482,8 +460,7 @@ Use `CardAction` for the common header-side slot without introducing an alternat
 
 ### As Link
 
-Use `Card render` when the entire card is a single navigation target and the card does not contain
-nested interactive controls.
+Use `Card render` when the entire surface is a single navigation target.
 
 <Preview>
   <CardAsLinkExample />
@@ -556,9 +533,7 @@ nested interactive controls.
 
 ### Link With Actions
 
-Use `CardLink` when the card should navigate but still contains buttons, menus, checkboxes, or other
-interactive controls. Place the real link in the title; its hit area stretches across the card while
-`CardAction` remains above the overlay.
+Use `CardLink` when the card should navigate but still contains nested interactive controls.
 
 <Preview>
   <CardLinkWithActionsExample />
@@ -639,9 +614,9 @@ interactive controls. Place the real link in the title; its hit area stretches a
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
-Use local CSS variables when the layout stays the same and only the surface styling needs to change.
+Use local CSS variables when the part structure stays the same and only the surface styling changes.
 
 <Preview>
   <CustomCompositionCardExample />
@@ -680,7 +655,6 @@ Use local CSS variables when the layout stays the same and only the surface styl
     `}
 
   </Preview.Code>
-
   <Preview.CSS>
     {`
       .customCard {
@@ -722,13 +696,28 @@ Use local CSS variables when the layout stays the same and only the surface styl
   </Preview.CSS>
 </Preview>
 
-## Accessibility
+## Styling
 
-- `Card` is a `div` by default and has no built-in landmark, button, link, or region semantics.
-- Use `CardTitle as` when the surrounding document outline needs a heading level other than `h3`.
-- Use `Card render={<a href="..." />}` only when the whole card is one link and there are no nested
-  interactive controls.
-- Use `CardLink` for cards that need a large navigation hit area plus nested actions.
-- `CardAction` is visual layout only; it does not connect controls to the title or description.
-- There are no open, checked, disabled, read-only, keyboard, or focus-management states because the
-  component does not manage interaction by itself.
+Style `Card` through `className`, the stable `data-slot` hooks, `data-size` on the root, and the
+public `--card-*` variables from `theme.css`.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <CardCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="card"` owns the root surface, border, radius, background, and size-specific tokens.
+- `data-slot="card-header"`, `card-content`, and `card-footer` are the main layout hooks for
+  spacing overrides.
+- `data-slot="card-title"` and `card-description` own heading typography and text color.
+- `data-slot="card-action"` stays above the `CardLink` overlay and is the right hook for compact
+  trailing controls.
+- `data-slot="card-link"` owns the overlay-link focus ring and clickable surface.
+- `Card` writes `data-size="default"` or `data-size="sm"` on the root for size-specific styling.

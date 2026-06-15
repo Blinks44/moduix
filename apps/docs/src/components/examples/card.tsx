@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './card.module.css';
 
 export const cardOverrideCssProperties: CssPropertyInput[] = [
@@ -69,30 +69,9 @@ export const cardOverrideCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export const cardPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--card-bg', 'var(--color-card)', 'Controls card background color.'],
-  ['--card-border-color', 'var(--color-border)', 'Controls card border color.'],
-  ['--card-border-width', 'var(--border-width-sm)', 'Controls card border width.'],
-  ['--card-color', 'var(--color-card-foreground)', 'Controls card foreground color.'],
-  ['--card-padding', 'var(--spacing-6)', 'Controls default card padding.'],
-  ['--card-radius', 'var(--radius-lg)', 'Controls card border radius.'],
-  ['--card-shadow', 'none', 'Controls card shadow.'],
-];
-
 export function CardCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable properties={cardOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function CardCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={cardPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 

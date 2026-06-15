@@ -19,7 +19,7 @@ Monorepo for the UI component library and documentation.
 Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 
 - Always apply `.agents/skills/engineering-principles/SKILL.md` for coding tasks.
-- If `rtk` is in `PATH`, apply `.agents/skills/rtk-command-proxy/SKILL.md` immediately after `engineering-principles`. Otherwise run shell commands directly.
+- If `rtk` is installed on users computer (check this with command `rtk --version`), apply `.agents/skills/rtk-command-proxy/SKILL.md` immediately after `engineering-principles`. Otherwise run shell commands directly.
 - For JS/TS work, apply `.agents/skills/js-react-conventions/SKILL.md`.
 - For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
 - For Base UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
