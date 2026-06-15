@@ -7,6 +7,7 @@ import {
   DrawerBackdrop,
   DrawerBody,
   DrawerClose,
+  DrawerCloseIcon,
   DrawerContent,
   DrawerContentInner,
   DrawerDescription,
@@ -27,7 +28,7 @@ import {
 import { useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './drawer.module.css';
 
 export const drawerOverrideCssProperties: CssPropertyInput[] = [
@@ -42,6 +43,26 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-bleed-size', '3rem', 'Off-screen bleed size for edge drawers.'],
   ['--drawer-border-color', 'var(--color-border)', 'Popup border color.'],
   ['--drawer-color', 'var(--color-popover-foreground)', 'Popup text color.'],
+  ['--drawer-close-icon-bg', 'transparent', 'Close icon background color.'],
+  ['--drawer-close-icon-bg-hover', 'var(--color-accent)', 'Close icon hover background color.'],
+  [
+    '--drawer-close-icon-color',
+    'var(--drawer-description-color, var(--color-muted-foreground))',
+    'Close icon color.',
+  ],
+  [
+    '--drawer-close-icon-color-hover',
+    'var(--drawer-close-icon-color, var(--drawer-color, var(--color-popover-foreground)))',
+    'Close icon hover color.',
+  ],
+  [
+    '--drawer-close-icon-focus-ring-color',
+    'var(--drawer-focus-ring-color, var(--color-ring))',
+    'Close icon focus ring color.',
+  ],
+  ['--drawer-close-icon-glyph-size', '0.75rem', 'Close icon glyph size.'],
+  ['--drawer-close-icon-radius', 'var(--radius-md)', 'Close icon border radius.'],
+  ['--drawer-close-icon-size', '1.75rem', 'Close icon button size.'],
   ['--drawer-control-bg', 'var(--color-background)', 'Control background color.'],
   ['--drawer-control-bg-hover', 'var(--color-accent)', 'Control hover background color.'],
   ['--drawer-control-border-color', 'var(--color-border)', 'Control border color.'],
@@ -81,6 +102,7 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-indent-scale-active', '0.98', 'Active indent scale.'],
   ['--drawer-indent-transition', 'var(--transition-spring)', 'Indent transition.'],
   ['--drawer-indent-translate-y-active', 'var(--spacing-2)', 'Active indent Y translation.'],
+  ['--drawer-island-padding', 'var(--spacing-4)', 'Extra viewport padding for island drawers.'],
   ['--drawer-max-height', '80vh', 'Maximum height for top and bottom drawers.'],
   ['--drawer-nested-peek', '2.75rem', 'Visible peek of nested drawers.'],
   ['--drawer-nested-scale-step', '0.06', 'Scale step for nested drawers.'],
@@ -112,41 +134,10 @@ export const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--drawer-width', '100%', 'Width of top and bottom drawers.'],
 ];
 
-export const drawerPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
-  ['--drawer-backdrop-blur', '4px', 'Controls backdrop blur.'],
-  ['--drawer-bg', 'var(--color-popover)', 'Controls popup background.'],
-  ['--drawer-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--drawer-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--drawer-handle-bg', 'var(--color-muted-foreground)', 'Controls handle color.'],
-  ['--drawer-max-height', '80vh', 'Controls popup max height.'],
-  ['--drawer-padding-x', 'var(--spacing-6)', 'Controls popup horizontal padding.'],
-  ['--drawer-padding-y', 'var(--spacing-4)', 'Controls popup vertical padding.'],
-  ['--drawer-radius', 'var(--radius-xl)', 'Controls popup border radius.'],
-  ['--drawer-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--drawer-side-width', '22rem', 'Controls side drawer width.'],
-  ['--drawer-width', '100%', 'Controls top and bottom drawer width.'],
-];
-
 export function DrawerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={drawerOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function DrawerCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={drawerPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
@@ -225,14 +216,12 @@ export function RightDrawerExample() {
       <DrawerContent className={styles.sideContent}>
         <DrawerHeader>
           <DrawerTitle>Details</DrawerTitle>
+          <DrawerCloseIcon aria-label="Close details drawer" />
           <DrawerDescription>
-            Right drawers are useful for entity details and inspectors.
+            Right drawers can place the close icon directly in the header.
           </DrawerDescription>
         </DrawerHeader>
-        <DrawerBody>Use the same API as bottom drawers and adjust width with CSS.</DrawerBody>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
+        <DrawerBody>Adjust width through CSS variables on DrawerContent.</DrawerBody>
       </DrawerContent>
     </Drawer>
   );

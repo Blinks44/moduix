@@ -1,18 +1,17 @@
 ---
 title: Drawer
-description: A panel that slides in from the edge of the screen with swipe gestures and snap points.
+description: A swipeable edge panel and bottom-sheet surface with snap points, nesting, and indent support.
 icon: Component
 ---
 
 import {
   ControlledPersistentDrawerExample,
   CustomCompositionDrawerExample,
-  DrawerCssPlaygroundPanel,
   DrawerCssPropertiesPanel,
   DrawerExample,
   DrawerHandleExample,
-  IslandDrawerExample,
   IndentEffectDrawerExample,
+  IslandDrawerExample,
   LeftDrawerExample,
   NestedDrawerExample,
   NonModalDrawerExample,
@@ -20,27 +19,26 @@ import {
   SnapPointsDrawerExample,
   SwipeAreaDrawerExample,
   TopDrawerExample,
-  drawerPlaygroundCssProperties,
 } from '@/components/examples/drawer';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/drawer" />
 
-## Overview
+## Choosing the right component
 
-Use `Drawer` for edge-attached panels that need gesture support, snap points, or the indent effect.
-If a panel only needs edge positioning, prefer `Dialog`.
+Use `Drawer` when the surface should stay attached to an edge or should feel draggable.
 
-Common fits:
-
-- bottom sheet for mobile actions, details, or secondary flows
-- side panel for filters, inspectors, and contextual editing
-- persistent edge surface controlled by application state
+- Choose **`Drawer`** for bottom sheets, side inspectors, edge-attached panels, and flows that need swipe gestures or snap points.
+- Choose **`Dialog`** when the overlay does not need edge attachment, drag behavior, or snap points.
+- Choose **`AlertDialog`** when the user must explicitly confirm a destructive or irreversible action.
 
 ## Basic
 
-<Preview cssProperties={drawerPlaygroundCssProperties} cssVariableScope="root">
+Start with `Drawer`, `DrawerTrigger`, and `DrawerContent`. This is the recommended path for most
+bottom sheets and side panels.
+
+<Preview>
   <DrawerExample />
 
   <Preview.Code>
@@ -67,7 +65,9 @@ Common fits:
                 <DrawerTitle>Notifications</DrawerTitle>
                 <DrawerDescription>You are all caught up. Good job!</DrawerDescription>
               </DrawerHeader>
-              <DrawerBody>Bottom drawers are the default.</DrawerBody>
+              <DrawerBody>
+                Bottom drawers are the default. They support drag-to-dismiss gestures.
+              </DrawerBody>
               <DrawerFooter>
                 <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
               </DrawerFooter>
@@ -78,8 +78,6 @@ Common fits:
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <DrawerCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <DrawerCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -128,14 +126,10 @@ aubx shadcn@latest add Blinks44/moduix/drawer
 This install path also pulls in the shared moduix foundation files that `Drawer` depends on, such
 as styles, icons, and small utilities.
 
-`DrawerContent` is the recommended default path. It already renders the portal, backdrop, viewport,
-popup surface, handle, and content wrapper for you.
-
 ## Anatomy
 
-`DrawerContent` is the default high-level path. It renders `DrawerPortal`, `DrawerBackdrop`,
-`DrawerViewport`, `DrawerPopup`, `DrawerHandle`, and `DrawerContentInner` for you. Those same
-parts stay available when you need to take over the DOM structure manually.
+`DrawerContent` is the default high-level surface. It already renders the portal, optional
+backdrop, viewport, popup, decorative handle, and content wrapper for you.
 
 ```text
 Drawer
@@ -149,77 +143,86 @@ Drawer
    │        └─ content
    │           ├─ DrawerHeader
    │           │  ├─ DrawerTitle
+   │           │  ├─ DrawerCloseIcon (optional)
    │           │  └─ DrawerDescription (optional)
    │           ├─ DrawerBody (optional)
    │           └─ DrawerFooter (optional)
    │              └─ DrawerClose
 ```
 
-```tsx
-<Drawer>
-  <DrawerTrigger render={<Button />}>Open drawer</DrawerTrigger>
-  <DrawerContent>
-    <DrawerHeader>
-      <DrawerTitle>Notifications</DrawerTitle>
-      <DrawerDescription>You are all caught up. Good job!</DrawerDescription>
-    </DrawerHeader>
-    <DrawerBody>Bottom drawers are the default.</DrawerBody>
-    <DrawerFooter>
-      <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-    </DrawerFooter>
-  </DrawerContent>
-</Drawer>
-```
-
-| Part                     | Role                                                                                              |
-| ------------------------ | ------------------------------------------------------------------------------------------------- |
-| `Drawer`                 | Root state and gesture model. Use `open`, `defaultOpen`, `onOpenChange`, `modal`, and snap props. |
-| `DrawerTrigger`          | Opens the drawer from user interaction. Use `handle` when the trigger lives outside the tree.     |
-| `DrawerContent`          | Default popup container. It renders the internal portal, backdrop, viewport, handle, and content. |
-| `DrawerPortal`           | Optional escape hatch for portal placement and mount behavior.                                    |
-| `DrawerBackdrop`         | Optional styled backdrop part for manual composition.                                             |
-| `DrawerViewport`         | Optional positioning and scroll container for manual composition.                                 |
-| `DrawerPopup`            | Optional popup surface for manual composition.                                                    |
-| `DrawerHandle`           | Optional drag handle for manual composition.                                                      |
-| `DrawerContentInner`     | Optional wrapper around the Base UI `Content` primitive when composing manually.                  |
-| `DrawerHeader`           | Groups title-level content at the top of the panel.                                               |
-| `DrawerTitle`            | Accessible drawer title announced by assistive technology.                                        |
-| `DrawerDescription`      | Optional supporting text announced with the title.                                                |
-| `DrawerBody`             | Optional content region for forms, lists, and scrollable content.                                 |
-| `DrawerFooter`           | Optional actions row for close, submit, and secondary actions.                                    |
-| `DrawerClose`            | Closes the drawer from action buttons while preserving built-in behavior.                         |
-| `DrawerSwipeArea`        | Optional edge-open gesture area.                                                                  |
-| `DrawerProvider`         | Optional provider for indent effects and nested gesture coordination.                             |
-| `DrawerIndent`           | Optional styled indent wrapper.                                                                   |
-| `DrawerIndentBackground` | Optional background layer for the indent effect.                                                  |
-
-For the common case, keep the structure high-level and style the visible parts with `className`
-(`DrawerContent`, `DrawerHeader`, `DrawerBody`, `DrawerFooter`). Reach for the low-level parts only
-when you need to change portal behavior, backdrop presence, viewport behavior, or popup structure.
+| Part                     | Role                                                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `Drawer`                 | Root state and gesture model. Use `open`, `defaultOpen`, `onOpenChange`, `modal`, and snap props here. |
+| `DrawerTrigger`          | Opens the drawer from user interaction. Use `handle` when the trigger lives outside the tree.          |
+| `DrawerContent`          | High-level popup wrapper. It renders the internal portal, viewport, popup, and default handle.         |
+| `DrawerPortal`           | Optional escape hatch for portal placement and mount behavior.                                         |
+| `DrawerBackdrop`         | Optional styled backdrop part for manual composition.                                                  |
+| `DrawerViewport`         | Optional positioning and scroll container for manual composition.                                      |
+| `DrawerPopup`            | Optional popup surface for manual composition.                                                         |
+| `DrawerHandle`           | Optional drag handle for manual composition.                                                           |
+| `DrawerContentInner`     | Optional content wrapper inside the popup for manual composition.                                      |
+| `DrawerHeader`           | Groups title-level content at the top of the panel.                                                    |
+| `DrawerTitle`            | Accessible drawer title announced by assistive technology.                                             |
+| `DrawerDescription`      | Optional supporting text announced with the title.                                                     |
+| `DrawerBody`             | Optional content region for forms, lists, and scrollable content.                                      |
+| `DrawerFooter`           | Optional actions row for close, submit, and secondary actions.                                         |
+| `DrawerClose`            | Closes the drawer from action buttons while preserving built-in behavior.                              |
+| `DrawerCloseIcon`        | Optional icon-only close helper for side-panel headers.                                                |
+| `DrawerSwipeArea`        | Optional edge-open gesture area.                                                                       |
+| `DrawerProvider`         | Optional provider for indent effects and nested gesture coordination.                                  |
+| `DrawerIndent`           | Optional styled indent wrapper.                                                                        |
+| `DrawerIndentBackground` | Optional background layer for the indent effect.                                                       |
 
 ## Composition
 
-`Drawer` owns root behavior: `open`, `defaultOpen`, `onOpenChange`, `modal`, `swipeDirection`,
-`snapPoints`, `snapPoint`, and the rest of the Base UI root props.
+### When to stay high-level
 
-`DrawerContent` stays thin: it accepts the popup props from Base UI, applies the library styles,
-and renders the default portal/backdrop/viewport/popup stack. When `modal={false}` or
-`modal="trap-focus"`, it skips the backdrop and lets outside pointer interaction through.
+Stay with `Drawer`, `DrawerTrigger`, and `DrawerContent` for most flows.
 
-`snapLayout` and `variant` are the custom `DrawerContent` props. Use `snapLayout` when a
-snap-point drawer should resize its visible content with the active snap point instead of sliding a
-full-height panel behind the viewport. Use `variant="island"` when you want the drawer to stay
-fully on-screen without the off-screen bleed tail. Use `disableInitialAnimation` only for drawers
-that are open on the first page paint and should render immediately in their final position.
+Use `Drawer` for state and interaction: `open`, `defaultOpen`, `onOpenChange`, `modal`,
+`swipeDirection`, `snapPoints`, `snapPoint`, `disablePointerDismissal`, and `handle`.
 
-When you need deeper control, compose `DrawerPortal`, `DrawerBackdrop`, `DrawerViewport`,
-`DrawerPopup`, `DrawerHandle`, and `DrawerContentInner` directly. That is the path for custom portal
-behavior (`keepMounted`, `container`), explicit backdrop control, or custom viewport and popup
-structure.
+Use `DrawerContent` for the visible surface. It is intentionally thin: it accepts Base UI popup
+props, applies the library styles, and renders the default portal/backdrop/viewport/popup stack
+for you.
+
+### When to go custom
+
+Switch to `DrawerPortal`, `DrawerBackdrop`, `DrawerViewport`, `DrawerPopup`, `DrawerHandle`, and
+`DrawerContentInner` when the default overlay structure is not enough.
+
+That is the right path for custom portal placement, `keepMounted`, explicit backdrop control,
+viewport-specific layout, or fully custom popup structure.
+
+Use `createDrawerHandle()` when the trigger lives outside the drawer tree or the drawer needs to
+open imperatively.
+
+### Default props
+
+| Prop / Part       | Default          | Values / Notes                                     |
+| ----------------- | ---------------- | -------------------------------------------------- |
+| `modal`           | `true`           | `true`, `false`, or `"trap-focus"`                 |
+| `swipeDirection`  | `"down"`         | `"down"`, `"up"`, `"left"`, or `"right"`           |
+| `defaultOpen`     | `false`          | Initial uncontrolled open state                    |
+| `DrawerContent`   | -                | Renders backdrop only when `modal={true}`          |
+| `snapLayout`      | `false`          | Useful for top and bottom drawers with snap points |
+| `variant`         | `"default"`      | `"default"` or `"island"`                          |
+| `DrawerCloseIcon` | `"Close drawer"` | Default accessible label                           |
+
+### Behavioral notes
+
+- `modal={false}` keeps the page interactive and skips the backdrop entirely.
+- `modal="trap-focus"` keeps keyboard focus inside the drawer while allowing outside pointer interaction.
+- `className` on `DrawerContent` styles the popup surface, not `DrawerContentInner`.
+- `snapLayout` is intended for `down` and `up` drawers with snap points. It is not useful for left and right side panels.
+- `variant="island"` removes the hidden bleed tail and adds outer viewport padding.
+- `DrawerHandle` is decorative and is hidden automatically for left and right drawers.
 
 ## Examples
 
 ### Top
+
+Set `swipeDirection="up"` for a drawer attached to the top edge.
 
 <Preview>
   <TopDrawerExample />
@@ -261,6 +264,9 @@ structure.
 
 ### Left
 
+Use side drawers for filters, navigation, and contextual panels. Set width through CSS variables on
+`DrawerContent`.
+
 <Preview>
   <LeftDrawerExample />
 
@@ -287,7 +293,9 @@ structure.
             <DrawerContent className={styles.sideContent}>
               <DrawerHeader>
                 <DrawerTitle>Filters</DrawerTitle>
-                <DrawerDescription>Use side drawers for filters and navigation.</DrawerDescription>
+                <DrawerDescription>
+                  Use side drawers for filters, navigation, or contextual panels.
+                </DrawerDescription>
               </DrawerHeader>
               <DrawerBody>Set side width through CSS variables on DrawerContent.</DrawerBody>
               <DrawerFooter>
@@ -304,6 +312,8 @@ structure.
 
 ### Right
 
+Use `DrawerCloseIcon` when a side drawer should close from the header instead of the footer.
+
 <Preview>
   <RightDrawerExample />
 
@@ -313,10 +323,9 @@ structure.
         Button,
         Drawer,
         DrawerBody,
-        DrawerClose,
+        DrawerCloseIcon,
         DrawerContent,
         DrawerDescription,
-        DrawerFooter,
         DrawerHeader,
         DrawerTitle,
         DrawerTrigger,
@@ -330,12 +339,12 @@ structure.
             <DrawerContent className={styles.sideContent}>
               <DrawerHeader>
                 <DrawerTitle>Details</DrawerTitle>
-                <DrawerDescription>Right drawers are useful for inspectors.</DrawerDescription>
+                <DrawerCloseIcon aria-label="Close details drawer" />
+                <DrawerDescription>
+                  Right drawers can place the close icon directly in the header.
+                </DrawerDescription>
               </DrawerHeader>
-              <DrawerBody>Use the same API as bottom drawers and adjust width with CSS.</DrawerBody>
-              <DrawerFooter>
-                <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-              </DrawerFooter>
+              <DrawerBody>Adjust width through CSS variables on DrawerContent.</DrawerBody>
             </DrawerContent>
           </Drawer>
         );
@@ -347,8 +356,8 @@ structure.
 
 ### Island Variant
 
-Use `variant="island"` on `DrawerContent` when the drawer should be rendered as a standalone
-surface without the off-screen tail.
+Use `variant="island"` when the drawer should render as a standalone floating surface instead of an
+edge-flush sheet.
 
 <Preview>
   <IslandDrawerExample />
@@ -449,7 +458,7 @@ resize with the active snap point.
 
 ### Handle
 
-Use `createDrawerHandle` when the trigger lives outside the drawer tree or the drawer opens
+Use `createDrawerHandle()` when the trigger lives outside the drawer tree or the drawer opens
 programmatically.
 
 <Preview>
@@ -487,7 +496,9 @@ programmatically.
               <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle>Detached trigger</DrawerTitle>
-                  <DrawerDescription>createDrawerHandle is preserved from Base UI.</DrawerDescription>
+                  <DrawerDescription>
+                    createDrawerHandle is preserved from Base UI.
+                  </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter>
                   <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
@@ -533,7 +544,9 @@ Set `modal={false}` when the rest of the page should stay interactive.
                 <DrawerTitle>Non-modal drawer</DrawerTitle>
                 <DrawerDescription>Outside pointer interaction stays enabled.</DrawerDescription>
               </DrawerHeader>
-              <DrawerBody>The default content wrapper skips the backdrop automatically.</DrawerBody>
+              <DrawerBody>
+                The default content wrapper skips the backdrop when modal is false.
+              </DrawerBody>
               <DrawerFooter>
                 <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
               </DrawerFooter>
@@ -548,8 +561,7 @@ Set `modal={false}` when the rest of the page should stay interactive.
 
 ### Controlled Persistent State
 
-Keep the drawer open by controlling `open` and ignoring close attempts in your own state logic. This
-replaces the removed wrapper-level `persistent` prop.
+Keep the drawer open by controlling `open` and ignoring close attempts in your own state logic.
 
 <Preview>
   <ControlledPersistentDrawerExample />
@@ -604,8 +616,8 @@ replaces the removed wrapper-level `persistent` prop.
                   <div>
                     <DrawerTitle>Controlled persistent drawer</DrawerTitle>
                     <DrawerDescription>
-                      Persistence lives in application state; the icon button toggles between
-                      collapsed and expanded snap points.
+                      Persistence is controlled from application state; the icon button toggles
+                      between collapsed and expanded snap points.
                     </DrawerDescription>
                   </div>
                   <button
@@ -637,7 +649,7 @@ replaces the removed wrapper-level `persistent` prop.
 
 ### Swipe Area
 
-Use `DrawerSwipeArea` when the drawer should open from an edge gesture even before the trigger is
+Use `DrawerSwipeArea` when the drawer should open from an edge gesture before the trigger is
 pressed.
 
 <Preview>
@@ -669,7 +681,9 @@ pressed.
                 <DrawerTitle>Swipe area</DrawerTitle>
                 <DrawerDescription>Swipe from the edge or use the trigger.</DrawerDescription>
               </DrawerHeader>
-              <DrawerBody>The swipe area part is still available for edge-open gestures.</DrawerBody>
+              <DrawerBody>
+                The swipe area part is still available for edge-open gestures.
+              </DrawerBody>
               <DrawerFooter>
                 <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
               </DrawerFooter>
@@ -683,6 +697,9 @@ pressed.
 </Preview>
 
 ### Nested
+
+Nested drawers preserve the Base UI stack behavior and let the parent surface visually recede while
+the child drawer is open.
 
 <Preview>
   <NestedDrawerExample />
@@ -792,9 +809,9 @@ shift and scale under the active drawer.
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
-When you need custom portal behavior, a different backdrop, or popup layout that should not be
+When you need custom portal behavior, a different backdrop, or a popup layout that should not be
 baked into `DrawerContent`, compose the low-level parts directly.
 
 <Preview>
@@ -837,7 +854,9 @@ baked into `DrawerContent`, compose the low-level parts directly.
                         Manual composition replaces wrapper props and style maps.
                       </DrawerDescription>
                     </DrawerHeader>
-                    <DrawerBody>Use the exported structural parts when you need different layout.</DrawerBody>
+                    <DrawerBody>
+                      Use the exported structural parts when you need different layout.
+                    </DrawerBody>
                     <DrawerFooter>
                       <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
                     </DrawerFooter>
@@ -879,3 +898,26 @@ baked into `DrawerContent`, compose the low-level parts directly.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Use `className` on `DrawerContent`, `DrawerHeader`, `DrawerBody`, `DrawerFooter`, and
+`DrawerCloseIcon` for most visual overrides. Move to `DrawerPortal`, `DrawerBackdrop`,
+`DrawerViewport`, `DrawerPopup`, and `DrawerContentInner` only when the overlay structure itself
+needs to change.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <DrawerCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="drawer-trigger"`, `drawer-swipe-area`, `drawer-portal`, `drawer-backdrop`, `drawer-viewport`, `drawer-popup`, `drawer-handle`, `drawer-content`, `drawer-header`, `drawer-title`, `drawer-description`, `drawer-body`, `drawer-footer`, `drawer-close`, `drawer-close-icon`, `drawer-indent`, and `drawer-indent-background` are stable selectors on the exported parts.
+- `DrawerContent` adds wrapper-specific attributes on `DrawerPopup`: `data-variant`, `data-snap-layout`, `data-disable-initial-animation`, and `data-mount-ready`.
+- Base UI also adds state attributes such as `data-open`, `data-closed`, `data-popup-open`, `data-disabled`, `data-swipe-direction`, `data-swiping`, `data-starting-style`, `data-ending-style`, `data-active`, and `data-nested-drawer-open` on the relevant overlay parts.
