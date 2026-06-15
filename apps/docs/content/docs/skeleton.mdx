@@ -8,26 +8,21 @@ import {
   SkeletonCardExample,
   SkeletonClassNameExample,
   SkeletonCompositionExample,
-  SkeletonCssPlaygroundPanel,
   SkeletonCssPropertiesPanel,
   SkeletonExample,
   SkeletonMediaObjectExample,
   SkeletonStaticExample,
-  skeletonPlaygroundCssProperties,
 } from '@/components/examples/skeleton';
 
-## Overview
+## API Reference
 
-`Skeleton` is a single loading placeholder block. It does not wrap a Base UI primitive.
+`Skeleton` is a standalone moduix component and does not wrap a Base UI primitive.
 
-Use it as a thin styled `div`, then compose loading layouts with `Stack` or your own markup. The
-root is marked `aria-hidden` because it represents loading surfaces, not readable content.
-
-## Default Path
+## Basic
 
 Use a few line skeletons for the common text-loading case.
 
-<Preview cssProperties={skeletonPlaygroundCssProperties}>
+<Preview>
   <SkeletonExample />
 
   <Preview.Code>
@@ -46,12 +41,6 @@ Use a few line skeletons for the common text-loading case.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>
-    {(context) => <SkeletonCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <SkeletonCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -100,6 +89,9 @@ aubx shadcn@latest add Blinks44/moduix/skeleton
 This install path also pulls in the shared moduix foundation files that `Skeleton` depends on, such
 as styles, icons, and small utilities.
 
+Use `Skeleton` as a thin styled loading surface, then compose real placeholder layouts with `Stack`
+or your own markup. The root stays decorative with `aria-hidden="true"`.
+
 ## Anatomy
 
 `Skeleton` is a single visual block. Layout stays in the surrounding markup.
@@ -117,15 +109,22 @@ Stack
 
 ## Composition
 
-`Skeleton` stays intentionally small:
+### When to stay high-level
 
-- use `width` and `height` for line and block placeholders
-- use `size` with `shape="circle"` for avatar-style placeholders
-- use `radius` when a surface should match a card or media container
-- use `animated={false}` when motion is unnecessary
-- use `className`, `style`, and `--skeleton-*` variables for styling overrides
+Stay with `Skeleton` for most loading placeholders. The component is just one decorative block with
+size props and a small styling surface.
 
-### Defaults
+Use `width` and `height` for text lines and rectangular surfaces. Use `size` with `shape="circle"`
+for avatar-style placeholders. Use `radius` when the placeholder should match a card, media frame,
+or another rounded surface.
+
+### When to go custom
+
+There is no lower-level moduix composition tree for this component. Keep layout, responsive
+behavior, and loading structure in the surrounding markup, and let each `Skeleton` instance stay a
+single visual block.
+
+### Default props
 
 | Prop       | Default | Values                             |
 | ---------- | ------- | ---------------------------------- |
@@ -135,6 +134,16 @@ Stack
 | `size`     | -       | Sets `width` and `height` together |
 | `shape`    | `rect`  | `rect`, `circle`                   |
 | `animated` | `true`  | `true`, `false`                    |
+
+### Behavioral notes
+
+- Numeric `width`, `height`, `radius`, and `size` values are converted to `px`.
+- `size` fills both dimensions, but explicit `width` or `height` still wins on its own axis.
+- `shape="circle"` only sets `border-radius: 50%` when `radius` is not provided. It does not force
+  equal width and height.
+- `animated={false}` removes the `data-animated` hook and disables the pulse animation for that
+  instance.
+- Reduced-motion users still get a static skeleton even when `animated` stays `true`.
 
 ## Examples
 
@@ -280,7 +289,7 @@ Pass `animated={false}` when the loading state is dense or motion should stay qu
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
 Use `className` and the public CSS variables when the surface needs local styling overrides.
 
@@ -321,3 +330,24 @@ Use `className` and the public CSS variables when the surface needs local stylin
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+`Skeleton` exposes one stable root selector, an optional animation hook, and three public
+`--skeleton-*` variables for color, radius, and motion.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SkeletonCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="skeleton-root"` is the stable selector for the exported root.
+- `[data-animated]` is present only when animation is enabled for that instance.
+- `className` and `style` are applied directly to the root skeleton element.

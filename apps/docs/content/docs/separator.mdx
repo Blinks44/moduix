@@ -5,21 +5,21 @@ icon: Component
 ---
 
 import {
-  SeparatorCssPlaygroundPanel,
   SeparatorCssPropertiesPanel,
   SeparatorExample,
   StyledSeparatorExample,
   VerticalSeparatorExample,
-  separatorPlaygroundCssProperties,
 } from '@/components/examples/separator';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/separator" />
 
-## Default Path
+## Basic
 
-<Preview cssProperties={separatorPlaygroundCssProperties}>
+Use `Separator` directly when the line itself communicates structure between related content.
+
+<Preview>
   <SeparatorExample />
 
   <Preview.Code>
@@ -64,8 +64,6 @@ import {
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <SeparatorCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <SeparatorCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -114,12 +112,12 @@ aubx shadcn@latest add Blinks44/moduix/separator
 This install path also pulls in the shared moduix foundation files that `Separator` depends on, such
 as styles, icons, and small utilities.
 
-Use `Separator` directly for non-interactive visual division between related pieces of content.
-The default horizontal path already fills the available width, so the common case stays short.
+Use `Separator` for semantic horizontal or vertical division. Do not use it as a spacing helper
+when empty layout space already expresses the relationship.
 
 ## Anatomy
 
-`Separator` exposes a single root slot with stable `data-slot` and `data-orientation` hooks.
+`Separator` exposes one root part.
 
 ```text
 Separator
@@ -138,27 +136,37 @@ Style the root directly with `className` or the `--separator-*` CSS properties.
 
 ## Composition
 
-`Separator` stays intentionally thin:
+### When to stay high-level
 
-- one exported part
-- primitive `orientation`, `className`, `style`, and `render` props passed straight through
-- direct root styling with `className`
-- a small `--separator-*` CSS contract for common visual tuning
+Stay with `Separator` for most divider cases. The moduix wrapper keeps the Base UI separator
+contract intact and adds the shared styling hooks and CSS variables.
 
-Horizontal separators fill the container by default. Vertical separators are intended for inline
-groups and default to `1em` height so they align with surrounding text. The primitive keeps
-semantic separator output for assistive technology; there are no interactive or disabled states.
+Pass Base UI props such as `orientation`, `className`, `style`, `render`, and ARIA attributes
+directly to `Separator`.
 
-Pass `orientation="vertical"` for inline layouts. Use `className` for direct styling,
-or the small `--separator-*` CSS contract when you want to tune color, thickness, or length.
+### When to go custom
 
-### Defaults
+There is no lower-level moduix composition tree for this component. When the divider needs custom
+semantics or more surrounding structure, compose that structure outside `Separator` and keep the
+separator itself focused on visual separation.
+
+### Default props
 
 | Prop          | Default      | Values                                 |
 | ------------- | ------------ | -------------------------------------- |
 | `orientation` | `horizontal` | `horizontal`, `vertical`               |
 | `className`   | `undefined`  | `string` or state-based class function |
 | `style`       | `undefined`  | style object or state-based style fn   |
+
+### Behavioral notes
+
+- Horizontal separators fill the available width by default.
+- Vertical separators default to `1em` height so they align naturally with inline text and compact
+  action rows.
+- `Separator` is not interactive and does not expose disabled, pressed, or focus-management
+  behavior.
+- Use `orientation="vertical"` only inside layouts that already control cross-axis alignment, such
+  as `flex` or `inline-flex` rows.
 
 ## Examples
 
@@ -213,10 +221,10 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
   </Preview.CSS>
 </Preview>
 
-### Styling
+### Custom Styling
 
-Use `className` or `--separator-*` custom properties when the divider needs a stronger visual
-weight or a fixed length.
+Use `className` or `--separator-*` custom properties when the divider needs stronger visual weight
+or a fixed length.
 
 <Preview>
   <StyledSeparatorExample />
@@ -261,3 +269,25 @@ weight or a fixed length.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+`Separator` exposes one stable root selector and a small `--separator-*` CSS contract for color,
+thickness, and orientation-specific length.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SeparatorCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="separator-root"` is the stable selector for the exported root.
+- `data-orientation="horizontal"` and `data-orientation="vertical"` let you target axis-specific
+  styling.
+- `className` and `style` are applied directly to the root separator element.

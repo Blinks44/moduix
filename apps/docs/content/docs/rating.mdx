@@ -8,12 +8,10 @@ import {
   ControlledRatingExample,
   CustomStylesRatingExample,
   DisabledAndReadOnlyRatingExample,
-  RatingCssPlaygroundPanel,
   RatingCssPropertiesPanel,
   RatingExample,
   RatingFormIntegrationExample,
   RatingSizesExample,
-  ratingPlaygroundCssProperties,
 } from '@/components/examples/rating';
 
 ## API Reference
@@ -21,21 +19,20 @@ import {
 `Rating` does not wrap a dedicated Base UI primitive. It is a moduix composition component built on
 radio-group semantics and narrowed to the common star-rating workflow.
 
-## Overview
+## Choosing the right component
 
-`Rating` is intentionally small:
+Use `Rating` when users should choose a short integer score with a familiar star-based affordance.
 
-- one grouped control
-- one discrete numeric value
-- one fixed star visual
-- no half steps, hover preview, or icon customization
-
-Use it when the user should choose a short integer score such as 1 to 5. For more general
-single-choice option sets, use `RadioGroup`.
+- Choose **`Rating`** for discrete 1-to-N feedback such as reviews, satisfaction, or quality
+  scores.
+- Choose **`RadioGroup`** when users still choose exactly one option, but the choices need visible
+  labels, richer content, or a non-rating presentation.
 
 ## Basic
 
-<Preview cssProperties={ratingPlaygroundCssProperties} cssVariableScope="local">
+Start with `Rating` inside `Field` when the score needs a label, description, and validation.
+
+<Preview>
   <RatingExample />
 
   <Preview.Code>
@@ -70,8 +67,6 @@ single-choice option sets, use `RadioGroup`.
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <RatingCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <RatingCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -122,12 +117,13 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Rating` exports one public component, but internally it behaves like a focused radio-group wrapper.
+The public shape is intentionally small:
 
 ```text
-Rating
-└─ star item × max
-   └─ star icon
+Field (optional wrapper)
+└─ Rating
+   └─ star item × max
+      └─ star icon
 ```
 
 | Part      | Role                                                                    |
@@ -138,26 +134,52 @@ Rating
 
 ## Composition
 
-Use `defaultValue` for uncontrolled mode and `value` with `onValueChange` for controlled mode.
-`Rating` maps those numeric props to radio-group semantics internally, so form features like `name`,
-`required`, and `form` still work without extra wrapper APIs.
+### When to stay high-level
 
-`max` controls how many stars are rendered and defaults to `5`. `size` resizes the whole control,
-not individual items.
+Stay with `Rating` for the normal star-rating path. The wrapper keeps radio-group keyboard,
+selection, and form behavior intact while exposing a narrower numeric API for ratings.
 
-The component intentionally does **not** provide an in-widget way to clear an existing selection. If
-the empty state must be reachable after user selection, control the component and reset `value` from
-the parent:
+Use `defaultValue` for uncontrolled mode. Use `value` with `onValueChange` when the selected score
+should stay in React state or be reset by the parent.
 
-```tsx
-<Rating aria-label="Product rating" value={value} onValueChange={setValue} />
-```
+Pass `name`, `required`, and `form` directly to `Rating` when the score should participate in
+native form submission and validation.
+
+Use `size` to scale the whole star row. Use `max` to change how many stars are rendered.
+
+### When to go custom
+
+There is no lower-level moduix `Rating` composition tree to drop into. When the choices should stop
+behaving like a rating, switch to the component that better matches the interaction:
+
+- use `RadioGroup` for one-of-many choices with visible labels or custom item content
+
+`Rating` intentionally does not support half steps, hover preview, icon replacement, or an
+in-widget clear action.
+
+### Default props
+
+| Prop   | Default | Values / Notes                            |
+| ------ | ------- | ----------------------------------------- |
+| `max`  | `5`     | Rounded down and normalized to at least 1 |
+| `size` | `md`    | Supports `xs`, `sm`, `md`, `lg`, and `xl` |
+
+### Behavioral notes
+
+- `value`, `defaultValue`, and `onValueChange` are numeric wrapper props even though the underlying
+  radio-group primitive still uses string values internally.
+- `disabled` removes interaction and dims the whole control.
+- `readOnly` keeps the current score visible while preventing changes.
+- Once the user selects a score, `Rating` does not provide an in-widget way to clear it. When an
+  empty state must remain reachable, control the component and reset `value` from the parent.
+- Always give the group an accessible name with `aria-label`, `aria-labelledby`, or a surrounding
+  labeled field pattern.
 
 ## Examples
 
 ### Controlled
 
-Use controlled mode when the chosen score drives surrounding UI or must be reset by the parent.
+Use controlled mode when the selected score drives surrounding UI or must be reset by the parent.
 
 <Preview>
   <ControlledRatingExample />
@@ -226,7 +248,8 @@ Use `size` to match different UI densities.
 
 ### Disabled and Readonly
 
-`disabled` removes interaction. `readOnly` keeps the current score visible while preventing changes.
+Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while blocking
+changes.
 
 <Preview>
   <DisabledAndReadOnlyRatingExample />
@@ -297,7 +320,7 @@ Because `Rating` is radio-group-based, it can participate in forms and required 
   </Preview.CSS>
 </Preview>
 
-### Custom Styles
+### Custom Styling
 
 Use the small `--rating-*` token surface when the default color treatment should change.
 
@@ -337,13 +360,27 @@ Use the small `--rating-*` token surface when the default color treatment should
 
 ## Styling
 
-`Rating` has a deliberately small public styling surface:
+Style `Rating` through `className`, the public slots and state attributes, and the `--rating-*` CSS
+variables registered in `theme.css`.
 
-- `--rating-color` for empty-star color
-- `--rating-active-color` for filled-star color
-- `--rating-gap` for spacing
-- `--rating-icon-size-*` for size scale
-- `--rating-focus-ring-*` for keyboard focus treatment
+### CSS Properties
 
-The component uses `data-filled` internally so all stars up to the current score can be styled
-consistently, even though the underlying radio primitive only marks one item as checked.
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <RatingCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+`Rating` exposes a small public styling surface:
+
+- `data-slot="rating-root"` for the grouped control
+- `data-slot="rating-item"` for each internal score item
+- `data-slot="rating-icon"` for the star icon inside each item
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root for size-specific styling
+- Base UI state attributes such as `data-disabled` and `data-readonly`
+- moduix state attributes `data-filled` and `data-empty` on each item so all stars up to the
+  current value can be styled consistently

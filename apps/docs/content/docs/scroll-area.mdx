@@ -8,10 +8,8 @@ import {
   BothScrollbarsScrollAreaExample,
   CustomCompositionScrollAreaExample,
   GradientFadeScrollAreaExample,
-  ScrollAreaCssPlaygroundPanel,
   ScrollAreaCssPropertiesPanel,
   ScrollAreaExample,
-  scrollAreaPlaygroundCssProperties,
 } from '@/components/examples/scroll-area';
 
 ## API Reference
@@ -20,10 +18,10 @@ import {
 
 ## Basic
 
-`ScrollArea` is the recommended path for most cases. It renders the root, viewport, content, and a
-default vertical scrollbar for you.
+Start with `ScrollArea` when content needs a bounded viewport but should still scroll natively. The
+wrapper renders the root, viewport, content, and the default vertical scrollbar for you.
 
-<Preview cssProperties={scrollAreaPlaygroundCssProperties}>
+<Preview>
   <ScrollAreaExample />
 
   <Preview.Code>
@@ -106,8 +104,6 @@ default vertical scrollbar for you.
     `}
 
   </Preview.Data>
-  <Preview.CSSProperties>{(context) => <ScrollAreaCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <ScrollAreaCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -156,39 +152,18 @@ aubx shadcn@latest add Blinks44/moduix/scroll-area
 This install path also pulls in the shared moduix foundation files that `Scroll Area` depends on, such
 as styles, icons, and small utilities.
 
-`fade` and `scrollbars` are the only wrapper-level conveniences. Everything else is passed through
-to the Base UI root.
-
 ## Anatomy
 
-Use the high-level wrapper when the default structure is enough:
+The normal consumer path is short:
 
-```tsx
-import { ScrollArea } from 'moduix';
-
-<ScrollArea>{children}</ScrollArea>;
-```
-
-Use the low-level parts when you need direct control over the viewport, content, or scrollbars:
-
-```tsx
-import {
-  ScrollAreaContent,
-  ScrollAreaCorner,
-  ScrollAreaRoot,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-} from 'moduix';
-
-<ScrollAreaRoot>
-  <ScrollAreaViewport>
-    <ScrollAreaContent>{children}</ScrollAreaContent>
-  </ScrollAreaViewport>
-  <ScrollAreaScrollbar>
-    <ScrollAreaThumb />
-  </ScrollAreaScrollbar>
-</ScrollAreaRoot>;
+```text
+ScrollArea
+├─ ScrollAreaViewport
+│  └─ ScrollAreaContent
+│     └─ children
+├─ ScrollAreaScrollbar (vertical by default)
+│  └─ ScrollAreaThumb
+└─ ScrollAreaCorner (only when both scrollbars are rendered)
 ```
 
 | Part                  | Role                                                         |
@@ -203,7 +178,29 @@ import {
 
 ## Composition
 
-The wrapper keeps the API intentionally small:
+### When to stay high-level
+
+Stay with `ScrollArea` for most panels, drawers, settings sections, and dialog bodies. It keeps
+the Base UI root contract intact and adds two narrow conveniences on top:
+
+- `scrollbars` controls which default scrollbars are rendered
+- `fade` adds the root `data-fade` contract that drives the bundled edge-mask styles
+
+Use `className` on `ScrollArea` for the outer size, border, and local CSS variables. Root props
+such as `overflowEdgeThreshold`, `dir`, `render`, and other Base UI root behavior are forwarded
+unchanged.
+
+### When to go custom
+
+Switch to `ScrollAreaRoot`, `ScrollAreaViewport`, `ScrollAreaContent`, `ScrollAreaScrollbar`,
+`ScrollAreaThumb`, and `ScrollAreaCorner` when you need to own the structure directly:
+
+- different classes or props on viewport and content
+- manual scrollbar props such as `keepMounted`
+- different styling per scrollbar axis or a custom corner
+- manual `data-fade` values or other root-level data hooks in JSX
+
+### Default props
 
 | Prop         | Default    | Values                                            |
 | ------------ | ---------- | ------------------------------------------------- |
@@ -212,19 +209,12 @@ The wrapper keeps the API intentionally small:
 
 `fade={true}` maps to a vertical edge fade, which matches the most common single-column case.
 
-Use `ScrollArea` when you need:
+### Behavioral notes
 
-- root sizing, borders, and spacing through `className`
-- the default vertical scrollbar
-- an optional horizontal scrollbar via `scrollbars`
-- a small edge-fade convenience via `fade`
-
-Use the low-level parts when you need:
-
-- custom classes on viewport or content
-- manual scrollbar props such as `keepMounted`
-- different scrollbar markup or orientation-specific styling
-- a custom root data contract such as `data-fade="both"`
+- `scrollbars={false}` removes the default custom scrollbars but keeps the native scroll viewport.
+- The wrapper renders `ScrollAreaCorner` only when both default scrollbars are present.
+- The ref on `ScrollArea` points to the underlying root element.
+- Horizontal fade direction respects RTL automatically through the root `dir` setting.
 
 ## Examples
 
@@ -370,3 +360,29 @@ Use the exported parts directly when the default wrapper stops being enough.
 
   </Preview.Code>
 </Preview>
+
+## Styling
+
+Use CSS variables on the root when scrollbar thickness, fade distances, focus ring treatment, or
+surface styling needs to change without replacing the structure.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ScrollAreaCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="scroll-area-root"`, `scroll-area-viewport`, `scroll-area-content`,
+  `scroll-area-scrollbar`, `scroll-area-thumb`, and `scroll-area-corner` are the stable part hooks.
+- `data-fade` on the root drives the built-in viewport edge masks. The high-level `fade` prop sets
+  this automatically, or you can set it manually on `ScrollAreaRoot`.
+- `data-orientation="vertical"` and `data-orientation="horizontal"` are exposed on scrollbars and
+  thumbs for per-axis styling.
+- Base UI state attributes such as `data-scrolling` and `data-hovering` are available on the
+  relevant parts for interaction styling.

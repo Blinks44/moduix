@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Skeleton, Stack } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './skeleton.module.css';
 
 const skeletonCssProperties: CssPropertyInput[] = [
@@ -18,27 +18,11 @@ const skeletonCssProperties: CssPropertyInput[] = [
   ['--skeleton-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
 ];
 export const skeletonOverrideCssProperties = skeletonCssProperties;
-export const skeletonPlaygroundCssProperties = skeletonCssProperties;
 
 export function SkeletonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={skeletonOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function SkeletonCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={skeletonPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }
