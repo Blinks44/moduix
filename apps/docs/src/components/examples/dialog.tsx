@@ -26,6 +26,22 @@ import styles from './dialog.module.css';
 export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop color.'],
   ['--dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
+  ['--dialog-backdrop-ending-blur', 'none', 'Controls backdrop blur at the end of exit animation.'],
+  [
+    '--dialog-backdrop-ending-opacity',
+    '0',
+    'Controls backdrop opacity at the end of exit animation.',
+  ],
+  [
+    '--dialog-backdrop-starting-blur',
+    'none',
+    'Controls backdrop blur at the start of enter animation.',
+  ],
+  [
+    '--dialog-backdrop-starting-opacity',
+    '0',
+    'Controls backdrop opacity at the start of enter animation.',
+  ],
   ['--dialog-backdrop-transition', 'var(--transition-default)', 'Controls backdrop transition.'],
   ['--dialog-bg', 'var(--color-popover)', 'Controls popup background color.'],
   ['--dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
@@ -97,6 +113,42 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-nested-overlay-bg', 'rgb(0 0 0 / 0.05)', 'Controls nested parent overlay color.'],
   ['--dialog-nested-scale-step', '0.1', 'Controls scale step for nested dialogs.'],
   ['--dialog-padding', 'var(--spacing-6)', 'Controls popup padding.'],
+  ['--dialog-popup-ending-opacity', '0', 'Controls popup opacity at the end of exit animation.'],
+  [
+    '--dialog-popup-ending-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the end of exit animation.',
+  ],
+  [
+    '--dialog-popup-ending-translate-x',
+    '0',
+    'Controls popup horizontal offset at the end of exit animation.',
+  ],
+  [
+    '--dialog-popup-ending-translate-y',
+    '0',
+    'Controls popup vertical offset at the end of exit animation.',
+  ],
+  [
+    '--dialog-popup-starting-opacity',
+    '0',
+    'Controls popup opacity at the start of enter animation.',
+  ],
+  [
+    '--dialog-popup-starting-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the start of enter animation.',
+  ],
+  [
+    '--dialog-popup-starting-translate-x',
+    '0',
+    'Controls popup horizontal offset at the start of enter animation.',
+  ],
+  [
+    '--dialog-popup-starting-translate-y',
+    '0',
+    'Controls popup vertical offset at the start of enter animation.',
+  ],
   ['--dialog-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
   ['--dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--dialog-title-color', 'var(--dialog-color)', 'Controls title color.'],
