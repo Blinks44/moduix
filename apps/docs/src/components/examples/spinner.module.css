@@ -14,6 +14,8 @@
   color: var(--color-muted-foreground);
 }
 
-.brand {
-  color: var(--color-primary);
+.brandSpinner {
+  --spinner-color: var(--color-primary);
+  --spinner-ring-border-width: 0.1875rem;
+  --spinner-ring-track-color: color-mix(in oklab, var(--color-primary) 22%, transparent 40%);
 }

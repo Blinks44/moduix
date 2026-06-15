@@ -9,7 +9,7 @@ import {
   SnapCarouselViewport,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './snap-carousel.module.css';
 
 const destinations = [
@@ -62,11 +62,6 @@ export const snapCarouselOverrideCssProperties: CssPropertyInput[] = [
   ['--snap-carousel-snap-stop', 'normal', 'Controls item `scroll-snap-stop`.'],
 ];
 
-export const snapCarouselPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--snap-carousel-item-gap', 'var(--spacing-4)', 'Controls gap between snap items.'],
-  ['--snap-carousel-item-size', '100%', 'Controls snap item flex basis.'],
-];
-
 function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
@@ -102,25 +97,24 @@ export function SnapCarouselCssPropertiesPanel(_context: CSSPropertiesEditorCont
   );
 }
 
-export function SnapCarouselCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={snapCarouselPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
-}
-
 export function SnapCarouselExample({ className, ...props }: ComponentProps<typeof SnapCarousel>) {
   return (
     <SnapCarousel className={clsx(styles.carousel, className)} {...props}>
       <SnapCarouselContent aria-label="Featured destinations">
+        {destinations.map((destination, index) => (
+          <DestinationSlide key={destination.title} destination={destination} index={index} />
+        ))}
+      </SnapCarouselContent>
+      <SnapCarouselPrevious />
+      <SnapCarouselNext />
+    </SnapCarousel>
+  );
+}
+
+export function SnapCarouselCustomStylingExample() {
+  return (
+    <SnapCarousel className={clsx(styles.carousel, styles.peekCarousel)}>
+      <SnapCarouselContent aria-label="Featured destinations" itemClassName={styles.peekItem}>
         {destinations.map((destination, index) => (
           <DestinationSlide key={destination.title} destination={destination} index={index} />
         ))}

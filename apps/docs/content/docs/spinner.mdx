@@ -1,33 +1,29 @@
 ---
 title: Spinner
-description: A compact loading indicator with one default ring and a small customization surface.
+description: A compact loading indicator with status semantics, size control, and optional custom indicator content.
 icon: Component
 ---
 
 import {
-  SpinnerCssPlaygroundPanel,
   SpinnerCssPropertiesPanel,
   SpinnerCustomIndicatorExample,
   SpinnerExample,
   SpinnerInlineExample,
   SpinnerSizesExample,
   SpinnerStylingExample,
-  spinnerPlaygroundCssProperties,
 } from '@/components/examples/spinner';
 
-## Overview
+## API Reference
 
-`Spinner` is a compact loading primitive. Base UI does not provide a dedicated spinner primitive, so
-moduix keeps this one intentionally small: one default ring indicator, size control, and standard
-status semantics.
-
-Use it for pending controls, inline loading feedback, and compact empty states. By default it
-announces loading with `role="status"` and `aria-label="Loading"`. Set `decorative` when nearby
-text already covers that, or pass `aria-label` / `aria-labelledby` for a more specific status name.
+`Spinner` is a local moduix component. There is no upstream Base UI spinner primitive for this API.
 
 ## Basic
 
-<Preview cssProperties={spinnerPlaygroundCssProperties}>
+Start with `Spinner` for compact pending states inside buttons, inline status rows, and small empty
+states. The default path announces loading automatically with `role="status"` and a fallback
+`aria-label="Loading"`.
+
+<Preview>
   <SpinnerExample />
 
   <Preview.Code>
@@ -40,8 +36,6 @@ text already covers that, or pass `aria-label` / `aria-labelledby` for a more sp
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <SpinnerCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <SpinnerCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -92,42 +86,58 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Spinner` exposes one public root and one internal visual slot.
+The normal consumer path is short:
 
 ```text
 Spinner
-└─ indicator
+└─ spinner-indicator
+   └─ spinner-ring (default indicator only)
 ```
 
-```tsx
-<Spinner size="md" />
-```
-
-| Part                | Role                                                                    |
-| ------------------- | ----------------------------------------------------------------------- |
-| `Spinner`           | Root status element. Use `size`, `decorative`, and standard span props. |
-| `spinner-indicator` | Internal visual slot that hosts the default ring or custom children.    |
+| Part                | Role                                                                       |
+| ------------------- | -------------------------------------------------------------------------- |
+| `Spinner`           | Root status element. Supports `size`, `decorative`, and native span props. |
+| `spinner-indicator` | Inner rotating wrapper that keeps sizing and spin behavior.                |
+| `spinner-ring`      | Default ring indicator. Renders only when custom `children` are absent.    |
 
 ## Composition
 
-`Spinner` forwards standard `span` props. Use `size` for common density changes and `decorative`
-when the spinner is paired with visible loading text. Override the announcement with `aria-label`
-or `aria-labelledby` when you need a more specific status message. Pass `children` to swap the
-indicator while keeping the wrapper sizing and spin behavior.
+### When to stay high-level
 
-### Defaults
+Stay with the default ring when a compact loading indicator is enough.
 
-| Prop         | Default   | Values                       |
-| ------------ | --------- | ---------------------------- |
-| `size`       | `md`      | `xs`, `sm`, `md`, `lg`, `xl` |
-| `decorative` | `false`   | `true`, `false`              |
-| `aria-label` | `Loading` | String                       |
+- Use `size` for density changes.
+- Use `decorative` when adjacent visible text already communicates the loading state.
+- Use `aria-label` or `aria-labelledby` when the status name should be more specific than
+  `"Loading"`.
+
+### When to go custom
+
+`Spinner` does not expose a lower-level parts API. The custom path is `children`, which replaces the
+default ring inside the same rotating wrapper.
+
+### Default props
+
+| Prop         | Default     | Notes                                                    |
+| ------------ | ----------- | -------------------------------------------------------- |
+| `size`       | `'md'`      | Accepts `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`.          |
+| `decorative` | `false`     | Switches the root from status semantics to presentation. |
+| `aria-label` | `'Loading'` | Applied by default when the spinner is not decorative.   |
+
+### Behavioral notes
+
+- The root always renders as a `span` with `data-slot="spinner-root"` and `data-size`.
+- Non-decorative spinners render with `role="status"`.
+- `decorative={true}` switches the root to `role="presentation"` and `aria-hidden="true"`.
+- The rotating wrapper is always `data-slot="spinner-indicator"`.
+- Custom `children` replace only the default ring. The wrapper still owns sizing and rotation.
+- Spinner motion is disabled automatically under `prefers-reduced-motion`.
 
 ## Examples
 
 ### Inline Loading Text
 
-Use `decorative` when the pending state already has visible text next to it.
+Use `decorative` when visible text next to the spinner already says what is happening.
 
 <Preview>
   <SpinnerInlineExample />
@@ -135,12 +145,13 @@ Use `decorative` when the pending state already has visible text next to it.
   <Preview.Code>
     {`
       import { Spinner } from "moduix";
+      import styles from "./spinner.module.css";
 
       export function SpinnerInlineDemo() {
         return (
-          <div>
+          <div className={styles.inline}>
             <Spinner decorative size="sm" />
-            <span>Saving changes</span>
+            <span className={styles.muted}>Saving changes</span>
           </div>
         );
       }
@@ -163,11 +174,11 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
       export function SpinnerSizesDemo() {
         return (
           <>
-            <Spinner size="xs" />
-            <Spinner size="sm" />
-            <Spinner size="md" />
-            <Spinner size="lg" />
-            <Spinner size="xl" />
+            <Spinner decorative size="xs" />
+            <Spinner decorative size="sm" />
+            <Spinner decorative size="md" />
+            <Spinner decorative size="lg" />
+            <Spinner decorative size="xl" />
           </>
         );
       }
@@ -176,9 +187,9 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
   </Preview.Code>
 </Preview>
 
-### Styling
+### Custom Styling
 
-Use `className` or CSS variables for targeted color changes.
+Use `className` and `--spinner-*` variables for one-off color and ring overrides.
 
 <Preview>
   <SpinnerStylingExample />
@@ -186,14 +197,10 @@ Use `className` or CSS variables for targeted color changes.
   <Preview.Code>
     {`
       import { Spinner } from "moduix";
-      import styles from "./spinner-demo.module.css";
+      import styles from "./spinner.module.css";
 
       export function SpinnerStylingDemo() {
-        return (
-          <div className={styles.brand}>
-            <Spinner size="lg" />
-          </div>
-        );
+        return <Spinner decorative size="lg" className={styles.brandSpinner} />;
       }
     `}
 
@@ -201,18 +208,24 @@ Use `className` or CSS variables for targeted color changes.
 
   <Preview.CSS>
     {`
-      .brand {
-        color: var(--color-primary);
+      .brandSpinner {
+        --spinner-color: var(--color-primary);
+        --spinner-ring-border-width: 0.1875rem;
+        --spinner-ring-track-color: color-mix(
+          in oklab,
+          var(--color-primary) 22%,
+          transparent 40%
+        );
       }
     `}
 
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Indicator
 
-Pass custom children when you need a different indicator while keeping Spinner sizing and status
-semantics.
+Pass custom `children` when the default ring should be replaced but the size and status behavior
+should stay the same.
 
 <Preview>
   <SpinnerCustomIndicatorExample />
@@ -239,3 +252,27 @@ semantics.
 
   </Preview.Code>
 </Preview>
+
+## Styling
+
+Style `Spinner` through `className`, the stable `data-slot` hooks, `data-size`, and the public
+`--spinner-*` variables from `theme.css`.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SpinnerCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="spinner-root"` is the stable selector for the exported root.
+- `data-slot="spinner-indicator"` is the rotating inner wrapper.
+- `data-slot="spinner-ring"` targets the default ring only.
+- `Spinner` writes `data-size="xs" | "sm" | "md" | "lg" | "xl"` on the root.
+- `className` applies only to the root. Target the indicator or ring with descendant selectors from
+  that root when needed.

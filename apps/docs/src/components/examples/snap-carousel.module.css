@@ -76,6 +76,15 @@
   --snap-carousel-item-size: min(15rem, 72%);
 }
 
+.peekCarousel {
+  --snap-carousel-item-gap: var(--spacing-3);
+  --snap-carousel-item-size: min(20rem, 84%);
+}
+
+.peekItem {
+  scroll-margin-inline: var(--spacing-2);
+}
+
 .cardItem {
   display: flex;
 }
