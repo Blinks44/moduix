@@ -5,33 +5,43 @@ icon: Component
 ---
 
 import {
-  CustomStylesFieldsetExample,
   CustomCompositionFieldsetExample,
+  CustomStylesFieldsetExample,
   DisabledFieldsetExample,
-  FieldsetCssPlaygroundPanel,
   FieldsetCssPropertiesPanel,
   FieldsetExample,
-  fieldsetPlaygroundCssProperties,
 } from '@/components/examples/fieldset';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/fieldset" />
 
+## Choosing the right component
+
+Use `Fieldset` when several related controls need one shared visible label and group semantics.
+
+- Choose **`Fieldset`** when several controls belong to one section or question.
+- Choose **`Field`** when only one control needs its own label, description, and validation state.
+- Choose a standalone group such as **`RadioGroup`** only when the extra section wrapper and legend
+  are not needed.
+
 ## Basic
 
-<Preview cssProperties={fieldsetPlaygroundCssProperties}>
+Start with `Fieldset`, `FieldsetLegend`, and the related controls inside. This is the normal path
+for grouped form sections such as billing details or profile settings.
+
+<Preview>
   <FieldsetExample />
 
   <Preview.Code>
     {`
       import {
-        Fieldset,
-        FieldsetLegend,
         Field,
-        FieldLabel,
         FieldControl,
         FieldError,
+        FieldLabel,
+        Fieldset,
+        FieldsetLegend,
       } from "moduix";
 
       export function FieldsetDemo() {
@@ -56,8 +66,6 @@ import {
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <FieldsetCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <FieldsetCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -106,14 +114,10 @@ aubx shadcn@latest add Blinks44/moduix/fieldset
 This install path also pulls in the shared moduix foundation files that `Fieldset` depends on, such
 as styles, icons, and small utilities.
 
-`Fieldset` keeps the default path short: render one root, put the visible group label in
-`FieldsetLegend`, then place the related controls inside.
-
 ## Anatomy
 
 `Fieldset` groups related controls under one semantic legend. Keep the visible group label in
-`FieldsetLegend`, then place related `Field` blocks (or composed rows like radio options) inside the
-same root so native fieldset semantics and disabled behavior stay consistent.
+`FieldsetLegend`, then place related `Field` blocks or grouped option rows inside the same root.
 
 ```text
 Fieldset
@@ -126,37 +130,32 @@ Fieldset
    └─ Field / FieldItem rows (optional)
 ```
 
-```tsx
-<Fieldset>
-  <FieldsetLegend>Billing details</FieldsetLegend>
-
-  <Field validationMode="onBlur">
-    <FieldLabel>Company</FieldLabel>
-    <FieldControl required placeholder="Enter company name" />
-    <FieldError match="valueMissing">Please enter company name.</FieldError>
-  </Field>
-</Fieldset>
-```
-
 | Part             | Role                                                                                                  |
 | ---------------- | ----------------------------------------------------------------------------------------------------- |
 | `Fieldset`       | Root semantic group. Renders native `fieldset`, carries shared disabled state, and supports `render`. |
 | `FieldsetLegend` | Group label announced for the whole fieldset.                                                         |
 
-`Fieldset` has only two public parts: `Fieldset` and `FieldsetLegend`. There are no extra slot APIs
-or exported helper types to learn. In most cases, keep the native structure and style the visible
-parts with `className` and CSS variables.
-
 ## Composition
 
-`Fieldset` is a thin wrapper over the Base UI primitive. By default it renders a native
-`fieldset`, forwards Base UI props directly, and exposes only the visible parts that consumers
-actually style.
+### When to stay high-level
+
+Stay with `Fieldset`, `FieldsetLegend`, and regular child content for most grouped forms.
+
+Use `Fieldset` when several controls belong to one section, should disable together, or should be
+announced under one shared legend.
 
 `Fieldset` and `FieldsetLegend` are the whole component surface. Pass `className` directly to the
 part you want to customize.
 
-### Defaults
+### When to go custom
+
+Use `render` only when the semantic fieldset also needs to be another Base UI root, such as
+`RadioGroup` or `CheckboxGroup`.
+
+That is the main composition escape hatch for `Fieldset`. The normal structure stays simple:
+`Fieldset` owns the group semantics, and the nested controls keep their own behavior.
+
+### Default props
 
 | Prop        | Default    | Values                                       |
 | ----------- | ---------- | -------------------------------------------- |
@@ -164,15 +163,13 @@ part you want to customize.
 | `render`    | `fieldset` | Any valid React element or render callback   |
 | `className` | _not set_  | `string` or `(state) => string \| undefined` |
 
-```tsx
-<Fieldset className={styles.fieldset}>
-  <FieldsetLegend className={styles.legend}>Billing details</FieldsetLegend>
-</Fieldset>
-```
+### Behavioral notes
 
-Use `render` only when the fieldset semantics need to be composed with another root, such as
-`RadioGroup` or `CheckboxGroup`. That keeps the normal path simple while preserving the Base UI
-escape hatch for grouped selection controls.
+- `Fieldset` renders a native `<fieldset>` by default.
+- `FieldsetLegend` is the shared visible label for the group.
+- Use `disabled` on `Fieldset` to dim and disable the whole section instead of handling each child
+  individually.
+- Keep `render` for real root-level composition needs. Standard grouped fields do not need it.
 
 ## Examples
 
@@ -186,11 +183,11 @@ Use `disabled` on `Fieldset` to prevent interaction with every native control in
   <Preview.Code>
     {`
       import {
+        Field,
+        FieldControl,
+        FieldLabel,
         Fieldset,
         FieldsetLegend,
-        Field,
-        FieldLabel,
-        FieldControl,
       } from "moduix";
 
       export function DisabledFieldsetDemo() {
@@ -215,10 +212,59 @@ Use `disabled` on `Fieldset` to prevent interaction with every native control in
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Composition
+
+Use `render` when the semantic fieldset also needs to be another Base UI root. This is the main
+advanced composition path for radio groups and checkbox groups inside forms.
+
+<Preview>
+  <CustomCompositionFieldsetExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Field,
+        FieldItem,
+        FieldLabel,
+        Fieldset,
+        FieldsetLegend,
+        Radio,
+        RadioGroup,
+        RadioLabel,
+      } from "moduix";
+
+      const storageTypes = [
+        { value: "ssd", label: "SSD" },
+        { value: "hdd", label: "HDD" },
+      ];
+
+      export function StorageTypeFieldset() {
+        return (
+          <Field name="storageType">
+            <Fieldset render={<RadioGroup defaultValue="ssd" />}>
+              <FieldsetLegend>Storage type</FieldsetLegend>
+
+              {storageTypes.map((item) => (
+                <FieldItem key={item.value}>
+                  <FieldLabel>
+                    <Radio value={item.value} />
+                    <RadioLabel>{item.label}</RadioLabel>
+                  </FieldLabel>
+                </FieldItem>
+              ))}
+            </Fieldset>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Custom Styling
 
 Pass `className` to `Fieldset`, `FieldsetLegend`, and nested field parts when styling with CSS
-Modules, Tailwind CSS, or CSS-in-JS.
+Modules.
 
 <Preview>
   <CustomStylesFieldsetExample />
@@ -226,13 +272,14 @@ Modules, Tailwind CSS, or CSS-in-JS.
   <Preview.Code>
     {`
       import {
-        Fieldset,
-        FieldsetLegend,
         Field,
-        FieldLabel,
         FieldControl,
         FieldError,
+        FieldLabel,
+        Fieldset,
+        FieldsetLegend,
       } from "moduix";
+      import styles from "./fieldset-demo.module.css";
 
       export function StyledFieldsetDemo() {
         return (
@@ -295,70 +342,27 @@ Modules, Tailwind CSS, or CSS-in-JS.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+## Styling
 
-Use `render` when the semantic fieldset also needs to be another Base UI root. This is the main
-advanced composition path for radio groups and checkbox groups inside forms.
+Style `Fieldset` through `className`, `data-slot="fieldset-*"` hooks, and the public
+`--fieldset-*` CSS variables shown below.
 
-<Preview>
-  <CustomCompositionFieldsetExample />
+### CSS Properties
 
-  <Preview.Code>
-    {`
-      import {
-        Field,
-        FieldItem,
-        FieldLabel,
-        Fieldset,
-        FieldsetLegend,
-        Radio,
-        RadioGroup,
-        RadioLabel,
-      } from "moduix";
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <FieldsetCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-      export function StorageTypeFieldset() {
-        return (
-          <Field name="storageType">
-            <Fieldset render={<RadioGroup defaultValue="ssd" className={styles.choiceGroup} />}>
-              <FieldsetLegend>Storage type</FieldsetLegend>
+### Styling hooks
 
-              {storageTypes.map((item) => (
-                <FieldItem key={item.value}>
-                  <FieldLabel className={styles.choiceRow}>
-                    <Radio value={item.value} />
-                    <RadioLabel>{item.label}</RadioLabel>
-                  </FieldLabel>
-                </FieldItem>
-              ))}
-            </Fieldset>
-          </Field>
-        );
-      }
-    `}
+Use the part that owns the visual concern:
 
-  </Preview.Code>
+- `Fieldset` for overall width, spacing, padding, border, and radius
+- `FieldsetLegend` for the group heading color, typography, and bottom border
+- nested `Field` parts for the controls inside the group
 
-  <Preview.Data>
-    {`
-      const storageTypes = [
-        { value: "ssd", label: "SSD" },
-        { value: "hdd", label: "HDD" },
-      ];
-    `}
-
-  </Preview.Data>
-
-  <Preview.CSS>
-    {`
-      .choiceGroup {
-        gap: var(--spacing-2);
-      }
-
-      .choiceRow {
-        align-items: center;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
+The main public hooks include `data-slot="fieldset-root"` and `data-slot="fieldset-legend"`.

@@ -15,6 +15,15 @@ import {
   RadioField,
   RadioGroup,
   RadioLabel,
+  Select,
+  SelectContent,
+  SelectIcon,
+  SelectItem,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectList,
+  SelectTrigger,
+  SelectValue,
   Switch,
   SwitchLabel,
 } from 'moduix';
@@ -269,6 +278,39 @@ export function FieldNumberFieldExample() {
       <FieldError match="valueMissing">Please provide a number.</FieldError>
       <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
       <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
+    </Field>
+  );
+}
+
+const assignees = [
+  { label: 'Alice', value: 'alice' },
+  { label: 'Bob', value: 'bob' },
+];
+
+export function FieldTriggerControlsExample() {
+  return (
+    <Field validationMode="onBlur" className={styles.field}>
+      <FieldLabel nativeLabel={false} render={<div />}>
+        Assignee
+      </FieldLabel>
+      <Select items={assignees} required>
+        <SelectTrigger>
+          <SelectValue placeholder="Choose assignee" />
+          <SelectIcon />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectList>
+            {assignees.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                <SelectItemIndicator />
+                <SelectItemText>{item.label}</SelectItemText>
+              </SelectItem>
+            ))}
+          </SelectList>
+        </SelectContent>
+      </Select>
+      <FieldDescription>Used for review requests.</FieldDescription>
+      <FieldError match="valueMissing">Choose an assignee.</FieldError>
     </Field>
   );
 }
