@@ -73,6 +73,13 @@ export function EmptyResults() {
 
 If the state needs no icon or no actions, omit those parts entirely.
 
+There is no deeper primitive layer to drop into. Customization stays in normal React composition:
+
+- omit or reorder optional parts
+- change the heading level with `EmptyTitle as`
+- place richer block content inside `EmptyDescription`
+- style the exported parts with `className`, `data-slot`, and `--empty-*` variables
+
 ## Defaults and styling
 
 Stable hooks:
@@ -129,3 +136,4 @@ Public CSS variables:
 ## Local changelog
 
 - Added `Empty` as a standalone empty-state surface with optional icon, content, and actions parts.
+- Rewrote the docs contract to match the current component-page structure and styling guidance.

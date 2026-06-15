@@ -11,7 +11,7 @@ import {
   MapIcon,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './empty.module.css';
 
 export const emptyOverrideCssProperties: CssPropertyInput[] = [
@@ -51,34 +51,10 @@ export const emptyOverrideCssProperties: CssPropertyInput[] = [
   ['--empty-title-line-height', 'var(--line-height-text-xl)', 'Controls title line-height.'],
 ];
 
-export const emptyPlaygroundCssProperties: CssPropertyInput[] = [
-  [
-    '--empty-bg',
-    'color-mix(in oklab, var(--color-card) 92%, var(--color-muted))',
-    'Surface background.',
-  ],
-  ['--empty-border-color', 'var(--color-border)', 'Surface border color.'],
-  ['--empty-gap', 'var(--spacing-4)', 'Gap between major sections.'],
-  ['--empty-icon-bg', 'var(--color-muted)', 'Icon container background.'],
-  ['--empty-icon-color', 'var(--color-muted-foreground)', 'Icon color.'],
-  ['--empty-padding', 'var(--spacing-8)', 'Surface padding.'],
-];
-
 export function EmptyCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={emptyOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function EmptyCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={emptyPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
     />
   );
 }

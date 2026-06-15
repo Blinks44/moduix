@@ -5,13 +5,11 @@ icon: Component
 ---
 
 import {
-  EmptyCssPlaygroundPanel,
   EmptyCssPropertiesPanel,
   EmptyCustomStylesExample,
   EmptyExample,
   EmptyWithoutActionsExample,
   EmptyWithoutIconExample,
-  emptyPlaygroundCssProperties,
 } from '@/components/examples/empty';
 
 ## API Reference
@@ -21,7 +19,10 @@ empty-state layouts.
 
 ## Basic
 
-<Preview cssProperties={emptyPlaygroundCssProperties} cssVariableScope="local">
+Start with `Empty`, `EmptyContent`, `EmptyTitle`, and `EmptyDescription`. Add `EmptyIcon` and
+`EmptyActions` only when the state needs a visual cue or an explicit next step.
+
+<Preview>
   <EmptyExample />
 
   <Preview.Code>
@@ -69,8 +70,6 @@ empty-state layouts.
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <EmptyCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <EmptyCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -120,7 +119,7 @@ This install path also pulls in the shared moduix foundation files that `Empty` 
 as styles, icons, and small utilities.
 
 `Empty` gives missing-data states a consistent surface, optional icon slot, and wrapping actions row
-without locking consumers into high-level props like `title`, `description`, or `primaryAction`.
+without locking consumers into workflow props like `title`, `description`, or `primaryAction`.
 
 ## Anatomy
 
@@ -144,12 +143,34 @@ Empty
 
 ## Composition
 
-Use the component parts directly instead of passing a bag of content props. That keeps the common path
-simple while leaving room for richer descriptions, custom buttons, links, or omitted sections.
+### When to stay high-level
 
-`EmptyDescription` renders a `div`, not a `p`, so it can safely contain block content when needed.
-`EmptyTitle` renders `h3` by default and accepts `as` when the page outline needs another heading
-level.
+Stay with the exported parts for most empty states:
+
+- `Empty` for the surface and centered layout
+- `EmptyContent` for the text stack
+- `EmptyTitle` for the heading
+- `EmptyDescription` for supporting copy
+- `EmptyIcon` and `EmptyActions` only when they add value
+
+This keeps the common path explicit and leaves room for richer descriptions, links, or custom
+buttons without introducing a configuration API.
+
+### When to go custom
+
+`Empty` does not hide a lower-level primitive layer. Customization usually means changing structure
+with normal React composition:
+
+- omit `EmptyIcon` or `EmptyActions`
+- add richer markup inside `EmptyDescription`
+- change the heading level with `EmptyTitle as`
+- apply `className` and `--empty-*` variables on the parts that own the visual concern
+
+### Behavioral notes
+
+- `EmptyTitle` renders `h3` by default and accepts `as` for document outline control.
+- `EmptyDescription` renders a `div`, not a `p`, so it can safely contain block content.
+- `EmptyActions` centers and wraps its children, so paired actions stay readable in narrow layouts.
 
 ## Examples
 
@@ -231,7 +252,7 @@ The visual slot is optional, so plain text-only empty states stay simple.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Styling
 
 Override the `--empty-*` tokens on a single empty state when it should align with a more specific
 screen tone.
@@ -305,3 +326,28 @@ screen tone.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Empty` through `className`, stable `data-slot="empty-*"` hooks, and the public `--empty-*`
+CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <EmptyCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Target the part that owns the visual concern:
+
+- `data-slot="empty-root"` for surface layout, border, background, and shadow overrides
+- `data-slot="empty-icon"` for icon container sizing, padding, and colors
+- `data-slot="empty-content"` for text stack width and spacing
+- `data-slot="empty-title"` and `data-slot="empty-description"` for typography
+- `data-slot="empty-actions"` for action row spacing and alignment
