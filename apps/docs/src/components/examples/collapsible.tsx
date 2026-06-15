@@ -33,9 +33,59 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-icon-size', '0.75rem', 'Controls trigger icon size.'],
   ['--collapsible-icon-transition', 'var(--transition-default)', 'Controls icon transition.'],
   ['--collapsible-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
+  [
+    '--collapsible-panel-ending-height',
+    '0',
+    'Controls panel height at the end of the closing transition.',
+  ],
+  [
+    '--collapsible-panel-ending-opacity',
+    '1',
+    'Controls panel opacity at the end of the closing transition.',
+  ],
+  [
+    '--collapsible-panel-ending-scale',
+    '1',
+    'Controls panel scale at the end of the closing transition.',
+  ],
+  [
+    '--collapsible-panel-ending-translate-x',
+    '0',
+    'Controls panel horizontal offset at the end of the closing transition.',
+  ],
+  [
+    '--collapsible-panel-ending-translate-y',
+    '0',
+    'Controls panel vertical offset at the end of the closing transition.',
+  ],
   ['--collapsible-panel-font-size', 'var(--text-sm)', 'Controls panel font size.'],
   ['--collapsible-panel-height', 'auto (runtime)', 'Current panel height used for animation.'],
   ['--collapsible-panel-line-height', 'var(--line-height-text-sm)', 'Controls panel line height.'],
+  [
+    '--collapsible-panel-starting-height',
+    '0',
+    'Controls panel height at the start of the opening transition.',
+  ],
+  [
+    '--collapsible-panel-starting-opacity',
+    '1',
+    'Controls panel opacity at the start of the opening transition.',
+  ],
+  [
+    '--collapsible-panel-starting-scale',
+    '1',
+    'Controls panel scale at the start of the opening transition.',
+  ],
+  [
+    '--collapsible-panel-starting-translate-x',
+    '0',
+    'Controls panel horizontal offset at the start of the opening transition.',
+  ],
+  [
+    '--collapsible-panel-starting-translate-y',
+    '0',
+    'Controls panel vertical offset at the start of the opening transition.',
+  ],
   [
     '--collapsible-panel-transition',
     'var(--transition-default)',

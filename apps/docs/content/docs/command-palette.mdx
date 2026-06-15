@@ -7,32 +7,23 @@ icon: Component
 import {
   CommandPaletteActionsExample,
   CommandPaletteCustomCompositionExample,
-  CommandPaletteCssPlaygroundPanel,
   CommandPaletteCssPropertiesPanel,
   CommandPaletteExample,
-  commandPalettePlaygroundCssProperties,
 } from '@/components/examples/command-palette';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/autocomplete#command-palette" />
 
-## Overview
-
-`CommandPalette` keeps the public model short:
-
-- `CommandPalette` manages dialog state and the optional global shortcut.
-- `CommandPaletteContent` is the recommended default shell for the popup and inline autocomplete.
-- low-level layout parts remain exported for custom composition.
-
-`mod+k` uses the platform primary modifier: `Meta` on macOS/iOS and `Control` elsewhere.
-
 ## Basic
 
-Use `CommandPaletteContent` for the default path. In these docs demos we use `shortcut="alt+k"` to
-avoid common browser conflicts.
+Use `CommandPaletteContent` for the default path. It gives you the dialog shell, search input,
+filtered result list, grouped rendering, and keyboard-first interaction in one composition.
 
-<Preview cssProperties={commandPalettePlaygroundCssProperties}>
+In these demos we use `shortcut="alt+k"` to avoid common browser conflicts. The default shortcut is
+`mod+k`, where `mod` resolves to `Meta` on macOS/iOS and `Control` elsewhere.
+
+<Preview>
   <CommandPaletteExample />
 
   <Preview.Code>
@@ -114,8 +105,8 @@ avoid common browser conflicts.
 
   </Preview.Code>
 
-<Preview.Data>
-  {`
+  <Preview.Data>
+    {`
       const commandGroups = [
         {
           value: "Create",
@@ -132,14 +123,8 @@ avoid common browser conflicts.
         },
       ];
     `}
-</Preview.Data>
 
-  <Preview.CSSProperties>
-    {(context) => <CommandPaletteCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <CommandPaletteCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -190,7 +175,7 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`CommandPaletteContent` is the default composition:
+`CommandPaletteContent` is the default composition.
 
 ```text
 CommandPalette
@@ -209,59 +194,63 @@ CommandPalette
    │        └─ CommandPaletteFooter (optional)
 ```
 
-| Part                            | Role                                                 |
-| ------------------------------- | ---------------------------------------------------- |
-| `CommandPalette`                | Dialog state and optional global shortcut listener.  |
-| `CommandPaletteTrigger`         | Optional visible trigger.                            |
-| `CommandPaletteContent`         | Ready-to-use modal or non-modal shell.               |
-| `CommandPalettePortal`          | Portal part for custom composition.                  |
-| `CommandPaletteBackdrop`        | Backdrop part for custom composition.                |
-| `CommandPaletteViewport`        | Viewport part for popup alignment and scrolling.     |
-| `CommandPalettePopup`           | Styled popup surface for custom composition.         |
-| `CommandPaletteClose`           | Explicit dismiss control.                            |
-| `CommandPaletteStatus`          | Optional live status row from the autocomplete root. |
-| `CommandPaletteCollection`      | Group collection renderer for Base UI grouped data.  |
-| `CommandPaletteItem`            | Selectable row that closes the palette by default.   |
-| `CommandPaletteItemIcon`        | Leading icon container.                              |
-| `CommandPaletteItemText`        | Text column wrapper.                                 |
-| `CommandPaletteItemLabel`       | Primary label.                                       |
-| `CommandPaletteItemDescription` | Secondary label.                                     |
-| `CommandPaletteItemMeta`        | Trailing metadata, usually a shortcut.               |
-| `CommandPaletteSeparator`       | Visual divider inside the list or footer area.       |
-| `CommandPaletteFooter`          | Optional footer row.                                 |
-| `CommandPaletteKbd`             | Compact shortcut badge.                              |
+| Part                     | Role                                                 |
+| ------------------------ | ---------------------------------------------------- |
+| `CommandPalette`         | Dialog state and optional global shortcut listener.  |
+| `CommandPaletteTrigger`  | Optional visible trigger.                            |
+| `CommandPaletteContent`  | Ready-to-use modal or non-modal shell.               |
+| `CommandPalettePortal`   | Portal part for custom composition.                  |
+| `CommandPaletteBackdrop` | Backdrop part for custom composition.                |
+| `CommandPaletteViewport` | Viewport part for popup alignment and scrolling.     |
+| `CommandPalettePopup`    | Styled popup surface for custom composition.         |
+| `CommandPaletteClose`    | Explicit dismiss control.                            |
+| `CommandPaletteStatus`   | Optional live status row from the autocomplete root. |
+| `CommandPaletteItem`     | Selectable row that closes the palette by default.   |
+| `CommandPaletteFooter`   | Optional footer row for hints or status.             |
 
 ## Composition
 
-`CommandPaletteContent` stays intentionally narrow:
+### When to stay high-level
+
+Stay with `CommandPalette` plus `CommandPaletteContent` for most command surfaces. This is the
+intended default path for grouped commands, search-as-you-type filtering, and modal keyboard launch.
+
+`CommandPaletteContent` is intentionally narrow:
 
 - it always renders through `CommandPalettePortal`;
 - it keeps the autocomplete root `inline` and `open`;
 - it fixes `autoHighlight="always"` and `keepHighlight={true}`;
-- it forwards only the data and filtering props most palettes need:
-  `items`, `itemToStringValue`, `value`, `defaultValue`, `onValueChange`, `filter`,
-  `filteredItems`, and `limit`.
+- it forwards only the common data and filtering props: `items`, `itemToStringValue`, `value`,
+  `defaultValue`, `onValueChange`, `filter`, `filteredItems`, and `limit`.
 
-`CommandPaletteItem` adds one small DX helper: `closeOnSelect`, which defaults to `true`. Keep it
-enabled for action-style command rows. Turn it off only when the item updates palette state and the
-surface should stay open.
+### When to go custom
 
-When you need different layering, a non-standard popup shell, or a different autocomplete root
-setup, compose the exported parts directly instead of extending `CommandPaletteContent`.
+Switch to `CommandPalettePortal`, `CommandPaletteBackdrop`, `CommandPaletteViewport`, and
+`CommandPalettePopup` when the default shell is too opinionated and you need different layering,
+layout, or a different autocomplete root setup.
 
-## Defaults
+`CommandPaletteItem` adds one local DX helper: `closeOnSelect`, which defaults to `true`. Keep it
+enabled for action-style items. Turn it off only when a command updates palette state and should
+leave the surface open.
 
-| Surface                 | Prop             | Default    | Values                               |
+### Default props
+
+| Surface                 | Prop             | Default    | Values / Notes                       |
 | ----------------------- | ---------------- | ---------- | ------------------------------------ |
 | `CommandPalette`        | `modal`          | `true`     | `true`, `false`                      |
 | `CommandPalette`        | `shortcut`       | `mod+k`    | `false` or a combo like `alt+k`      |
 | `CommandPalette`        | `shortcutTarget` | `document` | `document`, `HTMLElement`, or `null` |
-| `CommandPaletteContent` | `autoHighlight`  | `always`   | Fixed on `CommandPaletteContent`     |
-| `CommandPaletteContent` | `keepHighlight`  | `true`     | Fixed on `CommandPaletteContent`     |
+| `CommandPaletteContent` | `autoHighlight`  | `always`   | fixed by `CommandPaletteContent`     |
+| `CommandPaletteContent` | `keepHighlight`  | `true`     | fixed by `CommandPaletteContent`     |
 | `CommandPaletteItem`    | `closeOnSelect`  | `true`     | `true`, `false`                      |
 
-The shortcut listener ignores editable targets such as inputs, textareas, selects, and
-`contenteditable` regions.
+### Behavioral notes
+
+- The shortcut listener ignores editable targets such as `input`, `textarea`, `select`, and
+  `contenteditable`.
+- Set `shortcut={false}` to disable the global listener entirely.
+- Set `modal={false}` when the palette should stay interactive without a backdrop or focus trap.
+- Use `itemToStringValue` to define the real search surface for each item.
 
 ## Examples
 
@@ -293,6 +282,7 @@ flow.
         CommandPaletteItemDescription,
         CommandPaletteItemIcon,
         CommandPaletteItemLabel,
+        CommandPaletteItemMeta,
         CommandPaletteItemText,
         CommandPaletteKbd,
         CommandPaletteList,
@@ -410,11 +400,9 @@ flow.
   </Preview.Code>
 </Preview>
 
-The example mixes local commands and navigation commands. `New project` updates local app state,
-while `Release notes` opens an external page in a new tab and then records the last action in the
-footer.
-
 ### Controlled Open State
+
+Control `open` from React state when the palette must coordinate with surrounding UI.
 
 ```tsx
 import { Button, CommandPalette, CommandPaletteContent } from 'moduix';
@@ -440,6 +428,8 @@ export function ControlledCommandPalette() {
 
 ### Disable the Global Shortcut
 
+Disable the listener when the palette should open only from explicit UI or external state.
+
 ```tsx
 <CommandPalette shortcut={false}>
   <CommandPaletteContent aria-label="Command palette" items={commands}>
@@ -448,7 +438,7 @@ export function ControlledCommandPalette() {
 </CommandPalette>
 ```
 
-## Custom Composition
+### Custom Composition
 
 Use manual composition when the default shell is too opinionated but the styled parts are still
 useful.
@@ -574,3 +564,33 @@ useful.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Use CSS variables on the trigger, backdrop, popup, list, and item parts when the palette needs to
+match a denser tool UI or a more branded overlay style. Use the low-level shell parts when you need
+to change layout or layering, not just colors and spacing.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <CommandPaletteCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Exported visual parts expose stable `data-slot` hooks such as `command-palette-trigger`,
+  `command-palette-backdrop`, `command-palette-popup`, `command-palette-list`, and
+  `command-palette-item`.
+- `CommandPaletteTrigger render={...}` opts out of the default trigger class, so custom trigger
+  hosts own their full layout and surface styling.
+- Base UI state hooks used by the shipped styles include `data-open`, `data-starting-style`, and
+  `data-ending-style` on backdrop and popup, plus `data-highlighted`, `data-selected`,
+  `data-disabled`, and `data-empty` on list items and lists.
+- `--command-palette-backdrop-starting-*`, `--command-palette-backdrop-ending-*`,
+  `--command-palette-popup-starting-*`, and `--command-palette-popup-ending-*` control overlay
+  motion without changing the component structure.

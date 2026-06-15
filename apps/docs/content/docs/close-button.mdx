@@ -5,12 +5,10 @@ icon: Component
 ---
 
 import {
-  CloseButtonCssPlaygroundPanel,
   CloseButtonCssPropertiesPanel,
   CloseButtonCustomChildrenExample,
   CloseButtonCustomCompositionExample,
   CloseButtonExample,
-  closeButtonPlaygroundCssProperties,
 } from '@/components/examples/close-button';
 
 ## API Reference
@@ -19,7 +17,10 @@ import {
 
 ## Basic
 
-<Preview cssProperties={closeButtonPlaygroundCssProperties}>
+Use `CloseButton` when the control itself performs a dismiss or close action. It provides the
+button semantics and close glyph, but it does not manage overlay state by itself.
+
+<Preview>
   <CloseButtonExample />
 
   <Preview.Code>
@@ -81,12 +82,6 @@ import {
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>
-    {(context) => <CloseButtonCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <CloseButtonCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -137,43 +132,59 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`CloseButton` is a single icon-button slot. By default it renders `CloseIcon`; pass `children` to replace it with other icon-sized content.
+`CloseButton` is a single icon-button root.
 
 ```text
 CloseButton
-└─ icon (default) | custom children
+└─ CloseIcon (default) | custom children
 ```
 
-| Part          | Role                                                                   |
-| ------------- | ---------------------------------------------------------------------- |
-| `CloseButton` | Interactive close control built on Button semantics and accessibility. |
+| Part          | Role                                                                     |
+| ------------- | ------------------------------------------------------------------------ |
+| `CloseButton` | Interactive dismiss control built on button semantics and accessibility. |
 
 ## Composition
 
-`CloseButton` is a thin wrapper over Base UI `Button` with one styled root.
+### When to stay high-level
 
-- Use `children` to replace the default icon with another icon-sized child.
-- Use `className` to style the root.
-- Use any Base UI `Button` prop directly when you need native composition behavior such as `render`,
-  `nativeButton`, `disabled`, or `focusableWhenDisabled`, while keeping button semantics.
+Stay with `CloseButton` directly for dialogs, notifications, cards, lightboxes, and similar
+surfaces where one icon-only control dismisses the UI.
 
-When `children`, `aria-label`, and `aria-labelledby` are omitted, the default accessible name is
-`Close`. When you render a custom icon-like child, set `aria-label` or `aria-labelledby` to describe
-the dismissed surface.
+The wrapper keeps Base UI `Button` behavior intact. Use it for `onClick`, `disabled`,
+`focusableWhenDisabled`, `nativeButton`, `render`, refs, and native button attributes.
 
-| Prop         | Default                                                           | Values                                          |
-| ------------ | ----------------------------------------------------------------- | ----------------------------------------------- |
-| `type`       | `button`                                                          | Any valid button `type` value                   |
-| `aria-label` | `Close` only when no children, `aria-label`, or `aria-labelledby` | Any descriptive label for the dismissed surface |
-| `children`   | `CloseIcon`                                                       | Any icon-sized React node                       |
+### When to go custom
 
-Use `className` to style the root. `classNames` is not needed because there are no extra service slots.
+There are no exported subparts or slot maps. The custom path here is small:
+
+- pass `children` to replace the default `CloseIcon`;
+- pass `className` to style the root;
+- use Base UI `render` only when button semantics still remain correct.
+
+If a component already ships its own close primitive, prefer that part over a standalone
+`CloseButton`.
+
+### Default props
+
+| Prop         | Default                                                           | Values / Notes                             |
+| ------------ | ----------------------------------------------------------------- | ------------------------------------------ |
+| `type`       | `button`                                                          | Override only for a real form workflow     |
+| `aria-label` | `Close` only when no children, `aria-label`, or `aria-labelledby` | Prefer a surface-specific label in real UI |
+| `children`   | `CloseIcon`                                                       | Any icon-sized React node                  |
+
+### Behavioral notes
+
+- `CloseButton` does not close anything by itself; wire the behavior with `onClick` or the
+  surrounding overlay primitive.
+- When you replace the default icon, provide an accessible name with `aria-label` or
+  `aria-labelledby`.
+- Do not use `CloseButton` for navigation links. Keep real button semantics on this component.
 
 ## Examples
 
 ### Custom Children
 
-Replace the default icon via `children`.
+Replace the default close glyph via `children`.
 
 <Preview>
   <CloseButtonCustomChildrenExample />
@@ -225,9 +236,9 @@ Replace the default icon via `children`.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
-Style the root button through `className`.
+Style the root button through `className` and `--close-button-*` variables.
 
 <Preview>
   <CloseButtonCustomCompositionExample />
@@ -237,7 +248,7 @@ Style the root button through `className`.
       import { CloseButton } from "moduix";
       import styles from "./close-button.module.css";
 
-      export function CloseButtonCustomCompositionDemo() {
+      export function CloseButtonCustomStylingDemo() {
         return <CloseButton className={styles.customButton} aria-label="Close message" />;
       }
     `}
@@ -258,3 +269,25 @@ Style the root button through `className`.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Use CSS variables on the root when size, icon treatment, or interaction colors need to change.
+Because the component has one public part, `className` on the root is the main styling hook.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <CloseButtonCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `CloseButton` exposes `data-slot="close-button"` on the root.
+- The root accepts `className` and Base UI state callback class names through `mergeClassName`.
+- Direct nested SVG children inherit sizing from `--close-button-icon-size`.
+- Disabled visuals and pointer behavior are exposed through both `:disabled` and `[data-disabled]`.
