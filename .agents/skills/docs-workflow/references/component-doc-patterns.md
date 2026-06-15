@@ -1,14 +1,14 @@
 # Component Doc Patterns
 
-Load this file when docs work in `apps/docs` touches popup-like or dialog-like components, preview snippets, or CSS variable sections.
+Load this file when docs work in `apps/docs` touches component pages, preview snippets, or CSS variable sections.
 
-Reference implementation for the current standard component page shape:
+Reference implementation for the current standard component-page shape:
 
 - `apps/docs/content/docs/select.mdx`
 
-## Component Page Structure
+## Standard Page Structure
 
-Use this standard section order for component pages:
+Use this section order when the sections carry real value:
 
 1. `## API Reference`
 2. `## Choosing the right component` (optional)
@@ -19,56 +19,63 @@ Use this standard section order for component pages:
 7. `## Examples`
 8. `## Styling` (optional)
 
-Within `## Composition`, use this subsection order when relevant:
+Inside `## Composition`, use:
 
 1. `### When to stay high-level`
 2. `### When to go custom`
 3. `### Default props` (optional)
 4. `### Behavioral notes` (optional)
 
-Within `## Styling`, use this subsection order when relevant:
+Inside `## Styling`, use:
 
 1. `### CSS Properties` (optional)
 2. `### Styling hooks` (optional)
 
-Interpretation rules:
+## Section Intent
 
-- `API Reference` is a short upstream reference block only.
-- `Choosing the right component` is only for components with nearby alternatives.
-- `Basic` is the recommended default path and should be the first runnable example.
-- `Install with shadcn (optional)` comes immediately after `Basic`.
-- `Anatomy` explains structure, not behavior.
+- `API Reference`: one short upstream reference block, no extra prose.
+- `Choosing the right component`: only for components with close alternatives.
+- `Basic`: the recommended happy path and the first runnable example.
+- `Install with shadcn`: comes immediately after `Basic`.
+- `Anatomy`: structure only. Keep it short: ASCII tree plus concise part roles.
+- `Composition`: public contract, high-level path, escape hatches, defaults, and behavioral constraints.
+- `Examples`: start where `Basic` stops. Move into narrower, more specific, or more advanced cases.
+- `Styling`: only when the component has a meaningful styling contract.
+
+## Duplication Rules
+
+- Rename old `Default Path` sections to `Basic`.
 - Do not duplicate the `Basic` example in `Anatomy` as a full code block unless the structure would otherwise be unclear.
-- `Composition` explains the public contract, high-level path, escape hatches, default props, and important behavioral constraints.
-- `Examples` should start where `Basic` stops. Do not repeat the same example there.
-- `Styling` exists only when the component has a meaningful styling contract.
+- Do not put runnable snippets in `Composition` when the same case is already covered in `Examples`.
+- Use `Custom Composition` only as an example label inside `Examples` when a low-level escape hatch is worth showing.
 
-## Preview Snippets
+## Preview Rules
 
-- Put component code in `Preview.Code` so it renders in the `Code` tab.
-- Put example-local CSS in `Preview.CSS` so it renders in the `Styles` tab instead of staying inline in the code sample.
-- Put example-local arrays, mock payloads, and other setup data in `Preview.Data` so it renders in the `Data` tab.
-- Keep tiny literals inline in `Preview.Code` only when splitting them out would make the example harder to follow.
+- Put component code in `Preview.Code`.
+- Put example-local CSS in `Preview.CSS`.
+- Put arrays, mock payloads, and other setup data in `Preview.Data`.
 - Keep snippets self-contained and consumer-facing.
 - Do not repeat global setup imports.
 - Do not attach `Preview.CSSProperties` or `Preview.CSSPlayground` to the `Basic` example.
-- Prefer removing `Playground` from component pages unless the task explicitly calls for interactive token editing.
-- Do not add a preview canvas in `Styling`.
-- In `### CSS Properties`, prefer the direct CSS variables reference UI over a duplicated summary table.
+- Prefer removing `Playground` from component pages unless a task explicitly needs interactive token editing.
+- Do not add a preview canvas inside `Styling`.
 
-## Popup-like Components
+## CSS Properties
+
+- In `### CSS Properties`, prefer the direct CSS variables reference UI over a duplicated prose table.
+- If the reference UI is long, wrap it in docs `Tabs` with a `CSS Variables` tab and a bounded scroll area.
+- `CSS Properties` must cover the full public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
+- `Styling hooks` should cover meaningful `className`, `data-slot`, and state/data attributes consumers can actually target.
+
+## Family Notes
+
+Popup-like components:
 
 - Teach shared `*Content` sugar only when those props are actually supported.
 - Treat built-in popup arrows as opt-in unless the component contract explicitly says otherwise.
 - Keep custom arrow, portal, backdrop, and viewport composition in an explicit advanced section.
 
-## Dialog-like Components
+Dialog-like components:
 
 - Do not teach popup positioning or arrow props.
 - Keep workflow sugar narrow and family-specific.
-
-## CSS Variable Docs
-
-- `CSS Properties` must cover the full public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
-- `CSS Playground` is an exception path, not the default. Only keep it when a task explicitly calls for interactive token editing and the control surface is genuinely useful.
-- `Styling hooks` should cover meaningful `className`, `data-slot`, and state/data attributes that consumers can actually target.

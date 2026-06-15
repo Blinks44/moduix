@@ -11,19 +11,18 @@ Use this skill for markdown files in `packages/ui/src/components`.
 
 - `packages/ui/src/components/<component-name>/<component-name>.md`
 - wrapper behavior contracts
-- component-specific agent notes
+- component-specific preservation notes
 - component-level changelog entries
 
 ## Rules
 
 - Local markdown documents the `moduix` wrapper, not the upstream Base UI primitive.
-- Use Base UI markdown only to understand primitive behavior, accessibility, state, and lifecycle.
+- Use Base UI docs only to understand primitive behavior, accessibility, state, and lifecycle.
 - Do not copy upstream docs locally.
 - Keep the file explicit enough that future agents can preserve intentional behavior unless the user asks to change it.
 
 Document:
 
-- exposed abstraction over the primitive
 - public composition model and exported parts
 - defaults, DX sugar, and styling hooks
 - intentional differences from Base UI
@@ -55,6 +54,8 @@ Upstream primitive docs: https://base-ui.com/react/components/<primitive-slug>.m
 ```
 
 Existing headings can stay when the same information remains clear.
+
+## Changelog
 
 - Keep a short changelog in the component markdown file.
 - Record meaningful API, behavior, composition, styling-contract, and recommended-usage changes.

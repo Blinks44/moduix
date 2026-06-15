@@ -5,14 +5,12 @@ icon: Component
 ---
 
 import {
-  AccordionCssPlaygroundPanel,
   AccordionCssPropertiesPanel,
   AccordionExample,
   ControlledAccordionExample,
   CustomCompositionAccordionExample,
   DisabledItemAccordionExample,
   MultipleAccordionExample,
-  accordionPlaygroundCssProperties,
 } from '@/components/examples/accordion';
 
 ## API Reference
@@ -21,7 +19,11 @@ import {
 
 ## Basic
 
-<Preview cssProperties={accordionPlaygroundCssProperties}>
+Start with `Accordion`, `AccordionItem`, `AccordionHeader`, `AccordionTrigger`, and
+`AccordionPanel`. This is the recommended path for FAQs, settings groups, and other stacked
+disclosure content.
+
+<Preview>
   <AccordionExample defaultValue={["what-is-base-ui"]} />
 
   <Preview.Code>
@@ -88,14 +90,6 @@ import {
       ];
     `}
 </Preview.Data>
-
-<Preview.CSSProperties>
-  {(context) => <AccordionCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
-
-  <Preview.CSSPlayground>
-    {(context) => <AccordionCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -144,10 +138,9 @@ aubx shadcn@latest add Blinks44/moduix/accordion
 This install path also pulls in the shared moduix foundation files that `Accordion` depends on, such
 as styles, icons, and small utilities.
 
-The default path is explicit composition: `Accordion` owns state, each `AccordionItem` pairs one
-`AccordionTrigger` with one `AccordionPanel`, and `AccordionTriggerIcon` stays optional.
-
 ## Anatomy
+
+The common consumer path is short:
 
 ```text
 Accordion
@@ -171,39 +164,45 @@ Accordion
 
 ## Composition
 
-Use `Accordion` for state props such as `value`, `defaultValue`, `onValueChange`, `multiple`,
-`disabled`, `orientation`, and `loopFocus`. Use `keepMounted` or `hiddenUntilFound` on the root or
-panel when closed content must remain searchable or stay mounted for app logic.
+### When to stay high-level
 
-Style the exported parts directly with `className`. By default the root uses a compact
-`--accordion-width` of `22rem` with `--accordion-max-width: 100%`. Override either variable, or set
-width through `className`, when the surrounding layout needs a different size.
+Stay with `Accordion`, `AccordionItem`, `AccordionHeader`, `AccordionTrigger`, and
+`AccordionPanel` for most disclosure lists, FAQ blocks, and settings sections.
 
-When `AccordionTrigger` uses the `render` prop, the custom rendered element owns its styling and the
-default trigger CSS is not applied.
+`Accordion` keeps Base UI root behavior intact. Use it for `value`, `defaultValue`,
+`onValueChange`, `multiple`, `disabled`, `orientation`, `loopFocus`, `keepMounted`, and
+`hiddenUntilFound`.
 
-```tsx
-<Accordion defaultValue={['shipping']}>
-  <AccordionItem value="shipping">
-    <AccordionHeader render={<h3 />}>
-      <AccordionTrigger>
-        Shipping details
-        <AccordionTriggerIcon />
-      </AccordionTrigger>
-    </AccordionHeader>
-    <AccordionPanel keepMounted>
-      <div className={styles.panelContent}>Delivery times, prices, and tracking options.</div>
-    </AccordionPanel>
-  </AccordionItem>
-</Accordion>
-```
+Keep `AccordionTriggerIcon` when the default plus icon works. It is narrow sugar for the common
+visual affordance and can be omitted entirely when the trigger label is enough.
 
-| Prop          | Default    | Values                   |
-| ------------- | ---------- | ------------------------ |
-| `multiple`    | `false`    | `true`, `false`          |
-| `disabled`    | `false`    | `true`, `false`          |
-| `orientation` | `vertical` | `vertical`, `horizontal` |
-| `loopFocus`   | `true`     | `true`, `false`          |
+### When to go custom
+
+Switch to lower-level rendering only when heading semantics or trigger visuals need to change.
+`AccordionHeader` supports `render` for custom heading levels, and `AccordionTriggerIcon` accepts
+custom children when the default icon should be replaced.
+
+### Default props
+
+| Prop               | Default    | Values / Notes                                      |
+| ------------------ | ---------- | --------------------------------------------------- |
+| `multiple`         | `false`    | Allows multiple panels to stay open                 |
+| `disabled`         | `false`    | Disables the whole accordion                        |
+| `orientation`      | `vertical` | `vertical`, `horizontal`                            |
+| `loopFocus`        | `true`     | Arrow-key focus wraps between triggers              |
+| `keepMounted`      | `false`    | Closed panels stay in the DOM when enabled          |
+| `hiddenUntilFound` | `false`    | Uses `hidden="until-found"` on closed panel content |
+
+### Behavioral notes
+
+- `value`, `defaultValue`, and `onValueChange` always work with arrays of item values, even when
+  `multiple` is not enabled.
+- Put spacing and layout wrappers inside `AccordionPanel` so height measurement and open/close
+  animation stay clean.
+- When `AccordionTrigger` uses the `render` prop, the custom rendered element owns its styling and
+  moduix does not attach the default trigger classes.
+- The shipped styles are optimized for vertical accordions. `orientation="horizontal"` changes
+  keyboard semantics, but most consumer styling still assumes vertical layout.
 
 ## Examples
 
@@ -343,7 +342,7 @@ Set `disabled` on an item to keep it visible while blocking interaction.
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
 `AccordionTriggerIcon` is narrow sugar for the common visual affordance. Keep it when the default
 plus icon works, replace its children when the UI needs a different cue, or omit it entirely.
@@ -401,3 +400,27 @@ plus icon works, replace its children when the UI needs a different cue, or omit
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Use `className` on the exported parts for most visual changes. The root ships with a compact
+default width through `--accordion-width: 22rem` and `--accordion-max-width: 100%`, so override
+those variables or set width directly when the surrounding layout needs a different size.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <AccordionCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="accordion-root"`, `accordion-item`, `accordion-header`, `accordion-trigger`,
+  `accordion-trigger-icon`, and `accordion-panel` are stable selectors on the exported parts.
+- Base UI state attributes are exposed to consumers: `data-open` on items and panels,
+  `data-panel-open` on triggers, `data-disabled` on root, item, trigger, and panel, and
+  `data-orientation` on the root and panel.
