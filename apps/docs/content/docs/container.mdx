@@ -6,28 +6,20 @@ icon: Component
 
 import {
   ContainerBleedExample,
-  ContainerCssPlaygroundPanel,
   ContainerCssPropertiesPanel,
   ContainerExample,
   ContainerGuttersExample,
   ContainerSemanticExample,
   ContainerSizesExample,
   CustomCompositionContainerExample,
-  containerPlaygroundCssProperties,
 } from '@/components/examples/container';
-
-## Overview
-
-`Container` is the library's centered page-width primitive. It keeps a readable content column,
-adds responsive inline gutters, and stays out of vertical layout decisions.
-
-Use `size` to choose the content width and `gutter` to control the edge padding. Use `as` when the
-wrapper should also carry page semantics such as `main` or `section`, and use `className` or
-`--container-*` variables when a page needs local layout overrides.
 
 ## Basic
 
-<Preview cssProperties={containerPlaygroundCssProperties} cssVariableScope="local">
+Use `Container` when the main concern is readable inline width. It centers a content column,
+applies responsive inline gutters, and stays out of vertical spacing decisions.
+
+<Preview cssVariableScope="local">
   <ContainerExample />
 
   <Preview.Code>
@@ -65,9 +57,6 @@ wrapper should also carry page semantics such as `main` or `section`, and use `c
     `}
 
   </Preview.CSS>
-
-  <Preview.CSSProperties>{(context) => <ContainerCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <ContainerCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -118,18 +107,11 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Container` is a single root layout primitive. It owns width, max width, centering, and inline
-gutters while leaving block spacing to parent sections or local CSS.
+`Container` is a single root layout primitive.
 
 ```text
 Container
 └─ children
-```
-
-```tsx
-<Container size="lg" gutter="md">
-  <main>Page content</main>
-</Container>
 ```
 
 | Part        | Role                                                     |
@@ -138,28 +120,47 @@ Container
 
 ## Composition
 
-Use `size` for content width and `gutter` for edge spacing.
-Use `as` when the wrapper should render a semantic landmark or sectioning element.
+### When to stay high-level
 
-### Defaults
+Stay with `Container` directly for page shells, article bodies, docs sections, settings screens,
+and other layouts where the main requirement is a centered content column with predictable gutters.
 
-| Prop     | Default | Values                               |
+Use `size` to choose the content width and `gutter` to control the edge padding. Use `as` when the
+wrapper itself should also carry semantic meaning such as `main`, `section`, or `article`.
+
+### When to go custom
+
+`Container` is intentionally root-only. There are no exported subparts, slot props, or nested
+layout helpers.
+
+The custom path here is small:
+
+- pass `className` for local layout or surface styling;
+- override `--container-*` variables when a page needs different width or gutter math;
+- compose with `Bleed` when a child should escape the constrained text column.
+
+### Default props
+
+| Prop     | Default | Values / Notes                       |
 | -------- | ------- | ------------------------------------ |
 | `size`   | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full` |
 | `gutter` | `md`    | `none`, `sm`, `md`, `lg`             |
 | `as`     | `div`   | Any React element type               |
 
-`Container` does not manage vertical rhythm. Add section spacing outside it.
-`size="full"` still keeps inline gutter padding unless `gutter="none"` is used.
-Use `Bleed` inside `Container` when content must escape the constrained column.
-Use `className` when you need custom alignment or local variable overrides.
-The root exposes `data-slot="container-root"`, `data-size`, and `data-gutter` for styling and tests.
+### Behavioral notes
+
+- `Container` does not manage vertical rhythm. Add section spacing outside it or on its children.
+- `size="full"` removes only the max-width cap. The selected gutter still applies unless
+  `gutter="none"` is used.
+- The root exposes `data-slot="container-root"`, `data-size`, and `data-gutter` for styling and
+  tests.
 
 ## Examples
 
 ### Sizes
 
-Use `size` to choose the content column width. `full` fills the available inline space while preserving the selected gutter.
+Use `size` to choose the content column width. `full` fills the available inline space while
+preserving the selected gutter.
 
 <Preview>
   <ContainerSizesExample />
@@ -186,21 +187,20 @@ Use `size` to choose the content column width. `full` fills the available inline
   </Preview.Code>
 
   <Preview.CSS>
-   {`
-    .stack {
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      gap: var(--spacing-4);
-    }
+    {`
+      .stack {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
 
-    .container {
-      padding-block: var(--spacing-4);
-      border-block: var(--border-width-sm) dashed var(--color-border);
-      background-color: var(--color-muted);
-    }
-
-`}
+      .container {
+        padding-block: var(--spacing-4);
+        border-block: var(--border-width-sm) dashed var(--color-border);
+        background-color: var(--color-muted);
+      }
+    `}
 
   </Preview.CSS>
 </Preview>
@@ -232,21 +232,20 @@ Use `gutter` to control responsive inline padding.
   </Preview.Code>
 
   <Preview.CSS>
-   {`
-    .stack {
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      gap: var(--spacing-4);
-    }
+    {`
+      .stack {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
 
-    .container {
-      padding-block: var(--spacing-4);
-      border-block: var(--border-width-sm) dashed var(--color-border);
-      background-color: var(--color-muted);
-    }
-
-`}
+      .container {
+        padding-block: var(--spacing-4);
+        border-block: var(--border-width-sm) dashed var(--color-border);
+        background-color: var(--color-muted);
+      }
+    `}
 
   </Preview.CSS>
 </Preview>
@@ -276,18 +275,17 @@ Use `as` when the layout wrapper should also describe document structure.
   </Preview.Code>
 
   <Preview.CSS>
-   {`
-     .container {
-       padding-block: var(--spacing-4);
-       border-block: var(--border-width-sm) dashed var(--color-border);
-       background-color: var(--color-muted);
-     }
+    {`
+      .container {
+        padding-block: var(--spacing-4);
+        border-block: var(--border-width-sm) dashed var(--color-border);
+        background-color: var(--color-muted);
+      }
 
-     .container > * {
-       max-width: 42rem;
-     }
-
-`}
+      .container > * {
+        max-width: 42rem;
+      }
+    `}
 
   </Preview.CSS>
 </Preview>
@@ -343,7 +341,7 @@ Keep the text column constrained and let only the wider child opt out.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
 Pass `className` when styling the root or overriding container variables locally.
 
@@ -355,7 +353,7 @@ Pass `className` when styling the root or overriding container variables locally
       import { Container, Text } from "moduix";
       import styles from "./container-demo.module.css";
 
-      export function CustomCompositionContainerDemo() {
+      export function CustomStyledContainerDemo() {
         return (
           <Container className={styles.customContainer}>
             <Text weight="semibold">Customized max width and gutters</Text>
@@ -383,3 +381,26 @@ Pass `className` when styling the root or overriding container variables locally
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Use CSS variables on the root when a page shell needs different gutter math or a different width
+scale. Use `className` for local block styling such as padding, borders, or backgrounds.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ContainerCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `Container` exposes `data-slot="container-root"` on the root.
+- `data-size` selects the width preset: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
+- `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.
+- `--container-*` variables control only inline gutter and max-width math; vertical spacing and
+  child layout remain the responsibility of surrounding layout CSS.
