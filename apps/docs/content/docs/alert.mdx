@@ -5,25 +5,33 @@ icon: Component
 ---
 
 import {
-  AlertCssPlaygroundPanel,
   AlertCssPropertiesPanel,
   AlertDestructiveExample,
   AlertExample,
   AlertVariantsExample,
   AlertWithIconExample,
   CustomCompositionAlertExample,
-  alertPlaygroundCssProperties,
 } from '@/components/examples/alert';
 
 ## API Reference
 
 `Alert` is a standalone moduix component and does not wrap a Base UI primitive.
-Use it for inline messages with a small composition-first API: one `variant` prop on the root,
-semantic content parts, and regular children for everything else.
+
+## Choosing the right component
+
+Use `Alert` when the message should stay inline in the page layout and participate in the normal
+document flow.
+
+- Choose **`Alert`** for inline status, validation, and system messages inside forms, panels, or page content.
+- Choose **`Toast`** for transient notifications that appear outside the document flow and dismiss on their own.
+- Choose **`AlertDialog`** for modal confirmations that block the current workflow until the user responds.
 
 ## Basic
 
-<Preview cssProperties={alertPlaygroundCssProperties} cssVariableScope="local">
+Start with `Alert`, `AlertContent`, `AlertTitle`, and `AlertDescription`. Add `AlertIcon` only
+when the message benefits from a leading visual cue.
+
+<Preview>
   <AlertExample />
 
   <Preview.Code>
@@ -45,8 +53,6 @@ semantic content parts, and regular children for everything else.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <AlertCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <AlertCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -95,9 +101,6 @@ aubx shadcn@latest add Blinks44/moduix/alert
 This install path also pulls in the shared moduix foundation files that `Alert` depends on, such
 as styles, icons, and small utilities.
 
-The default path stays short: use `Alert` for the surface and `AlertContent` for the text group.
-Add `AlertIcon` only when the message benefits from a leading visual cue.
-
 ## Anatomy
 
 `AlertIcon` is optional. `AlertContent` groups the text slots and keeps the layout predictable.
@@ -110,18 +113,6 @@ Alert
    └─ AlertDescription
 ```
 
-```tsx
-<Alert variant="info">
-  <AlertIcon>
-    <InfoIcon />
-  </AlertIcon>
-  <AlertContent>
-    <AlertTitle>Workspace sync is active</AlertTitle>
-    <AlertDescription>Changes are being synced across all connected devices.</AlertDescription>
-  </AlertContent>
-</Alert>
-```
-
 | Part               | Role                                                    |
 | ------------------ | ------------------------------------------------------- |
 | `Alert`            | Root slot. Applies variant styles and semantics.        |
@@ -132,42 +123,38 @@ Alert
 
 ## Composition
 
+### When to stay high-level
+
+Stay with `Alert`, `AlertContent`, `AlertTitle`, and `AlertDescription` for most inline feedback
+messages.
+
 Use `variant` for intent: `default`, `info`, `success`, `warning`, or `destructive`.
 
 Keep text, links, and extra actions inside `AlertContent`. The component intentionally avoids
 special-purpose action props or slot bags; normal composition already covers those cases cleanly.
 
-Use `className` on the root or parts for local styles. Override `--alert-*` CSS variables on the
-root slot when the alert needs local theming.
+### When to go custom
 
-`role` defaults to `status`, and switches to `alert` for `variant="destructive"`.
-`AlertTitle` renders `h3` by default and accepts `as="h1"` through `as="h6"` when the surrounding
-document outline needs a different heading level.
+Switch to custom composition only when the alert needs extra inline controls, local dismiss state,
+or a custom heading level. Keep that logic in the consuming component instead of pushing state or
+actions into the alert API.
 
-`success` and `warning` use the shared semantic palette tokens instead of private alert-only colors:
+### Default props
 
-| Variant       | Shared token          | Default                      |
-| ------------- | --------------------- | ---------------------------- |
-| `success`     | `--color-success`     | `oklch(0.627 0.194 149.214)` |
-| `warning`     | `--color-warning`     | `oklch(0.795 0.184 86.047)`  |
-| `destructive` | `--color-destructive` | theme destructive            |
+| Prop      | Default   | Values / Notes                                           |
+| --------- | --------- | -------------------------------------------------------- |
+| `variant` | `default` | `default`, `info`, `success`, `warning`, `destructive`   |
+| `role`    | Auto      | `status` by default, `alert` for `variant="destructive"` |
 
-### Defaults
+### Behavioral notes
 
-| Prop      | Default   | Values                                                    |
-| --------- | --------- | --------------------------------------------------------- |
-| `variant` | `default` | `default`, `info`, `success`, `warning`, `destructive`    |
-| `role`    | Auto      | `status` by default, `alert` when `variant="destructive"` |
-
-### Props
-
-| Component          | Props                                                 |
-| ------------------ | ----------------------------------------------------- |
-| `Alert`            | native `div` props, `variant`, `className`, `role`    |
-| `AlertIcon`        | native `span` props, defaults to `aria-hidden="true"` |
-| `AlertContent`     | native `div` props                                    |
-| `AlertTitle`       | heading props, `as="h1"` through `as="h6"`            |
-| `AlertDescription` | native `div` props                                    |
+- `role` defaults to `status`, and switches to `alert` for `variant="destructive"`.
+- `AlertTitle` renders `h3` by default and accepts `as="h1"` through `as="h6"` when the document
+  outline needs a different heading level.
+- `AlertIcon` defaults to `aria-hidden="true"`, so essential meaning should stay in the title or
+  description.
+- The component is intentionally presentational. It does not manage dismiss state, focus, or
+  keyboard behavior for embedded actions.
 
 ## Examples
 
@@ -242,7 +229,8 @@ Use variants for neutral, informational, success, warning, and destructive state
 
 ### Destructive
 
-Use `variant="destructive"` when the message needs assertive announcement semantics and stronger visual emphasis.
+Use `variant="destructive"` when the message needs assertive announcement semantics and stronger
+visual emphasis.
 
 <Preview>
   <AlertDestructiveExample />
@@ -271,7 +259,7 @@ Use `variant="destructive"` when the message needs assertive announcement semant
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
 Compose extra controls inside `AlertContent` when the message needs a recovery path or follow-up
 action. Keep dismiss state in the consuming component when a local alert should be hidden.
@@ -344,3 +332,33 @@ action. Keep dismiss state in the consuming component when a local alert should 
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Use `className` on the root or parts for local styles. Override `--alert-*` CSS variables on the
+root when the alert needs local theming.
+
+The built-in semantic variants also read shared palette tokens:
+
+| Variant       | Shared token          | Default                      |
+| ------------- | --------------------- | ---------------------------- |
+| `success`     | `--color-success`     | `oklch(0.627 0.194 149.214)` |
+| `warning`     | `--color-warning`     | `oklch(0.795 0.184 86.047)`  |
+| `destructive` | `--color-destructive` | theme destructive            |
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <AlertCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="alert-root"`, `alert-icon`, `alert-content`, `alert-title`, and `alert-description`
+  are stable selectors on the exported parts.
+- `Alert` writes the selected intent to `data-variant`, which is the main state hook for
+  variant-specific styling.
