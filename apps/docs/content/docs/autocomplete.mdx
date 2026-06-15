@@ -7,7 +7,6 @@ icon: Component
 import {
   AsyncSearchAutocompleteExample,
   AutoHighlightAutocompleteExample,
-  AutocompleteCssPlaygroundPanel,
   AutocompleteCssPropertiesPanel,
   AutocompleteExample,
   CustomCompositionAutocompleteExample,
@@ -17,7 +16,6 @@ import {
   InputInsidePopupAutocompleteExample,
   ItemIconsAutocompleteExample,
   LimitAutocompleteExample,
-  autocompletePlaygroundCssProperties,
 } from '@/components/examples/autocomplete';
 
 ## API Reference
@@ -35,7 +33,10 @@ the value without restricting what they can type.
 
 ## Basic
 
-<Preview cssProperties={autocompletePlaygroundCssProperties}>
+Start with `Autocomplete`, `AutocompleteField`, `AutocompleteInputGroup`, `AutocompleteInput`, and
+`AutocompleteContent`. This is the recommended path for free-form text fields with suggestions.
+
+<Preview>
   <AutocompleteExample />
 
   <Preview.Code>
@@ -101,14 +102,6 @@ the value without restricting what they can type.
     `}
 
   </Preview.Data>
-
-<Preview.CSSProperties>
-  {(context) => <AutocompleteCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
-
-  <Preview.CSSPlayground>
-    {(context) => <AutocompleteCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -204,42 +197,45 @@ Use `AutocompleteFieldLabel` only in the trigger-first layout, where Base UI lab
 
 ## Composition
 
+### When to stay high-level
+
+Stay with `Autocomplete`, `AutocompleteField`, `AutocompleteInputGroup`, `AutocompleteInput`, and
+`AutocompleteContent` for most free-form text fields with suggestions.
+
 Use `Autocomplete` for root state and Base UI behavior props such as `items`, `value`,
 `onValueChange`, `filter`, `filteredItems`, `limit`, `mode`, `autoHighlight`, `grid`,
 `virtualized`, and `openOnInputClick`.
 
-Use `itemToStringValue` for object items. Use `filter={null}` or `filteredItems` for external
-search. Use `AutocompleteGroup`, `AutocompleteGroupLabel`, and `AutocompleteCollection` for grouped
-data. Use `grid` with `AutocompleteRow` for grid navigation. `useAutocompleteFilter` provides Base
-UI string-matching helpers, and `useAutocompleteFilteredItems` exposes the filtered result set for
-custom renderers.
-
 `AutocompleteContent` is the short path for the common case. It styles the popup surface and keeps
 the default `Portal -> Positioner -> Popup` structure. It forwards popup props to the visible
-surface and accepts the shared positioning props directly.
+surface and accepts shared positioning props directly.
 
-| `AutocompleteContent` prop                                                                   | Default         | Purpose                                               |
-| -------------------------------------------------------------------------------------------- | --------------- | ----------------------------------------------------- |
-| `sideOffset`                                                                                 | `5`             | Gap between the trigger and popup.                    |
-| `showArrow`                                                                                  | `false`         | Enables the built-in arrow.                           |
-| `side`, `align`                                                                              | Base UI default | Popup placement relative to the anchor.               |
-| `alignOffset`, `arrowPadding`, `collisionAvoidance`, `collisionBoundary`, `collisionPadding` | Base UI default | Collision and arrow tuning for the common popup path. |
+### When to go custom
 
-When you need a custom portal container, backdrop, custom arrow content, or a different popup
-stack, switch to the lower-level parts instead of extending `AutocompleteContent`.
+Switch to `AutocompletePortal`, `AutocompleteBackdrop`, `AutocompletePositioner`,
+`AutocompletePopup`, and `AutocompleteArrow` when you need a custom portal container, backdrop,
+custom arrow content, or a different popup stack.
 
-```tsx
-<AutocompletePortal className={styles.portal}>
-  <AutocompleteBackdrop className={styles.backdrop} />
-  <AutocompletePositioner className={styles.positioner} sideOffset={8}>
-    <AutocompletePopup className={styles.popup}>
-      <AutocompleteArrow className={styles.arrow} />
-      <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-      <AutocompleteList>{/* items */}</AutocompleteList>
-    </AutocompletePopup>
-  </AutocompletePositioner>
-</AutocompletePortal>
-```
+Use `AutocompleteFieldTrigger`, `AutocompleteValue`, and `AutocompleteInlineInputContainer` when
+the visible field opens a popup that contains the searchable input.
+
+### Default props
+
+| Prop         | Default | Values / Notes                            |
+| ------------ | ------- | ----------------------------------------- |
+| `showArrow`  | `false` | Enables the built-in popup arrow          |
+| `sideOffset` | `5`     | Any number accepted by Base UI positioner |
+
+### Behavioral notes
+
+- `Autocomplete` preserves free-form text. Suggestions help complete the value, but they do not restrict what the user can type.
+- Prefer a native `<label htmlFor={id}>` with `AutocompleteInput id={id}` for the standard input path.
+- Use `AutocompleteFieldLabel` only in the trigger-first pattern where Base UI labels the trigger.
+- Use `itemToStringValue` for object items so free-form text and suggestion labels stay stable.
+- Use `filter={null}` or `filteredItems` when results come from application state or a remote request.
+- Use `AutocompleteGroup`, `AutocompleteGroupLabel`, and `AutocompleteCollection` for grouped data.
+- Use `grid` with `AutocompleteRow` for grid navigation.
+- `useAutocompleteFilter` provides Base UI string-matching helpers, and `useAutocompleteFilteredItems` exposes the filtered result set for custom renderers.
 
 ## Examples
 
@@ -995,7 +991,7 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
   </Preview.Data>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
 Style the default popup with `className`. Switch to explicit popup composition when the portal,
 backdrop, positioner, or arrow need their own styling.
@@ -1101,3 +1097,33 @@ backdrop, positioner, or arrow need their own styling.
 
   </Preview.Data>
 </Preview>
+
+## Styling
+
+Style `Autocomplete` through `className`, `data-slot="autocomplete-*"` hooks, and the public
+`--autocomplete-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <AutocompleteCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `AutocompleteInput` and `AutocompleteInputGroup` for the standard field chrome
+- `AutocompleteContent` or `AutocompletePopup` for popup surface overrides
+- `AutocompleteItem` and `AutocompleteItemText` for suggestion row layout
+- `AutocompleteGroupLabel`, `AutocompleteStatus`, and `AutocompleteEmpty` for support rows and grouping
+- `AutocompleteFieldTrigger`, `AutocompleteValue`, and `AutocompleteInlineInputContainer` for the input-inside-popup composition
+
+The main public hooks include `data-slot="autocomplete-input-group"`,
+`data-slot="autocomplete-input"`, `data-slot="autocomplete-popup"`,
+`data-slot="autocomplete-item"`, `data-slot="autocomplete-group-label"`, and
+`data-slot="autocomplete-status"`.

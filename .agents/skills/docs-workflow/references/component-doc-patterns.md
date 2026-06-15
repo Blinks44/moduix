@@ -2,6 +2,10 @@
 
 Load this file when docs work in `apps/docs` touches popup-like or dialog-like components, preview snippets, or CSS variable sections.
 
+Reference implementation for the current standard component page shape:
+
+- `apps/docs/content/docs/select.mdx`
+
 ## Component Page Structure
 
 Use this standard section order for component pages:
@@ -34,6 +38,7 @@ Interpretation rules:
 - `Basic` is the recommended default path and should be the first runnable example.
 - `Install with shadcn (optional)` comes immediately after `Basic`.
 - `Anatomy` explains structure, not behavior.
+- Do not duplicate the `Basic` example in `Anatomy` as a full code block unless the structure would otherwise be unclear.
 - `Composition` explains the public contract, high-level path, escape hatches, default props, and important behavioral constraints.
 - `Examples` should start where `Basic` stops. Do not repeat the same example there.
 - `Styling` exists only when the component has a meaningful styling contract.
@@ -46,6 +51,10 @@ Interpretation rules:
 - Keep tiny literals inline in `Preview.Code` only when splitting them out would make the example harder to follow.
 - Keep snippets self-contained and consumer-facing.
 - Do not repeat global setup imports.
+- Do not attach `Preview.CSSProperties` or `Preview.CSSPlayground` to the `Basic` example.
+- Prefer removing `Playground` from component pages unless the task explicitly calls for interactive token editing.
+- Do not add a preview canvas in `Styling`.
+- In `### CSS Properties`, prefer the direct CSS variables reference UI over a duplicated summary table.
 
 ## Popup-like Components
 
@@ -61,5 +70,5 @@ Interpretation rules:
 ## CSS Variable Docs
 
 - `CSS Properties` must cover the full public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
-- `CSS Playground` should expose only a safe, useful subset.
+- `CSS Playground` is an exception path, not the default. Only keep it when a task explicitly calls for interactive token editing and the control surface is genuinely useful.
 - `Styling hooks` should cover meaningful `className`, `data-slot`, and state/data attributes that consumers can actually target.

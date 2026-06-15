@@ -14,10 +14,8 @@ import {
   ObjectValuesSelectExample,
   ScrollableSelectExample,
   SelectArrowExample,
-  SelectCssPlaygroundPanel,
   SelectCssPropertiesPanel,
   SelectExample,
-  selectPlaygroundCssProperties,
 } from '@/components/examples/select';
 
 ## API Reference
@@ -33,12 +31,12 @@ trigger to search or enter a value.
 - Choose **`Combobox`** when users must choose predefined options, but typing helps search or filter the list.
 - Choose **`Select`** when users must choose predefined options and typing in the trigger is not needed.
 
-## Default Path
+## Basic
 
 Start with `Select`, `SelectField`, `SelectTrigger`, and `SelectContent`. This is the recommended
 path for standard forms and settings panels.
 
-<Preview cssProperties={selectPlaygroundCssProperties}>
+<Preview>
   <SelectExample />
 
   <Preview.Code>
@@ -95,8 +93,6 @@ path for standard forms and settings panels.
     `}
 
   </Preview.Data>
-  <Preview.CSSProperties>{(context) => <SelectCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <SelectCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -178,31 +174,44 @@ change.
 
 ## Composition
 
+### When to stay high-level
+
+Stay with `Select`, `SelectField`, `SelectTrigger`, and `SelectContent` for most forms and settings
+panels.
+
 `Select` keeps Base UI root behavior intact. Use it for `value`, `defaultValue`, `multiple`,
 `onValueChange`, `items`, `itemToStringLabel`, and `itemToStringValue`.
 
-Use `onValueChange` when the selected value should immediately update React state. When the value
-only needs to be read during form submission, pass `name` on `Select` and read it from
-`new FormData(event.currentTarget)`.
-
 `SelectContent` is the high-level popup wrapper. It accepts popup `className`, supports the shared
 positioning props (`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`,
-`collisionAvoidance`, `collisionBoundary`, `collisionPadding`), and keeps two select-specific
+`collisionAvoidance`, `collisionBoundary`, `collisionPadding`), and adds two select-specific
 conveniences:
 
 - `showArrow` for the built-in popup arrow
 - `alignItemWithTrigger` for the overlapping select layout behavior from Base UI
 
-When you need backdrop control, sticky positioning, or custom popup structure, switch to
-`SelectPortal`, `SelectBackdrop`, `SelectPositioner`, `SelectPopup`, and `SelectArrow` directly.
+### When to go custom
 
-### Defaults
+Switch to `SelectPortal`, `SelectBackdrop`, `SelectPositioner`, `SelectPopup`, and `SelectArrow`
+when you need backdrop control, sticky positioning, or custom popup structure.
+
+### Default props
 
 | Prop               | Default | Values / Notes                            |
 | ------------------ | ------- | ----------------------------------------- |
 | `showArrow`        | `false` | Enables the built-in arrow                |
 | `sideOffset`       | `8`     | Any number accepted by Base UI positioner |
 | `indicator` (item) | `start` | `start`, `end`, `none`                    |
+
+### Behavioral notes
+
+- Use `onValueChange` when the selected value should immediately update React state.
+- When the value only needs to be read during form submission, pass `name` on `Select` and read it
+  from `new FormData(event.currentTarget)`.
+- Use `alignItemWithTrigger={false}` whenever the popup needs a conventional floating relationship
+  or the built-in arrow.
+- For object values, provide both `itemToStringLabel` and `itemToStringValue` so trigger rendering,
+  typeahead, and submitted form values stay stable.
 
 ## Examples
 
@@ -595,7 +604,7 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
 When the default wrapper is too opinionated, compose the popup parts directly. This is the escape
 hatch for custom layering, sticky positioning, backdrops, or popup structure.
@@ -662,3 +671,30 @@ hatch for custom layering, sticky positioning, backdrops, or popup structure.
 
   </Preview.Code>
 </Preview>
+
+## Styling
+
+Style `Select` through `className`, `data-slot="select-*"` hooks, and the public `--select-*` CSS
+variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SelectCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `SelectTrigger` for field chrome and focus styling
+- `SelectContent` or `SelectPopup` for popup surface overrides
+- `SelectItem` and `SelectItemText` for row layout changes
+- `SelectGroupLabel` for sticky heading styling
+
+The main public hooks include `data-slot="select-trigger"`, `data-slot="select-value"`,
+`data-slot="select-popup"`, `data-slot="select-item"`, and `data-slot="select-group-label"`.

@@ -7,14 +7,12 @@ icon: Component
 import {
   AsyncSearchComboboxExample,
   ComboboxExample,
-  ComboboxCssPlaygroundPanel,
   ComboboxCssPropertiesPanel,
   CustomCompositionComboboxExample,
   GroupedComboboxExample,
   IndicatorRightComboboxExample,
   InputInsidePopupComboboxExample,
   MultipleComboboxExample,
-  comboboxPlaygroundCssProperties,
 } from '@/components/examples/combobox';
 
 ## API Reference
@@ -32,7 +30,10 @@ or filtering the available options.
 
 ## Basic
 
-<Preview cssProperties={comboboxPlaygroundCssProperties}>
+Start with `Combobox`, `ComboboxField`, `ComboboxInputGroup`, `ComboboxInput`, and
+`ComboboxContent`. This is the recommended path for searchable single-select fields.
+
+<Preview>
   <ComboboxExample />
 
   <Preview.Code>
@@ -99,12 +100,6 @@ or filtering the available options.
     `}
 
   </Preview.Data>
-  <Preview.CSSProperties>
-    {(context) => <ComboboxCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <ComboboxCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -179,33 +174,6 @@ Combobox
          └─ ComboboxItemText
 ```
 
-```tsx
-<Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-  <ComboboxField>
-    <label htmlFor={id}>Choose fruit</label>
-    <ComboboxInputGroup>
-      <ComboboxInput id={id} placeholder="e.g. Mango" />
-      <ComboboxControlActions>
-        <ComboboxClear aria-label="Clear selection" />
-        <ComboboxTrigger aria-label="Open options" />
-      </ComboboxControlActions>
-    </ComboboxInputGroup>
-  </ComboboxField>
-
-  <ComboboxContent sideOffset={4}>
-    <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-    <ComboboxList>
-      {(item) => (
-        <ComboboxItem key={item.id} value={item}>
-          <ComboboxItemIndicator />
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-        </ComboboxItem>
-      )}
-    </ComboboxList>
-  </ComboboxContent>
-</Combobox>
-```
-
 | Part                           | Role                                                                                                                    |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | `Combobox`                     | Root state machine. Controls selected value, input text, popup open state, filtering, and keyboard navigation.          |
@@ -226,36 +194,49 @@ Use `ComboboxFieldLabel` only in the trigger-first layout, where Base UI labels 
 
 ## Composition
 
+### When to stay high-level
+
+Stay with `Combobox`, `ComboboxField`, `ComboboxInputGroup`, `ComboboxInput`, and
+`ComboboxContent` for most searchable single-select and grouped-list fields.
+
 Use `Combobox` for root state and behavior props such as `value`, `defaultValue`,
 `onValueChange`, `inputValue`, `onInputValueChange`, `open`, `onOpenChange`, `multiple`,
 `filter`, `filteredItems`, `limit`, `grid`, `virtualized`, `modal`, `openOnInputClick`,
 `autoHighlight`, `loopFocus`, `itemToStringLabel`, `itemToStringValue`, and
 `isItemEqualToValue`.
 
-The moduix wrapper keeps Base UI behavior available while keeping the default popup composition
-compact:
+`ComboboxContent` is the high-level popup wrapper. It accepts popup `className`, supports shared
+positioning props (`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`,
+`collisionAvoidance`, `collisionBoundary`, `collisionPadding`), and can opt into the built-in
+arrow with `showArrow`.
 
-| Base UI capability                      | moduix API                                                                                                                                                                    |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Root state, filtering, forms, grid mode | Pass Base UI root props directly to `Combobox`.                                                                                                                               |
-| Flat items                              | Pass `items` to `Combobox` and render items with a function child on `ComboboxList`.                                                                                          |
-| Grouped items                           | Pass grouped `items`, then render `ComboboxGroup`, `ComboboxGroupLabel`, and `ComboboxCollection`.                                                                            |
-| Async or remote search                  | Pass `filter={null}`, manage `items`, and announce progress with `ComboboxStatus`.                                                                                            |
-| Externally filtered items               | Pass `filteredItems` or combine `useComboboxFilter` with application state.                                                                                                   |
-| Virtualized lists                       | Pass `virtualized`, render custom rows in `ComboboxList`, and read `useComboboxFilteredItems`.                                                                                |
-| Multiple values                         | Pass `multiple` and render chips through `ComboboxValue`, `ComboboxChips`, and `ComboboxChip`.                                                                                |
-| Popup placement                         | Pass `side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`, `collisionAvoidance`, `collisionBoundary`, or `collisionPadding` to `ComboboxContent` for the common case. |
-| Default arrow                           | Use `showArrow` to enable the built-in arrow, or switch to low-level popup parts for a custom arrow.                                                                          |
-| Backdrop or custom structure            | Use the lower-level popup parts only when the popup infrastructure itself needs to change.                                                                                    |
+### When to go custom
 
-For a custom popup stack with your own backdrop or arrow, use the lower-level parts shown in
-`Custom Composition` below.
+Switch to `ComboboxPortal`, `ComboboxBackdrop`, `ComboboxPositioner`, `ComboboxPopup`, and
+`ComboboxArrow` when the popup infrastructure itself needs to change, such as for a custom
+backdrop, custom arrow treatment, or explicit stacking and layering control.
 
-Every visible part accepts `className` and the Base UI `render` prop where the underlying primitive
-supports it, so the component can be styled with CSS Modules, plain CSS, CSS-in-JS, cascade layers,
-or design-system wrappers. Default icons are only fallbacks: pass children to `ComboboxTrigger`,
-`ComboboxIcon`, `ComboboxClear`, `ComboboxItemIndicator`, and `ComboboxChipRemove` to use your own
-icon set.
+Use `ComboboxFieldTrigger`, `ComboboxValue`, and `ComboboxInlineInputContainer` when the visible
+field opens a popup that contains the searchable input.
+
+### Default props
+
+| Prop               | Default | Values / Notes                            |
+| ------------------ | ------- | ----------------------------------------- |
+| `showArrow`        | `false` | Enables the built-in popup arrow          |
+| `sideOffset`       | `5`     | Any number accepted by Base UI positioner |
+| `indicator` (item) | `start` | `start`, `end`, `none`                    |
+
+### Behavioral notes
+
+- Prefer a native `<label htmlFor={id}>` with `ComboboxInput id={id}` for the standard input path.
+- Use `ComboboxFieldLabel` only in the trigger-first pattern where Base UI labels the trigger.
+- Use `filter={null}` when results are already filtered by application state or a remote request.
+- `ComboboxStatus` is the intended place for async loading or error messaging.
+- `ComboboxItemText` content does not control the selected label. Use root item string helpers such
+  as `itemToStringLabel`.
+- Default icons are only fallbacks: pass children to `ComboboxTrigger`, `ComboboxIcon`,
+  `ComboboxClear`, `ComboboxItemIndicator`, and `ComboboxChipRemove` to use your own icon set.
 
 ## Examples
 
@@ -974,3 +955,32 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
 
   </Preview.Data>
 </Preview>
+
+## Styling
+
+Style `Combobox` through `className`, `data-slot="combobox-*"` hooks, and the public
+`--combobox-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ComboboxCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `ComboboxInput` and `ComboboxInputGroup` for the standard field chrome
+- `ComboboxContent` or `ComboboxPopup` for popup surface overrides
+- `ComboboxItem`, `ComboboxItemIndicator`, and `ComboboxItemText` for list row layout
+- `ComboboxGroupLabel`, `ComboboxStatus`, and `ComboboxEmpty` for support rows and grouping
+- `ComboboxChip`, `ComboboxChipRemove`, and `ComboboxChipsInput` for multiple-selection chip styling
+
+The main public hooks include `data-slot="combobox-input-group"`, `data-slot="combobox-input"`,
+`data-slot="combobox-popup"`, `data-slot="combobox-item"`, `data-slot="combobox-group-label"`,
+`data-slot="combobox-status"`, and `data-slot="combobox-chip"`.

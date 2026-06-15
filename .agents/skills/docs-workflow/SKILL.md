@@ -12,13 +12,14 @@ Use this skill for work in `apps/docs`.
 - MDX component pages
 - docs site content and routing
 - live examples
-- CSS properties and playground documentation
+- CSS properties documentation
 
 ## Read First
 
 1. `AGENTS.md`
 2. `packages/ui` output and local component docs when docs depend on changed UI behavior
 3. `references/component-doc-patterns.md` when the task touches popup/dialog families, preview snippets, or CSS variable sections
+4. `apps/docs/content/docs/select.mdx` as the current reference implementation for the standard component page structure
 
 ## Source of Truth
 
@@ -40,6 +41,7 @@ Use this skill for work in `apps/docs`.
 - On component pages, put registry install guidance directly after the basic example. Show only the `add` commands there; do not repeat the full `init` walkthrough or stylesheet import on every page.
 - Load `references/component-doc-patterns.md` for preview, family-specific, and CSS-variable doc rules instead of duplicating them here.
 - Use a consistent consumer-first component page structure across docs. Prefer the same section order on every component page and only omit sections that would be empty or meaningless.
+- Treat `apps/docs/content/docs/select.mdx` as the working reference for the current standardized component-page layout unless a task explicitly establishes a newer reference page.
 
 ## Structure Guidance
 
@@ -68,9 +70,14 @@ Use this skill for work in `apps/docs`.
 - `Basic` is the recommended happy path. It should contain the first runnable snippet and a short explanation of when to start with that composition.
 - Put registry install guidance directly after `Basic`.
 - Keep `Anatomy` short: ASCII tree plus concise part roles.
+- Do not repeat the `Basic` composition in `Anatomy` as a full code snippet. If `Basic` already shows the standard path, `Anatomy` should stay structural.
 - Use `Composition` for public contract guidance, not for repeating anatomy.
 - `Examples` should move from the basic path to narrower, more specific, or more advanced cases. Do not duplicate the `Basic` example there.
 - Use `Custom Composition` only as an example label inside `Examples` when a low-level escape hatch is worth showing.
+- Do not keep `Preview.CSSProperties` or `Preview.CSSPlayground` tabs inside `Basic`.
+- Prefer removing `Playground` from component docs. Keep it only when a task explicitly needs interactive token editing and the control surface is genuinely useful.
+- Do not add a preview canvas inside `## Styling`.
+- In `### CSS Properties`, prefer rendering the CSS variables reference content directly instead of summarizing it again as a prose table.
 
 ## Done Criteria
 
