@@ -7,24 +7,22 @@ icon: Component
 import {
   CustomCompositionKbdExample,
   KbdDenseExample,
-  KbdCssPlaygroundPanel,
   KbdCssPropertiesPanel,
   KbdExample,
   KbdSingleKeyExample,
   KbdShortcutListExample,
-  kbdPlaygroundCssProperties,
 } from '@/components/examples/kbd';
 
 ## API Reference
 
 `Kbd` is a standalone moduix component and does not wrap a Base UI primitive.
-Because Base UI does not ship a dedicated keyboard-key primitive, moduix keeps this component as a
-thin styled wrapper around native `<kbd>` elements. Use `Kbd` for a single key and `KbdGroup`
-when several keys should read as one shortcut.
+Use `Kbd` for a single key and `KbdGroup` when several keys should read as one shortcut.
 
 ## Basic
 
-<Preview cssProperties={kbdPlaygroundCssProperties} cssVariableScope="local">
+Start with `Kbd` for a single key and `KbdGroup` when the UI needs a semantic shortcut cluster.
+
+<Preview>
   <KbdExample />
 
   <Preview.Code>
@@ -43,8 +41,6 @@ when several keys should read as one shortcut.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <KbdCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <KbdCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -95,19 +91,13 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-Use `Kbd` for a single key label. Use `KbdGroup` to keep multi-key shortcuts aligned and preserve
-group-level keyboard semantics.
+The normal consumer path is short:
 
 ```text
 KbdGroup
+├─ Kbd
+├─ +
 └─ Kbd
-└─ Kbd
-```
-
-```tsx
-<KbdGroup aria-label="Command K">
-  <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-</KbdGroup>
 ```
 
 | Part       | Element | Data attributes         | Role                                                 |
@@ -117,21 +107,23 @@ KbdGroup
 
 ## Composition
 
-Pass `className` to `Kbd` or `KbdGroup` for targeted overrides. `Kbd` accepts native `kbd` props,
-and `KbdGroup` accepts native `kbd` props.
+### When to stay high-level
 
-There is no extra variant or size API. For denser layouts or product-specific visuals, use
-`className` and the public `--kbd-*` CSS variables.
+Stay with `Kbd` and `KbdGroup` for shortcut hints, command menus, and inline help text.
 
-Separators such as `+` or `/` stay in plain composition. There is no dedicated separator part or
-helper prop.
+Both components accept native `kbd` props, including `className`, `title`, and ARIA attributes.
+There is no extra variant, size, separator, or state API.
 
-## UX and Accessibility
+### When to go custom
 
-`Kbd` and `KbdGroup` are static shortcut labels, not interactive controls. Prefer short visible key
-labels and add `aria-label` to `KbdGroup` when abbreviations or symbols need a clearer spoken form.
-There is no keyboard behavior, focus management, disabled state, or controlled state because the
-component only renders native shortcut semantics.
+This component does not have a lower-level composition path. Customization happens through
+`className`, the stable `data-slot` hooks, and the public `--kbd-*` CSS variables.
+
+### Behavioral notes
+
+- `Kbd` and `KbdGroup` are static shortcut labels, not interactive controls.
+- Separators such as `+`, `/`, or `then` stay in plain composition as normal text.
+- Add `aria-label` to `KbdGroup` when abbreviations or symbols need a clearer spoken form.
 
 ## Examples
 
@@ -156,7 +148,7 @@ Use `Kbd` directly when the UI refers to one key.
 
 ### Shortcut List
 
-Use plain composition when keys need to sit next to surrounding copy.
+Use plain composition when shortcuts need to sit next to surrounding copy.
 
 <Preview>
   <KbdShortcutListExample />
@@ -235,7 +227,7 @@ Use local CSS variables for one-off density or tone changes instead of extra com
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Custom Styling
 
 Use `className` and CSS variables when the default keycap needs to match product-specific styling.
 
@@ -279,3 +271,24 @@ Use `className` and CSS variables when the default keycap needs to match product
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Kbd` and `KbdGroup` through `className`, the stable `data-slot` hooks, and the public
+`--kbd-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <KbdCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="kbd-root"` targets the individual keycap element
+- `data-slot="kbd-group"` targets the inline semantic wrapper for grouped shortcuts
+- `KbdGroup` inherits text styles for separators, and `--kbd-group-separator-color` controls their color

@@ -1,6 +1,6 @@
 import { Kbd, KbdGroup } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './kbd.module.css';
 
 export const kbdOverrideCssProperties: CssPropertyInput[] = [
@@ -30,33 +30,9 @@ export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export const kbdPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--kbd-bg', 'var(--color-muted)', 'Controls key background color.'],
-  ['--kbd-border-color', 'var(--color-border)', 'Controls key border color.'],
-  ['--kbd-border-width', 'var(--border-width-sm)', 'Controls key border width.'],
-  ['--kbd-color', 'var(--color-foreground)', 'Controls key text color.'],
-  ['--kbd-font-size', 'var(--text-xs)', 'Controls key font size.'],
-  ['--kbd-group-gap', '0.25rem', 'Controls spacing between grouped keys.'],
-  ['--kbd-height', '1.5rem', 'Controls key height.'],
-  ['--kbd-min-width', 'var(--kbd-height, 1.5rem)', 'Controls minimum key width.'],
-  ['--kbd-padding-x', '0.4375rem', 'Controls horizontal key padding.'],
-  ['--kbd-radius', 'var(--radius-sm)', 'Controls key border radius.'],
-];
-
 export function KbdCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable properties={kbdOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function KbdCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={kbdPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 
