@@ -39,14 +39,38 @@ Use this skill for work in `apps/docs`.
 - Keep `index.mdx`, `quick-start.mdx`, `composition-patterns.mdx`, and `tokens.mdx` aligned whenever install paths, token entrypoints, or ownership guidance changes.
 - On component pages, put registry install guidance directly after the basic example. Show only the `add` commands there; do not repeat the full `init` walkthrough or stylesheet import on every page.
 - Load `references/component-doc-patterns.md` for preview, family-specific, and CSS-variable doc rules instead of duplicating them here.
+- Use a consistent consumer-first component page structure across docs. Prefer the same section order on every component page and only omit sections that would be empty or meaningless.
 
 ## Structure Guidance
 
 - MDX pages live in `apps/docs/content/docs/`.
 - Live examples live in `apps/docs/src/components/examples/`.
-- For component pages, keep the existing structure unless the task requires a change.
-- `Examples` should move from the default path to narrower or advanced cases.
-- Use `Custom Composition` for low-level escape hatches when needed.
+- Component pages should follow this structure in order:
+  1. `## API Reference`
+  2. `## Choosing the right component` (optional)
+  3. `## Basic`
+  4. `## Install with shadcn (optional)`
+  5. `## Anatomy`
+  6. `## Composition`
+  7. `## Examples`
+  8. `## Styling` (optional)
+- Inside `## Composition`, use these subsections in order when they carry real value:
+  1. `### When to stay high-level`
+  2. `### When to go custom`
+  3. `### Default props` (optional)
+  4. `### Behavioral notes` (optional)
+- Inside `## Styling`, use these subsections when relevant:
+  1. `### CSS Properties` (optional)
+  2. `### Styling hooks` (optional)
+- Rename old `Default Path` sections to `Basic`.
+- `API Reference` should stay minimal: one upstream reference block, no extra prose.
+- Use `Choosing the right component` only when a component has close conceptual neighbors and consumers need a quick selection guide.
+- `Basic` is the recommended happy path. It should contain the first runnable snippet and a short explanation of when to start with that composition.
+- Put registry install guidance directly after `Basic`.
+- Keep `Anatomy` short: ASCII tree plus concise part roles.
+- Use `Composition` for public contract guidance, not for repeating anatomy.
+- `Examples` should move from the basic path to narrower, more specific, or more advanced cases. Do not duplicate the `Basic` example there.
+- Use `Custom Composition` only as an example label inside `Examples` when a low-level escape hatch is worth showing.
 
 ## Done Criteria
 
