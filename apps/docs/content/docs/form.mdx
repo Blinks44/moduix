@@ -1,53 +1,39 @@
 ---
 title: Form
-description: A native form element with consolidated error handling across fields.
+description: A native form root with Base UI validation timing and external field-error support.
 icon: Component
 ---
 
 import {
-  CustomCompositionFormExample,
+  CustomStylingFormExample,
   FormActionStateExample,
   FormActionsRefExample,
-  FormCssPlaygroundPanel,
   FormCssPropertiesPanel,
   FormExample,
   FormNativeSubmitExample,
-  FormOnFormSubmitExample,
-  formPlaygroundCssProperties,
 } from '@/components/examples/form';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/form" />
 
-## Overview
-
-`Form` is the styled root for native form behavior, consolidated field errors, and Base UI
-validation timing.
-
-The recommended path is:
-
-- put layout styles on `Form`
-- compose visible controls with `Field`, `FieldLabel`, `Input`, `FieldDescription`, and `FieldError`
-- use `onFormSubmit` when object-shaped values are more convenient than reading `FormData`
-
-Use native `onSubmit` when you need the raw event, direct `FormData` access, or lower-level submit
-control.
-
 ## Basic
 
-<Preview cssProperties={formPlaygroundCssProperties}>
+Start with `Form` as the native root, compose fields with `Field`, and use `onFormSubmit` when
+object-shaped values are easier to work with than raw `FormData`.
+
+<Preview>
   <FormExample />
 
   <Preview.Code>
     {`
       import {
-        Form,
-        Field,
-        FieldLabel,
-        Input,
-        FieldError,
         Button,
+        Field,
+        FieldError,
+        FieldLabel,
+        Form,
+        Input,
         Spinner,
       } from "moduix";
       import { useState } from "react";
@@ -135,8 +121,6 @@ control.
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <FormCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <FormCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -187,16 +171,15 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Form` is a single root wrapper around native form semantics and validation orchestration.
-Place `Field` parts and submit controls inside it.
+The high-level path is intentionally short:
 
 ```text
 Form
 ├─ Field
 │  ├─ FieldLabel
-│  ├─ control (Input, FieldControl, etc.)
-│  └─ FieldError / FieldDescription
-└─ submit actions (for example Button[type="submit"])
+│  ├─ control (Input, FieldControl, Textarea, Select, ...)
+│  └─ FieldDescription / FieldError
+└─ submit actions
 ```
 
 | Part   | Role                                                                      |
@@ -205,33 +188,46 @@ Form
 
 ## Composition
 
-`Form` stays intentionally small. It does not own field markup, button layout, or submit UI.
-Those concerns stay in composition with `Field` and the rest of the form controls.
+### When to stay high-level
 
-Use `onFormSubmit` for the short default path when object-shaped values are enough.
-Use native `onSubmit` when you need `event.currentTarget`, `FormData`, or lower-level submit
-control.
+Stay with `Form`, `Field`, and the exported field controls for most forms. `Form` keeps the native
+`<form>` element, sets shared validation timing through `validationMode`, and surfaces external
+field errors through the `errors` prop.
 
-Pass `errors` when server-side or action-driven validation should appear inside `FieldError`.
-Set `validationMode` once on the form when most fields should share the same timing, then override
-it per field only when one control genuinely needs a different behavior.
+Use `onFormSubmit` for the default submit path when object-shaped values are enough for the handler.
 
-`actionsRef` is the narrow imperative escape hatch. Use it when another control needs to validate
-one field or the entire form before the next user step.
+### When to go custom
 
-### Defaults
+Drop to native `onSubmit` when you need the real submit event, `event.currentTarget`, manual
+`FormData`, or submitter-specific logic.
+
+Use `action` with React `useActionState` or server actions when the submit flow should stay native
+and action results need to feed back into `FieldError`.
+
+Use `actionsRef` as the narrow imperative escape hatch when another control needs to validate one
+field or the whole form before the next user step.
+
+### Default props
 
 | Prop             | Default       | Values                                            |
 | ---------------- | ------------- | ------------------------------------------------- |
 | `validationMode` | `onSubmit`    | `onSubmit`, `onBlur`, `onChange`                  |
 | `render`         | native `form` | Any valid React element or component via `render` |
 
+### Behavioral notes
+
+- `errors` keys should match the nested `Field name` values so `FieldError` can render them.
+- `onFormSubmit` is the convenience path for object-shaped values; Base UI prevents the native
+  submit event default before this callback runs.
+- Native `action` and native `onSubmit` still work when you need lower-level form orchestration.
+- A nested `Field` can override the root `validationMode` when one control needs different timing.
+
 ## Examples
 
 ### Native Submit Event
 
-Use native `onSubmit` when you want direct access to the submit event or need to build
-`FormData` yourself.
+Use native `onSubmit` when you want direct access to the submit event or need to build `FormData`
+yourself.
 
 <Preview>
   <FormNativeSubmitExample />
@@ -239,12 +235,12 @@ Use native `onSubmit` when you want direct access to the submit event or need to
   <Preview.Code>
     {`
       import {
-        Form,
-        Field,
-        FieldLabel,
-        Input,
-        FieldError,
         Button,
+        Field,
+        FieldError,
+        FieldLabel,
+        Form,
+        Input,
         Spinner,
       } from "moduix";
       import { useState } from "react";
@@ -337,174 +333,6 @@ Use native `onSubmit` when you want direct access to the submit event or need to
   </Preview.CSS>
 </Preview>
 
-### On Form Submit
-
-Use `onFormSubmit` when object-shaped values make the submit handler easier to read. Base UI
-prevents the native submit event for this handler.
-
-<Preview>
-  <FormOnFormSubmitExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Form,
-        Field,
-        FieldLabel,
-        Input,
-        FieldError,
-        Button,
-        Spinner,
-      } from "moduix";
-      import { useState } from "react";
-
-      export function OnFormSubmitDemo() {
-        const [errors, setErrors] = useState({} as Record<string, string>);
-        const [submitting, setSubmitting] = useState(false);
-
-        return (
-          <Form
-            errors={errors}
-            validationMode="onBlur"
-            className={styles.form}
-            onFormSubmit={(values) => {
-              setSubmitting(true);
-
-              const nextErrors = {} as Record<string, string>;
-              const age = Number(values.age);
-
-              if (!values.name?.trim()) {
-                nextErrors.name = "Name is required.";
-              }
-
-              if (!values.age?.trim()) {
-                nextErrors.age = "Age is required.";
-              } else if (!Number.isFinite(age) || age < 18) {
-                nextErrors.age = "Age should be 18 or greater.";
-              }
-
-              setErrors(nextErrors);
-              setSubmitting(false);
-            }}
-          >
-            <Field name="name">
-              <FieldLabel>Name</FieldLabel>
-              <Input placeholder="Enter your name" />
-              <FieldError />
-            </Field>
-            <Field name="age">
-              <FieldLabel>Age</FieldLabel>
-              <Input type="number" placeholder="18" />
-              <FieldError />
-            </Field>
-            <Button
-              type="submit"
-              disabled={submitting}
-              focusableWhenDisabled
-              aria-busy={submitting || undefined}
-            >
-              {submitting ? (
-                <>
-                  <Spinner decorative size="sm" />
-                  Submitting
-                </>
-              ) : (
-                "Submit"
-              )}
-            </Button>
-          </Form>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .form {
-        width: min(20rem, 100%);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Actions Ref
-
-Pass `actionsRef` when another control needs to trigger validation for one field or the whole form.
-
-<Preview>
-  <FormActionsRefExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Form,
-        Field,
-        FieldLabel,
-        Input,
-        FieldError,
-        Button,
-      } from "moduix";
-      import { useRef, useState } from "react";
-
-      export function ActionsRefForm() {
-        const actionsRef = useRef<{
-          validate: (fieldName?: string) => void;
-        } | null>(null);
-        const [errors, setErrors] = useState({} as Record<string, string>);
-
-        return (
-          <Form
-            actionsRef={actionsRef}
-            errors={errors}
-            validationMode="onSubmit"
-            className={styles.form}
-            onFormSubmit={(values) => {
-              const nextErrors = {} as Record<string, string>;
-              const email = String(values.email ?? "");
-
-              if (!email.trim()) {
-                nextErrors.email = "Email is required.";
-              } else if (!email.endsWith("@test.com")) {
-                nextErrors.email = "Use a @test.com email.";
-              }
-
-              setErrors(nextErrors);
-            }}
-          >
-            <Field name="email">
-              <FieldLabel>Work Email</FieldLabel>
-              <Input type="email" required placeholder="name@test.com" />
-              <FieldError />
-            </Field>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                actionsRef.current?.validate("email");
-              }}
-            >
-              Validate Email
-            </Button>
-            <Button type="submit">Submit</Button>
-          </Form>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .form {
-        width: min(20rem, 100%);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### Action State
 
 Use a form `action` with React `useActionState` when action results should feed back into field
@@ -516,12 +344,12 @@ errors.
   <Preview.Code>
     {`
       import {
-        Form,
-        Field,
-        FieldLabel,
-        Input,
-        FieldError,
         Button,
+        Field,
+        FieldError,
+        FieldLabel,
+        Form,
+        Input,
         Spinner,
       } from "moduix";
       import { useActionState } from "react";
@@ -621,29 +449,103 @@ errors.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Actions Ref
 
-### Custom Styles
-
-Pass `className` to the form root and composed field, input, error, and button parts when styling
-with CSS Modules, Tailwind CSS, or CSS-in-JS.
+Pass `actionsRef` when another control needs to trigger validation for one field or the whole form.
 
 <Preview>
-  <CustomCompositionFormExample />
+  <FormActionsRefExample />
 
   <Preview.Code>
     {`
       import {
-        Form,
+        Button,
         Field,
+        FieldError,
         FieldLabel,
+        Form,
         Input,
+      } from "moduix";
+      import { useRef, useState } from "react";
+
+      export function ActionsRefForm() {
+        const actionsRef = useRef<{
+          validate: (fieldName?: string) => void;
+        } | null>(null);
+        const [errors, setErrors] = useState({} as Record<string, string>);
+
+        return (
+          <Form
+            actionsRef={actionsRef}
+            errors={errors}
+            validationMode="onSubmit"
+            className={styles.form}
+            onFormSubmit={(values) => {
+              const nextErrors = {} as Record<string, string>;
+              const email = String(values.email ?? "");
+
+              if (!email.trim()) {
+                nextErrors.email = "Email is required.";
+              } else if (!email.endsWith("@test.com")) {
+                nextErrors.email = "Use a @test.com email.";
+              }
+
+              setErrors(nextErrors);
+            }}
+          >
+            <Field name="email">
+              <FieldLabel>Work Email</FieldLabel>
+              <Input type="email" required placeholder="name@test.com" />
+              <FieldError />
+            </Field>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                actionsRef.current?.validate("email");
+              }}
+            >
+              Validate Email
+            </Button>
+            <Button type="submit">Submit</Button>
+          </Form>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(20rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Styling
+
+Pass `className` to the root and composed field parts when the form needs local layout or visual
+overrides.
+
+<Preview>
+  <CustomStylingFormExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Button,
+        Field,
         FieldDescription,
         FieldError,
-        Button,
+        FieldLabel,
+        Form,
+        Input,
       } from "moduix";
 
-      export function CustomCompositionFormDemo() {
+      export function CustomStylingFormDemo() {
         return (
           <Form validationMode="onBlur" className={styles.customForm}>
             <Field name="project" className={styles.customField}>
@@ -711,3 +613,27 @@ with CSS Modules, Tailwind CSS, or CSS-in-JS.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Form` through `className`, the stable root slot, and the public `--form-*` CSS variables
+defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/ui/src/styles/theme.css:1135).
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <FormCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="form-root"` is the stable selector on the exported root.
+- `className` can be a string or Base UI callback class name; moduix merges it with the default
+  root styles.
+- `--form-gap`, `--form-width`, and `--form-max-width` are the full public root layout contract.
+- Compose deeper visual changes through `Field`, `Input`, `Textarea`, `Select`, and submit controls
+  instead of expecting extra form-specific slots.

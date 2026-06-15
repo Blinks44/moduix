@@ -9,8 +9,8 @@ import {
   Spinner,
 } from 'moduix';
 import { useActionState, useRef, useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './form.module.css';
 
 const formCssProperties: CssPropertyInput[] = [
@@ -20,22 +20,10 @@ const formCssProperties: CssPropertyInput[] = [
 ];
 
 export const formOverrideCssProperties = formCssProperties;
-export const formPlaygroundCssProperties = formCssProperties;
 
-export function FormCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function FormCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={formOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function FormCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={formPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 
@@ -343,7 +331,7 @@ export function FormActionStateExample() {
   );
 }
 
-export function CustomCompositionFormExample() {
+export function CustomStylingFormExample() {
   return (
     <Form validationMode="onBlur" className={styles.customForm}>
       <Field name="project" className={styles.customField}>
