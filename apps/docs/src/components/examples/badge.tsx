@@ -2,7 +2,7 @@ import type { BadgeVariant } from 'moduix';
 import type { ComponentProps } from 'react';
 import { Badge, BadgeDot, ChevronRightIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './badge.module.css';
 
 const variants = [
@@ -30,32 +30,8 @@ const badgeCssProperties: CssPropertyInput[] = [
   ['--badge-radius', 'var(--radius-full)', 'Controls badge border radius.'],
 ];
 
-export const badgePlaygroundCssProperties: CssPropertyInput[] = [
-  badgeCssProperties[0],
-  badgeCssProperties[1],
-  badgeCssProperties[2],
-  badgeCssProperties[3],
-  badgeCssProperties[4],
-  badgeCssProperties[7],
-  badgeCssProperties[8],
-  badgeCssProperties[9],
-  badgeCssProperties[11],
-  badgeCssProperties[13],
-];
-
 export function BadgeCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return <CSSPropertiesReferenceTable properties={badgeCssProperties.map(normalizeCssProperty)} />;
-}
-
-export function BadgeCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={badgePlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {

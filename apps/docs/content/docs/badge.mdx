@@ -5,7 +5,6 @@ icon: Component
 ---
 
 import {
-  BadgeCssPlaygroundPanel,
   BadgeCssPropertiesPanel,
   BadgeExample,
   BadgeTruncatedExample,
@@ -13,35 +12,26 @@ import {
   BadgeWithDotExample,
   BadgeWithIconExample,
   CustomBadgeExample,
-  badgePlaygroundCssProperties,
 } from '@/components/examples/badge';
 
 ## API Reference
 
-`Badge` is a standalone moduix component for short status labels, categories, and
-small counters. Use `variant` for the built-in visual styles, and reach for
-`BadgeDot` or direct child icons when a label needs an extra visual cue.
+`Badge` is a standalone moduix component for short status labels, categories, and small counters.
 
 ## Choosing the right component
 
-Use `Badge` when the UI is showing **metadata about something else** rather than the selected value
+Use `Badge` when the UI is showing metadata about something else rather than the selected value
 itself.
 
-- Choose **`Badge`** when the UI is showing short metadata such as status, category, version, or count.
+- Choose **`Badge`** for short metadata such as status, category, version, or count.
 - Choose **`Tag`** when the UI is showing selected values, filters, assignments, or labels that belong to the current state of the interface.
-
-## Overview
-
-The default path is intentionally short:
-
-- render `Badge`
-- choose a `variant` when the default tone is not enough
-- add `BadgeDot` only when the status needs a grouped indicator
-- use local CSS variables for one-off styling changes instead of extra props
 
 ## Basic
 
-<Preview cssProperties={badgePlaygroundCssProperties} cssVariableScope="local">
+Start with `Badge` only. Add `variant` when the default tone is not enough, and add `BadgeDot`
+only when the status needs a grouped indicator.
+
+<Preview>
   <BadgeExample />
 
   <Preview.Code>
@@ -54,8 +44,6 @@ The default path is intentionally short:
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <BadgeCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <BadgeCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -115,13 +103,6 @@ Badge
 └─ svg icon (optional)
 ```
 
-```tsx
-<Badge>
-  <BadgeDot />
-  Online
-</Badge>
-```
-
 | Part       | Role                                                                                 |
 | ---------- | ------------------------------------------------------------------------------------ |
 | `Badge`    | Root slot. Applies variant, border, spacing, and text truncation.                    |
@@ -129,21 +110,31 @@ Badge
 
 ## Composition
 
-`Badge` stays a plain `span`, so the API remains predictable and easy to style. Pass `className`
-to `Badge` or `BadgeDot` when integrating with CSS Modules, Tailwind CSS, or CSS-in-JS.
+### When to stay high-level
 
-Place icons directly before or after the label; direct child `svg` icons inherit `currentColor`
-and use `--badge-icon-size`. The root also accepts standard `span` props such as `title`,
-`aria-*`, and testing attributes.
+Stay with `Badge` directly for most status labels, categories, version pills, and short counters.
 
-Keep the visible status in text. `BadgeDot` is decorative and is hidden from assistive
-technology, so color or the dot alone should not be the only signal. Long labels stay on one line
-and are truncated by the root; add `title` when the full value should remain discoverable. For
-one-off size changes, prefer `className` or local CSS variables instead of extra badge props.
+Use `variant` for the built-in tones: `default`, `secondary`, `destructive`, `outline`, `ghost`.
 
-| Prop      | Default   | Values                                                    |
+Place `BadgeDot` or a direct child icon next to the label when a badge needs an extra visual cue.
+
+### When to go custom
+
+Switch to local CSS variables or `className` overrides when the surface needs custom sizing or a
+different tone. `Badge` stays a plain `span`, so the styling path should stay simple.
+
+### Default props
+
+| Prop      | Default   | Values / Notes                                            |
 | --------- | --------- | --------------------------------------------------------- |
 | `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost` |
+
+### Behavioral notes
+
+- `Badge` is not a button or link. If the label must be interactive, compose it inside a real interactive control.
+- `BadgeDot` is decorative and hidden from assistive technology, so the visible text must carry the status meaning.
+- Long labels stay on one line and are truncated by the root; add `title` when the full value should remain discoverable.
+- Direct child `svg` icons inherit `currentColor` and use `--badge-icon-size`.
 
 ## Examples
 
@@ -322,9 +313,9 @@ Badges truncate long labels by default. Add `title` when the full text should st
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
-Use `className` and local CSS variables when a surface needs custom sizing or a different tone.
+Use local CSS variables when a surface needs custom sizing or a different tone.
 
 <Preview>
   <CustomBadgeExample />
@@ -389,3 +380,23 @@ Use `className` and local CSS variables when a surface needs custom sizing or a 
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Prefer built-in variants first, then local CSS variables for one-off sizing and tone changes.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <BadgeCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="badge-root"` and `data-slot="badge-dot"` are stable selectors on the exported parts.
+- `Badge` writes the selected tone to `data-variant`.
+- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are sized with `--badge-icon-size`.
