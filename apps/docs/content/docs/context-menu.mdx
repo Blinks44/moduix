@@ -5,30 +5,28 @@ icon: Component
 ---
 
 import {
-  ContextMenuCssPlaygroundPanel,
   ContextMenuCssPropertiesPanel,
   ContextMenuExample,
   GroupsAndControlsContextMenuExample,
   IndicatorRightContextMenuExample,
   LinkItemsContextMenuExample,
   NestedContextMenuExample,
+  PositionedContextMenuExample,
   ShortcutsContextMenuExample,
   CustomCompositionContextMenuExample,
-  contextMenuPlaygroundCssProperties,
 } from '@/components/examples/context-menu';
 
-## Overview
+## API Reference
 
-`ContextMenuContent` is the recommended path for most menus. It keeps the portal and positioning
-structure internal, while `ContextMenuTrigger` stays intentionally thin so you can attach the menu
-to existing UI without inheriting card-like chrome from the library.
+<BaseUIReference href="https://base-ui.com/react/components/context-menu" />
 
 ## Basic
 
-The preview adds a visible surface so the right-click target is obvious. In application code, the
-trigger can wrap your existing card, row, canvas, or editor surface directly.
+Use `ContextMenuContent` for the default path. It keeps the portal and positioning structure
+internal, while `ContextMenuTrigger` stays intentionally thin so it can wrap an existing card, row,
+canvas, or editor surface without adding library-owned chrome.
 
-<Preview cssProperties={contextMenuPlaygroundCssProperties}>
+<Preview>
   <ContextMenuExample />
 
   <Preview.Code>
@@ -85,12 +83,6 @@ trigger can wrap your existing card, row, canvas, or editor surface directly.
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>
-    {(context) => <ContextMenuCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <ContextMenuCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -139,13 +131,10 @@ aubx shadcn@latest add Blinks44/moduix/context-menu
 This install path also pulls in the shared moduix foundation files that `Context Menu` depends on, such
 as styles, icons, and small utilities.
 
-All examples below reuse the same `styles.trigger` class from the basic example so the previewed
-surface matches the code.
-
 ## Anatomy
 
-`ContextMenuContent` is the default path. It renders the portal, positioner, and popup for you,
-so the common case stays small.
+`ContextMenuContent` is the default path. It renders the portal, positioner, and popup for you, so
+the common case stays small.
 
 ```text
 ContextMenu
@@ -158,24 +147,6 @@ ContextMenu
       │  └─ ContextMenuSubmenuTriggerIcon
       └─ ContextMenuSubmenuContent
          └─ ContextMenuItem
-```
-
-```tsx
-<ContextMenu>
-  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
-  <ContextMenuContent>
-    <ContextMenuItem closeOnClick>Open</ContextMenuItem>
-    <ContextMenuSubmenu>
-      <ContextMenuSubmenuTrigger>
-        Share
-        <ContextMenuSubmenuTriggerIcon />
-      </ContextMenuSubmenuTrigger>
-      <ContextMenuSubmenuContent>
-        <ContextMenuItem closeOnClick>Copy link</ContextMenuItem>
-      </ContextMenuSubmenuContent>
-    </ContextMenuSubmenu>
-  </ContextMenuContent>
-</ContextMenu>
 ```
 
 | Part                           | Role                                                                   |
@@ -191,12 +162,16 @@ ContextMenu
 
 ## Composition
 
-Use `ContextMenuContent` for the default path. It accepts popup props plus the shared positioning
-props `side`, `sideOffset`, `align`, `alignOffset`, `collisionAvoidance`, `collisionBoundary`, and
-`collisionPadding`.
+### When to stay high-level
 
-Add your own `className` on `ContextMenuTrigger` when the target needs a visible surface. The
-component keeps only the interaction and focus behavior by default.
+Stay with `ContextMenu`, `ContextMenuTrigger`, and `ContextMenuContent` for most menus. This is the
+intended path for action rows, shortcut hints, navigation items, groups, and nested submenus.
+
+`ContextMenuContent` accepts popup props plus the shared positioning props `side`, `sideOffset`,
+`align`, `alignOffset`, `collisionAvoidance`, `collisionBoundary`, and `collisionPadding`.
+
+`ContextMenuTrigger` keeps only interaction and focus behavior by default. Add your own `className`
+when the target needs a visible surface.
 
 ```tsx
 <ContextMenuContent className={styles.popup} align="start" sideOffset={12}>
@@ -204,43 +179,43 @@ component keeps only the interaction and focus behavior by default.
 </ContextMenuContent>
 ```
 
-### Custom composition
+### When to go custom
 
-When you need a custom DOM structure, backdrop, or direct access to portal and positioning parts,
-compose the low-level building blocks explicitly.
+Switch to `ContextMenuPortal`, `ContextMenuBackdrop`, `ContextMenuPositioner`, and
+`ContextMenuPopup` only when you need a custom DOM structure, backdrop, or direct access to portal
+and positioning parts.
 
-```tsx
-<ContextMenu>
-  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
-  <ContextMenuPortal>
-    <ContextMenuBackdrop className={styles.backdrop} />
-    <ContextMenuPositioner sideOffset={12}>
-      <ContextMenuPopup className={styles.popup}>
-        <ContextMenuItem closeOnClick>Open</ContextMenuItem>
-      </ContextMenuPopup>
-    </ContextMenuPositioner>
-  </ContextMenuPortal>
-</ContextMenu>
-```
+For nested menus, prefer `ContextMenuSubmenuContent` over plain `ContextMenuContent`. It uses
+submenu-tuned defaults for `sideOffset` and `alignOffset`.
 
-### Defaults
+`ContextMenuCheckboxItem` and `ContextMenuRadioItem` add one local DX helper:
+`indicator="start" | "end" | "none"`. Use it when the indicator column needs to move or disappear
+without rewriting the row structure.
 
-| Prop         | Default         | Values                                                         |
-| ------------ | --------------- | -------------------------------------------------------------- |
-| `sideOffset` | `8`             | `number`                                                       |
-| `side`       | Base UI default | `top`, `right`, `bottom`, `left`, `inline-start`, `inline-end` |
-| `align`      | Base UI default | `start`, `center`, `end`                                       |
+### Default props
 
-For `ContextMenuSubmenuContent`, defaults stay tuned for nested alignment:
+| Surface                     | Prop          | Default                | Values / Notes                       |
+| --------------------------- | ------------- | ---------------------- | ------------------------------------ |
+| `ContextMenuContent`        | `sideOffset`  | `8`                    | `number \| ({ side }) => number`     |
+| `ContextMenuContent`        | `side`        | Base UI default        | `top`, `right`, `bottom`, `left`     |
+| `ContextMenuContent`        | `align`       | Base UI default        | `start`, `center`, `end`             |
+| `ContextMenuSubmenuContent` | `sideOffset`  | `({ side }) => 4 / -4` | Keeps nested menus visually attached |
+| `ContextMenuSubmenuContent` | `alignOffset` | `({ side }) => 4 / -4` | Keeps submenu alignment consistent   |
+| `ContextMenuCheckboxItem`   | `indicator`   | default start layout   | `start`, `end`, `none`               |
+| `ContextMenuRadioItem`      | `indicator`   | default start layout   | `start`, `end`, `none`               |
 
-| Prop          | Default                 | Values                           |
-| ------------- | ----------------------- | -------------------------------- |
-| `sideOffset`  | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
-| `alignOffset` | `({ side }) => 4 \| -4` | `number \| ({ side }) => number` |
+### Behavioral notes
+
+- `ContextMenuTrigger` supports right click and long press. In product UI, make the target visually
+  obvious and large enough for touch when you rely on long press.
+- `ContextMenuItemShortcut` is visual only. It does not bind keyboard shortcuts.
+- Use `ContextMenuLinkItem` for navigation and `ContextMenuItem` for imperative actions.
+- Do not place `ContextMenuPortal`, `ContextMenuPositioner`, or `ContextMenuPopup` inside
+  `ContextMenuContent`; it already renders those parts.
 
 ## Examples
 
-### Nested
+### Nested Actions
 
 Use `ContextMenuSubmenu` with `ContextMenuSubmenuTrigger` and `ContextMenuSubmenuContent` for
 nested actions.
@@ -294,7 +269,7 @@ nested actions.
   </Preview.Code>
 </Preview>
 
-### Shortcuts
+### Shortcut Hints
 
 Use `ContextMenuItemShortcut` for keyboard shortcut text.
 
@@ -340,7 +315,7 @@ Use `ContextMenuItemShortcut` for keyboard shortcut text.
   </Preview.Code>
 </Preview>
 
-### Groups And Controls
+### Groups and Controls
 
 Use groups, radio items, and checkbox items when the menu changes application state.
 
@@ -418,10 +393,10 @@ Use groups, radio items, and checkbox items when the menu changes application st
   </Preview.Code>
 </Preview>
 
-### Indicator Right With Icon
+### Indicator End
 
-Use `indicator="end"` when the indicator should stay on the trailing edge while preserving a
-stable text layout. Use `indicator="none"` when the selected row should rely on background-only
+Use `indicator="end"` when the indicator should stay on the trailing edge while preserving a stable
+text layout. Use `indicator="none"` when the selected row should rely on background-only
 highlighting and no indicator column should be reserved.
 
 <Preview>
@@ -500,16 +475,40 @@ highlighting and no indicator column should be reserved.
 
 ### Positioning
 
-Pass positioning props to `ContextMenuContent` when the default structure is enough.
+Pass positioning props to `ContextMenuContent` when the default structure is enough and you only
+need to tune placement.
 
-```tsx
-<ContextMenuContent align="start" sideOffset={12} collisionPadding={16}>
-  <ContextMenuItem closeOnClick>Open</ContextMenuItem>
-  <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
-  <ContextMenuSeparator />
-  <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
-</ContextMenuContent>
-```
+<Preview>
+  <PositionedContextMenuExample />
+
+  <Preview.Code>
+    {`
+      import {
+        ContextMenu,
+        ContextMenuContent,
+        ContextMenuItem,
+        ContextMenuSeparator,
+        ContextMenuTrigger,
+      } from "moduix";
+      import styles from "./context-menu-demo.module.css";
+
+      export function PositionedContextMenuDemo() {
+        return (
+          <ContextMenu>
+            <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
+            <ContextMenuContent align="start" sideOffset={12} collisionPadding={16}>
+              <ContextMenuItem closeOnClick>Open</ContextMenuItem>
+              <ContextMenuItem closeOnClick>Duplicate</ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem closeOnClick>Archive</ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
 
 ### Link Items
 
@@ -549,10 +548,10 @@ Use `ContextMenuLinkItem` for navigation actions that should render as links.
   </Preview.Code>
 </Preview>
 
-## Custom Composition
+### Custom Composition
 
 When styling the popup surface is enough, use `className` on `ContextMenuContent`. When you need a
-backdrop or custom structure, switch to explicit composition.
+backdrop or custom structure, switch to explicit low-level composition.
 
 <Preview>
   <CustomCompositionContextMenuExample />
@@ -633,3 +632,32 @@ backdrop or custom structure, switch to explicit composition.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Use CSS variables on the trigger, popup, rows, groups, and optional backdrop when spacing, motion,
+and contextual emphasis need to change. The current public contract does not include arrow styling;
+the menu surface is arrowless by design.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ContextMenuCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- All exported parts expose stable `data-slot` selectors such as `context-menu-trigger`,
+  `context-menu-popup`, `context-menu-item`, `context-menu-submenu-trigger`,
+  `context-menu-checkbox-item`, and `context-menu-item-shortcut`.
+- The shipped styles use Base UI state attributes directly: `data-starting-style` and
+  `data-ending-style` on the backdrop and popup; `data-highlighted`, `data-popup-open`, and
+  `data-disabled` on interactive rows.
+- `ContextMenuCheckboxItem` and `ContextMenuRadioItem` also style against
+  `data-indicator-position="start" | "end" | "none"`.
+- `ContextMenuTrigger render={...}` opts out of the default trigger CSS class, so custom trigger
+  hosts own their full layout and surface styling.

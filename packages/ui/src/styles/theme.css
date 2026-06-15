@@ -833,9 +833,6 @@
   --container-max-width-xl: initial; /* 90rem */
 
   /* ContextMenu */
-  --context-menu-arrow-inline-offset: initial; /* 0.8125rem */
-  --context-menu-arrow-size: initial; /* 0.5rem */
-  --context-menu-arrow-stroke-color: initial; /* var(--context-menu-popup-border-color) */
   --context-menu-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --context-menu-backdrop-blur: initial; /* 4px */
   --context-menu-backdrop-ending-blur: initial; /* none */
