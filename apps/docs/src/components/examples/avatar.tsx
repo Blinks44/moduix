@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Avatar, AvatarFallback, AvatarImage, ComputerIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './avatar.module.css';
 
 const avatarImage =
@@ -19,85 +19,30 @@ export const avatarOverrideCssProperties: CssPropertyInput[] = [
   ['--avatar-fallback-padding', '0', 'Controls fallback inner padding.'],
   ['--avatar-font-size', 'var(--text-md)', 'Controls avatar text font size.'],
   ['--avatar-font-weight', 'var(--weight-medium)', 'Controls avatar text font weight.'],
+  ['--avatar-image-ending-opacity', '0', 'Controls ending image opacity for exit motion.'],
+  ['--avatar-image-ending-scale', '1', 'Controls ending image scale for exit motion.'],
+  ['--avatar-image-ending-translate-x', '0', 'Controls ending image horizontal translation.'],
+  ['--avatar-image-ending-translate-y', '0', 'Controls ending image vertical translation.'],
   ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
   [
     '--avatar-image-object-position',
     'center',
     'Controls which part of the image remains visible when cropped.',
   ],
+  ['--avatar-image-starting-opacity', '0', 'Controls starting image opacity for enter motion.'],
+  ['--avatar-image-starting-scale', '1', 'Controls starting image scale for enter motion.'],
+  ['--avatar-image-starting-translate-x', '0', 'Controls starting image horizontal translation.'],
+  ['--avatar-image-starting-translate-y', '0', 'Controls starting image vertical translation.'],
   ['--avatar-line-height', 'var(--line-height-text-md)', 'Controls avatar text line height.'],
   ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
   ['--avatar-size', 'var(--size-md)', 'Controls avatar width and height.'],
   ['--avatar-transition', 'var(--transition-default)', 'Controls image fade transition.'],
 ];
 
-export const avatarPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--avatar-bg', 'var(--color-muted)', 'Controls avatar background color.'],
-  ['--avatar-color', 'var(--color-foreground)', 'Controls avatar text color.'],
-  [
-    '--avatar-fallback-bg',
-    'var(--avatar-bg)',
-    'Controls fallback background color independently from the root.',
-  ],
-  ['--avatar-fallback-color', 'inherit', 'Controls fallback text and icon color.'],
-  ['--avatar-fallback-padding', '0', 'Controls fallback inner padding.'],
-  ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
-  [
-    '--avatar-image-object-position',
-    'center',
-    'Controls which part of the image remains visible when cropped.',
-  ],
-  ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
-];
-
 export function AvatarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   const overrideProperties = avatarOverrideCssProperties.map(normalizeCssProperty);
 
-  return (
-    <div className={styles.cssPropertiesSection}>
-      <div className={styles.cssPropertiesTableWrap}>
-        <table className={styles.cssPropertiesTable}>
-          <thead>
-            <tr>
-              <th>Property</th>
-              <th>Default</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {overrideProperties.map((property) => {
-              return (
-                <tr key={property.name}>
-                  <td>{property.name}</td>
-                  <td>{property.defaultValue}</td>
-                  <td>{property.description ?? '-'}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-export function AvatarCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  const playgroundProperties = avatarPlaygroundCssProperties.map(normalizeCssProperty);
-
-  return (
-    <div className={styles.cssPropertiesSection}>
-      <CSSPropertiesEditor
-        properties={playgroundProperties}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
-    </div>
-  );
+  return <CSSPropertiesReferenceTable properties={overrideProperties} />;
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {

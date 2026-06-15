@@ -5,15 +5,13 @@ icon: Component
 ---
 
 import {
-  AvatarCssPlaygroundPanel,
-  AvatarCssPropertiesPanel,
   AvatarCompositionExample,
+  AvatarCssPropertiesPanel,
   AvatarCustomFallbackExample,
   AvatarExample,
   AvatarFallbackOnlyExample,
   AvatarImageErrorExample,
   CustomCompositionAvatarExample,
-  avatarPlaygroundCssProperties,
 } from '@/components/examples/avatar';
 
 ## API Reference
@@ -22,10 +20,10 @@ import {
 
 ## Basic
 
-Use `AvatarImage` and `AvatarFallback` together inside `Avatar`. That is the recommended default
+Use `AvatarImage` and `AvatarFallback` together inside `Avatar`. This is the recommended default
 path and keeps image loading, error handling, and fallback timing on the primitive.
 
-<Preview cssProperties={avatarPlaygroundCssProperties}>
+<Preview>
   <AvatarExample />
 
   <Preview.Code>
@@ -49,14 +47,6 @@ path and keeps image loading, error handling, and fallback timing on the primiti
         "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";`}
 
   </Preview.Data>
-
-<Preview.CSSProperties>
-  {(context) => <AvatarCssPropertiesPanel {...context} />}
-</Preview.CSSProperties>
-
-  <Preview.CSSPlayground>
-    {(context) => <AvatarCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -124,19 +114,36 @@ Avatar
 
 ## Composition
 
-`Avatar`, `AvatarImage`, and `AvatarFallback` all accept `className` and preserve the underlying
-Base UI composition API such as `render`.
+### When to stay high-level
+
+Stay with `Avatar`, `AvatarImage`, and `AvatarFallback` for most user pictures and identity chips.
 
 Use `AvatarFallback delay` when you want to suppress a brief fallback flash during normal image
-loading. Use `size` for token sizes, or root-level CSS variables such as `--avatar-size`,
-`--avatar-font-size`, and `--avatar-line-height` for custom dimensions.
+loading.
 
-| Surface          | Prop                    | Default | Values                       |
+Use `size` for the standard token sizes, or root-level CSS variables such as `--avatar-size`,
+`--avatar-font-size`, and `--avatar-line-height` when dimensions need to differ from the presets.
+
+### When to go custom
+
+Switch to custom composition only when the root must render as another element through `render`, or
+when the root, image, and fallback need independent visual treatment.
+
+### Default props
+
+| Surface          | Prop                    | Default | Values / Notes               |
 | ---------------- | ----------------------- | ------- | ---------------------------- |
 | `Avatar`         | `render`                | `span`  | Any valid React element      |
 | `Avatar`         | `size`                  | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
 | `AvatarFallback` | `delay`                 | -       | `number` in milliseconds     |
 | `AvatarImage`    | `onLoadingStatusChange` | -       | `(status) => void`           |
+
+### Behavioral notes
+
+- `AvatarImage` is shown only when the source loads successfully.
+- `AvatarFallback` remains the identity fallback while the image is absent, delayed, loading, or failed.
+- The wrappers do not create their own loading state, focus behavior, or accessibility labels.
+- If the avatar is interactive through `render`, the rendered element must carry the correct accessible semantics.
 
 ## Examples
 
@@ -212,8 +219,6 @@ Keep fallback content in place so the avatar still carries identity when the ima
   </Preview.Code>
 </Preview>
 
-## Custom Composition
-
 ### Interactive Root
 
 Use `render` when the avatar should act as a link or compose with an app-specific element.
@@ -274,7 +279,7 @@ Use `render` when the avatar should act as a link or compose with an app-specifi
   </Preview.CSS>
 </Preview>
 
-### Per-Slot Styling
+### Custom Composition
 
 The root, image, and fallback remain public parts, so you can style them independently without
 adding extra wrapper APIs.
@@ -364,43 +369,23 @@ Pass any React node to `AvatarFallback` when initials are not the right visual f
   </Preview.CSS>
 </Preview>
 
-## Accessibility
+## Styling
 
-Treat avatar accessibility as part of the surrounding UI rather than as a fixed rule on the
-component.
+Use CSS variables on the root when avatar size, radius, image framing, or fallback treatment needs
+to change. `size` is intentionally limited to the common token presets.
 
-- If nearby text already names the person, use `alt=""` and keep initials out of the accessibility
-  tree with `aria-hidden="true"`.
-- If the avatar is the only visible identity cue, provide meaningful `alt` text.
-- If the root is interactive through `render`, give the rendered element an accessible name.
-- If the fallback is icon-only, put the accessible name on the interactive root instead of on the
-  icon.
+### CSS Properties
 
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from 'moduix';
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <AvatarCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-export function DecorativeAvatarDemo() {
-  return (
-    <div className={styles.userRow}>
-      <Avatar>
-        <AvatarImage src={avatarImage} alt="" />
-        <AvatarFallback aria-hidden="true">LT</AvatarFallback>
-      </Avatar>
-      <span>Alex Thompson</span>
-    </div>
-  );
-}
-```
+### Styling hooks
 
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from 'moduix';
-
-export function InteractiveAvatarDemo() {
-  return (
-    <Avatar render={<a href="/team/alex-thompson" aria-label="Open Alex Thompson profile" />}>
-      <AvatarImage src={avatarImage} alt="" />
-      <AvatarFallback aria-hidden="true">AT</AvatarFallback>
-    </Avatar>
-  );
-}
-```
+- `data-slot="avatar-root"`, `avatar-image`, and `avatar-fallback` are stable selectors on the exported parts.
+- `Avatar` writes `data-size` when the `size` prop is provided.
+- `AvatarImage` keeps Base UI transition attributes such as `data-starting-style` and `data-ending-style`.
