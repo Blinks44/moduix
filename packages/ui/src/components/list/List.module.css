@@ -20,11 +20,35 @@
     list-style-position: outside;
     overflow-wrap: break-word;
 
-    & > :where(li + li) {
+    &[data-gap='xs'] {
+      --_list-gap: var(--list-gap, var(--list-gap-xs, var(--spacing-1)));
+    }
+
+    &[data-gap='sm'] {
+      --_list-gap: var(--list-gap, var(--list-gap-sm, var(--spacing-2)));
+    }
+
+    &[data-gap='md'] {
+      --_list-gap: var(--list-gap, var(--list-gap-md, var(--spacing-3)));
+    }
+
+    &[data-gap='lg'] {
+      --_list-gap: var(--list-gap, var(--list-gap-lg, var(--spacing-4)));
+    }
+
+    &[data-gap='xl'] {
+      --_list-gap: var(--list-gap, var(--list-gap-xl, var(--spacing-5)));
+    }
+
+    &[data-gap='2xl'] {
+      --_list-gap: var(--list-gap, var(--list-gap-2xl, var(--spacing-6)));
+    }
+
+    & > li + li {
       margin-block-start: var(--_list-gap);
     }
 
-    & > :where(li)::marker {
+    & > li::marker {
       color: var(--list-marker-color, currentColor);
       font-weight: var(--list-marker-font-weight, inherit);
     }
@@ -111,29 +135,5 @@
     &[data-tone='destructive'] {
       --_list-color: var(--list-color, var(--list-destructive-color, var(--color-destructive)));
     }
-  }
-
-  .root[data-gap='xs'] {
-    --_list-gap: var(--list-gap, var(--list-gap-xs, var(--spacing-1)));
-  }
-
-  .root[data-gap='sm'] {
-    --_list-gap: var(--list-gap, var(--list-gap-sm, var(--spacing-2)));
-  }
-
-  .root[data-gap='md'] {
-    --_list-gap: var(--list-gap, var(--list-gap-md, var(--spacing-3)));
-  }
-
-  .root[data-gap='lg'] {
-    --_list-gap: var(--list-gap, var(--list-gap-lg, var(--spacing-4)));
-  }
-
-  .root[data-gap='xl'] {
-    --_list-gap: var(--list-gap, var(--list-gap-xl, var(--spacing-5)));
-  }
-
-  .root[data-gap='2xl'] {
-    --_list-gap: var(--list-gap, var(--list-gap-2xl, var(--spacing-6)));
   }
 }

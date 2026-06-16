@@ -235,19 +235,41 @@ Use `tone` when the list should inherit a semantic text color.
 
       export function ListToneDemo() {
         return (
-          <>
+          <div className="list-demo-tones">
+            <List tone="default">
+              <ListItem>Default list tone</ListItem>
+            </List>
             <List tone="muted">
               <ListItem>Muted list tone</ListItem>
+            </List>
+            <List tone="subtle">
+              <ListItem>Subtle list tone</ListItem>
             </List>
             <List tone="primary">
               <ListItem>Primary list tone</ListItem>
             </List>
-          </>
+            <List tone="destructive">
+              <ListItem>Destructive list tone</ListItem>
+            </List>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .list-demo-tones {
+        display: grid;
+        gap: var(--spacing-4) var(--spacing-6);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Styling
@@ -261,14 +283,13 @@ structure.
   <Preview.Code>
     {`
       import { List, ListItem } from "moduix";
-      import styles from "./example.module.css";
 
       export function CustomStylesListDemo() {
         return (
-          <List className={styles.accentList}>
-            <ListItem className={styles.accentItem}>Native markers stay available for per-item styling.</ListItem>
-            <ListItem className={styles.accentItem}>Root CSS variables still control spacing and indentation.</ListItem>
-            <ListItem className={styles.accentItem}>No extra marker or content API is required.</ListItem>
+          <List className="list-demo-accent">
+            <ListItem className="list-demo-accent-item">Native markers stay available for per-item styling.</ListItem>
+            <ListItem className="list-demo-accent-item">Root CSS variables still control spacing and indentation.</ListItem>
+            <ListItem className="list-demo-accent-item">No extra marker or content API is required.</ListItem>
           </List>
         );
       }
@@ -278,11 +299,12 @@ structure.
 
   <Preview.CSS>
     {`
-      .accentList {
+      .list-demo-accent {
+        max-width: min(32rem, calc(100vw - var(--spacing-8)));
         --list-padding-x: var(--spacing-6);
       }
 
-      .accentItem::marker {
+      .list-demo-accent-item::marker {
         color: var(--color-chart-2);
         font-weight: var(--weight-semibold);
       }
