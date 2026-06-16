@@ -8,31 +8,35 @@ import {
   Input,
   Spinner,
 } from 'moduix';
-import { useActionState, useRef, useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
+import { useActionState, useRef, useState } from 'react';
 import { CSSPropertiesReferenceTable } from '../preview';
-import styles from './form.module.css';
 
-const formCssProperties: CssPropertyInput[] = [
-  ['--form-gap', 'var(--spacing-4)', 'Controls spacing between form children.'],
-  ['--form-max-width', 'none', 'Controls the root form max width.'],
-  ['--form-width', '100%', 'Controls the root form width.'],
+type FormCssProperty = {
+  name: `--${string}`;
+  defaultValue: string;
+  description: string;
+};
+
+const formCssProperties: FormCssProperty[] = [
+  {
+    name: '--form-gap',
+    defaultValue: 'var(--spacing-4)',
+    description: 'Controls spacing between form children.',
+  },
+  {
+    name: '--form-max-width',
+    defaultValue: 'none',
+    description: 'Controls the root form max width.',
+  },
+  {
+    name: '--form-width',
+    defaultValue: '100%',
+    description: 'Controls the root form width.',
+  },
 ];
 
-export const formOverrideCssProperties = formCssProperties;
-
 export function FormCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable properties={formOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
+  return <CSSPropertiesReferenceTable properties={formCssProperties} />;
 }
 
 interface ActionState {
@@ -96,7 +100,7 @@ async function submitUsername(
   };
 }
 
-export function FormExample(props: ComponentProps<typeof Form>) {
+export function FormExample() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -104,14 +108,13 @@ export function FormExample(props: ComponentProps<typeof Form>) {
     <Form
       errors={errors}
       validationMode="onBlur"
-      className={styles.form}
+      className="form"
       onFormSubmit={async (values) => {
         setSubmitting(true);
         const nextErrors = await validateHomepage(String(values.homepage ?? ''));
         setErrors(nextErrors);
         setSubmitting(false);
       }}
-      {...props}
     >
       <Field name="homepage">
         <FieldLabel>Homepage</FieldLabel>
@@ -152,7 +155,7 @@ export function FormNativeSubmitExample() {
   return (
     <Form
       errors={errors}
-      className={styles.form}
+      className="form"
       onSubmit={async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -204,7 +207,7 @@ export function FormOnFormSubmitExample() {
     <Form
       errors={errors}
       validationMode="onBlur"
-      className={styles.form}
+      className="form"
       onFormSubmit={(values) => {
         setSubmitting(true);
 
@@ -263,7 +266,7 @@ export function FormActionsRefExample() {
       actionsRef={actionsRef}
       errors={errors}
       validationMode="onSubmit"
-      className={styles.form}
+      className="form"
       onFormSubmit={(values) => {
         const nextErrors: Record<string, string> = {};
         const email = String(values.email ?? '');
@@ -300,12 +303,7 @@ export function FormActionStateExample() {
   const [state, formAction, loading] = useActionState<ActionState, FormData>(submitUsername, {});
 
   return (
-    <Form
-      action={formAction}
-      errors={state.serverErrors}
-      validationMode="onBlur"
-      className={styles.form}
-    >
+    <Form action={formAction} errors={state.serverErrors} validationMode="onBlur" className="form">
       <Field name="username">
         <FieldLabel>Username</FieldLabel>
         <Input required defaultValue="admin" placeholder="e.g. alice132" />
@@ -326,25 +324,25 @@ export function FormActionStateExample() {
           'Submit'
         )}
       </Button>
-      {state.message ? <p className={styles.helper}>{state.message}</p> : null}
+      {state.message ? <p className="helper">{state.message}</p> : null}
     </Form>
   );
 }
 
 export function CustomStylingFormExample() {
   return (
-    <Form validationMode="onBlur" className={styles.customForm}>
-      <Field name="project" className={styles.customField}>
-        <FieldLabel className={styles.customLabel}>Project</FieldLabel>
-        <Input required placeholder="Maps Platform" className={styles.customInput} />
-        <FieldDescription className={styles.customDescription}>
+    <Form validationMode="onBlur" className="custom-form">
+      <Field name="project" className="custom-field">
+        <FieldLabel className="custom-label">Project</FieldLabel>
+        <Input required placeholder="Maps Platform" className="custom-input" />
+        <FieldDescription className="custom-description">
           Use the public project name.
         </FieldDescription>
-        <FieldError className={styles.customError} match="valueMissing">
+        <FieldError className="custom-error" match="valueMissing">
           Please enter a project name.
         </FieldError>
       </Field>
-      <Button type="submit" variant="outline" className={styles.customButton}>
+      <Button type="submit" variant="outline" className="custom-button">
         Submit
       </Button>
     </Form>

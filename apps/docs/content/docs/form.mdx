@@ -68,7 +68,7 @@ object-shaped values are easier to work with than raw `FormData`.
           <Form
             errors={errors}
             validationMode="onBlur"
-            className={styles.form}
+            className="form"
             onFormSubmit={async (values) => {
               setSubmitting(true);
               const nextErrors = await validateHomepage(String(values.homepage ?? ""));
@@ -274,7 +274,7 @@ yourself.
         return (
           <Form
             errors={errors}
-            className={styles.form}
+            className="form"
             onSubmit={async (event) => {
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
@@ -402,7 +402,7 @@ errors.
             action={formAction}
             errors={state.serverErrors}
             validationMode="onBlur"
-            className={styles.form}
+            className="form"
           >
             <Field name="username">
               <FieldLabel>Username</FieldLabel>
@@ -424,7 +424,7 @@ errors.
                 "Submit"
               )}
             </Button>
-            {state.message ? <p className={styles.helper}>{state.message}</p> : null}
+            {state.message ? <p className="helper">{state.message}</p> : null}
           </Form>
         );
       }
@@ -479,9 +479,9 @@ Pass `actionsRef` when another control needs to trigger validation for one field
             actionsRef={actionsRef}
             errors={errors}
             validationMode="onSubmit"
-            className={styles.form}
+            className="form"
             onFormSubmit={(values) => {
-              const nextErrors = {} as Record<string, string>;
+              const nextErrors: Record<string, string> = {};
               const email = String(values.email ?? "");
 
               if (!email.trim()) {
@@ -547,25 +547,25 @@ overrides.
 
       export function CustomStylingFormDemo() {
         return (
-          <Form validationMode="onBlur" className={styles.customForm}>
-            <Field name="project" className={styles.customField}>
-              <FieldLabel className={styles.customLabel}>Project</FieldLabel>
+          <Form validationMode="onBlur" className="custom-form">
+            <Field name="project" className="custom-field">
+              <FieldLabel className="custom-label">Project</FieldLabel>
               <Input
                 required
                 placeholder="Maps Platform"
-                className={styles.customInput}
+                className="custom-input"
               />
-              <FieldDescription className={styles.customDescription}>
+              <FieldDescription className="custom-description">
                 Use the public project name.
               </FieldDescription>
-              <FieldError className={styles.customError} match="valueMissing">
+              <FieldError className="custom-error" match="valueMissing">
                 Please enter a project name.
               </FieldError>
             </Field>
             <Button
               type="submit"
               variant="outline"
-              className={styles.customButton}
+              className="custom-button"
             >
               Submit
             </Button>
@@ -578,7 +578,7 @@ overrides.
 
   <Preview.CSS>
     {`
-      .customForm {
+      .custom-form {
         width: 20rem;
         max-width: 100%;
         gap: var(--spacing-3);
@@ -587,26 +587,28 @@ overrides.
         border-radius: var(--radius-lg);
       }
 
-      .customField {
+      .custom-field {
         gap: var(--spacing-2);
       }
 
-      .customLabel,
-      .customError,
-      .customButton {
+      .custom-label,
+      .custom-error,
+      .custom-button {
         color: var(--color-primary);
       }
 
-      .customInput,
-      .customButton {
+      .custom-input,
+      .custom-button {
         border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
       }
 
-      .customInput:focus {
-        outline-color: var(--color-primary);
+      .custom-input {
+        &:focus {
+          outline-color: var(--color-primary);
+        }
       }
 
-      .customDescription {
+      .custom-description {
         color: var(--color-muted-foreground);
       }
     `}
