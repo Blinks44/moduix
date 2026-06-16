@@ -43,7 +43,7 @@ thumbnail that opens a larger preview.
               src={thumbnail}
               fullSrc={fullSize}
               alt="Mountain ridge at sunset"
-              className={styles.previewImage}
+              className="lightbox-demo-image"
             />
             <LightboxContent />
           </Lightbox>
@@ -52,6 +52,20 @@ thumbnail that opens a larger preview.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .lightbox-demo-image {
+        display: block;
+        width: 18rem;
+        max-width: min(18rem, calc(100vw - var(--spacing-10)));
+        aspect-ratio: 16 / 10;
+        border-radius: var(--radius-md);
+        object-fit: cover;
+      }
+    `}
+
+  </Preview.CSS>
 
   <Preview.Data>
     {`
@@ -205,9 +219,9 @@ control.
       export function TriggerLightboxDemo() {
         return (
           <Lightbox>
-            <LightboxTrigger className={styles.triggerButton}>Open image</LightboxTrigger>
+            <LightboxTrigger className="lightbox-trigger-button">Open image</LightboxTrigger>
             <LightboxContent>
-              <img src={fullSize} alt="Road through forest" className={styles.contentImage} />
+              <img src={fullSize} alt="Road through forest" />
             </LightboxContent>
           </Lightbox>
         );
@@ -215,6 +229,21 @@ control.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .lightbox-trigger-button {
+        border: 0;
+        border-radius: var(--radius-md);
+        background: var(--color-muted);
+        padding: var(--spacing-3) var(--spacing-4);
+        color: var(--color-foreground);
+        cursor: zoom-in;
+        font: inherit;
+      }
+    `}
+
+  </Preview.CSS>
 
   <Preview.Data>
     {`
@@ -243,29 +272,29 @@ markup.
 
         return (
           <Fragment>
-            <div ref={rootRef} className={styles.dynamicRoot}>
-              <button type="button" className={styles.dynamicItem}>
+            <div ref={rootRef} className="lightbox-gallery">
+              <button type="button" className="lightbox-gallery-item">
                 <img
                   src={images.mountain}
                   data-lightbox-src={images.mountainLarge}
                   alt="Mountain landscape"
-                  className={styles.dynamicImage}
+                  className="lightbox-gallery-image"
                 />
               </button>
-              <button type="button" className={styles.dynamicItem}>
+              <button type="button" className="lightbox-gallery-item">
                 <img
                   src={images.sea}
                   data-lightbox-src={images.seaLarge}
                   alt="Sea at sunset"
-                  className={styles.dynamicImage}
+                  className="lightbox-gallery-image"
                 />
               </button>
-              <button type="button" className={styles.dynamicItem}>
+              <button type="button" className="lightbox-gallery-item">
                 <img
                   src={images.forest}
                   data-lightbox-src={images.forestLarge}
                   alt="Forest and mountain road"
-                  className={styles.dynamicImage}
+                  className="lightbox-gallery-image"
                 />
               </button>
             </div>
@@ -276,6 +305,37 @@ markup.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .lightbox-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--spacing-3);
+        width: min(36rem, calc(100vw - var(--spacing-10)));
+      }
+
+      .lightbox-gallery-item {
+        display: block;
+        width: 100%;
+        margin: 0;
+        border: 0;
+        border-radius: var(--radius-sm);
+        padding: 0;
+        background: transparent;
+        cursor: zoom-in;
+      }
+
+      .lightbox-gallery-image {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: var(--radius-sm);
+      }
+    `}
+
+  </Preview.CSS>
 
   <Preview.Data>
     {`
@@ -328,20 +388,16 @@ dismissal behavior.
             <LightboxImage
               src={thumbnail}
               alt="Road through forest"
-              className={styles.previewImage}
+              className="lightbox-demo-image"
             />
             <LightboxPortal>
-              <LightboxBackdrop className={styles.customBackdrop} />
+              <LightboxBackdrop className="lightbox-custom-backdrop" />
               <LightboxViewport>
-                <LightboxCloseButton className={styles.customClose} aria-label="Close preview" />
-                <LightboxPopup className={styles.customPopup}>
+                <LightboxCloseButton className="lightbox-custom-close" aria-label="Close preview" />
+                <LightboxPopup className="lightbox-custom-popup">
                   <LightboxFrame>
                     <LightboxClose nativeButton={false} render={<div />}>
-                      <img
-                        src={fullSize}
-                        alt="Road through forest"
-                        className={styles.contentImage}
-                      />
+                      <img src={fullSize} alt="Road through forest" />
                     </LightboxClose>
                   </LightboxFrame>
                 </LightboxPopup>
@@ -353,6 +409,35 @@ dismissal behavior.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .lightbox-demo-image {
+        display: block;
+        width: 18rem;
+        max-width: min(18rem, calc(100vw - var(--spacing-10)));
+        aspect-ratio: 16 / 10;
+        border-radius: var(--radius-md);
+        object-fit: cover;
+      }
+
+      .lightbox-custom-backdrop {
+        background-color: rgb(15 23 42 / 0.62);
+      }
+
+      .lightbox-custom-close {
+        --lightbox-close-bg: var(--color-muted);
+        --lightbox-close-bg-hover: var(--color-accent);
+        --lightbox-close-radius: var(--radius-md);
+      }
+
+      .lightbox-custom-popup {
+        --lightbox-width: 72vw;
+        --lightbox-height: 72dvh;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ## Styling

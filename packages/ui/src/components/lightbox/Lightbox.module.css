@@ -34,11 +34,22 @@
     place-items: center;
     overflow: hidden;
     padding: var(--lightbox-viewport-padding, var(--spacing-4));
+
+    &[data-starting-style] {
+      .closeButton {
+        opacity: var(--lightbox-close-button-starting-opacity, 0);
+      }
+    }
+
+    &[data-ending-style] {
+      .closeButton {
+        opacity: var(--lightbox-close-button-ending-opacity, 0);
+      }
+    }
   }
 
   .popup {
     box-sizing: border-box;
-    width: auto;
     max-width: min(
       var(--lightbox-max-width, 80vw),
       var(--available-width, calc(100vw - var(--spacing-8)))
@@ -71,7 +82,6 @@
   }
 
   .frame {
-    position: relative;
     display: grid;
     place-items: center;
     width: fit-content;
@@ -80,6 +90,16 @@
     max-height: min(var(--lightbox-height, 80dvh), 100%);
     animation: lightbox-image-enter var(--lightbox-image-enter-duration, var(--duration-normal))
       ease;
+
+    img {
+      display: block;
+      max-width: min(var(--lightbox-image-max-width, 80vw), 100%);
+      max-height: min(var(--lightbox-image-max-height, 80dvh), 100%);
+      object-fit: contain;
+      border-radius: var(--lightbox-image-radius, var(--radius-md));
+      box-shadow: var(--lightbox-image-shadow, var(--shadow-lg));
+      user-select: none;
+    }
   }
 
   .closeButton {
@@ -98,25 +118,6 @@
     border: 0;
     padding: 0;
     transition: opacity var(--lightbox-backdrop-transition, var(--transition-default));
-  }
-
-  .viewport[data-starting-style] > .closeButton {
-    opacity: var(--lightbox-close-button-starting-opacity, 0);
-  }
-
-  .viewport[data-ending-style] > .closeButton {
-    opacity: var(--lightbox-close-button-ending-opacity, 0);
-  }
-
-  .frame img,
-  .frame picture > img {
-    display: block;
-    max-width: min(var(--lightbox-image-max-width, 80vw), 100%);
-    max-height: min(var(--lightbox-image-max-height, 80dvh), 100%);
-    object-fit: contain;
-    border-radius: var(--lightbox-image-radius, var(--radius-md));
-    box-shadow: var(--lightbox-image-shadow, var(--shadow-lg));
-    user-select: none;
   }
 
   .contentClose {

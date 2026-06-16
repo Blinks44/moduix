@@ -12,10 +12,9 @@ import {
   LightboxTrigger,
   LightboxViewport,
 } from 'moduix';
-import * as React from 'react';
+import { type CSSProperties, useRef } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './lightbox.module.css';
 
 const images = {
   mountainSmall:
@@ -27,6 +26,66 @@ const images = {
     'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
   road: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=80',
 };
+
+const previewImageStyle = {
+  display: 'block',
+  width: '18rem',
+  maxWidth: 'min(18rem, calc(100vw - var(--spacing-10)))',
+  aspectRatio: '16 / 10',
+  borderRadius: 'var(--radius-md)',
+  objectFit: 'cover',
+} satisfies CSSProperties;
+
+const triggerButtonStyle = {
+  border: 0,
+  borderRadius: 'var(--radius-md)',
+  background: 'var(--color-muted)',
+  padding: 'var(--spacing-3) var(--spacing-4)',
+  color: 'var(--color-foreground)',
+  cursor: 'zoom-in',
+  font: 'inherit',
+} satisfies CSSProperties;
+
+const dynamicRootStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+  gap: 'var(--spacing-3)',
+  width: 'min(36rem, calc(100vw - var(--spacing-10)))',
+} satisfies CSSProperties;
+
+const dynamicItemStyle = {
+  display: 'block',
+  width: '100%',
+  margin: 0,
+  border: 0,
+  borderRadius: 'var(--radius-sm)',
+  padding: 0,
+  background: 'transparent',
+  cursor: 'zoom-in',
+} satisfies CSSProperties;
+
+const dynamicImageStyle = {
+  display: 'block',
+  width: '100%',
+  aspectRatio: '1 / 1',
+  objectFit: 'cover',
+  borderRadius: 'var(--radius-sm)',
+} satisfies CSSProperties;
+
+const customBackdropStyle = {
+  backgroundColor: 'rgb(15 23 42 / 0.62)',
+} satisfies CSSProperties;
+
+const customPopupStyle = {
+  '--lightbox-width': '72vw',
+  '--lightbox-height': '72dvh',
+} as CSSProperties;
+
+const customCloseStyle = {
+  '--lightbox-close-bg': 'var(--color-muted)',
+  '--lightbox-close-bg-hover': 'var(--color-accent)',
+  '--lightbox-close-radius': 'var(--radius-md)',
+} as CSSProperties;
 
 export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop fill.'],
@@ -97,8 +156,10 @@ export function LightboxCssPlaygroundPanel({
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
@@ -109,7 +170,7 @@ export function LightboxExample() {
         src={images.mountainSmall}
         fullSrc={images.mountainLarge}
         alt="Mountain ridge at sunset"
-        className={styles.previewImage}
+        style={previewImageStyle}
       />
       <LightboxContent />
     </Lightbox>
@@ -119,62 +180,62 @@ export function LightboxExample() {
 export function TriggerLightboxExample() {
   return (
     <Lightbox>
-      <LightboxTrigger className={styles.triggerButton}>Open image</LightboxTrigger>
+      <LightboxTrigger style={triggerButtonStyle}>Open image</LightboxTrigger>
       <LightboxContent>
-        <img src={images.road} alt="Road through forest" className={styles.contentImage} />
+        <img src={images.road} alt="Road through forest" />
       </LightboxContent>
     </Lightbox>
   );
 }
 
 export function DynamicLightboxGalleryExample() {
-  const rootRef = React.useRef<HTMLDivElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <React.Fragment>
-      <div ref={rootRef} className={styles.dynamicRoot}>
-        <button type="button" className={styles.dynamicItem}>
+    <>
+      <div ref={rootRef} style={dynamicRootStyle}>
+        <button type="button" style={dynamicItemStyle}>
           <img
             src={images.mountainSmall}
             data-lightbox-src={images.mountainLarge}
             alt="Mountain landscape"
-            className={styles.dynamicImage}
+            style={dynamicImageStyle}
           />
         </button>
-        <button type="button" className={styles.dynamicItem}>
+        <button type="button" style={dynamicItemStyle}>
           <img
             src={images.sea}
             data-lightbox-src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90"
             alt="Sea at sunset"
-            className={styles.dynamicImage}
+            style={dynamicImageStyle}
           />
         </button>
-        <button type="button" className={styles.dynamicItem}>
+        <button type="button" style={dynamicItemStyle}>
           <img
             src={images.forest}
             data-lightbox-src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=90"
             alt="Forest and mountain road"
-            className={styles.dynamicImage}
+            style={dynamicImageStyle}
           />
         </button>
       </div>
       <LightboxGallery rootRef={rootRef} selector="button" />
-    </React.Fragment>
+    </>
   );
 }
 
 export function CustomizedLightboxExample() {
   return (
     <Lightbox>
-      <LightboxImage src={images.road} alt="Road through forest" className={styles.previewImage} />
+      <LightboxImage src={images.road} alt="Road through forest" style={previewImageStyle} />
       <LightboxPortal>
-        <LightboxBackdrop className={styles.customBackdrop} />
+        <LightboxBackdrop style={customBackdropStyle} />
         <LightboxViewport>
-          <LightboxCloseButton className={styles.customClose} aria-label="Close preview" />
-          <LightboxPopup className={styles.customPopup}>
+          <LightboxCloseButton style={customCloseStyle} aria-label="Close preview" />
+          <LightboxPopup style={customPopupStyle}>
             <LightboxFrame>
               <LightboxClose nativeButton={false} render={<div />}>
-                <img src={images.road} alt="Road through forest" className={styles.contentImage} />
+                <img src={images.road} alt="Road through forest" />
               </LightboxClose>
             </LightboxFrame>
           </LightboxPopup>
