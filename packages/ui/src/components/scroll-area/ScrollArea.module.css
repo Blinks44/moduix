@@ -14,176 +14,69 @@
     border-radius: var(--scroll-area-radius, var(--radius-md));
     background-color: var(--scroll-area-bg, transparent);
     outline: 0;
+    --_scroll-area-block-fade-mask: linear-gradient(
+      to bottom,
+      transparent 0,
+      black
+        min(
+          var(--scroll-area-fade-start-size, var(--scroll-area-fade-size, var(--spacing-10))),
+          var(--scroll-area-overflow-y-start, 0px)
+        ),
+      black
+        calc(
+          100% -
+            min(
+              var(--scroll-area-fade-end-size, var(--scroll-area-fade-size, var(--spacing-10))),
+              var(--scroll-area-overflow-y-end, 0px)
+            )
+        ),
+      transparent 100%
+    );
+    --_scroll-area-inline-fade-direction: to right;
+    --_scroll-area-inline-fade-mask: linear-gradient(
+      var(--_scroll-area-inline-fade-direction),
+      transparent 0,
+      black
+        min(
+          var(
+            --scroll-area-fade-inline-start-size,
+            var(--scroll-area-fade-size, var(--spacing-10))
+          ),
+          var(--scroll-area-overflow-x-start, 0px)
+        ),
+      black
+        calc(
+          100% -
+            min(
+              var(
+                --scroll-area-fade-inline-end-size,
+                var(--scroll-area-fade-size, var(--spacing-10))
+              ),
+              var(--scroll-area-overflow-x-end, 0px)
+            )
+        ),
+      transparent 100%
+    );
 
-    .root[data-fade='vertical'] &,
-    .root[data-fade='both'] & {
-      mask-image: linear-gradient(
-        to bottom,
-        transparent 0,
-        black
-          min(
-            var(--scroll-area-fade-start-size, var(--scroll-area-fade-size, var(--spacing-10))),
-            var(--scroll-area-overflow-y-start, 0px)
-          ),
-        black
-          calc(
-            100% -
-              min(
-                var(--scroll-area-fade-end-size, var(--scroll-area-fade-size, var(--spacing-10))),
-                var(--scroll-area-overflow-y-end, 0px)
-              )
-          ),
-        transparent 100%
-      );
+    .root:dir(rtl)[data-fade='horizontal'] &,
+    .root:dir(rtl)[data-fade='both'] & {
+      --_scroll-area-inline-fade-direction: to left;
+    }
+
+    .root[data-fade='vertical'] & {
+      mask-image: var(--_scroll-area-block-fade-mask);
       mask-repeat: no-repeat;
     }
 
     .root[data-fade='horizontal'] & {
-      mask-image: linear-gradient(
-        to right,
-        transparent 0,
-        black
-          min(
-            var(
-              --scroll-area-fade-inline-start-size,
-              var(--scroll-area-fade-size, var(--spacing-10))
-            ),
-            var(--scroll-area-overflow-x-start, 0px)
-          ),
-        black
-          calc(
-            100% -
-              min(
-                var(
-                  --scroll-area-fade-inline-end-size,
-                  var(--scroll-area-fade-size, var(--spacing-10))
-                ),
-                var(--scroll-area-overflow-x-end, 0px)
-              )
-          ),
-        transparent 100%
-      );
+      mask-image: var(--_scroll-area-inline-fade-mask);
       mask-repeat: no-repeat;
     }
 
-    .root:dir(rtl)[data-fade='horizontal'] & {
-      mask-image: linear-gradient(
-        to left,
-        transparent 0,
-        black
-          min(
-            var(
-              --scroll-area-fade-inline-start-size,
-              var(--scroll-area-fade-size, var(--spacing-10))
-            ),
-            var(--scroll-area-overflow-x-start, 0px)
-          ),
-        black
-          calc(
-            100% -
-              min(
-                var(
-                  --scroll-area-fade-inline-end-size,
-                  var(--scroll-area-fade-size, var(--spacing-10))
-                ),
-                var(--scroll-area-overflow-x-end, 0px)
-              )
-          ),
-        transparent 100%
-      );
-    }
-
     .root[data-fade='both'] & {
-      mask-image:
-        linear-gradient(
-          to bottom,
-          transparent 0,
-          black
-            min(
-              var(--scroll-area-fade-start-size, var(--scroll-area-fade-size, var(--spacing-10))),
-              var(--scroll-area-overflow-y-start, 0px)
-            ),
-          black
-            calc(
-              100% -
-                min(
-                  var(--scroll-area-fade-end-size, var(--scroll-area-fade-size, var(--spacing-10))),
-                  var(--scroll-area-overflow-y-end, 0px)
-                )
-            ),
-          transparent 100%
-        ),
-        linear-gradient(
-          to right,
-          transparent 0,
-          black
-            min(
-              var(
-                --scroll-area-fade-inline-start-size,
-                var(--scroll-area-fade-size, var(--spacing-10))
-              ),
-              var(--scroll-area-overflow-x-start, 0px)
-            ),
-          black
-            calc(
-              100% -
-                min(
-                  var(
-                    --scroll-area-fade-inline-end-size,
-                    var(--scroll-area-fade-size, var(--spacing-10))
-                  ),
-                  var(--scroll-area-overflow-x-end, 0px)
-                )
-            ),
-          transparent 100%
-        );
+      mask-image: var(--_scroll-area-block-fade-mask), var(--_scroll-area-inline-fade-mask);
       mask-composite: intersect;
-    }
-
-    .root:dir(rtl)[data-fade='both'] & {
-      mask-image:
-        linear-gradient(
-          to bottom,
-          transparent 0,
-          black
-            min(
-              var(--scroll-area-fade-start-size, var(--scroll-area-fade-size, var(--spacing-10))),
-              var(--scroll-area-overflow-y-start, 0px)
-            ),
-          black
-            calc(
-              100% -
-                min(
-                  var(--scroll-area-fade-end-size, var(--scroll-area-fade-size, var(--spacing-10))),
-                  var(--scroll-area-overflow-y-end, 0px)
-                )
-            ),
-          transparent 100%
-        ),
-        linear-gradient(
-          to left,
-          transparent 0,
-          black
-            min(
-              var(
-                --scroll-area-fade-inline-start-size,
-                var(--scroll-area-fade-size, var(--spacing-10))
-              ),
-              var(--scroll-area-overflow-x-start, 0px)
-            ),
-          black
-            calc(
-              100% -
-                min(
-                  var(
-                    --scroll-area-fade-inline-end-size,
-                    var(--scroll-area-fade-size, var(--spacing-10))
-                  ),
-                  var(--scroll-area-overflow-x-end, 0px)
-                )
-            ),
-          transparent 100%
-        );
+      mask-repeat: no-repeat;
     }
 
     &:focus-visible {

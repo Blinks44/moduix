@@ -1,10 +1,12 @@
 import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
-import { forwardRef, type ComponentRef, type ForwardedRef, type ReactNode } from 'react';
+import { forwardRef, type ComponentRef, type ForwardedRef } from 'react';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './ScrollArea.module.css';
 
-type FadeDirection = boolean | 'vertical' | 'horizontal' | 'both';
-type Scrollbars = 'vertical' | 'horizontal' | 'both' | false;
+type ScrollAreaProps = ScrollAreaPrimitive.Root.Props & {
+  fade?: boolean | 'vertical' | 'horizontal' | 'both';
+  scrollbars?: 'vertical' | 'horizontal' | 'both' | false;
+};
 
 const ScrollAreaRoot = forwardRef(function ScrollAreaRoot(
   { className, ...props }: ScrollAreaPrimitive.Root.Props,
@@ -91,39 +93,29 @@ const ScrollAreaCorner = forwardRef(function ScrollAreaCorner(
 });
 
 const ScrollArea = forwardRef(function ScrollArea(
-  {
-    className,
-    children,
-    fade = false,
-    scrollbars = 'vertical',
-    ...props
-  }: ScrollAreaPrimitive.Root.Props & {
-    children?: ReactNode;
-    fade?: FadeDirection;
-    scrollbars?: Scrollbars;
-  },
+  { className, children, fade = false, scrollbars = 'vertical', ...props }: ScrollAreaProps,
   ref: ForwardedRef<ComponentRef<typeof ScrollAreaPrimitive.Root>>,
 ) {
-  const fadeDirection = fade === true ? 'vertical' : fade || undefined;
-  const hasVerticalScrollbar = scrollbars === 'vertical' || scrollbars === 'both';
-  const hasHorizontalScrollbar = scrollbars === 'horizontal' || scrollbars === 'both';
+  const resolvedFade = fade === true ? 'vertical' : fade || undefined;
+  const showVerticalScrollbar = scrollbars === 'vertical' || scrollbars === 'both';
+  const showHorizontalScrollbar = scrollbars === 'horizontal' || scrollbars === 'both';
 
   return (
-    <ScrollAreaRoot ref={ref} className={className} {...props} data-fade={fadeDirection}>
+    <ScrollAreaRoot ref={ref} className={className} {...props} data-fade={resolvedFade}>
       <ScrollAreaViewport>
         <ScrollAreaContent>{children}</ScrollAreaContent>
       </ScrollAreaViewport>
-      {hasVerticalScrollbar ? (
+      {showVerticalScrollbar ? (
         <ScrollAreaScrollbar>
           <ScrollAreaThumb />
         </ScrollAreaScrollbar>
       ) : null}
-      {hasHorizontalScrollbar ? (
+      {showHorizontalScrollbar ? (
         <ScrollAreaScrollbar orientation="horizontal">
           <ScrollAreaThumb />
         </ScrollAreaScrollbar>
       ) : null}
-      {hasVerticalScrollbar && hasHorizontalScrollbar ? <ScrollAreaCorner /> : null}
+      {showVerticalScrollbar && showHorizontalScrollbar ? <ScrollAreaCorner /> : null}
     </ScrollAreaRoot>
   );
 });

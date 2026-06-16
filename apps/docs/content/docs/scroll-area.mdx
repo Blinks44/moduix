@@ -30,12 +30,12 @@ wrapper renders the root, viewport, content, and the default vertical scrollbar 
 
       export function ScrollAreaDemo() {
         return (
-          <ScrollArea className={styles.root}>
-            <div className={styles.textContent}>
+          <ScrollArea className="root">
+            <div className="textContent">
               {sections.map((item) => (
                 <section key={item.title}>
                   <h3>{item.title}</h3>
-                  <p className={styles.paragraph}>{item.body}</p>
+                  <p className="paragraph">{item.body}</p>
                 </section>
               ))}
             </div>
@@ -231,10 +231,10 @@ Use `scrollbars="both"` when content can overflow on both axes.
 
       export function BothScrollbarsScrollAreaDemo() {
         return (
-          <ScrollArea scrollbars="both" className={styles.sizedRoot}>
-            <div className={styles.gridContent}>
+          <ScrollArea scrollbars="both" className="sizedRoot">
+            <div className="gridContent">
               {Array.from({ length: 96 }, (_, index) => (
-                <div key={index} className={styles.cell}>
+                <div key={index} className="cell">
                   {index + 1}
                 </div>
               ))}
@@ -292,12 +292,12 @@ Use `fade` when the scroll position itself should hint that more content is avai
 
       export function EdgeFadeScrollAreaDemo() {
         return (
-          <ScrollArea fade className={styles.sizedRoot}>
-            <div className={styles.textContent}>
+          <ScrollArea fade className="sizedRoot">
+            <div className="textContent">
               {sections.map((item) => (
                 <section key={item.title}>
                   <h3>{item.title}</h3>
-                  <p className={styles.paragraph}>{item.body}</p>
+                  <p className="paragraph">{item.body}</p>
                 </section>
               ))}
             </div>
@@ -307,6 +307,33 @@ Use `fade` when the scroll position itself should hint that more content is avai
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .sizedRoot {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .textContent {
+        display: grid;
+        gap: var(--spacing-3);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-6);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ## Custom Composition
@@ -330,35 +357,104 @@ Use the exported parts directly when the default wrapper stops being enough.
       export function CustomCompositionScrollAreaDemo() {
         return (
           <ScrollAreaRoot
-            className={styles.customRoot}
+            className="customRoot"
             data-fade="both"
             overflowEdgeThreshold={28}
           >
-            <ScrollAreaViewport className={styles.customViewport}>
-              <ScrollAreaContent className={styles.customContent}>
+            <ScrollAreaViewport className="customViewport">
+              <ScrollAreaContent className="customContent">
                 {Array.from({ length: 80 }, (_, index) => (
-                  <div key={index} className={styles.customCell}>
+                  <div key={index} className="customCell">
                     {index + 1}
                   </div>
                 ))}
               </ScrollAreaContent>
             </ScrollAreaViewport>
-            <ScrollAreaScrollbar className={styles.customVerticalScrollbar} keepMounted>
-              <ScrollAreaThumb className={styles.customVerticalThumb} />
+            <ScrollAreaScrollbar className="customVerticalScrollbar" keepMounted>
+              <ScrollAreaThumb className="customVerticalThumb" />
             </ScrollAreaScrollbar>
             <ScrollAreaScrollbar
               orientation="horizontal"
-              className={styles.customHorizontalScrollbar}
+              className="customHorizontalScrollbar"
             >
-              <ScrollAreaThumb className={styles.customHorizontalThumb} />
+              <ScrollAreaThumb className="customHorizontalThumb" />
             </ScrollAreaScrollbar>
-            <ScrollAreaCorner className={styles.customCorner} />
+            <ScrollAreaCorner className="customCorner" />
           </ScrollAreaRoot>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customRoot {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        --scroll-area-scrollbar-size: 0.625rem;
+        --scroll-area-scrollbar-margin: var(--spacing-1);
+        --scroll-area-scrollbar-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
+        --scroll-area-thumb-bg: var(--color-primary);
+        --scroll-area-corner-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .customViewport {
+        border-radius: var(--radius-lg);
+        outline: var(--border-width-sm) solid var(--color-border);
+        outline-offset: calc(var(--border-width-sm) * -1);
+      }
+
+      .customViewport[data-scrolling] {
+        outline-color: var(--color-primary);
+      }
+
+      .customContent {
+        display: grid;
+        grid-template-columns: repeat(10, 5rem);
+        grid-template-rows: repeat(8, 4rem);
+        width: max-content;
+        gap: var(--spacing-2);
+        padding: var(--spacing-3);
+      }
+
+      .customVerticalScrollbar {
+        background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
+      }
+
+      .customHorizontalScrollbar {
+        background-color: color-mix(in srgb, var(--color-chart-3) 18%, transparent);
+      }
+
+      .customVerticalThumb {
+        background-color: var(--color-primary);
+      }
+
+      .customHorizontalThumb {
+        background-color: var(--color-chart-3);
+      }
+
+      .customCorner {
+        border-radius: var(--radius-sm);
+        background-color: color-mix(in srgb, var(--color-foreground) 10%, transparent);
+      }
+
+      .customCell {
+        display: grid;
+        place-items: center;
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-sm);
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        font-weight: var(--weight-medium);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ## Styling
