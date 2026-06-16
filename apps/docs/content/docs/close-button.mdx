@@ -7,7 +7,7 @@ icon: Component
 import {
   CloseButtonCssPropertiesPanel,
   CloseButtonCustomChildrenExample,
-  CloseButtonCustomCompositionExample,
+  CloseButtonCustomStylingExample,
   CloseButtonExample,
 } from '@/components/examples/close-button';
 
@@ -26,14 +26,13 @@ button semantics and close glyph, but it does not manage overlay state by itself
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
-      import styles from "./close-button.module.css";
 
       export function CloseButtonDemo() {
         return (
-          <div className={styles.surface}>
-            <div className={styles.content}>
-              <p className={styles.title}>Draft saved</p>
-              <p className={styles.description}>The notification can be dismissed.</p>
+          <div className="surface">
+            <div className="content">
+              <p className="title">Draft saved</p>
+              <p className="description">The notification can be dismissed.</p>
             </div>
             <CloseButton aria-label="Dismiss notification" />
           </div>
@@ -192,7 +191,6 @@ Replace the default close glyph via `children`.
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
-      import styles from "./close-button.module.css";
 
       function CircleXIcon() {
         return (
@@ -216,7 +214,7 @@ Replace the default close glyph via `children`.
 
       export function CloseButtonCustomChildrenDemo() {
         return (
-          <CloseButton className={styles.customChildrenButton} aria-label="Close panel">
+          <CloseButton className="customChildrenButton" aria-label="Close panel">
             <CircleXIcon />
           </CloseButton>
         );
@@ -241,15 +239,14 @@ Replace the default close glyph via `children`.
 Style the root button through `className` and `--close-button-*` variables.
 
 <Preview>
-  <CloseButtonCustomCompositionExample />
+  <CloseButtonCustomStylingExample />
 
   <Preview.Code>
     {`
       import { CloseButton } from "moduix";
-      import styles from "./close-button.module.css";
 
       export function CloseButtonCustomStylingDemo() {
-        return <CloseButton className={styles.customButton} aria-label="Close message" />;
+        return <CloseButton className="customButton" aria-label="Close message" />;
       }
     `}
 

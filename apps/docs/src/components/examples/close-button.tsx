@@ -19,16 +19,20 @@ export const closeButtonOverrideCssProperties: CssPropertyInput[] = [
   ['--close-button-transition', 'var(--transition-default)', 'Controls transition timing.'],
 ];
 
-export const closeButtonPlaygroundCssProperties: CssPropertyInput[] = [
-  ...closeButtonOverrideCssProperties,
-];
+const closeButtonCssProperties = closeButtonOverrideCssProperties.map((property) =>
+  'name' in property
+    ? property
+    : {
+        name: property[0],
+        defaultValue: property[1],
+        description: property[2],
+      },
+);
 
 export function CloseButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={closeButtonOverrideCssProperties.map(normalizeCssProperty)}
-      />
+      <CSSPropertiesReferenceTable properties={closeButtonCssProperties} />
     </div>
   );
 }
@@ -41,21 +45,13 @@ export function CloseButtonCssPlaygroundPanel({
   return (
     <div className="space-y-2">
       <CSSPropertiesEditor
-        properties={closeButtonPlaygroundCssProperties.map(normalizeCssProperty)}
+        properties={closeButtonCssProperties}
         values={values}
         onChange={onChange}
         onReset={onReset}
       />
     </div>
   );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
 }
 
 export function CloseButtonExample(props: ComponentProps<typeof CloseButton>) {
@@ -78,7 +74,7 @@ export function CloseButtonCustomChildrenExample() {
   );
 }
 
-export function CloseButtonCustomCompositionExample() {
+export function CloseButtonCustomStylingExample() {
   return <CloseButton className={styles.customButton} aria-label="Close message" />;
 }
 
