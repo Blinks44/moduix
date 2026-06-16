@@ -1,4 +1,3 @@
-import type { ComponentProps, ReactNode } from 'react';
 import {
   Accordion,
   AccordionHeader,
@@ -8,10 +7,25 @@ import {
   AccordionTriggerIcon,
   ChevronDownIcon,
 } from 'moduix';
-import { useState } from 'react';
+import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './accordion.module.css';
+
+export const accordionExampleCss = `
+  .accordion-panel-content {
+    padding: var(--spacing-3);
+  }
+`;
+
+export const accordionCustomStylingCss = `
+  .accordion-panel-content {
+    padding: var(--spacing-3);
+  }
+
+  .accordion-custom-icon {
+    --accordion-icon-open-transform: rotate(180deg);
+  }
+`;
 
 const accordionItems = [
   {
@@ -151,13 +165,15 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-type AccordionItemsProps = {
+function AccordionItems({
+  disabledValue,
+  icon,
+  iconClassName,
+}: {
   disabledValue?: string;
   icon?: ReactNode;
   iconClassName?: string;
-};
-
-function AccordionItems({ disabledValue, icon, iconClassName }: AccordionItemsProps) {
+}) {
   return accordionItems.map((item) => (
     <AccordionItem key={item.value} value={item.value} disabled={item.value === disabledValue}>
       <AccordionHeader>
@@ -167,7 +183,7 @@ function AccordionItems({ disabledValue, icon, iconClassName }: AccordionItemsPr
         </AccordionTrigger>
       </AccordionHeader>
       <AccordionPanel>
-        <div className={styles.panelContent}>{item.description}</div>
+        <div className="accordion-panel-content">{item.description}</div>
       </AccordionPanel>
     </AccordionItem>
   ));
@@ -175,9 +191,12 @@ function AccordionItems({ disabledValue, icon, iconClassName }: AccordionItemsPr
 
 export function AccordionExample({ className, ...props }: ComponentProps<typeof Accordion>) {
   return (
-    <Accordion className={className} {...props}>
-      <AccordionItems />
-    </Accordion>
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion className={className} {...props}>
+        <AccordionItems />
+      </Accordion>
+    </>
   );
 }
 
@@ -193,16 +212,22 @@ export function ControlledAccordionExample() {
 
 export function DisabledItemAccordionExample() {
   return (
-    <Accordion defaultValue={['what-is-base-ui']}>
-      <AccordionItems disabledValue="getting-started" />
-    </Accordion>
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion defaultValue={['what-is-base-ui']}>
+        <AccordionItems disabledValue="getting-started" />
+      </Accordion>
+    </>
   );
 }
 
-export function CustomCompositionAccordionExample() {
+export function CustomStylingAccordionExample() {
   return (
-    <Accordion defaultValue={['what-is-base-ui']}>
-      <AccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
-    </Accordion>
+    <>
+      <style>{accordionCustomStylingCss}</style>
+      <Accordion defaultValue={['what-is-base-ui']}>
+        <AccordionItems icon={<ChevronDownIcon />} iconClassName="accordion-custom-icon" />
+      </Accordion>
+    </>
   );
 }

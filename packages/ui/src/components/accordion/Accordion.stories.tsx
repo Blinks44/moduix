@@ -115,7 +115,7 @@ export const Controlled: Story = {
   },
 };
 
-export const CustomComposition: Story = {
+export const CustomStyling: Story = {
   render: () => {
     return (
       <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>

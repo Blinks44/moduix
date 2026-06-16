@@ -1,4 +1,3 @@
-import type { ComponentProps } from 'react';
 import {
   Alert,
   AlertContent,
@@ -9,7 +8,7 @@ import {
   CheckIcon,
   InfoIcon,
 } from 'moduix';
-import { useState } from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './alert.module.css';
@@ -170,7 +169,7 @@ export function AlertDestructiveExample() {
   );
 }
 
-export function CustomCompositionAlertExample() {
+export function AlertActionsExample() {
   const [visible, setVisible] = useState(true);
 
   if (!visible) return null;

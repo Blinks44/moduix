@@ -1,7 +1,0 @@
-.panelContent {
-  padding: var(--spacing-3);
-}
-
-.customIcon {
-  --accordion-icon-open-transform: rotate(180deg);
-}

@@ -49,6 +49,12 @@
       --alert-color-default: var(--color-foreground);
       --alert-icon-color-default: var(--color-destructive);
     }
+
+    &:not(:has([data-slot='alert-icon'])) {
+      .content {
+        grid-column: 1 / -1;
+      }
+    }
   }
 
   .icon {
@@ -60,8 +66,7 @@
     color: var(--alert-icon-color, var(--alert-icon-color-default, currentColor));
     margin-block-start: var(--alert-icon-offset, 0.125rem);
 
-    & :where(svg),
-    &:where(svg) {
+    & :where(svg) {
       width: var(--alert-icon-size, 1rem);
       height: var(--alert-icon-size, 1rem);
       flex-shrink: 0;
@@ -99,9 +104,5 @@
     & > :last-child {
       margin-bottom: 0;
     }
-  }
-
-  .root:not(:has([data-slot='alert-icon'])) .content {
-    grid-column: 1 / -1;
   }
 }

@@ -6,11 +6,11 @@ icon: Component
 
 import {
   AlertCssPropertiesPanel,
+  AlertActionsExample,
   AlertDestructiveExample,
   AlertExample,
   AlertVariantsExample,
   AlertWithIconExample,
-  CustomCompositionAlertExample,
 } from '@/components/examples/alert';
 
 ## API Reference
@@ -202,7 +202,7 @@ Use variants for neutral, informational, success, warning, and destructive state
 
       export function AlertVariantsDemo() {
         return (
-          <div>
+          <div className="stack">
             {variants.map((variant) => (
               <Alert key={variant} variant={variant}>
                 <AlertIcon>
@@ -225,6 +225,17 @@ Use variants for neutral, informational, success, warning, and destructive state
     {`      const variants = ["default", "info", "success", "warning", "destructive"] as const;`}
 
   </Preview.Data>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        width: min(38rem, 100%);
+        gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Destructive
@@ -259,13 +270,13 @@ visual emphasis.
   </Preview.Code>
 </Preview>
 
-### Custom Composition
+### Actions
 
 Compose extra controls inside `AlertContent` when the message needs a recovery path or follow-up
 action. Keep dismiss state in the consuming component when a local alert should be hidden.
 
 <Preview>
-  <CustomCompositionAlertExample />
+  <AlertActionsExample />
 
   <Preview.Code>
     {`
@@ -279,15 +290,14 @@ action. Keep dismiss state in the consuming component when a local alert should 
         InfoIcon,
       } from "moduix";
       import { useState } from "react";
-      import styles from "./alert.module.css";
 
-      export function AlertCustomCompositionDemo() {
+      export function AlertActionsDemo() {
         const [visible, setVisible] = useState(true);
 
         if (!visible) return null;
 
         return (
-          <Alert variant="warning" className={styles.customAlert}>
+          <Alert variant="warning" className="customAlert">
             <AlertIcon>
               <InfoIcon />
             </AlertIcon>
@@ -296,7 +306,7 @@ action. Keep dismiss state in the consuming component when a local alert should 
               <AlertDescription>
                 You are using 92% of the available storage. Archive old uploads or upgrade the plan.
               </AlertDescription>
-              <div className={styles.actions}>
+              <div className="actions">
                 <Button size="sm">Review uploads</Button>
                 <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
                   Dismiss

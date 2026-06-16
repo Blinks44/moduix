@@ -1,18 +1,13 @@
-import type { ComponentProps, ComponentPropsWithoutRef } from 'react';
+import type { ComponentProps } from 'react';
 import clsx from 'clsx';
 import styles from './Alert.module.css';
 
 type AlertVariant = 'default' | 'info' | 'success' | 'warning' | 'destructive';
 type AlertTitleElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type AlertProps = ComponentProps<'div'> & { variant?: AlertVariant };
+type AlertTitleProps = ComponentProps<'h3'> & { as?: AlertTitleElement };
 
-function Alert({
-  className,
-  role,
-  variant = 'default',
-  ...props
-}: ComponentProps<'div'> & {
-  variant?: AlertVariant;
-}) {
+function Alert({ className, role, variant = 'default', ...props }: AlertProps) {
   return (
     <div
       role={role ?? (variant === 'destructive' ? 'alert' : 'status')}
@@ -39,13 +34,7 @@ function AlertContent({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="alert-content" className={clsx(styles.content, className)} {...props} />;
 }
 
-function AlertTitle({
-  as: Root = 'h3',
-  className,
-  ...props
-}: ComponentPropsWithoutRef<'h3'> & {
-  as?: AlertTitleElement;
-}) {
+function AlertTitle({ as: Root = 'h3', className, ...props }: AlertTitleProps) {
   return <Root data-slot="alert-title" className={clsx(styles.title, className)} {...props} />;
 }
 

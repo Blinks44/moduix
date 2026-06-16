@@ -8,9 +8,11 @@ import {
   AccordionCssPropertiesPanel,
   AccordionExample,
   ControlledAccordionExample,
-  CustomCompositionAccordionExample,
+  CustomStylingAccordionExample,
   DisabledItemAccordionExample,
   MultipleAccordionExample,
+  accordionCustomStylingCss,
+  accordionExampleCss,
 } from '@/components/examples/accordion';
 
 ## API Reference
@@ -49,7 +51,7 @@ disclosure content.
                   </AccordionTrigger>
                 </AccordionHeader>
                 <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
+                  <div className="accordion-panel-content">{item.description}</div>
                 </AccordionPanel>
               </AccordionItem>
             ))}
@@ -61,15 +63,11 @@ disclosure content.
   </Preview.Code>
 
   <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-    `}
+    {accordionExampleCss}
 
   </Preview.CSS>
 
-<Preview.Data>
+  <Preview.Data>
   {`
       const items = [
         {
@@ -89,7 +87,7 @@ disclosure content.
         },
       ];
     `}
-</Preview.Data>
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -239,7 +237,7 @@ Use `multiple` to allow several items to stay open at once.
                   </AccordionTrigger>
                 </AccordionHeader>
                 <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
+                  <div className="accordion-panel-content">{item.description}</div>
                 </AccordionPanel>
               </AccordionItem>
             ))}
@@ -249,6 +247,8 @@ Use `multiple` to allow several items to stay open at once.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
 </Preview>
 
 ### Controlled
@@ -284,7 +284,7 @@ Control `value` from React state when the open panels need to coordinate with su
                   </AccordionTrigger>
                 </AccordionHeader>
                 <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
+                  <div className="accordion-panel-content">{item.description}</div>
                 </AccordionPanel>
               </AccordionItem>
             ))}
@@ -294,6 +294,8 @@ Control `value` from React state when the open panels need to coordinate with su
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
 </Preview>
 
 ### Disabled Item
@@ -330,7 +332,7 @@ Set `disabled` on an item to keep it visible while blocking interaction.
                   </AccordionTrigger>
                 </AccordionHeader>
                 <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
+                  <div className="accordion-panel-content">{item.description}</div>
                 </AccordionPanel>
               </AccordionItem>
             ))}
@@ -340,15 +342,16 @@ Set `disabled` on an item to keep it visible while blocking interaction.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Custom Styling
 
-`AccordionTriggerIcon` is narrow sugar for the common visual affordance. Keep it when the default
-plus icon works, replace its children when the UI needs a different cue, or omit it entirely.
+Keep the default structure and swap the icon cue when the accordion needs a different visual style.
 
 <Preview>
-  <CustomCompositionAccordionExample />
+  <CustomStylingAccordionExample />
 
   <Preview.Code>
     {`
@@ -362,7 +365,7 @@ plus icon works, replace its children when the UI needs a different cue, or omit
         ChevronDownIcon,
       } from "moduix";
 
-      export function CustomCompositionAccordionDemo() {
+      export function CustomStylingAccordionDemo() {
         return (
           <Accordion defaultValue={["what-is-base-ui"]}>
             {items.map((item) => (
@@ -370,13 +373,13 @@ plus icon works, replace its children when the UI needs a different cue, or omit
                 <AccordionHeader>
                   <AccordionTrigger>
                     {item.title}
-                    <AccordionTriggerIcon className={styles.customIcon}>
+                    <AccordionTriggerIcon className="accordion-custom-icon">
                       <ChevronDownIcon />
                     </AccordionTriggerIcon>
                   </AccordionTrigger>
                 </AccordionHeader>
                 <AccordionPanel>
-                  <div className={styles.panelContent}>{item.description}</div>
+                  <div className="accordion-panel-content">{item.description}</div>
                 </AccordionPanel>
               </AccordionItem>
             ))}
@@ -388,15 +391,7 @@ plus icon works, replace its children when the UI needs a different cue, or omit
   </Preview.Code>
 
   <Preview.CSS>
-    {`
-      .panelContent {
-        padding: var(--spacing-3);
-      }
-
-      .customIcon {
-        --accordion-icon-open-transform: rotate(180deg);
-      }
-    `}
+    {accordionCustomStylingCss}
 
   </Preview.CSS>
 </Preview>
