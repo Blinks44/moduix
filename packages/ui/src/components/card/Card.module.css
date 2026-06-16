@@ -30,7 +30,7 @@
       );
     }
 
-    &:has(.link)
+    &:has([data-slot='card-link'])
       :where(
         a,
         button,
@@ -42,13 +42,9 @@
         [role='menuitem'],
         [role='switch'],
         [tabindex]:not([tabindex='-1'])
-      ):not(.link) {
+      ):not([data-slot='card-link']) {
       position: relative;
       z-index: 1;
-    }
-
-    & .link {
-      position: static;
     }
   }
 
@@ -130,7 +126,7 @@
   }
 
   .link {
-    position: relative;
+    position: static;
     color: inherit;
     text-decoration: none;
 

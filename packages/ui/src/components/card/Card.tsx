@@ -37,13 +37,13 @@ function CardFooter({ className, ...props }: ComponentProps<'div'>) {
 }
 
 function CardTitle({
-  as: Root = 'h3',
+  as: Tag = 'h3',
   className,
   ...props
 }: ComponentPropsWithoutRef<'h3'> & {
   as?: CardTitleElement;
 }) {
-  return <Root data-slot="card-title" className={clsx(styles.title, className)} {...props} />;
+  return <Tag data-slot="card-title" className={clsx(styles.title, className)} {...props} />;
 }
 
 function CardDescription({ className, ...props }: ComponentProps<'p'>) {

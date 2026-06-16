@@ -8,11 +8,11 @@ import {
   CardAsLinkExample,
   CardCssPropertiesPanel,
   CardCompactExample,
+  CardCustomStylingExample,
   CardExample,
   CardLinkWithActionsExample,
   CardWithActionExample,
   CardWithImageExample,
-  CustomCompositionCardExample,
 } from '@/components/examples/card';
 
 ## API Reference
@@ -38,24 +38,23 @@ This is the recommended path for summaries, settings panels, and dashboard surfa
         CardHeader,
         CardTitle,
       } from "moduix";
-      import styles from "./card-demo.module.css";
 
       export function CardDemo() {
         return (
-          <Card className={styles.card}>
+          <Card className="card">
             <CardHeader>
               <CardTitle>Release health</CardTitle>
               <CardDescription>Summary for the current production rollout.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className={styles.releaseSummary}>
+              <div className="releaseSummary">
                 <div>
-                  <span className={styles.statValue}>98.4%</span>
-                  <span className={styles.statLabel}>successful sessions</span>
+                  <span className="statValue">98.4%</span>
+                  <span className="statLabel">successful sessions</span>
                 </div>
                 <div>
-                  <span className={styles.statValue}>12</span>
-                  <span className={styles.statLabel}>checks passed</span>
+                  <span className="statValue">12</span>
+                  <span className="statLabel">checks passed</span>
                 </div>
               </div>
             </CardContent>
@@ -232,19 +231,18 @@ Use `size="sm"` for denser dashboards, side panels, and supporting summaries.
         CardHeader,
         CardTitle,
       } from "moduix";
-      import styles from "./card-compact-demo.module.css";
 
       export function CardCompactDemo() {
         return (
-          <Card className={styles.card} size="sm">
+          <Card className="card" size="sm">
             <CardHeader>
               <CardTitle>Billing plan</CardTitle>
               <CardDescription>Team workspace, monthly billing.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className={styles.metric}>
-                <span className={styles.metricValue}>$48</span>
-                <span className={styles.metricLabel}>per month</span>
+              <div className="metric">
+                <span className="metricValue">$48</span>
+                <span className="metricLabel">per month</span>
               </div>
             </CardContent>
             <CardFooter>
@@ -303,11 +301,10 @@ Use `CardAction` when the header needs a compact trailing status or control.
         CardHeader,
         CardTitle,
       } from "moduix";
-      import styles from "./card-with-action-demo.module.css";
 
       export function CardWithActionDemo() {
         return (
-          <Card className={styles.card}>
+          <Card className="card">
             <CardHeader>
               <CardTitle>Incident response</CardTitle>
               <CardDescription>Owner rotation and escalation readiness.</CardDescription>
@@ -316,14 +313,14 @@ Use `CardAction` when the header needs a compact trailing status or control.
               </CardAction>
             </CardHeader>
             <CardContent>
-              <div className={styles.statsGrid}>
+              <div className="statsGrid">
                 <div>
-                  <span className={styles.statValue}>18 min</span>
-                  <span className={styles.statLabel}>median response</span>
+                  <span className="statValue">18 min</span>
+                  <span className="statLabel">median response</span>
                 </div>
                 <div>
-                  <span className={styles.statValue}>99.97%</span>
-                  <span className={styles.statLabel}>service uptime</span>
+                  <span className="statValue">99.97%</span>
+                  <span className="statLabel">service uptime</span>
                 </div>
               </div>
             </CardContent>
@@ -382,14 +379,13 @@ Add plain children before the header when the card needs media or another custom
         CardHeader,
         CardTitle,
       } from "moduix";
-      import styles from "./card-with-image-demo.module.css";
 
       export function CardWithImageDemo() {
         return (
-          <Card className={styles.card}>
+          <Card className="card">
             <img
               alt="A warehouse with neatly stacked delivery boxes."
-              className={styles.image}
+              className="image"
               src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
             />
             <CardHeader>
@@ -397,14 +393,14 @@ Add plain children before the header when the card needs media or another custom
               <CardDescription>North region allocation for the next planning cycle.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className={styles.capacity}>
+              <div className="capacity">
                 <span>72%</span>
-                <div className={styles.capacityBar}>
+                <div className="capacityBar">
                   <div />
                 </div>
               </div>
             </CardContent>
-            <CardFooter className={styles.footerBetween}>
+            <CardFooter className="footerBetween">
               <Badge variant="outline">Forecast</Badge>
               <Button variant="outline">Open report</Button>
             </CardFooter>
@@ -474,24 +470,23 @@ Use `Card render` when the entire surface is a single navigation target.
         CardHeader,
         CardTitle,
       } from "moduix";
-      import styles from "./card-as-link-demo.module.css";
 
       export function CardAsLinkDemo() {
         return (
-          <Card className={styles.card} render={<a href="/reports/release-health" />}>
+          <Card className="card" render={<a href="/reports/release-health" />}>
             <CardHeader>
               <CardTitle>Release health</CardTitle>
               <CardDescription>Summary for the current production rollout.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className={styles.releaseSummary}>
+              <div className="releaseSummary">
                 <div>
-                  <span className={styles.statValue}>98.4%</span>
-                  <span className={styles.statLabel}>successful sessions</span>
+                  <span className="statValue">98.4%</span>
+                  <span className="statLabel">successful sessions</span>
                 </div>
                 <div>
-                  <span className={styles.statValue}>12</span>
-                  <span className={styles.statLabel}>checks passed</span>
+                  <span className="statValue">12</span>
+                  <span className="statLabel">checks passed</span>
                 </div>
               </div>
             </CardContent>
@@ -550,11 +545,10 @@ Use `CardLink` when the card should navigate but still contains nested interacti
         CardLink,
         CardTitle,
       } from "moduix";
-      import styles from "./card-link-with-actions-demo.module.css";
 
       export function CardLinkWithActionsDemo() {
         return (
-          <Card className={styles.card}>
+          <Card className="card">
             <CardHeader>
               <CardTitle>
                 <CardLink href="/incidents/response">Incident response</CardLink>
@@ -567,14 +561,14 @@ Use `CardLink` when the card should navigate but still contains nested interacti
               </CardAction>
             </CardHeader>
             <CardContent>
-              <div className={styles.statsGrid}>
+              <div className="statsGrid">
                 <div>
-                  <span className={styles.statValue}>18 min</span>
-                  <span className={styles.statLabel}>median response</span>
+                  <span className="statValue">18 min</span>
+                  <span className="statLabel">median response</span>
                 </div>
                 <div>
-                  <span className={styles.statValue}>99.97%</span>
-                  <span className={styles.statLabel}>service uptime</span>
+                  <span className="statValue">99.97%</span>
+                  <span className="statLabel">service uptime</span>
                 </div>
               </div>
             </CardContent>
@@ -619,7 +613,7 @@ Use `CardLink` when the card should navigate but still contains nested interacti
 Use local CSS variables when the part structure stays the same and only the surface styling changes.
 
 <Preview>
-  <CustomCompositionCardExample />
+  <CardCustomStylingExample />
 
   <Preview.Code>
     {`
@@ -630,11 +624,10 @@ Use local CSS variables when the part structure stays the same and only the surf
         CardHeader,
         CardTitle,
       } from "moduix";
-      import styles from "./custom-card-demo.module.css";
 
-      export function CustomCardDemo() {
+      export function CardCustomStylingDemo() {
         return (
-          <Card className={styles.customCard}>
+          <Card className="customCard">
             <CardHeader>
               <CardTitle>System load</CardTitle>
               <CardDescription>
@@ -642,10 +635,10 @@ Use local CSS variables when the part structure stays the same and only the surf
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className={styles.capacity}>
+              <div className="capacity">
                 <span>64%</span>
-                <div className={styles.capacityBar}>
-                  <div className={styles.capacityFill} />
+                <div className="capacityBar">
+                  <div className="capacityFill" />
                 </div>
               </div>
             </CardContent>
