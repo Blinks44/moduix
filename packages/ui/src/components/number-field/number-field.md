@@ -305,6 +305,8 @@ part directly with `className` or override the public CSS variables.
 
 ## Local changelog
 
+- Simplified internal label defaults in `NumberField.tsx` and streamlined CSS state selectors in
+  `NumberField.module.css` without changing the public API or styling contract.
 - Rewrote the local documentation so it describes the shipped moduix `NumberField` API instead of the
   upstream Base UI reference.
 - Documented the actual sugar component contract, flat exports, styling hooks, accessibility notes,

@@ -14,73 +14,197 @@ import {
   NumberFieldScrubAreaCursor,
 } from 'moduix';
 import { useId, useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './number-field.module.css';
 
-export const numberFieldOverrideCssProperties: CssPropertyInput[] = [
-  ['--number-field-border-color', 'var(--color-border)', 'Controls default border color.'],
-  [
-    '--number-field-border-color-invalid',
-    'var(--color-destructive)',
-    'Controls invalid input border and focus ring color.',
-  ],
-  ['--number-field-border-style', 'solid', 'Controls border style for buttons and input.'],
-  [
-    '--number-field-border-width',
-    'var(--border-width-sm)',
-    'Controls border width for buttons and input.',
-  ],
-  ['--number-field-button-bg', 'var(--color-background)', 'Controls button background.'],
-  [
-    '--number-field-button-bg-active',
-    'var(--number-field-button-bg-hover)',
-    'Controls button background while pressed.',
-  ],
-  ['--number-field-button-bg-hover', 'var(--color-accent)', 'Controls button background on hover.'],
-  ['--number-field-button-color', 'var(--color-foreground)', 'Controls button icon color.'],
-  ['--number-field-control-height', 'var(--size-lg)', 'Controls input and button height.'],
-  ['--number-field-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--number-field-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  [
-    '--number-field-focus-ring-width',
-    'var(--number-field-border-width)',
-    'Controls focus ring width.',
-  ],
-  ['--number-field-gap', 'var(--spacing-1)', 'Controls spacing between number field parts.'],
-  ['--number-field-icon-size', '0.875rem', 'Controls button icon size.'],
-  ['--number-field-input-bg', 'var(--color-background)', 'Controls input background.'],
-  ['--number-field-input-color', 'var(--color-foreground)', 'Controls input text color.'],
-  ['--number-field-input-font-size', 'var(--text-md)', 'Controls input font size.'],
-  ['--number-field-input-line-height', 'var(--line-height-text-md)', 'Controls input line height.'],
-  ['--number-field-input-padding-x', '0.75rem', 'Controls input horizontal padding.'],
-  ['--number-field-input-padding-y', '0.5rem', 'Controls input vertical padding.'],
-  ['--number-field-input-width', '6rem', 'Controls input width.'],
-  ['--number-field-max-width', 'none', 'Controls the root number field max width.'],
-  ['--number-field-radius', 'var(--radius-md)', 'Controls the outer control corner radius.'],
-  ['--number-field-scrub-area-cursor-size', '1.5rem', 'Controls custom scrub cursor size.'],
-  ['--number-field-scrub-area-color', 'var(--color-foreground)', 'Controls scrub area text color.'],
-  ['--number-field-scrub-area-gap', 'var(--spacing-2)', 'Controls scrub area spacing.'],
-  ['--number-field-width', 'auto', 'Controls the root number field width.'],
+export const numberFieldOverrideCssProperties: CssProperty[] = [
+  {
+    name: '--number-field-border-color',
+    defaultValue: 'var(--color-border)',
+    description: 'Controls default border color.',
+  },
+  {
+    name: '--number-field-border-color-invalid',
+    defaultValue: 'var(--color-destructive)',
+    description: 'Controls invalid input border and focus ring color.',
+  },
+  {
+    name: '--number-field-border-style',
+    defaultValue: 'solid',
+    description: 'Controls border style for buttons and input.',
+  },
+  {
+    name: '--number-field-border-width',
+    defaultValue: 'var(--border-width-sm)',
+    description: 'Controls border width for buttons and input.',
+  },
+  {
+    name: '--number-field-button-bg',
+    defaultValue: 'var(--color-background)',
+    description: 'Controls button background.',
+  },
+  {
+    name: '--number-field-button-bg-active',
+    defaultValue: 'var(--number-field-button-bg-hover)',
+    description: 'Controls button background while pressed.',
+  },
+  {
+    name: '--number-field-button-bg-hover',
+    defaultValue: 'var(--color-accent)',
+    description: 'Controls button background on hover.',
+  },
+  {
+    name: '--number-field-button-color',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls button icon color.',
+  },
+  {
+    name: '--number-field-control-height',
+    defaultValue: 'var(--size-lg)',
+    description: 'Controls input and button height.',
+  },
+  {
+    name: '--number-field-disabled-opacity',
+    defaultValue: 'var(--opacity-disabled)',
+    description: 'Controls disabled opacity.',
+  },
+  {
+    name: '--number-field-focus-ring-color',
+    defaultValue: 'var(--color-ring)',
+    description: 'Controls focus ring color.',
+  },
+  {
+    name: '--number-field-focus-ring-width',
+    defaultValue: 'var(--number-field-border-width)',
+    description: 'Controls focus ring width.',
+  },
+  {
+    name: '--number-field-gap',
+    defaultValue: 'var(--spacing-1)',
+    description: 'Controls spacing between number field parts.',
+  },
+  {
+    name: '--number-field-icon-size',
+    defaultValue: '0.875rem',
+    description: 'Controls button icon size.',
+  },
+  {
+    name: '--number-field-input-bg',
+    defaultValue: 'var(--color-background)',
+    description: 'Controls input background.',
+  },
+  {
+    name: '--number-field-input-color',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls input text color.',
+  },
+  {
+    name: '--number-field-input-font-size',
+    defaultValue: 'var(--text-md)',
+    description: 'Controls input font size.',
+  },
+  {
+    name: '--number-field-input-line-height',
+    defaultValue: 'var(--line-height-text-md)',
+    description: 'Controls input line height.',
+  },
+  {
+    name: '--number-field-input-padding-x',
+    defaultValue: '0.75rem',
+    description: 'Controls input horizontal padding.',
+  },
+  {
+    name: '--number-field-input-padding-y',
+    defaultValue: '0.5rem',
+    description: 'Controls input vertical padding.',
+  },
+  {
+    name: '--number-field-input-width',
+    defaultValue: '6rem',
+    description: 'Controls input width.',
+  },
+  {
+    name: '--number-field-max-width',
+    defaultValue: 'none',
+    description: 'Controls the root number field max width.',
+  },
+  {
+    name: '--number-field-radius',
+    defaultValue: 'var(--radius-md)',
+    description: 'Controls the outer control corner radius.',
+  },
+  {
+    name: '--number-field-scrub-area-cursor-size',
+    defaultValue: '1.5rem',
+    description: 'Controls custom scrub cursor size.',
+  },
+  {
+    name: '--number-field-scrub-area-color',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls scrub area text color.',
+  },
+  {
+    name: '--number-field-scrub-area-gap',
+    defaultValue: 'var(--spacing-2)',
+    description: 'Controls scrub area spacing.',
+  },
+  {
+    name: '--number-field-width',
+    defaultValue: 'auto',
+    description: 'Controls the root number field width.',
+  },
 ];
-export const numberFieldPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--number-field-border-color', 'var(--color-border)', 'Controls default border color.'],
-  ['--number-field-border-width', 'var(--border-width-sm)', 'Controls default border width.'],
-  ['--number-field-button-bg', 'var(--color-background)', 'Controls button background.'],
-  ['--number-field-button-bg-hover', 'var(--color-accent)', 'Controls button hover background.'],
-  ['--number-field-button-color', 'var(--color-foreground)', 'Controls button icon color.'],
-  ['--number-field-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--number-field-input-bg', 'var(--color-background)', 'Controls input background.'],
-  ['--number-field-input-color', 'var(--color-foreground)', 'Controls input text color.'],
-  ['--number-field-radius', 'var(--radius-md)', 'Controls control corner radius.'],
+
+export const numberFieldPlaygroundCssProperties: CssProperty[] = [
+  {
+    name: '--number-field-border-color',
+    defaultValue: 'var(--color-border)',
+    description: 'Controls default border color.',
+  },
+  {
+    name: '--number-field-border-width',
+    defaultValue: 'var(--border-width-sm)',
+    description: 'Controls default border width.',
+  },
+  {
+    name: '--number-field-button-bg',
+    defaultValue: 'var(--color-background)',
+    description: 'Controls button background.',
+  },
+  {
+    name: '--number-field-button-bg-hover',
+    defaultValue: 'var(--color-accent)',
+    description: 'Controls button hover background.',
+  },
+  {
+    name: '--number-field-button-color',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls button icon color.',
+  },
+  {
+    name: '--number-field-focus-ring-color',
+    defaultValue: 'var(--color-ring)',
+    description: 'Controls focus ring color.',
+  },
+  {
+    name: '--number-field-input-bg',
+    defaultValue: 'var(--color-background)',
+    description: 'Controls input background.',
+  },
+  {
+    name: '--number-field-input-color',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls input text color.',
+  },
+  {
+    name: '--number-field-radius',
+    defaultValue: 'var(--radius-md)',
+    description: 'Controls control corner radius.',
+  },
 ];
 
 export function NumberFieldCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={numberFieldOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+  return <CSSPropertiesReferenceTable properties={numberFieldOverrideCssProperties} />;
 }
 
 export function NumberFieldCssPlaygroundPanel({
@@ -90,7 +214,7 @@ export function NumberFieldCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesEditor
-      properties={numberFieldPlaygroundCssProperties.map(normalizeCssProperty)}
+      properties={numberFieldPlaygroundCssProperties}
       values={values}
       onChange={onChange}
       onReset={onReset}
@@ -98,17 +222,11 @@ export function NumberFieldCssPlaygroundPanel({
   );
 }
 
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
-
 export function NumberFieldExample(props: ComponentProps<typeof NumberField>) {
   const id = useId();
 
   return (
-    <Field className={styles.field}>
+    <Field>
       <FieldLabel htmlFor={id}>Amount</FieldLabel>
       <NumberField id={id} defaultValue={100} {...props} />
     </Field>
@@ -120,12 +238,12 @@ export function ControlledNumberFieldExample() {
   const [value, setValue] = useState<number | null>(24);
 
   return (
-    <div className={styles.stack}>
-      <Field className={styles.field}>
+    <div>
+      <Field>
         <FieldLabel htmlFor={id}>Controlled value</FieldLabel>
         <NumberField id={id} value={value} onValueChange={setValue} />
       </Field>
-      <span className={styles.hint}>Current value: {value ?? 'empty'}</span>
+      <span>Current value: {value ?? 'empty'}</span>
     </div>
   );
 }
@@ -134,7 +252,7 @@ export function MinMaxStepNumberFieldExample() {
   const id = useId();
 
   return (
-    <Field className={styles.field}>
+    <Field>
       <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
       <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
     </Field>
@@ -145,7 +263,7 @@ export function NumberFieldScrubAreaExample() {
   const id = useId();
 
   return (
-    <Field className={styles.field}>
+    <Field>
       <NumberField id={id} defaultValue={250}>
         <NumberFieldScrubArea>
           <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
@@ -160,7 +278,7 @@ export function FormattedNumberFieldExample() {
   const id = useId();
 
   return (
-    <Field className={styles.field}>
+    <Field>
       <FieldLabel htmlFor={id}>Price</FieldLabel>
       <NumberField
         id={id}
@@ -177,7 +295,7 @@ export function NumberFieldValidationExample() {
   const id = useId();
 
   return (
-    <Field name="quantity" validationMode="onBlur" className={styles.validationField}>
+    <Field name="quantity" validationMode="onBlur">
       <FieldLabel htmlFor={id}>Items</FieldLabel>
       <NumberField id={id} min={1} max={10} required />
       <FieldError match="valueMissing">Please provide a number.</FieldError>
@@ -191,7 +309,7 @@ export function LocalizedLabelsNumberFieldExample() {
   const id = useId();
 
   return (
-    <Field className={styles.field}>
+    <Field>
       <FieldLabel htmlFor={id}>Seats</FieldLabel>
       <NumberField
         id={id}
@@ -207,15 +325,15 @@ export function CustomIconsNumberFieldExample() {
   const id = useId();
 
   return (
-    <Field className={styles.field}>
+    <Field>
       <FieldLabel htmlFor={id}>Floors</FieldLabel>
       <NumberFieldRoot id={id} defaultValue={8}>
         <NumberFieldGroup>
-          <NumberFieldDecrement className={styles.customButton}>
+          <NumberFieldDecrement className="customButton">
             <ChevronDownIcon />
           </NumberFieldDecrement>
-          <NumberFieldInput className={styles.customInput} />
-          <NumberFieldIncrement className={styles.customButton}>
+          <NumberFieldInput className="customInput" />
+          <NumberFieldIncrement className="customButton">
             <ChevronUpIcon />
           </NumberFieldIncrement>
         </NumberFieldGroup>

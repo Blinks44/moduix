@@ -3,9 +3,6 @@ import { MinusIcon, PlusIcon, ScrubCursorIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './NumberField.module.css';
 
-const DEFAULT_DECREMENT_LABEL = 'Decrease value';
-const DEFAULT_INCREMENT_LABEL = 'Increase value';
-
 type NumberFieldProps = NumberFieldPrimitive.Root.Props & {
   decrementLabel?: string;
   incrementLabel?: string;
@@ -24,8 +21,8 @@ function NumberFieldRoot({ className, ...props }: NumberFieldPrimitive.Root.Prop
 function NumberField({
   className,
   children,
-  decrementLabel = DEFAULT_DECREMENT_LABEL,
-  incrementLabel = DEFAULT_INCREMENT_LABEL,
+  decrementLabel = 'Decrease value',
+  incrementLabel = 'Increase value',
   ...props
 }: NumberFieldProps) {
   return (
@@ -79,7 +76,7 @@ function NumberFieldGroup({ className, ...props }: NumberFieldPrimitive.Group.Pr
 function NumberFieldDecrement({
   className,
   children,
-  'aria-label': ariaLabel = DEFAULT_DECREMENT_LABEL,
+  'aria-label': ariaLabel = 'Decrease value',
   ...props
 }: NumberFieldPrimitive.Decrement.Props) {
   return (
@@ -107,7 +104,7 @@ function NumberFieldInput({ className, ...props }: NumberFieldPrimitive.Input.Pr
 function NumberFieldIncrement({
   className,
   children,
-  'aria-label': ariaLabel = DEFAULT_INCREMENT_LABEL,
+  'aria-label': ariaLabel = 'Increase value',
   ...props
 }: NumberFieldPrimitive.Increment.Props) {
   return (

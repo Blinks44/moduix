@@ -16,8 +16,7 @@
     user-select: none;
     cursor: ew-resize;
 
-    &[data-disabled],
-    &[data-readonly] {
+    &:is([data-disabled], [data-readonly]) {
       cursor: default;
       opacity: var(--number-field-disabled-opacity, var(--opacity-disabled));
     }
@@ -91,9 +90,7 @@
       z-index: 1;
     }
 
-    &[data-disabled],
-    &[data-readonly],
-    &:disabled {
+    &:is([data-disabled], [data-readonly], :disabled) {
       opacity: var(--number-field-disabled-opacity, var(--opacity-disabled));
       pointer-events: none;
     }
@@ -162,14 +159,13 @@
     &[data-invalid] {
       border-top-color: var(--number-field-border-color-invalid, var(--color-destructive));
       border-bottom-color: var(--number-field-border-color-invalid, var(--color-destructive));
+
+      &:focus-visible {
+        outline-color: var(--number-field-border-color-invalid, var(--color-destructive));
+      }
     }
 
-    &[data-invalid]:focus-visible {
-      outline-color: var(--number-field-border-color-invalid, var(--color-destructive));
-    }
-
-    &[data-disabled],
-    &[data-readonly] {
+    &:is([data-disabled], [data-readonly]) {
       opacity: var(--number-field-disabled-opacity, var(--opacity-disabled));
     }
   }
