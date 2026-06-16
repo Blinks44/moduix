@@ -6,17 +6,16 @@ import { CheckIcon, ChevronRightIcon, PopupArrowIcon } from '@/lib/moduix/icons/
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Menubar.module.css';
 
-export type MenubarPositionerProps = Pick<
-  MenuPrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
->;
+export type MenubarPositionerProps = {
+  side?: MenuPrimitive.Positioner.Props['side'];
+  sideOffset?: MenuPrimitive.Positioner.Props['sideOffset'];
+  align?: MenuPrimitive.Positioner.Props['align'];
+  alignOffset?: MenuPrimitive.Positioner.Props['alignOffset'];
+  arrowPadding?: MenuPrimitive.Positioner.Props['arrowPadding'];
+  collisionAvoidance?: MenuPrimitive.Positioner.Props['collisionAvoidance'];
+  collisionBoundary?: MenuPrimitive.Positioner.Props['collisionBoundary'];
+  collisionPadding?: MenuPrimitive.Positioner.Props['collisionPadding'];
+};
 
 export type MenubarIndicatorPosition = 'start' | 'end' | 'none';
 export type MenubarContentProps = MenuPrimitive.Popup.Props &
@@ -31,6 +30,9 @@ export type MenubarCheckboxItemProps = MenuPrimitive.CheckboxItem.Props & {
 };
 
 const MENUBAR_CONTENT_SIDE_OFFSET = 6;
+const getSubmenuOffset = ({ side }: { side: MenuPrimitive.Positioner.Props['side'] }) =>
+  side === 'top' || side === 'bottom' ? 4 : -4;
+
 const MenubarMenu = MenuPrimitive.Root;
 const MenubarSubmenu = MenuPrimitive.SubmenuRoot;
 const createMenubarMenuHandle = MenuPrimitive.createHandle;
@@ -46,20 +48,18 @@ function Menubar({ className, ...props }: MenubarPrimitive.Props) {
 }
 
 function MenubarTrigger({ className, render, ...props }: MenuPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <MenuPrimitive.Trigger
       data-slot="menubar-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
 }
 
-function MenubarPortal({ className, ...props }: MenuPrimitive.Portal.Props) {
-  return <MenuPrimitive.Portal data-slot="menubar-portal" className={className} {...props} />;
+function MenubarPortal(props: MenuPrimitive.Portal.Props) {
+  return <MenuPrimitive.Portal data-slot="menubar-portal" {...props} />;
 }
 
 function MenubarBackdrop({ className, ...props }: MenuPrimitive.Backdrop.Props) {
@@ -99,7 +99,14 @@ function MenubarArrow({ className, children, ...props }: MenuPrimitive.Arrow.Pro
       className={mergeClassName(className, styles.arrow)}
       {...props}
     >
-      {children ?? <ArrowSvg className={styles.arrowSvg} />}
+      {children ?? (
+        <PopupArrowIcon
+          className={styles.arrowSvg}
+          fillClassName={styles.arrowFill}
+          outerStrokeClassName={styles.arrowOuterStroke}
+          innerStrokeClassName={styles.arrowInnerStroke}
+        />
+      )}
     </MenuPrimitive.Arrow>
   );
 }
@@ -334,21 +341,6 @@ function MenubarItemShortcut({ className, ...props }: ComponentProps<'span'>) {
     <span
       data-slot="menubar-item-shortcut"
       className={clsx(styles.itemShortcut, className)}
-      {...props}
-    />
-  );
-}
-
-function getSubmenuOffset({ side }: { side: MenuPrimitive.Positioner.Props['side'] }) {
-  return side === 'top' || side === 'bottom' ? 4 : -4;
-}
-
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <PopupArrowIcon
-      fillClassName={styles.arrowFill}
-      outerStrokeClassName={styles.arrowOuterStroke}
-      innerStrokeClassName={styles.arrowInnerStroke}
       {...props}
     />
   );

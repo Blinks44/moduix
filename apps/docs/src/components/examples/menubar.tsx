@@ -34,7 +34,6 @@ import {
 import * as React from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
-import styles from './menubar.module.css';
 
 export const menubarOverrideCssProperties: CssPropertyInput[] = [
   ['--menubar-arrow-height', '0.625rem', 'Controls popup arrow height.'],
@@ -468,15 +467,15 @@ export function LinkItemsMenubarExample() {
 
 export function CustomCompositionMenubarExample() {
   return (
-    <Menubar className={styles.root}>
+    <Menubar className="menubar-custom-root">
       <MenubarMenu>
-        <MenubarTrigger className={styles.trigger}>Window</MenubarTrigger>
+        <MenubarTrigger className="menubar-custom-trigger">Window</MenubarTrigger>
         <MenubarPortal>
-          <MenubarBackdrop className={styles.backdrop} />
+          <MenubarBackdrop className="menubar-custom-backdrop" />
           <MenubarPositioner sideOffset={10} align="start" alignOffset={-4}>
-            <MenubarPopup className={styles.popup}>
-              <MenubarArrow className={styles.arrow} />
-              <MenubarViewport className={styles.viewport}>
+            <MenubarPopup className="menubar-custom-popup">
+              <MenubarArrow className="menubar-custom-arrow" />
+              <MenubarViewport className="menubar-custom-viewport">
                 <MenubarItem closeOnClick>Minimize</MenubarItem>
                 <MenubarItem closeOnClick>Zoom</MenubarItem>
                 <MenubarSeparator />

@@ -530,19 +530,18 @@ custom portal control, backdrop styling, arrow placement, or popup-specific view
         MenubarTrigger,
         MenubarViewport,
       } from "moduix";
-      import styles from "./menubar.module.css";
 
       export function CustomCompositionMenubarDemo() {
         return (
-          <Menubar className={styles.root}>
+          <Menubar className="menubar-custom-root">
             <MenubarMenu>
-              <MenubarTrigger className={styles.trigger}>Window</MenubarTrigger>
+              <MenubarTrigger className="menubar-custom-trigger">Window</MenubarTrigger>
               <MenubarPortal>
-                <MenubarBackdrop className={styles.backdrop} />
+                <MenubarBackdrop className="menubar-custom-backdrop" />
                 <MenubarPositioner sideOffset={10} align="start" alignOffset={-4}>
-                  <MenubarPopup className={styles.popup}>
-                    <MenubarArrow className={styles.arrow} />
-                    <MenubarViewport className={styles.viewport}>
+                  <MenubarPopup className="menubar-custom-popup">
+                    <MenubarArrow className="menubar-custom-arrow" />
+                    <MenubarViewport className="menubar-custom-viewport">
                       <MenubarItem closeOnClick>Minimize</MenubarItem>
                       <MenubarItem closeOnClick>Zoom</MenubarItem>
                       <MenubarSeparator />
@@ -561,7 +560,7 @@ custom portal control, backdrop styling, arrow placement, or popup-specific view
 
   <Preview.CSS>
     {`
-      .root {
+      .menubar-custom-root {
         --menubar-bg: var(--color-background);
         --menubar-border-color: rgb(37 99 235);
         --menubar-radius: var(--radius-lg);
@@ -570,17 +569,17 @@ custom portal control, backdrop styling, arrow placement, or popup-specific view
         --menubar-trigger-bg-active: rgb(37 99 235);
       }
 
-      .trigger {
+      .menubar-custom-trigger {
         position: relative;
         z-index: var(--z-popup);
       }
 
-      .backdrop {
+      .menubar-custom-backdrop {
         background-color: rgb(15 23 42 / 0.48);
         backdrop-filter: blur(4px);
       }
 
-      .popup {
+      .menubar-custom-popup {
         --menubar-popup-min-width: 14rem;
         --menubar-popup-bg: var(--color-background);
         --menubar-popup-border-color: rgb(37 99 235);
@@ -589,11 +588,11 @@ custom portal control, backdrop styling, arrow placement, or popup-specific view
         --menubar-highlight-color: rgb(255 255 255);
       }
 
-      .arrow {
+      .menubar-custom-arrow {
         --menubar-arrow-stroke-color: var(--menubar-popup-border-color);
       }
 
-      .viewport {
+      .menubar-custom-viewport {
         padding-block: var(--spacing-2);
       }
     `}

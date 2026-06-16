@@ -288,11 +288,11 @@
     height: var(--menubar-submenu-icon-size, 0.875rem);
     flex-shrink: 0;
     color: currentColor;
-  }
 
-  .iconSvg {
-    width: 100%;
-    height: 100%;
+    & > .iconSvg {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .group {
@@ -380,6 +380,11 @@
     justify-content: center;
     width: var(--menubar-check-indicator-size, 0.75rem);
     height: var(--menubar-check-indicator-size, 0.75rem);
+
+    & > .itemIndicatorIcon {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .checkboxItemIndicator {
@@ -387,11 +392,6 @@
       var(--menubar-checkbox-indicator-border-color, currentColor);
     border-radius: var(--menubar-checkbox-indicator-radius, var(--radius-xs));
     background-color: var(--menubar-checkbox-indicator-bg, transparent);
-  }
-
-  .itemIndicatorIcon {
-    width: 100%;
-    height: 100%;
   }
 
   .itemText {
