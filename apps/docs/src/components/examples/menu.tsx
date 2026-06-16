@@ -117,6 +117,21 @@ export const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--menu-highlight-inset-x', 'var(--spacing-1)', 'Controls highlight inline inset.'],
   ['--menu-highlight-radius', 'var(--radius-sm)', 'Controls highlight radius.'],
   ['--menu-item-bg', 'transparent', 'Controls item background.'],
+  [
+    '--menu-item-destructive-color',
+    'var(--color-destructive)',
+    'Controls destructive item text color.',
+  ],
+  [
+    '--menu-item-destructive-highlight-bg',
+    'color-mix(in oklab, var(--color-destructive) 12%, transparent)',
+    'Controls destructive item highlight background.',
+  ],
+  [
+    '--menu-item-destructive-highlight-color',
+    'var(--menu-item-destructive-color, var(--color-destructive))',
+    'Controls destructive item highlight text color.',
+  ],
   ['--menu-item-bg-disabled', 'var(--menu-item-bg)', 'Controls disabled item background.'],
   ['--menu-item-disabled-color', 'var(--color-muted-foreground)', 'Controls disabled item color.'],
   ['--menu-item-font-size', 'var(--text-sm)', 'Controls item font size.'],
@@ -467,6 +482,7 @@ export function OpenAlertDialogMenuExample() {
           <MenuSeparator />
           <MenuItem
             closeOnClick
+            tone="destructive"
             onClick={() => {
               setDialogOpen(true);
             }}
@@ -529,7 +545,9 @@ export function DetachedTriggerMenuExample() {
           <MenuItem closeOnClick>Edit</MenuItem>
           <MenuItem closeOnClick>Share</MenuItem>
           <MenuSeparator />
-          <MenuItem closeOnClick>Archive</MenuItem>
+          <MenuItem closeOnClick tone="destructive">
+            Archive
+          </MenuItem>
         </MenuContent>
       </Menu>
     </Fragment>

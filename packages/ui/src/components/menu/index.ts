@@ -35,6 +35,9 @@ export type {
   MenuCheckboxItemProps,
   MenuContentProps,
   MenuIndicatorPosition,
+  MenuItemProps,
+  MenuItemTone,
+  MenuLinkItemProps,
   MenuPositionerProps,
   MenuRadioItemProps,
 } from './Menu';

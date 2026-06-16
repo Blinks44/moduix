@@ -43,3 +43,6 @@ Use this skill for work in `apps/docs`.
 ## Validation
 
 Run the required checks from `AGENTS.md` after changes.
+
+If docs validation depends on changed `packages/ui` output, wait for `npm run build:ui` to finish
+successfully before starting `npm run tsc:check`. Do not run those commands in parallel.

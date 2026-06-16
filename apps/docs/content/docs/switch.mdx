@@ -23,7 +23,20 @@ import {
 
 <BaseUIReference href="https://base-ui.com/react/components/switch" />
 
+## Choosing the right component
+
+Use `Switch` for immediate on/off settings where changing the control should toggle one boolean
+state.
+
+- Choose **`Switch`** for settings such as notifications, reminders, or feature flags.
+- Choose **`Checkbox`** when the control behaves like a submitted selection rather than an immediate
+  setting toggle.
+- Choose **`RadioGroup`** when users must choose one option from several mutually exclusive values.
+
 ## Basic
+
+Start with `Switch`, `SwitchField`, and `SwitchLabel`. This is the recommended path for settings
+rows and simple preference toggles.
 
 <Preview cssProperties={switchPlaygroundCssProperties}>
   <SwitchExample />
@@ -93,12 +106,9 @@ aubx shadcn@latest add Blinks44/moduix/switch
 This install path also pulls in the shared moduix foundation files that `Switch` depends on, such
 as styles, icons, and small utilities.
 
-`Switch` is a thin styled wrapper over the Base UI switch root. It keeps the default path short by
-rendering `SwitchThumb` for you, while still exporting the thumb for explicit composition.
-
 ## Anatomy
 
-Use `SwitchField` when the switch and label can live inside one wrapping `<label>`.
+The normal consumer path is short:
 
 ```text
 SwitchField
@@ -107,12 +117,7 @@ SwitchField
 └─ SwitchLabel
 ```
 
-```tsx
-<SwitchField>
-  <Switch defaultChecked />
-  <SwitchLabel>Enable notifications</SwitchLabel>
-</SwitchField>
-```
+Use `SwitchField` when the switch and label can live inside one wrapping `<label>`.
 
 | Part          | Role                                                                 |
 | ------------- | -------------------------------------------------------------------- |
@@ -123,18 +128,24 @@ SwitchField
 
 ## Composition
 
-Use `defaultChecked` for uncontrolled mode and `checked` with `onCheckedChange` for controlled
-mode. `Switch` forwards the Base UI root props, so form props such as `name`, `value`,
-`uncheckedValue`, `required`, `readOnly`, `form`, `inputRef`, `nativeButton`, and `render`
-continue to work without extra wrapper API.
+### When to stay high-level
+
+Stay with `Switch`, `SwitchField`, and `SwitchLabel` for most settings panels and boolean
+preferences.
+
+`Switch` keeps Base UI root behavior intact. Use it for `checked`, `defaultChecked`,
+`onCheckedChange`, `name`, `value`, `uncheckedValue`, `required`, `disabled`, `readOnly`, `form`,
+`inputRef`, `nativeButton`, and `render`.
 
 `size` is the only component-specific DX sugar. It scales the track and default thumb without
 changing the composition model.
 
-When the default thumb is enough, render `<Switch />` directly. When the thumb needs custom content
-or custom primitive props, compose `SwitchThumb` explicitly through `children`.
+### When to go custom
 
-For sibling-label layouts, switch the root to a native button:
+Render `<Switch />` directly when the default thumb is enough. Compose `SwitchThumb` explicitly
+when the thumb needs custom content or thumb-specific primitive props.
+
+Render the root as a native button when the layout needs separate switch and label elements:
 
 ```tsx
 <div>
@@ -143,15 +154,26 @@ For sibling-label layouts, switch the root to a native button:
 </div>
 ```
 
-Style the public parts with `className` and the `--switch-*` CSS variables.
+Use the `render` callback when a native-button switch must still stay inside a wrapping label, so
+Base UI can keep the hidden input outside the label.
 
-### Defaults
+### Default props
 
-| Prop        | Default    | Values/Notes                               |
-| ----------- | ---------- | ------------------------------------------ |
-| `size`      | `md`       | `xs`, `sm`, `md`, `lg`, `xl`               |
-| `className` | undefined  | Root class name or state callback          |
-| `children`  | auto thumb | Compose `SwitchThumb` manually when needed |
+| Prop        | Default     | Values / Notes                             |
+| ----------- | ----------- | ------------------------------------------ |
+| `size`      | `md`        | `xs`, `sm`, `md`, `lg`, `xl`               |
+| `className` | `undefined` | Root class name or Base UI state callback  |
+| `children`  | auto thumb  | Compose `SwitchThumb` manually when needed |
+
+### Behavioral notes
+
+- Use `defaultChecked` for uncontrolled mode and `checked` with `onCheckedChange` for controlled
+  mode.
+- Every switch needs an accessible name. The default recommendation is
+  `SwitchField` + `SwitchLabel`.
+- Use `readOnly` when the value should stay visible but not change. Use `disabled` when the
+  control is unavailable.
+- Use `Field` when the switch needs form labeling, validation, and submission wiring.
 
 ## Examples
 
@@ -255,6 +277,7 @@ Use `size` to match different form densities.
         gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
 </Preview>
 
@@ -297,6 +320,7 @@ Use `disabled` to prevent interaction while preserving the current visual state.
         gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
 </Preview>
 
@@ -339,12 +363,13 @@ Use `readOnly` when the current state should stay visible but should not be chan
         gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
 </Preview>
 
 ### Sibling Label
 
-Use `nativeButton` with `render={<button />}` for sibling `label` + `htmlFor` / `id`.
+Render the root as a native button when the layout needs separate switch and label elements.
 
 <Preview>
   <SwitchSiblingLabelNativeButtonExample />
@@ -416,7 +441,7 @@ Use `Field` when the switch participates in form labeling, validation, or submis
   </Preview.Code>
 </Preview>
 
-### Custom Thumb
+### Custom Styling
 
 Compose `SwitchThumb` when the thumb needs custom content or separate styling hooks.
 
@@ -466,6 +491,7 @@ Compose `SwitchThumb` when the thumb needs custom content or separate styling ho
         --switch-thumb-icon-size: 0.75rem;
       }
     `}
+
   </Preview.CSS>
 </Preview>
 
@@ -517,3 +543,26 @@ Use the render callback when a native-button switch must stay inside a wrapping 
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Switch` through `className`, the public `data-slot` hooks, Base UI state attributes, and
+the public `--switch-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SwitchCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `Switch` exposes `data-slot="switch-root"` and writes `data-size` for the `size` presets.
+- `SwitchThumb` exposes `data-slot="switch-thumb"` and receives Base UI state attributes such as
+  `data-checked`, `data-unchecked`, `data-disabled`, and `data-readonly`.
+- `SwitchField` and `SwitchLabel` expose `data-slot="switch-field"` and `data-slot="switch-label"`
+  for layout and typography overrides.

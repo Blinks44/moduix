@@ -1,9 +1,16 @@
+import type { ComponentProps, ReactNode } from 'react';
 import {
   Badge,
+  Button,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuTrigger,
   Table,
   TableBody,
   TableCaption,
@@ -30,6 +37,17 @@ const projects = [
   { name: 'Docs redesign', owner: 'Product Design', updated: '2 hours ago', issues: '3 open' },
   { name: 'Billing migration', owner: 'Growth', updated: 'Yesterday', issues: '1 blocked' },
   { name: 'Command palette', owner: 'Platform', updated: 'Today', issues: 'Healthy' },
+] as const;
+
+const deploymentRows = [
+  {
+    name: 'Docs redesign',
+    owner: 'Product Design',
+    environment: 'Production',
+    updated: '2 hours ago',
+  },
+  { name: 'Billing migration', owner: 'Growth', environment: 'Staging', updated: 'Yesterday' },
+  { name: 'Command palette', owner: 'Platform', environment: 'Preview', updated: 'Today' },
 ] as const;
 
 export const tableOverrideCssProperties: CssPropertyInput[] = [
@@ -294,6 +312,71 @@ export function TableInCardExample() {
         </TableContainer>
       </CardContent>
     </Card>
+  );
+}
+
+function TableRowActionsMenu({ itemName }: { itemName: string }) {
+  return (
+    <Menu>
+      <MenuTriggerButton aria-label={`Open actions for ${itemName}`}>...</MenuTriggerButton>
+      <MenuContent align="end">
+        <MenuItem closeOnClick>Open project</MenuItem>
+        <MenuItem closeOnClick>Copy link</MenuItem>
+        <MenuItem closeOnClick>Duplicate</MenuItem>
+        <MenuSeparator />
+        <MenuItem closeOnClick tone="destructive">
+          Archive
+        </MenuItem>
+      </MenuContent>
+    </Menu>
+  );
+}
+
+function MenuTriggerButton({
+  children,
+  ...props
+}: Omit<ComponentProps<typeof Button>, 'children'> & {
+  children: ReactNode;
+}) {
+  return (
+    <MenuTrigger
+      render={<Button variant="ghost" size="icon-md" className={styles.actionTrigger} {...props} />}
+    >
+      <span aria-hidden className={styles.actionEllipsis}>
+        {children}
+      </span>
+    </MenuTrigger>
+  );
+}
+
+export function TableRowActionsExample() {
+  return (
+    <TableContainer className={styles.showcase}>
+      <Table className={styles.table}>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Project</TableHead>
+            <TableHead>Owner</TableHead>
+            <TableHead>Environment</TableHead>
+            <TableHead>Updated</TableHead>
+            <TableHead className={styles.actionsHead}>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {deploymentRows.map((row) => (
+            <TableRow key={row.name}>
+              <TableCell className={styles.emphasis}>{row.name}</TableCell>
+              <TableCell>{row.owner}</TableCell>
+              <TableCell>{row.environment}</TableCell>
+              <TableCell>{row.updated}</TableCell>
+              <TableCell className={styles.actionsCell}>
+                <TableRowActionsMenu itemName={row.name} />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 

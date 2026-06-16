@@ -17,6 +17,8 @@ Use this skill when work spans `packages/ui` and `apps/docs`.
 
 - Follow the skill order in `AGENTS.md`.
 - Rebuild UI before validating docs against changed UI output.
+- When `packages/ui` changed, wait for `npm run build:ui` to finish successfully before starting
+  `npm run tsc:check`. Do not run those commands in parallel.
 - Keep code, stories, local component docs, and site docs aligned to the same current API.
 - Sync README files when install paths, styling entrypoints, or ownership guidance changes, and keep wording consistent with `quick-start.mdx`.
 - Remove docs for deleted props, types, styling hooks, feature flags, and legacy examples in the same task.

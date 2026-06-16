@@ -328,6 +328,7 @@ export const OpenAlertDialog: Story = {
             <MenuSeparator />
             <MenuItem
               closeOnClick
+              tone="destructive"
               onClick={() => {
                 setDialogOpen(true);
               }}
@@ -396,7 +397,9 @@ export const DetachedTrigger: Story = {
             <MenuItem closeOnClick>Edit</MenuItem>
             <MenuItem closeOnClick>Share</MenuItem>
             <MenuSeparator />
-            <MenuItem closeOnClick>Archive</MenuItem>
+            <MenuItem closeOnClick tone="destructive">
+              Archive
+            </MenuItem>
           </MenuContent>
         </Menu>
       </Fragment>

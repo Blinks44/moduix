@@ -37,12 +37,13 @@ moduix adds and standardizes:
 - `createMenuHandle` for detached trigger/root composition.
 - `MenuTriggerIcon`, `MenuSubmenuTriggerIcon`, `MenuItemText`, `MenuItemTextContent`,
   `MenuItemTextIcon`, `MenuItemTextLabel`, and `MenuItemShortcut` helpers for common row layouts.
+- `tone="default" | "destructive"` on `MenuItem` and `MenuLinkItem`.
 - `indicator="start" | "end" | "none"` on checkbox and radio rows.
 - `indicator="none"` disables the reserved indicator column. Use that mode when the selected row
   should rely on background-only highlighting and no indicator part should be rendered.
 - stable `data-slot` attributes and CSS variable names under the `--menu-*` namespace.
 - exported wrapper types: `MenuPositionerProps`, `MenuContentProps`, `MenuIndicatorPosition`,
-  `MenuRadioItemProps`, and `MenuCheckboxItemProps`.
+  `MenuItemProps`, `MenuLinkItemProps`, `MenuRadioItemProps`, and `MenuCheckboxItemProps`.
 
 ## Recommended composition
 
@@ -164,8 +165,8 @@ Uses the same exported `MenuContentProps` type.
 
 | Part               | Extra moduix API                         | Notes                                                                          |
 | ------------------ | ---------------------------------------- | ------------------------------------------------------------------------------ |
-| `MenuItem`         | no extra props                           | Use for command-style actions. `closeOnClick` is commonly enabled in examples. |
-| `MenuLinkItem`     | no extra props                           | Use for navigation; forwards link props such as `href`.                        |
+| `MenuItem`         | `tone?: 'default' \| 'destructive'`      | Use for command-style actions. `closeOnClick` is commonly enabled in examples. |
+| `MenuLinkItem`     | `tone?: 'default' \| 'destructive'`      | Use for navigation; forwards link props such as `href`.                        |
 | `MenuCheckboxItem` | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `MenuCheckboxItemProps`. Controls indicator column layout.         |
 | `MenuRadioItem`    | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `MenuRadioItemProps`. Controls indicator column layout.            |
 
@@ -387,30 +388,33 @@ All built-in styling hooks are scoped under `--menu-*`.
 
 #### Items, highlights, groups, and submenu rows
 
-| Variable                               | Default                                   |
-| -------------------------------------- | ----------------------------------------- |
-| `--menu-highlight-bg`                  | `var(--color-foreground)`                 |
-| `--menu-highlight-color`               | `var(--color-background)`                 |
-| `--menu-highlight-inset-x`             | `var(--spacing-1)`                        |
-| `--menu-highlight-radius`              | `var(--radius-sm)`                        |
-| `--menu-item-bg`                       | `transparent`                             |
-| `--menu-item-bg-disabled`              | `var(--menu-item-bg)`                     |
-| `--menu-item-disabled-color`           | `var(--color-muted-foreground)`           |
-| `--menu-item-gap`                      | `var(--spacing-2)`                        |
-| `--menu-item-height`                   | `var(--popup-item-min-height, 2rem)`      |
-| `--menu-item-padding-x-start`          | `var(--popup-item-padding-x-start, 1rem)` |
-| `--menu-item-padding-x-end`            | `var(--popup-item-padding-x-end, 1rem)`   |
-| `--menu-item-padding-y`                | `var(--popup-item-padding-y, 0.5rem)`     |
-| `--menu-item-shortcut-color`           | `var(--color-muted-foreground)`           |
-| `--menu-item-shortcut-padding-x-start` | `var(--spacing-4)`                        |
-| `--menu-item-text-content-gap`         | `var(--spacing-2)`                        |
-| `--menu-item-text-icon-size`           | `1rem`                                    |
-| `--menu-group-padding-y`               | `0`                                       |
-| `--menu-group-label-color`             | `var(--color-muted-foreground)`           |
-| `--menu-group-label-padding-y`         | `0.35rem`                                 |
-| `--menu-submenu-icon-size`             | `0.875rem`                                |
-| `--menu-submenu-open-bg`               | `var(--color-accent)`                     |
-| `--menu-submenu-trigger-gap`           | `var(--spacing-3)`                        |
+| Variable                                  | Default                                                          |
+| ----------------------------------------- | ---------------------------------------------------------------- |
+| `--menu-highlight-bg`                     | `var(--color-foreground)`                                        |
+| `--menu-highlight-color`                  | `var(--color-background)`                                        |
+| `--menu-highlight-inset-x`                | `var(--spacing-1)`                                               |
+| `--menu-highlight-radius`                 | `var(--radius-sm)`                                               |
+| `--menu-item-bg`                          | `transparent`                                                    |
+| `--menu-item-destructive-color`           | `var(--color-destructive)`                                       |
+| `--menu-item-destructive-highlight-bg`    | `color-mix(in oklab, var(--color-destructive) 12%, transparent)` |
+| `--menu-item-destructive-highlight-color` | `var(--menu-item-destructive-color, var(--color-destructive))`   |
+| `--menu-item-bg-disabled`                 | `var(--menu-item-bg)`                                            |
+| `--menu-item-disabled-color`              | `var(--color-muted-foreground)`                                  |
+| `--menu-item-gap`                         | `var(--spacing-2)`                                               |
+| `--menu-item-height`                      | `var(--popup-item-min-height, 2rem)`                             |
+| `--menu-item-padding-x-start`             | `var(--popup-item-padding-x-start, 1rem)`                        |
+| `--menu-item-padding-x-end`               | `var(--popup-item-padding-x-end, 1rem)`                          |
+| `--menu-item-padding-y`                   | `var(--popup-item-padding-y, 0.5rem)`                            |
+| `--menu-item-shortcut-color`              | `var(--color-muted-foreground)`                                  |
+| `--menu-item-shortcut-padding-x-start`    | `var(--spacing-4)`                                               |
+| `--menu-item-text-content-gap`            | `var(--spacing-2)`                                               |
+| `--menu-item-text-icon-size`              | `1rem`                                                           |
+| `--menu-group-padding-y`                  | `0`                                                              |
+| `--menu-group-label-color`                | `var(--color-muted-foreground)`                                  |
+| `--menu-group-label-padding-y`            | `0.35rem`                                                        |
+| `--menu-submenu-icon-size`                | `0.875rem`                                                       |
+| `--menu-submenu-open-bg`                  | `var(--color-accent)`                                            |
+| `--menu-submenu-trigger-gap`              | `var(--spacing-3)`                                               |
 
 #### Checkbox, radio, and separator styling
 
@@ -431,8 +435,9 @@ All built-in styling hooks are scoped under `--menu-*`.
 | `--menu-separator-margin-x-end`                  | `var(--popup-separator-margin-x-end, 1rem)`    |
 | `--menu-separator-margin-y`                      | `var(--popup-separator-margin-y, 0.375rem)`    |
 
-There are no variant props. Customization is done through composition, `className`, `data-slot`,
-state attributes, and `--menu-*` variables.
+`MenuItem` and `MenuLinkItem` support `tone="destructive"` for destructive actions. Everything else
+is customized through composition, `className`, `data-slot`, state attributes, and `--menu-*`
+variables.
 
 ## UX and accessibility notes
 
@@ -442,6 +447,8 @@ state attributes, and `--menu-*` variables.
 - Disabled triggers and rows are non-interactive and receive muted styling.
 - `MenuItemShortcut` is visual only; it does not bind or listen for keyboard shortcuts.
 - Use `MenuLinkItem` for navigation and `MenuItem` for imperative actions.
+- Use `tone="destructive"` for actions such as delete, archive, or remove when the row should keep
+  a destructive tint on highlight instead of the shared dark highlight fill.
 - For checkbox and radio rows, keep the label and indicator inside the same row so the whole row
   remains the interactive target.
 - `openOnHover` is useful for desktop-style menus, but use it sparingly on touch-heavy flows.
@@ -490,6 +497,8 @@ No additional wrapper sugar is currently justified beyond that surface.
 
 ## Local changelog
 
+- 2026-06-16: Added `tone="destructive"` to `MenuItem` and `MenuLinkItem`, plus dedicated
+  destructive highlight tokens for softer destructive hover backgrounds.
 - 2026-06-14: Added `indicator="none"` for checkbox and radio rows so menus can opt out of the
   reserved indicator column without causing selection-time layout shift. Reserved start placement
   remains the default and `end` still moves the indicator to the trailing edge.

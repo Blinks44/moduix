@@ -15,6 +15,28 @@
   padding-top: 0;
 }
 
+.actionsHead {
+  width: 1%;
+  text-align: right;
+}
+
+.actionsCell {
+  width: 1%;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.actionTrigger {
+  margin-inline-start: auto;
+}
+
+.actionEllipsis {
+  font-size: 1.125rem;
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
 .code {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;

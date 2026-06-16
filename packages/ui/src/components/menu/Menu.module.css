@@ -254,6 +254,24 @@
       pointer-events: none;
       cursor: default;
     }
+
+    &[data-tone='destructive'] {
+      color: var(--menu-item-destructive-color, var(--color-destructive));
+    }
+
+    &[data-tone='destructive'][data-highlighted] {
+      color: var(
+        --menu-item-destructive-highlight-color,
+        var(--menu-item-destructive-color, var(--color-destructive))
+      );
+    }
+
+    &[data-tone='destructive'][data-highlighted]::before {
+      background-color: var(
+        --menu-item-destructive-highlight-bg,
+        color-mix(in oklab, var(--color-destructive) 12%, transparent)
+      );
+    }
   }
 
   .item,

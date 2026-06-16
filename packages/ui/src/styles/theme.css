@@ -1405,6 +1405,9 @@
   --menu-highlight-inset-x: initial; /* var(--spacing-1) */
   --menu-highlight-radius: initial; /* var(--radius-sm) */
   --menu-item-bg: initial; /* transparent */
+  --menu-item-destructive-color: initial; /* var(--color-destructive) */
+  --menu-item-destructive-highlight-bg: initial; /* color-mix(in oklab, var(--color-destructive) 12%, transparent) */
+  --menu-item-destructive-highlight-color: initial; /* var(--menu-item-destructive-color, var(--color-destructive)) */
   --menu-item-bg-disabled: initial; /* var(--menu-item-bg) */
   --menu-item-disabled-color: initial; /* var(--color-muted-foreground) */
   --menu-item-font-size: initial; /* var(--text-sm) */

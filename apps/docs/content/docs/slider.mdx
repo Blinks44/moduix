@@ -9,12 +9,10 @@ import {
   CustomCompositionSliderExample,
   DisabledSliderExample,
   RangeSliderExample,
-  SliderCssPlaygroundPanel,
   SliderCssPropertiesPanel,
   SliderExample,
   SteppedRangeSliderExample,
   VerticalSliderExample,
-  sliderPlaygroundCssProperties,
 } from '@/components/examples/slider';
 
 ## API Reference
@@ -36,7 +34,7 @@ input.
 Start with `Slider`, `SliderLabel`, `SliderValue`, and `SliderThumb`. This is the recommended path
 when the default control, track, and indicator structure already fits.
 
-<Preview cssProperties={sliderPlaygroundCssProperties}>
+<Preview>
   <SliderExample />
 
   <Preview.Code>
@@ -60,8 +58,6 @@ when the default control, track, and indicator structure already fits.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <SliderCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <SliderCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -503,7 +499,17 @@ structure needs direct control.
 ## Styling
 
 Style `Slider` through `className`, stable `data-slot="slider-*"` hooks, and the public
-`--slider-*` CSS variables shown in the Basic preview tabs.
+`--slider-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <SliderCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
 ### Styling hooks
 

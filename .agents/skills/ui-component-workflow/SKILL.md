@@ -81,3 +81,11 @@ If the answer is weak, simplify or remove it.
 ## Validation
 
 Run the required checks from `AGENTS.md` after changes.
+
+When `packages/ui` changed, treat `npm run build:ui` and `npm run tsc:check` as a strict sequence:
+
+1. run `npm run build:ui`
+2. wait for it to complete successfully
+3. only then run `npm run tsc:check`
+
+Do not run those two commands in parallel.

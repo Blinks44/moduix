@@ -23,10 +23,17 @@ export type MenuPositionerProps = Pick<
 >;
 
 export type MenuIndicatorPosition = 'start' | 'end' | 'none';
+export type MenuItemTone = 'default' | 'destructive';
 export type MenuContentProps = MenuPrimitive.Popup.Props &
   MenuPositionerProps & {
     showArrow?: boolean;
   };
+export type MenuItemProps = MenuPrimitive.Item.Props & {
+  tone?: MenuItemTone;
+};
+export type MenuLinkItemProps = MenuPrimitive.LinkItem.Props & {
+  tone?: MenuItemTone;
+};
 export type MenuRadioItemProps = MenuPrimitive.RadioItem.Props & {
   indicator?: MenuIndicatorPosition;
 };
@@ -159,20 +166,22 @@ function MenuSubmenuContent({
   return <MenuContent sideOffset={sideOffset} alignOffset={alignOffset} {...props} />;
 }
 
-function MenuItem({ className, ...props }: MenuPrimitive.Item.Props) {
+function MenuItem({ className, tone = 'default', ...props }: MenuItemProps) {
   return (
     <MenuPrimitive.Item
       data-slot="menu-item"
+      data-tone={tone}
       className={mergeClassName(className, styles.item)}
       {...props}
     />
   );
 }
 
-function MenuLinkItem({ className, ...props }: MenuPrimitive.LinkItem.Props) {
+function MenuLinkItem({ className, tone = 'default', ...props }: MenuLinkItemProps) {
   return (
     <MenuPrimitive.LinkItem
       data-slot="menu-link-item"
+      data-tone={tone}
       className={mergeClassName(className, styles.linkItem)}
       {...props}
     />

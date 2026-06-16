@@ -176,6 +176,8 @@ props, supports the shared positioning props (`side`, `sideOffset`, `align`, `al
 
 Use `MenuItem` for imperative actions, `MenuLinkItem` for navigation, `MenuCheckboxItem` and
 `MenuRadioItem` for persistent app state, and `MenuSubmenu` when the menu needs a nested branch.
+Use `tone="destructive"` on `MenuItem` or `MenuLinkItem` when destructive rows should keep a soft
+destructive highlight instead of the shared dark highlight fill.
 
 ### When to go custom
 
@@ -208,6 +210,8 @@ connected submenus:
 ### Behavioral notes
 
 - Use `closeOnClick` on action rows when the selection should immediately close the menu.
+- Use `tone="destructive"` for delete, archive, remove, or reset actions that should read as
+  dangerous in both resting and highlighted states.
 - `MenuCheckboxItem` and `MenuRadioItem` support `indicator="start" | "end" | "none"` to control
   the reserved indicator column.
 - `openOnHover` and `delay` belong on `MenuTrigger`, not on the menu root.
@@ -653,7 +657,9 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
                 <MenuItem closeOnClick>Edit</MenuItem>
                 <MenuItem closeOnClick>Share</MenuItem>
                 <MenuSeparator />
-                <MenuItem closeOnClick>Archive</MenuItem>
+                <MenuItem closeOnClick tone="destructive">
+                  Archive
+                </MenuItem>
               </MenuContent>
             </Menu>
           </Fragment>
@@ -719,6 +725,7 @@ Close the menu on click, then update dialog state from the selected action.
                 <MenuSeparator />
                 <MenuItem
                   closeOnClick
+                  tone="destructive"
                   onClick={() => {
                     setDialogOpen(true);
                   }}
@@ -909,6 +916,7 @@ Use the part that owns the visual concern:
 - `MenuTrigger` for trigger chrome and focus styling
 - `MenuContent` or `MenuPopup` for the popup surface, sizing, and motion
 - `MenuItem`, `MenuCheckboxItem`, and `MenuRadioItem` for row layout and state styling
+- `tone="destructive"` on `MenuItem` and `MenuLinkItem` for destructive row styling
 - `MenuItemText`, `MenuItemShortcut`, and `MenuGroupLabel` for secondary row content
 - `MenuBackdrop` and `MenuArrow` for optional layered composition
 

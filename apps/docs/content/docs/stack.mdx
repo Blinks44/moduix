@@ -411,11 +411,13 @@ Use `Stack` with `Skeleton` when the loading state only needs flex composition a
 inline by the component at render time. Use the `style` prop for per-instance overrides when the
 computed `direction` or `fill` value needs to change.
 
-<Tabs items={['CSS Variables']} className="mb-0 mt-3">
-  <Tab value="CSS Variables">
-    <StackCssPropertiesPanel />
-  </Tab>
-</Tabs>
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <StackCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
 ### Styling hooks
 
