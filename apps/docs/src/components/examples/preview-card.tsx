@@ -13,7 +13,7 @@ import {
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
-import styles from './preview-card.module.css';
+import './preview-card.css';
 
 type LinkPreviewPayload = {
   title: string;
@@ -152,7 +152,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 export function PreviewCardExample() {
   return (
     <PreviewCard>
-      <p className={styles.paragraph}>
+      <p className="preview-card-example__paragraph">
         The principles of good{' '}
         <PreviewCardTrigger href={linkPayloads[0].url}>typography</PreviewCardTrigger> remain in the
         digital age.
@@ -202,7 +202,7 @@ export function DetachedTriggerPreviewCardExample() {
   const previewCardHandle = React.useMemo(() => createPreviewCardHandle(), []);
 
   return (
-    <div className={styles.row}>
+    <div className="preview-card-example__row">
       <PreviewCardTrigger handle={previewCardHandle} href={linkPayloads[0].url}>
         Open detached preview
       </PreviewCardTrigger>
@@ -224,7 +224,7 @@ export function MultipleTriggersPreviewCardExample() {
   const previewCardHandle = React.useMemo(() => createPreviewCardHandle<LinkPreviewPayload>(), []);
 
   return (
-    <div className={styles.row}>
+    <div className="preview-card-example__row">
       {linkPayloads.map((item) => (
         <PreviewCardTrigger
           key={item.title}
@@ -251,13 +251,13 @@ export function PlacementPreviewCardExample() {
   const [side, setSide] = React.useState<(typeof previewCardSides)[number]>('bottom');
 
   return (
-    <div className={styles.stack}>
-      <div className={styles.sideButtons}>
+    <div className="preview-card-example__stack">
+      <div className="preview-card-example__side-buttons">
         {previewCardSides.map((item) => (
           <button
             key={item}
             type="button"
-            className={styles.sideButton}
+            className="preview-card-example__side-button"
             data-active={item === side || undefined}
             onClick={() => setSide(item)}
           >
@@ -268,7 +268,7 @@ export function PlacementPreviewCardExample() {
 
       <PreviewCard>
         <PreviewCardTrigger href={linkPayloads[0].url}>Placement: {side}</PreviewCardTrigger>
-        <PreviewCardContent side={side} className={styles.sidePopup}>
+        <PreviewCardContent side={side} className="preview-card-example__side-popup">
           <PreviewCardPreview
             item={{
               ...linkPayloads[0],
@@ -287,7 +287,7 @@ export function CustomArrowPreviewCardExample() {
       <PreviewCardTrigger href={linkPayloads[0].url}>Preview with custom arrow</PreviewCardTrigger>
       <PreviewCardPortal>
         <PreviewCardPositioner>
-          <PreviewCardPopup className={styles.customArrowPopup}>
+          <PreviewCardPopup className="preview-card-example__custom-arrow-popup">
             <PreviewCardArrow>
               <CustomArrow />
             </PreviewCardArrow>
@@ -309,15 +309,15 @@ export function CustomArrowPreviewCardExample() {
 export function CustomCompositionPreviewCardExample() {
   return (
     <PreviewCard>
-      <PreviewCardTrigger className={styles.slotTrigger} href={linkPayloads[0].url}>
+      <PreviewCardTrigger className="preview-card-example__slot-trigger" href={linkPayloads[0].url}>
         Preview with custom composition
       </PreviewCardTrigger>
       <PreviewCardPortal>
-        <PreviewCardBackdrop className={styles.backdrop} />
+        <PreviewCardBackdrop className="preview-card-example__backdrop" />
         <PreviewCardPositioner side="right" sideOffset={12}>
-          <PreviewCardPopup className={styles.composedPopup}>
-            <PreviewCardArrow className={styles.slotArrow} />
-            <PreviewCardViewport className={styles.viewport}>
+          <PreviewCardPopup className="preview-card-example__composed-popup">
+            <PreviewCardArrow className="preview-card-example__slot-arrow" />
+            <PreviewCardViewport className="preview-card-example__viewport">
               <PreviewCardPreview
                 item={{
                   ...linkPayloads[0],
@@ -335,13 +335,13 @@ export function CustomCompositionPreviewCardExample() {
 
 function PreviewCardPreview({ item }: { item: LinkPreviewPayload }) {
   return (
-    <div className={styles.popupContent}>
+    <div className="preview-card-example__popup-content">
       <img
-        className={styles.image}
+        className="preview-card-example__image"
         alt={`Preview illustration for ${item.title}`}
         src={item.image}
       />
-      <p className={styles.summary}>
+      <p className="preview-card-example__summary">
         <strong>{item.title}</strong>
         <br />
         {item.summary}
@@ -352,7 +352,12 @@ function PreviewCardPreview({ item }: { item: LinkPreviewPayload }) {
 
 function CustomArrow() {
   return (
-    <svg className={styles.customArrow} viewBox="0 0 16 8" fill="none" aria-hidden="true">
+    <svg
+      className="preview-card-example__custom-arrow"
+      viewBox="0 0 16 8"
+      fill="none"
+      aria-hidden="true"
+    >
       <path d="M8 0L16 8H0L8 0Z" fill="currentColor" />
     </svg>
   );

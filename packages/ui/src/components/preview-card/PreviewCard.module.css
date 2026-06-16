@@ -1,12 +1,14 @@
 @layer ui.components {
   .trigger {
+    --preview-card-trigger-current-color: var(--preview-card-trigger-color, var(--color-primary));
+
     outline: 0;
-    color: var(--preview-card-trigger-color, var(--color-primary));
+    color: var(--preview-card-trigger-current-color);
     text-decoration-line: underline;
     text-decoration-thickness: var(--preview-card-trigger-decoration-thickness, 1px);
     text-decoration-color: var(
       --preview-card-trigger-decoration-color,
-      color-mix(in oklab, var(--preview-card-trigger-color, var(--color-primary)), transparent 40%)
+      color-mix(in oklab, var(--preview-card-trigger-current-color), transparent 40%)
     );
     text-underline-offset: var(--preview-card-trigger-underline-offset, 2px);
     transition:
@@ -17,7 +19,7 @@
       &:hover {
         text-decoration-color: var(
           --preview-card-trigger-decoration-color-hover,
-          var(--preview-card-trigger-color, var(--color-primary))
+          var(--preview-card-trigger-current-color)
         );
       }
     }
@@ -25,7 +27,7 @@
     &[data-popup-open] {
       text-decoration-color: var(
         --preview-card-trigger-decoration-color-open,
-        var(--preview-card-trigger-color, var(--color-primary))
+        var(--preview-card-trigger-current-color)
       );
     }
 
@@ -37,8 +39,7 @@
       text-decoration-line: none;
     }
 
-    &[data-disabled],
-    &[disabled] {
+    &:is([data-disabled], [disabled]) {
       pointer-events: none;
       opacity: var(--preview-card-disabled-opacity, var(--opacity-disabled));
     }

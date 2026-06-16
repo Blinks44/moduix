@@ -4,20 +4,18 @@ import { PopupArrowIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './PreviewCard.module.css';
 
-type PreviewCardPositionerProps = Pick<
-  PreviewCardPrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
->;
-
 type PreviewCardContentProps = PreviewCardPrimitive.Popup.Props &
-  PreviewCardPositionerProps & {
+  Pick<
+    PreviewCardPrimitive.Positioner.Props,
+    | 'side'
+    | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+  > & {
     showArrow?: boolean;
   };
 
@@ -31,13 +29,11 @@ function PreviewCardTrigger<Payload = unknown>({
   render,
   ...props
 }: PreviewCardPrimitive.Trigger.Props<Payload>) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <PreviewCardPrimitive.Trigger
       data-slot="preview-card-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );

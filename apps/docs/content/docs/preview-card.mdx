@@ -35,20 +35,19 @@ path for standard link previews.
       export function PreviewCardDemo() {
         return (
           <PreviewCard>
-            <p className={styles.paragraph}>
+            <p>
               The principles of good{" "}
               <PreviewCardTrigger href={typographyUrl}>typography</PreviewCardTrigger>{" "}
               remain in the digital age.
             </p>
 
             <PreviewCardContent>
-              <div className={styles.popupContent}>
+              <div>
                 <img
-                  className={styles.image}
                   alt="Preview illustration for Typography"
                   src={typographyImageUrl}
                 />
-                <p className={styles.summary}>
+                <p>
                   <strong>Typography</strong>
                   <br />
                   Typography is the art and technique of arranging type to make written language
@@ -71,39 +70,6 @@ path for standard link previews.
 
   </Preview.Data>
 
-  <Preview.CSS>
-    {`
-      .paragraph {
-        max-width: 33rem;
-        margin: 0;
-        color: var(--color-foreground);
-        font-size: var(--text-md);
-        line-height: var(--line-height-text-md);
-      }
-
-      .popupContent {
-        display: grid;
-        gap: var(--spacing-2);
-      }
-
-      .image {
-        display: block;
-        width: 14rem;
-        max-width: min(14rem, calc(100vw - 4rem));
-        border-radius: var(--radius-sm);
-        object-fit: cover;
-      }
-
-      .summary {
-        max-width: 14rem;
-        margin: 0;
-        color: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -243,13 +209,12 @@ Use `open` and `onOpenChange` when another part of the interface owns preview vi
               Controlled preview card
             </PreviewCardTrigger>
             <PreviewCardContent>
-              <div className={styles.popupContent}>
+              <div>
                 <img
-                  className={styles.image}
                   alt="Preview illustration for Typography"
                   src={typographyImageUrl}
                 />
-                <p className={styles.summary}>
+                <p>
                   <strong>Typography</strong>
                   <br />
                   This preview card is controlled with open and onOpenChange.
@@ -289,13 +254,12 @@ low-level composition.
           <PreviewCard>
             <PreviewCardTrigger href={typographyUrl}>Preview with arrow</PreviewCardTrigger>
             <PreviewCardContent showArrow>
-              <div className={styles.popupContent}>
+              <div>
                 <img
-                  className={styles.image}
                   alt="Preview illustration for Typography"
                   src={typographyImageUrl}
                 />
-                <p className={styles.summary}>
+                <p>
                   <strong>Typography</strong>
                   <br />
                   Enable showArrow when the popup should visually point to its trigger.
@@ -333,14 +297,13 @@ Pass placement props to `PreviewCardContent` for the common popup path.
         return (
           <PreviewCard>
             <PreviewCardTrigger href={typographyUrl}>Preview on the right</PreviewCardTrigger>
-            <PreviewCardContent side="right" className={styles.sidePopup}>
-              <div className={styles.popupContent}>
+            <PreviewCardContent side="right">
+              <div>
                 <img
-                  className={styles.image}
                   alt="Preview illustration for Typography"
                   src={typographyImageUrl}
                 />
-                <p className={styles.summary}>
+                <p>
                   <strong>Typography</strong>
                   <br />
                   Current side is right.
@@ -385,20 +348,19 @@ tree.
         const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
 
         return (
-          <div className={styles.row}>
+          <div>
             <PreviewCardTrigger handle={previewCardHandle} href={typographyUrl}>
               Open detached preview
             </PreviewCardTrigger>
 
             <PreviewCard handle={previewCardHandle}>
               <PreviewCardContent>
-                <div className={styles.popupContent}>
+                <div>
                   <img
-                    className={styles.image}
                     alt="Preview illustration for Typography"
                     src={typographyImageUrl}
                   />
-                  <p className={styles.summary}>
+                  <p>
                     <strong>Typography</strong>
                     <br />
                     Trigger and popup are linked with createPreviewCardHandle().
@@ -444,7 +406,7 @@ links.
         const previewCardHandle = useMemo(() => createPreviewCardHandle(), []);
 
         return (
-          <div className={styles.row}>
+          <div>
             {items.map((item) => (
               <PreviewCardTrigger
                 key={item.title}
@@ -459,13 +421,12 @@ links.
             <PreviewCard handle={previewCardHandle}>
               {({ payload }) => (
                 <PreviewCardContent>
-                  <div className={styles.popupContent}>
+                  <div>
                     <img
-                      className={styles.image}
                       alt={"Preview illustration for " + (payload?.title ?? "Typography")}
                       src={payload?.image ?? items[0].image}
                     />
-                    <p className={styles.summary}>
+                    <p>
                       <strong>{payload?.title ?? "Typography"}</strong>
                       <br />
                       {payload?.summary ?? items[0].summary}
@@ -530,18 +491,17 @@ arrow markup itself needs to change.
             </PreviewCardTrigger>
             <PreviewCardPortal>
               <PreviewCardPositioner>
-                <PreviewCardPopup className={styles.customArrowPopup}>
+                <PreviewCardPopup>
                   <PreviewCardArrow>
                     <CustomArrow />
                   </PreviewCardArrow>
                   <PreviewCardViewport>
-                    <div className={styles.popupContent}>
+                    <div>
                       <img
-                        className={styles.image}
                         alt="Preview illustration for Typography"
                         src="/images/typography-preview.jpg"
                       />
-                      <p className={styles.summary}>
+                      <p>
                         <strong>Typography</strong>
                         <br />
                         Custom arrow content now lives in explicit composition.
@@ -557,7 +517,7 @@ arrow markup itself needs to change.
 
       function CustomArrow() {
         return (
-          <svg className={styles.customArrow} viewBox="0 0 16 8" fill="none" aria-hidden="true">
+          <svg viewBox="0 0 16 8" fill="none" aria-hidden="true">
             <path d="M8 0L16 8H0L8 0Z" fill="currentColor" />
           </svg>
         );
@@ -592,24 +552,22 @@ structure.
         return (
           <PreviewCard>
             <PreviewCardTrigger
-              className={styles.slotTrigger}
               href="https://en.wikipedia.org/wiki/Typography"
             >
               Preview with custom composition
             </PreviewCardTrigger>
             <PreviewCardPortal>
-              <PreviewCardBackdrop className={styles.backdrop} />
+              <PreviewCardBackdrop />
               <PreviewCardPositioner side="right" sideOffset={12}>
-                <PreviewCardPopup className={styles.composedPopup}>
-                  <PreviewCardArrow className={styles.slotArrow} />
-                  <PreviewCardViewport className={styles.viewport}>
-                    <div className={styles.popupContent}>
+                <PreviewCardPopup>
+                  <PreviewCardArrow />
+                  <PreviewCardViewport>
+                    <div>
                       <img
-                        className={styles.image}
                         alt="Preview illustration for Typography"
                         src="/images/typography-preview.jpg"
                       />
-                      <p className={styles.summary}>
+                      <p>
                         <strong>Typography</strong>
                         <br />
                         Portal, backdrop, arrow, and viewport stay available as explicit parts.
