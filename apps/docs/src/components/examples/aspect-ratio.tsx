@@ -1,6 +1,5 @@
 import type { ComponentProps } from 'react';
 import { AspectRatio, Card } from 'moduix';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './aspect-ratio.module.css';
 
@@ -10,22 +9,16 @@ const gridLandscapeImageUrl =
 const gridPortraitImageUrl =
   'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=720&h=1200&q=80';
 
-export const aspectRatioOverrideCssProperties: CssPropertyInput[] = [
-  ['--aspect-ratio-radius', 'var(--radius-md)', 'Controls the root border radius.'],
+const aspectRatioCssProperties = [
+  {
+    name: '--aspect-ratio-radius' as const,
+    defaultValue: 'var(--radius-md)',
+    description: 'Controls the root border radius.',
+  },
 ];
 
-export function AspectRatioCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={aspectRatioOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
+export function AspectRatioCssPropertiesPanel() {
+  return <CSSPropertiesReferenceTable properties={aspectRatioCssProperties} />;
 }
 
 export function AspectRatioExample({

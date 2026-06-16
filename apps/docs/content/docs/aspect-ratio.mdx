@@ -32,16 +32,15 @@ parent width changes.
   <Preview.Code>
     {`
       import { AspectRatio } from "moduix";
-      import styles from "./aspect-ratio-demo.module.css";
 
       export function AspectRatioDemo() {
         return (
-          <div className={styles.container}>
+          <div className="aspect-ratio-demo">
             <AspectRatio ratio="video">
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
-                className={styles.image}
+                className="aspect-ratio-demo__image"
               />
             </AspectRatio>
           </div>
@@ -53,11 +52,11 @@ parent width changes.
 
   <Preview.CSS>
     {`
-      .container {
+      .aspect-ratio-demo {
         width: min(30rem, calc(100vw - var(--spacing-8)));
       }
 
-      .image {
+      .aspect-ratio-demo__image {
         object-fit: cover;
       }
     `}
@@ -172,16 +171,15 @@ Use `ratio="square"` for avatars, thumbnails, and grid media.
   <Preview.Code>
     {`
       import { AspectRatio } from "moduix";
-      import styles from "./aspect-ratio-demo.module.css";
 
       export function SquareAspectRatioDemo() {
         return (
-          <div className={styles.container}>
+          <div className="aspect-ratio-demo">
             <AspectRatio ratio="square">
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
-                className={styles.image}
+                className="aspect-ratio-demo__image"
               />
             </AspectRatio>
           </div>
@@ -193,11 +191,11 @@ Use `ratio="square"` for avatars, thumbnails, and grid media.
 
   <Preview.CSS>
     {`
-      .container {
+      .aspect-ratio-demo {
         width: min(30rem, calc(100vw - var(--spacing-8)));
       }
 
-      .image {
+      .aspect-ratio-demo__image {
         object-fit: cover;
       }
     `}
@@ -215,16 +213,15 @@ Use `ratio="portrait"` when the content should read as a tall phone or poster fr
   <Preview.Code>
     {`
       import { AspectRatio } from "moduix";
-      import styles from "./aspect-ratio-demo.module.css";
 
       export function PortraitAspectRatioDemo() {
         return (
-          <div className={styles.narrowContainer}>
+          <div className="aspect-ratio-demo aspect-ratio-demo--narrow">
             <AspectRatio ratio="portrait">
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
-                className={styles.image}
+                className="aspect-ratio-demo__image"
               />
             </AspectRatio>
           </div>
@@ -236,11 +233,11 @@ Use `ratio="portrait"` when the content should read as a tall phone or poster fr
 
   <Preview.CSS>
     {`
-      .narrowContainer {
+      .aspect-ratio-demo--narrow {
         width: min(15rem, calc(100vw - var(--spacing-8)));
       }
 
-      .image {
+      .aspect-ratio-demo__image {
         object-fit: cover;
       }
     `}
@@ -258,16 +255,15 @@ Use `ratio="photo"` for a classic `4 / 3` media frame.
   <Preview.Code>
     {`
       import { AspectRatio } from "moduix";
-      import styles from "./aspect-ratio-demo.module.css";
 
       export function PhotoAspectRatioDemo() {
         return (
-          <div className={styles.container}>
+          <div className="aspect-ratio-demo">
             <AspectRatio ratio="photo">
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
-                className={styles.image}
+                className="aspect-ratio-demo__image"
               />
             </AspectRatio>
           </div>
@@ -279,11 +275,11 @@ Use `ratio="photo"` for a classic `4 / 3` media frame.
 
   <Preview.CSS>
     {`
-      .container {
+      .aspect-ratio-demo {
         width: min(30rem, calc(100vw - var(--spacing-8)));
       }
 
-      .image {
+      .aspect-ratio-demo__image {
         object-fit: cover;
       }
     `}
@@ -303,40 +299,39 @@ keeps the visual media height aligned instead of letting the cards jump.
   <Preview.Code>
     {`
       import { AspectRatio, Card } from "moduix";
-      import styles from "./aspect-ratio-demo.module.css";
 
       export function AspectRatioCardGridDemo() {
         return (
-          <div className={styles.cardGrid}>
-            <Card className={styles.newsCard}>
-              <AspectRatio ratio="video" className={styles.newsMedia}>
+          <div className="aspect-ratio-grid">
+            <Card className="aspect-ratio-grid__card">
+              <AspectRatio ratio="video" className="aspect-ratio-grid__media">
                 <img
                   src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&h=720&q=80"
                   alt="Evening city skyline"
-                  className={styles.image}
+                  className="aspect-ratio-grid__image"
                 />
               </AspectRatio>
-              <div className={styles.newsBody}>
-                <h3 className={styles.newsTitle}>City center opens a redesigned pedestrian corridor</h3>
-                <p className={styles.newsDescription}>
+              <div className="aspect-ratio-grid__body">
+                <h3 className="aspect-ratio-grid__title">City center opens a redesigned pedestrian corridor</h3>
+                <p className="aspect-ratio-grid__description">
                   The source image is landscape, but the media frame stays aligned with the card beside it.
                 </p>
               </div>
             </Card>
 
-            <Card className={styles.newsCard}>
-              <AspectRatio ratio="video" className={styles.newsMedia}>
+            <Card className="aspect-ratio-grid__card">
+              <AspectRatio ratio="video" className="aspect-ratio-grid__media">
                 <img
                   src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=720&h=1200&q=80"
                   alt="Reporter portrait on a street background"
-                  className={styles.image}
+                  className="aspect-ratio-grid__image"
                 />
               </AspectRatio>
-              <div className={styles.newsBody}>
-                <h3 className={styles.newsTitle}>
+              <div className="aspect-ratio-grid__body">
+                <h3 className="aspect-ratio-grid__title">
                   Editors uploaded a tall portrait photo for this story
                 </h3>
-                <p className={styles.newsDescription}>
+                <p className="aspect-ratio-grid__description">
                   AspectRatio plus object-fit: cover keeps the media height the same instead of letting the card jump.
                 </p>
               </div>
@@ -347,6 +342,58 @@ keeps the visual media height aligned instead of letting the cards jump.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .aspect-ratio-grid {
+        display: grid;
+        width: min(42rem, calc(100vw - var(--spacing-8)));
+        gap: var(--spacing-4);
+        align-items: start;
+
+        @media (min-width: 40rem) {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .aspect-ratio-grid__card {
+        overflow: hidden;
+        --card-radius: var(--radius-lg);
+      }
+
+      .aspect-ratio-grid__media {
+        --aspect-ratio-radius: 0;
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
+      }
+
+      .aspect-ratio-grid__image {
+        object-fit: cover;
+      }
+
+      .aspect-ratio-grid__body {
+        display: grid;
+        gap: var(--spacing-2);
+        padding: var(--spacing-5);
+      }
+
+      .aspect-ratio-grid__title {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-md);
+        font-weight: var(--weight-semibold);
+        line-height: var(--line-height-text-md);
+      }
+
+      .aspect-ratio-grid__description {
+        margin: 0;
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Ratio
@@ -359,16 +406,15 @@ Use a numeric ratio when the named presets are not specific enough.
   <Preview.Code>
     {`
       import { AspectRatio } from "moduix";
-      import styles from "./aspect-ratio-demo.module.css";
 
       export function CustomRatioAspectRatioDemo() {
         return (
-          <div className={styles.container}>
+          <div className="aspect-ratio-demo">
             <AspectRatio ratio={2.35}>
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
-                className={styles.image}
+                className="aspect-ratio-demo__image"
               />
             </AspectRatio>
           </div>
@@ -380,11 +426,11 @@ Use a numeric ratio when the named presets are not specific enough.
 
   <Preview.CSS>
     {`
-      .container {
+      .aspect-ratio-demo {
         width: min(30rem, calc(100vw - var(--spacing-8)));
       }
 
-      .image {
+      .aspect-ratio-demo__image {
         object-fit: cover;
       }
     `}
@@ -402,18 +448,17 @@ Use `AspectRatio` for iframe-based video or map embeds when the frame should sca
   <Preview.Code>
     {`
       import { AspectRatio } from "moduix";
-      import styles from "./aspect-ratio-demo.module.css";
 
       export function AspectRatioEmbedDemo() {
         return (
-          <div className={styles.container}>
+          <div className="aspect-ratio-demo">
             <AspectRatio ratio="video">
               <iframe
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                 title="Video embed"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
-                className={styles.frame}
+                className="aspect-ratio-demo__frame"
               />
             </AspectRatio>
           </div>
@@ -422,6 +467,19 @@ Use `AspectRatio` for iframe-based video or map embeds when the frame should sca
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .aspect-ratio-demo {
+        width: min(30rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .aspect-ratio-demo__frame {
+        border: 0;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Radius
@@ -434,16 +492,15 @@ Override `--aspect-ratio-radius` when the frame should be sharper, larger, or fu
   <Preview.Code>
     {`
       import { AspectRatio } from "moduix";
-      import styles from "./aspect-ratio-demo.module.css";
 
       export function CustomRadiusAspectRatioDemo() {
         return (
-          <div className={styles.container}>
-            <AspectRatio ratio="video" className={styles.roundedFrame}>
+          <div className="aspect-ratio-demo">
+            <AspectRatio ratio="video" className="aspect-ratio-demo__rounded">
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
-                className={styles.image}
+                className="aspect-ratio-demo__image"
               />
             </AspectRatio>
           </div>
@@ -455,11 +512,15 @@ Override `--aspect-ratio-radius` when the frame should be sharper, larger, or fu
 
   <Preview.CSS>
     {`
-      .roundedFrame {
+      .aspect-ratio-demo {
+        width: min(30rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .aspect-ratio-demo__rounded {
         --aspect-ratio-radius: var(--radius-xl);
       }
 
-      .image {
+      .aspect-ratio-demo__image {
         object-fit: cover;
       }
     `}

@@ -3,29 +3,25 @@ import { clsx } from 'clsx';
 import styles from './AspectRatio.module.css';
 
 type RatioPreset = 'square' | 'video' | 'portrait' | 'photo';
+type AspectRatioProps = ComponentPropsWithoutRef<'div'> & {
+  ratio: number | RatioPreset;
+};
 
-const PRESETS: Record<RatioPreset, number> = {
+const presetRatios: Record<RatioPreset, number> = {
   square: 1,
   video: 16 / 9,
   portrait: 9 / 16,
   photo: 4 / 3,
 };
 
-function AspectRatio({
-  ratio,
-  className,
-  style,
-  ...props
-}: ComponentPropsWithoutRef<'div'> & {
-  ratio: number | RatioPreset;
-}) {
-  const resolvedRatio = typeof ratio === 'string' ? PRESETS[ratio] : ratio;
+function AspectRatio({ ratio, className, style, ...props }: AspectRatioProps) {
+  const aspectRatio = typeof ratio === 'number' ? ratio : presetRatios[ratio];
 
   return (
     <div
       data-slot="aspect-ratio-root"
       className={clsx(styles.root, className)}
-      style={{ aspectRatio: resolvedRatio, ...style }}
+      style={{ aspectRatio, ...style }}
       {...props}
     />
   );
