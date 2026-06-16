@@ -1,7 +1,7 @@
 import type { ComponentProps, ComponentPropsWithoutRef } from 'react';
 import { Text } from 'moduix';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './text.module.css';
 
 export const textOverrideCssProperties: CssPropertyInput[] = [
@@ -27,30 +27,9 @@ export const textOverrideCssProperties: CssPropertyInput[] = [
   ['--text-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
   ['--text-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
 ];
-export const textPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
-  ['--text-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
-  ['--text-font-family', 'var(--font-sans)', 'Controls text font family.'],
-  ['--text-letter-spacing', '0', 'Controls text letter spacing.'],
-  ['--text-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
-  ['--text-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
-  ['--text-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
-];
-
-export function TextCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function TextCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={textOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function TextCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={textPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 

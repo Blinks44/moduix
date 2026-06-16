@@ -7,33 +7,34 @@ icon: Component
 import {
   CustomTagExample,
   RemovableTagExample,
-  TagCssPlaygroundPanel,
   TagCssPropertiesPanel,
   TagExample,
   TagSizesExample,
   TagTruncatedExample,
   TagVariantsExample,
   TagWithLeadingIconExample,
-  tagPlaygroundCssProperties,
 } from '@/components/examples/tag';
 
 ## API Reference
 
 `Tag` is a standalone moduix component for selected values, filters, assignees, and other compact
-tokens that may need an inline remove action. Use `TagRemove` when the token should expose a clear,
-explicit dismiss button.
+state tokens. There is no dedicated Base UI `Tag` primitive; `TagRemove` composes the Base UI
+button when the token needs an explicit inline remove action.
 
 ## Choosing the right component
 
-Use `Tag` when the UI is showing **the selected value itself** and the value may need to be removed,
-reordered, or otherwise managed as a token.
+Use `Tag` when the UI is showing **the selected value itself** and that value may need to be
+removed, reordered, or managed as part of the current interface state.
 
 - Choose **`Badge`** when the UI is showing short metadata such as status, category, version, or count.
 - Choose **`Tag`** when the UI is showing selected values, filters, assignments, or labels that belong to the current state of the interface.
 
 ## Basic
 
-<Preview cssProperties={tagPlaygroundCssProperties} cssVariableScope="local">
+Start with `Tag` and `TagLabel`. Add `TagRemove` only when the surrounding UI actually supports
+removing the token.
+
+<Preview>
   <TagExample />
 
   <Preview.Code>
@@ -50,8 +51,6 @@ reordered, or otherwise managed as a token.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <TagCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <TagCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -102,20 +101,13 @@ styles, icons, and small utilities.
 
 ## Anatomy
 
-The default consumer path keeps the token presentational and the remove action explicit:
+The public structure stays small and keeps the remove action explicit.
 
 ```text
 Tag
 ├─ svg icon (optional)
 ├─ TagLabel
 └─ TagRemove (optional)
-```
-
-```tsx
-<Tag>
-  <TagLabel>TypeScript</TagLabel>
-  <TagRemove aria-label="Remove TypeScript tag" />
-</Tag>
 ```
 
 | Part        | Role                                                                |
@@ -126,18 +118,39 @@ Tag
 
 ## Composition
 
-`Tag` stays a plain `span`, so the component does not own selection state, remove behavior, or list
-management. Consumers decide whether to render `TagRemove` and what should happen on click.
+### When to stay high-level
 
-Keep the token value in `TagLabel` when long text may truncate. Leading icons can stay as direct
-children of `Tag`; they inherit `currentColor` and use `--tag-icon-size`. `TagRemove` is a styled
-Base UI button that defaults to `type="button"` and renders a close icon when `children` are
-omitted.
+Stay with `Tag`, `TagLabel`, and `TagRemove` for selected values, filter chips, assignees, and
+other token-like UI.
 
-| Prop      | Default   | Values                                                    |
-| --------- | --------- | --------------------------------------------------------- |
-| `variant` | `default` | `default`, `secondary`, `outline`, `ghost`, `destructive` |
-| `size`    | `md`      | `sm`, `md`                                                |
+Use `variant` for the built-in tones: `default`, `secondary`, `outline`, `ghost`, and
+`destructive`. Use `size="sm"` for denser rows of tokens.
+
+Keep long visible values inside `TagLabel` so truncation happens on the label instead of clipping
+icons or the remove button.
+
+### When to go custom
+
+Switch to `className` overrides and local CSS variables when the token needs a different tone,
+spacing, or inline remove treatment. `Tag` stays a presentational `span`, so there is no separate
+low-level composition path to learn.
+
+### Default props
+
+| Surface     | Prop         | Default      | Values / Notes                                                                |
+| ----------- | ------------ | ------------ | ----------------------------------------------------------------------------- |
+| `Tag`       | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`                     |
+| `Tag`       | `size`       | `md`         | `sm`, `md`                                                                    |
+| `TagRemove` | `type`       | `button`     | Prevents accidental form submission                                           |
+| `TagRemove` | `children`   | close icon   | Replaced when custom children are passed                                      |
+| `TagRemove` | `aria-label` | `Remove tag` | Applied only when there are no custom children and no `aria-labelledby` value |
+
+### Behavioral notes
+
+- `Tag` is presentational and never becomes interactive on its own.
+- `TagRemove` is explicit composition, not a root-level `onRemove` prop.
+- `TagRemove` uses `Button` semantics, so give it a specific accessible name when several removable tags appear together.
+- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and use `--tag-icon-size`.
 
 ## Examples
 
@@ -169,6 +182,11 @@ Use the built-in variants for the common visual tones.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`      const variants = ["default", "secondary", "outline", "ghost", "destructive"] as const;`}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -313,8 +331,8 @@ Place a direct child icon before the label when the token benefits from a second
 
 ### Long Labels
 
-`TagLabel` is the truncation point for longer token values. Add `title` when the full text should
-remain discoverable.
+Use `TagLabel` as the truncation point for longer token values. Add `title` when the full text
+should remain discoverable.
 
 <Preview>
   <TagTruncatedExample />
@@ -348,10 +366,9 @@ remain discoverable.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
-Use `className` and local CSS variables when a token needs a different tone or spacing without
-changing the public API.
+Use local CSS variables when a token needs custom tone or spacing without changing the public API.
 
 <Preview>
   <CustomTagExample />
@@ -403,3 +420,24 @@ changing the public API.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Prefer built-in variants first, then local CSS variables for one-off sizing and tone changes.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TagCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="tag-root"`, `data-slot="tag-label"`, and `data-slot="tag-remove"` are stable selectors on the exported parts.
+- `Tag` writes the selected size and tone to `data-size` and `data-variant`.
+- `TagLabel` is the intended truncation wrapper for long values.
+- `TagRemove` inherits the token color, uses `--tag-remove-icon-size` for its icon, and exposes the same `className` override path as other exported parts.

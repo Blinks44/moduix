@@ -2,7 +2,7 @@ import type { TagVariant } from 'moduix';
 import type { ComponentProps } from 'react';
 import { CheckIcon, Tag, TagLabel, TagRemove } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './tag.module.css';
 
 const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] satisfies TagVariant[];
@@ -62,32 +62,8 @@ const tagCssProperties: CssPropertyInput[] = [
   ['--tag-transition', 'var(--transition-default)', 'Controls tag and remove button transitions.'],
 ];
 
-export const tagPlaygroundCssProperties: CssPropertyInput[] = [
-  tagCssProperties[0],
-  tagCssProperties[1],
-  tagCssProperties[3],
-  tagCssProperties[7],
-  tagCssProperties[10],
-  tagCssProperties[14],
-  tagCssProperties[17],
-  tagCssProperties[19],
-  tagCssProperties[24],
-  tagCssProperties[26],
-];
-
 export function TagCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return <CSSPropertiesReferenceTable properties={tagCssProperties.map(normalizeCssProperty)} />;
-}
-
-export function TagCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={tagPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {

@@ -7,7 +7,6 @@ icon: Component
 import {
   TextAlignExample,
   TextClassNameExample,
-  TextCssPlaygroundPanel,
   TextCssPropertiesPanel,
   TextCustomElementExample,
   TextElementsExample,
@@ -15,23 +14,30 @@ import {
   TextSizesExample,
   TextTonesExample,
   TextWeightsExample,
-  textPlaygroundCssProperties,
 } from '@/components/examples/text';
 
 ## API Reference
 
-`Text` is the default typography primitive for body copy and supporting UI text. It stays focused on
-three things:
+There is no dedicated Base UI `Text` primitive behind this component. `Text` is the shipped moduix
+typography wrapper for body copy, helper text, inline emphasis, and simple semantic root swaps.
 
-- body typography defaults
-- a small set of visual variants
-- simple semantic composition
+## Choosing the right component
 
-## Default Path
+Use `Text` for body copy, helper copy, inline emphasis, and supporting UI text that should stay on
+the moduix text scale.
 
-Use the default `p` for body copy. When only the intrinsic HTML tag should change, use `as`.
+- Choose **`Heading`** for document structure and heading hierarchy.
+- Choose **`Text`** when the content should keep paragraph or inline semantics with body-text
+  styling.
+- Choose local CSS or layout primitives when the concern is spacing, truncation, or rich-text
+  layout rather than typography tokens.
 
-<Preview cssProperties={textPlaygroundCssProperties}>
+## Basic
+
+Start with the default `p` root. Use `as` only when the semantic HTML tag should change while the
+same text styling contract stays in place.
+
+<Preview>
   <TextExample />
 
   <Preview.Code>
@@ -53,8 +59,6 @@ Use the default `p` for body copy. When only the intrinsic HTML tag should chang
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <TextCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <TextCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -103,9 +107,6 @@ aubx shadcn@latest add Blinks44/moduix/text
 This install path also pulls in the shared moduix foundation files that `Text` depends on, such
 as styles, icons, and small utilities.
 
-Use `render` only when the root should be a custom component such as a router link or app-specific
-primitive.
-
 ## Anatomy
 
 `Text` renders a single root element.
@@ -121,15 +122,25 @@ Text
 
 ## Composition
 
-`Text` has two composition paths:
+### When to stay high-level
 
-| Pattern             | Best fit                                           |
-| ------------------- | -------------------------------------------------- |
-| default `p`         | Body copy and descriptive text                     |
-| `as="small"`        | Common intrinsic tags with the same styling system |
-| `render={<Link />}` | Router links and app-level custom primitives       |
+Stay with `Text` and, when needed, the intrinsic `as` prop for regular body copy, metadata, inline
+emphasis, and descriptive text.
 
-Defaults stay intentionally small:
+Use `as` when a native semantic tag is enough:
+
+- default `p` for paragraphs and body copy
+- `span` for inline copy inside other text flows
+- `small` for supporting metadata
+- `strong` and `em` when semantic emphasis is actually correct
+- `div` when the content must stay block-level without paragraph semantics
+
+### When to go custom
+
+Use `render` only when the root must be a custom component such as a router link or app-level
+primitive that owns its own element contract.
+
+### Default props
 
 | Prop     | Default         | Values                                                 |
 | -------- | --------------- | ------------------------------------------------------ |
@@ -140,12 +151,22 @@ Defaults stay intentionally small:
 | `tone`   | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive` |
 | `align`  | Unset (`start`) | `left`, `center`, `right`                              |
 
-Render-based defaults for `size` and `weight`:
+Resolved defaults for `size` and `weight`:
 
 - default root (`p`): `size="md"`, `weight="regular"`
 - `as="small"` or `render={<small />}`: `size="sm"`, `weight="regular"`
 - `as="strong"` or `render={<strong />}`: `size="md"`, `weight="semibold"`
 - other intrinsic elements and custom components: `size="md"`, `weight="regular"`
+
+### Behavioral notes
+
+- `Text` always renders one root element and applies `data-slot="text-root"`.
+- It also exposes `data-size`, `data-weight`, and `data-tone` on every render, plus `data-align`
+  only when `align` is provided.
+- The base styles reset paragraph margin to `0`, keep `text-align: start` by default, and wrap long
+  words with `overflow-wrap: break-word`.
+- `Text` does not add interaction behavior, truncation helpers, rich-text parsing, or layout
+  spacing.
 
 ## Examples
 
@@ -230,9 +251,10 @@ Use `tone` to match the role of the copy without local color classes.
   </Preview.CSS>
 </Preview>
 
-### Size and Weight
+### Size
 
-Use `size` and `weight` when the visual hierarchy should shift inside the same text primitive.
+Use `size` when the visual hierarchy should shift without switching to a different typography
+component.
 
 <Preview>
   <TextSizesExample />
@@ -268,6 +290,10 @@ Use `size` and `weight` when the visual hierarchy should shift inside the same t
 
   </Preview.CSS>
 </Preview>
+
+### Weight
+
+Use `weight` when the emphasis should stay within the same semantic element.
 
 <Preview>
   <TextWeightsExample />
@@ -340,9 +366,7 @@ Use `align` when alignment belongs to the text itself instead of the surrounding
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
-
-### Custom Element
+### Custom Composition
 
 Use `render` when the root should be a custom component instead of an intrinsic tag.
 
@@ -372,7 +396,7 @@ Use `render` when the root should be a custom component instead of an intrinsic 
   </Preview.Code>
 </Preview>
 
-### Styling
+### Custom Styling
 
 Pass `className` when styling the root with local CSS variables.
 
@@ -406,3 +430,27 @@ Pass `className` when styling the root with local CSS variables.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Text` through `className`, root data attributes, and the public `--text-*` CSS variables
+defined in [`theme.css`](/Users/sergejvrenev/Desktop/dev/2gis/moduix/packages/ui/src/styles/theme.css:2325).
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TextCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="text-root"` is the stable selector on the exported root.
+- `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, or `xl`.
+- `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
+- `data-tone` reflects the active tone preset: `default`, `muted`, `subtle`, `primary`, or
+  `destructive`.
+- `data-align` appears only when `align` is explicitly set to `left`, `center`, or `right`.
