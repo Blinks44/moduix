@@ -1,4 +1,5 @@
-.field {
+.field,
+.customField {
   width: fit-content;
   max-width: min(20rem, 100%);
 }
@@ -11,8 +12,6 @@
 }
 
 .customField {
-  width: fit-content;
-  max-width: min(20rem, 100%);
   gap: var(--spacing-2);
 }
 
@@ -23,8 +22,8 @@
 
 .customControl {
   border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
 
-.customControl:focus-visible {
-  outline-color: var(--color-primary);
+  &:focus-visible {
+    outline-color: var(--color-primary);
+  }
 }

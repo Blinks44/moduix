@@ -124,14 +124,19 @@ export function CustomCompositionFieldsetExample() {
       >
         <FieldsetLegend>Storage type</FieldsetLegend>
 
-        {storageTypes.map((item) => (
-          <FieldItem key={item.value}>
-            <FieldLabel className={styles.choiceRow}>
-              <Radio value={item.value} />
-              <RadioLabel>{item.label}</RadioLabel>
-            </FieldLabel>
-          </FieldItem>
-        ))}
+        <FieldItem>
+          <FieldLabel className={styles.choiceRow}>
+            <Radio value="ssd" />
+            <RadioLabel>SSD</RadioLabel>
+          </FieldLabel>
+        </FieldItem>
+
+        <FieldItem>
+          <FieldLabel className={styles.choiceRow}>
+            <Radio value="hdd" />
+            <RadioLabel>HDD</RadioLabel>
+          </FieldLabel>
+        </FieldItem>
       </Fieldset>
     </Field>
   );
@@ -152,8 +157,3 @@ export function CustomStylesFieldsetExample() {
     </Fieldset>
   );
 }
-
-const storageTypes = [
-  { value: 'ssd', label: 'SSD' },
-  { value: 'hdd', label: 'HDD' },
-];

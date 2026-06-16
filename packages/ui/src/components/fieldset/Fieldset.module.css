@@ -17,10 +17,10 @@
     border-color: var(--fieldset-border-color, transparent);
     border-radius: var(--fieldset-radius, var(--radius-none));
     min-inline-size: 0;
-  }
 
-  .root[data-disabled] {
-    opacity: var(--fieldset-disabled-opacity, var(--opacity-disabled));
+    &[data-disabled] {
+      opacity: var(--fieldset-disabled-opacity, var(--opacity-disabled));
+    }
   }
 
   .legend {

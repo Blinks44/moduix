@@ -337,8 +337,7 @@ Public CSS variables:
   same task.
 - When `FieldControl` styles are updated, verify the visual output matches moduix `Input` and
   `Textarea` components for consistency.
-- The `disabled` opacity rule uses `:is()` to target all styleable parts with a single selector.
-  Do not split this into per-part rules unless per-part opacity values are needed.
+- Keep disabled styling easy to follow and colocated with the slot it affects.
 
 ## Local changelog
 
@@ -346,3 +345,5 @@ Public CSS variables:
   CSS variables, `data-slot` hooks, and usage patterns instead of the upstream Base UI documentation.
 - `FieldControl` focus ring now transitions with the same timing token as its border color so text
   inputs inside `Field` match moduix `Input` more closely.
+- Simplified the CSS module by moving disabled and invalid state styling next to each slot with
+  nesting instead of relying on a shared compound selector.

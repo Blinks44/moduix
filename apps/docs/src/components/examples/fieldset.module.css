@@ -1,11 +1,11 @@
-.fieldset {
+.fieldset,
+.customFieldset,
+.choiceGroup {
   width: fit-content;
   max-width: min(20rem, 100%);
 }
 
 .customFieldset {
-  width: fit-content;
-  max-width: 20rem;
   gap: var(--spacing-3);
   padding: var(--spacing-4);
   border: var(--border-width-sm) solid color-mix(in srgb, var(--color-primary) 30%, transparent);
@@ -28,16 +28,14 @@
 
 .customControl {
   border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
 
-.customControl:focus-visible {
-  outline-color: var(--color-primary);
+  &:focus-visible {
+    outline-color: var(--color-primary);
+  }
 }
 
 .choiceGroup {
   align-self: center;
-  width: fit-content;
-  max-width: min(20rem, 100%);
   gap: var(--spacing-2);
 }
 

@@ -95,25 +95,25 @@ import {
   RadioLabel,
 } from 'moduix';
 
-const storageTypes = [
-  { value: 'ssd', label: 'SSD' },
-  { value: 'hdd', label: 'HDD' },
-];
-
 export function StorageTypeFieldset() {
   return (
     <Field name="storageType">
       <Fieldset render={<RadioGroup defaultValue="ssd" />}>
         <FieldsetLegend>Storage type</FieldsetLegend>
 
-        {storageTypes.map((item) => (
-          <FieldItem key={item.value}>
-            <FieldLabel>
-              <Radio value={item.value} />
-              <RadioLabel>{item.label}</RadioLabel>
-            </FieldLabel>
-          </FieldItem>
-        ))}
+        <FieldItem>
+          <FieldLabel>
+            <Radio value="ssd" />
+            <RadioLabel>SSD</RadioLabel>
+          </FieldLabel>
+        </FieldItem>
+
+        <FieldItem>
+          <FieldLabel>
+            <Radio value="hdd" />
+            <RadioLabel>HDD</RadioLabel>
+          </FieldLabel>
+        </FieldItem>
       </Fieldset>
     </Field>
   );
@@ -286,3 +286,5 @@ state attributes, and the `--fieldset-*` variables.
 - Rewrote the local documentation to describe the shipped moduix `Fieldset` wrapper, including the
   real two-part API, styling contract, `render` composition path, and the important detail that
   `FieldsetLegend` renders a `<div>` associated through `aria-labelledby`.
+- Simplified the grouped radio examples and docs snippets by inlining the two option rows instead of
+  routing them through a temporary array and `map`.

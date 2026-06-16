@@ -233,25 +233,25 @@ advanced composition path for radio groups and checkbox groups inside forms.
         RadioLabel,
       } from "moduix";
 
-      const storageTypes = [
-        { value: "ssd", label: "SSD" },
-        { value: "hdd", label: "HDD" },
-      ];
-
       export function StorageTypeFieldset() {
         return (
           <Field name="storageType">
             <Fieldset render={<RadioGroup defaultValue="ssd" />}>
               <FieldsetLegend>Storage type</FieldsetLegend>
 
-              {storageTypes.map((item) => (
-                <FieldItem key={item.value}>
-                  <FieldLabel>
-                    <Radio value={item.value} />
-                    <RadioLabel>{item.label}</RadioLabel>
-                  </FieldLabel>
-                </FieldItem>
-              ))}
+              <FieldItem>
+                <FieldLabel>
+                  <Radio value="ssd" />
+                  <RadioLabel>SSD</RadioLabel>
+                </FieldLabel>
+              </FieldItem>
+
+              <FieldItem>
+                <FieldLabel>
+                  <Radio value="hdd" />
+                  <RadioLabel>HDD</RadioLabel>
+                </FieldLabel>
+              </FieldItem>
             </Fieldset>
           </Field>
         );
@@ -279,23 +279,22 @@ Modules.
         Fieldset,
         FieldsetLegend,
       } from "moduix";
-      import styles from "./fieldset-demo.module.css";
 
       export function StyledFieldsetDemo() {
         return (
-          <Fieldset className={styles.customFieldset}>
-            <FieldsetLegend className={styles.customLegend}>
+          <Fieldset className="customFieldset">
+            <FieldsetLegend className="customLegend">
               Styled fieldset
             </FieldsetLegend>
 
-            <Field validationMode="onBlur" className={styles.customField}>
-              <FieldLabel className={styles.customLabel}>Project name</FieldLabel>
+            <Field validationMode="onBlur" className="customField">
+              <FieldLabel className="customLabel">Project name</FieldLabel>
               <FieldControl
                 required
                 placeholder="Maps Platform"
-                className={styles.customControl}
+                className="customControl"
               />
-              <FieldError className={styles.customError} match="valueMissing">
+              <FieldError className="customError" match="valueMissing">
                 Please enter a project name.
               </FieldError>
             </Field>
@@ -332,10 +331,10 @@ Modules.
 
       .customControl {
         border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-      }
 
-      .customControl:focus-visible {
-        outline-color: var(--color-primary);
+        &:focus-visible {
+          outline-color: var(--color-primary);
+        }
       }
     `}
 

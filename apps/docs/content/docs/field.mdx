@@ -434,11 +434,6 @@ Use `FieldLabel nativeLabel={false}` when the visible label should not behave li
         SelectValue,
       } from "moduix";
 
-      const assignees = [
-        { label: "Alice", value: "alice" },
-        { label: "Bob", value: "bob" },
-      ];
-
       export function TriggerFieldDemo() {
         return (
           <Field validationMode="onBlur">
@@ -469,6 +464,16 @@ Use `FieldLabel nativeLabel={false}` when the visible label should not behave li
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const assignees = [
+        { label: "Alice", value: "alice" },
+        { label: "Bob", value: "bob" },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Disabled
@@ -520,7 +525,6 @@ Use `FieldValidity` when the field needs custom validity-driven UI beyond a norm
         FieldLabel,
         FieldValidity,
       } from "moduix";
-      import styles from "./field-demo.module.css";
 
       export function FieldValidityDemo() {
         return (
@@ -539,7 +543,7 @@ Use `FieldValidity` when the field needs custom validity-driven UI beyond a norm
             <FieldError match="customError" />
             <FieldValidity>
               {(state) => (
-                <p className={styles.helper}>
+                <p className="helper">
                   {state.validity.valid ? "Looks good." : "Waiting for valid value."}
                 </p>
               )}
@@ -580,19 +584,18 @@ Pass `className` to the slots that need overrides when styling the field with CS
         FieldError,
         FieldLabel,
       } from "moduix";
-      import styles from "./field-demo.module.css";
 
       export function CustomStylesFieldDemo() {
         return (
-          <Field validationMode="onBlur" className={styles.customField}>
-            <FieldLabel className={styles.customLabel}>Project key</FieldLabel>
+          <Field validationMode="onBlur" className="customField">
+            <FieldLabel className="customLabel">Project key</FieldLabel>
             <FieldControl
               required
               placeholder="MAPS"
-              className={styles.customControl}
+              className="customControl"
             />
             <FieldDescription>Use three to five uppercase letters.</FieldDescription>
-            <FieldError className={styles.customError} match="valueMissing">
+            <FieldError className="customError" match="valueMissing">
               Please enter a project key.
             </FieldError>
           </Field>
@@ -616,10 +619,10 @@ Pass `className` to the slots that need overrides when styling the field with CS
 
       .customControl {
         border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-      }
 
-      .customControl:focus-visible {
-        outline-color: var(--color-primary);
+        &:focus-visible {
+          outline-color: var(--color-primary);
+        }
       }
     `}
 
