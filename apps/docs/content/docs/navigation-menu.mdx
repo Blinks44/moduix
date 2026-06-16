@@ -54,19 +54,19 @@ site navigation.
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Product</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className={styles.contentGrid}>
+                  <ul>
                     <li>
-                      <a href="#" className={styles.linkCard}>
-                        <p className={styles.title}>Quick Start</p>
-                        <p className={styles.description}>
+                      <a href="#">
+                        <p>Quick Start</p>
+                        <p>
                           Install the package and assemble your first navigation.
                         </p>
                       </a>
                     </li>
                     <li>
-                      <a href="#" className={styles.linkCard}>
-                        <p className={styles.title}>Composition</p>
-                        <p className={styles.description}>
+                      <a href="#">
+                        <p>Composition</p>
+                        <p>
                           Use slots and className to match your application layout.
                         </p>
                       </a>
@@ -78,19 +78,19 @@ site navigation.
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Guides</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className={styles.contentList}>
+                  <ul>
                     <li>
-                      <a href="#" className={styles.linkCard}>
-                        <p className={styles.title}>Accessibility handbook</p>
-                        <p className={styles.description}>
+                      <a href="#">
+                        <p>Accessibility handbook</p>
+                        <p>
                           Take a practical pass over focus order and keyboard support.
                         </p>
                       </a>
                     </li>
                     <li>
-                      <a href="#" className={styles.linkCard}>
-                        <p className={styles.title}>Composition handbook</p>
-                        <p className={styles.description}>
+                      <a href="#">
+                        <p>Composition handbook</p>
+                        <p>
                           Learn when to wrap parts and expose flexible APIs.
                         </p>
                       </a>
@@ -270,7 +270,7 @@ text-only trigger.
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger icon={<ChevronDownIcon className={styles.customIcon} />}>
+                <NavigationMenuTrigger icon={<ChevronDownIcon />}>
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>{/* panel content */}</NavigationMenuContent>
@@ -317,33 +317,30 @@ popup.
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className={styles.contentList}>
+                  <ul>
                     <li>
-                      <a href="#" className={styles.linkCard}>
-                        <p className={styles.title}>Quick Start</p>
-                        <p className={styles.description}>
+                      <a href="#">
+                        <p>Quick Start</p>
+                        <p>
                           Install and assemble your first screen.
                         </p>
                       </a>
                     </li>
 
-                    <li className={styles.fullWidth}>
+                    <li>
                       <NavigationMenu
-                        className={styles.nestedRoot}
                         orientation="vertical"
                         side="right"
                         align="end"
                         sideOffset={24}
                         alignOffset={-24}
                       >
-                        <NavigationMenuList className={styles.fullWidth}>
-                          <NavigationMenuItem className={styles.fullWidth}>
-                            <NavigationMenuTrigger className={styles.nestedTrigger} icon={null}>
-                              <span className={styles.title}>Handbook</span>
-                              <span className={styles.description}>
-                                Styling and composition guides.
-                              </span>
-                              <NavigationMenuIcon className={styles.nestedIcon}>
+                        <NavigationMenuList>
+                          <NavigationMenuItem>
+                            <NavigationMenuTrigger icon={null}>
+                              <span>Handbook</span>
+                              <span>Styling and composition guides.</span>
+                              <NavigationMenuIcon>
                                 <ChevronRightIcon />
                               </NavigationMenuIcon>
                             </NavigationMenuTrigger>
@@ -393,26 +390,25 @@ level should stay inside the current panel instead of opening another popup.
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Product</NavigationMenuTrigger>
-                <NavigationMenuContent className={styles.inlineProductContent}>
+                <NavigationMenuContent>
                   <NavigationMenu
-                    className={styles.inlineNestedRoot}
                     orientation="vertical"
                     defaultValue="developers"
                     showPopup={false}
                   >
-                    <NavigationMenuList className={styles.inlineList}>
+                    <NavigationMenuList>
                       <NavigationMenuItem value="developers">
-                        <NavigationMenuTrigger className={styles.inlineTrigger} icon={null}>
-                          <span className={styles.title}>Developers</span>
-                          <span className={styles.description}>API, SDK and integrations</span>
+                        <NavigationMenuTrigger icon={null}>
+                          <span>Developers</span>
+                          <span>API, SDK and integrations</span>
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent className={styles.inlineSubmenuContent}>
+                        <NavigationMenuContent>
                           {/* nested panel content */}
                         </NavigationMenuContent>
                       </NavigationMenuItem>
                     </NavigationMenuList>
 
-                    <NavigationMenuViewport className={styles.inlineViewport} />
+                    <NavigationMenuViewport />
                   </NavigationMenu>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -451,7 +447,7 @@ hatch for custom layering, backdrops, or manual viewport placement.
 
       export function CustomCompositionNavigationMenuDemo() {
         return (
-          <NavigationMenu className={styles.customRoot} showPopup={false}>
+          <NavigationMenu showPopup={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
@@ -459,12 +455,12 @@ hatch for custom layering, backdrops, or manual viewport placement.
               </NavigationMenuItem>
             </NavigationMenuList>
 
-            <NavigationMenuPortal className={styles.portal}>
-              <NavigationMenuBackdrop className={styles.backdrop} />
-              <NavigationMenuPositioner className={styles.positioner} sideOffset={16}>
+            <NavigationMenuPortal>
+              <NavigationMenuBackdrop />
+              <NavigationMenuPositioner sideOffset={16}>
                 <NavigationMenuPopup>
-                  <NavigationMenuArrow className={styles.arrow} />
-                  <NavigationMenuViewport className={styles.viewport} />
+                  <NavigationMenuArrow />
+                  <NavigationMenuViewport />
                 </NavigationMenuPopup>
               </NavigationMenuPositioner>
             </NavigationMenuPortal>

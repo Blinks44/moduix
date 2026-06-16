@@ -16,7 +16,6 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from 'moduix';
-import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './navigation-menu.module.css';
@@ -240,8 +239,10 @@ export function NavigationMenuCssPlaygroundPanel({
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
 
@@ -499,10 +500,10 @@ function PanelContent({
 }: {
   title: string;
   description: string;
-  links: readonly NavigationLink[];
+  links: NavigationLink[];
 }) {
   return (
-    <React.Fragment>
+    <>
       <h4 className={styles.panelTitle}>{title}</h4>
       <p className={styles.panelDescription}>{description}</p>
       <ul className={styles.panelList}>
@@ -515,7 +516,7 @@ function PanelContent({
           </li>
         ))}
       </ul>
-    </React.Fragment>
+    </>
   );
 }
 
@@ -536,7 +537,7 @@ const productLinks = [
     title: 'Composition',
     description: 'Use slots and className to match your application layout.',
   },
-] as const satisfies readonly NavigationLink[];
+] satisfies NavigationLink[];
 
 const developerLinks = [
   {
@@ -554,7 +555,7 @@ const developerLinks = [
     title: 'Composition',
     description: 'Wrap and combine parts to match your product structure.',
   },
-] as const satisfies readonly NavigationLink[];
+] satisfies NavigationLink[];
 
 const systemLinks = [
   {
@@ -572,7 +573,7 @@ const systemLinks = [
     title: 'Release notes',
     description: 'Track version changes before upgrades surprise teams.',
   },
-] as const satisfies readonly NavigationLink[];
+] satisfies NavigationLink[];
 
 const guideLinks = [
   {
@@ -590,4 +591,4 @@ const guideLinks = [
     title: 'Styling handbook',
     description: 'Apply tokens and state styles without fighting markup.',
   },
-] as const satisfies readonly NavigationLink[];
+] satisfies NavigationLink[];

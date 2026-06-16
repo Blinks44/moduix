@@ -87,20 +87,20 @@
       border-radius: var(--navigation-menu-submenu-trigger-radius, var(--radius-lg));
       padding: var(--navigation-menu-submenu-trigger-padding-y, 0.5rem)
         var(--navigation-menu-submenu-trigger-padding-x, 0.75rem);
-    }
 
-    .root .root &:active,
-    .root .root &[data-popup-open],
-    .root .root &[data-active] {
-      background-color: var(
-        --navigation-menu-submenu-trigger-bg-active,
-        var(--navigation-menu-popup-bg, var(--color-background))
-      );
-      box-shadow: var(
-        --navigation-menu-submenu-trigger-shadow-active,
-        0 1px 2px rgb(0 0 0 / 0.08),
-        0 1px 1px rgb(0 0 0 / 0.04)
-      );
+      &:active,
+      &[data-popup-open],
+      &[data-active] {
+        background-color: var(
+          --navigation-menu-submenu-trigger-bg-active,
+          var(--navigation-menu-popup-bg, var(--color-background))
+        );
+        box-shadow: var(
+          --navigation-menu-submenu-trigger-shadow-active,
+          0 1px 2px rgb(0 0 0 / 0.08),
+          0 1px 1px rgb(0 0 0 / 0.04)
+        );
+      }
     }
   }
 

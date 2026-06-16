@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { NavigationMenu as NavigationMenuPrimitive } from '@base-ui/react/navigation-menu';
 import { ChevronDownIcon, PopupArrowIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
@@ -7,21 +7,22 @@ import styles from './NavigationMenu.module.css';
 const DEFAULT_SIDE_OFFSET = 10;
 const DEFAULT_COLLISION_AVOIDANCE = { side: 'none' } as const;
 const DEFAULT_COLLISION_PADDING = { top: 5, bottom: 5, left: 20, right: 20 } as const;
-export type NavigationMenuPositionerProps = Pick<
-  NavigationMenuPrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'anchor'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
-  | 'sticky'
-  | 'positionMethod'
-  | 'disableAnchorTracking'
->;
+type BasePositionerProps = NavigationMenuPrimitive.Positioner.Props;
+
+export type NavigationMenuPositionerProps = {
+  side?: BasePositionerProps['side'];
+  sideOffset?: BasePositionerProps['sideOffset'];
+  align?: BasePositionerProps['align'];
+  alignOffset?: BasePositionerProps['alignOffset'];
+  arrowPadding?: BasePositionerProps['arrowPadding'];
+  anchor?: BasePositionerProps['anchor'];
+  collisionAvoidance?: BasePositionerProps['collisionAvoidance'];
+  collisionBoundary?: BasePositionerProps['collisionBoundary'];
+  collisionPadding?: BasePositionerProps['collisionPadding'];
+  sticky?: BasePositionerProps['sticky'];
+  positionMethod?: BasePositionerProps['positionMethod'];
+  disableAnchorTracking?: BasePositionerProps['disableAnchorTracking'];
+};
 
 export type NavigationMenuProps = NavigationMenuPrimitive.Root.Props &
   NavigationMenuPositionerProps & {
@@ -107,13 +108,11 @@ function NavigationMenuTrigger({
   render,
   ...props
 }: NavigationMenuTriggerProps) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     >
       {children}
@@ -208,7 +207,13 @@ function NavigationMenuArrow({
       className={mergeClassName(className, styles.arrow)}
       {...props}
     >
-      {children ?? <ArrowSvg />}
+      {children ?? (
+        <PopupArrowIcon
+          fillClassName={styles.arrowFill}
+          outerStrokeClassName={styles.arrowOuterStroke}
+          innerStrokeClassName={styles.arrowInnerStroke}
+        />
+      )}
     </NavigationMenuPrimitive.Arrow>
   );
 }
@@ -218,17 +223,6 @@ function NavigationMenuViewport({ className, ...props }: NavigationMenuPrimitive
     <NavigationMenuPrimitive.Viewport
       data-slot="navigation-menu-viewport"
       className={mergeClassName(className, styles.viewport)}
-      {...props}
-    />
-  );
-}
-
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <PopupArrowIcon
-      fillClassName={styles.arrowFill}
-      outerStrokeClassName={styles.arrowOuterStroke}
-      innerStrokeClassName={styles.arrowInnerStroke}
       {...props}
     />
   );
