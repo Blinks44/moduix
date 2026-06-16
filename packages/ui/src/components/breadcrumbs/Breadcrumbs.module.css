@@ -15,6 +15,11 @@
     padding: 0;
     list-style: none;
     white-space: nowrap;
+
+    > .item:last-child {
+      flex: 1 1 auto;
+      max-width: var(--breadcrumbs-item-max-width, 16rem);
+    }
   }
 
   .item {
@@ -22,11 +27,6 @@
     min-width: 0;
     flex: 0 0 auto;
     align-items: center;
-  }
-
-  .list > .item:last-child {
-    flex: 1 1 auto;
-    max-width: var(--breadcrumbs-item-max-width, 16rem);
   }
 
   .link,

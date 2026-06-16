@@ -15,13 +15,38 @@ import {
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
-import styles from './breadcrumbs.module.css';
 
 const collapsedItems = [
   { href: '/engineering', label: 'Engineering' },
   { href: '/engineering/backend', label: 'Backend' },
   { href: '/engineering/backend/golang', label: 'Golang' },
 ] as const;
+
+const previewContainerStyle = {
+  maxWidth: 'min(34rem, 100%)',
+};
+
+const separatorIconStyle = {
+  width: '0.75rem',
+  height: '0.25rem',
+};
+
+const collapsedMenuTriggerStyle = {
+  minWidth: 'auto',
+  minHeight: 'auto',
+  padding: 0,
+  border: 'none',
+  background: 'transparent',
+  color: 'inherit',
+};
+
+const collapsedMenuContentStyle = {
+  '--menu-popup-min-width': '8rem',
+  '--menu-item-font-size': 'var(--text-xs)',
+  '--menu-item-padding-x-start': '0.625rem',
+  '--menu-item-padding-x-end': '0.625rem',
+  '--menu-item-padding-y': '0.25rem',
+};
 
 export const breadcrumbsOverrideCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-color', 'var(--color-muted-foreground)', 'Controls base breadcrumbs text color.'],
@@ -81,26 +106,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function BreadcrumbsDemo({ className, ...props }: ComponentProps<typeof Breadcrumbs>) {
-  return (
-    <Breadcrumbs className={className} {...props}>
-      <BreadcrumbsList>
-        <BreadcrumbsItem>
-          <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
-        </BreadcrumbsItem>
-        <BreadcrumbsSeparator />
-        <BreadcrumbsItem>
-          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
-        </BreadcrumbsItem>
-      </BreadcrumbsList>
-    </Breadcrumbs>
-  );
-}
-
 export function BreadcrumbsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
@@ -111,15 +116,29 @@ export function BreadcrumbsCssPropertiesPanel(_context: CSSPropertiesEditorConte
 
 export function BreadcrumbsExample(props: ComponentProps<typeof Breadcrumbs>) {
   return (
-    <div className={styles.container}>
-      <BreadcrumbsDemo {...props} />
+    <div style={previewContainerStyle}>
+      <Breadcrumbs {...props}>
+        <BreadcrumbsList>
+          <BreadcrumbsItem>
+            <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
+          </BreadcrumbsItem>
+          <BreadcrumbsSeparator />
+          <BreadcrumbsItem>
+            <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
+          </BreadcrumbsItem>
+          <BreadcrumbsSeparator />
+          <BreadcrumbsItem>
+            <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+          </BreadcrumbsItem>
+        </BreadcrumbsList>
+      </Breadcrumbs>
     </div>
   );
 }
 
 export function BreadcrumbsCollapsedExample() {
   return (
-    <div className={styles.container}>
+    <div style={previewContainerStyle}>
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>
@@ -128,13 +147,10 @@ export function BreadcrumbsCollapsedExample() {
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
             <Menu>
-              <MenuTrigger
-                aria-label="Show hidden path items"
-                className={styles.collapsedMenuTrigger}
-              >
+              <MenuTrigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
                 <BreadcrumbsEllipsis />
               </MenuTrigger>
-              <MenuContent align="start" className={styles.collapsedMenuContent}>
+              <MenuContent align="start" style={collapsedMenuContentStyle}>
                 {collapsedItems.map((item) => (
                   <MenuLinkItem key={item.href} closeOnClick href={item.href}>
                     {item.label}
@@ -159,20 +175,20 @@ export function BreadcrumbsCollapsedExample() {
 
 export function BreadcrumbsCustomSeparatorExample() {
   return (
-    <div className={styles.container}>
+    <div style={previewContainerStyle}>
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>
             <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator>
-            <SeparatorMarkIcon className={styles.separatorIcon} />
+            <SeparatorMarkIcon style={separatorIconStyle} />
           </BreadcrumbsSeparator>
           <BreadcrumbsItem>
             <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator>
-            <SeparatorMarkIcon className={styles.separatorIcon} />
+            <SeparatorMarkIcon style={separatorIconStyle} />
           </BreadcrumbsSeparator>
           <BreadcrumbsItem>
             <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
@@ -185,7 +201,7 @@ export function BreadcrumbsCustomSeparatorExample() {
 
 export function BreadcrumbsLongLabelExample() {
   return (
-    <div className={styles.container}>
+    <div style={previewContainerStyle}>
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>
@@ -212,7 +228,7 @@ export function BreadcrumbsLongLabelExample() {
 
 export function BreadcrumbsFrameworkLinkExample() {
   return (
-    <div className={styles.container}>
+    <div style={previewContainerStyle}>
       <Breadcrumbs>
         <BreadcrumbsList>
           <BreadcrumbsItem>

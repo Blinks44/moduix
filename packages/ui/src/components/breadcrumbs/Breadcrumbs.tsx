@@ -49,7 +49,7 @@ function BreadcrumbsPage({ className, ...props }: ComponentProps<'span'>) {
   );
 }
 
-function BreadcrumbsSeparator({ className, children, ...props }: ComponentProps<'li'>) {
+function BreadcrumbsSeparator({ className, children = '/', ...props }: ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumbs-separator"
@@ -57,12 +57,12 @@ function BreadcrumbsSeparator({ className, children, ...props }: ComponentProps<
       className={clsx(styles.separator, className)}
       {...props}
     >
-      {children ?? '/'}
+      {children}
     </li>
   );
 }
 
-function BreadcrumbsEllipsis({ className, children, ...props }: ComponentProps<'span'>) {
+function BreadcrumbsEllipsis({ className, children = '...', ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="breadcrumbs-ellipsis"
@@ -70,7 +70,7 @@ function BreadcrumbsEllipsis({ className, children, ...props }: ComponentProps<'
       className={clsx(styles.ellipsis, className)}
       {...props}
     >
-      {children ?? '...'}
+      {children}
     </span>
   );
 }

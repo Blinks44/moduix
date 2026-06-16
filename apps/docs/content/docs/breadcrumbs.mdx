@@ -176,7 +176,6 @@ Replace the default slash with your own icon or symbol.
         BreadcrumbsSeparator,
         SeparatorMarkIcon,
       } from "moduix";
-      import styles from "./breadcrumbs.module.css";
 
       export function BreadcrumbsSeparatorDemo() {
         return (
@@ -186,13 +185,13 @@ Replace the default slash with your own icon or symbol.
                 <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
               </BreadcrumbsItem>
               <BreadcrumbsSeparator>
-                <SeparatorMarkIcon className={styles.separatorIcon} />
+                <SeparatorMarkIcon className="separator-icon" />
               </BreadcrumbsSeparator>
               <BreadcrumbsItem>
                 <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
               </BreadcrumbsItem>
               <BreadcrumbsSeparator>
-                <SeparatorMarkIcon className={styles.separatorIcon} />
+                <SeparatorMarkIcon className="separator-icon" />
               </BreadcrumbsSeparator>
               <BreadcrumbsItem>
                 <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
@@ -206,7 +205,7 @@ Replace the default slash with your own icon or symbol.
   </Preview.Code>
   <Preview.CSS>
     {`
-      .separatorIcon {
+      .separator-icon {
         width: 0.75rem;
         height: 0.25rem;
       }
@@ -236,7 +235,6 @@ Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
         MenuLinkItem,
         MenuTrigger,
       } from "moduix";
-      import styles from "./breadcrumbs.module.css";
 
       export function BreadcrumbsCollapsedDemo() {
         return (
@@ -248,10 +246,10 @@ Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
               <BreadcrumbsSeparator />
               <BreadcrumbsItem>
                 <Menu>
-                  <MenuTrigger aria-label="Show hidden path items" className={styles.collapsedMenuTrigger}>
+                  <MenuTrigger aria-label="Show hidden path items" className="collapsed-menu-trigger">
                     <BreadcrumbsEllipsis />
                   </MenuTrigger>
-                  <MenuContent align="start" className={styles.collapsedMenuContent}>
+                  <MenuContent align="start" className="collapsed-menu-content">
                     {collapsedItems.map((item) => (
                       <MenuLinkItem key={item.href} closeOnClick href={item.href}>
                         {item.label}
@@ -277,7 +275,7 @@ Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
   </Preview.Code>
   <Preview.CSS>
     {`
-      .collapsedMenuTrigger {
+      .collapsed-menu-trigger {
         min-width: auto;
         min-height: auto;
         padding: 0;
@@ -286,7 +284,7 @@ Compose `Breadcrumbs` with `Menu` when you need a collapsed middle segment.
         color: inherit;
       }
 
-      .collapsedMenuContent {
+      .collapsed-menu-content {
         --menu-popup-min-width: 8rem;
         --menu-item-font-size: var(--text-xs);
         --menu-item-padding-x-start: 0.625rem;
