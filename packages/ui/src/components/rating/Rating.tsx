@@ -1,6 +1,6 @@
 import { Radio as RadioPrimitive } from '@base-ui/react/radio';
 import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
-import { forwardRef, type ComponentRef, useState } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef, type ComponentRef, useState } from 'react';
 import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Rating.module.css';
@@ -8,7 +8,7 @@ import styles from './Rating.module.css';
 type RatingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 type RatingProps = Omit<
-  RadioGroupPrimitive.Props,
+  ComponentPropsWithoutRef<typeof RadioGroupPrimitive>,
   'children' | 'defaultValue' | 'orientation' | 'onValueChange' | 'value'
 > & {
   defaultValue?: number;

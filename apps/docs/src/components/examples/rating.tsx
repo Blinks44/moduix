@@ -1,43 +1,106 @@
 import { Field, FieldDescription, FieldLabel, Rating } from 'moduix';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './rating.module.css';
 
-export const ratingOverrideCssProperties: CssPropertyInput[] = [
-  ['--rating-active-color', 'var(--color-primary)', 'Controls filled star color.'],
-  ['--rating-color', 'var(--color-muted-foreground)', 'Controls empty star color.'],
-  ['--rating-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled control opacity.'],
-  ['--rating-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--rating-focus-ring-offset', '0.125rem', 'Controls focus ring offset.'],
-  ['--rating-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
-  ['--rating-gap', 'var(--spacing-1)', 'Controls gap between stars.'],
-  ['--rating-icon-size-xs', '0.875rem', 'Controls icon size for `xs`.'],
-  ['--rating-icon-size-sm', '1rem', 'Controls icon size for `sm`.'],
-  ['--rating-icon-size-md', '1.25rem', 'Controls icon size for `md`.'],
-  ['--rating-icon-size-lg', '1.5rem', 'Controls icon size for `lg`.'],
-  ['--rating-icon-size-xl', '1.75rem', 'Controls icon size for `xl`.'],
-  [
-    '--rating-transition',
-    'var(--transition-default)',
-    'Controls icon color and fill transition timing.',
-  ],
+export const ratingOverrideCssProperties: CssProperty[] = [
+  {
+    name: '--rating-active-color',
+    defaultValue: 'var(--color-primary)',
+    description: 'Controls filled star color.',
+  },
+  {
+    name: '--rating-color',
+    defaultValue: 'var(--color-muted-foreground)',
+    description: 'Controls empty star color.',
+  },
+  {
+    name: '--rating-disabled-opacity',
+    defaultValue: 'var(--opacity-disabled)',
+    description: 'Controls disabled control opacity.',
+  },
+  {
+    name: '--rating-focus-ring-color',
+    defaultValue: 'var(--color-ring)',
+    description: 'Controls focus ring color.',
+  },
+  {
+    name: '--rating-focus-ring-offset',
+    defaultValue: '0.125rem',
+    description: 'Controls focus ring offset.',
+  },
+  {
+    name: '--rating-focus-ring-width',
+    defaultValue: 'var(--border-width-sm)',
+    description: 'Controls focus ring width.',
+  },
+  {
+    name: '--rating-gap',
+    defaultValue: 'var(--spacing-1)',
+    description: 'Controls gap between stars.',
+  },
+  {
+    name: '--rating-icon-size-xs',
+    defaultValue: '0.875rem',
+    description: 'Controls icon size for `xs`.',
+  },
+  {
+    name: '--rating-icon-size-sm',
+    defaultValue: '1rem',
+    description: 'Controls icon size for `sm`.',
+  },
+  {
+    name: '--rating-icon-size-md',
+    defaultValue: '1.25rem',
+    description: 'Controls icon size for `md`.',
+  },
+  {
+    name: '--rating-icon-size-lg',
+    defaultValue: '1.5rem',
+    description: 'Controls icon size for `lg`.',
+  },
+  {
+    name: '--rating-icon-size-xl',
+    defaultValue: '1.75rem',
+    description: 'Controls icon size for `xl`.',
+  },
+  {
+    name: '--rating-transition',
+    defaultValue: 'var(--transition-default)',
+    description: 'Controls icon color and fill transition timing.',
+  },
 ];
 
-export const ratingPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--rating-active-color', 'var(--color-primary)', 'Controls filled star color.'],
-  ['--rating-color', 'var(--color-muted-foreground)', 'Controls empty star color.'],
-  ['--rating-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--rating-gap', 'var(--spacing-1)', 'Controls gap between stars.'],
-  ['--rating-icon-size-md', '1.25rem', 'Controls medium icon size.'],
+export const ratingPlaygroundCssProperties: CssProperty[] = [
+  {
+    name: '--rating-active-color',
+    defaultValue: 'var(--color-primary)',
+    description: 'Controls filled star color.',
+  },
+  {
+    name: '--rating-color',
+    defaultValue: 'var(--color-muted-foreground)',
+    description: 'Controls empty star color.',
+  },
+  {
+    name: '--rating-focus-ring-color',
+    defaultValue: 'var(--color-ring)',
+    description: 'Controls focus ring color.',
+  },
+  {
+    name: '--rating-gap',
+    defaultValue: 'var(--spacing-1)',
+    description: 'Controls gap between stars.',
+  },
+  {
+    name: '--rating-icon-size-md',
+    defaultValue: '1.25rem',
+    description: 'Controls medium icon size.',
+  },
 ];
 
 export function RatingCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={ratingOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+  return <CSSPropertiesReferenceTable properties={ratingOverrideCssProperties} />;
 }
 
 export function RatingCssPlaygroundPanel({
@@ -47,7 +110,7 @@ export function RatingCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesEditor
-      properties={ratingPlaygroundCssProperties.map(normalizeCssProperty)}
+      properties={ratingPlaygroundCssProperties}
       values={values}
       onChange={onChange}
       onReset={onReset}
@@ -55,15 +118,9 @@ export function RatingCssPlaygroundPanel({
   );
 }
 
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
-
 export function RatingExample(props: ComponentProps<typeof Rating>) {
   return (
-    <Field className={styles.field}>
+    <Field className="field">
       <FieldLabel>Overall satisfaction</FieldLabel>
       <FieldDescription>Choose the score that best matches your experience.</FieldDescription>
       <Rating aria-label="Overall satisfaction" defaultValue={4} {...props} />
@@ -75,19 +132,19 @@ export function ControlledRatingExample() {
   const [value, setValue] = useState(3);
 
   return (
-    <div className={styles.stack}>
-      <Field className={styles.field}>
+    <div className="stack">
+      <Field className="field">
         <FieldLabel>Support quality</FieldLabel>
         <Rating aria-label="Support quality" onValueChange={setValue} value={value} />
       </Field>
-      <span className={styles.hint}>Current value: {value}</span>
+      <span className="hint">Current value: {value}</span>
     </div>
   );
 }
 
 export function RatingSizesExample() {
   return (
-    <div className={styles.stack}>
+    <div className="stack">
       <Rating defaultValue={3} size="xs" aria-label="Extra-small rating" />
       <Rating defaultValue={3} size="sm" aria-label="Small rating" />
       <Rating defaultValue={3} size="md" aria-label="Medium rating" />
@@ -99,7 +156,7 @@ export function RatingSizesExample() {
 
 export function DisabledAndReadOnlyRatingExample() {
   return (
-    <div className={styles.stack}>
+    <div className="stack">
       <Rating defaultValue={4} disabled aria-label="Disabled rating" />
       <Rating defaultValue={2} readOnly aria-label="Read-only rating" />
     </div>
@@ -108,7 +165,7 @@ export function DisabledAndReadOnlyRatingExample() {
 
 export function RatingFormIntegrationExample() {
   return (
-    <Field className={styles.field} name="experienceScore">
+    <Field className="field" name="experienceScore">
       <FieldLabel>Experience score</FieldLabel>
       <FieldDescription>Required discrete score from 1 to 5.</FieldDescription>
       <Rating defaultValue={4} required aria-label="Experience score" />
@@ -117,5 +174,5 @@ export function RatingFormIntegrationExample() {
 }
 
 export function CustomStylesRatingExample() {
-  return <Rating className={styles.customRating} defaultValue={5} aria-label="Styled rating" />;
+  return <Rating className="customRating" defaultValue={5} aria-label="Styled rating" />;
 }

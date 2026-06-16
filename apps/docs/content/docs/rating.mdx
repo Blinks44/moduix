@@ -46,7 +46,7 @@ Start with `Rating` inside `Field` when the score needs a label, description, an
 
       export function RatingDemo() {
         return (
-          <Field className={styles.field}>
+          <Field className="field">
             <FieldLabel>Overall satisfaction</FieldLabel>
             <FieldDescription>
               Choose the score that best matches your experience.
@@ -193,19 +193,43 @@ Use controlled mode when the selected score drives surrounding UI or must be res
         const [value, setValue] = useState(3);
 
         return (
-          <Field className={styles.field}>
-            <FieldLabel>Support quality</FieldLabel>
-            <Rating
-              aria-label="Support quality"
-              value={value}
-              onValueChange={setValue}
-            />
-          </Field>
+          <div className="stack">
+            <Field className="field">
+              <FieldLabel>Support quality</FieldLabel>
+              <Rating
+                aria-label="Support quality"
+                value={value}
+                onValueChange={setValue}
+              />
+            </Field>
+            <span className="hint">Current value: {value}</span>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(20rem, 100%);
+      }
+
+      .field {
+        width: fit-content;
+      }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Sizes
@@ -221,7 +245,7 @@ Use `size` to match different UI densities.
 
       export function RatingSizesDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="stack">
             <Rating size="xs" defaultValue={3} aria-label="Extra-small rating" />
             <Rating size="sm" defaultValue={3} aria-label="Small rating" />
             <Rating size="md" defaultValue={3} aria-label="Medium rating" />
@@ -260,7 +284,7 @@ changes.
 
       export function RatingStatesDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="stack">
             <Rating defaultValue={4} disabled aria-label="Disabled rating" />
             <Rating defaultValue={2} readOnly aria-label="Read-only rating" />
           </div>
@@ -295,7 +319,7 @@ Because `Rating` is radio-group-based, it can participate in forms and required 
 
       export function RatingFormDemo() {
         return (
-          <Field className={styles.field} name="experienceScore">
+          <Field className="field" name="experienceScore">
             <FieldLabel>Experience score</FieldLabel>
             <FieldDescription>Required discrete score from 1 to 5.</FieldDescription>
             <Rating
@@ -330,12 +354,11 @@ Use the small `--rating-*` token surface when the default color treatment should
   <Preview.Code>
     {`
       import { Rating } from "moduix";
-      import styles from "./rating.module.css";
 
       export function CustomRatingDemo() {
         return (
           <Rating
-            className={styles.customRating}
+            className="customRating"
             defaultValue={5}
             aria-label="Styled rating"
           />
