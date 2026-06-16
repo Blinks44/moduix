@@ -10,7 +10,7 @@ import {
   BleedExample,
   BleedInlineAmountsExample,
   BleedSemanticExample,
-  CustomCompositionBleedExample,
+  CustomStylingBleedExample,
 } from '@/components/examples/bleed';
 
 ## API Reference
@@ -31,9 +31,9 @@ break out of a constrained container while staying in normal document flow.
 
       export function BleedDemo() {
         return (
-          <div className={styles.container}>
+          <div className="bleed-demo-container">
             <Text tone="muted">Container content stays constrained.</Text>
-            <Bleed className={styles.bleed}>
+            <Bleed className="bleed-demo-surface">
               <Text weight="semibold">
                 This block bleeds to the viewport edges.
               </Text>
@@ -50,7 +50,7 @@ break out of a constrained container while staying in normal document flow.
 
   <Preview.CSS>
     {`
-      .container {
+      .bleed-demo-container {
         display: flex;
         width: min(28rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
@@ -59,7 +59,7 @@ break out of a constrained container while staying in normal document flow.
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .bleed {
+      .bleed-demo-surface {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -179,14 +179,14 @@ Use `inline` to choose how far content escapes the container on the inline axis.
 
       export function BleedInlineAmountsDemo() {
         return (
-          <div className={styles.container}>
-            <Bleed inline="sm" className={styles.panel}>
+          <div className="bleed-demo-container">
+            <Bleed inline="sm" className="bleed-demo-panel">
               <Text>Small inline bleed</Text>
             </Bleed>
-            <Bleed inline="lg" className={styles.panel}>
+            <Bleed inline="lg" className="bleed-demo-panel">
               <Text>Large inline bleed</Text>
             </Bleed>
-            <Bleed inline="full" className={styles.panel}>
+            <Bleed inline="full" className="bleed-demo-panel">
               <Text>Full inline bleed</Text>
             </Bleed>
           </div>
@@ -198,7 +198,7 @@ Use `inline` to choose how far content escapes the container on the inline axis.
 
   <Preview.CSS>
     {`
-      .container {
+      .bleed-demo-container {
         display: flex;
         width: min(28rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
@@ -207,7 +207,7 @@ Use `inline` to choose how far content escapes the container on the inline axis.
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .panel {
+      .bleed-demo-panel {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -233,9 +233,9 @@ Use `block` when a surface should also escape vertical container padding.
 
       export function BleedBlockDemo() {
         return (
-          <div className={styles.paddedContainer}>
+          <div className="bleed-demo-padded-container">
             <Text tone="muted">Container padding above.</Text>
-            <Bleed inline="md" block="md" className={styles.panel}>
+            <Bleed inline="md" block="md" className="bleed-demo-panel">
               <Text>Inline and block bleed</Text>
             </Bleed>
             <Text tone="muted">Container padding below.</Text>
@@ -248,7 +248,7 @@ Use `block` when a surface should also escape vertical container padding.
 
   <Preview.CSS>
     {`
-      .paddedContainer {
+      .bleed-demo-padded-container {
         display: flex;
         width: min(28rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
@@ -257,7 +257,7 @@ Use `block` when a surface should also escape vertical container padding.
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .panel {
+      .bleed-demo-panel {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -283,9 +283,9 @@ Use `as` when the escaping content has a more specific semantic role.
 
       export function BleedSemanticDemo() {
         return (
-          <div className={styles.container}>
-            <Bleed as="figure" className={styles.figure}>
-              <div className={styles.media} />
+          <div className="bleed-demo-container">
+            <Bleed as="figure" className="bleed-demo-figure">
+              <div className="bleed-demo-media" />
               <Text tone="muted" size="sm">
                 Full-width media with a constrained parent.
               </Text>
@@ -299,7 +299,7 @@ Use `as` when the escaping content has a more specific semantic role.
 
   <Preview.CSS>
     {`
-      .container {
+      .bleed-demo-container {
         display: flex;
         width: min(28rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
@@ -308,7 +308,7 @@ Use `as` when the escaping content has a more specific semantic role.
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .figure {
+      .bleed-demo-figure {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -318,7 +318,7 @@ Use `as` when the escaping content has a more specific semantic role.
         text-align: center;
       }
 
-      .media {
+      .bleed-demo-media {
         width: min(28rem, 100%);
         min-height: 8rem;
         border-radius: var(--radius-md);
@@ -336,16 +336,16 @@ This keeps the public API small while still allowing local full-bleed math for s
 and inset layouts that do not align with the viewport.
 
 <Preview>
-  <CustomCompositionBleedExample />
+  <CustomStylingBleedExample />
 
   <Preview.Code>
     {`
       import { Bleed, Text } from "moduix";
 
-      export function CustomCompositionBleedDemo() {
+      export function CustomStylingBleedDemo() {
         return (
-          <div className={styles.container}>
-            <Bleed className={styles.customBleed}>
+          <div className="bleed-demo-container">
+            <Bleed className="bleed-demo-custom-surface">
               <Text weight="semibold">Customized bleed amount.</Text>
             </Bleed>
           </div>
@@ -357,7 +357,7 @@ and inset layouts that do not align with the viewport.
 
   <Preview.CSS>
     {`
-      .container {
+      .bleed-demo-container {
         display: flex;
         width: min(28rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
@@ -366,7 +366,7 @@ and inset layouts that do not align with the viewport.
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
-      .customBleed {
+      .bleed-demo-custom-surface {
         --bleed-inline-full: calc(var(--spacing-8) * -1);
         --bleed-inline-full-size: calc(100vw - (var(--spacing-8) * 2));
         display: flex;
