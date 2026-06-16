@@ -114,37 +114,38 @@
     user-select: none;
     cursor: default;
 
-    &[data-highlighted] {
+    &[data-highlighted],
+    &[data-popup-open] {
       z-index: 0;
+
+      &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        inset-block: 0;
+        inset-inline: var(
+          --context-menu-highlight-inset-x,
+          var(--popup-highlight-inset-x, var(--spacing-1))
+        );
+        border-radius: var(
+          --context-menu-highlight-radius,
+          var(--popup-highlight-radius, var(--radius-sm))
+        );
+      }
+    }
+
+    &[data-highlighted] {
       color: var(--context-menu-highlight-color, var(--color-background));
+
+      &::before {
+        background-color: var(--context-menu-highlight-bg, var(--color-foreground));
+      }
     }
 
     &[data-popup-open] {
-      z-index: 0;
-    }
-
-    &[data-highlighted]::before,
-    &[data-popup-open]::before {
-      content: '';
-      z-index: -1;
-      position: absolute;
-      inset-block: 0;
-      inset-inline: var(
-        --context-menu-highlight-inset-x,
-        var(--popup-highlight-inset-x, var(--spacing-1))
-      );
-      border-radius: var(
-        --context-menu-highlight-radius,
-        var(--popup-highlight-radius, var(--radius-sm))
-      );
-    }
-
-    &[data-highlighted]::before {
-      background-color: var(--context-menu-highlight-bg, var(--color-foreground));
-    }
-
-    &[data-popup-open]::before {
-      background-color: var(--context-menu-submenu-open-bg, var(--color-accent));
+      &::before {
+        background-color: var(--context-menu-submenu-open-bg, var(--color-accent));
+      }
     }
 
     &[data-highlighted][data-popup-open]::before {

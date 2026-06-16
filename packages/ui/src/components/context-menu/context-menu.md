@@ -41,7 +41,7 @@ import {
 export function Example() {
   return (
     <ContextMenu>
-      <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
+      <ContextMenuTrigger>Right click here</ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem closeOnClick>Open</ContextMenuItem>
         <ContextMenuItem closeOnClick>Rename</ContextMenuItem>
@@ -55,8 +55,9 @@ export function Example() {
 }
 ```
 
-`ContextMenuTrigger` is intentionally visually light. In product code it should usually wrap an
-existing surface such as a card, list row, canvas, or editor area.
+`ContextMenuTrigger` ships with a simple default surface, so examples can often use it without extra
+CSS. In product code it should usually wrap an existing surface such as a card, list row, canvas, or
+editor area.
 
 ## Parts
 
@@ -146,7 +147,7 @@ Uses the same exported `ContextMenuContentProps` type.
 
 ```tsx
 <ContextMenu>
-  <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
+  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
   <ContextMenuContent>
     <ContextMenuItem closeOnClick>Copy</ContextMenuItem>
     <ContextMenuItem closeOnClick>Paste</ContextMenuItem>
@@ -162,7 +163,7 @@ Uses the same exported `ContextMenuContentProps` type.
 
 ```tsx
 <ContextMenu>
-  <ContextMenuTrigger className={styles.trigger}>Right click here</ContextMenuTrigger>
+  <ContextMenuTrigger>Right click here</ContextMenuTrigger>
   <ContextMenuContent>
     <ContextMenuItem closeOnClick>Add to library</ContextMenuItem>
 
@@ -423,6 +424,9 @@ diverging from `Menu` and `Menubar`.
 
 ## Local changelog
 
+- 2026-06-16: Simplified `ContextMenuContent` typing to explicit local fields, kept the same public
+  API, and aligned docs examples to the default trigger path unless custom styling is the point of the
+  example.
 - 2026-06-14: Removed `showArrow`, `ContextMenuArrow`, and the related arrow styling contract
   because the arrow path was not working and does not fit the intended context-menu API.
 - 2026-06-14: Added `indicator="none"` for checkbox and radio rows so context menus can opt out of

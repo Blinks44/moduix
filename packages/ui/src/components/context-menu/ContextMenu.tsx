@@ -5,16 +5,15 @@ import { CheckIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './ContextMenu.module.css';
 
-export type ContextMenuPositionerProps = Pick<
-  ContextMenuPrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
->;
+export type ContextMenuPositionerProps = {
+  side?: ContextMenuPrimitive.Positioner.Props['side'];
+  sideOffset?: ContextMenuPrimitive.Positioner.Props['sideOffset'];
+  align?: ContextMenuPrimitive.Positioner.Props['align'];
+  alignOffset?: ContextMenuPrimitive.Positioner.Props['alignOffset'];
+  collisionAvoidance?: ContextMenuPrimitive.Positioner.Props['collisionAvoidance'];
+  collisionBoundary?: ContextMenuPrimitive.Positioner.Props['collisionBoundary'];
+  collisionPadding?: ContextMenuPrimitive.Positioner.Props['collisionPadding'];
+};
 
 export type ContextMenuContentProps = ContextMenuPrimitive.Popup.Props & ContextMenuPositionerProps;
 
@@ -30,13 +29,11 @@ export type ContextMenuCheckboxItemProps = ContextMenuPrimitive.CheckboxItem.Pro
 };
 
 function ContextMenuTrigger({ className, render, ...props }: ContextMenuPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <ContextMenuPrimitive.Trigger
       data-slot="context-menu-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
