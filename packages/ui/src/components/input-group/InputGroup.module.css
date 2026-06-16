@@ -32,13 +32,10 @@
       [data-slot='input-group-input'][aria-invalid='true']
     ) {
       border-color: var(--input-group-border-color-invalid, var(--color-destructive));
-    }
 
-    &:has(
-        [data-slot='input-group-input'][data-invalid],
-        [data-slot='input-group-input'][aria-invalid='true']
-      ):focus-within {
-      outline-color: var(--input-group-border-color-invalid, var(--color-destructive));
+      &:focus-within {
+        outline-color: var(--input-group-border-color-invalid, var(--color-destructive));
+      }
     }
 
     &:has(
@@ -138,7 +135,7 @@
     line-height: var(--input-group-line-height, var(--line-height-text-md));
     white-space: nowrap;
 
-    > svg {
+    & > svg {
       width: var(--input-group-icon-size, 1rem);
       height: var(--input-group-icon-size, 1rem);
       flex-shrink: 0;

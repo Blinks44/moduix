@@ -8,18 +8,20 @@ import {
   type MouseEvent,
 } from 'react';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
-import { Button } from '../button';
-import { Input } from '../input';
+import { Button, type ButtonProps } from '../button';
+import { Input, type InputProps, type InputSize } from '../input';
 import styles from './InputGroup.module.css';
 
-const InputGroupSizeContext = createContext<ComponentProps<typeof Input>['size']>('md');
+type InputGroupProps = ComponentProps<'div'> & {
+  size?: InputSize;
+};
 
-const InputGroup = forwardRef<
-  ComponentRef<'div'>,
-  ComponentProps<'div'> & {
-    size?: ComponentProps<typeof Input>['size'];
-  }
->(function InputGroup({ children, className, onMouseDown, size = 'md', ...props }, ref) {
+const InputGroupSizeContext = createContext<InputSize>('md');
+
+const InputGroup = forwardRef<ComponentRef<'div'>, InputGroupProps>(function InputGroup(
+  { children, className, onMouseDown, size = 'md', ...props },
+  ref,
+) {
   const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     onMouseDown?.(event);
 
@@ -34,14 +36,17 @@ const InputGroup = forwardRef<
       return;
     }
 
-    const target = event.target;
-    if (!(target instanceof HTMLElement)) return;
-    if (target.closest('button, a, input, select, textarea, [role="button"], [role="link"]')) {
+    if (!(event.target instanceof HTMLElement)) return;
+    if (
+      event.target.closest('button, a, input, select, textarea, [role="button"], [role="link"]')
+    ) {
       return;
     }
 
-    const input = event.currentTarget.querySelector('[data-slot="input-group-input"]');
-    if (!(input instanceof HTMLInputElement) || input.disabled || input.readOnly) return;
+    const input = event.currentTarget.querySelector<HTMLInputElement>(
+      '[data-slot="input-group-input"]',
+    );
+    if (!input || input.disabled || input.readOnly) return;
 
     input.focus();
   };
@@ -62,21 +67,22 @@ const InputGroup = forwardRef<
   );
 });
 
-const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeof Input>>(
-  function InputGroupInput({ className, size, ...props }, ref) {
-    const groupSize = useContext(InputGroupSizeContext);
+const InputGroupInput = forwardRef<ComponentRef<typeof Input>, InputProps>(function InputGroupInput(
+  { className, size, ...props },
+  ref,
+) {
+  const groupSize = useContext(InputGroupSizeContext);
 
-    return (
-      <Input
-        ref={ref}
-        data-slot="input-group-input"
-        className={mergeClassName(className, styles.input)}
-        size={size ?? groupSize}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Input
+      ref={ref}
+      data-slot="input-group-input"
+      className={mergeClassName(className, styles.input)}
+      size={size ?? groupSize}
+      {...props}
+    />
+  );
+});
 
 const InputGroupAddon = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
   function InputGroupAddon({ className, ...props }, ref) {
@@ -104,7 +110,7 @@ const InputGroupText = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
   },
 );
 
-const InputGroupButton = forwardRef<ComponentRef<typeof Button>, ComponentProps<typeof Button>>(
+const InputGroupButton = forwardRef<ComponentRef<typeof Button>, ButtonProps>(
   function InputGroupButton(
     { className, variant = 'ghost', size, type = 'button', ...props },
     ref,

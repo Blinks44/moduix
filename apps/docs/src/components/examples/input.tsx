@@ -3,7 +3,6 @@ import { Field, FieldDescription, FieldError, FieldLabel, Input } from 'moduix';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './input.module.css';
 
 export const inputOverrideCssProperties: CssPropertyInput[] = [
   ['--input-bg', 'var(--color-background)', 'Controls the input background color.'],
@@ -95,15 +94,14 @@ export function InputCssPlaygroundPanel({ values, onChange, onReset }: CSSProper
   );
 }
 
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
+const normalizeCssProperty = (property: CssPropertyInput) =>
+  'name' in property
+    ? property
+    : { name: property[0], defaultValue: property[1], description: property[2] };
 
 export function InputExample(props: ComponentProps<typeof Input>) {
   return (
-    <Field className={styles.field}>
+    <Field className="input-demo-field">
       <FieldLabel>Name</FieldLabel>
       <FieldDescription>Used in your public workspace profile.</FieldDescription>
       <Input placeholder="Enter your name" {...props} />
@@ -115,7 +113,7 @@ export function ControlledInputExample() {
   const [value, setValue] = useState('');
 
   return (
-    <Field className={styles.field}>
+    <Field className="input-demo-field">
       <FieldLabel>Username</FieldLabel>
       <Input value={value} onValueChange={setValue} placeholder="Type to control value" />
     </Field>
@@ -124,7 +122,7 @@ export function ControlledInputExample() {
 
 export function InputSizesExample() {
   return (
-    <div className={styles.stack}>
+    <div className="input-demo-stack">
       <Input size="xs" placeholder="Extra-small input" />
       <Input size="sm" placeholder="Small input" />
       <Input size="md" placeholder="Medium input" />
@@ -136,7 +134,7 @@ export function InputSizesExample() {
 
 export function InputNativeAttributesExample() {
   return (
-    <Field className={styles.field}>
+    <Field className="input-demo-field">
       <FieldLabel>Security code</FieldLabel>
       <Input
         htmlSize={8}
@@ -153,7 +151,7 @@ export function InputNativeAttributesExample() {
 
 export function DisabledAndReadOnlyInputExample() {
   return (
-    <div className={styles.stack}>
+    <div className="input-demo-stack">
       <Input disabled placeholder="Disabled input" />
       <Input readOnly value="Assigned workspace" />
     </div>
@@ -162,7 +160,7 @@ export function DisabledAndReadOnlyInputExample() {
 
 export function InputFieldValidationExample() {
   return (
-    <Field className={styles.field} validationMode="onBlur">
+    <Field className="input-demo-field" validationMode="onBlur">
       <FieldLabel>Email</FieldLabel>
       <Input required type="email" placeholder="name@example.com" />
       <FieldError match="valueMissing">Please enter your email.</FieldError>
@@ -173,16 +171,16 @@ export function InputFieldValidationExample() {
 
 export function CustomStylesInputExample() {
   return (
-    <Field className={styles.field}>
+    <Field className="input-demo-field">
       <FieldLabel>Project key</FieldLabel>
-      <Input placeholder="MAPS" className={styles.customInput} />
+      <Input placeholder="MAPS" className="input-demo-custom-input" />
     </Field>
   );
 }
 
 export function StandaloneInputExample() {
   return (
-    <div className={styles.field}>
+    <div className="input-demo-field">
       <Input aria-label="Search projects" placeholder="Search projects" />
     </div>
   );

@@ -43,7 +43,7 @@ Start with `Input` inside `Field` when the value needs a label, description, and
 
       export function InputDemo() {
         return (
-          <Field className={styles.field}>
+          <Field className="input-demo-field">
             <FieldLabel>Name</FieldLabel>
             <FieldDescription>Used in your public workspace profile.</FieldDescription>
             <Input placeholder="Enter your name" />
@@ -56,8 +56,8 @@ Start with `Input` inside `Field` when the value needs a label, description, and
 
   <Preview.CSS>
     {`
-      .field {
-        width: min(20rem, 100%);
+      .input-demo-field {
+        width: min(14rem, 100%);
       }
     `}
 
@@ -184,7 +184,7 @@ Use `value` and `onValueChange` when the input value should stay in React state.
         const [value, setValue] = useState("");
 
         return (
-          <Field className={styles.field}>
+          <Field className="input-demo-field">
             <FieldLabel>Username</FieldLabel>
             <Input
               value={value}
@@ -200,8 +200,8 @@ Use `value` and `onValueChange` when the input value should stay in React state.
 
   <Preview.CSS>
     {`
-      .field {
-        width: min(20rem, 100%);
+      .input-demo-field {
+        width: min(14rem, 100%);
       }
     `}
 
@@ -221,7 +221,7 @@ Use `size` to change the visual height, padding, and typography.
 
       export function InputSizesDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="input-demo-stack">
             <Input size="xs" placeholder="Extra-small input" />
             <Input size="sm" placeholder="Small input" />
             <Input size="md" placeholder="Medium input" />
@@ -236,10 +236,10 @@ Use `size` to change the visual height, padding, and typography.
 
   <Preview.CSS>
     {`
-      .stack {
+      .input-demo-stack {
         display: grid;
         gap: var(--spacing-3);
-        width: min(20rem, 100%);
+        width: min(14rem, 100%);
       }
     `}
 
@@ -260,7 +260,7 @@ Use native input attributes for keyboard, autocomplete, validation, and form beh
 
       export function NativeInputAttributesDemo() {
         return (
-          <Field className={styles.field}>
+          <Field className="input-demo-field">
             <FieldLabel>Security code</FieldLabel>
             <Input
               htmlSize={8}
@@ -280,8 +280,8 @@ Use native input attributes for keyboard, autocomplete, validation, and form beh
 
   <Preview.CSS>
     {`
-      .field {
-        width: min(20rem, 100%);
+      .input-demo-field {
+        width: min(14rem, 100%);
       }
     `}
 
@@ -302,7 +302,7 @@ Use `disabled` when the field must not participate in interaction or form submis
 
       export function DisabledInputDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="input-demo-stack">
             <Input disabled placeholder="Disabled input" />
             <Input readOnly value="Assigned workspace" />
           </div>
@@ -314,10 +314,10 @@ Use `disabled` when the field must not participate in interaction or form submis
 
   <Preview.CSS>
     {`
-      .stack {
+      .input-demo-stack {
         display: grid;
         gap: var(--spacing-3);
-        width: min(20rem, 100%);
+        width: min(14rem, 100%);
       }
     `}
 
@@ -337,7 +337,7 @@ Use `Field` when the input needs labels, errors, native validity, and Base UI va
 
       export function InputFieldValidationDemo() {
         return (
-          <Field className={styles.field} validationMode="onBlur">
+          <Field className="input-demo-field" validationMode="onBlur">
             <FieldLabel>Email</FieldLabel>
             <Input required type="email" placeholder="name@example.com" />
             <FieldError match="valueMissing">Please enter your email.</FieldError>
@@ -351,8 +351,8 @@ Use `Field` when the input needs labels, errors, native validity, and Base UI va
 
   <Preview.CSS>
     {`
-      .field {
-        width: min(20rem, 100%);
+      .input-demo-field {
+        width: min(14rem, 100%);
       }
     `}
 
@@ -373,7 +373,7 @@ Keep the accessible name explicit.
 
       export function StandaloneInputDemo() {
         return (
-          <div className={styles.field}>
+          <div className="input-demo-field">
             <Input aria-label="Search projects" placeholder="Search projects" />
           </div>
         );
@@ -384,8 +384,8 @@ Keep the accessible name explicit.
 
   <Preview.CSS>
     {`
-      .field {
-        width: min(20rem, 100%);
+      .input-demo-field {
+        width: min(14rem, 100%);
       }
     `}
 
@@ -406,9 +406,9 @@ surface.
 
       export function CustomInputDemo() {
         return (
-          <Field className={styles.field}>
+          <Field className="input-demo-field">
             <FieldLabel>Project key</FieldLabel>
-            <Input placeholder="MAPS" className={styles.customInput} />
+            <Input placeholder="MAPS" className="input-demo-custom-input" />
           </Field>
         );
       }
@@ -418,24 +418,24 @@ surface.
 
   <Preview.CSS>
     {`
-      .field {
-        width: min(20rem, 100%);
+      .input-demo-field {
+        width: min(14rem, 100%);
       }
 
-      .customInput {
+      .input-demo-custom-input {
         border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
         background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
         color: var(--color-primary);
         text-transform: uppercase;
         letter-spacing: 0;
-      }
 
-      .customInput::placeholder {
-        text-transform: none;
-      }
+        &::placeholder {
+          text-transform: none;
+        }
 
-      .customInput:focus-visible {
-        outline-color: var(--color-primary);
+        &:focus-visible {
+          outline-color: var(--color-primary);
+        }
       }
     `}
 

@@ -14,7 +14,6 @@ import {
 import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './input-group.module.css';
 
 export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--input-group-addon-bg', 'var(--color-muted)', 'Controls addon background color.'],
@@ -157,15 +156,14 @@ export function InputGroupCssPlaygroundPanel({
   );
 }
 
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
+const normalizeCssProperty = (property: CssPropertyInput) =>
+  'name' in property
+    ? property
+    : { name: property[0], defaultValue: property[1], description: property[2] };
 
 export function InputGroupExample(props: ComponentProps<typeof InputGroup>) {
   return (
-    <Field className={styles.field}>
+    <Field className="input-group-demo-field">
       <FieldLabel>Workspace</FieldLabel>
       <InputGroup {...props}>
         <InputGroupAddon>@</InputGroupAddon>
@@ -179,7 +177,7 @@ export function InputGroupWithActionExample() {
   const [value, setValue] = useState('');
 
   return (
-    <Field className={styles.field}>
+    <Field className="input-group-demo-field">
       <FieldLabel>Invite by email</FieldLabel>
       <InputGroup>
         <InputGroupInput
@@ -222,7 +220,7 @@ export function InputGroupInlineEditingExample() {
   };
 
   return (
-    <Field className={styles.field}>
+    <Field className="input-group-demo-field">
       <FieldLabel>Display name</FieldLabel>
       <InputGroup>
         <InputGroupInput
@@ -253,10 +251,10 @@ export function InputGroupInlineEditingExample() {
 
 export function InputGroupPrefixSuffixExample() {
   return (
-    <Field className={styles.field}>
+    <Field className="input-group-demo-field">
       <FieldLabel>Monthly budget</FieldLabel>
       <InputGroup>
-        <InputGroupAddon className={styles.currency}>$</InputGroupAddon>
+        <InputGroupAddon className="input-group-demo-currency">$</InputGroupAddon>
         <InputGroupInput inputMode="decimal" placeholder="2500" />
         <InputGroupText>USD</InputGroupText>
       </InputGroup>
@@ -266,7 +264,7 @@ export function InputGroupPrefixSuffixExample() {
 
 export function InputGroupSizesExample() {
   return (
-    <div className={styles.stack}>
+    <div className="input-group-demo-stack">
       <InputGroup size="xs">
         <InputGroupAddon>@</InputGroupAddon>
         <InputGroupInput placeholder="Extra-small group" />
@@ -293,7 +291,7 @@ export function InputGroupSizesExample() {
 
 export function DisabledInputGroupExample() {
   return (
-    <InputGroup className={styles.group} role="group" aria-label="Workspace handle">
+    <InputGroup className="input-group-demo-group" role="group" aria-label="Workspace handle">
       <InputGroupAddon>@</InputGroupAddon>
       <InputGroupInput disabled value="maps" />
       <InputGroupButton disabled>Copy</InputGroupButton>
@@ -303,7 +301,7 @@ export function DisabledInputGroupExample() {
 
 export function InputGroupFieldValidationExample() {
   return (
-    <Field className={styles.field} validationMode="onBlur">
+    <Field className="input-group-demo-field" validationMode="onBlur">
       <FieldLabel>Domain</FieldLabel>
       <InputGroup>
         <InputGroupInput required placeholder="company" />
@@ -316,10 +314,10 @@ export function InputGroupFieldValidationExample() {
 
 export function CustomStylesInputGroupExample() {
   return (
-    <InputGroup className={styles.customGroup}>
-      <InputGroupAddon className={styles.customAddon}>@</InputGroupAddon>
+    <InputGroup className="input-group-demo-custom-group">
+      <InputGroupAddon className="input-group-demo-custom-addon">@</InputGroupAddon>
       <InputGroupInput placeholder="custom-group" />
-      <InputGroupButton className={styles.customButton}>Check</InputGroupButton>
+      <InputGroupButton className="input-group-demo-custom-button">Check</InputGroupButton>
     </InputGroup>
   );
 }
