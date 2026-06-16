@@ -36,7 +36,7 @@ const CollapsibleTrigger = forwardRef<
 
 function CollapsibleTriggerIcon({
   className,
-  children,
+  children = <ChevronRightIcon />,
   'aria-hidden': ariaHidden = true,
   ...props
 }: ComponentProps<'span'>) {
@@ -47,7 +47,7 @@ function CollapsibleTriggerIcon({
       className={clsx(styles.triggerIcon, className)}
       {...props}
     >
-      {children ?? <ChevronRightIcon />}
+      {children}
     </span>
   );
 }

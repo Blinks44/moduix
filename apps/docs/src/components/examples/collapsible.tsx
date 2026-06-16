@@ -7,7 +7,7 @@ import {
 } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './collapsible.module.css';
 
 export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
@@ -122,33 +122,12 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ['--collapsible-width', '14rem', 'Controls root width.'],
 ];
 
-export const collapsiblePlaygroundCssProperties: CssPropertyInput[] = [
-  ...collapsibleOverrideCssProperties,
-];
+const collapsibleCssProperties = collapsibleOverrideCssProperties.map(normalizeCssProperty);
 
 export function CollapsibleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={collapsibleOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </div>
-  );
-}
-
-export function CollapsibleCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={collapsiblePlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
+      <CSSPropertiesReferenceTable properties={collapsibleCssProperties} />
     </div>
   );
 }
@@ -242,12 +221,12 @@ export function CustomCompositionCollapsibleExample() {
   return (
     <Collapsible>
       <CollapsibleTrigger render={<div />} nativeButton={false} className={styles.customTrigger}>
-        <span className={styles.triggerLabel}>Styled recovery keys</span>
+        Styled recovery keys
         <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
           <ChevronDownIcon />
         </CollapsibleTriggerIcon>
       </CollapsibleTrigger>
-      <CollapsiblePanel className={styles.customPanel}>
+      <CollapsiblePanel>
         <div className={styles.customPanelContent}>
           <ul className={styles.keysList}>
             {recoveryKeys.map((key) => (

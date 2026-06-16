@@ -42,10 +42,10 @@ multi-item semantics of `Accordion`.
               <CollapsibleTriggerIcon />
             </CollapsibleTrigger>
             <CollapsiblePanel>
-              <ul className={styles.keysList}>
-                {recoveryKeys.map((key) => (
-                  <li key={key}>{key}</li>
-                ))}
+              <ul>
+                <li>alien-bean-pasta</li>
+                <li>wild-irish-burrito</li>
+                <li>horse-battery-staple</li>
               </ul>
             </CollapsiblePanel>
           </Collapsible>
@@ -54,26 +54,6 @@ multi-item semantics of `Accordion`.
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .keysList {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-1);
-        margin: 0;
-        padding-inline-start: var(--spacing-2);
-      }
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const recoveryKeys = ["alien-bean-pasta", "wild-irish-burrito", "horse-battery-staple"];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -205,10 +185,10 @@ Use `defaultOpen` when the panel should start expanded on first render.
               <CollapsibleTriggerIcon />
             </CollapsibleTrigger>
             <CollapsiblePanel>
-              <ul className={styles.keysList}>
-                {recoveryKeys.map((key) => (
-                  <li key={key}>{key}</li>
-                ))}
+              <ul>
+                <li>alien-bean-pasta</li>
+                <li>wild-irish-burrito</li>
+                <li>horse-battery-staple</li>
               </ul>
             </CollapsiblePanel>
           </Collapsible>
@@ -246,13 +226,13 @@ Control `open` from React state when the disclosure must coordinate with surroun
               <CollapsibleTriggerIcon />
             </CollapsibleTrigger>
             <CollapsiblePanel>
-              <ul className={styles.keysList}>
-                {recoveryKeys.map((key) => (
-                  <li key={key}>{key}</li>
-                ))}
+              <ul>
+                <li>alien-bean-pasta</li>
+                <li>wild-irish-burrito</li>
+                <li>horse-battery-staple</li>
               </ul>
             </CollapsiblePanel>
-            <span className={styles.status}>Current state: {open ? "open" : "closed"}</span>
+            <span>Current state: {open ? "open" : "closed"}</span>
           </Collapsible>
         );
       }
@@ -285,10 +265,10 @@ Set `disabled` on the root when the trigger should stay visible but unavailable 
               <CollapsibleTriggerIcon />
             </CollapsibleTrigger>
             <CollapsiblePanel>
-              <ul className={styles.keysList}>
-                {recoveryKeys.map((key) => (
-                  <li key={key}>{key}</li>
-                ))}
+              <ul>
+                <li>alien-bean-pasta</li>
+                <li>wild-irish-burrito</li>
+                <li>horse-battery-staple</li>
               </ul>
             </CollapsiblePanel>
           </Collapsible>
@@ -324,10 +304,10 @@ content.
               <CollapsibleTriggerIcon />
             </CollapsibleTrigger>
             <CollapsiblePanel hiddenUntilFound>
-              <ul className={styles.keysList}>
-                {recoveryKeys.map((key) => (
-                  <li key={key}>{key}</li>
-                ))}
+              <ul>
+                <li>alien-bean-pasta</li>
+                <li>wild-irish-burrito</li>
+                <li>horse-battery-staple</li>
               </ul>
             </CollapsiblePanel>
           </Collapsible>
@@ -363,19 +343,19 @@ and surface styles.
             <CollapsibleTrigger
               render={<div />}
               nativeButton={false}
-              className={styles.customTrigger}
+              className="custom-trigger"
             >
-              <span className={styles.triggerLabel}>Styled recovery keys</span>
-              <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+              Styled recovery keys
+              <CollapsibleTriggerIcon className="custom-trigger-icon">
                 <ChevronDownIcon />
               </CollapsibleTriggerIcon>
             </CollapsibleTrigger>
-            <CollapsiblePanel className={styles.customPanel}>
-              <div className={styles.customPanelContent}>
-                <ul className={styles.keysList}>
-                  {recoveryKeys.map((key) => (
-                    <li key={key}>{key}</li>
-                  ))}
+            <CollapsiblePanel>
+              <div className="custom-panel-content">
+                <ul className="keys-list">
+                  <li>alien-bean-pasta</li>
+                  <li>wild-irish-burrito</li>
+                  <li>horse-battery-staple</li>
                 </ul>
               </div>
             </CollapsiblePanel>
@@ -385,6 +365,51 @@ and surface styles.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .custom-trigger {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-2);
+        padding: var(--spacing-2) var(--spacing-3);
+        border-radius: var(--radius-md);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--color-accent);
+          }
+        }
+      }
+
+      .custom-trigger-icon {
+        --collapsible-icon-open-transform: rotate(180deg);
+
+        color: var(--color-primary);
+      }
+
+      .custom-panel-content {
+        margin-top: var(--spacing-1);
+        padding: var(--spacing-2) var(--spacing-3);
+        border-radius: var(--radius-md);
+        background-color: var(--color-muted);
+        color: var(--color-muted-foreground);
+      }
+
+      .keys-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        margin: 0;
+        padding-inline-start: var(--spacing-2);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ## Styling

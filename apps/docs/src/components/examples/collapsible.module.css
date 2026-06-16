@@ -23,11 +23,11 @@
   border-radius: var(--radius-md);
   background-color: var(--color-muted);
   color: var(--color-foreground);
-}
 
-@media (hover: hover) {
-  .customTrigger:hover {
-    background-color: var(--color-accent);
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-accent);
+    }
   }
 }
 
@@ -37,17 +37,10 @@
   color: var(--color-primary);
 }
 
-.triggerLabel {
-  min-width: 0;
-}
-
-.customPanel {
-  color: var(--color-muted-foreground);
-}
-
 .customPanelContent {
   margin-top: var(--spacing-1);
   padding: var(--spacing-2) var(--spacing-3);
   border-radius: var(--radius-md);
   background-color: var(--color-muted);
+  color: var(--color-muted-foreground);
 }
