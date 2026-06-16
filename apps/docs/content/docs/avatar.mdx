@@ -160,7 +160,7 @@ Render initials or short labels when there is no image source.
 
       export function AvatarFallbackOnlyDemo() {
         return (
-          <div className={styles.row}>
+          <div className="docs-avatar-row">
             <Avatar size="xs">
               <AvatarFallback>XS</AvatarFallback>
             </Avatar>
@@ -185,7 +185,7 @@ Render initials or short labels when there is no image source.
 
   <Preview.CSS>
     {`
-      .row {
+      .docs-avatar-row {
         display: flex;
         align-items: center;
         gap: var(--spacing-3);
@@ -232,9 +232,9 @@ Use `render` when the avatar should act as a link or compose with an app-specifi
 
       export function AvatarLinkDemo() {
         return (
-          <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className={styles.linkAvatar}>
-            <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
-            <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
+          <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className="docs-avatar-link">
+            <AvatarImage className="docs-avatar-link-image" src={avatarImage} alt="Alex T." />
+            <AvatarFallback className="docs-avatar-link-fallback" delay={600}>
               LT
             </AvatarFallback>
           </Avatar>
@@ -252,25 +252,25 @@ Use `render` when the avatar should act as a link or compose with an app-specifi
 
   <Preview.CSS>
     {`
-      .linkAvatar {
+      .docs-avatar-link {
         text-decoration: none;
         transition:
           box-shadow var(--transition-default),
           transform var(--transition-default);
       }
 
-      .linkAvatar:hover {
+      .docs-avatar-link:hover {
         box-shadow:
           0 0 0 2px var(--color-background),
           0 0 0 4px var(--color-primary);
         transform: translateY(-1px);
       }
 
-      .linkAvatarImage {
+      .docs-avatar-link-image {
         object-position: 50% 35%;
       }
 
-      .linkAvatarFallback {
+      .docs-avatar-link-fallback {
         --avatar-fallback-bg: var(--color-primary);
         --avatar-fallback-color: var(--color-primary-foreground);
       }
@@ -293,9 +293,9 @@ adding extra wrapper APIs.
 
       export function CustomCompositionAvatarDemo() {
         return (
-          <Avatar size="lg" className={styles.ring}>
-            <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
-            <AvatarFallback className={styles.uppercase}>LT</AvatarFallback>
+          <Avatar size="lg" className="docs-avatar-ring">
+            <AvatarImage className="docs-avatar-saturated-image" src={avatarImage} alt="Alex T." />
+            <AvatarFallback className="docs-avatar-uppercase">LT</AvatarFallback>
           </Avatar>
         );
       }
@@ -311,17 +311,17 @@ adding extra wrapper APIs.
 
   <Preview.CSS>
     {`
-      .ring {
+      .docs-avatar-ring {
         box-shadow:
           0 0 0 2px var(--color-background),
           0 0 0 4px var(--color-ring);
       }
 
-      .imageSaturated {
+      .docs-avatar-saturated-image {
         filter: saturate(1.5);
       }
 
-      .uppercase {
+      .docs-avatar-uppercase {
         text-transform: uppercase;
       }
     `}
@@ -342,9 +342,9 @@ Pass any React node to `AvatarFallback` when initials are not the right visual f
 
       export function AvatarIconFallbackDemo() {
         return (
-          <Avatar size="lg" className={styles.iconAvatar}>
+          <Avatar size="lg" className="docs-avatar-icon">
             <AvatarFallback>
-              <ComputerIcon className={styles.iconAvatarGlyph} />
+              <ComputerIcon className="docs-avatar-icon-glyph" />
             </AvatarFallback>
           </Avatar>
         );
@@ -355,12 +355,12 @@ Pass any React node to `AvatarFallback` when initials are not the right visual f
 
   <Preview.CSS>
     {`
-      .iconAvatar {
+      .docs-avatar-icon {
         --avatar-bg: var(--color-accent);
         --avatar-fallback-color: var(--color-accent-foreground);
       }
 
-      .iconAvatarGlyph {
+      .docs-avatar-icon-glyph {
         width: 55%;
         height: 55%;
       }

@@ -2,7 +2,6 @@ import type { ComponentProps } from 'react';
 import { Avatar, AvatarFallback, AvatarImage, ComputerIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
-import styles from './avatar.module.css';
 
 const avatarImage =
   'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
@@ -38,11 +37,10 @@ export const avatarOverrideCssProperties: CssPropertyInput[] = [
   ['--avatar-size', 'var(--size-md)', 'Controls avatar width and height.'],
   ['--avatar-transition', 'var(--transition-default)', 'Controls image fade transition.'],
 ];
+const avatarCssProperties = avatarOverrideCssProperties.map(normalizeCssProperty);
 
 export function AvatarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  const overrideProperties = avatarOverrideCssProperties.map(normalizeCssProperty);
-
-  return <CSSPropertiesReferenceTable properties={overrideProperties} />;
+  return <CSSPropertiesReferenceTable properties={avatarCssProperties} />;
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
@@ -68,7 +66,7 @@ export function AvatarExample(props: ComponentProps<typeof Avatar>) {
 
 export function AvatarFallbackOnlyExample() {
   return (
-    <div className={styles.row}>
+    <div className="docs-avatar-row">
       <Avatar size="xs">
         <AvatarFallback>XS</AvatarFallback>
       </Avatar>
@@ -90,9 +88,9 @@ export function AvatarFallbackOnlyExample() {
 
 export function AvatarCompositionExample() {
   return (
-    <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className={styles.linkAvatar}>
-      <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
-      <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
+    <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className="docs-avatar-link">
+      <AvatarImage className="docs-avatar-link-image" src={avatarImage} alt="Alex T." />
+      <AvatarFallback className="docs-avatar-link-fallback" delay={600}>
         LT
       </AvatarFallback>
     </Avatar>
@@ -110,18 +108,18 @@ export function AvatarImageErrorExample() {
 
 export function CustomCompositionAvatarExample() {
   return (
-    <Avatar size="lg" className={styles.ring}>
-      <AvatarImage className={styles.imageSaturated} src={avatarImage} alt="Alex T." />
-      <AvatarFallback className={styles.uppercase}>LT</AvatarFallback>
+    <Avatar size="lg" className="docs-avatar-ring">
+      <AvatarImage className="docs-avatar-saturated-image" src={avatarImage} alt="Alex T." />
+      <AvatarFallback className="docs-avatar-uppercase">LT</AvatarFallback>
     </Avatar>
   );
 }
 
 export function AvatarCustomFallbackExample() {
   return (
-    <Avatar size="lg" className={styles.iconAvatar}>
+    <Avatar size="lg" className="docs-avatar-icon">
       <AvatarFallback>
-        <ComputerIcon className={styles.iconAvatarGlyph} />
+        <ComputerIcon className="docs-avatar-icon-glyph" />
       </AvatarFallback>
     </Avatar>
   );

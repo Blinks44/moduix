@@ -29,12 +29,6 @@
       --avatar-line-height: var(--line-height-text-sm);
     }
 
-    &:where([data-size='md']) {
-      --avatar-size: var(--size-md);
-      --avatar-font-size: var(--text-md);
-      --avatar-line-height: var(--line-height-text-md);
-    }
-
     &:where([data-size='lg']) {
       --avatar-size: var(--size-lg);
       --avatar-font-size: var(--text-lg);

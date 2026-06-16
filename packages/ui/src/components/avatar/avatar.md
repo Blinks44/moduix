@@ -54,7 +54,7 @@ import { Avatar, AvatarFallback } from 'moduix';
 
 export function AvatarFallbackOnlyDemo() {
   return (
-    <div className={styles.row}>
+    <div className="avatar-row">
       <Avatar size="xs">
         <AvatarFallback>XS</AvatarFallback>
       </Avatar>
@@ -76,7 +76,7 @@ export function AvatarFallbackOnlyDemo() {
 ```
 
 ```css
-.row {
+.avatar-row {
   display: flex;
   align-items: center;
   gap: var(--spacing-3);
@@ -93,13 +93,38 @@ const avatarImage =
 
 export function AvatarLinkDemo() {
   return (
-    <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className={styles.linkAvatar}>
-      <AvatarImage className={styles.linkAvatarImage} src={avatarImage} alt="Alex T." />
-      <AvatarFallback className={styles.linkAvatarFallback} delay={600}>
+    <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className="avatar-link">
+      <AvatarImage className="avatar-link-image" src={avatarImage} alt="Alex T." />
+      <AvatarFallback className="avatar-link-fallback" delay={600}>
         LT
       </AvatarFallback>
     </Avatar>
   );
+}
+```
+
+```css
+.avatar-link {
+  text-decoration: none;
+  transition:
+    box-shadow var(--transition-default),
+    transform var(--transition-default);
+}
+
+.avatar-link:hover {
+  box-shadow:
+    0 0 0 2px var(--color-background),
+    0 0 0 4px var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.avatar-link-image {
+  object-position: 50% 35%;
+}
+
+.avatar-link-fallback {
+  --avatar-fallback-bg: var(--color-primary);
+  --avatar-fallback-color: var(--color-primary-foreground);
 }
 ```
 
@@ -229,6 +254,8 @@ wrapper class:
 
 ## Local changelog
 
+- 2026-06-16: Simplified the root prop typing, removed the redundant medium-size CSS override, and
+  cleaned up example snippets so custom classes are shown directly next to their CSS.
 - 2026-06-10: Added phase-specific image motion tokens so avatar image appearance can be retuned to fade, slide, or zoom through CSS variables while preserving the shipped fade default.
 - Rewrote the local documentation to describe the moduix wrapper instead of the Base UI namespace
   API, including project parts, CSS variables, accessibility guidance, and real examples.

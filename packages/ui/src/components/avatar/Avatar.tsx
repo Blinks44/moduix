@@ -3,14 +3,11 @@ import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Avatar.module.css';
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-function Avatar({
-  className,
-  size,
-  ...props
-}: AvatarPrimitive.Root.Props & {
+type AvatarProps = AvatarPrimitive.Root.Props & {
   size?: AvatarSize;
-}) {
+};
+
+function Avatar({ className, size, ...props }: AvatarProps) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar-root"
