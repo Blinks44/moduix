@@ -7,10 +7,8 @@ import styles from './AlertDialog.module.css';
 const AlertDialog = AlertDialogPrimitive.Root;
 const createAlertDialogHandle = AlertDialogPrimitive.createHandle;
 
-function AlertDialogPortal({ className, ...props }: AlertDialogPrimitive.Portal.Props) {
-  return (
-    <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" className={className} {...props} />
-  );
+function AlertDialogPortal(props: AlertDialogPrimitive.Portal.Props) {
+  return <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />;
 }
 
 function AlertDialogTrigger({ className, render, ...props }: AlertDialogPrimitive.Trigger.Props) {
@@ -18,7 +16,7 @@ function AlertDialogTrigger({ className, render, ...props }: AlertDialogPrimitiv
     <AlertDialogPrimitive.Trigger
       data-slot="alert-dialog-trigger"
       render={render}
-      className={render ? className : mergeClassName(className, styles.trigger)}
+      className={mergeClassName(className, !render && styles.trigger)}
       {...props}
     />
   );

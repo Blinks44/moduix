@@ -213,13 +213,13 @@ Use controlled mode when another workflow owns the open state.
         AlertDialogTitle,
         Button,
       } from "moduix";
-      import { Fragment, useState } from "react";
+      import { useState } from "react";
 
       export function ControlledAlertDialogDemo() {
         const [open, setOpen] = useState(false);
 
         return (
-          <Fragment>
+          <>
             <Button type="button" onClick={() => setOpen(true)}>
               Open controlled dialog
             </Button>
@@ -237,7 +237,7 @@ Use controlled mode when another workflow owns the open state.
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          </Fragment>
+          </>
         );
       }
     `}
@@ -339,13 +339,13 @@ Use `createAlertDialogHandle()` for detached triggers or imperative opens.
         Button,
         createAlertDialogHandle,
       } from "moduix";
-      import { Fragment, useMemo } from "react";
+      import { useMemo } from "react";
 
       export function AlertDialogHandleDemo() {
         const alertDialogHandle = useMemo(() => createAlertDialogHandle(), []);
 
         return (
-          <Fragment>
+          <>
             <AlertDialogTrigger handle={alertDialogHandle}>Open from detached trigger</AlertDialogTrigger>
             <Button type="button" onClick={() => alertDialogHandle.open(null)}>
               Open programmatically
@@ -365,7 +365,7 @@ Use `createAlertDialogHandle()` for detached triggers or imperative opens.
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          </Fragment>
+          </>
         );
       }
     `}
@@ -395,8 +395,6 @@ Put longer details inside `AlertDialogBody`, and place the scroll container insi
         AlertDialogTrigger,
         ScrollArea,
       } from "moduix";
-      import styles from "./alert-dialog-demo.module.css";
-
       export function ScrollableAlertDialogDemo() {
         return (
           <AlertDialog>
@@ -408,9 +406,9 @@ Put longer details inside `AlertDialogBody`, and place the scroll container insi
                   This removes all deployment environments and API keys.
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              <AlertDialogBody className={styles.scrollBody}>
-                <ScrollArea className={styles.scrollArea}>
-                  <div className={styles.scrollContent}>
+              <AlertDialogBody className="scrollBody">
+                <ScrollArea className="scrollArea">
+                  <div className="scrollContent">
                     {sections.map((item) => (
                       <section key={item.title}>
                         <h3>{item.title}</h3>
@@ -501,16 +499,14 @@ keeps the public API small while still exposing the normal theming hooks.
         AlertDialogTrigger,
         AlertDialogViewport,
       } from "moduix";
-      import styles from "./alert-dialog-demo.module.css";
-
       export function CustomCompositionAlertDialogDemo() {
         return (
           <AlertDialog>
             <AlertDialogTrigger>Reset environment</AlertDialogTrigger>
             <AlertDialogPortal>
-              <AlertDialogBackdrop className={styles.customBackdrop} />
+              <AlertDialogBackdrop className="customBackdrop" />
               <AlertDialogViewport>
-                <AlertDialogPopup className={styles.customPopup}>
+                <AlertDialogPopup className="customPopup">
                   <AlertDialogHeader>
                     <AlertDialogTitle>Reset environment?</AlertDialogTitle>
                     <AlertDialogDescription>

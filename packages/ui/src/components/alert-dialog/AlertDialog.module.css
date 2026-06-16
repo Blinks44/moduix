@@ -141,19 +141,17 @@
     font-size: var(--alert-dialog-title-font-size, var(--text-lg));
     font-weight: var(--alert-dialog-title-font-weight, var(--weight-semibold));
     line-height: var(--alert-dialog-title-line-height, var(--line-height-text-lg));
+    margin: 0;
   }
 
-  .description {
+  .description,
+  .body {
     color: var(
       --alert-dialog-description-color,
       var(--alert-dialog-muted-color, var(--color-muted-foreground))
     );
     font-size: var(--alert-dialog-description-font-size, var(--text-md));
     line-height: var(--alert-dialog-description-line-height, var(--line-height-text-md));
-  }
-
-  .title,
-  .description {
     margin: 0;
   }
 
@@ -195,14 +193,5 @@
         background-color: var(--alert-dialog-action-bg-hover, var(--color-foreground));
       }
     }
-  }
-
-  .body {
-    color: var(
-      --alert-dialog-description-color,
-      var(--alert-dialog-muted-color, var(--color-muted-foreground))
-    );
-    font-size: var(--alert-dialog-description-font-size, var(--text-md));
-    line-height: var(--alert-dialog-description-line-height, var(--line-height-text-md));
   }
 }

@@ -17,153 +17,291 @@ import {
   ScrollArea,
   createAlertDialogHandle,
 } from 'moduix';
-import { Fragment, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './alert-dialog.module.css';
 
-export const alertDialogOverrideCssProperties: CssPropertyInput[] = [
-  ['--alert-dialog-action-bg', 'var(--color-primary)', 'Controls action button background.'],
-  [
-    '--alert-dialog-action-bg-hover',
-    'var(--color-foreground)',
-    'Controls action button hover background.',
-  ],
-  [
-    '--alert-dialog-action-border-color',
-    'var(--color-primary)',
-    'Controls action button border color.',
-  ],
-  [
-    '--alert-dialog-action-color',
-    'var(--color-primary-foreground)',
-    'Controls action button text color.',
-  ],
-  [
-    '--alert-dialog-backdrop-bg',
-    'var(--backdrop-bg, var(--color-overlay))',
-    'Controls backdrop background.',
-  ],
-  ['--alert-dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
-  [
-    '--alert-dialog-backdrop-transition',
-    'var(--transition-default)',
-    'Controls backdrop transition timing.',
-  ],
-  ['--alert-dialog-bg', 'var(--color-popover)', 'Controls popup background color.'],
-  ['--alert-dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--alert-dialog-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
-  [
-    '--alert-dialog-cancel-bg',
-    'var(--alert-dialog-control-bg, var(--color-background))',
-    'Controls cancel button background.',
-  ],
-  [
-    '--alert-dialog-cancel-bg-hover',
-    'var(--alert-dialog-control-bg-hover, var(--color-accent))',
-    'Controls cancel button hover background.',
-  ],
-  [
-    '--alert-dialog-cancel-border-color',
-    'var(--color-border)',
-    'Controls cancel button border color.',
-  ],
-  [
-    '--alert-dialog-cancel-color',
-    'var(--alert-dialog-control-color, var(--color-foreground))',
-    'Controls cancel button text color.',
-  ],
-  ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--alert-dialog-control-bg', 'var(--color-background)', 'Controls control background.'],
-  ['--alert-dialog-control-bg-hover', 'var(--color-accent)', 'Controls control hover background.'],
-  ['--alert-dialog-control-border-color', 'var(--color-border)', 'Controls control border color.'],
-  [
-    '--alert-dialog-control-border-width',
-    'var(--border-width-sm)',
-    'Controls control border width.',
-  ],
-  ['--alert-dialog-control-color', 'var(--color-foreground)', 'Controls control text color.'],
-  ['--alert-dialog-control-font-size', 'var(--text-md)', 'Controls control font size.'],
-  ['--alert-dialog-control-height', 'var(--size-lg)', 'Controls control minimum height.'],
-  [
-    '--alert-dialog-control-line-height',
-    'var(--line-height-text-md)',
-    'Controls control line height.',
-  ],
-  ['--alert-dialog-control-padding-x', '0.875rem', 'Controls control horizontal padding.'],
-  ['--alert-dialog-control-padding-y', '0.5rem', 'Controls control vertical padding.'],
-  ['--alert-dialog-control-radius', 'var(--radius-md)', 'Controls control border radius.'],
-  [
-    '--alert-dialog-description-color',
-    'var(--alert-dialog-muted-color, var(--color-muted-foreground))',
-    'Controls description and body text color.',
-  ],
-  [
-    '--alert-dialog-description-font-size',
-    'var(--text-md)',
-    'Controls description and body font size.',
-  ],
-  [
-    '--alert-dialog-description-line-height',
-    'var(--line-height-text-md)',
-    'Controls description and body line height.',
-  ],
-  ['--alert-dialog-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  [
-    '--alert-dialog-focus-ring-width',
-    'var(--alert-dialog-control-border-width, var(--border-width-sm))',
-    'Controls focus ring width.',
-  ],
-  ['--alert-dialog-footer-gap', 'var(--spacing-2)', 'Controls footer actions gap.'],
-  ['--alert-dialog-header-gap', 'var(--spacing-1)', 'Controls header gap.'],
-  ['--alert-dialog-max-width', 'calc(100vw - var(--spacing-8, 2rem))', 'Controls popup max width.'],
-  ['--alert-dialog-muted-color', 'var(--color-muted-foreground)', 'Controls muted text color.'],
-  ['--alert-dialog-padding', 'var(--spacing-6)', 'Controls popup padding.'],
-  ['--alert-dialog-radius', 'var(--radius-lg)', 'Controls popup border radius.'],
-  ['--alert-dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  [
-    '--alert-dialog-title-color',
-    'var(--alert-dialog-color, var(--color-popover-foreground))',
-    'Controls title text color.',
-  ],
-  ['--alert-dialog-title-font-size', 'var(--text-lg)', 'Controls title font size.'],
-  ['--alert-dialog-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
-  ['--alert-dialog-title-line-height', 'var(--line-height-text-lg)', 'Controls title line height.'],
-  ['--alert-dialog-transition', 'var(--transition-default)', 'Controls popup transition timing.'],
-  ['--alert-dialog-trigger-color', 'var(--color-destructive)', 'Controls trigger text color.'],
-  ['--alert-dialog-viewport-padding', 'var(--spacing-4)', 'Controls viewport padding.'],
-  ['--alert-dialog-width', '24rem', 'Controls popup width.'],
+export const alertDialogOverrideCssProperties: CssProperty[] = [
+  {
+    name: '--alert-dialog-action-bg',
+    defaultValue: 'var(--color-primary)',
+    description: 'Controls action button background.',
+  },
+  {
+    name: '--alert-dialog-action-bg-hover',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls action button hover background.',
+  },
+  {
+    name: '--alert-dialog-action-border-color',
+    defaultValue: 'var(--color-primary)',
+    description: 'Controls action button border color.',
+  },
+  {
+    name: '--alert-dialog-action-color',
+    defaultValue: 'var(--color-primary-foreground)',
+    description: 'Controls action button text color.',
+  },
+  {
+    name: '--alert-dialog-backdrop-bg',
+    defaultValue: 'var(--backdrop-bg, var(--color-overlay))',
+    description: 'Controls backdrop background.',
+  },
+  {
+    name: '--alert-dialog-backdrop-blur',
+    defaultValue: '4px',
+    description: 'Controls backdrop blur.',
+  },
+  {
+    name: '--alert-dialog-backdrop-transition',
+    defaultValue: 'var(--transition-default)',
+    description: 'Controls backdrop transition timing.',
+  },
+  {
+    name: '--alert-dialog-bg',
+    defaultValue: 'var(--color-popover)',
+    description: 'Controls popup background color.',
+  },
+  {
+    name: '--alert-dialog-border-color',
+    defaultValue: 'var(--color-border)',
+    description: 'Controls popup border color.',
+  },
+  {
+    name: '--alert-dialog-border-width',
+    defaultValue: 'var(--border-width-sm)',
+    description: 'Controls popup border width.',
+  },
+  {
+    name: '--alert-dialog-cancel-bg',
+    defaultValue: 'var(--alert-dialog-control-bg, var(--color-background))',
+    description: 'Controls cancel button background.',
+  },
+  {
+    name: '--alert-dialog-cancel-bg-hover',
+    defaultValue: 'var(--alert-dialog-control-bg-hover, var(--color-accent))',
+    description: 'Controls cancel button hover background.',
+  },
+  {
+    name: '--alert-dialog-cancel-border-color',
+    defaultValue: 'var(--color-border)',
+    description: 'Controls cancel button border color.',
+  },
+  {
+    name: '--alert-dialog-cancel-color',
+    defaultValue: 'var(--alert-dialog-control-color, var(--color-foreground))',
+    description: 'Controls cancel button text color.',
+  },
+  {
+    name: '--alert-dialog-color',
+    defaultValue: 'var(--color-popover-foreground)',
+    description: 'Controls popup text color.',
+  },
+  {
+    name: '--alert-dialog-control-bg',
+    defaultValue: 'var(--color-background)',
+    description: 'Controls control background.',
+  },
+  {
+    name: '--alert-dialog-control-bg-hover',
+    defaultValue: 'var(--color-accent)',
+    description: 'Controls control hover background.',
+  },
+  {
+    name: '--alert-dialog-control-border-color',
+    defaultValue: 'var(--color-border)',
+    description: 'Controls control border color.',
+  },
+  {
+    name: '--alert-dialog-control-border-width',
+    defaultValue: 'var(--border-width-sm)',
+    description: 'Controls control border width.',
+  },
+  {
+    name: '--alert-dialog-control-color',
+    defaultValue: 'var(--color-foreground)',
+    description: 'Controls control text color.',
+  },
+  {
+    name: '--alert-dialog-control-font-size',
+    defaultValue: 'var(--text-md)',
+    description: 'Controls control font size.',
+  },
+  {
+    name: '--alert-dialog-control-height',
+    defaultValue: 'var(--size-lg)',
+    description: 'Controls control minimum height.',
+  },
+  {
+    name: '--alert-dialog-control-line-height',
+    defaultValue: 'var(--line-height-text-md)',
+    description: 'Controls control line height.',
+  },
+  {
+    name: '--alert-dialog-control-padding-x',
+    defaultValue: '0.875rem',
+    description: 'Controls control horizontal padding.',
+  },
+  {
+    name: '--alert-dialog-control-padding-y',
+    defaultValue: '0.5rem',
+    description: 'Controls control vertical padding.',
+  },
+  {
+    name: '--alert-dialog-control-radius',
+    defaultValue: 'var(--radius-md)',
+    description: 'Controls control border radius.',
+  },
+  {
+    name: '--alert-dialog-description-color',
+    defaultValue: 'var(--alert-dialog-muted-color, var(--color-muted-foreground))',
+    description: 'Controls description and body text color.',
+  },
+  {
+    name: '--alert-dialog-description-font-size',
+    defaultValue: 'var(--text-md)',
+    description: 'Controls description and body font size.',
+  },
+  {
+    name: '--alert-dialog-description-line-height',
+    defaultValue: 'var(--line-height-text-md)',
+    description: 'Controls description and body line height.',
+  },
+  {
+    name: '--alert-dialog-focus-ring-color',
+    defaultValue: 'var(--color-ring)',
+    description: 'Controls focus ring color.',
+  },
+  {
+    name: '--alert-dialog-focus-ring-width',
+    defaultValue: 'var(--alert-dialog-control-border-width, var(--border-width-sm))',
+    description: 'Controls focus ring width.',
+  },
+  {
+    name: '--alert-dialog-footer-gap',
+    defaultValue: 'var(--spacing-2)',
+    description: 'Controls footer actions gap.',
+  },
+  {
+    name: '--alert-dialog-header-gap',
+    defaultValue: 'var(--spacing-1)',
+    description: 'Controls header gap.',
+  },
+  {
+    name: '--alert-dialog-max-width',
+    defaultValue: 'calc(100vw - var(--spacing-8, 2rem))',
+    description: 'Controls popup max width.',
+  },
+  {
+    name: '--alert-dialog-muted-color',
+    defaultValue: 'var(--color-muted-foreground)',
+    description: 'Controls muted text color.',
+  },
+  {
+    name: '--alert-dialog-padding',
+    defaultValue: 'var(--spacing-6)',
+    description: 'Controls popup padding.',
+  },
+  {
+    name: '--alert-dialog-radius',
+    defaultValue: 'var(--radius-lg)',
+    description: 'Controls popup border radius.',
+  },
+  {
+    name: '--alert-dialog-shadow',
+    defaultValue: 'var(--shadow-lg)',
+    description: 'Controls popup shadow.',
+  },
+  {
+    name: '--alert-dialog-title-color',
+    defaultValue: 'var(--alert-dialog-color, var(--color-popover-foreground))',
+    description: 'Controls title text color.',
+  },
+  {
+    name: '--alert-dialog-title-font-size',
+    defaultValue: 'var(--text-lg)',
+    description: 'Controls title font size.',
+  },
+  {
+    name: '--alert-dialog-title-font-weight',
+    defaultValue: 'var(--weight-semibold)',
+    description: 'Controls title font weight.',
+  },
+  {
+    name: '--alert-dialog-title-line-height',
+    defaultValue: 'var(--line-height-text-lg)',
+    description: 'Controls title line height.',
+  },
+  {
+    name: '--alert-dialog-transition',
+    defaultValue: 'var(--transition-default)',
+    description: 'Controls popup transition timing.',
+  },
+  {
+    name: '--alert-dialog-trigger-color',
+    defaultValue: 'var(--color-destructive)',
+    description: 'Controls trigger text color.',
+  },
+  {
+    name: '--alert-dialog-viewport-padding',
+    defaultValue: 'var(--spacing-4)',
+    description: 'Controls viewport padding.',
+  },
+  { name: '--alert-dialog-width', defaultValue: '24rem', description: 'Controls popup width.' },
 ];
 
-export const alertDialogPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop.'],
-  ['--alert-dialog-backdrop-blur', '4px', 'Controls backdrop blur.'],
-  ['--alert-dialog-bg', 'var(--color-popover)', 'Controls the popup background color.'],
-  ['--alert-dialog-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--alert-dialog-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  [
-    '--alert-dialog-description-color',
-    'var(--alert-dialog-muted-color, var(--color-muted-foreground))',
-    'Controls description and body text color.',
-  ],
-  ['--alert-dialog-radius', 'var(--radius-lg)', 'Controls the popup border radius.'],
-  ['--alert-dialog-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  [
-    '--alert-dialog-title-color',
-    'var(--alert-dialog-color, var(--color-popover-foreground))',
-    'Controls title text color.',
-  ],
+export const alertDialogPlaygroundCssProperties: CssProperty[] = [
+  {
+    name: '--alert-dialog-backdrop-bg',
+    defaultValue: 'var(--backdrop-bg, var(--color-overlay))',
+    description: 'Controls backdrop.',
+  },
+  {
+    name: '--alert-dialog-backdrop-blur',
+    defaultValue: '4px',
+    description: 'Controls backdrop blur.',
+  },
+  {
+    name: '--alert-dialog-bg',
+    defaultValue: 'var(--color-popover)',
+    description: 'Controls the popup background color.',
+  },
+  {
+    name: '--alert-dialog-border-color',
+    defaultValue: 'var(--color-border)',
+    description: 'Controls popup border color.',
+  },
+  {
+    name: '--alert-dialog-color',
+    defaultValue: 'var(--color-popover-foreground)',
+    description: 'Controls popup text color.',
+  },
+  {
+    name: '--alert-dialog-description-color',
+    defaultValue: 'var(--alert-dialog-muted-color, var(--color-muted-foreground))',
+    description: 'Controls description and body text color.',
+  },
+  {
+    name: '--alert-dialog-radius',
+    defaultValue: 'var(--radius-lg)',
+    description: 'Controls the popup border radius.',
+  },
+  {
+    name: '--alert-dialog-shadow',
+    defaultValue: 'var(--shadow-lg)',
+    description: 'Controls popup shadow.',
+  },
+  {
+    name: '--alert-dialog-title-color',
+    defaultValue: 'var(--alert-dialog-color, var(--color-popover-foreground))',
+    description: 'Controls title text color.',
+  },
 ];
 
 export function AlertDialogCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={alertDialogOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </div>
-  );
+  return <CSSPropertiesReferenceTable properties={alertDialogOverrideCssProperties} />;
 }
 
 export function AlertDialogCssPlaygroundPanel({
@@ -172,23 +310,13 @@ export function AlertDialogCssPlaygroundPanel({
   onReset,
 }: CSSPropertiesEditorContext) {
   return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={alertDialogPlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
-    </div>
+    <CSSPropertiesEditor
+      properties={alertDialogPlaygroundCssProperties}
+      values={values}
+      onChange={onChange}
+      onReset={onReset}
+    />
   );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
 }
 
 export function AlertDialogExample() {
@@ -213,7 +341,7 @@ export function ControlledAlertDialogExample() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Fragment>
+    <>
       <Button type="button" onClick={() => setOpen(true)}>
         Open controlled dialog
       </Button>
@@ -231,7 +359,7 @@ export function ControlledAlertDialogExample() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </Fragment>
+    </>
   );
 }
 
@@ -294,7 +422,7 @@ export function AlertDialogHandleExample() {
   const alertDialogHandle = useMemo(() => createAlertDialogHandle(), []);
 
   return (
-    <Fragment>
+    <>
       <AlertDialogTrigger handle={alertDialogHandle}>Open from detached trigger</AlertDialogTrigger>
       <Button type="button" onClick={() => alertDialogHandle.open(null)}>
         Open programmatically
@@ -314,7 +442,7 @@ export function AlertDialogHandleExample() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </Fragment>
+    </>
   );
 }
 
