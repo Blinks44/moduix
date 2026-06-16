@@ -193,15 +193,3 @@ export function CustomCompositionProgressExample() {
     </ProgressRoot>
   );
 }
-
-export function DeepCompositionProgressExample() {
-  return (
-    <ProgressRoot value={72} className={styles.customProgress}>
-      <ProgressLabel>Monthly export</ProgressLabel>
-      <ProgressValue />
-      <ProgressTrack>
-        <ProgressIndicator />
-      </ProgressTrack>
-    </ProgressRoot>
-  );
-}

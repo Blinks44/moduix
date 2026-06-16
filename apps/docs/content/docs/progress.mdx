@@ -378,7 +378,7 @@ structure still fits.
 
       export function CustomStylesProgressDemo() {
         return (
-          <Progress value={72} className={styles.customProgress}>
+          <Progress value={72} className="customProgress">
             <ProgressLabel>Monthly quota</ProgressLabel>
             <ProgressValue />
           </Progress>
@@ -425,15 +425,14 @@ Use explicit parts when the layout or bar structure needs to change more deeply.
         ProgressTrack,
         ProgressValue,
       } from "moduix";
-      import styles from "./progress-demo.module.css";
 
       export function CustomCompositionProgressDemo() {
         return (
-          <ProgressRoot value={58} className={styles.composedProgress}>
+          <ProgressRoot value={58} className="composedProgress">
             <ProgressLabel>Team rollout</ProgressLabel>
             <ProgressValue>{(formattedValue) => \`\${formattedValue} shipped\`}</ProgressValue>
-            <ProgressTrack className={styles.composedTrack}>
-              <ProgressIndicator className={styles.composedIndicator} />
+            <ProgressTrack className="composedTrack">
+              <ProgressIndicator className="composedIndicator" />
             </ProgressTrack>
           </ProgressRoot>
         );

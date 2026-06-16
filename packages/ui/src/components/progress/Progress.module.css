@@ -50,6 +50,13 @@
         progress-indeterminate 1.5s ease-in-out infinite
       );
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      &[data-indeterminate] {
+        animation: none;
+        transform: translateX(0);
+      }
+    }
   }
 
   @keyframes progress-indeterminate {
@@ -59,13 +66,6 @@
 
     to {
       transform: translateX(300%);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .indicator[data-indeterminate] {
-      animation: none;
-      transform: translateX(0);
     }
   }
 }
