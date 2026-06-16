@@ -10,23 +10,28 @@ import {
   MultipleTriggersTooltipExample,
   SideControlTooltipExample,
   ToolbarTooltipExample,
-  TooltipCompactLabelExample,
-  TooltipCssPlaygroundPanel,
   TooltipCssPropertiesPanel,
   TooltipExample,
-  tooltipPlaygroundCssProperties,
 } from '@/components/examples/tooltip';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/tooltip" />
 
-## Default Path
+## Choosing the right component
 
-Use a tooltip for short visual labels on controls. Keep an accessible name on the trigger itself:
-tooltips do not replace `aria-label` or visible text.
+Use `Tooltip` for short, non-essential labels or hints that help sighted users on hover or focus.
 
-<Preview cssProperties={tooltipPlaygroundCssProperties}>
+- Choose **`Tooltip`** for compact labels and short contextual hints.
+- Choose **`Popover`** when the popup needs richer layout, actions, or interactive content.
+- Choose **`PreviewCard`** when the popup should expose a richer preview surface tied to a trigger.
+
+## Basic
+
+Start with `Tooltip`, `TooltipTrigger`, and `TooltipContent`. Keep an accessible name on the
+trigger itself: tooltips do not replace `aria-label` or visible text.
+
+<Preview>
   <TooltipExample />
 
   <Preview.Code>
@@ -72,8 +77,6 @@ tooltips do not replace `aria-label` or visible text.
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>{(context) => <TooltipCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <TooltipCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -124,8 +127,7 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`TooltipContent` is the default high-level wrapper. It renders the structural Base UI parts for the
-common case and keeps the public API small.
+The normal consumer path is short:
 
 ```text
 Tooltip
@@ -138,70 +140,87 @@ Tooltip
                └─ content
 ```
 
-When you need to override structure, styling hooks, or positioning behavior more deeply, compose
-the low-level parts directly:
+Turn on `showArrow` when the built-in arrow adds value:
 
 ```text
 Tooltip
 ├─ TooltipTrigger
-└─ TooltipPortal
-   └─ TooltipPositioner
-      └─ TooltipPopup
-         ├─ TooltipArrow
-         └─ TooltipViewport
-            └─ content
+└─ TooltipContent
+   └─ TooltipPortal
+      └─ TooltipPositioner
+         └─ TooltipPopup
+            ├─ TooltipArrow
+            └─ TooltipViewport
+               └─ content
 ```
+
+Use the low-level parts directly when portal placement, popup structure, or advanced positioning
+needs to change.
 
 | Part                | Role                                                                                                     |
 | ------------------- | -------------------------------------------------------------------------------------------------------- |
-| `Tooltip`           | Root state, open lifecycle, delay behavior, controlled props, and optional `handle` linking.             |
+| `Tooltip`           | Root state, open lifecycle, controlled props, and optional `handle` linking.                             |
 | `TooltipProvider`   | Shared timing config for related tooltips.                                                               |
 | `TooltipTrigger`    | Interactive anchor element. Opens the tooltip on hover or focus and should keep its own accessible name. |
-| `TooltipContent`    | Simple default content wrapper. Composes portal, positioner, popup, and viewport for you.                |
-| `TooltipPortal`     | Escape hatch for custom portal placement and DOM structure.                                              |
-| `TooltipPositioner` | Escape hatch for advanced positioning props that are intentionally not mirrored on `TooltipContent`.     |
-| `TooltipPopup`      | Visible popup surface.                                                                                   |
+| `TooltipContent`    | Default popup wrapper with built-in portal, positioner, popup, optional arrow, and viewport.             |
+| `TooltipPortal`     | Mount target for custom portal placement.                                                                |
+| `TooltipPositioner` | Floating layout and positioning layer.                                                                   |
+| `TooltipPopup`      | Visible tooltip surface.                                                                                 |
 | `TooltipArrow`      | Optional default arrow part.                                                                             |
-| `TooltipViewport`   | Content viewport that preserves Base UI transition behavior between triggers.                            |
+| `TooltipViewport`   | Inner content wrapper that preserves Base UI transition behavior between triggers.                       |
 
 ## Composition
 
-Use `TooltipContent` for the common path and compose `TooltipTrigger` with `render={<Button />}`
-when the trigger should inherit an existing control style. `TooltipContent` supports:
+### When to stay high-level
 
-- `className`
-- `showArrow`
-- `side`
-- `sideOffset`
-- `align`
-- `alignOffset`
-- `arrowPadding`
-- `collisionAvoidance`
-- `collisionBoundary`
-- `collisionPadding`
+Stay with `Tooltip`, `TooltipTrigger`, and `TooltipContent` for most icon buttons, compact labels,
+and settings controls.
 
-That keeps the common path small:
+`Tooltip` keeps the Base UI root behavior intact. Use it for `open`, `defaultOpen`,
+`onOpenChange`, `disableHoverablePopup`, `trackCursorAxis`, and shared-handle flows.
 
-```tsx
-<Tooltip>
-  <TooltipTrigger render={<Button />} aria-label="Notifications">
-    Hover or focus
-  </TooltipTrigger>
-  <TooltipContent side="top" sideOffset={8}>
-    Notifications
-  </TooltipContent>
-</Tooltip>
-```
+`TooltipContent` is the high-level popup wrapper. It accepts popup `className`, supports the shared
+positioning props (`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`,
+`collisionAvoidance`, `collisionBoundary`, `collisionPadding`), and adds one tooltip-specific
+convenience:
 
-If you need portal options, custom DOM structure, a custom arrow setup, or less common positioning
-props such as `anchor`, `disableAnchorTracking`, `sticky`, or `positionMethod`, switch to explicit
-composition with the exported low-level parts.
+- `showArrow` for the built-in popup arrow
+
+### When to go custom
+
+Switch to `TooltipPortal`, `TooltipPositioner`, `TooltipPopup`, `TooltipArrow`, and
+`TooltipViewport` when you need portal props, custom DOM structure, a custom arrow setup, or less
+common positioner props such as `anchor`, `disableAnchorTracking`, `sticky`, or
+`positionMethod`.
+
+### Default props
+
+| Prop           | Default | Values / Notes                            |
+| -------------- | ------- | ----------------------------------------- |
+| `showArrow`    | `false` | Enables the built-in arrow                |
+| `sideOffset`   | `8`     | Any number accepted by Base UI positioner |
+| `closeOnClick` | `true`  | Default `TooltipTrigger` click behavior   |
+
+### Behavioral notes
+
+- `TooltipContent className` styles the visible popup surface, not the portal, positioner, or
+  viewport.
+- `TooltipTrigger` applies the moduix trigger styling only when `render` is omitted. With
+  `render={<Button />}`, styling belongs to the rendered element.
+- `TooltipTrigger disabled` only disables tooltip behavior. If the rendered control itself should
+  be disabled, pass `disabled` to that control as well.
+- `TooltipViewport` is part of the default wrapper contract. It is not a generic scroll container.
+- Use `TooltipProvider` when nearby tooltips should share delay timing and reopen instantly after
+  one another.
+- Use `createTooltipHandle` when one tooltip needs to follow detached triggers or several triggers
+  need to share payload-driven content.
 
 ## Examples
 
 ### With Arrow
 
-Keep the default path compact and opt into the built-in arrow only when it adds value.
+Use `showArrow` when the popup should render the library arrow without switching to low-level
+composition.
 
 <Preview>
   <ToolbarTooltipExample />
@@ -286,37 +305,6 @@ Keep the default path compact and opt into the built-in arrow only when it adds 
     `}
 
   </Preview.CSS>
-</Preview>
-
-### Compact Label
-
-The default `TooltipContent` has no arrow, which keeps simple labels minimal.
-
-<Preview>
-  <TooltipCompactLabelExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Button,
-        Tooltip,
-        TooltipContent,
-        TooltipTrigger,
-      } from "moduix";
-
-      export function TooltipCompactLabelDemo() {
-        return (
-          <Tooltip>
-            <TooltipTrigger render={<Button />} aria-label="Tooltip without arrow">
-              Hover or focus
-            </TooltipTrigger>
-            <TooltipContent>Tooltip without arrow</TooltipContent>
-          </Tooltip>
-        );
-      }
-    `}
-
-  </Preview.Code>
 </Preview>
 
 ### Side Control
@@ -636,3 +624,31 @@ positioner props, compose the low-level parts explicitly.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TooltipCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `TooltipTrigger` for trigger chrome, hover/open feedback, and focus styling
+- `TooltipContent` or `TooltipPopup` for popup surface overrides
+- `TooltipArrow` for arrow size or stroke changes
+- `TooltipViewport` for payload-transition layout and inner content behavior
+
+The main public hooks include `data-slot="tooltip-trigger"`, `tooltip-positioner`,
+`tooltip-popup`, `tooltip-arrow`, and `tooltip-viewport`.
+
+Base UI also adds state attributes such as `data-popup-open`, `data-trigger-disabled`,
+`data-starting-style`, `data-ending-style`, `data-instant`, `data-side`, `data-align`,
+`data-current`, `data-previous`, and `data-transitioning` on the relevant parts.

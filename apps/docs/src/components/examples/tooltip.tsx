@@ -16,28 +16,28 @@ import {
   createTooltipHandle,
 } from 'moduix';
 import { useMemo, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './tooltip.module.css';
 
 const tooltipSides = ['top', 'right', 'bottom', 'left'] as const;
 type TooltipSide = (typeof tooltipSides)[number];
 
-export const tooltipOverrideCssProperties: CssPropertyInput[] = [
+export const tooltipCssProperties: CssPropertyInput[] = [
   ['--tooltip-arrow-height', '0.625rem', 'Controls the default arrow SVG height.'],
   ['--tooltip-arrow-inline-offset', '13px', 'Controls the inline-axis arrow offset.'],
   ['--tooltip-arrow-size', '8px', 'Controls the block-axis arrow offset.'],
-  ['--tooltip-arrow-stroke-color', 'var(--tooltip-border-color)', 'Controls arrow border color.'],
+  [
+    '--tooltip-arrow-stroke-color',
+    'var(--tooltip-border-color, var(--color-border))',
+    'Controls arrow border color.',
+  ],
   ['--tooltip-arrow-width', '1.25rem', 'Controls the default arrow SVG width.'],
   ['--tooltip-bg', 'var(--color-popover)', 'Controls the popup background color.'],
   ['--tooltip-border-color', 'var(--color-border)', 'Controls the popup border color.'],
   ['--tooltip-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
   ['--tooltip-color', 'var(--color-popover-foreground)', 'Controls the popup text color.'],
-  [
-    '--tooltip-content-transition',
-    'var(--duration-fast)',
-    'Controls content transitions between triggers.',
-  ],
+  ['--tooltip-content-transition', '150ms', 'Controls content transitions between triggers.'],
   ['--tooltip-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
   ['--tooltip-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
   ['--tooltip-focus-ring-offset', '-1px', 'Controls trigger focus ring offset.'],
@@ -48,9 +48,45 @@ export const tooltipOverrideCssProperties: CssPropertyInput[] = [
   ['--tooltip-max-width', '20rem', 'Controls the popup max width.'],
   ['--tooltip-padding-x', '0.5rem', 'Controls the popup horizontal padding.'],
   ['--tooltip-padding-y', '0.25rem', 'Controls the popup vertical padding.'],
+  ['--tooltip-popup-ending-opacity', '0', 'Controls popup opacity at the end of exit transitions.'],
+  [
+    '--tooltip-popup-ending-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the end of exit transitions.',
+  ],
+  [
+    '--tooltip-popup-ending-translate-x',
+    '0',
+    'Controls popup X offset at the end of exit transitions.',
+  ],
+  [
+    '--tooltip-popup-ending-translate-y',
+    '0',
+    'Controls popup Y offset at the end of exit transitions.',
+  ],
+  [
+    '--tooltip-popup-starting-opacity',
+    '0',
+    'Controls popup opacity at the start of enter transitions.',
+  ],
+  [
+    '--tooltip-popup-starting-scale',
+    'var(--scale-popup)',
+    'Controls popup scale at the start of enter transitions.',
+  ],
+  [
+    '--tooltip-popup-starting-translate-x',
+    '0',
+    'Controls popup X offset at the start of enter transitions.',
+  ],
+  [
+    '--tooltip-popup-starting-translate-y',
+    '0',
+    'Controls popup Y offset at the start of enter transitions.',
+  ],
   ['--tooltip-radius', 'var(--radius-md)', 'Controls the popup border radius.'],
   ['--tooltip-shadow', 'var(--shadow-lg)', 'Controls the popup shadow.'],
-  ['--tooltip-transition', 'var(--duration-fast)', 'Controls popup and trigger transitions.'],
+  ['--tooltip-transition', '150ms', 'Controls popup and trigger transitions.'],
   ['--tooltip-trigger-bg', 'var(--color-background)', 'Controls trigger background color.'],
   [
     '--tooltip-trigger-bg-active',
@@ -69,39 +105,10 @@ export const tooltipOverrideCssProperties: CssPropertyInput[] = [
   ['--tooltip-trigger-radius', 'var(--radius-md)', 'Controls trigger border radius.'],
   ['--tooltip-width', 'max-content', 'Controls the popup width.'],
 ];
-export const tooltipPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--tooltip-bg', 'var(--color-popover)', 'Controls popup background color.'],
-  ['--tooltip-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--tooltip-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--tooltip-font-size', 'var(--text-sm)', 'Controls popup font size.'],
-  ['--tooltip-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  ['--tooltip-radius', 'var(--radius-md)', 'Controls popup border radius.'],
-  ['--tooltip-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--tooltip-trigger-bg', 'var(--color-background)', 'Controls trigger background color.'],
-  ['--tooltip-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  ['--tooltip-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
-];
 
-export function TooltipCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function TooltipCssPropertiesPanel() {
   return (
-    <CSSPropertiesReferenceTable
-      properties={tooltipOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-export function TooltipCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={tooltipPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
+    <CSSPropertiesReferenceTable properties={tooltipCssProperties.map(normalizeCssProperty)} />
   );
 }
 

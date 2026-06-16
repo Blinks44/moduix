@@ -11,20 +11,31 @@ import {
   DisabledAndReadOnlyTextareaExample,
   FieldValidationTextareaExample,
   NativeAttributesTextareaExample,
-  TextareaCssPlaygroundPanel,
   TextareaCssPropertiesPanel,
   TextareaExample,
   TextareaReadOnlyEditingExample,
-  textareaPlaygroundCssProperties,
 } from '@/components/examples/textarea';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/field" />
 
-## Default Path
+## Choosing the right component
 
-<Preview cssProperties={textareaPlaygroundCssProperties}>
+Use `Textarea` when the value is plain text, can span multiple lines, and should keep the native
+browser textarea behavior.
+
+- Choose **`Input`** for short single-line values such as names, URLs, or compact filters.
+- Choose **`Textarea`** for notes, comments, descriptions, and other longer free-form text.
+- Choose **`Field` + `Textarea`** when labels, descriptions, and validation should stay
+  declarative.
+
+## Basic
+
+Start with `Textarea` inside `Field`. This is the recommended path for ordinary forms, settings,
+and issue or note entry.
+
+<Preview>
   <TextareaExample />
 
   <Preview.Code>
@@ -49,17 +60,11 @@ import {
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, 100%);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
 
   </Preview.CSS>
-  <Preview.CSSProperties>
-    {(context) => <TextareaCssPropertiesPanel {...context} />}
-  </Preview.CSSProperties>
-  <Preview.CSSPlayground>
-    {(context) => <TextareaCssPlaygroundPanel {...context} />}
-  </Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -108,12 +113,9 @@ aubx shadcn@latest add Blinks44/moduix/textarea
 This install path also pulls in the shared moduix foundation files that `Textarea` depends on, such
 as styles, icons, and small utilities.
 
-`Textarea` stays intentionally small: it renders one styled native `<textarea>`, works directly with
-`Field`, and keeps the native textarea contract intact.
-
 ## Anatomy
 
-`Textarea` is a single native `<textarea>` root that composes with `Field`.
+The public structure is intentionally small:
 
 ```text
 Field (optional wrapper)
@@ -122,31 +124,36 @@ Field (optional wrapper)
 
 | Part       | Role                                                       |
 | ---------- | ---------------------------------------------------------- |
-| `Textarea` | Native textarea element with moduix styles and data attrs. |
+| `Textarea` | Native textarea element with moduix styles and field data. |
+
+`Textarea` does not add wrapper shells, sub-parts, or textarea-specific slot props.
 
 ## Composition
 
-`Textarea` renders through Base UI `Field.Control`, so it works with `FieldLabel`,
-`FieldDescription`, `FieldError`, native validation, and standard textarea props such as `value`,
-`defaultValue`, `onValueChange`, `rows`, `maxLength`, `name`, and `readOnly`.
+### When to stay high-level
 
-Use these paths:
+Stay with `Textarea` for normal multi-line text entry.
 
-- default `Textarea` path for regular multiline input
-- `Textarea` inside `Field` when labels, descriptions, and validation should stay declarative
-- `autoResize` when the field should grow with content in browsers that support
-  `field-sizing: content`
+Use `Textarea` directly for native props such as `rows`, `name`, `placeholder`, `maxLength`,
+`readOnly`, `disabled`, `required`, `value`, and `defaultValue`.
 
-`Textarea` does not add slot props, render helpers, or a parallel customization API. Style the root
-directly with `className` or the public `--textarea-*` CSS variables.
+Wrap it with `Field`, `FieldLabel`, `FieldDescription`, and `FieldError` when the input should
+share declarative labels, helper text, and validation messaging.
 
-### Defaults
+### When to go custom
 
-| Prop            | Default | Notes                                                                |
-| --------------- | ------- | -------------------------------------------------------------------- |
-| `autoResize`    | `false` | Keeps the native resize behavior unless CSS auto-resize is opted in. |
-| `onValueChange` | -       | Called with the next textarea value on change.                       |
-| `className`     | -       | Applied directly to the visible textarea root.                       |
+There is no lower-level `Textarea` composition path beyond the styled textarea root. When structure
+needs to change, keep `Textarea` as the control and customize the surrounding layout with your own
+wrappers, actions, or adjacent UI.
+
+### Behavioral notes
+
+- Use `value` with `onValueChange` for controlled text.
+- Use `name` plus regular form submission when the value only needs to be read from `FormData`.
+- Use `autoResize` when the field should grow with content. In browsers without
+  `field-sizing: content`, the textarea keeps normal sizing behavior.
+- For inline edit/read-only flows, keep the same mounted `Textarea` and toggle `readOnly` instead
+  of swapping to separate display markup.
 
 ## Examples
 
@@ -183,7 +190,7 @@ Use `value` and `onValueChange` when content should stay in React state.
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, 100%);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
 
@@ -192,7 +199,7 @@ Use `value` and `onValueChange` when content should stay in React state.
 
 ### Native Attributes
 
-Use native textarea attributes for form behavior, spellcheck, sizing, and validation.
+Use native textarea props for sizing, browser behavior, and form submission.
 
 <Preview>
   <NativeAttributesTextareaExample />
@@ -222,7 +229,7 @@ Use native textarea attributes for form behavior, spellcheck, sizing, and valida
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, 100%);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
 
@@ -258,15 +265,50 @@ Use `autoResize` when the textarea should grow with its content.
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, 100%);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
 
   </Preview.CSS>
 </Preview>
 
-`autoResize` is CSS-based sugar. In browsers without `field-sizing: content`, the textarea keeps
-its normal sizing behavior.
+### Field Validation
+
+Use `Field` with `FieldError` for native validity and accessible error messaging.
+
+<Preview>
+  <FieldValidationTextareaExample />
+
+  <Preview.Code>
+    {`
+      import { Field, FieldDescription, FieldError, FieldLabel, Textarea } from "moduix";
+
+      export function TextareaFieldValidationDemo() {
+        return (
+          <Field className={styles.field} validationMode="onBlur">
+            <FieldLabel>Details</FieldLabel>
+            <Textarea required minLength={10} placeholder="Add at least 10 characters" />
+            <FieldDescription>
+              Include enough detail for the team to reproduce the issue.
+            </FieldDescription>
+            <FieldError match="valueMissing">Please provide details.</FieldError>
+            <FieldError match="tooShort">Enter at least 10 characters.</FieldError>
+          </Field>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .field {
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
 
 ### Disabled and Readonly
 
@@ -296,7 +338,7 @@ Set `disabled` or `readOnly` based on interaction requirements.
       .stack {
         display: grid;
         gap: var(--spacing-3);
-        width: min(28rem, 100%);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
       }
     `}
 
@@ -306,8 +348,8 @@ Set `disabled` or `readOnly` based on interaction requirements.
 ### Readonly Editing
 
 For multiline inline editing, keep the same `Textarea` mounted and switch only `readOnly` plus the
-action buttons. That avoids the text-to-textarea layout jump and lets you focus the field
-immediately when edit mode starts.
+action buttons. That avoids a text-to-textarea layout jump and lets you focus the field as soon as
+edit mode starts.
 
 <Preview>
   <TextareaReadOnlyEditingExample />
@@ -408,47 +450,9 @@ immediately when edit mode starts.
   </Preview.CSS>
 </Preview>
 
-### Field Validation
+### Custom Styling
 
-Use `Field` with `FieldError` for native validity and accessible error messaging.
-
-<Preview>
-  <FieldValidationTextareaExample />
-
-  <Preview.Code>
-    {`
-      import { Field, FieldDescription, FieldError, FieldLabel, Textarea } from "moduix";
-
-      export function TextareaFieldValidationDemo() {
-        return (
-          <Field className={styles.field} validationMode="onBlur">
-            <FieldLabel>Details</FieldLabel>
-            <Textarea required minLength={10} placeholder="Add at least 10 characters" />
-            <FieldDescription>
-              Include enough detail for the team to reproduce the issue.
-            </FieldDescription>
-            <FieldError match="valueMissing">Please provide details.</FieldError>
-            <FieldError match="tooShort">Enter at least 10 characters.</FieldError>
-          </Field>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .field {
-        width: min(28rem, 100%);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Custom Styles
-
-Pass `className` to style the textarea root with your own module or scope-level CSS variables.
+Pass `className` when the textarea root needs local styling overrides.
 
 <Preview>
   <CustomStylesTextareaExample />
@@ -472,7 +476,7 @@ Pass `className` to style the textarea root with your own module or scope-level 
   <Preview.CSS>
     {`
       .field {
-        width: min(28rem, 100%);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
       }
 
       .customTextarea {
@@ -485,3 +489,30 @@ Pass `className` to style the textarea root with your own module or scope-level 
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Textarea` through `className`, `data-slot="textarea-root"`, and the public `--textarea-*`
+variables defined in `theme.css`.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TextareaCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the textarea root for the visual control itself and the surrounding `Field` for layout or text
+around it.
+
+- `Textarea` root for border, background, placeholder, resize behavior, and focus ring
+- `Field` wrapper for width, max width, spacing, label layout, description, and validation text
+- `data-slot="textarea-root"` for stable targeting in scoped styles
+- `data-auto-resize` when `autoResize` is enabled
+- `data-invalid`, `[disabled]`, `data-disabled`, `:read-only`, and `data-readonly` for state-aware
+  styling

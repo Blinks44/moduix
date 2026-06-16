@@ -7,7 +7,6 @@ icon: Component
 import {
   ControlledToggleGroupExample,
   CustomCompositionToggleGroupExample,
-  ToggleGroupCssPlaygroundPanel,
   ToggleGroupCssPropertiesPanel,
   ToggleGroupDisabledExample,
   ToggleGroupExample,
@@ -15,19 +14,27 @@ import {
   ToggleGroupMultipleExample,
   ToggleGroupVariantsExample,
   ToggleGroupVerticalExample,
-  toggleGroupPlaygroundCssProperties,
 } from '@/components/examples/toggle-group';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/toggle-group" />
 
-## Default Path
+## Choosing the right component
 
-Use `ToggleGroup` for shared selection state and `ToggleGroupItem` for each choice. Set `variant`
-and `size` on the group when the whole set should share the same look.
+Use `ToggleGroup` when several pressed buttons belong to one shared choice set.
 
-<Preview cssProperties={toggleGroupPlaygroundCssProperties}>
+- Choose **`ToggleGroup`** for segmented controls, compact filter sets, and formatting toolbars.
+- Choose **`Toggle`** for one standalone two-state action.
+- Choose **`Tabs`** when the selection also swaps associated panels.
+- Choose **`RadioGroup`** when the choices should read like form options instead of pressed buttons.
+
+## Basic
+
+Start with `ToggleGroup` and `ToggleGroupItem`. This is the recommended path for segmented controls
+and shared selection state.
+
+<Preview>
   <ToggleGroupExample />
 
   <Preview.Code>
@@ -46,8 +53,6 @@ and `size` on the group when the whole set should share the same look.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <ToggleGroupCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <ToggleGroupCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -93,15 +98,12 @@ aubx shadcn@latest add Blinks44/moduix/toggle-group
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Toggle Group` depends on, such
-as styles, icons, and small utilities.
-
-`ToggleGroupItem` renders the library `Toggle`, so the default path stays short while items still
-inherit the same size and variant scale as standalone toggles. Raw `Toggle` composition inside a
-group is still possible, but only `ToggleGroupItem` inherits the group `variant`, `size`, and
-`toggle-group-item` styling hooks automatically.
+This install path also pulls in the shared moduix foundation files that `Toggle Group` depends on,
+such as styles, icons, and small utilities.
 
 ## Anatomy
+
+The normal consumer path is short:
 
 ```text
 ToggleGroup
@@ -114,40 +116,50 @@ ToggleGroup
 | `ToggleGroup`     | Root state machine for selected values, arrow-key navigation, orientation, and disabled state.  |
 | `ToggleGroupItem` | Styled toggle button. Its `value` participates in `defaultValue`, `value`, and `onValueChange`. |
 
+`ToggleGroup` writes `data-slot="toggle-group-root"`, `data-variant`, and `data-size` on the
+root. `ToggleGroupItem` renders the moduix `Toggle` and writes `data-slot="toggle-group-item"`.
+
 ## Composition
 
-`ToggleGroup` stays intentionally thin:
+### When to stay high-level
 
-- Base UI owns group state, roving focus, and keyboard behavior
-- `ToggleGroupItem` inherits `variant` and `size` from the group by default
-- `value`, `defaultValue`, and `onValueChange` always work with string arrays, even when `multiple`
-  is not set
-- raw `Toggle` or `render={<Toggle ... />}` items can join the group through `value`, but they must
-  receive their own `variant` / `size` when they should not fall back to the `Toggle` defaults
-- item-level `variant`, `size`, `className`, and `--toggle-*` overrides remain available when one choice needs different styling
+Stay with `ToggleGroup` and `ToggleGroupItem` for most segmented controls and compact multi-select
+toolbars.
 
-Use these paths:
+`ToggleGroupItem` inherits the group `variant` and `size` by default, so the common path stays
+short and consistent with standalone `Toggle`.
 
-| Pattern                                       | Best fit                                               |
-| --------------------------------------------- | ------------------------------------------------------ |
-| text items + `defaultValue`                   | common segmented controls and simple filters           |
-| `multiple`                                    | formatting toolbars and multi-select filters           |
-| `value` + `onValueChange`                     | controlled state coordinated with surrounding UI       |
-| `size="icon-md"` + `aria-label`               | compact icon-only groups                               |
-| `className`, `--toggle-group-*`, `--toggle-*` | custom visuals without replacing the composition model |
+moduix adds two visual props on the root:
 
-### Defaults
+| Prop      | Default   | Values                                                  |
+| --------- | --------- | ------------------------------------------------------- |
+| `variant` | `default` | `default`, `outline`, `ghost`                           |
+| `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
 
-| Prop          | Default      | Values                                                  |
-| ------------- | ------------ | ------------------------------------------------------- |
-| `variant`     | `default`    | `default`, `outline`, `ghost`                           |
-| `size`        | `md`         | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
-| `multiple`    | `false`      | `true`, `false`                                         |
-| `orientation` | `horizontal` | `horizontal`, `vertical`                                |
-| `loopFocus`   | `true`       | `true`, `false`                                         |
+### When to go custom
 
-Set `loopFocus={false}` when arrow-key navigation should stop at the first or last item instead of
-wrapping.
+Use raw `Toggle` composition inside `ToggleGroup` only when another composed control needs to own
+the item surface or layout.
+
+That advanced path still participates in group selection through `value`, but it does not inherit
+the group `variant`, `size`, or `toggle-group-item` styling hooks automatically.
+
+### Default props
+
+| Prop          | Default      | Values / Notes           |
+| ------------- | ------------ | ------------------------ |
+| `multiple`    | `false`      | `true`, `false`          |
+| `orientation` | `horizontal` | `horizontal`, `vertical` |
+| `loopFocus`   | `true`       | `true`, `false`          |
+
+### Behavioral notes
+
+- `value` and `defaultValue` are always string arrays, even in single-selection mode.
+- `onValueChange` always receives the next string array.
+- The group needs an accessible name from `aria-label` or `aria-labelledby`.
+- Icon-only items need their own accessible name such as `aria-label="Align left"`.
+- Use `disabled` on the group when the whole choice set is unavailable, or on one item when only a
+  single choice should be unavailable.
 
 ## Examples
 
@@ -247,7 +259,7 @@ Use `multiple` when several options can stay pressed at the same time.
 
 ### Controlled
 
-Control `value` from React state when the group needs to stay in sync with other UI.
+Control `value` from React state when the group needs to stay in sync with surrounding UI.
 
 <Preview>
   <ControlledToggleGroupExample />
@@ -442,10 +454,10 @@ Use `disabled` on the group or on a specific item to prevent interaction.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+### Custom Styling
 
-Use `className` on the group and items when the default structure is right but the surface styling
-needs to change. Group variables live under `--toggle-group-*`; item states still use `--toggle-*`.
+Use `className`, `--toggle-group-*`, and inherited `--toggle-*` item variables when the default
+structure is right but the surface styling needs to change.
 
 <Preview>
   <CustomCompositionToggleGroupExample />
@@ -499,3 +511,29 @@ needs to change. Group variables live under `--toggle-group-*`; item states stil
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+`ToggleGroup` exposes one stable root, stable item slot hooks, and the full `--toggle-group-*`
+token surface used for group chrome, spacing, radius, and variant surfaces.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ToggleGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="toggle-group-root"` is the stable selector on the group root.
+- `data-slot="toggle-group-item"` is the stable selector on the default item wrapper.
+- `data-variant` reflects the current group variant.
+- `data-size` reflects the inherited item size.
+- `data-orientation` reflects `horizontal` or `vertical`.
+- `data-multiple` is present when `multiple` is `true`.
+- `ToggleGroupItem` also keeps the `Toggle` state hooks such as `data-pressed`, `data-disabled`,
+  and the public `--toggle-*` item variables.

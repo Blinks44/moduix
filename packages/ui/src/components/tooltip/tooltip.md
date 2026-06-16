@@ -290,31 +290,39 @@ available for custom styling even when moduix does not target them by default.
 | `--tooltip-focus-ring-color`     | `var(--color-ring)`               |
 | `--tooltip-focus-ring-offset`    | `-1px`                            |
 | `--tooltip-disabled-opacity`     | `var(--opacity-disabled)`         |
-| `--tooltip-transition`           | `var(--transition-default)`       |
+| `--tooltip-transition`           | `150ms`                           |
 
 #### Popup surface and arrow
 
-| Variable                        | Default/fallback                                   |
-| ------------------------------- | -------------------------------------------------- |
-| `--tooltip-width`               | `max-content`                                      |
-| `--tooltip-max-width`           | `20rem`                                            |
-| `--tooltip-max-height`          | `24rem`                                            |
-| `--tooltip-padding-y`           | `0.25rem`                                          |
-| `--tooltip-padding-x`           | `0.5rem`                                           |
-| `--tooltip-radius`              | `var(--radius-md)`                                 |
-| `--tooltip-bg`                  | `var(--color-popover)`                             |
-| `--tooltip-color`               | `var(--color-popover-foreground)`                  |
-| `--tooltip-border-width`        | `var(--border-width-sm)`                           |
-| `--tooltip-border-color`        | `var(--color-border)`                              |
-| `--tooltip-shadow`              | `var(--shadow-lg)`                                 |
-| `--tooltip-font-size`           | `var(--text-sm)`                                   |
-| `--tooltip-line-height`         | `var(--line-height-text-sm)`                       |
-| `--tooltip-arrow-size`          | `8px`                                              |
-| `--tooltip-arrow-inline-offset` | `13px`                                             |
-| `--tooltip-arrow-width`         | `1.25rem`                                          |
-| `--tooltip-arrow-height`        | `0.625rem`                                         |
-| `--tooltip-arrow-stroke-color`  | `var(--tooltip-border-color, var(--color-border))` |
-| `--tooltip-content-transition`  | `150ms`                                            |
+| Variable                               | Default/fallback                                   |
+| -------------------------------------- | -------------------------------------------------- |
+| `--tooltip-width`                      | `max-content`                                      |
+| `--tooltip-max-width`                  | `20rem`                                            |
+| `--tooltip-max-height`                 | `24rem`                                            |
+| `--tooltip-padding-y`                  | `0.25rem`                                          |
+| `--tooltip-padding-x`                  | `0.5rem`                                           |
+| `--tooltip-radius`                     | `var(--radius-md)`                                 |
+| `--tooltip-bg`                         | `var(--color-popover)`                             |
+| `--tooltip-color`                      | `var(--color-popover-foreground)`                  |
+| `--tooltip-border-width`               | `var(--border-width-sm)`                           |
+| `--tooltip-border-color`               | `var(--color-border)`                              |
+| `--tooltip-shadow`                     | `var(--shadow-lg)`                                 |
+| `--tooltip-font-size`                  | `var(--text-sm)`                                   |
+| `--tooltip-line-height`                | `var(--line-height-text-sm)`                       |
+| `--tooltip-arrow-size`                 | `8px`                                              |
+| `--tooltip-arrow-inline-offset`        | `13px`                                             |
+| `--tooltip-arrow-width`                | `1.25rem`                                          |
+| `--tooltip-arrow-height`               | `0.625rem`                                         |
+| `--tooltip-arrow-stroke-color`         | `var(--tooltip-border-color, var(--color-border))` |
+| `--tooltip-popup-starting-opacity`     | `0`                                                |
+| `--tooltip-popup-starting-scale`       | `var(--scale-popup)`                               |
+| `--tooltip-popup-starting-translate-x` | `0`                                                |
+| `--tooltip-popup-starting-translate-y` | `0`                                                |
+| `--tooltip-popup-ending-opacity`       | `0`                                                |
+| `--tooltip-popup-ending-scale`         | `var(--scale-popup)`                               |
+| `--tooltip-popup-ending-translate-x`   | `0`                                                |
+| `--tooltip-popup-ending-translate-y`   | `0`                                                |
+| `--tooltip-content-transition`         | `150ms`                                            |
 
 #### Positioning and transition vars from Base UI
 
@@ -370,10 +378,16 @@ Do not treat them as public theming hooks.
 
 ## Motion tokens
 
-`TooltipPopup` now exposes phase-specific motion variables. Override the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to replace the default scale-in tooltip motion with fade, slide, or mixed entry/exit effects without changing the wrapper structure.
+`TooltipPopup` exposes phase-specific motion variables, and `TooltipViewport` has its own content
+transition token. Override `--tooltip-transition`, `--tooltip-content-transition`, the popup
+`starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to replace the default scale-in
+tooltip motion with fade, slide, or mixed entry/exit effects without changing the wrapper
+structure.
 
 ## Local changelog
 
+- 2026-06-16: Synced the documented tooltip token contract with `theme.css`, including popup motion
+  variables and the current `150ms` transition defaults used by the wrapper.
 - 2026-06-10: Added phase-specific popup motion tokens so tooltip entry and exit can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
 - 2026-06-03: Replaced the copied Base UI page with moduix-specific Tooltip documentation and
   documented the actual wrapper contract, tooltip-only root props, styling hooks, and constraints.

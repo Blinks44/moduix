@@ -6,7 +6,6 @@ icon: Component
 
 import {
   ToolbarClassNameExample,
-  ToolbarCssPlaygroundPanel,
   ToolbarCssPropertiesPanel,
   ToolbarCustomIconsExample,
   ToolbarDisabledControlsExample,
@@ -15,24 +14,27 @@ import {
   ToolbarSelectTriggerExample,
   ToolbarToggleGroupExample,
   ToolbarVerticalExample,
-  toolbarPlaygroundCssProperties,
 } from '@/components/examples/toolbar';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/toolbar" />
 
-## Default Path
+## Choosing the right component
 
-Use `Toolbar` as the roving-focus shell, then compose only the parts the row actually needs:
+Use `Toolbar` when related controls should share roving focus and behave like one compact action
+region.
 
-- `ToolbarGroup` for related actions with a shared label
-- `ToolbarButton` for commands and trigger composition
-- `ToolbarSeparator` to split clusters
-- `ToolbarLink` for related navigation or metadata
-- `ToolbarInput` only when the toolbar genuinely needs inline text entry
+- Choose **`ToggleGroup`** when the main problem is shared pressed-state selection.
+- Choose a plain layout container when the row does not need toolbar keyboard behavior.
+- Choose **`Toolbar`** for compact editor controls, document actions, and small mixed-action rows.
 
-<Preview cssProperties={toolbarPlaygroundCssProperties}>
+## Basic
+
+Start with `Toolbar`, `ToolbarGroup`, `ToolbarButton`, and `ToolbarSeparator`. This is the
+recommended path for ordinary action rows.
+
+<Preview>
   <ToolbarExample />
 
   <Preview.Code>
@@ -64,8 +66,6 @@ Use `Toolbar` as the roving-focus shell, then compose only the parts the row act
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <ToolbarCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <ToolbarCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -116,8 +116,7 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Toolbar` groups related controls into one keyboard navigation region. The exported parts cover
-actions, grouped actions, separators, links, and optional inputs.
+The exported parts cover the common toolbar surface directly:
 
 ```text
 Toolbar[aria-label]
@@ -129,31 +128,55 @@ Toolbar[aria-label]
 └─ ToolbarInput
 ```
 
-| Part               | Role                                                                                              |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| `Toolbar`          | Root toolbar region. Controls orientation and disabled state for grouped actions and inputs.      |
-| `ToolbarGroup`     | Groups related controls inside the toolbar and gives them a shared label when needed.             |
-| `ToolbarButton`    | Toolbar-aware button. Compose it with `Toggle`, `SelectTrigger`, or another trigger via `render`. |
-| `ToolbarLink`      | Toolbar-aware anchor for related navigation or metadata links.                                    |
-| `ToolbarInput`     | Native input that participates in toolbar keyboard navigation.                                    |
-| `ToolbarSeparator` | Visual separator. By default it uses the opposite orientation of the root toolbar.                |
+| Part               | Role                                                         |
+| ------------------ | ------------------------------------------------------------ |
+| `Toolbar`          | Root roving-focus region with shared orientation and layout. |
+| `ToolbarGroup`     | Optional subgroup for related controls.                      |
+| `ToolbarButton`    | Toolbar-aware button and trigger composition surface.        |
+| `ToolbarLink`      | Toolbar-aware anchor.                                        |
+| `ToolbarInput`     | Input that participates in toolbar keyboard behavior.        |
+| `ToolbarSeparator` | Visual split between toolbar clusters.                       |
 
 ## Composition
 
-Use `Toolbar` for shared behavior and layout props such as `aria-label`, `orientation`, and
-`disabled`. Add `ToolbarGroup` when a subset of controls needs its own accessible name, and
-`ToolbarSeparator` when controls should be split into separate clusters.
+### When to stay high-level
 
-When a horizontal toolbar includes text entry, keep it to one input and place it at the end of the
-row. That avoids fighting the same arrow keys used for toolbar navigation and cursor movement.
+Stay with `Toolbar`, `ToolbarGroup`, `ToolbarButton`, `ToolbarLink`, `ToolbarInput`, and
+`ToolbarSeparator` for most action rows.
 
-### Defaults
+Use `ToolbarGroup` only when a subset of items needs its own accessible name. Use
+`ToolbarSeparator` to split clusters. Keep `ToolbarInput` rare, compact, and usually at the end of
+horizontal toolbars.
+
+### When to go custom
+
+Use `ToolbarButton render={...}` when another primitive should own the interactive surface without
+nesting interactive elements.
+
+That is the main escape hatch for:
+
+- `Toggle` inside a toolbar item
+- popup triggers such as `SelectTrigger`
+- other trigger-like primitives that should keep their own semantics and state
+
+### Default props
 
 | Prop                           | Default                   | Values                                                             |
 | ------------------------------ | ------------------------- | ------------------------------------------------------------------ |
 | `orientation`                  | `horizontal`              | `horizontal`, `vertical`                                           |
 | `disabled`                     | `false`                   | `true`, `false`                                                    |
 | `ToolbarSeparator.orientation` | auto-opposite orientation | `vertical` in horizontal toolbar, `horizontal` in vertical toolbar |
+
+### Behavioral notes
+
+- `Toolbar` needs an accessible name through `aria-label` or `aria-labelledby`.
+- Icon-only `ToolbarButton` items need their own accessible label.
+- In horizontal toolbars, place text input after the main button cluster to avoid fighting cursor
+  and roving-focus arrow keys.
+- Use `ToolbarButton render={...}` for toggles and popup triggers so one interactive surface owns
+  the semantics.
+- `ToolbarLink` is for actual navigation or related metadata. If the item behaves like an action,
+  use `ToolbarButton`.
 
 ## Examples
 
@@ -254,6 +277,130 @@ Disable individual controls when an action should stay visible but unavailable.
   </Preview.Code>
 </Preview>
 
+### Toggle Composition
+
+Compose `ToolbarButton` with `Toggle` when items need pressed state but should still live inside the
+toolbar interaction model.
+
+<Preview>
+  <ToolbarToggleGroupExample />
+
+  <Preview.Code>
+    {`
+      import {
+        BellIcon,
+        StarIcon,
+        Toggle,
+        ToggleGroup,
+        Toolbar,
+        ToolbarButton,
+        ToolbarGroup,
+        ToolbarSeparator,
+      } from "moduix";
+
+      export function ToolbarToggleGroupDemo() {
+        return (
+          <Toolbar aria-label="Editor formatting">
+            <ToggleGroup multiple defaultValue={["bold"]} aria-label="Text formatting" variant="ghost">
+              <ToolbarButton render={<Toggle variant="ghost" />} value="bold" aria-label="Bold">
+                <strong>B</strong>
+              </ToolbarButton>
+              <ToolbarButton render={<Toggle variant="ghost" />} value="italic" aria-label="Italic">
+                <em>I</em>
+              </ToolbarButton>
+              <ToolbarButton render={<Toggle variant="ghost" />} value="underline" aria-label="Underline">
+                <u>U</u>
+              </ToolbarButton>
+            </ToggleGroup>
+
+            <ToolbarSeparator />
+
+            <ToolbarGroup aria-label="Insert">
+              <ToolbarButton aria-label="Add favorite">
+                <StarIcon />
+              </ToolbarButton>
+              <ToolbarButton aria-label="Notifications">
+                <BellIcon />
+              </ToolbarButton>
+            </ToolbarGroup>
+          </Toolbar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Select Trigger Composition
+
+Use `render` to turn a toolbar button into a popup trigger while keeping popup composition on the
+popup primitive itself.
+
+<Preview>
+  <ToolbarSelectTriggerExample />
+
+  <Preview.Code>
+    {`
+      import {
+        BellIcon,
+        ChevronUpDownIcon,
+        Select,
+        SelectContent,
+        SelectIcon,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+        SelectList,
+        SelectTrigger,
+        SelectValue,
+        Toolbar,
+        ToolbarButton,
+        ToolbarLink,
+        ToolbarSeparator,
+      } from "moduix";
+
+      export function ToolbarSelectTriggerDemo() {
+        return (
+          <Toolbar aria-label="Text properties">
+            <Select defaultValue="Inter">
+              <ToolbarButton render={<SelectTrigger />} aria-label="Font family">
+                <SelectValue />
+                <SelectIcon>
+                  <ChevronUpDownIcon />
+                </SelectIcon>
+              </ToolbarButton>
+              <SelectContent>
+                <SelectList>
+                  {fonts.map((font) => (
+                    <SelectItem key={font} value={font}>
+                      <SelectItemIndicator />
+                      <SelectItemText>{font}</SelectItemText>
+                    </SelectItem>
+                  ))}
+                </SelectList>
+              </SelectContent>
+            </Select>
+
+            <ToolbarSeparator />
+            <ToolbarButton aria-label="Notifications">
+              <BellIcon />
+            </ToolbarButton>
+            <ToolbarLink href="#">Edited 51m ago</ToolbarLink>
+          </Toolbar>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const fonts = ["Inter", "Arial", "Helvetica", "Georgia"];
+    `}
+
+  </Preview.Data>
+</Preview>
+
 ### Custom Icons
 
 Pass icons as children. Icon-only buttons must include an accessible label.
@@ -324,10 +471,9 @@ Pass icons as children. Icon-only buttons must include an accessible label.
   </Preview.Code>
 </Preview>
 
-### Custom Styles
+### Custom Styling
 
-Style the root and visible parts directly with `className` or scoped CSS variables. This keeps the
-default API small while leaving layout and visual changes in consumer space.
+Style the root and visible parts directly with `className` or scoped CSS variables.
 
 <Preview>
   <ToolbarClassNameExample />
@@ -386,136 +532,37 @@ default API small while leaving layout and visual changes in consumer space.
   </Preview.CSS>
 </Preview>
 
-## Custom Composition
+## Styling
 
-`ToolbarButton` supports the Base UI `render` prop. This lets one element act as both a toolbar
-item and another interactive primitive, such as a `Toggle` or `SelectTrigger`, without nesting
-interactive elements.
+Style `Toolbar` through `className`, stable `data-slot` hooks, and the public `--toolbar-*`
+variables defined in `theme.css`.
 
-Popup primitives rendered from toolbar buttons, such as `SelectContent`, keep owning their own
-portal and positioning behavior. Configure those slots on the popup component, not on `Toolbar`.
+### CSS Properties
 
-### Toggle Group
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <ToolbarCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
 
-Compose `ToolbarButton` with `Toggle` inside a `ToggleGroup` when items need pressed state. Because
-this path does not use `ToggleGroupItem`, pass any non-default `Toggle` props such as `variant`
-directly to the rendered `Toggle`.
+### Styling hooks
 
-<Preview>
-  <ToolbarToggleGroupExample />
+Use the part that owns the visual concern:
 
-  <Preview.Code>
-    {`
-      import {
-        BellIcon,
-        StarIcon,
-        Toggle,
-        ToggleGroup,
-        Toolbar,
-        ToolbarButton,
-        ToolbarGroup,
-        ToolbarSeparator,
-      } from "moduix";
+- `Toolbar` for overall surface, spacing, orientation, and shared color context
+- `ToolbarGroup` for subgroup spacing and vertical stacking
+- `ToolbarButton` and `ToolbarLink` for interactive control visuals
+- `ToolbarInput` for inline field styling
+- `ToolbarSeparator` for divider length, thickness, and color
 
-      export function ToolbarToggleGroupDemo() {
-        return (
-          <Toolbar aria-label="Editor formatting">
-            <ToggleGroup multiple defaultValue={["bold"]} aria-label="Text formatting" variant="ghost">
-              <ToolbarButton render={<Toggle variant="ghost" />} value="bold" aria-label="Bold">
-                <strong>B</strong>
-              </ToolbarButton>
-              <ToolbarButton render={<Toggle variant="ghost" />} value="italic" aria-label="Italic">
-                <em>I</em>
-              </ToolbarButton>
-              <ToolbarButton render={<Toggle variant="ghost" />} value="underline" aria-label="Underline">
-                <u>U</u>
-              </ToolbarButton>
-            </ToggleGroup>
+The main public hooks include `data-slot="toolbar-root"`, `toolbar-group`, `toolbar-button`,
+`toolbar-link`, `toolbar-input`, and `toolbar-separator`.
 
-            <ToolbarSeparator />
+Useful state and layout hooks include:
 
-            <ToolbarGroup aria-label="Insert">
-              <ToolbarButton aria-label="Add favorite">
-                <StarIcon />
-              </ToolbarButton>
-              <ToolbarButton aria-label="Notifications">
-                <BellIcon />
-              </ToolbarButton>
-            </ToolbarGroup>
-          </Toolbar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-</Preview>
-
-### Select Trigger
-
-Use the `render` prop to turn a toolbar button into a popup trigger while keeping the popup
-composition on the popup primitive itself.
-
-<Preview>
-  <ToolbarSelectTriggerExample />
-
-  <Preview.Code>
-    {`
-      import {
-        BellIcon,
-        ChevronUpDownIcon,
-        Select,
-        SelectContent,
-        SelectIcon,
-        SelectItem,
-        SelectItemIndicator,
-        SelectItemText,
-        SelectList,
-        SelectTrigger,
-        SelectValue,
-        Toolbar,
-        ToolbarButton,
-        ToolbarLink,
-        ToolbarSeparator,
-      } from "moduix";
-
-      export function ToolbarSelectTriggerDemo() {
-        return (
-          <Toolbar aria-label="Text properties">
-            <Select defaultValue="Inter">
-              <ToolbarButton render={<SelectTrigger />} aria-label="Font family">
-                <SelectValue />
-                <SelectIcon>
-                  <ChevronUpDownIcon />
-                </SelectIcon>
-              </ToolbarButton>
-              <SelectContent>
-                <SelectList>
-                  {fonts.map((font) => (
-                    <SelectItem key={font} value={font}>
-                      <SelectItemIndicator />
-                      <SelectItemText>{font}</SelectItemText>
-                    </SelectItem>
-                  ))}
-                </SelectList>
-              </SelectContent>
-            </Select>
-
-            <ToolbarSeparator />
-            <ToolbarButton aria-label="Notifications">
-              <BellIcon />
-            </ToolbarButton>
-            <ToolbarLink href="#">Edited 51m ago</ToolbarLink>
-          </Toolbar>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const fonts = ["Inter", "Arial", "Helvetica", "Georgia"];
-    `}
-
-  </Preview.Data>
-</Preview>
+- `data-orientation` on `Toolbar`, `ToolbarGroup`, and `ToolbarSeparator`
+- `data-disabled` and `[disabled]` on `ToolbarButton`, `ToolbarLink`, and `ToolbarInput`
+- `data-pressed` and `data-popup-open` on `ToolbarButton` when it composes toggles or popup
+  triggers
