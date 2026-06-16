@@ -41,7 +41,6 @@ Start with `Combobox`, `ComboboxField`, `ComboboxInputGroup`, `ComboboxInput`, a
       import {
         Combobox,
         ComboboxField,
-        ComboboxFieldLabel,
         ComboboxInputGroup,
         ComboboxInput,
         ComboboxControlActions,
@@ -254,7 +253,6 @@ background-only highlighting and no indicator column should be reserved.
       import {
         Combobox,
         ComboboxField,
-        ComboboxFieldLabel,
         ComboboxInputGroup,
         ComboboxInput,
         ComboboxControlActions,
@@ -267,7 +265,6 @@ background-only highlighting and no indicator column should be reserved.
         ComboboxItemIndicator,
         InfoIcon,
       } from "moduix";
-      import styles from "./combobox.module.css";
       import { useId } from "react";
 
       export function IndicatorRightComboboxDemo() {
@@ -290,8 +287,8 @@ background-only highlighting and no indicator column should be reserved.
               <ComboboxList>
                 {(item) => (
                   <ComboboxItem key={item.id} value={item} indicator="end">
-                    <ComboboxItemText className={styles.itemTextWithIcon}>
-                      <InfoIcon className={styles.itemIcon} />
+                    <ComboboxItemText className="itemTextWithIcon">
+                      <InfoIcon className="itemIcon" />
                       <span>{item.label}</span>
                     </ComboboxItemText>
                     <ComboboxItemIndicator />
@@ -369,7 +366,6 @@ the Base UI trigger-label behavior; no extra input `id` wiring is needed here.
         ComboboxItemIndicator,
         ComboboxItemText,
       } from "moduix";
-      import styles from "./combobox.module.css";
 
       export function InputInsidePopupComboboxDemo() {
         return (
@@ -382,12 +378,12 @@ the Base UI trigger-label behavior; no extra input `id` wiring is needed here.
               </ComboboxFieldTrigger>
             </ComboboxField>
 
-            <ComboboxContent sideOffset={4} className={styles.popupWithInlineInput}>
+            <ComboboxContent sideOffset={4} className="popupWithInlineInput">
               <ComboboxInlineInputContainer>
                 <ComboboxInput placeholder="Search country" />
               </ComboboxInlineInputContainer>
               <ComboboxEmpty>No countries found.</ComboboxEmpty>
-              <ComboboxList className={styles.listWithInlineInput}>
+              <ComboboxList className="listWithInlineInput">
                 {(item) => (
                   <ComboboxItem key={item.id} value={item}>
                     <ComboboxItemIndicator />
@@ -456,7 +452,6 @@ Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `Com
       import {
         Combobox,
         ComboboxField,
-        ComboboxFieldLabel,
         ComboboxInputGroup,
         ComboboxInput,
         ComboboxControlActions,
@@ -550,7 +545,6 @@ Use the `multiple` prop and render chips inside `ComboboxValue`. The input remai
       import {
         Combobox,
         ComboboxField,
-        ComboboxFieldLabel,
         ComboboxInputGroup,
         ComboboxChips,
         ComboboxValue,
@@ -638,7 +632,6 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
       import {
         Combobox,
         ComboboxField,
-        ComboboxFieldLabel,
         ComboboxInputGroup,
         ComboboxInput,
         ComboboxControlActions,
@@ -653,7 +646,6 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
         ComboboxItemText,
         useComboboxFilter,
       } from "moduix";
-      import styles from "./combobox.module.css";
       import { useId, useMemo, useRef, useState, useTransition } from "react";
 
       export function AsyncSearchComboboxDemo() {
@@ -774,13 +766,13 @@ Disable the built-in filter with `filter={null}` when results are loaded from yo
                 {(user) => (
                   <ComboboxItem key={user.id} value={user}>
                     <ComboboxItemIndicator />
-                    <ComboboxItemText className={styles.multilineItemText}>
-                      <span className={styles.itemTitle}>{user.name}</span>
-                      <span className={styles.itemMeta}>
+                    <ComboboxItemText className="multilineItemText">
+                      <span className="itemTitle">{user.name}</span>
+                      <span className="itemMeta">
                         <span>@{user.username}</span>
                         <span>{user.title}</span>
                       </span>
-                      <span className={styles.itemMeta}>{user.email}</span>
+                      <span className="itemMeta">{user.email}</span>
                     </ComboboxItemText>
                   </ComboboxItem>
                 )}
@@ -855,7 +847,6 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
       import {
         Combobox,
         ComboboxField,
-        ComboboxFieldLabel,
         ComboboxInputGroup,
         ComboboxInput,
         ComboboxControlActions,
@@ -865,7 +856,6 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
         ComboboxBackdrop,
         ComboboxPositioner,
         ComboboxPopup,
-        ComboboxContent,
         ComboboxArrow,
         ComboboxEmpty,
         ComboboxList,
@@ -874,7 +864,6 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
         ComboboxItemText,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./combobox.module.css";
 
       export function CustomCompositionComboboxDemo() {
         const id = useId();
@@ -883,7 +872,7 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
           <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
             <ComboboxField>
               <label htmlFor={id}>Choose fruit</label>
-              <ComboboxInputGroup>
+              <ComboboxInputGroup className="customInputGroup">
                 <ComboboxInput id={id} placeholder="e.g. Mango" />
                 <ComboboxControlActions>
                   <ComboboxClear aria-label="Clear selection" />
@@ -892,11 +881,11 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
               </ComboboxInputGroup>
             </ComboboxField>
 
-            <ComboboxPortal className={styles.portal}>
-              <ComboboxBackdrop className={styles.backdrop} />
-              <ComboboxPositioner className={styles.positioner} sideOffset={8}>
-                <ComboboxPopup className={styles.customPopup}>
-                  <ComboboxArrow className={styles.arrow} />
+            <ComboboxPortal>
+              <ComboboxBackdrop className="backdrop" />
+              <ComboboxPositioner sideOffset={8}>
+                <ComboboxPopup className="customPopup">
+                  <ComboboxArrow className="arrow" />
                   <ComboboxEmpty>No fruits found.</ComboboxEmpty>
                   <ComboboxList>
                     {(item) => (
@@ -924,11 +913,8 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
         --combobox-shadow: var(--shadow-xl);
       }
 
-      .portal {
-        isolation: isolate;
-      }
-
-      .positioner {
+      .customInputGroup {
+        position: relative;
         z-index: var(--z-popup);
       }
 
@@ -938,7 +924,7 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
       }
 
       .arrow {
-        --combobox-arrow-stroke-color: var(--color-border);
+        --combobox-arrow-stroke-color: var(--combobox-popup-border-color);
       }
     `}
 

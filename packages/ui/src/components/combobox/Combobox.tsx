@@ -13,20 +13,17 @@ import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Combobox.module.css';
 
 type IndicatorPosition = 'start' | 'end' | 'none';
-type ComboboxContentProps = ComboboxPrimitive.Popup.Props &
-  Pick<
-    ComboboxPrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-  > & {
-    showArrow?: boolean;
-  };
+type ComboboxContentProps = ComboboxPrimitive.Popup.Props & {
+  side?: ComboboxPrimitive.Positioner.Props['side'];
+  sideOffset?: ComboboxPrimitive.Positioner.Props['sideOffset'];
+  align?: ComboboxPrimitive.Positioner.Props['align'];
+  alignOffset?: ComboboxPrimitive.Positioner.Props['alignOffset'];
+  arrowPadding?: ComboboxPrimitive.Positioner.Props['arrowPadding'];
+  collisionAvoidance?: ComboboxPrimitive.Positioner.Props['collisionAvoidance'];
+  collisionBoundary?: ComboboxPrimitive.Positioner.Props['collisionBoundary'];
+  collisionPadding?: ComboboxPrimitive.Positioner.Props['collisionPadding'];
+  showArrow?: boolean;
+};
 
 const COMBOBOX_CONTENT_SIDE_OFFSET = 5;
 
@@ -255,7 +252,7 @@ const ComboboxContent = forwardRef<
     collisionAvoidance,
     collisionBoundary,
     collisionPadding,
-    ...props
+    ...popupProps
   },
   ref,
 ) {
@@ -271,7 +268,7 @@ const ComboboxContent = forwardRef<
         collisionBoundary={collisionBoundary}
         collisionPadding={collisionPadding}
       >
-        <ComboboxPopup ref={ref} className={className} {...props}>
+        <ComboboxPopup ref={ref} className={className} {...popupProps}>
           {showArrow ? <ComboboxArrow /> : null}
           {children}
         </ComboboxPopup>

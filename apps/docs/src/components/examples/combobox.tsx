@@ -365,9 +365,7 @@ export function ComboboxExample() {
   return (
     <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
       <ComboboxField>
-        <label className={styles.fieldLabel} htmlFor={id}>
-          Choose fruit
-        </label>
+        <label htmlFor={id}>Choose fruit</label>
         <ComboboxInputGroup>
           <ComboboxInput id={id} placeholder="e.g. Mango" />
           <ComboboxControlActions>
@@ -398,9 +396,7 @@ export function IndicatorRightComboboxExample() {
   return (
     <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
       <ComboboxField>
-        <label className={styles.fieldLabel} htmlFor={id}>
-          Choose fruit
-        </label>
+        <label htmlFor={id}>Choose fruit</label>
         <ComboboxInputGroup>
           <ComboboxInput id={id} placeholder="e.g. Mango" />
           <ComboboxControlActions>
@@ -462,9 +458,7 @@ export function GroupedComboboxExample() {
   return (
     <Combobox items={groupedProduce} itemToStringLabel={(item: OptionItem) => item.label}>
       <ComboboxField>
-        <label className={styles.fieldLabel} htmlFor={id}>
-          Select produce
-        </label>
+        <label htmlFor={id}>Select produce</label>
         <ComboboxInputGroup>
           <ComboboxInput id={id} placeholder="e.g. Spinach" />
           <ComboboxControlActions>
@@ -502,9 +496,7 @@ export function MultipleComboboxExample() {
   return (
     <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label} multiple>
       <ComboboxField className={styles.multipleField}>
-        <label className={styles.fieldLabel} htmlFor={id}>
-          Select fruits
-        </label>
+        <label htmlFor={id}>Select fruits</label>
         <ComboboxInputGroup className={styles.multipleInputGroup}>
           <ComboboxChips>
             <ComboboxValue>
@@ -656,9 +648,7 @@ export function AsyncSearchComboboxExample() {
       }}
     >
       <ComboboxField>
-        <label className={styles.fieldLabel} htmlFor={id}>
-          Assign reviewer
-        </label>
+        <label htmlFor={id}>Assign reviewer</label>
         <ComboboxInputGroup>
           <ComboboxInput id={id} placeholder="e.g. Michael" />
           <ComboboxControlActions>
@@ -697,9 +687,7 @@ export function CustomCompositionComboboxExample() {
   return (
     <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
       <ComboboxField>
-        <label className={styles.fieldLabel} htmlFor={id}>
-          Choose fruit
-        </label>
+        <label htmlFor={id}>Choose fruit</label>
         <ComboboxInputGroup className={styles.customInputGroup}>
           <ComboboxInput id={id} placeholder="e.g. Mango" />
           <ComboboxControlActions>
@@ -709,9 +697,9 @@ export function CustomCompositionComboboxExample() {
         </ComboboxInputGroup>
       </ComboboxField>
 
-      <ComboboxPortal className={styles.portal}>
+      <ComboboxPortal>
         <ComboboxBackdrop className={styles.backdrop} />
-        <ComboboxPositioner className={styles.positioner} sideOffset={8}>
+        <ComboboxPositioner sideOffset={8}>
           <ComboboxPopup className={styles.customPopup}>
             <ComboboxArrow className={styles.arrow} />
             <ComboboxEmpty>No fruits found.</ComboboxEmpty>

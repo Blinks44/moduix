@@ -325,6 +325,8 @@ tokens instead of introducing a separate inline-input variable family.
 
 ## Local changelog
 
+- 2026-06-16: Hide the rendered `ComboboxList` box when Base UI marks it `data-empty`, so empty
+  states do not leave a blank strip under `ComboboxEmpty`.
 - 2026-06-14: Added `indicator="none"` so combobox rows can opt out of the reserved indicator
   column without causing selection-time layout shift. `start` remains the default reserved-slot
   behavior and `end` still moves the indicator to the trailing edge.

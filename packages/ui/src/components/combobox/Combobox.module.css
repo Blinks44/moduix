@@ -299,6 +299,7 @@
     outline: 0;
 
     &[data-empty] {
+      display: none;
       padding: 0;
     }
   }
@@ -342,22 +343,22 @@
     &[data-highlighted] {
       z-index: 0;
       color: var(--combobox-highlight-color, var(--color-background));
-    }
 
-    &[data-highlighted]::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      inset-block: 0;
-      inset-inline: var(
-        --combobox-highlight-inset-x,
-        var(--popup-highlight-inset-x, var(--spacing-1))
-      );
-      border-radius: var(
-        --combobox-highlight-radius,
-        var(--popup-highlight-radius, var(--radius-sm))
-      );
-      background-color: var(--combobox-highlight-bg, var(--color-foreground));
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset-block: 0;
+        inset-inline: var(
+          --combobox-highlight-inset-x,
+          var(--popup-highlight-inset-x, var(--spacing-1))
+        );
+        border-radius: var(
+          --combobox-highlight-radius,
+          var(--popup-highlight-radius, var(--radius-sm))
+        );
+        background-color: var(--combobox-highlight-bg, var(--color-foreground));
+      }
     }
 
     &[data-disabled] {

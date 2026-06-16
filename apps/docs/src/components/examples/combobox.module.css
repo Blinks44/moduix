@@ -70,14 +70,6 @@
   --combobox-shadow: var(--shadow-xl);
 }
 
-.portal {
-  position: relative;
-}
-
-.positioner {
-  z-index: var(--z-popup);
-}
-
 .backdrop {
   --combobox-backdrop-bg: var(--color-overlay);
   --combobox-backdrop-blur: 4px;
