@@ -148,11 +148,10 @@ Use the built-in variants for the common visual tones.
   <Preview.Code>
     {`
       import { Badge } from "moduix";
-      import styles from "./badge-demo.module.css";
 
       export function BadgeVariantsDemo() {
         return (
-          <div className={styles.row}>
+          <div className="badge-demo-row">
             {variants.map((variant) => (
               <Badge key={variant} variant={variant}>
                 {variant}
@@ -172,7 +171,7 @@ Use the built-in variants for the common visual tones.
 
   <Preview.CSS>
     {`
-      .row {
+      .badge-demo-row {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -193,11 +192,10 @@ Add `BadgeDot` when label and status indicator should stay visually grouped.
   <Preview.Code>
     {`
       import { Badge, BadgeDot } from "moduix";
-      import styles from "./badge-demo.module.css";
 
       export function BadgeWithDotDemo() {
         return (
-          <div className={styles.row}>
+          <div className="badge-demo-row">
             <Badge variant="default">
               <BadgeDot />
               Online
@@ -219,7 +217,7 @@ Add `BadgeDot` when label and status indicator should stay visually grouped.
 
   <Preview.CSS>
     {`
-      .row {
+      .badge-demo-row {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -240,11 +238,10 @@ Place an inline icon next to the label when the metadata needs a second visual c
   <Preview.Code>
     {`
       import { Badge, ChevronRightIcon } from "moduix";
-      import styles from "./badge-demo.module.css";
 
       export function BadgeWithIconDemo() {
         return (
-          <div className={styles.row}>
+          <div className="badge-demo-row">
             <Badge variant="default">
               Release
               <ChevronRightIcon />
@@ -266,7 +263,7 @@ Place an inline icon next to the label when the metadata needs a second visual c
 
   <Preview.CSS>
     {`
-      .row {
+      .badge-demo-row {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -287,12 +284,11 @@ Badges truncate long labels by default. Add `title` when the full text should st
   <Preview.Code>
     {`
       import { Badge } from "moduix";
-      import styles from "./badge-demo.module.css";
 
       export function BadgeTruncatedDemo() {
         return (
           <Badge
-            className={styles.constrained}
+            className="badge-demo-constrained"
             title="Ready for stakeholder review after legal approval"
           >
             Ready for stakeholder review after legal approval
@@ -305,7 +301,7 @@ Badges truncate long labels by default. Add `title` when the full text should st
 
   <Preview.CSS>
     {`
-      .constrained {
+      .badge-demo-constrained {
         max-width: 14rem;
       }
     `}
@@ -323,15 +319,14 @@ Use local CSS variables when a surface needs custom sizing or a different tone.
   <Preview.Code>
     {`
       import { Badge, BadgeDot } from "moduix";
-      import styles from "./badge-demo.module.css";
 
       export function CustomBadgeDemo() {
         return (
-          <div className={styles.row}>
-            <Badge className={styles.small}>Small</Badge>
+          <div className="badge-demo-row">
+            <Badge className="badge-demo-small">Small</Badge>
             <Badge>Default</Badge>
-            <Badge className={styles.large}>Large</Badge>
-            <Badge className={styles.customBadge}>
+            <Badge className="badge-demo-large">Large</Badge>
+            <Badge className="badge-demo-custom">
               <BadgeDot />
               Priority
             </Badge>
@@ -344,7 +339,14 @@ Use local CSS variables when a surface needs custom sizing or a different tone.
 
   <Preview.CSS>
     {`
-      .customBadge {
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .badge-demo-custom {
         --badge-bg: color-mix(in oklab, var(--color-primary) 20%, var(--color-background));
         --badge-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
         --badge-color: var(--color-primary);
@@ -354,14 +356,7 @@ Use local CSS variables when a surface needs custom sizing or a different tone.
         --badge-radius: var(--radius-sm);
       }
 
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-2);
-      }
-
-      .small {
+      .badge-demo-small {
         --badge-height: 1.125rem;
         --badge-font-size: var(--text-xs);
         --badge-icon-size: 0.6875rem;
@@ -369,7 +364,7 @@ Use local CSS variables when a surface needs custom sizing or a different tone.
         --badge-padding-x: 0.5rem;
       }
 
-      .large {
+      .badge-demo-large {
         --badge-height: 1.5rem;
         --badge-font-size: var(--text-sm);
         --badge-icon-size: 0.875rem;

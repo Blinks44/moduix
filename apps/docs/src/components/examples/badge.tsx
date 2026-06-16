@@ -1,17 +1,11 @@
 import type { BadgeVariant } from 'moduix';
 import type { ComponentProps } from 'react';
 import { Badge, BadgeDot, ChevronRightIcon } from 'moduix';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './badge.module.css';
 
-const variants = [
-  'default',
-  'secondary',
-  'destructive',
-  'outline',
-  'ghost',
-] satisfies BadgeVariant[];
+const variants: BadgeVariant[] = ['default', 'secondary', 'destructive', 'outline', 'ghost'];
 
 const badgeCssProperties: CssPropertyInput[] = [
   ['--badge-bg', 'var(--color-primary)', 'Controls badge background color.'],
@@ -30,7 +24,7 @@ const badgeCssProperties: CssPropertyInput[] = [
   ['--badge-radius', 'var(--radius-full)', 'Controls badge border radius.'],
 ];
 
-export function BadgeCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function BadgeCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={badgeCssProperties.map(normalizeCssProperty)} />;
 }
 

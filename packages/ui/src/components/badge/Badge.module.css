@@ -28,7 +28,7 @@
       background-color var(--transition-default),
       border-color var(--transition-default);
 
-    > svg {
+    & > svg {
       width: var(--badge-icon-size, 0.75rem);
       height: var(--badge-icon-size, 0.75rem);
       flex-shrink: 0;
@@ -45,15 +45,14 @@
       color: var(--badge-color, var(--color-primary-foreground));
     }
 
-    &[data-variant='outline'] {
-      border-color: var(--badge-border-color, var(--color-border));
+    &[data-variant='outline'],
+    &[data-variant='ghost'] {
       background-color: var(--badge-bg, transparent);
       color: var(--badge-color, var(--color-foreground));
     }
 
-    &[data-variant='ghost'] {
-      background-color: var(--badge-bg, transparent);
-      color: var(--badge-color, var(--color-foreground));
+    &[data-variant='outline'] {
+      border-color: var(--badge-border-color, var(--color-border));
     }
   }
 
