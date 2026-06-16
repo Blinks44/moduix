@@ -60,8 +60,8 @@ most menus, notifications, and compact forms.
         return (
           <Popover>
             <PopoverTrigger render={<Button />}>
-              <span className={styles.triggerContent}>
-                <BellIcon className={styles.icon} />
+              <span className="triggerContent">
+                <BellIcon className="icon" />
                 Notifications
               </span>
             </PopoverTrigger>
@@ -378,13 +378,13 @@ to be explicit.
         const [side, setSide] = useState("bottom" as (typeof sides)[number]);
 
         return (
-          <div className={styles.stack}>
-            <div className={styles.sideButtons}>
+          <div className="stack">
+            <div className="sideButtons">
               {sides.map((item) => (
                 <button
                   key={item}
                   type="button"
-                  className={styles.sideButton}
+                  className="sideButton"
                   data-active={item === side || undefined}
                   onClick={() => setSide(item)}
                 >
@@ -395,7 +395,7 @@ to be explicit.
 
             <Popover>
               <PopoverTrigger render={<Button />}>Open with side: {side}</PopoverTrigger>
-              <PopoverContent side={side} className={styles.narrowPopup}>
+              <PopoverContent side={side} className="narrowPopup">
                 <PopoverHeader>
                   <PopoverTitle>Placement</PopoverTitle>
                   <PopoverDescription>
@@ -531,7 +531,7 @@ Use `createPopoverHandle` when the trigger and popup cannot live in the same sub
         const popoverHandle = useMemo(() => createPopoverHandle(), []);
 
         return (
-          <div className={styles.row}>
+          <div>
             <PopoverTrigger handle={popoverHandle} render={<Button />}>
               Open details
             </PopoverTrigger>
@@ -592,11 +592,11 @@ the popup when focus is trapped.
                 </PopoverDescription>
               </PopoverHeader>
               <PopoverBody>
-                <label className={styles.field}>
+                <label className="field">
                   <span>Email</span>
                   <input
                     ref={inputRef}
-                    className={styles.input}
+                    className="input"
                     placeholder="name@example.com"
                   />
                 </label>
@@ -661,9 +661,9 @@ different surface without changing the structure.
         return (
           <Popover>
             <PopoverTrigger render={<Button />}>Open image popover</PopoverTrigger>
-            <PopoverContent className={styles.imagePopup}>
+            <PopoverContent className="imagePopup">
               <PopoverBody>
-                <img className={styles.image} alt="Abstract geometric composition" src={imageUrl} />
+                <img className="image" alt="Abstract geometric composition" src={imageUrl} />
               </PopoverBody>
             </PopoverContent>
           </Popover>
@@ -722,7 +722,7 @@ Set `nativeButton={false}` when `PopoverTrigger` renders a non-button element th
       export function CustomTriggerPopoverDemo() {
         return (
           <Popover>
-            <PopoverTrigger className={styles.customAnchor} nativeButton={false} render={<div />}>
+            <PopoverTrigger className="customAnchor" nativeButton={false} render={<div />}>
               Open custom trigger
             </PopoverTrigger>
             <PopoverContent>
@@ -788,17 +788,17 @@ content, or a viewport-driven layout.
       export function CustomCompositionPopoverDemo() {
         return (
           <Popover>
-            <PopoverTrigger className={styles.customTrigger} render={<Button />}>
+            <PopoverTrigger className="customTrigger" render={<Button />}>
               Open custom composition
             </PopoverTrigger>
             <PopoverPortal>
-              <PopoverBackdrop className={styles.customBackdrop} />
-              <PopoverPositioner sideOffset={8} className={styles.customPositioner}>
-                <PopoverPopup className={styles.customPopup}>
-                  <PopoverArrow className={styles.customArrowSlot}>
-                    <CheckIcon className={styles.customArrowIcon} />
+              <PopoverBackdrop className="customBackdrop" />
+              <PopoverPositioner sideOffset={8} className="customPositioner">
+                <PopoverPopup className="customPopup">
+                  <PopoverArrow className="customArrowSlot">
+                    <CheckIcon className="customArrowIcon" />
                   </PopoverArrow>
-                  <PopoverViewport className={styles.customViewport}>
+                  <PopoverViewport className="customViewport">
                     <PopoverHeader>
                       <PopoverTitle>Custom composition</PopoverTitle>
                       <PopoverDescription>
@@ -899,11 +899,11 @@ Compose `PopoverBackdrop` explicitly when the popup should visually separate its
       export function PopoverWithBackdropDemo() {
         return (
           <Popover>
-            <PopoverTrigger className={styles.backdropTrigger} render={<Button />}>
+            <PopoverTrigger className="backdropTrigger" render={<Button />}>
               Open with backdrop
             </PopoverTrigger>
             <PopoverPortal>
-              <PopoverBackdrop className={styles.backdrop} />
+              <PopoverBackdrop className="backdrop" />
               <PopoverPositioner sideOffset={8}>
                 <PopoverPopup>
                   <PopoverHeader>

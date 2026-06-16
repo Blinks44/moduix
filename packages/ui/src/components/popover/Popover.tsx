@@ -5,35 +5,28 @@ import { PopupArrowIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Popover.module.css';
 
-type PopoverPositionerProps = Pick<
-  PopoverPrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
->;
-
-type PopoverContentProps = PopoverPrimitive.Popup.Props &
-  PopoverPositionerProps & {
-    showArrow?: boolean;
-  };
+type PopoverContentProps = PopoverPrimitive.Popup.Props & {
+  showArrow?: boolean;
+  side?: PopoverPrimitive.Positioner.Props['side'];
+  sideOffset?: PopoverPrimitive.Positioner.Props['sideOffset'];
+  align?: PopoverPrimitive.Positioner.Props['align'];
+  alignOffset?: PopoverPrimitive.Positioner.Props['alignOffset'];
+  arrowPadding?: PopoverPrimitive.Positioner.Props['arrowPadding'];
+  collisionAvoidance?: PopoverPrimitive.Positioner.Props['collisionAvoidance'];
+  collisionBoundary?: PopoverPrimitive.Positioner.Props['collisionBoundary'];
+  collisionPadding?: PopoverPrimitive.Positioner.Props['collisionPadding'];
+};
 
 const POPOVER_CONTENT_SIDE_OFFSET = 8;
 const Popover = PopoverPrimitive.Root;
 const createPopoverHandle = PopoverPrimitive.createHandle;
 
 function PopoverTrigger({ className, render, ...props }: PopoverPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <PopoverPrimitive.Trigger
       data-slot="popover-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
@@ -90,7 +83,14 @@ function PopoverArrow({ className, children, ...props }: PopoverPrimitive.Arrow.
       className={mergeClassName(className, styles.arrow)}
       {...props}
     >
-      {children ?? <ArrowSvg className={styles.arrowSvg} />}
+      {children ?? (
+        <PopupArrowIcon
+          className={styles.arrowSvg}
+          fillClassName={styles.arrowFill}
+          outerStrokeClassName={styles.arrowOuterStroke}
+          innerStrokeClassName={styles.arrowInnerStroke}
+        />
+      )}
     </PopoverPrimitive.Arrow>
   );
 }
@@ -169,17 +169,6 @@ function PopoverContent({
         </PopoverPopup>
       </PopoverPositioner>
     </PopoverPortal>
-  );
-}
-
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <PopupArrowIcon
-      fillClassName={styles.arrowFill}
-      outerStrokeClassName={styles.arrowOuterStroke}
-      innerStrokeClassName={styles.arrowInnerStroke}
-      {...props}
-    />
   );
 }
 

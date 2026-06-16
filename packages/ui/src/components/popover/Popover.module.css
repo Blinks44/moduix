@@ -146,16 +146,20 @@
       translate: 0;
     }
 
-    &[data-activation-direction~='left'] > [data-current][data-starting-style],
-    &[data-activation-direction~='right'] > [data-previous][data-ending-style] {
-      opacity: 0;
-      translate: calc(var(--popover-viewport-offset, 1rem) * -1) 0;
+    &[data-activation-direction~='left'] {
+      & > [data-current][data-starting-style],
+      & > [data-previous][data-ending-style] {
+        opacity: 0;
+        translate: calc(var(--popover-viewport-offset, 1rem) * -1) 0;
+      }
     }
 
-    &[data-activation-direction~='right'] > [data-current][data-starting-style],
-    &[data-activation-direction~='left'] > [data-previous][data-ending-style] {
-      opacity: 0;
-      translate: var(--popover-viewport-offset, 1rem) 0;
+    &[data-activation-direction~='right'] {
+      & > [data-current][data-starting-style],
+      & > [data-previous][data-ending-style] {
+        opacity: 0;
+        translate: var(--popover-viewport-offset, 1rem) 0;
+      }
     }
   }
 
