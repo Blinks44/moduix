@@ -19,11 +19,10 @@
   padding-block: var(--spacing-4);
   border-block: var(--border-width-sm) dashed var(--color-border);
   background-color: var(--color-muted);
-}
 
-.container > *,
-.customContainer > * {
-  max-width: 42rem;
+  & > * {
+    max-width: 42rem;
+  }
 }
 
 .customContainer {

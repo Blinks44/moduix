@@ -2,17 +2,22 @@ import type { ComponentPropsWithoutRef, ElementType } from 'react';
 import clsx from 'clsx';
 import styles from './Container.module.css';
 
+type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
+
+type ContainerProps = ComponentPropsWithoutRef<'div'> & {
+  as?: ElementType;
+  size?: ContainerSize;
+  gutter?: ContainerGutter;
+};
+
 function Container({
   as: Root = 'div',
   size = 'lg',
   gutter = 'md',
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'> & {
-  as?: ElementType;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  gutter?: 'none' | 'sm' | 'md' | 'lg';
-}) {
+}: ContainerProps) {
   return (
     <Root
       {...props}

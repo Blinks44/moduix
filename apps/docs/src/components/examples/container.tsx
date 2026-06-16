@@ -4,28 +4,67 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './container.module.css';
 
-export const containerOverrideCssProperties: CssPropertyInput[] = [
-  ['--container-gutter-sm', 'clamp(0.75rem, 3vw, 1.5rem)', 'Controls small inline gutters.'],
-  ['--container-gutter-md', 'clamp(1rem, 4vw, 2rem)', 'Controls medium inline gutters.'],
-  ['--container-gutter-lg', 'clamp(1.5rem, 5vw, 3rem)', 'Controls large inline gutters.'],
-  ['--container-max-width-xs', '40rem', 'Controls the `xs` content width.'],
-  ['--container-max-width-sm', '48rem', 'Controls the `sm` content width.'],
-  ['--container-max-width-md', '64rem', 'Controls the `md` content width.'],
-  ['--container-max-width-lg', '72rem', 'Controls the `lg` content width.'],
-  ['--container-max-width-xl', '90rem', 'Controls the `xl` content width.'],
-];
+export const containerOverrideCssProperties = [
+  {
+    name: '--container-gutter-sm',
+    defaultValue: 'clamp(0.75rem, 3vw, 1.5rem)',
+    description: 'Controls small inline gutters.',
+  },
+  {
+    name: '--container-gutter-md',
+    defaultValue: 'clamp(1rem, 4vw, 2rem)',
+    description: 'Controls medium inline gutters.',
+  },
+  {
+    name: '--container-gutter-lg',
+    defaultValue: 'clamp(1.5rem, 5vw, 3rem)',
+    description: 'Controls large inline gutters.',
+  },
+  {
+    name: '--container-max-width-xs',
+    defaultValue: '40rem',
+    description: 'Controls the `xs` content width.',
+  },
+  {
+    name: '--container-max-width-sm',
+    defaultValue: '48rem',
+    description: 'Controls the `sm` content width.',
+  },
+  {
+    name: '--container-max-width-md',
+    defaultValue: '64rem',
+    description: 'Controls the `md` content width.',
+  },
+  {
+    name: '--container-max-width-lg',
+    defaultValue: '72rem',
+    description: 'Controls the `lg` content width.',
+  },
+  {
+    name: '--container-max-width-xl',
+    defaultValue: '90rem',
+    description: 'Controls the `xl` content width.',
+  },
+] satisfies CssPropertyInput[];
 
-export const containerPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--container-gutter-md', 'clamp(1rem, 4vw, 2rem)', 'Controls medium inline gutters.'],
-  ['--container-max-width-lg', '72rem', 'Controls the `lg` content width.'],
-];
+export const containerPlaygroundCssProperties = [
+  {
+    name: '--container-gutter-md',
+    defaultValue: 'clamp(1rem, 4vw, 2rem)',
+    description: 'Controls medium inline gutters.',
+  },
+  {
+    name: '--container-max-width-lg',
+    defaultValue: '72rem',
+    description: 'Controls the `lg` content width.',
+  },
+] satisfies CssPropertyInput[];
+
+const containerSizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full'] as const;
+const containerGutters = ['none', 'sm', 'md', 'lg'] as const;
 
 export function ContainerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={containerOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
+  return <CSSPropertiesReferenceTable properties={containerOverrideCssProperties} />;
 }
 
 export function ContainerCssPlaygroundPanel({
@@ -35,18 +74,12 @@ export function ContainerCssPlaygroundPanel({
 }: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesEditor
-      properties={containerPlaygroundCssProperties.map(normalizeCssProperty)}
+      properties={containerPlaygroundCssProperties}
       values={values}
       onChange={onChange}
       onReset={onReset}
     />
   );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
 }
 
 export function ContainerExample(props: ComponentProps<typeof Container>) {
@@ -68,7 +101,7 @@ export function ContainerSizesExample() {
   return (
     <div className={styles.viewport}>
       <div className={styles.stack}>
-        {(['xs', 'sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
+        {containerSizes.map((size) => (
           <Container key={size} size={size} className={styles.container}>
             <Text weight="semibold">size=&quot;{size}&quot;</Text>
           </Container>
@@ -82,7 +115,7 @@ export function ContainerGuttersExample() {
   return (
     <div className={styles.viewport}>
       <div className={styles.stack}>
-        {(['none', 'sm', 'md', 'lg'] as const).map((gutter) => (
+        {containerGutters.map((gutter) => (
           <Container key={gutter} gutter={gutter} className={styles.container}>
             <Text weight="semibold">gutter=&quot;{gutter}&quot;</Text>
           </Container>
@@ -105,7 +138,7 @@ export function ContainerSemanticExample() {
   );
 }
 
-export function CustomCompositionContainerExample() {
+export function CustomStylingContainerExample() {
   return (
     <div className={styles.viewport}>
       <Container className={styles.customContainer}>

@@ -11,7 +11,7 @@ import {
   ContainerGuttersExample,
   ContainerSemanticExample,
   ContainerSizesExample,
-  CustomCompositionContainerExample,
+  CustomStylingContainerExample,
 } from '@/components/examples/container';
 
 ## Basic
@@ -25,11 +25,10 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
   <Preview.Code>
     {`
       import { Container, Heading, Text } from "moduix";
-      import styles from "./container-demo.module.css";
 
       export function ContainerDemo() {
         return (
-          <Container className={styles.container}>
+          <Container className="container">
             <Heading as="h3" size="lg">
               Responsive page content
             </Heading>
@@ -168,17 +167,16 @@ preserving the selected gutter.
   <Preview.Code>
     {`
       import { Container, Text } from "moduix";
-      import styles from "./container-demo.module.css";
 
       export function ContainerSizesDemo() {
         return (
-          <div className={styles.stack}>
-            <Container size="xs" className={styles.container}><Text>xs</Text></Container>
-            <Container size="sm" className={styles.container}><Text>sm</Text></Container>
-            <Container size="md" className={styles.container}><Text>md</Text></Container>
-            <Container size="lg" className={styles.container}><Text>lg</Text></Container>
-            <Container size="xl" className={styles.container}><Text>xl</Text></Container>
-            <Container size="full" className={styles.container}><Text>full</Text></Container>
+          <div className="stack">
+            <Container size="xs" className="container"><Text>xs</Text></Container>
+            <Container size="sm" className="container"><Text>sm</Text></Container>
+            <Container size="md" className="container"><Text>md</Text></Container>
+            <Container size="lg" className="container"><Text>lg</Text></Container>
+            <Container size="xl" className="container"><Text>xl</Text></Container>
+            <Container size="full" className="container"><Text>full</Text></Container>
           </div>
         );
       }
@@ -215,15 +213,14 @@ Use `gutter` to control responsive inline padding.
   <Preview.Code>
     {`
       import { Container, Text } from "moduix";
-      import styles from "./container-demo.module.css";
 
       export function ContainerGuttersDemo() {
         return (
-          <div className={styles.stack}>
-            <Container gutter="none" className={styles.container}><Text>No gutter</Text></Container>
-            <Container gutter="sm" className={styles.container}><Text>Small gutter</Text></Container>
-            <Container gutter="md" className={styles.container}><Text>Medium gutter</Text></Container>
-            <Container gutter="lg" className={styles.container}><Text>Large gutter</Text></Container>
+          <div className="stack">
+            <Container gutter="none" className="container"><Text>No gutter</Text></Container>
+            <Container gutter="sm" className="container"><Text>Small gutter</Text></Container>
+            <Container gutter="md" className="container"><Text>Medium gutter</Text></Container>
+            <Container gutter="lg" className="container"><Text>Large gutter</Text></Container>
           </div>
         );
       }
@@ -260,11 +257,10 @@ Use `as` when the layout wrapper should also describe document structure.
   <Preview.Code>
     {`
       import { Container, Heading, Text } from "moduix";
-      import styles from "./container-demo.module.css";
 
       export function ContainerSemanticDemo() {
         return (
-          <Container as="main" size="md" className={styles.container}>
+          <Container as="main" size="md" className="container">
             <Heading as="h3" size="lg">Main content area</Heading>
             <Text tone="muted">Use as when the wrapper should carry semantic meaning.</Text>
           </Container>
@@ -300,17 +296,16 @@ Keep the text column constrained and let only the wider child opt out.
   <Preview.Code>
     {`
       import { Bleed, Container, Heading, Text } from "moduix";
-      import styles from "./container-demo.module.css";
 
       export function ContainerBleedDemo() {
         return (
-          <Container className={styles.container}>
+          <Container className="container">
             <Heading as="h3" size="lg">Article body</Heading>
             <Text tone="muted">
               Keep the reading width constrained, then use Bleed for content that should stretch wider.
             </Text>
             <Bleed inline="md">
-              <div className={styles.bleedSurface}>Bleed content escapes the constrained column.</div>
+              <div className="bleedSurface">Bleed content escapes the constrained column.</div>
             </Bleed>
           </Container>
         );
@@ -346,16 +341,15 @@ Keep the text column constrained and let only the wider child opt out.
 Pass `className` when styling the root or overriding container variables locally.
 
 <Preview>
-  <CustomCompositionContainerExample />
+  <CustomStylingContainerExample />
 
   <Preview.Code>
     {`
       import { Container, Text } from "moduix";
-      import styles from "./container-demo.module.css";
 
       export function CustomStyledContainerDemo() {
         return (
-          <Container className={styles.customContainer}>
+          <Container className="customContainer">
             <Text weight="semibold">Customized max width and gutters</Text>
           </Container>
         );

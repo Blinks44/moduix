@@ -12,10 +12,10 @@
   background:
     linear-gradient(90deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px) 0 0 / 4rem 100%,
     var(--color-muted);
-}
 
-.container > * {
-  max-width: 42rem;
+  & > * {
+    max-width: 42rem;
+  }
 }
 
 .bleedSurface {
