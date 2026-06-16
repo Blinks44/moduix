@@ -10,7 +10,7 @@
     "start": "vite preview",
     "preview": "vite preview",
     "deploy": "wrangler deploy",
-    "tsc:check": "fumadocs-mdx && tsc --noEmit",
+    "tsc:check": "fumadocs-mdx && tsc -b",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {

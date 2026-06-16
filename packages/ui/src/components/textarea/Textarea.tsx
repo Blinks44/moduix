@@ -1,6 +1,12 @@
 import { Field as FieldPrimitive } from '@base-ui/react/field';
 import { mergeProps } from '@base-ui/react/merge-props';
-import { forwardRef, useCallback, type ComponentProps, type ForwardedRef } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  type ChangeEvent,
+  type ComponentProps,
+  type ForwardedRef,
+} from 'react';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Textarea.module.css';
 
@@ -40,7 +46,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textare
       render={(controlProps) => (
         <textarea
           {...mergeProps(controlProps, props, {
-            onChange: (event) => {
+            onChange: (event: ChangeEvent<HTMLTextAreaElement>) => {
               onValueChange?.(event.currentTarget.value);
             },
           })}
