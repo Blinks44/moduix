@@ -1,15 +1,16 @@
 import { Radio as RadioPrimitive } from '@base-ui/react/radio';
 import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentProps, type ComponentRef, type ForwardedRef } from 'react';
+import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Radio.module.css';
 
 type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type RadioProps = RadioPrimitive.Root.Props & { size?: RadioSize };
 
-const Radio = forwardRef(function Radio(
-  { className, size = 'md', children, ...props }: RadioPrimitive.Root.Props & { size?: RadioSize },
-  ref: ForwardedRef<ComponentRef<typeof RadioPrimitive.Root>>,
+const Radio = forwardRef<ComponentRef<typeof RadioPrimitive.Root>, RadioProps>(function Radio(
+  { className, size = 'md', children, ...props },
+  ref,
 ) {
   return (
     <RadioPrimitive.Root

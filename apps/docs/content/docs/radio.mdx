@@ -405,7 +405,7 @@ semantics.
       export function RadioFormDemo() {
         return (
           <Field name="storageType">
-            <Fieldset render={<RadioGroup defaultValue="ssd" />}>
+            <Fieldset render={<RadioGroup defaultValue="ssd" className="radio-form-group" />}>
               <FieldsetLegend>Storage type</FieldsetLegend>
               <FieldItem>
                 <FieldLabel>
@@ -426,11 +426,24 @@ semantics.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .radio-form-group {
+        width: fit-content;
+        max-width: min(20rem, 100%);
+        margin-inline: auto;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Sibling Label
 
 Render the root as a native button when layout needs separate radio and label elements.
+`Radio` is still inside `RadioGroup` because group value and keyboard behavior are managed at the
+group level.
 
 <Preview>
   <RadioSiblingLabelNativeButtonExample />
@@ -445,18 +458,36 @@ Render the root as a native button when layout needs separate radio and label el
         const labelId = useId();
 
         return (
-          <div>
+          <div className="radio-sibling">
             <div id={labelId}>Delivery method</div>
-            <RadioGroup defaultValue="email" aria-labelledby={labelId}>
-              <Radio id={id} value="email" nativeButton render={<button />} />
-            </RadioGroup>
-            <label htmlFor={id}>Email</label>
+            <div className="radio-sibling-row">
+              <RadioGroup defaultValue="email" aria-labelledby={labelId}>
+                <Radio id={id} value="email" nativeButton render={<button />} />
+              </RadioGroup>
+              <label htmlFor={id}>Email</label>
+            </div>
           </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .radio-sibling {
+        display: grid;
+        gap: var(--spacing-2);
+      }
+
+      .radio-sibling-row {
+        display: flex;
+        align-items: center;
+        gap: var(--radio-gap, var(--spacing-2));
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Styling
@@ -483,15 +514,15 @@ of the shared surface.
         const labelId = useId();
 
         return (
-          <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.group}>
-            <RadioGroupLabel id={labelId} className={styles.label}>
+          <RadioGroup aria-labelledby={labelId} defaultValue="team" className="group">
+            <RadioGroupLabel id={labelId} className="label">
               Styled Account Type
             </RadioGroupLabel>
-            <RadioGroupList className={styles.list}>
+            <RadioGroupList className="list">
               {options.map((option) => (
-                <RadioField key={option.value} className={styles.field}>
-                  <Radio value={option.value} className={styles.control} />
-                  <RadioLabel className={styles.label}>{option.label}</RadioLabel>
+                <RadioField key={option.value} className="field">
+                  <Radio value={option.value} className="control" />
+                  <RadioLabel className="label">{option.label}</RadioLabel>
                 </RadioField>
               ))}
             </RadioGroupList>

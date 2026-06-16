@@ -15,7 +15,6 @@ import {
 import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './radio.module.css';
 
 const radioOptions = [
   { value: 'personal', label: 'Personal account' },
@@ -182,22 +181,19 @@ export function ControlledRadioExample() {
   const [value, setValue] = useState('personal');
 
   return (
-    <div className={styles.stack}>
-      <RadioGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
-        <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
-        <RadioGroupList>
-          <RadioField>
-            <Radio value="personal" />
-            <RadioLabel>Only me</RadioLabel>
-          </RadioField>
-          <RadioField>
-            <Radio value="team" />
-            <RadioLabel>Team</RadioLabel>
-          </RadioField>
-        </RadioGroupList>
-      </RadioGroup>
-      <span className={styles.hint}>Current value: {value}</span>
-    </div>
+    <RadioGroup aria-labelledby={labelId} value={value} onValueChange={setValue}>
+      <RadioGroupLabel id={labelId}>Workspace Visibility</RadioGroupLabel>
+      <RadioGroupList>
+        <RadioField>
+          <Radio value="personal" />
+          <RadioLabel>Only me</RadioLabel>
+        </RadioField>
+        <RadioField>
+          <Radio value="team" />
+          <RadioLabel>Team</RadioLabel>
+        </RadioField>
+      </RadioGroupList>
+    </RadioGroup>
   );
 }
 
@@ -243,15 +239,15 @@ export function RadioClassNameExample() {
   const labelId = useId();
 
   return (
-    <RadioGroup aria-labelledby={labelId} defaultValue="team" className={styles.customGroup}>
-      <RadioGroupLabel id={labelId} className={styles.customLabel}>
+    <RadioGroup aria-labelledby={labelId} defaultValue="team" className="group">
+      <RadioGroupLabel id={labelId} className="label">
         Styled Account Type
       </RadioGroupLabel>
-      <RadioGroupList className={styles.customList}>
+      <RadioGroupList className="list">
         {radioOptions.map((option) => (
-          <RadioField key={option.value} className={styles.customField}>
-            <Radio value={option.value} className={styles.customRadio} />
-            <RadioLabel className={styles.customLabel}>{option.label}</RadioLabel>
+          <RadioField key={option.value} className="field">
+            <Radio value={option.value} className="control" />
+            <RadioLabel className="label">{option.label}</RadioLabel>
           </RadioField>
         ))}
       </RadioGroupList>
@@ -270,7 +266,7 @@ export function CustomIndicatorRadioExample() {
           <RadioField key={option.value}>
             <Radio value={option.value}>
               <RadioIndicator>
-                <CustomRadioIcon className={styles.customIndicatorIcon} />
+                <CustomRadioIcon />
               </RadioIndicator>
             </Radio>
             <RadioLabel>{option.label}</RadioLabel>
@@ -286,16 +282,14 @@ export function RadioSiblingLabelNativeButtonExample() {
   const labelId = useId();
 
   return (
-    <div className={styles.siblingRow}>
-      <div id={labelId} className={styles.hint}>
-        Delivery method
+    <div className="radio-sibling">
+      <div id={labelId}>Delivery method</div>
+      <div className="radio-sibling-row">
+        <RadioGroup defaultValue="email" aria-labelledby={labelId}>
+          <Radio nativeButton render={<button />} id={id} value="email" />
+        </RadioGroup>
+        <label htmlFor={id}>Email</label>
       </div>
-      <RadioGroup defaultValue="email" aria-labelledby={labelId}>
-        <Radio nativeButton render={<button />} id={id} value="email" />
-      </RadioGroup>
-      <label htmlFor={id} className={styles.label}>
-        Email
-      </label>
     </div>
   );
 }
@@ -303,7 +297,7 @@ export function RadioSiblingLabelNativeButtonExample() {
 export function RadioFormIntegrationExample() {
   return (
     <Field name="storageType">
-      <Fieldset render={<RadioGroup defaultValue="ssd" className={styles.formGroup} />}>
+      <Fieldset render={<RadioGroup defaultValue="ssd" className="radio-form-group" />}>
         <FieldsetLegend>Storage type</FieldsetLegend>
         <FieldItem>
           <FieldLabel>

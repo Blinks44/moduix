@@ -6,8 +6,7 @@
     vertical-align: middle;
     cursor: pointer;
 
-    &:has(.radio[data-disabled]),
-    &:has(.radio[data-readonly]) {
+    &:has(.radio[data-disabled], .radio[data-readonly]) {
       cursor: default;
     }
   }
@@ -56,7 +55,8 @@
       }
     }
 
-    &[data-readonly] {
+    &[data-readonly],
+    &[data-disabled] {
       cursor: default;
     }
 
