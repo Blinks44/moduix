@@ -198,18 +198,17 @@ Use controlled mode when the checkbox needs to coordinate with surrounding UI.
     {`
       import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
       import { useState } from "react";
-      import styles from "./checkbox-demo.module.css";
 
       export function ControlledCheckboxDemo() {
         const [checked, setChecked] = useState(false);
 
         return (
-          <div className={styles.stack}>
+          <div className="stack">
             <CheckboxField>
               <Checkbox checked={checked} onCheckedChange={setChecked} />
               <CheckboxLabel>{checked ? "Enabled" : "Disabled"}</CheckboxLabel>
             </CheckboxField>
-            <span className={styles.hint}>Current value: {String(checked)}</span>
+            <span className="hint">Current value: {String(checked)}</span>
           </div>
         );
       }
@@ -246,11 +245,10 @@ Use `size` to match different form densities.
   <Preview.Code>
     {`
       import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
-      import styles from "./checkbox-demo.module.css";
 
       export function CheckboxSizesDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="stack">
             <CheckboxField>
               <Checkbox size="xs" defaultChecked />
               <CheckboxLabel>Extra-small</CheckboxLabel>
@@ -301,11 +299,10 @@ Use `disabled` to prevent interaction while preserving the current visual state.
   <Preview.Code>
     {`
       import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
-      import styles from "./checkbox-demo.module.css";
 
       export function DisabledCheckboxDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="stack">
             <CheckboxField>
               <Checkbox disabled />
               <CheckboxLabel>Receive weekly summary</CheckboxLabel>
@@ -344,11 +341,10 @@ Use `readOnly` when the current state should stay visible but should not be chan
   <Preview.Code>
     {`
       import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
-      import styles from "./checkbox-demo.module.css";
 
       export function ReadOnlyCheckboxDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="stack">
             <CheckboxField>
               <Checkbox readOnly />
               <CheckboxLabel>Keep current selection</CheckboxLabel>
@@ -388,15 +384,14 @@ Render the root as a native button when the layout needs separate checkbox and l
     {`
       import { Checkbox } from "moduix";
       import { useId } from "react";
-      import styles from "./checkbox-demo.module.css";
 
       export function CheckboxSiblingLabelDemo() {
         const id = useId();
 
         return (
-          <div className={styles.siblingRow}>
+          <div className="siblingRow">
             <Checkbox nativeButton render={<button />} id={id} defaultChecked />
-            <label htmlFor={id} className={styles.label}>
+            <label htmlFor={id} className="label">
               Keep me signed in
             </label>
           </div>
@@ -437,7 +432,6 @@ is not enough.
     {`
       import { Checkbox, CheckboxField, CheckboxIndicator, CheckboxLabel } from "moduix";
       import type { ComponentProps } from "react";
-      import styles from "./checkbox-demo.module.css";
 
       function PlusIcon(props: ComponentProps<"svg">) {
         return (
@@ -457,7 +451,7 @@ is not enough.
           <CheckboxField>
             <Checkbox defaultChecked>
               <CheckboxIndicator>
-                <PlusIcon className={styles.customIndicatorIcon} />
+                <PlusIcon className="customIndicatorIcon" />
               </CheckboxIndicator>
             </Checkbox>
             <CheckboxLabel>Use a custom indicator icon</CheckboxLabel>
@@ -490,14 +484,13 @@ is not enough.
         CheckboxIndicatorIcon,
         CheckboxLabel,
       } from "moduix";
-      import styles from "./checkbox-demo.module.css";
 
       export function CheckboxIndicatorCompositionDemo() {
         return (
           <CheckboxField>
             <Checkbox defaultChecked>
-              <CheckboxIndicator className={styles.customIndicator} keepMounted>
-                <CheckboxIndicatorIcon className={styles.customIndicatorIcon} />
+              <CheckboxIndicator className="customIndicator" keepMounted>
+                <CheckboxIndicatorIcon className="customIndicatorIcon" />
               </CheckboxIndicator>
             </Checkbox>
             <CheckboxLabel>Compose the indicator tree manually</CheckboxLabel>

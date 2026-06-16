@@ -96,17 +96,23 @@
     width: 100%;
     height: 100%;
 
-    &[data-indeterminate] .iconChecked {
-      display: none;
+    &[data-indeterminate] {
+      .iconChecked {
+        display: none;
+      }
     }
 
-    &[data-checked] .iconIndeterminate {
-      display: none;
+    &[data-checked] {
+      .iconIndeterminate {
+        display: none;
+      }
     }
 
-    &[data-unchecked] .iconChecked,
-    &[data-unchecked] .iconIndeterminate {
-      display: none;
+    &[data-unchecked] {
+      .iconChecked,
+      .iconIndeterminate {
+        display: none;
+      }
     }
   }
 

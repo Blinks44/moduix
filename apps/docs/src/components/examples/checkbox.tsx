@@ -6,8 +6,8 @@ import {
   CheckboxLabel,
 } from 'moduix';
 import { useId, useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './checkbox.module.css';
 
 export const checkboxOverrideCssProperties: CssPropertyInput[] = [
@@ -45,34 +45,11 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
   ['--checkbox-transition', 'var(--transition-default)', 'Controls state transition timing.'],
 ];
 
-export const checkboxPlaygroundCssProperties: CssPropertyInput[] = [
-  ...checkboxOverrideCssProperties,
-];
-
-export function CheckboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function CheckboxCssPropertiesPanel() {
   return (
-    <div className="space-y-2">
-      <CSSPropertiesReferenceTable
-        properties={checkboxOverrideCssProperties.map(normalizeCssProperty)}
-      />
-    </div>
-  );
-}
-
-export function CheckboxCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesEditor
-        properties={checkboxPlaygroundCssProperties.map(normalizeCssProperty)}
-        values={values}
-        onChange={onChange}
-        onReset={onReset}
-      />
-    </div>
+    <CSSPropertiesReferenceTable
+      properties={checkboxOverrideCssProperties.map(normalizeCssProperty)}
+    />
   );
 }
 
@@ -97,10 +74,10 @@ function CustomPlusIcon(props: ComponentProps<'svg'>) {
   );
 }
 
-export function CheckboxExample(props: ComponentProps<typeof Checkbox>) {
+export function CheckboxExample() {
   return (
     <CheckboxField>
-      <Checkbox defaultChecked {...props} />
+      <Checkbox defaultChecked />
       <CheckboxLabel>Enable notifications</CheckboxLabel>
     </CheckboxField>
   );

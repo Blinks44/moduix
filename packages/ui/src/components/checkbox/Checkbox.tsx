@@ -1,33 +1,28 @@
 import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentProps, type ComponentRef, type ForwardedRef } from 'react';
+import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type CheckboxProps = CheckboxPrimitive.Root.Props & { size?: CheckboxSize };
 
-const Checkbox = forwardRef(function Checkbox(
-  {
-    className,
-    size = 'md',
-    children,
-    ...props
-  }: CheckboxPrimitive.Root.Props & { size?: CheckboxSize },
-  ref: ForwardedRef<ComponentRef<typeof CheckboxPrimitive.Root>>,
-) {
-  return (
-    <CheckboxPrimitive.Root
-      ref={ref}
-      data-slot="checkbox-root"
-      data-size={size}
-      className={mergeClassName(className, styles.root)}
-      {...props}
-    >
-      {children ?? <CheckboxIndicator />}
-    </CheckboxPrimitive.Root>
-  );
-});
+const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
+  function Checkbox({ className, size = 'md', children, ...props }, ref) {
+    return (
+      <CheckboxPrimitive.Root
+        ref={ref}
+        data-slot="checkbox-root"
+        data-size={size}
+        className={mergeClassName(className, styles.root)}
+        {...props}
+      >
+        {children ?? <CheckboxIndicator />}
+      </CheckboxPrimitive.Root>
+    );
+  },
+);
 
 function CheckboxIndicator({ className, children, ...props }: CheckboxPrimitive.Indicator.Props) {
   return (
