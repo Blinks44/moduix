@@ -21,6 +21,8 @@ data-table abstraction when you need sorting, filtering, selection, or virtualiz
 ## Current behavior contract
 
 - `Table` renders a native `<table>` with `data-slot="table"`.
+- `Table` accepts `striped` for zebra-striping body rows without changing the semantic table
+  structure.
 - `TableContainer` is an optional shell for the common “bordered horizontal scroll area” case. It
   renders a plain `<div>` with `overflow-x: auto`, border, radius, and card background defaults.
 - `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, and
@@ -98,6 +100,7 @@ Recommended usage:
 - use `TableContainer` for the common bordered overflow shell instead of rewriting that wrapper;
 - use `TableHead` for column headers and `TableCell` for body/footer data cells;
 - use `numeric` on headers and cells for amounts, totals, counters, and other numeric columns;
+- use `striped` when long read-only bodies need stronger row-by-row scanability;
 - use `TableEmpty` when a body would otherwise render no rows;
 - wrap the table in `ScrollArea` instead of `TableContainer` when you need a custom scrolling surface;
 - keep alignment concerns in `className` rather than adding component props;
@@ -106,6 +109,12 @@ Recommended usage:
 ## Public API
 
 All exported parts extend their matching native table element props and accept `className`.
+
+`Table` also accepts:
+
+| Prop      | Type      | Default | Description                                                     |
+| --------- | --------- | ------- | --------------------------------------------------------------- |
+| `striped` | `boolean` | `false` | Applies zebra striping to even body rows, excluding empty rows. |
 
 `TableHead` and `TableCell` also accept:
 
@@ -149,43 +158,44 @@ The root table uses:
 
 Public CSS variables are registered in `packages/ui/src/styles/theme.css`.
 
-| Variable                         | Default/fallback                             | Affects                                                   |
-| -------------------------------- | -------------------------------------------- | --------------------------------------------------------- |
-| `--table-border-color`           | `var(--color-border)`                        | Header, body, and footer dividers.                        |
-| `--table-border-width`           | `var(--border-width-sm)`                     | Divider thickness.                                        |
-| `--table-caption-color`          | `var(--color-muted-foreground)`              | Caption text color.                                       |
-| `--table-caption-font-size`      | `var(--text-sm)`                             | Caption font size.                                        |
-| `--table-caption-line-height`    | `var(--line-height-text-sm)`                 | Caption line height.                                      |
-| `--table-caption-padding-edge`   | `var(--spacing-2)`                           | Outer top/bottom inset for captions, depending on `side`. |
-| `--table-caption-padding-x`      | `var(--table-cell-padding-x)`                | Caption horizontal inset.                                 |
-| `--table-caption-padding-y`      | `var(--spacing-3)`                           | Inner spacing between the caption and the table.          |
-| `--table-cell-padding-x`         | `var(--spacing-4)`                           | Cell horizontal padding.                                  |
-| `--table-cell-padding-y`         | `var(--spacing-3)`                           | Cell vertical padding.                                    |
-| `--table-color`                  | `var(--color-foreground)`                    | Root text color.                                          |
-| `--table-container-bg`           | `var(--color-card)`                          | Container background.                                     |
-| `--table-container-border-color` | `var(--table-border-color)`                  | Container border color.                                   |
-| `--table-container-border-width` | `var(--table-border-width)`                  | Container border width.                                   |
-| `--table-container-radius`       | `var(--radius-lg)`                           | Container border radius.                                  |
-| `--table-container-shadow`       | `none`                                       | Container shadow.                                         |
-| `--table-empty-color`            | `var(--color-muted-foreground)`              | Empty-state row text color.                               |
-| `--table-empty-padding-y`        | `calc(var(--table-cell-padding-y) * 2)`      | Empty-state row vertical padding.                         |
-| `--table-font-family`            | `var(--font-sans)`                           | Root font family.                                         |
-| `--table-font-size`              | `var(--text-sm)`                             | Root font size.                                           |
-| `--table-footer-bg`              | `var(--color-muted)`                         | Footer background.                                        |
-| `--table-footer-color`           | `var(--table-color)`                         | Footer text color.                                        |
-| `--table-footer-font-weight`     | `var(--weight-medium)`                       | Footer text weight.                                       |
-| `--table-head-color`             | `var(--color-muted-foreground)`              | Header cell text color.                                   |
-| `--table-head-font-weight`       | `var(--weight-medium)`                       | Header cell text weight.                                  |
-| `--table-line-height`            | `var(--line-height-text-sm)`                 | Root line height.                                         |
-| `--table-row-bg-hover`           | `var(--color-muted)`                         | Body row hover background.                                |
-| `--table-row-transition`         | `background-color var(--transition-default)` | Row hover transition.                                     |
+| Variable                         | Default/fallback                                           | Affects                                                   |
+| -------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------- |
+| `--table-border-color`           | `var(--color-border)`                                      | Header, body, and footer dividers.                        |
+| `--table-border-width`           | `var(--border-width-sm)`                                   | Divider thickness.                                        |
+| `--table-caption-color`          | `var(--color-muted-foreground)`                            | Caption text color.                                       |
+| `--table-caption-font-size`      | `var(--text-sm)`                                           | Caption font size.                                        |
+| `--table-caption-line-height`    | `var(--line-height-text-sm)`                               | Caption line height.                                      |
+| `--table-caption-padding-edge`   | `var(--spacing-2)`                                         | Outer top/bottom inset for captions, depending on `side`. |
+| `--table-caption-padding-x`      | `var(--table-cell-padding-x)`                              | Caption horizontal inset.                                 |
+| `--table-caption-padding-y`      | `var(--spacing-3)`                                         | Inner spacing between the caption and the table.          |
+| `--table-cell-padding-x`         | `var(--spacing-4)`                                         | Cell horizontal padding.                                  |
+| `--table-cell-padding-y`         | `var(--spacing-3)`                                         | Cell vertical padding.                                    |
+| `--table-color`                  | `var(--color-foreground)`                                  | Root text color.                                          |
+| `--table-container-bg`           | `var(--color-card)`                                        | Container background.                                     |
+| `--table-container-border-color` | `var(--table-border-color)`                                | Container border color.                                   |
+| `--table-container-border-width` | `var(--table-border-width)`                                | Container border width.                                   |
+| `--table-container-radius`       | `var(--radius-lg)`                                         | Container border radius.                                  |
+| `--table-container-shadow`       | `none`                                                     | Container shadow.                                         |
+| `--table-empty-color`            | `var(--color-muted-foreground)`                            | Empty-state row text color.                               |
+| `--table-empty-padding-y`        | `calc(var(--table-cell-padding-y) * 2)`                    | Empty-state row vertical padding.                         |
+| `--table-font-family`            | `var(--font-sans)`                                         | Root font family.                                         |
+| `--table-font-size`              | `var(--text-sm)`                                           | Root font size.                                           |
+| `--table-footer-bg`              | `var(--color-muted)`                                       | Footer background.                                        |
+| `--table-footer-color`           | `var(--table-color)`                                       | Footer text color.                                        |
+| `--table-footer-font-weight`     | `var(--weight-medium)`                                     | Footer text weight.                                       |
+| `--table-head-color`             | `var(--color-muted-foreground)`                            | Header cell text color.                                   |
+| `--table-head-font-weight`       | `var(--weight-medium)`                                     | Header cell text weight.                                  |
+| `--table-line-height`            | `var(--line-height-text-sm)`                               | Root line height.                                         |
+| `--table-row-bg-hover`           | `var(--color-muted)`                                       | Body row hover background.                                |
+| `--table-row-bg-striped`         | `color-mix(in oklab, var(--color-muted) 35%, transparent)` | Even body row striped background.                         |
+| `--table-row-transition`         | `background-color var(--transition-default)`               | Row hover transition.                                     |
 
 ## Intentional differences from shadcn
 
 - `Table` stays a native `<table>`, but moduix adds `TableContainer` as a small convenience for the
   most common overflow shell.
 - There is no built-in selected-row styling or checkbox-column special casing.
-- The only wrapper-level sugar is `TableContainer`, `numeric`, and `TableEmpty`.
+- The only wrapper-level sugar is `TableContainer`, `striped`, `numeric`, and `TableEmpty`.
 
 ## Agent notes
 
@@ -201,3 +211,5 @@ Public CSS variables are registered in `packages/ui/src/styles/theme.css`.
   bordered table shells.
 - Added a small outer caption inset so top captions get breathing room above and bottom captions below.
 - Added three small sugar layers: `TableContainer`, `numeric` on headers/cells, and `TableEmpty`.
+- Added `striped` on `Table` for zebra-striped body rows, plus `--table-row-bg-striped` for
+  tuning the alternating row background.

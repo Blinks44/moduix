@@ -8,6 +8,7 @@ import {
   CustomCompositionTableExample,
   EmptyTableExample,
   NumericTableExample,
+  StripedTableExample,
   TableCaptionExample,
   TableCssPropertiesPanel,
   TableExample,
@@ -187,7 +188,8 @@ Stay with `TableContainer` plus the semantic table parts for most read-only data
 Use `TableContainer` when you need the common bordered horizontal-scroll shell. Use `numeric` on
 `TableHead` and `TableCell` for amounts, counts, percentages, and latency columns. Use
 `TableCaption` when the table needs a short label or summary, and `TableFooter` when the last row
-represents totals or rollups.
+represents totals or rollups. Use `striped` when long read-only bodies need stronger row-by-row
+scanability.
 
 ### When to go custom
 
@@ -203,12 +205,13 @@ can build on.
 
 All parts accept `className` and their matching native element props.
 
-| Component      | Prop      | Default    | Notes                                       |
-| -------------- | --------- | ---------- | ------------------------------------------- |
-| `TableCaption` | `side`    | `'bottom'` | Supports `'top'` and `'bottom'`.            |
-| `TableHead`    | `numeric` | `false`    | Right-aligns content and uses tabular nums. |
-| `TableCell`    | `numeric` | `false`    | Right-aligns content and uses tabular nums. |
-| `TableEmpty`   | `colSpan` | required   | Must match the current body column count.   |
+| Component      | Prop      | Default    | Notes                                               |
+| -------------- | --------- | ---------- | --------------------------------------------------- |
+| `Table`        | `striped` | `false`    | Zebra-stripes even body rows, excluding empty rows. |
+| `TableCaption` | `side`    | `'bottom'` | Supports `'top'` and `'bottom'`.                    |
+| `TableHead`    | `numeric` | `false`    | Right-aligns content and uses tabular nums.         |
+| `TableCell`    | `numeric` | `false`    | Right-aligns content and uses tabular nums.         |
+| `TableEmpty`   | `colSpan` | required   | Must match the current body column count.           |
 
 ### Behavioral notes
 
@@ -231,6 +234,18 @@ totals or summaries.
 
   <Preview.Code>
     {`
+      import {
+        Table,
+        TableBody,
+        TableCaption,
+        TableCell,
+        TableContainer,
+        TableFooter,
+        TableHead,
+        TableHeader,
+        TableRow,
+      } from "moduix";
+
       <TableContainer className={styles.shell}>
         <Table className={styles.table}>
           <TableCaption side="top">
@@ -301,6 +316,16 @@ Use `numeric` on both the header and the cells for the common aligned-metrics ca
 
   <Preview.Code>
     {`
+      import {
+        Table,
+        TableBody,
+        TableCell,
+        TableContainer,
+        TableHead,
+        TableHeader,
+        TableRow,
+      } from "moduix";
+
       <TableContainer className={styles.shell}>
         <Table className={styles.table}>
           <TableHeader>
@@ -336,6 +361,77 @@ Use `numeric` on both the header and the cells for the common aligned-metrics ca
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Striped Rows
+
+Use `striped` when long read-only bodies need stronger row separation without switching to a more
+opinionated table abstraction.
+
+<Preview>
+  <StripedTableExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Table,
+        TableBody,
+        TableCell,
+        TableContainer,
+        TableHead,
+        TableHeader,
+        TableRow,
+      } from "moduix";
+
+      <TableContainer className={styles.shell}>
+        <Table striped className={styles.table}>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Project</TableHead>
+              <TableHead>Owner</TableHead>
+              <TableHead>Updated</TableHead>
+              <TableHead numeric>Open issues</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {projects.map((project, index) => (
+              <TableRow key={project.name}>
+                <TableCell>{project.name}</TableCell>
+                <TableCell>{project.owner}</TableCell>
+                <TableCell>{project.updated}</TableCell>
+                <TableCell numeric>{index + 1}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const projects = [
+        { name: "Docs redesign", owner: "Product Design", updated: "2 hours ago" },
+        { name: "Billing migration", owner: "Growth", updated: "Yesterday" },
+        { name: "Command palette", owner: "Platform", updated: "Today" },
+      ];
+    `}
+
+  </Preview.Data>
 
   <Preview.CSS>
     {`
@@ -420,6 +516,20 @@ Use `TableEmpty` when a body would otherwise render no rows.
 
   <Preview.Code>
     {`
+      import {
+        Card,
+        CardContent,
+        CardHeader,
+        CardTitle,
+        Table,
+        TableBody,
+        TableCell,
+        TableContainer,
+        TableHead,
+        TableHeader,
+        TableRow,
+      } from "moduix";
+
       <Card>
         <CardHeader>
           <CardTitle>Projects</CardTitle>
@@ -611,6 +721,16 @@ Skip `TableContainer` when the surrounding layout already owns the shell or scro
 
   <Preview.Code>
     {`
+      import {
+        Table,
+        TableBody,
+        TableCaption,
+        TableCell,
+        TableHead,
+        TableHeader,
+        TableRow,
+      } from "moduix";
+
       <div className={styles.shell}>
         <Table className={styles.table}>
           <TableCaption side="bottom">
@@ -691,3 +811,4 @@ Use the part that owns the visual concern:
   targeting
 - `data-side="top" | "bottom"` on `TableCaption` for caption placement styling
 - `data-numeric` on `TableHead` and `TableCell` for numeric-column targeting
+- `data-striped` on `Table` when zebra striping is enabled

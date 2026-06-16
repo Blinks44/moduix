@@ -12,20 +12,29 @@ import {
   InlineInputsTabsExample,
   LineTabsExample,
   LinkTabsExample,
-  TabsCssPlaygroundPanel,
   TabsCssPropertiesPanel,
   TabsExample,
   VerticalTabsExample,
-  tabsPlaygroundCssProperties,
 } from '@/components/examples/tabs';
 
 ## API Reference
 
 <BaseUIReference href="https://base-ui.com/react/components/tabs" />
 
-## Default Path
+## Choosing the right component
 
-<Preview cssProperties={tabsPlaygroundCssProperties}>
+Use `Tabs` when users switch between mutually exclusive views that share one page region.
+
+- Choose **`Tabs`** when one active option should reveal one active panel.
+- Choose **`Accordion`** when sections should stay stacked and expand independently.
+- Choose **`ToggleGroup`** when the control changes state or mode, but does not own a panel region.
+
+## Basic
+
+Start with `Tabs`, `TabsList`, `TabsTab`, and `TabsPanel`. This is the recommended path for
+settings screens, dashboard panes, and compact view switchers.
+
+<Preview>
   <TabsExample />
 
   <Preview.Code>
@@ -84,8 +93,6 @@ import {
     `}
 
   </Preview.Data>
-  <Preview.CSSProperties>{(context) => <TabsCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <TabsCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -131,102 +138,66 @@ aubx shadcn@latest add Blinks44/moduix/tabs
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Tabs` depends on, such
-as styles, icons, and small utilities.
-
-`Tabs` keeps the default path small:
-
-- `Tabs` owns selected state and orientation
-- `TabsList` renders the default active indicator for you
-- `TabsTab` and `TabsPanel` stay close to the Base UI primitive API
-
-`Tabs` does not impose layout width. Let the surrounding layout or your own `className` decide how
-wide the control should be.
+This install path also pulls in the shared moduix foundation files that `Tabs` depends on, such as
+styles, icons, and small utilities.
 
 ## Anatomy
 
-`Tabs` keeps the default path small: root, list, tabs, and panels.
-`TabsList` renders the default indicator internally. Add `TabsIndicator` only when you need to
-override indicator props or styles directly.
+The normal consumer path is short. `TabsList` renders the default indicator for you, so you only
+add `TabsIndicator` when you need direct control over indicator props or styling.
 
 ```text
 Tabs
 ├─ TabsList
 │  ├─ TabsTab[value]
-│  │  └─ content
-│  └─ TabsIndicator (optional override)
+│  ├─ TabsTab[value]
+│  └─ TabsIndicator (optional explicit override)
 └─ TabsPanel[value]
-   └─ content
 ```
 
-```tsx
-<Tabs defaultValue="overview">
-  <TabsList>
-    <TabsTab value="overview">Overview</TabsTab>
-    <TabsTab value="projects">Projects</TabsTab>
-  </TabsList>
-  <TabsPanel value="overview">Overview content</TabsPanel>
-  <TabsPanel value="projects">Projects content</TabsPanel>
-</Tabs>
-```
-
-| Part            | Role                                                                                            |
-| --------------- | ----------------------------------------------------------------------------------------------- |
-| `Tabs`          | Root state machine for selected value, orientation, variant, and controlled/uncontrolled state. |
-| `TabsList`      | Groups tabs, owns keyboard list behavior, and renders the default active indicator.             |
-| `TabsIndicator` | Optional low-level escape hatch for custom indicator props or styling.                          |
-| `TabsTab`       | Interactive tab button. Its `value` must match a `TabsPanel` value.                             |
-| `TabsPanel`     | Content region for the active tab. Use `keepMounted` when hidden DOM must stay mounted.         |
+| Part            | Role                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------- |
+| `Tabs`          | Root state, selected value, orientation, and moduix `variant`.                        |
+| `TabsList`      | Groups tabs, owns roving-focus list behavior, and auto-renders the default indicator. |
+| `TabsTab`       | Interactive tab button. Its `value` must match a `TabsPanel` value.                   |
+| `TabsPanel`     | Content region for the active tab. Use `keepMounted` when hidden DOM must persist.    |
+| `TabsIndicator` | Optional escape hatch for custom indicator props or styling.                          |
 
 ## Composition
 
-Use `Tabs` for state props such as `defaultValue`, `value`, `onValueChange`, `orientation`, and
-`variant`.
+### When to stay high-level
 
-Base UI behavior stays on the matching visible parts:
+Stay with `Tabs`, `TabsList`, `TabsTab`, and `TabsPanel` for most layouts. `Tabs` owns selected
+state, `variant`, and `orientation`. `TabsList` already includes the default indicator, so the
+common path stays small.
 
-- `TabsList`: `activateOnFocus`, `loopFocus`
-- `TabsTab`: `disabled`, `render`, `nativeButton`
-- `TabsPanel`: `keepMounted`
+### When to go custom
 
-Visible parts accept `className`. For the common case, let `TabsList` render the built-in
-indicator. When you need direct control over indicator props such as `renderBeforeHydration`, or a
-custom indicator class, compose `TabsIndicator` inside `TabsList`. Adding an explicit
-`TabsIndicator` replaces the built-in one for that list.
+Add an explicit `TabsIndicator` inside `TabsList` when you need direct indicator control, such as a
+custom `className` or `renderBeforeHydration`. An explicit indicator replaces the built-in one for
+that list.
 
-### Defaults
+Use `render` on `TabsTab` together with `nativeButton={false}` when tabs should render as links or
+other non-button elements.
 
-| Prop               | Default      | Values                   |
-| ------------------ | ------------ | ------------------------ |
-| `Tabs.variant`     | `default`    | `default`, `line`        |
-| `Tabs.orientation` | `horizontal` | `horizontal`, `vertical` |
+### Default props
 
-```tsx
-import { Tabs, TabsIndicator, TabsList, TabsPanel, TabsTab } from 'moduix';
-import styles from './custom-indicator-tabs-demo.module.css';
+| Prop                       | Default      | Values / Notes                           |
+| -------------------------- | ------------ | ---------------------------------------- |
+| `Tabs.variant`             | `default`    | `default`, `line`                        |
+| `Tabs.orientation`         | `horizontal` | `horizontal`, `vertical`                 |
+| `TabsList.loopFocus`       | `true`       | Roving focus wraps around the list       |
+| `TabsList.activateOnFocus` | `false`      | Focus moves without selecting by default |
 
-export function CustomIndicatorTabsDemo() {
-  return (
-    <Tabs defaultValue="profile" className={styles.root}>
-      <TabsList className={styles.list}>
-        <TabsTab value="profile" className={styles.tab}>
-          Profile
-        </TabsTab>
-        <TabsTab value="security" className={styles.tab}>
-          Security
-        </TabsTab>
-        <TabsIndicator className={styles.indicator} renderBeforeHydration />
-      </TabsList>
-      <TabsPanel value="profile" className={styles.panel}>
-        Profile settings
-      </TabsPanel>
-      <TabsPanel value="security" className={styles.panel}>
-        Security settings
-      </TabsPanel>
-    </Tabs>
-  );
-}
-```
+### Behavioral notes
+
+- Use `onValueChange` when the selected panel must coordinate with React state.
+- Pass an explicit enabled `defaultValue` or controlled `value` in SSR-sensitive layouts where the
+  first tab might be disabled.
+- Use `keepMounted` on `TabsPanel` when inactive content must preserve local state, measurements, or
+  form inputs.
+- `Tabs` does not impose width. Let the surrounding layout or your own `className` decide how wide
+  the control should be.
 
 ## Examples
 
@@ -268,34 +239,9 @@ Use `variant="line"` when the indicator should sit on the active edge instead of
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Controlled
+### Controlled Value
 
 Control the active tab from React state when the selected panel needs to coordinate with other UI.
 
@@ -336,31 +282,6 @@ Control the active tab from React state when the selected panel needs to coordin
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Vertical
@@ -401,31 +322,6 @@ Use `orientation="vertical"` when the tab list should sit next to the active pan
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Activate On Focus
@@ -466,31 +362,6 @@ Pass `activateOnFocus` to `TabsList` when arrow-key focus should immediately sel
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Links
@@ -536,36 +407,11 @@ Use `render` with `nativeButton={false}` when tabs should render as links.
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Custom Icons
 
-Compose tab content directly inside `TabsTab`. The default tab styles already handle icon + label
+Compose tab content directly inside `TabsTab`. The default tab styles already handle icon and label
 layouts.
 
 <Preview>
@@ -612,28 +458,6 @@ layouts.
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
 ### Disabled Tab
@@ -675,37 +499,12 @@ stay mounted for forms, measurements, or preserved local state.
     `}
 
   </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const items = [
-        {
-          value: "overview",
-          title: "Overview",
-          content:
-            "Review project status, team velocity, workloads and activity highlights in one place.",
-        },
-        {
-          value: "projects",
-          title: "Projects",
-          content:
-            "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-        },
-        {
-          value: "account",
-          title: "Account",
-          content: "Manage personal settings, team settings, notifications and access preferences.",
-        },
-      ];
-    `}
-
-  </Preview.Data>
 </Preview>
 
-### Custom Composition
+### Custom Styling
 
-Use `className`, `TabsIndicator`, and CSS variables when the default Tabs styling needs a lighter
-fit for the surrounding layout.
+Use `className`, an explicit `TabsIndicator`, and CSS variables when the default styling needs to
+fit a lighter inline layout.
 
 <Preview>
   <InlineInputsTabsExample />
@@ -809,8 +608,8 @@ fit for the surrounding layout.
         background: var(--color-foreground);
         translate: var(--active-tab-left) 0;
         transition:
-          translate 200ms ease,
-          width 200ms ease;
+          translate var(--duration-normal) var(--ease-standard),
+          width var(--duration-normal) var(--ease-standard);
       }
 
       .inlinePanel {
@@ -834,3 +633,34 @@ fit for the surrounding layout.
 
   </Preview.CSS>
 </Preview>
+
+## Styling
+
+Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, `data-variant`, and the
+public `--tabs-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <TabsCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `Tabs` for layout width, overall gap, and variant-level overrides
+- `TabsList` for list chrome, borders, background, and indicator container spacing
+- `TabsTab` for label layout, icon spacing, active state, and focus styling
+- `TabsIndicator` for custom indicator color, size, and transition behavior
+- `TabsPanel` for panel surface, padding, and mounted-panel focus styling
+
+The main public hooks include `data-slot="tabs-root"`, `data-slot="tabs-list"`,
+`data-slot="tabs-tab"`, `data-slot="tabs-indicator"`, and `data-slot="tabs-panel"`.
+
+Useful state hooks from the shipped Base UI primitive include `data-variant`, `data-orientation`,
+`data-active`, and `data-disabled`.

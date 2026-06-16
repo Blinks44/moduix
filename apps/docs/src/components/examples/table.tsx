@@ -103,6 +103,11 @@ export const tableOverrideCssProperties: CssPropertyInput[] = [
   ['--table-line-height', 'var(--line-height-text-sm)', 'Controls table line height.'],
   ['--table-row-bg-hover', 'var(--color-muted)', 'Controls body row hover background.'],
   [
+    '--table-row-bg-striped',
+    'color-mix(in oklab, var(--color-muted) 35%, transparent)',
+    'Controls striped even-row background.',
+  ],
+  [
     '--table-row-transition',
     'background-color var(--transition-default)',
     'Controls body row hover transition.',
@@ -127,6 +132,11 @@ export const tablePlaygroundCssProperties: CssPropertyInput[] = [
   ['--table-footer-bg', 'var(--color-muted)', 'Controls footer background color.'],
   ['--table-head-color', 'var(--color-muted-foreground)', 'Controls header cell color.'],
   ['--table-row-bg-hover', 'var(--color-muted)', 'Controls body row hover background.'],
+  [
+    '--table-row-bg-striped',
+    'color-mix(in oklab, var(--color-muted) 35%, transparent)',
+    'Controls striped even-row background.',
+  ],
 ] as const;
 
 function normalizeCssProperty(property: CssPropertyInput) {
@@ -254,6 +264,33 @@ export function NumericTableExample() {
             <TableCell numeric>0.00%</TableCell>
             <TableCell numeric>42 ms</TableCell>
           </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+
+export function StripedTableExample() {
+  return (
+    <TableContainer className={styles.showcase}>
+      <Table striped className={styles.table}>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Project</TableHead>
+            <TableHead>Owner</TableHead>
+            <TableHead>Updated</TableHead>
+            <TableHead numeric>Open issues</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {projects.map((project, index) => (
+            <TableRow key={project.name}>
+              <TableCell className={styles.emphasis}>{project.name}</TableCell>
+              <TableCell>{project.owner}</TableCell>
+              <TableCell>{project.updated}</TableCell>
+              <TableCell numeric>{index + 1}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

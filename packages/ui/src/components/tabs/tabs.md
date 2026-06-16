@@ -227,7 +227,7 @@ moduix CSS variables:
 | `--tabs-indicator-radius`          | `var(--radius-sm)`                                      |
 | `--tabs-indicator-size`            | `1.75rem`                                               |
 | `--tabs-indicator-transition`      | `translate 200ms ease, width 200ms ease`                |
-| `--tabs-line-indicator-bg`         | `var(--color-foreground)`                               |
+| `--tabs-line-indicator-bg`         | `var(--tabs-tab-color-active, var(--color-foreground))` |
 | `--tabs-line-indicator-radius`     | `var(--radius-full)`                                    |
 | `--tabs-line-indicator-size`       | `2px`                                                   |
 | `--tabs-line-indicator-transition` | `translate 200ms ease, width 200ms ease`                |
@@ -236,8 +236,8 @@ moduix CSS variables:
 | `--tabs-list-border-width`         | `var(--border-width-sm)`                                |
 | `--tabs-list-gap`                  | `0.25rem`                                               |
 | `--tabs-list-padding`              | `0.25rem`                                               |
-| `--tabs-list-padding-x`            | `0.25rem`                                               |
-| `--tabs-list-padding-y`            | `0.25rem`                                               |
+| `--tabs-list-padding-x`            | `var(--tabs-list-padding, 0.25rem)`                     |
+| `--tabs-list-padding-y`            | `var(--tabs-list-padding, 0.25rem)`                     |
 | `--tabs-panel-color`               | `var(--tabs-color, var(--color-foreground))`            |
 | `--tabs-panel-font-size`           | `var(--text-sm)`                                        |
 | `--tabs-panel-line-height`         | `var(--line-height-text-sm)`                            |
@@ -317,3 +317,5 @@ moduix CSS variables:
 - Rewritten to document the shipped moduix wrapper contract instead of copied Base UI documentation.
 - Documented the moduix-only `variant` prop, automatic indicator behavior, styling hooks, and explicit
   custom-indicator escape hatch.
+- Synced documented `--tabs-*` defaults with `packages/ui/src/styles/theme.css` for line indicator
+  color and list padding fallbacks.

@@ -11,7 +11,7 @@ import {
 } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './tabs.module.css';
 
 const tabsItems = [
@@ -48,15 +48,19 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-indicator-size', '1.75rem', 'Controls the default indicator thickness.'],
   [
     '--tabs-indicator-transition',
-    'translate var(--duration-normal) var(--ease-standard), width var(--duration-normal) var(--ease-standard)',
+    'translate 200ms ease, width 200ms ease',
     'Controls the default indicator movement transition.',
   ],
-  ['--tabs-line-indicator-bg', 'var(--color-foreground)', 'Controls the line indicator color.'],
+  [
+    '--tabs-line-indicator-bg',
+    'var(--tabs-tab-color-active, var(--color-foreground))',
+    'Controls the line indicator color.',
+  ],
   ['--tabs-line-indicator-radius', 'var(--radius-full)', 'Controls the line indicator radius.'],
   ['--tabs-line-indicator-size', '2px', 'Controls the line indicator thickness.'],
   [
     '--tabs-line-indicator-transition',
-    'translate var(--duration-normal) var(--ease-standard), width var(--duration-normal) var(--ease-standard)',
+    'translate 200ms ease, width 200ms ease',
     'Controls the line indicator movement transition.',
   ],
   ['--tabs-list-bg', 'var(--color-muted)', 'Controls the tab list background color.'],
@@ -64,9 +68,21 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-list-border-width', 'var(--border-width-sm)', 'Controls the tab list border width.'],
   ['--tabs-list-gap', '0.25rem', 'Controls spacing between tabs.'],
   ['--tabs-list-padding', '0.25rem', 'Controls the tab list padding.'],
-  ['--tabs-list-padding-x', '0.25rem', 'Controls the tab list horizontal padding.'],
-  ['--tabs-list-padding-y', '0.25rem', 'Controls the tab list vertical padding.'],
-  ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
+  [
+    '--tabs-list-padding-x',
+    'var(--tabs-list-padding, 0.25rem)',
+    'Controls the tab list horizontal padding.',
+  ],
+  [
+    '--tabs-list-padding-y',
+    'var(--tabs-list-padding, 0.25rem)',
+    'Controls the tab list vertical padding.',
+  ],
+  [
+    '--tabs-panel-color',
+    'var(--tabs-color, var(--color-foreground))',
+    'Controls panel text color.',
+  ],
   ['--tabs-panel-font-size', 'var(--text-sm)', 'Controls panel text font size.'],
   ['--tabs-panel-line-height', 'var(--line-height-text-sm)', 'Controls panel text line height.'],
   ['--tabs-panel-focus-ring-offset', '-1px', 'Controls panel focus ring offset.'],
@@ -74,7 +90,11 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-radius', 'var(--radius-lg)', 'Controls the tab list and panel border radius.'],
   ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
   ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
-  ['--tabs-tab-color-hover', 'var(--color-foreground)', 'Controls hovered tab text color.'],
+  [
+    '--tabs-tab-color-hover',
+    'var(--tabs-tab-color-active, var(--color-foreground))',
+    'Controls hovered tab text color.',
+  ],
   ['--tabs-tab-content-gap', '0.5rem', 'Controls spacing between tab icon and label.'],
   ['--tabs-tab-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled tab opacity.'],
   ['--tabs-tab-font-size', 'var(--text-sm)', 'Controls tab text font size.'],
@@ -88,35 +108,10 @@ export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--tabs-tab-transition', 'var(--transition-default)', 'Controls tab text color transition.'],
   ['--tabs-vertical-list-width', '12rem', 'Controls the list width in vertical orientation.'],
 ];
-export const tabsPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--tabs-bg', 'var(--color-background)', 'Controls panel background color.'],
-  ['--tabs-border-color', 'var(--color-border)', 'Controls panel border color.'],
-  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls panel border width.'],
-  ['--tabs-focus-ring-color', 'var(--color-ring)', 'Controls tab and panel focus ring color.'],
-  ['--tabs-gap', '0.75rem', 'Controls spacing between the tab list and panels.'],
-  ['--tabs-list-bg', 'var(--color-muted)', 'Controls tab list background color.'],
-  ['--tabs-panel-color', 'var(--color-foreground)', 'Controls panel text color.'],
-  ['--tabs-radius', 'var(--radius-lg)', 'Controls tab list and panel border radius.'],
-  ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive tab text color.'],
-  ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls active tab text color.'],
-  ['--tabs-tab-color-hover', 'var(--color-foreground)', 'Controls hovered tab text color.'],
-  ['--tabs-indicator-bg', 'var(--color-background)', 'Controls indicator background.'],
-];
 
 export function TabsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable properties={tabsOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-export function TabsCssPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={tabsPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
   );
 }
 

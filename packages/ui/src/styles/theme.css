@@ -2272,6 +2272,7 @@
   --table-head-font-weight: initial; /* var(--weight-medium) */
   --table-line-height: initial; /* var(--line-height-text-sm) */
   --table-row-bg-hover: initial; /* var(--color-muted) */
+  --table-row-bg-striped: initial; /* color-mix(in oklab, var(--color-muted) 35%, transparent) */
   --table-row-transition: initial; /* background-color var(--transition-default) */
 
   /* Tabs */

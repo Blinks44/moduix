@@ -112,6 +112,35 @@ export const WithCaptionAndFooter: Story = {
   ),
 };
 
+export const StripedRows: Story = {
+  render: () => (
+    <div className={styles.showcase}>
+      <TableContainer>
+        <Table striped className={styles.table}>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Project</TableHead>
+              <TableHead>Owner</TableHead>
+              <TableHead>Updated</TableHead>
+              <TableHead numeric>Open issues</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {projects.map((project, index) => (
+              <TableRow key={project.name}>
+                <TableCell className={styles.emphasis}>{project.name}</TableCell>
+                <TableCell>{project.owner}</TableCell>
+                <TableCell>{project.updated}</TableCell>
+                <TableCell numeric>{index + 1}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  ),
+};
+
 export const InsideCard: Story = {
   render: () => (
     <Card className={styles.card}>

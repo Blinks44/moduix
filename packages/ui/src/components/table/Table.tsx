@@ -8,8 +8,21 @@ function TableContainer({ className, ...props }: ComponentPropsWithoutRef<'div'>
   );
 }
 
-function Table({ className, ...props }: ComponentPropsWithoutRef<'table'>) {
-  return <table data-slot="table" className={clsx(styles.root, className)} {...props} />;
+function Table({
+  className,
+  striped = false,
+  ...props
+}: ComponentPropsWithoutRef<'table'> & {
+  striped?: boolean;
+}) {
+  return (
+    <table
+      data-striped={striped || undefined}
+      data-slot="table"
+      className={clsx(styles.root, className)}
+      {...props}
+    />
+  );
 }
 
 function TableHeader({ className, ...props }: ComponentPropsWithoutRef<'thead'>) {

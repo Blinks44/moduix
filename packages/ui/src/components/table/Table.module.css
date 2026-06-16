@@ -62,6 +62,13 @@
     background-color: var(--table-row-bg-hover, var(--color-muted));
   }
 
+  .root[data-striped] .body .row:nth-child(even):not(.emptyRow):not(:hover) {
+    background-color: var(
+      --table-row-bg-striped,
+      color-mix(in oklab, var(--color-muted) 35%, transparent)
+    );
+  }
+
   .body .row:last-child {
     border-bottom: 0;
   }

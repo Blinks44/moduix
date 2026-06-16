@@ -5,6 +5,7 @@ Local skills for this repository.
 ## Skills
 
 - `.agents/skills/engineering-principles/SKILL.md` - baseline engineering behavior for coding tasks
+- `.agents/skills/css-authoring/SKILL.md` - CSS, CSS Modules, and selector-structure rules
 - `.agents/skills/js-react-conventions/SKILL.md` - JS/TS React conventions with a simplicity-first bias
 - `.agents/skills/tanstack-intent/SKILL.md` - workflow for loading version-matched TanStack skills in `apps/docs`
 - `.agents/skills/upstream-library-docs/SKILL.md` - routing for online Base UI and shadcn references
