@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import styles from './Empty.module.css';
 
 type EmptyTitleElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type EmptyTitleProps = ComponentPropsWithoutRef<'h3'> & { as?: EmptyTitleElement };
 
 function Empty({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="empty-root" className={clsx(styles.root, className)} {...props} />;
@@ -16,14 +17,8 @@ function EmptyContent({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="empty-content" className={clsx(styles.content, className)} {...props} />;
 }
 
-function EmptyTitle({
-  as: Root = 'h3',
-  className,
-  ...props
-}: ComponentPropsWithoutRef<'h3'> & {
-  as?: EmptyTitleElement;
-}) {
-  return <Root data-slot="empty-title" className={clsx(styles.title, className)} {...props} />;
+function EmptyTitle({ as: Heading = 'h3', className, ...props }: EmptyTitleProps) {
+  return <Heading data-slot="empty-title" className={clsx(styles.title, className)} {...props} />;
 }
 
 function EmptyDescription({ className, ...props }: ComponentProps<'div'>) {

@@ -29,8 +29,8 @@
     background-color: var(--empty-icon-bg, var(--color-muted));
     color: var(--empty-icon-color, var(--color-muted-foreground));
 
-    & :where(svg),
-    &:where(svg) {
+    &:where(svg),
+    & :where(svg) {
       width: var(--empty-icon-size, 1.5rem);
       height: var(--empty-icon-size, 1.5rem);
       flex-shrink: 0;

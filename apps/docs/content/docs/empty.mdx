@@ -40,7 +40,7 @@ Start with `Empty`, `EmptyContent`, `EmptyTitle`, and `EmptyDescription`. Add `E
 
       export function EmptyDemo() {
         return (
-          <Empty className={styles.empty}>
+          <Empty className="empty">
             <EmptyIcon>
               <ComputerIcon />
             </EmptyIcon>
@@ -194,7 +194,7 @@ Omit `EmptyActions` when the state is only informational.
 
       export function SavedPlacesEmptyState() {
         return (
-          <Empty className={styles.empty}>
+          <Empty className="empty">
             <EmptyIcon>
               <MapIcon />
             </EmptyIcon>
@@ -211,6 +211,15 @@ Omit `EmptyActions` when the state is only informational.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .empty {
+        width: min(28rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Without Icon
@@ -233,7 +242,7 @@ The visual slot is optional, so plain text-only empty states stay simple.
 
       export function SearchResultsEmptyState() {
         return (
-          <Empty className={styles.empty}>
+          <Empty className="empty">
             <EmptyContent>
               <EmptyTitle>No results found</EmptyTitle>
               <EmptyDescription>
@@ -250,6 +259,15 @@ The visual slot is optional, so plain text-only empty states stay simple.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .empty {
+        width: min(28rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Styling
@@ -272,12 +290,11 @@ screen tone.
         EmptyIcon,
         EmptyTitle,
       } from "moduix";
-      import styles from "./empty.module.css";
 
       export function TeamInviteEmptyState() {
         return (
-          <Empty className={styles.customEmpty}>
-            <EmptyIcon className={styles.customIcon}>
+          <Empty className="custom-empty">
+            <EmptyIcon className="custom-icon">
               <ComputerIcon />
             </EmptyIcon>
             <EmptyContent>
@@ -299,7 +316,8 @@ screen tone.
 
   <Preview.CSS>
     {`
-      .customEmpty {
+      .custom-empty {
+        width: min(28rem, 100%);
         --empty-bg: color-mix(
           in oklab,
           var(--color-primary) 8%,
@@ -319,7 +337,7 @@ screen tone.
         --empty-shadow: var(--shadow-md);
       }
 
-      .customIcon {
+      .custom-icon {
         --empty-icon-size: 1.75rem;
       }
     `}
