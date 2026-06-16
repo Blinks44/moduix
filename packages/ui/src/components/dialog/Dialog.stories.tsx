@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Fragment, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import { Button } from '../button';
 import { ScrollArea } from '../scroll-area';
@@ -59,7 +59,7 @@ export const Controlled: Story = {
     const [open, setOpen] = useState(false);
 
     return (
-      <Fragment>
+      <>
         <Button type="button" onClick={() => setOpen(true)}>
           Open controlled dialog
         </Button>
@@ -76,7 +76,7 @@ export const Controlled: Story = {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </Fragment>
+      </>
     );
   },
 };
@@ -86,7 +86,7 @@ export const WithHandle: Story = {
     const dialogHandle = useMemo(() => createDialogHandle(), []);
 
     return (
-      <Fragment>
+      <>
         <DialogTrigger handle={dialogHandle} render={<Button />}>
           Open from detached trigger
         </DialogTrigger>
@@ -111,7 +111,7 @@ export const WithHandle: Story = {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </Fragment>
+      </>
     );
   },
 };
@@ -132,8 +132,8 @@ export const ScrollableBody: Story = {
               <div className={storyStyles.scrollContent}>
                 {insideScrollSections.map((item) => (
                   <section key={item.title}>
-                    <h3 className={storyStyles.scrollSectionTitle}>{item.title}</h3>
-                    <p className={storyStyles.scrollSectionBody}>{item.body}</p>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
                   </section>
                 ))}
               </div>

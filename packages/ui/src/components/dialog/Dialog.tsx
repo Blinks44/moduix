@@ -5,8 +5,10 @@ import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Dialog.module.css';
 
+type DialogModalMode = true | false | 'trap-focus';
+
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
-const DialogModeContext = createContext<DialogPrimitive.Root.Props['modal']>(true);
+const DialogModeContext = createContext<DialogModalMode>(true);
 
 const createDialogHandle = DialogPrimitive.createHandle;
 
@@ -26,14 +28,14 @@ function DialogTrigger({ className, render, ...props }: DialogPrimitive.Trigger.
     <DialogPrimitive.Trigger
       data-slot="dialog-trigger"
       render={render}
-      className={render ? className : mergeClassName(className, styles.trigger)}
+      className={mergeClassName(className, !render && styles.trigger)}
       {...props}
     />
   );
 }
 
-function DialogPortal({ className, ...props }: DialogPrimitive.Portal.Props) {
-  return <DialogPrimitive.Portal data-slot="dialog-portal" className={className} {...props} />;
+function DialogPortal(props: DialogPrimitive.Portal.Props) {
+  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
 }
 
 function DialogBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props) {
@@ -114,15 +116,12 @@ function DialogCloseIcon({
 }
 
 function DialogContent({ className, children, ...props }: DialogPrimitive.Popup.Props) {
-  const modal = useContext(DialogModeContext);
-  const blocksOutsidePointerInteraction = modal === true;
+  const isModal = useContext(DialogModeContext) === true;
 
   return (
     <DialogPortal>
-      {blocksOutsidePointerInteraction ? <DialogBackdrop /> : null}
-      <DialogViewport
-        className={blocksOutsidePointerInteraction ? undefined : styles.viewportNonBlocking}
-      >
+      {isModal ? <DialogBackdrop /> : null}
+      <DialogViewport className={isModal ? undefined : styles.viewportNonBlocking}>
         <DialogPopup className={className} {...props}>
           {children}
         </DialogPopup>

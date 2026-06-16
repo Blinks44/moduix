@@ -191,14 +191,18 @@
     line-height: var(--dialog-title-line-height, var(--line-height-text-lg));
   }
 
-  .description {
-    margin: 0;
+  .description,
+  .body {
     color: var(
       --dialog-description-color,
       var(--dialog-muted-color, var(--color-muted-foreground))
     );
     font-size: var(--dialog-description-font-size, var(--text-md));
     line-height: var(--dialog-description-line-height, var(--line-height-text-md));
+  }
+
+  .description {
+    margin: 0;
   }
 
   .footer {
@@ -233,11 +237,5 @@
 
   .body {
     margin: var(--dialog-content-margin, var(--spacing-4) 0 0);
-    color: var(
-      --dialog-description-color,
-      var(--dialog-muted-color, var(--color-muted-foreground))
-    );
-    font-size: var(--dialog-description-font-size, var(--text-md));
-    line-height: var(--dialog-description-line-height, var(--line-height-text-md));
   }
 }

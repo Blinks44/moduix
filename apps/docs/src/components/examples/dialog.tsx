@@ -17,11 +17,10 @@ import {
   ScrollArea,
   createDialogHandle,
 } from 'moduix';
-import { Fragment, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './dialog.module.css';
 
 export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop color.'],
@@ -220,7 +219,7 @@ export function ControlledDialogExample() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Fragment>
+    <>
       <Button type="button" onClick={() => setOpen(true)}>
         Open controlled dialog
       </Button>
@@ -238,7 +237,7 @@ export function ControlledDialogExample() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </Fragment>
+    </>
   );
 }
 
@@ -246,7 +245,7 @@ export function DialogHandleExample() {
   const dialogHandle = useMemo(() => createDialogHandle(), []);
 
   return (
-    <Fragment>
+    <>
       <DialogTrigger handle={dialogHandle} render={<Button variant="outline" />}>
         Open from detached trigger
       </DialogTrigger>
@@ -267,7 +266,7 @@ export function DialogHandleExample() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </Fragment>
+    </>
   );
 }
 
@@ -275,15 +274,15 @@ export function ScrollableDialogExample() {
   return (
     <Dialog>
       <DialogTrigger render={<Button />}>Open long content</DialogTrigger>
-      <DialogContent className={styles.scrollPopup}>
+      <DialogContent className="scrollPopup">
         <DialogHeader>
           <DialogTitle>Release checklist</DialogTitle>
           <DialogCloseIcon />
           <DialogDescription>Review all items before publishing to production.</DialogDescription>
         </DialogHeader>
-        <DialogBody className={styles.scrollBody}>
-          <ScrollArea className={styles.scrollArea}>
-            <div className={styles.scrollContent}>
+        <DialogBody className="scrollBody">
+          <ScrollArea className="scrollArea">
+            <div className="scrollContent">
               {insideScrollSections.map((item) => (
                 <section key={item.title}>
                   <h3>{item.title}</h3>
@@ -376,10 +375,10 @@ export function CustomCompositionDialogExample() {
     <Dialog>
       <DialogTrigger render={<Button />}>Open custom composition</DialogTrigger>
       <DialogPortal keepMounted>
-        <DialogBackdrop className={styles.customBackdrop} forceRender />
-        <DialogViewport className={styles.customViewport}>
-          <DialogPopup className={styles.customPopup}>
-            <DialogCloseIcon aria-label="Close profile dialog" className={styles.customCloseIcon} />
+        <DialogBackdrop className="customBackdrop" forceRender />
+        <DialogViewport className="customViewport">
+          <DialogPopup className="customPopup">
+            <DialogCloseIcon aria-label="Close profile dialog" className="customCloseIcon" />
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>

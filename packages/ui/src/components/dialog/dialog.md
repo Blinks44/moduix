@@ -369,20 +369,19 @@ import {
   DialogTrigger,
   ScrollArea,
 } from 'moduix';
-import styles from './example.module.css';
 
 function ScrollableDialog() {
   return (
     <Dialog>
       <DialogTrigger render={<Button />}>Open long content</DialogTrigger>
-      <DialogContent className={styles.scrollPopup}>
+      <DialogContent className="scrollPopup">
         <DialogHeader>
           <DialogTitle>Release checklist</DialogTitle>
           <DialogCloseIcon />
           <DialogDescription>Review all items before publishing to production.</DialogDescription>
         </DialogHeader>
-        <DialogBody className={styles.scrollBody}>
-          <ScrollArea className={styles.scrollArea}>{/* long content */}</ScrollArea>
+        <DialogBody className="scrollBody">
+          <ScrollArea className="scrollArea">{/* long content */}</ScrollArea>
         </DialogBody>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
@@ -458,7 +457,6 @@ popup at the top of the screen:
 ```tsx
 import {
   Button,
-  createDialogHandle,
   Dialog,
   DialogBackdrop,
   DialogBody,
@@ -474,17 +472,16 @@ import {
   DialogTrigger,
   DialogViewport,
 } from 'moduix';
-import styles from './example.module.css';
 
 function CustomCompositionDialog() {
   return (
     <Dialog>
       <DialogTrigger render={<Button />}>Open custom composition</DialogTrigger>
       <DialogPortal keepMounted>
-        <DialogBackdrop className={styles.customBackdrop} forceRender />
-        <DialogViewport className={styles.customViewport}>
-          <DialogPopup className={styles.customPopup}>
-            <DialogCloseIcon className={styles.customCloseIcon} />
+        <DialogBackdrop className="customBackdrop" forceRender />
+        <DialogViewport className="customViewport">
+          <DialogPopup className="customPopup">
+            <DialogCloseIcon className="customCloseIcon" />
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
@@ -550,7 +547,7 @@ The component has no `variant`, `size`, or `tone` prop. Customize via CSS variab
 `DialogContent`, `DialogPopup`, or a parent scope:
 
 ```tsx
-<DialogContent className={styles.customPopup}>{/* ... */}</DialogContent>
+<DialogContent className="customPopup">{/* ... */}</DialogContent>
 ```
 
 ```css
@@ -670,6 +667,7 @@ The component has no `variant`, `size`, or `tone` prop. Customize via CSS variab
 
 ## Local changelog
 
+- 2026-06-16: Simplified wrapper internals and aligned dialog examples around plain class names plus standalone CSS snippets for custom styling cases.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens so dialogs can be retuned to fade, slide, or mixed entry/exit effects through CSS variables without changing the default nested-dialog behavior.
 - Initial moduix-native documentation written. Previous `dialog.md` was a verbatim copy of the
   Base UI upstream dialog documentation and did not describe the moduix wrapper at all.
