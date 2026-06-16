@@ -1,9 +1,11 @@
 import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';
 import { clsx } from 'clsx';
-import { useMemo, type ComponentProps } from 'react';
+import { type ComponentProps } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Pagination.module.css';
+
+type PaginationItemType = number | 'ellipsis-start' | 'ellipsis-end';
 
 function clampPage(page: number, count: number) {
   return Math.min(Math.max(page, 1), count);
@@ -11,6 +13,55 @@ function clampPage(page: number, count: number) {
 
 function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+}
+
+function getPaginationItems(
+  count: number,
+  page: number,
+  siblingCount: number,
+  boundaryCount: number,
+): PaginationItemType[] {
+  if (count === 0) {
+    return [];
+  }
+
+  const totalPageNumbers = siblingCount * 2 + 3 + boundaryCount * 2;
+
+  if (count <= totalPageNumbers) {
+    return range(1, count);
+  }
+
+  const startPages = range(1, boundaryCount);
+  const endPages = range(count - boundaryCount + 1, count);
+
+  const siblingsStart = Math.max(
+    Math.min(page - siblingCount, count - boundaryCount - siblingCount * 2 - 1),
+    boundaryCount + 2,
+  );
+
+  const siblingsEnd = Math.min(
+    Math.max(page + siblingCount, boundaryCount + siblingCount * 2 + 2),
+    endPages[0] - 2,
+  );
+
+  const hasStartEllipsis = siblingsStart > boundaryCount + 2;
+  const hasEndEllipsis = siblingsEnd < count - boundaryCount - 1;
+
+  return [
+    ...startPages,
+    ...(hasStartEllipsis
+      ? (['ellipsis-start'] as const)
+      : boundaryCount + 1 < count - boundaryCount
+        ? [boundaryCount + 1]
+        : []),
+    ...range(siblingsStart, siblingsEnd),
+    ...(hasEndEllipsis
+      ? (['ellipsis-end'] as const)
+      : count - boundaryCount > boundaryCount
+        ? [count - boundaryCount]
+        : []),
+    ...endPages,
+  ];
 }
 
 function usePagination({
@@ -28,50 +79,7 @@ function usePagination({
   const safePage = safeCount === 0 ? 0 : clampPage(Math.floor(page), safeCount);
   const safeSiblingCount = Math.max(0, Math.floor(siblingCount));
   const safeBoundaryCount = Math.max(0, Math.floor(boundaryCount));
-
-  const items = useMemo(() => {
-    if (safeCount === 0) {
-      return [];
-    }
-
-    const totalPageNumbers = safeSiblingCount * 2 + 3 + safeBoundaryCount * 2;
-
-    if (safeCount <= totalPageNumbers) {
-      return range(1, safeCount);
-    }
-
-    const startPages = range(1, safeBoundaryCount);
-    const endPages = range(safeCount - safeBoundaryCount + 1, safeCount);
-
-    const siblingsStart = Math.max(
-      Math.min(
-        safePage - safeSiblingCount,
-        safeCount - safeBoundaryCount - safeSiblingCount * 2 - 1,
-      ),
-      safeBoundaryCount + 2,
-    );
-
-    const siblingsEnd = Math.min(
-      Math.max(safePage + safeSiblingCount, safeBoundaryCount + safeSiblingCount * 2 + 2),
-      endPages[0] - 2,
-    );
-
-    return [
-      ...startPages,
-      ...(siblingsStart > safeBoundaryCount + 2
-        ? ['ellipsis-start' as const]
-        : safeBoundaryCount + 1 < safeCount - safeBoundaryCount
-          ? [safeBoundaryCount + 1]
-          : []),
-      ...range(siblingsStart, siblingsEnd),
-      ...(siblingsEnd < safeCount - safeBoundaryCount - 1
-        ? ['ellipsis-end' as const]
-        : safeCount - safeBoundaryCount > safeBoundaryCount
-          ? [safeCount - safeBoundaryCount]
-          : []),
-      ...endPages,
-    ];
-  }, [safeBoundaryCount, safeCount, safePage, safeSiblingCount]);
+  const items = getPaginationItems(safeCount, safePage, safeSiblingCount, safeBoundaryCount);
 
   return {
     items,
@@ -82,14 +90,6 @@ function usePagination({
     previousPage: safePage <= 1 ? safePage : safePage - 1,
   };
 }
-
-const getPaginationRender = ({ href }: ToolbarPrimitive.Link.Props) => {
-  if (href != null) {
-    return undefined;
-  }
-
-  return <button type="button" />;
-};
 
 function Pagination({
   'aria-label': ariaLabel = 'Pagination',
@@ -132,8 +132,8 @@ function PaginationLink({
     <ToolbarPrimitive.Link
       data-slot="pagination-link"
       aria-current={isActive ? 'page' : undefined}
-      className={mergeClassName(className, styles.link, isActive && styles.linkActive)}
-      render={render ?? getPaginationRender(props)}
+      className={mergeClassName(className, styles.link)}
+      render={render ?? (props.href == null ? <button type="button" /> : undefined)}
       {...props}
     />
   );

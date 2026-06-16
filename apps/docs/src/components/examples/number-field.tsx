@@ -17,6 +17,10 @@ import { useId, useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 
+const centeredExampleStyle = {
+  width: 'fit-content',
+} as const;
+
 export const numberFieldOverrideCssProperties: CssProperty[] = [
   {
     name: '--number-field-border-color',
@@ -226,10 +230,12 @@ export function NumberFieldExample(props: ComponentProps<typeof NumberField>) {
   const id = useId();
 
   return (
-    <Field>
-      <FieldLabel htmlFor={id}>Amount</FieldLabel>
-      <NumberField id={id} defaultValue={100} {...props} />
-    </Field>
+    <div style={centeredExampleStyle}>
+      <Field>
+        <FieldLabel htmlFor={id}>Amount</FieldLabel>
+        <NumberField id={id} defaultValue={100} {...props} />
+      </Field>
+    </div>
   );
 }
 
@@ -252,10 +258,12 @@ export function MinMaxStepNumberFieldExample() {
   const id = useId();
 
   return (
-    <Field>
-      <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
-      <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
-    </Field>
+    <div style={centeredExampleStyle}>
+      <Field>
+        <FieldLabel htmlFor={id}>Quantity (0-20, step 2)</FieldLabel>
+        <NumberField id={id} defaultValue={10} min={0} max={20} step={2} />
+      </Field>
+    </div>
   );
 }
 
@@ -263,14 +271,16 @@ export function NumberFieldScrubAreaExample() {
   const id = useId();
 
   return (
-    <Field>
-      <NumberField id={id} defaultValue={250}>
-        <NumberFieldScrubArea>
-          <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
-          <NumberFieldScrubAreaCursor />
-        </NumberFieldScrubArea>
-      </NumberField>
-    </Field>
+    <div style={centeredExampleStyle}>
+      <Field>
+        <NumberField id={id} defaultValue={250}>
+          <NumberFieldScrubArea>
+            <FieldLabel htmlFor={id}>Drag to scrub</FieldLabel>
+            <NumberFieldScrubAreaCursor />
+          </NumberFieldScrubArea>
+        </NumberField>
+      </Field>
+    </div>
   );
 }
 
@@ -278,16 +288,18 @@ export function FormattedNumberFieldExample() {
   const id = useId();
 
   return (
-    <Field>
-      <FieldLabel htmlFor={id}>Price</FieldLabel>
-      <NumberField
-        id={id}
-        defaultValue={1250}
-        min={0}
-        step={50}
-        format={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
-      />
-    </Field>
+    <div style={centeredExampleStyle}>
+      <Field>
+        <FieldLabel htmlFor={id}>Price</FieldLabel>
+        <NumberField
+          id={id}
+          defaultValue={1250}
+          min={0}
+          step={50}
+          format={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
+        />
+      </Field>
+    </div>
   );
 }
 
@@ -295,13 +307,15 @@ export function NumberFieldValidationExample() {
   const id = useId();
 
   return (
-    <Field name="quantity" validationMode="onBlur">
-      <FieldLabel htmlFor={id}>Items</FieldLabel>
-      <NumberField id={id} min={1} max={10} required />
-      <FieldError match="valueMissing">Please provide a number.</FieldError>
-      <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
-      <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
-    </Field>
+    <div style={centeredExampleStyle}>
+      <Field name="quantity" validationMode="onBlur">
+        <FieldLabel htmlFor={id}>Items</FieldLabel>
+        <NumberField id={id} min={1} max={10} required />
+        <FieldError match="valueMissing">Please provide a number.</FieldError>
+        <FieldError match="rangeUnderflow">Value should be at least 1.</FieldError>
+        <FieldError match="rangeOverflow">Value should be at most 10.</FieldError>
+      </Field>
+    </div>
   );
 }
 
@@ -309,15 +323,17 @@ export function LocalizedLabelsNumberFieldExample() {
   const id = useId();
 
   return (
-    <Field>
-      <FieldLabel htmlFor={id}>Seats</FieldLabel>
-      <NumberField
-        id={id}
-        defaultValue={2}
-        decrementLabel="Decrease seat count"
-        incrementLabel="Increase seat count"
-      />
-    </Field>
+    <div style={centeredExampleStyle}>
+      <Field>
+        <FieldLabel htmlFor={id}>Seats</FieldLabel>
+        <NumberField
+          id={id}
+          defaultValue={2}
+          decrementLabel="Decrease seat count"
+          incrementLabel="Increase seat count"
+        />
+      </Field>
+    </div>
   );
 }
 
@@ -325,19 +341,21 @@ export function CustomIconsNumberFieldExample() {
   const id = useId();
 
   return (
-    <Field>
-      <FieldLabel htmlFor={id}>Floors</FieldLabel>
-      <NumberFieldRoot id={id} defaultValue={8}>
-        <NumberFieldGroup>
-          <NumberFieldDecrement className="customButton">
-            <ChevronDownIcon />
-          </NumberFieldDecrement>
-          <NumberFieldInput className="customInput" />
-          <NumberFieldIncrement className="customButton">
-            <ChevronUpIcon />
-          </NumberFieldIncrement>
-        </NumberFieldGroup>
-      </NumberFieldRoot>
-    </Field>
+    <div style={centeredExampleStyle}>
+      <Field>
+        <FieldLabel htmlFor={id}>Floors</FieldLabel>
+        <NumberFieldRoot id={id} defaultValue={8}>
+          <NumberFieldGroup>
+            <NumberFieldDecrement className="customButton">
+              <ChevronDownIcon />
+            </NumberFieldDecrement>
+            <NumberFieldInput className="customInput" />
+            <NumberFieldIncrement className="customButton">
+              <ChevronUpIcon />
+            </NumberFieldIncrement>
+          </NumberFieldGroup>
+        </NumberFieldRoot>
+      </Field>
+    </div>
   );
 }

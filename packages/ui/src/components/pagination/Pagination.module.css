@@ -28,6 +28,7 @@
   }
 
   .link {
+    cursor: pointer;
     gap: var(--spacing-2);
     border: var(--border-width-sm) solid var(--pagination-item-border-color, var(--color-border));
     padding-inline: var(--pagination-item-padding-inline, 0.75rem);
@@ -60,22 +61,21 @@
       pointer-events: none;
     }
 
-    :where(svg) {
+    & svg {
       flex-shrink: 0;
       width: var(--pagination-icon-size, 1rem);
       height: var(--pagination-icon-size, 1rem);
     }
-  }
 
-  .linkActive,
-  .link[aria-current='page'] {
-    border-color: var(--pagination-item-border-color-active, var(--color-foreground));
-    background-color: var(--pagination-item-bg-active, var(--color-foreground));
-    color: var(--pagination-item-color-active, var(--color-background));
+    &[aria-current='page'] {
+      border-color: var(--pagination-item-border-color-active, var(--color-foreground));
+      background-color: var(--pagination-item-bg-active, var(--color-foreground));
+      color: var(--pagination-item-color-active, var(--color-background));
 
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--pagination-item-bg-active, var(--color-foreground));
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--pagination-item-bg-active, var(--color-foreground));
+        }
       }
     }
   }

@@ -8,10 +8,28 @@ import {
   PaginationPrevious,
   usePagination,
 } from 'moduix';
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './pagination.module.css';
+
+const stackStyle: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: 'var(--spacing-3)',
+};
+
+const codeStyle: CSSProperties = {
+  fontFamily: 'var(--font-mono)',
+  fontSize: 'var(--text-xs)',
+};
+
+const customPaginationStyle: CSSProperties = {
+  '--pagination-item-radius': 'var(--radius-sm)',
+  '--pagination-item-bg-active': 'var(--color-primary)',
+  '--pagination-item-color-active': 'var(--color-primary-foreground)',
+  '--pagination-item-border-color-active': 'var(--color-primary)',
+} as CSSProperties;
 
 export const paginationOverrideCssProperties: CssPropertyInput[] = [
   [
@@ -103,7 +121,7 @@ export function PaginationExample() {
   const pagination = usePagination({ count: 10, page });
 
   return (
-    <div className={styles.stack}>
+    <div style={stackStyle}>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -139,7 +157,7 @@ export function PaginationExample() {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      <div className={styles.code}>Current page: {page}</div>
+      <div style={codeStyle}>Current page: {page}</div>
     </div>
   );
 }
@@ -148,7 +166,7 @@ export function PaginationCompactExample() {
   const [page, setPage] = useState(5);
 
   return (
-    <div className={styles.stack}>
+    <div style={stackStyle}>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -188,7 +206,7 @@ export function PaginationCompactExample() {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      <div className={styles.code}>Current page: {page}</div>
+      <div style={codeStyle}>Current page: {page}</div>
     </div>
   );
 }
@@ -198,7 +216,7 @@ export function PaginationControlledExample() {
   const pagination = usePagination({ count: 10, page });
 
   return (
-    <div className={styles.stack}>
+    <div style={stackStyle}>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -234,7 +252,7 @@ export function PaginationControlledExample() {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      <div className={styles.code}>Current page: {page}</div>
+      <div style={codeStyle}>Current page: {page}</div>
     </div>
   );
 }
@@ -249,7 +267,7 @@ export function PaginationDensityExample() {
   });
 
   return (
-    <div className={styles.stack}>
+    <div style={stackStyle}>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -285,7 +303,7 @@ export function PaginationDensityExample() {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      <div className={styles.code}>Current page: {page}</div>
+      <div style={codeStyle}>Current page: {page}</div>
     </div>
   );
 }
@@ -295,7 +313,7 @@ export function PaginationClassNameExample() {
   const pagination = usePagination({ count: 10, page });
 
   return (
-    <Pagination className={styles.customPagination}>
+    <Pagination className="customPagination" style={customPaginationStyle}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
