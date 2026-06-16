@@ -284,13 +284,12 @@ Use side drawers for filters, navigation, and contextual panels. Set width throu
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function LeftDrawerDemo() {
         return (
           <Drawer swipeDirection="left">
             <DrawerTrigger render={<Button />}>Open left drawer</DrawerTrigger>
-            <DrawerContent className={styles.sideContent}>
+            <DrawerContent className="drawer-side-content">
               <DrawerHeader>
                 <DrawerTitle>Filters</DrawerTitle>
                 <DrawerDescription>
@@ -308,6 +307,15 @@ Use side drawers for filters, navigation, and contextual panels. Set width throu
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .drawer-side-content {
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Right
@@ -330,13 +338,12 @@ Use `DrawerCloseIcon` when a side drawer should close from the header instead of
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function RightDrawerDemo() {
         return (
           <Drawer swipeDirection="right">
             <DrawerTrigger render={<Button />}>Open right drawer</DrawerTrigger>
-            <DrawerContent className={styles.sideContent}>
+            <DrawerContent className="drawer-side-content">
               <DrawerHeader>
                 <DrawerTitle>Details</DrawerTitle>
                 <DrawerCloseIcon aria-label="Close details drawer" />
@@ -352,6 +359,15 @@ Use `DrawerCloseIcon` when a side drawer should close from the header instead of
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .drawer-side-content {
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Island Variant
@@ -375,13 +391,12 @@ edge-flush sheet.
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function IslandDrawerDemo() {
         return (
           <Drawer swipeDirection="right">
             <DrawerTrigger render={<Button />}>Open island drawer</DrawerTrigger>
-            <DrawerContent variant="island" className={styles.sideContent}>
+            <DrawerContent variant="island" className="drawer-side-content">
               <DrawerHeader>
                 <DrawerTitle>Island variant</DrawerTitle>
                 <DrawerDescription>
@@ -398,6 +413,15 @@ edge-flush sheet.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .drawer-side-content {
+        --drawer-side-width: 26rem;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Snap Points
@@ -581,7 +605,6 @@ Keep the drawer open by controlling `open` and ignoring close attempts in your o
         ScrollArea,
       } from "moduix";
       import { useState } from "react";
-      import styles from "./drawer-demo.module.css";
 
       export function ControlledPersistentDrawerDemo() {
         const [open, setOpen] = useState(false);
@@ -597,22 +620,18 @@ Keep the drawer open by controlling `open` and ignoring close attempts in your o
             <Drawer
               open={open}
               onOpenChange={(nextOpen) => {
-                if (nextOpen) {
-                  setOpen(true);
-                }
+                if (nextOpen) setOpen(true);
               }}
               modal={false}
               disablePointerDismissal
               snapPoints={[...snapPoints]}
               snapPoint={snapPoint}
               onSnapPointChange={(nextSnapPoint) => {
-                if (nextSnapPoint !== null) {
-                  setSnapPoint(nextSnapPoint);
-                }
+                if (nextSnapPoint !== null) setSnapPoint(nextSnapPoint);
               }}
             >
               <DrawerContent snapLayout>
-                <DrawerHeader className={styles.headerWithAction}>
+                <DrawerHeader className="drawer-header-with-action">
                   <div>
                     <DrawerTitle>Controlled persistent drawer</DrawerTitle>
                     <DrawerDescription>
@@ -622,7 +641,7 @@ Keep the drawer open by controlling `open` and ignoring close attempts in your o
                   </div>
                   <button
                     type="button"
-                    className={styles.snapToggle}
+                    className="drawer-snap-toggle"
                     onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}
                     aria-label={expanded ? "Collapse drawer" : "Expand drawer"}
                   >
@@ -640,6 +659,36 @@ Keep the drawer open by controlling `open` and ignoring close attempts in your o
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .drawer-header-with-action {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+      }
+
+      .drawer-snap-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.75rem;
+        height: 1.75rem;
+        padding: 0;
+        border: 0;
+        border-radius: var(--radius-md);
+        background: transparent;
+        color: var(--color-muted-foreground);
+        cursor: pointer;
+
+        @media (hover: hover) {
+          &:hover {
+            background: var(--color-accent);
+          }
+        }
+      }
+    `}
+
+  </Preview.CSS>
 
   <Preview.Data>
     {`      const snapPoints = [0.35, 0.85] as const;`}
@@ -674,7 +723,7 @@ pressed.
       export function SwipeAreaDrawerDemo() {
         return (
           <Drawer swipeDirection="right" modal={false}>
-            <DrawerSwipeArea />
+            <DrawerSwipeArea className="drawer-swipe-area" />
             <DrawerTrigger render={<Button />}>Open with trigger</DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
@@ -694,6 +743,16 @@ pressed.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+   {`
+     .drawer-swipe-area {
+       border-left: var(--border-width-lg) dashed var(--color-ring);
+       background-color: var(--color-accent);
+     }
+   `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Nested
@@ -777,14 +836,13 @@ shift and scale under the active drawer.
         DrawerTitle,
         DrawerTrigger,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function IndentDrawerDemo() {
         return (
           <DrawerProvider>
-            <div className={styles.indentStage}>
+            <div className="drawer-indent-stage">
               <DrawerIndentBackground />
-              <DrawerIndent className={styles.indentSurface}>
+              <DrawerIndent className="drawer-indent-surface">
                 <Drawer modal={false}>
                   <DrawerTrigger render={<Button />}>Open indented drawer</DrawerTrigger>
                   <DrawerContent>
@@ -807,6 +865,27 @@ shift and scale under the active drawer.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .drawer-indent-stage {
+        position: relative;
+        width: min(42rem, 100%);
+        min-height: 360px;
+        overflow: hidden;
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-muted);
+      }
+
+      .drawer-indent-surface {
+        min-height: 360px;
+        padding: var(--spacing-6);
+        background-color: var(--color-background);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Composition
@@ -836,17 +915,16 @@ baked into `DrawerContent`, compose the low-level parts directly.
         DrawerTrigger,
         DrawerViewport,
       } from "moduix";
-      import styles from "./drawer-demo.module.css";
 
       export function CustomCompositionDrawerDemo() {
         return (
           <Drawer swipeDirection="right">
             <DrawerTrigger render={<Button />}>Open custom drawer</DrawerTrigger>
             <DrawerPortal keepMounted>
-              <DrawerBackdrop className={styles.customBackdrop} forceRender />
-              <DrawerViewport className={styles.customViewport}>
-                <DrawerPopup className={styles.customPopup}>
-                  <DrawerHandle className={styles.customHandle} />
+              <DrawerBackdrop className="drawer-custom-backdrop" forceRender />
+              <DrawerViewport className="drawer-custom-viewport">
+                <DrawerPopup className="drawer-custom-popup">
+                  <DrawerHandle className="drawer-custom-handle" />
                   <DrawerContentInner>
                     <DrawerHeader>
                       <DrawerTitle>Custom composition</DrawerTitle>
@@ -873,15 +951,15 @@ baked into `DrawerContent`, compose the low-level parts directly.
 
   <Preview.CSS>
     {`
-      .customBackdrop {
+      .drawer-custom-backdrop {
         --drawer-backdrop-bg: color-mix(in oklab, var(--color-foreground) 60%, transparent);
       }
 
-      .customViewport {
+      .drawer-custom-viewport {
         --drawer-viewport-padding: var(--spacing-4);
       }
 
-      .customPopup {
+      .drawer-custom-popup {
         --drawer-bg: var(--color-card);
         --drawer-bleed-size: 0px;
         --drawer-border-color: var(--color-ring);
@@ -890,7 +968,7 @@ baked into `DrawerContent`, compose the low-level parts directly.
         border-radius: var(--radius-xl);
       }
 
-      .customHandle {
+      .drawer-custom-handle {
         --drawer-handle-bg: var(--color-destructive);
         --drawer-handle-opacity: 0.8;
       }

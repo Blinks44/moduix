@@ -320,120 +320,131 @@
 
     &[data-variant='island'] {
       --drawer-bleed: 0px;
-    }
 
-    &[data-variant='island'][data-snap-layout] {
-      --drawer-snap-tail-size: 0px;
-    }
+      &[data-snap-layout] {
+        --drawer-snap-tail-size: 0px;
+      }
 
-    &[data-variant='island'][data-swipe-direction='down'],
-    &[data-variant='island'][data-swipe-direction='up'],
-    &[data-variant='island'][data-swipe-direction='left'],
-    &[data-variant='island'][data-swipe-direction='right'] {
-      border-radius: var(--drawer-radius, var(--radius-xl));
-    }
-
-    &[data-snap-layout][data-swipe-direction='down'] {
-      --drawer-bleed: 0px;
-      --drawer-snap-tail-size: var(--drawer-bleed-size, 3rem);
-      --drawer-snap-visible-height: calc(
-        100% -
-          max(0px, calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)))
-      );
-
-      height: var(--drawer-max-height, 100dvh);
-      max-height: var(--drawer-max-height, 100dvh);
-      margin-bottom: 0;
-      padding-bottom: calc(
-        var(--drawer-padding-y, var(--spacing-4)) + env(safe-area-inset-bottom, 0px)
-      );
-      overflow: visible;
-      touch-action: none;
-
-      &::after {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        height: var(--drawer-snap-tail-size);
-        background: var(--drawer-bg, var(--color-popover));
-        content: '';
-        pointer-events: none;
+      &[data-swipe-direction='down'],
+      &[data-swipe-direction='up'],
+      &[data-swipe-direction='left'],
+      &[data-swipe-direction='right'] {
+        border-radius: var(--drawer-radius, var(--radius-xl));
       }
     }
 
-    &[data-snap-layout][data-swipe-direction='up'] {
-      --drawer-bleed: 0px;
-      --drawer-snap-tail-size: var(--drawer-bleed-size, 3rem);
-      --drawer-snap-visible-height: calc(
-        100% -
+    &[data-snap-layout] {
+      &[data-swipe-direction='down'] {
+        --drawer-bleed: 0px;
+        --drawer-snap-tail-size: var(--drawer-bleed-size, 3rem);
+        --drawer-snap-visible-height: calc(
+          100% -
+            max(
+              0px,
+              calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px))
+            )
+        );
+
+        height: var(--drawer-max-height, 100dvh);
+        max-height: var(--drawer-max-height, 100dvh);
+        margin-bottom: 0;
+        padding-bottom: calc(
+          var(--drawer-padding-y, var(--spacing-4)) + env(safe-area-inset-bottom, 0px)
+        );
+        overflow: visible;
+        touch-action: none;
+
+        &::after {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          left: 0;
+          height: var(--drawer-snap-tail-size);
+          background: var(--drawer-bg, var(--color-popover));
+          content: '';
+          pointer-events: none;
+        }
+      }
+
+      &[data-swipe-direction='up'] {
+        --drawer-bleed: 0px;
+        --drawer-snap-tail-size: var(--drawer-bleed-size, 3rem);
+        --drawer-snap-visible-height: calc(
+          100% -
+            max(
+              0px,
+              calc(
+                -1 * (var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px))
+              )
+            )
+        );
+
+        height: var(--drawer-max-height, 100dvh);
+        max-height: var(--drawer-max-height, 100dvh);
+        margin-top: 0;
+        padding-top: calc(
+          var(--drawer-padding-y, var(--spacing-4)) + env(safe-area-inset-top, 0px)
+        );
+        overflow: visible;
+        touch-action: none;
+
+        &::after {
+          position: absolute;
+          right: 0;
+          bottom: 100%;
+          left: 0;
+          height: var(--drawer-snap-tail-size);
+          background: var(--drawer-bg, var(--color-popover));
+          content: '';
+          pointer-events: none;
+        }
+      }
+    }
+
+    &[data-nested-drawer-open] {
+      &[data-swipe-direction='down'] {
+        height: calc(
           max(
-            0px,
-            calc(-1 * (var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)))
+              0px,
+              calc(
+                var(--drawer-frontmost-height, var(--drawer-height)) -
+                  var(--drawer-nested-peek, 2.75rem)
+              )
+            ) +
+            var(--drawer-bleed)
+        );
+        overflow: hidden;
+        transform: translateY(
+            calc(
+              var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px) -
+                var(--drawer-nested-peek, 2.75rem) * var(--nested-drawers, 1)
+            )
           )
-      );
-
-      height: var(--drawer-max-height, 100dvh);
-      max-height: var(--drawer-max-height, 100dvh);
-      margin-top: 0;
-      padding-top: calc(var(--drawer-padding-y, var(--spacing-4)) + env(safe-area-inset-top, 0px));
-      overflow: visible;
-      touch-action: none;
-
-      &::after {
-        position: absolute;
-        right: 0;
-        bottom: 100%;
-        left: 0;
-        height: var(--drawer-snap-tail-size);
-        background: var(--drawer-bg, var(--color-popover));
-        content: '';
-        pointer-events: none;
+          scale(calc(1 - var(--drawer-nested-scale-step, 0.06) * var(--nested-drawers, 0)));
+        transform-origin: bottom center;
       }
-    }
 
-    &[data-nested-drawer-open][data-swipe-direction='down'] {
-      height: calc(
-        max(
-            0px,
+      &[data-swipe-direction='up'] {
+        height: calc(
+          max(
+              0px,
+              calc(
+                var(--drawer-frontmost-height, var(--drawer-height)) -
+                  var(--drawer-nested-peek, 2.75rem)
+              )
+            ) +
+            var(--drawer-bleed)
+        );
+        overflow: hidden;
+        transform: translateY(
             calc(
-              var(--drawer-frontmost-height, var(--drawer-height)) -
-                var(--drawer-nested-peek, 2.75rem)
+              var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px) +
+                var(--drawer-nested-peek, 2.75rem) * var(--nested-drawers, 1)
             )
-          ) +
-          var(--drawer-bleed)
-      );
-      overflow: hidden;
-      transform: translateY(
-          calc(
-            var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px) -
-              var(--drawer-nested-peek, 2.75rem) * var(--nested-drawers, 1)
           )
-        )
-        scale(calc(1 - var(--drawer-nested-scale-step, 0.06) * var(--nested-drawers, 0)));
-      transform-origin: bottom center;
-    }
-
-    &[data-nested-drawer-open][data-swipe-direction='up'] {
-      height: calc(
-        max(
-            0px,
-            calc(
-              var(--drawer-frontmost-height, var(--drawer-height)) -
-                var(--drawer-nested-peek, 2.75rem)
-            )
-          ) +
-          var(--drawer-bleed)
-      );
-      overflow: hidden;
-      transform: translateY(
-          calc(
-            var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px) +
-              var(--drawer-nested-peek, 2.75rem) * var(--nested-drawers, 1)
-          )
-        )
-        scale(calc(1 - var(--drawer-nested-scale-step, 0.06) * var(--nested-drawers, 0)));
-      transform-origin: top center;
+          scale(calc(1 - var(--drawer-nested-scale-step, 0.06) * var(--nested-drawers, 0)));
+        transform-origin: top center;
+      }
     }
   }
 

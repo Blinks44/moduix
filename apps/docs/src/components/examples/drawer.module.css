@@ -2,10 +2,6 @@
   --drawer-side-width: 26rem;
 }
 
-.compactContent {
-  --drawer-max-height: 28rem;
-}
-
 .customPopup {
   --drawer-bg: var(--color-card);
   --drawer-bleed-size: 0px;

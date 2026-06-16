@@ -154,7 +154,7 @@ export function DrawerExample() {
   return (
     <Drawer>
       <DrawerTrigger render={<Button />}>Open bottom drawer</DrawerTrigger>
-      <DrawerContent className={styles.compactContent}>
+      <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Notifications</DrawerTitle>
           <DrawerDescription>You are all caught up. Good job!</DrawerDescription>
@@ -174,7 +174,7 @@ export function TopDrawerExample() {
   return (
     <Drawer swipeDirection="up">
       <DrawerTrigger render={<Button />}>Open top drawer</DrawerTrigger>
-      <DrawerContent className={styles.compactContent}>
+      <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Top panel</DrawerTitle>
           <DrawerDescription>
@@ -282,7 +282,7 @@ export function NonModalDrawerExample() {
   return (
     <Drawer modal={false}>
       <DrawerTrigger render={<Button />}>Open non-modal drawer</DrawerTrigger>
-      <DrawerContent className={styles.compactContent}>
+      <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Non-modal drawer</DrawerTitle>
           <DrawerDescription>Outside pointer interaction stays enabled.</DrawerDescription>
@@ -309,7 +309,7 @@ export function DrawerHandleExample() {
       </Button>
 
       <Drawer handle={drawerHandle}>
-        <DrawerContent className={styles.compactContent}>
+        <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>Detached trigger</DrawerTitle>
             <DrawerDescription>createDrawerHandle is preserved from Base UI.</DrawerDescription>
@@ -415,18 +415,14 @@ export function ControlledPersistentDrawerExample() {
       <Drawer
         open={open}
         onOpenChange={(nextOpen) => {
-          if (nextOpen) {
-            setOpen(true);
-          }
+          if (nextOpen) setOpen(true);
         }}
         modal={false}
         disablePointerDismissal
         snapPoints={[...snapPoints]}
         snapPoint={snapPoint}
         onSnapPointChange={(nextSnapPoint) => {
-          if (nextSnapPoint !== null) {
-            setSnapPoint(nextSnapPoint);
-          }
+          if (nextSnapPoint !== null) setSnapPoint(nextSnapPoint);
         }}
       >
         <DrawerContent snapLayout>

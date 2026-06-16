@@ -5,8 +5,15 @@ import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
+type DrawerModalMode = true | false | 'trap-focus';
+type DrawerContentProps = DrawerPrimitive.Popup.Props & {
+  snapLayout?: boolean;
+  disableInitialAnimation?: boolean;
+  variant?: 'default' | 'island';
+};
+
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
-const DrawerModeContext = createContext<DrawerPrimitive.Root.Props['modal']>(true);
+const DrawerModeContext = createContext<DrawerModalMode>(true);
 
 function useMountReady(disableInitialAnimation: boolean) {
   const [mountReady, setMountReady] = useState(!disableInitialAnimation);
@@ -18,12 +25,12 @@ function useMountReady(disableInitialAnimation: boolean) {
     }
 
     setMountReady(false);
-    let frame = window.requestAnimationFrame(() => {
+    const frameId = window.requestAnimationFrame(() => {
       setMountReady(true);
     });
 
     return () => {
-      window.cancelAnimationFrame(frame);
+      window.cancelAnimationFrame(frameId);
     };
   }, [disableInitialAnimation]);
 
@@ -69,7 +76,7 @@ function DrawerTrigger({ className, render, ...props }: DrawerPrimitive.Trigger.
     <DrawerPrimitive.Trigger
       data-slot="drawer-trigger"
       render={render}
-      className={render ? className : mergeClassName(className, styles.trigger)}
+      className={mergeClassName(className, !render && styles.trigger)}
       {...props}
     />
   );
@@ -85,8 +92,8 @@ function DrawerSwipeArea({ className, ...props }: DrawerPrimitive.SwipeArea.Prop
   );
 }
 
-function DrawerPortal({ className, ...props }: DrawerPrimitive.Portal.Props) {
-  return <DrawerPrimitive.Portal data-slot="drawer-portal" className={className} {...props} />;
+function DrawerPortal(props: DrawerPrimitive.Portal.Props) {
+  return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />;
 }
 
 function DrawerBackdrop({ className, ...props }: DrawerPrimitive.Backdrop.Props) {
@@ -199,22 +206,17 @@ function DrawerContent({
   className,
   children,
   ...props
-}: DrawerPrimitive.Popup.Props & {
-  snapLayout?: boolean;
-  disableInitialAnimation?: boolean;
-  variant?: 'default' | 'island';
-}) {
-  const modal = useContext(DrawerModeContext);
+}: DrawerContentProps) {
+  const isModal = useContext(DrawerModeContext) === true;
   const mountReady = useMountReady(disableInitialAnimation);
-  const blocksOutsidePointerInteraction = modal === true;
-  const viewportClassName = mergeClassName(
-    blocksOutsidePointerInteraction ? undefined : styles.viewportNonModal,
-    variant === 'island' ? styles.viewportIsland : undefined,
+  const viewportClassName = clsx(
+    !isModal && styles.viewportNonModal,
+    variant === 'island' && styles.viewportIsland,
   );
 
   return (
     <DrawerPortal>
-      {blocksOutsidePointerInteraction ? <DrawerBackdrop /> : null}
+      {isModal ? <DrawerBackdrop /> : null}
       <DrawerViewport className={viewportClassName}>
         <DrawerPopup
           data-snap-layout={snapLayout ? '' : undefined}
