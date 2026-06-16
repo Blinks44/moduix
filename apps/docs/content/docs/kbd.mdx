@@ -5,7 +5,7 @@ icon: Component
 ---
 
 import {
-  CustomCompositionKbdExample,
+  CustomStylingKbdExample,
   KbdDenseExample,
   KbdCssPropertiesPanel,
   KbdExample,
@@ -159,8 +159,8 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
 
       export function KbdShortcutListDemo() {
         return (
-          <div>
-            <div>
+          <div className="kbd-demo-shortcut-list">
+            <div className="kbd-demo-shortcut-row">
               <KbdGroup aria-label="Command K">
                 <Kbd>Cmd</Kbd>
                 +
@@ -168,7 +168,7 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
               </KbdGroup>
               Open command menu
             </div>
-            <div>
+            <div className="kbd-demo-shortcut-row">
               <KbdGroup aria-label="Shift question mark">
                 <Kbd>Shift</Kbd>
                 +
@@ -176,7 +176,7 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
               </KbdGroup>
               Show shortcuts
             </div>
-            <div>
+            <div className="kbd-demo-shortcut-row">
               <Kbd>Esc</Kbd>
               Close overlay
             </div>
@@ -186,6 +186,26 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .kbd-demo-shortcut-list {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+
+      .kbd-demo-shortcut-row {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        align-items: center;
+        gap: var(--spacing-3);
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Compact Density
@@ -198,15 +218,14 @@ Use local CSS variables for one-off density or tone changes instead of extra com
   <Preview.Code>
     {`
       import { Kbd } from "moduix";
-      import styles from "./kbd-demo.module.css";
 
       export function KbdDenseDemo() {
         return (
-          <>
-            <Kbd className={styles.dense}>Esc</Kbd>
-            <Kbd className={styles.dense}>Ctrl</Kbd>
-            <Kbd className={styles.dense}>/</Kbd>
-          </>
+          <div className="kbd-demo-row">
+            <Kbd className="kbd-demo-dense">Esc</Kbd>
+            <Kbd className="kbd-demo-dense">Ctrl</Kbd>
+            <Kbd className="kbd-demo-dense">/</Kbd>
+          </div>
         );
       }
     `}
@@ -215,7 +234,14 @@ Use local CSS variables for one-off density or tone changes instead of extra com
 
   <Preview.CSS>
     {`
-      .dense {
+      .kbd-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .kbd-demo-dense {
         --kbd-height: 1.25rem;
         --kbd-font-size: 0.6875rem;
         --kbd-line-height: 1rem;
@@ -232,19 +258,18 @@ Use local CSS variables for one-off density or tone changes instead of extra com
 Use `className` and CSS variables when the default keycap needs to match product-specific styling.
 
 <Preview>
-  <CustomCompositionKbdExample />
+  <CustomStylingKbdExample />
 
   <Preview.Code>
     {`
       import { Kbd, KbdGroup } from "moduix";
-      import styles from "./custom-kbd-demo.module.css";
 
       export function CustomKbdDemo() {
         return (
-          <KbdGroup aria-label="Command K" className={styles.customGroup}>
-            <Kbd className={styles.customKbd}>Cmd</Kbd>
+          <KbdGroup aria-label="Command K" className="kbd-demo-custom-group">
+            <Kbd className="kbd-demo-custom-key">Cmd</Kbd>
             +
-            <Kbd className={styles.customKbd}>K</Kbd>
+            <Kbd className="kbd-demo-custom-key">K</Kbd>
           </KbdGroup>
         );
       }
@@ -254,11 +279,11 @@ Use `className` and CSS variables when the default keycap needs to match product
 
   <Preview.CSS>
     {`
-      .customGroup {
+      .kbd-demo-custom-group {
         --kbd-group-gap: 0.375rem;
       }
 
-      .customKbd {
+      .kbd-demo-custom-key {
         --kbd-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
         --kbd-border-color: color-mix(in oklab, var(--color-primary) 32%, transparent);
         --kbd-color: var(--color-primary);

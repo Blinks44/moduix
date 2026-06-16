@@ -1,7 +1,6 @@
 import { Kbd, KbdGroup } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
-import styles from './kbd.module.css';
 
 export const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--kbd-bg', 'var(--color-muted)', 'Controls key background color.'],
@@ -56,20 +55,20 @@ export function KbdSingleKeyExample() {
 
 export function KbdShortcutListExample() {
   return (
-    <div className={styles.column}>
-      <div className={styles.shortcutRow}>
+    <div className="kbd-demo-shortcut-list">
+      <div className="kbd-demo-shortcut-row">
         <KbdGroup aria-label="Command K">
           <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
         </KbdGroup>
         Open command menu
       </div>
-      <div className={styles.shortcutRow}>
+      <div className="kbd-demo-shortcut-row">
         <KbdGroup aria-label="Shift question mark">
           <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
         </KbdGroup>
         Show shortcuts
       </div>
-      <div className={styles.shortcutRow}>
+      <div className="kbd-demo-shortcut-row">
         <Kbd>Esc</Kbd>
         Close overlay
       </div>
@@ -79,18 +78,18 @@ export function KbdShortcutListExample() {
 
 export function KbdDenseExample() {
   return (
-    <div className={styles.row}>
-      <Kbd className={styles.dense}>Esc</Kbd>
-      <Kbd className={styles.dense}>Ctrl</Kbd>
-      <Kbd className={styles.dense}>/</Kbd>
+    <div className="kbd-demo-row">
+      <Kbd className="kbd-demo-dense">Esc</Kbd>
+      <Kbd className="kbd-demo-dense">Ctrl</Kbd>
+      <Kbd className="kbd-demo-dense">/</Kbd>
     </div>
   );
 }
 
-export function CustomCompositionKbdExample() {
+export function CustomStylingKbdExample() {
   return (
-    <KbdGroup aria-label="Command K" className={styles.customGroup}>
-      <Kbd className={styles.customKbd}>Cmd</Kbd>+<Kbd className={styles.customKbd}>K</Kbd>
+    <KbdGroup aria-label="Command K" className="kbd-demo-custom-group">
+      <Kbd className="kbd-demo-custom-key">Cmd</Kbd>+<Kbd className="kbd-demo-custom-key">K</Kbd>
     </KbdGroup>
   );
 }

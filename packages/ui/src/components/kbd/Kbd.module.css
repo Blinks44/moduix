@@ -4,16 +4,15 @@
     display: inline-flex;
     flex: none;
     min-width: var(--kbd-min-width, var(--kbd-height, 1.5rem));
-    height: var(--kbd-height, 1.5rem);
     max-width: 100%;
+    height: var(--kbd-height, 1.5rem);
     align-items: center;
     justify-content: center;
     overflow: hidden;
     border: var(--kbd-border-width, var(--border-width-sm)) solid
       var(--kbd-border-color, var(--color-border));
     border-radius: var(--kbd-radius, var(--radius-sm));
-    padding-block: var(--kbd-padding-y, 0);
-    padding-inline: var(--kbd-padding-x, 0.4375rem);
+    padding: var(--kbd-padding-y, 0) var(--kbd-padding-x, 0.4375rem);
     background-color: var(--kbd-bg, var(--color-muted));
     box-shadow: var(
       --kbd-shadow,
@@ -37,15 +36,12 @@
     max-width: 100%;
     align-items: center;
     gap: var(--kbd-group-gap, 0.25rem);
-    border: 0;
     padding: 0;
+    border: 0;
     background: none;
     box-shadow: none;
     color: var(--kbd-group-separator-color, var(--color-muted-foreground));
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: inherit;
+    font: inherit;
     vertical-align: middle;
     white-space: nowrap;
   }

@@ -61,7 +61,7 @@ export const Dense: Story = {
   ),
 };
 
-export const CustomComposition: Story = {
+export const CustomStyling: Story = {
   render: () => (
     <KbdGroup aria-label="Command K" className={styles.customGroup}>
       <Kbd className={styles.customKbd}>Cmd</Kbd>+<Kbd className={styles.customKbd}>K</Kbd>
