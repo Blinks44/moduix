@@ -1,4 +1,5 @@
-.stack {
+.stack,
+.form {
   display: grid;
   align-items: flex-start;
   gap: var(--spacing-3);
@@ -9,9 +10,6 @@
 }
 
 .form {
-  display: grid;
-  align-items: flex-start;
-  gap: var(--spacing-3);
   width: 20rem;
 }
 

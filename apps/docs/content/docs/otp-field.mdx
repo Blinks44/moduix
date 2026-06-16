@@ -276,7 +276,6 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
     {`
       import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
       import { useId, useState } from "react";
-      import styles from "./otp-field.module.css";
 
       export function AutoSubmitOTPField() {
         const id = useId();
@@ -285,7 +284,7 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
 
         return (
           <form
-            className={styles.form}
+            className="form"
             onSubmit={(event) => {
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
@@ -307,14 +306,32 @@ Use `autoSubmit` when a complete code should submit its owning form immediately.
                 }}
               />
             </Field>
-            <span className={styles.hint}>Last completed value: {completedValue || "empty"}</span>
-            <span className={styles.hint}>Last submitted value: {submittedValue || "empty"}</span>
+            <span className="hint">Last completed value: {completedValue || "empty"}</span>
+            <span className="hint">Last submitted value: {submittedValue || "empty"}</span>
           </form>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        display: grid;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+        width: 20rem;
+      }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Sanitization
@@ -329,7 +346,6 @@ sanitization.
     {`
       import { Field, FieldDescription, FieldLabel, OTPField } from "moduix";
       import { useId, useState } from "react";
-      import styles from "./otp-field.module.css";
 
       export function CustomSanitizationOTPField() {
         const id = useId();
@@ -337,8 +353,8 @@ sanitization.
         const [invalidValue, setInvalidValue] = useState("");
 
         return (
-          <div className={styles.stack}>
-            <Field className={styles.field}>
+          <div className="stack">
+            <Field className="field">
               <FieldLabel htmlFor={id}>Invite code</FieldLabel>
               <FieldDescription>
                 <code>validationType=&quot;none&quot;</code> with custom sanitization.
@@ -355,14 +371,35 @@ sanitization.
                 }}
               />
             </Field>
-            <span className={styles.hint}>Current value: {value || "empty"}</span>
-            <span className={styles.hint}>Last invalid attempt: {invalidValue || "none"}</span>
+            <span className="hint">Current value: {value || "empty"}</span>
+            <span className="hint">Last invalid attempt: {invalidValue || "none"}</span>
           </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: grid;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+      }
+
+      .field {
+        width: max-content;
+      }
+
+      .hint {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Grouped Layout
@@ -383,7 +420,6 @@ Use manual composition when the code should be split into visual groups.
         SeparatorMarkIcon,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./otp-field.module.css";
 
       export function GroupedOTPField() {
         const id = useId();
@@ -392,7 +428,7 @@ Use manual composition when the code should be split into visual groups.
           <Field>
             <FieldLabel htmlFor={id}>Auth code</FieldLabel>
             <OTPField id={id} length={6}>
-              <div className={styles.group}>
+              <div className="group">
                 <OTPFieldInput />
                 <OTPFieldInput aria-label="Character 2 of 6" />
                 <OTPFieldInput aria-label="Character 3 of 6" />
@@ -400,7 +436,7 @@ Use manual composition when the code should be split into visual groups.
               <OTPFieldSeparator>
                 <SeparatorMarkIcon />
               </OTPFieldSeparator>
-              <div className={styles.group}>
+              <div className="group">
                 <OTPFieldInput aria-label="Character 4 of 6" />
                 <OTPFieldInput aria-label="Character 5 of 6" />
                 <OTPFieldInput aria-label="Character 6 of 6" />
@@ -412,6 +448,16 @@ Use manual composition when the code should be split into visual groups.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .group {
+        display: inline-flex;
+        gap: inherit;
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Placeholder Hints
@@ -431,7 +477,6 @@ Use manual composition when the code should be split into visual groups.
         OTPFieldInput,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./otp-field.module.css";
 
       export function PlaceholderOTPField() {
         const id = useId();
@@ -443,29 +488,29 @@ Use manual composition when the code should be split into visual groups.
               Placeholder hints stay visible until the active slot is focused.
             </FieldDescription>
             <OTPField id={id} length={6}>
-              <OTPFieldInput className={styles.placeholderInput} placeholder="•" />
+              <OTPFieldInput className="placeholderInput" placeholder="•" />
               <OTPFieldInput
-                className={styles.placeholderInput}
+                className="placeholderInput"
                 placeholder="•"
                 aria-label="Character 2 of 6"
               />
               <OTPFieldInput
-                className={styles.placeholderInput}
+                className="placeholderInput"
                 placeholder="•"
                 aria-label="Character 3 of 6"
               />
               <OTPFieldInput
-                className={styles.placeholderInput}
+                className="placeholderInput"
                 placeholder="•"
                 aria-label="Character 4 of 6"
               />
               <OTPFieldInput
-                className={styles.placeholderInput}
+                className="placeholderInput"
                 placeholder="•"
                 aria-label="Character 5 of 6"
               />
               <OTPFieldInput
-                className={styles.placeholderInput}
+                className="placeholderInput"
                 placeholder="•"
                 aria-label="Character 6 of 6"
               />
@@ -512,7 +557,6 @@ separator need different visual treatment.
         SeparatorMarkIcon,
       } from "moduix";
       import { useId } from "react";
-      import styles from "./otp-field.module.css";
 
       export function StyledOTPField() {
         const id = useId();
@@ -520,19 +564,19 @@ separator need different visual treatment.
         return (
           <Field>
             <FieldLabel htmlFor={id}>Styled code</FieldLabel>
-            <OTPField id={id} length={6} className={styles.customRoot}>
-              <div className={styles.group}>
-                <OTPFieldInput className={styles.customInput} />
-                <OTPFieldInput className={styles.customInput} aria-label="Character 2 of 6" />
-                <OTPFieldInput className={styles.customInput} aria-label="Character 3 of 6" />
+            <OTPField id={id} length={6} className="customRoot">
+              <div className="group">
+                <OTPFieldInput className="customInput" />
+                <OTPFieldInput className="customInput" aria-label="Character 2 of 6" />
+                <OTPFieldInput className="customInput" aria-label="Character 3 of 6" />
               </div>
               <OTPFieldSeparator>
                 <SeparatorMarkIcon />
               </OTPFieldSeparator>
-              <div className={styles.group}>
-                <OTPFieldInput className={styles.customInput} aria-label="Character 4 of 6" />
-                <OTPFieldInput className={styles.customInput} aria-label="Character 5 of 6" />
-                <OTPFieldInput className={styles.customInput} aria-label="Character 6 of 6" />
+              <div className="group">
+                <OTPFieldInput className="customInput" aria-label="Character 4 of 6" />
+                <OTPFieldInput className="customInput" aria-label="Character 5 of 6" />
+                <OTPFieldInput className="customInput" aria-label="Character 6 of 6" />
               </div>
             </OTPField>
           </Field>

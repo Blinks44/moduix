@@ -8,7 +8,7 @@ import {
   OTPFieldSeparator,
   SeparatorMarkIcon,
 } from 'moduix';
-import { useId, useState, type ComponentProps } from 'react';
+import { useId, useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './otp-field.module.css';
@@ -95,19 +95,17 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function renderOTPInputs({
-  count,
-  total = count,
-  start = 0,
-  className,
-  placeholder,
-}: {
-  count: number;
+type RenderOTPInputsOptions = {
   total?: number;
   start?: number;
   className?: string;
   placeholder?: string;
-}) {
+};
+
+function renderOTPInputs(
+  count: number,
+  { total = count, start = 0, className, placeholder }: RenderOTPInputsOptions = {},
+) {
   return Array.from({ length: count }, (_, index) => {
     const position = start + index;
 
@@ -122,16 +120,13 @@ function renderOTPInputs({
   });
 }
 
-export function OTPFieldExample({
-  length = OTP_LENGTH,
-  ...props
-}: Partial<ComponentProps<typeof OTPField>> & { length?: number } = {}) {
+export function OTPFieldExample() {
   const id = useId();
 
   return (
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Verification code</FieldLabel>
-      <OTPField id={id} length={length} {...props} />
+      <OTPField id={id} length={OTP_LENGTH} />
     </Field>
   );
 }
@@ -167,13 +162,11 @@ export function OTPFieldGroupedLayoutExample() {
     <Field className={styles.field}>
       <FieldLabel htmlFor={id}>Auth code</FieldLabel>
       <OTPField id={id} length={OTP_LENGTH}>
-        <div className={styles.group}>{renderOTPInputs({ count: 3, total: OTP_LENGTH })}</div>
+        <div className={styles.group}>{renderOTPInputs(3, { total: OTP_LENGTH })}</div>
         <OTPFieldSeparator>
           <SeparatorMarkIcon />
         </OTPFieldSeparator>
-        <div className={styles.group}>
-          {renderOTPInputs({ count: 3, start: 3, total: OTP_LENGTH })}
-        </div>
+        <div className={styles.group}>{renderOTPInputs(3, { start: 3, total: OTP_LENGTH })}</div>
       </OTPField>
     </Field>
   );
@@ -189,8 +182,7 @@ export function OTPFieldPlaceholderHintsExample() {
         Placeholder hints stay visible until the active slot is focused.
       </FieldDescription>
       <OTPField id={id} length={OTP_LENGTH}>
-        {renderOTPInputs({
-          count: OTP_LENGTH,
+        {renderOTPInputs(OTP_LENGTH, {
           className: styles.placeholderInput,
           placeholder: '•',
         })}
@@ -244,9 +236,7 @@ export function OTPFieldAutoSubmitExample() {
           name="verificationCode"
           length={OTP_LENGTH}
           autoSubmit
-          onValueComplete={(value) => {
-            setCompletedValue(value);
-          }}
+          onValueComplete={setCompletedValue}
         />
       </Field>
       <span className={styles.hint}>Last completed value: {completedValue || 'empty'}</span>
@@ -274,9 +264,7 @@ export function OTPFieldCustomSanitizationExample() {
           validationType="none"
           normalizeValue={(nextValue) => nextValue.toUpperCase().replace(/[^A-Z0-9]/g, '')}
           onValueChange={setValue}
-          onValueInvalid={(nextValue) => {
-            setInvalidValue(nextValue);
-          }}
+          onValueInvalid={setInvalidValue}
         />
       </Field>
       <span className={styles.hint}>Current value: {value || 'empty'}</span>
@@ -293,8 +281,7 @@ export function OTPFieldCustomSeparatorExample() {
       <FieldLabel htmlFor={id}>Styled code</FieldLabel>
       <OTPField id={id} length={OTP_LENGTH} className={styles.customRoot}>
         <div className={styles.group}>
-          {renderOTPInputs({
-            count: 3,
+          {renderOTPInputs(3, {
             total: OTP_LENGTH,
             className: styles.customInput,
           })}
@@ -303,8 +290,7 @@ export function OTPFieldCustomSeparatorExample() {
           <SeparatorMarkIcon />
         </OTPFieldSeparator>
         <div className={styles.group}>
-          {renderOTPInputs({
-            count: 3,
+          {renderOTPInputs(3, {
             start: 3,
             total: OTP_LENGTH,
             className: styles.customInput,

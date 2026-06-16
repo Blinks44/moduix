@@ -223,6 +223,10 @@ part with `className` or override the public CSS variables.
 
 ## Local changelog
 
+- Simplified the wrapper render flow: default slot rendering is now inline in `OTPField`, and
+  `OTPFieldSeparator` applies decorative defaults through direct prop destructuring.
+- Updated docs examples to keep `Preview.Code` tabs focused on component logic and moved demo styles
+  into `Preview.CSS` tabs where needed.
 - Rewrote the local documentation to describe the shipped moduix wrapper, composition model, styling
   hooks, accessibility contract, and maintenance constraints instead of copying Base UI reference
   material.

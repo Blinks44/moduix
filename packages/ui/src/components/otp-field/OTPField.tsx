@@ -10,7 +10,13 @@ function OTPField({ children, className, length, ...props }: OTPFieldPrimitive.R
       length={length}
       {...props}
     >
-      {children ?? renderDefaultInputs(length)}
+      {children ??
+        Array.from({ length }, (_, index) => (
+          <OTPFieldInput
+            key={index}
+            aria-label={index === 0 ? undefined : `Character ${index + 1} of ${length}`}
+          />
+        ))}
     </OTPFieldPrimitive.Root>
   );
 }
@@ -25,28 +31,21 @@ function OTPFieldInput({ className, ...props }: OTPFieldPrimitive.Input.Props) {
   );
 }
 
-function OTPFieldSeparator({ className, ...props }: OTPFieldPrimitive.Separator.Props) {
-  const { 'aria-hidden': ariaHidden = true, role = 'presentation', ...separatorProps } = props;
-
+function OTPFieldSeparator({
+  className,
+  'aria-hidden': ariaHidden = true,
+  role = 'presentation',
+  ...props
+}: OTPFieldPrimitive.Separator.Props) {
   return (
     <OTPFieldPrimitive.Separator
       data-slot="otp-field-separator"
       aria-hidden={ariaHidden}
       role={role}
       className={mergeClassName(className, styles.separator)}
-      {...separatorProps}
+      {...props}
     />
   );
-}
-
-function getCharacterAriaLabel(index: number, length: number) {
-  return index === 0 ? undefined : `Character ${index + 1} of ${length}`;
-}
-
-function renderDefaultInputs(length: number) {
-  return Array.from({ length }, (_, index) => (
-    <OTPFieldInput key={index} aria-label={getCharacterAriaLabel(index, length)} />
-  ));
 }
 
 export { OTPField, OTPFieldInput, OTPFieldSeparator };
