@@ -163,7 +163,7 @@ Use `as` to pick the semantic level. Each level maps to a sensible default visua
 
       export function HeadingLevelsDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="heading-stack">
             <Heading as="h1">Heading level 1</Heading>
             <Heading as="h2">Heading level 2</Heading>
             <Heading as="h3">Heading level 3</Heading>
@@ -179,9 +179,10 @@ Use `as` to pick the semantic level. Each level maps to a sensible default visua
 
   <Preview.CSS>
     {`
-      .stack {
+      .heading-stack {
         display: flex;
-        width: min(32rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
@@ -203,7 +204,7 @@ Use `size` when the same semantic level needs different visual density across la
 
       export function HeadingSizesDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="heading-stack">
             <Heading as="h2" size="2xl">Extra-large heading</Heading>
             <Heading as="h2" size="xl">Large heading</Heading>
             <Heading as="h2" size="lg">Medium-large heading</Heading>
@@ -219,9 +220,10 @@ Use `size` when the same semantic level needs different visual density across la
 
   <Preview.CSS>
     {`
-      .stack {
+      .heading-stack {
         display: flex;
-        width: min(32rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
@@ -243,7 +245,7 @@ Use `weight` for the common emphasis presets without writing custom CSS.
 
       export function HeadingWeightsDemo() {
         return (
-          <div className={styles.stack}>
+          <div className="heading-stack">
             <Heading as="h2" weight="regular">Regular weight</Heading>
             <Heading as="h2" weight="medium">Medium weight</Heading>
             <Heading as="h2" weight="semibold">Semibold weight</Heading>
@@ -257,9 +259,10 @@ Use `weight` for the common emphasis presets without writing custom CSS.
 
   <Preview.CSS>
     {`
-      .stack {
+      .heading-stack {
         display: flex;
-        width: min(32rem, calc(100vw - var(--spacing-8)));
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
       }
@@ -282,7 +285,7 @@ contract.
 
       export function CustomHeadingDemo() {
         return (
-          <Heading as="h2" className={styles.customHeading}>
+          <Heading as="h2" className="heading-custom">
             Customized heading
           </Heading>
         );
@@ -293,7 +296,7 @@ contract.
 
   <Preview.CSS>
     {`
-      .customHeading {
+      .heading-custom {
         --heading-color: var(--color-primary);
         --heading-font-size-xl: var(--text-3xl);
         --heading-line-height-xl: var(--line-height-text-3xl);
