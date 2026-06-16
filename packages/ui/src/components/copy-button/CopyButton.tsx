@@ -4,18 +4,19 @@ import { Button, type ButtonProps } from '../button';
 import styles from './CopyButton.module.css';
 
 const DEFAULT_COPIED_DURATION = 2000;
-const DEFAULT_COPY_LABELS = {
+type CopyLabels = {
+  copy: string;
+  copied: string;
+};
+
+const DEFAULT_COPY_LABELS: CopyLabels = {
   copy: 'Copy',
   copied: 'Copied',
 };
 
-type CopyButtonProps = Omit<ButtonProps, 'onClick'> & {
+type CopyButtonProps = ButtonProps & {
   copiedDuration?: number;
-  copyLabels?: {
-    copy: string;
-    copied: string;
-  };
-  onClick?: ButtonProps['onClick'];
+  copyLabels?: CopyLabels;
   onCopy?: (value: string) => void;
   onCopyError?: (error: unknown) => void;
   value: string;
@@ -42,6 +43,14 @@ const CopyButton = forwardRef<ComponentRef<typeof Button>, CopyButtonProps>(func
   const [copied, setCopied] = useState(false);
   const [announcement, setAnnouncement] = useState('');
   const copiedTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const hasTextChildren = typeof children === 'string' || typeof children === 'number';
+  const defaultAriaLabel =
+    children == null && ariaLabelledBy == null
+      ? copied
+        ? copyLabels.copied
+        : copyLabels.copy
+      : undefined;
+  const renderedChildren = copied && hasTextChildren ? copyLabels.copied : children;
 
   useEffect(() => {
     return () => {
@@ -82,7 +91,7 @@ const CopyButton = forwardRef<ComponentRef<typeof Button>, CopyButtonProps>(func
     }
   };
 
-  const handleClick: NonNullable<ButtonProps['onClick']> = (event) => {
+  const handleClick: ButtonProps['onClick'] = (event) => {
     onClick?.(event);
 
     if (event.defaultPrevented || disabled) {
@@ -92,23 +101,11 @@ const CopyButton = forwardRef<ComponentRef<typeof Button>, CopyButtonProps>(func
     void handleCopy();
   };
 
-  const renderedChildren =
-    copied && (typeof children === 'string' || typeof children === 'number')
-      ? copyLabels.copied
-      : children;
-
   return (
     <>
       <Button
         ref={ref}
-        aria-label={
-          ariaLabel ??
-          (children == null && ariaLabelledBy == null
-            ? copied
-              ? copyLabels.copied
-              : copyLabels.copy
-            : undefined)
-        }
+        aria-label={ariaLabel ?? defaultAriaLabel}
         aria-labelledby={ariaLabelledBy}
         data-copied={copied ? '' : undefined}
         data-slot="copy-button"

@@ -1,9 +1,8 @@
-import type { ComponentProps } from 'react';
 import { CopyButton, Field, FieldDescription, FieldLabel } from 'moduix';
 import styles from './copy-button.module.css';
 
-export function CopyButtonExample(props: ComponentProps<typeof CopyButton>) {
-  return <CopyButton {...props} aria-label="Copy API token" value="maps-platform-token" />;
+export function CopyButtonExample() {
+  return <CopyButton aria-label="Copy API token" value="maps-platform-token" />;
 }
 
 export function CopyButtonWithTextExample() {

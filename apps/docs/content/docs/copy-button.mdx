@@ -204,13 +204,13 @@ Compose `CopyButton` next to the value it copies instead of baking field layout 
 
       export function ApiTokenField() {
         return (
-          <Field className={styles.field}>
+          <Field className="field">
             <FieldLabel>API token</FieldLabel>
             <FieldDescription>
               Copy the token for local development.
             </FieldDescription>
-            <div className={styles.row}>
-              <span className={styles.value}>maps-platform-token</span>
+            <div className="row">
+              <span className="value">maps-platform-token</span>
               <CopyButton
                 aria-label="Copy API token"
                 value="maps-platform-token"
@@ -288,13 +288,12 @@ copied-state selectors when the default action styling should change.
   <Preview.Code>
     {`
       import { CopyButton } from "moduix";
-      import styles from "./copy-button.module.css";
 
       export function StyledCopyButton() {
         return (
           <CopyButton
             aria-label="Copy workspace secret"
-            className={styles.customButton}
+            className="customButton"
             value="workspace-secret"
             variant="outline"
           />
@@ -306,11 +305,13 @@ copied-state selectors when the default action styling should change.
 
   <Preview.CSS>
     {`
-      .customButton[data-copied] {
-        --button-outline-bg: color-mix(in srgb, var(--color-primary) 8%, transparent);
-        --button-outline-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-        --button-outline-color: var(--color-primary);
-        --button-focus-ring-color: var(--color-primary);
+      .customButton {
+        &[data-copied] {
+          --button-outline-bg: color-mix(in srgb, var(--color-primary) 8%, transparent);
+          --button-outline-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+          --button-outline-color: var(--color-primary);
+          --button-focus-ring-color: var(--color-primary);
+        }
       }
     `}
 

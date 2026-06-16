@@ -19,16 +19,12 @@
     line-height: var(--line-height-text-sm);
   }
 
-  .stack {
-    display: grid;
-    gap: var(--spacing-3);
-    width: min(20rem, 100%);
-  }
-
-  .customButton[data-copied] {
-    --button-outline-bg: color-mix(in srgb, var(--color-primary) 8%, transparent);
-    --button-outline-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
-    --button-outline-color: var(--color-primary);
-    --button-focus-ring-color: var(--color-primary);
+  .customButton {
+    &[data-copied] {
+      --button-outline-bg: color-mix(in srgb, var(--color-primary) 8%, transparent);
+      --button-outline-border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+      --button-outline-color: var(--color-primary);
+      --button-focus-ring-color: var(--color-primary);
+    }
   }
 }
