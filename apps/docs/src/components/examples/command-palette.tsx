@@ -32,7 +32,6 @@ import {
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './command-palette.module.css';
 
 type CommandItem = {
   id: string;
@@ -44,7 +43,7 @@ type CommandItem = {
 };
 
 type CommandActionItem = CommandItem & {
-  action: () => void;
+  onSelect: () => void;
 };
 
 type CommandGroup = {
@@ -57,84 +56,106 @@ type CommandActionGroup = {
   items: CommandActionItem[];
 };
 
-const commands: CommandItem[] = [
+export const commandPaletteCustomCompositionCss = `
+  .command-palette-custom-backdrop {
+    background:
+      radial-gradient(circle at top, rgb(14 165 233 / 0.18), transparent 35%),
+      rgb(15 23 42 / 0.64);
+  }
+
+  .command-palette-custom-viewport {
+    align-items: start;
+    padding-top: 6dvh;
+  }
+
+  .command-palette-custom-popup {
+    overflow: hidden;
+    border-color: rgb(14 165 233 / 0.28);
+    box-shadow: 0 24px 64px rgb(15 23 42 / 0.24);
+    --command-palette-bg: color-mix(in oklab, var(--color-popover) 92%, white 8%);
+    --command-palette-highlight-bg: color-mix(in oklab, var(--color-primary) 14%, white);
+    --command-palette-top-bg: color-mix(in oklab, var(--color-primary) 8%, var(--color-popover));
+    --command-palette-width: 42rem;
+  }
+`;
+
+const commandGroups: CommandGroup[] = [
   {
-    id: 'new-project',
-    section: 'Create',
-    label: 'New project',
-    description: 'Start a blank workspace',
-    shortcut: 'N',
-    icon: <PlusIcon />,
+    value: 'Create',
+    items: [
+      {
+        id: 'new-project',
+        section: 'Create',
+        label: 'New project',
+        description: 'Start a blank workspace',
+        shortcut: 'N',
+        icon: <PlusIcon />,
+      },
+      {
+        id: 'invite-team',
+        section: 'Create',
+        label: 'Invite teammates',
+        description: 'Send access to the current organization',
+        shortcut: 'I',
+        icon: <PlusIcon />,
+      },
+    ],
   },
   {
-    id: 'invite-team',
-    section: 'Create',
-    label: 'Invite teammates',
-    description: 'Send access to the current organization',
-    shortcut: 'I',
-    icon: <PlusIcon />,
+    value: 'Navigate',
+    items: [
+      {
+        id: 'recent',
+        section: 'Navigate',
+        label: 'Open recent work',
+        description: 'Jump back to a recently edited file',
+        shortcut: 'R',
+        icon: <ArrowUpRightIcon />,
+      },
+      {
+        id: 'favorites',
+        section: 'Navigate',
+        label: 'View favorites',
+        description: 'Show pinned dashboards and docs',
+        shortcut: 'F',
+        icon: <StarIcon />,
+      },
+    ],
   },
   {
-    id: 'recent',
-    section: 'Navigate',
-    label: 'Open recent work',
-    description: 'Jump back to a recently edited file',
-    shortcut: 'R',
-    icon: <ArrowUpRightIcon />,
-  },
-  {
-    id: 'favorites',
-    section: 'Navigate',
-    label: 'View favorites',
-    description: 'Show pinned dashboards and docs',
-    shortcut: 'F',
-    icon: <StarIcon />,
-  },
-  {
-    id: 'notifications',
-    section: 'System',
-    label: 'Notification settings',
-    description: 'Tune email and product alerts',
-    icon: <BellIcon />,
-  },
-  {
-    id: 'release-notes',
-    section: 'System',
-    label: 'Release notes',
-    description: 'Read the latest product changes',
-    icon: <ArrowUpRightIcon />,
-  },
-  {
-    id: 'api-tokens',
-    section: 'System',
-    label: 'API tokens',
-    description: 'Manage personal access tokens',
-    icon: <StarIcon />,
-  },
-  {
-    id: 'workspace-audit-log',
-    section: 'System',
-    label: 'Workspace audit log',
-    description: 'Inspect recent security events',
-    icon: <BellIcon />,
+    value: 'System',
+    items: [
+      {
+        id: 'notifications',
+        section: 'System',
+        label: 'Notification settings',
+        description: 'Tune email and product alerts',
+        icon: <BellIcon />,
+      },
+      {
+        id: 'release-notes',
+        section: 'System',
+        label: 'Release notes',
+        description: 'Read the latest product changes',
+        icon: <ArrowUpRightIcon />,
+      },
+      {
+        id: 'api-tokens',
+        section: 'System',
+        label: 'API tokens',
+        description: 'Manage personal access tokens',
+        icon: <StarIcon />,
+      },
+      {
+        id: 'workspace-audit-log',
+        section: 'System',
+        label: 'Workspace audit log',
+        description: 'Inspect recent security events',
+        icon: <BellIcon />,
+      },
+    ],
   },
 ];
-
-function groupCommands<T extends { section: string }>(
-  items: T[],
-): Array<{ value: string; items: T[] }> {
-  return items.reduce<Array<{ value: string; items: T[] }>>((groups, item) => {
-    const existingGroup = groups.find((group) => group.value === item.section);
-
-    if (existingGroup) {
-      existingGroup.items.push(item);
-      return groups;
-    }
-
-    groups.push({ value: item.section, items: [item] });
-    return groups;
-  }, []);
-}
 
 export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))'],
@@ -295,19 +316,17 @@ export function CommandPaletteCssPlaygroundPanel({
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
+  if (!('name' in property)) {
     return { name: property[0], defaultValue: property[1], description: property[2] };
+  }
+
   return property;
 }
-
-const commandGroups: CommandGroup[] = groupCommands(commands);
 
 export function CommandPaletteExample() {
   return (
     <CommandPalette shortcut="alt+k">
-      <CommandPaletteTrigger render={<Button />}>
-        Open palette <span className={styles.triggerMeta}>Alt+K</span>
-      </CommandPaletteTrigger>
+      <CommandPaletteTrigger render={<Button />}>Open palette</CommandPaletteTrigger>
       <CommandPaletteContent<CommandItem>
         aria-label="Command palette"
         items={commandGroups}
@@ -345,10 +364,10 @@ export function CommandPaletteExample() {
           )}
         </CommandPaletteList>
         <CommandPaletteFooter>
-          <span className={styles.footerHint}>
+          <span>
             <CommandPaletteKbd>Enter</CommandPaletteKbd> run
           </span>
-          <span className={styles.footerHint}>
+          <span>
             <CommandPaletteKbd>Esc</CommandPaletteKbd> close
           </span>
         </CommandPaletteFooter>
@@ -359,109 +378,30 @@ export function CommandPaletteExample() {
 
 export function CommandPaletteActionsExample() {
   const [lastAction, setLastAction] = React.useState('No command executed yet.');
-  const actions = React.useMemo(
-    () => ({
-      openProfile: () => {
-        setLastAction('Executed: Open profile');
-      },
-      logout: () => {
-        console.log('User requested logout from command palette');
-        setLastAction('Logged: Logout');
-      },
-      openDocs: () => {
-        window.open('https://github.com/Blinks44/moduix/releases', '_blank', 'noopener,noreferrer');
-        setLastAction('Navigated: Open docs');
-      },
-      defaultAction: (label: string) => {
-        setLastAction(`Executed: ${label}`);
-      },
-    }),
-    [],
-  );
 
-  const actionItems = React.useMemo<CommandActionItem[]>(
-    () => [
-      {
-        id: 'new-project',
-        section: 'Create',
-        label: 'New project',
-        description: 'Start a blank workspace',
-        shortcut: 'N',
-        icon: <PlusIcon />,
-        action: actions.openProfile,
+  const actionGroups: CommandActionGroup[] = commandGroups.map((group) => ({
+    value: group.value,
+    items: group.items.map((item) => ({
+      ...item,
+      onSelect: () => {
+        if (item.id === 'release-notes') {
+          window.open(
+            'https://github.com/Blinks44/moduix/releases',
+            '_blank',
+            'noopener,noreferrer',
+          );
+          setLastAction('Navigated: Release notes');
+          return;
+        }
+
+        setLastAction(`Executed: ${item.label}`);
       },
-      {
-        id: 'invite-team',
-        section: 'Create',
-        label: 'Invite teammates',
-        description: 'Send access to the current organization',
-        shortcut: 'I',
-        icon: <PlusIcon />,
-        action: () => actions.defaultAction('Invite teammates'),
-      },
-      {
-        id: 'recent',
-        section: 'Navigate',
-        label: 'Open recent work',
-        description: 'Jump back to a recently edited file',
-        shortcut: 'R',
-        icon: <ArrowUpRightIcon />,
-        action: () => actions.defaultAction('Open recent work'),
-      },
-      {
-        id: 'favorites',
-        section: 'Navigate',
-        label: 'View favorites',
-        description: 'Show pinned dashboards and docs',
-        shortcut: 'F',
-        icon: <StarIcon />,
-        action: () => actions.defaultAction('View favorites'),
-      },
-      {
-        id: 'notifications',
-        section: 'System',
-        label: 'Notification settings',
-        description: 'Tune email and product alerts',
-        icon: <BellIcon />,
-        action: actions.logout,
-      },
-      {
-        id: 'release-notes',
-        section: 'System',
-        label: 'Release notes',
-        description: 'Read the latest product changes',
-        icon: <ArrowUpRightIcon />,
-        action: actions.openDocs,
-      },
-      {
-        id: 'api-tokens',
-        section: 'System',
-        label: 'API tokens',
-        description: 'Manage personal access tokens',
-        icon: <StarIcon />,
-        action: () => actions.defaultAction('API tokens'),
-      },
-      {
-        id: 'workspace-audit-log',
-        section: 'System',
-        label: 'Workspace audit log',
-        description: 'Inspect recent security events',
-        icon: <BellIcon />,
-        action: () => actions.defaultAction('Workspace audit log'),
-      },
-    ],
-    [actions],
-  );
-  const actionGroups = React.useMemo<CommandActionGroup[]>(
-    () => groupCommands(actionItems),
-    [actionItems],
-  );
+    })),
+  }));
 
   return (
     <CommandPalette shortcut="alt+k">
-      <CommandPaletteTrigger render={<Button />}>
-        Open actions palette <span className={styles.triggerMeta}>Alt+K</span>
-      </CommandPaletteTrigger>
+      <CommandPaletteTrigger render={<Button />}>Open actions palette</CommandPaletteTrigger>
       <CommandPaletteContent<CommandActionItem>
         aria-label="Command palette with actions"
         items={actionGroups}
@@ -481,7 +421,7 @@ export function CommandPaletteActionsExample() {
               <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
               <CommandPaletteCollection>
                 {(item: CommandActionItem) => (
-                  <CommandPaletteItem key={item.id} value={item} onClick={() => item.action()}>
+                  <CommandPaletteItem key={item.id} value={item} onClick={item.onSelect}>
                     <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
                     <CommandPaletteItemText>
                       <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
@@ -499,10 +439,10 @@ export function CommandPaletteActionsExample() {
           )}
         </CommandPaletteList>
         <CommandPaletteFooter>
-          <span className={styles.footerHint}>
+          <span>
             <CommandPaletteKbd>Enter</CommandPaletteKbd> run
           </span>
-          <span className={styles.footerHint}>{lastAction}</span>
+          <span>{lastAction}</span>
         </CommandPaletteFooter>
       </CommandPaletteContent>
     </CommandPalette>
@@ -511,64 +451,68 @@ export function CommandPaletteActionsExample() {
 
 export function CommandPaletteCustomCompositionExample() {
   return (
-    <CommandPalette shortcut="alt+k">
-      <CommandPaletteTrigger render={<Button />}>
-        Open custom palette <span className={styles.triggerMeta}>Alt+K</span>
-      </CommandPaletteTrigger>
-      <CommandPalettePortal>
-        <CommandPaletteBackdrop className={styles.customBackdrop} />
-        <CommandPaletteViewport className={styles.customViewport}>
-          <CommandPalettePopup className={styles.customPopup} aria-label="Custom command palette">
-            <Autocomplete
-              autoHighlight="always"
-              inline
-              items={commandGroups}
-              keepHighlight
-              itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
+    <>
+      <style>{commandPaletteCustomCompositionCss}</style>
+      <CommandPalette shortcut="alt+k">
+        <CommandPaletteTrigger render={<Button />}>Open custom palette</CommandPaletteTrigger>
+        <CommandPalettePortal>
+          <CommandPaletteBackdrop className="command-palette-custom-backdrop" />
+          <CommandPaletteViewport className="command-palette-custom-viewport">
+            <CommandPalettePopup
+              className="command-palette-custom-popup"
+              aria-label="Custom command palette"
             >
-              <CommandPaletteInputWrap>
-                <CommandPaletteInput
-                  aria-label="Search commands"
-                  placeholder="Jump to places, pages, and settings..."
-                />
-                <CommandPaletteClear aria-label="Clear search" />
-              </CommandPaletteInputWrap>
-              <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-              <CommandPaletteList>
-                {(group: CommandGroup) => (
-                  <CommandPaletteGroup key={group.value} items={group.items}>
-                    <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
-                    <CommandPaletteCollection>
-                      {(item: CommandItem) => (
-                        <CommandPaletteItem key={item.id} value={item}>
-                          <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                          <CommandPaletteItemText>
-                            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                            <CommandPaletteItemDescription>
-                              {item.description}
-                            </CommandPaletteItemDescription>
-                          </CommandPaletteItemText>
-                          {item.shortcut ? (
-                            <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                          ) : null}
-                        </CommandPaletteItem>
-                      )}
-                    </CommandPaletteCollection>
-                  </CommandPaletteGroup>
-                )}
-              </CommandPaletteList>
-              <CommandPaletteFooter>
-                <span className={styles.footerHint}>
-                  <CommandPaletteKbd>Enter</CommandPaletteKbd> run
-                </span>
-                <span className={styles.footerHint}>
-                  <CommandPaletteKbd>Esc</CommandPaletteKbd> close
-                </span>
-              </CommandPaletteFooter>
-            </Autocomplete>
-          </CommandPalettePopup>
-        </CommandPaletteViewport>
-      </CommandPalettePortal>
-    </CommandPalette>
+              <Autocomplete
+                autoHighlight="always"
+                inline
+                items={commandGroups}
+                keepHighlight
+                itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
+              >
+                <CommandPaletteInputWrap>
+                  <CommandPaletteInput
+                    aria-label="Search commands"
+                    placeholder="Jump to places, pages, and settings..."
+                  />
+                  <CommandPaletteClear aria-label="Clear search" />
+                </CommandPaletteInputWrap>
+                <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
+                <CommandPaletteList>
+                  {(group: CommandGroup) => (
+                    <CommandPaletteGroup key={group.value} items={group.items}>
+                      <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
+                      <CommandPaletteCollection>
+                        {(item: CommandItem) => (
+                          <CommandPaletteItem key={item.id} value={item}>
+                            <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                            <CommandPaletteItemText>
+                              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                              <CommandPaletteItemDescription>
+                                {item.description}
+                              </CommandPaletteItemDescription>
+                            </CommandPaletteItemText>
+                            {item.shortcut ? (
+                              <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
+                            ) : null}
+                          </CommandPaletteItem>
+                        )}
+                      </CommandPaletteCollection>
+                    </CommandPaletteGroup>
+                  )}
+                </CommandPaletteList>
+                <CommandPaletteFooter>
+                  <span>
+                    <CommandPaletteKbd>Enter</CommandPaletteKbd> run
+                  </span>
+                  <span>
+                    <CommandPaletteKbd>Esc</CommandPaletteKbd> close
+                  </span>
+                </CommandPaletteFooter>
+              </Autocomplete>
+            </CommandPalettePopup>
+          </CommandPaletteViewport>
+        </CommandPalettePortal>
+      </CommandPalette>
+    </>
   );
 }

@@ -6,6 +6,7 @@ icon: Component
 
 import {
   CommandPaletteActionsExample,
+  commandPaletteCustomCompositionCss,
   CommandPaletteCustomCompositionExample,
   CommandPaletteCssPropertiesPanel,
   CommandPaletteExample,
@@ -54,9 +55,7 @@ In these demos we use `shortcut="alt+k"` to avoid common browser conflicts. The 
       export function CommandPaletteDemo() {
         return (
           <CommandPalette shortcut="alt+k">
-            <CommandPaletteTrigger render={<Button />}>
-              Open palette
-            </CommandPaletteTrigger>
+            <CommandPaletteTrigger render={<Button />}>Open palette</CommandPaletteTrigger>
             <CommandPaletteContent
               aria-label="Command palette"
               items={commandGroups}
@@ -266,7 +265,6 @@ flow.
   <Preview.Code>
     {`
       import {
-        ArrowUpRightIcon,
         Button,
         CommandPalette,
         CommandPaletteClear,
@@ -287,82 +285,39 @@ flow.
         CommandPaletteKbd,
         CommandPaletteList,
         CommandPaletteTrigger,
-        PlusIcon,
       } from "moduix";
-      import { useMemo, useState } from "react";
-
-      type CommandItem = {
-        id: string;
-        section: string;
-        label: string;
-        description: string;
-        action: () => void;
-        icon: React.ReactNode;
-      };
-
-      type CommandGroup = {
-        value: string;
-        items: CommandItem[];
-      };
-
-      function groupCommands(items: CommandItem[]): CommandGroup[] {
-        return items.reduce<CommandGroup[]>((groups, item) => {
-          const group = groups.find((entry) => entry.value === item.section);
-
-          if (group) {
-            group.items.push(item);
-            return groups;
-          }
-
-          groups.push({ value: item.section, items: [item] });
-          return groups;
-        }, []);
-      }
+      import { useState } from "react";
 
       export function CommandPaletteActionsDemo() {
         const [lastAction, setLastAction] = useState("No command executed yet.");
-
-        const commands = useMemo<CommandItem[]>(
-          () => [
-            {
-              id: "new-project",
-              section: "Create",
-              label: "New project",
-              description: "Start a blank workspace",
-              icon: <PlusIcon />,
-              action: () => setLastAction("Executed: New project"),
-            },
-            {
-              id: "release-notes",
-              section: "Navigate",
-              label: "Release notes",
-              description: "Read the latest product changes",
-              icon: <ArrowUpRightIcon />,
-              action: () => {
+        const actionGroups = commandGroups.map((group) => ({
+          value: group.value,
+          items: group.items.map((item) => ({
+            ...item,
+            onSelect: () => {
+              if (item.id === "release-notes") {
                 window.open("https://github.com/Blinks44/moduix/releases", "_blank", "noopener,noreferrer");
                 setLastAction("Navigated: Release notes");
-              },
-            },
-          ],
-          [],
-        );
+                return;
+              }
 
-        const commandGroups = useMemo(() => groupCommands(commands), [commands]);
+              setLastAction(\`Executed: \${item.label}\`);
+            },
+          })),
+        }));
 
         return (
           <CommandPalette shortcut="alt+k">
-            <CommandPaletteTrigger render={<Button />}>
-              Open actions palette
-            </CommandPaletteTrigger>
+            <CommandPaletteTrigger render={<Button />}>Open actions palette</CommandPaletteTrigger>
             <CommandPaletteContent
               aria-label="Command palette with actions"
-              items={commandGroups}
+              items={actionGroups}
               itemToStringValue={(item) => \`\${item.label} \${item.description} \${item.section}\`}
             >
               <CommandPaletteInputWrap>
                 <CommandPaletteInput
                   aria-label="Search commands"
-                  placeholder="Search and run..."
+                  placeholder="Search and run commands..."
                 />
                 <CommandPaletteClear aria-label="Clear search" />
               </CommandPaletteInputWrap>
@@ -373,12 +328,13 @@ flow.
                     <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
                     <CommandPaletteCollection>
                       {(item) => (
-                        <CommandPaletteItem key={item.id} value={item} onClick={item.action}>
+                        <CommandPaletteItem key={item.id} value={item} onClick={item.onSelect}>
                           <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
                           <CommandPaletteItemText>
                             <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
                             <CommandPaletteItemDescription>{item.description}</CommandPaletteItemDescription>
                           </CommandPaletteItemText>
+                          {item.shortcut ? <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta> : null}
                         </CommandPaletteItem>
                       )}
                     </CommandPaletteCollection>
@@ -398,6 +354,39 @@ flow.
     `}
 
   </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const commandGroups = [
+        {
+          value: "Create",
+          items: [
+            {
+              id: "new-project",
+              section: "Create",
+              label: "New project",
+              description: "Start a blank workspace",
+              shortcut: "N",
+              icon: <PlusIcon />,
+            },
+          ],
+        },
+        {
+          value: "System",
+          items: [
+            {
+              id: "release-notes",
+              section: "System",
+              label: "Release notes",
+              description: "Read the latest product changes",
+              icon: <ArrowUpRightIcon />,
+            },
+          ],
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Controlled Open State
@@ -478,13 +467,11 @@ useful.
       export function CustomCompositionCommandPaletteDemo() {
         return (
           <CommandPalette shortcut="alt+k">
-            <CommandPaletteTrigger render={<Button />}>
-              Open custom palette
-            </CommandPaletteTrigger>
+            <CommandPaletteTrigger render={<Button />}>Open custom palette</CommandPaletteTrigger>
             <CommandPalettePortal>
-              <CommandPaletteBackdrop className={styles.customBackdrop} />
-              <CommandPaletteViewport className={styles.customViewport}>
-                <CommandPalettePopup className={styles.customPopup} aria-label="Custom command palette">
+              <CommandPaletteBackdrop className="command-palette-custom-backdrop" />
+              <CommandPaletteViewport className="command-palette-custom-viewport">
+                <CommandPalettePopup className="command-palette-custom-popup" aria-label="Custom command palette">
                   <Autocomplete
                     autoHighlight="always"
                     inline
@@ -538,31 +525,28 @@ useful.
 
   </Preview.Code>
 
-  <Preview.CSS>
+  <Preview.Data>
     {`
-      .customBackdrop {
-        background:
-          radial-gradient(circle at top, rgb(14 165 233 / 0.18), transparent 35%),
-          rgb(15 23 42 / 0.64);
-      }
-
-      .customViewport {
-        align-items: start;
-        padding-top: 6dvh;
-      }
-
-      .customPopup {
-        overflow: hidden;
-        border-color: rgb(14 165 233 / 0.28);
-        box-shadow: 0 24px 64px rgb(15 23 42 / 0.24);
-        --command-palette-bg: color-mix(in oklab, var(--color-popover) 92%, white 8%);
-        --command-palette-highlight-bg: color-mix(in oklab, var(--color-primary) 14%, white);
-        --command-palette-top-bg: color-mix(in oklab, var(--color-primary) 8%, var(--color-popover));
-        --command-palette-width: 42rem;
-      }
+      const commandGroups = [
+        {
+          value: "Create",
+          items: [
+            {
+              id: "new-project",
+              section: "Create",
+              label: "New project",
+              description: "Start a blank workspace",
+              shortcut: "N",
+              icon: <PlusIcon />,
+            },
+          ],
+        },
+      ];
     `}
 
-  </Preview.CSS>
+  </Preview.Data>
+
+  <Preview.CSS>{commandPaletteCustomCompositionCss}</Preview.CSS>
 </Preview>
 
 ## Styling

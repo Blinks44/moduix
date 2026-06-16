@@ -629,6 +629,7 @@ ancestor.
 
 ## Local changelog
 
+- 2026-06-16: Simplified `CommandPaletteContent` to render a single autocomplete root path with no public API or behavior change.
 - 2026-06-10: Added phase-specific backdrop and popup motion tokens so the command palette enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables without changing the default lifted animation.
 - Removed dead `isGroupedItems` guard in `CommandPaletteContent` — both branches rendered identical
   JSX; the autocomplete root accepts both flat and grouped item arrays natively.

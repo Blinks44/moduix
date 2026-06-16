@@ -9,10 +9,30 @@ import styles from './CommandPalette.module.css';
 
 const createCommandPaletteHandle = DialogPrimitive.createHandle;
 
-const CommandPaletteContext = createContext<{
+type CommandPaletteContextValue = {
   handle: DialogPrimitive.Handle<unknown>;
   modal: DialogPrimitive.Root.Props['modal'];
-} | null>(null);
+};
+
+type CommandPaletteProps<Payload> = DialogPrimitive.Root.Props<Payload> & {
+  shortcut?: false | string;
+  shortcutTarget?: Document | HTMLElement | null;
+};
+
+type CommandPaletteAutocompleteProps<ItemValue> = AutocompletePrimitive.Root.Props<ItemValue>;
+
+type CommandPaletteContentProps<ItemValue> = DialogPrimitive.Popup.Props & {
+  items?: CommandPaletteAutocompleteProps<ItemValue>['items'];
+  itemToStringValue?: CommandPaletteAutocompleteProps<ItemValue>['itemToStringValue'];
+  value?: CommandPaletteAutocompleteProps<ItemValue>['value'];
+  defaultValue?: CommandPaletteAutocompleteProps<ItemValue>['defaultValue'];
+  onValueChange?: CommandPaletteAutocompleteProps<ItemValue>['onValueChange'];
+  filter?: CommandPaletteAutocompleteProps<ItemValue>['filter'];
+  filteredItems?: CommandPaletteAutocompleteProps<ItemValue>['filteredItems'];
+  limit?: CommandPaletteAutocompleteProps<ItemValue>['limit'];
+};
+
+const CommandPaletteContext = createContext<CommandPaletteContextValue | null>(null);
 
 function useCommandPaletteContext(componentName: string) {
   const context = useContext(CommandPaletteContext);
@@ -80,15 +100,8 @@ function isEditableTarget(target: EventTarget | null) {
   );
 }
 
-// AutocompletePrimitive.Root has two overloads: one for grouped items and one for flat items.
-// TypeScript requires a type guard to resolve the correct overload signature; both branches
-// inside CommandPaletteContent are functionally identical at runtime.
-function isGroupedItems<ItemValue>(
-  items: readonly ItemValue[] | readonly { items: readonly unknown[] }[] | undefined,
-): items is readonly { items: readonly unknown[] }[] {
-  return Boolean(
-    items?.[0] && typeof items[0] === 'object' && items[0] !== null && 'items' in items[0],
-  );
+function CommandPaletteAutocomplete(props: AutocompletePrimitive.Root.Props<any>) {
+  return <AutocompletePrimitive.Root {...props} />;
 }
 
 function CommandPalette<Payload = unknown>({
@@ -98,10 +111,7 @@ function CommandPalette<Payload = unknown>({
   handle,
   children,
   ...props
-}: DialogPrimitive.Root.Props<Payload> & {
-  shortcut?: false | string;
-  shortcutTarget?: Document | HTMLElement | null;
-}) {
+}: CommandPaletteProps<Payload>) {
   const fallbackHandle = useMemo(() => createCommandPaletteHandle<Payload>(), []);
   const resolvedHandle = handle ?? fallbackHandle;
 
@@ -206,23 +216,15 @@ function CommandPaletteContent<ItemValue = unknown>({
   filteredItems,
   limit,
   ...props
-}: DialogPrimitive.Popup.Props & {
-  items?: AutocompletePrimitive.Root.Props<ItemValue>['items'];
-  itemToStringValue?: AutocompletePrimitive.Root.Props<ItemValue>['itemToStringValue'];
-  value?: AutocompletePrimitive.Root.Props<ItemValue>['value'];
-  defaultValue?: AutocompletePrimitive.Root.Props<ItemValue>['defaultValue'];
-  onValueChange?: AutocompletePrimitive.Root.Props<ItemValue>['onValueChange'];
-  filter?: AutocompletePrimitive.Root.Props<ItemValue>['filter'];
-  filteredItems?: AutocompletePrimitive.Root.Props<ItemValue>['filteredItems'];
-  limit?: AutocompletePrimitive.Root.Props<ItemValue>['limit'];
-}) {
+}: CommandPaletteContentProps<ItemValue>) {
   const { modal } = useCommandPaletteContext('CommandPaletteContent');
-  const autocompleteProps = {
+  const autocompleteProps: CommandPaletteAutocompleteProps<ItemValue> = {
     autoHighlight: 'always' as const,
     defaultValue,
     filter,
     filteredItems,
     inline: true,
+    items,
     itemToStringValue,
     keepHighlight: true,
     limit,
@@ -233,18 +235,10 @@ function CommandPaletteContent<ItemValue = unknown>({
 
   return (
     <CommandPalettePortal>
-      {modal === true ? <CommandPaletteBackdrop /> : null}
-      <CommandPaletteViewport className={modal === true ? undefined : styles.viewportNonModal}>
+      {modal ? <CommandPaletteBackdrop /> : null}
+      <CommandPaletteViewport className={modal ? undefined : styles.viewportNonModal}>
         <CommandPalettePopup className={className} {...props}>
-          {isGroupedItems(items) ? (
-            <AutocompletePrimitive.Root {...autocompleteProps} items={items}>
-              {children}
-            </AutocompletePrimitive.Root>
-          ) : (
-            <AutocompletePrimitive.Root {...autocompleteProps} items={items}>
-              {children}
-            </AutocompletePrimitive.Root>
-          )}
+          <CommandPaletteAutocomplete {...autocompleteProps}>{children}</CommandPaletteAutocomplete>
         </CommandPalettePopup>
       </CommandPaletteViewport>
     </CommandPalettePortal>

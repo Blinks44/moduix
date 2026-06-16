@@ -185,9 +185,11 @@
       background-color var(--transition-default),
       color var(--transition-default);
 
-    &:hover {
-      background-color: var(--command-palette-clear-bg-hover, var(--color-accent));
-      color: var(--command-palette-color, var(--color-popover-foreground));
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--command-palette-clear-bg-hover, var(--color-accent));
+        color: var(--command-palette-color, var(--color-popover-foreground));
+      }
     }
 
     &:focus-visible {
@@ -290,15 +292,15 @@
 
     &[data-highlighted] {
       color: var(--command-palette-highlight-color, var(--color-foreground));
-    }
 
-    &[data-highlighted]::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      inset: 0;
-      border-radius: inherit;
-      background-color: var(--command-palette-highlight-bg, var(--color-accent));
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        border-radius: inherit;
+        background-color: var(--command-palette-highlight-bg, var(--color-accent));
+      }
     }
 
     &[data-disabled] {
@@ -329,14 +331,14 @@
     display: grid;
     min-width: 0;
     gap: var(--command-palette-item-text-gap, 0.125rem);
-  }
 
-  .itemLabel,
-  .itemDescription {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    & > .itemLabel,
+    & > .itemDescription {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .itemLabel {
