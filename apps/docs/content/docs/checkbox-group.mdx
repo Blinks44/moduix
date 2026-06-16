@@ -13,7 +13,7 @@ import {
   CheckboxGroupSizesExample,
   ControlledCheckboxGroupExample,
   CustomIconCheckboxGroupExample,
-  CustomCompositionCheckboxGroupExample,
+  CustomStylingCheckboxGroupExample,
   DisabledCheckboxGroupExample,
   ParentCheckboxGroupExample,
   ReadOnlyItemCheckboxGroupExample,
@@ -271,13 +271,11 @@ Control `value` from React state when the selected options need to coordinate wi
         CheckboxGroupList,
       } from "moduix";
       import { useState } from "react";
-      import styles from "./checkbox-group-demo.module.css";
-
       export function ControlledCheckboxGroupDemo() {
         const [value, setValue] = useState(["push"] as string[]);
 
         return (
-          <div className={styles.wrapper}>
+          <div className="wrapper">
             <CheckboxGroup
               value={value}
               onValueChange={setValue}
@@ -293,7 +291,7 @@ Control `value` from React state when the selected options need to coordinate wi
                 ))}
               </CheckboxGroupList>
             </CheckboxGroup>
-            <span className={styles.hint}>Current value: {value.join(", ") || "none"}</span>
+            <span className="hint">Current value: {value.join(", ") || "none"}</span>
           </div>
         );
       }
@@ -517,15 +515,13 @@ elements.
     {`
       import { CheckboxGroup, CheckboxGroupItemControl } from "moduix";
       import { useId } from "react";
-      import styles from "./checkbox-group-demo.module.css";
-
       export function CheckboxGroupSiblingLabelDemo() {
         const id = useId();
         const labelId = useId();
 
         return (
-          <div className={styles.siblingRow}>
-            <div id={labelId} className={styles.hint}>
+          <div className="siblingRow">
+            <div id={labelId} className="hint">
               Channels
             </div>
             <CheckboxGroup defaultValue={["email"]} aria-labelledby={labelId}>
@@ -537,7 +533,7 @@ elements.
                 name="sibling-notifications"
               />
             </CheckboxGroup>
-            <label htmlFor={id} className={styles.label}>
+            <label htmlFor={id} className="label">
               Email updates
             </label>
           </div>
@@ -591,12 +587,10 @@ Wrap the group in `Field` and `Fieldset` when it represents one named form field
         Fieldset,
         FieldsetLegend,
       } from "moduix";
-      import styles from "./checkbox-group-demo.module.css";
-
       export function CheckboxGroupFormIntegrationDemo() {
         return (
           <Field name="notificationChannels">
-            <Fieldset render={<CheckboxGroup defaultValue={["email"]} className={styles.formGroup} />}>
+            <Fieldset render={<CheckboxGroup defaultValue={["email"]} className="formGroup" />}>
               <FieldsetLegend>Notification Channels</FieldsetLegend>
               {options.map((option) => (
                 <FieldItem key={option.value}>
@@ -643,7 +637,7 @@ Pass `className` to the group, label, list, item, control, and item label slots 
 styling needs to change without changing the rendered structure.
 
 <Preview>
-  <CustomCompositionCheckboxGroupExample />
+  <CustomStylingCheckboxGroupExample />
 
   <Preview.Code>
     {`
@@ -656,29 +650,27 @@ styling needs to change without changing the rendered structure.
         CheckboxGroupList,
         CheckboxIndicator,
       } from "moduix";
-      import styles from "./checkbox-group-demo.module.css";
-
       export function CustomStyledCheckboxGroupDemo() {
         return (
           <CheckboxGroup
             defaultValue={["email"]}
-            className={styles.customGroup}
+            className="customGroup"
             aria-labelledby="styled-channels"
           >
-            <CheckboxGroupLabel id="styled-channels" className={styles.customLabel}>
+            <CheckboxGroupLabel id="styled-channels" className="customLabel">
               Styled Channels
             </CheckboxGroupLabel>
-            <CheckboxGroupList className={styles.customList}>
+            <CheckboxGroupList className="customList">
               {options.map((option) => (
-                <CheckboxGroupItem key={option.value} className={styles.customItem}>
+                <CheckboxGroupItem key={option.value} className="customItem">
                   <CheckboxGroupItemControl
                     value={option.value}
                     name="styled-notifications"
-                    className={styles.customControl}
+                    className="customControl"
                   >
-                    <CheckboxIndicator className={styles.customIndicator} />
+                    <CheckboxIndicator className="customIndicator" />
                   </CheckboxGroupItemControl>
-                  <CheckboxGroupItemLabel className={styles.customItemLabel}>
+                  <CheckboxGroupItemLabel className="customItemLabel">
                     {option.label}
                   </CheckboxGroupItemLabel>
                 </CheckboxGroupItem>
@@ -706,10 +698,10 @@ styling needs to change without changing the rendered structure.
 
       .customControl {
         border-color: var(--color-primary);
-      }
 
-      .customControl[data-checked] {
-        background-color: var(--color-primary);
+        &[data-checked] {
+          background-color: var(--color-primary);
+        }
       }
 
       .customIndicator {
@@ -798,8 +790,6 @@ Drop to lower-level checkbox parts when the row markup itself needs to change.
         CheckboxIndicator,
       } from "moduix";
       import type { ComponentProps } from "react";
-      import styles from "./checkbox-group-demo.module.css";
-
       function CustomPlusIcon(props: ComponentProps<"svg">) {
         return (
           <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
@@ -824,7 +814,7 @@ Drop to lower-level checkbox parts when the row markup itself needs to change.
                 <CheckboxGroupItem key={option.value}>
                   <CheckboxGroupItemControl value={option.value} name="custom-indicators">
                     <CheckboxIndicator>
-                      <CustomPlusIcon className={styles.customIndicatorIcon} />
+                      <CustomPlusIcon className="customIndicatorIcon" />
                     </CheckboxIndicator>
                   </CheckboxGroupItemControl>
                   <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>

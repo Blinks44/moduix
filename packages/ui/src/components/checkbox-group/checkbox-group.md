@@ -274,6 +274,8 @@ spacing on `CheckboxGroupItem`/`CheckboxGroupList`, control shape/colors on
 
 ## Local changelog
 
+- Clarified the recommended split between styling-only customization on the default wrapper parts and
+  lower-level composition when the row structure itself needs to change.
 - Rewrote the local documentation to describe the actual moduix `CheckboxGroup` wrapper, exported
   parts, styling contract, accessibility guidance, and implementation constraints instead of the
   upstream Base UI documentation.

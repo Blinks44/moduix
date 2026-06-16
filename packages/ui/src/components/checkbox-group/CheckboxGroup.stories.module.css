@@ -37,10 +37,10 @@
 
   .customControl {
     border-color: var(--color-primary);
-  }
 
-  .customControl[data-checked] {
-    background-color: var(--color-primary);
+    &[data-checked] {
+      background-color: var(--color-primary);
+    }
   }
 
   .customIndicator {

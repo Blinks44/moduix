@@ -27,7 +27,7 @@ function CheckboxGroupList({ className, ...props }: ComponentProps<'div'>) {
   );
 }
 
-function CheckboxGroupItem({ className, ...props }: ComponentProps<typeof CheckboxField>) {
+function CheckboxGroupItem({ className, ...props }: ComponentProps<'label'>) {
   return (
     <CheckboxField
       data-slot="checkbox-group-item"
@@ -41,7 +41,7 @@ function CheckboxGroupItemControl(props: ComponentProps<typeof Checkbox>) {
   return <Checkbox data-slot="checkbox-group-item-control" {...props} />;
 }
 
-function CheckboxGroupItemLabel({ className, ...props }: ComponentProps<typeof CheckboxLabel>) {
+function CheckboxGroupItemLabel({ className, ...props }: ComponentProps<'span'>) {
   return (
     <CheckboxLabel
       data-slot="checkbox-group-item-label"

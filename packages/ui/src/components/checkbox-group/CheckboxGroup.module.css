@@ -7,7 +7,7 @@
   }
 
   .label {
-    color: var(--checkbox-group-label-color, var(--checkbox-group-color, var(--color-foreground)));
+    color: var(--checkbox-group-label-color, currentColor);
     font-size: var(--checkbox-group-label-font-size, var(--text-sm));
     font-weight: var(--checkbox-group-label-font-weight, var(--weight-semibold));
     line-height: var(--checkbox-group-label-line-height, var(--line-height-text-sm));
@@ -25,10 +25,7 @@
   }
 
   .itemLabel {
-    color: var(
-      --checkbox-group-item-label-color,
-      var(--checkbox-label-color, var(--color-foreground))
-    );
+    color: var(--checkbox-group-item-label-color, var(--checkbox-label-color, currentColor));
     font-size: var(
       --checkbox-group-item-label-font-size,
       var(--checkbox-label-font-size, var(--text-sm))

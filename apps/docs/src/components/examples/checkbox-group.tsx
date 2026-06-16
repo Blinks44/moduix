@@ -19,7 +19,6 @@ import {
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './checkbox-group.module.css';
 
 const notificationOptions = [
   { value: 'email', label: 'Email updates' },
@@ -196,7 +195,7 @@ export function CustomIconCheckboxGroupExample() {
           <CheckboxGroupItem key={option.value}>
             <CheckboxGroupItemControl value={option.value} name="custom-indicators">
               <CheckboxIndicator>
-                <CustomPlusIcon className={styles.customIndicatorIcon} />
+                <CustomPlusIcon className="customIndicatorIcon" />
               </CheckboxIndicator>
             </CheckboxGroupItemControl>
             <CheckboxGroupItemLabel>{option.label}</CheckboxGroupItemLabel>
@@ -230,7 +229,7 @@ export function ControlledCheckboxGroupExample() {
   const [value, setValue] = React.useState(['push']);
 
   return (
-    <div className={styles.wrapper}>
+    <div className="wrapper">
       <CheckboxGroup value={value} onValueChange={setValue} aria-labelledby={labelId}>
         <CheckboxGroupLabel id={labelId}>Active Alerts</CheckboxGroupLabel>
         <CheckboxGroupList>
@@ -242,7 +241,7 @@ export function ControlledCheckboxGroupExample() {
           ))}
         </CheckboxGroupList>
       </CheckboxGroup>
-      <span className={styles.hint}>Current value: {value.join(', ') || 'none'}</span>
+      <span className="hint">Current value: {value.join(', ') || 'none'}</span>
     </div>
   );
 }
@@ -316,29 +315,25 @@ export function ParentCheckboxGroupExample() {
   );
 }
 
-export function CustomCompositionCheckboxGroupExample() {
+export function CustomStylingCheckboxGroupExample() {
   const labelId = React.useId();
 
   return (
-    <CheckboxGroup
-      defaultValue={['email']}
-      className={styles.customGroup}
-      aria-labelledby={labelId}
-    >
-      <CheckboxGroupLabel id={labelId} className={styles.customLabel}>
+    <CheckboxGroup defaultValue={['email']} className="customGroup" aria-labelledby={labelId}>
+      <CheckboxGroupLabel id={labelId} className="customLabel">
         Styled Channels
       </CheckboxGroupLabel>
-      <CheckboxGroupList className={styles.customList}>
+      <CheckboxGroupList className="customList">
         {notificationOptions.map((option) => (
-          <CheckboxGroupItem key={option.value} className={styles.customItem}>
+          <CheckboxGroupItem key={option.value} className="customItem">
             <CheckboxGroupItemControl
               value={option.value}
               name="styled-notifications"
-              className={styles.customControl}
+              className="customControl"
             >
-              <CheckboxIndicator className={styles.customIndicator} />
+              <CheckboxIndicator className="customIndicator" />
             </CheckboxGroupItemControl>
-            <CheckboxGroupItemLabel className={styles.customItemLabel}>
+            <CheckboxGroupItemLabel className="customItemLabel">
               {option.label}
             </CheckboxGroupItemLabel>
           </CheckboxGroupItem>
@@ -371,8 +366,8 @@ export function CheckboxGroupSiblingLabelNativeButtonExample() {
   const labelId = React.useId();
 
   return (
-    <div className={styles.siblingRow}>
-      <div id={labelId} className={styles.hint}>
+    <div className="siblingRow">
+      <div id={labelId} className="hint">
         Channels
       </div>
       <CheckboxGroup defaultValue={['email']} aria-labelledby={labelId}>
@@ -384,7 +379,7 @@ export function CheckboxGroupSiblingLabelNativeButtonExample() {
           name="sibling-notifications"
         />
       </CheckboxGroup>
-      <label htmlFor={id} className={styles.label}>
+      <label htmlFor={id} className="label">
         Email updates
       </label>
     </div>
@@ -394,7 +389,7 @@ export function CheckboxGroupSiblingLabelNativeButtonExample() {
 export function CheckboxGroupFormIntegrationExample() {
   return (
     <Field name="notificationChannels">
-      <Fieldset render={<CheckboxGroup defaultValue={['email']} className={styles.formGroup} />}>
+      <Fieldset render={<CheckboxGroup defaultValue={['email']} className="formGroup" />}>
         <FieldsetLegend>Notification Channels</FieldsetLegend>
         {notificationOptions.map((option) => (
           <FieldItem key={option.value}>
