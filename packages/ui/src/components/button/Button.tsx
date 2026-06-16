@@ -3,7 +3,7 @@ import { forwardRef, type ComponentRef } from 'react';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Button.module.css';
 
-type ButtonVariant =
+export type ButtonVariant =
   | 'default'
   | 'outline'
   | 'secondary'
@@ -11,8 +11,8 @@ type ButtonVariant =
   | 'destructive-outline'
   | 'ghost'
   | 'link';
-type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
-type ButtonProps = ButtonPrimitive.Props & {
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
+export type ButtonProps = ButtonPrimitive.Props & {
   variant?: ButtonVariant;
   size?: ButtonSize;
 };
@@ -34,4 +34,3 @@ const Button = forwardRef<ComponentRef<typeof ButtonPrimitive>, ButtonProps>(fun
 });
 
 export { Button };
-export type { ButtonProps, ButtonSize, ButtonVariant };

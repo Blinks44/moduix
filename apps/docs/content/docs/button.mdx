@@ -13,7 +13,7 @@ import {
   ButtonLoadingExample,
   ButtonSizesExample,
   ButtonVariantsExample,
-  CustomCompositionButtonExample,
+  CustomStylingButtonExample,
 } from '@/components/examples/button';
 
 ## API Reference
@@ -154,7 +154,7 @@ For navigation-first actions, render an anchor or router link instead of keeping
 
       export function ButtonVariantsDemo() {
         return (
-          <div>
+          <>
             <Button>Default</Button>
             <Button variant="outline">Outline</Button>
             <Button variant="secondary">Secondary</Button>
@@ -162,7 +162,7 @@ For navigation-first actions, render an anchor or router link instead of keeping
             <Button variant="destructive-outline">Destructive Outline</Button>
             <Button variant="ghost">Ghost</Button>
             <Button variant="link">Link</Button>
-          </div>
+          </>
         );
       }
     `}
@@ -181,7 +181,7 @@ For navigation-first actions, render an anchor or router link instead of keeping
 
       export function ButtonSizesDemo() {
         return (
-          <div>
+          <>
             <Button size="xs">Extra-small</Button>
             <Button size="sm">Small</Button>
             <Button size="md">Medium</Button>
@@ -196,7 +196,7 @@ For navigation-first actions, render an anchor or router link instead of keeping
             <Button size="icon-lg" variant="outline" aria-label="Large favorite">
               <StarIcon />
             </Button>
-          </div>
+          </>
         );
       }
     `}
@@ -215,7 +215,7 @@ For navigation-first actions, render an anchor or router link instead of keeping
 
       export function ButtonIconsDemo() {
         return (
-          <div>
+          <>
             <Button>
               <PlusIcon />
               Create Item
@@ -227,7 +227,7 @@ For navigation-first actions, render an anchor or router link instead of keeping
               Open Docs
               <ArrowUpRightIcon />
             </Button>
-          </div>
+          </>
         );
       }
     `}
@@ -246,12 +246,12 @@ For navigation-first actions, render an anchor or router link instead of keeping
 
       export function ButtonDisabledDemo() {
         return (
-          <div>
+          <>
             <Button disabled>Disabled</Button>
             <Button disabled focusableWhenDisabled variant="outline">
               Focusable Disabled
             </Button>
-          </div>
+          </>
         );
       }
     `}
@@ -328,13 +328,13 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
 ### Custom Styling
 
 <Preview>
-  <CustomCompositionButtonExample />
+  <CustomStylingButtonExample />
 
   <Preview.Code>
     {`
       import { Button, Spinner } from "moduix";
 
-      export function CustomCompositionButtonDemo() {
+      export function CustomStylingButtonDemo() {
         return (
           <Button className="customButton" disabled focusableWhenDisabled aria-busy>
             <Spinner decorative size="sm" className="customSpinner" />

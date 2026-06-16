@@ -1,9 +1,7 @@
-import type { ComponentProps } from 'react';
 import { ArrowUpRightIcon, Button, PlusIcon, Spinner, StarIcon } from 'moduix';
-import { useState } from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
-import styles from './button.module.css';
 
 const buttonCssProperties: CssPropertyInput[] = [
   ['--button-border-width', 'var(--border-width-sm)', 'Controls base button border width.'],
@@ -158,24 +156,22 @@ const buttonCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export const buttonOverrideCssProperties: CssPropertyInput[] = buttonCssProperties;
-
 export function ButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <div className="space-y-2">
       <CSSPropertiesReferenceTable
-        properties={buttonOverrideCssProperties.map(normalizeCssProperty)}
+        properties={buttonCssProperties.map((property) =>
+          'name' in property
+            ? property
+            : {
+                name: property[0],
+                defaultValue: property[1],
+                description: property[2],
+              },
+        )}
       />
     </div>
   );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
 }
 
 export function ButtonExample(props: ComponentProps<typeof Button>) {
@@ -184,7 +180,7 @@ export function ButtonExample(props: ComponentProps<typeof Button>) {
 
 export function ButtonVariantsExample() {
   return (
-    <div className={styles.row}>
+    <>
       <Button>Default</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="secondary">Secondary</Button>
@@ -192,13 +188,13 @@ export function ButtonVariantsExample() {
       <Button variant="destructive-outline">Destructive Outline</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="link">Link</Button>
-    </div>
+    </>
   );
 }
 
 export function ButtonSizesExample() {
   return (
-    <div className={styles.row}>
+    <>
       <Button size="xs">Extra-small</Button>
       <Button size="sm">Small</Button>
       <Button size="md">Medium</Button>
@@ -213,13 +209,13 @@ export function ButtonSizesExample() {
       <Button size="icon-lg" variant="outline" aria-label="Large favorite">
         <StarIcon />
       </Button>
-    </div>
+    </>
   );
 }
 
 export function ButtonIconExample() {
   return (
-    <div className={styles.row}>
+    <>
       <Button>
         <PlusIcon />
         Create Item
@@ -231,18 +227,18 @@ export function ButtonIconExample() {
         Open Docs
         <ArrowUpRightIcon />
       </Button>
-    </div>
+    </>
   );
 }
 
 export function ButtonDisabledExample() {
   return (
-    <div className={styles.row}>
+    <>
       <Button disabled>Disabled</Button>
       <Button disabled focusableWhenDisabled variant="outline">
         Focusable Disabled
       </Button>
-    </div>
+    </>
   );
 }
 
@@ -279,10 +275,10 @@ export function ButtonLoadingExample() {
   );
 }
 
-export function CustomCompositionButtonExample() {
+export function CustomStylingButtonExample() {
   return (
-    <Button className={styles.customButton} disabled focusableWhenDisabled aria-busy>
-      <Spinner decorative size="sm" className={styles.customSpinner} />
+    <Button className="customButton" disabled focusableWhenDisabled aria-busy>
+      <Spinner decorative size="sm" className="customSpinner" />
       Publishing
     </Button>
   );

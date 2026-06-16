@@ -221,6 +221,8 @@ Example:
 
 ## Local changelog
 
+- Simplified the wrapper export declarations and removed an unused root positioning rule without changing the public API.
+- Simplified the docs examples so layout comes from the shared preview wrapper and custom styling stays in the `Styles` tab.
 - Rewrote the local documentation to describe the moduix wrapper instead of Base UI examples.
 - Exported `ButtonProps`, `ButtonSize`, and `ButtonVariant` so consumers can type wrappers without
   duplicating the variant and size unions.
