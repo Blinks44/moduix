@@ -11,7 +11,8 @@ const DEFAULT_VISIBILITY_TOGGLE_LABELS = {
   hide: 'Hide password',
 };
 
-type PasswordInputProps = Omit<InputProps, 'className' | 'type'> & {
+type PasswordInputProps = InputProps & {
+  type?: never;
   className?: ComponentProps<'div'>['className'];
   defaultVisible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
@@ -42,10 +43,11 @@ const PasswordInput = forwardRef<ComponentRef<typeof Input>, PasswordInputProps>
     };
 
     const handleToggleClick = () => {
-      const nextVisible = !visible;
-
-      setVisible(nextVisible);
-      onVisibleChange?.(nextVisible);
+      setVisible((currentVisible) => {
+        const nextVisible = !currentVisible;
+        onVisibleChange?.(nextVisible);
+        return nextVisible;
+      });
     };
 
     return (
@@ -57,7 +59,6 @@ const PasswordInput = forwardRef<ComponentRef<typeof Input>, PasswordInputProps>
         <InputGroupInput
           ref={ref}
           {...props}
-          className={styles.input}
           disabled={disabled}
           readOnly={readOnly}
           size={size}

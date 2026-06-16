@@ -4,7 +4,6 @@ import { useState } from 'react';
 import type { CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import { inputGroupOverrideCssProperties } from './input-group';
-import styles from './password-input.module.css';
 
 export function PasswordInputCssPropertiesPanel() {
   return (
@@ -28,7 +27,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function PasswordInputExample(props: ComponentProps<typeof PasswordInput>) {
   return (
-    <Field className={styles.field}>
+    <Field className="password-input-demo-field">
       <FieldLabel>Password</FieldLabel>
       <FieldDescription>Use at least 8 characters for production accounts.</FieldDescription>
       <PasswordInput autoComplete="current-password" placeholder="Enter your password" {...props} />
@@ -40,7 +39,7 @@ export function ControlledPasswordInputExample() {
   const [value, setValue] = useState('');
 
   return (
-    <Field className={styles.field}>
+    <Field className="password-input-demo-field">
       <FieldLabel>Workspace password</FieldLabel>
       <PasswordInput
         autoComplete="new-password"
@@ -54,7 +53,7 @@ export function ControlledPasswordInputExample() {
 
 export function PasswordInputDefaultVisibleExample() {
   return (
-    <Field className={styles.field}>
+    <Field className="password-input-demo-field">
       <FieldLabel>Temporary password</FieldLabel>
       <PasswordInput
         defaultValue="S3cur3!"
@@ -70,7 +69,7 @@ export function PasswordInputDefaultVisibleExample() {
 
 export function PasswordInputSizesExample() {
   return (
-    <div className={styles.stack}>
+    <div className="password-input-demo-stack">
       <PasswordInput size="xs" aria-label="Extra-small password input" placeholder="Extra-small" />
       <PasswordInput size="sm" aria-label="Small password input" placeholder="Small" />
       <PasswordInput size="md" aria-label="Medium password input" placeholder="Medium" />
@@ -82,7 +81,7 @@ export function PasswordInputSizesExample() {
 
 export function DisabledAndReadOnlyPasswordInputExample() {
   return (
-    <div className={styles.stack}>
+    <div className="password-input-demo-stack">
       <PasswordInput disabled aria-label="Disabled password input" defaultValue="secret-value" />
       <PasswordInput
         readOnly
@@ -95,7 +94,7 @@ export function DisabledAndReadOnlyPasswordInputExample() {
 
 export function PasswordInputFieldValidationExample() {
   return (
-    <Field className={styles.field} validationMode="onBlur">
+    <Field className="password-input-demo-field" validationMode="onBlur">
       <FieldLabel>Password</FieldLabel>
       <PasswordInput required autoComplete="new-password" placeholder="Create a password" />
       <FieldError match="valueMissing">Please enter a password.</FieldError>
@@ -105,9 +104,12 @@ export function PasswordInputFieldValidationExample() {
 
 export function CustomStylesPasswordInputExample() {
   return (
-    <Field className={styles.field}>
+    <Field className="password-input-demo-field">
       <FieldLabel>Workspace password</FieldLabel>
-      <PasswordInput className={styles.customPasswordInput} placeholder="Custom password input" />
+      <PasswordInput
+        className="password-input-demo-custom-password-input"
+        placeholder="Custom password input"
+      />
     </Field>
   );
 }
