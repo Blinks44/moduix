@@ -213,35 +213,44 @@
     user-select: none;
     cursor: default;
 
-    &[data-highlighted] {
+    &[data-highlighted],
+    &[data-popup-open] {
       z-index: 0;
+
+      &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        inset-block: 0;
+        inset-inline: var(
+          --menu-highlight-inset-x,
+          var(--popup-highlight-inset-x, var(--spacing-1))
+        );
+        border-radius: var(
+          --menu-highlight-radius,
+          var(--popup-highlight-radius, var(--radius-sm))
+        );
+      }
+    }
+
+    &[data-highlighted] {
       color: var(--menu-highlight-color, var(--color-background));
+
+      &::before {
+        background-color: var(--menu-highlight-bg, var(--color-foreground));
+      }
     }
 
     &[data-popup-open] {
-      z-index: 0;
+      &::before {
+        background-color: var(--menu-submenu-open-bg, var(--color-accent));
+      }
     }
 
-    &[data-highlighted]::before,
-    &[data-popup-open]::before {
-      content: '';
-      z-index: -1;
-      position: absolute;
-      inset-block: 0;
-      inset-inline: var(--menu-highlight-inset-x, var(--popup-highlight-inset-x, var(--spacing-1)));
-      border-radius: var(--menu-highlight-radius, var(--popup-highlight-radius, var(--radius-sm)));
-    }
-
-    &[data-highlighted]::before {
-      background-color: var(--menu-highlight-bg, var(--color-foreground));
-    }
-
-    &[data-popup-open]::before {
-      background-color: var(--menu-submenu-open-bg, var(--color-accent));
-    }
-
-    &[data-highlighted][data-popup-open]::before {
-      background-color: var(--menu-highlight-bg, var(--color-foreground));
+    &[data-highlighted][data-popup-open] {
+      &::before {
+        background-color: var(--menu-highlight-bg, var(--color-foreground));
+      }
     }
 
     &[data-disabled] {
@@ -257,20 +266,20 @@
 
     &[data-tone='destructive'] {
       color: var(--menu-item-destructive-color, var(--color-destructive));
-    }
 
-    &[data-tone='destructive'][data-highlighted] {
-      color: var(
-        --menu-item-destructive-highlight-color,
-        var(--menu-item-destructive-color, var(--color-destructive))
-      );
-    }
+      &[data-highlighted] {
+        color: var(
+          --menu-item-destructive-highlight-color,
+          var(--menu-item-destructive-color, var(--color-destructive))
+        );
 
-    &[data-tone='destructive'][data-highlighted]::before {
-      background-color: var(
-        --menu-item-destructive-highlight-bg,
-        color-mix(in oklab, var(--color-destructive) 12%, transparent)
-      );
+        &::before {
+          background-color: var(
+            --menu-item-destructive-highlight-bg,
+            color-mix(in oklab, var(--color-destructive) 12%, transparent)
+          );
+        }
+      }
     }
   }
 
@@ -381,7 +390,7 @@
 
   .checkboxItem {
     &[data-checked] {
-      & > .checkboxItemIndicator {
+      > .checkboxItemIndicator {
         background-color: var(
           --menu-checkbox-indicator-bg-checked,
           var(--menu-checkbox-indicator-bg, transparent)

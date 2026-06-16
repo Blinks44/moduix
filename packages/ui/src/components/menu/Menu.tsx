@@ -10,17 +10,16 @@ import {
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Menu.module.css';
 
-export type MenuPositionerProps = Pick<
-  MenuPrimitive.Positioner.Props,
-  | 'side'
-  | 'sideOffset'
-  | 'align'
-  | 'alignOffset'
-  | 'arrowPadding'
-  | 'collisionAvoidance'
-  | 'collisionBoundary'
-  | 'collisionPadding'
->;
+export type MenuPositionerProps = {
+  side?: MenuPrimitive.Positioner.Props['side'];
+  sideOffset?: MenuPrimitive.Positioner.Props['sideOffset'];
+  align?: MenuPrimitive.Positioner.Props['align'];
+  alignOffset?: MenuPrimitive.Positioner.Props['alignOffset'];
+  arrowPadding?: MenuPrimitive.Positioner.Props['arrowPadding'];
+  collisionAvoidance?: MenuPrimitive.Positioner.Props['collisionAvoidance'];
+  collisionBoundary?: MenuPrimitive.Positioner.Props['collisionBoundary'];
+  collisionPadding?: MenuPrimitive.Positioner.Props['collisionPadding'];
+};
 
 export type MenuIndicatorPosition = 'start' | 'end' | 'none';
 export type MenuItemTone = 'default' | 'destructive';
@@ -42,18 +41,19 @@ export type MenuCheckboxItemProps = MenuPrimitive.CheckboxItem.Props & {
 };
 
 const MENU_CONTENT_SIDE_OFFSET = 8;
+const getSubmenuOffset = ({ side }: { side: MenuPrimitive.Positioner.Props['side'] }) =>
+  side === 'top' || side === 'bottom' ? 4 : -4;
+
 const Menu = MenuPrimitive.Root;
 const MenuSubmenu = MenuPrimitive.SubmenuRoot;
 const createMenuHandle = MenuPrimitive.createHandle;
 
 function MenuTrigger({ className, render, ...props }: MenuPrimitive.Trigger.Props) {
-  const triggerClassName = render ? className : mergeClassName(className, styles.trigger);
-
   return (
     <MenuPrimitive.Trigger
       data-slot="menu-trigger"
       render={render}
-      className={triggerClassName}
+      className={render ? className : mergeClassName(className, styles.trigger)}
       {...props}
     />
   );
@@ -108,7 +108,14 @@ function MenuArrow({ className, children, ...props }: MenuPrimitive.Arrow.Props)
       className={mergeClassName(className, styles.arrow)}
       {...props}
     >
-      {children ?? <ArrowSvg className={styles.arrowSvg} />}
+      {children ?? (
+        <PopupArrowIcon
+          className={styles.arrowSvg}
+          fillClassName={styles.arrowFill}
+          outerStrokeClassName={styles.arrowOuterStroke}
+          innerStrokeClassName={styles.arrowInnerStroke}
+        />
+      )}
     </MenuPrimitive.Arrow>
   );
 }
@@ -345,21 +352,6 @@ function MenuItemShortcut({ className, ...props }: ComponentProps<'span'>) {
     <span
       data-slot="menu-item-shortcut"
       className={clsx(styles.itemShortcut, className)}
-      {...props}
-    />
-  );
-}
-
-function getSubmenuOffset({ side }: { side: MenuPrimitive.Positioner.Props['side'] }) {
-  return side === 'top' || side === 'bottom' ? 4 : -4;
-}
-
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <PopupArrowIcon
-      fillClassName={styles.arrowFill}
-      outerStrokeClassName={styles.arrowOuterStroke}
-      innerStrokeClassName={styles.arrowInnerStroke}
       {...props}
     />
   );

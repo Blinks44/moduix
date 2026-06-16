@@ -645,7 +645,7 @@ Use `createMenuHandle` when the trigger and root need to be rendered in differen
 
         return (
           <Fragment>
-            <div className={styles.detachedTrigger}>
+            <div className="detachedTrigger">
               <MenuTrigger render={<Button />} handle={menuHandle}>
                 Actions
                 <MenuTriggerIcon />
@@ -794,19 +794,19 @@ over popup structure.
       export function CustomCompositionMenu() {
         return (
           <Menu>
-            <MenuTrigger render={<Button />} className={styles.customTrigger}>
+            <MenuTrigger render={<Button />} className="customTrigger">
               Places
-              <MenuTriggerIcon className={styles.customTriggerIcon}>
+              <MenuTriggerIcon className="customTriggerIcon">
                 <ChevronDownIcon />
               </MenuTriggerIcon>
             </MenuTrigger>
             <MenuPortal>
-              <MenuBackdrop className={styles.customBackdrop} />
-              <MenuPositioner className={styles.customPositioner} sideOffset={12}>
-                <MenuPopup className={styles.customPopup}>
-                  <MenuArrow className={styles.customArrow} />
-                  <MenuViewport className={styles.customViewport}>
-                    <MenuItem closeOnClick className={styles.customItem}>
+              <MenuBackdrop className="customBackdrop" />
+              <MenuPositioner className="customPositioner" sideOffset={12}>
+                <MenuPopup className="customPopup">
+                  <MenuArrow className="customArrow" />
+                  <MenuViewport className="customViewport">
+                    <MenuItem closeOnClick className="customItem">
                       <MenuItemTextContent>
                         <MenuItemTextIcon>
                           <MapIcon />
@@ -815,7 +815,7 @@ over popup structure.
                       </MenuItemTextContent>
                     </MenuItem>
                     <MenuSubmenu>
-                      <MenuSubmenuTrigger className={styles.customItem}>
+                      <MenuSubmenuTrigger className="customItem">
                         <MenuItemTextContent>
                           <MenuItemTextIcon>
                             <InfoIcon />
@@ -827,10 +827,10 @@ over popup structure.
                         </MenuSubmenuTriggerIcon>
                       </MenuSubmenuTrigger>
                       <MenuSubmenuContent>
-                        <MenuItem closeOnClick className={styles.customItem}>
+                        <MenuItem closeOnClick className="customItem">
                           Nearby
                         </MenuItem>
-                        <MenuItem closeOnClick className={styles.customItem}>
+                        <MenuItem closeOnClick className="customItem">
                           Routes
                         </MenuItem>
                       </MenuSubmenuContent>
@@ -849,6 +849,8 @@ over popup structure.
   <Preview.CSS>
     {`
       .customTrigger {
+        position: relative;
+        z-index: var(--z-popup);
         border-color: var(--color-primary);
         background:
           linear-gradient(var(--color-background), var(--color-background)) padding-box,
@@ -882,6 +884,10 @@ over popup structure.
       .customViewport {
         max-height: 18rem;
         overflow-y: auto;
+      }
+
+      .customArrow {
+        --menu-arrow-stroke-color: var(--menu-popup-border-color);
       }
 
       .customItem {
