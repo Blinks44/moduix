@@ -34,13 +34,13 @@
     background-color: var(--meter-track-bg, var(--color-muted));
     box-shadow: inset 0 0 0 var(--meter-track-border-width, var(--border-width-sm))
       var(--meter-track-border-color, var(--color-border));
-  }
 
-  .indicator {
-    display: block;
-    height: 100%;
-    border-radius: var(--meter-indicator-radius, inherit);
-    background-color: var(--meter-indicator-bg, var(--color-primary));
-    transition: width var(--meter-indicator-transition, var(--transition-default));
+    .indicator {
+      display: block;
+      height: 100%;
+      border-radius: var(--meter-indicator-radius, inherit);
+      background-color: var(--meter-indicator-bg, var(--color-primary));
+      transition: width var(--meter-indicator-transition, var(--transition-default));
+    }
   }
 }

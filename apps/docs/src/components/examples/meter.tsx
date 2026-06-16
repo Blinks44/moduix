@@ -3,7 +3,6 @@ import { Meter, MeterIndicator, MeterLabel, MeterRoot, MeterTrack, MeterValue } 
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './meter.module.css';
 
 export const meterOverrideCssProperties: CssPropertyInput[] = [
   ['--meter-color', 'var(--color-foreground)', 'Controls the default meter text color.'],
@@ -88,13 +87,13 @@ export function ControlledMeterExample() {
   const [value, setValue] = useState(45);
 
   return (
-    <div className={styles.stack}>
+    <div className="stack">
       <Meter value={value}>
         <MeterLabel>Capacity</MeterLabel>
         <MeterValue />
       </Meter>
       <input
-        className={styles.range}
+        className="range"
         type="range"
         min={0}
         max={100}
@@ -147,7 +146,7 @@ export function CustomValueTextMeterExample() {
 
 export function CustomStylesMeterExample() {
   return (
-    <Meter value={72} className={styles.customMeter}>
+    <Meter value={72} className="customMeter">
       <MeterLabel>Monthly quota</MeterLabel>
       <MeterValue />
     </Meter>
@@ -156,11 +155,11 @@ export function CustomStylesMeterExample() {
 
 export function CompositionMeterExample() {
   return (
-    <MeterRoot value={58} className={styles.composedMeter}>
+    <MeterRoot value={58} className="composedMeter">
       <MeterLabel>Team capacity</MeterLabel>
       <MeterValue>{(formattedValue) => `${formattedValue} available`}</MeterValue>
-      <MeterTrack className={styles.composedTrack}>
-        <MeterIndicator className={styles.composedIndicator} />
+      <MeterTrack className="composedTrack">
+        <MeterIndicator className="composedIndicator" />
       </MeterTrack>
     </MeterRoot>
   );
