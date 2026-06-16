@@ -226,20 +226,17 @@ const AutocompleteArrow = forwardRef<
   );
 });
 
-type AutocompleteContentProps = AutocompletePrimitive.Popup.Props &
-  Pick<
-    AutocompletePrimitive.Positioner.Props,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-  > & {
-    showArrow?: boolean;
-  };
+type AutocompleteContentProps = AutocompletePrimitive.Popup.Props & {
+  side?: AutocompletePrimitive.Positioner.Props['side'];
+  sideOffset?: AutocompletePrimitive.Positioner.Props['sideOffset'];
+  align?: AutocompletePrimitive.Positioner.Props['align'];
+  alignOffset?: AutocompletePrimitive.Positioner.Props['alignOffset'];
+  arrowPadding?: AutocompletePrimitive.Positioner.Props['arrowPadding'];
+  collisionAvoidance?: AutocompletePrimitive.Positioner.Props['collisionAvoidance'];
+  collisionBoundary?: AutocompletePrimitive.Positioner.Props['collisionBoundary'];
+  collisionPadding?: AutocompletePrimitive.Positioner.Props['collisionPadding'];
+  showArrow?: boolean;
+};
 
 const AutocompleteContent = forwardRef<
   ComponentRef<typeof AutocompletePrimitive.Popup>,

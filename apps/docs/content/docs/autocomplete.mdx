@@ -44,7 +44,6 @@ Start with `Autocomplete`, `AutocompleteField`, `AutocompleteInputGroup`, `Autoc
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
@@ -251,7 +250,6 @@ Pass grouped data and render `AutocompleteCollection` inside each `AutocompleteG
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
@@ -345,7 +343,6 @@ Use item text slots for richer option content. Control icons can be replaced by 
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
@@ -505,7 +502,6 @@ Set `limit` to cap the number of rendered matches.
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
@@ -586,7 +582,6 @@ Use `autoHighlight="always"` when the first match should be active immediately.
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
@@ -663,7 +658,6 @@ Enable `grid` and render rows manually when options should navigate as a grid.
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
@@ -770,7 +764,6 @@ Provide a custom `filter` when matching should differ from the default string co
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
@@ -875,7 +868,6 @@ Control `value`, disable the built-in filter with `filter={null}`, and keep `Aut
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
@@ -1004,17 +996,20 @@ backdrop, positioner, or arrow need their own styling.
       import {
         Autocomplete,
         AutocompleteField,
-        AutocompleteFieldLabel,
         AutocompleteInputGroup,
         AutocompleteInput,
         AutocompleteControlActions,
         AutocompleteClear,
         AutocompleteTrigger,
-        AutocompleteContent,
+        AutocompleteArrow,
+        AutocompleteBackdrop,
         AutocompleteEmpty,
         AutocompleteList,
         AutocompleteItem,
         AutocompleteItemText,
+        AutocompletePopup,
+        AutocompletePortal,
+        AutocompletePositioner,
       } from "moduix";
       import { useId } from "react";
 
@@ -1025,7 +1020,7 @@ backdrop, positioner, or arrow need their own styling.
           <Autocomplete items={tags} itemToStringValue={(item) => item.value}>
             <AutocompleteField>
               <label htmlFor={id}>Search tags</label>
-              <AutocompleteInputGroup>
+              <AutocompleteInputGroup className="customInputGroup">
                 <AutocompleteInput id={id} placeholder="e.g. feature" />
                 <AutocompleteControlActions>
                   <AutocompleteClear aria-label="Clear value" />
@@ -1034,11 +1029,11 @@ backdrop, positioner, or arrow need their own styling.
               </AutocompleteInputGroup>
             </AutocompleteField>
 
-            <AutocompletePortal className={styles.customPortal}>
-              <AutocompleteBackdrop className={styles.customBackdrop} />
-              <AutocompletePositioner className={styles.customPositioner} sideOffset={8}>
-                <AutocompletePopup className={styles.customPopup}>
-                  <AutocompleteArrow className={styles.customArrow} />
+            <AutocompletePortal className="customPortal">
+              <AutocompleteBackdrop className="customBackdrop" />
+              <AutocompletePositioner className="customPositioner" sideOffset={8}>
+                <AutocompletePopup className="customPopup">
+                  <AutocompleteArrow className="customArrow" />
                   <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
                   <AutocompleteList>
                     {(item) => (
@@ -1061,6 +1056,11 @@ backdrop, positioner, or arrow need their own styling.
     {`
       .customPortal {
         position: relative;
+      }
+
+      .customInputGroup {
+        position: relative;
+        z-index: var(--z-popup);
       }
 
       .customPositioner {
