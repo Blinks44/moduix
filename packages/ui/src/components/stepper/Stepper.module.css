@@ -70,7 +70,7 @@
 
     &[data-orientation='horizontal'] {
       grid-template-columns: minmax(0, 1fr);
-      gap: var(--stepper-content-gap, 0.5rem);
+      gap: var(--stepper-content-gap, 0.25rem);
     }
 
     &[data-orientation='vertical'] {

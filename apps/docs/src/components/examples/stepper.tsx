@@ -46,7 +46,7 @@ export const stepperOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--stepper-connector-inset', '0.5rem', 'Controls connector inset from the indicator.'],
   ['--stepper-connector-thickness', 'var(--border-width-sm)', 'Controls connector thickness.'],
-  ['--stepper-content-gap', '0.25rem', 'Controls spacing between title and description.'],
+  ['--stepper-content-gap', '0.25rem', 'Controls compact content spacing within each step.'],
   [
     '--stepper-description-color',
     'var(--color-muted-foreground)',
@@ -56,6 +56,12 @@ export const stepperOverrideCssProperties: CssPropertyInput[] = [
     '--stepper-description-color-current',
     'var(--stepper-description-color)',
     'Controls current-step description color.',
+  ],
+  ['--stepper-description-font-size', 'var(--text-xs)', 'Controls description font size.'],
+  [
+    '--stepper-description-line-height',
+    'var(--line-height-text-xs)',
+    'Controls description line height.',
   ],
   ['--stepper-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
   ['--stepper-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
@@ -89,6 +95,11 @@ export const stepperOverrideCssProperties: CssPropertyInput[] = [
     'Controls current-step indicator border color.',
   ],
   [
+    '--stepper-indicator-border-color-hover',
+    'var(--stepper-indicator-border-color-current)',
+    'Controls inactive indicator border color on hover.',
+  ],
+  [
     '--stepper-indicator-color',
     'var(--color-muted-foreground)',
     'Controls inactive indicator content color.',
@@ -102,6 +113,11 @@ export const stepperOverrideCssProperties: CssPropertyInput[] = [
     '--stepper-indicator-color-current',
     'var(--color-foreground)',
     'Controls current-step indicator content color.',
+  ],
+  [
+    '--stepper-indicator-color-hover',
+    'var(--stepper-indicator-color-current)',
+    'Controls inactive indicator content color on hover.',
   ],
   ['--stepper-indicator-font-size', 'var(--text-sm)', 'Controls indicator number font size.'],
   [

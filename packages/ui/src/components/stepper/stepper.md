@@ -183,3 +183,6 @@ Public CSS variables:
 - Added the initial moduix Stepper component as a composition-first ordered progress pattern with
   orientation support, derived step status, render composition for interactive or static usage, and a
   built-in completed-state check indicator.
+- Aligned the `--stepper-content-gap` fallback in `Stepper.module.css` with the documented theme
+  contract and expanded the public Stepper CSS variable docs to include the full `theme.css`
+  surface.

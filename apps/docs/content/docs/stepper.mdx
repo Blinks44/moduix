@@ -8,19 +8,22 @@ import {
   ControlledStepperExample,
   CustomStylesStepperExample,
   LinkCompositionStepperExample,
-  StepperCssPlaygroundPanel,
   StepperCssPropertiesPanel,
   StepperExample,
   VerticalStepperExample,
-  stepperPlaygroundCssProperties,
 } from '@/components/examples/stepper';
 
-## Default Path
+## API Reference
+
+`Stepper` is a moduix-native compound component, so the shipped API surface is documented on this
+page.
+
+## Basic
 
 Use `Stepper` with `StepperList` and explicit `StepperItem step={...}` values when you need ordered
 progress without a large wizard abstraction.
 
-<Preview cssProperties={stepperPlaygroundCssProperties}>
+<Preview>
   <StepperExample currentStep={2} />
 
   <Preview.Code>
@@ -80,8 +83,6 @@ progress without a large wizard abstraction.
     `}
 
   </Preview.Code>
-  <Preview.CSSProperties>{(context) => <StepperCssPropertiesPanel {...context} />}</Preview.CSSProperties>
-  <Preview.CSSPlayground>{(context) => <StepperCssPlaygroundPanel {...context} />}</Preview.CSSPlayground>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -130,10 +131,9 @@ aubx shadcn@latest add Blinks44/moduix/stepper
 This install path also pulls in the shared moduix foundation files that `Stepper` depends on, such
 as styles, icons, and small utilities.
 
-`StepperTrigger` defaults to a native button. Use `render={<div />}` for a display-only progress
-stepper, or `render={<a />}` / router-link composition when each step should navigate.
-
 ## Anatomy
+
+The normal consumer path stays small and explicit:
 
 ```text
 Stepper
@@ -159,23 +159,45 @@ Stepper
 
 ## Composition
 
-`Stepper` stays small on purpose:
+### When to stay high-level
 
-- `currentStep` derives status only
+Stay with `Stepper`, `StepperList`, `StepperItem`, and `StepperTrigger` for most onboarding flows,
+setup checklists, and multi-step navigation.
+
+The component stays intentionally narrow:
+
+- `currentStep` derives item status only
 - panel rendering stays in consumer code
-- validation, form state, and route state stay in consumer code
-- step navigation stays explicit in JSX through `StepperTrigger`
+- form state, validation, and route state stay in consumer code
+- step navigation stays explicit through `StepperTrigger`
 
-Rules of thumb:
+Use the default button trigger when steps should update local UI state. Use `render={<div />}` for a
+display-only progress indicator.
 
-| Pattern              | Best fit                                                 |
-| -------------------- | -------------------------------------------------------- |
-| `render={<div />}`   | Read-only onboarding progress or checklist summaries     |
-| default button path  | Client-side multi-step forms and local flow state        |
-| `render={<a />}`     | Anchor or router-link navigation between steps           |
-| `status="completed"` | Manual overrides when visual progress differs from order |
+### When to go custom
 
-`StepperItem` requires `step`. The current implementation does not auto-number from child position.
+Use `render` on `StepperTrigger` when navigation should come from your own element, such as a plain
+anchor or a router link component.
+
+Use `status="inactive" | "current" | "completed"` on `StepperItem` when the visible progress should
+not follow the numeric `currentStep` order.
+
+### Default props
+
+| Prop          | Default      | Values / Notes                                  |
+| ------------- | ------------ | ----------------------------------------------- |
+| `orientation` | `horizontal` | `horizontal` or `vertical` on `Stepper`         |
+| `aria-label`  | `"Steps"`    | Accessible label on the root navigation element |
+| `type`        | `button`     | Applied by `StepperTrigger` on the default path |
+
+### Behavioral notes
+
+- `StepperItem` requires `step`; the component does not auto-number from child position.
+- When `currentStep` is set, lower steps become `completed`, the matching step becomes `current`,
+  and higher steps stay `inactive`.
+- Current steps automatically receive `aria-current="step"` on both `StepperItem` and
+  `StepperTrigger`.
+- Disable `StepperTrigger` directly when a step should stay visible but not reachable yet.
 
 ## Examples
 
@@ -251,7 +273,7 @@ Switch to `orientation="vertical"` when the layout should stack alongside longer
   </Preview.Code>
 </Preview>
 
-### Link Composition
+### Custom Composition
 
 Use `render` to keep framework-specific link components outside the Stepper API.
 
@@ -277,9 +299,10 @@ Use `render` to keep framework-specific link components outside the Stepper API.
   </Preview.Code>
 </Preview>
 
-### Styling
+### Custom Styling
 
-Style the composed parts with `className` on `Stepper` and the public `--stepper-*` variables.
+Pass `className` to `Stepper` when one flow needs local color and state overrides on top of the
+shared structure.
 
 <Preview>
   <CustomStylesStepperExample />
@@ -298,3 +321,29 @@ Style the composed parts with `className` on `Stepper` and the public `--stepper
 
   </Preview.Code>
 </Preview>
+
+## Styling
+
+Style `Stepper` through `className`, the public `data-slot` and `data-state` hooks, and the public
+`--stepper-*` CSS variables shown below. The variable list here was checked against
+`packages/ui/src/styles/theme.css`.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <StepperCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+The useful public hooks are:
+
+- `className` on `Stepper`, `StepperList`, `StepperItem`, `StepperTrigger`, `StepperIndicator`, `StepperContent`, `StepperTitle`, and `StepperDescription`
+- `data-slot="stepper-root"`, `stepper-list`, `stepper-item`, `stepper-trigger`, `stepper-indicator`, `stepper-content`, `stepper-title`, and `stepper-description`
+- `data-orientation="horizontal" | "vertical"` on the root, list, item, trigger, indicator, and content
+- `data-state="inactive" | "current" | "completed"` on `StepperItem`, `StepperTrigger`, `StepperIndicator`, `StepperContent`, `StepperTitle`, and `StepperDescription`
+- disabled styling hooks through native `[disabled]`, `[aria-disabled='true']`, and `[data-disabled]` on `StepperTrigger`
