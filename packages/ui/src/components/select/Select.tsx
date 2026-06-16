@@ -12,21 +12,19 @@ import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import styles from './Select.module.css';
 
 type IndicatorPosition = 'start' | 'end' | 'none';
-type SelectContentProps = SelectPrimitive.Popup.Props &
-  Pick<
-    SelectPrimitive.Positioner.Props,
-    | 'align'
-    | 'alignItemWithTrigger'
-    | 'alignOffset'
-    | 'arrowPadding'
-    | 'collisionAvoidance'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'side'
-    | 'sideOffset'
-  > & {
-    showArrow?: boolean;
-  };
+
+type SelectContentProps = SelectPrimitive.Popup.Props & {
+  align?: SelectPrimitive.Positioner.Props['align'];
+  alignItemWithTrigger?: SelectPrimitive.Positioner.Props['alignItemWithTrigger'];
+  alignOffset?: SelectPrimitive.Positioner.Props['alignOffset'];
+  arrowPadding?: SelectPrimitive.Positioner.Props['arrowPadding'];
+  collisionAvoidance?: SelectPrimitive.Positioner.Props['collisionAvoidance'];
+  collisionBoundary?: SelectPrimitive.Positioner.Props['collisionBoundary'];
+  collisionPadding?: SelectPrimitive.Positioner.Props['collisionPadding'];
+  side?: SelectPrimitive.Positioner.Props['side'];
+  sideOffset?: SelectPrimitive.Positioner.Props['sideOffset'];
+  showArrow?: boolean;
+};
 
 const SELECT_CONTENT_SIDE_OFFSET = 8;
 const Select = SelectPrimitive.Root;

@@ -389,7 +389,7 @@ function to format the array.
               </SelectTrigger>
             </SelectField>
 
-            <SelectContent alignItemWithTrigger={false}>
+            <SelectContent alignItemWithTrigger={false} align="start">
               <SelectList>
                 {languageValues.map((value) => (
                   <SelectItem key={value} value={value}>
@@ -434,6 +434,19 @@ is the direct path when you need to read the current value outside native form s
 
   <Preview.Code>
     {`
+      import {
+        Select,
+        SelectContent,
+        SelectField,
+        SelectIcon,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+        SelectLabel,
+        SelectList,
+        SelectTrigger,
+        SelectValue,
+      } from "moduix";
       import { useState } from "react";
 
       export function ControlledSelectDemo() {
@@ -490,6 +503,20 @@ popup.
 
   <Preview.Code>
     {`
+      import {
+        Select,
+        SelectContent,
+        SelectField,
+        SelectIcon,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+        SelectLabel,
+        SelectList,
+        SelectTrigger,
+        SelectValue,
+      } from "moduix";
+
       <Select items={clearableThemeOptions}>
         <SelectField>
           <SelectLabel>Theme</SelectLabel>
@@ -536,20 +563,49 @@ indicator column should be reserved.
 
   <Preview.Code>
     {`
-      <SelectItem value={item.value} indicator="end">
-        <SelectItemText>
-          <SelectItemTextContent>
-            <SelectItemTextIcon>
-              <InfoIcon className={styles.statusIcon} />
-            </SelectItemTextIcon>
-            <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
-          </SelectItemTextContent>
-        </SelectItemText>
-        <SelectItemIndicator />
-      </SelectItem>
+      import {
+        InfoIcon,
+        SelectContent,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+        SelectItemTextContent,
+        SelectItemTextIcon,
+        SelectItemTextLabel,
+        SelectList,
+      } from "moduix";
+
+      <SelectContent align="start">
+        <SelectList>
+          <SelectItem value={item.value} indicator="end">
+            <SelectItemText>
+              <SelectItemTextContent>
+                <SelectItemTextIcon>
+                  <InfoIcon className="statusIcon" />
+                </SelectItemTextIcon>
+                <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
+              </SelectItemTextContent>
+            </SelectItemText>
+            <SelectItemIndicator />
+          </SelectItem>
+        </SelectList>
+      </SelectContent>
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customTriggerIcon {
+        color: var(--color-foreground);
+      }
+
+      .statusIcon {
+        color: var(--color-muted-foreground);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ```tsx
@@ -567,7 +623,21 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
 
   <Preview.Code>
     {`
-      <Select<Assignee>
+      import {
+        Select,
+        SelectContent,
+        SelectField,
+        SelectIcon,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+        SelectLabel,
+        SelectList,
+        SelectTrigger,
+        SelectValue,
+      } from "moduix";
+
+      <Select
         items={assignees.map((assignee) => ({
           value: assignee,
           label: assignee.name,
@@ -589,9 +659,9 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
               <SelectItem key={assignee.id} value={assignee}>
                 <SelectItemIndicator />
                 <SelectItemText>
-                  <span className={styles.assigneeItemText}>
-                    <span className={styles.assigneeName}>{assignee.name}</span>
-                    <span className={styles.assigneeRole}>{assignee.role}</span>
+                  <span className="assigneeItemText">
+                    <span className="assigneeName">{assignee.name}</span>
+                    <span className="assigneeRole">{assignee.role}</span>
                   </span>
                 </SelectItemText>
               </SelectItem>
@@ -602,6 +672,34 @@ Use `itemToStringLabel` and `itemToStringValue` when option values are objects.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .assigneeItemText {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: var(--spacing-1);
+      }
+
+      .assigneeName {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: var(--weight-semibold);
+      }
+
+      .assigneeRole {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+        line-height: var(--line-height-text-xs);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ### Custom Composition
@@ -637,22 +735,22 @@ hatch for custom layering, sticky positioning, backdrops, or popup structure.
           <Select items={fruits}>
             <SelectField>
               <SelectLabel>Choose fruit</SelectLabel>
-              <SelectTrigger className={styles.customTrigger}>
+              <SelectTrigger className="customTrigger">
                 <SelectValue placeholder="Select an option" />
                 <SelectIcon />
               </SelectTrigger>
             </SelectField>
 
             <SelectPortal>
-              <SelectBackdrop className={styles.customBackdrop} />
+              <SelectBackdrop className="customBackdrop" />
               <SelectPositioner
                 alignItemWithTrigger={false}
                 sideOffset={8}
                 sticky
-                className={styles.customPositioner}
+                className="customPositioner"
               >
-                <SelectPopup className={styles.customPopup}>
-                  <SelectArrow className={styles.customArrow} />
+                <SelectPopup className="customPopup">
+                  <SelectArrow className="customArrow" />
                   <SelectList>
                     {fruits.map((item) => (
                       <SelectItem key={item.value} value={item.value}>
@@ -670,6 +768,35 @@ hatch for custom layering, sticky positioning, backdrops, or popup structure.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customBackdrop {
+        --select-backdrop-bg: rgb(15 23 42 / 0.48);
+        --select-backdrop-blur: 3px;
+      }
+
+      .customPositioner {
+        filter: drop-shadow(var(--shadow-md));
+      }
+
+      .customTrigger {
+        position: relative;
+        z-index: calc(var(--z-popup) + 1);
+      }
+
+      .customArrow {
+        --select-arrow-stroke-color: var(--select-popup-border-color);
+      }
+
+      .customPopup {
+        --select-radius: var(--radius-lg);
+        --select-popup-bg: var(--color-background);
+        --select-shadow: var(--shadow-xl);
+      }
+    `}
+
+  </Preview.CSS>
 </Preview>
 
 ## Styling

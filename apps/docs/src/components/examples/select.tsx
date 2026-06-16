@@ -29,7 +29,6 @@ import {
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
-import styles from './select.module.css';
 
 interface OptionItem {
   label: string;
@@ -90,22 +89,23 @@ const clearableThemeOptions: Array<{ label: string; value: string | null }> = [
   ...themeOptions,
 ];
 
-const groupedLabelByValue = Object.fromEntries(
-  groupedOptions.flatMap((group) => group.items.map((item) => [item.value, item.label])),
-) as Record<string, string>;
+const groupedLabelByValue: Record<string, string> = {};
+for (const group of groupedOptions) {
+  for (const item of group.items) {
+    groupedLabelByValue[item.value] = item.label;
+  }
+}
 
-const languages = {
+const languages: Record<string, string> = {
   csharp: 'C#',
   go: 'Go',
   javascript: 'JavaScript',
   python: 'Python',
   rust: 'Rust',
   typescript: 'TypeScript',
-} as const;
+};
 
-type Language = keyof typeof languages;
-
-const languageValues = Object.keys(languages) as Language[];
+const languageValues = Object.keys(languages);
 
 const assignees: Assignee[] = [
   { id: 'u-1', name: 'Leslie Alexander', role: 'Product Manager' },
@@ -263,12 +263,12 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function renderMultipleValue(value: Language[]) {
+function renderMultipleValue(value: string[]) {
   if (value.length === 0) {
     return 'Select languages';
   }
 
-  const first = languages[value[0]];
+  const first = languages[value[0]] ?? value[0];
   const suffix = value.length > 1 ? ` (+${value.length - 1})` : '';
 
   return `${first}${suffix}`;
@@ -358,19 +358,19 @@ export function IndicatorRightSelectExample() {
         <SelectTrigger>
           <SelectValue placeholder="Select an option" />
           <SelectIcon>
-            <ChevronDownIcon className={styles.customTriggerIcon} />
+            <ChevronDownIcon className="customTriggerIcon" />
           </SelectIcon>
         </SelectTrigger>
       </SelectField>
 
-      <SelectContent>
+      <SelectContent align="start">
         <SelectList>
           {fruits.map((item) => (
             <SelectItem key={item.value} value={item.value} indicator="end">
               <SelectItemText>
                 <SelectItemTextContent>
                   <SelectItemTextIcon>
-                    <InfoIcon className={styles.statusIcon} />
+                    <InfoIcon className="statusIcon" />
                   </SelectItemTextIcon>
                   <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
                 </SelectItemTextContent>
@@ -421,7 +421,7 @@ export function GroupedSelectExample() {
 
 export function MultipleSelectExample() {
   return (
-    <Select<Language, true> multiple defaultValue={['javascript', 'typescript']}>
+    <Select multiple defaultValue={['javascript', 'typescript']}>
       <SelectField>
         <SelectLabel>Languages</SelectLabel>
         <SelectTrigger>
@@ -502,10 +502,10 @@ export function ClearableSelectExample() {
 
 export function ObjectValuesSelectExample() {
   return (
-    <Select<Assignee>
+    <Select
       items={assignees.map((assignee) => ({ value: assignee, label: assignee.name }))}
-      itemToStringLabel={(assignee) => assignee.name}
-      itemToStringValue={(assignee) => assignee.id}
+      itemToStringLabel={(assignee: Assignee) => assignee.name}
+      itemToStringValue={(assignee: Assignee) => assignee.id}
     >
       <SelectField>
         <SelectLabel>Assignee</SelectLabel>
@@ -521,9 +521,9 @@ export function ObjectValuesSelectExample() {
             <SelectItem key={assignee.id} value={assignee}>
               <SelectItemIndicator />
               <SelectItemText>
-                <span className={styles.assigneeItemText}>
-                  <span className={styles.assigneeName}>{assignee.name}</span>
-                  <span className={styles.assigneeRole}>{assignee.role}</span>
+                <span className="assigneeItemText">
+                  <span className="assigneeName">{assignee.name}</span>
+                  <span className="assigneeRole">{assignee.role}</span>
                 </span>
               </SelectItemText>
             </SelectItem>
@@ -539,22 +539,22 @@ export function CustomCompositionSelectExample() {
     <Select items={fruits}>
       <SelectField>
         <SelectLabel>Choose fruit</SelectLabel>
-        <SelectTrigger className={styles.customTrigger}>
+        <SelectTrigger className="customTrigger">
           <SelectValue placeholder="Select an option" />
           <SelectIcon />
         </SelectTrigger>
       </SelectField>
 
       <SelectPortal>
-        <SelectBackdrop className={styles.customBackdrop} />
+        <SelectBackdrop className="customBackdrop" />
         <SelectPositioner
           alignItemWithTrigger={false}
           sideOffset={8}
           sticky
-          className={styles.customPositioner}
+          className="customPositioner"
         >
-          <SelectPopup className={styles.customPopup}>
-            <SelectArrow className={styles.customArrow} />
+          <SelectPopup className="customPopup">
+            <SelectArrow className="customArrow" />
             <SelectList>
               <FruitItems />
             </SelectList>
