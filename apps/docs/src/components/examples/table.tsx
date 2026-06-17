@@ -3,9 +3,6 @@ import {
   Badge,
   Button,
   Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
   Menu,
   MenuContent,
   MenuItem,
@@ -321,10 +318,10 @@ export function EmptyTableExample() {
 export function TableInCardExample() {
   return (
     <Card className={styles.card}>
-      <CardHeader>
-        <CardTitle>Projects</CardTitle>
-      </CardHeader>
-      <CardContent className={styles.cardContent}>
+      <Card.Header>
+        <Card.Title>Projects</Card.Title>
+      </Card.Header>
+      <Card.Body className={styles.cardContent}>
         <TableContainer>
           <Table className={styles.table}>
             <TableHeader>
@@ -347,7 +344,7 @@ export function TableInCardExample() {
             </TableBody>
           </Table>
         </TableContainer>
-      </CardContent>
+      </Card.Body>
     </Card>
   );
 }

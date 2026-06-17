@@ -1,26 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '../badge';
 import { Button } from '../button';
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardLink,
-  CardTitle,
-} from './Card';
+import { Card } from './Card';
 import styles from './Card.stories.module.css';
 
 const meta = {
   title: 'Components/Card',
-  component: Card,
+  component: Card.Root,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Card>;
+} satisfies Meta<typeof Card.Root>;
 
 export default meta;
 
@@ -30,11 +21,11 @@ export const Basic: Story = {
   render: () => {
     return (
       <Card className={styles.card}>
-        <CardHeader>
-          <CardTitle>Release health</CardTitle>
-          <CardDescription>Summary for the current production rollout.</CardDescription>
-        </CardHeader>
-        <CardContent>
+        <Card.Header>
+          <Card.Title>Release health</Card.Title>
+          <Card.Description>Summary for the current production rollout.</Card.Description>
+        </Card.Header>
+        <Card.Body>
           <div className={styles.releaseSummary}>
             <div>
               <span className={styles.statValue}>98.4%</span>
@@ -45,11 +36,11 @@ export const Basic: Story = {
               <span className={styles.statLabel}>checks passed</span>
             </div>
           </div>
-        </CardContent>
-        <CardFooter>
+        </Card.Body>
+        <Card.Footer>
           <Button variant="outline">View log</Button>
           <Button>Promote release</Button>
-        </CardFooter>
+        </Card.Footer>
       </Card>
     );
   },
@@ -59,14 +50,14 @@ export const WithAction: Story = {
   render: () => {
     return (
       <Card className={styles.card}>
-        <CardHeader>
-          <CardTitle>Incident response</CardTitle>
-          <CardDescription>Owner rotation and escalation readiness.</CardDescription>
-          <CardAction>
+        <Card.Header>
+          <Card.Title>Incident response</Card.Title>
+          <Card.Description>Owner rotation and escalation readiness.</Card.Description>
+          <Card.Action>
             <Badge variant="secondary">Stable</Badge>
-          </CardAction>
-        </CardHeader>
-        <CardContent>
+          </Card.Action>
+        </Card.Header>
+        <Card.Body>
           <div className={styles.statsGrid}>
             <div>
               <span className={styles.statValue}>18 min</span>
@@ -77,7 +68,7 @@ export const WithAction: Story = {
               <span className={styles.statLabel}>service uptime</span>
             </div>
           </div>
-        </CardContent>
+        </Card.Body>
       </Card>
     );
   },
@@ -87,20 +78,20 @@ export const Compact: Story = {
   render: () => {
     return (
       <Card className={styles.card} size="sm">
-        <CardHeader>
-          <CardTitle>Billing plan</CardTitle>
-          <CardDescription>Team workspace, monthly billing.</CardDescription>
-        </CardHeader>
-        <CardContent>
+        <Card.Header>
+          <Card.Title>Billing plan</Card.Title>
+          <Card.Description>Team workspace, monthly billing.</Card.Description>
+        </Card.Header>
+        <Card.Body>
           <div className={styles.metric}>
             <span className={styles.metricValue}>$48</span>
             <span className={styles.metricLabel}>per month</span>
           </div>
-        </CardContent>
-        <CardFooter>
+        </Card.Body>
+        <Card.Footer>
           <Button variant="outline">Cancel</Button>
           <Button>Upgrade</Button>
-        </CardFooter>
+        </Card.Footer>
       </Card>
     );
   },
@@ -115,22 +106,22 @@ export const WithImage: Story = {
           className={styles.image}
           src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
         />
-        <CardHeader>
-          <CardTitle>Warehouse capacity</CardTitle>
-          <CardDescription>North region allocation for the next planning cycle.</CardDescription>
-        </CardHeader>
-        <CardContent>
+        <Card.Header>
+          <Card.Title>Warehouse capacity</Card.Title>
+          <Card.Description>North region allocation for the next planning cycle.</Card.Description>
+        </Card.Header>
+        <Card.Body>
           <div className={styles.capacity}>
             <span>72%</span>
             <div className={styles.capacityBar}>
               <div />
             </div>
           </div>
-        </CardContent>
-        <CardFooter className={styles.footerBetween}>
+        </Card.Body>
+        <Card.Footer className={styles.footerBetween}>
           <Badge variant="outline">Forecast</Badge>
           <Button variant="outline">Open report</Button>
-        </CardFooter>
+        </Card.Footer>
       </Card>
     );
   },
@@ -139,23 +130,25 @@ export const WithImage: Story = {
 export const AsLink: Story = {
   render: () => {
     return (
-      <Card className={styles.card} render={<a href="/docs/card" />}>
-        <CardHeader>
-          <CardTitle>Release health</CardTitle>
-          <CardDescription>Summary for the current production rollout.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className={styles.releaseSummary}>
-            <div>
-              <span className={styles.statValue}>98.4%</span>
-              <span className={styles.statLabel}>successful sessions</span>
+      <Card asChild className={styles.card}>
+        <a href="/docs/card">
+          <Card.Header>
+            <Card.Title>Release health</Card.Title>
+            <Card.Description>Summary for the current production rollout.</Card.Description>
+          </Card.Header>
+          <Card.Body>
+            <div className={styles.releaseSummary}>
+              <div>
+                <span className={styles.statValue}>98.4%</span>
+                <span className={styles.statLabel}>successful sessions</span>
+              </div>
+              <div>
+                <span className={styles.statValue}>12</span>
+                <span className={styles.statLabel}>checks passed</span>
+              </div>
             </div>
-            <div>
-              <span className={styles.statValue}>12</span>
-              <span className={styles.statLabel}>checks passed</span>
-            </div>
-          </div>
-        </CardContent>
+          </Card.Body>
+        </a>
       </Card>
     );
   },
@@ -165,18 +158,18 @@ export const LinkWithActions: Story = {
   render: () => {
     return (
       <Card className={styles.card}>
-        <CardHeader>
-          <CardTitle>
-            <CardLink href="/docs/card">Incident response</CardLink>
-          </CardTitle>
-          <CardDescription>Owner rotation and escalation readiness.</CardDescription>
-          <CardAction>
+        <Card.Header>
+          <Card.Title>
+            <Card.Link href="/docs/card">Incident response</Card.Link>
+          </Card.Title>
+          <Card.Description>Owner rotation and escalation readiness.</Card.Description>
+          <Card.Action>
             <Button variant="outline" size="sm">
               Acknowledge
             </Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent>
+          </Card.Action>
+        </Card.Header>
+        <Card.Body>
           <div className={styles.statsGrid}>
             <div>
               <span className={styles.statValue}>18 min</span>
@@ -187,7 +180,7 @@ export const LinkWithActions: Story = {
               <span className={styles.statLabel}>service uptime</span>
             </div>
           </div>
-        </CardContent>
+        </Card.Body>
       </Card>
     );
   },
@@ -197,18 +190,22 @@ export const CustomComposition: Story = {
   render: () => {
     return (
       <Card className={styles.customCard}>
-        <CardHeader>
-          <CardTitle as="h2">System load</CardTitle>
-          <CardDescription>Aggregated worker utilization across the current batch.</CardDescription>
-        </CardHeader>
-        <CardContent>
+        <Card.Header>
+          <Card.Title asChild>
+            <h2>System load</h2>
+          </Card.Title>
+          <Card.Description>
+            Aggregated worker utilization across the current batch.
+          </Card.Description>
+        </Card.Header>
+        <Card.Body>
           <div className={styles.capacity}>
             <span>64%</span>
             <div className={styles.capacityBar}>
               <div />
             </div>
           </div>
-        </CardContent>
+        </Card.Body>
       </Card>
     );
   },

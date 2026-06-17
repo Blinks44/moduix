@@ -305,13 +305,13 @@
   /* Card */
   --card-action-gap: initial; /* var(--spacing-2) */
   --card-bg: initial; /* var(--color-card) */
+  --card-body-color: initial; /* var(--color-muted-foreground) */
+  --card-body-font-size: initial; /* var(--text-sm) */
+  --card-body-line-height: initial; /* var(--line-height-text-sm) */
+  --card-body-padding-top: initial; /* var(--spacing-4) */
   --card-border-color: initial; /* var(--color-border) */
   --card-border-width: initial; /* var(--border-width-sm) */
   --card-color: initial; /* var(--color-card-foreground) */
-  --card-content-color: initial; /* var(--color-muted-foreground) */
-  --card-content-font-size: initial; /* var(--text-sm) */
-  --card-content-line-height: initial; /* var(--line-height-text-sm) */
-  --card-content-padding-top: initial; /* var(--spacing-4) */
   --card-description-color: initial; /* var(--color-muted-foreground) */
   --card-description-font-size: initial; /* var(--text-sm) */
   --card-description-line-height: initial; /* var(--line-height-text-sm) */

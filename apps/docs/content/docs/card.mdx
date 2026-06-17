@@ -1,6 +1,6 @@
 ---
 title: Card
-description: A standalone presentational container with composable header, content, footer, title, description, and action parts.
+description: A composable surface component built as an Ark-style multipart card.
 icon: Component
 ---
 
@@ -17,36 +17,29 @@ import {
 
 ## API Reference
 
-`Card` is a local moduix component. There is no upstream Base UI primitive for this API.
+`Card` is a local moduix component. There is no dedicated Ark UI Card primitive, so moduix models it
+with `@ark-ui/react/factory` and Chakra's Card anatomy.
 
 ## Basic
 
-Start with `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, and `CardFooter`.
-This is the recommended path for summaries, settings panels, and dashboard surfaces.
+Start with `Card.Root`, `Card.Header`, `Card.Title`, `Card.Description`, `Card.Body`, and
+`Card.Footer`.
 
 <Preview>
   <CardExample />
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        Card,
-        CardContent,
-        CardDescription,
-        CardFooter,
-        CardHeader,
-        CardTitle,
-      } from "moduix";
+      import { Button, Card } from "moduix";
 
       export function CardDemo() {
         return (
-          <Card className="card">
-            <CardHeader>
-              <CardTitle>Release health</CardTitle>
-              <CardDescription>Summary for the current production rollout.</CardDescription>
-            </CardHeader>
-            <CardContent>
+          <Card.Root className="card">
+            <Card.Header>
+              <Card.Title>Release health</Card.Title>
+              <Card.Description>Summary for the current production rollout.</Card.Description>
+            </Card.Header>
+            <Card.Body>
               <div className="releaseSummary">
                 <div>
                   <span className="statValue">98.4%</span>
@@ -57,17 +50,18 @@ This is the recommended path for summaries, settings panels, and dashboard surfa
                   <span className="statLabel">checks passed</span>
                 </div>
               </div>
-            </CardContent>
-            <CardFooter>
+            </Card.Body>
+            <Card.Footer>
               <Button variant="outline">View log</Button>
               <Button>Promote release</Button>
-            </CardFooter>
-          </Card>
+            </Card.Footer>
+          </Card.Root>
         );
       }
     `}
 
   </Preview.Code>
+
   <Preview.CSS>
     {`
       .card {
@@ -99,9 +93,6 @@ This is the recommended path for summaries, settings panels, and dashboard surfa
 </Preview>
 
 ## Install with shadcn (optional)
-
-If you want `Card` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -141,75 +132,44 @@ aubx shadcn@latest add Blinks44/moduix/card
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Card` depends on, such as
-styles, icons, and small utilities.
-
 ## Anatomy
 
-The normal consumer path is short:
-
 ```text
-Card
-├─ CardHeader
-│  ├─ CardTitle
-│  │  └─ CardLink (optional)
-│  ├─ CardDescription
-│  └─ CardAction (optional)
-├─ CardContent
-└─ CardFooter
+Card.Root
+├─ Card.Header
+│  ├─ Card.Title
+│  ├─ Card.Description
+│  └─ Card.Action (optional)
+├─ Card.Body
+└─ Card.Footer (optional)
 ```
 
-| Part              | Role                                                                                   |
-| ----------------- | -------------------------------------------------------------------------------------- |
-| `Card`            | Root surface. Supports `className`, `render`, native props, and `size="sm"`.           |
-| `CardHeader`      | Header grid for title, description, and an optional trailing action.                   |
-| `CardTitle`       | Heading part. Defaults to `h3` and supports `as`.                                      |
-| `CardDescription` | Muted supporting text under the title.                                                 |
-| `CardAction`      | Optional compact header-side action slot.                                              |
-| `CardContent`     | Main body area with content spacing and body text styles.                              |
-| `CardFooter`      | Wrapping footer row for actions or secondary metadata.                                 |
-| `CardLink`        | Link that stretches its hit area across the card without nesting interactive elements. |
+| Part               | Role                                                                         |
+| ------------------ | ---------------------------------------------------------------------------- |
+| `Card.Root`        | Root surface. Supports Ark root props, `size`, and `asChild`.                |
+| `Card.Header`      | Header grid for title, description, and optional trailing action.            |
+| `Card.Body`        | Main body area with content spacing and body text styling.                   |
+| `Card.Footer`      | Wrapping footer row for actions or secondary metadata.                       |
+| `Card.Title`       | Heading part. Defaults to `h3` and uses `asChild` for custom heading levels. |
+| `Card.Description` | Supporting text under the title.                                             |
+| `Card.Action`      | Optional compact header-side action slot.                                    |
+| `Card.Link`        | Overlay link for cards that still contain nested interactive controls.       |
 
-## Composition
+### Defaults
 
-### When to stay high-level
-
-Stay with the standard parts when the card is grouping content on a visible surface.
-
-- Use `CardHeader`, `CardTitle`, and `CardDescription` for the primary heading block.
-- Use `CardContent` for body copy, metrics, media summaries, or form fields.
-- Use `CardFooter` for actions that may need to wrap.
-- Use `CardAction` only for a compact badge, menu trigger, or one small control aligned to the
-  trailing edge of the header.
-
-### When to go custom
-
-`Card` does not expose a lower-level primitive stack. The custom path is plain composition:
-
-- Render the root as another element with `render`, such as `render={<a href="..." />}`, when the
-  whole card is a single navigation target.
-- Use `CardLink` inside `CardTitle` when the card should navigate but still contains nested
-  interactive controls.
-- Add plain children before the header for media blocks or other custom structure.
-- Override visuals with `className` and `--card-*` variables without changing the part layout.
-
-### Default props
-
-| Part        | Prop   | Default     | Notes                                   |
-| ----------- | ------ | ----------- | --------------------------------------- |
-| `Card`      | `size` | `'default'` | Accepts `'default' \| 'sm'`.            |
-| `CardTitle` | `as`   | `'h3'`      | Accepts heading tags `h1` through `h6`. |
+| Part        | Prop   | Default | Notes                  |
+| ----------- | ------ | ------- | ---------------------- |
+| `Card.Root` | `size` | `'md'`  | Accepts `'sm' \| 'md'` |
 
 ### Behavioral notes
 
-- `Card` is presentational by default and renders a `div`.
-- Use `render={<a href="..." />}` only when the card has no nested buttons, links, inputs, menus,
-  or other focusable controls.
-- Use `CardLink` for the overlay-link pattern when the card needs both navigation and nested
-  actions.
-- `size="sm"` reduces padding and title typography for denser dashboards and side panels.
-- `CardContent` removes the first and last direct-child margins and only adds top padding after a
+- `Card.Root` is presentational by default and renders a `div`.
+- Use `Card.Root asChild` when the entire card is one link and there are no nested interactive
+  controls.
+- Use `Card.Link` when the card should navigate and still contains nested actions.
+- `Card.Body` removes first and last direct-child margins and only adds top padding after a
   preceding part.
+- `Card.Title` uses `asChild` instead of an `as` prop for heading changes.
 
 ## Examples
 
@@ -222,97 +182,55 @@ Use `size="sm"` for denser dashboards, side panels, and supporting summaries.
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        Card,
-        CardContent,
-        CardDescription,
-        CardFooter,
-        CardHeader,
-        CardTitle,
-      } from "moduix";
+      import { Button, Card } from "moduix";
 
       export function CardCompactDemo() {
         return (
-          <Card className="card" size="sm">
-            <CardHeader>
-              <CardTitle>Billing plan</CardTitle>
-              <CardDescription>Team workspace, monthly billing.</CardDescription>
-            </CardHeader>
-            <CardContent>
+          <Card.Root className="card" size="sm">
+            <Card.Header>
+              <Card.Title>Billing plan</Card.Title>
+              <Card.Description>Team workspace, monthly billing.</Card.Description>
+            </Card.Header>
+            <Card.Body>
               <div className="metric">
                 <span className="metricValue">$48</span>
                 <span className="metricLabel">per month</span>
               </div>
-            </CardContent>
-            <CardFooter>
+            </Card.Body>
+            <Card.Footer>
               <Button variant="outline">Cancel</Button>
               <Button>Upgrade</Button>
-            </CardFooter>
-          </Card>
+            </Card.Footer>
+          </Card.Root>
         );
       }
     `}
 
   </Preview.Code>
-  <Preview.CSS>
-    {`
-      .card {
-        width: min(24rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .metric {
-        display: grid;
-        gap: var(--spacing-1);
-      }
-
-      .metricValue {
-        color: var(--color-foreground);
-        font-size: var(--text-2xl);
-        font-weight: var(--weight-semibold);
-        line-height: var(--line-height-text-2xl);
-      }
-
-      .metricLabel {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### With Action
 
-Use `CardAction` when the header needs a compact trailing status or control.
+Use `Card.Action` when the header needs a compact trailing status or control.
 
 <Preview>
   <CardWithActionExample />
 
   <Preview.Code>
     {`
-      import {
-        Badge,
-        Card,
-        CardAction,
-        CardContent,
-        CardDescription,
-        CardHeader,
-        CardTitle,
-      } from "moduix";
+      import { Badge, Card } from "moduix";
 
       export function CardWithActionDemo() {
         return (
-          <Card className="card">
-            <CardHeader>
-              <CardTitle>Incident response</CardTitle>
-              <CardDescription>Owner rotation and escalation readiness.</CardDescription>
-              <CardAction>
+          <Card.Root className="card">
+            <Card.Header>
+              <Card.Title>Incident response</Card.Title>
+              <Card.Description>Owner rotation and escalation readiness.</Card.Description>
+              <Card.Action>
                 <Badge variant="secondary">Stable</Badge>
-              </CardAction>
-            </CardHeader>
-            <CardContent>
+              </Card.Action>
+            </Card.Header>
+            <Card.Body>
               <div className="statsGrid">
                 <div>
                   <span className="statValue">18 min</span>
@@ -323,244 +241,89 @@ Use `CardAction` when the header needs a compact trailing status or control.
                   <span className="statLabel">service uptime</span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </Card.Body>
+          </Card.Root>
         );
       }
     `}
 
   </Preview.Code>
-  <Preview.CSS>
-    {`
-      .card {
-        width: min(24rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .statsGrid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--spacing-3);
-      }
-
-      .statValue {
-        display: block;
-        color: var(--color-foreground);
-        font-size: var(--text-xl);
-        font-weight: var(--weight-semibold);
-        line-height: var(--line-height-text-xl);
-      }
-
-      .statLabel {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### With Image
 
-Add plain children before the header when the card needs media or another custom top block.
+Plain children before the header work well for media blocks.
 
 <Preview>
   <CardWithImageExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Badge,
-        Button,
-        Card,
-        CardContent,
-        CardDescription,
-        CardFooter,
-        CardHeader,
-        CardTitle,
-      } from "moduix";
-
-      export function CardWithImageDemo() {
-        return (
-          <Card className="card">
-            <img
-              alt="A warehouse with neatly stacked delivery boxes."
-              className="image"
-              src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
-            />
-            <CardHeader>
-              <CardTitle>Warehouse capacity</CardTitle>
-              <CardDescription>North region allocation for the next planning cycle.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="capacity">
-                <span>72%</span>
-                <div className="capacityBar">
-                  <div />
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="footerBetween">
-              <Badge variant="outline">Forecast</Badge>
-              <Button variant="outline">Open report</Button>
-            </CardFooter>
-          </Card>
-        );
-      }
-    `}
-
-  </Preview.Code>
-  <Preview.CSS>
-    {`
-      .card {
-        width: min(24rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .image {
-        aspect-ratio: 16 / 9;
-        display: block;
-        width: 100%;
-        object-fit: cover;
-      }
-
-      .capacity {
-        display: grid;
-        gap: var(--spacing-2);
-        color: var(--color-foreground);
-        font-size: var(--text-2xl);
-        font-weight: var(--weight-semibold);
-        line-height: var(--line-height-text-2xl);
-      }
-
-      .capacityBar {
-        height: 0.5rem;
-        overflow: hidden;
-        border-radius: var(--radius-full);
-        background-color: var(--color-muted);
-      }
-
-      .capacityBar > div {
-        width: 72%;
-        height: 100%;
-        border-radius: inherit;
-        background-color: var(--color-primary);
-      }
-
-      .footerBetween {
-        justify-content: space-between;
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
-### As Link
+### Root as Link
 
-Use `Card render` when the entire surface is a single navigation target.
+Use `asChild` on the root for a single navigation target with no nested interactive elements.
 
 <Preview>
   <CardAsLinkExample />
 
   <Preview.Code>
     {`
-      import {
-        Card,
-        CardContent,
-        CardDescription,
-        CardHeader,
-        CardTitle,
-      } from "moduix";
+      import { Card } from "moduix";
 
       export function CardAsLinkDemo() {
         return (
-          <Card className="card" render={<a href="/reports/release-health" />}>
-            <CardHeader>
-              <CardTitle>Release health</CardTitle>
-              <CardDescription>Summary for the current production rollout.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="releaseSummary">
-                <div>
-                  <span className="statValue">98.4%</span>
-                  <span className="statLabel">successful sessions</span>
+          <Card.Root asChild className="card">
+            <a href="/reports/release-health">
+              <Card.Header>
+                <Card.Title>Release health</Card.Title>
+                <Card.Description>Summary for the current production rollout.</Card.Description>
+              </Card.Header>
+              <Card.Body>
+                <div className="releaseSummary">
+                  <div>
+                    <span className="statValue">98.4%</span>
+                    <span className="statLabel">successful sessions</span>
+                  </div>
+                  <div>
+                    <span className="statValue">12</span>
+                    <span className="statLabel">checks passed</span>
+                  </div>
                 </div>
-                <div>
-                  <span className="statValue">12</span>
-                  <span className="statLabel">checks passed</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </Card.Body>
+            </a>
+          </Card.Root>
         );
       }
     `}
 
   </Preview.Code>
-  <Preview.CSS>
-    {`
-      .card {
-        width: min(24rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .releaseSummary {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--spacing-3);
-      }
-
-      .statValue {
-        display: block;
-        color: var(--color-foreground);
-        font-size: var(--text-xl);
-        font-weight: var(--weight-semibold);
-        line-height: var(--line-height-text-xl);
-      }
-
-      .statLabel {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
-### Link With Actions
+### Overlay Link
 
-Use `CardLink` when the card should navigate but still contains nested interactive controls.
+Use `Card.Link` when the card should navigate but must keep nested interactive controls.
 
 <Preview>
   <CardLinkWithActionsExample />
 
   <Preview.Code>
     {`
-      import {
-        Button,
-        Card,
-        CardAction,
-        CardContent,
-        CardDescription,
-        CardHeader,
-        CardLink,
-        CardTitle,
-      } from "moduix";
+      import { Button, Card } from "moduix";
 
       export function CardLinkWithActionsDemo() {
         return (
-          <Card className="card">
-            <CardHeader>
-              <CardTitle>
-                <CardLink href="/incidents/response">Incident response</CardLink>
-              </CardTitle>
-              <CardDescription>Owner rotation and escalation readiness.</CardDescription>
-              <CardAction>
+          <Card.Root className="card">
+            <Card.Header>
+              <Card.Title>
+                <Card.Link href="/incidents/response">Incident response</Card.Link>
+              </Card.Title>
+              <Card.Description>Owner rotation and escalation readiness.</Card.Description>
+              <Card.Action>
                 <Button variant="outline" size="sm">
                   Acknowledge
                 </Button>
-              </CardAction>
-            </CardHeader>
-            <CardContent>
+              </Card.Action>
+            </Card.Header>
+            <Card.Body>
               <div className="statsGrid">
                 <div>
                   <span className="statValue">18 min</span>
@@ -571,83 +334,50 @@ Use `CardLink` when the card should navigate but still contains nested interacti
                   <span className="statLabel">service uptime</span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </Card.Body>
+          </Card.Root>
         );
       }
     `}
 
   </Preview.Code>
-  <Preview.CSS>
-    {`
-      .card {
-        width: min(24rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .statsGrid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--spacing-3);
-      }
-
-      .statValue {
-        display: block;
-        color: var(--color-foreground);
-        font-size: var(--text-xl);
-        font-weight: var(--weight-semibold);
-        line-height: var(--line-height-text-xl);
-      }
-
-      .statLabel {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### Custom Styling
 
-Use local CSS variables when the part structure stays the same and only the surface styling changes.
+Override visuals with `className` and `--card-*` variables.
 
 <Preview>
   <CardCustomStylingExample />
 
   <Preview.Code>
     {`
-      import {
-        Card,
-        CardContent,
-        CardDescription,
-        CardHeader,
-        CardTitle,
-      } from "moduix";
+      import { Card } from "moduix";
 
       export function CardCustomStylingDemo() {
         return (
-          <Card className="customCard">
-            <CardHeader>
-              <CardTitle>System load</CardTitle>
-              <CardDescription>
+          <Card.Root className="customCard">
+            <Card.Header>
+              <Card.Title>System load</Card.Title>
+              <Card.Description>
                 Aggregated worker utilization across the current batch.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </Card.Description>
+            </Card.Header>
+            <Card.Body>
               <div className="capacity">
                 <span>64%</span>
                 <div className="capacityBar">
                   <div className="capacityFill" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </Card.Body>
+          </Card.Root>
         );
       }
     `}
 
   </Preview.Code>
+
   <Preview.CSS>
     {`
       .customCard {
@@ -655,44 +385,15 @@ Use local CSS variables when the part structure stays the same and only the surf
         --card-border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
         --card-radius: var(--radius-md);
         --card-shadow: var(--shadow-md);
-        width: min(24rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .capacity {
-        display: grid;
-        gap: var(--spacing-2);
-        color: var(--color-foreground);
-        font-size: var(--text-2xl);
-        font-weight: var(--weight-semibold);
-        line-height: var(--line-height-text-2xl);
-      }
-
-      .capacityBar {
-        height: 0.5rem;
-        overflow: hidden;
-        border-radius: var(--radius-full);
-        background-color: var(--color-muted);
-      }
-
-      .capacityBar > div {
-        width: 72%;
-        height: 100%;
-        border-radius: inherit;
-        background-color: var(--color-primary);
-      }
-
-      .capacityFill {
-        width: 64%;
       }
     `}
-
   </Preview.CSS>
 </Preview>
 
 ## Styling
 
-Style `Card` through `className`, the stable `data-slot` hooks, `data-size` on the root, and the
-public `--card-*` variables from `theme.css`.
+Style `Card` through `className`, `data-slot`, Ark `data-scope` / `data-part` hooks, and the public
+`--card-*` variables from `theme.css`.
 
 ### CSS Properties
 
@@ -704,13 +405,18 @@ public `--card-*` variables from `theme.css`.
   </Tabs>
 </div>
 
-### Styling hooks
+Stable hooks:
 
-- `data-slot="card"` owns the root surface, border, radius, background, and size-specific tokens.
-- `data-slot="card-header"`, `card-content`, and `card-footer` are the main layout hooks for
-  spacing overrides.
-- `data-slot="card-title"` and `card-description` own heading typography and text color.
-- `data-slot="card-action"` stays above the `CardLink` overlay and is the right hook for compact
-  trailing controls.
-- `data-slot="card-link"` owns the overlay-link focus ring and clickable surface.
-- `Card` writes `data-size="default"` or `data-size="sm"` on the root for size-specific styling.
+- `data-slot="card-root"`, `card-header`, `card-body`, `card-footer`
+- `data-slot="card-title"`, `card-description`, `card-action`, `card-link`
+- `data-scope="card"`
+- `data-part="root" | "header" | "body" | "footer" | "title" | "description" | "action" | "link"`
+- `data-size="sm" | "md"`
+
+## Accessibility
+
+- `Card.Root` is a `div` by default. Use `asChild` when another semantic element should own the DOM
+  node.
+- Avoid a linked root when the card contains buttons, menus, inputs, checkboxes, or nested links.
+- `Card.Title` defaults to `h3`; use `asChild` when the outline needs another heading level.
+- `Card.Action` is layout only and does not create ARIA relationships.

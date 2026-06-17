@@ -509,32 +509,20 @@ Use `TableEmpty` when a body would otherwise render no rows.
 
 ### Inside Card
 
-`TableContainer` fits naturally inside `CardContent` when the table should live on a card surface.
+`TableContainer` fits naturally inside `Card.Body` when the table should live on a card surface.
 
 <Preview>
   <TableInCardExample />
 
   <Preview.Code>
     {`
-      import {
-        Card,
-        CardContent,
-        CardHeader,
-        CardTitle,
-        Table,
-        TableBody,
-        TableCell,
-        TableContainer,
-        TableHead,
-        TableHeader,
-        TableRow,
-      } from "moduix";
+      import { Card, Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from "moduix";
 
       <Card>
-        <CardHeader>
-          <CardTitle>Projects</CardTitle>
-        </CardHeader>
-        <CardContent className={styles.cardContent}>
+        <Card.Header>
+          <Card.Title>Projects</Card.Title>
+        </Card.Header>
+        <Card.Body className={styles.cardContent}>
           <TableContainer>
             <Table className={styles.table}>
               <TableHeader>
@@ -557,7 +545,7 @@ Use `TableEmpty` when a body would otherwise render no rows.
               </TableBody>
             </Table>
           </TableContainer>
-        </CardContent>
+        </Card.Body>
       </Card>
     `}
 

@@ -30,7 +30,7 @@
       );
     }
 
-    &:has([data-slot='card-link'])
+    &:has([data-scope='card'][data-part='link'])
       :where(
         a,
         button,
@@ -42,14 +42,14 @@
         [role='menuitem'],
         [role='switch'],
         [tabindex]:not([tabindex='-1'])
-      ):not([data-slot='card-link']) {
+      ):not([data-scope='card'][data-part='link']) {
       position: relative;
       z-index: 1;
     }
   }
 
   .header,
-  .content,
+  .body,
   .footer {
     box-sizing: border-box;
     min-width: 0;
@@ -64,11 +64,11 @@
     padding-block: var(--card-padding-default) 0;
   }
 
-  .content {
-    padding-block: var(--card-content-padding-top, var(--spacing-4)) var(--card-padding-default);
-    color: var(--card-content-color, var(--color-muted-foreground));
-    font-size: var(--card-content-font-size, var(--text-sm));
-    line-height: var(--card-content-line-height, var(--line-height-text-sm));
+  .body {
+    padding-block: var(--card-body-padding-top, var(--spacing-4)) var(--card-padding-default);
+    color: var(--card-body-color, var(--color-muted-foreground));
+    font-size: var(--card-body-font-size, var(--text-sm));
+    line-height: var(--card-body-line-height, var(--line-height-text-sm));
     overflow-wrap: anywhere;
 
     &:first-child {

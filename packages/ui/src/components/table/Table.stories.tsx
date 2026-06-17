@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '../badge';
-import { Card, CardContent, CardHeader, CardTitle } from '../card';
+import { Card } from '../card';
 import {
   Table,
   TableBody,
@@ -144,10 +144,10 @@ export const StripedRows: Story = {
 export const InsideCard: Story = {
   render: () => (
     <Card className={styles.card}>
-      <CardHeader>
-        <CardTitle>Projects</CardTitle>
-      </CardHeader>
-      <CardContent className={styles.cardContent}>
+      <Card.Header>
+        <Card.Title>Projects</Card.Title>
+      </Card.Header>
+      <Card.Body className={styles.cardContent}>
         <TableContainer>
           <Table className={styles.table}>
             <TableHeader>
@@ -170,7 +170,7 @@ export const InsideCard: Story = {
             </TableBody>
           </Table>
         </TableContainer>
-      </CardContent>
+      </Card.Body>
     </Card>
   ),
 };

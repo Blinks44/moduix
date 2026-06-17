@@ -1,16 +1,5 @@
 import type { ComponentProps } from 'react';
-import {
-  Badge,
-  Button,
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardLink,
-  CardTitle,
-} from 'moduix';
+import { Badge, Button, Card } from 'moduix';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './card.module.css';
@@ -19,7 +8,7 @@ export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--card-action-gap',
     defaultValue: 'var(--spacing-2)',
-    description: 'Controls `CardAction` spacing.',
+    description: 'Controls `Card.Action` spacing.',
   },
   {
     name: '--card-bg',
@@ -42,64 +31,64 @@ export const cardOverrideCssProperties: CssProperty[] = [
     description: 'Controls card foreground color.',
   },
   {
-    name: '--card-content-color',
+    name: '--card-body-color',
     defaultValue: 'var(--color-muted-foreground)',
-    description: 'Controls `CardContent` text color.',
+    description: 'Controls `Card.Body` text color.',
   },
   {
-    name: '--card-content-font-size',
+    name: '--card-body-font-size',
     defaultValue: 'var(--text-sm)',
-    description: 'Controls `CardContent` font size.',
+    description: 'Controls `Card.Body` font size.',
   },
   {
-    name: '--card-content-line-height',
+    name: '--card-body-line-height',
     defaultValue: 'var(--line-height-text-sm)',
-    description: 'Controls `CardContent` line height.',
+    description: 'Controls `Card.Body` line height.',
   },
   {
-    name: '--card-content-padding-top',
+    name: '--card-body-padding-top',
     defaultValue: 'var(--spacing-4)',
-    description: 'Controls spacing between header and content.',
+    description: 'Controls spacing between header and body.',
   },
   {
     name: '--card-description-color',
     defaultValue: 'var(--color-muted-foreground)',
-    description: 'Controls `CardDescription` text color.',
+    description: 'Controls `Card.Description` text color.',
   },
   {
     name: '--card-description-font-size',
     defaultValue: 'var(--text-sm)',
-    description: 'Controls `CardDescription` font size.',
+    description: 'Controls `Card.Description` font size.',
   },
   {
     name: '--card-description-line-height',
     defaultValue: 'var(--line-height-text-sm)',
-    description: 'Controls `CardDescription` line height.',
+    description: 'Controls `Card.Description` line height.',
   },
   {
     name: '--card-footer-gap',
     defaultValue: 'var(--spacing-2)',
-    description: 'Controls `CardFooter` spacing.',
+    description: 'Controls `Card.Footer` spacing.',
   },
   {
     name: '--card-focus-ring-color',
     defaultValue: 'var(--color-ring)',
-    description: 'Controls `CardLink` focus ring color.',
+    description: 'Controls `Card.Link` focus ring color.',
   },
   {
     name: '--card-focus-ring-offset',
     defaultValue: 'var(--border-width-sm)',
-    description: 'Controls `CardLink` focus ring offset.',
+    description: 'Controls `Card.Link` focus ring offset.',
   },
   {
     name: '--card-focus-ring-width',
     defaultValue: 'var(--border-width-md)',
-    description: 'Controls `CardLink` focus ring width.',
+    description: 'Controls `Card.Link` focus ring width.',
   },
   {
     name: '--card-header-gap',
     defaultValue: 'var(--spacing-1)',
-    description: 'Controls spacing inside `CardHeader`.',
+    description: 'Controls spacing inside `Card.Header`.',
   },
   {
     name: '--card-padding',
@@ -120,32 +109,32 @@ export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--card-title-color',
     defaultValue: 'currentColor',
-    description: 'Controls `CardTitle` color.',
+    description: 'Controls `Card.Title` color.',
   },
   {
     name: '--card-title-font-size',
     defaultValue: 'var(--text-lg)',
-    description: 'Controls default `CardTitle` font size.',
+    description: 'Controls default `Card.Title` font size.',
   },
   {
     name: '--card-title-font-size-sm',
     defaultValue: 'var(--text-md)',
-    description: 'Controls compact `CardTitle` font size.',
+    description: 'Controls compact `Card.Title` font size.',
   },
   {
     name: '--card-title-font-weight',
     defaultValue: 'var(--weight-semibold)',
-    description: 'Controls `CardTitle` weight.',
+    description: 'Controls `Card.Title` weight.',
   },
   {
     name: '--card-title-line-height',
     defaultValue: 'var(--line-height-text-lg)',
-    description: 'Controls default `CardTitle` line height.',
+    description: 'Controls default `Card.Title` line height.',
   },
   {
     name: '--card-title-line-height-sm',
     defaultValue: 'var(--line-height-text-md)',
-    description: 'Controls compact `CardTitle` line height.',
+    description: 'Controls compact `Card.Title` line height.',
   },
 ];
 
@@ -156,11 +145,11 @@ export function CardCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
 export function CardExample(props: ComponentProps<typeof Card>) {
   return (
     <Card className={styles.card} {...props}>
-      <CardHeader>
-        <CardTitle>Release health</CardTitle>
-        <CardDescription>Summary for the current production rollout.</CardDescription>
-      </CardHeader>
-      <CardContent>
+      <Card.Header>
+        <Card.Title>Release health</Card.Title>
+        <Card.Description>Summary for the current production rollout.</Card.Description>
+      </Card.Header>
+      <Card.Body>
         <div className={styles.releaseSummary}>
           <div>
             <span className={styles.statValue}>98.4%</span>
@@ -171,11 +160,11 @@ export function CardExample(props: ComponentProps<typeof Card>) {
             <span className={styles.statLabel}>checks passed</span>
           </div>
         </div>
-      </CardContent>
-      <CardFooter>
+      </Card.Body>
+      <Card.Footer>
         <Button variant="outline">View log</Button>
         <Button>Promote release</Button>
-      </CardFooter>
+      </Card.Footer>
     </Card>
   );
 }
@@ -183,20 +172,20 @@ export function CardExample(props: ComponentProps<typeof Card>) {
 export function CardCompactExample() {
   return (
     <Card className={styles.card} size="sm">
-      <CardHeader>
-        <CardTitle>Billing plan</CardTitle>
-        <CardDescription>Team workspace, monthly billing.</CardDescription>
-      </CardHeader>
-      <CardContent>
+      <Card.Header>
+        <Card.Title>Billing plan</Card.Title>
+        <Card.Description>Team workspace, monthly billing.</Card.Description>
+      </Card.Header>
+      <Card.Body>
         <div className={styles.metric}>
           <span className={styles.metricValue}>$48</span>
           <span className={styles.metricLabel}>per month</span>
         </div>
-      </CardContent>
-      <CardFooter>
+      </Card.Body>
+      <Card.Footer>
         <Button variant="outline">Cancel</Button>
         <Button>Upgrade</Button>
-      </CardFooter>
+      </Card.Footer>
     </Card>
   );
 }
@@ -204,14 +193,14 @@ export function CardCompactExample() {
 export function CardWithActionExample() {
   return (
     <Card className={styles.card}>
-      <CardHeader>
-        <CardTitle>Incident response</CardTitle>
-        <CardDescription>Owner rotation and escalation readiness.</CardDescription>
-        <CardAction>
+      <Card.Header>
+        <Card.Title>Incident response</Card.Title>
+        <Card.Description>Owner rotation and escalation readiness.</Card.Description>
+        <Card.Action>
           <Badge variant="secondary">Stable</Badge>
-        </CardAction>
-      </CardHeader>
-      <CardContent>
+        </Card.Action>
+      </Card.Header>
+      <Card.Body>
         <div className={styles.statsGrid}>
           <div>
             <span className={styles.statValue}>18 min</span>
@@ -222,7 +211,7 @@ export function CardWithActionExample() {
             <span className={styles.statLabel}>service uptime</span>
           </div>
         </div>
-      </CardContent>
+      </Card.Body>
     </Card>
   );
 }
@@ -235,45 +224,47 @@ export function CardWithImageExample() {
         className={styles.image}
         src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
       />
-      <CardHeader>
-        <CardTitle>Warehouse capacity</CardTitle>
-        <CardDescription>North region allocation for the next planning cycle.</CardDescription>
-      </CardHeader>
-      <CardContent>
+      <Card.Header>
+        <Card.Title>Warehouse capacity</Card.Title>
+        <Card.Description>North region allocation for the next planning cycle.</Card.Description>
+      </Card.Header>
+      <Card.Body>
         <div className={styles.capacity}>
           <span>72%</span>
           <div className={styles.capacityBar}>
             <div />
           </div>
         </div>
-      </CardContent>
-      <CardFooter className={styles.footerBetween}>
+      </Card.Body>
+      <Card.Footer className={styles.footerBetween}>
         <Badge variant="outline">Forecast</Badge>
         <Button variant="outline">Open report</Button>
-      </CardFooter>
+      </Card.Footer>
     </Card>
   );
 }
 
 export function CardAsLinkExample() {
   return (
-    <Card className={styles.card} render={<a href="/docs/card" />}>
-      <CardHeader>
-        <CardTitle>Release health</CardTitle>
-        <CardDescription>Summary for the current production rollout.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className={styles.releaseSummary}>
-          <div>
-            <span className={styles.statValue}>98.4%</span>
-            <span className={styles.statLabel}>successful sessions</span>
+    <Card asChild className={styles.card}>
+      <a href="/docs/card">
+        <Card.Header>
+          <Card.Title>Release health</Card.Title>
+          <Card.Description>Summary for the current production rollout.</Card.Description>
+        </Card.Header>
+        <Card.Body>
+          <div className={styles.releaseSummary}>
+            <div>
+              <span className={styles.statValue}>98.4%</span>
+              <span className={styles.statLabel}>successful sessions</span>
+            </div>
+            <div>
+              <span className={styles.statValue}>12</span>
+              <span className={styles.statLabel}>checks passed</span>
+            </div>
           </div>
-          <div>
-            <span className={styles.statValue}>12</span>
-            <span className={styles.statLabel}>checks passed</span>
-          </div>
-        </div>
-      </CardContent>
+        </Card.Body>
+      </a>
     </Card>
   );
 }
@@ -281,18 +272,18 @@ export function CardAsLinkExample() {
 export function CardLinkWithActionsExample() {
   return (
     <Card className={styles.card}>
-      <CardHeader>
-        <CardTitle>
-          <CardLink href="/docs/card">Incident response</CardLink>
-        </CardTitle>
-        <CardDescription>Owner rotation and escalation readiness.</CardDescription>
-        <CardAction>
+      <Card.Header>
+        <Card.Title>
+          <Card.Link href="/docs/card">Incident response</Card.Link>
+        </Card.Title>
+        <Card.Description>Owner rotation and escalation readiness.</Card.Description>
+        <Card.Action>
           <Button variant="outline" size="sm">
             Acknowledge
           </Button>
-        </CardAction>
-      </CardHeader>
-      <CardContent>
+        </Card.Action>
+      </Card.Header>
+      <Card.Body>
         <div className={styles.statsGrid}>
           <div>
             <span className={styles.statValue}>18 min</span>
@@ -303,7 +294,7 @@ export function CardLinkWithActionsExample() {
             <span className={styles.statLabel}>service uptime</span>
           </div>
         </div>
-      </CardContent>
+      </Card.Body>
     </Card>
   );
 }
@@ -311,18 +302,18 @@ export function CardLinkWithActionsExample() {
 export function CardCustomStylingExample() {
   return (
     <Card className={styles.customCard}>
-      <CardHeader>
-        <CardTitle>System load</CardTitle>
-        <CardDescription>Aggregated worker utilization across the current batch.</CardDescription>
-      </CardHeader>
-      <CardContent>
+      <Card.Header>
+        <Card.Title>System load</Card.Title>
+        <Card.Description>Aggregated worker utilization across the current batch.</Card.Description>
+      </Card.Header>
+      <Card.Body>
         <div className={styles.capacity}>
           <span>64%</span>
           <div className={styles.capacityBar}>
             <div className={styles.capacityFill} />
           </div>
         </div>
-      </CardContent>
+      </Card.Body>
     </Card>
   );
 }

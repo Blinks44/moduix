@@ -1,263 +1,221 @@
 # Card
 
-`Card` is a standalone moduix presentational container. It does not wrap a Base UI primitive, has no
-state management, and does not add interaction semantics by itself.
+Upstream reference docs:
+
+- Ark UI composition: https://ark-ui.com/react/docs/guides/composition
+- Chakra UI Card: https://www.chakra-ui.com/docs/components/card
 
 ## Purpose
 
-Use `Card` to group related content on a visible surface: summaries, settings panels, dashboard
-widgets, media previews, and short forms. Keep interaction inside the card with `Button`, links, form
-controls, or other focusable components. When the card itself is a navigation target, use either
-`Card render={<a />}` for a single-link card or `CardLink` for the overlay-link pattern with nested
-actions.
+`Card` is a standalone moduix surface component. Ark UI does not ship a dedicated Card primitive, so
+moduix now models it as an Ark-style multipart component built with `@ark-ui/react/factory`.
 
-## Basic usage
+## Current behavior contract
 
-```tsx
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardLink,
-  CardTitle,
-} from 'moduix';
+- Public API is compound-first: `Card.Root`, `Card.Header`, `Card.Body`, `Card.Footer`,
+  `Card.Title`, `Card.Description`, `Card.Action`, `Card.Link`.
+- The callable `Card` export remains the root part itself, but docs and examples should prefer
+  explicit part names.
+- `Card.Root` defaults `size` to `'md'`.
+- `Card.Title` renders `h3` by default and uses Ark `asChild` for heading-level changes.
+- All exported parts accept Ark factory props, including `className` and `asChild`.
 
-export function CardDemo() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Release health</CardTitle>
-        <CardDescription>Summary for the current production rollout.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div>
-          <strong>98.4%</strong> successful sessions
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button variant="outline">View log</Button>
-        <Button>Promote release</Button>
-      </CardFooter>
-    </Card>
-  );
-}
-```
-
-## Parts
-
-| Part              | Element | Slot data attribute            | Purpose                                     |
-| ----------------- | ------- | ------------------------------ | ------------------------------------------- |
-| `Card`            | `div`   | `data-slot="card"`             | Root surface, border, background, and size. |
-| `CardHeader`      | `div`   | `data-slot="card-header"`      | Grid layout for title, description, action. |
-| `CardTitle`       | heading | `data-slot="card-title"`       | Card heading; renders `h3` by default.      |
-| `CardDescription` | `p`     | `data-slot="card-description"` | Supporting text under the title.            |
-| `CardAction`      | `div`   | `data-slot="card-action"`      | Optional trailing header slot.              |
-| `CardLink`        | `a`     | `data-slot="card-link"`        | Link that can stretch over the card.        |
-| `CardContent`     | `div`   | `data-slot="card-content"`     | Main body area with body text styling.      |
-| `CardFooter`      | `div`   | `data-slot="card-footer"`      | Wrapping action or metadata row.            |
+## Composition
 
 Recommended anatomy:
 
 ```text
-Card
-├─ CardHeader
-│  ├─ CardTitle
-│  │  └─ CardLink (optional)
-│  ├─ CardDescription
-│  └─ CardAction (optional)
-├─ CardContent
-└─ CardFooter
+Card.Root
+├─ Card.Header
+│  ├─ Card.Title
+│  ├─ Card.Description
+│  └─ Card.Action (optional)
+├─ Card.Body
+└─ Card.Footer (optional)
 ```
 
-`Card` also accepts plain children before or after the standard parts. Use that for media blocks:
+Basic usage:
 
 ```tsx
-<Card>
-  <img alt="Warehouse shelves" className={styles.image} src="/warehouse.jpg" />
-  <CardHeader>
-    <CardTitle>Warehouse capacity</CardTitle>
-    <CardDescription>North region allocation.</CardDescription>
-  </CardHeader>
-  <CardContent>72%</CardContent>
-</Card>
+import { Button, Card } from 'moduix';
+
+export function CardDemo() {
+  return (
+    <Card.Root>
+      <Card.Header>
+        <Card.Title>Release health</Card.Title>
+        <Card.Description>Summary for the current production rollout.</Card.Description>
+      </Card.Header>
+      <Card.Body>
+        <div>
+          <strong>98.4%</strong> successful sessions
+        </div>
+      </Card.Body>
+      <Card.Footer>
+        <Button variant="outline">View log</Button>
+        <Button>Promote release</Button>
+      </Card.Footer>
+    </Card.Root>
+  );
+}
 ```
 
-## Public props
-
-### `Card`
-
-Extends native `div` props.
-
-| Prop        | Type                | Default     |
-| ----------- | ------------------- | ----------- |
-| `render`    | Base UI render prop | -           |
-| `size`      | `'default' \| 'sm'` | `'default'` |
-| `className` | `string`            | -           |
-
-`size` is written to `data-size` on the root. `size="sm"` reduces padding and title typography for
-dense dashboard or sidebar layouts.
-
-Use `render={<a href="..." />}` when the entire card is one link and the card has no nested
-interactive controls:
+Use `asChild` on the root when the whole card is one link and there are no nested interactive
+controls:
 
 ```tsx
-<Card render={<a href="/reports/release-health" />}>
-  <CardHeader>
-    <CardTitle>Release health</CardTitle>
-    <CardDescription>Summary for the current rollout.</CardDescription>
-  </CardHeader>
-  <CardContent>98.4% successful sessions</CardContent>
-</Card>
+<Card.Root asChild>
+  <a href="/reports/release-health">
+    <Card.Header>
+      <Card.Title>Release health</Card.Title>
+      <Card.Description>Summary for the current rollout.</Card.Description>
+    </Card.Header>
+    <Card.Body>98.4% successful sessions</Card.Body>
+  </a>
+</Card.Root>
 ```
 
-Do not use a linked root when children include buttons, menus, links, checkboxes, inputs, or other
-focusable controls.
-
-### `CardHeader`, `CardContent`, `CardFooter`, `CardAction`
-
-Extend native `div` props and accept `className`.
-
-`CardHeader` is a two-column grid: title and description occupy the first column, while
-`CardAction` occupies the trailing column and spans the header rows. Use `CardAction` for compact
-badges, status, menus, or one small control. Put larger actions in `CardFooter`.
-
-`CardContent` resets the margins of its first and last direct child and gets top padding only when it
-follows another part. If `CardContent` is the first child, it receives normal card top padding.
-
-`CardFooter` is a wrapping flex row with a small gap. Override `justify-content` through `className`
-when actions need spacing such as `space-between`.
-
-### `CardTitle`
-
-Extends heading props and renders `h3` by default.
-
-| Prop | Type                                           | Default |
-| ---- | ---------------------------------------------- | ------- |
-| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`  |
-
-Use `as` to keep the document outline correct:
+Use `Card.Link` inside `Card.Title` when the card must navigate and still keep nested actions:
 
 ```tsx
-<CardTitle as="h2">Billing plan</CardTitle>
-```
-
-### `CardDescription`
-
-Extends native `p` props. Keep the content phrasing/text-like; if the description needs complex
-blocks, compose them in `CardContent` instead.
-
-### `CardLink`
-
-Extends native anchor props and supports Base UI-style `render`.
-
-Use `CardLink` inside `CardTitle` when the card should navigate but also contains nested actions. The
-link keeps valid HTML semantics while its `::after` overlay makes the visible card surface clickable.
-`CardAction` is layered above the overlay by default.
-
-```tsx
-<Card>
-  <CardHeader>
-    <CardTitle>
-      <CardLink href="/incidents/response">Incident response</CardLink>
-    </CardTitle>
-    <CardDescription>Owner rotation and escalation readiness.</CardDescription>
-    <CardAction>
+<Card.Root>
+  <Card.Header>
+    <Card.Title>
+      <Card.Link href="/incidents/response">Incident response</Card.Link>
+    </Card.Title>
+    <Card.Description>Owner rotation and escalation readiness.</Card.Description>
+    <Card.Action>
       <Button variant="outline" size="sm">
         Acknowledge
       </Button>
-    </CardAction>
-  </CardHeader>
-  <CardContent>18 min median response</CardContent>
-</Card>
+    </Card.Action>
+  </Card.Header>
+  <Card.Body>18 min median response</Card.Body>
+</Card.Root>
 ```
+
+## Parts
+
+| Part               | Element | Data attributes                                                                        | Purpose                                      |
+| ------------------ | ------- | -------------------------------------------------------------------------------------- | -------------------------------------------- |
+| `Card.Root`        | `div`   | `data-scope="card"`, `data-part="root"`, `data-slot="card-root"`, `data-size="<size>"` | Root surface, border, background, and size.  |
+| `Card.Header`      | `div`   | `data-scope="card"`, `data-part="header"`, `data-slot="card-header"`                   | Header grid for title, description, action.  |
+| `Card.Body`        | `div`   | `data-scope="card"`, `data-part="body"`, `data-slot="card-body"`                       | Main body area with text styling.            |
+| `Card.Footer`      | `div`   | `data-scope="card"`, `data-part="footer"`, `data-slot="card-footer"`                   | Wrapping footer row for actions or metadata. |
+| `Card.Title`       | `h3`    | `data-scope="card"`, `data-part="title"`, `data-slot="card-title"`                     | Card heading.                                |
+| `Card.Description` | `p`     | `data-scope="card"`, `data-part="description"`, `data-slot="card-description"`         | Supporting text under the title.             |
+| `Card.Action`      | `div`   | `data-scope="card"`, `data-part="action"`, `data-slot="card-action"`                   | Optional trailing header slot.               |
+| `Card.Link`        | `a`     | `data-scope="card"`, `data-part="link"`, `data-slot="card-link"`                       | Overlay link for cards with nested actions.  |
+
+## Public props
+
+### `Card.Root`
+
+Extends Ark `div` props and supports `asChild`.
+
+| Prop        | Type           | Default |
+| ----------- | -------------- | ------- |
+| `size`      | `'sm' \| 'md'` | `'md'`  |
+| `className` | `string`       | -       |
+| `asChild`   | `boolean`      | `false` |
+
+`size` is exposed as `data-size` on the root.
+
+### `Card.Header`, `Card.Body`, `Card.Footer`, `Card.Action`
+
+Extend Ark `div` props and support `asChild`.
+
+- `Card.Header` is a two-column grid: title and description use the first column, `Card.Action`
+  occupies the trailing column.
+- `Card.Body` resets the first and last direct-child margins and only adds top padding when it
+  follows another part.
+- `Card.Footer` is a wrapping flex row for actions or secondary metadata.
+
+### `Card.Title`
+
+Extends Ark `h3` props and supports `asChild`.
+
+Use `asChild` when the document outline needs another heading:
+
+```tsx
+<Card.Title asChild>
+  <h2>Billing plan</h2>
+</Card.Title>
+```
+
+### `Card.Description`
+
+Extends Ark `p` props and supports `asChild`. Keep the content phrasing/text-like.
+
+### `Card.Link`
+
+Extends Ark `a` props and supports `asChild`. The slot renders the overlay click target and focus
+ring, while `Card.Action` stays layered above it.
 
 ## Styling API
 
-Every part accepts `className`. The root exposes `data-size`, and all parts expose the `data-slot`
-attributes listed above for selectors and tests.
+Stable styling hooks:
 
-Public CSS variables are registered in `packages/ui/src/styles/theme.css`. Override them on a single
-card root or on a parent theme scope.
+- `data-slot="card-root" | "card-header" | "card-body" | "card-footer" | "card-title" | "card-description" | "card-action" | "card-link"`
+- `data-scope="card"`
+- `data-part="root" | "header" | "body" | "footer" | "title" | "description" | "action" | "link"`
+- `data-size="sm" | "md"`
 
-| Variable                         | Default/fallback                | Affects                    |
-| -------------------------------- | ------------------------------- | -------------------------- |
-| `--card-action-gap`              | `var(--spacing-2)`              | Gap inside `CardAction`.   |
-| `--card-bg`                      | `var(--color-card)`             | Root background.           |
-| `--card-border-color`            | `var(--color-border)`           | Root border color.         |
-| `--card-border-width`            | `var(--border-width-sm)`        | Root border width.         |
-| `--card-color`                   | `var(--color-card-foreground)`  | Root foreground color.     |
-| `--card-content-color`           | `var(--color-muted-foreground)` | Body text color.           |
-| `--card-content-font-size`       | `var(--text-sm)`                | Body font size.            |
-| `--card-content-line-height`     | `var(--line-height-text-sm)`    | Body line-height.          |
-| `--card-content-padding-top`     | `var(--spacing-4)`              | Header-to-content spacing. |
-| `--card-description-color`       | `var(--color-muted-foreground)` | Description color.         |
-| `--card-description-font-size`   | `var(--text-sm)`                | Description font size.     |
-| `--card-description-line-height` | `var(--line-height-text-sm)`    | Description line-height.   |
-| `--card-footer-gap`              | `var(--spacing-2)`              | Footer item gap.           |
-| `--card-focus-ring-color`        | `var(--color-ring)`             | `CardLink` focus color.    |
-| `--card-focus-ring-offset`       | `var(--border-width-sm)`        | `CardLink` focus offset.   |
-| `--card-focus-ring-width`        | `var(--border-width-md)`        | `CardLink` focus width.    |
-| `--card-header-gap`              | `var(--spacing-1)`              | Header row gap.            |
-| `--card-padding`                 | `var(--spacing-6)`              | Default card padding.      |
-| `--card-padding-sm`              | `var(--spacing-4)`              | Compact card padding.      |
-| `--card-radius`                  | `var(--radius-lg)`              | Root border radius.        |
-| `--card-shadow`                  | `none`                          | Root shadow.               |
-| `--card-title-color`             | `currentColor`                  | Title color.               |
-| `--card-title-font-size`         | `var(--text-lg)`                | Default title font size.   |
-| `--card-title-font-size-sm`      | `var(--text-md)`                | Compact title font size.   |
-| `--card-title-font-weight`       | `var(--weight-semibold)`        | Title weight.              |
-| `--card-title-line-height`       | `var(--line-height-text-lg)`    | Default title line-height. |
-| `--card-title-line-height-sm`    | `var(--line-height-text-md)`    | Compact title line-height. |
+Public CSS variables:
 
-## UX and accessibility
+| Variable                         | Default/fallback                | Applies to         |
+| -------------------------------- | ------------------------------- | ------------------ |
+| `--card-action-gap`              | `var(--spacing-2)`              | `Card.Action`      |
+| `--card-bg`                      | `var(--color-card)`             | `Card.Root`        |
+| `--card-body-color`              | `var(--color-muted-foreground)` | `Card.Body`        |
+| `--card-body-font-size`          | `var(--text-sm)`                | `Card.Body`        |
+| `--card-body-line-height`        | `var(--line-height-text-sm)`    | `Card.Body`        |
+| `--card-body-padding-top`        | `var(--spacing-4)`              | `Card.Body`        |
+| `--card-border-color`            | `var(--color-border)`           | `Card.Root`        |
+| `--card-border-width`            | `var(--border-width-sm)`        | `Card.Root`        |
+| `--card-color`                   | `var(--color-card-foreground)`  | `Card.Root`        |
+| `--card-description-color`       | `var(--color-muted-foreground)` | `Card.Description` |
+| `--card-description-font-size`   | `var(--text-sm)`                | `Card.Description` |
+| `--card-description-line-height` | `var(--line-height-text-sm)`    | `Card.Description` |
+| `--card-footer-gap`              | `var(--spacing-2)`              | `Card.Footer`      |
+| `--card-focus-ring-color`        | `var(--color-ring)`             | `Card.Link`        |
+| `--card-focus-ring-offset`       | `var(--border-width-sm)`        | `Card.Link`        |
+| `--card-focus-ring-width`        | `var(--border-width-md)`        | `Card.Link`        |
+| `--card-header-gap`              | `var(--spacing-1)`              | `Card.Header`      |
+| `--card-padding`                 | `var(--spacing-6)`              | `Card.Root`        |
+| `--card-padding-sm`              | `var(--spacing-4)`              | `Card.Root`        |
+| `--card-radius`                  | `var(--radius-lg)`              | `Card.Root`        |
+| `--card-shadow`                  | `none`                          | `Card.Root`        |
+| `--card-title-color`             | `currentColor`                  | `Card.Title`       |
+| `--card-title-font-size`         | `var(--text-lg)`                | `Card.Title`       |
+| `--card-title-font-size-sm`      | `var(--text-md)`                | `Card.Title`       |
+| `--card-title-font-weight`       | `var(--weight-semibold)`        | `Card.Title`       |
+| `--card-title-line-height`       | `var(--line-height-text-lg)`    | `Card.Title`       |
+| `--card-title-line-height-sm`    | `var(--line-height-text-md)`    | `Card.Title`       |
 
-- `Card` is a `div`, not an article, region, link, button, or form landmark. Choose semantic wrappers
-  outside the component when a page section needs them. `render` can intentionally replace the root,
-  for example with an anchor for a single-link card.
-- `CardTitle` defaults to `h3`; set `as` when the page hierarchy requires another heading level.
-- The root does not manage focus, keyboard navigation, disabled/read-only states, or ARIA
-  relationships.
-- Do not put click handlers on the card root unless you also implement correct keyboard and semantic
-  behavior. Prefer a linked root for a single-link card or `CardLink` for the overlay-link pattern.
-- `CardAction` is layout only. It does not label, own, or connect controls to the title.
-- Long title, description, and content text wraps to avoid horizontal overflow.
+## Accessibility and constraints
 
-## Limitations and recommendations
+- `Card.Root` is presentational by default. Choose semantic wrappers outside the component when the
+  page structure needs `article`, `section`, or landmark semantics.
+- Use `Card.Root asChild` for single-link cards. Do not wrap nested buttons, inputs, menus, or
+  links inside a linked root.
+- Use `Card.Link` for the overlay-link pattern when the card must still contain nested interactive
+  controls.
+- `Card.Action` is layout only. It does not create ownership or ARIA relationships.
+- Long title, description, and body content wrap to avoid horizontal overflow.
 
-- Use `Card` for static grouping. Use dialog, popover, preview-card, or navigation components when
-  content needs overlay, disclosure, or trigger behavior.
-- Avoid using `CardAction` for wide button groups; use `CardFooter` so controls can wrap naturally.
-- `CardDescription` renders a `p`, so do not place block elements directly inside it.
-- Media is plain composition. Add consumer CSS such as `display: block`, sizing, or clipping when an
-  image/video should visually align with the card edge.
-- The component intentionally has no `asChild`, slot prop bags, class-name maps, variant system, or
-  built-in interactive states. Use Base UI-style `render` for element replacement and keep
-  customization in composition and CSS variables.
+## Intentional differences from upstream
 
-## Intentional differences from Base UI
-
-There is no upstream Base UI primitive for this component. The local contract is the source of truth:
-thin React functions, CSS Modules, `data-slot` hooks, one `size` prop, and composition-first layout.
-
-## Agent notes
-
-- Keep the API small. Do not add header/footer/action prop bags when explicit parts already cover the
-  composition.
-- Preserve `data-slot` values and the root `data-size` contract; docs and tests can depend on them.
-- Keep `CardAction` narrow and optional. It is a header-side convenience, not a general action system.
-- Preserve the `Card render` and `CardLink` split: linked root for cards without nested interactive
-  content, overlay `CardLink` for cards with actions.
-- If CSS variables change, update `theme.css`, docs examples, and this file together.
-- If docs examples show a rich preview, the code snippet must include the same meaningful structure
-  and CSS hooks used by the preview.
+- Ark UI has no dedicated Card primitive here; moduix uses Ark factory parts and Chakra's Card
+  anatomy as the contract reference.
+- moduix keeps one visual recipe instead of Chakra's broader `variant`, `orientation`, and `size`
+  surface.
+- `Card.Action` and `Card.Link` remain narrow moduix extensions for header-side actions and the
+  overlay-link pattern.
 
 ## Local changelog
 
-- Rewritten to document the actual standalone moduix `Card` implementation instead of Base UI-derived
-  behavior.
-- Documented `size`, `CardTitle as`, slots, CSS variables, accessibility boundaries, and composition
-  constraints.
-- Added Base UI-style `render` support on `Card` and `CardLink` for accessible card-as-link patterns.
+- 2026-06: Migrated `Card` to an Ark-style multipart API based on `Card.Root`, `Card.Header`,
+  `Card.Body`, `Card.Footer`, `Card.Title`, and `Card.Description`; replaced Base UI `render` with
+  Ark `asChild`; renamed `CardContent` to `Card.Body`; and added Ark-style `data-scope` /
+  `data-part` hooks across all parts.
