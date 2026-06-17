@@ -18,13 +18,14 @@ import {
 
 ## API Reference
 
-`AspectRatio` is a standalone moduix component and does not wrap a Base UI primitive.
+`AspectRatio` is an Ark-aligned standalone wrapper built with `@ark-ui/react/factory`. Ark UI does
+not currently ship a dedicated `aspect-ratio` primitive, so moduix exposes the root as
+`AspectRatio.Root` and keeps the wrapper limited to styling, `data-slot`, and `asChild` support.
 
 ## Basic
 
-Start with `ratio="video"` for the most common responsive media frame. This is the recommended
-path for images, videos, embeds, and canvas-based content that should keep a stable shape while the
-parent width changes.
+Use `AspectRatio.Root` with a numeric `ratio` for responsive images, videos, embeds, and canvas
+content.
 
 <Preview>
   <AspectRatioExample />
@@ -36,13 +37,13 @@ parent width changes.
       export function AspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio ratio="video">
+            <AspectRatio.Root ratio={16 / 9}>
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio>
+            </AspectRatio.Root>
           </div>
         );
       }
@@ -65,9 +66,6 @@ parent width changes.
 </Preview>
 
 ## Install with shadcn (optional)
-
-If you want `Aspect Ratio` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -107,63 +105,57 @@ aubx shadcn@latest add Blinks44/moduix/aspect-ratio
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Aspect Ratio` depends on,
-such as styles, icons, and small utilities.
-
 ## Anatomy
 
-`AspectRatio` exposes one root. There are no sub-parts or slot prop systems.
-
 ```text
-AspectRatio
-└─ root[data-slot="aspect-ratio-root"]
+AspectRatio.Root
+└─ media | iframe | canvas | custom content
 ```
 
-| Part          | Role                                                                 |
-| ------------- | -------------------------------------------------------------------- |
-| `AspectRatio` | Root media frame. Controls the ratio, clipping, and rounded surface. |
+| Part               | Role                                  |
+| ------------------ | ------------------------------------- |
+| `AspectRatio.Root` | Responsive frame with clipping.       |
+| `AspectRatio`      | Callable alias of `AspectRatio.Root`. |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `AspectRatio` directly for most image, video, iframe, canvas, and SVG frames.
+Stay with `AspectRatio.Root` for most media frames.
 
-The component stays intentionally small:
-
-- `ratio` is required; there is no default that could hide layout mistakes
-- direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the box automatically
+- `ratio` is required and numeric
+- `asChild` is supported through Ark factory props
+- direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically
 - `className` styles the root directly
-- `--aspect-ratio-radius` customizes the default rounded surface without extra wrapper markup
+- `--aspect-ratio-radius` controls the default rounded frame
 
 ### When to go custom
 
-Switch to a custom wrapper only when something outside the clipped frame needs to escape the box,
-such as a shadow, focus treatment, or outer layout decoration. Keep the built-in clipping on
-`AspectRatio` itself.
+Wrap `AspectRatio.Root` when shadows, focus rings, or layout decoration need to escape the clipped
+frame. Keep the clipping on the root itself.
 
 ### Default props
 
-| Entry                   | Default            | Values / Notes                                    |
-| ----------------------- | ------------------ | ------------------------------------------------- |
-| `ratio`                 | -                  | `number`, `square`, `video`, `portrait`, `photo`  |
-| `className`             | `undefined`        | `string`                                          |
-| `style`                 | `undefined`        | Style object. Can override the inline ratio style |
-| `--aspect-ratio-radius` | `var(--radius-md)` | CSS length or token value                         |
+| Entry                   | Default            | Values / Notes                    |
+| ----------------------- | ------------------ | --------------------------------- |
+| `ratio`                 | -                  | Required `number`                 |
+| `className`             | `undefined`        | `string`                          |
+| `style`                 | `undefined`        | Can override inline `aspectRatio` |
+| `asChild`               | `undefined`        | Ark factory composition           |
+| `--aspect-ratio-radius` | `var(--radius-md)` | CSS length or token value         |
 
 ### Behavioral notes
 
-- Named presets resolve to numeric ratios at render time: `square`, `video`, `portrait`, `photo`.
-- The resolved ratio is written as inline `aspectRatio` CSS.
-- Direct media children auto-fill the box, but `object-fit` remains the consumer's responsibility.
-- `position: relative` on the root is intentional and supports absolute-fill child patterns such as
-  Next.js `<Image fill>`.
+- The root renders with `data-scope="aspect-ratio"`, `data-part="root"`, and
+  `data-slot="aspect-ratio-root"`.
+- `position: relative` on the root is intentional and supports absolute-fill child patterns such
+  as Next.js `Image fill`.
+- The previous preset strings (`square`, `video`, `portrait`, `photo`) were removed during the Ark
+  migration. Use numbers such as `1`, `16 / 9`, `9 / 16`, and `4 / 3`.
 
 ## Examples
 
 ### Square
-
-Use `ratio="square"` for avatars, thumbnails, and grid media.
 
 <Preview>
   <AspectRatioSquareExample />
@@ -175,13 +167,13 @@ Use `ratio="square"` for avatars, thumbnails, and grid media.
       export function SquareAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio ratio="square">
+            <AspectRatio.Root ratio={1}>
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio>
+            </AspectRatio.Root>
           </div>
         );
       }
@@ -205,8 +197,6 @@ Use `ratio="square"` for avatars, thumbnails, and grid media.
 
 ### Portrait
 
-Use `ratio="portrait"` when the content should read as a tall phone or poster frame.
-
 <Preview>
   <AspectRatioPortraitExample />
 
@@ -217,13 +207,13 @@ Use `ratio="portrait"` when the content should read as a tall phone or poster fr
       export function PortraitAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo aspect-ratio-demo--narrow">
-            <AspectRatio ratio="portrait">
+            <AspectRatio.Root ratio={9 / 16}>
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio>
+            </AspectRatio.Root>
           </div>
         );
       }
@@ -247,8 +237,6 @@ Use `ratio="portrait"` when the content should read as a tall phone or poster fr
 
 ### Photo
 
-Use `ratio="photo"` for a classic `4 / 3` media frame.
-
 <Preview>
   <AspectRatioPhotoExample />
 
@@ -259,13 +247,13 @@ Use `ratio="photo"` for a classic `4 / 3` media frame.
       export function PhotoAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio ratio="photo">
+            <AspectRatio.Root ratio={4 / 3}>
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio>
+            </AspectRatio.Root>
           </div>
         );
       }
@@ -289,10 +277,6 @@ Use `ratio="photo"` for a classic `4 / 3` media frame.
 
 ### Card Grid
 
-This is the common editorial case: two cards sit side by side, but the uploaded images have very
-different source proportions. Giving both media blocks the same `AspectRatio` and `object-fit: cover`
-keeps the visual media height aligned instead of letting the cards jump.
-
 <Preview>
   <AspectRatioCardGridExample />
 
@@ -304,13 +288,13 @@ keeps the visual media height aligned instead of letting the cards jump.
         return (
           <div className="aspect-ratio-grid">
             <Card className="aspect-ratio-grid__card">
-              <AspectRatio ratio="video" className="aspect-ratio-grid__media">
+              <AspectRatio.Root ratio={16 / 9} className="aspect-ratio-grid__media">
                 <img
                   src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&h=720&q=80"
                   alt="Evening city skyline"
                   className="aspect-ratio-grid__image"
                 />
-              </AspectRatio>
+              </AspectRatio.Root>
               <div className="aspect-ratio-grid__body">
                 <h3 className="aspect-ratio-grid__title">City center opens a redesigned pedestrian corridor</h3>
                 <p className="aspect-ratio-grid__description">
@@ -320,13 +304,13 @@ keeps the visual media height aligned instead of letting the cards jump.
             </Card>
 
             <Card className="aspect-ratio-grid__card">
-              <AspectRatio ratio="video" className="aspect-ratio-grid__media">
+              <AspectRatio.Root ratio={16 / 9} className="aspect-ratio-grid__media">
                 <img
                   src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=720&h=1200&q=80"
                   alt="Reporter portrait on a street background"
                   className="aspect-ratio-grid__image"
                 />
-              </AspectRatio>
+              </AspectRatio.Root>
               <div className="aspect-ratio-grid__body">
                 <h3 className="aspect-ratio-grid__title">
                   Editors uploaded a tall portrait photo for this story
@@ -398,8 +382,6 @@ keeps the visual media height aligned instead of letting the cards jump.
 
 ### Custom Ratio
 
-Use a numeric ratio when the named presets are not specific enough.
-
 <Preview>
   <AspectRatioCustomRatioExample />
 
@@ -410,13 +392,13 @@ Use a numeric ratio when the named presets are not specific enough.
       export function CustomRatioAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio ratio={2.35}>
+            <AspectRatio.Root ratio={2.35}>
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio>
+            </AspectRatio.Root>
           </div>
         );
       }
@@ -440,8 +422,6 @@ Use a numeric ratio when the named presets are not specific enough.
 
 ### Embedded Content
 
-Use `AspectRatio` for iframe-based video or map embeds when the frame should scale responsively.
-
 <Preview>
   <AspectRatioEmbedExample />
 
@@ -452,7 +432,7 @@ Use `AspectRatio` for iframe-based video or map embeds when the frame should sca
       export function AspectRatioEmbedDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio ratio="video">
+            <AspectRatio.Root ratio={16 / 9}>
               <iframe
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                 title="Video embed"
@@ -460,7 +440,7 @@ Use `AspectRatio` for iframe-based video or map embeds when the frame should sca
                 allowFullScreen
                 className="aspect-ratio-demo__frame"
               />
-            </AspectRatio>
+            </AspectRatio.Root>
           </div>
         );
       }
@@ -482,9 +462,7 @@ Use `AspectRatio` for iframe-based video or map embeds when the frame should sca
   </Preview.CSS>
 </Preview>
 
-### Custom Radius
-
-Override `--aspect-ratio-radius` when the frame should be sharper, larger, or fully square.
+### Custom Styling
 
 <Preview>
   <AspectRatioCustomRadiusExample />
@@ -496,13 +474,13 @@ Override `--aspect-ratio-radius` when the frame should be sharper, larger, or fu
       export function CustomRadiusAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio ratio="video" className="aspect-ratio-demo__rounded">
+            <AspectRatio.Root ratio={16 / 9} className="aspect-ratio-demo__rounded">
               <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
                 alt="Mountain landscape"
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio>
+            </AspectRatio.Root>
           </div>
         );
       }
@@ -530,8 +508,6 @@ Override `--aspect-ratio-radius` when the frame should be sharper, larger, or fu
 
 ## Styling
 
-`AspectRatio` has one public styling token, and its root is the only stable styling surface.
-
 ### CSS Properties
 
 <div className="not-prose">
@@ -544,7 +520,7 @@ Override `--aspect-ratio-radius` when the frame should be sharper, larger, or fu
 
 ### Styling hooks
 
-- `data-slot="aspect-ratio-root"` is the stable selector on the exported root.
-- `overflow: hidden` and the default clipping are intentional. If a child needs a visible shadow
-  or focus treatment outside the frame, put that treatment on an outer wrapper instead of removing
-  root clipping.
+- `data-scope="aspect-ratio"` and `data-part="root"` are the Ark-aligned root hooks.
+- `data-slot="aspect-ratio-root"` is the stable moduix root hook.
+- `overflow: hidden` is intentional. If visible decoration must escape the frame, put that
+  decoration on an outer wrapper instead of removing root clipping.

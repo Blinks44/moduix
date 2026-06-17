@@ -1,31 +1,34 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './AspectRatio.module.css';
 
-type RatioPreset = 'square' | 'video' | 'portrait' | 'photo';
-type AspectRatioProps = ComponentPropsWithoutRef<'div'> & {
-  ratio: number | RatioPreset;
+type AspectRatioRootProps = HTMLArkProps<'div'> & {
+  ratio: number;
 };
 
-const presetRatios: Record<RatioPreset, number> = {
-  square: 1,
-  video: 16 / 9,
-  portrait: 9 / 16,
-  photo: 4 / 3,
-};
-
-function AspectRatio({ ratio, className, style, ...props }: AspectRatioProps) {
-  const aspectRatio = typeof ratio === 'number' ? ratio : presetRatios[ratio];
-
+const AspectRatioRoot = forwardRef<HTMLDivElement, AspectRatioRootProps>(function AspectRatioRoot(
+  { ratio, className, style, ...props },
+  ref,
+) {
   return (
-    <div
+    <ark.div
+      ref={ref}
+      data-scope="aspect-ratio"
+      data-part="root"
       data-slot="aspect-ratio-root"
-      className={clsx(styles.root, className)}
-      style={{ aspectRatio, ...style }}
+      className={clsx(styles.root, normalizeClassName(className))}
+      style={{ aspectRatio: ratio, ...style }}
       {...props}
     />
   );
-}
+});
+
+const AspectRatio = Object.assign(AspectRatioRoot, {
+  Root: AspectRatioRoot,
+});
 
 export { AspectRatio };
-export type { RatioPreset };
+export type { AspectRatioRootProps };

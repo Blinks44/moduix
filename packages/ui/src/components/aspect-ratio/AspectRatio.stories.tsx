@@ -10,7 +10,7 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    ratio: 'video' as const,
+    ratio: 16 / 9,
   },
 } satisfies Meta<typeof AspectRatio>;
 
@@ -23,7 +23,7 @@ const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w
 export const Video: Story = {
   render: () => (
     <div className={styles.container}>
-      <AspectRatio ratio="video">
+      <AspectRatio ratio={16 / 9}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -33,7 +33,7 @@ export const Video: Story = {
 export const Square: Story = {
   render: () => (
     <div className={styles.container}>
-      <AspectRatio ratio="square">
+      <AspectRatio ratio={1}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -43,7 +43,7 @@ export const Square: Story = {
 export const Portrait: Story = {
   render: () => (
     <div className={styles.containerNarrow}>
-      <AspectRatio ratio="portrait">
+      <AspectRatio ratio={9 / 16}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -53,7 +53,7 @@ export const Portrait: Story = {
 export const Photo: Story = {
   render: () => (
     <div className={styles.container}>
-      <AspectRatio ratio="photo">
+      <AspectRatio ratio={4 / 3}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
@@ -73,7 +73,7 @@ export const CustomRatio: Story = {
 export const GenericContent: Story = {
   render: () => (
     <div className={styles.container}>
-      <AspectRatio ratio="video">
+      <AspectRatio ratio={16 / 9}>
         <iframe
           src="https://www.youtube.com/embed/dQw4w9WgXcQ"
           title="Video embed"
@@ -88,7 +88,7 @@ export const GenericContent: Story = {
 export const CustomRadius: Story = {
   render: () => (
     <div className={styles.container}>
-      <AspectRatio ratio="video" className={styles.roundedFrame}>
+      <AspectRatio ratio={16 / 9} className={styles.roundedFrame}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
       </AspectRatio>
     </div>
