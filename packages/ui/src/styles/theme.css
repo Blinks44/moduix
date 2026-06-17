@@ -95,6 +95,12 @@
   --accordion-icon-transition: initial; /* var(--transition-default) */
   --accordion-item-border-color: initial; /* var(--color-border) */
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
+  --accordion-item-content-closed-opacity: initial; /* 0.01 */
+  --accordion-item-content-color: initial; /* var(--color-muted-foreground) */
+  --accordion-item-content-font-size: initial; /* var(--text-md) */
+  --accordion-item-content-line-height: initial; /* var(--line-height-text-md) */
+  --accordion-item-content-open-opacity: initial; /* 1 */
+  --accordion-item-content-transition: initial; /* var(--transition-default) */
   --accordion-max-width: initial; /* 100% */
   --accordion-panel-color: initial; /* var(--color-muted-foreground) */
   --accordion-panel-ending-height: initial; /* 0 */
