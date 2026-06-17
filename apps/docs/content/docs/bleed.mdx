@@ -15,7 +15,9 @@ import {
 
 ## API Reference
 
-`Bleed` is a standalone moduix layout primitive and does not wrap a Base UI primitive.
+`Bleed` is an Ark-aligned standalone wrapper built with `@ark-ui/react/factory`. Ark UI does not
+currently ship a dedicated `bleed` primitive, so moduix exposes the root as `Bleed.Root` and keeps
+the wrapper limited to styling, `data-slot`, and `asChild` support.
 
 ## Basic
 
@@ -33,11 +35,11 @@ break out of a constrained container while staying in normal document flow.
         return (
           <div className="bleed-demo-container">
             <Text tone="muted">Container content stays constrained.</Text>
-            <Bleed className="bleed-demo-surface">
+            <Bleed.Root className="bleed-demo-surface">
               <Text weight="semibold">
                 This block bleeds to the viewport edges.
               </Text>
-            </Bleed>
+            </Bleed.Root>
             <Text tone="muted">
               Following content returns to the container width.
             </Text>
@@ -120,23 +122,25 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Bleed` has a single root element. It applies negative inline and/or block margins on that root.
+`Bleed` has a single Ark-aligned root element. It applies negative inline and/or block margins on
+that root.
 
 ```text
-Bleed
-└─ root[data-slot="bleed-root"]
+Bleed.Root
+└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
    └─ children
 ```
 
-| Part    | Role                                            |
-| ------- | ----------------------------------------------- |
-| `Bleed` | Root layout wrapper for inline and block bleed. |
+| Part         | Role                                            |
+| ------------ | ----------------------------------------------- |
+| `Bleed.Root` | Root layout wrapper for inline and block bleed. |
+| `Bleed`      | Callable alias of `Bleed.Root`.                 |
 
 ## Composition
 
 ### When to stay high-level
 
-Stay with `Bleed` when the layout only needs controlled negative margins on one wrapper.
+Stay with `Bleed.Root` when the layout only needs controlled negative margins on one wrapper.
 This is the intended path for full-bleed media, inset section backgrounds, dividers, and banners
 inside centered or padded shells.
 
@@ -147,17 +151,20 @@ needs different full-bleed math than the default viewport-based values.
 
 ### Default props
 
-| Prop     | Default | Values                                       |
-| -------- | ------- | -------------------------------------------- |
-| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
-| `as`     | `div`   | Any React element type                       |
+| Entry       | Default | Values / Notes                               |
+| ----------- | ------- | -------------------------------------------- |
+| `inline`    | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `block`     | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
+| `asChild`   | `false` | Ark factory composition                      |
+| `className` | -       | Applied to the root                          |
 
 ### Behavioral notes
 
-- `Bleed` renders exactly one root and forwards regular DOM props to it.
+- `Bleed.Root` renders exactly one root and forwards Ark factory div props to it.
 - Use `inline` for horizontal escape, and add `block` when a surface should also escape vertical
   padding.
+- The old `as` prop was removed during the Ark migration. Use `asChild` when a semantic element
+  should own the DOM node.
 - Use one of the fixed scale values when content only needs to escape container padding instead of
   reaching the viewport edge.
 - `inline="full"` uses viewport math, so nested shells may need local overrides for
@@ -180,15 +187,15 @@ Use `inline` to choose how far content escapes the container on the inline axis.
       export function BleedInlineAmountsDemo() {
         return (
           <div className="bleed-demo-container">
-            <Bleed inline="sm" className="bleed-demo-panel">
+            <Bleed.Root inline="sm" className="bleed-demo-panel">
               <Text>Small inline bleed</Text>
-            </Bleed>
-            <Bleed inline="lg" className="bleed-demo-panel">
+            </Bleed.Root>
+            <Bleed.Root inline="lg" className="bleed-demo-panel">
               <Text>Large inline bleed</Text>
-            </Bleed>
-            <Bleed inline="full" className="bleed-demo-panel">
+            </Bleed.Root>
+            <Bleed.Root inline="full" className="bleed-demo-panel">
               <Text>Full inline bleed</Text>
-            </Bleed>
+            </Bleed.Root>
           </div>
         );
       }
@@ -235,9 +242,9 @@ Use `block` when a surface should also escape vertical container padding.
         return (
           <div className="bleed-demo-padded-container">
             <Text tone="muted">Container padding above.</Text>
-            <Bleed inline="md" block="md" className="bleed-demo-panel">
+            <Bleed.Root inline="md" block="md" className="bleed-demo-panel">
               <Text>Inline and block bleed</Text>
-            </Bleed>
+            </Bleed.Root>
             <Text tone="muted">Container padding below.</Text>
           </div>
         );
@@ -272,7 +279,7 @@ Use `block` when a surface should also escape vertical container padding.
 
 ### Semantic Element
 
-Use `as` when the escaping content has a more specific semantic role.
+Use `asChild` when the escaping content has a more specific semantic role.
 
 <Preview>
   <BleedSemanticExample />
@@ -284,12 +291,14 @@ Use `as` when the escaping content has a more specific semantic role.
       export function BleedSemanticDemo() {
         return (
           <div className="bleed-demo-container">
-            <Bleed as="figure" className="bleed-demo-figure">
-              <div className="bleed-demo-media" />
-              <Text tone="muted" size="sm">
-                Full-width media with a constrained parent.
-              </Text>
-            </Bleed>
+            <Bleed.Root asChild className="bleed-demo-figure">
+              <figure>
+                <div className="bleed-demo-media" />
+                <Text tone="muted" size="sm">
+                  Full-width media with a constrained parent.
+                </Text>
+              </figure>
+            </Bleed.Root>
           </div>
         );
       }
@@ -345,9 +354,9 @@ and inset layouts that do not align with the viewport.
       export function CustomStylingBleedDemo() {
         return (
           <div className="bleed-demo-container">
-            <Bleed className="bleed-demo-custom-surface">
+            <Bleed.Root className="bleed-demo-custom-surface">
               <Text weight="semibold">Customized bleed amount.</Text>
-            </Bleed>
+            </Bleed.Root>
           </div>
         );
       }
@@ -383,7 +392,7 @@ and inset layouts that do not align with the viewport.
 
 ## Styling
 
-`Bleed` exposes a small CSS variable contract and stable root data attributes. Use variables when
+`Bleed.Root` exposes a small CSS variable contract and stable root data attributes. Use variables when
 the layout math needs to change, and use `className` for the visual surface inside the bleed.
 
 ### CSS Properties
@@ -398,7 +407,8 @@ the layout math needs to change, and use `className` for the visual surface insi
 
 ### Styling hooks
 
-- `data-slot="bleed-root"` is the stable selector on the exported root.
+- `data-scope="bleed"` and `data-part="root"` provide Ark-aligned hooks on the exported root.
+- `data-slot="bleed-root"` is the stable moduix selector on the exported root.
 - `data-inline` reflects the current inline bleed mode: `none`, `xs`, `sm`, `md`, `lg`, `xl`, or
   `full`.
 - `data-block` reflects the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.

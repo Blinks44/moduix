@@ -69,9 +69,9 @@ export const WithBleed: Story = {
       <Text tone="muted">
         Use Bleed when media or dividers should extend beyond the readable width.
       </Text>
-      <Bleed inline="md">
+      <Bleed.Root inline="md">
         <div className={storyStyles.bleedSurface}>Bleed content escapes the container width.</div>
-      </Bleed>
+      </Bleed.Root>
     </Container>
   ),
 };

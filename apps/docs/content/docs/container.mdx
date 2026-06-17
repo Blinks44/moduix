@@ -304,9 +304,9 @@ Keep the text column constrained and let only the wider child opt out.
             <Text tone="muted">
               Keep the reading width constrained, then use Bleed for content that should stretch wider.
             </Text>
-            <Bleed inline="md">
+            <Bleed.Root inline="md">
               <div className="bleedSurface">Bleed content escapes the constrained column.</div>
-            </Bleed>
+            </Bleed.Root>
           </Container>
         );
       }

@@ -1,6 +1,7 @@
 # Bleed
 
-Upstream primitive docs: none. `Bleed` is a local layout primitive, not a Base UI wrapper.
+Ark UI does not ship a dedicated `bleed` primitive in `@ark-ui/react`, so moduix implements this
+component as an Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 
 ## Purpose
 
@@ -9,8 +10,8 @@ flow. Use it for full-width media, section backgrounds, dividers, and panels ins
 padded layout.
 
 The default path is `inline="full"`: the root stretches to the viewport width and is offset with
-viewport-based margin math. Use scale values such as `inline="md"` when content only needs to escape
-container padding.
+viewport-based margin math. Use scale values such as `inline="md"` when content only needs to
+escape container padding.
 
 ```tsx
 import { Bleed, Text } from 'moduix';
@@ -19,9 +20,9 @@ function Example() {
   return (
     <div className={styles.container}>
       <Text tone="muted">Container content stays constrained.</Text>
-      <Bleed className={styles.surface}>
+      <Bleed.Root className={styles.surface}>
         <Text weight="semibold">This surface reaches the viewport edges.</Text>
-      </Bleed>
+      </Bleed.Root>
       <Text tone="muted">Following content returns to the container width.</Text>
     </div>
   );
@@ -42,45 +43,51 @@ function Example() {
 
 ## Current behavior contract
 
-- Renders exactly one root element and forwards regular DOM props to that root.
-- Applies `data-slot="bleed-root"`, `data-inline`, and `data-block` on the root.
+- Uses Ark-style root composition: `Bleed.Root`.
+- `Bleed` itself is the same root component with `Bleed.Root` attached for namespace consistency.
+- Root accepts Ark factory div props, including `asChild`.
+- Applies `data-scope="bleed"`, `data-part="root"`, `data-slot="bleed-root"`, `data-inline`, and
+  `data-block` on the root.
 - Applies negative inline and/or block margins with CSS Modules and `--bleed-*` variables.
-- Does not add inner wrappers, state, ARIA, keyboard handling, focus management, or Base UI
-  lifecycle behavior.
+- Does not add inner wrappers, state, ARIA, keyboard handling, focus management, or lifecycle
+  behavior.
 - Preserves normal document flow; it is not positioned and does not portal content.
 
 ## Composition
 
 ```text
-Bleed
+Bleed.Root
 └─ children
 ```
 
-| Part    | Role                                                                               |
-| ------- | ---------------------------------------------------------------------------------- |
-| `Bleed` | Root layout wrapper. Receives `className`, data attributes, margins, and children. |
+| Part         | Role                                                                    |
+| ------------ | ----------------------------------------------------------------------- |
+| `Bleed.Root` | Root layout wrapper. Receives Ark factory props, margins, and children. |
+| `Bleed`      | Callable alias of `Bleed.Root`.                                         |
 
 `Bleed` is composition-first: put any visual surface, media, text, or semantic content inside it.
-Use `as` when the wrapper itself should be semantic.
+Use `asChild` when another element should own the rendered DOM node.
 
 ```tsx
-<Bleed as="figure" className={styles.figure}>
-  <img src="/hero.png" alt="Map preview" />
-  <figcaption>Full-width media inside a constrained article.</figcaption>
-</Bleed>
+<Bleed.Root asChild className={styles.figure}>
+  <figure>
+    <img src="/hero.png" alt="Map preview" />
+    <figcaption>Full-width media inside a constrained article.</figcaption>
+  </figure>
+</Bleed.Root>
 ```
 
 ## Public props
 
-| Prop     | Default | Values                                       |
-| -------- | ------- | -------------------------------------------- |
-| `inline` | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `block`  | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
-| `as`     | `div`   | Any React element type                       |
+| Entry       | Default | Values / Notes                               |
+| ----------- | ------- | -------------------------------------------- |
+| `inline`    | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `block`     | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
+| `asChild`   | `false` | Ark factory composition                      |
+| `className` | -       | Applied to the root                          |
 
-`className`, `children`, `style`, event handlers, `id`, `aria-*`, and other `div` props are passed
-to the root. The component intentionally does not export prop aliases; keep the public type surface
-small unless a future change needs reusable named types.
+`children`, `style`, event handlers, `id`, `aria-*`, and other Ark `div` props are passed to the
+root. The previous `as` prop was removed during the Ark migration; use `asChild` instead.
 
 ## Defaults and styling
 
@@ -90,6 +97,8 @@ The root always gets `className={clsx(styles.root, className)}` and `margin: 0`.
 
 | Attribute     | Values                                       | Purpose                        |
 | ------------- | -------------------------------------------- | ------------------------------ |
+| `data-scope`  | `bleed`                                      | Ark-aligned component scope.   |
+| `data-part`   | `root`                                       | Ark-aligned part name.         |
 | `data-slot`   | `bleed-root`                                 | Stable styling/test hook.      |
 | `data-inline` | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` | Selects inline bleed behavior. |
 | `data-block`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         | Selects block bleed behavior.  |
@@ -123,34 +132,36 @@ needs different full-bleed math.
 }
 ```
 
-## Intentional differences from Base UI
+## Intentional differences from the previous local contract
 
-- There is no upstream Base UI primitive for this component in our implementation.
-- There are no slots beyond the root and no `slotProps`, `classNames`, or compound parts.
-- There is no controlled/uncontrolled state, no disabled/readOnly behavior, and no keyboard model.
-- Styling is token/CSS-variable driven rather than primitive-state driven.
+- There is still no upstream Ark primitive for this component; moduix keeps it as a thin factory
+  wrapper rather than inventing a richer primitive surface.
+- The old `as` prop was removed in favor of Ark `asChild`.
+- Added Ark-style namespace access through `Bleed.Root`.
+- Added Ark-style `data-scope` and `data-part` hooks on the root.
 
 ## Accessibility and UX notes
 
-- `Bleed` has no intrinsic accessibility role. Choose a semantic `as` value (`section`, `figure`,
-  `aside`, etc.) or ARIA attributes when the content needs semantics.
+- `Bleed` has no intrinsic accessibility role. Use `asChild` with a semantic child (`section`,
+  `figure`, `aside`, etc.) or add ARIA attributes when the content needs semantics.
 - Because the root keeps normal document flow, reading order and focus order follow the JSX order.
-- Do not use `Bleed` to create interactive behavior. Put interactive controls inside it and let those
-  controls own their accessibility states.
+- Do not use `Bleed` to create interactive behavior. Put interactive controls inside it and let
+  those controls own their accessibility states.
 - `inline="full"` is viewport-based. It can cause horizontal overflow in custom shells if local
   layout math is not overridden.
 - Ancestors with `overflow: hidden` or `overflow: clip` can visually crop the bleed.
 
 ## Agent notes
 
-- Keep `Bleed` a single-root layout primitive. Do not add wrappers or state layers for visual demos.
+- Keep `Bleed` a thin single-root layout primitive.
 - Add sugar only if it removes frequent production boilerplate without hiding the simple
-  margin-based model. The current `inline`, `block`, and `as` props are the intended public surface.
+  margin-based model. The current `inline`, `block`, and Ark root props are the intended public
+  surface.
 - Keep stories, docs examples, and local docs aligned with the same API and CSS variable contract.
 - If CSS variables change, update `theme.css`, docs CSS Properties, stories/examples, and this file
   in the same task.
 
 ## Local changelog
 
-- Synced the local `Bleed` docs with the current docs-page structure and confirmed the public
-  `--bleed-*` variables against `src/styles/theme.css`.
+- 2026-06-17: Migrated `Bleed` to an Ark-aligned factory wrapper, added `Bleed.Root`, replaced
+  `as` with `asChild`, and aligned docs/examples to the new root contract.

@@ -1,29 +1,38 @@
-import type { ComponentPropsWithoutRef, ElementType } from 'react';
-import clsx from 'clsx';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Bleed.module.css';
 
-type BleedProps = ComponentPropsWithoutRef<'div'> & {
-  as?: ElementType;
-  inline?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  block?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type BleedInline = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type BleedBlock = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export type BleedRootProps = HTMLArkProps<'div'> & {
+  inline?: BleedInline;
+  block?: BleedBlock;
 };
 
-function Bleed({
-  as: Root = 'div',
-  inline = 'full',
-  block = 'none',
-  className,
-  ...props
-}: BleedProps) {
+const BleedRoot = forwardRef<HTMLDivElement, BleedRootProps>(function BleedRoot(
+  { inline = 'full', block = 'none', className, ...props },
+  ref,
+) {
   return (
-    <Root
-      {...props}
+    <ark.div
+      ref={ref}
+      data-scope="bleed"
+      data-part="root"
       data-slot="bleed-root"
       data-inline={inline}
       data-block={block}
-      className={clsx(styles.root, className)}
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
     />
   );
-}
+});
+
+const Bleed = Object.assign(BleedRoot, {
+  Root: BleedRoot,
+});
 
 export { Bleed };

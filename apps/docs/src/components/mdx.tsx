@@ -3,7 +3,7 @@ import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { Preview } from './preview';
 
-function BaseUIReference({ href, label = 'Base UI API' }: { href: string; label?: string }) {
+function BaseUIReference({ href, label = 'Ark UI API' }: { href: string; label?: string }) {
   return (
     <div className="not-prose my-6 rounded-lg border bg-fd-muted/40 p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

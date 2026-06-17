@@ -53,9 +53,9 @@ export function Example() {
         The main text column stays constrained while gutters adapt to viewport width.
       </Text>
 
-      <Bleed inline="md">
+      <Bleed.Root inline="md">
         <div className={styles.bleedSurface}>Charts or media can stretch wider than the text.</div>
-      </Bleed>
+      </Bleed.Root>
     </Container>
   );
 }

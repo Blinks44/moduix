@@ -159,9 +159,9 @@ export function ContainerBleedExample() {
           Keep the reading width constrained, then use `Bleed` for elements that should stretch
           wider.
         </Text>
-        <Bleed inline="md">
+        <Bleed.Root inline="md">
           <div className={styles.bleedSurface}>Bleed content escapes the constrained column.</div>
-        </Bleed>
+        </Bleed.Root>
       </Container>
     </div>
   );
