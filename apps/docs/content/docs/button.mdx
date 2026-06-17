@@ -1,6 +1,6 @@
 ---
 title: Button
-description: A thin styled wrapper over the Base UI button primitive.
+description: A styled action control built as an Ark-style factory wrapper.
 icon: Component
 ---
 
@@ -18,12 +18,14 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/button" />
+`Button` is an Ark-aligned standalone wrapper built with `@ark-ui/react/factory`. Ark UI does not
+currently ship a dedicated button primitive, so moduix exposes `Button.Root` and keeps the wrapper
+limited to styling, `data-slot`, and `asChild` support.
 
 ## Basic
 
-Start with `Button` alone. This is the recommended path for primary actions, form submits, and
-action-like controls that only need a visual `variant`, an optional `size`, and child content.
+Start with `Button.Root` for primary actions, form submits, and action-like controls that only need
+the local `variant`, `size`, and child composition path.
 
 <Preview>
   <ButtonExample />
@@ -33,7 +35,7 @@ action-like controls that only need a visual `variant`, an optional `size`, and 
       import { Button } from "moduix";
 
       export function ButtonDemo() {
-        return <Button>Save Changes</Button>;
+        return <Button.Root>Save Changes</Button.Root>;
       }
     `}
 
@@ -88,30 +90,27 @@ as styles, icons, and small utilities.
 
 ## Anatomy
 
-`Button` is a single styled Base UI primitive root.
+`Button` has one Ark-aligned root element.
 
 ```text
-Button
-└─ root[data-slot="button-root"]
-   ├─ icon, spinner, or other visual child (optional)
-   └─ text label
+Button.Root
+└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
+   └─ children
 ```
 
-| Part     | Role                                                       |
-| -------- | ---------------------------------------------------------- |
-| `Button` | Interactive root with moduix styles plus Base UI behavior. |
-
-The root exposes `data-slot="button-root"`, `data-variant`, `data-size`, and Base UI
-`data-disabled`. Icons, spinners, and labels are plain children, not separate Button slots.
+| Part          | Role                                          |
+| ------------- | --------------------------------------------- |
+| `Button.Root` | Root interactive surface with moduix styling. |
+| `Button`      | Callable alias of `Button.Root`.              |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `Button` when Base UI button semantics are correct and the control only needs moduix
-variants, sizes, and child composition.
+Stay with `Button.Root` when the control should keep button semantics and only needs visual intent,
+density, and child composition.
 
-moduix adds two visual props on top of the Base UI primitive:
+moduix adds two visual props on top of Ark factory root props:
 
 | Prop      | Default   | Values                                                                                   |
 | --------- | --------- | ---------------------------------------------------------------------------------------- |
@@ -120,26 +119,36 @@ moduix adds two visual props on top of the Base UI primitive:
 
 ### When to go custom
 
-Use Base UI passthrough props such as `render`, `nativeButton`, `disabled`,
-`focusableWhenDisabled`, and event handlers when the styled control needs different rendered
-elements or custom interaction logic.
+Use `asChild` when another element should own the DOM node while keeping the button visual
+contract.
+
+For example, render an anchor when the action is navigation-first:
+
+```tsx
+<Button.Root asChild variant="outline">
+  <a href="/docs/button">Open Button Docs</a>
+</Button.Root>
+```
+
+### Default props
+
+| Entry       | Default   | Values / Notes          |
+| ----------- | --------- | ----------------------- |
+| `variant`   | `default` | Visual intent           |
+| `size`      | `md`      | Control density         |
+| `asChild`   | `false`   | Ark factory composition |
+| `className` | -         | Applied to the root     |
 
 ### Behavioral notes
 
-Use `variant` and `size` for the common visual path. Keep everything else in composition:
-
-- pass `type="submit"` for form actions
-- pass `disabled` and `focusableWhenDisabled` for disabled states
-- compose icons and spinners through `children`
-- use `render` when the styled control should render another element
-
-For navigation-first actions, render an anchor or router link instead of keeping button semantics.
-
-- `Button` forwards Base UI button props and keeps Base UI focus/press semantics.
-- The root always writes `data-slot="button-root"`, `data-variant`, and `data-size`.
+- `Button.Root` forwards Ark factory button props such as `className`, `style`, event handlers,
+  and native button attributes.
+- The old Base UI `render`, `nativeButton`, and `focusableWhenDisabled` surface is gone.
+- Use native `disabled` for real buttons. When `asChild` renders a non-button element, use
+  `aria-disabled="true"` and prevent navigation or activation in app code.
+- Use `type="submit"` explicitly for form submit buttons.
 - Direct child `svg` elements inherit `currentColor` and are sized with `--button-icon-size`.
-- Disabled state styling targets both Base UI `data-disabled` and the native `[disabled]`
-  attribute.
+- Icon-only buttons still need an accessible name through `aria-label` or equivalent labeling.
 
 ## Examples
 
@@ -155,13 +164,13 @@ For navigation-first actions, render an anchor or router link instead of keeping
       export function ButtonVariantsDemo() {
         return (
           <>
-            <Button>Default</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="destructive-outline">Destructive Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="link">Link</Button>
+            <Button.Root>Default</Button.Root>
+            <Button.Root variant="outline">Outline</Button.Root>
+            <Button.Root variant="secondary">Secondary</Button.Root>
+            <Button.Root variant="destructive">Destructive</Button.Root>
+            <Button.Root variant="destructive-outline">Destructive Outline</Button.Root>
+            <Button.Root variant="ghost">Ghost</Button.Root>
+            <Button.Root variant="link">Link</Button.Root>
           </>
         );
       }
@@ -182,20 +191,20 @@ For navigation-first actions, render an anchor or router link instead of keeping
       export function ButtonSizesDemo() {
         return (
           <>
-            <Button size="xs">Extra-small</Button>
-            <Button size="sm">Small</Button>
-            <Button size="md">Medium</Button>
-            <Button size="lg">Large</Button>
-            <Button size="xl">Extra-large</Button>
-            <Button size="icon-sm" variant="outline" aria-label="Small favorite">
+            <Button.Root size="xs">Extra-small</Button.Root>
+            <Button.Root size="sm">Small</Button.Root>
+            <Button.Root size="md">Medium</Button.Root>
+            <Button.Root size="lg">Large</Button.Root>
+            <Button.Root size="xl">Extra-large</Button.Root>
+            <Button.Root size="icon-sm" variant="outline" aria-label="Small favorite">
               <StarIcon />
-            </Button>
-            <Button size="icon-md" variant="outline" aria-label="Favorite">
+            </Button.Root>
+            <Button.Root size="icon-md" variant="outline" aria-label="Favorite">
               <StarIcon />
-            </Button>
-            <Button size="icon-lg" variant="outline" aria-label="Large favorite">
+            </Button.Root>
+            <Button.Root size="icon-lg" variant="outline" aria-label="Large favorite">
               <StarIcon />
-            </Button>
+            </Button.Root>
           </>
         );
       }
@@ -216,17 +225,17 @@ For navigation-first actions, render an anchor or router link instead of keeping
       export function ButtonIconsDemo() {
         return (
           <>
-            <Button>
+            <Button.Root>
               <PlusIcon />
               Create Item
-            </Button>
-            <Button size="icon-md" variant="outline" aria-label="Favorites">
+            </Button.Root>
+            <Button.Root size="icon-md" variant="outline" aria-label="Favorites">
               <StarIcon />
-            </Button>
-            <Button variant="link">
+            </Button.Root>
+            <Button.Root variant="link">
               Open Docs
               <ArrowUpRightIcon />
-            </Button>
+            </Button.Root>
           </>
         );
       }
@@ -235,7 +244,7 @@ For navigation-first actions, render an anchor or router link instead of keeping
   </Preview.Code>
 </Preview>
 
-### Disabled and Focusable Disabled
+### Disabled
 
 <Preview>
   <ButtonDisabledExample />
@@ -247,10 +256,12 @@ For navigation-first actions, render an anchor or router link instead of keeping
       export function ButtonDisabledDemo() {
         return (
           <>
-            <Button disabled>Disabled</Button>
-            <Button disabled focusableWhenDisabled variant="outline">
-              Focusable Disabled
-            </Button>
+            <Button.Root disabled>Disabled</Button.Root>
+            <Button.Root asChild aria-disabled="true" variant="outline">
+              <a href="#button" onClick={(event) => event.preventDefault()}>
+                Disabled Link
+              </a>
+            </Button.Root>
           </>
         );
       }
@@ -261,7 +272,7 @@ For navigation-first actions, render an anchor or router link instead of keeping
 
 ### Pending State
 
-Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a child spinner.
+Compose pending UI with `disabled`, `aria-busy`, and a child spinner.
 
 <Preview>
   <ButtonLoadingExample />
@@ -275,9 +286,8 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
         const [pending, setPending] = useState(false);
 
         return (
-          <Button
+          <Button.Root
             disabled={pending}
-            focusableWhenDisabled
             aria-busy={pending || undefined}
             onClick={() => {
               setPending(true);
@@ -292,7 +302,7 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
             ) : (
               "Save Changes"
             )}
-          </Button>
+          </Button.Root>
         );
       }
     `}
@@ -300,7 +310,7 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
   </Preview.Code>
 </Preview>
 
-### Render as a Link
+### AsChild Link
 
 <Preview>
   <ButtonLinkCompositionExample />
@@ -311,13 +321,9 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
 
       export function ButtonLinkDemo() {
         return (
-          <Button
-            render={<a href="#button" />}
-            nativeButton={false}
-            variant="outline"
-          >
-            Open Button Docs
-          </Button>
+          <Button.Root asChild variant="outline">
+            <a href="#button">Open Button Docs</a>
+          </Button.Root>
         );
       }
     `}
@@ -336,10 +342,10 @@ Compose pending UI with `disabled`, `focusableWhenDisabled`, `aria-busy`, and a 
 
       export function CustomStylingButtonDemo() {
         return (
-          <Button className="customButton" disabled focusableWhenDisabled aria-busy>
+          <Button.Root className="customButton" disabled aria-busy>
             <Spinner decorative size="sm" className="customSpinner" />
             Publishing
-          </Button>
+          </Button.Root>
         );
       }
     `}
@@ -381,6 +387,7 @@ focus ring, spacing, and icon sizing.
 ### Styling hooks
 
 - `data-slot="button-root"` is the stable selector on the exported root.
+- `data-scope="button"` and `data-part="root"` stay available for Ark-style targeting.
 - `data-variant` reflects the current visual variant.
 - `data-size` reflects the current size, including `icon-sm`, `icon-md`, and `icon-lg`.
-- Base UI `data-disabled` and the native `[disabled]` attribute both drive the disabled styles.
+- Native `[disabled]` and `[aria-disabled='true']` drive the disabled visuals.

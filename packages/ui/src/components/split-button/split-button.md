@@ -8,12 +8,12 @@ description: moduix split button composition with shared size and variant defaul
 
 Upstream primitive docs:
 
-- https://base-ui.com/react/components/button.md
+- https://ark-ui.com/docs/guides/composition
 - https://base-ui.com/react/components/menu.md
 
-`SplitButton` combines a primary `Button` action with a secondary menu trigger. It keeps Button and
-Menu behavior intact, but adds the grouped visual treatment and a small composition contract for the
-common split-action case.
+`SplitButton` combines a primary `Button.Root` action with a secondary menu trigger. It keeps
+Button and Menu behavior intact, but adds the grouped visual treatment and a small composition
+contract for the common split-action case.
 
 ## Purpose
 
@@ -34,7 +34,7 @@ moduix adds:
 - `SplitButton` root that hosts `Menu` state and the grouped visual wrapper.
 - shared `variant` and `size` defaults for the primary action and trigger.
 - `SplitButtonAction` as the primary button part.
-- `SplitButtonTrigger` as a menu trigger that renders a `Button` by default.
+- `SplitButtonTrigger` as a menu trigger that renders a `Button.Root` by default.
 - `SplitButtonContent` as the default popup wrapper with `align="end"` and `sideOffset={4}`.
 - stable `data-slot` hooks for the grouped root, action, and trigger.
 
@@ -96,7 +96,7 @@ Keep the primary action explicit on `SplitButtonAction`. Put only secondary or a
 
 ### `SplitButtonAction`
 
-`SplitButtonAction` forwards `Button` props except that the default `variant` and `size` come from
+`SplitButtonAction` forwards `Button.Root` props except that the default `variant` and `size` come from
 `SplitButton` unless you override them on the action itself.
 
 ### `SplitButtonTrigger`
@@ -131,12 +131,14 @@ The grouped parts expose:
 - `data-slot="split-button-trigger"`
 
 `SplitButton` does not add dedicated `--split-button-*` theme variables. It relies on the existing
-`Button` styling contract, so color, sizing, radius, border, and focus styling still come from the
+`Button.Root` styling contract, so color, sizing, radius, border, and focus styling still come from the
 shared `--button-*` variables.
 
 ## Intentional differences from Button and Menu
 
-- `SplitButtonTrigger` does not expose `render`; it always renders the trigger as a moduix `Button`.
+- `SplitButtonTrigger` does not expose `render`; it always renders the trigger as a moduix `Button.Root`.
+- `SplitButtonAction` follows the Ark-style `Button.Root` surface, so `asChild` replaces Base
+  `render` / `nativeButton` for link-like primary actions.
 - Dropdown content stays on the shared menu building blocks instead of duplicating menu items under a
   separate split-button namespace.
 - The root `variant` excludes the `link` button variant because grouped link-style split buttons do
@@ -156,3 +158,5 @@ shared `--button-*` variables.
 
 - Added `SplitButton` as a composition-first grouped action built from the moduix `Button` and
   `Menu` wrappers.
+- 2026-06-17: Updated the primary action contract from Base button composition props to Ark-style
+  `asChild` through the shared `Button.Root` surface.

@@ -1,12 +1,15 @@
 # CopyButton
 
-Upstream primitive docs: https://base-ui.com/react/components/button.md
+Upstream references:
+
+- Local button contract: `../button/button.md`
+- Ark UI composition guide: https://ark-ui.com/docs/guides/composition
 
 ## Purpose
 
 `CopyButton` is the moduix action button for copying a known string value to the system clipboard. It
-keeps the local `Button` visual contract, adds a default copy action, and provides transient copied
-feedback without turning clipboard behavior into app-specific toast logic.
+keeps the local `Button.Root` visual contract, adds a default copy action, and provides transient
+copied feedback without turning clipboard behavior into app-specific toast logic.
 
 Use it when the copied value is already known at render time: tokens, invite links, IDs, commands,
 and short snippets. For richer clipboard flows with surrounding field layout, compose it next to
@@ -14,10 +17,10 @@ and short snippets. For richer clipboard flows with surrounding field layout, co
 
 ## Current behavior contract
 
-- Renders one local `Button` root and forwards its ref to that button.
+- Renders one local `Button.Root` and forwards its ref to that button.
 - Requires a `value` string and copies it with `navigator.clipboard.writeText(value)` on click.
 - Defaults `type="button"` so it behaves like an action button inside forms.
-- Preserves normal `Button` props such as `variant`, `size`, `disabled`, `render`, `nativeButton`,
+- Preserves normal `Button.Root` props such as `variant`, `size`, `disabled`, `asChild`,
   `className`, and event handlers.
 - If the consumer `onClick` prevents default, the copy action does not run.
 - If `children` is omitted, the button is icon-only and:
@@ -88,7 +91,7 @@ export function TokenField() {
 
 ## Public props
 
-`CopyButton` accepts the local `Button` props except it overrides `onClick` to layer clipboard
+`CopyButton` accepts the local `Button.Root` props except it overrides `onClick` to layer clipboard
 behavior, plus the props below.
 
 | Prop             | Type                               | Default                              | Notes                                                                                                                                                                                 |
@@ -99,10 +102,10 @@ behavior, plus the props below.
 | `onCopy`         | `(value: string) => void`          | —                                    | Called after successful clipboard write.                                                                                                                                              |
 | `onCopyError`    | `(error: unknown) => void`         | —                                    | Called when clipboard write fails.                                                                                                                                                    |
 
-Important inherited `Button` props still available:
+Important inherited `Button.Root` props still available:
 
 - `variant`, `size`, `disabled`, `type`, `className`
-- `render`, `nativeButton`, `focusableWhenDisabled`
+- `asChild`
 - `aria-label`, `aria-labelledby`, and `children`
 - normal button event handlers, including `onClick`
 
@@ -123,7 +126,7 @@ Stable hooks:
 
 Important state hooks:
 
-- root keeps the normal local `Button` data hooks: `data-variant`, `data-size`, and disabled state
+- root keeps the normal local `Button.Root` data hooks: `data-variant`, `data-size`, and disabled state
 - root writes `data-copied` while transient copied state is active
 
 `CopyButton` does not add public `--copy-button-*` variables. Style it through:
@@ -147,7 +150,7 @@ Important state hooks:
 
 - Import from `moduix`, not `@base-ui/react/button`, when you want a styled copy action with built-in
   clipboard behavior.
-- `CopyButton` is a moduix convenience wrapper over the local `Button`, not a raw primitive re-export.
+- `CopyButton` is a moduix convenience wrapper over the local `Button.Root`, not a raw primitive re-export.
 - The wrapper adds one narrow workflow sugar: copy known text plus transient copied feedback.
 
 ## Agent notes
@@ -160,5 +163,7 @@ Important state hooks:
 
 ## Local changelog
 
-- Added `CopyButton` as a small clipboard-action wrapper over the local `Button`.
+- Added `CopyButton` as a small clipboard-action wrapper over the local `Button.Root`.
 - Added `CopyIcon` to the shared UI icon set for copy-to-clipboard affordances.
+- 2026-06-17: Updated inherited button references from Base `render` / `nativeButton` /
+  `focusableWhenDisabled` to Ark-style `asChild`.

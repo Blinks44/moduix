@@ -156,9 +156,11 @@ export function SplitButtonStylingExample() {
 export function SplitButtonLinkActionExample() {
   return (
     <SplitButton variant="outline">
-      <SplitButtonAction render={<a href="#split-button" />} nativeButton={false}>
-        Open Docs
-        <ArrowUpRightIcon />
+      <SplitButtonAction asChild>
+        <a href="#split-button">
+          Open Docs
+          <ArrowUpRightIcon />
+        </a>
       </SplitButtonAction>
       <SplitButtonTrigger aria-label="More docs actions" />
       <SplitButtonContent>

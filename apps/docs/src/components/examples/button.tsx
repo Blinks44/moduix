@@ -175,7 +175,7 @@ export function ButtonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
 }
 
 export function ButtonExample(props: ComponentProps<typeof Button>) {
-  return <Button {...props}>Save Changes</Button>;
+  return <Button.Root {...props}>Save Changes</Button.Root>;
 }
 
 export function ButtonVariantsExample() {
@@ -235,18 +235,20 @@ export function ButtonDisabledExample() {
   return (
     <>
       <Button disabled>Disabled</Button>
-      <Button disabled focusableWhenDisabled variant="outline">
-        Focusable Disabled
-      </Button>
+      <Button.Root asChild aria-disabled="true" variant="outline">
+        <a href="#button" onClick={(event) => event.preventDefault()}>
+          Disabled Link
+        </a>
+      </Button.Root>
     </>
   );
 }
 
 export function ButtonLinkCompositionExample() {
   return (
-    <Button render={<a href="#button" />} nativeButton={false} variant="outline">
-      Open Button Docs
-    </Button>
+    <Button.Root asChild variant="outline">
+      <a href="#button">Open Button Docs</a>
+    </Button.Root>
   );
 }
 
@@ -256,7 +258,6 @@ export function ButtonLoadingExample() {
   return (
     <Button
       disabled={pending}
-      focusableWhenDisabled
       aria-busy={pending || undefined}
       onClick={() => {
         setPending(true);
@@ -277,7 +278,7 @@ export function ButtonLoadingExample() {
 
 export function CustomStylingButtonExample() {
   return (
-    <Button className="customButton" disabled focusableWhenDisabled aria-busy>
+    <Button className="customButton" disabled aria-busy>
       <Spinner decorative size="sm" className="customSpinner" />
       Publishing
     </Button>

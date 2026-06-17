@@ -124,9 +124,11 @@ export const ControlledMenu: Story = {
 export const LinkAction: Story = {
   render: () => (
     <SplitButton variant="outline">
-      <SplitButtonAction render={<a href="#split-button" />} nativeButton={false}>
-        Open Docs
-        <ArrowUpRightIcon />
+      <SplitButtonAction asChild>
+        <a href="#split-button">
+          Open Docs
+          <ArrowUpRightIcon />
+        </a>
       </SplitButtonAction>
       <SplitButtonTrigger aria-label="More docs actions" />
       <SplitButtonContent>

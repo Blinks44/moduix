@@ -15,7 +15,6 @@ const baseUiOptimizeDeps = [
   '@ark-ui/react/avatar',
   '@base-ui/react/alert-dialog',
   '@base-ui/react/autocomplete',
-  '@base-ui/react/button',
   '@base-ui/react/checkbox',
   '@base-ui/react/checkbox-group',
   '@base-ui/react/collapsible',

@@ -15,7 +15,9 @@ import {
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/button" />
+`CopyButton` is a local moduix wrapper on top of `Button.Root`. The inherited visual and
+polymorphic behavior comes from the Ark-style local button surface rather than a dedicated upstream
+primitive.
 
 ## Basic
 
@@ -112,8 +114,8 @@ CopyButton
 Stay with `CopyButton` directly for API tokens, invite links, commands, IDs, and similar values
 that are already known at render time.
 
-The wrapper keeps normal local `Button` behavior intact. Use it for `variant`, `size`, `className`,
-`disabled`, `render`, `nativeButton`, refs, native button attributes, and normal click handlers.
+The wrapper keeps normal local `Button.Root` behavior intact. Use it for `variant`, `size`,
+`className`, `disabled`, `asChild`, refs, native button attributes, and normal click handlers.
 
 The copy-specific surface is intentionally narrow:
 
@@ -129,7 +131,7 @@ There are no exported subparts or slot maps. The custom path here is small:
 - pass `children` for visible button content;
 - place `CopyButton` next to `Field`, `Input`, `PasswordInput`, or custom layout when the copied
   value needs surrounding UI;
-- use inherited `Button` styling hooks and `[data-copied]` when copied state should change the
+- use inherited `Button.Root` styling hooks and `[data-copied]` when copied state should change the
   visual treatment.
 
 If the workflow needs async state, toasts, tooltips, or editable field behavior, keep those outside

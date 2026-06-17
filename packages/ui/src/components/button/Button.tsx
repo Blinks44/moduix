@@ -1,6 +1,8 @@
-import { Button as ButtonPrimitive } from '@base-ui/react/button';
-import { forwardRef, type ComponentRef } from 'react';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Button.module.css';
 
 export type ButtonVariant =
@@ -12,25 +14,31 @@ export type ButtonVariant =
   | 'ghost'
   | 'link';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
-export type ButtonProps = ButtonPrimitive.Props & {
+export type ButtonRootProps = HTMLArkProps<'button'> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
 };
 
-const Button = forwardRef<ComponentRef<typeof ButtonPrimitive>, ButtonProps>(function Button(
+const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(function ButtonRoot(
   { className, size = 'md', variant = 'default', ...props },
   ref,
 ) {
   return (
-    <ButtonPrimitive
+    <ark.button
       ref={ref}
+      data-scope="button"
+      data-part="root"
       data-slot="button-root"
       data-variant={variant}
       data-size={size}
-      className={mergeClassName(className, styles.root)}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
+});
+
+const Button = Object.assign(ButtonRoot, {
+  Root: ButtonRoot,
 });
 
 export { Button };

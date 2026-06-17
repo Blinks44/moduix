@@ -34,8 +34,7 @@
       );
     }
 
-    &[data-disabled],
-    &[disabled] {
+    &:is([disabled], [aria-disabled='true']) {
       opacity: var(--button-disabled-opacity, var(--opacity-disabled));
       cursor: default;
       pointer-events: none;

@@ -1,6 +1,6 @@
 import { forwardRef, type ComponentRef, useEffect, useRef, useState } from 'react';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
-import { Button, type ButtonProps } from '../button';
+import { Button, type ButtonRootProps } from '../button';
 import styles from './CopyButton.module.css';
 
 const DEFAULT_COPIED_DURATION = 2000;
@@ -14,7 +14,7 @@ const DEFAULT_COPY_LABELS: CopyLabels = {
   copied: 'Copied',
 };
 
-type CopyButtonProps = ButtonProps & {
+type CopyButtonProps = ButtonRootProps & {
   copiedDuration?: number;
   copyLabels?: CopyLabels;
   onCopy?: (value: string) => void;
@@ -91,7 +91,7 @@ const CopyButton = forwardRef<ComponentRef<typeof Button>, CopyButtonProps>(func
     }
   };
 
-  const handleClick: ButtonProps['onClick'] = (event) => {
+  const handleClick: CopyButtonProps['onClick'] = (event) => {
     onClick?.(event);
 
     if (event.defaultPrevented || disabled) {

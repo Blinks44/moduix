@@ -111,12 +111,7 @@ export const Basic: Story = {
           <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
           <FieldError />
         </Field>
-        <Button
-          type="submit"
-          disabled={submitting}
-          focusableWhenDisabled
-          aria-busy={submitting || undefined}
-        >
+        <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
           {submitting ? (
             <>
               <Spinner decorative size="sm" />
@@ -164,12 +159,7 @@ export const WithNativeSubmit: Story = {
           <FieldError match="patternMismatch">Please start with http:// or https://.</FieldError>
           <FieldError />
         </Field>
-        <Button
-          type="submit"
-          disabled={submitting}
-          focusableWhenDisabled
-          aria-busy={submitting || undefined}
-        >
+        <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
           {submitting ? (
             <>
               <Spinner decorative size="sm" />
@@ -244,12 +234,7 @@ export const WithActionState: Story = {
           <Input required defaultValue="admin" placeholder="e.g. alice132" />
           <FieldError />
         </Field>
-        <Button
-          type="submit"
-          disabled={loading}
-          focusableWhenDisabled
-          aria-busy={loading || undefined}
-        >
+        <Button type="submit" disabled={loading} aria-busy={loading || undefined}>
           {loading ? (
             <>
               <Spinner decorative size="sm" />

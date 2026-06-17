@@ -91,12 +91,7 @@ export function HomepageForm() {
         <FieldError />
       </Field>
 
-      <Button
-        type="submit"
-        disabled={submitting}
-        focusableWhenDisabled
-        aria-busy={submitting || undefined}
-      >
+      <Button type="submit" disabled={submitting} aria-busy={submitting || undefined}>
         {submitting ? (
           <>
             <Spinner decorative size="sm" />
@@ -196,12 +191,7 @@ export function ActionStateForm() {
         <FieldError />
       </Field>
 
-      <Button
-        type="submit"
-        disabled={loading}
-        focusableWhenDisabled
-        aria-busy={loading || undefined}
-      >
+      <Button type="submit" disabled={loading} aria-busy={loading || undefined}>
         Submit
       </Button>
     </Form>

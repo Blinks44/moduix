@@ -8,7 +8,8 @@ import {
   type MouseEvent,
 } from 'react';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
-import { Button, type ButtonProps } from '../button';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { Button, type ButtonRootProps } from '../button';
 import { Input, type InputProps, type InputSize } from '../input';
 import styles from './InputGroup.module.css';
 
@@ -110,7 +111,7 @@ const InputGroupText = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
   },
 );
 
-const InputGroupButton = forwardRef<ComponentRef<typeof Button>, ButtonProps>(
+const InputGroupButton = forwardRef<ComponentRef<typeof Button>, ButtonRootProps>(
   function InputGroupButton(
     { className, variant = 'ghost', size, type = 'button', ...props },
     ref,
@@ -121,7 +122,7 @@ const InputGroupButton = forwardRef<ComponentRef<typeof Button>, ButtonProps>(
       <Button
         ref={ref}
         data-slot="input-group-button"
-        className={mergeClassName(className, styles.button)}
+        className={clsx(styles.button, normalizeClassName(className))}
         variant={variant}
         size={size ?? groupSize}
         type={type}

@@ -145,8 +145,8 @@ composition:
 - Override `size` or `variant` on `SplitButtonAction` or `SplitButtonTrigger` when one side needs a
   different visual treatment.
 - Pass custom trigger `children` when the default chevron is not enough.
-- Use `render` and `nativeButton={false}` on `SplitButtonAction` when the primary side should render
-  as a link or another compatible element.
+- Use `asChild` on `SplitButtonAction` when the primary side should render as a link or another
+  compatible element.
 - Use the full `MenuContent` API through `SplitButtonContent` when popup alignment or collision
   behavior needs adjustment.
 
@@ -396,8 +396,8 @@ Use root `className` and the stable `data-slot` hooks when the grouped control n
 
 ### Custom Composition
 
-The primary action still uses the shared `Button` API, so `render` and `nativeButton={false}` stay
-available on `SplitButtonAction`.
+The primary action still uses the shared `Button.Root` API, so `asChild` is the composition path on
+`SplitButtonAction`.
 
 <Preview>
   <SplitButtonLinkActionExample />
@@ -416,9 +416,11 @@ available on `SplitButtonAction`.
       export function SplitButtonLinkAction() {
         return (
           <SplitButton variant="outline">
-            <SplitButtonAction render={<a href="#split-button" />} nativeButton={false}>
-              Open Docs
-              <ArrowUpRightIcon />
+            <SplitButtonAction asChild>
+              <a href="#split-button">
+                Open Docs
+                <ArrowUpRightIcon />
+              </a>
             </SplitButtonAction>
             <SplitButtonTrigger aria-label="More docs actions" />
             <SplitButtonContent>

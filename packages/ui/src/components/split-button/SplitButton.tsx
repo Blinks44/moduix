@@ -3,7 +3,8 @@ import { clsx } from 'clsx';
 import { forwardRef, createContext, useContext, type ComponentRef, type ReactNode } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { mergeClassName } from '@/lib/moduix/mergeClassName';
-import { Button, type ButtonProps, type ButtonSize, type ButtonVariant } from '../button';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { Button, type ButtonRootProps, type ButtonSize, type ButtonVariant } from '../button';
 import { Menu, MenuContent, MenuTrigger, type MenuContentProps } from '../menu';
 import styles from './SplitButton.module.css';
 
@@ -22,7 +23,7 @@ type SplitButtonProps = Omit<MenuPrimitive.Root.Props, 'children'> & {
   variant?: SplitButtonVariant;
 };
 
-type SplitButtonActionProps = Omit<ButtonProps, 'size' | 'variant'> & {
+type SplitButtonActionProps = Omit<ButtonRootProps, 'size' | 'variant'> & {
   size?: SplitButtonSize;
   variant?: SplitButtonVariant;
 };
@@ -74,7 +75,7 @@ const SplitButtonAction = forwardRef<ComponentRef<typeof Button>, SplitButtonAct
         data-slot="split-button-action"
         size={size ?? context.size}
         variant={variant ?? context.variant}
-        className={mergeClassName(className, styles.action)}
+        className={clsx(styles.action, normalizeClassName(className))}
         {...props}
       />
     );

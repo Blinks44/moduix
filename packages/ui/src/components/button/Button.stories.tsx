@@ -64,8 +64,10 @@ export const Disabled: Story = {
   render: () => (
     <div className={styles.row}>
       <Button disabled>Disabled</Button>
-      <Button disabled focusableWhenDisabled variant="outline">
-        Focusable disabled
+      <Button asChild aria-disabled="true" variant="outline">
+        <a href="#button" onClick={(event) => event.preventDefault()}>
+          Disabled link
+        </a>
       </Button>
     </div>
   ),
@@ -95,10 +97,10 @@ export const WithIcons: Story = {
   ),
 };
 
-export const RenderedLink: Story = {
+export const AsChildLink: Story = {
   render: () => (
-    <Button render={<a href="#button" />} nativeButton={false} variant="outline">
-      Open Button Docs
+    <Button asChild variant="outline">
+      <a href="#button">Open Button Docs</a>
     </Button>
   ),
 };
@@ -110,7 +112,6 @@ export const PendingState: Story = {
     return (
       <Button
         disabled={pending}
-        focusableWhenDisabled
         aria-busy={pending || undefined}
         onClick={() => {
           setPending(true);
