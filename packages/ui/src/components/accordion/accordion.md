@@ -1,273 +1,98 @@
 # Accordion
 
-Upstream primitive docs: https://base-ui.com/react/components/accordion.md
+Upstream primitive docs: https://ark-ui.com/docs/components/accordion
 
 ## Purpose
 
-`Accordion` is the moduix wrapper around Base UI Accordion. It renders a vertical set of collapsible
-sections with moduix defaults, CSS variables, `data-slot` hooks, and an optional trigger icon helper.
+`Accordion` is the moduix wrapper around Ark UI Accordion for stacked disclosure content such as FAQs,
+settings groups, and filter sections.
 
-Use it when several related sections need to share one compact surface, for example FAQ blocks,
-settings groups, or filter sections. The wrapper intentionally keeps Base UI state behavior instead
-of introducing a separate item-data API.
+The wrapper keeps Ark state/keyboard behavior and adds moduix default styles, CSS variables, and
+`data-slot` hooks.
 
 ## Current behavior contract
 
-- `Accordion` forwards Base UI root props and refs to a `<div>`.
-- Open items are controlled by item `value`s. `value`, `defaultValue`, and `onValueChange` all use an
-  array of values, even when `multiple` is not set.
-- `multiple` allows several items to stay open. Without it, opening one item closes the previous one.
-- `disabled` on the root disables the full accordion. `disabled` on `AccordionItem` disables one row.
-- `orientation` controls the roving focus direction. The shipped styles are optimized for vertical
-  accordions.
-- `loopFocus`, `keepMounted`, and `hiddenUntilFound` are passed through from Base UI.
-- Panels animate with Base UI's measured `--accordion-panel-height` custom property.
+- Uses Ark composition: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`,
+  `Accordion.ItemIndicator`, and `Accordion.ItemContent`.
+- Supports Ark controlled/uncontrolled state with `value`, `defaultValue`, and `onValueChange(details)`.
+- Supports Ark root behavior props such as `multiple`, `collapsible`, `disabled`, `orientation`,
+  `lazyMount`, and `unmountOnExit`.
+- Uses Ark content animation measurement via `--height`.
+- `Accordion.ItemIndicator` renders `PlusIcon` by default when no children are passed.
 
 ## Composition
 
 ```tsx
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionItem,
-  AccordionPanel,
-  AccordionTrigger,
-  AccordionTriggerIcon,
-} from 'moduix';
+import { Accordion } from 'moduix';
 
 const items = [
-  {
-    value: 'shipping',
-    title: 'Shipping',
-    description: 'Delivery times, prices, and tracking options.',
-  },
-  {
-    value: 'returns',
-    title: 'Returns',
-    description: 'Return windows and refund rules.',
-  },
+  { value: 'shipping', title: 'Shipping', description: 'Delivery times and tracking options.' },
+  { value: 'returns', title: 'Returns', description: 'Return windows and refund rules.' },
 ];
 
 export function AccordionExample() {
   return (
-    <Accordion defaultValue={['shipping']}>
+    <Accordion.Root defaultValue={['shipping']}>
       {items.map((item) => (
-        <AccordionItem key={item.value} value={item.value}>
-          <AccordionHeader>
-            <AccordionTrigger>
-              {item.title}
-              <AccordionTriggerIcon />
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionPanel>
+        <Accordion.Item key={item.value} value={item.value}>
+          <Accordion.ItemTrigger>
+            {item.title}
+            <Accordion.ItemIndicator />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent>
             <div className="panelContent">{item.description}</div>
-          </AccordionPanel>
-        </AccordionItem>
+          </Accordion.ItemContent>
+        </Accordion.Item>
       ))}
-    </Accordion>
+    </Accordion.Root>
   );
 }
-```
-
-Recommended structure:
-
-```text
-Accordion
-└─ AccordionItem[value]
-   ├─ AccordionHeader
-   │  └─ AccordionTrigger
-   │     ├─ label
-   │     └─ AccordionTriggerIcon (optional)
-   └─ AccordionPanel
-      └─ content wrapper
-```
-
-Exported parts:
-
-| Part                   | Renders  | Notes                                                                                       |
-| ---------------------- | -------- | ------------------------------------------------------------------------------------------- |
-| `Accordion`            | `div`    | Root state machine. Accepts Base UI root props plus `className`.                            |
-| `AccordionItem`        | `div`    | Groups one trigger with one panel. `value` is required for predictable controlled state.    |
-| `AccordionHeader`      | `h3`     | Semantic heading wrapper. Use `render={<h2 />}` or another heading level when needed.       |
-| `AccordionTrigger`     | `button` | Interactive control. With the default render, moduix trigger styles are applied.            |
-| `AccordionTriggerIcon` | `span`   | Optional visual cue. Renders `PlusIcon` by default and is `aria-hidden` by default.         |
-| `AccordionPanel`       | `div`    | Collapsible content region. Put padding on an inner wrapper to keep height animation clean. |
-
-## Public props
-
-The wrappers preserve Base UI props instead of exporting local prop aliases.
-
-Common root props:
-
-| Prop               | Default      | Description                                                                    |
-| ------------------ | ------------ | ------------------------------------------------------------------------------ |
-| `defaultValue`     | `[]`         | Uncontrolled open item values.                                                 |
-| `value`            | -            | Controlled open item values.                                                   |
-| `onValueChange`    | -            | Called with the next open value array and Base UI event details.               |
-| `multiple`         | `false`      | Allows more than one item to be open.                                          |
-| `disabled`         | `false`      | Disables interaction for the whole accordion.                                  |
-| `orientation`      | `'vertical'` | Changes keyboard direction semantics.                                          |
-| `loopFocus`        | `true`       | Loops arrow-key focus through triggers.                                        |
-| `keepMounted`      | `false`      | Keeps closed panels in the DOM.                                                |
-| `hiddenUntilFound` | `false`      | Uses `hidden="until-found"` so browser find-in-page can reveal closed content. |
-
-Common item/panel props:
-
-- `AccordionItem`: `value`, `disabled`, `onOpenChange`, `className`, `render`.
-- `AccordionPanel`: `keepMounted`, `hiddenUntilFound`, `className`, `render`.
-- `AccordionHeader` and `AccordionTrigger`: Base UI `render`, `className`, and native element props.
-- `AccordionTriggerIcon`: accepts `ComponentProps<'span'>`, custom `children`, and defaults
-  `aria-hidden` to `true`.
-
-Controlled example:
-
-```tsx
-import { useState } from 'react';
-import { Accordion } from 'moduix';
-
-function ControlledAccordion() {
-  const [value, setValue] = useState(['returns']);
-
-  return (
-    <Accordion value={value} onValueChange={setValue}>
-      {/* items */}
-    </Accordion>
-  );
-}
-```
-
-Multiple-open example:
-
-```tsx
-<Accordion multiple defaultValue={['shipping', 'returns']}>
-  {/* items */}
-</Accordion>
 ```
 
 ## Defaults and styling
 
-Every exported visual part accepts `className` and receives a stable `data-slot`:
+Every exported part accepts `className` and receives a stable `data-slot`:
 
-| Part                   | `data-slot`              |
-| ---------------------- | ------------------------ |
-| `Accordion`            | `accordion-root`         |
-| `AccordionItem`        | `accordion-item`         |
-| `AccordionHeader`      | `accordion-header`       |
-| `AccordionTrigger`     | `accordion-trigger`      |
-| `AccordionTriggerIcon` | `accordion-trigger-icon` |
-| `AccordionPanel`       | `accordion-panel`        |
+| Part                      | `data-slot`                |
+| ------------------------- | -------------------------- |
+| `Accordion.Root`          | `accordion-root`           |
+| `Accordion.Item`          | `accordion-item`           |
+| `Accordion.ItemTrigger`   | `accordion-item-trigger`   |
+| `Accordion.ItemIndicator` | `accordion-item-indicator` |
+| `Accordion.ItemContent`   | `accordion-item-content`   |
 
-Base UI also adds state attributes used by styles and available to consumers:
+Ark state/data attributes remain available to consumers:
 
-| Attribute             | Where it appears           | Meaning                                                     |
-| --------------------- | -------------------------- | ----------------------------------------------------------- |
-| `data-orientation`    | root, panel                | Current orientation.                                        |
-| `data-disabled`       | root, item, trigger, panel | Root or item is disabled.                                   |
-| `data-open`           | item, panel                | Item or panel is open.                                      |
-| `data-panel-open`     | trigger                    | Matching panel is open. Used by the icon rotation selector. |
-| `data-starting-style` | panel                      | Panel is entering.                                          |
-| `data-ending-style`   | panel                      | Panel is leaving.                                           |
+- `data-state="open" | "closed"` on item, trigger, indicator, and content.
+- `data-disabled` and `data-orientation` on relevant parts.
 
-The default trigger is a full-width flex button with hover, focus-visible, disabled, and typography
-styles. When `AccordionTrigger` receives Base UI's `render` prop, moduix does not attach default
-trigger styles; the custom rendered element owns its styling. This matches other trigger wrappers in
-the library and avoids leaking button layout onto custom controls.
+Primary CSS variables:
 
-The root ships with a compact default width of `22rem` and `max-width: 100%` through
-`--accordion-width` and `--accordion-max-width`. Override those variables or set width through
-`className` when a wider layout is required.
+| Variable                              | Default                         |
+| ------------------------------------- | ------------------------------- |
+| `--accordion-width`                   | `22rem`                         |
+| `--accordion-max-width`               | `100%`                          |
+| `--accordion-trigger-bg`              | `var(--color-muted)`            |
+| `--accordion-trigger-bg-hover`        | `var(--color-accent)`           |
+| `--accordion-icon-open-transform`     | `rotate(45deg) scale(1.1)`      |
+| `--accordion-item-content-color`      | `var(--color-muted-foreground)` |
+| `--accordion-item-content-transition` | `var(--transition-default)`     |
 
-`AccordionTriggerIcon` can be customized by passing children:
+## Intentional differences from Ark UI
 
-```tsx
-<AccordionTrigger>
-  Details
-  <AccordionTriggerIcon className={styles.chevron}>
-    <ChevronDownIcon />
-  </AccordionTriggerIcon>
-</AccordionTrigger>
-```
-
-```css
-.chevron {
-  --accordion-icon-open-transform: rotate(180deg);
-}
-```
-
-CSS variables:
-
-| Variable                          | Default                         |
-| --------------------------------- | ------------------------------- |
-| `--accordion-color`               | `var(--color-foreground)`       |
-| `--accordion-disabled-opacity`    | `var(--opacity-disabled)`       |
-| `--accordion-focus-ring-color`    | `var(--color-ring)`             |
-| `--accordion-focus-ring-offset`   | `var(--border-width-sm)`        |
-| `--accordion-focus-ring-width`    | `var(--border-width-md)`        |
-| `--accordion-icon-open-transform` | `rotate(45deg) scale(1.1)`      |
-| `--accordion-icon-size`           | `0.75rem`                       |
-| `--accordion-icon-transition`     | `var(--transition-default)`     |
-| `--accordion-item-border-color`   | `var(--color-border)`           |
-| `--accordion-item-border-width`   | `var(--border-width-sm)`        |
-| `--accordion-max-width`           | `100%`                          |
-| `--accordion-panel-color`         | `var(--color-muted-foreground)` |
-| `--accordion-panel-font-size`     | `var(--text-md)`                |
-| `--accordion-panel-line-height`   | `var(--line-height-text-md)`    |
-| `--accordion-panel-transition`    | `var(--transition-default)`     |
-| `--accordion-trigger-bg`          | `var(--color-muted)`            |
-| `--accordion-trigger-bg-hover`    | `var(--color-accent)`           |
-| `--accordion-trigger-font-size`   | `var(--text-md)`                |
-| `--accordion-trigger-gap`         | `var(--spacing-4)`              |
-| `--accordion-trigger-line-height` | `var(--line-height-text-md)`    |
-| `--accordion-trigger-padding-x`   | `var(--spacing-3)`              |
-| `--accordion-trigger-padding-y`   | `var(--spacing-2)`              |
-| `--accordion-width`               | `22rem`                         |
-
-## Changelog
-
-- Added a compact default root width (`22rem`) plus `--accordion-width` and
-  `--accordion-max-width` variables to keep layout stable out of the box.
-
-## Accessibility and UX notes
-
-- Keep `AccordionTrigger` inside `AccordionHeader` so the button has a semantic heading context.
-- Choose the header level with `AccordionHeader render={<h2 />}` or similar when the surrounding
-  document hierarchy requires it.
-- Do not put another interactive element inside `AccordionTrigger`; compose actions outside the
-  trigger row instead.
-- The trigger icon is decorative by default. If a custom icon carries meaning, provide visible text
-  or override `aria-hidden` intentionally.
-- Closed panels are removed from layout with `hidden` unless `keepMounted` or `hiddenUntilFound` is
-  used.
-
-## Intentional differences from Base UI
-
-- Consumers import flat moduix parts (`Accordion`, `AccordionItem`, etc.), not
-  `Accordion.Root`/`Accordion.Item`.
-- The component is styled by default with CSS Modules and theme variables; it is not an unstyled
-  primitive.
-- `AccordionTriggerIcon` is a moduix-only helper. It is optional and not required for accessibility.
-- No local `items` prop, slot prop map, or generated markup shortcut exists. Repeated rows should be
-  rendered with normal React composition.
+- moduix ships pre-styled defaults; Ark is unstyled.
+- `Accordion.ItemIndicator` defaults to `PlusIcon` when children are not provided.
+- moduix also exports flat aliases (`AccordionRoot`, `AccordionItem`, `AccordionItemTrigger`,
+  `AccordionItemIndicator`, `AccordionItemContent`) for direct named imports.
 
 ## Agent notes
 
-- Preserve Base UI keyboard navigation, focus management, ARIA wiring, panel measurement, and
-  transition lifecycle.
-- Preserve `data-slot` values and documented CSS variables as public styling hooks.
-- Keep padding on content wrappers in examples rather than on `AccordionPanel` when animated height
-  precision matters.
-- Do not add broad sugar unless it removes common real boilerplate while keeping explicit
-  composition available.
-- If trigger `render` behavior changes, compare with `CollapsibleTrigger` and popup trigger wrappers
-  for consistency.
-
-## Motion tokens
-
-`AccordionPanel` now exposes phase-specific motion variables for its enter and exit states. Override `--accordion-panel-starting-height`, `--accordion-panel-ending-height`, the matching `*-opacity`, `*-scale`, and `*-translate-x/y` tokens to layer fade or slide effects on top of the default measured height animation without changing markup.
+- Preserve Ark keyboard navigation, focus behavior, and value lifecycle.
+- Keep `onValueChange` Ark-style (`details.value`) instead of converting to a custom callback shape.
+- Keep `Accordion.ItemContent` animation based on Ark `--height`.
 
 ## Local changelog
 
-- 2026-06-10: Added phase-specific panel motion tokens so accordion enter/exit animations can be retuned to fade, slide, or mixed effects through CSS variables while preserving the default height-based behavior.
-- Rewritten to document the moduix wrapper contract instead of Base UI examples and API tables.
-- Documented that `AccordionTrigger` skips default trigger CSS when Base UI `render` is used, matching
-  other custom-render trigger wrappers.
+- 2026-06-17: Migrated wrapper internals from Base UI Accordion to Ark UI Accordion, adopted Ark part
+  naming (`ItemTrigger`, `ItemIndicator`, `ItemContent`), and moved styling/state hooks to Ark
+  data attributes and `--height`-based content animation.

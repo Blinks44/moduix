@@ -2,14 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionItem,
-  AccordionPanel,
-  AccordionTrigger,
-  AccordionTriggerIcon,
-} from './Accordion';
+import { Accordion } from './Accordion';
 import styles from './Accordion.stories.module.css';
 
 const meta = {
@@ -27,21 +20,19 @@ type Story = StoryObj<typeof meta>;
 
 const faqItems = [
   {
-    value: 'what-is-base-ui',
-    title: 'What is Base UI?',
-    description:
-      'Base UI is a library of high-quality unstyled React components for design systems and web apps.',
+    value: 'what-is-ark-ui',
+    title: 'What is Ark UI?',
+    description: 'Ark UI is a headless component library for building accessible web interfaces.',
   },
   {
     value: 'getting-started',
     title: 'How do I get started?',
-    description:
-      'Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.',
+    description: 'Install the package and compose the parts you need in your own UI layer.',
   },
   {
     value: 'can-i-use-it',
     title: 'Can I use it for my project?',
-    description: 'Of course. Base UI is free and open source.',
+    description: 'Yes. Ark UI is open source and designed for production design systems.',
   },
 ];
 
@@ -55,26 +46,24 @@ function FaqAccordionItems({
   iconClassName?: string;
 }) {
   return faqItems.map((item) => (
-    <AccordionItem key={item.value} value={item.value} disabled={item.value === disabledValue}>
-      <AccordionHeader>
-        <AccordionTrigger>
-          {item.title}
-          <AccordionTriggerIcon className={iconClassName}>{icon}</AccordionTriggerIcon>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionPanel>
+    <Accordion.Item key={item.value} value={item.value} disabled={item.value === disabledValue}>
+      <Accordion.ItemTrigger>
+        {item.title}
+        <Accordion.ItemIndicator className={iconClassName}>{icon}</Accordion.ItemIndicator>
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent>
         <div className={styles.panelContent}>{item.description}</div>
-      </AccordionPanel>
-    </AccordionItem>
+      </Accordion.ItemContent>
+    </Accordion.Item>
   ));
 }
 
 export const Basic: Story = {
   render: () => {
     return (
-      <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
+      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
         <FaqAccordionItems />
-      </Accordion>
+      </Accordion.Root>
     );
   },
 };
@@ -82,13 +71,23 @@ export const Basic: Story = {
 export const Multiple: Story = {
   render: () => {
     return (
-      <Accordion
+      <Accordion.Root
         multiple
-        defaultValue={['what-is-base-ui', 'can-i-use-it']}
+        defaultValue={['what-is-ark-ui', 'can-i-use-it']}
         className={styles.demoRoot}
       >
         <FaqAccordionItems />
-      </Accordion>
+      </Accordion.Root>
+    );
+  },
+};
+
+export const Collapsible: Story = {
+  render: () => {
+    return (
+      <Accordion.Root defaultValue={['what-is-ark-ui']} collapsible className={styles.demoRoot}>
+        <FaqAccordionItems />
+      </Accordion.Root>
     );
   },
 };
@@ -96,9 +95,9 @@ export const Multiple: Story = {
 export const DisabledItem: Story = {
   render: () => {
     return (
-      <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
+      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
         <FaqAccordionItems disabledValue="getting-started" />
-      </Accordion>
+      </Accordion.Root>
     );
   },
 };
@@ -108,9 +107,23 @@ export const Controlled: Story = {
     const [value, setValue] = useState<string[]>(['getting-started']);
 
     return (
-      <Accordion value={value} onValueChange={setValue} className={styles.demoRoot}>
+      <Accordion.Root
+        value={value}
+        onValueChange={(details) => setValue(details.value)}
+        className={styles.demoRoot}
+      >
         <FaqAccordionItems />
-      </Accordion>
+      </Accordion.Root>
+    );
+  },
+};
+
+export const LazyMount: Story = {
+  render: () => {
+    return (
+      <Accordion.Root lazyMount unmountOnExit className={styles.demoRoot}>
+        <FaqAccordionItems />
+      </Accordion.Root>
     );
   },
 };
@@ -118,9 +131,9 @@ export const Controlled: Story = {
 export const CustomStyling: Story = {
   render: () => {
     return (
-      <Accordion defaultValue={['what-is-base-ui']} className={styles.demoRoot}>
+      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
         <FaqAccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
-      </Accordion>
+      </Accordion.Root>
     );
   },
 };

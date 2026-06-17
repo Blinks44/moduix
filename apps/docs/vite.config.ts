@@ -11,6 +11,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 const uiPackageDir = path.resolve(dirname, '../../packages/ui');
 
 const baseUiOptimizeDeps = [
+  '@ark-ui/react/accordion',
   '@base-ui/react/accordion',
   '@base-ui/react/alert-dialog',
   '@base-ui/react/autocomplete',

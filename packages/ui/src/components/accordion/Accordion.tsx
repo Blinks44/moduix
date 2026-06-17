@@ -1,20 +1,20 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
+import { Accordion as AccordionPrimitive } from '@ark-ui/react/accordion';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Accordion.module.css';
 
-const Accordion = forwardRef<
+const AccordionRoot = forwardRef<
   ComponentRef<typeof AccordionPrimitive.Root>,
-  AccordionPrimitive.Root.Props
->(function Accordion({ className, ...props }, ref) {
+  ComponentProps<typeof AccordionPrimitive.Root>
+>(function AccordionRoot({ className, ...props }, ref) {
   return (
     <AccordionPrimitive.Root
       ref={ref}
       data-slot="accordion-root"
-      className={mergeClassName(className, styles.root)}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
@@ -22,84 +22,75 @@ const Accordion = forwardRef<
 
 const AccordionItem = forwardRef<
   ComponentRef<typeof AccordionPrimitive.Item>,
-  AccordionPrimitive.Item.Props
+  ComponentProps<typeof AccordionPrimitive.Item>
 >(function AccordionItem({ className, ...props }, ref) {
   return (
     <AccordionPrimitive.Item
       ref={ref}
       data-slot="accordion-item"
-      className={mergeClassName(className, styles.item)}
+      className={clsx(styles.item, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const AccordionHeader = forwardRef<
-  ComponentRef<typeof AccordionPrimitive.Header>,
-  AccordionPrimitive.Header.Props
->(function AccordionHeader({ className, ...props }, ref) {
+const AccordionItemTrigger = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.ItemTrigger>,
+  ComponentProps<typeof AccordionPrimitive.ItemTrigger>
+>(function AccordionItemTrigger({ className, ...props }, ref) {
   return (
-    <AccordionPrimitive.Header
+    <AccordionPrimitive.ItemTrigger
       ref={ref}
-      data-slot="accordion-header"
-      className={mergeClassName(className, styles.header)}
+      data-slot="accordion-item-trigger"
+      className={clsx(styles.itemTrigger, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const AccordionTrigger = forwardRef<
-  ComponentRef<typeof AccordionPrimitive.Trigger>,
-  AccordionPrimitive.Trigger.Props
->(function AccordionTrigger({ className, render, ...props }, ref) {
+const AccordionItemIndicator = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.ItemIndicator>,
+  ComponentProps<typeof AccordionPrimitive.ItemIndicator>
+>(function AccordionItemIndicator({ className, children, ...props }, ref) {
   return (
-    <AccordionPrimitive.Trigger
+    <AccordionPrimitive.ItemIndicator
       ref={ref}
-      data-slot="accordion-trigger"
-      render={render}
-      className={render ? className : mergeClassName(className, styles.trigger)}
-      {...props}
-    />
-  );
-});
-
-function AccordionTriggerIcon({
-  className,
-  children,
-  'aria-hidden': ariaHidden = true,
-  ...props
-}: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="accordion-trigger-icon"
-      aria-hidden={ariaHidden}
-      className={clsx(styles.triggerIcon, className)}
+      data-slot="accordion-item-indicator"
+      className={clsx(styles.itemIndicator, normalizeClassName(className))}
       {...props}
     >
       {children ?? <PlusIcon />}
-    </span>
+    </AccordionPrimitive.ItemIndicator>
   );
-}
+});
 
-const AccordionPanel = forwardRef<
-  ComponentRef<typeof AccordionPrimitive.Panel>,
-  AccordionPrimitive.Panel.Props
->(function AccordionPanel({ className, ...props }, ref) {
+const AccordionItemContent = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.ItemContent>,
+  ComponentProps<typeof AccordionPrimitive.ItemContent>
+>(function AccordionItemContent({ className, ...props }, ref) {
   return (
-    <AccordionPrimitive.Panel
+    <AccordionPrimitive.ItemContent
       ref={ref}
-      data-slot="accordion-panel"
-      className={mergeClassName(className, styles.panel)}
+      data-slot="accordion-item-content"
+      className={clsx(styles.itemContent, normalizeClassName(className))}
       {...props}
     />
   );
+});
+
+const Accordion = Object.assign(AccordionRoot, {
+  Root: AccordionRoot,
+  Item: AccordionItem,
+  ItemTrigger: AccordionItemTrigger,
+  ItemIndicator: AccordionItemIndicator,
+  ItemContent: AccordionItemContent,
 });
 
 export {
   Accordion,
+  AccordionRoot,
   AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionTriggerIcon,
-  AccordionPanel,
+  AccordionItemTrigger,
+  AccordionItemIndicator,
+  AccordionItemContent,
 };

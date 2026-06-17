@@ -1,4 +1,28 @@
 @layer ui.components {
+  @keyframes accordion-item-content-open {
+    from {
+      height: 0;
+      opacity: var(--accordion-item-content-closed-opacity, 0.01);
+    }
+
+    to {
+      height: var(--height);
+      opacity: var(--accordion-item-content-open-opacity, 1);
+    }
+  }
+
+  @keyframes accordion-item-content-closed {
+    from {
+      height: var(--height);
+      opacity: var(--accordion-item-content-open-opacity, 1);
+    }
+
+    to {
+      height: 0;
+      opacity: var(--accordion-item-content-closed-opacity, 0.01);
+    }
+  }
+
   .root {
     box-sizing: border-box;
     display: flex;
@@ -16,11 +40,7 @@
     }
   }
 
-  .header {
-    margin: 0;
-  }
-
-  .trigger {
+  .itemTrigger {
     box-sizing: border-box;
     display: flex;
     width: 100%;
@@ -64,7 +84,7 @@
     }
   }
 
-  .triggerIcon {
+  .itemIndicator {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -79,43 +99,30 @@
       height: 100%;
     }
 
-    [data-panel-open] & {
+    &[data-state='open'] {
       transform: var(--accordion-icon-open-transform, rotate(45deg) scale(1.1));
     }
   }
 
-  .panel {
+  .itemContent {
     box-sizing: border-box;
-    height: var(--accordion-panel-height);
     overflow: hidden;
-    color: var(--accordion-panel-color, var(--color-muted-foreground));
-    font-size: var(--accordion-panel-font-size, var(--text-md));
-    line-height: var(--accordion-panel-line-height, var(--line-height-text-md));
+    color: var(--accordion-item-content-color, var(--color-muted-foreground));
+    font-size: var(--accordion-item-content-font-size, var(--text-md));
+    line-height: var(--accordion-item-content-line-height, var(--line-height-text-md));
 
     &[hidden]:not([hidden='until-found']) {
       display: none;
     }
 
-    transition:
-      height var(--accordion-panel-transition, var(--transition-default)),
-      opacity var(--accordion-panel-transition, var(--transition-default)),
-      transform var(--accordion-panel-transition, var(--transition-default)),
-      translate var(--accordion-panel-transition, var(--transition-default));
-
-    &[data-starting-style] {
-      height: var(--accordion-panel-starting-height, 0);
-      opacity: var(--accordion-panel-starting-opacity, 1);
-      translate: var(--accordion-panel-starting-translate-x, 0)
-        var(--accordion-panel-starting-translate-y, 0);
-      transform: scale(var(--accordion-panel-starting-scale, 1));
+    &[data-state='open'] {
+      animation: accordion-item-content-open
+        var(--accordion-item-content-transition, var(--transition-default));
     }
 
-    &[data-ending-style] {
-      height: var(--accordion-panel-ending-height, 0);
-      opacity: var(--accordion-panel-ending-opacity, 1);
-      translate: var(--accordion-panel-ending-translate-x, 0)
-        var(--accordion-panel-ending-translate-y, 0);
-      transform: scale(var(--accordion-panel-ending-scale, 1));
+    &[data-state='closed'] {
+      animation: accordion-item-content-closed
+        var(--accordion-item-content-transition, var(--transition-default));
     }
   }
 }

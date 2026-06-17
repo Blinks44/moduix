@@ -143,7 +143,7 @@ Default styling behavior:
 - `CollapsiblePanel` animates its height and hides overflow; spacing should usually live on an inner
   content wrapper instead of the panel itself.
 - When `CollapsibleTrigger` receives `render`, moduix does not attach the default trigger CSS class.
-  This matches `AccordionTrigger` and avoids leaking button layout styles onto custom controls.
+  This matches `Accordion.ItemTrigger` and avoids leaking button layout styles onto custom controls.
 
 `CollapsibleTriggerIcon` can keep the default icon or render custom children:
 

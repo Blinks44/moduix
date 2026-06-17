@@ -1,12 +1,4 @@
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionItem,
-  AccordionPanel,
-  AccordionTrigger,
-  AccordionTriggerIcon,
-  ChevronDownIcon,
-} from 'moduix';
+import { Accordion, ChevronDownIcon } from 'moduix';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -29,21 +21,20 @@ export const accordionCustomStylingCss = `
 
 const accordionItems = [
   {
-    value: 'what-is-base-ui',
-    title: 'What is Base UI?',
-    description:
-      'Base UI is a library of high-quality unstyled React components for design systems and web apps.',
+    value: 'what-is-ark-ui',
+    title: 'What is Ark UI?',
+    description: 'Ark UI is a headless component library for building accessible web interfaces.',
   },
   {
     value: 'getting-started',
     title: 'How do I get started?',
     description:
-      'Head to the Quick start guide in the docs. If you have used unstyled libraries before, you will feel at home.',
+      'Install the package, import Accordion parts, and style the composition to match your product.',
   },
   {
     value: 'can-i-use-it',
     title: 'Can I use it for my project?',
-    description: 'Of course. Base UI is free and open source.',
+    description: 'Yes. Ark UI is open source and designed for production design systems.',
   },
 ];
 
@@ -64,10 +55,10 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   [
     '--accordion-icon-open-transform',
     'rotate(45deg) scale(1.1)',
-    'Controls trigger icon transform when the panel is open.',
+    'Controls indicator transform when the item is open.',
   ],
-  ['--accordion-icon-size', '0.75rem', 'Controls trigger icon size.'],
-  ['--accordion-icon-transition', 'var(--transition-default)', 'Controls trigger icon transition.'],
+  ['--accordion-icon-size', '0.75rem', 'Controls indicator icon size.'],
+  ['--accordion-icon-transition', 'var(--transition-default)', 'Controls indicator transition.'],
   [
     '--accordion-item-border-color',
     'var(--color-border)',
@@ -78,19 +69,23 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls the separator width between accordion items.',
   ],
-  ['--accordion-max-width', '100%', 'Controls the maximum accordion width.'],
-  ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
-  ['--accordion-panel-font-size', 'var(--text-md)', 'Controls panel text font size.'],
   [
-    '--accordion-panel-line-height',
+    '--accordion-item-content-color',
+    'var(--color-muted-foreground)',
+    'Controls item content text color.',
+  ],
+  ['--accordion-item-content-font-size', 'var(--text-md)', 'Controls item content font size.'],
+  [
+    '--accordion-item-content-line-height',
     'var(--line-height-text-md)',
-    'Controls panel text line height.',
+    'Controls item content line height.',
   ],
   [
-    '--accordion-panel-transition',
+    '--accordion-item-content-transition',
     'var(--transition-default)',
-    'Controls panel open and close transition.',
+    'Controls item content open and close animation timing.',
   ],
+  ['--accordion-max-width', '100%', 'Controls the maximum accordion width.'],
   ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
   [
     '--accordion-trigger-bg-hover',
@@ -101,7 +96,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   [
     '--accordion-trigger-gap',
     'var(--spacing-4)',
-    'Controls spacing between trigger content and icon.',
+    'Controls spacing between trigger content and indicator.',
   ],
   [
     '--accordion-trigger-line-height',
@@ -116,14 +111,27 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
 export const accordionPlaygroundCssProperties: CssPropertyInput[] = [
   ['--accordion-color', 'var(--color-foreground)', 'Controls accordion text color.'],
   ['--accordion-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  ['--accordion-icon-size', '0.75rem', 'Controls trigger icon size.'],
+  ['--accordion-icon-size', '0.75rem', 'Controls indicator size.'],
   ['--accordion-item-border-color', 'var(--color-border)', 'Controls separator color.'],
   ['--accordion-item-border-width', 'var(--border-width-sm)', 'Controls separator width.'],
+  [
+    '--accordion-item-content-color',
+    'var(--color-muted-foreground)',
+    'Controls content text color.',
+  ],
+  [
+    '--accordion-item-content-transition',
+    'var(--transition-default)',
+    'Controls content animation timing.',
+  ],
   ['--accordion-max-width', '100%', 'Controls the maximum accordion width.'],
-  ['--accordion-panel-color', 'var(--color-muted-foreground)', 'Controls panel text color.'],
   ['--accordion-trigger-bg', 'var(--color-muted)', 'Controls trigger background color.'],
   ['--accordion-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  ['--accordion-trigger-gap', 'var(--spacing-4)', 'Controls trigger content and icon spacing.'],
+  [
+    '--accordion-trigger-gap',
+    'var(--spacing-4)',
+    'Controls trigger content and indicator spacing.',
+  ],
   ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
   ['--accordion-width', '22rem', 'Controls the default accordion width.'],
@@ -175,48 +183,70 @@ function AccordionItems({
   iconClassName?: string;
 }) {
   return accordionItems.map((item) => (
-    <AccordionItem key={item.value} value={item.value} disabled={item.value === disabledValue}>
-      <AccordionHeader>
-        <AccordionTrigger>
-          {item.title}
-          <AccordionTriggerIcon className={iconClassName}>{icon}</AccordionTriggerIcon>
-        </AccordionTrigger>
-      </AccordionHeader>
-      <AccordionPanel>
+    <Accordion.Item key={item.value} value={item.value} disabled={item.value === disabledValue}>
+      <Accordion.ItemTrigger>
+        {item.title}
+        <Accordion.ItemIndicator className={iconClassName}>
+          {icon ?? <ChevronDownIcon />}
+        </Accordion.ItemIndicator>
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent>
         <div className="accordion-panel-content">{item.description}</div>
-      </AccordionPanel>
-    </AccordionItem>
+      </Accordion.ItemContent>
+    </Accordion.Item>
   ));
 }
 
-export function AccordionExample({ className, ...props }: ComponentProps<typeof Accordion>) {
+export function AccordionExample({ className, ...props }: ComponentProps<typeof Accordion.Root>) {
   return (
     <>
       <style>{accordionExampleCss}</style>
-      <Accordion className={className} {...props}>
+      <Accordion.Root className={className} {...props}>
         <AccordionItems />
-      </Accordion>
+      </Accordion.Root>
     </>
   );
 }
 
 export function MultipleAccordionExample() {
-  return <AccordionExample multiple defaultValue={['what-is-base-ui', 'can-i-use-it']} />;
+  return <AccordionExample multiple defaultValue={['what-is-ark-ui', 'can-i-use-it']} />;
 }
 
 export function ControlledAccordionExample() {
   const [value, setValue] = useState(['getting-started']);
 
-  return <AccordionExample value={value} onValueChange={setValue} />;
+  return <AccordionExample value={value} onValueChange={(details) => setValue(details.value)} />;
 }
 
 export function DisabledItemAccordionExample() {
   return (
     <>
       <style>{accordionExampleCss}</style>
-      <Accordion defaultValue={['what-is-base-ui']}>
+      <Accordion.Root defaultValue={['what-is-ark-ui']}>
         <AccordionItems disabledValue="getting-started" />
-      </Accordion>
+      </Accordion.Root>
+    </>
+  );
+}
+
+export function CollapsibleAccordionExample() {
+  return (
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion.Root defaultValue={['what-is-ark-ui']} collapsible>
+        <AccordionItems />
+      </Accordion.Root>
+    </>
+  );
+}
+
+export function LazyMountAccordionExample() {
+  return (
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion.Root lazyMount unmountOnExit>
+        <AccordionItems />
+      </Accordion.Root>
     </>
   );
 }
@@ -225,9 +255,9 @@ export function CustomStylingAccordionExample() {
   return (
     <>
       <style>{accordionCustomStylingCss}</style>
-      <Accordion defaultValue={['what-is-base-ui']}>
+      <Accordion.Root defaultValue={['what-is-ark-ui']}>
         <AccordionItems icon={<ChevronDownIcon />} iconClassName="accordion-custom-icon" />
-      </Accordion>
+      </Accordion.Root>
     </>
   );
 }

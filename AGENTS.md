@@ -23,6 +23,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - For JS/TS work, apply `.agents/skills/js-react-conventions/SKILL.md`.
 - For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
 - For Base UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
+- For full component migration to Ark UI contracts/naming in `packages/ui`, apply `.agents/skills/ark-ui-migration/SKILL.md`.
 - For component work in `packages/ui`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
 - For local component markdown in `packages/ui/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
 - For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
