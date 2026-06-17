@@ -82,8 +82,6 @@ Primary CSS variables:
 
 - moduix ships pre-styled defaults; Ark is unstyled.
 - `Accordion.ItemIndicator` defaults to `PlusIcon` when children are not provided.
-- moduix also exports flat aliases (`AccordionRoot`, `AccordionItem`, `AccordionItemTrigger`,
-  `AccordionItemIndicator`, `AccordionItemContent`) for direct named imports.
 
 ## Agent notes
 
@@ -96,3 +94,6 @@ Primary CSS variables:
 - 2026-06-17: Migrated wrapper internals from Base UI Accordion to Ark UI Accordion, adopted Ark part
   naming (`ItemTrigger`, `ItemIndicator`, `ItemContent`), and moved styling/state hooks to Ark
   data attributes and `--height`-based content animation.
+- 2026-06-17: Removed flat named exports (`AccordionRoot`, `AccordionItem`, `AccordionItemTrigger`,
+  `AccordionItemIndicator`, `AccordionItemContent`) to keep the public API Ark-shaped (`Accordion.*` only),
+  and removed legacy `--accordion-panel-*` theme tokens that were no longer used.

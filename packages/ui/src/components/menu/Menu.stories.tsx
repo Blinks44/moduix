@@ -2,16 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
 import { Fragment, useMemo, useState } from 'react';
 import { InfoIcon, MapIcon } from '@/icons/demo';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '../alert-dialog';
 import { Button } from '../button';
 import {
   Menu,
@@ -310,49 +300,24 @@ export const CustomComposition: Story = {
   },
 };
 
-export const OpenAlertDialog: Story = {
-  name: 'Open AlertDialog',
+export const DestructiveItem: Story = {
+  name: 'Destructive Item',
   render: () => {
-    const [dialogOpen, setDialogOpen] = useState(false);
-
     return (
-      <Fragment>
-        <Menu>
-          <MenuButtonTrigger>
-            Project
-            <MenuTriggerIcon />
-          </MenuButtonTrigger>
-          <MenuContent>
-            <MenuItem closeOnClick>Rename</MenuItem>
-            <MenuItem closeOnClick>Duplicate</MenuItem>
-            <MenuSeparator />
-            <MenuItem
-              closeOnClick
-              tone="destructive"
-              onClick={() => {
-                setDialogOpen(true);
-              }}
-            >
-              Delete...
-            </MenuItem>
-          </MenuContent>
-        </Menu>
-
-        <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Delete project?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone and will permanently remove all environments.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Delete</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </Fragment>
+      <Menu>
+        <MenuButtonTrigger>
+          Project
+          <MenuTriggerIcon />
+        </MenuButtonTrigger>
+        <MenuContent>
+          <MenuItem closeOnClick>Rename</MenuItem>
+          <MenuItem closeOnClick>Duplicate</MenuItem>
+          <MenuSeparator />
+          <MenuItem closeOnClick tone="destructive">
+            Delete…
+          </MenuItem>
+        </MenuContent>
+      </Menu>
     );
   },
 };

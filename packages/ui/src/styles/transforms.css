@@ -1,4 +1,4 @@
 :root {
   --scale-popup: 0.9; /* overlays: dialog, popover, tooltip, menu, preview-card, toast, nav-menu */
-  --scale-dropdown: 0.95; /* dropdown lists: select, combobox, autocomplete, context-menu root */
+  --scale-dropdown: 0.95; /* dropdown lists: select, combobox, context-menu root */
 }

@@ -3,13 +3,14 @@
 Upstream primitive docs:
 
 - Dialog: https://base-ui.com/react/components/dialog.md
-- Autocomplete: https://base-ui.com/react/components/autocomplete.md
+- Internal filtering root: `@base-ui/react/autocomplete`
 
 ## Purpose
 
 `CommandPalette` is a full-featured command palette built as a thin composition of Base UI `Dialog`
-and `Autocomplete`. It provides a modal (or non-modal) overlay with a search input, filtered result
-list, grouped items, keyboard navigation, and a built-in global keyboard shortcut.
+plus an internal autocomplete filtering root. It provides a modal (or non-modal) overlay with a
+search input, filtered result list, grouped items, keyboard navigation, and a built-in global
+keyboard shortcut.
 
 Use it when the user needs fast keyboard-driven access to commands, pages, or settings — the classic
 `⌘+K` experience.
@@ -19,7 +20,7 @@ Use it when the user needs fast keyboard-driven access to commands, pages, or se
 - `CommandPalette` owns dialog state via an internal or external handle and registers the global
   keyboard shortcut.
 - `CommandPaletteContent` is the recommended default shell. It renders the portal, optional backdrop,
-  viewport, popup, and an inline always-open `Autocomplete` root. Use `CommandPaletteContent` for
+  viewport, popup, and an inline always-open filtering root. Use `CommandPaletteContent` for
   the standard command palette layout.
 - The individual layout parts (`CommandPalettePortal`, `CommandPaletteBackdrop`,
   `CommandPaletteViewport`, `CommandPalettePopup`) are exported for custom composition when the
@@ -233,63 +234,6 @@ export function AppCommandPalette() {
 }
 ```
 
-### Custom composition
-
-Compose the low-level parts directly when the default `CommandPaletteContent` shell does not fit
-your layout. Use `Autocomplete` from `moduix` to wire up the filtering root manually:
-
-```tsx
-import { Autocomplete } from 'moduix';
-import {
-  CommandPalette,
-  CommandPaletteBackdrop,
-  CommandPalettePopup,
-  CommandPalettePortal,
-  CommandPaletteViewport,
-  CommandPaletteInputWrap,
-  CommandPaletteInput,
-  CommandPaletteClear,
-  CommandPaletteEmpty,
-  CommandPaletteList,
-  CommandPaletteItem,
-} from 'moduix';
-
-export function CustomPalette() {
-  return (
-    <CommandPalette shortcut="mod+k">
-      <CommandPalettePortal>
-        <CommandPaletteBackdrop />
-        <CommandPaletteViewport>
-          <CommandPalettePopup aria-label="Custom command palette">
-            <Autocomplete
-              autoHighlight="always"
-              inline
-              keepHighlight
-              open
-              items={items}
-              itemToStringValue={(item) => item.label}
-            >
-              <CommandPaletteInputWrap>
-                <CommandPaletteInput placeholder="Search..." />
-                <CommandPaletteClear aria-label="Clear" />
-              </CommandPaletteInputWrap>
-              <CommandPaletteEmpty>No results.</CommandPaletteEmpty>
-              <CommandPaletteList>
-                {(item) => (
-                  <CommandPaletteItem key={item.id} value={item}>
-                    {item.label}
-                  </CommandPaletteItem>
-                )}
-              </CommandPaletteList>
-            </Autocomplete>
-          </CommandPalettePopup>
-        </CommandPaletteViewport>
-      </CommandPalettePortal>
-    </CommandPalette>
-  );
-}
-```
-
 ### Executing actions on select
 
 Attach an `onClick` handler to `CommandPaletteItem`. The dialog closes automatically after the
@@ -373,7 +317,7 @@ first result (`autoHighlight: 'always'`), keeps the highlight stable after filte
 
 ### `CommandPaletteItem`
 
-Extends `AutocompletePrimitive.Item.Props`.
+Extends the internal autocomplete item primitive props.
 
 | Prop            | Type        | Default | Description                                                                         |
 | --------------- | ----------- | ------- | ----------------------------------------------------------------------------------- |
@@ -593,7 +537,7 @@ ancestor.
 ## Intentional differences from Base UI
 
 - Consumers import flat named exports (`CommandPalette`, `CommandPaletteItem`, etc.), not
-  `Dialog.Root`, `Autocomplete.Item`.
+  primitive parts directly.
 - All visual parts are styled by default via CSS Modules and theme variables.
 - `CommandPaletteContent` is a moduix-only convenience wrapper. It composes the dialog portal,
   backdrop, viewport, popup, and autocomplete root into a single component.

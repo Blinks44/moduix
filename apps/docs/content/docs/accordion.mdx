@@ -11,6 +11,7 @@ import {
   ControlledAccordionExample,
   CustomStylingAccordionExample,
   DisabledItemAccordionExample,
+  HorizontalAccordionExample,
   LazyMountAccordionExample,
   MultipleAccordionExample,
   accordionCustomStylingCss,
@@ -146,6 +147,30 @@ Accordion.Root
 
 <Preview>
   <MultipleAccordionExample />
+  <Preview.Code>
+    {`
+      import { Accordion } from "moduix";
+
+      export function MultipleAccordionDemo() {
+        return (
+          <Accordion.Root multiple defaultValue={["what-is-ark-ui", "can-i-use-it"]}>
+            {items.map((item) => (
+              <Accordion.Item key={item.value} value={item.value}>
+                <Accordion.ItemTrigger>
+                  {item.title}
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <div className="accordion-panel-content">{item.description}</div>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
   <Preview.CSS>{accordionExampleCss}</Preview.CSS>
 </Preview>
 
@@ -153,6 +178,33 @@ Accordion.Root
 
 <Preview>
   <ControlledAccordionExample />
+  <Preview.Code>
+    {`
+      import { Accordion } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledAccordionDemo() {
+        const [value, setValue] = useState(["getting-started"] as string[]);
+
+        return (
+          <Accordion.Root value={value} onValueChange={(details) => setValue(details.value)}>
+            {items.map((item) => (
+              <Accordion.Item key={item.value} value={item.value}>
+                <Accordion.ItemTrigger>
+                  {item.title}
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <div className="accordion-panel-content">{item.description}</div>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
   <Preview.CSS>{accordionExampleCss}</Preview.CSS>
 </Preview>
 
@@ -160,6 +212,61 @@ Accordion.Root
 
 <Preview>
   <CollapsibleAccordionExample />
+  <Preview.Code>
+    {`
+      import { Accordion } from "moduix";
+
+      export function CollapsibleAccordionDemo() {
+        return (
+          <Accordion.Root collapsible defaultValue={["what-is-ark-ui"]}>
+            {items.map((item) => (
+              <Accordion.Item key={item.value} value={item.value}>
+                <Accordion.ItemTrigger>
+                  {item.title}
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <div className="accordion-panel-content">{item.description}</div>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
+</Preview>
+
+### Horizontal
+
+<Preview>
+  <HorizontalAccordionExample />
+  <Preview.Code>
+    {`
+      import { Accordion } from "moduix";
+
+      export function HorizontalAccordionDemo() {
+        return (
+          <Accordion.Root orientation="horizontal" defaultValue={["what-is-ark-ui"]}>
+            {items.map((item) => (
+              <Accordion.Item key={item.value} value={item.value}>
+                <Accordion.ItemTrigger>
+                  {item.title}
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <div className="accordion-panel-content">{item.description}</div>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
   <Preview.CSS>{accordionExampleCss}</Preview.CSS>
 </Preview>
 
@@ -167,6 +274,30 @@ Accordion.Root
 
 <Preview>
   <LazyMountAccordionExample />
+  <Preview.Code>
+    {`
+      import { Accordion } from "moduix";
+
+      export function LazyMountAccordionDemo() {
+        return (
+          <Accordion.Root lazyMount unmountOnExit>
+            {items.map((item) => (
+              <Accordion.Item key={item.value} value={item.value}>
+                <Accordion.ItemTrigger>
+                  {item.title}
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <div className="accordion-panel-content">{item.description}</div>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
   <Preview.CSS>{accordionExampleCss}</Preview.CSS>
 </Preview>
 
@@ -174,6 +305,34 @@ Accordion.Root
 
 <Preview>
   <DisabledItemAccordionExample />
+  <Preview.Code>
+    {`
+      import { Accordion } from "moduix";
+
+      export function DisabledItemAccordionDemo() {
+        return (
+          <Accordion.Root defaultValue={["what-is-ark-ui"]}>
+            {items.map((item) => (
+              <Accordion.Item
+                key={item.value}
+                value={item.value}
+                disabled={item.value === "getting-started"}
+              >
+                <Accordion.ItemTrigger>
+                  {item.title}
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <div className="accordion-panel-content">{item.description}</div>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
   <Preview.CSS>{accordionExampleCss}</Preview.CSS>
 </Preview>
 

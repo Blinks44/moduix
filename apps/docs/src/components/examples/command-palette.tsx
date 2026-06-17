@@ -1,10 +1,8 @@
 import {
-  Autocomplete,
   ArrowUpRightIcon,
   BellIcon,
   Button,
   CommandPalette,
-  CommandPaletteBackdrop,
   CommandPaletteClear,
   CommandPaletteCollection,
   CommandPaletteContent,
@@ -22,10 +20,7 @@ import {
   CommandPaletteItemText,
   CommandPaletteKbd,
   CommandPaletteList,
-  CommandPalettePopup,
-  CommandPalettePortal,
   CommandPaletteTrigger,
-  CommandPaletteViewport,
   PlusIcon,
   StarIcon,
 } from 'moduix';
@@ -55,29 +50,6 @@ type CommandActionGroup = {
   value: string;
   items: CommandActionItem[];
 };
-
-export const commandPaletteCustomCompositionCss = `
-  .command-palette-custom-backdrop {
-    background:
-      radial-gradient(circle at top, rgb(14 165 233 / 0.18), transparent 35%),
-      rgb(15 23 42 / 0.64);
-  }
-
-  .command-palette-custom-viewport {
-    align-items: start;
-    padding-top: 6dvh;
-  }
-
-  .command-palette-custom-popup {
-    overflow: hidden;
-    border-color: rgb(14 165 233 / 0.28);
-    box-shadow: 0 24px 64px rgb(15 23 42 / 0.24);
-    --command-palette-bg: color-mix(in oklab, var(--color-popover) 92%, white 8%);
-    --command-palette-highlight-bg: color-mix(in oklab, var(--color-primary) 14%, white);
-    --command-palette-top-bg: color-mix(in oklab, var(--color-primary) 8%, var(--color-popover));
-    --command-palette-width: 42rem;
-  }
-`;
 
 const commandGroups: CommandGroup[] = [
   {
@@ -446,73 +418,5 @@ export function CommandPaletteActionsExample() {
         </CommandPaletteFooter>
       </CommandPaletteContent>
     </CommandPalette>
-  );
-}
-
-export function CommandPaletteCustomCompositionExample() {
-  return (
-    <>
-      <style>{commandPaletteCustomCompositionCss}</style>
-      <CommandPalette shortcut="alt+k">
-        <CommandPaletteTrigger render={<Button />}>Open custom palette</CommandPaletteTrigger>
-        <CommandPalettePortal>
-          <CommandPaletteBackdrop className="command-palette-custom-backdrop" />
-          <CommandPaletteViewport className="command-palette-custom-viewport">
-            <CommandPalettePopup
-              className="command-palette-custom-popup"
-              aria-label="Custom command palette"
-            >
-              <Autocomplete
-                autoHighlight="always"
-                inline
-                items={commandGroups}
-                keepHighlight
-                itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
-              >
-                <CommandPaletteInputWrap>
-                  <CommandPaletteInput
-                    aria-label="Search commands"
-                    placeholder="Jump to places, pages, and settings..."
-                  />
-                  <CommandPaletteClear aria-label="Clear search" />
-                </CommandPaletteInputWrap>
-                <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-                <CommandPaletteList>
-                  {(group: CommandGroup) => (
-                    <CommandPaletteGroup key={group.value} items={group.items}>
-                      <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
-                      <CommandPaletteCollection>
-                        {(item: CommandItem) => (
-                          <CommandPaletteItem key={item.id} value={item}>
-                            <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                            <CommandPaletteItemText>
-                              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                              <CommandPaletteItemDescription>
-                                {item.description}
-                              </CommandPaletteItemDescription>
-                            </CommandPaletteItemText>
-                            {item.shortcut ? (
-                              <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                            ) : null}
-                          </CommandPaletteItem>
-                        )}
-                      </CommandPaletteCollection>
-                    </CommandPaletteGroup>
-                  )}
-                </CommandPaletteList>
-                <CommandPaletteFooter>
-                  <span>
-                    <CommandPaletteKbd>Enter</CommandPaletteKbd> run
-                  </span>
-                  <span>
-                    <CommandPaletteKbd>Esc</CommandPaletteKbd> close
-                  </span>
-                </CommandPaletteFooter>
-              </Autocomplete>
-            </CommandPalettePopup>
-          </CommandPaletteViewport>
-        </CommandPalettePortal>
-      </CommandPalette>
-    </>
   );
 }

@@ -2,11 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { ArrowUpRightIcon, BellIcon, StarIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { Autocomplete } from '../autocomplete';
 import { Button } from '../button';
 import {
   CommandPalette,
-  CommandPaletteBackdrop,
   CommandPaletteClear,
   CommandPaletteCollection,
   CommandPaletteContent,
@@ -24,10 +22,7 @@ import {
   CommandPaletteItemText,
   CommandPaletteKbd,
   CommandPaletteList,
-  CommandPalettePopup,
-  CommandPalettePortal,
   CommandPaletteTrigger,
-  CommandPaletteViewport,
 } from './CommandPalette';
 import styles from './CommandPalette.stories.module.css';
 
@@ -252,62 +247,52 @@ export const CustomComposition: Story = {
       <CommandPaletteTrigger render={<Button />}>
         Open custom palette <span className={styles.triggerMeta}>Alt+K</span>
       </CommandPaletteTrigger>
-      <CommandPalettePortal>
-        <CommandPaletteBackdrop className={styles.customBackdrop} />
-        <CommandPaletteViewport className={styles.customViewport}>
-          <CommandPalettePopup className={styles.customPopup} aria-label="Custom command palette">
-            <Autocomplete
-              autoHighlight="always"
-              inline
-              items={commandGroups}
-              keepHighlight
-              itemToStringValue={(item: CommandItem) =>
-                `${item.label} ${item.description} ${item.section}`
-              }
-            >
-              <CommandPaletteInputWrap>
-                <CommandPaletteInput
-                  aria-label="Search commands"
-                  placeholder="Jump to places, pages, and settings..."
-                />
-                <CommandPaletteClear aria-label="Clear search" />
-              </CommandPaletteInputWrap>
-              <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-              <CommandPaletteList>
-                {(group: CommandGroup) => (
-                  <CommandPaletteGroup key={group.value} items={group.items}>
-                    <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
-                    <CommandPaletteCollection>
-                      {(item: CommandItem) => (
-                        <CommandPaletteItem key={item.id} value={item}>
-                          <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                          <CommandPaletteItemText>
-                            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                            <CommandPaletteItemDescription>
-                              {item.description}
-                            </CommandPaletteItemDescription>
-                          </CommandPaletteItemText>
-                          {item.shortcut ? (
-                            <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                          ) : null}
-                        </CommandPaletteItem>
-                      )}
-                    </CommandPaletteCollection>
-                  </CommandPaletteGroup>
+      <CommandPaletteContent<CommandItem>
+        className={styles.customPopup}
+        aria-label="Custom command palette"
+        items={commandGroups}
+        itemToStringValue={(item) => `${item.label} ${item.description} ${item.section}`}
+      >
+        <CommandPaletteInputWrap>
+          <CommandPaletteInput
+            aria-label="Search commands"
+            placeholder="Jump to places, pages, and settings..."
+          />
+          <CommandPaletteClear aria-label="Clear search" />
+        </CommandPaletteInputWrap>
+        <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
+        <CommandPaletteList>
+          {(group: CommandGroup) => (
+            <CommandPaletteGroup key={group.value} items={group.items}>
+              <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
+              <CommandPaletteCollection>
+                {(item: CommandItem) => (
+                  <CommandPaletteItem key={item.id} value={item}>
+                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                    <CommandPaletteItemText>
+                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                      <CommandPaletteItemDescription>
+                        {item.description}
+                      </CommandPaletteItemDescription>
+                    </CommandPaletteItemText>
+                    {item.shortcut ? (
+                      <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
+                    ) : null}
+                  </CommandPaletteItem>
                 )}
-              </CommandPaletteList>
-              <CommandPaletteFooter>
-                <span className={styles.footerHint}>
-                  <CommandPaletteKbd>Enter</CommandPaletteKbd> run
-                </span>
-                <span className={styles.footerHint}>
-                  <CommandPaletteKbd>Esc</CommandPaletteKbd> close
-                </span>
-              </CommandPaletteFooter>
-            </Autocomplete>
-          </CommandPalettePopup>
-        </CommandPaletteViewport>
-      </CommandPalettePortal>
+              </CommandPaletteCollection>
+            </CommandPaletteGroup>
+          )}
+        </CommandPaletteList>
+        <CommandPaletteFooter>
+          <span className={styles.footerHint}>
+            <CommandPaletteKbd>Enter</CommandPaletteKbd> run
+          </span>
+          <span className={styles.footerHint}>
+            <CommandPaletteKbd>Esc</CommandPaletteKbd> close
+          </span>
+        </CommandPaletteFooter>
+      </CommandPaletteContent>
     </CommandPalette>
   ),
 };

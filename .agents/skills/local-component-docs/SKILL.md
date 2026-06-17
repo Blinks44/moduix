@@ -16,8 +16,8 @@ Use this skill for markdown files in `packages/ui/src/components`.
 
 ## Rules
 
-- Local markdown documents the `moduix` wrapper, not the upstream Base UI primitive.
-- Use Base UI docs only to understand primitive behavior, accessibility, state, and lifecycle.
+- Local markdown documents the `moduix` wrapper, not the upstream Ark UI primitive or Chakra recipe.
+- Use Ark and Chakra docs only to understand primitive behavior, composition, accessibility, state, and lifecycle.
 - Do not copy upstream docs locally.
 - Keep the file explicit enough that future agents can preserve intentional behavior unless the user asks to change it.
 
@@ -25,7 +25,7 @@ Document:
 
 - public composition model and exported parts
 - defaults, DX sugar, and styling hooks
-- intentional differences from Base UI
+- intentional differences from upstream Ark/Chakra
 - constraints or edge cases that affect implementation
 - agent notes worth preserving
 
@@ -36,7 +36,10 @@ For new or heavily rewritten files, prefer:
 ```md
 # ComponentName
 
-Upstream primitive docs: https://base-ui.com/react/components/<primitive-slug>.md
+Upstream primitive docs:
+
+- Ark UI: https://ark-ui.com/docs/components/<component-slug>
+- Chakra UI: https://chakra-ui.com/docs/components/<component-slug>
 
 ## Purpose
 
@@ -46,7 +49,7 @@ Upstream primitive docs: https://base-ui.com/react/components/<primitive-slug>.m
 
 ## Defaults and styling
 
-## Intentional differences from Base UI
+## Intentional differences from upstream
 
 ## Agent notes
 

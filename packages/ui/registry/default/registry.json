@@ -175,31 +175,6 @@
       ]
     },
     {
-      "name": "alert-dialog",
-      "type": "registry:item",
-      "title": "AlertDialog",
-      "description": "moduix AlertDialog component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/alert-dialog/AlertDialog.tsx",
-          "target": "@components/moduix/alert-dialog/AlertDialog.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/alert-dialog/AlertDialog.module.css",
-          "target": "@components/moduix/alert-dialog/AlertDialog.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/alert-dialog/index.ts",
-          "target": "@components/moduix/alert-dialog/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "aspect-ratio",
       "type": "registry:item",
       "title": "AspectRatio",
@@ -220,31 +195,6 @@
         {
           "path": "packages/ui/src/components/aspect-ratio/index.ts",
           "target": "@components/moduix/aspect-ratio/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "autocomplete",
-      "type": "registry:item",
-      "title": "Autocomplete",
-      "description": "moduix Autocomplete component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/autocomplete/Autocomplete.tsx",
-          "target": "@components/moduix/autocomplete/Autocomplete.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/autocomplete/Autocomplete.module.css",
-          "target": "@components/moduix/autocomplete/Autocomplete.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/autocomplete/index.ts",
-          "target": "@components/moduix/autocomplete/index.ts",
           "type": "registry:component"
         }
       ]

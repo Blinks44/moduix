@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Avatar, AvatarFallback, AvatarImage, ComputerIcon } from 'moduix';
+import { Avatar, ComputerIcon } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -18,24 +18,15 @@ export const avatarOverrideCssProperties: CssPropertyInput[] = [
   ['--avatar-fallback-padding', '0', 'Controls fallback inner padding.'],
   ['--avatar-font-size', 'var(--text-md)', 'Controls avatar text font size.'],
   ['--avatar-font-weight', 'var(--weight-medium)', 'Controls avatar text font weight.'],
-  ['--avatar-image-ending-opacity', '0', 'Controls ending image opacity for exit motion.'],
-  ['--avatar-image-ending-scale', '1', 'Controls ending image scale for exit motion.'],
-  ['--avatar-image-ending-translate-x', '0', 'Controls ending image horizontal translation.'],
-  ['--avatar-image-ending-translate-y', '0', 'Controls ending image vertical translation.'],
   ['--avatar-image-object-fit', 'cover', 'Controls how the image fits into the avatar.'],
   [
     '--avatar-image-object-position',
     'center',
     'Controls which part of the image remains visible when cropped.',
   ],
-  ['--avatar-image-starting-opacity', '0', 'Controls starting image opacity for enter motion.'],
-  ['--avatar-image-starting-scale', '1', 'Controls starting image scale for enter motion.'],
-  ['--avatar-image-starting-translate-x', '0', 'Controls starting image horizontal translation.'],
-  ['--avatar-image-starting-translate-y', '0', 'Controls starting image vertical translation.'],
   ['--avatar-line-height', 'var(--line-height-text-md)', 'Controls avatar text line height.'],
   ['--avatar-radius', 'var(--radius-full)', 'Controls avatar corner radius.'],
   ['--avatar-size', 'var(--size-md)', 'Controls avatar width and height.'],
-  ['--avatar-transition', 'var(--transition-default)', 'Controls image fade transition.'],
 ];
 const avatarCssProperties = avatarOverrideCssProperties.map(normalizeCssProperty);
 
@@ -55,72 +46,72 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function AvatarExample(props: ComponentProps<typeof Avatar>) {
+export function AvatarExample(props: ComponentProps<typeof Avatar.Root>) {
   return (
-    <Avatar {...props}>
-      <AvatarImage src={avatarImage} alt="Alex T." />
-      <AvatarFallback delay={600}>LT</AvatarFallback>
-    </Avatar>
+    <Avatar.Root {...props}>
+      <Avatar.Image src={avatarImage} alt="Alex T." />
+      <Avatar.Fallback>LT</Avatar.Fallback>
+    </Avatar.Root>
   );
 }
 
 export function AvatarFallbackOnlyExample() {
   return (
     <div className="docs-avatar-row">
-      <Avatar size="xs">
-        <AvatarFallback>XS</AvatarFallback>
-      </Avatar>
-      <Avatar size="sm">
-        <AvatarFallback>SM</AvatarFallback>
-      </Avatar>
-      <Avatar>
-        <AvatarFallback>MD</AvatarFallback>
-      </Avatar>
-      <Avatar size="lg">
-        <AvatarFallback>LG</AvatarFallback>
-      </Avatar>
-      <Avatar size="xl">
-        <AvatarFallback>XL</AvatarFallback>
-      </Avatar>
+      <Avatar.Root size="xs">
+        <Avatar.Fallback>XS</Avatar.Fallback>
+      </Avatar.Root>
+      <Avatar.Root size="sm">
+        <Avatar.Fallback>SM</Avatar.Fallback>
+      </Avatar.Root>
+      <Avatar.Root>
+        <Avatar.Fallback>MD</Avatar.Fallback>
+      </Avatar.Root>
+      <Avatar.Root size="lg">
+        <Avatar.Fallback>LG</Avatar.Fallback>
+      </Avatar.Root>
+      <Avatar.Root size="xl">
+        <Avatar.Fallback>XL</Avatar.Fallback>
+      </Avatar.Root>
     </div>
   );
 }
 
 export function AvatarCompositionExample() {
   return (
-    <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className="docs-avatar-link">
-      <AvatarImage className="docs-avatar-link-image" src={avatarImage} alt="Alex T." />
-      <AvatarFallback className="docs-avatar-link-fallback" delay={600}>
-        LT
-      </AvatarFallback>
-    </Avatar>
+    <Avatar.Root asChild size="xl" className="docs-avatar-link">
+      <a href="mailto:alex@example.com" aria-label="Email Alex T.">
+        <Avatar.Image className="docs-avatar-link-image" src={avatarImage} alt="" />
+        <Avatar.Fallback className="docs-avatar-link-fallback">LT</Avatar.Fallback>
+      </a>
+    </Avatar.Root>
   );
 }
 
 export function AvatarImageErrorExample() {
   return (
-    <Avatar>
-      <AvatarImage src="https://example.com/does-not-exist.png" alt="Broken image example" />
-      <AvatarFallback>NA</AvatarFallback>
-    </Avatar>
+    <Avatar.Root>
+      <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
+      <Avatar.Fallback>NA</Avatar.Fallback>
+    </Avatar.Root>
   );
 }
 
 export function CustomCompositionAvatarExample() {
   return (
-    <Avatar size="lg" className="docs-avatar-ring">
-      <AvatarImage className="docs-avatar-saturated-image" src={avatarImage} alt="Alex T." />
-      <AvatarFallback className="docs-avatar-uppercase">LT</AvatarFallback>
-    </Avatar>
+    <Avatar.Root size="lg" className="docs-avatar-ring">
+      <Avatar.Image className="docs-avatar-saturated-image" src={avatarImage} alt="Alex T." />
+      <Avatar.Fallback className="docs-avatar-uppercase">LT</Avatar.Fallback>
+    </Avatar.Root>
   );
 }
 
 export function AvatarCustomFallbackExample() {
   return (
-    <Avatar size="lg" className="docs-avatar-icon">
-      <AvatarFallback>
+    <Avatar.Root size="lg" className="docs-avatar-icon">
+      <Avatar.Fallback>
         <ComputerIcon className="docs-avatar-icon-glyph" />
-      </AvatarFallback>
-    </Avatar>
+      </Avatar.Fallback>
+    </Avatar.Root>
   );
 }

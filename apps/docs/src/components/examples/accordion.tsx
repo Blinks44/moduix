@@ -240,6 +240,17 @@ export function CollapsibleAccordionExample() {
   );
 }
 
+export function HorizontalAccordionExample() {
+  return (
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion.Root orientation="horizontal" defaultValue={['what-is-ark-ui']}>
+        <AccordionItems />
+      </Accordion.Root>
+    </>
+  );
+}
+
 export function LazyMountAccordionExample() {
   return (
     <>

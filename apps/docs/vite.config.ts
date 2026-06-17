@@ -12,10 +12,9 @@ const uiPackageDir = path.resolve(dirname, '../../packages/ui');
 
 const baseUiOptimizeDeps = [
   '@ark-ui/react/accordion',
-  '@base-ui/react/accordion',
+  '@ark-ui/react/avatar',
   '@base-ui/react/alert-dialog',
   '@base-ui/react/autocomplete',
-  '@base-ui/react/avatar',
   '@base-ui/react/button',
   '@base-ui/react/checkbox',
   '@base-ui/react/checkbox-group',

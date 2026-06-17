@@ -30,6 +30,8 @@ Use this skill for work in `apps/docs`.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
 - Use existing pages as structure references, not as permission to preserve old complexity.
+- For popup and dialog families, teach the explicit Ark/Chakra composition path as the default example structure.
+- Use documentation snippets and curated examples to reduce perceived verbosity instead of inventing hidden structural wrappers.
 - In `Examples`, use `Custom Composition` only for real structure/render-path changes. Use
   `Custom Styling` for examples that only customize `className`, CSS variables, or styling hooks.
 

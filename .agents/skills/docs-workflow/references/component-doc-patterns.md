@@ -21,7 +21,7 @@ Use this section order when the sections carry real value:
 
 Inside `## Composition`, use:
 
-1. `### When to stay high-level`
+1. `### Recommended composition`
 2. `### When to go custom`
 3. `### Default props` (optional)
 4. `### Behavioral notes` (optional)
@@ -38,7 +38,7 @@ Inside `## Styling`, use:
 - `Basic`: the recommended happy path and the first runnable example.
 - `Install with shadcn`: comes immediately after `Basic`.
 - `Anatomy`: structure only. Keep it short: ASCII tree plus concise part roles.
-- `Composition`: public contract, high-level path, escape hatches, defaults, and behavioral constraints.
+- `Composition`: public contract, recommended part tree, escape hatches, defaults, and behavioral constraints.
 - `Examples`: start where `Basic` stops. Move into narrower, more specific, or more advanced cases.
 - `Styling`: only when the component has a meaningful styling contract.
 
@@ -76,11 +76,12 @@ Inside `## Styling`, use:
 
 Popup-like components:
 
-- Teach shared `*Content` sugar only when those props are actually supported.
+- Teach the explicit Ark/Chakra part tree as the default contract.
 - Treat built-in popup arrows as opt-in unless the component contract explicitly says otherwise.
-- Keep custom arrow, portal, backdrop, and viewport composition in an explicit advanced section.
+- Keep structural parts visible in docs examples instead of hiding them behind `*Content` sugar.
 
 Dialog-like components:
 
+- Teach the explicit Ark/Chakra part tree as the default contract.
 - Do not teach popup positioning or arrow props.
 - Keep workflow sugar narrow and family-specific.

@@ -4,8 +4,7 @@
 dialog primitives with styled parts, a convenience composition wrapper (`DialogContent`), and a
 close icon helper (`DialogCloseIcon`).
 
-Use `Dialog` for general modal content — forms, detail panels, multi-step flows. Use `AlertDialog`
-when the user must explicitly confirm a destructive or irreversible action.
+Use `Dialog` for modal content such as forms, detail panels, multi-step flows, and blocking confirmations.
 
 Upstream primitive docs: https://base-ui.com/react/components/dialog.md
 
@@ -656,9 +655,9 @@ The component has no `variant`, `size`, or `tone` prop. Customize via CSS variab
 - `DialogCloseIcon` renders a `CloseButton` via the `render` prop on `DialogPrimitive.Close`. Icon
   size, color, and background are bridged through `--close-button-*` CSS custom properties set in
   the `.closeIcon` class.
-- `DialogTrigger` skips default styles when `render` is provided (same as `AlertDialogTrigger`).
-  `DialogClose` does not skip its styles when `render` is provided — this is intentional and
-  consistent with `AlertDialogClose`. The library button styles override the control class.
+- `DialogTrigger` skips default styles when `render` is provided.
+  `DialogClose` does not skip its styles when `render` is provided — this is intentional. The
+  library button styles override the control class.
 - `createDialogHandle` is a direct re-export of `DialogPrimitive.createHandle`.
 
 ## Motion tokens

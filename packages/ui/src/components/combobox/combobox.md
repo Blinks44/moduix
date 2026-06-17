@@ -10,8 +10,7 @@ set of exported moduix parts, their default icons and styles, `data-slot` hooks,
 popup sugar, the `indicator` convenience prop on `ComboboxItem`, and the multiple-selection chip
 composition.
 
-Use it when the user must end up with selected items, not arbitrary free-form text. Use
-`Autocomplete` when typing arbitrary text is the real value and suggestions only assist input.
+Use it when the user must end up with selected items, not arbitrary free-form text.
 
 ## Current behavior contract
 

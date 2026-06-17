@@ -8,7 +8,7 @@ Local skills for this repository.
 - `.agents/skills/css-authoring/SKILL.md` - CSS, CSS Modules, and selector-structure rules
 - `.agents/skills/js-react-conventions/SKILL.md` - JS/TS React conventions with a simplicity-first bias
 - `.agents/skills/tanstack-intent/SKILL.md` - workflow for loading version-matched TanStack skills in `apps/docs`
-- `.agents/skills/upstream-library-docs/SKILL.md` - routing for online Base UI and shadcn references
+- `.agents/skills/upstream-library-docs/SKILL.md` - routing for online Ark UI, Chakra UI, and shadcn references
 - `.agents/skills/ark-ui-migration/SKILL.md` - full component migration workflow to Ark UI contracts and naming
 - `.agents/skills/ui-component-workflow/SKILL.md` - workflow for `packages/ui` component implementation and API changes
 - `.agents/skills/local-component-docs/SKILL.md` - rules for component-local markdown and changelog upkeep

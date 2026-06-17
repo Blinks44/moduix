@@ -187,7 +187,7 @@ the shared `--color-success` and `--color-warning` tokens.
 ## Limitations and recommendations
 
 - Use `Alert` for inline messages that remain in the page layout. Use `Toast` for transient
-  notifications and `AlertDialog` for modal confirmations.
+  notifications and a modal dialog for blocking confirmations.
 - Avoid stacking many assertive (`role="alert"`) messages; screen readers announce each one.
 - Do not rely on `AlertIcon` as the only indicator of severity.
 - There is no dedicated action slot by design; compose actions inside `AlertContent`.

@@ -1,41 +1,61 @@
-import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import type { ComponentProps, ComponentRef } from 'react';
+import { Avatar as AvatarPrimitive } from '@ark-ui/react/avatar';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Avatar.module.css';
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type AvatarProps = AvatarPrimitive.Root.Props & {
+type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> & {
   size?: AvatarSize;
 };
 
-function Avatar({ className, size, ...props }: AvatarProps) {
-  return (
-    <AvatarPrimitive.Root
-      data-slot="avatar-root"
-      data-size={size}
-      className={mergeClassName(className, styles.root)}
-      {...props}
-    />
-  );
-}
+const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarRootProps>(
+  function AvatarRoot({ className, size, ...props }, ref) {
+    return (
+      <AvatarPrimitive.Root
+        ref={ref}
+        data-slot="avatar-root"
+        data-size={size}
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
+const AvatarImage = forwardRef<
+  ComponentRef<typeof AvatarPrimitive.Image>,
+  ComponentProps<typeof AvatarPrimitive.Image>
+>(function AvatarImage({ className, ...props }, ref) {
   return (
     <AvatarPrimitive.Image
+      ref={ref}
       data-slot="avatar-image"
-      className={mergeClassName(className, styles.image)}
+      className={clsx(styles.image, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function AvatarFallback({ className, ...props }: AvatarPrimitive.Fallback.Props) {
+const AvatarFallback = forwardRef<
+  ComponentRef<typeof AvatarPrimitive.Fallback>,
+  ComponentProps<typeof AvatarPrimitive.Fallback>
+>(function AvatarFallback({ className, ...props }, ref) {
   return (
     <AvatarPrimitive.Fallback
+      ref={ref}
       data-slot="avatar-fallback"
-      className={mergeClassName(className, styles.fallback)}
+      className={clsx(styles.fallback, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-export { Avatar, AvatarImage, AvatarFallback };
+const Avatar = Object.assign(AvatarRoot, {
+  Root: AvatarRoot,
+  Image: AvatarImage,
+  Fallback: AvatarFallback,
+});
+
+export { Avatar };

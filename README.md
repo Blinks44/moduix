@@ -182,8 +182,8 @@ classes, or component-level variables.
 ## What Is Included
 
 The package exports composed components for common product UI needs, including Accordion,
-AlertDialog, Autocomplete, Avatar, Button, Checkbox, Dialog, Drawer, Field, Form, Input,
-Menu, NavigationMenu, Popover, Select, Tabs, Toast, Tooltip, and supporting primitives.
+Avatar, Button, Checkbox, Dialog, Drawer, Field, Form, Input, Menu, NavigationMenu, Popover,
+Select, Tabs, Toast, Tooltip, and supporting primitives.
 
 ## Documentation
 

@@ -405,8 +405,6 @@ const zIndexTokens = [
 const sharedBackdropTokens = [
   ['--backdrop-bg', 'var(--color-overlay)', 'Global backdrop color fallback'],
   ['--backdrop-filter', 'blur(4px)', 'Global backdrop filter fallback'],
-  ['--alert-dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'AlertDialog'],
-  ['--autocomplete-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Autocomplete'],
   ['--combobox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Combobox'],
   ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'CommandPalette'],
   ['--context-menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'ContextMenu'],

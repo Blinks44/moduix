@@ -6,8 +6,6 @@ icon: Component
 
 import {
   CommandPaletteActionsExample,
-  commandPaletteCustomCompositionCss,
-  CommandPaletteCustomCompositionExample,
   CommandPaletteCssPropertiesPanel,
   CommandPaletteExample,
 } from '@/components/examples/command-palette';
@@ -426,128 +424,6 @@ Disable the listener when the palette should open only from explicit UI or exter
   </CommandPaletteContent>
 </CommandPalette>
 ```
-
-### Custom Composition
-
-Use manual composition when the default shell is too opinionated but the styled parts are still
-useful.
-
-<Preview>
-  <CommandPaletteCustomCompositionExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Autocomplete,
-        Button,
-        CommandPalette,
-        CommandPaletteBackdrop,
-        CommandPaletteClear,
-        CommandPaletteCollection,
-        CommandPaletteEmpty,
-        CommandPaletteFooter,
-        CommandPaletteGroup,
-        CommandPaletteGroupLabel,
-        CommandPaletteInput,
-        CommandPaletteInputWrap,
-        CommandPaletteItem,
-        CommandPaletteItemDescription,
-        CommandPaletteItemIcon,
-        CommandPaletteItemLabel,
-        CommandPaletteItemMeta,
-        CommandPaletteItemText,
-        CommandPaletteKbd,
-        CommandPaletteList,
-        CommandPalettePopup,
-        CommandPalettePortal,
-        CommandPaletteTrigger,
-        CommandPaletteViewport,
-      } from "moduix";
-
-      export function CustomCompositionCommandPaletteDemo() {
-        return (
-          <CommandPalette shortcut="alt+k">
-            <CommandPaletteTrigger render={<Button />}>Open custom palette</CommandPaletteTrigger>
-            <CommandPalettePortal>
-              <CommandPaletteBackdrop className="command-palette-custom-backdrop" />
-              <CommandPaletteViewport className="command-palette-custom-viewport">
-                <CommandPalettePopup className="command-palette-custom-popup" aria-label="Custom command palette">
-                  <Autocomplete
-                    autoHighlight="always"
-                    inline
-                    items={commandGroups}
-                    keepHighlight
-                    itemToStringValue={(item) => \`\${item.label} \${item.description} \${item.section}\`}
-                  >
-                    <CommandPaletteInputWrap>
-                      <CommandPaletteInput
-                        aria-label="Search commands"
-                        placeholder="Jump to places, pages, and settings..."
-                      />
-                      <CommandPaletteClear aria-label="Clear search" />
-                    </CommandPaletteInputWrap>
-                    <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-                    <CommandPaletteList>
-                      {(group) => (
-                        <CommandPaletteGroup key={group.value} items={group.items}>
-                          <CommandPaletteGroupLabel>{group.value}</CommandPaletteGroupLabel>
-                          <CommandPaletteCollection>
-                            {(item) => (
-                              <CommandPaletteItem key={item.id} value={item}>
-                                <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                                <CommandPaletteItemText>
-                                  <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                                  <CommandPaletteItemDescription>{item.description}</CommandPaletteItemDescription>
-                                </CommandPaletteItemText>
-                                {item.shortcut ? <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta> : null}
-                              </CommandPaletteItem>
-                            )}
-                          </CommandPaletteCollection>
-                        </CommandPaletteGroup>
-                      )}
-                    </CommandPaletteList>
-                    <CommandPaletteFooter>
-                      <span>
-                        <CommandPaletteKbd>Enter</CommandPaletteKbd> run
-                      </span>
-                      <span>
-                        <CommandPaletteKbd>Esc</CommandPaletteKbd> close
-                      </span>
-                    </CommandPaletteFooter>
-                  </Autocomplete>
-                </CommandPalettePopup>
-              </CommandPaletteViewport>
-            </CommandPalettePortal>
-          </CommandPalette>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.Data>
-    {`
-      const commandGroups = [
-        {
-          value: "Create",
-          items: [
-            {
-              id: "new-project",
-              section: "Create",
-              label: "New project",
-              description: "Start a blank workspace",
-              shortcut: "N",
-              icon: <PlusIcon />,
-            },
-          ],
-        },
-      ];
-    `}
-
-  </Preview.Data>
-
-  <Preview.CSS>{commandPaletteCustomCompositionCss}</Preview.CSS>
-</Preview>
 
 ## Styling
 

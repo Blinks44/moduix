@@ -1,181 +1,70 @@
 # Avatar
 
-Upstream primitive docs: https://base-ui.com/react/components/avatar.md
+Upstream primitive docs: https://ark-ui.com/docs/components/avatar
 
 ## Purpose
 
-`Avatar` displays compact identity media: a loaded image, initials, an icon, or custom fallback
-content. The moduix component is a thin styled wrapper over Base UI Avatar primitives. It keeps
-Base UI image loading and fallback behavior, but exposes project-specific part names, `data-slot`
-hooks, default CSS, and a small root `size` shortcut.
+`Avatar` is the moduix wrapper around Ark UI Avatar for compact identity media such as profile
+photos, initials, and icon fallbacks.
+
+The wrapper keeps Ark loading/state behavior and adds moduix default styles, CSS variables,
+`data-slot` hooks, and a small root `size` shortcut.
 
 ## Current behavior contract
 
-- `Avatar` renders the root primitive and defaults visually to a medium circular inline-flex box.
-- `AvatarImage` renders the image primitive. It is shown only when the image source loads
-  successfully and keeps Base UI transition status attributes.
-- `AvatarFallback` renders fallback content while the image is absent, delayed, loading, or failed.
-- `className`, `style`, `render`, event handlers, `alt`, `src`, `delay`, and Base UI lifecycle props
-  are forwarded to the underlying primitive parts.
-- The wrappers do not create their own loading state, focus behavior, or accessibility labels.
-
-## Basic usage
-
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from 'moduix';
-
-const avatarImage =
-  'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
-
-export function AvatarDemo() {
-  return (
-    <Avatar>
-      <AvatarImage src={avatarImage} alt="Alex T." />
-      <AvatarFallback delay={600}>LT</AvatarFallback>
-    </Avatar>
-  );
-}
-```
+- Uses Ark composition: `Avatar.Root`, `Avatar.Image`, and `Avatar.Fallback`.
+- Supports Ark root props such as `asChild`, `ids`, and `onStatusChange(details)`.
+- Keeps Ark `data-state="visible" | "hidden"` attributes on image and fallback parts.
+- `size` is the only local root prop. It maps common token sizes to `data-size`.
+- The wrapper does not add custom loading state, delay props, or Base UI compatibility aliases.
 
 ## Composition
 
-```text
-Avatar
-├─ AvatarImage
-└─ AvatarFallback
-   └─ initials | icon | custom content
-```
-
-Use `AvatarImage` and `AvatarFallback` together for user pictures. Use fallback-only composition
-when there is no image source.
-
 ```tsx
-import { Avatar, AvatarFallback } from 'moduix';
-
-export function AvatarFallbackOnlyDemo() {
-  return (
-    <div className="avatar-row">
-      <Avatar size="xs">
-        <AvatarFallback>XS</AvatarFallback>
-      </Avatar>
-      <Avatar size="sm">
-        <AvatarFallback>SM</AvatarFallback>
-      </Avatar>
-      <Avatar>
-        <AvatarFallback>MD</AvatarFallback>
-      </Avatar>
-      <Avatar size="lg">
-        <AvatarFallback>LG</AvatarFallback>
-      </Avatar>
-      <Avatar size="xl">
-        <AvatarFallback>XL</AvatarFallback>
-      </Avatar>
-    </div>
-  );
-}
-```
-
-```css
-.avatar-row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-}
-```
-
-Use `render` on `Avatar` when the root needs to compose with another element.
-
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from 'moduix';
+import { Avatar } from 'moduix';
 
 const avatarImage =
   'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
 
-export function AvatarLinkDemo() {
+export function AvatarExample() {
   return (
-    <Avatar render={<a href="mailto:alex@example.com" />} size="xl" className="avatar-link">
-      <AvatarImage className="avatar-link-image" src={avatarImage} alt="Alex T." />
-      <AvatarFallback className="avatar-link-fallback" delay={600}>
-        LT
-      </AvatarFallback>
-    </Avatar>
+    <Avatar.Root>
+      <Avatar.Image src={avatarImage} alt="Alex T." />
+      <Avatar.Fallback>LT</Avatar.Fallback>
+    </Avatar.Root>
   );
 }
 ```
 
-```css
-.avatar-link {
-  text-decoration: none;
-  transition:
-    box-shadow var(--transition-default),
-    transform var(--transition-default);
-}
-
-.avatar-link:hover {
-  box-shadow:
-    0 0 0 2px var(--color-background),
-    0 0 0 4px var(--color-primary);
-  transform: translateY(-1px);
-}
-
-.avatar-link-image {
-  object-position: 50% 35%;
-}
-
-.avatar-link-fallback {
-  --avatar-fallback-bg: var(--color-primary);
-  --avatar-fallback-color: var(--color-primary-foreground);
-}
+```text
+Avatar.Root
+├─ Avatar.Image
+└─ Avatar.Fallback
+   └─ initials | icon | custom content
 ```
 
-## Props
+Use `Avatar.Image` and `Avatar.Fallback` together for user pictures. Use fallback-only composition
+when there is no image source.
 
-### `Avatar`
-
-`Avatar` accepts Base UI root props plus:
-
-| Prop   | Type                                   | Default | Description                                     |
-| ------ | -------------------------------------- | ------- | ----------------------------------------------- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `md`    | Sets the root size, font size, and line height. |
-
-Common forwarded root props:
-
-- `className`: merged with the library root class. Base UI state callback class names are preserved.
-- `style`: forwarded to the root primitive.
-- `render`: replaces the rendered root element while preserving primitive behavior.
-- Standard root DOM/event props supported by Base UI.
-
-### `AvatarImage`
-
-`AvatarImage` accepts Base UI image props. Common props:
-
-- `src`, `srcSet`, `sizes`, `alt`, `loading`, `decoding`, and standard image props.
-- `className`: merged with the library image class.
-- `onLoadingStatusChange`: receives Base UI image loading status changes.
-- `render`: replaces the rendered image element through Base UI composition.
-
-### `AvatarFallback`
-
-`AvatarFallback` accepts Base UI fallback props. Common props:
-
-- `delay`: milliseconds to wait before showing fallback content. Use this to avoid a brief fallback
-  flash while a real image is loading.
-- `children`: initials, short text, an icon, or custom fallback content.
-- `className`: merged with the library fallback class.
-- `render`: replaces the rendered fallback element through Base UI composition.
+Use `asChild` on `Avatar.Root`, `Avatar.Image`, or `Avatar.Fallback` when another element must own
+the rendered DOM node.
 
 ## Defaults and styling
 
-Exported parts include stable `data-slot` hooks:
+Every exported part accepts `className` and receives a stable `data-slot`:
 
-| Part             | `data-slot`       |
-| ---------------- | ----------------- |
-| `Avatar`         | `avatar-root`     |
-| `AvatarImage`    | `avatar-image`    |
-| `AvatarFallback` | `avatar-fallback` |
+| Part              | `data-slot`       |
+| ----------------- | ----------------- |
+| `Avatar.Root`     | `avatar-root`     |
+| `Avatar.Image`    | `avatar-image`    |
+| `Avatar.Fallback` | `avatar-fallback` |
 
-`Avatar` also sets `data-size` when the `size` prop is provided. Omitting `size` keeps the CSS
-default medium size without adding `data-size`.
+Ark state/data attributes remain available to consumers:
+
+- `data-scope="avatar"` and `data-part="root" | "image" | "fallback"`
+- `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`
+
+`Avatar.Root` also sets `data-size` when the local `size` prop is provided.
 
 | `size` | Root size token | Text token  |
 | ------ | --------------- | ----------- |
@@ -185,79 +74,41 @@ default medium size without adding `data-size`.
 | `lg`   | `--size-lg`     | `--text-lg` |
 | `xl`   | `--size-xl`     | `--text-lg` |
 
-Public CSS variables are declared in `src/styles/theme.css` and can be overridden on the root or a
-wrapper class:
+Primary CSS variables:
 
-| Variable                         | Default                      | Used by             |
-| -------------------------------- | ---------------------------- | ------------------- |
-| `--avatar-bg`                    | `var(--color-muted)`         | Root background     |
-| `--avatar-color`                 | `var(--color-foreground)`    | Root text color     |
-| `--avatar-fallback-bg`           | `var(--avatar-bg)`           | Fallback background |
-| `--avatar-fallback-color`        | `inherit`                    | Fallback color      |
-| `--avatar-fallback-padding`      | `0`                          | Fallback padding    |
-| `--avatar-font-size`             | `var(--text-md)`             | Root font size      |
-| `--avatar-font-weight`           | `var(--weight-medium)`       | Root font weight    |
-| `--avatar-image-object-fit`      | `cover`                      | Image fit           |
-| `--avatar-image-object-position` | `center`                     | Image position      |
-| `--avatar-line-height`           | `var(--line-height-text-md)` | Root line height    |
-| `--avatar-radius`                | `var(--radius-full)`         | Root radius         |
-| `--avatar-size`                  | `var(--size-md)`             | Root width/height   |
-| `--avatar-transition`            | `var(--transition-default)`  | Image fade          |
+| Variable                         | Default                      |
+| -------------------------------- | ---------------------------- |
+| `--avatar-bg`                    | `var(--color-muted)`         |
+| `--avatar-color`                 | `var(--color-foreground)`    |
+| `--avatar-fallback-bg`           | `var(--avatar-bg)`           |
+| `--avatar-fallback-color`        | `inherit`                    |
+| `--avatar-fallback-padding`      | `0`                          |
+| `--avatar-font-size`             | `var(--text-md)`             |
+| `--avatar-font-weight`           | `var(--weight-medium)`       |
+| `--avatar-image-object-fit`      | `cover`                      |
+| `--avatar-image-object-position` | `center`                     |
+| `--avatar-line-height`           | `var(--line-height-text-md)` |
+| `--avatar-radius`                | `var(--radius-full)`         |
+| `--avatar-size`                  | `var(--size-md)`             |
 
-`AvatarImage` keeps Base UI transition attributes:
+## Intentional differences from Ark UI
 
-- `data-starting-style`: present while the image animates in.
-- `data-ending-style`: present while the image animates out.
-
-## Accessibility and UX
-
-- Avatar semantics depend on surrounding UI. If adjacent text already identifies the person, prefer
-  `alt=""` on `AvatarImage` and `aria-hidden="true"` on purely visual fallback initials.
-- If the avatar is the only identity cue, provide meaningful `alt` text.
-- For interactive roots created with `render`, the rendered element must provide its own accessible
-  name, such as link text or `aria-label`.
-- Icon-only fallback content should be treated as decorative unless it is the only accessible label.
-- Keep `AvatarFallback` in the tree with image avatars so identity remains visible if the image
-  fails to load.
-
-## Intentional differences from Base UI
-
-- Import named moduix parts from `moduix`: `Avatar`, `AvatarImage`, and `AvatarFallback`. Do not use
-  the upstream `Avatar.Root`, `Avatar.Image`, `Avatar.Fallback` namespace in project examples.
-- The component ships default styles and project tokens. It is not an unstyled primitive.
-- The root adds `data-slot="avatar-root"` and supports a project-level `size` prop.
-- We do not export Base UI state or prop alias types from this component; keep the public type
-  surface small unless a named type adds real value.
-
-## Limitations and recommendations
-
-- `size` is intentionally limited to common token sizes. Use `--avatar-size`,
-  `--avatar-font-size`, and `--avatar-line-height` for custom dimensions.
-- The root is non-interactive by default. Use `render` only when the avatar really acts as a link or
-  control, and preserve correct semantics on the rendered element.
-- Avoid putting long names in the fallback. Use short initials, a compact label, or an icon.
-- Do not add slot-prop bags or `classNames` maps; the public styling model is explicit parts plus
-  CSS variables.
+- moduix ships pre-styled defaults; Ark is headless.
+- moduix exports only the Ark-shaped namespace API: `Avatar.Root`, `Avatar.Image`,
+  `Avatar.Fallback`.
+- moduix keeps the local `size` prop on `Avatar.Root` as styling sugar for common token sizes.
 
 ## Agent notes
 
-- Preserve the thin wrapper shape. Do not duplicate Base UI loading state or reimplement fallback
-  timing.
-- Keep examples aligned with Storybook and docs previews: when a preview uses multiple sizes or CSS
-  overrides, the code sample should show the same composition and relevant CSS.
-- If a public prop, CSS variable, `data-slot`, or default changes, update this file, Storybook, and
-  docs examples together.
-
-## Motion tokens
-
-`AvatarImage` now exposes phase-specific motion variables for its enter and exit states. Override the matching `--avatar-image-starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to keep the default fade or turn the image appearance into a subtle slide or zoom without changing the component structure.
+- Preserve Ark callback shape: `onStatusChange(details)` with `details.status`.
+- Do not reintroduce Base UI `render` or `delay` contracts.
+- Keep styling hooks aligned with Ark `data-state` and `data-part` instead of Base UI transition
+  attributes.
 
 ## Local changelog
 
-- 2026-06-16: Simplified the root prop typing, removed the redundant medium-size CSS override, and
-  cleaned up example snippets so custom classes are shown directly next to their CSS.
-- 2026-06-10: Added phase-specific image motion tokens so avatar image appearance can be retuned to fade, slide, or zoom through CSS variables while preserving the shipped fade default.
-- Rewrote the local documentation to describe the moduix wrapper instead of the Base UI namespace
-  API, including project parts, CSS variables, accessibility guidance, and real examples.
-- Added `size` on `Avatar` as narrow DX sugar for the repeated `xs`/`sm`/`md`/`lg`/`xl` sizing
-  pattern while preserving CSS variable overrides.
+- 2026-06-17: Migrated Avatar from Base UI to Ark UI, adopted namespace parts
+  (`Avatar.Root/Image/Fallback`), replaced `render` with Ark `asChild`, and moved docs/examples to
+  `onStatusChange(details)` and Ark state attributes.
+- 2026-06-17: Removed Base UI-only image motion tokens and other legacy compatibility surface that
+  no longer exists in the Ark wrapper.

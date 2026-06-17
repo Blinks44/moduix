@@ -1,13 +1,5 @@
 import type { ComponentProps } from 'react';
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
   Button,
   ChevronDownIcon,
   InfoIcon,
@@ -466,47 +458,22 @@ export function PositionedMenuExample() {
   );
 }
 
-export function OpenAlertDialogMenuExample() {
-  const [dialogOpen, setDialogOpen] = useState(false);
-
+export function DestructiveItemMenuExample() {
   return (
-    <Fragment>
-      <Menu>
-        <MenuButtonTrigger>
-          Project
-          <MenuTriggerIcon />
-        </MenuButtonTrigger>
-        <MenuContent>
-          <MenuItem closeOnClick>Rename</MenuItem>
-          <MenuItem closeOnClick>Duplicate</MenuItem>
-          <MenuSeparator />
-          <MenuItem
-            closeOnClick
-            tone="destructive"
-            onClick={() => {
-              setDialogOpen(true);
-            }}
-          >
-            Delete...
-          </MenuItem>
-        </MenuContent>
-      </Menu>
-
-      <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete project?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone and will permanently remove all environments.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Delete</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </Fragment>
+    <Menu>
+      <MenuButtonTrigger>
+        Project
+        <MenuTriggerIcon />
+      </MenuButtonTrigger>
+      <MenuContent>
+        <MenuItem closeOnClick>Rename</MenuItem>
+        <MenuItem closeOnClick>Duplicate</MenuItem>
+        <MenuSeparator />
+        <MenuItem closeOnClick tone="destructive">
+          Delete…
+        </MenuItem>
+      </MenuContent>
+    </Menu>
   );
 }
 

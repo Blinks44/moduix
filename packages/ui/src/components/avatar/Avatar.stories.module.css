@@ -37,4 +37,16 @@
     width: 55%;
     height: 55%;
   }
+
+  .statusStory {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .statusLabel {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
 }
