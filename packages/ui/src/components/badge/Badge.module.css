@@ -35,23 +35,23 @@
       pointer-events: none;
     }
 
-    &[data-variant='secondary'] {
+    &[data-scope='badge'][data-part='root'][data-variant='secondary'] {
       background-color: var(--badge-bg, var(--color-secondary));
       color: var(--badge-color, var(--color-secondary-foreground));
     }
 
-    &[data-variant='destructive'] {
+    &[data-scope='badge'][data-part='root'][data-variant='destructive'] {
       background-color: var(--badge-bg, var(--color-destructive));
       color: var(--badge-color, var(--color-primary-foreground));
     }
 
-    &[data-variant='outline'],
-    &[data-variant='ghost'] {
+    &[data-scope='badge'][data-part='root'][data-variant='outline'],
+    &[data-scope='badge'][data-part='root'][data-variant='ghost'] {
       background-color: var(--badge-bg, transparent);
       color: var(--badge-color, var(--color-foreground));
     }
 
-    &[data-variant='outline'] {
+    &[data-scope='badge'][data-part='root'][data-variant='outline'] {
       border-color: var(--badge-border-color, var(--color-border));
     }
   }

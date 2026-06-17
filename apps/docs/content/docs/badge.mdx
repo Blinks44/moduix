@@ -17,6 +17,7 @@ import {
 ## API Reference
 
 `Badge` is a standalone moduix component for short status labels, categories, and small counters.
+Its Ark migration exposes explicit parts: `Badge.Root` and `Badge.Dot`.
 
 ## Choosing the right component
 
@@ -28,7 +29,7 @@ itself.
 
 ## Basic
 
-Start with `Badge` only. Add `variant` when the default tone is not enough, and add `BadgeDot`
+Start with `Badge.Root` only. Add `variant` when the default tone is not enough, and add `Badge.Dot`
 only when the status needs a grouped indicator.
 
 <Preview>
@@ -39,7 +40,7 @@ only when the status needs a grouped indicator.
       import { Badge } from "moduix";
 
       export function BadgeDemo() {
-        return <Badge>New</Badge>;
+        return <Badge.Root>New</Badge.Root>;
       }
     `}
 
@@ -97,31 +98,33 @@ as styles, icons, and small utilities.
 `Badge` keeps the public surface small and exposes only the visible parts.
 
 ```text
-Badge
+Badge.Root
 ├─ content
-├─ BadgeDot (optional)
+├─ Badge.Dot (optional)
 └─ svg icon (optional)
 ```
 
-| Part       | Role                                                                                 |
-| ---------- | ------------------------------------------------------------------------------------ |
-| `Badge`    | Root slot. Applies variant, border, spacing, and text truncation.                    |
-| `BadgeDot` | Optional indicator slot. Renders a circular marker that inherits current text color. |
+| Part         | Role                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------ |
+| `Badge.Root` | Root slot. Applies variant, border, spacing, and text truncation.                    |
+| `Badge.Dot`  | Optional indicator slot. Renders a circular marker that inherits current text color. |
 
 ## Composition
 
 ### When to stay high-level
 
-Stay with `Badge` directly for most status labels, categories, version pills, and short counters.
+Stay with `Badge.Root` directly for most status labels, categories, version pills, and short
+counters.
 
 Use `variant` for the built-in tones: `default`, `secondary`, `destructive`, `outline`, `ghost`.
 
-Place `BadgeDot` or a direct child icon next to the label when a badge needs an extra visual cue.
+Place `Badge.Dot` or a direct child icon next to the label when a badge needs an extra visual cue.
 
 ### When to go custom
 
 Switch to local CSS variables or `className` overrides when the surface needs custom sizing or a
-different tone. `Badge` stays a plain `span`, so the styling path should stay simple.
+different tone. `Badge.Root` stays a plain Ark factory `span`, so the styling path should stay
+simple.
 
 ### Default props
 
@@ -131,8 +134,9 @@ different tone. `Badge` stays a plain `span`, so the styling path should stay si
 
 ### Behavioral notes
 
-- `Badge` is not a button or link. If the label must be interactive, compose it inside a real interactive control.
-- `BadgeDot` is decorative and hidden from assistive technology, so the visible text must carry the status meaning.
+- `Badge.Root` is not a button or link. If the label must be interactive, compose it with `asChild`
+  and a real interactive element.
+- `Badge.Dot` is decorative and hidden from assistive technology, so the visible text must carry the status meaning.
 - Long labels stay on one line and are truncated by the root; add `title` when the full value should remain discoverable.
 - Direct child `svg` icons inherit `currentColor` and use `--badge-icon-size`.
 
@@ -153,9 +157,9 @@ Use the built-in variants for the common visual tones.
         return (
           <div className="badge-demo-row">
             {variants.map((variant) => (
-              <Badge key={variant} variant={variant}>
+              <Badge.Root key={variant} variant={variant}>
                 {variant}
-              </Badge>
+              </Badge.Root>
             ))}
           </div>
         );
@@ -184,30 +188,30 @@ Use the built-in variants for the common visual tones.
 
 ### With Dot
 
-Add `BadgeDot` when label and status indicator should stay visually grouped.
+Add `Badge.Dot` when label and status indicator should stay visually grouped.
 
 <Preview>
   <BadgeWithDotExample />
 
   <Preview.Code>
     {`
-      import { Badge, BadgeDot } from "moduix";
+      import { Badge } from "moduix";
 
       export function BadgeWithDotDemo() {
         return (
           <div className="badge-demo-row">
-            <Badge variant="default">
-              <BadgeDot />
+            <Badge.Root variant="default">
+              <Badge.Dot />
               Online
-            </Badge>
-            <Badge variant="secondary">
-              <BadgeDot />
+            </Badge.Root>
+            <Badge.Root variant="secondary">
+              <Badge.Dot />
               Draft
-            </Badge>
-            <Badge variant="destructive">
-              <BadgeDot />
+            </Badge.Root>
+            <Badge.Root variant="destructive">
+              <Badge.Dot />
               Failed
-            </Badge>
+            </Badge.Root>
           </div>
         );
       }
@@ -242,18 +246,18 @@ Place an inline icon next to the label when the metadata needs a second visual c
       export function BadgeWithIconDemo() {
         return (
           <div className="badge-demo-row">
-            <Badge variant="default">
+            <Badge.Root variant="default">
               Release
               <ChevronRightIcon />
-            </Badge>
-            <Badge variant="secondary">
+            </Badge.Root>
+            <Badge.Root variant="secondary">
               Details
               <ChevronRightIcon />
-            </Badge>
-            <Badge variant="outline">
+            </Badge.Root>
+            <Badge.Root variant="outline">
               Read more
               <ChevronRightIcon />
-            </Badge>
+            </Badge.Root>
           </div>
         );
       }
@@ -287,12 +291,12 @@ Badges truncate long labels by default. Add `title` when the full text should st
 
       export function BadgeTruncatedDemo() {
         return (
-          <Badge
+          <Badge.Root
             className="badge-demo-constrained"
             title="Ready for stakeholder review after legal approval"
           >
             Ready for stakeholder review after legal approval
-          </Badge>
+          </Badge.Root>
         );
       }
     `}
@@ -318,18 +322,18 @@ Use local CSS variables when a surface needs custom sizing or a different tone.
 
   <Preview.Code>
     {`
-      import { Badge, BadgeDot } from "moduix";
+      import { Badge } from "moduix";
 
       export function CustomBadgeDemo() {
         return (
           <div className="badge-demo-row">
-            <Badge className="badge-demo-small">Small</Badge>
-            <Badge>Default</Badge>
-            <Badge className="badge-demo-large">Large</Badge>
-            <Badge className="badge-demo-custom">
-              <BadgeDot />
+            <Badge.Root className="badge-demo-small">Small</Badge.Root>
+            <Badge.Root>Default</Badge.Root>
+            <Badge.Root className="badge-demo-large">Large</Badge.Root>
+            <Badge.Root className="badge-demo-custom">
+              <Badge.Dot />
               Priority
-            </Badge>
+            </Badge.Root>
           </div>
         );
       }
@@ -393,5 +397,6 @@ Prefer built-in variants first, then local CSS variables for one-off sizing and 
 ### Styling hooks
 
 - `data-slot="badge-root"` and `data-slot="badge-dot"` are stable selectors on the exported parts.
-- `Badge` writes the selected tone to `data-variant`.
+- `Badge.Root` also exposes `data-scope="badge"` and `data-part="root"`. `Badge.Dot` exposes `data-part="dot"`.
+- `Badge.Root` writes the selected tone to `data-variant`.
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are sized with `--badge-icon-size`.

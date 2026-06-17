@@ -1,32 +1,53 @@
-import type { ComponentPropsWithoutRef } from 'react';
-import clsx from 'clsx';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Badge.module.css';
 
 export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost';
-export type BadgeProps = ComponentPropsWithoutRef<'span'> & {
+export type BadgeRootProps = HTMLArkProps<'span'> & {
   variant?: BadgeVariant;
 };
-export type BadgeDotProps = ComponentPropsWithoutRef<'span'>;
+export type BadgeDotProps = HTMLArkProps<'span'>;
 
-function Badge({ className, variant = 'default', ...props }: BadgeProps) {
+const BadgeRoot = forwardRef<HTMLSpanElement, BadgeRootProps>(function BadgeRoot(
+  { className, variant = 'default', ...props },
+  ref,
+) {
   return (
-    <span
+    <ark.span
+      ref={ref}
+      data-scope="badge"
+      data-part="root"
       data-slot="badge-root"
       data-variant={variant}
-      className={clsx(styles.root, className)}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function BadgeDot({ className, ...props }: BadgeDotProps) {
+const BadgeDot = forwardRef<HTMLSpanElement, BadgeDotProps>(function BadgeDot(
+  { className, ...props },
+  ref,
+) {
   return (
-    <span
+    <ark.span
+      ref={ref}
+      data-scope="badge"
+      data-part="dot"
       data-slot="badge-dot"
       aria-hidden="true"
-      className={clsx(styles.dot, className)}
+      className={clsx(styles.dot, normalizeClassName(className))}
       {...props}
     />
   );
-}
-export { Badge, BadgeDot };
+});
+
+const Badge = Object.assign(BadgeRoot, {
+  Root: BadgeRoot,
+  Dot: BadgeDot,
+});
+
+export { Badge };
