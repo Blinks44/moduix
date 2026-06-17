@@ -1,19 +1,10 @@
-import {
-  Alert,
-  AlertContent,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Button,
-  CheckIcon,
-  InfoIcon,
-} from 'moduix';
+import { Alert, Button, CheckIcon, InfoIcon } from 'moduix';
 import { useState, type ComponentProps } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 import styles from './alert.module.css';
 
-const variants = ['default', 'info', 'success', 'warning', 'destructive'] as const;
+const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
 
 export const alertOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-bg', 'var(--alert-bg-default, var(--color-card))', 'Controls alert background.'],
@@ -41,9 +32,13 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
     'Controls description line-height.',
   ],
   ['--alert-gap', 'var(--spacing-3)', 'Controls root column gap.'],
-  ['--alert-icon-color', 'var(--alert-icon-color-default, currentColor)', 'Controls icon color.'],
-  ['--alert-icon-offset', '0.125rem', 'Controls icon vertical offset.'],
-  ['--alert-icon-size', '1rem', 'Controls icon size.'],
+  [
+    '--alert-indicator-color',
+    'var(--alert-indicator-color-default, currentColor)',
+    'Controls indicator color.',
+  ],
+  ['--alert-indicator-offset', '0.125rem', 'Controls indicator vertical offset.'],
+  ['--alert-indicator-size', '1rem', 'Controls indicator size.'],
   ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
   ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
   ['--alert-shadow', 'none', 'Controls alert shadow.'],
@@ -78,8 +73,8 @@ export const alertPlaygroundCssProperties: CssPropertyInput[] = [
   ['--alert-color', 'var(--alert-color-default)', 'Controls alert text color.'],
   ['--alert-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
   ['--alert-gap', 'var(--spacing-3)', 'Controls root column gap.'],
-  ['--alert-icon-color', 'var(--alert-icon-color-default)', 'Controls icon color.'],
-  ['--alert-icon-size', '1rem', 'Controls icon size.'],
+  ['--alert-indicator-color', 'var(--alert-indicator-color-default)', 'Controls indicator color.'],
+  ['--alert-indicator-size', '1rem', 'Controls indicator size.'],
   ['--alert-padding', 'var(--spacing-4)', 'Controls alert padding.'],
   ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
   ['--alert-shadow', 'none', 'Controls alert shadow.'],
@@ -110,62 +105,64 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function AlertExample(props: ComponentProps<typeof Alert>) {
+export function AlertExample(props: ComponentProps<typeof Alert.Root>) {
   return (
-    <Alert {...props}>
-      <AlertContent>
-        <AlertTitle>Update available</AlertTitle>
-        <AlertDescription>
+    <Alert.Root {...props}>
+      <Alert.Content>
+        <Alert.Title>Update available</Alert.Title>
+        <Alert.Description>
           Install the latest version when your workflow allows it.
-        </AlertDescription>
-      </AlertContent>
-    </Alert>
+        </Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   );
 }
 
 export function AlertWithIconExample() {
   return (
-    <Alert variant="info">
-      <AlertIcon>
+    <Alert.Root status="info">
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Workspace sync is active</AlertTitle>
-        <AlertDescription>Changes are being synced across all connected devices.</AlertDescription>
-      </AlertContent>
-    </Alert>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>Workspace sync is active</Alert.Title>
+        <Alert.Description>
+          Changes are being synced across all connected devices.
+        </Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   );
 }
 
-export function AlertVariantsExample() {
+export function AlertStatusesExample() {
   return (
     <div className={styles.stack}>
-      {variants.map((variant) => (
-        <Alert key={variant} variant={variant}>
-          <AlertIcon>{variant === 'success' ? <CheckIcon /> : <InfoIcon />}</AlertIcon>
-          <AlertContent>
-            <AlertTitle>{variant}</AlertTitle>
-            <AlertDescription>Use this alert for {variant} feedback.</AlertDescription>
-          </AlertContent>
-        </Alert>
+      {statuses.map((status) => (
+        <Alert.Root key={status} status={status}>
+          <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
+          <Alert.Content>
+            <Alert.Title>{status}</Alert.Title>
+            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
+          </Alert.Content>
+        </Alert.Root>
       ))}
     </div>
   );
 }
 
-export function AlertDestructiveExample() {
+export function AlertErrorExample() {
   return (
-    <Alert variant="destructive">
-      <AlertIcon>
+    <Alert.Root status="error">
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Payment failed</AlertTitle>
-        <AlertDescription>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>Payment failed</Alert.Title>
+        <Alert.Description>
           Your payment could not be processed. Check the payment method and try again.
-        </AlertDescription>
-      </AlertContent>
-    </Alert>
+        </Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   );
 }
 
@@ -175,22 +172,22 @@ export function AlertActionsExample() {
   if (!visible) return null;
 
   return (
-    <Alert variant="warning" className={styles.customAlert}>
-      <AlertIcon>
+    <Alert.Root status="warning" className={styles.customAlert}>
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Storage is almost full</AlertTitle>
-        <AlertDescription>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>Storage is almost full</Alert.Title>
+        <Alert.Description>
           You are using 92% of the available storage. Archive old uploads or upgrade the plan.
-        </AlertDescription>
+        </Alert.Description>
         <div className={styles.actions}>
           <Button size="sm">Review uploads</Button>
           <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
             Dismiss
           </Button>
         </div>
-      </AlertContent>
-    </Alert>
+      </Alert.Content>
+    </Alert.Root>
   );
 }

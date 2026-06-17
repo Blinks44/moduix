@@ -1,63 +1,72 @@
 # Alert
 
-`Alert` is a standalone moduix component for inline status, validation, and system messages. It
-does not wrap a Base UI primitive and has no built-in dismiss, action, or state management API.
-Use normal React composition for icons, links, actions, and additional content.
+Upstream reference docs:
 
-## Basic usage
+- Ark UI factory: https://ark-ui.com/docs/guides/composition
+- Chakra UI Alert: https://chakra-ui.com/docs/components/alert
 
-```tsx
-import { Alert, AlertContent, AlertDescription, AlertTitle } from 'moduix';
+## Purpose
 
-export function AlertDemo() {
-  return (
-    <Alert>
-      <AlertContent>
-        <AlertTitle>Update available</AlertTitle>
-        <AlertDescription>
-          Install the latest version when your workflow allows it.
-        </AlertDescription>
-      </AlertContent>
-    </Alert>
-  );
-}
-```
+`Alert` is a thin compound wrapper for inline status, validation, and system messages. Ark UI does
+not ship a dedicated `Alert` primitive, so moduix now models the component with Ark's `ark`
+factory and Chakra's Alert part contract.
 
-Add an icon only when it helps recognition:
+## Current behavior contract
 
-```tsx
-<Alert variant="info">
-  <AlertIcon>
-    <InfoIcon />
-  </AlertIcon>
-  <AlertContent>
-    <AlertTitle>Workspace sync is active</AlertTitle>
-    <AlertDescription>Changes are being synced across all connected devices.</AlertDescription>
-  </AlertContent>
-</Alert>
-```
+- Public API is compound-only: `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
+  `Alert.Description`.
+- `Alert.Root` defaults `status` to `'neutral'`.
+- `Alert.Root` defaults `role` to `'status'`, and switches to `'alert'` when `status="error"`.
+- `Alert.Title` renders an `h3` by default.
+- All exported parts accept `className`.
+- All exported parts accept Ark `asChild`.
 
-## Parts
-
-| Part               | Element | Slot data attribute             | Purpose                                      |
-| ------------------ | ------- | ------------------------------- | -------------------------------------------- |
-| `Alert`            | `div`   | `data-slot="alert-root"`        | Root surface, variant, and live-region role. |
-| `AlertIcon`        | `span`  | `data-slot="alert-icon"`        | Optional leading visual cue.                 |
-| `AlertContent`     | `div`   | `data-slot="alert-content"`     | Text/content column.                         |
-| `AlertTitle`       | heading | `data-slot="alert-title"`       | Short message title.                         |
-| `AlertDescription` | `div`   | `data-slot="alert-description"` | Supporting message body.                     |
+## Composition
 
 Recommended anatomy:
 
 ```text
-Alert
-├─ AlertIcon (optional)
-└─ AlertContent
-   ├─ AlertTitle
-   └─ AlertDescription
+Alert.Root
+├─ Alert.Indicator (optional)
+└─ Alert.Content
+   ├─ Alert.Title
+   └─ Alert.Description
 ```
 
-Keep extra links or controls inside `AlertContent`:
+Basic usage:
+
+```tsx
+import { Alert } from 'moduix';
+
+export function AlertDemo() {
+  return (
+    <Alert.Root>
+      <Alert.Content>
+        <Alert.Title>Update available</Alert.Title>
+        <Alert.Description>
+          Install the latest version when your workflow allows it.
+        </Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
+  );
+}
+```
+
+Add an indicator only when it helps recognition:
+
+```tsx
+<Alert.Root status="info">
+  <Alert.Indicator>
+    <InfoIcon />
+  </Alert.Indicator>
+  <Alert.Content>
+    <Alert.Title>Workspace sync is active</Alert.Title>
+    <Alert.Description>Changes are being synced across all connected devices.</Alert.Description>
+  </Alert.Content>
+</Alert.Root>
+```
+
+Keep extra links or controls inside `Alert.Content`:
 
 ```tsx
 function StorageAlert() {
@@ -66,135 +75,123 @@ function StorageAlert() {
   if (!visible) return null;
 
   return (
-    <Alert variant="warning">
-      <AlertIcon>
+    <Alert.Root status="warning">
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Storage is almost full</AlertTitle>
-        <AlertDescription>Archive old uploads or upgrade the plan.</AlertDescription>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>Storage is almost full</Alert.Title>
+        <Alert.Description>Archive old uploads or upgrade the plan.</Alert.Description>
         <div className={styles.actions}>
           <Button size="sm">Review uploads</Button>
           <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
             Dismiss
           </Button>
         </div>
-      </AlertContent>
-    </Alert>
+      </Alert.Content>
+    </Alert.Root>
   );
 }
 ```
 
-## Public props
-
-### `Alert`
-
-Extends native `div` props.
-
-| Prop        | Type                                                             | Default                                    |
-| ----------- | ---------------------------------------------------------------- | ------------------------------------------ |
-| `variant`   | `'default' \| 'info' \| 'success' \| 'warning' \| 'destructive'` | `'default'`                                |
-| `role`      | native `div` `role`                                              | `'status'`, or `'alert'` for `destructive` |
-| `className` | `string`                                                         | -                                          |
-
-`variant` is also written to `data-variant` on the root.
-
-### `AlertIcon`
-
-Extends native `span` props. The component defaults to `aria-hidden="true"`, so do not put
-meaningful text in this slot unless you intentionally override the ARIA attribute. SVG children are
-sized by `--alert-icon-size` and inherit the slot color.
-
-### `AlertContent`
-
-Extends native `div` props. Use it as the layout wrapper for title, description, and optional
-custom content. If `AlertIcon` is omitted, CSS makes the content span the full alert width.
-
-### `AlertTitle`
-
-Extends heading props and renders `h3` by default.
-
-| Prop | Type                                           | Default |
-| ---- | ---------------------------------------------- | ------- |
-| `as` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`  |
-
-Use `as` to keep the document outline correct:
+To change the heading level, use Ark composition instead of the removed `as` prop:
 
 ```tsx
-<AlertTitle as="h2">Billing issue</AlertTitle>
+<Alert.Title asChild>
+  <h2>Billing issue</h2>
+</Alert.Title>
 ```
 
-### `AlertDescription`
+## Defaults and styling
 
-Extends native `div` props. The styles reset margins for the first and last direct child, so
-paragraphs or lists can be composed inside without adding extra outer spacing.
+### `Alert.Root`
 
-## Styling API
+Extends Ark `div` props and supports `asChild`.
 
-Every part accepts `className`. The root exposes `data-variant`, and all parts expose the
-`data-slot` attributes listed above for selectors and tests.
+| Prop        | Type                                                       | Default     |
+| ----------- | ---------------------------------------------------------- | ----------- |
+| `status`    | `'neutral' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'neutral'` |
+| `role`      | native `div` `role`                                        | auto        |
+| `className` | `string`                                                   | -           |
 
-The component uses CSS variables from `Alert.module.css`; `theme.css` registers the public
-`--alert-*` variables as theme-level overrides. Override variables on the root for one alert or on a
-higher scope for a theme.
+`status` is exposed as `data-status` on the root.
 
-The built-in semantic variants also read these shared palette tokens:
+### `Alert.Indicator`
 
-| Variant       | Shared token          | Default                      |
-| ------------- | --------------------- | ---------------------------- |
-| `success`     | `--color-success`     | `oklch(0.627 0.194 149.214)` |
-| `warning`     | `--color-warning`     | `oklch(0.795 0.184 86.047)`  |
-| `destructive` | `--color-destructive` | current theme destructive    |
+Extends Ark `span` props and supports `asChild`. Defaults to `aria-hidden="true"`, so essential
+meaning should stay in the title or description. SVG children are sized by
+`--alert-indicator-size` and inherit the slot color.
 
-| Variable                          | Default/fallback                                           | Affects                        |
-| --------------------------------- | ---------------------------------------------------------- | ------------------------------ |
-| `--alert-bg`                      | `var(--alert-bg-default, var(--color-card))`               | Root background                |
-| `--alert-border-color`            | `var(--alert-border-color-default, var(--color-border))`   | Root border color              |
-| `--alert-border-width`            | `var(--border-width-sm)`                                   | Root border width              |
-| `--alert-color`                   | `var(--alert-color-default, var(--color-card-foreground))` | Root text color                |
-| `--alert-gap`                     | `var(--spacing-3)`                                         | Gap between icon and content   |
-| `--alert-padding`                 | `var(--spacing-4)`                                         | Root padding                   |
-| `--alert-radius`                  | `var(--radius-lg)`                                         | Root radius                    |
-| `--alert-shadow`                  | `none`                                                     | Root shadow                    |
-| `--alert-content-gap`             | `var(--spacing-1)`                                         | Gap inside `AlertContent`      |
-| `--alert-icon-color`              | `var(--alert-icon-color-default, currentColor)`            | Icon slot color                |
-| `--alert-icon-offset`             | `0.125rem`                                                 | Icon vertical alignment offset |
-| `--alert-icon-size`               | `1rem`                                                     | Icon slot and SVG size         |
-| `--alert-title-color`             | `var(--alert-color, var(--alert-color-default))`           | Title color                    |
-| `--alert-title-font-size`         | `var(--text-sm)`                                           | Title font size                |
-| `--alert-title-font-weight`       | `var(--weight-semibold)`                                   | Title weight                   |
-| `--alert-title-line-height`       | `var(--line-height-text-sm)`                               | Title line-height              |
-| `--alert-description-color`       | `var(--color-muted-foreground)`                            | Description color              |
-| `--alert-description-font-size`   | `var(--text-sm)`                                           | Description font size          |
-| `--alert-description-line-height` | `var(--line-height-text-sm)`                               | Description line-height        |
+### `Alert.Content`
 
-Variant defaults are internal CSS variables derived from `data-variant`:
-`--alert-bg-default`, `--alert-border-color-default`, `--alert-color-default`, and
-`--alert-icon-color-default`. Override the public variables above instead of depending on those
-internal defaults directly. The built-in `success` and `warning` variants derive their accents from
-the shared `--color-success` and `--color-warning` tokens.
+Extends Ark `div` props and supports `asChild`. If `Alert.Indicator` is omitted, CSS makes the
+content span the full alert width.
 
-## UX and accessibility
+### `Alert.Title`
 
-- `Alert` defaults to `role="status"` for polite announcements.
-- `variant="destructive"` defaults to `role="alert"` for assertive announcements.
-- Pass `role` explicitly when the message should not use the variant default.
-- `AlertIcon` is decorative (`aria-hidden="true"`). Put essential meaning in title or description.
-- The component is not interactive by itself and does not manage focus or keyboard behavior. Use
-  `Button`, links, or other focusable components inside `AlertContent` for actions.
-- Use `AlertTitle as` when the surrounding page needs a heading level other than `h3`.
+Extends Ark `h3` props and supports `asChild`. Use `asChild` when the document outline needs a
+different heading element.
 
-## Limitations and recommendations
+### `Alert.Description`
 
-- Use `Alert` for inline messages that remain in the page layout. Use `Toast` for transient
-  notifications and a modal dialog for blocking confirmations.
-- Avoid stacking many assertive (`role="alert"`) messages; screen readers announce each one.
-- Do not rely on `AlertIcon` as the only indicator of severity.
-- There is no dedicated action slot by design; compose actions inside `AlertContent`.
-- There are no hover, open, checked, disabled, or read-only states because the component is
-  presentational.
+Extends Ark `div` props and supports `asChild`. The styles reset margins for the first and last
+direct child, so paragraphs or lists can be composed inside without extra wrapper spacing.
+
+### Styling hooks
+
+- Stable `data-slot` hooks: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`,
+  `alert-description`
+- Stable state hook: `data-status`
+
+### Public CSS variables
+
+| Variable                          | Default/fallback                                           |
+| --------------------------------- | ---------------------------------------------------------- |
+| `--alert-bg`                      | `var(--alert-bg-default, var(--color-card))`               |
+| `--alert-border-color`            | `var(--alert-border-color-default, var(--color-border))`   |
+| `--alert-border-width`            | `var(--border-width-sm)`                                   |
+| `--alert-color`                   | `var(--alert-color-default, var(--color-card-foreground))` |
+| `--alert-content-gap`             | `var(--spacing-1)`                                         |
+| `--alert-description-color`       | `var(--color-muted-foreground)`                            |
+| `--alert-description-font-size`   | `var(--text-sm)`                                           |
+| `--alert-description-line-height` | `var(--line-height-text-sm)`                               |
+| `--alert-gap`                     | `var(--spacing-3)`                                         |
+| `--alert-indicator-color`         | `var(--alert-indicator-color-default, currentColor)`       |
+| `--alert-indicator-offset`        | `0.125rem`                                                 |
+| `--alert-indicator-size`          | `1rem`                                                     |
+| `--alert-padding`                 | `var(--spacing-4)`                                         |
+| `--alert-radius`                  | `var(--radius-lg)`                                         |
+| `--alert-shadow`                  | `none`                                                     |
+| `--alert-title-color`             | `var(--alert-color, var(--alert-color-default))`           |
+| `--alert-title-font-size`         | `var(--text-sm)`                                           |
+| `--alert-title-font-weight`       | `var(--weight-semibold)`                                   |
+| `--alert-title-line-height`       | `var(--line-height-text-sm)`                               |
+
+Built-in statuses derive their accents from shared palette tokens:
+
+- `success` -> `--color-success`
+- `warning` -> `--color-warning`
+- `error` -> `--color-destructive`
+
+## Intentional differences from upstream
+
+- There is no dedicated upstream Ark `Alert` primitive here; moduix uses Ark's polymorphic
+  factory for the parts.
+- moduix keeps one visual recipe instead of Chakra's extra `variant`, `size`, and palette props.
+- The component remains presentational. It does not add dismiss state, focus management, or action
+  slots.
+
+## Agent notes
+
+- Breaking changes are intentional in this migration:
+  - flat exports like `AlertIcon` and `AlertTitle` were removed
+  - `variant` was replaced with Ark-style `status`
+  - `destructive` status became `error`
+  - `AlertTitle as` was replaced by Ark `asChild`
 
 ## Local changelog
 
-- 2026-06: Moved the success and warning accents onto shared `--color-success` and
-  `--color-warning` tokens so alert variants use the common palette instead of private color vars.
+- 2026-06: Migrated `Alert` to an Ark-style compound contract based on `Alert.Root`,
+  `Alert.Indicator`, `Alert.Content`, `Alert.Title`, and `Alert.Description`; replaced
+  `variant` with `status`; renamed `destructive` to `error`; and moved heading polymorphism from
+  `as` to `asChild`.

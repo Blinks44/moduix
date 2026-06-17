@@ -119,9 +119,9 @@
   --alert-description-font-size: initial; /* var(--text-sm) */
   --alert-description-line-height: initial; /* var(--line-height-text-sm) */
   --alert-gap: initial; /* var(--spacing-3) */
-  --alert-icon-color: initial; /* var(--alert-icon-color-default, currentColor) */
-  --alert-icon-offset: initial; /* 0.125rem */
-  --alert-icon-size: initial; /* 1rem */
+  --alert-indicator-color: initial; /* var(--alert-indicator-color-default, currentColor) */
+  --alert-indicator-offset: initial; /* 0.125rem */
+  --alert-indicator-size: initial; /* 1rem */
   --alert-padding: initial; /* var(--spacing-4) */
   --alert-radius: initial; /* var(--radius-lg) */
   --alert-shadow: initial; /* none */

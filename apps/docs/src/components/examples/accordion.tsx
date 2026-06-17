@@ -186,9 +186,7 @@ function AccordionItems({
     <Accordion.Item key={item.value} value={item.value} disabled={item.value === disabledValue}>
       <Accordion.ItemTrigger>
         {item.title}
-        <Accordion.ItemIndicator className={iconClassName}>
-          {icon ?? <ChevronDownIcon />}
-        </Accordion.ItemIndicator>
+        <Accordion.ItemIndicator className={iconClassName}>{icon}</Accordion.ItemIndicator>
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
         <div className="accordion-panel-content">{item.description}</div>

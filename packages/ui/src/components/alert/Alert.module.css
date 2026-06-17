@@ -15,60 +15,60 @@
     color: var(--alert-color, var(--alert-color-default, var(--color-card-foreground)));
     box-shadow: var(--alert-shadow, none);
 
-    &[data-variant='default'] {
+    &[data-status='neutral'] {
       --alert-bg-default: var(--color-card);
       --alert-border-color-default: var(--color-border);
       --alert-color-default: var(--color-card-foreground);
-      --alert-icon-color-default: var(--color-muted-foreground);
+      --alert-indicator-color-default: var(--color-muted-foreground);
     }
 
-    &[data-variant='info'] {
+    &[data-status='info'] {
       --alert-bg-default: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
       --alert-border-color-default: color-mix(in oklab, var(--color-primary) 32%, transparent);
       --alert-color-default: var(--color-foreground);
-      --alert-icon-color-default: var(--color-primary);
+      --alert-indicator-color-default: var(--color-primary);
     }
 
-    &[data-variant='success'] {
+    &[data-status='success'] {
       --alert-bg-default: color-mix(in oklab, var(--color-success) 10%, var(--color-background));
       --alert-border-color-default: color-mix(in oklab, var(--color-success) 34%, transparent);
       --alert-color-default: var(--color-foreground);
-      --alert-icon-color-default: var(--color-success);
+      --alert-indicator-color-default: var(--color-success);
     }
 
-    &[data-variant='warning'] {
+    &[data-status='warning'] {
       --alert-bg-default: color-mix(in oklab, var(--color-warning) 13%, var(--color-background));
       --alert-border-color-default: color-mix(in oklab, var(--color-warning) 38%, transparent);
       --alert-color-default: var(--color-foreground);
-      --alert-icon-color-default: var(--color-warning);
+      --alert-indicator-color-default: var(--color-warning);
     }
 
-    &[data-variant='destructive'] {
+    &[data-status='error'] {
       --alert-bg-default: color-mix(in oklab, var(--color-destructive) 9%, var(--color-background));
       --alert-border-color-default: color-mix(in oklab, var(--color-destructive) 35%, transparent);
       --alert-color-default: var(--color-foreground);
-      --alert-icon-color-default: var(--color-destructive);
+      --alert-indicator-color-default: var(--color-destructive);
     }
 
-    &:not(:has([data-slot='alert-icon'])) {
+    &:not(:has([data-slot='alert-indicator'])) {
       .content {
         grid-column: 1 / -1;
       }
     }
   }
 
-  .icon {
+  .indicator {
     display: inline-flex;
-    width: var(--alert-icon-size, 1rem);
-    height: var(--alert-icon-size, 1rem);
+    width: var(--alert-indicator-size, 1rem);
+    height: var(--alert-indicator-size, 1rem);
     align-items: center;
     justify-content: center;
-    color: var(--alert-icon-color, var(--alert-icon-color-default, currentColor));
-    margin-block-start: var(--alert-icon-offset, 0.125rem);
+    color: var(--alert-indicator-color, var(--alert-indicator-color-default, currentColor));
+    margin-block-start: var(--alert-indicator-offset, 0.125rem);
 
     & :where(svg) {
-      width: var(--alert-icon-size, 1rem);
-      height: var(--alert-icon-size, 1rem);
+      width: var(--alert-indicator-size, 1rem);
+      height: var(--alert-indicator-size, 1rem);
       flex-shrink: 0;
       pointer-events: none;
     }

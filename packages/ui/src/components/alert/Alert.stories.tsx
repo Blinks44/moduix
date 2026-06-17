@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { InfoIcon } from '@/icons/demo';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from './Alert';
+import { Alert } from './Alert';
 import styles from './Alert.stories.module.css';
 
 const meta = {
@@ -19,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const variants = ['default', 'info', 'success', 'warning', 'destructive'] as const;
+const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
 
 function DismissibleCustomAlert() {
   const [visible, setVisible] = useState(true);
@@ -27,82 +27,84 @@ function DismissibleCustomAlert() {
   if (!visible) return null;
 
   return (
-    <Alert variant="warning" className={styles.customAlert}>
-      <AlertIcon>
+    <Alert.Root status="warning" className={styles.customAlert}>
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Storage is almost full</AlertTitle>
-        <AlertDescription>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>Storage is almost full</Alert.Title>
+        <Alert.Description>
           You are using 92% of the available storage. Archive old uploads or upgrade the plan.
-        </AlertDescription>
+        </Alert.Description>
         <div className={styles.actions}>
           <Button size="sm">Review uploads</Button>
           <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
             Dismiss
           </Button>
         </div>
-      </AlertContent>
-    </Alert>
+      </Alert.Content>
+    </Alert.Root>
   );
 }
 
 export const Basic: Story = {
   render: () => (
-    <Alert>
-      <AlertContent>
-        <AlertTitle>Update available</AlertTitle>
-        <AlertDescription>
+    <Alert.Root>
+      <Alert.Content>
+        <Alert.Title>Update available</Alert.Title>
+        <Alert.Description>
           Install the latest version when your workflow allows it.
-        </AlertDescription>
-      </AlertContent>
-    </Alert>
+        </Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   ),
 };
 
 export const WithIcon: Story = {
   render: () => (
-    <Alert variant="info">
-      <AlertIcon>
+    <Alert.Root status="info">
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Workspace sync is active</AlertTitle>
-        <AlertDescription>Changes are being synced across all connected devices.</AlertDescription>
-      </AlertContent>
-    </Alert>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>Workspace sync is active</Alert.Title>
+        <Alert.Description>
+          Changes are being synced across all connected devices.
+        </Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   ),
 };
 
-export const Variants: Story = {
+export const Statuses: Story = {
   render: () => (
     <div className={styles.stack}>
-      {variants.map((variant) => (
-        <Alert key={variant} variant={variant}>
-          <AlertIcon>{variant === 'success' ? <CheckIcon /> : <InfoIcon />}</AlertIcon>
-          <AlertContent>
-            <AlertTitle>{variant}</AlertTitle>
-            <AlertDescription>Use this alert for {variant} feedback.</AlertDescription>
-          </AlertContent>
-        </Alert>
+      {statuses.map((status) => (
+        <Alert.Root key={status} status={status}>
+          <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
+          <Alert.Content>
+            <Alert.Title>{status}</Alert.Title>
+            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
+          </Alert.Content>
+        </Alert.Root>
       ))}
     </div>
   ),
 };
 
-export const Destructive: Story = {
+export const Error: Story = {
   render: () => (
-    <Alert variant="destructive">
-      <AlertIcon>
+    <Alert.Root status="error">
+      <Alert.Indicator>
         <InfoIcon />
-      </AlertIcon>
-      <AlertContent>
-        <AlertTitle>Payment failed</AlertTitle>
-        <AlertDescription>
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>Payment failed</Alert.Title>
+        <Alert.Description>
           Your payment could not be processed. Check the payment method and try again.
-        </AlertDescription>
-      </AlertContent>
-    </Alert>
+        </Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
   ),
 };
 

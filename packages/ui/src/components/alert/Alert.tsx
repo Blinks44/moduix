@@ -1,48 +1,93 @@
-import type { ComponentProps } from 'react';
-import clsx from 'clsx';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Alert.module.css';
 
-type AlertVariant = 'default' | 'info' | 'success' | 'warning' | 'destructive';
-type AlertTitleElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type AlertProps = ComponentProps<'div'> & { variant?: AlertVariant };
-type AlertTitleProps = ComponentProps<'h3'> & { as?: AlertTitleElement };
+type AlertStatus = 'neutral' | 'info' | 'success' | 'warning' | 'error';
+type AlertRootProps = HTMLArkProps<'div'> & { status?: AlertStatus };
 
-function Alert({ className, role, variant = 'default', ...props }: AlertProps) {
+const AlertRoot = forwardRef<HTMLDivElement, AlertRootProps>(function AlertRoot(
+  { className, role, status = 'neutral', ...props },
+  ref,
+) {
   return (
-    <div
-      role={role ?? (variant === 'destructive' ? 'alert' : 'status')}
+    <ark.div
+      ref={ref}
+      role={role ?? (status === 'error' ? 'alert' : 'status')}
       data-slot="alert-root"
-      data-variant={variant}
-      className={clsx(styles.root, className)}
+      data-status={status}
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function AlertIcon({ className, ...props }: ComponentProps<'span'>) {
+const AlertIndicator = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function AlertIndicator(
+  { className, ...props },
+  ref,
+) {
   return (
-    <span
-      data-slot="alert-icon"
+    <ark.span
+      ref={ref}
+      data-slot="alert-indicator"
       aria-hidden="true"
-      className={clsx(styles.icon, className)}
+      className={clsx(styles.indicator, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function AlertContent({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="alert-content" className={clsx(styles.content, className)} {...props} />;
-}
-
-function AlertTitle({ as: Root = 'h3', className, ...props }: AlertTitleProps) {
-  return <Root data-slot="alert-title" className={clsx(styles.title, className)} {...props} />;
-}
-
-function AlertDescription({ className, ...props }: ComponentProps<'div'>) {
+const AlertContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function AlertContent(
+  { className, ...props },
+  ref,
+) {
   return (
-    <div data-slot="alert-description" className={clsx(styles.description, className)} {...props} />
+    <ark.div
+      ref={ref}
+      data-slot="alert-content"
+      className={clsx(styles.content, normalizeClassName(className))}
+      {...props}
+    />
   );
-}
+});
 
-export { Alert, AlertIcon, AlertContent, AlertTitle, AlertDescription };
-export type { AlertVariant, AlertTitleElement };
+const AlertTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function AlertTitle(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.h3
+      ref={ref}
+      data-slot="alert-title"
+      className={clsx(styles.title, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const AlertDescription = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function AlertDescription(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.div
+      ref={ref}
+      data-slot="alert-description"
+      className={clsx(styles.description, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const Alert = Object.assign(AlertRoot, {
+  Root: AlertRoot,
+  Indicator: AlertIndicator,
+  Content: AlertContent,
+  Title: AlertTitle,
+  Description: AlertDescription,
+});
+
+export { Alert };
+export type { AlertStatus };
