@@ -10,9 +10,10 @@ import { defineConfig } from 'vite';
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const uiPackageDir = path.resolve(dirname, '../../packages/ui');
 
-const baseUiOptimizeDeps = [
+const uiPrimitiveOptimizeDeps = [
   '@ark-ui/react/accordion',
   '@ark-ui/react/avatar',
+  '@ark-ui/react/carousel',
   '@base-ui/react/alert-dialog',
   '@base-ui/react/autocomplete',
   '@base-ui/react/checkbox',
@@ -85,11 +86,11 @@ export default defineConfig({
     dedupe: ['react', 'react-dom'],
   },
   optimizeDeps: {
-    include: baseUiOptimizeDeps,
+    include: uiPrimitiveOptimizeDeps,
   },
   ssr: {
     optimizeDeps: {
-      include: baseUiOptimizeDeps,
+      include: uiPrimitiveOptimizeDeps,
     },
   },
 });

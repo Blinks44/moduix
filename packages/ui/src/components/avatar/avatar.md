@@ -49,6 +49,9 @@ when there is no image source.
 Use `asChild` on `Avatar.Root`, `Avatar.Image`, or `Avatar.Fallback` when another element must own
 the rendered DOM node.
 
+`onStatusChange` stays Ark-shaped and exposes the current image lifecycle through
+`details.status`. Use it when surrounding UI needs to react to loading or error states.
+
 ## Defaults and styling
 
 Every exported part accepts `className` and receives a stable `data-slot`:

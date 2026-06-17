@@ -1936,15 +1936,29 @@
   --slider-width: initial; /* 12rem */
   --slider-width-vertical: initial; /* fit-content */
 
-  /* SnapCarousel */
-  --snap-carousel-focus-ring-color: initial; /* var(--color-ring) */
-  --snap-carousel-focus-ring-offset: initial; /* var(--spacing-1) */
-  --snap-carousel-focus-ring-width: initial; /* var(--border-width-md) */
-  --snap-carousel-gap: initial; /* var(--spacing-3) */
-  --snap-carousel-height: initial; /* 100% */
-  --snap-carousel-item-gap: initial; /* var(--spacing-4) */
-  --snap-carousel-item-size: initial; /* 100% */
-  --snap-carousel-snap-stop: initial; /* normal */
+  /* Carousel */
+  --carousel-control-bg: initial; /* color-mix(in oklab, var(--color-background) 92%, var(--color-card) 8%) */
+  --carousel-control-bg-hover: initial; /* var(--color-accent) */
+  --carousel-control-border-color: initial; /* color-mix(in oklab, var(--color-border) 88%, black 12%) */
+  --carousel-control-border-color-hover: initial; /* color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%) */
+  --carousel-control-color: initial; /* var(--color-foreground) */
+  --carousel-control-color-hover: initial; /* var(--color-accent-foreground) */
+  --carousel-control-shadow: initial; /* var(--shadow-sm) */
+  --carousel-control-shadow-hover: initial; /* var(--shadow-md) */
+  --carousel-control-size: initial; /* 2.5rem */
+  --carousel-focus-ring-color: initial; /* var(--color-ring) */
+  --carousel-focus-ring-offset: initial; /* 2px */
+  --carousel-focus-ring-width: initial; /* var(--border-width-md) */
+  --carousel-gap: initial; /* var(--spacing-3) */
+  --carousel-height: initial; /* 24rem */
+  --carousel-indicator-bg: initial; /* color-mix(in oklab, var(--color-muted) 84%, var(--color-background) 16%) */
+  --carousel-indicator-bg-current: initial; /* var(--color-primary) */
+  --carousel-indicator-bg-hover: initial; /* color-mix(in oklab, var(--color-muted) 56%, var(--color-foreground) 44%) */
+  --carousel-indicator-gap: initial; /* var(--spacing-2) */
+  --carousel-indicator-size: initial; /* 0.5rem */
+  --carousel-progress-text-color: initial; /* var(--color-muted-foreground) */
+  --carousel-progress-text-font-size: initial; /* var(--text-sm) */
+  --carousel-track-radius: initial; /* var(--radius-xl) */
 
   /* Stack */
   --stack-direction-desktop: initial; /* column */

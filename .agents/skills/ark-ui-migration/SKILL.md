@@ -21,6 +21,7 @@ Solid/Vue/Svelte-specific APIs or docs paths in this migration track.
 - Ark UI routing index: `https://ark-ui.com/llms.txt`
 - Prefer Ark MCP from `.ai/mcp/mcp.json` when direct fetch is blocked by site protection.
 - Component docs pattern: `https://ark-ui.com/docs/components/<component-slug>`
+- Component mdx docs pattern: `https://ark-ui.com/docs/components/<component-slug>.mdx`
 - Ark styling guide: `https://ark-ui.com/docs/guides/styling`
 - Chakra UI component docs: `https://chakra-ui.com/docs/components/<component-slug>`
 
@@ -36,6 +37,15 @@ Solid/Vue/Svelte-specific APIs or docs paths in this migration track.
 - Replace Base UI primitive imports with Ark UI package imports.
 - Adopt Ark part names and composition exactly (for example, `Root`, `Item`, `ItemTrigger`, `ItemContent`).
 - Use Ark and Chakra docs as the source of truth for overlay and popup composition.
+- Rewrite migrated documentation fully around Ark UI. Do not do partial Base UI carry-over edits just to "adapt" old docs.
+- Treat old Base UI-oriented docs as disposable migration input, not as the target structure.
+- Public docs and local component markdown should show the Ark UI mental model first: parts, composition, state
+  shapes, callback signatures, and structural requirements.
+- Cover the full Ark example surface that is relevant to the migrated component family. If Ark docs show multiple
+  important usage patterns, reproduce those patterns in moduix docs/examples instead of keeping only the old Base UI
+  subset.
+- If moduix provides extra sugar on top of Ark (for example default visuals, helper leaf parts, or thin DX wrappers),
+  document those as additional examples layered after the core Ark examples, not as replacements for Ark composition.
 - Keep moduix wrappers as thin Ark-aligned wrappers, not alternative component APIs.
 - Prefer Ark callback and state shapes without re-mapping (for example, keep `onValueChange(details)` and use `details.value`).
 - Remove legacy prop aliases and converted callback signatures from old wrappers.
@@ -110,7 +120,7 @@ Example decision applied in this migration wave:
 1. Component TSX/CSS modules in `packages/ui/src/components/<component-name>/`
 2. Local component markdown contract (`<component-name>.md`)
 3. Stories for the component
-4. Public docs/examples in `apps/docs` when API or naming changed
+4. Public docs/examples in `apps/docs` rewritten for Ark UI when the migrated component is documented there
 5. Registry artifacts (`npm run build:registry`) when registry-shipped source changed
 
 ## Reference implementation (use as migration template)
@@ -131,6 +141,7 @@ What this reference demonstrates:
 - Synchronized wrapper/docs/examples/theme tokens after migration.
 - Removal of Base UI migration leftovers from component contract and docs surfaces.
 - Explicit structural composition for overlays instead of shadcn-style hidden `Content` wrappers.
+- Docs/examples structured around Ark usage first, with moduix-specific sugar added on top where it exists.
 
 ## Migration Checklist
 
@@ -140,9 +151,10 @@ What this reference demonstrates:
 4. For non-primitive components, replace Base `useRender` with Ark `asChild`/`ark` factory or native DOM API.
 5. Drop compatibility shims and legacy prop translations.
 6. Update CSS selectors/state hooks to Ark attributes and variables.
-7. Update stories, local markdown, and docs examples to Ark API.
-8. Run required repo validation sequence from `AGENTS.md`.
-9. Rebuild registry artifacts when required.
+7. Rewrite stories, local markdown, and docs examples to the Ark API and Ark composition model.
+8. Ensure docs/examples cover the relevant Ark examples first, then add moduix-specific sugar examples after them.
+9. Run required repo validation sequence from `AGENTS.md`.
+10. Rebuild registry artifacts when required.
 
 ## Lessons from current migration wave
 
@@ -150,6 +162,8 @@ What this reference demonstrates:
 - Avoid preserving old callback shapes for convenience; this causes long-term drift.
 - Keep animation/state logic tied to Ark-provided attributes and measurements.
 - Keep docs and examples in lockstep with code changes; stale examples re-introduce legacy API usage.
+- Rewrite docs from the Ark source model instead of incrementally editing Base UI-era prose and snippets.
+- If Ark docs expose several canonical examples, moduix docs should cover those examples before introducing local sugar.
 - For popup and dialog families, prefer Chakra's explicit composition model over shadcn's hidden structural sugar.
 - Keep moduix between Ark/Chakra and shadcn by making wrappers convenient to style and import, not by hiding core
   structural parts.

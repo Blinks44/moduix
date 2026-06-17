@@ -1,0 +1,718 @@
+---
+title: Carousel
+description: A paged carousel with Ark UI composition, autoplay, provider state, and variable-size slides.
+icon: Component
+---
+
+import {
+  AutoplayCarouselExample,
+  CarouselCssPropertiesPanel,
+  CarouselExample,
+  ControlledCarouselExample,
+  DynamicSlidesCarouselExample,
+  LoopCarouselExample,
+  MouseDragCarouselExample,
+  PauseOnHoverCarouselExample,
+  RootProviderCarouselExample,
+  ScrollToCarouselExample,
+  SlidesPerPageCarouselExample,
+  SpacingCarouselExample,
+  ThumbnailIndicatorCarouselExample,
+  VariableSizeCarouselExample,
+  VerticalCarouselExample,
+} from '@/components/examples/carousel';
+
+## API Reference
+
+<BaseUIReference href="https://ark-ui.com/docs/components/carousel" />
+
+## Basic
+
+Use the Ark composition directly: `Carousel.Root`, `Carousel.Control`, `Carousel.ItemGroup`,
+`Carousel.Item`, `Carousel.PrevTrigger`, `Carousel.NextTrigger`, `Carousel.IndicatorGroup`, and
+`Carousel.Indicator`.
+
+<Preview>
+  <CarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function TravelCarousel() {
+        return (
+          <Carousel.Root slideCount={slides.length}>
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.ItemGroup aria-label="Travel gallery">
+                {slides.map((slide, index) => (
+                  <Carousel.Item key={slide.id} index={index}>
+                    <img src={slide.src} alt={slide.alt} />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+
+            <Carousel.IndicatorGroup>
+              {slides.map((_, index) => (
+                <Carousel.Indicator key={index} index={index} />
+              ))}
+            </Carousel.IndicatorGroup>
+
+            <Carousel.ProgressText />
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `Carousel` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/carousel
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/carousel
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/carousel
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/carousel
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/carousel
+```
+
+  </Tab>
+</Tabs>
+
+## Anatomy
+
+```text
+Carousel.Root
+├─ Carousel.Control
+│  ├─ Carousel.PrevTrigger
+│  ├─ Carousel.ItemGroup
+│  │  └─ Carousel.Item[index]
+│  └─ Carousel.NextTrigger
+├─ Carousel.IndicatorGroup
+│  └─ Carousel.Indicator[index]
+└─ Carousel.ProgressText
+```
+
+Additional Ark parts stay available for advanced flows:
+
+- `Carousel.AutoplayTrigger`
+- `Carousel.AutoplayIndicator`
+- `Carousel.Context`
+- `Carousel.RootProvider`
+- `useCarousel()`
+
+## Composition
+
+- `slideCount` is required on `Carousel.Root`.
+- `onPageChange(details)` follows Ark shape and exposes the active page as `details.page`.
+- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove`, and `autoSize` replace the old
+  `SnapCarousel` sizing sugar.
+- Use `Carousel.Context` when indicator count depends on runtime `pageSnapPoints`, especially with
+  `autoSize`, `slidesPerPage > 1`, and programmatic scrolling.
+- Use `Carousel.RootProvider` and `useCarousel()` when carousel state must be created outside the
+  rendered subtree.
+- Vertical carousels stay on the same public surface. Default triggers rotate automatically when the
+  component uses moduix-provided chevrons.
+
+## Examples
+
+### Controlled
+
+<Preview>
+  <ControlledCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledCarousel() {
+        const [page, setPage] = useState(1);
+
+        return (
+          <Carousel.Root
+            slideCount={slides.length}
+            page={page}
+            onPageChange={(details) => setPage(details.page)}
+          >
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.ItemGroup aria-label="Controlled gallery">
+                {slides.map((slide, index) => (
+                  <Carousel.Item key={slide.id} index={index}>
+                    <img src={slide.src} alt={slide.alt} />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+            <Carousel.IndicatorGroup>
+              {slides.map((_, index) => (
+                <Carousel.Indicator key={index} index={index} />
+              ))}
+            </Carousel.IndicatorGroup>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Dynamic Slides
+
+<Preview>
+  <DynamicSlidesCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Carousel, PlusIcon } from "moduix";
+      import { useMemo, useState } from "react";
+
+      export function DynamicSlidesCarousel() {
+        const [count, setCount] = useState(4);
+        const [page, setPage] = useState(0);
+        const visibleSlides = useMemo(() => slides.slice(0, count), [count]);
+
+        return (
+          <>
+            <Carousel.Root
+              slideCount={visibleSlides.length}
+              page={page}
+              onPageChange={(details) => setPage(details.page)}
+            >
+              <Carousel.ItemGroup aria-label="Dynamic gallery">
+                {visibleSlides.map((slide, index) => (
+                  <Carousel.Item key={slide.id} index={index}>
+                    <img src={slide.src} alt={slide.alt} />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.Control>
+                <Carousel.PrevTrigger />
+                <Carousel.IndicatorGroup>
+                  {visibleSlides.map((_, index) => (
+                    <Carousel.Indicator key={index} index={index} />
+                  ))}
+                </Carousel.IndicatorGroup>
+                <Carousel.NextTrigger />
+              </Carousel.Control>
+            </Carousel.Root>
+
+            <Button
+              variant="outline"
+              onClick={() => setCount((currentCount) => Math.min(slides.length, currentCount + 1))}
+            >
+              <PlusIcon />
+              Add slide
+            </Button>
+          </>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Pause On Hover
+
+<Preview>
+  <PauseOnHoverCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function PauseOnHoverCarousel() {
+        return (
+          <Carousel.Root autoplay loop slideCount={slides.length}>
+            <Carousel.Context>
+              {({ isPlaying }) => <p>Autoplay: {isPlaying ? "playing" : "paused"}</p>}
+            </Carousel.Context>
+
+            <Carousel.Context>
+              {(api) => (
+                <Carousel.ItemGroup
+                  aria-label="Pause on hover gallery"
+                  onPointerOver={() => api.pause()}
+                  onPointerLeave={() => api.play()}
+                >
+                  {slides.map((slide, index) => (
+                    <Carousel.Item key={slide.id} index={index}>
+                      <img src={slide.src} alt={slide.alt} />
+                    </Carousel.Item>
+                  ))}
+                </Carousel.ItemGroup>
+              )}
+            </Carousel.Context>
+
+            <Carousel.IndicatorGroup>
+              {slides.map((_, index) => (
+                <Carousel.Indicator key={index} index={index} />
+              ))}
+            </Carousel.IndicatorGroup>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Root Provider
+
+<Preview>
+  <RootProviderCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel, useCarousel } from "moduix";
+
+      export function RootProviderCarousel() {
+        const carousel = useCarousel({ slideCount: slides.length });
+
+        return (
+          <Carousel.RootProvider value={carousel}>
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.ItemGroup aria-label="Root provider gallery">
+                {slides.map((slide, index) => (
+                  <Carousel.Item key={slide.id} index={index}>
+                    <img src={slide.src} alt={slide.alt} />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+            <Carousel.IndicatorGroup>
+              {slides.map((_, index) => (
+                <Carousel.Indicator key={index} index={index} />
+              ))}
+            </Carousel.IndicatorGroup>
+          </Carousel.RootProvider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Scroll To
+
+<Preview>
+  <ScrollToCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Button, Carousel } from "moduix";
+
+      export function ScrollToCarousel() {
+        return (
+          <Carousel.Root slideCount={slides.length}>
+            <Carousel.Context>
+              {(api) => (
+                <Button variant="outline" onClick={() => api.scrollToIndex(3)}>
+                  Go to slide 4
+                </Button>
+              )}
+            </Carousel.Context>
+
+            <Carousel.ItemGroup aria-label="Scroll to gallery">
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Slides Per Page
+
+<Preview>
+  <SlidesPerPageCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function SlidesPerPageCarousel() {
+        return (
+          <Carousel.Root slideCount={slides.length} slidesPerPage={2} spacing="var(--spacing-3)">
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+
+            <Carousel.ItemGroup aria-label="Two-up gallery">
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+
+            <Carousel.Context>
+              {(api) => (
+                <Carousel.IndicatorGroup>
+                  {api.pageSnapPoints.map((_, index) => (
+                    <Carousel.Indicator key={index} index={index} />
+                  ))}
+                </Carousel.IndicatorGroup>
+              )}
+            </Carousel.Context>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Spacing
+
+<Preview>
+  <SpacingCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function SpacingCarousel() {
+        return (
+          <Carousel.Root slideCount={slides.length} slidesPerPage={1.4} spacing="3rem">
+            <Carousel.ItemGroup aria-label="Spaced gallery">
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.Context>
+                {(api) => (
+                  <Carousel.IndicatorGroup>
+                    {api.pageSnapPoints.map((_, index) => (
+                      <Carousel.Indicator key={index} index={index} />
+                    ))}
+                  </Carousel.IndicatorGroup>
+                )}
+              </Carousel.Context>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Thumbnail Indicator
+
+<Preview>
+  <ThumbnailIndicatorCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function ThumbnailIndicatorCarousel() {
+        return (
+          <Carousel.Root slideCount={slides.length}>
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.ItemGroup aria-label="Gallery with thumbnails">
+                {slides.map((slide, index) => (
+                  <Carousel.Item key={slide.id} index={index}>
+                    <img src={slide.src} alt={slide.alt} />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+
+            <Carousel.IndicatorGroup>
+              {slides.map((slide, index) => (
+                <Carousel.Indicator key={slide.id} index={index}>
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Indicator>
+              ))}
+            </Carousel.IndicatorGroup>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Variable Size
+
+<Preview>
+  <VariableSizeCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function VariableSizeCarousel() {
+        return (
+          <Carousel.Root
+            autoSize
+            slideCount={slides.length}
+            spacing="var(--spacing-3)"
+            padding="var(--spacing-4)"
+          >
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+
+            <Carousel.ItemGroup aria-label="Variable size gallery">
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index} snapAlign="center">
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+
+            <Carousel.Context>
+              {(api) => (
+                <Carousel.IndicatorGroup>
+                  {api.pageSnapPoints.map((_, index) => (
+                    <Carousel.Indicator key={index} index={index} />
+                  ))}
+                </Carousel.IndicatorGroup>
+              )}
+            </Carousel.Context>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Autoplay
+
+<Preview>
+  <AutoplayCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function AutoplayCarousel() {
+        return (
+          <Carousel.Root autoplay={{ delay: 3500 }} loop slideCount={slides.length}>
+            <Carousel.ItemGroup aria-label="Autoplay gallery">
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.AutoplayTrigger>
+                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
+              </Carousel.AutoplayTrigger>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Loop
+
+<Preview>
+  <LoopCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function LoopCarousel() {
+        return (
+          <Carousel.Root loop slideCount={slides.length}>
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.ItemGroup aria-label="Loop gallery">
+                {slides.map((slide, index) => (
+                  <Carousel.Item key={slide.id} index={index}>
+                    <img src={slide.src} alt={slide.alt} />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+
+            <Carousel.IndicatorGroup>
+              {slides.map((_, index) => (
+                <Carousel.Indicator key={index} index={index} />
+              ))}
+            </Carousel.IndicatorGroup>
+
+            <Carousel.ProgressText />
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Mouse Drag
+
+<Preview>
+  <MouseDragCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function MouseDragCarousel() {
+        return (
+          <Carousel.Root allowMouseDrag slideCount={slides.length}>
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.ItemGroup aria-label="Mouse draggable gallery">
+                {slides.map((slide, index) => (
+                  <Carousel.Item key={slide.id} index={index}>
+                    <img src={slide.src} alt={slide.alt} />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+
+            <Carousel.IndicatorGroup>
+              {slides.map((_, index) => (
+                <Carousel.Indicator key={index} index={index} />
+              ))}
+            </Carousel.IndicatorGroup>
+
+            <Carousel.ProgressText />
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Vertical
+
+<Preview>
+  <VerticalCarouselExample />
+
+  <Preview.Code>
+    {`
+      import { Carousel } from "moduix";
+
+      export function VerticalCarousel() {
+        return (
+          <Carousel.Root orientation="vertical" slideCount={slides.length}>
+            <Carousel.ItemGroup aria-label="Vertical gallery">
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.IndicatorGroup>
+                {slides.map((_, index) => (
+                  <Carousel.Indicator key={index} index={index} />
+                ))}
+              </Carousel.IndicatorGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+          </Carousel.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Styling
+
+Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
+data attributes (`data-part`, `data-orientation`, `data-current`, `data-dragging`) and moduix
+`data-slot` hooks.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <CarouselCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="carousel-root"`, `carousel-control`, `carousel-item-group`, `carousel-item`,
+  `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
+  `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator`, and
+  `carousel-progress-text` are stable selectors on the exported parts.
+- Ark also exposes `data-scope="carousel"` and `data-part` names on the rendered nodes.
+- `data-orientation="horizontal" | "vertical"` is available on root and structural parts.
+- `Carousel.ItemGroup` exposes `data-dragging` while drag interaction is active.
+- `Carousel.Indicator` exposes `data-current`, and `Carousel.Item` exposes `data-index` and
+  `data-inview`.

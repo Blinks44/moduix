@@ -1362,26 +1362,26 @@
       ]
     },
     {
-      "name": "snap-carousel",
+      "name": "carousel",
       "type": "registry:item",
-      "title": "SnapCarousel",
-      "description": "moduix SnapCarousel component.",
-      "dependencies": ["clsx"],
+      "title": "Carousel",
+      "description": "moduix Carousel component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/snap-carousel/SnapCarousel.tsx",
-          "target": "@components/moduix/snap-carousel/SnapCarousel.tsx",
+          "path": "packages/ui/src/components/carousel/Carousel.tsx",
+          "target": "@components/moduix/carousel/Carousel.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/snap-carousel/SnapCarousel.module.css",
-          "target": "@components/moduix/snap-carousel/SnapCarousel.module.css",
+          "path": "packages/ui/src/components/carousel/Carousel.module.css",
+          "target": "@components/moduix/carousel/Carousel.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/snap-carousel/index.ts",
-          "target": "@components/moduix/snap-carousel/index.ts",
+          "path": "packages/ui/src/components/carousel/index.ts",
+          "target": "@components/moduix/carousel/index.ts",
           "type": "registry:component"
         }
       ]

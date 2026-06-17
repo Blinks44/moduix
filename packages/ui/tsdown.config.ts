@@ -20,7 +20,12 @@ export default defineConfig({
     '@': path.resolve(dirname, './src'),
   },
   deps: {
-    neverBundle: [/^@base-ui\/react(\/.*)?$/, /^react(\/.*)?$/, /^react-dom(\/.*)?$/],
+    neverBundle: [
+      /^@ark-ui\/react(\/.*)?$/,
+      /^@base-ui\/react(\/.*)?$/,
+      /^react(\/.*)?$/,
+      /^react-dom(\/.*)?$/,
+    ],
   },
   css: {
     inject: true,

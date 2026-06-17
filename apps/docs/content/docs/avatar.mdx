@@ -11,6 +11,7 @@ import {
   AvatarExample,
   AvatarFallbackOnlyExample,
   AvatarImageErrorExample,
+  AvatarStatusExample,
   CustomCompositionAvatarExample,
 } from '@/components/examples/avatar';
 
@@ -111,26 +112,24 @@ Avatar.Root
 
 ## Composition
 
-### When to stay high-level
+`Avatar.Root` owns the Ark image-loading lifecycle. Use it for `ids`, `onStatusChange(details)`,
+and for the moduix `size` styling shortcut.
 
-Stay with `Avatar.Root`, `Avatar.Image`, and `Avatar.Fallback` for most user pictures and compact
-identity surfaces.
+Use `Avatar.Image` and `Avatar.Fallback` together for normal profile media. Keep `Avatar.Fallback`
+in the tree even when the image is expected to load; Ark swaps visibility through
+`data-state="visible" | "hidden"`.
 
 Use `size` on `Avatar.Root` for the standard token sizes, or override `--avatar-size`,
 `--avatar-font-size`, and `--avatar-line-height` when dimensions need a custom value.
 
-### When to go custom
+All exported parts support `asChild`. Use that when another element must own the DOM node. This is
+the Ark composition path that replaces the old Base UI `render` contract.
 
-Use `asChild` when the root or one of its parts must compose with another element. This replaces
-the old Base UI `render` path.
+### moduix additions
 
-### Default props
-
-| Surface       | Prop             | Default | Values / Notes               |
-| ------------- | ---------------- | ------- | ---------------------------- |
-| `Avatar.Root` | `size`           | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
-| `Avatar.Root` | `asChild`        | `false` | Ark composition escape hatch |
-| `Avatar.Root` | `onStatusChange` | -       | `(details) => void`          |
+| Surface       | Prop   | Default | Values / Notes               |
+| ------------- | ------ | ------- | ---------------------------- |
+| `Avatar.Root` | `size` | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
 
 ### Behavioral notes
 
@@ -138,8 +137,9 @@ the old Base UI `render` path.
 - `Avatar.Fallback` remains visible while the image is missing or has failed.
 - `onStatusChange` follows Ark shape and receives `details` (`details.status` contains the current
   loading state).
-- If `Avatar.Root` is interactive through `asChild`, the child element must provide the correct
-  accessible semantics and name.
+- `ids` can be passed to `Avatar.Root` when surrounding composition needs stable DOM ids.
+- If `Avatar.Root`, `Avatar.Image`, or `Avatar.Fallback` is made polymorphic through `asChild`, the
+  child element must keep the right accessible semantics.
 
 ## Examples
 
@@ -209,6 +209,40 @@ the old Base UI `render` path.
     `}
 
   </Preview.Code>
+</Preview>
+
+### Events
+
+<Preview>
+  <AvatarStatusExample />
+
+  <Preview.Code>
+    {`
+      import { Avatar } from "moduix";
+      import { useState } from "react";
+
+      export function AvatarStatusDemo() {
+        const [status, setStatus] = useState("idle");
+
+        return (
+          <div className="flex flex-col items-start gap-3">
+            <Avatar.Root onStatusChange={(details) => setStatus(details.status)}>
+              <Avatar.Image src={avatarImage} alt="Alex T." />
+              <Avatar.Fallback>LT</Avatar.Fallback>
+            </Avatar.Root>
+            <output className="text-sm text-muted-foreground">Status: {status}</output>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`      const avatarImage =
+        "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";`}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Composition
@@ -356,6 +390,9 @@ the old Base UI `render` path.
 </Preview>
 
 ## Styling
+
+Use `className` on exported parts for structural styling changes. Prefer Ark state attributes for
+load-driven styling and moduix CSS variables for tokens and sizing.
 
 ### CSS Properties
 

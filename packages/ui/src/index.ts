@@ -49,7 +49,7 @@ export * from './components/scroll-area';
 export * from './components/separator';
 export * from './components/select';
 export * from './components/slider';
-export * from './components/snap-carousel';
+export * from './components/carousel';
 export * from './components/skeleton';
 export * from './components/spinner';
 export * from './components/split-button';

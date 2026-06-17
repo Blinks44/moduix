@@ -123,23 +123,24 @@ Accordion.Root
 
 ## Composition
 
-### Recommended defaults
+`Accordion.Root` owns keyboard navigation, focus movement, and open item state. Use it for
+`value`, `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `multiple`,
+`collapsible`, `orientation`, `lazyMount`, `unmountOnExit`, and `ids`.
 
-- `multiple`: `false`
-- `collapsible`: `false`
-- `disabled`: `false`
-- `orientation`: `vertical`
-- `lazyMount`: `false`
-- `unmountOnExit`: `false`
+`value` and `defaultValue` are always arrays, including single-open mode. `onValueChange` follows
+the Ark callback shape and exposes the current item values as `details.value`.
 
-`onValueChange` follows Ark shape and receives `details` (`details.value` contains open item values).
+`Accordion.Item` requires a stable `value`. Use `disabled` on the item when one section should stay
+present but unavailable.
 
-### Behavioral notes
+`Accordion.ItemIndicator` is optional. In moduix it renders `PlusIcon` by default when no children
+are provided, but you can replace the indicator content entirely.
 
-- `value` and `defaultValue` are arrays, including single-open mode.
-- `multiple` allows several items to stay open.
-- `collapsible` allows closing the currently open item.
-- `lazyMount` and `unmountOnExit` control mount lifecycle of `Accordion.ItemContent`.
+Keep spacing wrappers inside `Accordion.ItemContent` instead of on the content part itself. The Ark
+measurement variable `--height` drives the open/close animation, so inner padding keeps the motion
+clean.
+
+All exported parts support `asChild` for cases where another element must own the rendered node.
 
 ## Examples
 

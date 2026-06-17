@@ -16,7 +16,7 @@ The wrapper keeps Ark state/keyboard behavior and adds moduix default styles, CS
   `Accordion.ItemIndicator`, and `Accordion.ItemContent`.
 - Supports Ark controlled/uncontrolled state with `value`, `defaultValue`, and `onValueChange(details)`.
 - Supports Ark root behavior props such as `multiple`, `collapsible`, `disabled`, `orientation`,
-  `lazyMount`, and `unmountOnExit`.
+  `lazyMount`, `unmountOnExit`, `ids`, and `onFocusChange(details)`.
 - Uses Ark content animation measurement via `--height`.
 - `Accordion.ItemIndicator` renders `PlusIcon` by default when no children are passed.
 
@@ -65,6 +65,7 @@ Ark state/data attributes remain available to consumers:
 
 - `data-state="open" | "closed"` on item, trigger, indicator, and content.
 - `data-disabled` and `data-orientation` on relevant parts.
+- All exported parts also support Ark `asChild` for DOM ownership changes.
 
 Primary CSS variables:
 

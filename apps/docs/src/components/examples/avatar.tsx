@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
 import { Avatar, ComputerIcon } from 'moduix';
+import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
@@ -94,6 +95,20 @@ export function AvatarImageErrorExample() {
       <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
       <Avatar.Fallback>NA</Avatar.Fallback>
     </Avatar.Root>
+  );
+}
+
+export function AvatarStatusExample() {
+  const [status, setStatus] = useState('idle');
+
+  return (
+    <div className="flex flex-col items-start gap-3">
+      <Avatar.Root onStatusChange={(details) => setStatus(details.status)}>
+        <Avatar.Image src={avatarImage} alt="Alex T." />
+        <Avatar.Fallback>LT</Avatar.Fallback>
+      </Avatar.Root>
+      <output className="text-sm text-muted-foreground">Status: {status}</output>
+    </div>
   );
 }
 
