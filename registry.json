@@ -38,6 +38,11 @@
           "type": "registry:lib"
         },
         {
+          "path": "packages/ui/src/lib/moduix/normalizeClassName.ts",
+          "target": "@lib/moduix/normalizeClassName.ts",
+          "type": "registry:lib"
+        },
+        {
           "path": "packages/ui/src/lib/moduix/icons/ui/index.ts",
           "target": "@lib/moduix/icons/ui/index.ts",
           "type": "registry:lib"
@@ -145,6 +150,31 @@
         {
           "path": "packages/ui/src/components/accordion/index.ts",
           "target": "@components/moduix/accordion/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "angle-slider",
+      "type": "registry:item",
+      "title": "AngleSlider",
+      "description": "moduix AngleSlider component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/core"],
+      "files": [
+        {
+          "path": "packages/ui/src/components/angle-slider/AngleSlider.tsx",
+          "target": "@components/moduix/angle-slider/AngleSlider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/ui/src/components/angle-slider/AngleSlider.module.css",
+          "target": "@components/moduix/angle-slider/AngleSlider.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/ui/src/components/angle-slider/index.ts",
+          "target": "@components/moduix/angle-slider/index.ts",
           "type": "registry:component"
         }
       ]

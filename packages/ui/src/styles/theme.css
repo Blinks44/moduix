@@ -109,6 +109,46 @@
   --accordion-trigger-padding-x: initial; /* var(--spacing-3) */
   --accordion-trigger-padding-y: initial; /* var(--spacing-2) */
   --accordion-width: initial; /* 22rem */
+  /* AngleSlider */
+  --angle-slider-color: initial; /* var(--color-foreground) */
+  --angle-slider-center-dot-color: initial; /* var(--angle-slider-color) */
+  --angle-slider-center-dot-size: initial; /* 0.375rem */
+  --angle-slider-control-bg: initial; /* var(--color-background) */
+  --angle-slider-control-border-color: initial; /* var(--color-border) */
+  --angle-slider-control-border-width: initial; /* var(--border-width-sm) */
+  --angle-slider-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --angle-slider-focus-ring-color: initial; /* var(--color-ring) */
+  --angle-slider-gap: initial; /* 0.75rem */
+  --angle-slider-indicator-bg: initial; /* var(--color-primary) */
+  --angle-slider-invalid-color: initial; /* var(--color-destructive) */
+  --angle-slider-label-color: initial; /* var(--angle-slider-color) */
+  --angle-slider-label-font-size: initial; /* var(--text-sm) */
+  --angle-slider-label-font-weight: initial; /* var(--weight-medium) */
+  --angle-slider-label-line-height: initial; /* var(--line-height-text-sm) */
+  --angle-slider-marker-active-color: initial; /* var(--color-primary) */
+  --angle-slider-marker-color: initial; /* var(--color-muted-foreground) */
+  --angle-slider-marker-current-color: initial; /* var(--color-foreground) */
+  --angle-slider-marker-height: initial; /* 0.625rem */
+  --angle-slider-marker-width: initial; /* 0.125rem */
+  --angle-slider-radius: initial; /* var(--radius-full) */
+  --angle-slider-ring-thickness: initial; /* 0.875rem */
+  --angle-slider-shadow: initial; /* none */
+  --angle-slider-size: initial; /* 8rem */
+  --angle-slider-thumb-bg: initial; /* var(--angle-slider-indicator-bg) */
+  --angle-slider-thumb-border-color: initial; /* var(--color-border) */
+  --angle-slider-thumb-border-width: initial; /* var(--border-width-sm) */
+  --angle-slider-thumb-line-width: initial; /* 0.1875rem */
+  --angle-slider-thumb-radius: initial; /* var(--radius-full) */
+  --angle-slider-thumb-shadow: initial; /* var(--shadow-sm) */
+  --angle-slider-thumb-size: initial; /* 1rem */
+  --angle-slider-track-bg: initial; /* var(--color-muted) */
+  --angle-slider-track-border-color: initial; /* var(--color-border) */
+  --angle-slider-track-border-width: initial; /* var(--border-width-sm) */
+  --angle-slider-transition: initial; /* var(--transition-default) */
+  --angle-slider-value-text-color: initial; /* var(--angle-slider-color) */
+  --angle-slider-value-text-font-size: initial; /* var(--text-sm) */
+  --angle-slider-value-text-font-weight: initial; /* var(--weight-medium) */
+  --angle-slider-value-text-line-height: initial; /* var(--line-height-text-sm) */
   /* Alert */
   --alert-bg: initial; /* var(--alert-bg-default, var(--color-card)) */
   --alert-border-color: initial; /* var(--alert-border-color-default, var(--color-border)) */

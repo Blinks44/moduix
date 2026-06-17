@@ -3,6 +3,7 @@ export * from './icons/demo';
 
 export * from './components/aspect-ratio';
 export * from './components/accordion';
+export * from './components/angle-slider';
 export * from './components/alert';
 export * from './components/avatar';
 export * from './components/badge';

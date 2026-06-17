@@ -1,0 +1,352 @@
+---
+title: AngleSlider
+description: A circular angle selector built from Ark-style dial parts.
+icon: Component
+---
+
+import {
+  AngleSliderCssPropertiesPanel,
+  AngleSliderExample,
+  ControlledAngleSliderExample,
+  CustomStylingAngleSliderExample,
+  MarkerAngleSliderExample,
+  ReadOnlyAngleSliderExample,
+  SteppedAngleSliderExample,
+  angleSliderCustomStylingCss,
+  angleSliderMarkerCss,
+} from '@/components/examples/angle-slider';
+
+## API Reference
+
+<BaseUIReference href="https://ark-ui.com/docs/components/angle-slider" />
+
+## Choosing the right component
+
+Use `AngleSlider` when users should set a single angular value on a circular dial.
+
+- Choose **`AngleSlider`** for rotation, heading, spotlight direction, or any other 0-360 degree
+  input.
+- Choose **`Slider`** when the same value should be read as a linear range.
+- Choose **`NumberField`** when exact typed degree entry matters more than direct manipulation.
+
+## Basic
+
+Use Ark-style parts: `AngleSlider.Root`, `AngleSlider.Label`, `AngleSlider.Control`,
+`AngleSlider.Thumb`, `AngleSlider.ValueText`, and `AngleSlider.HiddenInput`.
+
+<Preview>
+  <AngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+
+      export function AngleSliderDemo() {
+        return (
+          <AngleSlider.Root defaultValue={135} aria-label="Rotation">
+            <AngleSlider.Label>Rotation</AngleSlider.Label>
+            <AngleSlider.Control>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+## Install with shadcn (optional)
+
+If you want `AngleSlider` to become part of your own project source instead of staying in
+`node_modules`, install it from the moduix GitHub registry:
+
+<Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
+  <Tab value="npm">
+
+```bash
+npx shadcn@latest add Blinks44/moduix/angle-slider
+```
+
+  </Tab>
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx shadcn@latest add Blinks44/moduix/angle-slider
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx shadcn@latest add Blinks44/moduix/angle-slider
+```
+
+  </Tab>
+  <Tab value="deno">
+
+```bash
+deno x -A npm:shadcn@latest add Blinks44/moduix/angle-slider
+```
+
+  </Tab>
+  <Tab value="aube">
+
+```bash
+aubx shadcn@latest add Blinks44/moduix/angle-slider
+```
+
+  </Tab>
+</Tabs>
+
+This install path also pulls in the shared moduix foundation files that `AngleSlider` depends on,
+such as styles, icons, and small utilities.
+
+## Anatomy
+
+```text
+AngleSlider.Root
+├─ AngleSlider.Label
+├─ AngleSlider.Control
+│  └─ AngleSlider.Thumb
+├─ AngleSlider.ValueText
+└─ AngleSlider.HiddenInput
+```
+
+Optional dial markers:
+
+```text
+AngleSlider.Control
+├─ AngleSlider.MarkerGroup
+│  └─ AngleSlider.Marker[value]
+└─ AngleSlider.Thumb
+```
+
+| Part                      | Role                                                                  |
+| ------------------------- | --------------------------------------------------------------------- |
+| `AngleSlider.Root`        | Owns the current value, Ark interaction state, and form integration.  |
+| `AngleSlider.Label`       | Visible label associated with the slider thumb.                       |
+| `AngleSlider.Control`     | Circular interaction surface for pointer and keyboard input.          |
+| `AngleSlider.Thumb`       | Rotating active indicator and handle.                                 |
+| `AngleSlider.MarkerGroup` | Optional container for static value markers around the dial.          |
+| `AngleSlider.Marker`      | Optional marker positioned by its numeric `value`.                    |
+| `AngleSlider.ValueText`   | Visible formatted value output. Defaults to Ark `valueAsDegree`.      |
+| `AngleSlider.HiddenInput` | Hidden form field for submission. Keep it when the value must submit. |
+
+## Composition
+
+### Recommended defaults
+
+- `defaultValue`: `0`
+- `step`: `1`
+- `disabled`: `false`
+- `readOnly`: `false`
+- `invalid`: `false`
+
+`onValueChange` and `onValueChangeEnd` follow Ark shape and receive `details`
+(`details.value` and `details.valueAsDegree`).
+
+### Behavioral notes
+
+- `AngleSlider` manages a single numeric value only.
+- `AngleSlider.ValueText` renders the current angle text automatically when no children are passed.
+- `AngleSlider.HiddenInput` is opt-in, so form participation stays explicit in composition.
+- Marker ticks are optional. The default moduix recommendation is a clean dial without them.
+
+## Examples
+
+### Controlled
+
+Use controlled state when the angle must stay in sync with other UI or derived application state.
+
+<Preview>
+  <ControlledAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledAngleSliderDemo() {
+        const [value, setValue] = useState(210);
+
+        return (
+          <AngleSlider.Root
+            value={value}
+            aria-label="Heading"
+            onValueChange={(details) => setValue(details.value)}
+          >
+            <AngleSlider.Label>Heading</AngleSlider.Label>
+            <AngleSlider.Control>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Steps
+
+Use `step` when the dial should snap to a discrete angular increment.
+
+<Preview>
+  <SteppedAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+
+      export function SteppedAngleSliderDemo() {
+        return (
+          <AngleSlider.Root defaultValue={60} step={15} aria-label="Snap angle">
+            <AngleSlider.Label>15 Step</AngleSlider.Label>
+            <AngleSlider.Control>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Read Only
+
+Use `readOnly` to preserve the current angle while keeping the dial visible and non-editable.
+
+<Preview>
+  <ReadOnlyAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+
+      export function ReadOnlyAngleSliderDemo() {
+        return (
+          <AngleSlider.Root defaultValue={300} readOnly aria-label="Locked angle">
+            <AngleSlider.Label>Locked angle</AngleSlider.Label>
+            <AngleSlider.Control>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Optional Markers
+
+Add `AngleSlider.MarkerGroup` and `AngleSlider.Marker` when the dial needs visible reference ticks.
+
+<Preview>
+  <MarkerAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+
+      const markerValues = Array.from({ length: 8 }, (_, index) => index * 45);
+
+      export function MarkerAngleSliderDemo() {
+        return (
+          <AngleSlider.Root
+            defaultValue={45}
+            aria-label="Compass heading"
+            className="docs-angle-slider-markers"
+          >
+            <AngleSlider.Label>Compass</AngleSlider.Label>
+            <AngleSlider.Control>
+              <AngleSlider.MarkerGroup>
+                {markerValues.map((value) => (
+                  <AngleSlider.Marker key={value} value={value} />
+                ))}
+              </AngleSlider.MarkerGroup>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{angleSliderMarkerCss}</Preview.CSS>
+</Preview>
+
+### Custom Styling
+
+Use CSS variables and `className` on the exported parts when the dial should match a product-specific
+visual language.
+
+<Preview>
+  <CustomStylingAngleSliderExample />
+
+  <Preview.Code>
+    {`
+      import { AngleSlider } from "moduix";
+
+      export function AngleSliderStylingDemo() {
+        return (
+          <AngleSlider.Root
+            defaultValue={315}
+            aria-label="Spotlight direction"
+            className="docs-angle-slider-spotlight"
+          >
+            <AngleSlider.Label>Spotlight</AngleSlider.Label>
+            <AngleSlider.Control>
+              <AngleSlider.Thumb />
+            </AngleSlider.Control>
+            <AngleSlider.ValueText />
+            <AngleSlider.HiddenInput />
+          </AngleSlider.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{angleSliderCustomStylingCss}</Preview.CSS>
+</Preview>
+
+## Styling
+
+Style `AngleSlider` through `className`, stable `data-slot="angle-slider-*"` hooks, and the public
+`--angle-slider-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="not-prose">
+  <Tabs items={['CSS Variables']} className="mb-0 mt-3">
+    <Tab className="max-h-150 overflow-auto">
+      <AngleSliderCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="angle-slider-root"` owns shared dial layout and text color.
+- `data-slot="angle-slider-label"` and `data-slot="angle-slider-value-text"` own typography.
+- `data-slot="angle-slider-control"` owns the outer ring, inner disc, and center dot.
+- `data-slot="angle-slider-thumb"` owns the rotating thumb and active line.
+- `data-slot="angle-slider-marker-group"` and `data-slot="angle-slider-marker"` are stable hooks
+  for optional dial ticks.
+- Ark also exposes `data-scope="angle-slider"` with `data-part` on every rendered part.
+- `data-disabled`, `data-invalid`, and `data-readonly` are available on the interactive parts.
+- Root CSS variables `--value` and `--angle` remain available for custom visual treatments.
