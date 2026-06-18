@@ -5,6 +5,7 @@ import {
   Portal,
   createListCollection,
   useCombobox,
+  useComboboxContext,
   useFilter,
   useListCollection,
 } from 'moduix';
@@ -43,6 +44,34 @@ const departments = [
   { label: 'Operations', value: 'operations' },
   { label: 'Product', value: 'product' },
   { label: 'Customer Success', value: 'customer-success' },
+];
+
+const seaCreatures = [
+  { label: 'Whale', value: 'whale' },
+  { label: 'Dolphin', value: 'dolphin' },
+  { label: 'Shark', value: 'shark' },
+  { label: 'Octopus', value: 'octopus' },
+  { label: 'Jellyfish', value: 'jellyfish' },
+  { label: 'Seahorse', value: 'seahorse' },
+];
+
+const sizes = [
+  { label: 'Small', value: 'sm' },
+  { label: 'Medium', value: 'md' },
+  { label: 'Large', value: 'lg' },
+  { label: 'Extra Large', value: 'xl' },
+];
+
+type Character = {
+  name: string;
+  height: string;
+  mass: string;
+};
+
+const characters: Character[] = [
+  { name: 'C-3PO', height: '167', mass: '75' },
+  { name: 'R2-D2', height: '96', mass: '32' },
+  { name: 'Luke Skywalker', height: '172', mass: '77' },
 ];
 
 const developerResources = [
@@ -331,6 +360,118 @@ export function AutoHighlightComboboxExample() {
   );
 }
 
+export function InlineAutocompleteComboboxExample() {
+  const { startsWith } = useFilter({ sensitivity: 'base' });
+  const { collection, filter } = useListCollection({
+    initialItems: seaCreatures,
+    filter: startsWith,
+  });
+
+  return (
+    <Combobox.Root
+      collection={collection}
+      inputBehavior="autocomplete"
+      onInputValueChange={(details) => filter(details.inputValue)}
+    >
+      <Combobox.Label>Sea creature</Combobox.Label>
+      <Combobox.Control>
+        <Combobox.Input placeholder="e.g. Dolphin" />
+        <Combobox.ClearTrigger aria-label="Clear selection" />
+        <Combobox.Trigger aria-label="Open options" />
+      </Combobox.Control>
+      <Popup items={collection.items} />
+    </Combobox.Root>
+  );
+}
+
+export function ContextComboboxExample() {
+  const { contains } = useFilter({ sensitivity: 'base' });
+  const { collection, filter } = useListCollection({ initialItems: sizes, filter: contains });
+
+  return (
+    <div className={styles.stack}>
+      <Combobox.Root
+        collection={collection}
+        onInputValueChange={(details) => filter(details.inputValue)}
+      >
+        <Combobox.Context>
+          {(context: UseComboboxContext<(typeof sizes)[number]>) => (
+            <span className={styles.note}>Selected: {context.valueAsString || 'none'}</span>
+          )}
+        </Combobox.Context>
+        <Combobox.Label>Size</Combobox.Label>
+        <Combobox.Control>
+          <Combobox.Input placeholder="e.g. Medium" />
+          <Combobox.ClearTrigger aria-label="Clear selection" />
+          <Combobox.Trigger aria-label="Open options" />
+        </Combobox.Control>
+        <Popup items={collection.items} />
+      </Combobox.Root>
+    </div>
+  );
+}
+
+function RehydrateComboboxValue() {
+  const combobox = useComboboxContext();
+  const hydrated = useRef(false);
+
+  useEffect(() => {
+    if (combobox.value.length && combobox.collection.size && !hydrated.current) {
+      combobox.syncSelectedItems();
+      hydrated.current = true;
+    }
+  }, [combobox]);
+
+  return null;
+}
+
+export function RehydrateValueComboboxExample() {
+  const { collection, set } = useListCollection<Character>({
+    initialItems: [],
+    itemToString: (item) => item.name,
+    itemToValue: (item) => item.name,
+  });
+  const combobox = useCombobox({
+    collection,
+    defaultValue: ['C-3PO'],
+    placeholder: 'e.g. Luke',
+  });
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => set(characters), 400);
+    return () => window.clearTimeout(timeout);
+  }, [set]);
+
+  return (
+    <Combobox.RootProvider value={combobox}>
+      <Combobox.Label>Character</Combobox.Label>
+      <RehydrateComboboxValue />
+      <Combobox.Control>
+        <Combobox.Input />
+        <Combobox.ClearTrigger aria-label="Clear selection" />
+        <Combobox.Trigger aria-label="Open options" />
+      </Combobox.Control>
+      <Portal>
+        <Combobox.Positioner>
+          <Combobox.Content>
+            {collection.size === 0 ? <div className={styles.status}>Loading…</div> : null}
+            <Combobox.List>
+              {collection.items.map((item) => (
+                <Combobox.Item key={item.name} item={item}>
+                  <Combobox.ItemText>
+                    {item.name} · {item.height} cm / {item.mass} kg
+                  </Combobox.ItemText>
+                  <Combobox.ItemIndicator />
+                </Combobox.Item>
+              ))}
+            </Combobox.List>
+          </Combobox.Content>
+        </Combobox.Positioner>
+      </Portal>
+    </Combobox.RootProvider>
+  );
+}
+
 export function LinksComboboxExample() {
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter } = useListCollection({
@@ -597,6 +738,18 @@ export function VirtualizedComboboxExample() {
     </Combobox.Root>
   );
 }
+
+export const comboboxExampleCss = `
+[data-slot='combobox-content'] {
+  min-width: var(--reference-width);
+  transform-origin: var(--transform-origin);
+}
+
+[data-slot='combobox-item'][data-highlighted] {
+  background: var(--combobox-highlight-bg, var(--color-foreground));
+  color: var(--combobox-highlight-color, var(--color-background));
+}
+`;
 
 export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ['--combobox-action-bg', 'transparent', 'Controls action background.'],

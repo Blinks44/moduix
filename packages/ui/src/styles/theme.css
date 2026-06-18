@@ -31,6 +31,7 @@
   --drawer-swipe-movement-y: initial;
   --drawer-swipe-progress: initial;
   --drawer-swipe-strength: initial;
+  --layer-index: initial;
   --nested-dialogs: initial;
   --nested-drawers: initial;
   --popup-height: initial;
@@ -54,6 +55,7 @@
   --toast-swipe-movement-y: initial;
   --transform-origin: initial;
   --width: initial;
+  --z-index: initial;
 
   /* Shared Backdrop */
   --backdrop-bg: initial; /* var(--color-overlay) */

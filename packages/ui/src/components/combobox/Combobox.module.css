@@ -159,12 +159,13 @@
   }
 
   .positioner {
-    z-index: var(--z-popup);
+    z-index: var(--z-index);
     outline: 0;
   }
 
   .content {
     box-sizing: border-box;
+    z-index: calc(var(--z-popup) + var(--layer-index, 0));
     display: flex;
     min-width: var(--reference-width);
     max-width: var(--available-width);

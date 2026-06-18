@@ -26,8 +26,8 @@ filterable collection.
 - `Combobox.Root` requires `collection`; use `createListCollection()` or `useListCollection()`.
 - `onValueChange`, `onInputValueChange`, `onOpenChange`, and `onHighlightChange` preserve Ark detail
   objects without remapping.
-- `Portal`, `createListCollection`, `useListCollection`, `useCombobox`, and `useFilter` are re-exported
-  for the canonical Ark workflows.
+- `Portal`, `createListCollection`, `useListCollection`, `useCombobox`, `useComboboxContext`,
+  `useComboboxItemContext`, and `useFilter` are re-exported for the canonical Ark workflows.
 - `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` provide default moduix
   icons when children are omitted.
 
@@ -112,8 +112,16 @@ export function ComboboxExample() {
   `onInputValueChange`.
 - Creatable values: preserved through `allowCustomValue`.
 - Provider state: `useCombobox` plus `RootProvider`.
-- Context state: `Context` and `ItemContext`.
+- Context state: `Context`, `ItemContext`, `useComboboxContext`, and `useComboboxItemContext`.
+- Async value rehydration: `useComboboxContext().syncSelectedItems()` after a delayed collection
+  receives items for an existing `value` or `defaultValue`.
 - Virtualization: preserved through `scrollToIndexFn` and collection-driven item rendering.
+- Ark `Field.Root` context is preserved by the primitive. The current moduix `Field` wrapper is
+  still Base UI-backed, so consumers that need Ark field-context inheritance must compose with
+  `@ark-ui/react/field` until that component is migrated.
+- Public docs adapt 15 of Ark's 17 React examples (88%). The dedicated Field example is deferred
+  to the moduix Field migration, and matching-text highlighting remains ordinary composition
+  because moduix does not currently ship an Ark Highlight wrapper.
 
 ## Accessibility and state
 
@@ -124,7 +132,7 @@ export function ComboboxExample() {
 - Important hooks include `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
 - Positioning variables include `--reference-width`, `--available-width`, `--available-height`,
-  `--transform-origin`, and `--z-index`.
+  `--transform-origin`, `--z-index`, and `--layer-index`.
 - All Ark DOM parts preserve `asChild`.
 
 ## Defaults and styling
@@ -132,7 +140,9 @@ export function ComboboxExample() {
 - moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
 - `className` is accepted on every visual part.
 - Public component variables are declared in `packages/ui/src/styles/theme.css`.
-- `Content` uses Ark `--reference-width`, `--available-height`, and `--transform-origin`.
+- `Content` uses Ark `--reference-width`, `--available-height`, `--transform-origin`, and
+  `--layer-index`. Its z-index is declared on the content part so Ark can propagate it to
+  `Positioner` through `--z-index`.
 
 ## Intentional sugar and differences from upstream
 
@@ -154,6 +164,11 @@ export function ComboboxExample() {
 
 ## Local changelog
 
+- 2026-06-18: Registered Ark `--layer-index` and `--z-index` in the shared theme runtime-variable
+  declarations.
+- 2026-06-18: Added the missing Ark context hooks to the public barrel, aligned popup layering with
+  Ark's content-to-positioner z-index contract, and documented async value rehydration and the
+  current Ark Field integration boundary.
 - 2026-06-18: Registered Ark `--reference-width` in the shared theme runtime-variable declarations.
 - 2026-06-18: Migrated Combobox from Base UI to Ark UI, replaced the legacy flat API with
   `Combobox.*`, adopted collection-first state and Ark callback details, removed hidden popup and

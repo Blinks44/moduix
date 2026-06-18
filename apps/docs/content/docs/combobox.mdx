@@ -9,15 +9,19 @@ import {
   AutoHighlightComboboxExample,
   ComboboxCssPropertiesPanel,
   ComboboxExample,
+  ContextComboboxExample,
   ControlledComboboxExample,
   CreatableComboboxExample,
   DynamicComboboxExample,
   GroupedComboboxExample,
+  InlineAutocompleteComboboxExample,
   LimitComboboxExample,
   LinksComboboxExample,
   MultipleComboboxExample,
+  RehydrateValueComboboxExample,
   RootProviderComboboxExample,
   VirtualizedComboboxExample,
+  comboboxExampleCss,
 } from '@/components/examples/combobox';
 
 ## API Reference
@@ -80,6 +84,8 @@ Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup s
     `}
 
   </Preview.Code>
+
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -198,6 +204,11 @@ combobox `Status` part.
   `details.reason`.
 - `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
 - All Ark DOM parts preserve `asChild`.
+- `useComboboxContext` and `useComboboxItemContext` are exported from `moduix` alongside
+  `Combobox.Context` and `Combobox.ItemContext`.
+- Ark `Field.Root` state inheritance remains available when composing with `@ark-ui/react/field`.
+  The current moduix `Field` component is still Base UI-backed and does not provide Ark field
+  context.
 
 ## Examples
 
@@ -254,6 +265,8 @@ Enter can select it without an extra arrow-key press.
 
   </Preview.Code>
 
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
   <Preview.Data>
     {`
       const departments = [
@@ -263,6 +276,76 @@ Enter can select it without an extra arrow-key press.
         { label: "Finance", value: "finance" },
         { label: "Human Resources", value: "human-resources" },
         { label: "Operations", value: "operations" },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Inline Autocomplete
+
+Set `inputBehavior="autocomplete"` and filter with `startsWith` to complete the input from the
+first matching item while preserving Ark keyboard navigation.
+
+<Preview>
+  <InlineAutocompleteComboboxExample />
+
+  <Preview.Code>
+    {`
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+
+      export function InlineAutocompleteComboboxDemo() {
+        const { startsWith } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: seaCreatures,
+          filter: startsWith,
+        });
+
+        return (
+          <Combobox.Root
+            collection={collection}
+            inputBehavior="autocomplete"
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <Combobox.Label>Sea creature</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. Dolphin" />
+              <Combobox.ClearTrigger aria-label="Clear selection" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.Empty>No creatures found.</Combobox.Empty>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const seaCreatures = [
+        { label: "Whale", value: "whale" },
+        { label: "Dolphin", value: "dolphin" },
+        { label: "Shark", value: "shark" },
+        { label: "Octopus", value: "octopus" },
+        { label: "Jellyfish", value: "jellyfish" },
+        { label: "Seahorse", value: "seahorse" },
       ];
     `}
 
@@ -321,6 +404,8 @@ as a native link. `selectionBehavior="preserve"` keeps the search text visible d
     `}
 
   </Preview.Code>
+
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -406,6 +491,8 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
     `}
 
   </Preview.Code>
+
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -526,6 +613,8 @@ replace that sentinel value with the user-entered value after selection.
 
   </Preview.Code>
 
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
   <Preview.Data>
     {`
       const issueLabels = [
@@ -594,6 +683,8 @@ popup harder to scan. Filtering still runs against the complete initial collecti
     `}
 
   </Preview.Code>
+
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
 
   <Preview.Data>
     {`
@@ -796,6 +887,8 @@ Control the selected string array and read the next value from `details.value`.
 
   </Preview.Code>
 
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
   <Preview.Data>
     {`
       const fruits = [
@@ -871,6 +964,8 @@ Map object labels and values on the collection, then render Ark item groups from
 
   </Preview.Code>
 
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
   <Preview.Data>
     {`
       const countries = [
@@ -884,6 +979,78 @@ Map object labels and values on the collection, then render Ark item groups from
         { country: "France", code: "FR", continent: "Europe" },
         { country: "Japan", code: "JP", continent: "Asia" },
         { country: "South Korea", code: "KR", continent: "Asia" },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Context
+
+Use `Combobox.Context` for inline access to selected values and root methods without creating a
+separate state owner.
+
+<Preview>
+  <ContextComboboxExample />
+
+  <Preview.Code>
+    {`
+      import type { UseComboboxContext } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+
+      export function ContextComboboxDemo() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: sizes,
+          filter: contains,
+        });
+
+        return (
+          <Combobox.Root
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <Combobox.Context>
+              {(context: UseComboboxContext<(typeof sizes)[number]>) => (
+                <span>Selected: {context.valueAsString || "none"}</span>
+              )}
+            </Combobox.Context>
+            <Combobox.Label>Size</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. Medium" />
+              <Combobox.ClearTrigger aria-label="Clear selection" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const sizes = [
+        { label: "Small", value: "sm" },
+        { label: "Medium", value: "md" },
+        { label: "Large", value: "lg" },
+        { label: "Extra Large", value: "xl" },
       ];
     `}
 
@@ -1083,6 +1250,8 @@ from machine-driven input updates.
 
   </Preview.Code>
 
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
   <Preview.Data>
     {`
       const fruits = [
@@ -1092,6 +1261,107 @@ from machine-driven input updates.
         { label: "Orange", value: "orange" },
         { label: "Pineapple", value: "pineapple" },
         { label: "Strawberry", value: "strawberry" },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Rehydrate Value
+
+When an existing value arrives before its object collection, call
+`useComboboxContext().syncSelectedItems()` after the collection loads so the input can resolve the
+selected object.
+
+<Preview>
+  <RehydrateValueComboboxExample />
+
+  <Preview.Code>
+    {`
+      import {
+        Combobox,
+        Portal,
+        useCombobox,
+        useComboboxContext,
+        useListCollection,
+      } from "moduix";
+      import { useEffect, useRef } from "react";
+
+      function RehydrateComboboxValue() {
+        const combobox = useComboboxContext();
+        const hydrated = useRef(false);
+
+        useEffect(() => {
+          if (
+            combobox.value.length &&
+            combobox.collection.size &&
+            !hydrated.current
+          ) {
+            combobox.syncSelectedItems();
+            hydrated.current = true;
+          }
+        }, [combobox]);
+
+        return null;
+      }
+
+      export function RehydrateValueComboboxDemo() {
+        const { collection, set } = useListCollection({
+          initialItems: [],
+          itemToString: (item) => item.name,
+          itemToValue: (item) => item.name,
+        });
+        const combobox = useCombobox({
+          collection,
+          defaultValue: ["C-3PO"],
+          placeholder: "e.g. Luke",
+        });
+
+        useEffect(() => {
+          const timeout = window.setTimeout(() => set(characters), 400);
+          return () => window.clearTimeout(timeout);
+        }, [set]);
+
+        return (
+          <Combobox.RootProvider value={combobox}>
+            <Combobox.Label>Character</Combobox.Label>
+            <RehydrateComboboxValue />
+            <Combobox.Control>
+              <Combobox.Input />
+              <Combobox.ClearTrigger aria-label="Clear selection" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.name} item={item}>
+                        <Combobox.ItemText>
+                          {item.name} · {item.height} cm / {item.mass} kg
+                        </Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.RootProvider>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const characters = [
+        { name: "C-3PO", height: "167", mass: "75" },
+        { name: "R2-D2", height: "96", mass: "32" },
+        { name: "Luke Skywalker", height: "172", mass: "77" },
       ];
     `}
 
@@ -1154,6 +1424,8 @@ state before the root renders.
 
   </Preview.Code>
 
+<Preview.CSS>{comboboxExampleCss}</Preview.CSS>
+
   <Preview.Data>
     {`
       const jobTitles = [
@@ -1187,4 +1459,4 @@ state before the root renders.
 - Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
 - Ark positioning variables include `--reference-width`, `--available-width`,
-  `--available-height`, `--transform-origin`, and `--z-index`.
+  `--available-height`, `--transform-origin`, `--z-index`, and `--layer-index`.

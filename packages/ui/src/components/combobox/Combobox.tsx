@@ -8,6 +8,8 @@ import {
   type ComboboxRootProviderProps,
   createListCollection,
   useCombobox,
+  useComboboxContext,
+  useComboboxItemContext,
   useListCollection,
 } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
@@ -272,7 +274,16 @@ const Combobox = Object.assign(ComboboxRoot, {
   ItemContext: ComboboxItemContext,
 });
 
-export { Combobox, Portal, createListCollection, useCombobox, useFilter, useListCollection };
+export {
+  Combobox,
+  Portal,
+  createListCollection,
+  useCombobox,
+  useComboboxContext,
+  useComboboxItemContext,
+  useFilter,
+  useListCollection,
+};
 export type {
   CollectionItem,
   ComboboxFocusOutsideEvent,
@@ -285,6 +296,7 @@ export type {
   ComboboxValueChangeDetails,
   ListCollection,
   UseComboboxContext,
+  UseComboboxItemContext,
   UseComboboxProps,
   UseComboboxReturn,
   UseListCollectionProps,
