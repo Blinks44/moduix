@@ -3,6 +3,9 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Ark UI refs: https://ark-ui.com/docs/guides/ref
+- Chakra UI: https://chakra-ui.com/docs/components/bleed
 
 ## Purpose
 
@@ -18,6 +21,8 @@ Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 - Uses the Ark factory composition model instead of a dedicated Ark primitive.
 - Keeps the API intentionally small: one root part with polymorphic DOM ownership through `asChild`.
 - Keeps the layout model explicit: negative inline and block margins on a single root.
+- Uses Chakra's `inline` and `block` axis model as a secondary reference while keeping moduix's
+  token-based values and full-viewport mode.
 
 ## Current behavior contract
 
@@ -53,12 +58,12 @@ Every exported part accepts `className` and uses the standard hooks below:
 ```tsx
 import { Bleed } from 'moduix';
 
-<Bleed.Root asChild>
+<Bleed asChild>
   <figure>
     <img src="/hero.png" alt="Map preview" />
     <figcaption>Full-width media inside a constrained article.</figcaption>
   </figure>
-</Bleed.Root>;
+</Bleed>;
 ```
 
 `Bleed` is composition-first: put any visual surface, media, text, or semantic content inside it.
@@ -67,14 +72,21 @@ Use `asChild` when another element should own the rendered DOM node.
 ## Upstream feature coverage
 
 - `Composition`: preserved through Ark factory `asChild` behavior.
+- `Styling`: follows Ark's `className`, `data-scope`, and `data-part` guidance.
+- `Refs`: the forwarded ref targets the rendered root, or the single child element with `asChild`.
 - `Dedicated primitive features`: not applicable because Ark has no dedicated `Bleed` component
   page for this wrapper to mirror.
 - `Stateful or behavioral patterns`: intentionally unsupported; `Bleed` remains a single-root
   layout primitive.
+- `Chakra directional props`: intentionally not exposed. moduix supports axis-level `inline` and
+  `block` modes, not `inlineStart`, `inlineEnd`, `blockStart`, or `blockEnd`.
 
 ## Accessibility and state
 
 - `Bleed` has no managed state, callbacks, or ARIA behavior.
+- `asChild` requires exactly one semantic child that accepts DOM props and a ref.
+- A normal root ref resolves to `HTMLDivElement`; with `asChild`, Ark forwards it to the rendered
+  child element.
 - The root keeps stable hooks for styling and test targeting:
   - `data-scope`
   - `data-part`
@@ -116,6 +128,8 @@ Public CSS variables:
 - The old `as` prop was removed in favor of Ark `asChild`.
 - moduix adds Ark-style namespace access through `Bleed.Root`.
 - moduix adds Ark-style `data-scope` and `data-part` hooks on the root.
+- moduix defaults to token-based axis values and adds `inline="full"`; this differs from Chakra's
+  arbitrary style-value and one-sided direction props.
 
 ## Agent notes
 
@@ -128,5 +142,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-06-18: Completed the Ark migration audit, documented factory composition, ref and
+  `asChild` constraints, Chakra-informed differences, and the preferred root-only `<Bleed />`
+  usage.
 - 2026-06-17: Migrated `Bleed` to an Ark-aligned factory wrapper, added `Bleed.Root`, replaced
   `as` with `asChild`, and aligned docs/examples to the new root contract.

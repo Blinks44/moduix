@@ -3,7 +3,7 @@
   "name": "bleed",
   "title": "Bleed",
   "description": "moduix Bleed component.",
-  "dependencies": ["clsx"],
+  "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/core"],
   "files": [
     {

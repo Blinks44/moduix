@@ -3,6 +3,58 @@ import { Bleed, Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
+const basicContent = {
+  before: 'Container content stays constrained.',
+  surface: 'This block bleeds to the viewport edges.',
+  after: 'Following content returns to the container width.',
+};
+
+const inlineAmounts = [
+  { label: 'Small inline bleed', value: 'sm' },
+  { label: 'Large inline bleed', value: 'lg' },
+  { label: 'Full inline bleed', value: 'full' },
+] as const;
+
+const blockContent = {
+  before: 'Container padding above.',
+  surface: 'Inline and block bleed',
+  after: 'Container padding below.',
+};
+
+const semanticContent = {
+  caption: 'Full-width media with a constrained parent.',
+};
+
+const customContent = {
+  surface: 'Customized bleed amount.',
+};
+
+export const bleedBasicData = `const content = {
+  before: 'Container content stays constrained.',
+  surface: 'This block bleeds to the viewport edges.',
+  after: 'Following content returns to the container width.',
+};`;
+
+export const bleedInlineAmountsData = `const inlineAmounts = [
+  { label: 'Small inline bleed', value: 'sm' },
+  { label: 'Large inline bleed', value: 'lg' },
+  { label: 'Full inline bleed', value: 'full' },
+] as const;`;
+
+export const bleedBlockData = `const content = {
+  before: 'Container padding above.',
+  surface: 'Inline and block bleed',
+  after: 'Container padding below.',
+};`;
+
+export const bleedSemanticData = `const content = {
+  caption: 'Full-width media with a constrained parent.',
+};`;
+
+export const bleedCustomStylingData = `const content = {
+  surface: 'Customized bleed amount.',
+};`;
+
 export const bleedCssProperties: CssProperty[] = [
   {
     name: '--bleed-block-xs',
@@ -73,11 +125,11 @@ export function BleedCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
 export function BleedExample(props: ComponentProps<typeof Bleed.Root>) {
   return (
     <div className="bleed-demo-container">
-      <Text tone="muted">Container content stays constrained.</Text>
-      <Bleed.Root className="bleed-demo-surface" {...props}>
-        <Text weight="semibold">This block bleeds to the viewport edges.</Text>
-      </Bleed.Root>
-      <Text tone="muted">Following content returns to the container width.</Text>
+      <Text tone="muted">{basicContent.before}</Text>
+      <Bleed className="bleed-demo-surface" {...props}>
+        <Text weight="semibold">{basicContent.surface}</Text>
+      </Bleed>
+      <Text tone="muted">{basicContent.after}</Text>
     </div>
   );
 }
@@ -85,15 +137,11 @@ export function BleedExample(props: ComponentProps<typeof Bleed.Root>) {
 export function BleedInlineAmountsExample() {
   return (
     <div className="bleed-demo-container">
-      <Bleed.Root inline="sm" className="bleed-demo-panel">
-        <Text>Small inline bleed</Text>
-      </Bleed.Root>
-      <Bleed.Root inline="lg" className="bleed-demo-panel">
-        <Text>Large inline bleed</Text>
-      </Bleed.Root>
-      <Bleed.Root inline="full" className="bleed-demo-panel">
-        <Text>Full inline bleed</Text>
-      </Bleed.Root>
+      {inlineAmounts.map((amount) => (
+        <Bleed key={amount.value} inline={amount.value} className="bleed-demo-panel">
+          <Text>{amount.label}</Text>
+        </Bleed>
+      ))}
     </div>
   );
 }
@@ -101,11 +149,11 @@ export function BleedInlineAmountsExample() {
 export function BleedBlockExample() {
   return (
     <div className="bleed-demo-padded-container">
-      <Text tone="muted">Container padding above.</Text>
-      <Bleed.Root inline="md" block="md" className="bleed-demo-panel">
-        <Text>Inline and block bleed</Text>
-      </Bleed.Root>
-      <Text tone="muted">Container padding below.</Text>
+      <Text tone="muted">{blockContent.before}</Text>
+      <Bleed inline="md" block="md" className="bleed-demo-panel">
+        <Text>{blockContent.surface}</Text>
+      </Bleed>
+      <Text tone="muted">{blockContent.after}</Text>
     </div>
   );
 }
@@ -113,14 +161,14 @@ export function BleedBlockExample() {
 export function BleedSemanticExample() {
   return (
     <div className="bleed-demo-container">
-      <Bleed.Root asChild className="bleed-demo-figure">
+      <Bleed asChild className="bleed-demo-figure">
         <figure>
           <div className="bleed-demo-media" />
           <Text tone="muted" size="sm">
-            Full-width media with a constrained parent.
+            {semanticContent.caption}
           </Text>
         </figure>
-      </Bleed.Root>
+      </Bleed>
     </div>
   );
 }
@@ -128,9 +176,9 @@ export function BleedSemanticExample() {
 export function CustomStylingBleedExample() {
   return (
     <div className="bleed-demo-container">
-      <Bleed.Root className="bleed-demo-custom-surface">
-        <Text weight="semibold">Customized bleed amount.</Text>
-      </Bleed.Root>
+      <Bleed className="bleed-demo-custom-surface">
+        <Text weight="semibold">{customContent.surface}</Text>
+      </Bleed>
     </div>
   );
 }
