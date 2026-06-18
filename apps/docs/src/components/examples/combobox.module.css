@@ -1,85 +1,66 @@
-.popupWithInlineInput {
-  --inline-input-container-height: calc(
-    var(--combobox-control-height, var(--size-lg)) + var(--spacing-2) + var(--spacing-2) +
-      var(--border-width-sm)
-  );
-}
-
-.listWithInlineInput {
-  max-height: min(
-    calc(
-      var(--combobox-list-max-height, var(--combobox-popup-max-height, 24rem)) -
-        var(--inline-input-container-height, 0px)
-    ),
-    calc(var(--available-height) - var(--inline-input-container-height, 0px))
-  );
-  padding-top: 0.375rem;
-  padding-bottom: 0.5rem;
-  scroll-padding-top: 0.375rem;
-  scroll-padding-bottom: 0.5rem;
-}
-
-.multipleField {
-  width: fit-content;
-  max-width: min(100%, 28rem);
-}
-
-.multipleInputGroup {
-  min-height: var(--combobox-control-height, var(--size-lg));
-  height: auto;
-  padding: var(--spacing-1);
-}
-
-.itemTextWithIcon {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2);
-}
-
-.itemIcon {
-  flex-shrink: 0;
-  width: 1rem;
-  height: 1rem;
-}
-
-.multilineItemText {
+.stack {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
-  white-space: normal;
-}
-
-.itemTitle {
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
-  font-weight: var(--weight-semibold);
-}
-
-.itemMeta {
-  display: flex;
-  flex-wrap: wrap;
   gap: var(--spacing-2);
+}
+
+.note,
+.status {
+  color: var(--color-muted-foreground);
   font-size: var(--text-xs);
   line-height: var(--line-height-text-xs);
-  color: var(--combobox-empty-color, var(--color-muted-foreground));
 }
 
-.customPopup {
-  --combobox-popup-bg: var(--color-background);
-  --combobox-popup-border-color: var(--color-ring);
-  --combobox-shadow: var(--shadow-xl);
+.status {
+  padding: var(--spacing-3);
 }
 
-.backdrop {
-  --combobox-backdrop-bg: var(--color-overlay);
-  --combobox-backdrop-blur: 4px;
+.tags {
+  display: flex;
+  min-height: 1.5rem;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
 }
 
-.arrow {
-  --combobox-arrow-stroke-color: var(--combobox-popup-border-color);
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-1) var(--spacing-2);
+  background: var(--color-muted);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
 }
 
-.customInputGroup {
+.providerLayout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+}
+
+.button {
+  min-height: var(--size-lg);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding-inline: var(--spacing-3);
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.virtualContent {
+  overflow: hidden;
+}
+
+.virtualScroller {
+  height: min(16rem, var(--available-height, 16rem));
+  overflow: auto;
+}
+
+.virtualList {
   position: relative;
-  z-index: var(--z-popup);
+}
+
+.virtualItem {
+  position: absolute;
+  inset: 0 0 auto;
 }

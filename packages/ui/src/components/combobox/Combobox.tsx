@@ -1,536 +1,291 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
+import type { ForwardedRef } from 'react';
+import {
+  Combobox as ComboboxPrimitive,
+  type CollectionItem,
+  type ComboboxRootComponent,
+  type ComboboxRootProps,
+  type ComboboxRootProviderComponent,
+  type ComboboxRootProviderProps,
+  createListCollection,
+  useCombobox,
+  useListCollection,
+} from '@ark-ui/react/combobox';
+import { useFilter } from '@ark-ui/react/locale';
+import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpDownIcon,
-  CloseIcon,
-  PopupArrowIcon,
-} from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Combobox.module.css';
 
-type IndicatorPosition = 'start' | 'end' | 'none';
-type ComboboxContentProps = ComboboxPrimitive.Popup.Props & {
-  side?: ComboboxPrimitive.Positioner.Props['side'];
-  sideOffset?: ComboboxPrimitive.Positioner.Props['sideOffset'];
-  align?: ComboboxPrimitive.Positioner.Props['align'];
-  alignOffset?: ComboboxPrimitive.Positioner.Props['alignOffset'];
-  arrowPadding?: ComboboxPrimitive.Positioner.Props['arrowPadding'];
-  collisionAvoidance?: ComboboxPrimitive.Positioner.Props['collisionAvoidance'];
-  collisionBoundary?: ComboboxPrimitive.Positioner.Props['collisionBoundary'];
-  collisionPadding?: ComboboxPrimitive.Positioner.Props['collisionPadding'];
-  showArrow?: boolean;
-};
+const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
+  { className, ...props }: ComboboxRootProps<T>,
+  ref: ForwardedRef<HTMLDivElement>,
+) {
+  return (
+    <ComboboxPrimitive.Root
+      ref={ref}
+      data-slot="combobox-root"
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+}) as ComboboxRootComponent;
 
-const COMBOBOX_CONTENT_SIDE_OFFSET = 5;
+const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends CollectionItem>(
+  { className, ...props }: ComboboxRootProviderProps<T>,
+  ref: ForwardedRef<HTMLDivElement>,
+) {
+  return (
+    <ComboboxPrimitive.RootProvider
+      ref={ref}
+      data-slot="combobox-root-provider"
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+}) as ComboboxRootProviderComponent;
 
-const Combobox = ComboboxPrimitive.Root;
-
-function ComboboxField({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="combobox-field" className={clsx(styles.field, className)} {...props} />;
-}
-
-const ComboboxFieldLabel = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Label>,
-  ComboboxPrimitive.Label.Props
->(function ComboboxFieldLabel({ className, ...props }, ref) {
+const ComboboxLabel = forwardRef<
+  HTMLLabelElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Label>
+>(function ComboboxLabel({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Label
       ref={ref}
-      data-slot="combobox-field-label"
-      className={mergeClassName(className, styles.fieldLabel)}
+      data-slot="combobox-label"
+      className={clsx(styles.label, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-function ComboboxValue(props: ComboboxPrimitive.Value.Props) {
-  return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />;
-}
-
-const ComboboxInlineInputContainer = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
-  function ComboboxInlineInputContainer({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="combobox-inline-input-container"
-        className={clsx(styles.inlineInputContainer, className)}
-        {...props}
-      />
-    );
-  },
-);
-
-const ComboboxInputGroup = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.InputGroup>,
-  ComboboxPrimitive.InputGroup.Props
->(function ComboboxInputGroup({ className, ...props }, ref) {
+const ComboboxControl = forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Control>
+>(function ComboboxControl({ className, ...props }, ref) {
   return (
-    <ComboboxPrimitive.InputGroup
+    <ComboboxPrimitive.Control
       ref={ref}
-      data-slot="combobox-input-group"
-      className={mergeClassName(className, styles.inputGroup)}
+      data-slot="combobox-control"
+      className={clsx(styles.control, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
 const ComboboxInput = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Input>,
-  ComboboxPrimitive.Input.Props
+  HTMLInputElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Input>
 >(function ComboboxInput({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Input
       ref={ref}
       data-slot="combobox-input"
-      className={mergeClassName(className, styles.input)}
+      className={clsx(styles.input, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-function ComboboxControlActions({ className, ...props }: ComponentProps<'div'>) {
+const ComboboxClearTrigger = forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
+>(function ComboboxClearTrigger({ className, children, ...props }, ref) {
   return (
-    <div
-      data-slot="combobox-control-actions"
-      className={clsx(styles.controlActions, className)}
+    <ComboboxPrimitive.ClearTrigger
+      ref={ref}
+      data-slot="combobox-clear-trigger"
+      className={clsx(styles.clearTrigger, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {children ?? <CloseIcon />}
+    </ComboboxPrimitive.ClearTrigger>
   );
-}
+});
 
 const ComboboxTrigger = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Trigger>,
-  ComboboxPrimitive.Trigger.Props
+  HTMLButtonElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Trigger>
 >(function ComboboxTrigger({ className, children, ...props }, ref) {
   return (
     <ComboboxPrimitive.Trigger
       ref={ref}
       data-slot="combobox-trigger"
-      className={mergeClassName(className, styles.trigger)}
+      className={clsx(styles.trigger, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <ChevronDownIcon className={styles.iconSvg} />}
+      {children ?? <ChevronUpDownIcon />}
     </ComboboxPrimitive.Trigger>
   );
 });
 
-const ComboboxFieldTrigger = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Trigger>,
-  ComboboxPrimitive.Trigger.Props
->(function ComboboxFieldTrigger({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Trigger
-      ref={ref}
-      data-slot="combobox-field-trigger"
-      className={mergeClassName(className, styles.fieldTrigger)}
-      {...props}
-    />
-  );
-});
-
-const ComboboxIcon = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Icon>,
-  ComboboxPrimitive.Icon.Props
->(function ComboboxIcon({ className, children, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Icon
-      ref={ref}
-      data-slot="combobox-icon"
-      className={mergeClassName(className, styles.icon)}
-      {...props}
-    >
-      {children ?? <ChevronUpDownIcon className={styles.iconSvg} />}
-    </ComboboxPrimitive.Icon>
-  );
-});
-
-const ComboboxClear = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Clear>,
-  ComboboxPrimitive.Clear.Props
->(function ComboboxClear({ className, children, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Clear
-      ref={ref}
-      data-slot="combobox-clear"
-      className={mergeClassName(className, styles.clear)}
-      {...props}
-    >
-      {children ?? <CloseIcon className={styles.iconSvg} />}
-    </ComboboxPrimitive.Clear>
-  );
-});
-
-const ComboboxPortal = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Portal>,
-  ComboboxPrimitive.Portal.Props
->(function ComboboxPortal({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Portal
-      ref={ref}
-      data-slot="combobox-portal"
-      className={className}
-      {...props}
-    />
-  );
-});
-
-const ComboboxBackdrop = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Backdrop>,
-  ComboboxPrimitive.Backdrop.Props
->(function ComboboxBackdrop({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Backdrop
-      ref={ref}
-      data-slot="combobox-backdrop"
-      className={mergeClassName(className, styles.backdrop)}
-      {...props}
-    />
-  );
-});
-
 const ComboboxPositioner = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Positioner>,
-  ComboboxPrimitive.Positioner.Props
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Positioner>
 >(function ComboboxPositioner({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Positioner
       ref={ref}
       data-slot="combobox-positioner"
-      className={mergeClassName(className, styles.positioner)}
+      className={clsx(styles.positioner, normalizeClassName(className))}
       {...props}
     />
-  );
-});
-
-const ComboboxPopup = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Popup>,
-  ComboboxPrimitive.Popup.Props
->(function ComboboxPopup({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Popup
-      ref={ref}
-      data-slot="combobox-popup"
-      className={mergeClassName(className, styles.popup)}
-      {...props}
-    />
-  );
-});
-
-const ComboboxArrow = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Arrow>,
-  ComboboxPrimitive.Arrow.Props
->(function ComboboxArrow({ className, children, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Arrow
-      ref={ref}
-      data-slot="combobox-arrow"
-      className={mergeClassName(className, styles.arrow)}
-      {...props}
-    >
-      {children ?? <ArrowSvg className={styles.arrowSvg} />}
-    </ComboboxPrimitive.Arrow>
   );
 });
 
 const ComboboxContent = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Popup>,
-  ComboboxContentProps
->(function ComboboxContent(
-  {
-    className,
-    showArrow = false,
-    children,
-    side,
-    sideOffset = COMBOBOX_CONTENT_SIDE_OFFSET,
-    align,
-    alignOffset,
-    arrowPadding,
-    collisionAvoidance,
-    collisionBoundary,
-    collisionPadding,
-    ...popupProps
-  },
-  ref,
-) {
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Content>
+>(function ComboboxContent({ className, ...props }, ref) {
   return (
-    <ComboboxPortal>
-      <ComboboxPositioner
-        side={side}
-        sideOffset={sideOffset}
-        align={align}
-        alignOffset={alignOffset}
-        arrowPadding={arrowPadding}
-        collisionAvoidance={collisionAvoidance}
-        collisionBoundary={collisionBoundary}
-        collisionPadding={collisionPadding}
-      >
-        <ComboboxPopup ref={ref} className={className} {...popupProps}>
-          {showArrow ? <ComboboxArrow /> : null}
-          {children}
-        </ComboboxPopup>
-      </ComboboxPositioner>
-    </ComboboxPortal>
-  );
-});
-
-const ComboboxStatus = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Status>,
-  ComboboxPrimitive.Status.Props
->(function ComboboxStatus({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Status
+    <ComboboxPrimitive.Content
       ref={ref}
-      data-slot="combobox-status"
-      className={mergeClassName(className, styles.status)}
+      data-slot="combobox-content"
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
 const ComboboxEmpty = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Empty>,
-  ComboboxPrimitive.Empty.Props
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Empty>
 >(function ComboboxEmpty({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Empty
       ref={ref}
       data-slot="combobox-empty"
-      className={mergeClassName(className, styles.empty)}
+      className={clsx(styles.empty, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
 const ComboboxList = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.List>,
-  ComboboxPrimitive.List.Props
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.List>
 >(function ComboboxList({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.List
       ref={ref}
       data-slot="combobox-list"
-      className={mergeClassName(className, styles.list)}
+      className={clsx(styles.list, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-const ComboboxRow = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Row>,
-  ComboboxPrimitive.Row.Props
->(function ComboboxRow({ className, ...props }, ref) {
+const ComboboxItemGroup = forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.ItemGroup>
+>(function ComboboxItemGroup({ className, ...props }, ref) {
   return (
-    <ComboboxPrimitive.Row
+    <ComboboxPrimitive.ItemGroup
       ref={ref}
-      data-slot="combobox-row"
-      className={mergeClassName(className, styles.row)}
+      data-slot="combobox-item-group"
+      className={clsx(styles.itemGroup, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const ComboboxItemGroupLabel = forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.ItemGroupLabel>
+>(function ComboboxItemGroupLabel({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.ItemGroupLabel
+      ref={ref}
+      data-slot="combobox-item-group-label"
+      className={clsx(styles.itemGroupLabel, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
 const ComboboxItem = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Item>,
-  ComboboxPrimitive.Item.Props & {
-    indicator?: IndicatorPosition;
-  }
->(function ComboboxItem({ className, indicator, ...props }, ref) {
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.Item>
+>(function ComboboxItem({ className, ...props }, ref) {
   return (
     <ComboboxPrimitive.Item
       ref={ref}
       data-slot="combobox-item"
-      data-indicator-position={indicator}
-      className={mergeClassName(className, styles.item)}
+      className={clsx(styles.item, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const ComboboxItemText = forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.ItemText>
+>(function ComboboxItemText({ className, ...props }, ref) {
+  return (
+    <ComboboxPrimitive.ItemText
+      ref={ref}
+      data-slot="combobox-item-text"
+      className={clsx(styles.itemText, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
 const ComboboxItemIndicator = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.ItemIndicator>,
-  ComboboxPrimitive.ItemIndicator.Props
+  HTMLDivElement,
+  React.ComponentProps<typeof ComboboxPrimitive.ItemIndicator>
 >(function ComboboxItemIndicator({ className, children, ...props }, ref) {
   return (
     <ComboboxPrimitive.ItemIndicator
       ref={ref}
       data-slot="combobox-item-indicator"
-      className={mergeClassName(className, styles.itemIndicator)}
+      className={clsx(styles.itemIndicator, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <CheckIcon className={styles.itemIndicatorIcon} />}
+      {children ?? <CheckIcon />}
     </ComboboxPrimitive.ItemIndicator>
   );
 });
 
-function ComboboxItemText({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span data-slot="combobox-item-text" className={clsx(styles.itemText, className)} {...props} />
-  );
-}
+const ComboboxContext = ComboboxPrimitive.Context;
+const ComboboxItemContext = ComboboxPrimitive.ItemContext;
 
-const ComboboxSeparator = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Separator>,
-  ComboboxPrimitive.Separator.Props
->(function ComboboxSeparator({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Separator
-      ref={ref}
-      data-slot="combobox-separator"
-      className={mergeClassName(className, styles.separator)}
-      {...props}
-    />
-  );
+const Combobox = Object.assign(ComboboxRoot, {
+  Root: ComboboxRoot,
+  RootProvider: ComboboxRootProvider,
+  Label: ComboboxLabel,
+  Control: ComboboxControl,
+  Input: ComboboxInput,
+  ClearTrigger: ComboboxClearTrigger,
+  Trigger: ComboboxTrigger,
+  Positioner: ComboboxPositioner,
+  Content: ComboboxContent,
+  Empty: ComboboxEmpty,
+  List: ComboboxList,
+  ItemGroup: ComboboxItemGroup,
+  ItemGroupLabel: ComboboxItemGroupLabel,
+  Item: ComboboxItem,
+  ItemText: ComboboxItemText,
+  ItemIndicator: ComboboxItemIndicator,
+  Context: ComboboxContext,
+  ItemContext: ComboboxItemContext,
 });
 
-const ComboboxGroup = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Group>,
-  ComboboxPrimitive.Group.Props
->(function ComboboxGroup({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Group
-      ref={ref}
-      data-slot="combobox-group"
-      className={mergeClassName(className, styles.group)}
-      {...props}
-    />
-  );
-});
-
-const ComboboxGroupLabel = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.GroupLabel>,
-  ComboboxPrimitive.GroupLabel.Props
->(function ComboboxGroupLabel({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.GroupLabel
-      ref={ref}
-      data-slot="combobox-group-label"
-      className={mergeClassName(className, styles.groupLabel)}
-      {...props}
-    />
-  );
-});
-
-function ComboboxCollection(props: ComboboxPrimitive.Collection.Props) {
-  return <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />;
-}
-
-const ComboboxChips = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Chips>,
-  ComboboxPrimitive.Chips.Props
->(function ComboboxChips({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Chips
-      ref={ref}
-      data-slot="combobox-chips"
-      className={mergeClassName(className, styles.chips)}
-      {...props}
-    />
-  );
-});
-
-const ComboboxChip = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Chip>,
-  ComboboxPrimitive.Chip.Props
->(function ComboboxChip({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Chip
-      ref={ref}
-      data-slot="combobox-chip"
-      className={mergeClassName(className, styles.chip)}
-      {...props}
-    />
-  );
-});
-
-const ComboboxChipRemove = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.ChipRemove>,
-  ComboboxPrimitive.ChipRemove.Props
->(function ComboboxChipRemove({ className, children, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.ChipRemove
-      ref={ref}
-      data-slot="combobox-chip-remove"
-      className={mergeClassName(className, styles.chipRemove)}
-      {...props}
-    >
-      {children ?? <CloseIcon className={styles.chipRemoveIcon} />}
-    </ComboboxPrimitive.ChipRemove>
-  );
-});
-
-function ComboboxChipText({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span data-slot="combobox-chip-text" className={clsx(styles.chipText, className)} {...props} />
-  );
-}
-
-const ComboboxChipsInput = forwardRef<
-  ComponentRef<typeof ComboboxPrimitive.Input>,
-  ComboboxPrimitive.Input.Props
->(function ComboboxChipsInput({ className, ...props }, ref) {
-  return (
-    <ComboboxPrimitive.Input
-      ref={ref}
-      data-slot="combobox-chips-input"
-      className={mergeClassName(className, styles.chipsInput)}
-      {...props}
-    />
-  );
-});
-
-const useComboboxFilter = ComboboxPrimitive.useFilter;
-const useComboboxFilteredItems = ComboboxPrimitive.useFilteredItems;
-
-function ArrowSvg(props: ComponentProps<'svg'>) {
-  return (
-    <PopupArrowIcon
-      fillClassName={styles.arrowFill}
-      outerStrokeClassName={styles.arrowOuterStroke}
-      innerStrokeClassName={styles.arrowInnerStroke}
-      {...props}
-    />
-  );
-}
-
-export {
-  Combobox,
-  ComboboxField,
-  ComboboxFieldLabel,
-  ComboboxValue,
-  ComboboxInlineInputContainer,
-  ComboboxInputGroup,
-  ComboboxInput,
-  ComboboxControlActions,
-  ComboboxTrigger,
-  ComboboxFieldTrigger,
-  ComboboxIcon,
-  ComboboxClear,
-  ComboboxPortal,
-  ComboboxBackdrop,
-  ComboboxPositioner,
-  ComboboxPopup,
-  ComboboxContent,
-  ComboboxArrow,
-  ComboboxStatus,
-  ComboboxEmpty,
-  ComboboxList,
-  ComboboxRow,
-  ComboboxItem,
-  ComboboxItemIndicator,
-  ComboboxItemText,
-  ComboboxSeparator,
-  ComboboxGroup,
-  ComboboxGroupLabel,
-  ComboboxCollection,
-  ComboboxChips,
-  ComboboxChip,
-  ComboboxChipRemove,
-  ComboboxChipText,
-  ComboboxChipsInput,
-  useComboboxFilter,
-  useComboboxFilteredItems,
-};
+export { Combobox, Portal, createListCollection, useCombobox, useFilter, useListCollection };
+export type {
+  CollectionItem,
+  ComboboxFocusOutsideEvent,
+  ComboboxHighlightChangeDetails,
+  ComboboxInputValueChangeDetails,
+  ComboboxInteractOutsideEvent,
+  ComboboxOpenChangeDetails,
+  ComboboxPointerDownOutsideEvent,
+  ComboboxSelectionDetails,
+  ComboboxValueChangeDetails,
+  ListCollection,
+  UseComboboxContext,
+  UseComboboxProps,
+  UseComboboxReturn,
+  UseListCollectionProps,
+} from '@ark-ui/react/combobox';

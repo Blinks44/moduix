@@ -1,87 +1,80 @@
 ---
 title: Combobox
-description: An input combined with a filterable list of predefined values.
+description: A filterable input for selecting one or more values from an Ark UI collection.
 icon: Component
 ---
 
 import {
   AsyncSearchComboboxExample,
-  ComboboxExample,
+  AutoHighlightComboboxExample,
   ComboboxCssPropertiesPanel,
-  CustomCompositionComboboxExample,
+  ComboboxExample,
+  ControlledComboboxExample,
+  CreatableComboboxExample,
+  DynamicComboboxExample,
   GroupedComboboxExample,
-  IndicatorRightComboboxExample,
-  InputInsidePopupComboboxExample,
+  LimitComboboxExample,
+  LinksComboboxExample,
   MultipleComboboxExample,
+  RootProviderComboboxExample,
+  VirtualizedComboboxExample,
 } from '@/components/examples/combobox';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/combobox" />
+<BaseUIReference href="https://ark-ui.com/docs/components/combobox" />
 
 ## Choosing the right component
 
-Use `Combobox` when users must choose from a known dataset, but typing is useful for searching
-or filtering the available options.
-
-- Choose **`Combobox`** when users must choose predefined options, but typing helps search or filter the list.
-- Choose **`Select`** when users must choose predefined options and typing in the trigger is not needed.
+Use `Combobox` when users select from known values and typing helps filter the available options.
+Use `Select` when the same predefined choice does not need an editable input.
 
 ## Basic
 
-Start with `Combobox`, `ComboboxField`, `ComboboxInputGroup`, `ComboboxInput`, and
-`ComboboxContent`. This is the recommended path for searchable single-select fields.
+Create an Ark `ListCollection`, pass it to `Combobox.Root`, and keep the popup structure explicit.
+`onInputValueChange` receives an Ark details object.
 
 <Preview>
   <ComboboxExample />
 
   <Preview.Code>
     {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxContent,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-      import { useId } from "react";
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
 
       export function ComboboxDemo() {
-        const id = useId();
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: fruits,
+          filter: contains,
+        });
 
         return (
-          <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <label htmlFor={id}>Choose fruit</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Mango" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open options" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4}>
-              <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-              <ComboboxList>
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
+          <Combobox.Root
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <Combobox.Label>Choose fruit</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. Mango" />
+              <Combobox.ClearTrigger aria-label="Clear selection" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.Empty>No fruits found.</Combobox.Empty>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
         );
       }
     `}
@@ -91,9 +84,9 @@ Start with `Combobox`, `ComboboxField`, `ComboboxInputGroup`, `ComboboxInput`, a
   <Preview.Data>
     {`
       const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
       ];
     `}
 
@@ -102,8 +95,7 @@ Start with `Combobox`, `ComboboxField`, `ComboboxInputGroup`, `ComboboxInput`, a
 
 ## Install with shadcn (optional)
 
-If you want `Combobox` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
+Install the registry source when the component should live in your application:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -143,159 +135,569 @@ aubx shadcn@latest add Blinks44/moduix/combobox
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Combobox` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-`Combobox` keeps popup infrastructure behind `ComboboxContent`, so the common composition stays
-short and focused on the actual field and list parts.
-
 ```text
-Combobox
-├─ ComboboxField
-│  ├─ label (native)
-│  └─ ComboboxInputGroup
-│     ├─ ComboboxInput
-│     └─ ComboboxControlActions
-│        ├─ ComboboxClear
-│        └─ ComboboxTrigger
-└─ ComboboxContent
-   ├─ ComboboxInlineInputContainer (optional)
-   ├─ ComboboxStatus / ComboboxEmpty
-   └─ ComboboxList
-      ├─ ComboboxGroup / ComboboxCollection
-      ├─ ComboboxRow (for grid lists)
-      ├─ ComboboxSeparator
-      └─ ComboboxItem[value]
-         ├─ ComboboxItemIndicator
-         └─ ComboboxItemText
+Combobox.Root[collection]
+├─ Combobox.Label
+├─ Combobox.Control
+│  ├─ Combobox.Input
+│  ├─ Combobox.ClearTrigger
+│  └─ Combobox.Trigger
+└─ Portal
+   └─ Combobox.Positioner
+      └─ Combobox.Content
+         ├─ Combobox.Empty
+         ├─ Combobox.List
+         │  └─ Combobox.Item[item]
+         │     ├─ Combobox.ItemText
+         │     └─ Combobox.ItemIndicator
+         └─ Combobox.ItemGroup
+            ├─ Combobox.ItemGroupLabel
+            └─ Combobox.Item
 ```
 
-| Part                           | Role                                                                                                                    |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `Combobox`                     | Root state machine. Controls selected value, input text, popup open state, filtering, and keyboard navigation.          |
-| `ComboboxField`                | Field wrapper for label and input area. Keep visible form-control pieces here for layout and accessibility semantics.   |
-| `ComboboxInput`                | Search/input control. Drives filtering and exposes input events, placeholder, and focus behavior.                       |
-| `ComboboxInlineInputContainer` | Optional inline search wrapper for the input-inside-popup composition. It adds the divider and nested input treatment.  |
-| `ComboboxControlActions`       | Slot for inline controls such as clear and trigger buttons.                                                             |
-| `ComboboxContent`              | Popup surface. It also owns the default portal and positioner used by the common composition.                           |
-| `ComboboxList`                 | Collection renderer for options or grouped options. Contains `ComboboxItem`, `ComboboxGroup`, and `ComboboxCollection`. |
-| `ComboboxItem`                 | One selectable option. Renders selected state and text/indicator subparts.                                              |
-| `ComboboxChips`                | Multiple-selection chip container used with `multiple` and `ComboboxValue`.                                             |
-
-Most customizations should stay on visible parts such as `ComboboxInput`, `ComboboxItem`,
-`ComboboxItemIndicator`, `ComboboxItemText`, and `ComboboxContent`.
-
-For the standard input path, pair a native `<label htmlFor={id}>` with `ComboboxInput id={id}`.
-Use `ComboboxFieldLabel` only in the trigger-first layout, where Base UI labels the trigger.
+`Combobox.RootProvider`, `Combobox.Context`, and `Combobox.ItemContext` expose the corresponding
+Ark provider and context paths.
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `Combobox`, `ComboboxField`, `ComboboxInputGroup`, `ComboboxInput`, and
-`ComboboxContent` for most searchable single-select and grouped-list fields.
+Use `createListCollection` for a static collection or `useListCollection` when filtering changes
+the rendered items. Object collections should define `itemToString` and `itemToValue`.
 
-Use `Combobox` for root state and behavior props such as `value`, `defaultValue`,
-`onValueChange`, `inputValue`, `onInputValueChange`, `open`, `onOpenChange`, `multiple`,
-`filter`, `filteredItems`, `limit`, `grid`, `virtualized`, `modal`, `openOnInputClick`,
-`autoHighlight`, `loopFocus`, `itemToStringLabel`, `itemToStringValue`, and
-`isItemEqualToValue`.
-
-`ComboboxContent` is the high-level popup wrapper. It accepts popup `className`, supports shared
-positioning props (`side`, `sideOffset`, `align`, `alignOffset`, `arrowPadding`,
-`collisionAvoidance`, `collisionBoundary`, `collisionPadding`), and can opt into the built-in
-arrow with `showArrow`.
+Keep `Portal`, `Combobox.Positioner`, and `Combobox.Content` visible. `Content` is the actual Ark
+content part; it does not create a portal or positioner.
 
 ### When to go custom
 
-Switch to `ComboboxPortal`, `ComboboxBackdrop`, `ComboboxPositioner`, `ComboboxPopup`, and
-`ComboboxArrow` when the popup infrastructure itself needs to change, such as for a custom
-backdrop, custom arrow treatment, or explicit stacking and layering control.
+Use `Combobox.Context` when adjacent UI needs `selectedItems`, `valueAsString`, focus methods, or
+other root state. Use `useCombobox` with `Combobox.RootProvider` when state must be created outside
+the rendered subtree.
 
-Use `ComboboxFieldTrigger`, `ComboboxValue`, and `ComboboxInlineInputContainer` when the visible
-field opens a popup that contains the searchable input.
+Multiple selection does not add a combobox-specific chip API. Render tags or another value summary
+from `Combobox.Context`, then keep selection behavior on `Combobox.Root multiple`.
+
+Use ordinary elements inside `Combobox.Content` for loading and error status. Ark does not expose a
+combobox `Status` part.
 
 ### Default props
 
-| Prop               | Default | Values / Notes                            |
-| ------------------ | ------- | ----------------------------------------- |
-| `showArrow`        | `false` | Enables the built-in popup arrow          |
-| `sideOffset`       | `5`     | Any number accepted by Base UI positioner |
-| `indicator` (item) | `start` | `start`, `end`, `none`                    |
+- `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` render moduix icons when
+  children are omitted.
+- The styled root defaults to `16rem` wide and remains constrained by `100%`.
+- The popup uses Ark `--reference-width`, `--available-height`, and `--transform-origin`.
 
 ### Behavioral notes
 
-- Prefer a native `<label htmlFor={id}>` with `ComboboxInput id={id}` for the standard input path.
-- Use `ComboboxFieldLabel` only in the trigger-first pattern where Base UI labels the trigger.
-- Use `filter={null}` when results are already filtered by application state or a remote request.
-- `ComboboxStatus` is the intended place for async loading or error messaging.
-- `ComboboxItemText` content does not control the selected label. Use root item string helpers such
-  as `itemToStringLabel`.
-- Default icons are only fallbacks: pass children to `ComboboxTrigger`, `ComboboxIcon`,
-  `ComboboxClear`, `ComboboxItemIndicator`, and `ComboboxChipRemove` to use your own icon set.
+- `collection` is required.
+- `value` and `defaultValue` are string arrays, including single selection.
+- `onValueChange(details)` reads the current values from `details.value`.
+- `onInputValueChange(details)` reads input text from `details.inputValue` and its source from
+  `details.reason`.
+- `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
+- All Ark DOM parts preserve `asChild`.
 
 ## Examples
 
-### Indicator Right
+### Auto Highlight
 
-Use `indicator="end"` when the selected marker should stay on the right while the leading icon and
-text keep their own layout. Use `indicator="none"` when the selected row should rely on
-background-only highlighting and no indicator column should be reserved.
+Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
+Enter can select it without an extra arrow-key press.
 
 <Preview>
-  <IndicatorRightComboboxExample />
+  <AutoHighlightComboboxExample />
 
   <Preview.Code>
     {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxContent,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemText,
-        ComboboxItemIndicator,
-        InfoIcon,
-      } from "moduix";
-      import { useId } from "react";
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
 
-      export function IndicatorRightComboboxDemo() {
-        const id = useId();
+      export function AutoHighlightComboboxDemo() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: departments,
+          filter: contains,
+        });
 
         return (
-          <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <label htmlFor={id}>Choose fruit</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Mango" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open options" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
+          <Combobox.Root
+            collection={collection}
+            inputBehavior="autohighlight"
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <Combobox.Label>Department</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. Engineering" />
+              <Combobox.ClearTrigger aria-label="Clear selection" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.Empty>No departments found.</Combobox.Empty>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
+        );
+      }
+    `}
 
-            <ComboboxContent sideOffset={4}>
-              <ComboboxList>
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item} indicator="end">
-                    <ComboboxItemText className="itemTextWithIcon">
-                      <InfoIcon className="itemIcon" />
-                      <span>{item.label}</span>
-                    </ComboboxItemText>
-                    <ComboboxItemIndicator />
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const departments = [
+        { label: "Engineering", value: "engineering" },
+        { label: "Marketing", value: "marketing" },
+        { label: "Sales", value: "sales" },
+        { label: "Finance", value: "finance" },
+        { label: "Human Resources", value: "human-resources" },
+        { label: "Operations", value: "operations" },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Links
+
+Use `asChild` on `Combobox.Item` to preserve combobox keyboard behavior while rendering each result
+as a native link. `selectionBehavior="preserve"` keeps the search text visible during navigation.
+
+<Preview>
+  <LinksComboboxExample />
+
+  <Preview.Code>
+    {`
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+
+      export function LinksComboboxDemo() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: developerResources,
+          filter: contains,
+        });
+
+        return (
+          <Combobox.Root
+            collection={collection}
+            selectionBehavior="preserve"
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <Combobox.Label>Developer resources</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. GitHub" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item} asChild>
+                        <a href={item.href} target="_blank" rel="noreferrer">
+                          <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                          <Combobox.ItemIndicator />
+                        </a>
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const developerResources = [
+        { label: "GitHub", href: "https://github.com", value: "github" },
+        {
+          label: "Stack Overflow",
+          href: "https://stackoverflow.com",
+          value: "stack-overflow",
+        },
+        {
+          label: "MDN Web Docs",
+          href: "https://developer.mozilla.org",
+          value: "mdn",
+        },
+        { label: "npm", href: "https://www.npmjs.com", value: "npm" },
+        {
+          label: "TypeScript",
+          href: "https://www.typescriptlang.org",
+          value: "typescript",
+        },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Dynamic
+
+Build the collection from the current input when suggestions do not exist until the user starts
+typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
+
+<Preview>
+  <DynamicComboboxExample />
+
+  <Preview.Code>
+    {`
+      import { Combobox, Portal, useListCollection } from "moduix";
+
+      export function DynamicComboboxDemo() {
+        const { collection, set } = useListCollection<string>({
+          initialItems: [],
+        });
+
+        return (
+          <Combobox.Root
+            collection={collection}
+            onInputValueChange={(details) => {
+              if (details.reason !== "input-change") {
+                return;
+              }
+
+              const name = details.inputValue.trim();
+              set(
+                name
+                  ? domains.map((domain) => \`\${name}@\${domain}\`)
+                  : [],
+              );
+            }}
+          >
+            <Combobox.Label>Email</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. alex" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item} item={item}>
+                        <Combobox.ItemText>{item}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const domains = ["gmail.com", "outlook.com", "proton.me"];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Creatable
+
+Combine `allowCustomValue` with collection mutation to expose a temporary “Create” item, then
+replace that sentinel value with the user-entered value after selection.
+
+<Preview>
+  <CreatableComboboxExample />
+
+  <Preview.Code>
+    {`
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { useState } from "react";
+      import { flushSync } from "react-dom";
+
+      const createOptionValue = "__create-option__";
+
+      export function CreatableComboboxDemo() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter, remove, update, upsert } =
+          useListCollection({
+            initialItems: issueLabels,
+            filter: contains,
+          });
+        const [inputValue, setInputValue] = useState("");
+        const [value, setValue] = useState([] as string[]);
+
+        return (
+          <Combobox.Root
+            collection={collection}
+            inputValue={inputValue}
+            value={value}
+            allowCustomValue
+            onInputValueChange={(details) => {
+              const nextInputValue = details.inputValue;
+
+              if (
+                details.reason === "input-change" ||
+                details.reason === "item-select"
+              ) {
+                const hasExactMatch = collection.items.some(
+                  (item) =>
+                    item.label.toLowerCase() === nextInputValue.toLowerCase(),
+                );
+
+                flushSync(() => {
+                  if (nextInputValue.trim() && !hasExactMatch) {
+                    upsert(createOptionValue, {
+                      label: nextInputValue,
+                      value: createOptionValue,
+                    });
+                  } else {
+                    remove(createOptionValue);
+                  }
+                });
+                filter(nextInputValue);
+              }
+
+              setInputValue(nextInputValue);
+            }}
+            onOpenChange={(details) => {
+              if (details.reason === "trigger-click") {
+                filter("");
+              }
+            }}
+            onValueChange={(details) => {
+              setValue(
+                details.value.map((item) =>
+                  item === createOptionValue ? inputValue : item,
+                ),
+              );
+
+              if (details.value.includes(createOptionValue)) {
+                update(createOptionValue, {
+                  label: inputValue,
+                  value: inputValue,
+                  created: true,
+                });
+              }
+            }}
+          >
+            <Combobox.Label>Issue label</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. Accessibility" />
+              <Combobox.ClearTrigger aria-label="Clear selection" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>
+                          {item.value === createOptionValue
+                            ? \`Create "\${item.label}"\`
+                            : \`\${item.label}\${item.created ? " (new)" : ""}\`}
+                        </Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const issueLabels = [
+        { label: "Bug", value: "bug" },
+        { label: "Feature", value: "feature" },
+        { label: "Enhancement", value: "enhancement" },
+        { label: "Documentation", value: "documentation" },
+      ] as Array<{
+        label: string;
+        value: string;
+        created?: boolean;
+      }>;
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Limit Results
+
+Set `limit` on `useListCollection` when the full matching set is unnecessary or would make the
+popup harder to scan. Filtering still runs against the complete initial collection.
+
+<Preview>
+  <LimitComboboxExample />
+
+  <Preview.Code>
+    {`
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+
+      export function LimitComboboxDemo() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: cities,
+          filter: contains,
+          limit: 5,
+        });
+
+        return (
+          <Combobox.Root
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <Combobox.Label>City</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. San" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.Empty>No cities found.</Combobox.Empty>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const cities = [
+        "New York",
+        "Los Angeles",
+        "Chicago",
+        "Houston",
+        "Phoenix",
+        "Philadelphia",
+        "San Antonio",
+        "San Diego",
+        "Dallas",
+        "San Jose",
+        "Austin",
+        "Jacksonville",
+      ].map((label) => ({
+        label,
+        value: label.toLowerCase().replaceAll(" ", "-"),
+      }));
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Virtualized
+
+For large collections, render only visible rows with TanStack Virtual and connect Ark keyboard
+navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtual rows.
+
+<Preview>
+  <VirtualizedComboboxExample />
+
+  <Preview.Code>
+    {`
+      import { useVirtualizer } from "@tanstack/react-virtual";
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { useRef } from "react";
+
+      export function VirtualizedComboboxDemo() {
+        const scrollRef = useRef(null as HTMLDivElement | null);
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter, reset } = useListCollection({
+          initialItems: results,
+          filter: contains,
+        });
+        const virtualizer = useVirtualizer({
+          count: collection.size,
+          getScrollElement: () => scrollRef.current,
+          estimateSize: () => 32,
+          overscan: 8,
+        });
+
+        return (
+          <Combobox.Root
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+            scrollToIndexFn={(details) => {
+              virtualizer.scrollToIndex(details.index, { align: "center" });
+            }}
+          >
+            <Combobox.Label>Large dataset</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="Search 1,000 results" />
+              <Combobox.Trigger
+                aria-label="Open options"
+                onClick={reset}
+              />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content className="virtualContent">
+                  <Combobox.Empty>No results found.</Combobox.Empty>
+                  <div ref={scrollRef} className="virtualScroller">
+                    <Combobox.List
+                      className="virtualList"
+                      style={{ height: virtualizer.getTotalSize() }}
+                    >
+                      {virtualizer.getVirtualItems().map((virtualItem) => {
+                        const item = collection.items[virtualItem.index];
+
+                        return (
+                          <Combobox.Item
+                            key={item.value}
+                            item={item}
+                            aria-setsize={collection.size}
+                            aria-posinset={virtualItem.index + 1}
+                            className="virtualItem"
+                            style={{
+                              height: virtualItem.size,
+                              transform: \`translateY(\${virtualItem.start}px)\`,
+                            }}
+                          >
+                            <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                            <Combobox.ItemIndicator />
+                          </Combobox.Item>
+                        );
+                      })}
+                    </Combobox.List>
+                  </div>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
         );
       }
     `}
@@ -304,205 +706,165 @@ background-only highlighting and no indicator column should be reserved.
 
   <Preview.CSS>
     {`
-      .itemTextWithIcon {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-2);
+      .virtualContent {
+        overflow: hidden;
       }
 
-      .itemIcon {
-        flex-shrink: 0;
-        width: 1rem;
-        height: 1rem;
+      .virtualScroller {
+        height: min(16rem, var(--available-height, 16rem));
+        overflow: auto;
+      }
+
+      .virtualList {
+        position: relative;
+      }
+
+      .virtualItem {
+        position: absolute;
+        inset: 0 0 auto;
       }
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const results = Array.from({ length: 1000 }, (_, index) => ({
+        label: \`Result \${String(index + 1).padStart(4, "0")}\`,
+        value: \`result-\${index + 1}\`,
+      }));
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Controlled
+
+Control the selected string array and read the next value from `details.value`.
+
+<Preview>
+  <ControlledComboboxExample />
+
+  <Preview.Code>
+    {`
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
+      import { useState } from "react";
+
+      export function ControlledComboboxDemo() {
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: fruits,
+          filter: contains,
+        });
+        const [value, setValue] = useState(["mango"]);
+
+        return (
+          <div>
+            <Combobox.Root
+              collection={collection}
+              value={value}
+              onInputValueChange={(details) => filter(details.inputValue)}
+              onValueChange={(details) => setValue(details.value)}
+            >
+              <Combobox.Label>Choose fruit</Combobox.Label>
+              <Combobox.Control>
+                <Combobox.Input />
+                <Combobox.ClearTrigger aria-label="Clear selection" />
+                <Combobox.Trigger aria-label="Open options" />
+              </Combobox.Control>
+              <Portal>
+                <Combobox.Positioner>
+                  <Combobox.Content>
+                    <Combobox.Empty>No fruits found.</Combobox.Empty>
+                    <Combobox.List>
+                      {collection.items.map((item) => (
+                        <Combobox.Item key={item.value} item={item}>
+                          <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                          <Combobox.ItemIndicator />
+                        </Combobox.Item>
+                      ))}
+                    </Combobox.List>
+                  </Combobox.Content>
+                </Combobox.Positioner>
+              </Portal>
+            </Combobox.Root>
+            <span>Selected: {value[0] ?? "none"}</span>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
 
   <Preview.Data>
     {`
       const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+        { label: "Orange", value: "orange" },
       ];
     `}
 
   </Preview.Data>
 </Preview>
 
-```tsx
-<ComboboxItem value={item} indicator="none">
-  <ComboboxItemText>{item.label}</ComboboxItemText>
-</ComboboxItem>
-```
+### Custom Objects and Grouping
 
-### Input Inside Popup
-
-Use `ComboboxFieldTrigger` when the visible field opens a popup that contains the searchable
-input. `ComboboxInlineInputContainer` applies the built-in divider and nested input treatment for
-that composition. In this trigger-first layout, omit `htmlFor` on `ComboboxFieldLabel` so it keeps
-the Base UI trigger-label behavior; no extra input `id` wiring is needed here.
-
-<Preview>
-  <InputInsidePopupComboboxExample />
-
-  <Preview.Code>
-    {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxFieldLabel,
-        ComboboxFieldTrigger,
-        ComboboxValue,
-        ComboboxIcon,
-        ComboboxContent,
-        ComboboxInlineInputContainer,
-        ComboboxInput,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-
-      export function InputInsidePopupComboboxDemo() {
-        return (
-          <Combobox items={countries} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <ComboboxFieldLabel>Country</ComboboxFieldLabel>
-              <ComboboxFieldTrigger>
-                <ComboboxValue placeholder="Select country" />
-                <ComboboxIcon />
-              </ComboboxFieldTrigger>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4} className="popupWithInlineInput">
-              <ComboboxInlineInputContainer>
-                <ComboboxInput placeholder="Search country" />
-              </ComboboxInlineInputContainer>
-              <ComboboxEmpty>No countries found.</ComboboxEmpty>
-              <ComboboxList className="listWithInlineInput">
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .popupWithInlineInput {
-        --inline-input-container-height: calc(
-          var(--combobox-control-height, var(--size-lg)) +
-            var(--spacing-2) +
-            var(--spacing-2) +
-            var(--border-width-sm)
-        );
-      }
-
-      .listWithInlineInput {
-        max-height: min(
-          calc(
-            var(--combobox-list-max-height, var(--combobox-popup-max-height, 24rem)) -
-              var(--inline-input-container-height, 0px)
-          ),
-          calc(var(--available-height) - var(--inline-input-container-height, 0px))
-        );
-        padding-top: 0.375rem;
-        padding-bottom: 0.5rem;
-        scroll-padding-top: 0.375rem;
-        scroll-padding-bottom: 0.5rem;
-      }
-
-    `}
-
-  </Preview.CSS>
-
-  <Preview.Data>
-    {`
-      const countries = [
-        { id: "de", label: "Germany", value: "germany" },
-        { id: "es", label: "Spain", value: "spain" },
-        { id: "fr", label: "France", value: "france" },
-      ];
-    `}
-
-  </Preview.Data>
-</Preview>
-
-### Grouped
-
-Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `ComboboxGroup`.
+Map object labels and values on the collection, then render Ark item groups from
+`collection.group()`.
 
 <Preview>
   <GroupedComboboxExample />
 
   <Preview.Code>
     {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxContent,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxGroup,
-        ComboboxGroupLabel,
-        ComboboxCollection,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-      import { useId } from "react";
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
 
       export function GroupedComboboxDemo() {
-        const id = useId();
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: countries,
+          itemToString: (item) => item.country,
+          itemToValue: (item) => item.code,
+          filter: contains,
+          groupBy: (item) => item.continent,
+        });
 
         return (
-          <Combobox items={groupedProduce} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <label htmlFor={id}>Select produce</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Spinach" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open groups" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4}>
-              <ComboboxEmpty>No produce found.</ComboboxEmpty>
-              <ComboboxList>
-                {(group) => (
-                  <ComboboxGroup key={group.value} items={group.items}>
-                    <ComboboxGroupLabel>{group.value}</ComboboxGroupLabel>
-                    <ComboboxCollection>
-                      {(item) => (
-                        <ComboboxItem key={item.id} value={item}>
-                          <ComboboxItemIndicator />
-                          <ComboboxItemText>{item.label}</ComboboxItemText>
-                        </ComboboxItem>
-                      )}
-                    </ComboboxCollection>
-                  </ComboboxGroup>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
+          <Combobox.Root
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <Combobox.Label>Country</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="e.g. Canada" />
+              <Combobox.ClearTrigger aria-label="Clear selection" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.Empty>No countries found.</Combobox.Empty>
+                  {collection.group().map(([continent, items]) => (
+                    <Combobox.ItemGroup key={continent}>
+                      <Combobox.ItemGroupLabel>
+                        {continent}
+                      </Combobox.ItemGroupLabel>
+                      {items.map((item) => (
+                        <Combobox.Item key={item.code} item={item}>
+                          <Combobox.ItemText>
+                            {item.country}
+                          </Combobox.ItemText>
+                          <Combobox.ItemIndicator />
+                        </Combobox.Item>
+                      ))}
+                    </Combobox.ItemGroup>
+                  ))}
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
         );
       }
     `}
@@ -511,21 +873,17 @@ Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `Com
 
   <Preview.Data>
     {`
-      const groupedProduce = [
+      const countries = [
+        { country: "Canada", code: "CA", continent: "North America" },
         {
-          value: "Fruits",
-          items: [
-            { id: "fruit-apple", label: "Apple", value: "apple" },
-            { id: "fruit-mango", label: "Mango", value: "mango" },
-          ],
+          country: "United States",
+          code: "US",
+          continent: "North America",
         },
-        {
-          value: "Vegetables",
-          items: [
-            { id: "veg-carrot", label: "Carrot", value: "carrot" },
-            { id: "veg-spinach", label: "Spinach", value: "spinach" },
-          ],
-        },
+        { country: "Germany", code: "DE", continent: "Europe" },
+        { country: "France", code: "FR", continent: "Europe" },
+        { country: "Japan", code: "JP", continent: "Asia" },
+        { country: "South Korea", code: "KR", continent: "Asia" },
       ];
     `}
 
@@ -534,85 +892,104 @@ Pass grouped data to `Combobox` and render `ComboboxCollection` inside each `Com
 
 ### Multiple
 
-Use the `multiple` prop and render chips inside `ComboboxValue`. The input remains the main control, so a separate trigger icon is optional.
+Enable `multiple` and render the selected objects from `Combobox.Context`. Tags are consumer
+composition rather than combobox parts.
 
 <Preview>
   <MultipleComboboxExample />
 
   <Preview.Code>
     {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxInputGroup,
-        ComboboxChips,
-        ComboboxValue,
-        ComboboxChip,
-        ComboboxChipText,
-        ComboboxChipRemove,
-        ComboboxChipsInput,
-        ComboboxContent,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-      } from "moduix";
-      import { useId } from "react";
+      import type { UseComboboxContext } from "moduix";
+      import { Combobox, Portal, useFilter, useListCollection } from "moduix";
 
       export function MultipleComboboxDemo() {
-        const id = useId();
+        const { contains } = useFilter({ sensitivity: "base" });
+        const { collection, filter } = useListCollection({
+          initialItems: fruits,
+          filter: contains,
+        });
 
         return (
-          <Combobox items={fruits} itemToStringLabel={(item) => item.label} multiple>
-            <ComboboxField>
-              <label htmlFor={id}>Select fruits</label>
-              <ComboboxInputGroup>
-                <ComboboxChips>
-                  <ComboboxValue>
-                    {(value) => (
-                      <>
-                        {value.map((item) => (
-                          <ComboboxChip key={item.id} aria-label={item.label}>
-                            <ComboboxChipText>{item.label}</ComboboxChipText>
-                            <ComboboxChipRemove aria-label={\`Remove \${item.label}\`} />
-                          </ComboboxChip>
-                        ))}
-                        <ComboboxChipsInput
-                          id={id}
-                          placeholder={value.length === 0 ? "Select..." : ""}
-                        />
-                      </>
-                    )}
-                  </ComboboxValue>
-                </ComboboxChips>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4}>
-              <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-              <ComboboxList>
-                {(item) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
+          <Combobox.Root
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+            multiple
+          >
+            <Combobox.Label>Fruits</Combobox.Label>
+            <Combobox.Context>
+              {(context: UseComboboxContext<(typeof fruits)[number]>) => (
+                <div className="tags">
+                  {context.selectedItems.length === 0 ? (
+                    <span className="note">None selected</span>
+                  ) : null}
+                  {context.selectedItems.map((item) => (
+                    <span key={item.value} className="tag">
+                      {item.label}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </Combobox.Context>
+            <Combobox.Control>
+              <Combobox.Input placeholder="Search fruits" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  <Combobox.Empty>No fruits found.</Combobox.Empty>
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
         );
       }
     `}
 
   </Preview.Code>
 
+  <Preview.CSS>
+    {`
+      .tags {
+        display: flex;
+        min-height: 1.5rem;
+        flex-wrap: wrap;
+        gap: var(--spacing-1);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        border-radius: var(--radius-sm);
+        padding: var(--spacing-1) var(--spacing-2);
+        background: var(--color-muted);
+        font-size: var(--text-xs);
+      }
+
+      .note {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-xs);
+      }
+    `}
+
+  </Preview.CSS>
+
   <Preview.Data>
     {`
       const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+        { label: "Orange", value: "orange" },
       ];
     `}
 
@@ -621,320 +998,168 @@ Use the `multiple` prop and render chips inside `ComboboxValue`. The input remai
 
 ### Async Search
 
-Disable the built-in filter with `filter={null}` when results are loaded from your application state or a remote API.
+Replace collection items from an async result and use `details.reason` to distinguish typed input
+from machine-driven input updates.
 
 <Preview>
   <AsyncSearchComboboxExample />
 
   <Preview.Code>
     {`
-      import {
-        Combobox,
-        ComboboxField,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxContent,
-        ComboboxStatus,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
-        useComboboxFilter,
-      } from "moduix";
-      import { useId, useMemo, useRef, useState, useTransition } from "react";
+      import { Combobox, Portal, createListCollection } from "moduix";
+      import { useEffect, useMemo, useState } from "react";
 
       export function AsyncSearchComboboxDemo() {
-        const id = useId();
-        const { contains } = useComboboxFilter();
-        const [searchResults, setSearchResults] = useState([]);
-        const [selectedValue, setSelectedValue] = useState(null);
-        const [searchValue, setSearchValue] = useState("");
-        const [error, setError] = useState(null);
-        const [isPending, startTransition] = useTransition();
-        const abortControllerRef = useRef(null);
-        const trimmedSearchValue = searchValue.trim();
+        const [query, setQuery] = useState("");
+        const [items, setItems] = useState([] as typeof fruits);
+        const [loading, setLoading] = useState(false);
 
-        const items = useMemo(() => {
-          if (!selectedValue || searchResults.some((user) => user.id === selectedValue.id)) {
-            return searchResults;
+        useEffect(() => {
+          if (!query) {
+            setItems([]);
+            setLoading(false);
+            return;
           }
 
-          return [...searchResults, selectedValue];
-        }, [searchResults, selectedValue]);
+          setLoading(true);
+          const timeout = window.setTimeout(() => {
+            setItems(
+              fruits.filter((item) =>
+                item.label.toLowerCase().includes(query.toLowerCase()),
+              ),
+            );
+            setLoading(false);
+          }, 300);
 
-        async function searchUsers(query) {
-          await new Promise((resolve) => setTimeout(resolve, 250));
+          return () => window.clearTimeout(timeout);
+        }, [query]);
 
-          if (query === "error") {
-            return { users: [], error: "Failed to fetch people. Try again." };
-          }
-
-          return {
-            users: directoryUsers.filter(
-              (user) =>
-                contains(user.name, query) ||
-                contains(user.username, query) ||
-                contains(user.email, query) ||
-                contains(user.title, query),
-            ),
-            error: null,
-          };
-        }
-
-        const status = isPending
-          ? "Searching..."
-          : error
-            ? error
-            : trimmedSearchValue === ""
-              ? selectedValue ? null : "Start typing to search people..."
-              : searchResults.length === 0
-                ? \`No matches for "\${trimmedSearchValue}".\`
-                : null;
+        const collection = useMemo(
+          () => createListCollection({ items }),
+          [items],
+        );
 
         return (
-          <Combobox
-            items={items}
-            itemToStringLabel={(user) => user.name}
-            filter={null}
-            onOpenChangeComplete={(open) => {
-              if (!open && selectedValue) {
-                setSearchResults([selectedValue]);
+          <Combobox.Root
+            collection={collection}
+            inputValue={query}
+            onInputValueChange={(details) => {
+              if (
+                details.reason === "input-change" ||
+                details.inputValue === ""
+              ) {
+                setQuery(details.inputValue);
               }
-            }}
-            onValueChange={(nextSelectedValue) => {
-              setSelectedValue(nextSelectedValue);
-              setSearchValue("");
-              setError(null);
-            }}
-            onInputValueChange={(nextSearchValue, { reason }) => {
-              setSearchValue(nextSearchValue);
-
-              if (nextSearchValue === "") {
-                abortControllerRef.current?.abort();
-                setSearchResults([]);
-                setError(null);
-                return;
-              }
-
-              if (reason === "item-press") {
-                return;
-              }
-
-              const controller = new AbortController();
-              abortControllerRef.current?.abort();
-              abortControllerRef.current = controller;
-
-              startTransition(async () => {
-                setError(null);
-                const result = await searchUsers(nextSearchValue);
-
-                if (controller.signal.aborted) {
-                  return;
-                }
-
-                startTransition(() => {
-                  setSearchResults(result.users);
-                  setError(result.error);
-                });
-              });
             }}
           >
-            <ComboboxField>
-              <label htmlFor={id}>Assign reviewer</label>
-              <ComboboxInputGroup>
-                <ComboboxInput id={id} placeholder="e.g. Michael" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open options" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxContent sideOffset={4}>
-              <ComboboxStatus>{status}</ComboboxStatus>
-              <ComboboxEmpty>
-                {trimmedSearchValue !== "" && !isPending && searchResults.length === 0
-                  ? "Try a different search term."
-                  : null}
-              </ComboboxEmpty>
-              <ComboboxList>
-                {(user) => (
-                  <ComboboxItem key={user.id} value={user}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText className="multilineItemText">
-                      <span className="itemTitle">{user.name}</span>
-                      <span className="itemMeta">
-                        <span>@{user.username}</span>
-                        <span>{user.title}</span>
-                      </span>
-                      <span className="itemMeta">{user.email}</span>
-                    </ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
+            <Combobox.Label>Search fruit</Combobox.Label>
+            <Combobox.Control>
+              <Combobox.Input placeholder="Start typing" />
+              <Combobox.ClearTrigger aria-label="Clear search" />
+              <Combobox.Trigger aria-label="Open options" />
+            </Combobox.Control>
+            <Portal>
+              <Combobox.Positioner>
+                <Combobox.Content>
+                  {loading ? <div>Searching…</div> : null}
+                  {!loading && query && collection.items.length === 0 ? (
+                    <div>No results found.</div>
+                  ) : null}
+                  <Combobox.List>
+                    {collection.items.map((item) => (
+                      <Combobox.Item key={item.value} item={item}>
+                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                        <Combobox.ItemIndicator />
+                      </Combobox.Item>
+                    ))}
+                  </Combobox.List>
+                </Combobox.Content>
+              </Combobox.Positioner>
+            </Portal>
+          </Combobox.Root>
         );
       }
     `}
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .multilineItemText {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-1);
-        white-space: normal;
-      }
-
-      .itemTitle {
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-        font-weight: var(--weight-semibold);
-      }
-
-      .itemMeta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--spacing-2);
-        font-size: var(--text-xs);
-        line-height: var(--line-height-text-xs);
-        color: var(--combobox-empty-color, var(--color-muted-foreground));
-      }
-    `}
-
-  </Preview.CSS>
-
   <Preview.Data>
     {`
-      const directoryUsers = [
-        {
-          id: "leslie-alexander",
-          name: "Leslie Alexander",
-          username: "leslie",
-          email: "leslie.alexander@example.com",
-          title: "Product Manager",
-        },
-        {
-          id: "michael-foster",
-          name: "Michael Foster",
-          username: "michael",
-          email: "michael.foster@example.com",
-          title: "Frontend Engineer",
-        },
+      const fruits = [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Mango", value: "mango" },
+        { label: "Orange", value: "orange" },
+        { label: "Pineapple", value: "pineapple" },
+        { label: "Strawberry", value: "strawberry" },
       ];
     `}
 
   </Preview.Data>
 </Preview>
 
-### Custom Composition
+### Root Provider
 
-Style each popup part directly when you need custom layering, backdrop, or arrow treatment.
+Create the Ark machine with `useCombobox` when external controls need imperative methods or shared
+state before the root renders.
 
 <Preview>
-  <CustomCompositionComboboxExample />
+  <RootProviderComboboxExample />
 
   <Preview.Code>
     {`
       import {
         Combobox,
-        ComboboxField,
-        ComboboxInputGroup,
-        ComboboxInput,
-        ComboboxControlActions,
-        ComboboxClear,
-        ComboboxTrigger,
-        ComboboxPortal,
-        ComboboxBackdrop,
-        ComboboxPositioner,
-        ComboboxPopup,
-        ComboboxArrow,
-        ComboboxEmpty,
-        ComboboxList,
-        ComboboxItem,
-        ComboboxItemIndicator,
-        ComboboxItemText,
+        Portal,
+        createListCollection,
+        useCombobox,
       } from "moduix";
-      import { useId } from "react";
 
-      export function CustomCompositionComboboxDemo() {
-        const id = useId();
+      const collection = createListCollection({ items: jobTitles });
+
+      export function RootProviderComboboxDemo() {
+        const combobox = useCombobox({ collection });
 
         return (
-          <Combobox items={fruits} itemToStringLabel={(item) => item.label}>
-            <ComboboxField>
-              <label htmlFor={id}>Choose fruit</label>
-              <ComboboxInputGroup className="customInputGroup">
-                <ComboboxInput id={id} placeholder="e.g. Mango" />
-                <ComboboxControlActions>
-                  <ComboboxClear aria-label="Clear selection" />
-                  <ComboboxTrigger aria-label="Open options" />
-                </ComboboxControlActions>
-              </ComboboxInputGroup>
-            </ComboboxField>
-
-            <ComboboxPortal>
-              <ComboboxBackdrop className="backdrop" />
-              <ComboboxPositioner sideOffset={8}>
-                <ComboboxPopup className="customPopup">
-                  <ComboboxArrow className="arrow" />
-                  <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-                  <ComboboxList>
-                    {(item) => (
-                      <ComboboxItem key={item.id} value={item}>
-                        <ComboboxItemIndicator />
-                        <ComboboxItemText>{item.label}</ComboboxItemText>
-                      </ComboboxItem>
-                    )}
-                  </ComboboxList>
-                </ComboboxPopup>
-              </ComboboxPositioner>
-            </ComboboxPortal>
-          </Combobox>
+          <div>
+            <button type="button" onClick={() => combobox.focus()}>
+              Focus
+            </button>
+            <Combobox.RootProvider value={combobox}>
+              <Combobox.Label>Job title</Combobox.Label>
+              <Combobox.Control>
+                <Combobox.Input />
+                <Combobox.ClearTrigger aria-label="Clear selection" />
+                <Combobox.Trigger aria-label="Open options" />
+              </Combobox.Control>
+              <Portal>
+                <Combobox.Positioner>
+                  <Combobox.Content>
+                    <Combobox.List>
+                      {collection.items.map((item) => (
+                        <Combobox.Item key={item.value} item={item}>
+                          <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                          <Combobox.ItemIndicator />
+                        </Combobox.Item>
+                      ))}
+                    </Combobox.List>
+                  </Combobox.Content>
+                </Combobox.Positioner>
+              </Portal>
+            </Combobox.RootProvider>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .customPopup {
-        --combobox-popup-bg: var(--color-background);
-        --combobox-popup-border-color: var(--color-ring);
-        --combobox-shadow: var(--shadow-xl);
-      }
-
-      .customInputGroup {
-        position: relative;
-        z-index: var(--z-popup);
-      }
-
-      .backdrop {
-        --combobox-backdrop-bg: var(--color-overlay);
-        --combobox-backdrop-blur: 4px;
-      }
-
-      .arrow {
-        --combobox-arrow-stroke-color: var(--combobox-popup-border-color);
-      }
-    `}
-
-  </Preview.CSS>
-
   <Preview.Data>
     {`
-      const fruits = [
-        { id: "apple", label: "Apple", value: "apple" },
-        { id: "banana", label: "Banana", value: "banana" },
-        { id: "mango", label: "Mango", value: "mango" },
+      const jobTitles = [
+        { label: "Designer", value: "designer" },
+        { label: "Developer", value: "developer" },
+        { label: "Product Manager", value: "product-manager" },
       ];
     `}
 
@@ -942,9 +1167,6 @@ Style each popup part directly when you need custom layering, backdrop, or arrow
 </Preview>
 
 ## Styling
-
-Style `Combobox` through `className`, `data-slot="combobox-*"` hooks, and the public
-`--combobox-*` CSS variables shown below.
 
 ### CSS Properties
 
@@ -958,14 +1180,11 @@ Style `Combobox` through `className`, `data-slot="combobox-*"` hooks, and the pu
 
 ### Styling hooks
 
-Use the part that owns the visual concern:
-
-- `ComboboxInput` and `ComboboxInputGroup` for the standard field chrome
-- `ComboboxContent` or `ComboboxPopup` for popup surface overrides
-- `ComboboxItem`, `ComboboxItemIndicator`, and `ComboboxItemText` for list row layout
-- `ComboboxGroupLabel`, `ComboboxStatus`, and `ComboboxEmpty` for support rows and grouping
-- `ComboboxChip`, `ComboboxChipRemove`, and `ComboboxChipsInput` for multiple-selection chip styling
-
-The main public hooks include `data-slot="combobox-input-group"`, `data-slot="combobox-input"`,
-`data-slot="combobox-popup"`, `data-slot="combobox-item"`, `data-slot="combobox-group-label"`,
-`data-slot="combobox-status"`, and `data-slot="combobox-chip"`.
+- Stable slots include `combobox-root`, `combobox-label`, `combobox-control`, `combobox-input`,
+  `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`, `combobox-content`,
+  `combobox-empty`, `combobox-list`, `combobox-item-group`, `combobox-item-group-label`,
+  `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`.
+- Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
+  `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
+- Ark positioning variables include `--reference-width`, `--available-width`,
+  `--available-height`, `--transform-origin`, and `--z-index`.

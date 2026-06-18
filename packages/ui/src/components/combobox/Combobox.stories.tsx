@@ -1,40 +1,13 @@
+import type { UseComboboxContext } from '@ark-ui/react/combobox';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import * as React from 'react';
-import { InfoIcon } from '@/icons/demo';
+import { useMemo, useState } from 'react';
 import {
   Combobox,
-  ComboboxArrow,
-  ComboboxBackdrop,
-  ComboboxChip,
-  ComboboxChipRemove,
-  ComboboxChipText,
-  ComboboxChips,
-  ComboboxChipsInput,
-  ComboboxClear,
-  ComboboxCollection,
-  ComboboxControlActions,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxField,
-  ComboboxFieldLabel,
-  ComboboxFieldTrigger,
-  ComboboxGroup,
-  ComboboxGroupLabel,
-  ComboboxIcon,
-  ComboboxInlineInputContainer,
-  ComboboxInput,
-  ComboboxInputGroup,
-  ComboboxItem,
-  ComboboxItemIndicator,
-  ComboboxItemText,
-  ComboboxList,
-  ComboboxPortal,
-  ComboboxPositioner,
-  ComboboxPopup,
-  ComboboxStatus,
-  ComboboxTrigger,
-  ComboboxValue,
-  useComboboxFilter,
+  Portal,
+  createListCollection,
+  useCombobox,
+  useFilter,
+  useListCollection,
 } from './Combobox';
 import styles from './Combobox.stories.module.css';
 
@@ -50,551 +23,222 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-interface OptionItem {
-  id: string;
-  label: string;
-  value: string;
-}
-
-interface GroupedOption {
-  value: string;
-  items: OptionItem[];
-}
-
-interface DirectoryUser {
-  id: string;
-  name: string;
-  username: string;
-  email: string;
-  title: string;
-}
-
-const fruits: OptionItem[] = [
-  { id: 'apple', label: 'Apple', value: 'apple' },
-  { id: 'banana', label: 'Banana', value: 'banana' },
-  { id: 'grape', label: 'Grape', value: 'grape' },
-  { id: 'kiwi', label: 'Kiwi', value: 'kiwi' },
-  { id: 'mango', label: 'Mango', value: 'mango' },
-  { id: 'orange', label: 'Orange', value: 'orange' },
-  { id: 'pineapple', label: 'Pineapple', value: 'pineapple' },
-  { id: 'strawberry', label: 'Strawberry', value: 'strawberry' },
+const fruits = [
+  { label: 'Apple', value: 'apple' },
+  { label: 'Banana', value: 'banana' },
+  { label: 'Grape', value: 'grape' },
+  { label: 'Kiwi', value: 'kiwi' },
+  { label: 'Mango', value: 'mango' },
+  { label: 'Orange', value: 'orange' },
+  { label: 'Pineapple', value: 'pineapple' },
+  { label: 'Strawberry', value: 'strawberry' },
 ];
 
-const countries: OptionItem[] = [
-  { id: 'de', label: 'Germany', value: 'germany' },
-  { id: 'es', label: 'Spain', value: 'spain' },
-  { id: 'fr', label: 'France', value: 'france' },
-  { id: 'gb', label: 'United Kingdom', value: 'united-kingdom' },
-  { id: 'it', label: 'Italy', value: 'italy' },
-  { id: 'jp', label: 'Japan', value: 'japan' },
-  { id: 'ru', label: 'Russia', value: 'russia' },
-  { id: 'us', label: 'United States', value: 'united-states' },
-];
+function ComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
+  return (
+    <Portal>
+      <Combobox.Positioner>
+        <Combobox.Content>
+          <Combobox.Empty>No options found.</Combobox.Empty>
+          <Combobox.List>
+            {items.map((item) => (
+              <Combobox.Item key={item.value} item={item}>
+                <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                <Combobox.ItemIndicator />
+              </Combobox.Item>
+            ))}
+          </Combobox.List>
+        </Combobox.Content>
+      </Combobox.Positioner>
+    </Portal>
+  );
+}
 
-const groupedProduce: GroupedOption[] = [
-  {
-    value: 'Fruits',
-    items: [
-      { id: 'fruit-apple', label: 'Apple', value: 'apple' },
-      { id: 'fruit-banana', label: 'Banana', value: 'banana' },
-      { id: 'fruit-mango', label: 'Mango', value: 'mango' },
-      { id: 'fruit-orange', label: 'Orange', value: 'orange' },
+function BasicStory() {
+  const { contains } = useFilter({ sensitivity: 'base' });
+  const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
+
+  return (
+    <Combobox.Root
+      collection={collection}
+      onInputValueChange={(details) => filter(details.inputValue)}
+    >
+      <Combobox.Label>Choose fruit</Combobox.Label>
+      <Combobox.Control>
+        <Combobox.Input placeholder="e.g. Mango" />
+        <Combobox.ClearTrigger aria-label="Clear selection" />
+        <Combobox.Trigger aria-label="Open options" />
+      </Combobox.Control>
+      <ComboboxPopup items={collection.items} />
+    </Combobox.Root>
+  );
+}
+
+function ControlledStory() {
+  const { contains } = useFilter({ sensitivity: 'base' });
+  const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
+  const [value, setValue] = useState<string[]>(['mango']);
+
+  return (
+    <Combobox.Root
+      collection={collection}
+      value={value}
+      onInputValueChange={(details) => filter(details.inputValue)}
+      onValueChange={(details) => setValue(details.value)}
+    >
+      <Combobox.Label>Choose fruit</Combobox.Label>
+      <Combobox.Control>
+        <Combobox.Input />
+        <Combobox.ClearTrigger aria-label="Clear selection" />
+        <Combobox.Trigger aria-label="Open options" />
+      </Combobox.Control>
+      <ComboboxPopup items={collection.items} />
+    </Combobox.Root>
+  );
+}
+
+function GroupedStory() {
+  const { contains } = useFilter({ sensitivity: 'base' });
+  const { collection, filter } = useListCollection({
+    initialItems: [
+      { label: 'Canada', value: 'ca', continent: 'North America' },
+      { label: 'United States', value: 'us', continent: 'North America' },
+      { label: 'Germany', value: 'de', continent: 'Europe' },
+      { label: 'France', value: 'fr', continent: 'Europe' },
+      { label: 'Japan', value: 'jp', continent: 'Asia' },
+      { label: 'South Korea', value: 'kr', continent: 'Asia' },
     ],
-  },
-  {
-    value: 'Vegetables',
-    items: [
-      { id: 'veg-broccoli', label: 'Broccoli', value: 'broccoli' },
-      { id: 'veg-carrot', label: 'Carrot', value: 'carrot' },
-      { id: 'veg-spinach', label: 'Spinach', value: 'spinach' },
-      { id: 'veg-zucchini', label: 'Zucchini', value: 'zucchini' },
-    ],
-  },
-];
+    filter: contains,
+    groupBy: (item) => item.continent,
+  });
 
-const directoryUsers: DirectoryUser[] = [
-  {
-    id: 'leslie-alexander',
-    name: 'Leslie Alexander',
-    username: 'leslie',
-    email: 'leslie.alexander@example.com',
-    title: 'Product Manager',
-  },
-  {
-    id: 'kathryn-murphy',
-    name: 'Kathryn Murphy',
-    username: 'kathryn',
-    email: 'kathryn.murphy@example.com',
-    title: 'Marketing Lead',
-  },
-  {
-    id: 'courtney-henry',
-    name: 'Courtney Henry',
-    username: 'courtney',
-    email: 'courtney.henry@example.com',
-    title: 'Design Systems',
-  },
-  {
-    id: 'michael-foster',
-    name: 'Michael Foster',
-    username: 'michael',
-    email: 'michael.foster@example.com',
-    title: 'Frontend Engineer',
-  },
-  {
-    id: 'dries-vincent',
-    name: 'Dries Vincent',
-    username: 'dries',
-    email: 'dries.vincent@example.com',
-    title: 'UX Engineer',
-  },
-  {
-    id: 'lana-steiner',
-    name: 'Lana Steiner',
-    username: 'lana',
-    email: 'lana.steiner@example.com',
-    title: 'Product Designer',
-  },
-  {
-    id: 'phoenix-baker',
-    name: 'Phoenix Baker',
-    username: 'phoenix',
-    email: 'phoenix.baker@example.com',
-    title: 'Developer Advocate',
-  },
-];
+  return (
+    <Combobox.Root
+      collection={collection}
+      onInputValueChange={(details) => filter(details.inputValue)}
+    >
+      <Combobox.Label>Country</Combobox.Label>
+      <Combobox.Control>
+        <Combobox.Input placeholder="e.g. Canada" />
+        <Combobox.ClearTrigger aria-label="Clear selection" />
+        <Combobox.Trigger aria-label="Open options" />
+      </Combobox.Control>
+      <Portal>
+        <Combobox.Positioner>
+          <Combobox.Content>
+            <Combobox.Empty>No countries found.</Combobox.Empty>
+            {collection.group().map(([continent, items]) => (
+              <Combobox.ItemGroup key={continent}>
+                <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
+                {items.map((item) => (
+                  <Combobox.Item key={item.value} item={item}>
+                    <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                    <Combobox.ItemIndicator />
+                  </Combobox.Item>
+                ))}
+              </Combobox.ItemGroup>
+            ))}
+          </Combobox.Content>
+        </Combobox.Positioner>
+      </Portal>
+    </Combobox.Root>
+  );
+}
 
-export const Basic: Story = {
-  render: () => {
-    const id = React.useId();
+function MultipleStory() {
+  const { contains } = useFilter({ sensitivity: 'base' });
+  const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
 
-    return (
-      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
-        <ComboboxField>
-          <label className={styles.fieldLabel} htmlFor={id}>
-            Choose fruit
-          </label>
-          <ComboboxInputGroup>
-            <ComboboxInput id={id} placeholder="e.g. Mango" />
-            <ComboboxControlActions>
-              <ComboboxClear aria-label="Clear selection" />
-              <ComboboxTrigger aria-label="Open options" />
-            </ComboboxControlActions>
-          </ComboboxInputGroup>
-        </ComboboxField>
+  return (
+    <Combobox.Root
+      collection={collection}
+      onInputValueChange={(details) => filter(details.inputValue)}
+      multiple
+    >
+      <Combobox.Label>Fruits</Combobox.Label>
+      <Combobox.Context>
+        {(context: UseComboboxContext<(typeof fruits)[number]>) => (
+          <div className={styles.tags}>
+            {context.selectedItems.length === 0 ? (
+              <span className={styles.tagPlaceholder}>None selected</span>
+            ) : null}
+            {context.selectedItems.map((item) => (
+              <span key={item.value} className={styles.tag}>
+                {item.label}
+              </span>
+            ))}
+          </div>
+        )}
+      </Combobox.Context>
+      <Combobox.Control>
+        <Combobox.Input placeholder="Search fruits" />
+        <Combobox.Trigger aria-label="Open options" />
+      </Combobox.Control>
+      <ComboboxPopup items={collection.items} />
+    </Combobox.Root>
+  );
+}
 
-        <ComboboxContent sideOffset={4}>
-          <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-          <ComboboxList>
-            {(item: OptionItem) => (
-              <ComboboxItem key={item.id} value={item}>
-                <ComboboxItemIndicator />
-                <ComboboxItemText>{item.label}</ComboboxItemText>
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-    );
-  },
-};
+function AsyncSearchStory() {
+  const [inputValue, setInputValue] = useState('');
+  const items = useMemo(
+    () =>
+      inputValue
+        ? fruits.filter((item) => item.label.toLowerCase().includes(inputValue.toLowerCase()))
+        : [],
+    [inputValue],
+  );
+  const collection = createListCollection({ items });
 
-export const IndicatorRight: Story = {
-  render: () => {
-    const id = React.useId();
+  return (
+    <Combobox.Root
+      collection={collection}
+      inputValue={inputValue}
+      onInputValueChange={(details) => setInputValue(details.inputValue)}
+    >
+      <Combobox.Label>Async-style search</Combobox.Label>
+      <Combobox.Control>
+        <Combobox.Input placeholder="Start typing" />
+        <Combobox.ClearTrigger aria-label="Clear search" />
+        <Combobox.Trigger aria-label="Open options" />
+      </Combobox.Control>
+      <ComboboxPopup items={collection.items} />
+    </Combobox.Root>
+  );
+}
 
-    return (
-      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
-        <ComboboxField>
-          <label className={styles.fieldLabel} htmlFor={id}>
-            Choose fruit
-          </label>
-          <ComboboxInputGroup>
-            <ComboboxInput id={id} placeholder="e.g. Mango" />
-            <ComboboxControlActions>
-              <ComboboxClear aria-label="Clear selection" />
-              <ComboboxTrigger aria-label="Open options" />
-            </ComboboxControlActions>
-          </ComboboxInputGroup>
-        </ComboboxField>
+const jobTitles = createListCollection({
+  items: [
+    { label: 'Designer', value: 'designer' },
+    { label: 'Developer', value: 'developer' },
+    { label: 'Product Manager', value: 'product-manager' },
+  ],
+});
 
-        <ComboboxContent sideOffset={4}>
-          <ComboboxList>
-            {(item: OptionItem) => (
-              <ComboboxItem key={item.id} value={item} indicator="end">
-                <ComboboxItemText className={styles.itemTextWithIcon}>
-                  <InfoIcon className={styles.itemIcon} />
-                  <span>{item.label}</span>
-                </ComboboxItemText>
-                <ComboboxItemIndicator />
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-    );
-  },
-};
+function RootProviderStory() {
+  const combobox = useCombobox({ collection: jobTitles });
 
-export const WithoutIndicator: Story = {
-  render: () => {
-    const id = React.useId();
+  return (
+    <div className={styles.providerLayout}>
+      <button type="button" onClick={() => combobox.focus()}>
+        Focus combobox
+      </button>
+      <Combobox.RootProvider value={combobox}>
+        <Combobox.Label>Job title</Combobox.Label>
+        <Combobox.Control>
+          <Combobox.Input />
+          <Combobox.ClearTrigger aria-label="Clear selection" />
+          <Combobox.Trigger aria-label="Open options" />
+        </Combobox.Control>
+        <ComboboxPopup items={jobTitles.items} />
+      </Combobox.RootProvider>
+    </div>
+  );
+}
 
-    return (
-      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
-        <ComboboxField>
-          <label className={styles.fieldLabel} htmlFor={id}>
-            Choose fruit
-          </label>
-          <ComboboxInputGroup>
-            <ComboboxInput id={id} placeholder="e.g. Mango" />
-            <ComboboxControlActions>
-              <ComboboxClear aria-label="Clear selection" />
-              <ComboboxTrigger aria-label="Open options" />
-            </ComboboxControlActions>
-          </ComboboxInputGroup>
-        </ComboboxField>
-
-        <ComboboxContent sideOffset={4}>
-          <ComboboxList>
-            {(item: OptionItem) => (
-              <ComboboxItem key={item.id} value={item} indicator="none">
-                <ComboboxItemText>{item.label}</ComboboxItemText>
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-    );
-  },
-};
-
-export const InputInsidePopup: Story = {
-  render: () => {
-    return (
-      <Combobox items={countries} itemToStringLabel={(item: OptionItem) => item.label}>
-        <ComboboxField>
-          <ComboboxFieldLabel>Country</ComboboxFieldLabel>
-          <ComboboxFieldTrigger>
-            <ComboboxValue placeholder="Select country" />
-            <ComboboxIcon />
-          </ComboboxFieldTrigger>
-        </ComboboxField>
-
-        <ComboboxContent sideOffset={4} className={styles.popupWithInlineInput}>
-          <ComboboxInlineInputContainer>
-            <ComboboxInput placeholder="Search country" />
-          </ComboboxInlineInputContainer>
-          <ComboboxEmpty>No countries found.</ComboboxEmpty>
-          <ComboboxList className={styles.listWithInlineInput}>
-            {(item: OptionItem) => (
-              <ComboboxItem key={item.id} value={item}>
-                <ComboboxItemIndicator />
-                <ComboboxItemText>{item.label}</ComboboxItemText>
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-    );
-  },
-};
-
-export const Grouped: Story = {
-  render: () => {
-    const id = React.useId();
-
-    return (
-      <Combobox items={groupedProduce} itemToStringLabel={(item: OptionItem) => item.label}>
-        <ComboboxField>
-          <label className={styles.fieldLabel} htmlFor={id}>
-            Select produce
-          </label>
-          <ComboboxInputGroup>
-            <ComboboxInput id={id} placeholder="e.g. Spinach" />
-            <ComboboxControlActions>
-              <ComboboxClear aria-label="Clear selection" />
-              <ComboboxTrigger aria-label="Open groups" />
-            </ComboboxControlActions>
-          </ComboboxInputGroup>
-        </ComboboxField>
-
-        <ComboboxContent sideOffset={4}>
-          <ComboboxEmpty>No produce found.</ComboboxEmpty>
-          <ComboboxList>
-            {(group: GroupedOption) => (
-              <ComboboxGroup key={group.value} items={group.items}>
-                <ComboboxGroupLabel>{group.value}</ComboboxGroupLabel>
-                <ComboboxCollection>
-                  {(item: OptionItem) => (
-                    <ComboboxItem key={item.id} value={item}>
-                      <ComboboxItemIndicator />
-                      <ComboboxItemText>{item.label}</ComboboxItemText>
-                    </ComboboxItem>
-                  )}
-                </ComboboxCollection>
-              </ComboboxGroup>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-    );
-  },
-};
-
-export const Multiple: Story = {
-  render: () => {
-    const id = React.useId();
-
-    return (
-      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label} multiple>
-        <ComboboxField className={styles.fieldWide}>
-          <label className={styles.fieldLabel} htmlFor={id}>
-            Select fruits
-          </label>
-          <ComboboxInputGroup className={styles.inputGroupMulti}>
-            <ComboboxChips>
-              <ComboboxValue>
-                {(value: OptionItem[]) => (
-                  <React.Fragment>
-                    {value.map((item) => (
-                      <ComboboxChip key={item.id} aria-label={item.label}>
-                        <ComboboxChipText>{item.label}</ComboboxChipText>
-                        <ComboboxChipRemove aria-label={`Remove ${item.label}`} />
-                      </ComboboxChip>
-                    ))}
-                    <ComboboxChipsInput
-                      id={id}
-                      placeholder={value.length === 0 ? 'Select...' : ''}
-                    />
-                  </React.Fragment>
-                )}
-              </ComboboxValue>
-            </ComboboxChips>
-          </ComboboxInputGroup>
-        </ComboboxField>
-
-        <ComboboxContent sideOffset={4}>
-          <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-          <ComboboxList>
-            {(item: OptionItem) => (
-              <ComboboxItem key={item.id} value={item}>
-                <ComboboxItemIndicator />
-                <ComboboxItemText>{item.label}</ComboboxItemText>
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-    );
-  },
-};
-
-export const AsyncSearchSingle: Story = {
-  render: () => {
-    const id = React.useId();
-    const { contains } = useComboboxFilter();
-
-    const [searchResults, setSearchResults] = React.useState<DirectoryUser[]>([]);
-    const [selectedValue, setSelectedValue] = React.useState<DirectoryUser | null>(null);
-    const [searchValue, setSearchValue] = React.useState('');
-    const [error, setError] = React.useState<string | null>(null);
-    const [isPending, startTransition] = React.useTransition();
-
-    const abortControllerRef = React.useRef<AbortController | null>(null);
-    const trimmedSearchValue = searchValue.trim();
-
-    const items = React.useMemo(() => {
-      if (!selectedValue || searchResults.some((user) => user.id === selectedValue.id)) {
-        return searchResults;
-      }
-
-      return [...searchResults, selectedValue];
-    }, [searchResults, selectedValue]);
-
-    async function searchUsers(
-      query: string,
-    ): Promise<{ users: DirectoryUser[]; error: string | null }> {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 250);
-      });
-
-      if (query === 'error') {
-        return {
-          users: [],
-          error: 'Failed to fetch people. Try again.',
-        };
-      }
-
-      const users = directoryUsers.filter((user) => {
-        return (
-          contains(user.name, query) ||
-          contains(user.username, query) ||
-          contains(user.email, query) ||
-          contains(user.title, query)
-        );
-      });
-
-      return { users, error: null };
-    }
-
-    function getStatus() {
-      if (isPending) {
-        return (
-          <React.Fragment>
-            <span className={styles.spinner} aria-hidden />
-            Searching...
-          </React.Fragment>
-        );
-      }
-
-      if (error) {
-        return error;
-      }
-
-      if (trimmedSearchValue === '') {
-        return selectedValue ? null : 'Start typing to search people...';
-      }
-
-      if (searchResults.length === 0) {
-        return `No matches for "${trimmedSearchValue}".`;
-      }
-
-      return null;
-    }
-
-    function getEmptyMessage() {
-      if (trimmedSearchValue === '' || isPending || searchResults.length > 0 || error) {
-        return null;
-      }
-      return 'Try a different search term.';
-    }
-
-    const status = getStatus();
-    const emptyMessage = getEmptyMessage();
-
-    return (
-      <Combobox
-        items={items}
-        itemToStringLabel={(user: DirectoryUser) => user.name}
-        filter={null}
-        onOpenChangeComplete={(open) => {
-          if (!open && selectedValue) {
-            setSearchResults([selectedValue]);
-          }
-        }}
-        onValueChange={(nextSelectedValue) => {
-          setSelectedValue(nextSelectedValue);
-          setSearchValue('');
-          setError(null);
-        }}
-        onInputValueChange={(nextSearchValue, { reason }) => {
-          setSearchValue(nextSearchValue);
-
-          if (nextSearchValue === '') {
-            abortControllerRef.current?.abort();
-            setSearchResults([]);
-            setError(null);
-            return;
-          }
-
-          if (reason === 'item-press') {
-            return;
-          }
-
-          const controller = new AbortController();
-          abortControllerRef.current?.abort();
-          abortControllerRef.current = controller;
-
-          startTransition(async () => {
-            setError(null);
-            const result = await searchUsers(nextSearchValue);
-
-            if (controller.signal.aborted) {
-              return;
-            }
-
-            startTransition(() => {
-              setSearchResults(result.users);
-              setError(result.error);
-            });
-          });
-        }}
-      >
-        <ComboboxField>
-          <label className={styles.fieldLabel} htmlFor={id}>
-            Assign reviewer
-          </label>
-          <ComboboxInputGroup>
-            <ComboboxInput id={id} placeholder="e.g. Michael" />
-            <ComboboxControlActions>
-              <ComboboxClear aria-label="Clear selection" />
-              <ComboboxTrigger aria-label="Open options" />
-            </ComboboxControlActions>
-          </ComboboxInputGroup>
-        </ComboboxField>
-
-        <ComboboxContent sideOffset={4}>
-          <ComboboxStatus>{status}</ComboboxStatus>
-          <ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
-          <ComboboxList>
-            {(user: DirectoryUser) => (
-              <ComboboxItem key={user.id} value={user}>
-                <ComboboxItemIndicator />
-                <ComboboxItemText className={styles.itemTextMultiline}>
-                  <span className={styles.itemTitle}>{user.name}</span>
-                  <span className={styles.itemMeta}>
-                    <span className={styles.itemUsername}>@{user.username}</span>
-                    <span>{user.title}</span>
-                  </span>
-                  <span className={styles.itemMeta}>{user.email}</span>
-                </ComboboxItemText>
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-    );
-  },
-};
-
-export const CustomComposition: Story = {
-  render: () => {
-    const id = React.useId();
-
-    return (
-      <Combobox items={fruits} itemToStringLabel={(item: OptionItem) => item.label}>
-        <ComboboxField>
-          <label className={styles.fieldLabel} htmlFor={id}>
-            Choose fruit
-          </label>
-          <ComboboxInputGroup className={styles.customInputGroup}>
-            <ComboboxInput id={id} placeholder="e.g. Mango" />
-            <ComboboxControlActions>
-              <ComboboxClear aria-label="Clear selection" />
-              <ComboboxTrigger aria-label="Open options" />
-            </ComboboxControlActions>
-          </ComboboxInputGroup>
-        </ComboboxField>
-
-        <ComboboxPortal className={styles.portal}>
-          <ComboboxBackdrop className={styles.backdrop} />
-          <ComboboxPositioner className={styles.positioner} sideOffset={8}>
-            <ComboboxPopup className={styles.customPopup}>
-              <ComboboxArrow className={styles.arrow} />
-              <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-              <ComboboxList>
-                {(item: OptionItem) => (
-                  <ComboboxItem key={item.id} value={item}>
-                    <ComboboxItemIndicator />
-                    <ComboboxItemText>{item.label}</ComboboxItemText>
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxPopup>
-          </ComboboxPositioner>
-        </ComboboxPortal>
-      </Combobox>
-    );
-  },
-};
+export const Basic: Story = { render: () => <BasicStory /> };
+export const Controlled: Story = { render: () => <ControlledStory /> };
+export const Grouped: Story = { render: () => <GroupedStory /> };
+export const Multiple: Story = { render: () => <MultipleStory /> };
+export const AsyncSearch: Story = { render: () => <AsyncSearchStory /> };
+export const RootProvider: Story = { render: () => <RootProviderStory /> };

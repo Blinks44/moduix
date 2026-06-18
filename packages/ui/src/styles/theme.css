@@ -462,123 +462,69 @@
   --combobox-action-bg: initial; /* transparent */
   --combobox-action-bg-hover: initial; /* var(--color-muted) */
   --combobox-action-color-hover: initial; /* var(--color-foreground) */
+  --combobox-action-gap: initial; /* 0.125rem */
+  --combobox-action-offset-right: initial; /* 0.5rem */
   --combobox-action-radius: initial; /* var(--radius-sm) */
   --combobox-action-size: initial; /* 1.5rem */
-  --combobox-actions-gap: initial; /* 0.125rem */
-  --combobox-actions-offset-right: initial; /* 0.5rem */
-  --combobox-arrow-height: initial; /* 0.625rem */
-  --combobox-arrow-inline-offset: initial; /* 13px */
-  --combobox-arrow-size: initial; /* 8px */
-  --combobox-arrow-stroke-color: initial; /* var(--combobox-popup-border-color) */
-  --combobox-arrow-width: initial; /* 1.25rem */
-  --combobox-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
-  --combobox-backdrop-blur: initial; /* 2px */
-  --combobox-backdrop-ending-blur: initial; /* none */
-  --combobox-backdrop-ending-opacity: initial; /* 0 */
-  --combobox-backdrop-starting-blur: initial; /* none */
-  --combobox-backdrop-starting-opacity: initial; /* 0 */
-  --combobox-backdrop-transition: initial; /* var(--transition-default) */
   --combobox-bg: initial; /* var(--color-background) */
   --combobox-border-color: initial; /* var(--color-border) */
   --combobox-border-width: initial; /* var(--border-width-sm) */
-  --combobox-check-padding-x-start: initial; /* 0.625rem */
-  --combobox-chip-bg: initial; /* var(--color-muted) */
-  --combobox-chip-color: initial; /* var(--color-foreground) */
-  --combobox-chip-font-size: initial; /* var(--text-sm) */
-  --combobox-chip-gap: initial; /* var(--spacing-1) */
-  --combobox-chip-line-height: initial; /* var(--line-height-text-sm) */
-  --combobox-chip-min-height: initial; /* 1.625rem */
-  --combobox-chip-padding-left: initial; /* 0.5rem */
-  --combobox-chip-padding-right: initial; /* 0.375rem */
-  --combobox-chip-padding-y: initial; /* 0.1875rem */
-  --combobox-chip-radius: initial; /* var(--radius-sm) */
-  --combobox-chip-remove-bg-hover: initial; /* var(--color-overlay-foreground) */
-  --combobox-chip-remove-icon-size: initial; /* 0.75rem */
-  --combobox-chip-remove-radius: initial; /* var(--radius-sm) */
-  --combobox-chip-remove-size: initial; /* 1rem */
-  --combobox-chips-gap: initial; /* var(--spacing-1) */
-  --combobox-chips-input-height: initial; /* 1.75rem */
-  --combobox-chips-input-min-width: initial; /* 4rem */
-  --combobox-chips-input-padding-x: initial; /* 0.5rem */
-  --combobox-chips-padding: initial; /* var(--spacing-1) */
   --combobox-color: initial; /* var(--color-foreground) */
+  --combobox-content-bg: initial; /* var(--color-popover) */
+  --combobox-content-border-color: initial; /* var(--color-border) */
+  --combobox-content-border-width: initial; /* var(--border-width-sm) */
+  --combobox-content-closed-opacity: initial; /* 0 */
+  --combobox-content-closed-scale: initial; /* var(--scale-popup) */
+  --combobox-content-color: initial; /* var(--color-popover-foreground) */
+  --combobox-content-max-height: initial; /* 24rem */
+  --combobox-content-padding-y: initial; /* var(--spacing-1) */
+  --combobox-content-shadow: initial; /* var(--shadow-lg) */
   --combobox-control-height: initial; /* var(--size-lg) */
+  --combobox-disabled-opacity: initial; /* var(--opacity-disabled) */
   --combobox-empty-color: initial; /* var(--color-muted-foreground) */
   --combobox-empty-font-size: initial; /* var(--text-sm) */
   --combobox-empty-line-height: initial; /* var(--line-height-text-sm) */
   --combobox-empty-padding-x: initial; /* 1rem */
   --combobox-empty-padding-y: initial; /* 0.75rem */
-  --combobox-field-gap: initial; /* 0.375rem */
   --combobox-focus-ring-color: initial; /* var(--color-ring) */
-  --combobox-group-label-bg: initial; /* var(--color-popover) */
-  --combobox-group-label-color: initial; /* var(--color-muted-foreground) */
-  --combobox-group-label-font-size: initial; /* var(--text-xs) */
-  --combobox-group-label-font-weight: initial; /* var(--weight-semibold) */
-  --combobox-group-label-line-height: initial; /* var(--line-height-text-xs) */
-  --combobox-group-label-padding-bottom: initial; /* 0.35rem */
-  --combobox-group-label-padding-top: initial; /* 0.35rem */
-  --combobox-group-label-padding-x: initial; /* 0.625rem */
-  --combobox-group-padding-bottom: initial; /* var(--spacing-1) */
+  --combobox-focus-ring-offset: initial; /* var(--border-width-sm) */
+  --combobox-focus-ring-width: initial; /* var(--border-width-sm) */
   --combobox-highlight-bg: initial; /* var(--color-foreground) */
   --combobox-highlight-color: initial; /* var(--color-background) */
-  --combobox-highlight-inset-x: initial; /* var(--spacing-1) */
-  --combobox-highlight-radius: initial; /* var(--radius-sm) */
   --combobox-icon-color: initial; /* var(--color-muted-foreground) */
-  --combobox-icon-size: initial; /* 0.875rem */
-  --combobox-icon-svg-size: initial; /* 1rem */
-  --combobox-input-group-padding-x: initial; /* 0 */
-  --combobox-input-padding-x-end: initial; /* 3.25rem */
+  --combobox-icon-size: initial; /* 1rem */
+  --combobox-input-padding-x-end: initial; /* 4.25rem */
   --combobox-input-padding-x-start: initial; /* 0.875rem */
   --combobox-input-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --combobox-invalid-color: initial; /* var(--color-destructive) */
+  --combobox-item-group-gap: initial; /* var(--spacing-2) */
+  --combobox-item-group-label-color: initial; /* var(--color-muted-foreground) */
+  --combobox-item-group-label-font-size: initial; /* var(--text-xs) */
+  --combobox-item-group-label-font-weight: initial; /* var(--weight-semibold) */
+  --combobox-item-group-label-line-height: initial; /* var(--line-height-text-xs) */
+  --combobox-item-group-label-padding-x: initial; /* 0.625rem */
+  --combobox-item-group-label-padding-y: initial; /* 0.35rem */
   --combobox-item-bg: initial; /* transparent */
   --combobox-item-border-color: initial; /* transparent */
-  --combobox-item-border-radius: initial; /* 0 */
   --combobox-item-border-width: initial; /* 0 */
   --combobox-item-color: initial; /* var(--color-foreground) */
   --combobox-item-font-size: initial; /* var(--text-sm) */
   --combobox-item-gap: initial; /* var(--spacing-2) */
-  --combobox-item-indicator-bg: initial; /* transparent */
-  --combobox-item-indicator-border-color: initial; /* transparent */
-  --combobox-item-indicator-border-width: initial; /* 0 */
-  --combobox-item-indicator-icon-size: initial; /* 0.75rem */
-  --combobox-item-indicator-padding: initial; /* 0 */
-  --combobox-item-indicator-radius: initial; /* 0 */
+  --combobox-item-inset-x: initial; /* var(--spacing-2) */
   --combobox-item-indicator-size: initial; /* 0.75rem */
   --combobox-item-line-height: initial; /* var(--line-height-text-sm) */
   --combobox-item-min-height: initial; /* 2rem */
-  --combobox-item-padding-x-end: initial; /* 1rem */
-  --combobox-item-padding-x-start: initial; /* var(--popup-item-padding-x-start, 1rem) */
+  --combobox-item-padding-x: initial; /* 0.625rem */
   --combobox-item-padding-y: initial; /* var(--spacing-2) */
+  --combobox-item-radius: initial; /* var(--radius-sm) */
+  --combobox-label-color: initial; /* var(--combobox-color) */
   --combobox-label-font-size: initial; /* var(--text-sm) */
   --combobox-label-font-weight: initial; /* var(--weight-medium) */
   --combobox-label-line-height: initial; /* var(--line-height-text-sm) */
-  --combobox-list-max-height: initial; /* var(--combobox-popup-max-height) */
-  --combobox-list-padding-y: initial; /* 0.25rem */
-  --combobox-list-scroll-padding-y: initial; /* 0.25rem */
-  --combobox-popup-bg: initial; /* var(--color-popover) */
-  --combobox-popup-border-color: initial; /* var(--color-border) */
-  --combobox-popup-ending-opacity: initial; /* 0 */
-  --combobox-popup-ending-scale: initial; /* var(--scale-popup) */
-  --combobox-popup-ending-translate-x: initial; /* 0 */
-  --combobox-popup-ending-translate-y: initial; /* 0 */
-  --combobox-popup-max-height: initial; /* 24rem */
-  --combobox-popup-starting-opacity: initial; /* 0 */
-  --combobox-popup-starting-scale: initial; /* var(--scale-popup) */
-  --combobox-popup-starting-translate-x: initial; /* 0 */
-  --combobox-popup-starting-translate-y: initial; /* 0 */
-  --combobox-popup-transition: initial; /* var(--transition-default) */
+  --combobox-max-width: initial; /* 100% */
   --combobox-radius: initial; /* var(--radius-md) */
-  --combobox-separator-margin-x: initial; /* 1rem */
-  --combobox-separator-margin-y: initial; /* 0.375rem */
-  --combobox-shadow: initial; /* var(--shadow-lg) */
-  --combobox-status-color: initial; /* var(--combobox-empty-color) */
-  --combobox-status-divider-color: initial; /* var(--combobox-popup-border-color) */
-  --combobox-status-divider-width: initial; /* var(--border-width-sm) */
-  --combobox-status-font-size: initial; /* var(--text-xs) */
-  --combobox-status-gap: initial; /* var(--spacing-1) */
-  --combobox-status-line-height: initial; /* var(--line-height-text-xs) */
-  --combobox-status-padding-x: initial; /* 0.75rem */
-  --combobox-status-padding-y: initial; /* 0.5rem */
+  --combobox-root-gap: initial; /* 0.375rem */
+  --combobox-transition: initial; /* var(--transition-default) */
   --combobox-width: initial; /* 16rem */
 
   /* CommandPalette */

@@ -459,7 +459,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix Combobox component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
