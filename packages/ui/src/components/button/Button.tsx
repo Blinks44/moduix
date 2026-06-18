@@ -20,17 +20,33 @@ export type ButtonRootProps = HTMLArkProps<'button'> & {
 };
 
 const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(function ButtonRoot(
-  { className, size = 'md', variant = 'default', ...props },
+  {
+    asChild,
+    className,
+    disabled,
+    size = 'md',
+    type,
+    variant = 'default',
+    'aria-disabled': ariaDisabled,
+    ...props
+  },
   ref,
 ) {
+  const isDisabled = disabled || ariaDisabled === true || ariaDisabled === 'true';
+
   return (
     <ark.button
       ref={ref}
+      asChild={asChild}
+      type={asChild ? type : (type ?? 'button')}
+      disabled={disabled}
       data-scope="button"
       data-part="root"
       data-slot="button-root"
       data-variant={variant}
       data-size={size}
+      data-disabled={isDisabled ? '' : undefined}
+      aria-disabled={ariaDisabled}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />

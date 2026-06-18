@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowUpRightIcon, StarIcon } from '@/icons/demo';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Spinner } from '../spinner';
@@ -103,6 +103,21 @@ export const AsChildLink: Story = {
       <a href="#button">Open Button Docs</a>
     </Button>
   ),
+};
+
+export const ForwardedRef: Story = {
+  render: () => {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    return (
+      <div className={styles.row}>
+        <Button ref={buttonRef}>Focus target</Button>
+        <Button variant="outline" onClick={() => buttonRef.current?.focus()}>
+          Focus first button
+        </Button>
+      </div>
+    );
+  },
 };
 
 export const PendingState: Story = {

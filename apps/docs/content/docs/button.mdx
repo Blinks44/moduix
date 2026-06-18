@@ -1,6 +1,6 @@
 ---
 title: Button
-description: A styled action control built as an Ark-style factory wrapper.
+description: A styled action control built with the Ark factory composition model.
 icon: Component
 ---
 
@@ -11,6 +11,7 @@ import {
   ButtonIconExample,
   ButtonLinkCompositionExample,
   ButtonLoadingExample,
+  ButtonRefExample,
   ButtonSizesExample,
   ButtonVariantsExample,
   CustomStylingButtonExample,
@@ -18,14 +19,16 @@ import {
 
 ## API Reference
 
-`Button` is an Ark-aligned standalone wrapper built with `@ark-ui/react/factory`. Ark UI does not
-currently ship a dedicated button primitive, so moduix exposes `Button.Root` and keeps the wrapper
-limited to styling, `data-slot`, and `asChild` support.
+Ark UI does not ship a dedicated Button primitive. `Button` follows the
+[Ark factory and `asChild` composition model](https://ark-ui.com/docs/guides/composition), the
+[Ark data-attribute styling model](https://ark-ui.com/docs/guides/styling), and uses
+[Chakra Button](https://chakra-ui.com/docs/components/button) as the nearest recipe-level
+reference.
 
 ## Basic
 
-Start with `Button.Root` for primary actions, form submits, and action-like controls that only need
-the local `variant`, `size`, and child composition path.
+Use the short `<Button />` form for normal actions. `Button.Root` is the equivalent namespaced
+form.
 
 <Preview>
   <ButtonExample />
@@ -35,17 +38,29 @@ the local `variant`, `size`, and child composition path.
       import { Button } from "moduix";
 
       export function ButtonDemo() {
-        return <Button.Root>Save Changes</Button.Root>;
+        return <Button>{labels.save}</Button>;
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .button-demo-row {
+        display: flex;
+        justify-content: center;
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const labels = { save: "Save Changes" };
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
-
-If you want `Button` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -85,12 +100,9 @@ aubx shadcn@latest add Blinks44/moduix/button
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Button` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-`Button` has one Ark-aligned root element.
+`Button` is a single-part component.
 
 ```text
 Button.Root
@@ -107,52 +119,39 @@ Button.Root
 
 ### Recommended composition
 
-Stay with `Button.Root` when the control should keep button semantics and only needs visual intent,
-density, and child composition.
-
-moduix adds two visual props on top of Ark factory root props:
+Use a native root for actions. It defaults to `type="button"` to avoid accidental form submission;
+set `type="submit"` explicitly for a submit action.
 
 | Prop      | Default   | Values                                                                                   |
 | --------- | --------- | ---------------------------------------------------------------------------------------- |
 | `variant` | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
+| `type`    | `button`  | Native roots only                                                                        |
 
 ### When to go custom
 
-Use `asChild` when another element should own the DOM node while keeping the button visual
-contract.
+Use `asChild` when one semantic child should own the DOM node. Ark composition requires exactly one
+child. The default `type="button"` is not injected into an `asChild` target.
 
-For example, render an anchor when the action is navigation-first:
-
-```tsx
-<Button.Root asChild variant="outline">
-  <a href="/docs/button">Open Button Docs</a>
-</Button.Root>
-```
-
-### Default props
-
-| Entry       | Default   | Values / Notes          |
-| ----------- | --------- | ----------------------- |
-| `variant`   | `default` | Visual intent           |
-| `size`      | `md`      | Control density         |
-| `asChild`   | `false`   | Ark factory composition |
-| `className` | -         | Applied to the root     |
+Use a real anchor for navigation. `aria-disabled="true"` is presentational on links, so application
+code must also prevent navigation or activation.
 
 ### Behavioral notes
 
-- `Button.Root` forwards Ark factory button props such as `className`, `style`, event handlers,
-  and native button attributes.
-- The old Base UI `render`, `nativeButton`, and `focusableWhenDisabled` surface is gone.
-- Use native `disabled` for real buttons. When `asChild` renders a non-button element, use
-  `aria-disabled="true"` and prevent navigation or activation in app code.
-- Use `type="submit"` explicitly for form submit buttons.
-- Direct child `svg` elements inherit `currentColor` and are sized with `--button-icon-size`.
-- Icon-only buttons still need an accessible name through `aria-label` or equivalent labeling.
+- Native attributes, events, `className`, and `style` pass through without callback translation.
+- The forwarded ref targets the rendered root.
+- Native `disabled` and `aria-disabled="true"` expose `data-disabled`.
+- Loading UI stays compositional: combine `Spinner`, `disabled`, and `aria-busy`.
+- Direct child `svg` elements inherit `currentColor` and use `--button-icon-size`.
+- Icon-only buttons require an accessible name.
+- Chakra-only `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading props are
+  intentionally outside this root-only moduix contract.
 
 ## Examples
 
 ### Variants
+
+Use variants to communicate action priority and intent.
 
 <Preview>
   <ButtonVariantsExample />
@@ -163,23 +162,48 @@ For example, render an anchor when the action is navigation-first:
 
       export function ButtonVariantsDemo() {
         return (
-          <>
-            <Button.Root>Default</Button.Root>
-            <Button.Root variant="outline">Outline</Button.Root>
-            <Button.Root variant="secondary">Secondary</Button.Root>
-            <Button.Root variant="destructive">Destructive</Button.Root>
-            <Button.Root variant="destructive-outline">Destructive Outline</Button.Root>
-            <Button.Root variant="ghost">Ghost</Button.Root>
-            <Button.Root variant="link">Link</Button.Root>
-          </>
+          <div className="button-demo-row">
+            {variants.map((variant) => (
+              <Button key={variant} variant={variant}>
+                {variant}
+              </Button>
+            ))}
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const variants = [
+        "default",
+        "outline",
+        "secondary",
+        "destructive",
+        "destructive-outline",
+        "ghost",
+        "link",
+      ] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Sizes
+
+Text and icon-only sizes share the same root API.
 
 <Preview>
   <ButtonSizesExample />
@@ -190,30 +214,56 @@ For example, render an anchor when the action is navigation-first:
 
       export function ButtonSizesDemo() {
         return (
-          <>
-            <Button.Root size="xs">Extra-small</Button.Root>
-            <Button.Root size="sm">Small</Button.Root>
-            <Button.Root size="md">Medium</Button.Root>
-            <Button.Root size="lg">Large</Button.Root>
-            <Button.Root size="xl">Extra-large</Button.Root>
-            <Button.Root size="icon-sm" variant="outline" aria-label="Small favorite">
-              <StarIcon />
-            </Button.Root>
-            <Button.Root size="icon-md" variant="outline" aria-label="Favorite">
-              <StarIcon />
-            </Button.Root>
-            <Button.Root size="icon-lg" variant="outline" aria-label="Large favorite">
-              <StarIcon />
-            </Button.Root>
-          </>
+          <div className="button-demo-row">
+            {sizes.map((size) => (
+              <Button key={size} size={size}>
+                {size}
+              </Button>
+            ))}
+            {iconSizes.map((item) => (
+              <Button
+                key={item.size}
+                size={item.size}
+                variant="outline"
+                aria-label={item.label}
+              >
+                <StarIcon />
+              </Button>
+            ))}
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
+      const iconSizes = [
+        { label: "Small favorite", size: "icon-sm" },
+        { label: "Favorite", size: "icon-md" },
+        { label: "Large favorite", size: "icon-lg" },
+      ] as const;
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Icons
+
+Icons can appear before or after text. Icon-only controls use an `icon-*` size and an accessible
+name.
 
 <Preview>
   <ButtonIconExample />
@@ -224,27 +274,51 @@ For example, render an anchor when the action is navigation-first:
 
       export function ButtonIconsDemo() {
         return (
-          <>
-            <Button.Root>
+          <div className="button-demo-row">
+            <Button>
               <PlusIcon />
-              Create Item
-            </Button.Root>
-            <Button.Root size="icon-md" variant="outline" aria-label="Favorites">
+              {labels.create}
+            </Button>
+            <Button size="icon-md" variant="outline" aria-label={labels.favorite}>
               <StarIcon />
-            </Button.Root>
-            <Button.Root variant="link">
-              Open Docs
+            </Button>
+            <Button variant="link">
+              {labels.docs}
               <ArrowUpRightIcon />
-            </Button.Root>
-          </>
+            </Button>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const labels = {
+        create: "Create Item",
+        docs: "Open Button Docs",
+        favorite: "Favorites",
+      };
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Disabled
+
+Use native `disabled` for buttons. Composed links need both `aria-disabled` and application-level
+activation prevention.
 
 <Preview>
   <ButtonDisabledExample />
@@ -255,24 +329,45 @@ For example, render an anchor when the action is navigation-first:
 
       export function ButtonDisabledDemo() {
         return (
-          <>
-            <Button.Root disabled>Disabled</Button.Root>
-            <Button.Root asChild aria-disabled="true" variant="outline">
+          <div className="button-demo-row">
+            <Button disabled>{labels.button}</Button>
+            <Button asChild aria-disabled="true" variant="outline">
               <a href="#button" onClick={(event) => event.preventDefault()}>
-                Disabled Link
+                {labels.link}
               </a>
-            </Button.Root>
-          </>
+            </Button>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const labels = {
+        button: "Disabled",
+        link: "Disabled Link",
+      };
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Pending State
 
-Compose pending UI with `disabled`, `aria-busy`, and a child spinner.
+Compose pending content explicitly so product code controls the label, spinner, and async
+lifecycle.
 
 <Preview>
   <ButtonLoadingExample />
@@ -286,31 +381,51 @@ Compose pending UI with `disabled`, `aria-busy`, and a child spinner.
         const [pending, setPending] = useState(false);
 
         return (
-          <Button.Root
+          <Button
             disabled={pending}
             aria-busy={pending || undefined}
             onClick={() => {
               setPending(true);
-              setTimeout(() => setPending(false), 1800);
+              setTimeout(() => setPending(false), delay);
             }}
           >
             {pending ? (
               <>
                 <Spinner decorative size="sm" />
-                Saving
+                {labels.pending}
               </>
             ) : (
-              "Save Changes"
+              labels.idle
             )}
-          </Button.Root>
+          </Button>
         );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="button-root"][aria-busy="true"] {
+        cursor: progress;
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const delay = 1800;
+      const labels = {
+        idle: "Save Changes",
+        pending: "Saving",
+      };
+    `}
+  </Preview.Data>
 </Preview>
 
 ### AsChild Link
+
+Use `asChild` for navigation so the anchor retains link semantics while receiving button styling.
 
 <Preview>
   <ButtonLinkCompositionExample />
@@ -321,17 +436,85 @@ Compose pending UI with `disabled`, `aria-busy`, and a child spinner.
 
       export function ButtonLinkDemo() {
         return (
-          <Button.Root asChild variant="outline">
-            <a href="#button">Open Button Docs</a>
-          </Button.Root>
+          <Button asChild variant="outline">
+            <a href={link.href}>{link.label}</a>
+          </Button>
         );
       }
     `}
 
   </Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="button-root"] {
+        text-decoration: none;
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const link = {
+        href: "#button",
+        label: "Open Button Docs",
+      };
+    `}
+  </Preview.Data>
+</Preview>
+
+### Ref
+
+The forwarded ref points at the rendered root and can be used for imperative focus or measurement.
+
+<Preview>
+  <ButtonRefExample />
+
+  <Preview.Code>
+    {`
+      import { Button } from "moduix";
+      import { useRef } from "react";
+
+      export function ButtonRefDemo() {
+        const buttonRef = useRef(null as HTMLButtonElement | null);
+
+        return (
+          <div className="button-demo-row">
+            <Button ref={buttonRef}>{labels.target}</Button>
+            <Button variant="outline" onClick={() => buttonRef.current?.focus()}>
+              {labels.trigger}
+            </Button>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+<Preview.CSS>
+  {`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}
+</Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const labels = {
+        target: "Focus target",
+        trigger: "Focus first button",
+      };
+    `}
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
+
+Use `className`, CSS variables, and stable data hooks for local visual changes.
 
 <Preview>
   <CustomStylingButtonExample />
@@ -342,10 +525,10 @@ Compose pending UI with `disabled`, `aria-busy`, and a child spinner.
 
       export function CustomStylingButtonDemo() {
         return (
-          <Button.Root className="customButton" disabled aria-busy>
+          <Button className="customButton" disabled aria-busy>
             <Spinner decorative size="sm" className="customSpinner" />
-            Publishing
-          </Button.Root>
+            {labels.pending}
+          </Button>
         );
       }
     `}
@@ -355,9 +538,9 @@ Compose pending UI with `disabled`, `aria-busy`, and a child spinner.
   <Preview.CSS>
     {`
       .customButton {
-        border-color: var(--color-primary);
-        background-color: var(--color-primary);
-        color: var(--color-primary-foreground);
+        --button-radius: var(--radius-full);
+        --button-default-bg: var(--color-foreground);
+        --button-default-border-color: var(--color-foreground);
         box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
       }
 
@@ -367,12 +550,15 @@ Compose pending UI with `disabled`, `aria-busy`, and a child spinner.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const labels = { pending: "Publishing" };
+    `}
+  </Preview.Data>
 </Preview>
 
 ## Styling
-
-`Button` exposes one stable root plus the full `--button-*` token surface used for variants, sizes,
-focus ring, spacing, and icon sizing.
 
 ### CSS Properties
 
@@ -386,8 +572,8 @@ focus ring, spacing, and icon sizing.
 
 ### Styling hooks
 
-- `data-slot="button-root"` is the stable selector on the exported root.
-- `data-scope="button"` and `data-part="root"` stay available for Ark-style targeting.
-- `data-variant` reflects the current visual variant.
-- `data-size` reflects the current size, including `icon-sm`, `icon-md`, and `icon-lg`.
-- Native `[disabled]` and `[aria-disabled='true']` drive the disabled visuals.
+- `data-slot="button-root"` is the stable moduix selector.
+- `data-scope="button"` and `data-part="root"` support Ark-style targeting.
+- `data-variant` and `data-size` reflect the active visual recipe.
+- `data-disabled` is present for both native `disabled` and `aria-disabled="true"`.
+- `:disabled`, `[data-disabled]`, and `[aria-disabled="true"]` drive disabled visuals.

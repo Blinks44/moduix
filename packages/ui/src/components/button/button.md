@@ -4,6 +4,7 @@ Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/guides/composition
 - Ark UI Styling: https://ark-ui.com/docs/guides/styling
+- Chakra UI: https://chakra-ui.com/docs/components/button
 
 ## Purpose
 
@@ -16,6 +17,7 @@ composition.
 ## Upstream model to preserve
 
 - Uses the Ark factory composition model instead of a dedicated Ark primitive.
+- Uses Chakra Button as the nearest recipe-level reference for a single-part action control.
 - Keeps the API intentionally small: one root part with polymorphic DOM ownership through `asChild`.
 - Keeps native button semantics and attributes intact on the root.
 
@@ -26,6 +28,9 @@ composition.
 - Supports Ark factory root props such as `asChild`, `className`, `style`, event handlers, and
   native button attributes.
 - `variant` and `size` are the only local root props. They map to `data-variant` and `data-size`.
+- Native roots default to `type="button"`; pass `type="submit"` explicitly for form submission.
+- `disabled` and `aria-disabled="true"` expose `data-disabled`.
+- The forwarded ref targets the rendered button element.
 - Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on the root.
 - Does not keep Base UI `render`, `nativeButton`, or `focusableWhenDisabled`.
 
@@ -69,6 +74,12 @@ equivalent labeling mechanism.
 ## Upstream feature coverage
 
 - `Composition`: preserved through Ark factory `asChild` behavior.
+- `Ref`: forwarded to the rendered root for focus and measurement.
+- `Disabled`: native `disabled` and composed `aria-disabled` states share `data-disabled`.
+- `Loading`: supported through child composition with `Spinner`, `disabled`, and `aria-busy`.
+- `Chakra recipe features`: variants, sizes, icons, disabled state, loading composition, links through
+  `asChild`, custom radius through CSS variables, and refs are covered. Chakra-only `colorPalette`,
+  responsive recipe props, `ButtonGroup`, and managed `loading` props are intentionally not exposed.
 - `Dedicated primitive features`: not applicable because Ark has no dedicated `Button` component
   page for this wrapper to mirror.
 - `Native button semantics`: preserved through the root `button` element and native attributes.
@@ -80,8 +91,12 @@ equivalent labeling mechanism.
   - `data-part="root"`
   - `data-variant="<variant>"`
   - `data-size="<size>"`
-- Disabled styling is driven by native `[disabled]` and `[aria-disabled='true']`.
+- Disabled styling is driven by `:disabled`, `[data-disabled]`, and `[aria-disabled='true']`.
+- `data-disabled` is present for native `disabled` and `aria-disabled="true"`.
 - `Button.Root` forwards native button attributes and event handlers without wrapper translation.
+- `Button.Root` forwards its ref to the rendered root.
+- `aria-disabled` on a non-button `asChild` target does not block activation by itself. Application
+  code must prevent navigation or activation.
 - Icon-only buttons still need an accessible name through `aria-label` or equivalent labeling.
 
 ## Defaults and styling
@@ -90,6 +105,7 @@ equivalent labeling mechanism.
 | ----------- | --------- | ---------------------------------------------------------------------------------------- |
 | `variant`   | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`      | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
+| `type`      | `button`  | Native roots only; not injected into `asChild` targets                                   |
 | `asChild`   | `false`   | Ark factory composition                                                                  |
 | `className` | -         | Applied to the root                                                                      |
 
@@ -160,6 +176,8 @@ Primary CSS variables:
 
 - Ark UI has no button primitive here; moduix owns the root wrapper.
 - moduix ships pre-styled defaults and the local `variant` / `size` shortcuts.
+- moduix keeps loading UI compositional instead of copying Chakra's managed `loading`,
+  `loadingText`, `spinner`, and `spinnerPlacement` props.
 - The old Base UI `render`, `nativeButton`, and `focusableWhenDisabled` surface is removed. Use
   `asChild` for polymorphism and native `disabled` or `aria-disabled` depending on the rendered
   element.
@@ -168,10 +186,16 @@ Primary CSS variables:
 
 - Keep the wrapper root-only unless a real multi-part button contract appears.
 - Keep `variant` and `size` synchronized across `Button.tsx`, CSS, stories, docs, and theme tokens.
+- Preserve the native-root `type="button"` default and do not forward that default through
+  `asChild`.
+- Keep `data-disabled` synchronized with both native `disabled` and `aria-disabled`.
 - Do not reintroduce Base button shims or converted prop names.
 
 ## Local changelog
 
+- 2026-06-18: Restored safe `type="button"` behavior for native roots, added Ark-style
+  `data-disabled`, documented ref forwarding and Chakra recipe coverage, and kept `asChild`
+  free of injected button-only defaults.
 - 2026-06-17: Migrated `Button` from Base UI to an Ark-style factory wrapper, added `Button.Root`
   plus the callable `Button` alias, and replaced `render` / `nativeButton` with `asChild`.
 - 2026-06-17: Switched disabled styling hooks to native `[disabled]` and `[aria-disabled='true']`

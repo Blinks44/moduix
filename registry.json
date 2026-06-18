@@ -334,7 +334,7 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Button component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {

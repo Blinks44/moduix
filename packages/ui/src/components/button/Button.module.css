@@ -34,11 +34,12 @@
       );
     }
 
-    &:is([disabled], [aria-disabled='true']) {
+    &:is(:disabled, [data-disabled], [aria-disabled='true']) {
       opacity: var(--button-disabled-opacity, var(--opacity-disabled));
       cursor: default;
       pointer-events: none;
     }
+
     & :where(svg) {
       width: var(--button-icon-size, 1rem);
       height: var(--button-icon-size, 1rem);
