@@ -1,4 +1,28 @@
 @layer ui.components {
+  @keyframes collapsible-content-open {
+    from {
+      height: var(--collapsed-height, 0);
+      opacity: var(--collapsible-content-closed-opacity, 0.01);
+    }
+
+    to {
+      height: var(--height);
+      opacity: var(--collapsible-content-open-opacity, 1);
+    }
+  }
+
+  @keyframes collapsible-content-closed {
+    from {
+      height: var(--height);
+      opacity: var(--collapsible-content-open-opacity, 1);
+    }
+
+    to {
+      height: var(--collapsed-height, 0);
+      opacity: var(--collapsible-content-closed-opacity, 0.01);
+    }
+  }
+
   .root {
     box-sizing: border-box;
     display: flex;
@@ -40,7 +64,7 @@
       outline-offset: var(--collapsible-focus-ring-offset, var(--border-width-sm));
     }
 
-    &:not([disabled]):not([data-disabled]) {
+    &:not(:is([disabled], [data-disabled])) {
       @media (hover: hover) {
         &:hover {
           background-color: var(
@@ -58,64 +82,57 @@
       }
     }
 
-    &[disabled],
-    &[data-disabled] {
+    &:is([disabled], [data-disabled]) {
       opacity: var(--collapsible-disabled-opacity, var(--opacity-disabled));
       cursor: default;
     }
-
-    &[data-panel-open] .triggerIcon {
-      transform: var(--collapsible-icon-open-transform, rotate(90deg));
-    }
   }
 
-  .triggerIcon {
+  .indicator {
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--collapsible-icon-size, 0.75rem);
-    height: var(--collapsible-icon-size, 0.75rem);
+    width: var(--collapsible-indicator-size, 0.75rem);
+    height: var(--collapsible-indicator-size, 0.75rem);
     flex-shrink: 0;
-    transition: transform var(--collapsible-icon-transition, var(--transition-default));
+    transition: transform var(--collapsible-indicator-transition, var(--transition-default));
 
     & > svg {
       width: 100%;
       height: 100%;
     }
+
+    &[data-state='open'] {
+      transform: var(--collapsible-indicator-open-transform, rotate(90deg));
+    }
   }
 
-  .panel {
+  .content {
+    --collapsed-height: 0;
+
     box-sizing: border-box;
-    height: var(--collapsible-panel-height);
     overflow: hidden;
-    color: var(--collapsible-panel-color, var(--color-muted-foreground));
-    font-size: var(--collapsible-panel-font-size, var(--text-sm));
-    line-height: var(--collapsible-panel-line-height, var(--line-height-text-sm));
+    color: var(--collapsible-content-color, var(--color-muted-foreground));
+    font-size: var(--collapsible-content-font-size, var(--text-sm));
+    line-height: var(--collapsible-content-line-height, var(--line-height-text-sm));
 
-    &[hidden]:not([hidden='until-found']) {
-      display: none;
+    &[data-state='open'] {
+      animation: collapsible-content-open
+        var(--collapsible-content-transition, var(--transition-default));
+
+      &[data-has-collapsed-size] {
+        --collapsible-content-closed-opacity: var(--collapsible-content-open-opacity, 1);
+      }
     }
 
-    transition:
-      height var(--collapsible-panel-transition, var(--transition-default)),
-      opacity var(--collapsible-panel-transition, var(--transition-default)),
-      transform var(--collapsible-panel-transition, var(--transition-default)),
-      translate var(--collapsible-panel-transition, var(--transition-default));
+    &[data-state='closed'] {
+      animation: collapsible-content-closed
+        var(--collapsible-content-transition, var(--transition-default));
 
-    &[data-starting-style] {
-      height: var(--collapsible-panel-starting-height, 0);
-      opacity: var(--collapsible-panel-starting-opacity, 1);
-      translate: var(--collapsible-panel-starting-translate-x, 0)
-        var(--collapsible-panel-starting-translate-y, 0);
-      transform: scale(var(--collapsible-panel-starting-scale, 1));
-    }
-
-    &[data-ending-style] {
-      height: var(--collapsible-panel-ending-height, 0);
-      opacity: var(--collapsible-panel-ending-opacity, 1);
-      translate: var(--collapsible-panel-ending-translate-x, 0)
-        var(--collapsible-panel-ending-translate-y, 0);
-      transform: scale(var(--collapsible-panel-ending-scale, 1));
+      &[data-has-collapsed-size] {
+        --collapsible-content-closed-opacity: var(--collapsible-content-open-opacity, 1);
+      }
     }
   }
 }

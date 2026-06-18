@@ -1,6 +1,6 @@
 ---
 title: Collapsible
-description: A disclosure control that opens and closes a single panel of content.
+description: A disclosure control that opens and closes a single content region.
 icon: Component
 ---
 
@@ -10,45 +10,42 @@ import {
   ControlledCollapsibleExample,
   CustomCompositionCollapsibleExample,
   DisabledCollapsibleExample,
-  HiddenUntilFoundCollapsibleExample,
+  LazyMountCollapsibleExample,
+  NestedCollapsibleExample,
+  PartialCollapseCollapsibleExample,
+  RootProviderCollapsibleExample,
 } from '@/components/examples/collapsible';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/collapsible" />
+<BaseUIReference href="https://ark-ui.com/docs/components/collapsible" />
 
 ## Basic
 
-Use `Collapsible` when one section of supporting content needs to expand inline without the
-multi-item semantics of `Accordion`.
+Use the Ark-shaped `Root`, `Trigger`, `Indicator`, and `Content` parts for one inline disclosure.
 
 <Preview>
   <CollapsibleExample />
 
   <Preview.Code>
     {`
-      import {
-        Collapsible,
-        CollapsiblePanel,
-        CollapsibleTrigger,
-        CollapsibleTriggerIcon,
-      } from "moduix";
+      import { Collapsible } from "moduix";
 
       export function CollapsibleDemo() {
         return (
-          <Collapsible>
-            <CollapsibleTrigger>
+          <Collapsible.Root>
+            <Collapsible.Trigger>
               Recovery keys
-              <CollapsibleTriggerIcon />
-            </CollapsibleTrigger>
-            <CollapsiblePanel>
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>
               <ul>
                 <li>alien-bean-pasta</li>
                 <li>wild-irish-burrito</li>
                 <li>horse-battery-staple</li>
               </ul>
-            </CollapsiblePanel>
-          </Collapsible>
+            </Collapsible.Content>
+          </Collapsible.Root>
         );
       }
     `}
@@ -58,8 +55,7 @@ multi-item semantics of `Accordion`.
 
 ## Install with shadcn (optional)
 
-If you want `Collapsible` to become part of your own project source instead of staying in
-`node_modules`, install it from the moduix GitHub registry:
+Install the component source from the moduix GitHub registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
@@ -99,101 +95,82 @@ aubx shadcn@latest add Blinks44/moduix/collapsible
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Collapsible` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-Keep one trigger and one panel inside the same root.
-
 ```text
-Collapsible
-├─ CollapsibleTrigger
+Collapsible.Root
+├─ Collapsible.Trigger
 │  ├─ label
-│  └─ CollapsibleTriggerIcon (optional)
-└─ CollapsiblePanel
+│  └─ Collapsible.Indicator (optional)
+└─ Collapsible.Content
    └─ content
 ```
 
-| Part                     | Role                                                                                                        |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| `Collapsible`            | Root state machine for one disclosure pair. Controls `open`, `defaultOpen`, `disabled`, and `onOpenChange`. |
-| `CollapsibleTrigger`     | Interactive toggle button. Uses the default moduix trigger styling unless `render` is provided.             |
-| `CollapsibleTriggerIcon` | Optional decorative helper. Defaults to `ChevronRightIcon` and rotates from `data-panel-open`.              |
-| `CollapsiblePanel`       | Collapsible content region. Put spacing or surface wrappers inside it so height animation stays clean.      |
+| Part                       | Role                                                                |
+| -------------------------- | ------------------------------------------------------------------- |
+| `Collapsible.Root`         | Owns controlled or uncontrolled open state.                         |
+| `Collapsible.RootProvider` | Connects parts to state created with `useCollapsible`.              |
+| `Collapsible.Trigger`      | Accessible button that toggles the content.                         |
+| `Collapsible.Indicator`    | Optional state cue with a default moduix chevron.                   |
+| `Collapsible.Content`      | Collapsible region measured through Ark CSS variables.              |
+| `Collapsible.Context`      | Exposes Ark state to a render function without another state layer. |
 
 ## Composition
 
-### When to stay high-level
+### Recommended composition
 
-Stay with `Collapsible`, `CollapsibleTrigger`, `CollapsiblePanel`, and the optional
-`CollapsibleTriggerIcon` for most inline disclosure rows, recovery-key sections, and supporting
-metadata blocks.
+Use `Collapsible.Root`, `Collapsible.Trigger`, optional `Collapsible.Indicator`, and
+`Collapsible.Content`. Root props include `open`, `defaultOpen`, `onOpenChange(details)`,
+`disabled`, `collapsedHeight`, `collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids`, and
+`onExitComplete`.
 
-The wrappers keep Base UI props intact. Use `open`, `defaultOpen`, `onOpenChange`, `disabled`,
-`keepMounted`, and `hiddenUntilFound` on the same parts as the upstream primitive.
+Keep padding and surface styles on an inner element inside `Collapsible.Content`. Ark measures the
+content and exposes `--height`, `--width`, `--collapsed-height`, and `--collapsed-width`.
 
 ### When to go custom
 
-Use `render` on `CollapsibleTrigger` only when the host element must change. When that host is not
-a real `<button>`, set `nativeButton={false}` so Base UI can apply ARIA button behavior correctly.
+Use `asChild` when another element must own the rendered node. This is the Ark replacement for the
+removed Base UI `render` and `nativeButton` contract.
 
-Use `CollapsibleTriggerIcon` when the default chevron is enough, replace its children when the UI
-needs a different disclosure cue, or omit it entirely.
+Use `useCollapsible` with `Collapsible.RootProvider` when state must be created outside the part
+tree. Use `Collapsible.Context` when descendants need the current Ark state.
+
+`Collapsible.Indicator` is optional. It renders the moduix right chevron by default and accepts
+custom children.
 
 ### Default props
 
-| Part                     | Default            | Values / Notes                                                           |
-| ------------------------ | ------------------ | ------------------------------------------------------------------------ |
-| `Collapsible`            | closed             | `defaultOpen`, `open`, `onOpenChange`, `disabled`, `className`, `render` |
-| `CollapsibleTrigger`     | button host        | `className`, `render`, `nativeButton`, native button props               |
-| `CollapsiblePanel`       | hidden when closed | `className`, `keepMounted`, `hiddenUntilFound`, `render`                 |
-| `CollapsibleTriggerIcon` | chevron            | Decorative `span`; `aria-hidden` defaults to `true`                      |
+| Part                    | Default          | Notes                                              |
+| ----------------------- | ---------------- | -------------------------------------------------- |
+| `Collapsible.Root`      | closed           | `defaultOpen={false}`, mounted content             |
+| `Collapsible.Trigger`   | `button`         | Supports Ark `asChild`                             |
+| `Collapsible.Indicator` | right chevron    | Rotates from `data-state="open"`                   |
+| `Collapsible.Content`   | collapsed region | Uses Ark measurement variables and render strategy |
 
 ### Behavioral notes
 
-- Prefer the default trigger render path whenever possible. It gives correct button semantics and
-  keyboard behavior with no extra work.
-- Keep nested interactive controls out of `CollapsibleTrigger`; place them beside the trigger or
-  inside the panel.
-- Put padding, borders, and surface styling on inner panel content when precise height animation
-  matters.
+- `onOpenChange` receives an Ark details object. Read the next state from `details.open`.
+- Keep nested interactive controls outside `Collapsible.Trigger`.
+- Use `Accordion` instead when multiple disclosures need coordinated keyboard or value behavior.
 
 ## Examples
 
 ### Default Open
 
-Use `defaultOpen` when the panel should start expanded on first render.
+Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
 
 <Preview>
   <CollapsibleExample defaultOpen />
 
   <Preview.Code>
     {`
-      import {
-        Collapsible,
-        CollapsiblePanel,
-        CollapsibleTrigger,
-        CollapsibleTriggerIcon,
-      } from "moduix";
-
-      export function DefaultOpenCollapsibleDemo() {
-        return (
-          <Collapsible defaultOpen>
-            <CollapsibleTrigger>
-              Recovery keys
-              <CollapsibleTriggerIcon />
-            </CollapsibleTrigger>
-            <CollapsiblePanel>
-              <ul>
-                <li>alien-bean-pasta</li>
-                <li>wild-irish-burrito</li>
-                <li>horse-battery-staple</li>
-              </ul>
-            </CollapsiblePanel>
-          </Collapsible>
-        );
-      }
+      <Collapsible.Root defaultOpen>
+        <Collapsible.Trigger>
+          Recovery keys
+          <Collapsible.Indicator />
+        </Collapsible.Trigger>
+        <Collapsible.Content>Content</Collapsible.Content>
+      </Collapsible.Root>
     `}
 
   </Preview.Code>
@@ -201,39 +178,30 @@ Use `defaultOpen` when the panel should start expanded on first render.
 
 ### Controlled
 
-Control `open` from React state when the disclosure must coordinate with surrounding UI.
+Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI owns the state.
 
 <Preview>
   <ControlledCollapsibleExample />
 
   <Preview.Code>
     {`
-      import {
-        Collapsible,
-        CollapsiblePanel,
-        CollapsibleTrigger,
-        CollapsibleTriggerIcon,
-      } from "moduix";
+      import { Collapsible } from "moduix";
       import { useState } from "react";
 
       export function ControlledCollapsibleDemo() {
         const [open, setOpen] = useState(false);
 
         return (
-          <Collapsible open={open} onOpenChange={setOpen}>
-            <CollapsibleTrigger>
+          <Collapsible.Root
+            open={open}
+            onOpenChange={(details) => setOpen(details.open)}
+          >
+            <Collapsible.Trigger>
               Recovery keys
-              <CollapsibleTriggerIcon />
-            </CollapsibleTrigger>
-            <CollapsiblePanel>
-              <ul>
-                <li>alien-bean-pasta</li>
-                <li>wild-irish-burrito</li>
-                <li>horse-battery-staple</li>
-              </ul>
-            </CollapsiblePanel>
-            <span>Current state: {open ? "open" : "closed"}</span>
-          </Collapsible>
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>Content</Collapsible.Content>
+          </Collapsible.Root>
         );
       }
     `}
@@ -243,74 +211,118 @@ Control `open` from React state when the disclosure must coordinate with surroun
 
 ### Disabled
 
-Set `disabled` on the root when the trigger should stay visible but unavailable for interaction.
+Set `disabled` on the root to keep the disclosure visible but unavailable.
 
 <Preview>
   <DisabledCollapsibleExample />
 
   <Preview.Code>
     {`
-      import {
-        Collapsible,
-        CollapsiblePanel,
-        CollapsibleTrigger,
-        CollapsibleTriggerIcon,
-      } from "moduix";
-
-      export function DisabledCollapsibleDemo() {
-        return (
-          <Collapsible disabled>
-            <CollapsibleTrigger>
-              Recovery keys
-              <CollapsibleTriggerIcon />
-            </CollapsibleTrigger>
-            <CollapsiblePanel>
-              <ul>
-                <li>alien-bean-pasta</li>
-                <li>wild-irish-burrito</li>
-                <li>horse-battery-staple</li>
-              </ul>
-            </CollapsiblePanel>
-          </Collapsible>
-        );
-      }
+      <Collapsible.Root disabled>
+        <Collapsible.Trigger>
+          Recovery keys
+          <Collapsible.Indicator />
+        </Collapsible.Trigger>
+        <Collapsible.Content>Content</Collapsible.Content>
+      </Collapsible.Root>
     `}
 
   </Preview.Code>
 </Preview>
 
-### Hidden Until Found
+### Lazy Mount
 
-Use `hiddenUntilFound` when browser page search should be able to find and expand hidden panel
-content.
+Combine `lazyMount` and `unmountOnExit` when closed content should not remain in the DOM.
 
 <Preview>
-  <HiddenUntilFoundCollapsibleExample />
+  <LazyMountCollapsibleExample />
 
   <Preview.Code>
     {`
-      import {
-        Collapsible,
-        CollapsiblePanel,
-        CollapsibleTrigger,
-        CollapsibleTriggerIcon,
-      } from "moduix";
+      <Collapsible.Root lazyMount unmountOnExit>
+        <Collapsible.Trigger>
+          Recovery keys
+          <Collapsible.Indicator />
+        </Collapsible.Trigger>
+        <Collapsible.Content>Content</Collapsible.Content>
+      </Collapsible.Root>
+    `}
 
-      export function HiddenUntilFoundCollapsibleDemo() {
+  </Preview.Code>
+</Preview>
+
+### Partial Collapse
+
+Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible while closed.
+
+<Preview>
+  <PartialCollapseCollapsibleExample />
+
+  <Preview.Code>
+    {`
+      <Collapsible.Root collapsedHeight="3rem">
+        <Collapsible.Trigger>
+          Recovery keys
+          <Collapsible.Indicator />
+        </Collapsible.Trigger>
+        <Collapsible.Content>Content</Collapsible.Content>
+      </Collapsible.Root>
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Nested
+
+Nest independent roots when a disclosed section contains another optional detail.
+
+<Preview>
+  <NestedCollapsibleExample />
+
+  <Preview.Code>
+    {`
+      <Collapsible.Root>
+        <Collapsible.Trigger>
+          Account security
+          <Collapsible.Indicator />
+        </Collapsible.Trigger>
+        <Collapsible.Content>
+          <Collapsible.Root>
+            <Collapsible.Trigger>
+              Recovery keys
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>Nested content</Collapsible.Content>
+          </Collapsible.Root>
+        </Collapsible.Content>
+      </Collapsible.Root>
+    `}
+
+  </Preview.Code>
+</Preview>
+
+### Root Provider
+
+Create the state machine with `useCollapsible` when code outside the rendered root needs its state.
+
+<Preview>
+  <RootProviderCollapsibleExample />
+
+  <Preview.Code>
+    {`
+      import { Collapsible, useCollapsible } from "moduix";
+
+      export function RootProviderCollapsibleDemo() {
+        const collapsible = useCollapsible();
+
         return (
-          <Collapsible>
-            <CollapsibleTrigger>
-              Searchable recovery keys
-              <CollapsibleTriggerIcon />
-            </CollapsibleTrigger>
-            <CollapsiblePanel hiddenUntilFound>
-              <ul>
-                <li>alien-bean-pasta</li>
-                <li>wild-irish-burrito</li>
-                <li>horse-battery-staple</li>
-              </ul>
-            </CollapsiblePanel>
-          </Collapsible>
+          <Collapsible.RootProvider value={collapsible}>
+            <Collapsible.Trigger>
+              Recovery keys
+              <Collapsible.Indicator />
+            </Collapsible.Trigger>
+            <Collapsible.Content>Content</Collapsible.Content>
+          </Collapsible.RootProvider>
         );
       }
     `}
@@ -320,46 +332,30 @@ content.
 
 ### Custom Composition
 
-Use `render` when the trigger host must change and keep `nativeButton={false}` for non-button
-elements. `CollapsibleTriggerIcon` can still provide the rotation behavior while you swap the icon
-and surface styles.
+Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 
 <Preview>
   <CustomCompositionCollapsibleExample />
 
   <Preview.Code>
     {`
-      import {
-        ChevronDownIcon,
-        Collapsible,
-        CollapsiblePanel,
-        CollapsibleTrigger,
-        CollapsibleTriggerIcon,
-      } from "moduix";
+      import { ChevronDownIcon, Collapsible } from "moduix";
 
       export function CustomCompositionCollapsibleDemo() {
         return (
-          <Collapsible>
-            <CollapsibleTrigger
-              render={<div />}
-              nativeButton={false}
-              className="custom-trigger"
-            >
-              Styled recovery keys
-              <CollapsibleTriggerIcon className="custom-trigger-icon">
-                <ChevronDownIcon />
-              </CollapsibleTriggerIcon>
-            </CollapsibleTrigger>
-            <CollapsiblePanel>
-              <div className="custom-panel-content">
-                <ul className="keys-list">
-                  <li>alien-bean-pasta</li>
-                  <li>wild-irish-burrito</li>
-                  <li>horse-battery-staple</li>
-                </ul>
-              </div>
-            </CollapsiblePanel>
-          </Collapsible>
+          <Collapsible.Root>
+            <Collapsible.Trigger asChild>
+              <button type="button" className="custom-trigger">
+                Styled recovery keys
+                <Collapsible.Indicator className="custom-indicator">
+                  <ChevronDownIcon />
+                </Collapsible.Indicator>
+              </button>
+            </Collapsible.Trigger>
+            <Collapsible.Content>
+              <div className="custom-content">Content</div>
+            </Collapsible.Content>
+          </Collapsible.Root>
         );
       }
     `}
@@ -373,39 +369,21 @@ and surface styles.
         width: 100%;
         align-items: center;
         justify-content: space-between;
-        gap: var(--spacing-2);
         padding: var(--spacing-2) var(--spacing-3);
         border-radius: var(--radius-md);
         background-color: var(--color-muted);
-        color: var(--color-foreground);
-
-        @media (hover: hover) {
-          &:hover {
-            background-color: var(--color-accent);
-          }
-        }
       }
 
-      .custom-trigger-icon {
-        --collapsible-icon-open-transform: rotate(180deg);
-
+      .custom-indicator {
+        --collapsible-indicator-open-transform: rotate(180deg);
         color: var(--color-primary);
       }
 
-      .custom-panel-content {
+      .custom-content {
         margin-top: var(--spacing-1);
         padding: var(--spacing-2) var(--spacing-3);
         border-radius: var(--radius-md);
         background-color: var(--color-muted);
-        color: var(--color-muted-foreground);
-      }
-
-      .keys-list {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-1);
-        margin: 0;
-        padding-inline-start: var(--spacing-2);
       }
     `}
 
@@ -413,10 +391,6 @@ and surface styles.
 </Preview>
 
 ## Styling
-
-Use CSS variables on the root, trigger, icon, and panel when spacing, motion, and disclosure
-styling need to change. Keep padding and surface treatment on inner panel content when animation
-quality matters.
 
 ### CSS Properties
 
@@ -430,11 +404,9 @@ quality matters.
 
 ### Styling hooks
 
-- `Collapsible`, `CollapsibleTrigger`, `CollapsibleTriggerIcon`, and `CollapsiblePanel` expose
-  stable `data-slot` selectors.
-- Base UI state hooks used by the shipped styles include `data-panel-open` on the trigger and
-  `data-open`, `data-closed`, `data-starting-style`, and `data-ending-style` on the panel.
-- `CollapsibleTrigger render={...}` opts out of the default trigger CSS class, so custom trigger
-  hosts own their full layout and surface styling.
-- `--collapsible-panel-starting-*` and `--collapsible-panel-ending-*` let you layer fade, scale,
-  or slide motion on top of the default measured height transition.
+- DOM parts expose `data-slot="collapsible-root"`, `collapsible-root-provider`,
+  `collapsible-trigger`, `collapsible-indicator`, and `collapsible-content`.
+- Ark exposes `data-state="open" | "closed"` on root, trigger, indicator, and content.
+- `data-disabled` marks disabled trigger, indicator, and content parts.
+- `data-has-collapsed-size` marks content configured with `collapsedHeight` or `collapsedWidth`.
+- Content animation uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width`.

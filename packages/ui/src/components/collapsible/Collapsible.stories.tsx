@@ -1,22 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import {
-  Collapsible,
-  CollapsiblePanel,
-  CollapsibleTrigger,
-  CollapsibleTriggerIcon,
-} from './Collapsible';
+import { Collapsible, useCollapsible } from './Collapsible';
 import styles from './Collapsible.stories.module.css';
 
 const meta = {
   title: 'Components/Collapsible',
-  component: Collapsible,
+  component: Collapsible.Root,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Collapsible>;
+} satisfies Meta<typeof Collapsible.Root>;
 
 export default meta;
 
@@ -24,44 +19,42 @@ type Story = StoryObj<typeof meta>;
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 
+function RecoveryKeys() {
+  return (
+    <ul className={styles.keysList}>
+      {recoveryKeys.map((key) => (
+        <li key={key}>{key}</li>
+      ))}
+    </ul>
+  );
+}
+
 export const Basic: Story = {
-  render: () => {
-    return (
-      <Collapsible className={styles.root}>
-        <CollapsibleTrigger>
-          Recovery keys
-          <CollapsibleTriggerIcon />
-        </CollapsibleTrigger>
-        <CollapsiblePanel>
-          <ul className={styles.keysList}>
-            {recoveryKeys.map((key) => (
-              <li key={key}>{key}</li>
-            ))}
-          </ul>
-        </CollapsiblePanel>
-      </Collapsible>
-    );
-  },
+  render: () => (
+    <Collapsible.Root className={styles.root}>
+      <Collapsible.Trigger>
+        Recovery keys
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <RecoveryKeys />
+      </Collapsible.Content>
+    </Collapsible.Root>
+  ),
 };
 
 export const DefaultOpen: Story = {
-  render: () => {
-    return (
-      <Collapsible defaultOpen className={styles.root}>
-        <CollapsibleTrigger>
-          Recovery keys
-          <CollapsibleTriggerIcon />
-        </CollapsibleTrigger>
-        <CollapsiblePanel>
-          <ul className={styles.keysList}>
-            {recoveryKeys.map((key) => (
-              <li key={key}>{key}</li>
-            ))}
-          </ul>
-        </CollapsiblePanel>
-      </Collapsible>
-    );
-  },
+  render: () => (
+    <Collapsible.Root defaultOpen className={styles.root}>
+      <Collapsible.Trigger>
+        Recovery keys
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <RecoveryKeys />
+      </Collapsible.Content>
+    </Collapsible.Root>
+  ),
 };
 
 export const Controlled: Story = {
@@ -69,84 +62,103 @@ export const Controlled: Story = {
     const [open, setOpen] = useState(false);
 
     return (
-      <Collapsible open={open} onOpenChange={setOpen} className={styles.root}>
-        <CollapsibleTrigger>
+      <Collapsible.Root
+        open={open}
+        onOpenChange={(details) => setOpen(details.open)}
+        className={styles.root}
+      >
+        <Collapsible.Trigger>
           Recovery keys
-          <CollapsibleTriggerIcon />
-        </CollapsibleTrigger>
-        <CollapsiblePanel>
-          <ul className={styles.keysList}>
-            {recoveryKeys.map((key) => (
-              <li key={key}>{key}</li>
-            ))}
-          </ul>
-        </CollapsiblePanel>
+          <Collapsible.Indicator />
+        </Collapsible.Trigger>
+        <Collapsible.Content>
+          <RecoveryKeys />
+        </Collapsible.Content>
         <div className={styles.status}>Current state: {open ? 'open' : 'closed'}</div>
-      </Collapsible>
+      </Collapsible.Root>
     );
   },
 };
 
 export const Disabled: Story = {
-  render: () => {
-    return (
-      <Collapsible disabled className={styles.root}>
-        <CollapsibleTrigger>
-          Recovery keys
-          <CollapsibleTriggerIcon />
-        </CollapsibleTrigger>
-        <CollapsiblePanel>
-          <ul className={styles.keysList}>
-            {recoveryKeys.map((key) => (
-              <li key={key}>{key}</li>
-            ))}
-          </ul>
-        </CollapsiblePanel>
-      </Collapsible>
-    );
-  },
+  render: () => (
+    <Collapsible.Root disabled className={styles.root}>
+      <Collapsible.Trigger>
+        Recovery keys
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <RecoveryKeys />
+      </Collapsible.Content>
+    </Collapsible.Root>
+  ),
 };
 
-export const HiddenUntilFound: Story = {
+export const LazyMount: Story = {
+  render: () => (
+    <Collapsible.Root lazyMount unmountOnExit className={styles.root}>
+      <Collapsible.Trigger>
+        Recovery keys
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <RecoveryKeys />
+      </Collapsible.Content>
+    </Collapsible.Root>
+  ),
+};
+
+export const PartialCollapse: Story = {
+  render: () => (
+    <Collapsible.Root collapsedHeight="3rem" className={styles.root}>
+      <Collapsible.Trigger>
+        Recovery keys
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <RecoveryKeys />
+      </Collapsible.Content>
+    </Collapsible.Root>
+  ),
+};
+
+export const RootProvider: Story = {
   render: () => {
+    const collapsible = useCollapsible();
+
     return (
-      <Collapsible className={styles.root}>
-        <CollapsibleTrigger>
-          Searchable recovery keys
-          <CollapsibleTriggerIcon />
-        </CollapsibleTrigger>
-        <CollapsiblePanel hiddenUntilFound>
-          <ul className={styles.keysList}>
-            {recoveryKeys.map((key) => (
-              <li key={key}>{key}</li>
-            ))}
-          </ul>
-        </CollapsiblePanel>
-      </Collapsible>
+      <div className={styles.providerLayout}>
+        <output>Current state: {collapsible.open ? 'open' : 'closed'}</output>
+        <Collapsible.RootProvider value={collapsible} className={styles.root}>
+          <Collapsible.Trigger>
+            Recovery keys
+            <Collapsible.Indicator />
+          </Collapsible.Trigger>
+          <Collapsible.Content>
+            <RecoveryKeys />
+          </Collapsible.Content>
+        </Collapsible.RootProvider>
+      </div>
     );
   },
 };
 
 export const CustomComposition: Story = {
-  render: () => {
-    return (
-      <Collapsible className={styles.customRoot}>
-        <CollapsibleTrigger render={<div />} nativeButton={false} className={styles.customTrigger}>
+  render: () => (
+    <Collapsible.Root className={styles.customRoot}>
+      <Collapsible.Trigger asChild>
+        <button type="button" className={styles.customTrigger}>
           <span className={styles.triggerLabel}>Styled recovery keys</span>
-          <CollapsibleTriggerIcon className={styles.customTriggerIcon}>
+          <Collapsible.Indicator className={styles.customIndicator}>
             <ChevronDownIcon />
-          </CollapsibleTriggerIcon>
-        </CollapsibleTrigger>
-        <CollapsiblePanel className={styles.customPanel}>
-          <div className={styles.customPanelContent}>
-            <ul className={styles.keysList}>
-              {recoveryKeys.map((key) => (
-                <li key={key}>{key}</li>
-              ))}
-            </ul>
-          </div>
-        </CollapsiblePanel>
-      </Collapsible>
-    );
-  },
+          </Collapsible.Indicator>
+        </button>
+      </Collapsible.Trigger>
+      <Collapsible.Content className={styles.customContent}>
+        <div className={styles.customContentBody}>
+          <RecoveryKeys />
+        </div>
+      </Collapsible.Content>
+    </Collapsible.Root>
+  ),
 };

@@ -23,8 +23,6 @@
   --anchor-width: initial;
   --available-height: initial;
   --available-width: initial;
-  --collapsible-panel-height: initial;
-  --collapsible-panel-width: initial;
   --drawer-frontmost-height: initial;
   --drawer-height: initial;
   --drawer-snap-point-offset: initial;
@@ -438,23 +436,15 @@
   --collapsible-focus-ring-offset: initial; /* var(--border-width-sm) */
   --collapsible-focus-ring-width: initial; /* var(--border-width-sm) */
   --collapsible-max-width: initial; /* 100% */
-  --collapsible-icon-open-transform: initial; /* rotate(90deg) */
-  --collapsible-icon-size: initial; /* 0.75rem */
-  --collapsible-icon-transition: initial; /* var(--transition-default) */
-  --collapsible-panel-color: initial; /* var(--color-muted-foreground) */
-  --collapsible-panel-ending-height: initial; /* 0 */
-  --collapsible-panel-ending-opacity: initial; /* 1 */
-  --collapsible-panel-ending-scale: initial; /* 1 */
-  --collapsible-panel-ending-translate-x: initial; /* 0 */
-  --collapsible-panel-ending-translate-y: initial; /* 0 */
-  --collapsible-panel-font-size: initial; /* var(--text-sm) */
-  --collapsible-panel-line-height: initial; /* var(--line-height-text-sm) */
-  --collapsible-panel-starting-height: initial; /* 0 */
-  --collapsible-panel-starting-opacity: initial; /* 1 */
-  --collapsible-panel-starting-scale: initial; /* 1 */
-  --collapsible-panel-starting-translate-x: initial; /* 0 */
-  --collapsible-panel-starting-translate-y: initial; /* 0 */
-  --collapsible-panel-transition: initial; /* var(--transition-default) */
+  --collapsible-indicator-open-transform: initial; /* rotate(90deg) */
+  --collapsible-indicator-size: initial; /* 0.75rem */
+  --collapsible-indicator-transition: initial; /* var(--transition-default) */
+  --collapsible-content-closed-opacity: initial; /* 0.01 */
+  --collapsible-content-color: initial; /* var(--color-muted-foreground) */
+  --collapsible-content-font-size: initial; /* var(--text-sm) */
+  --collapsible-content-line-height: initial; /* var(--line-height-text-sm) */
+  --collapsible-content-open-opacity: initial; /* 1 */
+  --collapsible-content-transition: initial; /* var(--transition-default) */
   --collapsible-trigger-bg: initial; /* transparent */
   --collapsible-trigger-bg-active: initial; /* var(--collapsible-trigger-bg-hover) */
   --collapsible-trigger-bg-hover: initial; /* var(--collapsible-trigger-bg) */

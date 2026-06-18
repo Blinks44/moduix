@@ -13,6 +13,24 @@
   line-height: var(--line-height-text-xs);
 }
 
+.providerLayout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.nestedContent {
+  padding: var(--spacing-2);
+
+  & > p {
+    margin: 0 0 var(--spacing-2);
+  }
+}
+
+.nestedRoot {
+  width: 100%;
+}
+
 .customTrigger {
   display: flex;
   align-items: center;
@@ -31,13 +49,13 @@
   }
 }
 
-.customTriggerIcon {
-  --collapsible-icon-open-transform: rotate(180deg);
+.customIndicator {
+  --collapsible-indicator-open-transform: rotate(180deg);
 
   color: var(--color-primary);
 }
 
-.customPanelContent {
+.customContentBody {
   margin-top: var(--spacing-1);
   padding: var(--spacing-2) var(--spacing-3);
   border-radius: var(--radius-md);

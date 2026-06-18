@@ -18,6 +18,12 @@
     line-height: var(--line-height-text-xs);
   }
 
+  .providerLayout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
   .customRoot {
     width: 16rem;
     color: var(--color-foreground);
@@ -41,8 +47,8 @@
     }
   }
 
-  .customTriggerIcon {
-    --collapsible-icon-open-transform: rotate(180deg);
+  .customIndicator {
+    --collapsible-indicator-open-transform: rotate(180deg);
 
     color: var(--color-primary);
   }
@@ -51,11 +57,11 @@
     min-width: 0;
   }
 
-  .customPanel {
+  .customContent {
     color: var(--color-muted-foreground);
   }
 
-  .customPanelContent {
+  .customContentBody {
     margin-top: var(--spacing-1);
     padding: var(--spacing-2) var(--spacing-3);
     border-radius: var(--radius-md);

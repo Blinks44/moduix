@@ -1,19 +1,34 @@
-import { Collapsible as CollapsiblePrimitive } from '@base-ui/react/collapsible';
+import type { ComponentProps, ComponentRef } from 'react';
+import { Collapsible as CollapsiblePrimitive, useCollapsible } from '@ark-ui/react/collapsible';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Collapsible.module.css';
 
-const Collapsible = forwardRef<
+const CollapsibleRoot = forwardRef<
   ComponentRef<typeof CollapsiblePrimitive.Root>,
-  CollapsiblePrimitive.Root.Props
->(function Collapsible({ className, ...props }, ref) {
+  ComponentProps<typeof CollapsiblePrimitive.Root>
+>(function CollapsibleRoot({ className, ...props }, ref) {
   return (
     <CollapsiblePrimitive.Root
       ref={ref}
       data-slot="collapsible-root"
-      className={mergeClassName(className, styles.root)}
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CollapsibleRootProvider = forwardRef<
+  ComponentRef<typeof CollapsiblePrimitive.RootProvider>,
+  ComponentProps<typeof CollapsiblePrimitive.RootProvider>
+>(function CollapsibleRootProvider({ className, ...props }, ref) {
+  return (
+    <CollapsiblePrimitive.RootProvider
+      ref={ref}
+      data-slot="collapsible-root-provider"
+      className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
   );
@@ -21,49 +36,63 @@ const Collapsible = forwardRef<
 
 const CollapsibleTrigger = forwardRef<
   ComponentRef<typeof CollapsiblePrimitive.Trigger>,
-  CollapsiblePrimitive.Trigger.Props
->(function CollapsibleTrigger({ className, render, ...props }, ref) {
+  ComponentProps<typeof CollapsiblePrimitive.Trigger>
+>(function CollapsibleTrigger({ className, ...props }, ref) {
   return (
     <CollapsiblePrimitive.Trigger
       ref={ref}
       data-slot="collapsible-trigger"
-      render={render}
-      className={render ? className : mergeClassName(className, styles.trigger)}
+      className={clsx(styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-function CollapsibleTriggerIcon({
-  className,
-  children = <ChevronRightIcon />,
-  'aria-hidden': ariaHidden = true,
-  ...props
-}: ComponentProps<'span'>) {
+const CollapsibleIndicator = forwardRef<
+  ComponentRef<typeof CollapsiblePrimitive.Indicator>,
+  ComponentProps<typeof CollapsiblePrimitive.Indicator>
+>(function CollapsibleIndicator({ className, children, ...props }, ref) {
   return (
-    <span
-      data-slot="collapsible-trigger-icon"
-      aria-hidden={ariaHidden}
-      className={clsx(styles.triggerIcon, className)}
+    <CollapsiblePrimitive.Indicator
+      ref={ref}
+      data-slot="collapsible-indicator"
+      className={clsx(styles.indicator, normalizeClassName(className))}
       {...props}
     >
-      {children}
-    </span>
+      {children ?? <ChevronRightIcon />}
+    </CollapsiblePrimitive.Indicator>
   );
-}
+});
 
-const CollapsiblePanel = forwardRef<
-  ComponentRef<typeof CollapsiblePrimitive.Panel>,
-  CollapsiblePrimitive.Panel.Props
->(function CollapsiblePanel({ className, ...props }, ref) {
+const CollapsibleContent = forwardRef<
+  ComponentRef<typeof CollapsiblePrimitive.Content>,
+  ComponentProps<typeof CollapsiblePrimitive.Content>
+>(function CollapsibleContent({ className, ...props }, ref) {
   return (
-    <CollapsiblePrimitive.Panel
+    <CollapsiblePrimitive.Content
       ref={ref}
-      data-slot="collapsible-panel"
-      className={mergeClassName(className, styles.panel)}
+      data-slot="collapsible-content"
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
 });
 
-export { Collapsible, CollapsibleTrigger, CollapsibleTriggerIcon, CollapsiblePanel };
+const CollapsibleContext = CollapsiblePrimitive.Context;
+
+const Collapsible = Object.assign(CollapsibleRoot, {
+  Root: CollapsibleRoot,
+  RootProvider: CollapsibleRootProvider,
+  Trigger: CollapsibleTrigger,
+  Indicator: CollapsibleIndicator,
+  Content: CollapsibleContent,
+  Context: CollapsibleContext,
+});
+
+export { Collapsible, useCollapsible };
+export type {
+  CollapsibleOpenChangeDetails,
+  UseCollapsibleContext,
+  UseCollapsibleProps,
+  UseCollapsibleReturn,
+} from '@ark-ui/react/collapsible';
