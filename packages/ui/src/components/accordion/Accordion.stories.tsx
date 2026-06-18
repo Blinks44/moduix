@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Accordion } from './Accordion';
+import { Accordion, useAccordion } from './Accordion';
 import styles from './Accordion.stories.module.css';
 
 const meta = {
@@ -123,6 +123,72 @@ export const LazyMount: Story = {
     return (
       <Accordion.Root lazyMount unmountOnExit className={styles.demoRoot}>
         <FaqAccordionItems />
+      </Accordion.Root>
+    );
+  },
+};
+
+export const Horizontal: Story = {
+  render: () => {
+    return (
+      <Accordion.Root
+        orientation="horizontal"
+        defaultValue={['what-is-ark-ui']}
+        className={styles.demoRoot}
+      >
+        <FaqAccordionItems />
+      </Accordion.Root>
+    );
+  },
+};
+
+export const RootProvider: Story = {
+  render: () => {
+    const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
+
+    return (
+      <Accordion.RootProvider value={accordion} className={styles.demoRoot}>
+        <FaqAccordionItems />
+      </Accordion.RootProvider>
+    );
+  },
+};
+
+export const Context: Story = {
+  render: () => {
+    return (
+      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+        <FaqAccordionItems />
+        <Accordion.Context>
+          {(accordion) => (
+            <div className={styles.state}>Open sections: {accordion.value.join(', ')}</div>
+          )}
+        </Accordion.Context>
+      </Accordion.Root>
+    );
+  },
+};
+
+export const ItemState: Story = {
+  render: () => {
+    return (
+      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+        {faqItems.map((item) => (
+          <Accordion.Item key={item.value} value={item.value}>
+            <Accordion.ItemTrigger>
+              {item.title}
+              <Accordion.ItemContext>
+                {(itemState) => (
+                  <span className={styles.itemState}>{itemState.expanded ? 'Open' : 'Closed'}</span>
+                )}
+              </Accordion.ItemContext>
+              <Accordion.ItemIndicator />
+            </Accordion.ItemTrigger>
+            <Accordion.ItemContent>
+              <div className={styles.panelContent}>{item.description}</div>
+            </Accordion.ItemContent>
+          </Accordion.Item>
+        ))}
       </Accordion.Root>
     );
   },

@@ -11,6 +11,20 @@
     padding: var(--spacing-3);
   }
 
+  .state {
+    margin-top: var(--spacing-3);
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .itemState {
+    margin-inline-start: auto;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
   .customIcon {
     --accordion-icon-open-transform: rotate(180deg);
   }

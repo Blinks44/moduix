@@ -1,4 +1,4 @@
-import { Accordion, ChevronDownIcon } from 'moduix';
+import { Accordion, ChevronDownIcon, useAccordion } from 'moduix';
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
@@ -6,6 +6,20 @@ import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
 export const accordionExampleCss = `
   .accordion-panel-content {
     padding: var(--spacing-3);
+  }
+
+  .accordion-state {
+    margin-top: var(--spacing-3);
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .accordion-item-state {
+    margin-inline-start: auto;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
   }
 `;
 
@@ -37,6 +51,25 @@ const accordionItems = [
     description: 'Yes. Ark UI is open source and designed for production design systems.',
   },
 ];
+
+export const accordionItemsData = `const items = [
+  {
+    value: 'what-is-ark-ui',
+    title: 'What is Ark UI?',
+    description: 'Ark UI is a headless component library for building accessible web interfaces.',
+  },
+  {
+    value: 'getting-started',
+    title: 'How do I get started?',
+    description:
+      'Install the package, import Accordion parts, and style the composition to match your product.',
+  },
+  {
+    value: 'can-i-use-it',
+    title: 'Can I use it for my project?',
+    description: 'Yes. Ark UI is open source and designed for production design systems.',
+  },
+];`;
 
 export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ['--accordion-color', 'var(--color-foreground)', 'Controls accordion text color.'],
@@ -70,6 +103,11 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'Controls the separator width between accordion items.',
   ],
   [
+    '--accordion-item-content-closed-opacity',
+    '0.01',
+    'Controls content opacity at the closed end of the animation.',
+  ],
+  [
     '--accordion-item-content-color',
     'var(--color-muted-foreground)',
     'Controls item content text color.',
@@ -79,6 +117,11 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     '--accordion-item-content-line-height',
     'var(--line-height-text-md)',
     'Controls item content line height.',
+  ],
+  [
+    '--accordion-item-content-open-opacity',
+    '1',
+    'Controls content opacity at the open end of the animation.',
   ],
   [
     '--accordion-item-content-transition',
@@ -255,6 +298,63 @@ export function LazyMountAccordionExample() {
       <style>{accordionExampleCss}</style>
       <Accordion.Root lazyMount unmountOnExit>
         <AccordionItems />
+      </Accordion.Root>
+    </>
+  );
+}
+
+export function RootProviderAccordionExample() {
+  const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
+
+  return (
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion.RootProvider value={accordion}>
+        <AccordionItems />
+      </Accordion.RootProvider>
+    </>
+  );
+}
+
+export function ContextAccordionExample() {
+  return (
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion.Root defaultValue={['what-is-ark-ui']}>
+        <AccordionItems />
+        <Accordion.Context>
+          {(accordion) => (
+            <div className="accordion-state">Open sections: {accordion.value.join(', ')}</div>
+          )}
+        </Accordion.Context>
+      </Accordion.Root>
+    </>
+  );
+}
+
+export function ItemStateAccordionExample() {
+  return (
+    <>
+      <style>{accordionExampleCss}</style>
+      <Accordion.Root defaultValue={['what-is-ark-ui']}>
+        {accordionItems.map((item) => (
+          <Accordion.Item key={item.value} value={item.value}>
+            <Accordion.ItemTrigger>
+              {item.title}
+              <Accordion.ItemContext>
+                {(itemState) => (
+                  <span className="accordion-item-state">
+                    {itemState.expanded ? 'Open' : 'Closed'}
+                  </span>
+                )}
+              </Accordion.ItemContext>
+              <Accordion.ItemIndicator />
+            </Accordion.ItemTrigger>
+            <Accordion.ItemContent>
+              <div className="accordion-panel-content">{item.description}</div>
+            </Accordion.ItemContent>
+          </Accordion.Item>
+        ))}
       </Accordion.Root>
     </>
   );

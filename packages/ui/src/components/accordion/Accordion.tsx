@@ -1,5 +1,10 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Accordion as AccordionPrimitive } from '@ark-ui/react/accordion';
+import {
+  Accordion as AccordionPrimitive,
+  useAccordion,
+  useAccordionContext,
+  useAccordionItemContext,
+} from '@ark-ui/react/accordion';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
@@ -14,6 +19,20 @@ const AccordionRoot = forwardRef<
     <AccordionPrimitive.Root
       ref={ref}
       data-slot="accordion-root"
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const AccordionRootProvider = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.RootProvider>,
+  ComponentProps<typeof AccordionPrimitive.RootProvider>
+>(function AccordionRootProvider({ className, ...props }, ref) {
+  return (
+    <AccordionPrimitive.RootProvider
+      ref={ref}
+      data-slot="accordion-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
@@ -78,12 +97,26 @@ const AccordionItemContent = forwardRef<
   );
 });
 
+const AccordionContext = AccordionPrimitive.Context;
+const AccordionItemContext = AccordionPrimitive.ItemContext;
+
 const Accordion = Object.assign(AccordionRoot, {
   Root: AccordionRoot,
+  RootProvider: AccordionRootProvider,
   Item: AccordionItem,
   ItemTrigger: AccordionItemTrigger,
   ItemIndicator: AccordionItemIndicator,
   ItemContent: AccordionItemContent,
+  Context: AccordionContext,
+  ItemContext: AccordionItemContext,
 });
 
-export { Accordion };
+export { Accordion, useAccordion, useAccordionContext, useAccordionItemContext };
+export type {
+  AccordionFocusChangeDetails,
+  AccordionValueChangeDetails,
+  UseAccordionContext,
+  UseAccordionItemContext,
+  UseAccordionProps,
+  UseAccordionReturn,
+} from '@ark-ui/react/accordion';
