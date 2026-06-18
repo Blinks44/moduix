@@ -1,161 +1,181 @@
-import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import type { ComponentProps, ComponentRef } from 'react';
+import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import { clsx } from 'clsx';
-import { createContext, useContext, type ComponentProps } from 'react';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Dialog.module.css';
 
-type DialogModalMode = true | false | 'trap-focus';
-
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
-const DialogModeContext = createContext<DialogModalMode>(true);
 
-const createDialogHandle = DialogPrimitive.createHandle;
-
-function Dialog<Payload = unknown>({
-  modal = true,
-  ...props
-}: DialogPrimitive.Root.Props<Payload>) {
-  return (
-    <DialogModeContext.Provider value={modal}>
-      <DialogPrimitive.Root modal={modal} {...props} />
-    </DialogModeContext.Provider>
-  );
+function DialogRoot(props: ComponentProps<typeof DialogPrimitive.Root>) {
+  return <DialogPrimitive.Root {...props} />;
 }
 
-function DialogTrigger({ className, render, ...props }: DialogPrimitive.Trigger.Props) {
+function DialogRootProvider(props: ComponentProps<typeof DialogPrimitive.RootProvider>) {
+  return <DialogPrimitive.RootProvider {...props} />;
+}
+
+const DialogTrigger = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Trigger>,
+  ComponentProps<typeof DialogPrimitive.Trigger>
+>(function DialogTrigger({ asChild, className, ...props }, ref) {
   return (
     <DialogPrimitive.Trigger
+      ref={ref}
+      asChild={asChild}
       data-slot="dialog-trigger"
-      render={render}
-      className={mergeClassName(className, !render && styles.trigger)}
+      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DialogPortal(props: DialogPrimitive.Portal.Props) {
-  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
-}
-
-function DialogBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props) {
+const DialogBackdrop = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Backdrop>,
+  ComponentProps<typeof DialogPrimitive.Backdrop>
+>(function DialogBackdrop({ className, ...props }, ref) {
   return (
     <DialogPrimitive.Backdrop
+      ref={ref}
       data-slot="dialog-backdrop"
-      className={mergeClassName(className, styles.backdrop)}
+      className={clsx(styles.backdrop, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DialogViewport({ className, ...props }: DialogPrimitive.Viewport.Props) {
+const DialogPositioner = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Positioner>,
+  ComponentProps<typeof DialogPrimitive.Positioner>
+>(function DialogPositioner({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Viewport
-      data-slot="dialog-viewport"
-      className={mergeClassName(className, styles.viewport)}
+    <DialogPrimitive.Positioner
+      ref={ref}
+      data-slot="dialog-positioner"
+      className={clsx(styles.positioner, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DialogPopup({ className, ...props }: DialogPrimitive.Popup.Props) {
+const DialogContent = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Content>,
+  ComponentProps<typeof DialogPrimitive.Content>
+>(function DialogContent({ className, ...props }, ref) {
   return (
-    <DialogPrimitive.Popup
-      data-slot="dialog-popup"
-      className={mergeClassName(className, styles.popup)}
+    <DialogPrimitive.Content
+      ref={ref}
+      data-slot="dialog-content"
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
+const DialogTitle = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Title>,
+  ComponentProps<typeof DialogPrimitive.Title>
+>(function DialogTitle({ className, ...props }, ref) {
   return (
     <DialogPrimitive.Title
+      ref={ref}
       data-slot="dialog-title"
-      className={mergeClassName(className, styles.title)}
+      className={clsx(styles.title, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DialogDescription({ className, ...props }: DialogPrimitive.Description.Props) {
+const DialogDescription = forwardRef<
+  ComponentRef<typeof DialogPrimitive.Description>,
+  ComponentProps<typeof DialogPrimitive.Description>
+>(function DialogDescription({ className, ...props }, ref) {
   return (
     <DialogPrimitive.Description
+      ref={ref}
       data-slot="dialog-description"
-      className={mergeClassName(className, styles.description)}
+      className={clsx(styles.description, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DialogClose({ className, ...props }: DialogPrimitive.Close.Props) {
+const DialogCloseTrigger = forwardRef<
+  ComponentRef<typeof DialogPrimitive.CloseTrigger>,
+  ComponentProps<typeof DialogPrimitive.CloseTrigger>
+>(function DialogCloseTrigger({ asChild, className, ...props }, ref) {
   return (
-    <DialogPrimitive.Close
-      data-slot="dialog-close"
-      className={mergeClassName(className, styles.close)}
+    <DialogPrimitive.CloseTrigger
+      ref={ref}
+      asChild={asChild}
+      data-slot="dialog-close-trigger"
+      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DialogCloseIcon({
-  className,
-  children,
-  'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL,
-  render,
-  ...props
-}: DialogPrimitive.Close.Props) {
+const DialogCloseIcon = forwardRef<
+  ComponentRef<typeof CloseButton.Root>,
+  Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
+>(function DialogCloseIcon(
+  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  ref,
+) {
   return (
-    <DialogPrimitive.Close
-      data-slot="dialog-close-icon"
-      render={render ?? <CloseButton.Root aria-label={ariaLabel}>{children}</CloseButton.Root>}
-      className={mergeClassName(className, styles.closeIcon)}
-      {...props}
-    />
+    <DialogPrimitive.CloseTrigger asChild {...props}>
+      <CloseButton.Root
+        ref={ref}
+        data-slot="dialog-close-icon"
+        aria-label={ariaLabel}
+        className={clsx(styles.closeIcon, normalizeClassName(className))}
+      >
+        {children}
+      </CloseButton.Root>
+    </DialogPrimitive.CloseTrigger>
   );
-}
-
-function DialogContent({ className, children, ...props }: DialogPrimitive.Popup.Props) {
-  const isModal = useContext(DialogModeContext) === true;
-
-  return (
-    <DialogPortal>
-      {isModal ? <DialogBackdrop /> : null}
-      <DialogViewport className={isModal ? undefined : styles.viewportNonBlocking}>
-        <DialogPopup className={className} {...props}>
-          {children}
-        </DialogPopup>
-      </DialogViewport>
-    </DialogPortal>
-  );
-}
+});
 
 function DialogHeader({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="dialog-header" className={clsx(styles.header, className)} {...props} />;
-}
-
-function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="dialog-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
 function DialogBody({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="dialog-body" className={clsx(styles.body, className)} {...props} />;
 }
 
-export {
-  Dialog,
-  createDialogHandle,
-  DialogTrigger,
-  DialogPortal,
-  DialogBackdrop,
-  DialogViewport,
-  DialogPopup,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-  DialogCloseIcon,
-  DialogContent,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-};
+function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
+  return <div data-slot="dialog-footer" className={clsx(styles.footer, className)} {...props} />;
+}
+
+const DialogContext = DialogPrimitive.Context;
+
+const Dialog = Object.assign(DialogRoot, {
+  Root: DialogRoot,
+  RootProvider: DialogRootProvider,
+  Trigger: DialogTrigger,
+  Backdrop: DialogBackdrop,
+  Positioner: DialogPositioner,
+  Content: DialogContent,
+  Title: DialogTitle,
+  Description: DialogDescription,
+  CloseTrigger: DialogCloseTrigger,
+  CloseIcon: DialogCloseIcon,
+  Header: DialogHeader,
+  Body: DialogBody,
+  Footer: DialogFooter,
+  Context: DialogContext,
+});
+
+export { Dialog, useDialog, useDialogContext };
+export type {
+  DialogFocusOutsideEvent,
+  DialogInteractOutsideEvent,
+  DialogOpenChangeDetails,
+  DialogPointerDownOutsideEvent,
+  DialogTriggerValueChangeDetails,
+  UseDialogContext,
+  UseDialogProps,
+  UseDialogReturn,
+} from '@ark-ui/react/dialog';

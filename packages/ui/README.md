@@ -143,16 +143,23 @@ import 'moduix/style.css';
 Then import and compose the components you need:
 
 ```tsx
-import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger } from 'moduix';
+import { Button, Dialog, Portal } from 'moduix';
 
 export function Example() {
   return (
-    <Dialog>
-      <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>
-      <DialogContent>
-        <DialogTitle>Project settings</DialogTitle>
-      </DialogContent>
-    </Dialog>
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <Button>Open dialog</Button>
+      </Dialog.Trigger>
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content>
+            <Dialog.Title>Project settings</Dialog.Title>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   );
 }
 ```

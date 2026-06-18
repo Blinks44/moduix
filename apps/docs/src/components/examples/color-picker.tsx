@@ -1,11 +1,6 @@
 import {
   ColorPicker,
   Dialog,
-  DialogCloseIcon,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
   Field,
   FieldDescription,
   FieldError,
@@ -676,20 +671,25 @@ export function FieldStateColorPickerExample() {
 
 export function InsideDialogColorPickerExample() {
   return (
-    <Dialog>
-      <DialogTrigger className={styles.dialogTrigger}>Open dialog</DialogTrigger>
-      <DialogContent>
-        <DialogCloseIcon />
-        <DialogTitle>Choose a color</DialogTitle>
-        <DialogDescription>
-          Wrap the positioner in a portal so the popover layers correctly.
-        </DialogDescription>
-        <div className={styles.dialogBody}>
-          <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
-            <PickerField colors={compactSwatches} />
-          </ColorPicker.Root>
-        </div>
-      </DialogContent>
-    </Dialog>
+    <Dialog.Root>
+      <Dialog.Trigger className={styles.dialogTrigger}>Open dialog</Dialog.Trigger>
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content>
+            <Dialog.CloseIcon />
+            <Dialog.Title>Choose a color</Dialog.Title>
+            <Dialog.Description>
+              Wrap the color picker positioner in a portal so its popover layers correctly.
+            </Dialog.Description>
+            <div className={styles.dialogBody}>
+              <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
+                <PickerField colors={compactSwatches} />
+              </ColorPicker.Root>
+            </div>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
   );
 }

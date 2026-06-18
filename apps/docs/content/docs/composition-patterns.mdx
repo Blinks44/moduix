@@ -1,145 +1,110 @@
 ---
 title: Composition Patterns
-description: Common rules for wrapper-first composition, service slots, and low-level escape hatches across moduix components.
+description: Common rules for Ark-aligned parts, explicit structure, and product-level wrappers.
 icon: Blocks
 ---
 
 # Composition Patterns
 
-Many moduix components are compound wrappers around Base UI primitives. They expose visible parts
-for product markup and usually keep service slots internal by default so behavior stays consistent.
-Some components, such as `Dialog`, also export those low-level parts when manual composition is a
-real customization path.
+moduix components expose typed parts that stay close to their underlying primitive contracts.
+Multi-part Ark UI components use namespace APIs such as `Dialog.Root`, `Dialog.Trigger`, and
+`Dialog.Content`.
 
-These patterns stay the same whether you import from `moduix` as a package or install source files
-into your own project with `shadcn`.
+These patterns are the same whether you consume the package or install source through the registry.
 
-## Default Path First
+## Keep the primitive structure visible
 
-moduix prefers explicit visible parts over generic slot prop bags. In practice, the usual order is:
+Start with the component's documented part tree. Use `className`, CSS variables, `data-slot`, and
+Ark state attributes for styling. Use `asChild` when one semantic child must own the rendered node.
 
-1. Start with the high-level wrapper part the component gives you, such as `DialogContent` or
-   `PopoverContent`.
-2. Use `className` on the visible part for styling.
-3. Drop to low-level parts only when you need to own portal behavior, overlay structure, or a
-   different DOM arrangement.
+Overlay components keep structural parts explicit:
 
-## Service Slots
+```text
+Root
+├─ Trigger
+└─ Portal
+   ├─ Backdrop
+   └─ Positioner
+      └─ Content
+```
 
-Service slots are infrastructure layers that usually should not be composed manually in app code:
+`Portal`, `Backdrop`, `Positioner`, and `Content` remain visible so applications can independently
+configure mount targets, overlays, scrolling, layout, and surface styling.
 
-| Slot         | Responsibility                                                                  |
-| ------------ | ------------------------------------------------------------------------------- |
-| `Portal`     | Moves popup/modal layers outside local DOM stacking context.                    |
-| `Positioner` | Calculates anchored placement, collision handling, offsets, and sticky logic.   |
-| `Viewport`   | Provides controlled clipping/scroll area for content and transition containers. |
-| `Backdrop`   | Optional overlay for modal separation and pointer-event shielding.              |
-| `Arrow`      | Optional anchored pointer between trigger and popup surface.                    |
+## Infrastructure parts
 
-In moduix wrappers (`PopoverContent`, `SelectContent`, `DialogContent`, `DrawerContent`, and
-similar), these slots are rendered internally for the default path. When a component exports its own
-service slots, prefer the high-level wrapper first and drop to manual composition only when you need
-control over portal behavior, overlay presence, or DOM structure.
+| Part         | Responsibility                                                                 |
+| ------------ | ------------------------------------------------------------------------------ |
+| `Portal`     | Moves an overlay outside local stacking contexts.                              |
+| `Backdrop`   | Provides modal separation and outside-interaction targeting.                   |
+| `Positioner` | Owns viewport or anchored placement and scrolling behavior.                    |
+| `Content`    | Renders the interactive surface and receives state attributes.                 |
+| `Arrow`      | Connects anchored popup content to its trigger when the primitive supports it. |
 
-## Public Customization Contract
+Do not hide these nodes inside product wrappers unless the product contract intentionally removes
+their override points.
 
-Use this contract consistently when customizing a component:
+## State and callbacks
 
-| Concern                          | API surface                                          |
-| -------------------------------- | ---------------------------------------------------- |
-| Main visible surface             | `className`                                          |
-| Common wrapper defaults          | high-level content wrapper (`DialogContent`)         |
-| Deep structure / portal behavior | exported low-level parts or component-specific props |
-| Optional internal UI             | composition first, component-specific props second   |
+Keep Ark callback detail objects intact. For example, dialog open state uses
+`onOpenChange(details)` and reads `details.open`.
 
-Prefer the simplest public path the component gives you. For `Dialog`, that means `DialogContent`
-for the common case and `DialogPortal` / `DialogBackdrop` / `DialogViewport` / `DialogPopup` only
-when you intentionally need to own that structure. The wrapper can still carry small behavior sugar
-when it clearly matches the primitive contract, such as `DialogContent` automatically adapting to
-non-modal pointer behavior from `Dialog`.
+Use component context for state access:
 
-## When To Compose Manually
+- `Component.Context` for an inline render prop.
+- `useComponentContext()` inside reusable descendants.
+- `useComponent()` with `Component.RootProvider` when state is owned outside the rendered tree.
 
-Compose primitives manually only when you intentionally need behavior outside the moduix wrapper
-contract (for example a custom library-level abstraction or explicit viewport behavior). For regular
-product screens, prefer wrapper parts to keep behavior, accessibility, and styling consistent.
+Do not render `Root` and `RootProvider` for the same state instance.
 
-## Wrapper Example (Dialog)
+## Product wrapper example
 
-If your product has its own design system package, you can create a thin wrapper over moduix and
-keep a stable API for app teams.
+A product design system can wrap moduix parts without replacing the Ark composition model:
 
 ```tsx
 import type { ComponentProps } from 'react';
 import { clsx } from 'clsx';
-import {
-  Dialog as DialogBase,
-  DialogClose as DialogCloseBase,
-  DialogBody as DialogBodyBase,
-  DialogCloseIcon as DialogCloseIconBase,
-  DialogContent as DialogContentBase,
-  DialogDescription as DialogDescriptionBase,
-  DialogFooter as DialogFooterBase,
-  DialogHeader as DialogHeaderBase,
-  DialogTitle as DialogTitleBase,
-  DialogTrigger as DialogTriggerBase,
-} from 'moduix';
+import { Dialog as DialogBase, Portal } from 'moduix';
 import styles from './AppDialog.module.css';
 
-type DialogProps = ComponentProps<typeof DialogBase>;
-type DialogContentProps = ComponentProps<typeof DialogContentBase>;
+export const Dialog = DialogBase.Root;
 
-export function Dialog(props: DialogProps) {
-  return <DialogBase {...props} />;
+export function DialogTrigger(props: ComponentProps<typeof DialogBase.Trigger>) {
+  return <DialogBase.Trigger {...props} />;
 }
 
-export function DialogTrigger(props: ComponentProps<typeof DialogTriggerBase>) {
-  return <DialogTriggerBase {...props} />;
+export function DialogBackdrop({
+  className,
+  ...props
+}: ComponentProps<typeof DialogBase.Backdrop>) {
+  return <DialogBase.Backdrop className={clsx(styles.backdrop, className)} {...props} />;
 }
 
-export function DialogContent({ className, children, ...props }: DialogContentProps) {
+export function DialogPositioner({
+  className,
+  ...props
+}: ComponentProps<typeof DialogBase.Positioner>) {
+  return <DialogBase.Positioner className={clsx(styles.positioner, className)} {...props} />;
+}
+
+export function DialogContent({ className, ...props }: ComponentProps<typeof DialogBase.Content>) {
+  return <DialogBase.Content className={clsx(styles.content, className)} {...props} />;
+}
+
+export function AppDialog({ children }: { children: React.ReactNode }) {
   return (
-    <DialogContentBase className={clsx(styles.popup, className)} {...props}>
-      {children}
-    </DialogContentBase>
+    <DialogBase.Root>
+      <DialogTrigger>Open</DialogTrigger>
+      <Portal>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>{children}</DialogContent>
+        </DialogPositioner>
+      </Portal>
+    </DialogBase.Root>
   );
-}
-
-export function DialogHeader({ className, ...props }: ComponentProps<typeof DialogHeaderBase>) {
-  return <DialogHeaderBase className={clsx(styles.header, className)} {...props} />;
-}
-
-export function DialogBody({ className, ...props }: ComponentProps<typeof DialogBodyBase>) {
-  return <DialogBodyBase className={clsx(styles.body, className)} {...props} />;
-}
-
-export function DialogFooter({ className, ...props }: ComponentProps<typeof DialogFooterBase>) {
-  return <DialogFooterBase className={clsx(styles.footer, className)} {...props} />;
-}
-
-export function DialogTitle({ className, ...props }: ComponentProps<typeof DialogTitleBase>) {
-  return <DialogTitleBase className={clsx(styles.title, className)} {...props} />;
-}
-
-export function DialogDescription({
-  className,
-  ...props
-}: ComponentProps<typeof DialogDescriptionBase>) {
-  return <DialogDescriptionBase className={clsx(styles.description, className)} {...props} />;
-}
-
-export function DialogClose({ className, ...props }: ComponentProps<typeof DialogCloseBase>) {
-  return <DialogCloseBase className={clsx(styles.close, className)} {...props} />;
-}
-
-export function DialogCloseIcon({
-  className,
-  ...props
-}: ComponentProps<typeof DialogCloseIconBase>) {
-  return <DialogCloseIconBase className={clsx(styles.closeIcon, className)} {...props} />;
 }
 ```
 
-This pattern gives teams one product-level import while preserving moduix composition, accessibility,
-and escape hatches. If your product wrapper needs to own the full overlay structure, start from the
-low-level parts on that component page instead of rebuilding the contract from scratch.
+This keeps product styling local while preserving Ark focus management, accessibility, lifecycle,
+state attributes, and structural override points.

@@ -1,6 +1,6 @@
 @layer ui.components {
   .trigger,
-  .close {
+  .closeTrigger {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -50,113 +50,94 @@
 
   .backdrop {
     position: fixed;
-    z-index: var(--z-backdrop);
+    z-index: calc(var(--z-backdrop) + var(--layer-index, 0));
     inset: 0;
     min-height: 100dvh;
     background-color: var(--dialog-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
     backdrop-filter: var(--backdrop-filter, blur(var(--dialog-backdrop-blur, 4px)));
-    transition:
-      opacity var(--dialog-backdrop-transition, var(--transition-default)),
-      backdrop-filter var(--dialog-backdrop-transition, var(--transition-default));
 
-    &[data-starting-style] {
-      opacity: var(--dialog-backdrop-starting-opacity, 0);
-      backdrop-filter: var(--dialog-backdrop-starting-blur, none);
+    &[data-state='open'] {
+      animation: dialog-backdrop-in var(--dialog-backdrop-transition, var(--transition-default));
     }
 
-    &[data-ending-style] {
-      opacity: var(--dialog-backdrop-ending-opacity, 0);
-      backdrop-filter: var(--dialog-backdrop-ending-blur, none);
-    }
-
-    &[data-nested] {
-      z-index: calc(var(--z-backdrop) + 1);
+    &[data-state='closed'] {
+      animation: dialog-backdrop-out var(--dialog-backdrop-transition, var(--transition-default));
     }
   }
 
-  .viewport {
+  .positioner {
     box-sizing: border-box;
     position: fixed;
-    z-index: var(--z-modal);
+    z-index: calc(var(--z-modal) + var(--layer-index, 0));
     inset: 0;
     display: grid;
     place-items: center;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: var(--dialog-viewport-padding, var(--spacing-4));
-
-    &[data-nested] {
-      z-index: calc(var(--z-modal) + 1);
-    }
+    scrollbar-gutter: stable both-edges;
+    padding: var(--dialog-positioner-padding, var(--spacing-4));
   }
 
-  .viewportNonBlocking {
-    pointer-events: none;
-
-    & > [data-slot='dialog-popup'] {
-      pointer-events: auto;
-    }
-  }
-
-  .popup {
+  .content {
     box-sizing: border-box;
     position: relative;
     width: min(
       var(--dialog-width, 28rem),
-      var(--dialog-max-width, calc(100vw - var(--spacing-8, 2rem))),
-      var(--available-width, calc(100vw - var(--spacing-8, 2rem)))
+      var(--dialog-max-width, calc(100vw - var(--spacing-8, 2rem)))
     );
     max-width: 100%;
+    max-height: calc(100dvh - var(--spacing-8, 2rem));
     padding: var(--dialog-padding, var(--spacing-6));
     border: var(--dialog-border-width, var(--border-width-sm)) solid
       var(--dialog-border-color, var(--color-border));
     border-radius: var(--dialog-radius, var(--radius-lg));
+    outline: 0;
     background-color: var(--dialog-bg, var(--color-popover));
     color: var(--dialog-color, var(--color-popover-foreground));
     box-shadow: var(--dialog-shadow, var(--shadow-lg));
-    translate: 0 calc(var(--dialog-nested-offset-y, 1.25rem) * var(--nested-dialogs, 0));
-    transform: scale(calc(1 - var(--dialog-nested-scale-step, 0.1) * var(--nested-dialogs, 0)));
-    transition:
-      opacity var(--dialog-transition, var(--transition-default)),
-      transform var(--dialog-transition, var(--transition-default)),
-      translate var(--dialog-transition, var(--transition-default));
+    transition: transform
+      var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default)));
 
-    &[data-nested-dialog-open] {
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      border-radius: inherit;
+      background-color: var(--dialog-nested-overlay-bg, rgb(0 0 0 / 0.05));
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity
+        var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default)));
+    }
+
+    &[data-has-nested] {
+      transform: scale(
+        calc(1 - var(--dialog-nested-scale-step, 0.05) * var(--nested-layer-count, 0))
+      );
+
       &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        background-color: var(--dialog-nested-overlay-bg, rgb(0 0 0 / 0.05));
+        opacity: 1;
       }
     }
 
-    &[data-starting-style] {
-      opacity: var(--dialog-popup-starting-opacity, 0);
-      translate: var(--dialog-popup-starting-translate-x, 0)
-        calc(
-          var(--dialog-nested-offset-y, 1.25rem) * var(--nested-dialogs, 0) +
-            var(--dialog-popup-starting-translate-y, 0)
-        );
-      transform: scale(
-        calc(
-          (1 - var(--dialog-nested-scale-step, 0.1) * var(--nested-dialogs, 0)) *
-            var(--dialog-popup-starting-scale, var(--scale-popup))
-        )
-      );
+    &[data-state='open'] {
+      animation: dialog-content-in var(--dialog-transition, var(--transition-default));
     }
 
-    &[data-ending-style] {
-      opacity: var(--dialog-popup-ending-opacity, 0);
-      translate: var(--dialog-popup-ending-translate-x, 0)
+    &[data-state='closed'] {
+      animation: dialog-content-out var(--dialog-transition, var(--transition-default));
+    }
+
+    &:has(
+      > [data-slot='dialog-close-icon'],
+      > [data-slot='dialog-header'] > [data-slot='dialog-close-icon']
+    ) {
+      padding-inline-end: max(
+        var(--dialog-padding, var(--spacing-6)),
         calc(
-          var(--dialog-nested-offset-y, 1.25rem) * var(--nested-dialogs, 0) +
-            var(--dialog-popup-ending-translate-y, 0)
-        );
-      transform: scale(
-        calc(
-          (1 - var(--dialog-nested-scale-step, 0.1) * var(--nested-dialogs, 0)) *
-            var(--dialog-popup-ending-scale, var(--scale-popup))
+          var(--dialog-close-icon-inset-inline-end, var(--spacing-4)) +
+            var(--dialog-close-icon-size, 1.75rem) + var(--spacing-2)
         )
       );
     }
@@ -172,8 +153,7 @@
       grid-column: 1;
     }
 
-    & > [data-slot='dialog-close'],
-    & > [data-slot='dialog-close-icon'] {
+    & > [data-slot='dialog-close-trigger'] {
       grid-column: 2;
       justify-self: end;
     }
@@ -205,6 +185,10 @@
     margin: 0;
   }
 
+  .body {
+    margin: var(--dialog-content-margin, var(--spacing-4) 0 0);
+  }
+
   .footer {
     display: flex;
     justify-content: flex-end;
@@ -230,12 +214,41 @@
       var(--dialog-focus-ring-color, var(--color-ring))
     );
     --close-button-icon-size: var(--dialog-close-icon-glyph-size, 0.75rem);
-    min-height: auto;
-    padding: 0;
-    border: 0;
+    position: absolute;
+    z-index: 2;
+    inset-block-start: var(--dialog-close-icon-inset-block-start, var(--spacing-4));
+    inset-inline-end: var(--dialog-close-icon-inset-inline-end, var(--spacing-4));
   }
 
-  .body {
-    margin: var(--dialog-content-margin, var(--spacing-4) 0 0);
+  @keyframes dialog-backdrop-in {
+    from {
+      opacity: var(--dialog-backdrop-starting-opacity, 0);
+      backdrop-filter: var(--dialog-backdrop-starting-blur, none);
+    }
+  }
+
+  @keyframes dialog-backdrop-out {
+    to {
+      opacity: var(--dialog-backdrop-ending-opacity, 0);
+      backdrop-filter: var(--dialog-backdrop-ending-blur, none);
+    }
+  }
+
+  @keyframes dialog-content-in {
+    from {
+      opacity: var(--dialog-content-starting-opacity, 0);
+      translate: var(--dialog-content-starting-translate-x, 0)
+        var(--dialog-content-starting-translate-y, 0);
+      scale: var(--dialog-content-starting-scale, var(--scale-popup));
+    }
+  }
+
+  @keyframes dialog-content-out {
+    to {
+      opacity: var(--dialog-content-ending-opacity, 0);
+      translate: var(--dialog-content-ending-translate-x, 0)
+        var(--dialog-content-ending-translate-y, 0);
+      scale: var(--dialog-content-ending-scale, var(--scale-popup));
+    }
   }
 }

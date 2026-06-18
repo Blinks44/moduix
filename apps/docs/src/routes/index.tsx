@@ -4,13 +4,7 @@ import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'l
 import {
   Button,
   Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  Portal,
   Progress,
   ProgressLabel,
   ProgressValue,
@@ -225,21 +219,32 @@ function HomeShowcase() {
             The preview stays compact, but the interaction is real and uses the shipped dialog API.
           </p>
           <div className={styles.buttonRow}>
-            <Dialog>
-              <DialogTrigger render={<Button />}>Review changes</DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Publish release?</DialogTitle>
-                  <DialogDescription>
-                    Push the updated components and docs to the shared workspace.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <DialogClose render={<Button variant="outline" />}>Back</DialogClose>
-                  <DialogClose render={<Button />}>Approve</DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <Button>Review changes</Button>
+              </Dialog.Trigger>
+              <Portal>
+                <Dialog.Backdrop />
+                <Dialog.Positioner>
+                  <Dialog.Content>
+                    <Dialog.Header>
+                      <Dialog.Title>Publish release?</Dialog.Title>
+                      <Dialog.Description>
+                        Push the updated components and docs to the shared workspace.
+                      </Dialog.Description>
+                    </Dialog.Header>
+                    <Dialog.Footer>
+                      <Dialog.CloseTrigger asChild>
+                        <Button variant="outline">Back</Button>
+                      </Dialog.CloseTrigger>
+                      <Dialog.CloseTrigger asChild>
+                        <Button>Approve</Button>
+                      </Dialog.CloseTrigger>
+                    </Dialog.Footer>
+                  </Dialog.Content>
+                </Dialog.Positioner>
+              </Portal>
+            </Dialog.Root>
             <Button variant="outline">Inspect API</Button>
           </div>
           <div className={styles.miniStats}>

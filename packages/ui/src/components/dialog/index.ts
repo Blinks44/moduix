@@ -1,17 +1,11 @@
-export {
-  Dialog,
-  createDialogHandle,
-  DialogTrigger,
-  DialogPortal,
-  DialogBackdrop,
-  DialogViewport,
-  DialogPopup,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-  DialogCloseIcon,
-  DialogContent,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
+export { Dialog, useDialog, useDialogContext } from './Dialog';
+export type {
+  DialogFocusOutsideEvent,
+  DialogInteractOutsideEvent,
+  DialogOpenChangeDetails,
+  DialogPointerDownOutsideEvent,
+  DialogTriggerValueChangeDetails,
+  UseDialogContext,
+  UseDialogProps,
+  UseDialogReturn,
 } from './Dialog';

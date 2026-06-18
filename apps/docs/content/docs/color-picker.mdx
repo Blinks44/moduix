@@ -841,51 +841,51 @@ layer above the dialog content.
       import {
         ColorPicker,
         Dialog,
-        DialogCloseIcon,
-        DialogContent,
-        DialogDescription,
-        DialogTitle,
-        DialogTrigger,
         Portal,
         parseColor,
       } from "moduix";
 
       export function InsideDialogColorPickerDemo() {
         return (
-          <Dialog>
-            <DialogTrigger className="color-picker-dialog-trigger">Open dialog</DialogTrigger>
-            <DialogContent>
-              <DialogCloseIcon />
-              <DialogTitle>Choose a color</DialogTitle>
-              <DialogDescription>
-                Wrap the positioner in a portal so the popover layers correctly.
-              </DialogDescription>
-              <div className="color-picker-dialog-body">
-                <ColorPicker.Root defaultValue={parseColor("#eb5e41")}>
-                  <ColorPicker.Label>Color</ColorPicker.Label>
-                  <ColorPicker.Control>
-                    <ColorPicker.ChannelInput channel="hex" />
-                    <ColorPicker.ChannelInput channel="alpha" />
-                    <ColorPicker.Trigger aria-label="Open color picker">
-                      <ColorPicker.TransparencyGrid />
-                      <ColorPicker.ValueSwatch />
-                    </ColorPicker.Trigger>
-                  </ColorPicker.Control>
-                  <Portal>
-                    <ColorPicker.Positioner>
-                      <ColorPicker.Content>
-                        <ColorPicker.Area>
-                          <ColorPicker.AreaBackground />
-                          <ColorPicker.AreaThumb />
-                        </ColorPicker.Area>
-                      </ColorPicker.Content>
-                    </ColorPicker.Positioner>
-                  </Portal>
-                  <ColorPicker.HiddenInput />
-                </ColorPicker.Root>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <Dialog.Root>
+            <Dialog.Trigger className="color-picker-dialog-trigger">Open dialog</Dialog.Trigger>
+            <Portal>
+              <Dialog.Backdrop />
+              <Dialog.Positioner>
+                <Dialog.Content>
+                  <Dialog.CloseIcon />
+                  <Dialog.Title>Choose a color</Dialog.Title>
+                  <Dialog.Description>
+                    Wrap the color picker positioner in a portal so its popover layers correctly.
+                  </Dialog.Description>
+                  <div className="color-picker-dialog-body">
+                    <ColorPicker.Root defaultValue={parseColor("#eb5e41")}>
+                      <ColorPicker.Label>Color</ColorPicker.Label>
+                      <ColorPicker.Control>
+                        <ColorPicker.ChannelInput channel="hex" />
+                        <ColorPicker.ChannelInput channel="alpha" />
+                        <ColorPicker.Trigger aria-label="Open color picker">
+                          <ColorPicker.TransparencyGrid />
+                          <ColorPicker.ValueSwatch />
+                        </ColorPicker.Trigger>
+                      </ColorPicker.Control>
+                      <Portal>
+                        <ColorPicker.Positioner>
+                          <ColorPicker.Content>
+                            <ColorPicker.Area>
+                              <ColorPicker.AreaBackground />
+                              <ColorPicker.AreaThumb />
+                            </ColorPicker.Area>
+                          </ColorPicker.Content>
+                        </ColorPicker.Positioner>
+                      </Portal>
+                      <ColorPicker.HiddenInput />
+                    </ColorPicker.Root>
+                  </div>
+                </Dialog.Content>
+              </Dialog.Positioner>
+            </Portal>
+          </Dialog.Root>
         );
       }
     `}

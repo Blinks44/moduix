@@ -32,7 +32,6 @@
   --drawer-swipe-progress: initial;
   --drawer-swipe-strength: initial;
   --layer-index: initial;
-  --nested-dialogs: initial;
   --nested-drawers: initial;
   --popup-height: initial;
   --popup-width: initial;
@@ -767,10 +766,20 @@
   --dialog-close-icon-color-hover: initial; /* var(--dialog-close-icon-color, var(--dialog-color)) */
   --dialog-close-icon-focus-ring-color: initial; /* var(--dialog-focus-ring-color) */
   --dialog-close-icon-glyph-size: initial; /* 0.75rem */
+  --dialog-close-icon-inset-block-start: initial; /* var(--spacing-4) */
+  --dialog-close-icon-inset-inline-end: initial; /* var(--spacing-4) */
   --dialog-close-icon-radius: initial; /* var(--radius-md) */
   --dialog-close-icon-size: initial; /* 1.75rem */
   --dialog-color: initial; /* var(--color-popover-foreground) */
+  --dialog-content-ending-opacity: initial; /* 0 */
+  --dialog-content-ending-scale: initial; /* var(--scale-popup) */
+  --dialog-content-ending-translate-x: initial; /* 0 */
+  --dialog-content-ending-translate-y: initial; /* 0 */
   --dialog-content-margin: initial; /* var(--spacing-4) 0 0 */
+  --dialog-content-starting-opacity: initial; /* 0 */
+  --dialog-content-starting-scale: initial; /* var(--scale-popup) */
+  --dialog-content-starting-translate-x: initial; /* 0 */
+  --dialog-content-starting-translate-y: initial; /* 0 */
   --dialog-control-bg: initial; /* var(--color-background) */
   --dialog-control-bg-hover: initial; /* var(--color-accent) */
   --dialog-control-border-color: initial; /* var(--color-border) */
@@ -792,18 +801,11 @@
   --dialog-header-gap: initial; /* var(--spacing-1) */
   --dialog-max-width: initial; /* calc(100vw - var(--spacing-8)) */
   --dialog-muted-color: initial; /* var(--color-muted-foreground) */
-  --dialog-nested-offset-y: initial; /* 1.25rem */
   --dialog-nested-overlay-bg: initial; /* rgb(0 0 0 / 0.05) */
-  --dialog-nested-scale-step: initial; /* 0.1 */
+  --dialog-nested-scale-step: initial; /* 0.05 */
+  --dialog-nested-transition: initial; /* var(--dialog-transition) */
   --dialog-padding: initial; /* var(--spacing-6) */
-  --dialog-popup-ending-opacity: initial; /* 0 */
-  --dialog-popup-ending-scale: initial; /* var(--scale-popup) */
-  --dialog-popup-ending-translate-x: initial; /* 0 */
-  --dialog-popup-ending-translate-y: initial; /* 0 */
-  --dialog-popup-starting-opacity: initial; /* 0 */
-  --dialog-popup-starting-scale: initial; /* var(--scale-popup) */
-  --dialog-popup-starting-translate-x: initial; /* 0 */
-  --dialog-popup-starting-translate-y: initial; /* 0 */
+  --dialog-positioner-padding: initial; /* var(--spacing-4) */
   --dialog-radius: initial; /* var(--radius-lg) */
   --dialog-shadow: initial; /* var(--shadow-lg) */
   --dialog-title-color: initial; /* var(--dialog-color) */
@@ -811,7 +813,6 @@
   --dialog-title-font-weight: initial; /* var(--weight-semibold) */
   --dialog-title-line-height: initial; /* var(--line-height-text-lg) */
   --dialog-transition: initial; /* var(--transition-default) */
-  --dialog-viewport-padding: initial; /* var(--spacing-4) */
   --dialog-width: initial; /* 28rem */
 
   /* Drawer */

@@ -584,7 +584,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix Dialog component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core", "Blinks44/moduix/close-button"],
       "files": [
         {
