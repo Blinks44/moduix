@@ -23,9 +23,8 @@ Preserve the Ark composition model: one root part, DOM ownership through `asChil
 
 ## Current behavior contract
 
-- Uses Ark-style root composition: `Container.Root`.
-- `Container` itself is the same root component with `Container.Root` attached for namespace
-  consistency.
+- `Container` is the primary root component.
+- `Container.Root` is the same component exposed for Ark-style namespace consistency.
 - Root accepts Ark factory div props, including `asChild`.
 - Applies `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
   `data-size`, and `data-gutter` on the root.
@@ -42,19 +41,19 @@ Preserve the Ark composition model: one root part, DOM ownership through `asChil
 ## Anatomy and exported parts
 
 ```text
-Container.Root
+Container / Container.Root
 └─ children
 ```
 
 Every exported part accepts `className` and uses the standard hooks below:
 
-| Part             | Hook                         | Notes                                                  |
-| ---------------- | ---------------------------- | ------------------------------------------------------ |
-| `Container.Root` | `data-slot="container-root"` | Root layout wrapper for width, centering, and gutters. |
-| `Container.Root` | `data-scope="container"`     | Ark-aligned component scope.                           |
-| `Container.Root` | `data-part="root"`           | Ark-aligned part name.                                 |
-| `Container.Root` | `data-size`                  | Selects the max-width preset.                          |
-| `Container.Root` | `data-gutter`                | Selects the inline gutter preset.                      |
+| Part                           | Hook                         | Notes                                                  |
+| ------------------------------ | ---------------------------- | ------------------------------------------------------ |
+| `Container` / `Container.Root` | `data-slot="container-root"` | Root layout wrapper for width, centering, and gutters. |
+| `Container` / `Container.Root` | `data-scope="container"`     | Ark-aligned component scope.                           |
+| `Container` / `Container.Root` | `data-part="root"`           | Ark-aligned part name.                                 |
+| `Container` / `Container.Root` | `data-size`                  | Selects the max-width preset.                          |
+| `Container` / `Container.Root` | `data-gutter`                | Selects the inline gutter preset.                      |
 
 ## Composition
 
@@ -64,7 +63,7 @@ import styles from './container.module.css';
 
 export function Example() {
   return (
-    <Container.Root asChild className={styles.container}>
+    <Container asChild className={styles.container}>
       <main>
         <Heading as="h1" size="xl">
           Pricing
@@ -79,14 +78,15 @@ export function Example() {
           </div>
         </Bleed.Root>
       </main>
-    </Container.Root>
+    </Container>
   );
 }
 ```
 
-`Container` is root-only and composition-first. Put headings, text, forms, media, or full section
-content inside it. Use `asChild` when a semantic element such as `main`, `section`, or `article`
-should own the DOM node.
+`Container` is root-only and composition-first. Prefer the short `<Container>` form. Use the
+equivalent `<Container.Root>` namespace form when consistency with multipart component anatomy is
+useful. Put headings, text, forms, media, or full section content inside it. Use `asChild` when a
+semantic element such as `main`, `section`, or `article` should own the DOM node.
 
 ## Upstream feature coverage
 
@@ -159,3 +159,5 @@ when a page shell needs different layout math.
 - 2026-06-18: Migrated `Container` to an Ark-aligned factory wrapper, added `Container.Root`,
   replaced `as` with `asChild`, added Ark-style root hooks, and aligned docs/examples to the new
   root contract.
+- 2026-06-18: Made the short `<Container>` form the recommended consumer path while retaining
+  `<Container.Root>` as an equivalent namespace alias.

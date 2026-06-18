@@ -34,14 +34,12 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
 
       export function ContainerDemo() {
         return (
-          <Container.Root className="container">
+          <Container className="container">
             <Heading as="h3" size="lg">
-              Responsive page content
+              {containerContent.title}
             </Heading>
-            <Text tone="muted">
-              The content column stays readable while inline gutters fluidly adapt.
-            </Text>
-          </Container.Root>
+            <Text tone="muted">{containerContent.description}</Text>
+          </Container>
         );
       }
     `}
@@ -62,6 +60,16 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const containerContent = {
+        title: "Responsive page content",
+        description: "The content column stays readable while inline gutters fluidly adapt.",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -115,20 +123,22 @@ as styles, icons, and small utilities.
 `Container` is a single root layout primitive built on Ark factory composition.
 
 ```text
-Container.Root
+Container / Container.Root
 └─ children
 ```
 
-| Part             | Role                                                     |
-| ---------------- | -------------------------------------------------------- |
-| `Container.Root` | Root layout wrapper. Controls content width and gutters. |
+| Part                           | Role                                                     |
+| ------------------------------ | -------------------------------------------------------- |
+| `Container` / `Container.Root` | Root layout wrapper. Controls content width and gutters. |
 
 ## Composition
 
 ### Recommended composition
 
-Use `Container.Root` for page shells, article bodies, docs sections, settings screens, and other
-layouts where the main requirement is a centered content column with predictable gutters.
+Use `Container` for page shells, article bodies, docs sections, settings screens, and other layouts
+where the main requirement is a centered content column with predictable gutters.
+
+`Container.Root` is the same component exposed as an Ark-aligned namespace alias.
 
 Use `size` to choose the content width and `gutter` to control the edge padding. Use `asChild` when
 the wrapper itself should also carry semantic meaning such as `main`, `section`, or `article`.
@@ -178,12 +188,11 @@ preserving the selected gutter.
       export function ContainerSizesDemo() {
         return (
           <div className="stack">
-            <Container.Root size="xs" className="container"><Text>xs</Text></Container.Root>
-            <Container.Root size="sm" className="container"><Text>sm</Text></Container.Root>
-            <Container.Root size="md" className="container"><Text>md</Text></Container.Root>
-            <Container.Root size="lg" className="container"><Text>lg</Text></Container.Root>
-            <Container.Root size="xl" className="container"><Text>xl</Text></Container.Root>
-            <Container.Root size="full" className="container"><Text>full</Text></Container.Root>
+            {containerSizes.map((size) => (
+              <Container key={size.value} size={size.value} className="container">
+                <Text>{size.label}: size="{size.value}"</Text>
+              </Container>
+            ))}
           </div>
         );
       }
@@ -208,6 +217,20 @@ preserving the selected gutter.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const containerSizes = [
+        { value: "xs", label: "Extra small" },
+        { value: "sm", label: "Small" },
+        { value: "md", label: "Medium" },
+        { value: "lg", label: "Large" },
+        { value: "xl", label: "Extra large" },
+        { value: "full", label: "Full width" },
+      ] as const;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Gutters
@@ -224,10 +247,11 @@ Use `gutter` to control responsive inline padding.
       export function ContainerGuttersDemo() {
         return (
           <div className="stack">
-            <Container.Root gutter="none" className="container"><Text>No gutter</Text></Container.Root>
-            <Container.Root gutter="sm" className="container"><Text>Small gutter</Text></Container.Root>
-            <Container.Root gutter="md" className="container"><Text>Medium gutter</Text></Container.Root>
-            <Container.Root gutter="lg" className="container"><Text>Large gutter</Text></Container.Root>
+            {containerGutters.map((gutter) => (
+              <Container key={gutter.value} gutter={gutter.value} className="container">
+                <Text>{gutter.label}</Text>
+              </Container>
+            ))}
           </div>
         );
       }
@@ -252,6 +276,18 @@ Use `gutter` to control responsive inline padding.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const containerGutters = [
+        { value: "none", label: "No gutter" },
+        { value: "sm", label: "Small gutter" },
+        { value: "md", label: "Medium gutter" },
+        { value: "lg", label: "Large gutter" },
+      ] as const;
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Semantic Element
@@ -267,12 +303,12 @@ Use `asChild` when the layout wrapper should also describe document structure.
 
       export function ContainerSemanticDemo() {
         return (
-          <Container.Root asChild size="md" className="container">
+          <Container asChild size="md" className="container">
             <main>
-              <Heading as="h3" size="lg">Main content area</Heading>
-              <Text tone="muted">Use asChild when the wrapper should carry semantic meaning.</Text>
+              <Heading as="h3" size="lg">{semanticContent.title}</Heading>
+              <Text tone="muted">{semanticContent.description}</Text>
             </main>
-          </Container.Root>
+          </Container>
         );
       }
     `}
@@ -293,6 +329,16 @@ Use `asChild` when the layout wrapper should also describe document structure.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const semanticContent = {
+        title: "Main content area",
+        description: "Use asChild when the wrapper should carry semantic meaning.",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### With Bleed
@@ -308,15 +354,13 @@ Keep the text column constrained and let only the wider child opt out.
 
       export function ContainerBleedDemo() {
         return (
-          <Container.Root className="container">
-            <Heading as="h3" size="lg">Article body</Heading>
-            <Text tone="muted">
-              Keep the reading width constrained, then use Bleed for content that should stretch wider.
-            </Text>
+          <Container className="container">
+            <Heading as="h3" size="lg">{bleedContent.title}</Heading>
+            <Text tone="muted">{bleedContent.description}</Text>
             <Bleed.Root inline="md">
-              <div className="bleedSurface">Bleed content escapes the constrained column.</div>
+              <div className="bleedSurface">{bleedContent.callout}</div>
             </Bleed.Root>
-          </Container.Root>
+          </Container>
         );
       }
     `}
@@ -343,6 +387,18 @@ Keep the text column constrained and let only the wider child opt out.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const bleedContent = {
+        title: "Article body",
+        description:
+          "Keep the reading width constrained, then use Bleed for content that should stretch wider.",
+        callout: "Bleed content escapes the constrained column.",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -358,9 +414,9 @@ Pass `className` when styling the root or overriding container variables locally
 
       export function CustomStyledContainerDemo() {
         return (
-          <Container.Root className="customContainer">
-            <Text weight="semibold">Customized max width and gutters</Text>
-          </Container.Root>
+          <Container className="customContainer">
+            <Text weight="semibold">{customContent.label}</Text>
+          </Container>
         );
       }
     `}
@@ -383,6 +439,15 @@ Pass `className` when styling the root or overriding container variables locally
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const customContent = {
+        label: "Customized max width and gutters",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling
@@ -402,7 +467,7 @@ scale. Use `className` for local block styling such as padding, borders, or back
 
 ### Styling hooks
 
-- `Container.Root` exposes `data-slot="container-root"` on the root.
+- `Container` and `Container.Root` expose `data-slot="container-root"` on the root.
 - `data-scope="container"` and `data-part="root"` provide Ark-aligned root hooks.
 - `data-size` selects the width preset: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.

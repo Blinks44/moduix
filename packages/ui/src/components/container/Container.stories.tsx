@@ -24,13 +24,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => (
-    <Container.Root className={storyStyles.container}>
+    <Container className={storyStyles.container}>
       <Text weight="semibold">Responsive content column</Text>
       <Text tone="muted">
         The declared size controls the readable content width. Gutters stay fluid near viewport
         edges.
       </Text>
-    </Container.Root>
+    </Container>
   ),
 };
 
@@ -38,9 +38,9 @@ export const Sizes: Story = {
   render: () => (
     <div className={storyStyles.stack}>
       {(['xs', 'sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
-        <Container.Root key={size} size={size} className={storyStyles.container}>
+        <Container key={size} size={size} className={storyStyles.container}>
           <Text weight="semibold">size=&quot;{size}&quot;</Text>
-        </Container.Root>
+        </Container>
       ))}
     </div>
   ),
@@ -50,9 +50,9 @@ export const Gutters: Story = {
   render: () => (
     <div className={storyStyles.stack}>
       {(['none', 'sm', 'md', 'lg'] as const).map((gutter) => (
-        <Container.Root key={gutter} gutter={gutter} className={storyStyles.container}>
+        <Container key={gutter} gutter={gutter} className={storyStyles.container}>
           <Text weight="semibold">gutter=&quot;{gutter}&quot;</Text>
-        </Container.Root>
+        </Container>
       ))}
     </div>
   ),
@@ -60,18 +60,18 @@ export const Gutters: Story = {
 
 export const SemanticElement: Story = {
   render: () => (
-    <Container.Root asChild size="md" className={storyStyles.container}>
+    <Container asChild size="md" className={storyStyles.container}>
       <main>
         <Text weight="semibold">Rendered as main</Text>
         <Text tone="muted">Use asChild when the layout wrapper also carries page semantics.</Text>
       </main>
-    </Container.Root>
+    </Container>
   ),
 };
 
 export const WithBleed: Story = {
   render: () => (
-    <Container.Root className={storyStyles.container}>
+    <Container className={storyStyles.container}>
       <Text weight="semibold">Constrained text column</Text>
       <Text tone="muted">
         Use Bleed when media or dividers should extend beyond the readable width.
@@ -79,6 +79,6 @@ export const WithBleed: Story = {
       <Bleed.Root inline="md">
         <div className={storyStyles.bleedSurface}>Bleed content escapes the container width.</div>
       </Bleed.Root>
-    </Container.Root>
+    </Container>
   ),
 };

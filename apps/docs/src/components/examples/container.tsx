@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Bleed, Container, Heading, Text } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './container.module.css';
 
 export const containerOverrideCssProperties = [
@@ -47,52 +47,56 @@ export const containerOverrideCssProperties = [
   },
 ] satisfies CssPropertyInput[];
 
-export const containerPlaygroundCssProperties = [
-  {
-    name: '--container-gutter-md',
-    defaultValue: 'clamp(1rem, 4vw, 2rem)',
-    description: 'Controls medium inline gutters.',
-  },
-  {
-    name: '--container-max-width-lg',
-    defaultValue: '72rem',
-    description: 'Controls the `lg` content width.',
-  },
-] satisfies CssPropertyInput[];
+const containerContent = {
+  title: 'Responsive page content',
+  description: 'The content column stays readable while inline gutters fluidly adapt.',
+};
 
-const containerSizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full'] as const;
-const containerGutters = ['none', 'sm', 'md', 'lg'] as const;
+const containerSizes = [
+  { value: 'xs', label: 'Extra small' },
+  { value: 'sm', label: 'Small' },
+  { value: 'md', label: 'Medium' },
+  { value: 'lg', label: 'Large' },
+  { value: 'xl', label: 'Extra large' },
+  { value: 'full', label: 'Full width' },
+] as const;
+
+const containerGutters = [
+  { value: 'none', label: 'No gutter' },
+  { value: 'sm', label: 'Small gutter' },
+  { value: 'md', label: 'Medium gutter' },
+  { value: 'lg', label: 'Large gutter' },
+] as const;
+
+const semanticContent = {
+  title: 'Main content area',
+  description: 'Use asChild when the wrapper should carry semantic meaning.',
+};
+
+const bleedContent = {
+  title: 'Article body',
+  description:
+    'Keep the reading width constrained, then use Bleed for elements that should stretch wider.',
+  callout: 'Bleed content escapes the constrained column.',
+};
+
+const customContent = {
+  label: 'Customized max width and gutters',
+};
 
 export function ContainerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return <CSSPropertiesReferenceTable properties={containerOverrideCssProperties} />;
 }
 
-export function ContainerCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={containerPlaygroundCssProperties}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
-}
-
 export function ContainerExample(props: ComponentProps<typeof Container>) {
   return (
     <div className={styles.viewport}>
-      <Container.Root className={styles.container} {...props}>
+      <Container className={styles.container} {...props}>
         <Heading as="h3" size="lg">
-          Responsive page content
+          {containerContent.title}
         </Heading>
-        <Text tone="muted">
-          The content column stays readable while inline gutters fluidly adapt to viewport width.
-        </Text>
-      </Container.Root>
+        <Text tone="muted">{containerContent.description}</Text>
+      </Container>
     </div>
   );
 }
@@ -102,9 +106,11 @@ export function ContainerSizesExample() {
     <div className={styles.viewport}>
       <div className={styles.stack}>
         {containerSizes.map((size) => (
-          <Container.Root key={size} size={size} className={styles.container}>
-            <Text weight="semibold">size=&quot;{size}&quot;</Text>
-          </Container.Root>
+          <Container key={size.value} size={size.value} className={styles.container}>
+            <Text weight="semibold">
+              {size.label}: size=&quot;{size.value}&quot;
+            </Text>
+          </Container>
         ))}
       </div>
     </div>
@@ -116,9 +122,9 @@ export function ContainerGuttersExample() {
     <div className={styles.viewport}>
       <div className={styles.stack}>
         {containerGutters.map((gutter) => (
-          <Container.Root key={gutter} gutter={gutter} className={styles.container}>
-            <Text weight="semibold">gutter=&quot;{gutter}&quot;</Text>
-          </Container.Root>
+          <Container key={gutter.value} gutter={gutter.value} className={styles.container}>
+            <Text weight="semibold">{gutter.label}</Text>
+          </Container>
         ))}
       </div>
     </div>
@@ -128,14 +134,14 @@ export function ContainerGuttersExample() {
 export function ContainerSemanticExample() {
   return (
     <div className={styles.viewport}>
-      <Container.Root asChild size="md" className={styles.container}>
+      <Container asChild size="md" className={styles.container}>
         <main>
           <Heading as="h3" size="lg">
-            Main content area
+            {semanticContent.title}
           </Heading>
-          <Text tone="muted">Use `asChild` when the wrapper should carry semantic meaning.</Text>
+          <Text tone="muted">{semanticContent.description}</Text>
         </main>
-      </Container.Root>
+      </Container>
     </div>
   );
 }
@@ -143,9 +149,9 @@ export function ContainerSemanticExample() {
 export function CustomStylingContainerExample() {
   return (
     <div className={styles.viewport}>
-      <Container.Root className={styles.customContainer}>
-        <Text weight="semibold">Customized max width and gutters</Text>
-      </Container.Root>
+      <Container className={styles.customContainer}>
+        <Text weight="semibold">{customContent.label}</Text>
+      </Container>
     </div>
   );
 }
@@ -153,18 +159,15 @@ export function CustomStylingContainerExample() {
 export function ContainerBleedExample() {
   return (
     <div className={styles.viewport}>
-      <Container.Root className={styles.container}>
+      <Container className={styles.container}>
         <Heading as="h3" size="lg">
-          Article body
+          {bleedContent.title}
         </Heading>
-        <Text tone="muted">
-          Keep the reading width constrained, then use `Bleed` for elements that should stretch
-          wider.
-        </Text>
+        <Text tone="muted">{bleedContent.description}</Text>
         <Bleed.Root inline="md">
-          <div className={styles.bleedSurface}>Bleed content escapes the constrained column.</div>
+          <div className={styles.bleedSurface}>{bleedContent.callout}</div>
         </Bleed.Root>
-      </Container.Root>
+      </Container>
     </div>
   );
 }
