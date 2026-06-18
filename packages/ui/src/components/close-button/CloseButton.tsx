@@ -13,6 +13,7 @@ const CloseButtonRoot = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
       className,
       children,
       disabled,
+      onClick,
       type,
       'aria-disabled': ariaDisabled,
       'aria-label': ariaLabel,
@@ -37,6 +38,15 @@ const CloseButtonRoot = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         aria-disabled={ariaDisabled}
         aria-label={ariaLabel ?? (children == null && ariaLabelledBy == null ? 'Close' : undefined)}
         aria-labelledby={ariaLabelledBy}
+        onClick={(event) => {
+          if (isDisabled) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+
+          onClick?.(event);
+        }}
         {...props}
       >
         {children ?? <CloseIcon />}

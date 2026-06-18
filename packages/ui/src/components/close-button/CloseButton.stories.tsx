@@ -52,6 +52,12 @@ export const Disabled: Story = {
   },
 };
 
+export const AriaDisabled: Story = {
+  args: {
+    'aria-disabled': 'true',
+  },
+};
+
 function CircleXIcon(props: ComponentProps<'svg'>) {
   return (
     <svg

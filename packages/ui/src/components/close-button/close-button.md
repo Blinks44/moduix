@@ -81,8 +81,7 @@ icon content because the single child is the composed root:
   `aria-labelledby` is provided.
 - Custom icon content should be decorative and requires an accessible name on the root.
 - Native `disabled` and `aria-disabled="true"` map to `data-disabled` for styling.
-- `aria-disabled` on an `asChild` element is presentational; application code must prevent custom
-  activation behavior when needed.
+- `aria-disabled="true"` suppresses the root click handler and prevents default activation.
 - The component does not manage overlay state, escape handling, focus return, or dismissal
   callbacks.
 
@@ -131,3 +130,4 @@ Public CSS variables:
 - 2026-06-18: Migrated to `@ark-ui/react/factory`, introduced the explicit
   `CloseButton.Root` part and Ark data hooks, added `asChild`, and removed the Base UI button
   contract and callable alias.
+- 2026-06-18: Aligned `aria-disabled` with disabled behavior by suppressing root click activation.

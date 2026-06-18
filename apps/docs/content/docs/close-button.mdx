@@ -9,6 +9,7 @@ import {
   CloseButtonCssPropertiesPanel,
   CloseButtonCustomChildrenExample,
   CloseButtonCustomStylingExample,
+  CloseButtonDisabledExample,
   CloseButtonExample,
 } from '@/components/examples/close-button';
 
@@ -85,6 +86,17 @@ button semantics and a default close glyph, but it does not manage overlay state
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const closeButtonDemoCopy = {
+        title: "Draft saved",
+        description: "The notification can be dismissed.",
+        closeLabel: "Dismiss notification",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -177,7 +189,7 @@ dismissal state and focus lifecycle.
   trigger.
 - Custom icon children need an accessible name through `aria-label` or `aria-labelledby`.
 - Native `disabled` and `aria-disabled="true"` expose `data-disabled` for Ark-style state
-  targeting.
+  targeting and suppress click activation.
 - The previous Base UI `render`, `nativeButton`, and `focusableWhenDisabled` props are removed.
 - `CloseButton` is a namespace object and must be rendered through `CloseButton.Root`.
 
@@ -224,6 +236,16 @@ Replace the default glyph through `children` while keeping the root button and s
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const customChildrenDemo = {
+        closeLabel: "Close panel",
+        iconViewBox: "0 0 24 24",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### As Child
@@ -260,6 +282,25 @@ Close Button styling and data hooks.
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      [data-slot="close-button-root"] > svg {
+        stroke-width: 3;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const asChildDemo = {
+        closeLabel: "Close composed panel",
+        childElement: "button",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -293,6 +334,59 @@ Style the root through `className` and the public `--close-button-*` variables.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const customStylingTokens = {
+        "--close-button-size": "2.25rem",
+        "--close-button-icon-size": "1rem",
+        "--close-button-bg": "var(--color-primary)",
+        "--close-button-bg-hover": "var(--color-foreground)",
+        "--close-button-color": "var(--color-primary-foreground)",
+        "--close-button-color-hover": "var(--color-primary-foreground)",
+      };
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Disabled State
+
+Use native `disabled` for regular buttons or `aria-disabled="true"` when the control should remain
+discoverable while refusing activation.
+
+<Preview>
+  <CloseButtonDisabledExample />
+
+  <Preview.Code>
+    {`
+      import { CloseButton } from "moduix";
+
+      export function CloseButtonDisabledDemo() {
+        return <CloseButton.Root aria-disabled="true" aria-label="Close unavailable message" />;
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      [data-slot="close-button-root"][data-disabled] {
+        opacity: var(--close-button-disabled-opacity, var(--opacity-disabled));
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const disabledDemo = {
+        closeLabel: "Close unavailable message",
+        disabledState: "aria-disabled",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling

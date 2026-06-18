@@ -88,6 +88,10 @@ export function CloseButtonCustomStylingExample() {
   return <CloseButton.Root className={styles.customButton} aria-label="Close message" />;
 }
 
+export function CloseButtonDisabledExample() {
+  return <CloseButton.Root aria-disabled="true" aria-label="Close unavailable message" />;
+}
+
 function CircleXIcon(props: ComponentProps<'svg'>) {
   return (
     <svg
