@@ -107,6 +107,15 @@
       cursor: not-allowed;
       opacity: var(--opacity-disabled);
     }
+
+    &[data-pressed] {
+      border-color: var(
+        --carousel-control-border-color-hover,
+        color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%)
+      );
+      background-color: var(--carousel-control-bg-hover, var(--color-accent));
+      color: var(--carousel-control-color-hover, var(--color-accent-foreground));
+    }
   }
 
   .defaultIcon {
@@ -170,6 +179,11 @@
       width: calc(var(--carousel-indicator-size, 0.5rem) * 2.75);
       background-color: var(--carousel-indicator-bg-current, var(--color-primary));
       opacity: 1;
+    }
+
+    &:is(:disabled, [data-disabled], [data-readonly]) {
+      cursor: not-allowed;
+      opacity: var(--opacity-disabled);
     }
   }
 

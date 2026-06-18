@@ -20,11 +20,14 @@ import {
   ThumbnailIndicatorCarouselExample,
   VariableSizeCarouselExample,
   VerticalCarouselExample,
+  carouselExampleCss,
+  carouselSlidesData,
+  carouselVariableSlidesData,
 } from '@/components/examples/carousel';
 
 ## API Reference
 
-<BaseUIReference href="https://ark-ui.com/docs/components/carousel" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/carousel" />
 
 ## Basic
 
@@ -67,6 +70,9 @@ Use the Ark composition directly: `Carousel.Root`, `Carousel.Control`, `Carousel
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -133,6 +139,7 @@ Additional Ark parts stay available for advanced flows:
 - `Carousel.Context`
 - `Carousel.RootProvider`
 - `useCarousel()`
+- `useCarouselContext()`
 
 ## Composition
 
@@ -150,6 +157,9 @@ Use `Carousel.Context` when indicator count depends on runtime `pageSnapPoints`,
 Use `Carousel.RootProvider` and `useCarousel()` when carousel state must be created outside the
 rendered subtree.
 
+Use `useCarouselContext()` inside custom child components that need the carousel API without a
+render prop.
+
 Use `Carousel.AutoplayTrigger` and `Carousel.AutoplayIndicator` when autoplay controls should be
 part of the visible UI instead of only a root prop.
 
@@ -160,8 +170,8 @@ part of the visible UI instead of only a root prop.
 ### Behavioral notes
 
 - `onPageChange(details)` follows Ark shape and exposes the active page as `details.page`.
-- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove`, and `autoSize` replace the old
-  `SnapCarousel` sizing sugar.
+- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove`, and `autoSize` follow Ark sizing and
+  snap-point behavior directly.
 - Vertical carousels stay on the same public surface. Default triggers rotate automatically when the
   component uses moduix-provided chevrons.
 
@@ -210,6 +220,9 @@ Control the current page when carousel state must stay in sync with external nav
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Dynamic
@@ -267,6 +280,9 @@ Update `slideCount` alongside the rendered items when slides can be added or rem
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Pause On Hover
@@ -314,6 +330,9 @@ Pause autoplay on pointer hover when readers need time to inspect slide content 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -354,6 +373,9 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Scroll to Slide
@@ -396,6 +418,9 @@ Call the carousel API from context when another control should jump directly to 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Slides Per Page
@@ -440,6 +465,9 @@ Increase `slidesPerPage` when the layout should preview multiple items at once i
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Spacing
@@ -483,6 +511,9 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Thumbnail Indicators
@@ -524,6 +555,9 @@ Render custom indicator content when the pager itself should preview the slides 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Variable Sizes
@@ -553,7 +587,7 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
             <Carousel.ItemGroup aria-label="Variable size gallery">
               {slides.map((slide, index) => (
                 <Carousel.Item key={slide.id} index={index} snapAlign="center">
-                  <img src={slide.src} alt={slide.alt} />
+                  <img src={slide.src} alt={slide.alt} style={{ width: slide.width }} />
                 </Carousel.Item>
               ))}
             </Carousel.ItemGroup>
@@ -573,6 +607,9 @@ Enable `autoSize` when slide widths should follow their content rather than a fi
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselVariableSlidesData}</Preview.Data>
 </Preview>
 
 ### Autoplay
@@ -610,6 +647,9 @@ Use autoplay for passive galleries and pair it with visible controls so users ca
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Loop
@@ -651,6 +691,9 @@ Turn on `loop` when the carousel should wrap seamlessly from the last slide back
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Mouse Drag
@@ -692,6 +735,9 @@ Allow mouse drag when desktop users should be able to scrub through slides with 
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ### Vertical
@@ -731,6 +777,9 @@ Switch to a vertical orientation when the carousel should stack movement and con
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{carouselExampleCss}</Preview.CSS>
+  <Preview.Data>{carouselSlidesData}</Preview.Data>
 </Preview>
 
 ## Styling
@@ -760,3 +809,5 @@ data attributes (`data-part`, `data-orientation`, `data-current`, `data-dragging
 - `Carousel.ItemGroup` exposes `data-dragging` while drag interaction is active.
 - `Carousel.Indicator` exposes `data-current`, and `Carousel.Item` exposes `data-index` and
   `data-inview`.
+- `Carousel.Indicator` exposes `data-readonly`, and `Carousel.AutoplayTrigger` exposes
+  `data-pressed`.

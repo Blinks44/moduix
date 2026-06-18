@@ -26,7 +26,8 @@ variables, and stable `data-slot` hooks.
 - Uses Ark composition directly: `Carousel.Root`, `Carousel.RootProvider`, `Carousel.Control`,
   `Carousel.ItemGroup`, `Carousel.Item`, `Carousel.PrevTrigger`, `Carousel.NextTrigger`,
   `Carousel.IndicatorGroup`, `Carousel.Indicator`, `Carousel.AutoplayTrigger`,
-  `Carousel.AutoplayIndicator`, `Carousel.ProgressText`, `Carousel.Context`, and `useCarousel()`.
+  `Carousel.AutoplayIndicator`, `Carousel.ProgressText`, `Carousel.Context`, `useCarousel()`, and
+  `useCarouselContext()`.
 - Keeps Ark controlled and uncontrolled paging unchanged: `page`, `defaultPage`, and
   `onPageChange(details)`.
 - Keeps Ark behavior props unchanged: `loop`, `autoplay`, `autoSize`, `slidesPerPage`,
@@ -120,6 +121,9 @@ Use `Carousel.Context` when the number of page snap points depends on runtime la
 Use `Carousel.RootProvider` with `useCarousel()` only when carousel state must be created outside
 the rendered subtree.
 
+Use `useCarouselContext()` inside custom reusable children that need the same API exposed by
+`Carousel.Context` without introducing another render prop.
+
 ## Upstream feature coverage
 
 - `Anatomy`: preserved directly through the exported Ark-shaped parts.
@@ -141,8 +145,9 @@ the rendered subtree.
 - Ark state and runtime hooks remain available:
   - `data-orientation` on root and control
   - `data-dragging` on `Carousel.ItemGroup`
-  - `data-current` on `Carousel.Indicator`
+  - `data-current` and `data-readonly` on `Carousel.Indicator`
   - `data-inview` and `data-index` on `Carousel.Item`
+  - `data-pressed` on `Carousel.AutoplayTrigger`
 - Ark runtime CSS variables remain available:
   - `--slides-per-page`
   - `--slide-spacing`
@@ -150,6 +155,7 @@ the rendered subtree.
 - Ark callback and API shapes remain unchanged, including `onPageChange(details)`,
   `onAutoplayStatusChange(details)`, `onDragStatusChange(details)`, `Carousel.Context`, and
   `useCarousel()`.
+- `useCarouselContext()` is exported from `moduix` for custom reusable child parts.
 
 ## Defaults and styling
 
@@ -185,21 +191,25 @@ Primary theme variables:
 - moduix ships styled controls, indicators, and progress text; Ark is intentionally unstyled.
 - moduix favors an explicit flex layout for `Control` instead of absolute-position trigger chrome.
 - The default trigger icons are moduix chevrons, not Ark example icons.
+- `data-pressed` on autoplay controls and `data-readonly` or disabled indicators receive moduix
+  visual state defaults.
 
 ## Agent notes
 
 - Keep Ark callback and state shapes untouched, especially `onPageChange(details)` and
   `Carousel.Context`.
-- Do not reintroduce the old `SnapCarousel` aliases or the native-scroll-only wrapper contract.
+- Do not reintroduce the old native-scroll-only wrapper contract.
 - Keep `Carousel.Control` structural. Do not hide `ItemGroup`, `IndicatorGroup`, or autoplay parts
   behind convenience wrappers.
 
 ## Local changelog
 
-- 2026-06-18: Replaced `SnapCarousel` with Ark UI `Carousel`, adopted Ark naming and Ark paging,
-  autoplay, and provider contracts, and removed the legacy native-scroll sugar API.
+- 2026-06-18: Adopted Ark UI `Carousel` naming, paging, autoplay, and provider contracts, and
+  removed the legacy native-scroll sugar API.
 - 2026-06-18: Reworked the layout and styling contract around Ark composition, removed overlayed
   trigger positioning, improved vertical control placement, and expanded the public examples to
   cover the full Ark carousel surface.
 - 2026-06-18: Added explicit public examples for `loop` and `allowMouseDrag`, and aligned the docs
   styling section with the shared `Accordion` CSS properties tab pattern.
+- 2026-06-18: Exported `useCarouselContext()` and added styled defaults for autoplay pressed state
+  plus read-only and disabled indicators.
