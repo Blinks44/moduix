@@ -26,6 +26,9 @@ Use this skill for work in `apps/docs`.
 - Import public components from `moduix`. Do not duplicate library components inside the docs app.
 - Document the shipped public API only. Remove stale props, examples, styling hooks, and legacy guidance in the same task.
 - Keep MDX consumer-facing. Put interactive logic, bulky example data, and `cssProperties` arrays in example `.tsx` files.
+- For component migration/audit docs, every example preview should include `Code`, `Styles`, and `Data` tabs. Put
+  shared arrays, fixture objects, and setup constants in `Preview.Data`; do not hide required code behind comments,
+  ellipses, or prose.
 - Prefer `as T` over `useState<T>()` in MDX.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
@@ -46,6 +49,9 @@ Use this skill for work in `apps/docs`.
 - When a component has a dedicated Ark UI examples section, moduix docs examples should cover at least 80% of
   those upstream Ark examples, adapted to the public moduix API and merged only when examples teach the same
   consumer-facing pattern.
+- If a component has no dedicated Ark UI primitive page, do not apply the 80% Ark example rule mechanically. State
+  that no Ark primitive exists, then document the shipped moduix API, accessibility semantics, styling hooks, and any
+  Ark factory/composition guidance that actually applies.
 - moduix additions must be documented as a second layer on top of Ark behavior. Do not replace the Ark mental
   model with a local-only narrative.
 - For form components, show Ark `Field` / `Fieldset` context integration and include `HiddenInput` wherever the
@@ -54,6 +60,8 @@ Use this skill for work in `apps/docs`.
   examples in Ark-backed docs.
 - For state access, document the Ark choice that fits the example: `Component.Context` for inline reads,
   `use*Context` for custom child parts, and `useComponent` plus `RootProvider` for state controlled outside the tree.
+- When docs import provider/context hooks from `moduix`, verify the package barrel exports them. A docs example that
+  only works against an internal component file is not valid public documentation.
 - For animated mounted content, show CSS state selectors first and mention `present` only when JavaScript exit
   animation control is the reason.
 - If a component has no dedicated Ark UI primitive page, say that explicitly in `API Reference` and anchor the

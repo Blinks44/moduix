@@ -48,6 +48,9 @@ Small DX sugar is acceptable only when it removes repeated production boilerplat
   invalid focus, imperative measurement, and trigger/control integration.
 - Use `Component.Context` for one-off inline state reads, `use*Context` hooks for reusable child parts, and
   `useComponent` plus `RootProvider` only for state controlled outside the rendered tree.
+- If the Ark namespace exports `RootProvider`, `Context`, `ItemContext`, hooks, or related public types, mirror that
+  surface through the moduix component and its `index.ts` barrel unless there is a documented reason to hide it.
+  Check docs examples against imports from `moduix`, not only local component imports.
 - When using `RootProvider`, skip the matching `Root` for that same instance.
 - Use `asChild` for custom host components on Ark parts. The child must be a single element and must keep required
   accessibility and interaction semantics.
@@ -100,6 +103,8 @@ If the answer is weak, simplify or remove it.
 - Keep selectors flat and readable. Remove dead classes, modifiers, and obsolete CSS variables.
 - Put demo-only layout styles in stories CSS, not library CSS.
 - Stories and local component markdown must match the shipped API.
+- Stories should cover provider/context/state examples when the wrapper exposes those Ark surfaces, not only the basic
+  rendered parts.
 - Remove deleted props, legacy customization paths, and outdated examples in the same task.
 - If API, behavior, styling hooks, or recommended usage changed, update local component markdown in the same task.
 - If docs become inaccurate, apply `cross-package-sync`.

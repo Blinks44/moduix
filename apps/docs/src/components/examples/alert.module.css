@@ -1,3 +1,7 @@
+.demo {
+  max-width: 32rem;
+}
+
 .stack {
   display: grid;
   width: min(38rem, 100%);

@@ -51,7 +51,7 @@
     }
 
     &:not(:has([data-slot='alert-indicator'])) {
-      .content {
+      [data-slot='alert-content'] {
         grid-column: 1 / -1;
       }
     }

@@ -22,6 +22,9 @@ Solid/Vue/Svelte-specific APIs or docs paths in this migration track.
 - Prefer Ark MCP from `.ai/mcp/mcp.json` when direct fetch is blocked by site protection.
 - Component mdx docs pattern: `https://ark-ui.com/docs/components/<component-slug>.mdx`
 - Component docs pattern: `https://ark-ui.com/docs/components/<component-slug>`
+- If the component MDX URL is blocked by a security checkpoint, use the same upstream content from the public
+  `chakra-ui/ark` repository, preferably `website/src/content/pages/components/<component-slug>.mdx`, and note the
+  fallback in the work summary.
 - Ark ref guide: `https://ark-ui.com/docs/guides/ref`
 - Ark forms guide: `https://ark-ui.com/docs/guides/forms`
 - Ark animation guide: `https://ark-ui.com/docs/guides/animation`
@@ -31,8 +34,11 @@ Solid/Vue/Svelte-specific APIs or docs paths in this migration track.
 - Chakra UI component docs: `https://chakra-ui.com/docs/components/<component-slug>`
 - Chakra UI mdx component docs: `https://chakra-ui.com/docs/components/<component-slug>.mdx`
 
-Before changing any Ark UI component, first analyze the target component and collect current upstream context from
-either Ark MCP or the online MDX documentation at `https://ark-ui.com/docs/components/<component-slug>.mdx`.
+Before changing any Ark UI-backed component, first analyze the target component and collect current upstream context
+from either Ark MCP or the online MDX documentation at `https://ark-ui.com/docs/components/<component-slug>.mdx`.
+For components that have no dedicated Ark primitive, do not invent an Ark component contract; document that there is no
+Ark primitive and anchor the review to Ark factory/composition/styling guidance plus any Chakra recipe that materially
+informs the public contract.
 
 ## Scope
 
@@ -52,6 +58,9 @@ either Ark MCP or the online MDX documentation at `https://ark-ui.com/docs/compo
   shapes, callback signatures, and structural requirements.
 - In docs `### CSS Properties`, use the same moduix docs wrapper as `accordion`: `not-prose` container, docs `Tabs`
   with a `CSS Variables` tab, and a bounded scroll area around the reference table.
+- In migrated component docs, every `<Preview>` example should expose `Code`, `Styles`, and `Data` tabs. Put shared
+  arrays, records, and bulky constants in `<Preview.Data>` instead of hiding them in comments or prose. If an example
+  truly has no data, provide the smallest useful setup data or explain the exception in the docs change summary.
 - Cover the full Ark example surface that is relevant to the migrated component family. If Ark docs show multiple
   important usage patterns, reproduce those patterns in moduix docs/examples instead of keeping only the old Base UI
   subset.
@@ -71,6 +80,10 @@ either Ark MCP or the online MDX documentation at `https://ark-ui.com/docs/compo
   - `Component.Context` for inline render-prop state reads
   - `use*Context` hooks for reusable child components
   - `useComponent` plus `RootProvider` for state owned outside the rendered tree
+- When an Ark primitive namespace exposes `RootProvider`, `Context`, `ItemContext`, `useComponent`,
+  `use*Context`, or related exported types, expose the matching surface from the moduix wrapper and package barrel
+  unless there is an intentional, documented reason not to. Verify docs imports from `moduix` compile against the
+  public barrel, not just the component file.
 - When using `RootProvider`, do not also render the matching `Root` for the same state instance.
 - Use `asChild` for custom host elements and keep the child single, semantic, and capable of the required
   interaction behavior.
@@ -170,6 +183,9 @@ What this reference demonstrates:
 - Removal of Base UI migration leftovers from component contract and docs surfaces.
 - Explicit structural composition for overlays instead of shadcn-style hidden `Content` wrappers.
 - Docs/examples structured around Ark usage first, with moduix-specific sugar added on top where it exists.
+- Full Ark namespace parity, including provider/context hooks and public barrel exports, not only visible rendered
+  parts.
+- Component previews with `Code`, `Styles`, and `Data` tabs so examples are reproducible without hidden setup.
 
 ## Migration Checklist
 
@@ -184,8 +200,9 @@ What this reference demonstrates:
 8. Update CSS selectors/state hooks to Ark attributes and variables.
 9. Rewrite stories, local markdown, and docs examples to the Ark API and Ark composition model.
 10. Ensure docs/examples cover the relevant Ark examples first, then add moduix-specific sugar examples after them.
-11. Run required repo validation sequence from `AGENTS.md`.
-12. Rebuild registry artifacts when required.
+11. Verify package barrels, docs imports, and registry artifacts expose the same public surface as the component file.
+12. Run required repo validation sequence from `AGENTS.md`.
+13. Rebuild registry artifacts when required.
 
 ## Lessons from current migration wave
 
@@ -195,6 +212,9 @@ What this reference demonstrates:
 - Keep docs and examples in lockstep with code changes; stale examples re-introduce legacy API usage.
 - Rewrite docs from the Ark source model instead of incrementally editing Base UI-era prose and snippets.
 - If Ark docs expose several canonical examples, moduix docs should cover those examples before introducing local sugar.
+- Expose and document Ark provider/context/hook surfaces when upstream exposes them; missing barrel exports are API
+  bugs even if the component file itself is correct.
+- Docs previews should not hide required setup in comments. Use the `Data` tab for items, constants, and fixture data.
 - For popup and dialog families, prefer Chakra's explicit composition model over shadcn's hidden structural sugar.
 - Keep moduix between Ark/Chakra and shadcn by making wrappers convenient to style and import, not by hiding core
   structural parts.

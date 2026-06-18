@@ -26,6 +26,9 @@ Use this skill for markdown files in `packages/ui/src/components`.
   anatomy, examples, guides, API parts, state, and styling hooks.
 - If Ark UI does not have a dedicated component page, say that explicitly and cite the Ark guide or factory
   source plus any Chakra recipe used as the upstream mental model.
+- For components with no Ark primitive, document the component as a moduix-owned contract: semantic element or role,
+  exported parts, accessibility expectations, styling hooks, and intentional differences. Do not invent Ark parts,
+  callback shapes, provider/context hooks, or example coverage that upstream does not provide.
 - Do not invent local abstractions that hide or rename upstream concepts without documenting the difference explicitly.
 
 Document:
@@ -46,6 +49,8 @@ When the wrapper exposes the relevant behavior, document these Ark guide concept
 - `asChild` and `ark` factory composition paths, including the single-child and semantic-element constraints.
 - `ids` usage when the component composes with another Ark component and shared accessibility IDs are required.
 - `Component.Context`, `use*Context`, and `RootProvider` support when the wrapper exposes those Ark state patterns.
+- If upstream exposes those provider/context/hook patterns, also document whether they are exported from the package
+  barrel and available to consumers importing from `moduix`.
 - `present`, lazy mounting, and CSS exit-animation behavior when the component mounts and unmounts content.
 - `data-scope`, `data-part`, `data-state`, other Ark state attributes, Ark CSS variables, and moduix `data-slot`
   hooks that consumers can target.

@@ -30,6 +30,8 @@ factory and Chakra's Alert part contract.
 - All exported parts accept Ark `asChild`.
 - The component stays presentational and does not add dismiss state, action slots, or focus
   management.
+- Public docs examples should show `Code`, `Styles`, and `Data` tabs, even though Alert has no Ark
+  primitive example set to mirror.
 
 ## Anatomy and exported parts
 
@@ -85,6 +87,7 @@ Use `asChild` on `Alert.Title` when the document outline needs a different headi
 - `Composition`: preserved through Ark factory `asChild` behavior on every exported part.
 - `Status semantics`: moduix adds a focused status surface with `neutral`, `info`, `success`,
   `warning`, and `error`.
+- `Heading composition`: preserved through `Alert.Title asChild` for document outline control.
 - `Variants`, `sizes`, and recipe palettes`: intentionally not exposed; moduix keeps one visual
   recipe instead of Chakra's broader styling matrix.
 - `Dismiss/action behavior`: intentionally not added; consumers compose actions inside
@@ -146,6 +149,8 @@ Built-in statuses derive their accents from shared palette tokens:
   for the parts.
 - moduix keeps one visual recipe instead of Chakra's `variant`, `size`, and palette props.
 - moduix introduces the focused `status` API and automatic role defaulting for that status.
+- `Alert.Content` is the only composition surface for actions and dismiss controls; no action slot
+  or close state is built into the component.
 
 ## Agent notes
 
@@ -161,3 +166,5 @@ Built-in statuses derive their accents from shared palette tokens:
   `Alert.Indicator`, `Alert.Content`, `Alert.Title`, and `Alert.Description`; replaced
   `variant` with `status`; renamed `destructive` to `error`; and moved heading polymorphism from
   `as` to `asChild`.
+- 2026-06-18: Updated docs/examples to make every Alert preview reproducible with `Code`,
+  `Styles`, and `Data` tabs, and added a dedicated `Alert.Title asChild` example.

@@ -108,6 +108,21 @@ export const Error: Story = {
   ),
 };
 
+export const CustomHeading: Story = {
+  render: () => (
+    <Alert.Root status="info">
+      <Alert.Content>
+        <Alert.Title asChild>
+          <h2>Billing issue</h2>
+        </Alert.Title>
+        <Alert.Description>
+          Use asChild when the surrounding page needs a different heading level.
+        </Alert.Description>
+      </Alert.Content>
+    </Alert.Root>
+  ),
+};
+
 export const CustomComposition: Story = {
   render: () => <DismissibleCustomAlert />,
 };

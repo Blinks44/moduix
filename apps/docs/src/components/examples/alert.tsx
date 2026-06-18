@@ -6,6 +6,96 @@ import styles from './alert.module.css';
 
 const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
 
+const basicAlert = {
+  title: 'Update available',
+  description: 'Install the latest version when your workflow allows it.',
+};
+
+const iconAlert = {
+  title: 'Workspace sync is active',
+  description: 'Changes are being synced across all connected devices.',
+};
+
+const errorAlert = {
+  title: 'Payment failed',
+  description: 'Your payment could not be processed. Check the payment method and try again.',
+};
+
+const actionAlert = {
+  title: 'Storage is almost full',
+  description:
+    'You are using 92% of the available storage. Archive old uploads or upgrade the plan.',
+  primaryAction: 'Review uploads',
+  secondaryAction: 'Dismiss',
+};
+
+const headingAlert = {
+  title: 'Billing issue',
+  description: 'Use asChild when the surrounding page needs a different heading level.',
+};
+
+export const alertExampleCss = `
+  .alert-demo {
+    max-width: 32rem;
+  }
+`;
+
+export const alertStatusesCss = `
+  .alert-stack {
+    display: grid;
+    width: min(38rem, 100%);
+    gap: var(--spacing-3);
+  }
+`;
+
+export const alertCustomCompositionCss = `
+  .alert-custom {
+    --alert-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
+    --alert-border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);
+    --alert-indicator-color: var(--color-primary);
+    --alert-radius: var(--radius-md);
+    --alert-shadow: var(--shadow-sm);
+
+    max-width: 32rem;
+  }
+
+  .alert-actions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-block-start: var(--spacing-2);
+    gap: var(--spacing-2);
+  }
+`;
+
+export const alertBasicData = `const alert = {
+  title: 'Update available',
+  description: 'Install the latest version when your workflow allows it.',
+};`;
+
+export const alertIconData = `const alert = {
+  title: 'Workspace sync is active',
+  description: 'Changes are being synced across all connected devices.',
+};`;
+
+export const alertStatusesData = `const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;`;
+
+export const alertErrorData = `const alert = {
+  title: 'Payment failed',
+  description: 'Your payment could not be processed. Check the payment method and try again.',
+};`;
+
+export const alertActionsData = `const alert = {
+  title: 'Storage is almost full',
+  description: 'You are using 92% of the available storage. Archive old uploads or upgrade the plan.',
+  primaryAction: 'Review uploads',
+  secondaryAction: 'Dismiss',
+};`;
+
+export const alertHeadingData = `const alert = {
+  title: 'Billing issue',
+  description: 'Use asChild when the surrounding page needs a different heading level.',
+};`;
+
 export const alertOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-bg', 'var(--alert-bg-default, var(--color-card))', 'Controls alert background.'],
   [
@@ -43,9 +133,14 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
   ['--alert-radius', 'var(--radius-lg)', 'Controls alert border radius.'],
   ['--alert-shadow', 'none', 'Controls alert shadow.'],
   [
+    '--color-primary',
+    'oklch(0.546 0.215 262.88)',
+    'Shared primary palette token used by the info status.',
+  ],
+  [
     '--color-success',
     'oklch(0.627 0.194 149.214)',
-    'Shared success palette token used by the success variant.',
+    'Shared success palette token used by the success status.',
   ],
   [
     '--alert-title-color',
@@ -58,7 +153,12 @@ export const alertOverrideCssProperties: CssPropertyInput[] = [
   [
     '--color-warning',
     'oklch(0.795 0.184 86.047)',
-    'Shared warning palette token used by the warning variant.',
+    'Shared warning palette token used by the warning status.',
+  ],
+  [
+    '--color-destructive',
+    'theme destructive',
+    'Shared destructive palette token used by the error status.',
   ],
 ];
 
@@ -107,12 +207,10 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function AlertExample(props: ComponentProps<typeof Alert.Root>) {
   return (
-    <Alert.Root {...props}>
+    <Alert.Root className={styles.demo} {...props}>
       <Alert.Content>
-        <Alert.Title>Update available</Alert.Title>
-        <Alert.Description>
-          Install the latest version when your workflow allows it.
-        </Alert.Description>
+        <Alert.Title>{basicAlert.title}</Alert.Title>
+        <Alert.Description>{basicAlert.description}</Alert.Description>
       </Alert.Content>
     </Alert.Root>
   );
@@ -120,15 +218,13 @@ export function AlertExample(props: ComponentProps<typeof Alert.Root>) {
 
 export function AlertWithIconExample() {
   return (
-    <Alert.Root status="info">
+    <Alert.Root status="info" className={styles.demo}>
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
       <Alert.Content>
-        <Alert.Title>Workspace sync is active</Alert.Title>
-        <Alert.Description>
-          Changes are being synced across all connected devices.
-        </Alert.Description>
+        <Alert.Title>{iconAlert.title}</Alert.Title>
+        <Alert.Description>{iconAlert.description}</Alert.Description>
       </Alert.Content>
     </Alert.Root>
   );
@@ -152,15 +248,13 @@ export function AlertStatusesExample() {
 
 export function AlertErrorExample() {
   return (
-    <Alert.Root status="error">
+    <Alert.Root status="error" className={styles.demo}>
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
       <Alert.Content>
-        <Alert.Title>Payment failed</Alert.Title>
-        <Alert.Description>
-          Your payment could not be processed. Check the payment method and try again.
-        </Alert.Description>
+        <Alert.Title>{errorAlert.title}</Alert.Title>
+        <Alert.Description>{errorAlert.description}</Alert.Description>
       </Alert.Content>
     </Alert.Root>
   );
@@ -177,16 +271,27 @@ export function AlertActionsExample() {
         <InfoIcon />
       </Alert.Indicator>
       <Alert.Content>
-        <Alert.Title>Storage is almost full</Alert.Title>
-        <Alert.Description>
-          You are using 92% of the available storage. Archive old uploads or upgrade the plan.
-        </Alert.Description>
+        <Alert.Title>{actionAlert.title}</Alert.Title>
+        <Alert.Description>{actionAlert.description}</Alert.Description>
         <div className={styles.actions}>
-          <Button size="sm">Review uploads</Button>
+          <Button size="sm">{actionAlert.primaryAction}</Button>
           <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
-            Dismiss
+            {actionAlert.secondaryAction}
           </Button>
         </div>
+      </Alert.Content>
+    </Alert.Root>
+  );
+}
+
+export function AlertHeadingExample() {
+  return (
+    <Alert.Root status="info" className={styles.demo}>
+      <Alert.Content>
+        <Alert.Title asChild>
+          <h2>{headingAlert.title}</h2>
+        </Alert.Title>
+        <Alert.Description>{headingAlert.description}</Alert.Description>
       </Alert.Content>
     </Alert.Root>
   );
