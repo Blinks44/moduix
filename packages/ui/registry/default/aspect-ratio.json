@@ -3,7 +3,7 @@
   "name": "aspect-ratio",
   "title": "AspectRatio",
   "description": "moduix AspectRatio component.",
-  "dependencies": ["clsx"],
+  "dependencies": ["@ark-ui/react", "clsx"],
   "registryDependencies": ["Blinks44/moduix/core"],
   "files": [
     {

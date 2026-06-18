@@ -24,12 +24,12 @@ export function AspectRatioCssPropertiesPanel() {
 export function AspectRatioExample({
   ratio = 16 / 9,
   ...props
-}: ComponentProps<typeof AspectRatio.Root>) {
+}: ComponentProps<typeof AspectRatio>) {
   return (
     <div className={styles.container}>
-      <AspectRatio.Root ratio={ratio} {...props}>
+      <AspectRatio ratio={ratio} {...props}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio.Root>
+      </AspectRatio>
     </div>
   );
 }
@@ -37,9 +37,9 @@ export function AspectRatioExample({
 export function AspectRatioSquareExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio.Root ratio={1}>
+      <AspectRatio ratio={1}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio.Root>
+      </AspectRatio>
     </div>
   );
 }
@@ -47,9 +47,9 @@ export function AspectRatioSquareExample() {
 export function AspectRatioPortraitExample() {
   return (
     <div className={styles.narrowContainer}>
-      <AspectRatio.Root ratio={9 / 16}>
+      <AspectRatio ratio={9 / 16}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio.Root>
+      </AspectRatio>
     </div>
   );
 }
@@ -57,9 +57,9 @@ export function AspectRatioPortraitExample() {
 export function AspectRatioPhotoExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio.Root ratio={4 / 3}>
+      <AspectRatio ratio={4 / 3}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio.Root>
+      </AspectRatio>
     </div>
   );
 }
@@ -68,9 +68,9 @@ export function AspectRatioCardGridExample() {
   return (
     <div className={styles.cardGrid}>
       <Card className={styles.newsCard}>
-        <AspectRatio.Root ratio={16 / 9} className={styles.newsMedia}>
+        <AspectRatio ratio={16 / 9} className={styles.newsMedia}>
           <img src={gridLandscapeImageUrl} alt="Evening city skyline" className={styles.image} />
-        </AspectRatio.Root>
+        </AspectRatio>
         <div className={styles.newsBody}>
           <h3 className={styles.newsTitle}>City center opens a redesigned pedestrian corridor</h3>
           <p className={styles.newsDescription}>
@@ -81,13 +81,13 @@ export function AspectRatioCardGridExample() {
       </Card>
 
       <Card className={styles.newsCard}>
-        <AspectRatio.Root ratio={16 / 9} className={styles.newsMedia}>
+        <AspectRatio ratio={16 / 9} className={styles.newsMedia}>
           <img
             src={gridPortraitImageUrl}
             alt="Reporter portrait on a street background"
             className={styles.image}
           />
-        </AspectRatio.Root>
+        </AspectRatio>
         <div className={styles.newsBody}>
           <h3 className={styles.newsTitle}>
             Editors uploaded a tall portrait photo for this story
@@ -105,9 +105,9 @@ export function AspectRatioCardGridExample() {
 export function AspectRatioCustomRatioExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio.Root ratio={2.35}>
+      <AspectRatio ratio={2.35}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio.Root>
+      </AspectRatio>
     </div>
   );
 }
@@ -115,7 +115,7 @@ export function AspectRatioCustomRatioExample() {
 export function AspectRatioEmbedExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio.Root ratio={16 / 9}>
+      <AspectRatio ratio={16 / 9}>
         <iframe
           src="https://www.youtube.com/embed/dQw4w9WgXcQ"
           title="Video embed"
@@ -123,7 +123,19 @@ export function AspectRatioEmbedExample() {
           allowFullScreen
           className={styles.frame}
         />
-      </AspectRatio.Root>
+      </AspectRatio>
+    </div>
+  );
+}
+
+export function AspectRatioAsChildExample() {
+  return (
+    <div className={styles.container}>
+      <AspectRatio ratio={16 / 9} asChild>
+        <figure>
+          <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
+        </figure>
+      </AspectRatio>
     </div>
   );
 }
@@ -131,9 +143,9 @@ export function AspectRatioEmbedExample() {
 export function AspectRatioCustomRadiusExample() {
   return (
     <div className={styles.container}>
-      <AspectRatio.Root ratio={16 / 9} className={styles.roundedFrame}>
+      <AspectRatio ratio={16 / 9} className={styles.roundedFrame}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio.Root>
+      </AspectRatio>
     </div>
   );
 }

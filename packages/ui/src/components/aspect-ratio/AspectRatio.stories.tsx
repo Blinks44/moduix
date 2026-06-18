@@ -85,6 +85,18 @@ export const GenericContent: Story = {
   ),
 };
 
+export const AsChild: Story = {
+  render: () => (
+    <div className={styles.container}>
+      <AspectRatio ratio={16 / 9} asChild>
+        <figure>
+          <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
+        </figure>
+      </AspectRatio>
+    </div>
+  ),
+};
+
 export const CustomRadius: Story = {
   render: () => (
     <div className={styles.container}>

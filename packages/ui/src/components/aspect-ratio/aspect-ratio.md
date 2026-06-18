@@ -2,7 +2,8 @@
 
 Upstream docs:
 
-- Ark UI: https://ark-ui.com/docs/guides/composition
+- Ark UI composition and factory: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
 
 ## Purpose
 
@@ -20,10 +21,10 @@ implements this component as an Ark-aligned factory wrapper with `@ark-ui/react/
 
 ## Current behavior contract
 
-- Uses Ark-style root composition: `AspectRatio.Root`.
-- `AspectRatio` itself is the same root component with `AspectRatio.Root` attached for namespace
-  consistency with the rest of the library.
-- `ratio` is required and accepts only a positive `number`.
+- `AspectRatio` is the recommended root export; `AspectRatio.Root` is the same component exposed for
+  namespace consistency.
+- `ratio` is a required `number` applied to the CSS `aspect-ratio` property. Consumers must pass a
+  finite value greater than zero for valid CSS behavior.
 - Root supports Ark factory polymorphism via `asChild`.
 - Root renders with `data-scope="aspect-ratio"`, `data-part="root"`, and
   `data-slot="aspect-ratio-root"`.
@@ -54,14 +55,22 @@ import { AspectRatio } from 'moduix';
 
 export function AspectRatioExample() {
   return (
-    <AspectRatio.Root ratio={16 / 9}>
+    <AspectRatio ratio={16 / 9}>
       <img src="/hero.jpg" alt="Hero" style={{ objectFit: 'cover' }} />
-    </AspectRatio.Root>
+    </AspectRatio>
   );
 }
 ```
 
-Use `asChild` when another element must own the rendered DOM node.
+Use `asChild` with exactly one child when another semantic element must own the rendered DOM node:
+
+```tsx
+<AspectRatio ratio={16 / 9} asChild>
+  <figure>
+    <img src="/hero.jpg" alt="Hero" style={{ objectFit: 'cover' }} />
+  </figure>
+</AspectRatio>
+```
 
 ## Upstream feature coverage
 
@@ -75,6 +84,8 @@ Use `asChild` when another element must own the rendered DOM node.
 
 - The component is presentational and does not add managed state, callbacks, or ARIA behavior.
 - Ark-style ownership changes remain available through `asChild`.
+- `asChild` requires one valid React element; consumers remain responsible for choosing semantic,
+  accessible host elements.
 - The root keeps stable hooks for styling and test targeting: `data-scope`, `data-part`, and
   `data-slot`.
 
@@ -102,3 +113,5 @@ Primary CSS variable:
 
 - 2026-06-17: Migrated `AspectRatio` to an Ark-aligned factory wrapper, added `AspectRatio.Root`,
   removed preset ratio aliases, and aligned docs/examples to numeric `ratio`.
+- 2026-06-18: Audited the Ark factory contract, documented valid ratio constraints and `asChild`,
+  aligned the recommended short root form, and fixed the registry dependency.

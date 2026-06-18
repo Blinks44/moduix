@@ -5,6 +5,7 @@ icon: Component
 ---
 
 import {
+  AspectRatioAsChildExample,
   AspectRatioCardGridExample,
   AspectRatioCssPropertiesPanel,
   AspectRatioCustomRadiusExample,
@@ -18,14 +19,13 @@ import {
 
 ## API Reference
 
-`AspectRatio` is an Ark-aligned standalone wrapper built with `@ark-ui/react/factory`. Ark UI does
-not currently ship a dedicated `aspect-ratio` primitive, so moduix exposes the root as
-`AspectRatio.Root` and keeps the wrapper limited to styling, `data-slot`, and `asChild` support.
+Ark UI does not ship a dedicated `aspect-ratio` primitive. `AspectRatio` follows the
+[Ark factory and `asChild` composition model](https://ark-ui.com/docs/guides/composition) and the
+[Ark data-attribute styling model](https://ark-ui.com/docs/guides/styling).
 
 ## Basic
 
-Use `AspectRatio.Root` with a numeric `ratio` for responsive images, videos, embeds, and canvas
-content.
+Use `AspectRatio` with a numeric `ratio` for responsive images, videos, embeds, and canvas content.
 
 <Preview>
   <AspectRatioExample />
@@ -37,13 +37,13 @@ content.
       export function AspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio.Root ratio={16 / 9}>
+            <AspectRatio ratio={media.ratio}>
               <img
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
-                alt="Mountain landscape"
+                src={media.src}
+                alt={media.alt}
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio.Root>
+            </AspectRatio>
           </div>
         );
       }
@@ -63,6 +63,17 @@ content.
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const media = {
+        ratio: 16 / 9,
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        alt: "Mountain landscape",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -121,24 +132,24 @@ AspectRatio.Root
 
 ### Recommended composition
 
-Stay with `AspectRatio.Root` for most media frames.
+Use `AspectRatio` for most media frames. `AspectRatio.Root` is the equivalent namespace form.
 
-- `ratio` is required and numeric
-- `asChild` is supported through Ark factory props
+- `ratio` is required and numeric; pass a finite value greater than zero for valid CSS behavior
+- `asChild` uses Ark factory composition and requires exactly one React element
 - direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically
 - `className` styles the root directly
 - `--aspect-ratio-radius` controls the default rounded frame
 
 ### When to go custom
 
-Wrap `AspectRatio.Root` when shadows, focus rings, or layout decoration need to escape the clipped
+Wrap `AspectRatio` when shadows, focus rings, or layout decoration need to escape the clipped
 frame. Keep the clipping on the root itself.
 
 ### Default props
 
 | Entry                   | Default            | Values / Notes                    |
 | ----------------------- | ------------------ | --------------------------------- |
-| `ratio`                 | -                  | Required `number`                 |
+| `ratio`                 | -                  | Required positive finite `number` |
 | `className`             | `undefined`        | `string`                          |
 | `style`                 | `undefined`        | Can override inline `aspectRatio` |
 | `asChild`               | `undefined`        | Ark factory composition           |
@@ -169,13 +180,13 @@ Use a square ratio for avatars, thumbnails, and other media that should remain v
       export function SquareAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio.Root ratio={1}>
+            <AspectRatio ratio={ratio}>
               <img
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
-                alt="Mountain landscape"
+                src={media.src}
+                alt={media.alt}
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio.Root>
+            </AspectRatio>
           </div>
         );
       }
@@ -195,6 +206,17 @@ Use a square ratio for avatars, thumbnails, and other media that should remain v
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const ratio = 1;
+      const media = {
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        alt: "Mountain landscape",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Portrait
@@ -211,13 +233,13 @@ Choose a portrait ratio when the frame should favor tall media such as profile p
       export function PortraitAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo aspect-ratio-demo--narrow">
-            <AspectRatio.Root ratio={9 / 16}>
+            <AspectRatio ratio={ratio}>
               <img
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
-                alt="Mountain landscape"
+                src={media.src}
+                alt={media.alt}
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio.Root>
+            </AspectRatio>
           </div>
         );
       }
@@ -237,6 +259,17 @@ Choose a portrait ratio when the frame should favor tall media such as profile p
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const ratio = 9 / 16;
+      const media = {
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        alt: "Mountain landscape",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Photo
@@ -253,13 +286,13 @@ Use a photo-friendly ratio such as `4 / 3` when landscape imagery needs a famili
       export function PhotoAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio.Root ratio={4 / 3}>
+            <AspectRatio ratio={ratio}>
               <img
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
-                alt="Mountain landscape"
+                src={media.src}
+                alt={media.alt}
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio.Root>
+            </AspectRatio>
           </div>
         );
       }
@@ -279,6 +312,17 @@ Use a photo-friendly ratio such as `4 / 3` when landscape imagery needs a famili
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const ratio = 4 / 3;
+      const media = {
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        alt: "Mountain landscape",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Card Grid
@@ -295,39 +339,23 @@ Keep repeated cards visually aligned by wrapping their media in the same aspect 
       export function AspectRatioCardGridDemo() {
         return (
           <div className="aspect-ratio-grid">
-            <Card className="aspect-ratio-grid__card">
-              <AspectRatio.Root ratio={16 / 9} className="aspect-ratio-grid__media">
-                <img
-                  src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&h=720&q=80"
-                  alt="Evening city skyline"
-                  className="aspect-ratio-grid__image"
-                />
-              </AspectRatio.Root>
-              <div className="aspect-ratio-grid__body">
-                <h3 className="aspect-ratio-grid__title">City center opens a redesigned pedestrian corridor</h3>
-                <p className="aspect-ratio-grid__description">
-                  The source image is landscape, but the media frame stays aligned with the card beside it.
-                </p>
-              </div>
-            </Card>
-
-            <Card className="aspect-ratio-grid__card">
-              <AspectRatio.Root ratio={16 / 9} className="aspect-ratio-grid__media">
-                <img
-                  src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=720&h=1200&q=80"
-                  alt="Reporter portrait on a street background"
-                  className="aspect-ratio-grid__image"
-                />
-              </AspectRatio.Root>
-              <div className="aspect-ratio-grid__body">
-                <h3 className="aspect-ratio-grid__title">
-                  Editors uploaded a tall portrait photo for this story
-                </h3>
-                <p className="aspect-ratio-grid__description">
-                  AspectRatio plus object-fit: cover keeps the media height the same instead of letting the card jump.
-                </p>
-              </div>
-            </Card>
+            {stories.map((story) => (
+              <Card key={story.title} className="aspect-ratio-grid__card">
+                <AspectRatio ratio={16 / 9} className="aspect-ratio-grid__media">
+                  <img
+                    src={story.src}
+                    alt={story.alt}
+                    className="aspect-ratio-grid__image"
+                  />
+                </AspectRatio>
+                <div className="aspect-ratio-grid__body">
+                  <h3 className="aspect-ratio-grid__title">{story.title}</h3>
+                  <p className="aspect-ratio-grid__description">
+                    {story.description}
+                  </p>
+                </div>
+              </Card>
+            ))}
           </div>
         );
       }
@@ -386,6 +414,26 @@ Keep repeated cards visually aligned by wrapping their media in the same aspect 
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const stories = [
+        {
+          src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&h=720&q=80",
+          alt: "Evening city skyline",
+          title: "City center opens a redesigned pedestrian corridor",
+          description: "The landscape source stays aligned with the neighboring card.",
+        },
+        {
+          src: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=720&h=1200&q=80",
+          alt: "Reporter portrait on a street background",
+          title: "Editors uploaded a tall portrait photo for this story",
+          description: "AspectRatio and object-fit keep the media height stable.",
+        },
+      ];
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Ratio
@@ -402,13 +450,13 @@ Pass a custom numeric ratio when the design calls for a format outside the usual
       export function CustomRatioAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio.Root ratio={2.35}>
+            <AspectRatio ratio={ratio}>
               <img
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
-                alt="Mountain landscape"
+                src={media.src}
+                alt={media.alt}
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio.Root>
+            </AspectRatio>
           </div>
         );
       }
@@ -428,11 +476,22 @@ Pass a custom numeric ratio when the design calls for a format outside the usual
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const ratio = 2.35;
+      const media = {
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        alt: "Mountain landscape",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Embedded Content
 
-Wrap video or other embeds in `AspectRatio.Root` to keep the frame stable before the external content finishes loading.
+Wrap video or other embeds in `AspectRatio` to keep the frame stable before the external content finishes loading.
 
 <Preview>
   <AspectRatioEmbedExample />
@@ -444,15 +503,15 @@ Wrap video or other embeds in `AspectRatio.Root` to keep the frame stable before
       export function AspectRatioEmbedDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio.Root ratio={16 / 9}>
+            <AspectRatio ratio={embed.ratio}>
               <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="Video embed"
+                src={embed.src}
+                title={embed.title}
                 allow="autoplay; encrypted-media"
                 allowFullScreen
                 className="aspect-ratio-demo__frame"
               />
-            </AspectRatio.Root>
+            </AspectRatio>
           </div>
         );
       }
@@ -472,6 +531,73 @@ Wrap video or other embeds in `AspectRatio.Root` to keep the frame stable before
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const embed = {
+        ratio: 16 / 9,
+        src: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        title: "Video embed",
+      };
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Custom Composition
+
+Use `asChild` when a semantic element such as `figure` should own the frame. Ark merges the
+component props into the single child element.
+
+<Preview>
+  <AspectRatioAsChildExample />
+
+  <Preview.Code>
+    {`
+      import { AspectRatio } from "moduix";
+
+      export function AspectRatioAsChildDemo() {
+        return (
+          <div className="aspect-ratio-demo">
+            <AspectRatio ratio={media.ratio} asChild>
+              <figure>
+                <img
+                  src={media.src}
+                  alt={media.alt}
+                  className="aspect-ratio-demo__image"
+                />
+              </figure>
+            </AspectRatio>
+          </div>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .aspect-ratio-demo {
+        width: min(30rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .aspect-ratio-demo__image {
+        object-fit: cover;
+      }
+    `}
+
+  </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const media = {
+        ratio: 16 / 9,
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        alt: "Mountain landscape",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -488,13 +614,13 @@ Use `className` and `--aspect-ratio-radius` when the frame needs local radius ch
       export function CustomRadiusAspectRatioDemo() {
         return (
           <div className="aspect-ratio-demo">
-            <AspectRatio.Root ratio={16 / 9} className="aspect-ratio-demo__rounded">
+            <AspectRatio ratio={media.ratio} className="aspect-ratio-demo__rounded">
               <img
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
-                alt="Mountain landscape"
+                src={media.src}
+                alt={media.alt}
                 className="aspect-ratio-demo__image"
               />
-            </AspectRatio.Root>
+            </AspectRatio>
           </div>
         );
       }
@@ -518,6 +644,17 @@ Use `className` and `--aspect-ratio-radius` when the frame needs local radius ch
     `}
 
   </Preview.CSS>
+
+  <Preview.Data>
+    {`
+      const media = {
+        ratio: 16 / 9,
+        src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        alt: "Mountain landscape",
+      };
+    `}
+
+  </Preview.Data>
 </Preview>
 
 ## Styling
