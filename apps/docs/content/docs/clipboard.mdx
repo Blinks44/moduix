@@ -14,13 +14,21 @@ import {
   RootProviderClipboardExample,
   TimeoutClipboardExample,
   ValueTextClipboardExample,
+  clipboardBasicData,
+  clipboardContextData,
+  clipboardControlledData,
+  clipboardCopyStatusData,
+  clipboardCustomStylingData,
   clipboardCustomStylingCss,
   clipboardExampleCss,
+  clipboardRootProviderData,
+  clipboardTimeoutData,
+  clipboardValueTextData,
 } from '@/components/examples/clipboard';
 
 ## API Reference
 
-<BaseUIReference href="https://ark-ui.com/docs/components/clipboard" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/clipboard" />
 
 ## Basic
 
@@ -52,6 +60,7 @@ Use the Ark composition path directly: `Clipboard.Root`, `Clipboard.Label`, `Cli
   </Preview.Code>
 
   <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{clipboardBasicData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -206,6 +215,7 @@ Control the value when the text field should stay in sync with surrounding UI or
   </Preview.Code>
 
   <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{clipboardControlledData}</Preview.Data>
 </Preview>
 
 ### Copy Status
@@ -248,6 +258,7 @@ introducing a separate clipboard abstraction.
   </Preview.Code>
 
   <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{clipboardCopyStatusData}</Preview.Data>
 </Preview>
 
 ### Timeout
@@ -279,6 +290,7 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
   </Preview.Code>
 
   <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{clipboardTimeoutData}</Preview.Data>
 </Preview>
 
 ### Context
@@ -312,6 +324,7 @@ introducing another React state layer.
   </Preview.Code>
 
   <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{clipboardContextData}</Preview.Data>
 </Preview>
 
 ### Value Text
@@ -342,6 +355,7 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
   </Preview.Code>
 
   <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{clipboardValueTextData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -378,6 +392,7 @@ tree but the visible parts should stay Ark-shaped.
   </Preview.Code>
 
   <Preview.CSS>{clipboardExampleCss}</Preview.CSS>
+  <Preview.Data>{clipboardRootProviderData}</Preview.Data>
 </Preview>
 
 ### Custom Styling
@@ -413,6 +428,7 @@ feedback. The default moduix styling does not darken the input or trigger after 
   </Preview.Code>
 
   <Preview.CSS>{clipboardCustomStylingCss}</Preview.CSS>
+  <Preview.Data>{clipboardCustomStylingData}</Preview.Data>
 </Preview>
 
 ## Styling

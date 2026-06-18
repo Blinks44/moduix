@@ -3,6 +3,41 @@ import { useState, type ComponentProps, type ReactNode } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 
+export const clipboardBasicData = `
+  const clipboardValue = "https://moduix.dev/docs/clipboard";
+  const clipboardLabel = "Copy this link";
+`;
+
+export const clipboardControlledData = `
+  const initialValue = "https://ark-ui.com";
+  const nextValue = "https://chakra-ui.com";
+`;
+
+export const clipboardCopyStatusData = `
+  const clipboardValue = "maps-platform-token";
+`;
+
+export const clipboardTimeoutData = `
+  const clipboardValue = "workspace-secret";
+  const copiedStateTimeout = 5000;
+`;
+
+export const clipboardContextData = `
+  const clipboardValue = "maps-platform-token";
+`;
+
+export const clipboardValueTextData = `
+  const clipboardValue = "moduix/clipboard";
+`;
+
+export const clipboardRootProviderData = `
+  const clipboardValue = "https://moduix.dev/docs/clipboard";
+`;
+
+export const clipboardCustomStylingData = `
+  const clipboardValue = "workspace-secret";
+`;
+
 export const clipboardExampleCss = `
   .clipboard-demo {
     width: min(24rem, 100%);
