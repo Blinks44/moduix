@@ -17,8 +17,10 @@
     color: var(--badge-color, var(--color-primary-foreground));
     font-size: var(--badge-font-size, var(--text-xs));
     font-weight: var(--badge-font-weight, var(--weight-medium));
+    font-variant-numeric: tabular-nums;
     line-height: var(--badge-line-height, var(--line-height-text-xs));
     min-height: var(--badge-height, 1.25rem);
+    user-select: none;
     white-space: nowrap;
     text-decoration: none;
     text-overflow: ellipsis;

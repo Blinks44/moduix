@@ -3,6 +3,8 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Chakra UI: https://chakra-ui.com/docs/components/badge
 
 ## Purpose
 
@@ -26,6 +28,7 @@ factory wrapper with explicit parts.
 - `Badge.Root` accepts Ark factory span props plus local `variant`.
 - `Badge.Dot` accepts Ark factory span props and renders `aria-hidden="true"` by default.
 - `Badge` remains presentational. It does not add focus, keyboard, disabled, or controlled state.
+- Badge numbers use tabular figures, and badge text is not user-selectable by default.
 
 ## Anatomy and exported parts
 
@@ -67,6 +70,10 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
 ## Upstream feature coverage
 
 - `Composition`: preserved through Ark factory `asChild` behavior on the exported parts.
+- `Refs`: forwarded to the rendered root and dot DOM elements.
+- `Styling`: follows Ark `data-scope` / `data-part` targeting and accepts `className`.
+- `Chakra Badge examples`: variants and inline icons are covered; sizing remains a CSS-variable
+  contract instead of a local `size` prop.
 - `Dedicated primitive features`: not applicable because Ark has no dedicated `Badge` component
   page for this wrapper to mirror.
 - `Stateful or interactive patterns`: intentionally unsupported; `Badge` stays presentational.
@@ -83,6 +90,9 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
   - `data-part="dot"`
   - `data-slot="badge-dot"`
 - `Badge.Dot` is hidden from assistive technology by default with `aria-hidden="true"`.
+- `Badge.Root asChild` requires one semantic child. Interactive children keep their native
+  keyboard and accessibility behavior and must provide their own interaction-specific focus and
+  hover styling.
 - Long labels stay on one line and are clipped with ellipsis. Add `title` when users need the full
   value.
 
@@ -116,17 +126,21 @@ Public CSS variables:
 
 - Ark UI has no dedicated `Badge` primitive here; moduix uses Ark factory parts.
 - moduix adds the local `variant` styling API and ships pre-styled defaults.
+- moduix adds the decorative `Badge.Dot` part; Chakra's upstream recipe is single-part.
+- moduix exposes sizing through CSS variables rather than Chakra's `size` recipe prop.
 - moduix keeps the part surface narrow and does not add interactive or stateful behavior.
 
 ## Agent notes
 
 - Keep `Badge` presentational.
-- If the component needs interaction, compose `Badge.Root asChild` with a real interactive element
-  or use another component that matches the intended behavior.
+- If the component needs interaction, prefer a dedicated interactive component. When `asChild` is
+  appropriate, use one semantic interactive child and preserve visible focus treatment.
 - Keep direct child icon sizing tied to `--badge-icon-size` and `currentColor`.
 
 ## Local changelog
 
+- 2026-06-18: Completed the Ark factory audit, documented Chakra parity and intentional
+  differences, added `asChild` guidance, and aligned numeric/presentational styling.
 - 2026-06-17: Migrated the component to an Ark-style wrapper built with `@ark-ui/react/factory`.
 - 2026-06-17: Replaced the legacy flat `BadgeDot` export with `Badge.Dot`.
 - 2026-06-17: Added Ark-style `asChild`, `data-scope`, and `data-part` hooks on exported parts.

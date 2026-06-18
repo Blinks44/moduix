@@ -6,6 +6,28 @@ import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './badge.module.css';
 
 const variants: BadgeVariant[] = ['default', 'secondary', 'destructive', 'outline', 'ghost'];
+const basicBadge = { label: 'New' };
+const statusBadges = [
+  { label: 'Online', variant: 'default' },
+  { label: 'Draft', variant: 'secondary' },
+  { label: 'Failed', variant: 'destructive' },
+] satisfies { label: string; variant: BadgeVariant }[];
+const iconBadgeLabels = {
+  release: 'Release',
+  details: 'Details',
+  more: 'Read more',
+};
+const longBadgeLabel = 'Ready for stakeholder review after legal approval';
+const badgeLink = {
+  href: '#styling',
+  label: 'Badge styling guidance',
+};
+const customBadgeLabels = {
+  small: 'Small',
+  default: 'Default',
+  large: 'Large',
+  custom: 'Priority',
+};
 
 const badgeCssProperties: CssPropertyInput[] = [
   ['--badge-bg', 'var(--color-primary)', 'Controls badge background color.'],
@@ -35,7 +57,11 @@ function normalizeCssProperty(property: CssPropertyInput) {
 }
 
 export function BadgeExample(props: ComponentProps<typeof Badge.Root>) {
-  return <Badge.Root {...props}>New</Badge.Root>;
+  return (
+    <div className={styles.basic}>
+      <Badge.Root {...props}>{basicBadge.label}</Badge.Root>
+    </div>
+  );
 }
 
 export function BadgeVariantsExample() {
@@ -53,18 +79,12 @@ export function BadgeVariantsExample() {
 export function BadgeWithDotExample() {
   return (
     <div className={styles.row}>
-      <Badge.Root variant="default">
-        <Badge.Dot />
-        Online
-      </Badge.Root>
-      <Badge.Root variant="secondary">
-        <Badge.Dot />
-        Draft
-      </Badge.Root>
-      <Badge.Root variant="destructive">
-        <Badge.Dot />
-        Failed
-      </Badge.Root>
+      {statusBadges.map((badge) => (
+        <Badge.Root key={badge.label} variant={badge.variant}>
+          <Badge.Dot />
+          {badge.label}
+        </Badge.Root>
+      ))}
     </div>
   );
 }
@@ -73,28 +93,35 @@ export function BadgeWithIconExample() {
   return (
     <div className={styles.row}>
       <Badge.Root variant="default">
-        Release
+        {iconBadgeLabels.release}
         <ChevronRightIcon />
       </Badge.Root>
       <Badge.Root variant="secondary">
-        Details
+        {iconBadgeLabels.details}
         <ChevronRightIcon />
       </Badge.Root>
       <Badge.Root variant="outline">
-        Read more
+        {iconBadgeLabels.more}
         <ChevronRightIcon />
       </Badge.Root>
     </div>
   );
 }
 
+export function BadgeAsChildExample() {
+  return (
+    <Badge.Root asChild variant="outline">
+      <a className={styles.linkBadge} href={badgeLink.href}>
+        {badgeLink.label}
+      </a>
+    </Badge.Root>
+  );
+}
+
 export function BadgeTruncatedExample() {
   return (
-    <Badge.Root
-      className={styles.constrained}
-      title="Ready for stakeholder review after legal approval"
-    >
-      Ready for stakeholder review after legal approval
+    <Badge.Root className={styles.constrained} title={longBadgeLabel}>
+      {longBadgeLabel}
     </Badge.Root>
   );
 }
@@ -102,12 +129,12 @@ export function BadgeTruncatedExample() {
 export function CustomBadgeExample() {
   return (
     <div className={styles.row}>
-      <Badge.Root className={styles.small}>Small</Badge.Root>
-      <Badge.Root>Default</Badge.Root>
-      <Badge.Root className={styles.large}>Large</Badge.Root>
+      <Badge.Root className={styles.small}>{customBadgeLabels.small}</Badge.Root>
+      <Badge.Root>{customBadgeLabels.default}</Badge.Root>
+      <Badge.Root className={styles.large}>{customBadgeLabels.large}</Badge.Root>
       <Badge.Root className={styles.customBadge}>
         <Badge.Dot />
-        Priority
+        {customBadgeLabels.custom}
       </Badge.Root>
     </div>
   );

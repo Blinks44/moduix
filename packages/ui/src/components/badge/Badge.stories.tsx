@@ -87,6 +87,16 @@ export const WithIcon: Story = {
   },
 };
 
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <Badge.Root asChild variant="outline">
+        <a href="#badge-composition">Open badge composition guidance</a>
+      </Badge.Root>
+    );
+  },
+};
+
 export const TruncatedLabel: Story = {
   render: () => {
     return (
