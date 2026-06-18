@@ -12,7 +12,7 @@
  */
 
 :root {
-  /* Base-ui runtime variables */
+  /* Ark-ui runtime variables */
   --active-tab-bottom: initial;
   --active-tab-height: initial;
   --active-tab-left: initial;
@@ -23,6 +23,7 @@
   --anchor-width: initial;
   --available-height: initial;
   --available-width: initial;
+  --collapsed-width: initial;
   --drawer-frontmost-height: initial;
   --drawer-height: initial;
   --drawer-snap-point-offset: initial;
@@ -52,6 +53,7 @@
   --toast-swipe-movement-x: initial;
   --toast-swipe-movement-y: initial;
   --transform-origin: initial;
+  --width: initial;
 
   /* Shared Backdrop */
   --backdrop-bg: initial; /* var(--color-overlay) */

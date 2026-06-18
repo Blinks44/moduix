@@ -1,10 +1,137 @@
-import { ColorPicker, Portal, parseColor, useColorPicker } from 'moduix';
+import {
+  ColorPicker,
+  Dialog,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+  Field,
+  FieldDescription,
+  FieldError,
+  Portal,
+  parseColor,
+  useColorPicker,
+} from 'moduix';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './color-picker.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316', '#dc2626', '#9333ea'];
+const compactSwatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
+
+export const colorPickerSwatchesData = `
+  const swatches = ["#0f172a", "#2563eb", "#16a34a", "#f97316"];
+`;
+
+export const colorPickerEmptyData = `
+  const defaultColor = "#eb5e41";
+`;
+
+export const colorPickerControlledData = `
+  const initialColor = "#16a34a";
+`;
+
+export const colorPickerOpenControlledData = `
+  const initialOpen = false;
+  const defaultColor = "#14b8a6";
+`;
+
+export const colorPickerFormatData = `
+  const formats = ["rgba", "hsla"];
+  const defaultFormat = "rgba";
+`;
+
+export const colorPickerFieldData = `
+  const fieldState = {
+    required: true,
+    invalid: true,
+    name: "accent",
+  };
+`;
+
+export const colorPickerDialogData = `
+  const dialogTitle = "Choose a color";
+  const defaultColor = "#eb5e41";
+`;
+
+export const colorPickerFormData = `
+  const fieldName = "accent";
+`;
+
+export const colorPickerExampleCss = `
+  .color-picker-slider-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .color-picker-channel-sliders {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+`;
+
+export const colorPickerInlineCss = `
+  .color-picker-value-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .color-picker-input-row {
+    display: flex;
+    min-width: 0;
+    gap: 0.5rem;
+  }
+`;
+
+export const colorPickerFormCss = `
+  .color-picker-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .color-picker-submit {
+    width: fit-content;
+  }
+`;
+
+export const colorPickerFieldCss = `
+  .color-picker-field {
+    max-width: 18rem;
+  }
+`;
+
+export const colorPickerValueSwatchCss = `
+  .color-picker-value-swatch {
+    position: relative;
+    display: grid;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-border);
+  }
+`;
+
+export const colorPickerDialogCss = `
+  .color-picker-dialog-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .color-picker-dialog-trigger {
+    width: fit-content;
+  }
+`;
 
 export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
   ['--color-picker-action-bg', 'transparent', 'Controls action button background color.'],
@@ -371,9 +498,17 @@ export function SliderOnlyColorPickerExample() {
 export function SwatchesColorPickerExample() {
   return (
     <ColorPicker.Root defaultValue={parseColor('#f97316')} closeOnSelect>
+      <PickerField colors={compactSwatches} />
+    </ColorPicker.Root>
+  );
+}
+
+export function SwatchOnlyColorPickerExample() {
+  return (
+    <ColorPicker.Root inline defaultValue={parseColor('#f97316')}>
       <ColorPicker.Label>Brand color</ColorPicker.Label>
       <ColorPicker.SwatchGroup>
-        {swatches.map((color) => (
+        {compactSwatches.map((color) => (
           <ColorPicker.SwatchTrigger key={color} value={color}>
             <ColorPicker.Swatch value={color}>
               <ColorPicker.SwatchIndicator />
@@ -460,6 +595,9 @@ export function RootProviderColorPickerExample() {
 
   return (
     <ColorPicker.RootProvider value={colorPicker}>
+      <ColorPicker.Context>
+        {(context) => <span className={styles.valueText}>Color: {context.valueAsString}</span>}
+      </ColorPicker.Context>
       <PickerField />
     </ColorPicker.RootProvider>
   );
@@ -512,5 +650,46 @@ export function CustomStylingColorPickerExample() {
         <PickerField colors={['#0ea5e9', '#14b8a6', '#84cc16', '#f59e0b']} />
       </ColorPicker.Root>
     </>
+  );
+}
+
+export function FieldStateColorPickerExample() {
+  return (
+    <Field validationMode="onBlur" className={styles.field}>
+      <ColorPicker.Root required invalid name="accent" defaultValue={parseColor('#eb5e41')}>
+        <ColorPicker.Label>Accent color</ColorPicker.Label>
+        <ColorPicker.Control>
+          <ColorPicker.ChannelInput channel="hex" />
+          <ColorPicker.ChannelInput channel="alpha" />
+          <ColorPicker.Trigger aria-label="Open color picker">
+            <ColorPicker.TransparencyGrid />
+            <ColorPicker.ValueSwatch />
+          </ColorPicker.Trigger>
+        </ColorPicker.Control>
+        <ColorPicker.HiddenInput />
+      </ColorPicker.Root>
+      <FieldDescription>Used for generated charts and callouts.</FieldDescription>
+      <FieldError match="valueMissing">Choose an accent color.</FieldError>
+    </Field>
+  );
+}
+
+export function InsideDialogColorPickerExample() {
+  return (
+    <Dialog>
+      <DialogTrigger className={styles.dialogTrigger}>Open dialog</DialogTrigger>
+      <DialogContent>
+        <DialogCloseIcon />
+        <DialogTitle>Choose a color</DialogTitle>
+        <DialogDescription>
+          Wrap the positioner in a portal so the popover layers correctly.
+        </DialogDescription>
+        <div className={styles.dialogBody}>
+          <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
+            <PickerField colors={compactSwatches} />
+          </ColorPicker.Root>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

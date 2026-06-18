@@ -26,6 +26,8 @@ field input, color area, channel sliders, eyedropper, and swatches.
   `ValueSwatch`, `ValueText`, `View`, `HiddenInput`, and `Context`.
 - `parseColor`, `useColorPicker`, `useColorPickerContext`, and `Portal` are re-exported for the
   canonical Ark workflows.
+- Ark part prop types are re-exported so consumers can type composed wrappers against the same
+  public surface as Ark.
 - `EyeDropperTrigger` and `SwatchIndicator` provide default moduix icons when children are omitted.
 - `onValueChange`, `onValueChangeEnd`, `onFormatChange`, and `onOpenChange` preserve Ark detail
   objects without remapping.
@@ -90,10 +92,10 @@ export function ColorPickerExample() {
               <ColorPicker.ChannelSliderTrack />
               <ColorPicker.ChannelSliderThumb />
             </ColorPicker.ChannelSlider>
-            <ColorPicker.HiddenInput />
           </ColorPicker.Content>
         </ColorPicker.Positioner>
       </Portal>
+      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -110,7 +112,10 @@ export function ColorPickerExample() {
   state.
 - Provider state through `useColorPicker` plus `RootProvider`.
 - Context state through `Context` and `useColorPickerContext`.
-- Swatch-only, slider-only, input-only, value-swatch, eyedropper, and format-view compositions.
+- Swatch-only, popup swatches, slider-only, input-only, value-swatch, eyedropper, inside-dialog,
+  and format-view compositions.
+- Public docs intentionally cover all Ark React examples for this primitive plus moduix styling
+  sugar, with `Code`, `Styles`, and `Data` tabs on every preview.
 
 ## Accessibility and state
 
@@ -137,6 +142,7 @@ export function ColorPickerExample() {
 
 - moduix ships default icons for `EyeDropperTrigger` and `SwatchIndicator`.
 - moduix re-exports `Portal`, `parseColor`, `useColorPicker`, and `useColorPickerContext`.
+- moduix re-exports Ark Color Picker part prop types in addition to core state and event types.
 - The wrapper does not hide `Portal`, `Positioner`, `Content`, or the input/slider/view structure
   behind convenience components.
 - No local color parsing, value conversion, or callback reshaping is added.
@@ -154,3 +160,5 @@ export function ColorPickerExample() {
   indicator icons, stories, local documentation, and registry/docs integration.
 - 2026-06-18: Changed popup content sizing to default to `16rem` instead of the trigger
   `--reference-width`, matching Ark's color picker composition expectations.
+- 2026-06-18: Expanded public docs to cover the full Ark example set, added required preview
+  `Code`/`Styles`/`Data` tabs, and re-exported Ark part prop types.
