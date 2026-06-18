@@ -1,392 +1,297 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useMemo, useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
-import { ScrollArea } from '../scroll-area';
-import {
-  createDrawerHandle,
-  Drawer,
-  DrawerBackdrop,
-  DrawerBody,
-  DrawerClose,
-  DrawerCloseIcon,
-  DrawerContent,
-  DrawerContentInner,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHandle,
-  DrawerHeader,
-  DrawerIndent,
-  DrawerIndentBackground,
-  DrawerPopup,
-  DrawerPortal,
-  DrawerProvider,
-  DrawerSwipeArea,
-  DrawerTitle,
-  DrawerTrigger,
-  DrawerViewport,
-} from './Drawer';
+import { Drawer, useDrawer } from './Drawer';
 import storyStyles from './Drawer.stories.module.css';
+
+const DEFAULT_DEMO_SNAP_POINT = 0.18;
+const DEFAULT_DEMO_SNAP_POINTS = [DEFAULT_DEMO_SNAP_POINT, 1];
 
 const meta = {
   title: 'Components/Drawer',
+  component: Drawer.Root,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta;
+} satisfies Meta<typeof Drawer.Root>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Bottom: Story = {
+function DrawerSurface({
+  title,
+  description,
+  children,
+  draggable,
+  backdrop = true,
+}: {
+  title: string;
+  description?: string;
+  children?: ReactNode;
+  draggable?: boolean;
+  backdrop?: boolean;
+}) {
+  return (
+    <>
+      {backdrop ? <Drawer.Backdrop /> : null}
+      <Drawer.Positioner>
+        <Drawer.Content draggable={draggable}>
+          <Drawer.Grabber>
+            <Drawer.GrabberIndicator />
+          </Drawer.Grabber>
+          <Drawer.Header>
+            <Drawer.Title>{title}</Drawer.Title>
+            <Drawer.CloseIcon />
+            {description ? <Drawer.Description>{description}</Drawer.Description> : null}
+          </Drawer.Header>
+          {children}
+        </Drawer.Content>
+      </Drawer.Positioner>
+    </>
+  );
+}
+
+export const Basic: Story = {
   render: () => (
-    <Drawer>
-      <DrawerTrigger render={<Button />}>Open bottom drawer</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Notifications</DrawerTitle>
-          <DrawerDescription>You are all caught up. Good job!</DrawerDescription>
-        </DrawerHeader>
-        <DrawerBody>Bottom drawer with the default composition.</DrawerBody>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <Drawer.Trigger asChild>
+        <Button>Open drawer</Button>
+      </Drawer.Trigger>
+      <DrawerSurface title="Notifications" description="You are all caught up. Good job!">
+        <Drawer.Body>Bottom drawers are draggable by default.</Drawer.Body>
+        <Drawer.Footer>
+          <Drawer.CloseTrigger asChild>
+            <Button variant="outline">Close</Button>
+          </Drawer.CloseTrigger>
+        </Drawer.Footer>
+      </DrawerSurface>
+    </Drawer.Root>
   ),
 };
 
-export const Top: Story = {
+export const SwipeDirection: Story = {
   render: () => (
-    <Drawer swipeDirection="up">
-      <DrawerTrigger render={<Button />}>Open top drawer</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Top panel</DrawerTitle>
-          <DrawerDescription>Set swipeDirection to up for a top drawer.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+    <Drawer.Root swipeDirection="end">
+      <Drawer.Trigger asChild>
+        <Button>Open right drawer</Button>
+      </Drawer.Trigger>
+      <DrawerSurface title="Details" description='This drawer uses swipeDirection="end".'>
+        <Drawer.Body>Logical directions resolve for both LTR and RTL layouts.</Drawer.Body>
+      </DrawerSurface>
+    </Drawer.Root>
   ),
 };
 
-export const Left: Story = {
+export const SnapPoints: Story = {
   render: () => (
-    <Drawer swipeDirection="left">
-      <DrawerTrigger render={<Button />}>Open left drawer</DrawerTrigger>
-      <DrawerContent className={storyStyles.sideContent}>
-        <DrawerHeader>
-          <DrawerTitle>Filters</DrawerTitle>
-          <DrawerDescription>Side drawers reuse the same high-level API.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerBody>Use a class on DrawerContent to set side width.</DrawerBody>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+    <Drawer.Root snapPoints={[0.25, 0.5, 1]} defaultSnapPoint={0.5}>
+      <Drawer.Trigger asChild>
+        <Button>Open with snap points</Button>
+      </Drawer.Trigger>
+      <DrawerSurface
+        title="Snap points"
+        description="Drag between 25%, 50%, and 100% of the viewport."
+      >
+        <Drawer.Body className={storyStyles.scrollBody}>
+          {insideScrollSections.map((item) => (
+            <section key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </section>
+          ))}
+        </Drawer.Body>
+      </DrawerSurface>
+    </Drawer.Root>
   ),
-};
-
-export const Right: Story = {
-  render: () => (
-    <Drawer swipeDirection="right">
-      <DrawerTrigger render={<Button />}>Open right drawer</DrawerTrigger>
-      <DrawerContent className={storyStyles.sideContent}>
-        <DrawerHeader>
-          <DrawerTitle>Details</DrawerTitle>
-          <DrawerCloseIcon aria-label="Close details drawer" />
-          <DrawerDescription>
-            Right drawers can place the close icon directly in the header.
-          </DrawerDescription>
-        </DrawerHeader>
-        <DrawerBody>Adjust width through CSS variables on DrawerContent.</DrawerBody>
-      </DrawerContent>
-    </Drawer>
-  ),
-};
-
-export const Island: Story = {
-  render: () => (
-    <Drawer swipeDirection="right">
-      <DrawerTrigger render={<Button />}>Open island drawer</DrawerTrigger>
-      <DrawerContent variant="island" className={storyStyles.sideContent}>
-        <DrawerHeader>
-          <DrawerTitle>Island variant</DrawerTitle>
-          <DrawerDescription>
-            variant="island" removes the off-screen bleed tail from the popup.
-          </DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  ),
-};
-
-export const WithSnapPoints: Story = {
-  render: () => {
-    const snapPoints = [0.35, 0.65, 1];
-    const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[1]);
-
-    return (
-      <Drawer snapPoints={snapPoints} snapPoint={snapPoint} onSnapPointChange={setSnapPoint}>
-        <DrawerTrigger render={<Button />}>Open drawer with snap points</DrawerTrigger>
-        <DrawerContent snapLayout>
-          <DrawerHeader>
-            <DrawerTitle>Snap points</DrawerTitle>
-            <DrawerDescription>Current snap point: {String(snapPoint)}</DrawerDescription>
-          </DrawerHeader>
-          <DrawerBody>
-            <ScrollArea className={storyStyles.scrollArea}>
-              <div className={storyStyles.scrollContent}>
-                {insideScrollSections.map((item) => (
-                  <section key={item.title}>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
-                  </section>
-                ))}
-              </div>
-            </ScrollArea>
-          </DrawerBody>
-          <DrawerFooter>
-            <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    );
-  },
 };
 
 export const NonModal: Story = {
   render: () => (
-    <Drawer modal={false}>
-      <DrawerTrigger render={<Button />}>Open non-modal drawer</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Non-modal drawer</DrawerTitle>
-          <DrawerDescription>Outside pointer interaction stays enabled.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerBody>The default content wrapper skips the backdrop when modal is false.</DrawerBody>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+    <Drawer.Root
+      defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT}
+      modal={false}
+      snapPoints={DEFAULT_DEMO_SNAP_POINTS}
+    >
+      <Drawer.Trigger asChild>
+        <Button>Open non-modal drawer</Button>
+      </Drawer.Trigger>
+      <DrawerSurface
+        title="Non-modal drawer"
+        description="The page remains interactive while this drawer is open."
+        backdrop={false}
+      />
+    </Drawer.Root>
   ),
 };
 
-export const ControlledPersistent: Story = {
+export const Controlled: Story = {
   render: () => {
-    const snapPoints = [0.35, 0.85] as const;
-    const [open, setOpen] = useState(true);
-    const [snapPoint, setSnapPoint] = useState<number | string | null>(snapPoints[0]);
-    const expanded = snapPoint === snapPoints[1];
-
-    const handleOpenChange = (nextOpen: boolean) => {
-      if (nextOpen) {
-        setOpen(true);
-      }
-    };
+    const [open, setOpen] = useState(false);
 
     return (
       <>
-        <Button type="button" onClick={() => setOpen(true)}>
-          Open persistent drawer
+        <Button type="button" onClick={() => setOpen((value) => !value)}>
+          {open ? 'Close' : 'Open'} drawer
         </Button>
-        <Drawer
+        <Drawer.Root
+          defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT}
           open={open}
-          onOpenChange={handleOpenChange}
-          modal={false}
-          disablePointerDismissal
-          snapPoints={[...snapPoints]}
-          snapPoint={snapPoint}
-          onSnapPointChange={(nextSnapPoint) => {
-            if (nextSnapPoint !== null) {
-              setSnapPoint(nextSnapPoint);
-            }
-          }}
+          snapPoints={DEFAULT_DEMO_SNAP_POINTS}
+          onOpenChange={(details) => setOpen(details.open)}
         >
-          <DrawerContent snapLayout disableInitialAnimation>
-            <DrawerHeader className={storyStyles.headerWithAction}>
-              <div>
-                <DrawerTitle>Controlled persistent drawer</DrawerTitle>
-                <DrawerDescription>
-                  Persistence is controlled from application state; the icon button toggles between
-                  collapsed and expanded snap points.
-                </DrawerDescription>
-              </div>
-              <button
-                type="button"
-                className={storyStyles.snapToggle}
-                onClick={() => setSnapPoint(expanded ? snapPoints[0] : snapPoints[1])}
-                aria-label={expanded ? 'Collapse drawer' : 'Expand drawer'}
-              >
-                {expanded ? <ChevronDownIcon /> : <ChevronUpIcon />}
-              </button>
-            </DrawerHeader>
-            <DrawerBody>
-              <ScrollArea className={storyStyles.scrollArea}>
-                <div className={storyStyles.scrollContent}>
-                  {insideScrollSections.map((item) => (
-                    <section key={item.title}>
-                      <h3>{item.title}</h3>
-                      <p>{item.body}</p>
-                    </section>
-                  ))}
-                </div>
-              </ScrollArea>
-            </DrawerBody>
-          </DrawerContent>
-        </Drawer>
+          <DrawerSurface title="Controlled drawer" description={`Open: ${String(open)}`} />
+        </Drawer.Root>
       </>
     );
   },
 };
 
-export const SwipeArea: Story = {
+export const NoDragArea: Story = {
   render: () => (
-    <Drawer swipeDirection="right" modal={false}>
-      <DrawerSwipeArea />
-      <DrawerTrigger render={<Button />}>Open with trigger</DrawerTrigger>
-      <DrawerContent className={storyStyles.sideContent}>
-        <DrawerHeader>
-          <DrawerTitle>Swipe area</DrawerTitle>
-          <DrawerDescription>Swipe from the left edge or use the trigger.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerBody>The swipe area part stays available for edge-open gestures.</DrawerBody>
-        <DrawerFooter>
-          <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  ),
-};
-
-export const Nested: Story = {
-  render: () => (
-    <Drawer>
-      <DrawerTrigger render={<Button />}>Open drawer stack</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Account</DrawerTitle>
-          <DrawerDescription>Main drawer with nested flow.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerBody>Open a nested drawer to see stack behavior.</DrawerBody>
-        <DrawerFooter>
-          <div className={storyStyles.nestedActionsStart}>
-            <Drawer>
-              <DrawerTrigger render={<Button />}>Open nested</DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>Nested drawer</DrawerTitle>
-                  <DrawerDescription>Second layer in the stack.</DrawerDescription>
-                </DrawerHeader>
-                <DrawerBody>Nested content.</DrawerBody>
-                <DrawerFooter>
-                  <DrawerClose render={<Button variant="outline" />}>Close nested</DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
+    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <Drawer.Trigger asChild>
+        <Button>Open drawer</Button>
+      </Drawer.Trigger>
+      <DrawerSurface title="No-drag area">
+        <Drawer.Body>
+          <div data-no-drag className={storyStyles.noDragArea}>
+            Pointer gestures that start here do not drag the drawer.
           </div>
-          <DrawerClose render={<Button variant="outline" />}>Close root</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        </Drawer.Body>
+      </DrawerSurface>
+    </Drawer.Root>
   ),
 };
 
-export const Handle: Story = {
+export const NonDraggable: Story = {
+  render: () => (
+    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <Drawer.Trigger asChild>
+        <Button>Open non-draggable drawer</Button>
+      </Drawer.Trigger>
+      <DrawerSurface
+        title="Grabber-only dragging"
+        description="Content dragging is disabled; the grabber remains draggable."
+        draggable={false}
+      />
+    </Drawer.Root>
+  ),
+};
+
+const users = [
+  { id: '1', name: 'Alice Johnson', email: 'alice@example.com' },
+  { id: '2', name: 'Bob Smith', email: 'bob@example.com' },
+  { id: '3', name: 'Carol Davis', email: 'carol@example.com' },
+];
+
+export const MultipleTriggers: Story = {
   render: () => {
-    const drawerHandle = useMemo(() => createDrawerHandle(), []);
+    const [activeUser, setActiveUser] = useState<(typeof users)[number] | null>(null);
 
     return (
-      <>
-        <DrawerTrigger handle={drawerHandle} render={<Button variant="outline" />}>
-          Open from detached trigger
-        </DrawerTrigger>
-        <Button type="button" onClick={() => drawerHandle.open(null)}>
-          Open programmatically
-        </Button>
-
-        <Drawer handle={drawerHandle}>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Detached trigger</DrawerTitle>
-              <DrawerDescription>createDrawerHandle is preserved from Base UI.</DrawerDescription>
-            </DrawerHeader>
-            <DrawerFooter>
-              <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      </>
+      <Drawer.Root
+        swipeDirection="end"
+        onTriggerValueChange={(details) => {
+          setActiveUser(users.find((user) => user.id === details.value) ?? null);
+        }}
+      >
+        <div className={storyStyles.triggerGroup}>
+          {users.map((user) => (
+            <Drawer.Trigger key={user.id} value={user.id} asChild>
+              <Button variant="outline">Edit {user.name}</Button>
+            </Drawer.Trigger>
+          ))}
+        </div>
+        <DrawerSurface title="Edit user" description={activeUser?.email}>
+          {activeUser ? (
+            <Drawer.Body>
+              <label className={storyStyles.field}>
+                Name
+                <input defaultValue={activeUser.name} />
+              </label>
+            </Drawer.Body>
+          ) : null}
+        </DrawerSurface>
+      </Drawer.Root>
     );
   },
 };
 
-export const IndentEffect: Story = {
+export const RootProvider: Story = {
+  render: () => {
+    const drawer = useDrawer({
+      defaultSnapPoint: 0.5,
+      snapPoints: [0.25, 0.5, 1],
+    });
+
+    return (
+      <div className={storyStyles.providerDemo}>
+        <div className={storyStyles.triggerGroup}>
+          <Button onClick={() => drawer.setOpen(true)}>Open via API</Button>
+          <Button variant="outline" onClick={() => drawer.setSnapPoint(0.25)}>
+            Set 25%
+          </Button>
+          <Button variant="outline" onClick={() => drawer.setSnapPoint(1)}>
+            Set 100%
+          </Button>
+        </div>
+        <Drawer.RootProvider value={drawer}>
+          <DrawerSurface
+            title="Root provider"
+            description={`Active snap point: ${String(drawer.snapPoint)}`}
+          />
+        </Drawer.RootProvider>
+      </div>
+    );
+  },
+};
+
+export const IndentBackground: Story = {
   parameters: {
     layout: 'fullscreen',
   },
   render: () => (
-    <DrawerProvider>
+    <Drawer.Stack>
       <div className={storyStyles.indentStage}>
-        <DrawerIndentBackground />
-        <DrawerIndent className={storyStyles.indentSurface}>
-          <Drawer modal={false}>
-            <DrawerTrigger render={<Button />}>Open indented drawer</DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>Indent effect</DrawerTitle>
-                <DrawerDescription>
-                  Provider, indent, and background parts follow Base UI composition.
-                </DrawerDescription>
-              </DrawerHeader>
-              <DrawerFooter>
-                <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        </DrawerIndent>
+        <Drawer.IndentBackground />
+        <Drawer.Root
+          defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT}
+          modal={false}
+          snapPoints={DEFAULT_DEMO_SNAP_POINTS}
+        >
+          <Drawer.Indent className={storyStyles.indentSurface}>
+            <Drawer.Trigger asChild>
+              <Button>Open indented drawer</Button>
+            </Drawer.Trigger>
+          </Drawer.Indent>
+          <DrawerSurface
+            title="Indent effect"
+            description="Drawer.Stack coordinates the background and page surface."
+          />
+        </Drawer.Root>
       </div>
-    </DrawerProvider>
+    </Drawer.Stack>
   ),
 };
 
-export const CustomComposition: Story = {
+export const Context: Story = {
   render: () => (
-    <Drawer swipeDirection="right">
-      <DrawerTrigger render={<Button />}>Open custom drawer</DrawerTrigger>
-      <DrawerPortal keepMounted>
-        <DrawerBackdrop className={storyStyles.customBackdrop} forceRender />
-        <DrawerViewport className={storyStyles.customViewport}>
-          <DrawerPopup className={storyStyles.customPopup}>
-            <DrawerHandle className={storyStyles.customHandle} />
-            <DrawerContentInner>
-              <DrawerHeader>
-                <DrawerTitle>Custom composition</DrawerTitle>
-                <DrawerDescription>
-                  Manual composition replaces removed wrapper props and style maps.
-                </DrawerDescription>
-              </DrawerHeader>
-              <DrawerBody>
-                Use the exported structural parts when you need different layout.
-              </DrawerBody>
-              <DrawerFooter>
-                <DrawerClose render={<Button variant="outline" />}>Close</DrawerClose>
-              </DrawerFooter>
-            </DrawerContentInner>
-          </DrawerPopup>
-        </DrawerViewport>
-      </DrawerPortal>
-    </Drawer>
+    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <Drawer.Trigger asChild>
+        <Button>Open context example</Button>
+      </Drawer.Trigger>
+      <DrawerSurface title="Context state">
+        <Drawer.Context>
+          {(drawer) => (
+            <Drawer.Body>
+              Direction: {drawer.swipeDirection}; open: {String(drawer.open)}
+            </Drawer.Body>
+          )}
+        </Drawer.Context>
+      </DrawerSurface>
+    </Drawer.Root>
   ),
 };

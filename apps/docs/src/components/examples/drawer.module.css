@@ -1,67 +1,25 @@
-.sideContent {
-  --drawer-side-width: 26rem;
-}
-
-.customPopup {
-  --drawer-bg: var(--color-card);
-  --drawer-bleed-size: 0px;
-  --drawer-border-color: var(--color-ring);
-  --drawer-shadow: var(--shadow-lg);
-  --drawer-side-width: 24rem;
-  border-radius: var(--radius-xl);
-}
-
-.customBackdrop {
-  --drawer-backdrop-bg: color-mix(in oklab, var(--color-foreground) 60%, transparent);
-}
-
-.customViewport {
-  --drawer-viewport-padding: var(--spacing-4);
-}
-
-.customHandle {
-  --drawer-handle-bg: var(--color-destructive);
-  --drawer-handle-opacity: 0.8;
-}
-
-.scrollArea {
-  height: 100%;
-  min-height: 0;
-}
-
-.scrollContent {
+.scrollBody {
   display: grid;
   gap: var(--spacing-4);
-  padding-right: var(--spacing-5);
+  max-height: 50dvh;
 }
 
-.nestedActionsStart {
-  margin-right: auto;
-}
-
-.headerWithAction {
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: start;
-}
-
-.snapToggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  padding: 0;
-  border: 0;
+.noDragArea {
+  padding: var(--spacing-4);
+  border: var(--border-width-sm) dashed var(--color-border);
   border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--color-muted-foreground);
-  cursor: pointer;
+  background: var(--color-muted);
+}
 
-  @media (hover: hover) {
-    &:hover {
-      background: var(--color-accent);
-    }
-  }
+.triggerGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.providerDemo {
+  display: grid;
+  gap: var(--spacing-4);
 }
 
 .indentStage {
@@ -71,16 +29,13 @@
   overflow: hidden;
   border: var(--border-width-sm) solid var(--color-border);
   border-radius: var(--radius-lg);
-  background-color: var(--color-muted);
+  background: var(--color-foreground);
 }
 
 .indentSurface {
+  display: grid;
   min-height: 360px;
+  place-items: center;
   padding: var(--spacing-6);
-  background-color: var(--color-background);
-}
-
-.swipeArea {
-  border-left: var(--border-width-lg) dashed var(--color-ring);
-  background-color: var(--color-accent);
+  background: var(--color-background);
 }

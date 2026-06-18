@@ -1,191 +1,230 @@
-import { Drawer as DrawerPrimitive } from '@base-ui/react/drawer';
+import type { ComponentProps, ComponentRef } from 'react';
+import {
+  Drawer as DrawerPrimitive,
+  useDrawer,
+  useDrawerContext,
+  useDrawerStackContext,
+} from '@ark-ui/react/drawer';
 import { clsx } from 'clsx';
-import { createContext, useContext, useEffect, useState, type ComponentProps } from 'react';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
-type DrawerModalMode = true | false | 'trap-focus';
-type DrawerContentProps = DrawerPrimitive.Popup.Props & {
-  snapLayout?: boolean;
-  disableInitialAnimation?: boolean;
-  variant?: 'default' | 'island';
-};
-
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
-const DrawerModeContext = createContext<DrawerModalMode>(true);
 
-function useMountReady(disableInitialAnimation: boolean) {
-  const [mountReady, setMountReady] = useState(!disableInitialAnimation);
-
-  useEffect(() => {
-    if (!disableInitialAnimation) {
-      setMountReady(true);
-      return;
-    }
-
-    setMountReady(false);
-    const frameId = window.requestAnimationFrame(() => {
-      setMountReady(true);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-    };
-  }, [disableInitialAnimation]);
-
-  return mountReady;
-}
-
-function Drawer<Payload = unknown>({
-  modal = true,
+function DrawerRoot({
+  lazyMount = true,
+  unmountOnExit = true,
   ...props
-}: DrawerPrimitive.Root.Props<Payload>) {
+}: ComponentProps<typeof DrawerPrimitive.Root>) {
+  return <DrawerPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />;
+}
+
+function DrawerRootProvider({
+  lazyMount = true,
+  unmountOnExit = true,
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.RootProvider>) {
   return (
-    <DrawerModeContext.Provider value={modal}>
-      <DrawerPrimitive.Root modal={modal} {...props} />
-    </DrawerModeContext.Provider>
+    <DrawerPrimitive.RootProvider lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
   );
 }
 
-const DrawerProvider = DrawerPrimitive.Provider;
-const createDrawerHandle = DrawerPrimitive.createHandle;
-
-function DrawerIndent({ className, ...props }: DrawerPrimitive.Indent.Props) {
-  return (
-    <DrawerPrimitive.Indent
-      data-slot="drawer-indent"
-      className={mergeClassName(className, styles.indent)}
-      {...props}
-    />
-  );
+function DrawerStack(props: ComponentProps<typeof DrawerPrimitive.Stack>) {
+  return <DrawerPrimitive.Stack {...props} />;
 }
 
-function DrawerIndentBackground({ className, ...props }: DrawerPrimitive.IndentBackground.Props) {
-  return (
-    <DrawerPrimitive.IndentBackground
-      data-slot="drawer-indent-background"
-      className={mergeClassName(className, styles.indentBackground)}
-      {...props}
-    />
-  );
-}
-
-function DrawerTrigger({ className, render, ...props }: DrawerPrimitive.Trigger.Props) {
+const DrawerTrigger = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.Trigger>,
+  ComponentProps<typeof DrawerPrimitive.Trigger>
+>(function DrawerTrigger({ asChild, className, ...props }, ref) {
   return (
     <DrawerPrimitive.Trigger
+      ref={ref}
+      asChild={asChild}
       data-slot="drawer-trigger"
-      render={render}
-      className={mergeClassName(className, !render && styles.trigger)}
+      className={clsx(!asChild && styles.trigger, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DrawerSwipeArea({ className, ...props }: DrawerPrimitive.SwipeArea.Props) {
-  return (
-    <DrawerPrimitive.SwipeArea
-      data-slot="drawer-swipe-area"
-      className={mergeClassName(className, styles.swipeArea)}
-      {...props}
-    />
-  );
-}
-
-function DrawerPortal(props: DrawerPrimitive.Portal.Props) {
-  return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />;
-}
-
-function DrawerBackdrop({ className, ...props }: DrawerPrimitive.Backdrop.Props) {
+const DrawerBackdrop = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.Backdrop>,
+  ComponentProps<typeof DrawerPrimitive.Backdrop>
+>(function DrawerBackdrop({ className, ...props }, ref) {
   return (
     <DrawerPrimitive.Backdrop
+      ref={ref}
       data-slot="drawer-backdrop"
-      className={mergeClassName(className, styles.backdrop)}
+      className={clsx(styles.backdrop, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DrawerViewport({ className, ...props }: DrawerPrimitive.Viewport.Props) {
+const DrawerPositioner = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.Positioner>,
+  ComponentProps<typeof DrawerPrimitive.Positioner>
+>(function DrawerPositioner({ className, ...props }, ref) {
   return (
-    <DrawerPrimitive.Viewport
-      data-slot="drawer-viewport"
-      className={mergeClassName(className, styles.viewport)}
+    <DrawerPrimitive.Positioner
+      ref={ref}
+      data-slot="drawer-positioner"
+      className={clsx(styles.positioner, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DrawerPopup({ className, ...props }: DrawerPrimitive.Popup.Props) {
-  return (
-    <DrawerPrimitive.Popup
-      data-slot="drawer-popup"
-      className={mergeClassName(className, styles.popup)}
-      {...props}
-    />
-  );
-}
-
-function DrawerHandle({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="drawer-handle" className={clsx(styles.handle, className)} {...props} />;
-}
-
-function DrawerContentInner({ className, ...props }: DrawerPrimitive.Content.Props) {
+const DrawerContent = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.Content>,
+  ComponentProps<typeof DrawerPrimitive.Content>
+>(function DrawerContent({ className, ...props }, ref) {
   return (
     <DrawerPrimitive.Content
+      ref={ref}
       data-slot="drawer-content"
-      className={mergeClassName(className, styles.content)}
+      className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DrawerTitle({ className, ...props }: DrawerPrimitive.Title.Props) {
+const DrawerGrabber = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.Grabber>,
+  ComponentProps<typeof DrawerPrimitive.Grabber>
+>(function DrawerGrabber({ className, ...props }, ref) {
+  return (
+    <DrawerPrimitive.Grabber
+      ref={ref}
+      data-slot="drawer-grabber"
+      className={clsx(styles.grabber, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const DrawerGrabberIndicator = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.GrabberIndicator>,
+  ComponentProps<typeof DrawerPrimitive.GrabberIndicator>
+>(function DrawerGrabberIndicator({ className, ...props }, ref) {
+  return (
+    <DrawerPrimitive.GrabberIndicator
+      ref={ref}
+      data-slot="drawer-grabber-indicator"
+      className={clsx(styles.grabberIndicator, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const DrawerTitle = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.Title>,
+  ComponentProps<typeof DrawerPrimitive.Title>
+>(function DrawerTitle({ className, ...props }, ref) {
   return (
     <DrawerPrimitive.Title
+      ref={ref}
       data-slot="drawer-title"
-      className={mergeClassName(className, styles.title)}
+      className={clsx(styles.title, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DrawerDescription({ className, ...props }: DrawerPrimitive.Description.Props) {
+const DrawerDescription = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.Description>,
+  ComponentProps<typeof DrawerPrimitive.Description>
+>(function DrawerDescription({ className, ...props }, ref) {
   return (
     <DrawerPrimitive.Description
+      ref={ref}
       data-slot="drawer-description"
-      className={mergeClassName(className, styles.description)}
+      className={clsx(styles.description, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DrawerClose({ className, ...props }: DrawerPrimitive.Close.Props) {
+const DrawerCloseTrigger = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.CloseTrigger>,
+  ComponentProps<typeof DrawerPrimitive.CloseTrigger>
+>(function DrawerCloseTrigger({ asChild, className, ...props }, ref) {
   return (
-    <DrawerPrimitive.Close
-      data-slot="drawer-close"
-      className={mergeClassName(className, styles.close)}
+    <DrawerPrimitive.CloseTrigger
+      ref={ref}
+      asChild={asChild}
+      data-slot="drawer-close-trigger"
+      className={clsx(!asChild && styles.closeTrigger, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
 
-function DrawerCloseIcon({
-  className,
-  children,
-  'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL,
-  render,
-  ...props
-}: DrawerPrimitive.Close.Props) {
+const DrawerCloseIcon = forwardRef<
+  ComponentRef<typeof CloseButton.Root>,
+  Omit<ComponentProps<typeof DrawerPrimitive.CloseTrigger>, 'asChild'>
+>(function DrawerCloseIcon(
+  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  ref,
+) {
   return (
-    <DrawerPrimitive.Close
-      data-slot="drawer-close-icon"
-      render={render ?? <CloseButton.Root aria-label={ariaLabel}>{children}</CloseButton.Root>}
-      className={mergeClassName(className, styles.closeIcon)}
+    <DrawerPrimitive.CloseTrigger asChild {...props}>
+      <CloseButton.Root
+        ref={ref}
+        data-slot="drawer-close-icon"
+        aria-label={ariaLabel}
+        className={clsx(styles.closeIcon, normalizeClassName(className))}
+      >
+        {children}
+      </CloseButton.Root>
+    </DrawerPrimitive.CloseTrigger>
+  );
+});
+
+const DrawerSwipeArea = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.SwipeArea>,
+  ComponentProps<typeof DrawerPrimitive.SwipeArea>
+>(function DrawerSwipeArea({ className, ...props }, ref) {
+  return (
+    <DrawerPrimitive.SwipeArea
+      ref={ref}
+      data-slot="drawer-swipe-area"
+      className={clsx(styles.swipeArea, normalizeClassName(className))}
       {...props}
     />
   );
-}
+});
+
+const DrawerIndent = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.Indent>,
+  ComponentProps<typeof DrawerPrimitive.Indent>
+>(function DrawerIndent({ className, ...props }, ref) {
+  return (
+    <DrawerPrimitive.Indent
+      ref={ref}
+      data-slot="drawer-indent"
+      className={clsx(styles.indent, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const DrawerIndentBackground = forwardRef<
+  ComponentRef<typeof DrawerPrimitive.IndentBackground>,
+  ComponentProps<typeof DrawerPrimitive.IndentBackground>
+>(function DrawerIndentBackground({ className, ...props }, ref) {
+  return (
+    <DrawerPrimitive.IndentBackground
+      ref={ref}
+      data-slot="drawer-indent-background"
+      className={clsx(styles.indentBackground, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
 function DrawerHeader({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="drawer-header" className={clsx(styles.header, className)} {...props} />;
@@ -199,61 +238,54 @@ function DrawerFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="drawer-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-function DrawerContent({
-  snapLayout = false,
-  disableInitialAnimation = false,
-  variant = 'default',
-  className,
-  children,
-  ...props
-}: DrawerContentProps) {
-  const isModal = useContext(DrawerModeContext) === true;
-  const mountReady = useMountReady(disableInitialAnimation);
-  const viewportClassName = clsx(
-    !isModal && styles.viewportNonModal,
-    variant === 'island' && styles.viewportIsland,
-  );
+const DrawerContext = DrawerPrimitive.Context;
 
-  return (
-    <DrawerPortal>
-      {isModal ? <DrawerBackdrop /> : null}
-      <DrawerViewport className={viewportClassName}>
-        <DrawerPopup
-          data-snap-layout={snapLayout ? '' : undefined}
-          data-disable-initial-animation={disableInitialAnimation ? 'true' : undefined}
-          data-mount-ready={mountReady ? 'true' : 'false'}
-          data-variant={variant}
-          className={className}
-          {...props}
-        >
-          <DrawerHandle />
-          <DrawerContentInner>{children}</DrawerContentInner>
-        </DrawerPopup>
-      </DrawerViewport>
-    </DrawerPortal>
-  );
-}
+const Drawer = Object.assign(DrawerRoot, {
+  Root: DrawerRoot,
+  RootProvider: DrawerRootProvider,
+  Stack: DrawerStack,
+  Trigger: DrawerTrigger,
+  Backdrop: DrawerBackdrop,
+  Positioner: DrawerPositioner,
+  Content: DrawerContent,
+  Grabber: DrawerGrabber,
+  GrabberIndicator: DrawerGrabberIndicator,
+  Title: DrawerTitle,
+  Description: DrawerDescription,
+  CloseTrigger: DrawerCloseTrigger,
+  CloseIcon: DrawerCloseIcon,
+  SwipeArea: DrawerSwipeArea,
+  Indent: DrawerIndent,
+  IndentBackground: DrawerIndentBackground,
+  Header: DrawerHeader,
+  Body: DrawerBody,
+  Footer: DrawerFooter,
+  Context: DrawerContext,
+});
 
-export {
-  Drawer,
-  DrawerProvider,
-  createDrawerHandle,
-  DrawerIndent,
-  DrawerIndentBackground,
-  DrawerTrigger,
-  DrawerSwipeArea,
-  DrawerPortal,
-  DrawerBackdrop,
-  DrawerViewport,
-  DrawerPopup,
-  DrawerHandle,
-  DrawerContentInner,
-  DrawerTitle,
-  DrawerDescription,
-  DrawerClose,
-  DrawerCloseIcon,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  DrawerContent,
-};
+export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext };
+export type {
+  DrawerBackdropProps,
+  DrawerCloseTriggerProps,
+  DrawerContentProps,
+  DrawerContextProps,
+  DrawerDescriptionProps,
+  DrawerGrabberIndicatorProps,
+  DrawerGrabberProps,
+  DrawerIndentBackgroundProps,
+  DrawerIndentProps,
+  DrawerOpenChangeDetails,
+  DrawerPositionerProps,
+  DrawerRootProps,
+  DrawerRootProviderProps,
+  DrawerSnapPointChangeDetails,
+  DrawerStackProps,
+  DrawerSwipeAreaProps,
+  DrawerTitleProps,
+  DrawerTriggerProps,
+  DrawerTriggerValueChangeDetails,
+  UseDrawerContext,
+  UseDrawerProps,
+  UseDrawerReturn,
+  UseDrawerStackContext,
+} from '@ark-ui/react/drawer';

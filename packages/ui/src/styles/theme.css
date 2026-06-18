@@ -26,13 +26,18 @@
   --collapsed-width: initial;
   --drawer-frontmost-height: initial;
   --drawer-height: initial;
-  --drawer-snap-point-offset: initial;
+  --drawer-snap-point-offset-x: initial;
+  --drawer-snap-point-offset-y: initial;
   --drawer-swipe-movement-x: initial;
   --drawer-swipe-movement-y: initial;
   --drawer-swipe-progress: initial;
   --drawer-swipe-strength: initial;
+  --drawer-translate: initial;
+  --drawer-translate-x: initial;
+  --drawer-translate-y: initial;
   --layer-index: initial;
   --nested-drawers: initial;
+  --nested-layer-count: initial;
   --popup-height: initial;
   --popup-width: initial;
   --positioner-height: initial;
@@ -818,14 +823,12 @@
   /* Drawer */
   --drawer-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --drawer-backdrop-blur: initial; /* 4px */
-  --drawer-backdrop-pointer-events: initial; /* auto */
   --drawer-backdrop-transition: initial; /* var(--transition-spring) */
   --drawer-bg: initial; /* var(--color-popover) */
-  --drawer-body-font-size: initial; /* var(--text-md) */
-  --drawer-body-line-height: initial; /* var(--line-height-text-md) */
   --drawer-body-margin-top: initial; /* var(--spacing-4) */
   --drawer-bleed-size: initial; /* 3rem */
   --drawer-border-color: initial; /* var(--color-border) */
+  --drawer-border-width: initial; /* var(--border-width-sm) */
   --drawer-color: initial; /* var(--color-popover-foreground) */
   --drawer-close-icon-bg: initial; /* transparent */
   --drawer-close-icon-bg-hover: initial; /* var(--color-accent) */
@@ -853,45 +856,37 @@
   --drawer-focus-ring-width: initial; /* var(--drawer-control-border-width) */
   --drawer-footer-gap: initial; /* var(--spacing-2) */
   --drawer-footer-margin-top: initial; /* var(--spacing-6) */
-  --drawer-handle-bg: initial; /* var(--color-muted-foreground) */
-  --drawer-handle-height: initial; /* 0.25rem */
-  --drawer-handle-offset: initial; /* var(--spacing-3) */
-  --drawer-handle-opacity: initial; /* 0.45 */
-  --drawer-handle-radius: initial; /* var(--radius-full) */
-  --drawer-handle-width: initial; /* 3rem */
+  --drawer-grabber-indicator-bg: initial; /* var(--color-muted-foreground) */
+  --drawer-grabber-indicator-height: initial; /* 0.25rem */
+  --drawer-grabber-indicator-opacity: initial; /* 0.45 */
+  --drawer-grabber-indicator-opacity-hover: initial; /* 0.7 */
+  --drawer-grabber-indicator-radius: initial; /* var(--radius-full) */
+  --drawer-grabber-indicator-width: initial; /* 3rem */
+  --drawer-grabber-padding: initial; /* var(--spacing-3) */
   --drawer-header-gap: initial; /* var(--spacing-1) */
   --drawer-indent-background-bg: initial; /* var(--color-foreground) */
   --drawer-indent-background-opacity: initial; /* 0 */
   --drawer-indent-background-opacity-active: initial; /* 1 */
   --drawer-indent-radius-active: initial; /* var(--radius-lg) */
-  --drawer-indent-radius-transition: initial; /* var(--transition-spring) */
-  --drawer-indent-scale-active: initial; /* 0.98 */
+  --drawer-indent-scale-active: initial; /* 0.97 */
   --drawer-indent-transition: initial; /* var(--transition-spring) */
   --drawer-indent-translate-y-active: initial; /* var(--spacing-2) */
-  --drawer-island-padding: initial; /* var(--spacing-4) */
-  --drawer-max-height: initial; /* 80vh */
-  --drawer-nested-peek: initial; /* 2.75rem */
-  --drawer-nested-scale-step: initial; /* 0.06 */
+  --drawer-max-height: initial; /* 80dvh */
+  --drawer-nested-scale-step: initial; /* 0.05 */
   --drawer-padding-x: initial; /* var(--spacing-6) */
   --drawer-padding-y: initial; /* var(--spacing-4) */
-  --drawer-popup-pointer-events: initial; /* auto */
+  --drawer-positioner-padding: initial; /* 0 */
   --drawer-radius: initial; /* var(--radius-xl) */
   --drawer-shadow: initial; /* var(--shadow-lg) */
   --drawer-side-height: initial; /* 100% */
-  --drawer-side-max-height: initial; /* 100% */
   --drawer-side-width: initial; /* 22rem */
+  --drawer-size: initial; /* 100% */
   --drawer-swipe-area-size: initial; /* var(--spacing-10) */
   --drawer-title-color: initial; /* var(--drawer-color) */
   --drawer-title-font-size: initial; /* var(--text-lg) */
   --drawer-title-font-weight: initial; /* var(--weight-semibold) */
   --drawer-title-line-height: initial; /* var(--line-height-text-lg) */
   --drawer-transition: initial; /* var(--transition-spring) */
-  --drawer-viewport-bottom: initial; /* 0 */
-  --drawer-viewport-left: initial; /* 0 */
-  --drawer-viewport-padding: initial; /* 0px */
-  --drawer-viewport-pointer-events: initial; /* auto */
-  --drawer-viewport-right: initial; /* 0 */
-  --drawer-viewport-top: initial; /* 0 */
   --drawer-width: initial; /* 100% */
 
   /* Empty */
