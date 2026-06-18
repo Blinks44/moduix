@@ -10,12 +10,12 @@
     width: 100%;
     min-width: 0;
     flex-direction: column;
-    border: var(--card-border-width, var(--border-width-sm)) solid
+    border: var(--card-border-width, var(--card-border-width-default, var(--border-width-sm))) solid
       var(--card-border-color, var(--color-border));
     border-radius: var(--card-radius, var(--radius-lg));
-    background-color: var(--card-bg, var(--color-card));
+    background-color: var(--card-bg, var(--card-bg-default, var(--color-card)));
     color: var(--card-color, var(--color-card-foreground));
-    box-shadow: var(--card-shadow, none);
+    box-shadow: var(--card-shadow, var(--card-shadow-default, none));
 
     &:where(a) {
       text-decoration: none;
@@ -28,6 +28,25 @@
         --card-title-line-height-sm,
         var(--line-height-text-md)
       );
+    }
+
+    &[data-size='lg'] {
+      --card-padding-default: var(--card-padding-lg, var(--spacing-8));
+      --card-title-font-size-default: var(--card-title-font-size-lg, var(--text-xl));
+      --card-title-line-height-default: var(
+        --card-title-line-height-lg,
+        var(--line-height-text-xl)
+      );
+    }
+
+    &[data-variant='elevated'] {
+      --card-border-width-default: 0;
+      --card-shadow-default: var(--shadow-md);
+    }
+
+    &[data-variant='subtle'] {
+      --card-border-width-default: 0;
+      --card-bg-default: var(--color-muted);
     }
 
     &:has([data-scope='card'][data-part='link'])

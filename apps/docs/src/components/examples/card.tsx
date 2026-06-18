@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Badge, Button, Card } from 'moduix';
+import { Badge, Button, Card, Input } from 'moduix';
 import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
 import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './card.module.css';
@@ -96,6 +96,11 @@ export const cardOverrideCssProperties: CssProperty[] = [
     description: 'Controls default card padding.',
   },
   {
+    name: '--card-padding-lg',
+    defaultValue: 'var(--spacing-8)',
+    description: 'Controls large card padding.',
+  },
+  {
     name: '--card-padding-sm',
     defaultValue: 'var(--spacing-4)',
     description: 'Controls compact card padding.',
@@ -117,6 +122,11 @@ export const cardOverrideCssProperties: CssProperty[] = [
     description: 'Controls default `Card.Title` font size.',
   },
   {
+    name: '--card-title-font-size-lg',
+    defaultValue: 'var(--text-xl)',
+    description: 'Controls large `Card.Title` font size.',
+  },
+  {
     name: '--card-title-font-size-sm',
     defaultValue: 'var(--text-md)',
     description: 'Controls compact `Card.Title` font size.',
@@ -130,6 +140,11 @@ export const cardOverrideCssProperties: CssProperty[] = [
     name: '--card-title-line-height',
     defaultValue: 'var(--line-height-text-lg)',
     description: 'Controls default `Card.Title` line height.',
+  },
+  {
+    name: '--card-title-line-height-lg',
+    defaultValue: 'var(--line-height-text-xl)',
+    description: 'Controls large `Card.Title` line height.',
   },
   {
     name: '--card-title-line-height-sm',
@@ -190,6 +205,71 @@ export function CardCompactExample() {
   );
 }
 
+export function CardVariantsExample() {
+  return (
+    <div className={styles.cardGrid}>
+      {(['elevated', 'outline', 'subtle'] as const).map((variant) => (
+        <Card key={variant} className={styles.cardGridItem} variant={variant}>
+          <Card.Header>
+            <Card.Title>{variant}</Card.Title>
+            <Card.Description>Card surface using the {variant} visual treatment.</Card.Description>
+          </Card.Header>
+          <Card.Body>Use variants to communicate surface hierarchy.</Card.Body>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+export function CardSizesExample() {
+  return (
+    <div className={styles.cardGrid}>
+      {(['sm', 'md', 'lg'] as const).map((size) => (
+        <Card key={size} className={styles.cardGridItem} size={size}>
+          <Card.Header>
+            <Card.Title>Card {size}</Card.Title>
+            <Card.Description>Spacing and title scale for the {size} size.</Card.Description>
+          </Card.Header>
+          <Card.Body>Shared content with size-specific density.</Card.Body>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+export function CardFormExample() {
+  return (
+    <Card className={styles.card} asChild>
+      <form>
+        <Card.Header>
+          <Card.Title>Create account</Card.Title>
+          <Card.Description>
+            Enter the contact details for the new workspace member.
+          </Card.Description>
+        </Card.Header>
+        <Card.Body>
+          <div className={styles.formGrid}>
+            <label>
+              First name
+              <Input name="firstName" />
+            </label>
+            <label>
+              Last name
+              <Input name="lastName" />
+            </label>
+          </div>
+        </Card.Body>
+        <Card.Footer>
+          <Button variant="outline" type="reset">
+            Cancel
+          </Button>
+          <Button type="submit">Create account</Button>
+        </Card.Footer>
+      </form>
+    </Card>
+  );
+}
+
 export function CardWithActionExample() {
   return (
     <Card className={styles.card}>
@@ -239,6 +319,53 @@ export function CardWithImageExample() {
       <Card.Footer className={styles.footerBetween}>
         <Badge variant="outline">Forecast</Badge>
         <Button variant="outline">Open report</Button>
+      </Card.Footer>
+    </Card>
+  );
+}
+
+export function CardHorizontalExample() {
+  return (
+    <Card className={styles.horizontalCard}>
+      <img
+        alt="Caffè latte in a ceramic cup."
+        className={styles.horizontalImage}
+        src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=720&q=80"
+      />
+      <div className={styles.horizontalContent}>
+        <Card.Header>
+          <Card.Title>The perfect latte</Card.Title>
+          <Card.Description>Espresso balanced with steamed milk and a light foam.</Card.Description>
+        </Card.Header>
+        <Card.Body>
+          <Badge variant="secondary">Hot</Badge>
+        </Card.Body>
+        <Card.Footer>
+          <Button>Buy latte</Button>
+        </Card.Footer>
+      </div>
+    </Card>
+  );
+}
+
+export function CardAvatarExample() {
+  return (
+    <Card className={styles.card}>
+      <Card.Header>
+        <div className={styles.profile}>
+          <span aria-hidden="true" className={styles.avatar}>
+            NF
+          </span>
+          <div>
+            <Card.Title>Nate Foss</Card.Title>
+            <Card.Description>@natefoss</Card.Description>
+          </div>
+        </div>
+      </Card.Header>
+      <Card.Body>Nate has requested to join your team.</Card.Body>
+      <Card.Footer>
+        <Button variant="outline">Decline</Button>
+        <Button>Approve</Button>
       </Card.Footer>
     </Card>
   );

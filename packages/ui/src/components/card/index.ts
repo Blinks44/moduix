@@ -9,4 +9,5 @@ export type {
   CardRootProps,
   CardSize,
   CardTitleProps,
+  CardVariant,
 } from './Card';

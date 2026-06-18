@@ -5,9 +5,11 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Card.module.css';
 
-export type CardSize = 'sm' | 'md';
+export type CardSize = 'sm' | 'md' | 'lg';
+export type CardVariant = 'elevated' | 'outline' | 'subtle';
 export type CardRootProps = HTMLArkProps<'div'> & {
   size?: CardSize;
+  variant?: CardVariant;
 };
 export type CardHeaderProps = HTMLArkProps<'div'>;
 export type CardBodyProps = HTMLArkProps<'div'>;
@@ -18,7 +20,7 @@ export type CardActionProps = HTMLArkProps<'div'>;
 export type CardLinkProps = HTMLArkProps<'a'>;
 
 const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(function CardRoot(
-  { className, size = 'md', ...props },
+  { className, size = 'md', variant = 'outline', ...props },
   ref,
 ) {
   return (
@@ -28,6 +30,7 @@ const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(function CardRoot(
       data-part="root"
       data-slot="card-root"
       data-size={size}
+      data-variant={variant}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />

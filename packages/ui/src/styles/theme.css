@@ -321,14 +321,17 @@
   --card-focus-ring-width: initial; /* var(--border-width-md) */
   --card-header-gap: initial; /* var(--spacing-1) */
   --card-padding: initial; /* var(--spacing-6) */
+  --card-padding-lg: initial; /* var(--spacing-8) */
   --card-padding-sm: initial; /* var(--spacing-4) */
   --card-radius: initial; /* var(--radius-lg) */
   --card-shadow: initial; /* none */
   --card-title-color: initial; /* currentColor */
   --card-title-font-size: initial; /* var(--text-lg) */
+  --card-title-font-size-lg: initial; /* var(--text-xl) */
   --card-title-font-size-sm: initial; /* var(--text-md) */
   --card-title-font-weight: initial; /* var(--weight-semibold) */
   --card-title-line-height: initial; /* var(--line-height-text-lg) */
+  --card-title-line-height-lg: initial; /* var(--line-height-text-xl) */
   --card-title-line-height-sm: initial; /* var(--line-height-text-md) */
 
   /* Checkbox */

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '../badge';
 import { Button } from '../button';
+import { Input } from '../input';
 import { Card } from './Card';
 import styles from './Card.stories.module.css';
 
@@ -97,6 +98,77 @@ export const Compact: Story = {
   },
 };
 
+export const Variants: Story = {
+  render: () => {
+    return (
+      <div className={styles.cardGrid}>
+        {(['elevated', 'outline', 'subtle'] as const).map((variant) => (
+          <Card key={variant} className={styles.cardGridItem} variant={variant}>
+            <Card.Header>
+              <Card.Title>{variant}</Card.Title>
+              <Card.Description>
+                Card surface using the {variant} visual treatment.
+              </Card.Description>
+            </Card.Header>
+            <Card.Body>Use variants to communicate surface hierarchy.</Card.Body>
+          </Card>
+        ))}
+      </div>
+    );
+  },
+};
+
+export const Sizes: Story = {
+  render: () => {
+    return (
+      <div className={styles.cardGrid}>
+        {(['sm', 'md', 'lg'] as const).map((size) => (
+          <Card key={size} className={styles.cardGridItem} size={size}>
+            <Card.Header>
+              <Card.Title>Card {size}</Card.Title>
+              <Card.Description>Spacing and title scale for the {size} size.</Card.Description>
+            </Card.Header>
+            <Card.Body>Shared content with size-specific density.</Card.Body>
+          </Card>
+        ))}
+      </div>
+    );
+  },
+};
+
+export const WithinForm: Story = {
+  render: () => {
+    return (
+      <Card className={styles.card} asChild>
+        <form>
+          <Card.Header>
+            <Card.Title>Create account</Card.Title>
+            <Card.Description>Enter the contact details for the new member.</Card.Description>
+          </Card.Header>
+          <Card.Body>
+            <div className={styles.formGrid}>
+              <label>
+                First name
+                <Input name="firstName" />
+              </label>
+              <label>
+                Last name
+                <Input name="lastName" />
+              </label>
+            </div>
+          </Card.Body>
+          <Card.Footer>
+            <Button variant="outline" type="reset">
+              Cancel
+            </Button>
+            <Button type="submit">Create account</Button>
+          </Card.Footer>
+        </form>
+      </Card>
+    );
+  },
+};
+
 export const WithImage: Story = {
   render: () => {
     return (
@@ -121,6 +193,59 @@ export const WithImage: Story = {
         <Card.Footer className={styles.footerBetween}>
           <Badge variant="outline">Forecast</Badge>
           <Button variant="outline">Open report</Button>
+        </Card.Footer>
+      </Card>
+    );
+  },
+};
+
+export const Horizontal: Story = {
+  render: () => {
+    return (
+      <Card className={styles.horizontalCard}>
+        <img
+          alt="Caffè latte in a ceramic cup."
+          className={styles.horizontalImage}
+          src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=720&q=80"
+        />
+        <div className={styles.horizontalContent}>
+          <Card.Header>
+            <Card.Title>The perfect latte</Card.Title>
+            <Card.Description>
+              Espresso balanced with steamed milk and a light foam.
+            </Card.Description>
+          </Card.Header>
+          <Card.Body>
+            <Badge variant="secondary">Hot</Badge>
+          </Card.Body>
+          <Card.Footer>
+            <Button>Buy latte</Button>
+          </Card.Footer>
+        </div>
+      </Card>
+    );
+  },
+};
+
+export const WithAvatar: Story = {
+  render: () => {
+    return (
+      <Card className={styles.card}>
+        <Card.Header>
+          <div className={styles.profile}>
+            <span aria-hidden="true" className={styles.avatar}>
+              NF
+            </span>
+            <div>
+              <Card.Title>Nate Foss</Card.Title>
+              <Card.Description>@natefoss</Card.Description>
+            </div>
+          </div>
+        </Card.Header>
+        <Card.Body>Nate has requested to join your team.</Card.Body>
+        <Card.Footer>
+          <Button variant="outline">Decline</Button>
+          <Button>Approve</Button>
         </Card.Footer>
       </Card>
     );

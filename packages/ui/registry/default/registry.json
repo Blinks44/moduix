@@ -359,7 +359,7 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix Card component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
