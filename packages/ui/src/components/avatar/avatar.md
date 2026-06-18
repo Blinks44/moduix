@@ -1,14 +1,22 @@
 # Avatar
 
-Upstream primitive docs: https://ark-ui.com/docs/components/avatar
+Upstream docs:
+
+- Ark UI: https://ark-ui.com/docs/components/avatar
 
 ## Purpose
 
 `Avatar` is the moduix wrapper around Ark UI Avatar for compact identity media such as profile
 photos, initials, and icon fallbacks.
 
-The wrapper keeps Ark loading/state behavior and adds moduix default styles, CSS variables,
-`data-slot` hooks, and a small root `size` shortcut.
+The wrapper keeps Ark loading and state behavior intact while adding moduix default styles, CSS
+variables, stable `data-slot` hooks, and a small root `size` shortcut.
+
+## Upstream model to preserve
+
+- Uses the Ark UI avatar primitive directly.
+- Keeps Ark anatomy centered on `Root`, `Image`, and `Fallback`.
+- Keeps Ark image lifecycle, `onStatusChange(details)`, and `data-state` visibility model intact.
 
 ## Current behavior contract
 
@@ -17,6 +25,23 @@ The wrapper keeps Ark loading/state behavior and adds moduix default styles, CSS
 - Keeps Ark `data-state="visible" | "hidden"` attributes on image and fallback parts.
 - `size` is the only local root prop. It maps common token sizes to `data-size`.
 - The wrapper does not add custom loading state, delay props, or Base UI compatibility aliases.
+
+## Anatomy and exported parts
+
+```text
+Avatar.Root
+├─ Avatar.Image
+└─ Avatar.Fallback
+   └─ initials | icon | custom content
+```
+
+Every exported part accepts `className` and receives a stable `data-slot`:
+
+| Part              | `data-slot`       | Notes                                      |
+| ----------------- | ----------------- | ------------------------------------------ |
+| `Avatar.Root`     | `avatar-root`     | Styled Ark root with local `size` sugar.   |
+| `Avatar.Image`    | `avatar-image`    | Visible image when loading succeeds.       |
+| `Avatar.Fallback` | `avatar-fallback` | Fallback while image is hidden or missing. |
 
 ## Composition
 
@@ -36,38 +61,31 @@ export function AvatarExample() {
 }
 ```
 
-```text
-Avatar.Root
-├─ Avatar.Image
-└─ Avatar.Fallback
-   └─ initials | icon | custom content
-```
-
 Use `Avatar.Image` and `Avatar.Fallback` together for user pictures. Use fallback-only composition
 when there is no image source.
 
 Use `asChild` on `Avatar.Root`, `Avatar.Image`, or `Avatar.Fallback` when another element must own
 the rendered DOM node.
 
-`onStatusChange` stays Ark-shaped and exposes the current image lifecycle through
-`details.status`. Use it when surrounding UI needs to react to loading or error states.
+## Upstream feature coverage
+
+- `Anatomy`: preserved directly through the exported Ark-shaped parts.
+- `Basic`: preserved through the standard root/image/fallback path.
+- `Events`: preserved through `onStatusChange(details)`.
+- `Root Provider` and `Context`: intentionally not exported by the current wrapper surface.
+- `Next.js Image` and other custom image integrations: supported via Ark `asChild` and preserved
+  visibility semantics, but not wrapped as moduix-specific helpers.
+
+## Accessibility and state
+
+- Ark state and data attributes remain available:
+  - `data-scope="avatar"` and `data-part="root" | "image" | "fallback"`
+  - `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`
+- Ark callback shapes remain unchanged:
+  - `onStatusChange(details)` with `details.status`
+- `Avatar.Root` also sets `data-size` when the local `size` prop is provided.
 
 ## Defaults and styling
-
-Every exported part accepts `className` and receives a stable `data-slot`:
-
-| Part              | `data-slot`       |
-| ----------------- | ----------------- |
-| `Avatar.Root`     | `avatar-root`     |
-| `Avatar.Image`    | `avatar-image`    |
-| `Avatar.Fallback` | `avatar-fallback` |
-
-Ark state/data attributes remain available to consumers:
-
-- `data-scope="avatar"` and `data-part="root" | "image" | "fallback"`
-- `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`
-
-`Avatar.Root` also sets `data-size` when the local `size` prop is provided.
 
 | `size` | Root size token | Text token  |
 | ------ | --------------- | ----------- |
@@ -94,7 +112,7 @@ Primary CSS variables:
 | `--avatar-radius`                | `var(--radius-full)`         |
 | `--avatar-size`                  | `var(--size-md)`             |
 
-## Intentional differences from Ark UI
+## Intentional sugar and differences from upstream
 
 - moduix ships pre-styled defaults; Ark is headless.
 - moduix exports only the Ark-shaped namespace API: `Avatar.Root`, `Avatar.Image`,

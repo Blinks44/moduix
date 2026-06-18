@@ -1,6 +1,6 @@
 # Carousel
 
-Upstream primitive docs:
+Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/carousel
 - Chakra UI: https://chakra-ui.com/docs/components/carousel
@@ -12,6 +12,14 @@ variable-size items, autoplay, and provider-driven flows.
 
 The wrapper keeps Ark paging and runtime state intact while adding moduix visual defaults, CSS
 variables, and stable `data-slot` hooks.
+
+## Upstream model to preserve
+
+- Uses the Ark UI carousel primitive directly.
+- Keeps Ark anatomy centered on `Root`, `Control`, `ItemGroup`, `Item`, triggers, indicators, and
+  optional autoplay parts.
+- Keeps Ark page control, provider/context flow, orientation handling, drag/autoplay state, and
+  runtime API intact.
 
 ## Current behavior contract
 
@@ -27,6 +35,40 @@ variables, and stable `data-slot` hooks.
   track. This supports Ark layouts where `ItemGroup` is placed inside `Control`.
 - Ships left and right chevrons as default trigger content. When the default icons are used inside a
   vertical carousel, moduix rotates them to the Ark-style up and down directions.
+
+## Anatomy and exported parts
+
+```text
+Carousel.Root
+├─ Carousel.Control
+│  ├─ Carousel.PrevTrigger
+│  ├─ Carousel.ItemGroup
+│  │  └─ Carousel.Item
+│  └─ Carousel.NextTrigger
+├─ Carousel.IndicatorGroup
+│  └─ Carousel.Indicator
+├─ Carousel.AutoplayTrigger (optional)
+├─ Carousel.AutoplayIndicator (optional)
+├─ Carousel.ProgressText (optional)
+└─ Carousel.Context (optional render-prop access)
+```
+
+Every styled part accepts `className` and receives a stable `data-slot`:
+
+| Part                         | `data-slot`                   | Notes                                             |
+| ---------------------------- | ----------------------------- | ------------------------------------------------- |
+| `Carousel.Root`              | `carousel-root`               | Styled Ark root.                                  |
+| `Carousel.RootProvider`      | `carousel-root-provider`      | Shares root styling and external state ownership. |
+| `Carousel.Control`           | `carousel-control`            | Real flex container, not overlay chrome.          |
+| `Carousel.ItemGroup`         | `carousel-item-group`         | Styled Ark item group.                            |
+| `Carousel.Item`              | `carousel-item`               | Styled Ark item.                                  |
+| `Carousel.PrevTrigger`       | `carousel-prev-trigger`       | Defaults to a moduix left chevron.                |
+| `Carousel.NextTrigger`       | `carousel-next-trigger`       | Defaults to a moduix right chevron.               |
+| `Carousel.IndicatorGroup`    | `carousel-indicator-group`    | Styled Ark indicator group.                       |
+| `Carousel.Indicator`         | `carousel-indicator`          | Styled Ark indicator button.                      |
+| `Carousel.AutoplayTrigger`   | `carousel-autoplay-trigger`   | Styled Ark autoplay trigger.                      |
+| `Carousel.AutoplayIndicator` | `carousel-autoplay-indicator` | Styled Ark autoplay status part.                  |
+| `Carousel.ProgressText`      | `carousel-progress-text`      | Styled Ark progress text part.                    |
 
 ## Composition
 
@@ -78,32 +120,38 @@ Use `Carousel.Context` when the number of page snap points depends on runtime la
 Use `Carousel.RootProvider` with `useCarousel()` only when carousel state must be created outside
 the rendered subtree.
 
+## Upstream feature coverage
+
+- `Anatomy`: preserved directly through the exported Ark-shaped parts.
+- `Controlled`: preserved through `page` and `onPageChange(details)`.
+- `Root Provider`: preserved through `Carousel.RootProvider` and `useCarousel()`.
+- `Autoplay`: preserved through the Ark `autoplay` prop and autoplay parts.
+- `Pause on Hover`: not built in, matching Ark; consumers use `Carousel.Context` and `api.pause()`
+  or `api.play()`.
+- `Thumbnail Indicators`: preserved by rendering custom content inside `Carousel.Indicator`.
+- `Vertical`: preserved through `orientation="vertical"`.
+- `Dynamic`: preserved through controlled page flow and `slideCount`.
+- `Scroll to Slide`: preserved through `Carousel.Context` and `api.scrollToIndex(index)`.
+- `Slides Per Page`: preserved through `slidesPerPage` and `api.pageSnapPoints`.
+- `Spacing`: preserved through `spacing`.
+- `Variable Sizes`: preserved through `autoSize` and per-item snap alignment.
+
+## Accessibility and state
+
+- Ark state and runtime hooks remain available:
+  - `data-orientation` on root and control
+  - `data-dragging` on `Carousel.ItemGroup`
+  - `data-current` on `Carousel.Indicator`
+  - `data-inview` and `data-index` on `Carousel.Item`
+- Ark runtime CSS variables remain available:
+  - `--slides-per-page`
+  - `--slide-spacing`
+  - `--slide-item-size`
+- Ark callback and API shapes remain unchanged, including `onPageChange(details)`,
+  `onAutoplayStatusChange(details)`, `onDragStatusChange(details)`, `Carousel.Context`, and
+  `useCarousel()`.
+
 ## Defaults and styling
-
-Every styled part accepts `className` and receives a stable `data-slot`:
-
-| Part                         | `data-slot`                   |
-| ---------------------------- | ----------------------------- |
-| `Carousel.Root`              | `carousel-root`               |
-| `Carousel.RootProvider`      | `carousel-root-provider`      |
-| `Carousel.Control`           | `carousel-control`            |
-| `Carousel.ItemGroup`         | `carousel-item-group`         |
-| `Carousel.Item`              | `carousel-item`               |
-| `Carousel.PrevTrigger`       | `carousel-prev-trigger`       |
-| `Carousel.NextTrigger`       | `carousel-next-trigger`       |
-| `Carousel.IndicatorGroup`    | `carousel-indicator-group`    |
-| `Carousel.Indicator`         | `carousel-indicator`          |
-| `Carousel.AutoplayTrigger`   | `carousel-autoplay-trigger`   |
-| `Carousel.AutoplayIndicator` | `carousel-autoplay-indicator` |
-| `Carousel.ProgressText`      | `carousel-progress-text`      |
-
-Ark state and runtime hooks remain available:
-
-- `data-orientation` on root and control
-- `data-dragging` on `Carousel.ItemGroup`
-- `data-current` on `Carousel.Indicator`
-- `data-inview` and `data-index` on `Carousel.Item`
-- Ark runtime CSS variables such as `--slides-per-page`, `--slide-spacing`, and `--slide-item-size`
 
 Primary theme variables:
 
@@ -132,7 +180,7 @@ Primary theme variables:
 | `--carousel-progress-text-font-size`    | `var(--text-sm)`                                                            |
 | `--carousel-track-radius`               | `var(--radius-xl)`                                                          |
 
-## Intentional differences from upstream
+## Intentional sugar and differences from upstream
 
 - moduix ships styled controls, indicators, and progress text; Ark is intentionally unstyled.
 - moduix favors an explicit flex layout for `Control` instead of absolute-position trigger chrome.

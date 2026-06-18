@@ -1,7 +1,8 @@
 # Bleed
 
-Ark UI does not ship a dedicated `bleed` primitive in `@ark-ui/react`, so moduix implements this
-component as an Ark-aligned factory wrapper with `@ark-ui/react/factory`.
+Upstream docs:
+
+- Ark UI: https://ark-ui.com/docs/guides/composition
 
 ## Purpose
 
@@ -9,37 +10,14 @@ component as an Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 flow. Use it for full-width media, section backgrounds, dividers, and panels inside a centered or
 padded layout.
 
-The default path is `inline="full"`: the root stretches to the viewport width and is offset with
-viewport-based margin math. Use scale values such as `inline="md"` when content only needs to
-escape container padding.
+Ark UI does not ship a dedicated `Bleed` primitive, so moduix implements this component as an
+Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 
-```tsx
-import { Bleed, Text } from 'moduix';
+## Upstream model to preserve
 
-function Example() {
-  return (
-    <div className={styles.container}>
-      <Text tone="muted">Container content stays constrained.</Text>
-      <Bleed.Root className={styles.surface}>
-        <Text weight="semibold">This surface reaches the viewport edges.</Text>
-      </Bleed.Root>
-      <Text tone="muted">Following content returns to the container width.</Text>
-    </div>
-  );
-}
-```
-
-```css
-.container {
-  width: min(28rem, calc(100vw - var(--spacing-8)));
-  padding: var(--spacing-4);
-}
-
-.surface {
-  padding: var(--spacing-4);
-  background-color: var(--color-muted);
-}
-```
+- Uses the Ark factory composition model instead of a dedicated Ark primitive.
+- Keeps the API intentionally small: one root part with polymorphic DOM ownership through `asChild`.
+- Keeps the layout model explicit: negative inline and block margins on a single root.
 
 ## Current behavior contract
 
@@ -53,31 +31,59 @@ function Example() {
   behavior.
 - Preserves normal document flow; it is not positioned and does not portal content.
 
-## Composition
+## Anatomy and exported parts
 
 ```text
 Bleed.Root
 └─ children
 ```
 
-| Part         | Role                                                                    |
-| ------------ | ----------------------------------------------------------------------- |
-| `Bleed.Root` | Root layout wrapper. Receives Ark factory props, margins, and children. |
-| `Bleed`      | Callable alias of `Bleed.Root`.                                         |
+Every exported part accepts `className` and uses the standard hooks below:
 
-`Bleed` is composition-first: put any visual surface, media, text, or semantic content inside it.
-Use `asChild` when another element should own the rendered DOM node.
+| Part         | Hook                     | Notes                                           |
+| ------------ | ------------------------ | ----------------------------------------------- |
+| `Bleed.Root` | `data-slot="bleed-root"` | Root layout wrapper for inline and block bleed. |
+| `Bleed.Root` | `data-scope="bleed"`     | Ark-aligned component scope.                    |
+| `Bleed.Root` | `data-part="root"`       | Ark-aligned part name.                          |
+| `Bleed.Root` | `data-inline`            | Selects inline bleed behavior.                  |
+| `Bleed.Root` | `data-block`             | Selects block bleed behavior.                   |
+
+## Composition
 
 ```tsx
-<Bleed.Root asChild className={styles.figure}>
+import { Bleed } from 'moduix';
+
+<Bleed.Root asChild>
   <figure>
     <img src="/hero.png" alt="Map preview" />
     <figcaption>Full-width media inside a constrained article.</figcaption>
   </figure>
-</Bleed.Root>
+</Bleed.Root>;
 ```
 
-## Public props
+`Bleed` is composition-first: put any visual surface, media, text, or semantic content inside it.
+Use `asChild` when another element should own the rendered DOM node.
+
+## Upstream feature coverage
+
+- `Composition`: preserved through Ark factory `asChild` behavior.
+- `Dedicated primitive features`: not applicable because Ark has no dedicated `Bleed` component
+  page for this wrapper to mirror.
+- `Stateful or behavioral patterns`: intentionally unsupported; `Bleed` remains a single-root
+  layout primitive.
+
+## Accessibility and state
+
+- `Bleed` has no managed state, callbacks, or ARIA behavior.
+- The root keeps stable hooks for styling and test targeting:
+  - `data-scope`
+  - `data-part`
+  - `data-slot`
+  - `data-inline`
+  - `data-block`
+- Because the root stays in normal document flow, reading order and focus order follow JSX order.
+
+## Defaults and styling
 
 | Entry       | Default | Values / Notes                               |
 | ----------- | ------- | -------------------------------------------- |
@@ -86,26 +92,7 @@ Use `asChild` when another element should own the rendered DOM node.
 | `asChild`   | `false` | Ark factory composition                      |
 | `className` | -       | Applied to the root                          |
 
-`children`, `style`, event handlers, `id`, `aria-*`, and other Ark `div` props are passed to the
-root. The previous `as` prop was removed during the Ark migration; use `asChild` instead.
-
-## Defaults and styling
-
-The root always gets `className={clsx(styles.root, className)}` and `margin: 0`.
-
-### Data attributes
-
-| Attribute     | Values                                       | Purpose                        |
-| ------------- | -------------------------------------------- | ------------------------------ |
-| `data-scope`  | `bleed`                                      | Ark-aligned component scope.   |
-| `data-part`   | `root`                                       | Ark-aligned part name.         |
-| `data-slot`   | `bleed-root`                                 | Stable styling/test hook.      |
-| `data-inline` | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` | Selects inline bleed behavior. |
-| `data-block`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         | Selects block bleed behavior.  |
-
-### CSS variables
-
-These variables are public styling hooks declared in `src/styles/theme.css`.
+Public CSS variables:
 
 | Variable                   | Default            | Used by                |
 | -------------------------- | ------------------ | ---------------------- |
@@ -122,34 +109,13 @@ These variables are public styling hooks declared in `src/styles/theme.css`.
 | `--bleed-inline-lg`        | `var(--spacing-4)` | `inline="lg"`          |
 | `--bleed-inline-xl`        | `var(--spacing-6)` | `inline="xl"`          |
 
-Override variables on the root with `className` when a page shell, drawer, or nested scroll region
-needs different full-bleed math.
-
-```css
-.shellBleed {
-  --bleed-inline-full: calc(var(--spacing-8) * -1);
-  --bleed-inline-full-size: calc(100vw - (var(--spacing-8) * 2));
-}
-```
-
-## Intentional differences from the previous local contract
+## Intentional sugar and differences from upstream
 
 - There is still no upstream Ark primitive for this component; moduix keeps it as a thin factory
   wrapper rather than inventing a richer primitive surface.
 - The old `as` prop was removed in favor of Ark `asChild`.
-- Added Ark-style namespace access through `Bleed.Root`.
-- Added Ark-style `data-scope` and `data-part` hooks on the root.
-
-## Accessibility and UX notes
-
-- `Bleed` has no intrinsic accessibility role. Use `asChild` with a semantic child (`section`,
-  `figure`, `aside`, etc.) or add ARIA attributes when the content needs semantics.
-- Because the root keeps normal document flow, reading order and focus order follow the JSX order.
-- Do not use `Bleed` to create interactive behavior. Put interactive controls inside it and let
-  those controls own their accessibility states.
-- `inline="full"` is viewport-based. It can cause horizontal overflow in custom shells if local
-  layout math is not overridden.
-- Ancestors with `overflow: hidden` or `overflow: clip` can visually crop the bleed.
+- moduix adds Ark-style namespace access through `Bleed.Root`.
+- moduix adds Ark-style `data-scope` and `data-part` hooks on the root.
 
 ## Agent notes
 
@@ -157,7 +123,6 @@ needs different full-bleed math.
 - Add sugar only if it removes frequent production boilerplate without hiding the simple
   margin-based model. The current `inline`, `block`, and Ark root props are the intended public
   surface.
-- Keep stories, docs examples, and local docs aligned with the same API and CSS variable contract.
 - If CSS variables change, update `theme.css`, docs CSS Properties, stories/examples, and this file
   in the same task.
 

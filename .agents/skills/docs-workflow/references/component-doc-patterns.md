@@ -8,7 +8,7 @@ Reference implementation for the current standard component-page shape:
 
 ## Standard Page Structure
 
-Use this section order when the sections carry real value:
+Every component page in `apps/docs/content/docs/*.mdx` must use this section order:
 
 1. `## API Reference`
 2. `## Choosing the right component` (optional)
@@ -19,27 +19,33 @@ Use this section order when the sections carry real value:
 7. `## Examples`
 8. `## Styling` (optional)
 
-Inside `## Composition`, use:
+Inside `## Composition`, always use:
 
 1. `### Recommended composition`
 2. `### When to go custom`
 3. `### Default props` (optional)
-4. `### Behavioral notes` (optional)
+4. `### Behavioral notes`
 
-Inside `## Styling`, use:
+Inside `## Styling`, always use:
 
 1. `### CSS Properties` (optional)
-2. `### Styling hooks` (optional)
+2. `### Styling hooks`
 
 ## Section Intent
 
 - `API Reference`: one short upstream reference block, no extra prose.
+  - For Ark-backed components, point to the dedicated Ark page.
+  - For local-only components, explicitly say there is no dedicated Ark primitive and name the Ark
+    guide/factory model and Chakra contract if Chakra informs the public API.
 - `Choosing the right component`: only for components with close alternatives.
 - `Basic`: the recommended happy path and the first runnable example.
+  - This is the Ark-first default path plus any moduix sugar that is part of the normal public surface.
 - `Install with shadcn`: comes immediately after `Basic`.
 - `Anatomy`: structure only. Keep it short: ASCII tree plus concise part roles.
 - `Composition`: public contract, recommended part tree, escape hatches, defaults, and behavioral constraints.
+  - Document preserved Ark callback shapes, provider/context patterns, and moduix sugar here.
 - `Examples`: start where `Basic` stops. Move into narrower, more specific, or more advanced cases.
+  - For Ark-backed components, order examples to follow the relevant Ark docs topics first, then add moduix-only sugar or styling examples.
 - `Styling`: only when the component has a meaningful styling contract.
 
 ## Duplication Rules
@@ -73,6 +79,22 @@ Inside `## Styling`, use:
 - `Styling hooks` should cover meaningful `className`, `data-slot`, and state/data attributes consumers can actually target.
 
 ## Family Notes
+
+## Ark Alignment Rules
+
+- If Ark UI has a dedicated component page, the docs page must cover the relevant upstream:
+  - anatomy
+  - recommended composition path
+  - examples and guides the wrapper still supports
+  - public API parts, state hooks, and styling hooks that remain visible to consumers
+- Do not silently omit an upstream concept that the wrapper still exposes.
+- If an upstream concept is intentionally unsupported, renamed, or constrained, state that explicitly in
+  `Composition` or the relevant example description.
+- moduix sugar comes after the upstream explanation:
+  - default icons
+  - default styling
+  - convenience props or wrappers
+  - local naming or behavior differences
 
 Popup-like components:
 

@@ -1,15 +1,23 @@
 # Button
 
-Upstream references:
+Upstream docs:
 
-- Ark UI styling guide: https://ark-ui.com/docs/guides/styling
-- Ark UI composition guide: https://ark-ui.com/docs/guides/composition
+- Ark UI: https://ark-ui.com/docs/guides/composition
+- Ark UI Styling: https://ark-ui.com/docs/guides/styling
 
 ## Purpose
 
-`Button` is the moduix action control built as an Ark-style factory wrapper. Ark UI does not ship a
-dedicated button primitive, so moduix exposes `Button.Root` on top of `@ark-ui/react/factory` and
-keeps the wrapper limited to styling, `data-slot`, and `asChild` composition.
+`Button` is the moduix action control built as an Ark-style factory wrapper.
+
+Ark UI does not ship a dedicated button primitive, so moduix exposes `Button.Root` on top of
+`@ark-ui/react/factory` and keeps the wrapper limited to styling, `data-slot`, and `asChild`
+composition.
+
+## Upstream model to preserve
+
+- Uses the Ark factory composition model instead of a dedicated Ark primitive.
+- Keeps the API intentionally small: one root part with polymorphic DOM ownership through `asChild`.
+- Keeps native button semantics and attributes intact on the root.
 
 ## Current behavior contract
 
@@ -21,6 +29,22 @@ keeps the wrapper limited to styling, `data-slot`, and `asChild` composition.
 - Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on the root.
 - Does not keep Base UI `render`, `nativeButton`, or `focusableWhenDisabled`.
 
+## Anatomy and exported parts
+
+```text
+Button.Root
+└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
+   ├─ icon, spinner, or other visual child (optional)
+   └─ text label
+```
+
+Every exported root accepts `className` and receives stable hooks:
+
+| Part          | `data-slot`   | Notes                                         |
+| ------------- | ------------- | --------------------------------------------- |
+| `Button.Root` | `button-root` | Root interactive surface with moduix styling. |
+| `Button`      | alias of root | Callable alias of `Button.Root`.              |
+
 ## Composition
 
 ```tsx
@@ -29,13 +53,6 @@ import { Button } from 'moduix';
 export function SaveButton() {
   return <Button.Root>Save Changes</Button.Root>;
 }
-```
-
-```text
-Button.Root
-└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
-   ├─ icon, spinner, or other visual child (optional)
-   └─ text label
 ```
 
 Use `asChild` when another element should own the DOM node:
@@ -49,23 +66,25 @@ Use `asChild` when another element should own the DOM node:
 For icon-only buttons, use an `icon-*` size and provide an accessible name with `aria-label` or an
 equivalent labeling mechanism.
 
+## Upstream feature coverage
+
+- `Composition`: preserved through Ark factory `asChild` behavior.
+- `Dedicated primitive features`: not applicable because Ark has no dedicated `Button` component
+  page for this wrapper to mirror.
+- `Native button semantics`: preserved through the root `button` element and native attributes.
+
+## Accessibility and state
+
+- The root exposes:
+  - `data-scope="button"`
+  - `data-part="root"`
+  - `data-variant="<variant>"`
+  - `data-size="<size>"`
+- Disabled styling is driven by native `[disabled]` and `[aria-disabled='true']`.
+- `Button.Root` forwards native button attributes and event handlers without wrapper translation.
+- Icon-only buttons still need an accessible name through `aria-label` or equivalent labeling.
+
 ## Defaults and styling
-
-Every exported root accepts `className` and receives stable hooks:
-
-| Part          | `data-slot`   |
-| ------------- | ------------- |
-| `Button.Root` | `button-root` |
-| `Button`      | alias of root |
-
-The root also exposes:
-
-- `data-scope="button"`
-- `data-part="root"`
-- `data-variant="<variant>"`
-- `data-size="<size>"`
-
-Disabled styling is driven by native `[disabled]` and `[aria-disabled='true']`.
 
 | Entry       | Default   | Values                                                                                   |
 | ----------- | --------- | ---------------------------------------------------------------------------------------- |
@@ -137,7 +156,7 @@ Primary CSS variables:
 | `--button-size-xl`                                  | `3.5rem`                                        |
 | `--button-transition`                               | `var(--transition-default)`                     |
 
-## Intentional differences from upstream
+## Intentional sugar and differences from upstream
 
 - Ark UI has no button primitive here; moduix owns the root wrapper.
 - moduix ships pre-styled defaults and the local `variant` / `size` shortcuts.

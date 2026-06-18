@@ -123,18 +123,36 @@ Accordion.Root
 
 ## Composition
 
+### Recommended composition
+
 `Accordion.Root` owns keyboard navigation, focus movement, and open item state. Use it for
 `value`, `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `multiple`,
 `collapsible`, `orientation`, `lazyMount`, `unmountOnExit`, and `ids`.
 
+Stay with `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemIndicator`,
+and `Accordion.ItemContent` for the standard Ark composition path.
+
+### When to go custom
+
 `value` and `defaultValue` are always arrays, including single-open mode. `onValueChange` follows
 the Ark callback shape and exposes the current item values as `details.value`.
+
+Use the Ark `RootProvider` and `useAccordion()` pattern when accordion state must be created
+outside the rendered subtree.
+
+Use `Accordion.Context` or item state hooks when surrounding UI needs to react to root or item
+state without adding a separate state layer.
 
 `Accordion.Item` requires a stable `value`. Use `disabled` on the item when one section should stay
 present but unavailable.
 
 `Accordion.ItemIndicator` is optional. In moduix it renders `PlusIcon` by default when no children
 are provided, but you can replace the indicator content entirely.
+
+Use `asChild` only when another element must own the rendered node. Keep the Ark part tree visible
+instead of hiding it behind convenience wrappers.
+
+### Behavioral notes
 
 Keep spacing wrappers inside `Accordion.ItemContent` instead of on the content part itself. The Ark
 measurement variable `--height` drives the open/close animation, so inner padding keeps the motion
@@ -143,6 +161,41 @@ clean.
 All exported parts support `asChild` for cases where another element must own the rendered node.
 
 ## Examples
+
+### Default Value
+
+Set `defaultValue` to specify which item should be expanded when the accordion first renders.
+
+<Preview>
+  <AccordionExample defaultValue={["what-is-ark-ui"]} />
+
+  <Preview.Code>
+    {`
+      import { Accordion } from "moduix";
+
+      export function DefaultValueAccordionDemo() {
+        return (
+          <Accordion.Root defaultValue={["what-is-ark-ui"]}>
+            {items.map((item) => (
+              <Accordion.Item key={item.value} value={item.value}>
+                <Accordion.ItemTrigger>
+                  {item.title}
+                  <Accordion.ItemIndicator />
+                </Accordion.ItemTrigger>
+                <Accordion.ItemContent>
+                  <div className="accordion-panel-content">{item.description}</div>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </Accordion.Root>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.CSS>{accordionExampleCss}</Preview.CSS>
+</Preview>
 
 ### Multiple
 

@@ -137,7 +137,20 @@ AngleSlider.Control
 
 ## Composition
 
-### Recommended defaults
+### Recommended composition
+
+Stay with `AngleSlider.Root`, `AngleSlider.Label`, `AngleSlider.Control`, `AngleSlider.Thumb`,
+`AngleSlider.ValueText`, and `AngleSlider.HiddenInput` for the standard Ark dial composition.
+
+### When to go custom
+
+Add `AngleSlider.MarkerGroup` and `AngleSlider.Marker` only when visible reference ticks help the
+interaction model. Use `asChild` on the exported parts when another element must own the DOM node.
+
+Use the Ark `RootProvider` and context model when the slider state must be owned outside the
+rendered subtree or read from surrounding composition.
+
+### Default props
 
 - `defaultValue`: `0`
 - `step`: `1`

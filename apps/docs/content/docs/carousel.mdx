@@ -136,14 +136,32 @@ Additional Ark parts stay available for advanced flows:
 
 ## Composition
 
+### Recommended composition
+
+Stay with `Carousel.Root`, `Carousel.Control`, `Carousel.ItemGroup`, `Carousel.Item`,
+`Carousel.PrevTrigger`, `Carousel.NextTrigger`, `Carousel.IndicatorGroup`, and
+`Carousel.Indicator` for the standard Ark carousel path.
+
+### When to go custom
+
+Use `Carousel.Context` when indicator count depends on runtime `pageSnapPoints`, especially with
+`autoSize`, `slidesPerPage > 1`, and programmatic scrolling.
+
+Use `Carousel.RootProvider` and `useCarousel()` when carousel state must be created outside the
+rendered subtree.
+
+Use `Carousel.AutoplayTrigger` and `Carousel.AutoplayIndicator` when autoplay controls should be
+part of the visible UI instead of only a root prop.
+
+### Default props
+
 - `slideCount` is required on `Carousel.Root`.
+
+### Behavioral notes
+
 - `onPageChange(details)` follows Ark shape and exposes the active page as `details.page`.
 - `spacing`, `padding`, `slidesPerPage`, `slidesPerMove`, and `autoSize` replace the old
   `SnapCarousel` sizing sugar.
-- Use `Carousel.Context` when indicator count depends on runtime `pageSnapPoints`, especially with
-  `autoSize`, `slidesPerPage > 1`, and programmatic scrolling.
-- Use `Carousel.RootProvider` and `useCarousel()` when carousel state must be created outside the
-  rendered subtree.
 - Vertical carousels stay on the same public surface. Default triggers rotate automatically when the
   component uses moduix-provided chevrons.
 
@@ -192,7 +210,7 @@ Additional Ark parts stay available for advanced flows:
   </Preview.Code>
 </Preview>
 
-### Dynamic Slides
+### Dynamic
 
 <Preview>
   <DynamicSlidesCarouselExample />
@@ -330,7 +348,7 @@ Additional Ark parts stay available for advanced flows:
   </Preview.Code>
 </Preview>
 
-### Scroll To
+### Scroll to Slide
 
 <Preview>
   <ScrollToCarouselExample />
@@ -453,7 +471,7 @@ Additional Ark parts stay available for advanced flows:
   </Preview.Code>
 </Preview>
 
-### Thumbnail Indicator
+### Thumbnail Indicators
 
 <Preview>
   <ThumbnailIndicatorCarouselExample />
@@ -492,7 +510,7 @@ Additional Ark parts stay available for advanced flows:
   </Preview.Code>
 </Preview>
 
-### Variable Size
+### Variable Sizes
 
 <Preview>
   <VariableSizeCarouselExample />

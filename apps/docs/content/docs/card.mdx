@@ -155,7 +155,25 @@ Card.Root
 | `Card.Action`      | Optional compact header-side action slot.                                    |
 | `Card.Link`        | Overlay link for cards that still contain nested interactive controls.       |
 
-### Defaults
+## Composition
+
+### Recommended composition
+
+Stay with `Card.Root`, `Card.Header`, `Card.Title`, `Card.Description`, `Card.Body`, and
+`Card.Footer` for the standard card path.
+
+Use `Card.Action` when the header needs a compact trailing control or status. Use `Card.Link` only
+when the card should navigate while still containing nested interactive elements.
+
+### When to go custom
+
+Use `Card.Root asChild` when the entire card is one link or semantic container and there are no
+nested interactive controls.
+
+Use plain children before the header for media or decorative blocks that should not become a named
+card part.
+
+### Default props
 
 | Part        | Prop   | Default | Notes                  |
 | ----------- | ------ | ------- | ---------------------- |
@@ -405,15 +423,13 @@ Style `Card` through `className`, `data-slot`, Ark `data-scope` / `data-part` ho
   </Tabs>
 </div>
 
-Stable hooks:
+### Styling hooks
 
 - `data-slot="card-root"`, `card-header`, `card-body`, `card-footer`
 - `data-slot="card-title"`, `card-description`, `card-action`, `card-link`
 - `data-scope="card"`
 - `data-part="root" | "header" | "body" | "footer" | "title" | "description" | "action" | "link"`
 - `data-size="sm" | "md"`
-
-## Accessibility
 
 - `Card.Root` is a `div` by default. Use `asChild` when another semantic element should own the DOM
   node.

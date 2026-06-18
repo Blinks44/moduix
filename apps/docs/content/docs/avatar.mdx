@@ -112,6 +112,8 @@ Avatar.Root
 
 ## Composition
 
+### Recommended composition
+
 `Avatar.Root` owns the Ark image-loading lifecycle. Use it for `ids`, `onStatusChange(details)`,
 and for the moduix `size` styling shortcut.
 
@@ -125,7 +127,16 @@ Use `size` on `Avatar.Root` for the standard token sizes, or override `--avatar-
 All exported parts support `asChild`. Use that when another element must own the DOM node. This is
 the Ark composition path that replaces the old Base UI `render` contract.
 
-### moduix additions
+### When to go custom
+
+Use `Avatar.Root asChild` when the avatar itself should be the interactive element. When external
+state ownership is needed, keep the Ark `RootProvider` and `useAvatar` model in mind even if the
+common consumer path stays with `Avatar.Root`.
+
+For frameworks such as Next.js, keep Ark image visibility semantics intact when composing a custom
+image implementation.
+
+### Default props
 
 | Surface       | Prop   | Default | Values / Notes               |
 | ------------- | ------ | ------- | ---------------------------- |

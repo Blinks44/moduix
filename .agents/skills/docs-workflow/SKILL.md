@@ -34,6 +34,15 @@ Use this skill for work in `apps/docs`.
 - Use documentation snippets and curated examples to reduce perceived verbosity instead of inventing hidden structural wrappers.
 - In `Examples`, use `Custom Composition` only for real structure/render-path changes. Use
   `Custom Styling` for examples that only customize `className`, CSS variables, or styling hooks.
+- Component docs in `apps/docs/content/docs/*.mdx` must follow one mandatory page structure so pages stay
+  visually and semantically consistent across the library.
+- If a component has a dedicated Ark UI page, the docs page must mirror the upstream Ark mental model first:
+  anatomy, recommended composition path, relevant examples, guides, state hooks, and styling hooks that the
+  moduix wrapper still exposes.
+- moduix additions must be documented as a second layer on top of Ark behavior. Do not replace the Ark mental
+  model with a local-only narrative.
+- If a component has no dedicated Ark UI primitive page, say that explicitly in `API Reference` and anchor the
+  page to the relevant Ark guide or factory model plus Chakra anatomy when Chakra informs the public contract.
 
 ## Registry Docs
 

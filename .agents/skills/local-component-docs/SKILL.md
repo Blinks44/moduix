@@ -20,6 +20,13 @@ Use this skill for markdown files in `packages/ui/src/components`.
 - Use Ark and Chakra docs only to understand primitive behavior, composition, accessibility, state, and lifecycle.
 - Do not copy upstream docs locally.
 - Keep the file explicit enough that future agents can preserve intentional behavior unless the user asks to change it.
+- The local markdown must follow one mandatory section order so component docs stay structurally consistent.
+- The local markdown must mirror the upstream Ark UI mental model first, then layer moduix sugar on top.
+- If Ark UI has a dedicated component page, cover all relevant upstream sections the wrapper exposes:
+  anatomy, examples, guides, API parts, state, and styling hooks.
+- If Ark UI does not have a dedicated component page, say that explicitly and cite the Ark guide or factory
+  source plus any Chakra recipe used as the upstream mental model.
+- Do not invent local abstractions that hide or rename upstream concepts without documenting the difference explicitly.
 
 Document:
 
@@ -29,34 +36,79 @@ Document:
 - constraints or edge cases that affect implementation
 - agent notes worth preserving
 
-## Recommended Structure
+## Required Structure
 
-For new or heavily rewritten files, prefer:
+Every `packages/ui/src/components/<component-name>/<component-name>.md` file must use this section order:
 
 ```md
 # ComponentName
 
-Upstream primitive docs:
+Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/<component-slug>
 - Chakra UI: https://chakra-ui.com/docs/components/<component-slug>
 
 ## Purpose
 
+## Upstream model to preserve
+
 ## Current behavior contract
+
+## Anatomy and exported parts
 
 ## Composition
 
+## Upstream feature coverage
+
+## Accessibility and state
+
 ## Defaults and styling
 
-## Intentional differences from upstream
+## Intentional sugar and differences from upstream
 
 ## Agent notes
 
 ## Local changelog
 ```
 
-Existing headings can stay when the same information remains clear.
+Use the same headings and order even when a component is simple. Keep sections short when the surface area is small,
+but do not omit them.
+
+### Section requirements
+
+- `Upstream docs`
+  - Always link Ark UI.
+  - Link Chakra UI when Chakra materially informs the wrapper contract.
+  - If no dedicated Ark component exists, write that plainly and link the exact Ark guide/factory reference instead.
+- `Purpose`
+  - One short description of what the component is for.
+- `Upstream model to preserve`
+  - State the upstream primitive, guide, or composition model the wrapper follows.
+  - Call out the parts, provider/context model, and high-level behaviors that must stay Ark-shaped.
+- `Current behavior contract`
+  - Summarize the shipped public API, defaults, custom sugar, and constraints.
+- `Anatomy and exported parts`
+  - Show the structural part tree in text or code.
+  - List exported parts with their stable `data-slot` hooks and notable default behavior.
+- `Composition`
+  - Include at least one canonical usage example that matches the shipped API.
+  - Prefer an example that reflects the primary Ark composition path.
+- `Upstream feature coverage`
+  - Map the relevant Ark docs sections to moduix behavior.
+  - Cover the upstream examples and guides that the wrapper supports, such as controlled usage,
+    provider/context patterns, lazy mount, vertical mode, autoplay, and similar component-specific flows.
+  - If a relevant upstream topic is intentionally unsupported or changed, say so explicitly.
+- `Accessibility and state`
+  - Document preserved Ark callback shapes, ARIA behavior, data attributes, CSS variables, and state hooks.
+- `Defaults and styling`
+  - Document `className` support, theme tokens, CSS variables, and styling hooks added by moduix.
+- `Intentional sugar and differences from upstream`
+  - Separate moduix styling defaults and DX additions from upstream Ark behavior.
+  - Document all renamed, removed, or added wrapper behaviors here.
+- `Agent notes`
+  - Keep only preservation notes that matter for future implementation work.
+- `Local changelog`
+  - Keep a short dated changelog at the end of the file.
 
 ## Changelog
 

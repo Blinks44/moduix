@@ -1,6 +1,6 @@
 # AngleSlider
 
-Upstream primitive docs:
+Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/angle-slider
 
@@ -9,8 +9,15 @@ Upstream primitive docs:
 `AngleSlider` is the moduix wrapper around Ark UI Angle Slider for selecting a single value on a
 circular 0-360 degree range.
 
-The wrapper keeps Ark keyboard, drag, and form behavior and adds moduix default styles, CSS
-variables, and stable `data-slot` hooks.
+The wrapper keeps Ark keyboard, drag, and form behavior intact while adding moduix default styles,
+CSS variables, and stable `data-slot` hooks.
+
+## Upstream model to preserve
+
+- Uses the Ark UI angle slider primitive directly.
+- Keeps Ark anatomy centered on `Root`, `Label`, `Control`, `Thumb`, `MarkerGroup`, `Marker`,
+  `ValueText`, and `HiddenInput`.
+- Keeps Ark single-value state, callback shapes, marker state, and form-submission model intact.
 
 ## Current behavior contract
 
@@ -24,8 +31,41 @@ variables, and stable `data-slot` hooks.
   explicitly.
 - Marker ticks are optional. The default moduix recommendation is a clean dial with only the thumb
   and value text.
-- Does not expose Ark `RootProvider` or context helpers. The public wrapper stays focused on the
+- Does not export Ark `RootProvider` or context helpers. The public wrapper stays focused on the
   structural parts used in normal app composition.
+
+## Anatomy and exported parts
+
+```text
+AngleSlider.Root
+├─ AngleSlider.Label
+├─ AngleSlider.Control
+│  └─ AngleSlider.Thumb
+├─ AngleSlider.ValueText
+└─ AngleSlider.HiddenInput
+```
+
+Optional marker ring:
+
+```text
+AngleSlider.Control
+├─ AngleSlider.MarkerGroup
+│  └─ AngleSlider.Marker[value]
+└─ AngleSlider.Thumb
+```
+
+Every exported part accepts `className` and receives a stable `data-slot`:
+
+| Part                      | `data-slot`                 | Notes                                      |
+| ------------------------- | --------------------------- | ------------------------------------------ |
+| `AngleSlider.Root`        | `angle-slider-root`         | Styled Ark root.                           |
+| `AngleSlider.Label`       | `angle-slider-label`        | Styled Ark label.                          |
+| `AngleSlider.Control`     | `angle-slider-control`      | Styled dial surface.                       |
+| `AngleSlider.Thumb`       | `angle-slider-thumb`        | Styled active thumb and angle line.        |
+| `AngleSlider.MarkerGroup` | `angle-slider-marker-group` | Optional marker container.                 |
+| `AngleSlider.Marker`      | `angle-slider-marker`       | Optional marker positioned by `value`.     |
+| `AngleSlider.ValueText`   | `angle-slider-value-text`   | Styled value output.                       |
+| `AngleSlider.HiddenInput` | `angle-slider-hidden-input` | Hidden input for explicit form submission. |
 
 ## Composition
 
@@ -46,15 +86,6 @@ export function RotationAngleSlider() {
 }
 ```
 
-```text
-AngleSlider.Root
-├─ AngleSlider.Label
-├─ AngleSlider.Control
-│  └─ AngleSlider.Thumb
-├─ AngleSlider.ValueText
-└─ AngleSlider.HiddenInput
-```
-
 Optional marker ring:
 
 ```tsx
@@ -70,28 +101,31 @@ const markerValues = Array.from({ length: 8 }, (_, index) => index * 45);
 </AngleSlider.Control>;
 ```
 
+## Upstream feature coverage
+
+- `Anatomy`: preserved directly through the exported Ark-shaped parts.
+- `Basic`: preserved through the standard root/label/control/thumb/value-text/hidden-input path.
+- `Controlled`: preserved through `value`, `defaultValue`, and `onValueChange(details)`.
+- `Steps`: preserved through `step`.
+- `Markers`: preserved through `AngleSlider.MarkerGroup` and `AngleSlider.Marker`.
+- `Root Provider` and `Context`: intentionally not exported by the current wrapper surface.
+- `API parts`: preserved for the exported visible parts listed above.
+
+## Accessibility and state
+
+- Ark state and data attributes remain available to consumers:
+  - `data-disabled`, `data-invalid`, and `data-readonly` on root, label, control, and thumb
+  - `data-state="under-value" | "at-value" | "over-value"` on markers
+  - `data-value` on markers
+- Ark CSS variables remain available:
+  - root `--value` and `--angle`
+  - marker `--marker-value` and `--marker-display-value`
+- Ark callback shapes remain unchanged:
+  - `onValueChange(details)`
+  - `onValueChangeEnd(details)`
+- `AngleSlider.HiddenInput` keeps Ark form participation explicit instead of automatic.
+
 ## Defaults and styling
-
-Every exported part accepts `className` and receives a stable `data-slot`:
-
-| Part                      | `data-slot`                 |
-| ------------------------- | --------------------------- |
-| `AngleSlider.Root`        | `angle-slider-root`         |
-| `AngleSlider.Label`       | `angle-slider-label`        |
-| `AngleSlider.Control`     | `angle-slider-control`      |
-| `AngleSlider.Thumb`       | `angle-slider-thumb`        |
-| `AngleSlider.MarkerGroup` | `angle-slider-marker-group` |
-| `AngleSlider.Marker`      | `angle-slider-marker`       |
-| `AngleSlider.ValueText`   | `angle-slider-value-text`   |
-| `AngleSlider.HiddenInput` | `angle-slider-hidden-input` |
-
-Ark state and data attributes remain available to consumers:
-
-- `data-disabled`, `data-invalid`, and `data-readonly` on root, label, control, and thumb
-- `data-state="under-value" | "at-value" | "over-value"` on markers
-- `data-value` on markers
-- root CSS variables `--value` and `--angle`
-- marker CSS variables `--marker-value` and `--marker-display-value`
 
 Primary CSS variables:
 
@@ -112,7 +146,7 @@ Primary CSS variables:
 | `--angle-slider-center-dot-color`     | `var(--angle-slider-color)`        |
 | `--angle-slider-invalid-color`        | `var(--color-destructive)`         |
 
-## Intentional differences from upstream
+## Intentional sugar and differences from upstream
 
 - moduix ships a visible circular ring, thumb, and value presentation by default; Ark is headless.
 - moduix keeps the Ark-shaped namespace API and does not add extra convenience props for generated
