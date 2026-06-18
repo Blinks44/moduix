@@ -8,9 +8,19 @@ export const clipboardExampleCss = `
     width: min(24rem, 100%);
   }
 
+  .clipboard-demo-root {
+    margin-inline: auto;
+  }
+
+  .clipboard-demo-root--compact {
+    width: max-content;
+    max-width: 100%;
+  }
+
   .clipboard-provider-stack,
   .clipboard-status-stack {
     display: grid;
+    justify-items: center;
     gap: var(--spacing-3);
   }
 
@@ -50,6 +60,10 @@ export const clipboardExampleCss = `
 export const clipboardCustomStylingCss = `
   .clipboard-demo {
     width: min(24rem, 100%);
+  }
+
+  .clipboard-demo-root {
+    margin-inline: auto;
   }
 
   .clipboard-custom-input[data-copied] {
@@ -280,10 +294,18 @@ function ClipboardExampleFrame({ children }: { children: ReactNode }) {
   );
 }
 
-export function ClipboardExample(props: ComponentProps<typeof Clipboard.Root>) {
+function joinClassNames(...classNames: Array<string | undefined>) {
+  return classNames.filter(Boolean).join(' ');
+}
+
+export function ClipboardExample({ className, ...props }: ComponentProps<typeof Clipboard.Root>) {
   return (
     <ClipboardExampleFrame>
-      <Clipboard.Root defaultValue="https://moduix.dev/docs/clipboard" {...props}>
+      <Clipboard.Root
+        className={joinClassNames('clipboard-demo-root', className)}
+        defaultValue="https://moduix.dev/docs/clipboard"
+        {...props}
+      >
         <Clipboard.Label>Copy this link</Clipboard.Label>
         <Clipboard.Control>
           <Clipboard.Input readOnly />
@@ -302,7 +324,11 @@ export function ControlledClipboardExample() {
   return (
     <ClipboardExampleFrame>
       <div className="clipboard-provider-stack">
-        <Clipboard.Root value={value} onValueChange={(details) => setValue(details.value)}>
+        <Clipboard.Root
+          className="clipboard-demo-root"
+          value={value}
+          onValueChange={(details) => setValue(details.value)}
+        >
           <Clipboard.Label>Share URL</Clipboard.Label>
           <Clipboard.Control>
             <Clipboard.Input />
@@ -330,6 +356,7 @@ export function CopyStatusClipboardExample() {
     <ClipboardExampleFrame>
       <div className="clipboard-status-stack">
         <Clipboard.Root
+          className="clipboard-demo-root clipboard-demo-root--compact"
           defaultValue="maps-platform-token"
           onStatusChange={(details) => {
             if (details.copied) {
@@ -353,7 +380,11 @@ export function CopyStatusClipboardExample() {
 export function TimeoutClipboardExample() {
   return (
     <ClipboardExampleFrame>
-      <Clipboard.Root defaultValue="workspace-secret" timeout={5000}>
+      <Clipboard.Root
+        className="clipboard-demo-root"
+        defaultValue="workspace-secret"
+        timeout={5000}
+      >
         <Clipboard.Label>Five second copied state</Clipboard.Label>
         <Clipboard.Control>
           <Clipboard.Input readOnly />
@@ -369,7 +400,10 @@ export function TimeoutClipboardExample() {
 export function ContextClipboardExample() {
   return (
     <ClipboardExampleFrame>
-      <Clipboard.Root defaultValue="maps-platform-token">
+      <Clipboard.Root
+        className="clipboard-demo-root clipboard-demo-root--compact"
+        defaultValue="maps-platform-token"
+      >
         <Clipboard.Control>
           <Clipboard.Trigger aria-label="Copy API token">
             <Clipboard.Indicator />
@@ -386,7 +420,10 @@ export function ContextClipboardExample() {
 export function ValueTextClipboardExample() {
   return (
     <ClipboardExampleFrame>
-      <Clipboard.Root defaultValue="moduix/clipboard">
+      <Clipboard.Root
+        className="clipboard-demo-root clipboard-demo-root--compact"
+        defaultValue="moduix/clipboard"
+      >
         <Clipboard.Control>
           <Clipboard.ValueText className="clipboard-value-text" />
           <Clipboard.Trigger aria-label="Copy package name">
@@ -403,7 +440,7 @@ export function RootProviderClipboardExample() {
 
   return (
     <ClipboardExampleFrame>
-      <Clipboard.RootProvider value={clipboard}>
+      <Clipboard.RootProvider className="clipboard-demo-root" value={clipboard}>
         <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
         <Clipboard.Control>
           <Clipboard.Input readOnly />
@@ -421,7 +458,7 @@ export function CustomStylingClipboardExample() {
     <>
       <style>{clipboardCustomStylingCss}</style>
       <div className="clipboard-demo">
-        <Clipboard.Root defaultValue="workspace-secret">
+        <Clipboard.Root className="clipboard-demo-root" defaultValue="workspace-secret">
           <Clipboard.Label>Styled copied state</Clipboard.Label>
           <Clipboard.Control>
             <Clipboard.Input readOnly className="clipboard-custom-input" />

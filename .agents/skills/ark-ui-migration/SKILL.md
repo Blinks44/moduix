@@ -20,10 +20,14 @@ Solid/Vue/Svelte-specific APIs or docs paths in this migration track.
 
 - Ark UI routing index: `https://ark-ui.com/llms.txt`
 - Prefer Ark MCP from `.ai/mcp/mcp.json` when direct fetch is blocked by site protection.
-- Component docs pattern: `https://ark-ui.com/docs/components/<component-slug>`
 - Component mdx docs pattern: `https://ark-ui.com/docs/components/<component-slug>.mdx`
+- Component docs pattern: `https://ark-ui.com/docs/components/<component-slug>`
 - Ark styling guide: `https://ark-ui.com/docs/guides/styling`
 - Chakra UI component docs: `https://chakra-ui.com/docs/components/<component-slug>`
+- Chakra UI mdx component docs: `https://chakra-ui.com/docs/components/<component-slug>.mdx`
+
+Before changing any Ark UI component, first analyze the target component and collect current upstream context from
+either Ark MCP or the online MDX documentation at `https://ark-ui.com/docs/components/<component-slug>.mdx`.
 
 ## Scope
 
@@ -147,16 +151,17 @@ What this reference demonstrates:
 
 ## Migration Checklist
 
-1. Identify current Base UI/custom contract and target Ark contract.
-2. Rewrite wrapper parts to Ark primitives and Ark naming.
-3. For overlay and floating families, remove hidden structural sugar and expose explicit Ark composition.
-4. For non-primitive components, replace Base `useRender` with Ark `asChild`/`ark` factory or native DOM API.
-5. Drop compatibility shims and legacy prop translations.
-6. Update CSS selectors/state hooks to Ark attributes and variables.
-7. Rewrite stories, local markdown, and docs examples to the Ark API and Ark composition model.
-8. Ensure docs/examples cover the relevant Ark examples first, then add moduix-specific sugar examples after them.
-9. Run required repo validation sequence from `AGENTS.md`.
-10. Rebuild registry artifacts when required.
+1. Load and analyze target Ark component context from Ark MCP or `https://ark-ui.com/docs/components/<component-slug>.mdx`.
+2. Identify current Base UI/custom contract and target Ark contract.
+3. Rewrite wrapper parts to Ark primitives and Ark naming.
+4. For overlay and floating families, remove hidden structural sugar and expose explicit Ark composition.
+5. For non-primitive components, replace Base `useRender` with Ark `asChild`/`ark` factory or native DOM API.
+6. Drop compatibility shims and legacy prop translations.
+7. Update CSS selectors/state hooks to Ark attributes and variables.
+8. Rewrite stories, local markdown, and docs examples to the Ark API and Ark composition model.
+9. Ensure docs/examples cover the relevant Ark examples first, then add moduix-specific sugar examples after them.
+10. Run required repo validation sequence from `AGENTS.md`.
+11. Rebuild registry artifacts when required.
 
 ## Lessons from current migration wave
 
