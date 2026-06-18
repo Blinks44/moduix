@@ -3,89 +3,96 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/avatar
+- Chakra UI: https://chakra-ui.com/docs/components/avatar
 
 ## Purpose
 
-`Avatar` is the moduix wrapper around Ark UI Avatar for compact identity media such as profile
-photos, initials, and icon fallbacks.
-
-The wrapper keeps Ark loading and state behavior intact while adding moduix default styles, CSS
-variables, stable `data-slot` hooks, and a small root `size` shortcut.
+`Avatar` renders identity media with Ark UI image loading, fallback visibility, context access, and
+externally owned state.
 
 ## Upstream model to preserve
 
-- Uses the Ark UI avatar primitive directly.
-- Keeps Ark anatomy centered on `Root`, `Image`, and `Fallback`.
-- Keeps Ark image lifecycle, `onStatusChange(details)`, and `data-state` visibility model intact.
+- Use the Ark UI avatar primitive directly.
+- Preserve `Root`, `RootProvider`, `Fallback`, `Image`, and `Context`.
+- Preserve `useAvatar`, `useAvatarContext`, Ark callback detail objects, and context state methods.
+- Keep the image lifecycle and `data-state="visible" | "hidden"` behavior owned by Ark.
 
 ## Current behavior contract
 
-- Uses Ark composition: `Avatar.Root`, `Avatar.Image`, and `Avatar.Fallback`.
-- Supports Ark root props such as `asChild`, `ids`, and `onStatusChange(details)`.
-- Keeps Ark `data-state="visible" | "hidden"` attributes on image and fallback parts.
-- `size` is the only local root prop. It maps common token sizes to `data-size`.
-- The wrapper does not add custom loading state, delay props, or Base UI compatibility aliases.
+- `Avatar` and `Avatar.Root` are the same styled root component.
+- `Avatar.RootProvider` applies the same visual contract to state created by `useAvatar`.
+- `Avatar.Context` exposes the Ark context through a render prop.
+- `useAvatar` and `useAvatarContext` are exported from `moduix`.
+- `size` is the only local behavior-neutral prop. It is available on `Root` and `RootProvider`.
+- No Base UI `render`, delay, loading-state adapter, or callback compatibility API remains.
 
 ## Anatomy and exported parts
 
 ```text
-Avatar.Root
+Avatar.Root | Avatar.RootProvider
+├─ Avatar.Fallback
 ├─ Avatar.Image
-└─ Avatar.Fallback
-   └─ initials | icon | custom content
+└─ Avatar.Context (optional)
 ```
 
-Every exported part accepts `className` and receives a stable `data-slot`:
+| Part                  | `data-slot`            | Notes                                          |
+| --------------------- | ---------------------- | ---------------------------------------------- |
+| `Avatar.Root`         | `avatar-root`          | Creates Ark state and accepts local `size`.    |
+| `Avatar.RootProvider` | `avatar-root-provider` | Uses `useAvatar` state and accepts `size`.     |
+| `Avatar.Fallback`     | `avatar-fallback`      | Visible while the image is absent or hidden.   |
+| `Avatar.Image`        | `avatar-image`         | Native image shown after successful loading.   |
+| `Avatar.Context`      | none                   | Render-prop access to the current Ark context. |
 
-| Part              | `data-slot`       | Notes                                      |
-| ----------------- | ----------------- | ------------------------------------------ |
-| `Avatar.Root`     | `avatar-root`     | Styled Ark root with local `size` sugar.   |
-| `Avatar.Image`    | `avatar-image`    | Visible image when loading succeeds.       |
-| `Avatar.Fallback` | `avatar-fallback` | Fallback while image is hidden or missing. |
+Public hooks and types include `useAvatar`, `useAvatarContext`, `AvatarStatusChangeDetails`,
+`AvatarContextProps`, `UseAvatarProps`, `UseAvatarReturn`, `UseAvatarContext`, part prop types, and
+the local `AvatarSize`, `AvatarRootProps`, and `AvatarRootProviderProps`.
 
 ## Composition
 
 ```tsx
 import { Avatar } from 'moduix';
 
-const avatarImage =
-  'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
-
 export function AvatarExample() {
   return (
     <Avatar.Root>
-      <Avatar.Image src={avatarImage} alt="Alex T." />
       <Avatar.Fallback>LT</Avatar.Fallback>
+      <Avatar.Image src="/avatar.jpg" alt="Alex T." />
     </Avatar.Root>
   );
 }
 ```
 
-Use `Avatar.Image` and `Avatar.Fallback` together for user pictures. Use fallback-only composition
-when there is no image source.
+For externally owned state, call `useAvatar()` and render `Avatar.RootProvider value={avatar}`.
+Do not wrap that provider with `Avatar.Root` for the same state instance.
 
-Use `asChild` on `Avatar.Root`, `Avatar.Image`, or `Avatar.Fallback` when another element must own
-the rendered DOM node.
+Use `Avatar.Context` for inline state reads and `useAvatarContext` in reusable custom descendants.
+Use `asChild` with one semantic child when another element must own a part's DOM node.
 
 ## Upstream feature coverage
 
-- `Anatomy`: preserved directly through the exported Ark-shaped parts.
-- `Basic`: preserved through the standard root/image/fallback path.
-- `Events`: preserved through `onStatusChange(details)`.
-- `Root Provider` and `Context`: intentionally not exported by the current wrapper surface.
-- `Next.js Image` and other custom image integrations: supported via Ark `asChild` and preserved
-  visibility semantics, but not wrapped as moduix-specific helpers.
+- Anatomy and Basic: all Ark parts use the upstream composition model.
+- Events: `onStatusChange(details)` is passed through without remapping.
+- Context: `Avatar.Context` and `useAvatarContext` are public.
+- Provider and Root Provider: `useAvatar` and styled `Avatar.RootProvider` are public.
+- Custom image integrations: `useAvatarContext().getImageProps()` remains available for framework
+  image components.
+- Stable IDs: Ark `ids` remains available on `Avatar.Root` and through `useAvatar`.
 
 ## Accessibility and state
 
-- Ark state and data attributes remain available:
-  - `data-scope="avatar"` and `data-part="root" | "image" | "fallback"`
-  - `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`
-- Ark callback shapes remain unchanged:
-  - `onStatusChange(details)` with `details.status`
-- `Avatar.Root` also sets `data-size` when the local `size` prop is provided.
+- `Avatar.Image` renders a native `img`; consumers must provide appropriate `alt` text.
+- Use `alt=""` when an interactive parent already provides the accessible name.
+- Refs target the rendered Ark DOM parts: root/provider `div`, fallback `span`, and image `img`.
+- `asChild` requires one child with the correct semantics for its role.
+- Ark exposes `data-scope="avatar"` and `data-part="root" | "fallback" | "image"`.
+- `Avatar.Image` and `Avatar.Fallback` expose `data-state="visible" | "hidden"`.
+- Context exposes `loaded`, `setSrc`, `setLoaded`, and `setError`.
+- Avatar has no form value, `HiddenInput`, `Field`, or `Fieldset` integration.
 
 ## Defaults and styling
+
+Both root components accept `className`, receive the root styles, and set `data-size` when `size` is
+provided.
 
 | `size` | Root size token | Text token  |
 | ------ | --------------- | ----------- |
@@ -95,41 +102,43 @@ the rendered DOM node.
 | `lg`   | `--size-lg`     | `--text-lg` |
 | `xl`   | `--size-xl`     | `--text-lg` |
 
-Primary CSS variables:
+Public CSS variables:
 
-| Variable                         | Default                      |
-| -------------------------------- | ---------------------------- |
-| `--avatar-bg`                    | `var(--color-muted)`         |
-| `--avatar-color`                 | `var(--color-foreground)`    |
-| `--avatar-fallback-bg`           | `var(--avatar-bg)`           |
-| `--avatar-fallback-color`        | `inherit`                    |
-| `--avatar-fallback-padding`      | `0`                          |
-| `--avatar-font-size`             | `var(--text-md)`             |
-| `--avatar-font-weight`           | `var(--weight-medium)`       |
-| `--avatar-image-object-fit`      | `cover`                      |
-| `--avatar-image-object-position` | `center`                     |
-| `--avatar-line-height`           | `var(--line-height-text-md)` |
-| `--avatar-radius`                | `var(--radius-full)`         |
-| `--avatar-size`                  | `var(--size-md)`             |
+- `--avatar-bg`
+- `--avatar-color`
+- `--avatar-fallback-bg`
+- `--avatar-fallback-color`
+- `--avatar-fallback-padding`
+- `--avatar-font-size`
+- `--avatar-font-weight`
+- `--avatar-image-object-fit`
+- `--avatar-image-object-position`
+- `--avatar-line-height`
+- `--avatar-radius`
+- `--avatar-size`
+
+State-dependent styling should target Ark `data-state`; local visual hooks should use `data-slot`
+or the public CSS variables.
 
 ## Intentional sugar and differences from upstream
 
-- moduix ships pre-styled defaults; Ark is headless.
-- moduix exports only the Ark-shaped namespace API: `Avatar.Root`, `Avatar.Image`,
-  `Avatar.Fallback`.
-- moduix keeps the local `size` prop on `Avatar.Root` as styling sugar for common token sizes.
+- moduix supplies visual defaults while Ark UI remains headless.
+- `size="xs" | "sm" | "md" | "lg" | "xl"` maps to moduix tokens on both root components.
+- moduix adds stable `data-slot` hooks.
+- No Chakra-only fallback `name`, variant, shape, color palette, group, badge, or icon API is added.
+  Those patterns remain explicit composition and styling.
 
 ## Agent notes
 
-- Preserve Ark callback shape: `onStatusChange(details)` with `details.status`.
-- Do not reintroduce Base UI `render` or `delay` contracts.
-- Keep styling hooks aligned with Ark `data-state` and `data-part` instead of Base UI transition
-  attributes.
+- Keep the complete Ark provider/context/hook surface exported from the package barrel.
+- Preserve `onStatusChange(details)` and the original context method names.
+- Keep `RootProvider` styled like `Root`, but never create another state owner inside it.
+- Do not reintroduce Base UI `render`, delay, or transition attributes.
 
 ## Local changelog
 
-- 2026-06-17: Migrated Avatar from Base UI to Ark UI, adopted namespace parts
-  (`Avatar.Root/Image/Fallback`), replaced `render` with Ark `asChild`, and moved docs/examples to
-  `onStatusChange(details)` and Ark state attributes.
-- 2026-06-17: Removed Base UI-only image motion tokens and other legacy compatibility surface that
-  no longer exists in the Ark wrapper.
+- 2026-06-18: Completed Ark UI parity by exporting `RootProvider`, `Context`, `useAvatar`,
+  `useAvatarContext`, and related types; added root-provider styling and state selectors; aligned
+  stories and docs with Ark composition and provider/context examples.
+- 2026-06-17: Migrated Avatar from Base UI to Ark UI, adopted `Root`, `Image`, and `Fallback`,
+  replaced `render` with `asChild`, and removed Base UI-only loading and motion contracts.

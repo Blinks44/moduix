@@ -49,4 +49,10 @@
     font-size: var(--text-sm);
     line-height: var(--line-height-text-sm);
   }
+
+  .providerStory {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
 }

@@ -8,6 +8,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    position: relative;
     border-radius: var(--avatar-radius, var(--radius-full));
     background-color: var(--avatar-bg, var(--color-muted));
     color: var(--avatar-color, var(--color-foreground));
@@ -48,9 +49,15 @@
     height: 100%;
     object-fit: var(--avatar-image-object-fit, cover);
     object-position: var(--avatar-image-object-position, center);
+    border-radius: inherit;
 
     &[data-state='visible'] {
+      display: block;
       opacity: 1;
+    }
+
+    &[data-state='hidden'] {
+      display: none;
     }
   }
 
@@ -63,5 +70,15 @@
     padding: var(--avatar-fallback-padding, 0);
     background-color: var(--avatar-fallback-bg, var(--avatar-bg, var(--color-muted)));
     color: var(--avatar-fallback-color, inherit);
+    border-radius: inherit;
+    line-height: 1;
+
+    &[data-state='visible'] {
+      display: inline-flex;
+    }
+
+    &[data-state='hidden'] {
+      display: none;
+    }
   }
 }

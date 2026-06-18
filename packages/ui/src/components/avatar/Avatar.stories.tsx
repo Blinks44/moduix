@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { ComputerIcon } from '@/icons/demo';
-import { Avatar } from './Avatar';
+import { Avatar, useAvatar } from './Avatar';
 import styles from './Avatar.stories.module.css';
 
 const meta = {
@@ -24,10 +24,27 @@ function StatusChangeAvatar() {
   return (
     <div className={styles.statusStory}>
       <Avatar.Root onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Image src={imageUrl} alt="Alex T." />
         <Avatar.Fallback>LT</Avatar.Fallback>
+        <Avatar.Image src={imageUrl} alt="Alex T." />
       </Avatar.Root>
       <span className={styles.statusLabel}>status: {status}</span>
+    </div>
+  );
+}
+
+function RootProviderAvatar() {
+  const [count, setCount] = useState(0);
+  const avatar = useAvatar();
+
+  return (
+    <div className={styles.providerStory}>
+      <button type="button" onClick={() => setCount((value) => value + 1)}>
+        Change avatar
+      </button>
+      <Avatar.RootProvider value={avatar}>
+        <Avatar.Fallback>LT</Avatar.Fallback>
+        <Avatar.Image src={`${imageUrl}&seed=${count}`} alt="Alex T." />
+      </Avatar.RootProvider>
     </div>
   );
 }
@@ -36,8 +53,8 @@ export const Basic: Story = {
   render: () => {
     return (
       <Avatar.Root>
-        <Avatar.Image src={imageUrl} alt="Alex T." />
         <Avatar.Fallback>LT</Avatar.Fallback>
+        <Avatar.Image src={imageUrl} alt="Alex T." />
       </Avatar.Root>
     );
   },
@@ -72,8 +89,8 @@ export const AsChildComposition: Story = {
     return (
       <Avatar.Root asChild size="xl" className={styles.linkAvatar}>
         <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-          <Avatar.Image className={styles.linkAvatarImage} src={imageUrl} alt="" />
           <Avatar.Fallback className={styles.linkAvatarFallback}>LT</Avatar.Fallback>
+          <Avatar.Image className={styles.linkAvatarImage} src={imageUrl} alt="" />
         </a>
       </Avatar.Root>
     );
@@ -84,12 +101,29 @@ export const StatusChange: Story = {
   render: () => <StatusChangeAvatar />,
 };
 
+export const Context: Story = {
+  render: () => {
+    return (
+      <Avatar.Root>
+        <Avatar.Context>
+          {(avatar) => <Avatar.Fallback>{avatar.loaded ? 'LT' : 'Loading'}</Avatar.Fallback>}
+        </Avatar.Context>
+        <Avatar.Image src={imageUrl} alt="Alex T." />
+      </Avatar.Root>
+    );
+  },
+};
+
+export const RootProvider: Story = {
+  render: () => <RootProviderAvatar />,
+};
+
 export const ImageError: Story = {
   render: () => {
     return (
       <Avatar.Root>
-        <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
         <Avatar.Fallback>NA</Avatar.Fallback>
+        <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
       </Avatar.Root>
     );
   },

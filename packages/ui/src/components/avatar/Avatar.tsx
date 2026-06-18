@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from 'react';
-import { Avatar as AvatarPrimitive } from '@ark-ui/react/avatar';
+import { Avatar as AvatarPrimitive, useAvatar, useAvatarContext } from '@ark-ui/react/avatar';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -7,6 +7,9 @@ import styles from './Avatar.module.css';
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> & {
+  size?: AvatarSize;
+};
+type AvatarRootProviderProps = ComponentProps<typeof AvatarPrimitive.RootProvider> & {
   size?: AvatarSize;
 };
 
@@ -23,6 +26,21 @@ const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarR
     );
   },
 );
+
+const AvatarRootProvider = forwardRef<
+  ComponentRef<typeof AvatarPrimitive.RootProvider>,
+  AvatarRootProviderProps
+>(function AvatarRootProvider({ className, size, ...props }, ref) {
+  return (
+    <AvatarPrimitive.RootProvider
+      ref={ref}
+      data-slot="avatar-root-provider"
+      data-size={size}
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
 const AvatarImage = forwardRef<
   ComponentRef<typeof AvatarPrimitive.Image>,
@@ -52,10 +70,28 @@ const AvatarFallback = forwardRef<
   );
 });
 
+const AvatarContext = AvatarPrimitive.Context;
+
 const Avatar = Object.assign(AvatarRoot, {
   Root: AvatarRoot,
+  RootProvider: AvatarRootProvider,
   Image: AvatarImage,
   Fallback: AvatarFallback,
+  Context: AvatarContext,
 });
 
-export { Avatar };
+export { Avatar, useAvatar, useAvatarContext };
+export type {
+  AvatarContextProps,
+  AvatarFallbackBaseProps,
+  AvatarFallbackProps,
+  AvatarImageBaseProps,
+  AvatarImageProps,
+  AvatarRootBaseProps,
+  AvatarRootProviderBaseProps,
+  AvatarStatusChangeDetails,
+  UseAvatarContext,
+  UseAvatarProps,
+  UseAvatarReturn,
+} from '@ark-ui/react/avatar';
+export type { AvatarRootProps, AvatarRootProviderProps, AvatarSize };

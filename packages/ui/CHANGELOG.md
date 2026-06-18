@@ -1,5 +1,12 @@
 # moduix
 
+## Unreleased
+
+### Minor Changes
+
+- Complete the Avatar Ark UI contract with `RootProvider`, `Context`, `useAvatar`,
+  `useAvatarContext`, and their public types.
+
 ## 1.0.5
 
 ### Patch Changes
