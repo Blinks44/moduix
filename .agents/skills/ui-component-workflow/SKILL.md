@@ -37,6 +37,24 @@ Build thin styled wrappers over Ark UI primitives and Ark-style contracts:
 
 Small DX sugar is acceptable only when it removes repeated production boilerplate without hiding the real composition model.
 
+## Ark Contract Rules
+
+- Use Ark React primitives from `@ark-ui/react/<component>` as the behavior source for Ark-backed components.
+- Keep Ark parts, controlled/uncontrolled props, callback detail objects, and state shapes intact.
+- For form controls, preserve Ark `HiddenInput` when native form submission or reset must work.
+- Let `Field.Root` and `Fieldset.Root` provide `disabled`, `invalid`, `required`, and `readOnly` context instead of
+  duplicating those states in wrapper code.
+- Forward consumer refs to the actual Ark part that renders the intended DOM element. This matters for form-library
+  invalid focus, imperative measurement, and trigger/control integration.
+- Use `Component.Context` for one-off inline state reads, `use*Context` hooks for reusable child parts, and
+  `useComponent` plus `RootProvider` only for state controlled outside the rendered tree.
+- When using `RootProvider`, skip the matching `Root` for that same instance.
+- Use `asChild` for custom host components on Ark parts. The child must be a single element and must keep required
+  accessibility and interaction semantics.
+- Use the `ark` factory for local standalone polymorphic elements that should behave like Ark elements.
+- Use Ark `ids` props when separate Ark components must share accessibility or interaction IDs.
+- Do not reintroduce Base UI `render` contracts, local state handles, or converted callbacks in migrated code.
+
 ## Core Rules
 
 - Keep the standard component shape:
@@ -73,6 +91,12 @@ If the answer is weak, simplify or remove it.
 
 - Use tokens from `src/styles/*`.
 - Add public styling tokens to `src/styles/theme.css` with `initial` and a nearby default-value comment.
+- Preserve Ark `data-scope`, `data-part`, `data-state`, and component-specific state attributes on styled parts.
+- Keep `data-slot` hooks as moduix-facing stable selectors layered on top of Ark attributes.
+- Use Ark runtime CSS variables such as positioning, sizing, transform-origin, and measured height variables when the
+  primitive exposes them. Do not replace those with duplicated measurements.
+- Prefer CSS animations tied to Ark state attributes. Use Ark `present` only when JavaScript animation libraries need
+  control over exit mounting.
 - Keep selectors flat and readable. Remove dead classes, modifiers, and obsolete CSS variables.
 - Put demo-only layout styles in stories CSS, not library CSS.
 - Stories and local component markdown must match the shipped API.

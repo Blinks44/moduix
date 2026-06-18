@@ -23,6 +23,20 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
 - Keep component CSS and demo CSS separate. Library styling belongs in `packages/ui`; demo-only layout belongs in stories or docs example CSS.
 
+## Ark Styling
+
+- Target Ark parts with `data-scope` and `data-part` when the selector needs to bind to the upstream anatomy.
+- Target Ark state with state attributes such as `data-state`, `data-disabled`, `data-invalid`, `data-focus`,
+  `data-highlighted`, `data-selected`, and component-specific attributes from the Ark docs.
+- Keep moduix `data-slot` and local class selectors for public styling hooks and visual defaults. Do not rely on
+  structure-only selectors when Ark attributes or `data-slot` can express the contract.
+- Preserve and use Ark runtime CSS variables for measured layout, popup sizing, transform origin, and animations
+  when the primitive provides them.
+- For mount and unmount animations, prefer CSS keyframes on `[data-state='open']` and `[data-state='closed']`.
+  JavaScript animation paths should rely on Ark `present` in component code rather than CSS-only assumptions.
+- Do not translate Ark state attributes into parallel custom modifier classes unless the wrapper exposes an
+  intentional local styling contract.
+
 ## Nesting
 
 - Use modern CSS nesting so states, nested selectors, and media conditions stay close to the base selector.

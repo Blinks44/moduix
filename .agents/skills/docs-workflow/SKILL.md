@@ -45,6 +45,14 @@ Use this skill for work in `apps/docs`.
   moduix wrapper still exposes.
 - moduix additions must be documented as a second layer on top of Ark behavior. Do not replace the Ark mental
   model with a local-only narrative.
+- For form components, show Ark `Field` / `Fieldset` context integration and include `HiddenInput` wherever the
+  shipped control needs native form submission or reset behavior.
+- For custom host elements, teach `asChild` and keep examples to a single semantic child. Do not use Base UI `render`
+  examples in Ark-backed docs.
+- For state access, document the Ark choice that fits the example: `Component.Context` for inline reads,
+  `use*Context` for custom child parts, and `useComponent` plus `RootProvider` for state controlled outside the tree.
+- For animated mounted content, show CSS state selectors first and mention `present` only when JavaScript exit
+  animation control is the reason.
 - If a component has no dedicated Ark UI primitive page, say that explicitly in `API Reference` and anchor the
   page to the relevant Ark guide or factory model plus Chakra anatomy when Chakra informs the public contract.
 - For root-only components where the public export is the same root component with `.Root` attached, teach the

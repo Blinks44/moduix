@@ -20,6 +20,9 @@ Use this skill when work spans `packages/ui` and `apps/docs`.
 - When `packages/ui` changed, wait for `npm run build:ui` to finish successfully before starting
   `npm run tsc:check`. Do not run those commands in parallel.
 - Keep code, stories, local component docs, and site docs aligned to the same current API.
+- Keep Ark-backed behavior described consistently across all surfaces: parts, refs, `HiddenInput`, `Field`/`Fieldset`
+  context, callback detail objects, `asChild`, `ids`, context hooks, `RootProvider`, state attributes, and CSS
+  variables should match the shipped wrapper.
 - Sync README files when install paths, styling entrypoints, or ownership guidance changes, and keep wording consistent with `quick-start.mdx`.
 - Remove docs for deleted props, types, styling hooks, feature flags, and legacy examples in the same task.
 - Teach the recommended default path first. Keep lower-level composition as the advanced path.

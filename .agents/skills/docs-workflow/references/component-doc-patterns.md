@@ -45,7 +45,8 @@ Inside `## Styling`, always use:
 - `Install with shadcn`: comes immediately after `Basic`.
 - `Anatomy`: structure only. Keep it short: ASCII tree plus concise part roles.
 - `Composition`: public contract, recommended part tree, escape hatches, defaults, and behavioral constraints.
-  - Document preserved Ark callback shapes, provider/context patterns, and moduix sugar here.
+  - Document preserved Ark callback shapes, `ref` targets, form context, `HiddenInput`, provider/context patterns,
+    `asChild`, `ids`, and moduix sugar here when relevant.
 - `Examples`: start where `Basic` stops. Move into narrower, more specific, or more advanced cases.
   - For Ark-backed components, order examples to follow the relevant Ark docs topics first, then add moduix-only sugar or styling examples.
   - Every example heading must be followed by a short explanatory lead-in before the preview. Do not render a preview immediately under the heading.
@@ -92,6 +93,16 @@ Inside `## Styling`, always use:
   - recommended composition path
   - examples and guides the wrapper still supports
   - public API parts, state hooks, and styling hooks that remain visible to consumers
+- Cover Ark guide behavior that the component exposes:
+  - `Field.Root` / `Fieldset.Root` state inheritance and visible labels/helper/error text for form controls
+  - `HiddenInput` for native form submission and form reset synchronization
+  - `ref` forwarding targets for form-library invalid focus and imperative access
+  - `asChild` composition and single semantic child constraints
+  - shared `ids` props for cross-component accessibility composition
+  - `Component.Context`, `use*Context`, and `RootProvider` state access patterns
+  - CSS animations on Ark state attributes and `present` for JavaScript exit animations
+  - `data-scope`, `data-part`, `data-state`, other Ark state attributes, Ark CSS variables, and moduix `data-slot`
+    hooks
 - Do not silently omit an upstream concept that the wrapper still exposes.
 - If an upstream concept is intentionally unsupported, renamed, or constrained, state that explicitly in
   `Composition` or the relevant example description.

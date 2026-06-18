@@ -22,6 +22,11 @@ Solid/Vue/Svelte-specific APIs or docs paths in this migration track.
 - Prefer Ark MCP from `.ai/mcp/mcp.json` when direct fetch is blocked by site protection.
 - Component mdx docs pattern: `https://ark-ui.com/docs/components/<component-slug>.mdx`
 - Component docs pattern: `https://ark-ui.com/docs/components/<component-slug>`
+- Ark ref guide: `https://ark-ui.com/docs/guides/ref`
+- Ark forms guide: `https://ark-ui.com/docs/guides/forms`
+- Ark animation guide: `https://ark-ui.com/docs/guides/animation`
+- Ark component state guide: `https://ark-ui.com/docs/guides/component-state`
+- Ark composition guide: `https://ark-ui.com/docs/guides/composition`
 - Ark styling guide: `https://ark-ui.com/docs/guides/styling`
 - Chakra UI component docs: `https://chakra-ui.com/docs/components/<component-slug>`
 - Chakra UI mdx component docs: `https://chakra-ui.com/docs/components/<component-slug>.mdx`
@@ -57,14 +62,31 @@ either Ark MCP or the online MDX documentation at `https://ark-ui.com/docs/compo
 - Remove legacy prop aliases and converted callback signatures from old wrappers.
 - Remove adapter logic that only exists for backward compatibility.
 - Keep wrappers thin: styling defaults, `className`, `data-slot`, and minimal DX sugar only.
+- Forward refs to the Ark DOM part consumers need to target. For form integrations, this is the part that should
+  receive invalid focus.
+- Preserve Ark `HiddenInput` parts for controls that participate in native form submission or form reset.
+- Use Ark `Field.Root` and `Fieldset.Root` context for shared `disabled`, `invalid`, `required`, and `readOnly`
+  state instead of local form-state wiring.
+- Use Ark state access patterns directly:
+  - `Component.Context` for inline render-prop state reads
+  - `use*Context` hooks for reusable child components
+  - `useComponent` plus `RootProvider` for state owned outside the rendered tree
+- When using `RootProvider`, do not also render the matching `Root` for the same state instance.
+- Use `asChild` for custom host elements and keep the child single, semantic, and capable of the required
+  interaction behavior.
+- Use Ark `ids` props when multiple components or parts need shared IDs for accessibility or interaction wiring.
 - Keep structural composition explicit for overlay and floating families. Do not hide `Portal`, `Positioner`, `Backdrop`,
   `Content`, `Popup`, `Viewport`, or equivalent structural parts behind high-level `*Content` convenience wrappers.
 - Allowed sugar should stay narrow and leaf-level: default icons, `Arrow` with built-in `ArrowTip` when the upstream
   family supports it, or close triggers with default visuals. Do not let sugar replace the real composition model.
 - Keep Ark accessibility, keyboard behavior, focus lifecycle, and state attributes intact.
-- Style state through Ark data attributes and CSS variables exposed by Ark measurements/state (for example, `--height` where applicable).
+- Style state through Ark `data-scope`, `data-part`, `data-state`, component state attributes, and CSS variables
+  exposed by Ark measurements/state (for example, `--height`, available size, reference size, and transform origin
+  where applicable).
 - Follow Ark styling mechanics (parts/state attributes/CSS variable patterns), but map visuals to moduix design
   tokens and contracts (colors, radii, spacing, typography, shadows, motion).
+- Prefer CSS keyframes on Ark open/closed state attributes for mount and unmount transitions. Use Ark `present` when
+  JavaScript animation libraries need to complete exit animations before unmount.
 - Do not copy Ark visual defaults; preserve moduix visual identity while aligning implementation patterns.
 - Remove Base UI remnants created by migration drift (imports, prop aliases, helper wrappers, stale docs references,
   and config entries such as optimizeDeps lists) in the same task.
@@ -157,11 +179,13 @@ What this reference demonstrates:
 4. For overlay and floating families, remove hidden structural sugar and expose explicit Ark composition.
 5. For non-primitive components, replace Base `useRender` with Ark `asChild`/`ark` factory or native DOM API.
 6. Drop compatibility shims and legacy prop translations.
-7. Update CSS selectors/state hooks to Ark attributes and variables.
-8. Rewrite stories, local markdown, and docs examples to the Ark API and Ark composition model.
-9. Ensure docs/examples cover the relevant Ark examples first, then add moduix-specific sugar examples after them.
-10. Run required repo validation sequence from `AGENTS.md`.
-11. Rebuild registry artifacts when required.
+7. Preserve refs, `HiddenInput`, `Field`/`Fieldset` context, `ids`, context hooks, and `RootProvider` patterns when
+   the target Ark component exposes them.
+8. Update CSS selectors/state hooks to Ark attributes and variables.
+9. Rewrite stories, local markdown, and docs examples to the Ark API and Ark composition model.
+10. Ensure docs/examples cover the relevant Ark examples first, then add moduix-specific sugar examples after them.
+11. Run required repo validation sequence from `AGENTS.md`.
+12. Rebuild registry artifacts when required.
 
 ## Lessons from current migration wave
 

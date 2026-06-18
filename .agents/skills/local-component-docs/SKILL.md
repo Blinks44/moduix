@@ -36,6 +36,20 @@ Document:
 - constraints or edge cases that affect implementation
 - agent notes worth preserving
 
+## Ark Topics To Capture
+
+When the wrapper exposes the relevant behavior, document these Ark guide concepts explicitly:
+
+- `ref` behavior for the root, trigger, input, or control parts that consumers or form libraries should target.
+- `Field.Root` / `Fieldset.Root` context integration for `disabled`, `invalid`, `required`, and `readOnly`.
+- `HiddenInput` requirements for native form submission and form reset synchronization.
+- `asChild` and `ark` factory composition paths, including the single-child and semantic-element constraints.
+- `ids` usage when the component composes with another Ark component and shared accessibility IDs are required.
+- `Component.Context`, `use*Context`, and `RootProvider` support when the wrapper exposes those Ark state patterns.
+- `present`, lazy mounting, and CSS exit-animation behavior when the component mounts and unmounts content.
+- `data-scope`, `data-part`, `data-state`, other Ark state attributes, Ark CSS variables, and moduix `data-slot`
+  hooks that consumers can target.
+
 ## Required Structure
 
 Every `packages/ui/src/components/<component-name>/<component-name>.md` file must use this section order:
@@ -99,9 +113,11 @@ but do not omit them.
     provider/context patterns, lazy mount, vertical mode, autoplay, and similar component-specific flows.
   - If a relevant upstream topic is intentionally unsupported or changed, say so explicitly.
 - `Accessibility and state`
-  - Document preserved Ark callback shapes, ARIA behavior, data attributes, CSS variables, and state hooks.
+  - Document preserved Ark callback shapes, ARIA behavior, refs, `Field`/`Fieldset` context, `HiddenInput`, data
+    attributes, CSS variables, and state hooks.
 - `Defaults and styling`
-  - Document `className` support, theme tokens, CSS variables, and styling hooks added by moduix.
+  - Document `className` support, theme tokens, Ark CSS variables, CSS animation/state hooks, and styling hooks added
+    by moduix.
 - `Intentional sugar and differences from upstream`
   - Separate moduix styling defaults and DX additions from upstream Ark behavior.
   - Document all renamed, removed, or added wrapper behaviors here.
