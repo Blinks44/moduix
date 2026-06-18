@@ -1,5 +1,6 @@
 export * from './lib/moduix/icons/ui';
 export * from './icons/demo';
+export { Portal } from '@ark-ui/react/portal';
 
 export * from './components/aspect-ratio';
 export * from './components/accordion';
@@ -15,6 +16,7 @@ export * from './components/checkbox';
 export * from './components/clipboard';
 export * from './components/close-button';
 export * from './components/collapsible';
+export * from './components/color-picker';
 export * from './components/combobox';
 export * from './components/command-palette';
 export * from './components/container';

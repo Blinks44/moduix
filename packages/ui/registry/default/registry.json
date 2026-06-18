@@ -480,6 +480,31 @@
       ]
     },
     {
+      "name": "color-picker",
+      "type": "registry:item",
+      "title": "ColorPicker",
+      "description": "moduix ColorPicker component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/core"],
+      "files": [
+        {
+          "path": "packages/ui/src/components/color-picker/ColorPicker.tsx",
+          "target": "@components/moduix/color-picker/ColorPicker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/ui/src/components/color-picker/ColorPicker.module.css",
+          "target": "@components/moduix/color-picker/ColorPicker.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/ui/src/components/color-picker/index.ts",
+          "target": "@components/moduix/color-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "command-palette",
       "type": "registry:item",
       "title": "CommandPalette",

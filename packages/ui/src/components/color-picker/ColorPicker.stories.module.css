@@ -1,0 +1,41 @@
+.demoRoot {
+  --color-picker-width: 18rem;
+}
+
+.inlineRoot {
+  --color-picker-width: 17rem;
+}
+
+.valueRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sliderGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.channelSliders {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.inputRow {
+  display: flex;
+  min-width: 0;
+  gap: 0.5rem;
+}
+
+.customRoot {
+  --color-picker-width: 18rem;
+  --color-picker-focus-ring-color: var(--color-chart-4);
+  --color-picker-thumb-outer-ring-color: color-mix(in oklab, var(--color-chart-4) 45%, transparent);
+  --color-picker-action-color-hover: var(--color-chart-4);
+}

@@ -43,6 +43,9 @@ Use this skill for work in `apps/docs`.
 - If a component has a dedicated Ark UI page, the docs page must mirror the upstream Ark mental model first:
   anatomy, recommended composition path, relevant examples, guides, state hooks, and styling hooks that the
   moduix wrapper still exposes.
+- When a component has a dedicated Ark UI examples section, moduix docs examples should cover at least 80% of
+  those upstream Ark examples, adapted to the public moduix API and merged only when examples teach the same
+  consumer-facing pattern.
 - moduix additions must be documented as a second layer on top of Ark behavior. Do not replace the Ark mental
   model with a local-only narrative.
 - For form components, show Ark `Field` / `Fieldset` context integration and include `HiddenInput` wherever the

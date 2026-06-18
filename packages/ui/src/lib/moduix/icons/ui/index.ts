@@ -12,6 +12,7 @@ export {
   IndeterminateIcon,
   MinusIcon,
   PencilIcon,
+  PipetteIcon,
   PlusIcon,
   PopupArrowIcon,
   RatingStarIcon,
