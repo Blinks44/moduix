@@ -169,6 +169,8 @@ part of the visible UI instead of only a root prop.
 
 ### Controlled
 
+Control the current page when carousel state must stay in sync with external navigation, filters, or analytics.
+
 <Preview>
   <ControlledCarouselExample />
 
@@ -211,6 +213,8 @@ part of the visible UI instead of only a root prop.
 </Preview>
 
 ### Dynamic
+
+Update `slideCount` alongside the rendered items when slides can be added or removed after the initial render.
 
 <Preview>
   <DynamicSlidesCarouselExample />
@@ -267,6 +271,8 @@ part of the visible UI instead of only a root prop.
 
 ### Pause On Hover
 
+Pause autoplay on pointer hover when readers need time to inspect slide content without competing motion.
+
 <Preview>
   <PauseOnHoverCarouselExample />
 
@@ -312,6 +318,8 @@ part of the visible UI instead of only a root prop.
 
 ### Root Provider
 
+Use `Carousel.RootProvider` when the carousel store should be created outside the rendered subtree and reused across composition boundaries.
+
 <Preview>
   <RootProviderCarouselExample />
 
@@ -349,6 +357,8 @@ part of the visible UI instead of only a root prop.
 </Preview>
 
 ### Scroll to Slide
+
+Call the carousel API from context when another control should jump directly to a specific slide.
 
 <Preview>
   <ScrollToCarouselExample />
@@ -389,6 +399,8 @@ part of the visible UI instead of only a root prop.
 </Preview>
 
 ### Slides Per Page
+
+Increase `slidesPerPage` when the layout should preview multiple items at once instead of presenting one full-width panel.
 
 <Preview>
   <SlidesPerPageCarouselExample />
@@ -432,6 +444,8 @@ part of the visible UI instead of only a root prop.
 
 ### Spacing
 
+Tune `spacing` when adjacent slides need more separation for editorial layouts, product rails, or branded rhythm.
+
 <Preview>
   <SpacingCarouselExample />
 
@@ -473,6 +487,8 @@ part of the visible UI instead of only a root prop.
 
 ### Thumbnail Indicators
 
+Render custom indicator content when the pager itself should preview the slides instead of using plain dots.
+
 <Preview>
   <ThumbnailIndicatorCarouselExample />
 
@@ -511,6 +527,8 @@ part of the visible UI instead of only a root prop.
 </Preview>
 
 ### Variable Sizes
+
+Enable `autoSize` when slide widths should follow their content rather than a fixed page grid.
 
 <Preview>
   <VariableSizeCarouselExample />
@@ -559,6 +577,8 @@ part of the visible UI instead of only a root prop.
 
 ### Autoplay
 
+Use autoplay for passive galleries and pair it with visible controls so users can pause motion when needed.
+
 <Preview>
   <AutoplayCarouselExample />
 
@@ -593,6 +613,8 @@ part of the visible UI instead of only a root prop.
 </Preview>
 
 ### Loop
+
+Turn on `loop` when the carousel should wrap seamlessly from the last slide back to the first.
 
 <Preview>
   <LoopCarouselExample />
@@ -633,6 +655,8 @@ part of the visible UI instead of only a root prop.
 
 ### Mouse Drag
 
+Allow mouse drag when desktop users should be able to scrub through slides with the same gesture model as touch input.
+
 <Preview>
   <MouseDragCarouselExample />
 
@@ -671,6 +695,8 @@ part of the visible UI instead of only a root prop.
 </Preview>
 
 ### Vertical
+
+Switch to a vertical orientation when the carousel should stack movement and controls on the block axis.
 
 <Preview>
   <VerticalCarouselExample />

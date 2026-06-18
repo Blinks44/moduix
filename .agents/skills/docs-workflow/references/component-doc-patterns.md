@@ -46,6 +46,7 @@ Inside `## Styling`, always use:
   - Document preserved Ark callback shapes, provider/context patterns, and moduix sugar here.
 - `Examples`: start where `Basic` stops. Move into narrower, more specific, or more advanced cases.
   - For Ark-backed components, order examples to follow the relevant Ark docs topics first, then add moduix-only sugar or styling examples.
+  - Every example heading must be followed by a short explanatory lead-in before the preview. Do not render a preview immediately under the heading.
 - `Styling`: only when the component has a meaningful styling contract.
 
 ## Duplication Rules
@@ -74,7 +75,9 @@ Inside `## Styling`, always use:
 ## CSS Properties
 
 - In `### CSS Properties`, prefer the direct CSS variables reference UI over a duplicated prose table.
-- If the reference UI is long, wrap it in docs `Tabs` with a `CSS Variables` tab and a bounded scroll area.
+- Render the CSS variables reference in the same docs wrapper used by `accordion`:
+  a `not-prose` container, docs `Tabs` with a single `CSS Variables` tab, and a bounded scroll area on the tab panel.
+- Use this pattern even when the table is short so component pages stay visually consistent.
 - `CSS Properties` must cover the full public `--<component>-*` contract from `packages/ui/src/styles/theme.css`.
 - `Styling hooks` should cover meaningful `className`, `data-slot`, and state/data attributes consumers can actually target.
 

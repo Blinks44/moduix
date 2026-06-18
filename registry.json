@@ -384,7 +384,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix Checkbox component.",
-      "dependencies": ["@base-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -400,31 +400,6 @@
         {
           "path": "packages/ui/src/components/checkbox/index.ts",
           "target": "@components/moduix/checkbox/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "checkbox-group",
-      "type": "registry:item",
-      "title": "CheckboxGroup",
-      "description": "moduix CheckboxGroup component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core", "Blinks44/moduix/checkbox"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/checkbox-group/CheckboxGroup.tsx",
-          "target": "@components/moduix/checkbox-group/CheckboxGroup.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/checkbox-group/CheckboxGroup.module.css",
-          "target": "@components/moduix/checkbox-group/CheckboxGroup.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/checkbox-group/index.ts",
-          "target": "@components/moduix/checkbox-group/index.ts",
           "type": "registry:component"
         }
       ]
@@ -580,25 +555,26 @@
       ]
     },
     {
-      "name": "copy-button",
+      "name": "clipboard",
       "type": "registry:item",
-      "title": "CopyButton",
-      "description": "moduix CopyButton component.",
-      "registryDependencies": ["Blinks44/moduix/core", "Blinks44/moduix/button"],
+      "title": "Clipboard",
+      "description": "moduix Clipboard component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
-          "path": "packages/ui/src/components/copy-button/CopyButton.tsx",
-          "target": "@components/moduix/copy-button/CopyButton.tsx",
+          "path": "packages/ui/src/components/clipboard/Clipboard.tsx",
+          "target": "@components/moduix/clipboard/Clipboard.tsx",
           "type": "registry:component"
         },
         {
-          "path": "packages/ui/src/components/copy-button/CopyButton.module.css",
-          "target": "@components/moduix/copy-button/CopyButton.module.css",
+          "path": "packages/ui/src/components/clipboard/Clipboard.module.css",
+          "target": "@components/moduix/clipboard/Clipboard.module.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/ui/src/components/copy-button/index.ts",
-          "target": "@components/moduix/copy-button/index.ts",
+          "path": "packages/ui/src/components/clipboard/index.ts",
+          "target": "@components/moduix/clipboard/index.ts",
           "type": "registry:component"
         }
       ]

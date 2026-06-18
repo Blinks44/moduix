@@ -1,7 +1,6 @@
 import type { ComponentProps } from 'react';
 import {
   Checkbox,
-  CheckboxIndicator,
   Field,
   FieldControl,
   FieldDescription,
@@ -210,12 +209,13 @@ export function FieldDisabledExample() {
 export function FieldCheckboxExample() {
   return (
     <Field validationMode="onBlur" className={styles.field}>
-      <FieldLabel>
-        <Checkbox required name="terms">
-          <CheckboxIndicator />
-        </Checkbox>
-        I agree to the terms
-      </FieldLabel>
+      <Checkbox.Root required name="terms">
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+        <Checkbox.Label>I agree to the terms</Checkbox.Label>
+        <Checkbox.HiddenInput />
+      </Checkbox.Root>
       <FieldError match="valueMissing">Please accept the terms.</FieldError>
       <FieldDescription>Required to continue.</FieldDescription>
     </Field>

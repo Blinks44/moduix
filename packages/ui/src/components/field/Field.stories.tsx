@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId } from 'react';
-import { Checkbox, CheckboxIndicator } from '../checkbox';
+import { Checkbox } from '../checkbox';
 import { Input } from '../input';
 import { NumberField } from '../number-field';
 import { Radio, RadioField, RadioGroup, RadioLabel } from '../radio';
@@ -108,12 +108,13 @@ export const WithCheckbox: Story = {
   render: () => {
     return (
       <Field validationMode="onBlur">
-        <FieldLabel>
-          <Checkbox required name="terms">
-            <CheckboxIndicator />
-          </Checkbox>
-          I agree to the terms
-        </FieldLabel>
+        <Checkbox.Root required name="terms">
+          <Checkbox.Control>
+            <Checkbox.Indicator />
+          </Checkbox.Control>
+          <Checkbox.Label>I agree to the terms</Checkbox.Label>
+          <Checkbox.HiddenInput />
+        </Checkbox.Root>
         <FieldError match="valueMissing">Please accept the terms.</FieldError>
         <FieldDescription>Required to continue.</FieldDescription>
       </Field>

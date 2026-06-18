@@ -24,7 +24,7 @@ Use `Field` any time a form control needs a visible label, helper text, or valid
   form components** (`Input`, `Textarea`, `Checkbox`, `Switch`, `Radio`, `NumberField`, etc.) with
   `FieldControl`. Those components register with the field context on their own.
 - `FieldItem` renders a `<div>` grid container used to group a single checkbox or radio option with
-  its label inside a list (`RadioGroup`, `CheckboxGroup`). It is not required for simple text fields.
+  its label inside a list (`RadioGroup`, `Checkbox.Group`). It is not required for simple text fields.
 - `FieldDescription` renders a `<p>` with supplementary hint text. It is always visible.
 - `FieldError` renders a `<div>` that is conditionally displayed based on the field's validity
   state. Without a `match` prop it shows when `validate` returns an error. With a `match` prop it
@@ -146,21 +146,21 @@ export function QuantityField() {
 }
 ```
 
-With `Checkbox` inside the label:
+With `Checkbox` as the field control:
 
 ```tsx
-import { Field, FieldDescription, FieldError, FieldLabel } from 'moduix';
-import { Checkbox, CheckboxIndicator } from 'moduix';
+import { Checkbox, Field, FieldDescription, FieldError } from 'moduix';
 
 export function TermsField() {
   return (
     <Field validationMode="onBlur">
-      <FieldLabel>
-        <Checkbox required name="terms">
-          <CheckboxIndicator />
-        </Checkbox>
-        I agree to the terms
-      </FieldLabel>
+      <Checkbox.Root required name="terms">
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+        <Checkbox.Label>I agree to the terms</Checkbox.Label>
+        <Checkbox.HiddenInput />
+      </Checkbox.Root>
       <FieldError match="valueMissing">Please accept the terms.</FieldError>
       <FieldDescription>Required to continue.</FieldDescription>
     </Field>

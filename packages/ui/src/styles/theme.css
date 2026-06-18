@@ -335,10 +335,13 @@
   --checkbox-bg: initial; /* var(--color-background) */
   --checkbox-bg-checked: initial; /* var(--color-primary) */
   --checkbox-bg-hover: initial; /* var(--color-accent) */
+  --checkbox-bg-invalid: initial; /* var(--color-destructive) */
   --checkbox-border-color: initial; /* var(--color-border) */
   --checkbox-border-color-checked: initial; /* var(--color-primary) */
+  --checkbox-border-color-invalid: initial; /* var(--color-destructive) */
   --checkbox-border-width: initial; /* var(--border-width-sm) */
   --checkbox-color: initial; /* var(--color-primary-foreground) */
+  --checkbox-color-invalid: initial; /* var(--color-primary-foreground) */
   --checkbox-disabled-opacity: initial; /* var(--opacity-disabled) */
   --checkbox-focus-ring-color: initial; /* var(--color-ring) */
   --checkbox-focus-ring-offset: initial; /* var(--border-width-sm) */
@@ -361,19 +364,58 @@
   --checkbox-size-xl: initial; /* 1.75rem */
   --checkbox-transition: initial; /* var(--transition-default) */
 
-  /* CheckboxGroup */
+  /* Checkbox.Group */
   --checkbox-group-color: initial; /* var(--color-foreground) */
   --checkbox-group-gap: initial; /* var(--spacing-2) */
-  --checkbox-group-item-gap: initial; /* var(--checkbox-gap, var(--spacing-2)) */
-  --checkbox-group-item-label-color: initial; /* var(--checkbox-label-color, var(--color-foreground)) */
-  --checkbox-group-item-label-font-size: initial; /* var(--checkbox-label-font-size, var(--text-sm)) */
-  --checkbox-group-item-label-font-weight: initial; /* var(--checkbox-label-font-weight, var(--weight-medium)) */
-  --checkbox-group-item-label-line-height: initial; /* var(--checkbox-label-line-height, var(--line-height-text-sm)) */
-  --checkbox-group-label-color: initial; /* var(--checkbox-group-color, var(--color-foreground)) */
-  --checkbox-group-label-font-size: initial; /* var(--text-sm) */
-  --checkbox-group-label-font-weight: initial; /* var(--weight-semibold) */
-  --checkbox-group-label-line-height: initial; /* var(--line-height-text-sm) */
-  --checkbox-group-list-gap: initial; /* var(--spacing-2) */
+
+  /* Clipboard */
+  --clipboard-color: initial; /* var(--color-foreground) */
+  --clipboard-width: initial; /* 100% */
+  --clipboard-max-width: initial; /* 20rem */
+  --clipboard-gap: initial; /* 0.375rem */
+  --clipboard-control-gap: initial; /* var(--spacing-2) */
+  --clipboard-label-color: initial; /* currentColor */
+  --clipboard-label-font-size: initial; /* var(--text-sm) */
+  --clipboard-label-font-weight: initial; /* var(--weight-medium) */
+  --clipboard-label-line-height: initial; /* var(--line-height-text-sm) */
+  --clipboard-disabled-opacity: initial; /* var(--opacity-disabled) */
+  --clipboard-input-bg: initial; /* var(--input-bg, var(--color-background)) */
+  --clipboard-input-border-color: initial; /* var(--input-border-color, var(--color-border)) */
+  --clipboard-input-border-width: initial; /* var(--input-border-width, var(--border-width-sm)) */
+  --clipboard-input-color: initial; /* var(--input-color, var(--color-foreground)) */
+  --clipboard-input-focus-ring-color: initial; /* var(--input-focus-ring-color, var(--color-ring)) */
+  --clipboard-input-focus-ring-offset: initial; /* calc(0px - var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm)))) */
+  --clipboard-input-focus-ring-width: initial; /* var(--input-focus-ring-width, var(--border-width-sm)) */
+  --clipboard-input-font-size: initial; /* var(--input-font-size-md, var(--text-md)) */
+  --clipboard-input-height: initial; /* var(--input-height-md, var(--size-lg)) */
+  --clipboard-input-line-height: initial; /* var(--input-line-height-md, var(--line-height-text-md)) */
+  --clipboard-input-padding-x: initial; /* var(--input-padding-x-md, 0.875rem) */
+  --clipboard-input-padding-y: initial; /* var(--input-padding-y-md, 0.5rem) */
+  --clipboard-input-placeholder-color: initial; /* var(--input-placeholder-color, var(--color-muted-foreground)) */
+  --clipboard-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
+  --clipboard-input-readonly-bg: initial; /* var(--input-readonly-bg, var(--clipboard-input-bg, var(--color-background))) */
+  --clipboard-input-readonly-color: initial; /* var(--input-readonly-color, var(--clipboard-input-color, var(--color-foreground))) */
+  --clipboard-trigger-bg: initial; /* var(--button-outline-bg, var(--color-background)) */
+  --clipboard-trigger-bg-hover: initial; /* var(--button-outline-bg-hover, var(--color-accent)) */
+  --clipboard-trigger-border-color: initial; /* var(--button-outline-border-color, var(--color-border)) */
+  --clipboard-trigger-border-width: initial; /* var(--button-border-width, var(--border-width-sm)) */
+  --clipboard-trigger-color: initial; /* var(--button-outline-color, var(--color-foreground)) */
+  --clipboard-trigger-focus-ring-color: initial; /* var(--button-focus-ring-color, var(--color-ring)) */
+  --clipboard-trigger-focus-ring-offset: initial; /* var(--clipboard-trigger-border-width, var(--button-border-width, var(--border-width-sm))) */
+  --clipboard-trigger-focus-ring-width: initial; /* var(--button-focus-ring-width, var(--border-width-md)) */
+  --clipboard-trigger-font-size: initial; /* var(--button-font-size, var(--text-sm)) */
+  --clipboard-trigger-font-weight: initial; /* var(--button-font-weight, var(--weight-medium)) */
+  --clipboard-trigger-gap: initial; /* var(--button-content-gap, var(--spacing-2)) */
+  --clipboard-trigger-height: initial; /* var(--button-size-md, var(--size-lg)) */
+  --clipboard-trigger-line-height: initial; /* var(--button-line-height, var(--line-height-text-sm)) */
+  --clipboard-trigger-padding-x: initial; /* var(--button-padding-x-md, 1rem) */
+  --clipboard-trigger-radius: initial; /* var(--button-radius, var(--radius-md)) */
+  --clipboard-indicator-size: initial; /* var(--button-icon-size, 1rem) */
+  --clipboard-value-text-color: initial; /* currentColor */
+  --clipboard-value-text-font-size: initial; /* inherit */
+  --clipboard-value-text-font-weight: initial; /* inherit */
+  --clipboard-value-text-line-height: initial; /* inherit */
+  --clipboard-transition: initial; /* var(--transition-default) */
 
   /* CloseButton */
   --close-button-bg: initial; /* transparent */

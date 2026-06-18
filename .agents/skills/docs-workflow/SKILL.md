@@ -32,6 +32,10 @@ Use this skill for work in `apps/docs`.
 - Use existing pages as structure references, not as permission to preserve old complexity.
 - For popup and dialog families, teach the explicit Ark/Chakra composition path as the default example structure.
 - Use documentation snippets and curated examples to reduce perceived verbosity instead of inventing hidden structural wrappers.
+- Every example in `## Examples` must have a short lead-in sentence or short paragraph before the preview.
+  Do not place a heading and immediately render `<Preview>`.
+- Example lead-ins should explain what the example is for, what prop/state/composition choice it demonstrates,
+  or when to prefer that pattern. Use upstream Ark framing when helpful, but keep the wording consumer-facing.
 - In `Examples`, use `Custom Composition` only for real structure/render-path changes. Use
   `Custom Styling` for examples that only customize `className`, CSS variables, or styling hooks.
 - Component docs in `apps/docs/content/docs/*.mdx` must follow one mandatory page structure so pages stay

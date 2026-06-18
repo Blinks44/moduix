@@ -1,6 +1,6 @@
 ---
 title: Checkbox
-description: A composable checkbox control for boolean and indeterminate selection states.
+description: A composable checkbox primitive for standalone and grouped selection.
 icon: Component
 ---
 
@@ -8,37 +8,44 @@ import {
   CheckboxCssPropertiesPanel,
   CheckboxDisabledExample,
   CheckboxExample,
-  CheckboxIndicatorCompositionExample,
+  CheckboxGroupExample,
+  CheckboxGroupFieldsetExample,
+  CheckboxGroupInvalidExample,
+  CheckboxGroupSelectAllExample,
   CheckboxIndeterminateExample,
   CheckboxReadOnlyExample,
-  CheckboxSiblingLabelNativeButtonExample,
   CheckboxSizesExample,
   ControlledCheckboxExample,
-  CustomIconCheckboxExample,
+  ControlledCheckboxGroupExample,
+  CustomIndicatorCheckboxExample,
+  CustomStylingCheckboxExample,
 } from '@/components/examples/checkbox';
 
 ## API Reference
 
-<BaseUIReference href="https://base-ui.com/react/components/checkbox" />
+<BaseUIReference href="https://ark-ui.com/docs/components/checkbox" />
 
 ## Basic
 
-Start with `Checkbox`, `CheckboxField`, and `CheckboxLabel`. This is the recommended path for
-standalone boolean settings and preference rows.
+Use the Ark composition path directly: `Checkbox.Root`, `Checkbox.Control`, `Checkbox.Indicator`,
+`Checkbox.Label`, and `Checkbox.HiddenInput`.
 
 <Preview>
   <CheckboxExample />
 
   <Preview.Code>
     {`
-      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+      import { Checkbox } from "moduix";
 
       export function CheckboxDemo() {
         return (
-          <CheckboxField>
-            <Checkbox defaultChecked />
-            <CheckboxLabel>Enable notifications</CheckboxLabel>
-          </CheckboxField>
+          <Checkbox.Root defaultChecked>
+            <Checkbox.Control>
+              <Checkbox.Indicator />
+            </Checkbox.Control>
+            <Checkbox.Label>Enable notifications</Checkbox.Label>
+            <Checkbox.HiddenInput />
+          </Checkbox.Root>
         );
       }
     `}
@@ -89,97 +96,89 @@ aubx shadcn@latest add Blinks44/moduix/checkbox
   </Tab>
 </Tabs>
 
-This install path also pulls in the shared moduix foundation files that `Checkbox` depends on, such
-as styles, icons, and small utilities.
-
 ## Anatomy
 
-The normal consumer path is short:
+Standalone checkbox:
 
 ```text
-CheckboxField
-├─ Checkbox
-│  └─ CheckboxIndicator
-│     └─ CheckboxIndicatorIcon
-└─ CheckboxLabel
+Checkbox.Root
+├─ Checkbox.Control
+│  └─ Checkbox.Indicator
+├─ Checkbox.Label
+└─ Checkbox.HiddenInput
 ```
 
-Use `CheckboxField` when the checkbox and label can live inside one wrapping `<label>`.
+Grouped checkboxes:
 
-| Part                    | Role                                                                                  |
-| ----------------------- | ------------------------------------------------------------------------------------- |
-| `Checkbox`              | Interactive root. Handles checked, indeterminate, disabled, readonly, and form state. |
-| `CheckboxIndicator`     | Optional indicator part inside the root.                                              |
-| `CheckboxIndicatorIcon` | Default icon wrapper that switches between checked and indeterminate visuals.         |
-| `CheckboxField`         | Optional wrapping label for the common clickable-label layout.                        |
-| `CheckboxLabel`         | Optional text wrapper for label content that should inherit checkbox text tokens.     |
+```text
+Checkbox.Group
+└─ Checkbox.Root[value]
+   ├─ Checkbox.Control
+   ├─ Checkbox.Label
+   └─ Checkbox.HiddenInput
+```
+
+| Part                   | Role                                                                  |
+| ---------------------- | --------------------------------------------------------------------- |
+| `Checkbox.Root`        | Owns one checkbox state and renders the wrapping label element.       |
+| `Checkbox.Control`     | Visual control surface. Styles checked, indeterminate, invalid state. |
+| `Checkbox.Indicator`   | Checked or indeterminate icon slot. Use `indeterminate` when needed.  |
+| `Checkbox.Label`       | Visible label text inside the root.                                   |
+| `Checkbox.HiddenInput` | Native input for forms and accessibility.                             |
+| `Checkbox.Group`       | Shares value state across multiple checkbox roots.                    |
 
 ## Composition
 
-### When to stay high-level
+### Recommended path
 
-Stay with `Checkbox`, `CheckboxField`, and `CheckboxLabel` for most settings panels, forms, and
-single-option toggles.
+Keep the Ark part tree visible. Use `Checkbox.Root` for standalone controls and `Checkbox.Group`
+for shared value state. `Checkbox.Root` accepts `checked`, `defaultChecked`, `onCheckedChange(details)`,
+`disabled`, `readOnly`, `invalid`, `required`, `name`, `value`, `form`, `ids`, and `asChild`.
 
-`Checkbox` keeps Base UI root behavior intact. Use it for `checked`, `defaultChecked`,
-`onCheckedChange`, `indeterminate`, `name`, `value`, `uncheckedValue`, `required`, `disabled`,
-`readOnly`, `inputRef`, `nativeButton`, and `render`.
+`Checkbox.Group` accepts `value`, `defaultValue`, `onValueChange(value)`, `disabled`, `readOnly`,
+`invalid`, `maxSelectedValues`, and `name`.
 
-`size` is the only component-specific DX sugar. It scales the control and the default icon without
-changing the composition model.
+`size` is the only moduix DX prop. Apply it on `Checkbox.Root`.
 
-### When to go custom
+### Indeterminate indicators
 
-Render `<Checkbox />` directly when the default indicator is enough. Compose `CheckboxIndicator`
-and `CheckboxIndicatorIcon` when the visual needs to change or when you need primitive props such as
-`keepMounted`.
-
-For sibling-label layouts, switch the root to a native button:
+Ark keeps checked and indeterminate indicators explicit. For mixed state, render both:
 
 ```tsx
-<div>
-  <Checkbox id="keep-signed-in" nativeButton render={<button />} />
-  <label htmlFor="keep-signed-in">Keep me signed in</label>
-</div>
+<Checkbox.Control>
+  <Checkbox.Indicator />
+  <Checkbox.Indicator indeterminate />
+</Checkbox.Control>
 ```
 
-### Default props
+### Group labeling
 
-| Prop        | Default        | Values / Notes                                       |
-| ----------- | -------------- | ---------------------------------------------------- |
-| `size`      | `md`           | `xs`, `sm`, `md`, `lg`, `xl`                         |
-| `className` | `undefined`    | Root class name or Base UI state callback class name |
-| `children`  | auto indicator | Compose `CheckboxIndicator` manually when needed     |
-
-### Behavioral notes
-
-- Use `defaultChecked` for uncontrolled mode and `checked` with `onCheckedChange` for controlled
-  mode.
-- Use `indeterminate` for mixed parent-selection state. It is not a third submitted form value.
-- Every checkbox needs an accessible name. The default recommendation is
-  `CheckboxField` + `CheckboxLabel`.
-- Use `readOnly` when the value should stay visible but not change. Use `disabled` when the control
-  is unavailable.
+Ark does not ship a dedicated group label part. Use surrounding copy, `aria-labelledby`, or a real
+`Fieldset`/`FieldsetLegend` when the checkbox set is one form field.
 
 ## Examples
 
 ### Indeterminate
 
-Use `indeterminate` when one checkbox represents a mixed selection state.
+Use the indeterminate state when one checkbox reflects a partial selection instead of a simple on or off value.
 
 <Preview>
   <CheckboxIndeterminateExample />
 
   <Preview.Code>
     {`
-      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+      import { Checkbox } from "moduix";
 
       export function IndeterminateCheckboxDemo() {
         return (
-          <CheckboxField>
-            <Checkbox indeterminate />
-            <CheckboxLabel>Select all team members</CheckboxLabel>
-          </CheckboxField>
+          <Checkbox.Root checked="indeterminate">
+            <Checkbox.Control>
+              <Checkbox.Indicator />
+              <Checkbox.Indicator indeterminate />
+            </Checkbox.Control>
+            <Checkbox.Label>Select all team members</Checkbox.Label>
+            <Checkbox.HiddenInput />
+          </Checkbox.Root>
         );
       }
     `}
@@ -189,212 +188,168 @@ Use `indeterminate` when one checkbox represents a mixed selection state.
 
 ### Controlled
 
-Use controlled mode when the checkbox needs to coordinate with surrounding UI.
+Control `checked` from React state when the checkbox should coordinate with other UI or derived business logic.
 
 <Preview>
   <ControlledCheckboxExample />
 
   <Preview.Code>
     {`
-      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
+      import { Checkbox } from "moduix";
       import { useState } from "react";
 
       export function ControlledCheckboxDemo() {
-        const [checked, setChecked] = useState(false);
+        const [checked, setChecked] = useState(true);
 
         return (
-          <div className="stack">
-            <CheckboxField>
-              <Checkbox checked={checked} onCheckedChange={setChecked} />
-              <CheckboxLabel>{checked ? "Enabled" : "Disabled"}</CheckboxLabel>
-            </CheckboxField>
-            <span className="hint">Current value: {String(checked)}</span>
-          </div>
+          <Checkbox.Root checked={checked} onCheckedChange={(details) => setChecked(details.checked === true)}>
+            <Checkbox.Control>
+              <Checkbox.Indicator />
+            </Checkbox.Control>
+            <Checkbox.Label>{checked ? "Enabled" : "Disabled"}</Checkbox.Label>
+            <Checkbox.HiddenInput />
+          </Checkbox.Root>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-
-      .hint {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-xs);
-        line-height: var(--line-height-text-xs);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### Sizes
 
-Use `size` to match different form densities.
+Apply `size` to match the checkbox density to the surrounding form or settings surface.
 
 <Preview>
   <CheckboxSizesExample />
-
   <Preview.Code>
     {`
-      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
-
-      export function CheckboxSizesDemo() {
-        return (
-          <div className="stack">
-            <CheckboxField>
-              <Checkbox size="xs" defaultChecked />
-              <CheckboxLabel>Extra-small</CheckboxLabel>
-            </CheckboxField>
-            <CheckboxField>
-              <Checkbox size="sm" defaultChecked />
-              <CheckboxLabel>Small</CheckboxLabel>
-            </CheckboxField>
-            <CheckboxField>
-              <Checkbox size="md" defaultChecked />
-              <CheckboxLabel>Medium</CheckboxLabel>
-            </CheckboxField>
-            <CheckboxField>
-              <Checkbox size="lg" defaultChecked />
-              <CheckboxLabel>Large</CheckboxLabel>
-            </CheckboxField>
-            <CheckboxField>
-              <Checkbox size="xl" defaultChecked />
-              <CheckboxLabel>Extra-large</CheckboxLabel>
-            </CheckboxField>
-          </div>
-        );
-      }
+      <Checkbox.Root size="lg" defaultChecked>
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+        <Checkbox.Label>Large</Checkbox.Label>
+        <Checkbox.HiddenInput />
+      </Checkbox.Root>
     `}
-
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### Disabled
 
-Use `disabled` to prevent interaction while preserving the current visual state.
+Use `disabled` when the option is currently unavailable and should not accept focus or input.
 
 <Preview>
   <CheckboxDisabledExample />
-
-  <Preview.Code>
-    {`
-      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
-
-      export function DisabledCheckboxDemo() {
-        return (
-          <div className="stack">
-            <CheckboxField>
-              <Checkbox disabled />
-              <CheckboxLabel>Receive weekly summary</CheckboxLabel>
-            </CheckboxField>
-            <CheckboxField>
-              <Checkbox defaultChecked disabled />
-              <CheckboxLabel>Share anonymous usage data</CheckboxLabel>
-            </CheckboxField>
-          </div>
-        );
-      }
-    `}
-
-  </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
 ### Read Only
 
-Use `readOnly` when the current state should stay visible but should not be changed by the user.
+Use `readOnly` when the current value should remain visible but user interaction should not change it.
 
 <Preview>
   <CheckboxReadOnlyExample />
+</Preview>
+
+### Custom Indicator
+
+Replace the default checkmark when the product needs a different icon treatment while keeping Ark checkbox behavior.
+
+<Preview>
+  <CustomIndicatorCheckboxExample />
 
   <Preview.Code>
     {`
-      import { Checkbox, CheckboxField, CheckboxLabel } from "moduix";
-
-      export function ReadOnlyCheckboxDemo() {
-        return (
-          <div className="stack">
-            <CheckboxField>
-              <Checkbox readOnly />
-              <CheckboxLabel>Keep current selection</CheckboxLabel>
-            </CheckboxField>
-            <CheckboxField>
-              <Checkbox defaultChecked readOnly />
-              <CheckboxLabel>Preserve existing setting</CheckboxLabel>
-            </CheckboxField>
-          </div>
-        );
-      }
+      <Checkbox.Root defaultChecked>
+        <Checkbox.Control>
+          <Checkbox.Indicator>
+            <CustomPlusIcon />
+          </Checkbox.Indicator>
+        </Checkbox.Control>
+        <Checkbox.Label>Use a custom indicator icon</Checkbox.Label>
+        <Checkbox.HiddenInput />
+      </Checkbox.Root>
     `}
-
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
-### Sibling Label
+### Group
 
-Render the root as a native button when the layout needs separate checkbox and label elements.
+Use `Checkbox.Group` when several options belong to one shared array of selected values.
 
 <Preview>
-  <CheckboxSiblingLabelNativeButtonExample />
+  <CheckboxGroupExample />
 
   <Preview.Code>
     {`
       import { Checkbox } from "moduix";
-      import { useId } from "react";
 
-      export function CheckboxSiblingLabelDemo() {
-        const id = useId();
-
+      export function CheckboxGroupDemo() {
         return (
-          <div className="siblingRow">
-            <Checkbox nativeButton render={<button />} id={id} defaultChecked />
-            <label htmlFor={id} className="label">
-              Keep me signed in
-            </label>
-          </div>
+          <Checkbox.Group defaultValue={["email"]} name="notifications">
+            {options.map((option) => (
+              <Checkbox.Root key={option.value} value={option.value}>
+                <Checkbox.Control>
+                  <Checkbox.Indicator />
+                </Checkbox.Control>
+                <Checkbox.Label>{option.label}</Checkbox.Label>
+                <Checkbox.HiddenInput />
+              </Checkbox.Root>
+            ))}
+          </Checkbox.Group>
+        );
+      }
+    `}
+
+  </Preview.Code>
+
+  <Preview.Data>
+    {`
+      const options = [
+        { value: "email", label: "Email updates" },
+        { value: "push", label: "Push notifications" },
+        { value: "sms", label: "SMS alerts" },
+      ];
+    `}
+
+  </Preview.Data>
+</Preview>
+
+### Controlled Group
+
+Control the group value from React state when selected options need to drive surrounding filters, summaries, or actions.
+
+<Preview>
+  <ControlledCheckboxGroupExample />
+</Preview>
+
+### Group With Fieldset
+
+Wrap the group in `Fieldset` when the checkbox set is one semantic form field with a shared legend.
+
+<Preview>
+  <CheckboxGroupFieldsetExample />
+
+  <Preview.Code>
+    {`
+      import { Checkbox, Fieldset, FieldsetLegend } from "moduix";
+
+      export function CheckboxGroupFieldsetDemo() {
+        return (
+          <Fieldset className="checkbox-fieldset">
+            <FieldsetLegend>Frameworks</FieldsetLegend>
+            <Checkbox.Group defaultValue={["react"]} name="frameworks">
+              {options.map((option) => (
+                <Checkbox.Root key={option.value} value={option.value}>
+                  <Checkbox.Control>
+                    <Checkbox.Indicator />
+                  </Checkbox.Control>
+                  <Checkbox.Label>{option.label}</Checkbox.Label>
+                  <Checkbox.HiddenInput />
+                </Checkbox.Root>
+              ))}
+            </Checkbox.Group>
+          </Fieldset>
         );
       }
     `}
@@ -403,122 +358,112 @@ Render the root as a native button when the layout needs separate checkbox and l
 
   <Preview.CSS>
     {`
-      .siblingRow {
-        display: flex;
-        align-items: center;
-        gap: var(--checkbox-gap, var(--spacing-2));
-      }
-
-      .label {
-        color: var(--checkbox-label-color, var(--color-foreground));
-        font-size: var(--checkbox-label-font-size, var(--text-sm));
-        font-weight: var(--checkbox-label-font-weight, var(--weight-medium));
-        line-height: var(--checkbox-label-line-height, var(--line-height-text-sm));
+      .checkbox-fieldset {
+        width: fit-content;
+        max-width: min(20rem, 100%);
       }
     `}
 
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Invalid Group
 
-Swap the default indicator or take direct control over indicator behavior when the built-in visual
-is not enough.
+Mark the group invalid when the whole set participates in validation and requires a valid selection state.
 
 <Preview>
-  <CustomIconCheckboxExample />
+  <CheckboxGroupInvalidExample />
 
   <Preview.Code>
     {`
-      import { Checkbox, CheckboxField, CheckboxIndicator, CheckboxLabel } from "moduix";
-      import type { ComponentProps } from "react";
+      import { Checkbox } from "moduix";
 
-      function PlusIcon(props: ComponentProps<"svg">) {
-        return (
-          <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
-            <path
-              d="M5 1.5V8.5M1.5 5H8.5"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
-        );
-      }
+      const options = [
+        { value: "email", label: "Email updates" },
+        { value: "push", label: "Push notifications" },
+        { value: "sms", label: "SMS alerts" },
+      ];
 
-      export function CustomIconCheckboxDemo() {
+      export function InvalidCheckboxGroupDemo() {
         return (
-          <CheckboxField>
-            <Checkbox defaultChecked>
-              <CheckboxIndicator>
-                <PlusIcon className="customIndicatorIcon" />
-              </CheckboxIndicator>
-            </Checkbox>
-            <CheckboxLabel>Use a custom indicator icon</CheckboxLabel>
-          </CheckboxField>
+          <Checkbox.Group invalid defaultValue={["email"]} name="channels">
+            {options.map((option) => (
+              <Checkbox.Root key={option.value} value={option.value}>
+                <Checkbox.Control>
+                  <Checkbox.Indicator />
+                </Checkbox.Control>
+                <Checkbox.Label>{option.label}</Checkbox.Label>
+                <Checkbox.HiddenInput />
+              </Checkbox.Root>
+            ))}
+          </Checkbox.Group>
         );
       }
     `}
 
   </Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customIndicatorIcon {
-        transform: rotate(-8deg);
-      }
-    `}
-
-  </Preview.CSS>
 </Preview>
 
+### Select All
+
+Compose a parent checkbox and a controlled group when one control should toggle the entire selection set.
+
 <Preview>
-  <CheckboxIndicatorCompositionExample />
+  <CheckboxGroupSelectAllExample />
 
   <Preview.Code>
     {`
-      import {
-        Checkbox,
-        CheckboxField,
-        CheckboxIndicator,
-        CheckboxIndicatorIcon,
-        CheckboxLabel,
-      } from "moduix";
+      import { Checkbox } from "moduix";
+      import { useState } from "react";
 
-      export function CheckboxIndicatorCompositionDemo() {
+      export function CheckboxSelectAllDemo() {
+        const [value, setValue] = useState(["react"] as string[]);
+        const allValues = ["react", "solid", "vue"];
+        const allSelected = value.length === allValues.length;
+        const indeterminate = value.length > 0 && value.length < allValues.length;
+
         return (
-          <CheckboxField>
-            <Checkbox defaultChecked>
-              <CheckboxIndicator className="customIndicator" keepMounted>
-                <CheckboxIndicatorIcon className="customIndicatorIcon" />
-              </CheckboxIndicator>
-            </Checkbox>
-            <CheckboxLabel>Compose the indicator tree manually</CheckboxLabel>
-          </CheckboxField>
+          <>
+            <Checkbox.Root
+              checked={indeterminate ? "indeterminate" : allSelected}
+              onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
+            >
+              <Checkbox.Control>
+                <Checkbox.Indicator />
+                <Checkbox.Indicator indeterminate />
+              </Checkbox.Control>
+              <Checkbox.Label>Select all</Checkbox.Label>
+              <Checkbox.HiddenInput />
+            </Checkbox.Root>
+
+            <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
+              {allValues.map((item) => (
+                <Checkbox.Root key={item} value={item}>
+                  <Checkbox.Control>
+                    <Checkbox.Indicator />
+                  </Checkbox.Control>
+                  <Checkbox.Label>{item}</Checkbox.Label>
+                  <Checkbox.HiddenInput />
+                </Checkbox.Root>
+              ))}
+            </Checkbox.Group>
+          </>
         );
       }
     `}
 
   </Preview.Code>
+</Preview>
 
-  <Preview.CSS>
-    {`
-      .customIndicator {
-        color: var(--color-primary-foreground);
-      }
+### Custom Styling
 
-      .customIndicatorIcon {
-        transform: rotate(-8deg);
-      }
-    `}
+Use local classes and CSS variables when the checkbox visuals need a custom tone or spacing without changing the part tree.
 
-  </Preview.CSS>
+<Preview>
+  <CustomStylingCheckboxExample />
 </Preview>
 
 ## Styling
-
-Use CSS variables on the root when checkbox size, label typography, or state colors need to change.
-Use explicit composition when the indicator structure itself needs to change.
 
 ### CSS Properties
 
@@ -532,10 +477,10 @@ Use explicit composition when the indicator structure itself needs to change.
 
 ### Styling hooks
 
-- `Checkbox` exposes `data-slot="checkbox-root"` and writes `data-size` for the `size` presets.
-- `CheckboxIndicator` exposes `data-slot="checkbox-indicator"` and receives Base UI state
-  attributes such as `data-checked`, `data-unchecked`, and `data-indeterminate`.
-- `CheckboxIndicatorIcon`, `checkbox-indicator-checked-icon`, and
-  `checkbox-indicator-indeterminate-icon` are stable selectors for icon-level styling.
-- `CheckboxField` and `CheckboxLabel` expose `data-slot="checkbox-field"` and
-  `data-slot="checkbox-label"` for layout and typography overrides.
+- `Checkbox.Root` exposes `data-slot="checkbox-root"` and carries `data-size`.
+- `Checkbox.Control` exposes `data-slot="checkbox-control"` and Ark state attributes such as
+  `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, and `data-focus-visible`.
+- `Checkbox.Indicator` exposes `data-slot="checkbox-indicator"`.
+- `Checkbox.Label` exposes `data-slot="checkbox-label"`.
+- `Checkbox.HiddenInput` exposes `data-slot="checkbox-hidden-input"`.
+- `Checkbox.Group` exposes `data-slot="checkbox-group"`.

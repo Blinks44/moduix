@@ -41,6 +41,8 @@ Solid/Vue/Svelte-specific APIs or docs paths in this migration track.
 - Treat old Base UI-oriented docs as disposable migration input, not as the target structure.
 - Public docs and local component markdown should show the Ark UI mental model first: parts, composition, state
   shapes, callback signatures, and structural requirements.
+- In docs `### CSS Properties`, use the same moduix docs wrapper as `accordion`: `not-prose` container, docs `Tabs`
+  with a `CSS Variables` tab, and a bounded scroll area around the reference table.
 - Cover the full Ark example surface that is relevant to the migrated component family. If Ark docs show multiple
   important usage patterns, reproduce those patterns in moduix docs/examples instead of keeping only the old Base UI
   subset.

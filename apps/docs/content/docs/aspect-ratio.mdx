@@ -157,6 +157,8 @@ frame. Keep the clipping on the root itself.
 
 ### Square
 
+Use a square ratio for avatars, thumbnails, and other media that should remain visually balanced across layouts.
+
 <Preview>
   <AspectRatioSquareExample />
 
@@ -196,6 +198,8 @@ frame. Keep the clipping on the root itself.
 </Preview>
 
 ### Portrait
+
+Choose a portrait ratio when the frame should favor tall media such as profile photography or editorial art.
 
 <Preview>
   <AspectRatioPortraitExample />
@@ -237,6 +241,8 @@ frame. Keep the clipping on the root itself.
 
 ### Photo
 
+Use a photo-friendly ratio such as `4 / 3` when landscape imagery needs a familiar editorial crop.
+
 <Preview>
   <AspectRatioPhotoExample />
 
@@ -276,6 +282,8 @@ frame. Keep the clipping on the root itself.
 </Preview>
 
 ### Card Grid
+
+Keep repeated cards visually aligned by wrapping their media in the same aspect ratio even when the source assets differ.
 
 <Preview>
   <AspectRatioCardGridExample />
@@ -382,6 +390,8 @@ frame. Keep the clipping on the root itself.
 
 ### Custom Ratio
 
+Pass a custom numeric ratio when the design calls for a format outside the usual square, portrait, or widescreen presets.
+
 <Preview>
   <AspectRatioCustomRatioExample />
 
@@ -421,6 +431,8 @@ frame. Keep the clipping on the root itself.
 </Preview>
 
 ### Embedded Content
+
+Wrap video or other embeds in `AspectRatio.Root` to keep the frame stable before the external content finishes loading.
 
 <Preview>
   <AspectRatioEmbedExample />
@@ -463,6 +475,8 @@ frame. Keep the clipping on the root itself.
 </Preview>
 
 ### Custom Styling
+
+Use `className` and `--aspect-ratio-radius` when the frame needs local radius changes without affecting the child content.
 
 <Preview>
   <AspectRatioCustomRadiusExample />

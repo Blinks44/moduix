@@ -1,7 +1,1 @@
-export {
-  Checkbox,
-  CheckboxIndicator,
-  CheckboxIndicatorIcon,
-  CheckboxField,
-  CheckboxLabel,
-} from './Checkbox';
+export { Checkbox } from './Checkbox';

@@ -156,6 +156,8 @@ image implementation.
 
 ### Fallback Only
 
+Render only `Avatar.Fallback` when initials, labels, or placeholders should be available even without an image source.
+
 <Preview>
   <AvatarFallbackOnlyExample />
 
@@ -202,6 +204,8 @@ image implementation.
 
 ### Image Error
 
+Keep `Avatar.Fallback` in the tree so the component still has a stable visual when image loading fails.
+
 <Preview>
   <AvatarImageErrorExample />
 
@@ -223,6 +227,8 @@ image implementation.
 </Preview>
 
 ### Events
+
+Use `onStatusChange(details)` when surrounding UI should react to the avatar image lifecycle.
 
 <Preview>
   <AvatarStatusExample />
@@ -257,6 +263,8 @@ image implementation.
 </Preview>
 
 ### Custom Composition
+
+Use `asChild` when another element should own the avatar root without losing the Avatar part structure.
 
 <Preview>
   <AvatarCompositionExample />
@@ -316,6 +324,8 @@ image implementation.
 
 ### Custom Styling
 
+Apply local classes and CSS variables when the avatar needs a product-specific ring, contrast treatment, or image tuning.
+
 <Preview>
   <CustomCompositionAvatarExample />
 
@@ -363,6 +373,8 @@ image implementation.
 </Preview>
 
 ### Custom Fallback
+
+Replace initials with an icon or another branded fallback when the empty state should carry more context than plain text.
 
 <Preview>
   <AvatarCustomFallbackExample />

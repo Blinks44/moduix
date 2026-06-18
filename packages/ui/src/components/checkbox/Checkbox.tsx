@@ -1,72 +1,109 @@
-import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
+import type { ComponentProps, ComponentRef } from 'react';
+import { Checkbox as CheckboxPrimitive } from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
+import { forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type CheckboxProps = CheckboxPrimitive.Root.Props & { size?: CheckboxSize };
+type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
 
-const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxProps>(
-  function Checkbox({ className, size = 'md', children, ...props }, ref) {
+const CheckboxRoot = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxRootProps>(
+  function CheckboxRoot({ className, size = 'md', ...props }, ref) {
     return (
       <CheckboxPrimitive.Root
         ref={ref}
         data-slot="checkbox-root"
         data-size={size}
-        className={mergeClassName(className, styles.root)}
+        className={clsx(styles.root, normalizeClassName(className))}
         {...props}
-      >
-        {children ?? <CheckboxIndicator />}
-      </CheckboxPrimitive.Root>
+      />
     );
   },
 );
 
-function CheckboxIndicator({ className, children, ...props }: CheckboxPrimitive.Indicator.Props) {
+const CheckboxControl = forwardRef<
+  ComponentRef<typeof CheckboxPrimitive.Control>,
+  ComponentProps<typeof CheckboxPrimitive.Control>
+>(function CheckboxControl({ className, ...props }, ref) {
+  return (
+    <CheckboxPrimitive.Control
+      ref={ref}
+      data-slot="checkbox-control"
+      className={clsx(styles.control, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const CheckboxIndicator = forwardRef<
+  ComponentRef<typeof CheckboxPrimitive.Indicator>,
+  ComponentProps<typeof CheckboxPrimitive.Indicator>
+>(function CheckboxIndicator({ className, children, indeterminate, ...props }, ref) {
+  const slot = indeterminate
+    ? 'checkbox-indicator-indeterminate-icon'
+    : 'checkbox-indicator-checked-icon';
+
   return (
     <CheckboxPrimitive.Indicator
+      ref={ref}
       data-slot="checkbox-indicator"
-      className={mergeClassName(className, styles.indicator)}
-      {...props}
-    >
-      {children ?? <CheckboxIndicatorIcon />}
-    </CheckboxPrimitive.Indicator>
-  );
-}
-
-function CheckboxIndicatorIcon({ className, children, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      aria-hidden="true"
-      data-slot="checkbox-indicator-icon"
-      className={clsx(styles.icon, className)}
+      className={clsx(styles.indicator, normalizeClassName(className))}
+      indeterminate={indeterminate}
       {...props}
     >
       {children ?? (
-        <>
-          <span data-slot="checkbox-indicator-checked-icon" className={styles.iconChecked}>
-            <CheckIcon />
-          </span>
-          <span
-            data-slot="checkbox-indicator-indeterminate-icon"
-            className={styles.iconIndeterminate}
-          >
-            <IndeterminateIcon />
-          </span>
-        </>
+        <span aria-hidden="true" data-slot={slot} className={styles.icon}>
+          {indeterminate ? <IndeterminateIcon /> : <CheckIcon />}
+        </span>
       )}
-    </span>
+    </CheckboxPrimitive.Indicator>
   );
-}
+});
 
-function CheckboxField({ className, ...props }: ComponentProps<'label'>) {
-  return <label data-slot="checkbox-field" className={clsx(styles.field, className)} {...props} />;
-}
+const CheckboxHiddenInput = forwardRef<
+  ComponentRef<typeof CheckboxPrimitive.HiddenInput>,
+  ComponentProps<typeof CheckboxPrimitive.HiddenInput>
+>(function CheckboxHiddenInput(props, ref) {
+  return <CheckboxPrimitive.HiddenInput ref={ref} data-slot="checkbox-hidden-input" {...props} />;
+});
 
-function CheckboxLabel({ className, ...props }: ComponentProps<'span'>) {
-  return <span data-slot="checkbox-label" className={clsx(styles.label, className)} {...props} />;
-}
+const CheckboxLabel = forwardRef<
+  ComponentRef<typeof CheckboxPrimitive.Label>,
+  ComponentProps<typeof CheckboxPrimitive.Label>
+>(function CheckboxLabel({ className, ...props }, ref) {
+  return (
+    <CheckboxPrimitive.Label
+      ref={ref}
+      data-slot="checkbox-label"
+      className={clsx(styles.label, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
-export { Checkbox, CheckboxIndicator, CheckboxIndicatorIcon, CheckboxField, CheckboxLabel };
+const CheckboxGroup = forwardRef<
+  ComponentRef<typeof CheckboxPrimitive.Group>,
+  ComponentProps<typeof CheckboxPrimitive.Group>
+>(function CheckboxGroup({ className, ...props }, ref) {
+  return (
+    <CheckboxPrimitive.Group
+      ref={ref}
+      data-slot="checkbox-group"
+      className={clsx(styles.group, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
+const Checkbox = Object.assign(CheckboxRoot, {
+  Root: CheckboxRoot,
+  Control: CheckboxControl,
+  Indicator: CheckboxIndicator,
+  HiddenInput: CheckboxHiddenInput,
+  Label: CheckboxLabel,
+  Group: CheckboxGroup,
+});
+
+export { Checkbox };

@@ -1,12 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useId, useState, type ComponentProps } from 'react';
-import {
-  Checkbox,
-  CheckboxField,
-  CheckboxIndicator,
-  CheckboxIndicatorIcon,
-  CheckboxLabel,
-} from './Checkbox';
+import { useState, type ComponentProps } from 'react';
+import { Fieldset, FieldsetLegend } from '../fieldset';
+import { Checkbox } from './Checkbox';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {
@@ -22,6 +17,26 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const notificationOptions = [
+  { value: 'email', label: 'Email updates' },
+  { value: 'push', label: 'Push notifications' },
+  { value: 'sms', label: 'SMS alerts' },
+];
+
+const sizeOptions = [
+  { value: 'xs', label: 'Extra-small' },
+  { value: 'sm', label: 'Small' },
+  { value: 'md', label: 'Medium' },
+  { value: 'lg', label: 'Large' },
+  { value: 'xl', label: 'Extra-large' },
+] as const;
+
+const frameworkOptions = [
+  { value: 'react', label: 'React' },
+  { value: 'solid', label: 'Solid' },
+  { value: 'vue', label: 'Vue' },
+];
+
 function CustomPlusIcon(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false" {...props}>
@@ -35,149 +50,224 @@ function CustomPlusIcon(props: ComponentProps<'svg'>) {
   );
 }
 
-export const Basic: Story = {
-  render: () => {
-    return (
-      <CheckboxField>
-        <Checkbox defaultChecked />
-        <CheckboxLabel>Enable notifications</CheckboxLabel>
-      </CheckboxField>
-    );
-  },
-};
-
-export const IndicatorIcon: Story = {
-  render: () => {
-    return (
-      <CheckboxField>
-        <Checkbox defaultChecked>
-          <CheckboxIndicator>
+function CheckboxItem({
+  children,
+  indicator,
+  customStyled,
+  ...props
+}: ComponentProps<typeof Checkbox.Root> & {
+  indicator?: 'default' | 'dual' | 'custom';
+  customStyled?: boolean;
+}) {
+  return (
+    <Checkbox.Root {...props}>
+      <Checkbox.Control className={customStyled ? styles.customControl : undefined}>
+        {indicator === 'custom' ? (
+          <Checkbox.Indicator>
             <CustomPlusIcon className={styles.customIndicatorIcon} />
-          </CheckboxIndicator>
-        </Checkbox>
-        <CheckboxLabel>Use custom indicator icon</CheckboxLabel>
-      </CheckboxField>
-    );
-  },
-};
+          </Checkbox.Indicator>
+        ) : (
+          <>
+            <Checkbox.Indicator />
+            {indicator === 'dual' ? <Checkbox.Indicator indeterminate /> : null}
+          </>
+        )}
+      </Checkbox.Control>
+      <Checkbox.Label className={customStyled ? styles.customLabel : undefined}>
+        {children}
+      </Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.Root>
+  );
+}
 
-export const CustomComposition: Story = {
-  render: () => {
-    return (
-      <CheckboxField className={styles.customField}>
-        <Checkbox className={styles.customCheckbox} defaultChecked>
-          <CheckboxIndicator className={styles.customIndicator}>
-            <CheckboxIndicatorIcon className={styles.customIndicatorIcon} />
-          </CheckboxIndicator>
-        </Checkbox>
-        <CheckboxLabel className={styles.customLabel}>Styled with className</CheckboxLabel>
-      </CheckboxField>
-    );
-  },
-};
-
-export const Indeterminate: Story = {
-  render: () => {
-    return (
-      <CheckboxField>
-        <Checkbox indeterminate />
-        <CheckboxLabel>Select all team members</CheckboxLabel>
-      </CheckboxField>
-    );
-  },
-};
-
-export const Sizes: Story = {
-  render: () => {
-    return (
-      <div className={styles.stack}>
-        <CheckboxField>
-          <Checkbox size="xs" defaultChecked />
-          <CheckboxLabel>Extra-small</CheckboxLabel>
-        </CheckboxField>
-        <CheckboxField>
-          <Checkbox size="sm" defaultChecked />
-          <CheckboxLabel>Small</CheckboxLabel>
-        </CheckboxField>
-        <CheckboxField>
-          <Checkbox size="md" defaultChecked />
-          <CheckboxLabel>Medium</CheckboxLabel>
-        </CheckboxField>
-        <CheckboxField>
-          <Checkbox size="lg" defaultChecked />
-          <CheckboxLabel>Large</CheckboxLabel>
-        </CheckboxField>
-        <CheckboxField>
-          <Checkbox size="xl" defaultChecked />
-          <CheckboxLabel>Extra-large</CheckboxLabel>
-        </CheckboxField>
-      </div>
-    );
-  },
-};
-
-export const Disabled: Story = {
-  render: () => {
-    return (
-      <div className={styles.stack}>
-        <CheckboxField>
-          <Checkbox disabled />
-          <CheckboxLabel>Receive weekly summary</CheckboxLabel>
-        </CheckboxField>
-        <CheckboxField>
-          <Checkbox defaultChecked disabled />
-          <CheckboxLabel>Share anonymous usage data</CheckboxLabel>
-        </CheckboxField>
-      </div>
-    );
-  },
-};
-
-export const ReadOnly: Story = {
-  render: () => {
-    return (
-      <div className={styles.stack}>
-        <CheckboxField>
-          <Checkbox readOnly />
-          <CheckboxLabel>Keep current selection</CheckboxLabel>
-        </CheckboxField>
-        <CheckboxField>
-          <Checkbox defaultChecked readOnly />
-          <CheckboxLabel>Preserve existing setting</CheckboxLabel>
-        </CheckboxField>
-      </div>
-    );
-  },
+export const Basic: Story = {
+  render: () => <CheckboxItem defaultChecked>Enable notifications</CheckboxItem>,
 };
 
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(true);
 
     return (
       <div className={styles.stack}>
-        <CheckboxField>
-          <Checkbox checked={checked} onCheckedChange={setChecked} />
-          <CheckboxLabel>{checked ? 'Enabled' : 'Disabled'}</CheckboxLabel>
-        </CheckboxField>
+        <CheckboxItem
+          checked={checked}
+          onCheckedChange={(details) => setChecked(details.checked === true)}
+        >
+          {checked ? 'Enabled' : 'Disabled'}
+        </CheckboxItem>
         <span className={styles.hint}>Current value: {String(checked)}</span>
       </div>
     );
   },
 };
 
-export const SiblingLabelNativeButton: Story = {
-  name: 'Sibling Label (Native Button)',
+export const Indeterminate: Story = {
+  render: () => (
+    <CheckboxItem checked="indeterminate" indicator="dual">
+      Select all team members
+    </CheckboxItem>
+  ),
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className={styles.stack}>
+      {sizeOptions.map((option) => (
+        <CheckboxItem key={option.value} size={option.value} defaultChecked>
+          {option.label}
+        </CheckboxItem>
+      ))}
+    </div>
+  ),
+};
+
+export const Disabled: Story = {
+  render: () => (
+    <div className={styles.stack}>
+      <CheckboxItem disabled>Receive weekly summary</CheckboxItem>
+      <CheckboxItem defaultChecked disabled>
+        Share anonymous usage data
+      </CheckboxItem>
+    </div>
+  ),
+};
+
+export const ReadOnly: Story = {
+  render: () => (
+    <div className={styles.stack}>
+      <CheckboxItem readOnly>Keep current selection</CheckboxItem>
+      <CheckboxItem defaultChecked readOnly>
+        Preserve existing setting
+      </CheckboxItem>
+    </div>
+  ),
+};
+
+export const CustomIndicator: Story = {
+  render: () => (
+    <CheckboxItem defaultChecked indicator="custom">
+      Custom indicator
+    </CheckboxItem>
+  ),
+};
+
+export const Group: Story = {
+  render: () => (
+    <div className={styles.wrapper}>
+      <div className={styles.groupHeading}>Notification Channels</div>
+      <Checkbox.Group defaultValue={['email']} name="notifications">
+        {notificationOptions.map((option) => (
+          <CheckboxItem key={option.value} value={option.value}>
+            {option.label}
+          </CheckboxItem>
+        ))}
+      </Checkbox.Group>
+    </div>
+  ),
+};
+
+export const GroupControlled: Story = {
   render: () => {
-    const id = useId();
+    const [value, setValue] = useState<string[]>(['push']);
 
     return (
-      <div className={styles.siblingRow}>
-        <Checkbox nativeButton render={<button />} id={id} defaultChecked />
-        <label htmlFor={id} className={styles.siblingLabel}>
-          Keep me signed in
-        </label>
+      <div className={styles.wrapper}>
+        <div className={styles.groupHeading}>Active Alerts</div>
+        <Checkbox.Group value={value} onValueChange={setValue} name="alerts">
+          {notificationOptions.map((option) => (
+            <CheckboxItem key={option.value} value={option.value}>
+              {option.label}
+            </CheckboxItem>
+          ))}
+        </Checkbox.Group>
+        <span className={styles.hint}>Current value: {value.join(', ') || 'none'}</span>
       </div>
     );
   },
+};
+
+export const GroupWithFieldset: Story = {
+  render: () => (
+    <Fieldset>
+      <FieldsetLegend>Frameworks</FieldsetLegend>
+      <Checkbox.Group defaultValue={['react']} name="frameworks">
+        {frameworkOptions.map((option) => (
+          <CheckboxItem key={option.value} value={option.value}>
+            {option.label}
+          </CheckboxItem>
+        ))}
+      </Checkbox.Group>
+    </Fieldset>
+  ),
+};
+
+export const GroupWithSelectAll: Story = {
+  render: () => {
+    const [value, setValue] = useState<string[]>(['react']);
+    const allValues = frameworkOptions.map((option) => option.value);
+    const allSelected = value.length === allValues.length;
+    const indeterminate = value.length > 0 && value.length < allValues.length;
+
+    return (
+      <div className={styles.wrapper}>
+        <CheckboxItem
+          checked={indeterminate ? 'indeterminate' : allSelected}
+          indicator="dual"
+          onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
+        >
+          Select all
+        </CheckboxItem>
+        <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
+          {frameworkOptions.map((option) => (
+            <CheckboxItem key={option.value} value={option.value}>
+              {option.label}
+            </CheckboxItem>
+          ))}
+        </Checkbox.Group>
+      </div>
+    );
+  },
+};
+
+export const InvalidGroup: Story = {
+  render: () => (
+    <div className={styles.wrapper}>
+      <div className={styles.groupHeading}>Notification Channels</div>
+      <Checkbox.Group invalid defaultValue={['email']} name="channels">
+        {notificationOptions.map((option) => (
+          <CheckboxItem key={option.value} value={option.value}>
+            {option.label}
+          </CheckboxItem>
+        ))}
+      </Checkbox.Group>
+      <span className={styles.hint}>Use `invalid` on the group when selection is required.</span>
+    </div>
+  ),
+};
+
+export const CustomStyling: Story = {
+  render: () => (
+    <div className={styles.wrapper}>
+      <div className={styles.groupHeading}>Styled Channels</div>
+      <Checkbox.Group
+        defaultValue={['email']}
+        className={styles.customGroup}
+        name="styled-channels"
+      >
+        {notificationOptions.map((option) => (
+          <CheckboxItem
+            key={option.value}
+            value={option.value}
+            className={styles.customRoot}
+            indicator="custom"
+            customStyled
+          >
+            {option.label}
+          </CheckboxItem>
+        ))}
+      </Checkbox.Group>
+    </div>
+  ),
 };

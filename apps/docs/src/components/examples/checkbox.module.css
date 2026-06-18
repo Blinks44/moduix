@@ -5,16 +5,22 @@
   gap: var(--spacing-3);
 }
 
-.siblingRow {
+.wrapper {
   display: flex;
-  align-items: center;
-  gap: var(--checkbox-gap, var(--spacing-2));
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-2);
 }
 
-.label {
+.fieldset {
+  width: fit-content;
+  max-width: min(20rem, 100%);
+}
+
+.groupHeading {
   color: var(--checkbox-label-color, var(--color-foreground));
   font-size: var(--checkbox-label-font-size, var(--text-sm));
-  font-weight: var(--checkbox-label-font-weight, var(--weight-medium));
+  font-weight: var(--weight-semibold);
   line-height: var(--checkbox-label-line-height, var(--line-height-text-sm));
 }
 
@@ -24,8 +30,23 @@
   line-height: var(--line-height-text-xs);
 }
 
-.customIndicator {
-  color: var(--color-primary-foreground);
+.customGroup,
+.customRoot {
+  gap: var(--spacing-3);
+}
+
+.customControl {
+  border-color: var(--color-primary);
+
+  &[data-state='checked'],
+  &[data-state='indeterminate'] {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}
+
+.customLabel {
+  color: var(--color-primary);
 }
 
 .customIndicatorIcon {

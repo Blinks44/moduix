@@ -1,0 +1,62 @@
+@layer storybook {
+  .demo {
+    width: 20rem;
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--spacing-3);
+  }
+
+  .action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--size-lg);
+    padding-inline: 1rem;
+    border: var(--border-width-sm) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font: inherit;
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--border-width-md) solid var(--color-ring);
+      outline-offset: calc(var(--border-width-sm) * -1);
+    }
+  }
+
+  .status {
+    margin: 0;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-text-sm);
+  }
+
+  .valueText {
+    flex: 1 1 auto;
+  }
+
+  .customInput[data-copied] {
+    --clipboard-input-border-color-copied: color-mix(
+      in srgb,
+      var(--color-primary) 45%,
+      transparent
+    );
+    --clipboard-input-focus-ring-color: var(--color-primary);
+  }
+
+  .customTrigger[data-copied] {
+    --clipboard-trigger-bg-copied: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    --clipboard-trigger-border-color-copied: color-mix(
+      in srgb,
+      var(--color-primary) 45%,
+      transparent
+    );
+    --clipboard-trigger-color-copied: var(--color-primary);
+    --clipboard-trigger-focus-ring-color: var(--color-primary);
+  }
+}

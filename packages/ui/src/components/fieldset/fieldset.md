@@ -25,7 +25,7 @@ Use it when several controls belong to one question or section:
 - `className` on both parts is merged with the moduix CSS Module class via `mergeClassName`, so
   callback class names such as `className={(state) => ...}` keep working.
 - `render` stays available on both parts. The main advanced use case is composing `Fieldset` with
-  `RadioGroup` or `CheckboxGroup` while preserving the shared legend and disabled state.
+  `RadioGroup` or `Checkbox.Group` while preserving the shared legend and disabled state.
 - The wrapper does not add variants, slot prop bags, helper props, or extra structure beyond the two
   visible parts.
 
@@ -251,7 +251,7 @@ state attributes, and the `--fieldset-*` variables.
 
 - Always render one visible `FieldsetLegend` so the grouped controls have a shared accessible label.
 - Prefer the default native `<fieldset>` root for standard grouped forms. Use `render` only when the
-  root must also be a Base UI selection group such as `RadioGroup` or `CheckboxGroup`.
+  root must also be a Base UI selection group such as `RadioGroup` or `Checkbox.Group`.
 - `disabled` is the right way to disable the whole section. Do not manually dim nested controls one
   by one unless the group is intentionally mixed-state.
 - Because the legend is a `<div>`, do not rely on native `<legend>` layout quirks. The accessibility
@@ -274,7 +274,7 @@ state attributes, and the `--fieldset-*` variables.
 - Do not introduce slot prop bags, class-name maps, or wrapper-owned layout helpers. The public API
   should stay the current two-part composition.
 - Preserve the current `render` escape hatch because it is the established integration path for
-  `RadioGroup` and `CheckboxGroup` inside `Field`.
+  `RadioGroup` and `Checkbox.Group` inside `Field`.
 - If `data-slot` values, CSS variables, or example composition change, update stories, docs/examples,
   and this file in the same task.
 - Keep `Field`, `Fieldset`, and `Form` aligned as the library's form-structure primitives: `Form`

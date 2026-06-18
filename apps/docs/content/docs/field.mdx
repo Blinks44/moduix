@@ -265,22 +265,21 @@ Wrap checkbox controls in `Field` when the checkbox needs validation, descriptio
     {`
       import {
         Checkbox,
-        CheckboxIndicator,
         Field,
         FieldDescription,
         FieldError,
-        FieldLabel,
       } from "moduix";
 
       export function CheckboxFieldDemo() {
         return (
           <Field validationMode="onBlur">
-            <FieldLabel>
-              <Checkbox required name="terms">
-                <CheckboxIndicator />
-              </Checkbox>
-              I agree to the terms
-            </FieldLabel>
+            <Checkbox.Root required name="terms">
+              <Checkbox.Control>
+                <Checkbox.Indicator />
+              </Checkbox.Control>
+              <Checkbox.Label>I agree to the terms</Checkbox.Label>
+              <Checkbox.HiddenInput />
+            </Checkbox.Root>
             <FieldError match="valueMissing">Please accept the terms.</FieldError>
             <FieldDescription>Required to continue.</FieldDescription>
           </Field>

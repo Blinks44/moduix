@@ -199,6 +199,8 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 
 ### Multiple
 
+Use `multiple` when several sections should stay open at the same time instead of collapsing to a single active item.
+
 <Preview>
   <MultipleAccordionExample />
   <Preview.Code>
@@ -229,6 +231,8 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 </Preview>
 
 ### Controlled
+
+Control `value` from React state when the open items need to stay in sync with routing, filters, or surrounding UI.
 
 <Preview>
   <ControlledAccordionExample />
@@ -264,6 +268,8 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 
 ### Collapsible
 
+Add `collapsible` when the currently open item should be allowed to close without selecting another item first.
+
 <Preview>
   <CollapsibleAccordionExample />
   <Preview.Code>
@@ -294,6 +300,8 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 </Preview>
 
 ### Horizontal
+
+Switch to `orientation="horizontal"` when the accordion should follow a horizontal interaction pattern.
 
 <Preview>
   <HorizontalAccordionExample />
@@ -326,6 +334,8 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 
 ### Lazy Mount
 
+Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and should only render while needed.
+
 <Preview>
   <LazyMountAccordionExample />
   <Preview.Code>
@@ -356,6 +366,8 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 </Preview>
 
 ### Disabled Item
+
+Set `disabled` on an item when it should stay visible in the list but remain unavailable for interaction.
 
 <Preview>
   <DisabledItemAccordionExample />
@@ -391,6 +403,8 @@ Set `defaultValue` to specify which item should be expanded when the accordion f
 </Preview>
 
 ### Custom Styling
+
+Override the indicator content or local CSS variables when the accordion should match a product-specific visual language.
 
 <Preview>
   <CustomStylingAccordionExample />
