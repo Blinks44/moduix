@@ -386,7 +386,7 @@ const shadowTokens = [
 
 const transformTokens = [
   ['--scale-popup', '0.9', 'Dialog, popover, tooltip, menu, preview card, toast, nav menu'],
-  ['--scale-dropdown', '0.95', 'Select, combobox, autocomplete, context menu root'],
+  ['--scale-dropdown', '0.95', 'Select, combobox, autocomplete'],
 ];
 
 const zIndexTokens = [
@@ -407,7 +407,6 @@ const sharedBackdropTokens = [
   ['--backdrop-filter', 'blur(4px)', 'Global backdrop filter fallback'],
   ['--combobox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Combobox'],
   ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'CommandPalette'],
-  ['--context-menu-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'ContextMenu'],
   ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Dialog'],
   ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Drawer'],
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Lightbox'],

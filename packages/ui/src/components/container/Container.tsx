@@ -1,32 +1,38 @@
-import type { ComponentPropsWithoutRef, ElementType } from 'react';
-import clsx from 'clsx';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
+import { clsx } from 'clsx';
+import { forwardRef } from 'react';
+import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Container.module.css';
 
-type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
+export type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
 
-type ContainerProps = ComponentPropsWithoutRef<'div'> & {
-  as?: ElementType;
+export type ContainerRootProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
 };
 
-function Container({
-  as: Root = 'div',
-  size = 'lg',
-  gutter = 'md',
-  className,
-  ...props
-}: ContainerProps) {
+const ContainerRoot = forwardRef<HTMLDivElement, ContainerRootProps>(function ContainerRoot(
+  { size = 'lg', gutter = 'md', className, ...props },
+  ref,
+) {
   return (
-    <Root
-      {...props}
+    <ark.div
+      ref={ref}
+      data-scope="container"
+      data-part="root"
       data-slot="container-root"
       data-size={size}
       data-gutter={gutter}
-      className={clsx(styles.root, className)}
+      className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
     />
   );
-}
+});
+
+const Container = Object.assign(ContainerRoot, {
+  Root: ContainerRoot,
+});
 
 export { Container };

@@ -19,7 +19,6 @@ const uiPrimitiveOptimizeDeps = [
   '@base-ui/react/alert-dialog',
   '@base-ui/react/autocomplete',
   '@base-ui/react/combobox',
-  '@base-ui/react/context-menu',
   '@base-ui/react/dialog',
   '@base-ui/react/drawer',
   '@base-ui/react/field',

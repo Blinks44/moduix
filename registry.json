@@ -509,7 +509,7 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix Container component.",
-      "dependencies": ["clsx"],
+      "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["Blinks44/moduix/core"],
       "files": [
         {
@@ -525,31 +525,6 @@
         {
           "path": "packages/ui/src/components/container/index.ts",
           "target": "@components/moduix/container/index.ts",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "context-menu",
-      "type": "registry:item",
-      "title": "ContextMenu",
-      "description": "moduix ContextMenu component.",
-      "dependencies": ["@base-ui/react", "clsx"],
-      "registryDependencies": ["Blinks44/moduix/core"],
-      "files": [
-        {
-          "path": "packages/ui/src/components/context-menu/ContextMenu.tsx",
-          "target": "@components/moduix/context-menu/ContextMenu.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "packages/ui/src/components/context-menu/ContextMenu.module.css",
-          "target": "@components/moduix/context-menu/ContextMenu.module.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/ui/src/components/context-menu/index.ts",
-          "target": "@components/moduix/context-menu/index.ts",
           "type": "registry:component"
         }
       ]

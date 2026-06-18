@@ -361,8 +361,8 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
       import { Combobox, Portal, useListCollection } from "moduix";
 
       export function DynamicComboboxDemo() {
-        const { collection, set } = useListCollection<string>({
-          initialItems: [],
+        const { collection, set } = useListCollection({
+          initialItems: [] as string[],
         });
 
         return (

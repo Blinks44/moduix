@@ -47,6 +47,9 @@ Use this skill for work in `apps/docs`.
   model with a local-only narrative.
 - If a component has no dedicated Ark UI primitive page, say that explicitly in `API Reference` and anchor the
   page to the relevant Ark guide or factory model plus Chakra anatomy when Chakra informs the public contract.
+- For root-only components where the public export is the same root component with `.Root` attached, teach the
+  short `<Component />` form in consumer docs and snippets. Mention `<Component.Root />` only as the equivalent
+  Ark-aligned namespace form when that helps explain anatomy or consistency with multi-part components.
 
 ## Registry Docs
 

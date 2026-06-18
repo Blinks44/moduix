@@ -1,5 +1,5 @@
 @layer ui.components {
-  .root {
+  .root[data-scope='container'][data-part='root'] {
     --container-gutter: var(--container-gutter-md, clamp(1rem, 4vw, 2rem));
     --container-max-width: var(--container-max-width-lg, 72rem);
 

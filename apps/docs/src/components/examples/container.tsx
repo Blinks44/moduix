@@ -85,14 +85,14 @@ export function ContainerCssPlaygroundPanel({
 export function ContainerExample(props: ComponentProps<typeof Container>) {
   return (
     <div className={styles.viewport}>
-      <Container className={styles.container} {...props}>
+      <Container.Root className={styles.container} {...props}>
         <Heading as="h3" size="lg">
           Responsive page content
         </Heading>
         <Text tone="muted">
           The content column stays readable while inline gutters fluidly adapt to viewport width.
         </Text>
-      </Container>
+      </Container.Root>
     </div>
   );
 }
@@ -102,9 +102,9 @@ export function ContainerSizesExample() {
     <div className={styles.viewport}>
       <div className={styles.stack}>
         {containerSizes.map((size) => (
-          <Container key={size} size={size} className={styles.container}>
+          <Container.Root key={size} size={size} className={styles.container}>
             <Text weight="semibold">size=&quot;{size}&quot;</Text>
-          </Container>
+          </Container.Root>
         ))}
       </div>
     </div>
@@ -116,9 +116,9 @@ export function ContainerGuttersExample() {
     <div className={styles.viewport}>
       <div className={styles.stack}>
         {containerGutters.map((gutter) => (
-          <Container key={gutter} gutter={gutter} className={styles.container}>
+          <Container.Root key={gutter} gutter={gutter} className={styles.container}>
             <Text weight="semibold">gutter=&quot;{gutter}&quot;</Text>
-          </Container>
+          </Container.Root>
         ))}
       </div>
     </div>
@@ -128,12 +128,14 @@ export function ContainerGuttersExample() {
 export function ContainerSemanticExample() {
   return (
     <div className={styles.viewport}>
-      <Container as="main" size="md" className={styles.container}>
-        <Heading as="h3" size="lg">
-          Main content area
-        </Heading>
-        <Text tone="muted">Use `as` when the wrapper should carry semantic meaning.</Text>
-      </Container>
+      <Container.Root asChild size="md" className={styles.container}>
+        <main>
+          <Heading as="h3" size="lg">
+            Main content area
+          </Heading>
+          <Text tone="muted">Use `asChild` when the wrapper should carry semantic meaning.</Text>
+        </main>
+      </Container.Root>
     </div>
   );
 }
@@ -141,9 +143,9 @@ export function ContainerSemanticExample() {
 export function CustomStylingContainerExample() {
   return (
     <div className={styles.viewport}>
-      <Container className={styles.customContainer}>
+      <Container.Root className={styles.customContainer}>
         <Text weight="semibold">Customized max width and gutters</Text>
-      </Container>
+      </Container.Root>
     </div>
   );
 }
@@ -151,7 +153,7 @@ export function CustomStylingContainerExample() {
 export function ContainerBleedExample() {
   return (
     <div className={styles.viewport}>
-      <Container className={styles.container}>
+      <Container.Root className={styles.container}>
         <Heading as="h3" size="lg">
           Article body
         </Heading>
@@ -162,7 +164,7 @@ export function ContainerBleedExample() {
         <Bleed.Root inline="md">
           <div className={styles.bleedSurface}>Bleed content escapes the constrained column.</div>
         </Bleed.Root>
-      </Container>
+      </Container.Root>
     </div>
   );
 }

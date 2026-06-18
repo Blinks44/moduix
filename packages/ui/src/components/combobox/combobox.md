@@ -154,6 +154,7 @@ export function ComboboxExample() {
 
 ## Local changelog
 
+- 2026-06-18: Registered Ark `--reference-width` in the shared theme runtime-variable declarations.
 - 2026-06-18: Migrated Combobox from Base UI to Ark UI, replaced the legacy flat API with
   `Combobox.*`, adopted collection-first state and Ark callback details, removed hidden popup and
   chip abstractions, and moved styles to Ark state attributes and positioning variables.

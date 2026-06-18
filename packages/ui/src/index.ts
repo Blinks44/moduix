@@ -18,7 +18,6 @@ export * from './components/collapsible';
 export * from './components/combobox';
 export * from './components/command-palette';
 export * from './components/container';
-export * from './components/context-menu';
 export * from './components/dialog';
 export * from './components/drawer';
 export * from './components/empty';

@@ -40,6 +40,8 @@ Inside `## Styling`, always use:
 - `Choosing the right component`: only for components with close alternatives.
 - `Basic`: the recommended happy path and the first runnable example.
   - This is the Ark-first default path plus any moduix sugar that is part of the normal public surface.
+  - For root-only components whose exported component is the root with `.Root` attached, prefer the shorter
+    `<Component />` form in runnable snippets.
 - `Install with shadcn`: comes immediately after `Basic`.
 - `Anatomy`: structure only. Keep it short: ASCII tree plus concise part roles.
 - `Composition`: public contract, recommended part tree, escape hatches, defaults, and behavioral constraints.
@@ -98,6 +100,9 @@ Inside `## Styling`, always use:
   - default styling
   - convenience props or wrappers
   - local naming or behavior differences
+- If a root-only component exposes both `<Component />` and `<Component.Root />` as the same root, document
+  `<Component />` as the default consumer path. Use `<Component.Root />` only when explaining the Ark-aligned
+  namespace or when matching a multi-part component anatomy.
 
 Popup-like components:
 

@@ -24,8 +24,7 @@ Use:
   route.
 - nested `NavigationMenu` instances when a panel needs a second navigation layer.
 
-Avoid it for action menus, context menus, or lightweight command lists. Those belong to `Menu`,
-`Menubar`, or `ContextMenu`.
+Avoid it for action menus or lightweight command lists. Those belong to `Menu` or `Menubar`.
 
 ## Current behavior contract
 
