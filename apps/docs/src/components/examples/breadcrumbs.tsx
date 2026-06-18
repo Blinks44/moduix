@@ -9,8 +9,10 @@ import {
   BreadcrumbsSeparator,
   Menu,
   MenuContent,
-  MenuLinkItem,
+  MenuItem,
+  MenuPositioner,
   MenuTrigger,
+  Portal,
   SeparatorMarkIcon,
 } from 'moduix';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
@@ -146,17 +148,21 @@ export function BreadcrumbsCollapsedExample() {
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />
           <BreadcrumbsItem>
-            <Menu>
+            <Menu positioning={{ placement: 'bottom-start' }}>
               <MenuTrigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
                 <BreadcrumbsEllipsis />
               </MenuTrigger>
-              <MenuContent align="start" style={collapsedMenuContentStyle}>
-                {collapsedItems.map((item) => (
-                  <MenuLinkItem key={item.href} closeOnClick href={item.href}>
-                    {item.label}
-                  </MenuLinkItem>
-                ))}
-              </MenuContent>
+              <Portal>
+                <MenuPositioner>
+                  <MenuContent style={collapsedMenuContentStyle}>
+                    {collapsedItems.map((item) => (
+                      <MenuItem key={item.href} value={item.href} asChild>
+                        <a href={item.href}>{item.label}</a>
+                      </MenuItem>
+                    ))}
+                  </MenuContent>
+                </MenuPositioner>
+              </Portal>
             </Menu>
           </BreadcrumbsItem>
           <BreadcrumbsSeparator />

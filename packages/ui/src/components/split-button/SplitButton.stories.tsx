@@ -39,10 +39,10 @@ export const Basic: Story = {
       <SplitButtonAction onClick={() => undefined}>Save Changes</SplitButtonAction>
       <SplitButtonTrigger />
       <SplitButtonContent>
-        <MenuItem closeOnClick>Save as Draft</MenuItem>
-        <MenuItem closeOnClick>Duplicate</MenuItem>
+        <MenuItem value="save-draft">Save as Draft</MenuItem>
+        <MenuItem value="duplicate">Duplicate</MenuItem>
         <MenuSeparator />
-        <MenuItem closeOnClick>Publish Now</MenuItem>
+        <MenuItem value="publish">Publish Now</MenuItem>
       </SplitButtonContent>
     </SplitButton>
   ),
@@ -56,8 +56,8 @@ export const Variants: Story = {
           <SplitButtonAction>{variant}</SplitButtonAction>
           <SplitButtonTrigger />
           <SplitButtonContent>
-            <MenuItem closeOnClick>Edit</MenuItem>
-            <MenuItem closeOnClick>Duplicate</MenuItem>
+            <MenuItem value={`${variant}-edit`}>Edit</MenuItem>
+            <MenuItem value={`${variant}-duplicate`}>Duplicate</MenuItem>
           </SplitButtonContent>
         </SplitButton>
       ))}
@@ -73,8 +73,8 @@ export const Sizes: Story = {
           <SplitButtonAction>{size}</SplitButtonAction>
           <SplitButtonTrigger />
           <SplitButtonContent>
-            <MenuItem closeOnClick>Create</MenuItem>
-            <MenuItem closeOnClick>Create and Open</MenuItem>
+            <MenuItem value={`${size}-create`}>Create</MenuItem>
+            <MenuItem value={`${size}-create-open`}>Create and Open</MenuItem>
           </SplitButtonContent>
         </SplitButton>
       ))}
@@ -91,10 +91,10 @@ export const WithIcons: Story = {
       </SplitButtonAction>
       <SplitButtonTrigger aria-label="More create actions" />
       <SplitButtonContent>
-        <MenuItem closeOnClick>Create Blank</MenuItem>
-        <MenuItem closeOnClick>Create From Template</MenuItem>
+        <MenuItem value="create-blank">Create Blank</MenuItem>
+        <MenuItem value="create-template">Create From Template</MenuItem>
         <MenuSeparator />
-        <MenuItem closeOnClick>Import Existing</MenuItem>
+        <MenuItem value="import-existing">Import Existing</MenuItem>
       </SplitButtonContent>
     </SplitButton>
   ),
@@ -105,14 +105,14 @@ export const ControlledMenu: Story = {
     const [open, setOpen] = useState(false);
 
     return (
-      <SplitButton open={open} onOpenChange={setOpen} variant="outline">
+      <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
         <SplitButtonAction>Share</SplitButtonAction>
         <SplitButtonTrigger aria-label="More share actions" />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Copy Link</MenuItem>
-          <MenuItem closeOnClick>Invite by Email</MenuItem>
+          <MenuItem value="copy-link">Copy Link</MenuItem>
+          <MenuItem value="invite-email">Invite by Email</MenuItem>
           <MenuSeparator />
-          <MenuItem closeOnClick onClick={() => setOpen(false)}>
+          <MenuItem value="close-menu" onSelect={() => setOpen(false)}>
             Close Menu
           </MenuItem>
         </SplitButtonContent>
@@ -132,8 +132,8 @@ export const LinkAction: Story = {
       </SplitButtonAction>
       <SplitButtonTrigger aria-label="More docs actions" />
       <SplitButtonContent>
-        <MenuItem closeOnClick>Copy Link</MenuItem>
-        <MenuItem closeOnClick>Open in New Tab</MenuItem>
+        <MenuItem value="copy-link">Copy Link</MenuItem>
+        <MenuItem value="open-new-tab">Open in New Tab</MenuItem>
       </SplitButtonContent>
     </SplitButton>
   ),

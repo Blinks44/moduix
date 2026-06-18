@@ -1,11 +1,18 @@
-import type { Menu as MenuPrimitive } from '@base-ui/react/menu';
+import { Portal } from '@ark-ui/react/portal';
 import { clsx } from 'clsx';
 import { forwardRef, createContext, useContext, type ComponentRef, type ReactNode } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { mergeClassName } from '@/lib/moduix/mergeClassName';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { Button, type ButtonRootProps, type ButtonSize, type ButtonVariant } from '../button';
-import { Menu, MenuContent, MenuTrigger, type MenuContentProps } from '../menu';
+import {
+  Menu,
+  MenuContent,
+  MenuPositioner,
+  MenuTrigger,
+  type MenuContentProps,
+  type MenuRootProps,
+  type MenuTriggerProps,
+} from '../menu';
 import styles from './SplitButton.module.css';
 
 type SplitButtonVariant = Exclude<ButtonVariant, 'link'>;
@@ -16,7 +23,7 @@ type SplitButtonContextValue = {
   variant: SplitButtonVariant;
 };
 
-type SplitButtonProps = Omit<MenuPrimitive.Root.Props, 'children'> & {
+type SplitButtonProps = Omit<MenuRootProps, 'children'> & {
   children?: ReactNode;
   className?: string;
   size?: SplitButtonSize;
@@ -28,7 +35,7 @@ type SplitButtonActionProps = Omit<ButtonRootProps, 'size' | 'variant'> & {
   variant?: SplitButtonVariant;
 };
 
-type SplitButtonTriggerProps = Omit<MenuPrimitive.Trigger.Props, 'render'> & {
+type SplitButtonTriggerProps = MenuTriggerProps & {
   size?: SplitButtonSize;
   variant?: SplitButtonVariant;
 };
@@ -50,13 +57,14 @@ function useSplitButtonContext(componentName: string) {
 function SplitButton({
   children,
   className,
+  positioning,
   size = 'md',
   variant = 'default',
   ...props
 }: SplitButtonProps) {
   return (
     <SplitButtonContext.Provider value={{ size, variant }}>
-      <Menu {...props}>
+      <Menu positioning={{ placement: 'bottom-end', gutter: 4, ...positioning }} {...props}>
         <div data-slot="split-button-root" className={clsx(styles.root, className)}>
           {children}
         </div>
@@ -95,19 +103,27 @@ function SplitButtonTrigger({
 
   return (
     <MenuTrigger
+      asChild
       data-slot="split-button-trigger"
       aria-label={children ? ariaLabel : (ariaLabel ?? 'More actions')}
-      className={mergeClassName(className, styles.trigger)}
-      render={<Button size={size ?? context.size} variant={variant ?? context.variant} />}
+      className={clsx(styles.trigger, normalizeClassName(className))}
       {...props}
     >
-      {resolvedChildren}
+      <Button size={size ?? context.size} variant={variant ?? context.variant}>
+        {resolvedChildren}
+      </Button>
     </MenuTrigger>
   );
 }
 
-function SplitButtonContent({ align = 'end', sideOffset = 4, ...props }: SplitButtonContentProps) {
-  return <MenuContent align={align} sideOffset={sideOffset} {...props} />;
+function SplitButtonContent(props: SplitButtonContentProps) {
+  return (
+    <Portal>
+      <MenuPositioner>
+        <MenuContent {...props} />
+      </MenuPositioner>
+    </Portal>
+  );
 }
 
 export { SplitButton, SplitButtonAction, SplitButtonTrigger, SplitButtonContent };

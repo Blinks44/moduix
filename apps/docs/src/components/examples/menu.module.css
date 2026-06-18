@@ -1,33 +1,60 @@
-.detachedTrigger {
+.contextTrigger {
+  width: 16rem;
+}
+
+.messageList {
+  display: grid;
+  gap: var(--spacing-2);
+  width: min(24rem, 100%);
+}
+
+.messageItem {
   display: flex;
-  justify-content: center;
-  margin-bottom: var(--spacing-4);
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-background);
 }
 
-.customTriggerIcon {
-  --menu-trigger-icon-size: 0.875rem;
+.messageContent {
+  min-width: 0;
+  flex: 1;
 }
 
-.customTrigger {
-  position: relative;
-  z-index: var(--z-popup);
-  border-color: var(--color-primary);
-  background:
-    linear-gradient(var(--color-background), var(--color-background)) padding-box,
-    linear-gradient(135deg, var(--color-primary), var(--color-ring)) border-box;
-  color: var(--color-primary);
+.messageSender {
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-text-sm);
 }
 
-.customBackdrop {
-  background-color: rgb(0 0 0 / 0.08);
-  backdrop-filter: blur(0.125rem);
+.messagePreview {
+  overflow: hidden;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.customPositioner {
-  z-index: var(--z-popup);
+.messageAction {
+  width: var(--size-md);
+  min-height: var(--size-md);
+  padding: 0;
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--color-muted-foreground);
 }
 
-.customPopup {
+.selectEvent {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.customContent {
   --menu-popup-min-width: 13rem;
   --menu-popup-bg: var(--color-background);
   --menu-popup-border-color: var(--color-primary);
@@ -35,18 +62,6 @@
   --menu-highlight-bg: var(--color-primary);
   --menu-highlight-color: var(--color-primary-foreground);
   --menu-separator-color: var(--color-primary);
-}
-
-.customViewport {
-  max-height: 18rem;
-  overflow-y: auto;
-}
-
-.customArrow {
-  --menu-arrow-stroke-color: var(--menu-popup-border-color);
-}
-
-.customItem {
   --menu-item-padding-x-start: var(--spacing-3);
   --menu-item-padding-x-end: var(--spacing-3);
   --menu-item-text-icon-color: var(--color-primary);

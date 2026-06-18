@@ -1209,18 +1209,8 @@
   --list-subtle-color: initial; /* var(--color-secondary-foreground) */
 
   /* Menu */
-  --menu-arrow-height: initial; /* 0.625rem */
-  --menu-arrow-inline-offset: initial; /* 0.8125rem */
-  --menu-arrow-size: initial; /* 0.5rem */
+  --menu-arrow-size: initial; /* 0.625rem */
   --menu-arrow-stroke-color: initial; /* var(--menu-popup-border-color) */
-  --menu-arrow-width: initial; /* 1.25rem */
-  --menu-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
-  --menu-backdrop-blur: initial; /* 4px */
-  --menu-backdrop-ending-blur: initial; /* none */
-  --menu-backdrop-ending-opacity: initial; /* 0 */
-  --menu-backdrop-starting-blur: initial; /* none */
-  --menu-backdrop-starting-opacity: initial; /* 0 */
-  --menu-backdrop-transition: initial; /* var(--transition-default) */
   --menu-check-gap: initial; /* 0.5rem */
   --menu-check-indicator-size: initial; /* 0.75rem */
   --menu-check-padding-x-start: initial; /* 0.625rem */
@@ -1230,6 +1220,9 @@
   --menu-checkbox-indicator-border-color-checked: initial; /* var(--menu-checkbox-indicator-border-color) */
   --menu-checkbox-indicator-border-width: initial; /* 0 */
   --menu-checkbox-indicator-radius: initial; /* var(--radius-xs) */
+  --menu-context-trigger-border-style: initial; /* dashed */
+  --menu-context-trigger-height: initial; /* 10rem */
+  --menu-context-trigger-width: initial; /* 15rem */
   --menu-disabled-opacity: initial; /* var(--opacity-disabled) */
   --menu-focus-ring-color: initial; /* var(--color-ring) */
   --menu-focus-ring-width: initial; /* var(--menu-trigger-border-width) */
@@ -1253,10 +1246,12 @@
   --menu-item-font-size: initial; /* var(--text-sm) */
   --menu-item-gap: initial; /* var(--spacing-2) */
   --menu-item-height: initial; /* 2rem */
+  --menu-item-indicator-color-checked: initial; /* currentColor */
   --menu-item-line-height: initial; /* var(--line-height-text-sm) */
   --menu-item-padding-x-end: initial; /* 1rem */
   --menu-item-padding-x-start: initial; /* 1rem */
   --menu-item-padding-y: initial; /* 0.5rem */
+  --menu-item-radius: initial; /* var(--radius-sm) */
   --menu-item-shortcut-color: initial; /* var(--color-muted-foreground) */
   --menu-item-shortcut-font-size: initial; /* var(--text-xs) */
   --menu-item-shortcut-line-height: initial; /* var(--line-height-text-xs) */
@@ -1272,7 +1267,6 @@
   --menu-popup-ending-scale: initial; /* var(--scale-popup) */
   --menu-popup-ending-translate-x: initial; /* 0 */
   --menu-popup-ending-translate-y: initial; /* 0 */
-  --menu-popup-height: initial; /* auto */
   --menu-popup-max-height: initial; /* 24rem */
   --menu-popup-max-width: initial; /* 20rem */
   --menu-popup-min-width: initial; /* 12rem */
@@ -1283,20 +1277,16 @@
   --menu-popup-starting-scale: initial; /* var(--scale-popup) */
   --menu-popup-starting-translate-x: initial; /* 0 */
   --menu-popup-starting-translate-y: initial; /* 0 */
-  --menu-popup-width: initial; /* auto */
   --menu-separator-color: initial; /* var(--color-border) */
   --menu-separator-height: initial; /* var(--border-width-sm) */
   --menu-separator-margin-x-end: initial; /* 1rem */
   --menu-separator-margin-x-start: initial; /* 1rem */
   --menu-separator-margin-y: initial; /* 0.375rem */
-  --menu-submenu-icon-size: initial; /* 0.875rem */
   --menu-submenu-open-bg: initial; /* var(--color-accent) */
-  --menu-submenu-trigger-gap: initial; /* var(--spacing-3) */
-  --menu-submenu-trigger-padding-x-end: initial; /* 1rem */
   --menu-transition: initial; /* var(--transition-default) */
   --menu-trigger-bg: initial; /* var(--color-background) */
   --menu-trigger-bg-active: initial; /* var(--menu-trigger-bg-hover) */
-  --menu-trigger-bg-hover: initial; /* var(--color-accent) */
+  --menu-trigger-bg-hover: initial; /* no default (set explicitly when needed) */
   --menu-trigger-border-color: initial; /* var(--color-border) */
   --menu-trigger-border-width: initial; /* var(--border-width-sm) */
   --menu-trigger-color: initial; /* var(--color-foreground) */
@@ -1305,6 +1295,9 @@
   --menu-trigger-height: initial; /* var(--size-lg) */
   --menu-trigger-icon-color: initial; /* currentColor */
   --menu-trigger-icon-size: initial; /* 1rem */
+  --menu-trigger-item-gap: initial; /* var(--spacing-3) */
+  --menu-trigger-item-icon-size: initial; /* 0.875rem */
+  --menu-trigger-item-padding-x-end: initial; /* 1rem */
   --menu-trigger-line-height: initial; /* var(--line-height-text-md) */
   --menu-trigger-padding-x: initial; /* 0.875rem */
   --menu-trigger-padding-y: initial; /* 0.5rem */

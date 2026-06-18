@@ -6,8 +6,10 @@ import {
   Menu,
   MenuContent,
   MenuItem,
+  MenuPositioner,
   MenuSeparator,
   MenuTrigger,
+  Portal,
   Table,
   TableBody,
   TableCaption,
@@ -351,17 +353,21 @@ export function TableInCardExample() {
 
 function TableRowActionsMenu({ itemName }: { itemName: string }) {
   return (
-    <Menu>
+    <Menu positioning={{ placement: 'bottom-end' }}>
       <MenuTriggerButton aria-label={`Open actions for ${itemName}`}>...</MenuTriggerButton>
-      <MenuContent align="end">
-        <MenuItem closeOnClick>Open project</MenuItem>
-        <MenuItem closeOnClick>Copy link</MenuItem>
-        <MenuItem closeOnClick>Duplicate</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick tone="destructive">
-          Archive
-        </MenuItem>
-      </MenuContent>
+      <Portal>
+        <MenuPositioner>
+          <MenuContent>
+            <MenuItem value="open">Open project</MenuItem>
+            <MenuItem value="copy-link">Copy link</MenuItem>
+            <MenuItem value="duplicate">Duplicate</MenuItem>
+            <MenuSeparator />
+            <MenuItem value="archive" tone="destructive">
+              Archive
+            </MenuItem>
+          </MenuContent>
+        </MenuPositioner>
+      </Portal>
     </Menu>
   );
 }
@@ -373,12 +379,12 @@ function MenuTriggerButton({
   children: ReactNode;
 }) {
   return (
-    <MenuTrigger
-      render={<Button variant="ghost" size="icon-md" className={styles.actionTrigger} {...props} />}
-    >
-      <span aria-hidden className={styles.actionEllipsis}>
-        {children}
-      </span>
+    <MenuTrigger asChild>
+      <Button variant="ghost" size="icon-md" className={styles.actionTrigger} {...props}>
+        <span aria-hidden className={styles.actionEllipsis}>
+          {children}
+        </span>
+      </Button>
     </MenuTrigger>
   );
 }

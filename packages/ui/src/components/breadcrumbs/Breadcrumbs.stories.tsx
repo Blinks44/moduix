@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
+import { Portal } from '@ark-ui/react/portal';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
-import { Menu, MenuContent, MenuLinkItem, MenuTrigger } from '../menu';
+import { Menu, MenuContent, MenuItem, MenuPositioner, MenuTrigger } from '../menu';
 import {
   Breadcrumbs,
   BreadcrumbsEllipsis,
@@ -74,21 +75,25 @@ export const Collapsed: Story = {
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />
         <BreadcrumbsItem>
-          <Menu>
+          <Menu positioning={{ placement: 'bottom-start' }}>
             <MenuTrigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
               <BreadcrumbsEllipsis />
             </MenuTrigger>
-            <MenuContent align="start" style={collapsedMenuContentStyle}>
-              <MenuLinkItem closeOnClick href="#">
-                Engineering
-              </MenuLinkItem>
-              <MenuLinkItem closeOnClick href="#">
-                Backend
-              </MenuLinkItem>
-              <MenuLinkItem closeOnClick href="#">
-                Golang
-              </MenuLinkItem>
-            </MenuContent>
+            <Portal>
+              <MenuPositioner>
+                <MenuContent style={collapsedMenuContentStyle}>
+                  <MenuItem value="engineering" asChild>
+                    <a href="#">Engineering</a>
+                  </MenuItem>
+                  <MenuItem value="backend" asChild>
+                    <a href="#">Backend</a>
+                  </MenuItem>
+                  <MenuItem value="golang" asChild>
+                    <a href="#">Golang</a>
+                  </MenuItem>
+                </MenuContent>
+              </MenuPositioner>
+            </Portal>
           </Menu>
         </BreadcrumbsItem>
         <BreadcrumbsSeparator />

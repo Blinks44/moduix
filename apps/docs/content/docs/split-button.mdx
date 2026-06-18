@@ -17,7 +17,7 @@ import {
 ## API Reference
 
 `SplitButton` is a local moduix composition built from the moduix `Button` and `Menu` wrappers.
-Base UI does not provide a dedicated split-button primitive for this API.
+SplitButton is a local moduix composition built on Ark-backed Menu and Button parts.
 
 ## Basic
 
@@ -45,10 +45,10 @@ dropdown.
             <SplitButtonAction>Save Changes</SplitButtonAction>
             <SplitButtonTrigger />
             <SplitButtonContent>
-              <MenuItem closeOnClick>Save as Draft</MenuItem>
-              <MenuItem closeOnClick>Duplicate</MenuItem>
+              <MenuItem value="action">Save as Draft</MenuItem>
+              <MenuItem value="action">Duplicate</MenuItem>
               <MenuSeparator />
-              <MenuItem closeOnClick>Publish Now</MenuItem>
+              <MenuItem value="action">Publish Now</MenuItem>
             </SplitButtonContent>
           </SplitButton>
         );
@@ -133,7 +133,7 @@ Stay with `SplitButtonAction`, `SplitButtonTrigger`, and `SplitButtonContent` fo
 action menus.
 
 - Keep the primary action explicit on `SplitButtonAction`.
-- Keep alternate actions on shared menu parts such as `MenuItem`, `MenuSeparator`, `MenuGroup`, and
+- Keep alternate actions on shared menu parts such as `MenuItem`, `MenuSeparator`, `MenuItemGroup`, and
   `MenuCheckboxItem`.
 - Let the root `variant` and `size` flow to both grouped buttons unless one side needs an override.
 
@@ -147,8 +147,7 @@ composition:
 - Pass custom trigger `children` when the default chevron is not enough.
 - Use `asChild` on `SplitButtonAction` when the primary side should render as a link or another
   compatible element.
-- Use the full `MenuContent` API through `SplitButtonContent` when popup alignment or collision
-  behavior needs adjustment.
+- Configure popup placement on `SplitButton` with Ark `positioning`; `SplitButtonContent` owns only the default portal, positioner, and content structure.
 
 ### Default props
 
@@ -162,14 +161,13 @@ composition:
 
 ### Behavioral notes
 
-- `SplitButton` forwards Base UI menu root props such as `open`, `defaultOpen`, `onOpenChange`, and
-  `modal`.
+- `SplitButton` forwards Ark menu root props such as `open`, `defaultOpen`, `onOpenChange(details)`, `closeOnSelect`, `positioning`, and `ids`.
 - `SplitButtonTrigger` intentionally owns the rendered button and does not expose `render`.
 - The root `variant` excludes the `link` button variant because grouped link-style split buttons do
   not form a coherent control.
 - The root `size` excludes icon-only button sizes because the default path expects a visible label on
   the primary action.
-- `SplitButtonContent` is just a small wrapper over `MenuContent`; the menu rows still come from the
+- `SplitButtonContent` is a small wrapper over `Portal`, `MenuPositioner`, and `MenuContent`; the menu rows still come from the
   shared `Menu*` API.
 
 ## Examples
@@ -198,7 +196,7 @@ Use the root `variant` when both grouped buttons should share the same visual to
               <SplitButtonAction>Default</SplitButtonAction>
               <SplitButtonTrigger />
               <SplitButtonContent>
-                <MenuItem closeOnClick>Edit</MenuItem>
+                <MenuItem value="action">Edit</MenuItem>
               </SplitButtonContent>
             </SplitButton>
 
@@ -206,7 +204,7 @@ Use the root `variant` when both grouped buttons should share the same visual to
               <SplitButtonAction>Outline</SplitButtonAction>
               <SplitButtonTrigger />
               <SplitButtonContent>
-                <MenuItem closeOnClick>Edit</MenuItem>
+                <MenuItem value="action">Edit</MenuItem>
               </SplitButtonContent>
             </SplitButton>
           </>
@@ -241,7 +239,7 @@ Use the root `size` when both sides should scale together.
               <SplitButtonAction>Extra-small</SplitButtonAction>
               <SplitButtonTrigger />
               <SplitButtonContent>
-                <MenuItem closeOnClick>Create</MenuItem>
+                <MenuItem value="action">Create</MenuItem>
               </SplitButtonContent>
             </SplitButton>
 
@@ -249,7 +247,7 @@ Use the root `size` when both sides should scale together.
               <SplitButtonAction>Large</SplitButtonAction>
               <SplitButtonTrigger />
               <SplitButtonContent>
-                <MenuItem closeOnClick>Create</MenuItem>
+                <MenuItem value="action">Create</MenuItem>
               </SplitButtonContent>
             </SplitButton>
           </>
@@ -288,10 +286,10 @@ Add icons on the primary side when they clarify the default action without repla
             </SplitButtonAction>
             <SplitButtonTrigger aria-label="More create actions" />
             <SplitButtonContent>
-              <MenuItem closeOnClick>Create Blank</MenuItem>
-              <MenuItem closeOnClick>Create From Template</MenuItem>
+              <MenuItem value="action">Create Blank</MenuItem>
+              <MenuItem value="action">Create From Template</MenuItem>
               <MenuSeparator />
-              <MenuItem closeOnClick>Import Existing</MenuItem>
+              <MenuItem value="action">Import Existing</MenuItem>
             </SplitButtonContent>
           </SplitButton>
         );
@@ -324,14 +322,14 @@ Use the same controlled open-state contract as `Menu` when outside state should 
         const [open, setOpen] = useState(false);
 
         return (
-          <SplitButton open={open} onOpenChange={setOpen} variant="outline">
+          <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
             <SplitButtonAction>Share</SplitButtonAction>
             <SplitButtonTrigger aria-label="More share actions" />
             <SplitButtonContent>
-              <MenuItem closeOnClick>Copy Link</MenuItem>
-              <MenuItem closeOnClick>Invite by Email</MenuItem>
+              <MenuItem value="action">Copy Link</MenuItem>
+              <MenuItem value="action">Invite by Email</MenuItem>
               <MenuSeparator />
-              <MenuItem closeOnClick onClick={() => setOpen(false)}>
+              <MenuItem value="close-menu" onSelect={() => setOpen(false)}>
                 Close Menu
               </MenuItem>
             </SplitButtonContent>
@@ -367,8 +365,8 @@ Use root `className` and the stable `data-slot` hooks when the grouped control n
             <SplitButtonAction>Review</SplitButtonAction>
             <SplitButtonTrigger aria-label="More review actions" />
             <SplitButtonContent>
-              <MenuItem closeOnClick>Approve</MenuItem>
-              <MenuItem closeOnClick>Request Changes</MenuItem>
+              <MenuItem value="action">Approve</MenuItem>
+              <MenuItem value="action">Request Changes</MenuItem>
             </SplitButtonContent>
           </SplitButton>
         );
@@ -424,8 +422,8 @@ The primary action still uses the shared `Button.Root` API, so `asChild` is the 
             </SplitButtonAction>
             <SplitButtonTrigger aria-label="More docs actions" />
             <SplitButtonContent>
-              <MenuItem closeOnClick>Copy Link</MenuItem>
-              <MenuItem closeOnClick>Open in New Tab</MenuItem>
+              <MenuItem value="action">Copy Link</MenuItem>
+              <MenuItem value="action">Open in New Tab</MenuItem>
             </SplitButtonContent>
           </SplitButton>
         );

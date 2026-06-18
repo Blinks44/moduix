@@ -1,508 +1,194 @@
----
-title: Menu
-subtitle: Dropdown actions, selections, and nested branches built on the moduix menu wrapper.
-description: moduix wrapper around Base UI menu primitives with a default popup composition, trigger styling, submenu helpers, detached-trigger support, and stable styling hooks.
----
-
 # Menu
 
-Upstream primitive docs: https://base-ui.com/react/components/menu
+Upstream docs:
 
-`Menu` is the moduix dropdown menu wrapper. It keeps Base UI interaction behavior, but exposes our
-own composition helpers, slot names, CSS variables, and a small amount of DX sugar that matches the
-rest of the library.
+- Ark UI: https://ark-ui.com/docs/components/menu
+- Chakra UI: https://chakra-ui.com/docs/components/menu
 
 ## Purpose
 
-Use `Menu` for command lists anchored to a trigger: action menus, overflow menus, lightweight
-selection menus, and nested option groups.
+`Menu` renders trigger-anchored actions, context menus, links, checkbox/radio choices, and nested
+command trees.
 
-Use:
+## Upstream model to preserve
 
-- `MenuItem` for imperative actions
-- `MenuLinkItem` for navigation
-- `MenuCheckboxItem` and `MenuRadioItem` for persistent app state
-- `MenuSubmenu` for secondary branches
+The wrapper follows Ark UI `@ark-ui/react/menu` directly. Preserve the Ark parts:
+`Root`, `RootProvider`, `Trigger`, `ContextTrigger`, `Positioner`, `Content`, `Arrow`, `ArrowTip`,
+`Item`, `TriggerItem`, `Separator`, `ItemGroup`, `ItemGroupLabel`, `CheckboxItem`,
+`RadioItemGroup`, `RadioItem`, `ItemIndicator`, `ItemText`, `Context`, and `ItemContext`.
 
-## What is specific to moduix
+Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
+`onHighlightChange(details)`, `onSelect(details)`, `onValueChange(details)`,
+`onCheckedChange(checked)`, `open`, `defaultOpen`, `highlightedValue`, `defaultHighlightedValue`,
+`ids`, `present`, `lazyMount`, and `unmountOnExit`.
 
-This component is **not** a direct re-export of the Base UI API.
+## Current behavior contract
 
-moduix adds and standardizes:
+The component exports thin styled wrappers over Ark parts and mirrors Ark provider/context hooks
+through the package barrel: `useMenu`, `useMenuContext`, and `useMenuItemContext`.
 
-- `MenuContent` as the default high-level composition. It renders `MenuPortal`, `MenuPositioner`,
-  and `MenuPopup` for you.
-- `MenuSubmenuContent` with submenu-specific default offsets.
-- `showArrow` on content wrappers.
-- `createMenuHandle` for detached trigger/root composition.
-- `MenuTriggerIcon`, `MenuSubmenuTriggerIcon`, `MenuItemText`, `MenuItemTextContent`,
-  `MenuItemTextIcon`, `MenuItemTextLabel`, and `MenuItemShortcut` helpers for common row layouts.
-- `tone="default" | "destructive"` on `MenuItem` and `MenuLinkItem`.
-- `indicator="start" | "end" | "none"` on checkbox and radio rows.
-- `indicator="none"` disables the reserved indicator column. Use that mode when the selected row
-  should rely on background-only highlighting and no indicator part should be rendered.
-- stable `data-slot` attributes and CSS variable names under the `--menu-*` namespace.
-- exported wrapper types: `MenuPositionerProps`, `MenuContentProps`, `MenuIndicatorPosition`,
-  `MenuItemProps`, `MenuLinkItemProps`, `MenuRadioItemProps`, and `MenuCheckboxItemProps`.
+Breaking Base UI-era APIs were removed:
 
-## Recommended composition
+- no `render` prop contract; use Ark `asChild`
+- no `closeOnClick`; use Ark `closeOnSelect` or item/root defaults
+- no `MenuSubmenu`; nested menus are regular `Menu` roots opened by `MenuTriggerItem`
+- no `MenuLinkItem`; use `MenuItem asChild` with an anchor
+- no high-level `MenuContent` wrapper that hides `Portal` or `Positioner`
+- no `createMenuHandle`, `MenuPopup`, `MenuViewport`, `MenuBackdrop`, or `MenuPortal` aliases
 
-Use `MenuContent` unless you explicitly need a custom portal structure, a backdrop, or a manual
-viewport.
+## Anatomy and exported parts
 
 ```tsx
-import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger, MenuTriggerIcon } from 'moduix';
+<Menu>
+  <MenuTrigger />
+  <Portal>
+    <MenuPositioner>
+      <MenuContent>
+        <MenuArrow>
+          <MenuArrowTip />
+        </MenuArrow>
+        <MenuItem value="edit" />
+        <MenuCheckboxItem value="toolbar" checked={checked}>
+          <MenuItemIndicator />
+          <MenuItemText />
+        </MenuCheckboxItem>
+        <MenuRadioItemGroup value={value}>
+          <MenuRadioItem value="date" />
+        </MenuRadioItemGroup>
+        <Menu>
+          <MenuTriggerItem />
+          <Portal>
+            <MenuPositioner>
+              <MenuContent />
+            </MenuPositioner>
+          </Portal>
+        </Menu>
+      </MenuContent>
+    </MenuPositioner>
+  </Portal>
+</Menu>
+```
+
+Stable slots:
+
+- `menu-trigger`, `menu-trigger-icon`, `menu-indicator`, `menu-context-trigger`
+- `menu-positioner`, `menu-content`, `menu-arrow`, `menu-arrow-tip`
+- `menu-item`, `menu-trigger-item`, `menu-trigger-item-icon`, `menu-separator`
+- `menu-item-group`, `menu-item-group-label`
+- `menu-radio-item-group`, `menu-radio-item`, `menu-checkbox-item`
+- `menu-item-indicator`, `menu-item-text`, `menu-item-text-content`, `menu-item-text-icon`,
+  `menu-item-text-label`, `menu-item-shortcut`
+
+## Composition
+
+```tsx
+import { Button, Menu, MenuContent, MenuItem, MenuPositioner, MenuTrigger, Portal } from 'moduix';
 
 export function Example() {
   return (
-    <Menu>
-      <MenuTrigger>
-        Actions
-        <MenuTriggerIcon />
+    <Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
+      <MenuTrigger asChild>
+        <Button>Actions</Button>
       </MenuTrigger>
-      <MenuContent>
-        <MenuItem closeOnClick>Edit</MenuItem>
-        <MenuItem closeOnClick>Duplicate</MenuItem>
-        <MenuSeparator />
-        <MenuItem closeOnClick disabled>
-          Delete
-        </MenuItem>
-      </MenuContent>
+      <Portal>
+        <MenuPositioner>
+          <MenuContent>
+            <MenuItem value="edit">Edit</MenuItem>
+            <MenuItem value="duplicate">Duplicate</MenuItem>
+          </MenuContent>
+        </MenuPositioner>
+      </Portal>
     </Menu>
   );
 }
 ```
 
-If you pass `render` to `MenuTrigger`, moduix does **not** merge the default trigger class. You own
-the rendered element, its styling, and its spacing completely.
-
-## Parts
-
-| Export                      | Role                                                         |
-| --------------------------- | ------------------------------------------------------------ |
-| `Menu`                      | Root state and interaction controller.                       |
-| `MenuSubmenu`               | Nested menu root used inside another menu.                   |
-| `createMenuHandle`          | Shared handle factory for detached trigger/root composition. |
-| `MenuTrigger`               | Opens the menu from click or keyboard interaction.           |
-| `MenuTriggerIcon`           | Trailing trigger icon helper. Defaults to `ChevronDownIcon`. |
-| `MenuPortal`                | Low-level portal part.                                       |
-| `MenuBackdrop`              | Optional overlay behind the menu.                            |
-| `MenuPositioner`            | Low-level positioning part.                                  |
-| `MenuPopup`                 | Low-level popup surface.                                     |
-| `MenuArrow`                 | Popup arrow. Renders the moduix arrow icon by default.       |
-| `MenuViewport`              | Optional viewport for custom scroll or clipping behavior.    |
-| `MenuContent`               | Recommended wrapper around portal + positioner + popup.      |
-| `MenuSubmenuContent`        | Same as `MenuContent`, but with submenu-tuned offsets.       |
-| `MenuItem`                  | Action row.                                                  |
-| `MenuLinkItem`              | Link row for navigation actions.                             |
-| `MenuSeparator`             | Visual divider between groups of actions.                    |
-| `MenuGroup`                 | Container for labeled sets of controls.                      |
-| `MenuGroupLabel`            | Label for a group.                                           |
-| `MenuSubmenuTrigger`        | Row that opens a nested submenu.                             |
-| `MenuSubmenuTriggerIcon`    | Trailing submenu chevron helper.                             |
-| `MenuRadioGroup`            | Exclusive selection container.                               |
-| `MenuRadioItem`             | Radio row with optional indicator placement helper.          |
-| `MenuRadioItemIndicator`    | Indicator cell for radio rows. Defaults to `CheckIcon`.      |
-| `MenuCheckboxItem`          | Checkbox row with optional indicator placement helper.       |
-| `MenuCheckboxItemIndicator` | Indicator cell for checkbox rows. Defaults to `CheckIcon`.   |
-| `MenuItemText`              | Grid/text wrapper for checkbox and radio labels.             |
-| `MenuItemTextContent`       | Inline layout helper for icon + label content.               |
-| `MenuItemTextIcon`          | Leading icon cell inside `MenuItemTextContent`.              |
-| `MenuItemTextLabel`         | Text label inside `MenuItemTextContent`.                     |
-| `MenuItemShortcut`          | Shortcut hint aligned to the trailing edge.                  |
-
-## Public props
-
-All parts forward the matching Base UI primitive props. The table below covers the parts where
-moduix adds behavior, defaults, or styling expectations.
-
-### `MenuTrigger`
-
-| Prop          | Type         | Notes                                                                                                             |
-| ------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `className`   | `string`     | Applied to the trigger root when `render` is not used.                                                            |
-| `render`      | `RenderProp` | If you use `render`, moduix does **not** merge the default trigger class. You own the DOM and styling completely. |
-| `openOnHover` | `boolean`    | Enables hover-open behavior while keeping keyboard interaction.                                                   |
-| `delay`       | `number`     | Delay before hover-open activates when `openOnHover` is enabled.                                                  |
-| `disabled`    | `boolean`    | Disables menu interactions and applies disabled trigger styling.                                                  |
-| `handle`      | `MenuHandle` | Connects the trigger to a detached `Menu` root created with `createMenuHandle`.                                   |
-
-### `Menu`
-
-`Menu` forwards Base UI root props such as `open`, `defaultOpen`, `onOpenChange`, `modal`, and
-`handle`.
-
-### `MenuContent`
-
-`MenuContentProps` is exported from `moduix`.
-
-| Prop                 | Type                                      | Default         | Notes                                |
-| -------------------- | ----------------------------------------- | --------------- | ------------------------------------ |
-| `className`          | `string`                                  | -               | Applied to the popup surface.        |
-| `showArrow`          | `boolean`                                 | `false`         | Renders `MenuArrow` before children. |
-| `sideOffset`         | `number \| ((args) => number)`            | `8`             | Gap between trigger and popup.       |
-| `side`               | `PositionerSide`                          | Base UI default | Forwarded to `MenuPositioner`.       |
-| `align`              | `PositionerAlign`                         | Base UI default | Forwarded to `MenuPositioner`.       |
-| `alignOffset`        | `number \| ((args) => number)`            | Base UI default | Forwarded to `MenuPositioner`.       |
-| `arrowPadding`       | `number`                                  | Base UI default | Limits arrow collision near edges.   |
-| `collisionAvoidance` | `CollisionAvoidance`                      | Base UI default | Forwarded to `MenuPositioner`.       |
-| `collisionBoundary`  | `Boundary`                                | Base UI default | Forwarded to `MenuPositioner`.       |
-| `collisionPadding`   | `number \| Partial<Record<Side, number>>` | Base UI default | Forwarded to `MenuPositioner`.       |
-
-`MenuContent` also forwards popup props such as event handlers, id, and accessibility attributes to
-`MenuPopup`.
-
-### `MenuSubmenuContent`
-
-Uses the same exported `MenuContentProps` type.
-
-| Prop          | Default                        | Notes                                                   |
-| ------------- | ------------------------------ | ------------------------------------------------------- | ---------------------------- | --------------------------------------------------------- |
-| `sideOffset`  | `({ side }) => (side === 'top' |                                                         | side === 'bottom' ? 4 : -4)` | Keeps nested menus visually connected to the parent item. |
-| `alignOffset` | same as `sideOffset`           | Keeps submenu alignment consistent with the parent row. |
-
-### Action rows
-
-| Part               | Extra moduix API                         | Notes                                                                          |
-| ------------------ | ---------------------------------------- | ------------------------------------------------------------------------------ |
-| `MenuItem`         | `tone?: 'default' \| 'destructive'`      | Use for command-style actions. `closeOnClick` is commonly enabled in examples. |
-| `MenuLinkItem`     | `tone?: 'default' \| 'destructive'`      | Use for navigation; forwards link props such as `href`.                        |
-| `MenuCheckboxItem` | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `MenuCheckboxItemProps`. Controls indicator column layout.         |
-| `MenuRadioItem`    | `indicator?: 'start' \| 'end' \| 'none'` | Exported as `MenuRadioItemProps`. Controls indicator column layout.            |
-
-`MenuIndicatorPosition` is exported for wrapper utilities and shared typing.
-
-## Composition patterns
-
-### Nested submenu
-
-```tsx
-<Menu>
-  <MenuTrigger>
-    Export
-    <MenuTriggerIcon />
-  </MenuTrigger>
-  <MenuContent>
-    <MenuItem closeOnClick>Copy link</MenuItem>
-
-    <MenuSubmenu>
-      <MenuSubmenuTrigger>
-        Export as
-        <MenuSubmenuTriggerIcon />
-      </MenuSubmenuTrigger>
-
-      <MenuSubmenuContent>
-        <MenuItem closeOnClick>PDF</MenuItem>
-        <MenuItem closeOnClick>PNG</MenuItem>
-      </MenuSubmenuContent>
-    </MenuSubmenu>
-  </MenuContent>
-</Menu>
-```
-
-### Checkbox and radio rows
-
-```tsx
-<MenuGroup>
-  <MenuGroupLabel>Workspace</MenuGroupLabel>
-
-  <MenuCheckboxItem checked={showSearch} onCheckedChange={setShowSearch}>
-    <MenuCheckboxItemIndicator />
-    <MenuItemText>Search</MenuItemText>
-  </MenuCheckboxItem>
-
-  <MenuCheckboxItem checked={showSidebar} onCheckedChange={setShowSidebar} indicator="end">
-    <MenuItemText>
-      <MenuItemTextContent>
-        <MenuItemTextIcon>
-          <SidebarIcon />
-        </MenuItemTextIcon>
-        <MenuItemTextLabel>Sidebar</MenuItemTextLabel>
-      </MenuItemTextContent>
-    </MenuItemText>
-    <MenuCheckboxItemIndicator />
-  </MenuCheckboxItem>
-</MenuGroup>
-```
-
-### Detached trigger
-
-```tsx
-const menuHandle = useMemo(() => createMenuHandle(), []);
-
-return (
-  <>
-    <MenuTrigger handle={menuHandle}>
-      Actions
-      <MenuTriggerIcon />
-    </MenuTrigger>
-
-    <Menu handle={menuHandle}>
-      <MenuContent>
-        <MenuItem closeOnClick>Edit</MenuItem>
-        <MenuItem closeOnClick>Archive</MenuItem>
-      </MenuContent>
-    </Menu>
-  </>
-);
-```
-
-### Low-level custom composition
-
-Use the low-level parts only when you need a custom backdrop, a manual viewport, or direct access
-to `MenuPortal`, `MenuPositioner`, and `MenuPopup`.
-
-```tsx
-<Menu>
-  <MenuTrigger className={styles.trigger}>
-    Places
-    <MenuTriggerIcon />
-  </MenuTrigger>
-  <MenuPortal>
-    <MenuBackdrop className={styles.backdrop} />
-    <MenuPositioner sideOffset={12}>
-      <MenuPopup className={styles.popup}>
-        <MenuArrow />
-        <MenuViewport className={styles.viewport}>
-          <MenuItem closeOnClick>Open map</MenuItem>
-          <MenuItem closeOnClick>Copy location</MenuItem>
-        </MenuViewport>
-      </MenuPopup>
-    </MenuPositioner>
-  </MenuPortal>
-</Menu>
-```
-
-Do not place `MenuPortal`, `MenuPositioner`, `MenuPopup`, or `MenuViewport` inside `MenuContent`;
-`MenuContent` already renders the first three parts, and `MenuViewport` is only needed in the
-manual path.
-
-## Styling API
-
-### `className`
-
-Every exported part accepts `className`.
-
-For the higher-level wrappers:
-
-- `MenuTrigger.className` styles the interactive trigger when `render` is not used.
-- `MenuContent.className` styles the popup surface.
-- `MenuSubmenuContent.className` styles the submenu popup surface.
-- `MenuViewport.className` is only relevant in manual popup composition.
-
-### `data-slot`
-
-moduix applies stable `data-slot` values to every exported part:
-
-| Part                        | `data-slot`                    |
-| --------------------------- | ------------------------------ |
-| `MenuTrigger`               | `menu-trigger`                 |
-| `MenuTriggerIcon`           | `menu-trigger-icon`            |
-| `MenuPortal`                | `menu-portal`                  |
-| `MenuBackdrop`              | `menu-backdrop`                |
-| `MenuPositioner`            | `menu-positioner`              |
-| `MenuPopup`                 | `menu-popup`                   |
-| `MenuArrow`                 | `menu-arrow`                   |
-| `MenuViewport`              | `menu-viewport`                |
-| `MenuItem`                  | `menu-item`                    |
-| `MenuLinkItem`              | `menu-link-item`               |
-| `MenuSeparator`             | `menu-separator`               |
-| `MenuGroup`                 | `menu-group`                   |
-| `MenuGroupLabel`            | `menu-group-label`             |
-| `MenuSubmenuTrigger`        | `menu-submenu-trigger`         |
-| `MenuSubmenuTriggerIcon`    | `menu-submenu-trigger-icon`    |
-| `MenuRadioGroup`            | `menu-radio-group`             |
-| `MenuRadioItem`             | `menu-radio-item`              |
-| `MenuRadioItemIndicator`    | `menu-radio-item-indicator`    |
-| `MenuCheckboxItem`          | `menu-checkbox-item`           |
-| `MenuCheckboxItemIndicator` | `menu-checkbox-item-indicator` |
-| `MenuItemText`              | `menu-item-text`               |
-| `MenuItemTextContent`       | `menu-item-text-content`       |
-| `MenuItemTextIcon`          | `menu-item-text-icon`          |
-| `MenuItemTextLabel`         | `menu-item-text-label`         |
-| `MenuItemShortcut`          | `menu-item-shortcut`           |
-
-### State and layout attributes used by moduix styles
-
-The list below covers attributes that our CSS depends on directly.
-
-| Selector target                                                                       | Attributes used by moduix                              |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| `MenuTrigger`                                                                         | `data-popup-open`, `data-disabled`, `disabled`         |
-| `MenuBackdrop`                                                                        | `data-starting-style`, `data-ending-style`             |
-| `MenuPopup`                                                                           | `data-starting-style`, `data-ending-style`             |
-| `MenuArrow`                                                                           | `data-side`                                            |
-| `MenuItem`, `MenuLinkItem`, `MenuSubmenuTrigger`, `MenuRadioItem`, `MenuCheckboxItem` | `data-highlighted`, `data-popup-open`, `data-disabled` |
-| `MenuRadioItem`, `MenuCheckboxItem`                                                   | `data-indicator-position` (`start` or `end`)           |
-| `MenuCheckboxItem`                                                                    | `data-checked`                                         |
-
-### CSS variables
-
-All built-in styling hooks are scoped under `--menu-*`.
-
-#### Trigger and shared behavior
-
-| Variable                      | Default                            |
-| ----------------------------- | ---------------------------------- |
-| `--menu-disabled-opacity`     | `var(--opacity-disabled)`          |
-| `--menu-focus-ring-color`     | `var(--color-ring)`                |
-| `--menu-focus-ring-width`     | `var(--menu-trigger-border-width)` |
-| `--menu-transition`           | `var(--transition-default)`        |
-| `--menu-trigger-bg`           | `var(--color-background)`          |
-| `--menu-trigger-bg-hover`     | `var(--color-accent)`              |
-| `--menu-trigger-bg-active`    | `var(--menu-trigger-bg-hover)`     |
-| `--menu-trigger-border-color` | `var(--color-border)`              |
-| `--menu-trigger-border-width` | `var(--border-width-sm)`           |
-| `--menu-trigger-color`        | `var(--color-foreground)`          |
-| `--menu-trigger-gap`          | `0.5rem`                           |
-| `--menu-trigger-height`       | `var(--size-lg)`                   |
-| `--menu-trigger-icon-size`    | `1rem`                             |
-| `--menu-trigger-padding-x`    | `0.875rem`                         |
-| `--menu-trigger-padding-y`    | `0.5rem`                           |
-| `--menu-trigger-radius`       | `var(--radius-md)`                 |
-
-#### Backdrop, popup, viewport, and arrow
-
-| Variable                     | Default                                               |
-| ---------------------------- | ----------------------------------------------------- |
-| `--menu-backdrop-bg`         | `var(--backdrop-bg, var(--color-overlay))`            |
-| `--menu-backdrop-blur`       | `4px`                                                 |
-| `--menu-backdrop-transition` | `var(--transition-default)`                           |
-| `--menu-popup-bg`            | `var(--color-popover)`                                |
-| `--menu-popup-border-color`  | `var(--color-border)`                                 |
-| `--menu-popup-border-width`  | `var(--border-width-sm)`                              |
-| `--menu-popup-color`         | `var(--color-popover-foreground)`                     |
-| `--menu-popup-max-height`    | `24rem`                                               |
-| `--menu-popup-max-width`     | `20rem`                                               |
-| `--menu-popup-min-width`     | `12rem`                                               |
-| `--menu-popup-padding-y`     | `0.25rem`                                             |
-| `--menu-popup-radius`        | `var(--radius-md)`                                    |
-| `--menu-popup-shadow`        | `var(--shadow-lg)`                                    |
-| `--menu-popup-width`         | `auto`                                                |
-| `--menu-popup-height`        | `auto`                                                |
-| `--menu-arrow-size`          | `0.5rem`                                              |
-| `--menu-arrow-inline-offset` | `0.8125rem`                                           |
-| `--menu-arrow-stroke-color`  | `var(--menu-popup-border-color, var(--color-border))` |
-| `--menu-arrow-width`         | `1.25rem`                                             |
-| `--menu-arrow-height`        | `0.625rem`                                            |
-
-#### Items, highlights, groups, and submenu rows
-
-| Variable                                  | Default                                                          |
-| ----------------------------------------- | ---------------------------------------------------------------- |
-| `--menu-highlight-bg`                     | `var(--color-foreground)`                                        |
-| `--menu-highlight-color`                  | `var(--color-background)`                                        |
-| `--menu-highlight-inset-x`                | `var(--spacing-1)`                                               |
-| `--menu-highlight-radius`                 | `var(--radius-sm)`                                               |
-| `--menu-item-bg`                          | `transparent`                                                    |
-| `--menu-item-destructive-color`           | `var(--color-destructive)`                                       |
-| `--menu-item-destructive-highlight-bg`    | `color-mix(in oklab, var(--color-destructive) 12%, transparent)` |
-| `--menu-item-destructive-highlight-color` | `var(--menu-item-destructive-color, var(--color-destructive))`   |
-| `--menu-item-bg-disabled`                 | `var(--menu-item-bg)`                                            |
-| `--menu-item-disabled-color`              | `var(--color-muted-foreground)`                                  |
-| `--menu-item-gap`                         | `var(--spacing-2)`                                               |
-| `--menu-item-height`                      | `var(--popup-item-min-height, 2rem)`                             |
-| `--menu-item-padding-x-start`             | `var(--popup-item-padding-x-start, 1rem)`                        |
-| `--menu-item-padding-x-end`               | `var(--popup-item-padding-x-end, 1rem)`                          |
-| `--menu-item-padding-y`                   | `var(--popup-item-padding-y, 0.5rem)`                            |
-| `--menu-item-shortcut-color`              | `var(--color-muted-foreground)`                                  |
-| `--menu-item-shortcut-padding-x-start`    | `var(--spacing-4)`                                               |
-| `--menu-item-text-content-gap`            | `var(--spacing-2)`                                               |
-| `--menu-item-text-icon-size`              | `1rem`                                                           |
-| `--menu-group-padding-y`                  | `0`                                                              |
-| `--menu-group-label-color`                | `var(--color-muted-foreground)`                                  |
-| `--menu-group-label-padding-y`            | `0.35rem`                                                        |
-| `--menu-submenu-icon-size`                | `0.875rem`                                                       |
-| `--menu-submenu-open-bg`                  | `var(--color-accent)`                                            |
-| `--menu-submenu-trigger-gap`              | `var(--spacing-3)`                                               |
-
-#### Checkbox, radio, and separator styling
-
-| Variable                                         | Default                                        |
-| ------------------------------------------------ | ---------------------------------------------- |
-| `--menu-check-gap`                               | `var(--popup-check-gap, 0.5rem)`               |
-| `--menu-check-indicator-size`                    | `var(--popup-check-indicator-size, 0.75rem)`   |
-| `--menu-check-padding-x-start`                   | `var(--popup-check-padding-x-start, 0.625rem)` |
-| `--menu-checkbox-indicator-bg`                   | `transparent`                                  |
-| `--menu-checkbox-indicator-bg-checked`           | `var(--menu-checkbox-indicator-bg)`            |
-| `--menu-checkbox-indicator-border-color`         | `currentColor`                                 |
-| `--menu-checkbox-indicator-border-color-checked` | `var(--menu-checkbox-indicator-border-color)`  |
-| `--menu-checkbox-indicator-border-width`         | `0`                                            |
-| `--menu-checkbox-indicator-radius`               | `var(--radius-xs)`                             |
-| `--menu-separator-color`                         | `var(--color-border)`                          |
-| `--menu-separator-height`                        | `var(--border-width-sm)`                       |
-| `--menu-separator-margin-x-start`                | `var(--popup-separator-margin-x-start, 1rem)`  |
-| `--menu-separator-margin-x-end`                  | `var(--popup-separator-margin-x-end, 1rem)`    |
-| `--menu-separator-margin-y`                      | `var(--popup-separator-margin-y, 0.375rem)`    |
-
-`MenuItem` and `MenuLinkItem` support `tone="destructive"` for destructive actions. Everything else
-is customized through composition, `className`, `data-slot`, state attributes, and `--menu-*`
-variables.
-
-## UX and accessibility notes
-
-- The root interaction model comes from Base UI, so keyboard navigation, typeahead, submenu
-  traversal, dismissal, collision handling, and focus restoration are handled by the primitive
-  layer.
-- Disabled triggers and rows are non-interactive and receive muted styling.
-- `MenuItemShortcut` is visual only; it does not bind or listen for keyboard shortcuts.
-- Use `MenuLinkItem` for navigation and `MenuItem` for imperative actions.
-- Use `tone="destructive"` for actions such as delete, archive, or remove when the row should keep
-  a destructive tint on highlight instead of the shared dark highlight fill.
-- For checkbox and radio rows, keep the label and indicator inside the same row so the whole row
-  remains the interactive target.
-- `openOnHover` is useful for desktop-style menus, but use it sparingly on touch-heavy flows.
-- `MenuTriggerIcon`, `MenuSubmenuTriggerIcon`, and `MenuItemTextIcon` are layout helpers. They do
-  not add semantics on their own.
-
-## Recommendations and limitations
-
-- Prefer `MenuContent` over manual portal composition.
-- Prefer `MenuSubmenuContent` over plain `MenuContent` for nested menus so the default offsets stay
-  aligned with the rest of the library.
-- `MenuContent` does **not** render `MenuViewport` for you. Use `MenuViewport` only in manual popup
-  composition when you need scroll clipping or a custom max-height behavior.
-- Use `indicator="end"` only when the trailing indicator genuinely improves scanability; the default
-  start position is still the library norm.
-- When you use `render` on `MenuTrigger`, you are opting out of the built-in trigger class.
-- `showArrow` only toggles the default `MenuArrow`. Custom arrow structure should stay in explicit
-  composition.
-
-## Useful built-in sugar
-
-The current component already has the useful sugar we want for common scenarios:
-
-- `MenuContent` and `MenuSubmenuContent`
-- `showArrow`
-- `createMenuHandle`
-- `indicator="start" | "end" | "none"`
-- trigger, submenu, and item text helper parts
-
-No additional wrapper sugar is currently justified beyond that surface.
+Use `Menu.RootProvider` with `useMenu()` only when state must be controlled from outside the tree.
+Do not render `Menu` and `Menu.RootProvider` for the same state instance.
+
+## Upstream feature coverage
+
+Supported Ark examples and guides:
+
+- basic button-triggered menus with `Positioner` and `Content`
+- controlled `open` state and `onOpenChange(details)`
+- `RootProvider` and `useMenu`
+- item grouping and labels
+- link items through `MenuItem asChild`
+- checkbox items and `onCheckedChange(checked)`
+- radio item groups and `onValueChange(details)`
+- context menus through `ContextTrigger`
+- nested menus through child `Menu` roots and `TriggerItem`
+- multiple triggers with trigger `value`
+- root `onSelect(details)`
+- lazy mounting, `present`, and `unmountOnExit`
+- custom IDs through root `ids`
+
+## Accessibility and state
+
+Ark owns ARIA roles, roving focus, typeahead, item highlighting, dismissal, focus restoration,
+right-click context behavior, long-press context behavior, and nested menu keyboard traversal.
+
+Use `value` for item identity. Do not set arbitrary item `id` values because Ark uses generated
+IDs internally for item lookup.
+
+Refs forward to the corresponding Ark DOM part. `MenuTrigger` targets the trigger button,
+`MenuContent` targets the menu content element, and item refs target their item elements.
+
+## Defaults and styling
+
+Visual defaults preserve moduix tokens for trigger density, popup radius, shadow, item highlight,
+destructive tone, indicators, and shortcuts.
+
+Styles target Ark state and layout hooks:
+
+- `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='content']`, `[data-part='item']`
+- `[data-state='open' | 'closed' | 'checked']`
+- `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, `[data-side]`
+- `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
+  `--layer-index`, `--arrow-size`, and `--arrow-background`
+
+Public `--menu-*` variables are declared in `packages/ui/src/styles/theme.css`.
+
+## Intentional sugar and differences from upstream
+
+moduix adds leaf-level styling helpers only:
+
+- `MenuTriggerIcon` defaults to `ChevronDownIcon`
+- `MenuTriggerItemIcon` defaults to `ChevronRightIcon`
+- `MenuItemIndicator` defaults to `CheckIcon`
+- `MenuItemShortcut`, `MenuItemTextContent`, `MenuItemTextIcon`, and `MenuItemTextLabel` support
+  common row layouts
+- `tone="destructive"` on `MenuItem`
+- `indicator="start" | "end" | "none"` on checkbox and radio item wrappers
+
+These helpers must not hide the Ark part tree or remap Ark callback detail objects.
 
 ## Agent notes
 
-- Preserve the current `render` behavior on `MenuTrigger`: default trigger styling is skipped
-  entirely when consumers supply a custom render target.
-- Preserve the current `MenuContent` structure. It renders `MenuPortal`, `MenuPositioner`, and
-  `MenuPopup`, but **not** `MenuViewport`.
-- Preserve the submenu offset helper defaults in `MenuSubmenuContent`.
-- Preserve the stable `data-slot` names and `--menu-*` CSS variable namespace.
-- If wrapper-specific props change, update this file, the Storybook stories, and the docs examples in
-  the same task.
+Keep `MenuContent` as the real Ark content part. Do not reintroduce a wrapper that renders
+`Portal`, `Positioner`, or `Arrow` internally. Use the public `Portal` export from `moduix` for
+popup composition.
 
-## Motion tokens
-
-`MenuBackdrop` and `MenuPopup` now expose phase-specific motion variables. Override the backdrop `starting/ending-opacity` and `starting/ending-blur` tokens, plus the popup `starting/ending-opacity`, `*-scale`, and `*-translate-x/y` tokens to build fade or slide variants while keeping the default scale-in menu behavior.
+When docs import `useMenu`, `useMenuContext`, or `useMenuItemContext`, verify those hooks remain
+exported from `packages/ui/src/components/menu/index.ts` and the root package barrel.
 
 ## Local changelog
 
+- 2026-06-19: `MenuTrigger` now skips the internal `.trigger` class when `asChild` is enabled, so
+  consumer host components (for example, `Button`) keep their own background styles in
+  hover/active/open states.
+- 2026-06-19: Removed hardcoded hover/open fallback colors on `MenuTrigger`. Hover/open background
+  now applies only when `--menu-trigger-bg-hover` and/or `--menu-trigger-bg-active` are explicitly
+  set, so `MenuTrigger asChild` does not override consumer button styling.
+- 2026-06-19: Changed `MenuTrigger` open-state background fallback to `--menu-trigger-bg` so
+  opening a popup no longer forces the hover accent color unless `--menu-trigger-bg-active` is set.
+- 2026-06-18: Migrated `Menu` from Base UI to Ark UI React. Removed Base UI compatibility exports
+  and rewrote the public contract around Ark parts, `asChild`, `value` items, `RootProvider`,
+  `ContextTrigger`, `TriggerItem`, Ark state attributes, and Ark positioning variables.
 - 2026-06-16: Added `tone="destructive"` to `MenuItem` and `MenuLinkItem`, plus dedicated
   destructive highlight tokens for softer destructive hover backgrounds.
 - 2026-06-14: Added `indicator="none"` for checkbox and radio rows so menus can opt out of the
-  reserved indicator column without causing selection-time layout shift. Reserved start placement
-  remains the default and `end` still moves the indicator to the trailing edge.
-- 2026-06-10: Added phase-specific backdrop and popup motion tokens so menu enter/exit motion can be retuned to fade, slide, or mixed effects through CSS variables while preserving the shipped default.
-- 2026-06-02: Rewrote the local documentation around the actual moduix wrapper contract instead of
-  upstream Base UI docs, documented the no-implicit-viewport behavior of `MenuContent`, and recorded
-  the exported wrapper prop types.
+  reserved indicator column without causing selection-time layout shift.
+- 2026-06-10: Added phase-specific backdrop and popup motion tokens for menu enter/exit motion.
+- 2026-06-02: Rewrote the local documentation around the Base UI wrapper contract.

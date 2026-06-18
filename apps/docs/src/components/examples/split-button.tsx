@@ -17,10 +17,10 @@ export function SplitButtonExample() {
       <SplitButtonAction>Save Changes</SplitButtonAction>
       <SplitButtonTrigger />
       <SplitButtonContent>
-        <MenuItem closeOnClick>Save as Draft</MenuItem>
-        <MenuItem closeOnClick>Duplicate</MenuItem>
+        <MenuItem value="save-draft">Save as Draft</MenuItem>
+        <MenuItem value="duplicate">Duplicate</MenuItem>
         <MenuSeparator />
-        <MenuItem closeOnClick>Publish Now</MenuItem>
+        <MenuItem value="publish">Publish Now</MenuItem>
       </SplitButtonContent>
     </SplitButton>
   );
@@ -33,35 +33,35 @@ export function SplitButtonVariantsExample() {
         <SplitButtonAction>Default</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
+          <MenuItem value="default-edit">Edit</MenuItem>
         </SplitButtonContent>
       </SplitButton>
       <SplitButton variant="outline">
         <SplitButtonAction>Outline</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
+          <MenuItem value="outline-edit">Edit</MenuItem>
         </SplitButtonContent>
       </SplitButton>
       <SplitButton variant="secondary">
         <SplitButtonAction>Secondary</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
+          <MenuItem value="secondary-edit">Edit</MenuItem>
         </SplitButtonContent>
       </SplitButton>
       <SplitButton variant="destructive">
         <SplitButtonAction>Destructive</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Delete</MenuItem>
+          <MenuItem value="delete">Delete</MenuItem>
         </SplitButtonContent>
       </SplitButton>
       <SplitButton variant="ghost">
         <SplitButtonAction>Ghost</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Edit</MenuItem>
+          <MenuItem value="ghost-edit">Edit</MenuItem>
         </SplitButtonContent>
       </SplitButton>
     </div>
@@ -75,28 +75,28 @@ export function SplitButtonSizesExample() {
         <SplitButtonAction>Extra-small</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Create</MenuItem>
+          <MenuItem value="xs-create">Create</MenuItem>
         </SplitButtonContent>
       </SplitButton>
       <SplitButton size="sm" variant="outline">
         <SplitButtonAction>Small</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Create</MenuItem>
+          <MenuItem value="sm-create">Create</MenuItem>
         </SplitButtonContent>
       </SplitButton>
       <SplitButton size="md" variant="outline">
         <SplitButtonAction>Medium</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Create</MenuItem>
+          <MenuItem value="md-create">Create</MenuItem>
         </SplitButtonContent>
       </SplitButton>
       <SplitButton size="lg" variant="outline">
         <SplitButtonAction>Large</SplitButtonAction>
         <SplitButtonTrigger />
         <SplitButtonContent>
-          <MenuItem closeOnClick>Create</MenuItem>
+          <MenuItem value="lg-create">Create</MenuItem>
         </SplitButtonContent>
       </SplitButton>
     </div>
@@ -112,10 +112,10 @@ export function SplitButtonIconExample() {
       </SplitButtonAction>
       <SplitButtonTrigger aria-label="More create actions" />
       <SplitButtonContent>
-        <MenuItem closeOnClick>Create Blank</MenuItem>
-        <MenuItem closeOnClick>Create From Template</MenuItem>
+        <MenuItem value="create-blank">Create Blank</MenuItem>
+        <MenuItem value="create-template">Create From Template</MenuItem>
         <MenuSeparator />
-        <MenuItem closeOnClick>Import Existing</MenuItem>
+        <MenuItem value="import-existing">Import Existing</MenuItem>
       </SplitButtonContent>
     </SplitButton>
   );
@@ -125,14 +125,14 @@ export function SplitButtonControlledExample() {
   const [open, setOpen] = useState(false);
 
   return (
-    <SplitButton open={open} onOpenChange={setOpen} variant="outline">
+    <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
       <SplitButtonAction>Share</SplitButtonAction>
       <SplitButtonTrigger aria-label="More share actions" />
       <SplitButtonContent>
-        <MenuItem closeOnClick>Copy Link</MenuItem>
-        <MenuItem closeOnClick>Invite by Email</MenuItem>
+        <MenuItem value="copy-link">Copy Link</MenuItem>
+        <MenuItem value="invite-email">Invite by Email</MenuItem>
         <MenuSeparator />
-        <MenuItem closeOnClick onClick={() => setOpen(false)}>
+        <MenuItem value="close-menu" onSelect={() => setOpen(false)}>
           Close Menu
         </MenuItem>
       </SplitButtonContent>
@@ -146,8 +146,8 @@ export function SplitButtonStylingExample() {
       <SplitButtonAction>Review</SplitButtonAction>
       <SplitButtonTrigger aria-label="More review actions" />
       <SplitButtonContent>
-        <MenuItem closeOnClick>Approve</MenuItem>
-        <MenuItem closeOnClick>Request Changes</MenuItem>
+        <MenuItem value="approve">Approve</MenuItem>
+        <MenuItem value="request-changes">Request Changes</MenuItem>
       </SplitButtonContent>
     </SplitButton>
   );
@@ -164,8 +164,8 @@ export function SplitButtonLinkActionExample() {
       </SplitButtonAction>
       <SplitButtonTrigger aria-label="More docs actions" />
       <SplitButtonContent>
-        <MenuItem closeOnClick>Copy Link</MenuItem>
-        <MenuItem closeOnClick>Open in New Tab</MenuItem>
+        <MenuItem value="copy-link">Copy Link</MenuItem>
+        <MenuItem value="open-new-tab">Open in New Tab</MenuItem>
       </SplitButtonContent>
     </SplitButton>
   );
