@@ -2,11 +2,13 @@
   @keyframes collapsible-content-open {
     from {
       height: var(--collapsed-height, 0);
+      width: var(--collapsed-width, var(--width));
       opacity: var(--collapsible-content-closed-opacity, 0.01);
     }
 
     to {
       height: var(--height);
+      width: var(--width);
       opacity: var(--collapsible-content-open-opacity, 1);
     }
   }
@@ -14,11 +16,13 @@
   @keyframes collapsible-content-closed {
     from {
       height: var(--height);
+      width: var(--width);
       opacity: var(--collapsible-content-open-opacity, 1);
     }
 
     to {
       height: var(--collapsed-height, 0);
+      width: var(--collapsed-width, var(--width));
       opacity: var(--collapsible-content-closed-opacity, 0.01);
     }
   }
@@ -105,6 +109,10 @@
 
     &[data-state='open'] {
       transform: var(--collapsible-indicator-open-transform, rotate(90deg));
+    }
+
+    &[data-disabled] {
+      opacity: var(--collapsible-disabled-opacity, var(--opacity-disabled));
     }
   }
 

@@ -49,7 +49,7 @@ Provider composition replaces `Root` with `RootProvider`.
 | `Collapsible.Content`      | `collapsible-content`       | Animated Ark content region.             |
 | `Collapsible.Context`      | none                        | Render-prop access to Ark context state. |
 
-The package also exports `useCollapsible` and the related Ark types.
+The package also exports `useCollapsible`, `useCollapsibleContext`, and the related Ark types.
 
 ## Composition
 
@@ -87,30 +87,31 @@ Controlled callbacks keep the Ark details object:
 - `Lazy Mount`: `lazyMount` and `unmountOnExit` are forwarded.
 - `Nested`: independent `Collapsible.Root` trees can be nested inside content.
 - `Partial Collapse`: `collapsedHeight` and `collapsedWidth` are forwarded; the content animation
-  uses Ark `--collapsed-height` and `--collapsed-width` measurements.
+  uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width` measurements.
 - `Root Provider`: `useCollapsible` and `Collapsible.RootProvider` are exported.
-- `Context`: `Collapsible.Context` is exported unchanged.
+- `Context`: `Collapsible.Context` and `useCollapsibleContext` are exported unchanged.
 
 ## Accessibility and state
 
 - Ark owns trigger semantics, `aria-expanded`, `aria-controls`, ids, keyboard activation, and disabled
   behavior.
 - Ark callbacks are not converted. `onOpenChange` receives `{ open }`.
+- Ark context exposes `open` for intended state and `visible` for mounted visibility during exit
+  animations.
 - `data-state="open" | "closed"` appears on root, trigger, indicator, and content.
 - `data-disabled` appears on trigger, indicator, and content when disabled.
 - `data-has-collapsed-size` appears on content for partial-collapse configurations.
 - Content exposes Ark runtime variables `--height`, `--width`, `--collapsed-height`, and
   `--collapsed-width`.
-- Use `asChild` when another element must own the rendered DOM node. There is no Base UI `render`
-  contract.
+- Use `asChild` when another semantic element must own the rendered DOM node.
 
 ## Defaults and styling
 
 - `Root` and `RootProvider` are column flex containers with a `14rem` default width.
 - `Trigger` includes moduix hover, active, focus-visible, and disabled styling.
 - `Indicator` rotates on `data-state="open"`.
-- `Content` animates between Ark `--height` and `--collapsed-height`; put padding and surfaces on an
-  inner wrapper for clean measurement.
+- `Content` animates between Ark `--height` / `--width` and collapsed-size variables; put padding
+  and surfaces on an inner wrapper for clean measurement.
 
 Primary CSS variables:
 
@@ -131,8 +132,8 @@ Primary CSS variables:
 
 - moduix adds default styling and public theme variables; Ark is unstyled.
 - `Collapsible.Indicator` supplies `ChevronRightIcon` when children are omitted.
-- No legacy flat exports, `Panel` alias, `TriggerIcon` alias, Base `render`, or converted callback
-  signature are retained.
+- No legacy flat exports, `Panel` alias, `TriggerIcon` alias, or converted callback signature are
+  retained.
 
 ## Agent notes
 
@@ -147,3 +148,7 @@ Primary CSS variables:
   `Panel` to `Content` and `TriggerIcon` to `Indicator`, added `RootProvider`, `Context`, and
   `useCollapsible`, adopted Ark callback/state hooks, and replaced Base motion variables with Ark
   `--height` / `--collapsed-height`.
+- 2026-06-18: Exposed `useCollapsibleContext` from the public barrel to match Ark's state access
+  surface and synchronized public docs previews with Code, Styles, and Data tabs.
+- 2026-06-18: Updated content animation to respect Ark `--width` and `--collapsed-width` for
+  `collapsedWidth` partial-collapse usage.

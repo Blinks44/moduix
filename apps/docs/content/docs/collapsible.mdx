@@ -14,11 +14,15 @@ import {
   NestedCollapsibleExample,
   PartialCollapseCollapsibleExample,
   RootProviderCollapsibleExample,
+  collapsibleCustomCompositionCss,
+  collapsibleExampleCss,
+  collapsibleLongContentData,
+  recoveryKeysData,
 } from '@/components/examples/collapsible';
 
 ## API Reference
 
-<BaseUIReference href="https://ark-ui.com/docs/components/collapsible" />
+<PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
 
 ## Basic
 
@@ -39,11 +43,13 @@ Use the Ark-shaped `Root`, `Trigger`, `Indicator`, and `Content` parts for one i
               <Collapsible.Indicator />
             </Collapsible.Trigger>
             <Collapsible.Content>
-              <ul>
-                <li>alien-bean-pasta</li>
-                <li>wild-irish-burrito</li>
-                <li>horse-battery-staple</li>
-              </ul>
+              <div className="collapsible-content-body">
+                <ul className="collapsible-keys-list">
+                  {recoveryKeys.map((key) => (
+                    <li key={key}>{key}</li>
+                  ))}
+                </ul>
+              </div>
             </Collapsible.Content>
           </Collapsible.Root>
         );
@@ -51,6 +57,9 @@ Use the Ark-shaped `Root`, `Trigger`, `Indicator`, and `Content` parts for one i
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{recoveryKeysData}</Preview.Data>
 </Preview>
 
 ## Install with shadcn (optional)
@@ -129,11 +138,12 @@ content and exposes `--height`, `--width`, `--collapsed-height`, and `--collapse
 
 ### When to go custom
 
-Use `asChild` when another element must own the rendered node. This is the Ark replacement for the
-removed Base UI `render` and `nativeButton` contract.
+Use `asChild` when another semantic element must own the rendered node.
 
 Use `useCollapsible` with `Collapsible.RootProvider` when state must be created outside the part
 tree. Use `Collapsible.Context` when descendants need the current Ark state.
+Reusable child parts can call `useCollapsibleContext()` from `moduix` to read `open`, `visible`,
+`disabled`, `setOpen`, and `measureSize`.
 
 `Collapsible.Indicator` is optional. It renders the moduix right chevron by default and accepts
 custom children.
@@ -150,6 +160,8 @@ custom children.
 ### Behavioral notes
 
 - `onOpenChange` receives an Ark details object. Read the next state from `details.open`.
+- `open` is the intended state, while `visible` stays true while closing content remains mounted
+  for exit animation.
 - Keep nested interactive controls outside `Collapsible.Trigger`.
 - Use `Accordion` instead when multiple disclosures need coordinated keyboard or value behavior.
 
@@ -169,11 +181,22 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
           Recovery keys
           <Collapsible.Indicator />
         </Collapsible.Trigger>
-        <Collapsible.Content>Content</Collapsible.Content>
+        <Collapsible.Content>
+          <div className="collapsible-content-body">
+            <ul className="collapsible-keys-list">
+              {recoveryKeys.map((key) => (
+                <li key={key}>{key}</li>
+              ))}
+            </ul>
+          </div>
+        </Collapsible.Content>
       </Collapsible.Root>
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Controlled
@@ -200,13 +223,25 @@ Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI own
               Recovery keys
               <Collapsible.Indicator />
             </Collapsible.Trigger>
-            <Collapsible.Content>Content</Collapsible.Content>
+            <Collapsible.Content>
+              <div className="collapsible-content-body">
+                <ul className="collapsible-keys-list">
+                  {recoveryKeys.map((key) => (
+                    <li key={key}>{key}</li>
+                  ))}
+                </ul>
+              </div>
+            </Collapsible.Content>
+            <span className="collapsible-state">Current state: {open ? "open" : "closed"}</span>
           </Collapsible.Root>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Disabled
@@ -223,11 +258,22 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
           Recovery keys
           <Collapsible.Indicator />
         </Collapsible.Trigger>
-        <Collapsible.Content>Content</Collapsible.Content>
+        <Collapsible.Content>
+          <div className="collapsible-content-body">
+            <ul className="collapsible-keys-list">
+              {recoveryKeys.map((key) => (
+                <li key={key}>{key}</li>
+              ))}
+            </ul>
+          </div>
+        </Collapsible.Content>
       </Collapsible.Root>
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Lazy Mount
@@ -244,11 +290,22 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
           Recovery keys
           <Collapsible.Indicator />
         </Collapsible.Trigger>
-        <Collapsible.Content>Content</Collapsible.Content>
+        <Collapsible.Content>
+          <div className="collapsible-content-body">
+            <ul className="collapsible-keys-list">
+              {recoveryKeys.map((key) => (
+                <li key={key}>{key}</li>
+              ))}
+            </ul>
+          </div>
+        </Collapsible.Content>
       </Collapsible.Root>
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Partial Collapse
@@ -262,14 +319,23 @@ Use `collapsedHeight` or `collapsedWidth` to leave part of the content visible w
     {`
       <Collapsible.Root collapsedHeight="3rem">
         <Collapsible.Trigger>
-          Recovery keys
+          Read more
           <Collapsible.Indicator />
         </Collapsible.Trigger>
-        <Collapsible.Content>Content</Collapsible.Content>
+        <Collapsible.Content>
+          <div className="collapsible-content-body">
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </Collapsible.Content>
       </Collapsible.Root>
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{collapsibleLongContentData}</Preview.Data>
 </Preview>
 
 ### Nested
@@ -287,18 +353,32 @@ Nest independent roots when a disclosed section contains another optional detail
           <Collapsible.Indicator />
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <Collapsible.Root>
-            <Collapsible.Trigger>
-              Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>Nested content</Collapsible.Content>
-          </Collapsible.Root>
+          <div className="collapsible-nested-content">
+            <p>Security options for this account.</p>
+            <Collapsible.Root className="collapsible-nested-root">
+              <Collapsible.Trigger>
+                Recovery keys
+                <Collapsible.Indicator />
+              </Collapsible.Trigger>
+              <Collapsible.Content>
+                <div className="collapsible-content-body">
+                  <ul className="collapsible-keys-list">
+                    {recoveryKeys.map((key) => (
+                      <li key={key}>{key}</li>
+                    ))}
+                  </ul>
+                </div>
+              </Collapsible.Content>
+            </Collapsible.Root>
+          </div>
         </Collapsible.Content>
       </Collapsible.Root>
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Root Provider
@@ -316,18 +396,34 @@ Create the state machine with `useCollapsible` when code outside the rendered ro
         const collapsible = useCollapsible();
 
         return (
-          <Collapsible.RootProvider value={collapsible}>
-            <Collapsible.Trigger>
-              Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>Content</Collapsible.Content>
-          </Collapsible.RootProvider>
+          <div className="collapsible-provider-layout">
+            <output>
+              open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
+            </output>
+            <Collapsible.RootProvider value={collapsible}>
+              <Collapsible.Trigger>
+                Recovery keys
+                <Collapsible.Indicator />
+              </Collapsible.Trigger>
+              <Collapsible.Content>
+                <div className="collapsible-content-body">
+                  <ul className="collapsible-keys-list">
+                    {recoveryKeys.map((key) => (
+                      <li key={key}>{key}</li>
+                    ))}
+                  </ul>
+                </div>
+              </Collapsible.Content>
+            </Collapsible.RootProvider>
+          </div>
         );
       }
     `}
 
   </Preview.Code>
+
+  <Preview.CSS>{collapsibleExampleCss}</Preview.CSS>
+  <Preview.Data>{recoveryKeysData}</Preview.Data>
 </Preview>
 
 ### Custom Composition
@@ -345,15 +441,21 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
         return (
           <Collapsible.Root>
             <Collapsible.Trigger asChild>
-              <button type="button" className="custom-trigger">
+              <button type="button" className="collapsible-custom-trigger">
                 Styled recovery keys
-                <Collapsible.Indicator className="custom-indicator">
+                <Collapsible.Indicator className="collapsible-custom-indicator">
                   <ChevronDownIcon />
                 </Collapsible.Indicator>
               </button>
             </Collapsible.Trigger>
             <Collapsible.Content>
-              <div className="custom-content">Content</div>
+              <div className="collapsible-custom-content-body">
+                <ul className="collapsible-keys-list">
+                  {recoveryKeys.map((key) => (
+                    <li key={key}>{key}</li>
+                  ))}
+                </ul>
+              </div>
             </Collapsible.Content>
           </Collapsible.Root>
         );
@@ -362,32 +464,8 @@ Use `asChild` to compose the trigger behavior onto a consumer-owned button.
 
   </Preview.Code>
 
-  <Preview.CSS>
-    {`
-      .custom-trigger {
-        display: flex;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        padding: var(--spacing-2) var(--spacing-3);
-        border-radius: var(--radius-md);
-        background-color: var(--color-muted);
-      }
-
-      .custom-indicator {
-        --collapsible-indicator-open-transform: rotate(180deg);
-        color: var(--color-primary);
-      }
-
-      .custom-content {
-        margin-top: var(--spacing-1);
-        padding: var(--spacing-2) var(--spacing-3);
-        border-radius: var(--radius-md);
-        background-color: var(--color-muted);
-      }
-    `}
-
-  </Preview.CSS>
+  <Preview.CSS>{collapsibleCustomCompositionCss}</Preview.CSS>
+  <Preview.Data>{recoveryKeysData}</Preview.Data>
 </Preview>
 
 ## Styling
